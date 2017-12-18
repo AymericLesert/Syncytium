@@ -29,7 +29,7 @@ The application needs a schema to know how to set tables into the database. The 
 First, you have to install Oracle Developer Tools for VS2015.
 Then, update the file **C:\Program Files (x86)\Oracle Developer Tools for VS2015\network\admin\tnsnames.ora**
 
-`
+```
 XE =
   (DESCRIPTION =
     (ADDRESS = (PROTOCOL = TCP)(HOST = <computer name>)(PORT = 1521))
@@ -38,7 +38,7 @@ XE =
       (SERVICE_NAME = XE)
     )
   )
-`
+```
 
 Now, you can create a schema by using SQL*Plus Command line (a schema is a user) :
 

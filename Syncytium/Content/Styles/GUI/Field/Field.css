@@ -1,0 +1,156 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field                                                        */
+/* ------------------------------------------------------------ */
+
+field {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px;
+    padding: 0;
+    font-size: 14px;
+    width: calc(100% - 10px);
+}
+
+field:focus {
+    outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+    field {
+        font-size: 10px;
+        padding: 2px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field {
+        font-size: 12px;
+        padding: 2px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field {
+        font-size: 10px;
+        padding: 2px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* field > .label                                               */
+/* ------------------------------------------------------------ */
+
+field > .label {
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+field > .label.link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------ */
+/* field > .value                                               */
+/* ------------------------------------------------------------ */
+
+field > .value {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* ------------------------------------------------------------ */
+/* field > .value > .field                                      */
+/* ------------------------------------------------------------ */
+
+field > .value > .field {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-self: flex-start;
+}
+
+/* ------------------------------------------------------------ */
+/* field > .value > .message                                    */
+/* ------------------------------------------------------------ */
+
+field > .value > .message {
+    display: none;
+    color: green;
+    font-size: 10px;
+    text-align: left;
+    line-height: 1.1;
+}
+
+field.message > .value > .message {
+    display: inline;
+}
+
+@media only screen and (max-width: 480px) {
+    field > .value > .message {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field > .value > .message {
+        font-size: 8px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* field > .value > .error                                      */
+/* ------------------------------------------------------------ */
+
+field > .value > .error {
+    display: none;
+    color: red;
+    font-size: 10px;
+    text-align: left;
+    line-height: 1.1;
+}
+
+field > .value > .error > ul {
+    list-style-type: none;
+    padding: 0 0 0 5px;
+    margin: 0;
+}
+
+field.error > .value > .error {
+    display: inline;
+}
+
+@media only screen and (max-width: 480px) {
+    field > .value > .error {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field > .value > .error {
+        font-size: 8px;
+    }
+}

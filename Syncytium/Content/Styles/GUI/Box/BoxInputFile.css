@@ -1,0 +1,146 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile                            */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile {
+    font-size: 16px;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile > div                      */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile > div {
+    width: unset;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile > div > .content > .file   */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile > div > .content > .file {
+    display: none;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile > div > .content > #file   */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile > div > .content > #file {
+    background: url(../../../Images/GUI/Box/BoxInputFile/Empty.svg) no-repeat;
+    background-size: 100px 100px;
+    background-position: center;
+    width: 100px;
+    height: 100px;
+}
+
+body > dialog > box.box_inputfile > div > .content > #file.full {
+    background: url(../../../Images/GUI/Box/BoxInputFile/Full.svg) no-repeat;
+    background-size: 100px 100px;
+}
+
+body > dialog > box.box_inputfile > div > .content > #file.is-dragover {
+    background: url(../../../Images/GUI/Box/BoxInputFile/EmptyOver.svg) no-repeat;
+    background-size: 100px 100px;
+}
+
+body > dialog > box.box_inputfile > div > .content > #file.full.is-dragover {
+    background: url(../../../Images/GUI/Box/BoxInputFile/FullOver.svg) no-repeat;
+    background-size: 100px 100px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box.box_inputfile > div > .content > #file,
+    body > dialog > box.box_inputfile > div > .content > #file.full,
+    body > dialog > box.box_inputfile > div > .content > #file.is-dragover,
+    body > dialog > box.box_inputfile > div > .content > #file.full.is-dragover {
+        background-size: 50px 50px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (max-height: 420px) {
+    body > dialog > box.box_inputfile > div > .content > #file,
+    body > dialog > box.box_inputfile > div > .content > #file.full,
+    body > dialog > box.box_inputfile > div > .content > #file.is-dragover,
+    body > dialog > box.box_inputfile > div > .content > #file.full.is-dragover {
+        background-size: 50px 50px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+body > dialog > box.box_inputfile > div > .content > #file:focus {
+    outline: none;
+}
+
+/* -------------------------------------------------------------- */
+/* body > dialog > box.box_inputfile > div > .content > #filename */
+/* -------------------------------------------------------------- */
+
+body > dialog > box.box_inputfile > div > .content > #filename {
+    line-height: 1.2;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box.box_inputfile > div > .content > #filename {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 620px) {
+    body > dialog > box.box_inputfile > div > .content > #filename {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 621px) and (max-width: 700px) {
+    body > dialog > box.box_inputfile > div > .content > #filename {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    body > dialog > box.box_inputfile > div > .content > #filename {
+        font-size: 10px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile > div > .buttons           */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile > div > .buttons {
+    flex-direction: row;
+    margin: 5px 0 5px 0;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputfile > div > .buttons > button  */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputfile > div > .buttons > button {
+    width: 125px;
+    height: 30px;
+    margin: 0 5px 0 5px;
+}

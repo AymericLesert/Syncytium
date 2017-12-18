@@ -1,0 +1,224 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputdigit                           */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputdigit {
+    font-size: 16px;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputdigit > div                     */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputdigit > div {
+    max-width: 270px;
+    width: unset;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputdigit > div > .content > field  */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputdigit > div > .content > field {
+    justify-content: center;
+}
+
+/* -------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > field > .label */
+/* -------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > field > .label {
+    padding-right: 5px;
+    margin: 0;
+    width: auto;
+    max-width: 80px;
+}
+
+body > dialog > box.box_inputdigit > div > .content > field > .value {
+    flex-grow: unset;
+    width: 100%;
+}
+
+body > dialog > box.box_inputdigit > div > .content > field > .value > .field {
+    display: block;
+    border: solid 1px #d8d8d8;
+    width: calc(100% - 10px);
+    font-family: Arial;
+    font-size: 16px;
+    text-align: right;
+    padding: 0 4px 0 4px;
+    margin: 0;
+    line-height: 22px;
+}
+
+body > dialog > box.box_inputdigit > div > .content > field > .value > .field:focus {
+    outline: none;
+    border-color: #33cc33;
+    background: #f4f4f4;
+}
+
+/* -------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > field > .unit  */
+/* -------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > field > .unit {
+    width: 50px;
+    text-align: center;
+}
+
+/* -------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > field > .icon  */
+/* -------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > field > .icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(../../../Images/GUI/Box/BoxInputDigit/RAZ.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+/* -------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit.decimal > div > .content > field  */
+/* -------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit.decimal > div > .content > field > .value > .field {
+    text-align: right;
+}
+
+/* ------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit.mask > div > .content > field    */
+/* ------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit.mask > div > .content > field > .value > .field {
+    text-align: left;
+}
+
+/* --------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit.sequence > div > .content > field  */
+/* --------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit.sequence > div > .content > field > .value > .field {
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit.datetime > div > .content > field  */
+/* --------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit.datetime > div > .content > field > .value > .field {
+    text-align: center;
+}
+
+/* --------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > #keyboard */
+/* --------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    width: 270px;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard.hide {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > #keyboard > .key */
+/* ---------------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 28px;
+    background-color: #D8D8D8;
+    border: solid 1px #000000;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 68px;
+    height: 41px;
+    cursor: pointer;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key.undo {
+    background: url(../../../Images/GUI/Box/BoxInputDigit/Undo.svg) no-repeat;
+    background-position: center;
+    background-size: 35px 35px;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key.empty {
+    background-color: #ffffff;
+    background-image: none;
+    cursor: initial;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key.next.minus {
+    margin: 5px 0 5px 5px;
+    width: 25px;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key.value.minus {
+    width: 25px;
+}
+
+/* --------------------------------------------------------------- */
+/* body > dialog > box.box_inputdigit > div > .content > #calendar */
+/* --------------------------------------------------------------- */
+
+body > dialog > box.box_inputdigit > div > .content > #calendar {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 270px;
+    justify-content: center;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #calendar.hide {
+    display: none;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputdigit > div > .buttons          */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputdigit > div > .buttons {
+    flex-direction: row;
+    margin: 5px 0 5px 0;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_inputdigit > div > .buttons > button */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_inputdigit > div > .buttons > button {
+    width: 125px;
+    height: 30px;
+    margin: 0 5px 0 5px;
+}

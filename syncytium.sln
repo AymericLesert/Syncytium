@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Web", "Syncytium\Syncytium.Web.csproj", "{E78B10A3-1363-48FB-A1D9-EF8B39EC32EF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD050008-ECFD-4237-A279-7A0BC9774040} = {CD050008-ECFD-4237-A279-7A0BC9774040}
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450} = {4CEEE696-E923-4C0F-90C1-1E27FCD9B450}
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4} = {6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Common", "Syncytium.Common\Syncytium.Common.csproj", "{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Module.Administration", "Syncytium.Module.Administration\Syncytium.Module.Administration.csproj", "{4CEEE696-E923-4C0F-90C1-1E27FCD9B450}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4} = {6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.WebJob", "Syncytium.WebJob\Syncytium.WebJob.csproj", "{E80D8315-E0EE-44A8-9FB7-1FAF151D74AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD050008-ECFD-4237-A279-7A0BC9774040} = {CD050008-ECFD-4237-A279-7A0BC9774040}
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450} = {4CEEE696-E923-4C0F-90C1-1E27FCD9B450}
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4} = {6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Test", "Syncytium.Test\Syncytium.Test.csproj", "{636FDE93-28BF-4DA9-9178-187367CA7D30}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD050008-ECFD-4237-A279-7A0BC9774040} = {CD050008-ECFD-4237-A279-7A0BC9774040}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Module.Sample", "Syncytium.Module.Sample\Syncytium.Module.Sample.csproj", "{CD050008-ECFD-4237-A279-7A0BC9774040}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E78B10A3-1363-48FB-A1D9-EF8B39EC32EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78B10A3-1363-48FB-A1D9-EF8B39EC32EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78B10A3-1363-48FB-A1D9-EF8B39EC32EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78B10A3-1363-48FB-A1D9-EF8B39EC32EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEEE696-E923-4C0F-90C1-1E27FCD9B450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80D8315-E0EE-44A8-9FB7-1FAF151D74AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80D8315-E0EE-44A8-9FB7-1FAF151D74AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80D8315-E0EE-44A8-9FB7-1FAF151D74AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80D8315-E0EE-44A8-9FB7-1FAF151D74AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636FDE93-28BF-4DA9-9178-187367CA7D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636FDE93-28BF-4DA9-9178-187367CA7D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636FDE93-28BF-4DA9-9178-187367CA7D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636FDE93-28BF-4DA9-9178-187367CA7D30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD050008-ECFD-4237-A279-7A0BC9774040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD050008-ECFD-4237-A279-7A0BC9774040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD050008-ECFD-4237-A279-7A0BC9774040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD050008-ECFD-4237-A279-7A0BC9774040}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6736A80B-0CD9-459F-B798-5051D7952A93}
+	EndGlobalSection
+EndGlobal

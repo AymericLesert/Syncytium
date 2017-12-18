@@ -1,0 +1,85 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@{
+    ViewBag.Area = "AREA_ADMINISTRATION";
+
+    Layout = "~/Views/Shared/Main.cshtml";
+}
+
+@section JSDeclaration
+{
+    <script src="~/Content/Scripts/Areas/Administration/Administration.js"></script>
+
+    @if (Model.Mode != "PROD" && Model.Mode != "UAT")
+    {
+        <script src="~/Content/Scripts/Areas/Administration/User/Board.js"></script>
+
+        <script src="~/Content/Scripts/Areas/Administration/Language/Board.js"></script>
+
+        <script src="~/Content/Scripts/Areas/Administration/Module/ListArray.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Module/Box.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Module/Board.js"></script>
+
+        <script src="~/Content/Scripts/Areas/Administration/UserModule/ListArray.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/UserModule/Box.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/UserModule/Board.js"></script>
+
+        <script src="~/Content/Scripts/Areas/Administration/Unit/Board.js"></script>
+
+        <script src="~/Content/Scripts/Areas/Administration/Stock/ListArray.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Stock/Board.js"></script>
+    }
+
+    <script type="text/javascript">
+    var administration = null;
+
+    /*
+        * Load the current profil of the user (for an administrator profile)
+        * In : login : login of the current user
+        */
+    function load() {
+        Logger.Instance.setModule("@ViewBag.Area", "@Model.Version");
+
+        administration = new Administration(@Model.ModuleId);
+
+        // Initialize the database manager
+
+        DSDatabase.Instance.Area = administration;
+        DSDatabase.Instance.start();
+    }
+    </script>
+}
+
+@section CSSDeclaration
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Administration.css" />
+
+    @if (Model.Mode != "PROD" && Model.Mode != "UAT")
+    {
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Module/Box.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Module/Board.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/UserModule/Box.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/UserModule/Board.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Unit/Board.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Stock/Board.css" />
+    }
+}

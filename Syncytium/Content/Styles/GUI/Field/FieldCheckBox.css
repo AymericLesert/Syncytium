@@ -1,0 +1,83 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field.field_checkbox > .value > .field                       */
+/* ------------------------------------------------------------ */
+
+field.field_checkbox > .value > .field {
+    align-self: flex-start;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_checkbox > .value > .field > div                 */
+/* ------------------------------------------------------------ */
+
+field.field_checkbox > .value > .field > div {
+    width: 20px;
+    height: 20px;
+}
+
+field.field_checkbox > .value > .field > .true,
+field.field_checkbox.readonly:focus > .value > .field > .true {
+    background: url(../../../Images/GUI/Field/FieldCheckBox/Checked.svg) no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+}
+
+field.field_checkbox > .value > .field > .false,
+field.field_checkbox.readonly:focus > .value > .field > .false {
+    background: url(../../../Images/GUI/Field/FieldCheckBox/Unchecked.svg) no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+}
+
+field.field_checkbox > .value > .field > .null,
+field.field_checkbox.readonly:focus > .value > .field > .null {
+    background: url(../../../Images/GUI/Field/FieldCheckBox/None.svg) no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+}
+
+field.field_checkbox.error > .value > .field > div {
+    border: solid 1px #ff0000;
+}
+
+@media only screen and (max-height: 250px) {
+    field.field_checkbox > .value > .field > .true,
+    field.field_checkbox > .value > .field > .false,
+    field.field_checkbox > .value > .field > .null {
+        background-size: 10px 10px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_checkbox:focus > .value > .field > div           */
+/* ------------------------------------------------------------ */
+
+field.field_checkbox:focus > .value > .field > .true {
+    background-image: url(../../../Images/GUI/Field/FieldCheckBox/CheckedFocus.svg);
+}
+
+field.field_checkbox:focus > .value > .field > .false {
+    background-image: url(../../../Images/GUI/Field/FieldCheckBox/UncheckedFocus.svg);
+}
+
+field.field_checkbox:focus > .value > .field > .null {
+    background-image: url(../../../Images/GUI/Field/FieldCheckBox/NoneFocus.svg);
+}

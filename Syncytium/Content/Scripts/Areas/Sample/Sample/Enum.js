@@ -1,0 +1,1 @@
+/// <reference path="../../../_references.js" />/** * Sample of table */var SampleRecord = {};/** * Set the default picture in sample table * @returns {any} default picture in sample table */SampleRecord.DEFAULT_PICTURE = function () {    return { picture: URL_ROOT + "Content/Images/Areas/Sample/Sample/Picture.svg", width: 100, height: 100 };};

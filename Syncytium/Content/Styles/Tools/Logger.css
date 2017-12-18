@@ -1,0 +1,62 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+.webix_log .webix_ss_vscroll_header {
+    background: #888888;
+}
+
+.webix_log .webix_ss_header .webix_hcell {
+    background: #888888;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.webix_log .webix_column {
+    background: #ffffff;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    color: rgba(0, 0, 0, 0.8);
+    word-wrap: break-word;
+}
+
+.webix_log .webix_column > div {
+    border: none;
+}
+
+.webix_log .webix_cell:nth-child(even) {
+    background-color: #e8e6e6;
+}
+
+.webix_log .webix_cell:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+.webix_log .verbose {
+    font-style: italic;
+}
+
+.webix_log .warning {
+    color: chocolate;
+}
+
+.webix_log .error {
+    color: rgb(255, 0, 0);
+}

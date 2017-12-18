@@ -1,0 +1,2090 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ce fichier est utilisé par le processus de publication/package de votre projet web. Vous pouvez personnaliser le comportement de ce processus
+en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_NewBackgroundProfile>False</_NewBackgroundProfile>
+    <_PublishTargetUrl>D:\000 - Syncytium\WebSite\gestion</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/de/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/de/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:02</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/de/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/de/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.Firebird.dll">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.Firebird.pdb">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.SqlServer.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.SqlServer.xml">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/EntityFramework.xml">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/es/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/es/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/es/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/es/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/FirebirdSql.Data.FirebirdClient.dll">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/FirebirdSql.Data.FirebirdClient.pdb">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/fr/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/fr/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/fr/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/fr/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/it/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/it/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/it/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/it/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ja/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ja/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ja/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ja/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ko/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ko/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ko/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ko/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Common.dll">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Common.dll.config">
+      <publishTime>09/18/2017 17:51:24</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Common.pdb">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Administration.dll">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Administration.dll.config">
+      <publishTime>08/14/2017 00:38:13</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Administration.pdb">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Provider.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Provider.dll.config">
+      <publishTime>09/10/2017 09:06:24</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Provider.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Referential.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Referential.dll.config">
+      <publishTime>09/10/2017 09:06:21</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Referential.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Stock.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Stock.dll.config">
+      <publishTime>08/14/2017 00:38:36</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.Module.Stock.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.WebJob.exe">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.WebJob.exe.config">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Syncytium.WebJob.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/log4net.dll">
+      <publishTime>03/08/2017 19:26:22</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/log4net.xml">
+      <publishTime>03/08/2017 19:26:22</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.KeyVault.Core.dll">
+      <publishTime>12/07/2016 09:37:44</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.dll">
+      <publishTime>02/23/2017 11:12:18</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.Extensions.dll">
+      <publishTime>02/28/2017 02:05:44</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.Extensions.xml">
+      <publishTime>02/28/2017 02:05:44</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.Host.dll">
+      <publishTime>02/23/2017 11:12:34</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.Host.xml">
+      <publishTime>02/23/2017 11:12:34</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Azure.WebJobs.xml">
+      <publishTime>02/23/2017 11:12:18</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.Edm.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.Edm.xml">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.OData.dll">
+      <publishTime>09/07/2017 23:17:02</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.OData.xml">
+      <publishTime>09/07/2017 23:17:02</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.Services.Client.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.Data.Services.Client.xml">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.WindowsAzure.Configuration.dll">
+      <publishTime>10/25/2016 10:48:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.WindowsAzure.Configuration.xml">
+      <publishTime>10/25/2016 10:48:08</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.WindowsAzure.Storage.dll">
+      <publishTime>10/05/2017 10:54:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.WindowsAzure.Storage.pdb">
+      <publishTime>10/05/2017 10:54:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Microsoft.WindowsAzure.Storage.xml">
+      <publishTime>10/05/2017 10:54:26</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/NCrontab.dll">
+      <publishTime>12/21/2016 15:20:42</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Newtonsoft.Json.dll">
+      <publishTime>06/18/2017 13:57:10</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Newtonsoft.Json.xml">
+      <publishTime>06/18/2017 13:57:10</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Oracle.ManagedDataAccess.dll">
+      <publishTime>05/25/2017 20:39:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Oracle.ManagedDataAccess.EntityFramework.dll">
+      <publishTime>05/25/2017 14:46:36</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ru/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ru/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:04</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ru/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/ru/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Svg.dll">
+      <publishTime>12/28/2016 21:52:06</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Svg.pdb">
+      <publishTime>12/28/2016 21:52:06</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/Svg.xml">
+      <publishTime>12/28/2016 21:52:06</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/System.Spatial.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/System.Spatial.xml">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/System.Threading.Tasks.Dataflow.dll">
+      <publishTime>11/07/2014 18:43:56</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/System.Threading.Tasks.Dataflow.xml">
+      <publishTime>11/07/2014 18:43:56</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hans/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hans/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:02</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hans/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hans/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hant/Microsoft.Data.Edm.resources.dll">
+      <publishTime>09/07/2017 23:16:52</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hant/Microsoft.Data.OData.resources.dll">
+      <publishTime>09/07/2017 23:17:02</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hant/Microsoft.Data.Services.Client.resources.dll">
+      <publishTime>09/07/2017 23:17:32</publishTime>
+    </File>
+    <File Include="app_data/jobs/triggered/Syncytium-WebJob/zh-Hant/System.Spatial.resources.dll">
+      <publishTime>09/07/2017 23:17:14</publishTime>
+    </File>
+    <File Include="app_data/UploadFiles.txt">
+      <publishTime>08/19/2017 09:29:22</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Administration/Index.cshtml">
+      <publishTime>10/09/2017 01:35:50</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Customer/Add.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Customer/Delete.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Customer/Index.cshtml">
+      <publishTime>08/24/2017 02:44:59</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Customer/Update.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/Shared/Default.cshtml">
+      <publishTime>08/13/2017 23:58:29</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/User/ForgetPassword.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/User/MailNewPassword.cshtml">
+      <publishTime>08/26/2017 11:11:46</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/User/NewPassword.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/User/SignIn.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/User/SignInAdministration.cshtml">
+      <publishTime>09/18/2017 23:26:38</publishTime>
+    </File>
+    <File Include="Areas/Administration/Views/web.config">
+      <publishTime>08/13/2017 23:51:51</publishTime>
+    </File>
+    <File Include="Areas/Provider/Views/Provider/Index.cshtml">
+      <publishTime>10/23/2017 09:07:01</publishTime>
+    </File>
+    <File Include="Areas/Provider/Views/web.config">
+      <publishTime>09/10/2017 11:19:28</publishTime>
+    </File>
+    <File Include="Areas/Referential/Views/Referential/Index.cshtml">
+      <publishTime>10/23/2017 09:07:30</publishTime>
+    </File>
+    <File Include="Areas/Referential/Views/web.config">
+      <publishTime>09/10/2017 11:19:01</publishTime>
+    </File>
+    <File Include="Areas/Stock/Views/Stock/Index.cshtml">
+      <publishTime>10/24/2017 14:20:08</publishTime>
+    </File>
+    <File Include="Areas/Stock/Views/web.config">
+      <publishTime>08/14/2017 00:04:59</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.Firebird.dll">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.Firebird.pdb">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/FirebirdSql.Data.FirebirdClient.dll">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="bin/FirebirdSql.Data.FirebirdClient.pdb">
+      <publishTime>08/30/2017 07:36:08</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.AspNet.SignalR.Core.resources.dll">
+      <publishTime>05/04/2017 02:34:50</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.AspNet.SignalR.SystemWeb.resources.dll">
+      <publishTime>05/04/2017 02:34:56</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Owin.Host.SystemWeb.resources.dll">
+      <publishTime>04/05/2017 12:02:58</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.Owin.Security.resources.dll">
+      <publishTime>04/05/2017 12:03:02</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.Helpers.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.Mvc.resources.dll">
+      <publishTime>01/28/2015 04:02:26</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.Razor.resources.dll">
+      <publishTime>01/28/2015 04:02:36</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/fr/System.Web.WebPages.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Common.dll">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Common.dll.config">
+      <publishTime>09/18/2017 17:51:24</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Common.pdb">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="bin/Syncytium.dll">
+      <publishTime>10/25/2017 08:30:45</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Administration.dll">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Administration.dll.config">
+      <publishTime>08/14/2017 00:38:13</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Administration.pdb">
+      <publishTime>10/25/2017 08:30:41</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Provider.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Provider.dll.config">
+      <publishTime>09/10/2017 09:06:24</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Provider.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Referential.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Referential.dll.config">
+      <publishTime>09/10/2017 09:06:21</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Referential.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Stock.dll">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Stock.dll.config">
+      <publishTime>08/14/2017 00:38:36</publishTime>
+    </File>
+    <File Include="bin/Syncytium.Module.Stock.pdb">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+    <File Include="bin/Syncytium.pdb">
+      <publishTime>10/25/2017 08:30:45</publishTime>
+    </File>
+    <File Include="bin/Syncytium.xml">
+      <publishTime>10/25/2017 08:30:45</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>03/08/2017 19:26:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>05/04/2017 02:25:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>05/04/2017 02:25:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>04/05/2017 11:53:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>04/05/2017 11:53:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>04/05/2017 11:53:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/18/2017 13:57:10</publishTime>
+    </File>
+    <File Include="bin/Oracle.ManagedDataAccess.dll">
+      <publishTime>05/25/2017 20:39:04</publishTime>
+    </File>
+    <File Include="bin/Oracle.ManagedDataAccess.EntityFramework.dll">
+      <publishTime>05/25/2017 14:46:36</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
+    <File Include="bin/Svg.dll">
+      <publishTime>12/28/2016 21:52:06</publishTime>
+    </File>
+    <File Include="bin/Svg.pdb">
+      <publishTime>12/28/2016 21:52:06</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/28/2015 03:02:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/28/2015 03:02:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/28/2015 03:03:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 04:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 04:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="Content/Fonts/font-license.txt">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/fontawesome-webfont.eot">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/fontawesome-webfont.svg">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/fontawesome-webfont.ttf">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/fontawesome-webfont.woff">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/fontawesome-webfont.woff2">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/FontAwesome.otf">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/pdfmake-arial-unicode-ms.js">
+      <publishTime>08/13/2017 23:21:07</publishTime>
+    </File>
+    <File Include="Content/Fonts/pdfmake-dejavusans.js">
+      <publishTime>08/13/2017 23:21:07</publishTime>
+    </File>
+    <File Include="Content/Fonts/pdfmake-msyh.js">
+      <publishTime>08/13/2017 23:21:07</publishTime>
+    </File>
+    <File Include="Content/Fonts/pdfmake-opensans.js">
+      <publishTime>08/13/2017 23:21:07</publishTime>
+    </File>
+    <File Include="Content/Fonts/pdfmake-roboto.js">
+      <publishTime>08/13/2017 23:21:07</publishTime>
+    </File>
+    <File Include="Content/Fonts/PTS-bold.woff">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Fonts/PTS-webfont.woff">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Address.svg">
+      <publishTime>08/23/2017 02:11:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Administrator.svg">
+      <publishTime>08/23/2017 09:01:29</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Comment.svg">
+      <publishTime>08/23/2017 02:11:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Credits.txt">
+      <publishTime>08/28/2017 11:28:41</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Delete.svg">
+      <publishTime>08/23/2017 02:08:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Edit.svg">
+      <publishTime>08/23/2017 02:08:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Email.svg">
+      <publishTime>08/23/2017 02:11:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Customer/Office.svg">
+      <publishTime>08/23/2017 02:11:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Credits.txt">
+      <publishTime>09/22/2017 17:39:48</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Help.svg">
+      <publishTime>08/26/2017 13:39:22</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Language.svg">
+      <publishTime>08/26/2017 11:21:25</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Menu.svg">
+      <publishTime>08/26/2017 11:37:24</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Module.svg">
+      <publishTime>09/01/2017 09:48:06</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Stock.svg">
+      <publishTime>08/31/2017 21:51:58</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Unit.svg">
+      <publishTime>09/22/2017 17:39:32</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Menu/Users.svg">
+      <publishTime>08/26/2017 11:21:25</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Stock/Credits.txt">
+      <publishTime>08/31/2017 21:58:13</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/Stock/Stock.svg">
+      <publishTime>08/31/2017 21:56:46</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Administration/User/MailNewPassword/Logo.png">
+      <publishTime>08/14/2017 19:17:21</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Cancelled.svg">
+      <publishTime>10/11/2017 09:32:52</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Closed.svg">
+      <publishTime>10/11/2017 09:32:52</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Created.svg">
+      <publishTime>10/11/2017 09:33:00</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Credits.txt">
+      <publishTime>10/11/2017 09:38:33</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Null.svg">
+      <publishTime>10/11/2017 09:32:52</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Received.svg">
+      <publishTime>10/11/2017 09:38:11</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/EProviderOrderStatus/Sent.svg">
+      <publishTime>10/11/2017 09:36:35</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/Menu/Credits.txt">
+      <publishTime>10/11/2017 09:41:50</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/Menu/Provider.svg">
+      <publishTime>09/24/2017 12:32:06</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/Menu/ProviderOrder.svg">
+      <publishTime>10/11/2017 09:41:32</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/Provider/Credits.txt">
+      <publishTime>09/24/2017 12:31:40</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Provider/Provider/Picture.svg">
+      <publishTime>09/24/2017 12:32:18</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/Article/Credits.txt">
+      <publishTime>09/23/2017 09:52:02</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/Article/Picture.svg">
+      <publishTime>09/22/2017 19:57:52</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Cancelled.svg">
+      <publishTime>10/10/2017 14:53:28</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Closed.svg">
+      <publishTime>10/10/2017 14:53:29</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Created.svg">
+      <publishTime>10/10/2017 14:53:29</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Credits.txt">
+      <publishTime>10/20/2017 20:53:38</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Launched.svg">
+      <publishTime>10/10/2017 14:53:29</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Null.svg">
+      <publishTime>10/10/2017 14:53:30</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Produced.svg">
+      <publishTime>10/10/2017 14:53:30</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Purchased.svg">
+      <publishTime>10/10/2017 14:53:30</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Ready.svg">
+      <publishTime>10/20/2017 20:54:05</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/EProductOrderStatus/Validated.svg">
+      <publishTime>10/10/2017 14:53:28</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/Menu/Article.svg">
+      <publishTime>09/22/2017 19:58:01</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/Menu/Credits.txt">
+      <publishTime>10/10/2017 14:35:24</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Referential/Menu/ProductOrder.svg">
+      <publishTime>10/10/2017 14:36:07</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/EStockMovementType/Credits.txt">
+      <publishTime>09/24/2017 21:23:58</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/EStockMovementType/Input.svg">
+      <publishTime>09/24/2017 21:08:03</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/EStockMovementType/Inventory.svg">
+      <publishTime>09/24/2017 21:08:03</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/EStockMovementType/Null.svg">
+      <publishTime>09/24/2017 21:08:03</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/EStockMovementType/Output.svg">
+      <publishTime>09/24/2017 21:08:03</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/Menu/Credits.txt">
+      <publishTime>10/02/2017 02:18:29</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/Menu/StockInventory.svg">
+      <publishTime>09/30/2017 16:45:57</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/Menu/StockLevel.svg">
+      <publishTime>10/01/2017 10:43:42</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/Menu/StockMovement.svg">
+      <publishTime>09/24/2017 21:07:56</publishTime>
+    </File>
+    <File Include="Content/Images/Areas/Stock/Menu/StockProduction.svg">
+      <publishTime>10/02/2017 02:18:11</publishTime>
+    </File>
+    <File Include="Content/Images/Checkbox/Checked.svg">
+      <publishTime>08/14/2017 16:31:19</publishTime>
+    </File>
+    <File Include="Content/Images/Checkbox/None.svg">
+      <publishTime>08/14/2017 16:31:19</publishTime>
+    </File>
+    <File Include="Content/Images/Checkbox/Unchecked.svg">
+      <publishTime>08/14/2017 16:31:19</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Add.svg">
+      <publishTime>08/24/2017 12:00:03</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/AddReadonly.svg">
+      <publishTime>08/28/2017 02:24:54</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Board.png">
+      <publishTime>08/24/2017 11:59:38</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Cancel.svg">
+      <publishTime>08/24/2017 12:00:03</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/CancelReadonly.svg">
+      <publishTime>08/28/2017 02:29:22</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Credits.txt">
+      <publishTime>10/20/2017 21:01:43</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/CSV.svg">
+      <publishTime>09/30/2017 12:37:10</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Delete.svg">
+      <publishTime>08/24/2017 12:00:03</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/DeleteReadonly.svg">
+      <publishTime>08/28/2017 02:29:22</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Duplicate.svg">
+      <publishTime>08/16/2017 14:35:15</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/DuplicateReadonly.svg">
+      <publishTime>08/28/2017 02:29:22</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Edit.svg">
+      <publishTime>08/22/2017 23:48:47</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/EditReadonly.svg">
+      <publishTime>08/28/2017 02:29:22</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Help.svg">
+      <publishTime>08/26/2017 13:39:22</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/HelpReadonly.svg">
+      <publishTime>08/28/2017 02:32:47</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/PDF.svg">
+      <publishTime>10/02/2017 00:18:13</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Selected.svg">
+      <publishTime>10/20/2017 20:58:28</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Board/Unselected.svg">
+      <publishTime>10/20/2017 21:02:44</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputDigit/Calendar.svg">
+      <publishTime>10/18/2017 08:18:33</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputDigit/Credits.txt">
+      <publishTime>10/18/2017 08:19:25</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputDigit/Hour.svg">
+      <publishTime>10/18/2017 08:18:20</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputDigit/RAZ.svg">
+      <publishTime>10/18/2017 00:38:13</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputDigit/Undo.svg">
+      <publishTime>10/14/2017 15:54:37</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputFile/Credits.txt">
+      <publishTime>08/28/2017 11:28:41</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputFile/Empty.svg">
+      <publishTime>08/31/2017 23:25:57</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputFile/EmptyOver.svg">
+      <publishTime>08/24/2017 02:07:42</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputFile/Full.svg">
+      <publishTime>08/23/2017 23:19:59</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/BoxInputFile/FullOver.svg">
+      <publishTime>08/24/2017 02:07:47</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/Credits.txt">
+      <publishTime>08/28/2017 11:28:41</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/Left.svg">
+      <publishTime>08/24/2017 03:28:54</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Box/Right.svg">
+      <publishTime>08/24/2017 03:28:54</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/Checked.svg">
+      <publishTime>08/26/2017 11:07:09</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/CheckedFocus.svg">
+      <publishTime>09/09/2017 23:37:27</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/Credits.txt">
+      <publishTime>09/09/2017 23:39:17</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/None.svg">
+      <publishTime>08/26/2017 11:07:09</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/NoneFocus.svg">
+      <publishTime>09/03/2017 18:50:57</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioNone.svg">
+      <publishTime>09/09/2017 23:43:04</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioNoneFocus.svg">
+      <publishTime>09/09/2017 23:46:31</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioOff.svg">
+      <publishTime>09/09/2017 23:37:17</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioOffFocus.svg">
+      <publishTime>09/09/2017 23:37:17</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioOn.svg">
+      <publishTime>09/09/2017 23:37:17</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/RadioOnFocus.svg">
+      <publishTime>09/09/2017 23:37:17</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/Unchecked.svg">
+      <publishTime>08/26/2017 11:07:09</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldCheckBox/UncheckedFocus.svg">
+      <publishTime>09/03/2017 18:46:40</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldInputWithBox/Calendar.svg">
+      <publishTime>08/25/2017 18:39:20</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldInputWithBox/Credits.txt">
+      <publishTime>10/17/2017 00:12:55</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldInputWithBox/Keyboard.svg">
+      <publishTime>10/17/2017 00:13:40</publishTime>
+    </File>
+    <File Include="Content/Images/GUI/Field/FieldInputWithBox/User.svg">
+      <publishTime>08/25/2017 18:35:45</publishTime>
+    </File>
+    <File Include="Content/Images/Header/Close.png">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/Credits.txt">
+      <publishTime>08/28/2017 11:27:33</publishTime>
+    </File>
+    <File Include="Content/Images/Header/Divider.png">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/divider1.png">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/Divider2.svg">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/Syncytium.png">
+      <publishTime>08/14/2017 19:18:41</publishTime>
+    </File>
+    <File Include="Content/Images/Header/SignOut.png">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/StatusOff.svg">
+      <publishTime>08/26/2017 19:07:56</publishTime>
+    </File>
+    <File Include="Content/Images/Header/StatusOn.svg">
+      <publishTime>08/26/2017 19:07:16</publishTime>
+    </File>
+    <File Include="Content/Images/Header/StatusOnOff.gif">
+      <publishTime>08/13/2017 23:32:07</publishTime>
+    </File>
+    <File Include="Content/Images/Header/StatusReady.svg">
+      <publishTime>08/26/2017 19:08:35</publishTime>
+    </File>
+    <File Include="Content/Images/Header/User.svg">
+      <publishTime>08/17/2017 16:52:11</publishTime>
+    </File>
+    <File Include="Content/Images/Syncytium.png">
+      <publishTime>08/13/2017 19:06:31</publishTime>
+    </File>
+    <File Include="Content/Images/Logo.png">
+      <publishTime>08/14/2017 19:17:21</publishTime>
+    </File>
+    <File Include="Content/Images/PDF/Credits.txt">
+      <publishTime>08/16/2017 16:02:26</publishTime>
+    </File>
+    <File Include="Content/Images/PDF/Syncytium.png">
+      <publishTime>08/14/2017 19:18:41</publishTime>
+    </File>
+    <File Include="Content/Images/PDF/Line.png">
+      <publishTime>08/13/2017 23:34:43</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_0.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_10.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_100.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_15.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_20.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_25.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_30.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_35.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_40.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_45.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_5.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_50.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_55.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_60.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_65.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_70.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_75.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_80.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_85.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_90.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/Progression/Progression_95.svg">
+      <publishTime>08/21/2017 21:22:45</publishTime>
+    </File>
+    <File Include="Content/Images/SignIn/Credits.txt">
+      <publishTime>08/28/2017 11:28:41</publishTime>
+    </File>
+    <File Include="Content/Images/SignIn/Syncytium.png">
+      <publishTime>08/14/2017 19:18:41</publishTime>
+    </File>
+    <File Include="Content/Images/SignIn/Login.svg">
+      <publishTime>08/16/2017 16:06:37</publishTime>
+    </File>
+    <File Include="Content/Images/SignIn/Password.svg">
+      <publishTime>08/16/2017 16:06:37</publishTime>
+    </File>
+    <File Include="Content/Locale/FR.js">
+      <publishTime>08/13/2017 23:22:32</publishTime>
+    </File>
+    <File Include="Content/Locale/Moment.js">
+      <publishTime>08/13/2017 23:23:19</publishTime>
+    </File>
+    <File Include="Content/Locale/README.txt">
+      <publishTime>08/13/2017 23:23:33</publishTime>
+    </File>
+    <File Include="Content/Readme.txt">
+      <publishTime>08/16/2017 14:45:36</publishTime>
+    </File>
+    <File Include="Content/Scripts/Area/Area.js">
+      <publishTime>08/13/2017 23:29:22</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Administration.js">
+      <publishTime>10/09/2017 01:35:50</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Language/Board.js">
+      <publishTime>10/01/2017 21:06:36</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Language/Enum.js">
+      <publishTime>08/28/2017 17:49:55</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Language/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Language/Manager.js">
+      <publishTime>09/01/2017 21:46:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Module/Board.js">
+      <publishTime>10/21/2017 16:51:57</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Module/Box.js">
+      <publishTime>10/21/2017 23:29:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Module/Enum.js">
+      <publishTime>09/10/2017 17:37:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Module/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Module/ListArray.js">
+      <publishTime>09/03/2017 10:59:40</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Stock/Board.js">
+      <publishTime>10/01/2017 22:23:57</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Stock/Box.js">
+      <publishTime>10/23/2017 01:19:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Stock/Enum.js">
+      <publishTime>08/31/2017 21:59:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Stock/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Stock/ListArray.js">
+      <publishTime>08/31/2017 22:06:04</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Unit/Board.js">
+      <publishTime>10/21/2017 16:52:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Unit/Box.js">
+      <publishTime>10/21/2017 23:31:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Unit/Enum.js">
+      <publishTime>10/21/2017 16:17:33</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/Unit/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/User/Board.js">
+      <publishTime>10/01/2017 22:24:45</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/User/Box.js">
+      <publishTime>10/21/2017 23:35:49</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/User/Enum.js">
+      <publishTime>10/21/2017 23:03:38</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/User/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/UserModule/Board.js">
+      <publishTime>10/01/2017 22:25:09</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/UserModule/Box.js">
+      <publishTime>10/21/2017 23:17:54</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/UserModule/Enum.js">
+      <publishTime>09/03/2017 11:42:46</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/UserModule/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Administration/UserModule/ListArray.js">
+      <publishTime>09/03/2017 11:48:03</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Area.js">
+      <publishTime>10/21/2017 23:04:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider.js">
+      <publishTime>10/22/2017 18:10:57</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider/Board.js">
+      <publishTime>10/21/2017 13:53:00</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider/Box.js">
+      <publishTime>10/23/2017 01:22:05</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider/Enum.js">
+      <publishTime>09/24/2017 12:34:53</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/Provider/ListArray.js">
+      <publishTime>09/24/2017 12:35:01</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderAddress/Board.js">
+      <publishTime>10/21/2017 14:27:30</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderAddress/Box.js">
+      <publishTime>10/22/2017 09:22:55</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderAddress/Enum.js">
+      <publishTime>09/24/2017 12:36:30</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderAddress/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderAddress/ListArray.js">
+      <publishTime>09/24/2017 12:36:39</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderArticle/Board.js">
+      <publishTime>10/22/2017 16:12:36</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderArticle/Box.js">
+      <publishTime>10/22/2017 22:40:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderArticle/Enum.js">
+      <publishTime>10/22/2017 21:30:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderArticle/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderArticle/ListArray.js">
+      <publishTime>09/24/2017 12:37:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderContact/Board.js">
+      <publishTime>10/21/2017 14:16:56</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderContact/Box.js">
+      <publishTime>10/22/2017 00:58:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderContact/Enum.js">
+      <publishTime>09/24/2017 12:37:03</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderContact/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderContact/ListArray.js">
+      <publishTime>09/24/2017 12:37:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/Board.js">
+      <publishTime>10/22/2017 12:50:20</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/BoardStock.js">
+      <publishTime>10/23/2017 09:13:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/Box.js">
+      <publishTime>10/24/2017 14:03:34</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/Enum.js">
+      <publishTime>10/23/2017 13:44:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/List.js">
+      <publishTime>10/24/2017 15:45:00</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/ListArray.js">
+      <publishTime>10/11/2017 12:30:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrder/Print.js">
+      <publishTime>10/24/2017 14:04:37</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrderArticle/Board.js">
+      <publishTime>10/23/2017 14:55:55</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrderArticle/Box.js">
+      <publishTime>10/23/2017 12:09:27</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrderArticle/Enum.js">
+      <publishTime>10/11/2017 09:45:40</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrderArticle/List.js">
+      <publishTime>10/23/2017 15:09:16</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Provider/ProviderOrderArticle/ListArray.js">
+      <publishTime>10/11/2017 09:45:48</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Article/Board.js">
+      <publishTime>10/22/2017 18:50:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Article/Box.js">
+      <publishTime>10/23/2017 00:22:57</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Article/Enum.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Article/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Article/ListArray.js">
+      <publishTime>09/23/2017 10:08:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ArticleStock/Board.js">
+      <publishTime>10/12/2017 21:04:00</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ArticleStock/Box.js">
+      <publishTime>10/22/2017 00:02:01</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ArticleStock/Enum.js">
+      <publishTime>09/23/2017 09:40:01</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ArticleStock/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ArticleStock/ListArray.js">
+      <publishTime>09/23/2017 09:40:18</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Component/Board.js">
+      <publishTime>10/22/2017 16:09:08</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Component/Box.js">
+      <publishTime>10/22/2017 19:07:19</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Component/Enum.js">
+      <publishTime>10/12/2017 12:39:44</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Component/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Component/ListArray.js">
+      <publishTime>09/23/2017 09:41:54</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/Board.js">
+      <publishTime>10/24/2017 16:06:21</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/BoardStock.js">
+      <publishTime>10/23/2017 09:14:02</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/Box.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/Enum.js">
+      <publishTime>10/24/2017 21:57:45</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/ListArray.js">
+      <publishTime>10/12/2017 10:09:26</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/ProductOrder/Print.js">
+      <publishTime>10/23/2017 09:40:24</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Referential/Referential.js">
+      <publishTime>10/21/2017 11:59:39</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/Stock.js">
+      <publishTime>10/24/2017 22:11:06</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInput/Board.js">
+      <publishTime>10/24/2017 15:58:26</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInput/Box.js">
+      <publishTime>10/24/2017 14:32:48</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInput/Enum.js">
+      <publishTime>10/23/2017 21:47:08</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInventory/Board.js">
+      <publishTime>10/24/2017 16:34:48</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInventory/Enum.js">
+      <publishTime>10/23/2017 21:46:53</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockInventory/List.js">
+      <publishTime>10/24/2017 21:24:30</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockLevel/Board.js">
+      <publishTime>10/23/2017 21:48:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockLevel/Enum.js">
+      <publishTime>10/23/2017 21:46:41</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockLevel/List.js">
+      <publishTime>10/23/2017 21:48:57</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockMovement/Board.js">
+      <publishTime>10/23/2017 20:02:17</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockMovement/Box.js">
+      <publishTime>10/24/2017 15:42:24</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockMovement/Enum.js">
+      <publishTime>10/09/2017 16:42:11</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockMovement/List.js">
+      <publishTime>10/24/2017 15:54:18</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockMovement/ListArray.js">
+      <publishTime>10/24/2017 07:29:12</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockOutput/Box.js">
+      <publishTime>10/23/2017 21:47:41</publishTime>
+    </File>
+    <File Include="Content/Scripts/Areas/Stock/StockOutput/Enum.js">
+      <publishTime>10/23/2017 22:10:11</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DatabaseHub.js">
+      <publishTime>10/11/2017 13:31:40</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DatabaseManager.js">
+      <publishTime>08/13/2017 23:39:38</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js">
+      <publishTime>10/22/2017 01:03:56</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js">
+      <publishTime>08/19/2017 23:15:41</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js">
+      <publishTime>08/19/2017 23:15:45</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js">
+      <publishTime>09/01/2017 21:46:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js">
+      <publishTime>08/19/2017 23:15:53</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js">
+      <publishTime>10/21/2017 22:10:20</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSEmailAttribute.js">
+      <publishTime>08/19/2017 23:15:59</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSKeyAttribute.js">
+      <publishTime>08/19/2017 23:16:02</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSRequiredAttribute.js">
+      <publishTime>08/19/2017 23:21:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSControl/DSStringAttribute.js">
+      <publishTime>10/21/2017 21:03:25</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js">
+      <publishTime>10/21/2017 15:29:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js">
+      <publishTime>08/19/2017 23:21:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js">
+      <publishTime>08/19/2017 23:21:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js">
+      <publishTime>10/21/2017 15:29:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js">
+      <publishTime>08/19/2017 23:21:13</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js">
+      <publishTime>10/21/2017 20:23:02</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSSchema/DSColumn.js">
+      <publishTime>10/22/2017 00:50:04</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSSchema/DSDatabase.js">
+      <publishTime>10/24/2017 08:48:17</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSSchema/DSRecord.js">
+      <publishTime>10/23/2017 10:51:58</publishTime>
+    </File>
+    <File Include="Content/Scripts/Database/DSSchema/DSTable.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Filter/Filter.js">
+      <publishTime>10/13/2017 00:52:37</publishTime>
+    </File>
+    <File Include="Content/Scripts/Filter/FilterItems.js">
+      <publishTime>10/20/2017 18:40:49</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/Board.js">
+      <publishTime>10/18/2017 22:07:51</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardChart.js">
+      <publishTime>10/08/2017 21:29:30</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardChartBar.js">
+      <publishTime>09/02/2017 09:45:45</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardChartLine.js">
+      <publishTime>09/02/2017 09:40:28</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardChartMultiData.js">
+      <publishTime>10/02/2017 00:33:00</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardChartPie.js">
+      <publishTime>10/09/2017 00:01:59</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardHistory.js">
+      <publishTime>09/02/2017 09:45:25</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardTable.js">
+      <publishTime>10/23/2017 19:24:24</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardTableAssociation.js">
+      <publishTime>10/01/2017 21:56:11</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Board/BoardTree.js">
+      <publishTime>09/02/2017 09:43:26</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/Box.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxChoice.js">
+      <publishTime>10/18/2017 23:29:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxInputDate.js">
+      <publishTime>08/31/2017 18:18:56</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxInputDigit.js">
+      <publishTime>10/24/2017 14:55:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxInputFile.js">
+      <publishTime>10/18/2017 23:58:53</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxInputText.js">
+      <publishTime>10/19/2017 00:25:03</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxMessage.js">
+      <publishTime>08/24/2017 03:15:18</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxProgress.js">
+      <publishTime>08/23/2017 15:01:42</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxRecord.js">
+      <publishTime>10/23/2017 19:26:38</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxReleaseNotes.js">
+      <publishTime>10/18/2017 22:49:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Box/BoxSelect.js">
+      <publishTime>10/24/2017 15:58:04</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Button/Button.js">
+      <publishTime>10/18/2017 23:12:41</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/Field.js">
+      <publishTime>10/18/2017 20:15:33</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldCheckBox.js">
+      <publishTime>10/18/2017 18:30:49</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldImage.js">
+      <publishTime>10/18/2017 18:31:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldInput.js">
+      <publishTime>10/18/2017 22:27:26</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldInputDigit.js">
+      <publishTime>10/23/2017 19:56:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldInputWithBox.js">
+      <publishTime>10/23/2017 13:01:11</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldSelect.js">
+      <publishTime>10/18/2017 20:16:07</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Field/FieldSelectImage.js">
+      <publishTime>10/22/2017 18:18:33</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/GUI.js">
+      <publishTime>10/18/2017 23:31:43</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Webix/Webix.js">
+      <publishTime>09/05/2017 17:34:20</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Webix/WebixBar.js">
+      <publishTime>09/23/2017 17:25:16</publishTime>
+    </File>
+    <File Include="Content/Scripts/GUI/Webix/WebixTooltip.js">
+      <publishTime>10/16/2017 16:47:06</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/List.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListArray.js">
+      <publishTime>10/24/2017 13:03:56</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListArrayRecord.js">
+      <publishTime>10/24/2017 08:21:02</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListArrayRecordAssociation.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListCalendar.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListEnumerable.js">
+      <publishTime>10/11/2017 11:41:04</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListHistory.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListLanguage.js">
+      <publishTime>08/19/2017 14:12:07</publishTime>
+    </File>
+    <File Include="Content/Scripts/List/ListRecord.js">
+      <publishTime>10/24/2017 12:25:11</publishTime>
+    </File>
+    <File Include="Content/Scripts/Test/Box.css">
+      <publishTime>10/16/2017 18:56:08</publishTime>
+    </File>
+    <File Include="Content/Scripts/Test/Box.js">
+      <publishTime>10/19/2017 00:57:53</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Array.js">
+      <publishTime>10/22/2017 19:09:10</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Dates.js">
+      <publishTime>10/23/2017 14:52:32</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Digits.js">
+      <publishTime>10/24/2017 14:30:52</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Errors.js">
+      <publishTime>09/23/2017 14:56:21</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Helper.js">
+      <publishTime>08/19/2017 14:12:34</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Logger.js">
+      <publishTime>10/02/2017 00:49:48</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/LoggerBaseObject.js">
+      <publishTime>09/01/2017 21:46:14</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Namespace.js">
+      <publishTime>10/24/2017 10:02:34</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/PDF.js">
+      <publishTime>08/29/2017 01:18:35</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Picture.js">
+      <publishTime>08/31/2017 23:09:41</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/Similarity.js">
+      <publishTime>08/19/2017 16:19:39</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/SortArray.js">
+      <publishTime>10/22/2017 18:48:40</publishTime>
+    </File>
+    <File Include="Content/Scripts/Tools/String.js">
+      <publishTime>10/21/2017 22:09:27</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Administration.css">
+      <publishTime>09/22/2017 17:50:12</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Customer/Form.css">
+      <publishTime>08/28/2017 13:47:54</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Customer/Index.css">
+      <publishTime>08/28/2017 13:49:24</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Module/Board.css">
+      <publishTime>09/03/2017 11:25:05</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Module/Box.css">
+      <publishTime>10/21/2017 23:30:06</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Stock/Board.css">
+      <publishTime>08/31/2017 23:48:43</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Stock/Box.css">
+      <publishTime>10/21/2017 23:27:35</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Unit/Board.css">
+      <publishTime>10/20/2017 15:43:01</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/Unit/Box.css">
+      <publishTime>10/21/2017 16:50:09</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/User/Box.css">
+      <publishTime>10/16/2017 10:08:23</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/User/ForgetPassword.css">
+      <publishTime>08/24/2017 02:46:59</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/User/NewPassword.css">
+      <publishTime>08/24/2017 02:48:26</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/User/SignIn.css">
+      <publishTime>08/26/2017 10:57:32</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/UserModule/Board.css">
+      <publishTime>09/09/2017 23:48:19</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Administration/UserModule/Box.css">
+      <publishTime>09/03/2017 11:47:41</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Area.css">
+      <publishTime>10/12/2017 22:06:03</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/Provider.css">
+      <publishTime>10/11/2017 09:52:14</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/Provider/Board.css">
+      <publishTime>09/24/2017 12:36:16</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/Provider/Box.css">
+      <publishTime>10/21/2017 14:08:50</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderAddress/Board.css">
+      <publishTime>09/24/2017 12:54:23</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderAddress/Box.css">
+      <publishTime>10/22/2017 10:01:51</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderArticle/Board.css">
+      <publishTime>10/21/2017 16:48:14</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderArticle/Box.css">
+      <publishTime>10/22/2017 22:43:03</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderContact/Board.css">
+      <publishTime>09/24/2017 12:37:26</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderContact/Box.css">
+      <publishTime>10/22/2017 00:58:36</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderOrder/Board.css">
+      <publishTime>10/11/2017 09:52:00</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderOrder/BoardStock.css">
+      <publishTime>10/23/2017 01:26:17</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderOrder/Box.css">
+      <publishTime>10/23/2017 12:03:50</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderOrderArticle/Board.css">
+      <publishTime>10/23/2017 12:40:10</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Provider/ProviderOrderArticle/Box.css">
+      <publishTime>10/23/2017 13:22:17</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/Article/Board.css">
+      <publishTime>10/21/2017 12:16:30</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/Article/Box.css">
+      <publishTime>10/21/2017 23:46:13</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/ArticleStock/Board.css">
+      <publishTime>09/23/2017 09:40:38</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/ArticleStock/Box.css">
+      <publishTime>09/23/2017 09:40:33</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/Component/Board.css">
+      <publishTime>10/12/2017 13:53:25</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/Component/Box.css">
+      <publishTime>10/22/2017 00:35:26</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/ProductOrder/Board.css">
+      <publishTime>10/21/2017 08:15:17</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/ProductOrder/BoardStock.css">
+      <publishTime>10/21/2017 08:15:53</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/ProductOrder/Box.css">
+      <publishTime>10/22/2017 23:59:03</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Referential/Referential.css">
+      <publishTime>10/10/2017 15:04:41</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/Stock.css">
+      <publishTime>10/23/2017 01:11:21</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockInput/Board.css">
+      <publishTime>10/24/2017 14:58:33</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockInput/Box.css">
+      <publishTime>10/24/2017 10:49:33</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockInventory/Board.css">
+      <publishTime>10/01/2017 10:54:02</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockLevel/Board.css">
+      <publishTime>10/10/2017 15:49:26</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockMovement/Board.css">
+      <publishTime>10/23/2017 17:34:57</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockMovement/Box.css">
+      <publishTime>10/23/2017 15:56:29</publishTime>
+    </File>
+    <File Include="Content/Styles/Areas/Stock/StockOutput/Box.css">
+      <publishTime>10/23/2017 22:01:34</publishTime>
+    </File>
+    <File Include="Content/Styles/Customer.css">
+      <publishTime>08/14/2017 16:36:52</publishTime>
+    </File>
+    <File Include="Content/Styles/Default.css">
+      <publishTime>08/14/2017 16:39:23</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Board/Board.css">
+      <publishTime>09/03/2017 23:52:35</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Board/BoardTable.css">
+      <publishTime>10/20/2017 22:49:32</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Board/BoardTableAssociation.css">
+      <publishTime>09/09/2017 23:50:13</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Board/BoardTree.css">
+      <publishTime>08/26/2017 10:57:32</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/Box.css">
+      <publishTime>10/18/2017 18:17:20</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxChoice.css">
+      <publishTime>10/16/2017 10:05:29</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxInputDate.css">
+      <publishTime>08/25/2017 22:45:44</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxInputDigit.css">
+      <publishTime>10/18/2017 14:18:11</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxInputFile.css">
+      <publishTime>10/19/2017 00:00:29</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxInputText.css">
+      <publishTime>10/19/2017 00:24:14</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxMessage.css">
+      <publishTime>08/24/2017 03:13:55</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxRecord.css">
+      <publishTime>09/24/2017 21:41:34</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxReleaseNotes.css">
+      <publishTime>10/18/2017 22:36:34</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Box/BoxSelect.css">
+      <publishTime>10/12/2017 20:37:56</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Button/Button.css">
+      <publishTime>10/18/2017 20:34:14</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/Field.css">
+      <publishTime>10/17/2017 15:49:14</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldCheckBox.css">
+      <publishTime>10/16/2017 23:27:35</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldImage.css">
+      <publishTime>10/16/2017 23:28:25</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldInput.css">
+      <publishTime>10/16/2017 15:00:42</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldInputDigit.css">
+      <publishTime>10/18/2017 15:35:15</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldInputWithBox.css">
+      <publishTime>10/17/2017 14:38:13</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldSelect.css">
+      <publishTime>10/17/2017 08:33:08</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Field/FieldSelectImage.css">
+      <publishTime>10/21/2017 18:44:28</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/GUI.css">
+      <publishTime>08/28/2017 01:01:27</publishTime>
+    </File>
+    <File Include="Content/Styles/GUI/Webix/Webix.css">
+      <publishTime>08/22/2017 12:40:39</publishTime>
+    </File>
+    <File Include="Content/Styles/Root.css">
+      <publishTime>08/13/2017 23:24:27</publishTime>
+    </File>
+    <File Include="Content/Styles/SignIn.css">
+      <publishTime>08/14/2017 16:31:19</publishTime>
+    </File>
+    <File Include="Content/Styles/Tools/Logger.css">
+      <publishTime>08/23/2017 15:30:42</publishTime>
+    </File>
+    <File Include="Content/Styles/Tools/Support.css">
+      <publishTime>08/24/2017 02:58:04</publishTime>
+    </File>
+    <File Include="Content/Styles/Webix.css">
+      <publishTime>08/14/2017 16:40:25</publishTime>
+    </File>
+    <File Include="Content/webix.css">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Content/webix.min.css">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0001-2017-09-18-CreateDSModel.txt">
+      <publishTime>09/22/2017 14:03:34</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0002-2017-09-18-CreateUserAndCustomer.txt">
+      <publishTime>09/22/2017 14:07:39</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0003-2017-09-18-CreateModuleAdministration.txt">
+      <publishTime>09/22/2017 14:09:54</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0004-2017-09-18-Labels.txt">
+      <publishTime>10/25/2017 07:47:16</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0005-2017-09-18-UpdateModuleAdministration.txt">
+      <publishTime>09/22/2017 14:13:37</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0006-2017-09-18-Labels.txt">
+      <publishTime>10/25/2017 07:45:56</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0007-2017-10-09-UpdateModuleAdministration.txt">
+      <publishTime>10/21/2017 15:43:00</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0008-2017-10-09-CreateModuleReferential.txt">
+      <publishTime>10/21/2017 22:51:55</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0009-2017-10-09-CreateModuleProvider.txt">
+      <publishTime>10/25/2017 07:49:01</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0010-2017-10-09-CreateModuleStock.txt">
+      <publishTime>10/09/2017 18:22:10</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/0011-2017-10-25-Labels.txt">
+      <publishTime>10/25/2017 07:46:23</publishTime>
+    </File>
+    <File Include="Database/Provider/Firebird/Script/DeleteDatabase.txt">
+      <publishTime>10/09/2017 11:05:21</publishTime>
+    </File>
+    <File Include="Database/Provider/Multilingual.xlsm">
+      <publishTime>10/24/2017 23:32:22</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0001-2017-08-14-CreateDSModel.txt">
+      <publishTime>08/14/2017 15:30:40</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0001-2017-09-12-CreateDSModel.txt">
+      <publishTime>09/22/2017 14:26:01</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0002-2017-08-14-CreateUserAndCustomer.txt">
+      <publishTime>08/17/2017 17:14:12</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0002-2017-09-12-CreateUserAndCustomer.txt">
+      <publishTime>09/22/2017 14:23:12</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0003-2017-08-14-CreateModuleAdministration.txt">
+      <publishTime>08/15/2017 10:21:28</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0003-2017-09-12-CreateModuleAdministration.txt">
+      <publishTime>09/22/2017 14:24:32</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0004-2017-08-14-Labels.txt">
+      <publishTime>08/14/2017 21:26:03</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0004-2017-08-29-Labels.txt">
+      <publishTime>08/29/2017 00:24:13</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0004-2017-09-12-Labels.txt">
+      <publishTime>09/12/2017 20:32:45</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0005-2017-08-15-CreateModuleStock.txt">
+      <publishTime>08/15/2017 09:38:52</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0005-2017-09-12-UpdateModuleAdministration.txt">
+      <publishTime>09/22/2017 14:27:34</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0006-2017-09-12-Labels.txt">
+      <publishTime>09/12/2017 20:34:04</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0007-2017-10-09-UpdateModuleAdministration.txt">
+      <publishTime>10/21/2017 15:43:22</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0008-2017-10-09-CreateModuleReferential.txt">
+      <publishTime>10/21/2017 22:51:06</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0009-2017-10-09-CreateModuleProvider.txt">
+      <publishTime>10/25/2017 08:20:49</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0010-2017-10-09-CreateModuleStock.txt">
+      <publishTime>10/09/2017 18:29:28</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/0011-2017-10-25-Labels.txt">
+      <publishTime>10/25/2017 07:47:16</publishTime>
+    </File>
+    <File Include="Database/Provider/Oracle/Script/DeleteDatabase.txt">
+      <publishTime>10/09/2017 11:05:49</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0001-2017-08-14-CreateDSModel.txt">
+      <publishTime>08/14/2017 15:31:43</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0001-2017-09-12-CreateDSModel.txt">
+      <publishTime>09/22/2017 14:31:36</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0002-2017-08-14-CreateUserAndCustomer.txt">
+      <publishTime>08/17/2017 23:56:23</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0002-2017-09-12-CreateUserAndCustomer.txt">
+      <publishTime>09/22/2017 14:32:38</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0003-2017-08-14-CreateModuleAdministration.txt">
+      <publishTime>08/15/2017 10:22:22</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0003-2017-09-12-CreateModuleAdministration.txt">
+      <publishTime>09/22/2017 14:33:15</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0004-2017-08-14-Labels.txt">
+      <publishTime>08/14/2017 21:26:38</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0004-2017-08-29-Labels.txt">
+      <publishTime>08/29/2017 00:24:52</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0004-2017-09-12-Labels.txt">
+      <publishTime>09/12/2017 20:43:18</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0005-2017-08-15-CreateModuleStock.txt">
+      <publishTime>08/15/2017 09:40:44</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0005-2017-09-12-UpdateModuleAdministration.txt">
+      <publishTime>10/09/2017 11:19:32</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0006-2017-09-12-Labels.txt">
+      <publishTime>09/12/2017 20:45:49</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0007-2017-10-09-UpdateModuleAdministration.txt">
+      <publishTime>10/21/2017 15:43:43</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0008-2017-10-09-CreateModuleReferential.txt">
+      <publishTime>10/21/2017 22:51:27</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0009-2017-10-09-CreateModuleProvider.txt">
+      <publishTime>10/25/2017 08:21:42</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0010-2017-10-09-CreateModuleStock.txt">
+      <publishTime>10/09/2017 18:35:31</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/0011-2017-10-25-Labels.txt">
+      <publishTime>10/25/2017 07:47:16</publishTime>
+    </File>
+    <File Include="Database/Provider/SQLServer/Script/DeleteDatabase.txt">
+      <publishTime>10/09/2017 11:13:43</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>08/13/2017 19:13:58</publishTime>
+    </File>
+    <File Include="favicon.png">
+      <publishTime>08/22/2017 14:02:47</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/14/2017 01:34:39</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Properties/webjobs-list.json">
+      <publishTime>08/14/2017 11:05:27</publishTime>
+    </File>
+    <File Include="release-notes.txt">
+      <publishTime>10/22/2017 17:26:52</publishTime>
+    </File>
+    <File Include="Scripts/html2canvas-0.5.0-alpha1.min.js">
+      <publishTime>08/13/2017 23:56:35</publishTime>
+    </File>
+    <File Include="Scripts/html2canvas-0.5.0-alpha1.svg.min.js">
+      <publishTime>08/13/2017 23:56:35</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.js">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.min.js">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.min.map">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.slim.js">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.slim.min.js">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.1.1.slim.min.map">
+      <publishTime>08/13/2017 17:33:31</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.js">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.min.js">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.min.map">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.slim.js">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.slim.min.js">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.2.1.slim.min.map">
+      <publishTime>09/18/2017 20:49:54</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.2.2.js">
+      <publishTime>08/13/2017 17:33:57</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.2.2.min.js">
+      <publishTime>08/13/2017 17:33:57</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>08/13/2017 17:44:00</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>08/13/2017 17:44:00</publishTime>
+    </File>
+    <File Include="Scripts/moment-with-locales.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Scripts/moment-with-locales.min.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Scripts/moment.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Scripts/moment.min.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Scripts/pdfmake-0.1.32.min.js">
+      <publishTime>08/13/2017 23:46:46</publishTime>
+    </File>
+    <File Include="Scripts/webix.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="Scripts/webix.min.js">
+      <publishTime>10/15/2017 00:17:34</publishTime>
+    </File>
+    <File Include="tsconfig.json">
+      <publishTime>08/19/2017 11:32:29</publishTime>
+    </File>
+    <File Include="Views/Shared/AlreadyConnected.cshtml">
+      <publishTime>08/25/2017 10:21:00</publishTime>
+    </File>
+    <File Include="Views/Shared/Default.cshtml">
+      <publishTime>09/24/2017 13:51:43</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>08/25/2017 10:21:00</publishTime>
+    </File>
+    <File Include="Views/Shared/Main.cshtml">
+      <publishTime>10/24/2017 10:03:51</publishTime>
+    </File>
+    <File Include="Views/Shared/Upgrade.cshtml">
+      <publishTime>08/29/2017 01:46:18</publishTime>
+    </File>
+    <File Include="Views/Shared/Upgrading.cshtml">
+      <publishTime>08/29/2017 01:46:18</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>08/13/2017 18:17:24</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/25/2017 08:30:46</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,45 @@
+﻿-- ---------------------------------- SQL Server ------------------------------------
+-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2017/12/10 - Aymeric Lesert - Create Module Sample
+-- ----------------------------------------------------------------------------------
+
+
+-- Create table : Sample
+
+
+create table [${Syncytium.Database.Schema}].[Sample]
+        ([Id]          int            not null identity primary key,
+         [CustomerId]  int            not null,
+         [Name]        nvarchar(32)   not null,
+         [Picture]     varbinary(max) ,
+         [Description] nvarchar(256)  ,
+         [Enable]      bit            default 1 not null,
+
+         CONSTRAINT fk_sample_00 FOREIGN KEY([CustomerId])  REFERENCES [${Syncytium.Database.Schema}].[Customer]([Id]))
+GO
+
+
+create index I_SAMPLE_00 on [${Syncytium.Database.Schema}].[Sample]([CustomerId])
+GO
+
+create index I_SAMPLE_01 on [${Syncytium.Database.Schema}].[Sample]([Name])
+GO
+
+create index U_SAMPLE_01 on [${Syncytium.Database.Schema}].[Sample]([CustomerId], [Name])
+GO
+

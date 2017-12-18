@@ -1,0 +1,121 @@
+﻿-- ------------------------------------- My SQL -------------------------------------
+-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2017/12/05 - Aymeric Lesert - Create Module Admininistration
+-- ----------------------------------------------------------------------------------
+
+
+-- Create table : Language
+
+
+create table `Language`
+		(`Id`         INTEGER      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		 `CustomerId` INTEGER      NOT NULL,
+		 `Key`        VARCHAR(64)  NOT NULL,
+		 `FR`         VARCHAR(1024),
+		 `Comment`    VARCHAR(256),
+		 CONSTRAINT   fk_language_00 FOREIGN KEY(`CustomerId`) REFERENCES `Customer`(`Id`));
+
+
+-- Status: 0: Not change, 1: Add, 2: Delete, 3: Update
+
+create table `_Language`
+                (`Key`     VARCHAR(64)    NOT NULL,
+                 `FR`      VARCHAR(1024),
+                 `Comment` VARCHAR(256),
+                 `Status`  TINYINT        NOT NULL);
+
+delimiter ^
+
+create procedure BeginMultilingualUpdate()
+begin
+  delete from `_Language`;
+
+  insert into `_Language`(`Key`, `FR`, `Comment`, `Status`)
+  select `Key`, `FR`, `Comment`, 2
+    from `Language`
+   where `CustomerId` = 1;
+end^
+
+create procedure InsertMultilingualLabel(LabelKey varchar(64), LabelFR varchar(1024), LabelComment varchar(256))
+begin
+  update `_Language`
+     set `Status` = 0
+   where `Key` = LabelKey and IFNULL(`FR`, '###') = IFNULL(LabelFR, '###') and
+                              IFNULL(`Comment`, '###') = IFNULL(LabelComment, '###');
+   
+  update `_Language`
+     set `Status` = 3, `FR` = LabelFR, `Comment` = LabelComment
+   where `Key` = LabelKey and (IFNULL(`FR`, '###') <> IFNULL(LabelFR, '###') or
+                               IFNULL(`Comment`, '###') <> IFNULL(LabelComment, '###'));
+   
+  insert into `_Language`(`Key`, `FR`, `Comment`, `Status`)
+  select LabelKey, LabelFR, LabelComment, 1
+    from dual
+   where not exists (select *
+                       from `_Language`
+		   		            where `_Language`.`Key` = LabelKey);
+end^
+
+create procedure EndMultilingualUpdate()
+begin
+  -- Add all new labels
+  
+  insert into `Language`(`CustomerId`, `Key`, `FR`, `Comment`)
+  select `Customer`.`Id`, `Key`, `FR`, `_Language`.`Comment`
+    from `Customer`, `_Language`
+   where `_Language`.`Status` = 1;
+   
+   -- Delete labels not added
+
+  delete from `Language`
+   where `Key` in (select `Key` from `_Language` where `Status` = 2);
+   
+  -- Update labels and comments
+   
+  update `Language`
+     set `FR` = (select `FR` from `_Language` where `Language`.`Key` = `_Language`.`Key` and `_Language`.`Status` = 3),
+         `Comment` = (select `Comment` from `_Language` where `Language`.`Key` = `_Language`.`Key` and `_Language`.`Status` = 3)
+   where `Language`.`Key` in (select `Key` from `_Language` where `Status` = 3);
+   
+  delete from `_Language`;
+
+  -- delete all previous updates
+
+  delete from `_Information` where `Table` = 'Language';
+end^
+
+delimiter ;
+
+-- create table Notification
+
+
+create table `Notification`
+		(`Id`         INTEGER     NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		 `UserId`     INTEGER     NOT NULL,
+		 `CustomerId` INTEGER     NOT NULL,
+		 `LastTick`   INTEGER     NOT NULL,
+		 `Date`       TIMESTAMP   NOT NULL,
+		 `Report`     VARCHAR(32),
+		 CONSTRAINT fk_notification_00 FOREIGN KEY(`UserId`) REFERENCES `User`(`Id`),
+		 CONSTRAINT fk_notification_01 FOREIGN KEY(`CustomerId`) REFERENCES `Customer`(`Id`));
+
+create index I_NOTIFICATION_USER on `Notification`(`UserId`);
+create index I_NOTIFICATION_CUSTOMER on `Notification`(`CustomerId`);
+
+CREATE TRIGGER notification_OnInsert BEFORE INSERT ON `Notification`
+    FOR EACH ROW SET NEW.`Date` = IFNULL(NEW.`Date`, NOW());

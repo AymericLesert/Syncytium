@@ -1,0 +1,152 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content                                 */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.user > div > .content {
+    min-width: 640px;
+    height: 250px;
+}
+
+box.box_record.user > div > .content.haserrors {
+    height: calc(250px - 10vh);
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.User .content > panel.main                    */
+/* ------------------------------------------------------------ */
+
+box.box_record.user > div > .content > panel.main {
+    width: calc(100% - 40px);
+    height: 100%;
+}
+
+@media only screen and (min-height: 260px) {
+    box.box_record.user > div > .content > panel.main {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    box.box_record.user .content > panel.main {
+        flex-direction: column;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.User .content > panel.main > #photo           */
+/* ------------------------------------------------------------ */
+
+box.box_record.user .content > panel.main > #photo {
+    width: 25%;
+}
+
+@media only screen and (max-width: 450px) {
+    box.box_record.user .content > panel.main > #photo {
+        width: calc(100vw - 40px);
+    }
+}
+
+box.box_record.user .content > panel.main > #photo > field {
+    flex-direction: column;
+}
+
+box.box_record.user .content > panel.main > #photo > field > .label {
+    display: none;
+    width: auto;
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.User .content > panel.main > #user            */
+/* ------------------------------------------------------------ */
+
+box.box_record.user .content > panel.main > #user {
+    width: 75%;
+}
+
+@media only screen and (max-width: 450px) {
+    box.box_record.user .content > panel.main > #user {
+        width: calc(100vw - 40px);
+    }
+}
+
+box.box_record.user .content > panel.main > #user > field > .label {
+    width: 100px;
+}
+
+@media only screen and (max-width: 480px) {
+    box.box_record.user .content > panel.main > #user > field > .label {
+        width: 60px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    box.box_record.user .content > panel.main > #user > field > .label {
+        width: 80px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    box.box_record.user .content > panel.main > #user > field > .label {
+        width: 60px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.User .content > panel.main > #modules         */
+/* ------------------------------------------------------------ */
+
+box.box_record.user .content > panel.main > #modules {
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.user .content #Customer                       */
+/* ------------------------------------------------------------ */
+
+box.box_record.user .content #Customer > .value {
+    width: 100%;
+}
+
+box.box_record.user .content #Customer > .value > .field {
+    align-self: center;
+}
+
+box.box_record.user .content #Customer > .value > .field > input {
+    text-align: center;
+}
+
+/* ------------------------------------------------------------ */
+/* box.box_record.user > div > .buttons                         */
+/* ------------------------------------------------------------ */
+
+@media only screen and (max-width: 600px) {
+    box.box_record.user > div > .buttons {
+        flex-direction: column;
+        margin: 0 5px 0 5px;
+    }
+
+    box.box_record.user > div > .buttons > button {
+        width: 100%;
+    }
+}
+

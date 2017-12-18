@@ -1,0 +1,155 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > main                                                  */
+/* ------------------------------------------------------------ */
+
+body > main {
+    justify-content: center;
+}
+
+/* ------------------------------------------------------------ */
+/* body > main > .support                                        */
+/* ------------------------------------------------------------ */
+
+body > main > .support {
+}
+
+/* ------------------------------------------------------------ */
+/* body > main > .support > h1                                  */
+/* ------------------------------------------------------------ */
+
+body > main > .support > h1 {
+    color: #ff0000;
+    font-size: 34px;
+    line-height: 1;
+}
+
+@media only screen and (max-width: 380px) {
+    body > main > .support > h1 {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 381px) and (max-width: 540px) {
+    body > main > .support > h1 {
+        font-size: 22px;
+    }
+}
+
+@media only screen and (min-width: 541px) and (max-width: 840px) {
+    body > main > .support > h1 {
+        font-size: 26px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > main > .support > p                                  */
+/* ------------------------------------------------------------ */
+
+body > main > .support > p {
+    font-size: 26px;
+    line-height: 1.2;
+}
+
+@media only screen and (max-width: 350px) {
+    body > main > .support > p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 351px) and (max-width: 420px) {
+    body > main > .support > p {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 421px) and (max-width: 540px) {
+    body > main > .support > p {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 541px) and (max-width: 830px) {
+    body > main > .support > p {
+        font-size: 20px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > main > .support > ul                                  */
+/* ------------------------------------------------------------ */
+
+body > main > .support > ul {
+    font-size: 26px;
+    line-height: 1.2;
+    width: auto;
+    text-align: left;
+}
+
+@media only screen and (max-width: 350px) {
+    body > main > .support > ul {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 351px) and (max-width: 420px) {
+    body > main > .support > ul {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 421px) and (max-width: 540px) {
+    body > main > .support > ul {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 541px) and (max-width: 830px) {
+    body > main > .support > ul {
+        font-size: 20px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > main > .support > .button                             */
+/* ------------------------------------------------------------ */
+
+body > main > .support > .button {
+    height: 48px;
+    width: 325px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.1;
+}
+
+@media only screen and (max-height: 480px) {
+    body > main > .support > .button {
+        height: 10vh;
+        min-height: 30px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    body > main > .support > .button {
+        height: 30px;
+        width: 93vw;
+        font-size: 16px;
+    }
+}

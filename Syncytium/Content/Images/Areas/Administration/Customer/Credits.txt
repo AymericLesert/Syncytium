@@ -1,0 +1,7 @@
+﻿Address.svg : Yannick (http://yanlu.de)
+Administrator.svg : Google (https://www.google.com)
+Comment.svg : Madebyoliver (https://smashicons.com)
+Edit.svg : Freepik (http://www.freepik.com)
+Email.svg : OCHA (http://www.unocha.org)
+Office.svg : Madebyoliver (https://smashicons.com)
+Delete.svg : Freepik (http://www.freepik.com)

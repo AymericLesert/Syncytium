@@ -1,0 +1,85 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.UserViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        <title>Syncytium Gestion</title>
+
+        <link rel="icon" type="image/png" href="~/favicon.png" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/User/SignIn.css" />
+
+        <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+            function load() {
+                $('form').submit(function () {
+                    $('#submit').attr('disabled', 'disabled');
+                });
+            }
+        </script>
+    </head>
+
+    <body onpageshow="if (event.persisted) { window.history.forward(); }" onload="load();" >
+        <page class="@(Model.Mode)">
+            @using (Html.BeginForm("SignIn", "User", new { ReturnUrl = Request.QueryString["ReturnUrl"] }))
+            {
+                <logo></logo>
+                @Html.ValidationSummary()
+
+                <field>
+                    <div class="login"></div>
+                    <div class="editor"><input id="Login" name="Login" type="text" value="@(Model.UserProfile.Login)" placeholder="@(Model.GetLabel("USER_LOGIN"))" /></div>
+                </field>
+                <field>
+                    <div class="password"></div>
+                    <div class="editor"><input id="Password" name="Password" type="password" value="@(Model.UserProfile.Password)" placeholder="@(Model.GetLabel("USER_PASSWORD"))" /></div>
+                </field>
+                <div class="rememberme">
+                    <label class="check">
+                        <input id="RememberMe" name="RememberMe" type="checkbox" @(Model.RememberMe ? "checked" : "") value="@(Model.RememberMe)" onclick="javascript: this.value = (this.value === 'False' ? 'True' : 'False');" />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </label>
+                    <div class="text">@Model.GetLabel("BTN_REMEMBER_ME")</div>
+                </div>
+
+                <input id="submit" name="submit" type="submit" class="button" value="@Model.GetLabel("BTN_CONNECT")"/>
+
+                <footer>
+                    <div class="forget">@Html.ActionLink(Model.Ressources.GetLabel(Model.Ressources.DefaultLanguage, "BTN_FORGET_PASSWORD"), "ForgetPassword")</div>
+                    <div class="powered">@Model.GetLabel("FOOTER_SYNCYTIUM") - @(Model.Version)</div>
+                </footer>
+                @Html.AntiForgeryToken()
+            }
+        </page>
+    </body>
+</html>

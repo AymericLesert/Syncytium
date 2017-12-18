@@ -1,0 +1,61 @@
+﻿-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+-- Drop technical table
+
+drop table "_Parameter";
+drop table "_Connection";
+drop table "_Request";
+drop table "_RequestId";
+drop table "_SequenceId";
+drop table "_Information";
+drop table "_Ping";
+
+-- Drop functional table
+
+-- Delete table : UserModule
+
+drop table "UserModule";
+drop sequence S_USERMODULE;
+
+-- Delete table : Module
+
+drop table "Module";
+drop sequence S_MODULE;
+
+-- Delete table : Notification
+
+drop table "Notification";
+drop sequence S_NOTIFICATION;
+
+-- Delete table : User
+
+drop table "User";
+drop sequence S_USER;
+
+-- Delete table : Language
+
+drop procedure BeginMultilingualUpdate;
+drop procedure InsertMultilingualLabel;
+drop procedure EndMultilingualUpdate;
+drop table "_Language";
+drop table "Language";
+drop sequence S_LANGUAGE;
+
+-- Delete table : Customer
+
+drop table "Customer";
+drop sequence S_CUSTOMER;

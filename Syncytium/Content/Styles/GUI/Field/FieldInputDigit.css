@@ -1,0 +1,280 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field.field_input_digit > .value > .field                    */
+/* ------------------------------------------------------------ */
+
+field.field_input_digit > .value > .field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_digit > .value > .field > #field           */
+/* ------------------------------------------------------------ */
+
+field.field_input_digit > .value > .field > #field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_digit > .value > .field > #field > .unit   */
+/* ------------------------------------------------------------ */
+
+field.field_input_digit > .value > .field > #field > .unit {
+    width: 40px;
+    text-align: center;
+    height: 16px;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_digit > .value > .field > #field > .field           */
+/* ------------------------------------------------------------ */
+
+field.field_input_digit > .value > .field > #field > .field {
+    display: block;
+    width: calc(100% - 10px);
+    border: solid 1px #d8d8d8;
+    font-family: Arial;
+    font-size: 14px;
+    text-align: right;
+    padding: 0 4px 0 4px;
+    margin: 0;
+    line-height: 1;
+    height: 16px;
+    background: #ffffff;
+    color: #000000;
+}
+
+field.field_input_digit:focus > .value > .field > #field > .field {
+    outline: none;
+    border-color: #33cc33;
+    background: #f4f4f4;
+}
+
+field.field_input_digit.readonly > .value > .field > #field > .field {
+    background: #e8e6e6;
+    color: #000000;
+}
+
+field.field_input_digit.readonly:focus > .value > .field > #field > .field {
+    outline: none;
+    border-color: #d8d8d8;
+    background: #e8e6e6;
+    color: #000000;
+}
+
+field.field_input_digit:hover > .value > .field  > #field> .field {
+    border-color: #888888;
+}
+
+@media only screen and (max-width: 480px) {
+    field.field_input_digit > .value > .field > #field > .field {
+        font-size: 10px;
+        padding: 2px;
+        height: 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field.field_input_digit > .value > .field > #field > .field {
+        font-size: 12px;
+        padding: 2px;
+        height: 14px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field.field_input_digit > .value > .field > #field > .field {
+        font-size: 10px;
+        padding: 2px;
+        height: 12px;
+    }
+}
+
+field.field_input_digit.error > .value > .field > #field > .field {
+    border: solid 1px #ff0000;
+}
+
+/* -------------------------------------------------------------------- */
+/* field.field_input_digit.decimal > .value > .field > .field           */
+/* -------------------------------------------------------------------- */
+
+field.field_input_digit.decimal > .value > .field > #field > .field {
+    text-align: right;
+}
+
+/* ------------------------------------------------------------------- */
+/* field.field_input_digit.mask > .value > .field > .field             */
+/* ------------------------------------------------------------------- */
+
+field.field_input_digit.mask > .value > .field > #field > .field {
+    text-align: left;
+}
+
+/* --------------------------------------------------------------------- */
+/* field.field_input_digit.sequence > .value > .field > .field           */
+/* --------------------------------------------------------------------- */
+
+field.field_input_digit.sequence > .value > .field > #field > .field {
+    text-align: left;
+}
+
+/* --------------------------------------------------------------------- */
+/* field.field_input_digit.datetime > .value > .field > .field           */
+/* --------------------------------------------------------------------- */
+
+field.field_input_digit.datetime > .value > .field > #field > .field {
+    text-align: left;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_digit > .value > .field > #keyboard        */
+/* ------------------------------------------------------------ */
+
+field.field_input_digit > .value > .field > #keyboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 5px 5px 0 5px;
+}
+
+field.field_input_digit > .value > .field > #keyboard.hide {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* field.field_input_digit > .value > .field > #keyboard > .key           */
+/* ---------------------------------------------------------------------- */
+
+field.field_input_digit > .value > .field > #keyboard > .key {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 28px;
+    text-align: center;
+    background-color: #D8D8D8;
+    border: solid 1px #000000;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: calc(33% - 22px);
+    height: 30px;
+    cursor: pointer;
+}
+
+field.field_input_digit > .value > .field > #keyboard > .key.undo {
+    background: url(../../../Images/GUI/Box/BoxInputDigit/Undo.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+field.field_input_digit > .value > .field > #keyboard > .key.empty {
+    background-color: #ffffff;
+    background-image: none;
+    cursor: initial;
+}
+
+field.field_input_digit > .value > .field > #keyboard > .key.next.minus {
+    margin: 5px 0 5px 5px;
+    width: calc(15% - 17px);
+}
+
+field.field_input_digit > .value > .field > #keyboard > .key.value.minus {
+    width: calc(15% - 17px);
+}
+
+@media only screen and (max-width: 480px) {
+    field.field_input_digit > .value > .field > #keyboard > .key {
+        font-size: 18px;
+        height: 20px;
+        margin: 2px;
+        padding: 2px;
+        width: calc(33% - 10px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.next.minus {
+        margin: 2px 0 2px 2px;
+        width: calc(15% - 11px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.value.minus {
+        width: calc(15% - 11px);
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field.field_input_digit > .value > .field > #keyboard > .key {
+        font-size: 23px;
+        height: 25px;
+        margin: 4px;
+        padding: 4px;
+        width: calc(33% - 18px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.next.minus {
+        margin: 4px 0 4px 4px;
+        width: calc(15% - 14px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.value.minus {
+        width: calc(15% - 14px);
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field.field_input_digit > .value > .field > #keyboard > .key {
+        font-size: 18px;
+        height: 20px;
+        margin: 2px;
+        padding: 2px;
+        width: calc(33% - 10px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.next.minus {
+        margin: 2px 0 2px 2px;
+        width: calc(15% - 11px);
+    }
+
+    field.field_input_digit > .value > .field > #keyboard > .key.value.minus {
+        width: calc(15% - 11px);
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* field.field_input_digit > .value > .field > #calendar           */
+/* --------------------------------------------------------------- */
+
+field.field_input_digit > .value > .field > #calendar {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+field.field_input_digit > .value > .field > #calendar.hide {
+    display: none;
+}

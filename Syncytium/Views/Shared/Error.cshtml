@@ -1,0 +1,45 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.UserViewModel
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+    ViewBag.Title = Model.GetLabel("ERR_EXCEPTION_UNEXPECTED");
+}
+
+@section CSSDeclaration
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Support.css" />
+}
+
+@section JSDeclaration
+{
+    <script type="text/javascript">
+        function load() { }
+    </script>
+}
+
+<div class="support">
+    @if (Model.Ressources.DefaultLanguage.Equals("FR"))
+    {
+        <h1>Erreur inattendue</h1>
+        <p>Une erreur inattendue s'est produite durant l'exécution de l'application ou en exécutant une de vos requêtes ...</p>
+        <p>Veuillez contacter l'équipe support technique pour résoudre ce problème!</p>
+    }
+</div>

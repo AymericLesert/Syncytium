@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/Syncytium.Module.Sample/obj/Debug
+/Syncytium.WebJob/obj/Debug
+/Syncytium.Module.Administration/obj/Debug
+/Syncytium.Common/obj/Debug

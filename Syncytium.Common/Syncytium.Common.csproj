@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6AD71CE1-35CE-4D12-9894-DE4E5EF115C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Syncytium.Common</RootNamespace>
+    <AssemblyName>Syncytium.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Syncytium.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Syncytium-Dev|AnyCPU'">
+    <OutputPath>bin\Syncytium-Dev\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Syncytium-UAT|AnyCPU'">
+    <OutputPath>bin\Syncytium-UAT\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Syncytium-Prod|AnyCPU'">
+    <OutputPath>bin\Syncytium-Prod\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Firebird, Version=5.12.0.0, Culture=neutral, PublicKeyToken=42d22d092898e5f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Firebird.5.12.0\lib\net452\EntityFramework.Firebird.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=5.12.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.5.12.0\lib\net452\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.10\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.10\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.2.1100\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg, Version=2.2.1.39233, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Svg.2.3.0\lib\net35\Svg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\DatabaseCacheManager.cs" />
+    <Compile Include="Database\DatabaseContext.cs" />
+    <Compile Include="Database\DatabaseLock.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="Database\DSAnnotation\DSAllowAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSAnnotationAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSConstraint\DSConstraintAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSConstraint\DSForeignKeyAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSConstraint\DSUniqueAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSControlAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSDecimalAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSEmailAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSKeyAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSRequiredAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSControl\DSStringAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSDateTimeAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSFileAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSFormatAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSSequenceAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSMaskAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSFormat\DSPasswordAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSNameAttribute.cs" />
+    <Compile Include="Database\DSAnnotation\DSRestrictedAttribute.cs" />
+    <Compile Include="Database\DSModel\ConnectionRecord.cs" />
+    <Compile Include="Database\DSModel\DSRecord.cs" />
+    <Compile Include="Database\DSModel\DSRecordWithHistory.cs" />
+    <Compile Include="Database\DSModel\DSRecordWithCustomerId.cs" />
+    <Compile Include="Database\DSModel\InformationRecord.cs" />
+    <Compile Include="Database\DSModel\ParameterRecord.cs" />
+    <Compile Include="Database\DSModel\PingRecord.cs" />
+    <Compile Include="Database\DSModel\RequestIdRecord.cs" />
+    <Compile Include="Database\DSModel\RequestRecord.cs" />
+    <Compile Include="Database\DSModel\SequenceIdRecord.cs" />
+    <Compile Include="Database\DSModel\HistoryNature.cs" />
+    <Compile Include="Database\DSModel\UserProfile.cs" />
+    <Compile Include="Database\DSSchema\DSCache.cs" />
+    <Compile Include="Database\DSSchema\DSColumn.cs" />
+    <Compile Include="Database\DSSchema\DSDatabase.cs" />
+    <Compile Include="Database\DSSchema\DSTable.cs" />
+    <Compile Include="Database\DSSchema\IDSRequest.cs" />
+    <Compile Include="Database\Provider\Firebird\Firebird.cs" />
+    <Compile Include="Database\Provider\MySQL\MySQL.cs" />
+    <Compile Include="Database\Provider\Oracle\Oracle.cs" />
+    <Compile Include="Database\Provider\Provider.cs" />
+    <Compile Include="Database\Provider\SQLServer\SQLServer.cs" />
+    <Compile Include="Error\Error.cs" />
+    <Compile Include="Error\Errors.cs" />
+    <Compile Include="Exception\Exception.cs" />
+    <Compile Include="Exception\ExceptionAlreadyExists.cs" />
+    <Compile Include="Exception\ExceptionDefinitionRecord.cs" />
+    <Compile Include="Exception\ExceptionNotAuthorized.cs" />
+    <Compile Include="Exception\ExceptionNotFound.cs" />
+    <Compile Include="Exception\ExceptionNotImplemented.cs" />
+    <Compile Include="Exception\ExceptionParse.cs" />
+    <Compile Include="Managers\ConfigurationManager.cs" />
+    <Compile Include="Managers\ILogger.cs" />
+    <Compile Include="Managers\ILoggerObject.cs" />
+    <Compile Include="Managers\IModule.cs" />
+    <Compile Include="Managers\IUser.cs" />
+    <Compile Include="Managers\IUserManager.cs" />
+    <Compile Include="Managers\LoggerManager.cs" />
+    <Compile Include="Managers\PictureManager.cs" />
+    <Compile Include="Managers\RandomManager.cs" />
+    <Compile Include="Managers\StatusManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\Provider\Firebird\0001-2017-09-18-CreateDSModel.txt" />
+    <Content Include="Database\Provider\Firebird\0002-2017-09-18-CreateUserAndCustomer.txt" />
+    <Content Include="Database\Provider\Firebird\0003-2017-09-18-CreateModuleAdministration.txt" />
+    <Content Include="Database\Provider\Firebird\0004-2017-09-18-Labels.txt" />
+    <Content Include="Database\Provider\Firebird\DeleteDatabase.txt" />
+    <Content Include="Database\Provider\MySQL\0001-2017-12-05-CreateDSModel.txt" />
+    <Content Include="Database\Provider\MySQL\0002-2017-12-05-CreateUserAndCustomer.txt" />
+    <Content Include="Database\Provider\MySQL\0003-2017-12-05-CreateModuleAdministration.txt" />
+    <Content Include="Database\Provider\MySQL\0004-2017-12-05-Labels.txt" />
+    <Content Include="Database\Provider\MySQL\DeleteDatabase.txt" />
+    <Content Include="Database\Provider\Oracle\0001-2017-09-12-CreateDSModel.txt" />
+    <Content Include="Database\Provider\Oracle\0002-2017-09-12-CreateUserAndCustomer.txt" />
+    <Content Include="Database\Provider\Oracle\0003-2017-09-12-CreateModuleAdministration.txt" />
+    <Content Include="Database\Provider\Oracle\0004-2017-09-12-Labels.txt" />
+    <Content Include="Database\Provider\Oracle\DeleteDatabase.txt" />
+    <Content Include="Database\Provider\SQLServer\0001-2017-09-12-CreateDSModel.txt" />
+    <Content Include="Database\Provider\SQLServer\0002-2017-09-12-CreateUserAndCustomer.txt" />
+    <Content Include="Database\Provider\SQLServer\0003-2017-09-12-CreateModuleAdministration.txt" />
+    <Content Include="Database\Provider\SQLServer\0004-2017-09-12-Labels.txt" />
+    <Content Include="Database\Provider\SQLServer\DeleteDatabase.txt" />
+    <Content Include="favicon.ico" />
+    <None Include="LICENSE" />
+    <Content Include="release-notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="Database\Provider\Multilingual.xlsm" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

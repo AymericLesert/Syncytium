@@ -1,0 +1,74 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.CustomerViewModel
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+    ViewBag.Title = Model.GetLabel("CUSTOMER_CREATE");
+}
+
+@section CSSDeclaration
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Customer/Form.css" />
+}
+
+@section JSDeclaration
+{
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        function load() {
+            $('form').submit(function () {
+                $('#submit').attr('disabled', 'disabled');
+                $("body > .progress").show();
+            });
+        }
+    </script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <field>
+        <div class="icon office"></div>
+        <div class="editor"><input id="Name" name="Name" type="text" value="" placeholder="@(Model.GetLabel("CUSTOMER_NAME"))" /></div>
+    </field>
+    <field>
+        <div class="icon administrator"></div>
+        <div class="editor"><input id="Login" name="Login" type="text" value="" placeholder="@(Model.GetLabel("CUSTOMER_LOGIN"))" /></div>
+    </field>
+    <field>
+        <div class="icon email"></div>
+        <div class="editor"><input id="Email" name="Email" type="text" value="" placeholder="@(Model.GetLabel("CUSTOMER_EMAIL"))" /></div>
+    </field>
+    <field>
+        <div class="icon address"></div>
+        <div class="editor"><input id="Address" name="Address" type="text" value="" placeholder="@(Model.GetLabel("CUSTOMER_ADDRESS"))" /></div>
+    </field>
+    <field>
+        <div class="icon comment"></div>
+        <div class="editor"><input id="Comment" name="Comment" type="text" value="" placeholder="@(Model.GetLabel("CUSTOMER_COMMENT"))" /></div>
+    </field>
+
+    <div class="buttons">
+        <input id="submit" name="submit" type="submit" class="button" value="@(Model.GetLabel("BTN_SUBMIT"))" />
+        <input type="button" class="button" value="@Model.GetLabel("BTN_CANCEL")" onclick="location.href='@Url.Action("Index", "Customer")'" />
+    </div>
+
+    @Html.AntiForgeryToken()
+}

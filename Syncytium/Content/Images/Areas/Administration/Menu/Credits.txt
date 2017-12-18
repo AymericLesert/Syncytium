@@ -1,0 +1,5 @@
+﻿Help.svg : Vaadin (http://vaadin.com/font-icons)
+Language.svg : Freepik (http://freepik.com)
+Menu.svg : Freepik (http://freepik.com)
+Module.svg : Freepik (http://freepik.com)
+Users.svg : Freepik (http://freepik.com)

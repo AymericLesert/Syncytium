@@ -1,0 +1,4 @@
+﻿User.svg : Google (https://www.google.com)
+StatusOff.svg : Freepik (http://www.freepik.com)
+StatusOn.svg : Freepik (http://www.freepik.com)
+StatusReady.svg : Freepik (http://www.freepik.com)

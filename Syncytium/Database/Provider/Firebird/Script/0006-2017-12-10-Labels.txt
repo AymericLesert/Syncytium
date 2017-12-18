@@ -1,0 +1,252 @@
+﻿-- ------------------------------------- Firebird -----------------------------------
+-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2017/12/10 - Aymeric Lesert - Update labels
+-- ----------------------------------------------------------------------------------
+
+SET TERM ^;
+
+EXECUTE BLOCK
+AS
+BEGIN
+	EXECUTE PROCEDURE BeginMultilingualUpdate;
+END^
+
+EXECUTE BLOCK
+AS
+BEGIN
+	EXECUTE PROCEDURE InsertMultilingualLabel 'AREA_ADMINISTRATION', 'Administration', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'AREA_SAMPLE', 'Exemple', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_CANCEL', 'Annuler', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_CLEAR', 'Réinitialisation', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_CLOSE', 'Ferme', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_CONNECT', 'Connection', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_FORGET_PASSWORD', 'Mot de passe oublié ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_NEW_PASSWORD', 'Nouveau mot de passe', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_OK', 'OK', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_RELOAD', 'RECHARGER', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_REMEMBER_ME', 'Se souvenir de moi', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_SELECT', 'Sélectionner', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_SEND_EMAIL', 'Envoi un email', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_SIGNOUT', 'DECONNECTION', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_SUBMIT', 'Valider', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'BTN_UPGRADE', 'METTRE A JOUR', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER', 'Site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_ADDRESS', 'Adresse du site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_COMMENT', 'Commentaire', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_CREATE', 'Création d''un site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_DELETE', 'Suppression d''un site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_EMAIL', 'Email de l''administrateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_LOGIN', 'Identifiant de l''administrateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_NAME', 'Nom du site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'CUSTOMER_UPDATE', 'Mise à jour d''un site de production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'DIFFERENCE_UNKNOWN', 'Valeur inconnue', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_ALREADYCONNECTED', 'Déjà connectée', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_AUTHENTICATED_TWICE', 'Vous êtes connectés sur un autre navigateur ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_CHECK', 'La requête comporte quelques erreurs', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_CONNECTION', 'La connection vers le server est corrompue. Pouvez-vous recharger la page ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_DATE', 'Date non valide', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_DOWNLOAD_PDF', 'Impossible de télécharger le fichier pdf en raison d''un problème technique!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_EXCEPTION_UNEXPECTED', 'Une exception inattendue est survenue durant le traitement de la requête', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_BADFORMAT', 'Le champ ''{0}'' n''est pas correctement renseigné', '0: nom du champ';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_DECIMAL', 'Le champ ''{0}'' doit être un nombre ({1}, {2})', '0: nom du champ, 1: nombre de chiffres, 2: précision';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_MISSING', 'Le champ ''{0}'' doit être défini', '0: nom du champ';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_NEGATIVE', 'Le champ ''{0}'' ne peut pas avoir une valeur négative', '0: nom du champ';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_REQUIRED', 'Le champ ''{0}'' est requis', '0: nom du champ';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_TOO_LONG', 'La valeur du champ ''{0}'' ne doit pas dépasser les {1} caractères', '0: nom du champ, 1: longueur maxi';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_TOO_SHORT', 'La valeur du champ ''{0}'' doit dépasser les {1} caractères', '0: nom du champ, 1: longueur mini';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_FIELD_UNIQUE', 'La valeur du champ ''{0}'' existe déjà', '0: nom du champ';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_INITIALIZATION', 'L''initialisation a rencontré un problème ... Si le problème persiste, contactez l''équipe technique!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_LOGIN_INCORRECT', 'Identifiant et mot de passe incorrect', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_NOCONNECTION', 'Non connecté!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_OUT_OF_MEMORY', 'La taille des requêtes en cours excède la capacité maximale de l''application ... Veuillez valider les données en cours ou contacter le support technique!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_RECORD_DELETED', 'Impossible de mettre à jour ou de supprimer un enregistrement déjà supprimé', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_RECORD_DIFFERENT', 'Impossible de mettre à jour ou de supprimer l''enregistrement car il a été mis à jour par un autre utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REFERENCE_CUSTOMER', 'Site de production non défini', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REFERENCE_USER', 'Utilisateur non défini', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_RELEASE_NOTES', 'La release notes ne peut pas être consultée car le serveur n''est pas accessible ou des données n''ont pas encore été validées ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REQUEST_ALREADY_EXECUTED', 'La requête a déjà été exécutée', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REQUEST_SYNCHRONIZED', 'La  requête n''a pas été traitée car l''ancienne valeur ne correspond pas à la valeur courante', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REQUEST_UNKNOWN', 'La requête n''a pas été traitée car elle n''a pas pu être identifiée', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_REQUEST_UPDATE_MISSING', 'La mise à jour n''a pas pu être réalisée en raison de l''absence de données dans l''enregistrement', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_SCHEMA', 'Pas de schema de base de données. Veuillez contacter l''équipe technique support pour résoudre le problème!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_SELECT_VALUE', 'Pouvez-vous sélectionner un élément ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_SYNCHRONIZED', 'Requête inattendue', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UNABLE_PDF', 'Le PDF ne peut pas être généré car les fontes ne sont pas chargées. Veuillez vous connecter avant de relancer la génération du PDF.', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UNABLE_SYNCHRONIZATION', 'Impossible de synchroniser la base de données en raison d''une mise à jour de la base de données. Rechargez la page!', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UNAUTHENTICATED', 'Votre session est terminée ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UNAUTHORIZED', 'Requête non autorisée', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UPLOAD_BROKEN', 'La connection a été rompue ... Essayez toute à l''heure ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UPLOAD_EXTENSION', 'Le ou les fichiers ''{0}'' ont une extension non autorisée ...', '0: liste des fichiers';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UPLOAD_FAILED', 'Le fichier n''a pas été enregistré en raison de l''erreur {0} ...', '0: Status d''erreur HTTP';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_UPLOAD_TOO_BIG', 'Le fichier est trop volumineux', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_USERMODULE_REFERENCE_MODULE', 'La référence du champ n''est pas définie dans la table ''Module''', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERR_USERMODULE_REFERENCE_USER', 'La référence du champ n''est pas définie dans la table ''User''', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ERROR', 'Erreur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'FOOTER_ADMINISTRATION', 'Mode administration', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'FOOTER_SYNCYTIUM', 'Développé par Concilium LESERT', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'FR', 'Français', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYDATE', 'Date', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYNATURE', 'Nature', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYNATURE_CREATE', 'Création', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYNATURE_DELETE', 'Suppression', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYNATURE_UPDATE', 'Mise à jour', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'HISTORY_HISTORYUSERID', 'Par', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'ID', 'Id', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'INFORMATION', 'Information', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'LANGUAGE_COMMENT', 'Commentaire', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'LANGUAGE_KEY', 'Clé', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'LANGUAGE_LABEL_FR', 'Libellé', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'LANGUAGE_UPDATE', 'Mise à jour du label ''{0}''', '0: clé du libellé';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_CREATE', 'Création d''un module', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_CREATED_TOAST', 'Module ''{0}'' créé', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_DELETE', 'Suppression du module ''{0}''', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_DELETED_TOAST', 'Module ''{0}'' supprimé', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_DESCRIPTION', 'Description', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_ENABLE', 'Actif ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_ENABLE_FALSE', 'Indisponible', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_ENABLE_TRUE', 'Disponible', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE', 'Module fonctionnel', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_ADMINISTRATION', 'Administration', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_COMPTABILITY', 'Comptabilité', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_HUMANRESSOURCES', 'Ressources humaines', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_LOGISTIC', 'Logistique', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_NONE', 'Pas de module', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_PRODUCTION', 'Production', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_PROVIDER', 'Fournisseur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_REFERENTIAL', 'Référentiel', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_SALES', 'Vente', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_MODULE_STOCK', 'Stock', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_NAME', 'Nom', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PARAMETERS', 'Paramètres', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE', 'Profile', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE_ADMINISTRATOR', 'Administrateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE_NONE', 'Pas de droits', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE_OTHER', 'Autre', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE_SUPERVISOR', 'Superviseur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_PROFILE_USER', 'Utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_READ', 'Module ''{0}''', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_UPDATE', 'Mise à jour du module ''{0}''', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_UPDATED_TOAST', 'Module ''{0}'' mis à jour', '0: Nom de module fonctionnel';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MODULE_USERS', 'Liste des utilisateurs', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_1', 'Janvier {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_10', 'Octobre {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_11', 'Novembre {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_12', 'Décembre {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_2', 'Février {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_3', 'Mars {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_4', 'Avril {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_5', 'Mai {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_6', 'Juin {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_7', 'Juillet {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_8', 'Août {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MONTH_9', 'Septembre {0}', '0 : année';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_CHANGE_PROFILE', 'Votre profil a été mis à jour par l''administrateur ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_CHANGE_PROFILE_ADMINISTRATOR', 'Vous devenez un administrateur ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_COMMITTING', 'Mise à jour de la base de données ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_CONFIRMATION', 'Pouvez-vous confirmer ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_CONFIRMATION_CANCEL', 'Des modifications ont été apportées et vont être perdues. Pouvez-vous confirmer ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_DISCONNECTED', 'Vous avez été déconnecté par l''administrateur ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_INITIALIZING', 'Initialisation en cours ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_LOADING', 'Chargement en cours ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_NO_SCRIPT', 'Veuillez activer le javascript pour faire fonctionner l''application !', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_PDF', 'Génération du fichier PDF en cours ..', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_REFRESHING', 'Rafraîchissement en cours ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'MSG_SYNCHRONIZING', 'Synchronization en cours ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'PDF_PAGE', '{0} sur {1}', '0: page courante, 1: nb de pages';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SELECT_DATE', 'Date', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SELECT_NAME', 'Nom', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SELECT_USER', 'Utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SELECT_VALUE_ALL', 'Tout', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SELECT_VALUE_NULL', 'Non défini', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SERVICE_TOAST', 'Exécution du service ''{0}''', '0 : Nom du service';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_CREATE', 'Création', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_DELETE', 'Suppression', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_READY', 'Prêt à synchroniser ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_STARTED', 'Connecté', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_STARTING', 'Connection en cours', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_STOPPED', 'Déconnecté', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_STOPPING', 'Déconnection en cours', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'STATUS_UPDATE', 'Mise à jour', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_EXIT', 'Sortie', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_LANGUAGE', 'Liste des libellés', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_MODULE', 'Modules fonctionnels', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_NOT_DEFINED', '<<Non défini>>', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_RELEASENOTES', 'Release notes', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SELECT_DATE', 'Sélectionne une date', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SELECT_FILE', 'Sélectionne un fichier', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SELECT_PRODUCT', 'Sélectionne un produit', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SELECT_USER', 'Sélectionne un utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_TRANSLATION', 'Traduction', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_USER', 'Utilisateurs', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_USERMODULE', 'Utilisateur - Module fonctionnels', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'UPGRADE', 'Application mise à jour', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'UPGRADING', 'Mise à jour de l''application ...', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_CREATE', 'Création d''un utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_CREATIONDATE', 'Date de début', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_DELETE', 'Suppression de l''utilisateur ''{0}''', '0: Utilisateur';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_DISABLE', 'Inactif', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_EMAIL', 'Adresse mail', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_ENABLE', 'Actif', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_ENDDATE', 'Date de fin', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_LANGUAGE', 'Langage', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_LOGIN', 'Identifiant', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_MODULES', 'Modules accessibles', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_NAME', 'Nom', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_NEW_PASSWORD', 'Nouveau mot de passe', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_PASSWORD', 'Mot de passe', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_PICTURE', 'Photo', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_PROFILE', 'Profil', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_READ', 'Utilisateur ''{0}''', '0: Utilisateur';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_REGISTRATION', 'Matricule', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_RETYPE_PASSWORD', 'Resaisir le mot de passe', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USER_UPDATE', 'Mise à jour de l''utilisateur ''{0}''', '0: Utilisateur';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_DEFAULT', 'Défaut ?', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_DEFAULT_FALSE', 'Sur demande', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_DEFAULT_TRUE', 'Par défaut', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_MODULEID', 'Module fonctionnel', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_PROFILE', 'Profile', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'USERMODULE_USERID', 'Utilisateur', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SAMPLE', 'Exemples', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'TITLE_SELECT_SAMPLE', 'Sélection d''un Exemple', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_CREATE', 'Création d''un exemple', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_DELETE', 'Suppression du exemple ''{0}''', '0: Nom de exemple';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_UPDATE', 'Mise à jour du exemple ''{0}''', '0: Nom de exemple';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_READ', 'exemple ''{0}''', '0: Nom de exemple';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_CREATED_TOAST', 'exemple ''{0}'' créé', '0: Nom de exemple';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_DELETED_TOAST', 'exemple ''{0}'' supprimé', '0: Nom de exemple';
+END^
+
+EXECUTE BLOCK
+AS
+BEGIN
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_UPDATED_TOAST', 'exemple ''{0}'' mis à jour', '0: Nom de exemple';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_NAME', 'Nom', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_PICTURE', 'Photo', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_DESCRIPTION', 'Description', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_ENABLE', 'Actif', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_ENABLE_TRUE', 'Vrai', '';
+	EXECUTE PROCEDURE InsertMultilingualLabel 'SAMPLE_ENABLE_FALSE', 'Faux', '';
+END^
+
+EXECUTE BLOCK
+AS
+BEGIN
+	EXECUTE PROCEDURE EndMultilingualUpdate;
+END^
+
+SET TERM ;^

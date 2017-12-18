@@ -1,0 +1,90 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field.field_select_image > .value > .field                   */
+/* ------------------------------------------------------------ */
+
+field.field_select_image > .value > .field {
+    border: none;
+}
+
+field.field_select_image:focus > .value > .field {
+    box-shadow: 2px 2px 5px #33cc33;
+}
+
+field.field_select_image.readonly:focus > .value > .field {
+    box-shadow: none;
+}
+
+field.field_select_image > .value > .field > img {
+    width: 100px;
+    height: 100px;
+}
+
+field.field_select_image > .value > .field > span {
+    background-color: #ffffff;
+    border: solid 1px #808080;
+    border-radius: 50%;
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: -20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+field.field_select_image > .value > .field.deleted {
+    border: solid 1px #ff0000;
+}
+
+@media only screen and (max-width: 480px) {
+    field.field_select_image > .value > .field > img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field.field_select_image > .value > .field > img {
+        width: 75px;
+        height: 75px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field.field_select_image > .value > .field > img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+field.field_select_image.error > .value > .field > img {
+    border: solid 1px #ff0000;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_select_image > .value > .message                 */
+/* ------------------------------------------------------------ */
+
+field.field_select_image > .value > .message {
+    text-align: center;
+}
+

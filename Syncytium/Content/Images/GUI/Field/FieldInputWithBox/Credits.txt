@@ -1,0 +1,3 @@
+﻿User.svg : Google (https://www.google.com)
+Calendar.svg : Freepik (http://www.freepik.com)
+Keyboard.svg : Freepik (http://www.freepik.com)

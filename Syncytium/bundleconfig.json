@@ -1,0 +1,222 @@
+[
+  {
+    "outputFileName": "Content/Scripts/syncytium-common.min.js",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Scripts/Tools/Namespace.js",
+      "Content/Scripts/Tools/Array.js",
+      "Content/Scripts/Tools/Dates.js",
+      "Content/Scripts/Tools/Errors.js",
+      "Content/Scripts/Tools/Helper.js",
+      "Content/Scripts/Tools/Logger.js",
+      "Content/Scripts/Tools/LoggerBaseObject.js",
+      "Content/Scripts/Tools/CSV.js",
+      "Content/Scripts/Tools/PDF.js",
+      "Content/Scripts/Tools/Picture.js",
+      "Content/Scripts/Tools/SortArray.js",
+      "Content/Scripts/Tools/Similarity.js",
+      "Content/Scripts/Tools/String.js",
+      "Content/Scripts/Tools/Digits.js",
+      "Content/Scripts/Areas/Administration/Language/Enum.js",
+      "Content/Scripts/Areas/Administration/Language/Manager.js",
+      "Content/Scripts/Filter/Filter.js",
+      "Content/Scripts/Filter/FilterItems.js",
+      "Content/Scripts/List/List.js",
+      "Content/Scripts/List/ListArray.js",
+      "Content/Scripts/List/ListCalendar.js",
+      "Content/Scripts/List/ListEnumerable.js",
+      "Content/Scripts/List/ListHistory.js",
+      "Content/Scripts/List/ListLanguage.js",
+      "Content/Scripts/List/ListRecord.js",
+      "Content/Scripts/List/ListArrayRecord.js",
+      "Content/Scripts/List/ListArrayRecordAssociation.js",
+      "Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSEmailAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSRequiredAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSStringAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSControl/DSKeyAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js",
+      "Content/Scripts/Database/DatabaseHub.js",
+      "Content/Scripts/Database/DSSchema/DSRecord.js",
+      "Content/Scripts/Database/DSSchema/DSColumn.js",
+      "Content/Scripts/Database/DSSchema/DSTable.js",
+      "Content/Scripts/Database/DSSchema/DSDatabase.js",
+      "Content/Scripts/GUI/GUI.js",
+      "Content/Scripts/GUI/Board/Board.js",
+      "Content/Scripts/GUI/Board/BoardChart.js",
+      "Content/Scripts/GUI/Board/BoardChartMultiData.js",
+      "Content/Scripts/GUI/Board/BoardChartBar.js",
+      "Content/Scripts/GUI/Board/BoardChartLine.js",
+      "Content/Scripts/GUI/Board/BoardChartPie.js",
+      "Content/Scripts/GUI/Board/BoardTable.js",
+      "Content/Scripts/GUI/Board/BoardTableAssociation.js",
+      "Content/Scripts/GUI/Board/BoardHistory.js",
+      "Content/Scripts/GUI/Board/BoardTree.js",
+      "Content/Scripts/GUI/Box/Box.js",
+      "Content/Scripts/GUI/Box/BoxChoice.js",
+      "Content/Scripts/GUI/Box/BoxInputDigit.js",
+      "Content/Scripts/GUI/Box/BoxInputFile.js",
+      "Content/Scripts/GUI/Box/BoxInputText.js",
+      "Content/Scripts/GUI/Box/BoxMessage.js",
+      "Content/Scripts/GUI/Box/BoxProgress.js",
+      "Content/Scripts/GUI/Box/BoxRecord.js",
+      "Content/Scripts/GUI/Box/BoxReleaseNotes.js",
+      "Content/Scripts/GUI/Box/BoxSelect.js",
+      "Content/Scripts/GUI/Button/Button.js",
+      "Content/Scripts/GUI/Field/Field.js",
+      "Content/Scripts/GUI/Field/FieldCheckBox.js",
+      "Content/Scripts/GUI/Field/FieldImage.js",
+      "Content/Scripts/GUI/Field/FieldInput.js",
+      "Content/Scripts/GUI/Field/FieldInputDigit.js",
+      "Content/Scripts/GUI/Field/FieldInputWithBox.js",
+      "Content/Scripts/GUI/Field/FieldSelect.js",
+      "Content/Scripts/GUI/Field/FieldSelectImage.js",
+      "Content/Scripts/GUI/Webix/Webix.js",
+      "Content/Scripts/GUI/Webix/WebixBar.js",
+      "Content/Scripts/GUI/Webix/WebixTooltip.js",
+      "Content/Scripts/Areas/Area.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "Content/Scripts/syncytium-administration.min.js",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Scripts/Areas/Administration/Language/List.js",
+      "Content/Scripts/Areas/Administration/Language/Board.js",
+
+      "Content/Scripts/Areas/Administration/User/Enum.js",
+      "Content/Scripts/Areas/Administration/User/List.js",
+      "Content/Scripts/Areas/Administration/User/Board.js",
+      "Content/Scripts/Areas/Administration/User/Box.js",
+
+      "Content/Scripts/Areas/Administration/Module/Enum.js",
+      "Content/Scripts/Areas/Administration/Module/List.js",
+      "Content/Scripts/Areas/Administration/Module/ListArray.js",
+      "Content/Scripts/Areas/Administration/Module/Board.js",
+      "Content/Scripts/Areas/Administration/Module/Box.js",
+
+      "Content/Scripts/Areas/Administration/UserModule/Enum.js",
+      "Content/Scripts/Areas/Administration/UserModule/List.js",
+      "Content/Scripts/Areas/Administration/UserModule/ListArray.js",
+      "Content/Scripts/Areas/Administration/UserModule/Board.js",
+      "Content/Scripts/Areas/Administration/UserModule/Box.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "Content/Scripts/syncytium-sample.min.js",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Scripts/Areas/Sample/Sample/Enum.js",
+      "Content/Scripts/Areas/Sample/Sample/List.js",
+      "Content/Scripts/Areas/Sample/Sample/ListArray.js",
+      "Content/Scripts/Areas/Sample/Sample/Board.js",
+      "Content/Scripts/Areas/Sample/Sample/Box.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "Content/Styles/syncytium-common.min.css",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Styles/Tools/Logger.css",
+
+      "Content/Styles/GUI/GUI.css",
+
+      "Content/Styles/GUI/Button/Button.css",
+
+      "Content/Styles/GUI/Field/Field.css",
+      "Content/Styles/GUI/Field/FieldCheckBox.css",
+      "Content/Styles/GUI/Field/FieldImage.css",
+      "Content/Styles/GUI/Field/FieldInput.css",
+      "Content/Styles/GUI/Field/FieldInputDigit.css",
+      "Content/Styles/GUI/Field/FieldInputWithBox.css",
+      "Content/Styles/GUI/Field/FieldSelect.css",
+      "Content/Styles/GUI/Field/FieldSelectImage.css",
+
+      "Content/Styles/GUI/Board/Board.css",
+      "Content/Styles/GUI/Board/BoardTable.css",
+      "Content/Styles/GUI/Board/BoardTableAssociation.css",
+      "Content/Styles/GUI/Board/BoardTree.css",
+
+      "Content/Styles/GUI/Box/Box.css",
+      "Content/Styles/GUI/Box/BoxChoice.css",
+      "Content/Styles/GUI/Box/BoxInputDigit.css",
+      "Content/Styles/GUI/Box/BoxInputFile.css",
+      "Content/Styles/GUI/Box/BoxInputText.css",
+      "Content/Styles/GUI/Box/BoxMessage.css",
+      "Content/Styles/GUI/Box/BoxSelect.css",
+      "Content/Styles/GUI/Box/BoxRecord.css",
+      "Content/Styles/GUI/Box/BoxReleaseNotes.css",
+
+      "Content/Styles/GUI/Webix/Webix.css",
+
+      "Content/Styles/Areas/Area.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "Content/Styles/syncytium-administration.min.css",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Styles/Areas/Administration/User/Box.css",
+
+      "Content/Styles/Areas/Administration/Module/Box.css",
+      "Content/Styles/Areas/Administration/Module/Board.css",
+
+      "Content/Styles/Areas/Administration/UserModule/Box.css",
+      "Content/Styles/Areas/Administration/UserModule/Board.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "Content/Styles/syncytium-sample.min.css",
+    "includeInProject": false,
+    "inputFiles": [
+      "Content/Styles/Areas/Sample/Sample/Box.css",
+      "Content/Styles/Areas/Sample/Sample/Board.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  }
+]

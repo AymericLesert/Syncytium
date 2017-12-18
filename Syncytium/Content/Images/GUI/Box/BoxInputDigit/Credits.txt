@@ -1,0 +1,4 @@
+﻿Calendar.svg : Freepik (http://www.freepik.com)
+Hour.svg : Freepik (http://www.freepik.com)
+RAZ.svg : Google (https://www.google.com)
+Undo.svg : Google (https://www.google.com)

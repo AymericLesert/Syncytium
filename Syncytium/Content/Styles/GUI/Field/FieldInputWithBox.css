@@ -1,0 +1,206 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field.field_input_with_box > .value > .field                 */
+/* ------------------------------------------------------------ */
+
+field.field_input_with_box > .value > .field {
+    border: solid 1px #d8d8d8;
+    width: calc(100% - 2px);
+}
+
+field.field_input_with_box > .value > .field:hover {
+    border: solid 1px #888888;
+}
+
+field.field_input_with_box > .value > .field.deleted {
+    border-color: #ff0000;
+}
+
+field.field_input_with_box:focus > .value > .field {
+    outline: none;
+    border-color: #33cc33;
+    background: #f4f4f4;
+}
+
+field.field_input_with_box.error > .value > .field {
+    border: solid 1px #ff0000;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_with_box > .value > .field > .value        */
+/* ------------------------------------------------------------ */
+
+field.field_input_with_box > .value > .field > .value {
+    font-family: Arial;
+    font-size: 14px;
+    border: none;
+    width: 100%;
+    padding: 0 4px 0 4px;
+    margin: 0;
+    line-height: 1;
+    height: 18px;
+    text-align: center;
+    overflow: hidden;
+}
+
+field.field_input_with_box.readonly > .value > .field > .value {
+    background: #e8e6e6;
+}
+
+@media only screen and (max-width: 480px) {
+    field.field_input_with_box > .value > .field > .value {
+        font-size: 10px;
+        height: 14px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field.field_input_with_box > .value > .field > .value {
+        font-size: 12px;
+        height: 16px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field.field_input_with_box > .value > .field > .value {
+        font-size: 10px;
+        height: 14px;
+    }
+}
+
+field.field_input_with_box:focus > .value > .field > .value {
+    background: #f4f4f4;
+}
+
+field.field_input_with_box.readonly:focus > .value > .field,
+field.field_input_with_box.readonly:focus > .value > .field > .value {
+    background: #e8e6e6;
+    border-color: #d8d8d8;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_input_with_box > .value > .field > .icon         */
+/* ------------------------------------------------------------ */
+
+field.field_input_with_box > .value > .field > .icon {
+    line-height: 1;
+    width: 40px;
+    cursor: pointer;
+}
+
+field.field_input_with_box.datetime > .value > .field > .icon {
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Calendar.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+}
+
+field.field_input_with_box.user > .value > .field > .icon {
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/User.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+}
+
+field.field_input_with_box.digit > .value > .field > .icon,
+field.field_input_with_box.decimal > .value > .field > .icon,
+field.field_input_with_box.mask > .value > .field > .icon,
+field.field_input_with_box.sequence > .value > .field > .icon {
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Keyboard.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+}
+
+@media only screen and (max-width: 480px) {
+    field.field_input_with_box.digit > .value > .field > .icon,
+    field.field_input_with_box.decimal > .value > .field > .icon,
+    field.field_input_with_box.mask > .value > .field > .icon,
+    field.field_input_with_box.sequence > .value > .field > .icon,
+    field.field_input_with_box.datetime > .value > .field > .icon,
+    field.field_input_with_box.user > .value > .field > .icon {
+        width: 30px;
+        background-size: 12px 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 600px) {
+    field.field_input_with_box.digit > .value > .field > .icon,
+    field.field_input_with_box.decimal > .value > .field > .icon,
+    field.field_input_with_box.mask > .value > .field > .icon,
+    field.field_input_with_box.sequence > .value > .field > .icon,
+    field.field_input_with_box.datetime > .value > .field > .icon,
+    field.field_input_with_box.user > .value > .field > .icon {
+        width: 30px;
+        background-size: 14px 14px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    field.field_input_with_box.digit > .value > .field > .icon,
+    field.field_input_with_box.decimal > .value > .field > .icon,
+    field.field_input_with_box.mask > .value > .field > .icon,
+    field.field_input_with_box.sequence > .value > .field > .icon,
+    field.field_input_with_box.datetime > .value > .field > .icon,
+    field.field_input_with_box.user > .value > .field > .icon {
+        width: 30px;
+        background-size: 12px 12px;
+    }
+}
+
+field.field_input_with_box > .value > .field > .icon:hover {
+    background-color: #d8d8d8;
+}
+
+field.field_input_with_box:focus > .value > .field > .icon {
+    background-color: #f4f4f4;
+}
+
+/* -------------------------------------------------------------------- */
+/* field.field_input_digit.decimal > .value > .field > .value           */
+/* -------------------------------------------------------------------- */
+
+field.field_input_with_box.decimal > .value > .field > .value {
+    text-align: right;
+}
+
+/* ------------------------------------------------------------------- */
+/* field.field_input_digit.mask > .value > .field > .value             */
+/* ------------------------------------------------------------------- */
+
+field.field_input_with_box.mask > .value > .field > .value {
+    text-align: left;
+}
+
+/* --------------------------------------------------------------------- */
+/* field.field_input_digit.sequence > .value > .field > .value           */
+/* --------------------------------------------------------------------- */
+
+field.field_input_with_box.sequence > .value > .field > .value {
+    text-align: left;
+}
+
+/* --------------------------------------------------------------------- */
+/* field.field_input_digit.datetime > .value > .field > .value           */
+/* --------------------------------------------------------------------- */
+
+field.field_input_with_box.datetime > .value > .field > .value {
+    text-align: left;
+}

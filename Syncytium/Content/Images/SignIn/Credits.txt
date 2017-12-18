@@ -1,0 +1,2 @@
+﻿Login.svg : Google (https://www.google.com)
+Password.svg : Freepik (http://www.freepik.com)

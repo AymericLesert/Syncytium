@@ -1,0 +1,343 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box                                          */
+/* ------------------------------------------------------------ */
+
+body > dialog > box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    line-height: 16px;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255, 0.6);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div                                    */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div {
+    max-width: 90vw;
+    max-height: calc(100vh - 60px - 30px - 20px);
+    margin: auto;
+    align-self: center;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 6px #555;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media only screen and (max-height: 250px) {
+    body > dialog > box > div {
+        max-height: calc(100vh - 40px);
+    }
+}
+
+@media only screen and (min-height: 251px) and (max-height: 320px) {
+    body > dialog > box > div {
+        max-height: calc(100vh - 50px);
+    }
+}
+
+@media only screen and (min-height: 321px) and (max-height: 400px) {
+    body > dialog > box > div {
+        max-height: calc(100vh - 70px);
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .title                           */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .title {
+    border-bottom: solid 1px #ff0000;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    height: auto;
+    width: 100%;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box > div > .title {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 620px) {
+    body > dialog > box > div > .title {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 621px) and (max-width: 700px) {
+    body > dialog > box > div > .title {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    body > dialog > box > div > .title {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    body > dialog > box > div > .title {
+        margin-top: 3px;
+        padding-bottom: 3px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .message                         */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .message {
+    margin: 10px 10px 0 10px;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box > div > .message {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 620px) {
+    body > dialog > box > div > .message {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 621px) and (max-width: 700px) {
+    body > dialog > box > div > .message {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    body > dialog > box > div > .message {
+        font-size: 10px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .error                           */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .error {
+    color: #ff0000;
+    text-align: left;
+    margin: 0;
+    font-size: 12px;
+    max-height: 10vh;
+    overflow: auto;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .content                         */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .content {
+    width: 100%;
+    max-width: 90vw;
+    max-height: calc(100vh - 190px);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+body > dialog > box > div > .content.haserrors {
+    max-height: calc(100vh - 190px - 10vh);
+}
+
+body > dialog > box > div > .content.panels {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+body > dialog > box > div > .content.panels > .main {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: flex-start;
+    max-height: calc(100vh - 190px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media only screen and (max-height: 250px) {
+    body > dialog > box > div > .content.panels {
+        max-height: calc(100vh - 100px);
+    }
+
+    body > dialog > box > div > .content.panels.haserrors {
+        max-height: calc(100vh - 100px - 10vh);
+    }
+}
+
+@media only screen and (min-height: 251px) and (max-height: 320px) {
+    body > dialog > box > div > .content.panels {
+        max-height: calc(100vh - 110px);
+    }
+
+    body > dialog > box > div > .content.panels.haserrors {
+        max-height: calc(100vh - 110px - 10vh);
+    }
+}
+
+@media only screen and (min-height: 321px) and (max-height: 400px) {
+    body > dialog > box > div > .content.panels {
+        max-height: calc(100vh - 130px);
+    }
+
+    body > dialog > box > div > .content.panels.haserrors {
+        max-height: calc(100vh - 130px - 10vh);
+    }
+}
+
+body > dialog > box > div > .content.panels > .main > panel {
+    outline: none;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .content > .navigation           */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .content > .navigation {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box > div > .content > .navigation {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .content > .navigation.left      */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .content > .navigation.left {
+    background: url(../../../Images/GUI/Box/Left.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box > div > .content > .navigation.left {
+        background-size: 10px 10px;
+    }
+}
+
+/* ------------------------------------------------------------- */
+/* body > dialog > box > div > .content > .navigation.right      */
+/* ------------------------------------------------------------- */
+
+body > dialog > box > div > .content > .navigation.right {
+    background: url(../../../Images/GUI/Box/Right.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box > div > .content > .navigation.right {
+        background-size: 10px 10px;
+    }
+}
+
+/* ------------------------------------------------------------- */
+/* body > dialog > box > div > .content > .navigation.first      */
+/* body > dialog > box > div > .content > .navigation.last       */
+/* ------------------------------------------------------------- */
+
+body > dialog > box > div > .content > .navigation.left.first,
+body > dialog > box > div > .content > .navigation.right.last {
+    background: none;
+    cursor: initial;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .buttons                         */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    text-align: center;
+    height: auto;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box > div > .buttons > button                */
+/* ------------------------------------------------------------ */
+
+body > dialog > box > div > .buttons > button {
+    height: 30px;
+    width: 180px;
+    font-size: 14px;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.1;
+    margin: 5px;
+}
+
+@media only screen and (max-height: 250px) {
+    body > dialog > box > div > .buttons > button {
+        height: 18px;
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-height: 251px) and (max-height: 400px) {
+    body > dialog > box > div > .buttons > button {
+        height: 24px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    body > dialog > box > div > .buttons > button {
+        height: 20px;
+        font-size: 12px;
+    }
+}

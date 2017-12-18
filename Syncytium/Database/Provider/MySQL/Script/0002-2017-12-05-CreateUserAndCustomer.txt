@@ -1,0 +1,119 @@
+﻿-- ------------------------------------- My SQL -------------------------------------
+-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2017/12/05 - Aymeric Lesert - Create User and Customer Table
+-- ----------------------------------------------------------------------------------
+
+
+-- Create table : Customer
+
+
+create table `Customer`
+		(`Id`      INTEGER      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		 `Name`    VARCHAR(64)  NOT NULL,
+		 `Login`   VARCHAR(40)  NOT NULL,
+		 `Email`   VARCHAR(128),
+		 `Address` VARCHAR(1024),
+         `Comment` VARCHAR(1024));
+
+
+-- Create table : User
+
+
+create table `User`
+		(`Id`              INTEGER         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		 `CustomerId`      INTEGER         NOT NULL,
+		 `Login`           VARCHAR(40)     NOT NULL,
+		 `Password`        VARCHAR(512),
+		 `Registration`    VARCHAR(16),
+		 `Name`            VARCHAR(64),
+		 `Email`           VARCHAR(128),
+		 `CreationDate`    DATE            NOT NULL,
+		 `EndDate`         DATE,
+		 `Picture`         BLOB,
+		 `Language`        VARCHAR(2)      DEFAULT '${Syncytium.Language}' NOT NULL,
+		 `NewPasswordKey`  VARCHAR(256),
+		 `NewPasswordDate` DATE,
+		 CONSTRAINT fk_user_00 FOREIGN KEY(`CustomerId`) REFERENCES `Customer`(`Id`));
+
+create index I_USER_LOGIN on `User`(`Login`);
+
+CREATE TRIGGER user_OnInsert BEFORE INSERT ON `User`
+    FOR EACH ROW SET NEW.`CreationDate` = IFNULL(NEW.`CreationDate`, NOW());
+
+
+
+-- Create table : Module
+
+
+create table `Module`
+        (`Id`          INTEGER      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+         `CustomerId`  INTEGER      NOT NULL,
+         `Name`        VARCHAR(32)  NOT NULL,
+         `Module`      TINYINT      DEFAULT 0 NOT NULL,
+         `Parameters`  VARCHAR(64)  ,
+         `Profile`     TINYINT      DEFAULT 2 NOT NULL,
+         `Description` VARCHAR(256) ,
+         `Enable`      TINYINT      DEFAULT 1 NOT NULL,
+         CONSTRAINT fk_module_00 FOREIGN KEY(`CustomerId`) REFERENCES `Customer`(`Id`));
+
+create index I_MODULE_CUSTOMER on `Module`(`CustomerId`);
+create index I_MODULE_NAME on `Module`(`Name`);
+create index U_MODULE_NAME on `Module`(`Name`, `CustomerId`);
+
+
+-- Create table : UserModule
+
+
+create table `UserModule`
+        (`Id`         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+         `CustomerId` INTEGER  NOT NULL,
+         `UserId`     INTEGER  DEFAULT -1 NOT NULL,
+         `ModuleId`   INTEGER  ,
+         `Default`    TINYINT  DEFAULT 0 NOT NULL,
+         CONSTRAINT fk_usermodule_00 FOREIGN KEY(`CustomerId`) REFERENCES `Customer`(`Id`),
+         CONSTRAINT fk_usermodule_01 FOREIGN KEY(`UserId`)     REFERENCES `User`(`Id`),
+         CONSTRAINT fk_usermodule_02 FOREIGN KEY(`ModuleId`)   REFERENCES `Module`(`Id`));
+
+create index I_USERMODULE_CUSTOMER on `UserModule`(`CustomerId`);
+create index I_USERMODULE_USERID on `UserModule`(`UserId`);
+create index U_USERMODULE_MODULEID on `UserModule`(`ModuleId`, `CustomerId`, `UserId`);
+
+
+-- Create the production site by default and the first administrator user (SyncytiumAdmin)
+
+
+insert into `Customer`(`Name`, `Login`, `Email`, `Address`, `Comment`) values('SyncytiumAdmin', '${Syncytium.Administrator.Login}', '${Syncytium.Administrator.Email}', 'Syncytium', 'Definition des sites');
+
+insert into `Customer`(`Name`, `Login`, `Email`, `Address`, `Comment`) values('${Syncytium.Database.Schema}', 'SyncytiumAdmin', '${Syncytium.Administrator.Email}', 'Syncytium', 'Site de production de PontChateau');
+
+insert into `User`(`Login`, `Registration`, `Name`, `Email`, `CreationDate`, `Language`, `CustomerId`) values('${Syncytium.Administrator.Login}', 'ADMINISTRATEUR', 'Administrateur général', '${Syncytium.Administrator.Email}', DATE_FORMAT(NOW(), '%Y-%m-%d'), '${Syncytium.Language}', 1);
+
+insert into `User`(`Login`, `Registration`, `Name`, `Email`, `CreationDate`, `Language`, `CustomerId`) values('SyncytiumAdmin', 'ADMINISTRATEUR', 'Administrateur de pontchateau', '${Syncytium.Administrator.Email}', DATE_FORMAT(NOW(), '%Y-%m-%d'), '${Syncytium.Language}', 2);
+
+
+-- Create module administration
+
+
+insert into `Module`(`CustomerId`, `Name`, `Module`, `Profile`, `Enable`) values(2, 'Administration', 0, 0, 1);
+
+insert into `UserModule`(`CustomerId`, `UserId`, `ModuleId`, `Default`)
+select `User`.`CustomerId`, `User`.`Id`, `Module`.`Id`, 1 from `User`, `Module` where `User`.`CustomerId` = `Module`.`CustomerId`;
+
+
+commit;
+

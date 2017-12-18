@@ -1,0 +1,2 @@
+﻿Left.svg : Google (https://www.google.com)
+Right.svg : Google (https://www.google.com)

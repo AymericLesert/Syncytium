@@ -1,0 +1,4 @@
+﻿Empty.svg : Madebyoliver (https://smashicons.com)
+Full.svg : Madebyoliver (https://smashicons.com)
+EmptyOver.svg : Madebyoliver (https://smashicons.com)
+FullOver.svg : Madebyoliver (https://smashicons.com)

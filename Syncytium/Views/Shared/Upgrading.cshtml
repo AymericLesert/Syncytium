@@ -1,0 +1,60 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.UserViewModel
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+    ViewBag.Title = Model.GetLabel("UPGRADING");
+}
+
+@section CSSDeclaration
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Support.css" />
+}
+
+@section JSDeclaration
+{
+    <script type="text/javascript">
+        function load() { }
+    </script>
+}
+
+<div class="support">
+    @if (Model.Ressources.DefaultLanguage.Equals("FR"))
+    {
+        if (Model.Authenticated && Model.UserProfile.Id == -1)
+        {
+            <h1>L'application Syncytium Gestion doit être mise à jour ...</h1>
+
+            <p>Veuillez suivre la procédure de mise à jour suivante :</p>
+            <ul>
+                <li>Sauvegarder la base de données</li>
+                <li>Exécuter le processus de mise à jour</li>
+                <li>En cas d'erreur, restaurer la base de données et consulter les logs</li>
+            </ul>
+            <input type="button" class="button" value="@Model.GetLabel("BTN_UPGRADE")" onclick='javascript:window.location="@(Model.UrlRoot)Administration/Administration/Upgrade"' />
+        }
+        else
+        {
+            <h1>L'application Syncytium Gestion est en cours de mise à jour ...</h1>
+
+            <p>S'il vous plaît, attendez la fin de la procédure pour tenter de vous reconnecter!</p>
+        }
+    }
+</div>

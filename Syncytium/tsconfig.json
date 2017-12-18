@@ -1,0 +1,21 @@
+﻿{
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmit": true,
+    "module": "es6",
+    "target": "ES6"
+  },
+  "include": [
+    "./Content/Scripts/**/*.js",
+    "./Content/Locale/**/*.js"
+  ],
+  "exclude": [
+    "./Scripts/**/*.min.js",
+    "./Scripts/**/*.map",
+    "node_modules",
+    "bower_components"
+  ],
+  "typeAcquisition": {
+    "enable": true
+  }
+}

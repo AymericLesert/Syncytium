@@ -1,0 +1,73 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.CustomerViewModel
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+    ViewBag.Title = Model.GetLabel("CUSTOMER");
+}
+
+@section CSSDeclaration
+{
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Customer/Index.css" />
+}
+
+@section JSDeclaration
+{
+    <script type="text/javascript">
+        function load() { }
+    </script>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th class="name">@Model.GetLabel("CUSTOMER_NAME")</th>
+            <th class="login">@Model.GetLabel("CUSTOMER_LOGIN")</th>
+            <th class="email">@Model.GetLabel("CUSTOMER_EMAIL")</th>
+            <th class="address">@Model.GetLabel("CUSTOMER_ADDRESS")</th>
+            <th class="comment">@Model.GetLabel("CUSTOMER_COMMENT")</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var customer in Model.Customers)
+    {
+        <tr>
+            <td class="name">@customer.Name</td>
+            <td class="login">@customer.Login</td>
+            <td class="email">@customer.Email</td>
+            <td class="address">@customer.Address</td>
+            <td class="comment">@customer.Comment</td>
+            <td class="icons">
+                @if (customer.Id > 1)
+                {
+                    <div>
+                        <div class="edit" onclick="location.href='@Url.Action("Update", "Customer", new { id = @customer.Id })'" ></div>
+                        <div class="delete" onclick="location.href='@Url.Action("Delete", "Customer", new { id = @customer.Id })'" ></div>
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div>
+    <input type="button" class="button" value="@Model.GetLabel("CUSTOMER_CREATE")" onclick="location.href='@Url.Action("Add", "Customer")'" />
+</div>

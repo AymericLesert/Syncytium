@@ -1,0 +1,172 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_select > div > .content              */
+/* ------------------------------------------------------------ */
+
+@media only screen and (max-width: 480px) {
+    body > dialog > box.box_select > div > .content {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 620px) {
+    body > dialog > box.box_select > div > .content {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 621px) and (max-width: 700px) {
+    body > dialog > box.box_select > div > .content {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    body > dialog > box.box_select > div > .content {
+        font-size: 10px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_select > div > .content > field      */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_select > div > .content > field {
+    justify-content: center;
+}
+
+body > dialog > box.box_select > div > .content > field > .label {
+    padding-right: 5px;
+    width: auto;
+}
+
+body > dialog > box.box_select > div > .content > field > .value {
+    flex-grow: 0;
+}
+
+body > dialog > box.box_select > div > .content > field > .value > .field {
+    width: auto;
+}
+
+body > dialog > box.box_select > div > .content > field > .value > .field > input {
+    width: 200px;
+}
+
+/* ------------------------------------------------------------ */
+/* body > dialog > box.box_select > div > .content > .pictures  */
+/* ------------------------------------------------------------ */
+
+body > dialog > box.box_select > div > .content > .pictures {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+body > dialog > box.box_select > div > .content > .pictures > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    max-width: 100px;
+    margin: 5px;
+    padding: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 546px) {
+    body > dialog > box.box_select > div > .content > .pictures > div {
+        width: calc( (90vw - 10px) / 4 - 20px);
+        max-width: calc( (90vw - 10px) / 4 - 20px);
+    }
+}
+
+/* ---------------------------------------------------------------------------- */
+/* body > dialog > box.box_select > div > .content > .pictures > div > #picture */
+/* ---------------------------------------------------------------------------- */
+
+body > dialog > box.box_select > div > .content > .pictures > div > #picture {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    padding: 5px;
+    border: solid 1px #e8e6e6;
+    box-shadow: 1px 1px 6px #555;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+body > dialog > box.box_select > div > .content > .pictures > div > #picture.selected {
+    border: solid 3px #555;
+}
+
+body > dialog > box.box_select > div > .content > .pictures > div.focus > #picture,
+body > dialog > box.box_select > div > .content > .pictures > div.focus > #picture.selected {
+    border-color: #33cc33;
+}
+
+@media only screen and (max-width: 546px) {
+    body > dialog > box.box_select > div > .content > .pictures > div > #picture {
+        width: calc( (90vw - 10px) / 4 - 30px);
+        height: calc( (90vw - 10px) / 4 - 30px);
+        box-shadow: initial;
+    }
+
+    body > dialog > box.box_select > div > .content > .pictures > div > #picture.selected {
+        border: solid 1px #e8e6e6;
+        background-color: #d8d8d8;
+        box-shadow: initial;
+    }
+}
+
+@media only screen and (max-height: 360px) {
+    body > dialog > box.box_select > div > .content > .pictures > div > #picture {
+        width: calc(100vh - 300px);
+        height: calc(100vh - 300px);
+        box-shadow: initial;
+    }
+
+    body > dialog > box.box_select > div > .content > .pictures > div > #picture.selected {
+        border: solid 1px #e8e6e6;
+        background-color: #d8d8d8;
+        box-shadow: initial;
+    }
+}
+
+body > dialog > box.box_select > div > .content > .pictures > div:focus {
+    outline: none;
+}
+
+/* ---------------------------------------------------------------------------- */
+/* body > dialog > box.box_select > div > .content > .pictures > div > #name    */
+/* ---------------------------------------------------------------------------- */
+
+body > dialog > box.box_select > div > .content > .pictures > div > #name {
+    line-height: 1;
+    max-width: 80px;
+    margin: 0;
+    padding: 0;
+}
+
+@media only screen and (max-width: 546px) {
+    body > dialog > box.box_select > div > .content > .pictures > div > #name {
+        max-width: calc( (90vw - 10px) / 4 - 20px);
+    }
+}

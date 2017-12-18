@@ -1,0 +1,214 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* body > header > ul > .photo                                  */
+/* ------------------------------------------------------------ */
+
+body > header > ul > .photo > img {
+    cursor: initial;
+}
+
+/* ------------------------------------------------------------ */
+/* main > table                                                 */
+/* ------------------------------------------------------------ */
+
+main > table {
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 650px) {
+    main > table {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 651px) and (max-width: 900px) {
+    main > table {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1320px) {
+    main > table {
+        font-size: 14px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* main > table > thead, tbody > tr                             */
+/* ------------------------------------------------------------ */
+
+main > table > thead > tr,
+main > table > tbody > tr {
+    height: 50px;
+}
+
+main > table > tbody > tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+@media only screen and (max-width: 650px) {
+    main > table > thead > tr,
+    main > table > tbody > tr {
+        height: 40px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* main > table > thead > tr > th                               */
+/* ------------------------------------------------------------ */
+
+main > table > thead > tr > th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #ff0000;
+    color: white;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+}
+
+@media only screen and (max-width: 350px) {
+    main > table > thead > tr > th.comment {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    main > table > thead > tr > th.email {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* main > table > tbody > tr > td                               */
+/* ------------------------------------------------------------ */
+
+main > table > tbody > tr > td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+@media only screen and (max-width: 350px) {
+    main > table > tbody > tr > td.comment {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    main > table > tbody > tr > td {
+        padding: 2px;
+    }
+
+    main > table > tbody > tr > td.email {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* main > table > tbody > tr > td.icons                         */
+/* ------------------------------------------------------------ */
+
+main > table > tbody > tr > td.icons {
+    text-align: center;
+}
+
+main > table > tbody > tr > td.icons > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+main > table > tbody > tr > td.icons > div > .edit {
+    background: url(../../../../Images/Areas/Administration/Customer/Edit.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+main > table > tbody > tr > td.icons > div > .delete {
+    background: url(../../../../Images/Areas/Administration/Customer/Delete.svg) no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 650px) {
+    main > table > tbody > tr > td.icons > div > .edit,
+    main > table > tbody > tr > td.icons > div > .delete {
+        background-size: 15px 15px;
+        width: 15px;
+        height: 15px;
+        margin: 2px;
+    }
+}
+
+/* ------------------------------------------------------------ */
+/* main > .button                                               */
+/* ------------------------------------------------------------ */
+
+main > div {
+    height: 48px;
+}
+
+main > div > .button {
+    margin-top: 20px;
+    height: 48px;
+    max-width: 445px;
+    width: 75vw;
+    line-height: 1.1;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+@media only screen and (max-width: 400px) {
+    main > div > .button {
+        font-size: 12px;
+        width: 90vw;
+    }
+}
+
+@media only screen and (min-width: 401px) and (max-width: 650px) {
+    main > div > .button {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-height: 320px) {
+    main > div  {
+        height: 20px;
+    }
+
+    main > div > .button {
+        font-size: 12px;
+        height: 20px;
+    }
+}
+

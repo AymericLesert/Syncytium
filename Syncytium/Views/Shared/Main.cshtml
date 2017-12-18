@@ -1,0 +1,428 @@
+﻿<!--
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-->
+
+@model Syncytium.Web.Areas.ViewModels.UserViewModel
+@{
+    Layout = null;
+    ViewBag.First = true;
+
+    /*
+     * ViewBag definition:
+     * -------------------
+     *
+     * Title : title of the screen
+     * Module : name of the current module
+     *
+     * Section definition:
+     * -------------------
+     *
+     * JSDeclaration : add extended javascript
+     * CSSDeclaration: add extended style
+     */
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#317EFB" />
+
+    <title>@Model.GetLabel(ViewBag.Area)</title>
+
+    <!-- Frameworks -->
+
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/webix.min.js"></script>
+    <script src="~/Scripts/html2canvas-0.5.0-alpha1.min.js"></script>
+    <script src="~/Scripts/html2canvas-0.5.0-alpha1.svg.min.js"></script>
+    <script src="~/Scripts/pdfmake-0.1.32.min.js"></script>
+    <script src="~/Content/Fonts/pdfmake-roboto.js"></script>
+
+    <!-- Webix locales -->
+
+    <script src="~/Content/Locale/FR.js"></script>
+
+    <!-- Moment locales -->
+
+    <script src="~/Content/Locale/Moment.js"></script>
+
+    @if (Model.Mode == "PROD" || Model.Mode == "UAT")
+    {
+        <script src="~/Content/Scripts/syncytium-common.min.js"></script>
+        <script src="~/Content/Scripts/syncytium-administration.min.js"></script>
+    }
+    else
+    {
+        <!-- Tools -->
+
+        <script src="~/Content/Scripts/Tools/Namespace.js"></script>
+        <script src="~/Content/Scripts/Tools/Array.js"></script>
+        <script src="~/Content/Scripts/Tools/String.js"></script>
+        <script src="~/Content/Scripts/Tools/Logger.js"></script>
+        <script src="~/Content/Scripts/Tools/LoggerBaseObject.js"></script>
+        <script src="~/Content/Scripts/Tools/Errors.js"></script>
+        <script src="~/Content/Scripts/Tools/Helper.js"></script>
+        <script src="~/Content/Scripts/Tools/Picture.js"></script>
+        <script src="~/Content/Scripts/Tools/PDF.js"></script>
+        <script src="~/Content/Scripts/Tools/CSV.js"></script>
+        <script src="~/Content/Scripts/Tools/Dates.js"></script>
+        <script src="~/Content/Scripts/Tools/SortArray.js"></script>
+        <script src="~/Content/Scripts/Tools/Similarity.js"></script>
+        <script src="~/Content/Scripts/Tools/Digits.js"></script>
+
+        <!-- Filters -->
+
+        <script src="~/Content/Scripts/Filter/Filter.js"></script>
+        <script src="~/Content/Scripts/Filter/FilterItems.js"></script>
+
+        <!-- Lists -->
+
+        <script src="~/Content/Scripts/List/List.js"></script>
+        <script src="~/Content/Scripts/List/ListArray.js"></script>
+        <script src="~/Content/Scripts/List/ListEnumerable.js"></script>
+        <script src="~/Content/Scripts/List/ListLanguage.js"></script>
+        <script src="~/Content/Scripts/List/ListRecord.js"></script>
+        <script src="~/Content/Scripts/List/ListCalendar.js"></script>
+        <script src="~/Content/Scripts/List/ListHistory.js"></script>
+        <script src="~/Content/Scripts/List/ListArrayRecord.js"></script>
+        <script src="~/Content/Scripts/List/ListArrayRecordAssociation.js"></script>
+
+        <!-- GUI Components -->
+
+        <script src="~/Content/Scripts/GUI/GUI.js"></script>
+
+        <script src="~/Content/Scripts/GUI/Webix/Webix.js"></script>
+        <script src="~/Content/Scripts/GUI/Webix/WebixBar.js"></script>
+        <script src="~/Content/Scripts/GUI/Webix/WebixTooltip.js"></script>
+
+        <script src="~/Content/Scripts/GUI/Field/Field.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldInput.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldCheckBox.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldSelect.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldImage.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldSelectImage.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldInputDigit.js"></script>
+        <script src="~/Content/Scripts/GUI/Field/FieldInputWithBox.js"></script>
+
+        <script src="~/Content/Scripts/GUI/Button/Button.js"></script>
+
+        <script src="~/Content/Scripts/GUI/Box/Box.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxProgress.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxMessage.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxInputText.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxInputDigit.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxInputFile.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxSelect.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxRecord.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxChoice.js"></script>
+        <script src="~/Content/Scripts/GUI/Box/BoxReleaseNotes.js"></script>
+
+        <script src="~/Content/Scripts/GUI/Board/Board.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardTable.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardTableAssociation.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardTree.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardChart.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardChartMultiData.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardChartBar.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardChartPie.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardChartLine.js"></script>
+        <script src="~/Content/Scripts/GUI/Board/BoardHistory.js"></script>
+
+        <!-- Differential Synchronization Database -->
+
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSEmailAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSRequiredAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSKeyAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSStringAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js"></script>
+        <script src="~/Content/Scripts/Database/DSSchema/DSColumn.js"></script>
+        <script src="~/Content/Scripts/Database/DSSchema/DSTable.js"></script>
+        <script src="~/Content/Scripts/Database/DSSchema/DSDatabase.js"></script>
+        <script src="~/Content/Scripts/Database/DSSchema/DSRecord.js"></script>
+        <script src="~/Content/Scripts/Database/DatabaseHub.js"></script>
+
+        <!-- Area / Module -->
+
+        <script src="~/Content/Scripts/Areas/Area.js"></script>
+
+        <!-- Language -->
+
+        <script src="~/Content/Scripts/Areas/Administration/Language/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Language/Manager.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Language/List.js"></script>
+
+        <!-- Unit -->
+
+        <script src="~/Content/Scripts/Areas/Administration/Unit/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Unit/List.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Unit/Box.js"></script>
+
+        <!-- User -->
+
+        <script src="~/Content/Scripts/Areas/Administration/User/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/User/List.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/User/Box.js"></script>
+
+        <!-- Module -->
+
+        <script src="~/Content/Scripts/Areas/Administration/Module/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Module/List.js"></script>
+
+        <!-- UserModule -->
+
+        <script src="~/Content/Scripts/Areas/Administration/UserModule/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/UserModule/List.js"></script>
+
+        <!-- Stock -->
+
+        <script src="~/Content/Scripts/Areas/Administration/Stock/Enum.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Stock/List.js"></script>
+        <script src="~/Content/Scripts/Areas/Administration/Stock/Box.js"></script>
+
+        <!-- Test -->
+
+        <script src="~/Content/Scripts/Test/Box.js"></script>
+    }
+
+    @RenderSection("JSDeclaration")
+
+    @if (Model.Verbose)
+    {
+        <script type="text/javascript">
+            Logger.Instance.IsVerbose = true;
+        </script>
+    }
+    @if (Model.Debug)
+    {
+        <script type="text/javascript">
+            Logger.Instance.IsDebug = true;
+        </script>
+    }
+    @if (Model.IsLogEnabled)
+    {
+        <script type="text/javascript">
+            Logger.Instance.IsEnabled = true;
+        </script>
+    }
+
+    <script type="text/javascript">
+            IMAGES_LOADED_FROM_SERVER = "@(Model.Ressources.JsonListOfImages)";
+
+            // AS data are not loaded yet, set these values by default ...
+
+            ERR_INITIALIZATION = String.decode("@(Model.GetLabel("ERR_INITIALIZATION"))");
+            BTN_RELOAD = String.decode("@(Model.GetLabel("BTN_RELOAD"))");
+            ERROR = String.decode( "@(Model.GetLabel("ERROR"))" );
+            URL_ROOT = "@(Model.UrlRoot)";
+
+            function handleLog() {
+                if ( Logger.Instance.Visible ) {
+                    Logger.Instance.hide();
+                } else {
+                    Logger.Instance.show();
+                }
+                return false;
+            }
+
+            function enableJS() {
+                $( "body" ).off( 'keydown' ).on( 'keydown', function ( e ) {
+                    if ( e.keyCode === 9 )
+                        e.preventDefault();
+                } );
+                $( "body > header > ul > .log" ).show();
+                $( "body > noscript" ).hide();
+                $( "body > main" ).hide();
+                $( "body > .progress" ).hide();
+            }
+
+            function signOut() {
+                function handleSignOut() {
+                    Hub.Instance.stop(true);
+                    Logger.Instance.IsEnabled = false;
+                    window.onbeforeunload = null;
+                    window.location = URL_ROOT + "Administration/User/SignOut";
+                    return true;
+                }
+
+                if (DSDatabase.Instance.IsEmpty)
+                    return handleSignOut();
+
+                GUI.Box.Message.Message("TITLE_EXIT", "MSG_CONFIRMATION_CANCEL", handleSignOut);
+            }
+
+            window.onbeforeunload = function () { Hub.Instance.stop(true); return false; }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/webix.min.css" />
+
+    @if (Model.Mode == "PROD" || Model.Mode == "UAT")
+    {
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/syncytium-common.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/syncytium-administration.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Logger.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/GUI.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/Field.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldCheckBox.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldImage.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInput.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInputDigit.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInputWithBox.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldSelect.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldSelectImage.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/Board.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTable.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTableAssociation.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTree.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/Box.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxChoice.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputDigit.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputFile.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputText.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxMessage.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxSelect.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxRecord.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxReleaseNotes.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Webix/Webix.css" />
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Area.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/User/Box.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Unit/Box.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Stock/Box.css" />
+
+        <!-- Test -->
+
+        <link rel="stylesheet" type="text/css" href="~/Content/Scripts/Test/Box.css" />
+    }
+
+    @RenderSection("CSSDeclaration")
+</head>
+
+    <body onload="enableJS(); load('@Model.UserProfile.Login');" onpageshow="if (event.persisted) { window.history.forward(); }">
+        <!-- Preload image ... in case of offline, all files must be loaded into the navigator -->
+
+        <div style="display:none;">
+            @foreach (string image in Model.Ressources.ListOfImages)
+            {
+                <img src="~/Content/Images/@(image)" />
+            }
+        </div>
+
+        <!-- Header -->
+
+        <header class="@(Model.Mode)">
+            <ul>
+                <li class="status"></li>
+                <li class="logo"></li>
+                <li class="space"></li>
+                <li class="symbol"></li>
+                <li class="area screen_name"></li>
+                <li class="element symbol"></li>
+                <li class="element screen_name"></li>
+                <li class="element close"></li>
+                <li class="spaceall"></li>
+                @if (Model.IsLogEnabled)
+                {
+                    <li class="log" onclick="handleLog()">Log</li>
+                }
+                <li class="space"></li>
+                <li class="photo"><img src="~/Content/Images/Header/User.svg" /></li>
+                <li class="signout" onclick="signOut();"></li>
+                <li class="space"></li>
+            </ul>
+        </header>
+
+        <!-- Menu -->
+
+        <menu>
+            <ul>
+                <li class="spaceall"></li>
+                <li class="field"></li>
+                <li class="button" id="help"></li>
+            </ul>
+        </menu>
+
+        <!-- no script -->
+
+        <noscript class="fullpage"><div><h1>@Model.GetLabel("MSG_NO_SCRIPT")</h1></div></noscript>
+
+        <!-- Main screen - enable if and only if the javascript is enbled -->
+
+        <main class="fullpage" style="display:none;">
+            @RenderBody()
+        </main>
+
+        <!-- Log screen -->
+
+        <log id="log" class="fullpage" style="display:none;"></log>
+
+        <!-- Dialog boxes -->
+
+        <dialog class="fullpage" style="display:none;"></dialog>
+
+        <!-- Progress bar ... disable all other features ... -->
+
+        <div class="progress" style="display:none;">
+            <div>
+                <progress id="bar" min="0" max="100" value="0"></progress>
+                <br />
+                <div id="progressStatus">@Model.GetLabel("MSG_LOADING")</div>
+            </div>
+        </div>
+
+        <!-- IFrame to download a file -->
+
+        <iframe id="downloadFile" style="display:none"></iframe>
+
+        <!-- Footer -->
+
+        <footer class="withMemory">
+            <div class="company">@Model.GetLabel("FOOTER_SYNCYTIUM") -&nbsp;</div><div class="release">@(Model.Version)</div>
+        </footer>
+
+        <!-- Memory space available -->
+
+        <div class="memory">
+            <div class="container">&nbsp;</div>
+        </div>
+    </body>
+</html>

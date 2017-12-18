@@ -1,0 +1,19 @@
+/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ---------------------------------------------------------------------- *//* board.unit > .table .webix_cell > .description                         *//* ---------------------------------------------------------------------- *//* ---------------------------------------------------------------------- *//* board.unit > .table .webix_cell > .nbdecimals                          *//* ---------------------------------------------------------------------- *//* ---------------------------------------------------------------------- *//* board.unit > .table .webix_cell > .enable                              *//* ---------------------------------------------------------------------- */board.unit > .table .webix_cell > .enable {    display: flex;    flex-direction: row;    justify-content: center;}/* ---------------------------------------------------------------------- *//* board.unit > .table .webix_cell > .enable > div                        *//* ---------------------------------------------------------------------- */board.unit > .table .webix_cell > .enable > div {    width: 30px;    height: 30px;    cursor: pointer;}board.unit.readonly > .table .webix_cell > .enable > div {    cursor: initial;}board.unit > .table .webix_cell > .enable > div.true {    background: url(../../../../Images/GUI/Field/FieldCheckBox/Checked.svg) no-repeat;    background-position: center;    background-size: 20px 20px;}board.unit > .table .webix_cell > .enable > div.false {    background: url(../../../../Images/GUI/Field/FieldCheckBox/Unchecked.svg) no-repeat;    background-position: center;    background-size: 20px 20px;}@media only screen and (max-width: 360px) {    board.unit > .table .webix_cell > .enable > div {        width: 10px;        height: 10px;    }    board.unit > .table .webix_cell > .enable > div.true,    board.unit > .table .webix_cell > .enable > div.false {        background-size: 10px 10px;    }}@media only screen and (min-width: 361px) and (max-width: 430px) {    board.unit > .table .webix_cell > .enable > div {        width: 15px;        height: 15px;    }    board.unit > .table .webix_cell > .enable > div.true,    board.unit > .table .webix_cell > .enable > div.false {        background-size: 15px 15px;    }}@media only screen and (min-width: 431px) and (max-width: 600px) {    board.unit > .table .webix_cell > .enable > div {        width: 20px;        height: 20px;    }    board.unit > .table .webix_cell > .enable > div.true,    board.unit > .table .webix_cell > .enable > div.false {        background-size: 15px 15px;    }}@media only screen and (max-height: 400px) {    board.unit > .table .webix_cell > .enable > div {        width: 10px;        height: 10px;    }    board.unit > .table .webix_cell > .enable > div.true,    board.unit > .table .webix_cell > .enable > div.false {        background-size: 10px 10px;    }}

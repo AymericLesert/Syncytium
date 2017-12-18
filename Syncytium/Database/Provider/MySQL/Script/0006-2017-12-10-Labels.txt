@@ -1,0 +1,235 @@
+﻿-- ------------------------------------- My SQL -------------------------------------
+-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2017/12/10 - Aymeric Lesert - Update labels
+-- ----------------------------------------------------------------------------------
+
+SET SQL_SAFE_UPDATES=0;
+
+Call BeginMultilingualUpdate();
+Call InsertMultilingualLabel('AREA_ADMINISTRATION', 'Administration', '');
+Call InsertMultilingualLabel('AREA_SAMPLE', 'Exemple', '');
+Call InsertMultilingualLabel('BTN_CANCEL', 'Annuler', '');
+Call InsertMultilingualLabel('BTN_CLEAR', 'Réinitialisation', '');
+Call InsertMultilingualLabel('BTN_CLOSE', 'Ferme', '');
+Call InsertMultilingualLabel('BTN_CONNECT', 'Connection', '');
+Call InsertMultilingualLabel('BTN_FORGET_PASSWORD', 'Mot de passe oublié ?', '');
+Call InsertMultilingualLabel('BTN_NEW_PASSWORD', 'Nouveau mot de passe', '');
+Call InsertMultilingualLabel('BTN_OK', 'OK', '');
+Call InsertMultilingualLabel('BTN_RELOAD', 'RECHARGER', '');
+Call InsertMultilingualLabel('BTN_REMEMBER_ME', 'Se souvenir de moi', '');
+Call InsertMultilingualLabel('BTN_SELECT', 'Sélectionner', '');
+Call InsertMultilingualLabel('BTN_SEND_EMAIL', 'Envoi un email', '');
+Call InsertMultilingualLabel('BTN_SIGNOUT', 'DECONNECTION', '');
+Call InsertMultilingualLabel('BTN_SUBMIT', 'Valider', '');
+Call InsertMultilingualLabel('BTN_UPGRADE', 'METTRE A JOUR', '');
+Call InsertMultilingualLabel('CUSTOMER', 'Site de production', '');
+Call InsertMultilingualLabel('CUSTOMER_ADDRESS', 'Adresse du site de production', '');
+Call InsertMultilingualLabel('CUSTOMER_COMMENT', 'Commentaire', '');
+Call InsertMultilingualLabel('CUSTOMER_CREATE', 'Création d''un site de production', '');
+Call InsertMultilingualLabel('CUSTOMER_DELETE', 'Suppression d''un site de production', '');
+Call InsertMultilingualLabel('CUSTOMER_EMAIL', 'Email de l''administrateur', '');
+Call InsertMultilingualLabel('CUSTOMER_LOGIN', 'Identifiant de l''administrateur', '');
+Call InsertMultilingualLabel('CUSTOMER_NAME', 'Nom du site de production', '');
+Call InsertMultilingualLabel('CUSTOMER_UPDATE', 'Mise à jour d''un site de production', '');
+Call InsertMultilingualLabel('DIFFERENCE_UNKNOWN', 'Valeur inconnue', '');
+Call InsertMultilingualLabel('ERR_ALREADYCONNECTED', 'Déjà connectée', '');
+Call InsertMultilingualLabel('ERR_AUTHENTICATED_TWICE', 'Vous êtes connectés sur un autre navigateur ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', '');
+Call InsertMultilingualLabel('ERR_CHECK', 'La requête comporte quelques erreurs', '');
+Call InsertMultilingualLabel('ERR_CONNECTION', 'La connection vers le server est corrompue. Pouvez-vous recharger la page ?', '');
+Call InsertMultilingualLabel('ERR_DATE', 'Date non valide', '');
+Call InsertMultilingualLabel('ERR_DOWNLOAD_PDF', 'Impossible de télécharger le fichier pdf en raison d''un problème technique!', '');
+Call InsertMultilingualLabel('ERR_EXCEPTION_UNEXPECTED', 'Une exception inattendue est survenue durant le traitement de la requête', '');
+Call InsertMultilingualLabel('ERR_FIELD_BADFORMAT', 'Le champ ''{0}'' n''est pas correctement renseigné', '0: nom du champ');
+Call InsertMultilingualLabel('ERR_FIELD_DECIMAL', 'Le champ ''{0}'' doit être un nombre ({1}, {2})', '0: nom du champ, 1: nombre de chiffres, 2: précision');
+Call InsertMultilingualLabel('ERR_FIELD_MISSING', 'Le champ ''{0}'' doit être défini', '0: nom du champ');
+Call InsertMultilingualLabel('ERR_FIELD_NEGATIVE', 'Le champ ''{0}'' ne peut pas avoir une valeur négative', '0: nom du champ');
+Call InsertMultilingualLabel('ERR_FIELD_REQUIRED', 'Le champ ''{0}'' est requis', '0: nom du champ');
+Call InsertMultilingualLabel('ERR_FIELD_TOO_LONG', 'La valeur du champ ''{0}'' ne doit pas dépasser les {1} caractères', '0: nom du champ, 1: longueur maxi');
+Call InsertMultilingualLabel('ERR_FIELD_TOO_SHORT', 'La valeur du champ ''{0}'' doit dépasser les {1} caractères', '0: nom du champ, 1: longueur mini');
+Call InsertMultilingualLabel('ERR_FIELD_UNIQUE', 'La valeur du champ ''{0}'' existe déjà', '0: nom du champ');
+Call InsertMultilingualLabel('ERR_INITIALIZATION', 'L''initialisation a rencontré un problème ... Si le problème persiste, contactez l''équipe technique!', '');
+Call InsertMultilingualLabel('ERR_LOGIN_INCORRECT', 'Identifiant et mot de passe incorrect', '');
+Call InsertMultilingualLabel('ERR_NOCONNECTION', 'Non connecté!', '');
+Call InsertMultilingualLabel('ERR_OUT_OF_MEMORY', 'La taille des requêtes en cours excède la capacité maximale de l''application ... Veuillez valider les données en cours ou contacter le support technique!', '');
+Call InsertMultilingualLabel('ERR_RECORD_DELETED', 'Impossible de mettre à jour ou de supprimer un enregistrement déjà supprimé', '');
+Call InsertMultilingualLabel('ERR_RECORD_DIFFERENT', 'Impossible de mettre à jour ou de supprimer l''enregistrement car il a été mis à jour par un autre utilisateur', '');
+Call InsertMultilingualLabel('ERR_REFERENCE_CUSTOMER', 'Site de production non défini', '');
+Call InsertMultilingualLabel('ERR_REFERENCE_USER', 'Utilisateur non défini', '');
+Call InsertMultilingualLabel('ERR_RELEASE_NOTES', 'La release notes ne peut pas être consultée car le serveur n''est pas accessible ou des données n''ont pas encore été validées ...', '');
+Call InsertMultilingualLabel('ERR_REQUEST_ALREADY_EXECUTED', 'La requête a déjà été exécutée', '');
+Call InsertMultilingualLabel('ERR_REQUEST_SYNCHRONIZED', 'La  requête n''a pas été traitée car l''ancienne valeur ne correspond pas à la valeur courante', '');
+Call InsertMultilingualLabel('ERR_REQUEST_UNKNOWN', 'La requête n''a pas été traitée car elle n''a pas pu être identifiée', '');
+Call InsertMultilingualLabel('ERR_REQUEST_UPDATE_MISSING', 'La mise à jour n''a pas pu être réalisée en raison de l''absence de données dans l''enregistrement', '');
+Call InsertMultilingualLabel('ERR_SCHEMA', 'Pas de schema de base de données. Veuillez contacter l''équipe technique support pour résoudre le problème!', '');
+Call InsertMultilingualLabel('ERR_SELECT_VALUE', 'Pouvez-vous sélectionner un élément ?', '');
+Call InsertMultilingualLabel('ERR_SYNCHRONIZED', 'Requête inattendue', '');
+Call InsertMultilingualLabel('ERR_UNABLE_PDF', 'Le PDF ne peut pas être généré car les fontes ne sont pas chargées. Veuillez vous connecter avant de relancer la génération du PDF.', '');
+Call InsertMultilingualLabel('ERR_UNABLE_SYNCHRONIZATION', 'Impossible de synchroniser la base de données en raison d''une mise à jour de la base de données. Rechargez la page!', '');
+Call InsertMultilingualLabel('ERR_UNAUTHENTICATED', 'Votre session est terminée ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', '');
+Call InsertMultilingualLabel('ERR_UNAUTHORIZED', 'Requête non autorisée', '');
+Call InsertMultilingualLabel('ERR_UPLOAD_BROKEN', 'La connection a été rompue ... Essayez toute à l''heure ...', '');
+Call InsertMultilingualLabel('ERR_UPLOAD_EXTENSION', 'Le ou les fichiers ''{0}'' ont une extension non autorisée ...', '0: liste des fichiers');
+Call InsertMultilingualLabel('ERR_UPLOAD_FAILED', 'Le fichier n''a pas été enregistré en raison de l''erreur {0} ...', '0: Status d''erreur HTTP');
+Call InsertMultilingualLabel('ERR_UPLOAD_TOO_BIG', 'Le fichier est trop volumineux', '');
+Call InsertMultilingualLabel('ERR_USERMODULE_REFERENCE_MODULE', 'La référence du champ n''est pas définie dans la table ''Module''', '');
+Call InsertMultilingualLabel('ERR_USERMODULE_REFERENCE_USER', 'La référence du champ n''est pas définie dans la table ''User''', '');
+Call InsertMultilingualLabel('ERROR', 'Erreur', '');
+Call InsertMultilingualLabel('FOOTER_ADMINISTRATION', 'Mode administration', '');
+Call InsertMultilingualLabel('FOOTER_SYNCYTIUM', 'Développé par Concilium LESERT', '');
+Call InsertMultilingualLabel('FR', 'Français', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYDATE', 'Date', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYNATURE', 'Nature', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYNATURE_CREATE', 'Création', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYNATURE_DELETE', 'Suppression', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYNATURE_UPDATE', 'Mise à jour', '');
+Call InsertMultilingualLabel('HISTORY_HISTORYUSERID', 'Par', '');
+Call InsertMultilingualLabel('ID', 'Id', '');
+Call InsertMultilingualLabel('INFORMATION', 'Information', '');
+Call InsertMultilingualLabel('LANGUAGE_COMMENT', 'Commentaire', '');
+Call InsertMultilingualLabel('LANGUAGE_KEY', 'Clé', '');
+Call InsertMultilingualLabel('LANGUAGE_LABEL_FR', 'Libellé', '');
+Call InsertMultilingualLabel('LANGUAGE_UPDATE', 'Mise à jour du label ''{0}''', '0: clé du libellé');
+Call InsertMultilingualLabel('MODULE_CREATE', 'Création d''un module', '');
+Call InsertMultilingualLabel('MODULE_CREATED_TOAST', 'Module ''{0}'' créé', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_DELETE', 'Suppression du module ''{0}''', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_DELETED_TOAST', 'Module ''{0}'' supprimé', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_DESCRIPTION', 'Description', '');
+Call InsertMultilingualLabel('MODULE_ENABLE', 'Actif ?', '');
+Call InsertMultilingualLabel('MODULE_ENABLE_FALSE', 'Indisponible', '');
+Call InsertMultilingualLabel('MODULE_ENABLE_TRUE', 'Disponible', '');
+Call InsertMultilingualLabel('MODULE_MODULE', 'Module fonctionnel', '');
+Call InsertMultilingualLabel('MODULE_MODULE_ADMINISTRATION', 'Administration', '');
+Call InsertMultilingualLabel('MODULE_MODULE_COMPTABILITY', 'Comptabilité', '');
+Call InsertMultilingualLabel('MODULE_MODULE_HUMANRESSOURCES', 'Ressources humaines', '');
+Call InsertMultilingualLabel('MODULE_MODULE_LOGISTIC', 'Logistique', '');
+Call InsertMultilingualLabel('MODULE_MODULE_NONE', 'Pas de module', '');
+Call InsertMultilingualLabel('MODULE_MODULE_PRODUCTION', 'Production', '');
+Call InsertMultilingualLabel('MODULE_MODULE_PROVIDER', 'Fournisseur', '');
+Call InsertMultilingualLabel('MODULE_MODULE_REFERENTIAL', 'Référentiel', '');
+Call InsertMultilingualLabel('MODULE_MODULE_SALES', 'Vente', '');
+Call InsertMultilingualLabel('MODULE_MODULE_STOCK', 'Stock', '');
+Call InsertMultilingualLabel('MODULE_NAME', 'Nom', '');
+Call InsertMultilingualLabel('MODULE_PARAMETERS', 'Paramètres', '');
+Call InsertMultilingualLabel('MODULE_PROFILE', 'Profile', '');
+Call InsertMultilingualLabel('MODULE_PROFILE_ADMINISTRATOR', 'Administrateur', '');
+Call InsertMultilingualLabel('MODULE_PROFILE_NONE', 'Pas de droits', '');
+Call InsertMultilingualLabel('MODULE_PROFILE_OTHER', 'Autre', '');
+Call InsertMultilingualLabel('MODULE_PROFILE_SUPERVISOR', 'Superviseur', '');
+Call InsertMultilingualLabel('MODULE_PROFILE_USER', 'Utilisateur', '');
+Call InsertMultilingualLabel('MODULE_READ', 'Module ''{0}''', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_UPDATE', 'Mise à jour du module ''{0}''', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_UPDATED_TOAST', 'Module ''{0}'' mis à jour', '0: Nom de module fonctionnel');
+Call InsertMultilingualLabel('MODULE_USERS', 'Liste des utilisateurs', '');
+Call InsertMultilingualLabel('MONTH_1', 'Janvier {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_10', 'Octobre {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_11', 'Novembre {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_12', 'Décembre {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_2', 'Février {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_3', 'Mars {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_4', 'Avril {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_5', 'Mai {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_6', 'Juin {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_7', 'Juillet {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_8', 'Août {0}', '0 : année');
+Call InsertMultilingualLabel('MONTH_9', 'Septembre {0}', '0 : année');
+Call InsertMultilingualLabel('MSG_CHANGE_PROFILE', 'Votre profil a été mis à jour par l''administrateur ...', '');
+Call InsertMultilingualLabel('MSG_CHANGE_PROFILE_ADMINISTRATOR', 'Vous devenez un administrateur ...', '');
+Call InsertMultilingualLabel('MSG_COMMITTING', 'Mise à jour de la base de données ...', '');
+Call InsertMultilingualLabel('MSG_CONFIRMATION', 'Pouvez-vous confirmer ?', '');
+Call InsertMultilingualLabel('MSG_CONFIRMATION_CANCEL', 'Des modifications ont été apportées et vont être perdues. Pouvez-vous confirmer ?', '');
+Call InsertMultilingualLabel('MSG_DISCONNECTED', 'Vous avez été déconnecté par l''administrateur ...', '');
+Call InsertMultilingualLabel('MSG_INITIALIZING', 'Initialisation en cours ...', '');
+Call InsertMultilingualLabel('MSG_LOADING', 'Chargement en cours ...', '');
+Call InsertMultilingualLabel('MSG_NO_SCRIPT', 'Veuillez activer le javascript pour faire fonctionner l''application !', '');
+Call InsertMultilingualLabel('MSG_PDF', 'Génération du fichier PDF en cours ..', '');
+Call InsertMultilingualLabel('MSG_REFRESHING', 'Rafraîchissement en cours ...', '');
+Call InsertMultilingualLabel('MSG_SYNCHRONIZING', 'Synchronization en cours ...', '');
+Call InsertMultilingualLabel('PDF_PAGE', '{0} sur {1}', '0: page courante, 1: nb de pages');
+Call InsertMultilingualLabel('SELECT_DATE', 'Date', '');
+Call InsertMultilingualLabel('SELECT_NAME', 'Nom', '');
+Call InsertMultilingualLabel('SELECT_USER', 'Utilisateur', '');
+Call InsertMultilingualLabel('SELECT_VALUE_ALL', 'Tout', '');
+Call InsertMultilingualLabel('SELECT_VALUE_NULL', 'Non défini', '');
+Call InsertMultilingualLabel('SERVICE_TOAST', 'Exécution du service ''{0}''', '0 : Nom du service');
+Call InsertMultilingualLabel('STATUS_CREATE', 'Création', '');
+Call InsertMultilingualLabel('STATUS_DELETE', 'Suppression', '');
+Call InsertMultilingualLabel('STATUS_READY', 'Prêt à synchroniser ...', '');
+Call InsertMultilingualLabel('STATUS_STARTED', 'Connecté', '');
+Call InsertMultilingualLabel('STATUS_STARTING', 'Connection en cours', '');
+Call InsertMultilingualLabel('STATUS_STOPPED', 'Déconnecté', '');
+Call InsertMultilingualLabel('STATUS_STOPPING', 'Déconnection en cours', '');
+Call InsertMultilingualLabel('STATUS_UPDATE', 'Mise à jour', '');
+Call InsertMultilingualLabel('TITLE_EXIT', 'Sortie', '');
+Call InsertMultilingualLabel('TITLE_LANGUAGE', 'Liste des libellés', '');
+Call InsertMultilingualLabel('TITLE_MODULE', 'Modules fonctionnels', '');
+Call InsertMultilingualLabel('TITLE_NOT_DEFINED', '<<Non défini>>', '');
+Call InsertMultilingualLabel('TITLE_RELEASENOTES', 'Release notes', '');
+Call InsertMultilingualLabel('TITLE_SELECT_DATE', 'Sélectionne une date', '');
+Call InsertMultilingualLabel('TITLE_SELECT_FILE', 'Sélectionne un fichier', '');
+Call InsertMultilingualLabel('TITLE_SELECT_PRODUCT', 'Sélectionne un produit', '');
+Call InsertMultilingualLabel('TITLE_SELECT_USER', 'Sélectionne un utilisateur', '');
+Call InsertMultilingualLabel('TITLE_TRANSLATION', 'Traduction', '');
+Call InsertMultilingualLabel('TITLE_USER', 'Utilisateurs', '');
+Call InsertMultilingualLabel('TITLE_USERMODULE', 'Utilisateur - Module fonctionnels', '');
+Call InsertMultilingualLabel('UPGRADE', 'Application mise à jour', '');
+Call InsertMultilingualLabel('UPGRADING', 'Mise à jour de l''application ...', '');
+Call InsertMultilingualLabel('USER_CREATE', 'Création d''un utilisateur', '');
+Call InsertMultilingualLabel('USER_CREATIONDATE', 'Date de début', '');
+Call InsertMultilingualLabel('USER_DELETE', 'Suppression de l''utilisateur ''{0}''', '0: Utilisateur');
+Call InsertMultilingualLabel('USER_DISABLE', 'Inactif', '');
+Call InsertMultilingualLabel('USER_EMAIL', 'Adresse mail', '');
+Call InsertMultilingualLabel('USER_ENABLE', 'Actif', '');
+Call InsertMultilingualLabel('USER_ENDDATE', 'Date de fin', '');
+Call InsertMultilingualLabel('USER_LANGUAGE', 'Langage', '');
+Call InsertMultilingualLabel('USER_LOGIN', 'Identifiant', '');
+Call InsertMultilingualLabel('USER_MODULES', 'Modules accessibles', '');
+Call InsertMultilingualLabel('USER_NAME', 'Nom', '');
+Call InsertMultilingualLabel('USER_NEW_PASSWORD', 'Nouveau mot de passe', '');
+Call InsertMultilingualLabel('USER_PASSWORD', 'Mot de passe', '');
+Call InsertMultilingualLabel('USER_PICTURE', 'Photo', '');
+Call InsertMultilingualLabel('USER_PROFILE', 'Profil', '');
+Call InsertMultilingualLabel('USER_READ', 'Utilisateur ''{0}''', '0: Utilisateur');
+Call InsertMultilingualLabel('USER_REGISTRATION', 'Matricule', '');
+Call InsertMultilingualLabel('USER_RETYPE_PASSWORD', 'Resaisir le mot de passe', '');
+Call InsertMultilingualLabel('USER_UPDATE', 'Mise à jour de l''utilisateur ''{0}''', '0: Utilisateur');
+Call InsertMultilingualLabel('USERMODULE_DEFAULT', 'Défaut ?', '');
+Call InsertMultilingualLabel('USERMODULE_DEFAULT_FALSE', 'Sur demande', '');
+Call InsertMultilingualLabel('USERMODULE_DEFAULT_TRUE', 'Par défaut', '');
+Call InsertMultilingualLabel('USERMODULE_MODULEID', 'Module fonctionnel', '');
+Call InsertMultilingualLabel('USERMODULE_PROFILE', 'Profile', '');
+Call InsertMultilingualLabel('USERMODULE_USERID', 'Utilisateur', '');
+Call InsertMultilingualLabel('TITLE_SAMPLE', 'Exemples', '');
+Call InsertMultilingualLabel('TITLE_SELECT_SAMPLE', 'Sélection d''un Exemple', '');
+Call InsertMultilingualLabel('SAMPLE_CREATE', 'Création d''un exemple', '');
+Call InsertMultilingualLabel('SAMPLE_DELETE', 'Suppression du exemple ''{0}''', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_UPDATE', 'Mise à jour du exemple ''{0}''', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_READ', 'exemple ''{0}''', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_CREATED_TOAST', 'exemple ''{0}'' créé', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_DELETED_TOAST', 'exemple ''{0}'' supprimé', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_UPDATED_TOAST', 'exemple ''{0}'' mis à jour', '0: Nom de exemple');
+Call InsertMultilingualLabel('SAMPLE_NAME', 'Nom', '');
+Call InsertMultilingualLabel('SAMPLE_PICTURE', 'Photo', '');
+Call InsertMultilingualLabel('SAMPLE_DESCRIPTION', 'Description', '');
+Call InsertMultilingualLabel('SAMPLE_ENABLE', 'Actif', '');
+Call InsertMultilingualLabel('SAMPLE_ENABLE_TRUE', 'Vrai', '');
+Call InsertMultilingualLabel('SAMPLE_ENABLE_FALSE', 'Faux', '');
+Call EndMultilingualUpdate();
+
+SET SQL_SAFE_UPDATES=1;
+
+COMMIT;

@@ -1,0 +1,73 @@
+﻿/*
+    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ---------------------------------------------------------------------- */
+/* board.stock > .table .webix_cell > .name                               */
+/* ---------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------- */
+/* board.stock > .table .webix_cell > .picture                            */
+/* ---------------------------------------------------------------------- */
+
+board.stock > .table .webix_cell > .picture {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* board.stock > .table .webix_cell > .picture > img                      */
+/* ---------------------------------------------------------------------- */
+
+board.stock > .table .webix_cell > .picture > img {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+
+@media only screen and (max-width: 360px) {
+    board.stock > .table .webix_cell > .picture > img {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media only screen and (min-width: 361px) and (max-width: 430px) {
+    board.stock > .table .webix_cell > .picture > img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media only screen and (min-width: 431px) and (max-width: 600px) {
+    board.stock > .table .webix_cell > .picture > img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media only screen and (max-height: 400px) {
+    board.stock > .table .webix_cell > .picture > img {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* ---------------------------------------------------------------------- */
+/* board.stock > .table .webix_cell > .description                        */
+/* ---------------------------------------------------------------------- */

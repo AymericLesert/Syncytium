@@ -20,9 +20,11 @@ To get acces to the application (except the default administrator), it needs a S
 
 The application needs a schema to know how to set tables into the database. The schema name is defined int the file **App.config** in Syncytium.Test, **Web.config** in Syncytium.Web and Syncytium.WebJob, in the section appSettings :
 
-`  <appSettings>
+```
+  <appSettings>
     <add key="LAPC.Database.Schema" value="SYNCYTIUM" />
-  </appSettings>`
+  </appSettings>
+```
 
 ### Oracle
 
@@ -42,7 +44,7 @@ XE =
 
 Now, you can create a schema by using SQL*Plus Command line (a schema is a user) :
 
-`
+```
 SQL*Plus: Release 11.2.0.2.0 Production on Lun. Mars 20 15:23:32 2017
 
 Copyright (c) 1982, 2014, Oracle.  All rights reserved.
@@ -58,32 +60,32 @@ SQL> grant all privileges to SYNCYTIUM;
 Grant succeeded.
 
 SQL>
-`
+```
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :
 
-`
+```
   <connectionStrings>
     <add name="Syncytium" connectionString="DATA SOURCE=//<computer name>:1521/XE;PERSIST SECURITY INFO=True;USER ID=SYNCYTIUM;PASSWORD=SYNCYTIUM" providerName="Oracle.ManagedDataAccess.Client" />
   </connectionStrings>
-`
+```
 
 ### SQL Server
 
 First, you have to install SQL Server 2016 Express or not. If you need to run the application into a dedicated instance, you have to install once more (here: SYNCYTIUM).
 Then, in the target instance, you can create a schema like this (by using Data source into Visual Studio) :
 
-`
+```
 create schema SYNCYTIUM
-`
+```
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :
 
-`
+```
   <connectionStrings>
     <add name="Syncytium" connectionString="Data Source=localhost\Syncytium;Initial Catalog=Syncytium;Integrated Security=True" providerName="System.Data.SqlClient" />
   </connectionStrings>
-`
+```
 
 ### Firebird
 
@@ -93,27 +95,27 @@ Then, you can create a database.
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :
 
-`
+```
   <connectionStrings>
     <add name="Syncytium" connectionString="Database=<pathtolocatedb>\Syncytium.FDB;User=SYSDBA;Password=masterkey;DataSource=localhost;Port=3052;Charset=UNICODE_FSS;Role=;Connection lifetime=15;Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size=4096;ServerType=0" providerName="FirebirdSql.Data.FirebirdClient" />
   </connectionStrings>
-`
+```
 
 ### MySQL
 
 A schema is a database. So, you have to create a database like this :
 
-`
+```
 create database Syncytium;
-`
+```
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :
 
-`
+```
   <connectionStrings>
     <add name="Syncytium" connectionString="server=localhost;port=3306;database=syncytium;uid=root;password=syncytium" providerName="MySql.Data.MySqlClient" />
   </connectionStrings>
-`
+```
 
 ## SMTP configuration
 
@@ -121,7 +123,7 @@ The simplest way is to have a smtp account with google. Or, if you already have 
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :
 
-`
+```
   <system.net>
     <mailSettings>
       <!-- TODO : mettre de fausses informations avant de commit-->
@@ -130,26 +132,26 @@ You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJo
       </smtp>
     </mailSettings>
   </system.net>
-`
+```
 
 Now, you have to define the default email in the file **App.config** in Syncytium.WebJob and **Web.config** in Syncytium.Web :
 
-`
+```
   <appSettings>
     <add key="Syncytium.Administrator.Email" value="myemail@xxxx.fr" />
   </appSettings>
-`
+```
 
 ## First start and first authentication
 
 To begin, the first login screen (in administrator mode) is shown. The administrator mode is used by the application when the database schema will be updated and only in this case. The login and the password of this mode is defined into the file **Web.Config** in Syncytium.Web project. This account is disabled as soon as the database schema is updated and available.
 
-`
+```
   <appSettings>
     <add key="Syncytium.Administrator.Login" value="admin-dev" />
     <add key="Syncytium.Administrator.Password" value="9RQjTOYJNkzmyasphEUt" />
   </appSettings>
-`
+```
 
 The SQL script which initializes the application is stored into Syncytium.Web project / Database / Provider / <database engine> / Script.
 
@@ -160,7 +162,7 @@ Now, you can run the application for the first time and you can connect to the a
 If the initialization of the database failed, you can check what's happened into the log file (see Logs into the Syncytium.Web project).
 The setting of the log file is done by this part into the file **Web.config** in Syncytium.Web project :
 
-`
+```
   <log4net debug="true">
     <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
       <file type="log4net.Util.PatternString" value="Logs\\Syncytium-" />
@@ -183,7 +185,7 @@ The setting of the log file is done by this part into the file **Web.config** in
       <appender-ref ref="RollingLogFileAppender" />
     </root>
   </log4net>
-`
+```
 
 In case of failure, stop the application, fix the script, start the application connect again.
 

@@ -37,7 +37,7 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DatabaseCacheManager).Name;
+        private static readonly string MODULE = typeof(DatabaseCacheManager).Name;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not

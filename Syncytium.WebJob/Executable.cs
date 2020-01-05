@@ -6,6 +6,11 @@ using System.IO;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 /*
     Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
@@ -144,14 +149,14 @@ namespace Syncytium.WebJob
 
                     // Run WebJob in continuous mode
 
-                    JobHostConfiguration config = new JobHostConfiguration();
-                    if (config.IsDevelopment)
-                        config.UseDevelopmentSettings();
+                    IHostBuilder builder = new HostBuilder().UseEnvironment("Development").UseConsoleLifetime();
 
-                    config.UseTimers();
+                    IHost host = builder.Build();
+                    using (host)
+                    {
+                        host.RunAsync();
+                    }
 
-                    var host = new JobHost(config);
-                    host.RunAndBlock();
                     return 0;
 
                 case 1:

@@ -3,7 +3,17 @@
 ################################################################################
 
 /.vs
-/Syncytium.Module.Sample/obj/Debug
-/Syncytium.WebJob/obj/Debug
-/Syncytium.Module.Administration/obj/Debug
-/Syncytium.Common/obj/Debug
+/Syncytium.Module.Sample/obj/
+/Syncytium.Module.Sample/bin/
+/Syncytium.WebJob/obj/
+/Syncytium.Module.Administration/obj/
+/Syncytium.Module.Administration/bin/
+/Syncytium.Common/obj/
+/Syncytium.Common/bin/
+/Syncytium.Module.Administration/bin//Syncytium.Module.Sample/bin/
+/Syncytium.Test/bin/
+/Syncytium.Test/obj/
+/Syncytium.WebJob/bin/
+/Syncytium/bin/
+/Syncytium/obj/
+/packages/

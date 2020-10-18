@@ -5,7 +5,7 @@ using System.IO;
 using static Syncytium.Common.Database.Provider.Provider;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -129,7 +129,7 @@ namespace Syncytium.Common.Managers
         /// <summary>
         /// AppSettings describing the lot size for a list of notifications from the server to the client
         /// </summary>
-        public static string SETTING_CONNECTION_NOTIFICATION_LOTSIZE = "Syncytium.Connection.Notification.LotSize";
+        public static string SETTING_CONNECTION_LOTSIZE = "Syncytium.Connection.LotSize";
 
         /// <summary>
         /// AppSettings describing the number of days of validity between the sending of the mail and the changement allowed
@@ -147,9 +147,9 @@ namespace Syncytium.Common.Managers
         public static string SETTING_CLIENT_HUB_MAXSIZE = "Syncytium.Client.Hub.MaxSize";
 
         /// <summary>
-        /// AppSettings describing the interval in secondes between 2 tries of checking if the server is available
+        /// AppSettings describing the timeout allowed of the websocket in seconds
         /// </summary>
-        public static string SETTING_CLIENT_HUB_INTERVAL = "Syncytium.Client.Hub.Interval";
+        public static string SETTING_CLIENT_HUB_TIMEOUT = "Syncytium.Client.Hub.Timeout";
 
         /// <summary>
         /// AppSettings describing the font used into the PDF file (see the documentation to get the list)
@@ -170,11 +170,6 @@ namespace Syncytium.Common.Managers
         /// Delay in seconds between 2 heartbeats
         /// </summary>
         public static string SETTING_HEARTBEAT_DELAY = "Syncytium.Heartbeat.Delay";
-
-        /// <summary>
-        /// Maximum delay in seconds between 2 updates into the application
-        /// </summary>
-        public static string SETTING_HEARTBEAT_THRESHOLD = "Syncytium.Heartbeat.Threshold";
 
         #endregion
 
@@ -271,7 +266,7 @@ namespace Syncytium.Common.Managers
             get
             {
                 string debugMode = AppSettings[SETTING_DEBUG];
-                return (debugMode != null) && (debugMode.ToUpper().Equals("TRUE") || debugMode.ToUpper().Equals("VERBOSE") || debugMode.ToUpper().Equals("ON") || debugMode.Equals("1"));
+                return (debugMode != null) && (debugMode.ToUpper().Equals("TRUE") || debugMode.ToUpper().Equals("VERBOSE") || debugMode.ToUpper().Equals("ALL") || debugMode.ToUpper().Equals("ON") || debugMode.Equals("1"));
             }
         }
 
@@ -284,7 +279,20 @@ namespace Syncytium.Common.Managers
             get
             {
                 string debugMode = AppSettings[SETTING_DEBUG];
-                return debugMode != null && debugMode.ToUpper().Equals("VERBOSE");
+                return debugMode != null && (debugMode.ToUpper().Equals("VERBOSE") || debugMode.ToUpper().Equals("ALL"));
+            }
+        }
+
+        /// <summary>
+        /// Retrieve the verbose mode defined into web.config
+        /// If the value is not defined or contains different than "VERBOSE", set False
+        /// </summary>
+        public static bool VerboseAll
+        {
+            get
+            {
+                string debugMode = AppSettings[SETTING_DEBUG];
+                return debugMode != null && debugMode.ToUpper().Equals("ALL");
             }
         }
 
@@ -476,19 +484,19 @@ namespace Syncytium.Common.Managers
         /// LotSize for the list of notifications from the server to the client
         /// By default: 100
         /// </summary>
-        public static int ConnectionNotificationLotSize
+        public static int ConnectionLotSize
         {
             get
             {
-                string strLotSize = AppSettings[SETTING_CONNECTION_NOTIFICATION_LOTSIZE];
+                string strLotSize = AppSettings[SETTING_CONNECTION_LOTSIZE];
                 if (strLotSize == null)
-                    return 100;
+                    return 16384;
 
                 if (!int.TryParse(strLotSize, out int lotSize))
-                    return 100;
+                    return 16384;
 
                 if (lotSize <= 0)
-                    return 100;
+                    return 16384;
 
                 return lotSize;
             }
@@ -539,24 +547,24 @@ namespace Syncytium.Common.Managers
         }
 
         /// <summary>
-        /// Interval in secondes between 2 tries of checking if the server is available and to try a reconnection
+        /// Timeout allowed of the websocket in seconds
         /// by default: 30 secondes
         /// </summary>
-        public static int ClientHubInterval
+        public static int ClientHubTimeout
         {
             get
             {
-                string strInterval = AppSettings[SETTING_CLIENT_HUB_INTERVAL];
-                if (strInterval == null)
+                string strTimeout = AppSettings[SETTING_CLIENT_HUB_TIMEOUT];
+                if (strTimeout == null)
                     return 30;
 
-                if (!int.TryParse(strInterval, out int interval))
+                if (!int.TryParse(strTimeout, out int timeout))
                     return 30;
 
-                if (interval <= 0)
+                if (timeout <= 0)
                     return 30;
 
-                return interval;
+                return timeout;
             }
         }
 
@@ -626,39 +634,21 @@ namespace Syncytium.Common.Managers
 
         /// <summary>
         /// Delay in seconds between 2 heartbeats ( &lt;= 0 to disable)
-        /// by default: 30 s
+        /// by default: 30 s and limited up to ClientHubTimeout / 2
         /// </summary>
         public static int HeartbeatDelay
         {
             get
             {
                 string strDelay = AppSettings[SETTING_HEARTBEAT_DELAY];
-                if (strDelay == null)
-                    return 30;
+                if (strDelay == null || !int.TryParse(strDelay, out int delay))
+                    delay = 30;
 
-                if (!int.TryParse(strDelay, out int delay))
-                    return 30;
+                int timeout = ClientHubTimeout / 2;
+                if (delay > timeout)
+                    delay = timeout;
 
                 return delay <= 0 ? -1 : delay;
-            }
-        }
-
-        /// <summary>
-        /// Maximum delay in seconds between 2 updates into the application
-        /// by default: 300 s
-        /// </summary>
-        public static int HeartbeatThreshold
-        {
-            get
-            {
-                string strThreshold = AppSettings[SETTING_HEARTBEAT_THRESHOLD];
-                if (strThreshold == null)
-                    return 300;
-
-                if (!int.TryParse(strThreshold, out int threshold))
-                    return 300;
-
-                return threshold <= 0 ? -1 : threshold;
             }
         }
 
@@ -709,7 +699,7 @@ namespace Syncytium.Common.Managers
                     settings[SETTING_HTTP_ROOT] = ServerHttpRoot;
 
                 if (!settings.ContainsKey(SETTING_FILE_ROOT))
-                    settings[SETTING_FILE_ROOT] = ServerFileRootImages;
+                    settings[SETTING_FILE_ROOT] = AppDomain.CurrentDomain.BaseDirectory;
 
                 if (!settings.ContainsKey(SETTING_CLIENT_PDF_FONT))
                     settings[SETTING_CLIENT_PDF_FONT] = String.Empty;
@@ -720,14 +710,13 @@ namespace Syncytium.Common.Managers
                 settings[SETTING_DATABASE_CACHE] = DatabaseCache ? "true" : "false";
                 settings[SETTING_CONNECTION_MAX_WAITING] = ConnectionMaxWaiting.ToString();
                 settings[SETTING_CONNECTION_CLEANUP] = ConnectionCleanup.ToString();
-                settings[SETTING_CONNECTION_NOTIFICATION_LOTSIZE] = ConnectionNotificationLotSize.ToString();
+                settings[SETTING_CONNECTION_LOTSIZE] = ConnectionLotSize.ToString();
                 settings[SETTING_PASSWORD_EXPIRICYDAY] = PasswordExpiricyDay.ToString();
 
                 settings[SETTING_CLIENT_HUB_MAXSIZE] = ClientHubMaxSize.ToString();
-                settings[SETTING_CLIENT_HUB_INTERVAL] = ClientHubInterval.ToString();
+                settings[SETTING_CLIENT_HUB_TIMEOUT] = ClientHubTimeout.ToString();
 
                 settings[SETTING_HEARTBEAT_DELAY] = HeartbeatDelay.ToString();
-                settings[SETTING_HEARTBEAT_THRESHOLD] = HeartbeatThreshold.ToString();
 
                 // set some globals parameters
 

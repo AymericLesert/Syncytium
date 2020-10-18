@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,19 +34,28 @@ class Picture {
         image.onload = function () {
             Logger.Instance.info( "Picture", "width: " + this.width + " x height: " + this.height + " => width: " + width + " x height: " + height );
 
-            var canvas = document.createElement( "canvas" );
+            let canvas = document.createElement( "canvas" );
 
-            var context2d = canvas.getContext( "2d" );
+            let context2d = canvas.getContext( "2d" );
             canvas.width = width;
             canvas.height = height;
-            context2d.drawImage( this, 0, 0, this.width, this.height, 0, 0, canvas.width, canvas.height );
-
-            fnDone( canvas.toDataURL( "image/png", 1 ) );
+            if ( picture.indexOf( "image/svg" ) >= 0 ) {
+                context2d.drawImage( this, 0, 0, width, height, 0, 0, canvas.width, canvas.height );
+            } else {
+                context2d.drawImage( this, 0, 0, this.width, this.height, 0, 0, canvas.width, canvas.height );
+            }
 
             this.onload = null;
+            fnDone( canvas.toDataURL( "image/png", 1 ) );
             canvas.remove();
             image.remove();
         };
+        image.onerror = function () {
+            fnDone();
+
+            this.onload = null;
+            this.onerror = null;
+        }
         image.src = picture;
     }
 
@@ -60,9 +69,9 @@ class Picture {
         image.onload = function () {
             Logger.Instance.info( "Picture", "width: " + this.width + " x height: " + this.height );
 
-            var canvas = document.createElement( "canvas" );
+            let canvas = document.createElement( "canvas" );
 
-            var context2d = canvas.getContext( "2d" );
+            let context2d = canvas.getContext( "2d" );
             canvas.height = this.height;
             canvas.width = this.width;
             context2d.drawImage( this, 0, 0 );
@@ -86,9 +95,9 @@ class Picture {
         image.onload = function () {
             Logger.Instance.info( "Picture", "width: " + this.width + " x height: " + this.height );
 
-            var canvas = document.createElement( "canvas" );
+            let canvas = document.createElement( "canvas" );
 
-            var context2d = canvas.getContext( "2d" );
+            let context2d = canvas.getContext( "2d" );
             canvas.height = this.height;
             canvas.width = this.width;
             context2d.drawImage( this, 0, 0 );
@@ -100,5 +109,48 @@ class Picture {
             image.remove();
         };
         image.src = picture;
+    }
+
+    /**
+     * Load a SVG file into a data base 64 bits (SVG mode)
+     * @param {any} picture filename to load
+     */
+    static async loadSVGAsync( picture ) {
+        return new Promise( ( resolv, reject ) => {
+            let image = new Image();
+
+            image.onload = () => {
+                try {
+                    Logger.Instance.info( "Picture", "width: " + image.width + " x height: " + image.height );
+
+                    let canvas = document.createElement( "canvas" );
+
+                    let context2d = canvas.getContext( "2d" );
+                    canvas.height = image.height;
+                    canvas.width = image.width;
+                    context2d.drawImage( image, 0, 0 );
+
+                    let img = canvas.toDataURL( "image/svg+xml" );
+
+                    this.onload = null;
+                    canvas.remove();
+                    image.remove();
+
+                    Logger.Instance.debug( "Picture", "Success !" );
+                    resolv( img );
+                } catch ( e ) {
+                    Logger.Instance.debug( "Picture", "Error !" );
+                    reject( e );
+                }
+            }
+
+            image.onerror = () => {
+                Logger.Instance.debug( "Picture", "Error !" );
+                reject();
+            }
+
+            Logger.Instance.debug( "Picture", "Loading file '" + picture + "' ..." );
+            image.src = picture;
+        } );
     }
 }

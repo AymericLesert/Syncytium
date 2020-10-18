@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         if ( this.Component === null )
             return super.Value;
 
-        var value = this.FieldZone.find( "select" ).val();
+        let value = this.FieldZone.find( "select" ).val();
         if ( String.isEmptyOrWhiteSpaces( value ) )
             return null;
 
@@ -77,7 +77,17 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
      * @param {any} container zone having the field
      */
     drawField ( container ) {
-        container.append( "<select></select>" );
+        container.append( "<select></select><div class='icon'></div>" );
+    }
+
+    /**
+     * Raise the click event
+     */
+    onMouseClick() {
+        if ( this.Component === null || this.Readonly )
+            return;
+
+        this.FieldZone.find( ".icon" ).click();
     }
 
     /**
@@ -93,29 +103,48 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
     }
 
     /**
+     * Sort text into the combo select 
+     */
+    sort() {
+        let options = this.FieldZone.find( "select > option" );
+        options.detach().sort( ( a, b ) => {
+            let t1 = $( a ).text();
+            let t2 = $( b ).text();
+
+            if ( String.isEmptyOrWhiteSpaces( t1 ) && String.isEmptyOrWhiteSpaces( t2 ) )
+                return 0;
+            if ( String.isEmptyOrWhiteSpaces( t1 ) )
+                return -1;
+            if ( String.isEmptyOrWhiteSpaces( t2 ) )
+                return 1;
+
+            return t1 > t2 ? 1 : t1 < t2 ? - 1 : 0;
+        } );
+        options.appendTo( this.FieldZone.find( "select" ) );
+    }
+
+    /**
      * Called on onOpenning just before setting a value
      */
     populate() {
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
                 }
@@ -137,21 +166,20 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         if ( this.Component === null )
             return;
 
-        var select = this.FieldZone.find( "select" );
-        var option = null;
+        let select = this.FieldZone.find( "select" );
 
         select.empty();
         select.off( 'keydown focus' ).on( 'keydown', handleKeydown( this ) ).on( 'focus', handleFocusField( this, true ) );
 
+        let options = "";
+
         if ( this._allowNullValue )
-            select.append( "<option value=''></option>" );
+            options += "<option value=''></option>";
 
-        var list = this._list.getList();
-        var classDeleted = "";
+        let classDeleted = "";
+        let valueAddedExists = false;
 
-        for ( var i in list ) {
-            var item = list[i];
-
+        for ( let item of Array.toIterable( this._list.getList() ) ) {
             if ( !this._list.isVisible( item ) )
                 continue;
 
@@ -159,43 +187,67 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
             if ( this._list.isDeleted( item ) )
                 classDeleted = " class='deleted'";
 
-            var id = String.convertValue( this._list.getId( item ) );
+            let id = this._list.getId( item );
             if ( id === null )
                 continue;
 
-            var text = this._list.getText( item );
+            let text = this._list.getText( item );
             if ( !String.isEmptyOrWhiteSpaces( text ) ) {
-                select.append( "<option value='" + id + "'" + classDeleted + ">" + String.encode( text.trim() ) + "</option>" );
+                options += "<option value='" + id + "'" + classDeleted + ">" + String.encode( text.trim() ) + "</option>";
+                if ( this._valueAdded === id )
+                    valueAddedExists = true;
                 continue;
             }
 
-            var label = this._list.getLanguageLabel( item );
+            let label = this._list.getLanguageLabel( item );
             if ( label === undefined || label === null )
                 continue;
 
-            select.append( Helper.Option( id, label ) );
+            options += Helper.Option( id, label );
+            if ( this._valueAdded === id )
+                valueAddedExists = true;
         }
 
-        if ( this._valueAdded !== null && this._list !== null && ( this._list instanceof List.ListRecord || this._list instanceof List.ListArrayRecord ) ) {
-            option = select.find( "option[value='" + this._valueAdded + "']" );
-            if ( option === null || option === undefined || option.length === 0 ) {
-                let record = DSDatabase.Instance.getRowById( this._list.Table, this._valueAdded );
+        if ( !valueAddedExists && this._list !== null && ( this._list instanceof List.ListRecord || this._list instanceof List.ListArrayRecord ) ) {
+            let record = this._list.getItem( this._valueAdded, true );
 
-                if ( record !== null ) {
-                    classDeleted = "";
-                    if ( this._list.isDeleted( record ) )
-                        classDeleted = " class='deleted'";
+            if ( record !== null ) {
+                classDeleted = "";
+                if ( this._list.isDeleted( record ) )
+                    classDeleted = " class='deleted'";
 
-                    select.append( "<option value='" + record.Id + "'" + classDeleted + ">" + String.encode( this._list.getText( record ) ) + "</option>" );
-                }
+                options += "<option value='" + record.Id + "'" + classDeleted + ">" + String.encode( this._list.getText( record ) ) + "</option>";
             }
         }
+
+        select.append( options );
+        this.sort();
     }
 
     /**
      * Retrieve the list of values and pictures for a given column in a table into the database
      */
     refresh () {
+        function handleChangeValue( field ) {
+            return function () {
+                field._value = $( this ).val();
+
+                // update the style of the element selected
+
+                let select = field.FieldZone.find( "select" );
+                if ( select.hasClass( 'deleted' ) )
+                    select.removeClass( 'deleted' );
+
+                if ( field.Value !== null && ( field._list instanceof List.ListRecord || field._list instanceof List.ListArrayRecord ) ) {
+                    let record = DSDatabase.Instance.getRowById( field._list.Table, field.Value );
+                    if ( record !== null && field._list.isDeleted( record ) )
+                        select.addClass( 'deleted' );
+                }
+
+                field.raise( 'change' );
+            };
+        }
+
         super.refresh();
 
         if ( this.Component === null )
@@ -208,8 +260,8 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         if ( typeof this._value === 'string' )
             this._value = this._value.trim();
 
-        var select = this.FieldZone.find( "select" );
-        var option = select.find( "option[value='" + this._value + "']" );
+        let select = this.FieldZone.find( "select" );
+        let option = select.find( "option[value='" + this._value + "']" );
         if ( option === null || option === undefined || option.length === 0 )
             this._value = null;
 
@@ -228,34 +280,22 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
 
         // Raise an event onLoad
 
-        var fn = this.getEvent( "onLoad" );
+        let fn = this.getEvent( "onLoad" );
         if ( fn && ( this._list instanceof List.ListRecord || this._list instanceof List.ListArrayRecord ) )
             fn( "onLoad", this._list.Table );
 
         // handle the changement of the value
 
-        function handleChangeValue( field ) {
-            return function () {
-                field._value = $( this ).val();
-
-                // update the style of the element selected
-
-                var select = field.FieldZone.find( "select" );
-                if ( select.hasClass( 'deleted' ) )
-                    select.removeClass( 'deleted' );
-
-                if ( field.Value !== null && ( field._list instanceof List.ListRecord || field._list instanceof List.ListArrayRecord ) ) {
-                    var record = DSDatabase.Instance.getRowById( field._list.Table, field.Value );
-                    if ( record !== null && field._list.isDeleted( record ) )
-                        select.addClass( 'deleted' );
-                }
-
-                field.raise( 'change' );
-            };
-        }
-
         select.prop( 'disabled', this.Readonly );
         select.off( 'change' ).on( 'change', handleChangeValue( this ) );
+
+        if ( this.Readonly || !this.isEvent( 'icon' ) ) {
+            this.FieldZone.find( '.icon' ).hide();
+            this.FieldZone.find( '.icon' ).off( 'click' );
+        } else {
+            this.FieldZone.find( '.icon' ).show();
+            this.FieldZone.find( '.icon' ).off( 'click' ).on( 'click', () => this.raise( 'icon', this ) );
+        }
     }
 
     /**
@@ -285,39 +325,47 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         }
 
         function handleOnCreate( field ) {
-            var select = field.FieldZone.find( "select" );
+            let select = field.FieldZone.find( "select" );
 
             return function ( event, table, id, record ) {
                 if ( !( field._list instanceof List.ListRecord ) && !( field._list instanceof List.ListArrayRecord ) )
                     return;
 
-                if ( field._list.isVisible( record ) ) {
-                    var classDeleted = "";
+                List.ListRecord.SetExtendedFields(field._list, record);
+
+                if (field._list.isVisible(record)) {
+                    let classDeleted = "";
                     if ( field._list.isDeleted( record ) )
                         classDeleted = " class='deleted'";
 
                     select.append( "<option value='" + record.Id + "'" + classDeleted + ">" + String.encode( field._list.getText( record ) ) + "</option>" );
                 }
 
+                field.sort();
+
+
                 // Raise an event onCreate
 
-                var fn = field.getEvent( event );
+                let fn = field.getEvent( event );
                 if ( fn )
                     fn( event, table, id, record );
             };
         }
 
         function handleOnUpdate( field ) {
-            var select = field.FieldZone.find( "select" );
+            let select = field.FieldZone.find( "select" );
 
             return function ( event, table, id, oldRecord, newRecord ) {
                 if ( !( field._list instanceof List.ListRecord ) && !( field._list instanceof List.ListArrayRecord ) )
                     return;
 
-                var option = select.find( "option[value='" + newRecord.Id + "']" );
+                List.ListRecord.SetExtendedFields(field._list, newRecord);
+                List.ListRecord.SetExtendedFields(field._list, oldRecord);
 
-                var classDeleted = "";
-                var itemDeleted = false;
+                let option = select.find( "option[value='" + newRecord.Id + "']" );
+
+                let classDeleted = "";
+                let itemDeleted = false;
                 if ( field._list.isDeleted( newRecord ) ) {
                     classDeleted = " class='deleted'";
                     itemDeleted = true;
@@ -336,12 +384,12 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
 
                         option.html( String.encode( field._list.getText( newRecord ) ) ); // Update
                     } else {
-                        var oldValue = field.Value; // Delete
-
+                        let oldValue = field.Value; // Delete
                         option.remove();
+                        let newValue = field.Value; // Delete
 
-                        if ( oldValue !== field.Value )
-                            field.Value = field.Value;
+                        if ( oldValue !== newValue )
+                            field.Value = newValue;
                     }
                 } else {
                     if ( option.hasClass( 'deleted' ) )
@@ -359,36 +407,40 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
                     select.removeClass( 'deleted' );
 
                 if ( field.Value !== null ) {
-                    var record = DSDatabase.Instance.getRowById( field._list.Table, field.Value );
+                    let record = DSDatabase.Instance.getRowById( field._list.Table, field.Value );
                     if ( record !== null && field._list.isDeleted( record ) )
                         select.addClass( 'deleted' );
                 }
 
+                field.sort();
+
                 // Raise an event
 
-                var fn = field.getEvent( event );
+                let fn = field.getEvent( event );
                 if ( fn )
                     fn( event, table, id, oldRecord, newRecord );
             };
         }
 
         function handleOnDelete( field ) {
-            var select = field.FieldZone.find( "select" );
+            let select = field.FieldZone.find( "select" );
 
             return function ( event, table, id, record ) {
                 if ( !( field._list instanceof List.ListRecord ) && !( field._list instanceof List.ListArrayRecord ) )
                     return;
 
-                var option = select.find( "option[value='" + record.Id + "']" );
+                List.ListRecord.SetExtendedFields(field._list, record);
+
+                let option = select.find("option[value='" + record.Id + "']");
 
                 if ( !( option === null || option === undefined || option.length === 0 ) &&
                     ( field._valueAdded === null || field._valueAdded.toString() !== newRecord.Id.toString() ) ) {
-                    var oldValue = field.Value;
-
+                    let oldValue = field.Value;
                     option.remove();
+                    let newValue = field.Value;
 
-                    if ( oldValue !== field.Value )
-                        field.Value = field.Value;
+                    if ( oldValue !== newValue )
+                        field.Value = newValue;
                 } else {
                     if ( option.hasClass( 'deleted' ) )
                         option.removeClass( 'deleted' );
@@ -410,7 +462,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
 
                 // Raise an event
 
-                var fn = field.getEvent( event );
+                let fn = field.getEvent( event );
                 if ( fn )
                     fn( event, table, id, record );
             };
@@ -429,6 +481,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         super.onClose();
 
         this.FieldZone.find( "select" ).off( 'focus' );
+        this.FieldZone.find( '.icon' ).off( 'click' )
         this.Component.off( 'focus' );
     }
 
@@ -439,7 +492,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         if ( this.Component === null )
             return;
 
-        var select = this.FieldZone.find( "select" );
+        let select = this.FieldZone.find( "select" );
 
         if ( select[0].length === 0 ) {
             super.Value = null;
@@ -448,6 +501,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
 
         if ( this._allowNullValue ) {
             if ( select[0].length > 1 ) {
+                this.FieldZone.find( "select" ).val( select[0][1].value );
                 super.Value = select[0][1].value;
             } else {
                 super.Value = null;
@@ -456,6 +510,7 @@ GUI.Field.FieldSelect = class extends GUI.Field.Field {
         }
 
         if ( select[0].length > 0 ) {
+            this.FieldZone.find( "select" ).val( select[0][0].value );
             super.Value = select[0][0].value;
             return;
         }

@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,48 +23,49 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
+    <head>
+        <meta name="viewport" content="width=device-width" />
 
-    <title>@(ViewBag.Title)</title>
+        <title>@(ViewBag.Title)</title>
 
-    <link rel="icon" type="image/png" href="~/favicon.png" />
+        <link rel="icon" type="image/png" href="@Model.AddSource("/favicon.png")" />
 
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Area.css" />
+        <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/theme.css")" />
+        <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Area.css")" />
 
-    @RenderSection("CSSDeclaration")
+        @RenderSection("CSSDeclaration")
 
-    @RenderSection("JSDeclaration")
-</head>
-<body onload="load();">
-    <header class="@(Model.Mode)">
-        <ul>
-            <li class="space" />
-            <li class="logo" />
-            <li class="space" />
-            <li class="symbol" />
-            <li class="screen_name">@(ViewBag.Title)</li>
-            <li class="spaceall" />
-            <li class="photo"><img src="~/Content/Images/Header/User.svg" /></li>
-            <li class="signout" onclick="location.href = '@(Model.UrlRoot)Administration/User/SignOut'" />
-            <li class="space" />
-        </ul>
-    </header>
+        @RenderSection("JSDeclaration")
+    </head>
+    <body onload="load();">
+        <header class="@(Model.Mode)">
+            <ul>
+                <li class="space" />
+                <li class="logo" />
+                <li class="space" />
+                <li class="symbol" />
+                <li class="screen_name">@(ViewBag.Title)</li>
+                <li class="spaceall" />
+                <li class="photo"><img src="~/Content/Images/Header/User.svg" /></li>
+                <li class="signout" onclick="location.href = '@(Model.UrlRoot)Administration/User/SignOut'" />
+                <li class="space" />
+            </ul>
+        </header>
 
-    <main class="fullpage">
-        @RenderBody()
-    </main>
+        <main class="fullpage">
+            @RenderBody()
+        </main>
 
-    <div class="progress" style="display:none;">
-        <div>
-            <progress id="bar" min="0" max="100" value="0"></progress>
-            <br />
-            <div id="progressStatus">@Model.GetLabel("MSG_COMMITTING")</div>
+        <div class="progress" style="display:none;">
+            <div>
+                <progress id="bar" min="0" max="100" value="0"></progress>
+                <br />
+                <div id="progressStatus">@Model.GetLabel("MSG_COMMITTING")</div>
+            </div>
         </div>
-    </div>
 
-    <footer>
-        @Model.GetLabel("FOOTER_SYNCYTIUM") - @(Model.Version) &copy; @DateTime.Now.Year
-    </footer>
-</body>
+        <footer>
+            @Model.GetLabel("FOOTER_Syncytium") - @(Model.Version) &copy; @DateTime.Now.Year
+        </footer>
+    </body>
 </html>

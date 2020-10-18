@@ -7,7 +7,7 @@ using System;
 using System.Data.Entity;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ namespace Syncytium.Module.Administration
         /// </summary>
         public const string AREA_NAME = "Administration";
 
-        #region Database
+        #region Administration
 
         /// <summary>
         /// Table "Customer"
@@ -85,15 +85,20 @@ namespace Syncytium.Module.Administration
         /// Factory building a cache using to optimize the notification effect
         /// Virtual method (in sub class, define it the order of tables to notify)
         /// </summary>
+        /// <param name="schema"></param>
         /// <returns></returns>
-        public override DSCache GetCache()
+        public override DSCache GetCache(DSDatabase schema)
         {
-            DSCache cache = base.GetCache();
-            cache.Tables.Add("Customer");
-            cache.Tables.Add("Language");
-            cache.Tables.Add("User");
-            cache.Tables.Add("Module");
-            cache.Tables.Add("UserModule");
+            DSCache cache = base.GetCache(schema);
+
+            // Administration
+
+            cache.AddTable("Customer");
+            cache.AddTable("Language");
+            cache.AddTable("User");
+            cache.AddTable("Module");
+            cache.AddTable("UserModule");
+
             return cache;
         }
 
@@ -191,10 +196,11 @@ namespace Syncytium.Module.Administration
                 cache.Set(table, id, customer.Id != customerId ? null : currentRecord);
                 return;
             }
-            else if (currentRecord as LanguageRecord != null ||
-                     currentRecord as ModuleRecord != null ||
-                     currentRecord as UserModuleRecord != null ||
-                     currentRecord as UserRecord != null)
+            
+            if (currentRecord as LanguageRecord != null ||
+                currentRecord as ModuleRecord != null ||
+                currentRecord as UserModuleRecord != null ||
+                currentRecord as UserRecord != null)
             {
                 cache.Set(table, id, currentRecord);
                 return;
@@ -214,6 +220,7 @@ namespace Syncytium.Module.Administration
         /// <param name="userId"></param>
         /// <param name="profile"></param>
         /// <param name="area"></param>
+        /// <param name="moduleId"></param>
         /// <param name="service"></param>
         /// <param name="record"></param>
         /// <param name="identity"></param>
@@ -222,11 +229,12 @@ namespace Syncytium.Module.Administration
                                                int userId,
                                                UserProfile.EUserProfile profile,
                                                string area,
+                                               int moduleId,
                                                string service,
                                                JObject record,
                                                JObject identity)
         {
-            JObject result = base.ExecuteService(customerId, userId, profile, area, service, record, identity);
+            JObject result = base.ExecuteService(customerId, userId, profile, area, moduleId, service, record, identity);
             if (result != null)
                 return result;
 

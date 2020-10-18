@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,19 +30,279 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     }
 
     /**
+     * Generic action to update a check box into the board
+     * @param {any} board board to update
+     * @param {any} nullable true if the property can be null
+     */
+    static handleClickBoolean( board, nullable ) {
+        return async function ( id, item, attribute ) {
+            let oldRecord = board.List.getItem( id, true );
+            if ( oldRecord === null )
+                return;
+
+            let newRecord = DSRecord.Clone( oldRecord );
+
+            // Update the field
+
+            if ( nullable === true ) {
+                if ( newRecord[attribute] === null )
+                    newRecord[attribute] = true;
+                else if ( newRecord[attribute] === true )
+                    newRecord[attribute] = false;
+                else
+                    newRecord[attribute] = null;
+            } else {
+                if ( newRecord[attribute] === true )
+                    newRecord[attribute] = false;
+                else
+                    newRecord[attribute] = true;
+            }
+
+            // notify the database that something has changed
+
+            await board.updateItem( oldRecord, newRecord );
+        };
+    }
+
+    /**
+     * Generic action to update a text value into the board
+     * @param {any} board board to update
+     * @param {string} title dialog box title
+     * @param {string} label dialog box label
+     */
+    static handleChangeText( board, title, label ) {
+        return async function ( id, item, attribute ) {
+            function onCheckValue( id ) {
+                return async function ( newValue ) {
+                    let oldRecord = board.List.getItem( id, true );
+                    if ( oldRecord === null )
+                        return;
+
+                    let newRecord = DSRecord.Clone( oldRecord );
+                    newRecord[attribute] = String.isEmptyOrWhiteSpaces( newValue ) ? null : newValue;
+
+                    await board.updateItem( oldRecord, newRecord );
+                    return true;
+                };
+            }
+
+            GUI.Box.BoxInputText.Open( Helper.Label( title, board.List.getText( item ) ),
+                label,
+                item[attribute],
+                false,
+                onCheckValue( id ) );
+        };
+    }
+
+    /**
+     * Generic action to update a digit value into the board
+     * @param {any} board board to update
+     * @param {string} title dialog box title
+     * @param {string} label dialog box label
+     * @param {string} alignment digit value alignment ('center' by default)
+     * @param {function} fnValue format the value
+     */
+    static handleChangeDigit( board, title, label, alignment, fnValue ) {
+        return function ( id, item, attribute ) {
+            function onCheckValue( id, digit ) {
+                return async function ( newValue ) {
+                    let oldRecord = board.List.getItem( id, true );
+                    if ( oldRecord === null )
+                        return;
+
+                    let newRecord = DSRecord.Clone( oldRecord );
+                    if ( fnValue === null || fnValue === undefined )
+                        newRecord[attribute] = digit.Value;
+                    else
+                        newRecord[attribute] = fnValue( digit );
+
+                    await board.updateItem( oldRecord, newRecord );
+                    return true;
+                };
+            }
+
+            // Update the value
+
+            let format = null;
+            let column = DSDatabase.Instance.getColumn( board.List.Table, attribute );
+            if ( column !== null )
+                format = column.DatetimeFormat;
+            if ( column !== null && format === null )
+                format = column.StringFormat;
+
+            let digit = null;
+            if ( format !== null )
+                digit = Digits.Digits.Factory( format );
+
+            if ( digit === null )
+                digit = column.Digit;
+
+            if ( digit === null ) {
+                handleChangeText( board, title, label )( id, item, attribute );
+                return;
+            } else {
+                digit.Value = item[attribute];
+
+                GUI.Box.BoxInputDigit.Digit( Helper.Label( title, board.List.getText( item ) ),
+                    label,
+                    column.Unit,
+                    digit,
+                    alignment === null || alignment === undefined ? 'center' : alignment,
+                    onCheckValue( id, digit ) );
+            }
+        };
+    };
+
+    /**
+     * Generic action to update a reference value into the board
+     * @param {any} board board to update
+     * @param {string} title dialog box title
+     * @param {string} label dialog box label
+     * @param {List.List} list list of values
+     * @param {boolean} allowNullValue false or undefined (no null value), else true
+     * @param {function} fnValue format the value
+     */
+    static handleChangeSelect( board, title, label, list, allowNullValue, fnValue ) {
+        return async function ( id, item, attribute ) {
+            function onCheckValue( id, newValue ) {
+                return async function () {
+                    let oldRecord = board.List.getItem( id, true );
+                    if ( oldRecord === null )
+                        return;
+
+                    let newRecord = DSRecord.Clone( oldRecord );
+                    newRecord[attribute] = newValue;
+
+                    await board.updateItem( oldRecord, newRecord );
+                    return true;
+                };
+            }
+
+            // List of enumerated values
+
+            let choices = [];
+            if ( allowNullValue === true )
+                choices.push( { label: "SELECT_VALUE_NULL", fn: onCheckValue( id, null ) } );
+
+            for ( let value of list.getListSorted() ) {
+                if ( item[attribute] === list.getId( value ) )
+                    continue;
+
+                if ( fnValue !== null && fnValue !== undefined && !fnValue( id, item, attribute, value ) )
+                    continue;
+
+                choices.push( { label: list.getText( value ), fn: onCheckValue( id, list.getId( value ) ) } );
+            }
+
+            if ( choices.length > 0 )
+                GUI.Box.BoxChoice.BoxChoices( Helper.Label( title, board.List.getText( item ) ), label, choices );
+        };
+    }
+
+    /**
+     * Generic action to update a reference value into the board
+     * @param {any} board board to update
+     * @param {string} title dialog box title
+     * @param {string} label dialog box label
+     * @param {List.List} list list of values
+     * @param {function} filter function to filter items
+     * @param {boolean} allowNullValue true if a null value is allowed for this attribute
+     */
+    static handleChangeSelectImage( board, title, label, list, filter, allowNullValue ) {
+        return async function ( id, item, attribute ) {
+            function onCheckValue( id ) {
+                return async function ( newValue ) {
+                    let oldRecord = board.List.getItem( id, true );
+                    if ( oldRecord === null )
+                        return;
+
+                    let newRecord = DSRecord.Clone( oldRecord );
+                    newRecord[attribute] = newValue;
+
+                    await board.updateItem( oldRecord, newRecord );
+                    return true;
+                };
+            }
+
+            // Update the select image
+
+            GUI.Box.BoxSelect.Open( Helper.Label( title, board.List.getText( item ) ),
+                label,
+                item[attribute],
+                list,
+                filter,
+                onCheckValue( id ) );
+            GUI.Box.BoxSelect.Instance.AllowNullValue = allowNullValue === true;
+        };
+    }
+
+    /**
+     * Handle the refreshing steps into the board on changing values from a table
+     * @param {string} table table name
+     * @param {string} attribute attribute into the item
+     * @param {function} isRefreshed function describing the filter of a row into the board to update
+     * @param {array} columns list of columns (or attribute) to update if the value has changed
+     */
+    handleUpdateRows( table, attribute, isRefreshed, columns ) {
+        function handleAsyncFunction( board ) {
+            return async function ( event, table, id, oldRecord, newRecord ) {
+                function* fn( board ) {
+                    let rows = [];
+
+                    yield GUI.Box.Progress.Status( 0, 1, "MSG_REFRESHING" );
+
+                    board.Webix.eachRow( row => {
+                        let item = board.getItem( row );
+                        if ( item === null || item === undefined || !item.item )
+                            return;
+
+                        if ( ( !isRefreshed && item.item[attribute] !== id ) ||
+                            ( isRefreshed && !isRefreshed( item.item, id ) ) )
+                            return;
+
+                        rows.push( row );
+                    } );
+
+                    board.info( "Refreshing " + rows.length + " lines ..." );
+
+                    yield GUI.Box.Progress.Status( 0, rows.length );
+
+                    for ( let row of rows ) {
+                        board.refreshRow( row, columns === undefined ? [attribute] : columns );
+                        yield GUI.Box.Progress.Status();
+                    }
+                }
+
+                if ( board.Webix === null || !board.isFieldVisible( attribute, DSDatabase.Instance.CurrentUser ) )
+                    return;
+
+                await GUI.Box.Progress.Thread( fn( board ), 1000, false, false );
+            };
+        }
+
+        if ( !this._keepListEvents ) {
+            this.addListener( DSDatabase.Instance.addEventListener( "onUpdate", table, "*", handleAsyncFunction( this ) ) );
+            this.addListener( DSDatabase.Instance.addEventListener( "onDelete", table, "*", handleAsyncFunction( this ) ) );
+        } else if ( !this._alreadyOpened ) {
+            DSDatabase.Instance.addEventListener( "onUpdate", table, "*", handleAsyncFunction( this ) );
+            DSDatabase.Instance.addEventListener( "onDelete", table, "*", handleAsyncFunction( this ) );
+        }
+    }
+
+    /**
      * @returns {any} List of visible columns into the table
      */
     get ColumnsVisible() {
         if ( this.Webix === null )
             return [];
 
-        var columns = [];
+        let columns = [];
 
-        for ( var id in this.Webix.config.columns ) {
-            if ( !this.Webix.isColumnVisible( this.Webix.config.columns[id].id ) )
+        for ( let column of Array.toIterable( this.Webix.config.columns ) ) {
+            if ( !this.Webix.isColumnVisible( column.id ) )
                 continue;
 
-            columns.push( this.Webix.config.columns[id].id );
+            columns.push( column.id );
         }
 
         return columns;
@@ -53,6 +313,16 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
      */
     get Columns() {
         return this._columns;
+    }
+
+    /**
+     * @returns {Array or String} Column and order to sort by default
+     */
+    get ColumnSortedByDefault() {
+        let columns = this.ColumnsVisible;
+        if ( columns.length > 0 )
+            return [columns[0], "asc"];
+        return null;
     }
 
     /**
@@ -82,6 +352,20 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     }
 
     /**
+     * Set the flag which keep always the listeners stored into the board
+     */
+    set KeepListEvents( value ) {
+        this._keepListEvents = String.convertBoolean( value );
+    }
+
+    /**
+     * @returns {boolean} the flag which keep always the listeners stored into the board
+     */
+    get KeepListEvents() {
+        return this._keepListEvents;
+    }
+
+    /**
      * Destructor
      */
     destructor () {
@@ -92,6 +376,45 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
             this._webixAdjustedZone = null;
             this._webixAdjustedZoneHTML = null;
         }
+    }
+
+    /**
+     * show the board
+     */
+    async show() {
+        await super.show();
+        this._alreadyOpened = true;
+    }
+
+    /**
+     * Build a HTML String of the value
+     * @param {any} column
+     * @param {any} user
+     * @param {any} item
+     * @returns {string} HTML component
+     */
+    getHTML( column, user, item ) {
+        if ( column === GUI.Board.BoardTable.COLUMN_SELECT )
+            return "<div class='" + GUI.Board.BoardTable.COLUMN_SELECT + "'>" + "<div class='" + ( item._select ? "selected" : "unselected" ) + "'></div>" + "</div>";
+
+        let classes = '';
+        let record = item.item !== undefined && item.item !== null ? item.item : this.List.getItem( item.id, true );
+
+        if ( record === null || !this.isFieldVisible( column, user, record ) )
+            return "";
+
+        if ( this.List.isAttributDeleted( record, column ) )
+            classes = "deleted";
+
+        if ( this.isFieldReadonly( column, user, record ) )
+            classes = classes + ( classes === '' ? '' : ' ' ) + "readonly";
+
+        if ( item._select )
+            classes = classes + ( classes === '' ? '' : ' ' ) + "selected";
+
+        classes = classes + ( classes === '' ? '' : ' ' ) + column.toLowerCase();
+
+        return "<div class='" + classes + "'>" + this.List.getAttributHTML( record, column ) + "</div>";
     }
 
     /**
@@ -112,9 +435,24 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     declareColumn ( name, header, size, alignment, sort, width, height ) {
         function handleSort( board, columns ) {
             return function ( item1, item2 ) {
-                for ( var i in columns ) {
-                    var value1 = board.List.getAttributValue( item1.item, columns[i] );
-                    var value2 = board.List.getAttributValue( item2.item, columns[i] );
+                for ( let column of columns ) {
+                    if ( board._webixCacheValue[item1.id] === undefined )
+                        board._webixCacheValue[item1.id] = {};
+
+                    if ( board._webixCacheValue[item2.id] === undefined )
+                        board._webixCacheValue[item2.id] = {};
+
+                    let value1 = board._webixCacheValue[item1.id][column];
+                    if ( value1 === undefined ) {
+                        value1 = board.List.getAttributValue( board.List.getItem( item1.id ), column );
+                        board._webixCacheValue[item1.id][column] = value1;
+                    }
+
+                    let value2 = board._webixCacheValue[item2.id][column];
+                    if ( value2 === undefined ) {
+                        value2 = board.List.getAttributValue( board.List.getItem( item2.id ), column );
+                        board._webixCacheValue[item2.id][column] = value2;
+                    }
 
                     if ( value1 === null && value2 === null )
                         continue;
@@ -132,7 +470,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
                         if ( value1.length > value2.length )
                             return 1;
 
-                        for ( var j = 0; j < value1.length; j++ ) {
+                        for ( let j = 0; j < value1.length; j++ ) {
                             if ( value1[j] === null && value2[j] === null )
                                 continue;
 
@@ -165,27 +503,20 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         function handleTemplate( board, column, user ) {
             return function ( item ) {
-                if ( column === GUI.Board.BoardTable.COLUMN_SELECT )
-                    return "<div class='" + GUI.Board.BoardTable.COLUMN_SELECT + "'>" + "<div class='" + ( item._select ? "selected" : "unselected" ) + "'></div>" + "</div>";
+                if ( board._webixCacheHTML[item.id] === undefined )
+                    board._webixCacheHTML[item.id] = {};
 
-                let classes = '';
+                let key = [item._select, column];
+                if ( board._webixCacheHTML[item.id][key] !== undefined )
+                    return board._webixCacheHTML[item.id][key];
 
-                if ( !board.isFieldVisible( column, user, item.item ) )
-                    return "";
-
-                if ( board.List.isAttributDeleted( item.item, column ) )
-                    classes = 'deleted';
-
-                if ( item._select )
-                    classes = classes + ( classes === '' ? '' : ' ' ) + "selected";
-
-                classes = classes + ( classes === '' ? '' : ' ' ) + column.toLowerCase();
-
-                return "<div class='" + classes + "'>" + board.List.getAttributHTML( item.item, column ) + "</div>";
+                let value = String.internal( board.getHTML( column, user, item ) );
+                board._webixCacheHTML[item.id][key] = value;
+                return value;
             };
         }
 
-        var column = {};
+        let column = {};
         column.id = name;
         column.header = { header: header, text: Helper.Span( header ), height: 20 };
         column.fillspace = size;
@@ -201,7 +532,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
             column.sort = false;
         this._columns.push( column );
 
-        var pdfColumn = { title: header, field: name, size: size, align: alignment ? alignment : 'left' };
+        let pdfColumn = { title: header, field: name, size: size, align: alignment ? alignment : 'left' };
         if ( width !== null && width !== undefined && height !== null && height !== undefined ) {
             pdfColumn.width = width;
             pdfColumn.height = height;
@@ -271,7 +602,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( !this.List.isBoardFieldVisible( this, attribute, user, item ) )
             return false;
 
-        if ( this.List.ListParent === null || this.List.ListParent === undefined )
+        if ( this.List.ListParent === null || this.List.ListParent === undefined || this.List.ListParent.getListValues === undefined )
             return true;
 
         let subList = this.List.ListParent.getListValues( this.List.Column );
@@ -338,21 +669,25 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
          * Loading the list
          */
         function handleOnLoad( board ) {
-            return function ( event, table ) {
+            return async function ( event, table ) {
                 board.refresh();
-                board.populateWebix();
-                board.adjustWebix();
+                await board.populateWebix();
+                await board.adjustWebix();
             };
         }
 
         super.onOpen();
 
-        this.List.on( "onCreate", handleOnCreate( this ) );
-        this.List.on( "onUpdate", handleOnUpdate( this ) );
-        this.List.on( "onDelete", handleOnDelete( this ) );
-        this.List.on( "onLoad", handleOnLoad( this ) );
+        if ( !this._listEvents ) {
+            this.List.on( "onCreate", handleOnCreate( this ) );
+            this.List.on( "onUpdate", handleOnUpdate( this ) );
+            this.List.on( "onDelete", handleOnDelete( this ) );
+            this.List.on( "onLoad", handleOnLoad( this ) );
 
-        this.List.onOpen();
+            this.List.onOpen();
+
+            this._listEvents = true;
+        }
     }
 
     /**
@@ -361,12 +696,16 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     onClose () {
         super.onClose();
 
-        this.List.unbind( "onCreate" );
-        this.List.unbind( "onUpdate" );
-        this.List.unbind( "onDelete" );
-        this.List.unbind( "onLoad" );
+        if ( !this._keepListEvents ) {
+            this.List.unbind( "onCreate" );
+            this.List.unbind( "onUpdate" );
+            this.List.unbind( "onDelete" );
+            this.List.unbind( "onLoad" );
 
-        this.List.onClose();
+            this.List.onClose();
+
+            this._listEvents = false;
+        }
     }
 
     /**
@@ -391,21 +730,53 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         // Show all columns to show ...
 
-        for ( let i in this._columns ) {
-            let isVisible = this.isFieldVisible( this._columns[i].id );
+        for ( let column of this._columns ) {
+            let isVisible = this.isFieldVisible( column.id );
 
-            if ( this.Webix.isColumnVisible( this._columns[i].id ) !== isVisible && isVisible )
-                this.showColumn( this._columns[i].id );
+            if ( this.Webix.isColumnVisible( column.id ) !== isVisible && isVisible )
+                this.showColumn( column.id );
         }
 
         // Hide all other columns
 
-        for ( let i in this._columns ) {
-            let isVisible = this.isFieldVisible( this._columns[i].id );
+        for ( let column of this._columns ) {
+            let isVisible = this.isFieldVisible( column.id );
 
-            if ( this.Webix.isColumnVisible( this._columns[i].id ) !== isVisible && !isVisible )
-                this.hideColumn( this._columns[i].id );
+            if ( this.Webix.isColumnVisible( column.id ) !== isVisible && !isVisible )
+                this.hideColumn( column.id );
         }
+    }
+
+    /**
+     * Method refreshing a row of the object
+     * @param {int} id id of the record added
+     * @param {any} columns list of columns to refresh (if undefined, refresh all)
+     */
+    refreshRow( id, columns ) {
+        let item = this.getItem( id );
+        if ( item === null || item === undefined || !item.item )
+            return;
+
+        if ( columns === undefined || columns === null ) {
+            this._webixCacheHTML[id] = {};
+            this._webixCacheValue[id] = {};
+        } else {
+            for ( let column of Array.toIterable( columns ) ) {
+                if ( this._webixCacheValue[id] !== undefined )
+                    this._webixCacheValue[id][column] = undefined;
+
+                if ( this._webixCacheHTML[id] !== undefined ) {
+                    for ( let select of [undefined, true, false] )
+                        this._webixCacheHTML[id][[select, column]] = undefined;
+                }
+            }
+        }
+
+        if ( !this.Webix.isVisible() || !this.IsOpened )
+            return;
+
+        List.ListRecord.CleanUpExtendedFields( item.item );
+        this.Webix.refresh( id );
     }
 
     /**
@@ -419,16 +790,23 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( this.Webix === null )
             return;
 
+        record = List.ListRecord.SetExtendedFields( this.List, record );
+
         if ( !this.List.isVisible( record ) )
             return;
 
         if (this.IsDebug)
             this.debug( "Add row (table = '" + table + "', id = " + id + ", record = " + String.JSONStringify(record) + ")" );
 
-        var row = {};
+        let row = {};
         row.id = this.List.getId( record ).toString();
-        row.item = record;
         row._select = false;
+
+        this._webixCacheHTML[row.id] = {};
+        this._webixCacheValue[row.id] = {};
+
+        if ( !this.Webix.isVisible() || !this.IsOpened )
+            return;
 
         this.Webix.blockEvent();
         this.Webix.add( row, -1 );
@@ -436,7 +814,11 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         this.adjustWebix( row.id );
 
-        var fnEvent = this.getEvent( "onUpdate" );
+        let state = this.Webix.getState();
+        if ( state && state.sort )
+            this.sort( state.sort.id, state.sort.dir );
+
+        let fnEvent = this.getEvent( "onUpdate" );
         if ( fnEvent )
             fnEvent();
     }
@@ -453,8 +835,11 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( this.Webix === null )
             return;
 
-        var oldVisible = this.List.isVisible( oldRecord );
-        var newVisible = this.List.isVisible( newRecord );
+        oldRecord = List.ListRecord.SetExtendedFields( this.List, oldRecord );
+        newRecord = List.ListRecord.SetExtendedFields( this.List, newRecord );
+
+        let oldVisible = this.getItem( this.List.getId( oldRecord ).toString() ) !== undefined;
+        let newVisible = this.List.isVisible( newRecord );
 
         if ( !oldVisible && !newVisible )
             return;
@@ -472,10 +857,19 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( this.IsDebug )
             this.debug( "Update row (table = '" + table + "', id = " + id + ", record = " + String.JSONStringify( newRecord ) + ")" );
 
-        var row = {};
+        let row = {};
         row.id = this.List.getId( oldRecord ).toString();
-        row.item = newRecord;
-        row._select = this.Webix.getItem( row.id )._select;
+        let rowItem = this.getItem( row.id );
+        if ( rowItem !== null )
+            row._select = rowItem._select;
+        else
+            row._select = false;
+
+        this._webixCacheHTML[row.id] = {};
+        this._webixCacheValue[row.id] = {};
+
+        if ( !this.Webix.isVisible() || !this.IsOpened )
+            return;
 
         this.Webix.blockEvent();
         this.Webix.updateItem( row.id, row );
@@ -483,7 +877,11 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         this.adjustWebix( row.id );
 
-        var fnEvent = this.getEvent( "onUpdate" );
+        let state = this.Webix.getState();
+        if ( state && state.sort )
+            this.sort( state.sort.id, state.sort.dir );
+
+        let fnEvent = this.getEvent( "onUpdate" );
         if ( fnEvent )
             fnEvent();
     }
@@ -502,70 +900,124 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( this.IsDebug )
             this.debug( "Delete row (table = '" + table + "', id = " + id + ", record = " + String.JSONStringify( record ) + ")" );
 
-        var row = {};
+        let row = {};
         row.id = this.List.getId( record ).toString();
-        row.item = record;
         row._select = false;
+
+        this._webixCacheHTML[row.id] = {};
+        this._webixCacheValue[row.id] = {};
+
+        if ( !this.Webix.isVisible() || !this.IsOpened )
+            return;
 
         this.Webix.blockEvent();
         this.Webix.remove( row.id );
         this.Webix.unblockEvent();
 
-        var fnEvent = this.getEvent( "onUpdate" );
+        let fnEvent = this.getEvent( "onUpdate" );
         if ( fnEvent )
             fnEvent();
     }
 
     /**
-     * Adjust columns and lines of the table
+     * Adjust columns and lines of the table (async mode)
      * @param {any} rowId id of the row to adjust only
      */
-    adjustWebix ( rowId ) {
+    async adjustWebix( rowId ) {
         function processRow( board, columns, item ) {
             if ( item === null || item === undefined )
                 return;
 
-            if ( board.Webix.isSelected( item.id ) )
-                $( board._webixAdjustedZoneHTML ).addClass( "webix_row_select" );
-            else
-                $( board._webixAdjustedZoneHTML ).removeClass( "webix_row_select" );
+            let selected = board.Webix.isSelected( item.id );
+            let firstCompute = true;
+            let height = 1;
 
-            var height = 1;
+            for ( let i = 0; i < columns.length; i++ ) {
+                let config = board.Webix.getColumnConfig( columns[i] );
+                let htmlText = board.Webix.getText( item.id, config.id );
+                let key = [selected, config.id, htmlText];
 
-            for ( var i = 0; i < columns.length; i++ ) {
-                var config = board.Webix.getColumnConfig( columns[i] );
+                let cacheHeight = board._webixCacheHeight[key];
+                if ( cacheHeight === undefined ) {
+                    if ( firstCompute ) {
+                        if ( selected )
+                            $( board._webixAdjustedZoneHTML ).addClass( "webix_row_select" );
+                        else
+                            $( board._webixAdjustedZoneHTML ).removeClass( "webix_row_select" );
+                        firstCompute = false;
+                    }
 
-                $( board._webixAdjustedZoneHTML ).css( 'width', config.width + "px" );
-                $( board._webixAdjustedZoneHTML ).css( 'height', "1px" );
-                board._webixAdjustedZoneHTML.innerHTML = board.Webix.getText( item.id, config.id );
+                    $( board._webixAdjustedZoneHTML ).css( 'width', config.width + "px" );
+                    $( board._webixAdjustedZoneHTML ).css( 'height', "1px" );
+                    board._webixAdjustedZoneHTML.innerHTML = htmlText;
 
-                if ( height < board._webixAdjustedZoneHTML.scrollHeight )
-                    height = board._webixAdjustedZoneHTML.scrollHeight;
+                    cacheHeight = board._webixAdjustedZoneHTML.scrollHeight + 4;
+                    board._webixCacheHeight[key] = cacheHeight;
 
-                board._webixAdjustedZoneHTML.innerHTML = "";
+                    board._webixAdjustedZoneHTML.innerHTML = "";
+                }
+
+                if ( height < cacheHeight )
+                    height = cacheHeight;
             }
 
             item.$height = height;
         }
 
-        function handleAdjustRow( board, columns ) {
-            return function ( item ) {
-                processRow( board, columns, item );
-            };
+        function* fn( board ) {
+            yield GUI.Box.Progress.Status( 0, 1, "MSG_REFRESHING" );
+
+            board.verbose( "Getting rows to update ..." );
+
+            let rows = [];
+            board.Webix.data.each( row => rows.push( row ) );
+
+            yield GUI.Box.Progress.Status( 1, rows.length + 1);
+            board.verbose( "Updating " + rows.length + " rows ..." );
+
+            let columnsVisible = board.ColumnsVisible;
+            for ( let row of rows ) {
+                processRow( board, columnsVisible, row );
+                yield GUI.Box.Progress.Status();
+            }
+
+            board.verbose( "Refreshing Webix table ..." );
+
+            board.Webix.refresh();
+            board.Webix.unblockEvent();
+
+            board.verbose( "End of adjusting Webix table ..." );
         }
 
-        if ( rowId === null || rowId === undefined )
-            super.adjustWebix();
-        else
-            this.debug( "Adjust row : " + rowId.toString() );
+        // Clean up cache ?
 
-        if ( this.Webix === null )
+        if ( this.Webix !== null ) {
+            let tableZone = this.TableZone;
+            let width = Math.floor( tableZone.width() );
+            let height = Math.floor( tableZone.height() );
+
+            if ( width !== this._webix.config.width || height !== this._webix.config.height ) {
+                this.debug( "Clean up webix cache to compute height" );
+                this._webixCacheHeight = {};
+            }
+        }
+
+        // Adjust
+
+        if ( rowId === null || rowId === undefined )
+            await super.adjustWebix();
+        else
+            this.verbose( "Adjust row : " + rowId.toString() );
+
+        if ( this.Webix === null || !this._adjustWebixEnable )
             return;
+
+        // Build the HTML component to compute the height
 
         if ( this._webixAdjustedZone === null ) {
             this._webixAdjustedZone = $( "<div class='webix_view webix_dtable'><div class='webix_ss_body'><div class='webix_ss_center'><div class='webix_ss_center_scroll'><div class='webix_column'><div class='webix_cell'></div></div></div></div></div></div>" );
 
-            var cssClass = "webix_board";
+            let cssClass = "webix_board";
             if ( this.CSSClass )
                 cssClass += " " + ( "webix_" + this.CSSClass ).split( ' ' ).join( " webix_" );
 
@@ -578,17 +1030,14 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
             this._webixAdjustedZoneHTML = this._webixAdjustedZone.find( "> div > div > div > div > div" )[0];
         }
 
-        var columns = this.ColumnsVisible;
-
         this.Webix.blockEvent();
         if ( rowId !== null && rowId !== undefined ) {
-            processRow( this, columns, this.Webix.getItem( rowId ) );
+            processRow( this, this.ColumnsVisible, this.getItem( rowId, false ) );
             this.Webix.refresh( rowId );
+            this.Webix.unblockEvent();
         } else {
-            this.Webix.data.each( handleAdjustRow( this, columns ) );
-            this.Webix.refresh();
+            await GUI.Box.Progress.Thread( fn( this ), 1000, false, false );
         }
-        this.Webix.unblockEvent();
     }
 
     /**
@@ -634,40 +1083,100 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     }
 
     /**
-     * Method to populate the webix object
+     * Method to populate the webix object in async mode
      */
-    populateWebix () {
-        super.populateWebix();
+    async populateWebix() {
+        function* fn( board ) {
+            yield GUI.Box.Progress.Status( 0, 1, "MSG_LOADING" );
+
+            let showTable = board.Webix.isVisible();
+
+            board.verbose( "Cleaning Webix table ..." );
+
+            board.Webix.blockEvent();
+            board.Webix.hide();
+            board.Webix.clearAll();
+
+            // Prepare populating table
+
+            let items = [];
+            board.List.each( item => items.push( item ) );
+
+            // Populate table
+
+            board.verbose( "Adding " + items.length + " items and evaluating items (HTML and Value) ..." );
+
+            yield GUI.Box.Progress.Status( 0, items.length + 2 );
+
+            for ( let item of items ) {
+                let row = {};
+                row.id = board.List.getId( item );
+                row.item = item;
+                row._select = false;
+
+                // Update cache
+
+                for ( let column of board._columns ) {
+                    if ( board._webixCacheHTML[row.id] === undefined )
+                        board._webixCacheHTML[row.id] = {};
+                    let key = [false, column.id];
+                    if ( board._webixCacheHTML[row.id][key] === undefined )
+                        board._webixCacheHTML[row.id][key] = String.internal( board.getHTML( column.id, DSDatabase.Instance.CurrentUser, row ) );
+
+                    if ( board._webixCacheValue[row.id] === undefined )
+                        board._webixCacheValue[row.id] = {};
+                    if ( board._webixCacheValue[row.id][column.id] === undefined ) {
+                        let value = board.List.getAttributValue( item, column.id );
+                        board._webixCacheValue[row.id][column.id] = typeof value === 'string' ? String.internal( value ) : value;
+                    }
+                }
+
+                // Update the board
+
+                delete row.item;
+                board.Webix.add( row, -1 );
+
+                // Clean up the item
+
+                List.ListRecord.CleanUpExtendedFields( item );
+
+                yield GUI.Box.Progress.Status();
+            }
+
+            // Sort the table by default (first visible column)
+
+            board.verbose( "Sorting Webix table ..." );
+
+            let columnToSort = board.ColumnSortedByDefault;
+            if ( typeof ( columnToSort ) === 'string' )
+                board.sort( columnToSort );
+            else if ( Array.isArray( columnToSort ) )
+                board.sort( columnToSort[0], columnToSort[1] );
+
+            yield GUI.Box.Progress.Status();
+
+            // Show all elements
+
+            board.verbose( "Showing Webix table ..." );
+
+            board.Webix.unblockEvent();
+
+            if ( showTable )
+                board.Webix.show();
+
+            board.Webix.showItemByIndex( 0 );
+
+            board.verbose( "End of populate Webix table ..." );
+
+            yield GUI.Box.Progress.Status();
+        }
+
+        await super.populateWebix();
 
         if ( this.Webix === null )
             return;
 
-        var showTable = this.Webix.isVisible();
-
-        this.Webix.blockEvent();
-        this.Webix.hide();
-        this.Webix.clearAll();
-
-        function handleReadItem( board ) {
-            return function ( item ) {
-                var row = {};
-                row.id = board.List.getId( item );
-                row.item = item;
-                row._select = false;
-                board.Webix.add( row, -1 );
-            };
-        }
-
-        this.List.each( handleReadItem( this ) );
-
-        // Show all elements
-
-        this.Webix.unblockEvent();
-
-        if ( showTable )
-            this.Webix.show();
-
-        this.Webix.showItemByIndex( 0 );
+        await GUI.Box.Progress.Thread( fn( this ), 200, true, false );
     }
 
     /**
@@ -676,12 +1185,13 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
      */
     drawWebix ( container ) {
         function handleAdjust( board ) {
-            return function ( id, newWidth, oldWidth, userAction ) {
+            return async function ( id, newWidth, oldWidth, userAction ) {
                 if ( !board.Visible || !userAction )
                     return;
 
                 board.debug( "Resizing column ..." );
-                board.adjustWebix();
+                board._webixCacheHeight = {};
+                await board.adjustWebix();
             };
         }
 
@@ -704,11 +1214,11 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
                 if ( board.Readonly )
                     return;
 
-                var event = board.getEvent( "onClick" + id.column );
+                let event = board.getEvent( "onClick" + id.column );
                 if ( !event )
                     return;
 
-                var item = this.getItem( id );
+                let item = board.getItem( id );
                 if ( !item )
                     return;
 
@@ -723,35 +1233,38 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         }
 
         function handleToolTip( board ) {
-            return function ( item, common ) {
-                var attribute = common.column.id === null || common.column.id === undefined ? "ToolTip" : common.column.id;
+            return function ( row, common ) {
+                let attribute = common.column.id === null || common.column.id === undefined ? "ToolTip" : common.column.id;
 
                 if ( attribute === GUI.Board.BoardTable.COLUMN_SELECT && board._multiselect ) {
-                    var item = board.getSelectedItem();
-                    if ( item === null )
+                    row = board.getSelectedItem();
+                    if ( row === null )
                         return "";
 
-                    return Language.Manager.Instance.interpolation( Helper.Label( "TABLE_" + ( item._select === true ? "SELECTED" : "UNSELECTED" ) ) );
+                    return Language.Manager.Instance.interpolation( Helper.Label( "TABLE_" + ( row._select === true ? "SELECTED" : "UNSELECTED" ) ) );
                 }
 
-                if ( item === null || item === undefined || common === null || common === undefined )
+                if ( row === null || row === undefined || common === null || common === undefined )
                     return "";
 
-                if ( item.item === null || item.item === undefined || common.column === null || common.column === undefined )
+                let currentItem = board.List.getItem( row.id, true );
+
+                if ( currentItem === null || currentItem === undefined || common.column === null || common.column === undefined )
                     return "";
 
-                var currentItem = item.item;
-
-                var tooltip = board.List.getAttributToolTipHTML( currentItem, attribute );
+                let tooltip = board.List.getAttributToolTipHTML( currentItem, attribute );
 
                 if ( typeof tooltip === "boolean" && tooltip === false )
                     return "";
 
+                if ( Helper.IsLabel( tooltip, true ) )
+                    return Helper.Span( tooltip );
+
                 if ( !String.isEmptyOrWhiteSpaces( tooltip ) )
                     return tooltip;
 
-                var text = null;
-                var html = board.List.getAttributHTML( currentItem, attribute );
+                let text = null;
+                let html = board.List.getAttributHTML( currentItem, attribute );
 
                 if ( Helper.IsLabel( currentItem[attribute], true ) ) {
                     text = Helper.Span( currentItem[attribute] );
@@ -759,13 +1272,13 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
                     text = board.List.getAttributText( currentItem, attribute );
                 }
 
-                return text === html || text === String.decode( html ) ? board.List.getAttributText( item.item, "ToolTip" ) : text;
+                return text === html || text === String.decode( html ) ? board.List.getAttributText( currentItem, "ToolTip" ) : text;
             };
         }
 
         function handleChangeLanguage( board ) {
             return function ( currentLanguage, language, key ) {
-                var i, j;
+                let i, j;
 
                 if ( language !== undefined ) {
                     for ( i = 0; i < board._columns.length; i++ ) {
@@ -793,33 +1306,38 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         function handleKeypress( board ) {
             return function ( code, event ) {
-                let keyCode = event.which || event.keyCode;
+                let item = null;
 
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             board.previousFocus();
                         else
                             board.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         board.onUpdate();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         board.onButtonCancel();
                         return false;
 
-                    case 32:
-                        event.preventDefault();
+                    case "Delete":
+                        event.stopImmediatePropagation();
+                        board.onBoardDelete();
+                        return false;
+
+                    case " ":
+                        event.stopImmediatePropagation();
                         if ( !board._multiselect )
                             return false;
 
-                        var item = board.getSelectedItem();
+                        item = board.getSelectedItem();
                         if ( item === null )
                             return false;
 
@@ -834,11 +1352,11 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         function handleChange( board ) {
             return function () {
-                var event = board.getEvent( "onSelectChange" );
+                let event = board.getEvent( "onSelectChange" );
                 if ( !event )
                     return;
 
-                var item = this.getItem( board.Webix.getSelectedId( true ) );
+                let item = this.getItem( board.Webix.getSelectedId( true ) );
 
                 let user = DSDatabase.Instance.CurrentUser;
                 if ( !board.isAllowed( user, "onSelectChange", !item ? null : item.item ) )
@@ -855,7 +1373,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         // build the table
 
-        var cssClass = "webix_board";
+        let cssClass = "webix_board";
         if ( this.CSSClass )
             cssClass += " " + ( "webix_" + this.CSSClass ).split( ' ' ).join( " webix_" );
 
@@ -863,12 +1381,16 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         let adjustedZone = $( "<div class='" + cssClass + "'><div class='webix_cell'></div></div>" );
         $( "body > main" ).append( adjustedZone );
-        var rowHeight = parseInt( adjustedZone.find( ".webix_cell" ).css( 'font-size' ) );
+        let rowHeight = parseInt( adjustedZone.find( ".webix_cell" ).css( 'font-size' ) );
         adjustedZone.remove();
 
         // Add a listener into the language manager to be notified in case of changes
 
         Language.Manager.Instance.addListener( handleChangeLanguage( this ) );
+
+        let webixColumns = [];
+        for ( let column of this._columns )
+            webixColumns.push( column );
 
         return new webix.ui( {
             view: "datatable",
@@ -878,7 +1400,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
             scrollAlignY: false,
             select: "row",
             tooltip: { template: handleToolTip( this ), css: cssClass + "_tooltip" },
-            columns: this._columns,
+            columns: webixColumns,
             resizeColumn: true,
             fixedRowHeight: false,
             rowLineHeight: rowHeight,
@@ -902,7 +1424,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
      * @returns {boolean} true if the item is selected
      */
     isSelectedItem( id ) {
-        let item = this.Webix.getItem( id );
+        let item = this.getItem( id );
         if ( item === null )
             return false;
 
@@ -914,7 +1436,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
      * @param {any} id id of the item to select
      */
     selectItem( id ) {
-        let item = this.Webix.getItem( id );
+        let item = this.getItem( id );
         if ( item === null || item._select )
             return;
 
@@ -927,7 +1449,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
      * @param {any} id id of the item to unselect
      */
     unselectItem( id ) {
-        let item = this.Webix.getItem( id );
+        let item = this.getItem( id );
         if ( item === null || !item._select )
             return;
 
@@ -942,7 +1464,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     getSelectedItems() {
         function handleSelectedRow( board, selectedItems ) {
             return function ( row ) {
-                var item = board.Webix.getItem( row );
+                let item = board.getItem( row );
                 if ( item === null || item === undefined || !item.item )
                     return;
 
@@ -968,32 +1490,45 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     }
 
     /**
-     * Retrieve the item from the table on depends on {id}
-     * @param {any} id id of the item
+     * Retrieve the selected item from the table
      * @returns {any} item currently selected (into the Webix Board)
      */
-    getSelectedItem ( id ) {
+    getSelectedItem () {
+        return this.getItem( this.Webix.getSelectedId() );
+    }
+
+    /**
+     * Retrieve the item from the table on depends on {id}
+     * @param {int} id id of the item (if undefined, retrieve the selected item)
+     * @param {boolean} completeItem false if no complete item retrieve from the webix board
+     * @returns {any} item currently selected (into the Webix Board)
+     */
+    getItem( id, completeItem ) {
         if ( id === undefined )
             id = this.Webix.getSelectedId();
 
         if ( String.isEmptyOrWhiteSpaces( id ) )
             return null;
 
-        return this.Webix.getItem( id );
+        let row = this.Webix.getItem( id );
+        if ( row === null || row === undefined )
+            return null;
+
+        return completeItem === false ? row : { id: row.id, item: this.List.getItem( row.id, true ), _select: row._select };
     }
 
     /**
      * Event raised on clicking on the icon of the board within the current item selected
      */
-    onBoard () {
+    onBoardIcon () {
         if ( !this.IsVisibleIcon )
             return;
 
-        var event = this.getEvent( "board" );
+        let event = this.getEvent( "board" );
         if ( event === null )
             return;
 
-        var item = this.getSelectedItem();
+        let item = this.getSelectedItem();
         if ( item === null ) {
             if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "board" ) )
                 return;
@@ -1005,23 +1540,23 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "board", item.item ) )
             return;
 
-        event( this.List.getId( item.item ), item.item );
+        event( item.id, item.item );
     }
 
     /**
      * Event raised on Add a new element into the board within the current item selected
      */
-    onAdd () {
+    onBoardAdd () {
         if ( !this.IsVisibleAdd )
             return;
 
-        var event = this.getEvent( "add" );
+        let event = this.getEvent( "add" );
         if ( event === null )
             return;
 
-        var item = this.getSelectedItem();
+        let item = this.getSelectedItem();
         if ( item === null ) {
-            if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "add" ) )
+            if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "add", null ) )
                 return;
 
             event( null );
@@ -1031,30 +1566,30 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "add", item.item ) )
             return;
 
-        event( this.List.getId( item.item ), item.item );
+        event( item.id, item.item );
     }
 
     /**
      * Event raised on Update an element selected into the board within the current item selected
      */
     onUpdate () {
-        var item = this.getSelectedItem();
+        let item = this.getSelectedItem();
 
         if ( item === null )
             return;
 
-        var event = this.getEvent( "update" );
+        let event = this.getEvent( "update" );
         let dialogBox = GUI.Box.BoxRecord.CACHE_DIALOG_BOX( this.List.Table, null, this.List );
 
         if ( event === null && item !== null ) {
             if ( dialogBox !== null ) {
                 if ( this.Readonly ) {
                     if ( this.isAllowed( DSDatabase.Instance.CurrentUser, "read", item.item ) )
-                        dialogBox.readRecord( this.List.getId( item.item ) );
+                        dialogBox.readRecord( item.id );
                 } else if ( this.isAllowed( DSDatabase.Instance.CurrentUser, "update", item.item ) )
-                    dialogBox.updateRecord( this.List.getId( item.item ) );
+                    dialogBox.updateRecord( item.id );
                 else if ( this.isAllowed( DSDatabase.Instance.CurrentUser, "read", item.item ) )
-                    dialogBox.readRecord( this.List.getId( item.item ) );
+                    dialogBox.readRecord( item.id );
             }
 
             return;
@@ -1062,7 +1597,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
 
         if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "update", item.item ) && dialogBox !== null ) {
             if ( this.isAllowed( DSDatabase.Instance.CurrentUser, "read", item.item ) ) {
-                dialogBox.readRecord( this.List.getId( item.item ) );
+                dialogBox.readRecord( item.id );
             }
             return;
         }
@@ -1070,22 +1605,22 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( item === null ) {
             event( null );
         } else {
-            event( this.List.getId( item.item ), item.item );
+            event( item.id, item.item );
         }
     }
 
     /**
      * Event raised on Cancel an element selected into the board within the current item selected
      */
-    onCancel () {
+    onBoardCancel () {
         if ( !this.IsVisibleCancel )
             return;
 
-        var event = this.getEvent( "cancel" );
+        let event = this.getEvent( "cancel" );
         if ( event === null )
             return;
 
-        var item = this.getSelectedItem();
+        let item = this.getSelectedItem();
         if ( item === null ) {
             if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "cancel" ) )
                 return;
@@ -1097,21 +1632,21 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "cancel", item.item ) )
             return;
 
-        event( this.List.getId( item.item ), item.item );
+        event( item.id, item.item );
     }
 
     /**
      * Event raised on Delete a element selected into the board within the current item selected
      */
-    onDelete () {
+    onBoardDelete () {
         if ( !this.IsVisibleDelete )
             return;
 
-        var event = this.getEvent( "delete" );
+        let event = this.getEvent( "delete" );
         if ( event === null )
             return;
 
-        var item = this.getSelectedItem();
+        let item = this.getSelectedItem();
         if ( item === null ) {
             if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "delete" ) )
                 return;
@@ -1123,7 +1658,7 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         if ( !this.isAllowed( DSDatabase.Instance.CurrentUser, "delete", item.item ) )
             return;
 
-        event( this.List.getId( item.item ), item.item );
+        event( item.id, item.item );
     }
 
     /**
@@ -1138,7 +1673,9 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         for ( let i = 0; i < this._columns.length; i++ ) {
             let column = this._columns[i];
             if ( column.id === id && column.sort !== false ) {
+                this.verbose( "Sorting table by '" + id + "' ..." );
                 this.Webix.sort( column.sort, order === null || order === undefined ? "asc" : order );
+                this.Webix.markSorting( id, order === null || order === undefined ? "asc" : order );
                 return;
             }
         }
@@ -1153,30 +1690,27 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
     /**
      * Add table into the PDF file
      * @param {any} docPDF   docPDF to complete
-     * @param {any} fnEnd    function to call if the document is complete and ok
-     * @param {any} fnError  function to call if an exception occurs
      */
-    toPDF ( docPDF, fnEnd, fnError ) {
-        try {
-            let columns = [];
-            let currentUser = DSDatabase.Instance.CurrentUser;
+    toPDF( docPDF ) {
+        let columns = [];
 
-            for ( let id in this._pdfColumns ) {
-                let column = this._pdfColumns[id];
+        for ( let column of this._pdfColumns )
+            if ( this.Webix.isColumnVisible( column.field ) )
+                columns.push( column );
 
-                if ( column === null || column === undefined )
-                    continue;
+        docPDF.createTable( null, columns, this.List );
 
-                if ( this.Webix.isColumnVisible( column.field ) )
-                    columns.push( column );
-            }
+        return docPDF;
+    }
 
-            PDF.CreateTable( docPDF, null, columns, this.List, this.List.getListSorted() );
-            PDF.Finalize( docPDF, fnEnd, fnError );
-        } catch ( ex ) {
-            this.exception( "Unable to create PDF file", ex );
-            fnError( "ERR_DOWNLOAD_PDF" );
-        }
+    /**
+     * Clear all cache values
+     */
+    clearWebixCache() {
+        super.clearWebixCache();
+
+        this._webixCacheHTML = {};
+        this._webixCacheValue = {};
     }
 
     /**
@@ -1195,5 +1729,13 @@ GUI.Board.BoardTable = class extends GUI.Board.Board {
         this._columns = [];
         this._pdfColumns = [];
         this._multiselect = false;
+
+        this._webixCacheHTML = {};
+        this._webixCacheValue = {};
+        this._webixCacheHeight = {};
+
+        this._alreadyOpened = false;
+        this._listEvents = false;
+        this._keepListEvents = false;
     }
 };

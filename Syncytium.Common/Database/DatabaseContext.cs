@@ -22,7 +22,7 @@ using System.Data.Entity.ModelConfiguration.Configuration;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -59,14 +59,19 @@ namespace Syncytium.Common.Database
         public DbSet<ConnectionRecord> _Connection { get; set; }
 
         /// <summary>
+        /// Table "_RequestId"
+        /// </summary>
+        public DbSet<RequestIdRecord> _RequestId { get; set; }
+
+        /// <summary>
         /// Table "_Request"
         /// </summary>
         public DbSet<RequestRecord> _Request { get; set; }
 
         /// <summary>
-        /// Table "_RequestId"
+        /// Table "_Request"
         /// </summary>
-        public DbSet<RequestIdRecord> _RequestId { get; set; }
+        public DbSet<RequestTableRecord> _RequestTable { get; set; }
 
         /// <summary>
         /// Table "_SequenceId"
@@ -101,6 +106,12 @@ namespace Syncytium.Common.Database
         /// Module name used into the log file
         /// </summary>
         protected virtual string MODULE => typeof(DatabaseContext).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -162,6 +173,7 @@ namespace Syncytium.Common.Database
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             string schema = ConfigurationManager.DatabaseSchema;
+            bool firstError = false;
 
             base.OnModelCreating(modelBuilder);
 
@@ -202,26 +214,39 @@ namespace Syncytium.Common.Database
 
                     foreach (object annotation in column.GetCustomAttributes(true))
                     {
-                        if (!typeof(DSDecimalAttribute).IsInstanceOfType(annotation))
+                        if (!typeof(DSDecimalAttribute).IsInstanceOfType(annotation) || column.PropertyType == typeof(int))
                             continue;
 
                         var entityConfig = modelBuilder.GetType().GetMethod("Entity").MakeGenericMethod(tableType).Invoke(modelBuilder, null);
                         ParameterExpression param = ParameterExpression.Parameter(tableType, "c");
                         Expression expressionProperty = Expression.Property(param, column.Name);
                         LambdaExpression lambdaExpression = Expression.Lambda(expressionProperty, true, new ParameterExpression[] { param });
-                        DecimalPropertyConfiguration decimalConfig;
-                        if (column.PropertyType.IsGenericType && column.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                        {
-                            MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[7];
-                            decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
-                        }
-                        else
-                        {
-                            MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[6];
-                            decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
-                        }
 
-                        decimalConfig.HasPrecision((byte)(annotation as DSDecimalAttribute).Digit, (byte)(annotation as DSDecimalAttribute).Precision);
+                        try
+                        {
+                            DecimalPropertyConfiguration decimalConfig;
+                            if (column.PropertyType.IsGenericType && column.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            {
+                                MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[7];
+                                decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
+                            }
+                            else
+                            {
+                                MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[6];
+                                decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
+                            }
+
+                            decimalConfig.HasPrecision((byte)(annotation as DSDecimalAttribute).Digit, (byte)(annotation as DSDecimalAttribute).Precision);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            if ( !firstError )
+                            {
+                                Warn($"Unable to set decimal on the property {property.Name}.{column.Name} but it's not so important at all !");
+                                Exception($"Unable to set decimal on the property {property.Name}.{column.Name}", ex);
+                                firstError = true;
+                            }
+                        }
                     }
                 }
             }
@@ -234,7 +259,7 @@ namespace Syncytium.Common.Database
         protected override void Dispose(bool disposing)
         {
             if (IsVerbose())
-                Verbose($"Deleting {ConfigurationManager.DatabaseProvider.ToString()} database instance ...");
+                Verbose($"Deleting {ConfigurationManager.DatabaseProvider} database instance ...");
 
             if (_lock != null)
             {
@@ -472,25 +497,33 @@ namespace Syncytium.Common.Database
 
                 if (!_provider.ExecuteScript(sqlCommand))
                     throw new ExceptionParse($"Unable to execute the script '{filename}', see the log file to have more details!");
+
+                // update parameters
+
+                lastUpgradingVersion = version;
+                if (parameterVersion == null)
+                    _Parameter.Add(new ParameterRecord() { Key = "Database.Version", Value = lastUpgradingVersion.ToString() });
+                else
+                    parameterVersion.Value = lastUpgradingVersion.ToString();
+
+                lastUpgradingDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                if (parameterUpdate == null)
+                    _Parameter.Add(new ParameterRecord() { Key = "Database.Update", Value = lastUpgradingDate });
+                else
+                    parameterUpdate.Value = lastUpgradingDate;
+
+                SaveChanges();
+
+                Info($"The database is successfully upgraded in version ({lastUpgradingVersion:D4}) - '{lastUpgradingDate}'");
+
+                // retrieve the record after updating database
+
+                if (parameterVersion == null)
+                {
+                    parameterVersion = _Parameter.SingleOrDefault(e => e.Key.Equals("Database.Version"));
+                    parameterUpdate = _Parameter.SingleOrDefault(e => e.Key.Equals("Database.Update"));
+                }
             }
-
-            // update parameters
-
-            lastUpgradingVersion = versions.Last();
-            if (parameterVersion == null)
-                _Parameter.Add(new ParameterRecord() { Key = "Database.Version", Value = lastUpgradingVersion.ToString() });
-            else
-                parameterVersion.Value = lastUpgradingVersion.ToString();
-
-            lastUpgradingDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            if (parameterUpdate == null)
-                _Parameter.Add(new ParameterRecord() { Key = "Database.Update", Value = lastUpgradingDate });
-            else
-                parameterUpdate.Value = lastUpgradingDate;
-
-            SaveChanges();
-
-            Info($"The database is successfully upgraded in version ({lastUpgradingVersion:D4}) - '{lastUpgradingDate}'");
         }
 
         #endregion
@@ -524,22 +557,22 @@ namespace Syncytium.Common.Database
                 case Provider.Provider.EProvider.Oracle:
                     if (Database.Connection.State != System.Data.ConnectionState.Open)
                         Database.Connection.Open();
-                    Database.ExecuteSqlCommand($"UPDATE \"_Parameter\" SET \"Value\" = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' where \"Key\" = 'Database.Lock.{customerId}'");
+                    Database.ExecuteSqlCommand($"UPDATE \"_Parameter\" SET \"Value\" = '{DateTime.Now:yyyy-MM-dd HH:mm:ss}' where \"Key\" = 'Database.Lock.{customerId}'");
                     break;
                 case Provider.Provider.EProvider.SQLServer:
                     if (Database.Connection.State != System.Data.ConnectionState.Open)
                         Database.Connection.Open();
-                    Database.ExecuteSqlCommand($"UPDATE [{ConfigurationManager.DatabaseSchema}].[_Parameter] SET [Value] = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' where [Key] = 'Database.Lock.{customerId}'");
+                    Database.ExecuteSqlCommand($"UPDATE [{ConfigurationManager.DatabaseSchema}].[_Parameter] SET [Value] = '{DateTime.Now:yyyy-MM-dd HH:mm:ss}' where [Key] = 'Database.Lock.{customerId}'");
                     break;
                 case Provider.Provider.EProvider.Firebird:
                     if (Database.Connection.State != System.Data.ConnectionState.Open)
                         Database.Connection.Open();
-                    Database.ExecuteSqlCommand($"UPDATE \"_Parameter\" SET \"Value\" = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' where \"Key\" = 'Database.Lock.{customerId}'");
+                    Database.ExecuteSqlCommand($"UPDATE \"_Parameter\" SET \"Value\" = '{DateTime.Now:yyyy-MM-dd HH:mm:ss}' where \"Key\" = 'Database.Lock.{customerId}'");
                     break;
                 case Provider.Provider.EProvider.MySQL:
                     if (Database.Connection.State != System.Data.ConnectionState.Open)
                         Database.Connection.Open();
-                    Database.ExecuteSqlCommand($"UPDATE `{ConfigurationManager.DatabaseSchema}`.`_Parameter` SET `Value` = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' where `Key` = 'Database.Lock.{customerId}'");
+                    Database.ExecuteSqlCommand($"UPDATE `{ConfigurationManager.DatabaseSchema}`.`_Parameter` SET `Value` = '{DateTime.Now:yyyy-MM-dd HH:mm:ss}' where `Key` = 'Database.Lock.{customerId}'");
                     break;
                 default:
                     Warn("Unable to lock the database due to an implementation of locking database missing!");
@@ -577,10 +610,11 @@ namespace Syncytium.Common.Database
         /// Factory building a cache using to optimize the notification effect
         /// Virtual method (in sub class, define it the order of tables to notify)
         /// </summary>
+        /// <param name="schema"></param>
         /// <returns></returns>
-        virtual public DSCache GetCache()
+        virtual public DSCache GetCache(DSDatabase schema)
         {
-            return new DSCache();
+            return new DSCache(schema);
         }
 
         /// <summary>
@@ -680,6 +714,39 @@ namespace Syncytium.Common.Database
         }
 
         /// <summary>
+        /// Retrieve the next value of the key into the database
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int SetSequence(int customerId, string key, int value)
+        {
+            if (key == "Tick" || key == "Lock")
+                throw new ExceptionNotAuthorized("ERR_UNAUTHENTICATED");
+
+            // Get the next value
+
+            string parameterKey = $"Sequence.{key}.{customerId}";
+            int currentValue = 1;
+            ParameterRecord valueRecord = _Parameter.FirstOrDefault(p => p.Key.Equals(parameterKey));
+            if (valueRecord == null)
+            {
+                valueRecord = new ParameterRecord { Key = parameterKey, Value = value.ToString() };
+                valueRecord = _Parameter.Add(valueRecord);
+            }
+            else
+            {
+                currentValue = int.Parse(valueRecord.Value);
+                if ( currentValue < value )
+                    valueRecord.Value = value.ToString();
+            }
+            SaveChanges();
+
+            return currentValue;
+        }
+
+        /// <summary>
         /// Retrieve all images and credits
         /// </summary>
         /// <param name="lines"></param>
@@ -743,6 +810,7 @@ namespace Syncytium.Common.Database
                 JArray lines = new JArray();
 
                 // Release-notes content
+                // TODO : Add link towards GitHub on issue number
 
                 foreach (string line in File.ReadAllLines(ConfigurationManager.ReleaseNotesFile))
                     lines.Add(line + "<br />");
@@ -779,12 +847,25 @@ namespace Syncytium.Common.Database
         }
 
         /// <summary>
+        /// Retrieve the next value of the key into the database
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private JObject ExecuteServiceSetSequence(int customerId, string key, int value)
+        {
+            return new JObject { ["Value"] = SetSequence(customerId, key, value) };
+        }
+
+        /// <summary>
         /// Execute a service
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <param name="profile"></param>
         /// <param name="area"></param>
+        /// <param name="moduleId"></param>
         /// <param name="service"></param>
         /// <param name="record"></param>
         /// <param name="identity"></param>
@@ -793,6 +874,7 @@ namespace Syncytium.Common.Database
                                               int userId,
                                               UserProfile.EUserProfile profile,
                                               string area,
+                                              int moduleId,
                                               string service,
                                               JObject record,
                                               JObject identity)
@@ -806,6 +888,13 @@ namespace Syncytium.Common.Database
                     if (record["Key"] != null &&
                         record["Key"].Type == JTokenType.String)
                         return ExecuteServiceSequence(customerId, record["Key"].ToObject<string>());
+
+                    return new JObject { ["Value"] = 0 };
+
+                case "SetSequence":
+                    if (record["Key"] != null &&
+                        record["Key"].Type == JTokenType.String)
+                        return ExecuteServiceSetSequence(customerId, record["Key"].ToObject<string>(), record["Value"].ToObject<int>());
 
                     return new JObject { ["Value"] = 0 };
             }
@@ -841,7 +930,7 @@ namespace Syncytium.Common.Database
         public DatabaseContext() : base(ConfigurationManager.CONNEXION_STRING)
         {
             if (IsVerbose())
-                Verbose($"Creating a {ConfigurationManager.DatabaseProvider.ToString()} database instance ...");
+                Verbose($"Creating a {ConfigurationManager.DatabaseProvider} database instance ...");
 
             System.Data.Entity.Database.SetInitializer<DatabaseContext>(null);
 

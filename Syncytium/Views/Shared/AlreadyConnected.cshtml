@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@
 
 @section CSSDeclaration
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Support.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Button/Button.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Tools/Support.css")" />
 }
 
 @section JSDeclaration
@@ -40,5 +40,11 @@
     {
         <h1>Déjà connectée à l'application</h1>
         <p>Vous ne pouvez ouvrir qu'une seule session par utilisateur ...</p>
+    }
+
+    @if (Model.Ressources.DefaultLanguage.Equals("EN"))
+    {
+        <h1>Already connected</h1>
+        <p>You can't open a new session for the same user ...</p>
     }
 </div>

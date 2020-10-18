@@ -1,0 +1,158 @@
+﻿/*
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* board#socialNetwork > .table                                 */
+/* ------------------------------------------------------------ */
+
+board#socialNetwork > .table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ------------------------------------------------------------ */
+/* board#socialNetwork > .table > #author                       */
+/* ------------------------------------------------------------ */
+
+board#socialNetwork > .table > #author {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 20px;
+    border-bottom: solid 1px black;
+    line-height: 20px;
+}
+
+board#socialNetwork > .table > #author > #picture {
+    background: var(--syncytium-social-background);
+    color: var(--syncytium-social-text);
+    width: 20px;
+    height: 20px;
+}
+
+board#socialNetwork > .table > #author > #picture > img {
+    width: 20px;
+    height: 20px;
+}
+
+board#socialNetwork > .table > #author > #name {
+    background: var(--syncytium-social-background);
+    color: var(--syncytium-social-text);
+    width: calc(100% - 20px);
+    height: 20px;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+/* ------------------------------------------------------------ */
+/* board#socialNetwork > .table > #comments                     */
+/* ------------------------------------------------------------ */
+
+board#socialNetwork > .table > #comments {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow: auto;
+}
+
+board#socialNetwork > .table > #comments > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+board#socialNetwork > .table > #comments > div > .date {
+    width: 100%;
+    line-height: 20px;
+    text-align: center;
+    font-style: italic;
+    font-size: 12px;
+    margin: 5px 0 5px 0;
+}
+
+board#socialNetwork > .table > #comments > div > .message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+board#socialNetwork > .table > #comments > div > .message img {
+    width: 25px;
+    height: 25px;
+}
+
+board#socialNetwork > .table > #comments > div > .message .comment {
+    flex-grow: 1;
+    line-height: 16px;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: var(--syncytium-social-text-background);
+    color: var(--syncytium-social-text);
+    text-align: left;
+}
+
+board#socialNetwork > .table > #comments > div > .message .comment.me {
+    text-align: right;
+}
+
+board#socialNetwork > .table > #comments > div > .message .delete {
+    background: url(../../../Images/GUI/Board/Delete.svg) no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+    width: 20px;
+    height: 12px;
+    cursor: pointer;
+}
+
+board#socialNetwork > .table > #comments > div > .message .empty {
+    width: 60px;
+}
+
+/* ------------------------------------------------------------ */
+/* board#socialNetwork > .table > #message                      */
+/* ------------------------------------------------------------ */
+
+board#socialNetwork > .table > #message {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    border-top: solid 1px black;
+}
+
+board#socialNetwork > .table > #message > #text {
+    background: var(--syncytium-social-background);
+    color: var(--syncytium-social-text);
+    width: 80%;
+    height: 34px;
+    resize: none;
+    font-size: 10px;
+}
+
+board#socialNetwork > .table > #message > #ok {
+    background: var(--syncytium-button-background);
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}

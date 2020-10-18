@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,6 +19,12 @@
 /* ------------------------------------------------------------ */
 /* body > dialog > box.box_select > div > .content              */
 /* ------------------------------------------------------------ */
+
+body > dialog > box.box_select > div {
+    height: auto;
+    width: auto;
+    max-width: 60vw; 
+}
 
 @media only screen and (max-width: 480px) {
     body > dialog > box.box_select > div > .content {
@@ -107,8 +113,8 @@ body > dialog > box.box_select > div > .content > .pictures > div > #picture {
     height: 80px;
     margin: 0;
     padding: 5px;
-    border: solid 1px #e8e6e6;
-    box-shadow: 1px 1px 6px #555;
+    border: solid 1px var(--syncytium-button-background);
+    box-shadow: 1px 1px 6px var(--syncytium-button-shadow);
     min-width: 20px;
     min-height: 20px;
 }
@@ -119,7 +125,7 @@ body > dialog > box.box_select > div > .content > .pictures > div > #picture.sel
 
 body > dialog > box.box_select > div > .content > .pictures > div.focus > #picture,
 body > dialog > box.box_select > div > .content > .pictures > div.focus > #picture.selected {
-    border-color: #33cc33;
+    border-color: var(--syncytium-button-focus-selected);
 }
 
 @media only screen and (max-width: 546px) {

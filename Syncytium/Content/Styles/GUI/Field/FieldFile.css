@@ -1,0 +1,95 @@
+﻿/*
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------ */
+/* field.field_file > .value > .message                         */
+/* ------------------------------------------------------------ */
+
+field.field_file > .value > .message {
+    text-align: center;
+    line-height: 2.5;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_file > .value > .error                           */
+/* ------------------------------------------------------------ */
+
+field.field_file > .value > .error {
+    text-align: center;
+}
+
+/* ------------------------------------------------------------ */
+/* field.field_file > .value > .field                          */
+/* ------------------------------------------------------------ */
+
+field.field_file > .value > .field,
+field.field_file.readonly:focus > .value > .field {
+    align-self: center;
+    border: none;
+    border-radius: 25%;
+    box-shadow: 2px 2px 5px var(--syncytium-button-shadow);
+}
+
+field.field_file:focus > .value > .field {
+    box-shadow: 2px 2px 5px var(--syncytium-button-shadow);
+}
+
+field.field_file > .value > .field > label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 75px;
+    min-height: 75px;
+}
+
+field.field_file.readonly > .value > .field > label {
+    cursor: initial;
+}
+
+field.field_file > .value > .field > label > img {
+    width: 150px;
+    height: 150px;
+    min-width: 75px;
+    min-height: 75px;
+    border-radius: 25%;
+}
+
+@media only screen and (max-width: 700px) {
+    field.field_file > .value > .field > label,
+    field.field_file > .value > .field > label > img {
+        width: 20vw;
+        height: 20vw;
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+
+@media only screen and (max-height: 400px) {
+    field.field_file > .value > .field > label,
+    field.field_file > .value > .field > label > img {
+        width: 25vh;
+        height: 25vh;
+    }
+}
+
+field.field_file.error > .value > .field > label > img {
+    border: solid 1px var(--syncytium-color-error);
+}

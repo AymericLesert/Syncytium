@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,10 +18,21 @@
 
 /* ------------------------------------------------------------ */
 /* body > dialog > box.message                                  */
+/* body > dialog > box.information                              */
+/* body > dialog > box.reload                                   */
 /* ------------------------------------------------------------ */
 
-body > dialog > box.message {
+body > dialog > box.message,
+body > dialog > box.information,
+body > dialog > box.reload {
     font-size: 16px;
+}
+
+body > dialog > box.message > div,
+body > dialog > box.information > div,
+body > dialog > box.reload > div {
+    height: 110px;
+    width: 60vw;
 }
 
 /* ------------------------------------------------------------ */
@@ -32,51 +43,71 @@ body > dialog > box.error {
     font-size: 16px;
 }
 
+body > dialog > box.error > div {
+    min-height: 110px;
+    max-height: calc(80vh - 90px);
+    height: auto;
+    width: 75vw;
+}
+
 /* ------------------------------------------------------------ */
 /* body > dialog > box.error > div > .error                     */
 /* ------------------------------------------------------------ */
 
 body > dialog > box.error > div > .error {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
+    line-height: 20px;
+    max-height: initial;
 }
 
 @media only screen and (max-width: 480px) {
     body > dialog > box.error > div > .error {
         font-size: 12px;
+        line-height: 14px;
     }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 620px) {
     body > dialog > box.error > div > .error {
         font-size: 14px;
+        line-height: 16px;
     }
 }
 
 @media only screen and (max-height: 360px) {
     body > dialog > box.error > div > .error {
         font-size: 10px;
+        line-height: 12px;
     }
 }
 
 /* ------------------------------------------------------------ */
 /* body > dialog > box.message > div > .buttons                 */
+/* body > dialog > box.information > div > .buttons             */
 /* body > dialog > box.error > div > .buttons                   */
+/* body > dialog > box.reload > div > .buttons                  */
 /* ------------------------------------------------------------ */
 
 body > dialog > box.message > div > .buttons,
-body > dialog > box.error > div > .buttons {
+body > dialog > box.information > div > .buttons,
+body > dialog > box.error > div > .buttons,
+body > dialog > box.reload > div > .buttons {
     flex-direction: row;
     margin: 5px 0 5px 0;
 }
 
 /* ------------------------------------------------------------ */
 /* body > dialog > box.message > div > .buttons > button        */
+/* body > dialog > box.information > div > .buttons > button    */
 /* body > dialog > box.error > div > .buttons > button          */
+/* body > dialog > box.reload > div > .buttons > button         */
 /* ------------------------------------------------------------ */
 
 body > dialog > box.message > div > .buttons > button,
-body > dialog > box.error > div > .buttons > button {
+body > dialog > box.information > div > .buttons > button,
+body > dialog > box.error > div > .buttons > button,
+body > dialog > box.reload > div > .buttons > button {
     width: 125px;
     height: 30px;
     margin: 0 5px 0 5px;

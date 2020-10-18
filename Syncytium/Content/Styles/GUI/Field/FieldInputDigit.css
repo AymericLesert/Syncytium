@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -55,34 +55,67 @@ field.field_input_digit > .value > .field > #field > .unit {
 field.field_input_digit > .value > .field > #field > .field {
     display: block;
     width: calc(100% - 10px);
-    border: solid 1px #d8d8d8;
-    font-family: Arial;
+    border: solid 1px  var(--syncytium-color-border);
+    font-family: var(--syncytium-font);
     font-size: 14px;
     text-align: right;
     padding: 0 4px 0 4px;
     margin: 0;
     line-height: 1;
-    height: 16px;
-    background: #ffffff;
+    height: 16px;   
+    background: #eeeeee;
     color: #000000;
 }
 
 field.field_input_digit:focus > .value > .field > #field > .field {
     outline: none;
-    border-color: #33cc33;
+    border-color: var(--syncytium-color-border-focus);
     background: #f4f4f4;
+}
+
+field.field_input_digit > .value > .field > #field > .field > .selected {
+    background-color: var(--syncytium-color-text-selected);
+}
+
+field.field_input_digit:focus > .value > .field > #field > .field > .selected {
+    background-color: var(--syncytium-color-text-focus-selected);
+    color: #ffffff;
+}
+
+field.field_input_digit:focus > .value > .field > #field > .field > .pointer {
+    text-decoration: underline;
+    text-decoration-color: var(--syncytium-color-text-focus-selected);
+    text-underline-position: below;
 }
 
 field.field_input_digit.readonly > .value > .field > #field > .field {
     background: #e8e6e6;
-    color: #000000;
+    color: var(--syncytium-color-text);
 }
 
 field.field_input_digit.readonly:focus > .value > .field > #field > .field {
     outline: none;
-    border-color: #d8d8d8;
+    border-color: var(--syncytium-color-border);
     background: #e8e6e6;
     color: #000000;
+}
+
+field.field_input_digit.readonly > .value > .field > #field > .field > .selected {
+    background: none;
+    color: none;
+}
+
+field.field_input_digit.readonly:focus > .value > .field > #field > .field > .selected {
+    outline: none;
+    border-color: none;
+    background: none;
+    color: var(--syncytium-color-text);
+}
+
+field.field_input_digit.readonly > .value > .field > #field > .field > .pointer {
+    text-decoration: none;
+    text-decoration-color: none;
+    text-underline-position: initial;
 }
 
 field.field_input_digit:hover > .value > .field  > #field> .field {
@@ -114,7 +147,7 @@ field.field_input_digit:hover > .value > .field  > #field> .field {
 }
 
 field.field_input_digit.error > .value > .field > #field > .field {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-error);
 }
 
 /* -------------------------------------------------------------------- */
@@ -192,7 +225,7 @@ field.field_input_digit > .value > .field > #keyboard > .key.undo {
 }
 
 field.field_input_digit > .value > .field > #keyboard > .key.empty {
-    background-color: #ffffff;
+    background-color: #eeeeee;
     background-image: none;
     cursor: initial;
 }

@@ -1,0 +1,115 @@
+﻿/*
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+:root {
+    /* Font */
+    --syncytium-font: 'Literata', serif;
+
+    /* Text color on depends on the context */
+    --syncytium-color: #071D49;
+    --syncytium-color-error: #FF0000;
+    --syncytium-color-text: #071D49;
+    --syncytium-color-text-selected: #C1C1C1;
+    --syncytium-color-text-focus-selected: #318EFD;
+    --syncytium-color-placeholder: #6893C9;
+    --syncytium-color-powered: #444444;
+    --syncytium-color-title: #8e5840;
+    --syncytium-color-selected: #444444;
+    --syncytium-color-deleted: #FF0000;
+    --syncytium-color-readonly: #071D49;
+    --syncytium-color-border: #D8D8D8;
+    --syncytium-color-border-focus: #7b9af5;
+
+    /* Background color */
+    --syncytium-background: #FFFFFF;
+    --syncytium-background-debug: #FFFFFF;
+    --syncytium-background-dev: #FFFFFF;
+    --syncytium-background-uat: #FFFFFF;
+    --syncytium-background-formation: #FFFFFF;
+
+    /* Header */
+    --syncytium-header-background: #f7f7f8;
+    --syncytium-header-background-photo: #EEEEEE;
+    --syncytium-header-background-debug: #f7f7f8;
+    --syncytium-header-background-dev: #f7f7f8;
+    --syncytium-header-background-uat: #f7f7f8;
+    --syncytium-header-background-formation: #f7f7f8;
+
+    --syncytium-header-color: #999999;
+    --syncytium-header-color-debug: #000000;
+    --syncytium-header-color-dev: #FFFFFF;
+    --syncytium-header-color-uat: #FFFFFF;
+    --syncytium-header-color-formation: #FFFFFF;
+    --syncytium-header-color-select: #E95095;
+
+    /* Footer */
+    --syncytium-footer-background: #D8D8D8;
+    --syncytium-footer-color: #444444;
+
+    /* Menu */
+    --syncytium-menu-background: #FFFFFF;
+    --syncytium-menu-background-button: #EEEEEE;
+    --syncytium-menu-background-button-selected: #A8A8A8;
+    --syncytium-menu-color: #000000;
+
+    /* Line color */
+    --syncytium-border-color: #f7f7f8;
+    --syncytium-border-administration: #FF0000;
+
+    /* Progress bar color */
+    --syncytium-progress-color: #FF0000;
+
+    /* Button color */
+    --syncytium-button-background: #071D49;
+    --syncytium-button-color: #EEEEEE;
+    --syncytium-button-focus-background: #abc5d2;
+    --syncytium-button-focus-color: #EEEEEE;
+    --syncytium-button-focus-selected: #EEEEEE;
+    --syncytium-button-readonly-background: rgba(233, 80, 149, 0.5);
+    --syncytium-button-readonly-color: #EEEEEE;
+    --syncytium-button-selected: #EEEEEE;
+    --syncytium-button-shadow: rgba(0, 0, 0, 0.6);
+
+    /* Table */
+    --syncytium-table-header-background: #f7f7f8;
+    --syncytium-table-header-color: #FFFFFF;
+    --syncytium-table-row-background-even: #F2F2F2;
+    --syncytium-table-row-background-odd: #F9F9F9;
+    --syncytium-table-row-selected: #990000;
+    --syncytium-table-row-height: 25px;
+
+    /* Board */
+    --syncytium-board-background: #f7f7f8;
+
+    /* Dialog */
+    --syncytium-dialog-background: #EEEEEE;
+
+    /* Icon */
+    --syncytium-icon-background: #f7f7f8;
+
+    /* Social Network */
+    --syncytium-social-background: #FFFFFF;
+    --syncytium-social-text: #000000;
+    --syncytium-social-text-background: #4AC3D9;
+}
+
+::placeholder {
+    background-color: var(--syncytium-background);
+    color: var(--syncytium-color-placeholder);
+    font-family: var(--syncytium-font);
+}

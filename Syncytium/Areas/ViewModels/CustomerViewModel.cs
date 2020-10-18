@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -103,7 +103,7 @@ namespace Syncytium.Web.Areas.ViewModels
             Debug = ConfigurationManager.Debug;
             Verbose = ConfigurationManager.Verbose;
             Version = ConfigurationManager.ApplicationVersion.ToString();
-            UrlRoot = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + System.Web.VirtualPathUtility.ToAbsolute("~");
+            UrlRoot = ConfigurationManager.ServerHttpRoot;
             if (!UrlRoot.EndsWith("/"))
                 UrlRoot += "/";
         }
@@ -126,7 +126,7 @@ namespace Syncytium.Web.Areas.ViewModels
             Debug = ConfigurationManager.Debug;
             Verbose = ConfigurationManager.Verbose;
             Version = ConfigurationManager.ApplicationVersion.ToString();
-            UrlRoot = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + System.Web.VirtualPathUtility.ToAbsolute("~");
+            UrlRoot = ConfigurationManager.ServerHttpRoot;
             if (!UrlRoot.EndsWith("/"))
                 UrlRoot += "/";
         }

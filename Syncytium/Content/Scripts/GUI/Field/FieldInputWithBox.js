@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -75,8 +75,8 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
             return;
         }
 
-        var oldValue = this._value;
-        var newValue = value;
+        let oldValue = this._value;
+        let newValue = value;
 
         if ( value === undefined )
             value = null;
@@ -154,34 +154,32 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
     onOpen() {
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
 
-                    case 32:
-                        event.preventDefault();
+                    case " ":
+                        event.stopImmediatePropagation();
                         field.onMouseClick();
                         return false;
 
-                    case 46:
-                        event.preventDefault();
+                    case "Delete":
+                        event.stopImmediatePropagation();
                         field.Value = null;
                         return false;
                 }
@@ -237,14 +235,16 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
                         if ( field.Box.List !== null && field.Box.List !== undefined && field.Box.List.Table !== null && field.Box.List.Table !== undefined )
                             title = field.Box.List.Table.toUpperCase() + "_SELECT_" + field.Name.toUpperCase();
                     }
-                    if ( title === null || Language.Manager.Instance.getLabel( DSDatabase.Instance.CurrentLanguage, title ) === null )
+                    if ( title === null || !Language.Manager.Instance.existLabel( title ) )
                         title = "TITLE_SELECT_" + field.Name.toUpperCase();
 
-                    if ( Language.Manager.Instance.getLabel( DSDatabase.Instance.CurrentLanguage, title ) === null )
+                    if ( !Language.Manager.Instance.existLabel( title ) )
                         title = "TITLE_SELECT_" + field._withBox.name.toUpperCase();
 
+                    // TODO : Handle AllowNullValue into the digit box
+
                     field._withBox.digits.Value = field.Value;
-                    GUI.Box.BoxInputDigit.Digit( title, field.Label, null, field._withBox.digits, field.Component.find( ".value > .field > .value" ).css( 'text-align' ), handleClick( field ) );
+                    GUI.Box.BoxInputDigit.Digit( title, field.Label, null, field._withBox.digits, field.Component.find( ".value > .field > .value" ).css( 'text-align' ), handleClick( field ), handleClose( field ) );
                 }
             };
         }
@@ -310,7 +310,7 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
         if ( this.FieldZone.hasClass( 'deleted' ) )
             this.FieldZone.removeClass( 'deleted' );
 
-        var table = this.DatabaseTableReference;
+        let table = this.DatabaseTableReference;
         let record = null;
 
         if ( !this.IsLinked && table !== null && !String.isEmptyOrWhiteSpaces( this.Value ) ) {
@@ -335,7 +335,7 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
         let value = null;
         if ( this._withBox.digits !== null ) {
             this._withBox.digits.Value = this.Value;
-            value = this._withBox.digits.toString();
+            value = !this._withBox.digits.IsNull ? this._withBox.digits.toString() : this.Value;
         } else {
             value = this.Value;
         }
@@ -358,7 +358,7 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
             return;
         }
 
-        var name = this._withBox.list.getText( record );
+        let name = this._withBox.list.getText( record );
         this.FieldZone.find( '.value' ).html( String.encode( String.isEmptyOrWhiteSpaces( name ) ? "" : name ));
     }
 
@@ -376,7 +376,7 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
                 if ( field.DatabaseTableReference !== table )
                     return;
 
-                var name = field._withBox.list.getText( newRecord );
+                let name = field._withBox.list.getText( newRecord );
                 field.FieldZone.find( '.value' ).html( String.encode( String.isEmptyOrWhiteSpaces( name ) ? "" : name ) );
 
                 if ( field.FieldZone.hasClass( 'deleted' ) )
@@ -404,6 +404,16 @@ GUI.Field.FieldInputWithBox = class extends GUI.Field.Field {
             this.addListener( DSDatabase.Instance.addEventListener( "onUpdate", this.DatabaseTableReference, this.Value, handleOnUpdateDB( this ) ) );
             this.addListener( DSDatabase.Instance.addEventListener( "onDelete", this.DatabaseTableReference, this.Value, handleOnDeleteDB( this ) ) );
         }
+    }
+
+    /**
+     * Clean up undo stack
+     */
+    cleanUndo() {
+        super.cleanUndo();
+
+        if ( this._withBox && this._withBox.digits )
+            this._withBox.digits.cleanUndo();
     }
 
     /**

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,8 +27,8 @@ class DSColumn extends LoggerBaseObject {
      * @returns {boolean} Check if the column is a key column
      */
     get IsKey () {
-        for ( var i = 0; i < this._controls.length; i++ )
-            if ( this._controls[i].Type === "Key" )
+        for ( let control of this._controls )
+            if ( control.Type === "Key" )
                 return true;
 
         return false;
@@ -38,8 +38,8 @@ class DSColumn extends LoggerBaseObject {
      * @returns {boolean} Check if the column is a key column
      */
     get IsEmail() {
-        for (var i = 0; i < this._controls.length; i++)
-            if (this._controls[i].Type === "Email")
+        for ( let control of this._controls )
+            if ( control.Type === "Email" )
                 return true;
 
         return false;
@@ -49,9 +49,9 @@ class DSColumn extends LoggerBaseObject {
      * @returns {any} Check if the column is a foreign key column and get the table
      */
     get ForeignKey () {
-        for ( var i = 0; i < this._constraints.length; i++ )
-            if ( this._constraints[i].Type === "ForeignKey" )
-                return this._constraints[i];
+        for ( let constraint of this._constraints )
+            if ( constraint.Type === "ForeignKey" )
+                return constraint;
 
         return null;
     }
@@ -60,11 +60,27 @@ class DSColumn extends LoggerBaseObject {
      * Check if the column has to have a unique value (for the non-deleted record) and returns the error code
      */
     get Unique () {
-        for ( var i = 0; i < this._constraints.length; i++ )
-            if ( this._constraints[i].Type === "Unique" )
-                return this._constraints[i];
+        for ( let constraint of this._constraints )
+            if ( constraint.Type === "Unique" )
+                return constraint;
 
         return null;
+    }
+
+    /**
+     * Check if the column has an index key or a unique is an index if no index is defined
+     */
+    get Indexes() {
+        let indexes = null;
+
+        for ( let constraint of this._constraints )
+            if ( constraint.Type === "Index" ) {
+                if ( indexes === null )
+                    indexes = [];
+                indexes.push( constraint );
+            }
+
+        return indexes;
     }
 
     /**
@@ -94,27 +110,25 @@ class DSColumn extends LoggerBaseObject {
 
         // Looking for the DSDateTimeAttribute
 
-        for ( var i = 0; i < this._formats.length; i++ ) {
-            if ( this._formats[i].Type === "DateTime" )
-                return this._formats[i].Format;
-        }
+        for ( let format of this._formats )
+            if ( format.Type === "DateTime" )
+                return format.Format;
 
         return null;
     }
 
     /**
-     * @returns {string} the date time format into the javascript expected
+     * @returns {string} the mask format
      */
     get StringFormat() {
-        if (this._type !== "String")
+        if ( this._type !== "String" )
             return null;
 
         // Looking for the DSMaskAttribute
 
-        for (var i = 0; i < this._formats.length; i++) {
-            if (this._formats[i].Type === "Mask")
-                return this._formats[i].Mask;
-        }
+        for ( let format of this._formats )
+            if ( format.Type === "Mask" )
+                return format.Mask;
 
         return null;
     }
@@ -123,15 +137,14 @@ class DSColumn extends LoggerBaseObject {
      * @returns {number} max length of the string value
      */
     get StringMaxLength() {
-        if (this._type !== "String")
+        if ( this._type !== "String" )
             return null;
 
         // Looking for the DSStringAttribute
 
-        for (var i = 0; i < this._controls.length; i++) {
-            if (this._controls[i].Type === "String")
-                return this._controls[i].MaxLength;
-        }
+        for ( let control of this._controls )
+            if ( control.Type === "String" )
+                return control.MaxLength;
 
         return null;
     }
@@ -189,13 +202,12 @@ class DSColumn extends LoggerBaseObject {
      * @returns {boolean} true if the field is required
      */
     get IsRequired() {
-        if (!this._isNullable)
+        if ( !this._isNullable )
             return true;
 
-        for (var i = 0; i < this._controls.length; i++) {
-            if (this._controls[i].Type === "Required")
+        for ( let control of this._controls )
+            if ( control.Type === "Required" )
                 return true;
-        }
 
         return false;
     }
@@ -211,9 +223,9 @@ class DSColumn extends LoggerBaseObject {
      * @returns {string} Path of the different pictures of an enumerable list of values
      */
     get PathEnumerable() {
-        var area = this._enumerable.Area;
-        var name = this._enumerable.Name;
-        var path = "";
+        let area = this._enumerable.Area;
+        let name = this._enumerable.Name;
+        let path = "";
 
         if ( !String.isEmptyOrWhiteSpaces( area ) )
             path += area + "/";
@@ -229,10 +241,9 @@ class DSColumn extends LoggerBaseObject {
     get Digit() {
         // Looking for the DSDecimalAttribute
 
-        for (var i = 0; i < this._controls.length; i++) {
-            if (this._controls[i].Type === "Decimal")
-                return new Digits.Decimal(this._controls[i].NbDigitsBefore, this._controls[i].NbDigitsAfter);
-        }
+        for ( let control of this._controls )
+            if ( control.Type === "Decimal" )
+                return new Digits.Decimal( control.NbDigitsBefore, control.NbDigitsAfter );
 
         return this._type === "Int32" ? new Digits.Decimal(9) : new Digits.Decimal(6, 3);
     }
@@ -243,10 +254,9 @@ class DSColumn extends LoggerBaseObject {
     get Unit() {
         // Looking for the DSDecimalAttribute
 
-        for (var i = 0; i < this._controls.length; i++) {
-            if (this._controls[i].Type === "Decimal")
-                return this._controls[i].Unit;
-        }
+        for ( let control of this._controls )
+            if ( control.Type === "Decimal" )
+                return control.Unit;
 
         return null;
     }
@@ -263,9 +273,7 @@ class DSColumn extends LoggerBaseObject {
         if ( this._type !== column._type )
             return false;
 
-        var key = null;
-
-        for ( key in this._enumerable ) {
+        for ( let key in this._enumerable ) {
             if ( key === "Name" || key === "Area" )
                 continue;
 
@@ -273,7 +281,7 @@ class DSColumn extends LoggerBaseObject {
                 return false;
         }
 
-        for ( key in column._enumerable ) {
+        for ( let key in column._enumerable ) {
             if ( key === "Name" || key === "Area" )
                 continue;
 
@@ -281,7 +289,7 @@ class DSColumn extends LoggerBaseObject {
                 return false;
         }
 
-        for ( key in this._enumerable ) {
+        for ( let key in this._enumerable ) {
             if ( key === "Name" || key === "Area" )
                 continue;
 
@@ -304,8 +312,6 @@ class DSColumn extends LoggerBaseObject {
         if ( nullableCheck === undefined )
             nullableCheck = true;
 
-        var newValue = null;
-
         // check if value is null or not
 
         if ( value === undefined || typeof value === "string" && value === "" )
@@ -315,7 +321,7 @@ class DSColumn extends LoggerBaseObject {
 
         if ( !this._isNullable && nullableCheck && value === null ) {
             this.error( "The property '" + this._property + "' can't be null" );
-            errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+            errors.addField( this._property, "ERR_FIELD_REQUIRED", ["{" + this._field + "}"] );
             return value;
         }
 
@@ -324,15 +330,18 @@ class DSColumn extends LoggerBaseObject {
         if ( value === null )
             return value;
 
-        if ( typeof value === "string" )
+        if ( typeof value === "string" ) {
             value = value.trim();
-
-        if ( typeof value === this.Typeof )
+            if ( this.Typeof === "string" )
+                return String.internal( value );
+        } else if ( typeof value === this.Typeof )
             return value;
 
         // Check the type of the property and convert it, if it's necessary
 
-        var newDate = null;
+        let newDate = null;
+        let newValue = null;
+
         switch ( this._type ) {
             case "Int32":
                 if ( typeof value === "boolean" )
@@ -348,7 +357,7 @@ class DSColumn extends LoggerBaseObject {
                 }
 
                 this.error( "The property '" + this._property + "' (" + value + ") can't be converted into '" + this._type + "'" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             case "Decimal":
             case "Double":
@@ -365,7 +374,7 @@ class DSColumn extends LoggerBaseObject {
                 }
 
                 this.error( "The property '" + this._property + "' (" + value + ") can't be converted into '" + this._type + "'" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             case "Boolean":
                 if ( typeof value === "string" )
@@ -375,10 +384,10 @@ class DSColumn extends LoggerBaseObject {
                     return value !== 0;
 
                 this.error( "The property '" + this._property + "' (" + value + ") can't be converted into '" + this._type + "'" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             case "String":
-                return value.toString().trim();
+                return String.internal( value.toString().trim() );
             case "Enum":
                 if ( typeof value === "number" && this._enumerable[value] !== undefined )
                     return value;
@@ -387,7 +396,7 @@ class DSColumn extends LoggerBaseObject {
                     // Check if the enumerable value exists
 
                     if ( value !== "Name" && value !== "Area" && this._enumerable[value] !== undefined ) {
-                        var valueNumber = String.parseInt( value );
+                        let valueNumber = String.parseInt( value );
                         if ( !isNaN( valueNumber ) )
                             return valueNumber;
                         return value;
@@ -395,31 +404,34 @@ class DSColumn extends LoggerBaseObject {
 
                     // Check if the string value corresponds to one of the enumerable values
 
-                    for ( var enumerableKey in this._enumerable ) {
+                    for ( let enumerableKey in this._enumerable ) {
                         if ( enumerableKey !== "Name" &&
                             enumerableKey !== "Area" &&
                             this._enumerable[enumerableKey] !== null && this._enumerable[enumerableKey] !== undefined &&
-                            !String.isEmptyOrWhiteSpaces( this._enumerable[enumerableKey].Label ) &&
-                            this._enumerable[enumerableKey].Label.trim().toUpperCase() === value.trim().toUpperCase() )
+                            ( ( !String.isEmptyOrWhiteSpaces( this._enumerable[enumerableKey].Label ) &&
+                                this._enumerable[enumerableKey].Label.trim().toUpperCase() === value.trim().toUpperCase() ) ||
+                              ( !String.isEmptyOrWhiteSpaces( this._enumerable[enumerableKey].Name ) &&
+                                this._enumerable[enumerableKey].Name.trim().toUpperCase() === value.trim().toUpperCase() ) ) )
                             return String.parseInt( enumerableKey );
                     }
                 }
 
                 this.error( "The property '" + this._property + "' (" + value + ") can't be converted into '" + this._type + "'" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             case "DateTime":
                 if ( value instanceof Date ) {
                     newDate = moment( value.toISOString(), moment.ISO_8601 );
                     if ( newDate.isValid() )
-                        return newDate;
+                        return newDate.valueOf();
                 }
 
                 if ( value instanceof moment )
-                    return value;
+                    return value.valueOf();
 
                 if ( typeof value === "string" ) {
-                    newDate = moment( value, [moment.ISO_8601,
+                    newDate = moment( value, [this.DatetimeFormat,
+                        moment.ISO_8601,
                         "YYYY/MM/DD HH:mm:ss.SSS",
                         "YYYY/MM/DD HH:mm:ss",
                         "YYYY/MM/DD HH:mm",
@@ -432,17 +444,23 @@ class DSColumn extends LoggerBaseObject {
                         "HH:mm:ss",
                         "HH:mm"], true );
                     if ( newDate.isValid() )
-                        return newDate;
+                        return newDate.valueOf();
                 }
 
                 this.error( "The property '" + this._property + "' (" + value + ") can't be converted into '" + this._type + "'" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             case "Byte[]":
+                if ( typeof value === "string" && value.length > 32768 ) {
+                    // TODO : If the file attached directly to a record is too big, go through a attached file
+                    this.error( "The property '" + this._property + "' (" + value.length + ") can't be converted into '" + this._type + "' because the size exceeds the limit of 32Ko" );
+                    errors.addField( this._property, "ERR_FIELD_FILE_TOO_LONG", ["{" + this._field + "}", 32] );
+                }
+
                 return value;
             default:
                 this.error( "Type '" + this._type + "' not implemented!" );
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
         }
     }
@@ -458,17 +476,17 @@ class DSColumn extends LoggerBaseObject {
         // check if the value is Nullable
 
         if ( !this._isNullable && ( value === null || value === undefined ) ) {
-            errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+            errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", "null"] );
             return value;
         }
 
         // Convert the value if DSFormatAttribute is defined
 
-        for ( var i = 0; i < this._formats.length; i++ ) {
+        for ( let format of this._formats ) {
             try {
-                value = this._formats[i].convertFromJSON( value );
+                value = format.convertFromJSON( value );
             } catch ( e ) {
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             }
         }
@@ -484,11 +502,11 @@ class DSColumn extends LoggerBaseObject {
      * @returns {any} value converted
      */
     convertToJSON ( value, errors ) {
-        for ( var i = 0; i < this._formats.length; i++ ) {
+        for ( let format of this._formats ) {
             try {
-                value = this._formats[i].convertToJSON( value );
+                value = format.convertToJSON( value );
             } catch ( e ) {
-                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}"] );
+                errors.addField( this._property, "ERR_FIELD_BADFORMAT", ["{" + this._field + "}", value.toString()] );
                 return value;
             }
         }
@@ -505,10 +523,61 @@ class DSColumn extends LoggerBaseObject {
     checkProperties ( value, errors ) {
         value = this.convertType( value, errors );
 
-        for ( var i = 0; i < this._controls.length; i++ )
-            this._controls[i].check( this, value, errors );
+        for ( let control of this._controls )
+            control.check( this, value, errors );
 
         return value;
+    }
+
+    /**
+     * Retrieve the list of records ids matching within the keys
+     * @param {any} keys structure containing the list of keys and values looking for
+     * @returns {Array} array of ids or null if the index doesn't exist
+     */
+    getIndex( keys ) {
+        let bestIndex = null;
+
+        let index = this.Unique;
+        if ( index !== null && index.match( keys ) )
+            bestIndex = index;
+
+        let indexes = this.Indexes;
+        if ( indexes !== null ) {
+            for ( let index of indexes ) {
+                if ( !index.match( keys ) )
+                    continue;
+
+                if ( bestIndex === null || bestIndex.Fields.length < index.Fields.length )
+                    bestIndex = index;
+            }
+        }
+
+        if ( bestIndex !== null )
+            return bestIndex.getIds( keys );
+
+        return null;
+    }
+
+    /**
+     * Retrieve the list of different values of this column
+     * @returns {Array} list of different values
+     */
+    getValues() {
+        let index = this.Unique;
+        if ( index !== null )
+            return index.getValues();
+
+        let indexes = this.Indexes;
+        if ( indexes !== null ) {
+            for ( let index of indexes ) {
+                if ( index.Fields.length !== 1 )
+                    continue;
+
+                return index.getValues();
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -517,24 +586,21 @@ class DSColumn extends LoggerBaseObject {
      * @returns {any} the enumerable value or the list of enumerable values
      */
     getEnumerable ( value ) {
-        var enumerableKey = null;
-        var item = null;
-
         if ( this._type !== "Enum" )
             return value === undefined ? [] : value;
 
         if ( value === undefined ) {
-            var values = [];
-            var path = this.PathEnumerable;
+            let values = [];
+            let path = this.PathEnumerable;
 
-            for ( enumerableKey in this._enumerable ) {
+            for ( let enumerableKey in this._enumerable ) {
                 if ( enumerableKey === "Name" || enumerableKey === "Area" )
                     continue;
 
                 if ( String.isEmptyOrWhiteSpaces( this._enumerable[enumerableKey].Label ) )
                     continue;
 
-                item = {};
+                let item = {};
                 item.Id = String.parseInt( enumerableKey );
                 item.Label = this._enumerable[enumerableKey].Label.trim().toUpperCase();
                 item.Picture = null;
@@ -560,7 +626,7 @@ class DSColumn extends LoggerBaseObject {
 
             // Check if the string value corresponds to one of the enumerable values
 
-            for ( enumerableKey in this._enumerable ) {
+            for ( let enumerableKey in this._enumerable ) {
                 if ( enumerableKey !== "Name" && enumerableKey !== "Area" &&
                     this._enumerable[enumerableKey] !== null && this._enumerable[enumerableKey] !== undefined &&
                     !String.isEmptyOrWhiteSpaces( this._enumerable[enumerableKey].Label ) &&
@@ -569,18 +635,17 @@ class DSColumn extends LoggerBaseObject {
             }
         }
 
-        if ( value === null ) {
-            item = {};
+        if ( value !== null )
+            return value;
 
-            item.Id = null;
-            item.Label = this._field + "_NULL";
-            item.Picture = this.PathEnumerable + "Null.svg";
-            item.Name = "Null";
+        let item = {};
 
-            return item;
-        }
+        item.Id = null;
+        item.Label = this._field + "_NULL";
+        item.Picture = this.PathEnumerable + "Null.svg";
+        item.Name = "Null";
 
-        return value;
+        return item;
     }
 
     /**

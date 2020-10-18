@@ -10,7 +10,7 @@ using System;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -39,7 +39,13 @@ namespace Syncytium.Web.Database
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DatabaseRequest).Name;
+        private static readonly string MODULE = typeof(DatabaseRequest).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -153,8 +159,7 @@ namespace Syncytium.Web.Database
 
                 UserManager manager = new UserManager(database as Module.Administration.DatabaseContext);
 
-                UserRecord currentUser = manager.GetById(currentUserId) as UserRecord;
-                if (currentUser == null)
+                if (!(manager.GetById(currentUserId) is UserRecord currentUser))
                     throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
 
                 using (UserController controller = new UserController(manager))
@@ -217,15 +222,14 @@ namespace Syncytium.Web.Database
                 if (record is DSRecordWithCustomerId user &&
                     database is Module.Administration.DatabaseContext administration)
                 {
-                    // TODO: Create the first notification or reports ...
+                    // Create the first notification or reports ...
 
-                    /*
                     administration.Notification.Add(new NotificationRecord() { UserId = user.Id, CustomerId = user.CustomerId, LastTick = tick, Date = DateTime.Now, Report = NotificationRecord.NOTIFICATION });
                     administration.SaveChanges();
-                    */
                 }
             }
-            /* TODO: else if (table.Equals("AttachedFile"))
+            /* TODO : Handle AttachedFile
+            else if (table.Equals("AttachedFile"))
             {
                 if (record is AttachedFileRecord attachment &&
                     database is Module.Stock.DatabaseContext stock)

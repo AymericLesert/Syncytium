@@ -3,11 +3,12 @@ using Syncytium.Common.Database.DSSchema;
 using Syncytium.Common.Managers;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,7 +38,13 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DatabaseCacheManager).Name;
+        private static readonly string MODULE = typeof(DatabaseCacheManager).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -119,12 +126,17 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Handle a cache of DSRecord (per customer, per table and per Id)
         /// </summary>
-        private Dictionary<int, Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>> _records { get; } = new Dictionary<int, Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>>();
+        private Dictionary<int, Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>> _records { get; } = new Dictionary<int, Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>>(10);
 
         /// <summary>
         /// Keep in memory the list of tables loaded into the cache
         /// </summary>
         private Dictionary<string, DSTable> _tables { get; } = new Dictionary<string, DSTable>();
+
+        /// <summary>
+        /// Keep in memory the list of ids get by (CreateId, CreateUserId, Table)
+        /// </summary>
+        private Dictionary<int, Dictionary<int, Dictionary<String, int>>> _ids { get; } = new Dictionary<int, Dictionary<int, Dictionary<String, int>>>();
 
         /// <summary>
         /// Mutex protecting the critical section
@@ -256,9 +268,9 @@ namespace Syncytium.Common.Database
 
                 // Build and clean the cache for the customers and lock all customers ...
 
-                Debug($"[{customerId}] Initializing tables ...");
+                Debug($"Initializing tables for the customer '{customerId}' ...");
 
-                Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>> currentCache = new Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>();
+                Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>> currentCache = new Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>(_tables.Count);
                 _records[customerId] = currentCache; // replace the cache already existing
 
                 foreach (KeyValuePair<string, DSTable> table in _tables)
@@ -274,6 +286,8 @@ namespace Syncytium.Common.Database
                 if (area == null)
                     continue;
 
+                Debug($"Loading tables from the area '{area}' ...");
+
                 try
                 {
                     using (DatabaseContext currentContext = getDatabase(area))
@@ -282,19 +296,16 @@ namespace Syncytium.Common.Database
 
                         foreach (KeyValuePair<string, DSTable> table in _tables.Where(t => t.Value.Area.Equals(area)))
                         {
+                            Debug($"Loading table '{table.Key}' ...");
+
                             try
                             {
                                 int nbRecords = 0;
 
-                                Debug($"Loading table '{table.Key}' ...");
-
                                 // Load all records between the last tick and the new one (only for request successfully executed)
 
-                                foreach (Tuple<DSRecord, InformationRecord> record in table.Value.ReadRecords(currentContext, -1))
+                                foreach (Tuple<DSRecord, InformationRecord> record in table.Value.ReadRecords(currentContext))
                                 {
-                                    currentContext.Entry(record.Item1).State = System.Data.Entity.EntityState.Detached;
-                                    currentContext.Entry(record.Item2).State = System.Data.Entity.EntityState.Detached;
-
                                     if (record.Item2.CustomerId < 0)
                                     {
                                         foreach (int customerId in customerIds)
@@ -309,6 +320,8 @@ namespace Syncytium.Common.Database
                                 }
 
                                 Info($"{nbRecords} records read into the table '{table.Key}' ...");
+
+                                GC.Collect();
                             }
                             catch (System.Exception ex)
                             {
@@ -384,11 +397,11 @@ namespace Syncytium.Common.Database
             {
                 Debug($"[{customerId}] Initializing tables ...");
 
-                currentCache = new Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>();
+                currentCache = new Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>>(_tables.Count);
                 _records[customerId] = currentCache;
 
                 foreach (KeyValuePair<string, DSTable> table in _tables)
-                    currentCache[table.Key] = new Dictionary<int, Tuple<DSRecord, InformationRecord>>();
+                    currentCache[table.Key] = new Dictionary<int, Tuple<DSRecord, InformationRecord>>(table.Value.Capacity);
             }
             else
             {
@@ -404,6 +417,8 @@ namespace Syncytium.Common.Database
             {
                 if (area == null)
                     continue;
+
+                Debug($"Loading tables from the area '{area}' ...");
 
                 try
                 {
@@ -423,12 +438,12 @@ namespace Syncytium.Common.Database
 
                                 foreach (Tuple<DSRecord, InformationRecord> record in table.Value.ReadRecords(currentContext, customerId))
                                 {
-                                    currentContext.Entry(record.Item1).State = System.Data.Entity.EntityState.Detached;
-                                    currentContext.Entry(record.Item2).State = System.Data.Entity.EntityState.Detached;
                                     currentTable[record.Item1.Id] = record;
                                 }
 
-                                Info($"[{customerId}] {currentTable.Count} records read into the table '{table.Key}' ...");
+                                Info($"[{customerId}] {currentTable.Count} records read into the table '{table.Key}'");
+
+                                GC.Collect();
                             }
                             catch (System.Exception ex)
                             {
@@ -449,6 +464,46 @@ namespace Syncytium.Common.Database
             Info($"[{customerId}] Cache initialized in tick {_tick[customerId]}");
 
             Unlock(customerId);
+        }
+
+        /// <summary>
+        /// Reload the content of a table into the cache
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="customerId"></param>
+        /// <param name="table"></param>
+        public void Reload(DatabaseContext database, int customerId, string table)
+        {
+            if (!_enable)
+                return;
+
+            // Check if the reload data is possible
+
+            if (!_tick.ContainsKey(customerId) || !_tables.ContainsKey(table) || !_records.ContainsKey(customerId))
+                return;
+
+            // Clean up cache of the table
+
+            Dictionary<string, Dictionary<int, Tuple<DSRecord, InformationRecord>>> currentCache = _records[customerId];
+            if (!currentCache.ContainsKey(table))
+                return;
+
+            Debug($"Reloading table '{table}' into the cache for the customer '{customerId}' ...");
+
+            Dictionary<int, Tuple<DSRecord, InformationRecord>> currentCacheTable = currentCache[table];
+            currentCacheTable.Clear();
+
+            // Update the content of the cache
+
+            DSTable currentTable = _tables[table];
+            foreach (Tuple<DSRecord, InformationRecord> record in currentTable.ReadRecords(database, customerId))
+            {
+                currentCacheTable[record.Item1.Id] = record;
+            }
+
+            Info($"[{customerId}] {currentCacheTable.Count} records read into the table '{table}'");
+
+            GC.Collect();
         }
 
         /// <summary>
@@ -490,9 +545,8 @@ namespace Syncytium.Common.Database
 
                 DSTable currentTable = null;
                 Dictionary<int, Tuple<DSRecord, InformationRecord>> currentContent = null;
-                foreach (RequestRecord request in database._Request.Where(r => r.CustomerId == customerId &&
+                foreach (RequestTableRecord request in database._RequestTable.Where(r => r.CustomerId == customerId &&
                                                                                r.Id != null &&
-                                                                               r.Acknowledge != null && r.Acknowledge.Value &&
                                                                                previousTick < r.Tick && r.Tick <= currentTick).ToList().OrderBy(r => r.Table).ThenBy(r => r.Id))
                 {
                     // new table ?
@@ -519,8 +573,6 @@ namespace Syncytium.Common.Database
 
                     // Update the cache
 
-                    database.Entry(currentRecord.Item1).State = System.Data.Entity.EntityState.Detached;
-                    database.Entry(currentRecord.Item2).State = System.Data.Entity.EntityState.Detached;
                     currentContent[request.Id.Value] = currentRecord;
                     nbUpdates++;
                 }
@@ -540,11 +592,10 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Update the cache within the list of records updated by the transaction
         /// </summary>
-        /// <param name="database"></param>
         /// <param name="records"></param>
         /// <param name="customerId"></param>
         /// <param name="tick"></param>
-        public void UpdateCache(DatabaseContext database, List<Tuple<string, DSRecord, InformationRecord>> records, int customerId, int tick)
+        public void UpdateCache(List<Tuple<string, DSRecord, InformationRecord>> records, int customerId, int tick)
         {
             if (!_enable)
                 return;
@@ -567,12 +618,10 @@ namespace Syncytium.Common.Database
 
                 foreach (Tuple<string, DSRecord, InformationRecord> record in records)
                 {
-                    if (!_tables.ContainsKey(record.Item1))
+                    if (!currentTable.ContainsKey(record.Item1))
                         continue;
 
-                    database.Entry(record.Item2).State = System.Data.Entity.EntityState.Detached;
-                    database.Entry(record.Item3).State = System.Data.Entity.EntityState.Detached;
-                    currentTable[record.Item1][record.Item2.Id] = Tuple.Create(record.Item2, record.Item3);
+                    currentTable[record.Item1][record.Item2.Id] = Tuple.Create(DSRecord.Copy(record.Item2), InformationRecord.Copy(record.Item3));
                 }
 
                 _tick[customerId] = tick;
@@ -637,10 +686,10 @@ namespace Syncytium.Common.Database
         /// <returns></returns>
         public List<Tuple<DSRecord, InformationRecord>> GetRecords(string table, int customerId)
         {
-            List<Tuple<DSRecord, InformationRecord>> records = new List<Tuple<DSRecord, InformationRecord>>();
+            List<Tuple<DSRecord, InformationRecord>> result = new List<Tuple<DSRecord, InformationRecord>>();
 
             if (!_enable)
-                return records;
+                return result;
 
             Lock(customerId); // lock critical section
 
@@ -653,7 +702,7 @@ namespace Syncytium.Common.Database
             {
                 Warn($"[{customerId}] Customer not defined!");
                 Unlock(customerId); //unlock critical section
-                return records;
+                return result;
             }
 
             // Read the content of the table
@@ -662,18 +711,94 @@ namespace Syncytium.Common.Database
             if (!currentRecords.ContainsKey(table))
             {
                 Unlock(customerId); //unlock critical section
-                return records;
+                return result;
             }
 
-            Dictionary<int, Tuple<DSRecord, InformationRecord>> currentTable = currentRecords[table];
-            foreach (KeyValuePair<int, Tuple<DSRecord, InformationRecord>> currentRecord in currentTable)
-                records.Add(currentRecord.Value);
+            result.AddRange(currentRecords[table].Select(x => x.Value));
 
             if (IsDebug())
-                Debug($"[{customerId}] {records.Count} records read into the table '{table}'");
+                Debug($"[{customerId}] {result.Count} records read into the table '{table}'");
 
             Unlock(customerId); //unlock critical section
-            return records;
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieve the Id by createId, createUserId and table name
+        /// </summary>
+        /// <param name="information"></param>
+        /// <param name="createId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="table"></param>
+        /// <returns>Id</returns>
+        public int GetId(DbSet<InformationRecord> information, int createId, int createUserId, string table)
+        {
+            _mutex.Wait();
+
+            if (_ids.ContainsKey(createId))
+            {
+                Dictionary<int, Dictionary<string, int>> itemId = _ids[createId];
+                if (itemId.ContainsKey(createUserId))
+                {
+                    Dictionary<string, int> itemUserId = itemId[createUserId];
+                    if (itemUserId.ContainsKey(table))
+                    {
+                        int id = itemUserId[table];
+                        _mutex.Release();
+                        return id;
+                    }
+                }
+            }
+
+            InformationRecord record = information.FirstOrDefault(info => info.CreateId == createId && info.CreateUserId == createUserId && info.Table.Equals(table));
+
+            _mutex.Release(); // unlock critical section
+
+            if (record != null)
+                return SetId(createId, createUserId, table, record.Id);
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Update the Id
+        /// </summary>
+        /// <param name="createId"></param>
+        /// <param name="createUserId"></param>
+        /// <param name="table"></param>
+        /// <param name="id"></param>
+        public int SetId(int createId, int createUserId, string table, int id)
+        {
+            Dictionary<int, Dictionary<string, int>> itemId;
+            Dictionary<string, int> itemUserId;
+
+            _mutex.Wait();
+
+            if (_ids.ContainsKey(createId))
+            {
+                itemId = _ids[createId];
+            }
+            else
+            {
+                itemId = new Dictionary<int, Dictionary<string, int>>();
+                _ids[createId] = itemId;
+            }
+
+            if (itemId.ContainsKey(createUserId))
+            {
+                itemUserId = itemId[createUserId];
+            }
+            else
+            {
+                itemUserId = new Dictionary<string, int>();
+                itemId[createUserId] = itemUserId;
+            }
+
+            itemUserId[table] = id;
+
+            _mutex.Release(); // unlock critical section
+
+            return id;
         }
 
         /// <summary>

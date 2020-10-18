@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@
 
 @section CSSDeclaration
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Support.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Button/Button.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Tools/Support.css")" />
 }
 
 @section JSDeclaration
@@ -39,6 +39,11 @@
     @if (Model.Ressources.DefaultLanguage.Equals("FR"))
     {
         <h1>La mise à jour de la base de données a été réalisée avec succés!</h1>
+        <input type="button" class="button" value="@Model.GetLabel("BTN_OK")" onclick='javascript:window.location="@(Model.UrlRoot)Administration/User/Signout"' />
+    }
+    @if (Model.Ressources.DefaultLanguage.Equals("EN"))
+    {
+        <h1>The database is successfully updated !</h1>
         <input type="button" class="button" value="@Model.GetLabel("BTN_OK")" onclick='javascript:window.location="@(Model.UrlRoot)Administration/User/Signout"' />
     }
 </div>

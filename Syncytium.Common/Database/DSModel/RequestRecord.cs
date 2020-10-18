@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,11 +30,21 @@ namespace Syncytium.Common.Database.DSModel
     public class RequestRecord
     {
         /// <summary>
-        /// Tick of the request
+        /// Id of the request
         /// </summary>
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Tick { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Current connection Id of the user
+        /// </summary>
+        public string ConnectionId { get; set; } = String.Empty;
+
+        /// <summary>
+        /// CustomerId attached to the request
+        /// </summary>
+        public int CustomerId { get; set; }
 
         /// <summary>
         /// UserId of the requester
@@ -47,7 +57,12 @@ namespace Syncytium.Common.Database.DSModel
         public int RequestId { get; set; }
 
         /// <summary>
-        /// Area of the request (Administration, Stock, ...)
+        /// User's profile
+        /// </summary>
+        public UserProfile.EUserProfile Profile { get; set; }
+
+        /// <summary>
+        /// Area of the request (Administration, Customer, ...)
         /// </summary>
         public string Area { get; set; } = string.Empty;
 
@@ -57,34 +72,46 @@ namespace Syncytium.Common.Database.DSModel
         public int ModuleId { get; set; } = -1;
 
         /// <summary>
-        /// Table of the request (table into the database)
+        /// Label of the request sent by the client
         /// </summary>
-        public string Table { get; set; } = string.Empty;
+        [JsonIgnore]
+        public String Label { get; set; } = String.Empty;
 
         /// <summary>
-        /// Action of the request (Create, Update, Delete or ... anything else)
+        /// Request sent by the client
         /// </summary>
-        public string Action { get; set; } = string.Empty;
+        [JsonIgnore]
+        public byte[] Request { get; set; } = null;
 
         /// <summary>
-        /// Id of the object concerned by this action
+        /// True if the request is a transaction
         /// </summary>
-        public int? Id { get; set; } = null;
+        public bool? Transaction { get; set; } = null;
 
         /// <summary>
-        /// Indicates if the request is successfully executed or not (null if exception)
+        /// True if the client must be notified by its own request
         /// </summary>
-        public bool? Acknowledge { get; set; }
+        public bool? Notify { get; set; } = null;
 
         /// <summary>
-        /// Timestamp of the reception of the request
+        /// Service name
         /// </summary>
-        public DateTime Date { get; set; }
+        public string Service { get; set; } = String.Empty;
 
         /// <summary>
-        /// CustomerId attached to the request
+        /// Timestamp of the reception
         /// </summary>
-        public int CustomerId { get; set; }
+        public DateTime? ReceptionDate { get; set; } = null;
+
+        /// <summary>
+        /// Timestamp of the execution
+        /// </summary>
+        public DateTime? ExecutionDate { get; set; } = null;
+
+        /// <summary>
+        /// True if the request was successfully run
+        /// </summary>
+        public bool? Acknowledge { get; set; } = null;
 
         /// <summary>
         /// Convert the record into a string

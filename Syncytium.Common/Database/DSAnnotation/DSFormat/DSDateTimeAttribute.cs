@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -93,8 +93,7 @@ namespace Syncytium.Common.Database.DSAnnotation.DSFormat
             if (value == null)
                 return null;
 
-            string strValue = value as string;
-            if (strValue == null)
+            if (!(value is string strValue))
                 return value;
 
             return DateTime.ParseExact(strValue, FormatCS, CultureInfo.InvariantCulture);

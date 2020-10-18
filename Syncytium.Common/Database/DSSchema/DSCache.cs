@@ -1,9 +1,10 @@
 ﻿using Syncytium.Common.Database.DSModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,6 +38,12 @@ namespace Syncytium.Common.Database.DSSchema
         /// Module name used into the log file
         /// </summary>
         protected virtual string MODULE => typeof(DSCache).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -90,14 +97,24 @@ namespace Syncytium.Common.Database.DSSchema
         #endregion
 
         /// <summary>
+        /// Schema attached to this cache
+        /// </summary>
+        private DSDatabase _schema = null;
+
+        /// <summary>
         /// Handle the list of tables by order of priority
         /// </summary>
-        public List<String> Tables { get; } = new List<string>();
+        private List<Tuple<string, int>> _tables { get; } = new List<Tuple<string,int>>();
+
+        /// <summary>
+        /// Handle the list of tables by order of priority
+        /// </summary>
+        public List<string> Tables { get => _tables.Select(t => t.Item1).ToList(); }
 
         /// <summary>
         /// Build a reverse list before running the difference
         /// </summary>
-        private List<String> _reverseTables = null;
+        private List<Tuple<string, int>> _reverseTables = null;
 
         /// <summary>
         /// Indicates if it's before / after the execution requests
@@ -135,17 +152,32 @@ namespace Syncytium.Common.Database.DSSchema
         private string _currentConnection = null;
 
         /// <summary>
+        /// Add a new table into the cache
+        /// </summary>
+        /// <param name="table"></param>
+        public void AddTable(string table)
+        {
+            if (_tables.Select(t => t.Item1).FirstOrDefault(name => name == table) != null)
+                return;
+
+            if (!_schema.Tables.ContainsKey(table))
+                return;
+
+            _tables.Add(Tuple.Create(table, _schema.Tables[table].Capacity));
+        }
+
+        /// <summary>
         /// Set the current cache to the cache corresponding before execution requests
         /// </summary>
         /// <param name="connectionId"></param>
         virtual public void SetBefore(string connectionId)
         {
             _currentConnection = connectionId;
-            if (IsDebug() && !_currentConnection.Equals(""))
-                Debug("Evaluating the status just before executing the request ...");
+            if (IsVerboseAll() && !_currentConnection.Equals(""))
+                Verbose("Evaluating the status just before executing the request ...");
 
             if (!_differences.ContainsKey(connectionId))
-                _differences[connectionId] = new Dictionary<string, Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>>();
+                _differences[connectionId] = new Dictionary<string, Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>>(_tables.Count);
 
             _currentDifference = _differences[connectionId];
             _currentRecords = _recordBefore;
@@ -163,7 +195,7 @@ namespace Syncytium.Common.Database.DSSchema
                 Debug("Evaluating the status just after executing the request ...");
 
             if (!_differences.ContainsKey(connectionId))
-                _differences[connectionId] = new Dictionary<string, Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>>();
+                _differences[connectionId] = new Dictionary<string, Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>>(_tables.Count);
 
             _currentDifference = _differences[connectionId];
             _currentRecords = _recordAfter;
@@ -211,7 +243,10 @@ namespace Syncytium.Common.Database.DSSchema
                 return null;
 
             if (!_currentRecords.ContainsKey(table))
-                _currentRecords[table] = new Dictionary<int, Tuple<DSRecord, InformationRecord>>();
+            {
+                Tuple<string, int> cacheTable = _tables.FirstOrDefault(t => t.Item1 == table);
+                _currentRecords[table] = new Dictionary<int, Tuple<DSRecord, InformationRecord>>(cacheTable != null ? cacheTable.Item2 : 1024);
+            }
 
             Dictionary<int, Tuple<DSRecord, InformationRecord>> currentTable = _currentRecords[table];
             if (!currentTable.ContainsKey(id))
@@ -283,9 +318,10 @@ namespace Syncytium.Common.Database.DSSchema
 
             if (!_currentDifference.ContainsKey(table))
             {
-                _currentDifference[table] = new Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>();
-                if (Tables.IndexOf(table) < 0)
-                    Tables.Add(table);
+                AddTable(table);
+
+                Tuple<string, int> cacheTable = _tables.FirstOrDefault(t => t.Item1 == table);
+                _currentDifference[table] = new Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>>(cacheTable != null ? cacheTable.Item2 : 1024);
             }
 
             Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = _currentDifference[table];
@@ -326,7 +362,7 @@ namespace Syncytium.Common.Database.DSSchema
 
             if (_reverseTables == null)
             {
-                _reverseTables = new List<string>(Tables);
+                _reverseTables = new List<Tuple<string, int>>(_tables);
                 _reverseTables.Reverse();
             }
 
@@ -334,54 +370,54 @@ namespace Syncytium.Common.Database.DSSchema
 
             // Element added
 
-            foreach (string table in Tables)
+            foreach (Tuple<string, int> table in _tables)
             {
-                if (!record.ContainsKey(table))
+                if (!record.ContainsKey(table.Item1))
                     continue;
 
-                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table];
+                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table.Item1];
 
                 foreach (KeyValuePair<int, Tuple<bool, DSRecord, bool, DSRecord>> currentRecord in currentTable)
                 {
                     if ((currentRecord.Value.Item2 == null && currentRecord.Value.Item4 != null) ||
                         (currentRecord.Value.Item2 != null && currentRecord.Value.Item4 != null &&
                          currentRecord.Value.Item2._deleted && !currentRecord.Value.Item4._deleted))
-                        differences.Add(Tuple.Create(table, null as DSRecord, currentRecord.Value.Item4));
+                        differences.Add(Tuple.Create(table.Item1, null as DSRecord, currentRecord.Value.Item4));
                 }
             }
 
             // Element updated
 
-            foreach (string table in Tables)
+            foreach (Tuple<string, int> table in _tables)
             {
-                if (!record.ContainsKey(table))
+                if (!record.ContainsKey(table.Item1))
                     continue;
 
-                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table];
+                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table.Item1];
 
                 foreach (KeyValuePair<int, Tuple<bool, DSRecord, bool, DSRecord>> currentRecord in currentTable)
                 {
                     if (currentRecord.Value.Item2 != null && currentRecord.Value.Item4 != null &&
                         currentRecord.Value.Item2._deleted == currentRecord.Value.Item4._deleted &&
                         !currentRecord.Value.Item2.Equals(currentRecord.Value.Item4))
-                        differences.Add(Tuple.Create(table, currentRecord.Value.Item2, currentRecord.Value.Item4));
+                        differences.Add(Tuple.Create(table.Item1, currentRecord.Value.Item2, currentRecord.Value.Item4));
                 }
             }
 
             // Element delete
 
-            foreach (string table in _reverseTables)
+            foreach (Tuple<string, int> table in _reverseTables)
             {
-                if (!record.ContainsKey(table))
+                if (!record.ContainsKey(table.Item1))
                     continue;
 
-                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table];
+                Dictionary<int, Tuple<bool, DSRecord, bool, DSRecord>> currentTable = record[table.Item1];
 
                 foreach (KeyValuePair<int, Tuple<bool, DSRecord, bool, DSRecord>> currentRecord in currentTable)
                 {
                     if (currentRecord.Value.Item2 != null && !currentRecord.Value.Item2._deleted &&
                         (currentRecord.Value.Item4 == null || currentRecord.Value.Item4._deleted))
-                        differences.Add(Tuple.Create(table, currentRecord.Value.Item2, null as DSRecord));
+                        differences.Add(Tuple.Create(table.Item1, currentRecord.Value.Item2, null as DSRecord));
                 }
             }
 
@@ -394,6 +430,9 @@ namespace Syncytium.Common.Database.DSSchema
         /// <summary>
         /// Empty constructor
         /// </summary>
-        public DSCache() { }
+        /// <param name="schema"></param>
+        public DSCache(DSDatabase schema) {
+            _schema = schema;
+        }
     }
 }

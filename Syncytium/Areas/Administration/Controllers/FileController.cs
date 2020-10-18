@@ -7,7 +7,7 @@ using System.Net;
 using System.Web.Mvc;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -121,7 +121,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         [HttpPost]
         public JsonResult Remove(int id, string filename)
         {
-            Debug($"Post ~/Administration/File/Remove({id.ToString("D6")}, {filename})");
+            Debug($"Post ~/Administration/File/Remove({id:D6}, {filename})");
 
             try
             {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,7 +53,13 @@ namespace Syncytium.Common.Database.DSSchema
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DSDatabase).Name;
+        private static readonly string MODULE = typeof(DSDatabase).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -184,37 +190,6 @@ namespace Syncytium.Common.Database.DSSchema
         }
 
         /// <summary>
-        /// Retrieve for all data contains into the table without any filter
-        /// </summary>
-        /// <param name="database"></param>
-        /// <param name="table"></param>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        public IEnumerable<Tuple<DSRecord, InformationRecord>> ReadRecords(DatabaseContext database, string table, int customerId)
-        {
-            if (!Tables.ContainsKey(table))
-                return null;
-
-            return Tables[table].ReadRecords(database, customerId);
-        }
-
-        /// <summary>
-        /// Retrieve a given record
-        /// </summary>
-        /// <param name="database"></param>
-        /// <param name="table"></param>
-        /// <param name="id"></param>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        public Tuple<DSRecord, InformationRecord> GetRecord(DatabaseContext database, string table, int id, int customerId)
-        {
-            if (!Tables.ContainsKey(table))
-                return null;
-
-            return Tables[table].GetRecord(database, id, customerId);
-        }
-
-        /// <summary>
         /// Build a dynamic record containing properties depending on the area and the profile
         /// </summary>
         /// <param name="record"></param>
@@ -233,6 +208,28 @@ namespace Syncytium.Common.Database.DSSchema
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Build a dynamic record containing properties depending on the area and the profile
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="area"></param>
+        /// <param name="userId"></param>
+        /// <param name="profile"></param>
+        /// <param name="request"></param>
+        /// <returns>true if the record is filtered</returns>
+        public bool FilterRecord(DSRecord record, string area, int userId, UserProfile.EUserProfile profile, DSRequest request)
+        {
+            foreach (KeyValuePair<string, DSTable> table in Tables)
+            {
+                if (table.Value.Table != record.GetType())
+                    continue;
+
+                return table.Value.FilterRecord(record, area, userId, profile, request);
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -282,23 +279,20 @@ namespace Syncytium.Common.Database.DSSchema
         /// on depends on the restriction view for the area and the profile
         /// </summary>
         /// <param name="database"></param>
-        /// <param name="tick"></param>
-        /// <param name="customerId"></param>
-        /// <param name="userId"></param>
-        /// <param name="area"></param>
-        /// <param name="profile"></param>
-        /// <param name="table"></param>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
+        /// <param name="transaction"></param>
+        /// <param name="lot"></param>
         /// <returns></returns>
-        public Tuple<DSRecord, InformationRecord> ExecuteRequest(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string table, string action, int id, JObject record, JObject identity)
+        public List<Tuple<DSRecord, InformationRecord>> ExecuteRequest(DatabaseContext database, DSTransaction transaction, List<DSRequest> lot)
         {
-            if (!Tables.ContainsKey(table))
+            if (lot.Count == 0)
+                return new List<Tuple<DSRecord, InformationRecord>>();
+
+            DSRequest reference = lot[0];
+
+            if (!Tables.ContainsKey(reference.Table))
                 throw new ExceptionDefinitionRecord("ERR_REQUEST_UNKNOWN");
 
-            return Tables[table].ExecuteRequest(database, tick, customerId, userId, area, profile, action, id, record, identity);
+            return Tables[reference.Table].ExecuteRequest(database, transaction, reference.Action, lot);
         }
 
         /// <summary>
@@ -328,23 +322,32 @@ namespace Syncytium.Common.Database.DSSchema
         /// Execute a request on the database schema (other than Create, Update or Delete)
         /// </summary>
         /// <param name="database"></param>
-        /// <param name="tick"></param>
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <param name="area"></param>
         /// <param name="profile"></param>
         /// <param name="table"></param>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
+        /// <param name="lot"></param>
         /// <returns></returns>
-        public Tuple<DSRecord, InformationRecord> ExecuteRequestCustom(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string table, string action, int id, JObject record, JObject identity)
+        public List<Tuple<DSRecord, InformationRecord>> ExecuteRequestCustom(DatabaseContext database, int customerId, int userId, string area, UserProfile.EUserProfile profile, string table, List<DSRequest> lot)
         {
             if (_request == null)
                 return null;
 
-            return _request.ExecuteRequest(database, tick, customerId, userId, area, profile, table, action, id, record, identity);
+            List<Tuple<DSRecord, InformationRecord>> result = new List<Tuple<DSRecord, InformationRecord>>();
+
+            foreach (DSRequest request in lot)
+            {
+                int tick = request.NewTick;
+                string action = request.Action;
+                int id = request.RecordId;
+                JObject record = request.Record;
+                JObject identity = request.Identity;
+
+                result.Add(_request.ExecuteRequest(database, tick, customerId, userId, area, profile, table, action, id, record, identity));
+            }
+
+            return result;
         }
 
         /// <summary>

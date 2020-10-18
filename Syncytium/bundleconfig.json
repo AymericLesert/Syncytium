@@ -17,6 +17,7 @@
       "Content/Scripts/Tools/Similarity.js",
       "Content/Scripts/Tools/String.js",
       "Content/Scripts/Tools/Digits.js",
+      "Content/Scripts/Tools/Clipboard.js",
       "Content/Scripts/Areas/Administration/Language/Enum.js",
       "Content/Scripts/Areas/Administration/Language/Manager.js",
       "Content/Scripts/Filter/Filter.js",
@@ -33,6 +34,7 @@
       "Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSConstraint/DSIndexAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js",
@@ -43,7 +45,7 @@
       "Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js",
-      "Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js",
+      "Content/Scripts/Database/DSAnnotation/DSFormat/SyncytiumasswordAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js",
       "Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js",
       "Content/Scripts/Database/DatabaseHub.js",
@@ -58,14 +60,17 @@
       "Content/Scripts/GUI/Board/BoardChartBar.js",
       "Content/Scripts/GUI/Board/BoardChartLine.js",
       "Content/Scripts/GUI/Board/BoardChartPie.js",
+      "Content/Scripts/GUI/Board/BoardSocialNetwork.js",
       "Content/Scripts/GUI/Board/BoardTable.js",
       "Content/Scripts/GUI/Board/BoardTableAssociation.js",
       "Content/Scripts/GUI/Board/BoardHistory.js",
       "Content/Scripts/GUI/Board/BoardTree.js",
+      "Content/Scripts/GUI/Board/BoardImport.js",
       "Content/Scripts/GUI/Box/Box.js",
       "Content/Scripts/GUI/Box/BoxChoice.js",
       "Content/Scripts/GUI/Box/BoxInputDigit.js",
       "Content/Scripts/GUI/Box/BoxInputFile.js",
+      "Content/Scripts/GUI/Box/BoxInputFilesCSV.js",
       "Content/Scripts/GUI/Box/BoxInputText.js",
       "Content/Scripts/GUI/Box/BoxMessage.js",
       "Content/Scripts/GUI/Box/BoxProgress.js",
@@ -75,7 +80,9 @@
       "Content/Scripts/GUI/Button/Button.js",
       "Content/Scripts/GUI/Field/Field.js",
       "Content/Scripts/GUI/Field/FieldCheckBox.js",
-      "Content/Scripts/GUI/Field/FieldImage.js",
+      "Content/Scripts/GUI/Field/FieldFile.js",
+      "Content/Scripts/GUI/Field/FieldFileImage.js",
+      "Content/Scripts/GUI/Field/FieldFileCSV.js",
       "Content/Scripts/GUI/Field/FieldInput.js",
       "Content/Scripts/GUI/Field/FieldInputDigit.js",
       "Content/Scripts/GUI/Field/FieldInputWithBox.js",
@@ -97,6 +104,8 @@
     "outputFileName": "Content/Scripts/syncytium-administration.min.js",
     "includeInProject": false,
     "inputFiles": [
+      "Content/Scripts/Areas/Administration/Administration.js",
+
       "Content/Scripts/Areas/Administration/Language/List.js",
       "Content/Scripts/Areas/Administration/Language/Board.js",
 
@@ -125,14 +134,16 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "Content/Scripts/syncytium-sample.min.js",
+    "outputFileName": "Content/Scripts/syncytium-customer.min.js",
     "includeInProject": false,
     "inputFiles": [
-      "Content/Scripts/Areas/Sample/Sample/Enum.js",
-      "Content/Scripts/Areas/Sample/Sample/List.js",
-      "Content/Scripts/Areas/Sample/Sample/ListArray.js",
-      "Content/Scripts/Areas/Sample/Sample/Board.js",
-      "Content/Scripts/Areas/Sample/Sample/Box.js"
+      "Content/Scripts/Areas/Customer/Customer.js",
+
+      "Content/Scripts/Areas/Customer/Parameter/Enum.js",
+      "Content/Scripts/Areas/Customer/Parameter/List.js",
+      "Content/Scripts/Areas/Customer/Parameter/ListArray.js",
+      "Content/Scripts/Areas/Customer/Parameter/Box.js",
+      "Content/Scripts/Areas/Customer/Parameter/Board.js"
     ],
     "minify": {
       "enabled": true,
@@ -145,6 +156,7 @@
     "outputFileName": "Content/Styles/syncytium-common.min.css",
     "includeInProject": false,
     "inputFiles": [
+      "Content/theme.css",
       "Content/Styles/Tools/Logger.css",
 
       "Content/Styles/GUI/GUI.css",
@@ -153,7 +165,8 @@
 
       "Content/Styles/GUI/Field/Field.css",
       "Content/Styles/GUI/Field/FieldCheckBox.css",
-      "Content/Styles/GUI/Field/FieldImage.css",
+      "Content/Styles/GUI/Field/FieldFile.css",
+      "Content/Styles/GUI/Field/FieldFileCSV.css",
       "Content/Styles/GUI/Field/FieldInput.css",
       "Content/Styles/GUI/Field/FieldInputDigit.css",
       "Content/Styles/GUI/Field/FieldInputWithBox.css",
@@ -161,14 +174,18 @@
       "Content/Styles/GUI/Field/FieldSelectImage.css",
 
       "Content/Styles/GUI/Board/Board.css",
+      "Content/Styles/GUI/Board/BoardHistory.css",
+      "Content/Styles/GUI/Board/BoardSocialNetwork.css",
       "Content/Styles/GUI/Board/BoardTable.css",
       "Content/Styles/GUI/Board/BoardTableAssociation.css",
       "Content/Styles/GUI/Board/BoardTree.css",
+      "Content/Styles/GUI/Board/BoardImport.css",
 
       "Content/Styles/GUI/Box/Box.css",
       "Content/Styles/GUI/Box/BoxChoice.css",
       "Content/Styles/GUI/Box/BoxInputDigit.css",
       "Content/Styles/GUI/Box/BoxInputFile.css",
+      "Content/Styles/GUI/Box/BoxInputFilesCSV.css",
       "Content/Styles/GUI/Box/BoxInputText.css",
       "Content/Styles/GUI/Box/BoxMessage.css",
       "Content/Styles/GUI/Box/BoxSelect.css",
@@ -190,6 +207,8 @@
     "outputFileName": "Content/Styles/syncytium-administration.min.css",
     "includeInProject": false,
     "inputFiles": [
+      "Content/Styles/Areas/Administration/Administration.css",
+
       "Content/Styles/Areas/Administration/User/Box.css",
 
       "Content/Styles/Areas/Administration/Module/Box.css",
@@ -206,11 +225,13 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "Content/Styles/syncytium-sample.min.css",
+    "outputFileName": "Content/Styles/syncytium-customer.min.css",
     "includeInProject": false,
     "inputFiles": [
-      "Content/Styles/Areas/Sample/Sample/Box.css",
-      "Content/Styles/Areas/Sample/Sample/Board.css"
+      "Content/Styles/Areas/Customer/Customer.css",
+
+      "Content/Styles/Areas/Customer/Parameter/Box.css",
+      "Content/Styles/Areas/Customer/Parameter/Board.css"
     ],
     "minify": {
       "enabled": true,

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ body > main > form > .validation-summary-errors > ul {
 
 body > main > form > .validation-summary-errors > ul > li {
     text-align: left;
-    color: #ff0000;
+    color: var(--syncytium-color-error);
 }
 
 @media only screen and (max-height: 400px) {
@@ -89,8 +89,8 @@ body > main > form > field {
     flex-direction: row;
     margin-top: 20px;
     height: 48px;
-    border: solid 1px rgb(100, 100, 100);
-    border: solid 1px rgba(0, 0, 0, 0.4);
+    border: solid 1px var(--syncytium-border-color);
+    color: var(--syncytium-color-text);
 }
 
 @media only screen and (max-height: 520px) {
@@ -154,7 +154,7 @@ body > main > form > field > .comment {
 body > main > form > field > .icon {
     background-size: 30px 30px;
     background-position: center;
-    background-color: #d8d8d8;
+    background-color: var(--syncytium-icon-background);
     width: 42px;
 }
 
@@ -195,7 +195,7 @@ body > main > form > field > .editor > input {
 }
 
 body > main > form > field > .editor > input[type="text"]:read-only {
-    color: #d8d8d8;
+    color: var(--syncytium-color-readonly);
 }
 
 @media only screen and (max-height: 520px) {

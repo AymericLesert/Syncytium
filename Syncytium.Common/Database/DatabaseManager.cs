@@ -1,4 +1,5 @@
 ﻿using Syncytium.Common.Database.DSModel;
+using Syncytium.Common.Database.DSSchema;
 using Syncytium.Common.Exception;
 using Syncytium.Common.Managers;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,24 +42,30 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Reference on the user manager
         /// </summary>
-        private IUserManager _userManager = null;
+        private readonly IUserManager _userManager = null;
 
         /// <summary>
         /// Connection Id of this instance
         /// </summary>
-        private string _connectionId = string.Empty;
+        private readonly string _connectionId = string.Empty;
 
         /// <summary>
         /// User Id of this instance
         /// </summary>
-        private int _userId = -1;
+        private readonly int _userId = -1;
 
         #region Logger
 
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DatabaseManager).Name;
+        private static readonly string MODULE = typeof(DatabaseManager).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -137,7 +144,7 @@ namespace Syncytium.Common.Database
             {
                 existingConnection.Machine = Environment.MachineName;
 
-                Info($"The connection is already opened on another machine ... The connection '{existingConnection.ToString()}' is updated");
+                Info($"The connection is already opened on another machine ... The connection '{existingConnection}' is updated");
             }
             else
             {
@@ -158,7 +165,7 @@ namespace Syncytium.Common.Database
                     // it's the administrator defined in web.config
 
                     newConnection.Profile = UserProfile.EUserProfile.Administrator;
-                    newConnection.CustomerId = 0; // TODO: In case of default administrator, how to handle the screen of this user ?
+                    newConnection.CustomerId = 0;
                 }
                 else
                 {
@@ -177,7 +184,7 @@ namespace Syncytium.Common.Database
 
                 newConnection.Allow = !alreadyConnected;
 
-                Info($"A connection '{newConnection.ToString()}' is opened");
+                Info($"A connection '{newConnection}' is opened");
                 Database._Connection.Add(newConnection);
             }
 
@@ -198,7 +205,7 @@ namespace Syncytium.Common.Database
         /// </returns>
         public JObject Initialize(string area, int moduleId)
         {
-            string defaultLanguage = "FR";
+            string defaultLanguage = "EN";
             int versionDatabase = 0;
             int lastRequestId = 0;
             IUser user = null;
@@ -276,14 +283,14 @@ namespace Syncytium.Common.Database
             currentConnection.Status = true;
             currentConnection.ConnectionLast = DateTime.Now;
             Database.SaveChanges();
-            Info($"The connection '{currentConnection.ToString()}' is linked to the area '{area}'");
+            Info($"The connection '{currentConnection}' is linked to the area '{area}'");
 
             // define the response
 
             JObject result = new JObject
             {
                 ["Version"] = versionDatabase,
-                ["Schema"] = schema.ToJSON(area, currentConnection.Profile, Database.GetCache()),
+                ["Schema"] = schema.ToJSON(area, currentConnection.Profile, Database.GetCache(schema)),
                 ["DefaultLanguage"] = defaultLanguage,
                 ["CurrentUserId"] = user == null ? -1 : user.Id,
                 ["CurrentModuleId"] = moduleId,
@@ -303,8 +310,24 @@ namespace Syncytium.Common.Database
         }
 
         /// <summary>
+        /// Retrieve the last sequence id of a table
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public int LastSequenceId(string table)
+        {
+            SequenceIdRecord sequenceId = Database._SequenceId.FirstOrDefault(r => r.UserId == _userId && r.Table.Equals(table));
+            return sequenceId != null ? sequenceId.SequenceId : 0;
+        }
+
+
+        /// <summary>
         /// Load the content of the table and returns a list of columns matching within the area and the profile of the user
         /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="profile"></param>
+        /// <param name="area"></param>
         /// <param name="table"></param>
         /// <param name="existingRecords">Define it to replace the loading into the database</param>
         /// <returns>The table records:
@@ -312,354 +335,245 @@ namespace Syncytium.Common.Database
         ///     Records        = List of tuple containing all data
         ///     LastSequenceId = Last sequence id of the user in this table
         /// </returns>
-        public JObject LoadTable(string table, List<DSRecord> existingRecords)
+        public IEnumerable<JArray> LoadTable(int customerId, int userId, UserProfile.EUserProfile profile, string area, string table, List<DSRecord> existingRecords)
         {
-            int lastSequenceId = 0;
             List<JArray> records = new List<JArray>();
 
             Info($"Loading content of the table '{table}' ...");
 
-            // Retrieve the connection
-
-            ConnectionRecord currentConnection = Database._Connection.FirstOrDefault(c => c.ConnectionId.Equals(_connectionId) &&
-                                                                                            c.Machine.Equals(Environment.MachineName));
-            if (currentConnection == null)
-            {
-                Error($"The connection doesn't exist!");
-                throw new ExceptionDefinitionRecord("ERR_CONNECTION");
-            }
-
             // Retrieve the database schema
 
-            DSSchema.DSDatabase schema = ConfigurationManager.Schemas[currentConnection.Area];
+            DSSchema.DSDatabase schema = ConfigurationManager.Schemas[area];
             if (schema == null)
             {
                 Error("No schema available!");
                 throw new ExceptionDefinitionRecord("ERR_SCHEMA");
             }
 
-            // Is this connection authorized to start the dialog ?
-
-            if (!currentConnection.Allow || !currentConnection.Status)
-            {
-                Error("Not allowed!");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
-
-            // Retrieve the last sequenceId of this user and the table
-
-            SequenceIdRecord sequenceId = Database._SequenceId.FirstOrDefault(r => r.UserId == _userId && r.Table.Equals(table));
-            if (sequenceId != null)
-                lastSequenceId = sequenceId.SequenceId;
-
             // Read the content of the given table
 
-            foreach (object[] record in schema.ReadTable(Database, table, currentConnection.CustomerId,
-                                                                            currentConnection.UserId,
-                                                                            currentConnection.Profile,
-                                                                            currentConnection.Area,
-                                                                            null,
-                                                                            existingRecords))
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            long lotSize = ConfigurationManager.ConnectionLotSize;
+            long sizeTotal = 0;
+            long sizeRecord = 0;
+            long nbRecords = 0;
+
+            foreach (object[] record in schema.ReadTable(Database, table, customerId, userId, profile, area, null, existingRecords))
+            {
                 records.Add(new JArray(record));
 
-            // Update the last connection date
+                using (System.IO.Stream s = new System.IO.MemoryStream())
+                {
+                    formatter.Serialize(s, record);
+                    sizeRecord = s.Length;
+                }
 
-            currentConnection.ConnectionLast = DateTime.Now;
-            try
-            {
-                Database.SaveChanges();
+                sizeTotal += sizeRecord;
+                nbRecords++;
+
+                if ( sizeTotal >= lotSize )
+                {
+                    yield return new JArray(records);
+                    records.Clear();
+                    sizeTotal = 0;
+                }
             }
-            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
-            {
-                Warn("An exception occurs on saving the last connection due to the disconnection of the user ...");
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException)
-            {
-                Warn("An exception occurs on saving the last connection due to the concurrency update ...");
-            }
 
-            Info($"{records.Count} records read from the table '{table}'");
+            if ( sizeTotal > 0)
+                yield return new JArray(records);
 
-            // define the response
-
-            JObject result = new JObject
-            {
-                ["Table"] = table,
-                ["Records"] = new JArray(records),
-                ["LastSequenceId"] = lastSequenceId
-            };
-            return result;
+            Info($"{nbRecords} records read from the table '{table}'");
         }
 
         /// <summary>
         /// Execute a list of requests from a client
         /// </summary>
-        /// <param name="requestId"></param>
-        /// <param name="requests"></param>
+        /// <param name="transaction"></param>
         /// <returns>RequestId, Error, Record</returns>
-        public List<Tuple<DSRecord, InformationRecord>> ExecuteTransaction(int requestId, JObject[] requests)
+        public List<Tuple<DSRecord, InformationRecord>> ExecuteTransaction(DSTransaction transaction)
         {
-            Info($"Executing the transaction [{requestId}] containing {requests.Length} requests ...");
+            Info($"Executing the transaction [{transaction.RequestId}] containing {transaction.Requests.Count} requests ...");
 
             List<Tuple<DSRecord, InformationRecord>> recordsTreated = new List<Tuple<DSRecord, InformationRecord>>();
             List<Tuple<string, DSRecord, InformationRecord>> recordsToUpdate = new List<Tuple<string, DSRecord, InformationRecord>>();
-            System.Exception exRaised = null;
-
-            // Retrieve the connection
-
-            ConnectionRecord currentConnection = Database._Connection.FirstOrDefault(c => c.ConnectionId.Equals(_connectionId) &&
-                                                                                          c.Machine.Equals(Environment.MachineName));
-            if (currentConnection == null)
-            {
-                Error("The connection doesn't exist!");
-                throw new ExceptionDefinitionRecord("ERR_CONNECTION");
-            }
 
             // Retrieve the database schema
 
-            DSSchema.DSDatabase schema = ConfigurationManager.Schemas[currentConnection.Area];
+            DSDatabase schema = ConfigurationManager.Schemas[transaction.Area];
             if (schema == null)
             {
                 Error("No schema available!");
                 throw new ExceptionDefinitionRecord("ERR_SCHEMA");
             }
 
-            // Is this connection authorized to start the dialog ?
-
-            if (!currentConnection.Allow || !currentConnection.Status)
-            {
-                Error("Not allowed!");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
-
-            // check if the user has the rights to execute this request
-
-            if (String.IsNullOrWhiteSpace(currentConnection.Area))
-            {
-                Error("No area defined for the user");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
-
             // Lock database during the execution of the request
 
-            using (DatabaseLock lockDatabase = Database.Lock(currentConnection.CustomerId))
+            using (DatabaseLock lockDatabase = Database.Lock(transaction.CustomerId))
             {
-                // Retrieve the last requestId of this user
-
-                RequestIdRecord requestIdRecord = Database._RequestId.FirstOrDefault(r => r.UserId == _userId);
-                if (requestIdRecord == null)
-                {
-                    requestIdRecord = new RequestIdRecord { UserId = _userId, RequestId = 0, Date = DateTime.Now };
-                    requestIdRecord = Database._RequestId.Add(requestIdRecord);
-                }
-
-                if (requestId < requestIdRecord.RequestId)
-                {
-                    Warn($"The request '{requestId}' has already been executed!");
-                    throw new ExceptionDefinitionRecord("ERR_REQUEST_ALREADY_EXECUTED");
-                }
-
-                if (requestId > requestIdRecord.RequestId)
-                {
-                    Warn($"The request id expected is '{requestIdRecord.RequestId}' (your request id is '{requestId}')!");
-                    throw new ExceptionDefinitionRecord("ERR_SYNCHRONIZED");
-                }
-
-                Debug($"The request Id '{requestId}' is expected");
-
                 try
                 {
+                    if (IsVerbose())
+                        Verbose("Getting the first tick of the transaction ...");
+
                     // Get the tick
 
-                    string tickKey = $"Database.Tick.{currentConnection.CustomerId}";
+                    string tickKey = $"Database.Tick.{transaction.CustomerId}";
                     int tick = 0;
                     ParameterRecord tickRecord = Database._Parameter.FirstOrDefault(p => p.Key.Equals(tickKey));
                     if (tickRecord == null)
                     {
-                        tickRecord = new ParameterRecord { Key = $"Database.Tick.{currentConnection.CustomerId}", Value = "0" };
+                        tickRecord = new ParameterRecord { Key = tickKey, Value = transaction.Requests.Count.ToString() };
                         tickRecord = Database._Parameter.Add(tickRecord);
                     }
                     else
                     {
                         tick = int.Parse(tickRecord.Value);
+                        tickRecord.Value = (tick + transaction.Requests.Count).ToString();
                     }
+                    Database.SaveChanges();
+
+                    if (IsDebug())
+                        Debug($"First tick is {tick}");
 
                     // Execute the OnBefore trigger
 
-                    int index = 0;
-                    int startTick = tick;
-                    foreach (JObject request in requests)
-                    {
-                        tick++;
+                    if (IsVerbose())
+                        Verbose("Executing the pre-request of the transaction ...");
 
+                    transaction.SetNewTick(tick);
+
+                    foreach (DSRequest request in transaction.Requests)
+                    {
                         // Execute the request
 
-                        if (IsDebug())
-                            Debug($"Executing the pre-request[{index}] with tick[{tick}]: {request.ToString(Formatting.None)} ...");
-
-                        // Retrieve the current request
-
-                        string table = null;
-                        if (request["table"] != null &&
-                            request["table"].Type == JTokenType.String)
-                            table = request["table"].ToObject<string>();
-
-                        string action = null;
-                        if (request["action"] != null &&
-                            request["action"].Type == JTokenType.String)
-                            action = request["action"].ToObject<string>();
-
-                        JObject record = request["record"] as JObject;
-                        JObject identity = request["identity"] as JObject;
-
-                        int? recordId = null;
-                        if (request["recordId"] != null &&
-                            request["recordId"].Type == JTokenType.Integer)
-                            recordId = request["recordId"].ToObject<int>();
-
-                        if (table == null ||
-                            action == null ||
-                            record == null ||
-                            action == null ||
-                            recordId == null)
-                        {
-                            Error($"The request[{index}] isn't correctly formatted!");
-                            throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-                        }
+                        if (IsVerboseAll())
+                            Verbose($"Executing the pre-request[{request.Id}] with tick[{request.NewTick}]: {request} ...");
 
                         // Execute the trigger before requesting
 
-                        schema.OnBeforeExecuteRequest(Database, tick, currentConnection.CustomerId, _userId, currentConnection.Area, currentConnection.Profile, table, action, recordId.Value, record, identity);
-
-                        index++;
+                        schema.OnBeforeExecuteRequest(Database, request.NewTick, 
+                                                                transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile, 
+                                                                request.Table, request.Action, request.RecordId, request.Record, request.Identity);
                     }
+
+                    if (IsDebug())
+                        Debug($"Pre-request executed for {transaction.Requests.Count} requests");
 
                     // Execute each request
 
-                    index = 0;
-                    tick = startTick;
-                    foreach (JObject request in requests)
+                    if (IsVerbose())
+                        Verbose("Executing the transaction ...");
+
+                    // Execution by lot
+
+                    List<RequestTableRecord> actions = new List<RequestTableRecord>();
+
+                    int index = 0;
+                    foreach (List<DSRequest> lot in transaction.LotRequests)
                     {
-                        tick++;
-
-                        // Execute the request
-
-                        if (IsDebug())
-                            Debug($"Executing the request[{index}] with tick[{tick}]: {request.ToString(Formatting.None)} ...");
-
-                        // Retrieve the current request
-
-                        string table = null;
-                        if (request["table"] != null &&
-                            request["table"].Type == JTokenType.String)
-                            table = request["table"].ToObject<string>();
-
-                        string action = null;
-                        if (request["action"] != null &&
-                            request["action"].Type == JTokenType.String)
-                            action = request["action"].ToObject<string>();
-
-                        JObject record = request["record"] as JObject;
-                        JObject identity = request["identity"] as JObject;
-
-                        int? recordId = null;
-                        if (request["recordId"] != null &&
-                            request["recordId"].Type == JTokenType.Integer)
-                            recordId = request["recordId"].ToObject<int>();
-
-                        if (table == null ||
-                            action == null ||
-                            record == null ||
-                            action == null ||
-                            recordId == null)
-                        {
-                            Error($"The request[{index}] isn't correctly formatted!");
-                            throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-                        }
-
-                        RequestRecord newRequest = new RequestRecord
-                        {
-                            Tick = tick,
-                            UserId = _userId,
-                            RequestId = requestId,
-                            Area = currentConnection.Area,
-                            ModuleId = currentConnection.ModuleId,
-                            Table = table,
-                            Id = recordId.Value,
-                            Action = action,
-                            Date = DateTime.Now,
-                            Acknowledge = null,
-                            CustomerId = currentConnection.CustomerId
-                        };
-                        newRequest = Database._Request.Add(newRequest);
+                        // Execute the lot of requests
 
                         if (IsVerbose())
-                            Verbose($"For traceability, the request[{index}] is saved '{newRequest.ToString()}'");
+                            Verbose($"Executing the lot[{index}] with {lot.Count} requests ...");
 
-                        // Execute the request
+                        // Execute the lot of requests
 
-                        Tuple<DSRecord, InformationRecord> recordTreated = schema.ExecuteRequest(Database, tick, currentConnection.CustomerId, _userId, currentConnection.Area, currentConnection.Profile, table, action, recordId.Value, record, identity);
-                        recordsTreated.Add(recordTreated);
-                        recordsToUpdate.Add(Tuple.Create(table, recordTreated.Item1, recordTreated.Item2));
+                        recordsTreated.AddRange(schema.ExecuteRequest(Database, transaction, lot));
+
+                        // Saving data
+
                         Database.SaveChanges();
-
-                        Info($"The request[{index}] has correctly been executed : {(recordTreated == null ? "null" : recordTreated.ToString())}");
-
-                        // The request is correctly executed ...
-
-                        newRequest.Acknowledge = true;
-                        newRequest.Id = (recordTreated == null || recordTreated.Item1 == null ? -1 : recordTreated.Item1.Id);
-                        tickRecord.Value = tick.ToString();
 
                         index++;
                     }
+
+                    if (IsVerbose())
+                        Verbose("Building the list of actions ...");
+
+                    index = 0;
+                    foreach (DSRequest request in transaction.Requests)
+                    {
+                        Tuple<DSRecord, InformationRecord> recordTreated = recordsTreated[index];
+
+                        // Keep in memory all records executed
+
+                        recordsToUpdate.Add(Tuple.Create(request.Table, recordTreated.Item1, recordTreated.Item2));
+
+                        // The request is correctly executed ... Store a new request
+
+                        actions.Add(new RequestTableRecord
+                        {
+                            Tick = request.NewTick,
+                            CustomerId = transaction.CustomerId,
+                            UserId = transaction.UserId,
+                            RequestId = transaction.RequestId,
+                            Table = request.Table,
+                            Action = request.Action,
+                            Id = (recordTreated == null || recordTreated.Item1 == null ? -1 : recordTreated.Item1.Id)
+                        });
+
+                        Info($"The request[{request.Id}] has correctly been executed : {(recordTreated == null ? "null" : recordTreated.ToString())}");
+
+                        index++;
+                    }
+
+                    if (IsDebug())
+                        Debug($"Transaction executed with {transaction.Requests.Count} requests");
+
+                    // Write actions into the RequestTable
+
+                    if (IsVerbose())
+                        Verbose($"Writing {actions.Count} actions into the RequestTable ...");
+
+                    Database._RequestTable.AddRange(actions);
+                    Database.SaveChanges();
+
+                    if (IsDebug())
+                        Debug($"{actions.Count} actions written into the RequestTable");
 
                     // Execute the OnAfter trigger
 
-                    index = 0;
-                    tick = startTick;
-                    foreach (JObject request in requests)
-                    {
-                        tick++;
+                    if (IsVerbose())
+                        Verbose("Executing the post-request of the transaction ...");
 
+                    foreach (DSRequest request in transaction.Requests)
+                    {
                         // Execute the request
 
-                        if (IsDebug())
-                            Debug($"Executing the post-request[{index}] with tick[{tick}]: {request.ToString(Formatting.None)} ...");
-
-                        // Retrieve the current request
-
-                        string table = null;
-                        if (request["table"] != null &&
-                            request["table"].Type == JTokenType.String)
-                            table = request["table"].ToObject<string>();
-
-                        string action = null;
-                        if (request["action"] != null &&
-                            request["action"].Type == JTokenType.String)
-                            action = request["action"].ToObject<string>();
+                        if (IsVerboseAll())
+                            Verbose($"Executing the post-request[{request.Id}] with tick[{request.NewTick}]: {request} ...");
 
                         // Execute the trigger before requesting
 
-                        DSRecord record = recordsTreated[index].Item1;
-                        schema.OnAfterExecuteRequest(Database, tick, currentConnection.CustomerId, _userId, currentConnection.Area, currentConnection.Profile, table, action, record.Id, record);
-
-                        index++;
+                        DSRecord record = recordsTreated[request.Id].Item1;
+                        if ( record != null )
+                            schema.OnAfterExecuteRequest(Database, request.NewTick,
+                                                                   transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile,
+                                                                   request.Table, request.Action, record.Id, record);
                     }
 
-                    // Transaction is done! Save the new request ...
+                    if (IsDebug())
+                        Debug($"Post-request executed for {transaction.Requests.Count} requests");
 
-                    requestIdRecord.RequestId++;
-                    currentConnection.ConnectionLast = DateTime.Now;
-                    Database.SaveChanges();
+                    // Unlock the database and commit all changes
 
-                    // Unlock the database
+                    if (IsVerbose())
+                        Verbose("Committing changes ...");
 
                     lockDatabase.Commit();
 
+                    if (IsVerbose())
+                        Verbose("Changes committed");
+
                     // Update the cache manager
 
-                    DatabaseCacheManager.Instance.UpdateCache(Database, recordsToUpdate, currentConnection.CustomerId, tick);
+                    if (IsVerbose())
+                        Verbose("Updating cache ...");
+
+                    DatabaseCacheManager.Instance.UpdateCache(recordsToUpdate, transaction.CustomerId, tick + transaction.Requests.Count);
+
+                    if (IsVerbose())
+                        Verbose("Cache updated");
                 }
                 catch (System.Exception ex)
                 {
@@ -684,44 +598,11 @@ namespace Syncytium.Common.Database
 
                     // Rollback all request already executed
 
-                    exRaised = ex;
+                    throw ex;
                 }
             }
 
-            if (exRaised != null)
-            {
-                try
-                {
-                    // Update requestId
-
-                    RequestIdRecord requestIdRecord = Database._RequestId.FirstOrDefault(r => r.UserId == _userId);
-                    if (requestIdRecord == null)
-                    {
-                        requestIdRecord = new RequestIdRecord { UserId = _userId, RequestId = 0, Date = DateTime.Now };
-                        requestIdRecord = Database._RequestId.Add(requestIdRecord);
-                    }
-                    requestIdRecord.RequestId++;
-
-                    // Update the last connection
-
-                    currentConnection = Database._Connection.FirstOrDefault(c => c.ConnectionId.Equals(_connectionId) &&
-                                                                                    c.Machine.Equals(Environment.MachineName));
-                    if (currentConnection != null)
-                        currentConnection.ConnectionLast = DateTime.Now;
-
-                    // Unlock the database
-
-                    Database.SaveChanges();
-                }
-                catch (System.Exception ex)
-                {
-                    Exception("An exception occurs on rollbacking the transaction", ex);
-                }
-
-                throw exRaised;
-            }
-
-            Info("End of transaction");
+            Info("Transaction done");
 
             return recordsTreated;
         }
@@ -729,78 +610,43 @@ namespace Syncytium.Common.Database
         /// <summary>
         /// Execute a service from a client
         /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="profile"></param>
+        /// <param name="area"></param>
+        /// <param name="moduleId"></param>
         /// <param name="service"></param>
         /// <param name="record"></param>
         /// <param name="identity"></param>
         /// <returns>Data</returns>
-        public JObject ExecuteService(string service, JObject record, JObject identity)
+        public JObject ExecuteService(int customerId, int userId, UserProfile.EUserProfile profile, string area, int moduleId, string service, JObject record, JObject identity)
         {
             JObject result = null;
 
-            Info($"Executing the service: ['{service}', '{(record == null ? "null" : record.ToString(Formatting.None))}', '{(identity == null ? "null" : identity.ToString(Formatting.None))}' ...");
-
-            // Retrieve the connection
-
-            ConnectionRecord currentConnection = Database._Connection.FirstOrDefault(c => c.ConnectionId.Equals(_connectionId) &&
-                                                                                          c.Machine.Equals(Environment.MachineName));
-            if (currentConnection == null)
-            {
-                Error("The connection doesn't exist!");
-                throw new ExceptionDefinitionRecord("ERR_CONNECTION");
-            }
-
-            // Is this connection authorized to start the dialog ?
-
-            if (!currentConnection.Allow || !currentConnection.Status)
-            {
-                Error("Not allowed!");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
-
-            // check if the user has the rights to execute this service
-
-            if (String.IsNullOrWhiteSpace(currentConnection.Area))
-            {
-                Error("No area defined for the user");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
+            Info($"Executing the service: ['{service}', '{(record == null ? "null" : record.ToString(Formatting.None))}', '{(identity == null ? "null" : identity.ToString(Formatting.None))}'] ...");
 
             // Lock database during the execution of the service
 
-            using (DatabaseLock lockDatabase = Database.Lock(currentConnection.CustomerId))
+            using (DatabaseLock lockDatabase = Database.Lock(customerId))
             {
                 // Execute the request
 
                 try
                 {
-                    result = Database.ExecuteService(currentConnection.CustomerId,
-                                                     currentConnection.UserId,
-                                                     currentConnection.Profile,
-                                                     currentConnection.Area,
-                                                     service,
-                                                     record,
-                                                     identity);
-                }
-                catch (System.Exception ex)
-                {
-                    Exception("An exception occurs on executing the service", ex);
-                    currentConnection.ConnectionLast = DateTime.Now;
-                    Database.SaveChanges();
+                    result = Database.ExecuteService(customerId, userId, profile, area, moduleId, service, record, identity);
 
                     // Unlock the database
 
                     lockDatabase.Commit();
+                }
+                catch (System.Exception ex)
+                {
+                    Exception("An exception occurs on executing the service", ex);
+
+                    // Rollback the requests done
+
                     throw;
                 }
-
-                // The service is correctly executed ...
-
-                currentConnection.ConnectionLast = DateTime.Now;
-                Database.SaveChanges();
-
-                // Unlock the database
-
-                lockDatabase.Commit();
             }
 
             Info($"The service has correctly been executed : {(result == null ? "null" : result.ToString(Formatting.None))}");

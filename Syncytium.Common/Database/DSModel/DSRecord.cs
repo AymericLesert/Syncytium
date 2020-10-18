@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ namespace Syncytium.Common.Database.DSModel
         /// </summary>
         [DSName("ID")]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } = -1;
 
         /// <summary>
@@ -149,8 +150,8 @@ namespace Syncytium.Common.Database.DSModel
                 return;
             }
 
-            Logger.LoggerManager.Instance.Debug("DSRecord", $"Record1 is {this.ToString()}");
-            Logger.LoggerManager.Instance.Debug("DSRecord", $"Record2 is {obj.ToString()}");
+            Logger.LoggerManager.Instance.Debug("DSRecord", $"Record1 is {this}");
+            Logger.LoggerManager.Instance.Debug("DSRecord", $"Record2 is {obj}");
 
             foreach (PropertyInfo property in GetType().GetProperties())
             {
@@ -227,8 +228,7 @@ namespace Syncytium.Common.Database.DSModel
             if (record == null)
                 return null;
 
-            DSRecord newCopy = Activator.CreateInstance(record.GetType()) as DSRecord;
-            if (newCopy == null)
+            if (!(Activator.CreateInstance(record.GetType()) is DSRecord newCopy))
                 return null;
 
             foreach (PropertyInfo property in record.GetType().GetProperties())
@@ -242,8 +242,7 @@ namespace Syncytium.Common.Database.DSModel
                     continue;
                 }
 
-                byte[] value = property.GetValue(record) as byte[];
-                if (value == null)
+                if (!(property.GetValue(record) is byte[] value))
                 {
                     property.SetValue(newCopy, null);
                     continue;

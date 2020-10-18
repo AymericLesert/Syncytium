@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using Microsoft.AspNet.SignalR;
 using System.Threading;
 using Syncytium.Common.Error;
@@ -14,7 +13,7 @@ using Syncytium.Common.Managers;
 using Syncytium.Module.Administration.Managers;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -44,7 +43,13 @@ namespace Syncytium.Web.Database
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DatabaseHub).Name;
+        private static readonly string MODULE = typeof(DatabaseHub).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -147,14 +152,14 @@ namespace Syncytium.Web.Database
 
         #endregion
 
-        #region Private Methods
+        #region MakeErrorMethods
 
         /// <summary>
         /// Build a result for the client having sent the request
         /// </summary>
         /// <param name="errors"></param>
         /// <returns></returns>
-        private JObject MakeErrorResult(Errors errors)
+        public static JObject MakeErrorResult(Errors errors)
         {
             JObject result = new JObject
             {
@@ -169,7 +174,7 @@ namespace Syncytium.Web.Database
         /// <param name="language"></param>
         /// <param name="error"></param>
         /// <returns></returns>
-        private JObject MakeErrorResult(string language, string error)
+        public static JObject MakeErrorResult(string language, string error)
         {
             JObject result = new JObject
             {
@@ -185,7 +190,7 @@ namespace Syncytium.Web.Database
         /// <param name="requestId"></param>
         /// <param name="error"></param>
         /// <returns></returns>
-        private JObject MakeErrorResult(int requestId, string error)
+        public static JObject MakeErrorResult(int requestId, string error)
         {
             JObject result = new JObject
             {
@@ -201,7 +206,7 @@ namespace Syncytium.Web.Database
         /// <param name="requestId"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        private JObject MakeErrorResult(int requestId, Errors errors)
+        public static JObject MakeErrorResult(int requestId, Errors errors)
         {
             JObject result = new JObject
             {
@@ -272,7 +277,7 @@ namespace Syncytium.Web.Database
                     ConnectionRecord currentConnection = database._Connection.FirstOrDefault(c => c.UserId == userId && c.Allow);
                     while (currentConnection != null)
                     {
-                        Common.Logger.LoggerManager.Instance.Debug(MODULE, $"Connection {currentConnection.ToString()} removed ...");
+                        Common.Logger.LoggerManager.Instance.Debug(MODULE, $"Connection {currentConnection} removed ...");
                         try { database._Connection.Remove(currentConnection); } catch { }
                         currentConnection = database._Connection.FirstOrDefault(c => c.UserId == userId && c.Allow);
                     }
@@ -382,7 +387,7 @@ namespace Syncytium.Web.Database
             {
                 // Lost the session for unconnecting period ... all changes into the client is definitively lost ... reload the page
                 Error($"The user is not authenticated ... Reload the page!");
-                return MakeErrorResult("FR", "ERR_UNAUTHENTICATED");
+                return MakeErrorResult("EN", "ERR_UNAUTHENTICATED");
             }
 
             try
@@ -406,7 +411,7 @@ namespace Syncytium.Web.Database
             catch (System.Exception ex)
             {
                 Exception("An exception occurs on initializing the connection", ex);
-                return MakeErrorResult("FR", "ERR_EXCEPTION_UNEXPECTED");
+                return MakeErrorResult("EN", "ERR_EXCEPTION_UNEXPECTED");
             }
         }
 
@@ -420,20 +425,21 @@ namespace Syncytium.Web.Database
         ///     Records = List of tuple containing all data
         ///     SequenceId = last sequence id of the user in this table
         /// </returns>
-        public JObject LoadTable(string table)
+        public async Task<JObject> LoadTable(string table)
         {
             if (!Context.Request.User.Identity.IsAuthenticated)
             {
                 // Lost the session for unconnecting period ... all changes into the client is definitively lost ... reload the page
                 Error($"The user is not authenticated ... Reload the page!");
-                return MakeErrorResult("FR", "ERR_UNAUTHENTICATED");
+                return MakeErrorResult("EN", "ERR_UNAUTHENTICATED");
             }
 
             try
             {
                 Info($"Loading content of the table '{table}' for the user '{Context.Request.User.Identity.Name}' ...");
 
-                JObject result = null;
+                int lastSequenceId = 0;
+                int nbLots = 0;
 
                 using (DatabaseManager requester = Syncytium.Managers.DatabaseManager.CreateDatabase(Context.ConnectionId, int.Parse(Context.Request.User.Identity.Name)))
                 {
@@ -447,29 +453,80 @@ namespace Syncytium.Web.Database
                         throw new ExceptionDefinitionRecord("ERR_CONNECTION");
                     }
 
+                    // Is this connection authorized to start the dialog ?
+
+                    if (!currentConnection.Allow || !currentConnection.Status)
+                    {
+                        Error("Not allowed!");
+                        throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                    }
+
+                    // Retrieve the database schema
+
+                    if (ConfigurationManager.Schemas[currentConnection.Area] == null)
+                    {
+                        Error("No schema available!");
+                        throw new ExceptionDefinitionRecord("ERR_SCHEMA");
+                    }
+
                     // Update the cache manager
 
                     DatabaseCacheManager.Instance.UpdateCache(requester.Database, currentConnection.CustomerId, Syncytium.Managers.DatabaseManager.GetDatabase);
 
+                    // Retrieve the last sequence Id
+
+                    lastSequenceId = requester.LastSequenceId(table);
+
                     // Load data
 
-                    result = requester.LoadTable(table, table.Equals("Language") ? LanguageManager.GetInstance(requester.Database as Syncytium.Module.Administration.DatabaseContext, currentConnection.CustomerId).GetLabels(currentConnection.CustomerId).ToList<DSRecord>() : null);
+                    foreach (JArray records in requester.LoadTable(currentConnection.CustomerId,
+                                                                    currentConnection.UserId,
+                                                                    currentConnection.Profile,
+                                                                    currentConnection.Area, 
+                                                                    table, 
+                                                                    table.Equals("Language") ? LanguageManager.GetInstance(requester.Database as Syncytium.Module.Administration.DatabaseContext, currentConnection.CustomerId).GetLabels(currentConnection.CustomerId).ToList<DSRecord>() : null))
+                    {
+                        if (IsVerboseAll())
+                            Verbose($"LoadTable['{table}'] = '{records.ToString(Formatting.None)}'");
+
+                        await Clients.Caller.loadTable(table, records);
+                        nbLots++;
+                    }
+                    Debug($"{nbLots} lots of data sent");
+
+                    // Update the last connection date
+
+                    currentConnection.ConnectionLast = DateTime.Now;
+                    try
+                    {
+                        requester.Database.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the disconnection of the user ...");
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the concurrency update ...");
+                    }
                 }
 
-                if (IsVerbose())
-                    Verbose($"LoadTable['{table}'] = '{result.ToString(Formatting.None)}';");
-
-                return result;
+                return new JObject
+                {
+                    ["Table"] = table,
+                    ["LastSequenceId"] = lastSequenceId,
+                    ["NbLots"] = nbLots
+                };
             }
             catch (ExceptionDefinitionRecord ex)
             {
-                Error("The loading of the table can't be executed due to some errors");
+                Exception("The loading of the table can't be executed due to some errors", ex);
                 return MakeErrorResult(ex.Errors);
             }
             catch (System.Exception ex)
             {
                 Exception("An exception occurs on initializing the connection", ex);
-                return MakeErrorResult("FR", "ERR_EXCEPTION_UNEXPECTED");
+                return MakeErrorResult("EN", "ERR_EXCEPTION_UNEXPECTED");
             }
         }
 
@@ -488,7 +545,7 @@ namespace Syncytium.Web.Database
             {
                 // Lost the session for unconnecting period ... all changes into the client is definitively lost ... reload the page
                 Error($"The user is not authenticated ... Reload the page!");
-                return MakeErrorResult("FR", "ERR_UNAUTHENTICATED");
+                return MakeErrorResult("EN", "ERR_UNAUTHENTICATED");
             }
 
             try
@@ -530,142 +587,8 @@ namespace Syncytium.Web.Database
             catch (System.Exception ex)
             {
                 Exception("An exception occurs on checking if the user is allowed to reconnect", ex);
-                return MakeErrorResult("FR", "ERR_EXCEPTION_UNEXPECTED");
+                return MakeErrorResult("EN", "ERR_EXCEPTION_UNEXPECTED");
             }
-        }
-
-        /// <summary>
-        /// make the difference between previousNotification and newNotification
-        /// This algorithm is done to reduce the stream towards the network and to update juste necessary
-        /// </summary>
-        /// <param name="schema"></param>
-        /// <param name="connectionId"></param>
-        /// <param name="customerId"></param>
-        /// <param name="userId"></param>
-        /// <param name="profile"></param>
-        /// <param name="area"></param>
-        /// <param name="tick"></param>
-        /// <param name="label"></param>
-        /// <param name="cache"></param>
-        public async Task<JObject> NotificationClients(Common.Database.DSSchema.DSDatabase schema,
-                                                       string connectionId,
-                                                       int customerId,
-                                                       int userId,
-                                                       UserProfile.EUserProfile profile,
-                                                       string area,
-                                                       int tick,
-                                                       JObject label,
-                                                       Common.Database.DSSchema.DSCache cache)
-        {
-            try
-            {
-                List<Tuple<string, DSRecord, DSRecord>> differences = cache.GetDifferences(connectionId);
-                if (differences.Count == 0)
-                {
-                    if (IsDebug())
-                        Debug($"{connectionId} No notification");
-
-                    return null;
-                }
-
-                JArray notifications = new JArray();
-
-                foreach (Tuple<string, DSRecord, DSRecord> difference in differences)
-                {
-                    JObject recordFiltered = null;
-
-                    if (difference.Item2 == null && difference.Item3 == null)
-                        continue;
-
-                    if (difference.Item2 == null && difference.Item3 != null)
-                    {
-                        recordFiltered = schema.FilterRecord(difference.Item3, area, userId, profile);
-                        if (recordFiltered == null)
-                            continue;
-
-                        recordFiltered["_tick"] = tick;
-
-                        if (IsDebug())
-                            Debug($"{connectionId} [Add ({difference.Item1})] Notification '{recordFiltered.ToString(Formatting.None)}'");
-
-                        notifications.Add(new JObject() { ["table"] = difference.Item1, ["record"] = recordFiltered });
-                        continue;
-                    }
-
-                    if (difference.Item2 != null && difference.Item3 == null)
-                    {
-                        recordFiltered = schema.FilterRecord(difference.Item2, area, userId, profile);
-                        if (recordFiltered == null)
-                            continue;
-
-                        // set the flag _deleted and _tick for the target client because it can't modified it never
-
-                        recordFiltered["_tick"] = tick;
-                        recordFiltered["_deleted"] = true;
-
-                        if (IsDebug())
-                            Debug($"{connectionId} [Delete ({difference.Item1})] Notification '{recordFiltered.ToString(Formatting.None)}'");
-
-                        notifications.Add(new JObject() { ["table"] = difference.Item1, ["record"] = recordFiltered });
-                        continue;
-                    }
-
-                    recordFiltered = schema.FilterRecord(difference.Item3, area, userId, profile);
-                    if (recordFiltered == null)
-                        continue;
-
-                    JObject oldRecordFiltered = schema.FilterRecord(difference.Item2, area, userId, profile);
-                    if (oldRecordFiltered != null && JToken.DeepEquals(oldRecordFiltered, recordFiltered))
-                    {
-                        if (IsVerbose())
-                            Verbose($"{connectionId} [Unchange ({difference.Item1})] No notification for '{recordFiltered.ToString(Formatting.None)}'");
-                        continue;
-                    }
-
-                    recordFiltered["_tick"] = tick;
-
-                    if (IsDebug())
-                        Debug($"{connectionId} [Update ({difference.Item1})] Notification '{recordFiltered.ToString(Formatting.None)}'");
-
-                    notifications.Add(new JObject() { ["table"] = difference.Item1, ["record"] = recordFiltered });
-                }
-
-                // Send notifications by lot
-
-                if (IsDebug())
-                    Debug($"{connectionId} [{userId}] Sending {notifications.Count} notifications ...");
-
-                if (notifications.Count > 0)
-                {
-                    await Clients.Client(connectionId).beginNotification(tick, label);
-
-                    int lotSize = ConfigurationManager.ConnectionNotificationLotSize;
-                    for (int i = 0; i < notifications.Count; i += lotSize)
-                    {
-                        int count = Math.Min(notifications.Count - i, lotSize);
-                        JObject[] lot = new JObject[count];
-                        for (int j = 0; j < count; j++)
-                            lot[j] = notifications[i + j].ToObject<JObject>();
-
-                        if (IsVerbose())
-                            Verbose($"{connectionId} [{userId}] Sending the lot [{i} .. {i + count}] ...");
-
-                        await Clients.Client(connectionId).notify(userId, label, area, lot);
-                    }
-
-                    await Clients.Client(connectionId).endNotification(tick, label);
-
-                    Info($"{connectionId} [{userId}] {notifications.Count} Notifications sent");
-                }
-
-                return null;
-            }
-            catch (System.Exception ex)
-            {
-                Exception($"An exception occurs on notifying the user '{userId}'", ex);
-            }
-
-            return null;
         }
 
         /// <summary>
@@ -675,8 +598,9 @@ namespace Syncytium.Web.Database
         /// <param name="label"></param>
         /// <param name="requests"></param>
         /// <param name="transaction"></param>
+        /// <param name="notify">true if the notification must be sent to the caller</param>
         /// <returns>RequestId, Error, Record</returns>
-        private async Task<JObject> ExecuteTransaction(int requestId, JObject label, JObject[] requests, bool transaction)
+        private JObject ExecuteTransaction(int requestId, JObject label, JObject[] requests, bool transaction, bool notify)
         {
             int index = 0;
 
@@ -684,26 +608,27 @@ namespace Syncytium.Web.Database
             {
                 // Lost the session for unconnecting period ... all changes into the client is definitively lost ... reload the page
                 Error($"The user is not authenticated ... Reload the page!");
-                return MakeErrorResult("FR", "ERR_UNAUTHENTICATED");
-            }
-
-            // nothing to execute
-
-            if (requests == null || requests.Length == 0)
-            {
-                Info("No requests to execute");
-                JObject resultEmpty = new JObject
-                {
-                    ["RequestId"] = requestId
-                };
-                return resultEmpty;
+                return MakeErrorResult("EN", "ERR_UNAUTHENTICATED");
             }
 
             try
             {
+                // nothing to execute => Throw an error
+
+                if (requests == null || requests.Length == 0)
+                {
+                    Error("No requests to execute");
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_UNKNOWN");
+                }
+
                 Info($"Executing the transaction [{requestId} - '{label.ToString(Formatting.None)}'] containing {requests.Length} requests ...");
-                foreach (JObject request in requests)
-                    Info($"Executing the request: {request.ToString(Formatting.None)} ...");
+                if ( IsDebug() )
+                {
+                    foreach (JObject request in requests)
+                    {
+                        Debug($"Executing the request: {request.ToString(Formatting.None)} ...");
+                    }
+                }
 
                 // Check if the request is correctly formatted
 
@@ -722,12 +647,11 @@ namespace Syncytium.Web.Database
                         request["action"].Type == JTokenType.String)
                         action = request["action"].ToObject<string>();
 
-                    JObject record = request["record"] as JObject;
                     JObject identity = request["identity"] as JObject;
 
                     if (table == null ||
                         action == null ||
-                        record == null ||
+                        !(request["record"] is JObject record) ||
                         action == null)
                     {
                         Error($"The request[{index}] isn't correctly formatted!");
@@ -739,9 +663,7 @@ namespace Syncytium.Web.Database
 
                 // From the current user, check if the user can update database
 
-                int userId = int.Parse(Context.Request.User.Identity.Name);
-
-                using (DatabaseManager requester = Syncytium.Managers.DatabaseManager.CreateDatabase(Context.ConnectionId, userId))
+                using (DatabaseManager requester = Syncytium.Managers.DatabaseManager.CreateDatabase(Context.ConnectionId, int.Parse(Context.Request.User.Identity.Name)))
                 {
                     // Get the current connection properties
 
@@ -753,237 +675,72 @@ namespace Syncytium.Web.Database
                         throw new ExceptionDefinitionRecord("ERR_CONNECTION");
                     }
 
-                    Common.Database.DSSchema.DSDatabase schema = ConfigurationManager.Schemas[currentConnection.Area];
-                    if (schema == null)
+                    // Is this connection authorized to start the dialog ?
+
+                    if (!currentConnection.Allow || !currentConnection.Status)
+                    {
+                        Error("Not allowed!");
+                        throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                    }
+
+                    // check if the user has the rights to execute this request
+
+                    if (String.IsNullOrWhiteSpace(currentConnection.Area))
+                    {
+                        Error("No area defined for the user");
+                        throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                    }
+
+                    if (ConfigurationManager.Schemas[currentConnection.Area] == null)
                     {
                         Error($"The schema of the module '{currentConnection.Area}' doesn't exist!");
                         throw new ExceptionDefinitionRecord("ERR_SCHEMA");
                     }
 
-                    // Update the cache manager
+                    // Retrieve the last requestId of this user
 
-                    DatabaseCacheManager.Instance.UpdateCache(requester.Database, currentConnection.CustomerId, Syncytium.Managers.DatabaseManager.GetDatabase);
-
-                    // Define a cache to handle the list of notifications
-
-                    Common.Database.DSSchema.DSCache cache = requester.Database.GetCache();
-
-                    // Retrieve the list of plans in case of notification for a user
-
-                    if (IsDebug())
-                        Debug("Prepare the execution of the transaction");
-
-                    index = 0;
-                    foreach (JObject request in requests)
+                    RequestIdRecord requestIdRecord = requester.Database._RequestId.FirstOrDefault(r => r.UserId == currentConnection.UserId);
+                    if (requestIdRecord == null)
                     {
-                        if (IsVerbose())
-                            Verbose($"Prepare the execution of the request[{index}]");
-
-                        string table = request["table"].ToObject<string>();
-                        string action = request["action"].ToObject<string>();
-                        JObject record = request["record"] as JObject;
-                        JObject identity = request["identity"] as JObject;
-
-                        requester.Database.PrepareRequest(cache, userId, table, action, record, identity);
-
-                        int recordId = schema.GetRecordId(requester.Database, userId, table, action, record, identity);
-                        request["recordId"] = recordId;
-
-                        index++;
+                        requestIdRecord = new RequestIdRecord { UserId = currentConnection.UserId, RequestId = 0, Date = DateTime.Now };
+                        requestIdRecord = requester.Database._RequestId.Add(requestIdRecord);
                     }
 
-                    // Retrieve the list of records concerned by this update before updating database for each users except the current connection
-
-                    index = 0;
-                    foreach (JObject request in requests)
+                    if (requestId < requestIdRecord.RequestId)
                     {
-                        if (IsVerbose())
-                            Verbose($"Retrieve the database status just before executing the request[{index}] ...");
-
-                        string table = request["table"].ToObject<string>();
-                        string action = request["action"].ToObject<string>();
-                        JObject record = request["record"] as JObject;
-                        JObject identity = request["identity"] as JObject;
-                        int recordId = request["recordId"].ToObject<int>();
-
-                        // For each user connected ... and having at least one update
-
-                        foreach (ConnectionRecord connection in requester.Database._Connection.Where(c => c.Allow && c.Status &&
-                                                                                                          c.CustomerId == currentConnection.CustomerId &&
-                                                                                                          c.Profile != UserProfile.EUserProfile.None &&
-                                                                                                          (!c.ConnectionId.Equals(Context.ConnectionId) ||
-                                                                                                           !c.Machine.Equals(Environment.MachineName))).ToList())
-                        {
-                            if (IsVerbose())
-                                Verbose($"{connection.ConnectionId} Retrieve the database status just before executing the request[{index}] ...");
-
-                            cache.SetBefore(connection.ConnectionId);
-                            requester.Database.GetListRecordsConcernedByUpdate(cache,
-                                                                               table,
-                                                                               recordId,
-                                                                               connection.CustomerId,
-                                                                               connection.UserId,
-                                                                               connection.Profile,
-                                                                               connection.Area,
-                                                                               true,
-                                                                               null,
-                                                                               null);
-                        }
-
-                        index++;
+                        Warn($"The request '{requestId}' has already been executed!");
+                        throw new ExceptionDefinitionRecord("ERR_REQUEST_ALREADY_EXECUTED");
                     }
 
-                    // Execute the transaction and update the database
-
-                    List<Tuple<DSRecord, InformationRecord>> recordsTreated = requester.ExecuteTransaction(requestId, requests);
-
-                    if (recordsTreated == null)
+                    if (requestId > requestIdRecord.RequestId)
                     {
-                        Info("No result for the transaction!");
-                        JObject resultEmpty = new JObject
-                        {
-                            ["RequestId"] = requestId
-                        };
-                        return resultEmpty;
+                        Warn($"The request id expected is '{requestIdRecord.RequestId}' (your request id is '{requestId}')!");
+                        throw new ExceptionDefinitionRecord("ERR_SYNCHRONIZED");
                     }
 
-                    // Retrieve the list of records concerned by this update after updating database for myself only
+                    if (IsVerbose())
+                        Verbose($"The request Id '{requestId}' is expected");
 
-                    cache.SetAfter(currentConnection.ConnectionId);
+                    // Post the event into the event queue
 
-                    index = 0;
-                    foreach (JObject request in requests)
-                    {
-                        DSRecord recordTreated = recordsTreated[index].Item1;
+                    DatabaseQueue.Instance.Produce(currentConnection, requestId, label, requests, transaction, notify);
 
-                        if (IsDebug())
-                            Debug($"Result of the request[{index}]: {(recordTreated == null ? "null" : recordTreated.ToString())}");
+                    // Update last connection date and the last requestId of the user
 
-                        if (recordsTreated == null)
-                        {
-                            index++;
-                            continue;
-                        }
-
-                        if (IsVerbose())
-                            Verbose($"{currentConnection.ConnectionId} Retrieve the database status just after executing the transaction ...");
-
-                        string table = request["table"].ToObject<string>();
-
-                        requester.Database.GetListRecordsConcernedByUpdate(cache,
-                                                                           table,
-                                                                           recordTreated.Id,
-                                                                           currentConnection.CustomerId,
-                                                                           currentConnection.UserId,
-                                                                           currentConnection.Profile,
-                                                                           currentConnection.Area,
-                                                                           true,
-                                                                           recordTreated,
-                                                                           null);
-                        index++;
-                    }
-
-                    // acknowledge to the caller (ignore all exceptions) before sending the result to the caller
-
-                    int notificationTick = 0;
+                    requestIdRecord.RequestId++;
+                    currentConnection.ConnectionLast = DateTime.Now;
 
                     try
                     {
-                        index = 0;
-                        foreach (JObject request in requests)
-                        {
-                            DSRecord recordTreated = recordsTreated[index].Item1;
-                            if (recordTreated == null)
-                            {
-                                index++;
-                                continue;
-                            }
-
-                            JObject recordFiltered = schema.FilterRecord(recordTreated, currentConnection.Area, currentConnection.UserId, currentConnection.Profile);
-                            if (recordFiltered == null)
-                            {
-                                Error($"Conversion of the result of the transaction[{index}] into a JSON in error!");
-                                index++;
-                                continue;
-                            }
-
-                            notificationTick = recordTreated._tick;
-
-                            if (!recordTreated._deleted && cache.Is(request["table"].ToObject<string>(), recordTreated.Id) != true)
-                            {
-                                if (IsDebug())
-                                    Debug($"Notify to the current client that this record[{index}] is deleted because he is not yet concerned by this record!");
-                                recordFiltered["_deleted"] = true;
-                            }
-
-                            request["record"] = recordFiltered;
-
-                            index++;
-
-                            if (!transaction)
-                            {
-                                if (IsDebug())
-                                    Debug($"{currentConnection.ConnectionId} Acknowledge the request");
-                                await Clients.Caller.acknowledgeRequest(requestId, currentConnection.Area, request["table"].ToObject<string>(), request["action"].ToObject<string>(), recordFiltered, request["identity"]);
-                            }
-                        }
-
-                        if (transaction)
-                        {
-                            if (IsDebug())
-                                Debug($"{currentConnection.ConnectionId} Acknowledge the transaction");
-                            await Clients.Caller.acknowledgeTransaction(requestId, currentConnection.Area, requests);
-                        }
+                        requester.Database.SaveChanges();
                     }
-                    catch (System.Exception ex)
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
                     {
-                        Exception("An exception occurs on acknowledging the transaction. But, continue informing all other clients ...", ex);
+                        Warn("An exception occurs on saving the last connection due to the disconnection of the user ...");
                     }
-
-                    // The request was executed ... notify all clients (except himself) that something has changed
-                    // In some cases, new client or client disconnected while executing a request
-
-                    // For each user connected ... and having at least one update
-
-                    foreach (ConnectionRecord connection in requester.Database._Connection.Where(c => c.Allow && c.Status &&
-                                                                                                      c.CustomerId == currentConnection.CustomerId &&
-                                                                                                      c.Profile != UserProfile.EUserProfile.None &&
-                                                                                                      (!c.ConnectionId.Equals(Context.ConnectionId) ||
-                                                                                                       !c.Machine.Equals(Environment.MachineName))).ToList())
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
                     {
-                        if (IsVerbose())
-                            Verbose($"{connection.ConnectionId} Retrieve the database status just after executing the transaction ...");
-
-                        cache.SetAfter(connection.ConnectionId);
-
-                        index = 0;
-                        foreach (JObject request in requests)
-                        {
-                            DSRecord recordTreated = recordsTreated[index].Item1;
-                            if (recordTreated == null)
-                            {
-                                index++;
-                                continue;
-                            }
-
-                            if (IsVerbose())
-                                Verbose($"{connection.ConnectionId} Retrieve the database status just after executing the request[{index}] ...");
-
-                            requester.Database.GetListRecordsConcernedByUpdate(cache,
-                                                                               request["table"].ToObject<string>(),
-                                                                               recordTreated.Id,
-                                                                               connection.CustomerId,
-                                                                               connection.UserId,
-                                                                               connection.Profile,
-                                                                               connection.Area,
-                                                                               true,
-                                                                               recordTreated,
-                                                                               null);
-
-                            index++;
-                        }
-
-                        await NotificationClients(ConfigurationManager.Schemas[connection.Area], connection.ConnectionId, connection.CustomerId, connection.UserId, connection.Profile, connection.Area, notificationTick, label, cache);
+                        Warn("An exception occurs on saving the last connection due to the concurrency update ...");
                     }
 
                     JObject result = null;
@@ -1029,7 +786,7 @@ namespace Syncytium.Web.Database
         /// <param name="record"></param>
         /// <param name="identity"></param>
         /// <returns>RequestId, Error, Record</returns>
-        public async Task<JObject> ExecuteRequest(int requestId, JObject label, string table, string action, JObject record, JObject identity)
+        public JObject ExecuteRequest(int requestId, JObject label, string table, string action, JObject record, JObject identity)
         {
             JObject request = new JObject
             {
@@ -1039,7 +796,7 @@ namespace Syncytium.Web.Database
                 ["identity"] = identity
             };
 
-            return await ExecuteTransaction(requestId, label, new JObject[] { request }, false);
+            return ExecuteTransaction(requestId, label, new JObject[] { request }, false, false);
         }
 
         /// <summary>
@@ -1048,10 +805,11 @@ namespace Syncytium.Web.Database
         /// <param name="requestId"></param>
         /// <param name="label"></param>
         /// <param name="requests"></param>
+        /// <param name="notify">true if the notification must be sent to the caller</param>
         /// <returns>RequestId, Error, Record</returns>
-        public async Task<JObject> ExecuteTransaction(int requestId, JObject label, JObject[] requests)
+        public JObject ExecuteTransaction(int requestId, JObject label, JObject[] requests, bool notify)
         {
-            return await ExecuteTransaction(requestId, label, requests, true);
+            return ExecuteTransaction(requestId, label, requests, true, notify);
         }
 
         /// <summary>
@@ -1061,21 +819,22 @@ namespace Syncytium.Web.Database
         /// <param name="service"></param>
         /// <param name="record"></param>
         /// <param name="identity"></param>
+        /// <param name="synchronous">true means that the service can be immediately executed</param>
         /// <returns>RequestId, Error, Record</returns>
-        public JObject ExecuteService( string service, JObject record, JObject identity)
+        public JObject ExecuteService(string service, JObject record, JObject identity, bool synchronous)
         {
             if (!Context.Request.User.Identity.IsAuthenticated)
             {
                 // Lost the session for unconnecting period ... all changes into the client is definitively lost ... reload the page
                 Error($"The user is not authenticated ... Reload the page!");
-                return MakeErrorResult("FR", "ERR_UNAUTHENTICATED");
+                return MakeErrorResult("EN", "ERR_UNAUTHENTICATED");
             }
 
             try
             {
-                Info($"Executing the service: ['{service}', '{(record == null ? "null" : record.ToString(Formatting.None))}', '{(identity == null ? "null" : identity.ToString(Formatting.None))}'] ...");
+                JObject result = null;
 
-                int userId = int.Parse(Context.Request.User.Identity.Name);
+                Info($"Executing the service: ['{service}', '{(record == null ? "null" : record.ToString(Formatting.None))}', '{(identity == null ? "null" : identity.ToString(Formatting.None))}', {synchronous}] ...");
 
                 using (DatabaseManager requester = Syncytium.Managers.DatabaseManager.CreateDatabase(Context.ConnectionId, int.Parse(Context.Request.User.Identity.Name)))
                 {
@@ -1089,16 +848,88 @@ namespace Syncytium.Web.Database
                         throw new ExceptionDefinitionRecord("ERR_CONNECTION");
                     }
 
-                    // Handle a service
+                    // Is this connection authorized to start the dialog ?
 
-                    JObject resultService = requester.ExecuteService(service, record, identity);
-
-                    JObject result = new JObject
+                    if (!currentConnection.Allow || !currentConnection.Status)
                     {
-                        ["Result"] = resultService
-                    };
-                    return result;
+                        Error("Not allowed!");
+                        throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                    }
+
+                    // check if the user has the rights to execute this service
+
+                    if (String.IsNullOrWhiteSpace(currentConnection.Area))
+                    {
+                        Error("No area defined for the user");
+                        throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                    }
+
+                    // Update the last connection date
+
+                    currentConnection.ConnectionLast = DateTime.Now;
+                    try
+                    {
+                        requester.Database.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the disconnection of the user ...");
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the concurrency update ...");
+                    }
+
+                    // Execute the service in synchronous or asynchronous mode
+
+                    if ( synchronous )
+                    {
+                        try
+                        {
+                            result = new JObject
+                            {
+                                ["Result"] = requester.ExecuteService(currentConnection.CustomerId,
+                                                                      currentConnection.UserId,
+                                                                      currentConnection.Profile,
+                                                                      currentConnection.Area,
+                                                                      currentConnection.ModuleId,
+                                                                      service, record, identity)
+                            };
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Exception("An exception occurs on executing the service", ex);
+                            result = MakeErrorResult(0, "ERR_EXCEPTION_UNEXPECTED");
+                        }
+                    }
+                    else
+                    {
+                        DatabaseQueue.Instance.Produce(currentConnection, service, record, identity);
+
+                        result = new JObject
+                        {
+                            ["Result"] = "OK"
+                        };
+                    }
+
+                    try
+                    {
+                        requester.Database.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the disconnection of the user ...");
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        Warn("An exception occurs on saving the last connection due to the concurrency update ...");
+                    }
                 }
+
+                if ( IsDebug() )
+                    Debug($"End of execution service : {result.ToString(Formatting.None)}");
+
+                return result;
             }
             catch (ExceptionDefinitionRecord ex)
             {

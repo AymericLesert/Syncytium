@@ -1,7 +1,7 @@
 ﻿using Syncytium.Common.Database.DSSchema;
 using Syncytium.Common.Managers;
 using Syncytium.Module.Administration.Models;
-using Syncytium.Module.Sample.Models;
+using Syncytium.Module.Customer.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -214,19 +214,6 @@ namespace Syncytium.WebJob.Manager
                 return GetImage("User", 30, 30);
 
             return GetImage("User/User_" + user.Id.ToString(), user.Picture, 30, 30);
-        }
-
-        /// <summary>
-        /// Retrieve the picture of the sample
-        /// </summary>
-        /// <param name="sample"></param>
-        /// <returns></returns>
-        public Tuple<string, string> GetPicture(SampleRecord sample)
-        {
-            if (sample == null || sample.Picture == null)
-                return GetImage("Article", 30, 30);
-
-            return GetImage("Article/Article_Picture_" + sample.Id.ToString(), sample.Picture, 30, 30);
         }
 
         /// <summary>

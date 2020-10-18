@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,42 +31,38 @@ class Dates {
      * @param {Errors} errors list of errors identified by this function
      */
     static Check ( table, record, fields, checkNow, errors ) {
-        var field = null;
-        var definedFields = [];
-        var nowFields = [];
-        var now = new moment();
+        let definedFields = [];
+        let nowFields = [];
+        let now = new moment();
 
         // Check if the field is defined
 
-        for ( field in fields ) {
-            if ( fields[field] === null || fields[field] === undefined )
-                continue;
-
-            if ( record[fields[field]] === null ||
-                record[fields[field]] === undefined ||
-                !record[fields[field]] instanceof moment ) {
-                errors.addField( fields[field], "ERR_FIELD_REQUIRED", ["{" + table.toUpperCase() + "_" + fields[field].toUpperCase() + "}"] );
+        for ( let field of Array.toIterable( fields ) ) {
+            if ( record[field] === null ||
+                record[field] === undefined ||
+                !(record[field] instanceof moment )) {
+                errors.addField( field, "ERR_FIELD_REQUIRED", ["{" + table.toUpperCase() + "_" + field.toUpperCase() + "}"] );
                 continue;
             }
 
-            definedFields.push( fields[field] );
+            definedFields.push( field );
         }
 
         // Check if the date is before now
 
-        for ( field in definedFields ) {
-            if ( checkNow && record[definedFields[field]] > now ) {
-                errors.addField( definedFields[field], "ERR_" + table.toUpperCase() + "_DATE", ["{" + table.toUpperCase() + "_" + definedFields[field].toUpperCase() + "}", "{" + table.toUpperCase() + "_NOW}"] );
+        for ( let field of definedFields ) {
+            if ( checkNow && record[field] > now ) {
+                errors.addField( field, "ERR_" + table.toUpperCase() + "_DATE", ["{" + table.toUpperCase() + "_" + field.toUpperCase() + "}", "{" + table.toUpperCase() + "_NOW}"] );
                 continue;
             }
 
-            nowFields.push( definedFields[field] );
+            nowFields.push( field );
         }
 
         // Check the chronology
 
-        for ( var i = 0; i < nowFields.length - 1; i++ ) {
-            for ( var j = i + 1; j < nowFields.length; j++ ) {
+        for ( let i = 0; i < nowFields.length - 1; i++ ) {
+            for ( let j = i + 1; j < nowFields.length; j++ ) {
                 if ( record[nowFields[i]] > record[nowFields[j]] )
                     errors.addField( nowFields[i], "ERR_" + table.toUpperCase() + "_DATE", ["{" + table.toUpperCase() + "_" + nowFields[i].toUpperCase() + "}", "{" + table.toUpperCase() + "_" + nowFields[j].toUpperCase() + "}"] );
             }
@@ -84,10 +80,16 @@ class Dates {
             ( date2 === null || date2 === undefined ) )
             return 0;
 
-        if ( date1 === null || date1 === undefined )
+        if ( date1 !== null && date1 !== undefined && typeof date1 === "string" )
+            date1 = new moment( date1 );
+
+        if ( date2 !== null && date2 !== undefined && typeof date2 === "string" )
+            date2 = new moment( date2 );
+
+        if ( date1 === null || date1 === undefined || !date1.isValid() )
             return 1;
 
-        if ( date2 === null || date2 === undefined )
+        if ( date2 === null || date2 === undefined || !date2.isValid() )
             return -1;
 
         return date1 < date2 ? -1 : date1 > date2 ? 1 : 0;
@@ -178,5 +180,19 @@ class Dates {
         }
 
         return paths[maxPath];
+    }
+
+    /**
+     * Get the date of the day
+     */
+    static get Today() {
+        if ( this._today === undefined ) {
+            this._intervalToday = setInterval( () => {
+                this._today = ( new moment() ).startOf( 'day' );
+            }, 60 * 1000 );
+            this._today = ( new moment() ).startOf( 'day' );
+        }
+
+        return this._today;
     }
 }

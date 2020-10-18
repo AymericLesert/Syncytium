@@ -3,7 +3,7 @@ using Syncytium.Common.Error;
 using System.Net.Mail;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -46,10 +46,9 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
             if (value == null)
                 return validity;
 
-            string strValue = value as string;
-            if (strValue == null)
+            if (!(value is string strValue))
             {
-                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}" });
+                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", value.ToString() });
                 return false;
             }
 
@@ -60,7 +59,7 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
             }
             catch
             {
-                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}" });
+                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", strValue });
                 return false;
             }
         }

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -58,8 +58,8 @@ class DSDecimalAttribute extends DSControlAttribute {
      * @returns {boolean} true if the value is valid
      */
     check( column, value, errors ) {
-        var valueToCheck = 0;
-        var validity = super.check( column, value, errors );
+        let valueToCheck = 0;
+        let validity = super.check( column, value, errors );
 
         if ( value === null || value === undefined )
             return validity;
@@ -75,22 +75,22 @@ class DSDecimalAttribute extends DSControlAttribute {
                 valueToCheck = value ? 1 : 0;
                 break;
             default:
-                errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString()] );
+                errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString(), value.toString()] );
                 return false;
         }
 
         if ( isNaN( valueToCheck ) ) {
-            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString()] );
+            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString(), value.toString()] );
             return false;
         }
 
-        if ( valueToCheck >= this._maxValue ) {
-            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString()] );
+        if ( valueToCheck >= this._maxValue || valueToCheck <= this._minValue ) {
+            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString(), value.toString()] );
             return false;
         }
 
         if ( String.parseFloat( valueToCheck.toFixed( 8 ) ) !== String.parseFloat( valueToCheck.toFixed( this._precision ) ) ) {
-            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString()] );
+            errors.addField( column.Property, this._error, ["{" + column.Field + "}", this._digit.toString(), this._precision.toString(), value.toString()] );
             return false;
         }
 
@@ -112,7 +112,8 @@ class DSDecimalAttribute extends DSControlAttribute {
         this._unit = String.isEmptyOrWhiteSpaces(unit) ? null : String.decode(unit);
 
         this._maxValue = this._digit <= 0 ? 1 : 10;
-        for ( var i = precision + 1; i < this._digit; i++ )
+        for ( let i = precision + 1; i < this._digit; i++ )
             this._maxValue *= 10;
+        this._minValue = -this._maxValue;
     }
 }

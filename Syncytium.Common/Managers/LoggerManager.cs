@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -50,6 +50,11 @@ namespace Syncytium.Common.Logger
         readonly log4net.ILog logger = log4net.LogManager.GetLogger(MODULE_NAME);
 
         /// <summary>
+        /// True if All verbose trace must be enabled
+        /// </summary>
+        private Boolean _logVerboseAll = false;
+
+        /// <summary>
         /// True if verbose trace must be enabled
         /// </summary>
         private Boolean _logVerbose = false;
@@ -67,7 +72,7 @@ namespace Syncytium.Common.Logger
         /// <summary>
         /// List of text writer appended
         /// </summary>
-        private Stack<TextWriter> _logFiles = new Stack<TextWriter>();
+        private readonly Stack<TextWriter> _logFiles = new Stack<TextWriter>();
 
         /// <summary>
         /// Mutex protecting the critical section
@@ -136,6 +141,7 @@ namespace Syncytium.Common.Logger
 
                 IsDebug = ConfigurationManager.Debug;
                 IsVerbose = ConfigurationManager.Verbose;
+                IsVerboseAll = ConfigurationManager.VerboseAll;
 
                 CleanUpLogFiles(true);
             }
@@ -148,9 +154,34 @@ namespace Syncytium.Common.Logger
         /// <summary>
         /// Get or Set the verbose flag
         /// </summary>
+        public Boolean IsVerboseAll
+        {
+            get => _logVerboseAll;
+            set
+            {
+                if (_logVerboseAll != value)
+                {
+                    _mutex.Wait(); // lock critical section
+
+                    if (value)
+                        WriteMessage(Level.Info, typeof(LoggerManager).Name, "Enable all verbose mode");
+                    else
+                        WriteMessage(Level.Info, typeof(LoggerManager).Name, "Disable all verbose mode");
+
+                    CleanUpLogFiles();
+                    _mutex.Release(); // unlock critical section
+                }
+
+                _logVerboseAll = value;
+            }
+        }
+
+        /// <summary>
+        /// Get or Set the verbose flag
+        /// </summary>
         public Boolean IsVerbose
         {
-            get { return _logVerbose; }
+            get => _logVerboseAll || _logVerbose;
             set
             {
                 if (_logVerbose != value)
@@ -162,10 +193,10 @@ namespace Syncytium.Common.Logger
                     else
                         WriteMessage(Level.Info, typeof(LoggerManager).Name, "Disable verbose mode");
 
+                    CleanUpLogFiles();
                     _mutex.Release(); // unlock critical section
                 }
 
-                CleanUpLogFiles();
                 _logVerbose = value;
             }
         }
@@ -175,7 +206,7 @@ namespace Syncytium.Common.Logger
         /// </summary>
         public Boolean IsDebug
         {
-            get { return _logVerbose || _logDebug; }
+            get => _logVerboseAll || _logVerbose || _logDebug;
             set
             {
                 if (_logDebug != value)

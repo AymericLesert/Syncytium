@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -107,29 +107,27 @@ GUI.Box.BoxInputText = class extends GUI.Box.Box {
     onOpen() {
         function handleKeydown( box ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             box.previousFocus();
                         else
                             box.nextFocus();
                         return false;
 
-                    case 13:
+                    case "Enter":
                         if ( box._allowRC ) {
                             GUI.Box.BOX_RC = true;
                             return;
                         }
 
-                        event.preventDefault();
+                        event.stopImmediatePropagation();
                         box.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         box.onButtonCancel();
                         return false;
                 }
@@ -188,9 +186,9 @@ GUI.Box.BoxInputText = class extends GUI.Box.Box {
         if ( this.Component === null )
             return;
 
-        var oldHeight = this.TextZone.height();
+        let oldHeight = this.TextZone.height();
         this.TextZone.height( 1 );
-        var newHeight = this.TextZone[0].scrollHeight;
+        let newHeight = this.TextZone[0].scrollHeight;
 
         this.TextZone.height( newHeight > 1 ? newHeight : oldHeight );
     }

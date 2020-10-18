@@ -1,4 +1,4 @@
-﻿-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+﻿-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 -- 
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,12 +14,18 @@
 -- with this program; if not, write to the Free Software Foundation, Inc.,
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
--- Drop functional table
 
--- Delete table : Sample
 
-drop table "Sample";
-drop sequence S_SAMPLE;
+-- Drop tables from module : Customer
+-- ----------------------------------
+
+-- Delete table : Parameter
+
+drop table "Parameter";
+drop sequence S_PARAMETER;
+
+-- Drop tables from module : Administration
+-- ----------------------------------------
 
 -- Delete table : UserModule
 

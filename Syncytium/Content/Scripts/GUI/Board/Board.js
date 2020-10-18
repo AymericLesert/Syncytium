@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,9 +29,10 @@ GUI.Board = {};
  */
 GUI.Board.BOARD_ICON = 1;
 GUI.Board.BOARD_ADD = 2;
-GUI.Board.BOARD_CANCEL = 4;
-GUI.Board.BOARD_DELETE = 8;
-GUI.Board.BOARD_HELP = 16;
+GUI.Board.BOARD_EDIT = 4;
+GUI.Board.BOARD_CANCEL = 8;
+GUI.Board.BOARD_DELETE = 16;
+GUI.Board.BOARD_HELP = 32;
 
 GUI.Board.BOARD_NONE = 0;
 GUI.Board.BOARD_ALL = 255;
@@ -45,6 +46,20 @@ GUI.Board.ExportCSVFile = null;
  * Abstract class handling a table of element
  */
 GUI.Board.Board = class extends GUI.GUI {
+    /**
+     * Retrieve the board title
+     */
+    get Title() {
+        return this._title;
+    }
+
+    /**
+     * Update the board title
+     */
+    set Title( title ) {
+        this._title = Helper.Label( title );
+    }
+
     /**
      * Set the read only flag of the board
      * @param {boolean} value readonly of updatable
@@ -75,7 +90,7 @@ GUI.Board.Board = class extends GUI.GUI {
         function handleHelp( board ) {
             return function () {
                 if ( typeof board._link === "string" )
-                    window.open( board._link, "_blank" );
+                    window.open( Area.HTTP_ROOT_DOCUMENTATION + board._link, "_blank" );
 
                 if ( typeof board._link === "function" )
                     board._link();
@@ -120,6 +135,13 @@ GUI.Board.Board = class extends GUI.GUI {
     }
 
     /**
+     * @returns {boolean} if the icon "edit" (at the top of the right) is visible
+     */
+    get IsVisibleEdit() {
+        return this._icons & GUI.Board.BOARD_EDIT;
+    }
+
+    /**
      * @returns {boolean} if the icon "Cancel" (at the top of the right) is visible
      */
     get IsVisibleCancel() {
@@ -150,7 +172,7 @@ GUI.Board.Board = class extends GUI.GUI {
     /**
      * @returns {any} jQuery of the table div into the component
      */
-    get TableZone () {
+    get TableZone() {
         return this.Component.find( "> .table" );
     }
 
@@ -172,9 +194,24 @@ GUI.Board.Board = class extends GUI.GUI {
     }
 
     /**
+     * @returns {boolean} indicates if the height of the table must be adjusted on resizing
+     */
+    get AdjustWebixEnable() {
+        return this._adjustWebixEnable;
+    }
+
+    /**
+     * Enable or disable the auto-adjusted computation on resizing
+     * @param {any} value true/false
+     */
+    set AdjustWebixEnable( value ) {
+        this._adjustWebixEnable = value;
+    }
+
+    /**
      * Destructor
      */
-    destructor () {
+    destructor() {
         super.destructor();
 
         if ( this._webix !== null ) {
@@ -186,7 +223,7 @@ GUI.Board.Board = class extends GUI.GUI {
     /**
      * show the board
      */
-    show () {
+    async show() {
         if ( this.IsOpened )
             return;
 
@@ -197,15 +234,15 @@ GUI.Board.Board = class extends GUI.GUI {
         this.Component.show();
 
         if ( this._webix !== null ) {
-            this.populateWebix();
-            this.adjustWebix();
+            await this.populateWebix();
+            await this.adjustWebix();
         }
     }
 
     /**
      * Hide the board
      */
-    hide () {
+    hide() {
         if ( !this.IsOpened || !this.Visible )
             return;
 
@@ -242,17 +279,19 @@ GUI.Board.Board = class extends GUI.GUI {
             return;
         }
 
-        updateIcons( this, icon, GUI.Board.BOARD_ICON, visible );
-        updateIcons( this, icon, GUI.Board.BOARD_ADD, visible );
-        updateIcons( this, icon, GUI.Board.BOARD_CANCEL, visible );
-        updateIcons( this, icon, GUI.Board.BOARD_DELETE, visible );
-        updateIcons( this, icon, GUI.Board.BOARD_HELP, visible );
+        updateIcons(this, icon, GUI.Board.BOARD_ICON, visible);
+        updateIcons(this, icon, GUI.Board.BOARD_ADD, visible);
+        updateIcons(this, icon, GUI.Board.BOARD_EDIT, visible);
+        updateIcons(this, icon, GUI.Board.BOARD_CANCEL, visible);
+        updateIcons(this, icon, GUI.Board.BOARD_DELETE, visible);
+        updateIcons(this, icon, GUI.Board.BOARD_HELP, visible);
 
-        this.refreshIcon( "board", this.IsVisibleIcon );
-        this.refreshIcon( "add", this.IsVisibleAdd );
-        this.refreshIcon( "cancel", this.IsVisibleCancel );
-        this.refreshIcon( "delete", this.IsVisibleDelete );
-        this.refreshIcon( "help", this.IsVisibleHelp );
+        this.refreshIcon("board", this.IsVisibleIcon);
+        this.refreshIcon("add", this.IsVisibleAdd);
+        this.refreshIcon("edit", this.IsVisibleEdit);
+        this.refreshIcon("cancel", this.IsVisibleCancel);
+        this.refreshIcon("delete", this.IsVisibleDelete);
+        this.refreshIcon("help", this.IsVisibleHelp);
     }
 
     /**
@@ -266,23 +305,27 @@ GUI.Board.Board = class extends GUI.GUI {
             return function () {
                 switch ( icon ) {
                     case "board":
-                        table.onBoard();
+                        table.onBoardIcon();
                         break;
 
                     case "add":
-                        table.onAdd();
+                        table.onBoardAdd();
+                        break;
+
+                    case "edit":
+                        table.onBoardEdit();
                         break;
 
                     case "cancel":
-                        table.onCancel();
+                        table.onBoardCancel();
                         break;
 
                     case "delete":
-                        table.onDelete();
+                        table.onBoardDelete();
                         break;
 
                     case "help":
-                        table.onHelp();
+                        table.onBoardHelp();
                         break;
                 }
             };
@@ -291,7 +334,7 @@ GUI.Board.Board = class extends GUI.GUI {
         if ( this.Component === null )
             return;
 
-        var componentIcon = this.Component.find( "> .title > .icon." + icon );
+        let componentIcon = this.Component.find( "> .title > .icon." + icon );
 
         if ( visible ) {
             if ( componentIcon.hasClass( "hide" ) )
@@ -305,7 +348,7 @@ GUI.Board.Board = class extends GUI.GUI {
         if ( componentIcon.hasClass( "disallowed" ) )
             componentIcon.removeClass( "disallowed" );
 
-        if ( this.isEvent( icon ) && this.List.isBoardAllowed(this, DSDatabase.Instance.CurrentUser, icon) ) {
+        if ( this.isEvent( icon ) && this.List.isBoardAllowed( this, DSDatabase.Instance.CurrentUser, icon, undefined ) ) {
             componentIcon.css( 'cursor', 'pointer' );
             componentIcon.off( 'click' ).on( 'click', handleClick( this, icon ) );
         } else if ( !visible ) {
@@ -321,10 +364,10 @@ GUI.Board.Board = class extends GUI.GUI {
     /**
      * Method to refresh the table
      */
-    refresh () {
+    refresh() {
         super.refresh();
 
-        if ( this.Component === null || this._webix === null )
+        if ( this.Component === null )
             return;
 
         // set title
@@ -333,11 +376,12 @@ GUI.Board.Board = class extends GUI.GUI {
 
         // set visibility and action
 
-        this.refreshIcon( "board", this.IsVisibleIcon );
-        this.refreshIcon( "add", this.IsVisibleAdd );
-        this.refreshIcon( "cancel", this.IsVisibleCancel );
-        this.refreshIcon( "delete", this.IsVisibleDelete );
-        this.refreshIcon( "help", this.IsVisibleHelp );
+        this.refreshIcon("board", this.IsVisibleIcon);
+        this.refreshIcon("add", this.IsVisibleAdd);
+        this.refreshIcon("edit", this.IsVisibleEdit);
+        this.refreshIcon("cancel", this.IsVisibleCancel);
+        this.refreshIcon("delete", this.IsVisibleDelete);
+        this.refreshIcon("help", this.IsVisibleHelp);
 
         // set readonly
 
@@ -349,16 +393,19 @@ GUI.Board.Board = class extends GUI.GUI {
     }
 
     /**
-     * Abstract method to adjust thewebix object
+     * Abstract method to adjust the webix object in async mode
      */
-    adjustWebix () {
-        this.debug( "Adjust webix" );
+    async adjustWebix() {
+        this.debug( "Adjust webix (async)" );
+
+        if ( this._webix === null || this._webix === undefined )
+            return;
 
         // resize the webix object
 
-        var tableZone = this.TableZone;
-        var width = Math.floor( tableZone.width() );
-        var height = Math.floor( tableZone.height() );
+        let tableZone = this.TableZone;
+        let width = Math.floor( tableZone.width() );
+        let height = Math.floor( tableZone.height() );
 
         if ( width !== this._webix.config.width || height !== this._webix.config.height ) {
             this._webix.config.width = width;
@@ -370,12 +417,13 @@ GUI.Board.Board = class extends GUI.GUI {
     /**
      * Draw the table into the container
      */
-    draw () {
-        var content = "<board id='" + this.Name + "' class='" + this.Name + "'>";
+    draw() {
+        let content = "<board id='" + this.Name + "' class='" + this.Name + "'>";
         content += "<div class='title'>";
         content += "<div class='icon board'></div>";
         content += "<div class='title'></div>";
         content += "<div class='icon add'></div>";
+        content += "<div class='icon edit'></div>";
         content += "<div class='icon cancel'></div>";
         content += "<div class='icon delete'></div>";
         content += "<div class='icon help'></div>";
@@ -396,9 +444,9 @@ GUI.Board.Board = class extends GUI.GUI {
                 // Add a throttling on resizing
 
                 clearTimeout( board._throttle );
-                board._throttle = setTimeout( function () {
+                board._throttle = setTimeout( async function () {
                     board.debug( "Resizing window ..." );
-                    board.adjustWebix();
+                    await board.adjustWebix();
                 }, 100 );
             };
         }
@@ -407,10 +455,10 @@ GUI.Board.Board = class extends GUI.GUI {
     }
 
     /**
-     * Abstract method to populate the webix object
+     * Abstract method to populate the webix object on async mode (for huge number of items)
      */
-    populateWebix () {
-        this.debug( "Populate webix" );
+    async populateWebix() {
+        this.debug( "Populate webix (async)" );
     }
 
     /**
@@ -418,7 +466,7 @@ GUI.Board.Board = class extends GUI.GUI {
      * @param {any} container reference on the container having the webix component
      * @returns {any} Webix object representing the board
      */
-    drawWebix ( container ) {
+    drawWebix( container ) {
         return null;
     }
 
@@ -438,24 +486,22 @@ GUI.Board.Board = class extends GUI.GUI {
 
         function handleKeydown( board ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             board.previousFocus();
                         else
                             board.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         board.onUpdate();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         board.onButtonCancel();
                         return false;
                 }
@@ -483,14 +529,14 @@ GUI.Board.Board = class extends GUI.GUI {
      * @param {boolean} visible true if the icon corresponding to the event is visible
      * @param {string} event event name to raise
      */
-    onEvent(visible, event) {
+    onEvent( visible, event ) {
         if ( !visible )
             return;
 
-        if ( !this.List.isBoardAllowed( this, DSDatabase.Instance.CurrentUser, event) )
+        if ( !this.List.isBoardAllowed( this, DSDatabase.Instance.CurrentUser, event ) )
             return;
 
-        var fnEvent = this.getEvent( event );
+        let fnEvent = this.getEvent( event );
         if ( fnEvent === null )
             return;
 
@@ -500,36 +546,43 @@ GUI.Board.Board = class extends GUI.GUI {
     /**
      * Event raised on clicking on the icon of the board
      */
-    onBoard() {
+    onBoardIcon() {
         this.onEvent( this.IsVisibleIcon, "board" );
     }
 
     /**
      * Event raised on Add a new element into the board
      */
-    onAdd () {
+    onBoardAdd() {
         this.onEvent( this.IsVisibleAdd, "add" );
+    }
+
+    /**
+     * Event raised on Update a element selected into the board
+     */
+    onBoardEdit() {
+        this.onEvent(this.IsVisibleEdit, "edit");
     }
 
     /**
      * Event raised on Cancel a element selected into the board
      */
-    onCancel () {
+    onBoardCancel() {
         this.onEvent( this.IsVisibleCancel, "cancel" );
     }
 
     /**
      * Event raised on Delete a element selected into the board
      */
-    onDelete () {
+    onBoardDelete() {
         this.onEvent( this.IsVisibleDelete, "delete" );
     }
 
     /**
      * Event raised on Help the board
      */
-    onHelp() {
-        this.onEvent( this.IsVisibleHelp , "help" );
+    onBoardHelp() {
+        this.onEvent( this.IsVisibleHelp, "help" );
     }
 
     /**
@@ -537,36 +590,32 @@ GUI.Board.Board = class extends GUI.GUI {
      * @param {any} newRecord new record to add into the list
      * @param {any} list list of items
      */
-    addItem( newRecord, list ) {
+    async addItem( newRecord, list ) {
         function handleConfirmation( board, newRecord, list ) {
-            return function () {
+            return async function () {
                 // Run the validation again ...
 
-                var errors = new Errors();
+                let errors = new Errors();
 
                 if ( list.Table !== undefined )
                     list.beginTransaction( Helper.Label( list.Table.toUpperCase() + "_CREATED_TOAST", list.getText( newRecord ) ) );
                 else
                     list.beginTransaction();
 
-                var itemUpdated = list.addItem( newRecord, errors, true );
+                let itemUpdated = list.addItem( newRecord, errors, true );
 
                 list.endTransaction();
 
                 if ( errors.HasError ) {
-                    if ( window.administration === undefined )
-                        list.rollback( oldRecord );
-
-                    GUI.Box.Message.Error( "ERROR", errors );
+                    await list.rollbackAsync().then( () => { GUI.Box.Message.Error( "ERROR", errors ); } );
                     return;
                 }
 
-                if ( window.administration === undefined )
-                    list.commit( itemUpdated );
+                await list.commitAsync();
             };
         }
 
-        var errors = new Errors();
+        let errors = new Errors();
         list = list === undefined || list === null ? this.List : list;
 
         if ( list.Table !== undefined )
@@ -574,7 +623,7 @@ GUI.Board.Board = class extends GUI.GUI {
         else
             list.beginTransaction();
 
-        var confirmation = list.addItem( newRecord, errors, false );
+        let confirmation = list.addItem( newRecord, errors, false );
 
         list.endTransaction();
 
@@ -582,22 +631,18 @@ GUI.Board.Board = class extends GUI.GUI {
             // it's a message of confirmation
 
             GUI.Box.Message.Message( Helper.Label( list.Table === undefined ? this.Title : list.Table.toUpperCase() + "_CREATE", list.getText( newRecord ) ),
-                                     confirmation,
-                                     handleConfirmation( this, newRecord, list ) );
+                confirmation,
+                handleConfirmation( this, newRecord, list ) );
 
             return;
         }
 
         if ( errors.HasError ) {
-            if ( window.administration === undefined )
-                list.rollback( oldRecord );
-
-            GUI.Box.Message.Error( "ERROR", errors );
+            await list.rollbackAsync().then( () => { GUI.Box.Message.Error( "ERROR", errors ); } );
             return;
         }
 
-        if ( window.administration === undefined )
-            list.commit( confirmation );
+        await list.commitAsync();
     }
 
     /**
@@ -606,36 +651,32 @@ GUI.Board.Board = class extends GUI.GUI {
      * @param {any} newRecord new record
      * @param {any} list list of items
      */
-    updateItem( oldRecord, newRecord, list ) {
+    async updateItem( oldRecord, newRecord, list ) {
         function handleConfirmation( board, oldRecord, newRecord, list ) {
-            return function () {
+            return async function () {
                 // Run the validation again ...
 
-                var errors = new Errors();
+                let errors = new Errors();
 
-                if ( board.List.Table !== undefined )
-                    board.List.beginTransaction( Helper.Label( board.List.Table.toUpperCase() + "_UPDATED_TOAST", board.List.getText( newRecord ) ) );
+                if ( list.Table !== undefined )
+                    list.beginTransaction( Helper.Label( list.Table.toUpperCase() + "_UPDATED_TOAST", list.getText( newRecord ) ) );
                 else
-                    board.List.beginTransaction();
+                    list.beginTransaction();
 
-                var itemUpdated = board.List.updateItem( oldRecord.Id, oldRecord, newRecord, errors, true );
+                let itemUpdated = list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, true );
 
-                board.List.endTransaction();
+                list.endTransaction();
 
                 if ( errors.HasError ) {
-                    if ( window.administration === undefined )
-                        board.List.rollback( oldRecord );
-
-                    GUI.Box.Message.Error( "ERROR", errors );
+                    await list.rollbackAsync().then( () => { GUI.Box.Message.Error( "ERROR", errors ); });
                     return;
                 }
 
-                if ( window.administration === undefined )
-                    board.List.commit( itemUpdated );
+                await list.commitAsync();
             };
         }
 
-        var errors = new Errors();
+        let errors = new Errors();
         list = list === undefined || list === null ? this.List : list;
 
         if ( list.Table !== undefined )
@@ -643,7 +684,7 @@ GUI.Board.Board = class extends GUI.GUI {
         else
             list.beginTransaction();
 
-        var confirmation = list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, false );
+        let confirmation = list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, false );
 
         list.endTransaction();
 
@@ -651,31 +692,27 @@ GUI.Board.Board = class extends GUI.GUI {
             // it's a message of confirmation
 
             GUI.Box.Message.Message( Helper.Label( list.Table === undefined ? this.Title : list.Table.toUpperCase() + "_UPDATE", list.getText( newRecord ) ),
-                                     confirmation,
-                                     handleConfirmation( this, oldRecord, newRecord, list ) );
+                confirmation,
+                handleConfirmation( this, oldRecord, newRecord, list ) );
 
             return;
         }
 
         if ( errors.HasError ) {
-            if ( window.administration === undefined )
-                list.rollback( oldRecord );
-
-            GUI.Box.Message.Error( "ERROR", errors );
+            await list.rollbackAsync().then( () => { GUI.Box.Message.Error( "ERROR", errors ); } );
             return;
         }
 
-        if ( window.administration === undefined )
-            list.commit( confirmation );
+        await list.commitAsync();
     }
 
     /**
-     * Update an existing record into a transaction and commit it if necessary
+     * Delete an existing record into a transaction and commit it if necessary
      * @param {any} oldRecord record to delete
      * @param {any} list list of items
      */
-    deleteItem( oldRecord, list ) {
-        var errors = new Errors();
+    async deleteItem( oldRecord, list ) {
+        let errors = new Errors();
         list = list === undefined || list === null ? this.List : list;
 
         if ( list.Table !== undefined )
@@ -683,110 +720,149 @@ GUI.Board.Board = class extends GUI.GUI {
         else
             list.beginTransaction();
 
-        var itemDeleted = list.deleteItem( oldRecord.Id, oldRecord, errors );
+        list.deleteItem( oldRecord.Id, oldRecord, errors );
 
         list.endTransaction();
 
         if ( errors.HasError ) {
-            if ( window.administration === undefined )
-                list.rollback( itemDeleted );
-
-            GUI.Box.Message.Error( "ERROR", errors );
+            await list.rollbackAsync().then( () => { GUI.Box.Message.Error( "ERROR", errors ); } );
             return;
         }
 
-        if ( window.administration === undefined )
-            list.commit( itemDeleted );
+        await list.commitAsync();
+    }
+
+    /**
+     * Declare a CSV file to export from this board
+     * @param {any} name identifier of the csv file to export
+     * @param {any} list list of items to export
+     * @param {any} label label to show in the dialog box selection
+     * @param {any} headers headers to export
+     * @param {any} filename filename
+     */
+    declareExportCSV( name, list, label, headers, filename, frequency ) {
+        this._csvFiles[name] = {
+            name: name,
+            list: list,
+            label: label,
+            headers: headers,
+            filename: filename,
+            frequency: frequency === null || frequency === undefined ? 1000 : frequency
+        };
+
+        this._csvFilesSelections.push( this._csvFiles[name] );
     }
 
     /**
      * Export the content of the table into a CSV file
+     * @param {Array} headers list of headers to add into the CSV file (null or undefined, set the default column)
      * @param {string} filename filename of the CSV file (if undefined, it's the name of the board)
+     * @param {List.List} listItems list of items to export
+     * @param {int} frequency frequency of refreshing screen
      * @return {boolean} true
      */
-    exportCSV( filename ) {
+    async exportCSV( headers, filename, listItems, frequency ) {
+        function handleExportFile( board, csvFile, frequency ) {
+            return function () {
+                board.exportCSV( csvFile.headers, csvFile.filename, csvFile.list, frequency );
+            };
+        }
+
+        // Show a dialog box
+
+        if ( headers === undefined && filename === undefined ) {
+            if ( this._csvFilesSelections.length === 0 )
+                return false;
+
+            let choices = [];
+
+            for ( let csvFile of this._csvFilesSelections )
+                choices.push( { label: csvFile.label, fn: handleExportFile( this, csvFile, csvFile.frequency ) } );
+
+            GUI.Box.BoxChoice.BoxChoices( "TITLE_CSV_EXPORT", null, choices );
+            return true;
+        }
+
+        if ( listItems === null || listItems === undefined )
+            listItems = this.List;
+
         // Build CSV file
 
-        let csv = new CSV();
-        csv.addList( this.List );
-        var urlBlob = new Blob( csv.toBlob( DSDatabase.Instance.Parameters["CSV.Charset"], DSDatabase.Instance.Parameters["CSV.Separator"]), { encoding: csv.Charset, type: 'text/csv;charset=' + csv.Charset } );
-
-        // If we are replacing a previously generated file we need to
-        // manually revoke the object URL to avoid memory leaks.
-
-        if ( GUI.Board.ExportCSVFile !== null )
-            window.URL.revokeObjectURL( GUI.Board.ExportCSVFile );
-
-        GUI.Board.ExportCSVFile = window.URL.createObjectURL( urlBlob );
-
-        // automatic launch the downloading file
-
+        let status = false;
         filename = filename === undefined || filename === null ? this.Name + ".csv" : filename;
+        let csv = new CSV( this.Name, null, DSDatabase.Instance.Parameters["CSV.Separator"], DSDatabase.Instance.Parameters["CSV.Charset"] );
+        await GUI.Box.Progress.Thread( csv.toBlobFromList( listItems, headers ), frequency, true, true ).then( () => {
+            if ( csv.Blob === null ) {
+                status = false;
+                return;
+            }
 
-        let link = document.createElement( 'a' );
-        link.setAttribute( 'download', filename );
-        link.href = GUI.Board.ExportCSVFile;
-        document.getElementById( "log" ).appendChild( link );
+            // If we are replacing a previously generated file we need to
+            // manually revoke the object URL to avoid memory leaks.
 
-        // wait for the link to be added to the document
+            if ( GUI.Board.ExportCSVFile !== null )
+                window.URL.revokeObjectURL( GUI.Board.ExportCSVFile );
 
-        window.requestAnimationFrame( function () {
-            var event = new MouseEvent( 'click' );
-            link.dispatchEvent( event );
-            document.getElementById( "log" ).removeChild( link );
+            GUI.Board.ExportCSVFile = window.URL.createObjectURL( csv.Blob );
+
+            // automatic launch the downloading file
+
+            let link = document.createElement( 'a' );
+            link.setAttribute( 'download', filename );
+            link.href = GUI.Board.ExportCSVFile;
+            document.getElementById( "log" ).appendChild( link );
+
+            // wait for the link to be added to the document
+
+            window.requestAnimationFrame( function () {
+                let event = new MouseEvent( 'click' );
+                link.dispatchEvent( event );
+                document.getElementById( "log" ).removeChild( link );
+            } );
+
+            status = true;
         } );
 
-        return true;
+        return status;
     }
 
     /**
      * Add board content into the PDF file
      * @param {any} docPDF   docPDF to complete
-     * @param {any} fnEnd    function to call if the document is complete and ok
-     * @param {any} fnError  function to call if an exception occurs
      */
-    toPDF ( docPDF, fnEnd, fnError ) {
-        fnEnd( docPDF );
+    toPDF( docPDF ) {
+        return docPDF;
     }
 
     /**
      * Export data from the board to PDF format
      */
-    exportPDF () {
-        if ( !Hub.Instance.IsOnline && !PDF.INITIALIZATION_DONE ) {
-            GUI.Box.Message.Error( "ERROR", "ERR_UNABLE_PDF" );
-            return;
-        }
-
+    exportPDF() {
         this.info( "Exporting board into a PDF file ..." );
 
         GUI.Box.Progress.Start();
         GUI.Box.Progress.SetStatus( 0, 2, "MSG_PDF" );
 
-        function initializePDF( board ) {
-            return function () {
-                var docPDF = PDF.Create( board._title );
+        let docPDF = new DocPDF();
+        docPDF.create( this._title )
+            .then( () => {
+                this.toPDF( docPDF ).finalize()
+            } )
+            .then( () => {
+                docPDF.download( this.Name + '.pdf' );
+                GUI.Box.Progress.Stop();
+            } )
+            .catch( error => {
+                GUI.Box.Progress.Stop();
+                GUI.Box.Message.Error( "ERROR", error );
+            } );
+    }
 
-                function handleCreatePDF( board ) {
-                    return function ( docPDF ) {
-                        try {
-                            GUI.Box.Progress.Stop();
-                            board.info( "PDF file : " + String.JSONStringify( docPDF ) );
-                            pdfMake.createPdf( docPDF ).download( board.Name + ".pdf" );
-                            board.info( "Export done into a PDF file" );
-                        } catch ( ex ) {
-                            GUI.Box.Progress.Stop();
-                            board.exception( "Unable to create PDF file", ex );
-                            GUI.Box.Message.Error( "ERROR", "ERR_DOWNLOAD_PDF" );
-                        }
-                    };
-                }
-
-                board.toPDF( docPDF, handleCreatePDF( board ), function ( error ) { GUI.Box.Progress.Stop(); GUI.Box.Message.Error( "ERROR", error ); } );
-            };
-        }
-
-        PDF.Initialize( initializePDF( this ) );
+    /**
+     * Clear all cache values
+     */
+    clearWebixCache() {
+        this.debug( "Cleaning up the webix cache ..." );
     }
 
     /**
@@ -808,5 +884,9 @@ GUI.Board.Board = class extends GUI.GUI {
         this._icons = icons !== null && icons !== undefined ? icons : GUI.Board.BOARD_ICON + GUI.Board.BOARD_ADD + GUI.Board.BOARD_CANCEL + GUI.Board.BOARD_DELETE;
         this._webix = null;
         this._CSVColumns = null;
+        this._adjustWebixEnable = true;
+
+        this._csvFiles = {};
+        this._csvFilesSelections = [];
     }
 };

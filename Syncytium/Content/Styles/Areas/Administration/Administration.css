@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,84 +17,25 @@
 */
 
 /* ------------------------------------------------------------ */
-/* body > menu > ul > #users.button                             */
+/* body > menu > ul > #Users.button                             */
 /* ------------------------------------------------------------ */
 
-body > menu > ul > #users.button {
+body > menu > ul > #Users.button {
     background-image: url(../../../Images/Areas/Administration/Menu/Users.svg);
 }
 
 /* ------------------------------------------------------------ */
-/* body > menu > ul > #module.button                            */
+/* body > menu > ul > #Module.button                            */
 /* ------------------------------------------------------------ */
 
-body > menu > ul > #module.button {
+body > menu > ul > #Module.button {
     background-image: url(../../../Images/Areas/Administration/Menu/Module.svg);
 }
 
 /* ------------------------------------------------------------ */
-/* body > menu > ul > #stock.button                             */
+/* body > menu > ul > #Language.button                          */
 /* ------------------------------------------------------------ */
 
-body > menu > ul > #stock.button {
-    background-image: url(../../../Images/Areas/Administration/Menu/Stock.svg);
-}
-
-/* ------------------------------------------------------------ */
-/* body > menu > ul > #unit.button                              */
-/* ------------------------------------------------------------ */
-
-body > menu > ul > #unit.button {
-    background-image: url(../../../Images/Areas/Administration/Menu/Unit.svg);
-}
-
-/* ------------------------------------------------------------ */
-/* body > menu > ul > #language.button                          */
-/* ------------------------------------------------------------ */
-
-body > menu > ul > #language.button {
+body > menu > ul > #Language.button {
     background-image: url(../../../Images/Areas/Administration/Menu/Language.svg);
 }
-
-/* ------------------------------------------------------------ */
-/* body > main > sheet > buttons                                */
-/* ------------------------------------------------------------ */
-
-body > main > sheet > buttons {
-    height: 60px;
-    align-items: center;
-    width: 100%;
-}
-
-@media only screen and (max-height: 320px) {
-    body > main > sheet > buttons {
-        height: 30px;
-    }
-}
-
-@media only screen and (min-height: 321px) and (max-height: 400px) {
-    body > main > sheet > buttons {
-        height: 40px;
-    }
-}
-
-@media only screen and (max-width: 420px) {
-    body > main > sheet > buttons {
-        height: 80px;
-    }
-}
-
-/* ------------------------------------------------------------ */
-/* body > main > sheet > buttons > button                       */
-/* ------------------------------------------------------------ */
-
-body > main > sheet > buttons > button {
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-    height: 24px;
-    width: 180px;
-    font-weight: 500;
-    font-style: normal;
-}
-

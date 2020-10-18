@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,6 +34,22 @@ class Logger {
      */
     static get MAX_LINES() {
         return 100000;
+    }
+
+    /**
+     * True if the log is in all verbose mode
+     */
+    get IsVerboseAll() {
+        return this._isVerboseAll;
+    }
+
+    /**
+     * @param {boolean} value True if the log is set in all verbose mode
+     */
+    set IsVerboseAll( value ) {
+        this._isVerboseAll = value === true;
+        this._isVerbose = value === true;
+        this._isDebug = value === true;
     }
 
     /**
@@ -94,18 +110,18 @@ class Logger {
         if ( !this._logTable )
             return true;
 
-        var data = [];
+        let data = [];
 
         function handleReadLog( table, data ) {
             return function ( row ) {
-                var item = table.getItem( row );
+                let item = table.getItem( row );
                 data.push( item.id.toString().padEnd( 8, " " ) + " " + item.date + " [" + item.level + "] " + String.decode( item.module ).padEnd( 48, " " ) + " " + item.allDescription );
             };
         }
 
         this._logTable.eachRow( handleReadLog( this._logTable, data ) );
 
-        var urlBlob = new Blob( [data.join( '\n' )], { type: 'text/plain;charset=utf-8' } );
+        let urlBlob = new Blob( [data.join( '\n' )], { type: 'text/plain;charset=utf-8' } );
 
         // If we are replacing a previously generated file we need to
         // manually revoke the object URL to avoid memory leaks.
@@ -117,7 +133,7 @@ class Logger {
 
         // automatic launch the downloading file
 
-        var link = document.createElement( 'a' );
+        let link = document.createElement( 'a' );
         link.setAttribute( 'download', Logger.LOG_FILENAME );
         link.href = this._logFile;
         document.getElementById( "log" ).appendChild( link );
@@ -125,7 +141,7 @@ class Logger {
         // wait for the link to be added to the document
 
         window.requestAnimationFrame( function () {
-            var event = new MouseEvent( 'click' );
+            let event = new MouseEvent( 'click' );
             link.dispatchEvent( event );
             document.getElementById( "log" ).removeChild( link );
         } );
@@ -140,14 +156,14 @@ class Logger {
      * @param {any} message message to add into the log file
      */
     write ( level, module, message ) {
-        var newLine = { id: this._id, date: ( new Date() ).toISOString(), level: level, module: module, message: message };
+        let newLine = { id: this._id, date: ( new moment() ).format( "YYYY/MM/DD HH:mm:ss.SSS" ), level: level, module: module, message: message };
         this._id++;
 
         this.define();
 
         if ( this._isEnabled && this._logTable ) {
-            var allDescription = String.encode( newLine.message );
-            var description = null;
+            let allDescription = String.encode( newLine.message );
+            let description = null;
 
             if ( allDescription.length > 4096 )
                 description = allDescription.substring( 0, 4096 ) + "[...]";
@@ -170,10 +186,10 @@ class Logger {
             if ( item === null || item === undefined )
                 return;
 
-            var height = 1;
+            let height = 1;
 
-            for ( var i = 0; i < columns.length; i++ ) {
-                var config = logger._logTable.getColumnConfig( columns[i] );
+            for ( let column of Array.toIterable( columns ) ) {
+                let config = logger._logTable.getColumnConfig( column );
 
                 $( logger._logAdjustedZoneHTML ).css( 'width', config.width + "px" );
                 $( logger._logAdjustedZoneHTML ).css( 'height', "1px" );
@@ -206,10 +222,10 @@ class Logger {
             this._logAdjustedZoneHTML = this._logAdjustedZone.find( "> div > div > div > div > div" )[0];
         }
 
-        var columns = [];
+        let columns = [];
 
-        for ( var id in this._logTable.config.columns )
-            columns.push( this._logTable.config.columns[id].id );
+        for ( let column of Array.toIterable( this._logTable.config.columns ) )
+            columns.push( column.id );
 
         if ( rowId !== null && rowId !== undefined ) {
             processRow( this, columns, this._logTable.getItem( rowId ) );
@@ -379,6 +395,7 @@ class Logger {
      */
     warn ( module, message ) {
         this.write( "W", module, message );
+        console.warn( "[" + module + "] " + message );
     }
 
     /**
@@ -388,6 +405,7 @@ class Logger {
      */
     error ( module, message ) {
         this.write( "E", module, message );
+        console.error( "[" + module + "] " + message );
     }
 
     /**
@@ -396,17 +414,20 @@ class Logger {
      * @param {any} message message to add into the log file
      * @param {any} e       exception to log
      */
-    exception ( module, message, e ) {
-        if ( e.message )
-            message += " : " + e.message;
+    exception( module, message, e ) {
+        if ( e !== null && e !== undefined ) {
+            if ( e.message )
+                message += " : " + e.message;
 
-        if ( e.stack )
-            message += ' | stack: ' + e.stack;
+            if ( e.stack )
+                message += ' | stack: ' + e.stack;
 
-        if ( typeof e === "string" )
-            message += " : " + e;
+            if ( typeof e === "string" )
+                message += " : " + e;
+        }
 
         this.write( "E", module, message );
+        console.error( "[" + module + "] " + message );
     }
 
     /**
@@ -437,8 +458,8 @@ class Logger {
         let status = $( "header > ul > li.status" );
 
         status.unbind();
-        var cssClass = null;
-        var cssClasses = [ "starting", "started", "stopping", "stopped", "readytosynchronize" ];
+        let cssClass = null;
+        let cssClasses = [ "starting", "started", "stopping", "stopped", "readytosynchronize" ];
         switch ( message ) {
             case "Starting":
                 cssClass = "starting";
@@ -483,8 +504,8 @@ class Logger {
         }, function () {
             $( '.image.webix_tooltip' ).remove();
         } ).mousemove( function ( e ) {
-            var mousex = e.pageX + 10;
-            var mousey = e.pageY;
+            let mousex = e.pageX + 10;
+            let mousey = e.pageY;
             $( '.image.webix_tooltip' ).css( { top: mousey, left: mousex } );
         } );
     }
@@ -493,6 +514,7 @@ class Logger {
      * Constructor of the singleton
      */
     constructor() {
+        this._isVerboseAll = false;
         this._isVerbose = false;
         this._isDebug = false;
         this._isEnabled = false;

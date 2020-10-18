@@ -4,7 +4,7 @@
 /// <reference path="Box.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,20 +26,27 @@
  */
 UserRecord.Board = class extends GUI.Board.BoardTable {
     /**
+     * @returns {Array or String} Column and order to sort by default
+     */
+    get ColumnSortedByDefault() {
+        return "Login";
+    }
+
+    /**
      * Define the list of columns into the table
      */
     declareColumns () {
         function handleCloseUserAccount( board ) {
-            return function ( id, item, attribute ) {
-                var oldRecord = board.List.getItem( id, true );
+            return async function ( id, item, attribute ) {
+                let oldRecord = board.List.getItem( id, true );
                 if ( oldRecord === null )
                     return;
 
-                var currentUser = DSDatabase.Instance.CurrentUser;
+                let currentUser = DSDatabase.Instance.CurrentUser;
                 if ( currentUser !== null && currentUser.Id >= 0 && oldRecord.Id === currentUser.Id )
                     return;
 
-                var newRecord = DSRecord.Clone( oldRecord );
+                let newRecord = DSRecord.Clone( oldRecord );
                 if ( newRecord.EndDate === null )
                     newRecord.EndDate = new moment();
                 else
@@ -47,14 +54,14 @@ UserRecord.Board = class extends GUI.Board.BoardTable {
 
                 // notify the database that something has changed
 
-                board.updateItem( oldRecord, newRecord );
+                await board.updateItem( oldRecord, newRecord );
             };
         }
 
         // declare all columns
 
         this.declareColumn( "Enable", null, 2, 'center', ["Login", "Name", "WorkcentreOrSectionOrFactory", "Id"] );
-        this.declareColumn( "Picture", null, 3, 'center', false );
+        this.declareColumn( "Picture", null, 3, 'center', false, 20, 20 );
         this.declareColumn( "Login", "USER_LOGIN", 5, null, ["Name", "WorkcentreOrSectionOrFactory", "Id"] );
         this.declareColumn( "Name", "USER_NAME", 5, null, ["Login", "WorkcentreOrSectionOrFactory", "Id"] );
 
@@ -72,8 +79,7 @@ UserRecord.Board = class extends GUI.Board.BoardTable {
      */
     constructor( box, name, title, list ) {
         super( box, name, title ? title : "TITLE_USER", list ? list : new UserRecord.List( true ), GUI.Board.BOARD_ALL );
-        this.setVisible( GUI.Board.BOARD_ICON + GUI.Board.BOARD_CANCEL, false );
-        this.Help = Area.HTTP_ROOT_DOCUMENTATION + "module-d-administration/gestion-des-utilisateurs";
+        this.setVisible(GUI.Board.BOARD_ICON + GUI.Board.BOARD_HELP + GUI.Board.BOARD_CANCEL, false );
         this.draw();
     }
 };

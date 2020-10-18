@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ GUI.Field.FieldInput = class extends GUI.Field.Field {
     onOpen() {
         function handleChangeValue( field ) {
             return function () {
-                var currentValue = $( this ).val();
+                let currentValue = $( this ).val();
                 field._value = currentValue; // avoid to raise again the changing values
 
                 if ( field._maxLength !== null ) {
@@ -95,37 +95,33 @@ GUI.Field.FieldInput = class extends GUI.Field.Field {
                 // Add a throttling on changing the value of the field
 
                 clearTimeout( field._throttle );
-                field._throttle = setTimeout( function () {
-                    field.raise( 'change' );
-                }, 300 );
+                field._throttle = setTimeout( () => { field.raise( 'change' ); }, 300 );
             };
         }
 
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
+                    case "Enter":
                         if ( field._allowRC ) {
                             GUI.Box.BOX_RC = true;
                             return;
                         }
 
-                        event.preventDefault();
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
                 }
@@ -181,7 +177,7 @@ GUI.Field.FieldInput = class extends GUI.Field.Field {
         if ( this.Component === null )
             return;
 
-        var element = this.FieldZone.find( this._type );
+        let element = this.FieldZone.find( this._type );
 
         element.prop( 'disabled', this.Readonly );
         element.val( String.isEmptyOrWhiteSpaces( this._value ) ? "" : this._value.toString() );

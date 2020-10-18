@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ GUI.Box.BoxChoice = class extends GUI.Box.Box {
             };
         }
 
-        var container = this.ContentZone;
+        let container = this.ContentZone;
         if ( container === null )
             return;
 
@@ -51,18 +51,19 @@ GUI.Box.BoxChoice = class extends GUI.Box.Box {
 
         this.clearFocus();
         this.clearButtons();
-        for ( var choice in choices ) {
-            var currentChoice = choices[choice];
 
-            if ( currentChoice === null || currentChoice === undefined ||
-                currentChoice.label === null || currentChoice.label === undefined ||
-                currentChoice.fn === null || currentChoice.fn === undefined )
+        let i = 0;
+        for ( let choice of choices ) {
+            if ( choice === null || choice === undefined ||
+                choice.label === null || choice.label === undefined ||
+                choice.fn === null || choice.fn === undefined )
                 continue;
 
-            this.debug( "Choice (" + choice.toString() + ") -> " + Language.Manager.Instance.interpolation( Helper.Label( currentChoice.label ) ) );
+            this.debug( "Choice (" + i + ") -> " + Language.Manager.Instance.interpolation( Helper.Label( choice.label ) ) );
 
-            let newButton = this.declareButton( "Choice_" + choice.toString(), currentChoice.label );
-            newButton.Action = handleSelectChoice( this, choice, currentChoice.fn );
+            let newButton = this.declareButton( "Choice_" + i, choice.label );
+            newButton.Action = handleSelectChoice( this, i, choice.fn );
+            i++;
         }
 
         // Add Cancel button
@@ -106,11 +107,13 @@ GUI.Box.BoxChoice = class extends GUI.Box.Box {
         if ( !this._boxChoices )
             this._boxChoices = new GUI.Box.BoxChoice( "choices" );
 
-        this._boxChoices.Title = title;
-        this._boxChoices.Message = message;
-        this._boxChoices.Choices = choices;
-        this._boxChoices.Error = null;
+        if ( !this._boxChoices.IsOpened ) {
+            this._boxChoices.Title = title;
+            this._boxChoices.Message = message;
+            this._boxChoices.Choices = choices;
+            this._boxChoices.Error = null;
 
-        this._boxChoices.open();
+            this._boxChoices.open();
+        }
     }
 };

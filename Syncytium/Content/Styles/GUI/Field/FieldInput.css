@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,19 +30,19 @@ field.field_input > .value > .field > .unit {
 }
 
 field.field_input > .value > .field > input {
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     font-size: 14px;
     width: calc(100% - 10px);
     line-height: 1;
     height: 16px;
-    background: #ffffff;
+    background: #eeeeee;
     color: #000000;
     padding: 0 4px 0 4px;
     margin: 0;
 }
 
 field.field_input > .value > .field > input[type="text"]:focus {
-    border-color: #33cc33;
+    border-color: var(--syncytium-color-border-focus);
     background: #f4f4f4;
 }
 
@@ -73,7 +73,7 @@ field.field_input > .value > .field > input[type="text"]:disabled {
 }
 
 field.field_input.error > .value > .field > input {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-error);
 }
 
 /* ------------------------------------------------------------ */
@@ -85,12 +85,12 @@ field.field_textarea > .value > .field {
 }
 
 field.field_textarea > .value > .field > textarea {
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     font-size: 14px;
     width: calc(100% - 10px);
     height: 10vh;
     line-height: 16px;
-    background: #ffffff;
+    background: #eeeeee;
     color: #000000;
     resize: vertical;
     padding: 0 4px 0 4px;
@@ -98,7 +98,7 @@ field.field_textarea > .value > .field > textarea {
 }
 
 field.field_textarea > .value > .field > textarea:focus {
-    border-color: #33cc33;
+    border-color: var(--syncytium-color-border-focus);
     background: #f4f4f4;
 }
 
@@ -126,5 +126,5 @@ field.field_textarea > .value > .field > textarea:disabled {
 }
 
 field.field_textarea.error > .value > .field > input {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-error);
 }

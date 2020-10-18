@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -102,17 +102,17 @@ List.ListArrayRecord = class extends List.ListArray {
      * @param {any} fn function to call on each record
      */
     each( fn ) {
-        for ( var id in this._array )
-            fn( this._array[id] );
+        for ( let item of Array.toIterable( this._array ) )
+            fn( item );
     }
 
     /**
      * @returns {any} list of values
      */
     getList() {
-        var data = [];
-        for ( var id in this._array )
-            data.push( this._array[id] );
+        let data = [];
+        for ( let item of Array.toIterable( this._array ) )
+            data.push( item );
         return data;
     }
 
@@ -132,8 +132,11 @@ List.ListArrayRecord = class extends List.ListArray {
         if ( typeof item === "string" || typeof item === "number" || typeof item === "boolean" )
             return item;
 
-        if ( item._id !== undefined )
+        if (item._id !== undefined)
             return item._id;
+
+        if (item.Id !== undefined && item.Id > 0)
+            return item.Id;
 
         return null;
     }
@@ -146,7 +149,7 @@ List.ListArrayRecord = class extends List.ListArray {
      * @returns {any} item or null
      */
     getItem( id, force ) {
-        var item = this._array[id];
+        let item = this._array[id];
         return item ? DSRecord.Clone( item ) : null;
     }
 
@@ -157,6 +160,15 @@ List.ListArrayRecord = class extends List.ListArray {
      */
     getText( item ) {
         return this._listRecord.getText( item );
+    }
+
+    /**
+     * Retrieve the key of an item (for example : Cle, Name, ... )
+     * @param {any} item record containing the id to retrieve
+     * @returns {string} key of the record
+     */
+    getKey( item ) {
+        return this._listRecord.getKey( item );
     }
 
     /**
@@ -218,6 +230,16 @@ List.ListArrayRecord = class extends List.ListArray {
     }
 
     /**
+     * Get the text of an attribute exported into a CSV file
+     * @param {any} item record containing the attribute to look for
+     * @param {any} attribute property to retrieve
+     * @returns {string} a string representing the value of the field
+     */
+    getAttributCSV( item, attribute ) {
+        return this._listRecord.getAttributCSV( item, attribute );
+    }
+
+    /**
      * Check if the element attached to the attribute is deleted or not (show if the reference is deleted)
      * @param {any} item record containing the attribute to look for
      * @param {any} attribute property to retrieve
@@ -253,7 +275,61 @@ List.ListArrayRecord = class extends List.ListArray {
      * @returns {any} null
      */
     checkItem ( item, errors, force ) {
-        return this._listRecord.checkItem ( item, errors, force );
+        let result = this._listRecord.checkItem( item, errors, force );
+
+        if ( Helper.IsLabel( result ) )
+            return result;
+
+        if ( errors.HasError )
+            return errors;
+
+        // Check if the unicity is respected on this table
+
+        if ( item._table === null || item._table === undefined || item._parent === null || item._parent === undefined )
+            return result;
+
+        // Record is not updated into the database
+
+        let parent = item._parent;
+        let listItems = parent[item._list.property];
+        let table = DSDatabase.Instance.Tables[item._table];
+
+        for ( let attribute in table._columnsByName ) {
+            let column = table._columns[table._columnsByName[attribute]];
+            let unique = column.Unique;
+            if ( unique === null )
+                continue;
+
+            // Check into the list attached to the item already contains an existing item
+
+            let isEqual = false;
+            for ( let listItem of Array.toIterable( listItems ) ) {
+                if ( listItem._id === item._id )
+                    continue;
+
+                isEqual = true;
+
+                for ( let property of Array.toIterable( unique.Fields ) ) {
+                    if ( !DSRecord.IsEqualValue( item[property], listItem[property] ) ) {
+                        isEqual = false;
+                        break;
+                    }
+                }
+
+                if ( isEqual )
+                    break;
+            }
+
+            if ( isEqual ) {
+                Logger.Instance.error( "ListArrayRecord", "The value '" + item[attribute] + "' already exists for the column '" + attribute + "'" );
+                errors.addField( column.Property, unique.Error, ["{" + column.Field + "}"] );
+            }
+        }
+
+        if ( errors.HasError )
+            return errors;
+
+        return result;
     }
 
     /**
@@ -279,7 +355,7 @@ List.ListArrayRecord = class extends List.ListArray {
 
         // check properties
 
-        var confirmation = this.checkItem( newItem, errors, force );
+        let confirmation = this.checkItem( newItem, errors, force );
 
         if ( errors.HasError )
             return errors;
@@ -289,13 +365,11 @@ List.ListArrayRecord = class extends List.ListArray {
 
         // add the item into the list
 
-        this._array[newItem._id] = newItem;
+        this._array[this.getId(newItem)] = newItem;
 
         // notify to the board that a new item is available
 
-        var event = this.getEvent( "onCreate" );
-        if ( event )
-            event( "onCreate", this.Table, newItem.Id, newItem );
+        this.raise("onCreate", this.Table, this.getId(newItem), newItem );
 
         return newItem;
     }
@@ -325,7 +399,7 @@ List.ListArrayRecord = class extends List.ListArray {
 
         // check properties
 
-        var confirmation = this.checkItem( newItem, errors, force );
+        let confirmation = this.checkItem( newItem, errors, force );
 
         if ( errors.HasError )
             return errors;
@@ -335,13 +409,11 @@ List.ListArrayRecord = class extends List.ListArray {
 
         // update the item into the list
 
-        this._array[newItem._id] = newItem;
+        this._array[this.getId(newItem)] = newItem;
 
         // notify to the board that a new item is available
 
-        var event = this.getEvent("onUpdate");
-        if ( event )
-            event( "onUpdate", this.Table, newItem.Id, oldItem, newItem );
+        this.raise("onUpdate", this.Table, this.getId(newItem), oldItem, newItem );
 
         return newItem;
     }
@@ -356,19 +428,17 @@ List.ListArrayRecord = class extends List.ListArray {
     deleteItem ( id, oldItem, errors ) {
         // check if the item is described into the list
 
-        var item = this._array[oldItem._id];
+        let item = this._array[this.getId(oldItem)];
         if ( !item )
             return;
 
         // remove the item from the list
 
-        delete this._array[oldItem._id];
+        delete this._array[this.getId(oldItem)];
 
         // notify to the board that an item is removed
 
-        var event = this.getEvent("onDelete");
-        if ( event )
-            event( "onDelete", this.Table, item.Id, item );
+        this.raise("onDelete", this.Table, this.getId(item), item );
 
         return item;
     }
@@ -491,6 +561,212 @@ List.ListArrayRecord = class extends List.ListArray {
      */
     isBoardAllowed( board, user, event, item ) {
         return this._listRecord.isBoardAllowed( board, user, event, item );
+    }
+
+    /**
+     * Notify the beginning of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data from a file can start
+     */
+    startCSV( csv, errors ) {
+        this._listRecord.CSVList = this._array;
+        return this._listRecord.startCSV( csv, errors );
+    }
+
+    /**
+     * Retrieve the number of rows to delete concerned by the importing
+     * @param {any} csv CSV file to import
+     * @returns {integer} the number of rows into the table before importing data
+     */
+    getRowToDeleteCSV( csv ) {
+        return this._listRecord.getRowToDeleteCSV( csv );
+    }
+
+    /**
+     * Notify the beginning of preloading the content of files
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data must be done, or false to skip this step
+     */
+    startPreloadingCSV( csv, errors ) {
+        return this._listRecord.startPreloadingCSV( csv, errors );
+    }
+
+    /**
+     * Preload the content of the row (in case of multiple csv files ... All files must be loaded before checking or updating data)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data must be continued or false, to stop
+     */
+    preloadRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        return this._listRecord.preloadRecordFromCSV( csv, columnsByOrder, columnsByName, errors );
+    }
+
+    /**
+     * Notify the ending of preloading the content of files
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data is correct, or stop reading CSV file
+     */
+    endPreloadingCSV( csv, errors ) {
+        return this._listRecord.endPreloadingCSV( csv, errors );
+    }
+
+    /**
+     * Notify the beginning of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be done, or false to skip this step
+     */
+    startCheckingCSV( csv, errors ) {
+        return this._listRecord.startCheckingCSV( csv, errors );
+    }
+
+    /**
+     * Check the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be continued or false, to stop
+     */
+    checkRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        return this._listRecord.checkRecordFromCSV( csv, columnsByOrder, columnsByName, errors );
+    }
+
+    /**
+     * Notify the ending of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data is correct, or stop reading CSV file
+     */
+    endCheckingCSV( csv, errors ) {
+        return this._listRecord.endCheckingCSV( csv, errors );
+    }
+
+    /**
+     * Notify the beginning of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data must be done, or false to skip this step
+     */
+    startImportingCSV( csv, errors ) {
+        return this._listRecord.startImportingCSV( csv, errors );
+    }
+
+    /**
+     * Build a record within data ready to add into the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {oldItem, newItem} record to add, update or delete (on depends on values into the element) - null if the line must be ignored
+     */
+    getRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        return this._listRecord.getRecordFromCSV( csv, columnsByOrder, columnsByName, errors );
+    }
+
+    /**
+     * Start a transaction of update
+     * @param {CSV} csv CSV file to import
+     */
+    beginTransactionCSV( csv ) {
+        // nothing to do in an array ... no data to update into the database
+    }
+
+    /**
+     * Close a transaction of update
+     * @param {CSV} csv CSV file to import
+     */
+    endTransactionCSV( csv ) {
+        // nothing to do in an array ... no data to update into the database
+    }
+
+    /**
+     * Add a new item into the database and return the item created (included compositions of the item) - call done by CSV
+     * @param {CSV} csv CSV file to import
+     * @param {any} newItem item to add
+     * @param {any} errors container of errors after adding
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} new item added into the list or errors
+     */
+    addItemCSV( csv, newItem, errors, force, checkItem ) {
+        // Update the array of items
+        return this.addItem( newItem, errors, force, checkItem );
+    }
+
+    /**
+     * Update an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record updated
+     * @param {any} oldItem item to update
+     * @param {any} newItem item updated
+     * @param {any} errors container of errors after updating
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item updated into the list or errors
+     */
+    updateItemCSV( csv, id, oldItem, newItem, errors, force, checkItem ) {
+        // Update the array of items
+        return this.updateItem( id, oldItem, newItem, errors, force, checkItem );
+    }
+
+    /**
+     * Remove an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record removed
+     * @param {any} oldItem item to remove
+     * @param {any} errors container of errors after updating
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item deleted or errors
+     */
+    deleteItemCSV( csv, id, oldItem, errors, checkItem ) {
+        // Update the array of items
+        return this.deleteItem( id, oldItem, errors, checkItem );
+    }
+
+    /**
+     * Get the list of records to delete into the table after updating list
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to delete
+     */
+    getItemsToDeleteCSV( csv, errors ) {
+        return this._listRecord.getItemsToDeleteCSV( csv, errors );
+    }
+
+    /**
+     * Get the list of records to update at the end of updating table (change the key values)
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to update [0: old, 1: new]
+     */
+    getItemsToPostUpdateCSV( csv, errors ) {
+        return this._listRecord.getItemsToPostUpdateCSV( csv, errors );
+    }
+
+    /**
+     * Notify the ending of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data is correct, or stop reading CSV file
+     */
+    endImportingCSV( csv, errors ) {
+        return this._listRecord.endImportingCSV( csv, errors );
+    }
+
+    /**
+     * Notify the ending of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} details of errors identified on ending the CSV file
+     */
+    endCSV( csv, errors ) {
+        return this._listRecord.endCSV( csv, errors );
     }
 
     /**

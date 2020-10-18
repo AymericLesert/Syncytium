@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -69,44 +69,62 @@ GUI.Button.Button = class extends GUI.GUI {
      */
     onOpen() {
         function handleClick( button ) {
-            return function () {
+            return async function () {
+                function handleClose( button ) {
+                    return function ( result ) {
+                        if ( typeof result === "boolean" ) {
+                            if ( result && button.Box !== null )
+                                button.Box.close();
+                            return;
+                        }
+
+                        if ( typeof result === "string" || result instanceof Errors ) {
+                            if ( button.Box !== null )
+                                button.Box.Error = result;
+                            return;
+                        }
+
+                        if ( button.Box !== null )
+                            button.Box.close();
+                    };
+                }
+
                 if ( button.Readonly )
                     return;
 
-                try {
-                    if ( button._action === null ) {
-                        if ( button.Box !== null )
-                            button.Box.close();
-                        return;
-                    }
-
-                    var value = null;
-
-                    if ( button.Box !== null && !String.isEmptyOrWhiteSpaces( button.Box.Value ) ) {
-                        value = button.Box.Value;
-                        let result = button.Box.checkValue( value );
-                        if ( result !== true ) {
-                            button.Box.Error = result;
-                            return;
-                        }
-                    }
-
-                    var result = button.Box === null ? button._action() : button._action( value );
-
-                    if ( typeof result === "boolean" ) {
-                        if ( result && button.Box !== null )
-                            button.Box.close();
-                        return;
-                    }
-
-                    if ( typeof result === "string" || result instanceof Errors ) {
-                        if ( button.Box !== null )
-                            button.Box.Error = result;
-                        return;
-                    }
-
+                if ( button._action === null ) {
                     if ( button.Box !== null )
                         button.Box.close();
+                    return;
+                }
+
+                let value = undefined;
+
+                if ( button.Box !== null && !String.isEmptyOrWhiteSpaces( button.Box.Value ) ) {
+                    let result = null;
+
+                    try {
+                        value = button.Box.Value;
+                        result = button.Box.checkValue( value );
+                    } catch ( e ) {
+                        button.exception( "Unexpected error on clicking", e );
+                        if ( button.Box !== null )
+                            button.Box.Error = "ERR_EXCEPTION_UNEXPECTED";
+                    }
+
+                    if ( result !== true ) {
+                        button.Box.Error = result;
+                        return;
+                    }
+                }
+
+                if ( button._action.constructor.name === "AsyncFunction" ) {
+                    await button._action( value ).then( handleClose( button ) );
+                    return;
+                }
+
+                try {
+                    handleClose( button )( button.Box === null ? button._action() : button._action( value ) );
                 } catch ( e ) {
                     button.exception( "Unexpected error on clicking", e );
                     if ( button.Box !== null )
@@ -127,25 +145,23 @@ GUI.Button.Button = class extends GUI.GUI {
 
         function handleKeydown( button ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             button.previousFocus();
                         else
                             button.nextFocus();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         button.onButtonCancel();
                         return false;
 
-                    case 13:
-                    case 32:
-                        event.preventDefault();
+                    case "Enter":
+                    case " ":
+                        event.stopImmediatePropagation();
                         button.onMouseClick();
                         return false;
                 }
@@ -180,7 +196,7 @@ GUI.Button.Button = class extends GUI.GUI {
 
         // set label
 
-        var value = Helper.Span( this._label );
+        let value = Helper.Span( this._label );
 
         if ( String.isEmptyOrWhiteSpaces( value ) ) {
             this.Component.html( "" );

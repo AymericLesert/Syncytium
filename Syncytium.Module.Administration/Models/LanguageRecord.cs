@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@ namespace Syncytium.Module.Administration.Models
     /// Describe the multi lingual ressources
     /// </summary>
     [Table("Language")]
-    [DSRestricted(Area = DatabaseContext.AREA_NAME, Action = "Update", Profile = UserProfile.EUserProfile.Administrator)]
+    [DSLot(Capacity = 2048)]
+    [DSRestricted(Area = "*", Action = "Update", Profile = UserProfile.EUserProfile.Administrator)]
     [DSRestricted(Area = "*", Action = "Read")]
     public class LanguageRecord : DSRecordWithCustomerId
     {
@@ -46,6 +47,12 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         [DSString(Max = 1024)]
         public string FR { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Translate in English
+        /// </summary>
+        [DSString(Max = 1024)]
+        public string EN { get; set; } = string.Empty;
 
         /// <summary>
         /// Comment describing the message (in case of parameters for example)

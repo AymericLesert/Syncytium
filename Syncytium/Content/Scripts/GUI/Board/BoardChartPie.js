@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -54,8 +54,8 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         this._values = {};
         this._indicator = {};
 
-        for ( var i in this.Legends ) {
-            var newData = { id: i, value: 0, color: this.Legends[i].color, percentage: 0 };
+        for ( let i in this.Legends ) {
+            let newData = { id: i, value: 0, color: this.Legends[i].color, percentage: 0 };
 
             this._data.push( newData );
             this._values[this.Legends[i].id] = newData;
@@ -76,10 +76,10 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
     }
 
     /**
-     * Populate the webix object
+     * Populate the webix object on async mode
      */
-    populateWebix () {
-        var i = 0;
+    async populateWebix() {
+        let i = 0;
 
         function handleRead( board ) {
             return function ( record ) {
@@ -87,7 +87,7 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
             };
         }
 
-        super.populateWebix();
+        await super.populateWebix();
 
         this._indicator = this.newIndicator();
         this.List.each( handleRead( this ) );
@@ -97,15 +97,15 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
 
         // compute the percentage
 
-        var total = 0;
+        let total = 0;
         for ( i = 0; i < this._data.length; i++ )
             total += this._data[i].value;
 
-        var currentTotal = 0;
+        let currentTotal = 0;
         for ( i = 0; i < this._data.length; i++ ) {
             if ( this._data[i].value > 0 ) {
                 currentTotal += this._data[i].value;
-                this._data[i].percentage = ( Math.ceil( currentTotal * 100 / total ) - Math.ceil(( currentTotal - this._data[i].value ) * 100 / total ) ).toString();
+                this._data[i].percentage = ( Math.ceil( currentTotal * 100 / total ) - Math.ceil( ( currentTotal - this._data[i].value ) * 100 / total ) ).toString();
             } else {
                 this._data[i].percentage = "0";
             }
@@ -116,13 +116,13 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
     /**
      * Adjust the webix tool into the board
      */
-    adjustWebix () {
+    async adjustWebix() {
         if ( this.Webix === null )
             return;
 
-        var tableZone = this.TableZone;
-        var width = tableZone.width();
-        var height = tableZone.height();
+        let tableZone = this.TableZone;
+        let width = tableZone.width();
+        let height = tableZone.height();
 
         this.Webix.config.width = width;
         this.Webix.config.height = height;
@@ -131,7 +131,7 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         this.Webix.config.radius = ( width < height ? width : height ) / 2 - 5;
         this.Webix.resize();
 
-        super.adjustWebix();
+        await super.adjustWebix();
     }
 
     /**
@@ -143,7 +143,7 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         if ( this._values[legend] === null || this._values[legend] === undefined )
             return;
 
-        var newValue = 0;
+        let newValue = 0;
 
         if ( typeof value === "string" )
             newValue = String.parseFloat( value );
@@ -164,10 +164,10 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
      * @param {any} indicatorToSub indicator substracted to the indicator
      * @param {any} adjust         true if the chart must be adjusted or not
      */
-    updateIndicator ( indicatorToAdd, indicatorToSub, adjust ) {
-        var update = false;
-        var i = null;
-        var inc = null;
+    async updateIndicator ( indicatorToAdd, indicatorToSub, adjust ) {
+        let update = false;
+        let i = null;
+        let inc = null;
 
         adjust = adjust === null || adjust === undefined || adjust;
 
@@ -202,8 +202,8 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         }
 
         if ( update && adjust ) {
-            this.populateWebix();
-            this.adjustWebix();
+            await this.populateWebix();
+            await this.adjustWebix();
         }
     }
 
@@ -212,17 +212,17 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
      */
     onOpen () {
         function handleLoad( board ) {
-            return function () {
+            return async function () {
                 board.refresh();
-                board.populateWebix();
-                board.adjustWebix();
+                await board.populateWebix();
+                await board.adjustWebix();
             };
         }
 
         function handleRecord( board ) {
             return function ( event, table, id, oldRecord, newRecord ) {
-                var newIndicator = null;
-                var oldIndicator = null;
+                let newIndicator = null;
+                let oldIndicator = null;
 
                 switch ( event ) {
                     case "onCreate":
@@ -275,19 +275,19 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
     drawCanvas ( canvas, context ) {
         // Sum all values
 
-        var i = 0;
-        var total = 0;
+        let i = 0;
+        let total = 0;
         for ( i = 0; i < this._data.length; i++ )
             total += this._data[i].value;
 
         // Draw the pie
 
-        var radius = ( canvas.height > canvas.width / 2 ? canvas.width / 2 : canvas.height ) / 2;
-        var centerX = radius;
-        var centerY = radius;
+        let radius = ( canvas.height > canvas.width / 2 ? canvas.width / 2 : canvas.height ) / 2;
+        let centerX = radius;
+        let centerY = radius;
 
         if ( total > 0 ) {
-            var currentAngle = 1.5 * Math.PI;
+            let currentAngle = 1.5 * Math.PI;
             for ( i = 0; i < this._data.length; i++ ) {
                 context.fillStyle = this._data[i].color;
                 context.beginPath();
@@ -306,11 +306,11 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
                 currentAngle += Math.PI * 2 * ( this._data[i].value / total );
 
                 if ( this._data[i].value > 0 ) {
-                    var relativeX = radius * 0.5 * Math.cos( currentAngle - Math.PI * 2 * ( this._data[i].value / total ) / 2 );
-                    var relativeY = radius * 0.5 * Math.sin( currentAngle - Math.PI * 2 * ( this._data[i].value / total ) / 2 );
+                    let relativeX = radius * 0.5 * Math.cos( currentAngle - Math.PI * 2 * ( this._data[i].value / total ) / 2 );
+                    let relativeY = radius * 0.5 * Math.sin( currentAngle - Math.PI * 2 * ( this._data[i].value / total ) / 2 );
 
-                    context.font = "22px Arial";
-                    context.fillStyle = "#ffffff";
+                    context.font = "22px var(--syncytium-font)";
+                    context.fillStyle = "#eeeeee";
                     context.textAlign = "center";
                     context.fillText( this._data[i].percentage, centerX + relativeX, centerY + relativeY );
                 }
@@ -318,12 +318,12 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         } else {
             // get the default color
 
-            var defaultBodyColor = String.parseRGBToHEX( $( "body" ).css( 'color' ) );
+            let defaultBodyColor = String.parseRGBToHEX( $( "body" ).css( 'color' ) );
 
-            var div = $( "<webix id='" + this.Name + "' class='default_color'></webix>" );
+            let div = $( "<webix id='" + this.Name + "' class='default_color'></webix>" );
             if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
                 div.addClass( this.CSSClass );
-            var element = div.appendTo( "body" );
+            let element = div.appendTo( "body" );
             context.fillStyle = String.parseRGBToHEX( div.css( 'color' ) );
             element.remove();
 
@@ -336,23 +336,23 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
         if ( this.Legends.length > 0 ) {
             // Show the legends (max 12 elements)
 
-            var boxWidth = canvas.width / 4;
-            var boxHeight = canvas.height / 6;
+            let boxWidth = canvas.width / 4;
+            let boxHeight = canvas.height / 6;
 
-            var nbLines = Math.ceil( this.Legends.length / 2 );
+            let nbLines = Math.ceil( this.Legends.length / 2 );
 
-            var startX = canvas.width / 2;
-            var startY = ( canvas.height - nbLines * boxHeight ) / 2;
+            let startX = canvas.width / 2;
+            let startY = ( canvas.height - nbLines * boxHeight ) / 2;
 
             for ( i = 0; i < this.Legends.length; i++ ) {
-                var value = this._values[this.Legends[i].id].value;
+                let value = this._values[this.Legends[i].id].value;
 
-                var legendX = startX + i % 2 * boxWidth;
-                var legendY = startY + Math.floor( i / 2 ) * boxHeight;
+                let legendX = startX + i % 2 * boxWidth;
+                let legendY = startY + Math.floor( i / 2 ) * boxHeight;
 
-                var legendRadius = boxHeight / 2;
-                var legendCenterX = legendX + legendRadius + legendRadius * 0.4;
-                var legendCenterY = legendY + legendRadius;
+                let legendRadius = boxHeight / 2;
+                let legendCenterX = legendX + legendRadius + legendRadius * 0.4;
+                let legendCenterY = legendY + legendRadius;
 
                 context.fillStyle = this.Legends[i].color;
                 context.beginPath();
@@ -361,7 +361,7 @@ GUI.Board.BoardChartPie = class extends GUI.Board.BoardChart {
                 context.lineTo( legendCenterX, legendCenterY );
                 context.fill();
 
-                context.font = "20px Arial";
+                context.font = "20px var(--syncytium-font)";
                 context.fillStyle = "#666666";
                 context.textAlign = "left";
                 context.fillText( Language.Manager.Instance.interpolation( this.Legends[i].label ) + " (" + value.toString() + ")", legendX + 2 * legendRadius, legendY + boxHeight / 2 + 7 );

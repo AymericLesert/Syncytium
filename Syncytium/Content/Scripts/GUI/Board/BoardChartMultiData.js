@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
     createChart () {
         function handleOnMouseMove( board ) {
             return function ( id, event ) {
-                var value = board.getTooltip( board.Webix.getItem( id ), "label" );
+                let value = board.getTooltip( board.getItem( id ), "label" );
                 if ( String.isEmptyOrWhiteSpaces( value ) )
                     return;
                 GUI.Webix.Tooltip.Instance.show( value, event );
@@ -70,9 +70,9 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
             };
         }
 
-        var maxValue = this._maxValue ? this._maxValue : this._nbSteps;
+        let maxValue = this._maxValue ? this._maxValue : this._nbSteps;
 
-        var chart = {
+        let chart = {
             view: "chart",
             type: this._chartType,
             css: "webix_board_line",
@@ -107,21 +107,17 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
      * @returns {any} Webix object representing the board
      */
     drawWebix ( container ) {
-        var i = null;
-
         this._series = [];
 
         // retrieve the width of the line
 
-        for ( i in this.Legends ) {
-            let legend = this.Legends[i];
-
+        for ( let legend of this.Legends ) {
             let div = $( "<webix id='" + this.Name + "' class='color_" + legend.id + "'></webix>" );
             if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
                 div.addClass( this.CSSClass );
             let element = div.appendTo( "body" );
 
-            var width = parseInt( div.css( 'width' ) );
+            let width = parseInt( div.css( 'width' ) );
             if ( width < 1 ) width = 1;
 
             element.remove();
@@ -133,8 +129,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         // Build the series
         // Notes : Webix has an issue about the multiview dataset. The series must start within the type of the chart. Else, webix doesn't take into account the color!
 
-        for ( i in this.Legends ) {
-            let legend = this.Legends[i];
+        for ( let legend of this.Legends ) {
             if ( legend.type !== this._chartType )
                 continue;
 
@@ -148,8 +143,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
             }
         }
 
-        for ( i in this.Legends ) {
-            let legend = this.Legends[i];
+        for ( let legend of this.Legends ) {
             if ( legend.type === this._chartType )
                 continue;
 
@@ -167,10 +161,10 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
     }
 
     /**
-     * Adjust the webix tool into the board
+     * Adjust the webix tool into the board (async mode)
      * @param {boolean} force true if the Webix component must be adjusted (false by default)
      */
-    adjustWebix ( force ) {
+    async adjustWebix( force ) {
         force = force === null || force === undefined ? false : force;
 
         if ( this.Webix === null )
@@ -178,11 +172,11 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
 
         // handle the resizing on the chart
 
-        var maxValue = 0;
-        for ( var i = 0; i < this._data.length; i++ ) {
-            for ( var j = 0; j < this.Legends.length; j++ ) {
-                if ( maxValue < this._data[i][this.Legends[j].id] )
-                    maxValue = Math.ceil( this._data[i][this.Legends[j].id] / this._nbSteps ) * this._nbSteps;
+        let maxValue = 0;
+        for ( let data of this._data ) {
+            for ( let legend of this.Legends ) {
+                if ( maxValue < data[legend.id] )
+                    maxValue = Math.ceil( data[legend.id] / this._nbSteps ) * this._nbSteps;
             }
         }
 
@@ -191,9 +185,9 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
             this.Webix = this.createChart();
         }
 
-        var tableZone = this.TableZone;
-        var width = tableZone.width();
-        var height = tableZone.height();
+        let tableZone = this.TableZone;
+        let width = tableZone.width();
+        let height = tableZone.height();
 
         this.Webix.config.width = width;
         this.Webix.config.height = height;
@@ -201,7 +195,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         this.Webix.config.y = height / 10;
         this.Webix.resize();
 
-        super.adjustWebix();
+        await super.adjustWebix();
     }
 
     /**
@@ -223,9 +217,9 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         if ( this._values[value] !== undefined )
             return;
 
-        var newValue = { id: this._data.length, abscissa: value, label: label };
-        for ( var i = 0; i < this.Legends.length; i++ )
-            newValue[this.Legends[i].id] = 0;
+        let newValue = { id: this._data.length, abscissa: value, label: label };
+        for ( let legend of this.Legends )
+            newValue[legend.id] = 0;
 
         this._data.push( newValue );
         this._values[value] = newValue;
@@ -244,7 +238,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         if ( this._values[abscissa][legend] === null || this._values[abscissa][legend] === undefined )
             return;
 
-        var newValue = 0;
+        let newValue = 0;
 
         if ( typeof value === "string" )
             newValue = String.parseFloat( value );
@@ -266,13 +260,13 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
      * @param {any} context conext 2D of the canvas
      */
     drawCanvas ( canvas, context ) {
-        var i = 0;
-        var j = 0;
-        var k = 0;
+        let i = 0;
+        let j = 0;
+        let k = 0;
 
         // handle the resizing on the chart
 
-        var maxValue = this._nbSteps;
+        let maxValue = this._nbSteps;
         for ( i = 0; i < this._data.length; i++ ) {
             for ( j = 0; j < this.Legends.length; j++ ) {
                 if ( maxValue < this._data[i][this.Legends[j].id] )
@@ -282,24 +276,24 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
 
         // set properties
 
-        var sizeFont = 16;
-        var sizeFontLegend = 20;
+        let sizeFont = 16;
+        let sizeFontLegend = 20;
 
-        var width = canvas.width * 0.95;
-        var height = Math.ceil( canvas.height * 0.7 );
+        let width = canvas.width * 0.95;
+        let height = Math.ceil( canvas.height * 0.7 );
 
-        var originX = canvas.width - width;
-        var originY = height;
+        let originX = canvas.width - width;
+        let originY = height;
 
-        var offsetX = 0;
-        var stepX = 0;
-        var stepY = 0;
-        var barWidthX = 0;
+        let offsetX = 0;
+        let stepX = 0;
+        let stepY = 0;
+        let barWidthX = 0;
 
         context.translate( 0.5, 6.5 );
 
         if ( this._data.length > 0 && this.Legends.length > 0 ) {
-            var nbBars = 0;
+            let nbBars = 0;
 
             for ( i = 0; i < this.Legends.length; i++ ) {
                 if ( this.Legends[i].type === GUI.Board.BoardChartMultiData.BAR )
@@ -325,7 +319,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
 
                 context.fillStyle = this.Legends[i].color;
                 for ( j = 0; j < this._data.length; j++ ) {
-                    var value = this._data[j][this.Legends[i].id];
+                    let value = this._data[j][this.Legends[i].id];
                     if ( value <= 0 )
                         continue;
 
@@ -356,8 +350,8 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
 
                 context.fillStyle = this.Legends[i].color;
                 for ( j = 0; j < this._data.length; j++ ) {
-                    var centerX = originX + offsetX + stepX * j;
-                    var centreY = originY - stepY * this._data[j][this.Legends[i].id];
+                    let centerX = originX + offsetX + stepX * j;
+                    let centreY = originY - stepY * this._data[j][this.Legends[i].id];
 
                     context.beginPath();
                     context.moveTo( centerX, centreY );
@@ -381,7 +375,7 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
 
         context.setLineDash( [5, 5] );
         for ( i = 1; i <= this._nbSteps; i++ ) {
-            var offsetY = Math.ceil(( height * i ) / this._nbSteps );
+            let offsetY = Math.ceil(( height * i ) / this._nbSteps );
 
             context.beginPath();
             context.lineWidth = 1;
@@ -390,10 +384,10 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
             context.strokeStyle = '#d8d8d8';
             context.stroke();
 
-            context.font = sizeFont.toString() + "px Arial";
+            context.font = sizeFont.toString() + "px var(--syncytium-font)";
             context.fillStyle = "#333333";
             context.textAlign = "right";
-            var legend = Math.ceil(( maxValue * i ) / this._nbSteps ).toString();
+            let legend = Math.ceil(( maxValue * i ) / this._nbSteps ).toString();
             context.fillText( legend, originX - 2, originY - offsetY + sizeFont / 3 );
         }
         context.setLineDash( [] );
@@ -401,27 +395,27 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         // Show the legends
 
         if ( this.Legends.length > 0 ) {
-            var boxWidth = canvas.width / ( this.Legends.length > 4 ? 4 : this.Legends.length );
-            var boxHeight = sizeFontLegend;
-            var legendRadius = boxHeight / 2;
+            let boxWidth = canvas.width / ( this.Legends.length > 4 ? 4 : this.Legends.length );
+            let boxHeight = sizeFontLegend;
+            let legendRadius = boxHeight / 2;
 
-            var startX = 0;
-            var startY = canvas.height - 7 - sizeFontLegend / 2 - ( boxHeight + 14 ) * Math.floor(( this.Legends.length - 1 ) / 4 );
+            let startX = 0;
+            let startY = canvas.height - 7 - sizeFontLegend / 2 - ( boxHeight + 14 ) * Math.floor(( this.Legends.length - 1 ) / 4 );
 
-            context.font = "20px Arial";
+            context.font = "20px var(--syncytium-font)";
 
             for ( i = 0, j = 0; i < this.Legends.length; i++ ) {
                 let legend = Language.Manager.Instance.interpolation( this.Legends[i].label );
-                var metrics = context.measureText( legend );
-                var legendX = startX + ( i % 4 ) * boxWidth + ( boxWidth - metrics.width - boxHeight ) / 2;
-                var legendY = startY + j * ( boxHeight + 14 );
+                let metrics = context.measureText( legend );
+                let legendX = startX + ( i % 4 ) * boxWidth + ( boxWidth - metrics.width - boxHeight ) / 2;
+                let legendY = startY + j * ( boxHeight + 14 );
 
                 context.fillStyle = "#666666";
                 context.textAlign = "left";
                 context.fillText( legend, legendX + boxHeight, legendY );
 
-                var legendCenterX = legendX + legendRadius;
-                var legendCenterY = legendY - legendRadius;
+                let legendCenterX = legendX + legendRadius;
+                let legendCenterY = legendY - legendRadius;
 
                 context.fillStyle = this.Legends[i].color;
                 context.beginPath();
@@ -436,17 +430,17 @@ GUI.Board.BoardChartMultiData = class extends GUI.Board.BoardChart {
         // draw abscissa
 
         if ( this._data.length > 0 && this.Legends.length > 0 ) {
-            var incX = Math.max( 1, Math.ceil( 20 / stepX ) );
+            let incX = Math.max( 1, Math.ceil( 20 / stepX ) );
 
             for ( i = 0; i < this._data.length; i += incX ) {
-                var label = this._data[i].label;
+                let label = this._data[i].label;
                 if ( String.isEmptyOrWhiteSpaces( label ) )
                     label = "";
                 else
                     label = label.length > 23 ? ( label.substr( 0, 20 ) + " ..." ) : label;
 
                 context.save();
-                context.font = sizeFont.toString() + "px Arial";
+                context.font = sizeFont.toString() + "px var(--syncytium-font)";
                 context.translate( originX + offsetX + stepX * i, originY + 2 );
                 context.rotate( -Math.PI / 4 );
                 context.textAlign = 'right';

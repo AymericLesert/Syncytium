@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,16 +33,17 @@ GUI.Box.BoxInputDigit = class extends GUI.Box.Box {
      * Set the format expected into the input digit box (0 or _ means numerical and any other characters fix values)
      * Ex: 000,00 - OF0000 - 00:00:00 - _____0,0
      * @param {string} format format to set
+     * @param {string} separator separator between the left and the right (',' for number or '\0' to write from the right)
      */
-    set Format( format ) {
-        this._digits.Format = format;
+    setFormat( format, separator ) {
+        this._digits.setFormat( format, separator );
     }
 
     /**
      * @returns {string} format expected
      */
-    get Format() {
-        return this._digits.Format;
+    getFormat() {
+        return this._digits.getFormat();
     }
 
     /**
@@ -217,34 +218,32 @@ GUI.Box.BoxInputDigit = class extends GUI.Box.Box {
 
         function handleKeydown( box ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 8:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Backspace":
+                        event.stopImmediatePropagation();
                         box.addKey( "undo" );
                         return;
 
-                    case 9:
-                        event.preventDefault();
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             box.previousFocus();
                         else
                             box.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         box.onButtonOK();
                         return;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         box.onButtonCancel();
                         return;
 
-                    case 46:
-                        event.preventDefault();
+                    case "Delete":
+                        event.stopImmediatePropagation();
                         box.addKey( "raz" );
                         return false;
                 }
@@ -335,15 +334,13 @@ GUI.Box.BoxInputDigit = class extends GUI.Box.Box {
 
         // update the value
 
-        let value = this._digits.toString();
-
-        this.Component.find( "field > .value > .field" ).html( String.encode( value ) );
+        this.Component.find( "field > .value > .field" ).html( this._digits.toHTML() );
 
         // update label
 
-        value = Helper.Span( this._label );
+        let value = Helper.Span( this._label );
 
-        var labelComponent = this.Component.find( "field > .label" );
+        let labelComponent = this.Component.find( "field > .label" );
         if ( String.isEmptyOrWhiteSpaces( value ) ) {
             labelComponent.html( "" );
             if ( !labelComponent.hasClass( "hide" ) )

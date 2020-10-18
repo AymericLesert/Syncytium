@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ namespace Syncytium.Web.Controllers
         /// <summary>
         /// Inidicates if the database must be disposable here or in the caller
         /// </summary>
-        private bool _disposeDatabase = false;
+        private readonly bool _disposeDatabase = false;
 
         /// <summary>
         /// Reference on the DataAccessLayer of a user
@@ -50,6 +50,12 @@ namespace Syncytium.Web.Controllers
         /// Module name used into the log file
         /// </summary>
         protected virtual string MODULE => typeof(SyncytiumController).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -136,7 +142,7 @@ namespace Syncytium.Web.Controllers
         /// <returns></returns>
         public RedirectToRouteResult RedirectToAction(string action, string controller, string area, string returnUrl, string error = "")
         {
-            return base.RedirectToAction(action, controller, new { area = area, returnUrl = returnUrl, error = error });
+            return base.RedirectToAction(action, controller, new { area, returnUrl, error });
         }
 
         #endregion
@@ -168,9 +174,7 @@ namespace Syncytium.Web.Controllers
         {
             // Retrieve the user
 
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
-            if (user == null)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user))
                 return null;
 
             // load ressources before designing the screen fitted to the user's profile
@@ -201,6 +205,16 @@ namespace Syncytium.Web.Controllers
         {
             _disposeDatabase = false;
             _userManager = userContext;
+        }
+
+        /// <summary>
+        /// Constructor by default
+        /// </summary>
+        public SyncytiumController(bool? loadUserManager) : base()
+        {
+            _disposeDatabase = loadUserManager == null || loadUserManager.Value;
+            if (loadUserManager == null || loadUserManager.Value)
+                _userManager = new UserManager(new Syncytium.Module.Administration.DatabaseContext());
         }
 
         /// <summary>

@@ -174,7 +174,7 @@ namespace Syncytium.WebJob
                         case Syncytium.Module.Administration.DatabaseContext.AREA_NAME:
                             break;
 
-                        case Syncytium.Module.Sample.DatabaseContext.AREA_NAME:
+                        case Syncytium.Module.Customer.DatabaseContext.AREA_NAME:
                             break;
                     }
                     break;

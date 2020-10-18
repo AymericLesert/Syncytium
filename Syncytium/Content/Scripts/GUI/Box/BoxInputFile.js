@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -85,25 +85,23 @@ GUI.Box.BoxInputFile = class extends GUI.Box.Box {
     onOpen () {
         function handleKeydown( box ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             box.previousFocus();
                         else
                             box.nextFocus();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         box.onButtonCancel();
                         return false;
 
-                    case 13:
-                    case 32:
-                        event.preventDefault();
+                    case "Enter":
+                    case " ":
+                        event.stopImmediatePropagation();
                         box.onMouseClick();
                         return false;
                 }
@@ -158,7 +156,7 @@ GUI.Box.BoxInputFile = class extends GUI.Box.Box {
 
         function handleDragDrop( box ) {
             return function ( e ) {
-                var droppedFiles = [];
+                let droppedFiles = [];
 
                 for ( let i = 0; i < e.originalEvent.dataTransfer.files.length; i++ )
                     droppedFiles.push( { name: e.originalEvent.dataTransfer.files[i].name, file: e.originalEvent.dataTransfer.files[i] } );
@@ -243,13 +241,13 @@ GUI.Box.BoxInputFile = class extends GUI.Box.Box {
         if ( !Hub.Instance.IsRunning )
             return;
 
-        var extensions = this._extensions.split( "," );
-        var fileNotAllowed = [];
+        let extensions = this._extensions.split( "," );
+        let fileNotAllowed = [];
 
         // check if extension of files are allowed
 
         for ( let i = 0; i < files.length; i++ ) {
-            let currentExtension = files[i].name.match( /\.([^\.]+)$/ )[1];
+            let currentExtension = files[i].name.match( /\.([^.]+)$/ )[1];
             let found = false;
             for ( let j = 0; j < extensions.length; j++ ) {
                 if ( extensions[j].toUpperCase() === "." + currentExtension.toUpperCase() ) {
@@ -269,7 +267,7 @@ GUI.Box.BoxInputFile = class extends GUI.Box.Box {
 
         // upload the file
 
-        var data = new FormData();
+        let data = new FormData();
         for ( let i = 0; i < files.length; i++ )
             data.append( files[i].name, files[i].file );
 

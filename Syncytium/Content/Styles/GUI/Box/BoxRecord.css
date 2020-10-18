@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -199,4 +199,12 @@ panel > board > .title > .icon.help.disallowed {
     panel > board > .title > .icon.help.readonly {
         background-size: 7px 7px;
     }
+}
+
+box.box_record button#FIRST,
+box.box_record button#PREVIOUS,
+box.box_record button#SEARCH,
+box.box_record button#NEXT,
+box.box_record button#LAST {
+    width: 40px;
 }

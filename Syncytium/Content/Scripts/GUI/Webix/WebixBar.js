@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ GUI.Webix.WebixBar = class extends GUI.Webix.Webix {
      * @returns {any} Instanciate a webix bar chart
      */
     createChart () {
-        var maxValue = this._maxValue ? this._maxValue : this._nbSteps;
+        let maxValue = this._maxValue ? this._maxValue : this._nbSteps;
 
         return new webix.ui( {
             view: "chart",
@@ -87,18 +87,18 @@ GUI.Webix.WebixBar = class extends GUI.Webix.Webix {
 
         // get the color
 
-        var defaultColor = "#000000";
+        let defaultColor = "#000000";
 
-        var div = $( "<webix id='" + this.Name + "' class='color'></webix>" );
+        let div = $( "<webix id='" + this.Name + "' class='color'></webix>" );
         if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
             div.addClass( this.CSSClass );
-        var element = div.appendTo( "body" );
-        var color = div.css( 'color' );
+        let element = div.appendTo( "body" );
+        let color = div.css( 'color' );
         element.remove();
         if ( !String.isEmptyOrWhiteSpaces( color ) )
             defaultColor = String.parseRGBToHEX( color );
 
-        for ( var i = 0; i < this._values.length; i++ ) {
+        for ( let i = 0; i < this._values.length; i++ ) {
             div = $( "<webix id='" + this.Name + "' class='color_" + ( i + 1 ).toString() + "'></webix>" );
             if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
                 div.addClass( this.CSSClass );
@@ -120,12 +120,12 @@ GUI.Webix.WebixBar = class extends GUI.Webix.Webix {
 
         // handle the resizing on the field
 
-        var width = this.ChartZone.width();
-        var height = this.ChartZone.height();
-        var maxValue = 0;
+        let width = this.ChartZone.width();
+        let height = this.ChartZone.height();
+        let maxValue = 0;
 
         this.Webix.clearAll();
-        for ( var i = 0; i < this._values.length; i++ ) {
+        for ( let i = 0; i < this._values.length; i++ ) {
             this.Webix.add( this._values[i] );
             if ( maxValue < this._values[i].value )
                 maxValue = Math.ceil( this._values[i].value / this._nbSteps ) * this._nbSteps;
@@ -154,7 +154,7 @@ GUI.Webix.WebixBar = class extends GUI.Webix.Webix {
         super( box, name, "bar" );
 
         this._values = [];
-        for ( var i = 0; i < nbBars; i++ )
+        for ( let i = 0; i < nbBars; i++ )
             this._values.push( { id: i + 1, value: 0, color: "#000000", label: null } );
         this._maxValue = 0;
         this._nbSteps = 5;

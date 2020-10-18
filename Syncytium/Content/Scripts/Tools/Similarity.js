@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,14 +28,14 @@ class Similarity {
      * @returns {array} list of pairs of the string
      */
     static pairs ( word ) {
-        var pairs = [];
+        let pairs = [];
 
-        var length = word.length;
+        let length = word.length;
         if ( length < 2 )
             return pairs;
 
         word = word.toUpperCase();
-        for ( var i = 0; i < length - 1; i++ )
+        for ( let i = 0; i < length - 1; i++ )
             pairs.push( word.substr( i, 2 ) );
 
         pairs.sort( function ( p1, p2 ) { return p1 < p2 ? -1 : p1 > p2 ? 1 : 0; } );
@@ -50,21 +50,21 @@ class Similarity {
      * @returns {double} value of the similarity of 2 words
      */
     static computeWord ( word1, word2 ) {
-        var pair1 = Similarity.pairs( word1 );
+        let pair1 = Similarity.pairs( word1 );
         if ( pair1.length === 0 )
             return 0;
 
-        var pair2 = Similarity.pairs( word2 );
+        let pair2 = Similarity.pairs( word2 );
         if ( pair2.length === 0 )
             return 0;
 
         if ( word1.length < 2 || word2.length < 2 )
             return 0;
 
-        var cardPair1 = 0, cardPair2 = 0, cardPairs = 0;
-        var i = 0, j = 0;
+        let cardPair1 = 0, cardPair2 = 0, cardPairs = 0;
+        let i = 0, j = 0;
 
-        var length1 = pair1.length, length2 = pair2.length;
+        let length1 = pair1.length, length2 = pair2.length;
 
         while ( i < length1 && j < length2 ) {
             if ( pair1[i] === pair2[j] ) {
@@ -101,12 +101,12 @@ class Similarity {
      * @returns {array} a list of string representing the words
      */
     static words ( text ) {
-        var array = text.toUpperCase().replace( /[&\/\\#,+()$~%.'":*?!<>{}]/g, ' ' ).split( ' ' );
+        let array = text.toUpperCase().replace( /[&/\\#,+()$~%.'":*?!<>{}]/g, ' ' ).split( ' ' );
 
         array.sort( function ( w1, w2 ) { return w1 < w2 ? -1 : w1 > w2 ? 1 : 0; } );
 
-        var words = [];
-        for ( var i = 0; i < array.length; i++ ) {
+        let words = [];
+        for ( let i = 0; i < array.length; i++ ) {
             if ( String.isEmptyOrWhiteSpaces( array[i] ) )
                 continue;
 
@@ -132,18 +132,18 @@ class Similarity {
         if ( String.isEmptyOrWhiteSpaces( keys ) || String.isEmptyOrWhiteSpaces( text ) )
             return 0;
 
-        var wordKeys = Similarity.words( keys );
-        var wordText = Similarity.words( text );
+        let wordKeys = Similarity.words( keys );
+        let wordText = Similarity.words( text );
 
-        var sum = 0;
+        let sum = 0;
 
-        for ( var i = 0; i < wordKeys.length; i++ ) {
+        for ( let i = 0; i < wordKeys.length; i++ ) {
             // Max rank of the current word within all words included into the text
 
-            var maxRank = 0;
+            let maxRank = 0;
 
-            for ( var j = 0; j < wordText.length && maxRank < 1; j++ ) {
-                var rank = Similarity.computeWord( wordKeys[i], wordText[j] );
+            for ( let j = 0; j < wordText.length && maxRank < 1; j++ ) {
+                let rank = Similarity.computeWord( wordKeys[i], wordText[j] );
 
                 if ( rank > maxRank )
                     maxRank = rank;
@@ -162,10 +162,10 @@ class Similarity {
      * @returns {double}   value of the similarity of the keyword into a text
      */
     static ranks ( key, values ) {
-        var maxRank = 0;
+        let maxRank = 0;
 
-        for ( var i = 0; i < values.length && maxRank < 1; i++ ) {
-            var rank = Similarity.rank( key, values[i] );
+        for ( let i = 0; i < values.length && maxRank < 1; i++ ) {
+            let rank = Similarity.rank( key, values[i] );
             if ( rank > maxRank )
                 maxRank = rank;
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -63,7 +63,8 @@ namespace Syncytium.Module.Administration.Models
         {
             Languages = new Dictionary<string, string>
             {
-                ["FR"] = string.Empty
+                ["FR"] = string.Empty,
+                ["EN"] = string.Empty
             };
             Comment = string.Empty;
         }
@@ -75,7 +76,8 @@ namespace Syncytium.Module.Administration.Models
         {
             Languages = new Dictionary<string, string>
             {
-                ["FR"] = string.Empty
+                ["FR"] = string.Empty,
+                ["EN"] = string.Empty
             };
             Comment = (comment == null ? string.Empty : comment.Trim());
         }
@@ -84,12 +86,14 @@ namespace Syncytium.Module.Administration.Models
         /// Constructor
         /// </summary>
         /// <param name="FR"></param>
+        /// <param name="EN"></param>
         /// <param name="comment"></param>
-        public LanguageLabel(string FR, string comment)
+        public LanguageLabel(string FR, string EN, string comment)
         {
             Languages = new Dictionary<string, string>
             {
-                ["FR"] = (FR == null ? string.Empty : FR.Trim())
+                ["FR"] = (FR == null ? string.Empty : FR.Trim()),
+                ["EN"] = (EN == null ? string.Empty : EN.Trim())
             };
             Comment = comment;
         }

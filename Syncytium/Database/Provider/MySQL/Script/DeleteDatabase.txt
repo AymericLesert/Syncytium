@@ -1,4 +1,4 @@
-﻿-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+﻿-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 -- 
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,47 +14,52 @@
 -- with this program; if not, write to the Free Software Foundation, Inc.,
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
--- Drop functional table
 
--- Delete table : Sample
+-- Drop tables from module : Customer
+-- ---------------------------------
 
-drop table "Sample";
+-- Delete table : Parameter
+
+drop table `Parameter`;
+
+-- Drop tables from module : Administration
+-- ----------------------------------------
 
 -- Delete table : UserModule
 
-drop table "UserModule";
+drop table `UserModule`;
 
 -- Delete table : Module
 
-drop table "Module";
+drop table `Module`;
 
 -- Delete table : Notification
 
-drop table "Notification";
+drop table `Notification`;
 
 -- Delete table : User
 
-drop table "User";
+drop table `User`;
 
 -- Delete table : Language
 
 drop procedure BeginMultilingualUpdate;
 drop procedure InsertMultilingualLabel;
 drop procedure EndMultilingualUpdate;
-drop table "_Language";
-drop table "Language";
+drop table `_Language`;
+drop table `Language`;
 
 -- Delete table : Customer
 
-drop table "Customer";
+drop table `Customer`;
 
 -- Drop technical table
 
-drop table "_Parameter";
-drop table "_Connection";
-drop table "_Request";
-drop table "_RequestId";
-drop table "_SequenceId";
-drop table "_Information";
-drop table "_Ping";
+drop table `_Parameter`;
+drop table `_Connection`;
+drop table `_Request`;
+drop table `_RequestId`;
+drop table `_SequenceId`;
+drop table `_Information`;
+drop table `_Ping`;
 

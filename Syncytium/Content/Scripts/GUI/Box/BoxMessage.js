@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,13 +42,35 @@ GUI.Box.Message = class {
     }
 
     /**
+     * Define a single box showing a message and may ba wait for a validation
+     * @param {any} title   multilingual label of the title
+     * @param {any} message multilingual label of the message
+     * @param {any} action  function to call if a treatment must be done on validation
+     */
+    static Message2(title, message, action) {
+        if (!this._dialogBoxMessage2) {
+            this._dialogBoxMessage2 = new GUI.Box.Box("message", "box_message");
+            this._dialogBoxMessage2.draw();
+            this._dialogBoxMessage2.declareButton(GUI.Box.Box.BUTTON_OK);
+            this._dialogBoxMessage2.declareButton(GUI.Box.Box.BUTTON_CANCEL, "BTN_CANCEL");
+        }
+
+        this._dialogBoxMessage2.Title = title;
+        this._dialogBoxMessage2.Message = message;
+        this._dialogBoxMessage2.getButton(GUI.Box.Box.BUTTON_OK).Action = action;
+        this._dialogBoxMessage2.getButton(GUI.Box.Box.BUTTON_CANCEL).Visible = action !== null && action !== undefined;
+
+        this._dialogBoxMessage2.open();
+    }
+
+    /**
      * Define a single box showing an information message and execute a given function
      * @param {any} message multilingual label of the message
      * @param {any} action  function to call if a treatment must be done on validation
      */
     static Information( message, action ) {
         if ( !this._dialogBoxInformation) {
-            this._dialogBoxInformation = new GUI.Box.Box( "message", "box_information" );
+            this._dialogBoxInformation = new GUI.Box.Box( "information", "box_information" );
             this._dialogBoxInformation.draw();
             this._dialogBoxInformation.declareButton( GUI.Box.Box.BUTTON_OK );
             this._dialogBoxInformation.declareButton( GUI.Box.Box.BUTTON_CANCEL, "BTN_CANCEL" );
@@ -69,7 +91,7 @@ GUI.Box.Message = class {
      */
     static Warning( message, action ) {
         if ( !this._dialogBoxWarning ) {
-            this._dialogBoxWarning = new GUI.Box.Box( "message", "box_warning" );
+            this._dialogBoxWarning = new GUI.Box.Box( "warning", "box_warning" );
             this._dialogBoxWarning.draw();
             this._dialogBoxWarning.declareButton( GUI.Box.Box.BUTTON_OK );
             this._dialogBoxWarning.declareButton( GUI.Box.Box.BUTTON_CANCEL, "BTN_CANCEL" );
@@ -89,10 +111,18 @@ GUI.Box.Message = class {
      * @param {Errors} errors list of errors to show
      */
     static Error( title, errors ) {
+        function handleCopyError( box ) {
+            return function () {
+                Clipboard.Copy( Language.Manager.Instance.interpolation( title ), box._error === null ? "" : box._error.toClipboard() );
+                return false;
+            };
+        }
+
         if ( !this._dialogBoxError ) {
             this._dialogBoxError = new GUI.Box.Box( "error", "box_error" );
             this._dialogBoxError.draw();
             this._dialogBoxError.declareButton( GUI.Box.Box.BUTTON_OK );
+            this._dialogBoxError.declareButton( GUI.Box.Box.BUTTON_CLIPBOARD, "BTN_CLIPBOARD" ).Action = handleCopyError( this._dialogBoxError );
         }
 
         this._dialogBoxError.Title = title;

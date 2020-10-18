@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,4 +16,196 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content                                 *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content {    min-width: 900px;    height: 480px;}box.box_record.module > div > .content.haserrors {    height: calc(480px - 10vh);}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content > panel.main                    *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content > panel.main {    width: calc(100% - 40px);    height: 100%;}@media only screen and (min-height: 260px) {    box.box_record.module > div > .content > panel.main {        justify-content: center;        align-items: center;    }}@media only screen and (max-width: 860px) {    box.box_record.module > div > .content > panel.main {        flex-direction: column;    }}box.box_record.module > div > .content > panel.main field > .label,box.box_record.module > div > .content > panel.main field > .value input,box.box_record.module > div > .content > panel.main field > .value select,box.box_record.module > div > .content > panel.main field > .value textarea {    font-size: 14px;}@media only screen and (max-width: 720px) {    box.box_record.module > div > .content > panel.main field > .label,    box.box_record.module > div > .content > panel.main field > .value input,    box.box_record.module > div > .content > panel.main field > .value select,    box.box_record.module > div > .content > panel.main field > .value textarea {        font-size: 10px;    }}@media only screen and (min-width: 721px) and (max-width: 900px) {    box.box_record.module > div > .content > panel.main field > .label,    box.box_record.module > div > .content > panel.main field > .value input,    box.box_record.module > div > .content > panel.main field > .value select,    box.box_record.module > div > .content > panel.main field > .value textarea {        font-size: 12px;    }}@media only screen and (max-height: 670px) {    box.box_record.module > div > .content > panel.main field > .label,    box.box_record.module > div > .content > panel.main field > .value input,    box.box_record.module > div > .content > panel.main field > .value select,    box.box_record.module > div > .content > panel.main field > .value textarea {        font-size: 10px;    }}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content > panel.main > #_fields         *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content > panel.main > #_fields {    width: 100%;}box.box_record.module > div > .content > panel.main > #_fields > field > .label {    width: 150px;}@media only screen and (max-width: 720px) {    box.box_record.module > div > .content > panel.main > #_fields > field > .label {        width: 90px;    }}@media only screen and (min-width: 721px) and (max-width: 900px) {    box.box_record.module > div > .content > panel.main > #_fields > field > .label {        width: 120px;    }}@media only screen and (max-height: 670px) {    box.box_record.module > div > .content > panel.main > #_fields > field > .label {        width: 90px;    }}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content > panel.main > #_users          *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content > panel.main > #_users {    width: 100%;    height: 100%;}box.box_record.module > div > .content > panel.main > #_users > field > .label {    display: none;    width: auto;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Name                           *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Name > .value {    width: 100%;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Module                         *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Module > .value {    width: 100%;}box.box_record.module > div > .content #Module > .value > .field {    align-self: center;}box.box_record.module > div > .content #Module > .value > .field > input {    text-align: center;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Parameters                     *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Parameters > .value {    width: 100%;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Profile                        *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Profile > .value {    width: 100%;}box.box_record.module > div > .content #Profile > .value > .field {    align-self: center;}box.box_record.module > div > .content #Profile > .value > .field > input {    text-align: center;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Description                    *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Description > .value {    width: 100%;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Enable                         *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Enable > .value {    width: 100%;}box.box_record.module > div > .content #Enable > .value > .field {    align-self: center;}box.box_record.module > div > .content #Enable > .value > .field > input {    text-align: center;}/* ---------------------------------------------------------------------- *//* box.box_record.module > div > .content #Users                          *//* ---------------------------------------------------------------------- */box.box_record.module > div > .content #Users > .value {    width: 100%;}box.box_record.module > div > .content #Users > .value > .field {    align-self: center;}box.box_record.module > div > .content #Users > .value > .field > input {    text-align: center;}
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div                                            */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div {
+    height: 360px;
+    width: 50vw;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content > panel.main                    */
+/* ---------------------------------------------------------------------- */
+
+@media only screen and (min-height: 260px) {
+    box.box_record.module > div > .content > panel.main {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    box.box_record.module > div > .content > panel.main {
+        flex-direction: column;
+    }
+}
+
+box.box_record.module > div > .content > panel.main field > .label,
+box.box_record.module > div > .content > panel.main field > .value input,
+box.box_record.module > div > .content > panel.main field > .value select,
+box.box_record.module > div > .content > panel.main field > .value textarea {
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 720px) {
+    box.box_record.module > div > .content > panel.main field > .label,
+    box.box_record.module > div > .content > panel.main field > .value input,
+    box.box_record.module > div > .content > panel.main field > .value select,
+    box.box_record.module > div > .content > panel.main field > .value textarea {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 721px) and (max-width: 900px) {
+    box.box_record.module > div > .content > panel.main field > .label,
+    box.box_record.module > div > .content > panel.main field > .value input,
+    box.box_record.module > div > .content > panel.main field > .value select,
+    box.box_record.module > div > .content > panel.main field > .value textarea {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 670px) {
+    box.box_record.module > div > .content > panel.main field > .label,
+    box.box_record.module > div > .content > panel.main field > .value input,
+    box.box_record.module > div > .content > panel.main field > .value select,
+    box.box_record.module > div > .content > panel.main field > .value textarea {
+        font-size: 10px;
+    }
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content > panel.main > #_fields         */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content > panel.main > #_fields {
+    width: 100%;
+}
+
+box.box_record.module > div > .content > panel.main > #_fields > field > .label {
+    width: 150px;
+}
+
+@media only screen and (max-width: 720px) {
+    box.box_record.module > div > .content > panel.main > #_fields > field > .label {
+        width: 90px;
+    }
+}
+
+@media only screen and (min-width: 721px) and (max-width: 900px) {
+    box.box_record.module > div > .content > panel.main > #_fields > field > .label {
+        width: 120px;
+    }
+}
+
+@media only screen and (max-height: 670px) {
+    box.box_record.module > div > .content > panel.main > #_fields > field > .label {
+        width: 90px;
+    }
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content > panel.main > #_users          */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content > panel.main > #_users {
+    width: 100%;
+    height: 100%;
+}
+
+box.box_record.module > div > .content > panel.main > #_users > field > .label {
+    display: none;
+    width: auto;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Name                           */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Name > .value {
+    width: 100%;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Module                         */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Module > .value {
+    width: 100%;
+}
+
+box.box_record.module > div > .content #Module > .value > .field {
+    align-self: center;
+}
+
+box.box_record.module > div > .content #Module > .value > .field > input {
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Parameters                     */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Parameters > .value {
+    width: 100%;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Profile                        */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Profile > .value {
+    width: 100%;
+}
+
+box.box_record.module > div > .content #Profile > .value > .field {
+    align-self: center;
+}
+
+box.box_record.module > div > .content #Profile > .value > .field > input {
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Description                    */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Description > .value {
+    width: 100%;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Enable                         */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Enable > .value {
+    width: 100%;
+}
+
+box.box_record.module > div > .content #Enable > .value > .field {
+    align-self: center;
+}
+
+box.box_record.module > div > .content #Enable > .value > .field > input {
+    text-align: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* box.box_record.module > div > .content #Users                          */
+/* ---------------------------------------------------------------------- */
+
+box.box_record.module > div > .content #Users > .value {
+    width: 100%;
+}
+
+box.box_record.module > div > .content #Users > .value > .field {
+    align-self: center;
+}
+
+box.box_record.module > div > .content #Users > .value > .field > input {
+    text-align: center;
+}
+
+

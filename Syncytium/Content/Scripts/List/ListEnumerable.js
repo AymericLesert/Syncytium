@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,8 +33,8 @@ List.ListEnumerable = class extends List.ListArray {
         if ( !this._cache )
             this._cache = {};
 
-        var id = table + "." + column;
-        var list = this._cache[id];
+        let id = table + "." + column;
+        let list = this._cache[id];
         if ( list )
             return list;
 
@@ -77,7 +77,7 @@ List.ListEnumerable = class extends List.ListArray {
         if ( enumerableValue !== null && enumerableValue !== undefined )
             this._defaultPicture = this._path + enumerableValue.Picture;
 
-        for ( var i in this._array )
-            this._array[i].Picture = this._path + this._array[i].Picture;
+        for ( let item of Array.toIterable( this._array ) )
+            item.Picture = this._path + item.Picture;
     }
 };

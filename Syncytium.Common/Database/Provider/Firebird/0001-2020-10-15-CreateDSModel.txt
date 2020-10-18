@@ -1,0 +1,194 @@
+﻿-- ------------------------------------ Firebird ------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2020/10/15 - Aymeric Lesert - Create Differential Synchronization Model (DSModel)
+-- ----------------------------------------------------------------------------------
+
+SET TERM ^;
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Parameter
+--
+-- This tables stores some internal parameters managed by the application itself
+-- For example (set by the application):
+--  * Database.Version : current version of the database (based on the upgrade script)
+--  * Database.Update  : date time of the last upgrade
+--  * Database.Tick    : Last tick having updated the database
+--          (different that Timestamp - in same case, you may have the same timestamp for 2 updates)
+--          (by using a Tick, you are sure to have 2 differents values for 2 updates)
+-- ----------------------------------------------------------------------------------
+
+create table "_Parameter"
+		("Key"   VARCHAR(128)  NOT NULL PRIMARY KEY,
+		 "Value" VARCHAR(128))^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Connection
+--
+-- This table stores current connection information to avoid that the same user is
+-- connected twice to the application on the same machine.
+--
+-- In case of auto-scale (as the features allowed by the cloud azure), a user can be
+-- connected to a server and can be switched to another server in case of abnormal
+-- situation.
+-- ----------------------------------------------------------------------------------
+
+create table "_Connection"
+		("ConnectionId"   VARCHAR(36) NOT NULL PRIMARY KEY,
+		 "Machine"        VARCHAR(32) NOT NULL,
+		 "CustomerId"     INTEGER     NOT NULL,
+		 "UserId"         INTEGER     NOT NULL,
+		 "Allow"          SMALLINT    NOT NULL,
+		 "Profile"        SMALLINT,
+		 "Area"           VARCHAR(32),
+		 "ModuleId"       INTEGER     NOT NULL,
+		 "Status"         SMALLINT    NOT NULL,
+		 "ConnectionDate" TIMESTAMP   NOT NULL,
+		 "ConnectionLast" TIMESTAMP   NOT NULL)^
+
+create index I__CONNECTION_USER on "_Connection"("UserId")^
+create index I__CONNECTION_CUSTOMER on "_Connection"("CustomerId")^
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _RequestTable
+--
+-- This table stores all requests received (except the details). Just for traceability.
+-- ----------------------------------------------------------------------------------
+
+create table "_RequestTable"
+		("Tick"           INTEGER    NOT NULL,
+		 "CustomerId"     INTEGER    NOT NULL,
+		 "UserId"         INTEGER    NOT NULL,
+		 "RequestId"      INTEGER    NOT NULL,
+		 "Table"          VARCHAR(32),
+		 "Action"         VARCHAR(32),
+		 "Id"             INTEGER)^
+
+create index I__REQUESTTABLE_CUSTOMER on "_Request"("CustomerId")^
+create index I__REQUESTTABLE_TABLE on "_Request"("Table")^
+
+alter table "_RequestTable" add constraint pk__requesttable primary key("CustomerId", "Tick")^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Request
+--
+-- This table stores all requests received in the details
+-- ----------------------------------------------------------------------------------
+
+create sequence S__REQUEST^
+
+create table "_Request"
+		("Id"             INTEGER     NOT NULL PRIMARY KEY,
+		 "ConnectionId"   VARCHAR(36) NOT NULL,
+		 "CustomerId"     INTEGER     NOT NULL,
+		 "UserId"         INTEGER     NOT NULL,
+		 "RequestId"      INTEGER     NOT NULL,
+		 "Profile"        SMALLINT,
+		 "Area"           VARCHAR(32),
+		 "ModuleId"       INTEGER    NOT NULL,
+		 "Label"          BLOB SUB_TYPE 1,
+		 "Request"        BLOB SUB_TYPE 0,
+		 "ReceptionDate"  TIMESTAMP  NOT NULL,
+		 "ExecutionDate"  TIMESTAMP,
+		 "Acknowledge"    SMALLINT)^
+
+create index I__REQUEST_CUSTOMER on "_Request"("CustomerId")^
+
+CREATE TRIGGER t__request FOR "_Request"
+  ACTIVE BEFORE INSERT POSITION 0
+AS
+BEGIN
+  new."Id" = next value for S__REQUEST;
+END^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _RequestId
+--
+-- This table stores for each userId the last requestId (for synchronization).
+-- ----------------------------------------------------------------------------------
+
+create table "_RequestId"
+		("UserId"         INTEGER    NOT NULL PRIMARY KEY,
+		 "RequestId"      INTEGER    NOT NULL,
+		 "Date"           TIMESTAMP  NOT NULL)^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _SequenceId
+--
+-- This table stores for each tuple (userId, table) the last sequence id generated
+-- (for synchronization).
+-- ----------------------------------------------------------------------------------
+
+create table "_SequenceId"
+		("UserId"         INTEGER     NOT NULL,
+		 "Table"          VARCHAR(32) NOT NULL,
+		 "SequenceId"     INTEGER     NOT NULL,
+		 "Date"           TIMESTAMP   NOT NULL)^
+
+alter table "_SequenceId"
+add constraint pk__SequenceId primary key ("UserId", "Table")^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Information
+--
+-- This table stores some details about a record into the database:
+--    - Creation information (used to link 2 requests by the ids from the client)
+--    - Update information (used to synchronize data and to check if somebody has updated record at the same time)
+--    - Delete information (any record are physically deleted in the database schema - virtual deleted)
+-- ----------------------------------------------------------------------------------
+
+create table "_Information"
+		("Table"          VARCHAR(32) NOT NULL,
+		 "Id"             INTEGER     NOT NULL,
+		 "CustomerId"     INTEGER     NOT NULL,
+		 "CreateId"       INTEGER,
+		 "CreateUserId"   INTEGER,
+		 "CreateTick"     INTEGER,
+		 "CreateDate"     TIMESTAMP,
+		 "UpdateUserId"   INTEGER,
+		 "UpdateTick"     INTEGER,
+		 "UpdateDate"     TIMESTAMP,
+		 "DeleteUserId"   INTEGER,
+		 "DeleteTick"     INTEGER,
+		 "DeleteDate"     TIMESTAMP)^
+
+alter table "_Information"
+add constraint pk__Information primary key ("Table", "Id")^
+
+create index I__INFORMATION_CUSTOMER on "_Information"("CustomerId")^
+create index I__INFORMATION_TABLE on "_Information"("Table")^
+create index I__INFORMATION_USERID on "_Information"("Table", "CreateId", "CreateUserId")^
+create index I__INFORMATION_DELETE on "_Information"("Table", "Id", "DeleteTick")^
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Ping
+--
+-- This table stores the last ping received by a client
+-- ----------------------------------------------------------------------------------
+
+create table "_Ping"
+		("ConnectionId" VARCHAR(36) NOT NULL PRIMARY KEY,
+		 "Date"         TIMESTAMP   NOT NULL)^
+
+
+SET TERM ;^

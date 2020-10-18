@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,17 +24,9 @@
 
 var ModuleRecord = {};
 
-ModuleRecord.MODULE_NONE = -1;
 ModuleRecord.MODULE_ADMINISTRATION = 0;
-ModuleRecord.MODULE_REFERENTIAL = 1;
-ModuleRecord.MODULE_STOCK = 2;
-ModuleRecord.MODULE_PROVIDER = 3;
-ModuleRecord.MODULE_PRODUCTION = 4;
-ModuleRecord.MODULE_SALES = 5;
-ModuleRecord.MODULE_LOGISTIC = 6;
-ModuleRecord.MODULE_COMPTABILITY = 7;
-ModuleRecord.MODULE_HUMANRESSOURCES = 8;
-ModuleRecord.MODULE_SAMPLE = 8;
+ModuleRecord.MODULE_CUSTOMER = 1;
+ModuleRecord.MODULE_NONE = 2;
 
 ModuleRecord.USERPROFILE_ADMINISTRATOR = 0;
 ModuleRecord.USERPROFILE_SUPERVISOR = 1;
@@ -57,24 +49,8 @@ ModuleRecord.GetModuleName = function ( module ) {
     switch ( module.Module ) {
         case ModuleRecord.MODULE_ADMINISTRATION:
             return "Administration";
-        case ModuleRecord.MODULE_REFERENTIAL:
-            return "Referential";
-        case ModuleRecord.MODULE_STOCK:
-            return "Stock";
-        case ModuleRecord.MODULE_PROVIDER:
-            return "Provider";
-        case ModuleRecord.MODULE_PRODUCTION:
-            return "Production";
-        case ModuleRecord.MODULE_SALES:
-            return "Sales";
-        case ModuleRecord.MODULE_LOGISTIC:
-            return "Logistic";
-        case ModuleRecord.MODULE_COMPTABILITY:
-            return "Comptability";
-        case ModuleRecord.MODULE_HUMANRESSOURCES:
-            return "HumanRessources";
-        case ModuleRecord.MODULE_SAPLE:
-            return "Sample";
+        case ModuleRecord.MODULE_CUSTOMER:
+            return "Customer";
     }
 
     return "";

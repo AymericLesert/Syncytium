@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -129,8 +129,8 @@ GUI.Field.Field = class extends GUI.GUI {
      * @param {any} value new value
      */
     set Value( value ) {
-        var oldValue = this._value;
-        var newValue = value;
+        let oldValue = this._value;
+        let newValue = value;
 
         if ( value === undefined )
             value = null;
@@ -175,7 +175,7 @@ GUI.Field.Field = class extends GUI.GUI {
      * Draw the field into the container
      */
     draw () {
-        super.draw( "<field id='" + this.Name + "'><div class='label'></div><div class='value'><div class='field'></div><div class='message'></div><div class='error'></div></div></field>" );
+        super.draw( "<field id='" + this.Name + "'><div class='label'></div><div class='value'><form class='field'></form><div class='message'></div><div class='error'></div></div></field>" );
         this.drawField( this.FieldZone );
     }
 
@@ -237,9 +237,9 @@ GUI.Field.Field = class extends GUI.GUI {
 
         // Refresh label
 
-        var labelComponent = this.Component.find( "> .label" );
+        let labelComponent = this.Component.find( "> .label" );
 
-        var value = Helper.Span( this._label );
+        let value = Helper.Span( this._label );
 
         if ( String.isEmptyOrWhiteSpaces( value ) ) {
             labelComponent.html( "" );
@@ -275,6 +275,14 @@ GUI.Field.Field = class extends GUI.GUI {
         // Refresh label
 
         this.refreshLink();
+    }
+
+    /**
+     * Clean up undo stack
+     */
+    cleanUndo() {
+        // By default : do nothing
+        this.verbose( "Clean up undo stack" );
     }
 
     /**

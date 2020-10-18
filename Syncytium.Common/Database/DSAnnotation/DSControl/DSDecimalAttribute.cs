@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,6 +37,11 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
         /// Store the max value of the decimal
         /// </summary>
         private decimal _maxValue = 0;
+
+        /// <summary>
+        /// Store the min value of the decimal
+        /// </summary>
+        private decimal _minValue = 0;
 
         /// <summary>
         /// Max number of precisions
@@ -86,13 +91,14 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
                 _maxValue = 10;
                 for (int i = Precision + 1; i < Digit; i++)
                     _maxValue *= 10;
+                _minValue = -_maxValue;
             }
 
             if (value as string != null)
             {
                 if (!Decimal.TryParse(value as string, out valueToCheck))
                 {
-                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}" });
+                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}", $"{value}" });
                     return false;
                 }
             }
@@ -109,7 +115,7 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
             }
             else
             {
-                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}" });
+                errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}", $"{value}" });
                 validity = false;
             }
 
@@ -119,13 +125,13 @@ namespace Syncytium.Common.Database.DSAnnotation.DSControl
 
                 if (valueRounded != valueToCheck)
                 {
-                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}" });
+                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}", $"{value}" });
                     return false;
                 }
 
-                if (valueToCheck >= _maxValue)
+                if (valueToCheck >= _maxValue || valueToCheck <= _minValue)
                 {
-                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}" });
+                    errors.AddField(column.Property.Name, Error, new[] { $"{{{column.Field}}}", $"{Digit}", $"{Precision}", $"{value}" });
                     return false;
                 }
             }

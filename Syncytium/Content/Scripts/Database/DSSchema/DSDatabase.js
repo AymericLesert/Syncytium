@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,25 +32,82 @@
  *   - If the initialization process failed                                : Error:<code error>
  */
 class DSDatabase extends LoggerBaseObject {
-    /**
-     * Check if the hub is available .. if not, it restarts!
-     * @param {DSDatabase} database reference on the DSDatabase
-     */
-    static ReconnectHub( database ) {
-        return function () {
-            if ( Hub.Instance.IsRunning && !database._commitRunning )
-                database.sendRequests();
+    static Heartbeat( db, delay ) {
+        if ( this._interval === undefined )
+            this._interval = null;
+
+        // Stop the heartbeat ?
+
+        if ( delay === null || delay === undefined || delay <= 0 ) {
+            if ( this._interval !== null ) {
+                window.clearInterval( this._interval );
+                this._interval = null;
+                Logger.Instance.info( "DB Heartbeat", "Heartbeat stopped" );
+                return;
+            }
+        }
+
+        if ( this._interval !== null )
+            return;
+
+        // Start the heartbeat
+
+        Logger.Instance.info( "DB Heartbeat", "Heartbeat started" );
+
+        this._interval = window.setInterval( async function () {
+            Logger.Instance.info( "DB Heartbeat", "Heartbeat ..." );
+
+            if ( Hub.Instance.IsRunning && !db._commitRunning ) {
+                await db.sendRequests().then( () => {
+                    if ( !Hub.Instance.IsStopped )
+                        return;
+
+                    Logger.Instance.info( "DB Heartbeat", "The server was disconnected during the committing process ... Trying to reconnect it ..." );
+                    Hub.Instance.start();
+                } );
+                return;
+            }
 
             if ( !Hub.Instance.IsStopped )
                 return;
 
-            database.debug( "The server is disconnected ... Trying to reconnect it ..." );
+            Logger.Instance.info( "DB Heartbeat", "The server is disconnected ... Trying to reconnect it ..." );
             Hub.Instance.start();
-        };
+        }, delay * 1000 );
     }
 
     /**
-     * Define the current area of the application (Administration, Stock, ...)
+     * Execute a thread and notify the progression
+     * @param {any} generator function to run
+     * @param {any} onEvent function to call on each iteration
+     */
+    static async Thread( db, generator, onEvent ) {
+        function treatment() {
+            return new Promise( ( resolve, reject ) => {
+                let runTreatment = true;
+
+                try {
+                    let result = generator.next();
+                    runTreatment = !result.done;
+                    if ( runTreatment && onEvent )
+                        onEvent(db);
+                } catch ( e ) {
+                    Logger.Instance.exception( "DSDatabase", "Exception on running thread", e );
+                    runTreatment = false;
+                }
+
+                setTimeout( runTreatment ? resolve : reject, 10 );
+            } );
+        }
+
+        let loop = true;
+        while ( loop ) {
+            await treatment().catch( () => { loop = false; } );
+        }
+    }
+
+    /**
+     * Define the current area of the application (Administration, Customer, ...)
      * @param {any} area area of the application cliente
      */
     set Area( area ) {
@@ -87,7 +144,7 @@ class DSDatabase extends LoggerBaseObject {
         if ( this._selectedLanguage )
             return this._selectedLanguage;
 
-        var currentUser = this.CurrentUser;
+        let currentUser = this.CurrentUser;
         if ( currentUser && currentUser.Language )
             return currentUser.Language;
 
@@ -98,7 +155,7 @@ class DSDatabase extends LoggerBaseObject {
      * Retrieve the current user of the application
      */
     get CurrentUser () {
-        var record = {};
+        let record = {};
 
         if ( this._currentUserId === null || this._currentUserId === undefined )
             return null;
@@ -126,7 +183,7 @@ class DSDatabase extends LoggerBaseObject {
             return record;
         }
 
-        var currentUserId = this.getClientIdByServerId( "User", this._currentUserId );
+        let currentUserId = this.getClientIdByServerId( "User", this._currentUserId );
         if ( currentUserId === null || currentUserId === undefined )
             return null;
 
@@ -145,7 +202,7 @@ class DSDatabase extends LoggerBaseObject {
      * Retrieve the current customer of the application
      */
     get CurrentModule() {
-        var record = this.getRowById( "Module", this.getClientIdByServerId( "Module", this._currentModuleId ) );
+        let record = this.getRowById( "Module", this.getClientIdByServerId( "Module", this._currentModuleId ) );
 
         if ( record === null ) {
             // Build the customer current
@@ -167,14 +224,14 @@ class DSDatabase extends LoggerBaseObject {
      * Retrieve the current customer of the application
      */
     get CurrentCustomer () {
-        var record = this.getRowById( "Customer", 1 );
+        let record = this.getRowById( "Customer", 1 );
 
         if ( record === null ) {
             // Build the customer current
             record = {};
 
             record.Id = 0;
-            record.Name = "Syncytium Pontchateau";
+            record.Name = "Syncytium Saint-Nazaire";
             record.Email = "";
             record.Address = "";
             record.Comment = "";
@@ -205,6 +262,67 @@ class DSDatabase extends LoggerBaseObject {
         return this._parameters;
     }
 
+    // -------------------------------------- Events ------------------------------------
+
+    /**
+     * Notify the starting progress bar
+     */
+    onStartProgress() {
+        if ( this._areaInstance && this._areaInstance.onStartProgress )
+            this._areaInstance.onStartProgress();
+
+        if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.onStartProgress )
+            this._hubMaster._areaInstance.onStartProgress();
+    }
+
+    /**
+     * Notify an update of the progression
+     * @param {any} current
+     * @param {any} total
+     * @param {any} label
+     */
+    onProgress( current, total, label ) {
+        if ( ( current !== null && current !== undefined ) ||
+            ( total !== null && total !== undefined ) ) {
+            if ( this._areaInstance && this._areaInstance.progressStatus )
+                this._areaInstance.progressStatus( current, total, label );
+
+            if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
+                this._hubMaster._areaInstance.progressStatus( current, total, label );
+        } else {
+            if ( this._areaInstance && this._areaInstance.progressStatus )
+                this._areaInstance.progressStatus( current, total, label );
+            else if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
+                this._hubMaster._areaInstance.progressStatus( current, total, label );
+        }
+    }
+
+    /**
+     * Notify an update of the memory consuption
+     */
+    onProgressMemory() {
+        if ( this.IsVerbose )
+            this.verbose( "Memory used : " + this._currentSize + " / " + this._maxSize );
+
+        if ( this._areaInstance && this._areaInstance.progressMemory )
+            this._areaInstance.progressMemory( this._currentSize, this._maxSize );
+
+        if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressMemory )
+            this._hubMaster._areaInstance.progressMemory( this._hubMaster.current, this._hubMaster._maxSize );
+    }
+
+    /**
+     * Notify the closing progress bar
+     * @param {boolean} endOfLoading true if the loading is correctly done
+     */
+    onStopProgress( endOfLoading ) {
+        if ( this._areaInstance && this._areaInstance.onStopProgress )
+            this._areaInstance.onStopProgress( endOfLoading );
+
+        if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.onStopProgress )
+            this._hubMaster._areaInstance.onStopProgress( endOfLoading );
+    }
+
     // ------------------------------------- SEQUENCE -----------------------------------
 
     /**
@@ -224,23 +342,42 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} key key of the sequence
      * @param {any} fn  function to call as the sequence number is available
      */
-    nextSequence( key, fn ) {
-        function handleNextSequence( db, fnDone ) {
+    async nextSequence( key, fn ) {
+        function handleNextSequence( db ) {
             return function ( data ) {
                 db.info( "New sequence '" + key + "' = " + String.JSONStringify( data ) );
-                fnDone( data.Error !== null && data.Error !== undefined ? data : data.Result.Value );
+                if ( !fn( data.Error !== null && data.Error !== undefined ? data : data.Result.Value ) ) {
+                    db.debug( "Sequence (" + key + ") " + String.JSONStringify( data ) + " already exist ..." );
+                } else {
+                    ok = true;
+                }
             };
         }
 
         if ( this._sequence[key] === null || this._sequence[key] === undefined )
             this._sequence[key] = [];
 
-        if ( this._sequence[key].length > 0 ) {
-            fn( this._sequence[key].splice( 0, 1 )[0] );
-            return;
+        var ok = false;
+        while ( !ok ) {
+            if ( this._sequence[key].length > 0 ) {
+                if ( !fn( this._sequence[key].splice( 0, 1 )[0] ) ) {
+                    db.debug( "Sequence (" + key + ") " + this._sequence[key].splice( 0, 1 )[0] + " already exist ..." );
+                } else {
+                    ok = true;
+                }
+            } else {
+                await Hub.Instance.executeService( "Sequence", { Key: key }, null, true ).then( handleNextSequence( this ) );
+            }
         }
+    }
 
-        Hub.Instance.executeService( "Sequence", { Key: key }, null, handleNextSequence( this, fn ) );
+    /**
+     * Update the sequence of a key
+     * @param {any} key key of the sequence
+     * @param {any} value max value known of the sequence
+     */
+    async setSequence( key, value ) {
+        await Hub.Instance.executeService( "SetSequence", { Key: key, Value : value }, null, true );
     }
 
     /**
@@ -270,62 +407,21 @@ class DSDatabase extends LoggerBaseObject {
     }
 
     /**
-     * Function called when the request is executed by the server
-     * @param {any} requestId id of the request
-     * @param {any} record    record updated
-     * @param {any} errors    list of errors
-     */
-    handleExecutionRequest ( requestId, record, errors ) {
-        var listOfErrors = null;
-        var request = this._requestsByRequestId[requestId];
-
-        if ( errors !== null && errors !== undefined ) {
-            listOfErrors = new Errors();
-            listOfErrors.setJSON( errors );
-
-            // The request hasn't been executed ... an error occurs during the request execution
-
-            var message = "[" + requestId + "] The request can't have been executed due to some errors (" + listOfErrors.toString() + ")";
-            this.warn( message );
-
-            // Notify the user that something is wrong!
-
-            this.eventOnNotify( "*", -1, request.label, listOfErrors );
-
-            // Data are updated into the DSDatabase and if an error occurs, Database hasn't been updated
-            // So, rollback data into DSDatabase to be synchronized with the database
-
-            this.rollbackRequest( request );
-
-            this.deleteRequest( requestId );
-        } else {
-            this.debug( "[" + requestId + "] The request has been correctly executed" );
-            // the request is already deleted on the acknowledge event
-        }
-
-        // Send a new request
-
-        this.eventOnCommit(( listOfErrors && listOfErrors.HasError ) ? listOfErrors : null );
-        this.sendRequests();
-    }
-
-    /**
      * Remove a request from memory
      * @param {any} requestId Id of the request to remove
      */
     deleteRequest ( requestId ) {
-        var request = this._requestsByRequestId[requestId];
+        let request = this._requestsByRequestId[requestId];
         if ( request === null || request === undefined )
             return;
 
-        var currentSize = String.JSONStringify( request ).length;
+        let currentSize = String.JSONStringify( request ).length;
         this.debug( "Remove the request (" + requestId + ") from the memory (" + currentSize + " octets)" );
 
         delete this._requestsByRequestId[requestId];
         this._currentSize -= currentSize;
 
-        if ( this._areaInstance && this._areaInstance.progressMemory )
-            this._areaInstance.progressMemory( this._currentSize, this._maxSize );
+        this.onProgressMemory();
     }
 
     /**
@@ -338,9 +434,11 @@ class DSDatabase extends LoggerBaseObject {
 
             // Rollback a transaction from the end to the begin
 
-            for ( var i = request.transaction.length - 1; i >= 0; i-- ) {
+            let transaction = this.uncompressTransaction( request.transaction );
+    
+            for ( let i = transaction.length - 1; i >= 0; i-- ) {
                 try {
-                    this.rollbackRequest( request.transaction[i] );
+                    this.rollbackRequest( transaction[i] );
                 } catch ( ex ) {
                     this.exception( "Unable to rollback the request", ex );
                     this.warn( "ignore this exception and continue" );
@@ -359,7 +457,7 @@ class DSDatabase extends LoggerBaseObject {
 
         // looking for the table
 
-        var currentTable = this._tables[request.table];
+        let currentTable = this._tables[request.table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + request.table + "' doesn't exist!" );
             return;
@@ -371,65 +469,330 @@ class DSDatabase extends LoggerBaseObject {
     }
 
     /**
-     * Send all requests sent into the _bufferRequestSent to the server
+     * Send all requests sent into the _bufferRequestSent to the server in asynchronous mode
+     * @param {boolean} commit true if the requests correspond to a commit action
      */
-    sendRequests () {
-        if ( this._bufferRequestSent.length === 0 ) {
-            this.debug( "No requests to send" );
-            this.eventOnStopCommit();
-            return;
-        }
-
-        // Send all requests one by one
-
-        this.info( "Sending all requests in waiting ..." );
-
+    async sendRequests( commit ) {
         function handleExecutionRequest( db, request ) {
-            return function ( data ) {
-                if ( request.fnDone !== null && request.fnDone !== undefined )
-                    request.fnDone( data.Record, data.Error );
-                db.handleExecutionRequest( data.RequestId, data.Record, data.Error );
+            return async function ( data ) {
+                if ( db.IsVerboseAll ) {
+                    if ( request.transaction !== null && request.transaction !== undefined )
+                        db.verbose( "Transaction " + String.JSONStringify( request ) + " sent" );
+                    else
+                        db.verbose( "Request " + String.JSONStringify( request ) + " sent" );
+                }
+
+                // Notify the end of execution of the request
+
+                if ( request.fnDone !== null && request.fnDone !== undefined ) {
+                    if ( request.fnDone.constructor.name === "AsyncFunction" ) {
+                        await request.fnDone( data.Record, data.Error );
+                    } else {
+                        request.fnDone( data.Record, data.Error );
+                    }
+                }
+
+                // Analyze the result
+
+                let errors = null;
+
+                if ( data.Error !== null && data.Error !== undefined ) {
+                    let dbRequest = db._requestsByRequestId[data.RequestId];
+
+                    errors = new Errors();
+                    errors.setJSON( data.Error );
+
+                    // The request hasn't been executed ... an error occurs during the request execution
+
+                    db.warn( "[" + data.RequestId + "] The request can't have been executed due to some errors (" + errors.toString() + ")" );
+
+                    // Notify the user that something is wrong!
+
+                    await db.eventOnNotify( "*", -1, dbRequest.label, errors );
+
+                    // Data are updated into the DSDatabase and if an error occurs, Database hasn't been updated
+                    // So, rollback data into DSDatabase to be synchronized with the database
+
+                    db.rollbackRequest( dbRequest );
+                    db.deleteRequest( data.RequestId );
+                } else {
+                    db.debug( "[" + data.RequestId + "] The request has been correctly executed" );
+                    // the request is already deleted on the acknowledge event or will be deleted on the acknowledge event
+                }
+
+                if ( commit === true )
+                    await db.eventOnValidation( "onCommit", ( errors && errors.HasError ) ? errors : null );
             };
         }
 
-        // send the first request available
-
-        var request = this._bufferRequestSent[0][0];
-
-        if ( request !== undefined && request !== null ) {
-            this._requestsByRequestId[request.requestId] = request;
+        if ( this._bufferRequestSent.length === 0 ) {
+            this.debug( "No requests to send" );
+            return;
         }
 
-        this._bufferRequestSent[0].splice( 0, 1 );
-        if ( this._bufferRequestSent[0].length === 0 )
-            this._bufferRequestSent.splice( 0, 1 );
+        this.info( "Sending all requests in waiting ..." );
 
-        if ( request !== undefined && request !== null ) {
-            if ( request.transaction !== null && request.transaction !== undefined ) {
-                Hub.Instance.executeTransaction( request.requestId, request.label, request.transaction, handleExecutionRequest( this, request ) );
-                if ( this.IsDebug )
-                    this.debug( "Transaction " + String.JSONStringify( request ) + " sent" );
-            } else {
-                Hub.Instance.executeRequest( request.requestId, request.label, request.table, request.action, request.record, request.identity, handleExecutionRequest( this, request ) );
-                if ( this.IsDebug )
-                    this.debug( "Request " + String.JSONStringify( request ) + " sent" );
+        // the database is ready and the connection is up ...
+        // Send the request to the server
+
+        let nbRequests = 0;
+        for ( let i = 0; i < this._bufferRequestSent.length; i++ )
+            nbRequests += this._bufferRequestSent[i].length;
+
+        if ( commit === true )
+            await this.eventOnStartValidation( "onStartCommit", nbRequests );
+
+        Hub.Instance.blockEvents();
+
+        while ( this._bufferRequestSent.length > 0 ) {
+            // Get the next request
+
+            let request = this._bufferRequestSent[0][0];
+
+            // Remove it from the request to send
+
+            if ( request !== undefined && request !== null )
+                this._requestsByRequestId[request.requestId] = request;
+
+            this._bufferRequestSent[0].splice( 0, 1 );
+            if ( this._bufferRequestSent[0].length === 0 )
+                this._bufferRequestSent.splice( 0, 1 );
+
+            // Execute the request
+
+            if ( request !== undefined && request !== null ) {
+                if ( request.transaction !== null && request.transaction !== undefined ) {
+                    await Hub.Instance.executeTransaction( request.requestId, request.label, request.transaction, request.notify).then( handleExecutionRequest( this, request ) );
+                } else {
+                    await Hub.Instance.executeRequest( request.requestId, request.label, request.table, request.action, request.record, request.identity).then( handleExecutionRequest( this, request ) );
+                }
             }
         }
+
+        Hub.Instance.unblockEvents();
+
+        if ( commit === true )
+            await this.eventOnStopValidation( "onStopCommit" );
     }
 
     /**
      * Create a new group of requests having a common sense
      * If an error occurs on the transaction, all requests will be rollbacked
      * @param {any} label code label describing the transaction (used by the application to toast a message)
+     * @param {any} notify true if the notification must be sent to the caller
      */
-    beginTransaction ( label ) {
-        if ( this._bufferTransactionCount=== 0 ) {
+    beginTransaction ( label, notify ) {
+        if ( this._bufferTransactionCount === 0 ) {
             this._bufferTransactionLabel = Helper.Label( label );
+            this._bufferTransactionNotify = notify === true;
             this._bufferTransaction = [];
         }
 
         this._bufferTransactionCount++;
         this.debug( "Begin transaction [" + this._bufferTransactionCount.toString() + "]" );
+    }
+
+    /**
+     * Internal method to compress the transaction into a request
+     * @param {array} transaction transaction to compress
+     * @returns {array} transaction compressed
+     */
+    compressTransaction( transaction ) {
+        function addInArray( records, record, count ) {
+            for ( let attr in record ) {
+                if ( !Array.isArray( records[attr] ) ) {
+                    records[attr] = [];
+                    for ( let i = 0; i < count; i++ )
+                        records[attr].push( undefined );
+                }
+
+                records[attr].push( record[attr] );
+            }
+
+            return records;
+        }
+
+        let newTransaction = [];
+        let currentAction = null;
+        let currentRequests = null;
+        let lotIndex = 0;
+
+        // Replace list of requests by request within a list of values
+
+        for ( let request of transaction ) {
+            if ( currentAction === null || currentAction !== request.action ) {
+                lotIndex++;
+
+                currentAction = request.action;
+                currentRequests = {};
+            }
+
+            // Retrieve the lot size into the transaction
+
+            let table = this._tables[request.table];
+            let maxLotSize = table === undefined ? 1 : table._maxLotSize;
+            maxLotSize = maxLotSize <= 1 ? 1 : maxLotSize;
+
+            if ( maxLotSize === 1 ) {
+                lotIndex++;
+
+                // Strong dependencies between records into this table
+
+                request._indexLot = lotIndex;
+                request._indexTable = table === undefined ? 0 : table._indexTable;
+                request._indexSubLot = 0;
+                newTransaction.push( [ request ] );
+                currentRequests = {};
+                continue;
+            }
+
+            // Build the new transaction
+
+            let currentTable = currentRequests[request.table];
+            if ( currentTable === undefined ) {
+                currentTable = [ {
+                    table: request.table,
+                    action: request.action,
+                    record: request.action === "Update" ? { New: {}, Old: {} } : {},
+                    identity: request.action === "Update" ? { New: {}, Old: {} } : {},
+                    tick: [],
+                    _request: request,
+                    _indexLot: lotIndex,
+                    _indexTable: table === undefined ? 0 : table._indexTable,
+                    _indexSubLot: 0
+                } ];
+
+                currentRequests[request.table] = currentTable;
+                newTransaction.push( currentTable );
+            }
+            let currentRequest = currentTable[currentTable.length - 1];
+
+            // add request into the array
+
+            let nb = currentRequest.tick.length;
+            if ( request.action === "Update" ) {
+                addInArray( currentRequest.record.New, request.record.New, nb );
+                addInArray( currentRequest.record.Old, request.record.Old, nb );
+                addInArray( currentRequest.identity.New, request.identity.New, nb );
+                addInArray( currentRequest.identity.Old, request.identity.Old, nb );
+            } else {
+                addInArray( currentRequest.record, request.record, nb );
+                addInArray( currentRequest.identity, request.identity, nb );
+            }
+            currentRequest.tick.push( request.tick );
+
+            // max lot size reached
+
+            if ( currentRequest.tick.length >= maxLotSize ) {
+                currentTable.push( {
+                    table: request.table,
+                    action: request.action,
+                    record: request.action === "Update" ? { New: {}, Old: {} } : {},
+                    identity: request.action === "Update" ? { New: {}, Old: {} } : {},
+                    tick: [],
+                    _request: request,
+                    _indexLot: lotIndex,
+                    _indexTable: table === undefined ? 0 : table._indexTable,
+                    _indexSubLot: currentTable.length
+                } );
+            }
+        }
+
+        // Remove alone records
+
+        transaction = newTransaction;
+        newTransaction = [];
+
+        for ( let requests of transaction ) {
+            for ( let request of requests ) {
+                if ( !Array.isArray( request.tick ) ) {
+                    newTransaction.push( request );
+                    continue;
+                }
+
+                if ( Array.isEmpty( request.tick ) )
+                    continue;
+
+                if ( request.tick.length === 1 ) {
+                    request.tick = request._request.tick;
+                    request.record = request._request.record;
+                    request.identity = request._request.identity;
+                    delete request._request;
+                    newTransaction.push( request );
+                    continue;
+                }
+
+                newTransaction.push( request );
+            }
+        }
+
+        // Sort new transaction by indexLot, indexTable and indexSubLot
+
+        newTransaction.sort( ( a, b ) => {
+            if ( a._indexLot < b._indexLot )
+                return -1;
+
+            if ( a._indexLot > b._indexLot )
+                return 1;
+
+            if ( a._indexTable < b._indexTable )
+                return -1;
+
+            if ( a._indexTable > b._indexTable )
+                return 1;
+
+            if ( a._indexSubLot < b._indexSubLot )
+                return -1;
+
+            return a._indexLot > b._indexLot ? 1 : 0;
+        } );
+
+        // Remove properties used to sort requests
+
+        for ( let request of newTransaction ) {
+            delete request._indexLot;
+            delete request._indexTable;
+            delete request._indexSubLot;
+        };
+
+        return newTransaction;
+    }
+
+    /**
+     * Internal method to uncompress the transaction into a request
+     * @param {array} transaction transaction to uncompress
+     * @returns {array} transaction uncompressed
+     */
+    uncompressTransaction( transaction ) {
+        function getArrayIndex( records, i ) {
+            let record = {};
+
+            for ( let attr in records )
+                record[attr] = records[attr][i];
+
+            return record;
+        }
+
+        let newTransaction = [];
+
+        for ( let request of transaction ) {
+            if ( !Array.isArray( request.tick ) ) {
+                newTransaction.push( request );
+                continue;
+            }
+
+            for ( let i in request.tick ) {
+                newTransaction.push( {
+                    table: request.table,
+                    action: request.action,
+                    record: request.action === "Update" ? { New: getArrayIndex( request.record.New, i ), Old: getArrayIndex( request.record.Old, i ) } : getArrayIndex( request.record, i ),
+                    identity: request.action === "Update" ? { New: getArrayIndex( request.identity.New, i ), Old: getArrayIndex( request.identity.Old, i ) } : getArrayIndex( request.identity, i ),
+                    tick: request.tick[i]
+                } );
+            }
+        }
+
+        return newTransaction;
     }
 
     /**
@@ -450,20 +813,29 @@ class DSDatabase extends LoggerBaseObject {
 
         // end of transaction, prepare the request into the buffer of request to send
 
-        if ( this._bufferTransaction.length > 0 ) {
-            var newRequest = {
+        if ( this._bufferTransaction !== null && this._bufferTransaction.length > 0 ) {
+            let newRequest = {
                 requestId: this.NextRequestId,
                 label: this._bufferTransactionLabel,
-                transaction: this._bufferTransaction,
-                fnDone: fnDone
+                transaction: this.compressTransaction( this._bufferTransaction ),
+                fnDone: fnDone,
+                notify: this._bufferTransactionNotify
             };
 
             this._bufferRequest.push( newRequest );
             this.info( "The transaction " + String.JSONStringify( newRequest ) + " is buffering ..." );
+
+            let currentSize = String.JSONStringify( newRequest ).length;
+            for ( let i = 0; i < this._bufferTransaction.length; i++ )
+                currentSize -= String.JSONStringify( this._bufferTransaction[i] ).length;
+            this._currentSize += currentSize;
+
+            this.onProgressMemory();
         }
 
         this._bufferTransaction = null;
         this._bufferTransactionLabel = null;
+        this._bufferTransactionNotify = false;
     }
 
     /**
@@ -478,7 +850,7 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {boolean} true if the request has been added into the buffer, false if out of memory ...
      */
     send ( table, action, record, identity, tick, fnDone ) {
-        var newRequest = {
+        let newRequest = {
             table: table,
             action: action,
             record: record,
@@ -489,36 +861,35 @@ class DSDatabase extends LoggerBaseObject {
         if ( this._bufferTransaction !== null ) {
             this._bufferTransaction.push( newRequest );
         } else {
-            newRequest.label = Helper.Label( table.toUpperCase() + "_" + action.toUpperCase() + "D_TOAST", action );
             newRequest.requestId = this.NextRequestId;
+            newRequest.label = Helper.Label( table.toUpperCase() + "_" + action.toUpperCase() + "D_TOAST", newRequest.requestId );
             newRequest.fnDone = fnDone;
             this._bufferRequest.push( newRequest );
         }
 
-        var requestSize = String.JSONStringify( newRequest ).length;
+        let requestSize = String.JSONStringify( newRequest ).length;
         this._currentSize += requestSize;
 
         if ( this._currentSize > this._maxSize ) {
             this.error( "The request " + String.JSONStringify( newRequest ) + " can't be buffered into a transaction because the size '" + this._currentSize + " octets' exceeds '" + this._maxSize + " octets' ..." );
-            this.rollbackRequest(newRequest);
+            this.rollbackRequest( newRequest );
             return false;
         }
 
         if ( this._bufferTransaction !== null )
-            this.info( "The request " + String.JSONStringify( newRequest ) + " is buffering into a transaction (size: " + requestSize + " octets) ..." );
+            this.verbose( "The request " + String.JSONStringify( newRequest ) + " is buffering into a transaction (size: " + requestSize + " octets) ..." );
         else
             this.info( "The request " + String.JSONStringify( newRequest ) + " is buffering (size: " + requestSize + " octets) ..." );
 
-        if ( this._areaInstance && this._areaInstance.progressMemory )
-            this._areaInstance.progressMemory( this._currentSize, this._maxSize );
+        this.onProgressMemory();
 
         return true;
     }
 
     /**
-     * Commit all requests in waiting ... send but not executed ...
+     * Commit all requests in waiting ... send but not executed ... in asynchronous mode
      */
-    commit () {
+    async commit() {
         if ( this._bufferRequest.length === 0 ) {
             this.debug( "No commit because the buffer is empty" );
             return;
@@ -550,42 +921,32 @@ class DSDatabase extends LoggerBaseObject {
             return;
         }
 
-        if ( !this._commitRunning ) {
-            // the database is ready and the connection is up ... 
-            // Send the request to the server
+        if ( this._commitRunning )
+            return;
 
-            var nbRequests = 0;
-            for ( var i = 0; i < this._bufferRequestSent.length; i++ )
-                nbRequests += this._bufferRequestSent[i].length;
-
-            this.eventOnStartCommit( nbRequests );
-            this.sendRequests();
-        }
+        await this.sendRequests( true );
     }
 
     /**
-     * Cancel all requests in waiting ...
+     * Generator to iterate on records to rollback
+     * @yields {any} request item to rollback
      */
-    rollback () {
-        if ( this._bufferRequest.length === 0 ) {
-            this.debug( "No rollback because the buffer is empty" );
-            return;
-        }
-
-        this.info( "Rollbacking ..." );
-
+    *rollbackIterable() {
         // rollback request from the end to the start
 
-        var nbRequests = this._bufferRequest.length;
-        for ( var i = this._bufferRequest.length - 1; i >= 0; i-- ) {
-            var request = this._bufferRequest[i];
-            var requestText = String.JSONStringify( request );
-            var currentSize = requestText.length;
+        let nbRequests = this._bufferRequest.length;
+        for ( let i = this._bufferRequest.length - 1; i >= 0; i-- ) {
+            let request = this._bufferRequest[i];
+            let requestText = String.JSONStringify( request );
+            let currentSize = requestText.length;
 
             this.debug( "Rollback the request " + requestText + " (" + currentSize + " octets)" );
             this.rollbackRequest( request );
 
             this._currentSize -= currentSize;
+            this.onProgressMemory();
+
+            yield true;
         }
 
         // cleaning up all existing requests
@@ -593,46 +954,103 @@ class DSDatabase extends LoggerBaseObject {
         this._lastRequestId -= nbRequests;
         this._bufferRequest = [];
 
-        if ( this._areaInstance && this._areaInstance.progressMemory )
-            this._areaInstance.progressMemory( this._currentSize, this._maxSize );
-
         this.info( nbRequests + " requests have been rollbacked" );
+    }
+
+    /**
+     * Cancel all requests in waiting ...
+     */
+    rollback() {
+        if ( this._bufferRequest.length === 0 ) {
+            this.debug( "No rollback because the buffer is empty" );
+            return;
+        }
+
+        this.info( "Rollbacking ..." );
+        this.eventOnStartValidation( "onStartRollback", this._bufferRequest.length );
+        try {
+            for ( let value of this.rollbackIterable() )
+                this.eventOnValidation( "onRollback" );
+        } catch ( e ) {
+            this.exception( "Unable to rollback the request", ex );
+        }
+        this.eventOnStopValidation( "onStopRollback" );
+    }
+
+    /**
+     * Cancel all requests in waiting ... in asynchronous mode
+     */
+    async rollbackAsync() {
+        function handleEndRollback( db ) {
+            return function () {
+                db.eventOnStopValidation( "onStopRollback" );
+            };
+        }
+
+        if ( this._bufferRequest.length === 0 ) {
+            this.debug( "No rollback because the buffer is empty" );
+            return;
+        }
+
+        this.info( "Rollbacking ..." );
+
+        await this.eventOnStartValidation( "onStartRollback", this._bufferRequest.length );
+        await DSDatabase.Thread( this, this.rollbackIterable(), db => {
+            db.eventOnValidation( "onRollback" );
+        } ).then( handleEndRollback( this ) );
     }
 
     // ------------------------------------- FROM HUB -------------------------------------
 
     /**
      * Called on the connection or disconnection of the client to the server
-     * @param {any} status new status of the connection
+     * @param {any} oldStatus old status of the connection
+     * @param {any} newStatus new status of the connection
      * @param {any} errors list of errors during the connection process
      */
-    onStatusChanged ( status, errors ) {
+    async onStatusChanged ( oldStatus, newStatus, errors ) {
         function handleInitializing( db ) {
-            return function ( schema ) {
-                db.setSchema( schema );
+            return async function ( schema ) {
+                await db.initialize( schema );
             };
         }
 
-        function handleError( db, retry ) {
-            return function () {
-                db.error( "Connexion error on initializing protocol" );
-                db.updateStatus( "Error", new Errors( "ERR_CONNECTION" ), retry );
+        function handleError( db, status ) {
+            return function (e) {
+                db.exception( "Connexion error on " + status + " protocol", e );
+                db.updateStatus( "Error", new Errors( "ERR_CONNECTION" ), status === "synchronizing" );
             };
         }
 
-        if ( status === "Started" && this._status === "NotInitialized" ) {
+        if ( newStatus === "Started" && this._status === "NotInitialized" ) {
             // The connection is done ... retrieve the database schema
 
             this.info( "The connection is done with the server ... retrieving the database schema ..." );
             this.updateStatus( "Initializing" );
 
-            Hub.Instance.initialize( this._areaName, this._areaModuleId, handleInitializing( this ), handleError( this ) );
-        } else if ( status === "Started" && this._status === "ReadyToSynchronize" ) {
-            this.synchronize();
-        } else if ( status === "ReadyToSynchronize" ) {
+            await Hub.Instance.initialize( this._areaName, this._areaModuleId ).then( handleInitializing( this ) ).catch( handleError( this, "initializing" ) );
+        } else if ( newStatus === "Started" && this._status === "ReadyToSynchronize" ) {
+            this.info( "Starting the synchronization process ..." );
+
+            // Stop the heartbeat until the end of synchronization
+
+            DSDatabase.Heartbeat();
+            this.onStartProgress();
+            this.onProgress( 0, 1, "MSG_SYNCHRONIZING" );
+
+            // define a new database instance to make the synchronization
+
+            this._hubDatabase = new DSDatabase( "DSSynchronization", this );
+            this._hubDatabase._areaName = this._areaName;
+            this._hubDatabase._areaModuleId = this._areaModuleId;
+
+            await Hub.Instance.initialize( this._hubDatabase._areaName, this._hubDatabase._areaModuleId )
+                .then( handleInitializing( this._hubDatabase ) )
+                .catch( handleError( this._hubDatabase, "synchronizing", true ) );
+        } else if ( newStatus === "ReadyToSynchronize" ) {
             this.info( "The server and the client were disconnected a while ... You can launch the synchronization process as you want ..." );
             this.updateStatus( "ReadyToSynchronize" );
-        } else if ( status === "Error" ) {
+        } else if ( newStatus === "Error" ) {
             this.error( "Connexion error on initializing protocol" );
             this.updateStatus( "Error", errors );
         }
@@ -646,8 +1064,33 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} action    action name "Create", "Update", "Delete", ...
      * @param {any} record    record acknowledged (the content depends on the action)
      * @param {any} identity  identities of the record acknowledged  (the content depends on the action)
+     * @param {any} error     error status on the acknowledgment
      */
-    acknowledgeRequest ( requestId, area, table, action, record, identity ) {
+    async acknowledgeRequest( requestId, area, table, action, record, identity, error ) {
+        // Analyze the result
+
+        if ( error !== null && error !== undefined ) {
+            let dbRequest = this._requestsByRequestId[requestId];
+
+            let errors = new Errors();
+            errors.setJSON( error.Error );
+
+            // The request hasn't been executed ... an error occurs during the request execution
+
+            this.warn( "[" + requestId + "] The request can't have been executed due to some errors (" + errors.toString() + ")" );
+
+            // Notify the user that something is wrong!
+
+            await this.eventOnNotify( "*", -1, dbRequest.label, errors );
+
+            // Data are updated into the DSDatabase and if an error occurs, Database hasn't been updated
+            // So, rollback data into DSDatabase to be synchronized with the database
+
+            this.rollbackRequest( dbRequest );
+            this.deleteRequest( requestId );
+            return;
+        }
+
         if ( this._status !== "ReadyToSynchronize" && this._status !== "Running" ) {
             this.info( "The acknowledge of the request '" + requestId + "' for ('" + area + "', '" + table + "', '" + action + "', " + String.JSONStringify( record ) + ", " + String.JSONStringify( identity ) + ") is buffering because the database is not yet ready" );
             this._bufferNotifications.push( { requestId: requestId, area: area, table: table, action: action, record: record, identity: identity } );
@@ -655,7 +1098,7 @@ class DSDatabase extends LoggerBaseObject {
         }
 
         this.info( "Acknowledging of the request '" + requestId + "' for ('" + area + "', '" + table + "', '" + action + "', " + String.JSONStringify( record ) + ", " + String.JSONStringify( identity ) + ")" );
-        this.updateFromServer( table, record, action === "Update" ? identity.New : identity );
+        this.updateFromServer( table, action === "Update" ? record.New : record, action === "Update" ? identity.New : identity );
         this.deleteRequest( requestId );
     }
 
@@ -664,8 +1107,35 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} requestId   id of the request acknowledged
      * @param {any} area        area concerned by this request
      * @param {any} transaction transaction acknowledged
+     * @param {any} error     error status on the acknowledgment
      */
-    acknowledgeTransaction ( requestId, area, transaction ) {
+    async acknowledgeTransaction ( requestId, area, transaction, error ) {
+        // Analyze the result
+
+        if ( error !== null && error !== undefined ) {
+            let dbRequest = this._requestsByRequestId[requestId];
+
+            let errors = new Errors();
+            errors.setJSON( error.Error );
+
+            // The request hasn't been executed ... an error occurs during the request execution
+
+            this.warn( "[" + requestId + "] The transaction can't have been executed due to some errors (" + errors.toString() + ")" );
+
+            // Notify the user that something is wrong!
+
+            await this.eventOnNotify( "*", -1, dbRequest.label, errors );
+
+            // Data are updated into the DSDatabase and if an error occurs, Database hasn't been updated
+            // So, rollback data into DSDatabase to be synchronized with the database
+
+            this.rollbackRequest( dbRequest );
+            this.deleteRequest( requestId );
+            return;
+        }
+
+        transaction = this.uncompressTransaction( transaction );
+
         if ( this._status !== "ReadyToSynchronize" && this._status !== "Running" ) {
             this.info( "The acknowledge of the transaction '" + requestId + "' for ('" + area + "', " + String.JSONStringify( transaction ) + ") is buffering because the database is not yet ready" );
             this._bufferNotifications.push( { requestId: requestId, area: area, transaction: transaction } );
@@ -673,15 +1143,21 @@ class DSDatabase extends LoggerBaseObject {
         }
 
         this.info( "Acknowledging of the transaction '" + requestId + "' for ('" + area + "', " + String.JSONStringify( transaction ) + ")" );
-        for ( var i in transaction ) {
-            var request = transaction[i];
-            if ( request === null || request === undefined )
-                continue;
 
-            this.info( "Acknowledging of the request for ('" + area + "', '" + request.table + "', '" + request.action + "', " + String.JSONStringify( request.record ) + ", " + String.JSONStringify( request.identity ) + ")" );
-            this.updateFromServer( request.table, request.record, request.action === "Update" ? request.identity.New : request.identity );
+        function* transactionIterable( db, transaction ) {
+            for ( let request of transaction ) {
+                if ( db.IsVerboseAll )
+                    db.verbose( "Acknowledging of the request for ('" + area + "', '" + request.table + "', '" + request.action + "', " + String.JSONStringify( request.record ) + ", " + String.JSONStringify( request.identity ) + ")" );
+
+                db.updateFromServer( request.table,
+                    request.action === "Update" ? request.record.New : request.record,
+                    request.action === "Update" ? request.identity.New : request.identity );
+
+                yield true;
+            }
         }
-        this.deleteRequest( requestId );
+
+        await DSDatabase.Thread( this, transactionIterable( this, transaction ) ).then( () => this.deleteRequest( requestId ) );
     }
 
     /**
@@ -689,12 +1165,12 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} tick  tick of the beginning of the notification
      * @param {any} label label to show to the end-user
      */
-    beginNotification ( tick, label ) {
+    async beginNotification ( tick, label ) {
         if ( this._status !== "Running" )
             return;
 
         this.info( "Begin of notification (" + tick + ", " + String.JSONStringify( label ) + ")" );
-        this.eventOnBeginNotification( tick, label );
+        await this.eventOnBeginNotification( tick, label );
     }
 
     /**
@@ -705,7 +1181,7 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} table  table name concerned
      * @param {any} record record updated
      */
-    notify ( userId, label, area, table, record ) {
+    async notify ( userId, label, area, table, record ) {
         if ( this._status !== "Running" ) {
             this.info( "The notification of the update from the user '" + userId + "' for ('" + area + "', '" + table + "', " + String.JSONStringify( record ) + " is buffering because the database is not yet ready" );
             this._bufferNotifications.push( { userId: userId, area: area, table: table, record: record } );
@@ -713,7 +1189,7 @@ class DSDatabase extends LoggerBaseObject {
         }
 
         this.info( "Notifying an update from the user '" + userId + "' for ('" + area + "', '" + table + "', " + String.JSONStringify( record ) );
-        this.eventOnNotify( table, record._tick, label );
+        await this.eventOnNotify( table, record._tick, label );
 
         this.updateFromServer( table, record );
     }
@@ -723,12 +1199,12 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} tick  tick of the ending of the notification
      * @param {any} label label to show to the end-user
      */
-    endNotification ( tick, label ) {
+    async endNotification ( tick, label ) {
         if ( this._status !== "Running" )
             return;
 
         this.info( "End of notification (" + tick + ", " + String.JSONStringify( label ) + ")" );
-        this.eventOnEndNotification( tick, label );
+        await this.eventOnEndNotification( tick, label );
     }
 
     // ------------------------------------- DatabaseManager -------------------------------------
@@ -745,7 +1221,7 @@ class DSDatabase extends LoggerBaseObject {
 
         this.info( "The status becomes '" + newStatus + "'" );
 
-        var oldStatus = this._status;
+        let oldStatus = this._status;
         this._status = newStatus;
         this._statusErrors = errors;
 
@@ -759,9 +1235,6 @@ class DSDatabase extends LoggerBaseObject {
 
         this.warn( "The synchronization process has failed!" );
 
-        if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.onStopProgress )
-            this._hubMaster._areaInstance.onStopProgress();
-
         if ( retry === undefined )
             retry = false;
 
@@ -769,7 +1242,7 @@ class DSDatabase extends LoggerBaseObject {
             this.warn( "The server is up ..." );
 
             if ( !retry ) {
-                this.error( "Unable to resolv the issue on launching again a new synchronization ... Reload the page!" );
+                this.error( "Unable to fix the issue on launching again a new synchronization ... Reload the page!" );
                 this._hubMaster.updateStatus( this._status, this._statusErrors );
                 return;
             }
@@ -781,7 +1254,10 @@ class DSDatabase extends LoggerBaseObject {
         }
 
         this._hubMaster._hubDatabase = null;
-        this._hubMaster._hubHandle = window.setInterval( DSDatabase.ReconnectHub( this._hubMaster ), this._hubMaster._hubInterval * 1000 );
+
+        // Start the heartbeat
+
+        DSDatabase.Heartbeat( this._hubMaster, this._hubMaster._hubInterval );
     }
 
     /**
@@ -790,11 +1266,12 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} clientId        id of the record corresponding to the identity of the record from the client
      * @param {any} serverId        id of the record corresponding to the record from the server
      */
-    updateServerId ( foreignKeyTable, clientId, serverId ) {
-        this.info( "Updating all tables having a foreign key ('" + foreignKeyTable + "', [" + clientId + "]) by this new server Id [" + serverId + "] ..." );
+    updateServerId( foreignKeyTable, clientId, serverId ) {
+        if ( this.IsVerboseAll )
+            this.verbose( "Updating all tables having a foreign key ('" + foreignKeyTable + "', [" + clientId + "]) by this new server Id [" + serverId + "] ..." );
 
-        for ( var table in this._tables )
-            this._tables[table].updateServerId( foreignKeyTable, clientId, serverId );
+        for ( let table of Array.toIterable( this._tables ) )
+            table.updateServerId( foreignKeyTable, clientId, serverId );
     }
 
     /**
@@ -805,18 +1282,19 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} newClientId     new client identity of the record
      */
     updateClientId ( foreignKeyTable, oldClientId, newClientId ) {
-        this.info( "Updating all tables having a foreign key ('" + foreignKeyTable + "', [" + oldClientId + "]) by this client Id [" + newClientId + "] ..." );
+        if ( this.IsVerboseAll )
+            this.verbose( "Updating all tables having a foreign key ('" + foreignKeyTable + "', [" + oldClientId + "]) by this client Id [" + newClientId + "] ..." );
 
-        for ( var table in this._tables )
-            this._tables[table].updateClientId( foreignKeyTable, oldClientId, newClientId );
+        for ( let table of Array.toIterable( this._tables ) )
+            table.updateClientId( foreignKeyTable, oldClientId, newClientId );
     }
 
     /**
      * Define the schema on depends on server response
      * @param {any} schema schema to instanciate defined by the server to the client
      */
-    setSchema ( schema ) {
-        var errors = null;
+    async initialize ( schema ) {
+        let errors = null;
         this.info( "Schema received: " + String.JSONStringify( schema ) );
 
         // error ?
@@ -853,22 +1331,18 @@ class DSDatabase extends LoggerBaseObject {
         // extract some parameters information
 
         if ( this._parameters["Hub.MaxSize"] !== null && this._parameters["Hub.MaxSize"] !== undefined ) {
-            var maxSize = parseInt( this._parameters["Hub.MaxSize"] );
+            let maxSize = parseInt( this._parameters["Hub.MaxSize"] );
             if ( !isNaN( maxSize ) && maxSize > 0 )
                 this._maxSize = maxSize * 1024;
         }
         this.info( "Max size in the queue = " + this._maxSize + " octets" );
 
-        if ( this._parameters["Hub.Interval"] !== null && this._parameters["Hub.Interval"] !== undefined ) {
-            var interval = parseInt( this._parameters["Hub.Interval"] );
-            if ( !isNaN( interval ) && interval > 0 )
-                this._hubInterval = interval;
+        if ( this._parameters["Hub.Timeout"] !== null && this._parameters["Hub.Timeout"] !== undefined ) {
+            let timeout = parseInt( this._parameters["Hub.Timeout"] );
+            if ( !isNaN( timeout ) && timeout > 0 )
+                this._hubInterval = Math.floor((timeout / 5) * 3);
         }
         this.info( "Interval between 2 checks of reconnection = " + this._hubInterval + " secondes" );
-
-        if ( this._parameters["PDF.Font"] !== null && this._parameters["PDF.Font"] !== undefined )
-            PDF.FONT_NAME = this._parameters["PDF.Font"].toLowerCase();
-        this.info( "PDF Font = '" + PDF.FONT_NAME + "'" );
 
         this._defaultLanguage = schema.DefaultLanguage;
         this.info( "Default language = " + this._defaultLanguage );
@@ -884,126 +1358,188 @@ class DSDatabase extends LoggerBaseObject {
 
         // declare all tables
 
-        var table = null;
-        var tableToLoad = [];
-        for ( table in schema.Schema ) {
-            this._tables[table] = new DSTable( this, schema.Schema[table] );
+        let tableToLoad = [];
+        let indexTable = 0;
+        for ( let table in schema.Schema ) {
+            this._tables[table] = new DSTable( this, indexTable, schema.Schema[table] );
             tableToLoad.push( table );
+            indexTable++;
         }
 
         // Foreign keys need the definition of all tables before looking for an external table
 
-        for ( table in schema.Schema )
-            this._tables[table].updateForeignKeys();
+        for ( let table of Array.toIterable( this._tables ) )
+            table.updateForeignKeys();
 
-        // Loading records for each table
+        // Loading records for each table in asynchronous mode
 
         this.updateStatus( "Loading" );
 
-        if ( this._areaInstance ) {
-            if ( this._areaInstance.progressStatus )
-                this._areaInstance.progressStatus( 0, tableToLoad.length );
+        // Load data for every tables + notify the loading for every data + 3 steps on resynchronizing process
 
-            if ( this._areaInstance.progressMemory )
-                this._areaInstance.progressMemory( 0, this._maxSize );
-        }
+        this.onProgress( 0, tableToLoad.length + ( this._hubMaster !== null ? 3 : 0 ) );
+        this.onProgressMemory();
 
-        if ( this._hubMaster !== null && this._hubMaster._areaInstance !== null && this._hubMaster._areaInstance.progressStatus )
-            this._hubMaster._areaInstance.progressStatus( 0, 2 * tableToLoad.length + 4 );
+        // Update the table content
 
         function handleErrorLoadingTable( db, retry ) {
             return function () {
                 db.error( "Connexion error on loading data" );
                 db.updateStatus( "Error", new Errors( "ERR_CONNECTION" ), retry );
+                return false;
             };
         }
 
-        function handleLoadingTable( db, tables ) {
-            return function ( data ) {
-                db.setTable( data );
-                tables.splice( 0, 1 );
+        function handleLoadingTable( db ) {
+            return async function ( data ) {
+                let errors = null;
 
-                if ( tables.length > 0 )
-                    Hub.Instance.loadTable( tables[0], handleLoadingTable( db, tables ), handleErrorLoadingTable( db, db._hubMaster !== null ) );
+                if ( db.IsDebug )
+                    db.debug( "Data received: " + String.JSONStringify( data ) );
+
+                // error ?
+
+                if ( data.Error ) {
+                    errors = new Errors();
+                    errors.setJSON( data.Error );
+                    db.error( "The records can't be loaded due to " + errors.toString() );
+                    db.updateStatus( "Error", errors );
+                    return false;
+                }
+
+                if ( !data.Records || !data.Table ) {
+                    db.error( "The records are missing" );
+                    errors = new Errors( "ERR_CONNECTION" );
+                    db.updateStatus( "Error", errors );
+                    return false;
+                }
+
+                // update the list of records
+
+                let result = await db._tables[data.Table].setTable( data.Records, data.LastSequenceId );
+                if ( !result ) {
+                    db.error( "The table is not correctly loaded!" );
+                    errors = new Errors( "ERR_CONNECTION" );
+                    db.updateStatus( "Error", errors );
+                    return false;
+                }
+
+                // Update progress bar
+
+                db.onProgress();
+                return true;
             };
         }
 
-        if ( tableToLoad.length > 0 )
-            Hub.Instance.loadTable( tableToLoad[0], handleLoadingTable( this, tableToLoad ), handleErrorLoadingTable( this, this._hubMaster !== null ) );
-    }
-
-    /**
-     * Set records into a given table
-     * @param {any} data JSON structure containing the list of records to put into the table
-     */
-    setTable ( data ) {
-        var errors = null;
-
-        // TODO: Load data per block
-
-        this.info( "Data received: " + String.JSONStringify( data ) );
-
-        // error ?
-
-        if ( data.Error ) {
-            errors = new Errors();
-            errors.setJSON( data.Error );
-            this.error( "The records can't be loaded due to " + errors.toString() );
-            this.updateStatus( "Error", errors );
-            return;
+        function launchHeartbeat( db, endOfLoading ) {
+            return function () {
+                db.onStopProgress( endOfLoading );
+                DSDatabase.Heartbeat( db, db._hubInterval );
+            };
         }
 
-        if ( !data.Records || !data.Table ) {
-            this.error( "The records are missing" );
-            errors = new Errors( "ERR_CONNECTION" );
-            this.updateStatus( "Error", errors );
-            return;
+        function* fnOnLoading( db ) {
+            db.onProgress( 0, db._tables.length, "MSG_LOADING" );
+            yield true;
+
+            for ( let table in db._tables ) {
+                db.eventOnLoad( table );
+                db.onProgress();
+                yield true;
+            }
         }
 
-        // update the list of records
+        function* fnSynchronizeStep1( db ) {
+            db.info( "The database schema is compatible with the database synchronized" );
+            db.info( "Now, replaying all requests into the database manager into the new database ..." );
 
-        if ( !this._tables[data.Table].setTable( data.Records, data.LastSequenceId ) ) {
-            this.error( "The table is not correctly loaded!" );
-            errors = new Errors( "ERR_CONNECTION" );
-            this.updateStatus( "Error", errors );
-            return;
+            // Replay requests and update requests (identity)
+
+            db.onProgress();
+            yield true;
+
+            db.replayRequests( db._hubMaster );
+            yield true;
+
+            db.onProgress();
+            yield true;
+
+            // Replace table data into the database manager
+
+            db.info( "Replacing all existing data by the result of the synchronisation ..." );
+
+            for ( let table in db._tables ) {
+                db._hubMaster._tables[table] = db._tables[table];
+                db._hubMaster._tables[table].setDatabase( db._hubMaster );
+                db._hubMaster._tables[table].updateForeignKeys( true );
+                yield true;
+            }
+
+            db.onProgress();
+            yield true;
         }
 
-        // check if all tables are loaded
+        function* fnSynchronizeStep2( db ) {
+            if ( db._hubMaster._bufferNotifications.length > 0 ) {
+                db._hubMaster.info( "Executing all acknowledges and notifications buffered during the synchronization process ..." );
 
-        var table = null;
-        var tableNotLoaded = false;
-        for ( table in this._tables ) {
-            if ( !this._tables[table].Loaded ) {
-                tableNotLoaded = true;
+                let previousNotifications = db._hubMaster._bufferNotifications;
+                db._hubMaster._bufferNotifications = [];
+
+                for ( let notification of previousNotifications ) {
+                    if ( notification.requestId !== null && notification.requestId !== undefined ) {
+                        db._hubMaster.info( "Acknowledging of the request buffered '" + notification.requestId + "' for ('" + notification.area + "', '" + notification.table + "', '" + notification.action + "', " + String.JSONStringify( notification.record ) + ", " + String.JSONStringify( notification.identity ) );
+
+                        db._hubMaster.updateFromServer( notification.table,
+                            notification.action === "Update" ? notification.record.New : notification.record,
+                            notification.action === "Update" ? notification.identity.New : notification.identity );
+
+                    } else if ( notification.userId !== null && notification.userId !== undefined ) {
+                        db._hubMaster.info( "Notifying an update buffered from the user '" + notification.userId + "' for ('" + notification.area + "', '" + notification.table + "', " + String.JSONStringify( notification.record ) );
+
+                        db._hubMaster.updateFromServer( notification.table, notification.action === "Update" ? notification.record.New : notification.record );
+                    }
+
+                    yield true;
+                }
+            }
+
+            // Raise onLoad on all tables
+
+            for ( let table in db._hubMaster._tables ) {
+                db._hubMaster.eventOnLoad( table );
+                db.onProgress();
+                yield true;
+            }
+        }
+
+        let allLoaded = true;
+        for ( let table of tableToLoad ) {
+            let setTableOK = await Hub.Instance.loadTable( table )
+                                        .then( handleLoadingTable( this ) )
+                                        .catch( handleErrorLoadingTable( this, this._hubMaster !== null ) );
+
+            if ( !setTableOK ) {
+                allLoaded = false;
                 break;
             }
         }
 
-        if ( this._areaInstance && this._areaInstance.progressStatus )
-            this._areaInstance.progressStatus();
+        // finalize the loading table
 
-        if ( this._hubMaster && this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
-            this._hubMaster._areaInstance.progressStatus();
-
-        // wait for all tables loading before ending the database loading
-
-        if ( tableNotLoaded )
+        if ( !allLoaded )
             return;
 
         // Update the list of unique values
 
-        for ( table in this._tables )
-            this._tables[table].updateUniqueValues();
+        for ( let table of Array.toIterable( this._tables ) )
+            table.updateUniqueAndIndexValues();
 
         // all tables are loaded ...
 
         this.updateStatus( "Loaded" );
 
         // enable the interval between 2 tries of reconnection
-
-        var notification = null;
-        var i = null;
 
         if ( this._hubMaster === null ) {
             // It's DSDatabase.Instance ...
@@ -1013,56 +1549,100 @@ class DSDatabase extends LoggerBaseObject {
             if ( this._bufferNotifications.length > 0 ) {
                 this.info( "Executing all acknowledges and notifications buffered during the initialization process ..." );
 
-                for ( i = 0; i < this._bufferNotifications.length; i++ ) {
-                    notification = this._bufferNotifications[i];
-                    if ( notification === null || notification === undefined )
-                        continue;
-
+                for ( let notification of this._bufferNotifications ) {
                     if ( notification.requestId !== null && notification.requestId !== undefined ) {
                         this.info( "Acknowledging of the request buffered '" + notification.requestId + "' for ('" + notification.area + "', '" + notification.table + "', '" + notification.action + "', " + String.JSONStringify( notification.record ) + ", " + String.JSONStringify( notification.identity ) );
-                        this.updateFromServer( notification.table, notification.record, notification.action === "Update" ? notification.identity.New : notification.identity );
+
+                        this.updateFromServer( notification.table,
+                            notification.action === "Update" ? notification.record.New : notification.record,
+                            notification.action === "Update" ? notification.identity.New : notification.identity );
+
                     } else if ( notification.userId !== null && notification.userId !== undefined ) {
                         this.info( "Notifying an update buffered from the user '" + notification.userId + "' for ('" + notification.area + "', '" + notification.table + "', " + String.JSONStringify( notification.record ) );
-                        this.updateFromServer( notification.table, notification.record );
+
+                        this.updateFromServer( notification.table, notification.action === "Update" ? notification.record.New : notification.record );
                     }
                 }
 
                 this._bufferNotifications = [];
             }
-        } else {
-            this.finalizeSynchronization();
-        }
 
-        // all notifications are treated ... the application is ready
+            // all notifications are treated ... the application is ready
 
-        this.updateStatus( "Running" );
+            launchHeartbeat( this, true )();
 
-        if ( this._hubMaster !== null ) {
-            this._hubMaster.updateStatus( "Running" );
-            this._hubMaster.sendRequests();
-        }
+            // Raise onLoad on all tables
 
-        if ( this._areaInstance && this._areaInstance.onStopProgress )
-            this._areaInstance.onStopProgress( true );
+            await GUI.Box.Progress.Thread( fnOnLoading(this), 1, false, false );
 
-        if ( this._hubMaster !== null && this._hubMaster._areaInstance && this._hubMaster._areaInstance.onStopProgress )
-            this._hubMaster._areaInstance.onStopProgress();
+            this.updateStatus( "Running" );
+            return;
+        } 
 
-        if ( this._hubMaster !== null ) {
-            if ( this._hubMaster._hubHandle !== null ) {
-                window.clearInterval( this._hubMaster._hubHandle );
-                this._hubMaster._hubHandle = null;
+        this.info( "The schema and tables are loaded ... Synchronizing database manager ..." );
+
+        // Check if the database schema is the same as the database loaded
+
+        for ( let table in this._tables ) {
+            if ( this._hubMaster._tables[table] === null || this._hubMaster._tables[table] === undefined ) {
+                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
+                return;
             }
-
-            this._hubMaster._hubHandle = window.setInterval( DSDatabase.ReconnectHub( this._hubMaster ), this._hubInterval * 1000 );
-        } else {
-            if ( this._hubHandle !== null ) {
-                window.clearInterval( this._hubHandle );
-                this._hubHandle = null;
-            }
-
-            this._hubHandle = window.setInterval( DSDatabase.ReconnectHub( this ), this._hubInterval * 1000 );
         }
+
+        for ( let table in this._hubMaster._tables ) {
+            if ( this._tables[table] === null || this._tables[table] === undefined ) {
+                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
+                return;
+            }
+        }
+
+        for ( let table in this._tables ) {
+            if ( !this._tables[table].hasSameStructure( this._hubMaster._tables[table] ) ) {
+                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
+                return;
+            }
+        }
+
+        // Synchronize the data
+
+        await GUI.Box.Progress.Thread( fnSynchronizeStep1( this ), 1, false, false ).then( async () => {
+            // Replace requests
+
+            this._hubMaster._requestsByRequestId = this._requestsByRequestId;
+            this._hubMaster._bufferRequestSent = this._bufferRequestSent;
+            this._hubMaster._bufferRequest = this._bufferRequest;
+            this._hubMaster._bufferNotifications = this._bufferNotifications;
+
+            // Update some properties
+
+            this._hubMaster._version = this._version;
+
+            this._hubMaster._currentSize = this._currentSize;
+            this._hubMaster._maxSize = this._maxSize;
+            this._hubMaster._parameters = this._parameters;
+            this._hubMaster._defaultLanguage = this._defaultLanguage;
+            this._hubMaster._currentUserId = this._currentUserId;
+            this._hubMaster._lastRequestId = this._lastRequestId;
+
+            // Reconnection setup
+
+            this._hubMaster._hubInterval = this._hubInterval;
+
+            // Destroy the database synchronized
+
+            this._hubMaster._hubDatabase = null;
+
+            // Treat all notifications waiting initializing process
+
+            await GUI.Box.Progress.Thread( fnSynchronizeStep2( this ), 1, false, false ).then( async () => {
+                this._hubMaster.onProgressMemory();
+
+                this._hubMaster.updateStatus( "Running" );
+
+                await this._hubMaster.sendRequests().then( launchHeartbeat( this._hubMaster, true ) ).catch( launchHeartbeat( this._hubMaster, false ) );
+            } );
+        } );
     }
 
     /**
@@ -1102,11 +1682,11 @@ class DSDatabase extends LoggerBaseObject {
     getNewRow ( table ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
-        var currentRecord = currentTable.NewRow;
+        let currentRecord = currentTable.NewRow;
         if ( currentRecord.CustomerId !== undefined )
             currentRecord.CustomerId = this.CurrentCustomer.Id;
 
@@ -1122,7 +1702,7 @@ class DSDatabase extends LoggerBaseObject {
     getRowById ( table, id ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1138,7 +1718,7 @@ class DSDatabase extends LoggerBaseObject {
     getClientIdByServerId ( table, id ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1154,7 +1734,7 @@ class DSDatabase extends LoggerBaseObject {
     getServerIdByClientId ( table, id ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1169,7 +1749,7 @@ class DSDatabase extends LoggerBaseObject {
     getSequence(table) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if (currentTable === null || currentTable === undefined)
             return null;
 
@@ -1185,11 +1765,26 @@ class DSDatabase extends LoggerBaseObject {
     getColumn( table, column ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
         return currentTable.getColumn( column );
+    }
+
+    /**
+     * Retrieve the list of foreign keys of a given table
+     * @param {any} table name of the table to ask
+     * @returns {any} list of fields having a foreign key [key] = 'table'
+     */
+    getForeignKeys( table ) {
+        // looking for the table
+
+        let currentTable = this._tables[table];
+        if ( currentTable === null || currentTable === undefined )
+            return {};
+
+        return currentTable.getForeignKeys();
     }
 
     /**
@@ -1201,7 +1796,7 @@ class DSDatabase extends LoggerBaseObject {
     getColumnLabel ( table, column ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1218,7 +1813,7 @@ class DSDatabase extends LoggerBaseObject {
     getEnumerable ( table, column, value ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return value === undefined ? [] : value;
 
@@ -1234,7 +1829,7 @@ class DSDatabase extends LoggerBaseObject {
     getDatetimeFormat ( table, column ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1250,7 +1845,7 @@ class DSDatabase extends LoggerBaseObject {
     getDefaultValue ( table, column ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1267,7 +1862,7 @@ class DSDatabase extends LoggerBaseObject {
     getHistoryValue( table, column, value ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1283,11 +1878,44 @@ class DSDatabase extends LoggerBaseObject {
     getLastHistoryId( table, id ) {
         // looking for the table
 
-        var currentTable = this._tables["History" + table];
+        let currentTable = this._tables["History" + table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
         return currentTable.getLastHistoryId( id );
+    }
+
+    /**
+     * Retrieve the list of records Ids matching within the keys
+     * @param {any} table table name
+     * @param {any} column column name
+     * @param {any} keys structure containing the list of keys and values looking for
+     * @returns {Array} array of ids or null if the index doesn't exist
+     */
+    getIndex( table, column, keys ) {
+        // looking for the table
+
+        let currentTable = this._tables[table];
+        if ( currentTable === null || currentTable === undefined )
+            return null;
+
+        return currentTable.getIndex( column, keys );
+    }
+
+    /**
+     * Retrieve the list of different values of this column
+     * @param {any} table table name
+     * @param {any} column column name
+     * @returns {Array} list of different values
+     */
+    getValues( table, column ) {
+        // looking for the table
+
+        let currentTable = this._tables[table];
+        if ( currentTable === null || currentTable === undefined )
+            return null;
+
+        return currentTable.getValues( column );
     }
 
     /**
@@ -1299,7 +1927,7 @@ class DSDatabase extends LoggerBaseObject {
     updateHistoryProperties( table, item ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return null;
 
@@ -1320,7 +1948,7 @@ class DSDatabase extends LoggerBaseObject {
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return value;
 
@@ -1338,7 +1966,7 @@ class DSDatabase extends LoggerBaseObject {
     checkProperties ( table, record, errors ) {
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined )
             return record;
 
@@ -1348,19 +1976,16 @@ class DSDatabase extends LoggerBaseObject {
     /**
      * Initialize the database manager
      */
-    start () {
+    async start () {
         if ( this._status !== "NotInitialized" )
             return;
 
-        if ( this._areaInstance && this._areaInstance.onStartProgress )
-            this._areaInstance.onStartProgress();
-
-        if ( this._areaInstance && this._areaInstance.progressStatus )
-            this._areaInstance.progressStatus( 0, 1 );
+        this.onStartProgress();
+        this.onProgress( 0, 1, "MSG_INITIALIZING" );
 
         this.info( "Connecting to the server ..." );
         Hub.Instance.addListener( this.Module, this );
-        Hub.Instance.start();
+        await Hub.Instance.start();
     }
 
     /**
@@ -1371,14 +1996,15 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {DSRecord} record added
      */
     addFromClient ( table, record, errors ) {
-        this.info( "Adding the record " + String.JSONStringify( record ) + " from the client into the table '" + table + "' ..." );
+        if ( this.IsVerbose )
+            this.verbose( "Adding the record " + String.JSONStringify( record ) + " from the client into the table '" + table + "' ..." );
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
-            errors.addGlobal( "ERR_REQUEST_UNKNOWN" );
+            errors.addFatal( "ERR_REQUEST_UNKNOWN" );
             return null;
         }
 
@@ -1395,15 +2021,16 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} errors container of errors in case of abnormal value into the record
      * @returns {DSRecord} record updated
      */
-    updateFromClient ( table, oldRecord, newRecord, errors ) {
-        this.info( "Updating the record " + String.JSONStringify( oldRecord ) + " to " + String.JSONStringify( newRecord ) + " from the client into the table '" + table + "' ..." );
+    updateFromClient( table, oldRecord, newRecord, errors ) {
+        if ( this.IsVerbose )
+            this.verbose( "Updating the record " + String.JSONStringify( oldRecord ) + " to " + String.JSONStringify( newRecord ) + " from the client into the table '" + table + "' ..." );
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
-            errors.addGlobal( "ERR_REQUEST_UNKNOWN" );
+            errors.addFatal( "ERR_REQUEST_UNKNOWN" );
             return null;
         }
 
@@ -1419,12 +2046,13 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} identity identity of the record updated by the server
      * @returns {DSRecord} record updated
      */
-    updateFromServer ( table, record, identity ) {
-        this.info( "Updating the record " + String.JSONStringify( record ) + " from the server into the table '" + table + "' ..." );
+    updateFromServer( table, record, identity ) {
+        if ( this.IsVerbose )
+            this.verbose( "Updating the record " + String.JSONStringify( record ) + " from the server into the table '" + table + "' ..." );
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
             return null;
@@ -1441,12 +2069,13 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} id    id of the record to delete
      * @returns {DSRecord} record deleted
      */
-    deleteRowById ( table, id ) {
-        this.info( "Deleting the row " + id.toString() + " from the client into the table '" + table + "' ..." );
+    deleteRowById( table, id ) {
+        if ( this.IsVerbose )
+            this.verbose( "Deleting the row " + id.toString() + " from the client into the table '" + table + "' ..." );
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
             return null;
@@ -1465,14 +2094,15 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {DSRecord} record deleted
      */
     deleteFromClient ( table, record, errors ) {
-        this.info( "Deleting the record " + String.JSONStringify( record ) + " from the client into the table '" + table + "' ..." );
+        if ( this.IsVerbose )
+            this.verbose( "Deleting the record " + String.JSONStringify( record ) + " from the client into the table '" + table + "' ..." );
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
-            errors.addGlobal( "ERR_REQUEST_UNKNOWN" );
+            errors.addFatal( "ERR_REQUEST_UNKNOWN" );
             return null;
         }
 
@@ -1497,7 +2127,7 @@ class DSDatabase extends LoggerBaseObject {
             };
         }
 
-        var newRecords = records === null || records === undefined ? [] : records;
+        let newRecords = records === null || records === undefined ? [] : records;
         this.each( table, handleReadRecord( newRecords, table, column, id ) );
         return newRecords;
     }
@@ -1511,8 +2141,8 @@ class DSDatabase extends LoggerBaseObject {
         if ( errors.HasError || records === null || records === undefined )
             return;
 
-        for ( var i = 0; i < records.length && !errors.HasError; i++ ) {
-            var record = records[i];
+        for ( let i = 0; i < records.length && !errors.HasError; i++ ) {
+            let record = records[i];
             if ( record === null || record === undefined )
                 return;
 
@@ -1534,10 +2164,10 @@ class DSDatabase extends LoggerBaseObject {
 
         // looking for the table
 
-        var currentTable = this._tables[table];
+        let currentTable = this._tables[table];
         if ( currentTable === null || currentTable === undefined ) {
             this.error( "The table '" + table + "' doesn't exist!" );
-            errors.addGlobal( "ERR_REQUEST_UNKNOWN" );
+            errors.addFatal( "ERR_REQUEST_UNKNOWN" );
             return null;
         }
 
@@ -1561,7 +2191,7 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {string} key of the listener (used it to remove it)
      */
     addEventListener ( event, table, id, fn ) {
-        var key = this.NextEventListenerKey;
+        let key = this.NextEventListenerKey;
 
         if ( event === null || event === undefined )
             event = "*";
@@ -1598,7 +2228,7 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} key key of the listener to remove
      */
     removeEventListener ( key ) {
-        var currentListener = this._listeners[key];
+        let currentListener = this._listeners[key];
 
         if ( currentListener === null || currentListener === undefined )
             return;
@@ -1634,21 +2264,21 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {array} list of functions to call
      */
     getEvents ( event, table, id ) {
-        var events = [];
+        let events = [];
 
-        for ( var eventName in this._eventListeners ) {
+        for ( let eventName in this._eventListeners ) {
             if ( eventName !== "*" && eventName !== event )
                 continue;
 
-            for ( var eventTable in this._eventListeners[eventName] ) {
+            for ( let eventTable in this._eventListeners[eventName] ) {
                 if ( eventTable !== "*" && eventTable !== table )
                     continue;
 
-                for ( var eventId in this._eventListeners[eventName][eventTable] ) {
+                for ( let eventId in this._eventListeners[eventName][eventTable] ) {
                     if ( eventId !== "*" && eventId !== id.toString() )
                         continue;
 
-                    for ( var eventKey in this._eventListeners[eventName][eventTable][eventId] ) {
+                    for ( let eventKey in this._eventListeners[eventName][eventTable][eventId] ) {
                         events.push( { key: parseInt( eventKey ), fn: this._eventListeners[eventName][eventTable][eventId][eventKey] } );
                     }
                 }
@@ -1659,9 +2289,9 @@ class DSDatabase extends LoggerBaseObject {
 
         events.sort( function ( a, b ) { return a.key < b.key ? -1 : a.key > b.key ? 1 : 0; } );
 
-        var fnEvents = [];
-        for ( var key in events )
-            fnEvents.push( events[key].fn );
+        let fnEvents = [];
+        for ( let action of events )
+            fnEvents.push( action.fn );
 
         return fnEvents;
     }
@@ -1671,15 +2301,16 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} tick  tick of the begining of the notification
      * @param {any} label code label to show
      */
-    eventOnBeginNotification ( tick, label ) {
-        var events = this.getEvents( "onBeginNotification", "*", "*" );
+    async eventOnBeginNotification ( tick, label ) {
+        let events = this.getEvents( "onBeginNotification", "*", "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onBeginNotification", "*", tick, label );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onBeginNotification", "*", tick, label );
+                } else {
+                    action( "onBeginNotification", "*", tick, label );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onBeginNotification'", e );
             }
@@ -1692,15 +2323,16 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} label  code label to show
      * @param {any} errors list of errors to notifiy
      */
-    eventOnNotify ( table, tick, label, errors ) {
-        var events = this.getEvents( "onNotify", table, "*" );
+    async eventOnNotify ( table, tick, label, errors ) {
+        let events = this.getEvents( "onNotify", table, "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onNotify", table, tick, label, errors );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onNotify", table, tick, label, errors );
+                } else {
+                    action( "onNotify", table, tick, label, errors );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onNotify'", e );
             }
@@ -1711,15 +2343,16 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} tick  tick of the begining of the notification
      * @param {any} label code label to show
      */
-    eventOnEndNotification ( tick, label ) {
-        var events = this.getEvents( "onEndNotification", "*", "*" );
+    async eventOnEndNotification ( tick, label ) {
+        let events = this.getEvents( "onEndNotification", "*", "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onEndNotification", "*", tick, label );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onEndNotification", "*", tick, label );
+                } else {
+                    action( "onEndNotification", "*", tick, label );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onEndNotification'", e );
             }
@@ -1730,17 +2363,21 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} table table name
      * @param {any} id    id of the record created
      */
-    eventOnCreate ( table, id ) {
-        var events = this.getEvents( "onCreate", table, id );
+    async eventOnCreate ( table, id ) {
+        let events = this.getEvents( "onCreate", table, id );
 
         if ( events.length === 0 )
             return;
 
-        var record = this.getRowById( table, id );
+        let record = this.getRowById( table, id );
 
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onCreate", table, id, record );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onCreate", table, id, record );
+                } else {
+                    action( "onCreate", table, id, record );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onCreate'", e );
             }
@@ -1752,17 +2389,21 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} id        id of the record updated
      * @param {any} oldRecord previous record updated
      */
-    eventOnUpdate ( table, id, oldRecord ) {
-        var events = this.getEvents( "onUpdate", table, id );
+    async eventOnUpdate ( table, id, oldRecord ) {
+        let events = this.getEvents( "onUpdate", table, id );
 
         if ( events.length === 0 )
             return;
 
-        var newRecord = this.getRowById( table, id );
+        let newRecord = this.getRowById( table, id );
 
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onUpdate", table, id, oldRecord, newRecord );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onUpdate", table, id, oldRecord, newRecord );
+                } else {
+                    action( "onUpdate", table, id, oldRecord, newRecord );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onUpdate'", e );
             }
@@ -1773,17 +2414,21 @@ class DSDatabase extends LoggerBaseObject {
      * @param {any} table table name
      * @param {any} id    id of the record deleted
      */
-    eventOnDelete ( table, id ) {
-        var events = this.getEvents( "onDelete", table, id );
+    async eventOnDelete ( table, id ) {
+        let events = this.getEvents( "onDelete", table, id );
 
         if ( events.length === 0 )
             return;
 
-        var record = this.getRowById( table, id );
+        let record = this.getRowById( table, id );
 
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onDelete", table, id, record );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onDelete", table, id, record );
+                } else {
+                    action( "onDelete", table, id, record );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onDelete'", e );
             }
@@ -1793,125 +2438,88 @@ class DSDatabase extends LoggerBaseObject {
      * Raise onLoad event on the database or the table
      * @param {any} table table name loaded
      */
-    eventOnLoad ( table ) {
-        var events = this.getEvents( "onLoad", table, "*" );
+    async eventOnLoad ( table ) {
+        let events = this.getEvents( "onLoad", table, "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onLoad", table );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( "onLoad", table );
+                } else {
+                    action( "onLoad", table );
+                }
             } catch ( e ) {
                 this.exception( "Exception on raising the event 'onLoad'", e );
             }
     }
 
     /**
-     * Raise onStartCommit event on the database or the table
-     * @param {any} nbRequests number of requests under committing
+     * Raise {event} event on the database or the table
+     * @param {any} event event to raise
+     * @param {any} nbRequests number of requests under validation or rejection
      */
-    eventOnStartCommit ( nbRequests ) {
+    async eventOnStartValidation( event, nbRequests ) {
         this._commitRunning = true;
 
-        var events = this.getEvents( "onStartCommit", "*", "*" );
+        let events = this.getEvents( event, "*", "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onStartCommit", nbRequests );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( event, nbRequests );
+                } else {
+                    action( event, nbRequests );
+                }
             } catch ( e ) {
-                this.exception( "Exception on raising the event 'onStartCommit'", e );
+                this.exception( "Exception on raising the event '" + event + "'", e );
             }
     }
 
     /**
-     * Raise onCommit event on the database or the table
-     * @param {any} error list of errors on committing
+     * Raise {event} event on the database or the table
+     * @param {any} event event to raise
+     * @param {any} error list of errors on committing or rejection
      */
-    eventOnCommit ( error ) {
+    async eventOnValidation( event, error ) {
         if ( !this._commitRunning )
             return;
 
-        var events = this.getEvents( "onCommit", "*", "*" );
+        let events = this.getEvents( event, "*", "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onCommit", error );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( event, error );
+                } else {
+                    action( event, error );
+                }
             } catch ( e ) {
-                this.exception( "Exception on raising the event 'onCommit'", e );
+                this.exception( "Exception on raising the event '" + event + "'", e );
             }
     }
 
     /**
-     * Raise onStopCommit event on the database or the table
+     * Raise {event} event on the database or the table
+     * @param {any} event event to raise
      */
-    eventOnStopCommit () {
-        if ( !this._commitRunning )
-            return;
+    async eventOnStopValidation( event ) {
         this._commitRunning = false;
 
-        var events = this.getEvents( "onStopCommit", "*", "*" );
+        let events = this.getEvents( event, "*", "*" );
 
-        if ( events.length === 0 )
-            return;
-
-        for ( var eventKey in events )
+        for ( let action of events )
             try {
-                events[eventKey]( "onStopCommit" );
+                if ( action.constructor.name === "AsyncFunction" ) {
+                    await action( event );
+                } else {
+                    action( event );
+                }
             } catch ( e ) {
-                this.exception( "Exception on raising the event 'onStopCommit'", e );
+                this.exception( "Exception on raising the event '" + event + "'", e );
             }
     }
 
     // ------------------------------------- Synchronization process -------------------------------------
-
-    /**
-     * Start the synchronization process
-     * Load data from server
-     * Check if the structure between the current and the new one is compatible
-     * Update it
-     */
-    synchronize () {
-        function handleInitializing( db ) {
-            return function ( schema ) {
-                db.setSchema( schema );
-            };
-        }
-
-        function handleError( db, retry ) {
-            return function () {
-                db.error( "Connexion error on synchronizing protocol" );
-                db.updateStatus( "Error", new Errors( "ERR_CONNECTION" ), retry );
-            };
-        }
-
-        this.info( "Starting the synchronization process ..." );
-
-        if ( this._hubHandle !== null ) {
-            window.clearInterval( this._hubHandle );
-            this._hubHandle = null;
-        }
-
-        if ( this._areaInstance && this._areaInstance.onStartProgress )
-            this._areaInstance.onStartProgress();
-
-        if ( this._areaInstance && this._areaInstance.progressStatus )
-            this._areaInstance.progressStatus( 0, 1, "MSG_SYNCHRONIZING" );
-
-        // define a new database instance to make the synchronization
-
-        this._hubDatabase = new DSDatabase( "DSSynchronization", this );
-        this._hubDatabase._areaName = this._areaName;
-        this._hubDatabase._areaModuleId = this._areaModuleId;
-
-        Hub.Instance.initialize( this._hubDatabase._areaName, this._hubDatabase._areaModuleId, handleInitializing( this._hubDatabase ), handleError( this._hubDatabase, true ) );
-    }
 
     /**
      * Replay a request (requestId, table, action, record, identity, tick)
@@ -1919,9 +2527,9 @@ class DSDatabase extends LoggerBaseObject {
      * @returns {any} new request
      */
     replayRequest ( request ) {
-        var newRequest = {};
-        var errors = null;
-        var currentTable = null;
+        let newRequest = {};
+        let errors = null;
+        let currentTable = null;
 
         if ( request === null || request === undefined )
             return null;
@@ -1929,13 +2537,10 @@ class DSDatabase extends LoggerBaseObject {
         errors = new Errors();
 
         if ( request.transaction !== null && request.transaction !== undefined ) {
-            var newTransaction = [];
+            let newTransaction = [];
+            let transaction = this.uncompressTransaction( request.transaction );
 
-            for ( var i = 0; i < request.transaction.length; i++ ) {
-                var currentRequest = request.transaction[i];
-                if ( currentRequest === null || currentRequest === undefined )
-                    continue;
-
+            for ( let currentRequest of transaction ) {
                 currentTable = null;
                 if ( currentRequest.table !== null && currentRequest.table !== undefined )
                     currentTable = this._tables[currentRequest.table];
@@ -1976,7 +2581,7 @@ class DSDatabase extends LoggerBaseObject {
 
                 if ( newRequest === null || errors.HasError ) {
                     this.warn( "Unable to replay the request " + String.JSONStringify( currentRequest ) + " due to " + errors.toString() );
-                    for ( i = newTransaction.length - 1; i >= 0; i-- )
+                    for ( let i = newTransaction.length - 1; i >= 0; i-- )
                         this.rollbackRequest( newTransaction[i] );
                     return null;
                 }
@@ -1984,7 +2589,7 @@ class DSDatabase extends LoggerBaseObject {
                 newTransaction.push( newRequest );
             }
 
-            newRequest = { requestId: null, label: request.label, transaction: newTransaction, fnDone: request.fnDone };
+            newRequest = { requestId: null, label: request.label, transaction: this.compressTransaction( newTransaction ), notify: request.notify, fnDone: request.fnDone };
         } else {
             if ( request.table !== null && request.table !== undefined )
                 currentTable = this._tables[request.table];
@@ -2037,10 +2642,11 @@ class DSDatabase extends LoggerBaseObject {
 
         newRequest.requestId = this.NextRequestId;
 
-        var requestSize = String.JSONStringify( newRequest ).length;
+        let requestSize = String.JSONStringify( newRequest ).length;
         this._currentSize += requestSize;
 
         this.info( "The request " + String.JSONStringify( newRequest ) + " has been replayed (size: " + requestSize + " octets) ..." );
+        this.onProgressMemory();
 
         return newRequest;
     }
@@ -2061,16 +2667,16 @@ class DSDatabase extends LoggerBaseObject {
 
         // Sort keys by ascending
 
-        var keys = [];
-        for ( var requestId in from._requestsByRequestId )
+        let keys = [];
+        for ( let requestId in from._requestsByRequestId )
             keys.push( requestId );
         keys.sort( function ( a, b ) { return a < b ? -1 : ( a > b ? 1 : 0 ); } );
 
         // Put the requests already sent into the list of requests to send
 
-        var buffer = [];
-        var i = 0, j = 0;
-        var request = null;
+        let buffer = [];
+        let i = 0, j = 0;
+        let request = null;
         for ( i = 0; i < keys.length; i++ ) {
             if ( keys[i] <= this._lastRequestId ) {
                 this.info( "Ignore the request [" + keys[i] + "] because already treated by the server" );
@@ -2115,19 +2721,17 @@ class DSDatabase extends LoggerBaseObject {
         // from._bufferNotifications.push({ userId: userId, area: area, table: table, record: record });
 
         for ( i = 0; i < from._bufferNotifications.length; i++ ) {
-            if ( from._bufferNotifications[i].transaction === undefined || from._bufferNotifications[i].transaction === null ) {
+            if ( from._bufferNotifications[i].transaction !== undefined && from._bufferNotifications[i].transaction !== null ) {
                 request = [];
 
                 for ( j = 0; j < from._bufferNotifications[i].transaction.length; j++ ) {
-                    if ( from._bufferNotifications[i][j].identity === undefined || from._bufferNotifications[i][j].identity === null ) {
-                        request.push( from._bufferNotifications[i][j] );
-                        continue;
-                    }
+                    if ( from._bufferNotifications[i].transaction[j].identity !== undefined && from._bufferNotifications[i].transaction[j].identity !== null )
+                        request.push( from._bufferNotifications[i].transaction[j] );
                 }
 
                 if ( request.lenth > 0 )
                     this._bufferNotifications.push( request );
-            } else if ( from._bufferNotifications[i].identity === undefined || from._bufferNotifications[i].identity === null ) {
+            } else if ( from._bufferNotifications[i].identity !== undefined && from._bufferNotifications[i].identity !== null ) {
                 this._bufferNotifications.push( from._bufferNotifications[i] );
                 continue;
             }
@@ -2136,124 +2740,6 @@ class DSDatabase extends LoggerBaseObject {
         }
 
         this.info( this._bufferNotifications.length + " notifications waiting the end of initialization" );
-    }
-
-    /**
-     * The existing schema and data are loaded ...
-     * Replay all data updated since the last disconnection
-     * Replace the DSDatabase.Instance by the new one
-     */
-    finalizeSynchronization() {
-        var table = null;
-
-        this.info( "The schema and tables are loaded ... Synchronizing database manager ..." );
-
-        // Check if the database schema is the same as the database loaded
-
-        for ( table in this._tables ) {
-            if ( this._hubMaster._tables[table] === null || this._hubMaster._tables[table] === undefined ) {
-                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
-                return;
-            }
-        }
-
-        for ( table in this._hubMaster._tables ) {
-            if ( this._tables[table] === null || this._tables[table] === undefined ) {
-                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
-                return;
-            }
-        }
-
-        for ( table in this._tables ) {
-            if ( !this._tables[table].hasSameStructure( this._hubMaster._tables[table] ) ) {
-                this.updateStatus( "Error", new Errors( "ERR_UNABLE_SYNCHRONIZATION" ) );
-                return;
-            }
-        }
-
-        this.info( "The database schema is compatible with the database synchronized" );
-        this.info( "Now, replaying all requests into the database manager into the new database ..." );
-
-        if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
-            this._hubMaster._areaInstance.progressStatus();
-
-        // Replay requests and update requests (identity)
-
-        this.replayRequests( this._hubMaster );
-
-        if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
-            this._hubMaster._areaInstance.progressStatus();
-
-        // Replace table data into the database manager
-
-        for ( table in this._tables ) {
-            this._hubMaster._tables[table] = this._tables[table];
-            this._hubMaster._tables[table].setDatabase ( this._hubMaster );
-            this._hubMaster._tables[table].updateForeignKeys( true );
-        }
-
-        if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
-            this._hubMaster._areaInstance.progressStatus();
-
-        // Replace requests
-
-        this._hubMaster._requestsByRequestId = this._requestsByRequestId;
-        this._hubMaster._bufferRequestSent = this._bufferRequestSent;
-        this._hubMaster._bufferRequest = this._bufferRequest;
-        this._hubMaster._bufferNotifications = this._bufferNotifications;
-
-        // Update some properties
-
-        this._hubMaster._version = this._version;
-
-        this._hubMaster._currentSize = this._currentSize;
-        this._hubMaster._maxSize = this._maxSize;
-
-        if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressMemory )
-            this._hubMaster._areaInstance.progressMemory( this._hubMaster._currentSize, this._hubMaster._maxSize );
-
-        this._hubMaster._parameters = this._parameters;
-        this._hubMaster._defaultLanguage = this._defaultLanguage;
-        this._hubMaster._currentUserId = this._currentUserId;
-
-        // Reconnection setup
-
-        this._hubMaster._hubInterval = this._hubInterval;
-
-        // Destroy the database synchronized
-
-        this._hubMaster._hubDatabase = null;
-
-        // Treat all notifications waiting initializing process
-
-        if ( this._hubMaster._bufferNotifications.length > 0 ) {
-            this._hubMaster.info( "Executing all acknowledges and notifications buffered during the synchronization process ..." );
-
-            for ( let i = 0; i < this._hubMaster._bufferNotifications.length; i++ ) {
-                let notification = this._hubMaster._bufferNotifications[i];
-                if ( notification === null || notification === undefined )
-                    continue;
-
-                if ( notification.requestId !== null && notification.requestId !== undefined ) {
-                    this._hubMaster.info( "Acknowledging of the request buffered '" + notification.requestId + "' for ('" + notification.area + "', '" + notification.table + "', '" + notification.action + "', " + String.JSONStringify( notification.record ) + ", " + String.JSONStringify( notification.identity ) );
-                    this._hubMaster.updateFromServer( notification.table, notification.record, notification.action === "Update" ? notification.identity.New : notification.identity );
-                } else if ( notification.userId !== null && notification.userId !== undefined ) {
-                    this._hubMaster.info( "Notifying an update buffered from the user '" + notification.userId + "' for ('" + notification.area + "', '" + notification.table + "', " + String.JSONStringify( notification.record ) );
-                    this._hubMaster.updateFromServer( notification.table, notification.record );
-                }
-            }
-
-            this._hubMaster._bufferNotifications = [];
-        }
-
-        // Raise onLoad on all tables
-
-        for ( table in this._hubMaster._tables ) {
-            this._hubMaster.eventOnLoad( table );
-
-            if ( this._hubMaster._areaInstance && this._hubMaster._areaInstance.progressStatus )
-                this._hubMaster._areaInstance.progressStatus();
-        }
     }
 
     /**
@@ -2276,7 +2762,7 @@ class DSDatabase extends LoggerBaseObject {
         this._tables = {};
         this._parameters = null;
 
-        this._defaultLanguage = "FR";
+        this._defaultLanguage = "EN";
         this._currentUserId = -1;
         this._currentModuleId = -1;
         this._selectedLanguage = null;
@@ -2306,6 +2792,7 @@ class DSDatabase extends LoggerBaseObject {
         // Transaction handling
 
         this._bufferTransactionLabel = null;
+        this._bufferTransactionNotify = false;
         this._bufferTransaction = null;
         this._bufferTransactionCount = 0;
 
@@ -2315,7 +2802,6 @@ class DSDatabase extends LoggerBaseObject {
         // within a sub DSDatabase.Instance and, as the synchronization is finished, all properties of DSDatabase.Instance is replace by the new one.
 
         this._hubMaster = master === undefined ? null : master; // reference on the main DSDatabase (this value is null for the DSDatabase.Instance and not null for the synchronization process)
-        this._hubHandle = null;
         this._hubInterval = 30;
         this._hubDatabase = null;
     }

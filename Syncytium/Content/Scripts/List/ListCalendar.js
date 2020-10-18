@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ List.ListCalendar = class extends List.List {
      * @returns {int} the month (1..12)
      */
     month ( offsetMonth ) {
-        var month = this._offsetMonth + ( offsetMonth === null || offsetMonth === undefined ? 0 : offsetMonth );
+        let month = this._offsetMonth + ( offsetMonth === null || offsetMonth === undefined ? 0 : offsetMonth );
         return ( month - 1 ) % 12 + 1;
     }
 
@@ -75,7 +75,7 @@ List.ListCalendar = class extends List.List {
      * @returns {int} the year
      */
     year ( offsetMonth ) {
-        var month = this._offsetMonth + ( offsetMonth === null || offsetMonth === undefined ? 0 : offsetMonth );
+        let month = this._offsetMonth + ( offsetMonth === null || offsetMonth === undefined ? 0 : offsetMonth );
         return this._offsetYear + Math.floor(( month - 1 ) / 12 );
     }
 
@@ -152,8 +152,8 @@ List.ListCalendar = class extends List.List {
     getAttributHTML ( item, attribute ) {
         function compare( list ) {
             return function ( item1, item2 ) {
-                var v1 = list.getElementText( item1 );
-                var v2 = list.getElementText( item2 );
+                let v1 = list.getElementText( item1 );
+                let v2 = list.getElementText( item2 );
 
                 if ( v1 < v2 )
                     return -1;
@@ -168,43 +168,43 @@ List.ListCalendar = class extends List.List {
         if ( attribute === "day" )
             return item.day.toString();
 
-        var offsetMonth = parseInt( attribute );
+        let offsetMonth = parseInt( attribute );
         if ( isNaN( offsetMonth ) )
             return "";
 
-        var i = null;
-        var currentDay = item.day;
-        var currentMonth = this._offsetMonth + offsetMonth;
-        var currentYear = this._offsetYear;
+        let i = null;
+        let currentDay = item.day;
+        let currentMonth = this._offsetMonth + offsetMonth;
+        let currentYear = this._offsetYear;
 
         while ( currentMonth > 12 ) {
             currentMonth -= 12;
             currentYear++;
         }
 
-        var day = this.day[currentDay];
+        let day = this.day[currentDay];
         if ( !day )
             return "";
 
-        var month = day.month[currentMonth];
+        let month = day.month[currentMonth];
         if ( !month )
             return "";
 
-        var elements = month.year[currentYear];
+        let elements = month.year[currentYear];
         if ( !elements )
             return "";
 
-        var arrayElement = [];
-        for ( i in elements )
-            arrayElement.push( elements[i] );
+        let arrayElement = [];
+        for ( let element of Array.toIterable( elements ) )
+            arrayElement.push( element );
         arrayElement.sort( compare( this ) );
 
-        var content = "";
-        for ( i in arrayElement ) {
-            if ( arrayElement[i] === null || arrayElement[i] === undefined )
+        let content = "";
+        for ( let element of arrayElement ) {
+            if ( element === null || element === undefined )
                 continue;
 
-            var str = this.getElementHTML( arrayElement[i] );
+            let str = this.getElementHTML( element );
             if ( String.isEmptyOrWhiteSpaces( str ) )
                 continue;
 
@@ -230,14 +230,14 @@ List.ListCalendar = class extends List.List {
         if ( attribute === "day" )
             return item.day.toString();
 
-        var offsetMonth = parseInt( attribute );
+        let offsetMonth = parseInt( attribute );
         if ( isNaN( offsetMonth ) )
             return "";
 
-        var i = null;
-        var currentDay = item.day;
-        var currentMonth = this._offsetMonth + offsetMonth;
-        var currentYear = this._offsetYear;
+        let i = null;
+        let currentDay = item.day;
+        let currentMonth = this._offsetMonth + offsetMonth;
+        let currentYear = this._offsetYear;
 
         while ( currentMonth > 12 ) {
             currentMonth -= 12;
@@ -290,7 +290,7 @@ List.ListCalendar = class extends List.List {
      */
     clear () {
         this.day = [];
-        for ( var i = 1; i <= 31; i++ )
+        for ( let i = 1; i <= 31; i++ )
             this.day[i] = { day: i, month: {} };
     }
 
@@ -301,25 +301,25 @@ List.ListCalendar = class extends List.List {
      * @returns {any} new item added into the list
      */
     addItem ( newItem, notify ) {
-        var date = this.getElementDate( newItem );
+        let date = this.getElementDate( newItem );
         if ( date === null || date === undefined || !( date instanceof moment ) )
             return null;
 
-        var currentDay = date.date();
-        var currentMonth = date.month() + 1;
-        var currentYear = date.year();
+        let currentDay = date.date();
+        let currentMonth = date.month() + 1;
+        let currentYear = date.year();
 
-        var day = this.day[currentDay];
+        let day = this.day[currentDay];
         if ( !day )
             return null;
 
-        var month = day.month[currentMonth];
+        let month = day.month[currentMonth];
         if ( !month ) {
             day.month[currentMonth] = { month: currentMonth, year: {} };
             month = day.month[currentMonth];
         }
 
-        var elements = month.year[currentYear];
+        let elements = month.year[currentYear];
         if ( !elements ) {
             month.year[currentYear] = {};
             elements = month.year[currentYear];
@@ -327,11 +327,8 @@ List.ListCalendar = class extends List.List {
 
         elements[this.getElementId( newItem )] = newItem;
 
-        if ( typeof notify !== "boolean" || notify ) {
-            var fnEvent = this.getEvent( "onUpdate" );
-            if ( fnEvent )
-                fnEvent( "onUpdate", "*", currentDay, { day: currentDay }, { day: currentDay } );
-        }
+        if ( typeof notify !== "boolean" || notify )
+            this.raise( "onUpdate", "*", currentDay, { day: currentDay }, { day: currentDay } );
 
         return newItem;
     }
@@ -342,8 +339,8 @@ List.ListCalendar = class extends List.List {
      * @param {any} newItem item to add
      */
     updateItem ( oldItem, newItem ) {
-        var oldDate = this.getElementDate( oldItem );
-        var newDate = this.getElementDate( newItem );
+        let oldDate = this.getElementDate( oldItem );
+        let newDate = this.getElementDate( newItem );
 
         this.deleteItem( oldItem, false );
         this.addItem( newItem, false );
@@ -351,7 +348,7 @@ List.ListCalendar = class extends List.List {
         if ( oldDate === null && newDate === null )
             return;
 
-        var fnEvent = this.getEvent( "onUpdate" );
+        let fnEvent = this.getEvent( "onUpdate" );
         if ( !fnEvent )
             return;
 
@@ -374,33 +371,30 @@ List.ListCalendar = class extends List.List {
      * @returns {any} item deleted
      */
     deleteItem ( oldItem, notify ) {
-        var date = this.getElementDate( oldItem );
+        let date = this.getElementDate( oldItem );
         if ( date === null || date === undefined || !( date instanceof moment ) )
             return null;
 
-        var currentDay = date.date();
-        var currentMonth = date.month() + 1;
-        var currentYear = date.year();
+        let currentDay = date.date();
+        let currentMonth = date.month() + 1;
+        let currentYear = date.year();
 
-        var day = this.day[currentDay];
+        let day = this.day[currentDay];
         if ( !day )
             return null;
 
-        var month = day.month[currentMonth];
+        let month = day.month[currentMonth];
         if ( !month )
             return null;
 
-        var elements = month.year[currentYear];
+        let elements = month.year[currentYear];
         if ( !elements )
             return null;
 
         delete elements[this.getElementId( oldItem )];
 
-        if ( typeof notify !== "boolean" || notify ) {
-            var fnEvent = this.getEvent( "onUpdate" );
-            if ( fnEvent )
-                fnEvent( "onUpdate", "*", currentDay, { day: currentDay }, { day: currentDay } );
-        }
+        if ( typeof notify !== "boolean" || notify )
+            this.raise( "onUpdate", "*", currentDay, { day: currentDay }, { day: currentDay } );
 
         return oldItem;
     }
@@ -411,7 +405,7 @@ List.ListCalendar = class extends List.List {
     constructor() {
         super();
 
-        var now = new moment();
+        let now = new moment();
 
         this._offsetMonth = now.month() + 1;
         this._offsetYear = now.year();

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,13 +42,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug("Get ~/Administration/Customer/Index()");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // load ressources before designing the screen fitted to the user's profile
@@ -75,13 +71,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug($"Get ~/Administration/Customer/Add()");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // load ressources before designing the screen fitted to the user's profile
@@ -107,13 +99,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug($"Get ~/Administration/Customer/Add(name={name}, login={login}, email={email}, address={address}, comment={comment})");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // check the value by itself
@@ -189,7 +177,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             _userManager.Database.Customer.Add(newCustomer);
             _userManager.Database.SaveChanges();
 
-            Info($"Customer created {newCustomer.ToString()}");
+            Info($"Customer created {newCustomer}");
 
             // Add the parameter "Language.Tick.<customerId>" into the parameter table
 
@@ -208,7 +196,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 nbLabels++;
             }
 
-            Info($"{nbLabels.ToString()} labels duplicated");
+            Info($"{nbLabels} labels duplicated");
 
             // Create the administrator for this new customer
 
@@ -223,7 +211,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             };
             _userManager.Database.User.Add(newUser);
             _userManager.Database.SaveChanges();
-            Info($"Creating a new user {newUser.ToString()} ...");
+            Info($"Creating a new user {newUser} ...");
 
             ModuleRecord newModule = new ModuleRecord()
             {
@@ -235,7 +223,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             };
             _userManager.Database.Module.Add(newModule);
             _userManager.Database.SaveChanges();
-            Info($"Module({newModule.Id.ToString()}) created");
+            Info($"Module({newModule.Id}) created");
 
             UserModuleRecord newUserModule = new UserModuleRecord()
             {
@@ -246,7 +234,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             };
             _userManager.Database.UserModule.Add(newUserModule);
             _userManager.Database.SaveChanges();
-            Info($"UserModule({newUserModule.Id.ToString()}) created");
+            Info($"UserModule({newUserModule.Id}) created");
 
             // send a mail for the new user
 
@@ -271,13 +259,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug($"Get ~/Administration/Customer/Update(id={id})");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // load ressources before designing the screen fitted to the user's profile
@@ -308,15 +292,11 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         [RoleFilter(AllModules = false)]
         public ActionResult Update(int id, string name, string login, string email, string address, string comment)
         {
-            Debug($"Get ~/Administration/Customer/Update(id={id.ToString()}, name={name}, login={login}, email={email}, address={address}, comment={comment})");
-
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
+            Debug($"Get ~/Administration/Customer/Update(id={id}, name={name}, login={login}, email={email}, address={address}, comment={comment})");
 
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // The customer has to exist
@@ -388,7 +368,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
             // Update the customer
 
-            Info($"Updating the customer ({customer.ToString()}) within ('{name}', '{login}', '{email}', '{address}', '{comment}') ...");
+            Info($"Updating the customer ({customer}) within ('{name}', '{login}', '{email}', '{address}', '{comment}') ...");
 
             // look for the administrator exists
 
@@ -419,7 +399,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                     Language = user.Language,
                     CustomerId = customer.Id
                 };
-                Info($"Creating a new administrator {administrator.ToString()} ...");
+                Info($"Creating a new administrator {administrator} ...");
 
                 _userManager.Database.User.Add(administrator);
                 _userManager.Database.SaveChanges();
@@ -428,7 +408,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             }
             else if (!administrator.Login.Equals(login) || !administrator.Email.Equals(email))
             {
-                Info($"The administrator '{administrator.ToString()}' has to be updated!");
+                Info($"The administrator '{administrator}' has to be updated!");
 
                 if (!administrator.Login.Equals(login))
                     administrator.Login = login;
@@ -447,11 +427,11 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
                 _userManager.Database.SaveChanges();
 
-                Info($"The administrator '{administrator.ToString()}' is updated!");
+                Info($"The administrator '{administrator}' is updated!");
             }
             else
             {
-                Debug($"The administrator {administrator.ToString()} doesn't change");
+                Debug($"The administrator {administrator} doesn't change");
             }
 
             // check if the administration module is defined and assigned to the user
@@ -471,7 +451,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 moduleAdministration = record;
                 if (!moduleAdministration.Enable)
                 {
-                    Info($"The module administrator '{moduleAdministration.ToString()}' is enabled!");
+                    Info($"The module administrator '{moduleAdministration}' is enabled!");
                     moduleAdministration.Enable = true;
                     _userManager.Database.SaveChanges();
                 }
@@ -490,7 +470,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 };
                 _userManager.Database.Module.Add(moduleAdministration);
                 _userManager.Database.SaveChanges();
-                Info($"Module({moduleAdministration.Id.ToString()}) created");
+                Info($"Module({moduleAdministration.Id}) created");
             }
 
             // check if the module administration is assigned to the administrator
@@ -521,7 +501,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 };
                 _userManager.Database.UserModule.Add(userModuleAdministration);
                 _userManager.Database.SaveChanges();
-                Info($"UserModule({userModuleAdministration.Id.ToString()}) created");
+                Info($"UserModule({userModuleAdministration.Id}) created");
             }
 
             // update the customer
@@ -560,13 +540,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug($"Get ~/Administration/Customer/Delete(id={id})");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // load ressources before designing the screen fitted to the user's profile
@@ -597,15 +573,11 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         [RoleFilter(AllModules = false)]
         public ActionResult Delete(int id, string name, string login, string email, string address, string comment)
         {
-            Debug($"Get ~/Administration/Customer/Delete(id={id.ToString()}, name={name}, login={login}, email={email}, address={address}, comment={comment})");
-
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
+            Debug($"Get ~/Administration/Customer/Delete(id={id}, name={name}, login={login}, email={email}, address={address}, comment={comment})");
 
             // Only for administrator from the first customer (Syncytium)
 
-            if (user == null || user.CustomerId != 1)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user) || user.CustomerId != 1)
                 return HttpNotFound();
 
             // The customer has to exist
@@ -616,20 +588,20 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
             // Delete the customer in all tables having DSRecordWithCustomerId into the Database context
 
-            Info($"Deleting the customer ({customer.ToString()}) within ('{name}', '{login}', '{email}', '{address}', '{comment}') ...");
+            Info($"Deleting the customer ({customer}) within ('{name}', '{login}', '{email}', '{address}', '{comment}') ...");
 
             // Each table is described by a DbSet<> object
 
-            using (Syncytium.Module.Sample.DatabaseContext database = new Syncytium.Module.Sample.DatabaseContext())
+            using (Syncytium.Module.Customer.DatabaseContext database = new Syncytium.Module.Customer.DatabaseContext())
             {
                 int nbLines = 0;
 
-                // Sample
+                // Données référentielles
 
-                nbLines = database.Sample.Where(r => r.CustomerId == id).Count();
-                database.Sample.RemoveRange(database.Sample.Where(r => r.CustomerId == id));
+                nbLines = database.Parameter.Where(r => r.CustomerId == id).Count();
+                database.Parameter.RemoveRange(database.Parameter.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'Sample'");
+                Info($"{nbLines} records deleted into 'Parameter'");
             }
 
             using (Syncytium.Module.Administration.DatabaseContext database = new Syncytium.Module.Administration.DatabaseContext())
@@ -641,31 +613,31 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 nbLines = database.UserModule.Where(r => r.CustomerId == id).Count();
                 database.UserModule.RemoveRange(database.UserModule.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'UserModule'");
+                Info($"{nbLines} records deleted into 'UserModule'");
 
                 nbLines = database.Module.Where(r => r.CustomerId == id).Count();
                 database.Module.RemoveRange(database.Module.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'Module'");
+                Info($"{nbLines} records deleted into 'Module'");
 
                 database.Notification.RemoveRange(database.Notification.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'Notification'");
+                Info($"{nbLines} records deleted into 'Notification'");
 
                 nbLines = database.User.Where(r => r.CustomerId == id).Count();
                 database.User.RemoveRange(database.User.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'User'");
+                Info($"{nbLines} records deleted into 'User'");
 
                 nbLines = database.Language.Where(r => r.CustomerId == id).Count();
                 database.Language.RemoveRange(database.Language.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into 'Language'");
+                Info($"{nbLines} records deleted into 'Language'");
 
                 nbLines = database._Information.Where(r => r.CustomerId == id).Count();
                 database._Information.RemoveRange(database._Information.Where(r => r.CustomerId == id));
                 database.SaveChanges();
-                Info($"{nbLines.ToString()} records deleted into '_Information'");
+                Info($"{nbLines} records deleted into '_Information'");
             }
 
             _userManager.Database.Customer.RemoveRange(_userManager.Database.Customer.Where(c => c.Id == id));

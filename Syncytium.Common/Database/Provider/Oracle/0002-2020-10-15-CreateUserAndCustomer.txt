@@ -1,0 +1,153 @@
+﻿-- ------------------------------------- ORACLE -------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2020/10/15 - Aymeric Lesert - Create User and Customer Table
+-- ----------------------------------------------------------------------------------
+
+
+-- Create table : Customer
+
+
+create sequence S_CUSTOMER start with 1 increment by 1;
+
+create table "Customer"
+		("Id"      NUMBER(10)     NOT NULL PRIMARY KEY,
+		 "Name"    NVARCHAR2(64)  NOT NULL,
+		 "Login"   NVARCHAR2(40)  NOT NULL,
+		 "Email"   NVARCHAR2(128),
+		 "Address" NVARCHAR2(1024),
+         "Comment" NVARCHAR2(1024));
+
+CREATE OR REPLACE TRIGGER t_customer
+  BEFORE INSERT ON "Customer"
+  FOR EACH ROW
+BEGIN
+  :new."Id" := S_CUSTOMER.nextval;
+END;
+
+
+-- Create table : User
+
+
+create sequence S_USER start with 1 increment by 1;
+
+create table "User"
+		("Id"              NUMBER(10)         NOT NULL PRIMARY KEY,
+		 "CustomerId"      NUMBER(10)         NOT NULL,
+		 "Login"           NVARCHAR2(40)      NOT NULL,
+		 "Password"        VARCHAR2(512),
+		 "Registration"    NVARCHAR2(16),
+		 "Name"            NVARCHAR2(64),
+		 "Email"           NVARCHAR2(128),
+		 "CreationDate"    DATE               DEFAULT (sysdate),
+		 "EndDate"         DATE,
+		 "Picture"         BLOB,
+		 "Language"        NVARCHAR2(2)       DEFAULT '${Syncytium.Language}' NOT NULL,
+		 "NewPasswordKey"  VARCHAR2(256),
+		 "NewPasswordDate" DATE,
+		 CONSTRAINT fk_user_00 FOREIGN KEY("CustomerId") REFERENCES "Customer"("Id"));
+
+CREATE OR REPLACE TRIGGER t_user
+  BEFORE INSERT ON "User"
+  FOR EACH ROW
+BEGIN
+  :new."Id" := S_USER.nextval;
+END;
+
+create index I_USER_LOGIN on "User"("Login");
+
+
+-- Create table : Module
+
+
+create sequence S_MODULE start with 1 increment by 1;
+
+create table "Module"
+        ("Id"          NUMBER(10)     NOT NULL PRIMARY KEY,
+         "CustomerId"  NUMBER(10)     NOT NULL,
+         "Name"        NVARCHAR2(32)  NOT NULL,
+         "Module"      NUMBER(1)      DEFAULT 0 NOT NULL,
+         "Parameters"  NVARCHAR2(64)  ,
+         "Profile"     NUMBER(1)      DEFAULT 2 NOT NULL,
+         "Description" NVARCHAR2(256) ,
+         "Enable"      NUMBER(1)      DEFAULT 1 NOT NULL,
+
+         CONSTRAINT fk_module_00 FOREIGN KEY("CustomerId") REFERENCES "Customer"("Id"));
+
+CREATE OR REPLACE TRIGGER t_module
+    BEFORE INSERT ON "Module"
+    FOR EACH ROW
+BEGIN
+    :new."Id" := S_MODULE.nextval;
+END;
+
+create index I_MODULE_CUSTOMER on "Module"("CustomerId");
+create index I_MODULE_NAME on "Module"("Name");
+create index U_MODULE_NAME on "Module"("Name", "CustomerId");
+
+
+-- Create table : UserModule
+
+
+create sequence S_USERMODULE start with 1 increment by 1;
+
+create table "UserModule"
+        ("Id"         NUMBER(10)     NOT NULL PRIMARY KEY,
+         "CustomerId" NUMBER(10)     NOT NULL,
+         "UserId"     NUMBER(10)     DEFAULT -1 NOT NULL,
+         "ModuleId"   NUMBER(10)     ,
+         "Default"    NUMBER(1)      DEFAULT 0 NOT NULL,
+
+         CONSTRAINT fk_usermodule_00 FOREIGN KEY("CustomerId") REFERENCES "Customer"("Id"),
+         CONSTRAINT fk_usermodule_01 FOREIGN KEY("UserId")     REFERENCES "User"("Id"),
+         CONSTRAINT fk_usermodule_02 FOREIGN KEY("ModuleId")   REFERENCES "Module"("Id"));
+
+CREATE OR REPLACE TRIGGER t_usermodule
+    BEFORE INSERT ON "UserModule"
+    FOR EACH ROW
+BEGIN
+    :new."Id" := S_USERMODULE.nextval;
+END;
+
+create index I_USERMODULE_CUSTOMER on "UserModule"("CustomerId");
+create index I_USERMODULE_USERID on "UserModule"("UserId");
+create index U_USERMODULE_MODULEID on "UserModule"("ModuleId", "CustomerId", "UserId");
+
+
+-- Create the production site by default and the first administrator user (SyncytiumAdmin)
+
+
+insert into "Customer"("Name", "Login", "Email", "Address", "Comment") values('SyncytiumAdmin', '${Syncytium.Administrator.Login}', '${Syncytium.Administrator.Email}', 'Syncytium', 'Definition des agences');
+
+insert into "Customer"("Name", "Login", "Email", "Address", "Comment") values('${Syncytium.Database.Schema}', 'SyncytiumAdmin', '${Syncytium.Administrator.Email}', 'Syncytium', 'Agence de Saint-Nazaire');
+
+insert into "User"("Login", "Registration", "Name", "Email", "CreationDate", "Language", "CustomerId") values('${Syncytium.Administrator.Login}', 'ADMINISTRATEUR', 'Administrateur général', '${Syncytium.Administrator.Email}', to_date(to_char(sysdate, 'YYYY-MM-DD'), 'YYYY-MM-DD'), '${Syncytium.Language}', 1);
+
+insert into "User"("Login", "Registration", "Name", "Email", "CreationDate", "Language", "CustomerId") values('SyncytiumAdmin', 'ADMINISTRATEUR', 'Administrateur de Saint-Nazaire', '${Syncytium.Administrator.Email}', to_date(to_char(sysdate, 'YYYY-MM-DD'), 'YYYY-MM-DD'), '${Syncytium.Language}', 2);
+
+
+-- Create module administration
+
+
+insert into "Module"("CustomerId", "Name", "Module", "Profile", "Enable") values(2, 'Administration', 0, 0, 1);
+
+insert into "UserModule"("CustomerId", "UserId", "ModuleId", "Default")
+select "User"."CustomerId", "User"."Id", "Module"."Id", 1 from "User", "Module" where "User"."CustomerId" = "Module"."CustomerId";
+
+
+commit;
+

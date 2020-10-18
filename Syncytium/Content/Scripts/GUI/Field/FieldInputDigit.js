@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,14 +41,6 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
      * @param {any} value new value
      */
     set Value( value ) {
-        if ( this._asString && typeof value === "string" ) {
-            let newValue = "";
-            for ( let i = 0; i < value.length; i++ )
-                if ( '0' <= value[i] && value[i] <= '9' )
-                    newValue += value[i];
-            value = newValue;
-        }
-
         let oldValue = this._digits.Value;
         this._digits.Value = value;
 
@@ -97,7 +89,7 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
      * @param {number} nbDecimals number of digits just after the coma
      */
     set NbDecimals( nbDecimals ) {
-        if ( !this._digits instanceof Digits.Decimal )
+        if ( !(this._digits instanceof Digits.Decimal) )
             return;
 
         let newDigits = new Digits.Decimal( this._digits.NbDigitBefore, nbDecimals );
@@ -126,12 +118,9 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
         if ( this.Readonly )
             return;
 
-        if ( key === "undo" && this._digits._undo.length === 0 )
-            this._digits.addKey( "raz" );
-
-        let oldValue = this._digits.Value;
+        let oldValue = this._digits.CurrentValue;
         this._digits.addKey( key );
-        let value = this._digits.Value;
+        let value = this._digits.CurrentValue;
 
         if ( oldValue !== value ) {
             oldValue = oldValue !== undefined && oldValue !== null ? oldValue.toString() : "null";
@@ -240,34 +229,32 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
 
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 8:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Backspace":
+                        event.stopImmediatePropagation();
                         field.addKey( "undo" );
                         return false;
 
-                    case 9:
-                        event.preventDefault();
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
 
-                    case 46:
-                        event.preventDefault();
+                    case "Delete":
+                        event.stopImmediatePropagation();
                         field.addKey( "raz" );
                         return false;
                 }
@@ -281,7 +268,7 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
                 if ( keyCode < 32 )
                     return;
 
-                event.preventDefault();
+                event.stopImmediatePropagation();
                 field.addKey( String.fromCharCode( keyCode ) );
             };
         }
@@ -422,8 +409,7 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
 
         // update the value
 
-        let value = this._digits.toString();
-        this.FieldZone.find( ".field" ).html( String.isEmptyOrWhiteSpaces( value ) ? "0" : String.encode( value ) );
+        this.FieldZone.find( ".field" ).html( this._digits.toHTML() );
 
         // update the unit part of the field
 
@@ -507,6 +493,15 @@ GUI.Field.FieldInputDigit = class extends GUI.Field.Field {
             if ( !keyboardZone.hasClass( "hide" ) )
                 keyboardZone.addClass( "hide" );
         }
+    }
+
+    /**
+     * Clean up undo stack
+     */
+    cleanUndo() {
+        super.cleanUndo();
+
+        this._digits.cleanUndo();
     }
 
     /**

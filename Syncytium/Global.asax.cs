@@ -15,7 +15,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -45,6 +45,12 @@ namespace Syncytium.Web
         /// Module name used into the log file
         /// </summary>
         private static string MODULE => Common.Logger.LoggerManager.MODULE_NAME;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private static bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -153,10 +159,10 @@ namespace Syncytium.Web
                     // Build the database schema
 
                     ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Administration.DatabaseContext), new DatabaseRequest());
-                    Info($"Database schema[{Module.Administration.DatabaseContext.AREA_NAME}] : '{ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME].ToString()}'");
+                    Info($"Database schema[{Module.Administration.DatabaseContext.AREA_NAME}] : '{ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME]}'");
 
-                    ConfigurationManager.Schemas[Module.Sample.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Sample.DatabaseContext), new DatabaseRequest());
-                    Info($"Database schema[{Module.Sample.DatabaseContext.AREA_NAME}]: '{ConfigurationManager.Schemas[Module.Sample.DatabaseContext.AREA_NAME].ToString()}'");
+                    ConfigurationManager.Schemas[Module.Customer.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Customer.DatabaseContext), new DatabaseRequest());
+                    Info($"Database schema[{Module.Customer.DatabaseContext.AREA_NAME}] : '{ConfigurationManager.Schemas[Module.Customer.DatabaseContext.AREA_NAME]}'");
 
                     // Log settings from database
 
@@ -240,6 +246,9 @@ namespace Syncytium.Web
                 return;
             }
 
+            // Run threads
+
+            DatabaseQueue.Instance.StartConsumer();
             StartHeartbeat();
         }
 
@@ -250,10 +259,10 @@ namespace Syncytium.Web
         {
             // Start Heartbeat to disconnect client if no updated done since a while
 
-            if (ConfigurationManager.HeartbeatDelay <= 0 || ConfigurationManager.HeartbeatThreshold <= 0)
+            if (ConfigurationManager.HeartbeatDelay <= 0 || ConfigurationManager.ClientHubTimeout <= 0)
                 return;
 
-            Info($"Launching heartbeat every {ConfigurationManager.HeartbeatDelay} seconds and disconnect clients after {ConfigurationManager.HeartbeatThreshold} seconds without response ...");
+            Info($"Launching heartbeat every {ConfigurationManager.HeartbeatDelay} seconds and disconnect clients after {ConfigurationManager.ClientHubTimeout} seconds without response ...");
 
             // Disconnect all connections if no updates done since a while ...
 
@@ -262,11 +271,11 @@ namespace Syncytium.Web
             using (Module.Administration.DatabaseContext requester = new Module.Administration.DatabaseContext())
                 foreach (ConnectionRecord connection in requester._Connection.Where(c => c.Allow && c.Status).ToList())
                 {
-                    if (connection.ConnectionLast < DateTime.Now.AddSeconds(-ConfigurationManager.HeartbeatThreshold))
+                    if (connection.ConnectionLast < DateTime.Now.AddSeconds(-ConfigurationManager.ClientHubTimeout))
                     {
                         try
                         {
-                            Info($"Disconnecting the client {connection.ToString()} ...");
+                            Info($"Disconnecting the client {connection} ...");
                             if (hub != null)
                                 hub.Clients.Client(connection.ConnectionId).stop();
                             connection.Allow = false;
@@ -281,6 +290,7 @@ namespace Syncytium.Web
 
             // Run the heartbeat
 
+            Debug("Starting heartbeat ...");
             Timer heartbeat = new Timer(ConfigurationManager.HeartbeatDelay * 1000);
             heartbeat.Elapsed += Heartbeat;
             heartbeat.Start();
@@ -307,7 +317,7 @@ namespace Syncytium.Web
                 {
                     try
                     {
-                        Verbose($"Ping the client {connection.ToString()}");
+                        Verbose($"Ping the client {connection}");
                         hub.Clients.Client(connection.ConnectionId).ping();
                     }
                     catch (System.Exception exception)
@@ -320,11 +330,11 @@ namespace Syncytium.Web
 
                 foreach (ConnectionRecord connection in requester._Connection.Where(c => c.Allow && c.Status).ToList())
                 {
-                    if (connection.ConnectionLast < DateTime.Now.AddSeconds(-ConfigurationManager.HeartbeatThreshold))
+                    if (connection.ConnectionLast < DateTime.Now.AddSeconds(-ConfigurationManager.ClientHubTimeout))
                     {
                         try
                         {
-                            Info($"Disconnecting the client {connection.ToString()} ...");
+                            Info($"Disconnecting the client {connection} ...");
                             hub.Clients.Client(connection.ConnectionId).stop();
                             connection.Allow = false;
                             requester.SaveChanges();

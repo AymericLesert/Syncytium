@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 /* ------------------------------------------------------------ */
 
 input, textarea, select {
-    border: solid 1px #d8d8d8;
+    border: solid 1px var(--syncytium-color-border);
 }
 
 input:hover, textarea:hover, select:hover {
@@ -39,6 +39,6 @@ input:hover, textarea:hover, select:hover {
 }
 
 input:hover:disabled, textarea:hover:disabled, select:hover:disabled {
-    border: solid 1px #d8d8d8;
+    border: solid 1px  var(--syncytium-color-border);
 }
 

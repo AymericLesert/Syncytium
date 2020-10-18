@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,30 +23,39 @@
  */
 GUI.Board.BoardHistory = class extends GUI.Board.BoardTable {
     /**
-     * Declare the list of columns into the table
+     * @returns {Array or String} Column and order to sort by default
      */
-    declareColumns () {
-        this.declareColumn( "User", "HISTORY_USER", 5, 'center', "Id" );
-        this.declareColumn( "Date", "HISTORY_DATE", 5, 'center' );
-        this.declareColumn( "Nature", "HISTORY_NATURE", 5, 'center', "Id" );
-        this.declareColumn( "Description", "HISTORY_DESCRIPTION", 10, 'center', "Id" );
-        this.declareColumn( "Field", "HISTORY_FIELD", 10, null, "Id" );
-        this.declareColumn( "OldValue", "HISTORY_OLDVALUE", 5, null, "Id" );
-        this.declareColumn( "NewValue", "HISTORY_NEWVALUE", 5, null, "Id" );
+    get ColumnSortedByDefault() {
+        return [ "Date", "desc" ];
     }
 
     /**
-     * The list of columns to show on depends on the window size
+     * Declare the list of columns into the table
+     * @param withDescription {boolean} true if the description must be show into the table (false by default)
+     */
+    declareColumns ( withDescription ) {
+        this.declareColumn( "User", "HISTORY_HISTORYUSERID", 5, 'center', "Id", 20, 20 );
+        this.declareColumn( "Date", "HISTORY_HISTORYDATE", 5, 'center', "Id" );
+        this.declareColumn( "Nature", "HISTORY_HISTORYNATURE", 5, 'center', "Id" );
+        if ( withDescription !== null && withDescription !== undefined && withDescription === true )
+            this.declareColumn( "Description", "HISTORY_HISTORYDESCRIPTION", 10, 'center', "Id" );
+        this.declareColumn( "Field", "HISTORY_HISTORYFIELD", 7, null, "Id" );
+        this.declareColumn( "OldValue", "HISTORY_HISTORYOLDVALUE", 9, null, "Id" );
+        this.declareColumn( "NewValue", "HISTORY_HISTORYNEWVALUE", 9, null, "Id" );
+    }
+
+    /**
+     * The list of columns to show on depends on the window size (async mode)
      * @param {any} rowId id of the row to adjust only
      */
-    adjustWebix ( rowId ) {
+    async adjustWebix( rowId ) {
         if ( rowId !== undefined ) {
-            super.adjustWebix( rowId );
+            await super.adjustWebix( rowId );
             return;
         }
 
-        var newWidth = $( window ).width();
-        var newNbColumnsToShow = -1;
+        let newWidth = $( window ).width();
+        let newNbColumnsToShow = -1;
 
         if ( newWidth < 480 )
             newNbColumnsToShow = 3;
@@ -54,7 +63,7 @@ GUI.Board.BoardHistory = class extends GUI.Board.BoardTable {
             newNbColumnsToShow = 4;
 
         if ( newNbColumnsToShow !== this._nbColumnsToShow ) {
-            var columnsVisible = [];
+            let columnsVisible = [];
 
             switch ( newNbColumnsToShow ) {
                 case 3:
@@ -70,11 +79,9 @@ GUI.Board.BoardHistory = class extends GUI.Board.BoardTable {
 
             this.debug( "Resizing and show a part of columns : " + String.JSONStringify( columnsVisible ) );
 
-            for ( var columnId in this.Columns ) {
-                var column = this.Columns[columnId];
-
-                var isVisible = this.Webix.isColumnVisible( column.id );
-                var hasToBeVisible = columnsVisible === null ? true : columnsVisible.indexOf( column.id ) >= 0;
+            for ( let column of this.Columns ) {
+                let isVisible = this.Webix.isColumnVisible( column.id );
+                let hasToBeVisible = columnsVisible === null ? true : columnsVisible.indexOf( column.id ) >= 0;
 
                 if ( isVisible === hasToBeVisible )
                     continue;
@@ -91,18 +98,44 @@ GUI.Board.BoardHistory = class extends GUI.Board.BoardTable {
 
             if ( this._nbColumnsToShow < 0 && !this.List.IsDetails || this._nbColumnsToShow >= 0 && this.List.IsDetails ) {
                 this.List.setDetails( newNbColumnsToShow < 0 );
-                this.populateWebix();
+                await this.populateWebix();
             }
         }
 
-        super.adjustWebix();
+        await super.adjustWebix();
+    }
+
+    /**
+     * Build the histories values on depends on a given record within History subList
+     * @param {any} item item to show
+     */
+    set Item( item ) {
+        this.List.Item = item;
+    }
+
+    /**
+     * Event raised on Update an element selected into the board within the current item selected
+     * Override the function defined into BoardTable (only readonly within history board)
+     */
+    onUpdate() {
+        let item = this.getSelectedItem();
+
+        if ( item === null || item.item === null || item.item === undefined )
+            return;
+
+        // Ouvrir la boite de dialogue affichant les informations de l'objet à la date sélectionnée
+
+        let dialogBox = GUI.Box.BoxRecord.CACHE_DIALOG_BOX( this.List._list.Table, "History", this.List );
+
+        if ( dialogBox !== null )
+            dialogBox.readRecord( item.item.Item );
     }
 
     /**
      * constructor
      * @param {any} box      string describing the html container, an html object or a GUI.Box
      * @param {any} name     identify the board
-     * @param {any} list     list of elements (See List.List)
+     * @param {any} list     list of elements (See List.ListHistory)
      */
     constructor ( box, name, list ) {
         super( box, name, "HISTORY_TITLE", list, GUI.Board.BOARD_NONE );

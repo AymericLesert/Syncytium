@@ -1,10 +1,11 @@
-﻿using Syncytium.Module.Administration.Managers;
+﻿using Syncytium.Common.Managers;
+using Syncytium.Module.Administration.Managers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -51,7 +52,7 @@ namespace Syncytium.Module.Administration.Models
         /// <summary>
         /// Retrieve the list of languages
         /// </summary>
-        public List<string> ListOfLanguages => new List<string>() { "FR" };
+        public List<string> ListOfLanguages => new List<string>() { "FR", "EN" };
 
         /// <summary>
         /// Retrieve the list of images containing into ~/Content/Images
@@ -80,7 +81,13 @@ namespace Syncytium.Module.Administration.Models
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(LanguageDictionary).Name;
+        private static readonly string MODULE = typeof(LanguageDictionary).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -140,13 +147,14 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         /// <param name="key"></param>
         /// <param name="FR"></param>
+        /// <param name="EN"></param>
         /// <param name="comment"></param>
-        private void DeclareDefaultLabel(string key, string FR, string comment)
+        private void DeclareDefaultLabel(string key, string FR, string EN, string comment)
         {
             if (key == null)
                 return;
 
-            LanguageLabel newLabel = new LanguageLabel(FR, comment);
+            LanguageLabel newLabel = new LanguageLabel(FR, EN, comment);
             _defaults[key.Trim()] = newLabel;
         }
 
@@ -155,37 +163,36 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         private void LoadDefault()
         {
-            DeclareDefaultLabel("AREA_ADMINISTRATION", "Administration", "");
-            DeclareDefaultLabel("AREA_STOCK", "Gestion de stock", "");
+            DeclareDefaultLabel("AREA_ADMINISTRATION", "Administration", "Administration", "");
 
-            DeclareDefaultLabel("BTN_CANCEL", "Annuler", "");
-            DeclareDefaultLabel("BTN_CONNECT", "Connection", "");
-            DeclareDefaultLabel("BTN_FORGET_PASSWORD", "Mot de passe oublié ?", "");
-            DeclareDefaultLabel("BTN_OK", "OK", "");
-            DeclareDefaultLabel("BTN_REMEMBER_ME", "Se souvenir de moi", "");
-            DeclareDefaultLabel("BTN_SEND_EMAIL", "Envoi un email", "");
-            DeclareDefaultLabel("BTN_SUBMIT", "Valider", "");
-            DeclareDefaultLabel("BTN_UPGRADE", "METTRE A JOUR", "");
+            DeclareDefaultLabel("BTN_CANCEL", "Annuler", "Cancel", "");
+            DeclareDefaultLabel("BTN_CONNECT", "Connection", "Connect", "");
+            DeclareDefaultLabel("BTN_FORGET_PASSWORD", "Mot de passe oublié ?", "Forgotten password", "");
+            DeclareDefaultLabel("BTN_OK", "OK", "OK", "");
+            DeclareDefaultLabel("BTN_REMEMBER_ME", "Se souvenir de moi", "Remember me", "");
+            DeclareDefaultLabel("BTN_SEND_EMAIL", "Envoi un email", "Send email", "");
+            DeclareDefaultLabel("BTN_SUBMIT", "Valider", "Submit", "");
+            DeclareDefaultLabel("BTN_UPGRADE", "METTRE A JOUR", "Upgrade", "");
 
-            DeclareDefaultLabel("ERR_FIELD_REQUIRED", "Le champ '{0}' est requis", "0: nom du champ");
-            DeclareDefaultLabel("ERR_LOGIN_INCORRECT", "Identifiant et mot de passe incorrect", "");
-            DeclareDefaultLabel("ERR_ALREADYCONNECTED", "Déjà connectée", "");
-            DeclareDefaultLabel("ERR_EXCEPTION_UNEXPECTED", "Une exception inattendue est survenue durant le traitement de la requête", "");
+            DeclareDefaultLabel("ERR_FIELD_REQUIRED", "Le champ '{0}' est requis", "The field '{0}' is mandatory", "0: nom du champ");
+            DeclareDefaultLabel("ERR_LOGIN_INCORRECT", "Identifiant et mot de passe incorrect", "Login and password incorrect", "");
+            DeclareDefaultLabel("ERR_ALREADYCONNECTED", "Déjà connectée", "Already connected", "");
+            DeclareDefaultLabel("ERR_EXCEPTION_UNEXPECTED", "Une exception inattendue est survenue durant le traitement de la requête", "Unexpected exception on treating request", "");
 
-            DeclareDefaultLabel("UPGRADE", "Application mise à jour", "");
-            DeclareDefaultLabel("UPGRADING", "Mise à jour de l\"application ...", "");
+            DeclareDefaultLabel("UPGRADE", "Application mise à jour", "Application upgraded", "");
+            DeclareDefaultLabel("UPGRADING", "Mise à jour de l\"application ...", "Upgrading the application", "");
 
-            DeclareDefaultLabel("USER_LOGIN", "Identifiant", "");
-            DeclareDefaultLabel("USER_PASSWORD", "Mot de passe", "");
+            DeclareDefaultLabel("USER_LOGIN", "Identifiant", "Login", "");
+            DeclareDefaultLabel("USER_PASSWORD", "Mot de passe", "Password", "");
 
-            DeclareDefaultLabel("CUSTOMER", "Client", "");
-            DeclareDefaultLabel("CUSTOMER_ADDRESS", "Adresse du client", "");
-            DeclareDefaultLabel("CUSTOMER_COMMENT", "Commentaire", "");
-            DeclareDefaultLabel("CUSTOMER_EMAIL", "Email du responsable", "");
-            DeclareDefaultLabel("CUSTOMER_NAME", "Nom du client", "");
+            DeclareDefaultLabel("CUSTOMER", "Client", "Customer", "");
+            DeclareDefaultLabel("CUSTOMER_ADDRESS", "Adresse du client", "Address", "");
+            DeclareDefaultLabel("CUSTOMER_COMMENT", "Commentaire", "Comment", "");
+            DeclareDefaultLabel("CUSTOMER_EMAIL", "Email du responsable", "Email", "");
+            DeclareDefaultLabel("CUSTOMER_NAME", "Nom du client", "Name", "");
 
-            DeclareDefaultLabel("FOOTER_ADMINISTRATION", "Mode Administration", "");
-            DeclareDefaultLabel("FOOTER_SYNCYTIUM", "Développé par Concilium LESERT", "");
+            DeclareDefaultLabel("FOOTER_ADMINISTRATION", "Mode Administration", "Administration mode", "");
+            DeclareDefaultLabel("FOOTER_Syncytium", "Développé par Aymeric LESERT", "Written by Aymeric LESERT", "");
         }
 
         /// <summary>
@@ -201,7 +208,8 @@ namespace Syncytium.Module.Administration.Models
                 if (file[0] == '\\')
                     file = file.Substring(1);
 
-                ListOfImages.Add(file.Replace('\\', '/'));
+                if (!file.EndsWith(".txt"))
+                    ListOfImages.Add(file.Replace('\\', '/'));
             }
 
             foreach (string subDirectory in Directory.GetDirectories(directory))
@@ -283,13 +291,14 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         /// <param name="key"></param>
         /// <param name="FR"></param>
+        /// <param name="EN"></param>
         /// <param name="comment"></param>
-        public LanguageLabel DeclareLabel(string key, string FR, string comment)
+        public LanguageLabel DeclareLabel(string key, string FR, string EN, string comment)
         {
             if (key == null)
                 return null;
 
-            LanguageLabel newLabel = new LanguageLabel(FR, comment);
+            LanguageLabel newLabel = new LanguageLabel(FR, EN, comment);
             _labels[key.Trim()] = newLabel;
             return newLabel;
         }
@@ -383,7 +392,7 @@ namespace Syncytium.Module.Administration.Models
 
                 foreach (LanguageRecord label in LanguageManager.GetInstance(database, customerId).GetLabels(customerId))
                 {
-                    LanguageLabel newLabel = DeclareLabel(label.Key, label.FR, label.Comment);
+                    LanguageLabel newLabel = DeclareLabel(label.Key, label.FR, label.EN, label.Comment);
 
                     if (newLabel == null)
                         continue;

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,140 @@
 var Digits = {};
 
 /**
- * Handle digit features
+ * This private class represents an elementary item of digits.
+ * A digit is a character into a formatted string expected.
+ * For example : "00.00.00.00.00" where "0" is a Digit (0..9)
+ */
+Digits.Digit = class {
+    /**
+     * @returns {string} The value of the item or the default value
+     */
+    get Value() {
+        return this._value === null ? this._default : this._value;
+    }
+
+    /**
+     * Set the value of the digit
+     * @param {string} value value to set of the item
+     */
+    set Value( value ) {
+        this._value = (value !== ' ' && String.isEmptyOrWhiteSpaces( value )) ? null : value;
+    }
+
+    /**
+     * Set the current token - list of allowed characters
+     * For example :
+     *   - 'x'
+     *   - '[0-9]'
+     *   - '[0-9A-F]'
+     * @param {string} token new token to set to this digit
+     */
+    set Token( token ) {
+        this._range = [];
+        this._value = null;
+        this._default = ' ';
+
+        if ( token.length === 1 ) {
+            this._range.push( token );
+            this._default = token;
+        } else {
+            let start = '', end = '', i = 0;
+            for ( i = 1; i < token.length - 1; i++ ) {
+                start = token[i];
+                if ( token[i + 1] === '-' ) {
+                    end = token[i + 2];
+                    i += 2;
+                } else {
+                    end = start;
+                }
+
+                for ( let c = start.charCodeAt( 0 ); c <= end.charCodeAt( 0 ); c++ )
+                    this._range.push( String.fromCharCode( c ) );
+            }
+        }
+    }
+
+    /**
+     * @returns {string} default value of the digit
+     */
+    get DefaultValue() {
+        return this._default;
+    }
+
+    /**
+     * Set default value of the digit
+     * @param {string} defaultValue new default value
+     */
+    set DefaultValue( defaultValue ) {
+        this._default = defaultValue;
+    }
+
+    /**
+     * @returns {string} character to show on the screen if the value is not defined
+     */
+    get Mark() {
+        return this._mark;
+    }
+
+    /**
+     * Set character to show on the screen if the value is not defined
+     * @param {string} mark character
+     */
+    set Mark( mark ) {
+        if ( this.IsStatic )
+            this._mark = String.isEmptyOrWhiteSpaces( mark ) ? ' ' : mark;
+        else
+            this._mark = String.isEmptyOrWhiteSpaces( mark ) ? '_' : mark;
+    }
+
+    /**
+     * @returns {boolean} Indicates if the token is only one character (no choice)
+     */
+    get IsStatic() {
+        return this._range.length <= 1;
+    }
+
+    /**
+     * @returns {boolean} Indicates if the token is only one character (no choice)
+     */
+    get IsNull() {
+        return this._value === null;
+    }
+
+    /**
+     * Check if the value is included into the list of allowed characters
+     * @param {any} value value to check
+     * @returns {boolean} true if the value is allowed
+     */
+    check( value ) {
+        return this._range.includes( value );
+    }
+
+    /**
+     * @returns {string} an HTML string
+     */
+    toHTML() {
+        return this._value === null ? this._mark : this._value;
+    }
+
+    /**
+     * Constructor
+     */
+    constructor() {
+        this._range = [];
+        this._value = null;
+        this._default = ' ';
+        this._mark = '_';
+    }
+};
+
+/**
+ * This class represents a string within a given format value
+ * For example :
+ *    "00.00.00.00.00" represents a phone number
+ *    "__ __0,00" represents a numerical value
+ *    "# ?? ?? ??" represents a hexadecimal value (color)
+ *    "[A-F]____" represents a string begun by a character A, B, C, D, E or F and 4 values numerical
  */
 Digits.Digits = class {
     /**
@@ -37,9 +170,12 @@ Digits.Digits = class {
 
         // Decimal
 
-        match = format.match( /^\_*0+(\,0+){0,1}$/ );
-        if ( match !== null )
-            return new Digits.Decimal( match[0].length - ( match[1] === undefined ? 0 : match[1].length ), match[1] === undefined ? 0 : match[1].length - 1 );
+        match = format.match( /^(((_{1,3}\.){0,1}(___\.)*(__0)((.0{3})+){0,1})|(_*0+)|((0{1,3}\.){0,1}(000\.)*(000)))(,0+){0,1}$/ );
+        if ( match !== null ) {
+            let newFormat = format.replace( /\./g, "" );
+            let i = newFormat.indexOf( "," );
+            return new Digits.Decimal( i, newFormat.length - i - 1 );
+        }
 
         // Sequence
 
@@ -47,19 +183,17 @@ Digits.Digits = class {
         if ( match !== null )
             return new Digits.Sequence( match[0].substr( 0, match[0].length - match[1].length ), match[1].length );
 
-        // Mask
-
-        match = format.match( /^((\W*)([\_0]+))+$/ );
-        if ( match !== null )
-            return new Digits.Mask( format );
-
         // Date time
 
-        let newDigit = new Digits.Datetime( format );
-        if ( newDigit.IsDateTime )
-            return newDigit;
+        if ( /^(date|time|datetime)$/.test( format.toLowerCase() ) )
+            return new Digits.Datetime( format );
 
-        return null;
+        if ( /^(.*(DD|MM|YYYY|HH|mm|ss|SSS))+.*$/.test( format ) )
+            return new Digits.Datetime( format );
+
+        // Mask
+
+        return new Digits.Mask( format );
     }
 
     /**
@@ -70,43 +204,10 @@ Digits.Digits = class {
     }
 
     /**
-     * Set the format expected into the input digit box (0 or _ means numerical and any other characters fix values)
-     * Ex: 000,00 - OF0000 - 00:00:00 - _____0,0
-     * @param {string} format format to set (if null, restore the default format) -  (YYYY, MM, DD, HH, mm, ss, SSS)
+     * @returns {boolean} true if the last value is wrong
      */
-    set Format( format ) {
-        format = String.isEmptyOrWhiteSpaces( format ) ? this._formatDefault : format;
-
-        this._tokenFormat = [];
-
-        // parse format
-
-        let i = 0;
-        while ( i < format.length ) {
-            let newToken = { fix: "", format: "", type: "", digits: "", value: 0 };
-
-            while ( i < format.length && format[i] !== '0' && format[i] !== '_' ) {
-                newToken.fix += format[i];
-                i++;
-            }
-
-            while ( i < format.length && ( format[i] === '0' || format[i] === '_' ) ) {
-                newToken.format += format[i];
-                i++;
-            }
-
-            this._tokenFormat.push( newToken );
-        }
-
-        this._indexToken = null;
-        this._format = format;
-    }
-
-    /**
-     * @returns {string} format expected
-     */
-    get Format() {
-        return this._format;
+    get HasError() {
+        return this._error;
     }
 
     /**
@@ -120,27 +221,7 @@ Digits.Digits = class {
      * @returns {boolean} true if the value stored into the digit is like NULL
      */
     get IsNull() {
-        return String.isEmptyOrWhiteSpaces( this._value );
-    }
-
-    /**
-     * @param {any} value value to set into the dialog box
-     */
-    set Value( value ) {
-        this._tokenFormat = this.parseValue( value === null || value === undefined ? null : value );
-        this._value = this.formatValue();
-
-        if ( !this._raz ) {
-            this._indexToken = null;
-            this._undo = [];
-        }
-    }
-
-    /**
-     * @returns {any} value selected into the dialog box
-     */
-    get Value() {
-        return this._value;
+        return String.isEmptyOrWhiteSpaces( this.CurrentValue );
     }
 
     /**
@@ -151,32 +232,55 @@ Digits.Digits = class {
     }
 
     /**
-     * @returns {string} value matching within the given format
+     * @param {boolean} value true if the negative value is possible
      */
-    toString() {
-        return this._value;
+    set AllowNegativeValue( value ) {
+        this._allowNegativeValue = value === null || value === undefined || value === true;
     }
 
     /**
-     * (Protected method) update the index token
-     * @param {int} indexToken new value
+     * @returns {string} the current mask format of the digit
      */
-    set IndexToken( indexToken ) {
-        indexToken = indexToken === null || indexToken === undefined ? 0 : indexToken;
+    getFormat() {
+        return this._format;
+    }
 
-        if ( indexToken < 0 || this._tokenFormat.length === 0 )
+    /**
+     * Update the mask format of the digit
+     * @param {any} format new format
+     * @param {any} separator separator between the parsing from the end to the begin and the begin to the end
+     */
+    setFormat( format, separator ) {
+        this.cleanUndo();
+
+        this._error = false;
+        this._format = format;
+        this._separator = separator;
+        this._indexSeparator = -1;
+        this._digits = [];
+
+        let i = 0;
+        while ( i < format.length ) {
+            let digits = [ new Digits.Digit() ];
+            i = this.getToken( digits, format, i );
+            for ( let newDigit of digits ) {
+                if ( newDigit.DefaultValue === separator && this._indexSeparator < 0 )
+                    this._indexSeparator = this._digits.length;
+                this._digits.push( newDigit );
+            }
+        }
+
+        if ( separator === '\0' )
+            this._indexSeparator = this._digits.length;
+
+        this._selectStart = -1;
+        this._selectEnd = -1;
+        this._indexToken = this._indexSeparator;
+        if ( this._indexToken < 0 ) {
             this._indexToken = 0;
-        else if ( indexToken >= this._tokenFormat.length )
-            this._indexToken = this._tokenFormat.length - 1;
-        else
-            this._indexToken = indexToken;
-    }
-
-    /**
-     * @returns {any} current index into the token
-     */
-    get IndexToken() {
-        return this._indexToken;
+            while ( this._indexToken < this._digits.length && this._digits[this._indexToken].IsStatic )
+                this._indexToken++;
+        }
     }
 
     /**
@@ -187,171 +291,315 @@ Digits.Digits = class {
     }
 
     /**
-     * @returns {string} null if nothing, else the fix value of the next token
+     * Clean up the undo stack - not the current value
      */
-    get NextTokenFix() {
-        return this._indexToken < this._tokenFormat.length - 1 ? this._tokenFormat[this._indexToken + 1].fix : null;
+    cleanUndo() {
+        this._undo = [];
     }
 
     /**
-     * (Virtual Method) update token from the value before formatting value as expected
-     * @param {any} token list of tokens of the value setting
-     * @param {any} tokenIndex current index of the token
-     * @returns {{token: number, index: any}} token updated
+     * Add the current value (if this value is different than the previous one) into the undo stack
      */
-    updateToken( token ) {
-        return token;
+    pushUndo() {
+        let value = this.CurrentValue;
+
+        if ( !this._handleUndo || ( this._undo.length > 0 && this._undo[this._undo.length - 1][0] === value ) )
+            return;
+
+        this._undo.push( [value, this._indexToken] );
     }
 
     /**
-     * (Private method) parse the value and build a list of tokens
-     * @param {any} value value to parse before setting it to the dialog box
-     * @returns {any} token updated
+     * Retrieve the value as the last value into the undo stack
      */
-    parseValue( value ) {
-        let tokenFormat = [];
-        let tokenValue = [];
-        let i = 0;
-        let j = 0;
+    popUndo() {
+        if ( !this.HasUndo )
+            return;
 
-        // Retrieve the current format
+        this._handleUndo = false;
+        let lastStatus = this._undo.pop();
+        this.Value = lastStatus[0];
+        this._indexToken = lastStatus[1];
+        this._handleUndo = true;
 
-        for ( i = 0; i < this._tokenFormat.length; i++ )
-            tokenFormat.push( { fix: this._tokenFormat[i].fix, format: this._tokenFormat[i].format, type: this._tokenFormat[i].type, digits: "", value: 0 } );
+        this._selectStart = -1;
+        this._selectEnd = -1;
+    }
 
-        // parse value
+    /**
+     * @returns {string} the current value writing
+     */
+    get CurrentValue() {
+        let value = '';
 
-        if ( typeof value === "number" )
+        for ( let digit of this._digits )
+            if ( !digit.IsNull )
+                value += digit.Value;
+
+        return value;
+    }
+
+    /**
+     * @returns {string} the current value of the Digits (without any static characters)
+     */
+    get Value() {
+        let value = '';
+        let firstSeparator = true;
+
+        for ( let digit of this._digits ) {
+            if ( !digit.IsStatic )
+                value += digit.Value;
+            else if ( digit.DefaultValue === this._separator && firstSeparator ) {
+                firstSeparator = false;
+                value += digit.Value;
+            }
+        }
+
+        return value.trim();
+    }
+
+    /**
+     * Parse the value and update the current value of the Digits
+     * @param {string} value new value to set
+     * 
+     * The flag HasError is set to true if the value is not allowed but all characters allowed are set into the current value
+     */
+    set Value( value ) {
+        let i = 0, j = 0;
+
+        if ( typeof value === "number" ) {
             value = value.toString();
-        else
+            if ( !String.isEmptyOrWhiteSpaces( this._separator ) )
+                value = value.replace( '.', this._separator );
+        } else
             value = String.isEmptyOrWhiteSpaces( value ) ? "" : value.toString();
 
-        i = 0;
-        while ( i < value.length ) {
-            let newToken = { fix: "", digits: "" };
+        if ( value !== this.CurrentValue )
+            this.pushUndo();
 
-            while ( i < value.length && ( value[i] < '0' || value[i] > '9' ) ) {
-                newToken.fix += value[i];
-                i++;
+        this._selectStart = -1;
+        this._selectEnd = -1;
+        this._indexToken = 0;
+        this._error = false;
+
+        // Step 1 : forward from indexSeparator to 0
+
+        let newToken = -1;
+        if ( this._indexSeparator >= 0 ) {
+            j = value.indexOf( this._separator );
+            if ( j < 0 )
+                j = value.length;
+
+            this._indexToken = this._indexSeparator;
+            for ( i = this._indexSeparator - 1, j--; i >= 0; i-- ) {
+                let digit = this._digits[i];
+                if ( String.isEmptyOrWhiteSpaces( value ) ) {
+                    digit.Value = null;
+                } else if ( j < 0 ) {
+                    digit.Value = null;
+                } else if ( digit.check( value[j] ) ) {
+                    digit.Value = value[j];
+                    j--;
+                } else {
+                    digit.Value = null;
+                }
             }
 
-            while ( i < value.length && '0' <= value[i] && value[i] <= '9' ) {
-                newToken.digits += value[i];
-                i++;
+            if ( j >= 0 )
+                this._error = true;
+
+            // Set the token on the separator character
+
+            if ( this._separator !== '\0' ) {
+                j = value.indexOf( this._separator );
+                if ( j < 0 ) {
+                    this._digits[this._indexSeparator].Value = null;
+                    j = value.length - 1;
+                } else {
+                    this._digits[this._indexSeparator].Value = this._separator;
+                    this._indexToken++;
+                }
+            } else {
+                j = value.length - 1;
             }
 
-            tokenValue.push( newToken );
-        }
-
-        if ( tokenValue.length > 0 && String.isEmptyOrWhiteSpaces( tokenValue[0].fix ) )
-            tokenValue[0].fix = this._tokenFormat[0].fix;
-
-        // match format and value
-
-        i = 0;
-        j = 0;
-        while ( i < tokenFormat.length && j < tokenValue.length ) {
-            while ( i < tokenFormat.length && j < tokenValue.length && tokenFormat[i].fix !== tokenValue[j].fix ) {
-                i++;
-            }
-
-            if ( i < tokenFormat.length && j < tokenValue.length ) {
-                tokenFormat[j].digits = tokenValue[j].digits;
-                tokenFormat[j].value = parseInt( String.isEmptyOrWhiteSpaces( tokenValue[j].digits ) ? "0" : tokenValue[j].digits );
-            }
-
-            i++;
             j++;
+        } else {
+            newToken = 0;
         }
 
-        // update token on depends on the needs
+        // Step 2 : from indexSeparator to the end
 
-        return this.updateToken( tokenFormat );
+        for ( i = this._indexSeparator + 1; i < this._digits.length; i++ ) {
+            let digit = this._digits[i];
+            if ( String.isEmptyOrWhiteSpaces( value ) ) {
+                digit.Value = null;
+            } else if ( j >= value.length ) {
+                digit.Value = null;
+            } else if ( digit.check( value[j] ) ) {
+                digit.Value = value[j];
+                newToken = i + 1;
+                j++;
+            } else {
+                digit.Value = null;
+            }
+        }
+
+        if ( newToken >= 0 ) {
+            while ( newToken < this._digits.length && this._digits[newToken].IsStatic )
+                newToken++;
+            this._indexToken = newToken;
+        }
+
+        if ( j < value.length )
+            this._error = true;
     }
 
     /**
-     * Parse the value and format it on depends on the expected format
-     * @param {any} value value to format
-     * @returns {string} value formatted
+     * @returns {string} the string correctly formatted
      */
-    formatValue( value ) {
-        // update token on depends on the needs
+    toString() {
+        let value = '';
 
-        let tokenFormat = String.isEmptyOrWhiteSpaces( value ) ? this._tokenFormat : this.parseValue( value );
+        for ( let digit of this._digits )
+            value += digit.Value;
 
-        // rebuild the format as expected
+        return value;
+    }
 
-        value = "";
-        for ( let i = 0; i < tokenFormat.length; i++ ) {
-            if ( tokenFormat[i].format.length === 0 ) {
-                value += tokenFormat[i].fix;
-            } else {
-                let digits = tokenFormat[i].value.toString();
-                let prefix = "";
+    /**
+     * @returns {string} the string html representing the current value
+     */
+    toHTML() {
+        let value = '';
+        let indexPointer = this._indexToken;
+        if ( this._selectStart >= 0 )
+            indexPointer = -1;
 
-                if ( digits.length > tokenFormat[i].format.length ) {
-                    digits = digits.substr( digits.length - tokenFormat[i].format.length, tokenFormat[i].format.length );
-                } else {
-                    for ( let j = 0; j < tokenFormat[i].format.length - digits.length; j++ )
-                        prefix += tokenFormat[i].format[j] === '0' ? '0' : ' ';
-                }
-
-                value += tokenFormat[i].fix + prefix + digits;
-            }
+        for ( let i = 0; i < this._digits.length; i++ ) {
+            if ( i === this._selectStart )
+                value += "<span class='selected'>";
+            if ( i === indexPointer )
+                value += "<span class='pointer'>";
+            value += this._digits[i].toHTML();
+            if ( i === this._selectEnd || i === indexPointer )
+                value += "</span>";
         }
 
         return value;
     }
 
     /**
-     * Add the current tokens into the undo stack
+     * (protected methode) Parse a token of the format
+     * @param {Array}  digits array of tokens to set (the first one is already set)
+     * @param {string} format format to parse
+     * @param {int}    index  current position in the format to parse
+     * @returns {int} the position of the next token
      */
-    pushUndo() {
-        if ( this._indexToken === null ) {
-            for ( this._indexToken = 0; this._indexToken < this._tokenFormat.length && this._tokenFormat[this._indexToken].digits.length === this._tokenFormat[this._indexToken].format.length; this._indexToken++ );
-            if ( this._indexToken >= this._tokenFormat.length )
-                this._indexToken = this._tokenFormat.length - 1;
+    getToken( digits, format, index ) {
+        let firstChar = ' ';
+        let c = format[index];
+        let i = 0;
+        let token = '';
+        let digit = digits[0];
+
+        switch ( c ) {
+            case '0':
+                digit.Token = '[0-9]';
+                digit.DefaultValue = '0';
+                digit.Mark = '0';
+                index++;
+                break;
+            case '_':
+                digit.Token = '[0-9]';
+                digit.DefaultValue = ' ';
+                digit.Mark = '_';
+                index++;
+                break;
+            case '?':
+                digit.Token = '[0-9A-Fa-f]';
+                digit.DefaultValue = '0';
+                digit.Mark = '_';
+                index++;
+                break;
+            case '[':
+                token = '[';
+                firstChar = format[index + 1];
+                for ( i = index + 1; i < format.length; i++ ) {
+                    c = format[i];
+                    if ( c === ']' ) {
+                        i++;
+                        break;
+                    }
+
+                    if ( c === '\\' ) {
+                        i++;
+                        if ( i < format.length )
+                            token += format[i];
+                    } else {
+                        token += c;
+                    }
+                }
+                token += ']';
+                digit.Token = token;
+                digit.DefaultValue = firstChar;
+                digit.Mark = '_';
+                index = i;
+                break;
+            case '\\':
+                index++;
+                if ( index < format.length ) {
+                    digit.Token = format[index];
+                    digit.Mark = format[index];
+                    index++;
+                } else {
+                    digit.Token = '\\';
+                    digit.Mark = '\\';
+                }
+                break;
+            default:
+                digit.Token = c;
+                digit.Mark = c;
+                index++;
+                break;
         }
 
-        let token = { indexToken: this._indexToken, tokens: [] };
-        for ( let i = 0; i < this._tokenFormat.length; i++ )
-            token.tokens.push( { fix: this._tokenFormat[i].fix, format: this._tokenFormat[i].format, type: this._tokenFormat[i].type, digits: this._tokenFormat[i].digits, value: this._tokenFormat[i].value } );
-
-        if ( this._undo.length > 0 ) {
-            let lastToken = this._undo[this._undo.length - 1];
-            let isEqual = token.indexToken === lastToken.indexToken;
-
-            for ( let i = 0; i < lastToken.tokens.length && isEqual; i++ ) {
-                if ( lastToken.tokens[i].fix !== token.tokens[i].fix ||
-                    lastToken.tokens[i].format !== token.tokens[i].format ||
-                    lastToken.tokens[i].type !== token.tokens[i].type ||
-                    lastToken.tokens[i].digits !== token.tokens[i].digits ||
-                    lastToken.tokens[i].value !== token.tokens[i].value )
-                    isEqual = false;
-            }
-
-            if ( isEqual )
-                return;
-        }
-
-        this._undo.push( token );
+        return index;
     }
 
     /**
-     * Restore the last value
+     * @returns {string} null if nothing, else the fix value of the next token
      */
-    popUndo() {
-        if ( this._undo.length === 0 )
-            return;
+    get NextTokenFix() {
+        return this._indexToken <= this._indexSeparator && this._indexSeparator < this._digits.length ? this._separator : null;
+    }
 
-        let token = this._undo.pop();
+    /**
+     * Set the current position of the pointer
+     * @param {int} indexToken new value
+     */
+    set IndexToken( indexToken ) {
+        indexToken = indexToken === null || indexToken === undefined ? 0 : indexToken;
 
-        this._tokenFormat = [];
-        for ( let i = 0; i < token.tokens.length; i++ )
-            this._tokenFormat.push( { fix: token.tokens[i].fix, format: token.tokens[i].format, type: token.tokens[i].type, digits: token.tokens[i].digits, value: token.tokens[i].value } );
+        if ( indexToken < 0 || this._digits.length === 0 )
+            this._indexToken = 0;
+        else if ( indexToken >= this._digits.length )
+            this._indexToken = this._digits.length - 1;
+        else
+            this._indexToken = indexToken;
+    }
 
-        this._value = this.formatValue();
-        this._indexToken = token.indexToken;
+    /**
+     * @returns {any} current index of the pointer
+     */
+    get IndexToken() {
+        if ( this._indexToken < 0 )
+            return 0;
+
+        if ( this._indexToken > this._digits.length - 1 )
+            return this._digits.length - 1;
+
+        return this._indexToken;
     }
 
     /**
@@ -359,79 +607,72 @@ Digits.Digits = class {
      * @param {any} key key to implement ("undo", "next", or any other character)
      */
     addKey( key ) {
-        if ( this._indexToken === null || key === "raz" ) {
-            this.pushUndo();
-
-            for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-                this._tokenFormat[i].digits = "";
-                this._tokenFormat[i].value = 0;
-            }
-
-            this._indexToken = 0;
-        }
-
-        if ( key === "raz" ) {
-            this._value = this.formatValue();
-            return;
-        }
-
-        if ( key === "next" ||
-            this._indexToken < this._tokenFormat.length - 1 && this._tokenFormat[this._indexToken + 1].fix === key ) {
-            this.pushUndo();
-
-            if ( this._indexToken < this._tokenFormat.length - 1 )
-                this._indexToken++;
-
-            this._value = this.formatValue();
-            return;
-        }
-
-        if ( key === "undo" ) {
-            this.popUndo();
-            if ( this._undo.length === 0 )
-                this.selectAll();
-            return;
-        }
-
-        if ( key < '0' || key > '9' )
-            return;
-
         let i = 0;
-        for ( i = 0; i < this._tokenFormat.length && this._tokenFormat[i].format.length === this._tokenFormat[i].digits.length; i++ );
-        if ( i === this._tokenFormat.length )
-            return;
 
-        this.pushUndo();
+        switch ( key ) {
+            case "raz":
+                this.Value = "";
+                return this;
+            case "next":
+                if ( this._indexToken > this._indexSeparator || this._indexSeparator >= this._digits.length )
+                    return this;
 
-        this._tokenFormat[this._indexToken].digits += key;
-        this._tokenFormat[this._indexToken].value = parseInt( String.isEmptyOrWhiteSpaces( this._tokenFormat[this._indexToken].digits ) ? "0" : this._tokenFormat[this._indexToken].digits );
-        this.updateToken( this._tokenFormat );
+                key = this._separator;
+                break;
+            case "undo":
+                this.popUndo();
+                break;
+        }
 
-        this._value = this.formatValue();
+        // clean up all selected token
+
+        if ( this._selectStart >= 0 ) {
+            this._indexToken = this._selectStart;
+            while ( this._indexToken < this._digits.length && this._digits[this._indexToken].IsStatic )
+                this._indexToken++;
+        }
+        for ( i = this._selectStart; i <= this._selectEnd && i >= 0 && i < this._digits.length; i++ )
+            this._digits[i].Value = null;
+        this._selectStart = -1;
+        this._selectEnd = -1;
+
+        if ( key === "undo" )
+            return this;
+
+        // Add the new character
+
+        this.Value = this.CurrentValue + key;
+
+        // Handle the current error
+
+        if ( this.HasError ) {
+            // pushUndo is done in the setting Value on the previous line
+            this.popUndo();
+            this._error = false;
+        }
+
+        return this;
     }
 
     /**
      * The first key added, remove all existing values
      */
     selectAll() {
-        this._tokenFormat = this.parseValue( this._value );
-        this._value = this.formatValue();
-
-        this._indexToken = null;
-        this._undo = [];
+        this._selectStart = 0;
+        this._selectEnd = this._digits.length - 1;
+        if ( this._selectEnd < 0 )
+            this._selectEnd = 0;
+        this._indexToken = 0;
     }
 
     /**
-     * Clean up the content of the object
+     * Clean up the value of the digit
      */
     RAZ() {
-        this.pushUndo();
-
-        this._raz = true;
-        this.Value = null;
-        this._raz = false;
-
+        this._selectStart = -1;
+        this._selectEnd = -1;
         this._indexToken = 0;
+        this.Value = "";
     }
 
     /**
@@ -439,28 +680,42 @@ Digits.Digits = class {
      * @returns {any} a new instance of the current object
      */
     clone() {
-        let newDigit = new Digits.Digits( this._formatDefault );
+        let newDigit = new Digits.Digits( this._format, this._separator );
+        newDigit._handleUndo = false;
         newDigit.Value = this.Value;
-        newDigit._allowNegativeValue = this._allowNegativeValue;
+        newDigit._handleUndo = true;
         return newDigit;
     }
 
     /**
      * Constructor
-     * @param {string} format format of the digit to read
+     * @param {String} format    of the mask to parse and read
+     * @param {String} separator separation of the left and right part
      */
-    constructor( format ) {
-        this._value = null;
-        this._format = null;
-        this._tokenFormat = null;
-        this._indexToken = null;
-        this._undo = [];
-        this._formatDefault = String.isEmptyOrWhiteSpaces( format ) ? "000000000" : format;
-        this._raz = false;
-        this._allowNegativeValue = false;
+    constructor( format, separator ) {
+        format = String.isEmptyOrWhiteSpaces( format ) ? "" : format;
 
-        this.Format = this._formatDefault;
-        this.Value = null;
+        this._format = format;
+        this._digits = [];
+        this._error = false;
+        this._separator = separator;
+        this._indexSeparator = -1;
+
+        // Set the value
+
+        this._allowNegativeValue = false;
+        this._selectStart = -1;
+        this._selectEnd = -1;
+        this._indexToken = -1;
+
+        // Undo stack
+
+        this._undo = [];
+        this._handleUndo = true;
+
+        // Set the format
+
+        this.setFormat( format, separator );
     }
 };
 
@@ -477,7 +732,7 @@ Digits.Decimal = class extends Digits.Digits {
 
     /**
      * Check if the value is equal to 0 (include between -Epsilon and +Epsilon)
-     * @param {any} value
+     * @param {float} value
      */
     static IsZero( value ) {
         return -Digits.Decimal.EPSILON < value && value < Digits.Decimal.EPSILON;
@@ -497,7 +752,9 @@ Digits.Decimal = class extends Digits.Digits {
         if ( typeof value === "number" )
             value = value.toFixed( this._nbDigitAfter ).toString().replace( ".", "," );
         else if ( !String.isEmptyOrWhiteSpaces( value ) )
-            value = value.trim();
+            value = value.trim().replace( /\./g, "" );
+        else
+            value = null;
 
         if ( value !== null && value.startsWith( "-" ) ) {
             this._negative = true;
@@ -539,51 +796,15 @@ Digits.Decimal = class extends Digits.Digits {
     }
 
     /**
-     * @returns {boolean} true if the negative value is possible
-     */
-    get AllowNegativeValue() {
-        return super.AllowNegativeValue;
-    }
-
-    /**
-     * @param {boolean} value true if the negative value is possible
-     */
-    set AllowNegativeValue( value ) {
-        this._allowNegativeValue = value === null || value === undefined || value === true;
-    }
-
-    /**
      * @returns {string} value matching within the given format
      */
     toString() {
-        if ( this._value === null )
-            return "";
-
-        let components = this._value.trim().split( "," );
-        let integerPart = parseInt( components[0] );
-
-        let newValue = "";
-        if ( integerPart >= 1000000 ) {
-            newValue += ( ( integerPart - integerPart % 1000000 ) / 1000000).toString() + ".";
-            integerPart = integerPart % 1000000;
-            newValue += ( ( integerPart - integerPart % 1000 ) / 1000 ).toString().padStart( 3, "0" ) + ".";
-            integerPart = integerPart % 1000;
-            newValue += integerPart.toString().padStart( 3, "0" );
-        } else if ( integerPart >= 1000 ) {
-            newValue += ( ( integerPart - integerPart % 1000 ) / 1000 ).toString() + ".";
-            integerPart = integerPart % 1000;
-            newValue += integerPart.toString().padStart( 3, "0" );
-        } else {
-            newValue = integerPart.toString();
-        }
-
-        if ( components.length > 1 )
-            newValue += "," + components[1];
+        let value = super.toString().replace( /^[ .]*/, "" ).replace( /,$/, "" );
 
         if ( this._negative )
-            return "-" + newValue;
+            value = "-" + value;
 
-        return newValue;
+        return value;
     }
 
     /**
@@ -591,52 +812,12 @@ Digits.Decimal = class extends Digits.Digits {
      * @param {any} key key to implement ("undo", "next", or any other character)
      */
     addKey( key ) {
-        if ( key === "minus" && this._allowNegativeValue ) {
+        if ( key === "minus" && this.AllowNegativeValue ) {
             this._negative = !this._negative;
-            return;
+            return this;
         }
 
-        super.addKey( key === "." ? "," : key );
-    }
-
-    /**
-     * Update token from the value before formatting value as expected
-     * @param {any} token list of tokens of the value setting
-     * @returns {any} token updated
-     */
-    updateToken( token ) {
-        if ( token.length > 1 && this._nbDigitAfter !== undefined ) {
-            let digit = token[1].digits.padEnd( this._nbDigitAfter, "0" );
-            if ( digit.length > token[1].format.length ) {
-                digit = digit.substr( 0, token[1].format.length );
-                token[1].digits = digit;
-            }
-            token[1].value = parseInt( digit );
-        }
-
-        if ( token[0].digits.length > token[0].format.length ) {
-            token[0].digits = token[0].digits.substr( token[0].digits.length - token[0].format.length, token[0].format.length );
-            token[0].value = parseInt( token[0].digits );
-        }
-
-        return token;
-    }
-
-    /**
-     * Add the current tokens into the undo stack
-     */
-    pushUndo() {
-        super.pushUndo();
-
-        if ( this._undo.length === 0 )
-            return;
-
-        let lastToken = this._undo[this._undo.length - 1];
-
-        if ( lastToken.indexToken < lastToken.tokens.length - 1 || lastToken.tokens[lastToken.indexToken].digits.length < lastToken.tokens[lastToken.indexToken].format.length )
-            return;
-
-        this._undo.pop();
+        return super.addKey( key === "." ? "," : key );
     }
 
     /**
@@ -658,22 +839,25 @@ Digits.Decimal = class extends Digits.Digits {
         nbDigitBefore = nbDigitBefore === null || nbDigitBefore === undefined || nbDigitBefore <= 0 ? 6 : nbDigitBefore;
         nbDigitAfter = nbDigitAfter === null || nbDigitAfter === undefined || nbDigitAfter <= 0 ? 0 : nbDigitAfter;
 
-        let format = "";
-        for ( let i = 0; i < nbDigitBefore - 1; i++ )
-            format += "_";
-        format += "0";
-        if ( nbDigitAfter > 0 ) {
-            format += ",";
-            for ( let i = 0; i < nbDigitAfter; i++ )
-                format += "0";
-        }
+        // Create a format dedicated to a number
 
-        super( format );
+        let integerPart = "".padEnd( nbDigitBefore - 1, "_" ) + "0";
+        let i = integerPart.length % 3;
+        if ( i === 0 )
+            i += 3;
+        let format = integerPart.substr( 0, i );
+        while ( i < integerPart.length ) {
+            format += "." + integerPart.substr( i, 3 );
+            i += 3;
+        }
+        if ( nbDigitAfter > 0 )
+            format += ",".padEnd( nbDigitAfter + 1, "0" );
+
+        super( format, nbDigitAfter > 0 ? "," : "\0" );
 
         this._negative = false;
         this._nbDigitBefore = nbDigitBefore;
         this._nbDigitAfter = nbDigitAfter;
-        this.Value = null;
     }
 };
 
@@ -690,121 +874,11 @@ Digits.Mask = class extends Digits.Digits {
     }
 
     /**
-     * @returns {boolean} true if the value stored into the digit is like NULL
-     */
-    get IsNull() {
-        if ( super.IsNull )
-            return true;
-
-        return super.Value === this._formatDefault;
-    }
-
-    /**
-     * @param {any} value value to set into the dialog box
-     */
-    set Value( value ) {
-        if ( String.isEmptyOrWhiteSpaces( value ) ) {
-            super.Value = value;
-            return;
-        }
-
-        let newValue = "";
-        for ( let i = 0; i < this._tokenFormat.length && value.length > 0; i++ ) {
-            if ( this._tokenFormat[i].format.length > 0 ) {
-                let digits = value.substr( 0, this._tokenFormat[i].format.length );
-                value = value.substr( this._tokenFormat[i].format.length );
-                newValue += this._tokenFormat[i].fix + digits;
-            }
-        }
-
-        super.Value = newValue;
-    }
-
-    /**
-     * @returns {any} value selected into the dialog box
-     */
-    get Value() {
-        let value = "";
-
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            if ( this._tokenFormat[i].format.length > 0 ) {
-                let digits = this._tokenFormat[i].value.toString();
-                let prefix = "";
-
-                if ( digits.length > this._tokenFormat[i].format.length ) {
-                    digits = digits.substr( digits.length - this._tokenFormat[i].format.length, this._tokenFormat[i].format.length );
-                } else {
-                    for ( let j = 0; j < this._tokenFormat[i].format.length - digits.length; j++ )
-                        prefix += this._tokenFormat[i].format[j] === '0' ? '0' : ' ';
-                }
-
-                value += prefix + digits;
-            }
-        }
-
-        return value;
-    }
-
-    /**
-     * Update token from the value before formatting value as expected
-     * @param {any} token list of tokens of the value setting
-     * @returns {any} token updated
-     */
-    updateToken( token ) {
-        let index = this.IndexToken;
-
-        if ( index === null )
-            return token;
-
-        let currentToken = token[index];
-
-        if ( currentToken.digits.length <= currentToken.format.length ) {
-            currentToken.value = parseInt( currentToken.digits.padEnd( currentToken.format.length, "0" ) );
-            return token;
-        }
-
-        let currentValue = currentToken.digits.substr( 0, currentToken.format.length );
-        let nextValue = currentToken.digits.substr( currentToken.format.length );
-
-        currentToken.digits = currentValue;
-        currentToken.value = parseInt( currentValue );
-
-        if ( index >= token.length - 1 )
-            return token;
-
-        currentToken = token[index + 1];
-
-        currentToken.digits = nextValue;
-        currentToken.value = parseInt( nextValue.padEnd( currentToken.format.length, "0" ) );
-
-        this.IndexToken = index + 1;
-
-        return token;
-    }
-
-    /**
-     * Add the current tokens into the undo stack
-     */
-    pushUndo() {
-        super.pushUndo();
-
-        if ( this._undo.length === 0 )
-            return;
-
-        let lastToken = this._undo[this._undo.length - 1];
-
-        if ( lastToken.indexToken < lastToken.tokens.length - 1 || lastToken.tokens[lastToken.indexToken].digits.length < lastToken.tokens[lastToken.indexToken].format.length )
-            return;
-
-        this._undo.pop();
-    }
-
-    /**
      * Duplicate the digit object
      * @returns {any} a new instance of the current object
      */
     clone() {
-        let newDigit = new Digits.Mask( this._formatDefault );
+        let newDigit = new Digits.Mask( this.getFormat(), this._separator );
         newDigit.Value = this.Value;
         return newDigit;
     }
@@ -813,8 +887,8 @@ Digits.Mask = class extends Digits.Digits {
      * Constructor
      * @param {any} format format to apply
      */
-    constructor( format ) {
-        super( format );
+    constructor( format, separator ) {
+        super( format, separator );
     }
 };
 
@@ -845,7 +919,7 @@ Digits.Sequence = class extends Digits.Digits {
      * @param {any} length length of the sequence
      */
     constructor( key, length ) {
-        super( key + "".padEnd( length, "0" ) );
+        super( key + "".padEnd( length, "0" ), "\0" );
 
         this._key = key;
         this._length = length;
@@ -860,31 +934,17 @@ Digits.Datetime = class extends Digits.Digits {
      * @returns {string} the type of the current digit format
      */
     get Type() {
-        return "datetime";
+        let date = /(.*(DD|MM|YYYY))+/.test( this._dateFormat );
+        let time = /(.*(HH|mm|ss|SSS))+/.test( this._dateFormat );
+        return ( date ? "date" : "" ) + ( time ? "time" : "" );
     }
 
     /**
      * @returns {boolean} true if the current position in the digit is a calendar or not
      */
     get IsCalendar() {
-        let index = this._indexToken === null ? 0 : this._indexToken;
-
-        let token = this._tokenFormat[index];
-        if ( token === null || token === undefined )
-            return false;
-
-        let type = this.CurrentType;
-        return ( type === 'YYYY' || type === 'MM' || type === 'DD' ) && this.WebixType !== null;
-    }
-
-    /**
-     * @returns {boolean} true if the format matches within a date or a time
-     */
-    get IsDateTime() {
-        let types = ["YYYY", "MM", "DD", "HH", "mm", "ss", "SSS"];
-
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            if ( types.indexOf( this._tokenFormat[i].type ) >= 0 )
+        for ( let groupBy of this._groupBy ) {
+            if ( groupBy[2] <= this._indexToken && this._indexToken <= groupBy[2] + groupBy[1].length && ( groupBy[0] === 'YYYY' || groupBy[0] === 'MM' || groupBy[0] === 'DD' ) )
                 return true;
         }
 
@@ -895,92 +955,43 @@ Digits.Datetime = class extends Digits.Digits {
      * Set the format expected into the input digit box (YYYY, MM, DD, HH, mm, ss, SSS)
      * @param {string} format format to set (if null, restore the default format)
      */
-    set Format( format ) {
-        let types = [ "YYYY", "MM", "DD", "HH", "mm", "ss", "SSS" ];
-
-        format = String.isEmptyOrWhiteSpaces( format ) ? this._formatDefault : format;
-
-        this._tokenFormat = [];
-
-        // parse format
-
-        let i = 0;
-        let newToken = { fix: "", format: "", type: "", digits: "", value: 0 };
-        while ( i < format.length ) {
-            let j = 0;
-
-            for ( j = 0; j < types.length && format.substr( i, types[j].length ) !== types[j]; j++ );
-
-            if ( j < types.length ) {
-                newToken.type = types[j];
-                newToken.format = "".padEnd( types[j].length, "_" );
-                i += types[j].length;
-                this._tokenFormat.push( newToken );
-                newToken = { fix: "", format: "", type: "", digits: "", value: 0 };
-            } else {
-                newToken.fix += format[i];
-                i++;
-            }
-        }
-
-        if ( !String.isEmptyOrWhiteSpaces( newToken.fix ) )
-            this._tokenFormat.push( newToken );
-
-        this._format = format;
-        this._indexToken = null;
+    setFormat( format ) {
+        this._groupBy = [];
+        this._webixFormat = "";
+        this._webixType = 0;
+        super.setFormat( format );
     }
 
     /**
-     * @returns {string} format expected
+     * @returns {string} date time format expected
      */
-    get Format() {
-        return this._format;
+    getFormat() {
+        return String.isEmptyOrWhiteSpaces( this._dateFormat ) ? "DD/MM/YYYY HH:mm:ss" : this._dateFormat;
     }
 
     /**
      * @returns {string} format compatible within Webix component
      */
     get WebixFormat() {
-        let types = ["YYYY", "MM", "DD", "HH", "mm", "ss", "SSS"];
-        let webixType = ["%Y", "%m", "%d", "%H", "%i", "%s", "%S"];
-
-        let format = "";
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            format += this._tokenFormat[i].fix;
-
-            let index = types.indexOf( this._tokenFormat[i].type );
-            if ( index >= 0 ) {
-                format += webixType[index];
-            } else {
-                format += "".padEnd(this._tokenFormat[i].format.length, " ");
-            }
-        }
-
-        return format;
+        return this._webixFormat;
     }
 
     /**
      * @returns {string} type of the webix component
      */
     get WebixType() {
-        let types = ["YYYY", "MM", "DD"];
-        let webixType = [1, 2, 4];
+        switch ( this._webixType ) {
+            case 1:
+                return "year";
 
-        let type = 0;
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            let index = types.indexOf( this._tokenFormat[i].type );
-            if ( index >= 0 )
-                type |= webixType[index];
+            case 2:
+            case 3:
+                return "month";
+
+            case 6:
+            case 7:
+                return "day";
         }
-
-        if ( type === 1 )
-            return "year";
-
-        if ( type === 2 || type === 3 )
-            return "month";
-
-        if ( type === 6 || type === 7 )
-            return "day";
 
         return null;
     }
@@ -989,16 +1000,12 @@ Digits.Datetime = class extends Digits.Digits {
      * @return {string} null or the type of the field into the current index
      */
     get CurrentType() {
-        let index = this._indexToken === null ? 0 : this._indexToken;
-        let token = index < this._tokenFormat.length ? this._tokenFormat[index] : null;
+        for ( let groupBy of this._groupBy ) {
+            if ( groupBy[2] <= this._indexToken && this._indexToken < groupBy[2] + groupBy[1].length )
+                return groupBy[0];
+        }
 
-        if ( token === null )
-            return null;
-
-        if ( token.digits.length >= token.format.length && index < this._tokenFormat.length - 1 )
-            token = this._tokenFormat[index + 1];
-
-        return token.type;
+        return null;
     }
 
     /**
@@ -1009,115 +1016,74 @@ Digits.Datetime = class extends Digits.Digits {
             value = moment( value.toString() ).format( this._format );
 
         if ( value instanceof moment )
-            value = value.format( this._format );
+            value = value.format( this._dateFormat );
+
+        // set the value
 
         super.Value = value;
+
+        // update value to be in correct interval
+
+        for ( let groupBy of this._groupBy ) {
+            let value = "";
+            let pos = groupBy[2];
+            let j = 0;
+
+            for ( j = 0; j < groupBy[1].length; j++, pos++ ) {
+                let digit = groupBy[1][j];
+                if ( !digit.IsNull )
+                    value += digit.Value;
+            }
+
+            if ( ( value.length === j ) ||
+                ( pos >= this._digits.length && !this._digits[this._digits.length - 1].IsNull ) ||
+                ( pos < this._digits.length && !this._digits[pos].IsNull ) )
+                this.setValue( groupBy, String.isEmptyOrWhiteSpaces( value ) ? 0 : String.parseInt( value ) );
+        }
     }
 
     /**
      * @returns {any} value selected into the dialog box
      */
     get Value() {
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            let token = this._tokenFormat[i];
-
-            if ( ( token.type === 'YYYY' || token.type === 'MM' || token.type === 'DD' ) && token.digits.length !== token.format.length )
-                return null;
-        }
-
-        let value = super.Value;
+        let value = this.toString();
 
         if ( String.isEmptyOrWhiteSpaces( value ) )
             return null;
 
-        let newDate = new moment( value, this._format, true );
-        return newDate.isValid() ? newDate : null;
-    }
-
-    /**
-     * @returns {string} Replace some '0' by '_' 
-     */
-    toString() {
-        let value = "";
-
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            if ( this._tokenFormat[i].format.length === 0 ) {
-                value += this._tokenFormat[i].fix;
-            } else {
-                let digits = this._tokenFormat[i].digits;
-
-                if ( digits.length > this._tokenFormat[i].format.length ) {
-                    digits = digits.substr( 0, this._tokenFormat[i].format.length );
-                } else {
-                    digits = digits.padEnd( this._tokenFormat[i].format.length, "_" );
-                }
-
-                value += this._tokenFormat[i].fix + digits;
-            }
+        let newDate = new moment( value, this._dateFormat, true );
+        if ( !newDate.isValid() ) {
+            this._error = true;
+            return null;
         }
 
-        return value;
-    }
-
-    /**
-     * Parse the value and format it on depends on the expected format
-     * @param {any} value value to format
-     * @returns {string} value formatted
-     */
-    formatValue( value ) {
-        // update token on depends on the needs
-
-        let tokenFormat = String.isEmptyOrWhiteSpaces( value ) ? this._tokenFormat : this.parseValue( value );
-
-        // rebuild the format as expected
-
-        value = "";
-        for ( let i = 0; i < tokenFormat.length; i++ ) {
-            if ( tokenFormat[i].format.length === 0 ) {
-                value += tokenFormat[i].fix;
-            } else {
-                let digits = tokenFormat[i].value.toString();
-                let prefix = "";
-
-                if ( digits.length > tokenFormat[i].format.length ) {
-                    digits = digits.substr( digits.length - tokenFormat[i].format.length, tokenFormat[i].format.length );
-                } else {
-                    for ( let j = 0; j < tokenFormat[i].format.length - digits.length; j++ )
-                        prefix += '0';
-                }
-
-                value += tokenFormat[i].fix + prefix + digits;
-            }
-        }
-
-        return value;
+        return newDate;
     }
 
     /**
      * Set a value to a given type
-     * @param {any} type   YYYY, MM, ....
-     * @param {any} value  value to set
-     * @param {any} minValue minimum value
-     * @param {any} maxValue maximum value
-     * @returns {number} the index token updated
+     * @param {any} groupBy [ (YYYY, MM, ....), digits[], posStart, [min ,max] ]
+     * @param {int} value  value to set
+     * @returns {boolean} true if the value is updated
      */
-    setValue( type, value, minValue, maxValue ) {
+    setValue( groupBy, value ) {
         if ( value === null || value === undefined )
             return -1;
 
-        for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-            if ( this._tokenFormat[i].type === type ) {
-                if ( value < minValue )
-                    value = minValue;
-                if ( value > maxValue )
-                    value = maxValue;
-                this._tokenFormat[i].value = value;
-                this._tokenFormat[i].digits = value.toString().padStart( this._tokenFormat[i].format.length, "0");
-                return i;
-            }
-        }
+        let minValue = groupBy[3][0];
+        let maxValue = groupBy[3][1];
 
-        return -1;
+        if ( value < minValue )
+            value = minValue;
+        if ( value > maxValue )
+            value = maxValue;
+
+        let str = value.toString().padStart( groupBy[1].length, "0" );
+
+        for ( let i = 0; i < groupBy[1].length; i++ )
+            groupBy[1][i].Value = str[i];
+
+        return groupBy[2] + groupBy[1].length;
     }
 
     /**
@@ -1127,51 +1093,28 @@ Digits.Datetime = class extends Digits.Digits {
      * @param {any} year new year
      */
     setDate( day, month, year ) {
-        let maxIndexToken = 0;
-        let currentIndexToken = 0;
-        let hasToken = false;
+        let index = 0;
 
-        this.pushUndo();
+        for ( let groupBy of this._groupBy ) {
+            let newIndex = 0;
 
-        if ( this._indexToken === null ) {
-            for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-                this._tokenFormat[i].digits = "";
-                this._tokenFormat[i].value = 0;
+            switch ( groupBy[0] ) {
+                case "DD":
+                    newIndex = this.setValue( groupBy, day );
+                    break;
+                case "MM":
+                    newIndex = this.setValue( groupBy, month );
+                    break;
+                case "YYYY":
+                    newIndex = this.setValue( groupBy, year );
+                    break;
             }
 
-            this._indexToken = 0;
-
-            this.pushUndo();
+            if ( index < newIndex )
+                index = newIndex;
         }
 
-        currentIndexToken = this.setValue( "DD", day, 1, 31 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        currentIndexToken = this.setValue( "MM", month, 1, 12 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        if ( typeof year === "number" && year < 100 )
-            year += 2000;
-        currentIndexToken = this.setValue( "YYYY", year, 1900, 2099 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        if ( !hasToken )
-            return;
-
-        this._tokenFormat = this.updateToken( this._tokenFormat );
-        this._value = this.formatValue();
-
-        if ( maxIndexToken > this.IndexToken )
-            this.IndexToken = maxIndexToken;
+        this.IndexToken = index;
     }
 
     /**
@@ -1182,153 +1125,77 @@ Digits.Datetime = class extends Digits.Digits {
      * @param {any} millisecond new millisecond
      */
     setTime( hour, minute, second, millisecond ) {
-        let maxIndexToken = 0;
-        let currentIndexToken = 0;
-        let hasToken = false;
+        let index = 0;
 
-        this.pushUndo();
+        for ( let groupBy of this._groupBy ) {
+            let newIndex = 0;
 
-        if ( this._indexToken === null ) {
-            for ( let i = 0; i < this._tokenFormat.length; i++ ) {
-                this._tokenFormat[i].digits = "";
-                this._tokenFormat[i].value = 0;
-            }
-
-            this._indexToken = 0;
-
-            this.pushUndo();
-        }
-
-        currentIndexToken = this.setValue( "HH", hour, 0, 23 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        currentIndexToken = this.setValue( "mm", minute, 0, 59 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        currentIndexToken = this.setValue( "ss", second, 0, 59 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        currentIndexToken = this.setValue( "SSS", millisecond, 0, 999 );
-        if ( currentIndexToken >= 0 )
-            hasToken = true;
-        if ( currentIndexToken > maxIndexToken )
-            maxIndexToken = currentIndexToken;
-
-        if ( !hasToken )
-            return;
-
-        this._tokenFormat = this.updateToken( this._tokenFormat );
-        this._value = this.formatValue();
-
-        if ( maxIndexToken > this.IndexToken )
-            this.IndexToken = maxIndexToken;
-    }
-
-    /**
-     * (Virtual Method) update token from the value before formatting value as expected
-     * @param {any} token list of tokens of the value setting
-     * @param {any} tokenIndex current index of the token
-     * @returns {{token: number, index: any}} token updated
-     */
-    updateToken( token ) {
-        let index = this.IndexToken;
-
-        if ( index === null )
-            return token;
-
-        let currentToken = token[index];
-
-        if ( currentToken.digits.length < currentToken.format.length )
-            return token;
-
-        if ( currentToken.digits.length > currentToken.format.length ) {
-            let currentValue = currentToken.digits.substr( 0, currentToken.format.length );
-            let nextValue = currentToken.digits.substr( currentToken.format.length );
-
-            currentToken.digits = currentValue;
-            currentToken.value = parseInt( currentValue );
-
-            if ( index < token.length - 1 ) {
-                currentToken = token[index + 1];
-
-                currentToken.digits = nextValue;
-                currentToken.value = parseInt( nextValue.padEnd( currentToken.format.length, "0" ) );
-
-                this.IndexToken = index + 1;
-            }
-        }
-
-        for ( let i = 0; i < token.length; i++ ) {
-            switch ( token[i].type ) {
-                case "YYYY":
-                    break;
-                case "MM":
-                    if ( token[i].digits.length === 2 ) {
-                        let value = token[i].value;
-                        if ( value < 1 )
-                            value = 1;
-                        if ( value > 12 )
-                            value = 12;
-                        token[i].value = value;
-                        token[i].digits = value.toString().padStart( 2, "0" );
-                    }
-                    break;
-                case "DD":
-                    if ( token[i].digits.length === 2 ) {
-                        let value = token[i].value;
-                        if ( value < 1 )
-                            value = 1;
-                        if ( value > 31 )
-                            value = 31;
-                        token[i].value = value;
-                        token[i].digits = value.toString().padStart( 2, "0" );
-                    }
-                    break;
+            switch ( groupBy[0] ) {
                 case "HH":
-                    if ( token[i].digits.length === 2 ) {
-                        let value = token[i].value;
-                        if ( value > 23 )
-                            value = 23;
-                        token[i].value = value;
-                        token[i].digits = value.toString().padStart( 2, "0" );
-                    }
+                    newIndex = this.setValue( groupBy, hour );
                     break;
                 case "mm":
-                case "ss":
-                    if ( token[i].digits.length === 2 ) {
-                        let value = token[i].value;
-                        if ( value > 59 )
-                            value = 59;
-                        token[i].value = value;
-                        token[i].digits = value.toString().padStart( 2, "0" );
-                    }
+                    newIndex = this.setValue( groupBy, minute );
                     break;
-                case "SSS":
+                case "SS":
+                    newIndex = this.setValue( groupBy, second );
+                    break;
+                case "sss":
+                    newIndex = this.setValue( groupBy, millisecond );
                     break;
             }
+
+            if ( index < newIndex )
+                index = newIndex;
         }
 
-        return token;
+        this.IndexToken = index;
     }
 
     /**
-     * The first key added, remove all existing values
+     * (protected methode) Parse a token of the format
+     * @param {Array}  digits array of tokens to set (the first one is already set)
+     * @param {string} format format to parse
+     * @param {int}    index  current position in the format to parse
+     * @returns {int} the position of the next token
      */
-    selectAll() {
-        this._tokenFormat = this.parseValue( this.toString() );
-        this._value = this.formatValue();
+    getToken( digits, format, index ) {
+        let types = ["YYYY", "MM", "DD", "HH", "mm", "ss", "SSS"];
+        let webixType = ["%Y", "%m", "%d", "%H", "%i", "%s", "%S"];
+        let webixCode = [1, 2, 4, 0, 0, 0, 0];
+        let intervals = [[1900, 2099], [1, 12], [1, 31], [0, 23], [0, 59], [0, 59], [0, 999]];
 
-        this._indexToken = null;
-        this._undo = [];
+        let i = types.indexOf( format.substr( index, 4 ) );
+        if ( i < 0)
+            i = types.indexOf( format.substr( index, 3 ) );
+        if ( i < 0 )
+            i = types.indexOf( format.substr( index, 2 ) );
+        if ( i >= 0 ) {
+            let digit = digits[0];
+
+            // Build an array of digits
+
+            digit.Token = '[0-9]';
+            digit.Mark = '_';
+
+            for ( let j = 1; j < types[i].length; j++ ) {
+                let digit = new Digits.Digit();
+                digits.push( digit );
+                digit.Token = '[0-9]';
+                digit.Mark = '_';
+            }
+
+            this._groupBy.push( [types[i], digits, this._digits.length, intervals[i]] );
+
+            this._webixFormat += webixType[i];
+            this._webixType |= webixCode[i];
+
+            return index + types[i].length;
+        }
+
+        let result = super.getToken( digits, format, index );
+        this._webixFormat += digits[0].DefaultValue;
+        return result;
     }
 
     /**
@@ -1360,8 +1227,13 @@ Digits.Datetime = class extends Digits.Digits {
                 break;
         }
 
-        super( formatConverted );
+        super( "" );
 
-        this.Value = null;
+        this._dateFormat = formatConverted;
+        this._groupBy = [];
+        this._webixFormat = "";
+        this._webixType = 0;
+
+        this.setFormat( formatConverted );
     }
 };

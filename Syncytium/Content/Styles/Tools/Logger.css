@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,15 +22,15 @@
 
 .webix_log .webix_ss_header .webix_hcell {
     background: #888888;
-    color: #ffffff;
-    font-family: Arial;
+    color: #eeeeee;
+    font-family: var(--syncytium-font);
     font-size: 12px;
     font-weight: bold;
     text-align: center;
 }
 
 .webix_log .webix_column {
-    background: #ffffff;
+    background: #eeeeee;
     font-size: 12px;
     color: rgb(0, 0, 0);
     color: rgba(0, 0, 0, 0.8);

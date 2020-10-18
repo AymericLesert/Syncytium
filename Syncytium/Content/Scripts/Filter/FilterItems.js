@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,15 +25,38 @@ Filter.FilterItems = class {
      * @returns {boolean} true if the filter has a new value
      */
     setValue( value ) {
-        let newValues = [];        if ( Array.isArray( value ) ) {            let list = {};            for ( let i in value ) {                let currentValue = String.isEmptyOrWhiteSpaces( value[i] ) || isNaN( String.parseInt( value[i] ) ) ? null : String.parseInt( value[i] );                if ( list[currentValue] === undefined && currentValue !== null ) {                    list[currentValue] = true;
+        let newValues = [];
+
+        if ( Array.isArray( value ) ) {
+            let list = {};
+
+            for ( let item of Array.toIterable( value ) ) {
+                let currentValue = String.isEmptyOrWhiteSpaces( item ) || isNaN( String.parseInt( item ) ) ? null : String.parseInt( item );
+
+                if ( list[currentValue] === undefined && currentValue !== null ) {
+                    list[currentValue] = true;
                     newValues.push( currentValue );
-                }            }
+                }
+            }
+
             newValues.sort( function ( e1, e2 ) { return e1 < e2 ? -1 : e1 > e2 ? 1 : 0; } );
-        } else if ( !String.isEmptyOrWhiteSpaces( value ) && !isNaN( String.parseInt( value ) ) ) {            newValues.push( String.parseInt( value ) );
-        }        // update the filter property        let isEqual = this._values.length === newValues.length;        if ( isEqual ) {            let i = 0;            for ( i = 0; i < newValues.length && newValues[i] === this._values[i]; i++ );
+        } else if ( !String.isEmptyOrWhiteSpaces( value ) && !isNaN( String.parseInt( value ) ) ) {
+            newValues.push( String.parseInt( value ) );
+        }
+
+        // update the filter property
+
+        let isEqual = this._values.length === newValues.length;
+        if ( isEqual ) {
+            let i = 0;
+            for ( i = 0; i < newValues.length && newValues[i] === this._values[i]; i++ );
             if ( i === newValues.length )
                 return false;
-        }        this._values = newValues;        return true;    }
+        }
+
+        this._values = newValues;
+        return true;
+    }
 
     /**
      * @returns {any} array of items included into the filter

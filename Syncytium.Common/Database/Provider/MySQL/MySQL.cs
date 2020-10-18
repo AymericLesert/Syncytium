@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -159,7 +159,7 @@ namespace Syncytium.Common.Database.Provider.MySQL
             if (!sqlCommand.StartsWith("--"))
                 return sqlCommand;
 
-            int i = 0;
+            int i;
             for (i = 0; i < sqlCommand.Length && sqlCommand[i] != '\n'; i++);
             if (i == sqlCommand.Length)
                 return "";
@@ -292,19 +292,25 @@ namespace Syncytium.Common.Database.Provider.MySQL
         /// <returns></returns>
         public override bool ExistValue(DbContextTransaction transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object> fields)
         {
-            string SQLFieldStatement = "";
+            string SQLStatement = $"SELECT * FROM `{Schema}`.`{table}` " +
+                $"LEFT OUTER JOIN `{Schema}`.`_Information` " +
+                $"ON `{Schema}`.`_Information`.`Id` = `{Schema}`.`{table}`.`Id` " +
+                (caseSensitive ? $"WHERE `{Schema}`.`{table}`.`{columnValue}` = @value " : $"WHERE upper(`{Schema}`.`{table}`.`{columnValue}`) = upper(@value) " ) +
+                $"AND `{Schema}`.`{table}`.`{columnId}` <> @id " +
+                $"AND `{Schema}`.`_Information`.`Table` = @tablename " +
+                $"AND `{Schema}`.`_Information`.`DeleteTick` is null " +
+                (customerId == null ? "" : $"AND `{Schema}`.`{table}`.`CustomerId` = @customerId ");
 
             if (fields != null)
             {
                 foreach(KeyValuePair<string, object> key in fields)
-                    SQLFieldStatement += $"AND `{Schema}`.`{table}`.`{key.Key}` = @value{key.Key} ";
+                {
+                    if ( caseSensitive )
+                        SQLStatement += $"AND `{Schema}`.`{table}`.`{key.Key}` = @value{key.Key} ";
+                    else
+                        SQLStatement += $"AND upper(`{Schema}`.`{table}`.`{key.Key}`) = upper(@value{key.Key}) ";
+                }
             }
-
-            string SQLStatement = $"SELECT * FROM `{Schema}`.`{table}` LEFT OUTER JOIN `{Schema}`.`_Information` ON " +
-                                  (caseSensitive ? $"`{Schema}`.`{table}`.`{columnId}` = `{Schema}`.`_Information`.`Id` " : $"upper(`{Schema}`.`{table}`.`{columnId}`) = upper(`{Schema}`.`_Information`.`Id`) ") +
-                                  $"WHERE `{Schema}`.`{table}`.`{columnValue}` = @value AND `{Schema}`.`{table}`.`{columnId}` <> @id AND `{Schema}`.`_Information`.`Table` = @tablename " +
-                                  (customerId == null ? "" : $"AND `{Schema}`.`{table}`.`CustomerId` = @customerId ") + SQLFieldStatement +
-                                  $"AND `{Schema}`.`_Information`.`DeleteTick` is null";
 
             bool exist = false;
             using (DbCommand selectStatement = _database.CreateCommand())

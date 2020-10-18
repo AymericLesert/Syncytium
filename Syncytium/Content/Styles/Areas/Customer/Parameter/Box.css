@@ -1,0 +1,157 @@
+/*
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div                                                             */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div {
+    height: 320px;
+    width: 50vw;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content > panel.main                                     */
+/* ------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-height: 260px) {
+    box.box_record.parameter > div > .content > panel.main {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    box.box_record.parameter > div > .content > panel.main {
+        flex-direction: column;
+    }
+}
+
+box.box_record.parameter > div > .content > panel.main field > .label,
+box.box_record.parameter > div > .content > panel.main field > .value input,
+box.box_record.parameter > div > .content > panel.main field > .value select,
+box.box_record.parameter > div > .content > panel.main field > .value textarea {
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 512px) {
+    box.box_record.parameter > div > .content > panel.main field > .label,
+    box.box_record.parameter > div > .content > panel.main field > .value input,
+    box.box_record.parameter > div > .content > panel.main field > .value select,
+    box.box_record.parameter > div > .content > panel.main field > .value textarea {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 513px) and (max-width: 640px) {
+    box.box_record.parameter > div > .content > panel.main field > .label,
+    box.box_record.parameter > div > .content > panel.main field > .value input,
+    box.box_record.parameter > div > .content > panel.main field > .value select,
+    box.box_record.parameter > div > .content > panel.main field > .value textarea {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 450px) {
+    box.box_record.parameter > div > .content > panel.main field > .label,
+    box.box_record.parameter > div > .content > panel.main field > .value input,
+    box.box_record.parameter > div > .content > panel.main field > .value select,
+    box.box_record.parameter > div > .content > panel.main field > .value textarea {
+        font-size: 10px;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content > panel.main > #_fields                          */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div > .content > panel.main > #_fields {
+    width: 100%;
+}
+
+box.box_record.parameter > div > .content > panel.main > #_fields > field > .label {
+    width: 150px;
+}
+
+box.box_record.parameter > div > .content > panel.main > #_fields > field > .value {
+    width: calc(100% - 160px);
+}
+
+@media only screen and (max-width: 512px) {
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .label {
+        width: 90px;
+    }
+
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .value {
+        width: calc(100% - 100px);
+    }
+}
+
+@media only screen and (min-width: 513px) and (max-width: 640px) {
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .label {
+        width: 120px;
+    }
+
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .value {
+        width: calc(100% - 130px);
+    }
+}
+
+@media only screen and (max-height: 450px) {
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .label {
+        width: 90px;
+    }
+
+    box.box_record.parameter > div > .content > panel.main > #_fields > field > .value {
+        width: calc(100% - 100px);
+    }
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content #Cle                                             */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div > .content #Cle > .value {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content #Description                                     */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div > .content #Description > .value {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content #Valeur                                          */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div > .content #Valeur > .value {
+    width: 100%;
+}
+
+
+/* ------------------------------------------------------------------------------------------ */
+/* box.box_record.parameter > div > .content > panel.main > #_history                         */
+/* ------------------------------------------------------------------------------------------ */
+
+box.box_record.parameter > div > .content > panel.main > #_history {
+    width: 100%;
+    height: 100%;
+}

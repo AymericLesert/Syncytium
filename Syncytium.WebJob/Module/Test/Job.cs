@@ -250,7 +250,7 @@ namespace Syncytium.WebJob.Module.Test
 
             // Stock Database connection
 
-            using (Syncytium.Module.Sample.DatabaseContext sampleDatabase = new Syncytium.Module.Sample.DatabaseContext())
+            using (Syncytium.Module.Customer.DatabaseContext sampleDatabase = new Syncytium.Module.Customer.DatabaseContext())
             {
                 // Open a connection to the database
 
@@ -258,10 +258,10 @@ namespace Syncytium.WebJob.Module.Test
 
                 // Build the database schema
 
-                string area = Syncytium.Module.Sample.DatabaseContext.AREA_NAME;
+                string area = Syncytium.Module.Customer.DatabaseContext.AREA_NAME;
                 if (!ConfigurationManager.Schemas.ContainsKey(area))
                 {
-                    ConfigurationManager.Schemas[area] = new Common.Database.DSSchema.DSDatabase(typeof(Syncytium.Module.Sample.DatabaseContext), null);
+                    ConfigurationManager.Schemas[area] = new Common.Database.DSSchema.DSDatabase(typeof(Syncytium.Module.Customer.DatabaseContext), null);
                     Common.Logger.LoggerManager.Instance.Info(Common.Logger.LoggerManager.MODULE_NAME, $"Database schema[{area}] : '{ConfigurationManager.Schemas[area].ToString()}'");
                 }
 

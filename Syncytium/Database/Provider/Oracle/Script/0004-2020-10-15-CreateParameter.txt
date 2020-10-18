@@ -1,0 +1,45 @@
+-- ------------------------------------ Oracle ------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- 2020/10/15 - Aymeric Lesert - Create table Parameter
+-- ----------------------------------------------------------------------------------
+
+-- Create table : Parameter
+
+
+create sequence S_PARAMETER start with 1 increment by 1;
+
+create table "Parameter"
+        ("Id"          NUMBER(10)     NOT NULL PRIMARY KEY,
+         "CustomerId"  NUMBER(10)     NOT NULL,
+         "Key"         NVARCHAR2(32)  NOT NULL,
+         "Description" NVARCHAR2(256) NOT NULL,
+         "Value"       NVARCHAR2(64)  ,
+
+         CONSTRAINT fk_parameter_00 FOREIGN KEY("CustomerId")  REFERENCES "Customer"("Id"));
+
+CREATE OR REPLACE TRIGGER t_parameter
+    BEFORE INSERT ON "Parameter"
+    FOR EACH ROW
+BEGIN
+    :new."Id" := S_PARAMETER.nextval;
+END;
+
+create index I_PARAMETER_00 on "Parameter"("CustomerId");
+create index U_PARAMETER_01 on "Parameter"("CustomerId", "Key");

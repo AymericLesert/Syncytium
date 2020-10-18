@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -84,8 +84,8 @@ List.List = class {
      * @returns {int} -1, 0 or 1 on depends on the order of the 2 elements
      */
     compare( item1, item2 ) {
-        var id1 = this.getId( item1 );
-        var id2 = this.getId( item2 );
+        let id1 = this.getId( item1 );
+        let id2 = this.getId( item2 );
 
         if ( id1 === id2 )
             return 0;
@@ -98,15 +98,11 @@ List.List = class {
      * @param {any} fn function to call on each record
      */
     each( fn ) {
-        var list = this.getList();
-
-        for ( var i in list ) {
-            var item = list[i];
-
+        for ( let item of Array.toIterable( this.getList() ) ) {
             if ( !this.isVisible( item ) )
                 continue;
 
-            var id = String.convertValue( this.getId( item ) );
+            let id = String.convertValue( this.getId( item ) );
 
             if ( id !== null ) {
                 try {
@@ -135,9 +131,36 @@ List.List = class {
             };
         }
 
-        var currentList = this.getList();
+        let currentList = this.getList();
         currentList.sort( compare( this ) );
         return currentList;
+    }
+
+    /**
+     * Number of records existing into the list
+     * @returns {int} number of items into the list
+     */
+    count() {
+        let nb = 0;
+
+        for ( let item of Array.toIterable( this.getList() ) ) {
+            if ( !this.isVisible( item ) )
+                continue;
+
+            nb++;
+        }
+
+        return nb;
+    }
+
+    /**
+     * Retrieve the list of records matching within the keys
+     * @param {any} column column name
+     * @param {any} keys structure containing the list of keys and values looking for
+     * @returns {Array} always empty
+     */
+    getListIndexed( column, keys ) {
+        return [];
     }
 
     /**
@@ -152,12 +175,17 @@ List.List = class {
     /**
      * Raise an event
      * @param {any} event name of the event to raise
+     * @param {...} parameters list of parameters
      */
-    raise( event ) {
-        if ( !this._events[event] )
+    async raise( event, ...parameters ) {
+        let fn = this._events[event];
+        if ( !fn )
             return;
 
-        this._events[event]();
+        if ( fn.constructor.name === "AsyncFunction" )
+            await fn( event, ...parameters );
+        else
+            fn( event, ...parameters );
     }
 
     /**
@@ -188,8 +216,8 @@ List.List = class {
      * Clean up all references on the listener into the database to remove it on close
      */
     clearListeners() {
-        for ( var i in this._listeners )
-            DSDatabase.Instance.removeEventListener( this._listeners[i] );
+        for ( let listener of this._listeners )
+            DSDatabase.Instance.removeEventListener( listener );
         this._listeners = [];
     }
 
@@ -220,6 +248,9 @@ List.List = class {
      * @returns {int} id of the record
      */
     getId( item ) {
+        if ( item === null || item === undefined )
+            return null;
+
         if ( typeof item === "string" || typeof item === "number" || typeof item === "boolean" )
             return item;
 
@@ -230,6 +261,15 @@ List.List = class {
     }
 
     /**
+     * Retrieve the key of an item (for example : Cle, Name, ... )
+     * @param {any} item record containing the id to retrieve
+     * @returns {string} key of the record
+     */
+    getKey( item ) {
+        return this.getText( item );
+    }
+
+    /**
      * Retrieve an item into the list by its id
      * If force is true, the filter is not applied to look for the id
      * @param {any} id    id of the record to look for
@@ -237,16 +277,13 @@ List.List = class {
      * @returns {any} item or null
      */
     getItem( id, force ) {
-        var list = this.getList();
-        var searchId = String.convertValue( id );
+        let searchId = String.convertValue( id );
 
-        for ( var i in list ) {
-            var item = list[i];
-
+        for ( let item of Array.toIterable( this.getList() ) ) {
             if ( ( force === null || force === undefined || !force ) && !this.isVisible( item ) )
                 continue;
 
-            var itemId = String.convertValue( this.getId( item ) );
+            let itemId = String.convertValue( this.getId( item ) );
 
             if ( itemId !== null && itemId === searchId )
                 return item;
@@ -261,6 +298,9 @@ List.List = class {
      * @returns {any} a string
      */
     getText( item ) {
+        if ( item === null || item === undefined )
+            return "";
+
         if ( typeof item === "string" || typeof item === "number" || typeof item === "boolean" )
             return item.toString().trim();
 
@@ -291,7 +331,7 @@ List.List = class {
      * @returns {any} a picture (base 64 or filename)
      */
     getPicture( item ) {
-        if ( typeof item === "string" || typeof item === "number" || typeof item === "boolean" )
+        if ( item === null || item === undefined || typeof item === "string" || typeof item === "number" || typeof item === "boolean" )
             return null;
 
         if ( !String.isEmptyOrWhiteSpaces( item.Picture ) )
@@ -311,7 +351,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
 
         if ( value === undefined )
             return "";
@@ -332,16 +372,16 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var list = List.ListRecord.CACHE_LIST( table );
+        let list = List.ListRecord.CACHE_LIST( table );
         if ( list === null )
             return this.getAttributText( item, attribute );
 
-        var refItem = list.getItem( item[attribute], true );
+        let refItem = list.getItem( item[attribute], true );
         if ( refItem === null || refItem === undefined )
             return this.getAttributText( item, attribute );
 
         if ( picture === true ) {
-            var pictureToShow = list.getPicture( refItem );
+            let pictureToShow = list.getPicture( refItem );
             if ( pictureToShow !== null )
                 return "<img src='" + pictureToShow + "' />";
 
@@ -363,7 +403,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var picture = item.Picture ? item.Picture : this._defaultPicture;
+        let picture = item[attribute] ? item[attribute] : this._defaultPicture;
         if ( picture === null || picture === undefined )
             return "";
 
@@ -382,12 +422,12 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
 
         if ( value === null || value === undefined )
             return picture === true ? "<div class='null'></div>" : "";
 
-        var element = List.ListEnumerable.Factory( this.Table, attribute, GUI.Box.BoxRecord.ROOT_DIRECTORY ).getList()[value];
+        let element = List.ListEnumerable.Factory( this.Table, attribute, GUI.Box.BoxRecord.ROOT_DIRECTORY ).getList()[value];
 
         if ( element === undefined || element === null || element.Label === undefined || element.Label === null )
             return picture === true ? "<div class='null'></div>" : "";
@@ -406,13 +446,24 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
 
         if ( value === null || value === undefined )
             return String.encode( this.getAttributText( item, attribute ) );
 
         value = String.encode( this.getAttributText( item, attribute ) ).split( "\n" );
         return value.join( "<br />" );
+    }
+
+    /**
+     * Protected method
+     * Get the html content of an array attribute (list of values)
+     * @param {any} item record containing the attribute to look for
+     * @param {any} attribute property to retrieve
+     * @returns {any} a HTML code describing the attribute or the value of the attribute
+     */
+    getAttributHTMLArray( item, attribute ) {
+        return String.encode( this.getAttributText( item, attribute ) );
     }
 
     /**
@@ -425,7 +476,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
 
         if ( value === null || value === undefined )
             return String.encode( this.getAttributText( item, attribute ) );
@@ -457,7 +508,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
         if ( value === null || value === undefined )
             return "";
 
@@ -476,7 +527,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
         if ( value === undefined || value === null)
             return "";
 
@@ -506,7 +557,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
         if ( value === undefined || value === null )
             return "";
 
@@ -523,6 +574,9 @@ List.List = class {
         if ( value instanceof moment )
             return value.format( format );
 
+        if ( typeof value === "number" )
+            return moment( value ).format( format );
+
         return value.toString();
     }
 
@@ -537,7 +591,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
         if ( value === undefined || value === null )
             return "";
 
@@ -569,11 +623,11 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var list = List.ListRecord.CACHE_LIST( table );
+        let list = List.ListRecord.CACHE_LIST( table );
         if ( list === null )
             return item[attribute] ? item[attribute].toString() : "";
 
-        var refItem = list.getItem( item[attribute], true );
+        let refItem = list.getItem( item[attribute], true );
         if ( refItem === null || refItem === undefined )
             return item[attribute] ? item[attribute].toString() : "";
 
@@ -602,17 +656,87 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
 
         if ( value === null || value === undefined )
             return "";
 
-        var element = element = List.ListEnumerable.Factory( item._table ? item._table : this.Table, attribute, GUI.Box.BoxRecord.ROOT_DIRECTORY ).getList()[value];
+        let element = null;
+        if ( item._table )
+            element = List.ListEnumerable.Factory( item._table, attribute, GUI.Box.BoxRecord.ROOT_DIRECTORY ).getList()[value];
+
+        if ( element !== undefined && element !== null && element.Label !== undefined && element.Label !== null && !Language.Manager.Instance.existLabel( element.Label ))
+            element = List.ListEnumerable.Factory( this.Table, attribute, GUI.Box.BoxRecord.ROOT_DIRECTORY ).getList()[value];
 
         if ( element === undefined || element === null || element.Label === undefined || element.Label === null )
             return "";
 
         return Language.Manager.Instance.interpolation( Helper.Label( element.Label ) );
+    }
+
+    /**
+     * Protected method
+     * Get the text describing the picture (here, nothing)
+     * @param {any} item record containing the attribute to look for
+     * @param {any} attribute property to retrieve
+     * @returns {any} nothing
+     */
+    getAttributTextArray( item, attribute ) {
+        if ( item === null || item === undefined )
+            return "";
+
+        let list = item[attribute];
+
+        if ( list === null || list === undefined )
+            return "";
+
+        if ( !Array.isArray( list ) )
+            return list.toString();
+
+        let array = [];
+        for ( let subItem of Array.toIterable( list ) ) {
+            let value = "";
+
+            if ( subItem._list === null || subItem._list === undefined )
+                value = subItem.toString();
+            else
+                value = subItem._list.list.getText( subItem );
+
+            array.push( value );
+        }
+
+        array.sort();
+        return array.join( ", " );
+    }
+
+    /**
+     * Get the text describing the list of comments included into an item
+     * @param {any} item item containing the list of comments
+     * @returns {string} a string representing the value of the field
+     */
+    getAttributTextComments( item ) {
+        if ( item === null || item === undefined )
+            return "";
+
+        if ( item.Comments === null || item.Comments === undefined || Array.isEmpty( item.Comments ) )
+            return "";
+
+        let comments = [];
+
+        for ( let comment of Array.toIterable( item.Comments ) )
+            comments.push( comment );
+
+        comments.sort( ( comment1, comment2 ) => Dates.Compare( comment1.Date, comment2.Date ) );
+
+        let value = "";
+        for ( let comment of comments ) {
+            if ( value !== "" )
+                value += " / ";
+
+            value += comment.Comment.replace( /\n/g, ' ' ).trim();
+        }
+
+        return value;
     }
 
     /**
@@ -625,7 +749,7 @@ List.List = class {
         if ( item === null || item === undefined )
             return "";
 
-        var value = item[attribute];
+        let value = item[attribute];
         if ( value === null || value === undefined )
             return "";
 
@@ -663,7 +787,11 @@ List.List = class {
         if ( item === null || item === undefined )
             return null;
 
-        var value = item[attribute];
+        let value = item[attribute];
+
+        if ( value === undefined )
+            value = this.getAttributText( item, attribute );
+
         if ( value === null || value === undefined )
             return null;
 
@@ -672,6 +800,30 @@ List.List = class {
 
         if ( typeof value === "string" )
             return value.trim().toUpperCase();
+
+        return value;
+    }
+
+    /**
+     * Get the text of an attribute exported into a CSV file
+     * @param {any} item record containing the attribute to look for
+     * @param {any} attribute property to retrieve
+     * @returns {string} a string representing the value of the field
+     */
+    getAttributCSV( item, attribute ) {
+        if ( item === null || item === undefined )
+            return "";
+
+        if ( item._foreignKeys !== undefined && item._foreignKeys !== null && attribute in item._foreignKeys )
+            return item._foreignKeys[attribute].list.getKey( item[attribute] );
+
+        let value = item[attribute];
+        if ( value !== null && value !== undefined && typeof value === "boolean" )
+            return value ? "1" : "0";
+
+        value = this.getAttributText( item, attribute );
+        if ( value === null || value === undefined )
+            return "";
 
         return value;
     }
@@ -688,11 +840,11 @@ List.List = class {
         if ( item === null || item === undefined )
             return true;
 
-        var list = List.ListRecord.CACHE_LIST( table );
+        let list = List.ListRecord.CACHE_LIST( table );
         if ( list === null )
             return true;
 
-        var refItem = list.getItem( item[attribute] );
+        let refItem = list.getItem( item[attribute] );
         if ( refItem === null || refItem === undefined )
             return true;
 
@@ -706,7 +858,7 @@ List.List = class {
      * @returns {boolean} true if the reference of the property is deleted
      */
     isAttributDeleted( item, attribute ) {
-        return false;
+        return this.isDeleted( item );
     }
 
     /**
@@ -715,6 +867,9 @@ List.List = class {
      * @returns {boolean} true if the item is visible or not into the list
      */
     isVisible( item ) {
+        if ( item === null || item === undefined )
+            return false;
+
         return this._fnFilter ? this._fnFilter( item ) : true;
     }
 
@@ -844,8 +999,9 @@ List.List = class {
     /**
      * Create the transaction
      * @param {any} label label of the transaction
+     * @param {any} notify true if the notification must be sent to the caller
      */
-    beginTransaction( label ) {
+    beginTransaction( label, notify ) {
     }
 
     /**
@@ -855,17 +1011,252 @@ List.List = class {
     }
 
     /**
-     * Commit current changes
-     * @param {any} record not used (record concerned by the commit)
+     * Commit current changes in asynchronous mode
      */
-    commit( record ) {
+    async commitAsync() {
     }
 
     /**
      * Rollback current changes
+     */
+    rollback() {
+    }
+
+    /**
+     * Rollback current changes in asynchronous mode
      * @param {any} record not used (record concerned by the rollback)
      */
-    rollback( record ) {
+    async rollbackAsync() {
+    }
+
+    /**
+     * Declare mainKey and otherKey as different keys into the file
+     * @param {any} mainKey first column containing key
+     * @param {any} otherKey second column having a key too
+     */
+    declareKeysCSV( mainKey, otherKey ) {
+    }
+
+    /**
+     * Notify the beginning of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data from a file can start
+     */
+    startCSV( csv, errors ) {
+        Logger.Instance.info( "List", "Starting reading CSV file '" + csv.Name + "' ..." );
+        return true;
+    }
+
+    /**
+     * Retrieve the number of rows to delete concerned by the importing
+     * @param {any} csv CSV file to import
+     * @returns {integer} the number of rows into the table before importing data
+     */
+    getRowToDeleteCSV( csv ) {
+        return 0;
+    }
+
+    /**
+     * Notify the beginning of preloading the content of files
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data must be done, or false to skip this step
+     */
+    startPreloadingCSV( csv, errors ) {
+        Logger.Instance.info( "List", "Starting preloading CSV file '" + csv.Name + "' ..." );
+        return true;
+    }
+
+    /**
+     * Preload the content of the row (in case of multiple csv files ... All files must be loaded before checking or updating data)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data must be continued or false, to stop
+     */
+    preloadRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        // by default, the record is ok ...
+        return true;
+    }
+
+    /**
+     * Notify the ending of preloading the content of files
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data is correct, or stop reading CSV file
+     */
+    endPreloadingCSV( csv, errors ) {
+        if ( errors.HasFatal ) {
+            Logger.Instance.error( "List", "Preloading CSV file '" + csv.Name + "' failed due to " + errors.toString() );
+            return false;
+        }
+
+        Logger.Instance.info( "List", "CSV file '" + csv.Name + "' preloaded" );
+        return true;
+    }
+
+    /**
+     * Notify the beginning of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be done, or false to skip this step
+     */
+    startCheckingCSV( csv, errors ) {
+        Logger.Instance.info( "List", "Starting checking CSV file '" + csv.Name + "' ..." );
+        this.beginTransaction();
+        return true;
+    }
+
+    /**
+     * Check the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be continued or false, to stop
+     */
+    checkRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        // by default, the record is ok ... errors must be set by getRecordFromCSV
+        return true;
+    }
+
+    /**
+     * Notify the ending of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data is correct, or stop reading CSV file
+     */
+    endCheckingCSV( csv, errors ) {
+        this.endTransaction();
+
+        // N.B. : Keep synchronous rollback method because this function is running into a generator
+
+        this.rollback();
+
+        if ( errors.HasError ) {
+            Logger.Instance.error( "List", "Checking CSV file '" + csv.Name + "' failed due to " + errors.toString() );
+            return false;
+        }
+
+        Logger.Instance.info( "List", "CSV file '" + csv.Name + "' checked" );
+        return true;
+    }
+
+    /**
+     * Notify the beginning of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data must be done, or false to skip this step
+     */
+    startImportingCSV( csv, errors ) {
+        Logger.Instance.info( "List", "Starting importing data included into the CSV file '" + csv.Name + "' ..." );
+        return true;
+    }
+
+    /**
+     * Build a record within data ready to add into the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {oldItem, newItem} record to add, update or delete (on depends on values into the element) - null if the line must be ignored
+     */
+    getRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        // By default, nothing to update
+        return null;
+    }
+
+    /**
+     * Add a new item into the database and return the item created (included compositions of the item) - call done by CSV
+     * @param {CSV} csv CSV file to import
+     * @param {any} newItem item to add
+     * @param {any} errors container of errors after adding
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} new item added into the list or errors
+     */
+    addItemCSV( csv, newItem, errors, force, checkItem ) {
+        // By default, nothing to add
+        return null;
+    }
+
+    /**
+     * Update an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record updated
+     * @param {any} oldItem item to update
+     * @param {any} newItem item updated
+     * @param {any} errors container of errors after updating
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item updated into the list or errors
+     */
+    updateItemCSV( csv, id, oldItem, newItem, errors, force, checkItem ) {
+        // By default, nothing to update
+        return null;
+    }
+
+    /**
+     * Remove an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record removed
+     * @param {any} oldItem item to remove
+     * @param {any} errors container of errors after updating
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item deleted or errors
+     */
+    deleteItemCSV( csv, id, oldItem, errors, checkItem ) {
+        // By default, nothing to delete
+        return null;
+    }
+
+    /**
+     * Get the list of records to delete into the table after updating list
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to delete
+     */
+    getItemsToDeleteCSV( csv, errors ) {
+        return [];
+    }
+
+    /**
+     * Get the list of records to update at the end of updating table (change the key values)
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to update [0: old, 1: new]
+     */
+    getItemsToPostUpdateCSV( csv, errors ) {
+        return [];
+    }
+
+    /**
+     * Notify the ending of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data is correct, or stop reading CSV file
+     */
+    endImportingCSV( csv, errors ) {
+        if ( errors.HasError ) {
+            Logger.Instance.error( "List", "Importing data from CSV file '" + csv.Name + "' failed due to " + errors.toString() );
+            return false;
+        }
+
+        Logger.Instance.info( "List", "Data included into the CSV file '" + csv.Name + "' imported" );
+        return true;
+    }
+
+    /**
+     * Notify the ending of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} details of errors identified on ending the CSV file
+     */
+    endCSV( csv, errors ) {
+        Logger.Instance.info( "List", "CSV file '" + csv.Name + "' imported" );
+        return true;
     }
 
     /**

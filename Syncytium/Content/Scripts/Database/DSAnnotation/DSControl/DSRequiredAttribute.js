@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ class DSRequiredAttribute extends DSControlAttribute {
      * @returns {boolean} true if the value is valid
      */
     check( column, value, errors ) {
-        var validity = super.check( column, value, errors );
+        let validity = super.check( column, value, errors );
 
         // Check if the value is defined and not empty
 

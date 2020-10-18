@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,15 +53,15 @@ GUI.Webix.Tooltip = class {
             event = { pageX: this._lastEventMouse.x, pageY: this._lastEventMouse.y };
 
         $( '<p class="image webix_tooltip"></p>' ).html( value ).appendTo( 'body' );
-        var width = $( '.image.webix_tooltip' ).width() + 20;
-        var height = $( '.image.webix_tooltip' ).height() + 10;
+        let width = $( '.image.webix_tooltip' ).width() + 20;
+        let height = $( '.image.webix_tooltip' ).height() + 10;
         $( '.image.webix_tooltip' ).remove();
 
-        var maxWidth = $( window ).width();
-        var maxHeight = $( window ).height();
+        let maxWidth = $( window ).width();
+        let maxHeight = $( window ).height();
 
-        var x = event.pageX;
-        var y = event.pageY;
+        let x = event.pageX;
+        let y = event.pageY;
 
         if ( x + width > maxWidth ) {
             if ( x < width )

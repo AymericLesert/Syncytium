@@ -1,0 +1,41 @@
+-- ------------------------------------ SQL Server ------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- 2020/10/15 - Aymeric Lesert - Create table Parameter
+-- ----------------------------------------------------------------------------------
+
+-- Create table : Parameter
+
+
+create table [${Syncytium.Database.Schema}].[Parameter]
+        ([Id]          int            not null identity primary key,
+         [CustomerId]  int            not null,
+         [Key]         nvarchar(32)   not null,
+         [Description] nvarchar(256)  not null,
+         [Value]       nvarchar(64)   ,
+
+         CONSTRAINT fk_parameter_00 FOREIGN KEY([CustomerId])  REFERENCES [${Syncytium.Database.Schema}].[Customer]([Id]))
+GO
+
+
+create index I_PARAMETER_00 on [${Syncytium.Database.Schema}].[Parameter]([CustomerId])
+GO
+
+create index U_PARAMETER_01 on [${Syncytium.Database.Schema}].[Parameter]([CustomerId], [Cle])
+GO

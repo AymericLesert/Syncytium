@@ -4,7 +4,7 @@
 /// <reference path="Board.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,21 @@
  * Define a dialog box handling a record
  */
 UserRecord.Box = class extends GUI.Box.BoxRecord {
-    /**     * @returns {List.List} list representing all ressources     */    get List() {        return this._list;    }    /**     * @param {any} list set a list to this box     */    set List( list ) {        this._list = list ? list : new UserRecord.List();    }    /**
+    /**
+     * @returns {List.List} list representing all ressources
+     */
+    get List() {
+        return this._list;
+    }
+
+    /**
+     * @param {any} list set a list to this box
+     */
+    set List( list ) {
+        this._list = list ? list : new UserRecord.List();
+    }
+
+    /**
      * @returns {boolean} true if the dialog box is opened in profile mode
      */
     get IsProfile() {
@@ -36,7 +50,7 @@ UserRecord.Box = class extends GUI.Box.BoxRecord {
      * @returns {any} record updated into the dialog box
      */
     get Value() {
-        var newRecord = super.Value;
+        let newRecord = super.Value;
         delete newRecord.Profile;
         return newRecord;
     }
@@ -152,6 +166,12 @@ UserRecord.Box = class extends GUI.Box.BoxRecord {
         super.open();
 
         this._fieldName.raise( 'change' );
+
+        if ( this._buttonNewPassword !== null &&
+            this.CurrentRecord.EndDate !== null &&
+            this.CurrentRecord.EndDate !== undefined &&
+            this.CurrentRecord.EndDate <= new moment() )
+            this._buttonNewPassword.Visible = false;
     }
 
     /**
@@ -190,6 +210,15 @@ UserRecord.Box = class extends GUI.Box.BoxRecord {
     }
 
     /**
+     * Open the dialog box for reading a profile
+     * @param {any} record record of the user to read
+     */
+    readProfile( record ) {
+        this._isProfile = true;
+        super.readRecord( record );
+    }
+
+    /**
      * Open the dialog box for deleting the user's profile
      * @param {any} record user to delete
      */
@@ -199,9 +228,9 @@ UserRecord.Box = class extends GUI.Box.BoxRecord {
 
         // you can't delete yourself !
 
-        var userToDelete = this.getRecord( record );
+        let userToDelete = this.getRecord( record );
 
-        var currentUser = DSDatabase.Instance.CurrentUser;
+        let currentUser = DSDatabase.Instance.CurrentUser;
         if ( currentUser !== null && currentUser !== undefined && currentUser.Id === userToDelete.Id )
             return;
 

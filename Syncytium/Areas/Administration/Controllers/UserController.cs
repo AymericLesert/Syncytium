@@ -15,7 +15,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -128,7 +128,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(string login, string password, bool? rememberMe, string returnUrl)
         {
-            Debug($"Post ~/Administration/User/SignIn({login}, {rememberMe}, {returnUrl})");
+            // TODO : Nettoyage des traces de cette fonction lors de la résolution de l'anomalie #248
+
+            Debug($"Post ~/Administration/User/SignIn({login}, {password}, {rememberMe}, {returnUrl})");
 
             // check the value by itself
 
@@ -136,6 +138,8 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
             if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
             {
+                Debug($"Login '{login}' or password '{password}' not defined !");
+
                 // no login set
 
                 if (string.IsNullOrWhiteSpace(login))
@@ -148,6 +152,8 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             }
             else if (StatusManager.Status == StatusManager.EStatus.STATUS_OK)
             {
+                Debug($"Status '{StatusManager.Status}' is OK !");
+
                 // authentication of the user
 
                 UserRecord userAuthenticated = _userManager.Authenticate(login, password);
@@ -168,6 +174,8 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             }
             else
             {
+                Debug($"Status '{StatusManager.Status}' is not OK !");
+
                 // it is due to a upgrading process ... no error because StatusFilterAttribute has already rejected the action
 
                 UserRecord administrator = UserRecord.CreateDefaultAdministrator();
@@ -205,13 +213,13 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                                                                       new UserRecord { Login = login, Password = password },
                                                                       false,
                                                                       null,
-                                                                      rememberMe: rememberMe == null ? false : rememberMe.Value));
+                                                                      rememberMe: rememberMe != null && rememberMe.Value));
 
             return View(new UserViewModel(ressources,
                                       new UserRecord { Login = login, Password = password },
                                       false,
                                       null,
-                                      rememberMe: rememberMe == null ? false : rememberMe.Value));
+                                      rememberMe: rememberMe != null && rememberMe.Value));
         }
 
         /// <summary>
@@ -225,8 +233,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
             // Retrieve the user
 
-            UserRecord user = null;
-
+            UserRecord user;
             if (int.Parse(HttpContext.User.Identity.Name) == -1)
                 user = UserRecord.CreateDefaultAdministrator();
             else
@@ -332,7 +339,26 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 MailMessage message = new MailMessage();
                 message.To.Add(new MailAddress(user.Email));
                 message.Subject = ressources.GetLabel(user.Language, "USER_NEW_PASSWORD");
-                message.Body = RenderManager.RenderView("~/Areas/Administration/Views/User/MailNewPassword.cshtml", new UserViewModel(ressources, user, false));
+
+                string body;
+                // TODO: Replace this code by a render HTML
+                UserViewModel Model = new UserViewModel(ressources, user, false);
+                // message.Body = RenderManager.RenderView("~/Areas/Administration/Views/User/MailNewPassword.cshtml", new UserViewModel(ressources, user, false));
+                body =
+                    $"<center><img src=\"{Model.UrlRoot}Content/Images/Areas/Administration/User/MailNewPassword/Logo.png\" width=\"200px\" height=\"50px\"/></center>" +
+                        "<p>" +
+                            "Pour réinitialiser le mot de passe, veuillez cliquer sur le lien suivant:" +
+                            "<ul>" +
+                                $"<li><a href=\"{Model.UrlRoot}Administration/User/NewPassword?key={Model.UserProfile.NewPasswordKey}\">Réinitialisation du mot de passe</a></li>" +
+                                $"<li>Identifiant : {Model.UserProfile.Login}</li>";
+                if ( Model.Mode != "PROD" )
+                {
+                    body += $"<li>Instance : <a href=\"{Model.UrlRoot}\">{Model.UrlRoot}</a></li>";
+                    body += $"<li>Mode : {Model.Mode}</li>";
+                }
+                body += "</ul></p>";
+
+                message.Body = body;
                 message.BodyEncoding = System.Text.Encoding.GetEncoding("iso-8859-1");
                 message.IsBodyHtml = true;
 
@@ -466,7 +492,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
             {
                 // Check if the login exists ...
 
-                UserRecord user = _userManager.GetByLogin(login);
+                UserRecord user = _userManager.GetByLogin(login, false);
                 if (user == null || String.IsNullOrEmpty(user.NewPasswordKey) || !user.NewPasswordKey.Equals(key))
                 {
                     loginIncorrect = true;

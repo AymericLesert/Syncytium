@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -91,7 +91,7 @@ body > dialog > box.box_releasenotes > div > .content > div {
 /* -------------------------------------------------------------- */
 
 body > dialog > box.box_releasenotes > div > .content > table {
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     width: 100%;
 }
 
@@ -100,7 +100,7 @@ body > dialog > box.box_releasenotes > div > .content > table {
 /* --------------------------------------------------------------------- */
 
 body > dialog > box.box_releasenotes > div > .content > table > thead {
-    background-color: #d8d8d8;
+    background-color: var(--syncytium-board-background);
     text-align: center;
 }
 
@@ -109,10 +109,10 @@ body > dialog > box.box_releasenotes > div > .content > table > thead {
 /* body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td.author  */
 /* --------------------------------------------------------------------------------------- */
 
-    body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td.picture,
-    body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td.author {
-        text-align: center;
-    }
+body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td.picture,
+body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td.author {
+    text-align: center;
+}
 
 /* ------------------------------------------------------------------------------------- */
 /* body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td > img */
@@ -129,7 +129,7 @@ body > dialog > box.box_releasenotes > div > .content > table > tbody > tr > td 
 /* --------------------------------------------------------------------- */
 
 body > dialog > box.box_releasenotes > div > .buttons > .button:focus {
-    background: #444444;
-    border-color: #444444;
-    color: #ffffff;
+    background: var(--syncytium-button-background);
+    border-color: var(--syncytium-button-background);
+    color: var(--syncytium-button-color);
 }

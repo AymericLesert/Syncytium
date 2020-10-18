@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -103,8 +103,8 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
      * @returns {string} The text of the picture
      */
     get Text () {
-        var text = "";
-        var value = [];
+        let text = "";
+        let value = [];
 
         if ( Array.isArray( this.Value ) ) {
             value = this.Value;
@@ -119,8 +119,8 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
             return text.trim();
         }
 
-        for ( let i in value ) {
-            let item = this._list.getItem( value[i], true );
+        for ( let id of value ) {
+            let item = this._list.getItem( id, true );
             if ( item === null )
                 continue;
 
@@ -163,29 +163,27 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
     onOpen() {
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
 
-                    case 32:
-                        event.preventDefault();
+                    case " ":
+                        event.stopImmediatePropagation();
                         field.onMouseClick();
                         return false;
                 }
@@ -266,7 +264,7 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
                     field._dialogBox.getButton( GUI.Box.Box.BUTTON_CANCEL ).Action = handleOnCancel( field );
 
                     if ( ( field.Label === null || !field.Label.label ) && field.Box instanceof GUI.Box.BoxRecord ) {
-                        var label = DSDatabase.Instance.getColumnLabel( field.Box.Table, field.Name );
+                        let label = DSDatabase.Instance.getColumnLabel( field.Box.Table, field.Name );
                         if ( label !== null )
                             field._dialogBox.Label = label;
                     }
@@ -296,9 +294,9 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
             this.FieldZone.find( "img" ).off( 'click' ).on( 'click', handleClick( this ) );
         }
 
-        var picture = this._picture;
+        let picture = this._picture;
 
-        var item = null;
+        let item = null;
         if ( Array.isArray( this.Value ) ) {
             item = this.Value.length > 0 ? this._list.getItem( this.Value[0], true ) : null;
         } else if ( !String.isEmptyOrWhiteSpaces( this.Value ) ) {
@@ -363,20 +361,12 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
                 GUI.Webix.Tooltip.Instance.show( String.encode( field.Text ) );
         }
 
-        var i = 0;
-        var firstItem = null;
-        var nextItem = null;
-        var found = false;
+        let firstItem = null;
+        let nextItem = null;
+        let found = false;
 
-        var list = this._list.getList();
-
-        for ( i in list ) {
-            var item = list[i];
-
-            if ( item === null || item === undefined )
-                continue;
-
-            var id = String.convertValue( this._list.getId( item ) );
+        for ( let item of Array.toIterable( this._list.getList() ) ) {
+            let id = String.convertValue( this._list.getId( item ) );
 
             if ( this.Value === id ) {
                 found = true;
@@ -414,7 +404,7 @@ GUI.Field.FieldSelectImage = class extends GUI.Field.Field {
     updateListeners () {
         function handleOnUpdateDB( field ) {
             return function ( event, table, id, oldRecord, newRecord ) {
-                var picture = field._list.getPicture( newRecord );
+                let picture = field._list.getPicture( newRecord );
                 field.FieldZone.find( "img" )[0].src = picture === null ? field._picture : picture;
 
                 // style of the field

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Syncytium.Common.Managers;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,9 @@ namespace Syncytium.Module.Administration.Models
     /// Handle the list of functional modules
     /// </summary>
     [Table("Module")]
+    [DSLot(Capacity = 16)]
     [DSRestricted(Area = DatabaseContext.AREA_NAME, Action = "*", Profile = UserProfile.EUserProfile.Administrator)]
+    [DSRestricted(Area = "Customer", Action = "*", Profile = UserProfile.EUserProfile.Supervisor)]
     [DSRestricted(Area = "*", Action = "Read")]
     public class ModuleRecord : DSRecordWithCustomerId, IModule
     {
@@ -42,28 +44,12 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         public enum EModule
         {
-            /// <summary>No module</summary>
-            None = -1,
-            /// <summary>Administration module : users, stocks, labels, ...</summary>
+            /// <summary>Module d'administration : users, modules, labels</summary>
             Administration = 0,
-            /// <summary>Referential module : products, BOM, Jig, ...</summary>
-            Referential = 1,
-            /// <summary>Stock module : input, output, ...</summary>
-            Stock = 2,
-            /// <summary>Provider module : Purchase order, ...</summary>
-            Provider = 3,
-            /// <summary>Production module : Building, Process, Scheduling, Manufacturing Execution Systems ...</summary>
-            Production = 4,
-            /// <summary>Sales module, CRM</summary>
-            Sales = 5,
-            /// <summary>Logistic module : trucks, delivery planning</summary>
-            Logistic = 6,
-            /// <summary>Comptability and financial</summary>
-            Comptability = 7,
-            /// <summary>Human ressources and organization</summary>
-            HumanRessources = 8,
-            /// <summary>Sample module</summary>
-            Sample = 9
+            /// <summary>Customer module ...</summary>
+            Customer = 1,
+            /// <summary>No module</summary>
+            None = 5
         };
 
         #endregion

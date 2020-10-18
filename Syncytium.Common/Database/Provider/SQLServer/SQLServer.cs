@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -110,20 +110,29 @@ namespace Syncytium.Common.Database.Provider.SQLServer
         /// <returns></returns>
         public override bool ExistValue(DbContextTransaction transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object> fields)
         {
-            string SQLFieldStatement = "";
+            string schema = GetSchema();
+
+            string SQLStatement = $"SELECT * FROM {Schema}[{table}] " +
+                $"LEFT OUTER JOIN {schema}[_Information] " +
+                $"ON {schema}[_Information].[Id] = {schema}[{table}].[Id] " +
+                (caseSensitive ? $"WHERE {schema}[{table}].[{columnValue}] = @value " : $"WHERE upper({Schema}[{table}].[{columnValue}]) = upper(@value) ") +
+                $"AND {schema}[{table}].[{columnId}] <> @id " +
+                $"AND {schema}[_Information].[Table] = @tablename " +
+                $"AND {schema}[_Information].[DeleteTick] is null " +
+                (customerId == null ? "" : $"AND {schema}[{table}].[CustomerId] = @customerId ");
 
             if (fields != null)
             {
                 foreach (KeyValuePair<string, object> key in fields)
-                    SQLFieldStatement += $"AND {GetSchema()}[{table}].[{key.Key}] = @value{key.Key} ";
+                {
+                    if (caseSensitive)
+                        SQLStatement += $"AND {schema}[{table}].[{key.Key}] = @value{key.Key} ";
+                    else
+                        SQLStatement += $"AND upper({schema}[{table}].[{key.Key}]) = upper(@value{key.Key}) ";
+                }
             }
 
             bool exist = false;
-            string SQLStatement = $"SELECT * FROM {GetSchema()}[{table}] LEFT OUTER JOIN {GetSchema()}[_Information] ON "+
-                                  (caseSensitive ? $"{GetSchema()}[{table}].[{columnId}] = {GetSchema()}[_Information].[Id] " : $"upper({GetSchema()}[{table}].[{columnId}]) = upper({GetSchema()}[_Information].[Id]) ") +
-                                  $"WHERE {GetSchema()}[{table}].[{columnValue}] = @value AND {GetSchema()}[{table}].[{columnId}] <> @id AND {GetSchema()}[_Information].[Table] = @tablename " +
-                                  (customerId == null ? "" : $"AND {GetSchema()}[{table}].[CustomerId] = @customerId ") + SQLFieldStatement +
-                                  $"AND {GetSchema()}[_Information].[DeleteTick] is null";
 
             using (DbCommand selectStatement = _database.CreateCommand())
             {

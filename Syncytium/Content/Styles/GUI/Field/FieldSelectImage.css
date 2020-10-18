@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ field.field_select_image > .value > .field {
 }
 
 field.field_select_image:focus > .value > .field {
-    box-shadow: 2px 2px 5px #33cc33;
+    box-shadow: 2px 2px 5px var(--syncytium-button-shadow);
 }
 
 field.field_select_image.readonly:focus > .value > .field {
@@ -33,12 +33,12 @@ field.field_select_image.readonly:focus > .value > .field {
 }
 
 field.field_select_image > .value > .field > img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }
 
 field.field_select_image > .value > .field > span {
-    background-color: #ffffff;
+    background-color: #eeeeee;
     border: solid 1px #808080;
     border-radius: 50%;
     font-size: 14px;
@@ -52,20 +52,20 @@ field.field_select_image > .value > .field > span {
 }
 
 field.field_select_image > .value > .field.deleted {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-deleted);
 }
 
 @media only screen and (max-width: 480px) {
     field.field_select_image > .value > .field > img {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 600px) {
     field.field_select_image > .value > .field > img {
-        width: 75px;
-        height: 75px;
+        width: 45px;
+        height: 45px;
     }
 }
 
@@ -77,7 +77,7 @@ field.field_select_image > .value > .field.deleted {
 }
 
 field.field_select_image.error > .value > .field > img {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-error);
 }
 
 /* ------------------------------------------------------------ */

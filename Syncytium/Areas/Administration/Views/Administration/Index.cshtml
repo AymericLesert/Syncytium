@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,27 +24,21 @@
 
 @section JSDeclaration
 {
-    <script src="~/Content/Scripts/Areas/Administration/Administration.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Administration.js")" charset="iso-8859-1"></script>
 
-    @if (Model.Mode != "PROD" && Model.Mode != "UAT")
-    {
-        <script src="~/Content/Scripts/Areas/Administration/User/Board.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/User/Board.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/Areas/Administration/Language/Board.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Language/Board.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/Areas/Administration/Module/ListArray.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Module/Box.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Module/Board.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Module/ListArray.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Module/Box.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Module/Board.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/Areas/Administration/UserModule/ListArray.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/UserModule/Box.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/UserModule/Board.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/UserModule/ListArray.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/UserModule/Box.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/UserModule/Board.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/Areas/Administration/Unit/Board.js"></script>
-
-        <script src="~/Content/Scripts/Areas/Administration/Stock/ListArray.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Stock/Board.js"></script>
-    }
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administratif/Menu/PDF.js")" charset="iso-8859-1"></script>
 
     <script type="text/javascript">
     var administration = null;
@@ -68,18 +62,11 @@
 
 @section CSSDeclaration
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Administration.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/Administration.css")" />
 
-    @if (Model.Mode != "PROD" && Model.Mode != "UAT")
-    {
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Module/Box.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Module/Board.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/Module/Box.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/Module/Board.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/UserModule/Box.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/UserModule/Board.css" />
-
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Unit/Board.css" />
-
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Stock/Board.css" />
-    }
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/UserModule/Box.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/UserModule/Board.css")" />
 }

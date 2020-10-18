@@ -5,7 +5,7 @@ using Owin;
 using System;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,10 +37,19 @@ namespace Syncytium.Web
         /// <param name="app"></param>
         public void Configuration(IAppBuilder app)
         {
+            // To avoid to reach the timeout and to be sur that the connection is kept alive, we have to set DisconnectTimeout and KeepAlive like this :
+            // Hub.Timeout = DisconnectTimeout + 2 * KeepAlive
+            // With KeepAlive = DisconnectTimeout / 3
+            // Cf. https://docs.microsoft.com/fr-fr/aspnet/signalr/overview/guide-to-the-api/handling-connection-lifetime-events
+            // So, Hub.Timeout = 3 * KeepAlive + 2 * KeepAlive = 5 * KeepAlive
+
+            int keepAlive = ConfigurationManager.ClientHubTimeout / 5;
+
             // Any connection or hub wire up and configuration should go here
 
             GlobalHost.Configuration.MaxIncomingWebSocketMessageSize = ConfigurationManager.ClientHubMaxSize * 1024; // Max size of the buffer (client to server)
-            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(ConfigurationManager.ClientHubInterval); // Time between 2 timeout
+            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(keepAlive * 3); // Time between 2 reconnections in case of breaken connection
+            GlobalHost.Configuration.KeepAlive = TimeSpan.FromSeconds(keepAlive);
 
             app.MapSignalR();
         }

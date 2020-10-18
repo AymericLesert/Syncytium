@@ -1375,7 +1375,7 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https:
     <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js">
       <publishTime>10/21/2017 15:29:43</publishTime>
     </File>
-    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js">
+    <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/SyncytiumasswordAttribute.js">
       <publishTime>08/19/2017 23:21:13</publishTime>
     </File>
     <File Include="Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js">

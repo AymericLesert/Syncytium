@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,9 +32,23 @@ Array.isEmpty = function ( array ) {
     if ( array.length > 0 )
         return false;
 
-    let i = 0;
-    for ( i in array )
+    for ( let i in array )
         return false;
 
     return true;
+};
+
+/**
+ * Convert a structure into an iterable objet ... like an array
+ * This function must be used within for ... of and if the list is incomplet or if the element is a structure like a cache
+ * 
+ * @param {any} structure item to convert
+ * @yields {any} value of each element into the structure
+ */
+Array.toIterable = function* ( structure ) {
+    if ( structure === null || structure === undefined )
+        return;
+
+    for ( let attribute in structure )
+        yield structure[attribute];
 };

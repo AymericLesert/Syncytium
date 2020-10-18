@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,8 +26,32 @@ class Errors {
      * Indicates if an error is stored into this class
      * @returns {boolean} true if the container has an error (global or field)
      */
-    get HasError () {
-        return Object.keys( this._fields ).length > 0 || Object.keys( this._errors ).length > 0 || this._global.length > 0;
+    get HasError() {
+        if ( this._global.length > 0 || this._fatal.length > 0 )
+            return true;
+
+        for ( let i in this._fields )
+            return true;
+
+        for ( let i in this._errors )
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Indicates if a fatal error is stored into this class
+     * @returns {boolean} true if the container has a fatal
+     */
+    get HasFatal() {
+        if ( this._fatal.length > 0 )
+            return true;
+
+        for ( let error of Array.toIterable( this._errors ) )
+            if ( error.HasFatal )
+                return true;
+
+        return false;
     }
 
     /**
@@ -37,6 +61,7 @@ class Errors {
         this._errors = {};
         this._fields = {};
         this._global = [];
+        this._fatal = [];
     }
 
     /**
@@ -77,9 +102,8 @@ class Errors {
         if ( currentField === null || currentField === undefined || Array.isEmpty(currentField.errors) )
             return null;
 
-        var content = "<ul>";
-        for ( let errorIdx in currentField.errors ) {
-            let error = currentField.errors[errorIdx];
+        let content = "<ul>";
+        for ( let error of currentField.errors ) {
             content += "<li>";
             content += Helper.Span( error.message, error.parameters );
             content += "</li>";
@@ -110,84 +134,140 @@ class Errors {
     }
 
     /**
+     * Add a fatal error
+     * @param {any} message    description of the error
+     * @param {any} parameters list of parameters attached to the error
+     */
+    addFatal( message, parameters ) {
+        this._fatal.push( { message: message, parameters: parameters } );
+    }
+
+    /**
+     * Concat errors from an instance into the current instance
+     * @param {Errors} errors instance to add
+     */
+    addErrors( errors ) {
+        if ( !errors.HasError )
+            return;
+
+        for ( let field in errors._fields ) {
+            if ( errors._fields[field].ignore === true )
+                this.ignoreField( field );
+
+            for ( let error of errors._fields[field].errors )
+                this.addField( field, error.message, error.parameters );
+        }
+
+        for ( let error in errors._errors ) {
+            for ( let detail of errors._errors[error] ) {
+                this.addError( error, detail );
+            }
+        }
+
+        for ( let error of errors._global )
+            this.addGlobal( error.message, error.parameters );
+
+        for ( let error of errors._fatal )
+            this.addFatal( error.message, error.parameters );
+    }
+
+    /**
      * Set errors from JSON
      * @param {any} errors JSON format of a list of errors
      */
     setJSON ( errors ) {
         this.clear();
 
-        var i = 0;
-        for ( var field in errors.Fields ) {
-            this._fields[field] = { ignore: false, errors: [] };
-            for ( i = 0; i < errors.Fields[field].length; i++ )
-                this._fields[field].errors.push( { message: errors.Fields[field][i].Message, parameters: errors.Fields[field][i].Parameters } );
+        if ( errors.Fatals !== null && errors.Fatals !== undefined ) {
+            for ( let error of errors.Fatals )
+                this._fatal.push( { message: error.Message, parameters: error.Parameters } );
         }
 
-        for ( i = 0; i < errors.Globals.length; i++ )
-            this._global.push( { message: errors.Globals[i].Message, parameters: errors.Globals[i].Parameters } );
+        if ( errors.Globals !== null && errors.Globals !== undefined ) {
+            for ( let error of errors.Globals )
+                this._global.push( { message: error.Message, parameters: error.Parameters } );
+        }
+
+        if ( errors.Fields !== null && errors.Fields !== undefined ) {
+            for ( let field in errors.Fields ) {
+                this._fields[field] = { ignore: false, errors: [] };
+                for ( let error of errors.Fields[field] )
+                    this._fields[field].errors.push( { message: error.Message, parameters: error.Parameters } );
+            }
+        }
     }
 
     /**
      * Retrieve the error context in html mode
+     * @param {boolean} subSummary true if error is included into another error
      * @returns {string} HTML describing the list of errors
      */
-    summary () {
+    summary( subSummary ) {
         if ( !this.HasError )
             return "";
 
-        var errorIdx = 0;
-        var error = null;
+        if ( subSummary === null || subSummary === undefined ) {
+            let nbFieldsInSummary = 0;
+            for ( let field in this._fields )
+                nbFieldsInSummary++;
+            for ( let error in this._errors )
+                nbFieldsInSummary++;
 
-        var content = "<ul>";
-        var nbFieldsInSummary = 0;
+            if ( nbFieldsInSummary === 0 && this._global.length === 0 && this._fatal.length === 0 )
+                return "";
 
-        for ( var field in this._fields ) {
+            if ( nbFieldsInSummary === 0 && this._global.length === 0 && this._fatal.length === 1 )
+                return Helper.Span( this._fatal[0].message, this._fatal[0].parameters );
+
+            if ( nbFieldsInSummary === 0 && this._global.length === 1 && this._fatal.length === 0 )
+                return Helper.Span( this._global[0].message, this._global[0].parameters );
+        }
+
+        let content = "<ul>";
+        let vide = true;
+
+        for ( let error of this._fatal ) {
+            content += "<li>";
+            content += Helper.Span( error.message, error.parameters );
+            content += "</li>";
+            vide = false;
+        }
+
+        for ( let error of this._global ) {
+            content += "<li>";
+            content += Helper.Span( error.message, error.parameters );
+            content += "</li>";
+            vide = false;
+        }
+
+        for ( let field in this._fields ) {
             if ( this._fields[field].ignore === true )
                 continue;
-            nbFieldsInSummary++;
 
             content += "<li>";
             content += String.encode( field );
             content += "<ul>";
-            for ( errorIdx in this._fields[field].errors ) {
-                error = this._fields[field].errors[errorIdx];
+            for ( let errorIdx in this._fields[field].errors ) {
+                let error = this._fields[field].errors[errorIdx];
                 content += "<li>";
                 content += Helper.Span( error.message, error.parameters );
                 content += "</li>";
             }
             content += "</ul>";
             content += "</li>";
+            vide = false;
         }
 
-        for ( error in this._errors ) {
-            nbFieldsInSummary++;
-
+        for ( let error in this._errors ) {
             content += "<li>";
             content += String.encode( error );
-            content += "<ul>";
-            for ( errorIdx in this._errors[error] ) {
-                content += "<li>";
-                content += this._errors[error][errorIdx].summary();
-                content += "</li>";
-            }
-            content += "</ul>";
+            for ( let detail of this._errors[error] )
+                content += detail.summary( true );
             content += "</li>";
+            vide = false;
         }
 
-        if ( nbFieldsInSummary === 0 && this._global.length === 0 )
-            return "";
-
-        if ( nbFieldsInSummary === 0 && this._global.length === 1 )
-            return Helper.Span( this._global[0].message, this._global[0].parameters );
-
-        for ( errorIdx in this._global ) {
-            error = this._global[errorIdx];
-            content += "<li>";
-            content += Helper.Span( error.message, error.parameters );
-            content += "</li>";
-        }
-
-        return content + "</ul>";
+        return vide ? "" : ( content + "</ul>" );
     }
 
     /**
@@ -200,44 +280,112 @@ class Errors {
             return "";
 
         if ( language === null || language === undefined )
-            language = "FR";
+            language = "EN";
 
-        var errorIdx = 0;
-        var error = null;
+        let content = "";
 
-        var content = "";
-        for ( var field in this._fields ) {
+        for ( let error of this._fatal ) {
+            if ( content.length !== 0 )
+                content += ", ";
+            content += Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+        }
+
+        for ( let error of this._global ) {
+            if ( content.length !== 0 )
+                content += ", ";
+            content += Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+        }
+
+        for ( let field in this._fields ) {
             if ( content.length !== 0 )
                 content += ", ";
 
             content += field + ": {";
-            for ( errorIdx in this._fields[field].errors ) {
-                error = this._fields[field].errors[errorIdx];
-                if ( errorIdx !== "0" )
+            let first = true;
+            for ( let error of this._fields[field].errors ) {
+                if ( !first )
                     content += ", ";
+                first = false;
                 content += Language.Manager.Instance.interpolation( error.message, error.parameters, language );
             }
             content += "}";
         }
 
-        for ( error in this._errors ) {
+        for ( let error in this._errors ) {
             if ( content.length !== 0 )
                 content += ", ";
 
             content += error + ": {";
-            for ( errorIdx in this._errors[error] ) {
-                content += this._errors[error][errorIdx].toString( language );
-                if ( errorIdx !== "0" )
+            let first = true;
+            for ( let detail of this._errors[error] ) {
+                if ( !first )
                     content += ", ";
+                first = false;
+                content += detail.toString( language );
             }
             content += "}";
         }
 
-        for ( errorIdx in this._global ) {
-            error = this._global[errorIdx];
+        return content;
+    }
+
+    /**
+     * Convert a list of errors into a string to copy into the Clipboard
+     * @param {string} language "FR" or anything else
+     * @param {string} indent string to set at the begin of line
+     * @returns {string} String describing the list of errors
+     */
+    toClipboard( language, indent ) {
+        if ( !this.HasError )
+            return "";
+
+        if ( language === null || language === undefined )
+            language = "EN";
+
+        if ( indent === null || indent === undefined )
+            indent = "";
+
+        let startLine = String.isEmptyOrWhiteSpaces( indent ) ? "" : (indent + " ");
+        let content = "";
+
+        for ( let error of this._fatal ) {
             if ( content.length !== 0 )
-                content += ", ";
-            content += Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+                content += "\n";
+            content += startLine + Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+        }
+
+        for ( let error of this._global ) {
+            if ( content.length !== 0 )
+                content += "\n";
+            content += startLine + Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+        }
+
+        for ( let field in this._fields ) {
+            if ( content.length !== 0 )
+                content += "\n";
+
+            content += startLine + field + " :\n";
+            let first = true;
+            for ( let error of this._fields[field].errors ) {
+                if ( !first )
+                    content += "\n";
+                first = false;
+                content += indent + "* " + Language.Manager.Instance.interpolation( error.message, error.parameters, language );
+            }
+        }
+
+        for ( let error in this._errors ) {
+            if ( content.length !== 0 )
+                content += "\n";
+
+            content += startLine + error + " :\n";
+            let first = true;
+            for ( let detail of this._errors[error] ) {
+                if ( !first )
+                    content += "\n";
+                first = false;
+                content += detail.toClipboard( language, indent + "*" );
+            }
         }
 
         return content;
@@ -252,6 +400,7 @@ class Errors {
         this._errors = {};
         this._fields = {};
         this._global = [];
+        this._fatal = [];
 
         if ( message !== undefined )
             this.addGlobal( message, parameters );

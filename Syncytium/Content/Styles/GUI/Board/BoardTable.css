@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,21 +21,22 @@
 /* ------------------------------------------------------------ */
 
 .webix_board_table .webix_ss_vscroll_header {
-    background-color: #e8e6e6;
+    background-color: var(--syncytium-board-background);
     border: none;
 }
 
 .webix_board_table .webix_ss_header .webix_hcell {
-    background: #e8e6e6;
-    color: #ff0000;
-    font-family: Arial;
+    background: var(--syncytium-board-background);
+    color: var(--syncytium-color-text);
+    font-family: var(--syncytium-font);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     text-align: center;
 }
 
 .webix_board_table .webix_ss_header td {
     border: none;
+    background: var(--syncytium-board-background) !important;
 }
 
 .webix_board_table.webix_view {
@@ -43,12 +44,13 @@
 }
 
 .webix_board_table.webix_dtable {
-    background-color: #f5f5f5;
+    background-color: var(--syncytium-table-row-background-odd);
+    color: var(--syncytium-color-text);
 }
 
 .webix_board_table .webix_column {
     font-size: 12px;
-    color: #4a4a4a;
+    color: var(--syncytium-color-text);
     word-wrap: break-word;
 }
 
@@ -77,23 +79,24 @@
 .webix_board_table .webix_cell {
     display: flex;
     font-size: 14px;
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     font-weight: normal;
+    min-height: var(--syncytium-table-row-height);
 }
 
 .webix_board_table .webix_cell.webix_row_select {
-    color: #990000;
+    color: var(--syncytium-table-row-selected);
     font-size: 14px;
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     font-weight: bold;
 }
 
 .webix_board_table .webix_cell:nth-child(even) {
-    background-color: #e8e6e6;
+    background-color: var(--syncytium-table-row-background-even);
 }
 
 .webix_board_table .webix_cell:nth-child(odd) {
-    background-color: #f5f5f5;
+    background-color: var(--syncytium-table-row-background-odd);
 }
 
 .webix_board_table .webix_cell > div, .webix_board .webix_cell.webix_row_select > div {
@@ -319,11 +322,13 @@ board > .table .webix_cell > .picture > img {
 /* ------------------------------------------------------------ */
 
 board > .table .webix_cell > .deleted {
-    color: #ff0000;
+    color: var(--syncytium-color-deleted);
     font-style: italic;
 }
 
 board > .table .webix_cell > .deleted > img {
-    border: solid 1px #ff0000;
+    width: 28px !important;
+    height: 28px !important;
+    border: solid 1px var(--syncytium-color-deleted);
 }
 

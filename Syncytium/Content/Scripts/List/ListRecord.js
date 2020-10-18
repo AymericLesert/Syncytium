@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,6 +23,20 @@
  */
 List.ListRecord = class extends List.List {
     /**
+     * Build a new sequence Id for a sub list
+     * @returns {int} new sequence
+     */
+    static get GetSubListNewSequence() {
+        if ( !this._newSequenceId ) {
+            this._newSequenceId = -2;
+            return -2;
+        }
+
+        this._newSequenceId--;
+        return this._newSequenceId;
+    }
+
+    /**
      * Handle a cache of lists (one per table)
      * @param {any} table table name
      * @returns {any} an instance of the list record attached to the table
@@ -31,26 +45,59 @@ List.ListRecord = class extends List.List {
         if ( !this._cacheList )
             this._cacheList = {};
 
-        var listReference = this._cacheList[table];
+        let listReference = this._cacheList[table];
         if ( listReference !== null && listReference !== undefined )
             return listReference;
 
         // Look for an instance of the list dedicated to the given table
 
         try {
-            listReference = eval( table + "Record.List" );
+            let classList = eval( table + "Record.List" );
+            listReference = new classList( true );
+            Logger.Instance.verbose( "CACHE_LIST", "[1] : " + table );
+            this._cacheList[table] = listReference;
+            return listReference;
         } catch ( e ) {
+            Logger.Instance.verbose( "CACHE_LIST", "[1] Unable to create list '" + table + "'" );
             listReference = null;
+        }
+
+        // Build a history list and its sub lists (based on the original class)
+
+        if ( table.startsWith( "History" ) && table !== "History" ) {
+            try {
+                let classList = eval( table.substr( 7 ) + "Record.List" );
+                listReference = new List.ListRecord( table, true );
+                Logger.Instance.verbose( "CACHE_LIST", "[2] : " + table );
+                this._cacheList[table] = listReference;
+
+                let parentList = new classList( true );
+                if ( parentList._subLists !== null && parentList._subLists !== undefined ) {
+                    for ( let property in parentList._subLists ) {
+                        if ( property === "History" )
+                            continue;
+
+                        let subList = parentList._subLists[property];
+
+                        if ( !subList.composition ) {
+                            listReference.declareListValues( property, subList.table, subList.column, false, null );
+                            listReference._subLists[property].history = true;
+                        } else {
+                            listReference.declareListValues( property, "History" + subList.table, subList.column, false );
+                        }
+                    }
+                }
+                return listReference;
+            } catch ( e ) {
+                Logger.Instance.verbose( "CACHE_LIST", "[2] Unable to create list '" + table + "'" );
+                listReference = null;
+            }
         }
 
         // if not, build a default instance
 
-        if ( listReference ) {
-            listReference = new listReference( true );
-        } else {
-            listReference = new List.ListRecord( table, true );
-        }
-
+        listReference = new List.ListRecord( table, true );
+        Logger.Instance.verbose( "CACHE_LIST", "[3] : " + table );
         this._cacheList[table] = listReference;
         return listReference;
     }
@@ -62,7 +109,7 @@ List.ListRecord = class extends List.List {
      * @returns {any} item
      */
     static SetListValues( subLists, item ) {
-        if ( subLists === undefined || subLists === null || item === null || item ===undefined || item._subLists !== undefined )
+        if ( subLists === undefined || subLists === null || item === null || item === undefined || item._subLists !== undefined )
             return item;
 
         item._subLists = {};
@@ -73,11 +120,12 @@ List.ListRecord = class extends List.List {
                 continue;
 
             item._subLists[subListId] = {
-                newSequenceId: -2,
                 list: subList.list,
                 table: subList.table,
                 column: subList.column,
+                property: subListId,
                 composition: subList.composition,
+                history: subList.history,
                 values: null
             };
 
@@ -97,23 +145,20 @@ List.ListRecord = class extends List.List {
                         return subList.values;
 
                     subList.values = [];
-                    subList.newSequenceId = -2;
 
                     if ( subList.list === null || this.Id < 0 )
                         return subList.values;
 
-                    function handleReadList( parent, subList ) {
-                        return function ( record ) {
-                            if ( record[subList.column] === parent.Id ) {
-                                record._parent = parent;
-                                record._id = record.Id;
-                                record._list = subList;
-                                subList.values[record._id] = record;
-                            }
-                        };
+                    let keys = {};
+                    keys[subList.column] = this.Id;
+                    if ( subList.history && this.HistoryId !== null && this.HistoryId !== undefined )
+                        keys[subList.column] = this.HistoryId;
+                    for ( let value of Array.toIterable( subList.list.getListIndexed( subList.column, keys ) ) ) {
+                        value._parent = this;
+                        value._id = value.Id;
+                        value._list = subList;
+                        subList.values[value._id] = value;
                     }
-
-                    subList.list.each( handleReadList( this, subList ) );
 
                     return subList.values;
                 }
@@ -124,38 +169,160 @@ List.ListRecord = class extends List.List {
     }
 
     /**
-     * Retrieve a record into the database by its path from an item
-     * @param {any} table table of the item
-     * @param {any} item  beginning item
-     * @param {any} path  lsit of properties to get the expected record
-     * @returns {any} record expected or null
+     * Add into the item every foreign keys assigned to this list
+     * @param {any} foreignKeys list of foreign keys to add into the item ([key] = list representing the foreign table)
+     * @param {any} item item to complete
+     * @returns {any} item
      */
-    static GetRecordByPath( table, item, path ) {
-        if ( path === null || path === undefined )
+    static SetForeignKeys( foreignKeys, item ) {
+        if ( foreignKeys === undefined || foreignKeys === null || item === null || item === undefined || item._foreignKeys !== undefined )
             return item;
 
-        if ( typeof path === "string" )
-            path = [path];
+        item._foreignKeys = {};
 
-        // Retrieve the item to look for
+        for ( let foreignKeyId in foreignKeys ) {
+            let foreignKey = foreignKeys[foreignKeyId];
+            if ( foreignKey === null || foreignKey === undefined )
+                continue;
 
-        for ( let i = 0; i < path.length; i++ ) {
-            let id = item[path[i]];
-            if ( id === null || id === undefined )
-                return null;
+            item._foreignKeys[foreignKeyId] = {
+                field: foreignKey.field,
+                table: foreignKey.table,
+                list: foreignKey.list,
+                id: null,
+                value: null
+            };
 
-            let column = DSDatabase.Instance.getColumn( table, path[i] );
-            if ( column === null )
-                return null;
+            // Enable Lazyloading of the foreign record ...
 
-            table = column.ForeignKey;
-            if ( table === null )
-                return null;
-            table = table.Table;
+            Object.defineProperty( item, foreignKeyId, {
+                enumerable: false,
+                get: function () {
+                    let foreignKey = this._foreignKeys[foreignKeyId];
+                    let id = this[foreignKey.field];
 
-            item = List.ListRecord.CACHE_LIST( table ).getItem( id, true );
-            if ( item === null || item === undefined )
-                return null;
+                    if ( foreignKey.value !== null && foreignKey.value.Id >= 0 && foreignKey.id === id && foreignKey.value.Id === id )
+                        return foreignKey.value;
+
+                    if ( id === null || id === undefined ) {
+                        foreignKey.id = null;
+                        foreignKey.value = null;
+                        return null;
+                    }
+
+                    let referenceRecord = null;
+
+                    if ( id < 0 ) {
+                        if ( this._id !== undefined && this._id !== null && this._id < 0 ) {
+                            referenceRecord = this._parent;
+                        } else {
+                            referenceRecord = null;
+                        }
+                    } else {
+                        referenceRecord = foreignKey.list.getItem( id, true );
+                    }
+
+                    if ( referenceRecord === null || referenceRecord === undefined ) {
+                        foreignKey.id = null;
+                        foreignKey.value = null;
+                        return null;
+                    }
+
+                    foreignKey.id = referenceRecord.Id;
+                    foreignKey.value = referenceRecord;
+                    return referenceRecord;
+                },
+                set: function ( value ) {
+                    let foreignKey = this._foreignKeys[foreignKeyId];
+
+                    if ( value === null || value === undefined ) {
+                        this[foreignKey.field] = null;
+                        foreignKey.id = null;
+                        foreignKey.value = null;
+                        return;
+                    }
+
+                    let item = null;
+                    if ( typeof value === "number" || typeof value === "string" ) {
+                        item = foreignKey.list.getItem( id, true );
+                    } else if ( value.Id !== null && value.Id !== undefined ) {
+                        item = value;
+                    }
+
+                    if ( item === null ) {
+                        this[foreignKey.field] = null;
+                        foreignKey.id = null;
+                        foreignKey.value = null;
+                    } else {
+                        this[foreignKey.field] = item.Id;
+                        foreignKey.id = item.Id;
+                        foreignKey.value = item;
+                    }
+                }
+            } );
+        }
+
+        return item;
+    }
+
+    /**
+     * Add into the item every list assigned to this list and every foreign keys to this list
+     * @param {any} origin list or record containing references or subLists to set
+     * @param {any} item item to complete
+     * @returns {any} item
+     */
+    static SetExtendedFields( origin, item ) {
+        item = List.ListRecord.SetListValues( origin._subLists, item );
+
+        if ( origin instanceof List.ListRecord ) {
+            if ( origin._foreignKeys === null ) {
+                let foreignKeys = DSDatabase.Instance.getForeignKeys( origin.Table );
+
+                origin._foreignKeys = {};
+                for ( let foreignKeyId in foreignKeys ) {
+                    let foreignKey = foreignKeys[foreignKeyId];
+
+                    let fieldId = foreignKeyId;
+                    if ( foreignKeyId === "HistoryId" )
+                        foreignKeyId = "HistoryRef";
+                    else if ( foreignKeyId.endsWith( "Id" ) )
+                        foreignKeyId = foreignKeyId.substr( 0, foreignKeyId.length - 2 );
+                    else
+                        foreignKeyId += "Ref";
+
+                    origin._foreignKeys[foreignKeyId] = {
+                        field: fieldId,
+                        table: foreignKey,
+                        list: List.ListRecord.CACHE_LIST( foreignKey ),
+                        id: null,
+                        value: null
+                    };
+                }
+            }
+        }
+
+        return List.ListRecord.SetForeignKeys( origin._foreignKeys, item );
+    }
+
+    /**
+     * Reset reference on foreign keys and sub lists ... use to force reloading data
+     * @param {any} item item to clean up
+     * @returns {any} item
+     */
+    static CleanUpExtendedFields( item ) {
+        if ( item === null || item === undefined )
+            return item;
+
+        if ( item._subLists !== null && item._subLists !== undefined ) {
+            for ( let subList of Array.toIterable( item._subLists ) )
+                subList.values = null;
+        }
+
+        if ( item._foreignKeys !== null && item._foreignKeys !== undefined ) {
+            for ( let foreignKey of Array.toIterable( item._foreignKeys ) ) {
+                foreignKey.id = null;
+                foreignKey.value = null;
+            }
         }
 
         return item;
@@ -173,6 +340,20 @@ List.ListRecord = class extends List.List {
      */
     get SequenceProperty() {
         return this._sequenceProperty;
+    }
+
+    /**
+     * On CSV file, replace each method by this array of items
+     */
+    set CSVList( list ) {
+        this._csv_list = list;
+    }
+
+    /**
+     * On CSV file, retrieve the array of items
+     */
+    get CSVList() {
+        return this._csv_list;
     }
 
     /**
@@ -201,7 +382,9 @@ List.ListRecord = class extends List.List {
             list: list === null || list === undefined ? List.ListRecord.CACHE_LIST( table ) : list,
             table: table,
             column: column,
-            composition: composition !== null && composition !== undefined && composition === true
+            property: property,
+            composition: composition !== null && composition !== undefined && composition === true,
+            history: false
         };
     }
 
@@ -235,13 +418,28 @@ List.ListRecord = class extends List.List {
      * @param {any} fn function to call as the sequence is available
      */
     createSequence( item, fn ) {
-        function handleNextSequence( list, item, fn ) {
+        function handleNextSequence( list ) {
             return function ( sequenceId ) {
                 if ( typeof sequenceId === "number" ) {
-                    item._sequenceId = sequenceId;
-                    item[list._sequenceProperty] = list._sequenceKey + sequenceId.toString().padStart( list._sequenceLength - list._sequenceKey.length, "0" );
+                    let newKey = list._sequenceKey + sequenceId.toString().padStart( list._sequenceLength, "0" );
+
+                    let keyItem = {};
+                    keyItem[list._sequenceProperty] = newKey;
+
+                    let records = list.getListIndexed( list._sequenceProperty, keyItem );
+                    if ( records.length === 0 ) {
+                        item._sequenceId = sequenceId;
+                        item[list._sequenceProperty] = newKey;
+                        fn();
+                        return true;
+                    } else {
+                        // sequence already exists ... go to the next one
+                        return false;
+                    }
+                } else {
+                    fn();
+                    return true;
                 }
-                fn();
             };
         }
 
@@ -253,7 +451,50 @@ List.ListRecord = class extends List.List {
         if ( !Hub.Instance.IsRunning && !DSDatabase.Instance.hasSequence( this._sequenceKey) )
             return false;
 
-        DSDatabase.Instance.nextSequence( this._sequenceKey, handleNextSequence( this, item, fn ) );
+        DSDatabase.Instance.nextSequence( this._sequenceKey, handleNextSequence( this ) );
+        return true;
+    }
+
+    /**
+     * If the new item must have a sequence
+     * @param {any} item item to complete within the expected sequenceId
+     * @param {any} fn function to call as the sequence is available
+     */
+    async createSequenceAsync( item ) {
+        function handleNextSequence( list ) {
+            return function ( sequenceId ) {
+                if ( typeof sequenceId === "number" ) {
+                    let newKey = list._sequenceKey + sequenceId.toString().padStart( list._sequenceLength, "0" );
+
+                    let keyItem = {};
+                    keyItem[list._sequenceProperty] = newKey;
+
+                    let records = list.getListIndexed( list._sequenceProperty, keyItem );
+                    if ( records.length === 0 ) {
+                        item._sequenceId = sequenceId;
+                        item[list._sequenceProperty] = newKey;
+                        fn();
+                        return true;
+                    } else {
+                        // sequence already exists ... go to the next one
+                        return false;
+                    }
+                } else {
+                    fn();
+                    return true;
+                }
+            };
+        }
+
+        if ( this._sequenceProperty === null ) {
+            fn();
+            return true;
+        }
+
+        if ( !Hub.Instance.IsRunning && !DSDatabase.Instance.hasSequence( this._sequenceKey ) )
+            return false;
+
+        DSDatabase.Instance.nextSequence( this._sequenceKey, handleNextSequence( this ) );
         return true;
     }
 
@@ -264,8 +505,8 @@ List.ListRecord = class extends List.List {
      * @returns {int} -1, 0 or 1 on depends on the order of the 2 elements
      */
     compare( item1, item2 ) {
-        var id1 = this.getText( item1 );
-        var id2 = this.getText( item2 );
+        let id1 = this.getText( item1 );
+        let id2 = this.getText( item2 );
 
         if ( id1 === id2 )
             return 0;
@@ -280,10 +521,12 @@ List.ListRecord = class extends List.List {
     each( fn ) {
         function handleReadList( list, fn ) {
             return function ( record ) {
+                record = List.ListRecord.SetExtendedFields( list, record );
+
                 if ( !list.isVisible( record ) )
                     return;
 
-                fn( List.ListRecord.SetListValues( list._subLists, record ) );
+                fn( record );
             };
         }
 
@@ -294,19 +537,66 @@ List.ListRecord = class extends List.List {
      * @returns {any} list of visible values containing into the table
      */
     getList() {
-        var data = [];
+        let data = [];
 
         function handleReadList( list, array ) {
             return function ( item ) {
+                item = List.ListRecord.SetExtendedFields( list, item );
+
                 if ( !list.isVisible( item ) )
                     return;
 
-                array.push( List.ListRecord.SetListValues( list._subLists, item ) );
+                array.push( item );
             };
         }
 
         DSDatabase.Instance.each( this._table, handleReadList( this, data ) );
         return data;
+    }
+
+    /**
+     * Retrieve the list of records matching within the keys
+     * @param {any} column column name
+     * @param {any} keys structure containing the list of keys and values looking for
+     * @returns {Array} array of records
+     */
+    getListIndexed( column, keys ) {
+        function handleRead( list, records, keys ) {
+            return function ( record ) {
+                if ( !list.isVisible( record ) )
+                    return;
+
+                for ( let attr in keys )
+                    if ( record[attr] !== keys[attr] )
+                        return;
+
+                records.push( record );
+            };
+        }
+
+        // Looking for ids from the index of the column
+
+        let ids = DSDatabase.Instance.getIndex( this.Table, column, keys );
+        let records = [];
+
+        if ( ids === null ) {
+            // Looking for the value by searching on all values line by line
+            Logger.Instance.warn( "List[" + this._table + "]", "Index missing on the column '" + column + "' for keys " + String.JSONStringify( keys ) );
+            console.warn( "List[" + this._table + "] : Index missing on the column '" + column + "' for keys " + String.JSONStringify( keys ) );
+
+            this.each( handleRead( this, records, keys ) );
+        } else {
+            for ( let id of Array.toIterable( ids ) ) {
+                let record = this.getItem( id );
+
+                if ( !this.isVisible( record ) )
+                    continue;
+
+                records.push( record );
+            }
+        }
+
+        return records;
     }
 
     /**
@@ -320,11 +610,7 @@ List.ListRecord = class extends List.List {
          */
         function handleOnCreate( list ) {
             return function ( event, table, id, record ) {
-                var fnEvent = list.getEvent( event );
-                if ( !fnEvent )
-                    return;
-
-                fnEvent( event, table, id, record );
+                list.raise( event, table, id, record );
             };
         }
 
@@ -333,11 +619,7 @@ List.ListRecord = class extends List.List {
          */
         function handleOnUpdate( list ) {
             return function ( event, table, id, oldRecord, newRecord ) {
-                var fnEvent = list.getEvent( event );
-                if ( !fnEvent )
-                    return;
-
-                fnEvent( event, table, id, oldRecord, newRecord );
+                list.raise( event, table, id, oldRecord, newRecord );
             };
         }
 
@@ -346,11 +628,7 @@ List.ListRecord = class extends List.List {
          */
         function handleOnDelete( list ) {
             return function ( event, table, id, record ) {
-                var fnEvent = list.getEvent( event );
-                if ( !fnEvent )
-                    return;
-
-                fnEvent( event, table, id, record );
+                list.raise( event, table, id, record );
             };
         }
 
@@ -359,11 +637,7 @@ List.ListRecord = class extends List.List {
          */
         function handleOnLoad( list ) {
             return function ( event, table ) {
-                var fnEvent = list.getEvent( event );
-                if ( !fnEvent )
-                    return;
-
-                fnEvent( event, table );
+                list.raise( event, table );
             };
         }
 
@@ -382,7 +656,7 @@ List.ListRecord = class extends List.List {
         if ( this._subLists === null )
             return DSDatabase.Instance.getNewRow( this._table );
 
-        var newRecord = List.ListRecord.SetListValues( this._subLists, DSDatabase.Instance.getNewRow( this._table ) );
+        let newRecord = List.ListRecord.SetExtendedFields( this, DSDatabase.Instance.getNewRow( this._table ) );
 
         if ( this._sequenceProperty !== null ) {
             newRecord._sequenceProperty = this._sequenceProperty;
@@ -404,28 +678,42 @@ List.ListRecord = class extends List.List {
     }
 
     /**
-     * Add a new element into a sub list and retrieve it
+     * Create a new element from a sub list
+     * Do not add the element into the sub list
      * @param {any} item     record containing the sub list to increase
      * @param {any} property name of the sub list
      * @returns {any} new record
      */
     createSubItem( item, property ) {
-        List.ListRecord.SetListValues( this._subLists, item );
+        List.ListRecord.SetExtendedFields( this, item );
 
         if ( item === null || item === undefined || item._subLists === null || item._subLists === undefined )
             return null;
 
-        var subList = item._subLists[property];
+        let subList = item._subLists[property];
 
         if ( subList === null || subList === undefined || subList.list === null )
             return null;
 
-        var newSubItem = subList.list.NewItem;
+        let newSubItem = subList.list.NewItem;
         newSubItem[subList.column] = item.Id;
-        newSubItem._id = subList.newSequenceId--;
         newSubItem._parent = item;
+        newSubItem._id = List.ListRecord.GetSubListNewSequence;
         newSubItem._list = subList;
+        List.ListRecord.SetExtendedFields( subList.list, newSubItem );
 
+        return newSubItem;
+    }
+
+    /**
+     * Create and add a new element into a sub list and retrieve it
+     * @param {any} item     record containing the sub list to increase
+     * @param {any} property name of the sub list
+     * @returns {any} new record
+     */
+    addSubItem( item, property ) {
+        let newSubItem = this.createSubItem( item, property );
+        item[property][newSubItem._id] = newSubItem;
         return newSubItem;
     }
 
@@ -437,7 +725,7 @@ List.ListRecord = class extends List.List {
      * @returns {any} item or null
      */
     getItem( id, force ) {
-        var item = null;
+        let item = null;
 
         if ( typeof id === "number" ) {
             item = DSDatabase.Instance.getRowById( this._table, id );
@@ -448,13 +736,15 @@ List.ListRecord = class extends List.List {
         if ( item === null )
             return null;
 
+        item = List.ListRecord.SetExtendedFields( this, item );
+
         if ( force !== null && force !== undefined && force )
-            return List.ListRecord.SetListValues( this._subLists, item );
+            return item;
 
         if ( item._deleted || !this.isVisible( item ) )
             return null;
 
-        return List.ListRecord.SetListValues( this._subLists, item );
+        return item;
     }
 
     /**
@@ -482,8 +772,8 @@ List.ListRecord = class extends List.List {
      * @param {any} attribute property to retrieve
      * @returns {string} a string representing the value of the field
      */
-    getAttributText ( item, attribute ) {
-        var record = null;
+    getAttributText( item, attribute ) {
+        let value = null;
 
         switch ( attribute ) {
             case "Picture":
@@ -493,7 +783,7 @@ List.ListRecord = class extends List.List {
                 if ( item.ToolTip === undefined )
                     return this.getAttributText( item, "Comment" );
 
-                var value = String.convertValue( item.ToolTip );
+                value = String.convertValue( item.ToolTip );
                 return value === null ? "" : value;
 
             default:
@@ -517,6 +807,47 @@ List.ListRecord = class extends List.List {
     }
 
     /**
+     * Check the validity of the properties of the item and its compositions
+     * @param {any} item   record to check
+     * @param {any} errors container of errors after checking
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @returns {any} null, undefined (ok if error is empty) or errors (error)
+     */
+    checkProperties( item, errors ) {
+        let newItem = DSDatabase.Instance.checkProperties( this.Table, item, errors );
+
+        if ( this._subLists === null )
+            return null;
+
+        for ( let subListId in this._subLists ) {
+            let currentSubList = this._subLists[subListId];
+
+            if ( currentSubList === null || currentSubList === undefined )
+                continue;
+
+            if ( currentSubList.list === null || currentSubList.list === undefined || !currentSubList.composition )
+                continue;
+
+            for ( let currentSubItem of Array.toIterable( newItem[subListId] ) ) {
+                let errorItem = new Errors();
+                currentSubList.list.checkProperties( currentSubItem, errorItem );
+
+                if ( errorItem.HasError ) {
+                    if ( currentSubItem._line === null || currentSubItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, currentSubItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, currentSubItem._line] ), errorItem );
+                }
+            }
+        }
+
+        if ( errors.HasError )
+            return errors;
+
+        return null;
+    }
+
+    /**
      * Check the validity of the item and its compositions
      * @param {any} item   record to check
      * @param {any} errors container of errors after checking
@@ -524,7 +855,7 @@ List.ListRecord = class extends List.List {
      * @returns {any} null, undefined (ok if error is empty), Helper/string (warning and confirmation if error is empty) or errors (error)
      */
     checkItem( item, errors, force ) {
-        var confirmation = null;
+        let confirmation = null;
 
         if ( this._subLists === null )
             return null;
@@ -538,18 +869,16 @@ List.ListRecord = class extends List.List {
             if ( currentSubList.list === null || currentSubList.list === undefined || !currentSubList.composition)
                 continue;
 
-            var list = item[subListId];
-
-            for ( let i in list ) {
-                let currentSubItem = list[i];
-                if ( currentSubItem === null || currentSubItem === undefined )
-                    continue;
-
+            for ( let currentSubItem of Array.toIterable( item[subListId] ) ) {
                 let errorItem = new Errors();
                 let checkResult = currentSubList.list.checkItem( currentSubItem, errorItem, force );
 
-                if ( errorItem.HasError )
-                    errors.addError( subListId + "[" + currentSubItem._id + "]", errorItem );
+                if ( errorItem.HasError ) {
+                    if ( currentSubItem._line === null || currentSubItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, currentSubItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, currentSubItem._line] ), errorItem );
+                }
 
                 if ( confirmation === null && Helper.IsLabel( checkResult ) )
                     confirmation = checkResult;
@@ -578,19 +907,19 @@ List.ListRecord = class extends List.List {
         if ( this._subLists === null )
             return;
 
-        var subListHistory = this._subLists["History"];
+        let subListHistory = this._subLists["History"];
         if ( subListHistory === undefined || subListHistory === null )
             return;
 
         // Clone the current item (not children)
 
-        var historyItem = {};
-        var item = newItem === null ? oldItem : newItem;
-        for ( var attr in item ) {
+        let historyItem = {};
+        let item = newItem === null ? oldItem : newItem;
+        for ( let attr in item ) {
             if ( attr.startsWith( "_" ) || parentColumn === attr )
                 continue;
 
-            var value = item[attr];
+            let value = item[attr];
 
             if ( value === undefined )
                 value = null;
@@ -645,7 +974,7 @@ List.ListRecord = class extends List.List {
 
         // Add item into the database
 
-        var errors = new Errors();
+        let errors = new Errors();
         historyItem = DSDatabase.Instance.addFromClient( "History" + this.Table, historyItem, errors );
 
         if ( errors.HasError ) {
@@ -735,7 +1064,7 @@ List.ListRecord = class extends List.List {
         // check the validity of the items
 
         if ( checkItem === null || checkItem === undefined || checkItem ) {
-            var confirmation = this.checkItem( newItem, errors, force );
+            let confirmation = this.checkItem( newItem, errors, force );
 
             if ( errors.HasError )
                 return errors;
@@ -744,7 +1073,7 @@ List.ListRecord = class extends List.List {
                 return confirmation;
         }
 
-        var itemCreated = DSDatabase.Instance.addFromClient( this._table, newItem, errors );
+        let itemCreated = DSDatabase.Instance.addFromClient( this._table, newItem, errors );
 
         if ( errors.HasError )
             return errors;
@@ -754,7 +1083,7 @@ List.ListRecord = class extends List.List {
         if ( this._subLists === null )
             return itemCreated;
 
-        List.ListRecord.SetListValues( this._subLists, itemCreated );
+        List.ListRecord.SetExtendedFields( this, itemCreated );
 
         for ( let subListId in this._subLists ) {
             let currentSubList = this._subLists[subListId];
@@ -768,12 +1097,7 @@ List.ListRecord = class extends List.List {
             let newSubList = itemCreated._subLists[subListId];
             newSubList.values = [];
 
-            var list = newItem[subListId];
-            for ( let i in list ) {
-                let subNewItem = list[i];
-                if ( subNewItem === null || subNewItem === undefined )
-                    continue;
-
+            for ( let subNewItem of Array.toIterable( newItem[subListId] ) ) {
                 // Set the reference to the parent
 
                 subNewItem[currentSubList.column] = itemCreated.Id;
@@ -783,17 +1107,21 @@ List.ListRecord = class extends List.List {
                 let errorItem = new Errors();
                 let subItemCreated = currentSubList.list.addItem( subNewItem, errorItem, force, false );
 
-                if ( errorItem.HasError )
-                    errors.addError( subListId + "[" + subNewItem._id + "]", errorItem );
+                if ( errorItem.HasError ) {
+                    if ( subNewItem._line === null || subNewItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subNewItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subNewItem._line] ), errorItem );
+                }
 
                 if ( subItemCreated === null )
                     continue;
 
                 // Add the new component into the new item created
 
+                subItemCreated._parent = itemCreated;
                 subItemCreated.__id = subNewItem._id;
                 subItemCreated._id = subItemCreated.Id;
-                subItemCreated._parent = itemCreated;
                 subItemCreated._list = currentSubList;
 
                 newSubList.values[subItemCreated.Id] = subItemCreated;
@@ -827,7 +1155,7 @@ List.ListRecord = class extends List.List {
         // check the validity of the items
 
         if ( checkItem === null || checkItem === undefined || checkItem ) {
-            var confirmation = this.checkItem( newItem, errors, force );
+            let confirmation = this.checkItem( newItem, errors, force );
 
             if ( errors.HasError )
                 return errors;
@@ -838,7 +1166,7 @@ List.ListRecord = class extends List.List {
 
         // update the current item
 
-        var itemUpdated = DSDatabase.Instance.updateFromClient( this._table, oldItem, newItem, errors );
+        let itemUpdated = DSDatabase.Instance.updateFromClient( this._table, oldItem, newItem, errors );
 
         if ( errors.HasError )
             return errors;
@@ -848,7 +1176,7 @@ List.ListRecord = class extends List.List {
         if ( this._subLists === null )
             return itemUpdated;
 
-        List.ListRecord.SetListValues( this._subLists, itemUpdated );
+        List.ListRecord.SetExtendedFields( this, itemUpdated );
 
         for ( let subListId in this._subLists ) {
             let currentSubList = this._subLists[subListId];
@@ -879,8 +1207,12 @@ List.ListRecord = class extends List.List {
                 let errorItem = new Errors();
                 currentSubList.list.deleteItem( subItem.Id, subItem, errorItem, false );
 
-                if ( errorItem.HasError )
-                    errors.addError( currentSubList.column + "[" + subItem._id + "]", errorItem );
+                if ( errorItem.HasError ) {
+                    if ( subItem._line === null || subItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [currentSubList.column, subItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [currentSubList.column, subItem._line] ), errorItem );
+                }
             }
 
             // Update existing components
@@ -899,19 +1231,23 @@ List.ListRecord = class extends List.List {
                 // Update an existing item
 
                 let errorItem = new Errors();
-                var subItemUpdated = currentSubList.list.updateItem( subItem.Id, oldListItems[id], subItem, errorItem, force, false );
+                let subItemUpdated = currentSubList.list.updateItem( subItem.Id, oldListItems[id], subItem, errorItem, force, false );
 
-                if ( errorItem.HasError )
-                    errors.addError( subListId + "[" + subItem._id + "]", errorItem );
+                if ( errorItem.HasError ) {
+                    if ( subItem._line === null || subItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subItem._line] ), errorItem );
+                }
 
                 if ( subItemUpdated === null )
                     continue;
 
                 // Add the new component into the item updated
 
+                subItemUpdated._parent = itemUpdated;
                 subItemUpdated.__id = subItem._id;
                 subItemUpdated._id = subItemUpdated.Id;
-                subItemUpdated._parent = itemUpdated;
                 subItemUpdated._list = currentSubList;
 
                 newSubList.values[subItemUpdated.Id] = subItemUpdated;
@@ -919,8 +1255,7 @@ List.ListRecord = class extends List.List {
 
             // Add new components
 
-            for ( let id in newListItems ) {
-                let subItem = newListItems[id];
+            for ( let subItem of Array.toIterable( newListItems ) ) {
                 if ( subItem.Id !== -1 )
                     continue;
 
@@ -933,17 +1268,21 @@ List.ListRecord = class extends List.List {
                 let errorItem = new Errors();
                 let subItemCreated = currentSubList.list.addItem( subItem, errorItem, force, false );
 
-                if ( errorItem.HasError )
-                    errors.addError( subListId + "[" + subItem._id + "]", errorItem );
+                if ( errorItem.HasError ) {
+                    if ( subItem._line === null || subItem._line === undefined )
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subItem._id] ), errorItem );
+                    else
+                        errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subItem._line] ), errorItem );
+                }
 
                 if ( subItemCreated === null )
                     continue;
 
                 // Add the new component into the item updated
 
+                subItemCreated._parent = itemUpdated;
                 subItemCreated.__id = subItem._id;
                 subItemCreated._id = subItemCreated.Id;
-                subItemCreated._parent = itemUpdated;
                 subItemCreated._list = currentSubList;
 
                 newSubList.values[subItemCreated.Id] = subItemCreated;
@@ -981,20 +1320,18 @@ List.ListRecord = class extends List.List {
                 if ( currentSubList.list === null || currentSubList.list === undefined || !currentSubList.composition )
                     continue;
 
-                var list = oldItem[subListId];
-
-                for ( let i in list ) {
-                    let currentSubItem = list[i];
-                    if ( currentSubItem === null || currentSubItem === undefined )
-                        continue;
-
+                for ( let currentSubItem of Array.toIterable( oldItem[subListId] ) ) {
                     // Delete the component into the database
 
                     let errorItem = new Errors();
                     currentSubList.list.deleteItem( currentSubItem.Id, currentSubItem, errorItem, false );
 
-                    if ( errorItem.HasError )
-                        errors.addError( subListId + "[" + currentSubItem._id + "]", errorItem );
+                    if ( errorItem.HasError ) {
+                        if ( currentSubItem._line === null || currentSubItem._line === undefined )
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, currentSubItem._id] ), errorItem );
+                        else
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, currentSubItem._line] ), errorItem );
+                    }
                 }
 
                 oldItem._subLists[subListId].values = [];
@@ -1006,7 +1343,7 @@ List.ListRecord = class extends List.List {
 
         // delete the item
 
-        var itemDeleted = DSDatabase.Instance.deleteFromClient( this._table, oldItem, errors );
+        let itemDeleted = DSDatabase.Instance.deleteFromClient( this._table, oldItem, errors );
 
         if ( errors.HasError )
             return errors;
@@ -1016,7 +1353,7 @@ List.ListRecord = class extends List.List {
 
         // clean up all components of the item
 
-        itemDeleted = List.ListRecord.SetListValues( this._subLists, itemDeleted );
+        itemDeleted = List.ListRecord.SetExtendedFields( this, itemDeleted );
 
         for ( let subListId in this._subLists ) {
             let subList = itemDeleted._subLists[subListId];
@@ -1063,8 +1400,7 @@ List.ListRecord = class extends List.List {
             // Cancel new components
 
             if ( newListItems !== null && newListItems !== undefined ) {
-                for ( let id in newListItems ) {
-                    let subItem = newListItems[id];
+                for ( let subItem of Array.toIterable( newListItems ) ) {
                     if ( subItem.Id !== -1 )
                         continue;
 
@@ -1073,8 +1409,12 @@ List.ListRecord = class extends List.List {
                     let errorItem = new Errors();
                     currentSubList.list.cancelItem( subItem.Id, null, subItem, errorItem );
 
-                    if ( errorItem.HasError )
-                        errors.addError( subListId + "[" + subItem._id + "]", errorItem );
+                    if ( errorItem.HasError ) {
+                        if ( subItem._line === null || subItem._line === undefined )
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subItem._id] ), errorItem );
+                        else
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subItem._line] ), errorItem );
+                    }
                 }
             }
 
@@ -1094,8 +1434,12 @@ List.ListRecord = class extends List.List {
                     let errorItem = new Errors();
                     currentSubList.list.cancelItem( subItem.Id, oldListItems[id], subItem, errorItem );
 
-                    if ( errorItem.HasError )
-                        errors.addError( subListId + "[" + subItem._id + "]", errorItem );
+                    if ( errorItem.HasError ) {
+                        if ( subItem._line === null || subItem._line === undefined )
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subItem._id] ), errorItem );
+                        else
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subItem._line] ), errorItem );
+                    }
                 }
             }
 
@@ -1112,8 +1456,12 @@ List.ListRecord = class extends List.List {
                     let errorItem = new Errors();
                     currentSubList.list.cancelItem( subItem.Id, subItem, null, errorItem );
 
-                    if ( errorItem.HasError )
-                        errors.addError( subListId + "[" + subItem._id + "]", errorItem );
+                    if ( errorItem.HasError ) {
+                        if ( subItem._line === null || subItem._line === undefined )
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_ID", [subListId, subItem._id] ), errorItem );
+                        else
+                            errors.addError( Language.Manager.Instance.interpolation( "ERR_LINE", [subListId, subItem._line] ), errorItem );
+                    }
                 }
             }
         }
@@ -1124,9 +1472,11 @@ List.ListRecord = class extends List.List {
     /**
      * Begin Transaction
      * @param {any} label label to show into the transaction
+     * @param {any} notify true if the notification must be sent to the caller
      */
-    beginTransaction( label ) {
-        DSDatabase.Instance.beginTransaction( label );
+    beginTransaction( label, notify ) {
+        super.beginTransaction( label, notify );
+        DSDatabase.Instance.beginTransaction( label, notify );
     }
 
     /**
@@ -1134,22 +1484,29 @@ List.ListRecord = class extends List.List {
      */
     endTransaction() {
         DSDatabase.Instance.endTransaction();
+        super.endTransaction();
     }
 
     /**
-     * Commit current changes
-     * @param {any} record not used (record concerned by the commit)
+     * Commit current changes in asynchronous mode
      */
-    commit ( record ) {
-        DSDatabase.Instance.commit();
+    async commitAsync() {
+        await DSDatabase.Instance.commit();
     }
 
     /**
      * Rollback current changes
+     */
+    rollback () {
+        DSDatabase.Instance.rollback();
+    }
+
+    /**
+     * Rollback current changes in asynchronous mode
      * @param {any} record not used (record concerned by the rollback)
      */
-    rollback ( record ) {
-        DSDatabase.Instance.rollback();
+    async rollbackAsync() {
+        await DSDatabase.Instance.rollbackAsync();
     }
 
     /**
@@ -1171,6 +1528,699 @@ List.ListRecord = class extends List.List {
     }
 
     /**
+     * Declare mainKey and otherKey as different keys into the file
+     * @param {any} mainKey first column containing key
+     * @param {any} otherKey second column having a key too
+     */
+    declareKeysCSV( mainKey, otherKey ) {
+        super.declareKeysCSV( mainKey, otherKey );
+
+        this._csv_keys.push( [mainKey, otherKey] );
+    }
+
+    /**
+     * Declare an association between a property read from CSV file and a given table
+     * @param {string} property name of the property identifying the expected value
+     * @param {string} table    table name representing the list of foreign keys
+     * @param {any} filter      function of elements to retrieve from the table
+     * @param {any} buildingKey function of elements to retrieve from the key
+     */
+    declareForeignKeysCSV( property, table, filter, buildingKey ) {
+        this._csv_foreignKeys[property] = { table: table, list: List.ListRecord.CACHE_LIST( table ), keys: {}, computed: false, filter: filter, buildingKey: buildingKey };
+    }
+
+    /**
+     * Load key from Foreign keys to match value from CSV to Id
+     * @param {CSV} csv CSV file to import
+     */
+    loadForeignKeysCSV( csv ) {
+        function handleRead( foreignKey ) {
+            return function ( record ) {
+                if ( foreignKey.filter && !foreignKey.filter( record ) )
+                    return;
+
+                let key = foreignKey.buildingKey ? foreignKey.buildingKey( foreignKey.list, record ) : foreignKey.list.getKey( record );
+                if ( !String.isEmptyOrWhiteSpaces( key ) )
+                    foreignKey.keys[key] = foreignKey.list.getId( record );
+            };
+        }
+
+        for ( let property in this._csv_foreignKeys ) {
+            let foreignKey = this._csv_foreignKeys[property];
+            if ( foreignKey.computed )
+                continue;
+
+            Logger.Instance.info( "List", "Reading values for the property '" + property + "' of the CSV file '" + csv.Name + "' ..." );
+
+            foreignKey.list.each( handleRead( foreignKey ) );
+            foreignKey.computed = true;
+        }
+    }
+
+    /**
+     * Retrieve the Id of the item matching within the foreign key
+     * @param {string} property name of the property identifying the expected value
+     * @param {string} value    value to convert
+     * @param {any}    errors   container of errors after cancelling
+     * @returns {number} Id of the item matching within the key or null
+     */
+    getForeignKeysIdCSV( property, value, errors ) {
+        let foreignKey = this._csv_foreignKeys[property];
+        if ( foreignKey === null || foreignKey === undefined ) {
+            errors.addField( property, "ERR_CSV_MISSINGREFERENCE", [value, property] );
+            return null;
+        }
+
+        let id = foreignKey.keys[value];
+        if ( id === null || id === undefined ) {
+            if ( String.isEmptyOrWhiteSpaces( value ) )
+                return null;
+
+            errors.addField( property, "ERR_CSV_MISSINGREFERENCE", [value, property] );
+            return null;
+        }
+
+        return id;
+    }
+
+    /**
+     * Notify the beginning of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data from a file can start
+     */
+    startCSV( csv, errors ) {
+        function handleRead( list, listKeys, errors ) {
+            return function ( record ) {
+                let key = list.getKey( record );
+
+                // check if the records are differents ...
+
+                if ( list._csv_recordIdsByKey[key] !== undefined ) {
+                    if ( listKeys[key] === undefined ) {
+                        listKeys[key] = key;
+                        errors.addGlobal( "ERR_CSV_KEYDOUBLE_DB", key );
+                    }
+                } else {
+                    let id = list.getId( record );
+                    list._csv_recordIdsByKey[key] = id;
+                    list._csv_recordsToDelete[key] = id;
+                    list._csv_rowToDelete++;
+                }
+            };
+        }
+
+        if ( ! super.startCSV( csv, errors ) )
+            return false;
+
+        // Initialize the list of keys matching within Id
+
+        this._csv_foreignKeys = {};
+
+        // Read all records and map by id
+
+        let errorsInReading = new Errors();
+
+        this._csv_rowToDelete = 0;
+        this._csv_recordKey = {};
+        this._csv_recordIdsByKey = {};
+        this._csv_recordsToDelete = {};
+        if ( this._csv_list === null ) {
+            this.each( handleRead( this, {}, errorsInReading ) );
+        } else {
+            let fn = handleRead( this, {}, errorsInReading );
+
+            for ( let item of Array.toIterable( this._csv_list ) )
+                fn( item );
+        }
+
+        if ( errorsInReading.HasError ) {
+            errors.addErrors( errorsInReading );
+            return false;
+        }
+
+        this._csv_transaction_opened = false;
+
+        return true;
+    }
+
+    /**
+     * Notify the beginning of preloading the content of files
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the preloading data must be done, or false to skip this step
+     */
+    startPreloadingCSV( csv, errors ) {
+        let result = super.startPreloadingCSV( csv, errors );
+        this.loadForeignKeysCSV( csv );
+        return result;
+    }
+
+    /**
+     * Notify the beginning of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be done, or false to skip this step
+     */
+    startCheckingCSV( csv, errors ) {
+        let result = super.startCheckingCSV( csv, errors );
+        this.loadForeignKeysCSV( csv );
+        return result;
+    }
+
+    /**
+     * Retrieve the number of rows to delete concerned by the importing
+     * @param {any} csv CSV file to import
+     * @returns {integer} the number of rows into the table before importing data
+     */
+    getRowToDeleteCSV( csv ) {
+        return this._csv_rowToDelete;
+    }
+
+    /**
+     * Set in a record the value from 
+     * @param {CSV} csv CSV file to import
+     * @param {any} item record to complete within information from columns
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {any} record updated or null if the record must be ignored
+     */
+    getMappingRecordFromCSV( csv, item, columnsByOrder, columnsByName, errors ) {
+        function getRandomKey( attribute ) {
+            let newKey = String.random( attribute.maxLength );
+            while ( attribute.tmpKeys[newKey] !== undefined )
+                newKey = String.random( attribute.maxLength );
+            attribute.tmpKeys[newKey] = true;
+            return newKey;
+        }
+
+        // For checking data into the record, don't change the secondary key ...
+
+        if ( this._csv_cache === null )
+            return item;
+
+        // For each mainKey, update other keys
+
+        for ( let mainKey in this._csv_cache ) {
+            let cache = this._csv_cache[mainKey];
+
+            let key1 = this.getAttributText( item, mainKey );
+            key1 = String.isEmptyOrWhiteSpaces( key1 ) ? "" : key1;
+
+            // Other keys already computed ?
+
+            let values = cache.values[key1];
+
+            if ( values !== undefined && values._lastValues !== undefined ) {
+                for ( let attributeOtherKey in cache.attributes )
+                    item[attributeOtherKey] = values._lastValues[attributeOtherKey];
+                continue;
+            }
+
+            // Update keys and store the result
+
+            let lastValues = {};
+
+            for ( let attributeOtherKey in cache.attributes ) {
+                let key2 = this.getAttributText( item, attributeOtherKey );
+                key2 = String.isEmptyOrWhiteSpaces( key2 ) ? "" : key2;
+
+                let existingOtherKey = cache.attributes[attributeOtherKey].values[key2];
+
+                // values (key1 existing ?) - existingOtherKey (key2 existing ?)
+
+                if ( values !== undefined ) {
+                    if ( existingOtherKey !== true ) {
+                        // key2 doesn't exist ... you can create it directly
+                        delete cache.values[key1][attributeOtherKey];
+                    } else if ( values[attributeOtherKey][0] === key2 ) {
+                        // key2 has the same value as before ... don't change anything
+                        delete cache.values[key1][attributeOtherKey];
+                    } else {
+                        // key2 exists ... you have to go through a temporary key and you can consider than the old value is free
+                        let valueAttr = values[attributeOtherKey];
+                        valueAttr[1] = key2;
+                        valueAttr[2] = getRandomKey( cache.attributes[attributeOtherKey] );
+                        item[attributeOtherKey] = valueAttr[2];
+                        delete cache.attributes[attributeOtherKey].values[valueAttr[0]];
+                    }
+                } else {
+                    if ( existingOtherKey !== true ) {
+                        // key2 doesn't exist ... you can create it directly
+                    } else {
+                        // key1 doesn't exist, key2 exists ... you have to go through a temporary key for creating a record
+
+                        if ( cache.values[key1] === undefined )
+                            cache.values[key1] = {};
+
+                        cache.values[key1][attributeOtherKey] = [null, key2, getRandomKey( cache.attributes[attributeOtherKey] )];
+                        item[attributeOtherKey] = cache.values[key1][attributeOtherKey][2];
+                    }
+                }
+
+                lastValues[attributeOtherKey] = item[attributeOtherKey];
+            }
+
+            // Store the keys computed
+
+            if ( values === null || cache.values[key1] === undefined )
+                cache.values[key1] = {};
+
+            cache.values[key1]._lastValues = lastValues;
+        }
+
+        return item;
+    }
+
+    /**
+     * Check the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data must be continued or false, to stop
+     */
+    checkRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        if ( ! super.checkRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) )
+            return false;
+
+        // Check the record after migrating data
+
+        let newRecord = this.getMappingRecordFromCSV( csv, this.NewItem, columnsByOrder, columnsByName, errors );
+        if ( newRecord === null )
+            return true;
+
+        // check properties
+
+        this.checkProperties( newRecord, errors );
+
+        // check if the key is in double into the CSV file
+
+        let key = this.getKey( newRecord );
+        let existingKey = this._csv_recordKey[key];
+        if ( existingKey !== null && existingKey !== undefined ) {
+            // the key of the record is duplicated
+            errors.addGlobal( "ERR_CSV_KEYDOUBLE_FILE", key );
+        } else {
+            this._csv_recordKey[key] = true;
+        }
+
+        // check the validity of the record
+
+        this.checkItem( newRecord, errors, false );
+
+        return true;
+    }
+
+    /**
+     * Notify the ending of checking the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the checking data is correct, or stop reading CSV file
+     */
+    endCheckingCSV( csv, errors ) {
+        if ( this._csv_transaction_opened ) {
+            this._csv_transaction_opened = false;
+            this.endTransactionCSV( csv );
+        }
+
+        return super.endCheckingCSV( csv, errors );
+    }
+
+    /**
+     * Notify the beginning of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data must be done, or false to skip this step
+     */
+    startImportingCSV( csv, errors ) {
+        function handleRead( list ) {
+            return function ( record ) {
+                for ( let mainKey in list._csv_cache ) {
+                    let cache = list._csv_cache[mainKey];
+
+                    let key1 = list.getAttributText( record, mainKey );
+                    key1 = String.isEmptyOrWhiteSpaces( key1 ) ? "" : key1;
+
+                    let values = {};
+                    cache.values[key1] = values;
+
+                    for ( let attributeOtherKey in cache.attributes ) {
+                        let key2 = list.getAttributText( record, attributeOtherKey );
+                        key2 = String.isEmptyOrWhiteSpaces( key2 ) ? "" : key2;
+
+                        values[attributeOtherKey] = [key2, null, null];
+                        cache.attributes[attributeOtherKey].values[key2] = true;
+                    }
+                }
+            };
+        }
+
+        this._csv_cache = {};
+        if ( this._csv_keys.length > 0 ) {
+            // Build a cache for every keys
+
+            for ( let key of Array.toIterable( this._csv_keys ) ) {
+                let mainKey = key[0];
+                let otherKeys = key[1];
+
+                let cache = {
+                    values: {},
+                    attributes: {}
+                };
+
+                this._csv_cache[mainKey] = cache;
+
+                for ( let otherKey of Array.toIterable( otherKeys ) ) {
+                    let maxLengthKey = DSDatabase.Instance.getColumn( this.Table, otherKey ).StringMaxLength;
+                    if ( maxLengthKey > 64 )
+                        maxLengthKey = 64;
+
+                    cache.attributes[otherKey] = {
+                        maxLength: maxLengthKey,
+                        tmpKeys: {},
+                        values: {}
+                    }
+                }
+            }
+
+            // Read records and map existing keys
+
+            if ( this._csv_list === null ) {
+                this.each( handleRead( this ) );
+            } else {
+                let fn = handleRead( this );
+                for ( let record of Array.toIterable( this._csv_list ) )
+                    fn( record );
+            }
+        }
+
+        this._csv_counter = 0;
+        this._csv_counter_add = csv.RowAdded;
+        this._csv_counter_update = csv.RowUpdated;
+        this._csv_counter_delete = csv.RowDeleted;
+        this._csv_counter_postUpdate = null;
+
+        let result = super.startImportingCSV( csv, errors );
+        this.loadForeignKeysCSV( csv );
+        return result;
+    }
+
+    /**
+     * Build a record within data ready to add into the content of the row (data, type, structure and references)
+     * @param {CSV} csv CSV file to import
+     * @param {Array} columnsByOrder array of values by position into the CSV file
+     * @param {Array} columnsByName map of values by the header name (first line of the CSV file)
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {oldItem, newItem} record to add, update or delete (on depends on values into the element) - null if the line must be ignored
+     */
+    getRecordFromCSV( csv, columnsByOrder, columnsByName, errors ) {
+        // If the parent class retrieves records, return them
+
+        let result = super.getRecordFromCSV( csv, columnsByOrder, columnsByName, errors );
+        if ( result !== null )
+            return result;
+
+        // Build a record within minimal information
+
+        let newRecord = this.getMappingRecordFromCSV( csv, this.NewItem, columnsByOrder, columnsByName, errors );
+        if ( newRecord === null )
+            return null;
+
+        this.checkProperties( newRecord, errors );
+
+        // Look for an existing id record by its key (different than the id)
+
+        let key = this.getKey( newRecord );
+        let idExisting = this._csv_recordIdsByKey[key];
+        if ( idExisting === null || idExisting === undefined ) {
+            // it's a new record ... it doesn't exist
+
+            return { oldItem: null, newItem: newRecord };
+        }
+
+        // mark this record to not delete
+
+        if ( this._csv_recordsToDelete[key] !== undefined ) {
+            delete this._csv_recordsToDelete[key];
+            this._csv_rowToDelete--;
+        }
+
+        // update an existing record
+
+        let oldRecord = null;
+        if (this._csv_list === null) {
+            oldRecord = this.getItem(idExisting, true);
+        } else {
+            oldRecord = this._csv_list[idExisting];
+        }
+        newRecord = this.getMappingRecordFromCSV( csv, DSRecord.Clone( oldRecord, false ), columnsByOrder, columnsByName, errors );
+        if ( newRecord === null )
+            return null;
+
+        this.checkProperties( newRecord, errors );
+
+        return { oldItem: oldRecord, newItem: newRecord };
+    }
+
+    /**
+     * Start a transaction of update
+     * @param {CSV} csv CSV file to import
+     */
+    beginTransactionCSV( csv ) {
+        let label = undefined;
+        let notify = false;
+
+        // First line updated ...
+
+        if ( this._csv_counter === 0 )
+            label = Helper.Label( this.Table.toUpperCase() + "_IMPORTING_TOAST", [this._csv_counter_add, this._csv_counter_update, csv.WillDeleteRows ? this._csv_counter_delete : 0] );
+
+        // Last line updated ...
+
+        let total = this._csv_counter_add + this._csv_counter_update + ( csv.WillDeleteRows ? this._csv_counter_delete : 0 );
+        this._csv_counter++;
+
+        if ( ( this._csv_counter >= total || ( this._csv_counter % this._csv_lotsize ) === 0 ) && this._csv_transaction_opened ) {
+            this._csv_transaction_opened = false;
+            this.endTransactionCSV( csv );
+        }
+
+        if ( this._csv_counter >= total ) {
+            if ( this._csv_counter_postUpdate === null )
+                this._csv_counter_postUpdate = this.getItemsToPostUpdateCSV( csv, new Errors() ).length;
+
+            if ( this._csv_counter === total + this._csv_counter_postUpdate ) {
+                label = Helper.Label( this.Table.toUpperCase() + "_IMPORTED_TOAST", [this._csv_counter_add, this._csv_counter_update, csv.WillDeleteRows ? this._csv_counter_delete : 0] );
+                notify = true;
+            }
+        }
+
+        if ( !this._csv_transaction_opened ) {
+            this.beginTransaction( label, notify );
+            this._csv_transaction_opened = true;
+        }
+    }
+
+    /**
+     * Close a transaction of update
+     * @param {CSV} csv CSV file to import
+     */
+    endTransactionCSV( csv ) {
+        if ( this._csv_transaction_opened )
+            return;
+
+        this.endTransaction();
+    }
+
+    /**
+     * Add a new item into the database and return the item created (included compositions of the item) - call done by CSV
+     * @param {CSV} csv CSV file to import
+     * @param {any} newItem item to add
+     * @param {any} errors container of errors after adding
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} new item added into the list or errors
+     */
+    addItemCSV( csv, newItem, errors, force, checkItem ) {
+        this.beginTransactionCSV( csv );
+        let item = this.addItem( newItem, errors, force, checkItem );
+        this.endTransactionCSV( csv );
+        return item;
+    }
+
+    /**
+     * Update an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record updated
+     * @param {any} oldItem item to update
+     * @param {any} newItem item updated
+     * @param {any} errors container of errors after updating
+     * @param {any} force  true if the first step (warning is validated by the user)
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item updated into the list or errors
+     */
+    updateItemCSV( csv, id, oldItem, newItem, errors, force, checkItem ) {
+        this.beginTransactionCSV( csv );
+        let item = this.updateItem( id, oldItem, newItem, errors, force, checkItem );
+        this.endTransactionCSV( csv );
+        return item;
+    }
+
+    /**
+     * Remove an item into the database
+     * @param {CSV} csv CSV file to import
+     * @param {any} id id of the record removed
+     * @param {any} oldItem item to remove
+     * @param {any} errors container of errors after updating
+     * @param {any} checkItem true if the item must be checked before adding (by default: true)
+     * @returns {any} item deleted or errors
+     */
+    deleteItemCSV( csv, id, oldItem, errors, checkItem ) {
+        this.beginTransactionCSV( csv );
+        let item = this.deleteItem( id, oldItem, errors, checkItem );
+        this.endTransactionCSV( csv );
+        return item;
+    }
+
+    /**
+     * Get the list of records to delete into the table after updating list
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to delete
+     */
+    getItemsToDeleteCSV( csv, errors ) {
+        let items = [];
+
+        // Retrieve the list of items to delete
+
+        for ( let id of Array.toIterable( this._csv_recordsToDelete ) ) {
+            let record = this.getItem( id, true );
+            if ( record !== null )
+                items.push( record );
+        }
+
+        return items;
+    }
+
+    /**
+     * Get the list of records to update at the end of updating table (change the key values)
+     * @param {CSV} csv CSV file to import
+     * @param {any} errors container of errors after getting value
+     * @returns {array} list of records to update [0: old, 1: new]
+     */
+    getItemsToPostUpdateCSV( csv, errors ) {
+        function handleUpdate( list, items ) {
+            return function ( record ) {
+                let newRecord = null;
+
+                // update the record if a temporary key was set by the target key
+
+                for ( let mainKey in list._csv_cache ) {
+                    let cache = list._csv_cache[mainKey];
+
+                    let key1 = list.getAttributText( record, mainKey );
+                    key1 = String.isEmptyOrWhiteSpaces( key1 ) ? "" : key1;
+
+                    let values = cache.values[key1];
+
+                    if ( values === undefined )
+                        continue;
+
+                    for ( let attributeOtherKey in cache.attributes ) {
+                        if ( values[attributeOtherKey] === undefined || values[attributeOtherKey][2] === null )
+                            continue;
+
+                        // Replace temporary key by the target key
+
+                        if ( newRecord === null )
+                            newRecord = DSRecord.Clone( record );
+
+                        newRecord[attributeOtherKey] = values[attributeOtherKey][1];
+                    }
+
+                    delete cache.values[key1];
+                }
+
+                // update the new record
+
+                if ( newRecord === null )
+                    return;
+
+                items.push( [record, newRecord] );
+            };
+        }
+
+        let items = [];
+
+        if ( this._csv_cache === null )
+            return items;
+
+        if ( this._csv_list === null ) {
+            this.each( handleUpdate( this, items ) );
+        } else {
+            let fn = handleUpdate( this, items );
+            for ( let record of Array.toIterable( this._csv_list ) )
+                fn( record );
+        }
+
+        return items;
+    }
+
+    /**
+     * Notify the ending of importing the content of the file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} true if the importing data is correct, or stop reading CSV file
+     */
+    endImportingCSV( csv, errors ) {
+        if ( this._csv_transaction_opened ) {
+            this._csv_transaction_opened = false;
+            this.endTransactionCSV( csv );
+        }
+
+        // clean up cache
+
+        this._csv_cache = null;
+
+        // end the processus
+
+        return super.endImportingCSV( csv, errors );
+    }
+
+    /**
+     * Notify the ending of importing data from a file
+     * @param {CSV} csv CSV file to import
+     * @param {Errors} errors update the errors component if an abnormal situation is identified
+     * @returns {boolean} details of errors identified on ending the CSV file
+     */
+    endCSV( csv, errors ) {
+        // Close lot size
+
+        if ( this._csv_transaction_opened ) {
+            this._csv_transaction_opened = false;
+            this.endTransactionCSV( csv );
+        }
+
+        // clean up cache
+
+        this._csv_recordKey = {};
+        this._csv_recordIdsByKey = {};
+        this._csv_recordsToDelete = {};
+        this._csv_rowToDelete = 0;
+
+        this._csv_foreignKeys = {};
+
+        // end the csv file loading
+
+        if ( ! super.endCSV( csv, errors ) )
+            return false;
+
+        return true;
+    }
+
+    /**
      * Constructor
      * @param {any} table      table name
      * @param {any} allRecords true : take into account the Enable property
@@ -1179,7 +2229,7 @@ List.ListRecord = class extends List.List {
         super();
 
         this._table = table;
-        this._allRecords = allRecords === null || allRecords === undefined || allRecords ? true : false; // show records even if it's disabled
+        this._allRecords = allRecords === null || allRecords === undefined || allRecords === true ? true : false; // show records even if it's disabled
 
         let sequence = DSDatabase.Instance.getSequence(table);
 
@@ -1188,5 +2238,29 @@ List.ListRecord = class extends List.List {
         this._sequenceLength = sequence === null ? null : sequence.Length;
 
         this._subLists = null;
+        this._foreignKeys = null;
+
+        this._csv_list = null; // If it's not null, Replace each() function from the current list
+        this._csv_mapping = null;
+        this._csv_recordKey = {};
+        this._csv_recordIdsByKey = {};
+        this._csv_recordsToDelete = {};
+        this._csv_rowToDelete = 0;
+
+        this._csv_foreignKeys = {};
+
+        // multiple keys in the same file
+
+        this._csv_cache = null;
+        this._csv_keys = [];
+
+        this._csv_counter = null;
+        this._csv_counter_add = null;
+        this._csv_counter_update = null;
+        this._csv_counter_delete = null;
+        this._csv_counter_postUpdate = null;
+
+        this._csv_lotsize = DSDatabase.Instance.Tables[table] === undefined || DSDatabase.Instance.Tables[table] === null ? 1 : DSDatabase.Instance.Tables[table].LotSize;
+        this._csv_transaction_opened = false;
     }
 };

@@ -4,7 +4,7 @@
 /// <reference path="ListArray.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,21 @@
  * Define a dialog box handling a record
  */
 UserModuleRecord.Box = class extends GUI.Box.BoxRecord {
-    /**     * @returns {List.List} list representing all ressources     */    get List() {        return this._list;    }    /**     * @param {any} list set a list to this box     */    set List( list ) {        this._list = list ? list : new UserModuleRecord.List();    }    /**
+    /**
+     * @returns {List.List} list representing all ressources
+     */
+    get List() {
+        return this._list;
+    }
+
+    /**
+     * @param {any} list set a list to this box
+     */
+    set List( list ) {
+        this._list = list ? list : new UserModuleRecord.List();
+    }
+
+    /**
      * Draw and show the content of the dialog box
      * @param {any} container zone having the content
      */
@@ -46,11 +60,11 @@ UserModuleRecord.Box = class extends GUI.Box.BoxRecord {
 
         function handleRead( box, field, table ) {
             return function () {
-                var id = field.Value;
+                let id = field.Value;
                 if ( id === undefined || id === null )
                     return;
 
-                var item = List.ListRecord.CACHE_LIST( table ).getItem( id, true );
+                let item = List.ListRecord.CACHE_LIST( table ).getItem( id, true );
                 if ( item === null )
                     return;
 

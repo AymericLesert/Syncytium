@@ -1,0 +1,128 @@
+﻿-- ------------------------------------- SQL Server ---------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2020/10/15 - Aymeric Lesert - Create Module Admininistration
+-- ----------------------------------------------------------------------------------
+
+-- Create table : Language
+
+create table [${Syncytium.Database.Schema}].[Language]
+		([Id]         int          not null identity primary key,
+		 [CustomerId] int          not null,
+		 [Key]        nvarchar(64) not null,
+		 [FR]         nvarchar(1024),
+		 [EN]         nvarchar(1024),
+		 [Comment]    nvarchar(256),
+         constraint   fk_language_00 FOREIGN KEY ([CustomerId]) references [${Syncytium.Database.Schema}].[Customer] ([Id]))
+
+GO
+
+-- Status => 0: Not change, 1: Add, 2: Delete, 3: Update
+
+create table [${Syncytium.Database.Schema}].[_Language]
+		([Key]     nvarchar(64)  not null,
+		 [FR]      nvarchar(1024),
+		 [EN]      nvarchar(1024),
+		 [Comment] nvarchar(256),
+		 [Status]  int           not null)
+GO
+
+create procedure [${Syncytium.Database.Schema}].[BeginMultilingualUpdate] as
+begin
+  delete [${Syncytium.Database.Schema}].[_Language];
+
+  insert into [${Syncytium.Database.Schema}].[_Language]([Key], [FR], [EN], [Comment], [Status])
+  select [Key], [FR], [EN], [Comment], 2
+    from [${Syncytium.Database.Schema}].[Language]
+   where [CustomerId] = 1;
+end
+
+GO
+
+create procedure [${Syncytium.Database.Schema}].[InsertMultilingualLabel](@LabelKey nvarchar(64), @LabelFR nvarchar(1024), @LabelEN nvarchar(1024), @LabelComment nvarchar(256)) as
+begin
+  update [${Syncytium.Database.Schema}].[_Language]
+     set [Status] = 0
+   where [Key] = @LabelKey and [FR] = @LabelFR and
+                               [EN] = @LabelEN and
+							   isnull([Comment], '') = isnull(@LabelComment, '');
+
+  update [${Syncytium.Database.Schema}].[_Language]
+     set [Status] = 3, [FR] = @LabelFR, [EN] = @LabelEN, [Comment] = @LabelComment
+   where [Key] = @LabelKey and ([FR] <> @LabelFR or
+                                [EN] <> @LabelEN or
+								isnull([Comment], '') <> isnull(@LabelComment, ''));
+   
+  insert into [${Syncytium.Database.Schema}].[_Language]([Key], [FR], [EN], [Comment], [Status])
+  select @LabelKey, @LabelFR, @LabelEN, @LabelComment, 1
+   where not exists (select *
+                       from [${Syncytium.Database.Schema}].[_Language]
+		   		      where [Key] = @LabelKey);
+end
+GO
+
+create procedure [${Syncytium.Database.Schema}].[EndMultilingualUpdate] as
+begin
+  -- Add all new labels
+  
+  insert into [${Syncytium.Database.Schema}].[Language]([CustomerId], [Key], [FR], [EN], [Comment])
+  select [${Syncytium.Database.Schema}].[Customer].[Id], [Key], [FR], [EN], [${Syncytium.Database.Schema}].[_Language].[Comment]
+    from [${Syncytium.Database.Schema}].[Customer], [${Syncytium.Database.Schema}].[_Language]
+   where [${Syncytium.Database.Schema}].[_Language].[Status] = 1;
+   
+   -- Delete labels not added
+
+  delete [${Syncytium.Database.Schema}].[Language]
+   where [Key] in (select [Key] from [${Syncytium.Database.Schema}].[_Language] where [Status] = 2);
+   
+  -- Update labels and comments
+   
+  update [${Syncytium.Database.Schema}].[Language]
+     set [FR] = (select [FR] from [${Syncytium.Database.Schema}].[_Language] where [${Syncytium.Database.Schema}].[Language].[Key] = [${Syncytium.Database.Schema}].[_Language].[Key] and [${Syncytium.Database.Schema}].[_Language].[Status] = 3),
+         [EN] = (select [EN] from [${Syncytium.Database.Schema}].[_Language] where [${Syncytium.Database.Schema}].[Language].[Key] = [${Syncytium.Database.Schema}].[_Language].[Key] and [${Syncytium.Database.Schema}].[_Language].[Status] = 3),
+         [Comment] = (select [Comment] from [${Syncytium.Database.Schema}].[_Language] where [${Syncytium.Database.Schema}].[Language].[Key] = [${Syncytium.Database.Schema}].[_Language].[Key] and [${Syncytium.Database.Schema}].[_Language].[Status] = 3)
+   where [${Syncytium.Database.Schema}].[Language].[Key] in (select [Key] from [${Syncytium.Database.Schema}].[_Language] where [Status] = 3);
+   
+  delete [${Syncytium.Database.Schema}].[_Language];
+
+  delete [${Syncytium.Database.Schema}].[_Information] where [Table] = 'Language';
+
+  -- notify server that labels are updated
+
+  update [${Syncytium.Database.Schema}].[_Parameter] set [Value] = '-1' where [Key] like 'Language.Tick%';
+end
+
+GO
+
+-- create table Notification
+
+create table [${Syncytium.Database.Schema}].[Notification]
+		([Id]         int not null identity primary key,
+		 [UserId]     int not null,
+		 [CustomerId] int not null,
+		 [LastTick]   int not null,
+		 [Date]       date default getdate() not null,
+		 [Report]     nvarchar(32),
+		 constraint   fk_notification_00 foreign key([UserId])     references [${Syncytium.Database.Schema}].[User]([Id]),
+		 constraint   fk_notification_01 foreign key([CustomerId]) references [${Syncytium.Database.Schema}].[Customer]([Id]))
+GO
+
+create index I_NOTIFICATION_USER on [${Syncytium.Database.Schema}].[Notification]([UserId])
+GO
+
+create index I_NOTIFICATION_CUSTOMER on [${Syncytium.Database.Schema}].[Notification]([CustomerId])
+GO

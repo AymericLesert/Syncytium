@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,24 +47,22 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
 
         // get the color for each legends
 
-        var defaultBodyColor = String.parseRGBToHEX( $( "body" ).css( 'color' ) );
+        let defaultBodyColor = String.parseRGBToHEX( $( "body" ).css( 'color' ) );
 
-        var div = $( "<webix id='" + this.Name + "' class='default_color'></webix>" );
+        let div = $( "<webix id='" + this.Name + "' class='default_color'></webix>" );
         if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
             div.addClass( this.CSSClass );
-        var element = div.appendTo( "body" );
-        var defaultColor = String.parseRGBToHEX( div.css( 'color' ) );
+        let element = div.appendTo( "body" );
+        let defaultColor = String.parseRGBToHEX( div.css( 'color' ) );
         element.remove();
 
-        for ( var i = 0; i < this._legends.length; i++ ) {
-            var legend = this._legends[i];
-
+        for ( let legend of this._legends ) {
             div = $( "<webix id='" + this.Name + "' class='color_" + legend.id + "'></webix>" );
             if ( !String.isEmptyOrWhiteSpaces( this.CSSClass ) )
                 div.addClass( this.CSSClass );
             element = div.appendTo( "body" );
 
-            var color = String.parseRGBToHEX( div.css( 'color' ) );
+            let color = String.parseRGBToHEX( div.css( 'color' ) );
             element.remove();
             legend.color = color === defaultBodyColor ? defaultColor : color;
         }
@@ -76,8 +74,8 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
         // handle the changement of languages
 
         function handleChangeLanguage( board ) {
-            return function ( currentLanguage, language, key ) {
-                var i, j;
+            return async function ( currentLanguage, language, key ) {
+                let i, j;
 
                 if ( language !== undefined ) {
                     for ( i = 0; i < board._legends.length; i++ ) {
@@ -96,7 +94,7 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
                 }
 
                 board.Webix = board.createChart();
-                board.adjustWebix();
+                await board.adjustWebix();
             };
         }
 
@@ -106,10 +104,10 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
     }
 
     /**
-     * Adjust the webix tool into the board
+     * Adjust the webix tool into the board in async mode
      */
-    adjustWebix () {
-        super.adjustWebix();
+    async adjustWebix() {
+        await super.adjustWebix();
 
         if ( this.Webix === null )
             return;
@@ -151,8 +149,8 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
      * @returns {string} HTML source code representing the tooltip to show on the mouse hover
      */
     getTooltip ( item, xaxis, legend ) {
-        var i = 0;
-        var content = "";
+        let i = 0;
+        let content = "";
 
         if ( legend !== null && legend !== undefined ) {
             for ( i = 0; i < this._legends.length; i++ ) {
@@ -188,10 +186,10 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
      * @returns {any} a new indicator value on depends on legends
      */
     newIndicator () {
-        var indicator = {};
+        let indicator = {};
 
-        for ( var i = 0; i < this._legends.length; i++ )
-            indicator[this._legends[i].id] = 0;
+        for ( let legend of this._legends )
+            indicator[legend.id] = 0;
 
         return indicator;
     }
@@ -204,13 +202,19 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
      */
     drawCanvas ( canvas, context ) {
     }
-    /**     * Method called on onOpen of the board     * Handle the update of the board when something changes into one of the references     */    onOpen() {        super.onOpen();
+
+    /**
+     * Method called on onOpen of the board
+     * Handle the update of the board when something changes into one of the references
+     */
+    onOpen() {
+        super.onOpen();
 
         function handleEvent( board ) {
-            return function () {
+            return async function () {
                 board.refresh();
-                board.populateWebix();
-                board.adjustWebix(true);
+                await board.populateWebix();
+                await board.adjustWebix( true );
             };
         }
 
@@ -225,7 +229,8 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
         }
 
         this.List.onOpen();
-    }
+    }
+
     /**
      * Method called on onClose of the box containing the field
      */
@@ -243,35 +248,29 @@ GUI.Board.BoardChart = class extends GUI.Board.Board {
     /**
      * Draw the chart into a canvas and add it into the PDF
      * @param {any} docPDF   docPDF to complete
-     * @param {any} fnEnd    function to call if the document is complete and ok
-     * @param {any} fnError  function to call if an exception occurs
      */
-    toPDF ( docPDF, fnEnd, fnError ) {
-        try {
-            var width = PDF.MAX_WIDTH_A4 - docPDF.pageMargins[0] - docPDF.pageMargins[2];
-            var height = Math.ceil( width / 2. );
+    toPDF ( docPDF ) {
+        let width = docPDF.MaxWidth - docPDF.Content.pageMargins[0] - docPDF.Content.pageMargins[2];
+        let height = Math.ceil( width / 2. );
 
-            // define a canvas
+        // define a canvas
 
-            var canvas = $( "<canvas width='" + ( width * 2 ).toString() + "' height='" + ( height * 2 ).toString() + "' ></canvas>" );
-            var context = canvas[0].getContext( "2d" );
+        let canvas = $( "<canvas width='" + ( width * 2 ).toString() + "' height='" + ( height * 2 ).toString() + "' ></canvas>" );
+        let context = canvas[0].getContext( "2d" );
 
-            // draw the chart
+        // draw the chart
 
-            this.drawCanvas( canvas[0], context );
+        this.drawCanvas( canvas[0], context );
 
-            // add the chart into the PDF file
+        // add the chart into the PDF file
 
-            docPDF.content.push( { image: PDF.AddImage( docPDF, canvas[0].toDataURL( "image/png", 1 ) ), width: width, height: height, alignment: 'center' } );
+        docPDF.Content.push( { image: docPDF.addImage( canvas[0].toDataURL( "image/png", 1 ) ), width: width, height: height, alignment: 'center' } );
 
-            // End of insertion
+        // End of insertion
 
-            canvas.remove();
-            fnEnd( docPDF );
-        } catch ( ex ) {
-            this.exception( "Unable to create PDF file", ex );
-            fnError( "ERR_DOWNLOAD_PDF" );
-        }
+        canvas.remove();
+
+        return docPDF;
     }
 
     /**

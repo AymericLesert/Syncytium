@@ -1,9 +1,10 @@
 ﻿using Syncytium.Common.Managers;
 using Syncytium.Module.Administration.Models;
 using System;
+using System.IO;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -45,7 +46,7 @@ namespace Syncytium.Web.Areas.ViewModels
         /// <summary>
         /// Notify in the signin screen that the remember me is checked or not
         /// </summary>
-        public bool RememberMe { get; } = false;
+        public bool RememberMe { get; } = true;
 
         /// <summary>
         /// Root URL of the website
@@ -66,6 +67,11 @@ namespace Syncytium.Web.Areas.ViewModels
         /// Notify if the log mode must be enable into the client
         /// </summary>
         public bool IsLogEnabled { get; } = false;
+
+        /// <summary>
+        /// Notify if the all verbose mode is enable from the server
+        /// </summary>
+        public bool VerboseAll { get; } = false;
 
         /// <summary>
         /// Notify if the verbose mode is enable from the server
@@ -108,6 +114,21 @@ namespace Syncytium.Web.Areas.ViewModels
         }
 
         /// <summary>
+        /// Replace "file" by a reference on "file" within a version based on the last modification date of the file
+        /// </summary>
+        /// <param name="file">Filename to add into the js or css file</param>
+        /// <returns></returns>
+        public string AddSource(string file)
+        {
+            string absFilename = Path.Combine(ConfigurationManager.Settings[ConfigurationManager.SETTING_FILE_ROOT], file.Replace("/", "\\").Substring(1));
+
+            if ( !File.Exists(absFilename))
+                return ConfigurationManager.Settings[ConfigurationManager.SETTING_HTTP_ROOT] + file;
+
+            return ConfigurationManager.Settings[ConfigurationManager.SETTING_HTTP_ROOT] + file + "?" + File.GetLastWriteTime(absFilename).ToString("yyyyMMddHHmmss");
+        }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="ressources"></param>
@@ -119,18 +140,19 @@ namespace Syncytium.Web.Areas.ViewModels
                              UserRecord profile,
                              bool authenticated,
                              int? moduleId = null,
-                             bool rememberMe = false)
+                             bool rememberMe = true)
         {
             Ressources = ressources;
             UserProfile = profile;
             Authenticated = authenticated;
             Mode = ConfigurationManager.Mode;
             IsLogEnabled = ConfigurationManager.IsLogEnabled;
+            VerboseAll = ConfigurationManager.VerboseAll;
             Verbose = ConfigurationManager.Verbose;
             Debug = ConfigurationManager.Debug;
             ModuleId = moduleId;
             RememberMe = rememberMe;
-            UrlRoot = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + System.Web.VirtualPathUtility.ToAbsolute("~");
+            UrlRoot = ConfigurationManager.ServerHttpRoot;
             if (!UrlRoot.EndsWith("/"))
                 UrlRoot += "/";
             Version = ConfigurationManager.ApplicationVersion.ToString();

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,6 +26,11 @@ GUI.Box = {};
 GUI.Box.BOX_RC = false;
 
 /**
+ * The reference on the last export CSV file
+ */
+GUI.Box.ExportCSVFile = null;
+
+/**
  * Basement of a dialog box
  *  - name      : identify the box (the name must be unique)
  *  - cssClass  : class affected to this box
@@ -36,6 +41,20 @@ GUI.Box.Box = class extends GUI.GUI {
      */
     static get MAIN_PAGE() {
         return "body > dialog";
+    }
+
+    /**
+     * @returns {string} "FIRST"
+     */
+    static get BUTTON_FIRST() {
+        return "FIRST";
+    }
+
+    /**
+     * @returns {string} "PREVIOUS"
+     */
+    static get BUTTON_PREVIOUS() {
+        return "PREVIOUS";
     }
 
     /**
@@ -60,6 +79,34 @@ GUI.Box.Box = class extends GUI.GUI {
     }
 
     /**
+     * @returns {string} "LAST"
+     */
+    static get BUTTON_LAST() {
+        return "LAST";
+    }
+
+    /**
+     * @returns {string} "CLIPBOARD"
+     */
+    static get BUTTON_CLIPBOARD() {
+        return "CLIPBOARD";
+    }
+
+    /**
+     * @returns {string} "SEARCH"
+     */
+    static get BUTTON_SEARCH() {
+        return "SEARCH";
+    }
+
+    /**
+     * @returns {string} "NEXT"
+     */
+    static get BUTTON_NEXT() {
+        return "NEXT";
+    }
+
+    /**
      * @returns {int} a new identity of the stack of box
      */
     static get StackIndex() {
@@ -76,7 +123,7 @@ GUI.Box.Box = class extends GUI.GUI {
      */
     static get Stack() {
         if ( !this._stackBox )
-            this._stackBox = {};
+            this._stackBox = [];
 
         return this._stackBox;
     }
@@ -89,13 +136,10 @@ GUI.Box.Box = class extends GUI.GUI {
 
         let zIndex = 0;
 
-        for ( var i in GUI.Box.Box.Stack ) {
-            if ( GUI.Box.Box.Stack[i] === null )
-                continue;
-
-            if ( zIndex < GUI.Box.Box.Stack[i]._zIndex ) {
-                zIndex = GUI.Box.Box.Stack[i]._zIndex;
-                lastOpenBox = GUI.Box.Box.Stack[i];
+        for ( let stack of Array.toIterable( GUI.Box.Box.Stack ) ) {
+            if ( zIndex < stack._zIndex ) {
+                zIndex = stack._zIndex;
+                lastOpenBox = stack;
             }
         }
 
@@ -141,8 +185,8 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this.Component === null )
             return;
 
-        var titleZone = this.Component.find( "> div > .title" );
-        var title = Helper.Span( this._title );
+        let titleZone = this.Component.find( "> div > .title" );
+        let title = Helper.Span( this._title );
 
         if ( String.isEmptyOrWhiteSpaces( title ) ) {
             titleZone.hide();
@@ -170,8 +214,8 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this.Component === null )
             return;
 
-        var messageZone = this.Component.find( "> div > .message" );
-        var message = Helper.Span( this._message );
+        let messageZone = this.Component.find( "> div > .message" );
+        let message = Helper.Span( this._message );
 
         if ( String.isEmptyOrWhiteSpaces( message ) ) {
             messageZone.hide();
@@ -206,17 +250,17 @@ GUI.Box.Box = class extends GUI.GUI {
             
             let focus = false;
 
-            for ( let field in this._fields ) {
-                let currentField = this._fields[field];
+            for ( let fieldName in this._fields ) {
+                let currentField = this._fields[fieldName];
                 if ( !currentField.Visible )
                     continue;
 
-                let errorMessage = this._error.getField( field );
+                let errorMessage = this._error.getField( fieldName );
                 currentField.Error = errorMessage;
-                this._error.ignoreField( field );
+                this._error.ignoreField( fieldName );
 
                 if ( errorMessage !== null )
-                    this._error.ignoreField( "Copy" + field );
+                    this._error.ignoreField( "Copy" + fieldName );
 
                 if ( !focus && errorMessage !== null ) {
                     if ( currentField.Panel !== null )
@@ -227,11 +271,11 @@ GUI.Box.Box = class extends GUI.GUI {
                 }
             }
         } else {
-            for ( let field in this._fields )
-                this._fields[field].Error = null;
+            for ( let field of Array.toIterable( this._fields ) )
+                field.Error = null;
         }
 
-        var errorZone = this.Component.find( "> div > .error" );
+        let errorZone = this.Component.find( "> div > .error" );
         if ( this._error === null || !this._error.summary || String.isEmptyOrWhiteSpaces( this._error.summary() ) ) {
             if ( this.ContentZone.hasClass( "haserrors" ) === true )
                 this.ContentZone.removeClass( "haserrors" );
@@ -241,8 +285,13 @@ GUI.Box.Box = class extends GUI.GUI {
             if ( this.ContentZone.hasClass( "haserrors" ) !== true )
                 this.ContentZone.addClass( "haserrors" );
 
-            errorZone.html( this._error.summary() );
-            errorZone.show();
+            let messageError = this._error.summary();
+            if ( String.isEmptyOrWhiteSpaces( messageError ) ) {
+                errorZone.hide();
+            } else {
+                errorZone.html( messageError );
+                errorZone.show();
+            }
         }
     }
 
@@ -312,18 +361,18 @@ GUI.Box.Box = class extends GUI.GUI {
     destructor () {
         super.destructor();
 
-        for ( var field in this._fields )
-            this._fields[field].destructor();
+        for ( let field of Array.toIterable( this._fields ) )
+            field.destructor();
 
         this._fields = {};
 
-        for ( var board in this._boards )
-            this._boards[board].destructor();
+        for ( let board of Array.toIterable( this._boards ) )
+            board.destructor();
 
         this._boards = {};
 
-        for ( var button in this._buttons )
-            this._buttons[button].destructor();
+        for ( let button of Array.toIterable( this._buttons ) )
+            button.destructor();
 
         this._buttons = {};
         this._focus = [];
@@ -355,7 +404,7 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( name === undefined || name === null )
             return null;
 
-        var field = this._fields[name];
+        let field = this._fields[name];
 
         return field === null || field === undefined ? null : field;
     }
@@ -386,7 +435,7 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( name === undefined || name === null )
             return null;
 
-        var board = this._boards[name];
+        let board = this._boards[name];
 
         return board === null || board === undefined ? null : board;
     }
@@ -408,7 +457,7 @@ GUI.Box.Box = class extends GUI.GUI {
      */
     declareButton ( name, label, action ) {
         this.debug( "Declare the button '" + name + "', '" + String.JSONStringify( label ) + "'" );
-        var newButton = this.addFocus(new GUI.Button.Button( this, name, null, label, action ));
+        let newButton = this.addFocus(new GUI.Button.Button( this, name, null, label, action ));
         this._buttons[newButton.Name] = newButton;
         return newButton;
     }
@@ -422,7 +471,7 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( name === undefined || name === null )
             return null;
 
-        var button = this._buttons[name];
+        let button = this._buttons[name];
 
         return button === null || button === undefined ? null : button;
     }
@@ -450,7 +499,7 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this.Component !== null )
             return;
 
-        var content = "<box id='" + this.Name.toString().toLowerCase() + "' class='" + this.Name.toString().toLowerCase() + "' style='display:none;'>";
+        let content = "<box id='" + this.Name.toString().toLowerCase() + "' class='" + this.Name.toString().toLowerCase() + "' style='display:none;'>";
         content += "<div>";
         content += "<div class='title'></div>";
         content += "<div class='message'></div>";
@@ -553,7 +602,7 @@ GUI.Box.Box = class extends GUI.GUI {
      * @returns {boolean} true if the panel is allowed to be shown
      */
     isPanelVisible( panel, user, item ) {
-        return true;
+        return this._navigationPanelHidden.indexOf( panel ) < 0;
     }
 
     /**
@@ -594,32 +643,55 @@ GUI.Box.Box = class extends GUI.GUI {
     }
 
     /**
+     * Raise on key pressed on the box
+     * @param {any} event keyboard events
+     */
+    onKeypressed(event) {
+        return true;
+    }
+
+    /**
      * Virtual method to refresh the content of the box
      */
     refresh () {
         super.refresh();
 
         if ( this.Component !== null ) {
+            this._refreshing = true;
             this.Title = this._title;
             this.Message = this._message;
             this.Error = this._error;
+            this._refreshing = false;
         }
 
+        this.verbose( "Setting on the current focus ..." );
         if ( this._panels === null || this._navigationPanels === null ) {
             this.refreshPanel();
         } else {
             this.gotoCurrentPanel();
         }
 
-        for ( var button in this._buttons )
-            this._buttons[button].refresh();
+        for ( let button of Array.toIterable( this._buttons ) )
+            button.refresh();
     }
 
     /**
      * Virtual method to resize the content of the box
      */
-    resize() {
+    resize() { }
 
+    /**
+     * Virtual method to update values of all fields
+     */
+    updateFields() {
+        this.debug( "Update fields" );
+    }
+
+    /**
+     * Virtual method to update values of all boards
+     */
+    updateBoards() {
+        this.debug( "Update boards" );
     }
 
     /**
@@ -634,31 +706,32 @@ GUI.Box.Box = class extends GUI.GUI {
 
         function handleKeydown( box ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             box.previousFocus();
                         else
                             box.nextFocus();
                         return false;
 
-                    case 13:
+                    case "Enter":
                         if ( GUI.Box.BOX_RC ) {
                             GUI.Box.BOX_RC = false;
                             return;
                         }
 
-                        event.preventDefault();
+                        event.stopImmediatePropagation();
                         box.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         box.onButtonCancel();
                         return false;
+
+                    default:
+                        return box.onKeypressed(event);
                 }
             };
         }
@@ -666,19 +739,22 @@ GUI.Box.Box = class extends GUI.GUI {
         super.onOpen();
 
         if ( this._panels !== null )
-            for ( var panel in this._panels ) {
-                this._panels[panel].on( 'focus', handleFocus( this, this._panels[panel] ) );
-                this._panels[panel].on( 'keydown', handleKeydown( this, this._panels[panel] ) );
+            for ( let panel of Array.toIterable( this._panels ) ) {
+                panel.on( 'focus', handleFocus( this, panel ) );
+                panel.on( 'keydown', handleKeydown( this, panel ) );
             }
 
-        for ( var box in this._fields )
-            this._fields[box].onOpen();
+        for ( let field of Array.toIterable( this._fields ) ) {
+            field.onOpen();
+            field.Message = "";
+            field.Error = "";
+        }
 
-        for ( var board in this._boards )
-            this._boards[board].onOpen();
+        for ( let board of Array.toIterable( this._boards ) )
+            board.onOpen();
 
-        for ( var button in this._buttons )
-            this._buttons[button].onOpen();
+        for ( let button of Array.toIterable( this._buttons ) )
+            button.onOpen();
 
         this._boxOpened = true;
     }
@@ -695,12 +771,9 @@ GUI.Box.Box = class extends GUI.GUI {
         // Look for in the stack the last box opened
 
         this._zIndex = 1;
-        for ( var i in GUI.Box.Box.Stack ) {
-            if ( GUI.Box.Box.Stack[i] === null )
-                continue;
-
-            if ( this._zIndex < GUI.Box.Box.Stack[i]._zIndex )
-                this._zIndex = GUI.Box.Box.Stack[i]._zIndex;
+        for ( let stack of Array.toIterable( GUI.Box.Box.Stack ) ) {
+            if ( this._zIndex < stack._zIndex )
+                this._zIndex = stack._zIndex;
         }
 
         if ( this._zIndex === 1 )
@@ -717,15 +790,42 @@ GUI.Box.Box = class extends GUI.GUI {
         this._navigationPanelHidden = [];
         this._navigationPanelIndex = 0;
 
+        this.debug( "On openning the box ..." );
+
+        // Set values into field before openning the dialog
+
+        this.verbose( "Updating fields ..." );
+        this.updateFields();
+
+        // Set onOpen action
+
         this.onOpen();
-
-        // refresh all fields
-
-        this.refresh();
 
         // open the box
 
+        this.debug( "Showing the box ..." );
         this.Component.show();
+
+        // Clean undo values in fields
+
+        this.debug( "Cleaning up undo values ..." );
+        for ( let field of Array.toIterable( this._fields ) )
+            field.cleanUndo();
+
+        // refresh all fields
+
+        this.debug( "Refreshing dialog box ..." );
+        this.refresh();
+
+        // Updating boards
+
+        this.verbose( "Updating boards ..." );
+        this.updateBoards();
+
+        // Set the focus on the first field
+
+        this.verbose( "Setting the focus on the first field ..." );
+        this.firstFocus();
     }
 
     /**
@@ -735,8 +835,8 @@ GUI.Box.Box = class extends GUI.GUI {
         this.onChangeFocus( null );
 
         if ( this._panels !== null )
-            for ( var panel in this._panels )
-                this._panels[panel].off( 'focus keydown' );
+            for ( let panel of Array.toIterable( this._panels ) )
+                panel.off( 'focus keydown' );
 
         super.onClose();
     }
@@ -758,14 +858,14 @@ GUI.Box.Box = class extends GUI.GUI {
 
         // notify to all fields that the box is now visible
 
-        for ( var field in this._fields )
-            this._fields[field].onClose();
+        for ( let field of Array.toIterable( this._fields ) )
+            field.onClose();
 
-        for ( var board in this._boards )
-            this._boards[board].onClose();
+        for ( let board of Array.toIterable( this._boards ) )
+            board.onClose();
 
-        for ( var button in this._buttons )
-            this._buttons[button].onClose();
+        for ( let button of Array.toIterable( this._buttons ) )
+            button.onClose();
 
         this.onClose();
         this.Component.remove();
@@ -775,11 +875,9 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this._onClosed !== null )
             this._onClosed();
 
-        for ( var i in GUI.Box.Box.Stack ) {
-            if ( GUI.Box.Box.Stack[i] === null )
-                continue;
-
-            return;
+        for ( let stack of Array.toIterable( GUI.Box.Box.Stack ) ) {
+            if ( stack !== null )
+                return;
         }
 
         $( GUI.Box.Box.MAIN_PAGE ).hide();
@@ -792,8 +890,6 @@ GUI.Box.Box = class extends GUI.GUI {
      * @returns {any} HTML code describing the new panel
      */
     declarePanel ( panel, cssClass ) {
-        var newPanel = null;
-
         if ( this.Component === null || panel === undefined || panel === null )
             return;
 
@@ -815,7 +911,7 @@ GUI.Box.Box = class extends GUI.GUI {
 
         this.debug( "Declare the panel '" + panel + "'" );
 
-        newPanel = $( "<panel id='" + panel + "'></panel>" );
+        let newPanel = $( "<panel id='" + panel + "'></panel>" );
         this._navigationMiddle.append( newPanel[0] );
         this._panels[panel] = this.addFocus( newPanel );
         if ( cssClass )
@@ -860,8 +956,6 @@ GUI.Box.Box = class extends GUI.GUI {
      * @param {any} panels null to show all or list of panels to show
      */
     declareNavigationPanels ( panels ) {
-        var currentPanel = null;
-
         this._navigationPanels = null;
 
         if ( this._panels === null )
@@ -869,13 +963,13 @@ GUI.Box.Box = class extends GUI.GUI {
 
         if ( panels === null || panels === undefined ) {
             this._navigationPanels = [[]];
-            for ( currentPanel in this._panels )
+            for ( let currentPanel in this._panels )
                 this._navigationPanels[0].push( currentPanel );
             return;
         }
 
         if ( typeof panels === "string" ) {
-            currentPanel = this._panels[panels];
+            let currentPanel = this._panels[panels];
             if ( currentPanel === null || currentPanel === undefined )
                 return;
             this._navigationPanels = [[panels]];
@@ -886,19 +980,19 @@ GUI.Box.Box = class extends GUI.GUI {
             return;
 
         this._navigationPanels = [];
-        for ( var i in panels ) {
-            if ( Array.isArray( panels[i] ) ) {
-                var list = [];
-                for ( var j in panels[i] ) {
-                    currentPanel = this._panels[panels[i][j]];
+        for ( let panel of panels ) {
+            if ( Array.isArray( panel ) ) {
+                let list = [];
+                for ( let j in panel ) {
+                    let currentPanel = this._panels[panel[j]];
                     if ( currentPanel !== null && currentPanel !== undefined )
-                        list.push( panels[i][j] );
+                        list.push( panel[j] );
                 }
                 this._navigationPanels.push( list );
             } else {
-                currentPanel = this._panels[panels[i]];
+                let currentPanel = this._panels[panel];
                 if ( currentPanel !== null && currentPanel !== undefined )
-                    this._navigationPanels.push( [panels[i]] );
+                    this._navigationPanels.push( [panel] );
             }
         }
     }
@@ -910,9 +1004,16 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this._navigationPanels === null || this._navigationPanelIndex === 0 )
             return;
 
+        let index = this._navigationPanelIndex;
+
         this._navigationPanelIndex--;
         while ( !this.gotoCurrentPanel() && this._navigationPanelIndex > 0 )
             this._navigationPanelIndex--;
+
+        if ( !this.gotoCurrentPanel() ) {
+            this._navigationPanelIndex = index;
+            this.gotoCurrentPanel();
+        }
     }
 
     /**
@@ -975,8 +1076,8 @@ GUI.Box.Box = class extends GUI.GUI {
         let item = this.Value;
         let panelVisible = false;
 
-        for ( var name in this._panels ) {
-            var panel = this._panels[name];
+        for ( let name in this._panels ) {
+            let panel = this._panels[name];
 
             if ( panel === null || panel === undefined )
                 continue;
@@ -1072,9 +1173,16 @@ GUI.Box.Box = class extends GUI.GUI {
         if ( this._navigationPanels === null || this._navigationPanelIndex >= this._navigationPanels.length - 1 )
             return;
 
+        let index = this._navigationPanelIndex;
+
         this._navigationPanelIndex++;
-        while ( !this.gotoCurrentPanel() && this._navigationPanelIndex < this._navigationPanels.length )
+        while ( !this.gotoCurrentPanel() && this._navigationPanelIndex < this._navigationPanels.length - 1 )
             this._navigationPanelIndex++;
+
+        if ( !this.gotoCurrentPanel() ) {
+            this._navigationPanelIndex = index;
+            this.gotoCurrentPanel();
+        }
     }
 
     /**
@@ -1100,27 +1208,23 @@ GUI.Box.Box = class extends GUI.GUI {
         let item = this.Value;
         panel = panel === null || panel === undefined ? null : panel;
 
-        for ( var field in this._fields ) {
-            var currentField = this._fields[field];
-
-            if ( panel !== null && currentField.Panel !== panel )
+        for ( let field of Array.toIterable( this._fields ) ) {
+            if ( panel !== null && field.Panel !== panel )
                 continue;
 
-            currentField.Visible = this.isFieldVisible( currentField.Name, currentUser, item ) && ( currentField.Panel === null || currentField.Panel !== null && this.isPanelVisible( currentField.Panel, currentUser, item ) );
-            currentField.Readonly = this.isFieldReadonly( currentField.Name, currentUser, item ) || currentField.Panel !== null && this.isPanelReadonly( currentField.Panel, currentUser, item );
-            currentField.refresh();
+            field.Visible = this.isFieldVisible( field.Name, currentUser, item ) && ( field.Panel === null || field.Panel !== null && this.isPanelVisible( field.Panel, currentUser, item ) );
+            field.Readonly = this.isFieldReadonly( field.Name, currentUser, item ) || field.Panel !== null && this.isPanelReadonly( field.Panel, currentUser, item );
+            field.refresh();
         }
 
-        for ( var board in this._boards ) {
-            var currentBoard = this._boards[board];
-
-            if ( panel !== null && currentBoard.Panel !== panel )
+        for ( let board of Array.toIterable( this._boards ) ) {
+            if ( panel !== null && board.Panel !== panel )
                 continue;
 
-            currentBoard.Visible = this.isBoardVisible( currentBoard.Name, currentUser, item ) && ( currentBoard.Panel === null || currentBoard.Panel !== null && this.isPanelVisible( currentBoard.Panel, currentUser, item ) );
-            currentBoard.Readonly = this.isBoardReadonly( currentBoard.Name, currentUser, item ) || currentBoard.Panel !== null && this.isPanelReadonly( currentBoard.Panel, currentUser, item );
-            currentBoard.refresh();
-            currentBoard.adjustWebix();
+            board.Visible = this.isBoardVisible( board.Name, currentUser, item ) && ( board.Panel === null || board.Panel !== null && this.isPanelVisible( board.Panel, currentUser, item ) );
+            board.Readonly = this.isBoardReadonly( board.Name, currentUser, item ) || board.Panel !== null && this.isPanelReadonly( board.Panel, currentUser, item );
+            board.refresh();
+            board.adjustWebix();
         }
     }
 
@@ -1179,8 +1283,7 @@ GUI.Box.Box = class extends GUI.GUI {
     clearFocus() {
         this.onChangeFocus( null );
 
-        for ( let i in this._focus ) {
-            let focus = this._focus[i];
+        for ( let focus of Array.toIterable( this._focus ) ) {
             if ( focus === null || focus === undefined )
                 continue;
 

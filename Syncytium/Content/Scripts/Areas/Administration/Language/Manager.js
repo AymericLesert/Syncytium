@@ -4,7 +4,7 @@
 /// <reference path="Board.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,14 +42,14 @@ Language.Manager = class extends LoggerBaseObject {
     static HandleReplacementKeyLabel( currentLanguage, language, key ) {
         return function ( index ) {
             try {
-                var klabel = $( this ).attr( "k-label" );
+                let klabel = $( this ).attr( "k-label" );
                 if ( !klabel || klabel === undefined )
                     return true;
 
                 if ( klabel !== key )
                     return true;
 
-                var klanguage = $( this ).attr( "k-language" );
+                let klanguage = $( this ).attr( "k-language" );
 
                 if ( !klanguage && language !== currentLanguage )
                     return true;
@@ -60,14 +60,14 @@ Language.Manager = class extends LoggerBaseObject {
                 if ( !klanguage )
                     klanguage = language;
 
-                var parameters = [];
-                var i = 0;
+                let parameters = [];
+                let i = 0;
                 while ( $( this ).attr( "k-label-" + i ) ) {
                     parameters.push( $( this ).attr( "k-label-" + i ) );
                     i++;
                 }
 
-                var value = Language.Manager.Instance.interpolation( klabel, parameters, klanguage );
+                let value = Language.Manager.Instance.interpolation( klabel, parameters, klanguage );
 
                 if ( $( this ).is( "input" ) ) {
                     $( this ).val( value );
@@ -90,22 +90,22 @@ Language.Manager = class extends LoggerBaseObject {
     static HandleReplacementLabel( currentLanguage ) {
         return function ( index ) {
             try {
-                var klabel = $( this ).attr( "k-label" );
+                let klabel = $( this ).attr( "k-label" );
                 if ( !klabel || klabel === undefined )
                     return true;
 
-                var klanguage = $( this ).attr( "k-language" );
+                let klanguage = $( this ).attr( "k-language" );
                 if ( !klanguage )
                     klanguage = currentLanguage;
 
-                var parameters = [];
-                var i = 0;
+                let parameters = [];
+                let i = 0;
                 while ( $( this ).attr( "k-label-" + i ) ) {
                     parameters.push( $( this ).attr( "k-label-" + i ) );
                     i++;
                 }
 
-                var value = Language.Manager.Instance.interpolation( klabel, parameters, klanguage );
+                let value = Language.Manager.Instance.interpolation( klabel, parameters, klanguage );
                 if ( $( this ).is( "input" ) ) {
                     $( this ).val( value );
                 } else {
@@ -155,19 +155,16 @@ Language.Manager = class extends LoggerBaseObject {
 
         // load the content of the table
 
-        var allRecords = DSDatabase.Instance.getTable( "Language" );
-        var newTable = {};
-        var index = 0;
+        let newTable = {};
+        let index = 0;
 
-        for ( var labelId in allRecords ) {
+        for ( let label of Array.toIterable( DSDatabase.Instance.getTable( "Language" ) ) ) {
             // current label in the table from the server
-
-            var label = allRecords[labelId];
             newTable[label.Key] = label;
 
             if ( this._languages === null ) {
                 this._languages = [];
-                for ( var attr in label ) {
+                for ( let attr in label ) {
                     if ( attr.length === 2 && attr.toUpperCase() === attr ) {
                         this._languages.push( attr );
                     }
@@ -176,8 +173,8 @@ Language.Manager = class extends LoggerBaseObject {
                 this.debug( "List of languages: " + String.JSONStringify( this._languages ) );
             }
 
-            if ( this.IsDebug )
-                this.debug( "[" + label.Key + "] = " + String.JSONStringify( label ) );
+            if ( this.IsVerboseAll )
+                this.verbose( "[" + label.Key + "] = " + String.JSONStringify( label ) );
 
             index++;
         }
@@ -213,14 +210,22 @@ Language.Manager = class extends LoggerBaseObject {
      */
     getLabel( language, key ) {
         try {
-            var value = this._labels[key][language];
+            let value = this._labels[key][language];
             return !value ? null : value;
         } catch ( e ) {
-            if ( !this._ignoreLabels[language + "." + key] ) {
-                this._ignoreLabels[language + "." + key] = true;
-                this.warn( "The label(" + language + "," + key + ") doesn't exist" );
+            // Handle some default messages until the end of loading data
+            try {
+                let value = Language.Default.Labels[key][language];
+                return !value ? null : value;
+            } catch ( e ) {
+                // in all cases, keep in memory all inexisting messages to avoid too much message into the logger
+
+                if ( !this._ignoreLabels[language + "." + key] ) {
+                    this._ignoreLabels[language + "." + key] = true;
+                    this.warn( "The label(" + language + "," + key + ") doesn't exist" );
+                }
+                return null;
             }
-            return null;
         }
     }
 
@@ -231,7 +236,7 @@ Language.Manager = class extends LoggerBaseObject {
      */
     getComment( key ) {
         try {
-            var value = this._labels[key].Comment;
+            let value = this._labels[key].Comment;
             return !value ? "" : value;
         } catch ( e ) {
             return "";
@@ -246,7 +251,7 @@ Language.Manager = class extends LoggerBaseObject {
      * @returns {boolean} true if the label is changed
      */
     setLabel( language, key, newValue ) {
-        var oldValue = this.getLabel( language, key );
+        let oldValue = this.getLabel( language, key );
         if ( !newValue || !oldValue || newValue === oldValue )
             return false;
 
@@ -280,7 +285,7 @@ Language.Manager = class extends LoggerBaseObject {
         function handleReplacementParameter( currentTable, language ) {
             return function ( expr, key ) {
                 try {
-                    var value = currentTable.getLabel( language, key );
+                    let value = currentTable.getLabel( language, key );
 
                     if ( value === null )
                         return expr;
@@ -295,7 +300,7 @@ Language.Manager = class extends LoggerBaseObject {
         function handleReplacement( listParameters ) {
             return function ( expr, index ) {
                 try {
-                    var value = listParameters[index];
+                    let value = listParameters[index];
                     return typeof value === 'string' || typeof value === 'number' ? value : expr;
                 } catch ( e ) {
                     return expr;
@@ -303,19 +308,19 @@ Language.Manager = class extends LoggerBaseObject {
             };
         }
 
-        var value = Helper.Label( key, parameters, language );
+        let value = Helper.Label( key, parameters, language );
         language = value.language ? value.language : DSDatabase.Instance.CurrentLanguage;
 
-        var label = this.getLabel( language, value.label );
+        let label = this.getLabel( language, value.label );
         if ( !label )
             return value.label;
 
-        var listParameters = [];
+        let listParameters = [];
 
         if ( value.parameters && value.parameters.length > 0 ) {
-            for ( var parameter in value.parameters ) {
-                if ( value.parameters[parameter] !== null && value.parameters[parameter] !== undefined )
-                    listParameters.push( value.parameters[parameter].toString().replace( /{([^{}]*)}/g, handleReplacementParameter( this, language ) ) );
+            for ( let parameter of value.parameters ) {
+                if ( parameter !== null && parameter !== undefined )
+                    listParameters.push( parameter.toString().replace( /{([^{}]*)}/g, handleReplacementParameter( this, language ) ) );
                 else
                     listParameters.push( "" );
             }
@@ -333,15 +338,15 @@ Language.Manager = class extends LoggerBaseObject {
      * @param {any} newLabel  new record describing a label
      */
     onUpdateLabel( event, table, id, oldLabel, newLabel ) {
-        for ( var attr in newLabel ) {
+        for ( let attr in newLabel ) {
             if ( attr.length !== 2 || attr.toUpperCase() !== attr )
                 continue;
 
             if ( newLabel[attr] === oldLabel[attr] )
                 continue;
 
-            var key = newLabel.Key;
-            var language = attr;
+            let key = newLabel.Key;
+            let language = attr;
 
             this.info( "Updating all labels having the key '" + key + "' (" + language + ")" );
 
@@ -359,8 +364,8 @@ Language.Manager = class extends LoggerBaseObject {
                 currentComponent.find( "select > option" ).each( Language.Manager.HandleReplacementKeyLabel( DSDatabase.Instance.CurrentLanguage, language, key ) );
             }
 
-            for ( var listener in this._listeners ) {
-                this._listeners[listener]( DSDatabase.Instance.CurrentLanguage, language, key );
+            for ( let listener of Array.toIterable( this._listeners ) ) {
+                listener( DSDatabase.Instance.CurrentLanguage, language, key );
             }
         }
     }
@@ -400,8 +405,8 @@ Language.Manager = class extends LoggerBaseObject {
             currentComponent.find( "select > option" ).each( Language.Manager.HandleReplacementLabel( newLanguage ) );
         }
 
-        for ( var listener in this._listeners ) {
-            this._listeners[listener]( newLanguage );
+        for ( let listener of Array.toIterable( this._listeners ) ) {
+            listener( newLanguage );
         }
     }
 

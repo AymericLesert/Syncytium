@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,6 +29,14 @@ class LoggerBaseObject {
      */
     get Module() {
         return this._module;
+    }
+
+    /**
+     * Retrieve the all verbose mode
+     * @returns {boolean} true if the log must be verbose
+     */
+    get IsVerboseAll() {
+        return Logger.Instance.IsVerboseAll;
     }
 
     /**

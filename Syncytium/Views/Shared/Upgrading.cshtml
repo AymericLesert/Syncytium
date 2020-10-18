@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@
 
 @section CSSDeclaration
 {
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Support.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Button/Button.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Tools/Support.css")" />
 }
 
 @section JSDeclaration
@@ -55,6 +55,27 @@
             <h1>L'application Syncytium Gestion est en cours de mise à jour ...</h1>
 
             <p>S'il vous plaît, attendez la fin de la procédure pour tenter de vous reconnecter!</p>
+        }
+    }
+    @if (Model.Ressources.DefaultLanguage.Equals("EN"))
+    {
+        if (Model.Authenticated && Model.UserProfile.Id == -1)
+        {
+            <h1>Application Syncytium Customers must be upgraded ...</h1>
+
+            <p>Please, follow the procedure :</p>
+            <ul>
+                <li>Save database</li>
+                <li>Update database</li>
+                <li>In case of error, restore database and read logs</li>
+            </ul>
+            <input type="button" class="button" value="@Model.GetLabel("BTN_UPGRADE")" onclick='javascript:window.location="@(Model.UrlRoot)Administration/Administration/Upgrade"' />
+        }
+        else
+        {
+            <h1>Application Syncytium Customers is upgrading ...</h1>
+
+            <p>Please, wait the end of processing!</p>
         }
     }
 </div>

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,26 +17,17 @@
 */
 
 /* ---------------------------------------------------------------------- */
-/* box.box_record.module > div > .content                                 */
+/* box.box_record.user > div                                              */
 /* ---------------------------------------------------------------------- */
 
-box.box_record.user > div > .content {
-    min-width: 640px;
-    height: 250px;
-}
-
-box.box_record.user > div > .content.haserrors {
-    height: calc(250px - 10vh);
+box.box_record.user > div {
+    height: 320px;
+    width: 50vw;
 }
 
 /* ------------------------------------------------------------ */
 /* box.box_record.User .content > panel.main                    */
 /* ------------------------------------------------------------ */
-
-box.box_record.user > div > .content > panel.main {
-    width: calc(100% - 40px);
-    height: 100%;
-}
 
 @media only screen and (min-height: 260px) {
     box.box_record.user > div > .content > panel.main {

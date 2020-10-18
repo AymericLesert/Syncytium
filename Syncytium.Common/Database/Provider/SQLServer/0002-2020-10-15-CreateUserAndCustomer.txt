@@ -1,0 +1,145 @@
+﻿-- ------------------------------------- SQL Server ---------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2020/10/15 - Aymeric Lesert - Create User and Customer Table
+-- ----------------------------------------------------------------------------------
+
+
+-- Create table : Customer
+
+
+create table [${Syncytium.Database.Schema}].[Customer]
+		([Id]      int          not null identity primary key,
+		 [Name]    nvarchar(64) not null,
+		 [Login]   nvarchar(40) not null,
+		 [Email]   nvarchar(128), 
+		 [Address] nvarchar(128), 
+		 [Comment] nvarchar(128))
+
+GO
+
+
+-- Create table : User
+
+
+create table [${Syncytium.Database.Schema}].[User]
+		([Id]              int             not null identity primary key,
+		 [CustomerId]      int             not null,
+		 [Login]           nvarchar(40)    not null,
+		 [Password]        varchar(512),
+		 [Registration]    nvarchar(16),
+		 [Name]            nvarchar(64),
+		 [Email]           nvarchar(128),
+		 [CreationDate]    date            default getdate(),
+		 [EndDate]         date,
+		 [Picture]         varbinary(max),
+		 [Language]        char(2)         not null default '${Syncytium.Language}',
+		 [NewPasswordKey]  nvarchar(256),
+		 [NewPasswordDate] date,
+         constraint fk_user_00 FOREIGN KEY ([CustomerId]) references [${Syncytium.Database.Schema}].[Customer] ([Id]))
+
+GO
+
+create index I_USER_LOGIN on [${Syncytium.Database.Schema}].[User]([Login])
+
+GO
+
+
+-- Create table : Module
+
+
+create table [${Syncytium.Database.Schema}].[Module]
+        ([Id]          int            not null identity primary key,
+         [CustomerId]  int            not null,
+         [Name]        nvarchar(32)   not null,
+         [Module]      int            default 0 not null,
+         [Parameters]  nvarchar(64)   ,
+         [Profile]     int            default 2 not null,
+         [Description] nvarchar(256)  ,
+         [Enable]      bit            default 1 not null,
+
+         constraint fk_module_00 foreign key([CustomerId])  references [${Syncytium.Database.Schema}].[Customer]([Id]))
+GO
+
+
+create index I_MODULE_CUSTOMER on [${Syncytium.Database.Schema}].[Module]([CustomerId])
+GO
+
+create index I_MODULE_NAME on [${Syncytium.Database.Schema}].[Module]([Name])
+GO
+
+create index U_MODULE_NAME on [${Syncytium.Database.Schema}].[Module]([Name], [CustomerId])
+GO
+
+
+-- Create table : UserModule
+
+
+create table [${Syncytium.Database.Schema}].[UserModule]
+        ([Id]         int            not null identity primary key,
+         [CustomerId] int            not null,
+         [UserId]     int            default -1 not null,
+         [ModuleId]   int            ,
+         [Default]    bit            default 0 not null,
+
+         constraint fk_usermodule_00 foreign key([CustomerId]) references [${Syncytium.Database.Schema}].[Customer]([Id]),
+         constraint fk_usermodule_01 foreign key([UserId])     references [${Syncytium.Database.Schema}].[User]([Id]),
+         constraint fk_usermodule_02 foreign key([ModuleId])   references [${Syncytium.Database.Schema}].[Module]([Id]))
+GO
+
+
+create index I_USERMODULE_CUSTOMER on [${Syncytium.Database.Schema}].[UserModule]([CustomerId])
+GO
+
+create index I_USERMODULE_USERID on [${Syncytium.Database.Schema}].[UserModule]([UserId])
+GO
+
+create index U_USERMODULE_MODULEID on [${Syncytium.Database.Schema}].[UserModule]([ModuleId], [CustomerId], [UserId])
+GO
+
+
+-- Create the production site by default and the first administrator user (SyncytiumAdmin)
+
+
+insert into [${Syncytium.Database.Schema}].[Customer]([Name], [Login], [Email], [Address], [Comment]) values('SyncytiumAdmin', '${Syncytium.Administrator.Login}', '${Syncytium.Administrator.Email}', 'Syncytium', 'Definition des agences')
+
+GO
+
+insert into [${Syncytium.Database.Schema}].[Customer]([Name], [Login], [Email], [Address], [Comment]) values('${Syncytium.Database.Schema}', 'SyncytiumAdmin', '${Syncytium.Administrator.Email}', 'Syncytium', 'Agence de Saint-Nazaire')
+
+GO
+
+insert into [${Syncytium.Database.Schema}].[User]([Login], [Registration], [Name], [Email], [CreationDate], [Language], [CustomerId])
+     values('${Syncytium.Administrator.Login}', 'ADMINISTRATEUR', 'Administrateur général', '${Syncytium.Administrator.Email}', convert(date, getdate()), '${Syncytium.Language}', 1)
+
+GO
+
+insert into [${Syncytium.Database.Schema}].[User]([Login], [Registration], [Name], [Email], [CreationDate], [Language], [CustomerId])
+     values('SyncytiumAdmin', 'ADMINISTRATEUR', 'Administrateur de Saint-Nazaire', '${Syncytium.Administrator.Email}', convert(date, getdate()), '${Syncytium.Language}', 2)
+
+GO
+
+
+-- Create module administration
+
+
+insert into [${Syncytium.Database.Schema}].[Module]([CustomerId], [Name], [Module], [Profile], [Enable]) values(2, 'Administration', 0, 0, 1)
+GO
+
+insert into [${Syncytium.Database.Schema}].[UserModule]([CustomerId], [UserId], [ModuleId], [Default])
+select [${Syncytium.Database.Schema}].[User].[CustomerId], [${Syncytium.Database.Schema}].[User].[Id], [${Syncytium.Database.Schema}].[Module].[Id], 1 from [${Syncytium.Database.Schema}].[User], [${Syncytium.Database.Schema}].[Module] where [${Syncytium.Database.Schema}].[User].[CustomerId] = [${Syncytium.Database.Schema}].[Module].[CustomerId]
+GO

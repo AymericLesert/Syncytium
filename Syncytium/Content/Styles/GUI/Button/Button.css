@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,41 +22,44 @@
 
 button,
 .button {
-    background: #444444;
-    border: solid 1px #444444;
-    color: #ffffff;
+    background: var(--syncytium-button-background);
+    border: solid 1px var(--syncytium-button-background);
+    color: var(--syncytium-button-color);
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 5px var(--syncytium-button-shadow);
 }
 
 button:focus,
 .button:focus {
     outline: none;
-    border-color: #33cc33;
-    background: #ffffff;
-    color: #444444;
+    border-color: var(--syncytium-button-focus-background);
+    background: var(--syncytium-button-focus-background);
+    color: var(--syncytium-button-focus-color);
 }
 
 button:hover,
 .button:hover {
-    background: #ffffff;
-    color: #444444;
+    border-color: var(--syncytium-button-focus-background);
+    background: var(--syncytium-button-focus-background);
+    color: var(--syncytium-button-focus-color);
 }
 
 button.readonly,
 .button.readonly {
     font-style: italic;
     cursor: initial;
+    background: var(--syncytium-button-readonly-background);
+    color: var(--syncytium-button-readonly-color);
 }
 
 button.readonly:hover,
 .button.readonly:hover {
     font-style: italic;
-    background: #444444;
-    color: #ffffff;
+    background: var(--syncytium-button-readonly-background);
+    color: var(--syncytium-button-color);
 }
 
 .button:focus {
-    background: #f8f8f8;
-    color: #444444;
+    background: var(--syncytium-button-focus-background);
+    color: var(--syncytium-button-focus-color);
 }

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -170,15 +170,16 @@ GUI.GUI = class extends LoggerBaseObject {
     /**
      * Raise an event if the component is already visible
      * @param {any} event name of the event to raise
+     * @param {...any} parameters list of parameters to go through to the event
      */
-    raise( event ) {
+    raise( event, ...parameters ) {
         if ( !this.IsOpened )
             return;
 
         if ( !this._events[event] )
             return;
 
-        this._events[event]();
+        this._events[event](...parameters);
     }
 
     /**
@@ -211,14 +212,14 @@ GUI.GUI = class extends LoggerBaseObject {
      * Clean up all references on the listener into the database to remove it on close
      */
     clearListeners () {
-        for ( var i in this._listeners )
-            DSDatabase.Instance.removeEventListener( this._listeners[i] );
+        for ( let listener of this._listeners )
+            DSDatabase.Instance.removeEventListener( listener );
         this._listeners = [];
     }
 
     /**
      * Add the reference on the listener into the database to remove it on close
-     * @param {any} listener identity of the listener from the database
+     * @param {int} listener identity of the listener from the database
      */
     addListener ( listener ) {
         this._listeners.push( listener );

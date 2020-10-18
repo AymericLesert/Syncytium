@@ -1,4 +1,4 @@
-﻿-- Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+﻿-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 -- 
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,60 +14,71 @@
 -- with this program; if not, write to the Free Software Foundation, Inc.,
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
--- Drop technical table
 
-drop table [SYNCYTIUM_DEV].[_Parameter]
-GO
-drop table [SYNCYTIUM_DEV].[_Connection]
-GO
-drop table [SYNCYTIUM_DEV].[_Request]
-GO
-drop table [SYNCYTIUM_DEV].[_RequestId]
-GO
-drop table [SYNCYTIUM_DEV].[_SequenceId]
-GO
-drop table [SYNCYTIUM_DEV].[_Information]
-GO
-drop table [SYNCYTIUM_DEV].[_Ping]
+-- Drop tables from module : Customer
+-- ----------------------------------
+
+-- Delete table : Parameter
+
+drop table [${Syncytium.Database.Schema}].[Parameter]
 GO
 
--- Drop functional table
-
+-- Drop tables from module : Administration
+-- ----------------------------------------
 
 -- Delete table : UserModule
 
-drop table [SYNCYTIUM_DEV].[UserModule]
+drop table [Syncytium_DEV].[UserModule]
 GO
 
 -- Delete table : Module
 
-drop table [SYNCYTIUM_DEV].[Module]
+drop table [Syncytium_DEV].[Module]
 GO
 
 -- Delete table : Notification
 
-drop table [SYNCYTIUM_DEV].[Notification]
+drop table [Syncytium_DEV].[Notification]
 GO
 
 -- Delete table : User
 
-drop table [SYNCYTIUM_DEV].[User]
+drop table [Syncytium_DEV].[User]
 GO
 
 -- Delete table : Language
 
-drop procedure [SYNCYTIUM_DEV].BeginMultilingualUpdate
+drop procedure [Syncytium_DEV].BeginMultilingualUpdate
 GO
-drop procedure [SYNCYTIUM_DEV].InsertMultilingualLabel
+drop procedure [Syncytium_DEV].InsertMultilingualLabel
 GO
-drop procedure [SYNCYTIUM_DEV].EndMultilingualUpdate
+drop procedure [Syncytium_DEV].EndMultilingualUpdate
 GO
-drop table [SYNCYTIUM_DEV].[_Language]
+drop table [Syncytium_DEV].[_Language]
 GO
-drop table [SYNCYTIUM_DEV].[Language]
+drop table [Syncytium_DEV].[Language]
 GO
 
 -- Delete table : Customer
 
-drop table [SYNCYTIUM_DEV].[Customer]
+drop table [Syncytium_DEV].[Customer]
 GO
+
+
+-- Drop technical table
+
+drop table [Syncytium_DEV].[_Parameter]
+GO
+drop table [Syncytium_DEV].[_Connection]
+GO
+drop table [Syncytium_DEV].[_Request]
+GO
+drop table [Syncytium_DEV].[_RequestId]
+GO
+drop table [Syncytium_DEV].[_SequenceId]
+GO
+drop table [Syncytium_DEV].[_Information]
+GO
+drop table [Syncytium_DEV].[_Ping]
+GO
+

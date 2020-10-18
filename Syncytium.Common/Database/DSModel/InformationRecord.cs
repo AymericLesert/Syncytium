@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -133,5 +133,33 @@ namespace Syncytium.Common.Database.DSModel
         /// </summary>
         [NotMapped]
         public bool IsDeleted => DeleteTick != null;
+
+        /// <summary>
+        /// Duplicate the information record
+        /// </summary>
+        /// <param name="informationRecord"></param>
+        /// <returns></returns>
+        public static InformationRecord Copy(InformationRecord informationRecord)
+        {
+            if (informationRecord == null)
+                return null;
+
+            return new InformationRecord
+            {
+                Table = informationRecord.Table,
+                Id = informationRecord.Id,
+                CustomerId = informationRecord.CustomerId,
+                CreateId = informationRecord.CreateId,
+                CreateUserId = informationRecord.CreateUserId,
+                CreateTick = informationRecord.CreateTick,
+                CreateDate = informationRecord.CreateDate,
+                UpdateUserId = informationRecord.UpdateUserId,
+                UpdateTick = informationRecord.UpdateTick,
+                UpdateDate = informationRecord.UpdateDate,
+                DeleteUserId = informationRecord.DeleteUserId,
+                DeleteTick = informationRecord.DeleteTick,
+                DeleteDate = informationRecord.DeleteDate
+            };
+        }
     }
 }

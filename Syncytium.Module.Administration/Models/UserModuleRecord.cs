@@ -4,7 +4,7 @@ using Syncytium.Common.Database.DSAnnotation.DSConstraint;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,7 +27,9 @@ namespace Syncytium.Module.Administration.Models
     /// Association between users and modules (rights handling)
     /// </summary>
     [Table("UserModule")]
+    [DSLot(Capacity = 256)]
     [DSRestricted(Area = DatabaseContext.AREA_NAME, Action = "*", Profile = UserProfile.EUserProfile.Administrator)]
+    [DSRestricted(Area = "Customer", Action = "*", Profile = UserProfile.EUserProfile.Supervisor)]
     [DSRestricted(Area = "*", Action = "Read")]
     public class UserModuleRecord : DSRecordWithCustomerId
     {

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ body > dialog > box.box_choice {
 
 body > dialog > box.box_choice > div {
     width: unset;
+    height: auto;
 }
 
 /* ------------------------------------------------------------ */
@@ -46,7 +47,7 @@ body > dialog > box.box_choice > div > .content {
 
 body > dialog > box.box_choice > div > .content > button {
     height: 40px;
-    min-width: 325px;
+    min-width: 500px;
     font-size: 18px;
     font-weight: 300;
     font-style: normal;

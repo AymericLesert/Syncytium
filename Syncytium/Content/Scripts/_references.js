@@ -38,7 +38,7 @@
 /// <reference path="Database/DSAnnotation/DSFormat/DSFormatAttribute.js" />
 /// <reference path="Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js" />
 /// <reference path="Database/DSAnnotation/DSFormat/DSFileAttribute.js" />
-/// <reference path="Database/DSAnnotation/DSFormat/DSPasswordAttribute.js" />
+/// <reference path="Database/DSAnnotation/DSFormat/SyncytiumasswordAttribute.js" />
 /// <reference path="Database/DSAnnotation/DSFormat/DSMaskAttribute.js" />
 /// <reference path="Database/DSAnnotation/DSFormat/DSSequenceAttribute.js" />
 /// <reference path="Database/DatabaseHub.js" />
@@ -53,14 +53,17 @@
 /// <reference path="GUI/Board/BoardChartBar.js" />
 /// <reference path="GUI/Board/BoardChartLine.js" />
 /// <reference path="GUI/Board/BoardChartPie.js" />
+/// <reference path="GUI/Board/BoardSocialNetwork.js" />
 /// <reference path="GUI/Board/BoardTable.js" />
 /// <reference path="GUI/Board/BoardTableAssociation.js" />
 /// <reference path="GUI/Board/BoardHistory.js" />
 /// <reference path="GUI/Board/BoardTree.js" />
+/// <reference path="GUI/Board/BoardImport.js" />
 /// <reference path="GUI/Box/Box.js" />
 /// <reference path="GUI/Box/BoxChoice.js" />
 /// <reference path="GUI/Box/BoxInputDigit.js" />
 /// <reference path="GUI/Box/BoxInputFile.js" />
+/// <reference path="GUI/Box/BoxInputFilesCSV.js" />
 /// <reference path="GUI/Box/BoxInputText.js" />
 /// <reference path="GUI/Box/BoxMessage.js" />
 /// <reference path="GUI/Box/BoxProgress.js" />
@@ -70,7 +73,9 @@
 /// <reference path="GUI/Button/Button.js" />
 /// <reference path="GUI/Field/Field.js" />
 /// <reference path="GUI/Field/FieldCheckBox.js" />
-/// <reference path="GUI/Field/FieldImage.js" />
+/// <reference path="GUI/Field/FieldFile.js" />
+/// <reference path="GUI/Field/FieldFileImage.js" />
+/// <reference path="GUI/Field/FieldFileCSV.js" />
 /// <reference path="GUI/Field/FieldInput.js" />
 /// <reference path="GUI/Field/FieldInputDigit.js" />
 /// <reference path="GUI/Field/FieldInputWithBox.js" />
@@ -81,7 +86,7 @@
 /// <reference path="GUI/Webix/WebixTooltip.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

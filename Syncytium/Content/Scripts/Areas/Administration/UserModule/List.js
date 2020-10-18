@@ -2,7 +2,7 @@
 /// <reference path="Enum.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -46,6 +46,9 @@ UserModuleRecord.List = class extends List.ListRecord {
      * @returns {string} a string representing the value of the field
      */
     getAttributText( item, attribute ) {
+        let list = null;
+        let element = null;
+
         if ( item === null || item === undefined )
             return "";
 
@@ -66,16 +69,15 @@ UserModuleRecord.List = class extends List.ListRecord {
                 if ( item.ModuleId === undefined || item.ModuleId === null )
                     return "";
 
-                var list = List.ListRecord.CACHE_LIST( "Module" );
+                list = List.ListRecord.CACHE_LIST( "Module" );
                 if ( list === null )
                     return super.getAttributText( item, attribute );
 
-                var module = list.getItem( item.ModuleId, true );
-                if ( module === null || module === undefined )
-                    return super.getAttributText( item, attribute );
+                element = list.getItem( item.ModuleId, true );
+                if ( element === null || element === undefined )
+                    return super.getAttributText( element, attribute );
 
-                return this.getAttributTextEnumerate( module, attribute );
-
+                return this.getAttributTextEnumerate( element, attribute );
             default:
                 return super.getAttributText( item, attribute );
         }

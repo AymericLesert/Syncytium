@@ -2,7 +2,7 @@
 /// <reference path="Enum.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -40,7 +40,10 @@ UserRecord.List = class extends List.ListRecord {
      * @param {any} item user
      * @returns {string} user's login
      */
-    getText ( item ) {
+    getText( item ) {
+        if ( item === null || item === undefined )
+            return "";
+
         if ( !String.isEmptyOrWhiteSpaces( item.Name ) )
             return item.Name.trim();
 
@@ -144,8 +147,6 @@ UserRecord.List = class extends List.ListRecord {
                 return true;
 
             case "Registration":
-                return box.IsProfile && UserRecord.IsUser( item );
-
             case "Login":
                 return box.IsProfile && UserRecord.IsUser( item );
         }
@@ -177,7 +178,7 @@ UserRecord.List = class extends List.ListRecord {
      * Create an empty record of user
      */
     get NewItem () {
-        var record = super.NewItem;
+        let record = super.NewItem;
 
         record.CreationDate = new moment();
         record.Language = DSDatabase.Instance.CurrentLanguage;
@@ -194,7 +195,7 @@ UserRecord.List = class extends List.ListRecord {
      * @returns {any} confirmation message
      */
     checkItem ( record, errors, force ) {
-        var confirmation = super.checkItem( record, errors, force );
+        let confirmation = super.checkItem( record, errors, force );
 
         if ( UserRecord.IsAdministrator( record ) )
             return confirmation;
@@ -211,7 +212,7 @@ UserRecord.List = class extends List.ListRecord {
      * @returns {any} item added
      */
     addItem ( newItem, errors, force, checkItem ) {
-        var itemCreated = super.addItem( newItem, errors, force, checkItem );
+        let itemCreated = super.addItem( newItem, errors, force, checkItem );
 
         if ( errors.HasError )
             return errors;
@@ -219,7 +220,11 @@ UserRecord.List = class extends List.ListRecord {
         if ( Helper.IsLabel( itemCreated ) )
             return itemCreated;
 
-        DSDatabase.Instance.executeRequest( "User", "NewPassword", { Id: itemCreated.Id }, errors );
+        // If the user is disable, doesn't create the password
+
+        let now = new moment();
+        if ( itemCreated.EndDate === null || itemCreated.EndDate === undefined || itemCreated.EndDate > now )
+            DSDatabase.Instance.executeRequest( "User", "NewPassword", { Id: itemCreated.Id }, errors );
 
         if ( errors.HasError )
             return errors;
@@ -242,7 +247,7 @@ UserRecord.List = class extends List.ListRecord {
      * @returns {any} item updated
      */
     updateItem( id, oldItem, newItem, errors, force, checkItem ) {
-        var itemUpdated = super.updateItem( id, oldItem, newItem, errors, force, checkItem );
+        let itemUpdated = super.updateItem( id, oldItem, newItem, errors, force, checkItem );
 
         if ( errors.HasError )
             return errors;

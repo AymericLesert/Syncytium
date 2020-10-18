@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -40,7 +40,13 @@ namespace Syncytium.Module.Administration.Managers
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(UserManager).Name;
+        private static readonly string MODULE = typeof(UserManager).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -126,6 +132,8 @@ namespace Syncytium.Module.Administration.Managers
                 if (Database == null)
                     return null;
 
+                bool userExists = false;
+
                 foreach (UserRecord currentUser in (from user in Database.User
                                                    where user.Login.Equals(login)
                                                   select user).ToList())
@@ -134,6 +142,8 @@ namespace Syncytium.Module.Administration.Managers
 
                     if ((information != null && information.IsDeleted) || !currentUser.IsEnable())
                         continue;
+
+                    userExists = true;
 
                     if (currentUser.CustomerId == 1 || !checkModule)
                         return currentUser;
@@ -154,6 +164,9 @@ namespace Syncytium.Module.Administration.Managers
                         return currentUser;
                     }
                 }
+
+                if (userExists)
+                    Warn($"The user '{login}' exists but no module attached to him");
 
                 return null;
             }
@@ -228,11 +241,18 @@ namespace Syncytium.Module.Administration.Managers
             UserRecord user = GetByLogin(login);
             if (user != null)
             {
+                Debug($"User {login} exists and its password is encrypted like '{user.Password}' ...");
                 if (!user.CheckPassword(password))
+                {
+                    Debug($"User {login} exists and password is not ok ...");
                     return null;
+                }
 
+                Debug($"User {login} exists and password ok ...");
                 return user;
             }
+
+            Debug($"User {login} doesn't exist ...");
 
             // The login doesn't exist, is it the administrator default login ?
 
@@ -307,7 +327,7 @@ namespace Syncytium.Module.Administration.Managers
 
             // Expiricy in "PasswordExpiricyDay" days
 
-            string newPasswordKey = UserRecord.EncryptPassword($"{login}-{(new Random()).NextDouble().ToString()}");
+            string newPasswordKey = UserRecord.EncryptPassword($"{login}-{(new Random()).NextDouble()}");
             if (newPasswordKey.Length > 256)
                 newPasswordKey = newPasswordKey.Substring(0, 256);
             user.NewPasswordKey = newPasswordKey;

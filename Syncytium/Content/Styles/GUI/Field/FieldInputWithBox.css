@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 /* ------------------------------------------------------------ */
 
 field.field_input_with_box > .value > .field {
-    border: solid 1px #d8d8d8;
+    border: solid 1px var(--syncytium-color-border);
     width: calc(100% - 2px);
 }
 
@@ -30,17 +30,17 @@ field.field_input_with_box > .value > .field:hover {
 }
 
 field.field_input_with_box > .value > .field.deleted {
-    border-color: #ff0000;
+    border-color: var(--syncytium-color-deleted);
 }
 
 field.field_input_with_box:focus > .value > .field {
     outline: none;
-    border-color: #33cc33;
+    border-color: var(--syncytium-color-border-focus);
     background: #f4f4f4;
 }
 
 field.field_input_with_box.error > .value > .field {
-    border: solid 1px #ff0000;
+    border: solid 1px var(--syncytium-color-error);
 }
 
 /* ------------------------------------------------------------ */
@@ -48,7 +48,7 @@ field.field_input_with_box.error > .value > .field {
 /* ------------------------------------------------------------ */
 
 field.field_input_with_box > .value > .field > .value {
-    font-family: Arial;
+    font-family: var(--syncytium-font);
     font-size: 14px;
     border: none;
     width: 100%;
@@ -92,7 +92,7 @@ field.field_input_with_box:focus > .value > .field > .value {
 field.field_input_with_box.readonly:focus > .value > .field,
 field.field_input_with_box.readonly:focus > .value > .field > .value {
     background: #e8e6e6;
-    border-color: #d8d8d8;
+    border-color: var(--syncytium-color-border);
 }
 
 /* ------------------------------------------------------------ */
@@ -105,8 +105,22 @@ field.field_input_with_box > .value > .field > .icon {
     cursor: pointer;
 }
 
+field.field_input_with_box.date > .value > .field > .icon {
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Date.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+}
+
 field.field_input_with_box.datetime > .value > .field > .icon {
-    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Calendar.svg);
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Datetime.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+}
+
+field.field_input_with_box.time > .value > .field > .icon {
+    background-image: url(../../../Images/GUI/Field/FieldInputWithBox/Time.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 16px 16px;

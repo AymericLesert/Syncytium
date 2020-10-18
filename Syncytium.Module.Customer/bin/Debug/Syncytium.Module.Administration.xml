@@ -1,0 +1,881 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncytium.Module.Administration</name>
+    </assembly>
+    <members>
+        <member name="T:Syncytium.Module.Administration.DatabaseContext">
+            <summary>
+            Handle the connection to the database
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.DatabaseContext.AREA_NAME">
+            <summary>
+            Name of the module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.Customer">
+            <summary>
+            Table "Customer"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.Language">
+            <summary>
+            Table "Language"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.User">
+            <summary>
+            Table "User"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.Notification">
+            <summary>
+            Table "Notification"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.Module">
+            <summary>
+            Table "Module"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.UserModule">
+            <summary>
+            Table "UserModule"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.DatabaseContext.MODULE">
+            <summary>
+            Module name used into the log file
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.DatabaseContext.GetCache(Syncytium.Common.Database.DSSchema.DSDatabase)">
+            <summary>
+            Factory building a cache using to optimize the notification effect
+            Virtual method (in sub class, define it the order of tables to notify)
+            </summary>
+            <param name="schema"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.DatabaseContext.GetListRecordsConcernedByUpdate(Syncytium.Common.Database.DSSchema.DSCache,System.String,System.Int32,System.Int32,System.Int32,Syncytium.Common.Database.DSModel.UserProfile.EUserProfile,System.String,System.Boolean,Syncytium.Common.Database.DSModel.DSRecord,Syncytium.Common.Database.DSModel.InformationRecord)">
+            <summary>
+            Retrieve a list of tuple (DSRecord, Table) attached to a given record (table, id) for the given profile
+            </summary>
+            <param name="cache"></param>
+            <param name="table"></param>
+            <param name="id"></param>
+            <param name="customerId"></param>
+            <param name="userId"></param>
+            <param name="profile"></param>
+            <param name="area"></param>
+            <param name="deepUpdate"></param>
+            <param name="recordAlreadyRead"></param>
+            <param name="informationAlreadyRead"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.DatabaseContext.ExecuteService(System.Int32,System.Int32,Syncytium.Common.Database.DSModel.UserProfile.EUserProfile,System.String,System.Int32,System.String,Newtonsoft.Json.Linq.JObject,Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Execute a service
+            </summary>
+            <param name="customerId"></param>
+            <param name="userId"></param>
+            <param name="profile"></param>
+            <param name="area"></param>
+            <param name="moduleId"></param>
+            <param name="service"></param>
+            <param name="record"></param>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.DatabaseContext.#ctor">
+            <summary>
+            Initialize the database access
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Managers.LanguageManager">
+            <summary>
+            This singleton stores all labels on depends on the customer
+            Handle the loading labels in case of modifications
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.LanguageManager.MODULE">
+            <summary>
+            Module name used into the log file
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.IsVerboseAll">
+            <summary>
+            Indicates if the all verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.IsVerbose">
+            <summary>
+            Indicates if the verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Verbose(System.String)">
+            <summary>
+            Log a verbose message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.IsDebug">
+            <summary>
+            Indicates if the debug mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Debug(System.String)">
+            <summary>
+            Log a debug message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Info(System.String)">
+            <summary>
+            Log an info message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Warn(System.String)">
+            <summary>
+            Log a warn message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Error(System.String)">
+            <summary>
+            Log an error message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Exception(System.String,System.Exception)">
+            <summary>
+            Log an exception message
+            </summary>
+            <param name="message"></param>
+            <param name="ex"></param>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.LanguageManager._instance">
+            <summary>
+            Instance of the current language manager
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.LanguageManager._lastUpdate">
+            <summary>
+            Last tick of the update of the labels
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.LanguageManager._labels">
+            <summary>
+            List of labels loaded
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.LanguageManager._mutex">
+            <summary>
+            Mutex protecting the critical section
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Load(Syncytium.Module.Administration.DatabaseContext,System.Nullable{System.Int32})">
+            <summary>
+            Load all labels if it's necessary
+            </summary>
+            <param name="database"></param>
+            <param name="customerId"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.Dispose">
+            <summary>
+            Dispose the language manager
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.GetLabels(System.Int32)">
+            <summary>
+            Retrieve the list of labels attached to the customer
+            </summary>
+            <param name="customerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.#ctor">
+            <summary>
+            Constructor of the language manager
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.GetInstance(Syncytium.Module.Administration.DatabaseContext,System.Int32)">
+            <summary>
+            Retrieve the current instance or define a new instanceof logger
+            </summary>
+            <param name="database"></param>
+            <param name="customerId"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.LanguageManager.GetInstance(Syncytium.Module.Administration.DatabaseContext)">
+            <summary>
+            Retrieve the current instance or define a new instanceof logger
+            </summary>
+            <param name="database"></param>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Managers.UserManager">
+            <summary>
+            Handle the update of the table "User"
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.UserManager.Database">
+            <summary>
+            Instance of the current database manager
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Managers.UserManager.MODULE">
+            <summary>
+            Module name used into the log file
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.IsVerboseAll">
+            <summary>
+            Indicates if the all verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.IsVerbose">
+            <summary>
+            Indicates if the verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Verbose(System.String)">
+            <summary>
+            Log a verbose message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.IsDebug">
+            <summary>
+            Indicates if the debug mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Debug(System.String)">
+            <summary>
+            Log a debug message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Info(System.String)">
+            <summary>
+            Log an info message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Warn(System.String)">
+            <summary>
+            Log a warn message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Error(System.String)">
+            <summary>
+            Log an error message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Exception(System.String,System.Exception)">
+            <summary>
+            Log an exception message
+            </summary>
+            <param name="message"></param>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.GetById(System.Int32)">
+            <summary>
+            Retrieve a user by its Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.GetByLogin(System.String,System.Boolean)">
+            <summary>
+            Look for a user through its login
+            </summary>
+            <param name="login"></param>
+            <param name="checkModule">true : user is retrieved by its login if a module is assigned to him</param>
+            <returns>null if the user doesn't exist or if he can't get access (no modules)</returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.ExistAdministrator">
+            <summary>
+            Check if an administrator alive exists into the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.Authenticate(System.String,System.String)">
+            <summary>
+            Check if login and password match to the database information
+            </summary>
+            <param name="login"></param>
+            <param name="password"></param>
+            <returns>Null if the user doesn't match or the user corresponding to the login</returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.SetNewPassword(System.String,System.String)">
+            <summary>
+            Set a new password for a user
+            </summary>
+            <param name="login"></param>
+            <param name="newPassword">If null or empty, the password is removed ... the user can't access to its account</param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.AskNewPassword(System.String)">
+            <summary>
+            Ask a new password and return the user
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.GetModule(Syncytium.Common.Managers.IUser,System.Int32)">
+            <summary>
+            Retrieve the module on depends on the settings and rights of the current user
+            </summary>
+            <param name="user"></param>
+            <param name="moduleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.GetDefaultModule(Syncytium.Module.Administration.Models.UserRecord)">
+            <summary>
+            Retrieve the default module for the given user
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Managers.UserManager.#ctor(Syncytium.Module.Administration.DatabaseContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="databaseContext"></param>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.CustomerRecord">
+            <summary>
+            Describe a customer
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.CustomerRecord.Name">
+            <summary>
+            Name of the customer
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.CustomerRecord.Login">
+            <summary>
+            customer's administrator
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.CustomerRecord.Email">
+            <summary>
+            Customer's email
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.CustomerRecord.Address">
+            <summary>
+            Customer's address
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.CustomerRecord.Comment">
+            <summary>
+            Customer's comment
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.CustomerRecord.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.LanguageDictionary">
+            <summary>
+            Handle a multilingual dictionary (attached a message to a language within some parameters)
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.LanguageDictionary.DIRECTORY_IMAGE">
+            <summary>
+            Reference on the directory into the server containing all images
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary._defaults">
+            <summary>
+            List of default labels grouped by keys
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary._labels">
+            <summary>
+            List of labels grouped by keys
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary.DefaultLanguage">
+            <summary>
+            Default language
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary.ListOfLanguages">
+            <summary>
+            Retrieve the list of languages
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary.ListOfImages">
+            <summary>
+            Retrieve the list of images containing into ~/Content/Images
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageDictionary.JsonListOfImages">
+            <summary>
+            Retrieve the list of images into a JSON format
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.LanguageDictionary.MODULE">
+            <summary>
+            Module name used into the log file
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.IsVerboseAll">
+            <summary>
+            Indicates if the all verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.IsVerbose">
+            <summary>
+            Indicates if the verbose mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Verbose(System.String)">
+            <summary>
+            Log a verbose message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.IsDebug">
+            <summary>
+            Indicates if the debug mode is enabled or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Debug(System.String)">
+            <summary>
+            Log a debug message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Info(System.String)">
+            <summary>
+            Log an info message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Warn(System.String)">
+            <summary>
+            Log a warn message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Error(System.String)">
+            <summary>
+            Log an error message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Exception(System.String,System.Exception)">
+            <summary>
+            Log an exception message
+            </summary>
+            <param name="message"></param>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.DeclareDefaultLabel(System.String,System.String,System.String,System.String)">
+            <summary>
+            Declare a new label into the multilingual dictionary (in the default dictionary)
+            </summary>
+            <param name="key"></param>
+            <param name="FR"></param>
+            <param name="EN"></param>
+            <param name="comment"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.LoadDefault">
+            <summary>
+            Set a list of labels by default
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.LoadDirectoryImages(System.Int32,System.String)">
+            <summary>
+            Load of images files into the given directory
+            </summary>
+            <param name="startString"></param>
+            <param name="directory"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.LoadImages(System.String)">
+            <summary>
+            Load of images files into the given directory
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.GetDefaultLabel(System.String,System.String,System.Object[])">
+            <summary>
+            Retrieves the key on depends on the language
+            </summary>
+            <param name="language">"FR", "EN" or "ES"</param>
+            <param name="key">Key of the label</param>
+            <param name="parameters">list of parameters - null or empty if you want the label without parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Interpolation(System.String,System.String,System.Object[])">
+            <summary>
+            Replace parameters if necessary
+            </summary>
+            <param name="language"></param>
+            <param name="label"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Clear">
+            <summary>
+            Remove all labels
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.DeclareLabel(System.String,System.String,System.String,System.String)">
+            <summary>
+            Declare a new label into the multilingual dictionary
+            </summary>
+            <param name="key"></param>
+            <param name="FR"></param>
+            <param name="EN"></param>
+            <param name="comment"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.GetLabel(System.String,System.String,System.Object[])">
+            <summary>
+            Retrieves the key on depends on the language
+            </summary>
+            <param name="language">"FR", "EN" or "ES"</param>
+            <param name="key">Key of the label</param>
+            <param name="parameters">list of parameters - null or empty if you want the label without parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.SetLabel(System.String,System.String,System.String,System.String)">
+            <summary>
+            Update or create a label into the dictionary
+            </summary>
+            <param name="language"></param>
+            <param name="key"></param>
+            <param name="label"></param>
+            <param name="comment"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.Load(Syncytium.Module.Administration.DatabaseContext,System.Int32)">
+            <summary>
+            Load once all languages and all labels
+            </summary>
+            <param name="database"></param>
+            <param name="customerId"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageDictionary.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="directory"></param>
+            <param name="defaultLanguage"></param>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.LanguageLabel">
+            <summary>
+            Link a label towards the view
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.LanguageLabel.Languages">
+            <summary>
+            List of labels sorted by language "EN", "FR" or "SP"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageLabel.Comment">
+            <summary>
+            Comment of the label
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageLabel.SetLabel(System.String,System.String,System.String)">
+            <summary>
+            Update a label for a given language
+            </summary>
+            <param name="language"></param>
+            <param name="label"></param>
+            <param name="comment"></param>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageLabel.ToString">
+            <summary>
+            Retrieve a label under a string format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageLabel.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageLabel.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageLabel.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="FR"></param>
+            <param name="EN"></param>
+            <param name="comment"></param>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.LanguageRecord">
+            <summary>
+            Describe the multi lingual ressources
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageRecord.Key">
+            <summary>
+            Key of the label to translate or to show on depends on the default language
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageRecord.FR">
+            <summary>
+            Translate in French
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageRecord.EN">
+            <summary>
+            Translate in English
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.LanguageRecord.Comment">
+            <summary>
+            Comment describing the message (in case of parameters for example)
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.LanguageRecord.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.ModuleRecord">
+            <summary>
+            Handle the list of functional modules
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.ModuleRecord.EModule">
+            <summary>
+            Describe the enumeration of Module
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.ModuleRecord.EModule.Administration">
+            <summary>Module d'administration : users, modules, labels</summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.ModuleRecord.EModule.Customer">
+            <summary>Customer module ...</summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.ModuleRecord.EModule.None">
+            <summary>No module</summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Name">
+            <summary>
+            Name of the module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Module">
+            <summary>
+            Functional module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Parameters">
+            <summary>
+            List of parameters of the module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Profile">
+            <summary>
+            User's profile associated to this module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Description">
+            <summary>
+            Long description of the module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.ModuleRecord.Enable">
+            <summary>
+            Module available ?
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.ModuleRecord.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.NotificationRecord">
+            <summary>
+            This table stores the last notification done for a user
+            In case of creation a new user, this table will store the tick of the creation
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.NotificationRecord.NOTIFICATION">
+            <summary>
+            Name of the report : notification
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.NotificationRecord.REPORT_USER">
+            <summary>
+            Name of the report : automatic report for a user
+            </summary>
+        </member>
+        <member name="F:Syncytium.Module.Administration.Models.NotificationRecord.REPORT_SUPERVISOR">
+            <summary>
+            Name of the report : automatic report for a supervisor
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.NotificationRecord.UserId">
+            <summary>
+            User Id concerned by this last notification
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.NotificationRecord.LastTick">
+            <summary>
+            Last tick concerned by this notification
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.NotificationRecord.Date">
+            <summary>
+            Last date concerned by this notification
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.NotificationRecord.Report">
+            <summary>
+            Name of the notification concerning by this line
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.UserModuleRecord">
+            <summary>
+            Association between users and modules (rights handling)
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserModuleRecord.UserId">
+            <summary>
+            User
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserModuleRecord.ModuleId">
+            <summary>
+            Functional module
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserModuleRecord.Default">
+            <summary>
+            Module called by default
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserModuleRecord.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="T:Syncytium.Module.Administration.Models.UserRecord">
+            <summary>
+            Describe the user's profil
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Login">
+            <summary>
+            Login to sign in on the application (must be unique)
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Password">
+            <summary>
+            Password crypted
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Registration">
+            <summary>
+            Registration field (identity to the company)
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Name">
+            <summary>
+            Label to use for the user in the application
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Email">
+            <summary>
+            Email of the user (used to send notifications)
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.CreationDate">
+            <summary>
+            Creation date of the profile
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.EndDate">
+            <summary>
+            End date of the validation
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Picture">
+            <summary>
+            User's photo
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.Language">
+            <summary>
+            Current language "EN", "FR" or "SP"
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.NewPasswordKey">
+            <summary>
+            Password key crypted (link given to the user asking a new password)
+            </summary>
+        </member>
+        <member name="P:Syncytium.Module.Administration.Models.UserRecord.NewPasswordDate">
+            <summary>
+            Date and time of the expiricy of the new password asking
+            </summary>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.CheckPassword(System.String)">
+            <summary>
+            Check if the password given corresponds to the password into the user description
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.IsEnable">
+            <summary>
+            Check if the user is enable (endDate is null or current date &lt;= endDate)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.EncryptPassword(System.String)">
+            <summary>
+            Encrypt the password 
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.IsInRole(Syncytium.Common.Database.DSModel.UserProfile.EUserProfile,Syncytium.Common.Database.DSModel.UserProfile.EUserProfile)">
+            <summary>
+            Check if the profile given in parameter is allowed for the current profile
+            </summary>
+            <param name="userProfile"></param>
+            <param name="profile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.CreateDefaultAdministrator">
+            <summary>
+            Create an administrator user by applying default properties
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syncytium.Module.Administration.Models.UserRecord.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+    </members>
+</doc>

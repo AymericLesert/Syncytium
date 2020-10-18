@@ -11,9 +11,10 @@ using System.Security.Cryptography;
 using System.Text;
 using static Syncytium.Common.Database.DSModel.UserProfile;
 using Newtonsoft.Json;
+using Syncytium.Common.Logger;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +37,9 @@ namespace Syncytium.Module.Administration.Models
     /// Describe the user's profil
     /// </summary>
     [Table("User")]
+    [DSLot(Capacity = 16)]
     [DSRestricted(Area = DatabaseContext.AREA_NAME, Action = "*", Profile = EUserProfile.Administrator)]
+    [DSRestricted(Area = "Customer", Action = "*", Profile = EUserProfile.Supervisor)]
     [DSRestricted(Area = "*", Action = "Read")]
     [DSRestricted(Area = "*", Action = "Update")]
     [DSRestricted(Area = "*", Action = "NewPassword")]
@@ -83,6 +86,7 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         [DSDateTime(Format = "YYYY-MM-DD")]
         [DSRestricted(Area = DatabaseContext.AREA_NAME)]
+        [DSRestricted(Area = "Customer")]
         public DateTime? CreationDate { get; set; } = null;
 
         /// <summary>
@@ -90,6 +94,7 @@ namespace Syncytium.Module.Administration.Models
         /// </summary>
         [DSDateTime(Format = "YYYY-MM-DD")]
         [DSRestricted(Area = DatabaseContext.AREA_NAME)]
+        [DSRestricted(Area = "Customer")]
         [DSRestricted(Area = "*", Action = "Read")]
         public DateTime? EndDate { get; set; } = null;
 
@@ -147,6 +152,7 @@ namespace Syncytium.Module.Administration.Models
                 foreach (byte b in hash)
                     sb.Append(b.ToString("X2"));
 
+                LoggerManager.Instance.Debug("UserRecord", $"Encrypt password '{password}' => '{sb}'");
                 return sb.ToString();
             }
         }

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,19 +30,19 @@ GUI.Board.BoardTableAssociation = class extends GUI.Board.BoardTable {
          * Update the field 'Enable' on clicking on the cell of the board
          */
         function handleClickSelected( board ) {
-            return function ( id, item, attribute ) {
-                var oldRecord = board.List.getItem( id, true );
+            return async function ( id, item, attribute ) {
+                let oldRecord = board.List.getItem( id, true );
                 if ( oldRecord === null )
                     return;
 
-                var newRecord = DSRecord.Clone( oldRecord );
+                let newRecord = DSRecord.Clone( oldRecord );
 
                 if ( newRecord._selected ) {
                     if ( board.List.isBoardAllowed( board, DSDatabase.Instance.CurrentUser, "delete", oldRecord))
-                        board.deleteItem( oldRecord );
+                        await board.deleteItem( oldRecord );
                 } else {
                     if ( board.List.isBoardAllowed( board, DSDatabase.Instance.CurrentUser, "add", newRecord ) )
-                        board.addItem( newRecord );
+                        await board.addItem( newRecord );
                 }
             };
         }

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -71,6 +71,9 @@ class DSDateTimeAttribute extends DSFormatAttribute {
 
         if ( value instanceof moment )
             return value.format( this._format );
+
+        if ( typeof value === "number" )
+            return moment( value ).format( this._format );
 
         return value;
     }

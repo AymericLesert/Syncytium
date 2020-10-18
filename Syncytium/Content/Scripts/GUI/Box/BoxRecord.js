@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
     /**
      * @param {string} table table name
      * @param {string} key   key used to allow only one box open at time for this key (if null or undefined, no box)
-     * @param {string} list  list to assign to the dialog box
+     * @param {any} list  list to assign to the dialog box
      * @returns {GUI.Box.BoxRecord} a box record corresponding to a table
      */
     static CACHE_DIALOG_BOX( table, key, list ) {
@@ -70,8 +70,8 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         if ( table === null || table === undefined )
             return null;
 
-        var name = table + (key === null || key === undefined ? "" : "." + key);
-        var dialogBox = this._cacheDialogBox[name];
+        let name = table + (key === null || key === undefined ? "" : "." + key);
+        let dialogBox = this._cacheDialogBox[name];
 
         if ( dialogBox !== null && dialogBox !== undefined ) {
             for ( let i = 0; i < dialogBox.length; i++ ) {
@@ -104,7 +104,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
 
         dialogBox = new dialogBox();
         dialogBox.List = list;
-        dialogBox.Commit = window.administration === undefined;
+        dialogBox.Commit = true;
         if ( this._cacheDialogBox[name] === null || this._cacheDialogBox[name] === undefined )
             this._cacheDialogBox[name] = [];
         this._cacheDialogBox[name].push(dialogBox);
@@ -115,16 +115,16 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * @returns {any} record updated into the dialog box
      */
     get Value() {
-        var newRecord = DSRecord.Clone( this._currentRecord );
+        let newRecord = DSRecord.Clone( this._currentRecord );
 
-        for ( var field in this.Fields ) {
+        for ( let fieldName in this.Fields ) {
             if ( this._currentRecord === null )
                 continue;
 
-            if ( this._currentRecord._list && field === this._currentRecord._list.column )
+            if ( this._currentRecord._list && fieldName === this._currentRecord._list.column )
                 continue;
 
-            newRecord[field] = DSDatabase.Instance.convertValue( this._table, field, this.Fields[field].Value, false );
+            newRecord[fieldName] = DSDatabase.Instance.convertValue( this._table, fieldName, this.Fields[fieldName].Value, false );
         }
 
         let fieldName = this._list.SequenceProperty;
@@ -141,6 +141,9 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      */
     set Error( value ) {
         super.Error = value;
+
+        if ( this._initializing || this._refreshing )
+            return;
 
         if ( this._panels === null || this._navigationPanels === null ) {
             this.refreshPanel();
@@ -257,7 +260,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
                         enumerable = new List.ListRecord(foreignKey.Table, false);
                     }
 
-                    if ( DSDatabase.Instance.getColumn(foreignKey.Table, "Picture") !== null ) {
+                    if ( DSDatabase.Instance.getColumn( foreignKey.Table, "Picture" ) !== null || DSDatabase.Instance.getColumn( foreignKey.Table, "Image" ) !== null ) {
                         newField = new GUI.Field.FieldSelectImage( this, field, label, this._table.toUpperCase() + "_SELECT_" + field.toUpperCase(), enumerable);
                         if (!column.IsRequired)
                             newField.setAllowNullValue(true, this._table.toUpperCase() + "_SELECT_" + field.toUpperCase() + "_NULL");
@@ -290,7 +293,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
                 } else {
                     mask = column.StringFormat;
                     if (!String.isEmptyOrWhiteSpaces(mask)) {
-                        newField = new GUI.Field.FieldInputDigit(this, field, label, new Digits.Mask(mask));
+                        newField = new GUI.Field.FieldInputDigit( this, field, label, new Digits.Mask( mask, "\0"));
                         newField.AsString = true;
                     } else if (column.IsEmail) {
                         newField = new GUI.Field.FieldInput(this, field, label, GUI.Field.FieldInput.TYPE_INPUT, null, column.StringMaxLength);
@@ -321,6 +324,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
             case "DateTime":
                 mask = column.DatetimeFormat;
                 newField = new GUI.Field.FieldInputWithBox( this, field, label, mask === null ? "datetime" : mask );
+                newField.AllowNullValue = !column.IsRequired;
                 break;
 
             case "Byte[]":
@@ -331,7 +335,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
                         this.exception( "[Verbose] An exception occurs on showing the column", e );
                 }
 
-                newField = new GUI.Field.FieldImage( this, field, label, defaultValue );
+                newField = new GUI.Field.FieldFileImage( this, field, label, defaultValue );
                 if ( defaultValue !== null )
                     newField.DefaultPicture = defaultValue.picture;
 
@@ -351,10 +355,17 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
     drawButton ( container ) {
         super.drawButton( container );
 
-        this._buttonOK = this.declareButton( GUI.Box.Box.BUTTON_OK, "BTN_SUBMIT" );
-        this.drawAdditionalButton( container );
+        this._buttonFirst = this.declareButton(GUI.Box.Box.BUTTON_FIRST, "BTN_FIRST");
+        this._buttonPrevious = this.declareButton(GUI.Box.Box.BUTTON_PREVIOUS, "BTN_PREVIOUS");
+        this._buttonOK = this.declareButton(GUI.Box.Box.BUTTON_OK, "BTN_SUBMIT");
+
+        this.drawAdditionalButton(container);
+
         this._buttonCancel = this.declareButton( GUI.Box.Box.BUTTON_CANCEL, "BTN_CANCEL" );
         this._buttonClose = this.declareButton( GUI.Box.Box.BUTTON_CLOSE, "BTN_CLOSE" );
+        this._buttonSearch = this.declareButton(GUI.Box.Box.BUTTON_SEARCH, "BTN_SEARCH");
+        this._buttonNext = this.declareButton(GUI.Box.Box.BUTTON_NEXT, "BTN_NEXT");
+        this._buttonLast = this.declareButton(GUI.Box.Box.BUTTON_LAST, "BTN_LAST");
     }
 
     /**
@@ -371,6 +382,183 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * @param {any} container zone having the list of buttons
      */
     drawAdditionalButton ( container ) {
+    }
+
+    /**
+     * Virtual method to check if the record is selected within the value or not
+     * @param {any} item record into the list of items
+     * @param {string} value value to check
+     * @returns {boolean} true if the record is selected, else false
+     */
+    isSelectedRecord(item, value) {
+        if (String.isEmptyOrWhiteSpaces(value))
+            return true;
+
+        return String.in(this.List.getText(item), value);
+    }
+
+    /**
+     * Raise on first record enabled
+     */
+    onFirstRecord() {
+        if (this._updatedRecords === null || this._updatedIndex <= 0)
+            return;
+
+        this.close();
+        this.debug("Go to the first record");
+        this._updatedIndex = 0;
+        this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], this.Mode, false);
+        this.open();
+
+        this._buttonFirst.Readonly = true;
+        this._buttonPrevious.Readonly = true;
+        this._buttonNext.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+        this._buttonLast.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+    }
+
+    /**
+     * Raise on previous record enabled
+     */
+    onPreviousRecord() {
+        if (this._updatedRecords === null || this._updatedIndex <= 0)
+            return;
+
+        this.close();
+        this.debug("Go to the previous record");
+        this._updatedIndex--;
+        this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], this.Mode, false);
+        this.open();
+
+        this._buttonFirst.Readonly = this._updatedIndex <= 0;
+        this._buttonPrevious.Readonly = this._updatedIndex <= 0;
+        this._buttonNext.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+        this._buttonLast.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+    }
+
+    /**
+     * Raise on searching record (default function)
+     */
+    onSearchRecord() {
+        if (this._updatedRecords === null)
+            return;
+
+        GUI.Box.BoxInputText.Open("TITLE_SEARCH", this.List.Table.toUpperCase() + "_SEARCH", this._updatedSearch, false, (value) => {
+            // Select items matching within the label
+
+            this.debug("Looking for a given record");
+            this._updatedSearch = value;
+
+            let oldArray = this._updatedRecordsSelected;
+            let oldIndex = oldArray[this._updatedIndex];
+
+            let i = 0;
+
+            this._updatedRecordsSelected = [];
+            for (i = 0; i < this._updatedRecords.length; i++) {
+                if (this.isSelectedRecord(this.List.getItem(this._updatedRecords[i]), this._updatedSearch))
+                    this._updatedRecordsSelected.push(i);
+            }
+
+            if (this._updatedRecordsSelected.length === 0)
+                this._updatedRecordsSelected.push(oldIndex);
+
+            this._updatedIndex = 0;
+            for (i = 0; i < this._updatedRecordsSelected.length; i++) {
+                this._updatedIndex = i;
+
+                if (this._updatedRecordsSelected[i] >= oldIndex)
+                    break;
+            }
+
+            if (oldIndex !== this._updatedRecordsSelected[this._updatedIndex]) {
+                this.close();
+                this.debug("Go to the first record found");
+                this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], this.Mode, false);
+                this.open();
+            }
+
+            this._buttonFirst.Readonly = this._updatedIndex <= 0;
+            this._buttonPrevious.Readonly = this._updatedIndex <= 0;
+            this._buttonNext.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+            this._buttonLast.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+        });
+    }
+
+    /**
+     * Raise on next record enabled
+     */
+    onNextRecord() {
+        if (this._updatedRecords === null || this._updatedIndex >= this._updatedRecordsSelected.length - 1)
+            return;
+
+        this.close();
+        this.debug("Go to the next record");
+        this._updatedIndex++;
+        this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], this.Mode, false);
+        this.open();
+
+        this._buttonFirst.Readonly = this._updatedIndex <= 0;
+        this._buttonPrevious.Readonly = this._updatedIndex <= 0;
+        this._buttonNext.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+        this._buttonLast.Readonly = this._updatedIndex >= this._updatedRecordsSelected.length - 1;
+    }
+
+    /**
+     * Raise on last record enabled
+     */
+    onLastRecord() {
+        if (this._updatedRecords === null || this._updatedIndex >= this._updatedRecords.length - 1)
+            return;
+
+        this.close();
+        this.debug("Go to the last record");
+        this._updatedIndex = this._updatedRecordsSelected.length - 1;
+        this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], this.Mode, false);
+        this.open();
+
+        this._buttonFirst.Readonly = this._updatedIndex <= 0;
+        this._buttonPrevious.Readonly = this._updatedIndex <= 0;
+        this._buttonNext.Readonly = true;
+        this._buttonLast.Readonly = true;
+    }
+
+    /**
+     * Raise on key pressed on the box
+     * @param {any} event keyboard events
+     */
+    onKeypressed(event) {
+        if (this.Mode === GUI.Box.BoxRecord.MODE_UPDATE && this._updatedRecords !== null) {
+            switch (event.key) {
+                case "Home":
+                    event.stopImmediatePropagation();
+                    this._buttonFirst.onMouseClick();
+                    return false;
+
+                case "PageUp":
+                    event.stopImmediatePropagation();
+                    this._buttonPrevious.onMouseClick();
+                    return false;
+
+                case "PageDown":
+                    event.stopImmediatePropagation();
+                    this._buttonNext.onMouseClick();
+                    return false;
+
+                case "End":
+                    event.stopImmediatePropagation();
+                    this._buttonLast.onMouseClick();
+                    return false;
+
+                case "f":
+                    if (!event.ctrlKey)
+                        return false;
+                    event.stopImmediatePropagation();
+                    this._buttonNext.onMouseClick();
+                    return false;
+            }
+        }
+
+        return super.onKeypressed(event);
     }
 
     /**
@@ -401,7 +589,9 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * @param {any} mode     "Create", "Read", "Update" or "Delete"
      * @param {any} readonly all fields in readonly mode
      */
-    initialize ( record, mode, readonly ) {
+    initialize( record, mode, readonly ) {
+        this._initializing = true;
+
         this.Mode = mode;
         this._currentRecord = this.getRecord( record );
         this._originRecord = this.Mode === GUI.Box.BoxRecord.MODE_READ ? this._currentRecord : this.getRecord( this._list.getId( this._currentRecord ) );
@@ -412,6 +602,8 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         this.Message = null;
         this.Error = null;
         this.Readonly = readonly;
+
+        this._initializing = false;
     }
 
     /**
@@ -442,7 +634,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * @returns {any} record matching within the given id
      */
     getRecord ( id ) {
-        var record = null;
+        let record = null;
 
         if ( typeof id === "number" || typeof id === "string" ) {
             record = DSRecord.Clone( this._list.getItem( id, true ) );
@@ -460,17 +652,21 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * Update record into the box by setting value one by one to the list of fields
      */
     updateFields() {
+        super.updateFields();
+
         if ( this._currentRecord === null || this._currentRecord === undefined )
             return;
 
-        this.debug( "Update fields" );
+        for ( let fieldName in this.Fields ) {
+            let field = this.Fields[fieldName];
 
-        for ( var field in this.Fields ) {
             try {
-                this.Fields[field].populate();
-                this.Fields[field].Value = this._currentRecord[field];
+                if ( field instanceof GUI.Field.FieldSelect )
+                    field.ExcludeValueToFilter = this._currentRecord[fieldName];
+                field.populate();
+                field.Value = this._currentRecord[fieldName];
             } catch ( e ) {
-                this.exception( `Unable to set the value of the field ${field}`, e );
+                this.exception( `Unable to set the value of the field ${fieldName}`, e );
             }
         }
     }
@@ -478,15 +674,16 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
     /**
      * Update record into the box by setting value one by one to the list of fields
      */
-    updateBoards() {
-        this.debug( "Update boards" );
+    async updateBoards() {
+        super.updateBoards();
 
-        for ( var board in this.Boards ) {
+        for ( let board of Array.toIterable( this.Boards ) ) {
             try {
-                this.Boards[board].populateWebix();
-                this.Boards[board].adjustWebix();
+                board.clearWebixCache();
+                await board.populateWebix();
+                await board.adjustWebix();
             } catch ( e ) {
-                this.exception( `Unable to populate the list ${board}`, e );
+                this.exception( `Unable to populate the list ${board.Name}`, e );
             }
         }
     }
@@ -558,6 +755,9 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         if ( !super.isPanelVisible( panel, user, item ) )
             return false;
 
+        if ( panel === "_history" && this.Mode === GUI.Box.BoxRecord.MODE_CREATE )
+            return false;
+
         return this._list.isBoxPanelVisible( this, panel, user, item );
     }
 
@@ -579,13 +779,8 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * Open the dialog box
      */
     open() {
-        this.updateFields();
-
+        this.verbose( "Openning box ..." );
         super.open();
-
-        this.updateBoards();
-
-        this.firstFocus();
 
         // Set a message under the sequence to notify that the sequence number can't be defined and will be updated as soon as the synchronization will be done
 
@@ -614,74 +809,81 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
      * Open the dialog box for creating a new record
      * @param {any} record record to clone for a new one
      * @param {any} mode if defined, replace "Create"
+     * @param {any} done if defined, raise a function on OK and commit
      */
-    createRecord( record, mode ) {
+    createRecord( record, mode, done ) {
         function handleOpen( box ) {
             return function () {
                 box.open();
+
+                box.debug( "Box record is opened for creating an item" );
             };
         }
 
-        if ( this.IsOpened )
-            return;
+        function handleConfirmCreationRecord( box ) {
+            return async function () {
+                // Run the validation again ...
 
-        this.initialize( record === undefined || record === null ? null : record, mode ? mode : GUI.Box.BoxRecord.MODE_CREATE, false );
-
-        function handleCreateRecord( box ) {
-            return function ( record ) {
-                var errors = new Errors();
+                let errors = new Errors();
 
                 box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
 
-                var confirmation = box._list.addItem( record, errors, false );
+                let newItem = box._list.addItem( record, errors, true );
+
+                box._list.endTransaction();
+
+                if ( errors.HasError ) {
+                    box.Error = errors;
+
+                    if ( box._commit )
+                        await box._list.rollbackAsync();
+
+                    return;
+                }
+
+                if ( box._commit ) {
+                    box._currentRecord = newItem;
+                    await box._list.commitAsync();
+                }
+
+                if ( done )
+                    done( newItem );
+
+                if ( !box._loopOnCreate )
+                    box.close();
+            };
+        }
+
+        function handleCreateRecord( box ) {
+            return async function ( record ) {
+                let errors = new Errors();
+
+                box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
+
+                let confirmation = box._list.addItem( record, errors, false );
 
                 box._list.endTransaction();
 
                 if ( Helper.IsLabel( confirmation ) ) {
                     // it's a message of confirmation
-
-                    GUI.Box.Message.Message( box.Title, confirmation, function () {
-                        // Run the validation again ...
-
-                        var errors = new Errors();
-
-                        box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
-
-                        var newItem = box._list.addItem( record, errors, true );
-
-                        box._list.endTransaction();
-
-                        if ( errors.HasError ) {
-                            if ( box._commit )
-                                box._list.rollback( record );
-
-                            box.Error = errors;
-                            return;
-                        }
-
-                        if ( box._commit ) {
-                            box._list.commit( newItem );
-                            box._currentRecord = newItem;
-                        }
-
-                        if ( !box._loopOnCreate )
-                            box.close();
-                    } );
-
+                    GUI.Box.Message.Message( box.Title, confirmation, handleConfirmCreationRecord( box ) );
                     return false;
                 }
 
                 if ( errors.HasError ) {
                     if ( box._commit )
-                        box._list.rollback( record );
+                        await box._list.rollbackAsync();
 
                     return errors;
                 }
 
                 if ( box._commit ) {
-                    box._list.commit( confirmation );
                     box._currentRecord = confirmation;
+                    await box._list.commitAsync();
                 }
+
+                if ( done )
+                    done( confirmation );
 
                 return !box._loopOnCreate;
             };
@@ -691,7 +893,7 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
             return function ( record ) {
                 box.debug( "Cancelling record ..." );
 
-                var errors = new Errors();
+                let errors = new Errors();
                 box._list.cancelItem( -1, null, box.Value, errors );
                 box.close();
 
@@ -699,11 +901,28 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
             };
         }
 
+        if ( this.IsOpened )
+            return;
+
+        this.debug( "Opening a box record for creating an item ..." );
+
+        this._updatedRecords = null;
+        this._updatedRecordsSelected = null;
+        this._updatedIndex = null;
+        this._updatedSearch = null;
+
+        this.initialize( record === undefined || record === null ? null : record, mode ? mode : GUI.Box.BoxRecord.MODE_CREATE, false );
+
+        this._buttonFirst.Visible = false;
+        this._buttonPrevious.Visible = false;
         this._buttonOK.Visible = true;
         this._buttonOK.Action = handleCreateRecord( this );
         this._buttonCancel.Visible = true;
         this._buttonCancel.Action = handleCancelRecord( this );
         this._buttonClose.Visible = false;
+        this._buttonSearch.Visible = false;
+        this._buttonNext.Visible = false;
+        this._buttonLast.Visible = false;
 
         if ( !this._list.createSequence( this._currentRecord, handleOpen( this ) ) ) {
             this._noSequence = true;
@@ -719,94 +938,151 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         if ( this.IsOpened )
             return;
 
+        this.debug( "Opening a box record for reading an item ..." );
+
+        this._updatedRecords = null;
+        this._updatedRecordsSelected = null;
+        this._updatedIndex = null;
+        this._updatedSearch = null;
+
         this.initialize( record, GUI.Box.BoxRecord.MODE_READ, true );
 
+        this._buttonFirst.Visible = false;
+        this._buttonPrevious.Visible = false;
         this._buttonOK.Visible = false;
         this._buttonOK.Action = null;
         this._buttonCancel.Visible = false;
         this._buttonClose.Visible = true;
+        this._buttonSearch.Visible = false;
+        this._buttonNext.Visible = false;
+        this._buttonLast.Visible = false;
 
         this.open();
 
         this._buttonClose.focus();
+
+        this.debug( "Box record is opened for reading an item" );
     }
 
     /**
      * Open the dialog box for updating a record
-     * @param {any} record record to update
+     * @param {any} record record to update (or array of records to update)
      * @param {any} mode if defined, replace "Update"
+     * @param {any} done if defined, raise a function on OK and commit
      */
-    updateRecord ( record, mode ) {
-        if ( this.IsOpened )
-            return;
+    updateRecord(record, mode, done) {
+        function executeEvent(box, event) {
+            if (box._updatedRecords === null || event === "ok")
+                return true;
 
-        this.initialize( record, mode ? mode : GUI.Box.BoxRecord.MODE_UPDATE, false );
+            switch (event) {
+                case "first":
+                    box.onFirstRecord();
+                    break;
 
-        function handleUpdateRecord( box ) {
-            return function ( record ) {
-                var oldRecord = box._originRecord;
-                var newRecord = box.Value;
+                case "previous":
+                    box.onPreviousRecord();
+                    break;
 
-                if ( DSRecord.IsEqual( oldRecord, newRecord ) ) {
-                    box.debug( "Record unchanged" );
-                    return true;
-                }
-                box.debug( "Updating record ..." );
+                case "search":
+                    box.onSearchRecord();
+                    break;
 
-                var errors = new Errors();
+                case "next":
+                    box.onNextRecord();
+                    break;
+
+                case "last":
+                    box.onLastRecord();
+                    break;
+            }
+
+            return false;
+        }
+
+        function handleConfirmUpdateRecord( box, event ) {
+            return async function () {
+                let oldRecord = box._originRecord;
+                let newRecord = box.Value;
+
+                // Run the validation again ...
+
+                let errors = new Errors();
 
                 box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
 
-                var confirmation = box._list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, false );
+                let itemUpdated = box._list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, true );
+                
+                box._list.endTransaction();
+
+                if ( errors.HasError ) {
+                    box.Error = errors;
+
+                    if ( box._commit )
+                        await box._list.rollbackAsync();
+                    return;
+                }
+
+                if ( box._commit ) {
+                    box._currentRecord = itemUpdated;
+                    await box._list.commitAsync();
+                }
+
+                if ( done )
+                    done( itemUpdated );
+
+                if (executeEvent(box, event))
+                    box.close();
+            };
+        }
+
+        function handleUpdateRecord( box, event ) {
+            return async function ( record ) {
+                let oldRecord = box._originRecord;
+                let newRecord = box.Value;
+
+                if ( DSRecord.IsEqual( oldRecord, newRecord ) ) {
+                    box.debug("Record unchanged");
+                    return executeEvent(box, event);
+                }
+                box.debug( "Updating record ..." );
+
+                let errors = new Errors();
+
+                box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
+
+                let confirmation = box._list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, false );
 
                 box._list.endTransaction();
 
                 if ( Helper.IsLabel( confirmation ) ) {
+                    // Rollback all previous updating done in database until the asking of confirmation
+
+                    await box._list.rollbackAsync();
+
                     // it's a message of confirmation
 
-                    GUI.Box.Message.Message( box.Title, confirmation, function () {
-                        // Run the validation again ...
-
-                        var errors = new Errors();
-
-                        box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
-
-                        var itemUpdated = box._list.updateItem( oldRecord.Id, oldRecord, newRecord, errors, true );
-
-                        box._list.endTransaction();
-
-                        if ( errors.HasError ) {
-                            if ( box._commit )
-                                box._list.rollback( oldRecord );
-
-                            box.Error = errors;
-                            return;
-                        }
-
-                        if ( box._commit ) {
-                            box._list.commit( itemUpdated );
-                            box._currentRecord = itemUpdated;
-                        }
-
-                        box.close();
-                    } );
+                    GUI.Box.Message.Message( box.Title, confirmation, handleConfirmUpdateRecord( box, event ) );
 
                     return false;
                 }
 
                 if ( errors.HasError ) {
                     if ( box._commit )
-                        box._list.rollback( oldRecord );
+                        await box._list.rollbackAsync();
 
                     return errors;
                 }
 
                 if ( box._commit ) {
-                    box._list.commit( confirmation );
                     box._currentRecord = confirmation;
+                    await box._list.commitAsync();
                 }
 
-                return true;
+                if ( done )
+                    done( confirmation );
+
+                return executeEvent(box, event);
             };
         }
 
@@ -814,14 +1090,14 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
             return function ( record ) {
                 box.debug( "Cancelling record ..." );
 
-                var oldRecord = box._originRecord;
-                var newRecord = box.Value;
+                let oldRecord = box._originRecord;
+                let newRecord = box.Value;
 
-                if ( DSRecord.IsEqual( oldRecord, newRecord ) ) 
+                if ( DSRecord.IsEqual( oldRecord, newRecord ) )
                     return true;
 
                 function handleClose() {
-                    var errors = new Errors();
+                    let errors = new Errors();
                     box._list.cancelItem( newRecord.Id, oldRecord, newRecord, errors );
                     if ( errors.HasError )
                         box.Error = errors;
@@ -835,13 +1111,68 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
             };
         }
 
+        if ( this.IsOpened )
+            return;
+
+        this.debug("Opening a box record for updating an item ...");
+
+        if (Array.isArray(record)) {
+            let i = 0;
+
+            this._updatedRecords = [];
+            this._updatedRecordsSelected = [];
+
+            for (let item of Array.toIterable(record)) {
+                this._updatedRecords.push(this.List.getId(item));
+                if (this.isSelectedRecord(item, this._updatedSearch))
+                    this._updatedRecordsSelected.push(i);
+                i++;
+            }
+
+            this._updatedSearch = null;
+            this._updatedIndex = 0;
+
+            this.initialize(this._updatedRecords[this._updatedRecordsSelected[this._updatedIndex]], mode ? mode : GUI.Box.BoxRecord.MODE_UPDATE, false);
+
+            this._buttonFirst.Visible = true;
+            this._buttonFirst.Readonly = this._updatedIndex <= 0;
+            this._buttonFirst.Action = handleUpdateRecord(this, "first");
+            this._buttonPrevious.Visible = true;
+            this._buttonPrevious.Readonly = this._updatedIndex <= 0;
+            this._buttonPrevious.Action = handleUpdateRecord(this, "previous");
+            this._buttonSearch.Visible = true;
+            this._buttonSearch.Readonly = false;
+            this._buttonSearch.Action = handleUpdateRecord(this, "search");
+            this._buttonNext.Visible = true;
+            this._buttonNext.Readonly = this._updatedIndex >= this._updatedRecords.length - 1;
+            this._buttonNext.Action = handleUpdateRecord(this, "next");
+            this._buttonLast.Visible = true;
+            this._buttonLast.Readonly = this._updatedIndex >= this._updatedRecords.length - 1;
+            this._buttonLast.Action = handleUpdateRecord(this, "last");
+        } else {
+            this._updatedRecords = null;
+            this._updatedRecordsSelected = null;
+            this._updatedIndex = null;
+            this._updatedSearch = null;
+
+            this.initialize(record, mode ? mode : GUI.Box.BoxRecord.MODE_UPDATE, false);
+
+            this._buttonFirst.Visible = false;
+            this._buttonPrevious.Visible = false;
+            this._buttonSearch.Visible = false;
+            this._buttonNext.Visible = false;
+            this._buttonLast.Visible = false;
+        }
+
         this._buttonOK.Visible = true;
-        this._buttonOK.Action = handleUpdateRecord( this );
+        this._buttonOK.Action = handleUpdateRecord(this, "ok");
         this._buttonCancel.Visible = true;
         this._buttonCancel.Action = handleCancelRecord( this );
         this._buttonClose.Visible = false;
 
         this.open();
+
+        this.debug( "Box record is opened for updating an item" );
     }
 
     /**
@@ -852,38 +1183,50 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         if ( this.IsOpened )
             return;
 
+        this.debug( "Opening a box record for deleting an item ..." );
+
         this.initialize( record, GUI.Box.BoxRecord.MODE_DELETE, true );
 
         function handleDeleteRecord( box ) {
-            return function ( record ) {
-                var errors = new Errors();
+            return async function ( record ) {
+                let errors = new Errors();
 
                 box._list.beginTransaction( Helper.Label( box.Name.toUpperCase() + "_" + box.Mode.toUpperCase() + "D_TOAST", box.getRecordLabel() ) );
-
-                var itemDeleted = box._list.deleteItem( box._originRecord.Id, box._originRecord, errors );
-
+                box._list.deleteItem( box._originRecord.Id, box._originRecord, errors );
                 box._list.endTransaction();
 
                 if ( errors.HasError ) {
                     if ( box._commit )
-                        box._list.rollback( itemDeleted );
+                        await box._list.rollbackAsync();
 
                     return errors;
                 }
 
                 if ( box._commit )
-                    box._list.commit( itemDeleted );
+                    await box._list.commitAsync();
 
                 return true;
             };
         }
 
+        this._updatedRecords = null;
+        this._updatedRecordsSelected = null;
+        this._updatedIndex = null;
+        this._updatedSearch = null;
+
+        this._buttonFirst.Visible = false;
+        this._buttonPrevious.Visible = false;
         this._buttonOK.Visible = true;
         this._buttonOK.Action = handleDeleteRecord( this );
         this._buttonCancel.Visible = true;
         this._buttonClose.Visible = false;
+        this._buttonSearch.Visible = false;
+        this._buttonNext.Visible = false;
+        this._buttonLast.Visible = false;
 
         this.open();
+
+        this.debug( "Box record is opened for deleting an item" );
     }
 
     /**
@@ -894,6 +1237,9 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
     constructor( table, list ) {
         super( table, "box_record" );
 
+        this._initializing = false;
+        this._refreshing = false;
+
         this._noSequence = false;
         this._table = table;
         this._list = list ? list : new List.ListRecord( table );
@@ -902,8 +1248,18 @@ GUI.Box.BoxRecord = class extends GUI.Box.Box {
         this._commit = false;
         this._loopOnCreate = false;
 
+        this._buttonFirst = null;
+        this._buttonPrevious = null;
         this._buttonOK = null;
         this._buttonCancel = null;
         this._buttonClose = null;
+        this._buttonSearch = null;
+        this._buttonNext = null;
+        this._buttonLast = null;
+
+        this._updatedRecords = null;
+        this._updatedRecordsSelected = null;
+        this._updatedIndex = null;
+        this._updatedSearch = null;
     }
 };

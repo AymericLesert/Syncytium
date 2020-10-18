@@ -1,4 +1,5 @@
-﻿using Syncytium.Common.Database.DSModel;
+﻿using Syncytium.Common.Database;
+using Syncytium.Common.Database.DSModel;
 using Syncytium.Module.Administration.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Threading;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,7 +37,13 @@ namespace Syncytium.Module.Administration.Managers
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(LanguageManager).Name;
+        private static readonly string MODULE = typeof(LanguageManager).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -97,7 +104,7 @@ namespace Syncytium.Module.Administration.Managers
         /// <summary>
         /// Last tick of the update of the labels
         /// </summary>
-        private Dictionary<int, int> _lastUpdate = null;
+        private readonly Dictionary<int, int> _lastUpdate = null;
 
         /// <summary>
         /// List of labels loaded
@@ -160,12 +167,24 @@ namespace Syncytium.Module.Administration.Managers
                 if (parameter != null && !String.IsNullOrWhiteSpace(parameter.Value) && !int.TryParse(parameter.Value, out lastUpdate))
                     lastUpdate = 0;
 
-                if (parameter != null && _lastUpdate.ContainsKey(customerId.Value) && lastUpdate == _lastUpdate[customerId.Value])
+                if (parameter != null && _lastUpdate.ContainsKey(customerId.Value) && lastUpdate == _lastUpdate[customerId.Value] && lastUpdate >= 0)
                 {
                     // no changes ...
-
                     _mutex.Release(); // unlock critical section
                     return;
+                }
+
+                // Update the language tick
+
+                if (parameter != null && lastUpdate < 0 )
+                {
+                    string dbTickKey = $"Database.Tick.{customerId.Value}";
+                    ParameterRecord parameterTick = database._Parameter.FirstOrDefault(e => e.Key.Equals(dbTickKey));
+                    if (parameterTick != null)
+                    {
+                        parameter.Value = parameterTick.Value;
+                        database.SaveChanges();
+                    }
                 }
             }
 
@@ -186,7 +205,7 @@ namespace Syncytium.Module.Administration.Managers
                         newLabels[label.CustomerId].Add(DSRecord.Copy(label) as LanguageRecord);
 
                         if (IsDebug() && customerId == null && label.CustomerId == 1)
-                            Debug($"{label.Key.Trim()} = {label.ToString()}");
+                            Debug($"{label.Key.Trim()} = {label}");
 
                         i++;
                     }
@@ -226,8 +245,12 @@ namespace Syncytium.Module.Administration.Managers
                 }
             }
 
-
             _mutex.Release(); // unlock critical section
+
+            if ( customerId != null )
+                DatabaseCacheManager.Instance.Reload(database, customerId.Value, "Language");
+
+            return;
         }
 
         /// <summary>
@@ -247,7 +270,7 @@ namespace Syncytium.Module.Administration.Managers
         /// <returns></returns>
         public List<LanguageRecord> GetLabels(int customerId)
         {
-            List<LanguageRecord> currentLabels = null;
+            List<LanguageRecord> currentLabels;
 
             _mutex.Wait(); // lock critical section
 

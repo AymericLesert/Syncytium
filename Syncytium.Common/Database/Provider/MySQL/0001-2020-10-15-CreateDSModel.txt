@@ -1,0 +1,170 @@
+﻿-- ------------------------------------- My SQL -------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- 
+-- 2020/10/15 - Aymeric Lesert - Create Differential Synchronization Model (DSModel)
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Parameter
+--
+-- This tables stores some internal parameters managed by the application itself
+-- For example (set by the application):
+--  * Database.Version : current version of the database (based on the upgrade script)
+--  * Database.Update  : date time of the last upgrade
+--  * Database.Tick    : Last tick having updated the database
+--          (different that Timestamp - in same case, you may have the same timestamp for 2 updates)
+--          (by using a Tick, you are sure to have 2 differents values for 2 updates)
+-- ----------------------------------------------------------------------------------
+
+create table `_Parameter`
+		(`Key`   VARCHAR(128)  NOT NULL PRIMARY KEY,
+		 `Value` VARCHAR(128));
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Connection
+--
+-- This table stores current connection information to avoid that the same user is
+-- connected twice to the application on the same machine.
+--
+-- In case of auto-scale (as the features allowed by the cloud azure), a user can be
+-- connected to a server and can be switched to another server in case of abnormal
+-- situation.
+-- ----------------------------------------------------------------------------------
+
+create table `_Connection`
+		(`ConnectionId`   VARCHAR(36)  NOT NULL PRIMARY KEY,
+		 `Machine`        VARCHAR(32)  NOT NULL,
+		 `CustomerId`     INTEGER      NOT NULL,
+		 `UserId`         INTEGER      NOT NULL,
+		 `Allow`          TINYINT      NOT NULL,
+		 `Profile`        TINYINT,
+		 `Area`           VARCHAR(32),
+		 `ModuleId`       INTEGER      NOT NULL,
+		 `Status`         TINYINT      NOT NULL,
+		 `ConnectionDate` DATETIME     NOT NULL,
+		 `ConnectionLast` DATETIME     NOT NULL);
+
+create index I__CONNECTION_USER on `_Connection`(`UserId`);
+create index I__CONNECTION_CUSTOMER on `_Connection`(`CustomerId`);
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Request
+--
+-- This table stores all requests received (except the details). Just for traceability.
+-- ----------------------------------------------------------------------------------
+
+-- Create table `_Request`
+
+CREATE TABLE `_Request` (
+  `Id`            int(11)     NOT NULL AUTO_INCREMENT,
+  `ConnectionId`  varchar(36) NOT NULL,
+  `CustomerId`    int(11)     NOT NULL,
+  `UserId`        int(11)     NOT NULL,
+  `RequestId`     int(11)     NOT NULL,
+  `Profile`       tinyint(4)  DEFAULT NULL,
+  `Area`          varchar(32) DEFAULT NULL,
+  `ModuleId`      int(11)     NOT NULL,
+  `Label`         text,
+  `Request`       blob,
+  `Transaction`   tinyint(4)  DEFAULT NULL,
+  `Notify`        tinyint(4)  DEFAULT NULL,
+  `Service`       varchar(64) DEFAULT NULL,
+  `ReceptionDate` datetime    NOT NULL,
+  `ExecutionDate` datetime    DEFAULT NULL,
+  `Acknowledge`   tinyint(4)  DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+);
+
+create table `_RequestTable`
+		(`Tick`           INTEGER    NOT NULL,
+		 `CustomerId`     INTEGER    NOT NULL,
+		 `UserId`         INTEGER    NOT NULL,
+		 `RequestId`      INTEGER    NOT NULL,
+		 `Table`          VARCHAR(32),
+		 `Action`         VARCHAR(32),
+		 `Id`             INTEGER,
+		 PRIMARY KEY(`CustomerId`, `Tick`));
+
+create index I__REQUEST_CUSTOMER on `_RequestTable`(`CustomerId`);
+create index I__REQUEST_TABLE on `_RequestTable`(`Table`);
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _RequestId
+--
+-- This table stores for each userId the last requestId (for synchronization).
+-- ----------------------------------------------------------------------------------
+
+create table `_RequestId`
+		(`UserId`         INTEGER    NOT NULL PRIMARY KEY,
+		 `RequestId`      INTEGER    NOT NULL,
+		 `Date`           DATETIME   NOT NULL);
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _SequenceId
+--
+-- This table stores for each tuple (userId, table) the last sequence id generated
+-- (for synchronization).
+-- ----------------------------------------------------------------------------------
+
+create table `_SequenceId`
+		(`UserId`         INTEGER     NOT NULL,
+		 `Table`          VARCHAR(32) NOT NULL,
+		 `SequenceId`     INTEGER     NOT NULL,
+		 `Date`           DATETIME    NOT NULL,
+		 PRIMARY KEY(`UserId`, `Table`));
+
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Information
+--
+-- This table stores some details about a record into the database:
+--    - Creation information (used to link 2 requests by the ids from the client)
+--    - Update information (used to synchronize data and to check if somebody has updated record at the same time)
+--    - Delete information (any record are physically deleted in the database schema - virtual deleted)
+-- ----------------------------------------------------------------------------------
+
+create table `_Information`
+		(`Table`          VARCHAR(32) NOT NULL,
+		 `Id`             INTEGER     NOT NULL,
+		 `CustomerId`     INTEGER     NOT NULL,
+		 `CreateId`       INTEGER,
+		 `CreateUserId`   INTEGER,
+		 `CreateTick`     INTEGER,
+		 `CreateDate`     DATETIME,
+		 `UpdateUserId`   INTEGER,
+		 `UpdateTick`     INTEGER,
+		 `UpdateDate`     DATETIME,
+		 `DeleteUserId`   INTEGER,
+		 `DeleteTick`     INTEGER,
+		 `DeleteDate`     DATETIME,
+		 PRIMARY KEY(`Table`, `Id`));
+
+create index I__INFORMATION_CUSTOMER on `_Information`(`CustomerId`);
+create index I__INFORMATION_TABLE on `_Information`(`Table`);
+create index I__INFORMATION_DELETE on `_Information`(`Table`, `Id`, `DeleteTick`);
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Ping
+--
+-- This table stores the last ping received by a client
+-- ----------------------------------------------------------------------------------
+
+create table `_Ping`
+		(`ConnectionId` VARCHAR(36) NOT NULL PRIMARY KEY,
+		 `Date`         DATETIME    NOT NULL);

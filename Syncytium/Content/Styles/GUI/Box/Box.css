@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,10 +29,9 @@ body > dialog > box {
     margin: 0;
     padding: 0;
     font-size: 14px;
-    color: #000000;
+    color: var(--syncytium-color-text);
     text-align: center;
     line-height: 16px;
-    background-color: rgb(255,255,255);
     background-color: rgba(255,255,255, 0.6);
     overflow: hidden;
     display: flex;
@@ -44,13 +43,16 @@ body > dialog > box {
 /* ------------------------------------------------------------ */
 
 body > dialog > box > div {
-    max-width: 90vw;
-    max-height: calc(100vh - 60px - 30px - 20px);
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+    max-width: 95vw;
+    max-height: calc(100vh - 100px);
+    height: 460px;
     margin: auto;
     align-self: center;
-    background-color: #ffffff;
-    box-shadow: 1px 1px 6px #555;
-    height: auto;
+    background-color: var(--syncytium-dialog-background);
+    box-shadow: 1px 1px 6px var(--syncytium-button-shadow);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -78,7 +80,7 @@ body > dialog > box > div {
 /* ------------------------------------------------------------ */
 
 body > dialog > box > div > .title {
-    border-bottom: solid 1px #ff0000;
+    border-bottom: solid 1px var(--syncytium-color-title);
     margin-top: 10px;
     padding-bottom: 10px;
     height: auto;
@@ -122,6 +124,7 @@ body > dialog > box > div > .title {
 /* ------------------------------------------------------------ */
 
 body > dialog > box > div > .message {
+    width: calc(100% - 20px);
     margin: 10px 10px 0 10px;
     font-size: 14px;
 }
@@ -155,10 +158,12 @@ body > dialog > box > div > .message {
 /* ------------------------------------------------------------ */
 
 body > dialog > box > div > .error {
-    color: #ff0000;
+    width: calc(100% - 20px);
+    color: var(--syncytium-color-error);
     text-align: left;
-    margin: 0;
+    margin: 0px 10px 0 10px;
     font-size: 12px;
+    min-height: 16px;
     max-height: 10vh;
     overflow: auto;
 }
@@ -169,18 +174,18 @@ body > dialog > box > div > .error {
 
 body > dialog > box > div > .content {
     width: 100%;
-    max-width: 90vw;
-    max-height: calc(100vh - 190px);
+    height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
 }
 
-body > dialog > box > div > .content.haserrors {
-    max-height: calc(100vh - 190px - 10vh);
+body > dialog > box > div > .content > panel.main {
+    height: 100%;
 }
 
 body > dialog > box > div > .content.panels {
@@ -196,36 +201,6 @@ body > dialog > box > div > .content.panels > .main {
     max-height: calc(100vh - 190px);
     overflow-x: hidden;
     overflow-y: auto;
-}
-
-@media only screen and (max-height: 250px) {
-    body > dialog > box > div > .content.panels {
-        max-height: calc(100vh - 100px);
-    }
-
-    body > dialog > box > div > .content.panels.haserrors {
-        max-height: calc(100vh - 100px - 10vh);
-    }
-}
-
-@media only screen and (min-height: 251px) and (max-height: 320px) {
-    body > dialog > box > div > .content.panels {
-        max-height: calc(100vh - 110px);
-    }
-
-    body > dialog > box > div > .content.panels.haserrors {
-        max-height: calc(100vh - 110px - 10vh);
-    }
-}
-
-@media only screen and (min-height: 321px) and (max-height: 400px) {
-    body > dialog > box > div > .content.panels {
-        max-height: calc(100vh - 130px);
-    }
-
-    body > dialog > box > div > .content.panels.haserrors {
-        max-height: calc(100vh - 130px - 10vh);
-    }
 }
 
 body > dialog > box > div > .content.panels > .main > panel {

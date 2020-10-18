@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -43,8 +43,8 @@ namespace Syncytium.Managers
                 case Syncytium.Module.Administration.DatabaseContext.AREA_NAME:
                     return new Syncytium.Module.Administration.DatabaseContext();
 
-                case Syncytium.Module.Sample.DatabaseContext.AREA_NAME:
-                    return new Syncytium.Module.Sample.DatabaseContext();
+                case Syncytium.Module.Customer.DatabaseContext.AREA_NAME:
+                    return new Syncytium.Module.Customer.DatabaseContext();
             }
 
             throw new ExceptionNotImplemented($"Unable to create the database instance of the module '{area}'!");

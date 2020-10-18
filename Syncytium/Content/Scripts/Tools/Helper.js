@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class Helper {
      * @returns {label} a multilingual label
      */
     static Label ( label, parameters, language ) {
-        var value = { label: null, parameters: null, language: null };
+        let value = { label: null, parameters: null, language: null };
 
         if ( typeof label === "string" ) {
             value = { label: label, parameters: parameters ? parameters : null, language: language ? language : null };
@@ -70,12 +70,12 @@ class Helper {
      * @returns {string} a HTML source code describing the label into the page
      */
     static Span ( klabel, kparameters, klanguage ) {
-        var label = Helper.Label( klabel, kparameters, klanguage );
+        let label = Helper.Label( klabel, kparameters, klanguage );
 
         if ( String.isEmptyOrWhiteSpaces( label.label ) )
             return "";
 
-        var span = "<span";
+        let span = "<span";
 
         if ( label.language !== null && label.language !== undefined )
             span += " k-language=\"" + label.language + "\"";
@@ -84,7 +84,7 @@ class Helper {
             span += " k-label=\"" + label.label + "\"";
 
         if ( label.parameters !== null && label.parameters !== undefined && label.parameters.length > 0 ) {
-            for ( var index in label.parameters ) {
+            for ( let index in label.parameters ) {
                 span += " k-label-" + index + "=\"" + label.parameters[index] + "\"";
             }
         }
@@ -101,12 +101,12 @@ class Helper {
      * @returns {string} a HTML source code describing the label into the page
      */
     static Option ( id, klabel, kparameters, klanguage ) {
-        var label = Helper.Label( klabel, kparameters, klanguage );
+        let label = Helper.Label( klabel, kparameters, klanguage );
 
         if ( String.isEmptyOrWhiteSpaces( label.label ) )
             return "";
 
-        var option = "<option";
+        let option = "<option";
 
         if ( id !== null && id !== undefined )
             option += " value=\"" + id.toString() + "\"";
@@ -118,7 +118,7 @@ class Helper {
             option += " k-label=\"" + label.label + "\"";
 
         if ( label.parameters !== null && label.parameters !== undefined && label.parameters.length > 0 ) {
-            for ( var index in label.parameters ) {
+            for ( let index in label.parameters ) {
                 option += " k-label-" + index + "=\"" + label.parameters[index] + "\"";
             }
         }

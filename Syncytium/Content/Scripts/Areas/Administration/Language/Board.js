@@ -3,7 +3,7 @@
 /// <reference path="List.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,24 +25,33 @@
  */
 Language.Board = class extends GUI.Board.BoardTable {
     /**
+     * @param {string} value value to filter (on Type, Description or CodeEBP)
+     */
+    set FilterField( value ) {
+        this.List.FilterField = value;
+    }
+
+    /**
      * Define the list of columns into the table
      */
     declareColumns () {
         function handleChangeValue( board ) {
             return function ( id, item, attribute ) {
-                function onCheckValue( language, labelId ) {
-                    return function ( newValue ) {
-                        var oldLabel = DSDatabase.Instance.getRowById( "Language", labelId );
-                        var newLabel = DSDatabase.Instance.getRowById( "Language", labelId );
-                        newLabel[language] = newValue;
+                function onCheckValue( language ) {
+                    return async function ( newValue ) {
+                        let oldRecord = board.List.getItem( id, true );
+                        if ( oldRecord === null )
+                            return;
 
-                        var errors = new Errors();
-                        DSDatabase.Instance.updateFromClient( "Language", oldLabel, newLabel, errors );
+                        let newRecord = DSRecord.Clone( oldRecord );
 
-                        if ( errors.HasError )
-                            return errors;
+                        // Update the field
 
-                        return true;
+                        newRecord[language] = newValue;
+
+                        // notify the database that something has changed
+
+                        await board.updateItem( oldRecord, newRecord );
                     };
                 }
 
@@ -50,15 +59,14 @@ Language.Board = class extends GUI.Board.BoardTable {
                     Helper.Label( item.Key, null, attribute ),
                     Language.Manager.Instance.getLabel( attribute, item.Key ),
                     false,
-                    onCheckValue( attribute, id ) );
+                    onCheckValue( attribute ) );
             };
         }
 
         this.declareColumn( "Key", "LANGUAGE_KEY", 3 );
-        var languages = Language.Manager.Instance.Languages;
-        for ( var i in languages ) {
-            this.declareColumn( languages[i], Helper.Label( "LANGUAGE_LABEL_" + languages[i], null, languages[i] ), 7 );
-            this.on( "onClick" + languages[i], handleChangeValue( this ) );
+        for ( let language of Array.toIterable( Language.Manager.Instance.Languages ) ) {
+            this.declareColumn( language, Helper.Label( "LANGUAGE_LABEL_" + language, null, language ), 7 );
+            this.on( "onClick" + language, handleChangeValue( this ) );
         }
     }
 
@@ -67,24 +75,23 @@ Language.Board = class extends GUI.Board.BoardTable {
      */
     onOpen () {
         function handleNewLanguage( board ) {
-            return function ( currentLanguage, language, key ) {
-                if ( language !== undefined )
+            return async function ( currentLanguage, item, key ) {
+                if ( item !== undefined )
                     return;
 
-                var languages = Language.Manager.Instance.Languages;
-                for ( var i in languages ) {
-                    if ( languages[i] === currentLanguage && !board.Webix.isColumnVisible( languages[i] ) ) {
-                        board.showColumn( languages[i] );
+                for ( let language of Array.toIterable( Language.Manager.Instance.Languages ) ) {
+                    if ( language === currentLanguage && !board.Webix.isColumnVisible( language ) ) {
+                        board.showColumn( language );
                         continue;
                     }
 
-                    if ( languages[i] === currentLanguage || !board.Webix.isColumnVisible( languages[i] ) )
+                    if ( language === currentLanguage || !board.Webix.isColumnVisible( language ) )
                         continue;
 
-                    board.hideColumn( languages[i] );
+                    board.hideColumn( language );
                 }
 
-                board.adjustWebix();
+                await board.adjustWebix();
             };
         }
 
@@ -111,12 +118,10 @@ Language.Board = class extends GUI.Board.BoardTable {
      * @param {any} title    string describing the title of the table (using Helper.Span)
      */
     constructor( box, name, title ) {
-        super( box, name, title ? title : "TITLE_LANGUAGE", new Language.List(), GUI.Board.BOARD_ALL );
+        super( box, name, title ? title : "TITLE_LANGUAGE", new Language.List(), GUI.Board.BOARD_NONE );
 
-        this.Help = Area.HTTP_ROOT_DOCUMENTATION + "module-d-administration/gestion-des-libelles";
         this._listenerLanguageManager = null;
 
-        this.setVisible( GUI.Board.BOARD_ALL - GUI.Board.BOARD_HELP, false );
         this.draw();
     }
 };

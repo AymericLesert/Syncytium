@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,20 @@
 // ----------------------------------------------------------------------------------------------------
 
 String.HEX_DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+String.RANDOM_VALUE = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+String._cache = {};
+
+/*
+ * Convert a string into an internal string
+ */
+String.internal = function ( value ) {
+    let internalValue = String._cache[value];
+    if ( internalValue !== undefined )
+        return internalValue;
+
+    String._cache[value] = value;
+    return value;
+};
 
 /*
  * Encode a string into a html text
@@ -54,7 +68,14 @@ String.isEmptyOrWhiteSpaces = function (str) {
  * Check the validation of an email address
  */
 String.isEmailValide = function (str) {
-    return str && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
+    return str && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(str);
+};
+
+/*
+ * Check the validation of a percentage value
+ */
+String.isPercentage = function ( str ) {
+    return str && /^[0-9]+(\.[0-9]+|)%$/.test( str );
 };
 
 /*
@@ -75,6 +96,19 @@ if (!String.prototype.startsWith) {
 }
 
 /*
+ * Add count if this method doesn't exist
+ */
+if ( !String.prototype.count ) {
+    String.prototype.count = function ( c ) {
+        let result = 0;
+        for ( let i = 0; i < this.length; i++ )
+            if ( this[i] === c )
+                result++;
+        return result;
+    };
+}
+
+/*
  * Add padEnd if this method doesn't exist
  */
 if (!String.prototype.padEnd) {
@@ -85,7 +119,7 @@ if (!String.prototype.padEnd) {
         if (!len || typeof len !== "number" || len === 0 || str.length >= len)
             return this;
 
-        var content = str;
+        let content = str;
         while (content.length < len)
             content += str;
 
@@ -115,7 +149,7 @@ String.convertValue = function (value) {
  * Convert a string to an integer
  */
 String.parseInt = function (value) {
-    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+    if (/^(-|\+)?([0-9]+|Infinity)$/.test(value))
         return Number(value);
     return NaN;
 };
@@ -124,9 +158,9 @@ String.parseInt = function (value) {
  * Convert a string to a float
  */
 String.parseFloat = function (value) {
-    if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value))
+    if (/^(-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value))
         return Number(value);
-    if ( /^(\-|\+)?([0-9]+(\,[0-9]+)?|Infinity)$/.test( value ) )
+    if ( /^(-|\+)?([0-9]+(,[0-9]+)?|Infinity)$/.test( value ) )
         return Number( value.replace(",", ".") );
     return NaN;
 };
@@ -147,7 +181,7 @@ String.parseRGBToHEX = function (rgb) {
  * Convert a value to a string included into a CSV file
  */
 String.convertCSV = function (value, separator) {
-    var string = "";
+    let string = "";
 
     if (value === null || value === undefined)
         return string;
@@ -173,10 +207,33 @@ String.convertCSV = function (value, separator) {
             break;
     }
 
-    if ( string.indexOf( separator ) > 0 || string.indexOf( '"' ) > 0 || isNaN( String.parseFloat(string)) || !isFinite(string))
-        string = '"' + string.replace(/"/g, "'").replace(/\n/g, " ") + '"';
+    if ( !String.isEmptyOrWhiteSpaces( string ) &&
+        ( string.indexOf( separator ) > 0 || string.indexOf( '"' ) > 0 || isNaN( String.parseFloat( string ) ) || !isFinite( string ) ) )
+        string = '"' + string.replace( /"/g, "'" ).replace( /\n/g, " " ) + '"';
 
     return string;
+};
+
+/*
+ * Add cleanupCSV if this method doesn't exist (remove '"')
+ */
+String.cleanupCSV = function ( value ) {
+    if ( value.length < 2 )
+        return value;
+
+    let i = 0;
+    if ( value[0] === '"' && value[value.length - 1] === '"' )
+        i = 1;
+
+    let newValue = '';
+    for ( let j = i; j < value.length - i; j++ ) {
+        if ( value[j] === '\\' )
+            continue;
+
+        newValue += value[j];
+    }
+
+    return newValue;
 };
 
 /*
@@ -186,6 +243,26 @@ String.convertBoolean = function (value) {
     return typeof value === "string" && (value.toUpperCase() === "TRUE" || value.toUpperCase() === "OK" || value === "1") ||
            typeof value === "boolean" && value ||
            typeof value === "number" && value !== 0;
+};
+
+/*
+ * Convert a percentage string value into a float
+ */
+String.convertPercentage = function ( value ) {
+    if ( value === null || value === undefined )
+        return 0.;
+
+    if ( typeof value === "boolean" )
+        return value ? 1 : 0;
+
+    if ( typeof value === "string" ) {
+        if ( value[value.length - 1] === "%" )
+            return String.parseFloat( value.substr( 0, value.length - 1 ) ) / 100;
+
+        return String.parseFloat( value );
+    }
+
+    return value;
 };
 
 /*
@@ -219,6 +296,27 @@ String.in = function ( str1, str2 ) {
  */
 String.JSONStringify = function ( record ) {
     return JSON.stringify( record, function ( key, value ) {
-        return key === "_subLists" || key === "_list" || key === "_parent" ? undefined : value;
+        return key === "_subLists" || key === "_list" || key === "_parent" || key === "_foreignKeys" ? undefined : value;
     } );
+};
+
+/*
+ * Convert a string (base64) to UTF-8 (string)
+ */
+String.base64DecodeUnicode = function ( str ) {
+    return decodeURIComponent( atob( str ).split( '' ).map( function ( c ) {
+        return '%' + ( '00' + c.charCodeAt( 0 ).toString( 16 ) ).slice( -2 );
+    } ).join( '' ) );
+};
+
+/*
+ * Build a string random
+ */
+String.random = function ( length ) {
+    let value = "";
+
+    for ( let i = 0; i < length; i++ )
+        value += String.RANDOM_VALUE[Math.round(Math.random()*(String.RANDOM_VALUE.length-1))];
+
+    return value;
 };

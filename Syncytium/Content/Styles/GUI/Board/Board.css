@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,8 @@ board {
     /* flex-grow: 1; */
     justify-content: flex-start;
     flex-direction: column;
-    background-color: #e8e6e6;
+    background-color: var(--syncytium-board-background);
+    color: var(--syncytium-color-text);
     overflow-y: auto;
     margin: 0;
     width: 100%;
@@ -44,9 +45,9 @@ board > .title {
     display: flex;
     flex-direction: row;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 2;
-    color: #4a4a4a;
+    color: var(--syncytium-color-title);
     text-align: center;
 }
 
@@ -128,6 +129,22 @@ board > .title > .icon.add {
 board > .title > .icon.add.readonly,
 board > .title > .icon.add.disallowed {
     background: url(../../../Images/GUI/Board/AddReadonly.svg) no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+}
+
+/* ------------------------------------------------------------ */
+/* board > .title > .icon.edit                                  */
+/* ------------------------------------------------------------ */
+board > .title > .icon.edit {
+    background: url(../../../Images/GUI/Board/Edit.svg) no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+}
+
+board > .title > .icon.edit.readonly,
+board > .title > .icon.edit.disallowed {
+    background: url(../../../Images/GUI/Board/EditReadonly.svg) no-repeat;
     background-position: center;
     background-size: 24px 24px;
 }

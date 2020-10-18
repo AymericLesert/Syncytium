@@ -22,7 +22,7 @@ The application needs a schema to know how to set tables into the database. The 
 
 ```
   <appSettings>
-    <add key="LAPC.Database.Schema" value="SYNCYTIUM" />
+    <add key="LAPC.Database.Schema" value="Syncytium" />
   </appSettings>
 ```
 
@@ -51,11 +51,11 @@ Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
 SQL> connect sys/<Password of the sys account> as sysdba;
 Connected.
-SQL> create user SYNCYTIUM identified by SYNCYTIUM;
+SQL> create user Syncytium identified by Syncytium;
 
 User created.
 
-SQL> grant all privileges to SYNCYTIUM;
+SQL> grant all privileges to Syncytium;
 
 Grant succeeded.
 
@@ -66,17 +66,17 @@ You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJo
 
 ```
   <connectionStrings>
-    <add name="Syncytium" connectionString="DATA SOURCE=//<computer name>:1521/XE;PERSIST SECURITY INFO=True;USER ID=SYNCYTIUM;PASSWORD=SYNCYTIUM" providerName="Oracle.ManagedDataAccess.Client" />
+    <add name="Syncytium" connectionString="DATA SOURCE=//<computer name>:1521/XE;PERSIST SECURITY INFO=True;USER ID=Syncytium;PASSWORD=Syncytium" providerName="Oracle.ManagedDataAccess.Client" />
   </connectionStrings>
 ```
 
 ### SQL Server
 
-First, you have to install SQL Server 2016 Express or not. If you need to run the application into a dedicated instance, you have to install once more (here: SYNCYTIUM).
+First, you have to install SQL Server 2016 Express or not. If you need to run the application into a dedicated instance, you have to install once more (here: Syncytium).
 Then, in the target instance, you can create a schema like this (by using Data source into Visual Studio) :
 
 ```
-create schema SYNCYTIUM
+create schema Syncytium
 ```
 
 You have to update the file **App.config** in Syncytium.Test and Syncytium.WebJob, **Web.config** in Syncytium.Web :

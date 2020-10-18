@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -137,8 +137,8 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
             this._value = [];
         } else if ( Array.isArray( value ) ) {
             this._value = [];
-            for ( let i in value )
-                this._value.push( String.convertValue( value[i] ) );
+            for ( let item of Array.toIterable( value ) )
+                this._value.push( String.convertValue( item ) );
         } else {
             this._value = [ String.convertValue( value ) ];
         }
@@ -150,16 +150,16 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
             if ( !Array.isArray( oldValue ) )
                 this._pictures.find( "#" + oldValue + " > img" ).removeClass( 'selected' );
             else {
-                for ( let currentValue in oldValue ) {
-                    this._pictures.find( "#" + oldValue[currentValue] + " > img" ).removeClass( 'selected' );
+                for ( let currentValue of Array.toIterable( oldValue ) ) {
+                    this._pictures.find( "#" + currentValue + " > img" ).removeClass( 'selected' );
                 }
             }
         }
 
         if ( this._value !== null && this._value !== undefined ) {
-            for ( let currentValue in this._value ) {
-                this._pictures.find( "#" + this._value[currentValue] ).show();
-                this._pictures.find( "#" + this._value[currentValue] + " > img" ).addClass( 'selected' );
+            for ( let currentValue of Array.toIterable( this._value ) ) {
+                this._pictures.find( "#" + currentValue ).show();
+                this._pictures.find( "#" + currentValue + " > img" ).addClass( 'selected' );
             }
         }
     }
@@ -250,11 +250,9 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
     onOpen () {
         function handleKeydown( box ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9: // tab
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             box.setFocus( box._fieldFilter );
                         else if ( box.getButton( GUI.Box.Box.BUTTON_OK ).Visible )
@@ -265,40 +263,40 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
                             box.setFocus( box._fieldFilter );
                         return false;
 
-                    case 13: // enter
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         $( this ).click();
                         if ( !box._multiSelect )
                             box.getButton( GUI.Box.Box.BUTTON_OK ).Component.click();
                         return false;
 
-                    case 32: // space
-                        event.preventDefault();
+                    case " ":
+                        event.stopImmediatePropagation();
                         $( this ).click();
                         return false;
 
-                    case 27: // escape
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         box.onButtonCancel();
                         return false;
 
-                    case 37: // left
-                        event.preventDefault();
+                    case "ArrowLeft":
+                        event.stopImmediatePropagation();
                         box.leftFocus();
                         return false;
 
-                    case 38: // up
-                        event.preventDefault();
+                    case "ArrowUp":
+                        event.stopImmediatePropagation();
                         box.upFocus();
                         return false;
 
-                    case 39: // right
-                        event.preventDefault();
+                    case "ArrowRight":
+                        event.stopImmediatePropagation();
                         box.rightFocus();
                         return false;
 
-                    case 40: // down
-                        event.preventDefault();
+                    case "ArrowDown":
+                        event.stopImmediatePropagation();
                         box.downFocus();
                         return false;
                 }
@@ -315,7 +313,7 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
             return function () {
                 box.setFocus( $( this ) );
 
-                var newValue = String.convertValue( $( this ).attr( 'id' ) );
+                let newValue = String.convertValue( $( this ).attr( 'id' ) );
 
                 if ( box._multiSelect ) {
                     for ( let i in box._value ) {
@@ -413,31 +411,29 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
         if ( this._currentList === null )
             return;
 
-        var nameSelected = String.convertValue( this._fieldFilter.Value );
+        let nameSelected = String.convertValue( this._fieldFilter.Value );
         if ( nameSelected !== null )
             nameSelected = nameSelected.toUpperCase();
 
         this.clearFocus();
         this.addFocus( this._fieldFilter );
 
-        for ( var i in this._currentList ) {
-            var item = this._currentList[i];
-
+        for ( let item of Array.toIterable( this._currentList ) ) {
             if ( !this._list.isVisible( item ) )
                 continue;
 
-            var id = String.convertValue( this._list.getId( item ) );
+            let id = String.convertValue( this._list.getId( item ) );
             if ( id === null )
                 continue;
 
-            var image = this._list.getPicture( item );
+            let image = this._list.getPicture( item );
             if ( ( image === null || image === undefined ) && !String.isEmptyOrWhiteSpaces( this._list.DefaultPicture ) )
                 image = this._list.DefaultPicture;
             if ( image === null || image === undefined )
                 continue;
 
-            var value = "";
-            var text = this._list.getText( item );
+            let value = "";
+            let text = this._list.getText( item );
             if ( !String.isEmptyOrWhiteSpaces( text ) )
                 value = text;
             else
@@ -468,26 +464,24 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
 
         // draw or refresh the list of pictures
 
-        var content = "";
+        let content = "";
 
-        for ( var i in this._currentList ) {
-            var item = this._currentList[i];
-
+        for ( let item of Array.toIterable( this._currentList ) ) {
             if ( !this._list.isVisible( item ) )
                 continue;
 
-            var id = String.convertValue( this._list.getId( item ) );
+            let id = String.convertValue( this._list.getId( item ) );
             if ( id === null )
                 continue;
 
-            var image = this._list.getPicture( item );
+            let image = this._list.getPicture( item );
             if ( ( image === null || image === undefined ) && !String.isEmptyOrWhiteSpaces( this._list.DefaultPicture ) )
                 image = this._list.DefaultPicture;
             if ( image === null || image === undefined )
                 continue;
 
-            var value = "";
-            var text = this._list.getText( item );
+            let value = "";
+            let text = this._list.getText( item );
             if ( !String.isEmptyOrWhiteSpaces( text ) )
                 value = String.encode( text );
             else
@@ -504,10 +498,10 @@ GUI.Box.BoxSelect = class extends GUI.Box.Box {
             if ( Array.isArray( this._value ) ) {
                 let newValues = [];
 
-                for ( let i in this._value ) {
-                    if ( this._pictures.find( "> #" + this._value[i] + " > img" ).length > 0 ) {
-                        this._pictures.find( "> #" + this._value[i] + " > img" ).addClass( 'selected' );
-                        newValues.push( this._value[i] );
+                for ( let value of Array.toIterable( this._value ) ) {
+                    if ( this._pictures.find( "> #" + value + " > img" ).length > 0 ) {
+                        this._pictures.find( "> #" + value + " > img" ).addClass( 'selected' );
+                        newValues.push( value );
                     }
                 }
 

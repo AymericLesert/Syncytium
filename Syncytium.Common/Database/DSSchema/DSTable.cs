@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 using System.Data.Entity;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -46,6 +46,16 @@ namespace Syncytium.Common.Database.DSSchema
         /// Area including this table
         /// </summary>
         public string Area { get; }
+
+        /// <summary>
+        /// The maximum lot size of the table
+        /// </summary>
+        public int LotSize { get; }
+
+        /// <summary>
+        /// The capacity of the table into the cache
+        /// </summary>
+        public int Capacity { get; }
 
         /// <summary>
         /// Handle of the property attached into the database schema
@@ -102,7 +112,13 @@ namespace Syncytium.Common.Database.DSSchema
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DSTable).Name;
+        private static readonly string MODULE = typeof(DSTable).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -166,24 +182,12 @@ namespace Syncytium.Common.Database.DSSchema
         /// <returns></returns>
         private string GetSequenceKey(DatabaseContext database, DSColumn column, int id)
         {
-            DSRecord currentRecord = null;
+            DSRecord currentRecord;
 
             if ( SourceTable != null)
-            {
                 currentRecord = database.Set(SourceTable).Find(id) as DSRecord;
-
-                if (currentRecord == null)
-                {
-                    Error($"[{SourceTable.Name}] : The record '{id}' doesn't exist or can't be created!");
-                    throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-                }
-
-                return column.SourceProperty.GetValue(currentRecord) as string;
-            }
-
-            // Retrieve the record of the Id
-
-            currentRecord = database.Set(Table).Find(id) as DSRecord;
+            else
+                currentRecord = database.Set(Table).Find(id) as DSRecord;
 
             if (currentRecord == null)
             {
@@ -200,15 +204,14 @@ namespace Syncytium.Common.Database.DSSchema
         private int GetIndexKey(DSColumn[] columns)
         {
             int nbSchemaColumns = columns.Length;
-            int i = 0;
 
-            for (i = 0; i < nbSchemaColumns; i++)
+            for (int i = 0; i < nbSchemaColumns; i++)
             {
                 if (columns[i].IsKey)
                     return i;
             }
 
-            for (i = 0; i < nbSchemaColumns; i++)
+            for (int i = 0; i < nbSchemaColumns; i++)
             {
                 if (columns[i].Property.Name == "Id")
                     return i;
@@ -244,7 +247,9 @@ namespace Syncytium.Common.Database.DSSchema
             // Retrieve information from this record
 
             if (id >= 0)
+            {
                 information = database._Information.FirstOrDefault(i => i.Id == id && i.Table.Equals(Name));
+            }
 
             if (information != null)
             {
@@ -280,14 +285,8 @@ namespace Syncytium.Common.Database.DSSchema
 
             // 1. If currentId < 0, look for into Information table the last Id known
 
-            if (currentId < 0  && identity[Columns[_indexKey].Property.Name] != null && identity[Columns[_indexKey].Property.Name].Type == JTokenType.Integer)
-            {
-                int currentClientId = identity[Columns[_indexKey].Property.Name].ToObject<int>();
-
-                InformationRecord information = database._Information.FirstOrDefault(info => info.CreateId == currentClientId && info.CreateUserId == userId && info.Table.Equals(this.Name));
-                if (information != null)
-                    currentId = information.Id;
-            }
+            if (currentId < 0  && identity[Columns[_indexKey].Property.Name] != null && identity[Columns[_indexKey].Property.Name].Type == JTokenType.Integer && action != "Create")
+                currentId = DatabaseCacheManager.Instance.GetId(database._Information, identity[Columns[_indexKey].Property.Name].ToObject<int>(), userId, this.Name);
 
             // 2. Create an instance of the record
 
@@ -301,20 +300,20 @@ namespace Syncytium.Common.Database.DSSchema
                  record["CustomerId"].ToObject<int>() != customerId))
             {
                 Error($"The record doesn't match with the user's customer '{customerId}' !");
+                Error($"Request property : CustomerId: {customerId}, UserId: {userId}, Area: {area}, Profile: {profile}, Action: {action}, Record: {record.ToString(Formatting.None)}, Identity: {identity.ToString(Formatting.None)}");
                 throw new ExceptionDefinitionRecord("ERR_CONNECTION");
             }
 
             // 4. Check properties of the record and set currentRecord from the dynamic record
 
             Errors errors = new Errors();
-            bool conversionOk = false;
 
             foreach (DSColumn column in Columns)
             {
                 if (DSRestrictedAttribute.IsRestricted(column.Restriction, area, profile, action))
                     continue;
 
-                object value = null;
+                object value;
 
                 // Build dynamically the sequence or look for it because in case of offline mode, sequence can't be retrieve before updating or deleting the element
 
@@ -329,12 +328,7 @@ namespace Syncytium.Common.Database.DSSchema
                     {
                         int currentSourceId = record["HistoryId"].ToObject<int>();
                         if (currentSourceId < 0)
-                        {
-                            int currentSourceClientId = identity["HistoryId"].ToObject<int>();
-                            InformationRecord information = database._Information.FirstOrDefault(info => info.CreateId == currentSourceClientId && info.CreateUserId == userId && info.Table.Equals(SourceTableName));
-                            if (information != null)
-                                currentSourceId = information.Id;
-                        }
+                            currentSourceId = DatabaseCacheManager.Instance.GetId(database._Information, identity["HistoryId"].ToObject<int>(), userId, SourceTableName);
                         value = GetSequenceKey(database, column, currentSourceId);
                     }
                     else
@@ -380,14 +374,14 @@ namespace Syncytium.Common.Database.DSSchema
                             value = record[column.Property.Name].ToObject<string>();
                             break;
                         default:
-                            errors.AddField(column.Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{column.Field}}}" });
+                            errors.AddField(column.Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{column.Field}}}", "{ERR_FIELD_TYPE}" });
                             continue;
                     }
                 }
 
                 // Check properties and convert the value into the expected type
 
-                value = column.CheckProperties(value, errors, out conversionOk, check);
+                value = column.CheckProperties(value, errors, out bool conversionOk, check);
 
                 // set the value to the property
 
@@ -434,11 +428,8 @@ namespace Syncytium.Common.Database.DSSchema
 
                 // Get the value of a properties!
 
-                int foreignKeyClientId = -1;
-                foreignKeyClientId = identity[column.Property.Name].ToObject<int>();
-
-                InformationRecord information = database._Information.FirstOrDefault(info => info.CreateId == foreignKeyClientId && info.CreateUserId == userId && info.Table.Equals(foreignKey.Table));
-                if (information == null)
+                int id = DatabaseCacheManager.Instance.GetId(database._Information, identity[column.Property.Name].ToObject<int>(), userId, foreignKey.Table);
+                if (id < 0)
                 {
                     errors.AddField(column.Property.Name, foreignKey.Error, new object[] { $"{{{column.Field}}}" });
                     continue;
@@ -446,7 +437,7 @@ namespace Syncytium.Common.Database.DSSchema
 
                 // Replace the foreign key of the current record by the id of the foreign record found
 
-                column.Property.SetValue(currentRecord, information.Id);
+                column.Property.SetValue(currentRecord, id);
             }
 
             // 6. Check unique values
@@ -527,358 +518,406 @@ namespace Syncytium.Common.Database.DSSchema
         /// Execute a request on creation into the database schema
         /// </summary>
         /// <param name="database"></param>
-        /// <param name="tick"></param>
         /// <param name="customerId"></param>
         /// <param name="userId"></param>
         /// <param name="area"></param>
         /// <param name="profile"></param>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
+        /// <param name="lot"></param>
         /// <returns></returns>
-        private Tuple<DSRecord, InformationRecord> CreateRecord(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string action, int id, JObject record, JObject identity)
+        private List<Tuple<DSRecord, InformationRecord>> CreateRecord(DatabaseContext database, int customerId, int userId, string area, UserProfile.EUserProfile profile, List<DSRequest> lot)
         {
-            // Extract the record from the request
+            List<Tuple<DSRecord, InformationRecord>> result = new List<Tuple<DSRecord, InformationRecord>>();
 
-            DSRecord currentRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, record, identity, true);
+            // Build the list of new records
 
-            if (currentRecord.Id >= 0 || currentRecord._deleted || id >= 0)
+            List<DSRecord> records = new List<DSRecord>();
+
+            foreach (DSRequest request in lot)
             {
-                Error($"[{Name}] : On creation a record, the Id must be equal to -1 and the deleted flag must be set to false!");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                int tick = request.NewTick;
+                string action = request.Action;
+                int id = request.RecordId;
+                JObject record = request.Record;
+                JObject identity = request.Identity;
+
+                // Extract the record from the request
+
+                DSRecord currentRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, record, identity, lot.Count == 1);
+
+                if (currentRecord.Id >= 0 || currentRecord._deleted || id >= 0)
+                {
+                    Error($"[{Name}] : On creation a record, the Id must be equal to -1 and the deleted flag must be set to false!");
+                    throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                }
+
+                if (IsVerbose())
+                    Verbose($"[{Name}] : Adding record {currentRecord} ...");
+
+                // It's a new record
+
+                currentRecord._tick = tick;
+                currentRecord._deleted = false;
+
+                records.Add(currentRecord);
             }
 
-            if (IsDebug())
-                Debug($"[{Name}] : Adding record {currentRecord.ToString()}");
+            // Add new records into the table
 
-            // It's a new record
+            database.Set(Table).AddRange(records);
 
-            currentRecord._tick = tick;
-            currentRecord._deleted = false;
-
-            // Add a new record into the table
-
-            DSRecord newRecord = database.Set(Table).Add(currentRecord) as DSRecord;
-
-            // Save changes to get the new Id of the record
+            // Save changes to get new Ids
 
             database.SaveChanges();
 
-            int newId = (int)Columns[_indexKey].Property.GetValue(newRecord);
-            Columns[_indexKey].Property.SetValue(currentRecord, newId);
+            // Update ids into request and build the list of informations
 
-            // Attach an information record to this new record
+            List<InformationRecord> informations = new List<InformationRecord>();
+            string indexName = Columns[_indexKey].Property.Name;
+            DateTime now = DateTime.Now;
+            int maxSequenceId = 0;
 
-            int currentSequenceId = (identity[Columns[_indexKey].Property.Name] != null && identity[Columns[_indexKey].Property.Name].Type == JTokenType.Integer) ? identity[Columns[_indexKey].Property.Name].ToObject<int>() : -1;
-
-            InformationRecord information = new InformationRecord
+            int index = 0;
+            foreach (DSRequest request in lot)
             {
-                Table = Name,
-                Id = newId,
-                CustomerId = customerId,
-                CreateId = currentSequenceId,
-                CreateTick = tick,
-                CreateUserId = userId,
-                CreateDate = DateTime.Now,
-                UpdateTick = tick,
-                UpdateUserId = userId,
-                UpdateDate = DateTime.Now
-            };
-            database._Information.Add(information);
+                DSRecord currentRecord = records[index];
+                JToken id = request.Identity[indexName];
+                int createdId = (id != null && id.Type == JTokenType.Integer) ? id.ToObject<int>() : -1;
 
-            // Update the last sequence id for the table and this user
+                if (maxSequenceId < currentRecord.Id)
+                    maxSequenceId = currentRecord.Id;
 
-            if (currentSequenceId >= 0)
-            {
-                SequenceIdRecord sequenceIdRecord = database._SequenceId.FirstOrDefault(s => s.UserId == userId && s.Table.Equals(Name));
-                if (sequenceIdRecord == null)
-                {
-                    database._SequenceId.Add(new SequenceIdRecord
-                    {
-                        UserId = userId,
-                        Table = Name,
-                        SequenceId = currentSequenceId,
-                        Date = DateTime.Now
-                    });
-                }
-                else if (sequenceIdRecord.SequenceId < currentSequenceId)
-                {
-                    sequenceIdRecord.SequenceId = currentSequenceId;
-                }
-            }
+                // Update the cache of all ids
 
-            if (IsDebug())
-                Debug($"[{Name}] : Record {currentRecord.ToString()} added");
+                DatabaseCacheManager.Instance.SetId(createdId, userId, Name, currentRecord.Id);
 
-            return Tuple.Create(currentRecord, information);
-        }
-
-        /// <summary>
-        /// Execute a request on updating into the database schema
-        /// </summary>
-        /// <param name="database"></param>
-        /// <param name="tick"></param>
-        /// <param name="customerId"></param>
-        /// <param name="userId"></param>
-        /// <param name="area"></param>
-        /// <param name="profile"></param>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
-        /// <returns></returns>
-        private Tuple<DSRecord, InformationRecord> UpdateRecord(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string action, int? id, JObject record, JObject identity)
-        {
-            if (record["New"] == null ||
-                record["Old"] == null ||
-                identity["New"] == null ||
-                identity["Old"] == null)
-            {
-                Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
-                throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
-            }
-
-            JObject oldRecord = record["Old"] as JObject;
-            JObject newRecord = record["New"] as JObject;
-            JObject oldIdentity = identity["Old"] as JObject;
-            JObject newIdentity = identity["New"] as JObject;
-
-            if (oldRecord == null || newRecord == null || oldIdentity == null || newIdentity == null)
-            {
-                Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
-                throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
-            }
-
-            // Get the previous and the next record
-
-            DSRecord previousRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, oldRecord, oldIdentity, false);
-            DSRecord nextRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, newRecord, newIdentity, true);
-
-            if (previousRecord.Id != nextRecord.Id || previousRecord.Id < 0 || nextRecord.Id < 0 || previousRecord._deleted || nextRecord._deleted || id == null || id.Value != previousRecord.Id)
-            {
-                Error($"[{Name}] : On updating a record, Old and New records must represent the same record and this record can't be deleted!");
-                throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
-            }
-
-            if (IsDebug())
-                Debug($"[{Name}] : Updating record {previousRecord.ToString()} to {nextRecord.ToString()}");
-
-            // Retrieve the existing record
-
-            Tuple<DSRecord, InformationRecord> existingRecord = GetRecordById(database, (int)Columns[_indexKey].Property.GetValue(previousRecord));
-
-            // The existing record must be the same record as the previousRecord ...
-            // If these records are different, the record has been updated since the update from the client by another client
-
-            if (!existingRecord.Item1.Equals(previousRecord))
-            {
-                Error($"[{Name}] : On updating a record, Old record and existing record into the database must be equal!");
-                existingRecord.Item1.LogDifferences(previousRecord);
-                throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
-            }
-
-            // Update the existing record within the new record (except _tick or _deleted)
-
-            foreach (PropertyInfo property in Table.GetProperties())
-            {
-                if (property.Name.Equals("_tick") || property.Name.Equals("_deleted") || !property.CanWrite)
-                    continue;
-
-                object existingValue = property.GetValue(existingRecord.Item1);
-                object nextValue = property.GetValue(nextRecord);
-
-                if (property.PropertyType == typeof(string))
-                {
-                    if (existingValue == null && nextValue == null)
-                        continue;
-
-                    if (existingValue != null && nextValue == null && !existingValue.Equals(""))
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' ({existingValue.ToString()}) is replaced by NULL");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-
-                    if (existingValue == null && nextValue != null && !nextValue.Equals(""))
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' is set to '{nextValue.ToString()}'");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-
-                    if (existingValue != null && nextValue != null && !existingValue.Equals(nextValue))
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' ({existingValue.ToString()}) is replaced by '{nextValue.ToString()}'");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-                }
-                else
-                {
-                    if (existingValue == null && nextValue == null)
-                        continue;
-
-                    if (existingValue != null && nextValue == null)
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' ({existingValue.ToString()}) is replaced by NULL");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-
-                    if (existingValue == null && nextValue != null)
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' is set to '{nextValue.ToString()}'");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-
-                    if (property.PropertyType == typeof(byte[]) && !(existingValue as byte[]).SequenceEqual(nextValue as byte[]))
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' ({existingValue.ToString()}) is replaced by '{nextValue.ToString()}'");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-
-                    if (property.PropertyType != typeof(byte[]) && !existingValue.Equals(nextValue))
-                    {
-                        if (IsDebug())
-                            Debug($"[{Name}] : The previous value of property '{property.Name}' ({existingValue.ToString()}) is replaced by '{nextValue.ToString()}'");
-                        property.SetValue(existingRecord.Item1, nextValue);
-                        continue;
-                    }
-                }
-            }
-
-            // update information attached to this record
-
-            if (existingRecord.Item2 == null)
-            {
-                // no information existing ... create a new one
-
-                InformationRecord information = new InformationRecord
-                {
-                    Table = Name,
-                    Id = previousRecord.Id,
-                    CustomerId = customerId,
-                    UpdateTick = tick,
-                    UpdateUserId = userId,
-                    UpdateDate = DateTime.Now
-                };
-
-                database._Information.Add(information);
-
-                existingRecord = Tuple.Create(existingRecord.Item1, information);
-            }
-            else
-            {
-                // update information attached to this record
-
-                existingRecord.Item2.UpdateTick = tick;
-                existingRecord.Item2.UpdateUserId = userId;
-                existingRecord.Item2.UpdateDate = DateTime.Now;
-            }
-
-            // the update is done
-
-            existingRecord.Item1._tick = tick;
-
-            if (IsDebug())
-                Debug($"[{Name}] : Record {existingRecord.Item1.ToString()} updated");
-
-            return existingRecord;
-        }
-
-        /// <summary>
-        /// Execute a request on deletion into the database schema
-        /// </summary>
-        /// <param name="database"></param>
-        /// <param name="tick"></param>
-        /// <param name="customerId"></param>
-        /// <param name="userId"></param>
-        /// <param name="area"></param>
-        /// <param name="profile"></param>
-        /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
-        /// <returns></returns>
-        private Tuple<DSRecord, InformationRecord> DeleteRecord(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string action, int? id, JObject record, JObject identity)
-        {
-            // Get the previous and the next record
-
-            DSRecord currentRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, record, identity, false);
-
-            if (currentRecord.Id < 0 || currentRecord._deleted || id == null || id.Value != currentRecord.Id)
-            {
-                Error($"[{Name}] : On deleting a record, the record must already exists!");
-                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
-            }
-
-            if (IsDebug())
-                Debug($"[{Name}] : Deleting record {currentRecord.ToString()}");
-
-            // Retrieve the existing record
-
-            Tuple<DSRecord, InformationRecord> existingRecord = GetRecordById(database, (int)Columns[_indexKey].Property.GetValue(currentRecord));
-
-            // The existing record must be the same record as the record to delete ...
-            // If these records are different, the record has been updated since the update from the client by another client
-
-            if (!existingRecord.Item1.Equals(currentRecord))
-            {
-                Error($"[{Name}] : On deleting a record, record and existing record into the database must be equal!");
-                existingRecord.Item1.LogDifferences(currentRecord);
-                throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
-            }
-
-            // update information attached to this record
-
-            if (existingRecord.Item2 == null)
-            {
-                // no information existing ... create a new one
+                // Attach an information record to this new record
 
                 InformationRecord information = new InformationRecord
                 {
                     Table = Name,
                     Id = currentRecord.Id,
                     CustomerId = customerId,
-                    UpdateTick = tick,
+                    CreateId = createdId,
+                    CreateTick = request.NewTick,
+                    CreateUserId = userId,
+                    CreateDate = now,
+                    UpdateTick = request.NewTick,
                     UpdateUserId = userId,
-                    UpdateDate = DateTime.Now,
-                    DeleteTick = tick,
-                    DeleteUserId = userId,
-                    DeleteDate = DateTime.Now
+                    UpdateDate = now
                 };
 
-                database._Information.Add(information);
+                informations.Add(information);
+                result.Add(Tuple.Create(currentRecord, information));
 
-                existingRecord = Tuple.Create(existingRecord.Item1, information);
+                index++;
+
+                if (IsDebug())
+                    Debug($"[{Name}] : Record {currentRecord} added");
             }
-            else
+
+            // Add new information records into the table
+
+            database._Information.AddRange(informations);
+
+            // Update the last sequence id for the table and this user
+
+            SequenceIdRecord sequenceIdRecord = database._SequenceId.FirstOrDefault(s => s.UserId == userId && s.Table.Equals(Name));
+            if (sequenceIdRecord == null)
             {
+                database._SequenceId.Add(new SequenceIdRecord
+                {
+                    UserId = userId,
+                    Table = Name,
+                    SequenceId = maxSequenceId,
+                    Date = now
+                });
+            }
+            else if (sequenceIdRecord.SequenceId < maxSequenceId)
+            {
+                sequenceIdRecord.SequenceId = maxSequenceId;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Execute a request on updating into the database schema
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="area"></param>
+        /// <param name="profile"></param>
+        /// <param name="lot"></param>
+        /// <returns></returns>
+        private List<Tuple<DSRecord, InformationRecord>> UpdateRecord(DatabaseContext database, int customerId, int userId, string area, UserProfile.EUserProfile profile, List<DSRequest> lot)
+        {
+            List<Tuple<DSRecord, InformationRecord>> result = new List<Tuple<DSRecord, InformationRecord>>();
+
+            foreach (DSRequest request in lot)
+            {
+                int tick = request.NewTick;
+                string action = request.Action;
+                int id = request.RecordId;
+                JObject record = request.Record;
+                JObject identity = request.Identity;
+
+                if (record["New"] == null ||
+                    record["Old"] == null ||
+                    identity["New"] == null ||
+                    identity["Old"] == null)
+                {
+                    Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
+                }
+
+                if (!(record["Old"] is JObject oldRecord) || !(record["New"] is JObject newRecord) || !(identity["Old"] is JObject oldIdentity) || !(identity["New"] is JObject newIdentity))
+                {
+                    Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
+                }
+
+                // Get the previous and the next record
+
+                DSRecord previousRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, oldRecord, oldIdentity, false);
+                DSRecord nextRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, newRecord, newIdentity, true);
+
+                if (previousRecord.Id != nextRecord.Id || previousRecord.Id < 0 || nextRecord.Id < 0 || previousRecord._deleted || nextRecord._deleted || (id >= 0 && id != previousRecord.Id))
+                {
+                    Error($"[{Name}] : On updating a record, Old and New records must represent the same record and this record can't be deleted!");
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
+                }
+
+                if (IsVerbose())
+                    Verbose($"[{Name}] : Updating record {previousRecord} to {nextRecord} ...");
+
+                // Retrieve the existing record
+
+                Tuple<DSRecord, InformationRecord> existingRecord = GetRecordById(database, (int)Columns[_indexKey].Property.GetValue(previousRecord));
+
+                // The existing record must be the same record as the previousRecord ...
+                // If these records are different, the record has been updated since the update from the client by another client
+
+                if (!existingRecord.Item1.Equals(previousRecord))
+                {
+                    Error($"[{Name}] : On updating a record, Old record and existing record into the database must be equal!");
+                    existingRecord.Item1.LogDifferences(previousRecord);
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
+                }
+
+                // Update the existing record within the new record (except _tick or _deleted)
+
+                foreach (PropertyInfo property in Table.GetProperties())
+                {
+                    if (property.Name.Equals("_tick") || property.Name.Equals("_deleted") || !property.CanWrite)
+                        continue;
+
+                    object existingValue = property.GetValue(existingRecord.Item1);
+                    object nextValue = property.GetValue(nextRecord);
+
+                    if (property.PropertyType == typeof(string))
+                    {
+                        if (existingValue == null && nextValue == null)
+                            continue;
+
+                        if (existingValue != null && nextValue == null && !existingValue.Equals(""))
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' ({existingValue}) is replaced by NULL");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+
+                        if (existingValue == null && nextValue != null && !nextValue.Equals(""))
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' is set to '{nextValue}'");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+
+                        if (existingValue != null && nextValue != null && !existingValue.Equals(nextValue))
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' ({existingValue}) is replaced by '{nextValue}'");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (existingValue == null && nextValue == null)
+                            continue;
+
+                        if (existingValue != null && nextValue == null)
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' ({existingValue}) is replaced by NULL");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+
+                        if (existingValue == null && nextValue != null)
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' is set to '{nextValue}'");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+
+                        if (property.PropertyType == typeof(byte[]) && !(existingValue as byte[]).SequenceEqual(nextValue as byte[]))
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' ({existingValue}) is replaced by '{nextValue}'");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+
+                        if (property.PropertyType != typeof(byte[]) && !existingValue.Equals(nextValue))
+                        {
+                            if (IsVerbose())
+                                Verbose($"[{Name}] : The previous value of property '{property.Name}' ({existingValue}) is replaced by '{nextValue}'");
+                            property.SetValue(existingRecord.Item1, nextValue);
+                            continue;
+                        }
+                    }
+                }
+
                 // update information attached to this record
 
-                existingRecord.Item2.DeleteTick = tick;
-                existingRecord.Item2.DeleteUserId = userId;
-                existingRecord.Item2.DeleteDate = DateTime.Now;
+                if (existingRecord.Item2 == null)
+                {
+                    // no information existing ... create a new one
+
+                    InformationRecord information = new InformationRecord
+                    {
+                        Table = Name,
+                        Id = previousRecord.Id,
+                        CustomerId = customerId,
+                        UpdateTick = tick,
+                        UpdateUserId = userId,
+                        UpdateDate = DateTime.Now
+                    };
+
+                    database._Information.Add(information);
+
+                    existingRecord = Tuple.Create(existingRecord.Item1, information);
+                }
+                else
+                {
+                    // update information attached to this record
+
+                    existingRecord.Item2.UpdateTick = tick;
+                    existingRecord.Item2.UpdateUserId = userId;
+                    existingRecord.Item2.UpdateDate = DateTime.Now;
+                }
+
+                // the update is done
+
+                existingRecord.Item1._tick = tick;
+
+                if (IsDebug())
+                    Debug($"[{Name}] : Record {existingRecord.Item1} updated");
+
+                result.Add(existingRecord);
             }
 
-            // the deletion is done
+            return result;
+        }
 
-            existingRecord.Item1._tick = tick;
-            existingRecord.Item1._deleted = true;
+        /// <summary>
+        /// Execute a request on deletion into the database schema
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="customerId"></param>
+        /// <param name="userId"></param>
+        /// <param name="area"></param>
+        /// <param name="profile"></param>
+        /// <param name="lot"></param>
+        /// <returns></returns>
+        private List<Tuple<DSRecord, InformationRecord>> DeleteRecord(DatabaseContext database, int customerId, int userId, string area, UserProfile.EUserProfile profile, List<DSRequest> lot)
+        {
+            List<Tuple<DSRecord, InformationRecord>> result = new List<Tuple<DSRecord, InformationRecord>>();
 
-            if (IsDebug())
-                Debug($"[{Name}] : Record {existingRecord.Item1.ToString()} Deleted");
+            foreach (DSRequest request in lot)
+            {
+                int tick = request.NewTick;
+                string action = request.Action;
+                int id = request.RecordId;
+                JObject record = request.Record;
+                JObject identity = request.Identity;
 
-            return existingRecord;
+                // Get the previous and the next record
+
+                DSRecord currentRecord = GetRecordFromClient(database, customerId, userId, area, profile, action, record, identity, false);
+
+                if (currentRecord.Id < 0 || currentRecord._deleted || id != currentRecord.Id)
+                {
+                    Error($"[{Name}] : On deleting a record, the record must already exists!");
+                    throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+                }
+
+                if (IsVerbose())
+                    Verbose($"[{Name}] : Deleting record {currentRecord} ...");
+
+                // Retrieve the existing record
+
+                Tuple<DSRecord, InformationRecord> existingRecord = GetRecordById(database, (int)Columns[_indexKey].Property.GetValue(currentRecord));
+
+                // The existing record must be the same record as the record to delete ...
+                // If these records are different, the record has been updated since the update from the client by another client
+
+                if (!existingRecord.Item1.Equals(currentRecord))
+                {
+                    Error($"[{Name}] : On deleting a record, record and existing record into the database must be equal!");
+                    existingRecord.Item1.LogDifferences(currentRecord);
+                    throw new ExceptionDefinitionRecord("ERR_REQUEST_SYNCHRONIZED");
+                }
+
+                // update information attached to this record
+
+                if (existingRecord.Item2 == null)
+                {
+                    // no information existing ... create a new one
+
+                    InformationRecord information = new InformationRecord
+                    {
+                        Table = Name,
+                        Id = currentRecord.Id,
+                        CustomerId = customerId,
+                        UpdateTick = tick,
+                        UpdateUserId = userId,
+                        UpdateDate = DateTime.Now,
+                        DeleteTick = tick,
+                        DeleteUserId = userId,
+                        DeleteDate = DateTime.Now
+                    };
+
+                    database._Information.Add(information);
+
+                    existingRecord = Tuple.Create(existingRecord.Item1, information);
+                }
+                else
+                {
+                    // update information attached to this record
+
+                    existingRecord.Item2.DeleteTick = tick;
+                    existingRecord.Item2.DeleteUserId = userId;
+                    existingRecord.Item2.DeleteDate = DateTime.Now;
+                }
+
+                // the deletion is done
+
+                existingRecord.Item1._tick = tick;
+                existingRecord.Item1._deleted = true;
+
+                if (IsDebug())
+                    Debug($"[{Name}] : Record {existingRecord.Item1} Deleted");
+
+                result.Add(existingRecord);
+            }
+
+            return result;
         }
 
         #endregion
@@ -898,9 +937,43 @@ namespace Syncytium.Common.Database.DSSchema
             {
                 ["Name"] = Name,
                 ["Area"] = Area,
+                ["LotSize"] = LotSize,
+                ["Capacity"] = Capacity,
                 ["Columns"] = new JArray(Columns.Select(column => column.ToJSON(area, profile)).Where(column => column != null).ToArray())
             };
             return result;
+        }
+
+        /// <summary>
+        /// Retrieve for all data contains into the table without any filter
+        /// </summary>
+        /// <param name="database"></param>
+        /// <returns></returns>
+        public IEnumerable<Tuple<DSRecord, InformationRecord>> ReadRecords(DatabaseContext database)
+        {
+            IEnumerable<DSRecord> records = null;
+            if (Property.GetValue(database) is IEnumerable<DSRecordWithCustomerId> recordsWithCustomerId)
+                records = recordsWithCustomerId;
+            else
+                records = Property.GetValue(database) as IEnumerable<DSRecord>;
+
+            List<Tuple<DSRecord, InformationRecord>> query = new List<Tuple<DSRecord, InformationRecord>>(Capacity);
+
+            query.AddRange(from record in records
+                           join information in database._Information.Where(info => info.Table.Equals(Name)) on record.Id equals information.Id into gj
+                           from subInformation in gj.DefaultIfEmpty()
+                           select Tuple.Create(record, subInformation));
+
+            foreach (Tuple<DSRecord, InformationRecord> v in query)
+            {
+                /* Case 1 - using detaching : Too long ... about 1h to load 80K lines ... */
+                /* Case 2 - using cloning : less than 15s to load 110K lines ... */
+
+                if (v.Item1 is DSRecordWithCustomerId recordWithCustomer)
+                    yield return Tuple.Create(DSRecord.Copy(v.Item1), InformationRecord.Copy(v.Item2) ?? new InformationRecord() { Table = Name, Id = v.Item1.Id, CustomerId = recordWithCustomer.CustomerId });
+                else
+                    yield return Tuple.Create(DSRecord.Copy(v.Item1), InformationRecord.Copy(v.Item2) ?? new InformationRecord() { Table = Name, Id = v.Item1.Id, CustomerId = -1 });
+            }
         }
 
         /// <summary>
@@ -913,29 +986,20 @@ namespace Syncytium.Common.Database.DSSchema
         {
             IEnumerable<DSRecord> records = null;
             if (Property.GetValue(database) is IEnumerable<DSRecordWithCustomerId> recordsWithCustomerId)
-                records = customerId < 0 ? recordsWithCustomerId : recordsWithCustomerId.Where(r => r.CustomerId == customerId);
+                records = recordsWithCustomerId.Where(r => r.CustomerId == customerId);
             else
                 records = Property.GetValue(database) as IEnumerable<DSRecord>;
 
-            var query = from record in records
-                        join information in database._Information.Where(info => info.Table.Equals(Name)) on record.Id equals information.Id into gj
-                        from subInformation in gj.DefaultIfEmpty()
-                        select new { Record = record, Information = subInformation };
+            List<Tuple<DSRecord, InformationRecord>> query = new List<Tuple<DSRecord, InformationRecord>>(Capacity);
 
-            if (customerId < 0)
+            query.AddRange(from record in records
+                           join information in database._Information.Where(info => info.Table.Equals(Name)) on record.Id equals information.Id into gj
+                           from subInformation in gj.DefaultIfEmpty()
+                           select Tuple.Create(record, subInformation));
+
+            foreach (Tuple<DSRecord, InformationRecord> v in query)
             {
-                foreach (var v in query.ToList())
-                {
-                    if (v.Record is DSRecordWithCustomerId recordWithCustomer)
-                        yield return Tuple.Create(v.Record, v.Information ?? new InformationRecord() { Table = Name, Id = v.Record.Id, CustomerId = recordWithCustomer.CustomerId });
-                    else
-                        yield return Tuple.Create(v.Record, v.Information ?? new InformationRecord() { Table = Name, Id = v.Record.Id, CustomerId = -1 });
-                }
-            }
-            else
-            {
-                foreach (var v in query.ToList())
-                    yield return Tuple.Create(v.Record, v.Information ?? new InformationRecord() { Table = Name, Id = v.Record.Id, CustomerId = customerId });
+                yield return Tuple.Create(DSRecord.Copy(v.Item1), InformationRecord.Copy(v.Item2) ?? new InformationRecord() { Table = Name, Id = v.Item1.Id, CustomerId = customerId });
             }
         }
 
@@ -956,7 +1020,7 @@ namespace Syncytium.Common.Database.DSSchema
             if (currentRecord.Item1 != null && currentRecord.Item2 != null)
                 return currentRecord;
 
-            return Tuple.Create(currentRecord.Item1, new InformationRecord() { Table = Name, Id = currentRecord.Item1.Id, CustomerId = customerId });
+            return Tuple.Create(DSRecord.Copy(currentRecord.Item1), new InformationRecord() { Table = Name, Id = currentRecord.Item1.Id, CustomerId = customerId });
         }
 
         /// <summary>
@@ -983,7 +1047,7 @@ namespace Syncytium.Common.Database.DSSchema
 
             // Build a cache to stored data attached ...
 
-            DSCache cache = database.GetCache();
+            DSCache cache = database.GetCache(_databaseSchema);
             cache.SetBefore("");
 
             // Looking for the column containing the key
@@ -1025,7 +1089,7 @@ namespace Syncytium.Common.Database.DSSchema
                         columns[i] = schemaColumns[i].ConvertToJSON(value, errors, out conversionOK);
 
                         if (!conversionOK || errors.HasError)
-                            throw new ExceptionDefinitionRecord($"Conversion of the value '{value.ToString()}' of the column '{schemaColumns[i].Property.Name}' in the record '{JsonConvert.SerializeObject(record)}' has failed", errors);
+                            throw new ExceptionDefinitionRecord($"Conversion of the value '{value}' of the column '{schemaColumns[i].Property.Name}' in the record '{JsonConvert.SerializeObject(record)}' has failed", errors);
                     }
 
                     // Retrieve the information and complete the columns
@@ -1098,7 +1162,7 @@ namespace Syncytium.Common.Database.DSSchema
                         columns[i] = schemaColumns[i].ConvertToJSON(value, errors, out conversionOK);
 
                         if (!conversionOK || errors.HasError)
-                            throw new ExceptionDefinitionRecord($"Conversion of the value '{value.ToString()}' of the column '{schemaColumns[i].Property.Name}' in the record '{JsonConvert.SerializeObject(record)}' has failed", errors);
+                            throw new ExceptionDefinitionRecord($"Conversion of the value '{value}' of the column '{schemaColumns[i].Property.Name}' in the record '{JsonConvert.SerializeObject(record)}' has failed", errors);
                     }
 
                     // Retrieve the information and complete the columns
@@ -1146,7 +1210,6 @@ namespace Syncytium.Common.Database.DSSchema
                 return null;
 
             Errors errors = new Errors();
-            bool conversionOK = true;
 
             // Build a record within only the list of authorized attributes
 
@@ -1156,11 +1219,11 @@ namespace Syncytium.Common.Database.DSSchema
                 if (DSRestrictedAttribute.IsRestricted(column.Restriction, area, profile, null))
                     continue;
 
-                object value = column.ConvertToJSON(column.Property.GetValue(record), errors, out conversionOK);
+                object value = column.ConvertToJSON(column.Property.GetValue(record), errors, out bool conversionOK);
 
                 if (!conversionOK || errors.HasError)
                 {
-                    Error($"Conversion of the value '{value.ToString()}' of the column '{column.Property.Name}' in the record '{record.ToString()}' has failed");
+                    Error($"Conversion of the value '{value}' of the column '{column.Property.Name}' in the record '{record}' has failed");
                     throw new ExceptionDefinitionRecord("Unable to convert a value", errors);
                 }
 
@@ -1173,6 +1236,51 @@ namespace Syncytium.Common.Database.DSSchema
             result["_deleted"] = record._deleted;
 
             return result;
+        }
+
+        /// <summary>
+        /// Build a dynamic record containing properties depending on the area and the profile
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="area"></param>
+        /// <param name="userId"></param>
+        /// <param name="profile"></param>
+        /// <param name="request"></param>
+        /// <returns>true if the record is filtered</returns>
+        public bool FilterRecord(DSRecord record, string area, int userId, UserProfile.EUserProfile profile, DSRequest request)
+        {
+            if (!DSAllowAttribute.IsAllowed(Allow, area, profile, "Read", userId, record))
+                return false;
+
+            if (DSRestrictedAttribute.IsRestricted(Restriction, area, profile, null))
+                return false;
+
+            Errors errors = new Errors();
+
+            // Build a record within only the list of authorized attributes
+
+            foreach (DSColumn column in Columns)
+            {
+                if (DSRestrictedAttribute.IsRestricted(column.Restriction, area, profile, null))
+                    continue;
+
+                object value = column.ConvertToJSON(column.Property.GetValue(record), errors, out bool conversionOK);
+
+                if (!conversionOK || errors.HasError)
+                {
+                    Error($"Conversion of the value '{value}' of the column '{column.Property.Name}' in the record '{record}' has failed");
+                    throw new ExceptionDefinitionRecord("Unable to convert a value", errors);
+                }
+
+                request.SetRecord(column.Property.Name, new JValue(value));
+            }
+
+            // add _tick and _deleted
+
+            request.SetRecord("_tick", record._tick);
+            request.SetRecord("_deleted", record._deleted);
+
+            return true;
         }
 
         /// <summary>
@@ -1192,6 +1300,8 @@ namespace Syncytium.Common.Database.DSSchema
             switch (action)
             {
                 case "Create":
+                    return -1;
+
                 case "Delete":
                     if (record[Columns[_indexKey].Property.Name] != null && record[Columns[_indexKey].Property.Name].Type == JTokenType.Integer)
                         recordServerId = record[Columns[_indexKey].Property.Name].ToObject<int>();
@@ -1212,11 +1322,7 @@ namespace Syncytium.Common.Database.DSSchema
             }
 
             if (recordServerId < 0 && recordClientId >= 0)
-            {
-                InformationRecord information = database._Information.FirstOrDefault(info => info.CreateId == recordClientId && info.CreateUserId == userId && info.Table.Equals(this.Name));
-                if (information != null)
-                    recordServerId = information.Id;
-            }
+                recordServerId = DatabaseCacheManager.Instance.GetId(database._Information, recordClientId, userId, this.Name);
 
             return recordServerId;
         }
@@ -1254,38 +1360,88 @@ namespace Syncytium.Common.Database.DSSchema
         }
 
         /// <summary>
+        /// Extract from the request the record
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="transaction"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Tuple<DSRecord, DSRecord> ExtractRecord(DatabaseContext database, DSTransaction transaction, DSRequest request)
+        {
+            if (DSRestrictedAttribute.IsRestricted(Restriction, transaction.Area, transaction.Profile, request.Action))
+                throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
+
+            switch (request.Action)
+            {
+                case "Create":
+                    return new Tuple<DSRecord, DSRecord>(GetRecordFromClient(database, 
+                                                                             transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile,
+                                                                             request.Action, request.Record, request.Identity, true), null);
+
+                case "Update":
+                    if (request.Record["New"] == null ||
+                        request.Record["Old"] == null ||
+                        request.Identity["New"] == null ||
+                        request.Identity["Old"] == null)
+                    {
+                        Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
+                        throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
+                    }
+
+                    if (!(request.Record["Old"] is JObject oldRecord) || !(request.Record["New"] is JObject newRecord) ||
+                        !(request.Identity["Old"] is JObject oldIdentity) || !(request.Identity["New"] is JObject newIdentity))
+                    {
+                        Error($"[{Name}] : On updating a record, the reference on Old and New record are missing!");
+                        throw new ExceptionDefinitionRecord("ERR_REQUEST_UPDATE_MISSING");
+                    }
+
+                    // Get the previous and the next record
+
+                    return new Tuple<DSRecord, DSRecord>(
+                                            GetRecordFromClient(database,
+                                                                transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile,
+                                                                request.Action, oldRecord, oldIdentity, false),
+                                            GetRecordFromClient(database,
+                                                                transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile,
+                                                                request.Action, newRecord, newIdentity, true));
+
+                case "Delete":
+                    return new Tuple<DSRecord, DSRecord>(null,
+                                                         GetRecordFromClient(database,
+                                                                             transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile,
+                                                                             request.Action, request.Record, request.Identity, false));
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Execute a request on the database schema (Create, Update or Delete a record for the current table)
         /// on depends on the restriction view for the area and the profile
         /// </summary>
         /// <param name="database"></param>
-        /// <param name="tick"></param>
-        /// <param name="customerId"></param>
-        /// <param name="userId"></param>
-        /// <param name="area"></param>
-        /// <param name="profile"></param>
+        /// <param name="transaction"></param>
         /// <param name="action"></param>
-        /// <param name="id"></param>
-        /// <param name="record"></param>
-        /// <param name="identity"></param>
+        /// <param name="lot"></param>
         /// <returns></returns>
-        public Tuple<DSRecord, InformationRecord> ExecuteRequest(DatabaseContext database, int tick, int customerId, int userId, string area, UserProfile.EUserProfile profile, string action, int id, JObject record, JObject identity)
+        public List<Tuple<DSRecord, InformationRecord>> ExecuteRequest(DatabaseContext database, DSTransaction transaction, string action, List<DSRequest> lot)
         {
-            if (DSRestrictedAttribute.IsRestricted(Restriction, area, profile, action))
+            if (DSRestrictedAttribute.IsRestricted(Restriction, transaction.Area, transaction.Profile, action))
                 throw new ExceptionDefinitionRecord("ERR_UNAUTHORIZED");
 
-            switch(action)
+            switch (action)
             {
                 case "Create":
-                    return CreateRecord(database, tick, customerId, userId, area, profile, action, id, record, identity);
+                    return CreateRecord(database, transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile, lot);
 
                 case "Update":
-                    return UpdateRecord(database, tick, customerId, userId, area, profile, action, id, record, identity);
+                    return UpdateRecord(database, transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile, lot);
 
                 case "Delete":
-                    return DeleteRecord(database, tick, customerId, userId, area, profile, action, id, record, identity);
+                    return DeleteRecord(database, transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile, lot);
             }
 
-            return _databaseSchema.ExecuteRequestCustom(database, tick, customerId, userId, area, profile, Name, action, id, record, identity);
+            return _databaseSchema.ExecuteRequestCustom(database, transaction.CustomerId, transaction.UserId, transaction.Area, transaction.Profile, Name, lot);
         }
 
         /// <summary>
@@ -1335,6 +1491,8 @@ namespace Syncytium.Common.Database.DSSchema
             ColumnsByName = new Dictionary<string, DSColumn>();
             Restriction = new List<DSRestrictedAttribute>();
             Allow = new List<DSAllowAttribute>();
+            LotSize = 1;
+            Capacity = 1024;
 
             // Retrieve table name from the class definition (class name or the table name in MVC)
 
@@ -1348,6 +1506,11 @@ namespace Syncytium.Common.Database.DSSchema
                     Restriction.Add(annotation as DSRestrictedAttribute);
                 else if (typeof(DSAllowAttribute).IsInstanceOfType(annotation))
                     Allow.Add(annotation as DSAllowAttribute);
+                else if (typeof(DSLotAttribute).IsInstanceOfType(annotation))
+                {
+                    LotSize = (annotation as DSLotAttribute).Size < 1 ? 1 : (annotation as DSLotAttribute).Size;
+                    Capacity = (annotation as DSLotAttribute).Capacity < 1 ? 1 : (annotation as DSLotAttribute).Capacity;
+                }
             }
 
             // Create an instance of the record (table) to get default values for each properties

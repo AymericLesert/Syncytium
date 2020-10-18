@@ -1,0 +1,588 @@
+-- ------------------------ SQLServer ---------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- -------------------------------------------------------------------------
+
+-- -------------------------------------------------------------------------
+-- 2020-10-17 - Aymeric Lesert - Update labels
+-- -------------------------------------------------------------------------
+
+EXECUTE [${Syncytium.Database.Schema}].[BeginMultilingualUpdate]
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'AREA_CUSTOMER', 'Client', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'AREA_ADMINISTRATION', 'Administration', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_CANCEL', 'Annuler', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_CLEAR', 'Réinitialisation', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_CLIPBOARD', 'Presse-Papier', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_CLOSE', 'Ferme', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_CONNECT', 'Connection', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_DELETE', 'Supprimer', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_DELETE_ALL_LINES', 'Supprimer les lignes non importées', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_FORGET_PASSWORD', 'Mot de passe oublié ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_NEW_PASSWORD', 'Nouveau mot de passe', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_FIRST', '<<', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_LAST', '>>', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_NEXT', '>', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_OK', 'OK', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_PREVIOUS', '<', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_RELOAD', 'RECHARGER', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_REMEMBER_ME', 'Se souvenir de moi', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_SEARCH', '?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_SELECT', 'Sélectionner', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_SEND_EMAIL', 'Envoi un email', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_SIGNOUT', 'DECONNECTION', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_SUBMIT', 'Valider', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'BTN_UPGRADE', 'METTRE A JOUR', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CSV_ABORTED', 'Chargement du fichier annulé', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CSV_SELECT_FILES', 'Sélection de fichiers CSV complémentaires', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER', 'Instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_ADDRESS', 'Adresse de l''instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_COMMENT', 'Commentaire', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_CREATE', 'Création d''une instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_DELETE', 'Suppression d''une instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_EMAIL', 'Email de l''administrateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_LOGIN', 'Identifiant de l''administrateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_NAME', 'Nom de l''instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'CUSTOMER_UPDATE', 'Mise à jour d''une instance', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'DIFFERENCE_UNKNOWN', 'Valeur inconnue', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_ALREADYCONNECTED', 'Déjà connectée', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_AUTHENTICATED_TWICE', 'Vous êtes connectés sur un autre navigateur ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CHECK', 'La requête comporte quelques erreurs', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_COLLABORATEUR_USER_EXIST', 'L''utilisateur ''{1}'' avec l''identifiant de connexion ''{0}'' existe déjà. Veuillez changer le nom !', '0: Login, 1: Nom de l''utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CONNECTION', 'La connection vers le serveur est corrompue. Pouvez-vous recharger la page ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_BADFORMATED_FILE', 'Format de fichier CSV inadapté', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_BADFORMATVALUE', 'La valeur ''{0}'' n''est pas correctement renseignée', '0: valeur du champ en erreur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_COLUMN_MISSING', 'Le nombre de colonnes ({0}) ne correspond pas au nombre d''entêtes ({1}) !', '0: nombre de colonnes sur la ligne, 1: nombre d''entêtes'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_FILE_MISSING', 'Le fichier {0} est vide !', '0: nom du csv'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_HEADER_MISSING', 'L''entête ''{0}'' n''est pas présente dans le fichier !', '0: nom de l''entête'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_HEADER_MISSING_FILE', 'L''entête ''{0}'' n''est pas présente dans le fichier {1} !', '0: nom de l''entête, 1: nom du csv'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_HEADERDOUBLE', 'L''entête ''{0}'' de la colonne {1} est redondante dans le fichier {2} !', '0: intitulé de la colonne, 1: Indice de la colonne, 2: nom du csv'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_KEYDOUBLE_DB', 'La clé ''{0}'' est présente en double dans la base de données !', '0: valeur de la clé en double'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_KEYDOUBLE_FILE', 'La clé ''{0}'' est présente en double dans le fichier CSV !', '0: valeur de la clé en double'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_MISSINGREFERENCE', 'La valeur ''{0}'' n''est pas une valeur référencée dans {1} !', '0: valeur du champ en erreur, 1: nom de la propriété'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_CSV_UNEXPECTED', 'Erreur anormale lors de l''import d''un fichier {0} !', '0: nom du csv'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_DATE', 'Date non valide', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_DOWNLOAD_PDF', 'Impossible de télécharger le fichier pdf en raison d''un problème technique!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_DOWNLOAD_PICTURE', 'L''image ''{0}'' n''a pas été chargé car le format n''est pas une image', '0: nom du fichier'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_EXCEPTION_UNEXPECTED', 'Une exception inattendue est survenue durant le traitement de la requête', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_BADFORMAT', 'Le champ ''{0}'' ({1}) n''est pas correctement renseigné', '0: nom du champ, 1: valeur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_DECIMAL', 'Le champ ''{0}'' ({3}) doit être un nombre ({1}, {2})', '0: nom du champ, 1: nombre de chiffres, 2: précision, 3: valeur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_FILE_TOO_LONG', 'Le champ ''{0}'' ne doit pas dépasser les {1} Ko', '0: nom du champ, 1: longueur maxi en Ko'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_MISSING', 'Le champ ''{0}'' doit être défini', '0: nom du champ'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_REQUIRED', 'Le champ ''{0}'' est requis', '0: nom du champ'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_TOO_LONG', 'La valeur du champ ''{0}'' ne doit pas dépasser les {1} caractères', '0: nom du champ, 1: longueur maxi'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_TOO_SHORT', 'La valeur du champ ''{0}'' doit dépasser les {1} caractères', '0: nom du champ, 1: longueur mini'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_TYPE', 'Type incorrect', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FIELD_UNIQUE', 'La valeur du champ ''{0}'' existe déjà', '0: nom du champ'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_FILE_MISSING', 'Fichier manquant ! Veuillez sélectionner un fichier avant de lancer l''import ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_ID', 'Fichier ''{0}'' (Id {1})', '0: Nom du csv, 1: Identifiant de l''objet'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_INITIALIZATION', 'L''initialisation a rencontré un problème ... Si le problème persiste, contactez l''équipe technique!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_LINE', 'Fichier ''{0}'' (Ligne {1})', '0: Nom du csv, 1: Numéro de ligne'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_LOGIN_INCORRECT', 'Identifiant et mot de passe incorrect', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_NOCONNECTION', 'Non connecté!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_NOT_YET_IMPLEMENTED', 'Fonctionnalité indisponible pour le moment ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_OUT_OF_MEMORY', 'La taille des requêtes en cours excède la capacité maximale de l''application ... Veuillez contacter le support technique!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_PARAMETER_FLOAT', 'La valeur ''{0}'' ne représente pas une valeur numérique !', '0: Valeur saisie'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_PARAMETER_INTEGER', 'La valeur ''{0}'' ne représente pas un entier strictement positif !', '0: Valeur saisie'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_PARAMETER_LIMIT', 'La valeur ''{0}'' ne représente pas un entier compris entre {1} et {2} !', '0: Valeur saisie, 1: valeur min, 2: valeur max'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_PARAMETER_TAUX', 'La valeur ''{0}'' ne représente pas un pourcentage !', '0: Valeur saisie'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_PDF_UNEXPECTED', 'Erreur anormale lors de la génération du PDF !', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_RECORD_DELETED', 'Impossible de mettre à jour ou de supprimer un enregistrement déjà supprimé', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_RECORD_DIFFERENT', 'Impossible de mettre à jour ou de supprimer l''enregistrement car il a été mis à jour par un autre utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REFERENCE_CUSTOMER', 'Instance non définie', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REFERENCE_USER', 'Utilisateur non défini', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_RELEASE_NOTES', 'La release notes ne peut pas être consultée car le serveur n''est pas accessible ou des données n''ont pas encore été validées ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REQUEST_ALREADY_EXECUTED', 'La requête a déjà été exécutée', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REQUEST_SYNCHRONIZED', 'La requête n''a pas été traitée car l''ancienne valeur ne correspond pas à la valeur courante', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REQUEST_UNKNOWN', 'La requête n''a pas été traitée car elle n''a pas pu être identifiée', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_REQUEST_UPDATE_MISSING', 'La mise à jour n''a pas pu être réalisée en raison de l''absence de données dans l''enregistrement', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_SCHEMA', 'Pas de schema de base de données. Veuillez contacter l''équipe technique support pour résoudre le problème!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_SELECT_VALUE', 'Pouvez-vous sélectionner un élément ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_SYNCHRONIZED', 'Requête inattendue', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UNABLE_PDF', 'Le PDF ne peut pas être généré car les fontes ne sont pas chargées. Veuillez vous connecter avant de relancer la génération du PDF.', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UNABLE_SYNCHRONIZATION', 'Impossible de synchroniser la base de données en raison d''une mise à jour de la base de données. Rechargez la page!', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UNAUTHENTICATED', 'Votre session est terminée ... Toutes vos modifications sont perdues !Veuillez vous authentifier à nouveau !', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UNAUTHORIZED', 'Requête non autorisée', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UPLOAD_BROKEN', 'La connection a été rompue ... Essayez toute à l''heure ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UPLOAD_EXTENSION', 'Le ou les fichiers ''{0}'' ont une extension non autorisée ...', '0: liste des fichiers'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UPLOAD_FAILED', 'Le fichier n''a pas été enregistré en raison de l''erreur {0} ...', '0: Status d''erreur HTTP'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_UPLOAD_TOO_BIG', 'Le fichier est trop volumineux', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_USERMODULE_REFERENCE_MODULE', 'La référence du champ n''est pas définie dans la table ''Module''', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERR_USERMODULE_REFERENCE_USER', 'La référence du champ n''est pas définie dans la table ''User''', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ERROR', 'Erreur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'FIELD_MAX_LENGTH', 'Limité à {0} caractères', '0: Nombre de caractères'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'FOOTER_ADMINISTRATION', 'Mode administration', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'FOOTER_DSP', 'Développé par Aymeric LESERT', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'EN', 'Anglais', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'FR', 'Français', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYDATE', 'Date', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYDESCRIPTION', 'Source', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYFIELD', 'Champ', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE', 'Nature', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_CREATE', 'Création', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_DELETE', 'Suppression', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_LISTCREATE', 'Ajout d''un élément', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_LISTDELETE', 'Suppression d''un élément', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_LISTUPDATE', 'Mise à jour d''un élément', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNATURE_UPDATE', 'Mise à jour', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYNEWVALUE', 'A', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYOLDVALUE', 'De', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_HISTORYUSERID', 'Par', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'HISTORY_TITLE', 'Suivi des modifications', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'ID', 'Id', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'INFORMATION', 'Information', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_COMMENT', 'Commentaire', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_FILTER', 'Filtre', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_KEY', 'Clé', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_LABEL_FR', 'Libellé en français', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_LABEL_EN', 'Libellé en anglais', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'LANGUAGE_UPDATE', 'Mise à jour du label ''{0}''', '0: clé du libellé'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_CREATE', 'Création d''un module', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_CREATED_TOAST', 'Module ''{0}'' créé', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_DELETE', 'Suppression du module ''{0}''', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_DELETED_TOAST', 'Module ''{0}'' supprimé', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_DESCRIPTION', 'Description', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_ENABLE', 'Actif ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_ENABLE_FALSE', 'Indisponible', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_ENABLE_TRUE', 'Disponible', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_MODULE', 'Module fonctionnel', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_MODULE_CUSTOMER', 'Client', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_MODULE_ADMINISTRATION', 'Administration', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_MODULE_NONE', 'Pas de module', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_NAME', 'Nom', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PARAMETERS', 'Paramètres', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE', 'Profile', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE_ADMINISTRATOR', 'Administrateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE_NONE', 'Pas de droits', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE_OTHER', 'Autre', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE_SUPERVISOR', 'Superviseur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_PROFILE_USER', 'Utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_READ', 'Module ''{0}''', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_UPDATE', 'Mise à jour du module ''{0}''', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_UPDATED_TOAST', 'Module ''{0}'' mis à jour', '0: Nom de module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MODULE_USERS', 'Liste des utilisateurs', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_1', 'Janvier {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_10', 'Octobre {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_11', 'Novembre {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_12', 'Décembre {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_2', 'Février {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_3', 'Mars {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_4', 'Avril {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_5', 'Mai {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_6', 'Juin {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_7', 'Juillet {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_8', 'Août {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MONTH_9', 'Septembre {0}', '0 : année'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CHANGE_PROFILE', 'Votre profil a été mis à jour par l''administrateur ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CHANGE_PROFILE_ADMINISTRATOR', 'Vous devenez un administrateur ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_COMMITTING', 'Mise à jour de la base de données ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CONFIRMATION', 'Pouvez-vous confirmer ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CONFIRMATION_CANCEL', 'Des modifications ont été apportées et vont être perdues. Pouvez-vous confirmer ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CONFIRMATION_DELETE', 'Pouvez-vous confirmer la suppression ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CSV_IMPORTING', 'Voulez-vous ajouter {0} lignes et mettre à jour {1} lignes depuis le fichier ''{2}'' ?', '0: nb lignes ajoutées, 1: nb lignes modifiées, 2: nom du fichier'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CSV_IMPORTING_ALL', 'Voulez-vous ajouter {0} lignes, mettre à jour {1} lignes et supprimer {2} lignes depuis le fichier ''{3}'' ?', '0: nb lignes ajoutées, 1: nb lignes modifiées, 2: nb lignes supprimées, 3: nom du fichier'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_CSV_IMPORTING_NONE', 'Aucune mise à jour à réaliser depuis le fichier ''{0}''', '0: nom du fichier'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_DISCONNECTED', 'Vous avez été déconnecté par l''administrateur ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_EXPORT_BUILDING', 'Exportation des données ''{0}'' ...', '0: nom de l''objet exporté'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_EXPORT_WRITING', 'Ecriture du fichier CSV pour les données ''{0}'' ...', '0: nom de l''objet exporté'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_IMPORT_CHECKING', 'Vérification des données à importer dans la table ''{0}'' ...', '0: nom de la table'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_IMPORT_DELETING', 'Suppression des données dans la table ''{0}'' ...', '0: nom de la table'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_IMPORT_IMPORTED', 'Création de {0} lignes, mise à jour de {1} lignes et suppression de {2} lignes dans la table ''{3}'' réalisée', '0: nb lignes ajoutées, 1: nb lignes modifiées, 2: nb lignes supprimées, 3: nom du fichier'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_IMPORT_IMPORTING', 'Mise à jour des données dans la table ''{0}'' ...', '0: nom de la table'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_IMPORT_PRELOADING', 'Pré-chargement des données à importer dans la table ''{0}'' ...', '0: nom de la table'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_INITIALIZING', 'Initialisation en cours ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_LOADING', 'Chargement en cours ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_NO_SCRIPT', 'Veuillez activer le javascript pour faire fonctionner l''application !', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_PDF', 'Génération du fichier PDF en cours ..', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_REFRESHING', 'Rafraîchissement en cours ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_ROLLBACKING', 'Annulation des mises à jour de la base de données ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_SCREEN_BUILDING', 'Construction des tableaux en cours ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_SYNCHRONIZING', 'Synchronisation en cours ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'MSG_USER_UPDATING_CONFIRMATION', 'L''utilisateur ''{1}'' avec l''identifiant de connexion ''{0}'' existe déjà. Voulez-vous mettre à jour ses informations ?', '0: Login, 1: Nom de l''utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_KEY', 'Nom', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_CREATE', 'Création d''un paramètre', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_CREATED_TOAST', 'Paramètre ''{0}'' créé', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_DELETE', 'Suppression du paramètre ''{0}''', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_DELETED_TOAST', 'Paramètre ''{0}'' supprimé', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_DESCRIPTION', 'Description', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_IMPORTED_TOAST', 'Paramètres généraux importés ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_IMPORTING_TOAST', 'Importation en cours des paramètres généraux ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_READ', 'Paramètre ''{0}''', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_UPDATE', 'Mise à jour du paramètre ''{0}''', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_UPDATED_TOAST', 'Paramètre ''{0}'' mis à jour', '0: Nom du paramètre général'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PARAMETER_VALUE', 'Valeur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'PDF_PAGE', '{0} sur {1}', '0: page courante, 1: nb de pages'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'RELOAD', 'Rechargement de la page', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SELECT_DATE', 'Date', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SELECT_NAME', 'Nom', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SELECT_USER', 'Utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SELECT_VALUE_ALL', 'Tout', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SELECT_VALUE_NULL', 'Non défini', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'SERVICE_TOAST', 'Exécution du service ''{0}''', '0 : Nom du service'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_CREATE', 'Création', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_DELETE', 'Suppression', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_READY', 'Prêt à synchroniser ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_STARTED', 'Connecté', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_STARTING', 'Connection en cours', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_STOPPED', 'Déconnecté', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_STOPPING', 'Déconnection en cours', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'STATUS_UPDATE', 'Mise à jour', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_CSV_CONFIRMATION', 'Confirmation de l''import', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_CSV_EXPORT', 'Export des données en CSV', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_EXIT', 'Sortie', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_IMPORT', 'Import des données', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_LANGUAGE', 'Liste des libellés', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_MODULE', 'Modules fonctionnels', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_NOT_DEFINED', '<<Non défini>>', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_PARAMETER', 'Paramètres généraux', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_RELEASENOTES', 'Release notes', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SEARCH', 'Recherche', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_DATE', 'Sélectionne une date', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_DATETIME', 'Sélectionne une date et heure', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_FILE', 'Sélectionne un fichier', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_MASK', 'Saisie d''une valeur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_MODULE', 'Sélection d''un module fonctionnel', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_PARAMETER', 'Sélection d''un paramètre', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_TIME', 'Sélectionne une heure', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_USER', 'Sélectionne un utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_SELECT_USERMODULE', 'Sélection d''un module fonctionnel pour un utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_TRANSLATION', 'Traduction', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_USER', 'Utilisateurs', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'TITLE_USERMODULE', 'Modules fonctionnels pour un utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'UPGRADE', 'Application mise à jour', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'UPGRADING', 'Mise à jour de l''application ...', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_CREATE', 'Création d''un utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_CREATED_TOAST', 'Utilisateur ''{0}'' créé', '0: Nom de l''utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_CREATIONDATE', 'Date de début', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_DELETE', 'Suppression de l''utilisateur ''{0}''', '0: Utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_DELETED_TOAST', 'Utilisateur ''{0}'' supprimé', '0: Nom de l''utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_DISABLE', 'Inactif', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_EMAIL', 'Adresse mail', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_ENABLE', 'Actif', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_ENDDATE', 'Date de fin', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_IMPORTED_TOAST', 'Utilisateurs importés ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_IMPORTING_TOAST', 'Importation en cours des utilisateur ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_LANGUAGE', 'Langage', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_LOGIN', 'Identifiant', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_MODULES', 'Modules accessibles', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_NAME', 'Nom', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_NEW_PASSWORD', 'Nouveau mot de passe', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_PASSWORD', 'Mot de passe', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_PICTURE', 'Photo', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_PROFILE', 'Profil', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_READ', 'Utilisateur ''{0}''', '0: Utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_REGISTRATION', 'Matricule', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_RETYPE_PASSWORD', 'Resaisir le mot de passe', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_UPDATE', 'Mise à jour de l''utilisateur ''{0}''', '0: Utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USER_UPDATED_TOAST', 'Utilisateur ''{0}'' mis à jour', '0: Nom de l''utilisateur'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_CREATE', 'Création d''un module fonctionnel pour un utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_CREATED_TOAST', 'Module fonctionnel d''un utilisateur ''{0}'' créé', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_DEFAULT', 'Défaut ?', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_DEFAULT_FALSE', 'Sur demande', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_DEFAULT_TRUE', 'Par défaut', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_DELETE', 'Suppression du module fonctionnel ''{0}'' d''un utilisateur', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_DELETED_TOAST', 'Module fonctionnel d''un utilisateur ''{0}'' supprimé', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_IMPORTED_TOAST', 'Modules fonctionnels d''utilisateur importés ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_IMPORTING_TOAST', 'Importation en cours des modules fonctionnels d''utilisateur ({0} créés, {1} modifiés et {2} supprimés)', '0: Nb enregistrements ajoutés, 1: modifiés, 2: supprimés'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_MODULEID', 'Module fonctionnel', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_PROFILE', 'Profile', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_READ', 'Module fonctionnel d''un utilisateur ''{0}''', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_UPDATE', 'Mise à jour du module fonctionnel ''{0}'' d''un utilisateur', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_UPDATED_TOAST', 'Module fonctionnel d''un utilisateur ''{0}'' mis à jour', '0: Nom du module fonctionnel'
+GO
+EXECUTE [${Syncytium.Database.Schema}].[InsertMultilingualLabel] 'USERMODULE_USERID', 'Utilisateur', null
+GO
+EXECUTE [${Syncytium.Database.Schema}].[EndMultilingualUpdate]
+GO

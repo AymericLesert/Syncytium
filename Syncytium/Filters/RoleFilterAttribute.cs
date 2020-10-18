@@ -10,7 +10,7 @@ using System.Web.Security;
 using static Syncytium.Module.Administration.Models.ModuleRecord;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,10 +34,10 @@ namespace Syncytium.Web.Filters
     /// Example :
     /// [RoleFilter] => check if the user is authenticated
     /// [RoleFilter(AllModules=false)] => default administrator or user attached to the first Customer (CustomerId) is allowed
-    /// [RoleFilter(Module=EModule.Stock)] => If moduleId is defined into the URL, check if the moduleId assigned to the user exists and corresponds to the module Stock
+    /// [RoleFilter(Module=EModule.Referentiel)] => If moduleId is defined into the URL, check if the moduleId assigned to the user exists and corresponds to the module Referentiel
     /// [RoleFilter(Role=User.eProfile.Supervisor)] => If moduleId is defined into the URL, check if the moduleId assigned to the user exists and matchs within the expected role
     ///                                                If no moduleId is defined into the URL, check if one of the modules assigned to the user has a role matching within Supervisor
-    /// [RoleFilter(Module=EModule.Stock, Role=User.eProfile.Supervisor)] => If moduleId is defined into the URL, check if the moduleId assigned to the user exists and matchs within the expected role
+    /// [RoleFilter(Module=EModule.Referentiel, Role=User.eProfile.Supervisor)] => If moduleId is defined into the URL, check if the moduleId assigned to the user exists and matchs within the expected role
     /// </summary>
     public class RoleFilterAttribute : ActionFilterAttribute
     {
@@ -45,6 +45,11 @@ namespace Syncytium.Web.Filters
         /// Notify if the role concerns all modules (ignore Module property)
         /// </summary>
         public bool AllModules { get; set; } = true;
+
+        /// <summary>
+        /// Notify if the role concerns a ping
+        /// </summary>
+        public bool Ping { get; set; } = false;
 
         /// <summary>
         /// Describe the expected module for a user
@@ -61,7 +66,13 @@ namespace Syncytium.Web.Filters
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(RoleFilterAttribute).Name;
+        private static readonly string MODULE = typeof(RoleFilterAttribute).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Common.Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -121,7 +132,7 @@ namespace Syncytium.Web.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (IsVerbose())
-                Verbose($"Check if the current user is allowed to get access to the target page ({filterContext.HttpContext.Request.RawUrl}) - AllModules = {(AllModules ? "true" : "false")} - Module = {Module.ToString()} - Role = {Role.ToString()}");
+                Verbose($"Check if the current user is allowed to get access to the target page ({filterContext.HttpContext.Request.RawUrl}) - AllModules = {(AllModules ? "true" : "false")} - Module = {Module} - Role = {Role}");
 
             // if the user is not authenticated ... can't access to the page ... redirect to the sign in page
 
@@ -133,6 +144,13 @@ namespace Syncytium.Web.Filters
                 base.OnActionExecuting(filterContext);
                 return;
             }
+
+            if (Ping)
+            {
+                base.OnActionExecuting(filterContext);
+                return;
+            }
+
 
             // it is due to a upgrading process ... no error because StatusFilterAttribute has already rejected the action
 
@@ -185,9 +203,8 @@ namespace Syncytium.Web.Filters
                     using (Syncytium.Module.Administration.DatabaseContext dbContext = new Module.Administration.DatabaseContext())
                     {
                         UserManager database = new UserManager(dbContext);
-                        UserRecord currentUser = database.GetById(int.Parse(HttpContext.Current.User.Identity.Name)) as UserRecord;
 
-                        if (currentUser == null || currentUser.CustomerId != 1)
+                        if (!(database.GetById(int.Parse(HttpContext.Current.User.Identity.Name)) is UserRecord currentUser) || currentUser.CustomerId != 1)
                         {
                             Warn("The current user is not the user of the first customer!");
 
@@ -227,9 +244,8 @@ namespace Syncytium.Web.Filters
 
                     // retrieve the current user
 
-                    UserRecord currentUser = database.GetById(int.Parse(HttpContext.Current.User.Identity.Name)) as UserRecord;
 
-                    if (currentUser == null || !currentUser.IsEnable())
+                    if (!(database.GetById(int.Parse(HttpContext.Current.User.Identity.Name)) is UserRecord currentUser) || !currentUser.IsEnable())
                     {
                         Warn("The user doesn't exist or is not enabled!");
 
@@ -243,9 +259,7 @@ namespace Syncytium.Web.Filters
 
                     if (moduleId != null)
                     {
-                        ModuleRecord currentModule = database.GetModule(currentUser, moduleId.Value) as ModuleRecord;
-
-                        if (currentModule == null ||
+                        if (!(database.GetModule(currentUser, moduleId.Value) is ModuleRecord currentModule) ||
                             !currentModule.Enable ||
                             !UserRecord.IsInRole(currentModule.Profile, Role) ||
                             (Module != EModule.None && currentModule.Module != Module))
@@ -268,9 +282,7 @@ namespace Syncytium.Web.Filters
 
                     foreach (UserModuleRecord currentUserModule in database.Database.UserModule.Where(um => um.UserId == currentUser.Id).ToList())
                     {
-                        ModuleRecord currentModule = database.GetModule(currentUser, currentUserModule.Id) as ModuleRecord;
-
-                        if (currentModule == null)
+                        if (!(database.GetModule(currentUser, currentUserModule.Id) is ModuleRecord currentModule))
                             continue;
 
                         if (UserRecord.IsInRole(currentModule.Profile, Role) && (Module == EModule.None || Module == currentModule.Module))

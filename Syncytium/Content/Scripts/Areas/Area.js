@@ -1,7 +1,7 @@
-﻿/// <reference path="../_references.js" />
+﻿/// <reference path="_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,12 +35,29 @@ class Area extends GUI.GUI {
      * @returns {string} link towards the root of the documentation
      */
     static get HTTP_ROOT_DOCUMENTATION() {
-        let protocol = 'http';
-        if ( window.location.href.startsWith( 'http://localhost' ) )
-            protocol = 'https';
-        else
-            protocol = window.location.href.split( ':' )[0];
-        return  protocol + "://www.syncytium.fr/wiki/index.php/utilisation/";
+        let root = null;
+
+        if ( !String.isEmptyOrWhiteSpaces( DSDatabase.Instance.Parameters["HTTP.Document"] ) ) {
+            root = DSDatabase.Instance.Parameters["HTTP.Document"];
+        } else {
+            let protocol = 'http';
+            let site = 'application.syncytium.local';
+
+            if ( window.location.href.startsWith( 'http://localhost' ) )
+                protocol = 'https';
+            else
+                protocol = window.location.href.split( ':' )[0];
+
+            if ( window.location.href.indexOf( 'syncytium.server' ) >= 0 )
+                site = 'application.syncytium.server';
+
+            root = protocol + '://' + site + '/wiki/index.php/utilisation/';
+        }
+
+        if ( !root.endsWith( '/' ) )
+            root += '/';
+
+        return root;
     }
 
     /**
@@ -64,7 +81,7 @@ class Area extends GUI.GUI {
         function handleHelp( area ) {
             return function () {
                 if ( typeof area._link === "string" )
-                    window.open( area._link, "_blank" );
+                    window.open( Area.HTTP_ROOT_DOCUMENTATION + area._link, "_blank" );
 
                 if ( typeof area._link === "function" )
                     area._link();
@@ -113,8 +130,8 @@ class Area extends GUI.GUI {
     destructor () {
         super.destructor();
 
-        for ( var board in this._boards )
-            this._boards[board].destructor();
+        for ( let board of Array.toIterable( this._boards ) )
+            board.destructor();
 
         this._boards = {};
     }
@@ -128,6 +145,8 @@ class Area extends GUI.GUI {
     declareBoard( name, type ) {
         let menu = this.getMenu( name );
         let board = new type( menu.sheet, name );
+
+        board.KeepListEvents = true;
 
         menu.boards.push( board );
 
@@ -159,13 +178,15 @@ class Area extends GUI.GUI {
 
     /**
      * Declare a menu
-     * @param {any} menu   identity of the menu to add
-     * @param {any} title  label of the menu
-     * @param {any} filter key allowing to show or not this menu on depends on a key
+     * @param {any} menu             identity of the menu concerned by the declaration
+     * @param {any} submenu          identity of the submenu
+     * @param {any} title            label of the sub menu
+     * @param {any} filter           key allowing to show or not this sub menu on depends on a key
+     * @param {boolean} showProgress true if the progress bar must shown
      * @returns {any} the menu item corresponding to this declaration
      */
-    declareMenu ( menu, title, filter ) {
-        function handleOnMenu( area, menu ) { return function () { area.onMenu( menu ); }; }
+    declareMenu( menu, submenu, title, filter, showProgress ) {
+        function handleOnMenu( area, menu, submenu ) { return function () { area.onMenu( menu, submenu ); }; }
 
         function handleHover( id, label ) {
             return function () {
@@ -181,8 +202,8 @@ class Area extends GUI.GUI {
 
         function handleMove( id ) {
             return function ( e ) {
-                var mousex = e.pageX + 10;
-                var mousey = e.pageY;
+                let mousex = e.pageX + 10;
+                let mousey = e.pageY;
                 $( '.webix_tooltip.menu.' + id ).css( { top: mousey, left: mousex } );
             };
         }
@@ -201,10 +222,11 @@ class Area extends GUI.GUI {
                 menu: {},
                 orderMenu: [],
                 current: null,
-                sheet: null
+                sheet: null,
+                showProgress: showProgress !== null && showProgress !== undefined && showProgress === true
             };
 
-            var zoneMenu = $( "<li class='button' id='" + menu + "'></li>" );
+            let zoneMenu = $( "<li class='button' id='" + menu + "'></li>" );
             $( Area.ROOT_MENU + " li.spaceall" ).before( zoneMenu );
 
             zoneMenu.hover( handleHover( menu, this._menu[menu].title ), handleOut ( menu ) ).mousemove( handleMove ( menu ));
@@ -217,24 +239,10 @@ class Area extends GUI.GUI {
             Language.Manager.Instance.addComponent( this._menu[menu].sheet );
         }
 
-        return this._menu[menu];
-    }
+        if ( submenu === null || submenu === undefined )
+            return this._menu[menu];
 
-    /**
-     * Declare a submenu
-     * @param {any} menu    identity of the menu concerned by the declaration
-     * @param {any} submenu identity of the submenu
-     * @param {any} title   label of the sub menu
-     * @param {any} filter  key allowing to show or not this sub menu on depends on a key
-     * @returns {any} the menu item corresponding to this declaration
-     */
-    declareSubMenu ( menu, submenu, title, filter ) {
-        function handleOnMenu( area, menu, submenu ) { return function () { area.onMenu( menu, submenu ); }; }
-
-        var item = this._menu[menu];
-        if ( item === null || item === undefined )
-            return null;
-
+        let item = this._menu[menu];
         if ( item.menu[submenu] === null || item.menu[submenu] === undefined ) {
             this.info( "Declaring sub menu ('" + menu + "', '" + submenu + "', '" + title + "') ..." );
 
@@ -243,14 +251,26 @@ class Area extends GUI.GUI {
                 title: Helper.Label( title ),
                 filter: filter === undefined ? null : filter,
                 boards: [],
-                functions: []
+                functions: [],
+                sheet: null,
+                showProgress: showProgress !== null && showProgress !== undefined && showProgress === true
             };
             item.orderMenu.push( item.menu[submenu] );
 
             if ( item.current === null )
                 item.current = submenu;
 
-            $( Area.ROOT_MENU + "#" + menu + "_" + submenu ).click( handleOnMenu( this, menu, submenu ) );
+            let zoneMenu = $( "<li class='button' id='" + submenu + "'></li>" );
+            $( Area.ROOT_MENU + " li.spaceall" ).before( zoneMenu );
+
+            zoneMenu.hover( handleHover( submenu, item.menu[submenu].title ), handleOut( submenu ) ).mousemove( handleMove( submenu ) );
+            zoneMenu.click( handleOnMenu( this, menu, submenu ) );
+
+            item.menu[submenu].sheet = $( "<sheet class='" + submenu + "'></sheet>" );
+            item.menu[submenu].sheet.hide();
+            $( "body > main" ).append( item.menu[submenu].sheet );
+
+            Language.Manager.Instance.addComponent( item.menu[submenu].sheet );
         }
 
         return item.menu[submenu];
@@ -262,16 +282,178 @@ class Area extends GUI.GUI {
      * @returns {any} menu description
      */
     getMenu( menu ) {
-        var item = this._menu[menu];
-        return item === null || item === undefined ? null : item;
+        let item = this._menu[menu];
+        if ( item !== null && item !== undefined )
+            return item;
+
+        for ( let id in this._menu ) {
+            item = this._menu[id].menu[menu];
+            if ( item !== null && item !== undefined )
+                return item;
+        }
+
+        return null;
     }
 
     /**
-     * Virtual method on selecting a menu (specification of treatment due to the selection of the menu)
-     * @param {any} menu    identity of the menu selected by the user
-     * @param {any} submenu identity of the submenu selected by the user
+     * Notify the new value of the field filter
+     * @param {any} area this
+     * @param {any} filter filter item updated
      */
-    onSelectingMenu ( menu, submenu ) {
+    onHandleChangeFilter( area, filter ) {
+        return function () {
+            let value = filter.field.Value;
+            Filter.Filter.Instance.setField( filter.key, value );
+
+            let menu = area.getMenu( filter.menu );
+
+            for ( let board of menu.boards )
+                board[filter.fieldName] = value;
+        };
+    }
+
+    /**
+     * Notify the reload data into the field
+     * @param {any} filter filter item updated
+     */
+    onHandleRefresh( filter ) {
+        return function () {
+            filter.field.refresh();
+        };
+    }
+
+    /**
+     * Declare a new input text filter into the module
+     * @param {string} menu menu attached to the field
+     * @param {string} fieldName name of the attribute set attached to the filter
+     * @param {string} label multilingual label of the filter
+     * @returns {any} the instance of the field
+     */
+    declareFilterInputText( menu, fieldName, label ) {
+        let filter = { key: this.Name + "." + menu + "." + fieldName, menu: menu, fieldName: fieldName, field: null };
+
+        Filter.Filter.Instance.setField( filter.key, null );
+
+        filter.field = new GUI.Field.FieldInput( "body > menu > ul > li.field", this.Name + menu + fieldName, label );
+        filter.field.Value = Filter.Filter.Instance.getField( filter.key );
+        filter.field.on( 'change', this.onHandleChangeFilter( this, filter ) );
+
+        this._filters.push( filter );
+
+        return filter.field;
+    }
+
+    /**
+     * Declare a new input text filter into the module
+     * @param {string} menu menu attached to the field
+     * @param {string} fieldName name of the attribute set attached to the filter
+     * @param {string} label multilingual label of the filter
+     * @param {any} digit instance of digit to set
+     * @returns {any} the instance of the field
+     */
+    declareFilterInputDigit( menu, fieldName, label, digit ) {
+        let filter = { key: this.Name + "." + menu + "." + fieldName, menu: menu, fieldName: fieldName, field: null };
+
+        Filter.Filter.Instance.setField( filter.key, null );
+
+        filter.field = new GUI.Field.FieldInputWithBox( "body > menu > ul > li.field", this.Name + menu + fieldName, label, digit );
+        filter.field.AllowNullValue = true;
+        filter.field.Value = Filter.Filter.Instance.getField( filter.key );
+        filter.field.on( 'change', this.onHandleChangeFilter( this, filter ) );
+
+        this._filters.push( filter );
+
+        return filter.field;
+    }
+
+    /**
+     * Declare a new select filter into the module
+     * @param {string} menu menu attached to the field
+     * @param {string} fieldName name of the attribute set attached to the filter
+     * @param {string} label multilingual label of the filter
+     * @param {any} list list of items to select
+     * @returns {any} the instance of the field
+     */
+    declareFilterSelect( menu, fieldName, label, list ) {
+        let filter = { key: this.Name + "." + menu + "." + fieldName, menu: menu, fieldName: fieldName, field: null };
+
+        Filter.Filter.Instance.setField( filter.key, null );
+
+        filter.field = new GUI.Field.FieldSelect( "body > menu > ul > li.field", this.Name + menu + fieldName, label, list );
+        filter.field.AllowNullValue = true;
+        filter.field.on( 'onCreate', this.onHandleRefresh( filter ) );
+        filter.field.on( 'onUpdate', this.onHandleRefresh( filter ) );
+        filter.field.on( 'onDelete', this.onHandleRefresh( filter ) );
+        filter.field.Value = Filter.Filter.Instance.getField( filter.key );
+        filter.field.on( 'change', this.onHandleChangeFilter( this, filter ) );
+
+        this._filters.push( filter );
+
+        return filter.field;
+    }
+
+    /**
+     * Declare a new select filter into the module
+     * @param {string} menu menu attached to the field
+     * @param {string} fieldName name of the attribute set attached to the filter
+     * @param {string} label multilingual label of the filter
+     * @param {any} list list of items to select
+     * @returns {any} the instance of the field
+     */
+    declareFilterSelectImage( menu, fieldName, label, list ) {
+        let filter = { key: this.Name + "." + menu + "." + fieldName, menu: menu, fieldName: fieldName, field: null };
+
+        Filter.Filter.Instance.setField( filter.key, null );
+
+        filter.field = new GUI.Field.FieldSelectImage( "body > menu > ul > li.field", this.Name + menu + fieldName, label, (menu + "_SELECT_" + fieldName).toUpperCase(), list );
+        filter.field.AllowNullValue = true;
+        filter.field.on( 'onCreate', this.onHandleRefresh( filter ) );
+        filter.field.on( 'onUpdate', this.onHandleRefresh( filter ) );
+        filter.field.on( 'onDelete', this.onHandleRefresh( filter ) );
+        filter.field.Value = Filter.Filter.Instance.getField( filter.key );
+        filter.field.on( 'change', this.onHandleChangeFilter( this, filter ) );
+
+        this._filters.push( filter );
+
+        return filter.field;
+    }
+
+    /**
+     * Declare a new check box filter into the module
+     * @param {string} menu menu attached to the field
+     * @param {string} fieldName name of the attribute set attached to the filter
+     * @param {string} label multilingual label of the filter
+     * @returns {any} the instance of the field
+     */
+    declareFilterCheckBox( menu, fieldName, label ) {
+        let filter = { key: this.Name + "." + menu + "." + fieldName, menu: menu, fieldName: fieldName, field: null };
+
+        Filter.Filter.Instance.setField( filter.key, null );
+
+        filter.field = new GUI.Field.FieldCheckBox( "body > menu > ul > li.field", this.Name + menu + fieldName, label, [label + "_NULL", label + "_TRUE", label + "_FALSE"] );
+        filter.field.AllowNullValue = true;
+        filter.field.Value = Filter.Filter.Instance.getField( filter.key );
+        filter.field.on( 'change', this.onHandleChangeFilter( this, filter ) );
+
+        this._filters.push( filter );
+
+        return filter.field;
+    }
+
+    /**
+     * Method on selecting a menu (specification of treatment due to the selection of the menu)
+     * @param {any} menu    identity of the menu selected by the user
+     * @param {any} submenu identity of the sub-menu selected by the user
+     */
+    onSelectingMenu( menu, submenu ) {
+        for ( let filter of this._filters ) {
+            let name = String.isEmptyOrWhiteSpaces( submenu ) ? menu : submenu;
+
+            filter.field.Visible = filter.menu === name;
+
+            if ( filter.menu === name )
+                filter.field.raise( 'change' );
+        }
     }
 
     /**
@@ -280,16 +462,11 @@ class Area extends GUI.GUI {
      * @param {any}     submenu identity of the submenu selected by the user
      * @param {boolean} force   true if the menu must be checked
      */
-    onMenu ( menu, submenu, force ) {
-        var closeProgress = false;
-        var item = this._menu[menu];
-        var i = null;
-        var board = null;
-
+    async onMenu ( menu, submenu, force ) {
+        let item = this._menu[menu];
         if ( item === null || item === undefined )
             return;
 
-        menu = menu === null || menu === undefined ? null : menu;
         submenu = submenu === null || submenu === undefined ? null : submenu;
 
         this.info( "Select menu '" + ( menu === null ? "null" : menu ) + "', '" + ( submenu === null ? "null" : submenu ) + "'" );
@@ -300,16 +477,16 @@ class Area extends GUI.GUI {
         if ( submenu === null && item.boards.length === 0 && item.current !== null )
             submenu = item.current;
         else if ( submenu === null && item.boards.length === 0 ) {
-            for ( i in item.menu ) {
+            for ( let i in item.menu ) {
                 submenu = i;
                 break;
             }
         }
 
-        if ( !$( "body > .progress" ).is( ':visible' ) ) {
-            this.onStartProgress();
-            this.progressStatus( 0, 1, "MSG_REFRESHING" );
-            closeProgress = true;
+        if ( this._menu[menu] !== undefined && this._menu[menu].showProgress === true ) {
+            GUI.Box.Progress.Start( true );
+            GUI.Box.Progress.SetStatus( 0, 1, "MSG_INITIALIZING" );
+            await GUI.Box.Progress.Sleep( 10 );
         }
 
         // hide all screens
@@ -319,13 +496,8 @@ class Area extends GUI.GUI {
             if ( currentItem === null || currentItem === undefined )
                 continue;
 
-            for ( i in currentItem.boards ) {
-                board = currentItem.boards[i];
-                if ( board === null || board === undefined )
-                    continue;
-
+            for ( let board of currentItem.boards )
                 board.hide();
-            }
 
             if ( $( Area.ROOT_MENU + "#" + id ).hasClass( 'selected' ) )
                 $( Area.ROOT_MENU + "#" + id ).removeClass( 'selected' );
@@ -338,19 +510,15 @@ class Area extends GUI.GUI {
                 if ( currentSubItem === null || currentSubItem === undefined )
                     continue;
 
-                for ( i in currentSubItem.boards ) {
-                    board = currentSubItem.boards[i];
-                    if ( board === null || board === undefined )
-                        continue;
-
+                for ( let board of currentSubItem.boards )
                     board.hide();
-                }
 
-                if ( $( Area.ROOT_MENU + "#" + id ).hasClass( subId ) )
-                    $( Area.ROOT_MENU + "#" + id ).removeClass( subId );
-                $( Area.ROOT_MENU + "#" + id + "_" + subId ).prop( 'disabled', true );
+                if ( $( Area.ROOT_MENU + "#" + subId ).hasClass( 'selected' ) )
+                    $( Area.ROOT_MENU + "#" + subId ).removeClass( 'selected' );
+                $( Area.ROOT_MENU + "#" + subId ).prop( 'disabled', false );
+                $( Area.ROOT_MENU + "#" + subId ).hide();
 
-                $( Area.ROOT_MENU + "#" + id + "_" + subId ).hide();
+                currentSubItem.sheet.remove();
             }
         }
 
@@ -361,59 +529,48 @@ class Area extends GUI.GUI {
             if ( currentItem === null || currentItem === undefined )
                 continue;
 
-            if ( id === menu ) {
-                if ( !$( Area.ROOT_MENU + "#" + id ).hasClass( 'selected' ) )
-                    $( Area.ROOT_MENU + "#" + id ).addClass( 'selected' );
+            if ( id === menu && submenu === null && !$( Area.ROOT_MENU + "#" + id ).hasClass( 'selected' ) ) {
+                $( Area.ROOT_MENU + "#" + id ).addClass( 'selected' );
                 $( Area.ROOT_MENU + "#" + id ).prop( 'disabled', true );
+
+                if ( $( "main > sheet." + id ).length > 0 )
+                    $( "main > sheet." + id ).show();
+                else if ( currentItem.sheet.length > 0 ) {
+                    currentItem.sheet.show();
+                    $( "body > main" ).append( currentItem.sheet );
+                }
+
+                for ( let board of currentItem.boards )
+                    await board.show();
             }
 
-            var sheetShow = false;
-
-            for ( var subId in currentItem.menu ) {
+            for ( let subId in currentItem.menu ) {
                 let currentSubItem = currentItem.menu[subId];
                 if ( currentSubItem === null || currentSubItem === undefined )
                     continue;
 
-                if ( id === menu && subId === submenu ) {
-                    if ( !$( Area.ROOT_MENU + "#" + id ).hasClass( subId ) )
-                        $( Area.ROOT_MENU + "#" + id ).addClass( subId );
-                    $( Area.ROOT_MENU + "#" + id + "_" + subId ).prop( 'disabled', true );
-
-                    if ( $( "main > sheet." + id + "_" + subId ).length > 0 )
-                        $( "main > sheet." + id + "_" + subId ).show();
-                    else if ( currentItem.sheet.length > 0 ) {
-                        currentItem.sheet.show();
-                        $( "body > main" ).append( currentItem.sheet );
-                    }
-
-                    for ( i in currentSubItem.boards ) {
-                        board = currentSubItem.boards[i];
-                        if ( board === null || board === undefined )
-                            continue;
-
-                        board.show();
-                    }
-
-                    sheetShow = true;
-                }
-
                 if ( id === menu )
-                    $( Area.ROOT_MENU + "#" + id + "_" + subId ).show();
-            }
+                    $( Area.ROOT_MENU + "#" + subId ).show();
 
-            if ( !sheetShow && id === menu ) {
-                currentItem.sheet.show();
-                $( "body > main" ).append( currentItem.sheet );
+                if ( id !== menu || subId !== submenu )
+                    continue;
 
-                for ( i in currentItem.boards ) {
-                    board = currentItem.boards[i];
-                    if ( board === null || board === undefined )
-                        continue;
+                $( Area.ROOT_MENU + "#" + subId ).addClass( 'selected' );
+                $( Area.ROOT_MENU + "#" + subId ).prop( 'disabled', true );
 
-                    board.show();
+                if ( $( "main > sheet." + subId ).length > 0 )
+                    $( "main > sheet." + subId ).show();
+                else if ( currentSubItem.sheet.length > 0 ) {
+                    currentSubItem.sheet.show();
+                    $( "body > main" ).append( currentSubItem.sheet );
                 }
+
+                for ( let board of currentSubItem.boards )
+                    await board.show();
             }
         }
+
+        // Update filter
 
         this.onSelectingMenu( menu, submenu );
 
@@ -421,52 +578,8 @@ class Area extends GUI.GUI {
         this._currentSubMenu = submenu;
         item.current = submenu;
 
-        if ( closeProgress )
-            this.onStopProgress();
-    }
-
-    /**
-     * Show the list of sub menus and select one
-     */
-    selectSubMenu () {
-        function handleSelectSubMenu( area, menu, submenu, item ) {
-            return function () {
-                if ( item.functions !== null && item.functions !== undefined ) {
-                    for ( var i in item.functions ) {
-                        try {
-                            item.functions[i]( menu, submenu );
-                        } catch ( e ) {
-                            area.exception( "Unable to execute a function for the menu ('" + ( menu === null ? "null" : menu ) + "', '" + ( submenu === null ? "null" : submenu ) + "')", e );
-                        }
-                    }
-                }
-
-                if ( item.boards.length > 0 )
-                    area.onMenu( menu, submenu );
-            };
-        }
-
-        var item = this.menu[this._currentMenu];
-        if ( item === null || item === undefined )
-            return;
-
-        if ( $.isEmptyObject( item.menu ) )
-            return;
-
-        var choices = [];
-
-        for ( var subId = 0; subId < item.orderMenu.length; subId++ ) {
-            var submenu = item.orderMenu[subId];
-            if ( submenu === null || submenu === undefined )
-                continue;
-
-            choices.push( { label: submenu.title, fn: handleSelectSubMenu( this, this._currentMenu, submenu.id, submenu ) } );
-        }
-
-        if ( choices.length === 0 )
-            return;
-
-        GUI.Box.BoxChoices( item.title, null, choices );
+        if ( this._menu[menu] !== undefined && this._menu[menu].showProgress === true )
+            GUI.Box.Progress.Stop();
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -506,7 +619,7 @@ class Area extends GUI.GUI {
                     // The multilingual dictionary is loaded
                     GUI.Box.Message.Reload( errors, reloadPage );
                 } else {
-                    // No multidictionary ready ... 
+                    // No multilingual dictionary ready ... 
                     GUI.Box.Message.Reload( ERR_INITIALIZATION, reloadPage );
                 }
                 break;
@@ -538,20 +651,49 @@ class Area extends GUI.GUI {
         GUI.Box.Progress.Stop();
 
         if ( endOfLoading !== undefined && endOfLoading === true ) {
-            var htmlParameter = window.location.search.substr( 1 );
+            let htmlParameter = window.location.search.substr( 1 );
             if ( htmlParameter === null || htmlParameter === "" ) {
                 this.startApplication( {} );
                 return;
             }
 
-            var parameters = {};
-            var parametersArray = htmlParameter.split( "&" );
-            for ( var i = 0; i < parametersArray.length; i++ ) {
-                var parameter = parametersArray[i].split( "=" );
+            let parameters = {};
+            for ( let keyValue of htmlParameter.split( "&" ) ) {
+                let parameter = keyValue.split( "=" );
                 parameters[parameter[0]] = parameter[1];
             }
 
             this.startApplication( parameters );
+        }
+    }
+
+    /**
+     * Called on acknowledging the service
+     * @param {any} area      area concerned by this request
+     * @param {any} service   table name
+     * @param {any} record    record acknowledged (the content depends on the action)
+     * @param {any} identity  identities of the record acknowledged  (the content depends on the action)
+     * @param {any} result    result of the service
+     */
+    acknowledgeService( area, service, record, identity, result ) {
+        this.info( "Acknowledging of the service '" + service + "' for ('" + area + "', " + String.JSONStringify( record ) + ", " + String.JSONStringify( identity ) + ") => " + String.JSONStringify( result ) );
+
+        if ( area !== this.Name ) {
+            this.error( "Unable to acknowldge the service because the area '" + area + "' is not expected (" + this.Name + ")" );
+            return;
+        }
+
+        switch ( service ) {
+            case Area.SERVICE_RELEASE_NOTES:
+                if ( result.Error !== null && result.Error !== undefined ) {
+                    let errors = new Errors();
+                    errors.setJSON( result.Error );
+                    GUI.Box.Message.Error( "ERROR", errors );
+                    return;
+                }
+
+                GUI.Box.BoxReleaseNotes.Open( result.Result );
+                break;
         }
     }
 
@@ -573,7 +715,7 @@ class Area extends GUI.GUI {
     /**
      * Called when the data model was loaded or reloaded
      */
-    onLoadedData () {
+    async onLoadedData () {
         if ( !this._firstLoad )
             return;
         this._firstLoad = false;
@@ -586,9 +728,9 @@ class Area extends GUI.GUI {
 
         // show the user's picture
 
-        var currentUser = DSDatabase.Instance.CurrentUser;
-        var currentModule = DSDatabase.Instance.CurrentModule;
-        var currentUserModule = null;
+        let currentUser = DSDatabase.Instance.CurrentUser;
+        let currentModule = DSDatabase.Instance.CurrentModule;
+        let currentUserModule = null;
         DSDatabase.Instance.each( "UserModule", function ( record ) {
             if ( record.UserId === currentUser.Id && record.ModuleId === currentModule.Id && !record._deleted )
                 currentUserModule = record;
@@ -597,9 +739,9 @@ class Area extends GUI.GUI {
         $("body > header > ul > .photo > img")[0].src = currentUser === null || currentUser.Picture === null ? UserRecord.DEFAULT_PICTURE().picture : currentUser.Picture;
 
         $( "body > header > ul > .photo" ).hover( function () {
-            var currentUser = DSDatabase.Instance.CurrentUser;
+            let currentUser = DSDatabase.Instance.CurrentUser;
 
-            var currentUserName = "";
+            let currentUserName = "";
             if ( currentUser !== null && currentUser.Name !== "" )
                 currentUserName = currentUser.Name;
             else if ( currentUser !== null && currentUser.Login !== "" )
@@ -609,8 +751,8 @@ class Area extends GUI.GUI {
         }, function () {
             $( '.image.webix_tooltip' ).remove();
         } ).mousemove( function ( e ) {
-            var mousex = e.pageX - 10 - $( '.image.webix_tooltip' ).width();
-            var mousey = e.pageY;
+            let mousex = e.pageX - 10 - $( '.image.webix_tooltip' ).width();
+            let mousey = e.pageY;
             $( '.image.webix_tooltip' ).css( { top: mousey, left: mousex } );
         } );
 
@@ -620,8 +762,7 @@ class Area extends GUI.GUI {
         webix.i18n.setLocale( DSDatabase.Instance.CurrentLanguage );
         Locale.setLanguage( DSDatabase.Instance.CurrentLanguage );
 
-        this.draw();
-        this.progressStatus();
+        await this.draw();
 
         // Update the screen
 
@@ -650,7 +791,7 @@ class Area extends GUI.GUI {
 
         function handleUpdateUser() {
             return function ( event, table, id, oldRecord, newRecord ) {
-                var disconnectMessage = null;
+                let disconnectMessage = null;
 
                 switch ( table ) {
                     case "User":
@@ -707,15 +848,15 @@ class Area extends GUI.GUI {
                 if ( disconnectMessage === null )
                     return;
 
-                var messageReload = new GUI.Box.Box( "reload", "box_reload" );
+                let messageReload = new GUI.Box.Box( "reload", "box_reload" );
                 messageReload.Title = "RELOAD";
                 messageReload.Message = disconnectMessage;
                 messageReload.draw();
                 switch ( disconnectMessage ) {
                     case "MSG_CHANGE_PROFILE_ADMINISTRATOR":
                     case "MSG_DISCONNECTED":
-                        messageReload.declareButton( "Signout", "BTN_SIGNOUT", function () {
-                            Hub.Instance.stop( true );
+                        messageReload.declareButton( "Signout", "BTN_SIGNOUT", async function () {
+                            await Hub.Instance.stop( true );
                             Logger.Instance.IsEnabled = false;
                             window.onbeforeunload = null;
                             window.location = URL_ROOT + "Administration/User/SignOut";
@@ -733,21 +874,6 @@ class Area extends GUI.GUI {
             };
         }
 
-        function handleBeginNotification( area ) {
-            return function ( event, table, tick, label ) {
-                if ( label === null || label === undefined )
-                    return;
-
-                if ( Helper.IsLabel( label, true ) && !Language.Manager.Instance.existLabel( label.label ) )
-                    return;
-
-                var message = Language.Manager.Instance.interpolation( label );
-
-                area.info( "Toast: " + message );
-                webix.message( String.encode( message ) );
-            };
-        }
-
         function handleNotification( area ) {
             return function ( event, table, tick, label, errors ) {
                 if ( table !== "*" || label === null || label === undefined )
@@ -758,9 +884,51 @@ class Area extends GUI.GUI {
                     return;
                 }
 
-                var message = Language.Manager.Instance.interpolation( label );
+                let message = Language.Manager.Instance.interpolation( label );
                 area.info( "Toast: " + message );
                 webix.message( String.encode( message ) );
+            };
+        }
+
+        function handleEndNotification( area ) {
+            return function ( event, table, tick, label ) {
+                if ( label === null || label === undefined )
+                    return;
+
+                if ( Helper.IsLabel( label, true ) && !Language.Manager.Instance.existLabel( label.label ) )
+                    return;
+
+                let message = Language.Manager.Instance.interpolation( label );
+
+                area.info( "Toast: " + message );
+                webix.message( String.encode( message ) );
+            };
+        }
+
+        function handleStartEvent( area, label ) {
+            return function ( event, nbRequests ) {
+                area._popupCommit = GUI.Box.Progress.IsOpened();
+
+                if ( !area._popupCommit )
+                {
+                    GUI.Box.Progress.SetStatus( 0, nbRequests, label );
+                    GUI.Box.Progress.Start( false );
+                }
+            };
+        }
+
+        function handleNextEvent( area ) {
+            return function ( event, errors ) {
+                if ( !area._popupCommit )
+                    GUI.Box.Progress.SetStatus();
+            };
+        }
+
+        function handleStopEvent( area ) {
+            return function ( event ) {
+                if ( !area._popupCommit )
+                    GUI.Box.Progress.Stop();
+                area._popupCommit = false;
             };
         }
 
@@ -780,59 +948,51 @@ class Area extends GUI.GUI {
 
         // progress bar while committing data into the database
 
-        DSDatabase.Instance.addEventListener( "onStartCommit", "*", "*", function ( event, nbRequests ) {
-            GUI.Box.Progress.SetStatus( 0, nbRequests, "MSG_COMMITTING" );
-            GUI.Box.Progress.Start();
-        } );
+        DSDatabase.Instance.addEventListener( "onStartCommit", "*", "*", handleStartEvent( this, "MSG_COMMITTING" ) );
+        DSDatabase.Instance.addEventListener( "onStartRollback", "*", "*", handleStartEvent( this, "MSG_ROLLBACKING" ) );
 
-        DSDatabase.Instance.addEventListener( "onCommit", "*", "*", function ( event, nbRequests ) {
-            GUI.Box.Progress.SetStatus();
-        } );
+        DSDatabase.Instance.addEventListener( "onCommit", "*", "*", handleNextEvent( this ) );
+        DSDatabase.Instance.addEventListener( "onRollback", "*", "*", handleNextEvent( this ) );
 
-        DSDatabase.Instance.addEventListener( "onStopCommit", "*", "*", function ( event, nbRequests ) {
-            GUI.Box.Progress.Stop();
-        } );
+        DSDatabase.Instance.addEventListener( "onStopCommit", "*", "*", handleStopEvent( this ) );
+        DSDatabase.Instance.addEventListener( "onStopRollback", "*", "*", handleStopEvent( this ) );
 
-        DSDatabase.Instance.addEventListener( "onBeginNotification", "*", "*", handleBeginNotification( this ) );
+        DSDatabase.Instance.addEventListener( "onEndNotification", "*", "*", handleEndNotification( this ) );
         DSDatabase.Instance.addEventListener( "onNotify", "*", "*", handleNotification( this ) );
 
         // release notes
 
-        function handleOpenReleaseNotes( area ) {
-            return function ( data ) {
-                if ( data.Error !== null && data.Error !== undefined ) {
-                    var errors = new Errors();
-                    errors.setJSON( data.Error );
-                    GUI.Box.Message.Error( "ERROR", errors );
-                    return;
-                }
+        Hub.Instance.addListener( this.Name, this );
 
-                GUI.Box.BoxReleaseNotes.Open( data.Result );
-            };
-        } 
-
-        function handleReleaseNotes( area, fnOpen, fnError ) {
-            return function () {
+        function handleReleaseNotes( area ) {
+            return async function () {
                 if ( !Hub.Instance.IsOnline ) {
                     GUI.Box.Message.Information( "ERR_RELEASE_NOTES" );
                     return;
                 }
 
-                Hub.Instance.executeService( Area.SERVICE_RELEASE_NOTES, null, null, fnOpen );
+                await Hub.Instance.executeService( Area.SERVICE_RELEASE_NOTES, null, null, false ).then( ( data ) => {
+                    if ( data.Error !== null && data.Error !== undefined ) {
+                        let errors = new Errors();
+                        errors.setJSON( data.Error );
+                        GUI.Box.Message.Error( "ERROR", errors );
+                        return;
+                    }
+                } );
             };
         }
 
-        $( "body > footer > .release" ).click( handleReleaseNotes( this, handleOpenReleaseNotes( this ) ) );
+        $( "body > footer > .release" ).click( handleReleaseNotes( this ) );
         $( "body > footer > .company" ).click( function () { window.open( "http://www.concilium-lesert.fr", "_blank" ); } );
 
-        // select another module
+        // On change module
 
         function handleChangeModule( area ) {
             return function () {
                 function handleNewModule(module) {
-                    return function () {
-                        function handleSignOut() {
-                            Hub.Instance.stop( true );
+                    return async function () {
+                        async function handleSignOut() {
+                            await Hub.Instance.stop( true );
                             Logger.Instance.IsEnabled = false;
                             window.onbeforeunload = null;
                             window.location = URL_ROOT + ModuleRecord.GetModuleName( module ) + "/" + ModuleRecord.GetModuleName( module ) + "/Index?moduleId=" + DSDatabase.Instance.getServerIdByClientId("Module", module.Id);
@@ -840,7 +1000,7 @@ class Area extends GUI.GUI {
                         }
 
                         if ( DSDatabase.Instance.IsEmpty )
-                            return handleSignOut();
+                            return await handleSignOut();
 
                         GUI.Box.Message.Message( "TITLE_EXIT", "MSG_CONFIRMATION_CANCEL", handleSignOut );
                     };
@@ -851,20 +1011,31 @@ class Area extends GUI.GUI {
                 let choiceModules = [];
 
                 if ( currentUser !== null && currentUser !== undefined ) {
-                    let modules = currentUser.Modules;
-                    let listModules = new ModuleRecord.List();
+                    let modules = [];
 
-                    for ( var userModuleId in modules ) {
-                        let currentUserModule = modules[userModuleId];
-                        if ( currentUserModule === null || currentUserModule === undefined )
+                    // Select the list of modules attached to the current user expected the current module
+
+                    for ( let currentUserModule of Array.toIterable( currentUser.Modules ) ) {
+                        let module = currentUserModule.Module;
+                        if ( module === null || module === undefined || module.Id === currentModule.Id || !module.Enable )
                             continue;
-
-                        let module = listModules.getItem( currentUserModule.ModuleId );
-                        if ( module === null || module === undefined || module.Id == currentModule.Id || !module.Enable )
-                            continue;
-
-                        choiceModules.push( { label: listModules.getText(module), fn: handleNewModule(module) } );
+                        modules.push( module );
                     }
+
+                    // Sort modules by Id
+
+                    modules.sort( function ( m1, m2 ) {
+                        if ( m1.Module < m2.Module )
+                            return -1;
+                        if ( m1.Module > m2.Module )
+                            return 1;
+                        return 0;
+                    } );
+
+                    // Build buttons
+
+                    for ( let userModule of modules )
+                        choiceModules.push( { label: userModule.Name, fn: handleNewModule( userModule ) } );
                 }
 
                 if ( choiceModules.length > 0 )
@@ -878,14 +1049,9 @@ class Area extends GUI.GUI {
                 let nbClickable = 0;
 
                 if ( currentUser !== null && currentUser !== undefined ) {
-                    let modules = currentUser.Modules;
                     let listModules = new ModuleRecord.List();
 
-                    for ( var userModuleId in modules ) {
-                        let currentUserModule = modules[userModuleId];
-                        if ( currentUserModule === null || currentUserModule === undefined )
-                            continue;
-
+                    for ( let currentUserModule of Array.toIterable( currentUser.Modules ) ) {
                         let currentModule = listModules.getItem( currentUserModule.ModuleId );
                         if ( currentModule === null || currentModule === undefined )
                             continue;
@@ -933,89 +1099,52 @@ class Area extends GUI.GUI {
     /**
      * Abstract method to draw and intializing all data into the screen
      */
-    draw() {
+    async draw() {
         super.draw( null );
 
-        var treatment = [];
+        let treatment = [];
 
         this.drawSheets( this._container, treatment );
 
         // Build all boards to include into the application
 
-        this.progressStatus( 0, treatment.length + 1, "MSG_INITIALIZING" );
+        function* buildGeneratorTreatment( treatment ) {
+            yield GUI.Box.Progress.Status( 0, treatment.length, "MSG_SCREEN_BUILDING" );
 
-        for ( var i = 0; i < treatment.length; i++ ) {
-            treatment[i]();
-            this.progressStatus();
+            for ( let buildScreen of treatment ) {
+                try {
+                    buildScreen();
+                } catch ( e ) {
+                    Logger.Instance.exception( "Area", "Exception on building a screen", e );
+                }
+                yield GUI.Box.Progress.Status();
+            }
         }
 
-        $( "body > main > sheet > buttons > #submit" ).html( Helper.Span( "BTN_SUBMIT" ) );
-        $( "body > main > sheet > buttons > #cancel" ).html( Helper.Span( "BTN_CANCEL" ) );
+        await GUI.Box.Progress.Thread( buildGeneratorTreatment( treatment ), 1, true, true );
     }
 
     /**
      * Abstract method on opening the screen
      */
-    onOpen () {
+    async onOpen() {
+        function handleFilters( area ) {
+            return function () {
+                for ( let filter of area._filters ) {
+                    filter.field.onOpen();
+                    filter.field.refresh();
+                }
+            };
+        }
+
         super.onOpen();
 
-        if ( this._firstMenu !== null )
-            this.onMenu( this._firstMenu );
-    }
-
-    /**
-     * Method on refreshing the screen
-     */
-    refresh () {
-        var nbBoards = 0;
-
-        var item = this._menu[this._currentMenu];
-        var subitem = null;
-        var board = null;
-        var i = 0;
-
-        GUI.Box.Progress.Start();
-
-        if ( item !== null && item !== undefined ) {
-            nbBoards += item.boards.length;
-
-            subitem = item.menu[this._currentSubMenu];
-            if ( subitem !== null && subitem !== undefined )
-                nbBoards += subitem.boards.length;
+        if ( this._firstMenu === null ) {
+            handleFilters( area )();
+            return;
         }
 
-        GUI.Box.Progress.SetStatus( 0, nbBoards + 1, "MSG_REFRESHING" );
-
-        GUI.Box.Progress.SetStatus();
-
-        if ( item !== null && item !== undefined ) {
-            for ( i in item.boards ) {
-                board = item.boards[i];
-                if ( board === null || board === undefined )
-                    continue;
-
-                board.refresh();
-                board.populateWebix();
-                board.adjustWebix();
-                GUI.Box.Progress.SetStatus();
-            }
-
-            subitem = item.menu[this._currentSubMenu];
-            if ( subitem !== null && subitem !== undefined ) {
-                for ( i in subitem.boards ) {
-                    board = subitem.boards[i];
-                    if ( board === null || board === undefined )
-                        continue;
-
-                    board.refresh();
-                    board.populateWebix();
-                    board.adjustWebix();
-                    GUI.Box.Progress.SetStatus();
-                }
-            }
-        }
-
-        GUI.Box.Progress.Stop();
+        await this.onMenu( this._firstMenu ).then( handleFilters( this ) );
     }
 
     /**
@@ -1032,6 +1161,7 @@ class Area extends GUI.GUI {
         this._element = null;
         this._firstLoad = true;
         this._moduleId = moduleId === null || moduleId === undefined ? -1 : moduleId;
+        this._popupCommit = false;
 
         // Handle the list of boards
 
@@ -1043,6 +1173,10 @@ class Area extends GUI.GUI {
         this._menu = {};
         this._currentMenu = null;
         this._currentSubMenu = null;
+
+        // Handle the list of filters
+
+        this._filters = [];
 
         this.setTitle( title );
     }

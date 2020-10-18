@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ UserRecord.FREQUENCY_PERMONTH = 4;
  * Test if the current user has the rights of an administrator
  */
 UserRecord.IsAdministrator = function (user) {
-    var currentUser = user ? user : DSDatabase.Instance.CurrentUser;
+    let currentUser = user ? user : DSDatabase.Instance.CurrentUser;
     if (currentUser === null)
         return false;
 
@@ -55,31 +55,34 @@ UserRecord.IsAdministrator = function (user) {
  * Test if the current user has the rights of a responsible
  */
 UserRecord.IsSupervisor = function (user) {
-    var currentUser = user ? user : DSDatabase.Instance.CurrentUser;
+    let currentUser = user ? user : DSDatabase.Instance.CurrentUser;
     if (currentUser === null)
         return false;
 
-    return currentUser.Profile !== null && currentUser.Profile !== undefined && currentUser.Profile === UserRecord.PROFILE_SUPERVISOR;
+    return currentUser.Profile !== null && currentUser.Profile !== undefined &&
+           ( currentUser.Profile === UserRecord.PROFILE_ADMINISTRATOR ||
+             currentUser.Profile === UserRecord.PROFILE_SUPERVISOR );
 };
 
 /*
  * Test if the current user has the rights of an operator
  */
 UserRecord.IsUser = function (user) {
-    var currentUser = user ? user : DSDatabase.Instance.CurrentUser;
+    let currentUser = user ? user : DSDatabase.Instance.CurrentUser;
     if (currentUser === null)
         return false;
 
     return currentUser.Profile !== null && currentUser.Profile !== undefined &&
-          (currentUser.Profile === UserRecord.PROFILE_SUPERVISOR ||
-           currentUser.Profile === UserRecord.PROFILE_USER);
+           ( currentUser.Profile === UserRecord.PROFILE_ADMINISTRATOR ||
+             currentUser.Profile === UserRecord.PROFILE_SUPERVISOR ||
+             currentUser.Profile === UserRecord.PROFILE_USER );
 };
 
 /*
  * Test if the current user has the rights to read but not to modify
  */
 UserRecord.IsOther = function (user) {
-    var currentUser = user ? user : DSDatabase.Instance.CurrentUser;
+    let currentUser = user ? user : DSDatabase.Instance.CurrentUser;
     if (currentUser === null)
         return false;
 
@@ -90,7 +93,7 @@ UserRecord.IsOther = function (user) {
  * Test if the current user has no rights
  */
 UserRecord.IsNone = function (user) {
-    var currentUser = user ? user : DSDatabase.Instance.CurrentUser;
+    let currentUser = user ? user : DSDatabase.Instance.CurrentUser;
     if (currentUser === null)
         return false;
 
@@ -118,5 +121,25 @@ UserRecord.IsEnabled = function (record, profile) {
     if (record.EndDate === null)
         return true;
 
-    return record.EndDate >= new moment();
+    return Dates.Compare( record.EndDate, new moment() ) >= 0;
+};
+
+/**
+ * Retrieve the user by its login
+ * @param {any} login login of the user to retrieve
+ * @return {any} a user if it exists, or null
+ */
+UserRecord.getUser = function ( login ) {
+    let userFound = null;
+
+    function handleReadUser( nom ) {
+        return function ( user ) {
+            if ( user.Login === nom )
+                userFound = user;
+        };
+    }
+
+    List.ListRecord.CACHE_LIST( "User" ).each( handleReadUser( login ) );
+
+    return userFound;
 };

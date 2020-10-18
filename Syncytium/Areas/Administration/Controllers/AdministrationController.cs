@@ -7,15 +7,17 @@ using Syncytium.Web.Areas.ViewModels;
 using Syncytium.Web.Controllers;
 using Syncytium.Web.Database;
 using Syncytium.Web.Filters;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web.Mvc;
 using System.Web.Security;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -86,10 +88,10 @@ namespace Syncytium.Web.Areas.Administration.Controllers
                 // update the database schema
 
                 ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Administration.DatabaseContext), new DatabaseRequest());
-                Info($"Database schema[{Module.Administration.DatabaseContext.AREA_NAME}] : '{ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME].ToString()}'");
+                Info($"Database schema[{Module.Administration.DatabaseContext.AREA_NAME}] : '{ConfigurationManager.Schemas[Module.Administration.DatabaseContext.AREA_NAME]}'");
 
-                ConfigurationManager.Schemas[Module.Sample.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Sample.DatabaseContext), new DatabaseRequest());
-                Info($"Database schema[{Module.Sample.DatabaseContext.AREA_NAME}]: '{ConfigurationManager.Schemas[Module.Sample.DatabaseContext.AREA_NAME].ToString()}'");
+                ConfigurationManager.Schemas[Module.Customer.DatabaseContext.AREA_NAME] = new Common.Database.DSSchema.DSDatabase(typeof(Module.Customer.DatabaseContext), new DatabaseRequest());
+                Info($"Database schema[{Module.Customer.DatabaseContext.AREA_NAME}]: '{ConfigurationManager.Schemas[Module.Customer.DatabaseContext.AREA_NAME]}'");
 
                 // upgrading done ...
 
@@ -116,6 +118,7 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
                 // Start Heartbeat
 
+                DatabaseQueue.Instance.StartConsumer();
                 Syncytium.Web.MvcApplication.StartHeartbeat();
 
                 return View(new UserViewModel(new LanguageDictionary(Server.MapPath(LanguageDictionary.DIRECTORY_IMAGE), ConfigurationManager.DefaultLanguage),
@@ -155,7 +158,12 @@ namespace Syncytium.Web.Areas.Administration.Controllers
 
             using (var zipArchive = new ZipArchive(compressedFileStream, ZipArchiveMode.Update, false))
             {
-                foreach (string filenameAndPath in Directory.GetFiles(Path.GetDirectoryName(System.Web.HttpContext.Current.Server.MapPath("~/Logs/"))))
+                string UrlRoot = ConfigurationManager.ServerHttpRoot;
+                if (!UrlRoot.EndsWith("/"))
+                    UrlRoot += "/";
+                UrlRoot += "Logs/";
+
+                foreach (string filenameAndPath in Directory.GetFiles(Path.GetDirectoryName(UrlRoot)))
                 {
                     if (Path.GetFileName(filenameAndPath).IndexOf(date) < 0)
                     {
@@ -236,13 +244,9 @@ namespace Syncytium.Web.Areas.Administration.Controllers
         {
             Debug($"Get ~/Administration/Administration/Index({moduleId})");
 
-            // Retrieve the user
-
-            UserRecord user = _userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) as UserRecord;
-
             // If the login doesn't exist, it is the administrator by default (due to RoleFilter)
 
-            if (user == null)
+            if (!(_userManager.GetById(int.Parse(HttpContext.User.Identity.Name)) is UserRecord user))
                 user = UserRecord.CreateDefaultAdministrator();
 
             // load ressources before designing the screen fitted to the user's profile

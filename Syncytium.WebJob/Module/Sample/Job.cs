@@ -1,5 +1,5 @@
 ﻿using Syncytium.Common.Managers;
-using Syncytium.Module.Sample;
+using Syncytium.Module.Customer;
 
 /*
     Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr

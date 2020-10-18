@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,175 +47,169 @@
 
     <!-- Frameworks -->
 
-    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script src="~/Scripts/webix.min.js"></script>
     <script src="~/Scripts/html2canvas-0.5.0-alpha1.min.js"></script>
     <script src="~/Scripts/html2canvas-0.5.0-alpha1.svg.min.js"></script>
-    <script src="~/Scripts/pdfmake-0.1.32.min.js"></script>
-    <script src="~/Content/Fonts/pdfmake-roboto.js"></script>
+    <script src="@Model.AddSource("/Content/Fonts/pdfmake-montserrat.js")" charset="iso-8859-1"></script>
+    <script src="~/Scripts/pdfmake-0.2.0-alpha.0.min.js"></script>
 
     <!-- Webix locales -->
 
-    <script src="~/Content/Locale/FR.js"></script>
+    <script src="@Model.AddSource("/Content/Locale/FR.js")" charset="iso-8859-1"></script>
 
     <!-- Moment locales -->
 
-    <script src="~/Content/Locale/Moment.js"></script>
+    <script src="@Model.AddSource("/Content/Locale/Moment.js")" charset="iso-8859-1"></script>
 
-    @if (Model.Mode == "PROD" || Model.Mode == "UAT")
-    {
-        <script src="~/Content/Scripts/syncytium-common.min.js"></script>
-        <script src="~/Content/Scripts/syncytium-administration.min.js"></script>
-    }
-    else
-    {
-        <!-- Tools -->
+    <!-- Tools -->
 
-        <script src="~/Content/Scripts/Tools/Namespace.js"></script>
-        <script src="~/Content/Scripts/Tools/Array.js"></script>
-        <script src="~/Content/Scripts/Tools/String.js"></script>
-        <script src="~/Content/Scripts/Tools/Logger.js"></script>
-        <script src="~/Content/Scripts/Tools/LoggerBaseObject.js"></script>
-        <script src="~/Content/Scripts/Tools/Errors.js"></script>
-        <script src="~/Content/Scripts/Tools/Helper.js"></script>
-        <script src="~/Content/Scripts/Tools/Picture.js"></script>
-        <script src="~/Content/Scripts/Tools/PDF.js"></script>
-        <script src="~/Content/Scripts/Tools/CSV.js"></script>
-        <script src="~/Content/Scripts/Tools/Dates.js"></script>
-        <script src="~/Content/Scripts/Tools/SortArray.js"></script>
-        <script src="~/Content/Scripts/Tools/Similarity.js"></script>
-        <script src="~/Content/Scripts/Tools/Digits.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Namespace.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Array.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/String.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Logger.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/LoggerBaseObject.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Errors.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Helper.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Picture.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/PDF.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/CSV.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Dates.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/SortArray.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Similarity.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Digits.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Clipboard.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Tools/Thread.js")" charset="iso-8859-1"></script>
 
-        <!-- Filters -->
+    <!-- Filters -->
 
-        <script src="~/Content/Scripts/Filter/Filter.js"></script>
-        <script src="~/Content/Scripts/Filter/FilterItems.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Filter/Filter.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Filter/FilterItems.js")" charset="iso-8859-1"></script>
 
-        <!-- Lists -->
+    <!-- Lists -->
 
-        <script src="~/Content/Scripts/List/List.js"></script>
-        <script src="~/Content/Scripts/List/ListArray.js"></script>
-        <script src="~/Content/Scripts/List/ListEnumerable.js"></script>
-        <script src="~/Content/Scripts/List/ListLanguage.js"></script>
-        <script src="~/Content/Scripts/List/ListRecord.js"></script>
-        <script src="~/Content/Scripts/List/ListCalendar.js"></script>
-        <script src="~/Content/Scripts/List/ListHistory.js"></script>
-        <script src="~/Content/Scripts/List/ListArrayRecord.js"></script>
-        <script src="~/Content/Scripts/List/ListArrayRecordAssociation.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/List.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListArray.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListEnumerable.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListLanguage.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListRecord.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListCalendar.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListHistory.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListArrayRecord.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/List/ListArrayRecordAssociation.js")" charset="iso-8859-1"></script>
 
-        <!-- GUI Components -->
+    <!-- GUI Components -->
 
-        <script src="~/Content/Scripts/GUI/GUI.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/GUI.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/GUI/Webix/Webix.js"></script>
-        <script src="~/Content/Scripts/GUI/Webix/WebixBar.js"></script>
-        <script src="~/Content/Scripts/GUI/Webix/WebixTooltip.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Webix/Webix.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Webix/WebixBar.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Webix/WebixTooltip.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/GUI/Field/Field.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldInput.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldCheckBox.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldSelect.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldImage.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldSelectImage.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldInputDigit.js"></script>
-        <script src="~/Content/Scripts/GUI/Field/FieldInputWithBox.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/Field.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldInput.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldCheckBox.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldSelect.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldFile.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldFileImage.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldFileCSV.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldSelectImage.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldInputDigit.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Field/FieldInputWithBox.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/GUI/Button/Button.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Button/Button.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/GUI/Box/Box.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxProgress.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxMessage.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxInputText.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxInputDigit.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxInputFile.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxSelect.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxRecord.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxChoice.js"></script>
-        <script src="~/Content/Scripts/GUI/Box/BoxReleaseNotes.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/Box.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxProgress.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxMessage.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxInputText.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxInputDigit.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxInputFile.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxInputFilesCSV.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxSelect.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxRecord.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxChoice.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Box/BoxReleaseNotes.js")" charset="iso-8859-1"></script>
 
-        <script src="~/Content/Scripts/GUI/Board/Board.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardTable.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardTableAssociation.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardTree.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardChart.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardChartMultiData.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardChartBar.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardChartPie.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardChartLine.js"></script>
-        <script src="~/Content/Scripts/GUI/Board/BoardHistory.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/Board.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardSocialNetwork.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardTable.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardTableAssociation.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardTree.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardChart.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardChartMultiData.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardChartBar.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardChartPie.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardChartLine.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardHistory.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/GUI/Board/BoardImport.js")" charset="iso-8859-1"></script>
 
-        <!-- Differential Synchronization Database -->
+    <!-- Differential Synchronization Database -->
 
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSEmailAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSRequiredAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSKeyAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSStringAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSPasswordAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js"></script>
-        <script src="~/Content/Scripts/Database/DSSchema/DSColumn.js"></script>
-        <script src="~/Content/Scripts/Database/DSSchema/DSTable.js"></script>
-        <script src="~/Content/Scripts/Database/DSSchema/DSDatabase.js"></script>
-        <script src="~/Content/Scripts/Database/DSSchema/DSRecord.js"></script>
-        <script src="~/Content/Scripts/Database/DatabaseHub.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSAnnotationAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSConstraint/DSConstraintAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSConstraint/DSForeignKeyAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSConstraint/DSIndexAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSConstraint/DSUniqueAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSControlAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSEmailAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSRequiredAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSKeyAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSStringAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSControl/DSDecimalAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/DSFormatAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/DSDateTimeAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/SyncytiumasswordAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/DSFileAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/DSMaskAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSAnnotation/DSFormat/DSSequenceAttribute.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSSchema/DSColumn.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSSchema/DSTable.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSSchema/DSDatabase.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DSSchema/DSRecord.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Database/DatabaseHub.js")" charset="iso-8859-1"></script>
 
-        <!-- Area / Module -->
+    <!-- Area / Module -->
 
-        <script src="~/Content/Scripts/Areas/Area.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Area.js")" charset="iso-8859-1"></script>
 
-        <!-- Language -->
+    <!-- Language -->
 
-        <script src="~/Content/Scripts/Areas/Administration/Language/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Language/Manager.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Language/List.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Language/Enum.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Language/Manager.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Language/List.js")" charset="iso-8859-1"></script>
 
-        <!-- Unit -->
+    <!-- User -->
 
-        <script src="~/Content/Scripts/Areas/Administration/Unit/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Unit/List.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Unit/Box.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/User/Enum.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/User/List.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/User/Box.js")" charset="iso-8859-1"></script>
 
-        <!-- User -->
+    <!-- Module -->
 
-        <script src="~/Content/Scripts/Areas/Administration/User/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/User/List.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/User/Box.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Module/Enum.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/Module/List.js")" charset="iso-8859-1"></script>
 
-        <!-- Module -->
+    <!-- UserModule -->
 
-        <script src="~/Content/Scripts/Areas/Administration/Module/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Module/List.js"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/UserModule/Enum.js")" charset="iso-8859-1"></script>
+    <script src="@Model.AddSource("/Content/Scripts/Areas/Administration/UserModule/List.js")" charset="iso-8859-1"></script>
 
-        <!-- UserModule -->
+    <!-- Test -->
 
-        <script src="~/Content/Scripts/Areas/Administration/UserModule/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/UserModule/List.js"></script>
-
-        <!-- Stock -->
-
-        <script src="~/Content/Scripts/Areas/Administration/Stock/Enum.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Stock/List.js"></script>
-        <script src="~/Content/Scripts/Areas/Administration/Stock/Box.js"></script>
-
-        <!-- Test -->
-
-        <script src="~/Content/Scripts/Test/Box.js"></script>
-    }
+    <script src="@Model.AddSource("/Content/Scripts/Test/Box.js")" charset="iso-8859-1"></script>
 
     @RenderSection("JSDeclaration")
 
+    @if (Model.VerboseAll)
+    {
+        <script type="text/javascript">
+            Logger.Instance.IsVerboseAll = true;
+        </script>
+    }
     @if (Model.Verbose)
     {
         <script type="text/javascript">
@@ -236,103 +230,99 @@
     }
 
     <script type="text/javascript">
-            IMAGES_LOADED_FROM_SERVER = "@(Model.Ressources.JsonListOfImages)";
+                IMAGES_LOADED_FROM_SERVER = "@(Model.Ressources.JsonListOfImages)";
 
-            // AS data are not loaded yet, set these values by default ...
+                // AS data are not loaded yet, set these values by default ...
 
-            ERR_INITIALIZATION = String.decode("@(Model.GetLabel("ERR_INITIALIZATION"))");
-            BTN_RELOAD = String.decode("@(Model.GetLabel("BTN_RELOAD"))");
-            ERROR = String.decode( "@(Model.GetLabel("ERROR"))" );
-            URL_ROOT = "@(Model.UrlRoot)";
+                ERR_INITIALIZATION = String.decode("@(Model.GetLabel("ERR_INITIALIZATION"))");
+                BTN_RELOAD = String.decode("@(Model.GetLabel("BTN_RELOAD"))");
+                ERROR = String.decode( "@(Model.GetLabel("ERROR"))" );
+                URL_ROOT = "@(Model.UrlRoot)";
 
-            function handleLog() {
-                if ( Logger.Instance.Visible ) {
-                    Logger.Instance.hide();
-                } else {
-                    Logger.Instance.show();
-                }
-                return false;
-            }
-
-            function enableJS() {
-                $( "body" ).off( 'keydown' ).on( 'keydown', function ( e ) {
-                    if ( e.keyCode === 9 )
-                        e.preventDefault();
-                } );
-                $( "body > header > ul > .log" ).show();
-                $( "body > noscript" ).hide();
-                $( "body > main" ).hide();
-                $( "body > .progress" ).hide();
-            }
-
-            function signOut() {
-                function handleSignOut() {
-                    Hub.Instance.stop(true);
-                    Logger.Instance.IsEnabled = false;
-                    window.onbeforeunload = null;
-                    window.location = URL_ROOT + "Administration/User/SignOut";
-                    return true;
+                function handleLog() {
+                    if ( Logger.Instance.Visible ) {
+                        Logger.Instance.hide();
+                    } else {
+                        Logger.Instance.show();
+                    }
+                    return false;
                 }
 
-                if (DSDatabase.Instance.IsEmpty)
-                    return handleSignOut();
+                function enableJS() {
+                    $( "body" ).off( 'keydown' ).on( 'keydown', function ( e ) {
+                        if ( e.key === "Tab" )
+                            e.preventDefault();
+                    } );
+                    $( "body > header > ul > .log" ).show();
+                    $( "body > noscript" ).hide();
+                    $( "body > main" ).hide();
+                    $( "body > .progress" ).hide();
+                }
 
-                GUI.Box.Message.Message("TITLE_EXIT", "MSG_CONFIRMATION_CANCEL", handleSignOut);
-            }
+                function signOut() {
+                    function handleSignOut() {
+                        Hub.Instance.stop(true);
+                        Logger.Instance.IsEnabled = false;
+                        window.onbeforeunload = null;
+                        window.location = URL_ROOT + "Administration/User/SignOut";
+                        return true;
+                    }
 
-            window.onbeforeunload = function () { Hub.Instance.stop(true); return false; }
+                    if (DSDatabase.Instance.IsEmpty)
+                        return handleSignOut();
+
+                    GUI.Box.Message.Message("TITLE_EXIT", "MSG_CONFIRMATION_CANCEL", handleSignOut);
+                }
+
+                window.onbeforeunload = function () { Hub.Instance.stop(true); return false; }
     </script>
 
-    <link rel="stylesheet" type="text/css" href="~/Content/webix.min.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/webix.min.css")" />
 
-    @if (Model.Mode == "PROD" || Model.Mode == "UAT")
-    {
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/syncytium-common.min.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/syncytium-administration.min.css" />
-    }
-    else
-    {
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Tools/Logger.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/theme.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Tools/Logger.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/GUI.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/GUI.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Button/Button.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Button/Button.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/Field.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldCheckBox.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldImage.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInput.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInputDigit.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldInputWithBox.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldSelect.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Field/FieldSelectImage.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/Field.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldCheckBox.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldFile.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldFileCSV.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldInput.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldInputDigit.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldInputWithBox.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldSelect.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Field/FieldSelectImage.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/Board.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTable.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTableAssociation.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Board/BoardTree.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/Board.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardHistory.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardSocialNetwork.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardTable.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardTableAssociation.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardTree.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Board/BoardImport.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/Box.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxChoice.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputDigit.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputFile.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxInputText.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxMessage.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxSelect.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxRecord.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Box/BoxReleaseNotes.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/Box.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxChoice.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxInputDigit.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxInputFile.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxInputFilesCSV.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxInputText.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxMessage.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxSelect.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxRecord.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Box/BoxReleaseNotes.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/GUI/Webix/Webix.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/GUI/Webix/Webix.css")" />
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Area.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/User/Box.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Unit/Box.css" />
-        <link rel="stylesheet" type="text/css" href="~/Content/Styles/Areas/Administration/Stock/Box.css" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Area.css")" />
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Styles/Areas/Administration/User/Box.css")" />
 
-        <!-- Test -->
+    <!-- Test -->
 
-        <link rel="stylesheet" type="text/css" href="~/Content/Scripts/Test/Box.css" />
-    }
+    <link rel="stylesheet" type="text/css" href="@Model.AddSource("/Content/Scripts/Test/Box.css")" />
 
     @RenderSection("CSSDeclaration")
 </head>
@@ -364,6 +354,29 @@
                 {
                     <li class="log" onclick="handleLog()">Log</li>
                 }
+                @if (Model.Ressources.ListOfLanguages.Count > 1)
+                {
+                    @foreach (string language in Model.Ressources.ListOfLanguages)
+                    {
+                        if (ViewBag.First && !Model.IsLogEnabled)
+                        {
+                            ViewBag.First = false;
+                        }
+                        else
+                        {
+                            <li class="divider"></li>
+                        }
+
+                        if (language.Equals(Model.UserProfile.Language))
+                        {
+                            <li id="@(language)" class="language selected" onclick="Language.Manager.Instance.onChangeLanguage('@(language)');">@(language)</li>
+                        }
+                        else
+                        {
+                            <li id="@(language)" class="language" onclick="Language.Manager.Instance.onChangeLanguage('@(language)');">@(language)</li>
+                        }
+                    }
+                }
                 <li class="space"></li>
                 <li class="photo"><img src="~/Content/Images/Header/User.svg" /></li>
                 <li class="signout" onclick="signOut();"></li>
@@ -377,7 +390,7 @@
             <ul>
                 <li class="spaceall"></li>
                 <li class="field"></li>
-                <li class="button" id="help"></li>
+                <!-- li class="button" id="help"></!-li -->
             </ul>
         </menu>
 
@@ -416,7 +429,7 @@
         <!-- Footer -->
 
         <footer class="withMemory">
-            <div class="company">@Model.GetLabel("FOOTER_SYNCYTIUM") -&nbsp;</div><div class="release">@(Model.Version)</div>
+            <div class="company">@Model.GetLabel("FOOTER_Syncytium") -&nbsp;</div><div class="release">@(Model.Version)</div>
         </footer>
 
         <!-- Memory space available -->

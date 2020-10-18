@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -68,8 +68,8 @@ GUI.Field.FieldCheckBox = class extends GUI.Field.Field {
      * @returns {string} Text value of the current value
      */
     get Text () {
-        var text = "";
-        var i = -1;
+        let text = "";
+        let i = -1;
 
         switch ( this.Value ) {
             case null:
@@ -130,29 +130,27 @@ GUI.Field.FieldCheckBox = class extends GUI.Field.Field {
     onOpen() {
         function handleKeydown( field ) {
             return function ( event ) {
-                let keyCode = event.which || event.keyCode;
-
-                switch ( keyCode ) {
-                    case 9:
-                        event.preventDefault();
+                switch ( event.key ) {
+                    case "Tab":
+                        event.stopImmediatePropagation();
                         if ( event.shiftKey )
                             field.previousFocus();
                         else
                             field.nextFocus();
                         return false;
 
-                    case 13:
-                        event.preventDefault();
+                    case "Enter":
+                        event.stopImmediatePropagation();
                         field.onButtonOK();
                         return false;
 
-                    case 27:
-                        event.preventDefault();
+                    case "Escape":
+                        event.stopImmediatePropagation();
                         field.onButtonCancel();
                         return false;
 
-                    case 32:
-                        event.preventDefault();
+                    case " ":
+                        event.stopImmediatePropagation();
                         field.onMouseClick();
                         return false;
                 }
@@ -201,7 +199,7 @@ GUI.Field.FieldCheckBox = class extends GUI.Field.Field {
         if ( this.Component === null )
             return;
 
-        var element = this.FieldZone.find( "div" );
+        let element = this.FieldZone.find( "div" );
 
         if ( this.Readonly ) {
             element.css( 'cursor', 'initial' );

@@ -1,7 +1,7 @@
 ﻿/// <reference path="../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -43,6 +43,9 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
         this._targetArray = this._array;
 
+        // History values must show all values (included masked item)
+        this._listAssociation._allRecords = item.HistoryId !== undefined ? true : this._listAssociationAllRecords;
+
         this.updateListItems();
     }
 
@@ -64,38 +67,46 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
      * @param {any} fn function to call on each record
      */
     each( fn ) {
-        function compare( list ) {
-            return function ( item1, item2 ) {
-                return list.compare( item1, item2 );
-            };
-        }
+        let arraySorted = [];
 
-        var arraySorted = [];
+        for ( let item of Array.toIterable( this._array ) )
+            arraySorted.push( item );
 
-        for ( var id in this._array )
-            arraySorted.push( this._array[id] );
+        arraySorted.sort( (item1, item2) => this.compare( item1, item2 ) );
 
-        arraySorted.sort( compare( this ) );
-
-        for ( var id in arraySorted )
-            fn( arraySorted[id] );
+        for ( let item of arraySorted )
+            fn( List.ListRecord.SetExtendedFields( this.ListRecord, item ) );
     }
 
     /**
      * private method to update the list of associations
+     * @returns {Array} list of all items
      */
     updateListItems() {
-        this._array = [];
+        Logger.Instance.verbose("ListArrayRecordAssociation", "Updating the list of items ...");
 
-        var listAssociation = this._listAssociation.getListSorted();
-        for ( let recordId in listAssociation ) {
-            let currentAssociationId = this._listAssociation.getId( listAssociation[recordId] );
+        // Get the list of existing associations
+
+        let targetArray = [];
+        for (let association of Array.toIterable(this._targetArray)) {
+            if (association.HistoryNature === List.ListHistory.DELETE)
+                continue;
+
+            targetArray[association[this._associationColumn]] = association;
+        }
+
+        // Associate items and list of items
+
+        this._array = [];
+        for ( let record of this._listAssociation.getListSorted() ) {
+            let currentAssociationId = this._listAssociation.getId( record );
             let newAssociation = null;
 
-            for ( let association in this._targetArray ) {
-                if ( this._targetArray[association][this._associationColumn] === currentAssociationId ) {
-                    newAssociation = DSRecord.Clone( this._targetArray[association] );
+            for ( let association of Array.toIterable( targetArray ) ) {
+                if ( association[this._associationColumn] === currentAssociationId ) {
+                    newAssociation = DSRecord.Clone( association );
                     newAssociation._selected = true;
+                    delete targetArray[currentAssociationId];
                     break;
                 }
             }
@@ -108,26 +119,118 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
             this._array[newAssociation._id] = newAssociation;
         }
+
+        // Add items not included into the list of items
+
+        for (let association of Array.toIterable(targetArray)) {
+            let newAssociation = DSRecord.Clone(association);
+            newAssociation._selected = true;
+            this._array[newAssociation._id] = newAssociation;
+        }
+
+        return this._array;
     }
 
     /**
      * this function is raised to follow the changement of the table
      */
     onOpen() {
-        // handle events on updating the list from the database
-
         /*
          * Update the list of items when a new item is added into the association table
          */
         function handleOnUpdate( list ) {
+            return function ( event, table, legendId, oldRecord, newRecord ) {
+                // Retrieve events
+
+                let fnEventCreate = list.getEvent( "onCreate" );
+                let fnEventUpdate = list.getEvent( "onUpdate" );
+                let fnEventDelete = list.getEvent( "onDelete" );
+
+                // Build the old list of current values within the associationId
+
+                let oldList = [];
+                let itemToRemove = [];
+                for ( let item of Array.toIterable( list._array ) ) {
+                    oldList[item[list._associationColumn]] = item;
+                    itemToRemove[item[list._associationColumn]] = false;
+                }
+
+                // Update the list of values within the new association
+
+                for ( let item of Array.toIterable( list._listAssociation.getList() ) ) {
+                    let id = list._listAssociation.getId( item );
+
+                    // Update the list 
+
+                    if ( id in itemToRemove )
+                        delete itemToRemove[id];
+
+                    if ( id in oldList ) {
+                        if ( id !== legendId )
+                            continue;
+
+                        // Update an existing item
+
+                        let oldItem = oldList[id];
+
+                        if ( fnEventUpdate ) {
+                            try {
+                                fnEventUpdate( "onUpdate", list.Table, id, oldItem, oldItem );
+                            } catch ( e ) {
+                                Logger.Instance.exception( list.Table, "Exception on updating item", e );
+                            }
+                        }
+
+                        continue;
+                    }
+
+                    // Create a new item
+
+                    let newItem = list.ListRecord.createSubItem( list._item, list.Column );
+                    newItem[list._associationColumn] = id;
+                    newItem._selected = false;
+                    list._array[newItem._id] = newItem;
+
+                    if ( fnEventCreate ) {
+                        try {
+                            fnEventCreate( "onCreate", list.Table, newItem._id, newItem );
+                        } catch ( e ) {
+                            Logger.Instance.exception( list.Table, "Exception on creating item", e );
+                        }
+                    }
+                }
+
+                // Delete item to remove
+
+                for ( let i in itemToRemove ) {
+                    // Remove the item
+
+                    let item = oldList[i];
+                    let id = list.getId( item );
+                    delete list._array[id];
+                    if ( id in list._targetArray )
+                        delete list._targetArray[id];
+
+                    // Notify the deleting item
+
+                    if ( fnEventDelete ) {
+                        try {
+                            fnEventDelete( "onDelete", list.Table, id, item );
+                        } catch ( e ) {
+                            Logger.Instance.exception( list.Table, "Exception on deleting item", e );
+                        }
+                    }
+                }
+            };
+        }
+
+        /*
+         * Update the list of items when a new item is added into the association table
+         */
+        function handleOnLoad( list ) {
             return function ( event, table ) {
                 list.updateListItems();
-
-                var fnEvent = list.getEvent( "onLoad" );
-                if ( !fnEvent )
-                    return;
-
-                fnEvent( "onLoad", table );
+                list.raise( "onLoad", table );
             };
         }
 
@@ -136,7 +239,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
         this._listAssociation.on( "onCreate", handleOnUpdate( this ) );
         this._listAssociation.on( "onUpdate", handleOnUpdate( this ) );
         this._listAssociation.on( "onDelete", handleOnUpdate( this ) );
-        this._listAssociation.on( "onLoad", handleOnUpdate( this ) );
+        this._listAssociation.on( "onLoad", handleOnLoad( this ) );
 
         this._listAssociation.onOpen();
     }
@@ -192,7 +295,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
      * @returns {any} value of the field
      */
     getAttributValue( item, attribute ) {
-        return attribute === "_selected" ? this.getAttributValueBoolean( item, attribute ) : super.getAttributText( item, attribute );
+        return attribute === "_selected" ? ( item._selected === true ) : super.getAttributText( item, attribute );
     }
 
     /**
@@ -216,7 +319,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
         // check properties
 
-        var confirmation = this.checkItem( newItem, errors, force );
+        let confirmation = this.checkItem( newItem, errors, force );
 
         if ( errors.HasError )
             return errors;
@@ -248,7 +351,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
         if ( !newItem._selected ) {
             Logger.Instance.error( "List.ListArrayRecordAssociation", "The list references an inexisting element ..." );
-            errors.addGlobal( "ERR_EXCEPTION_UNEXPECTED" );
+            errors.addFatal( "ERR_EXCEPTION_UNEXPECTED" );
             return errors;
         }
 
@@ -259,9 +362,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
         // notify to the board that a new item is available
 
-        var event = this.getEvent( "onUpdate" );
-        if ( event )
-            event( "onUpdate", this.Table, newItem.Id, oldItem, newItem );
+        this.raise( "onUpdate", this.Table, newItem.Id, oldItem, newItem );
 
         return newItem;
     }
@@ -302,9 +403,7 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
 
                 delete this._targetArray[this._array[arrayId]._id];
 
-                var event = this.getEvent( "onUpdate" );
-                if ( event )
-                    event( "onUpdate", this.Table, id, oldItem, this._array[arrayId] );
+                this.raise( "onUpdate", this.Table, id, oldItem, this._array[arrayId] );
 
                 break;
             }
@@ -330,5 +429,6 @@ List.ListArrayRecordAssociation = class extends List.ListArrayRecord {
         this._targetArray = [];
         this._associationColumn = associationColumn;
         this._listAssociation = listAssociation === undefined || listAssociation === null ? null : listAssociation;
+        this._listAssociationAllRecords = this._listAssociation !== null ? this._listAssociation._allRecords : false;
     }
 };

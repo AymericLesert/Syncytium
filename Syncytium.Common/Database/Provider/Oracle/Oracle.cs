@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -159,7 +159,7 @@ namespace Syncytium.Common.Database.Provider.Oracle
             if (!sqlCommand.StartsWith("--"))
                 return sqlCommand;
 
-            int i = 0;
+            int i;
             for (i = 0; i < sqlCommand.Length && sqlCommand[i] != '\n'; i++);
             if (i == sqlCommand.Length)
                 return "";
@@ -343,7 +343,12 @@ namespace Syncytium.Common.Database.Provider.Oracle
             if (fields != null)
             {
                 foreach(KeyValuePair<string, object> key in fields)
-                    SQLFieldStatement += $"AND \"{table}\".\"{key.Key}\" = :value{key.Key} ";
+                {
+                    if (caseSensitive)
+                        SQLFieldStatement += $"AND \"{table}\".\"{key.Key}\" = :value{key.Key} ";
+                    else
+                        SQLFieldStatement += $"AND upper(\"{table}\".\"{key.Key}\") = upper(:value{key.Key}) ";
+                }
             }
 
             string SQLStatement = $"SELECT * " +

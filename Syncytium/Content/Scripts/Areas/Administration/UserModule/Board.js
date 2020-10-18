@@ -5,7 +5,7 @@
 /// <reference path="Box.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,6 +27,23 @@
  */
 UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
     /**
+     * Event raised on Update an element selected into the board within the current item selected
+     */
+    onUpdate() {
+        let item = this.getSelectedItem();
+
+        if ( item === null || item === undefined ||
+            item.item === null || item.item === undefined )
+            return;
+
+        let dialogBox = GUI.Box.BoxRecord.CACHE_DIALOG_BOX( "Module", null, List.ListRecord.CACHE_LIST( "Module" ) );
+        if ( dialogBox === null )
+            return;
+
+        dialogBox.readRecord( item.item.ModuleId );
+    }
+
+    /**
      * Define the list of columns into the table
      */
     declareColumns() {
@@ -34,12 +51,12 @@ UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
          * Update the field 'Default' on clicking on the cell of the board
          */
         function handleClickDefault( board ) {
-            return function ( id, item, attribute ) {
-                var oldRecord = board.List.getItem( id, true );
+            return async function ( id, item, attribute ) {
+                let oldRecord = board.List.getItem( id, true );
                 if ( oldRecord === null )
                     return;
 
-                var newRecord = DSRecord.Clone( oldRecord );
+                let newRecord = DSRecord.Clone( oldRecord );
 
                 // Update the field
 
@@ -51,8 +68,7 @@ UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
                         let oldRecord = DSRecord.Clone( record );
                         record.Default = false;
 
-                        var errors = new Errors();
-                        list.updateItem( list.getId(record), oldRecord, record, errors, true );
+                        list.updateItem( list.getId( record ), oldRecord, record, new Errors(), true );
                     };
                 }
 
@@ -67,7 +83,7 @@ UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
 
                 // notify the database that something has changed
 
-                board.updateItem( oldRecord, newRecord );
+                await board.updateItem( oldRecord, newRecord );
             };
         }
 
@@ -89,28 +105,9 @@ UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
      * Handle the update of the board when something changes into one of the references
      */
     onOpen() {
-        function handleUpdateRow( board, column ) {
-            return function ( event, table, id, oldRecord, newRecord ) {
-                if ( board.Webix === null || !board.isFieldVisible( column, DSDatabase.Instance.CurrentUser ) )
-                    return;
-
-                board.Webix.eachRow( function ( row ) {
-                    var item = board.Webix.getItem( row );
-                    if ( item === null || item === undefined || !item.item )
-                        return;
-
-                    if ( item.item[column] !== id )
-                        return;
-
-                    board.Webix.refresh( row );
-                } );
-            };
-        }
-
         super.onOpen();
 
-        this.addListener( DSDatabase.Instance.addEventListener( "onUpdate", "Module", "*", handleUpdateRow( this, "ModuleId" ) ) );
-        this.addListener( DSDatabase.Instance.addEventListener( "onDelete", "Module", "*", handleUpdateRow( this, "ModuleId" ) ) );
+        this.handleUpdateRows( "Module", "ModuleId" );
     }
 
     /**
@@ -133,6 +130,23 @@ UserModuleRecord.BoardModules = class extends GUI.Board.BoardTableAssociation {
  */
 UserModuleRecord.BoardUsers = class extends GUI.Board.BoardTableAssociation {
     /**
+     * Event raised on Update an element selected into the board within the current item selected
+     */
+    onUpdate() {
+        let item = this.getSelectedItem();
+
+        if ( item === null || item === undefined ||
+            item.item === null || item.item === undefined )
+            return;
+
+        let dialogBox = GUI.Box.BoxRecord.CACHE_DIALOG_BOX( "User", null, List.ListRecord.CACHE_LIST( "User" ) );
+        if ( dialogBox === null )
+            return;
+
+        dialogBox.readProfile( item.item.UserId );
+    }
+
+    /**
      * Define the list of columns into the table
      */
     declareColumns() {
@@ -148,31 +162,9 @@ UserModuleRecord.BoardUsers = class extends GUI.Board.BoardTableAssociation {
      * Handle the update of the board when something changes into one of the references
      */
     onOpen() {
-        function handleUpdateRow( board, column ) {
-            return function ( event, table, id, oldRecord, newRecord ) {
-                if ( board.Webix === null || !board.isFieldVisible( column, DSDatabase.Instance.CurrentUser ) )
-                    return;
-
-                board.Webix.eachRow( function ( row ) {
-                    var item = board.Webix.getItem( row );
-                    if ( item === null || item === undefined || !item.item )
-                        return;
-
-                    if ( item.item[column] !== id )
-                        return;
-
-                    board.Webix.refresh( row );
-                } );
-            };
-        }
-
         super.onOpen();
 
-        this.addListener( DSDatabase.Instance.addEventListener( "onUpdate", "User", "*", handleUpdateRow( this, "UserId" ) ) );
-        this.addListener( DSDatabase.Instance.addEventListener( "onDelete", "User", "*", handleUpdateRow( this, "UserId" ) ) );
-
-        this.addListener( DSDatabase.Instance.addEventListener( "onUpdate", "Module", "*", handleUpdateRow( this, "ModuleId" ) ) );
-        this.addListener( DSDatabase.Instance.addEventListener( "onDelete", "Module", "*", handleUpdateRow( this, "ModuleId" ) ) );
+        this.handleUpdateRows( "User", "UserId" );
     }
 
     /**

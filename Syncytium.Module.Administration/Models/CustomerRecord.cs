@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ namespace Syncytium.Module.Administration.Models
     /// Describe a customer
     /// </summary>
     [Table("Customer")]
+    [DSLot(Capacity = 4)]
     [DSRestricted(Area = "*", Action = "Read")]
     public class CustomerRecord : DSRecord
     {

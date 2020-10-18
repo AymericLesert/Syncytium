@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../_references.js" />
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,6 +33,8 @@ class DSAnnotationAttribute {
 
             case "ForeignKey":
                 return new DSForeignKeyAttribute( annotation.Error, annotation.Table );
+            case "Index":
+                return new DSIndexAttribute( annotation.Error, annotation.CaseSensitive, annotation.Fields );
             case "Unique":
                 return new DSUniqueAttribute( annotation.Error, annotation.CaseSensitive, annotation.Fields );
 
@@ -58,7 +60,7 @@ class DSAnnotationAttribute {
             case "Sequence":
                 return new DSSequenceAttribute(annotation.Key, annotation.Length);
             case "Password":
-                return new DSPasswordAttribute();
+                return new SyncytiumasswordAttribute();
             case "File":
                 return new DSFileAttribute();
         }
@@ -73,12 +75,34 @@ class DSAnnotationAttribute {
      * @returns {array} a list of an instance of annotation
      */
     static FactoryList( annotations ) {
-        var list = [];
+        let list = [];
 
-        for ( var i = 0; i < annotations.length; i++ ) {
-            var newAnnotation = DSAnnotationAttribute.Factory( annotations[i] );
+        for ( let annotation of Array.toIterable( annotations ) ) {
+            let newAnnotation = DSAnnotationAttribute.Factory( annotation );
             if ( newAnnotation )
                 list.push( newAnnotation );
+
+            if ( newAnnotation instanceof DSForeignKeyAttribute ) {
+                // In case of ForeignKey, it means that the field will be used as a jointure into a sub list
+
+                annotation = { Type: 'Index', Error: '', CaseSensitive: 'True', Fields: null };
+
+                for ( let existingAnnotation of Array.toIterable( annotations ) ) {
+                    if ( existingAnnotation.Type === annotation.Type &&
+                        existingAnnotation.Error === annotation.Error &&
+                        existingAnnotation.CaseSensitive === annotation.CaseSensitive &&
+                        ( existingAnnotation.Fields === null || existingAnnotation.Fields === undefined ) ) {
+                        annotation = null;
+                        break;
+                    }
+                }
+
+                if ( annotation !== null ) {
+                    newAnnotation = DSAnnotationAttribute.Factory( annotation );
+                    if ( newAnnotation )
+                        list.push( newAnnotation );
+                }
+            }
         }
 
         return list;

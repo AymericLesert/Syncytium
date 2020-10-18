@@ -12,7 +12,7 @@ using System.Linq;
 using System.Reflection;
 
 /*
-    Copyright (C) 2017 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+    Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -149,7 +149,13 @@ namespace Syncytium.Common.Database.DSSchema
         /// <summary>
         /// Module name used into the log file
         /// </summary>
-        private static string MODULE = typeof(DSColumn).Name;
+        private static readonly string MODULE = typeof(DSColumn).Name;
+
+        /// <summary>
+        /// Indicates if the all verbose mode is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVerboseAll() => Logger.LoggerManager.Instance.IsVerboseAll;
 
         /// <summary>
         /// Indicates if the verbose mode is enabled or not
@@ -315,7 +321,7 @@ namespace Syncytium.Common.Database.DSSchema
                 catch
                 {
                     conversionOK = false;
-                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                     return value;
                 }
             }
@@ -339,13 +345,13 @@ namespace Syncytium.Common.Database.DSSchema
                     if (int.TryParse(value as string, out int result))
                         return result;
 
-                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                     conversionOK = false;
                     return value;
                 }
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                 return value;
             }
 
@@ -363,7 +369,7 @@ namespace Syncytium.Common.Database.DSSchema
                     return ((int)value != 0);
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                 return value;
             }
 
@@ -402,7 +408,7 @@ namespace Syncytium.Common.Database.DSSchema
                 }
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                 return value;
             }
 
@@ -419,13 +425,13 @@ namespace Syncytium.Common.Database.DSSchema
                     catch
                     {
                         conversionOK = false;
-                        errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                        errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                         return value;
                     }
                 }
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                 return value;
             }
 
@@ -448,7 +454,7 @@ namespace Syncytium.Common.Database.DSSchema
                 }
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", "{ERR_FIELD_TYPE}" });
                 return value;
             }
 
@@ -474,14 +480,14 @@ namespace Syncytium.Common.Database.DSSchema
                 }
 
                 conversionOK = false;
-                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", "{ERR_FIELD_TYPE}" });
                 return value;
             }
 
             // Conversion not implemented !
 
             conversionOK = false;
-            errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+            errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
             return value;
         }
 
@@ -506,7 +512,7 @@ namespace Syncytium.Common.Database.DSSchema
                 catch
                 {
                     conversionOK = false;
-                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}" });
+                    errors.AddField(Property.Name, "ERR_FIELD_BADFORMAT", new object[] { $"{{{Field}}}", value.ToString() });
                     return value;
                 }
             }

@@ -173,14 +173,21 @@ body > dialog > box.box_inputdigit > div > .content > #keyboard > .key {
     flex-direction: column;
     justify-content: center;
     font-size: 28px;
-    background-color: var(--syncytium-button-background);
-    border: solid 1px var(--syncytium-button-background);
+    color: var(--stj-button-color);
+    background-color: var(--stj-button-background);
+    border: solid 1px var(--stj-button-background);
     border-radius: 5px;
     margin: 5px;
     padding: 5px;
     width: 68px;
     height: 41px;
     cursor: pointer;
+}
+
+body > dialog > box.box_inputdigit > div > .content > #keyboard > .key:hover {
+    border-color: var(--stj-button-focus-background);
+    background: var(--stj-button-focus-background);
+    color: var(--stj-button-focus-color);
 }
 
 body > dialog > box.box_inputdigit > div > .content > #keyboard > .key.undo {

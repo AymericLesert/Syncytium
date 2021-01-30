@@ -178,7 +178,6 @@
     <Content Include="Database\Provider\Firebird\Script\0005-2020-10-17-Labels.txt" />
     <Content Include="Database\Provider\SQLServer\Script\0005-2020-10-17-Labels.txt" />
     <Content Include="Content\Images\Areas\Customer\Menu\Importation.svg" />
-    <Content Include="Content\Scripts\syncytium-customer.min.css" />
     <Content Include="Content\Styles\syncytium-customer.min.css" />
     <Content Include="Content\Images\GUI\Field\FieldFile\Credits.txt" />
     <Content Include="Content\Images\GUI\Field\FieldFile\Download.svg" />

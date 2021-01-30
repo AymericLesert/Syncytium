@@ -3030,7 +3030,7 @@
             If <see cref="P:log4net.Appender.DebugAppender.ImmediateFlush"/> is <c>true</c> then the <see cref="M:System.Diagnostics.Debug.Flush"/>
             is called.
             </para>
-            </remarks>
+            </remarks> 
         </member>
         <member name="P:log4net.Appender.DebugAppender.RequiresLayout">
             <summary>

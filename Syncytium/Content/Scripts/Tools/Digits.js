@@ -170,11 +170,11 @@ Digits.Digits = class {
 
         // Decimal
 
-        match = format.match( /^(((_{1,3}\.){0,1}(___\.)*(__0)((.0{3})+){0,1})|(_*0+)|((0{1,3}\.){0,1}(000\.)*(000)))(,0+){0,1}$/ );
+        match = format.match( /^(((_{1,3}\.){0,1}(___\.)*(__0)((.0{3})+){0,1})|(_*0+)|((0{1,3}\.){0,1}(000\.)*(000)))((,0+){0,1}|)$/ );
         if ( match !== null ) {
             let newFormat = format.replace( /\./g, "" );
             let i = newFormat.indexOf( "," );
-            return new Digits.Decimal( i, newFormat.length - i - 1 );
+            return new Digits.Decimal(i, i < 0 ? 0 : (newFormat.length - i - 1));
         }
 
         // Sequence

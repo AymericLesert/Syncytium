@@ -11,6 +11,8 @@
 /Syncytium.Module.Customer/bin/
 /Syncytium.Common/obj/
 /Syncytium.Common/bin/
+/Syncytium.Core.Common.Server/obj/
+/Syncytium.Core.Common.Server/bin/
 /Syncytium.Test/bin/
 /Syncytium.Test/obj/
 /Syncytium/bin/

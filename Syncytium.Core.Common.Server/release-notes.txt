@@ -1,0 +1,9 @@
+* ---------------------------------------------------------------------------
+* 2022-01-16 - v0.0.1 - Aymeric Lesert - aymeric.lesert@concilium-lesert.fr
+* ---------------------------------------------------------------------------
+
+Nouvelles fonctionnalités :
+** [20] - Create the project .Net
+
+Corrections anomalies :
+** 

@@ -1,0 +1,13 @@
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\bin\Debug\net6.0-windows\Syncytium.Core.Common.Server.deps.json
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\bin\Debug\net6.0-windows\Syncytium.Core.Common.Server.dll
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\bin\Debug\net6.0-windows\ref\Syncytium.Core.Common.Server.dll
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\bin\Debug\net6.0-windows\Syncytium.Core.Common.Server.pdb
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.GeneratedMSBuildEditorConfig.editorconfig
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.AssemblyInfoInputs.cache
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.AssemblyInfo.cs
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.csproj.CoreCompileInputs.cache
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.dll
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\ref\Syncytium.Core.Common.Server.dll
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.pdb
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\bin\Debug\net6.0-windows\Syncytium.Core.Common.Server.runtimeconfig.json
+D:\000 - Syncytium\Workspace\Syncytium\Syncytium.Core.Common.Server\obj\Debug\net6.0-windows\Syncytium.Core.Common.Server.genruntimeconfig.cache

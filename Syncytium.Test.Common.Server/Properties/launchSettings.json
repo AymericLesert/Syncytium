@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Syncytium.Test.Common.Server": {
+      "commandName": "Project"
+    }
+  }
+}

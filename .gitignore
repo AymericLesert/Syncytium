@@ -13,6 +13,8 @@
 /Syncytium.Common/bin/
 /Syncytium.Core.Common.Server/obj/
 /Syncytium.Core.Common.Server/bin/
+/Syncytium.Test.Common.Server/obj/
+/Syncytium.Test.Common.Server/bin/
 /Syncytium.Test/bin/
 /Syncytium.Test/obj/
 /Syncytium/bin/
@@ -33,4 +35,3 @@
 /Syncytium/Database/Provider/~$Multilingual.xlsm
 /Syncytium.Module.Customer/bin/Local-Formation
 /Syncytium.Module.Customer/obj
-/Syncytium.Test.Common.Server

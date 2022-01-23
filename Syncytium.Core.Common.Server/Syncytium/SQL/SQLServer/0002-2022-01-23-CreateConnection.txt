@@ -1,0 +1,47 @@
+﻿-- ---------------------------------- SQL SERVER ------------------------------------
+-- Copyright (C) 2022 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Connection
+--
+-- This table stores current connection information to avoid that the same user is
+-- connected twice to the application on the same machine.
+--
+-- In case of auto-scale (as the features allowed by the cloud azure), a user can be
+-- connected to a server and can be switched to another server in case of abnormal
+-- situation.
+-- ----------------------------------------------------------------------------------
+
+create table [${DSP.Database.Schema}].[_Connection]
+		([ConnectionId]   nvarchar(36) not null primary key,
+		 [Machine]        nvarchar(32) not null,
+		 [CustomerId]     int          not null,
+		 [UserId]         int          not null,
+		 [Allow]          bit          not null,
+		 [Profile]        int,
+		 [Area]           nvarchar(32),
+		 [ModuleId]       int          not null,
+		 [Status]         bit          not null,
+		 [ConnectionDate] datetime     not null,
+		 [ConnectionLast] datetime     not null)
+
+GO
+create index I__CONNECTION_USER on [${DSP.Database.Schema}].[_Connection]([UserId])
+GO
+create index I__CONNECTION_CUSTOMER on [${DSP.Database.Schema}].[_Connection]([CustomerId])
+GO

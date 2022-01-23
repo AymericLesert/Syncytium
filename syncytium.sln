@@ -33,7 +33,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Test", "Syncytium
 		{D7346D94-EB49-458D-9691-5F67CA29CFE0} = {D7346D94-EB49-458D-9691-5F67CA29CFE0}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Core.Common.Server", "Syncytium.Core.Common.Server\Syncytium.Core.Common.Server.csproj", "{A438D966-8F54-4D3F-AE84-D6E63DF48997}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncytium.Core.Common.Server", "Syncytium.Core.Common.Server\Syncytium.Core.Common.Server.csproj", "{A438D966-8F54-4D3F-AE84-D6E63DF48997}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E78081B-77EE-4069-B79F-AD211FDE8579}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syncytium.Test.Common.Server", "Syncytium.Test.Common.Server\Syncytium.Test.Common.Server.csproj", "{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,6 +196,26 @@ Global
 		{A438D966-8F54-4D3F-AE84-D6E63DF48997}.Syncytium-Prod|Any CPU.Build.0 = Debug|Any CPU
 		{A438D966-8F54-4D3F-AE84-D6E63DF48997}.Syncytium-UAT|Any CPU.ActiveCfg = Debug|Any CPU
 		{A438D966-8F54-4D3F-AE84-D6E63DF48997}.Syncytium-UAT|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Dev|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Formation|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Formation|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Prod|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-Prod|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-UAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Local-UAT|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Dev|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Formation|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Formation|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Prod|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-Prod|Any CPU.Build.0 = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-UAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF67DF3-64FB-49EB-BA6E-17ED735D6368}.Syncytium-UAT|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

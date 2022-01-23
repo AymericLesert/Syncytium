@@ -281,7 +281,7 @@ namespace Syncytium.Core.Common.Server.Database.Provider
         /// <param name="id"></param>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public override bool ExistValue(DbContextTransaction transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object> fields)
+        public override bool ExistValue(DbContextTransaction? transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object?>? fields)
         {
             string SQLStatement = $"SELECT * FROM \"{table}\" " +
                 $"LEFT OUTER JOIN .\"_Information\" " +
@@ -294,7 +294,7 @@ namespace Syncytium.Core.Common.Server.Database.Provider
 
             if (fields != null)
             {
-                foreach (KeyValuePair<string, object> key in fields)
+                foreach (KeyValuePair<string, object?> key in fields)
                 {
                     if (caseSensitive)
                         SQLStatement += $"AND \"{table}\".\"{key.Key}\" = @value{key.Key} ";
@@ -325,7 +325,7 @@ namespace Syncytium.Core.Common.Server.Database.Provider
                 }
                 if (fields != null)
                 {
-                    foreach (KeyValuePair<string, object> key in fields)
+                    foreach (KeyValuePair<string, object?> key in fields)
                     {
                         DbParameter valueFieldParameter = selectStatement.CreateParameter();
                         valueFieldParameter.ParameterName = $"@value{key.Key}";

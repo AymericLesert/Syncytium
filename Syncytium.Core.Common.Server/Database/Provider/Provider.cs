@@ -151,7 +151,7 @@ namespace Syncytium.Core.Common.Server.Database.Provider
         /// <param name="id"></param>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public abstract bool ExistValue(DbContextTransaction transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object> fields);
+        public abstract bool ExistValue(DbContextTransaction? transaction, int? customerId, string table, string columnValue, string columnId, bool caseSensitive, object value, int id, Dictionary<string, object?>? fields);
 
         /// <summary>
         /// Constructor

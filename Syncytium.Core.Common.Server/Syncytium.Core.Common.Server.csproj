@@ -22,19 +22,166 @@
   <ItemGroup>
     <None Remove="LICENSE.txt" />
     <None Remove="release-notes.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0001-2022-01-23-CreateParameter.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0002-2022-01-23-CreateConnection.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0003-2022-01-23-CreateRequest.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0004-2022-01-23-CreateRequestId.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0005-2022-01-23-CreateRequestTable.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0006-2022-01-23-CreateSequenceId.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0007-2022-01-23-CreateInformation.txt" />
+    <None Remove="Syncytium\SQL\Firebird\0008-2022-01-23-CreatePing.txt" />
+    <None Remove="Syncytium\SQL\Firebird\DeleteDatabase.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0001-2022-01-23-CreateParameter.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0002-2022-01-23-CreateConnection.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0003-2022-01-23-CreateRequest.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0004-2022-01-23-CreateRequestId.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0005-2022-01-23-CreateRequestTable.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0006-2022-01-23-CreateSequenceId.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0007-2022-01-23-CreateInformation.txt" />
+    <None Remove="Syncytium\SQL\MySQL\0008-2022-01-23-CreatePing.txt" />
+    <None Remove="Syncytium\SQL\MySQL\DeleteDatabase.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0001-2022-01-23-CreateParameter.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0002-2022-01-23-CreateConnection.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0003-2022-01-23-CreateRequest.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0004-2022-01-23-CreateRequestId.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0005-2022-01-23-CreateRequestTable.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0006-2022-01-23-CreateSequenceId.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0007-2022-01-23-CreateInformation.txt" />
+    <None Remove="Syncytium\SQL\Oracle\0008-2022-01-23-CreatePing.txt" />
+    <None Remove="Syncytium\SQL\Oracle\DeleteDatabase.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0001-2022-01-23-CreateParameter.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0002-2022-01-23-CreateConnection.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0003-2022-01-23-CreateRequest.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0004-2022-01-23-CreateRequestId.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0005-2022-01-23-CreateRequestTable.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0006-2022-01-23-CreateSequenceId.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0007-2022-01-23-CreateInformation.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\0008-2022-01-23-CreatePing.txt" />
+    <None Remove="Syncytium\SQL\SQLServer\DeleteDatabase.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="README.md" />
     <Content Include="release-notes.txt" />
+    <Content Include="Syncytium\SQL\Firebird\0001-2022-01-23-CreateParameter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0002-2022-01-23-CreateConnection.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0003-2022-01-23-CreateRequest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0004-2022-01-23-CreateRequestId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0005-2022-01-23-CreateRequestTable.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0006-2022-01-23-CreateSequenceId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0007-2022-01-23-CreateInformation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\0008-2022-01-23-CreatePing.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Firebird\DeleteDatabase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0001-2022-01-23-CreateParameter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0002-2022-01-23-CreateConnection.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0003-2022-01-23-CreateRequest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0004-2022-01-23-CreateRequestId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0005-2022-01-23-CreateRequestTable.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0006-2022-01-23-CreateSequenceId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0007-2022-01-23-CreateInformation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\0008-2022-01-23-CreatePing.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\MySQL\DeleteDatabase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0001-2022-01-23-CreateParameter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0002-2022-01-23-CreateConnection.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0003-2022-01-23-CreateRequest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0004-2022-01-23-CreateRequestId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0005-2022-01-23-CreateRequestTable.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0006-2022-01-23-CreateSequenceId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0007-2022-01-23-CreateInformation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\0008-2022-01-23-CreatePing.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\Oracle\DeleteDatabase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0001-2022-01-23-CreateParameter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0002-2022-01-23-CreateConnection.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0003-2022-01-23-CreateRequest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0004-2022-01-23-CreateRequestId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0005-2022-01-23-CreateRequestTable.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0006-2022-01-23-CreateSequenceId.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0007-2022-01-23-CreateInformation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\0008-2022-01-23-CreatePing.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Syncytium\SQL\SQLServer\DeleteDatabase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="8.5.4" />
     <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="ODP.NetCore" Version="2.0.12" />
     <PackageReference Include="Svg" Version="3.4.0" />
   </ItemGroup>
 
@@ -47,15 +194,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\DSAnnotation\" />
-    <Folder Include="Database\DSModel\" />
-    <Folder Include="SQL\Firebird\" />
-    <Folder Include="SQL\MySQL\" />
-    <Folder Include="SQL\SQLServer\" />
-    <Folder Include="SQL\Oracle\" />
   </ItemGroup>
 
 </Project>

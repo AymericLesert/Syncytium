@@ -587,9 +587,9 @@ namespace Syncytium.Core.Common.Server.Managers
             get
             {
                 if (AppSettings?[SETTING_HTTP_ROOT] == null)
-                    return _serverHttpRoot ?? "";
+                    return _serverHttpRoot ?? String.Empty;
 
-                return AppSettings?[SETTING_HTTP_ROOT] ?? "";
+                return AppSettings?[SETTING_HTTP_ROOT] ?? String.Empty;
             }
 
             set
@@ -614,9 +614,9 @@ namespace Syncytium.Core.Common.Server.Managers
             get
             {
                 if (AppSettings?[SETTING_HTTP_GITHUB] == null)
-                    return _serverHttpGitHub ?? "";
+                    return _serverHttpGitHub ?? String.Empty;
 
-                return AppSettings?[SETTING_HTTP_GITHUB] ?? "";
+                return AppSettings?[SETTING_HTTP_GITHUB] ?? String.Empty;
             }
 
             set
@@ -643,7 +643,7 @@ namespace Syncytium.Core.Common.Server.Managers
                 string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                 if (AppSettings?[SETTING_FILE_ROOT] != null)
-                    rootDirectory = AppSettings?[SETTING_FILE_ROOT] ?? "";
+                    rootDirectory = AppSettings?[SETTING_FILE_ROOT] ?? String.Empty;
 
                 return Path.Combine(rootDirectory, "Content", "Images");
             }
@@ -659,7 +659,7 @@ namespace Syncytium.Core.Common.Server.Managers
                 string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                 if (AppSettings?[SETTING_FILE_ROOT] != null)
-                    rootDirectory = AppSettings?[SETTING_FILE_ROOT] ?? "";
+                    rootDirectory = AppSettings?[SETTING_FILE_ROOT] ?? String.Empty;
 
                 return Path.Combine(rootDirectory, "release-notes.txt");
             }
@@ -759,7 +759,7 @@ namespace Syncytium.Core.Common.Server.Managers
                 // set some globals parameters
 
                 settings[APPLICATION] = ApplicationName;
-                settings[APPLICATION_VERSION] = ApplicationVersion?.ToString() ?? "";
+                settings[APPLICATION_VERSION] = ApplicationVersion?.ToString() ?? String.Empty;
                 settings[APPLICATION_COMPANY] = ApplicationCompany;
                 settings[APPLICATION_COPYRIGHT] = ApplicationCopyright;
 

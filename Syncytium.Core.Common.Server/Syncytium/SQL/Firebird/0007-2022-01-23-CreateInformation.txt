@@ -1,0 +1,53 @@
+﻿-- ------------------------------------ Firebird ------------------------------------
+-- Copyright (C) 2022 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+SET TERM ^;
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Information
+--
+-- This table stores some details about a record into the database:
+--    - Creation information (used to link 2 requests by the ids from the client)
+--    - Update information (used to synchronize data and to check if somebody has updated record at the same time)
+--    - Delete information (any record are physically deleted in the database schema - virtual deleted)
+-- ----------------------------------------------------------------------------------
+
+create table "_Information"
+		("Table"          VARCHAR(32) NOT NULL,
+		 "Id"             INTEGER     NOT NULL,
+		 "CustomerId"     INTEGER     NOT NULL,
+		 "CreateId"       INTEGER,
+		 "CreateUserId"   INTEGER,
+		 "CreateTick"     INTEGER,
+		 "CreateDate"     TIMESTAMP,
+		 "UpdateUserId"   INTEGER,
+		 "UpdateTick"     INTEGER,
+		 "UpdateDate"     TIMESTAMP,
+		 "DeleteUserId"   INTEGER,
+		 "DeleteTick"     INTEGER,
+		 "DeleteDate"     TIMESTAMP)^
+
+alter table "_Information"
+add constraint pk__Information primary key ("Table", "Id")^
+
+create index I__INFORMATION_CUSTOMER on "_Information"("CustomerId")^
+create index I__INFORMATION_TABLE on "_Information"("Table")^
+create index I__INFORMATION_USERID on "_Information"("Table", "CreateId", "CreateUserId")^
+create index I__INFORMATION_DELETE on "_Information"("Table", "Id", "DeleteTick")^
+
+SET TERM ;^

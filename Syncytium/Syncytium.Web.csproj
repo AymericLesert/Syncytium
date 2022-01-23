@@ -170,6 +170,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <None Include="Content\Scripts\Areas\_references.js" />
     <None Include="Content\Scripts\Areas\Administration\_references.js" />
     <None Include="Content\Scripts\Areas\Customer\_references.js" />

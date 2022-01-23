@@ -1,0 +1,63 @@
+﻿-- ---------------------------------- SQL SERVER ------------------------------------
+-- Copyright (C) 2022 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Information
+--
+-- This table stores some details about a record into the database:
+--    - Creation information (used to link 2 requests by the ids from the client)
+--    - Update information (used to synchronize data and to check if somebody has updated record at the same time)
+--    - Delete information (any record are physically deleted in the database schema - virtual deleted)
+-- ----------------------------------------------------------------------------------
+
+create table [${DSP.Database.Schema}].[_Information]
+		([Table]          nvarchar(32) not null,
+		 [Id]             int          not null,
+		 [CustomerId]     int          not null,
+		 [CreateId]       int,
+		 [CreateUserId]   int,
+		 [CreateTick]     int,
+		 [CreateDate]     datetime,
+		 [UpdateUserId]   int,
+		 [UpdateTick]     int,
+		 [UpdateDate]     datetime,
+		 [DeleteUserId]   int,
+		 [DeleteTick]     int,
+		 [DeleteDate]     datetime);
+GO
+
+alter table [${DSP.Database.Schema}].[_Information]
+add constraint pk__Information primary key ([Table], [Id])
+
+GO
+
+create index I__INFORMATION_CUSTOMER on [${DSP.Database.Schema}].[_Information]([CustomerId])
+
+GO
+
+create index I__INFORMATION_TABLE on [${DSP.Database.Schema}].[_Information]([Table])
+
+GO
+
+create index I__INFORMATION_USERID on [${DSP.Database.Schema}].[_Information]([Table], [CreateId], [CreateUserId])
+
+GO
+
+create index I__INFORMATION_DELETE on [${DSP.Database.Schema}].[_Information]([Table], [Id], [DeleteTick])
+
+GO

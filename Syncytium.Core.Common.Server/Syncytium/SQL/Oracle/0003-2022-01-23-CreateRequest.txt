@@ -1,0 +1,54 @@
+﻿-- ------------------------------------- ORACLE -------------------------------------
+-- Copyright (C) 2020 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Request
+--
+-- This table stores all requests received in the details.
+-- ----------------------------------------------------------------------------------
+
+create sequence S__REQUEST start with 1 increment by 1;
+
+create table "_Request"
+		("Id"             NUMBER(10)    NOT NULL PRIMARY KEY,
+		 "ConnectionId"   NVARCHAR2(36),
+		 "CustomerId"     NUMBER(10)    NOT NULL,
+		 "UserId"         NUMBER(10)    NOT NULL,
+		 "RequestId"      NUMBER(10)    NOT NULL,
+		 "Profile"        NUMBER(1),
+		 "Area"           NVARCHAR2(32),
+		 "ModuleId"       NUMBER(10)    NOT NULL,
+		 "Label"          CLOB,
+		 "Request"        BLOB,
+		 "Transaction"    NUMBER(1),
+		 "Notify"         NUMBER(1),
+		 "Service"        NVARCHAR2(64),
+		 "ReceptionDate"  TIMESTAMP     NOT NULL,
+		 "ExecutionDate"  TIMESTAMP,
+		 "Acknowledge"    NUMBER(1));
+
+create index I__REQUEST_CUSTOMER on "_Request"("CustomerId");
+
+CREATE OR REPLACE TRIGGER t__request
+  BEFORE INSERT ON "_Request"
+  FOR EACH ROW
+BEGIN
+  :new."Id" := S__REQUEST.nextval;
+END;
+
+create index I__REQUEST_USER on "_Request"("UserId");

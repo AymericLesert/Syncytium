@@ -41,7 +41,7 @@ namespace Syncytium.Core.Common.Server.Managers
         /// <summary>
         /// log4net instance
         /// </summary>
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(MODULE_NAME);
+        readonly ILog logger = LogManager.GetLogger(MODULE_NAME);
 
         /// <summary>
         /// True if All verbose trace must be enabled
@@ -307,7 +307,7 @@ namespace Syncytium.Core.Common.Server.Managers
 
             List<string> filenameToRemove = new();
 
-            foreach (string filenameAndPath in Directory.GetFiles(Path.GetDirectoryName(currentLogFilename) ?? ""))
+            foreach (string filenameAndPath in Directory.GetFiles(Path.GetDirectoryName(currentLogFilename) ?? String.Empty))
             {
                 // ignore the current log file
 

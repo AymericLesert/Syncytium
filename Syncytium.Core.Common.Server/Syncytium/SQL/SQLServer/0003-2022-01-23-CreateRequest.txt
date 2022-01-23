@@ -1,0 +1,47 @@
+﻿-- ---------------------------------- SQL SERVER ------------------------------------
+-- Copyright (C) 2022 LESERT Aymeric - aymeric.lesert@concilium-lesert.fr
+-- 
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-- ----------------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------------
+-- Create table : _Request
+--
+-- This table stores all requests received (except the details). Just for traceability.
+-- ----------------------------------------------------------------------------------
+
+create table [${DSP.Database.Schema}].[_Request]
+		([Id]             int          not null identity primary key,
+		 [ConnectionId]   nvarchar(36)
+		 [CustomerId]     int          not null,
+		 [UserId]         int          not null,
+		 [RequestId]      int          not null,
+		 [Profile]        int,
+		 [Area]           nvarchar(32),
+		 [ModuleId]       int          not null,
+		 [Label]          varchar(max),
+		 [Request]        varbinary(max),
+		 [Transaction]    bit,
+		 [Notify]         bit,
+		 [Service]        nvarchar(64),
+		 [ReceptionDate]  datetime     not null,
+		 [ExecutionDate]  datetime,
+		 [Acknowledge]    bit)
+
+GO
+create index I__REQUEST_CUSTOMER on [${DSP.Database.Schema}].[_Request]([CustomerId])
+GO
+create index I__REQUEST_USER on [${DSP.Database.Schema}].[_Request]([UserId])
+GO

@@ -43,8 +43,15 @@ télémétrie au service de l'évolution du modèle.
 
 ## Genèse
 
-<!-- Section à compléter par l'auteur : l'origine du projet et du nom, qui le
-guident depuis plus de dix ans. -->
+Syncytium est né d'un besoin concret : **développer rapidement une application
+fondée sur la donnée**, pour réduire les coûts de développement tout en livrant
+à mes clients des solutions d'abord *montrables*, puis rapidement *exploitables*.
+
+C'est cette double exigence — la démonstration tôt, l'exploitation peu après —
+qui a façonné l'approche pilotée par les métadonnées : une description suffit à
+faire émerger une solution présentable, et la même description, enrichie au fil
+des échanges avec le client, la conduit jusqu'à la production sans réécriture.
+Le nom *Syncytium* guide ce projet depuis plus de dix ans.
 
 ## État du projet
 

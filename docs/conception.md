@@ -7,7 +7,7 @@
 > Dépôt : <https://github.com/AymericLesert/Syncytium> — ce fichier
 > (`docs/conception.md`) est la **version canonique** du document.
 
-Dernière mise à jour : 2026-06-11
+Dernière mise à jour : 2026-06-12
 
 ---
 
@@ -460,9 +460,43 @@ L'étage « objets » boucle la boucle de l'architecture : **le descriptif pilot
 l'application, la télémétrie pilote l'évolution du descriptif**. L'outil pourrait
 produire ce rapport de lui-même (« 4 champs sans aucune saisie depuis 90 jours »).
 
-**Point de vigilance — RGPD** : tracer les actions des utilisateurs, c'est manipuler
-des données personnelles. Selon le contexte de déploiement (Q4), trancher entre
-télémétrie nominative (utile au support), pseudonymisée ou agrégée.
+### 6.1 Cadrage du besoin (à approfondir par l'auteur)
+
+> **En cours de cadrage (2026-06-12).** L'auteur veut resserrer le périmètre de la
+> télémétrie avant de figer Q12–Q13. Principes directeurs posés :
+>
+> - **Ne pas redoubler les journaux** : la télémétrie ne doit pas recopier ce qui
+>   est déjà disponible dans les logs ; elle doit apporter une **valeur propre**.
+> - **Deux finalités utiles et bornées** :
+>   1. **suivre les usages** (quels champs/entités/fonctions servent réellement) ;
+>   2. **évaluer le risque d'une migration** — un champ massivement utilisé rend
+>      une migration qui le touche plus risquée. Relie directement la télémétrie
+>      au dry-run (§4.1) et à la décision de migrer.
+> - Tout indicateur de télémétrie doit se justifier par l'une de ces finalités,
+>   sous peine d'être écarté (principe de minimisation, qui sert aussi le RGPD).
+>
+> Conséquence pressentie : l'étage « actions utilisateurs » (ergonomie) pourrait
+> être réduit ou reporté ; les étages « API » et « objets » servent directement
+> les deux finalités retenues.
+
+### 6.2 Pistes pour Q12–Q13 (analyse, non tranchée)
+
+Recadrages proposés, en attente de l'arbitrage de l'auteur :
+
+- **Le client est responsable de traitement, pas l'éditeur** (conséquence de
+  D16 : instance déployée chez le client). Syncytium *fournit la capacité* et les
+  outils de conformité (conservation configurable, anonymisation/désactivation,
+  export/effacement, documentation) ; la remontée agrégée vers l'éditeur (§7.2)
+  est la seule où l'éditeur deviendrait (co)responsable → opt-in strict.
+- **Séparer les finalités** plutôt que tout réunir sous « télémétrie » :
+  évolution du modèle → **agrégée sur le schéma** (ne nomme personne, quasi sans
+  risque) ; audit de sécurité → **nominatif**, accès restreint, conservation
+  bornée (finalité distincte) ; support → nominatif **éphémère**. Évite la dérive
+  vers la surveillance des salariés (ligne rouge en France).
+- **Restitution (Q13)** : évolution du modèle → tableau de bord / rapport en
+  consultation (pas d'alerte) ; sécurité → journal interrogeable + alertes.
+  Idée à évaluer : la restitution pourrait être elle-même **une solution
+  Syncytium** (événements = entités, tableau de bord = interface générée).
 
 ---
 
@@ -601,8 +635,8 @@ seule ou webhook sortant).
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
-| Q12 | **RGPD / confidentialité de la télémétrie** des actions utilisateurs : nominative, pseudonymisée ou agrégée ? | Données personnelles ; dépend du contexte de déploiement (Q4). |
-| Q13 | **Restitution de la télémétrie** au technicien : tableau de bord intégré, rapports périodiques, alertes ? | Détermine si la boucle descriptif ↔ télémétrie est outillée ou artisanale. |
+| Q12 | **RGPD / confidentialité de la télémétrie** : nominative, pseudonymisée ou agrégée ? | **En cours de cadrage** (§6.1) — l'auteur resserre d'abord le besoin (ne pas redoubler les journaux ; finalités : usages + risque de migration). Pistes au §6.2 (séparer les finalités, client responsable de traitement). |
+| Q13 | **Restitution de la télémétrie** au technicien : tableau de bord intégré, rapports périodiques, alertes ? | **En cours de cadrage** (§6.1) — dépend du périmètre retenu. Pistes au §6.2. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. |
@@ -733,3 +767,11 @@ seule ou webhook sortant).
   rejoint le dépôt en version canonique sous `docs/conception.md` ; l'ancienne
   copie de travail (`D:\Projets\Claude\conception-solution-metadata.md`) n'est
   plus maintenue.
+- **2026-06-12** — Cadrage de la télémétrie (Q12–Q13, nouveaux §6.1 et §6.2).
+  L'auteur resserre le besoin avant de figer : la télémétrie ne doit pas
+  redoubler les journaux et doit servir deux finalités bornées — suivre les
+  usages et évaluer le risque d'une migration (lien au dry-run §4.1). L'étage
+  « actions utilisateurs » pourrait être réduit/reporté. Pistes d'analyse
+  consignées (séparation des finalités, client responsable de traitement,
+  restitution par tableau de bord/journal) mais Q12–Q13 restent ouvertes en
+  attente de l'arbitrage de l'auteur.

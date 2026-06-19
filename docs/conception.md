@@ -78,6 +78,8 @@ posée (voir §6).
 | D40 | Télémétrie **API & fonctions** : **double usage** — suivre l'usage réel (compteurs) **et identifier les acteurs**. | Acteurs = comptes techniques (D28), donc gestion d'intégrations et non surveillance de salariés ; alimente la dépréciation (§5.4) et l'épinglage (Q9). Voir §6.1. |
 | D41 | Deux **supports** de télémétrie : (a) **données en base** (objet `télémétrie` dédié ou attaché à une entité) ; (b) **traces de journal** à conservation **paramétrable**, archivage à durée de vie max, **option d'anonymisation**. | Sépare les compteurs/indicateurs durables des traces datées ; la rétention et l'anonymisation outillent la conformité côté client (D16). Voir §6.2/§6.4. |
 | D42 | **Dimension temporelle** des compteurs (D39, D40) : seaux **journaliers** sur périodes glissantes, **agrégés** en semaine/mois/année avec l'âge (selon la profondeur de stockage). | Le *downsampling* sert aussi la rétention (D41 = granularité décroissante avec l'âge). Compteurs additifs → agrégation par somme ; la diversité (D38) reste à la volée car non additive. Alimente la détection de tendance dans le dry-run (§6.3). Voir §6.2. |
+| D43 | **Cinquième canal — analyse de sécurité** (3e finalité) : alerter le client et/ou le technicien d'un **usage/accès non autorisé ou anormal** (pics de fréquence, tentatives d'accès refusées). | Vue dérivée du substrat (journal D41 + compteurs D42) ; impose de **journaliser les refus d'autorisation** ; D42 fournit la ligne de base des anomalies. Voir §6.4. |
+| D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
 
 ---
 
@@ -451,13 +453,15 @@ traduction absorbe les versions intermédiaires sans les exposer.
 
 ---
 
-## 6. Télémétrie (D14, D38–D41)
+## 6. Télémétrie (D14, D38–D44)
 
 **Principe de cadrage (D14, affiné le 2026-06-12)** : la télémétrie ne **redouble
-pas les journaux** ; tout indicateur doit servir l'une des **deux finalités**
+pas les journaux** ; tout indicateur doit servir l'une des **trois finalités**
 retenues — (1) **suivre les usages réels**, (2) **évaluer le risque d'une
-migration**. La finalité 2 n'est pas une collecte distincte : c'est une **vue
-dérivée** de la finalité 1 (§6.3).
+migration**, (3) **détecter les usages/accès non autorisés ou anormaux** (D43).
+Modèle clé : **un seul substrat de collecte** (compteurs D39/D40/D42 + journal
+D41), **plusieurs couches d'analyse** — les finalités 2 et 3 sont des **vues
+dérivées** de ce substrat (§6.3, §6.5), non des collectes distinctes.
 
 ### 6.1 Trois grains de mesure (D38–D40)
 
@@ -514,11 +518,64 @@ Conséquences :
 
 ### 6.3 Finalité 2 — risque de migration (vue dérivée)
 
-Assemblée pour le **rapport de dry-run** (§4.1) à partir de la finalité 1 :
-intensité d'usage du champ/entité touché + acteurs API concernés + dépendances
-(champs calculés, tâches). Pas de collecte nouvelle — une lecture croisée.
+Assemblée pour le **rapport de dry-run** (§4.1) à partir du substrat :
+intensité d'usage du champ/entité touché + **tendance** (D42) + acteurs API
+concernés + dépendances (champs calculés, tâches). Pas de collecte nouvelle —
+une lecture croisée.
 
-### 6.4 RGPD
+### 6.4 Finalité 3 — sécurité / usages anormaux (D43, vue dérivée)
+
+Cinquième canal de restitution (voir §6.5). Finalité : **alerter le client
+et/ou le technicien** d'un usage ou accès non autorisé.
+
+- **Ce qu'il détecte** : pics de fréquence inappropriés ; **tentatives d'accès
+  refusées** (lecture d'un champ `privee`, appel d'une fonction interdite au
+  groupe — §5.5/§5.6) ; sollicitations hors cadre.
+- **Substrat** : journal (D41) + compteurs temporels (D42). **Exigence ajoutée
+  à la collecte** : journaliser non seulement l'activité mais les **refus
+  d'autorisation** (le carburant du canal). D42 fournit la **ligne de base** des
+  fréquences normales → détection d'anomalie par simple comparaison.
+- **Garder la détection simple (Q29)** : seuils explicables (« taux > N ×
+  moyenne glissante » ; « tout refus est un événement »), pas de détection
+  statistique sophistiquée prématurée.
+- **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
+  des tentatives nominatives même là où la surveillance comportementale serait
+  proscrite (information + proportionnalité ; client responsable, D16).
+
+### 6.5 Restitution — cinq canaux (D44, résout Q13)
+
+La forme suit la finalité ; les canaux sont complémentaires, pas exclusifs :
+
+| Canal | Mode | Finalité | Note |
+|---|---|---|---|
+| **Tableau de bord** (D38) | *Pull*, exploration | Usages | Diversité, compteurs, tendances ; à la demande |
+| **Rapport de dry-run** (§6.3) | Contextuel, à la migration | Risque migration | La finalité 2 n'a **pas** de tableau de bord propre : elle s'injecte là où la décision se prend |
+| **Synthèse périodique** | *Push*, basse fréquence | Usages (proactif) | Fait remonter d'elle-même les candidats au retrait — anime la boucle d'évolution |
+| **Alerte d'échéance** | *Push*, événementiel, **rare** | Risque/dépréciation | Cas justifié : version d'API dépréciée encore appelée près du `Sunset` (D12/D40). Pas d'alerte sur le simple non-usage |
+| **Analyse de sécurité** (D43) | *Push* + analyse | Sécurité (finalité 3) | Voir §6.4 ; alerte client et/ou technicien |
+
+**Solution intégrée sur méta-schéma (D44).** Ces canaux forment une **solution
+intégrée** : écrite dans le format Syncytium mais **possédée par le moteur**
+(non éditable par le client), par opposition aux **solutions client**.
+
+- **Couche moteur, non descriptible** : la *collecte* et le *calcul de diversité*
+  sont des capacités du moteur — ils doivent fonctionner **même si la description
+  du client est cassée** (c'est au pire moment qu'on en a besoin pour
+  diagnostiquer) et introspectent n'importe quelle entité (méta-niveau).
+- **Couche restitution, descriptible** : tableaux de bord et écrans d'analyse
+  sont **générés par la même machinerie** que les solutions client → héritent du
+  contrôle d'accès par groupes et de l'exposition API.
+- **Méta-schéma** : Syncytium **se décrit lui-même** (entité, champ, groupe,
+  niveau, migration, compteur, compte sont modélisés). Les solutions intégrées
+  sont des **vues sur ce méta-schéma** — pattern du *catalogue système* d'une
+  base (`information_schema`). Vertus : cohérence d'IHM, et **validation du
+  langage** (s'il sait exprimer la gestion du moteur, il est assez expressif).
+- **Rattachements** : D33 (groupe administrateurs intégré) n'est plus un cas
+  particulier mais la **première solution intégrée**. Et le méta-schéma **est la
+  définition formelle du format de description** → c'est l'objet de **Q16**
+  (versionnement du format), possédé et versionné par le moteur (D17, §7.2).
+
+### 6.6 RGPD
 
 - **Le client est responsable de traitement, pas l'éditeur** (instance déployée
   chez le client, D16). Syncytium *fournit la capacité* et les outils de
@@ -668,11 +725,12 @@ seule ou webhook sortant).
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
-| Q13 | **Restitution de la télémétrie** au technicien : **tableau de bord dédié** acté pour le grain « champ » (D38). Reste : rapports périodiques ? alertes (plutôt sécurité) ? la restitution est-elle elle-même une solution Syncytium ? | Dépend du périmètre retenu ; à reprendre après Q12. |
+| ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | Q28 | **Seuil de l'indicateur de diversité** (D38) : formaliser la règle « diversité ≈ 0 ET ancienneté > N × intervalle moyen de mise à jour de l'entité » — valeur de N, gestion des entités dormantes. | Détermine la qualité des suggestions de simplification (faux positifs). |
+| Q29 | **Seuils de détection d'anomalie** (D43) : règle « taux > N × moyenne glissante », fenêtre de référence, traitement des refus d'autorisation. Garder explicable. | Qualité des alertes de sécurité (faux positifs / silences). |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
@@ -824,3 +882,14 @@ seule ou webhook sortant).
   Compteurs additifs (agrégation = somme) vs diversité non additive (reste à la
   volée) : les choix D38/D39-D40 se confortent. Permet la détection de tendance
   dans le rapport de dry-run.
+- **2026-06-12 (suite 3)** — Restitution (résout Q13, D43–D44). Cinquième canal :
+  **analyse de sécurité** (3e finalité, D43) — alerter sur usages/accès non
+  autorisés ou anormaux ; vue dérivée du journal + compteurs, impose de
+  journaliser les refus d'autorisation, D42 donne la ligne de base ; garder la
+  détection simple (Q29). Les cinq canaux (tableau de bord, dry-run, synthèse
+  périodique, alerte d'échéance, sécurité) forment une **solution intégrée sur le
+  méta-schéma** (D44) : Syncytium se décrit lui-même (pattern catalogue système),
+  collecte = couche moteur survivant à une description cassée, restitution générée
+  par la même machinerie. Généralise D33 ; **le méta-schéma est l'objet de Q16**
+  (versionnement du format = versionnement du méta-schéma). Modèle d'ensemble :
+  un substrat de collecte, trois finalités en couches d'analyse.

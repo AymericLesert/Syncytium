@@ -81,6 +81,8 @@ posée (voir §6).
 | D43 | **Cinquième canal — analyse de sécurité** (3e finalité) : alerter le client et/ou le technicien d'un **usage/accès non autorisé ou anormal** (pics de fréquence, tentatives d'accès refusées). | Vue dérivée du substrat (journal D41 + compteurs D42) ; impose de **journaliser les refus d'autorisation** ; D42 fournit la ligne de base des anomalies. Voir §6.4. |
 | D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
 | D45 | **Volet conseil de la synthèse périodique** : analyser les schémas d'appels d'API (D40) pour recommander des optimisations au consommateur (cache de requêtes déterministes, lecture par lot vs N+1) et faire **émerger de nouveaux besoins** (endpoint composite, agrégat, champ calculé). Consultatif, jamais coercitif. | Miroir côté API de D38 : la télémétrie pilote l'évolution sur les **deux faces** du moteur — interne (description) et externe (API). Le moteur peut fournir le mécanisme (`ETag`) en plus du conseil. RGPD léger (comptes techniques). Voir §6.5. |
+| D46 | **Indicateur de diversité** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité normalisé). | Lisible, peu coûteux. `distinct = 1` = signal fort ; faible ratio avec `distinct ≥ 2` peut être légitime (booléen/statut/choix) → seuil à calibrer (Q28). Voir §6.1. |
+| D47 | **Indicateur d'anomalie de sécurité** (D43) : sur période glissante (au-delà d'une durée min.), **pente de la droite de régression** des sollicitations. | Détecteur de tendance interprétable. À normaliser ; détecte les rampes (pas les pics → 2e forme) ; pente des refus = signal fort. Seuil à calibrer (Q29). Voir §6.4. |
 
 ---
 
@@ -472,13 +474,24 @@ dérivées** de ce substrat (§6.3, §6.5), non des collectes distinctes.
 | **Entité** (D39) | **Stocké** | Compteurs d'usage **lecture/écriture** ; **historique d'évolution du schéma** | Enrichissement du schéma |
 | **API & fonctions** (D40) | **Stocké / journalisé** | **Double usage** : usage réel (compteurs) **et identification des acteurs** (quel compte technique appelle quoi) | Dépréciation (§5.4), épinglage (Q9), gestion des intégrations |
 
-**Indicateur de diversité (D38), pondéré pour éviter le faux positif :**
-- un champ **récent** figé sur sa valeur par défaut est normal, pas suspect ;
-- sur une entité **rarement modifiée**, attendre plus longtemps avant de conclure.
-- Règle opérationnelle proposée (Q28) : *candidat au retrait si diversité ≈ 0 ET
-  ancienneté > N × intervalle moyen de mise à jour de l'entité* — une entité
-  active dénonce vite un champ inutile, une entité dormante laisse le bénéfice du
-  doute.
+**Indicateur de diversité (D38 ; formule D46) :**
+- **Formule (D46)** : `diversité = valeurs distinctes non nulles / nombre de
+  lignes de l'entité` — ratio de cardinalité normalisé (≈ la *sélectivité* d'un
+  index), borné ~0..1, lisible et peu coûteux. `NULL` non compté → un champ vide
+  tombe bien à 0.
+- **Faux positif à connaître (pour le seuil, Q28)** : faible cardinalité ≠
+  absence de sens. Signal *fort* = `distinct = 1` (une valeur partout = aucune
+  information). `distinct ≥ 2` peut être légitime (booléen, statut, `choix` — un
+  champ `actif` à 99 % vrai a un ratio quasi nul mais le 1 % compte). Donc :
+  `distinct = 1` → candidat franc ; ratio faible avec `distinct ≥ 2` → signal
+  faible, jamais seul. Pour un `choix`, mesurer contre le **domaine déclaré**
+  (1 valeur utilisée sur 3 = enum surdimensionné). Entropie = raffinement en
+  réserve si trop de faux positifs.
+- **Pondération temporelle** : un champ **récent** figé sur sa valeur par défaut
+  est normal ; sur une entité **rarement modifiée**, attendre plus longtemps.
+  Règle de seuil proposée (Q28) : *candidat si diversité ≈ 0 ET ancienneté >
+  N × intervalle moyen de mise à jour de l'entité*. Sur très peu de lignes, le
+  ratio est bruité → la pondération par maturité l'atténue.
 - **Sans nouveau mécanisme** : la *date de création du champ* se dérive du
   **journal de migrations** (§3.2, qui est déjà l'historique du schéma) ; la
   *fréquence de mise à jour* est le compteur d'entité (D39). Les trois pièces
@@ -536,9 +549,19 @@ et/ou le technicien** d'un usage ou accès non autorisé.
   à la collecte** : journaliser non seulement l'activité mais les **refus
   d'autorisation** (le carburant du canal). D42 fournit la **ligne de base** des
   fréquences normales → détection d'anomalie par simple comparaison.
-- **Garder la détection simple (Q29)** : seuils explicables (« taux > N ×
-  moyenne glissante » ; « tout refus est un événement »), pas de détection
-  statistique sophistiquée prématurée.
+- **Indicateur (D47)** : sur une période glissante (au-delà d'une durée
+  minimale), **pente de la droite de régression** des sollicitations — détecteur
+  de tendance, *interprétable* (« +X appels/jour »). Précisions pour un seuil
+  transposable (Q29) :
+  - **normaliser la pente** (rapport à la moyenne de base, ou régression sur le
+    `log` des comptes pour la croissance exponentielle) — sinon le seuil est à
+    régler endpoint par endpoint ;
+  - la pente détecte les **rampes**, pas les **pics** : prévoir une seconde forme
+    (écart ponctuel au référentiel, type z-score) pour les bursts soudains ;
+  - la **pente des refus d'autorisation** est un signal fort (énumération/balayage
+    croissant) ;
+  - garde-fou optionnel : pondérer par R² pour éviter la pente fantôme sur série
+    plate et bruitée.
 - **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
   des tentatives nominatives même là où la surveillance comportementale serait
   proscrite (information + proportionnalité ; client responsable, D16).
@@ -568,7 +591,11 @@ d'appels** (D40) pour produire des recommandations, à **deux destinataires** :
 | Séquences d'appels récurrentes / toujours jointes | Faire **émerger un besoin** : endpoint composite, agrégat (D36), champ calculé (D35) | Technicien | *Query advisor* / APM |
 
 - *Consultatif uniquement* : on recommande, on n'étrangle jamais les requêtes.
-- Règles de détection à préciser (Q30), explicables, dans l'esprit minimal.
+- **Détection (Q30) — étude dédiée différée.** D'un autre ordre de complexité
+  (fouille de **motifs de séquences d'appels**, pas un indicateur scalaire).
+  Fera l'objet d'une étude à part, fondée sur l'**implémentation personnelle
+  existante** de l'auteur pour l'analyse des automatismes d'accès à PostgreSQL
+  (point de départ éprouvé, non une page blanche).
 - RGPD léger : seuls des **comptes techniques** sont analysés (D40).
 - **La boucle metadata-driven se referme sur les deux faces** : interne (D38) et
   externe (D45).
@@ -745,9 +772,9 @@ seule ou webhook sortant).
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
-| Q28 | **Seuil de l'indicateur de diversité** (D38) : formaliser la règle « diversité ≈ 0 ET ancienneté > N × intervalle moyen de mise à jour de l'entité » — valeur de N, gestion des entités dormantes. | Détermine la qualité des suggestions de simplification (faux positifs). |
-| Q29 | **Seuils de détection d'anomalie** (D43) : règle « taux > N × moyenne glissante », fenêtre de référence, traitement des refus d'autorisation. Garder explicable. | Qualité des alertes de sécurité (faux positifs / silences). |
-| Q30 | **Règles de détection du volet conseil** (D45) : reconnaître requête déterministe répétée, balayage unitaire d'un service (N+1), séquences récurrentes. Explicables, dans l'esprit minimal. | Qualité et crédibilité des recommandations adressées aux consommateurs et au technicien. |
+| Q28 | **Seuil** de l'indicateur de diversité — *indicateur défini (D46)*. Reste : valeur de N dans « ancienneté > N × intervalle moyen de mise à jour », règle pour `distinct ≥ 2`, entités dormantes, mesure contre le domaine déclaré d'un `choix`. | Détermine la qualité des suggestions de simplification (faux positifs). |
+| Q29 | **Seuil** de l'indicateur d'anomalie — *indicateur défini (D47)*. Reste : normalisation de la pente, durée minimale de fenêtre, seuil de déclenchement, seconde forme pour les pics, garde-fou R². | Qualité des alertes de sécurité (faux positifs / silences). |
+| Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. |
@@ -921,3 +948,13 @@ seule ou webhook sortant).
   Révèle la symétrie : la télémétrie referme la boucle metadata-driven sur les
   deux faces — interne (D38) et externe (D45). Nouvelle question Q30 (règles de
   détection).
+- **2026-06-12 (suite 5)** — Définition des indicateurs de télémétrie avant
+  calibration des seuils. **Diversité (D46)** = valeurs distinctes non nulles /
+  lignes de l'entité (ratio de cardinalité) ; caveat consigné : `distinct = 1`
+  = signal fort, `distinct ≥ 2` peut être légitime (booléen/statut/choix).
+  **Anomalie de sécurité (D47)** = pente de la droite de régression des
+  sollicitations sur période glissante ; à normaliser, détecte les rampes (pas
+  les pics → 2e forme z-score), pente des refus = signal fort. **Q30 (volet
+  conseil)** différée vers une étude dédiée fondée sur l'implémentation
+  personnelle existante de l'auteur (analyse des automatismes d'accès
+  PostgreSQL). Q28/Q29 réduites au seul réglage des seuils.

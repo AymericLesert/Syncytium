@@ -77,6 +77,7 @@ posée (voir §6).
 | D39 | Télémétrie **par entité** : **stockée**. Compteurs d'usage lecture/écriture + historique d'évolution du schéma. | Au service de l'enrichissement du schéma ; l'historique de schéma réutilise le journal de migrations (pas de duplication). Voir §6.1. |
 | D40 | Télémétrie **API & fonctions** : **double usage** — suivre l'usage réel (compteurs) **et identifier les acteurs**. | Acteurs = comptes techniques (D28), donc gestion d'intégrations et non surveillance de salariés ; alimente la dépréciation (§5.4) et l'épinglage (Q9). Voir §6.1. |
 | D41 | Deux **supports** de télémétrie : (a) **données en base** (objet `télémétrie` dédié ou attaché à une entité) ; (b) **traces de journal** à conservation **paramétrable**, archivage à durée de vie max, **option d'anonymisation**. | Sépare les compteurs/indicateurs durables des traces datées ; la rétention et l'anonymisation outillent la conformité côté client (D16). Voir §6.2/§6.4. |
+| D42 | **Dimension temporelle** des compteurs (D39, D40) : seaux **journaliers** sur périodes glissantes, **agrégés** en semaine/mois/année avec l'âge (selon la profondeur de stockage). | Le *downsampling* sert aussi la rétention (D41 = granularité décroissante avec l'âge). Compteurs additifs → agrégation par somme ; la diversité (D38) reste à la volée car non additive. Alimente la détection de tendance dans le dry-run (§6.3). Voir §6.2. |
 
 ---
 
@@ -496,6 +497,21 @@ distinguer du journal côté interface.
    nécessaire (acteurs API = comptes techniques ; côté interface = responsabilité
    du client, D16) mais une **option d'anonymisation** est prévue.
 
+**Dimension temporelle des compteurs (D42)** — pour D39 et D40 : compteurs en
+**seaux journaliers** sur **périodes glissantes**, agrégés en semaine / mois /
+année à mesure qu'ils vieillissent (si la profondeur de stockage le permet).
+Conséquences :
+- *Downsampling* = politique de rétention (D41) par **granularité décroissante
+  avec l'âge** plutôt que purge sèche : on conserve la tendance longue à moindre
+  coût (ex. année courante au jour, N-1 au mois, N-2 à l'année).
+- Ces compteurs sont **additifs** (lectures, écritures, appels) → l'agrégation
+  est une somme, sans perte. À l'inverse, la **diversité** (D38) n'est pas
+  additive — d'où son calcul à la volée, jamais en seaux. Les deux choix se
+  justifient mutuellement.
+- La *fréquence de mise à jour* pondérant D38 se lit sur les compteurs d'écriture
+  fenêtrés ; le dry-run (§6.3) peut alors signaler une **tendance** (« usage en
+  hausse ce mois-ci → migration plus sensible »), pas seulement un instantané.
+
 ### 6.3 Finalité 2 — risque de migration (vue dérivée)
 
 Assemblée pour le **rapport de dry-run** (§4.1) à partir de la finalité 1 :
@@ -802,3 +818,9 @@ seule ou webhook sortant).
   archivage + option d'anonymisation (D41). Finalité 2 = vue dérivée pour le
   dry-run. Nouvelle question Q28 (seuil de l'indicateur de diversité) ; Q13
   (restitution) avance — tableau de bord dédié acté pour le grain champ.
+- **2026-06-12 (suite 2)** — Dimension temporelle des compteurs (D42) : seaux
+  journaliers sur périodes glissantes, agrégés en semaine/mois/année avec l'âge.
+  Le downsampling devient la politique de rétention (granularité décroissante).
+  Compteurs additifs (agrégation = somme) vs diversité non additive (reste à la
+  volée) : les choix D38/D39-D40 se confortent. Permet la détection de tendance
+  dans le rapport de dry-run.

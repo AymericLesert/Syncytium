@@ -84,7 +84,7 @@ posée (voir §6).
 | D46 | **Diversité représentative** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité). Ratio ≈ 0 → champ constant → candidat au **retrait**. | Lisible, peu coûteux. Voir §6.1. |
 | D47 | **Indicateur d'anomalie de sécurité** (D43) : sur période glissante (au-delà d'une durée min.), **pente de la droite de régression** des sollicitations. | Détecteur de tendance interprétable. À normaliser ; détecte les rampes (pas les pics → 2e forme) ; pente des refus = signal fort. Seuil à calibrer (Q29). Voir §6.4. |
 | D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
-| D49 | **Seuils de télémétrie par champ, déclarés dans le schéma** ; défauts par type fournis par le moteur, surchargeables. | Supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Résout l'approche de Q28 (reste : valeurs par défaut). Voir §6.1. |
+| D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
 
 ---
 
@@ -494,13 +494,15 @@ bornés (texte libre) → **indéfini** (seule la représentative s'applique). S
 dérive du **type et des contraintes déclarés** : les formats servent deux fois
 (validation **et** indicateur).
 
-**Seuils par champ, déclarés dans le schéma (D49 → résout l'approche de Q28).**
-Plutôt qu'un seuil global, chaque champ porte son **seuil de télémétrie** dans
-la description : la connaissance métier du technicien (un booléen `actif` est
-censé avoir une représentative basse) supprime le faux positif à la source. Le
-**méta-schéma gagne un attribut de seuil par champ** ; le moteur fournit des
-**défauts par type** (booléen : pas d'alerte sur la représentative ; énumération :
-surveillée sur la scalaire ; texte libre : représentative seule), surchargeables.
+**Seuils par champ, déclarés dans le schéma (D49 → résout Q28).** Plutôt qu'un
+seuil global, chaque champ porte son **seuil de télémétrie** dans la description :
+la connaissance métier du technicien (un booléen `actif` est censé avoir une
+représentative basse) supprime le faux positif à la source. Le **méta-schéma
+gagne un attribut de seuil par champ**. **Pas de défaut** : *seuil absent =
+aucun contrôle* — silence par défaut, signalement strictement opt-in, zéro faux
+positif par construction. Le tableau de bord (D38, à la volée) peut toujours
+**afficher** la diversité à la demande ; c'est le **flag automatique** qui
+requiert un seuil déclaré, pas la consultation.
 
 **Pondération temporelle** : un champ **récent** figé sur sa valeur par défaut
 est normal ; sur une entité **rarement modifiée**, attendre plus longtemps
@@ -786,7 +788,7 @@ seule ou webhook sortant).
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
-| Q28 | **Seuils de diversité** — *approche résolue (D49 : déclarés par champ dans le schéma)* ; deux indicateurs définis (représentative D46, scalaire D48). Reste : **valeurs par défaut par type** et pondération temporelle (N × intervalle de mise à jour). | Détermine la qualité des suggestions de simplification ; les faux positifs sont neutralisés par les seuils déclaratifs. |
+| ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
 | Q29 | **Seuil** de l'indicateur d'anomalie — *indicateur défini (D47)*. Reste : normalisation de la pente, durée minimale de fenêtre, seuil de déclenchement, seconde forme pour les pics, garde-fou R². | Qualité des alertes de sécurité (faux positifs / silences). |
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
@@ -981,3 +983,8 @@ seule ou webhook sortant).
   métier neutralise les faux positifs ; nouvel attribut du méta-schéma, défauts
   par type surchargeables. Q28 résolue dans son approche (reste : valeurs par
   défaut).
+- **2026-06-12 (suite 7)** — Clôture de Q28 : **pas de valeurs par défaut**.
+  Seuil absent = aucun contrôle — silence par défaut, signalement strictement
+  opt-in, zéro faux positif par construction (D49 ajustée). Le tableau de bord
+  affiche toujours la diversité à la demande ; seul le flag automatique requiert
+  un seuil déclaré.

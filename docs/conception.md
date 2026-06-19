@@ -82,7 +82,7 @@ posée (voir §6).
 | D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
 | D45 | **Volet conseil de la synthèse périodique** : analyser les schémas d'appels d'API (D40) pour recommander des optimisations au consommateur (cache de requêtes déterministes, lecture par lot vs N+1) et faire **émerger de nouveaux besoins** (endpoint composite, agrégat, champ calculé). Consultatif, jamais coercitif. | Miroir côté API de D38 : la télémétrie pilote l'évolution sur les **deux faces** du moteur — interne (description) et externe (API). Le moteur peut fournir le mécanisme (`ETag`) en plus du conseil. RGPD léger (comptes techniques). Voir §6.5. |
 | D46 | **Diversité représentative** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité). Ratio ≈ 0 → champ constant → candidat au **retrait**. | Lisible, peu coûteux. Voir §6.1. |
-| D47 | **Indicateur d'anomalie de sécurité** (D43) : sur période glissante (au-delà d'une durée min.), **pente de la droite de régression** des sollicitations. | Détecteur de tendance interprétable. À normaliser ; détecte les rampes (pas les pics → 2e forme) ; pente des refus = signal fort. Seuil à calibrer (Q29). Voir §6.4. |
+| D47 | **Modèle de risque d'anomalie de sécurité** (D43), multi-composantes : pente de régression (linéaire **et** log) au global **et** par endpoint ; croisée au **volume** ; **détecteur de pics** jugé par l'**étendue d'accès** (crawl) ; pente des refus = énumération. | Linéaire = croissance parfois légitime ; log = exponentiel dangereux. L'indicateur d'**étendue** est partagé avec D45 (crawl ≡ N+1, séparés par l'autorisation). Calibration → Q29. Voir §6.4. |
 | D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
 | D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
 
@@ -565,19 +565,32 @@ et/ou le technicien** d'un usage ou accès non autorisé.
   à la collecte** : journaliser non seulement l'activité mais les **refus
   d'autorisation** (le carburant du canal). D42 fournit la **ligne de base** des
   fréquences normales → détection d'anomalie par simple comparaison.
-- **Indicateur (D47)** : sur une période glissante (au-delà d'une durée
-  minimale), **pente de la droite de régression** des sollicitations — détecteur
-  de tendance, *interprétable* (« +X appels/jour »). Précisions pour un seuil
-  transposable (Q29) :
-  - **normaliser la pente** (rapport à la moyenne de base, ou régression sur le
-    `log` des comptes pour la croissance exponentielle) — sinon le seuil est à
-    régler endpoint par endpoint ;
-  - la pente détecte les **rampes**, pas les **pics** : prévoir une seconde forme
-    (écart ponctuel au référentiel, type z-score) pour les bursts soudains ;
-  - la **pente des refus d'autorisation** est un signal fort (énumération/balayage
-    croissant) ;
-  - garde-fou optionnel : pondérer par R² pour éviter la pente fantôme sur série
-    plate et bruitée.
+- **Indicateur (D47) — un modèle de risque à plusieurs composantes**, pas un
+  scalaire unique. Calibration → Q29.
+  - **Deux portées** : au **global** et **par requête/endpoint** — une dérive
+    noyée au global peut être flagrante sur un appel précis (substrat D40/D42).
+  - **Pente de régression = orientation** : coefficient positif = sollicitations
+    en hausse. Hypothèse : attaque **progressive** *ou* **défaut de conception**
+    du développeur appelant (les deux à signaler).
+    - *Échelle linéaire* : croissance de volume, parfois **légitime** (outil
+      connecté qui monte en charge) → orientation, pas anomalie en soi.
+    - *Échelle logarithmique* : révèle la croissance **exponentielle**, celle qui
+      met le moteur en péril → signal de menace fort.
+  - **Pente seule insuffisante → croiser au volume absolu** : forte pente sur
+    faible volume = bruit ; le volume fait basculer « normal » → « anomalie ».
+  - **Détecteur de pics (complément)** : la régression rate les **attaques
+    ponctuelles ciblées**. Discriminant = l'**étendue d'accès**, pas le volume :
+    un pic de **clôture comptable** (accès concentré) est légitime ; un pic
+    **couvrant tous les enregistrements** d'une entité = **tentative de crawl**.
+  - **Pente des refus d'autorisation** = signal fort d'énumération.
+  - Garde-fou : pondérer par R² (éviter la pente fantôme sur série plate).
+
+  **Symétrie avec D45 (crawl ≡ N+1).** Le balayage de tous les items d'une entité
+  est le **même signal** que le N+1 du volet conseil : selon l'acteur et son
+  autorisation, c'est soit un **anti-pattern de performance** (conseil amical,
+  consommateur légitime, D45) soit une **tentative de crawl** (alerte sécurité,
+  acteur hostile, D43). L'**indicateur d'étendue** sert les deux finalités — la
+  frontière est l'**intention/l'autorisation**, pas le comportement observé.
 - **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
   des tentatives nominatives même là où la surveillance comportementale serait
   proscrite (information + proportionnalité ; client responsable, D16).
@@ -789,7 +802,7 @@ seule ou webhook sortant).
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
-| Q29 | **Seuil** de l'indicateur d'anomalie — *indicateur défini (D47)*. Reste : normalisation de la pente, durée minimale de fenêtre, seuil de déclenchement, seconde forme pour les pics, garde-fou R². | Qualité des alertes de sécurité (faux positifs / silences). |
+| Q29 | **Calibration du modèle de risque** (D47) : seuils linéaire vs log, **gating par volume**, durée min. de fenêtre, seuil de pic, **seuil d'étendue/couverture** (crawl), garde-fou R². Deux portées (global / endpoint). | Qualité des alertes de sécurité (faux positifs / silences). |
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
@@ -988,3 +1001,12 @@ seule ou webhook sortant).
   opt-in, zéro faux positif par construction (D49 ajustée). Le tableau de bord
   affiche toujours la diversité à la demande ; seul le flag automatique requiert
   un seuil déclaré.
+- **2026-06-12 (suite 8)** — Enrichissement de D47 en **modèle de risque
+  multi-composantes** : deux portées (global + par endpoint) ; pente linéaire
+  (croissance parfois légitime, ex. outil qui monte en charge) vs **logarithmique**
+  (exponentiel = danger moteur) ; pente **croisée au volume** (sinon bruit) ;
+  détecteur de pics jugé par l'**étendue d'accès** (pic de clôture comptable
+  légitime vs balayage de toutes les affaires = crawl). **Symétrie majeure** :
+  crawl ≡ N+1 (D45) — même signal d'étendue, séparé par l'autorisation de
+  l'acteur ; l'indicateur d'étendue sert sécurité (D43) et conseil (D45). Q29
+  élargie à la calibration de ce modèle.

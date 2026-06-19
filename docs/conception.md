@@ -73,6 +73,10 @@ posée (voir §6).
 | D35 | Champs calculés : **paliers 1 et 2 actés** — calcul sur l'enregistrement (gabarits + arithmétique simple) et traversée de référence (`{client.nom_complet}`). | Résout Q18 (socle) — simples à décrire, peu coûteux, utiles à l'interface générée. Validation : références cassées et cycles. |
 | D36 | Palier 3 (agrégats) en **deux temps** : (1) **expressivité minimale** pour commencer — `somme`, `compte`, `min`, `max`, `moyenne` sur une relation, à la volée ; (2) **hook de code personnalisé** pour tout le reste. | Résout Q18 (agrégats). Le vocabulaire reste minimal *parce que* la soupape du hook existe ; la matérialisation des agrégats est une optimisation ultérieure guidée par la télémétrie. Le hook = 3e point d'extension du moteur (voir §5.5). |
 | D37 | Le hook se matérialise par une **extension de type plugin, déployée en même temps que la description**, déclinée en **trois modes** : **calcul d'un champ**, **tâche**, **comportement de l'interface graphique**. | Système d'extension générique couvrant les trois couches de la vision (modèle, traitements, interface) — cycle de vie commun, règles propres à chaque mode (voir §8). Résout la moitié de Q21 (catalogue de tâches : déclaration dans la description, implémentation en plugin). |
+| D38 | Télémétrie **par champ** : évaluée **à la volée** (aucun stockage), via un tableau de bord dédié. Indicateur clé : la **diversité des valeurs**, pondérée par la date de création du champ et la fréquence de mise à jour de l'entité. | Un champ sans diversité ne porte probablement pas de sémantique → candidat au retrait. Date de création dérivée du journal de migrations (§3.2) ; fréquence = compteur d'entité (D39). Voir §6.1. |
+| D39 | Télémétrie **par entité** : **stockée**. Compteurs d'usage lecture/écriture + historique d'évolution du schéma. | Au service de l'enrichissement du schéma ; l'historique de schéma réutilise le journal de migrations (pas de duplication). Voir §6.1. |
+| D40 | Télémétrie **API & fonctions** : **double usage** — suivre l'usage réel (compteurs) **et identifier les acteurs**. | Acteurs = comptes techniques (D28), donc gestion d'intégrations et non surveillance de salariés ; alimente la dépréciation (§5.4) et l'épinglage (Q9). Voir §6.1. |
+| D41 | Deux **supports** de télémétrie : (a) **données en base** (objet `télémétrie` dédié ou attaché à une entité) ; (b) **traces de journal** à conservation **paramétrable**, archivage à durée de vie max, **option d'anonymisation**. | Sépare les compteurs/indicateurs durables des traces datées ; la rétention et l'anonymisation outillent la conformité côté client (D16). Voir §6.2/§6.4. |
 
 ---
 
@@ -446,57 +450,69 @@ traduction absorbe les versions intermédiaires sans les exposer.
 
 ---
 
-## 6. Télémétrie (D14)
+## 6. Télémétrie (D14, D38–D41)
 
-Trois étages, servant des décisions différentes :
+**Principe de cadrage (D14, affiné le 2026-06-12)** : la télémétrie ne **redouble
+pas les journaux** ; tout indicateur doit servir l'une des **deux finalités**
+retenues — (1) **suivre les usages réels**, (2) **évaluer le risque d'une
+migration**. La finalité 2 n'est pas une collecte distincte : c'est une **vue
+dérivée** de la finalité 1 (§6.3).
 
-| Étage | Ce qu'on observe | Ce que ça pilote |
-|---|---|---|
-| **API** | Qui appelle quoi, en quelle version, à quelle fréquence ; écritures sur champs disparus | Retrait des versions dépréciées en connaissance de cause (§5.4) ; détection des clients non migrés |
-| **Objets** | Entités et champs réellement renseignés, consultés, filtrés | **Évolution du descriptif** : un champ jamais rempli depuis 6 mois, une entité jamais consultée = candidats à la simplification, détectés par les faits |
-| **Actions utilisateurs** | Parcours d'écrans, fonctions utilisées ou ignorées | Ergonomie de l'interface générée |
+### 6.1 Trois grains de mesure (D38–D40)
 
-L'étage « objets » boucle la boucle de l'architecture : **le descriptif pilote
-l'application, la télémétrie pilote l'évolution du descriptif**. L'outil pourrait
-produire ce rapport de lui-même (« 4 champs sans aucune saisie depuis 90 jours »).
+| Grain | Mode | Ce qu'on mesure | Au service de |
+|---|---|---|---|
+| **Champ** (D38) | **À la volée** (aucun stockage) — tableau de bord dédié | **Diversité des valeurs** : un champ sans diversité ne porte probablement pas de sémantique → candidat au retrait | Simplification du schéma |
+| **Entité** (D39) | **Stocké** | Compteurs d'usage **lecture/écriture** ; **historique d'évolution du schéma** | Enrichissement du schéma |
+| **API & fonctions** (D40) | **Stocké / journalisé** | **Double usage** : usage réel (compteurs) **et identification des acteurs** (quel compte technique appelle quoi) | Dépréciation (§5.4), épinglage (Q9), gestion des intégrations |
 
-### 6.1 Cadrage du besoin (à approfondir par l'auteur)
+**Indicateur de diversité (D38), pondéré pour éviter le faux positif :**
+- un champ **récent** figé sur sa valeur par défaut est normal, pas suspect ;
+- sur une entité **rarement modifiée**, attendre plus longtemps avant de conclure.
+- Règle opérationnelle proposée (Q28) : *candidat au retrait si diversité ≈ 0 ET
+  ancienneté > N × intervalle moyen de mise à jour de l'entité* — une entité
+  active dénonce vite un champ inutile, une entité dormante laisse le bénéfice du
+  doute.
+- **Sans nouveau mécanisme** : la *date de création du champ* se dérive du
+  **journal de migrations** (§3.2, qui est déjà l'historique du schéma) ; la
+  *fréquence de mise à jour* est le compteur d'entité (D39). Les trois pièces
+  s'emboîtent.
+- Coût à surveiller : `COUNT(DISTINCT)` sur grosse table n'est pas gratuit —
+  acceptable car tableau de bord ponctuel sur volumes TPE, échantillonnage
+  possible ; sémantique dépendante de la persistance (D18).
 
-> **En cours de cadrage (2026-06-12).** L'auteur veut resserrer le périmètre de la
-> télémétrie avant de figer Q12–Q13. Principes directeurs posés :
->
-> - **Ne pas redoubler les journaux** : la télémétrie ne doit pas recopier ce qui
->   est déjà disponible dans les logs ; elle doit apporter une **valeur propre**.
-> - **Deux finalités utiles et bornées** :
->   1. **suivre les usages** (quels champs/entités/fonctions servent réellement) ;
->   2. **évaluer le risque d'une migration** — un champ massivement utilisé rend
->      une migration qui le touche plus risquée. Relie directement la télémétrie
->      au dry-run (§4.1) et à la décision de migrer.
-> - Tout indicateur de télémétrie doit se justifier par l'une de ces finalités,
->   sous peine d'être écarté (principe de minimisation, qui sert aussi le RGPD).
->
-> Conséquence pressentie : l'étage « actions utilisateurs » (ergonomie) pourrait
-> être réduit ou reporté ; les étages « API » et « objets » servent directement
-> les deux finalités retenues.
+**Acteurs des API (D40)** : ce sont des **comptes techniques** (D28), pas des
+salariés → identifier « quel système appelle quelle fonction » relève de la
+gestion d'intégrations, pas de la surveillance de personnes. RGPD léger ici, à
+distinguer du journal côté interface.
 
-### 6.2 Pistes pour Q12–Q13 (analyse, non tranchée)
+### 6.2 Deux supports de stockage (D41)
 
-Recadrages proposés, en attente de l'arbitrage de l'auteur :
+1. **Données en base** : un objet `télémétrie` dédié, ou des indicateurs
+   **attachés à une entité** (compteurs ; l'historique de schéma via le journal
+   de migrations).
+2. **Traces de journal** : **durée de conservation paramétrable**, puis
+   **archivage à durée de vie maximale**. L'anonymisation n'est pas viscéralement
+   nécessaire (acteurs API = comptes techniques ; côté interface = responsabilité
+   du client, D16) mais une **option d'anonymisation** est prévue.
 
-- **Le client est responsable de traitement, pas l'éditeur** (conséquence de
-  D16 : instance déployée chez le client). Syncytium *fournit la capacité* et les
-  outils de conformité (conservation configurable, anonymisation/désactivation,
-  export/effacement, documentation) ; la remontée agrégée vers l'éditeur (§7.2)
-  est la seule où l'éditeur deviendrait (co)responsable → opt-in strict.
-- **Séparer les finalités** plutôt que tout réunir sous « télémétrie » :
-  évolution du modèle → **agrégée sur le schéma** (ne nomme personne, quasi sans
-  risque) ; audit de sécurité → **nominatif**, accès restreint, conservation
-  bornée (finalité distincte) ; support → nominatif **éphémère**. Évite la dérive
-  vers la surveillance des salariés (ligne rouge en France).
-- **Restitution (Q13)** : évolution du modèle → tableau de bord / rapport en
-  consultation (pas d'alerte) ; sécurité → journal interrogeable + alertes.
-  Idée à évaluer : la restitution pourrait être elle-même **une solution
-  Syncytium** (événements = entités, tableau de bord = interface générée).
+### 6.3 Finalité 2 — risque de migration (vue dérivée)
+
+Assemblée pour le **rapport de dry-run** (§4.1) à partir de la finalité 1 :
+intensité d'usage du champ/entité touché + acteurs API concernés + dépendances
+(champs calculés, tâches). Pas de collecte nouvelle — une lecture croisée.
+
+### 6.4 RGPD
+
+- **Le client est responsable de traitement, pas l'éditeur** (instance déployée
+  chez le client, D16). Syncytium *fournit la capacité* et les outils de
+  conformité (conservation paramétrable, option d'anonymisation, archivage borné,
+  export/effacement). La remontée agrégée vers l'éditeur (§7.2) est la seule où
+  l'éditeur deviendrait (co)responsable → **opt-in strict**.
+- Les indicateurs d'usage (champ, entité) sont **agrégés sur le schéma** et ne
+  nomment personne ; l'identification d'acteurs ne porte que sur des **comptes
+  techniques**. La dérive vers la surveillance des salariés est ainsi évitée par
+  construction.
 
 ---
 
@@ -635,8 +651,9 @@ seule ou webhook sortant).
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
-| Q12 | **RGPD / confidentialité de la télémétrie** : nominative, pseudonymisée ou agrégée ? | **En cours de cadrage** (§6.1) — l'auteur resserre d'abord le besoin (ne pas redoubler les journaux ; finalités : usages + risque de migration). Pistes au §6.2 (séparer les finalités, client responsable de traitement). |
-| Q13 | **Restitution de la télémétrie** au technicien : tableau de bord intégré, rapports périodiques, alertes ? | **En cours de cadrage** (§6.1) — dépend du périmètre retenu. Pistes au §6.2. |
+| ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
+| Q13 | **Restitution de la télémétrie** au technicien : **tableau de bord dédié** acté pour le grain « champ » (D38). Reste : rapports périodiques ? alertes (plutôt sécurité) ? la restitution est-elle elle-même une solution Syncytium ? | Dépend du périmètre retenu ; à reprendre après Q12. |
+| Q28 | **Seuil de l'indicateur de diversité** (D38) : formaliser la règle « diversité ≈ 0 ET ancienneté > N × intervalle moyen de mise à jour de l'entité » — valeur de N, gestion des entités dormantes. | Détermine la qualité des suggestions de simplification (faux positifs). |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. |
@@ -775,3 +792,13 @@ seule ou webhook sortant).
   consignées (séparation des finalités, client responsable de traitement,
   restitution par tableau de bord/journal) mais Q12–Q13 restent ouvertes en
   attente de l'arbitrage de l'auteur.
+- **2026-06-12 (suite)** — Modèle de télémétrie arrêté (résout Q12 ; D38–D41,
+  §6 réécrit). Trois grains : **champ** mesuré à la volée via la **diversité des
+  valeurs** pondérée par l'âge du champ et la fréquence de l'entité (D38) ;
+  **entité** stockée — compteurs lecture/écriture + historique de schéma réutilisant
+  le journal de migrations (D39) ; **API & fonctions** en double usage, usage réel
+  + identification des acteurs (comptes techniques, RGPD léger) (D40). Deux
+  supports : base (objet `télémétrie`) et journal à rétention paramétrable +
+  archivage + option d'anonymisation (D41). Finalité 2 = vue dérivée pour le
+  dry-run. Nouvelle question Q28 (seuil de l'indicateur de diversité) ; Q13
+  (restitution) avance — tableau de bord dédié acté pour le grain champ.

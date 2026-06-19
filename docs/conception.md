@@ -81,8 +81,10 @@ posée (voir §6).
 | D43 | **Cinquième canal — analyse de sécurité** (3e finalité) : alerter le client et/ou le technicien d'un **usage/accès non autorisé ou anormal** (pics de fréquence, tentatives d'accès refusées). | Vue dérivée du substrat (journal D41 + compteurs D42) ; impose de **journaliser les refus d'autorisation** ; D42 fournit la ligne de base des anomalies. Voir §6.4. |
 | D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
 | D45 | **Volet conseil de la synthèse périodique** : analyser les schémas d'appels d'API (D40) pour recommander des optimisations au consommateur (cache de requêtes déterministes, lecture par lot vs N+1) et faire **émerger de nouveaux besoins** (endpoint composite, agrégat, champ calculé). Consultatif, jamais coercitif. | Miroir côté API de D38 : la télémétrie pilote l'évolution sur les **deux faces** du moteur — interne (description) et externe (API). Le moteur peut fournir le mécanisme (`ETag`) en plus du conseil. RGPD léger (comptes techniques). Voir §6.5. |
-| D46 | **Indicateur de diversité** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité normalisé). | Lisible, peu coûteux. `distinct = 1` = signal fort ; faible ratio avec `distinct ≥ 2` peut être légitime (booléen/statut/choix) → seuil à calibrer (Q28). Voir §6.1. |
+| D46 | **Diversité représentative** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité). Ratio ≈ 0 → champ constant → candidat au **retrait**. | Lisible, peu coûteux. Voir §6.1. |
 | D47 | **Indicateur d'anomalie de sécurité** (D43) : sur période glissante (au-delà d'une durée min.), **pente de la droite de régression** des sollicitations. | Détecteur de tendance interprétable. À normaliser ; détecte les rampes (pas les pics → 2e forme) ; pente des refus = signal fort. Seuil à calibrer (Q29). Voir §6.4. |
+| D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
+| D49 | **Seuils de télémétrie par champ, déclarés dans le schéma** ; défauts par type fournis par le moteur, surchargeables. | Supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Résout l'approche de Q28 (reste : valeurs par défaut). Voir §6.1. |
 
 ---
 
@@ -474,24 +476,36 @@ dérivées** de ce substrat (§6.3, §6.5), non des collectes distinctes.
 | **Entité** (D39) | **Stocké** | Compteurs d'usage **lecture/écriture** ; **historique d'évolution du schéma** | Enrichissement du schéma |
 | **API & fonctions** (D40) | **Stocké / journalisé** | **Double usage** : usage réel (compteurs) **et identification des acteurs** (quel compte technique appelle quoi) | Dépréciation (§5.4), épinglage (Q9), gestion des intégrations |
 
-**Indicateur de diversité (D38 ; formule D46) :**
-- **Formule (D46)** : `diversité = valeurs distinctes non nulles / nombre de
-  lignes de l'entité` — ratio de cardinalité normalisé (≈ la *sélectivité* d'un
-  index), borné ~0..1, lisible et peu coûteux. `NULL` non compté → un champ vide
-  tombe bien à 0.
-- **Faux positif à connaître (pour le seuil, Q28)** : faible cardinalité ≠
-  absence de sens. Signal *fort* = `distinct = 1` (une valeur partout = aucune
-  information). `distinct ≥ 2` peut être légitime (booléen, statut, `choix` — un
-  champ `actif` à 99 % vrai a un ratio quasi nul mais le 1 % compte). Donc :
-  `distinct = 1` → candidat franc ; ratio faible avec `distinct ≥ 2` → signal
-  faible, jamais seul. Pour un `choix`, mesurer contre le **domaine déclaré**
-  (1 valeur utilisée sur 3 = enum surdimensionné). Entropie = raffinement en
-  réserve si trop de faux positifs.
-- **Pondération temporelle** : un champ **récent** figé sur sa valeur par défaut
-  est normal ; sur une entité **rarement modifiée**, attendre plus longtemps.
-  Règle de seuil proposée (Q28) : *candidat si diversité ≈ 0 ET ancienneté >
-  N × intervalle moyen de mise à jour de l'entité*. Sur très peu de lignes, le
-  ratio est bruité → la pondération par maturité l'atténue.
+**Deux indicateurs de diversité, orthogonaux (D38) :**
+
+| Indicateur | Formule | Question posée | Suggestion d'évolution |
+|---|---|---|---|
+| **Représentative** (D46) | distinctes non nulles / **nombre de lignes** | Les données varient-elles dans la table ? | Ratio ≈ 0 → **retirer le champ** |
+| **Scalaire** (D48) | distinctes / **valeurs théoriquement possibles** | Quelle part du domaine déclaré est exploitée ? | Ratio faible → **resserrer le domaine/type** |
+
+Exemple montrant l'indépendance — statut `{actif, inactif, suspendu}`,
+10 000 lignes toutes `actif` : représentative = 1/10 000 ≈ 0 (constant) ;
+scalaire = 1/3 (un seul état utilisé). Deux diagnostics distincts.
+
+**Domaine théorique (D48)** — calculable seulement s'il est borné :
+énumération → nb de valeurs déclarées ; booléen → 2 ; numérique borné →
+étendue ; chaîne **formatée** → domaine du pattern (ex. `AA-999`) ; types non
+bornés (texte libre) → **indéfini** (seule la représentative s'applique). Se
+dérive du **type et des contraintes déclarés** : les formats servent deux fois
+(validation **et** indicateur).
+
+**Seuils par champ, déclarés dans le schéma (D49 → résout l'approche de Q28).**
+Plutôt qu'un seuil global, chaque champ porte son **seuil de télémétrie** dans
+la description : la connaissance métier du technicien (un booléen `actif` est
+censé avoir une représentative basse) supprime le faux positif à la source. Le
+**méta-schéma gagne un attribut de seuil par champ** ; le moteur fournit des
+**défauts par type** (booléen : pas d'alerte sur la représentative ; énumération :
+surveillée sur la scalaire ; texte libre : représentative seule), surchargeables.
+
+**Pondération temporelle** : un champ **récent** figé sur sa valeur par défaut
+est normal ; sur une entité **rarement modifiée**, attendre plus longtemps
+(ancienneté rapportée à l'intervalle moyen de mise à jour). Sur très peu de
+lignes, le ratio est bruité → la maturité l'atténue.
 - **Sans nouveau mécanisme** : la *date de création du champ* se dérive du
   **journal de migrations** (§3.2, qui est déjà l'historique du schéma) ; la
   *fréquence de mise à jour* est le compteur d'entité (D39). Les trois pièces
@@ -772,7 +786,7 @@ seule ou webhook sortant).
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
-| Q28 | **Seuil** de l'indicateur de diversité — *indicateur défini (D46)*. Reste : valeur de N dans « ancienneté > N × intervalle moyen de mise à jour », règle pour `distinct ≥ 2`, entités dormantes, mesure contre le domaine déclaré d'un `choix`. | Détermine la qualité des suggestions de simplification (faux positifs). |
+| Q28 | **Seuils de diversité** — *approche résolue (D49 : déclarés par champ dans le schéma)* ; deux indicateurs définis (représentative D46, scalaire D48). Reste : **valeurs par défaut par type** et pondération temporelle (N × intervalle de mise à jour). | Détermine la qualité des suggestions de simplification ; les faux positifs sont neutralisés par les seuils déclaratifs. |
 | Q29 | **Seuil** de l'indicateur d'anomalie — *indicateur défini (D47)*. Reste : normalisation de la pente, durée minimale de fenêtre, seuil de déclenchement, seconde forme pour les pics, garde-fou R². | Qualité des alertes de sécurité (faux positifs / silences). |
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
@@ -958,3 +972,12 @@ seule ou webhook sortant).
   conseil)** différée vers une étude dédiée fondée sur l'implémentation
   personnelle existante de l'auteur (analyse des automatismes d'accès
   PostgreSQL). Q28/Q29 réduites au seul réglage des seuils.
+- **2026-06-12 (suite 6)** — Diversité scindée en **deux indicateurs orthogonaux**
+  (D46 représentative = distinctes/lignes → retirer le champ ; D48 scalaire =
+  distinctes/domaine théorique → resserrer le domaine). Le domaine théorique se
+  dérive du type/contraintes déclarés (énum, booléen, numérique borné, chaîne
+  formatée ; indéfini si non borné) — les formats servent validation **et**
+  indicateur. **Seuils par champ déclarés dans le schéma** (D49) : la connaissance
+  métier neutralise les faux positifs ; nouvel attribut du méta-schéma, défauts
+  par type surchargeables. Q28 résolue dans son approche (reste : valeurs par
+  défaut).

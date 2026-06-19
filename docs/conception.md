@@ -86,7 +86,7 @@ posée (voir §6).
 | D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
 | D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
 | D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Voir §6.4. |
-| D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente de régression sur 1 semaine > 1 pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente croisée au volume = pas de bruit sur petits endpoints. Variantes log/pic/étendue : défauts ultérieurs. Voir §6.4. |
+| D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente **normalisée** > 1 (= plus que doublé) sur la fenêtre, pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente (forme) croisée au volume (poids) = conditions orthogonales. Écart type écarté (simplicité). Fenêtre glissante à définir. Voir §6.4. |
 
 ---
 
@@ -571,15 +571,28 @@ et/ou le technicien** d'un usage ou accès non autorisé.
   scalaire unique. Calibration → Q29.
   - **Deux portées** : au **global** et **par requête/endpoint** — une dérive
     noyée au global peut être flagrante sur un appel précis (substrat D40/D42).
-  - **Pente de régression = orientation** : coefficient positif = sollicitations
-    en hausse. Hypothèse : attaque **progressive** *ou* **défaut de conception**
-    du développeur appelant (les deux à signaler).
-    - *Échelle linéaire* : croissance de volume, parfois **légitime** (outil
-      connecté qui monte en charge) → orientation, pas anomalie en soi.
+  - **Pente de régression = orientation** : coefficient de la droite de
+    régression des **points quotidiens** sur une **fenêtre glissante** (taille à
+    définir, ex. 1 semaine). Coefficient positif = sollicitations en hausse.
+    Hypothèse : attaque **progressive** *ou* **défaut de conception** du
+    développeur appelant (les deux à signaler).
+    - **Normalisation = clé de la portabilité** : la régression porte sur des
+      points **normalisés** (indexés au premier jour / à la moyenne de la
+      fenêtre = 1), pas sur les comptes bruts. Ainsi **pente > 1 ⇔ « plus que
+      doublé » sur la fenêtre**, quel que soit le volume — un seuil unique vaut
+      pour tous les endpoints.
+    - *Échelle linéaire* : croissance parfois **légitime** (outil connecté qui
+      monte en charge) → orientation, pas anomalie en soi.
     - *Échelle logarithmique* : révèle la croissance **exponentielle**, celle qui
       met le moteur en péril → signal de menace fort.
-  - **Pente seule insuffisante → croiser au volume absolu** : forte pente sur
-    faible volume = bruit ; le volume fait basculer « normal » → « anomalie ».
+  - **Pente seule insuffisante → croiser au volume absolu** : deux conditions
+    **orthogonales** — la pente normalisée capte la *forme* (doublement), le
+    seuil de volume garantit que ça *compte* (pas de bruit sur faible volume).
+  - **Écart type — option délibérément écartée.** Le coupler distinguerait une
+    progression régulière d'une progression asymétrique (dents de scie), info
+    que la seule pente perd ; mais pour une cible TPE cela alourdirait le
+    paramétrage sans gain proportionné → non retenu (rationale conservée pour ne
+    pas rouvrir sans raison). Même esprit que le garde-fou R², lui aussi simple.
   - **Détecteur de pics (complément)** : la régression rate les **attaques
     ponctuelles ciblées**. Discriminant = l'**étendue d'accès**, pas le volume :
     un pic de **clôture comptable** (accès concentré) est légitime ; un pic
@@ -610,6 +623,9 @@ et/ou le technicien** d'un usage ou accès non autorisé.
   +1 appel/jour de croissance, échelle linéaire. Variantes log / pic / étendue
   du modèle (D47) : défauts posés plus tard ou laissés à la surcharge — le cadre
   global + override les accueille identiquement.
+  - **Lecture de la pente (précisée)** : pente **normalisée**, *> 1 ⇔ plus que
+    doublé* sur la fenêtre (et non « +1 appel/jour » — interprétation brute
+    abandonnée). Fenêtre glissante = paramètre à définir (1 semaine en exemple).
 - **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
   des tentatives nominatives même là où la surveillance comportementale serait
   proscrite (information + proportionnalité ; client responsable, D16).
@@ -1043,3 +1059,11 @@ seule ou webhook sortant).
   d'angle mort silencieux). Défaut global : pente de régression sur 1 semaine
   > 1 pour un volume > 1000 appels (pente croisée au volume). Variantes
   log/pic/étendue calées plus tard via le même cadre global + override.
+- **2026-06-12 (suite 11)** — Précision sur la pente (D47/D51) : c'est le
+  coefficient de la régression des points quotidiens sur fenêtre glissante (taille
+  à définir). **Normalisée** : pente > 1 ⇔ « plus que doublé » sur la fenêtre,
+  quel que soit le volume (l'interprétation brute « +1 appel/jour » est
+  abandonnée). Pente (forme) et volume (poids) = conditions orthogonales. **Écart
+  type délibérément écarté** : distinguerait progression régulière/asymétrique
+  mais alourdirait le paramétrage sans gain proportionné pour une TPE (rationale
+  conservée).

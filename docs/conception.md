@@ -80,6 +80,7 @@ posée (voir §6).
 | D42 | **Dimension temporelle** des compteurs (D39, D40) : seaux **journaliers** sur périodes glissantes, **agrégés** en semaine/mois/année avec l'âge (selon la profondeur de stockage). | Le *downsampling* sert aussi la rétention (D41 = granularité décroissante avec l'âge). Compteurs additifs → agrégation par somme ; la diversité (D38) reste à la volée car non additive. Alimente la détection de tendance dans le dry-run (§6.3). Voir §6.2. |
 | D43 | **Cinquième canal — analyse de sécurité** (3e finalité) : alerter le client et/ou le technicien d'un **usage/accès non autorisé ou anormal** (pics de fréquence, tentatives d'accès refusées). | Vue dérivée du substrat (journal D41 + compteurs D42) ; impose de **journaliser les refus d'autorisation** ; D42 fournit la ligne de base des anomalies. Voir §6.4. |
 | D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
+| D45 | **Volet conseil de la synthèse périodique** : analyser les schémas d'appels d'API (D40) pour recommander des optimisations au consommateur (cache de requêtes déterministes, lecture par lot vs N+1) et faire **émerger de nouveaux besoins** (endpoint composite, agrégat, champ calculé). Consultatif, jamais coercitif. | Miroir côté API de D38 : la télémétrie pilote l'évolution sur les **deux faces** du moteur — interne (description) et externe (API). Le moteur peut fournir le mécanisme (`ETag`) en plus du conseil. RGPD léger (comptes techniques). Voir §6.5. |
 
 ---
 
@@ -550,9 +551,27 @@ La forme suit la finalité ; les canaux sont complémentaires, pas exclusifs :
 |---|---|---|---|
 | **Tableau de bord** (D38) | *Pull*, exploration | Usages | Diversité, compteurs, tendances ; à la demande |
 | **Rapport de dry-run** (§6.3) | Contextuel, à la migration | Risque migration | La finalité 2 n'a **pas** de tableau de bord propre : elle s'injecte là où la décision se prend |
-| **Synthèse périodique** | *Push*, basse fréquence | Usages (proactif) | Fait remonter d'elle-même les candidats au retrait — anime la boucle d'évolution |
+| **Synthèse périodique** | *Push*, basse fréquence | Usages (proactif) | Fait remonter d'elle-même les candidats au retrait ; inclut le **volet conseil** côté API (D45, ci-dessous) |
 | **Alerte d'échéance** | *Push*, événementiel, **rare** | Risque/dépréciation | Cas justifié : version d'API dépréciée encore appelée près du `Sunset` (D12/D40). Pas d'alerte sur le simple non-usage |
 | **Analyse de sécurité** (D43) | *Push* + analyse | Sécurité (finalité 3) | Voir §6.4 ; alerte client et/ou technicien |
+
+**Volet conseil de la synthèse (D45) — la boucle d'évolution côté API.**
+Symétrie de D38 : la télémétrie « objets » fait évoluer la description *vers
+l'intérieur* (simplifier) ; la télémétrie « API » fait évoluer la surface
+exposée *vers l'extérieur* (optimiser, enrichir). On analyse les **schémas
+d'appels** (D40) pour produire des recommandations, à **deux destinataires** :
+
+| Pattern détecté | Recommandation | Destinataire | Référence marché |
+|---|---|---|---|
+| Mêmes items, requête déterministe, appels répétés | Mise en cache ; le moteur **fournit le mécanisme** (`ETag`/`Cache-Control` dérivés de version schéma + enregistrement → requêtes conditionnelles `304`) | Consommateur | Analyse de redondance |
+| Appels **unitaires** couvrant tous les items d'un service | Lecture **par lot/bloc** (D22) | Consommateur | Problème **N+1** des ORM |
+| Séquences d'appels récurrentes / toujours jointes | Faire **émerger un besoin** : endpoint composite, agrégat (D36), champ calculé (D35) | Technicien | *Query advisor* / APM |
+
+- *Consultatif uniquement* : on recommande, on n'étrangle jamais les requêtes.
+- Règles de détection à préciser (Q30), explicables, dans l'esprit minimal.
+- RGPD léger : seuls des **comptes techniques** sont analysés (D40).
+- **La boucle metadata-driven se referme sur les deux faces** : interne (D38) et
+  externe (D45).
 
 **Solution intégrée sur méta-schéma (D44).** Ces canaux forment une **solution
 intégrée** : écrite dans le format Syncytium mais **possédée par le moteur**
@@ -728,6 +747,7 @@ seule ou webhook sortant).
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | Q28 | **Seuil de l'indicateur de diversité** (D38) : formaliser la règle « diversité ≈ 0 ET ancienneté > N × intervalle moyen de mise à jour de l'entité » — valeur de N, gestion des entités dormantes. | Détermine la qualité des suggestions de simplification (faux positifs). |
 | Q29 | **Seuils de détection d'anomalie** (D43) : règle « taux > N × moyenne glissante », fenêtre de référence, traitement des refus d'autorisation. Garder explicable. | Qualité des alertes de sécurité (faux positifs / silences). |
+| Q30 | **Règles de détection du volet conseil** (D45) : reconnaître requête déterministe répétée, balayage unitaire d'un service (N+1), séquences récurrentes. Explicables, dans l'esprit minimal. | Qualité et crédibilité des recommandations adressées aux consommateurs et au technicien. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. |
@@ -893,3 +913,11 @@ seule ou webhook sortant).
   par la même machinerie. Généralise D33 ; **le méta-schéma est l'objet de Q16**
   (versionnement du format = versionnement du méta-schéma). Modèle d'ensemble :
   un substrat de collecte, trois finalités en couches d'analyse.
+- **2026-06-12 (suite 4)** — Volet conseil de la synthèse périodique (D45).
+  Analyse des schémas d'appels d'API pour recommander cache (le moteur fournit
+  l'`ETag`), lecture par lot (vs N+1), et émergence de nouveaux besoins (endpoint,
+  agrégat, champ calculé). Deux destinataires : consommateur (change son code) et
+  technicien (fait évoluer l'API). Consultatif, RGPD léger (comptes techniques).
+  Révèle la symétrie : la télémétrie referme la boucle metadata-driven sur les
+  deux faces — interne (D38) et externe (D45). Nouvelle question Q30 (règles de
+  détection).

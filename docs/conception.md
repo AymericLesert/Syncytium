@@ -85,7 +85,8 @@ posée (voir §6).
 | D47 | **Modèle de risque d'anomalie de sécurité** (D43), multi-composantes : pente de régression (linéaire **et** log) au global **et** par endpoint ; croisée au **volume** ; **détecteur de pics** jugé par l'**étendue d'accès** (crawl) ; pente des refus = énumération. | Linéaire = croissance parfois légitime ; log = exponentiel dangereux. L'indicateur d'**étendue** est partagé avec D45 (crawl ≡ N+1, séparés par l'autorisation). Calibration → Q29. Voir §6.4. |
 | D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
 | D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
-| D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Posture par défaut (opt-in vs filet) → Q29. Voir §6.4. |
+| D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Voir §6.4. |
+| D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente de régression sur 1 semaine > 1 pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente croisée au volume = pas de bruit sur petits endpoints. Variantes log/pic/étendue : défauts ultérieurs. Voir §6.4. |
 
 ---
 
@@ -598,12 +599,17 @@ et/ou le technicien** d'un usage ou accès non autorisé.
   *les seuils de télémétrie sont un attribut déclaratif par élément du
   méta-schéma*, tous types confondus. Les fonctions d'IHM entrent ainsi dans le
   périmètre sécurité (ex. export massif à rythme anormal) — surveillance, non
-  suivi ergonomique. **Posture par défaut à trancher (Q29)** : opt-in strict
-  (comme D49, mais un oubli = angle mort) vs **filet de sécurité** (le moteur
-  surveille toujours deux signaux universels — taux de refus d'autorisation et
-  croissance exponentielle au log — les seuils déclarés ne faisant qu'affiner ;
-  recommandé car une alerte de sécurité, contrairement à une suggestion, ne peut
-  se taire).
+  suivi ergonomique.
+- **Posture par défaut — filet de sécurité (D51, résout Q29)** : **seuils
+  globaux par défaut** sur le modèle, **surchargés par élément**. Asymétrie
+  délibérée avec Q28/D49 : diversité → seuil absent = *aucun contrôle* ;
+  sécurité → seuil absent = *le défaut global s'applique* (on ne peut pas
+  oublier de surveiller). **Défaut global** : pente de régression sur **1
+  semaine > 1** pour un **volume > 1000 appels** (la pente ne déclenche que si
+  le volume est significatif → pas de bruit sur les petits endpoints). Unité :
+  +1 appel/jour de croissance, échelle linéaire. Variantes log / pic / étendue
+  du modèle (D47) : défauts posés plus tard ou laissés à la surcharge — le cadre
+  global + override les accueille identiquement.
 - **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
   des tentatives nominatives même là où la surveillance comportementale serait
   proscrite (information + proportionnalité ; client responsable, D16).
@@ -815,7 +821,7 @@ seule ou webhook sortant).
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
-| Q29 | **Calibration du modèle de risque** (D47) : valeurs des seuils (linéaire vs log, **gating par volume**, durée min., seuil de pic, **étendue/couverture**, R²), déclarées par élément (D50). **Reste surtout la posture par défaut** : opt-in strict vs filet de sécurité (recommandé). | Qualité des alertes de sécurité (faux positifs / silences). |
+| ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Résolu (D50, D51)** : seuils déclarés par élément (endpoint/entité/IHM), **filet de sécurité** = défaut global + surcharge ; défaut = pente 1 sem. > 1 pour volume > 1000 appels. Asymétrie voulue avec Q28. Reste du calage (log/pic/étendue) = réglage ultérieur. |
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
@@ -1031,3 +1037,9 @@ seule ou webhook sortant).
   strict vs filet de sécurité (moteur surveillant toujours refus d'autorisation
   + croissance exponentielle, seuils déclarés affinant) — filet recommandé car
   une alerte de sécurité ne peut se taire.
+- **2026-06-12 (suite 10)** — Clôture de Q29 (D51, filet de sécurité retenu) :
+  seuils globaux par défaut sur le modèle + surcharge par élément. Asymétrie
+  assumée avec Q28 — sécurité : seuil absent = défaut global s'applique (pas
+  d'angle mort silencieux). Défaut global : pente de régression sur 1 semaine
+  > 1 pour un volume > 1000 appels (pente croisée au volume). Variantes
+  log/pic/étendue calées plus tard via le même cadre global + override.

@@ -95,7 +95,9 @@ posée (voir §6).
 | D57 | **Exécution-once par défaut**, **pas de rollback** (effets irréversibles assumés : mail jamais rejoué), **pas d'auto-retry** — relance **manuelle** depuis la supervision. | Un échec transitoire attend une intervention humaine (acceptable TPE). Voir §8.4. |
 | D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). **Granularité (résout Q31) : par tâche + paramètres.** | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Voir §8.4. |
 | D59 | **Option `deterministe`** : si déterministe, un doublon (même tâche + paramètres) dans la **fenêtre de déterminisme** rend le **résultat mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown (D58) refuse. | Mémoïsation = résout l'idempotence (D57) sans effet de bord répété ; pendant serveur de D45. Déterminisme = assertion du technicien (fenêtre = borne de volatilité). Voir §8.4. |
-| D60 | **Réinitialisation du déterminisme** dans la supervision (D56) : l'administrateur **invalide le cache** d'une tâche (une entrée tâche+paramètres, ou toutes) — sans exécuter ; le **prochain appel** ré-exécute. | Soupape quand la réalité contredit l'assertion D59. Distinct de la relance (D57, exécute maintenant). Nouvel `ETag` → resync des caches clients (D45). Voir §8.4. |
+| D60 | **Réinitialisation du déterminisme** dans la supervision (D56) : l'administrateur **invalide le cache** d'une tâche — sans exécuter ; le **prochain appel** ré-exécute. **Granularité à trois niveaux** : tâche+paramètres, tâche entière, ou tout. | Soupape quand la réalité contredit l'assertion D59. Distinct de la relance (D57, exécute maintenant). Nouvel `ETag` → resync des caches clients (D45). Voir §8.4. |
+| D61 | **Contrôles globaux de la file** (frein d'urgence) : **tout annuler / tout mettre en pause / tout relancer**. | Même primitif que le drainage de migration (D24/D54), exposé à la demande. Caveat D57 : la pause arrête le démarrage, n'annule pas les effets en cours. Voir §8.4. |
+| D62 | **Audit des actions de supervision** : chaque action (surtout globale) est journalisée avec un **motif** (catégorie + note libre : blocage, anomalie, mise à jour…). | Journal d'audit nominatif (D41, finalité sécurité) : qui/quoi/quand/pourquoi. Catégorie → filtrage/alerte. Voir §8.4. |
 
 ---
 
@@ -894,9 +896,21 @@ a un **état** et un **statut de progression** (compteur/total + message). Le
 `resultat_lu_par`), disponible pour une **durée déterminée**.
 
 **Supervision (D56).** Une **interface d'administration** (solution intégrée sur
-le méta-schéma, D44) : **annuler / reporter / reprioriser** ; **réinitialiser le
-déterminisme** (D60) ; **journal** de toutes les exécutions (succès / échec /
-exception).
+le méta-schéma, D44), à **deux étages de contrôle** :
+
+- *Par tâche* : **annuler / reporter / reprioriser** ; **réinitialiser le
+  déterminisme** (D60).
+- *Globaux — frein d'urgence (D61)* : **tout annuler / tout mettre en pause /
+  tout relancer**. Même primitif que le **drainage de migration** (D24/D54),
+  exposé à la demande. Caveat D57 : la pause arrête le *démarrage* des tâches ;
+  les tâches en cours ne se défont pas (effets déjà produits irréversibles) ;
+  « tout annuler » vide l'attente et interrompt au mieux les tâches en cours.
+
+**Journal** de toutes les exécutions (succès / échec / exception). Et **audit
+des actions de supervision (D62)** : chaque action (surtout globale) est
+journalisée avec un **motif** (catégorie — blocage applicatif, anomalie, mise à
+jour… — + note libre). Relève du **journal d'audit nominatif** (D41, finalité
+sécurité §6.4) : qui / quoi / quand / pourquoi.
 
 **Exécution-once (D57).** Une exécution par défaut, **pas de rollback** (effets
 irréversibles assumés : un mail ne se rejoue pas), **jamais d'auto-retry** —
@@ -940,10 +954,10 @@ le risque de résultat périmé (jugement sur la volatilité des données).
 supervision (D56) : l'administrateur **invalide le cache** d'une tâche — *sans
 rien exécuter*. Le **prochain appel** ré-exécute (distinct de la relance D57 qui
 exécute *maintenant*). Sert quand la réalité contredit l'assertion (données
-changées dans la fenêtre). Granularité : **une entrée** (tâche + paramètres
-précis) ou **toutes les entrées** d'une tâche. Après réinitialisation, la
-ré-exécution produit un **nouvel `ETag`** → les caches clients (D45) se
-resynchronisent.
+changées dans la fenêtre). **Granularité à trois niveaux** : tâche + paramètres
+(cette entrée), tâche entière (toutes ses entrées), ou **tout** (vidage global).
+Après réinitialisation, la ré-exécution produit un **nouvel `ETag`** → les caches
+clients (D45) se resynchronisent.
 
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
@@ -1248,3 +1262,11 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   Soupape quand la réalité contredit l'assertion D59 ; distincte de la relance
   (D57, qui exécute maintenant) ; produit un nouvel `ETag` resynchronisant les
   caches clients (D45).
+- **2026-06-12 (suite 17)** — Supervision élargie. Réinitialisation du déterminisme
+  à **trois niveaux** (tâche+paramètres / tâche / tout) (D60). **Contrôles globaux
+  de la file** (D61) : tout annuler / mettre en pause / relancer — même primitif
+  que le drainage de migration (D24/D54), avec le caveat D57 (pause = arrêt du
+  démarrage, effets en cours non annulés). **Audit des actions de supervision**
+  (D62) : chaque action journalisée avec un motif (catégorie + note : blocage,
+  anomalie, mise à jour) → journal d'audit nominatif (D41, finalité sécurité).
+  Deux étages de contrôle : par tâche et global.

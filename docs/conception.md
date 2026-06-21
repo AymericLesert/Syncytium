@@ -113,6 +113,18 @@ posée (voir §6).
 | D75 | **Filtrage serveur + identifiants contextuels** : id **non devinables** côté client (anti-IDOR), **re-contrôle d'appartenance à chaque accès direct**, option **aliasing par contexte**. | Le serveur ne se fie jamais à la possession d'un id. Impose un filtrage au niveau ligne dans l'abstraction de persistance (D18). Voir §5.7. |
 | D76 | **Impersonation & délégation** : admin **« agir en tant que »** sur toutes les strates avec **audit double identité** (effectif + origine) + motif (D62) ; compte technique **« pour le compte de »** un nominatif/client (OAuth on-behalf-of) → API bornée au périmètre ligne et attribuable. | Tests/délégations ; renforce la sécurité sur données sensibles (vigilance RGPD). Voir §5.7. |
 | D77 | **Typologie de comptes (résout Q33)** : (1) **technique** (API), (2) **utilisateur** interne (groupes), (3) **client** issu d'une fiche client (provisionné par l'ADV), (4) **client auto-créé** (self-service, toujours vérifié par les ventes — dérivé de (3), **non prioritaire**). | Généralise D28. Le type 3 concrétise l'appartenance D71 (le `compte` = la fiche client). Étanchéité par canal ; le compte client suit le cycle de vie de sa fiche. Voir §5.6. |
+| D78 | **Connecteur d'identité = cadre générique** : identification simple, SSO, autorisations AD/Entra en sont des **déclinaisons** ; défaut **login/mot de passe** ; **ouvert au technicien** (connecteur propre). | Protocole = détail d'implémentation (tech-agnostique, cf. D18/D69) ; couvre authn + autorisation (groupes). Voir §5.5. |
+| D79 | **Connecteur de données = composant de translation** entre données externes et modèle du moteur (couche anti-corruption). | La **translation déclarative** est un **primitif transverse** (migrations §3.2, compat d'API §5.1, connecteurs) → réutilise le vocabulaire D4–D6 ; direction = sens de la translation. Renforce Q6. Voir §5.5. |
+| D80 | **Source d'identité unique** (pas de mode mixte) + **changement gardé** : validation préalable (auth de test réussie) avant bascule ; repli rapide ; échec → on reste sur l'ancienne. | Simplicité ; couvre le risque de verrouillage. Voir §5.6. |
+| D81 | **Secours « bris de glace »** (étend D33) : le compte de secours s'active aussi quand l'**authentification est indisponible** (santé du connecteur actif) ; indépendant de tout connecteur externe ; activation **auditée (D62) + alertée (D43)**. | Évite tout verrouillage total ; événement de sécurité fort. Voir §5.6. |
+| D82 | **Identité interne = UUID stable** (ancre : appartenance D71, audit, références) ; **clé d'unicité définie par le connecteur** (rapprochement externe → UUID), variable par connecteur/TPE (GUID Entra/AD + courriel ; courriel/login local). | Clé immuable en priorité (email mutable → repli) ; opération admin de re-liaison/fusion ; cohérent id opaques D75 ; clé d'unicité = propriété du contrat connecteur (D78). Résout le rapprochement des comptes. Voir §5.6. |
+| D83 | **Connecteur de données auto-descriptif** : il porte la **description de son propre modèle** (entités/champs) ; Syncytium **mappe** ses entités dessus (confidentialité D25). | Visualiser une structure externe (AD/CRM) par simple déclaration — méta-schéma appliqué aux connecteurs. Voir §5.5. |
+| D84 | **Entité persistée vs virtuelle** : persistée (stockage DB, défaut) ou **virtuelle** (sans stockage propre, sourcée de connecteur(s), en cache/mémoire) ; **multi-occurrences** (DB + connecteurs). | Migrations (D4–D6) et diversité (D46) ne valent que pour le persisté. Voir §5.5. |
+| D85 | **Écriture : DB synchrone, connecteurs asynchrones** via la **file de tâches** (D54–D58). | Découplage/résilience : ne bloque pas l'enregistrement. Résiduel : reprise = *cohérence à terme* (≠ at-most-once des tâches D57). Voir §5.5. |
+| D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
+| D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API). | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
+| D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
+| D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. **Exigence** : le connecteur **doit** remonter ses conflits via le canal d'anomalie (D87) — jamais silencieux. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). *Résolution = connecteur, visibilité = garantie par le cadre.* Voir §5.5. |
 
 ---
 
@@ -409,11 +421,67 @@ absorbe le changement) ; et sémantique des lots — tout-ou-rien ou **succès
 partiel avec rapport par élément** (préférable face à des consommateurs non
 maîtrisés, mais à rendre explicite dans le contrat).
 
-**Connecteurs (D23).** Le moteur définit une **interface de connecteur**
-(contrat de plugin) ; chaque système externe (AD, ERP, CRM…) a son
-implémentation. Le descriptif déclare les instances et leur correspondance avec
-les entités (« l'entité utilisateur se synchronise depuis l'AD »). À trancher
-(Q20) : direction (import/export/bidirectionnel), déclenchement (planifié, à la
+**Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
+**interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
+son implémentation, déclarée dans le descriptif avec sa correspondance aux
+entités. **Built-in (livrés) et connecteurs écrits par le technicien partagent la
+même interface (D52)** — Syncytium fournit le **cadre + l'interface**, le
+technicien implémente ses **propres connecteurs** (identité comme données) ; les
+built-in ne sont que des extensions de première partie.
+
+- **Connecteur d'identité (D78)** : un **cadre générique** de pilotage de
+  l'identité, dont l'identification simple, le SSO et les autorisations AD/Entra
+  sont des **déclinaisons**. Défaut livré : **login/mot de passe** (socle
+  universel, D29). Couvre authentification **et** autorisation (groupes, D30).
+  **Ouvert au technicien** (connecteur propre à la TPE, D52). Le protocole (OIDC,
+  Kerberos, LDAPS…) devient un **détail d'implémentation** — tech-agnosticité,
+  comme D18 (données) et D69 (rendu).
+- **Connecteur de données (D79)** : un composant de **translation** entre données
+  externes et modèle du moteur (couche anti-corruption). **Insight transverse** :
+  la *translation déclarative* est un primitif partagé par **trois** usages —
+  migrations (§3.2), compat d'API bidirectionnelle (§5.1) et connecteurs de
+  données — qui peuvent **réutiliser le même vocabulaire** de transformation
+  (renommage / éclatement regex / fusion gabarit, D4–D6). Mapper `full_name` →
+  `prenom`+`nom` *est* un éclatement. La **direction** (import/export/bidi) =
+  le sens de la translation. → renforce l'enjeu de **Q6** (syntaxe servant 3 usages).
+
+**Modèle des connecteurs de données (D83–D86).**
+
+- **Auto-description (D83)** : le connecteur **porte la description de son propre
+  modèle** (entités/champs). On **mappe** les entités Syncytium dessus, en
+  respectant la confidentialité (D25). Visualiser la structure externe (AD, CRM)
+  devient une **simple déclaration** — méta-schéma appliqué aux connecteurs.
+- **Entité persistée vs virtuelle (D84)** : une entité est **persistée** (stockage
+  DB, défaut) ou **virtuelle** (sans stockage propre, sourcée d'un/des
+  connecteur(s), en cache/mémoire). Une entité peut avoir **plusieurs occurrences**
+  (DB + connecteurs).
+- **Écriture — DB synchrone, connecteurs asynchrones (D85)** : la DB primaire est
+  écrite **en synchrone** (entité non virtuelle) ; les écritures vers les **autres
+  connecteurs sont différées via une file** (réutilise la file de tâches D54–D58)
+  — découplage, résilience, performance.
+- **Cache de lecture (D86)** : lectures **mises en cache un laps de temps
+  configurable** (limite les appels connecteur ; même esprit que la mémoïsation
+  D59).
+- **Déclenchement (Q20, résolu)** : lectures **à la demande + cache** ; écritures
+  **en file** (fil de l'eau).
+- **Reprise (résolu, D87)** : l'écriture connecteur **est une tâche** ; la reprise
+  se gère **dans la tâche** (opt-in, idempotence), pas par un auto-retry moteur.
+  Anomalie → trace technicien + notification au déclencheur (D87).
+- **Conflits bidirectionnels (résolu, D89)** : portés par **le connecteur**, pas
+  par le moteur (*le moteur fournit le cadre, l'extension porte la sémantique
+  métier* — cf. D79, D87). Le moteur expose l'état local + les métadonnées de
+  version ; la **logique** de résolution (dernier écrivain, source de vérité,
+  horodatage, fusion) appartient au connecteur. Caveat : la *résolution* s'arrête
+  à la frontière du connecteur. **Exigence (clause du contrat de connecteur)** : un
+  connecteur bidirectionnel **doit** remonter ses conflits via le canal d'anomalie
+  (D87) — **conflit jamais silencieux**. Le moteur **garantit l'observabilité**
+  (trace technicien + notification déclencheur) même s'il ne résout pas :
+  *résolution = connecteur, visibilité = garantie par le cadre*.
+- **Résiduel** : une **entité virtuelle** n'a pas de lignes : migrations (D4–D6) et
+  diversité (D46) ne valent que pour les entités **persistées** ; la virtuelle suit
+  son connecteur.
+
+À trancher (Q20), au niveau des modalités : déclenchement (planifié, à la
 demande, au fil de l'eau), gestion des conflits (modification simultanée locale
 et externe). Remarque : **Active Directory peut être à la fois source de données
 et fournisseur d'authentification** — piste pour Q4.
@@ -489,6 +557,29 @@ Conséquences consignées :
   l'interface** — inerte en régime normal, réactivé en situation de reprise.
   Sécurité : la description (fichier versionné) ne porte que l'**empreinte** du
   mot de passe, jamais le clair.
+- **Source d'identité unique + changement gardé (D80)** : **une seule source
+  d'authentification active** à la fois (pas de mode mixte). Changer de source est
+  une **opération gardée** (esprit dry-run §4.1) : **validation préalable
+  obligatoire** (une authentification de test réussie contre la nouvelle source —
+  typiquement l'admin opérant le changement — avant qu'elle devienne active) ;
+  **repli rapide** (la config d'auth vit dans l'administration, D32) ; si la
+  validation échoue → **on reste sur l'ancienne source**.
+- **Secours « bris de glace » (D81, étend D33)** : la condition d'activation du
+  compte de secours s'élargit à **« authentification indisponible »** (source
+  active en panne/mal configurée), détectée par un **contrôle de santé** du
+  connecteur actif. **Indépendant de tout connecteur externe** (validé localement,
+  D33) → aucune panne d'AD/SSO ne le verrouille. Son activation est un **événement
+  de sécurité fort** : **audité avec motif** (D62) et **alerté** (finalité
+  sécurité D43).
+- **Identité interne + clé d'unicité (D82)** : l'identité canonique est un **UUID
+  interne stable** — l'ancre de tout (appartenance D71, audit, références) ; ne
+  change jamais ; cohérent avec les id opaques de D75. La **clé d'unicité**
+  (rapprochement externe → UUID) est **définie par le connecteur** et varie par
+  connecteur/TPE : clé d'annuaire Entra/AD (+ courriel), courriel/login en local.
+  Nuance : **clé immuable en priorité** (objectGUID) ; email = mutable → secondaire
+  / repli ; prévoir une **opération admin de re-liaison / fusion** (email changé,
+  doublon). JIT (D30) : le connecteur extrait la clé du jeton, retrouve l'UUID.
+  Déclarer sa clé d'unicité fait partie du contrat du connecteur (D78).
 - **Suppression d'un groupe encore référencé (D34)** : note au technicien
   (notification ou journalisation) et groupe **ignoré**. Comportement fermé par
   défaut : un champ restreint au seul groupe supprimé devient invisible de tous
@@ -1098,12 +1189,30 @@ changées dans la fenêtre). **Granularité à trois niveaux** : tâche + param�
 Après réinitialisation, la ré-exécution produit un **nouvel `ETag`** → les caches
 clients (D45) se resynchronisent.
 
+**Traitement d'anomalie & notification (D87 ; résout Q21).** L'écriture
+connecteur (D85) **est une tâche**, donc **non transactionnelle** (D57) ; la
+**reprise se gère à l'intérieur de la tâche** (opt-in — pas d'auto-retry moteur ;
+respecter l'idempotence comme D57/D59). En cas d'anomalie :
+- **trace pour le technicien** (journal d'exécution, D41/D62) — diagnostic ;
+- **notification au(x) déclencheur(s)** pour relancer ou trouver une solution,
+  **via leur canal** : déclencheur interface → **in-app** ; déclencheur API →
+  **webhook/callback** sortant. (Réponse à Q21 : *les deux*, selon le canal.)
+- **Droit de relance selon la nature de la tâche (D88)** — distinct de la
+  notification (toujours au déclencheur). La tâche **déclare** sa politique :
+  - *tâche explicite* (lancée consciemment) → **déclencheur** autorisé, sous
+    conditions (état d'échec terminal ; idempotence/déterminisme rendant le rejeu
+    sûr) ;
+  - *tâche de propagation connecteur* (D85) → **admin seulement** (supervision
+    D56) ; relancer à l'aveugle = double-écriture / données périmées. La relance
+    admin = **re-propagation de l'état courant** (pas rejeu du payload périmé) ;
+    l'idempotence de la propagation (upsert, pas append) reste à la charge de la
+    tâche.
+
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
-lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention) ; la
-solution intégrée de supervision.
-
-Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
+lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention,
+**canal de notification**, **politique de relance**) ; la solution intégrée de
+supervision.
 
 ---
 
@@ -1213,8 +1322,8 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** : direction (import/export/bidirectionnel), déclenchement (planifié, à la demande, fil de l'eau), gestion des conflits ? Pour l'identité (D29–D32) : **mode mixte** AD + comptes locaux ? protocole SSO (OpenID Connect via Entra ID/ADFS vs Kerberos/LDAPS on-premise) ? **rapprochement des comptes existants** lors d'un changement de fournisseur d'authentification ? | Architecture de plugins ; SSO, association des groupes (interface, D31) et reparamétrage admin (D32) actés — restent les modalités techniques. |
-| Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
+| ~~Q20~~ | ~~Connecteurs ?~~ | **Résolu** : identité (D78, D80–D82) ; données (D83–D87) ; relance (D88) ; **conflits bidirectionnels portés par le connecteur** (D89). Cadre = moteur, sémantique métier = connecteur. |
+| ~~Q21~~ | ~~Tâches — notification de fin ?~~ | **Résolu (D87)** : catalogue (D37) + notification au **déclencheur via son canal** — in-app (interface) ou webhook/callback (API). Trace technicien en parallèle. |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
@@ -1539,3 +1648,61 @@ réévaluation.
   **concrétise l'appartenance D71** (le `compte` des chemins = la fiche client).
   Étanchéité généralisée par canal ; le compte client suit le cycle de vie de sa
   fiche.
+- **2026-06-12 (suite 23)** — Structuration des connecteurs (D78, D79 ; avance
+  Q20). **Identité (D78)** : cadre générique, déclinaisons (identification simple,
+  SSO, autorisations AD), défaut login/mot de passe, ouvert au technicien ;
+  protocole = détail d'implémentation (tech-agnostique). **Données (D79)** :
+  composant de **translation** externe↔interne (anti-corruption). Insight : la
+  **translation déclarative est un primitif transverse** (migrations, compat
+  d'API, connecteurs) → réutilise le vocabulaire D4–D6 ; renforce l'enjeu de Q6.
+  Restent les modalités (déclenchement, conflits, mode mixte) dans Q20.
+- **2026-06-12 (suite 24)** — Identité de Q20 résolue (D80, D81). **Source unique**
+  (pas de mode mixte) + **changement gardé** : validation préalable (auth de test
+  réussie) avant bascule, repli rapide, échec → on reste sur l'ancienne (D80).
+  **Secours bris-de-glace** (D81, étend D33) : le compte de secours s'active aussi
+  quand l'authentification est indisponible (santé du connecteur actif) ;
+  indépendant de tout connecteur externe ; activation auditée (D62) + alertée
+  (D43). Reste côté données : déclenchement, conflits ; petit résiduel identité :
+  rapprochement des comptes par email lors d'un changement de source.
+- **2026-06-12 (suite 25)** — Rapprochement des comptes résolu (D82). Identité
+  interne = **UUID stable** (ancre de l'appartenance D71, de l'audit, des
+  références ; cohérent avec les id opaques D75). **Clé d'unicité définie par le
+  connecteur** (variable par connecteur/TPE) : GUID Entra/AD + courriel, ou
+  courriel/login en local. Nuance : clé immuable en priorité (email mutable =
+  repli), opération admin de re-liaison/fusion prévue. Volet **identité de Q20
+  entièrement clos** ; restent les modalités des connecteurs de données.
+- **2026-06-12 (suite 26)** — Modèle des connecteurs de données (D83–D86, 3 cas :
+  AD lecture, CSV écriture, CRM bidirectionnel). **Auto-description** : le
+  connecteur porte son propre modèle, Syncytium mappe dessus (D83). **Entité
+  persistée vs virtuelle** + multi-occurrences DB+connecteurs (D84). **Écriture :
+  DB synchrone, connecteurs asynchrones via la file de tâches** (D85). **Cache de
+  lecture** configurable (D86, cf. D59). Déclenchement réglé (lecture à la
+  demande+cache, écriture en file). Résiduels : conflits bidirectionnels (CRM) et
+  reprise/cohérence à terme des écritures connecteur (≠ at-most-once D57). Les
+  entités virtuelles excluent migrations/diversité (persisté seulement).
+- **2026-06-12 (suite 27)** — Reprise et notification des tâches (D87 ; résout Q21
+  et le résiduel reprise de D85). L'écriture connecteur **est une tâche** non
+  transactionnelle (D57) ; la **reprise se gère dans la tâche** (opt-in,
+  idempotence), pas d'auto-retry moteur. Anomalie : **trace technicien** +
+  **notification au déclencheur via son canal** (in-app si interface, webhook si
+  API — réponse à Q21). Q20 : ne reste plus que les **conflits bidirectionnels**.
+- **2026-06-12 (suite 28)** — Droit de relance précisé (D88, ajuste D87). Distinct
+  de la notification (toujours au déclencheur). **Tâche explicite** → déclencheur
+  autorisé sous conditions (échec terminal, idempotence/déterminisme). **Tâche de
+  propagation connecteur** → **admin seulement** ; relancer à l'aveugle =
+  double-écriture / données périmées → la relance admin **re-propage l'état
+  courant** (pas le payload périmé), l'idempotence (upsert) restant à la charge de
+  la tâche. Politique de relance = propriété déclarée (méta-schéma).
+- **2026-06-12 (suite 29)** — Conflits bidirectionnels (D89, **clôt Q20**) : portés
+  par le **connecteur**, pas le moteur — *le moteur fournit le cadre, l'extension
+  porte la sémantique métier* (3e occurrence, cf. D79 translation, D87 reprise). Le
+  moteur expose l'état local + métadonnées ; la logique (dernier écrivain, source
+  de vérité, fusion) appartient au connecteur. Caveat : sûreté à la frontière du
+  connecteur ; recommandation : remonter les conflits via le canal d'anomalie (D87).
+  **Volet connecteurs entièrement clos.** Reste avant la synthèse Q16 : Q6 (syntaxe
+  des règles).
+- **2026-06-12 (suite 30)** — D89 renforcé : la remontée des conflits passe de
+  *recommandation* à **exigence** (clause du contrat de connecteur). Conflit
+  **jamais silencieux** ; le moteur **garantit l'observabilité** (trace +
+  notification) même s'il délègue la résolution. *Résolution = connecteur,
+  visibilité = garantie par le cadre.*

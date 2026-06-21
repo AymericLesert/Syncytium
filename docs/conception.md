@@ -424,7 +424,10 @@ maîtrisés, mais à rendre explicite dans le contrat).
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
 son implémentation, déclarée dans le descriptif avec sa correspondance aux
-entités.
+entités. **Built-in (livrés) et connecteurs écrits par le technicien partagent la
+même interface (D52)** — Syncytium fournit le **cadre + l'interface**, le
+technicien implémente ses **propres connecteurs** (identité comme données) ; les
+built-in ne sont que des extensions de première partie.
 
 - **Connecteur d'identité (D78)** : un **cadre générique** de pilotage de
   l'identité, dont l'identification simple, le SSO et les autorisations AD/Entra

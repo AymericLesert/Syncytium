@@ -87,6 +87,7 @@ posée (voir §6).
 | D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
 | D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Voir §6.4. |
 | D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente **normalisée** > 1 (= plus que doublé) sur la fenêtre, pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente (forme) croisée au volume (poids) = conditions orthogonales. Écart type écarté (simplicité). Fenêtre glissante à définir. Voir §6.4. |
+| D52 | **Mécanisme de hook uniforme interne/externe** : fonctions internes (livrées par Syncytium) et externes (modules du technicien) implémentent la **même interface commune** par mode et se branchent à l'identique. Syncytium fournit un **socle de hooks** enrichissable ; les built-in sont des **extensions de première partie**. | Sécurité uniforme (même frontière déclarée) ; built-in = implémentations de référence ; impose registre + namespacing et **versionnement des interfaces** (→ Q16). Régularité « mécanisme uniforme, distingué par la provenance » (cf. D28, D44) ; généralisable aux connecteurs/auth → modèle d'extension unique. Voir §8.0. |
 
 ---
 
@@ -765,12 +766,42 @@ d'exposition publique massive. Conséquences :
 
 ---
 
-## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37)
+## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37, D52)
 
 Le moteur est un **noyau déclaratif** entouré de points d'extension typés :
 **connecteurs** vers les systèmes externes (D23), **fournisseurs
 d'authentification** (D32), et **hooks** déclinés en trois modes (D37) couvrant
 les trois couches de la vision initiale.
+
+### 8.0 Principe : mécanisme uniforme interne/externe (D52)
+
+**Pas de mécanisme privilégié pour les fonctions « maison ».** Une fonction
+**interne** (livrée par Syncytium) et une fonction **externe** (module de
+développement du technicien) implémentent **la même interface commune** par mode
+et se branchent à l'identique. Les fonctions de base sont des **extensions de
+première partie** — Syncytium fournit un **socle de hooks** que le technicien
+enrichit au fil des besoins.
+
+- **Interface commune par mode** : calcul, tâche, comportement d'IHM exposent
+  chacun un **contrat formel stable** (formalisation de la « boîte noire à
+  contrat déclaré », §5.5/§8.2).
+- **Sécurité uniforme** : un built-in passe par la **même frontière déclarée**
+  qu'un externe (mêmes règles d'accès et de confidentialité). Aucun raccourci
+  caché.
+- **Les built-in = implémentations de référence** pour écrire un module externe.
+- **Registre et espace de noms** (à prévoir) : résolution transparente d'un nom
+  de hook vers interne ou externe ; namespacing (`syncytium.pdf` vs
+  `monmodule.pdf`) pour éviter les collisions et permettre le remplacement.
+- **Versionnement des interfaces** : un module externe déclare la **version
+  d'interface** implémentée ; le moteur vérifie la compatibilité (parc
+  hétérogène, §7.2) → **contributeur à Q16**.
+
+Régularité architecturale : *mécanisme uniforme, distingué par la seule
+provenance* — déjà vu pour les comptes (technique/nominatif, D28) et les
+solutions (intégrée/client, D44). Généralisable : connecteurs (D23),
+fournisseurs d'authentification (D32) et hooks relèvent d'un **modèle
+d'extension unique**, les briques de Syncytium étant de simples extensions de
+première partie.
 
 ### 8.1 Cycle de vie commun à tous les hooks
 
@@ -841,7 +872,7 @@ seule ou webhook sortant).
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
@@ -1074,3 +1105,14 @@ seule ou webhook sortant).
   Principe de travail adopté : à chaque sujet, relever explicitement ce qu'il
   ajoute au méta-schéma, pour que Q16 ne soit qu'une consolidation. (Révision de
   la recommandation précédente qui plaçait Q16 en tête.)
+- **2026-06-12 (suite 13)** — Ouverture de Q26 (contrat des hooks). Principe
+  fondateur (D52, nouveau §8.0) : **mécanisme uniforme** pour fonctions internes
+  (Syncytium) et externes (technicien), via des **interfaces communes** par mode ;
+  socle de hooks de base enrichissable ; built-in = extensions de première partie,
+  même frontière de sécurité, implémentations de référence. Impose registre +
+  namespacing et versionnement des interfaces (→ Q16). Troisième occurrence du
+  motif « mécanisme uniforme distingué par la provenance » (cf. D28, D44),
+  généralisable à connecteurs/auth = modèle d'extension unique. Restent à traiter
+  pour Q26 : contrats fins des modes tâche (droits déclenchement/résultat,
+  idempotence, rétention, durée) et interface (délégation aux tâches, API
+  navigateur).

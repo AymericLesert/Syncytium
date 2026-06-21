@@ -104,6 +104,7 @@ posée (voir §6).
 | D66 | **Injection comportementale** (filtres métier, affichage conditionnel, post-validation) aux points d'extension ; **dogfoodée** (built-in et technicien, même API). | **UX seulement, jamais la sécurité** (serveur D25 arbitre) ; effets délégués aux tâches (D54). Voir §8.3. |
 | D67 | **Surcharge des composants internes non supportée** : on remplace par interface (D65) ou on injecte (D66), jamais on ne patche les internes. | Compat ascendante (parc hétérogène §7.2 transposé à l'IHM). Voir §8.3. |
 | D68 | **Bibliothèque ouverte** : le technicien **enrichit** le registre de composants ; un composant ajouté (même interface, D65) est de première classe — mappable en **défaut de type** ou en surcharge de champ. | Registre namespacé (D52) ; composants partageables (AGPL) → écosystème. Dégradation : repli sur le built-in par défaut si un custom échoue. Voir §8.3. |
+| D69 | **Modèle de composant déclaratif** (à la Webix) : un composant est une fonction pure `config → description de rendu`, le **moteur réalise le HTML**. | **Résout le bac à sable de Q27** par construction (pas d'accès DOM ; CSP + Worker ; iframe en échappatoire). **Technologie de rendu = choix d'implémentation interchangeable** ; descriptions tech-agnostiques et pérennes. Parallèle à D18 : Syncytium tech-agnostique aux deux bouts (données + IHM). Prix : vocabulaire de rendu à rendre assez riche. Voir §8.3. |
 
 ---
 
@@ -880,9 +881,30 @@ filet (la cohérence de l'interface générée est préservée).
 champ→composant ; configuration + comportements injectés ; interface de composant
 versionnée ; composants enregistrés dans le registre.
 
-**Reste ouvert (Q27 résiduel)** : le **degré de bac à sable** du code navigateur
-(iframe sandbox / Web Worker / CSP) — défense en profondeur, la confidentialité
-étant déjà structurelle.
+**Modèle de composant déclaratif (D69) — résout le bac à sable de Q27.** Un
+composant est une **fonction pure `config → description de rendu`** ; le **moteur
+réalise le HTML** (modèle à la **Webix**, le plus proche du principe originel :
+la métadonnée pilote jusqu'au rendu). Conséquences :
+
+- **Ajout de composant trivial** (interne ou externe) : on décrit, le moteur rend.
+- **Technologie de rendu = choix d'implémentation, pas contrainte** : le renderer
+  (Webix / autre cadre / moteur maison) est **interchangeable** ; les composants
+  et descriptions ne le connaissent pas → descriptions **tech-agnostiques et
+  pérennes** (traversent un changement de techno comme les versions de moteur, §7.2).
+- **Parallèle avec D18** : même découplage que la persistance. Syncytium est
+  **tech-agnostique aux deux bouts** — données (D18) *et* interface (D69) ; le
+  méta-schéma est le cœur durable, les liaisons sont des satellites remplaçables.
+- **Le bac à sable par construction** : un composant qui ne produit qu'une
+  *description* ne touche pas le DOM (ni hameçonnage ni capture) ; en Worker + CSP,
+  ni exfiltration ni gel. **Iframe en échappatoire** pour les rares composants à
+  rendu brut (cartographie, graphes) hors du vocabulaire déclaratif.
+- **Prix à payer** : le **vocabulaire de description de rendu** doit être assez
+  riche pour les composants évolués (D64) — effort de conception ; l'iframe est
+  la soupape.
+
+Sandbox (synthèse) : **CSP** filet universel ; logique en **Worker** ; rendu par
+**contrat déclaratif** (D69) ; **iframe** en échappatoire. Provenance : built-in
+inline, tiers isolés.
 
 ### 8.4 Le hook de tâche (D53–D58 ; résout la moitié de Q21)
 
@@ -1016,7 +1038,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
 | Q5 | **Construire sur mesure ou s'appuyer sur un existant** (Directus, Strapi, …) ? | À trancher quand le besoin sera suffisamment cerné — la migration à chaud avec règles déclaratives **et la compatibilité d'API bidirectionnelle** sont les points les plus différenciants vs l'existant. |
 | Q6 | Syntaxe exacte des règles d'éclatement (regex) et des tables de correspondance de fusion de valeurs. | Voir §3.2. |
-| Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19). |
+| Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
@@ -1028,7 +1050,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)**. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
@@ -1039,7 +1061,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
 | ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
-| ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D68, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Résiduel : degré de bac à sable. |
+| ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D69, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Bac à sable résolu par le **modèle de composant déclaratif** (D69, à la Webix). |
 | ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
 | Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
 
@@ -1319,3 +1341,13 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   (D66). **Pas de patch des internes** (compat ascendante, D67) → remplacer ou
   injecter. Dégradation : repli sur le built-in par défaut. Résiduel Q27 : degré
   de bac à sable. Le volet **hooks (D37, D52, D53–D68) est clos**.
+- **2026-06-12 (suite 19)** — Modèle de composant déclaratif (D69, **clôt Q27**) :
+  un composant = fonction pure `config → description de rendu`, le moteur réalise
+  le HTML (modèle à la **Webix**, le plus proche du principe originel). Résout le
+  bac à sable par construction (pas d'accès DOM ; CSP + Worker ; iframe en
+  échappatoire). Surtout : **la technologie de rendu devient un choix
+  d'implémentation interchangeable**, les descriptions restant tech-agnostiques et
+  pérennes — **parallèle exact avec D18** (persistance) : Syncytium est
+  tech-agnostique aux deux bouts (données + IHM), le méta-schéma étant le cœur
+  durable. Prix : le vocabulaire de rendu doit être assez riche (iframe = soupape).
+  Critère ajouté à Q7 (renderer supportant `config → HTML`).

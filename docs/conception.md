@@ -113,6 +113,8 @@ posée (voir §6).
 | D75 | **Filtrage serveur + identifiants contextuels** : id **non devinables** côté client (anti-IDOR), **re-contrôle d'appartenance à chaque accès direct**, option **aliasing par contexte**. | Le serveur ne se fie jamais à la possession d'un id. Impose un filtrage au niveau ligne dans l'abstraction de persistance (D18). Voir §5.7. |
 | D76 | **Impersonation & délégation** : admin **« agir en tant que »** sur toutes les strates avec **audit double identité** (effectif + origine) + motif (D62) ; compte technique **« pour le compte de »** un nominatif/client (OAuth on-behalf-of) → API bornée au périmètre ligne et attribuable. | Tests/délégations ; renforce la sécurité sur données sensibles (vigilance RGPD). Voir §5.7. |
 | D77 | **Typologie de comptes (résout Q33)** : (1) **technique** (API), (2) **utilisateur** interne (groupes), (3) **client** issu d'une fiche client (provisionné par l'ADV), (4) **client auto-créé** (self-service, toujours vérifié par les ventes — dérivé de (3), **non prioritaire**). | Généralise D28. Le type 3 concrétise l'appartenance D71 (le `compte` = la fiche client). Étanchéité par canal ; le compte client suit le cycle de vie de sa fiche. Voir §5.6. |
+| D78 | **Connecteur d'identité = cadre générique** : identification simple, SSO, autorisations AD/Entra en sont des **déclinaisons** ; défaut **login/mot de passe** ; **ouvert au technicien** (connecteur propre). | Protocole = détail d'implémentation (tech-agnostique, cf. D18/D69) ; couvre authn + autorisation (groupes). Voir §5.5. |
+| D79 | **Connecteur de données = composant de translation** entre données externes et modèle du moteur (couche anti-corruption). | La **translation déclarative** est un **primitif transverse** (migrations §3.2, compat d'API §5.1, connecteurs) → réutilise le vocabulaire D4–D6 ; direction = sens de la translation. Renforce Q6. Voir §5.5. |
 
 ---
 
@@ -409,11 +411,28 @@ absorbe le changement) ; et sémantique des lots — tout-ou-rien ou **succès
 partiel avec rapport par élément** (préférable face à des consommateurs non
 maîtrisés, mais à rendre explicite dans le contrat).
 
-**Connecteurs (D23).** Le moteur définit une **interface de connecteur**
-(contrat de plugin) ; chaque système externe (AD, ERP, CRM…) a son
-implémentation. Le descriptif déclare les instances et leur correspondance avec
-les entités (« l'entité utilisateur se synchronise depuis l'AD »). À trancher
-(Q20) : direction (import/export/bidirectionnel), déclenchement (planifié, à la
+**Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
+**interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
+son implémentation, déclarée dans le descriptif avec sa correspondance aux
+entités.
+
+- **Connecteur d'identité (D78)** : un **cadre générique** de pilotage de
+  l'identité, dont l'identification simple, le SSO et les autorisations AD/Entra
+  sont des **déclinaisons**. Défaut livré : **login/mot de passe** (socle
+  universel, D29). Couvre authentification **et** autorisation (groupes, D30).
+  **Ouvert au technicien** (connecteur propre à la TPE, D52). Le protocole (OIDC,
+  Kerberos, LDAPS…) devient un **détail d'implémentation** — tech-agnosticité,
+  comme D18 (données) et D69 (rendu).
+- **Connecteur de données (D79)** : un composant de **translation** entre données
+  externes et modèle du moteur (couche anti-corruption). **Insight transverse** :
+  la *translation déclarative* est un primitif partagé par **trois** usages —
+  migrations (§3.2), compat d'API bidirectionnelle (§5.1) et connecteurs de
+  données — qui peuvent **réutiliser le même vocabulaire** de transformation
+  (renommage / éclatement regex / fusion gabarit, D4–D6). Mapper `full_name` →
+  `prenom`+`nom` *est* un éclatement. La **direction** (import/export/bidi) =
+  le sens de la translation. → renforce l'enjeu de **Q6** (syntaxe servant 3 usages).
+
+À trancher (Q20), au niveau des modalités : déclenchement (planifié, à la
 demande, au fil de l'eau), gestion des conflits (modification simultanée locale
 et externe). Remarque : **Active Directory peut être à la fois source de données
 et fournisseur d'authentification** — piste pour Q4.
@@ -1213,7 +1232,7 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** : direction (import/export/bidirectionnel), déclenchement (planifié, à la demande, fil de l'eau), gestion des conflits ? Pour l'identité (D29–D32) : **mode mixte** AD + comptes locaux ? protocole SSO (OpenID Connect via Entra ID/ADFS vs Kerberos/LDAPS on-premise) ? **rapprochement des comptes existants** lors d'un changement de fournisseur d'authentification ? | Architecture de plugins ; SSO, association des groupes (interface, D31) et reparamétrage admin (D32) actés — restent les modalités techniques. |
+| Q20 | **Connecteurs** — **structurés (D78 identité, D79 données)**. Restent les **modalités** : côté données → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits** (les deux côtés ont changé) ; côté identité → **mode mixte** (plusieurs sources d'identité actives simultanément ?) et **rapprochement des comptes** lors d'un changement de fournisseur. | Cadre posé (cadre générique d'identité, translation de données) ; protocole SSO devenu détail d'implémentation. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
@@ -1539,3 +1558,11 @@ réévaluation.
   **concrétise l'appartenance D71** (le `compte` des chemins = la fiche client).
   Étanchéité généralisée par canal ; le compte client suit le cycle de vie de sa
   fiche.
+- **2026-06-12 (suite 23)** — Structuration des connecteurs (D78, D79 ; avance
+  Q20). **Identité (D78)** : cadre générique, déclinaisons (identification simple,
+  SSO, autorisations AD), défaut login/mot de passe, ouvert au technicien ;
+  protocole = détail d'implémentation (tech-agnostique). **Données (D79)** :
+  composant de **translation** externe↔interne (anti-corruption). Insight : la
+  **translation déclarative est un primitif transverse** (migrations, compat
+  d'API, connecteurs) → réutilise le vocabulaire D4–D6 ; renforce l'enjeu de Q6.
+  Restent les modalités (déclenchement, conflits, mode mixte) dans Q20.

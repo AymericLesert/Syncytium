@@ -124,7 +124,7 @@ posée (voir §6).
 | D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
 | D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API). | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
 | D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
-| D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. Le moteur expose l'état local + métadonnées de version ; la logique de résolution appartient au connecteur. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). Caveat : sûreté à la frontière du connecteur. Recommandation : remonter les conflits via le canal d'anomalie (D87). Voir §5.5. |
+| D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. **Exigence** : le connecteur **doit** remonter ses conflits via le canal d'anomalie (D87) — jamais silencieux. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). *Résolution = connecteur, visibilité = garantie par le cadre.* Voir §5.5. |
 
 ---
 
@@ -468,9 +468,12 @@ entités.
   par le moteur (*le moteur fournit le cadre, l'extension porte la sémantique
   métier* — cf. D79, D87). Le moteur expose l'état local + les métadonnées de
   version ; la **logique** de résolution (dernier écrivain, source de vérité,
-  horodatage, fusion) appartient au connecteur. Caveat : la sûreté s'arrête à la
-  frontière du connecteur. Recommandation : faire **remonter les conflits** via le
-  canal d'anomalie (D87) pour qu'ils ne soient pas silencieux.
+  horodatage, fusion) appartient au connecteur. Caveat : la *résolution* s'arrête
+  à la frontière du connecteur. **Exigence (clause du contrat de connecteur)** : un
+  connecteur bidirectionnel **doit** remonter ses conflits via le canal d'anomalie
+  (D87) — **conflit jamais silencieux**. Le moteur **garantit l'observabilité**
+  (trace technicien + notification déclencheur) même s'il ne résout pas :
+  *résolution = connecteur, visibilité = garantie par le cadre*.
 - **Résiduel** : une **entité virtuelle** n'a pas de lignes : migrations (D4–D6) et
   diversité (D46) ne valent que pour les entités **persistées** ; la virtuelle suit
   son connecteur.
@@ -1695,3 +1698,8 @@ réévaluation.
   connecteur ; recommandation : remonter les conflits via le canal d'anomalie (D87).
   **Volet connecteurs entièrement clos.** Reste avant la synthèse Q16 : Q6 (syntaxe
   des règles).
+- **2026-06-12 (suite 30)** — D89 renforcé : la remontée des conflits passe de
+  *recommandation* à **exigence** (clause du contrat de connecteur). Conflit
+  **jamais silencieux** ; le moteur **garantit l'observabilité** (trace +
+  notification) même s'il délègue la résolution. *Résolution = connecteur,
+  visibilité = garantie par le cadre.*

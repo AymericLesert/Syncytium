@@ -122,7 +122,8 @@ posée (voir §6).
 | D84 | **Entité persistée vs virtuelle** : persistée (stockage DB, défaut) ou **virtuelle** (sans stockage propre, sourcée de connecteur(s), en cache/mémoire) ; **multi-occurrences** (DB + connecteurs). | Migrations (D4–D6) et diversité (D46) ne valent que pour le persisté. Voir §5.5. |
 | D85 | **Écriture : DB synchrone, connecteurs asynchrones** via la **file de tâches** (D54–D58). | Découplage/résilience : ne bloque pas l'enregistrement. Résiduel : reprise = *cohérence à terme* (≠ at-most-once des tâches D57). Voir §5.5. |
 | D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
-| D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API) ; le déclencheur peut relancer. | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
+| D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API). | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
+| D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
 
 ---
 
@@ -1183,12 +1184,22 @@ respecter l'idempotence comme D57/D59). En cas d'anomalie :
 - **notification au(x) déclencheur(s)** pour relancer ou trouver une solution,
   **via leur canal** : déclencheur interface → **in-app** ; déclencheur API →
   **webhook/callback** sortant. (Réponse à Q21 : *les deux*, selon le canal.)
-- le **déclencheur peut relancer sa propre tâche** (pas seulement l'admin, D57).
+- **Droit de relance selon la nature de la tâche (D88)** — distinct de la
+  notification (toujours au déclencheur). La tâche **déclare** sa politique :
+  - *tâche explicite* (lancée consciemment) → **déclencheur** autorisé, sous
+    conditions (état d'échec terminal ; idempotence/déterminisme rendant le rejeu
+    sûr) ;
+  - *tâche de propagation connecteur* (D85) → **admin seulement** (supervision
+    D56) ; relancer à l'aveugle = double-écriture / données périmées. La relance
+    admin = **re-propagation de l'état courant** (pas rejeu du payload périmé) ;
+    l'idempotence de la propagation (upsert, pas append) reste à la charge de la
+    tâche.
 
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
 lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention,
-**canal de notification**) ; la solution intégrée de supervision.
+**canal de notification**, **politique de relance**) ; la solution intégrée de
+supervision.
 
 ---
 
@@ -1661,5 +1672,11 @@ réévaluation.
   transactionnelle (D57) ; la **reprise se gère dans la tâche** (opt-in,
   idempotence), pas d'auto-retry moteur. Anomalie : **trace technicien** +
   **notification au déclencheur via son canal** (in-app si interface, webhook si
-  API — réponse à Q21) ; le déclencheur peut relancer sa propre tâche. Q20 : ne
-  reste plus que les **conflits bidirectionnels**.
+  API — réponse à Q21). Q20 : ne reste plus que les **conflits bidirectionnels**.
+- **2026-06-12 (suite 28)** — Droit de relance précisé (D88, ajuste D87). Distinct
+  de la notification (toujours au déclencheur). **Tâche explicite** → déclencheur
+  autorisé sous conditions (échec terminal, idempotence/déterminisme). **Tâche de
+  propagation connecteur** → **admin seulement** ; relancer à l'aveugle =
+  double-écriture / données périmées → la relance admin **re-propage l'état
+  courant** (pas le payload périmé), l'idempotence (upsert) restant à la charge de
+  la tâche. Politique de relance = propriété déclarée (méta-schéma).

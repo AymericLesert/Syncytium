@@ -115,6 +115,8 @@ posée (voir §6).
 | D77 | **Typologie de comptes (résout Q33)** : (1) **technique** (API), (2) **utilisateur** interne (groupes), (3) **client** issu d'une fiche client (provisionné par l'ADV), (4) **client auto-créé** (self-service, toujours vérifié par les ventes — dérivé de (3), **non prioritaire**). | Généralise D28. Le type 3 concrétise l'appartenance D71 (le `compte` = la fiche client). Étanchéité par canal ; le compte client suit le cycle de vie de sa fiche. Voir §5.6. |
 | D78 | **Connecteur d'identité = cadre générique** : identification simple, SSO, autorisations AD/Entra en sont des **déclinaisons** ; défaut **login/mot de passe** ; **ouvert au technicien** (connecteur propre). | Protocole = détail d'implémentation (tech-agnostique, cf. D18/D69) ; couvre authn + autorisation (groupes). Voir §5.5. |
 | D79 | **Connecteur de données = composant de translation** entre données externes et modèle du moteur (couche anti-corruption). | La **translation déclarative** est un **primitif transverse** (migrations §3.2, compat d'API §5.1, connecteurs) → réutilise le vocabulaire D4–D6 ; direction = sens de la translation. Renforce Q6. Voir §5.5. |
+| D80 | **Source d'identité unique** (pas de mode mixte) + **changement gardé** : validation préalable (auth de test réussie) avant bascule ; repli rapide ; échec → on reste sur l'ancienne. | Simplicité ; couvre le risque de verrouillage. Voir §5.6. |
+| D81 | **Secours « bris de glace »** (étend D33) : le compte de secours s'active aussi quand l'**authentification est indisponible** (santé du connecteur actif) ; indépendant de tout connecteur externe ; activation **auditée (D62) + alertée (D43)**. | Évite tout verrouillage total ; événement de sécurité fort. Voir §5.6. |
 
 ---
 
@@ -508,6 +510,20 @@ Conséquences consignées :
   l'interface** — inerte en régime normal, réactivé en situation de reprise.
   Sécurité : la description (fichier versionné) ne porte que l'**empreinte** du
   mot de passe, jamais le clair.
+- **Source d'identité unique + changement gardé (D80)** : **une seule source
+  d'authentification active** à la fois (pas de mode mixte). Changer de source est
+  une **opération gardée** (esprit dry-run §4.1) : **validation préalable
+  obligatoire** (une authentification de test réussie contre la nouvelle source —
+  typiquement l'admin opérant le changement — avant qu'elle devienne active) ;
+  **repli rapide** (la config d'auth vit dans l'administration, D32) ; si la
+  validation échoue → **on reste sur l'ancienne source**.
+- **Secours « bris de glace » (D81, étend D33)** : la condition d'activation du
+  compte de secours s'élargit à **« authentification indisponible »** (source
+  active en panne/mal configurée), détectée par un **contrôle de santé** du
+  connecteur actif. **Indépendant de tout connecteur externe** (validé localement,
+  D33) → aucune panne d'AD/SSO ne le verrouille. Son activation est un **événement
+  de sécurité fort** : **audité avec motif** (D62) et **alerté** (finalité
+  sécurité D43).
 - **Suppression d'un groupe encore référencé (D34)** : note au technicien
   (notification ou journalisation) et groupe **ignoré**. Comportement fermé par
   défaut : un champ restreint au seul groupe supprimé devient invisible de tous
@@ -1232,7 +1248,7 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** — **structurés (D78 identité, D79 données)**. Restent les **modalités** : côté données → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits** (les deux côtés ont changé) ; côté identité → **mode mixte** (plusieurs sources d'identité actives simultanément ?) et **rapprochement des comptes** lors d'un changement de fournisseur. | Cadre posé (cadre générique d'identité, translation de données) ; protocole SSO devenu détail d'implémentation. |
+| Q20 | **Connecteurs** — identité **résolue** (D78, D80, D81 : source unique, changement gardé, bris de glace). Reste : côté **données** → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits** ; petit résiduel identité → **rapprochement des comptes** (par email) lors d'un changement de source. | Cadre posé ; protocole SSO = détail d'implémentation. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
@@ -1566,3 +1582,11 @@ réévaluation.
   **translation déclarative est un primitif transverse** (migrations, compat
   d'API, connecteurs) → réutilise le vocabulaire D4–D6 ; renforce l'enjeu de Q6.
   Restent les modalités (déclenchement, conflits, mode mixte) dans Q20.
+- **2026-06-12 (suite 24)** — Identité de Q20 résolue (D80, D81). **Source unique**
+  (pas de mode mixte) + **changement gardé** : validation préalable (auth de test
+  réussie) avant bascule, repli rapide, échec → on reste sur l'ancienne (D80).
+  **Secours bris-de-glace** (D81, étend D33) : le compte de secours s'active aussi
+  quand l'authentification est indisponible (santé du connecteur actif) ;
+  indépendant de tout connecteur externe ; activation auditée (D62) + alertée
+  (D43). Reste côté données : déclenchement, conflits ; petit résiduel identité :
+  rapprochement des comptes par email lors d'un changement de source.

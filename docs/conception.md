@@ -7,7 +7,7 @@
 > Dépôt : <https://github.com/AymericLesert/Syncytium> — ce fichier
 > (`docs/conception.md`) est la **version canonique** du document.
 
-Dernière mise à jour : 2026-06-11
+Dernière mise à jour : 2026-06-12
 
 ---
 
@@ -73,6 +73,38 @@ posée (voir §6).
 | D35 | Champs calculés : **paliers 1 et 2 actés** — calcul sur l'enregistrement (gabarits + arithmétique simple) et traversée de référence (`{client.nom_complet}`). | Résout Q18 (socle) — simples à décrire, peu coûteux, utiles à l'interface générée. Validation : références cassées et cycles. |
 | D36 | Palier 3 (agrégats) en **deux temps** : (1) **expressivité minimale** pour commencer — `somme`, `compte`, `min`, `max`, `moyenne` sur une relation, à la volée ; (2) **hook de code personnalisé** pour tout le reste. | Résout Q18 (agrégats). Le vocabulaire reste minimal *parce que* la soupape du hook existe ; la matérialisation des agrégats est une optimisation ultérieure guidée par la télémétrie. Le hook = 3e point d'extension du moteur (voir §5.5). |
 | D37 | Le hook se matérialise par une **extension de type plugin, déployée en même temps que la description**, déclinée en **trois modes** : **calcul d'un champ**, **tâche**, **comportement de l'interface graphique**. | Système d'extension générique couvrant les trois couches de la vision (modèle, traitements, interface) — cycle de vie commun, règles propres à chaque mode (voir §8). Résout la moitié de Q21 (catalogue de tâches : déclaration dans la description, implémentation en plugin). |
+| D38 | Télémétrie **par champ** : évaluée **à la volée** (aucun stockage), via un tableau de bord dédié. Indicateur clé : la **diversité des valeurs**, pondérée par la date de création du champ et la fréquence de mise à jour de l'entité. | Un champ sans diversité ne porte probablement pas de sémantique → candidat au retrait. Date de création dérivée du journal de migrations (§3.2) ; fréquence = compteur d'entité (D39). Voir §6.1. |
+| D39 | Télémétrie **par entité** : **stockée**. Compteurs d'usage lecture/écriture + historique d'évolution du schéma. | Au service de l'enrichissement du schéma ; l'historique de schéma réutilise le journal de migrations (pas de duplication). Voir §6.1. |
+| D40 | Télémétrie **API & fonctions** : **double usage** — suivre l'usage réel (compteurs) **et identifier les acteurs**. | Acteurs = comptes techniques (D28), donc gestion d'intégrations et non surveillance de salariés ; alimente la dépréciation (§5.4) et l'épinglage (Q9). Voir §6.1. |
+| D41 | Deux **supports** de télémétrie : (a) **données en base** (objet `télémétrie` dédié ou attaché à une entité) ; (b) **traces de journal** à conservation **paramétrable**, archivage à durée de vie max, **option d'anonymisation**. | Sépare les compteurs/indicateurs durables des traces datées ; la rétention et l'anonymisation outillent la conformité côté client (D16). Voir §6.2/§6.4. |
+| D42 | **Dimension temporelle** des compteurs (D39, D40) : seaux **journaliers** sur périodes glissantes, **agrégés** en semaine/mois/année avec l'âge (selon la profondeur de stockage). | Le *downsampling* sert aussi la rétention (D41 = granularité décroissante avec l'âge). Compteurs additifs → agrégation par somme ; la diversité (D38) reste à la volée car non additive. Alimente la détection de tendance dans le dry-run (§6.3). Voir §6.2. |
+| D43 | **Cinquième canal — analyse de sécurité** (3e finalité) : alerter le client et/ou le technicien d'un **usage/accès non autorisé ou anormal** (pics de fréquence, tentatives d'accès refusées). | Vue dérivée du substrat (journal D41 + compteurs D42) ; impose de **journaliser les refus d'autorisation** ; D42 fournit la ligne de base des anomalies. Voir §6.4. |
+| D44 | Les canaux de restitution forment une **solution intégrée** possédée par le moteur, bâtie sur le **méta-schéma** (Syncytium se décrit lui-même). | Résout Q13 (5 canaux, §6.5). Collecte = couche moteur (doit survivre à une description cassée) ; restitution = générée par la même machinerie (hérite groupes + API). Généralise D33 ; le méta-schéma **est** l'objet de Q16. |
+| D45 | **Volet conseil de la synthèse périodique** : analyser les schémas d'appels d'API (D40) pour recommander des optimisations au consommateur (cache de requêtes déterministes, lecture par lot vs N+1) et faire **émerger de nouveaux besoins** (endpoint composite, agrégat, champ calculé). Consultatif, jamais coercitif. | Miroir côté API de D38 : la télémétrie pilote l'évolution sur les **deux faces** du moteur — interne (description) et externe (API). Le moteur peut fournir le mécanisme (`ETag`) en plus du conseil. RGPD léger (comptes techniques). Voir §6.5. |
+| D46 | **Diversité représentative** (D38) : `valeurs distinctes non nulles / nombre de lignes de l'entité` (ratio de cardinalité). Ratio ≈ 0 → champ constant → candidat au **retrait**. | Lisible, peu coûteux. Voir §6.1. |
+| D47 | **Modèle de risque d'anomalie de sécurité** (D43), multi-composantes : pente de régression (linéaire **et** log) au global **et** par endpoint ; croisée au **volume** ; **détecteur de pics** jugé par l'**étendue d'accès** (crawl) ; pente des refus = énumération. | Linéaire = croissance parfois légitime ; log = exponentiel dangereux. L'indicateur d'**étendue** est partagé avec D45 (crawl ≡ N+1, séparés par l'autorisation). Calibration → Q29. Voir §6.4. |
+| D48 | **Diversité scalaire** (D38) : `valeurs distinctes / valeurs théoriquement possibles` (taille du domaine). Ratio faible → domaine surdimensionné → **resserrer le domaine/type** (≠ retirer). | Domaine borné requis (énum, booléen, numérique borné, chaîne formatée) ; indéfini pour types non bornés. Dérivé du type/contraintes déclarés. Voir §6.1. |
+| D49 | **Seuils de télémétrie par champ, déclarés dans le schéma**. **Pas de défaut** : seuil absent = aucun contrôle (silence par défaut, signalement opt-in). | Résout Q28 — supprime les faux positifs par la connaissance métier déclarative ; ajoute un attribut au **méta-schéma** (D44). Le tableau de bord affiche toujours à la demande ; seul le flag automatique requiert un seuil. Voir §6.1. |
+| D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Voir §6.4. |
+| D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente **normalisée** > 1 (= plus que doublé) sur la fenêtre, pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente (forme) croisée au volume (poids) = conditions orthogonales. Écart type écarté (simplicité). Fenêtre glissante à définir. Voir §6.4. |
+| D52 | **Mécanisme de hook uniforme interne/externe** : fonctions internes (livrées par Syncytium) et externes (modules du technicien) implémentent la **même interface commune** par mode et se branchent à l'identique. Syncytium fournit un **socle de hooks** enrichissable ; les built-in sont des **extensions de première partie**. | Sécurité uniforme (même frontière déclarée) ; built-in = implémentations de référence ; impose registre + namespacing et **versionnement des interfaces** (→ Q16). Régularité « mécanisme uniforme, distingué par la provenance » (cf. D28, D44) ; généralisable aux connecteurs/auth → modèle d'extension unique. Voir §8.0. |
+| D53 | **Droits de tâche** : `declenche_par` ⊆ `resultat_lu_par` par construction ; `resultat_lu_par` ne déclare que les lecteurs **additionnels** (groupes statiques **ou principals contextuels** comme `employe_concerne`). La tâche s'exécute avec sa **propre portée `lecture:`** (élévation contrôlée, type SUID). | Qui déclenche peut lire (sinon absurde). Principal contextuel = **sécurité au niveau ligne** → généraliser (Q32). Voir §8.4. |
+| D54 | **Cinq déclencheurs de tâche** : interface, API, planifié, **événement de données**, **enchaînement**. Tâche synchrone ou asynchrone, **toujours non bloquante avec progression** (le synchrone = posture d'IHM, pas un chemin séparé). | Toutes les tâches passent par la file ; progression par SSE/WebSocket. Voir §8.4. |
+| D55 | **File d'attente** bornant la concurrence ; chaque tâche a un **état** + **progression** (compteur/total + message) ; **résultat enregistré** (trace + restitution sur demande dans la limite de `resultat_lu_par`), disponible une **durée déterminée**. | Affine D24. Voir §8.4. |
+| D56 | **Interface de supervision des tâches** (solution intégrée, D44) pour l'administrateur : **annuler / reporter / reprioriser** ; **journal** des exécutions (succès / échec / exception). | Syncytium s'administre avec ses propres mécanismes (cf. restitution télémétrie). Voir §8.4. |
+| D57 | **Exécution-once par défaut**, **pas de rollback** (effets irréversibles assumés : mail jamais rejoué), **pas d'auto-retry** — relance **manuelle** depuis la supervision. | Un échec transitoire attend une intervention humaine (acceptable TPE). Voir §8.4. |
+| D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). **Granularité (résout Q31) : par tâche + paramètres.** | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Voir §8.4. |
+| D59 | **Option `deterministe`** : si déterministe, un doublon (même tâche + paramètres) dans la **fenêtre de déterminisme** rend le **résultat mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown (D58) refuse. | Mémoïsation = résout l'idempotence (D57) sans effet de bord répété ; pendant serveur de D45. Déterminisme = assertion du technicien (fenêtre = borne de volatilité). Voir §8.4. |
+| D60 | **Réinitialisation du déterminisme** dans la supervision (D56) : l'administrateur **invalide le cache** d'une tâche — sans exécuter ; le **prochain appel** ré-exécute. **Granularité à trois niveaux** : tâche+paramètres, tâche entière, ou tout. | Soupape quand la réalité contredit l'assertion D59. Distinct de la relance (D57, exécute maintenant). Nouvel `ETag` → resync des caches clients (D45). Voir §8.4. |
+| D61 | **Contrôles globaux de la file** (frein d'urgence) : **tout annuler / tout mettre en pause / tout relancer**. | Même primitif que le drainage de migration (D24/D54), exposé à la demande. Caveat D57 : la pause arrête le démarrage, n'annule pas les effets en cours. Voir §8.4. |
+| D62 | **Audit des actions de supervision** : chaque action (surtout globale) est journalisée avec un **motif** (catégorie + note libre : blocage, anomalie, mise à jour…). | Journal d'audit nominatif (D41, finalité sécurité) : qui/quoi/quand/pourquoi. Catégorie → filtrage/alerte. Voir §8.4. |
+| D63 | **Couche thème** : couleurs, polices, styles personnalisables par le technicien, par-dessus le rendu par défaut. | Couche de marque, sans logique, faible risque. Voir §8.3. |
+| D64 | **Bibliothèque de composants par défaut**, riche et curée, pilotée par `type → composant` (table, liste déroulante sur énuméré et référence, vignettes, graphiques, dates, dashboard, planning…). | Écrans sensés sans code → construction rapide (promesse fondatrice). Voir §8.3. |
+| D65 | **Surcharge `champ → composant`** ; built-in et custom partagent la **même interface de composant** (rendu + usage : types acceptés, config, points d'extension). | D52 appliqué à l'IHM. Voir §8.3. |
+| D66 | **Injection comportementale** (filtres métier, affichage conditionnel, post-validation) aux points d'extension ; **dogfoodée** (built-in et technicien, même API). | **UX seulement, jamais la sécurité** (serveur D25 arbitre) ; effets délégués aux tâches (D54). Voir §8.3. |
+| D67 | **Surcharge des composants internes non supportée** : on remplace par interface (D65) ou on injecte (D66), jamais on ne patche les internes. | Compat ascendante (parc hétérogène §7.2 transposé à l'IHM). Voir §8.3. |
+| D68 | **Bibliothèque ouverte** : le technicien **enrichit** le registre de composants ; un composant ajouté (même interface, D65) est de première classe — mappable en **défaut de type** ou en surcharge de champ. | Registre namespacé (D52) ; composants partageables (AGPL) → écosystème. Dégradation : repli sur le built-in par défaut si un custom échoue. Voir §8.3. |
+| D69 | **Modèle de composant déclaratif** (à la Webix) : un composant est une fonction pure `config → description de rendu`, le **moteur réalise le HTML**. | **Résout le bac à sable de Q27** par construction (pas d'accès DOM ; CSP + Worker ; iframe en échappatoire). **Technologie de rendu = choix d'implémentation interchangeable** ; descriptions tech-agnostiques et pérennes. Parallèle à D18 : Syncytium tech-agnostique aux deux bouts (données + IHM). Prix : vocabulaire de rendu à rendre assez riche. Voir §8.3. |
 
 ---
 
@@ -446,23 +478,242 @@ traduction absorbe les versions intermédiaires sans les exposer.
 
 ---
 
-## 6. Télémétrie (D14)
+## 6. Télémétrie (D14, D38–D44)
 
-Trois étages, servant des décisions différentes :
+**Principe de cadrage (D14, affiné le 2026-06-12)** : la télémétrie ne **redouble
+pas les journaux** ; tout indicateur doit servir l'une des **trois finalités**
+retenues — (1) **suivre les usages réels**, (2) **évaluer le risque d'une
+migration**, (3) **détecter les usages/accès non autorisés ou anormaux** (D43).
+Modèle clé : **un seul substrat de collecte** (compteurs D39/D40/D42 + journal
+D41), **plusieurs couches d'analyse** — les finalités 2 et 3 sont des **vues
+dérivées** de ce substrat (§6.3, §6.5), non des collectes distinctes.
 
-| Étage | Ce qu'on observe | Ce que ça pilote |
-|---|---|---|
-| **API** | Qui appelle quoi, en quelle version, à quelle fréquence ; écritures sur champs disparus | Retrait des versions dépréciées en connaissance de cause (§5.4) ; détection des clients non migrés |
-| **Objets** | Entités et champs réellement renseignés, consultés, filtrés | **Évolution du descriptif** : un champ jamais rempli depuis 6 mois, une entité jamais consultée = candidats à la simplification, détectés par les faits |
-| **Actions utilisateurs** | Parcours d'écrans, fonctions utilisées ou ignorées | Ergonomie de l'interface générée |
+### 6.1 Trois grains de mesure (D38–D40)
 
-L'étage « objets » boucle la boucle de l'architecture : **le descriptif pilote
-l'application, la télémétrie pilote l'évolution du descriptif**. L'outil pourrait
-produire ce rapport de lui-même (« 4 champs sans aucune saisie depuis 90 jours »).
+| Grain | Mode | Ce qu'on mesure | Au service de |
+|---|---|---|---|
+| **Champ** (D38) | **À la volée** (aucun stockage) — tableau de bord dédié | **Diversité des valeurs** : un champ sans diversité ne porte probablement pas de sémantique → candidat au retrait | Simplification du schéma |
+| **Entité** (D39) | **Stocké** | Compteurs d'usage **lecture/écriture** ; **historique d'évolution du schéma** | Enrichissement du schéma |
+| **API & fonctions** (D40) | **Stocké / journalisé** | **Double usage** : usage réel (compteurs) **et identification des acteurs** (quel compte technique appelle quoi) | Dépréciation (§5.4), épinglage (Q9), gestion des intégrations |
 
-**Point de vigilance — RGPD** : tracer les actions des utilisateurs, c'est manipuler
-des données personnelles. Selon le contexte de déploiement (Q4), trancher entre
-télémétrie nominative (utile au support), pseudonymisée ou agrégée.
+**Deux indicateurs de diversité, orthogonaux (D38) :**
+
+| Indicateur | Formule | Question posée | Suggestion d'évolution |
+|---|---|---|---|
+| **Représentative** (D46) | distinctes non nulles / **nombre de lignes** | Les données varient-elles dans la table ? | Ratio ≈ 0 → **retirer le champ** |
+| **Scalaire** (D48) | distinctes / **valeurs théoriquement possibles** | Quelle part du domaine déclaré est exploitée ? | Ratio faible → **resserrer le domaine/type** |
+
+Exemple montrant l'indépendance — statut `{actif, inactif, suspendu}`,
+10 000 lignes toutes `actif` : représentative = 1/10 000 ≈ 0 (constant) ;
+scalaire = 1/3 (un seul état utilisé). Deux diagnostics distincts.
+
+**Domaine théorique (D48)** — calculable seulement s'il est borné :
+énumération → nb de valeurs déclarées ; booléen → 2 ; numérique borné →
+étendue ; chaîne **formatée** → domaine du pattern (ex. `AA-999`) ; types non
+bornés (texte libre) → **indéfini** (seule la représentative s'applique). Se
+dérive du **type et des contraintes déclarés** : les formats servent deux fois
+(validation **et** indicateur).
+
+**Seuils par champ, déclarés dans le schéma (D49 → résout Q28).** Plutôt qu'un
+seuil global, chaque champ porte son **seuil de télémétrie** dans la description :
+la connaissance métier du technicien (un booléen `actif` est censé avoir une
+représentative basse) supprime le faux positif à la source. Le **méta-schéma
+gagne un attribut de seuil par champ**. **Pas de défaut** : *seuil absent =
+aucun contrôle* — silence par défaut, signalement strictement opt-in, zéro faux
+positif par construction. Le tableau de bord (D38, à la volée) peut toujours
+**afficher** la diversité à la demande ; c'est le **flag automatique** qui
+requiert un seuil déclaré, pas la consultation.
+
+**Pondération temporelle** : un champ **récent** figé sur sa valeur par défaut
+est normal ; sur une entité **rarement modifiée**, attendre plus longtemps
+(ancienneté rapportée à l'intervalle moyen de mise à jour). Sur très peu de
+lignes, le ratio est bruité → la maturité l'atténue.
+- **Sans nouveau mécanisme** : la *date de création du champ* se dérive du
+  **journal de migrations** (§3.2, qui est déjà l'historique du schéma) ; la
+  *fréquence de mise à jour* est le compteur d'entité (D39). Les trois pièces
+  s'emboîtent.
+- Coût à surveiller : `COUNT(DISTINCT)` sur grosse table n'est pas gratuit —
+  acceptable car tableau de bord ponctuel sur volumes TPE, échantillonnage
+  possible ; sémantique dépendante de la persistance (D18).
+
+**Acteurs des API (D40)** : ce sont des **comptes techniques** (D28), pas des
+salariés → identifier « quel système appelle quelle fonction » relève de la
+gestion d'intégrations, pas de la surveillance de personnes. RGPD léger ici, à
+distinguer du journal côté interface.
+
+### 6.2 Deux supports de stockage (D41)
+
+1. **Données en base** : un objet `télémétrie` dédié, ou des indicateurs
+   **attachés à une entité** (compteurs ; l'historique de schéma via le journal
+   de migrations).
+2. **Traces de journal** : **durée de conservation paramétrable**, puis
+   **archivage à durée de vie maximale**. L'anonymisation n'est pas viscéralement
+   nécessaire (acteurs API = comptes techniques ; côté interface = responsabilité
+   du client, D16) mais une **option d'anonymisation** est prévue.
+
+**Dimension temporelle des compteurs (D42)** — pour D39 et D40 : compteurs en
+**seaux journaliers** sur **périodes glissantes**, agrégés en semaine / mois /
+année à mesure qu'ils vieillissent (si la profondeur de stockage le permet).
+Conséquences :
+- *Downsampling* = politique de rétention (D41) par **granularité décroissante
+  avec l'âge** plutôt que purge sèche : on conserve la tendance longue à moindre
+  coût (ex. année courante au jour, N-1 au mois, N-2 à l'année).
+- Ces compteurs sont **additifs** (lectures, écritures, appels) → l'agrégation
+  est une somme, sans perte. À l'inverse, la **diversité** (D38) n'est pas
+  additive — d'où son calcul à la volée, jamais en seaux. Les deux choix se
+  justifient mutuellement.
+- La *fréquence de mise à jour* pondérant D38 se lit sur les compteurs d'écriture
+  fenêtrés ; le dry-run (§6.3) peut alors signaler une **tendance** (« usage en
+  hausse ce mois-ci → migration plus sensible »), pas seulement un instantané.
+
+### 6.3 Finalité 2 — risque de migration (vue dérivée)
+
+Assemblée pour le **rapport de dry-run** (§4.1) à partir du substrat :
+intensité d'usage du champ/entité touché + **tendance** (D42) + acteurs API
+concernés + dépendances (champs calculés, tâches). Pas de collecte nouvelle —
+une lecture croisée.
+
+### 6.4 Finalité 3 — sécurité / usages anormaux (D43, vue dérivée)
+
+Cinquième canal de restitution (voir §6.5). Finalité : **alerter le client
+et/ou le technicien** d'un usage ou accès non autorisé.
+
+- **Ce qu'il détecte** : pics de fréquence inappropriés ; **tentatives d'accès
+  refusées** (lecture d'un champ `privee`, appel d'une fonction interdite au
+  groupe — §5.5/§5.6) ; sollicitations hors cadre.
+- **Substrat** : journal (D41) + compteurs temporels (D42). **Exigence ajoutée
+  à la collecte** : journaliser non seulement l'activité mais les **refus
+  d'autorisation** (le carburant du canal). D42 fournit la **ligne de base** des
+  fréquences normales → détection d'anomalie par simple comparaison.
+- **Indicateur (D47) — un modèle de risque à plusieurs composantes**, pas un
+  scalaire unique. Calibration → Q29.
+  - **Deux portées** : au **global** et **par requête/endpoint** — une dérive
+    noyée au global peut être flagrante sur un appel précis (substrat D40/D42).
+  - **Pente de régression = orientation** : coefficient de la droite de
+    régression des **points quotidiens** sur une **fenêtre glissante** (taille à
+    définir, ex. 1 semaine). Coefficient positif = sollicitations en hausse.
+    Hypothèse : attaque **progressive** *ou* **défaut de conception** du
+    développeur appelant (les deux à signaler).
+    - **Normalisation = clé de la portabilité** : la régression porte sur des
+      points **normalisés** (indexés au premier jour / à la moyenne de la
+      fenêtre = 1), pas sur les comptes bruts. Ainsi **pente > 1 ⇔ « plus que
+      doublé » sur la fenêtre**, quel que soit le volume — un seuil unique vaut
+      pour tous les endpoints.
+    - *Échelle linéaire* : croissance parfois **légitime** (outil connecté qui
+      monte en charge) → orientation, pas anomalie en soi.
+    - *Échelle logarithmique* : révèle la croissance **exponentielle**, celle qui
+      met le moteur en péril → signal de menace fort.
+  - **Pente seule insuffisante → croiser au volume absolu** : deux conditions
+    **orthogonales** — la pente normalisée capte la *forme* (doublement), le
+    seuil de volume garantit que ça *compte* (pas de bruit sur faible volume).
+  - **Écart type — option délibérément écartée.** Le coupler distinguerait une
+    progression régulière d'une progression asymétrique (dents de scie), info
+    que la seule pente perd ; mais pour une cible TPE cela alourdirait le
+    paramétrage sans gain proportionné → non retenu (rationale conservée pour ne
+    pas rouvrir sans raison). Même esprit que le garde-fou R², lui aussi simple.
+  - **Détecteur de pics (complément)** : la régression rate les **attaques
+    ponctuelles ciblées**. Discriminant = l'**étendue d'accès**, pas le volume :
+    un pic de **clôture comptable** (accès concentré) est légitime ; un pic
+    **couvrant tous les enregistrements** d'une entité = **tentative de crawl**.
+  - **Pente des refus d'autorisation** = signal fort d'énumération.
+  - Garde-fou : pondérer par R² (éviter la pente fantôme sur série plate).
+
+  **Symétrie avec D45 (crawl ≡ N+1).** Le balayage de tous les items d'une entité
+  est le **même signal** que le N+1 du volet conseil : selon l'acteur et son
+  autorisation, c'est soit un **anti-pattern de performance** (conseil amical,
+  consommateur légitime, D45) soit une **tentative de crawl** (alerte sécurité,
+  acteur hostile, D43). L'**indicateur d'étendue** sert les deux finalités — la
+  frontière est l'**intention/l'autorisation**, pas le comportement observé.
+- **Seuils déclarés dans la description (D50)** : les seuils du modèle de risque
+  sont portés par les éléments concernés — **endpoints**, **entités** et
+  **fonctionnalités d'IHM**. Généralise D49 (seuils de diversité par champ) :
+  *les seuils de télémétrie sont un attribut déclaratif par élément du
+  méta-schéma*, tous types confondus. Les fonctions d'IHM entrent ainsi dans le
+  périmètre sécurité (ex. export massif à rythme anormal) — surveillance, non
+  suivi ergonomique.
+- **Posture par défaut — filet de sécurité (D51, résout Q29)** : **seuils
+  globaux par défaut** sur le modèle, **surchargés par élément**. Asymétrie
+  délibérée avec Q28/D49 : diversité → seuil absent = *aucun contrôle* ;
+  sécurité → seuil absent = *le défaut global s'applique* (on ne peut pas
+  oublier de surveiller). **Défaut global** : pente de régression sur **1
+  semaine > 1** pour un **volume > 1000 appels** (la pente ne déclenche que si
+  le volume est significatif → pas de bruit sur les petits endpoints). Unité :
+  +1 appel/jour de croissance, échelle linéaire. Variantes log / pic / étendue
+  du modèle (D47) : défauts posés plus tard ou laissés à la surcharge — le cadre
+  global + override les accueille identiquement.
+  - **Lecture de la pente (précisée)** : pente **normalisée**, *> 1 ⇔ plus que
+    doublé* sur la fenêtre (et non « +1 appel/jour » — interprétation brute
+    abandonnée). Fenêtre glissante = paramètre à définir (1 semaine en exemple).
+- **RGPD** : la sécurité du SI est une finalité légitime, qui justifie de tracer
+  des tentatives nominatives même là où la surveillance comportementale serait
+  proscrite (information + proportionnalité ; client responsable, D16).
+
+### 6.5 Restitution — cinq canaux (D44, résout Q13)
+
+La forme suit la finalité ; les canaux sont complémentaires, pas exclusifs :
+
+| Canal | Mode | Finalité | Note |
+|---|---|---|---|
+| **Tableau de bord** (D38) | *Pull*, exploration | Usages | Diversité, compteurs, tendances ; à la demande |
+| **Rapport de dry-run** (§6.3) | Contextuel, à la migration | Risque migration | La finalité 2 n'a **pas** de tableau de bord propre : elle s'injecte là où la décision se prend |
+| **Synthèse périodique** | *Push*, basse fréquence | Usages (proactif) | Fait remonter d'elle-même les candidats au retrait ; inclut le **volet conseil** côté API (D45, ci-dessous) |
+| **Alerte d'échéance** | *Push*, événementiel, **rare** | Risque/dépréciation | Cas justifié : version d'API dépréciée encore appelée près du `Sunset` (D12/D40). Pas d'alerte sur le simple non-usage |
+| **Analyse de sécurité** (D43) | *Push* + analyse | Sécurité (finalité 3) | Voir §6.4 ; alerte client et/ou technicien |
+
+**Volet conseil de la synthèse (D45) — la boucle d'évolution côté API.**
+Symétrie de D38 : la télémétrie « objets » fait évoluer la description *vers
+l'intérieur* (simplifier) ; la télémétrie « API » fait évoluer la surface
+exposée *vers l'extérieur* (optimiser, enrichir). On analyse les **schémas
+d'appels** (D40) pour produire des recommandations, à **deux destinataires** :
+
+| Pattern détecté | Recommandation | Destinataire | Référence marché |
+|---|---|---|---|
+| Mêmes items, requête déterministe, appels répétés | Mise en cache ; le moteur **fournit le mécanisme** (`ETag`/`Cache-Control` dérivés de version schéma + enregistrement → requêtes conditionnelles `304`) | Consommateur | Analyse de redondance |
+| Appels **unitaires** couvrant tous les items d'un service | Lecture **par lot/bloc** (D22) | Consommateur | Problème **N+1** des ORM |
+| Séquences d'appels récurrentes / toujours jointes | Faire **émerger un besoin** : endpoint composite, agrégat (D36), champ calculé (D35) | Technicien | *Query advisor* / APM |
+
+- *Consultatif uniquement* : on recommande, on n'étrangle jamais les requêtes.
+- **Détection (Q30) — étude dédiée différée.** D'un autre ordre de complexité
+  (fouille de **motifs de séquences d'appels**, pas un indicateur scalaire).
+  Fera l'objet d'une étude à part, fondée sur l'**implémentation personnelle
+  existante** de l'auteur pour l'analyse des automatismes d'accès à PostgreSQL
+  (point de départ éprouvé, non une page blanche).
+- RGPD léger : seuls des **comptes techniques** sont analysés (D40).
+- **La boucle metadata-driven se referme sur les deux faces** : interne (D38) et
+  externe (D45).
+
+**Solution intégrée sur méta-schéma (D44).** Ces canaux forment une **solution
+intégrée** : écrite dans le format Syncytium mais **possédée par le moteur**
+(non éditable par le client), par opposition aux **solutions client**.
+
+- **Couche moteur, non descriptible** : la *collecte* et le *calcul de diversité*
+  sont des capacités du moteur — ils doivent fonctionner **même si la description
+  du client est cassée** (c'est au pire moment qu'on en a besoin pour
+  diagnostiquer) et introspectent n'importe quelle entité (méta-niveau).
+- **Couche restitution, descriptible** : tableaux de bord et écrans d'analyse
+  sont **générés par la même machinerie** que les solutions client → héritent du
+  contrôle d'accès par groupes et de l'exposition API.
+- **Méta-schéma** : Syncytium **se décrit lui-même** (entité, champ, groupe,
+  niveau, migration, compteur, compte sont modélisés). Les solutions intégrées
+  sont des **vues sur ce méta-schéma** — pattern du *catalogue système* d'une
+  base (`information_schema`). Vertus : cohérence d'IHM, et **validation du
+  langage** (s'il sait exprimer la gestion du moteur, il est assez expressif).
+- **Rattachements** : D33 (groupe administrateurs intégré) n'est plus un cas
+  particulier mais la **première solution intégrée**. Et le méta-schéma **est la
+  définition formelle du format de description** → c'est l'objet de **Q16**
+  (versionnement du format), possédé et versionné par le moteur (D17, §7.2).
+
+### 6.6 RGPD
+
+- **Le client est responsable de traitement, pas l'éditeur** (instance déployée
+  chez le client, D16). Syncytium *fournit la capacité* et les outils de
+  conformité (conservation paramétrable, option d'anonymisation, archivage borné,
+  export/effacement). La remontée agrégée vers l'éditeur (§7.2) est la seule où
+  l'éditeur deviendrait (co)responsable → **opt-in strict**.
+- Les indicateurs d'usage (champ, entité) sont **agrégés sur le schéma** et ne
+  nomment personne ; l'identification d'acteurs ne porte que sur des **comptes
+  techniques**. La dérive vers la surveillance des salariés est ainsi évitée par
+  construction.
 
 ---
 
@@ -532,12 +783,42 @@ d'exposition publique massive. Conséquences :
 
 ---
 
-## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37)
+## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37, D52)
 
 Le moteur est un **noyau déclaratif** entouré de points d'extension typés :
 **connecteurs** vers les systèmes externes (D23), **fournisseurs
 d'authentification** (D32), et **hooks** déclinés en trois modes (D37) couvrant
 les trois couches de la vision initiale.
+
+### 8.0 Principe : mécanisme uniforme interne/externe (D52)
+
+**Pas de mécanisme privilégié pour les fonctions « maison ».** Une fonction
+**interne** (livrée par Syncytium) et une fonction **externe** (module de
+développement du technicien) implémentent **la même interface commune** par mode
+et se branchent à l'identique. Les fonctions de base sont des **extensions de
+première partie** — Syncytium fournit un **socle de hooks** que le technicien
+enrichit au fil des besoins.
+
+- **Interface commune par mode** : calcul, tâche, comportement d'IHM exposent
+  chacun un **contrat formel stable** (formalisation de la « boîte noire à
+  contrat déclaré », §5.5/§8.2).
+- **Sécurité uniforme** : un built-in passe par la **même frontière déclarée**
+  qu'un externe (mêmes règles d'accès et de confidentialité). Aucun raccourci
+  caché.
+- **Les built-in = implémentations de référence** pour écrire un module externe.
+- **Registre et espace de noms** (à prévoir) : résolution transparente d'un nom
+  de hook vers interne ou externe ; namespacing (`syncytium.pdf` vs
+  `monmodule.pdf`) pour éviter les collisions et permettre le remplacement.
+- **Versionnement des interfaces** : un module externe déclare la **version
+  d'interface** implémentée ; le moteur vérifie la compatibilité (parc
+  hétérogène, §7.2) → **contributeur à Q16**.
+
+Régularité architecturale : *mécanisme uniforme, distingué par la seule
+provenance* — déjà vu pour les comptes (technique/nominatif, D28) et les
+solutions (intégrée/client, D44). Généralisable : connecteurs (D23),
+fournisseurs d'authentification (D32) et hooks relèvent d'un **modèle
+d'extension unique**, les briques de Syncytium étant de simples extensions de
+première partie.
 
 ### 8.1 Cycle de vie commun à tous les hooks
 
@@ -557,32 +838,193 @@ reste libre (D19).
 Frontière structurante : **un calcul est pur, une tâche a des effets** — toute
 extension qui veut « faire quelque chose » est une tâche, pas un calcul déguisé.
 
-### 8.3 Spécificités du hook d'interface
+### 8.3 Le hook d'interface (D63–D68 ; résout Q27)
 
-- Langage imposé par le territoire d'exécution : **JavaScript** (indépendant du
-  choix de pile du moteur, Q7).
-- Confidentialité **structurellement** garantie : le canal interface ne livre
-  jamais un champ `privee` au navigateur — pas besoin de faire confiance au code.
-- **Périmètre exact à définir (Q27)** : rendu personnalisé d'un champ (jauge au
-  lieu d'un nombre), validation de saisie enrichie, boutons d'action déclenchant
-  des tâches, réorganisation d'écran ? Plus le périmètre est large, plus
-  l'interface générée est personnalisable — mais plus on s'éloigne de la
-  garantie qu'une description produit toujours une interface cohérente.
+**Principe directeur** : l'interface générée est **complète et cohérente par
+elle-même** ; les hooks d'IHM sont des **enrichissements optionnels** (remplissage
+d'emplacements), jamais requis. Langage **JavaScript** (territoire navigateur,
+indépendant de Q7). Confidentialité **structurelle** : le canal ne livre jamais
+`privee` au navigateur (D44) ; la sécurité au niveau ligne (principals contextuels,
+Q32) s'applique. Aucun effet de bord direct. **Dégradation gracieuse** : une erreur
+d'exécution retombe sur le rendu par défaut (≠ calcul qui bloque la migration).
 
-> **À l'agenda** : les hooks de **tâche** et d'**interface** feront l'objet d'une
-> discussion dédiée — l'auteur a des précisions complémentaires à apporter,
-> volontairement réservées pour un échange ultérieur. Les sections 8.2–8.4 posent
-> le cadre proposé ; rien n'est figé sur ces deux modes tant que cette discussion
-> n'a pas eu lieu.
+**Quatre couches :**
 
-### 8.4 Catalogue de tâches (résout la moitié de Q21)
+1. **Thème (D63)** — couleurs, polices, styles, personnalisables par le technicien.
+   Sans logique ; couche de marque, faible risque.
+2. **Cartographie `type → composant` (D64)** — bibliothèque par défaut **riche et
+   curée** : table, liste déroulante sur énuméré **et sur référence**, vignettes,
+   graphiques, widgets de dates, dashboard, planning… → écrans sensés **sans code**.
+   Vise la construction rapide d'application (promesse fondatrice).
+3. **Surcharge `champ → composant` (D65) + bibliothèque ouverte (D68)** — built-in
+   et custom partagent la **même interface de composant** (décrit *rendu* et
+   *usage* : types acceptés, configuration, points d'extension) ; registre
+   namespacé (D52). Le technicien **enrichit la bibliothèque** : un composant ajouté
+   est de première classe — mappable en **défaut de type** (app-wide) ou en
+   surcharge de champ, indistinguable d'un built-in. Composants **partageables**
+   (AGPL si distribués) → écosystème.
+4. **Injection comportementale (D66)** — filtres métier, affichage conditionnel,
+   action post-validation, aux points d'extension. **Dogfoodé** : les composants
+   internes utilisent la même API que le technicien. **UX seulement, jamais la
+   sécurité** (un filtre client ne protège pas ; le serveur D25 le fait) ; tout
+   effet **délègue à une tâche** (D54).
 
-Même schéma que le calcul personnalisé : **déclaration** dans la description
-(nom, paramètres, règles d'accès, entités concernées), **implémentation** dans
-le plugin déployé avec elle. Tâches intégrées au moteur (PDF, mails génériques)
-et tâches apportées par hook coexistent dans le même catalogue, avec le même
-suivi d'avancement (D24). Reste de Q21 : la notification de fin (consultation
-seule ou webhook sortant).
+**Surcharge des internes non supportée (D67)** : se coupler aux détails internes
+casse à la mise à jour du moteur (parc hétérogène §7.2 transposé à l'IHM). On
+**remplace par interface** ou on **injecte** — jamais on ne patche les internes.
+
+**Dégradation** : un composant custom qui échoue, **même promu défaut de type**,
+retombe sur le **built-in par défaut** du type — le socle livré reste l'ultime
+filet (la cohérence de l'interface générée est préservée).
+
+**Apport au méta-schéma** : thème ; cartographie type→composant ; surcharges
+champ→composant ; configuration + comportements injectés ; interface de composant
+versionnée ; composants enregistrés dans le registre.
+
+**Modèle de composant déclaratif (D69) — résout le bac à sable de Q27.** Un
+composant est une **fonction pure `config → description de rendu`** ; le **moteur
+réalise le HTML** (modèle à la **Webix**, le plus proche du principe originel :
+la métadonnée pilote jusqu'au rendu). Conséquences :
+
+- **Ajout de composant trivial** (interne ou externe) : on décrit, le moteur rend.
+- **Technologie de rendu = choix d'implémentation, pas contrainte** : le renderer
+  (Webix / autre cadre / moteur maison) est **interchangeable** ; les composants
+  et descriptions ne le connaissent pas → descriptions **tech-agnostiques et
+  pérennes** (traversent un changement de techno comme les versions de moteur, §7.2).
+- **Parallèle avec D18** : même découplage que la persistance. Syncytium est
+  **tech-agnostique aux deux bouts** — données (D18) *et* interface (D69) ; le
+  méta-schéma est le cœur durable, les liaisons sont des satellites remplaçables.
+- **Le bac à sable par construction** : un composant qui ne produit qu'une
+  *description* ne touche pas le DOM (ni hameçonnage ni capture) ; en Worker + CSP,
+  ni exfiltration ni gel. **Iframe en échappatoire** pour les rares composants à
+  rendu brut (cartographie, graphes) hors du vocabulaire déclaratif.
+- **Prix à payer** : le **vocabulaire de description de rendu** doit être assez
+  riche pour les composants évolués (D64) — effort de conception ; l'iframe est
+  la soupape.
+
+Sandbox (synthèse) : **CSP** filet universel ; logique en **Worker** ; rendu par
+**contrat déclaratif** (D69) ; **iframe** en échappatoire. Provenance : built-in
+inline, tiers isolés.
+
+### 8.4 Le hook de tâche (D53–D58 ; résout la moitié de Q21)
+
+Même schéma que le calcul : **déclaration** dans la description, **implémentation**
+en plugin (interne ou externe, D52). Built-in (PDF, mails) et tâches sur mesure
+coexistent dans le même catalogue.
+
+**Déclaration type :**
+
+```yaml
+taches:
+  generer_bulletin:
+    libelle: "Génération du bulletin de paie"
+    parametres:
+      employe: { type: reference, vers: employe }
+      mois:    { type: mois }
+    resultat:        { type: fichier, format: pdf }
+    implementation:  "syncytium.pdf"          # built-in ou "monmodule.bulletin"
+    connecteurs:     [stockage_documents]
+    declenchement:   [interface, api, planifie, evenement, enchainement]
+    acces:
+      declenche_par:    [paie, administrateurs]
+      resultat_lu_par:  [employe_concerne]     # additionnels ; déclencheurs inclus d'office
+    lecture:         [employe.salaire, employe.coordonnees]
+    execution:       once       # relance manuelle uniquement
+    deterministe:    true        # mémoïse le résultat
+    determinisme_duree: 1h       # fenêtre de validité du cache (≠ rétention)
+    cooldown_api:    "<période, fin→début>"   # si non déterministe
+    retention_resultat: 90j
+```
+
+**Droits (D53).** `declenche_par` ⊆ `resultat_lu_par` **par construction** : qui
+déclenche peut lire. `resultat_lu_par` ne déclare que les lecteurs *additionnels*.
+Ceux-ci peuvent être des groupes statiques **ou des principals contextuels**
+(`employe_concerne` = l'employé sujet de la tâche, résolu depuis les paramètres)
+→ **sécurité au niveau ligne**, concept à généraliser (Q32). La tâche s'exécute
+avec **sa propre portée `lecture:`** (élévation de privilège contrôlée, type SUID),
+pas celle de l'appelant.
+
+**Déclenchement (D54).** Cinq modes : **interface, API, planifié, événement de
+données, enchaînement** (tâche après tâche). Tâche **synchrone ou asynchrone** —
+mais *toujours non bloquante avec progression* : le « synchrone » n'est qu'une
+posture d'IHM (l'utilisateur suit la barre), pas un chemin d'exécution séparé.
+Toutes les tâches passent par la file.
+
+**File et suivi (D55).** **File d'attente** bornant la concurrence ; chaque tâche
+a un **état** et un **statut de progression** (compteur/total + message). Le
+**résultat est enregistré** (trace + restitution sur demande dans la limite de
+`resultat_lu_par`), disponible pour une **durée déterminée**.
+
+**Supervision (D56).** Une **interface d'administration** (solution intégrée sur
+le méta-schéma, D44), à **deux étages de contrôle** :
+
+- *Par tâche* : **annuler / reporter / reprioriser** ; **réinitialiser le
+  déterminisme** (D60).
+- *Globaux — frein d'urgence (D61)* : **tout annuler / tout mettre en pause /
+  tout relancer**. Même primitif que le **drainage de migration** (D24/D54),
+  exposé à la demande. Caveat D57 : la pause arrête le *démarrage* des tâches ;
+  les tâches en cours ne se défont pas (effets déjà produits irréversibles) ;
+  « tout annuler » vide l'attente et interrompt au mieux les tâches en cours.
+
+**Journal** de toutes les exécutions (succès / échec / exception). Et **audit
+des actions de supervision (D62)** : chaque action (surtout globale) est
+journalisée avec un **motif** (catégorie — blocage applicatif, anomalie, mise à
+jour… — + note libre). Relève du **journal d'audit nominatif** (D41, finalité
+sécurité §6.4) : qui / quoi / quand / pourquoi.
+
+**Exécution-once (D57).** Une exécution par défaut, **pas de rollback** (effets
+irréversibles assumés : un mail ne se rejoue pas), **jamais d'auto-retry** —
+relance **manuelle** depuis l'interface de supervision. Un échec transitoire
+attend donc une intervention humaine (acceptable à l'échelle TPE).
+
+**Anti-abus API (D58).** Une tâche déclenchée par API ne s'exécute qu'**une fois
+par période** (à définir), mesurée **de la fin de l'exécution au début de
+l'appel suivant** — interdit le recouvrement *et* impose un intervalle minimal.
+Un rappel pendant la période est **refusé** (tâche non enregistrée). Protège le
+hook comme point d'attaque/déstabilisation. **Granularité (D58, résout Q31) :
+par tâche + paramètres.**
+
+**Déterminisme et doublons (D59).** Une option `deterministe` sélectionne la
+stratégie de gestion des doublons (clé = tâche + paramètres) :
+
+- **Déterministe** : un second appel (mêmes paramètres) dans la **fenêtre de
+  déterminisme** → le **résultat mémorisé est rendu**, sans ré-exécuter (pas de
+  refus, pas de recalcul, **pas d'effet de bord répété**).
+- **Non déterministe** : le **cooldown (D58) refuse** le doublon.
+
+Net : le déterminisme dit « même résultat valide, sers le cache » ; le cooldown
+dit « l'effet ne peut se répéter, refuse ». **Trois durées indépendantes** sur
+une tâche :
+
+| Durée | Concerne | Rôle |
+|---|---|---|
+| **Cooldown** (D58) | tâche non déterministe | intervalle min. fin→début ; refuse les doublons |
+| **Fenêtre de déterminisme** (D59) | tâche déterministe | mêmes paramètres → résultat mémorisé rendu |
+| **Rétention** (D55) | le résultat | disponibilité / restitution |
+
+Ex. : bulletin *déterministe 1 h* (au-delà, régénération) mais *conservé 90 j*.
+
+Cohérences : le déterminisme **résout l'idempotence (D57) par mémoïsation** (rejouer
+= renvoyer le cache) ; c'est le **pendant serveur de D45** (le moteur mémoïse là où
+D45 recommande au client de cacher + fournit l'`ETag`). **Caveat** : le déterminisme
+est une **assertion du technicien** (comme la pureté d'un calcul) ; la fenêtre borne
+le risque de résultat périmé (jugement sur la volatilité des données).
+
+**Réinitialisation du déterminisme (D60).** Soupape d'échappement dans la
+supervision (D56) : l'administrateur **invalide le cache** d'une tâche — *sans
+rien exécuter*. Le **prochain appel** ré-exécute (distinct de la relance D57 qui
+exécute *maintenant*). Sert quand la réalité contredit l'assertion (données
+changées dans la fenêtre). **Granularité à trois niveaux** : tâche + paramètres
+(cette entrée), tâche entière (toutes ses entrées), ou **tout** (vidage global).
+Après réinitialisation, la ré-exécution produit un **nouvel `ETag`** → les caches
+clients (D45) se resynchronisent.
+
+**Apport au méta-schéma** : la déclaration complète de tâche (signature,
+connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
+lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention) ; la
+solution intégrée de supervision.
+
+Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
 ---
 
@@ -596,27 +1038,32 @@ seule ou webhook sortant).
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
 | Q5 | **Construire sur mesure ou s'appuyer sur un existant** (Directus, Strapi, …) ? | À trancher quand le besoin sera suffisamment cerné — la migration à chaud avec règles déclaratives **et la compatibilité d'API bidirectionnelle** sont les points les plus différenciants vs l'existant. |
 | Q6 | Syntaxe exacte des règles d'éclatement (regex) et des tables de correspondance de fusion de valeurs. | Voir §3.2. |
-| Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19). |
+| Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
-| Q12 | **RGPD / confidentialité de la télémétrie** des actions utilisateurs : nominative, pseudonymisée ou agrégée ? | Données personnelles ; dépend du contexte de déploiement (Q4). |
-| Q13 | **Restitution de la télémétrie** au technicien : tableau de bord intégré, rapports périodiques, alertes ? | Détermine si la boucle descriptif ↔ télémétrie est outillée ou artisanale. |
+| ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
+| ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
+| ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
+| ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Résolu (D50, D51)** : seuils déclarés par élément (endpoint/entité/IHM), **filet de sécurité** = défaut global + surcharge ; défaut = pente 1 sem. > 1 pour volume > 1000 appels. Asymétrie voulue avec Q28. Reste du calage (log/pic/étendue) = réglage ultérieur. |
+| Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
 | Q20 | **Connecteurs** : direction (import/export/bidirectionnel), déclenchement (planifié, à la demande, fil de l'eau), gestion des conflits ? Pour l'identité (D29–D32) : **mode mixte** AD + comptes locaux ? protocole SSO (OpenID Connect via Entra ID/ADFS vs Kerberos/LDAPS on-premise) ? **rapprochement des comptes existants** lors d'un changement de fournisseur d'authentification ? | Architecture de plugins ; SSO, association des groupes (interface, D31) et reparamétrage admin (D32) actés — restent les modalités techniques. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
-| Q23 | **Frontières de sécurité dérivées** : règles d'accès du catalogue de tâches (déclenchement + lecture des résultats, qui véhiculent des champs privés) ; validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
+| Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
-| Q26 | **Contrat des hooks** : validation des règles proposées (§5.5 pour le calcul, §8.2 pour le tableau des trois modes) — sources déclarées, pureté du calcul, délai maximal, dry-run avec la description. | **Discussion dédiée à venir** pour les modes tâche et interface — précisions de l'auteur attendues (voir encadré §8). |
-| Q27 | **Périmètre du hook d'interface** : rendu personnalisé de champ, validation de saisie, boutons d'action (→ tâches), réorganisation d'écran ? | **Discussion dédiée à venir** — précisions de l'auteur attendues (voir encadré §8). Curseur entre personnalisation et garantie d'une interface cohérente (§8.3). |
+| ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
+| ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D69, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Bac à sable résolu par le **modèle de composant déclaratif** (D69, à la Webix). |
+| ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
+| Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
 
 ---
 
@@ -733,3 +1180,174 @@ seule ou webhook sortant).
   rejoint le dépôt en version canonique sous `docs/conception.md` ; l'ancienne
   copie de travail (`D:\Projets\Claude\conception-solution-metadata.md`) n'est
   plus maintenue.
+- **2026-06-12** — Cadrage de la télémétrie (Q12–Q13, nouveaux §6.1 et §6.2).
+  L'auteur resserre le besoin avant de figer : la télémétrie ne doit pas
+  redoubler les journaux et doit servir deux finalités bornées — suivre les
+  usages et évaluer le risque d'une migration (lien au dry-run §4.1). L'étage
+  « actions utilisateurs » pourrait être réduit/reporté. Pistes d'analyse
+  consignées (séparation des finalités, client responsable de traitement,
+  restitution par tableau de bord/journal) mais Q12–Q13 restent ouvertes en
+  attente de l'arbitrage de l'auteur.
+- **2026-06-12 (suite)** — Modèle de télémétrie arrêté (résout Q12 ; D38–D41,
+  §6 réécrit). Trois grains : **champ** mesuré à la volée via la **diversité des
+  valeurs** pondérée par l'âge du champ et la fréquence de l'entité (D38) ;
+  **entité** stockée — compteurs lecture/écriture + historique de schéma réutilisant
+  le journal de migrations (D39) ; **API & fonctions** en double usage, usage réel
+  + identification des acteurs (comptes techniques, RGPD léger) (D40). Deux
+  supports : base (objet `télémétrie`) et journal à rétention paramétrable +
+  archivage + option d'anonymisation (D41). Finalité 2 = vue dérivée pour le
+  dry-run. Nouvelle question Q28 (seuil de l'indicateur de diversité) ; Q13
+  (restitution) avance — tableau de bord dédié acté pour le grain champ.
+- **2026-06-12 (suite 2)** — Dimension temporelle des compteurs (D42) : seaux
+  journaliers sur périodes glissantes, agrégés en semaine/mois/année avec l'âge.
+  Le downsampling devient la politique de rétention (granularité décroissante).
+  Compteurs additifs (agrégation = somme) vs diversité non additive (reste à la
+  volée) : les choix D38/D39-D40 se confortent. Permet la détection de tendance
+  dans le rapport de dry-run.
+- **2026-06-12 (suite 3)** — Restitution (résout Q13, D43–D44). Cinquième canal :
+  **analyse de sécurité** (3e finalité, D43) — alerter sur usages/accès non
+  autorisés ou anormaux ; vue dérivée du journal + compteurs, impose de
+  journaliser les refus d'autorisation, D42 donne la ligne de base ; garder la
+  détection simple (Q29). Les cinq canaux (tableau de bord, dry-run, synthèse
+  périodique, alerte d'échéance, sécurité) forment une **solution intégrée sur le
+  méta-schéma** (D44) : Syncytium se décrit lui-même (pattern catalogue système),
+  collecte = couche moteur survivant à une description cassée, restitution générée
+  par la même machinerie. Généralise D33 ; **le méta-schéma est l'objet de Q16**
+  (versionnement du format = versionnement du méta-schéma). Modèle d'ensemble :
+  un substrat de collecte, trois finalités en couches d'analyse.
+- **2026-06-12 (suite 4)** — Volet conseil de la synthèse périodique (D45).
+  Analyse des schémas d'appels d'API pour recommander cache (le moteur fournit
+  l'`ETag`), lecture par lot (vs N+1), et émergence de nouveaux besoins (endpoint,
+  agrégat, champ calculé). Deux destinataires : consommateur (change son code) et
+  technicien (fait évoluer l'API). Consultatif, RGPD léger (comptes techniques).
+  Révèle la symétrie : la télémétrie referme la boucle metadata-driven sur les
+  deux faces — interne (D38) et externe (D45). Nouvelle question Q30 (règles de
+  détection).
+- **2026-06-12 (suite 5)** — Définition des indicateurs de télémétrie avant
+  calibration des seuils. **Diversité (D46)** = valeurs distinctes non nulles /
+  lignes de l'entité (ratio de cardinalité) ; caveat consigné : `distinct = 1`
+  = signal fort, `distinct ≥ 2` peut être légitime (booléen/statut/choix).
+  **Anomalie de sécurité (D47)** = pente de la droite de régression des
+  sollicitations sur période glissante ; à normaliser, détecte les rampes (pas
+  les pics → 2e forme z-score), pente des refus = signal fort. **Q30 (volet
+  conseil)** différée vers une étude dédiée fondée sur l'implémentation
+  personnelle existante de l'auteur (analyse des automatismes d'accès
+  PostgreSQL). Q28/Q29 réduites au seul réglage des seuils.
+- **2026-06-12 (suite 6)** — Diversité scindée en **deux indicateurs orthogonaux**
+  (D46 représentative = distinctes/lignes → retirer le champ ; D48 scalaire =
+  distinctes/domaine théorique → resserrer le domaine). Le domaine théorique se
+  dérive du type/contraintes déclarés (énum, booléen, numérique borné, chaîne
+  formatée ; indéfini si non borné) — les formats servent validation **et**
+  indicateur. **Seuils par champ déclarés dans le schéma** (D49) : la connaissance
+  métier neutralise les faux positifs ; nouvel attribut du méta-schéma, défauts
+  par type surchargeables. Q28 résolue dans son approche (reste : valeurs par
+  défaut).
+- **2026-06-12 (suite 7)** — Clôture de Q28 : **pas de valeurs par défaut**.
+  Seuil absent = aucun contrôle — silence par défaut, signalement strictement
+  opt-in, zéro faux positif par construction (D49 ajustée). Le tableau de bord
+  affiche toujours la diversité à la demande ; seul le flag automatique requiert
+  un seuil déclaré.
+- **2026-06-12 (suite 8)** — Enrichissement de D47 en **modèle de risque
+  multi-composantes** : deux portées (global + par endpoint) ; pente linéaire
+  (croissance parfois légitime, ex. outil qui monte en charge) vs **logarithmique**
+  (exponentiel = danger moteur) ; pente **croisée au volume** (sinon bruit) ;
+  détecteur de pics jugé par l'**étendue d'accès** (pic de clôture comptable
+  légitime vs balayage de toutes les affaires = crawl). **Symétrie majeure** :
+  crawl ≡ N+1 (D45) — même signal d'étendue, séparé par l'autorisation de
+  l'acteur ; l'indicateur d'étendue sert sécurité (D43) et conseil (D45). Q29
+  élargie à la calibration de ce modèle.
+- **2026-06-12 (suite 9)** — Placement des seuils de sécurité (D50) : déclarés
+  dans la description, portés par les **endpoints, entités et fonctionnalités
+  d'IHM**. Généralise D49 → les seuils de télémétrie sont un attribut déclaratif
+  par élément du méta-schéma, tous types confondus ; les fonctions d'IHM entrent
+  dans le périmètre sécurité. Reste en Q29 la **posture par défaut** : opt-in
+  strict vs filet de sécurité (moteur surveillant toujours refus d'autorisation
+  + croissance exponentielle, seuils déclarés affinant) — filet recommandé car
+  une alerte de sécurité ne peut se taire.
+- **2026-06-12 (suite 10)** — Clôture de Q29 (D51, filet de sécurité retenu) :
+  seuils globaux par défaut sur le modèle + surcharge par élément. Asymétrie
+  assumée avec Q28 — sécurité : seuil absent = défaut global s'applique (pas
+  d'angle mort silencieux). Défaut global : pente de régression sur 1 semaine
+  > 1 pour un volume > 1000 appels (pente croisée au volume). Variantes
+  log/pic/étendue calées plus tard via le même cadre global + override.
+- **2026-06-12 (suite 11)** — Précision sur la pente (D47/D51) : c'est le
+  coefficient de la régression des points quotidiens sur fenêtre glissante (taille
+  à définir). **Normalisée** : pente > 1 ⇔ « plus que doublé » sur la fenêtre,
+  quel que soit le volume (l'interprétation brute « +1 appel/jour » est
+  abandonnée). Pente (forme) et volume (poids) = conditions orthogonales. **Écart
+  type délibérément écarté** : distinguerait progression régulière/asymétrique
+  mais alourdirait le paramétrage sans gain proportionné pour une TPE (rationale
+  conservée).
+- **2026-06-12 (suite 12)** — Séquencement : **Q16 (méta-schéma) à traiter en
+  dernier**, comme synthèse. Argument de l'auteur : hooks, API, connecteurs et
+  syntaxes de règles porteront des propriétés qui enrichiront le méta-modèle ; le
+  définir avant serait dessiner le réceptacle avant d'en connaître le contenu.
+  Principe de travail adopté : à chaque sujet, relever explicitement ce qu'il
+  ajoute au méta-schéma, pour que Q16 ne soit qu'une consolidation. (Révision de
+  la recommandation précédente qui plaçait Q16 en tête.)
+- **2026-06-12 (suite 13)** — Ouverture de Q26 (contrat des hooks). Principe
+  fondateur (D52, nouveau §8.0) : **mécanisme uniforme** pour fonctions internes
+  (Syncytium) et externes (technicien), via des **interfaces communes** par mode ;
+  socle de hooks de base enrichissable ; built-in = extensions de première partie,
+  même frontière de sécurité, implémentations de référence. Impose registre +
+  namespacing et versionnement des interfaces (→ Q16). Troisième occurrence du
+  motif « mécanisme uniforme distingué par la provenance » (cf. D28, D44),
+  généralisable à connecteurs/auth = modèle d'extension unique. Restent à traiter
+  pour Q26 : contrats fins des modes tâche (droits déclenchement/résultat,
+  idempotence, rétention, durée) et interface (délégation aux tâches, API
+  navigateur).
+- **2026-06-12 (suite 14)** — Contrat du hook de **tâche** arrêté (D53–D58, §8.4
+  réécrit). Droits : `declenche_par` ⊆ `resultat_lu_par`, lecteurs additionnels
+  pouvant être des **principals contextuels** (`employe_concerne` → sécurité au
+  niveau ligne, Q32) ; exécution avec la portée propre de la tâche (élévation
+  type SUID) (D53). Cinq déclencheurs dont **enchaînement** ; sync/async toujours
+  non bloquant avec progression (le synchrone = posture d'IHM) (D54). File
+  d'attente + état/progression (compteur/total+message) + résultat enregistré à
+  durée déterminée (D55). Interface de supervision = solution intégrée (annuler/
+  reporter/reprioriser + journal succès/échec/exception) (D56). Exécution-once,
+  pas de rollback, pas d'auto-retry, relance manuelle (D57). Anti-abus API :
+  cooldown mesuré fin→début, rappel refusé (D58, granularité Q31). Q26 : reste le
+  mode interface (Q27). Q23 (tâches) résolu.
+- **2026-06-12 (suite 15)** — Q31 résolue (D58 : cooldown **par tâche +
+  paramètres**) et option **`deterministe`** ajoutée (D59) : pour une tâche
+  déterministe, un doublon (mêmes paramètres) dans la **fenêtre de déterminisme**
+  rend le résultat **mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown
+  refuse. Trois durées indépendantes sur une tâche (cooldown / déterminisme /
+  rétention). Le déterminisme résout l'idempotence (D57) par mémoïsation (pas
+  d'effet répété) et est le pendant serveur de D45 ; c'est une **assertion du
+  technicien**, la fenêtre bornant le risque de péremption.
+- **2026-06-12 (suite 16)** — Réinitialisation du déterminisme (D60) ajoutée à la
+  supervision (D56) : l'administrateur invalide le cache d'une tâche (une entrée
+  tâche+paramètres ou toutes) sans exécuter ; le prochain appel ré-exécute.
+  Soupape quand la réalité contredit l'assertion D59 ; distincte de la relance
+  (D57, qui exécute maintenant) ; produit un nouvel `ETag` resynchronisant les
+  caches clients (D45).
+- **2026-06-12 (suite 17)** — Supervision élargie. Réinitialisation du déterminisme
+  à **trois niveaux** (tâche+paramètres / tâche / tout) (D60). **Contrôles globaux
+  de la file** (D61) : tout annuler / mettre en pause / relancer — même primitif
+  que le drainage de migration (D24/D54), avec le caveat D57 (pause = arrêt du
+  démarrage, effets en cours non annulés). **Audit des actions de supervision**
+  (D62) : chaque action journalisée avec un motif (catégorie + note : blocage,
+  anomalie, mise à jour) → journal d'audit nominatif (D41, finalité sécurité).
+  Deux étages de contrôle : par tâche et global.
+- **2026-06-12 (suite 18)** — Contrat du hook d'**interface** arrêté (D63–D68,
+  §8.3 réécrit ; **résout Q26 et Q27**). Principe : interface générée complète,
+  hooks = enrichissements optionnels, dégradation gracieuse. Quatre couches :
+  **thème** (D63) ; **bibliothèque par défaut** riche pilotée par type→composant
+  (D64) ; **surcharge champ→composant** avec interface de composant commune
+  built-in/custom (D65) **et bibliothèque ouverte/enrichissable** par le technicien,
+  composant ajouté mappable en défaut de type (D68) ; **injection comportementale**
+  (filtres, post-validation) dogfoodée, **UX jamais sécurité**, effets via tâches
+  (D66). **Pas de patch des internes** (compat ascendante, D67) → remplacer ou
+  injecter. Dégradation : repli sur le built-in par défaut. Résiduel Q27 : degré
+  de bac à sable. Le volet **hooks (D37, D52, D53–D68) est clos**.
+- **2026-06-12 (suite 19)** — Modèle de composant déclaratif (D69, **clôt Q27**) :
+  un composant = fonction pure `config → description de rendu`, le moteur réalise
+  le HTML (modèle à la **Webix**, le plus proche du principe originel). Résout le
+  bac à sable par construction (pas d'accès DOM ; CSP + Worker ; iframe en
+  échappatoire). Surtout : **la technologie de rendu devient un choix
+  d'implémentation interchangeable**, les descriptions restant tech-agnostiques et
+  pérennes — **parallèle exact avec D18** (persistance) : Syncytium est
+  tech-agnostique aux deux bouts (données + IHM), le méta-schéma étant le cœur
+  durable. Prix : le vocabulaire de rendu doit être assez riche (iframe = soupape).
+  Critère ajouté à Q7 (renderer supportant `config → HTML`).

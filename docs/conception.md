@@ -105,6 +105,14 @@ posée (voir §6).
 | D67 | **Surcharge des composants internes non supportée** : on remplace par interface (D65) ou on injecte (D66), jamais on ne patche les internes. | Compat ascendante (parc hétérogène §7.2 transposé à l'IHM). Voir §8.3. |
 | D68 | **Bibliothèque ouverte** : le technicien **enrichit** le registre de composants ; un composant ajouté (même interface, D65) est de première classe — mappable en **défaut de type** ou en surcharge de champ. | Registre namespacé (D52) ; composants partageables (AGPL) → écosystème. Dégradation : repli sur le built-in par défaut si un custom échoue. Voir §8.3. |
 | D69 | **Modèle de composant déclaratif** (à la Webix) : un composant est une fonction pure `config → description de rendu`, le **moteur réalise le HTML**. | **Résout le bac à sable de Q27** par construction (pas d'accès DOM ; CSP + Worker ; iframe en échappatoire). **Technologie de rendu = choix d'implémentation interchangeable** ; descriptions tech-agnostiques et pérennes. Parallèle à D18 : Syncytium tech-agnostique aux deux bouts (données + IHM). Prix : vocabulaire de rendu à rendre assez riche. Voir §8.3. |
+| D70 | **Dimension d'audience** dans le modèle d'accès : **interne** (collaborateurs → groupes + niveaux) vs **externe** (clients → accès au niveau ligne, fermé par défaut). | Ouverture des données aux clients (portail). Étend §5.6. Voir §5.7. |
+| D71 | **Modèle d'appartenance** (audience externe) : **directe** (champ réf-compte), **indirecte** (chemin multi-saut `commande.client.compte`), **ouvert à tous les clients** (catalogues), ou **non exposé** (défaut, fail-closed). Propriétaires/chemins multiples → union ; ligne sans propriétaire → invisible. | Résout Q32 (cœur). Provisionnement des comptes clients → Q33. Voir §5.7. |
+| D72 | **Orthogonalité ligne × champ** : sur une ligne visible par un client, les **champs internes TPE restent masqués** (niveau/groupe/audience s'appliquent). | Deux axes indépendants. Voir §5.7. |
+| D73 | **Lecture/écriture par appartenance** : déclarables séparément **par champ** ; invariant **write ⊆ read**. | Tout modifiable est visualisable, l'inverse non. Voir §5.7. |
+| D74 | **Combinaison OU seulement** (union d'octrois) ; AND/NON/XOR **différés**. | Simplicité ; rationale conservée (comme l'écart-type D47). Voir §5.7. |
+| D75 | **Filtrage serveur + identifiants contextuels** : id **non devinables** côté client (anti-IDOR), **re-contrôle d'appartenance à chaque accès direct**, option **aliasing par contexte**. | Le serveur ne se fie jamais à la possession d'un id. Impose un filtrage au niveau ligne dans l'abstraction de persistance (D18). Voir §5.7. |
+| D76 | **Impersonation & délégation** : admin **« agir en tant que »** sur toutes les strates avec **audit double identité** (effectif + origine) + motif (D62) ; compte technique **« pour le compte de »** un nominatif/client (OAuth on-behalf-of) → API bornée au périmètre ligne et attribuable. | Tests/délégations ; renforce la sécurité sur données sensibles (vigilance RGPD). Voir §5.7. |
+| D77 | **Typologie de comptes (résout Q33)** : (1) **technique** (API), (2) **utilisateur** interne (groupes), (3) **client** issu d'une fiche client (provisionné par l'ADV), (4) **client auto-créé** (self-service, toujours vérifié par les ventes — dérivé de (3), **non prioritaire**). | Généralise D28. Le type 3 concrétise l'appartenance D71 (le `compte` = la fiche client). Étanchéité par canal ; le compte client suit le cycle de vie de sa fiche. Voir §5.6. |
 
 ---
 
@@ -418,10 +426,29 @@ est-il déclaré dans le descriptif (cohérent avec l'architecture) ou apporté 
 les connecteurs/plugins ? Notification de fin : consultation périodique seule,
 ou aussi rappel sortant (webhook) ?
 
-### 5.6 Identités et accès (D27–D29)
+### 5.6 Identités et accès (D27–D29, D77)
 
 Découpage fidèle à toute l'architecture : **la structure dans la description, les
 personnes dans les données.**
+
+**Typologie des comptes (D77, résout Q33)** — quatre types, généralisant D28 :
+
+| Type | Rôle | Audience / canal | Provisionnement |
+|---|---|---|---|
+| **1. Technique** | API | externe (API) | admin (D28) ; délégation on-behalf-of (D76) |
+| **2. Utilisateur** | périmètre via groupes | interne (IHM) | admin / AD-Entra (D29–D32) |
+| **3. Client** | accès à ses données | externe (portail) | **service ADV, depuis une fiche client** |
+| **4. Client auto-créé** | self-service (commande web) | externe (portail) | auto **puis vérifié par le service des ventes** |
+
+- **Le type 3 concrétise l'appartenance (D71)** : le `compte` des chemins
+  (`commande.client.compte`) **est** ce compte, issu de l'entité `client` — le lien
+  entité↔compte *est* la fiche client.
+- **Le type 4 est un dérivé fail-closed** (jamais actif sans contrôle ADV ; devient
+  un type 3 une fois vérifié) — **non prioritaire**, variante différée.
+- **Étanchéité généralisée** : chaque type a son canal (technique→API,
+  utilisateur→IHM interne, client→portail externe) ; ils ne se croisent pas.
+- **Cycle de vie** : le compte client suit sa **fiche client** (fiche désactivée →
+  compte désactivé).
 
 | Où ? | Quoi ? | Qui ? |
 |---|---|---|
@@ -469,7 +496,59 @@ Conséquences consignées :
   dans une version ultérieure, les affectations conservées reprennent-elles vie
   (utile en retour arrière, surprenant si involontaire) ?
 
-### 5.7 Versions de schéma ≠ versions de contrat d'API
+### 5.7 Accès au niveau ligne — ouverture aux clients (D70–D76)
+
+Deux mondes d'accès, distingués par une **dimension d'audience** :
+- **Audience interne** (collaborateurs) : groupes statiques + niveaux (D25/D26).
+- **Audience externe** (clients) : accès **au niveau ligne** par appartenance,
+  **fermé par défaut**.
+
+Deux axes orthogonaux (D72) : *quelle ligne* (appartenance) × *quel champ*
+(niveau/groupe/audience). Sur une ligne visible par un client, les **champs
+internes TPE restent masqués**.
+
+**Modèle d'appartenance (D70–D71).** Une entité exposée aux clients déclare un mode :
+
+| Mode | Déclaration | Exemple |
+|---|---|---|
+| **Directe** | champ référence-compte | `client.compte`, `employe.compte` |
+| **Indirecte** | chemin de relations (multi-saut) vers un compte | `commande.client.compte` |
+| **Ouvert à tous les clients** | aucun filtre | catalogues, listes de valeurs, descriptions publiques |
+| **Non exposé** (défaut) | — | invisible aux clients (*fail-closed*) |
+
+Cas-limites : **propriétaires/chemins multiples** → union (OR) ; **ligne sans
+propriétaire** → invisible. Provisionnement des comptes clients (auto-inscription
+vs créés par la TPE) → **Q33**.
+
+**Lecture/écriture (D73).** L'appartenance accorde lecture **et/ou** écriture,
+déclarables séparément **par champ** ; invariant **write ⊆ read** (tout champ
+modifiable est visualisable, l'inverse non).
+
+**Combinaison (D74).** **OU seulement** (union d'octrois). AND/NON/XOR
+**délibérément différés** (peu de besoins ; rationale conservée).
+
+**Filtrage serveur + identifiants contextuels (D75).** Filtrage **côté serveur**
+(ne pas exposer de données inutiles). Contre l'**IDOR** : **identifiants non
+devinables** exposés aux clients (opaques, pas les ID séquentiels internes) +
+**re-contrôle d'appartenance à chaque accès direct** (ne jamais faire confiance à
+la possession d'un id) ; option forte : **aliasing par contexte** (id différent
+par utilisateur) pour données très sensibles. Affaiblit aussi le *crawl* (D43).
+Implication : l'**abstraction de persistance (D18)** doit savoir filtrer au niveau
+ligne (RLS natif SQL ; filtrage applicatif NoSQL).
+
+**Impersonation et délégation (D76).**
+- **« Agir en tant que » (admin)** sur toutes les strates (tests, délégations),
+  avec **audit à double identité** : compte **effectif** enregistré + compte
+  **d'origine** marqué ; session journalisée avec **motif** (cf. D62) ; vigilance
+  RGPD pour les données sensibles.
+- **Compte technique « pour le compte de »** un compte nominatif/client (modèle
+  OAuth *on-behalf-of*) : l'API est **bornée au périmètre ligne** de cet
+  utilisateur et chaque appel devient **attribuable** — au lieu d'un accès en bloc.
+
+**Apport au méta-schéma** : dimension d'audience ; modes d'appartenance (chemins) ;
+visibilité de champ par audience ; droits lecture/écriture par champ ; délégation.
+
+### 5.8 Versions de schéma ≠ versions de contrat d'API
 
 Avec des migrations fréquentes (plusieurs par semaine), ne pas publier chaque
 version de schéma aux tiers : distinguer les **versions de schéma** (internes,
@@ -1028,7 +1107,87 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
 ---
 
-## 9. Questions ouvertes
+## 9. Étude comparative et positionnement (Q5)
+
+> Recherche sourcée, **juin 2026**. Méthode : recherche multi-angles +
+> vérification adversariale (vote 3 voix/claim ; 24 confirmés / 25). Forte
+> sensibilité temporelle — licences à **re-vérifier à la date d'usage**.
+
+**Verdict** : aucun framework, OSS ou propriétaire, n'égale Syncytium sur
+**l'ensemble** de la combinaison. Chaque pilier isolé a des précédents, **sauf le
+pilier (2)** — génération **automatique** des traductions d'API bidirectionnelles
+à partir de migrations de modèle déclaratives — qui **n'a aucun précédent open
+source confirmé**. C'est le différenciateur central, et il tient.
+
+### 9.1 Par pilier
+
+**Migration à chaud déclarative (pilier 1) — précédents solides :**
+- **Atlas** (ariga) : migration déclarative *state-based* + dry-run (cœur OSS) ;
+  mais **aucun versioning d'API**, et un renommage peut dégénérer en drop+create
+  (perte de données) — ce que les règles explicites D4–D6 évitent.
+  <https://atlasgo.io/declarative/apply>
+- **pgroll** (xata, Apache-2.0) : zéro-downtime *expand/contract*, plusieurs
+  versions de schéma via vues+triggers → compat bidirectionnelle **au niveau
+  SQL**, pas une traduction requêtes/réponses d'API rejouée depuis un journal.
+  <https://github.com/xataio/pgroll>
+
+**Compatibilité d'API bidirectionnelle (pilier 2) — le différenciateur :**
+- **Stripe** : exactement le modèle de chaîne de traduction (modules de version
+  appliqués en ordre inverse), mais **interne/propriétaire** et transformations
+  **écrites à la main**. <https://stripe.com/blog/api-versioning>
+- **OSS « façon Stripe »** : request-migrations (MIT, dormant 2019), gates (PoC),
+  keygen request_migrations (le plus mûr) — reproduisent le pattern bidirectionnel
+  mais **tous exigent des transformations manuelles** ; aucun n'auto-génère depuis
+  un modèle. <https://github.com/tomschlick/request-migrations>
+- **Upcasters event-sourcing** (Axon, Marten) : reconnus, mais **code manuel et
+  unidirectionnels** (forward only). <https://arxiv.org/abs/2104.01146>
+- **Confluent Data Contracts** : le plus proche — règles déclaratives
+  bidirectionnelles (UPGRADE/DOWNGRADE) **chaînées transitivement** — mais sur
+  **messages Kafka** (pas DB+REST) et **licence Enterprise/Cloud payante**.
+  <https://docs.confluent.io/platform/current/schema-registry/fundamentals/data-contracts.html>
+
+→ Le **couplage automatique migration-de-modèle → traduction-d'API
+bidirectionnelle** reste sans équivalent OSS.
+
+**Tech-agnosticité & metadata-driven (piliers 3–4)** : précédents partiels à
+examiner — **Apache Causeway** (naked objects : domaine→UI auto), **NocoBase**,
+**Oinone/Pamirs**.
+
+### 9.2 Contexte de licence 2026 — favorable
+
+Les voisins directs ont **quitté l'open source** en 2026 :
+- **Directus** v12 (mai 2026) : BSL → MSCL, source-available **non OSS**, clause
+  anti-concurrence (GPLv3 après 4 ans).
+  <https://directus.io/blog/directus-v12-license-change>
+- **NocoDB** v0.301.0 (jan. 2026) : AGPLv3 → « Sustainable Use License » **non
+  OSI**. <https://github.com/nocodb/nocodb/discussions/12891>
+
+→ Syncytium revendique l'AGPL réelle exactement quand ses voisins se ferment :
+positionnement isolé et différenciant.
+
+### 9.3 Limites de l'étude
+
+- **Couverture incomplète** : Strapi, Hasura, Supabase, PostgREST, Baserow,
+  Budibase, Appsmith, ToolJet, Retool, Salesforce, Power Platform/Dataverse,
+  Mendix, OutSystems **non réfutés pièce-par-pièce** — le verdict repose sur
+  l'absence de précédent du pilier (2) + l'analyse de catégorie.
+- **keygen request_migrations** (candidat OSS le plus mûr) à examiner précisément.
+- Une **absence ne se prouve jamais** de façon absolue ; licences volatiles.
+
+### 9.4 Implication pour Q5
+
+Le **« construire »** est justifié — pilier (2) sans équivalent + timing AGPL —
+**à condition d'assumer** la réimplémentation du tronc commun (modèle→UI→API) que
+des OSS (Directus, Strapi, Hasura…) offrent déjà. Concurrents/menaces à
+surveiller : **Directus, NocoDB, NocoBase, Apache Causeway**, et les plateformes
+metadata-driven propriétaires (Salesforce, Dataverse, Mendix, OutSystems).
+Piste hybride (socle existant + couche différenciante par-dessus) généralement
+incompatible avec l'exigence de tech-agnosticité et d'AGPL → à écarter sauf
+réévaluation.
+
+---
+
+## 10. Questions ouvertes
 
 | # | Question | Enjeu |
 |---|----------|-------|
@@ -1036,7 +1195,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q2~~ | ~~Systèmes tiers : sous contrôle ou externes ?~~ | **Résolu (D11)** : non maîtrisés → compatibilité bidirectionnelle obligatoire, voir §5. |
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
-| Q5 | **Construire sur mesure ou s'appuyer sur un existant** (Directus, Strapi, …) ? | À trancher quand le besoin sera suffisamment cerné — la migration à chaud avec règles déclaratives **et la compatibilité d'API bidirectionnelle** sont les points les plus différenciants vs l'existant. |
+| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
 | Q6 | Syntaxe exacte des règles d'éclatement (regex) et des tables de correspondance de fusion de valeurs. | Voir §3.2. |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
@@ -1063,11 +1222,12 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
 | ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D69, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Bac à sable résolu par le **modèle de composant déclaratif** (D69, à la Webix). |
 | ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
-| Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
+| ~~Q32~~ | ~~Principals d'accès contextuels ?~~ | **Résolu (D70–D76, §5.7)** : dimension d'audience interne/externe ; accès au niveau ligne par appartenance (directe/indirecte/ouverte/fermée) ; orthogonalité ligne×champ ; lecture/écriture par champ ; OU seulement ; id contextuels anti-IDOR ; impersonation + délégation on-behalf-of. |
+| ~~Q33~~ | ~~Provisionnement des comptes clients ?~~ | **Résolu (D77)** : 4 types de compte (technique / utilisateur / client issu d'une fiche ADV / client auto-créé vérifié, ce dernier non prioritaire). Le type 3 concrétise l'appartenance D71. |
 
 ---
 
-## 10. Journal des échanges
+## 11. Journal des échanges
 
 - **2026-06-10** — Cadrage initial : architecture metadata-driven en trois couches ;
   descriptif géré par un technicien (D1, D2) ; mises à jour fréquentes → migration à
@@ -1351,3 +1511,31 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   tech-agnostique aux deux bouts (données + IHM), le méta-schéma étant le cœur
   durable. Prix : le vocabulaire de rendu doit être assez riche (iframe = soupape).
   Critère ajouté à Q7 (renderer supportant `config → HTML`).
+- **2026-06-12 (suite 20)** — Étude comparative sourcée (nouveau §9, éclaire Q5).
+  Verdict : **aucun équivalent sur l'ensemble** de la combinaison ; le **pilier (2)
+  (compat d'API bidirectionnelle auto-générée depuis des migrations déclaratives)
+  n'a aucun précédent open source** — différenciateur central confirmé. Précédents
+  partiels : Atlas/pgroll (migration), Stripe/request-migrations/upcasters
+  (versioning manuel), Confluent Data Contracts (déclaratif bidirectionnel mais
+  Kafka + payant). Contexte 2026 favorable : Directus et NocoDB ont quitté l'OSS.
+  Limites : couverture non exhaustive, keygen request_migrations à examiner.
+  Implication Q5 : « construire » justifié si l'on assume le tronc commun.
+- **2026-06-12 (suite 21)** — Clôture de Q32 (D70–D76, nouveau §5.7). Q32 ouvre la
+  **dimension d'audience** interne/externe : en interne les groupes suffisent, vers
+  les **clients** il faut un accès **au niveau ligne** (fermé par défaut). Modèle
+  d'appartenance : directe / indirecte (chemin multi-saut) / ouverte à tous les
+  clients / non exposée ; propriétaires multiples = union ; sans propriétaire =
+  invisible (D70–D71). Orthogonalité ligne×champ — champs internes TPE masqués
+  (D72). Lecture/écriture par champ, write ⊆ read (D73). Combinaison OU seulement
+  (D74). Filtrage serveur + **id contextuels non devinables** (anti-IDOR) +
+  re-contrôle d'appartenance ; impose le filtrage ligne dans l'abstraction de
+  persistance D18 (D75). Impersonation admin « agir en tant que » à audit double
+  identité + délégation technique « pour le compte de » (OAuth on-behalf-of) (D76).
+  Nouvelle question Q33 (provisionnement des comptes clients).
+- **2026-06-12 (suite 22)** — Clôture de Q33 (D77) : **quatre types de compte** —
+  (1) technique (API), (2) utilisateur interne (groupes), (3) client issu d'une
+  fiche client (provisionné par le service ADV), (4) client auto-créé (self-service
+  toujours vérifié par les ventes, dérivé de (3), **non prioritaire**). Le type 3
+  **concrétise l'appartenance D71** (le `compte` des chemins = la fiche client).
+  Étanchéité généralisée par canal ; le compte client suit le cycle de vie de sa
+  fiche.

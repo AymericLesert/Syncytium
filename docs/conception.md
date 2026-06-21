@@ -124,6 +124,7 @@ posée (voir §6).
 | D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
 | D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API). | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
 | D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
+| D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. Le moteur expose l'état local + métadonnées de version ; la logique de résolution appartient au connecteur. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). Caveat : sûreté à la frontière du connecteur. Recommandation : remonter les conflits via le canal d'anomalie (D87). Voir §5.5. |
 
 ---
 
@@ -463,10 +464,16 @@ entités.
 - **Reprise (résolu, D87)** : l'écriture connecteur **est une tâche** ; la reprise
   se gère **dans la tâche** (opt-in, idempotence), pas par un auto-retry moteur.
   Anomalie → trace technicien + notification au déclencheur (D87).
-- **Résiduels** : (a) **conflits bidirectionnels** (CRM modifié des deux côtés) :
-  source de vérité / horodatage à définir — **dernier point de Q20** ; (b) une
-  **entité virtuelle** n'a pas de lignes : migrations (D4–D6) et diversité (D46) ne
-  valent que pour les entités **persistées** ; la virtuelle suit son connecteur.
+- **Conflits bidirectionnels (résolu, D89)** : portés par **le connecteur**, pas
+  par le moteur (*le moteur fournit le cadre, l'extension porte la sémantique
+  métier* — cf. D79, D87). Le moteur expose l'état local + les métadonnées de
+  version ; la **logique** de résolution (dernier écrivain, source de vérité,
+  horodatage, fusion) appartient au connecteur. Caveat : la sûreté s'arrête à la
+  frontière du connecteur. Recommandation : faire **remonter les conflits** via le
+  canal d'anomalie (D87) pour qu'ils ne soient pas silencieux.
+- **Résiduel** : une **entité virtuelle** n'a pas de lignes : migrations (D4–D6) et
+  diversité (D46) ne valent que pour les entités **persistées** ; la virtuelle suit
+  son connecteur.
 
 À trancher (Q20), au niveau des modalités : déclenchement (planifié, à la
 demande, au fil de l'eau), gestion des conflits (modification simultanée locale
@@ -1309,7 +1316,7 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** — identité **résolue** (D78, D80–D82) ; données **résolues** (D83–D87 : auto-description, entité virtuelle, écriture DB-sync/connecteur-async-en-tâche, cache, reprise dans la tâche + notification). **Reste un seul point** : politique de **conflits bidirectionnels** (CRM modifié des deux côtés). | Cadre posé ; protocole SSO = détail d'implémentation. |
+| ~~Q20~~ | ~~Connecteurs ?~~ | **Résolu** : identité (D78, D80–D82) ; données (D83–D87) ; relance (D88) ; **conflits bidirectionnels portés par le connecteur** (D89). Cadre = moteur, sémantique métier = connecteur. |
 | ~~Q21~~ | ~~Tâches — notification de fin ?~~ | **Résolu (D87)** : catalogue (D37) + notification au **déclencheur via son canal** — in-app (interface) ou webhook/callback (API). Trace technicien en parallèle. |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
@@ -1680,3 +1687,11 @@ réévaluation.
   double-écriture / données périmées → la relance admin **re-propage l'état
   courant** (pas le payload périmé), l'idempotence (upsert) restant à la charge de
   la tâche. Politique de relance = propriété déclarée (méta-schéma).
+- **2026-06-12 (suite 29)** — Conflits bidirectionnels (D89, **clôt Q20**) : portés
+  par le **connecteur**, pas le moteur — *le moteur fournit le cadre, l'extension
+  porte la sémantique métier* (3e occurrence, cf. D79 translation, D87 reprise). Le
+  moteur expose l'état local + métadonnées ; la logique (dernier écrivain, source
+  de vérité, fusion) appartient au connecteur. Caveat : sûreté à la frontière du
+  connecteur ; recommandation : remonter les conflits via le canal d'anomalie (D87).
+  **Volet connecteurs entièrement clos.** Reste avant la synthèse Q16 : Q6 (syntaxe
+  des règles).

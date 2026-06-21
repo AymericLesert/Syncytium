@@ -98,6 +98,12 @@ posée (voir §6).
 | D60 | **Réinitialisation du déterminisme** dans la supervision (D56) : l'administrateur **invalide le cache** d'une tâche — sans exécuter ; le **prochain appel** ré-exécute. **Granularité à trois niveaux** : tâche+paramètres, tâche entière, ou tout. | Soupape quand la réalité contredit l'assertion D59. Distinct de la relance (D57, exécute maintenant). Nouvel `ETag` → resync des caches clients (D45). Voir §8.4. |
 | D61 | **Contrôles globaux de la file** (frein d'urgence) : **tout annuler / tout mettre en pause / tout relancer**. | Même primitif que le drainage de migration (D24/D54), exposé à la demande. Caveat D57 : la pause arrête le démarrage, n'annule pas les effets en cours. Voir §8.4. |
 | D62 | **Audit des actions de supervision** : chaque action (surtout globale) est journalisée avec un **motif** (catégorie + note libre : blocage, anomalie, mise à jour…). | Journal d'audit nominatif (D41, finalité sécurité) : qui/quoi/quand/pourquoi. Catégorie → filtrage/alerte. Voir §8.4. |
+| D63 | **Couche thème** : couleurs, polices, styles personnalisables par le technicien, par-dessus le rendu par défaut. | Couche de marque, sans logique, faible risque. Voir §8.3. |
+| D64 | **Bibliothèque de composants par défaut**, riche et curée, pilotée par `type → composant` (table, liste déroulante sur énuméré et référence, vignettes, graphiques, dates, dashboard, planning…). | Écrans sensés sans code → construction rapide (promesse fondatrice). Voir §8.3. |
+| D65 | **Surcharge `champ → composant`** ; built-in et custom partagent la **même interface de composant** (rendu + usage : types acceptés, config, points d'extension). | D52 appliqué à l'IHM. Voir §8.3. |
+| D66 | **Injection comportementale** (filtres métier, affichage conditionnel, post-validation) aux points d'extension ; **dogfoodée** (built-in et technicien, même API). | **UX seulement, jamais la sécurité** (serveur D25 arbitre) ; effets délégués aux tâches (D54). Voir §8.3. |
+| D67 | **Surcharge des composants internes non supportée** : on remplace par interface (D65) ou on injecte (D66), jamais on ne patche les internes. | Compat ascendante (parc hétérogène §7.2 transposé à l'IHM). Voir §8.3. |
+| D68 | **Bibliothèque ouverte** : le technicien **enrichit** le registre de composants ; un composant ajouté (même interface, D65) est de première classe — mappable en **défaut de type** ou en surcharge de champ. | Registre namespacé (D52) ; composants partageables (AGPL) → écosystème. Dégradation : repli sur le built-in par défaut si un custom échoue. Voir §8.3. |
 
 ---
 
@@ -831,20 +837,52 @@ reste libre (D19).
 Frontière structurante : **un calcul est pur, une tâche a des effets** — toute
 extension qui veut « faire quelque chose » est une tâche, pas un calcul déguisé.
 
-### 8.3 Spécificités du hook d'interface
+### 8.3 Le hook d'interface (D63–D68 ; résout Q27)
 
-- Langage imposé par le territoire d'exécution : **JavaScript** (indépendant du
-  choix de pile du moteur, Q7).
-- Confidentialité **structurellement** garantie : le canal interface ne livre
-  jamais un champ `privee` au navigateur — pas besoin de faire confiance au code.
-- **Périmètre exact à définir (Q27)** : rendu personnalisé d'un champ (jauge au
-  lieu d'un nombre), validation de saisie enrichie, boutons d'action déclenchant
-  des tâches, réorganisation d'écran ? Plus le périmètre est large, plus
-  l'interface générée est personnalisable — mais plus on s'éloigne de la
-  garantie qu'une description produit toujours une interface cohérente.
+**Principe directeur** : l'interface générée est **complète et cohérente par
+elle-même** ; les hooks d'IHM sont des **enrichissements optionnels** (remplissage
+d'emplacements), jamais requis. Langage **JavaScript** (territoire navigateur,
+indépendant de Q7). Confidentialité **structurelle** : le canal ne livre jamais
+`privee` au navigateur (D44) ; la sécurité au niveau ligne (principals contextuels,
+Q32) s'applique. Aucun effet de bord direct. **Dégradation gracieuse** : une erreur
+d'exécution retombe sur le rendu par défaut (≠ calcul qui bloque la migration).
 
-> **À l'agenda** : le hook de **tâche** est défini ci-dessous (D53–D58) ; le hook
-> d'**interface** reste à traiter (précisions de l'auteur attendues, Q27).
+**Quatre couches :**
+
+1. **Thème (D63)** — couleurs, polices, styles, personnalisables par le technicien.
+   Sans logique ; couche de marque, faible risque.
+2. **Cartographie `type → composant` (D64)** — bibliothèque par défaut **riche et
+   curée** : table, liste déroulante sur énuméré **et sur référence**, vignettes,
+   graphiques, widgets de dates, dashboard, planning… → écrans sensés **sans code**.
+   Vise la construction rapide d'application (promesse fondatrice).
+3. **Surcharge `champ → composant` (D65) + bibliothèque ouverte (D68)** — built-in
+   et custom partagent la **même interface de composant** (décrit *rendu* et
+   *usage* : types acceptés, configuration, points d'extension) ; registre
+   namespacé (D52). Le technicien **enrichit la bibliothèque** : un composant ajouté
+   est de première classe — mappable en **défaut de type** (app-wide) ou en
+   surcharge de champ, indistinguable d'un built-in. Composants **partageables**
+   (AGPL si distribués) → écosystème.
+4. **Injection comportementale (D66)** — filtres métier, affichage conditionnel,
+   action post-validation, aux points d'extension. **Dogfoodé** : les composants
+   internes utilisent la même API que le technicien. **UX seulement, jamais la
+   sécurité** (un filtre client ne protège pas ; le serveur D25 le fait) ; tout
+   effet **délègue à une tâche** (D54).
+
+**Surcharge des internes non supportée (D67)** : se coupler aux détails internes
+casse à la mise à jour du moteur (parc hétérogène §7.2 transposé à l'IHM). On
+**remplace par interface** ou on **injecte** — jamais on ne patche les internes.
+
+**Dégradation** : un composant custom qui échoue, **même promu défaut de type**,
+retombe sur le **built-in par défaut** du type — le socle livré reste l'ultime
+filet (la cohérence de l'interface générée est préservée).
+
+**Apport au méta-schéma** : thème ; cartographie type→composant ; surcharges
+champ→composant ; configuration + comportements injectés ; interface de composant
+versionnée ; composants enregistrés dans le registre.
+
+**Reste ouvert (Q27 résiduel)** : le **degré de bac à sable** du code navigateur
+(iframe sandbox / Web Worker / CSP) — défense en profondeur, la confidentialité
+étant déjà structurelle.
 
 ### 8.4 Le hook de tâche (D53–D58 ; résout la moitié de Q21)
 
@@ -990,7 +1028,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)**. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
@@ -1000,8 +1038,8 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
-| Q26 | **Contrat des hooks** — calcul (§5.5) et **tâche (D53–D58, §8.4) traités**. Reste le mode **interface**. | Principe uniforme D52 ; tâche entièrement définie. |
-| Q27 | **Périmètre du hook d'interface** : rendu personnalisé de champ, validation de saisie, boutons d'action (→ tâches), réorganisation d'écran ? | **À traiter** — dernier mode de hook. Curseur entre personnalisation et garantie d'une interface cohérente (§8.3). |
+| ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
+| ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D68, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Résiduel : degré de bac à sable. |
 | ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
 | Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
 
@@ -1270,3 +1308,14 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   (D62) : chaque action journalisée avec un motif (catégorie + note : blocage,
   anomalie, mise à jour) → journal d'audit nominatif (D41, finalité sécurité).
   Deux étages de contrôle : par tâche et global.
+- **2026-06-12 (suite 18)** — Contrat du hook d'**interface** arrêté (D63–D68,
+  §8.3 réécrit ; **résout Q26 et Q27**). Principe : interface générée complète,
+  hooks = enrichissements optionnels, dégradation gracieuse. Quatre couches :
+  **thème** (D63) ; **bibliothèque par défaut** riche pilotée par type→composant
+  (D64) ; **surcharge champ→composant** avec interface de composant commune
+  built-in/custom (D65) **et bibliothèque ouverte/enrichissable** par le technicien,
+  composant ajouté mappable en défaut de type (D68) ; **injection comportementale**
+  (filtres, post-validation) dogfoodée, **UX jamais sécurité**, effets via tâches
+  (D66). **Pas de patch des internes** (compat ascendante, D67) → remplacer ou
+  injecter. Dégradation : repli sur le built-in par défaut. Résiduel Q27 : degré
+  de bac à sable. Le volet **hooks (D37, D52, D53–D68) est clos**.

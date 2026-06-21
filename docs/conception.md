@@ -118,6 +118,10 @@ posée (voir §6).
 | D80 | **Source d'identité unique** (pas de mode mixte) + **changement gardé** : validation préalable (auth de test réussie) avant bascule ; repli rapide ; échec → on reste sur l'ancienne. | Simplicité ; couvre le risque de verrouillage. Voir §5.6. |
 | D81 | **Secours « bris de glace »** (étend D33) : le compte de secours s'active aussi quand l'**authentification est indisponible** (santé du connecteur actif) ; indépendant de tout connecteur externe ; activation **auditée (D62) + alertée (D43)**. | Évite tout verrouillage total ; événement de sécurité fort. Voir §5.6. |
 | D82 | **Identité interne = UUID stable** (ancre : appartenance D71, audit, références) ; **clé d'unicité définie par le connecteur** (rapprochement externe → UUID), variable par connecteur/TPE (GUID Entra/AD + courriel ; courriel/login local). | Clé immuable en priorité (email mutable → repli) ; opération admin de re-liaison/fusion ; cohérent id opaques D75 ; clé d'unicité = propriété du contrat connecteur (D78). Résout le rapprochement des comptes. Voir §5.6. |
+| D83 | **Connecteur de données auto-descriptif** : il porte la **description de son propre modèle** (entités/champs) ; Syncytium **mappe** ses entités dessus (confidentialité D25). | Visualiser une structure externe (AD/CRM) par simple déclaration — méta-schéma appliqué aux connecteurs. Voir §5.5. |
+| D84 | **Entité persistée vs virtuelle** : persistée (stockage DB, défaut) ou **virtuelle** (sans stockage propre, sourcée de connecteur(s), en cache/mémoire) ; **multi-occurrences** (DB + connecteurs). | Migrations (D4–D6) et diversité (D46) ne valent que pour le persisté. Voir §5.5. |
+| D85 | **Écriture : DB synchrone, connecteurs asynchrones** via la **file de tâches** (D54–D58). | Découplage/résilience : ne bloque pas l'enregistrement. Résiduel : reprise = *cohérence à terme* (≠ at-most-once des tâches D57). Voir §5.5. |
+| D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
 
 ---
 
@@ -434,6 +438,32 @@ entités.
   (renommage / éclatement regex / fusion gabarit, D4–D6). Mapper `full_name` →
   `prenom`+`nom` *est* un éclatement. La **direction** (import/export/bidi) =
   le sens de la translation. → renforce l'enjeu de **Q6** (syntaxe servant 3 usages).
+
+**Modèle des connecteurs de données (D83–D86).**
+
+- **Auto-description (D83)** : le connecteur **porte la description de son propre
+  modèle** (entités/champs). On **mappe** les entités Syncytium dessus, en
+  respectant la confidentialité (D25). Visualiser la structure externe (AD, CRM)
+  devient une **simple déclaration** — méta-schéma appliqué aux connecteurs.
+- **Entité persistée vs virtuelle (D84)** : une entité est **persistée** (stockage
+  DB, défaut) ou **virtuelle** (sans stockage propre, sourcée d'un/des
+  connecteur(s), en cache/mémoire). Une entité peut avoir **plusieurs occurrences**
+  (DB + connecteurs).
+- **Écriture — DB synchrone, connecteurs asynchrones (D85)** : la DB primaire est
+  écrite **en synchrone** (entité non virtuelle) ; les écritures vers les **autres
+  connecteurs sont différées via une file** (réutilise la file de tâches D54–D58)
+  — découplage, résilience, performance.
+- **Cache de lecture (D86)** : lectures **mises en cache un laps de temps
+  configurable** (limite les appels connecteur ; même esprit que la mémoïsation
+  D59).
+- **Déclenchement (Q20, résolu)** : lectures **à la demande + cache** ; écritures
+  **en file** (fil de l'eau).
+- **Tensions / résiduels** : (a) **reprise** des écritures connecteur — viser la
+  *cohérence à terme* (rejeu), **à l'inverse** du *at-most-once* des tâches (D57) ;
+  (b) **conflits bidirectionnels** (CRM modifié des deux côtés) : source de vérité
+  / horodatage à définir — **dernier point de Q20** ; (c) une **entité virtuelle**
+  n'a pas de lignes : migrations (D4–D6) et diversité (D46) ne valent que pour les
+  entités **persistées** ; la virtuelle suit le modèle de son connecteur.
 
 À trancher (Q20), au niveau des modalités : déclenchement (planifié, à la
 demande, au fil de l'eau), gestion des conflits (modification simultanée locale
@@ -1258,7 +1288,7 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** — identité **résolue** (D78, D80, D81, D82 : source unique, changement gardé, bris de glace, UUID + clé d'unicité). Reste : côté **données** → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits**. | Cadre posé ; protocole SSO = détail d'implémentation. |
+| Q20 | **Connecteurs** — identité **résolue** (D78, D80–D82) ; données **largement résolues** (D83–D86 : auto-description, entité virtuelle, écriture DB-sync/connecteur-async, cache lecture ; déclenchement réglé). **Reste** : politique de **conflits bidirectionnels** (CRM modifié des deux côtés) + reprise/cohérence à terme des écritures connecteur. | Cadre posé ; protocole SSO = détail d'implémentation. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
@@ -1607,3 +1637,12 @@ réévaluation.
   courriel/login en local. Nuance : clé immuable en priorité (email mutable =
   repli), opération admin de re-liaison/fusion prévue. Volet **identité de Q20
   entièrement clos** ; restent les modalités des connecteurs de données.
+- **2026-06-12 (suite 26)** — Modèle des connecteurs de données (D83–D86, 3 cas :
+  AD lecture, CSV écriture, CRM bidirectionnel). **Auto-description** : le
+  connecteur porte son propre modèle, Syncytium mappe dessus (D83). **Entité
+  persistée vs virtuelle** + multi-occurrences DB+connecteurs (D84). **Écriture :
+  DB synchrone, connecteurs asynchrones via la file de tâches** (D85). **Cache de
+  lecture** configurable (D86, cf. D59). Déclenchement réglé (lecture à la
+  demande+cache, écriture en file). Résiduels : conflits bidirectionnels (CRM) et
+  reprise/cohérence à terme des écritures connecteur (≠ at-most-once D57). Les
+  entités virtuelles excluent migrations/diversité (persisté seulement).

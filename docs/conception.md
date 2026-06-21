@@ -1028,7 +1028,87 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
 ---
 
-## 9. Questions ouvertes
+## 9. Étude comparative et positionnement (Q5)
+
+> Recherche sourcée, **juin 2026**. Méthode : recherche multi-angles +
+> vérification adversariale (vote 3 voix/claim ; 24 confirmés / 25). Forte
+> sensibilité temporelle — licences à **re-vérifier à la date d'usage**.
+
+**Verdict** : aucun framework, OSS ou propriétaire, n'égale Syncytium sur
+**l'ensemble** de la combinaison. Chaque pilier isolé a des précédents, **sauf le
+pilier (2)** — génération **automatique** des traductions d'API bidirectionnelles
+à partir de migrations de modèle déclaratives — qui **n'a aucun précédent open
+source confirmé**. C'est le différenciateur central, et il tient.
+
+### 9.1 Par pilier
+
+**Migration à chaud déclarative (pilier 1) — précédents solides :**
+- **Atlas** (ariga) : migration déclarative *state-based* + dry-run (cœur OSS) ;
+  mais **aucun versioning d'API**, et un renommage peut dégénérer en drop+create
+  (perte de données) — ce que les règles explicites D4–D6 évitent.
+  <https://atlasgo.io/declarative/apply>
+- **pgroll** (xata, Apache-2.0) : zéro-downtime *expand/contract*, plusieurs
+  versions de schéma via vues+triggers → compat bidirectionnelle **au niveau
+  SQL**, pas une traduction requêtes/réponses d'API rejouée depuis un journal.
+  <https://github.com/xataio/pgroll>
+
+**Compatibilité d'API bidirectionnelle (pilier 2) — le différenciateur :**
+- **Stripe** : exactement le modèle de chaîne de traduction (modules de version
+  appliqués en ordre inverse), mais **interne/propriétaire** et transformations
+  **écrites à la main**. <https://stripe.com/blog/api-versioning>
+- **OSS « façon Stripe »** : request-migrations (MIT, dormant 2019), gates (PoC),
+  keygen request_migrations (le plus mûr) — reproduisent le pattern bidirectionnel
+  mais **tous exigent des transformations manuelles** ; aucun n'auto-génère depuis
+  un modèle. <https://github.com/tomschlick/request-migrations>
+- **Upcasters event-sourcing** (Axon, Marten) : reconnus, mais **code manuel et
+  unidirectionnels** (forward only). <https://arxiv.org/abs/2104.01146>
+- **Confluent Data Contracts** : le plus proche — règles déclaratives
+  bidirectionnelles (UPGRADE/DOWNGRADE) **chaînées transitivement** — mais sur
+  **messages Kafka** (pas DB+REST) et **licence Enterprise/Cloud payante**.
+  <https://docs.confluent.io/platform/current/schema-registry/fundamentals/data-contracts.html>
+
+→ Le **couplage automatique migration-de-modèle → traduction-d'API
+bidirectionnelle** reste sans équivalent OSS.
+
+**Tech-agnosticité & metadata-driven (piliers 3–4)** : précédents partiels à
+examiner — **Apache Causeway** (naked objects : domaine→UI auto), **NocoBase**,
+**Oinone/Pamirs**.
+
+### 9.2 Contexte de licence 2026 — favorable
+
+Les voisins directs ont **quitté l'open source** en 2026 :
+- **Directus** v12 (mai 2026) : BSL → MSCL, source-available **non OSS**, clause
+  anti-concurrence (GPLv3 après 4 ans).
+  <https://directus.io/blog/directus-v12-license-change>
+- **NocoDB** v0.301.0 (jan. 2026) : AGPLv3 → « Sustainable Use License » **non
+  OSI**. <https://github.com/nocodb/nocodb/discussions/12891>
+
+→ Syncytium revendique l'AGPL réelle exactement quand ses voisins se ferment :
+positionnement isolé et différenciant.
+
+### 9.3 Limites de l'étude
+
+- **Couverture incomplète** : Strapi, Hasura, Supabase, PostgREST, Baserow,
+  Budibase, Appsmith, ToolJet, Retool, Salesforce, Power Platform/Dataverse,
+  Mendix, OutSystems **non réfutés pièce-par-pièce** — le verdict repose sur
+  l'absence de précédent du pilier (2) + l'analyse de catégorie.
+- **keygen request_migrations** (candidat OSS le plus mûr) à examiner précisément.
+- Une **absence ne se prouve jamais** de façon absolue ; licences volatiles.
+
+### 9.4 Implication pour Q5
+
+Le **« construire »** est justifié — pilier (2) sans équivalent + timing AGPL —
+**à condition d'assumer** la réimplémentation du tronc commun (modèle→UI→API) que
+des OSS (Directus, Strapi, Hasura…) offrent déjà. Concurrents/menaces à
+surveiller : **Directus, NocoDB, NocoBase, Apache Causeway**, et les plateformes
+metadata-driven propriétaires (Salesforce, Dataverse, Mendix, OutSystems).
+Piste hybride (socle existant + couche différenciante par-dessus) généralement
+incompatible avec l'exigence de tech-agnosticité et d'AGPL → à écarter sauf
+réévaluation.
+
+---
+
+## 10. Questions ouvertes
 
 | # | Question | Enjeu |
 |---|----------|-------|
@@ -1036,7 +1116,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q2~~ | ~~Systèmes tiers : sous contrôle ou externes ?~~ | **Résolu (D11)** : non maîtrisés → compatibilité bidirectionnelle obligatoire, voir §5. |
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
-| Q5 | **Construire sur mesure ou s'appuyer sur un existant** (Directus, Strapi, …) ? | À trancher quand le besoin sera suffisamment cerné — la migration à chaud avec règles déclaratives **et la compatibilité d'API bidirectionnelle** sont les points les plus différenciants vs l'existant. |
+| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
 | Q6 | Syntaxe exacte des règles d'éclatement (regex) et des tables de correspondance de fusion de valeurs. | Voir §3.2. |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
@@ -1067,7 +1147,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
 ---
 
-## 10. Journal des échanges
+## 11. Journal des échanges
 
 - **2026-06-10** — Cadrage initial : architecture metadata-driven en trois couches ;
   descriptif géré par un technicien (D1, D2) ; mises à jour fréquentes → migration à
@@ -1351,3 +1431,12 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   tech-agnostique aux deux bouts (données + IHM), le méta-schéma étant le cœur
   durable. Prix : le vocabulaire de rendu doit être assez riche (iframe = soupape).
   Critère ajouté à Q7 (renderer supportant `config → HTML`).
+- **2026-06-12 (suite 20)** — Étude comparative sourcée (nouveau §9, éclaire Q5).
+  Verdict : **aucun équivalent sur l'ensemble** de la combinaison ; le **pilier (2)
+  (compat d'API bidirectionnelle auto-générée depuis des migrations déclaratives)
+  n'a aucun précédent open source** — différenciateur central confirmé. Précédents
+  partiels : Atlas/pgroll (migration), Stripe/request-migrations/upcasters
+  (versioning manuel), Confluent Data Contracts (déclaratif bidirectionnel mais
+  Kafka + payant). Contexte 2026 favorable : Directus et NocoDB ont quitté l'OSS.
+  Limites : couverture non exhaustive, keygen request_migrations à examiner.
+  Implication Q5 : « construire » justifié si l'on assume le tronc commun.

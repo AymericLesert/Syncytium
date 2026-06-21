@@ -95,6 +95,7 @@ posée (voir §6).
 | D57 | **Exécution-once par défaut**, **pas de rollback** (effets irréversibles assumés : mail jamais rejoué), **pas d'auto-retry** — relance **manuelle** depuis la supervision. | Un échec transitoire attend une intervention humaine (acceptable TPE). Voir §8.4. |
 | D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). **Granularité (résout Q31) : par tâche + paramètres.** | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Voir §8.4. |
 | D59 | **Option `deterministe`** : si déterministe, un doublon (même tâche + paramètres) dans la **fenêtre de déterminisme** rend le **résultat mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown (D58) refuse. | Mémoïsation = résout l'idempotence (D57) sans effet de bord répété ; pendant serveur de D45. Déterminisme = assertion du technicien (fenêtre = borne de volatilité). Voir §8.4. |
+| D60 | **Réinitialisation du déterminisme** dans la supervision (D56) : l'administrateur **invalide le cache** d'une tâche (une entrée tâche+paramètres, ou toutes) — sans exécuter ; le **prochain appel** ré-exécute. | Soupape quand la réalité contredit l'assertion D59. Distinct de la relance (D57, exécute maintenant). Nouvel `ETag` → resync des caches clients (D45). Voir §8.4. |
 
 ---
 
@@ -893,8 +894,9 @@ a un **état** et un **statut de progression** (compteur/total + message). Le
 `resultat_lu_par`), disponible pour une **durée déterminée**.
 
 **Supervision (D56).** Une **interface d'administration** (solution intégrée sur
-le méta-schéma, D44) : **annuler / reporter / reprioriser** ; **journal** de toutes
-les exécutions (succès / échec / exception).
+le méta-schéma, D44) : **annuler / reporter / reprioriser** ; **réinitialiser le
+déterminisme** (D60) ; **journal** de toutes les exécutions (succès / échec /
+exception).
 
 **Exécution-once (D57).** Une exécution par défaut, **pas de rollback** (effets
 irréversibles assumés : un mail ne se rejoue pas), **jamais d'auto-retry** —
@@ -933,6 +935,15 @@ Cohérences : le déterminisme **résout l'idempotence (D57) par mémoïsation**
 D45 recommande au client de cacher + fournit l'`ETag`). **Caveat** : le déterminisme
 est une **assertion du technicien** (comme la pureté d'un calcul) ; la fenêtre borne
 le risque de résultat périmé (jugement sur la volatilité des données).
+
+**Réinitialisation du déterminisme (D60).** Soupape d'échappement dans la
+supervision (D56) : l'administrateur **invalide le cache** d'une tâche — *sans
+rien exécuter*. Le **prochain appel** ré-exécute (distinct de la relance D57 qui
+exécute *maintenant*). Sert quand la réalité contredit l'assertion (données
+changées dans la fenêtre). Granularité : **une entrée** (tâche + paramètres
+précis) ou **toutes les entrées** d'une tâche. Après réinitialisation, la
+ré-exécution produit un **nouvel `ETag`** → les caches clients (D45) se
+resynchronisent.
 
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
@@ -1231,3 +1242,9 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   rétention). Le déterminisme résout l'idempotence (D57) par mémoïsation (pas
   d'effet répété) et est le pendant serveur de D45 ; c'est une **assertion du
   technicien**, la fenêtre bornant le risque de péremption.
+- **2026-06-12 (suite 16)** — Réinitialisation du déterminisme (D60) ajoutée à la
+  supervision (D56) : l'administrateur invalide le cache d'une tâche (une entrée
+  tâche+paramètres ou toutes) sans exécuter ; le prochain appel ré-exécute.
+  Soupape quand la réalité contredit l'assertion D59 ; distincte de la relance
+  (D57, qui exécute maintenant) ; produit un nouvel `ETag` resynchronisant les
+  caches clients (D45).

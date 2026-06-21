@@ -122,6 +122,7 @@ posée (voir §6).
 | D84 | **Entité persistée vs virtuelle** : persistée (stockage DB, défaut) ou **virtuelle** (sans stockage propre, sourcée de connecteur(s), en cache/mémoire) ; **multi-occurrences** (DB + connecteurs). | Migrations (D4–D6) et diversité (D46) ne valent que pour le persisté. Voir §5.5. |
 | D85 | **Écriture : DB synchrone, connecteurs asynchrones** via la **file de tâches** (D54–D58). | Découplage/résilience : ne bloque pas l'enregistrement. Résiduel : reprise = *cohérence à terme* (≠ at-most-once des tâches D57). Voir §5.5. |
 | D86 | **Cache de lecture des connecteurs** à durée configurable. | Limite les opérations sur le connecteur ; même esprit que la mémoïsation D59. Voir §5.5. |
+| D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API) ; le déclencheur peut relancer. | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
 
 ---
 
@@ -458,12 +459,13 @@ entités.
   D59).
 - **Déclenchement (Q20, résolu)** : lectures **à la demande + cache** ; écritures
   **en file** (fil de l'eau).
-- **Tensions / résiduels** : (a) **reprise** des écritures connecteur — viser la
-  *cohérence à terme* (rejeu), **à l'inverse** du *at-most-once* des tâches (D57) ;
-  (b) **conflits bidirectionnels** (CRM modifié des deux côtés) : source de vérité
-  / horodatage à définir — **dernier point de Q20** ; (c) une **entité virtuelle**
-  n'a pas de lignes : migrations (D4–D6) et diversité (D46) ne valent que pour les
-  entités **persistées** ; la virtuelle suit le modèle de son connecteur.
+- **Reprise (résolu, D87)** : l'écriture connecteur **est une tâche** ; la reprise
+  se gère **dans la tâche** (opt-in, idempotence), pas par un auto-retry moteur.
+  Anomalie → trace technicien + notification au déclencheur (D87).
+- **Résiduels** : (a) **conflits bidirectionnels** (CRM modifié des deux côtés) :
+  source de vérité / horodatage à définir — **dernier point de Q20** ; (b) une
+  **entité virtuelle** n'a pas de lignes : migrations (D4–D6) et diversité (D46) ne
+  valent que pour les entités **persistées** ; la virtuelle suit son connecteur.
 
 À trancher (Q20), au niveau des modalités : déclenchement (planifié, à la
 demande, au fil de l'eau), gestion des conflits (modification simultanée locale
@@ -1173,12 +1175,20 @@ changées dans la fenêtre). **Granularité à trois niveaux** : tâche + param�
 Après réinitialisation, la ré-exécution produit un **nouvel `ETag`** → les caches
 clients (D45) se resynchronisent.
 
+**Traitement d'anomalie & notification (D87 ; résout Q21).** L'écriture
+connecteur (D85) **est une tâche**, donc **non transactionnelle** (D57) ; la
+**reprise se gère à l'intérieur de la tâche** (opt-in — pas d'auto-retry moteur ;
+respecter l'idempotence comme D57/D59). En cas d'anomalie :
+- **trace pour le technicien** (journal d'exécution, D41/D62) — diagnostic ;
+- **notification au(x) déclencheur(s)** pour relancer ou trouver une solution,
+  **via leur canal** : déclencheur interface → **in-app** ; déclencheur API →
+  **webhook/callback** sortant. (Réponse à Q21 : *les deux*, selon le canal.)
+- le **déclencheur peut relancer sa propre tâche** (pas seulement l'admin, D57).
+
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
-lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention) ; la
-solution intégrée de supervision.
-
-Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
+lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention,
+**canal de notification**) ; la solution intégrée de supervision.
 
 ---
 
@@ -1288,8 +1298,8 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** — identité **résolue** (D78, D80–D82) ; données **largement résolues** (D83–D86 : auto-description, entité virtuelle, écriture DB-sync/connecteur-async, cache lecture ; déclenchement réglé). **Reste** : politique de **conflits bidirectionnels** (CRM modifié des deux côtés) + reprise/cohérence à terme des écritures connecteur. | Cadre posé ; protocole SSO = détail d'implémentation. |
-| Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
+| Q20 | **Connecteurs** — identité **résolue** (D78, D80–D82) ; données **résolues** (D83–D87 : auto-description, entité virtuelle, écriture DB-sync/connecteur-async-en-tâche, cache, reprise dans la tâche + notification). **Reste un seul point** : politique de **conflits bidirectionnels** (CRM modifié des deux côtés). | Cadre posé ; protocole SSO = détail d'implémentation. |
+| ~~Q21~~ | ~~Tâches — notification de fin ?~~ | **Résolu (D87)** : catalogue (D37) + notification au **déclencheur via son canal** — in-app (interface) ou webhook/callback (API). Trace technicien en parallèle. |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
@@ -1646,3 +1656,10 @@ réévaluation.
   demande+cache, écriture en file). Résiduels : conflits bidirectionnels (CRM) et
   reprise/cohérence à terme des écritures connecteur (≠ at-most-once D57). Les
   entités virtuelles excluent migrations/diversité (persisté seulement).
+- **2026-06-12 (suite 27)** — Reprise et notification des tâches (D87 ; résout Q21
+  et le résiduel reprise de D85). L'écriture connecteur **est une tâche** non
+  transactionnelle (D57) ; la **reprise se gère dans la tâche** (opt-in,
+  idempotence), pas d'auto-retry moteur. Anomalie : **trace technicien** +
+  **notification au déclencheur via son canal** (in-app si interface, webhook si
+  API — réponse à Q21) ; le déclencheur peut relancer sa propre tâche. Q20 : ne
+  reste plus que les **conflits bidirectionnels**.

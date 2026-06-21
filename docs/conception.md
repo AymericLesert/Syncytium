@@ -117,6 +117,7 @@ posée (voir §6).
 | D79 | **Connecteur de données = composant de translation** entre données externes et modèle du moteur (couche anti-corruption). | La **translation déclarative** est un **primitif transverse** (migrations §3.2, compat d'API §5.1, connecteurs) → réutilise le vocabulaire D4–D6 ; direction = sens de la translation. Renforce Q6. Voir §5.5. |
 | D80 | **Source d'identité unique** (pas de mode mixte) + **changement gardé** : validation préalable (auth de test réussie) avant bascule ; repli rapide ; échec → on reste sur l'ancienne. | Simplicité ; couvre le risque de verrouillage. Voir §5.6. |
 | D81 | **Secours « bris de glace »** (étend D33) : le compte de secours s'active aussi quand l'**authentification est indisponible** (santé du connecteur actif) ; indépendant de tout connecteur externe ; activation **auditée (D62) + alertée (D43)**. | Évite tout verrouillage total ; événement de sécurité fort. Voir §5.6. |
+| D82 | **Identité interne = UUID stable** (ancre : appartenance D71, audit, références) ; **clé d'unicité définie par le connecteur** (rapprochement externe → UUID), variable par connecteur/TPE (GUID Entra/AD + courriel ; courriel/login local). | Clé immuable en priorité (email mutable → repli) ; opération admin de re-liaison/fusion ; cohérent id opaques D75 ; clé d'unicité = propriété du contrat connecteur (D78). Résout le rapprochement des comptes. Voir §5.6. |
 
 ---
 
@@ -524,6 +525,15 @@ Conséquences consignées :
   D33) → aucune panne d'AD/SSO ne le verrouille. Son activation est un **événement
   de sécurité fort** : **audité avec motif** (D62) et **alerté** (finalité
   sécurité D43).
+- **Identité interne + clé d'unicité (D82)** : l'identité canonique est un **UUID
+  interne stable** — l'ancre de tout (appartenance D71, audit, références) ; ne
+  change jamais ; cohérent avec les id opaques de D75. La **clé d'unicité**
+  (rapprochement externe → UUID) est **définie par le connecteur** et varie par
+  connecteur/TPE : clé d'annuaire Entra/AD (+ courriel), courriel/login en local.
+  Nuance : **clé immuable en priorité** (objectGUID) ; email = mutable → secondaire
+  / repli ; prévoir une **opération admin de re-liaison / fusion** (email changé,
+  doublon). JIT (D30) : le connecteur extrait la clé du jeton, retrouve l'UUID.
+  Déclarer sa clé d'unicité fait partie du contrat du connecteur (D78).
 - **Suppression d'un groupe encore référencé (D34)** : note au technicien
   (notification ou journalisation) et groupe **ignoré**. Comportement fermé par
   défaut : un champ restreint au seul groupe supprimé devient invisible de tous
@@ -1248,7 +1258,7 @@ réévaluation.
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
-| Q20 | **Connecteurs** — identité **résolue** (D78, D80, D81 : source unique, changement gardé, bris de glace). Reste : côté **données** → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits** ; petit résiduel identité → **rapprochement des comptes** (par email) lors d'un changement de source. | Cadre posé ; protocole SSO = détail d'implémentation. |
+| Q20 | **Connecteurs** — identité **résolue** (D78, D80, D81, D82 : source unique, changement gardé, bris de glace, UUID + clé d'unicité). Reste : côté **données** → **déclenchement** (planifié / à la demande / fil de l'eau) et **gestion des conflits**. | Cadre posé ; protocole SSO = détail d'implémentation. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
@@ -1590,3 +1600,10 @@ réévaluation.
   indépendant de tout connecteur externe ; activation auditée (D62) + alertée
   (D43). Reste côté données : déclenchement, conflits ; petit résiduel identité :
   rapprochement des comptes par email lors d'un changement de source.
+- **2026-06-12 (suite 25)** — Rapprochement des comptes résolu (D82). Identité
+  interne = **UUID stable** (ancre de l'appartenance D71, de l'audit, des
+  références ; cohérent avec les id opaques D75). **Clé d'unicité définie par le
+  connecteur** (variable par connecteur/TPE) : GUID Entra/AD + courriel, ou
+  courriel/login en local. Nuance : clé immuable en priorité (email mutable =
+  repli), opération admin de re-liaison/fusion prévue. Volet **identité de Q20
+  entièrement clos** ; restent les modalités des connecteurs de données.

@@ -88,6 +88,12 @@ posée (voir §6).
 | D50 | **Seuils du modèle de risque de sécurité (D47) déclarés dans la description**, portés par les **endpoints**, **entités** et **fonctionnalités d'IHM**. | Généralise D49 : seuils de télémétrie = attribut déclaratif par élément du méta-schéma, tous types. Les fonctions d'IHM entrent dans le périmètre sécurité. Voir §6.4. |
 | D51 | **Filet de sécurité (résout Q29)** : **seuils globaux par défaut** sur le modèle + **surcharge par élément**. Asymétrie voulue avec Q28 (sécurité : seuil absent = défaut global s'applique). **Défaut** : pente **normalisée** > 1 (= plus que doublé) sur la fenêtre, pour un volume > 1000 appels. | Une alerte de sécurité ne peut se taire (contrairement à une suggestion). Pente (forme) croisée au volume (poids) = conditions orthogonales. Écart type écarté (simplicité). Fenêtre glissante à définir. Voir §6.4. |
 | D52 | **Mécanisme de hook uniforme interne/externe** : fonctions internes (livrées par Syncytium) et externes (modules du technicien) implémentent la **même interface commune** par mode et se branchent à l'identique. Syncytium fournit un **socle de hooks** enrichissable ; les built-in sont des **extensions de première partie**. | Sécurité uniforme (même frontière déclarée) ; built-in = implémentations de référence ; impose registre + namespacing et **versionnement des interfaces** (→ Q16). Régularité « mécanisme uniforme, distingué par la provenance » (cf. D28, D44) ; généralisable aux connecteurs/auth → modèle d'extension unique. Voir §8.0. |
+| D53 | **Droits de tâche** : `declenche_par` ⊆ `resultat_lu_par` par construction ; `resultat_lu_par` ne déclare que les lecteurs **additionnels** (groupes statiques **ou principals contextuels** comme `employe_concerne`). La tâche s'exécute avec sa **propre portée `lecture:`** (élévation contrôlée, type SUID). | Qui déclenche peut lire (sinon absurde). Principal contextuel = **sécurité au niveau ligne** → généraliser (Q32). Voir §8.4. |
+| D54 | **Cinq déclencheurs de tâche** : interface, API, planifié, **événement de données**, **enchaînement**. Tâche synchrone ou asynchrone, **toujours non bloquante avec progression** (le synchrone = posture d'IHM, pas un chemin séparé). | Toutes les tâches passent par la file ; progression par SSE/WebSocket. Voir §8.4. |
+| D55 | **File d'attente** bornant la concurrence ; chaque tâche a un **état** + **progression** (compteur/total + message) ; **résultat enregistré** (trace + restitution sur demande dans la limite de `resultat_lu_par`), disponible une **durée déterminée**. | Affine D24. Voir §8.4. |
+| D56 | **Interface de supervision des tâches** (solution intégrée, D44) pour l'administrateur : **annuler / reporter / reprioriser** ; **journal** des exécutions (succès / échec / exception). | Syncytium s'administre avec ses propres mécanismes (cf. restitution télémétrie). Voir §8.4. |
+| D57 | **Exécution-once par défaut**, **pas de rollback** (effets irréversibles assumés : mail jamais rejoué), **pas d'auto-retry** — relance **manuelle** depuis la supervision. | Un échec transitoire attend une intervention humaine (acceptable TPE). Voir §8.4. |
+| D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Granularité → Q31. Voir §8.4. |
 
 ---
 
@@ -833,20 +839,78 @@ extension qui veut « faire quelque chose » est une tâche, pas un calcul dégu
   l'interface générée est personnalisable — mais plus on s'éloigne de la
   garantie qu'une description produit toujours une interface cohérente.
 
-> **À l'agenda** : les hooks de **tâche** et d'**interface** feront l'objet d'une
-> discussion dédiée — l'auteur a des précisions complémentaires à apporter,
-> volontairement réservées pour un échange ultérieur. Les sections 8.2–8.4 posent
-> le cadre proposé ; rien n'est figé sur ces deux modes tant que cette discussion
-> n'a pas eu lieu.
+> **À l'agenda** : le hook de **tâche** est défini ci-dessous (D53–D58) ; le hook
+> d'**interface** reste à traiter (précisions de l'auteur attendues, Q27).
 
-### 8.4 Catalogue de tâches (résout la moitié de Q21)
+### 8.4 Le hook de tâche (D53–D58 ; résout la moitié de Q21)
 
-Même schéma que le calcul personnalisé : **déclaration** dans la description
-(nom, paramètres, règles d'accès, entités concernées), **implémentation** dans
-le plugin déployé avec elle. Tâches intégrées au moteur (PDF, mails génériques)
-et tâches apportées par hook coexistent dans le même catalogue, avec le même
-suivi d'avancement (D24). Reste de Q21 : la notification de fin (consultation
-seule ou webhook sortant).
+Même schéma que le calcul : **déclaration** dans la description, **implémentation**
+en plugin (interne ou externe, D52). Built-in (PDF, mails) et tâches sur mesure
+coexistent dans le même catalogue.
+
+**Déclaration type :**
+
+```yaml
+taches:
+  generer_bulletin:
+    libelle: "Génération du bulletin de paie"
+    parametres:
+      employe: { type: reference, vers: employe }
+      mois:    { type: mois }
+    resultat:        { type: fichier, format: pdf }
+    implementation:  "syncytium.pdf"          # built-in ou "monmodule.bulletin"
+    connecteurs:     [stockage_documents]
+    declenchement:   [interface, api, planifie, evenement, enchainement]
+    acces:
+      declenche_par:    [paie, administrateurs]
+      resultat_lu_par:  [employe_concerne]     # additionnels ; déclencheurs inclus d'office
+    lecture:         [employe.salaire, employe.coordonnees]
+    execution:       once       # relance manuelle uniquement
+    cooldown_api:    "<période, fin→début>"
+    retention_resultat: 90j
+```
+
+**Droits (D53).** `declenche_par` ⊆ `resultat_lu_par` **par construction** : qui
+déclenche peut lire. `resultat_lu_par` ne déclare que les lecteurs *additionnels*.
+Ceux-ci peuvent être des groupes statiques **ou des principals contextuels**
+(`employe_concerne` = l'employé sujet de la tâche, résolu depuis les paramètres)
+→ **sécurité au niveau ligne**, concept à généraliser (Q32). La tâche s'exécute
+avec **sa propre portée `lecture:`** (élévation de privilège contrôlée, type SUID),
+pas celle de l'appelant.
+
+**Déclenchement (D54).** Cinq modes : **interface, API, planifié, événement de
+données, enchaînement** (tâche après tâche). Tâche **synchrone ou asynchrone** —
+mais *toujours non bloquante avec progression* : le « synchrone » n'est qu'une
+posture d'IHM (l'utilisateur suit la barre), pas un chemin d'exécution séparé.
+Toutes les tâches passent par la file.
+
+**File et suivi (D55).** **File d'attente** bornant la concurrence ; chaque tâche
+a un **état** et un **statut de progression** (compteur/total + message). Le
+**résultat est enregistré** (trace + restitution sur demande dans la limite de
+`resultat_lu_par`), disponible pour une **durée déterminée**.
+
+**Supervision (D56).** Une **interface d'administration** (solution intégrée sur
+le méta-schéma, D44) : **annuler / reporter / reprioriser** ; **journal** de toutes
+les exécutions (succès / échec / exception).
+
+**Exécution-once (D57).** Une exécution par défaut, **pas de rollback** (effets
+irréversibles assumés : un mail ne se rejoue pas), **jamais d'auto-retry** —
+relance **manuelle** depuis l'interface de supervision. Un échec transitoire
+attend donc une intervention humaine (acceptable à l'échelle TPE).
+
+**Anti-abus API (D58).** Une tâche déclenchée par API ne s'exécute qu'**une fois
+par période** (à définir, Q31), mesurée **de la fin de l'exécution au début de
+l'appel suivant** — interdit le recouvrement *et* impose un intervalle minimal.
+Un rappel pendant la période est **refusé** (tâche non enregistrée). Protège le
+hook comme point d'attaque/déstabilisation. Granularité (par tâche / tâche+params
+/ acteur) → Q31.
+
+**Apport au méta-schéma** : la déclaration complète de tâche (signature,
+connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
+lecture, mode d'exécution, cooldown, rétention) ; la solution intégrée de
+supervision.
+
+Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
 ---
 
@@ -872,18 +936,20 @@ seule ou webhook sortant).
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)**. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
 | Q20 | **Connecteurs** : direction (import/export/bidirectionnel), déclenchement (planifié, à la demande, fil de l'eau), gestion des conflits ? Pour l'identité (D29–D32) : **mode mixte** AD + comptes locaux ? protocole SSO (OpenID Connect via Entra ID/ADFS vs Kerberos/LDAPS on-premise) ? **rapprochement des comptes existants** lors d'un changement de fournisseur d'authentification ? | Architecture de plugins ; SSO, association des groupes (interface, D31) et reparamétrage admin (D32) actés — restent les modalités techniques. |
 | Q21 | **Tâches** — catalogue résolu par D37 (déclaration dans la description, implémentation en plugin, voir §8.4). Reste : **notification de fin** par consultation seule ou aussi webhook sortant ? | Les webhooks sortants devraient eux aussi être versionnés (§5). |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
-| Q23 | **Frontières de sécurité dérivées** : règles d'accès du catalogue de tâches (déclenchement + lecture des résultats, qui véhiculent des champs privés) ; validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
+| Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
-| Q26 | **Contrat des hooks** : validation des règles proposées (§5.5 pour le calcul, §8.2 pour le tableau des trois modes) — sources déclarées, pureté du calcul, délai maximal, dry-run avec la description. | **Discussion dédiée à venir** pour les modes tâche et interface — précisions de l'auteur attendues (voir encadré §8). |
-| Q27 | **Périmètre du hook d'interface** : rendu personnalisé de champ, validation de saisie, boutons d'action (→ tâches), réorganisation d'écran ? | **Discussion dédiée à venir** — précisions de l'auteur attendues (voir encadré §8). Curseur entre personnalisation et garantie d'une interface cohérente (§8.3). |
+| Q26 | **Contrat des hooks** — calcul (§5.5) et **tâche (D53–D58, §8.4) traités**. Reste le mode **interface**. | Principe uniforme D52 ; tâche entièrement définie. |
+| Q27 | **Périmètre du hook d'interface** : rendu personnalisé de champ, validation de saisie, boutons d'action (→ tâches), réorganisation d'écran ? | **À traiter** — dernier mode de hook. Curseur entre personnalisation et garantie d'une interface cohérente (§8.3). |
+| Q31 | **Granularité et période du cooldown anti-abus** (D58) : par tâche / tâche+paramètres / acteur ? valeur de la période (fin→début) ? | Trop large sérialise des tâches légitimes (50 bulletins) ; trop fin laisse une surface d'attaque. « Par tâche+paramètres » pressenti. |
+| Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
 
 ---
 
@@ -1116,3 +1182,15 @@ seule ou webhook sortant).
   pour Q26 : contrats fins des modes tâche (droits déclenchement/résultat,
   idempotence, rétention, durée) et interface (délégation aux tâches, API
   navigateur).
+- **2026-06-12 (suite 14)** — Contrat du hook de **tâche** arrêté (D53–D58, §8.4
+  réécrit). Droits : `declenche_par` ⊆ `resultat_lu_par`, lecteurs additionnels
+  pouvant être des **principals contextuels** (`employe_concerne` → sécurité au
+  niveau ligne, Q32) ; exécution avec la portée propre de la tâche (élévation
+  type SUID) (D53). Cinq déclencheurs dont **enchaînement** ; sync/async toujours
+  non bloquant avec progression (le synchrone = posture d'IHM) (D54). File
+  d'attente + état/progression (compteur/total+message) + résultat enregistré à
+  durée déterminée (D55). Interface de supervision = solution intégrée (annuler/
+  reporter/reprioriser + journal succès/échec/exception) (D56). Exécution-once,
+  pas de rollback, pas d'auto-retry, relance manuelle (D57). Anti-abus API :
+  cooldown mesuré fin→début, rappel refusé (D58, granularité Q31). Q26 : reste le
+  mode interface (Q27). Q23 (tâches) résolu.

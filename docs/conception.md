@@ -112,6 +112,7 @@ posée (voir §6).
 | D74 | **Combinaison OU seulement** (union d'octrois) ; AND/NON/XOR **différés**. | Simplicité ; rationale conservée (comme l'écart-type D47). Voir §5.7. |
 | D75 | **Filtrage serveur + identifiants contextuels** : id **non devinables** côté client (anti-IDOR), **re-contrôle d'appartenance à chaque accès direct**, option **aliasing par contexte**. | Le serveur ne se fie jamais à la possession d'un id. Impose un filtrage au niveau ligne dans l'abstraction de persistance (D18). Voir §5.7. |
 | D76 | **Impersonation & délégation** : admin **« agir en tant que »** sur toutes les strates avec **audit double identité** (effectif + origine) + motif (D62) ; compte technique **« pour le compte de »** un nominatif/client (OAuth on-behalf-of) → API bornée au périmètre ligne et attribuable. | Tests/délégations ; renforce la sécurité sur données sensibles (vigilance RGPD). Voir §5.7. |
+| D77 | **Typologie de comptes (résout Q33)** : (1) **technique** (API), (2) **utilisateur** interne (groupes), (3) **client** issu d'une fiche client (provisionné par l'ADV), (4) **client auto-créé** (self-service, toujours vérifié par les ventes — dérivé de (3), **non prioritaire**). | Généralise D28. Le type 3 concrétise l'appartenance D71 (le `compte` = la fiche client). Étanchéité par canal ; le compte client suit le cycle de vie de sa fiche. Voir §5.6. |
 
 ---
 
@@ -425,10 +426,29 @@ est-il déclaré dans le descriptif (cohérent avec l'architecture) ou apporté 
 les connecteurs/plugins ? Notification de fin : consultation périodique seule,
 ou aussi rappel sortant (webhook) ?
 
-### 5.6 Identités et accès (D27–D29)
+### 5.6 Identités et accès (D27–D29, D77)
 
 Découpage fidèle à toute l'architecture : **la structure dans la description, les
 personnes dans les données.**
+
+**Typologie des comptes (D77, résout Q33)** — quatre types, généralisant D28 :
+
+| Type | Rôle | Audience / canal | Provisionnement |
+|---|---|---|---|
+| **1. Technique** | API | externe (API) | admin (D28) ; délégation on-behalf-of (D76) |
+| **2. Utilisateur** | périmètre via groupes | interne (IHM) | admin / AD-Entra (D29–D32) |
+| **3. Client** | accès à ses données | externe (portail) | **service ADV, depuis une fiche client** |
+| **4. Client auto-créé** | self-service (commande web) | externe (portail) | auto **puis vérifié par le service des ventes** |
+
+- **Le type 3 concrétise l'appartenance (D71)** : le `compte` des chemins
+  (`commande.client.compte`) **est** ce compte, issu de l'entité `client` — le lien
+  entité↔compte *est* la fiche client.
+- **Le type 4 est un dérivé fail-closed** (jamais actif sans contrôle ADV ; devient
+  un type 3 une fois vérifié) — **non prioritaire**, variante différée.
+- **Étanchéité généralisée** : chaque type a son canal (technique→API,
+  utilisateur→IHM interne, client→portail externe) ; ils ne se croisent pas.
+- **Cycle de vie** : le compte client suit sa **fiche client** (fiche désactivée →
+  compte désactivé).
 
 | Où ? | Quoi ? | Qui ? |
 |---|---|---|
@@ -1203,7 +1223,7 @@ réévaluation.
 | ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D69, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Bac à sable résolu par le **modèle de composant déclaratif** (D69, à la Webix). |
 | ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
 | ~~Q32~~ | ~~Principals d'accès contextuels ?~~ | **Résolu (D70–D76, §5.7)** : dimension d'audience interne/externe ; accès au niveau ligne par appartenance (directe/indirecte/ouverte/fermée) ; orthogonalité ligne×champ ; lecture/écriture par champ ; OU seulement ; id contextuels anti-IDOR ; impersonation + délégation on-behalf-of. |
-| Q33 | **Provisionnement des comptes clients** (audience externe, D70) : auto-inscription, création par la TPE, ou les deux ? Quelle articulation avec le modèle d'identité (D29–D32) et le SSO ? | Conditionne l'ouverture du portail client ; les comptes externes sont une nouvelle population à côté des comptes internes (D28) et techniques. |
+| ~~Q33~~ | ~~Provisionnement des comptes clients ?~~ | **Résolu (D77)** : 4 types de compte (technique / utilisateur / client issu d'une fiche ADV / client auto-créé vérifié, ce dernier non prioritaire). Le type 3 concrétise l'appartenance D71. |
 
 ---
 
@@ -1512,3 +1532,10 @@ réévaluation.
   persistance D18 (D75). Impersonation admin « agir en tant que » à audit double
   identité + délégation technique « pour le compte de » (OAuth on-behalf-of) (D76).
   Nouvelle question Q33 (provisionnement des comptes clients).
+- **2026-06-12 (suite 22)** — Clôture de Q33 (D77) : **quatre types de compte** —
+  (1) technique (API), (2) utilisateur interne (groupes), (3) client issu d'une
+  fiche client (provisionné par le service ADV), (4) client auto-créé (self-service
+  toujours vérifié par les ventes, dérivé de (3), **non prioritaire**). Le type 3
+  **concrétise l'appartenance D71** (le `compte` des chemins = la fiche client).
+  Étanchéité généralisée par canal ; le compte client suit le cycle de vie de sa
+  fiche.

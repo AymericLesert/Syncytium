@@ -93,7 +93,8 @@ posée (voir §6).
 | D55 | **File d'attente** bornant la concurrence ; chaque tâche a un **état** + **progression** (compteur/total + message) ; **résultat enregistré** (trace + restitution sur demande dans la limite de `resultat_lu_par`), disponible une **durée déterminée**. | Affine D24. Voir §8.4. |
 | D56 | **Interface de supervision des tâches** (solution intégrée, D44) pour l'administrateur : **annuler / reporter / reprioriser** ; **journal** des exécutions (succès / échec / exception). | Syncytium s'administre avec ses propres mécanismes (cf. restitution télémétrie). Voir §8.4. |
 | D57 | **Exécution-once par défaut**, **pas de rollback** (effets irréversibles assumés : mail jamais rejoué), **pas d'auto-retry** — relance **manuelle** depuis la supervision. | Un échec transitoire attend une intervention humaine (acceptable TPE). Voir §8.4. |
-| D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Granularité → Q31. Voir §8.4. |
+| D58 | **Anti-abus des tâches API** : une exécution par **période** (à définir), mesurée **de la fin de l'exécution au début de l'appel suivant** ; rappel pendant la période **refusé** (non enregistré). **Granularité (résout Q31) : par tâche + paramètres.** | Interdit recouvrement + impose intervalle minimal ; protège le hook comme point d'attaque. Voir §8.4. |
+| D59 | **Option `deterministe`** : si déterministe, un doublon (même tâche + paramètres) dans la **fenêtre de déterminisme** rend le **résultat mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown (D58) refuse. | Mémoïsation = résout l'idempotence (D57) sans effet de bord répété ; pendant serveur de D45. Déterminisme = assertion du technicien (fenêtre = borne de volatilité). Voir §8.4. |
 
 ---
 
@@ -866,7 +867,9 @@ taches:
       resultat_lu_par:  [employe_concerne]     # additionnels ; déclencheurs inclus d'office
     lecture:         [employe.salaire, employe.coordonnees]
     execution:       once       # relance manuelle uniquement
-    cooldown_api:    "<période, fin→début>"
+    deterministe:    true        # mémoïse le résultat
+    determinisme_duree: 1h       # fenêtre de validité du cache (≠ rétention)
+    cooldown_api:    "<période, fin→début>"   # si non déterministe
     retention_resultat: 90j
 ```
 
@@ -899,16 +902,42 @@ relance **manuelle** depuis l'interface de supervision. Un échec transitoire
 attend donc une intervention humaine (acceptable à l'échelle TPE).
 
 **Anti-abus API (D58).** Une tâche déclenchée par API ne s'exécute qu'**une fois
-par période** (à définir, Q31), mesurée **de la fin de l'exécution au début de
+par période** (à définir), mesurée **de la fin de l'exécution au début de
 l'appel suivant** — interdit le recouvrement *et* impose un intervalle minimal.
 Un rappel pendant la période est **refusé** (tâche non enregistrée). Protège le
-hook comme point d'attaque/déstabilisation. Granularité (par tâche / tâche+params
-/ acteur) → Q31.
+hook comme point d'attaque/déstabilisation. **Granularité (D58, résout Q31) :
+par tâche + paramètres.**
+
+**Déterminisme et doublons (D59).** Une option `deterministe` sélectionne la
+stratégie de gestion des doublons (clé = tâche + paramètres) :
+
+- **Déterministe** : un second appel (mêmes paramètres) dans la **fenêtre de
+  déterminisme** → le **résultat mémorisé est rendu**, sans ré-exécuter (pas de
+  refus, pas de recalcul, **pas d'effet de bord répété**).
+- **Non déterministe** : le **cooldown (D58) refuse** le doublon.
+
+Net : le déterminisme dit « même résultat valide, sers le cache » ; le cooldown
+dit « l'effet ne peut se répéter, refuse ». **Trois durées indépendantes** sur
+une tâche :
+
+| Durée | Concerne | Rôle |
+|---|---|---|
+| **Cooldown** (D58) | tâche non déterministe | intervalle min. fin→début ; refuse les doublons |
+| **Fenêtre de déterminisme** (D59) | tâche déterministe | mêmes paramètres → résultat mémorisé rendu |
+| **Rétention** (D55) | le résultat | disponibilité / restitution |
+
+Ex. : bulletin *déterministe 1 h* (au-delà, régénération) mais *conservé 90 j*.
+
+Cohérences : le déterminisme **résout l'idempotence (D57) par mémoïsation** (rejouer
+= renvoyer le cache) ; c'est le **pendant serveur de D45** (le moteur mémoïse là où
+D45 recommande au client de cacher + fournit l'`ETag`). **Caveat** : le déterminisme
+est une **assertion du technicien** (comme la pureté d'un calcul) ; la fenêtre borne
+le risque de résultat périmé (jugement sur la volatilité des données).
 
 **Apport au méta-schéma** : la déclaration complète de tâche (signature,
 connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée de
-lecture, mode d'exécution, cooldown, rétention) ; la solution intégrée de
-supervision.
+lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention) ; la
+solution intégrée de supervision.
 
 Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 
@@ -948,7 +977,7 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
 | Q26 | **Contrat des hooks** — calcul (§5.5) et **tâche (D53–D58, §8.4) traités**. Reste le mode **interface**. | Principe uniforme D52 ; tâche entièrement définie. |
 | Q27 | **Périmètre du hook d'interface** : rendu personnalisé de champ, validation de saisie, boutons d'action (→ tâches), réorganisation d'écran ? | **À traiter** — dernier mode de hook. Curseur entre personnalisation et garantie d'une interface cohérente (§8.3). |
-| Q31 | **Granularité et période du cooldown anti-abus** (D58) : par tâche / tâche+paramètres / acteur ? valeur de la période (fin→début) ? | Trop large sérialise des tâches légitimes (50 bulletins) ; trop fin laisse une surface d'attaque. « Par tâche+paramètres » pressenti. |
+| ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
 | Q32 | **Principals d'accès contextuels** (D53) : généraliser `employe_concerne` (sécurité au niveau ligne) au-delà des tâches, dans le modèle de confidentialité (§5.6 ne connaît que des groupes statiques) ? | Étend le modèle d'accès ; récurrent (« le client propriétaire de cette commande »). |
 
 ---
@@ -1194,3 +1223,11 @@ Reste de Q21 : la notification de fin (consultation seule ou webhook sortant).
   pas de rollback, pas d'auto-retry, relance manuelle (D57). Anti-abus API :
   cooldown mesuré fin→début, rappel refusé (D58, granularité Q31). Q26 : reste le
   mode interface (Q27). Q23 (tâches) résolu.
+- **2026-06-12 (suite 15)** — Q31 résolue (D58 : cooldown **par tâche +
+  paramètres**) et option **`deterministe`** ajoutée (D59) : pour une tâche
+  déterministe, un doublon (mêmes paramètres) dans la **fenêtre de déterminisme**
+  rend le résultat **mémorisé** sans ré-exécuter (≠ rétention) ; sinon le cooldown
+  refuse. Trois durées indépendantes sur une tâche (cooldown / déterminisme /
+  rétention). Le déterminisme résout l'idempotence (D57) par mémoïsation (pas
+  d'effet répété) et est le pendant serveur de D45 ; c'est une **assertion du
+  technicien**, la fenêtre bornant le risque de péremption.

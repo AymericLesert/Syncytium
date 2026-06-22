@@ -127,6 +127,7 @@ posée (voir §6).
 | D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. **Exigence** : le connecteur **doit** remonter ses conflits via le canal d'anomalie (D87) — jamais silencieux. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). *Résolution = connecteur, visibilité = garantie par le cadre.* Voir §5.5. |
 | D90 | **Langage d'expression unique** (résout Q6) partagé par calculs (D35–D36), migrations (§3.2), API (§5.1), connecteurs (D79) : gabarit `{}`, regex (groupes nommés), **transcodage** (constante ou lookup table/entité + défaut), arithmétique, **agrégats ensemblistes** (D36), **composable/imbriquable** ; hook (D36) = échappatoire. | Aboutissement du primitif de translation transverse ; pilier du méta-schéma. Voir §3.3. |
 | D91 | **Réversibilité = propriété déclarée, assurée par le technicien** (non garantie par le langage). 3 cas : auto-inversible (renommer, éclater↔fusionner → moteur) ; inversible non dérivable (**technicien déclare la règle inverse**) ; à perte (**technicien déclare une substitution D13**). Validation §5.2 par règle/version d'API. | Le moteur n'auto-inverse que le trivial ; le reste est déclaré. Migration jamais bloquée ni silencieusement à perte. Voir §3.3. |
+| D92 | **Langage multi-valué** : une expression retourne un **enregistrement de valeurs nommées** (généralisation des groupes regex), pas une seule valeur. Une transformation = mapping **`entrées nommées → sorties nommées`** ; renommer/éclater/fusionner = patrons de ce mapping. | Simplifie le méta-schéma (un seul concept) ; vaut pour regex/gabarit/transcodage/hooks/calculs ; inverse = symétrie 1→N ↔ N→1. Voir §3.3. |
 
 ---
 
@@ -218,8 +219,23 @@ Trois cas, responsabilité croissante :
 chaque règle a *un inverse (auto ou déclaré) ou une substitution*. Migration
 jamais bloquée (D13), jamais silencieusement à perte non plus.
 
-**Apport au méta-schéma** : le langage d'expression unique est un **pilier** —
-même grammaire pour calculs et transformations.
+**Langage multi-valué — généralisation des groupes nommés (D92).** Une expression
+ne retourne pas *une* valeur (modèle classique « fonction → valeur ») mais un
+**enregistrement de valeurs nommées**, comme un regex livre plusieurs captures
+nommées. Le cas « une seule valeur » est le cas dégénéré. Conséquences :
+- une transformation est fondamentalement un **mapping `entrées nommées → sorties
+  nommées`** (N → M) ; **renommer / éclater / fusionner** ne sont que des *patrons
+  nommés* de ce mapping, pas des primitives distinctes → méta-schéma simplifié ;
+- vaut pour **regex, gabarit, transcodage, hooks** (un hook peut retourner
+  `{score, rang}`) et **champs calculés** (une expression peut alimenter plusieurs
+  champs dérivés) ;
+- la **composition** (D90) opère sur des enregistrements nommés ;
+- l'**inverse** (D91) se relit comme la symétrie entrées/sorties : 1 → N
+  (éclatement) ↔ N → 1 (fusion).
+
+**Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
+**pilier** — même grammaire pour calculs et transformations, un seul concept de
+mapping nommé.
 
 ---
 
@@ -1757,3 +1773,10 @@ réévaluation.
   technicien déclare une substitution D13). Le moteur n'auto-inverse que le
   trivial ; la validation §5.2 exige inverse-ou-substitution par règle et par
   version d'API supportée.
+- **2026-06-12 (suite 33)** — Langage **multi-valué** (D92, généralise les groupes
+  regex). Une expression retourne un **enregistrement de valeurs nommées**, pas une
+  seule (le cas mono-valeur est dégénéré). Une transformation = mapping `entrées
+  nommées → sorties nommées` ; renommer/éclater/fusionner = patrons de ce mapping,
+  pas des primitives → **méta-schéma simplifié, un seul concept**. Vaut pour
+  regex/gabarit/transcodage/hooks/calculs ; composition sur enregistrements nommés ;
+  inverse = symétrie 1→N ↔ N→1.

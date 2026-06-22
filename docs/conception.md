@@ -126,7 +126,7 @@ posée (voir §6).
 | D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
 | D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. **Exigence** : le connecteur **doit** remonter ses conflits via le canal d'anomalie (D87) — jamais silencieux. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). *Résolution = connecteur, visibilité = garantie par le cadre.* Voir §5.5. |
 | D90 | **Langage d'expression unique** (résout Q6) partagé par calculs (D35–D36), migrations (§3.2), API (§5.1), connecteurs (D79) : gabarit `{}`, regex (groupes nommés), **transcodage** (constante ou lookup table/entité + défaut), arithmétique, **agrégats ensemblistes** (D36), **composable/imbriquable** ; hook (D36) = échappatoire. | Aboutissement du primitif de translation transverse ; pilier du méta-schéma. Voir §3.3. |
-| D91 | **Invertibilité = propriété de la règle, pas du langage** : règles simples inversibles (renommer, éclater↔fusionner) ; règles riches/à perte (agrégat, regex à perte, transcodage non bijectif) → **substitution (D13)** en sens arrière ; validation par règle (§5.2). | La puissance du langage se paie en invertibilité ; la substitution est le filet. Voir §3.3. |
+| D91 | **Réversibilité = propriété déclarée, assurée par le technicien** (non garantie par le langage). 3 cas : auto-inversible (renommer, éclater↔fusionner → moteur) ; inversible non dérivable (**technicien déclare la règle inverse**) ; à perte (**technicien déclare une substitution D13**). Validation §5.2 par règle/version d'API. | Le moteur n'auto-inverse que le trivial ; le reste est déclaré. Migration jamais bloquée ni silencieusement à perte. Voir §3.3. |
 
 ---
 
@@ -203,14 +203,20 @@ déclarative est un primitif transverse*.
   vocabulaire ;
 - **échappatoire** : hook de calcul (D36) pour tout ce qui dépasse.
 
-**Invertibilité = propriété de la règle, pas du langage (D91).** Plus la règle
-est riche, moins elle est inversible : un **agrégat** (somme des commandes), un
-**regex à perte**, un **transcodage non bijectif** ne se remontent pas. Donc :
-- règles simples (renommer, éclater↔fusionner) → **inversibles** automatiquement ;
-- règles à perte → **substitution (D13)** dans le sens arrière (traduction d'API
-  descendante) ;
-- la **validation (§5.2)** vérifie, **par règle**, *inversibilité ou substitution*
-  pour les versions d'API supportées.
+**Réversibilité = propriété déclarée, assurée par le technicien (D91).** Elle
+n'est **pas garantie** par le langage ; le moteur n'auto-inverse que le trivial.
+Trois cas, responsabilité croissante :
+1. **Auto-inversible** (renommer, éclater↔fusionner) → le **moteur** dérive
+   l'inverse — seul cas « gratuit » ;
+2. **Inversible mais non dérivable** → le **technicien déclare la règle inverse**
+   (table inverse d'un transcodage `B2C → particulier`, regex inverse d'un gabarit,
+   cf. §5.2) ;
+3. **Non inversible / à perte** (agrégat, regex à perte, transcodage non bijectif)
+   → le **technicien déclare une substitution (D13)** pour le sens descendant.
+
+**Filet — validation (§5.2)** : pour chaque version d'API supportée, vérifier que
+chaque règle a *un inverse (auto ou déclaré) ou une substitution*. Migration
+jamais bloquée (D13), jamais silencieusement à perte non plus.
 
 **Apport au méta-schéma** : le langage d'expression unique est un **pilier** —
 même grammaire pour calculs et transformations.
@@ -1745,3 +1751,9 @@ réévaluation.
   propriété de la règle** (D91) : simples inversibles, riches/à perte → substitution
   D13 en sens arrière, validation par règle (§5.2). **Tous les volets contributeurs
   sont clos — reste la synthèse Q16 (méta-schéma).**
+- **2026-06-12 (suite 32)** — D91 précisé : la **réversibilité est assurée par le
+  technicien**, pas garantie par le langage. 3 cas : auto-inversible (moteur) ;
+  inversible non dérivable (le technicien déclare la règle inverse) ; à perte (le
+  technicien déclare une substitution D13). Le moteur n'auto-inverse que le
+  trivial ; la validation §5.2 exige inverse-ou-substitution par règle et par
+  version d'API supportée.

@@ -125,6 +125,8 @@ posée (voir §6).
 | D87 | **Écriture connecteur = tâche** (non transactionnelle, D57) ; **reprise gérée dans la tâche** (opt-in, idempotence requise). Anomalie : **trace technicien** + **notification au déclencheur via son canal** (in-app si interface, webhook si API). | Garde le moteur simple (au plus une fois) ; complexité de reprise dans la tâche. **Résout Q21** (notification de fin) et le résiduel de reprise de D85. Voir §8.4. |
 | D88 | **Droit de relance selon la nature de la tâche** (déclaré, distinct de la notification) : tâche **explicite** → **déclencheur** (sous conditions : échec terminal, idempotence/déterminisme) ; tâche de **propagation connecteur** → **admin seulement**, relance = **re-propagation de l'état courant** (pas rejeu du payload périmé ; idempotence/upsert à la charge de la tâche). | Relancer une propagation à l'aveugle = double-écriture / données périmées. Voir §8.4. |
 | D89 | **Conflits bidirectionnels portés par le connecteur** (clôt Q20), pas par le moteur. **Exigence** : le connecteur **doit** remonter ses conflits via le canal d'anomalie (D87) — jamais silencieux. | *Moteur = cadre, extension = sémantique métier* (cf. D79, D87). *Résolution = connecteur, visibilité = garantie par le cadre.* Voir §5.5. |
+| D90 | **Langage d'expression unique** (résout Q6) partagé par calculs (D35–D36), migrations (§3.2), API (§5.1), connecteurs (D79) : gabarit `{}`, regex (groupes nommés), **transcodage** (constante ou lookup table/entité + défaut), arithmétique, **agrégats ensemblistes** (D36), **composable/imbriquable** ; hook (D36) = échappatoire. | Aboutissement du primitif de translation transverse ; pilier du méta-schéma. Voir §3.3. |
+| D91 | **Invertibilité = propriété de la règle, pas du langage** : règles simples inversibles (renommer, éclater↔fusionner) ; règles riches/à perte (agrégat, regex à perte, transcodage non bijectif) → **substitution (D13)** en sens arrière ; validation par règle (§5.2). | La puissance du langage se paie en invertibilité ; la substitution est le filet. Voir §3.3. |
 
 ---
 
@@ -180,9 +182,38 @@ migrations:
           gabarit: "{prenom} {nom}"
 ```
 
-**À débattre** : syntaxe exacte des regex d'éclatement (groupes nommés ? une regex
-par champ cible ou une regex unique avec groupes ?), tables de correspondance pour
-la fusion de *valeurs* (ex. « particulier + indépendant → B2C »).
+### 3.3 Langage d'expression unique (D90–D91, résout Q6)
+
+**Un seul langage d'expression** pour tout le système (D90), partagé par :
+**champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
+**translation des connecteurs** (D79). Aboutissement du principe *la translation
+déclarative est un primitif transverse*.
+
+**Composants :**
+- **gabarit** `{champ}` (interpolation/fusion) ;
+- **regex** avec **groupes nommés** (extraction/éclatement) :
+  `(?<cp>\d{5})\s+(?<ville>.+)` ;
+- **transcodage** (table) — cible **constante** (`particulier → B2C`) ou
+  **lookup dans une table/entité de référence** ; défaut pour valeurs non prévues ;
+- **arithmétique** simple ;
+- **fonctions ensemblistes / agrégats** sur les listes inhérentes à
+  l'enregistrement (`somme`, `compte`, `min`, `max`, `moyenne` — D36) ;
+- **composable / imbriquable** : un transcodage peut combiner regex + gabarit +
+  un autre transcodage — l'imbrication multiplie l'expressivité sans alourdir le
+  vocabulaire ;
+- **échappatoire** : hook de calcul (D36) pour tout ce qui dépasse.
+
+**Invertibilité = propriété de la règle, pas du langage (D91).** Plus la règle
+est riche, moins elle est inversible : un **agrégat** (somme des commandes), un
+**regex à perte**, un **transcodage non bijectif** ne se remontent pas. Donc :
+- règles simples (renommer, éclater↔fusionner) → **inversibles** automatiquement ;
+- règles à perte → **substitution (D13)** dans le sens arrière (traduction d'API
+  descendante) ;
+- la **validation (§5.2)** vérifie, **par règle**, *inversibilité ou substitution*
+  pour les versions d'API supportées.
+
+**Apport au méta-schéma** : le langage d'expression unique est un **pilier** —
+même grammaire pour calculs et transformations.
 
 ---
 
@@ -1305,7 +1336,7 @@ réévaluation.
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
 | Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
-| Q6 | Syntaxe exacte des règles d'éclatement (regex) et des tables de correspondance de fusion de valeurs. | Voir §3.2. |
+| ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
@@ -1318,7 +1349,7 @@ réévaluation.
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)**. |
+| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
@@ -1706,3 +1737,11 @@ réévaluation.
   **jamais silencieux** ; le moteur **garantit l'observabilité** (trace +
   notification) même s'il délègue la résolution. *Résolution = connecteur,
   visibilité = garantie par le cadre.*
+- **2026-06-12 (suite 31)** — Langage d'expression **unique** (D90–D91, **résout
+  Q6**, nouveau §3.3). Une seule grammaire pour calculs (D35–D36), migrations
+  (§3.2), API (§5.1) et connecteurs (D79) : gabarit, regex (groupes nommés),
+  transcodage (constante ou lookup table/entité + défaut), arithmétique, agrégats
+  ensemblistes, **composable/imbriquable** ; hook = échappatoire. **Invertibilité =
+  propriété de la règle** (D91) : simples inversibles, riches/à perte → substitution
+  D13 en sens arrière, validation par règle (§5.2). **Tous les volets contributeurs
+  sont clos — reste la synthèse Q16 (méta-schéma).**

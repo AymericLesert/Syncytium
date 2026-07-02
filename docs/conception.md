@@ -164,7 +164,7 @@ posée (voir §6).
 | D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
 | D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. **Borne actée : la surcharge métier se limite à la présentation** — tout le reste au technicien. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut**. Voir §3.4. |
 | D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
-| D129 | **Énumérés : codes stables + libellés par langue** (étend D127) : valeurs internes = **codes invariants** (stockage, API, filtres, transcodages D90, domaine D48 — renommer un code = **migration**) ; libellés par valeur et par langue, **deux couches** (défauts description + surcharges métier) — changer un libellé n'est **jamais** une migration. | L'API échange les codes (contrat stable, insensible aux langues/surcharges) ; IHM et export CSV affichent le libellé (langue du profil, D119). Voir §3.4. |
+| D129 | **Énumérés : trois propriétés par valeur** — (1) **valeur numérique** = le **tri** (comparaison D125, ordre métier stable inter-langues ; changer l'ordre = description, pas migration) ; (2) **code invariant** = identité contractuelle (stockage logique, API, filtres, transcodages, domaine D48 ; renommer = **migration**) ; (3) **identifiant de libellé** = indirection vers D124/D127 (deux couches, partage possible entre énumérés ; changer un libellé ≠ migration). | L'API échange les codes ; IHM/export CSV affichent le libellé (langue du profil). Facette stockage (D119) libre de retenir la valeur numérique (tri natif) — sans effet sur le contrat. Voir §3.4. |
 | D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
 
 ---
@@ -448,16 +448,25 @@ de Q45.
   migrations (un renommage la suit) ; **la surcharge bat toujours le défaut**,
   même livré plus récent, jusqu'à retrait par le responsable métier.
 
-**Énumérés : codes stables + libellés par langue (D129, étend D127).** Un
-énuméré déclare des **valeurs internes stables** (codes, invariants comme le nom
-D124) et, par valeur, des **libellés par langue** suivant le système à deux
-couches (défauts description + surcharges métier en base). Répartition :
-- le **code** = stocké, contractuel — vu par l'API, les filtres, les
-  transcodages (D90), le domaine de la diversité scalaire (D48) ; **renommer un
-  code = migration** (avec transcodage des données) ;
-- le **libellé** = présentation, langue du profil — vu par l'IHM et l'export
-  CSV (facette affichage D119) ; **changer un libellé n'est jamais une
-  migration** (responsable métier, vie courante).
+**Énumérés : trois propriétés par valeur (D129, étend D127 ; précisé le
+02/07/2026).** Chaque valeur d'un énuméré porte :
+1. une **valeur numérique** — assure le **tri** : c'est elle qu'utilise la
+   fonction de comparaison (D125) de l'énuméré, ordre **métier** stable quelle
+   que soit la langue (`brouillon < en_cours < valide`) ; modifier l'ordre =
+   changement de description (nouvelle version), **pas** de migration de
+   données ;
+2. un **code invariant** — l'identité contractuelle : stockage logique, API,
+   filtres, transcodages (D90), domaine de la diversité scalaire (D48) ;
+   **renommer un code = migration** (avec transcodage des données) ;
+3. un **identifiant de libellé** — indirection vers le système de libellés
+   (D124/D127 : variantes, langues, deux couches défauts/surcharges) ;
+   **changer un libellé n'est jamais une migration** (responsable métier, vie
+   courante). L'indirection autorise le **partage** d'identifiants de libellés
+   entre énumérés (« Actif »/« Inactif » traduits une fois).
+
+Option de persistance (D119/D18) : la **facette stockage** peut retenir la
+valeur numérique (compacte, tri natif en base), la facette logique/API restant
+le **code** — liberté d'implémentation sans effet sur le contrat.
 
 **Import/export des énumérés (D130).**
 - **Import (API/CSV)** : la conversion faillible essaie **le code d'abord, puis
@@ -2484,3 +2493,10 @@ avant la synthèse Q16).
   machines utilisent les codes. Export : **code ou libellé déclaré dans la
   description du format CSV** (config connecteur D108/D119), libellé = langue
   de l'exportateur. Round-trip : codes universels, libellés mono-langue.
+- **2026-07-02 (suite 25)** — D129 précisé : **trois propriétés par valeur
+  d'énuméré** — valeur numérique (le tri : comparaison D125, ordre métier stable
+  inter-langues ; changer l'ordre = description, pas migration), code invariant
+  (identité contractuelle), identifiant de libellé (indirection D124/D127,
+  partage possible entre énumérés). Résout « comment trier un énuméré » (ni
+  alphabétique, ni libellé — métier). Option de persistance : facette stockage
+  = valeur numérique (tri natif), logique/API = code.

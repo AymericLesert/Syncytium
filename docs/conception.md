@@ -138,6 +138,7 @@ posée (voir §6).
 | D100 | **Pagination par curseur opaque (résout Q19-pagination)**, **porté par la mécanique** (le moteur le gère, pas le développeur) ; le curseur **embarque la version de schéma** (survit aux migrations à chaud via la chaîne de traduction) ; l'IHM générée consomme le même mécanisme. | Stable, performant, cohérent avec les id opaques (D75). Voir §5.5. |
 | D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés** (chaque ligne = 1 transaction / le lot = 1 transaction). **La description déclare les modes autorisés** ; le développeur API choisit parmi eux. | Un seul concept (esprit D92) ; structuration transactionnelle de premier ordre, contrainte par le méta-schéma. Voir §5.5. |
 | D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
+| D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
 
 ---
 
@@ -728,13 +729,28 @@ traduction absorbe les versions intermédiaires sans les exposer.
 
 **Publication = acte déclaratif (D99, résout Q11).** **Versions autorisées =
 versions publiées.** Le moteur n'impose aucune cadence : le technicien **déclare**
-qu'une version de schéma devient un contrat publié. Certaines versions ne sont
-**jamais publiées** (bêtas, versions révélant vite des bugs, fonctionnalités
-abandonnées par le métier) — elles restent des **maillons internes** de la chaîne
-de traduction (traversées pour composer, non appelables). La publication est
-**révocable** (version boguée retirée → appels reçoivent **426**, comme sous la
-version minimale D94). Fenêtre de support = [version minimale supportée (D94) …
-dernier contrat publié].
+qu'une version de schéma devient un contrat publié. La publication est
+**révocable**. Fenêtre de support = [version minimale supportée (D94) … dernier
+contrat publié].
+
+**Cycle de vie des versions (D103, précise D99).** Quatre états :
+
+| État | Appelable ? | Épinglable (D98) ? | Usage |
+|---|---|---|---|
+| **Publiée officielle** | oui | oui | contrat courant |
+| **Publiée bêta/test** | **sur sollicitation explicite seulement** (en-tête D98) | non | essai avant officialisation |
+| **Interdite** | non → 426 | non | bêtas abandonnées, versions boguées, fonctionnalités abandonnées |
+| **Dépréciée** | non → 426 | non | sous la version minimale (D94) |
+
+- La **bêta s'emboîte avec D98** : l'en-tête de surcharge *est* le canal d'accès
+  aux bêtas — pas d'épinglage possible, sollicitation appel par appel.
+- Transitions : bêta → officielle (promotion) ; officielle → dépréciée (la
+  minimale monte) ; bêta/officielle → interdite (révocation) — interdite = terminal.
+- **L'enchaînement des versions est indépendant de la publication** : la chaîne de
+  traduction (§5.1) traverse **toutes** les versions (y compris interdites et
+  dépréciées), son ordre étant défini par le **journal de migrations** (§3.2).
+  **L'état gouverne l'*appelabilité*, jamais la *traversabilité*.** Le journal est
+  la colonne vertébrale ; la publication n'est qu'un filtre d'entrée.
 
 **Épinglage (D98, résout Q9) — le duo compte + en-tête.** La **version épinglée
 au compte technique** est le socle (un appel sans précision obtient *sa* version
@@ -1407,7 +1423,7 @@ réévaluation.
 | ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
 | ~~Q9~~ | ~~Mécanisme d'épinglage ?~~ | **Résolu (D28, D98)** : version épinglée au **compte technique** + **surcharge par en-tête** d'essai ; garde-fous (publiée D99, ≥ minimale D94) ; bascule = acte admin tracé. |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
-| ~~Q11~~ | ~~Cadence de publication des contrats ?~~ | **Résolu (D99)** : pas de cadence — publication = **acte déclaratif** ; versions autorisées = publiées ; certaines jamais publiées (bêtas, bugs, abandons) restent des maillons internes ; publication révocable. |
+| ~~Q11~~ | ~~Cadence de publication des contrats ?~~ | **Résolu (D99, D103)** : publication = acte déclaratif, sans cadence. **Quatre états** : officielle / bêta (sollicitation explicite D98) / interdite / dépréciée. L'enchaînement (chaîne de traduction) est **indépendant** des états — appelabilité ≠ traversabilité. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
@@ -1909,3 +1925,13 @@ avant la synthèse Q16).
   la description**, choix du développeur parmi eux (D101). **Champs calculés** :
   héritage du niveau le plus restrictif, abaissement explicite signalé (D102).
   Le volet API est entièrement clos.
+- **2026-07-02 (suite 3)** — Cycle de vie des versions (D103, précise D99).
+  **Quatre états** : publiée officielle (appelable, épinglable) ; publiée
+  **bêta/test** (appelable **sur sollicitation explicite seulement** — l'en-tête
+  d'essai D98 est le canal des bêtas, pas d'épinglage) ; **interdite** (426 ;
+  bêtas abandonnées, versions boguées, fonctionnalités abandonnées) ;
+  **dépréciée** (426, sous D94). Transitions : bêta→officielle,
+  officielle→dépréciée, →interdite (terminal). Point structurel : **l'enchaînement
+  des versions (chaîne de traduction, journal de migrations) est indépendant des
+  états de publication** — l'état gouverne l'appelabilité, jamais la
+  traversabilité ; une version interdite reste un maillon.

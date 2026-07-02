@@ -1610,6 +1610,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
+| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption (une TPE a toujours un existant). Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **dry-run d'import avec rapport** (D7/§4.1) + tâche à progression (D55) + UUID (D82) + estampille posée à l'issue (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2163,3 +2164,12 @@ avant la synthèse Q16).
   Caveats : D16 raffiné (une instance *de production* + éphémères/passive, chaque
   instance mono-serveur D15) ; RGPD staging (éphémérité + accès restreint).
   **Le thème B (exploitation) de l'audit est entièrement clos.**
+- **2026-07-02 (suite 12)** — Nouvelle question **Q49** à la demande de l'auteur :
+  **initialisation d'une instance par reprise de données** — connexion à une base
+  tierce et conversion vers le modèle Syncytium. Cas décisif pour l'adoption
+  (une TPE a toujours un existant). Assemblage pressenti : connecteur
+  auto-descriptif (D83) + translation (D79/D90) + dry-run d'import avec rapport
+  (D7/§4.1) + tâche à progression (D55) + UUID (D82) + estampille (D93).
+  Sous-questions : connecteur jetable vs permanent (cohabitation), traitement des
+  rejets, import de l'historique d'origine (lien Q37). À traiter avec/après le
+  modèle de données.

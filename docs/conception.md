@@ -150,6 +150,23 @@ posée (voir §6).
 | D112 | **Multi-environnements (résout Q42)** : production (dernière version publiée) + **un staging par version bêta, instancié à la volée** (copie prod → **migration** D4–D9 vers la bêta) ; **API bêta (D103) redirigées** vers le staging ; à la validation → staging **supprimé**, production migrée (§4). | Le dry-run rendu durable et navigable ; migration répétée 2× avant la vraie bascule. Raffine D16 (une instance *de production* + éphémères/passive). RGPD : éphémérité + accès restreint. Voir §7.3. |
 | D113 | **Synchronisation prod → staging**, deux modes : **synchrone** (chaque écriture reportée, **traduite via la chaîne de versions** §5.1 — les instances sont à des versions différentes) ; **différé** (recréation sur sollicitation, fréquence à définir). | **4ᵉ usage du primitif de translation** (migrations, API, connecteurs, réplication inter-versions). Voir §7.3. |
 | D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
+| D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles 1–6 en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16. Voir §3.2b. |
+| D116 | **Versionnement uniquement au niveau instance** (= son schéma, une seule horloge — pas de version par module/entité/champ) ; **composition intra-module** (l'agrégat D101 ne franchit pas le module = frontière de cohérence forte) ; **associations inter-modules libres**. | Distinction fondatrice pour Q35 : **composition** (possession forte, transactionnelle) vs **association** (lien souple). Estampille D93 inchangée. Voir §3.2b. |
+| D117 | **Six rôles du module** : (1) espace de noms (`module.entite.champ`) ; (2) unité de **navigation IHM** ; (3) unité d'**activation** par instance (écrans/API masqués, données conservées) ; (4) **frontière d'accès** (module entier → groupe) ; (5) unité de **partage** inter-TPE (import = migration ordinaire) ; (6) **modules moteur** (solutions intégrées D44) vs modules métier. | Le module répond en partie à Q48 (navigation) ; l'écosystème gagne son objet d'échange (rôle 5, AGPL D19) ; motif D52 (provenance) pour le rôle 6. Voir §3.2b. |
+| D118 | **Champ = donnée atomique**, **simple** (type de base + propriétés de stockage : taille, octets, précision, décimal avant/après virgule + limites de valeurs) ou **composée** (raffinement déclaratif : `montant` = décimal+devise, `email` = texte+format). Bibliothèque de composés **livrée + enrichissable** (D52/D68). | Types simples actés : texte, entier, réel, booléen, date-heure, fichier, énuméré. Voir §3.4. |
+| D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n — **défaut de l'export CSV**, surchargeable par un format compatible validé par le catalogue), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Surcharge d'export dans la config du connecteur (D108) ; aller-retour import/export cohérent. Voir §3.4. |
+| D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). **La conversion faillible = moteur de l'import** (Q49, CSV/Excel) : le dry-run d'import = exécution à blanc des conversions, rapport cellule par cellule. | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (Q47 en principe) ; import CSV/Excel = connecteur en lecture (D79) + hot folder (D106). Voir §3.4. |
+| D121 | **Types simples complétés** : + `date`, `heure`, `duree` ; **énuméré mono-sélection uniquement** (pas de `multiple` — le multi-valué passe par une entité liée). | Cohérent avec l'atomicité du champ (D118). Voir §3.4. |
+| D122 | **Composés livrés** : `montant`, `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (Luhn), `iban`/`bic` (mod 97), `tva_intra`, `mesure` (décimal+unité), `geolocalisation`, `periode` (début ≤ fin). | Bibliothèque enrichissable (D52/D68) ; validations par fonction de contrôle (catalogue D104/Q47). Voir §3.4. |
+| D123 | **Devise portée par la donnée** (montant = valeur + devise, devise ∈ **jeu autorisé** ; standard = ISO 4217 complet) + **surcharge de types par restriction** : le schéma dérive des types en restreignant le domaine (`montant_francais` = {EUR}). | **Mécanisme général de spécialisation** (devises, unités, formats…) inséré dans le graphe D120 : dérivé→standard = sûre, standard→dérivé = faillible. Singleton = mono-devise (stockage optimisable, modèle logique inchangé). Voir §3.4. |
+| D124 | **Identité du champ** : **nom = invariant** (référencé partout ; renommage = migration D4) ; **libellés = variantes traduites** (écran responsive, colonne tableau, colonne CSV) ; **langue au profil utilisateur, pas à l'instance** ; **descriptions courte** (bulle) **et longue** (aide), **exploitables par des IA**. | Patron identifiant stable (D96) ; première décision de Q45 (i18n) ; le méta-schéma (D44) devient documentation sémantique pour assistants. Voir §3.4. |
+| D125 | **Fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** : une valeur / un jeu de valeurs / un comparateur. Types sans ordre naturel = **non triables** ; composés : comparaison définie par le type. | C'est le langage de filtre contraint attendu par Q38 (champ+opérateur+valeur — jamais D90 exposé). Voir §3.4. |
+| D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
+| D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. **Borne actée : la surcharge métier se limite à la présentation** — tout le reste au technicien. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut**. Voir §3.4. |
+| D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
+| D129 | **Énumérés : trois propriétés par valeur** — (1) **valeur numérique** = le **tri** (comparaison D125, ordre métier stable inter-langues ; changer l'ordre = description, pas migration) ; (2) **code invariant** = identité contractuelle (stockage logique, API, filtres, transcodages, domaine D48 ; renommer = **migration**) ; (3) **identifiant de libellé** = indirection vers D124/D127 (deux couches, partage possible entre énumérés ; changer un libellé ≠ migration). | L'API échange les codes ; IHM/export CSV affichent le libellé (langue du profil). Facette stockage (D119) libre de retenir la valeur numérique (tri natif) — sans effet sur le contrat. Voir §3.4. |
+| D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
+| D131 | **Formats d'affichage et de conversion par langue**, portés par la **description du schéma** : l'affichage (D119) et le parsing (D120 — `texte → date/réel`) suivent la **grammaire de la langue du profil** (D124). Syncytium livre les formats standard par langue ; le schéma les précise. | Fondement formel de la « langue de l'importateur » (D130) ; format d'affichage = couche présentation (surchargeable, D127), grammaire de conversion = structurelle ; machines → formats canoniques (ISO). Voir §3.4. |
 
 ---
 
@@ -204,6 +221,51 @@ migrations:
           vers: nom_complet
           gabarit: "{prenom} {nom}"
 ```
+
+### 3.2b Hiérarchie des structures de données (D115)
+
+```
+Instance (1) ── organise ──► Schéma (1)
+Schéma ──── organise ──► Module (1..n)
+Module ──── organise ──► Entité (1..n)
+Entité ──── regroupe ──► Champ (1..n)
+```
+
+- **Une instance organise UN schéma** (singulier) : confirme D16 — le schéma
+  **est** la description, racine unique versionnée (estampille D93, journal de
+  migrations §3.2).
+- **Le module** : niveau d'organisation entre schéma et entités — **six rôles
+  actés (D117)** :
+  1. **Espace de noms** : `ventes.commande` ; les chemins deviennent
+     `module.entite.champ` (noms courts à l'intérieur d'un module, qualifiés
+     au-delà) ;
+  2. **Unité de navigation IHM** : le menu généré s'organise par modules
+     (répond en partie à Q48) ;
+  3. **Unité d'activation** : un module peut être activé/désactivé par instance
+     — ses écrans et API disparaissent, ses données demeurent (fail-closed) ;
+  4. **Frontière d'accès** : un groupe peut recevoir l'accès à un module entier
+     (raccourci de confidentialité, se combine avec D25/D26) ;
+  5. **Unité de partage** : modules métier **réutilisables entre TPE**
+     (description partielle + hooks/composants associés, AGPL si distribués
+     D19) ; l'import d'un module = fusion dans le schéma → **une migration
+     ordinaire** (§4) ; collisions évitées par l'espace de noms (rôle 1) ;
+  6. **Modules moteur vs métier** : les **solutions intégrées (D44)** —
+     administration, supervision, télémétrie, notifications — sont des
+     **modules moteur** (non éditables), à côté des modules métier du
+     technicien — motif « uniforme, distingué par la provenance » (D52).
+
+**Versionnement et frontières du module (D116) :**
+- **Le versionnement porte uniquement sur l'instance** — un seul numéro pour
+  tout l'arbre, pas de déclinaison par module/entité/champ. La version de
+  l'instance = celle de son schéma (1:1, D115), portée par l'estampille D93.
+  Une seule horloge → chaîne de traduction et compatibilité simples.
+- **Composition intra-module** : l'agrégat (D101) ne franchit jamais la
+  frontière d'un module — le module est la **frontière de cohérence forte**.
+- **Associations inter-modules libres** : une référence peut traverser les
+  modules (`ventes.commande` → `catalogue.article`).
+- Première distinction du modèle relationnel (fondation de Q35) :
+  **composition** (possession forte, unité transactionnelle, intra-module) vs
+  **association** (lien souple, libre).
 
 ### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
@@ -272,6 +334,183 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
 mapping nommé ; classification **simple/complexe** des fonctions (D104).
+
+### 3.4 Types de champs (D118–D120 ; Q34 en cours)
+
+**Un champ = une donnée atomique (D118)**, de deux natures :
+- **Simple** : type de base + **propriétés de stockage** (taille de chaîne ;
+  entier 1/2/4/8 octets ; précision du réel ; *entier/réel* descriptibles comme
+  un **décimal** — chiffres avant/après la virgule) + **limites de valeurs**
+  (bornes, plage). Types simples actés : texte, entier, réel, booléen,
+  date et heure, fichier, énuméré.
+- **Composée** : combinaison/raffinement déclaratif — `montant` = décimal +
+  devise ; `email` = texte + format standard. Bibliothèque **livrée par
+  Syncytium et enrichissable par le technicien** (patron D52/D68).
+
+**Quatre facettes par type (D119)** — révélées par l'exemple de la date
+Cegid PMI (chaîne `AAAAMMJJ` chez PMI, stockée en entier 4 octets, affichée
+`JJ/MM/AAAA`, manipulée comme date) :
+
+| Facette | Rôle |
+|---|---|
+| **Logique** | la vérité canonique — langage D90, calculs, comparaisons |
+| **Stockage** | propriétés déclarées, ou mapping custom |
+| **Affichage** | IHM (composant D64, i18n Q45) |
+| **API** | sérialisation du contrat (ex. ISO 8601) |
+
+Une **donnée simple étendue par hook** déclare un stockage custom + une **paire
+de fonctions pures** `vers_stockage`/`depuis_stockage` (pureté D36, patron D52) —
+au service direct des connecteurs (D79/D83 : l'anti-corruption au niveau du type).
+
+**Règles de conversion portées par les types (D120)** — les types forment un
+**graphe de conversion**, clé d'interprétation aux frontières (API, IHM,
+translation) :
+
+| Classe | Exemple | Comportement |
+|---|---|---|
+| **Sûre (implicite)** | `entier → décimal`, `email → texte` | sans perte, **automatique aux frontières** |
+| **Explicite** | `décimal → entier` (arrondi), `montant → décimal` (perd la devise) | invoquée **explicitement** dans une expression (D90) |
+| **Faillible (contrôlée)** | `texte → entier`, `texte → email` (parsing/format) | peut **échouer** → erreur propre |
+
+Unifications : **valider un composé = tenter la conversion faillible depuis son
+type de base** (texte→email, texte→iban avec clé) — un seul mécanisme ; les
+**frontières** (JSON, saisie IHM, connecteurs) appliquent le graphe — sûres
+automatiques, jamais de coercition silencieuse (règle en principe la
+« coercition » de Q47) ; le **hook d'extension** = une arête de conversion
+custom du graphe.
+
+**La conversion faillible = le moteur de l'import (précision 02/07/2026, lien
+Q49).** L'initialisation depuis une base tierce ou l'import d'un **CSV/Excel**
+est l'application massive du graphe : chaque cellule brute tente sa conversion
+faillible vers le type du champ cible ; les **échecs produisent le rapport
+d'import** cellule par cellule (« ligne 47, colonne date_livraison :
+"31/02/2024" inconvertible ») — le **dry-run d'import** (Q49) est littéralement
+l'exécution à blanc des conversions. La détection (conversion) est ainsi séparée
+du traitement des rejets (politique Q49 : source / règle en vol / quarantaine).
+L'import CSV/Excel = **connecteur de données en lecture** (D79), déclenchable
+par hot folder (D106).
+
+**L'export CSV (précision 02/07/2026)** : utilise la **facette d'affichage**
+(D119) par défaut — l'usage dominant étant humain (Excel, analyses, cas 2 de
+D83) — ou un **format surchargeable compatible avec le type** (validé par le
+catalogue : pas de format de date sur un montant), permettant un export machine
+(ISO 8601…). La surcharge vit dans la **configuration du connecteur** (principe
+D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
+étant déclaré, le ré-import (conversion faillible) connaît sa grammaire.
+
+**Catalogue acté (D121–D122).**
+- **Types simples** : texte, entier, réel (*descriptibles en décimal* —
+  chiffres avant/après la virgule), booléen, **date**, **heure**,
+  **date et heure**, **durée**, fichier, énuméré (**mono-sélection
+  uniquement** — pas de multiple : le multi-valué passe par une entité liée,
+  cohérent avec l'atomicité D118).
+- **Composés livrés** (bibliothèque enrichissable D52/D68) : `montant`,
+  `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (clé de Luhn),
+  `iban`/`bic` (modulo 97), `tva_intra`, `mesure` (décimal + unité),
+  `geolocalisation`, `periode` (début ≤ fin).
+
+**Profil de champ (D124–D126, clôt Q34).**
+
+| Bloc | Attributs |
+|---|---|
+| **Identité (D124)** | **nom = invariant** (référencé par calculs/tâches/API ; renommage = migration D4) ; **libellés** = identifiant décliné en **variantes traduites** (écran — variable selon le responsive —, colonne de tableau, colonne CSV) ; **description courte** (bulle IHM) + **description longue** (aide) — **exploitables par des IA** (le méta-schéma D44 devient documentation sémantique) |
+| **Type** | simple / composé / surchargé (D118, D123) + 4 facettes (D119) + conversions (D120) |
+| **Contraintes** | obligatoire, unique, limites de valeurs, format (D118) |
+| **Valeurs** | défaut (D13/D35), calculé (D35–D36), **valeur de démonstration (D128)** — placeholder IHM, exemples de la doc API générée, échantillon pour les IA ; les types sémantiques livrent la leur (email → `nom@domaine.fr`), surchargeable au champ |
+| **Comparaison (D125)** | **fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** (une valeur / un jeu de valeurs / un comparateur) ; types sans ordre naturel (géolocalisation) = **non triables par nature** ; composés : comparaison définie par le type (montant : à devise comparable, D120 arbitre) |
+| **Accès** | confidentialité (D25), lecture/écriture par audience (D73), groupes (D26) |
+| **Observation** | seuils de télémétrie (D49) |
+| **Présentation** | composant IHM (D64/D65), facette affichage (D119) |
+| **API** | exposition (D20), facette API (D119) |
+| **À venir** | agrégat (Q35), historisation (Q37) |
+
+**Tables IHM (D126)** : les **champs filtrables se déclarent à la table** (la
+vue), pas au champ ; les **tris sont multi-clés** (combinaisons de colonnes).
+Avec la règle anti-oracle (on ne filtre/trie que ce qu'on peut lire, Q38), le
+**cœur de Q38 est résolu** — résiduels : plein-texte, recherche globale.
+**Langue = profil de l'utilisateur, pas l'instance** (D124) — première décision
+de Q45.
+
+**Libellés à deux couches + responsable métier (D127).**
+- **Défauts par langue dans la description** (versionnés, migrés) ;
+- **surcharges en base de données**, modifiables en vie courante — sans
+  migration — par un **responsable métier** (acteur nouveau, famille des rôles
+  moteur D95/D33 : autorité sur le vocabulaire/la présentation, pas la
+  structure) quand le métier l'impose.
+- **Chaîne de résolution** : surcharge (langue du profil) → défaut description
+  (langue du profil) → langue de repli de l'instance → nom technique — jamais
+  d'écran troué.
+- **Borne actée (02/07/2026)** : la surcharge métier **se limite à la
+  présentation** (libellés toutes variantes, descriptions, formats d'affichage) ;
+  **tout le reste est à la charge du technicien** (nom, type, contraintes,
+  stockage — par la description et les migrations).
+- Cohérences : patron D31 (*structure dans la description, adaptations dans les
+  données*) ; surcharge **rattachée au nom invariant** (D124) → survit aux
+  migrations (un renommage la suit) ; **la surcharge bat toujours le défaut**,
+  même livré plus récent, jusqu'à retrait par le responsable métier.
+
+**Énumérés : trois propriétés par valeur (D129, étend D127 ; précisé le
+02/07/2026).** Chaque valeur d'un énuméré porte :
+1. une **valeur numérique** — assure le **tri** : c'est elle qu'utilise la
+   fonction de comparaison (D125) de l'énuméré, ordre **métier** stable quelle
+   que soit la langue (`brouillon < en_cours < valide`) ; modifier l'ordre =
+   changement de description (nouvelle version), **pas** de migration de
+   données ;
+2. un **code invariant** — l'identité contractuelle : stockage logique, API,
+   filtres, transcodages (D90), domaine de la diversité scalaire (D48) ;
+   **renommer un code = migration** (avec transcodage des données) ;
+3. un **identifiant de libellé** — indirection vers le système de libellés
+   (D124/D127 : variantes, langues, deux couches défauts/surcharges) ;
+   **changer un libellé n'est jamais une migration** (responsable métier, vie
+   courante). L'indirection autorise le **partage** d'identifiants de libellés
+   entre énumérés (« Actif »/« Inactif » traduits une fois).
+
+Option de persistance (D119/D18) : la **facette stockage** peut retenir la
+valeur numérique (compacte, tri natif en base), la facette logique/API restant
+le **code** — liberté d'implémentation sans effet sur le contrat.
+
+**Formats d'affichage et de conversion par langue (D131).** Les formats se
+déclinent **par langue**, portés par la **description du schéma** :
+- **affichage** (D119) : `31/12/2026` / `1 234,56` en français, `12/31/2026` /
+  `1,234.56` en anglais — la **langue du profil** (D124) sélectionne la
+  variante ;
+- **conversion** (D120) : le parsing `texte → date/réel` est **paramétré par la
+  grammaire de la langue** — fondement formel du « langue de l'importateur »
+  (D130) ; vaut pour la saisie IHM, l'import CSV, tout parsing humain ;
+- Syncytium **livre les formats standard par langue**, le schéma les précise ;
+  le format d'*affichage* relève de la couche présentation (surchargeable,
+  borne D127), la grammaire de *conversion* reste structurelle ;
+- les machines passent par les **formats canoniques** (ISO, codes — D130).
+
+**Import/export des énumérés (D130).**
+- **Import (API/CSV)** : la conversion faillible essaie **le code d'abord, puis
+  le libellé** — dans la **langue de l'utilisateur qui importe**. Garde-fous :
+  (1) **priorité absolue au code** en cas de collision code/libellé ;
+  (2) **libellé ambigu** (→ plusieurs codes) = **échec propre** de la
+  conversion, jamais de choix silencieux — et la validation du schéma signale
+  les libellés dupliqués par énuméré et par langue ; (3) correspondance sur les
+  **libellés effectifs** (surcharges D127 comprises) — les libellés étant
+  mutables, **l'import par libellé = commodité humaine, les intégrations
+  machines utilisent les codes**. Propriété assumée : le même fichier importé
+  par deux utilisateurs de langues différentes ne se lit pas pareil (langue au
+  profil, D124).
+- **Export** : **code ou libellé, déclaré dans la description du format CSV**
+  (configuration du connecteur, D108/D119) ; libellé exporté = langue de
+  l'utilisateur exportant. Aller-retour : l'export en codes se réimporte par
+  quiconque ; en libellés, dans la même langue.
+
+**Devise portée par la donnée + surcharge de types par restriction (D123).**
+- La **devise est une composante de la donnée** (chaque montant stocke
+  valeur + devise), appartenant à un **jeu autorisé**. Type standard `montant`
+  = **toutes les devises ISO 4217**.
+- Le schéma crée des **types surchargeant les standards par restriction** du
+  domaine : `montant_francais` = {EUR}, `montant_asiatique` = {JPY, CNY, …}.
+- **Mécanisme général de spécialisation** (pas limité aux devises : unités de
+  `mesure`, formats…) qui **s'insère dans le graphe de conversion (D120)** :
+  dérivé → standard = **sûre** (élargissement) ; standard → dérivé =
+  **faillible** (contrôle du jeu). Restriction à un jeu singleton = mono-devise
+  (le stockage peut omettre la composante devenue constante ; le modèle logique
+  ne change pas).
 
 ---
 
@@ -1601,7 +1840,7 @@ avant la synthèse Q16).
 | # | Question | Enjeu |
 |---|----------|-------|
 | **A — Modèle de données (prioritaire)** | | |
-| Q34 | **Catalogue de types de champs** : primitifs (texte, nombre, booléen, date, date-heure **+ fuseau**, monnaie, durée), contraints (choix, référence, fichier), dérivé (calculé, multi-valué D92) ; formats et contraintes. | Socle du méta-schéma ; dont dépendent le composant IHM par défaut (D64) et l'exposition API. |
+| ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
 | Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
 | Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
@@ -1610,6 +1849,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
+| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -1617,7 +1857,7 @@ avant la synthèse Q16).
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
-| Q38 | **Recherche & filtrage** : plein-texte ? portée (par entité / globale) ? quels champs interrogeables/triables (attribut déclaratif par champ, patron D49/D50) ? | Deux contraintes déjà identifiées : le **langage de filtre exposé ≠ D90** (utilisateurs/consommateurs non maîtrisés → sous-ensemble contraint champ+opérateur+valeur, OU/ET simples) ; **on ne filtre/trie que ce qu'on peut lire** (anti-oracle : niveau D25 + audience D70). |
+| Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
 | Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
 
@@ -2163,3 +2403,122 @@ avant la synthèse Q16).
   Caveats : D16 raffiné (une instance *de production* + éphémères/passive, chaque
   instance mono-serveur D15) ; RGPD staging (éphémérité + accès restreint).
   **Le thème B (exploitation) de l'audit est entièrement clos.**
+- **2026-07-02 (suite 12)** — Nouvelle question **Q49** à la demande de l'auteur :
+  **initialisation d'une instance par reprise de données** — connexion à une base
+  tierce et conversion vers le modèle Syncytium. Cas décisif pour l'adoption
+  (une TPE a toujours un existant). Assemblage pressenti : connecteur
+  auto-descriptif (D83) + translation (D79/D90) + dry-run d'import avec rapport
+  (D7/§4.1) + tâche à progression (D55) + UUID (D82) + estampille (D93).
+  Sous-questions : connecteur jetable vs permanent (cohabitation), traitement des
+  rejets, import de l'historique d'origine (lien Q37). À traiter avec/après le
+  modèle de données.
+- **2026-07-02 (suite 13)** — Ouverture du volet modèle de données par la
+  **hiérarchie des structures** (D115) : instance (1) → schéma (1) → modules
+  (1..n) → entités (1..n) → champs. Le singulier « une instance organise UN
+  schéma » confirme D16 (le schéma = la description, racine versionnée D93).
+  Le **module** = concept nouveau ; sept rôles candidats soumis à arbitrage
+  (espace de noms, navigation IHM/Q48, activation, frontière d'accès, partage
+  inter-TPE, modules moteur = solutions intégrées D44, versionnement — pressenti
+  non). Questions de frontière posées : références inter-modules (pressenti
+  libres) et composition/agrégats intra-module (pressenti oui).
+- **2026-07-02 (suite 14)** — D116 : **versionnement uniquement au niveau
+  instance** (une seule horloge, pas de déclinaison module/entité/champ ; la
+  version de l'instance = celle de son schéma, estampille D93) ; **composition
+  intra-module** (le module = frontière de cohérence forte) ; **associations
+  inter-modules libres**. Distinction fondatrice pour Q35 : composition
+  (possession forte, transactionnelle) vs association (lien souple). Restent à
+  arbitrer les rôles 1–6 du module.
+- **2026-07-02 (suite 15)** — Les **six rôles du module validés en bloc** (D117) :
+  espace de noms (`module.entite.champ`), navigation IHM (répond en partie à
+  Q48), activation par instance (fail-closed : écrans/API masqués, données
+  conservées), frontière d'accès (module → groupe), partage inter-TPE (l'import
+  d'un module = une migration ordinaire ; objet d'échange de l'écosystème AGPL),
+  modules moteur (solutions intégrées D44) vs modules métier (motif D52).
+- **2026-07-02 (suite 16)** — Modèle de types (D118–D120, nouveau §3.4, Q34 en
+  cours). **Champ = donnée atomique**, simple (type de base + propriétés de
+  stockage et limites) ou **composée** (montant = décimal+devise, email =
+  texte+format ; bibliothèque livrée + enrichissable). **Quatre facettes**
+  (logique / stockage / affichage / API — exemple fondateur : date Cegid PMI) ;
+  **extension par hook** = paire de fonctions pures vers/depuis le stockage.
+  **Règles de conversion portées par les types** (ajout de l'auteur) : graphe à
+  trois classes — sûre (automatique aux frontières), explicite (arrondi,
+  troncature, perte de devise), faillible (parsing, échec propre). Unifications :
+  valider un composé = conversion faillible depuis sa base ; frontières
+  API/IHM/connecteurs systématiques ; coercition de Q47 réglée en principe.
+  Propositions en attente : date/heure/duree, énuméré multiple, liste des
+  composés livrés, devise en paramètre à défaut d'instance.
+- **2026-07-02 (suite 17)** — Précision de l'auteur sur D120 : **la conversion
+  faillible est le moteur de l'import** — initialisation depuis une base tierce
+  (Q49) et **import CSV/Excel**. Chaque cellule brute tente sa conversion vers le
+  type cible ; les échecs produisent le **rapport d'import cellule par cellule** ;
+  le dry-run d'import = exécution à blanc des conversions. Détection (conversion)
+  séparée du traitement des rejets (politique Q49). Import CSV/Excel = connecteur
+  en lecture (D79) + hot folder (D106).
+- **2026-07-02 (suite 18)** — Export CSV (précision de l'auteur, D119 amendé) :
+  utilise la **facette d'affichage par défaut** (usage humain — Excel) ou un
+  **format surchargeable compatible avec le type** (validé par le catalogue ;
+  permet l'export machine ISO). Surcharge portée par la configuration du
+  connecteur (principe D108). Aller-retour cohérent : le format d'export déclaré
+  est connu du ré-import (conversion faillible).
+- **2026-07-02 (suite 19)** — Catalogue de types clos (D121–D123). Types simples :
+  + date, heure, durée ; **énuméré mono-sélection uniquement** (proposition
+  `multiple` écartée — le multi passe par une entité liée, atomicité D118).
+  **Tous les composés proposés validés** (periode incluse). **Devise portée par
+  la donnée** (valeur + devise, jeu autorisé, standard = ISO 4217) et **surcharge
+  de types par restriction** : le schéma dérive des types en restreignant le
+  domaine (montant_francais = {EUR}) — mécanisme général de spécialisation,
+  inséré dans le graphe D120 (dérivé→standard sûre, standard→dérivé faillible) ;
+  singleton = mono-devise. Reste pour clore Q34 : le profil de champ consolidé.
+- **2026-07-02 (suite 20)** — **Q34 close** (D124–D126, profil de champ complet).
+  **Identité (D124)** : nom = invariant (renommage = migration D4, patron D96) ;
+  libellés = variantes traduites (écran responsive, colonne tableau, colonne
+  CSV) ; **langue au profil utilisateur, pas à l'instance** (1re décision Q45) ;
+  descriptions courte (bulle) + longue (aide) **exploitables par des IA** — le
+  méta-schéma devient documentation sémantique. **Comparaison intrinsèque au
+  type (D125)** : fonde le tri, réutilisée par le filtre (valeur / jeu /
+  comparateur — le langage contraint attendu par Q38) ; types sans ordre = non
+  triables. **Tables IHM (D126)** : champs filtrables déclarés à la table, tris
+  multi-clés. **Cœur de Q38 résolu** (résiduels : plein-texte, recherche
+  globale). Prochain : Q35 (relations — composition/association, agrégats).
+- **2026-07-02 (suite 21)** — Libellés à deux couches (D127) : **défauts par
+  langue dans la description** + **surcharges en base** modifiables en vie
+  courante par un **responsable métier** — acteur nouveau (famille des rôles
+  moteur D95/D33, autorité sur le vocabulaire/présentation, pas la structure).
+  Chaîne de résolution avec replis (jamais d'écran troué) ; surcharge rattachée
+  au nom invariant (survit aux migrations, prioritaire sur tout défaut).
+  Borne proposée à valider : surcharge = présentation seulement.
+- **2026-07-02 (suite 22)** — **Borne de D127 actée** : la surcharge métier se
+  limite à la **présentation**, tout le reste au technicien. **Valeur de
+  démonstration ajoutée au profil de champ (D128)** : placeholder IHM, exemples
+  de la doc API générée, échantillon pour les IA (complète les descriptions
+  D124) ; les types sémantiques livrent la leur, surchargeable au champ.
+- **2026-07-02 (suite 23)** — Énumérés : codes stables + libellés par langue
+  (D129, étend D127). Valeurs internes = codes invariants (stockage, API,
+  filtres, transcodages, domaine D48 ; renommer un code = migration avec
+  transcodage) ; libellés par valeur et par langue en deux couches (défauts
+  description + surcharges métier) — changer un libellé n'est jamais une
+  migration. L'API échange les codes ; l'IHM et l'export CSV affichent le
+  libellé dans la langue du profil.
+- **2026-07-02 (suite 24)** — Import/export des énumérés (D130). Import :
+  **code d'abord, libellé en repli** dans la langue de l'importateur ;
+  garde-fous — priorité au code en collision, ambiguïté = échec propre (+
+  validation des libellés dupliqués par langue), correspondance sur libellés
+  effectifs (surcharges D127) ; import par libellé = commodité humaine, les
+  machines utilisent les codes. Export : **code ou libellé déclaré dans la
+  description du format CSV** (config connecteur D108/D119), libellé = langue
+  de l'exportateur. Round-trip : codes universels, libellés mono-langue.
+- **2026-07-02 (suite 25)** — D129 précisé : **trois propriétés par valeur
+  d'énuméré** — valeur numérique (le tri : comparaison D125, ordre métier stable
+  inter-langues ; changer l'ordre = description, pas migration), code invariant
+  (identité contractuelle), identifiant de libellé (indirection D124/D127,
+  partage possible entre énumérés). Résout « comment trier un énuméré » (ni
+  alphabétique, ni libellé — métier). Option de persistance : facette stockage
+  = valeur numérique (tri natif), logique/API = code.
+- **2026-07-02 (suite 26)** — Formats par langue (D131) : l'**affichage** (D119 —
+  dates, réels : 31/12/2026 vs 12/31/2026, 1 234,56 vs 1,234.56) et la
+  **conversion** (D120 — le parsing texte→date/réel suit la grammaire de la
+  langue) se déclinent **par langue**, portés par la **description du schéma** ;
+  la langue du profil (D124) sélectionne la variante. Syncytium livre les
+  standards, le schéma précise. Fondement formel du « langue de l'importateur »
+  (D130) ; affichage = présentation (surchargeable D127), grammaire de
+  conversion = structurelle ; machines → canoniques ISO.

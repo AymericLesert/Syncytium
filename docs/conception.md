@@ -139,6 +139,17 @@ posée (voir §6).
 | D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés**. **L'atomicité appartient au modèle** : la description déclare les **agrégats** (commande + lignes = indivisible par défaut) ; raffinement (ligne seule) **seulement si le modèle l'autorise** ; l'appelant **compose vers le haut** (une commande ou un ensemble de commandes par transaction), jamais en dessous du plancher. | Échelle : ligne (si autorisée) ⊂ agrégat (plancher déclaré) ⊂ transaction (appelant) ⊂ lot. Un seul concept (esprit D92). Agrégats détaillés au modèle de données (Q35, composition). Voir §5.5. |
 | D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
 | D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
+| D104 | **Garde-fous d'exécution (résout Q43)** : **pas de timeout sur les fonctions « simples »** du langage ; **timeout paramétrable sur les fonctions « complexes »** — classification portée par le **catalogue de fonctions** (méta-schéma). Gardes existants inchangés (D36 hooks, D55 heartbeat des tâches, D69 IHM, D7 dry-run). | Les fonctions sont implémentées par le concepteur de Syncytium → risque non uniforme ; zéro surcoût sur le chemin chaud. Voir §3.3. |
+| D105 | **Rate limiting global** : **15 req/sec** en défaut global d'instance, **surcharge par compte technique** (interface d'administration, comme la version épinglée D98) ; réponse **429 + `Retry-After`**. | Fusible de disponibilité **externe** du mono-serveur (pendant du fusible interne D104) ; distinct du cooldown par tâche (D58) et de la détection a posteriori (D43/D47). Voir §5.8. |
+| D106 | **Déclencheur « apparition de fichier »** (étend l'événement de D54) : **dossier surveillé + pattern défini** ; à l'arrivée d'un fichier conforme, la tâche se déclenche, **le fichier = son entrée**. | Patron *hot folder* (scanner→PDF, export→CSV), très TPE. Pattern = vocabulaire du langage ; attendre l'écriture complète du fichier. Voir §8.4. |
+| D107 | **Authentification des comptes techniques (clôt Q44)** : **clé API rotative** par défaut (2 clés actives pendant rotation) ; **« pour le compte de » par header dédié** (périmètre de délégation D76) ; **OAuth2 + Token Exchange RFC 8693 en déclinaison** (cadre D78) — le jeton porte alors le sujet. | Même sémantique D76 (borné au périmètre ligne du sujet, attribuable) quel que soit le véhicule. Simple par défaut, standard en option. Voir §5.8. |
+| D108 | **Canaux de notification = connecteurs** (built-in + hooks du technicien, D52). *« Le connecteur est le vecteur, la configuration porte le contenant »* : **modèles de messages = paramètres du connecteur** (gabarits D90 : titre, destinataire, contenu, pièces jointes). | Résout Q46 (canaux + templates). Voir §8.5. |
+| D109 | **Canaux autorisés déclarés dans la description** ; l'utilisateur **choisit via son profil** parmi les canaux qui lui sont autorisés. | Double gouvernance (le modèle borne, l'utilisateur choisit). Voir §8.5. |
+| D110 | **Notification persistée d'abord (entité du méta-modèle), puis remise** (patron **outbox**) : remise externe = tâche de propagation (D85/D87), **livraison garantie** (jamais perdue, au pire en attente, visible en supervision D56) ; **historique conservé** avec rétention à durée max (patron D41/D55). | In-app = lecture du magasin ; confidentialité automatique (appartenance D71). Clôt Q46. Voir §8.5. |
+| D111 | **Concurrence état-avant/état-après (résout Q41)** — mécanisme **unique IHM+API**, **compare-and-swap par champ** : modification (avant≠après) autorisée **ssi valeur-avant = valeur en base** ; champs inchangés ni écrits ni contrôlés (→ fusion des disjoints) ; même champ = conflit (409 + détail), **un conflit rejette l'agrégat** (D101), contrainte cassée = conflit ; création → premier gagne (409) ; suppression première → modification rejetée (410 Gone). | Fusion par champ ; diff journalisable (pont Q37) ; **ABA bénin par construction** (modèle par valeurs — chaque transition validée, l'historique relève de l'audit) ; ETag D45 = cache lecture ; SSE = désamorçage amont. Voir §5.5. |
+| D112 | **Multi-environnements (résout Q42)** : production (dernière version publiée) + **un staging par version bêta, instancié à la volée** (copie prod → **migration** D4–D9 vers la bêta) ; **API bêta (D103) redirigées** vers le staging ; à la validation → staging **supprimé**, production migrée (§4). | Le dry-run rendu durable et navigable ; migration répétée 2× avant la vraie bascule. Raffine D16 (une instance *de production* + éphémères/passive). RGPD : éphémérité + accès restreint. Voir §7.3. |
+| D113 | **Synchronisation prod → staging**, deux modes : **synchrone** (chaque écriture reportée, **traduite via la chaîne de versions** §5.1 — les instances sont à des versions différentes) ; **différé** (recréation sur sollicitation, fréquence à définir). | **4ᵉ usage du primitif de translation** (migrations, API, connecteurs, réplication inter-versions). Voir §7.3. |
+| D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
 
 ---
 
@@ -244,9 +255,23 @@ nommées. Le cas « une seule valeur » est le cas dégénéré. Conséquences :
 - l'**inverse** (D91) se relit comme la symétrie entrées/sorties : 1 → N
   (éclatement) ↔ N → 1 (fusion).
 
+**Garde-fous d'exécution (D104, résout Q43).** Les fonctions du langage sont
+**implémentées par le concepteur de Syncytium** — le risque n'est pas uniforme :
+- fonctions **« simples »** (regex, gabarit, transcodage, arithmétique…) :
+  **pas de timeout** — zéro surcoût sur le chemin chaud ;
+- fonctions **« complexes »** (durée légitime possible — agrégats larges,
+  lookups…) : **timeout paramétrable**, à la main du concepteur ;
+- la classification **simple/complexe est portée par le catalogue de fonctions**
+  (propriété du méta-schéma ; Q47 en hérite).
+
+Gardes existants inchangés : hooks de calcul → délai max (D36) ; tâches →
+**heartbeat** (D55 — une tâche longue mais vivante progresse, une tâche morte est
+tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-run
+(D7) reste le filet des regex pathologiques sur données réelles.
+
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
-mapping nommé.
+mapping nommé ; classification **simple/complexe** des fonctions (D104).
 
 ---
 
@@ -513,6 +538,36 @@ unitaire, liste filtrée, intégralité paginée ; écriture unitaire ou par lot
   (Structuration transactionnelle de premier ordre — habituellement laissée à la
   discrétion du développeur dans les SGBD.)
 
+**Concurrence — état-avant / état-après (D111, résout Q41).** Mécanisme
+**unique IHM + API** (ni verrou pessimiste, ni version côté écriture) :
+l'**état-avant sert de jeton de concurrence, au grain du champ**.
+
+- **Création** : doublon sur une clé → le **premier créateur gagne** ; le second
+  est notifié, création non validée. API : **409 Conflict** ; IHM : l'utilisateur
+  **reste sur son écran** (saisie intacte), message précis.
+- **Modification** : l'appelant envoie **l'état avant + l'état après** ; le moteur
+  déduit le diff. **Règle (compare-and-swap par champ)** : une modification d'un
+  champ (avant ≠ après) n'est autorisée **que si la valeur-avant correspond à la
+  valeur en base** ; les champs **inchangés** (avant = après) ne sont **ni écrits
+  ni contrôlés** — c'est ce qui permet la fusion des modifications disjointes.
+  Champs *différents* d'une même fiche → **fusion sans conflit** ; *même champ* →
+  premier écrit, second notifié. Transaction = agrégat (D101) → **un champ en
+  conflit rejette l'agrégat entier**. **Champs liés par une contrainte** (déclarée
+  au méta-modèle, cf. Q36) : casser la contrainte = conflit = rejet. API : **409 +
+  détail des champs en conflit** (attendu vs courant) ; IHM : notification
+  précise, saisie conservée.
+- **Suppression** : une modification arrivant après la suppression est **rejetée**
+  (la suppression était première). API : **410 Gone**.
+- Notes : le diff explicite (avant→après) est **directement journalisable**
+  (pont vers Q37, audit des modifications) ; cohérent avec D92 (mapping de
+  valeurs nommées) ; **ABA bénin par construction** dans ce modèle par valeurs —
+  la séquence A→B→A peut survenir mais chaque transition a été elle-même validée,
+  la prémisse de l'écrivain (avant = A) est vraie au moment de l'écriture, et
+  l'historique des transitions relève de l'audit (Q37), pas de la concurrence
+  (une règle dépendant du *chemin* serait une contrainte Q36) ; l'**ETag (D45)
+  reste pour le cache en lecture** ; l'avertissement temps réel (SSE §4.5)
+  demeure le désamorçage en amont.
+
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
 son implémentation, déclarée dans le descriptif avec sa correspondance aux
@@ -769,6 +824,19 @@ enregistrée) ; la **surcharge par en-tête** sert à **tester la version suivan
 avant de demander la bascule de l'épinglage. Garde-fous : la surcharge ne peut ni
 viser une version **non publiée** (D99) ni descendre **sous la version minimale**
 (D94 → 426) ; la bascule de l'épinglage est un **acte d'administration tracé**.
+
+**Authentification des comptes techniques (D107, clôt Q44) + débit (D105).**
+- **Défaut : clé API rotative** — deux clés actives pendant une rotation, bascule
+  sans coupure ; révocable côté administration.
+- **« Pour le compte de » : header dédié** portant le compte sujet, gouverné par
+  le **périmètre de délégation déclaré** sur le compte technique (D76) — appel
+  borné au périmètre ligne du sujet, toujours attribuable.
+- **Déclinaisons** via le cadre générique (D78) : **OAuth2 client credentials +
+  Token Exchange (RFC 8693)** pour les clients exigeants — le jeton porte alors
+  le sujet à la place du header ; même sémantique D76 dans les deux cas.
+- **Rate limiting (D105)** : **15 req/sec** défaut global d'instance, surcharge
+  par compte technique, **429 + `Retry-After`** — fusible de disponibilité
+  externe (pendant du fusible interne D104).
 
 ---
 
@@ -1075,6 +1143,39 @@ d'exposition publique massive. Conséquences :
   remontée agrégée vers l'éditeur serait techniquement possible mais strictement
   **opt-in**.
 
+### 7.3 Environnements et continuité (D112–D114, résout Q42)
+
+**Multi-environnements (D112).** Préconisation aux clients :
+- un environnement de **production** portant la **dernière version publiée** ;
+- **un environnement de staging par version bêta**, **instancié à la volée** :
+  copie de la production → **migration** (mécanisme D4–D9) vers la version bêta
+  — *le dry-run rendu durable et navigable*. Les **API bêta (D103) sont
+  redirigées** vers l'instance de staging (la sollicitation explicite D98 trouve
+  sa destination) ;
+- **à la validation de la bêta** : l'instance de staging est **supprimée**, la
+  production est migrée par le cycle §4 (migration ainsi répétée deux fois —
+  dry-run + vie en staging — avant la vraie bascule).
+
+**Synchronisation production → staging (D113), deux modes :**
+- **synchrone** : chaque écriture en production est **reportée** vers le staging —
+  **traduite à travers la chaîne de versions** (§5.1), les deux instances étant à
+  des versions différentes → **4ᵉ usage du primitif de translation** (migrations,
+  API, connecteurs, réplication inter-versions) ;
+- **différé** : recréation du staging **sur sollicitation** (admin/technicien) à
+  une fréquence à définir (ex. 1×/jour), via le mécanisme d'instanciation D112.
+
+**Continuité d'activité — PCA/PRA (D114).** Le même mécanisme de synchronisation,
+appliqué entre **deux instances de production de même version** (active/passive),
+donne la continuité : **bascule manuelle par le client** en cas de coupure.
+Atouts : réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD —
+D18) ; cohérence protégée à la bascule par l'estampille D93.
+
+**Caveats consignés** : D16 se raffine — « une instance *de production* par TPE »
++ instances **éphémères** (staging) + éventuellement une **passive** ; chaque
+instance reste mono-serveur (D15). **RGPD** : le staging porte des données
+réelles — garde-fous : éphémérité (suppression à la validation) + accès restreint
+(technicien/testeurs) ; à documenter chez le client (responsable de traitement).
+
 ---
 
 ## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37, D52)
@@ -1238,11 +1339,17 @@ Ceux-ci peuvent être des groupes statiques **ou des principals contextuels**
 avec **sa propre portée `lecture:`** (élévation de privilège contrôlée, type SUID),
 pas celle de l'appelant.
 
-**Déclenchement (D54).** Cinq modes : **interface, API, planifié, événement de
-données, enchaînement** (tâche après tâche). Tâche **synchrone ou asynchrone** —
-mais *toujours non bloquante avec progression* : le « synchrone » n'est qu'une
-posture d'IHM (l'utilisateur suit la barre), pas un chemin d'exécution séparé.
-Toutes les tâches passent par la file.
+**Déclenchement (D54, étendu par D106).** Cinq modes : **interface, API,
+planifié, événement, enchaînement** (tâche après tâche). L'**événement** couvre
+les **données** (écriture d'une entité) **et les fichiers (D106)** : un **dossier
+surveillé + un pattern défini** — à l'arrivée d'un fichier conforme, la tâche se
+déclenche, **le fichier devenant son entrée** (patron *hot folder* : scanner
+déposant des PDF, export comptable déposant des CSV). Notes : le pattern
+réutilise le vocabulaire du langage (glob/regex) ; attendre que le fichier soit
+**complètement écrit** avant de déclencher (piège du fichier en cours de copie).
+Tâche **synchrone ou asynchrone** — mais *toujours non bloquante avec
+progression* : le « synchrone » n'est qu'une posture d'IHM (l'utilisateur suit la
+barre), pas un chemin d'exécution séparé. Toutes les tâches passent par la file.
 
 **File et suivi (D55).** **File d'attente** bornant la concurrence ; chaque tâche
 a un **état** et un **statut de progression** (compteur/total + message). Le
@@ -1337,6 +1444,32 @@ connecteurs, 5 déclencheurs, deux droits dont principals contextuels, portée d
 lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention,
 **canal de notification**, **politique de relance**) ; la solution intégrée de
 supervision.
+
+### 8.5 Infrastructure de notifications (D108–D110, résout Q46)
+
+Assemblage de briques existantes — pratiquement aucune machinerie neuve.
+
+- **Canaux = connecteurs (D108).** Syncytium livre des connecteurs de
+  notification built-in ; le technicien en ajoute via hooks (D52). **« Le
+  connecteur est le vecteur, la configuration porte le contenant »** : les
+  modèles de messages sont des **paramètres du connecteur** (s'il le permet) —
+  ex. email : gabarits (langage D90) de titre, destinataire, contenu, pièces
+  jointes, déclarés dans la description.
+- **Canaux autorisés / choix utilisateur (D109).** La **description déclare les
+  canaux utilisables et autorisés** ; l'utilisateur **sélectionne via son profil**
+  l'un des canaux qui lui sont autorisés (double gouvernance : le modèle borne,
+  l'utilisateur choisit dedans).
+- **Livraison garantie + historique (D110).** La notification est **persistée
+  d'abord** dans Syncytium — **entité décrite via le méta-modèle** — puis remise :
+  c'est le patron **outbox**. Remise externe = **tâche de propagation connecteur**
+  (D85), reprise dans la tâche (D87), visible en supervision (D56) — jamais
+  perdue, au pire *en attente de remise*. **Rétention à durée maximale**
+  (patron D41/D55). Conséquences gratuites : le **canal in-app = lecture du
+  magasin** (l'IHM générée affiche l'entité) ; la **confidentialité s'applique
+  seule** (notification adressée à X visible de X — appartenance directe D71).
+
+**Apport au méta-schéma** : l'entité notification ; canaux autorisés (description)
++ canal choisi (profil) ; gabarits de message en paramètres de connecteur.
 
 ---
 
@@ -1472,19 +1605,21 @@ avant la synthèse Q16).
 | Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
 | Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
+| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | **B — Cycle de vie & exploitation** | | |
-| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand). | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
-| Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
-| Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
+| ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
+| ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | **C — Sécurité d'exécution** | | |
-| Q43 | **Robustesse d'exécution** — modèle de menace = **code technicien de confiance + données potentiellement adverses**. **Pas** de limites rigides ni de moteur regex restreint (préserver ouverture/perf) ; garde-fou **léger et configurable** = **timeout par évaluation** (fusible mono-serveur, D15) ; le **dry-run (D7)** attrape déjà les regex pathologiques sur données réelles. Reste : valeurs par défaut, isolation minimale. | Éviter qu'une évaluation runaway fige toute l'instance (disponibilité), sans brider la performance nominale. |
-| Q44 | **Authentification API & débit global** : schéma d'auth (clés API, **OAuth** pour on-behalf-of D76), rate limiting global (le cooldown D58 est par-tâche). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
+| ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
+| ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
-| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
-| Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
-| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire. | Pilier du méta-schéma ; précise D90. |
-| Q38 | **Recherche & filtrage** dans l'IHM générée : plein-texte ? langage de filtre ? sur quels champs. | Complète l'IHM générée (D64) et le filtrage (D46/D66). |
+| ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
+| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
+| **E — UI/UX (regroupe l'affichage)** | | |
+| Q38 | **Recherche & filtrage** : plein-texte ? portée (par entité / globale) ? quels champs interrogeables/triables (attribut déclaratif par champ, patron D49/D50) ? | Deux contraintes déjà identifiées : le **langage de filtre exposé ≠ D90** (utilisateurs/consommateurs non maîtrisés → sous-ensemble contraint champ+opérateur+valeur, OU/ET simples) ; **on ne filtre/trie que ce qu'on peut lire** (anti-oracle : niveau D25 + audience D70). |
+| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
+| Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
 
 ---
 
@@ -1956,3 +2091,75 @@ avant la synthèse Q16).
   transaction (appelant) ⊂ lot. La déclaration d'agrégat rejoint le modèle de
   données à venir (Q35, relations de composition). (L'ancienne formulation
   « modes autorisés au choix » est retirée.)
+- **2026-07-02 (suite 5)** — Fusibles de disponibilité (résout Q43, avance Q44).
+  **D104** : pas de timeout sur les fonctions **simples** du langage (implémentées
+  par le concepteur, chemin chaud sans surcoût) ; timeout **paramétrable** sur les
+  fonctions **complexes** — classification portée par le catalogue de fonctions
+  (méta-schéma, hérité par Q47). Gardes existants inchangés (D36 délai hooks, D55
+  heartbeat tâches — rappel des 5 déclencheurs D54 fourni à l'auteur, D69 IHM, D7
+  dry-run). **D105** : rate limiting **15 req/sec** défaut global d'instance +
+  surcharge par compte technique, 429 + Retry-After — fusible externe, pendant du
+  fusible interne D104. Reste Q44 : mécanisme d'authentification (clé API
+  rotative proposée, à confirmer).
+- **2026-07-02 (suite 6)** — Clôture de Q44 et extension des déclencheurs.
+  **D106** : déclencheur **« apparition de fichier »** (étend l'événement D54) —
+  dossier surveillé + pattern, le fichier devient l'entrée de la tâche (hot
+  folder ; attendre l'écriture complète). **D107** : authentification = **clé API
+  rotative** par défaut ; **on-behalf-of par header dédié** gouverné par le
+  périmètre de délégation D76 (réponse à la question de l'auteur : OAuth2 le
+  couvre via l'extension **Token Exchange RFC 8693**, disponible en déclinaison
+  D78 — lourde pour une TPE, le header dédié est le bon défaut ; même sémantique
+  D76 dans les deux cas). Q43 et Q44 closes — le volet C (sécurité d'exécution)
+  de l'audit est terminé.
+- **2026-07-02 (suite 7)** — Infrastructure de notifications (D108–D110, résout
+  Q46, nouveau §8.5). Assemblage de briques existantes : **canaux = connecteurs**
+  (built-in + hooks ; « le connecteur est le vecteur, la configuration porte le
+  contenant » — templates en paramètres du connecteur, gabarits D90) (D108) ;
+  **canaux autorisés dans la description**, choix par profil parmi les autorisés
+  (D109) ; **notification persistée d'abord** — entité du méta-modèle — puis
+  remise (patron outbox : remise externe = tâche de propagation D85/D87, visible
+  en supervision) → **livraison garantie**, historique à rétention max (patron
+  D41/D55), in-app = lecture du magasin, confidentialité automatique par
+  appartenance D71 (D110).
+- **2026-07-02 (suite 8)** — Nouveau thème **E — UI/UX** dans les lacunes de
+  l'audit, regroupant l'affichage : **Q38** (recherche & filtrage — enrichie de
+  deux contraintes : langage de filtre exposé = sous-ensemble contraint, pas D90 ;
+  anti-oracle : on ne filtre que ce qu'on peut lire), **Q45** (i18n, déplacée
+  depuis D, étendue à la langue des notifications), et **Q48** (nouvelle :
+  **organisation de l'IHM générée** — écrans, navigation/menus, vues par défaut,
+  tri, regroupements — l'architecture IHM D63–D69 est décrite, son contenu
+  fonctionnel non). Constat : l'IHM est décrite « à moitié » — architecture oui,
+  contenu fonctionnel à traiter avec le modèle de données (Q34 → D64).
+- **2026-07-02 (suite 9)** — Séquencement : Q47 confirmée **après** le modèle de
+  données (les fonctions opèrent sur les types) ; **Q37 rattachée au thème A**
+  (modèle de données), point de vue de l'auteur à venir. **Q41 résolue (D111)**
+  par une **troisième voie** proposée par l'auteur : concurrence
+  **état-avant/état-après**, mécanisme unique IHM+API, jeton de concurrence au
+  **grain du champ** — création : premier gagne (409, l'IHM conserve la saisie) ;
+  modification : diff avant/après, seuls les champs modifiés écrits, champs
+  disjoints fusionnent, même champ = conflit, un conflit rejette l'agrégat
+  entier (D101), contrainte inter-champs cassée = conflit (lien Q36) ;
+  suppression première → modification rejetée (410 Gone). Diff journalisable
+  (pont vers Q37) ; ABA accepté ; ETag limité au cache lecture ; SSE en
+  désamorçage amont.
+- **2026-07-02 (suite 10)** — D111 précisé : **compare-and-swap par champ**
+  formalisé — modification (avant≠après) autorisée **ssi valeur-avant = valeur en
+  base** ; champs inchangés ni écrits ni contrôlés (condition de la fusion des
+  disjoints). Caveat ABA **révisé** suite à la remarque de l'auteur : dans ce
+  modèle **par valeurs**, l'ABA est **bénin par construction** — chaque
+  transition intermédiaire a été validée, la prémisse de l'écrivain est vraie au
+  moment de l'écriture, l'historique des transitions relève de l'audit (Q37) et
+  une règle dépendant du chemin serait une contrainte (Q36).
+- **2026-07-02 (suite 11)** — Q42 résolue (D112–D114, nouveau §7.3) par le modèle
+  multi-environnements de l'auteur : **production** (dernière version publiée) +
+  **un staging par version bêta instancié à la volée** (copie prod → migration
+  D4–D9 — le dry-run rendu durable et navigable) ; **API bêta (D103) redirigées**
+  vers le staging ; à la validation, staging supprimé et production migrée (§4).
+  **Synchronisation** prod→staging : synchrone (chaque écriture **traduite via la
+  chaîne de versions** — 4ᵉ usage du primitif de translation) ou différée
+  (recréation périodique sur sollicitation). Même mécanisme entre deux instances
+  de production de même version = **PCA/PRA** (actif/passif, bascule manuelle
+  client ; réplication tech-agnostique D18, cohérence par estampille D93).
+  Caveats : D16 raffiné (une instance *de production* + éphémères/passive, chaque
+  instance mono-serveur D15) ; RGPD staging (éphémérité + accès restreint).
+  **Le thème B (exploitation) de l'audit est entièrement clos.**

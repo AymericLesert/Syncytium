@@ -166,6 +166,7 @@ posée (voir §6).
 | D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
 | D129 | **Énumérés : trois propriétés par valeur** — (1) **valeur numérique** = le **tri** (comparaison D125, ordre métier stable inter-langues ; changer l'ordre = description, pas migration) ; (2) **code invariant** = identité contractuelle (stockage logique, API, filtres, transcodages, domaine D48 ; renommer = **migration**) ; (3) **identifiant de libellé** = indirection vers D124/D127 (deux couches, partage possible entre énumérés ; changer un libellé ≠ migration). | L'API échange les codes ; IHM/export CSV affichent le libellé (langue du profil). Facette stockage (D119) libre de retenir la valeur numérique (tri natif) — sans effet sur le contrat. Voir §3.4. |
 | D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
+| D131 | **Formats d'affichage et de conversion par langue**, portés par la **description du schéma** : l'affichage (D119) et le parsing (D120 — `texte → date/réel`) suivent la **grammaire de la langue du profil** (D124). Syncytium livre les formats standard par langue ; le schéma les précise. | Fondement formel de la « langue de l'importateur » (D130) ; format d'affichage = couche présentation (surchargeable, D127), grammaire de conversion = structurelle ; machines → formats canoniques (ISO). Voir §3.4. |
 
 ---
 
@@ -467,6 +468,19 @@ de Q45.
 Option de persistance (D119/D18) : la **facette stockage** peut retenir la
 valeur numérique (compacte, tri natif en base), la facette logique/API restant
 le **code** — liberté d'implémentation sans effet sur le contrat.
+
+**Formats d'affichage et de conversion par langue (D131).** Les formats se
+déclinent **par langue**, portés par la **description du schéma** :
+- **affichage** (D119) : `31/12/2026` / `1 234,56` en français, `12/31/2026` /
+  `1,234.56` en anglais — la **langue du profil** (D124) sélectionne la
+  variante ;
+- **conversion** (D120) : le parsing `texte → date/réel` est **paramétré par la
+  grammaire de la langue** — fondement formel du « langue de l'importateur »
+  (D130) ; vaut pour la saisie IHM, l'import CSV, tout parsing humain ;
+- Syncytium **livre les formats standard par langue**, le schéma les précise ;
+  le format d'*affichage* relève de la couche présentation (surchargeable,
+  borne D127), la grammaire de *conversion* reste structurelle ;
+- les machines passent par les **formats canoniques** (ISO, codes — D130).
 
 **Import/export des énumérés (D130).**
 - **Import (API/CSV)** : la conversion faillible essaie **le code d'abord, puis
@@ -2500,3 +2514,11 @@ avant la synthèse Q16).
   partage possible entre énumérés). Résout « comment trier un énuméré » (ni
   alphabétique, ni libellé — métier). Option de persistance : facette stockage
   = valeur numérique (tri natif), logique/API = code.
+- **2026-07-02 (suite 26)** — Formats par langue (D131) : l'**affichage** (D119 —
+  dates, réels : 31/12/2026 vs 12/31/2026, 1 234,56 vs 1,234.56) et la
+  **conversion** (D120 — le parsing texte→date/réel suit la grammaire de la
+  langue) se déclinent **par langue**, portés par la **description du schéma** ;
+  la langue du profil (D124) sélectionne la variante. Syncytium livre les
+  standards, le schéma précise. Fondement formel du « langue de l'importateur »
+  (D130) ; affichage = présentation (surchargeable D127), grammaire de
+  conversion = structurelle ; machines → canoniques ISO.

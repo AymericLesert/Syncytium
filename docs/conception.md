@@ -133,6 +133,12 @@ posée (voir §6).
 | D95 | **« Technicien » = un rôle moteur de Syncytium (résout Q14)** : rôle **associé au moteur**, **paramétrable et affectable à une ou plusieurs personnes physiques** — le responsable technique de la solution déployée (éditeur, intégrateur, adopteur compétent), distinct des utilisateurs finaux. | Introduit les **rôles moteur intégrés** (technicien ; déjà administrateurs D33), réutilisables — cohérent avec les solutions intégrées (D44). Apport au méta-schéma. |
 | D96 | **Résurrection des affectations (résout Q25)** : les groupes s'appuient sur un **identifiant indépendant du libellé** = la clé de stabilité ; si un groupe supprimé **réapparaît** (même identifiant), les affectations conservées **reprennent vie**. | Résilience aux suppressions par inadvertance (ajustements de sécurité SI). Cohérent avec D34 (affectations conservées, non purgées ; notification). |
 | D97 | **Défauts de calibration du modèle de risque (clôt Q29)** — paramètres **ajustables à l'initialisation de l'instance** : fenêtre glissante **30 jours** (unité = jour) ; échelle **linéaire par défaut**, **log sur demande** ; pic = **z-score ≥ 3** + **plancher 100 appels/jour** ; crawl = **> 50 %** d'une table de **> 1000 lignes** ; **R² ≥ 0,5** (valide la pente ; un R² faible = pas de tendance nette, les pics restant couverts par le z-score). | Patron uniforme *forme × poids* (seuil statistique + plancher absolu) ; tous explicables en une phrase. Complète D47/D50/D51. |
+| D98 | **Épinglage de version (résout Q9)** : version **épinglée au compte technique** (socle) + **surcharge par en-tête** pour tester la version suivante avant bascule. Garde-fous : pas de version non publiée (D99) ni sous la minimale (D94 → 426) ; bascule d'épinglage = acte d'administration tracé. | Duo Stripe : robustesse par défaut + chemin de migration. Voir §5.8. |
+| D99 | **Versions autorisées = versions publiées (résout Q11)** : publication = **acte déclaratif** du technicien, sans cadence imposée ; certaines versions ne sont **jamais publiées** (bêtas, bugs, fonctionnalités abandonnées) mais restent des **maillons internes** de la chaîne de traduction ; publication **révocable** (retrait → 426). | Fenêtre de support = [version minimale D94 … dernier contrat publié]. Voir §5.8. |
+| D100 | **Pagination par curseur opaque (résout Q19-pagination)**, **porté par la mécanique** (le moteur le gère, pas le développeur) ; le curseur **embarque la version de schéma** (survit aux migrations à chaud via la chaîne de traduction) ; l'IHM générée consomme le même mécanisme. | Stable, performant, cohérent avec les id opaques (D75). Voir §5.5. |
+| D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés**. **L'atomicité appartient au modèle** : la description déclare les **agrégats** (commande + lignes = indivisible par défaut) ; raffinement (ligne seule) **seulement si le modèle l'autorise** ; l'appelant **compose vers le haut** (une commande ou un ensemble de commandes par transaction), jamais en dessous du plancher. | Échelle : ligne (si autorisée) ⊂ agrégat (plancher déclaré) ⊂ transaction (appelant) ⊂ lot. Un seul concept (esprit D92). Agrégats détaillés au modèle de données (Q35, composition). Voir §5.5. |
+| D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
+| D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
 
 ---
 
@@ -471,13 +477,41 @@ plante au dry-run bloque la migration). Licence : un hook chargé dans le moteur
 est un travail dérivé AGPL s'il est *distribué* ; l'usage interne d'un client
 reste libre — les extensions partagées retournent au commun (cohérent D19).
 
-**Lecture et écriture (D22).** Accès unitaire, liste filtrée, intégralité
-paginée ; écriture unitaire ou par lot. À trancher (Q19) : pagination par
-curseur ou offset — avec la subtilité d'un parcours interrompu par une migration
-à chaud (piste : le curseur porte la version de schéma, la chaîne de traduction
-absorbe le changement) ; et sémantique des lots — tout-ou-rien ou **succès
-partiel avec rapport par élément** (préférable face à des consommateurs non
-maîtrisés, mais à rendre explicite dans le contrat).
+**Lecture et écriture (D22 ; précisés par D100–D101, résout Q19).** Accès
+unitaire, liste filtrée, intégralité paginée ; écriture unitaire ou par lot.
+
+- **Pagination (D100)** : **curseur opaque** (keyset), **porté par la mécanique**
+  — le moteur le gère, jamais le développeur. Stable pendant les modifications,
+  cohérent avec les id opaques (D75). Le curseur **embarque la version de
+  schéma** : un parcours interrompu par une migration à chaud continue, la chaîne
+  de traduction (§5.1) absorbe. L'IHM générée consomme le même mécanisme.
+- **Lots = lots de transactions (D101)** — un seul concept, deux cas dégénérés
+  (esprit D92) :
+  1. **ligne à ligne** = chaque ligne est sa propre transaction → validation
+     individuelle, remontée des lignes échouées ;
+  2. **global** = le lot entier est une seule transaction → tout ou rien ;
+  3. **cas général** : le lot contient des **transactions** (1 seul niveau de
+     récursivité) ; chaque transaction est **atomique** (échec → annulation de
+     toutes ses mises à jour), le lot **continue** sur les autres, **remontée par
+     transaction**.
+  **L'atomicité appartient au modèle, pas à l'appelant (agrégats déclarés).**
+  La **description déclare les unités d'atomicité** — les *agrégats* : une
+  commande + ses lignes forment un tout indivisible. Règles :
+  - **par défaut, l'écriture porte sur l'agrégat entier** — impossible de mettre
+    à jour un entête de commande *seul*, sans ses lignes ;
+  - **raffinement conditionnel** : mettre à jour une ligne seule n'est possible
+    que **si le modèle l'autorise explicitement** ; sinon, la modification passe
+    par la mise à jour de la commande ;
+  - **composition libre vers le haut** : l'appelant choisit le périmètre de sa
+    transaction — *une* commande ou *un ensemble* de commandes.
+
+  Échelle de granularité : **ligne** (si autorisée) ⊂ **agrégat** (plancher,
+  déclaré) ⊂ **transaction** (choix de l'appelant, ≥ agrégat) ⊂ **lot**. *La
+  description fixe le plancher d'atomicité ; l'appelant groupe au-dessus, jamais
+  ne découpe en dessous.* La déclaration d'agrégat (commande *possède* ses
+  lignes) sera détaillée au **modèle de données** (Q35, relations de composition).
+  (Structuration transactionnelle de premier ordre — habituellement laissée à la
+  discrétion du développeur dans les SGBD.)
 
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
@@ -697,12 +731,44 @@ ligne (RLS natif SQL ; filtrage applicatif NoSQL).
 **Apport au méta-schéma** : dimension d'audience ; modes d'appartenance (chemins) ;
 visibilité de champ par audience ; droits lecture/écriture par champ ; délégation.
 
-### 5.8 Versions de schéma ≠ versions de contrat d'API
+### 5.8 Versions de schéma ≠ versions de contrat d'API (D98–D99)
 
 Avec des migrations fréquentes (plusieurs par semaine), ne pas publier chaque
 version de schéma aux tiers : distinguer les **versions de schéma** (internes,
 nombreuses) des **versions de contrat d'API** (publiées, espacées). La chaîne de
 traduction absorbe les versions intermédiaires sans les exposer.
+
+**Publication = acte déclaratif (D99, résout Q11).** **Versions autorisées =
+versions publiées.** Le moteur n'impose aucune cadence : le technicien **déclare**
+qu'une version de schéma devient un contrat publié. La publication est
+**révocable**. Fenêtre de support = [version minimale supportée (D94) … dernier
+contrat publié].
+
+**Cycle de vie des versions (D103, précise D99).** Quatre états :
+
+| État | Appelable ? | Épinglable (D98) ? | Usage |
+|---|---|---|---|
+| **Publiée officielle** | oui | oui | contrat courant |
+| **Publiée bêta/test** | **sur sollicitation explicite seulement** (en-tête D98) | non | essai avant officialisation |
+| **Interdite** | non → 426 | non | bêtas abandonnées, versions boguées, fonctionnalités abandonnées |
+| **Dépréciée** | non → 426 | non | sous la version minimale (D94) |
+
+- La **bêta s'emboîte avec D98** : l'en-tête de surcharge *est* le canal d'accès
+  aux bêtas — pas d'épinglage possible, sollicitation appel par appel.
+- Transitions : bêta → officielle (promotion) ; officielle → dépréciée (la
+  minimale monte) ; bêta/officielle → interdite (révocation) — interdite = terminal.
+- **L'enchaînement des versions est indépendant de la publication** : la chaîne de
+  traduction (§5.1) traverse **toutes** les versions (y compris interdites et
+  dépréciées), son ordre étant défini par le **journal de migrations** (§3.2).
+  **L'état gouverne l'*appelabilité*, jamais la *traversabilité*.** Le journal est
+  la colonne vertébrale ; la publication n'est qu'un filtre d'entrée.
+
+**Épinglage (D98, résout Q9) — le duo compte + en-tête.** La **version épinglée
+au compte technique** est le socle (un appel sans précision obtient *sa* version
+enregistrée) ; la **surcharge par en-tête** sert à **tester la version suivante**
+avant de demander la bascule de l'épinglage. Garde-fous : la surcharge ne peut ni
+viser une version **non publiée** (D99) ni descendre **sous la version minimale**
+(D94 → 426) ; la bascule de l'épinglage est un **acte d'administration tracé**.
 
 ---
 
@@ -1366,9 +1432,9 @@ réévaluation.
 | ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
-| Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
+| ~~Q9~~ | ~~Mécanisme d'épinglage ?~~ | **Résolu (D28, D98)** : version épinglée au **compte technique** + **surcharge par en-tête** d'essai ; garde-fous (publiée D99, ≥ minimale D94) ; bascule = acte admin tracé. |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
-| Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
+| ~~Q11~~ | ~~Cadence de publication des contrats ?~~ | **Résolu (D99, D103)** : publication = acte déclaratif, sans cadence. **Quatre états** : officielle / bêta (sollicitation explicite D98) / interdite / dépréciée. L'enchaînement (chaîne de traduction) est **indépendant** des états — appelabilité ≠ traversabilité. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
@@ -1379,11 +1445,11 @@ réévaluation.
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
-| Q19 | **Pagination** (curseur vs offset, comportement pendant une migration) et **sémantique des lots** (tout-ou-rien vs succès partiel avec rapport par élément) ? | Contrat explicite indispensable face à des consommateurs non maîtrisés. |
+| ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés) ; **atomicité portée par le modèle** (agrégats déclarés = plancher ; raffinement si autorisé ; composition libre vers le haut). |
 | ~~Q20~~ | ~~Connecteurs ?~~ | **Résolu** : identité (D78, D80–D82) ; données (D83–D87) ; relance (D88) ; **conflits bidirectionnels portés par le connecteur** (D89). Cadre = moteur, sémantique métier = connecteur. |
 | ~~Q21~~ | ~~Tâches — notification de fin ?~~ | **Résolu (D87)** : catalogue (D37) + notification au **déclencheur via son canal** — in-app (interface) ou webhook/callback (API). Trace technicien en parallèle. |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
-| Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
+| ~~Q23~~ | ~~Frontières de sécurité dérivées ?~~ | **Résolu (D53 tâches, D102 calculs)** : héritage du niveau **le plus restrictif des sources** (fail-closed) ; **abaissement explicite obligatoire**, signalé par la validation. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
 | ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34, D96)** : note au technicien et groupe ignoré (fermé par défaut) ; un groupe réapparaissant (clé = identifiant stable) **fait revivre** les affectations conservées — résilience aux suppressions par inadvertance (D96). |
 | ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
@@ -1858,3 +1924,35 @@ avant la synthèse Q16).
   statistiques), crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5 (valide la
   pente, les pics restant couverts par le z-score). Patron uniforme forme × poids ;
   paramètres ajustables à l'initialisation de l'instance.
+- **2026-07-02 (suite 2)** — Reliquats API clos (D98–D102 ; résout Q9, Q11, Q19,
+  Q23). **Épinglage** : compte technique (socle) + en-tête d'essai, garde-fous
+  publiée/minimale, bascule = acte admin (D98). **Publication** : versions
+  autorisées = publiées ; acte déclaratif sans cadence ; jamais-publiées (bêtas,
+  bugs, abandons) = maillons internes de la chaîne ; révocable → 426 (D99).
+  **Pagination** : curseur opaque porté par la mécanique, embarquant la version de
+  schéma (D100). **Lots = lots de transactions** (1 niveau de récursivité) :
+  transaction atomique / lot continue / remontée par transaction ; ligne-à-ligne
+  et tout-ou-rien = cas dégénérés (esprit D92) ; **modes autorisés déclarés dans
+  la description**, choix du développeur parmi eux (D101). **Champs calculés** :
+  héritage du niveau le plus restrictif, abaissement explicite signalé (D102).
+  Le volet API est entièrement clos.
+- **2026-07-02 (suite 3)** — Cycle de vie des versions (D103, précise D99).
+  **Quatre états** : publiée officielle (appelable, épinglable) ; publiée
+  **bêta/test** (appelable **sur sollicitation explicite seulement** — l'en-tête
+  d'essai D98 est le canal des bêtas, pas d'épinglage) ; **interdite** (426 ;
+  bêtas abandonnées, versions boguées, fonctionnalités abandonnées) ;
+  **dépréciée** (426, sous D94). Transitions : bêta→officielle,
+  officielle→dépréciée, →interdite (terminal). Point structurel : **l'enchaînement
+  des versions (chaîne de traduction, journal de migrations) est indépendant des
+  états de publication** — l'état gouverne l'appelabilité, jamais la
+  traversabilité ; une version interdite reste un maillon.
+- **2026-07-02 (suite 4)** — D101 corrigé après précision de l'auteur :
+  **l'atomicité appartient au modèle, pas à l'appelant**. La description déclare
+  les **agrégats** (commande + lignes = indivisible) ; par défaut l'écriture porte
+  sur l'agrégat entier (pas d'entête seul) ; **raffinement conditionnel** (ligne
+  seule uniquement si le modèle l'autorise, sinon passer par la commande) ;
+  **composition libre vers le haut** (une transaction = une commande ou un
+  ensemble de commandes). Échelle : ligne ⊂ agrégat (plancher déclaré) ⊂
+  transaction (appelant) ⊂ lot. La déclaration d'agrégat rejoint le modèle de
+  données à venir (Q35, relations de composition). (L'ancienne formulation
+  « modes autorisés au choix » est retirée.)

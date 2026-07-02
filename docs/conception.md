@@ -154,7 +154,7 @@ posée (voir §6).
 | D116 | **Versionnement uniquement au niveau instance** (= son schéma, une seule horloge — pas de version par module/entité/champ) ; **composition intra-module** (l'agrégat D101 ne franchit pas le module = frontière de cohérence forte) ; **associations inter-modules libres**. | Distinction fondatrice pour Q35 : **composition** (possession forte, transactionnelle) vs **association** (lien souple). Estampille D93 inchangée. Voir §3.2b. |
 | D117 | **Six rôles du module** : (1) espace de noms (`module.entite.champ`) ; (2) unité de **navigation IHM** ; (3) unité d'**activation** par instance (écrans/API masqués, données conservées) ; (4) **frontière d'accès** (module entier → groupe) ; (5) unité de **partage** inter-TPE (import = migration ordinaire) ; (6) **modules moteur** (solutions intégrées D44) vs modules métier. | Le module répond en partie à Q48 (navigation) ; l'écosystème gagne son objet d'échange (rôle 5, AGPL D19) ; motif D52 (provenance) pour le rôle 6. Voir §3.2b. |
 | D118 | **Champ = donnée atomique**, **simple** (type de base + propriétés de stockage : taille, octets, précision, décimal avant/après virgule + limites de valeurs) ou **composée** (raffinement déclaratif : `montant` = décimal+devise, `email` = texte+format). Bibliothèque de composés **livrée + enrichissable** (D52/D68). | Types simples actés : texte, entier, réel, booléen, date-heure, fichier, énuméré. Voir §3.4. |
-| D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Voir §3.4. |
+| D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n — **défaut de l'export CSV**, surchargeable par un format compatible validé par le catalogue), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Surcharge d'export dans la config du connecteur (D108) ; aller-retour import/export cohérent. Voir §3.4. |
 | D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). **La conversion faillible = moteur de l'import** (Q49, CSV/Excel) : le dry-run d'import = exécution à blanc des conversions, rapport cellule par cellule. | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (Q47 en principe) ; import CSV/Excel = connecteur en lecture (D79) + hot folder (D106). Voir §3.4. |
 
 ---
@@ -378,6 +378,14 @@ l'exécution à blanc des conversions. La détection (conversion) est ainsi sép
 du traitement des rejets (politique Q49 : source / règle en vol / quarantaine).
 L'import CSV/Excel = **connecteur de données en lecture** (D79), déclenchable
 par hot folder (D106).
+
+**L'export CSV (précision 02/07/2026)** : utilise la **facette d'affichage**
+(D119) par défaut — l'usage dominant étant humain (Excel, analyses, cas 2 de
+D83) — ou un **format surchargeable compatible avec le type** (validé par le
+catalogue : pas de format de date sur un montant), permettant un export machine
+(ISO 8601…). La surcharge vit dans la **configuration du connecteur** (principe
+D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
+étant déclaré, le ré-import (conversion faillible) connaît sa grammaire.
 
 > **En attente d'arbitrage (Q34)** — propositions : types simples additionnels
 > (`date` seule, `heure` seule, `duree` ; propriété `multiple` sur l'énuméré) ;
@@ -2328,3 +2336,9 @@ avant la synthèse Q16).
   le dry-run d'import = exécution à blanc des conversions. Détection (conversion)
   séparée du traitement des rejets (politique Q49). Import CSV/Excel = connecteur
   en lecture (D79) + hot folder (D106).
+- **2026-07-02 (suite 18)** — Export CSV (précision de l'auteur, D119 amendé) :
+  utilise la **facette d'affichage par défaut** (usage humain — Excel) ou un
+  **format surchargeable compatible avec le type** (validé par le catalogue ;
+  permet l'export machine ISO). Surcharge portée par la configuration du
+  connecteur (principe D108). Aller-retour cohérent : le format d'export déclaré
+  est connu du ré-import (conversion faillible).

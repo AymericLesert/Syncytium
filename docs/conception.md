@@ -171,7 +171,9 @@ posée (voir §6).
 | D133 | **Déclaration `compose` sur le parent** : le **raffinement conditionnel** (D101) s'y déclare (pas sur l'enfant — lisibilité) ; **ordre des enfants = clé de tri déclarée** (fonctions D125, multi-clés D126). | Toute la sémantique d'agrégat se lit à un seul endroit. Voir §3.5. |
 | D134 | **Formes de composition** : **liste** (1 dimension), **matrice** (2 — taille × couleur), **multi-dimensionnel** (n) — enfants **indexés par dimensions** (clés typées), une cellule par combinaison. | L'IHM choisit le composant selon la forme (table, grille — D64). Voir §3.5. |
 | D135 | **Composition auto-référencée** autorisée (gamme de fabrication, nomenclature) : récursivité avec **validation d'acyclicité** ; l'agrégat = **l'arbre entier** (transaction, suppression-CAS, concurrence). | Cas industriel consigné par l'auteur. Voir §3.5. |
-| D136 | **Association** : N-1 = champ `reference` (obligatoire/optionnelle, inter-modules, auto-référence OK) ; **inverse matérialisé en champ « liste »** (vue dérivée navigable — pas une composition) ; **N-N = entité de liaison explicite** ; suppression **`restrict` par défaut**, `mise_a_null` déclarable, **jamais de cascade**. | Message restrict généré (« 47 commandes le référencent ») ; module désactivé : référence valide, affichage réduit. Voir §3.5. |
+| D136 | **Association** : N-1 = champ `reference` (obligatoire/optionnelle, inter-modules, auto-référence OK) ; **inverse matérialisé en champ « liste »** (vue dérivée navigable — pas une composition) ; **N-N = entité de liaison explicite** ; **jamais de cascade**. *(Suppression : voir D138 — dérivée de la nullabilité.)* | Module désactivé : référence valide, affichage réduit. Voir §3.5. |
+| D137 | **Suppression = inactivation (soft delete)** : l'enregistrement devient **inactif**, propriétés **lisibles sur demande** ; l'**IHM distingue actif/inactif** (listes = actifs par défaut). Suppression d'agrégat (D132) = **inactivation-CAS** ; modifier un inactif = 410 (D111) ; le compte client suit sa fiche (D77). | **⚠️ RGPD : droit à l'effacement = purge réelle distincte** (admin : suppression physique/anonymisation). Sous-questions : réactivation (par qui ?), unicité face aux inactifs (actifs seuls ou globale ?). Voir §3.5. |
+| D138 | **Comportement à la suppression dérivé de la nullabilité** du champ référençant (aucune déclaration séparée) : référence **obligatoire** → **restrict** ; **optionnelle** → suppression autorisée, **références intactes** (pointent vers l'inactif) ; `mise_a_null` **supprimée par construction**. | Une déclaration de moins ; jamais de référence pendante (grâce à D137). Amende D136. Voir §3.5. |
 
 ---
 
@@ -567,13 +569,33 @@ D132 et concurrence D111 portent sur toute la gamme).
   La vérité reste la référence N-1.
 - **N-N = une entité de liaison explicite** (« tout est entité » — elle porte
   ses attributs : date d'affectation, rôle…).
-- **Suppression : `restrict` par défaut** (fail-closed — message généré :
-  « impossible de supprimer ce client : 47 commandes le référencent ») ;
-  **`mise_a_null` déclarable** (si optionnelle) ; **jamais de cascade sur une
-  association**.
+- **Suppression : dérivée de la nullabilité du champ référençant (D138)** —
+  plus de déclaration séparée : référence **obligatoire** → suppression de la
+  cible **refusée** (restrict, message généré : « 47 commandes le
+  référencent ») ; référence **optionnelle** → suppression **autorisée**, **les
+  références ne sont pas touchées** (elles pointent vers l'enregistrement
+  inactif, lisible sur demande — D137). La `mise_a_null` **disparaît par
+  construction** (jamais de référence pendante grâce au soft delete) ; **jamais
+  de cascade sur une association**.
 - Cas de bord : association vers un **module désactivé** (D117) — la donnée
   existe toujours, la référence reste valide, l'affichage se réduit (libellé
   sans navigation).
+
+**Suppression = inactivation (D137, soft delete).** Aucune suppression réelle :
+l'enregistrement devient **inactif**, propriétés **lisibles sur demande** ;
+l'**IHM distingue actif/inactif** (listes = actifs par défaut, inactifs sur
+demande, marquage visuel). Conséquences :
+- la suppression-CAS d'agrégat (D132) = **inactivation-CAS** (l'agrégat complet
+  vérifié puis inactivé en bloc) ; modifier un inactif reste rejeté (410, D111) ;
+- cohérence D77 : le compte client **suit** sa fiche (fiche inactivée → compte
+  inactivé) ;
+- **⚠️ RGPD** : le soft delete conserve les données personnelles — le **droit à
+  l'effacement exige une purge réelle distincte** (opération d'administration :
+  suppression physique ou anonymisation). Suppression métier ≠ effacement
+  réglementaire.
+- Sous-questions ouvertes : **réactivation** d'un inactif (pendant de D96 —
+  pressenti oui, par qui ?) ; **unicité face aux inactifs** (sur les actifs
+  seulement ou globale — possiblement par champ).
 
 **Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
 clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
@@ -2601,3 +2623,13 @@ avant la synthèse Q16).
   **inverse matérialisé en champ liste** sur la cible (client.commandes — vue
   dérivée, pas une composition) ; N-N par entité de liaison ; restrict par
   défaut / mise_a_null / jamais cascade.
+- **2026-07-03 (suite)** — Suppression repensée (D137–D138, amende D136).
+  **Suppression = inactivation** (soft delete) : enregistrement inactif,
+  propriétés lisibles sur demande, IHM distingue actif/inactif ; agrégat →
+  inactivation-CAS ; compte client suit sa fiche (D77). **Comportement à la
+  suppression dérivé de la nullabilité** du champ référençant (plus de
+  déclaration) : obligatoire → restrict ; optionnel → suppression autorisée,
+  **références intactes** (pointent vers l'inactif) ; mise_a_null supprimée par
+  construction. **⚠️ RGPD consigné** : droit à l'effacement = purge réelle
+  distincte (admin). Sous-questions : réactivation (par qui ?), unicité face
+  aux inactifs.

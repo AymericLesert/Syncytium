@@ -164,6 +164,7 @@ posée (voir §6).
 | D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
 | D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. **Borne actée : la surcharge métier se limite à la présentation** — tout le reste au technicien. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut**. Voir §3.4. |
 | D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
+| D129 | **Énumérés : codes stables + libellés par langue** (étend D127) : valeurs internes = **codes invariants** (stockage, API, filtres, transcodages D90, domaine D48 — renommer un code = **migration**) ; libellés par valeur et par langue, **deux couches** (défauts description + surcharges métier) — changer un libellé n'est **jamais** une migration. | L'API échange les codes (contrat stable, insensible aux langues/surcharges) ; IHM et export CSV affichent le libellé (langue du profil, D119). Voir §3.4. |
 
 ---
 
@@ -445,6 +446,17 @@ de Q45.
   données*) ; surcharge **rattachée au nom invariant** (D124) → survit aux
   migrations (un renommage la suit) ; **la surcharge bat toujours le défaut**,
   même livré plus récent, jusqu'à retrait par le responsable métier.
+
+**Énumérés : codes stables + libellés par langue (D129, étend D127).** Un
+énuméré déclare des **valeurs internes stables** (codes, invariants comme le nom
+D124) et, par valeur, des **libellés par langue** suivant le système à deux
+couches (défauts description + surcharges métier en base). Répartition :
+- le **code** = stocké, contractuel — vu par l'API, les filtres, les
+  transcodages (D90), le domaine de la diversité scalaire (D48) ; **renommer un
+  code = migration** (avec transcodage des données) ;
+- le **libellé** = présentation, langue du profil — vu par l'IHM et l'export
+  CSV (facette affichage D119) ; **changer un libellé n'est jamais une
+  migration** (responsable métier, vie courante).
 
 **Devise portée par la donnée + surcharge de types par restriction (D123).**
 - La **devise est une composante de la donnée** (chaque montant stocke
@@ -2439,3 +2451,10 @@ avant la synthèse Q16).
   démonstration ajoutée au profil de champ (D128)** : placeholder IHM, exemples
   de la doc API générée, échantillon pour les IA (complète les descriptions
   D124) ; les types sémantiques livrent la leur, surchargeable au champ.
+- **2026-07-02 (suite 23)** — Énumérés : codes stables + libellés par langue
+  (D129, étend D127). Valeurs internes = codes invariants (stockage, API,
+  filtres, transcodages, domaine D48 ; renommer un code = migration avec
+  transcodage) ; libellés par valeur et par langue en deux couches (défauts
+  description + surcharges métier) — changer un libellé n'est jamais une
+  migration. L'API échange les codes ; l'IHM et l'export CSV affichent le
+  libellé dans la langue du profil.

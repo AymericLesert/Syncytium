@@ -167,6 +167,11 @@ posée (voir §6).
 | D129 | **Énumérés : trois propriétés par valeur** — (1) **valeur numérique** = le **tri** (comparaison D125, ordre métier stable inter-langues ; changer l'ordre = description, pas migration) ; (2) **code invariant** = identité contractuelle (stockage logique, API, filtres, transcodages, domaine D48 ; renommer = **migration**) ; (3) **identifiant de libellé** = indirection vers D124/D127 (deux couches, partage possible entre énumérés ; changer un libellé ≠ migration). | L'API échange les codes ; IHM/export CSV affichent le libellé (langue du profil). Facette stockage (D119) libre de retenir la valeur numérique (tri natif) — sans effet sur le contrat. Voir §3.4. |
 | D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
 | D131 | **Formats d'affichage et de conversion par langue**, portés par la **description du schéma** : l'affichage (D119) et le parsing (D120 — `texte → date/réel`) suivent la **grammaire de la langue du profil** (D124). Syncytium livre les formats standard par langue ; le schéma les précise. | Fondement formel de la « langue de l'importateur » (D130) ; format d'affichage = couche présentation (surchargeable, D127), grammaire de conversion = structurelle ; machines → formats canoniques (ISO). Voir §3.4. |
+| D132 | **Composition** : 1-1 / 1-N, intra-module ; **suppression = compare-and-swap sur l'agrégat complet** (étend D111 — fournir l'agrégat entier, vérifié identique à la base, sinon 409) puis **cascade totale**. | La cascade = **définition de la possession**, seul cas de cascade du modèle. D111 couvre créer/modifier/supprimer. Voir §3.5. |
+| D133 | **Déclaration `compose` sur le parent** : le **raffinement conditionnel** (D101) s'y déclare (pas sur l'enfant — lisibilité) ; **ordre des enfants = clé de tri déclarée** (fonctions D125, multi-clés D126). | Toute la sémantique d'agrégat se lit à un seul endroit. Voir §3.5. |
+| D134 | **Formes de composition** : **liste** (1 dimension), **matrice** (2 — taille × couleur), **multi-dimensionnel** (n) — enfants **indexés par dimensions** (clés typées), une cellule par combinaison. | L'IHM choisit le composant selon la forme (table, grille — D64). Voir §3.5. |
+| D135 | **Composition auto-référencée** autorisée (gamme de fabrication, nomenclature) : récursivité avec **validation d'acyclicité** ; l'agrégat = **l'arbre entier** (transaction, suppression-CAS, concurrence). | Cas industriel consigné par l'auteur. Voir §3.5. |
+| D136 | **Association** : N-1 = champ `reference` (obligatoire/optionnelle, inter-modules, auto-référence OK) ; **inverse matérialisé en champ « liste »** (vue dérivée navigable — pas une composition) ; **N-N = entité de liaison explicite** ; suppression **`restrict` par défaut**, `mise_a_null` déclarable, **jamais de cascade**. | Message restrict généré (« 47 commandes le référencent ») ; module désactivé : référence valide, affichage réduit. Voir §3.5. |
 
 ---
 
@@ -511,6 +516,68 @@ déclinent **par langue**, portés par la **description du schéma** :
   **faillible** (contrôle du jeu). Restriction à un jeu singleton = mono-devise
   (le stockage peut omettre la composante devenue constante ; le modèle logique
   ne change pas).
+
+### 3.5 Relations (Q35 ; D132–D136)
+
+Deux natures (fondées par D116) : **composition** (« possède », agrégat D101,
+intra-module) et **association** (« référence », libre, inter-modules).
+
+**Composition (D132).**
+- Cardinalités **1-1** et **1-N** ; intra-module (D116) ; l'enfant ne vit pas
+  sans son parent.
+- **Suppression = compare-and-swap sur l'agrégat complet** (étend D111) : le
+  demandeur fournit **l'agrégat entier** (la commande avec *toutes* ses
+  lignes), vérifié **identique à la base** — toute divergence (ligne
+  ajoutée/modifiée par un tiers) → **conflit 409** ; puis la **cascade supprime
+  tous les éléments**. D111 couvre ainsi les trois verbes : créer / modifier /
+  supprimer.
+- La **cascade est la définition de la possession** — et le seul cas de cascade
+  du modèle.
+
+**Déclaration de la composition (D133).** Tout se lit sur la déclaration
+`compose` du parent :
+- le **raffinement conditionnel** (D101 — enfants modifiables seuls ou non) s'y
+  déclare (pas sur l'enfant : lisibilité) ;
+- l'**ordre des enfants = une clé de tri déclarée** (un ou plusieurs champs) —
+  portée par les fonctions de comparaison des types (D125) et le multi-clés
+  (D126), rien de neuf.
+
+**Formes de composition (D134).** Les enfants sont **indexés par des
+dimensions** (clés typées : énumérés, références) :
+- **liste** — une dimension implicite (la clé d'ordre) ;
+- **matrice** — deux dimensions (quantités par **taille × couleur**) ;
+- **multi-dimensionnel** — n dimensions.
+Unicité naturelle : **une cellule par combinaison de dimensions**. L'IHM
+sélectionne le composant selon la forme (table, grille — D64).
+
+**Composition auto-référencée (D135).** Autorisée — ex. **gamme de fabrication
+industrielle**, nomenclature : les éléments se composent récursivement.
+Garde-fous : **validation d'acyclicité** (un élément ne peut être son propre
+ancêtre) ; l'agrégat = **l'arbre entier** (transaction D101, suppression-CAS
+D132 et concurrence D111 portent sur toute la gamme).
+
+**Association (D136).**
+- **N-1 = un champ `reference`** (une commande référence *un* client) ;
+  **obligatoire ou optionnelle** ; inter-modules libre (D116) ;
+  **auto-référence autorisée** (hiérarchies : catégorie parente).
+- **Inverse matérialisé en champ « liste »** sur l'entité cible :
+  `client.commandes` — **pas une composition** (pas de possession, pas de
+  cascade) mais une **vue dérivée navigable** : chemins (D71), calculs
+  (`somme(commandes.montant_ttc)`), IHM (la fiche client liste ses commandes).
+  La vérité reste la référence N-1.
+- **N-N = une entité de liaison explicite** (« tout est entité » — elle porte
+  ses attributs : date d'affectation, rôle…).
+- **Suppression : `restrict` par défaut** (fail-closed — message généré :
+  « impossible de supprimer ce client : 47 commandes le référencent ») ;
+  **`mise_a_null` déclarable** (si optionnelle) ; **jamais de cascade sur une
+  association**.
+- Cas de bord : association vers un **module désactivé** (D117) — la donnée
+  existe toujours, la référence reste valide, l'affichage se réduit (libellé
+  sans navigation).
+
+**Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
+clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
+comportement à la suppression) ; champ « liste inverse » ; entités de liaison.
 
 ---
 
@@ -2522,3 +2589,15 @@ avant la synthèse Q16).
   standards, le schéma précise. Fondement formel du « langue de l'importateur »
   (D130) ; affichage = présentation (surchargeable D127), grammaire de
   conversion = structurelle ; machines → canoniques ISO.
+- **2026-07-03** — Relations (Q35 largement traitée, D132–D136, nouveau §3.5).
+  **Composition** : suppression = **CAS sur l'agrégat complet** (fournir la
+  commande avec toutes ses lignes, identique à la base, sinon 409 — D111 couvre
+  les 3 verbes) puis cascade totale (= définition de la possession, seul cas de
+  cascade) ; raffinement conditionnel **déclaré sur la composition** (lisibilité) ;
+  **ordre = clé de tri déclarée** (D125/D126) ; **formes liste / matrice /
+  multi-dimensionnel** (enfants indexés par dimensions — taille × couleur) ;
+  **auto-référence autorisée** (gamme de fabrication) avec acyclicité validée,
+  l'agrégat = l'arbre entier. **Association** : N-1 par champ reference ;
+  **inverse matérialisé en champ liste** sur la cible (client.commandes — vue
+  dérivée, pas une composition) ; N-N par entité de liaison ; restrict par
+  défaut / mise_a_null / jamais cascade.

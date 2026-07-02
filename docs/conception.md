@@ -128,6 +128,11 @@ posée (voir §6).
 | D90 | **Langage d'expression unique** (résout Q6) partagé par calculs (D35–D36), migrations (§3.2), API (§5.1), connecteurs (D79) : gabarit `{}`, regex (groupes nommés), **transcodage** (constante ou lookup table/entité + défaut), arithmétique, **agrégats ensemblistes** (D36), **composable/imbriquable** ; hook (D36) = échappatoire. | Aboutissement du primitif de translation transverse ; pilier du méta-schéma. Voir §3.3. |
 | D91 | **Réversibilité = propriété déclarée, assurée par le technicien** (non garantie par le langage). 3 cas : auto-inversible (renommer, éclater↔fusionner → moteur) ; inversible non dérivable (**technicien déclare la règle inverse**) ; à perte (**technicien déclare une substitution D13**). Validation §5.2 par règle/version d'API. | Le moteur n'auto-inverse que le trivial ; le reste est déclaré. Migration jamais bloquée ni silencieusement à perte. Voir §3.3. |
 | D92 | **Langage multi-valué** : une expression retourne un **enregistrement de valeurs nommées** (généralisation des groupes regex), pas une seule valeur. Une transformation = mapping **`entrées nommées → sorties nommées`** ; renommer/éclater/fusionner = patrons de ce mapping. | Simplifie le méta-schéma (un seul concept) ; vaut pour regex/gabarit/transcodage/hooks/calculs ; inverse = symétrie 1→N ↔ N→1. Voir §3.3. |
+| D93 | **Estampille de version interne dans la base** (paramètres moteur, non éditables par le technicien), sur **deux axes** : version de **description** (schéma métier) + version de **moteur/format**. Contrôle de cohérence **fail-closed** au démarrage : cohérent → sert ; données en retard → **migration (§4)** ; données en avance (moteur plus ancien) → **refus** ; estampille absente/corrompue → init ou refus. | Résout le résiduel de Q40 (cohérence donnée↔version que le SGBD ignore). C'est aussi la **source de vérité de « la version courante »** lue par le cycle de migration (§3.2/§4). Relie restauration, migrations et parc hétérogène (§7.2). |
+| D94 | **Dépréciation par version minimale supportée (résout Q8)** : la description déclare une **version minimale supportée** (pas une durée) ; un appel API sous ce seuil reçoit **426 Upgrade Required**. | Seuil de version explicite, rythme au technicien (cf. D12). 426 = code standard adapté (419 écarté : non normalisé, « page expirée »). |
+| D95 | **« Technicien » = un rôle moteur de Syncytium (résout Q14)** : rôle **associé au moteur**, **paramétrable et affectable à une ou plusieurs personnes physiques** — le responsable technique de la solution déployée (éditeur, intégrateur, adopteur compétent), distinct des utilisateurs finaux. | Introduit les **rôles moteur intégrés** (technicien ; déjà administrateurs D33), réutilisables — cohérent avec les solutions intégrées (D44). Apport au méta-schéma. |
+| D96 | **Résurrection des affectations (résout Q25)** : les groupes s'appuient sur un **identifiant indépendant du libellé** = la clé de stabilité ; si un groupe supprimé **réapparaît** (même identifiant), les affectations conservées **reprennent vie**. | Résilience aux suppressions par inadvertance (ajustements de sécurité SI). Cohérent avec D34 (affectations conservées, non purgées ; notification). |
+| D97 | **Défauts de calibration du modèle de risque (clôt Q29)** — paramètres **ajustables à l'initialisation de l'instance** : fenêtre glissante **30 jours** (unité = jour) ; échelle **linéaire par défaut**, **log sur demande** ; pic = **z-score ≥ 3** + **plancher 100 appels/jour** ; crawl = **> 50 %** d'une table de **> 1000 lignes** ; **R² ≥ 0,5** (valide la pente ; un R² faible = pas de tendance nette, les pics restant couverts par le z-score). | Patron uniforme *forme × poids* (seuil statistique + plancher absolu) ; tous explicables en une phrase. Complète D47/D50/D51. |
 
 ---
 
@@ -1360,17 +1365,17 @@ réévaluation.
 | Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
 | ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
-| ~~Q8~~ | ~~Fenêtre de support : mécanisme ?~~ | **Résolu (D12)** : versionnement + dépréciation pour limiter les versions accessibles. Reste un paramètre à fixer : la **durée** des périodes de dépréciation. |
+| ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
 | Q9 | **Mécanisme d'épinglage** — largement résolu par D28 : chaque consommateur est un **compte technique** créé par l'administrateur, porteur naturel de sa version épinglée (modèle Stripe), de ses groupes et de son périmètre. Reste à confirmer : la version est-elle figée au compte, surchargée par en-tête, ou les deux ? | Conditionne la télémétrie par consommateur (§5.4). |
 | ~~Q10~~ | ~~Politique pour les opérations avec perte ?~~ | **Résolu (D13)** : valeur de substitution pendant la dépréciation, suppression au terme — voir §5.3. |
 | Q11 | **Cadence de publication des contrats d'API** vs versions de schéma internes (§5.5). | Équilibre entre fraîcheur des contrats et charge de maintenance des traductions. |
 | ~~Q12~~ | ~~RGPD / forme de la télémétrie ?~~ | **Résolu (D38–D41, §6)** : usages agrégés sur le schéma (champ à la volée, entité stockée) ; acteurs identifiés uniquement sur les comptes techniques d'API ; journal à rétention paramétrable + option d'anonymisation ; client responsable de traitement. |
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
-| ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Résolu (D50, D51)** : seuils déclarés par élément (endpoint/entité/IHM), **filet de sécurité** = défaut global + surcharge ; défaut = pente 1 sem. > 1 pour volume > 1000 appels. Asymétrie voulue avec Q28. Reste du calage (log/pic/étendue) = réglage ultérieur. |
+| ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Clos (D47, D50, D51, D97)** : défauts fixés — fenêtre 30 j (unité jour), linéaire par défaut / log sur demande, pic z ≥ 3 + plancher 100/j, crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5. Ajustables à l'initialisation de l'instance. |
 | Q30 | **Volet conseil — étude dédiée différée** (D45) : fouille de motifs de séquences d'appels, fondée sur l'implémentation personnelle existante de l'auteur (analyse des automatismes d'accès PostgreSQL). | D'un autre ordre de complexité ; traité à part le moment venu. Voir §6.5. |
-| ~~Q14~~ | ~~Modèle de déploiement ?~~ | **Résolu (D16, D17)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud — voir §7.2. Reste implicite : **qui est le technicien** chez le client (intégrateur, personne ressource ?). |
-| ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Reliquat **volontairement différé** : la contribution externe pourrait être autorisée, mais rien n'est décidé à ce stade — à trancher au plus tard à l'ouverture du repository. |
+| ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
+| ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
@@ -1380,12 +1385,40 @@ réévaluation.
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
 | Q23 | **Frontières de sécurité dérivées** — tâches **résolues** (D53 : droits déclenche/lecture, élévation contrôlée). Reste : validation de l'héritage de confidentialité des champs calculés. | Les tâches et les calculs sont les deux chemins par lesquels une donnée privée peut sortir — à outiller dans la validation du descriptif. |
 | ~~Q24~~ | ~~Amorçage de l'administration ?~~ | **Résolu (D33)** : compte administrateur + empreinte de mot de passe dans la description, utilisable seulement si aucun administrateur n'existe dans l'interface. |
-| ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34)** : note au technicien et groupe ignoré (fermé par défaut). Reliquat : un groupe réapparaissant fait-il revivre les affectations conservées ? |
+| ~~Q25~~ | ~~Suppression d'un groupe ayant des membres ?~~ | **Résolu (D34, D96)** : note au technicien et groupe ignoré (fermé par défaut) ; un groupe réapparaissant (clé = identifiant stable) **fait revivre** les affectations conservées — résilience aux suppressions par inadvertance (D96). |
 | ~~Q26~~ | ~~Contrat des hooks ?~~ | **Résolu** : calcul (§5.5), tâche (D53–D62, §8.4), interface (D63–D68, §8.3). Principe uniforme D52. |
 | ~~Q27~~ | ~~Périmètre du hook d'interface ?~~ | **Résolu (D63–D69, §8.3)** : thème + bibliothèque ouverte (type→composant, surcharge champ→composant), injection comportementale (UX, pas sécurité), pas de patch des internes. Bac à sable résolu par le **modèle de composant déclaratif** (D69, à la Webix). |
 | ~~Q31~~ | ~~Granularité du cooldown ?~~ | **Résolu (D58)** : par **tâche + paramètres**. Ajout d'une option `deterministe` (D59) : mémoïsation du résultat dans une fenêtre dédiée. Reste : valeur des durées (cooldown, fenêtre) — réglage. |
 | ~~Q32~~ | ~~Principals d'accès contextuels ?~~ | **Résolu (D70–D76, §5.7)** : dimension d'audience interne/externe ; accès au niveau ligne par appartenance (directe/indirecte/ouverte/fermée) ; orthogonalité ligne×champ ; lecture/écriture par champ ; OU seulement ; id contextuels anti-IDOR ; impersonation + délégation on-behalf-of. |
 | ~~Q33~~ | ~~Provisionnement des comptes clients ?~~ | **Résolu (D77)** : 4 types de compte (technique / utilisateur / client issu d'une fiche ADV / client auto-créé vérifié, ce dernier non prioritaire). Le type 3 concrétise l'appartenance D71. |
+
+### Lacunes issues de l'audit (2026-06-12) — **thème A prioritaire**
+
+Le modèle de données a été volontairement différé (faire émerger d'abord tout le
+méta-modèle inhérent) ; il est maintenant le prochain volet, et il complétera IHM
+et API. Les questions ci-dessous sont **contributrices du méta-schéma** (à traiter
+avant la synthèse Q16).
+
+| # | Question | Enjeu |
+|---|----------|-------|
+| **A — Modèle de données (prioritaire)** | | |
+| Q34 | **Catalogue de types de champs** : primitifs (texte, nombre, booléen, date, date-heure **+ fuseau**, monnaie, durée), contraints (choix, référence, fichier), dérivé (calculé, multi-valué D92) ; formats et contraintes. | Socle du méta-schéma ; dont dépendent le composant IHM par défaut (D64) et l'exposition API. |
+| Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
+| Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
+| Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
+| **B — Cycle de vie & exploitation** | | |
+| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand). | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
+| ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
+| Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
+| Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
+| **C — Sécurité d'exécution** | | |
+| Q43 | **Robustesse d'exécution** — modèle de menace = **code technicien de confiance + données potentiellement adverses**. **Pas** de limites rigides ni de moteur regex restreint (préserver ouverture/perf) ; garde-fou **léger et configurable** = **timeout par évaluation** (fusible mono-serveur, D15) ; le **dry-run (D7)** attrape déjà les regex pathologiques sur données réelles. Reste : valeurs par défaut, isolation minimale. | Éviter qu'une évaluation runaway fige toute l'instance (disponibilité), sans brider la performance nominale. |
+| Q44 | **Authentification API & débit global** : schéma d'auth (clés API, **OAuth** pour on-behalf-of D76), rate limiting global (le cooldown D58 est par-tâche). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
+| **D — Transverses** | | |
+| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
+| Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
+| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire. | Pilier du méta-schéma ; précise D90. |
+| Q38 | **Recherche & filtrage** dans l'IHM générée : plein-texte ? langage de filtre ? sur quels champs. | Complète l'IHM générée (D64) et le filtrage (D46/D66). |
 
 ---
 
@@ -1780,3 +1813,48 @@ réévaluation.
   pas des primitives → **méta-schéma simplifié, un seul concept**. Vaut pour
   regex/gabarit/transcodage/hooks/calculs ; composition sur enregistrements nommés ;
   inverse = symétrie 1→N ↔ N→1.
+- **2026-06-12 (suite 34)** — **Audit de conception**. Constat : profondeur sur les
+  différenciateurs (migration, API, hooks, accès, connecteurs, télémétrie), mais
+  **modèle de données & exploitation encore minces** (report volontaire pour faire
+  émerger d'abord tout le méta-modèle inhérent). 14 lacunes formulées (Q34–Q47),
+  groupées : **A** modèle de données (types Q34, relations Q35, validation Q36,
+  fichiers Q39) — **prioritaire, prochain volet** ; **B** exploitation (audit
+  données Q37, sauvegarde Q40, concurrence Q41, staging Q42) ; **C** sécurité
+  d'exécution (Q43, auth API Q44) ; **D** transverses (i18n Q45, notifications Q46,
+  spec langage Q47, recherche Q38). **Q40 recadrée** : backup physique délégué au
+  SGBD/hébergement, résiduel = cohérence donnée↔version. **Q43 recadrée** : modèle
+  de menace = code technicien de confiance + données adverses → garde-fou léger
+  (timeout configurable, fusible mono-serveur) plutôt que limites rigides ; le
+  dry-run attrape déjà les regex pathologiques.
+- **2026-06-12 (suite 35)** — Cohérence donnée↔version (D93, clôt le résiduel de
+  Q40). **Estampille de version interne dans la base** (paramètres moteur, non
+  éditables par le technicien), **deux axes** : version de description (schéma
+  métier) + version de moteur/format. Contrôle **fail-closed** au démarrage :
+  cohérent → sert ; données en retard → cycle de migration (§4) ; données en
+  avance (moteur plus ancien) → refus (intégrité avant disponibilité) ; estampille
+  absente/corrompue → init ou refus. C'est aussi la **source de vérité de la
+  version courante** lue par la migration — un seul point versionné reliant
+  restauration, migrations (§3.2/§4) et parc hétérogène (§7.2).
+- **2026-07-02** — Reprise (Fable). Récupération par cherry-pick de l'audit
+  (Q34–Q47) et de D93, absents de la fusion PR #5 (course push/merge). Reliquats
+  traités : **Q8** → dépréciation par **version minimale supportée**, appel sous le
+  seuil → 419 (code à confirmer) (D94) ; **Q14** → « technicien » = **rôle**
+  (responsable technique : éditeur/intégrateur/adopteur) (D95) ; **Q25** →
+  affectations **revivent** si le groupe réapparaît (clé = id stable), résilience
+  aux suppressions par inadvertance (D96). **Q15** (contributions externes) :
+  résumé fourni, reste ouvert (CLA/DCO + processus, à l'ouverture du dépôt).
+  **Q29** : architecture confirmée (D47/D50/D51), reste 5 calages empiriques
+  (fenêtre, seuil log, seuil pic, seuil étendue, R²).
+- **2026-07-02 (suite)** — Clôture des reliquats. **Q8** : 426 Upgrade Required
+  (419 écarté, non normalisé) (D94 amendé). **Q14** : « technicien » = **rôle
+  moteur de Syncytium**, paramétrable, affectable à 1..n personnes → introduit les
+  **rôles moteur intégrés** (avec administrateurs D33), apport au méta-schéma (D95
+  réécrit). **Q15** : gouvernance des contributions = question à part entière
+  formellement différée (premières versions fermées aux contributions externes).
+  **Q25** : clé de stabilité = identifiant indépendant du libellé (D96 confirmé).
+  **Q29 clos (D97)** : défauts d'initialisation — fenêtre 30 j (unité jour),
+  linéaire par défaut / log sur demande, pic z ≥ 3 + plancher 100 appels/jour
+  (préco validée : à faible trafic le plancher évite les faux positifs
+  statistiques), crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5 (valide la
+  pente, les pics restant couverts par le z-score). Patron uniforme forme × poids ;
+  paramètres ajustables à l'initialisation de l'instance.

@@ -156,6 +156,9 @@ posée (voir §6).
 | D118 | **Champ = donnée atomique**, **simple** (type de base + propriétés de stockage : taille, octets, précision, décimal avant/après virgule + limites de valeurs) ou **composée** (raffinement déclaratif : `montant` = décimal+devise, `email` = texte+format). Bibliothèque de composés **livrée + enrichissable** (D52/D68). | Types simples actés : texte, entier, réel, booléen, date-heure, fichier, énuméré. Voir §3.4. |
 | D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n — **défaut de l'export CSV**, surchargeable par un format compatible validé par le catalogue), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Surcharge d'export dans la config du connecteur (D108) ; aller-retour import/export cohérent. Voir §3.4. |
 | D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). **La conversion faillible = moteur de l'import** (Q49, CSV/Excel) : le dry-run d'import = exécution à blanc des conversions, rapport cellule par cellule. | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (Q47 en principe) ; import CSV/Excel = connecteur en lecture (D79) + hot folder (D106). Voir §3.4. |
+| D121 | **Types simples complétés** : + `date`, `heure`, `duree` ; **énuméré mono-sélection uniquement** (pas de `multiple` — le multi-valué passe par une entité liée). | Cohérent avec l'atomicité du champ (D118). Voir §3.4. |
+| D122 | **Composés livrés** : `montant`, `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (Luhn), `iban`/`bic` (mod 97), `tva_intra`, `mesure` (décimal+unité), `geolocalisation`, `periode` (début ≤ fin). | Bibliothèque enrichissable (D52/D68) ; validations par fonction de contrôle (catalogue D104/Q47). Voir §3.4. |
+| D123 | **Devise portée par la donnée** (montant = valeur + devise, devise ∈ **jeu autorisé** ; standard = ISO 4217 complet) + **surcharge de types par restriction** : le schéma dérive des types en restreignant le domaine (`montant_francais` = {EUR}). | **Mécanisme général de spécialisation** (devises, unités, formats…) inséré dans le graphe D120 : dérivé→standard = sûre, standard→dérivé = faillible. Singleton = mono-devise (stockage optimisable, modèle logique inchangé). Voir §3.4. |
 
 ---
 
@@ -387,12 +390,29 @@ catalogue : pas de format de date sur un montant), permettant un export machine
 D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
 étant déclaré, le ré-import (conversion faillible) connaît sa grammaire.
 
-> **En attente d'arbitrage (Q34)** — propositions : types simples additionnels
-> (`date` seule, `heure` seule, `duree` ; propriété `multiple` sur l'énuméré) ;
-> composés livrés (`pourcentage`, `telephone`, `url`, `siren/siret` + Luhn,
-> `iban/bic` + mod 97, `tva_intra`, `mesure` = décimal+unité, `geolocalisation`,
-> `periode` ?) ; **devise de `montant`** = paramètre du champ à défaut
-> d'instance, variante `multi_devise` (devise saisie avec la valeur).
+**Catalogue acté (D121–D122).**
+- **Types simples** : texte, entier, réel (*descriptibles en décimal* —
+  chiffres avant/après la virgule), booléen, **date**, **heure**,
+  **date et heure**, **durée**, fichier, énuméré (**mono-sélection
+  uniquement** — pas de multiple : le multi-valué passe par une entité liée,
+  cohérent avec l'atomicité D118).
+- **Composés livrés** (bibliothèque enrichissable D52/D68) : `montant`,
+  `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (clé de Luhn),
+  `iban`/`bic` (modulo 97), `tva_intra`, `mesure` (décimal + unité),
+  `geolocalisation`, `periode` (début ≤ fin).
+
+**Devise portée par la donnée + surcharge de types par restriction (D123).**
+- La **devise est une composante de la donnée** (chaque montant stocke
+  valeur + devise), appartenant à un **jeu autorisé**. Type standard `montant`
+  = **toutes les devises ISO 4217**.
+- Le schéma crée des **types surchargeant les standards par restriction** du
+  domaine : `montant_francais` = {EUR}, `montant_asiatique` = {JPY, CNY, …}.
+- **Mécanisme général de spécialisation** (pas limité aux devises : unités de
+  `mesure`, formats…) qui **s'insère dans le graphe de conversion (D120)** :
+  dérivé → standard = **sûre** (élargissement) ; standard → dérivé =
+  **faillible** (contrôle du jeu). Restriction à un jeu singleton = mono-devise
+  (le stockage peut omettre la composante devenue constante ; le modèle logique
+  ne change pas).
 
 ---
 
@@ -2342,3 +2362,12 @@ avant la synthèse Q16).
   permet l'export machine ISO). Surcharge portée par la configuration du
   connecteur (principe D108). Aller-retour cohérent : le format d'export déclaré
   est connu du ré-import (conversion faillible).
+- **2026-07-02 (suite 19)** — Catalogue de types clos (D121–D123). Types simples :
+  + date, heure, durée ; **énuméré mono-sélection uniquement** (proposition
+  `multiple` écartée — le multi passe par une entité liée, atomicité D118).
+  **Tous les composés proposés validés** (periode incluse). **Devise portée par
+  la donnée** (valeur + devise, jeu autorisé, standard = ISO 4217) et **surcharge
+  de types par restriction** : le schéma dérive des types en restreignant le
+  domaine (montant_francais = {EUR}) — mécanisme général de spécialisation,
+  inséré dans le graphe D120 (dérivé→standard sûre, standard→dérivé faillible) ;
+  singleton = mono-devise. Reste pour clore Q34 : le profil de champ consolidé.

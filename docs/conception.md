@@ -1387,6 +1387,34 @@ réévaluation.
 | ~~Q32~~ | ~~Principals d'accès contextuels ?~~ | **Résolu (D70–D76, §5.7)** : dimension d'audience interne/externe ; accès au niveau ligne par appartenance (directe/indirecte/ouverte/fermée) ; orthogonalité ligne×champ ; lecture/écriture par champ ; OU seulement ; id contextuels anti-IDOR ; impersonation + délégation on-behalf-of. |
 | ~~Q33~~ | ~~Provisionnement des comptes clients ?~~ | **Résolu (D77)** : 4 types de compte (technique / utilisateur / client issu d'une fiche ADV / client auto-créé vérifié, ce dernier non prioritaire). Le type 3 concrétise l'appartenance D71. |
 
+### Lacunes issues de l'audit (2026-06-12) — **thème A prioritaire**
+
+Le modèle de données a été volontairement différé (faire émerger d'abord tout le
+méta-modèle inhérent) ; il est maintenant le prochain volet, et il complétera IHM
+et API. Les questions ci-dessous sont **contributrices du méta-schéma** (à traiter
+avant la synthèse Q16).
+
+| # | Question | Enjeu |
+|---|----------|-------|
+| **A — Modèle de données (prioritaire)** | | |
+| Q34 | **Catalogue de types de champs** : primitifs (texte, nombre, booléen, date, date-heure **+ fuseau**, monnaie, durée), contraints (choix, référence, fichier), dérivé (calculé, multi-valué D92) ; formats et contraintes. | Socle du méta-schéma ; dont dépendent le composant IHM par défaut (D64) et l'exposition API. |
+| Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
+| Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
+| Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
+| **B — Cycle de vie & exploitation** | | |
+| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand). | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
+| Q40 | **Sauvegarde / restauration** : **physique déléguée au moteur de BD + hébergement** (D16/D18/Q4). Résiduel Syncytium : **cohérence donnée ↔ version de schéma/description** à la restauration (le SGBD l'ignore). | Ne pas réinventer le backup ; mais garantir l'appariement données/version. |
+| Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
+| Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
+| **C — Sécurité d'exécution** | | |
+| Q43 | **Robustesse d'exécution** — modèle de menace = **code technicien de confiance + données potentiellement adverses**. **Pas** de limites rigides ni de moteur regex restreint (préserver ouverture/perf) ; garde-fou **léger et configurable** = **timeout par évaluation** (fusible mono-serveur, D15) ; le **dry-run (D7)** attrape déjà les regex pathologiques sur données réelles. Reste : valeurs par défaut, isolation minimale. | Éviter qu'une évaluation runaway fige toute l'instance (disponibilité), sans brider la performance nominale. |
+| Q44 | **Authentification API & débit global** : schéma d'auth (clés API, **OAuth** pour on-behalf-of D76), rate limiting global (le cooldown D58 est par-tâche). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
+| **D — Transverses** | | |
+| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
+| Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
+| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire. | Pilier du méta-schéma ; précise D90. |
+| Q38 | **Recherche & filtrage** dans l'IHM générée : plein-texte ? langage de filtre ? sur quels champs. | Complète l'IHM générée (D64) et le filtrage (D46/D66). |
+
 ---
 
 ## 11. Journal des échanges
@@ -1780,3 +1808,16 @@ réévaluation.
   pas des primitives → **méta-schéma simplifié, un seul concept**. Vaut pour
   regex/gabarit/transcodage/hooks/calculs ; composition sur enregistrements nommés ;
   inverse = symétrie 1→N ↔ N→1.
+- **2026-06-12 (suite 34)** — **Audit de conception**. Constat : profondeur sur les
+  différenciateurs (migration, API, hooks, accès, connecteurs, télémétrie), mais
+  **modèle de données & exploitation encore minces** (report volontaire pour faire
+  émerger d'abord tout le méta-modèle inhérent). 14 lacunes formulées (Q34–Q47),
+  groupées : **A** modèle de données (types Q34, relations Q35, validation Q36,
+  fichiers Q39) — **prioritaire, prochain volet** ; **B** exploitation (audit
+  données Q37, sauvegarde Q40, concurrence Q41, staging Q42) ; **C** sécurité
+  d'exécution (Q43, auth API Q44) ; **D** transverses (i18n Q45, notifications Q46,
+  spec langage Q47, recherche Q38). **Q40 recadrée** : backup physique délégué au
+  SGBD/hébergement, résiduel = cohérence donnée↔version. **Q43 recadrée** : modèle
+  de menace = code technicien de confiance + données adverses → garde-fou léger
+  (timeout configurable, fusible mono-serveur) plutôt que limites rigides ; le
+  dry-run attrape déjà les regex pathologiques.

@@ -174,6 +174,9 @@ posée (voir §6).
 | D136 | **Association** : N-1 = champ `reference` (obligatoire/optionnelle, inter-modules, auto-référence OK) ; **inverse matérialisé en champ « liste »** (vue dérivée navigable — pas une composition) ; **N-N = entité de liaison explicite** ; **jamais de cascade**. *(Suppression : voir D138 — dérivée de la nullabilité.)* | Module désactivé : référence valide, affichage réduit. Voir §3.5. |
 | D137 | **Suppression = inactivation (soft delete)** : l'enregistrement devient **inactif**, propriétés **lisibles sur demande** ; l'**IHM distingue actif/inactif** (listes = actifs par défaut). Suppression d'agrégat (D132) = **inactivation-CAS** ; modifier un inactif = 410 (D111) ; le compte client suit sa fiche (D77). | **⚠️ RGPD : droit à l'effacement = purge réelle distincte** (admin : suppression physique/anonymisation). Sous-questions : réactivation (par qui ?), unicité face aux inactifs (actifs seuls ou globale ?). Voir §3.5. |
 | D138 | **Comportement à la suppression dérivé de la nullabilité** du champ référençant (aucune déclaration séparée) : référence **obligatoire** → **restrict** ; **optionnelle** → suppression autorisée, **références intactes** (pointent vers l'inactif) ; `mise_a_null` **supprimée par construction**. | Une déclaration de moins ; jamais de référence pendante (grâce à D137). Amende D136. Voir §3.5. |
+| D139 | **Anonymisation déclarée sur l'entité** (RGPD) : pas de suppression physique — le droit à l'effacement = **procédure d'anonymisation**, règle **déclarée sur l'entité dans le modèle** (champs + substitutions, langage D90). **Irréversible** ; opération d'administration auditée (D62). | **L'intégrité référentielle survit à l'effacement** (l'anonymisé existe toujours — D137+D139 rendent le RGPD compatible avec « jamais de référence pendante » D138). Apport au méta-schéma : règle d'anonymisation par entité. Voir §3.5. |
+| D140 | **Réactivation d'un inactif** : possible, **par l'administrateur de l'instance**, **sous conditions** — dont le **contrôle de collision de clés** (refus si duplication d'une clé d'un actif ; résolution préalable). | Pendant de D96 pour les données ; rendue nécessaire par D141. Voir §3.5. |
+| D141 | **Unicité sur les enregistrements actifs uniquement** — les inactifs peuvent porter des **doublons de clés**. | Permet « supprimer » puis recréer avec la même clé (email) ; justifie la condition de D140. Voir §3.5. |
 
 ---
 
@@ -593,9 +596,23 @@ demande, marquage visuel). Conséquences :
   l'effacement exige une purge réelle distincte** (opération d'administration :
   suppression physique ou anonymisation). Suppression métier ≠ effacement
   réglementaire.
-- Sous-questions ouvertes : **réactivation** d'un inactif (pendant de D96 —
-  pressenti oui, par qui ?) ; **unicité face aux inactifs** (sur les actifs
-  seulement ou globale — possiblement par champ).
+**Anonymisation, réactivation, unicité (D139–D141).**
+- **Anonymisation déclarée sur l'entité (D139, RGPD)** : pas de suppression
+  physique — le droit à l'effacement s'exerce par une **procédure
+  d'anonymisation** dont la **règle est déclarée sur l'entité dans le modèle**
+  (quels champs, quelles substitutions — langage D90). **L'intégrité
+  référentielle survit à l'effacement** : l'enregistrement anonymisé existe
+  toujours (les commandes gardent leur référence vers un client devenu
+  anonyme) — soft delete (D137) + anonymisation = RGPD compatible avec « jamais
+  de référence pendante » (D138). **Irréversible** (≠ inactivation) ; opération
+  d'administration, auditée avec motif (D62).
+- **Réactivation (D140)** : possible, **par l'administrateur de l'instance**,
+  **sous conditions** — au premier chef le **contrôle de collision de clés**
+  (refus si une clé unique du réactivé duplique celle d'un actif créé
+  entre-temps ; résolution préalable).
+- **Unicité sur les actifs uniquement (D141)** : les enregistrements inactifs
+  **peuvent porter des doublons de clés** — on peut « supprimer » un client et
+  en recréer un avec le même email ; d'où la condition de D140.
 
 **Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
 clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
@@ -1930,7 +1947,7 @@ avant la synthèse Q16).
 |---|----------|-------|
 | **A — Modèle de données (prioritaire)** | | |
 | ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
-| Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
+| ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
 | Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
@@ -2633,3 +2650,10 @@ avant la synthèse Q16).
   construction. **⚠️ RGPD consigné** : droit à l'effacement = purge réelle
   distincte (admin). Sous-questions : réactivation (par qui ?), unicité face
   aux inactifs.
+- **2026-07-03 (suite 2)** — **Q35 close** (D139–D141). **Anonymisation déclarée
+  sur l'entité** (RGPD — pas de suppression physique ; règle champs+substitutions
+  dans le modèle ; irréversible ; l'intégrité référentielle survit à
+  l'effacement). **Réactivation par l'administrateur** sous contrôle de collision
+  de clés. **Unicité sur les actifs uniquement** (doublons possibles chez les
+  inactifs — justifie le contrôle de réactivation). Le triplet
+  D139/D140/D141 se verrouille mutuellement.

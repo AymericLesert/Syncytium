@@ -167,6 +167,17 @@ posée (voir §6).
 | D129 | **Énumérés : trois propriétés par valeur** — (1) **valeur numérique** = le **tri** (comparaison D125, ordre métier stable inter-langues ; changer l'ordre = description, pas migration) ; (2) **code invariant** = identité contractuelle (stockage logique, API, filtres, transcodages, domaine D48 ; renommer = **migration**) ; (3) **identifiant de libellé** = indirection vers D124/D127 (deux couches, partage possible entre énumérés ; changer un libellé ≠ migration). | L'API échange les codes ; IHM/export CSV affichent le libellé (langue du profil). Facette stockage (D119) libre de retenir la valeur numérique (tri natif) — sans effet sur le contrat. Voir §3.4. |
 | D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
 | D131 | **Formats d'affichage et de conversion par langue**, portés par la **description du schéma** : l'affichage (D119) et le parsing (D120 — `texte → date/réel`) suivent la **grammaire de la langue du profil** (D124). Syncytium livre les formats standard par langue ; le schéma les précise. | Fondement formel de la « langue de l'importateur » (D130) ; format d'affichage = couche présentation (surchargeable, D127), grammaire de conversion = structurelle ; machines → formats canoniques (ISO). Voir §3.4. |
+| D132 | **Composition** : 1-1 / 1-N, intra-module ; **suppression = compare-and-swap sur l'agrégat complet** (étend D111 — fournir l'agrégat entier, vérifié identique à la base, sinon 409) puis **cascade totale**. | La cascade = **définition de la possession**, seul cas de cascade du modèle. D111 couvre créer/modifier/supprimer. Voir §3.5. |
+| D133 | **Déclaration `compose` sur le parent** : le **raffinement conditionnel** (D101) s'y déclare (pas sur l'enfant — lisibilité) ; **ordre des enfants = clé de tri déclarée** (fonctions D125, multi-clés D126). | Toute la sémantique d'agrégat se lit à un seul endroit. Voir §3.5. |
+| D134 | **Formes de composition** : **liste** (1 dimension), **matrice** (2 — taille × couleur), **multi-dimensionnel** (n) — enfants **indexés par dimensions** (clés typées), une cellule par combinaison. | L'IHM choisit le composant selon la forme (table, grille — D64). Voir §3.5. |
+| D135 | **Composition auto-référencée** autorisée (gamme de fabrication, nomenclature) : récursivité avec **validation d'acyclicité** ; l'agrégat = **l'arbre entier** (transaction, suppression-CAS, concurrence). | Cas industriel consigné par l'auteur. Voir §3.5. |
+| D136 | **Association** : N-1 = champ `reference` (obligatoire/optionnelle, inter-modules, auto-référence OK) ; **inverse matérialisé en champ « liste »** (vue dérivée navigable — pas une composition) ; **N-N = entité de liaison explicite** ; **jamais de cascade**. *(Suppression : voir D138 — dérivée de la nullabilité.)* | Module désactivé : référence valide, affichage réduit. Voir §3.5. |
+| D137 | **Suppression = inactivation (soft delete)** : l'enregistrement devient **inactif**, propriétés **lisibles sur demande** ; l'**IHM distingue actif/inactif** (listes = actifs par défaut). Suppression d'agrégat (D132) = **inactivation-CAS** ; modifier un inactif = 410 (D111) ; le compte client suit sa fiche (D77). | **⚠️ RGPD : droit à l'effacement = purge réelle distincte** (admin : suppression physique/anonymisation). Sous-questions : réactivation (par qui ?), unicité face aux inactifs (actifs seuls ou globale ?). Voir §3.5. |
+| D138 | **Comportement à la suppression dérivé de la nullabilité** du champ référençant (aucune déclaration séparée) : référence **obligatoire** → **restrict** ; **optionnelle** → suppression autorisée, **références intactes** (pointent vers l'inactif) ; `mise_a_null` **supprimée par construction**. | Une déclaration de moins ; jamais de référence pendante (grâce à D137). Amende D136. Voir §3.5. |
+| D139 | **Anonymisation déclarée sur l'entité** (RGPD) : pas de suppression physique — le droit à l'effacement = **procédure d'anonymisation**, règle **déclarée sur l'entité dans le modèle** (champs + substitutions, langage D90). **Irréversible** ; opération d'administration auditée (D62). | **L'intégrité référentielle survit à l'effacement** (l'anonymisé existe toujours — D137+D139 rendent le RGPD compatible avec « jamais de référence pendante » D138). Apport au méta-schéma : règle d'anonymisation par entité. Voir §3.5. |
+| D140 | **Réactivation d'un inactif** : possible, **par l'administrateur de l'instance**, **sous conditions** — dont le **contrôle de collision de clés** (refus si duplication d'une clé d'un actif ; résolution préalable). | Pendant de D96 pour les données ; rendue nécessaire par D141. Voir §3.5. |
+| D141 | **Unicité sur les enregistrements actifs uniquement** — les inactifs peuvent porter des **doublons de clés**. | Permet « supprimer » puis recréer avec la même clé (email) ; justifie la condition de D140. Voir §3.5. |
+| D142 | **Identité d'un enregistrement (résout Q51)** : **technique** = UUID interne **invariant à vie** (généralise D75/D82 — références, audit, chemins, concurrence) vs **fonctionnelle** = clés métier (actifs seulement, D141). Recréer = **nouvelle** identité ; réactiver = **la même** ; anonymiser = efface la fonctionnelle, **préserve la technique**. | Le squelette référentiel survit à tout ; patron D82 généralisé aux entités synchronisées (clé d'unicité externe → UUID, Q49). Voir §3.5. |
 
 ---
 
@@ -511,6 +522,116 @@ déclinent **par langue**, portés par la **description du schéma** :
   **faillible** (contrôle du jeu). Restriction à un jeu singleton = mono-devise
   (le stockage peut omettre la composante devenue constante ; le modèle logique
   ne change pas).
+
+### 3.5 Relations (Q35 ; D132–D136)
+
+Deux natures (fondées par D116) : **composition** (« possède », agrégat D101,
+intra-module) et **association** (« référence », libre, inter-modules).
+
+**Composition (D132).**
+- Cardinalités **1-1** et **1-N** ; intra-module (D116) ; l'enfant ne vit pas
+  sans son parent.
+- **Suppression = compare-and-swap sur l'agrégat complet** (étend D111) : le
+  demandeur fournit **l'agrégat entier** (la commande avec *toutes* ses
+  lignes), vérifié **identique à la base** — toute divergence (ligne
+  ajoutée/modifiée par un tiers) → **conflit 409** ; puis la **cascade supprime
+  tous les éléments**. D111 couvre ainsi les trois verbes : créer / modifier /
+  supprimer.
+- La **cascade est la définition de la possession** — et le seul cas de cascade
+  du modèle.
+
+**Déclaration de la composition (D133).** Tout se lit sur la déclaration
+`compose` du parent :
+- le **raffinement conditionnel** (D101 — enfants modifiables seuls ou non) s'y
+  déclare (pas sur l'enfant : lisibilité) ;
+- l'**ordre des enfants = une clé de tri déclarée** (un ou plusieurs champs) —
+  portée par les fonctions de comparaison des types (D125) et le multi-clés
+  (D126), rien de neuf.
+
+**Formes de composition (D134).** Les enfants sont **indexés par des
+dimensions** (clés typées : énumérés, références) :
+- **liste** — une dimension implicite (la clé d'ordre) ;
+- **matrice** — deux dimensions (quantités par **taille × couleur**) ;
+- **multi-dimensionnel** — n dimensions.
+Unicité naturelle : **une cellule par combinaison de dimensions**. L'IHM
+sélectionne le composant selon la forme (table, grille — D64).
+
+**Composition auto-référencée (D135).** Autorisée — ex. **gamme de fabrication
+industrielle**, nomenclature : les éléments se composent récursivement.
+Garde-fous : **validation d'acyclicité** (un élément ne peut être son propre
+ancêtre) ; l'agrégat = **l'arbre entier** (transaction D101, suppression-CAS
+D132 et concurrence D111 portent sur toute la gamme).
+
+**Association (D136).**
+- **N-1 = un champ `reference`** (une commande référence *un* client) ;
+  **obligatoire ou optionnelle** ; inter-modules libre (D116) ;
+  **auto-référence autorisée** (hiérarchies : catégorie parente).
+- **Inverse matérialisé en champ « liste »** sur l'entité cible :
+  `client.commandes` — **pas une composition** (pas de possession, pas de
+  cascade) mais une **vue dérivée navigable** : chemins (D71), calculs
+  (`somme(commandes.montant_ttc)`), IHM (la fiche client liste ses commandes).
+  La vérité reste la référence N-1.
+- **N-N = une entité de liaison explicite** (« tout est entité » — elle porte
+  ses attributs : date d'affectation, rôle…).
+- **Suppression : dérivée de la nullabilité du champ référençant (D138)** —
+  plus de déclaration séparée : référence **obligatoire** → suppression de la
+  cible **refusée** (restrict, message généré : « 47 commandes le
+  référencent ») ; référence **optionnelle** → suppression **autorisée**, **les
+  références ne sont pas touchées** (elles pointent vers l'enregistrement
+  inactif, lisible sur demande — D137). La `mise_a_null` **disparaît par
+  construction** (jamais de référence pendante grâce au soft delete) ; **jamais
+  de cascade sur une association**.
+- Cas de bord : association vers un **module désactivé** (D117) — la donnée
+  existe toujours, la référence reste valide, l'affichage se réduit (libellé
+  sans navigation).
+
+**Suppression = inactivation (D137, soft delete).** Aucune suppression réelle :
+l'enregistrement devient **inactif**, propriétés **lisibles sur demande** ;
+l'**IHM distingue actif/inactif** (listes = actifs par défaut, inactifs sur
+demande, marquage visuel). Conséquences :
+- la suppression-CAS d'agrégat (D132) = **inactivation-CAS** (l'agrégat complet
+  vérifié puis inactivé en bloc) ; modifier un inactif reste rejeté (410, D111) ;
+- cohérence D77 : le compte client **suit** sa fiche (fiche inactivée → compte
+  inactivé) ;
+- **⚠️ RGPD** : le soft delete conserve les données personnelles — le **droit à
+  l'effacement exige une purge réelle distincte** (opération d'administration :
+  suppression physique ou anonymisation). Suppression métier ≠ effacement
+  réglementaire.
+**Anonymisation, réactivation, unicité (D139–D141).**
+- **Anonymisation déclarée sur l'entité (D139, RGPD)** : pas de suppression
+  physique — le droit à l'effacement s'exerce par une **procédure
+  d'anonymisation** dont la **règle est déclarée sur l'entité dans le modèle**
+  (quels champs, quelles substitutions — langage D90). **L'intégrité
+  référentielle survit à l'effacement** : l'enregistrement anonymisé existe
+  toujours (les commandes gardent leur référence vers un client devenu
+  anonyme) — soft delete (D137) + anonymisation = RGPD compatible avec « jamais
+  de référence pendante » (D138). **Irréversible** (≠ inactivation) ; opération
+  d'administration, auditée avec motif (D62).
+- **Réactivation (D140)** : possible, **par l'administrateur de l'instance**,
+  **sous conditions** — au premier chef le **contrôle de collision de clés**
+  (refus si une clé unique du réactivé duplique celle d'un actif créé
+  entre-temps ; résolution préalable).
+- **Unicité sur les actifs uniquement (D141)** : les enregistrements inactifs
+  **peuvent porter des doublons de clés** — on peut « supprimer » un client et
+  en recréer un avec le même email ; d'où la condition de D140.
+
+**Identité d'un enregistrement (D142, résout Q51).** Deux identités, deux rôles :
+- **technique** = l'**UUID interne, invariant à vie** (généralise D75/D82 à tout
+  enregistrement) — traverse actif → inactif → réactivé → anonymisé ; porteur
+  des **références** (D136/D138 — jamais la clé métier), de l'**audit** (Q37),
+  des **chemins** (D71) et de la **concurrence** (D111) ;
+- **fonctionnelle** = les **clés métier** (email, référence…), valides **parmi
+  les actifs seulement** (D141).
+Conséquences : **recréer** (même clé qu'un inactif) = **nouvelle identité** ;
+**réactiver** (D140) = **la même** ; **anonymiser** (D139) = effacer la
+fonctionnelle, **préserver la technique** (le squelette référentiel demeure).
+Pour les entités synchronisées/importées (Q49) : généralisation du patron D82 —
+chaque entité déclare sa **clé d'unicité externe** → rapprochement vers l'UUID
+(clé immuable en priorité, re-liaison admin).
+
+**Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
+clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
+comportement à la suppression) ; champ « liste inverse » ; entités de liaison.
 
 ---
 
@@ -1841,7 +1962,7 @@ avant la synthèse Q16).
 |---|----------|-------|
 | **A — Modèle de données (prioritaire)** | | |
 | ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
-| Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
+| ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
 | Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
@@ -1850,6 +1971,9 @@ avant la synthèse Q16).
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
+| Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
+| ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
+| Q52 | **Héritage d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : entité **parente** (abstraite ou concrète) dont héritent des spécialisations (champs communs + propres — `tiers` → `client`/`fournisseur`) ? **polymorphisme des références** (une référence vers `tiers` acceptant ses spécialisations) ? représentation en persistance déléguée à l'abstraction (D18) ? | Pendant côté **entités** de la surcharge par restriction des **types** (D123) ; complète le triptyque objet avec Q50 (encapsulation). En attente des précisions de l'auteur. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2522,3 +2646,47 @@ avant la synthèse Q16).
   standards, le schéma précise. Fondement formel du « langue de l'importateur »
   (D130) ; affichage = présentation (surchargeable D127), grammaire de
   conversion = structurelle ; machines → canoniques ISO.
+- **2026-07-03** — Relations (Q35 largement traitée, D132–D136, nouveau §3.5).
+  **Composition** : suppression = **CAS sur l'agrégat complet** (fournir la
+  commande avec toutes ses lignes, identique à la base, sinon 409 — D111 couvre
+  les 3 verbes) puis cascade totale (= définition de la possession, seul cas de
+  cascade) ; raffinement conditionnel **déclaré sur la composition** (lisibilité) ;
+  **ordre = clé de tri déclarée** (D125/D126) ; **formes liste / matrice /
+  multi-dimensionnel** (enfants indexés par dimensions — taille × couleur) ;
+  **auto-référence autorisée** (gamme de fabrication) avec acyclicité validée,
+  l'agrégat = l'arbre entier. **Association** : N-1 par champ reference ;
+  **inverse matérialisé en champ liste** sur la cible (client.commandes — vue
+  dérivée, pas une composition) ; N-N par entité de liaison ; restrict par
+  défaut / mise_a_null / jamais cascade.
+- **2026-07-03 (suite)** — Suppression repensée (D137–D138, amende D136).
+  **Suppression = inactivation** (soft delete) : enregistrement inactif,
+  propriétés lisibles sur demande, IHM distingue actif/inactif ; agrégat →
+  inactivation-CAS ; compte client suit sa fiche (D77). **Comportement à la
+  suppression dérivé de la nullabilité** du champ référençant (plus de
+  déclaration) : obligatoire → restrict ; optionnel → suppression autorisée,
+  **références intactes** (pointent vers l'inactif) ; mise_a_null supprimée par
+  construction. **⚠️ RGPD consigné** : droit à l'effacement = purge réelle
+  distincte (admin). Sous-questions : réactivation (par qui ?), unicité face
+  aux inactifs.
+- **2026-07-03 (suite 2)** — **Q35 close** (D139–D141). **Anonymisation déclarée
+  sur l'entité** (RGPD — pas de suppression physique ; règle champs+substitutions
+  dans le modèle ; irréversible ; l'intégrité référentielle survit à
+  l'effacement). **Réactivation par l'administrateur** sous contrôle de collision
+  de clés. **Unicité sur les actifs uniquement** (doublons possibles chez les
+  inactifs — justifie le contrôle de réactivation). Le triplet
+  D139/D140/D141 se verrouille mutuellement.
+- **2026-07-03 (suite 3)** — Deux questions ajoutées à la demande de l'auteur :
+  **Q50** (encapsulation d'une entité — à développer par lui) et **Q51**
+  (identité d'un enregistrement, soulevée par le soft delete). Pour Q51, une
+  proposition complète est sur la table : identité **technique** (UUID interne
+  invariant à vie — références, audit, concurrence) vs identité
+  **fonctionnelle** (clés métier, valides parmi les actifs D141) ; recréer =
+  nouvelle identité, réactiver = la même, anonymiser = efface la fonctionnelle
+  et préserve la technique ; généralisation du patron D82 (clé d'unicité
+  externe → UUID) aux entités synchronisées (Q49).
+- **2026-07-03 (suite 4)** — **Q51 validée et close (D142)** : identité technique
+  (UUID invariant à vie) vs fonctionnelle (clés métier, actifs seulement) —
+  recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle
+  et préserve la technique. **Q52 ajoutée** (héritage d'une entité — à développer
+  par l'auteur ; pendant côté entités de la surcharge par restriction des types
+  D123 ; complète le triptyque objet avec Q50).

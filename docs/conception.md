@@ -150,7 +150,8 @@ posée (voir §6).
 | D112 | **Multi-environnements (résout Q42)** : production (dernière version publiée) + **un staging par version bêta, instancié à la volée** (copie prod → **migration** D4–D9 vers la bêta) ; **API bêta (D103) redirigées** vers le staging ; à la validation → staging **supprimé**, production migrée (§4). | Le dry-run rendu durable et navigable ; migration répétée 2× avant la vraie bascule. Raffine D16 (une instance *de production* + éphémères/passive). RGPD : éphémérité + accès restreint. Voir §7.3. |
 | D113 | **Synchronisation prod → staging**, deux modes : **synchrone** (chaque écriture reportée, **traduite via la chaîne de versions** §5.1 — les instances sont à des versions différentes) ; **différé** (recréation sur sollicitation, fréquence à définir). | **4ᵉ usage du primitif de translation** (migrations, API, connecteurs, réplication inter-versions). Voir §7.3. |
 | D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
-| D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16 ; versionnement par module pressenti **non** (le schéma versionne d'un bloc, D93). Voir §3.2b. |
+| D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles 1–6 en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16. Voir §3.2b. |
+| D116 | **Versionnement uniquement au niveau instance** (= son schéma, une seule horloge — pas de version par module/entité/champ) ; **composition intra-module** (l'agrégat D101 ne franchit pas le module = frontière de cohérence forte) ; **associations inter-modules libres**. | Distinction fondatrice pour Q35 : **composition** (possession forte, transactionnelle) vs **association** (lien souple). Estampille D93 inchangée. Voir §3.2b. |
 
 ---
 
@@ -218,11 +219,23 @@ Entité ──── regroupe ──► Champ (1..n)
 - **Une instance organise UN schéma** (singulier) : confirme D16 — le schéma
   **est** la description, racine unique versionnée (estampille D93, journal de
   migrations §3.2).
-- **Le module** : niveau d'organisation entre schéma et entités — rôles en
+- **Le module** : niveau d'organisation entre schéma et entités — rôles 1–6 en
   cours d'arbitrage (espace de noms, navigation IHM/Q48, activation, frontière
   d'accès, partage inter-TPE, propriété moteur/métier pour les solutions
-  intégrées D44, versionnement — ce dernier pressenti **non** : le schéma
-  versionne d'un bloc).
+  intégrées D44).
+
+**Versionnement et frontières du module (D116) :**
+- **Le versionnement porte uniquement sur l'instance** — un seul numéro pour
+  tout l'arbre, pas de déclinaison par module/entité/champ. La version de
+  l'instance = celle de son schéma (1:1, D115), portée par l'estampille D93.
+  Une seule horloge → chaîne de traduction et compatibilité simples.
+- **Composition intra-module** : l'agrégat (D101) ne franchit jamais la
+  frontière d'un module — le module est la **frontière de cohérence forte**.
+- **Associations inter-modules libres** : une référence peut traverser les
+  modules (`ventes.commande` → `catalogue.article`).
+- Première distinction du modèle relationnel (fondation de Q35) :
+  **composition** (possession forte, unité transactionnelle, intra-module) vs
+  **association** (lien souple, libre).
 
 ### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
@@ -2201,3 +2214,10 @@ avant la synthèse Q16).
   inter-TPE, modules moteur = solutions intégrées D44, versionnement — pressenti
   non). Questions de frontière posées : références inter-modules (pressenti
   libres) et composition/agrégats intra-module (pressenti oui).
+- **2026-07-02 (suite 14)** — D116 : **versionnement uniquement au niveau
+  instance** (une seule horloge, pas de déclinaison module/entité/champ ; la
+  version de l'instance = celle de son schéma, estampille D93) ; **composition
+  intra-module** (le module = frontière de cohérence forte) ; **associations
+  inter-modules libres**. Distinction fondatrice pour Q35 : composition
+  (possession forte, transactionnelle) vs association (lien souple). Restent à
+  arbitrer les rôles 1–6 du module.

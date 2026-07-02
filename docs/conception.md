@@ -143,6 +143,9 @@ posée (voir §6).
 | D105 | **Rate limiting global** : **15 req/sec** en défaut global d'instance, **surcharge par compte technique** (interface d'administration, comme la version épinglée D98) ; réponse **429 + `Retry-After`**. | Fusible de disponibilité **externe** du mono-serveur (pendant du fusible interne D104) ; distinct du cooldown par tâche (D58) et de la détection a posteriori (D43/D47). Voir §5.8. |
 | D106 | **Déclencheur « apparition de fichier »** (étend l'événement de D54) : **dossier surveillé + pattern défini** ; à l'arrivée d'un fichier conforme, la tâche se déclenche, **le fichier = son entrée**. | Patron *hot folder* (scanner→PDF, export→CSV), très TPE. Pattern = vocabulaire du langage ; attendre l'écriture complète du fichier. Voir §8.4. |
 | D107 | **Authentification des comptes techniques (clôt Q44)** : **clé API rotative** par défaut (2 clés actives pendant rotation) ; **« pour le compte de » par header dédié** (périmètre de délégation D76) ; **OAuth2 + Token Exchange RFC 8693 en déclinaison** (cadre D78) — le jeton porte alors le sujet. | Même sémantique D76 (borné au périmètre ligne du sujet, attribuable) quel que soit le véhicule. Simple par défaut, standard en option. Voir §5.8. |
+| D108 | **Canaux de notification = connecteurs** (built-in + hooks du technicien, D52). *« Le connecteur est le vecteur, la configuration porte le contenant »* : **modèles de messages = paramètres du connecteur** (gabarits D90 : titre, destinataire, contenu, pièces jointes). | Résout Q46 (canaux + templates). Voir §8.5. |
+| D109 | **Canaux autorisés déclarés dans la description** ; l'utilisateur **choisit via son profil** parmi les canaux qui lui sont autorisés. | Double gouvernance (le modèle borne, l'utilisateur choisit). Voir §8.5. |
+| D110 | **Notification persistée d'abord (entité du méta-modèle), puis remise** (patron **outbox**) : remise externe = tâche de propagation (D85/D87), **livraison garantie** (jamais perdue, au pire en attente, visible en supervision D56) ; **historique conservé** avec rétention à durée max (patron D41/D55). | In-app = lecture du magasin ; confidentialité automatique (appartenance D71). Clôt Q46. Voir §8.5. |
 
 ---
 
@@ -1375,6 +1378,32 @@ lecture, mode d'exécution, cooldown, **déterminisme + fenêtre**, rétention,
 **canal de notification**, **politique de relance**) ; la solution intégrée de
 supervision.
 
+### 8.5 Infrastructure de notifications (D108–D110, résout Q46)
+
+Assemblage de briques existantes — pratiquement aucune machinerie neuve.
+
+- **Canaux = connecteurs (D108).** Syncytium livre des connecteurs de
+  notification built-in ; le technicien en ajoute via hooks (D52). **« Le
+  connecteur est le vecteur, la configuration porte le contenant »** : les
+  modèles de messages sont des **paramètres du connecteur** (s'il le permet) —
+  ex. email : gabarits (langage D90) de titre, destinataire, contenu, pièces
+  jointes, déclarés dans la description.
+- **Canaux autorisés / choix utilisateur (D109).** La **description déclare les
+  canaux utilisables et autorisés** ; l'utilisateur **sélectionne via son profil**
+  l'un des canaux qui lui sont autorisés (double gouvernance : le modèle borne,
+  l'utilisateur choisit dedans).
+- **Livraison garantie + historique (D110).** La notification est **persistée
+  d'abord** dans Syncytium — **entité décrite via le méta-modèle** — puis remise :
+  c'est le patron **outbox**. Remise externe = **tâche de propagation connecteur**
+  (D85), reprise dans la tâche (D87), visible en supervision (D56) — jamais
+  perdue, au pire *en attente de remise*. **Rétention à durée maximale**
+  (patron D41/D55). Conséquences gratuites : le **canal in-app = lecture du
+  magasin** (l'IHM générée affiche l'entité) ; la **confidentialité s'applique
+  seule** (notification adressée à X visible de X — appartenance directe D71).
+
+**Apport au méta-schéma** : l'entité notification ; canaux autorisés (description)
++ canal choisi (profil) ; gabarits de message en paramètres de connecteur.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -1519,7 +1548,7 @@ avant la synthèse Q16).
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
-| Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
+| ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire. | Pilier du méta-schéma ; précise D90. |
 | Q38 | **Recherche & filtrage** dans l'IHM générée : plein-texte ? langage de filtre ? sur quels champs. | Complète l'IHM générée (D64) et le filtrage (D46/D66). |
 
@@ -2013,3 +2042,13 @@ avant la synthèse Q16).
   D78 — lourde pour une TPE, le header dédié est le bon défaut ; même sémantique
   D76 dans les deux cas). Q43 et Q44 closes — le volet C (sécurité d'exécution)
   de l'audit est terminé.
+- **2026-07-02 (suite 7)** — Infrastructure de notifications (D108–D110, résout
+  Q46, nouveau §8.5). Assemblage de briques existantes : **canaux = connecteurs**
+  (built-in + hooks ; « le connecteur est le vecteur, la configuration porte le
+  contenant » — templates en paramètres du connecteur, gabarits D90) (D108) ;
+  **canaux autorisés dans la description**, choix par profil parmi les autorisés
+  (D109) ; **notification persistée d'abord** — entité du méta-modèle — puis
+  remise (patron outbox : remise externe = tâche de propagation D85/D87, visible
+  en supervision) → **livraison garantie**, historique à rétention max (patron
+  D41/D55), in-app = lecture du magasin, confidentialité automatique par
+  appartenance D71 (D110).

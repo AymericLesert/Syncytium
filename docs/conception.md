@@ -165,6 +165,7 @@ posée (voir §6).
 | D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. **Borne actée : la surcharge métier se limite à la présentation** — tout le reste au technicien. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut**. Voir §3.4. |
 | D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
 | D129 | **Énumérés : codes stables + libellés par langue** (étend D127) : valeurs internes = **codes invariants** (stockage, API, filtres, transcodages D90, domaine D48 — renommer un code = **migration**) ; libellés par valeur et par langue, **deux couches** (défauts description + surcharges métier) — changer un libellé n'est **jamais** une migration. | L'API échange les codes (contrat stable, insensible aux langues/surcharges) ; IHM et export CSV affichent le libellé (langue du profil, D119). Voir §3.4. |
+| D130 | **Import/export des énumérés** : import (API/CSV) = **code d'abord, libellé en repli** (langue de l'importateur) — garde-fous : priorité au code (collision), ambiguïté = échec propre + validation des libellés dupliqués, correspondance sur libellés effectifs (D127) ; export = **code ou libellé, déclaré au format CSV** (config connecteur D108/D119), libellé = langue de l'exportateur. | Import par libellé = commodité humaine ; **les machines utilisent les codes** (stables). Round-trip : codes universels, libellés mono-langue. Voir §3.4. |
 
 ---
 
@@ -457,6 +458,23 @@ couches (défauts description + surcharges métier en base). Répartition :
 - le **libellé** = présentation, langue du profil — vu par l'IHM et l'export
   CSV (facette affichage D119) ; **changer un libellé n'est jamais une
   migration** (responsable métier, vie courante).
+
+**Import/export des énumérés (D130).**
+- **Import (API/CSV)** : la conversion faillible essaie **le code d'abord, puis
+  le libellé** — dans la **langue de l'utilisateur qui importe**. Garde-fous :
+  (1) **priorité absolue au code** en cas de collision code/libellé ;
+  (2) **libellé ambigu** (→ plusieurs codes) = **échec propre** de la
+  conversion, jamais de choix silencieux — et la validation du schéma signale
+  les libellés dupliqués par énuméré et par langue ; (3) correspondance sur les
+  **libellés effectifs** (surcharges D127 comprises) — les libellés étant
+  mutables, **l'import par libellé = commodité humaine, les intégrations
+  machines utilisent les codes**. Propriété assumée : le même fichier importé
+  par deux utilisateurs de langues différentes ne se lit pas pareil (langue au
+  profil, D124).
+- **Export** : **code ou libellé, déclaré dans la description du format CSV**
+  (configuration du connecteur, D108/D119) ; libellé exporté = langue de
+  l'utilisateur exportant. Aller-retour : l'export en codes se réimporte par
+  quiconque ; en libellés, dans la même langue.
 
 **Devise portée par la donnée + surcharge de types par restriction (D123).**
 - La **devise est une composante de la donnée** (chaque montant stocke
@@ -2458,3 +2476,11 @@ avant la synthèse Q16).
   description + surcharges métier) — changer un libellé n'est jamais une
   migration. L'API échange les codes ; l'IHM et l'export CSV affichent le
   libellé dans la langue du profil.
+- **2026-07-02 (suite 24)** — Import/export des énumérés (D130). Import :
+  **code d'abord, libellé en repli** dans la langue de l'importateur ;
+  garde-fous — priorité au code en collision, ambiguïté = échec propre (+
+  validation des libellés dupliqués par langue), correspondance sur libellés
+  effectifs (surcharges D127) ; import par libellé = commodité humaine, les
+  machines utilisent les codes. Export : **code ou libellé déclaré dans la
+  description du format CSV** (config connecteur D108/D119), libellé = langue
+  de l'exportateur. Round-trip : codes universels, libellés mono-langue.

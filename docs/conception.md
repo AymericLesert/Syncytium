@@ -162,6 +162,7 @@ posée (voir §6).
 | D124 | **Identité du champ** : **nom = invariant** (référencé partout ; renommage = migration D4) ; **libellés = variantes traduites** (écran responsive, colonne tableau, colonne CSV) ; **langue au profil utilisateur, pas à l'instance** ; **descriptions courte** (bulle) **et longue** (aide), **exploitables par des IA**. | Patron identifiant stable (D96) ; première décision de Q45 (i18n) ; le méta-schéma (D44) devient documentation sémantique pour assistants. Voir §3.4. |
 | D125 | **Fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** : une valeur / un jeu de valeurs / un comparateur. Types sans ordre naturel = **non triables** ; composés : comparaison définie par le type. | C'est le langage de filtre contraint attendu par Q38 (champ+opérateur+valeur — jamais D90 exposé). Voir §3.4. |
 | D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
+| D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut** ; borne proposée : présentation seulement (structure = technicien). Voir §3.4. |
 
 ---
 
@@ -425,6 +426,23 @@ Avec la règle anti-oracle (on ne filtre/trie que ce qu'on peut lire, Q38), le
 **cœur de Q38 est résolu** — résiduels : plein-texte, recherche globale.
 **Langue = profil de l'utilisateur, pas l'instance** (D124) — première décision
 de Q45.
+
+**Libellés à deux couches + responsable métier (D127).**
+- **Défauts par langue dans la description** (versionnés, migrés) ;
+- **surcharges en base de données**, modifiables en vie courante — sans
+  migration — par un **responsable métier** (acteur nouveau, famille des rôles
+  moteur D95/D33 : autorité sur le vocabulaire/la présentation, pas la
+  structure) quand le métier l'impose.
+- **Chaîne de résolution** : surcharge (langue du profil) → défaut description
+  (langue du profil) → langue de repli de l'instance → nom technique — jamais
+  d'écran troué.
+- **Borne proposée** : la surcharge métier couvre la **présentation** (libellés
+  toutes variantes, descriptions, formats d'affichage) ; la **structure** (nom,
+  type, contraintes, stockage) reste à la description/au technicien.
+- Cohérences : patron D31 (*structure dans la description, adaptations dans les
+  données*) ; surcharge **rattachée au nom invariant** (D124) → survit aux
+  migrations (un renommage la suit) ; **la surcharge bat toujours le défaut**,
+  même livré plus récent, jusqu'à retrait par le responsable métier.
 
 **Devise portée par la donnée + surcharge de types par restriction (D123).**
 - La **devise est une composante de la donnée** (chaque montant stocke
@@ -2407,3 +2425,10 @@ avant la synthèse Q16).
   triables. **Tables IHM (D126)** : champs filtrables déclarés à la table, tris
   multi-clés. **Cœur de Q38 résolu** (résiduels : plein-texte, recherche
   globale). Prochain : Q35 (relations — composition/association, agrégats).
+- **2026-07-02 (suite 21)** — Libellés à deux couches (D127) : **défauts par
+  langue dans la description** + **surcharges en base** modifiables en vie
+  courante par un **responsable métier** — acteur nouveau (famille des rôles
+  moteur D95/D33, autorité sur le vocabulaire/présentation, pas la structure).
+  Chaîne de résolution avec replis (jamais d'écran troué) ; surcharge rattachée
+  au nom invariant (survit aux migrations, prioritaire sur tout défaut).
+  Borne proposée à valider : surcharge = présentation seulement.

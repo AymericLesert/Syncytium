@@ -159,6 +159,9 @@ posée (voir §6).
 | D121 | **Types simples complétés** : + `date`, `heure`, `duree` ; **énuméré mono-sélection uniquement** (pas de `multiple` — le multi-valué passe par une entité liée). | Cohérent avec l'atomicité du champ (D118). Voir §3.4. |
 | D122 | **Composés livrés** : `montant`, `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (Luhn), `iban`/`bic` (mod 97), `tva_intra`, `mesure` (décimal+unité), `geolocalisation`, `periode` (début ≤ fin). | Bibliothèque enrichissable (D52/D68) ; validations par fonction de contrôle (catalogue D104/Q47). Voir §3.4. |
 | D123 | **Devise portée par la donnée** (montant = valeur + devise, devise ∈ **jeu autorisé** ; standard = ISO 4217 complet) + **surcharge de types par restriction** : le schéma dérive des types en restreignant le domaine (`montant_francais` = {EUR}). | **Mécanisme général de spécialisation** (devises, unités, formats…) inséré dans le graphe D120 : dérivé→standard = sûre, standard→dérivé = faillible. Singleton = mono-devise (stockage optimisable, modèle logique inchangé). Voir §3.4. |
+| D124 | **Identité du champ** : **nom = invariant** (référencé partout ; renommage = migration D4) ; **libellés = variantes traduites** (écran responsive, colonne tableau, colonne CSV) ; **langue au profil utilisateur, pas à l'instance** ; **descriptions courte** (bulle) **et longue** (aide), **exploitables par des IA**. | Patron identifiant stable (D96) ; première décision de Q45 (i18n) ; le méta-schéma (D44) devient documentation sémantique pour assistants. Voir §3.4. |
+| D125 | **Fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** : une valeur / un jeu de valeurs / un comparateur. Types sans ordre naturel = **non triables** ; composés : comparaison définie par le type. | C'est le langage de filtre contraint attendu par Q38 (champ+opérateur+valeur — jamais D90 exposé). Voir §3.4. |
+| D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
 
 ---
 
@@ -400,6 +403,28 @@ D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
   `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (clé de Luhn),
   `iban`/`bic` (modulo 97), `tva_intra`, `mesure` (décimal + unité),
   `geolocalisation`, `periode` (début ≤ fin).
+
+**Profil de champ (D124–D126, clôt Q34).**
+
+| Bloc | Attributs |
+|---|---|
+| **Identité (D124)** | **nom = invariant** (référencé par calculs/tâches/API ; renommage = migration D4) ; **libellés** = identifiant décliné en **variantes traduites** (écran — variable selon le responsive —, colonne de tableau, colonne CSV) ; **description courte** (bulle IHM) + **description longue** (aide) — **exploitables par des IA** (le méta-schéma D44 devient documentation sémantique) |
+| **Type** | simple / composé / surchargé (D118, D123) + 4 facettes (D119) + conversions (D120) |
+| **Contraintes** | obligatoire, unique, limites de valeurs, format (D118) |
+| **Valeurs** | défaut (D13/D35), calculé (D35–D36) |
+| **Comparaison (D125)** | **fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** (une valeur / un jeu de valeurs / un comparateur) ; types sans ordre naturel (géolocalisation) = **non triables par nature** ; composés : comparaison définie par le type (montant : à devise comparable, D120 arbitre) |
+| **Accès** | confidentialité (D25), lecture/écriture par audience (D73), groupes (D26) |
+| **Observation** | seuils de télémétrie (D49) |
+| **Présentation** | composant IHM (D64/D65), facette affichage (D119) |
+| **API** | exposition (D20), facette API (D119) |
+| **À venir** | agrégat (Q35), historisation (Q37) |
+
+**Tables IHM (D126)** : les **champs filtrables se déclarent à la table** (la
+vue), pas au champ ; les **tris sont multi-clés** (combinaisons de colonnes).
+Avec la règle anti-oracle (on ne filtre/trie que ce qu'on peut lire, Q38), le
+**cœur de Q38 est résolu** — résiduels : plein-texte, recherche globale.
+**Langue = profil de l'utilisateur, pas l'instance** (D124) — première décision
+de Q45.
 
 **Devise portée par la donnée + surcharge de types par restriction (D123).**
 - La **devise est une composante de la donnée** (chaque montant stocke
@@ -1742,7 +1767,7 @@ avant la synthèse Q16).
 | # | Question | Enjeu |
 |---|----------|-------|
 | **A — Modèle de données (prioritaire)** | | |
-| Q34 | **Catalogue de types de champs** : primitifs (texte, nombre, booléen, date, date-heure **+ fuseau**, monnaie, durée), contraints (choix, référence, fichier), dérivé (calculé, multi-valué D92) ; formats et contraintes. | Socle du méta-schéma ; dont dépendent le composant IHM par défaut (D64) et l'exposition API. |
+| ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
 | Q35 | **Relations** : cardinalités (1-1, 1-N, **N-N**), intégrité référentielle, suppression (restrict/cascade/mise à null). | N-N via entité de liaison (« tout est entité ») ; défaut *restrict* (fail-closed). |
 | Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
@@ -1759,7 +1784,7 @@ avant la synthèse Q16).
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
-| Q38 | **Recherche & filtrage** : plein-texte ? portée (par entité / globale) ? quels champs interrogeables/triables (attribut déclaratif par champ, patron D49/D50) ? | Deux contraintes déjà identifiées : le **langage de filtre exposé ≠ D90** (utilisateurs/consommateurs non maîtrisés → sous-ensemble contraint champ+opérateur+valeur, OU/ET simples) ; **on ne filtre/trie que ce qu'on peut lire** (anti-oracle : niveau D25 + audience D70). |
+| Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
 | Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
 
@@ -2371,3 +2396,14 @@ avant la synthèse Q16).
   domaine (montant_francais = {EUR}) — mécanisme général de spécialisation,
   inséré dans le graphe D120 (dérivé→standard sûre, standard→dérivé faillible) ;
   singleton = mono-devise. Reste pour clore Q34 : le profil de champ consolidé.
+- **2026-07-02 (suite 20)** — **Q34 close** (D124–D126, profil de champ complet).
+  **Identité (D124)** : nom = invariant (renommage = migration D4, patron D96) ;
+  libellés = variantes traduites (écran responsive, colonne tableau, colonne
+  CSV) ; **langue au profil utilisateur, pas à l'instance** (1re décision Q45) ;
+  descriptions courte (bulle) + longue (aide) **exploitables par des IA** — le
+  méta-schéma devient documentation sémantique. **Comparaison intrinsèque au
+  type (D125)** : fonde le tri, réutilisée par le filtre (valeur / jeu /
+  comparateur — le langage contraint attendu par Q38) ; types sans ordre = non
+  triables. **Tables IHM (D126)** : champs filtrables déclarés à la table, tris
+  multi-clés. **Cœur de Q38 résolu** (résiduels : plein-texte, recherche
+  globale). Prochain : Q35 (relations — composition/association, agrégats).

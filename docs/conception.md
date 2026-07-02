@@ -146,7 +146,7 @@ posée (voir §6).
 | D108 | **Canaux de notification = connecteurs** (built-in + hooks du technicien, D52). *« Le connecteur est le vecteur, la configuration porte le contenant »* : **modèles de messages = paramètres du connecteur** (gabarits D90 : titre, destinataire, contenu, pièces jointes). | Résout Q46 (canaux + templates). Voir §8.5. |
 | D109 | **Canaux autorisés déclarés dans la description** ; l'utilisateur **choisit via son profil** parmi les canaux qui lui sont autorisés. | Double gouvernance (le modèle borne, l'utilisateur choisit). Voir §8.5. |
 | D110 | **Notification persistée d'abord (entité du méta-modèle), puis remise** (patron **outbox**) : remise externe = tâche de propagation (D85/D87), **livraison garantie** (jamais perdue, au pire en attente, visible en supervision D56) ; **historique conservé** avec rétention à durée max (patron D41/D55). | In-app = lecture du magasin ; confidentialité automatique (appartenance D71). Clôt Q46. Voir §8.5. |
-| D111 | **Concurrence état-avant/état-après (résout Q41)** — mécanisme **unique IHM+API**, jeton de concurrence = **état-avant, au grain du champ** : création → premier gagne (409, IHM garde la saisie) ; modification → diff avant/après, champs différents fusionnent, même champ = conflit (409 + détail), **un conflit rejette l'agrégat** (D101), contrainte cassée = conflit ; suppression première → modification rejetée (410 Gone). | Fusion par champ (mieux qu'un rejet global par version) ; diff journalisable (pont Q37) ; ABA accepté (TPE) ; ETag D45 = cache lecture seulement ; SSE = désamorçage amont. Voir §5.5. |
+| D111 | **Concurrence état-avant/état-après (résout Q41)** — mécanisme **unique IHM+API**, **compare-and-swap par champ** : modification (avant≠après) autorisée **ssi valeur-avant = valeur en base** ; champs inchangés ni écrits ni contrôlés (→ fusion des disjoints) ; même champ = conflit (409 + détail), **un conflit rejette l'agrégat** (D101), contrainte cassée = conflit ; création → premier gagne (409) ; suppression première → modification rejetée (410 Gone). | Fusion par champ ; diff journalisable (pont Q37) ; **ABA bénin par construction** (modèle par valeurs — chaque transition validée, l'historique relève de l'audit) ; ETag D45 = cache lecture ; SSE = désamorçage amont. Voir §5.5. |
 
 ---
 
@@ -543,20 +543,27 @@ l'**état-avant sert de jeton de concurrence, au grain du champ**.
   est notifié, création non validée. API : **409 Conflict** ; IHM : l'utilisateur
   **reste sur son écran** (saisie intacte), message précis.
 - **Modification** : l'appelant envoie **l'état avant + l'état après** ; le moteur
-  déduit le diff → **seuls les champs modifiés sont écrits**. Champs *différents*
-  d'une même fiche → **fusion sans conflit** ; *même champ* → premier écrit,
-  second notifié. Transaction = agrégat (D101) → **un champ en conflit rejette
-  l'agrégat entier**. **Champs liés par une contrainte** (déclarée au méta-modèle,
-  cf. Q36) : casser la contrainte = conflit = rejet. API : **409 + détail des
-  champs en conflit** (attendu vs courant) ; IHM : notification précise, saisie
-  conservée.
+  déduit le diff. **Règle (compare-and-swap par champ)** : une modification d'un
+  champ (avant ≠ après) n'est autorisée **que si la valeur-avant correspond à la
+  valeur en base** ; les champs **inchangés** (avant = après) ne sont **ni écrits
+  ni contrôlés** — c'est ce qui permet la fusion des modifications disjointes.
+  Champs *différents* d'une même fiche → **fusion sans conflit** ; *même champ* →
+  premier écrit, second notifié. Transaction = agrégat (D101) → **un champ en
+  conflit rejette l'agrégat entier**. **Champs liés par une contrainte** (déclarée
+  au méta-modèle, cf. Q36) : casser la contrainte = conflit = rejet. API : **409 +
+  détail des champs en conflit** (attendu vs courant) ; IHM : notification
+  précise, saisie conservée.
 - **Suppression** : une modification arrivant après la suppression est **rejetée**
   (la suppression était première). API : **410 Gone**.
 - Notes : le diff explicite (avant→après) est **directement journalisable**
   (pont vers Q37, audit des modifications) ; cohérent avec D92 (mapping de
-  valeurs nommées) ; cas *ABA* accepté (échelle TPE, prix de la fusion par
-  champ) ; l'**ETag (D45) reste pour le cache en lecture** ; l'avertissement
-  temps réel (SSE §4.5) demeure le désamorçage en amont.
+  valeurs nommées) ; **ABA bénin par construction** dans ce modèle par valeurs —
+  la séquence A→B→A peut survenir mais chaque transition a été elle-même validée,
+  la prémisse de l'écrivain (avant = A) est vraie au moment de l'écriture, et
+  l'historique des transitions relève de l'audit (Q37), pas de la concurrence
+  (une règle dépendant du *chemin* serait une contrainte Q36) ; l'**ETag (D45)
+  reste pour le cache en lecture** ; l'avertissement temps réel (SSE §4.5)
+  demeure le désamorçage en amont.
 
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
@@ -2099,3 +2106,11 @@ avant la synthèse Q16).
   suppression première → modification rejetée (410 Gone). Diff journalisable
   (pont vers Q37) ; ABA accepté ; ETag limité au cache lecture ; SSE en
   désamorçage amont.
+- **2026-07-02 (suite 10)** — D111 précisé : **compare-and-swap par champ**
+  formalisé — modification (avant≠après) autorisée **ssi valeur-avant = valeur en
+  base** ; champs inchangés ni écrits ni contrôlés (condition de la fusion des
+  disjoints). Caveat ABA **révisé** suite à la remarque de l'auteur : dans ce
+  modèle **par valeurs**, l'ABA est **bénin par construction** — chaque
+  transition intermédiaire a été validée, la prémisse de l'écrivain est vraie au
+  moment de l'écriture, l'historique des transitions relève de l'audit (Q37) et
+  une règle dépendant du chemin serait une contrainte (Q36).

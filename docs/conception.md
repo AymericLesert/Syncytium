@@ -140,7 +140,9 @@ posée (voir §6).
 | D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
 | D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
 | D104 | **Garde-fous d'exécution (résout Q43)** : **pas de timeout sur les fonctions « simples »** du langage ; **timeout paramétrable sur les fonctions « complexes »** — classification portée par le **catalogue de fonctions** (méta-schéma). Gardes existants inchangés (D36 hooks, D55 heartbeat des tâches, D69 IHM, D7 dry-run). | Les fonctions sont implémentées par le concepteur de Syncytium → risque non uniforme ; zéro surcoût sur le chemin chaud. Voir §3.3. |
-| D105 | **Rate limiting global (Q44 partiel)** : **15 req/sec** en défaut global d'instance, **surcharge par compte technique** (interface d'administration, comme la version épinglée D98) ; réponse **429 + `Retry-After`**. | Fusible de disponibilité **externe** du mono-serveur (pendant du fusible interne D104) ; distinct du cooldown par tâche (D58) et de la détection a posteriori (D43/D47). Reste Q44 : mécanisme d'authentification (clé API rotative proposée, à confirmer). |
+| D105 | **Rate limiting global** : **15 req/sec** en défaut global d'instance, **surcharge par compte technique** (interface d'administration, comme la version épinglée D98) ; réponse **429 + `Retry-After`**. | Fusible de disponibilité **externe** du mono-serveur (pendant du fusible interne D104) ; distinct du cooldown par tâche (D58) et de la détection a posteriori (D43/D47). Voir §5.8. |
+| D106 | **Déclencheur « apparition de fichier »** (étend l'événement de D54) : **dossier surveillé + pattern défini** ; à l'arrivée d'un fichier conforme, la tâche se déclenche, **le fichier = son entrée**. | Patron *hot folder* (scanner→PDF, export→CSV), très TPE. Pattern = vocabulaire du langage ; attendre l'écriture complète du fichier. Voir §8.4. |
+| D107 | **Authentification des comptes techniques (clôt Q44)** : **clé API rotative** par défaut (2 clés actives pendant rotation) ; **« pour le compte de » par header dédié** (périmètre de délégation D76) ; **OAuth2 + Token Exchange RFC 8693 en déclinaison** (cadre D78) — le jeton porte alors le sujet. | Même sémantique D76 (borné au périmètre ligne du sujet, attribuable) quel que soit le véhicule. Simple par défaut, standard en option. Voir §5.8. |
 
 ---
 
@@ -786,6 +788,19 @@ avant de demander la bascule de l'épinglage. Garde-fous : la surcharge ne peut 
 viser une version **non publiée** (D99) ni descendre **sous la version minimale**
 (D94 → 426) ; la bascule de l'épinglage est un **acte d'administration tracé**.
 
+**Authentification des comptes techniques (D107, clôt Q44) + débit (D105).**
+- **Défaut : clé API rotative** — deux clés actives pendant une rotation, bascule
+  sans coupure ; révocable côté administration.
+- **« Pour le compte de » : header dédié** portant le compte sujet, gouverné par
+  le **périmètre de délégation déclaré** sur le compte technique (D76) — appel
+  borné au périmètre ligne du sujet, toujours attribuable.
+- **Déclinaisons** via le cadre générique (D78) : **OAuth2 client credentials +
+  Token Exchange (RFC 8693)** pour les clients exigeants — le jeton porte alors
+  le sujet à la place du header ; même sémantique D76 dans les deux cas.
+- **Rate limiting (D105)** : **15 req/sec** défaut global d'instance, surcharge
+  par compte technique, **429 + `Retry-After`** — fusible de disponibilité
+  externe (pendant du fusible interne D104).
+
 ---
 
 ## 6. Télémétrie (D14, D38–D44)
@@ -1254,11 +1269,17 @@ Ceux-ci peuvent être des groupes statiques **ou des principals contextuels**
 avec **sa propre portée `lecture:`** (élévation de privilège contrôlée, type SUID),
 pas celle de l'appelant.
 
-**Déclenchement (D54).** Cinq modes : **interface, API, planifié, événement de
-données, enchaînement** (tâche après tâche). Tâche **synchrone ou asynchrone** —
-mais *toujours non bloquante avec progression* : le « synchrone » n'est qu'une
-posture d'IHM (l'utilisateur suit la barre), pas un chemin d'exécution séparé.
-Toutes les tâches passent par la file.
+**Déclenchement (D54, étendu par D106).** Cinq modes : **interface, API,
+planifié, événement, enchaînement** (tâche après tâche). L'**événement** couvre
+les **données** (écriture d'une entité) **et les fichiers (D106)** : un **dossier
+surveillé + un pattern défini** — à l'arrivée d'un fichier conforme, la tâche se
+déclenche, **le fichier devenant son entrée** (patron *hot folder* : scanner
+déposant des PDF, export comptable déposant des CSV). Notes : le pattern
+réutilise le vocabulaire du langage (glob/regex) ; attendre que le fichier soit
+**complètement écrit** avant de déclencher (piège du fichier en cours de copie).
+Tâche **synchrone ou asynchrone** — mais *toujours non bloquante avec
+progression* : le « synchrone » n'est qu'une posture d'IHM (l'utilisateur suit la
+barre), pas un chemin d'exécution séparé. Toutes les tâches passent par la file.
 
 **File et suivi (D55).** **File d'attente** bornant la concurrence ; chaque tâche
 a un **état** et un **statut de progression** (compteur/total + message). Le
@@ -1495,7 +1516,7 @@ avant la synthèse Q16).
 | Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
-| Q44 | **Authentification API & débit global** — rate limiting **résolu (D105)** : 15 req/sec défaut global + surcharge par compte, 429 + `Retry-After`. **Reste** : le mécanisme d'**authentification** (proposition : clé API **rotative** par défaut, déclinable via le cadre D78 — OAuth2 client credentials, mTLS — pour le on-behalf-of D76). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
+| ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
 | Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
@@ -1982,3 +2003,13 @@ avant la synthèse Q16).
   surcharge par compte technique, 429 + Retry-After — fusible externe, pendant du
   fusible interne D104. Reste Q44 : mécanisme d'authentification (clé API
   rotative proposée, à confirmer).
+- **2026-07-02 (suite 6)** — Clôture de Q44 et extension des déclencheurs.
+  **D106** : déclencheur **« apparition de fichier »** (étend l'événement D54) —
+  dossier surveillé + pattern, le fichier devient l'entrée de la tâche (hot
+  folder ; attendre l'écriture complète). **D107** : authentification = **clé API
+  rotative** par défaut ; **on-behalf-of par header dédié** gouverné par le
+  périmètre de délégation D76 (réponse à la question de l'auteur : OAuth2 le
+  couvre via l'extension **Token Exchange RFC 8693**, disponible en déclinaison
+  D78 — lourde pour une TPE, le header dédié est le bon défaut ; même sémantique
+  D76 dans les deux cas). Q43 et Q44 closes — le volet C (sécurité d'exécution)
+  de l'audit est terminé.

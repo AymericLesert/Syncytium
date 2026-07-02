@@ -128,6 +128,7 @@ posée (voir §6).
 | D90 | **Langage d'expression unique** (résout Q6) partagé par calculs (D35–D36), migrations (§3.2), API (§5.1), connecteurs (D79) : gabarit `{}`, regex (groupes nommés), **transcodage** (constante ou lookup table/entité + défaut), arithmétique, **agrégats ensemblistes** (D36), **composable/imbriquable** ; hook (D36) = échappatoire. | Aboutissement du primitif de translation transverse ; pilier du méta-schéma. Voir §3.3. |
 | D91 | **Réversibilité = propriété déclarée, assurée par le technicien** (non garantie par le langage). 3 cas : auto-inversible (renommer, éclater↔fusionner → moteur) ; inversible non dérivable (**technicien déclare la règle inverse**) ; à perte (**technicien déclare une substitution D13**). Validation §5.2 par règle/version d'API. | Le moteur n'auto-inverse que le trivial ; le reste est déclaré. Migration jamais bloquée ni silencieusement à perte. Voir §3.3. |
 | D92 | **Langage multi-valué** : une expression retourne un **enregistrement de valeurs nommées** (généralisation des groupes regex), pas une seule valeur. Une transformation = mapping **`entrées nommées → sorties nommées`** ; renommer/éclater/fusionner = patrons de ce mapping. | Simplifie le méta-schéma (un seul concept) ; vaut pour regex/gabarit/transcodage/hooks/calculs ; inverse = symétrie 1→N ↔ N→1. Voir §3.3. |
+| D93 | **Estampille de version interne dans la base** (paramètres moteur, non éditables par le technicien), sur **deux axes** : version de **description** (schéma métier) + version de **moteur/format**. Contrôle de cohérence **fail-closed** au démarrage : cohérent → sert ; données en retard → **migration (§4)** ; données en avance (moteur plus ancien) → **refus** ; estampille absente/corrompue → init ou refus. | Résout le résiduel de Q40 (cohérence donnée↔version que le SGBD ignore). C'est aussi la **source de vérité de « la version courante »** lue par le cycle de migration (§3.2/§4). Relie restauration, migrations et parc hétérogène (§7.2). |
 
 ---
 
@@ -1403,7 +1404,7 @@ avant la synthèse Q16).
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
 | **B — Cycle de vie & exploitation** | | |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand). | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
-| Q40 | **Sauvegarde / restauration** : **physique déléguée au moteur de BD + hébergement** (D16/D18/Q4). Résiduel Syncytium : **cohérence donnée ↔ version de schéma/description** à la restauration (le SGBD l'ignore). | Ne pas réinventer le backup ; mais garantir l'appariement données/version. |
+| ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
 | Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
 | **C — Sécurité d'exécution** | | |
@@ -1821,3 +1822,12 @@ avant la synthèse Q16).
   de menace = code technicien de confiance + données adverses → garde-fou léger
   (timeout configurable, fusible mono-serveur) plutôt que limites rigides ; le
   dry-run attrape déjà les regex pathologiques.
+- **2026-06-12 (suite 35)** — Cohérence donnée↔version (D93, clôt le résiduel de
+  Q40). **Estampille de version interne dans la base** (paramètres moteur, non
+  éditables par le technicien), **deux axes** : version de description (schéma
+  métier) + version de moteur/format. Contrôle **fail-closed** au démarrage :
+  cohérent → sert ; données en retard → cycle de migration (§4) ; données en
+  avance (moteur plus ancien) → refus (intégrité avant disponibilité) ; estampille
+  absente/corrompue → init ou refus. C'est aussi la **source de vérité de la
+  version courante** lue par la migration — un seul point versionné reliant
+  restauration, migrations (§3.2/§4) et parc hétérogène (§7.2).

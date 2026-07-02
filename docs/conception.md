@@ -1956,6 +1956,8 @@ avant la synthèse Q16).
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
+| Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
+| Q51 | **Identité d'un enregistrement** (ajout 03/07/2026, soulevée par le soft delete D137) : que désigne « le même enregistrement » à travers inactivation, réactivation, anonymisation, recréation ? | **Proposition sur la table** : identité **technique** = UUID interne invariant à vie (généralise D75/D82 — porteur des références, de l'audit, de la concurrence) vs identité **fonctionnelle** = clés métier, valides parmi les actifs (D141) ; recréer = nouvelle identité ; réactiver = la même ; anonymiser = efface la fonctionnelle, préserve la technique. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2657,3 +2659,12 @@ avant la synthèse Q16).
   de clés. **Unicité sur les actifs uniquement** (doublons possibles chez les
   inactifs — justifie le contrôle de réactivation). Le triplet
   D139/D140/D141 se verrouille mutuellement.
+- **2026-07-03 (suite 3)** — Deux questions ajoutées à la demande de l'auteur :
+  **Q50** (encapsulation d'une entité — à développer par lui) et **Q51**
+  (identité d'un enregistrement, soulevée par le soft delete). Pour Q51, une
+  proposition complète est sur la table : identité **technique** (UUID interne
+  invariant à vie — références, audit, concurrence) vs identité
+  **fonctionnelle** (clés métier, valides parmi les actifs D141) ; recréer =
+  nouvelle identité, réactiver = la même, anonymiser = efface la fonctionnelle
+  et préserve la technique ; généralisation du patron D82 (clé d'unicité
+  externe → UUID) aux entités synchronisées (Q49).

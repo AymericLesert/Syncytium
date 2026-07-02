@@ -152,6 +152,7 @@ posée (voir §6).
 | D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
 | D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles 1–6 en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16. Voir §3.2b. |
 | D116 | **Versionnement uniquement au niveau instance** (= son schéma, une seule horloge — pas de version par module/entité/champ) ; **composition intra-module** (l'agrégat D101 ne franchit pas le module = frontière de cohérence forte) ; **associations inter-modules libres**. | Distinction fondatrice pour Q35 : **composition** (possession forte, transactionnelle) vs **association** (lien souple). Estampille D93 inchangée. Voir §3.2b. |
+| D117 | **Six rôles du module** : (1) espace de noms (`module.entite.champ`) ; (2) unité de **navigation IHM** ; (3) unité d'**activation** par instance (écrans/API masqués, données conservées) ; (4) **frontière d'accès** (module entier → groupe) ; (5) unité de **partage** inter-TPE (import = migration ordinaire) ; (6) **modules moteur** (solutions intégrées D44) vs modules métier. | Le module répond en partie à Q48 (navigation) ; l'écosystème gagne son objet d'échange (rôle 5, AGPL D19) ; motif D52 (provenance) pour le rôle 6. Voir §3.2b. |
 
 ---
 
@@ -219,10 +220,25 @@ Entité ──── regroupe ──► Champ (1..n)
 - **Une instance organise UN schéma** (singulier) : confirme D16 — le schéma
   **est** la description, racine unique versionnée (estampille D93, journal de
   migrations §3.2).
-- **Le module** : niveau d'organisation entre schéma et entités — rôles 1–6 en
-  cours d'arbitrage (espace de noms, navigation IHM/Q48, activation, frontière
-  d'accès, partage inter-TPE, propriété moteur/métier pour les solutions
-  intégrées D44).
+- **Le module** : niveau d'organisation entre schéma et entités — **six rôles
+  actés (D117)** :
+  1. **Espace de noms** : `ventes.commande` ; les chemins deviennent
+     `module.entite.champ` (noms courts à l'intérieur d'un module, qualifiés
+     au-delà) ;
+  2. **Unité de navigation IHM** : le menu généré s'organise par modules
+     (répond en partie à Q48) ;
+  3. **Unité d'activation** : un module peut être activé/désactivé par instance
+     — ses écrans et API disparaissent, ses données demeurent (fail-closed) ;
+  4. **Frontière d'accès** : un groupe peut recevoir l'accès à un module entier
+     (raccourci de confidentialité, se combine avec D25/D26) ;
+  5. **Unité de partage** : modules métier **réutilisables entre TPE**
+     (description partielle + hooks/composants associés, AGPL si distribués
+     D19) ; l'import d'un module = fusion dans le schéma → **une migration
+     ordinaire** (§4) ; collisions évitées par l'espace de noms (rôle 1) ;
+  6. **Modules moteur vs métier** : les **solutions intégrées (D44)** —
+     administration, supervision, télémétrie, notifications — sont des
+     **modules moteur** (non éditables), à côté des modules métier du
+     technicien — motif « uniforme, distingué par la provenance » (D52).
 
 **Versionnement et frontières du module (D116) :**
 - **Le versionnement porte uniquement sur l'instance** — un seul numéro pour
@@ -2221,3 +2237,9 @@ avant la synthèse Q16).
   inter-modules libres**. Distinction fondatrice pour Q35 : composition
   (possession forte, transactionnelle) vs association (lien souple). Restent à
   arbitrer les rôles 1–6 du module.
+- **2026-07-02 (suite 15)** — Les **six rôles du module validés en bloc** (D117) :
+  espace de noms (`module.entite.champ`), navigation IHM (répond en partie à
+  Q48), activation par instance (fail-closed : écrans/API masqués, données
+  conservées), frontière d'accès (module → groupe), partage inter-TPE (l'import
+  d'un module = une migration ordinaire ; objet d'échange de l'écosystème AGPL),
+  modules moteur (solutions intégrées D44) vs modules métier (motif D52).

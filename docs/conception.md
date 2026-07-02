@@ -136,7 +136,7 @@ posée (voir §6).
 | D98 | **Épinglage de version (résout Q9)** : version **épinglée au compte technique** (socle) + **surcharge par en-tête** pour tester la version suivante avant bascule. Garde-fous : pas de version non publiée (D99) ni sous la minimale (D94 → 426) ; bascule d'épinglage = acte d'administration tracé. | Duo Stripe : robustesse par défaut + chemin de migration. Voir §5.8. |
 | D99 | **Versions autorisées = versions publiées (résout Q11)** : publication = **acte déclaratif** du technicien, sans cadence imposée ; certaines versions ne sont **jamais publiées** (bêtas, bugs, fonctionnalités abandonnées) mais restent des **maillons internes** de la chaîne de traduction ; publication **révocable** (retrait → 426). | Fenêtre de support = [version minimale D94 … dernier contrat publié]. Voir §5.8. |
 | D100 | **Pagination par curseur opaque (résout Q19-pagination)**, **porté par la mécanique** (le moteur le gère, pas le développeur) ; le curseur **embarque la version de schéma** (survit aux migrations à chaud via la chaîne de traduction) ; l'IHM générée consomme le même mécanisme. | Stable, performant, cohérent avec les id opaques (D75). Voir §5.5. |
-| D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés** (chaque ligne = 1 transaction / le lot = 1 transaction). **La description déclare les modes autorisés** ; le développeur API choisit parmi eux. | Un seul concept (esprit D92) ; structuration transactionnelle de premier ordre, contrainte par le méta-schéma. Voir §5.5. |
+| D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés**. **L'atomicité appartient au modèle** : la description déclare les **agrégats** (commande + lignes = indivisible par défaut) ; raffinement (ligne seule) **seulement si le modèle l'autorise** ; l'appelant **compose vers le haut** (une commande ou un ensemble de commandes par transaction), jamais en dessous du plancher. | Échelle : ligne (si autorisée) ⊂ agrégat (plancher déclaré) ⊂ transaction (appelant) ⊂ lot. Un seul concept (esprit D92). Agrégats détaillés au modèle de données (Q35, composition). Voir §5.5. |
 | D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
 | D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
 
@@ -494,13 +494,24 @@ unitaire, liste filtrée, intégralité paginée ; écriture unitaire ou par lot
      récursivité) ; chaque transaction est **atomique** (échec → annulation de
      toutes ses mises à jour), le lot **continue** sur les autres, **remontée par
      transaction**.
-  Chaque transaction porte la **cohérence métier** (l'appelant sait quelles
-  lignes forment un tout indivisible : une commande + ses lignes). **Double
-  gouvernance** : la **description déclare les modes autorisés** (propriété du
-  méta-schéma) ; le **développeur API choisit** son mode *parmi* ceux autorisés
-  — liberté sous contrainte déclarée. Le mode utilisé est explicite dans la
-  réponse. (Structuration transactionnelle de premier ordre — habituellement
-  laissée à la discrétion du développeur dans les SGBD.)
+  **L'atomicité appartient au modèle, pas à l'appelant (agrégats déclarés).**
+  La **description déclare les unités d'atomicité** — les *agrégats* : une
+  commande + ses lignes forment un tout indivisible. Règles :
+  - **par défaut, l'écriture porte sur l'agrégat entier** — impossible de mettre
+    à jour un entête de commande *seul*, sans ses lignes ;
+  - **raffinement conditionnel** : mettre à jour une ligne seule n'est possible
+    que **si le modèle l'autorise explicitement** ; sinon, la modification passe
+    par la mise à jour de la commande ;
+  - **composition libre vers le haut** : l'appelant choisit le périmètre de sa
+    transaction — *une* commande ou *un ensemble* de commandes.
+
+  Échelle de granularité : **ligne** (si autorisée) ⊂ **agrégat** (plancher,
+  déclaré) ⊂ **transaction** (choix de l'appelant, ≥ agrégat) ⊂ **lot**. *La
+  description fixe le plancher d'atomicité ; l'appelant groupe au-dessus, jamais
+  ne découpe en dessous.* La déclaration d'agrégat (commande *possède* ses
+  lignes) sera détaillée au **modèle de données** (Q35, relations de composition).
+  (Structuration transactionnelle de premier ordre — habituellement laissée à la
+  discrétion du développeur dans les SGBD.)
 
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
@@ -1434,7 +1445,7 @@ réévaluation.
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
-| ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés), modes autorisés déclarés dans la description, choix du développeur parmi eux. |
+| ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés) ; **atomicité portée par le modèle** (agrégats déclarés = plancher ; raffinement si autorisé ; composition libre vers le haut). |
 | ~~Q20~~ | ~~Connecteurs ?~~ | **Résolu** : identité (D78, D80–D82) ; données (D83–D87) ; relance (D88) ; **conflits bidirectionnels portés par le connecteur** (D89). Cadre = moteur, sémantique métier = connecteur. |
 | ~~Q21~~ | ~~Tâches — notification de fin ?~~ | **Résolu (D87)** : catalogue (D37) + notification au **déclencheur via son canal** — in-app (interface) ou webhook/callback (API). Trace technicien en parallèle. |
 | ~~Q22~~ | ~~Modèle de comptes et groupes ?~~ | **Résolu (D27–D29)** : groupes dans la description, comptes (techniques/nominatifs étanches) et affectations gérés par un administrateur via l'interface, AD en provisionnement optionnel — voir §5.6. |
@@ -1935,3 +1946,13 @@ avant la synthèse Q16).
   des versions (chaîne de traduction, journal de migrations) est indépendant des
   états de publication** — l'état gouverne l'appelabilité, jamais la
   traversabilité ; une version interdite reste un maillon.
+- **2026-07-02 (suite 4)** — D101 corrigé après précision de l'auteur :
+  **l'atomicité appartient au modèle, pas à l'appelant**. La description déclare
+  les **agrégats** (commande + lignes = indivisible) ; par défaut l'écriture porte
+  sur l'agrégat entier (pas d'entête seul) ; **raffinement conditionnel** (ligne
+  seule uniquement si le modèle l'autorise, sinon passer par la commande) ;
+  **composition libre vers le haut** (une transaction = une commande ou un
+  ensemble de commandes). Échelle : ligne ⊂ agrégat (plancher déclaré) ⊂
+  transaction (appelant) ⊂ lot. La déclaration d'agrégat rejoint le modèle de
+  données à venir (Q35, relations de composition). (L'ancienne formulation
+  « modes autorisés au choix » est retirée.)

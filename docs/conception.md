@@ -150,6 +150,7 @@ posée (voir §6).
 | D112 | **Multi-environnements (résout Q42)** : production (dernière version publiée) + **un staging par version bêta, instancié à la volée** (copie prod → **migration** D4–D9 vers la bêta) ; **API bêta (D103) redirigées** vers le staging ; à la validation → staging **supprimé**, production migrée (§4). | Le dry-run rendu durable et navigable ; migration répétée 2× avant la vraie bascule. Raffine D16 (une instance *de production* + éphémères/passive). RGPD : éphémérité + accès restreint. Voir §7.3. |
 | D113 | **Synchronisation prod → staging**, deux modes : **synchrone** (chaque écriture reportée, **traduite via la chaîne de versions** §5.1 — les instances sont à des versions différentes) ; **différé** (recréation sur sollicitation, fréquence à définir). | **4ᵉ usage du primitif de translation** (migrations, API, connecteurs, réplication inter-versions). Voir §7.3. |
 | D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
+| D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16 ; versionnement par module pressenti **non** (le schéma versionne d'un bloc, D93). Voir §3.2b. |
 
 ---
 
@@ -204,6 +205,24 @@ migrations:
           vers: nom_complet
           gabarit: "{prenom} {nom}"
 ```
+
+### 3.2b Hiérarchie des structures de données (D115)
+
+```
+Instance (1) ── organise ──► Schéma (1)
+Schéma ──── organise ──► Module (1..n)
+Module ──── organise ──► Entité (1..n)
+Entité ──── regroupe ──► Champ (1..n)
+```
+
+- **Une instance organise UN schéma** (singulier) : confirme D16 — le schéma
+  **est** la description, racine unique versionnée (estampille D93, journal de
+  migrations §3.2).
+- **Le module** : niveau d'organisation entre schéma et entités — rôles en
+  cours d'arbitrage (espace de noms, navigation IHM/Q48, activation, frontière
+  d'accès, partage inter-TPE, propriété moteur/métier pour les solutions
+  intégrées D44, versionnement — ce dernier pressenti **non** : le schéma
+  versionne d'un bloc).
 
 ### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
@@ -2173,3 +2192,12 @@ avant la synthèse Q16).
   Sous-questions : connecteur jetable vs permanent (cohabitation), traitement des
   rejets, import de l'historique d'origine (lien Q37). À traiter avec/après le
   modèle de données.
+- **2026-07-02 (suite 13)** — Ouverture du volet modèle de données par la
+  **hiérarchie des structures** (D115) : instance (1) → schéma (1) → modules
+  (1..n) → entités (1..n) → champs. Le singulier « une instance organise UN
+  schéma » confirme D16 (le schéma = la description, racine versionnée D93).
+  Le **module** = concept nouveau ; sept rôles candidats soumis à arbitrage
+  (espace de noms, navigation IHM/Q48, activation, frontière d'accès, partage
+  inter-TPE, modules moteur = solutions intégrées D44, versionnement — pressenti
+  non). Questions de frontière posées : références inter-modules (pressenti
+  libres) et composition/agrégats intra-module (pressenti oui).

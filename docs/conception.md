@@ -153,6 +153,9 @@ posée (voir §6).
 | D115 | **Hiérarchie des structures** : **instance (1) → schéma (1) → modules (1..n) → entités (1..n) → champs**. Le schéma est la **racine unique versionnée** ; le **module** est le niveau d'organisation nouveau (rôles 1–6 en arbitrage — §3.2b). | « Une instance organise UN schéma » confirme D16. Voir §3.2b. |
 | D116 | **Versionnement uniquement au niveau instance** (= son schéma, une seule horloge — pas de version par module/entité/champ) ; **composition intra-module** (l'agrégat D101 ne franchit pas le module = frontière de cohérence forte) ; **associations inter-modules libres**. | Distinction fondatrice pour Q35 : **composition** (possession forte, transactionnelle) vs **association** (lien souple). Estampille D93 inchangée. Voir §3.2b. |
 | D117 | **Six rôles du module** : (1) espace de noms (`module.entite.champ`) ; (2) unité de **navigation IHM** ; (3) unité d'**activation** par instance (écrans/API masqués, données conservées) ; (4) **frontière d'accès** (module entier → groupe) ; (5) unité de **partage** inter-TPE (import = migration ordinaire) ; (6) **modules moteur** (solutions intégrées D44) vs modules métier. | Le module répond en partie à Q48 (navigation) ; l'écosystème gagne son objet d'échange (rôle 5, AGPL D19) ; motif D52 (provenance) pour le rôle 6. Voir §3.2b. |
+| D118 | **Champ = donnée atomique**, **simple** (type de base + propriétés de stockage : taille, octets, précision, décimal avant/après virgule + limites de valeurs) ou **composée** (raffinement déclaratif : `montant` = décimal+devise, `email` = texte+format). Bibliothèque de composés **livrée + enrichissable** (D52/D68). | Types simples actés : texte, entier, réel, booléen, date-heure, fichier, énuméré. Voir §3.4. |
+| D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Voir §3.4. |
+| D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (règle en principe la coercition de Q47). Voir §3.4. |
 
 ---
 
@@ -320,6 +323,57 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
 mapping nommé ; classification **simple/complexe** des fonctions (D104).
+
+### 3.4 Types de champs (D118–D120 ; Q34 en cours)
+
+**Un champ = une donnée atomique (D118)**, de deux natures :
+- **Simple** : type de base + **propriétés de stockage** (taille de chaîne ;
+  entier 1/2/4/8 octets ; précision du réel ; *entier/réel* descriptibles comme
+  un **décimal** — chiffres avant/après la virgule) + **limites de valeurs**
+  (bornes, plage). Types simples actés : texte, entier, réel, booléen,
+  date et heure, fichier, énuméré.
+- **Composée** : combinaison/raffinement déclaratif — `montant` = décimal +
+  devise ; `email` = texte + format standard. Bibliothèque **livrée par
+  Syncytium et enrichissable par le technicien** (patron D52/D68).
+
+**Quatre facettes par type (D119)** — révélées par l'exemple de la date
+Cegid PMI (chaîne `AAAAMMJJ` chez PMI, stockée en entier 4 octets, affichée
+`JJ/MM/AAAA`, manipulée comme date) :
+
+| Facette | Rôle |
+|---|---|
+| **Logique** | la vérité canonique — langage D90, calculs, comparaisons |
+| **Stockage** | propriétés déclarées, ou mapping custom |
+| **Affichage** | IHM (composant D64, i18n Q45) |
+| **API** | sérialisation du contrat (ex. ISO 8601) |
+
+Une **donnée simple étendue par hook** déclare un stockage custom + une **paire
+de fonctions pures** `vers_stockage`/`depuis_stockage` (pureté D36, patron D52) —
+au service direct des connecteurs (D79/D83 : l'anti-corruption au niveau du type).
+
+**Règles de conversion portées par les types (D120)** — les types forment un
+**graphe de conversion**, clé d'interprétation aux frontières (API, IHM,
+translation) :
+
+| Classe | Exemple | Comportement |
+|---|---|---|
+| **Sûre (implicite)** | `entier → décimal`, `email → texte` | sans perte, **automatique aux frontières** |
+| **Explicite** | `décimal → entier` (arrondi), `montant → décimal` (perd la devise) | invoquée **explicitement** dans une expression (D90) |
+| **Faillible (contrôlée)** | `texte → entier`, `texte → email` (parsing/format) | peut **échouer** → erreur propre |
+
+Unifications : **valider un composé = tenter la conversion faillible depuis son
+type de base** (texte→email, texte→iban avec clé) — un seul mécanisme ; les
+**frontières** (JSON, saisie IHM, connecteurs) appliquent le graphe — sûres
+automatiques, jamais de coercition silencieuse (règle en principe la
+« coercition » de Q47) ; le **hook d'extension** = une arête de conversion
+custom du graphe.
+
+> **En attente d'arbitrage (Q34)** — propositions : types simples additionnels
+> (`date` seule, `heure` seule, `duree` ; propriété `multiple` sur l'énuméré) ;
+> composés livrés (`pourcentage`, `telephone`, `url`, `siren/siret` + Luhn,
+> `iban/bic` + mod 97, `tva_intra`, `mesure` = décimal+unité, `geolocalisation`,
+> `periode` ?) ; **devise de `montant`** = paramètre du champ à défaut
+> d'instance, variante `multi_devise` (devise saisie avec la valeur).
 
 ---
 
@@ -2243,3 +2297,16 @@ avant la synthèse Q16).
   conservées), frontière d'accès (module → groupe), partage inter-TPE (l'import
   d'un module = une migration ordinaire ; objet d'échange de l'écosystème AGPL),
   modules moteur (solutions intégrées D44) vs modules métier (motif D52).
+- **2026-07-02 (suite 16)** — Modèle de types (D118–D120, nouveau §3.4, Q34 en
+  cours). **Champ = donnée atomique**, simple (type de base + propriétés de
+  stockage et limites) ou **composée** (montant = décimal+devise, email =
+  texte+format ; bibliothèque livrée + enrichissable). **Quatre facettes**
+  (logique / stockage / affichage / API — exemple fondateur : date Cegid PMI) ;
+  **extension par hook** = paire de fonctions pures vers/depuis le stockage.
+  **Règles de conversion portées par les types** (ajout de l'auteur) : graphe à
+  trois classes — sûre (automatique aux frontières), explicite (arrondi,
+  troncature, perte de devise), faillible (parsing, échec propre). Unifications :
+  valider un composé = conversion faillible depuis sa base ; frontières
+  API/IHM/connecteurs systématiques ; coercition de Q47 réglée en principe.
+  Propositions en attente : date/heure/duree, énuméré multiple, liste des
+  composés livrés, devise en paramètre à défaut d'instance.

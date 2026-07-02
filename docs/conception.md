@@ -146,6 +146,7 @@ posée (voir §6).
 | D108 | **Canaux de notification = connecteurs** (built-in + hooks du technicien, D52). *« Le connecteur est le vecteur, la configuration porte le contenant »* : **modèles de messages = paramètres du connecteur** (gabarits D90 : titre, destinataire, contenu, pièces jointes). | Résout Q46 (canaux + templates). Voir §8.5. |
 | D109 | **Canaux autorisés déclarés dans la description** ; l'utilisateur **choisit via son profil** parmi les canaux qui lui sont autorisés. | Double gouvernance (le modèle borne, l'utilisateur choisit). Voir §8.5. |
 | D110 | **Notification persistée d'abord (entité du méta-modèle), puis remise** (patron **outbox**) : remise externe = tâche de propagation (D85/D87), **livraison garantie** (jamais perdue, au pire en attente, visible en supervision D56) ; **historique conservé** avec rétention à durée max (patron D41/D55). | In-app = lecture du magasin ; confidentialité automatique (appartenance D71). Clôt Q46. Voir §8.5. |
+| D111 | **Concurrence état-avant/état-après (résout Q41)** — mécanisme **unique IHM+API**, jeton de concurrence = **état-avant, au grain du champ** : création → premier gagne (409, IHM garde la saisie) ; modification → diff avant/après, champs différents fusionnent, même champ = conflit (409 + détail), **un conflit rejette l'agrégat** (D101), contrainte cassée = conflit ; suppression première → modification rejetée (410 Gone). | Fusion par champ (mieux qu'un rejet global par version) ; diff journalisable (pont Q37) ; ABA accepté (TPE) ; ETag D45 = cache lecture seulement ; SSE = désamorçage amont. Voir §5.5. |
 
 ---
 
@@ -533,6 +534,29 @@ unitaire, liste filtrée, intégralité paginée ; écriture unitaire ou par lot
   lignes) sera détaillée au **modèle de données** (Q35, relations de composition).
   (Structuration transactionnelle de premier ordre — habituellement laissée à la
   discrétion du développeur dans les SGBD.)
+
+**Concurrence — état-avant / état-après (D111, résout Q41).** Mécanisme
+**unique IHM + API** (ni verrou pessimiste, ni version côté écriture) :
+l'**état-avant sert de jeton de concurrence, au grain du champ**.
+
+- **Création** : doublon sur une clé → le **premier créateur gagne** ; le second
+  est notifié, création non validée. API : **409 Conflict** ; IHM : l'utilisateur
+  **reste sur son écran** (saisie intacte), message précis.
+- **Modification** : l'appelant envoie **l'état avant + l'état après** ; le moteur
+  déduit le diff → **seuls les champs modifiés sont écrits**. Champs *différents*
+  d'une même fiche → **fusion sans conflit** ; *même champ* → premier écrit,
+  second notifié. Transaction = agrégat (D101) → **un champ en conflit rejette
+  l'agrégat entier**. **Champs liés par une contrainte** (déclarée au méta-modèle,
+  cf. Q36) : casser la contrainte = conflit = rejet. API : **409 + détail des
+  champs en conflit** (attendu vs courant) ; IHM : notification précise, saisie
+  conservée.
+- **Suppression** : une modification arrivant après la suppression est **rejetée**
+  (la suppression était première). API : **410 Gone**.
+- Notes : le diff explicite (avant→après) est **directement journalisable**
+  (pont vers Q37, audit des modifications) ; cohérent avec D92 (mapping de
+  valeurs nommées) ; cas *ABA* accepté (échelle TPE, prix de la fusion par
+  champ) ; l'**ETag (D45) reste pour le cache en lecture** ; l'avertissement
+  temps réel (SSE §4.5) demeure le désamorçage en amont.
 
 **Connecteurs (D23) — deux familles (D78, D79).** Le moteur définit une
 **interface de connecteur** (contrat de plugin, D52) ; chaque système externe a
@@ -1541,7 +1565,7 @@ avant la synthèse Q16).
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
-| Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
+| ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
@@ -2063,3 +2087,15 @@ avant la synthèse Q16).
   tri, regroupements — l'architecture IHM D63–D69 est décrite, son contenu
   fonctionnel non). Constat : l'IHM est décrite « à moitié » — architecture oui,
   contenu fonctionnel à traiter avec le modèle de données (Q34 → D64).
+- **2026-07-02 (suite 9)** — Séquencement : Q47 confirmée **après** le modèle de
+  données (les fonctions opèrent sur les types) ; **Q37 rattachée au thème A**
+  (modèle de données), point de vue de l'auteur à venir. **Q41 résolue (D111)**
+  par une **troisième voie** proposée par l'auteur : concurrence
+  **état-avant/état-après**, mécanisme unique IHM+API, jeton de concurrence au
+  **grain du champ** — création : premier gagne (409, l'IHM conserve la saisie) ;
+  modification : diff avant/après, seuls les champs modifiés écrits, champs
+  disjoints fusionnent, même champ = conflit, un conflit rejette l'agrégat
+  entier (D101), contrainte inter-champs cassée = conflit (lien Q36) ;
+  suppression première → modification rejetée (410 Gone). Diff journalisable
+  (pont vers Q37) ; ABA accepté ; ETag limité au cache lecture ; SSE en
+  désamorçage amont.

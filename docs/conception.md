@@ -155,7 +155,7 @@ posée (voir §6).
 | D117 | **Six rôles du module** : (1) espace de noms (`module.entite.champ`) ; (2) unité de **navigation IHM** ; (3) unité d'**activation** par instance (écrans/API masqués, données conservées) ; (4) **frontière d'accès** (module entier → groupe) ; (5) unité de **partage** inter-TPE (import = migration ordinaire) ; (6) **modules moteur** (solutions intégrées D44) vs modules métier. | Le module répond en partie à Q48 (navigation) ; l'écosystème gagne son objet d'échange (rôle 5, AGPL D19) ; motif D52 (provenance) pour le rôle 6. Voir §3.2b. |
 | D118 | **Champ = donnée atomique**, **simple** (type de base + propriétés de stockage : taille, octets, précision, décimal avant/après virgule + limites de valeurs) ou **composée** (raffinement déclaratif : `montant` = décimal+devise, `email` = texte+format). Bibliothèque de composés **livrée + enrichissable** (D52/D68). | Types simples actés : texte, entier, réel, booléen, date-heure, fichier, énuméré. Voir §3.4. |
 | D119 | **Quatre facettes par type** : **logique** (canonique — langage/calculs), **stockage** (propriétés ou mapping custom), **affichage** (IHM/i18n), **API** (sérialisation). **Extension par hook** = paire de fonctions pures `vers_stockage`/`depuis_stockage` (ex. date Cegid PMI : entier `AAAAMMJJ` ↔ date). | L'anti-corruption au niveau du type, au service des connecteurs (D79/D83). Voir §3.4. |
-| D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (règle en principe la coercition de Q47). Voir §3.4. |
+| D120 | **Règles de conversion portées par les types** — graphe de conversion à trois classes : **sûre** (implicite, automatique aux frontières), **explicite** (paramétrée/à perte, invoquée dans une expression), **faillible** (parsing/format, échec propre). **La conversion faillible = moteur de l'import** (Q49, CSV/Excel) : le dry-run d'import = exécution à blanc des conversions, rapport cellule par cellule. | Unifie : **valider un composé = conversion faillible depuis sa base** ; frontières API/IHM/connecteurs systématiques ; pas de coercition silencieuse (Q47 en principe) ; import CSV/Excel = connecteur en lecture (D79) + hot folder (D106). Voir §3.4. |
 
 ---
 
@@ -367,6 +367,17 @@ type de base** (texte→email, texte→iban avec clé) — un seul mécanisme ; 
 automatiques, jamais de coercition silencieuse (règle en principe la
 « coercition » de Q47) ; le **hook d'extension** = une arête de conversion
 custom du graphe.
+
+**La conversion faillible = le moteur de l'import (précision 02/07/2026, lien
+Q49).** L'initialisation depuis une base tierce ou l'import d'un **CSV/Excel**
+est l'application massive du graphe : chaque cellule brute tente sa conversion
+faillible vers le type du champ cible ; les **échecs produisent le rapport
+d'import** cellule par cellule (« ligne 47, colonne date_livraison :
+"31/02/2024" inconvertible ») — le **dry-run d'import** (Q49) est littéralement
+l'exécution à blanc des conversions. La détection (conversion) est ainsi séparée
+du traitement des rejets (politique Q49 : source / règle en vol / quarantaine).
+L'import CSV/Excel = **connecteur de données en lecture** (D79), déclenchable
+par hot folder (D106).
 
 > **En attente d'arbitrage (Q34)** — propositions : types simples additionnels
 > (`date` seule, `heure` seule, `duree` ; propriété `multiple` sur l'énuméré) ;
@@ -1712,7 +1723,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption (une TPE a toujours un existant). Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **dry-run d'import avec rapport** (D7/§4.1) + tâche à progression (D55) + UUID (D82) + estampille posée à l'issue (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
+| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2310,3 +2321,10 @@ avant la synthèse Q16).
   API/IHM/connecteurs systématiques ; coercition de Q47 réglée en principe.
   Propositions en attente : date/heure/duree, énuméré multiple, liste des
   composés livrés, devise en paramètre à défaut d'instance.
+- **2026-07-02 (suite 17)** — Précision de l'auteur sur D120 : **la conversion
+  faillible est le moteur de l'import** — initialisation depuis une base tierce
+  (Q49) et **import CSV/Excel**. Chaque cellule brute tente sa conversion vers le
+  type cible ; les échecs produisent le **rapport d'import cellule par cellule** ;
+  le dry-run d'import = exécution à blanc des conversions. Détection (conversion)
+  séparée du traitement des rejets (politique Q49). Import CSV/Excel = connecteur
+  en lecture (D79) + hot folder (D106).

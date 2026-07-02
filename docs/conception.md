@@ -162,7 +162,8 @@ posée (voir §6).
 | D124 | **Identité du champ** : **nom = invariant** (référencé partout ; renommage = migration D4) ; **libellés = variantes traduites** (écran responsive, colonne tableau, colonne CSV) ; **langue au profil utilisateur, pas à l'instance** ; **descriptions courte** (bulle) **et longue** (aide), **exploitables par des IA**. | Patron identifiant stable (D96) ; première décision de Q45 (i18n) ; le méta-schéma (D44) devient documentation sémantique pour assistants. Voir §3.4. |
 | D125 | **Fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** : une valeur / un jeu de valeurs / un comparateur. Types sans ordre naturel = **non triables** ; composés : comparaison définie par le type. | C'est le langage de filtre contraint attendu par Q38 (champ+opérateur+valeur — jamais D90 exposé). Voir §3.4. |
 | D126 | **Tables IHM** : champs **filtrables déclarés à la table** (la vue) ; **tris multi-clés** (combinaisons de colonnes). | Avec l'anti-oracle (Q38), le **cœur de Q38 est résolu** (résiduels : plein-texte, recherche globale). Voir §3.4. |
-| D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut** ; borne proposée : présentation seulement (structure = technicien). Voir §3.4. |
+| D127 | **Libellés à deux couches** : défauts **par langue dans la description** + **surcharges en base**, modifiables en vie courante par un **responsable métier** (nouveau rôle moteur, famille D95/D33). Chaîne de résolution : surcharge → défaut (langue du profil) → langue de repli → nom technique. **Borne actée : la surcharge métier se limite à la présentation** — tout le reste au technicien. | Patron D31 (structure/description vs adaptations/données) ; surcharge rattachée au **nom invariant** (survit aux migrations) et **prioritaire sur tout défaut**. Voir §3.4. |
+| D128 | **Valeur de démonstration** dans le profil de champ (bloc Valeurs) : affichée dans le champ comme exemple (placeholder IHM). | Sert aussi les **exemples de la doc API** générée et l'**exploitation par les IA** (complète les descriptions D124) ; les types sémantiques livrent la leur, surchargeable au champ. Voir §3.4. |
 
 ---
 
@@ -412,7 +413,7 @@ D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
 | **Identité (D124)** | **nom = invariant** (référencé par calculs/tâches/API ; renommage = migration D4) ; **libellés** = identifiant décliné en **variantes traduites** (écran — variable selon le responsive —, colonne de tableau, colonne CSV) ; **description courte** (bulle IHM) + **description longue** (aide) — **exploitables par des IA** (le méta-schéma D44 devient documentation sémantique) |
 | **Type** | simple / composé / surchargé (D118, D123) + 4 facettes (D119) + conversions (D120) |
 | **Contraintes** | obligatoire, unique, limites de valeurs, format (D118) |
-| **Valeurs** | défaut (D13/D35), calculé (D35–D36) |
+| **Valeurs** | défaut (D13/D35), calculé (D35–D36), **valeur de démonstration (D128)** — placeholder IHM, exemples de la doc API générée, échantillon pour les IA ; les types sémantiques livrent la leur (email → `nom@domaine.fr`), surchargeable au champ |
 | **Comparaison (D125)** | **fonction de comparaison intrinsèque au type** → fonde le **tri** ; réutilisée par le **filtre** (une valeur / un jeu de valeurs / un comparateur) ; types sans ordre naturel (géolocalisation) = **non triables par nature** ; composés : comparaison définie par le type (montant : à devise comparable, D120 arbitre) |
 | **Accès** | confidentialité (D25), lecture/écriture par audience (D73), groupes (D26) |
 | **Observation** | seuils de télémétrie (D49) |
@@ -436,9 +437,10 @@ de Q45.
 - **Chaîne de résolution** : surcharge (langue du profil) → défaut description
   (langue du profil) → langue de repli de l'instance → nom technique — jamais
   d'écran troué.
-- **Borne proposée** : la surcharge métier couvre la **présentation** (libellés
-  toutes variantes, descriptions, formats d'affichage) ; la **structure** (nom,
-  type, contraintes, stockage) reste à la description/au technicien.
+- **Borne actée (02/07/2026)** : la surcharge métier **se limite à la
+  présentation** (libellés toutes variantes, descriptions, formats d'affichage) ;
+  **tout le reste est à la charge du technicien** (nom, type, contraintes,
+  stockage — par la description et les migrations).
 - Cohérences : patron D31 (*structure dans la description, adaptations dans les
   données*) ; surcharge **rattachée au nom invariant** (D124) → survit aux
   migrations (un renommage la suit) ; **la surcharge bat toujours le défaut**,
@@ -2432,3 +2434,8 @@ avant la synthèse Q16).
   Chaîne de résolution avec replis (jamais d'écran troué) ; surcharge rattachée
   au nom invariant (survit aux migrations, prioritaire sur tout défaut).
   Borne proposée à valider : surcharge = présentation seulement.
+- **2026-07-02 (suite 22)** — **Borne de D127 actée** : la surcharge métier se
+  limite à la **présentation**, tout le reste au technicien. **Valeur de
+  démonstration ajoutée au profil de champ (D128)** : placeholder IHM, exemples
+  de la doc API générée, échantillon pour les IA (complète les descriptions
+  D124) ; les types sémantiques livrent la leur, surchargeable au champ.

@@ -147,6 +147,9 @@ posée (voir §6).
 | D109 | **Canaux autorisés déclarés dans la description** ; l'utilisateur **choisit via son profil** parmi les canaux qui lui sont autorisés. | Double gouvernance (le modèle borne, l'utilisateur choisit). Voir §8.5. |
 | D110 | **Notification persistée d'abord (entité du méta-modèle), puis remise** (patron **outbox**) : remise externe = tâche de propagation (D85/D87), **livraison garantie** (jamais perdue, au pire en attente, visible en supervision D56) ; **historique conservé** avec rétention à durée max (patron D41/D55). | In-app = lecture du magasin ; confidentialité automatique (appartenance D71). Clôt Q46. Voir §8.5. |
 | D111 | **Concurrence état-avant/état-après (résout Q41)** — mécanisme **unique IHM+API**, **compare-and-swap par champ** : modification (avant≠après) autorisée **ssi valeur-avant = valeur en base** ; champs inchangés ni écrits ni contrôlés (→ fusion des disjoints) ; même champ = conflit (409 + détail), **un conflit rejette l'agrégat** (D101), contrainte cassée = conflit ; création → premier gagne (409) ; suppression première → modification rejetée (410 Gone). | Fusion par champ ; diff journalisable (pont Q37) ; **ABA bénin par construction** (modèle par valeurs — chaque transition validée, l'historique relève de l'audit) ; ETag D45 = cache lecture ; SSE = désamorçage amont. Voir §5.5. |
+| D112 | **Multi-environnements (résout Q42)** : production (dernière version publiée) + **un staging par version bêta, instancié à la volée** (copie prod → **migration** D4–D9 vers la bêta) ; **API bêta (D103) redirigées** vers le staging ; à la validation → staging **supprimé**, production migrée (§4). | Le dry-run rendu durable et navigable ; migration répétée 2× avant la vraie bascule. Raffine D16 (une instance *de production* + éphémères/passive). RGPD : éphémérité + accès restreint. Voir §7.3. |
+| D113 | **Synchronisation prod → staging**, deux modes : **synchrone** (chaque écriture reportée, **traduite via la chaîne de versions** §5.1 — les instances sont à des versions différentes) ; **différé** (recréation sur sollicitation, fréquence à définir). | **4ᵉ usage du primitif de translation** (migrations, API, connecteurs, réplication inter-versions). Voir §7.3. |
+| D114 | **PCA/PRA** : le même mécanisme de synchronisation entre **deux instances de production de même version** (active/passive) ; **bascule manuelle par le client** en cas de coupure. | Réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD — D18) ; cohérence à la bascule via l'estampille D93. Voir §7.3. |
 
 ---
 
@@ -1140,6 +1143,39 @@ d'exposition publique massive. Conséquences :
   remontée agrégée vers l'éditeur serait techniquement possible mais strictement
   **opt-in**.
 
+### 7.3 Environnements et continuité (D112–D114, résout Q42)
+
+**Multi-environnements (D112).** Préconisation aux clients :
+- un environnement de **production** portant la **dernière version publiée** ;
+- **un environnement de staging par version bêta**, **instancié à la volée** :
+  copie de la production → **migration** (mécanisme D4–D9) vers la version bêta
+  — *le dry-run rendu durable et navigable*. Les **API bêta (D103) sont
+  redirigées** vers l'instance de staging (la sollicitation explicite D98 trouve
+  sa destination) ;
+- **à la validation de la bêta** : l'instance de staging est **supprimée**, la
+  production est migrée par le cycle §4 (migration ainsi répétée deux fois —
+  dry-run + vie en staging — avant la vraie bascule).
+
+**Synchronisation production → staging (D113), deux modes :**
+- **synchrone** : chaque écriture en production est **reportée** vers le staging —
+  **traduite à travers la chaîne de versions** (§5.1), les deux instances étant à
+  des versions différentes → **4ᵉ usage du primitif de translation** (migrations,
+  API, connecteurs, réplication inter-versions) ;
+- **différé** : recréation du staging **sur sollicitation** (admin/technicien) à
+  une fréquence à définir (ex. 1×/jour), via le mécanisme d'instanciation D112.
+
+**Continuité d'activité — PCA/PRA (D114).** Le même mécanisme de synchronisation,
+appliqué entre **deux instances de production de même version** (active/passive),
+donne la continuité : **bascule manuelle par le client** en cas de coupure.
+Atouts : réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD —
+D18) ; cohérence protégée à la bascule par l'estampille D93.
+
+**Caveats consignés** : D16 se raffine — « une instance *de production* par TPE »
++ instances **éphémères** (staging) + éventuellement une **passive** ; chaque
+instance reste mono-serveur (D15). **RGPD** : le staging porte des données
+réelles — garde-fous : éphémérité (suppression à la validation) + accès restreint
+(technicien/testeurs) ; à documenter chez le client (responsable de traitement).
+
 ---
 
 ## 8. Extensibilité — hooks et plugins (D23, D32, D36–D37, D52)
@@ -1573,7 +1609,7 @@ avant la synthèse Q16).
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
-| Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
+| ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2114,3 +2150,16 @@ avant la synthèse Q16).
   transition intermédiaire a été validée, la prémisse de l'écrivain est vraie au
   moment de l'écriture, l'historique des transitions relève de l'audit (Q37) et
   une règle dépendant du chemin serait une contrainte (Q36).
+- **2026-07-02 (suite 11)** — Q42 résolue (D112–D114, nouveau §7.3) par le modèle
+  multi-environnements de l'auteur : **production** (dernière version publiée) +
+  **un staging par version bêta instancié à la volée** (copie prod → migration
+  D4–D9 — le dry-run rendu durable et navigable) ; **API bêta (D103) redirigées**
+  vers le staging ; à la validation, staging supprimé et production migrée (§4).
+  **Synchronisation** prod→staging : synchrone (chaque écriture **traduite via la
+  chaîne de versions** — 4ᵉ usage du primitif de translation) ou différée
+  (recréation périodique sur sollicitation). Même mécanisme entre deux instances
+  de production de même version = **PCA/PRA** (actif/passif, bascule manuelle
+  client ; réplication tech-agnostique D18, cohérence par estampille D93).
+  Caveats : D16 raffiné (une instance *de production* + éphémères/passive, chaque
+  instance mono-serveur D15) ; RGPD staging (éphémérité + accès restreint).
+  **Le thème B (exploitation) de l'audit est entièrement clos.**

@@ -1547,10 +1547,12 @@ avant la synthèse Q16).
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
-| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
-| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire. | Pilier du méta-schéma ; précise D90. |
-| Q38 | **Recherche & filtrage** dans l'IHM générée : plein-texte ? langage de filtre ? sur quels champs. | Complète l'IHM générée (D64) et le filtrage (D46/D66). |
+| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
+| **E — UI/UX (regroupe l'affichage)** | | |
+| Q38 | **Recherche & filtrage** : plein-texte ? portée (par entité / globale) ? quels champs interrogeables/triables (attribut déclaratif par champ, patron D49/D50) ? | Deux contraintes déjà identifiées : le **langage de filtre exposé ≠ D90** (utilisateurs/consommateurs non maîtrisés → sous-ensemble contraint champ+opérateur+valeur, OU/ET simples) ; **on ne filtre/trie que ce qu'on peut lire** (anti-oracle : niveau D25 + audience D70). |
+| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
+| Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
 
 ---
 
@@ -2052,3 +2054,12 @@ avant la synthèse Q16).
   en supervision) → **livraison garantie**, historique à rétention max (patron
   D41/D55), in-app = lecture du magasin, confidentialité automatique par
   appartenance D71 (D110).
+- **2026-07-02 (suite 8)** — Nouveau thème **E — UI/UX** dans les lacunes de
+  l'audit, regroupant l'affichage : **Q38** (recherche & filtrage — enrichie de
+  deux contraintes : langage de filtre exposé = sous-ensemble contraint, pas D90 ;
+  anti-oracle : on ne filtre que ce qu'on peut lire), **Q45** (i18n, déplacée
+  depuis D, étendue à la langue des notifications), et **Q48** (nouvelle :
+  **organisation de l'IHM générée** — écrans, navigation/menus, vues par défaut,
+  tri, regroupements — l'architecture IHM D63–D69 est décrite, son contenu
+  fonctionnel non). Constat : l'IHM est décrite « à moitié » — architecture oui,
+  contenu fonctionnel à traiter avec le modèle de données (Q34 → D64).

@@ -177,6 +177,7 @@ posée (voir §6).
 | D139 | **Anonymisation déclarée sur l'entité** (RGPD) : pas de suppression physique — le droit à l'effacement = **procédure d'anonymisation**, règle **déclarée sur l'entité dans le modèle** (champs + substitutions, langage D90). **Irréversible** ; opération d'administration auditée (D62). | **L'intégrité référentielle survit à l'effacement** (l'anonymisé existe toujours — D137+D139 rendent le RGPD compatible avec « jamais de référence pendante » D138). Apport au méta-schéma : règle d'anonymisation par entité. Voir §3.5. |
 | D140 | **Réactivation d'un inactif** : possible, **par l'administrateur de l'instance**, **sous conditions** — dont le **contrôle de collision de clés** (refus si duplication d'une clé d'un actif ; résolution préalable). | Pendant de D96 pour les données ; rendue nécessaire par D141. Voir §3.5. |
 | D141 | **Unicité sur les enregistrements actifs uniquement** — les inactifs peuvent porter des **doublons de clés**. | Permet « supprimer » puis recréer avec la même clé (email) ; justifie la condition de D140. Voir §3.5. |
+| D142 | **Identité d'un enregistrement (résout Q51)** : **technique** = UUID interne **invariant à vie** (généralise D75/D82 — références, audit, chemins, concurrence) vs **fonctionnelle** = clés métier (actifs seulement, D141). Recréer = **nouvelle** identité ; réactiver = **la même** ; anonymiser = efface la fonctionnelle, **préserve la technique**. | Le squelette référentiel survit à tout ; patron D82 généralisé aux entités synchronisées (clé d'unicité externe → UUID, Q49). Voir §3.5. |
 
 ---
 
@@ -613,6 +614,20 @@ demande, marquage visuel). Conséquences :
 - **Unicité sur les actifs uniquement (D141)** : les enregistrements inactifs
   **peuvent porter des doublons de clés** — on peut « supprimer » un client et
   en recréer un avec le même email ; d'où la condition de D140.
+
+**Identité d'un enregistrement (D142, résout Q51).** Deux identités, deux rôles :
+- **technique** = l'**UUID interne, invariant à vie** (généralise D75/D82 à tout
+  enregistrement) — traverse actif → inactif → réactivé → anonymisé ; porteur
+  des **références** (D136/D138 — jamais la clé métier), de l'**audit** (Q37),
+  des **chemins** (D71) et de la **concurrence** (D111) ;
+- **fonctionnelle** = les **clés métier** (email, référence…), valides **parmi
+  les actifs seulement** (D141).
+Conséquences : **recréer** (même clé qu'un inactif) = **nouvelle identité** ;
+**réactiver** (D140) = **la même** ; **anonymiser** (D139) = effacer la
+fonctionnelle, **préserver la technique** (le squelette référentiel demeure).
+Pour les entités synchronisées/importées (Q49) : généralisation du patron D82 —
+chaque entité déclare sa **clé d'unicité externe** → rapprochement vers l'UUID
+(clé immuable en priorité, re-liaison admin).
 
 **Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
 clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
@@ -1957,7 +1972,8 @@ avant la synthèse Q16).
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
-| Q51 | **Identité d'un enregistrement** (ajout 03/07/2026, soulevée par le soft delete D137) : que désigne « le même enregistrement » à travers inactivation, réactivation, anonymisation, recréation ? | **Proposition sur la table** : identité **technique** = UUID interne invariant à vie (généralise D75/D82 — porteur des références, de l'audit, de la concurrence) vs identité **fonctionnelle** = clés métier, valides parmi les actifs (D141) ; recréer = nouvelle identité ; réactiver = la même ; anonymiser = efface la fonctionnelle, préserve la technique. |
+| ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
+| Q52 | **Héritage d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : entité **parente** (abstraite ou concrète) dont héritent des spécialisations (champs communs + propres — `tiers` → `client`/`fournisseur`) ? **polymorphisme des références** (une référence vers `tiers` acceptant ses spécialisations) ? représentation en persistance déléguée à l'abstraction (D18) ? | Pendant côté **entités** de la surcharge par restriction des **types** (D123) ; complète le triptyque objet avec Q50 (encapsulation). En attente des précisions de l'auteur. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2668,3 +2684,9 @@ avant la synthèse Q16).
   nouvelle identité, réactiver = la même, anonymiser = efface la fonctionnelle
   et préserve la technique ; généralisation du patron D82 (clé d'unicité
   externe → UUID) aux entités synchronisées (Q49).
+- **2026-07-03 (suite 4)** — **Q51 validée et close (D142)** : identité technique
+  (UUID invariant à vie) vs fonctionnelle (clés métier, actifs seulement) —
+  recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle
+  et préserve la technique. **Q52 ajoutée** (héritage d'une entité — à développer
+  par l'auteur ; pendant côté entités de la surcharge par restriction des types
+  D123 ; complète le triptyque objet avec Q50).

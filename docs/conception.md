@@ -139,6 +139,8 @@ posée (voir §6).
 | D101 | **Lots = lots de transactions (résout Q19-lots)** : un lot contient des **transactions** (1 niveau de récursivité) — chaque transaction **atomique**, le lot **continue** sur échec d'une transaction, **remontée par transaction**. Ligne-à-ligne et tout-ou-rien = **cas dégénérés**. **L'atomicité appartient au modèle** : la description déclare les **agrégats** (commande + lignes = indivisible par défaut) ; raffinement (ligne seule) **seulement si le modèle l'autorise** ; l'appelant **compose vers le haut** (une commande ou un ensemble de commandes par transaction), jamais en dessous du plancher. | Échelle : ligne (si autorisée) ⊂ agrégat (plancher déclaré) ⊂ transaction (appelant) ⊂ lot. Un seul concept (esprit D92). Agrégats détaillés au modèle de données (Q35, composition). Voir §5.5. |
 | D102 | **Héritage de confidentialité des champs calculés (résout Q23)** : niveau **le plus restrictif des sources** par défaut (fail-closed, y compris via relations et `sources` des hooks) ; **abaissement explicite obligatoire**, signalé par la validation (jamais silencieux). | La sécurité niveau ligne (D70–D77) s'applique indépendamment (orthogonalité D72). Esprit `rupture_assumee` (D13). |
 | D103 | **Cycle de vie des versions (précise D99)** — quatre états : **publiée officielle** (appelable, épinglable), **publiée bêta** (sollicitation explicite par en-tête D98 seulement, non épinglable), **interdite** (426), **dépréciée** (426, sous D94). **L'enchaînement des versions est indépendant de la publication** : la chaîne de traduction traverse toutes les versions (journal de migrations = colonne vertébrale). | *L'état gouverne l'appelabilité, jamais la traversabilité.* La bêta s'emboîte avec le mécanisme d'essai D98. Voir §5.8. |
+| D104 | **Garde-fous d'exécution (résout Q43)** : **pas de timeout sur les fonctions « simples »** du langage ; **timeout paramétrable sur les fonctions « complexes »** — classification portée par le **catalogue de fonctions** (méta-schéma). Gardes existants inchangés (D36 hooks, D55 heartbeat des tâches, D69 IHM, D7 dry-run). | Les fonctions sont implémentées par le concepteur de Syncytium → risque non uniforme ; zéro surcoût sur le chemin chaud. Voir §3.3. |
+| D105 | **Rate limiting global (Q44 partiel)** : **15 req/sec** en défaut global d'instance, **surcharge par compte technique** (interface d'administration, comme la version épinglée D98) ; réponse **429 + `Retry-After`**. | Fusible de disponibilité **externe** du mono-serveur (pendant du fusible interne D104) ; distinct du cooldown par tâche (D58) et de la détection a posteriori (D43/D47). Reste Q44 : mécanisme d'authentification (clé API rotative proposée, à confirmer). |
 
 ---
 
@@ -244,9 +246,23 @@ nommées. Le cas « une seule valeur » est le cas dégénéré. Conséquences :
 - l'**inverse** (D91) se relit comme la symétrie entrées/sorties : 1 → N
   (éclatement) ↔ N → 1 (fusion).
 
+**Garde-fous d'exécution (D104, résout Q43).** Les fonctions du langage sont
+**implémentées par le concepteur de Syncytium** — le risque n'est pas uniforme :
+- fonctions **« simples »** (regex, gabarit, transcodage, arithmétique…) :
+  **pas de timeout** — zéro surcoût sur le chemin chaud ;
+- fonctions **« complexes »** (durée légitime possible — agrégats larges,
+  lookups…) : **timeout paramétrable**, à la main du concepteur ;
+- la classification **simple/complexe est portée par le catalogue de fonctions**
+  (propriété du méta-schéma ; Q47 en hérite).
+
+Gardes existants inchangés : hooks de calcul → délai max (D36) ; tâches →
+**heartbeat** (D55 — une tâche longue mais vivante progresse, une tâche morte est
+tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-run
+(D7) reste le filet des regex pathologiques sur données réelles.
+
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
-mapping nommé.
+mapping nommé ; classification **simple/complexe** des fonctions (D104).
 
 ---
 
@@ -1478,8 +1494,8 @@ avant la synthèse Q16).
 | Q41 | **Concurrence & verrouillage** : édition simultanée d'un enregistrement (~20 utilisateurs) — optimiste (version) vs pessimiste. | Non traité ; conflit d'écriture interne (distinct des conflits connecteurs D89). |
 | Q42 | **Environnement de test / pré-production** : valider une description avant déploiement à chaud, au-delà du dry-run migration (D7) — staging ? | Réduit le risque du déploiement à chaud. |
 | **C — Sécurité d'exécution** | | |
-| Q43 | **Robustesse d'exécution** — modèle de menace = **code technicien de confiance + données potentiellement adverses**. **Pas** de limites rigides ni de moteur regex restreint (préserver ouverture/perf) ; garde-fou **léger et configurable** = **timeout par évaluation** (fusible mono-serveur, D15) ; le **dry-run (D7)** attrape déjà les regex pathologiques sur données réelles. Reste : valeurs par défaut, isolation minimale. | Éviter qu'une évaluation runaway fige toute l'instance (disponibilité), sans brider la performance nominale. |
-| Q44 | **Authentification API & débit global** : schéma d'auth (clés API, **OAuth** pour on-behalf-of D76), rate limiting global (le cooldown D58 est par-tâche). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
+| ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
+| Q44 | **Authentification API & débit global** — rate limiting **résolu (D105)** : 15 req/sec défaut global + surcharge par compte, 429 + `Retry-After`. **Reste** : le mécanisme d'**authentification** (proposition : clé API **rotative** par défaut, déclinable via le cadre D78 — OAuth2 client credentials, mTLS — pour le on-behalf-of D76). | Sécurité de la surface API face aux consommateurs non maîtrisés. |
 | **D — Transverses** | | |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires. | Framework destiné à plusieurs TPE. |
 | Q46 | **Infrastructure de notifications** (au-delà de D87) : canaux (e-mail, in-app), préférences, modèles. | Support de la notification déclencheur (D87) et des alertes (D43 sécurité, D45 conseil). |
@@ -1956,3 +1972,13 @@ avant la synthèse Q16).
   transaction (appelant) ⊂ lot. La déclaration d'agrégat rejoint le modèle de
   données à venir (Q35, relations de composition). (L'ancienne formulation
   « modes autorisés au choix » est retirée.)
+- **2026-07-02 (suite 5)** — Fusibles de disponibilité (résout Q43, avance Q44).
+  **D104** : pas de timeout sur les fonctions **simples** du langage (implémentées
+  par le concepteur, chemin chaud sans surcoût) ; timeout **paramétrable** sur les
+  fonctions **complexes** — classification portée par le catalogue de fonctions
+  (méta-schéma, hérité par Q47). Gardes existants inchangés (D36 délai hooks, D55
+  heartbeat tâches — rappel des 5 déclencheurs D54 fourni à l'auteur, D69 IHM, D7
+  dry-run). **D105** : rate limiting **15 req/sec** défaut global d'instance +
+  surcharge par compte technique, 429 + Retry-After — fusible externe, pendant du
+  fusible interne D104. Reste Q44 : mécanisme d'authentification (clé API
+  rotative proposée, à confirmer).

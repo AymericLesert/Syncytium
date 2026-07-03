@@ -178,6 +178,9 @@ posée (voir §6).
 | D140 | **Réactivation d'un inactif** : possible, **par l'administrateur de l'instance**, **sous conditions** — dont le **contrôle de collision de clés** (refus si duplication d'une clé d'un actif ; résolution préalable). | Pendant de D96 pour les données ; rendue nécessaire par D141. Voir §3.5. |
 | D141 | **Unicité sur les enregistrements actifs uniquement** — les inactifs peuvent porter des **doublons de clés**. | Permet « supprimer » puis recréer avec la même clé (email) ; justifie la condition de D140. Voir §3.5. |
 | D142 | **Identité d'un enregistrement (résout Q51)** : **technique** = UUID interne **invariant à vie** (généralise D75/D82 — références, audit, chemins, concurrence) vs **fonctionnelle** = clés métier (actifs seulement, D141). Recréer = **nouvelle** identité ; réactiver = **la même** ; anonymiser = efface la fonctionnelle, **préserve la technique**. | Le squelette référentiel survit à tout ; patron D82 généralisé aux entités synchronisées (clé d'unicité externe → UUID, Q49). Voir §3.5. |
+| D143 | **Héritage d'entité — structure** : héritage **simple** (pas de multiple — association/composition pour les cas rares) ; **pas d'abstrait** (le parent est instanciable comme l'enfant) ; **intra-module** ; multi-niveaux. | Un concept de moins (abstrait) ; cohérence D116. Voir §3.6. |
+| D144 | **Stockage de l'héritage : table unique** (parents + enfants), **porté par Syncytium**. **Visibilité des champs par niveau** = nouvel aspect de la confidentialité : un champ appartient à un niveau, applicable/visible seulement si l'enregistrement l'a **atteint**. | 3e axe de visibilité (après niveau/canal D25 et audience/ligne D70), même machinerie ; rend la promotion triviale et préserve l'identité D142. Voir §3.6. |
+| D145 | **Héritage-état (promotion)** : un enregistrement **progresse dans la hiérarchie** (`tiers → prospect → client` dès la première commande) en conservant son **identité** (D142) ; la promotion **étend les propriétés** et ouvre listes/écrans/traitements du niveau ; **déclencheurs déclarés** (action/tâche ou événement de données D54). | Ajouter un niveau = migration de schéma ; promouvoir = opération de données. Résiduels Q52 : cumul de branches, rétrogradation, référence à niveau minimal. Voir §3.6. |
 
 ---
 
@@ -632,6 +635,46 @@ chaque entité déclare sa **clé d'unicité externe** → rapprochement vers l'
 **Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
 clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
 comportement à la suppression) ; champ « liste inverse » ; entités de liaison.
+
+### 3.6 Héritage d'une entité (Q52 ; D143–D145)
+
+**Règles de structure (D143).** Héritage **simple** — pas d'héritage multiple
+(cas rares en entreprise, résolus par association/composition) ; **pas de
+notion d'abstrait** — le parent est une implémentation instanciable au même
+titre que l'enfant (un concept de moins) ; **intra-module** (cohérence,
+maintenabilité) ; multi-niveaux (`tiers → prospect → client`).
+
+**Stockage : table unique, porté par Syncytium (D144).** Parents et enfants
+dans **une seule table** — le choix qui rend la promotion triviale (pas de
+déménagement de ligne, les champs du niveau s'activent) et préserve
+l'identité (D142). **La visibilité des champs par niveau = un nouvel aspect de
+la confidentialité** : un champ *appartient à un niveau* de la hiérarchie et
+n'est applicable/visible que si l'enregistrement a **atteint** ce niveau —
+troisième axe de visibilité, orthogonal au niveau/canal (D25) et à
+l'audience/ligne (D70), porté par la même machinerie.
+
+**L'héritage-état : la promotion (D145).** Un enregistrement **progresse dans
+la hiérarchie au cours de sa vie** : dès que le prospect passe une commande, il
+*devient* client — la promotion **étend ses propriétés** et ouvre les listes,
+écrans et traitements du niveau atteint.
+- **L'identité traverse** (D142) : même UUID, références et historique intacts ;
+- **déclencheurs de promotion déclarés dans le modèle** : action explicite
+  (tâche) ou **événement de données** (D54 — « première commande créée ») ;
+- **listes par niveau** : la liste « clients » = les tiers au niveau client
+  (filtre de niveau, D126) ;
+- séparation des plans : ajouter un **niveau** = migration de schéma ;
+  promouvoir un **enregistrement** = opération de données.
+
+**Sous-questions ouvertes (Q52 résiduel)** : (1) **cumul** client ET
+fournisseur — deux enregistrements, résolution par association (comme
+l'héritage multiple), ou double position de branches ? (2) **rétrogradation**
+— autorisée ? données des niveaux quittés conservées (esprit D137) ?
+garde-fous si des références exigent le niveau ? (3) **référence à niveau
+minimal** (`reference: client` = tiers ayant au moins atteint ce niveau) —
+contrainte sur la rétrogradation ?
+
+**Apport au méta-schéma** : déclaration d'héritage (parent, niveaux),
+appartenance des champs à un niveau, déclencheurs de promotion.
 
 ---
 
@@ -1973,7 +2016,7 @@ avant la synthèse Q16).
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
-| Q52 | **Héritage d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : entité **parente** (abstraite ou concrète) dont héritent des spécialisations (champs communs + propres — `tiers` → `client`/`fournisseur`) ? **polymorphisme des références** (une référence vers `tiers` acceptant ses spécialisations) ? représentation en persistance déléguée à l'abstraction (D18) ? | Pendant côté **entités** de la surcharge par restriction des **types** (D123) ; complète le triptyque objet avec Q50 (encapsulation). En attente des précisions de l'auteur. |
+| Q52 | **Héritage d'une entité** — **largement résolu (D143–D145, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion `tiers → prospect → client`, identité conservée, déclencheurs déclarés). **Résiduels** : cumul de branches (client ET fournisseur), rétrogradation, référence à niveau minimal. | Pendant côté **entités** de la surcharge des **types** (D123) : types = restriction, entités = extension. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2690,3 +2733,16 @@ avant la synthèse Q16).
   et préserve la technique. **Q52 ajoutée** (héritage d'une entité — à développer
   par l'auteur ; pendant côté entités de la surcharge par restriction des types
   D123 ; complète le triptyque objet avec Q50).
+- **2026-07-04** — Héritage d'entité (Q52 largement résolue, D143–D145, nouveau
+  §3.6). Cadrage de l'auteur : héritage **simple** (pas de multiple —
+  association/composition pour les cas rares), **pas d'abstrait** (parent
+  instanciable), **intra-module**, **stockage en table unique porté par
+  Syncytium** — avec la **visibilité des champs par niveau** comme nouvel aspect
+  de la confidentialité (3e axe, après niveau/canal D25 et audience/ligne D70).
+  Idée maîtresse : **l'héritage-état** — un enregistrement progresse dans la
+  hiérarchie (tiers → prospect → client dès la première commande) en conservant
+  son identité (D142) ; la promotion étend les propriétés et ouvre
+  listes/écrans/traitements ; déclencheurs déclarés (action ou événement de
+  données D54). Ajouter un niveau = migration ; promouvoir = donnée. Résiduels :
+  cumul de branches (client ET fournisseur), rétrogradation, référence à niveau
+  minimal.

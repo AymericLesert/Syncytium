@@ -2460,6 +2460,45 @@ entité peut y avoir **plusieurs entrées**. *(Chaîne interprétée, à valider
 une entrée de menu désigne une liste ; la liste désigne son formulaire —
 menu → liste → formulaire.)*
 
+**Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir —
+l'auteur signale que « il manque de nombreux points » et que ses propositions
+D185–D189 **demandent encore des précisions** : des raffinements sont
+attendus à la reprise ; les recommandations ci-dessous sont des propositions,
+pas des décisions) :
+
+1. **La chaîne menu → liste → formulaire** : interprétation à confirmer.
+   Corollaires : une entrée de menu peut-elle pointer **directement un
+   formulaire en création** (« Nouvelle commande ») ? Le champ 1-N affiche
+   « la liste de l'entité associée » : **laquelle**, si la cible en déclare
+   plusieurs (proposition : la liste par défaut, sauf désignation) ?
+2. **Les enfants de composition au menu** : proposition — **pas d'entrée de
+   menu par défaut** (ils vivent dans les onglets du parent, cohérent avec
+   l'encapsulation D150), déclarable si besoin ; même logique pour les
+   entités de liaison N-N (D135).
+3. **La liste paramétrable** : composant à part ou **propriété** de toute
+   liste déclarée (« paramétrable : oui ») ? **Qui enregistre, pour qui ?**
+   Proposition : paramètres (colonnes, ordre, tris, filtres) enregistrés au
+   **profil de l'utilisateur** (personnels) ; en option, publication d'une
+   **vue partagée** par un responsable métier (D127).
+4. **Le widget de résumé** : contenu par défaut — champs de la **clé
+   fonctionnelle** (D142) + premiers champs ? ou marque « essentiel »
+   déclarée par champ ? Déclarable comme les listes/formulaires ? Un seul
+   par entité ? Réutilisations pressenties : résultats de la recherche
+   globale (Q38), vignettes de synthèse (Q53).
+5. **L'impression PDF** : défaut proposé = la liste **telle qu'affichée**
+   (colonnes visibles, filtres appliqués) ; documents métier (facture, bon
+   de livraison) = **gabarits déclarés** — forme du gabarit à définir ;
+   l'impression est une **tâche** (D53 : exécutée une fois, supervisée).
+   L'impression d'une **fiche** (agrégat) est-elle offerte ?
+6. **Le jeu des modes responsive** : dimension transverse (champ, liste,
+   formulaire, widget) — à nommer. Proposition : **jeu fermé nommé par le
+   moteur** (ex. *large / moyen / étroit*), le thème (D63) mappant les
+   seuils ; toutes les déclarations référencent ces noms.
+7. **Les actions en marge** : la suppression (inactivation D137, CAS sur
+   l'agrégat D132) vit-elle sur la liste **et** la fiche en mode lecture ?
+   **Sélection multiple** dans une liste (suppression / export de masse) ?
+   Déclencheur d'un bloc **popup** (bouton déclaré dans le formulaire ?).
+
 **Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
 modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
 colonnes/lignes), du menu (entrées multiples) ; affichages de champ par
@@ -2617,7 +2656,7 @@ avant la synthèse Q16).
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
-| Q48 | **Organisation de l'IHM générée — cœur arbitré (D185–D189, §8.6)** : triade liste / écran unique à 2 modes / widget de résumé ; défauts complets sans description ; listes et formulaires déclarés (blocs onglet/section/popup) ; menu porté par le modèle. **Restent à clarifier** : chaîne menu→liste→formulaire ; enfants de composition au menu ? ; portée de la liste paramétrable (qui enregistre, pour qui ?) ; contenu et déclaration du widget de résumé ; gabarits d'impression PDF ; jeu des modes responsive ; sélection multiple / actions de masse. | L'architecture IHM (D63–D69, D100) + le contenu fonctionnel (D185–D189) sont posés ; les clarifications ci-contre closent la question. |
+| Q48 | **Organisation de l'IHM générée — cœur arbitré (D185–D189, §8.6)** : triade liste / écran unique à 2 modes / widget de résumé ; défauts complets sans description ; listes et formulaires déclarés (blocs onglet/section/popup) ; menu porté par le modèle. **Restent à clarifier** : les **7 points détaillés en §8.6** (chaîne menu→liste→formulaire ; enfants de composition au menu ; liste paramétrable ; widget de résumé ; impression PDF ; modes responsive ; actions de masse / popup) — **et des précisions annoncées par l'auteur sur D185–D189**. | L'architecture IHM (D63–D69, D100) + le contenu fonctionnel (D185–D189) sont posés ; les clarifications et raffinements ci-contre closent la question. |
 | Q53 | **Surfaces de synthèse** (ajout 04/07/2026) : déclaration de la **page d'accueil** (par utilisateur ? groupe/rôle ? module ?), **graphiques** (axes/séries déclarés), **tableaux de synthèse** (croisés — lien avec les compositions matricielles D134 ?), **widgets** (unités de dashboard) et **vignettes de résumé** (KPI). | Briques disponibles : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), **agrégats filtrés (D158)** comme source des chiffres, tableaux de bord intégrés (D38/D44) comme précédent. À traiter avec Q48. |
 
 ---
@@ -3568,3 +3607,8 @@ avant la synthèse Q16).
   « **le schéma suffit, la déclaration ajuste** ». Clarifications listées
   dans Q48 (chaîne menu→liste→formulaire, enfants de composition,
   paramétrable, widget, PDF, modes responsive, actions de masse).
+- **2026-07-05 (soir, fin de séance)** — **Pause.** Les **7 points à
+  clarifier sont consignés en détail au §8.6** (avec propositions — non
+  décidées) pour reprise aux prochains échanges. L'auteur signale qu'« il
+  manque de nombreux points » et que ses propositions **manquent encore de
+  précisions** : les D185–D189 seront **raffinés** avant de clore Q48.

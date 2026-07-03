@@ -192,7 +192,7 @@ posée (voir §6).
 | D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
 | D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
 | D156 | **Règles inter-champs déclaratives (résout Q36)** : sur l'entité ou la **composition** (portée agrégat, transaction D101) — expression **D90 booléenne** + message (libellé traduit D127). **Une règle = un contrôle, jamais une affectation.** Préconditions d'opérations (D148) = même forme. Évaluées à l'écriture sur les règles dont les sources sont touchées. | Rien au-delà de l'agrégat (opérations/unicité). Voir §3.8. |
-| D157 | **Trois sévérités + protocole en trois passes** : **erreur** (bloquante) / **confirmation** (validée par l'utilisateur) / **information** (non bloquante). À l'enregistrement : (1) toutes les erreurs d'un coup ; (2) confirmations **regroupées** en une validation ; (3) informations **regroupées**. API : rejet+liste / re-soumission avec acquittement / signalées dans la réponse. | Jamais d'arrêt à la première erreur, pas de clics en rafale. Complément proposé : confirmations tracées (D62). Voir §3.8. |
+| D157 | **Trois sévérités + protocole en trois passes** : **erreur** (bloquante) / **confirmation** (validée par l'utilisateur) / **information** (non bloquante). À l'enregistrement : (1) toutes les erreurs d'un coup ; (2) confirmations **regroupées** en une validation ; (3) informations **regroupées**. API : rejet+liste / re-soumission avec acquittement / signalées dans la réponse. **Confirmations acceptées tracées** (audit D62). | Jamais d'arrêt à la première erreur, pas de clics en rafale ; qui a validé quoi, quand. Voir §3.8. |
 | D158 | **Agrégats filtrés** dans le langage : `somme(lignes.montant si ligne.etat = "facturée")` — critère de sélection des éléments, acté pour **tout** le langage (calculs, règles, translations). | Pressenti dès Q18, rendu nécessaire par les règles de cohérence. Voir §3.8. |
 | D159 | **Double évaluation** : serveur = **la vérité** (toutes sollicitations) ; l'IHM **porte automatiquement** les règles déclaratives (transport par le moteur). **Hook de validation bi-versions** : serveur **obligatoire**, IHM **optionnelle** (JS, D69) — même contrat (D52) ; sans version IHM, vérification à l'enregistrement seulement. | Le confort est optionnel, la vérité jamais. Voir §3.8. |
 
@@ -816,8 +816,9 @@ en une seule validation (pas de clics en rafale) ; **(3)** si confirmé, toutes
 les **informations regroupées**, affichées une fois. Transposition API :
 erreurs → rejet avec liste complète ; confirmations → réponse listant les
 confirmations requises, **re-soumission avec acquittement** ; informations →
-dans la réponse de succès. *(Complément proposé : confirmations acceptées
-tracées — audit D62.)*
+dans la réponse de succès. **Les confirmations acceptées sont tracées** (qui a
+validé quoi, quand — audit D62) : le dépassement de remise confirmé laisse une
+trace.
 
 **Agrégats filtrés (D158).** Les agrégats du langage acceptent un **critère de
 sélection** : `somme(lignes.montant si ligne.etat = "facturée")` — pressenti dès
@@ -2961,3 +2962,5 @@ avant la synthèse Q16).
   évaluation** : serveur = vérité, IHM = transport automatique des règles
   déclaratives ; **hook de validation bi-versions** (serveur obligatoire, IHM
   optionnelle, même contrat D52).
+- **2026-07-04 (suite 7)** — Complément D157 validé : **les confirmations
+  acceptées sont tracées** (qui a validé quoi, quand — audit D62).

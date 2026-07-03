@@ -188,6 +188,9 @@ posée (voir §6).
 | D150 | **Encapsulation d'exposition dérivée** : les enfants **non modifiables seuls** (D101/D133) **n'apparaissent pas dans les API** — accès via le parent uniquement. | Aucune déclaration nouvelle : l'atomicité induit la visibilité API. Voir §3.7. |
 | D151 | **Écarts d'encapsulation assumés** : champs internes → `privee` (D25) suffit ; **interface de module → écartée** (« la déclaration est une et entière » — confidentialité + organisation modules/entités couvrent le besoin). | Rationale conservée. Voir §3.7. |
 | D152 | **Héritage : pas de surcharge de champ parent** — l'enfant ne redéfinit jamais un champ du parent (type/contraintes intouchables) ; il peut **seulement ajuster sa visibilité**, sans supprimer la valeur. | Lignée « masquer, ne jamais détruire » (D137/D144/D147). Voir §3.7. |
+| D153 | **Champ en écriture réservée** (lève le reliquat D148) : écrit par les **opérations**, corrigible par **administrateur seul avec traçabilité** (D62), écriture **différable** (détachée de la création/des états), **write-once** (renseigné → immuable). | Le `numero_facture` canonique. Voir §3.7. |
+| D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
+| D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
 
 ---
 
@@ -735,9 +738,45 @@ l'enfant peut **seulement ajuster la visibilité** d'un champ parent, **sans en
 supprimer la valeur** — lignée « masquer, ne jamais détruire » (D137, D144,
 D147).
 
+**Écriture réservée (D153, lève le reliquat de D148).** Un champ déclaré en
+**écriture réservée** :
+- est **écrit par les opérations** (D148), jamais par la saisie ordinaire ;
+- est **corrigible par un administrateur seul, avec traçabilité assumée**
+  (audit à motif, D62) ;
+- peut être écrit **de façon différée** — détaché de la création et des
+  changements d'état (`numero_facture` vide jusqu'à l'opération de
+  facturation) ;
+- **write-once** : *dès que le champ est renseigné, il n'est plus modifiable*.
+
+**Compteurs (D154).** Le cas du numéro de facture fait émerger les
+**compteurs** : **déclarés dans le modèle, gérés en interne par le moteur**
+(ressource moteur, comme D93). Chaque compteur est une **ressource critique** :
+- **jamais de doublon** (unicité d'allocation) ;
+- **continuité de la valeur** — pas de trous (exigence légale de la
+  numérotation des factures en France). Conséquence : **l'allocation fait
+  partie de la transaction de l'opération** (échec = rollback, numéro non
+  consommé) → sérialisation de l'allocation, coût négligeable à l'échelle TPE
+  (D15).
+
+**Compteurs composés à déclencheurs (D155).** Un compteur se **combine** à
+d'autres, chacun évoluant selon son **déclencheur** — cas canonique (numéro de
+facture) :
+
+| Compteur | Départ | Déclencheur |
+|---|---|---|
+| Année | 2026 | le 1er janvier |
+| Mois | 1 (borné 1–12) | le 1er du mois |
+| Libre | 1 | incrément à chaque allocation ; **retour à 1 quand le compteur Mois change** |
+
+Cohérences : déclencheurs calendaires = vocabulaire **planifié** (D54) ;
+**réinitialisation en cascade** = dépendance déclarée entre compteurs ;
+**assemblage du numéro = gabarit D90** (`"{annee}-{mois}-{libre}"` →
+`2026-07-0042`) ; l'unicité du champ résultant découle de la combinaison.
+
 **Apport au méta-schéma** : déclaration d'opérations (tâche + déclencheur +
-bouton), écriture réservée (à confirmer), lien parent implicite, visibilité
-par spécialisation.
+bouton), champ en **écriture réservée** (write-once), **compteurs** (bornes,
+déclencheurs, cascades, combinaison), lien parent implicite, visibilité par
+spécialisation.
 
 ---
 
@@ -2077,7 +2116,7 @@ avant la synthèse Q16).
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
-| ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D152, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM — changent l'état, des valeurs, d'autres enregistrements) ; **lien parent matérialisé** (traitements, non exposé) ; **encapsulation d'exposition dérivée** du raffinement (enfants non modifiables seuls = hors API) ; interface de module écartée ; héritage : pas de surcharge de champ parent, visibilité ajustable seulement. Reliquat : écriture réservée aux opérations (à confirmer). |
+| ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
 | **C — Sécurité d'exécution** | | |
@@ -2830,3 +2869,12 @@ avant la synthèse Q16).
   **interface de module écartée** (« la déclaration est une et entière »)
   (D151). **Héritage : pas de surcharge de champ parent** — visibilité
   ajustable seulement, valeur jamais supprimée (D152).
+- **2026-07-04 (suite 3)** — Reliquat D148 levé (D153–D155). **Écriture
+  réservée** : écrite par les opérations, corrigible par admin seul avec
+  traçabilité, **différable**, **write-once** (renseigné → immuable) (D153).
+  **Compteurs** : déclarés dans le modèle, gérés en interne — ressource
+  critique : pas de doublon + **continuité** (exigence comptable française) ;
+  allocation **dans la transaction** de l'opération (échec = numéro non
+  consommé) (D154). **Compteurs composés à déclencheurs en cascade** (Année /
+  Mois / Libre — retour à 1 au changement de mois), assemblage par gabarit D90
+  (`2026-07-0042`) (D155). Q50 entièrement close.

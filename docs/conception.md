@@ -203,6 +203,12 @@ posée (voir §6).
 | D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
 | D166 | **Type liste** (forme finale) : applicable à **tous les types sauf la liste** (simples, composées, hooks — pas d'imbrication) ; **propriété « listable » par type** (communication = non-listable : un canal = un champ) ; **liste d'énumérés autorisée** (la multi-sélection revient par la porte générale, l'énuméré restant mono en champ). Élément = contraintes de son type ; doublons OK ; ordre insertion/clé ; bornes ; filtre « contient ». | Amende D160 ; nuance D118 (atomicité = l'élément) ; résout le micro-arbitrage D121. Voir §3.10. |
 | D167 | **Type communication** (forme finale) : trace CRM — messages chronologiques (auteur = compte D77, horodatage, contenu), fil de discussion (D64). **Propriétés à défauts** : visibilité **maximale**, immuable **vrai**, pièces jointes **non**, **notification non** — si vrai, les nouveaux messages (réponse à une question) notifient par **IHM ou mail via l'infra D108–D110** (canaux/profil/audience). | Zéro machinerie nouvelle pour la notification. Voir §3.10. |
+| D168 | **Historisation — portée en cascade (résout Q37)** : propriété du **module et/ou de l'entité**, héritée par les enfants d'agrégat ; **défaut inactive** ; module historisé → toutes ses entités **sauf opt-out**. | Patron de cascade (D162). Voir §3.11. |
+| D169 | **Chaud/froid, instantanés complets** : courant = chaud, historique = froid ; chaque entrée = **toutes les valeurs de l'agrégat** (pas les écarts) + auteur (D76)/horodatage/canal/motif ; **lecture seule**. | Stockage assumé ↔ consultation triviale (fiche à une date = lire l'instantané). Voir §3.11. |
+| D170 | **Confidentialité de l'historique** : visibilité **déclarée par groupe** (responsable métier oui, client non) ; confidentialités de champs **héritées de l'entité d'origine** ; **anonymisation étendue à l'historique** (D139 — sinon fuite). | Voir §3.11. |
+| D171 | **Restauration outillée** : **administrateur seul, sous condition, tracée** — la restauration est une modification historisée. | Cas vécu : fiche client écrasée par erreur ADV. Voir §3.11. |
+| D172 | **Consultation temporelle** : API — donnée **courante par défaut**, **date précisée → l'agrégat à cette date** ; IHM — composant **« historique »** (synthèse des entrées + clic sur un détail → la fiche à la date). | Servie directement par les instantanés D169. Voir §3.11. |
+| D173 | **Insertion antidatée** (reprise — résout la sous-question historique de Q49) : par défaut pas d'import d'historique ; sinon **sollicitation de l'interface à une date antérieure** + insertion dans l'historique, **contrôles levés** (règles de cohérence). | Complexité assumée ; mécanisme dédié, réservé à la reprise. Voir §3.11. |
 
 ---
 
@@ -923,6 +929,52 @@ discussion** en IHM (D64). **Propriétés du type, avec défauts** :
 | **immuable** | **vrai** (la trace ne se réécrit pas — esprit D153) |
 | **pièces jointes** | **non** (fichiers D160 si activées) |
 | **notification** | **non** — si **vrai** : les nouveaux messages **notifient** (IHM ou mail — notamment la **réponse à une question**), via l'infrastructure existante D108–D110 (canaux = connecteurs, choix par profil D109, audience respectée) |
+
+### 3.11 Historisation (Q37 ; D168–D173)
+
+**Portée déclarative en cascade (D168).** L'historisation porte sur **une
+entité et ses agrégats** — propriété du **module et/ou de l'entité**, héritée
+par les enfants d'agrégat. **Défaut : inactive.** Un module historisé historise
+**toutes ses entités sauf opt-out** explicite (« pas d'historisation ») —
+patron de cascade (cf. quotas D162).
+
+**Chaud/froid, instantanés complets, lecture seule (D169).** Le courant =
+valeurs **chaudes** ; l'historique = valeurs **froides**. **On n'historise pas
+les écarts : chaque entrée = toutes les valeurs de l'agrégat** (instantané
+complet), avec son **auteur** (compte + on-behalf-of D76), son **horodatage**,
+son **canal** (IHM/API/opération/tâche/connecteur) et son **motif** quand il
+existe (D62/D157). **Toujours en lecture seule.** Coût de stockage assumé —
+en échange, la consultation est **triviale** (la fiche à une date = lire
+l'instantané, aucun rejeu de diffs).
+
+**Confidentialité et anonymisation (D170).** L'historique est couvert par la
+confidentialité : **visibilité de l'historique déclarée par groupe** (visible
+du responsable métier, pas du client) ; **les confidentialités de champs sont
+portées par l'entité d'origine** (un champ privé reste privé dans le froid) ;
+**l'anonymisation (D139) s'étend à l'historique** — sinon fuite.
+
+**Restauration outillée (D171).** Par l'**administrateur seul**, **sous
+condition**, **tracée** — la restauration est elle-même une modification
+historisée. Motivation vécue : fiche client écrasée par une erreur de
+manipulation (ADV).
+
+**Consultation temporelle (D172).** L'**API** sert la donnée **courante par
+défaut** ; **une date précisée → l'agrégat tel qu'il était à cette date**
+(lecture directe de l'instantané froid). L'**IHM** gagne un composant
+**« historique »** : synthèse des entrées d'un enregistrement, et **clic sur un
+détail → la fiche à la date du détail**.
+
+**Insertion antidatée — reprise (D173, résout la sous-question de Q49).** Par
+défaut, la reprise **n'importe pas l'historique**. Pour récupérer l'historique
+d'un système d'origine : **solliciter l'interface à une date antérieure** puis
+**insérer la modification dans l'historique** — en **levant certains
+contrôles** (notamment les règles de cohérence, qui n'ont pas à juger le
+passé). Problématique complexe assumée ; mécanisme dédié, réservé à la reprise.
+
+**Apport au méta-schéma** : propriété d'historisation (module/entité,
+opt-out), visibilité de l'historique par groupe, entrées d'historique
+(instantané + auteur/horodatage/canal/motif), API temporelle, composant
+historique.
 
 ---
 
@@ -2262,12 +2314,12 @@ avant la synthèse Q16).
 | ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
 | ~~Q36~~ | ~~Validation à l'écriture ?~~ | **Résolu (D156–D159, §3.8)** : règles inter-champs déclaratives (D90 + message traduit), portée entité/agrégat, **trois sévérités** (erreur/confirmation/information) en **trois passes regroupées**, agrégats filtrés, double évaluation serveur (vérité) + IHM (transport auto), hook bi-versions. |
 | ~~Q39~~ | ~~Pièces jointes / fichiers binaires ?~~ | **Résolu (D160–D163, §3.9)** : type fichier (métadonnées + **mots-clés** de recherche + empreinte), **stockage dual** (binaires hors base dans un dossier géré, grands textes en blob), **quota en cascade** (instance/module/entité/champ — la plus petite gagne), anonymisation = suppression physique du contenu + mots-clés cohérents, **statut** supprimé/anonymisé/corrompu/perdu, contrôle d'intégrité planifié, pas de déduplication. |
-| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
+| ~~Q37~~ | ~~Historique des modifications ?~~ | **Résolu (D168–D173, §3.11)** : portée en cascade module/entité (défaut inactive, opt-out), **instantanés complets d'agrégat** chaud/froid en lecture seule, confidentialité héritée + anonymisation étendue, restauration admin tracée, **API temporelle** (agrégat à une date) + composant IHM historique, insertion antidatée pour la reprise (contrôles levés). |
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
+| Q49 | **Initialisation d'une instance par reprise de données** : connexion à une **base tierce** et **conversion** vers le modèle Syncytium — **y compris CSV/Excel**. **Sous-questions restantes** : connecteur **jetable** (one-shot) ou **permanent** (cohabitation) ? traitement des **rejets** (source / règles en vol / quarantaine) ? *(Historique d'origine : **résolu par D173** — insertion antidatée, contrôles levés.)* | Assemblage acquis : connecteur auto-descriptif (D83) + translation (D79/D90) + conversions faillibles (D120, dry-run cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82/D142) + estampille (D93) + insertion antidatée (D173). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -3104,3 +3156,16 @@ avant la synthèse Q16).
   déjà disponibles notées : composants D64, registre D68, rendu déclaratif D69,
   agrégats filtrés D158 comme source des chiffres, tableaux de bord intégrés
   D38/D44 en précédent. À traiter avec Q48.
+- **2026-07-05** — **Q37 close** (D168–D173, nouveau §3.11) sur le point de vue
+  de l'auteur. **Portée en cascade** : propriété du module et/ou de l'entité,
+  héritée par les agrégats, défaut inactive, opt-out par entité (D168).
+  **Chaud/froid, instantanés complets** : chaque entrée = toutes les valeurs de
+  l'agrégat (pas les écarts) + auteur/horodatage/canal/motif, lecture seule —
+  stockage assumé contre consultation triviale (D169). **Confidentialité** :
+  visibilité de l'historique par groupe, confidentialités de champs héritées de
+  l'origine, **anonymisation étendue** (D170). **Restauration** : admin seul,
+  sous condition, tracée — cas vécu ADV (D171). **Consultation temporelle** :
+  API à date (défaut courant) + composant IHM « historique » (synthèse + fiche
+  à la date du détail) (D172). **Insertion antidatée** pour la reprise
+  d'historique d'origine, contrôles de cohérence levés — résout la sous-question
+  de Q49 (D173).

@@ -228,6 +228,8 @@ postures combinables :
 | D180 | **Double périmètre du projet** : (1) **entrepôt de données fiable** (opérationnel à l'échelle TPE — qualité D177, couverture D176, provenance D178, temporalité D168–D174, restitution ; IHM = consultation **et** correction) ; (2) **applications métier** sur description exhaustive et simple. **Un moteur, deux postures, combinables.** | La reprise (Q49) = un ETL déclaratif déjà construit ; qualification honnête consignée (opérationnel ≠ OLAP ; D18/D36 = extensions si volumétrie). Vision §1 élargie. |
 | D181 | **Rapports de reprise persistés + statut de ligne (complète D179)** : stock de rejets consolidé (identité = provenance D178, repli empreinte), statuts **à reprendre** (défaut, retentée, re-rejet sans re-notification) / **à ignorer** (écartée des relances, tracée D62) / **intégré** (constaté par rapprochement de provenance) ; **écran moteur** à accès déclaré (défaut admin) ; **le rapport ne diffuse que le nouveau**. | Toujours pas une quarantaine : trace à statut, ni éditable ni injectable. Fin de reprise objectivée : plus rien « à reprendre » + couverture assumée → débranchement (D175). « Ignorer, jamais oublier » (D176) étendu aux enregistrements. Voir §3.11. |
 | D182 | **Dates du cycle de vie sur chaque ligne du stock (complète D181)** : première détection, dernière tentative, changement de statut (qui/quand/motif — D62), date d'intégration → **le stock = journal d'audit de la reprise** (chaque ligne source a un destin daté et justifiable). | Avec la provenance persistante (D178), l'audit couvre les deux faces : ce qui est entré et ce qui n'est pas entré. Ancienneté des « à reprendre » = indicateur de pilotage (fin de reprise, D181). Voir §3.11. |
+| D183 | **Cycle des statuts du stock (amende D181)** : **en anomalie** (système, échec — état d'entrée, jamais retentée sans décision humaine) / **à reprendre** (admin — règle ou source corrigée, replanifiée) / **ignoré** (admin — exclusion tracée D62, réversible par l'admin) / **intégré** (système, D178). **Un passage traite : les nouveaux + les « à reprendre », même voie standard** (D175/D177) ; à l'issue le système repositionne (intégré ou en anomalie). | **Le système constate, l'administrateur décide.** Pas d'acharnement aveugle sur les lignes connues mauvaises. Rapport d'un passage = nouvelles anomalies + bilan des retentées ; fin de reprise = plus rien en anomalie ni à reprendre. Voir §3.11. |
+| D184 | **Retour arrière d'une ligne intégrée** : intégré → à reprendre (admin — erreur découverte après coup) ⇒ **suppression physique** des données issues de la ligne (agrégat + historique éventuel) puis réimport au prochain passage — comme si jamais intégrée. | **Exception assumée** à « masquer, ne jamais détruire » (D137) : garantit la qualité en fin de reprise ; **portée par la provenance (D178, seul chemin)**, **refusée si références étrangères à la reprise**, **trace du stock conservée** (D182 — l'audit survit à l'effacement). Voir §3.11. |
 
 ---
 
@@ -1075,27 +1077,66 @@ jamais » n'aurait aucun support. Le rapport d'import est donc **stocké** :
   Une ligne rejetée est identifiée par sa **provenance** (connecteur + entité
   source + clé externe déclarée D178 ; en repli, si la clé elle-même est
   illisible : empreinte du contenu source).
-- **Trois statuts par ligne** :
-  - **à reprendre** (défaut à la détection) — la ligne sera retentée aux
-    relances ; un re-rejet **met à jour** le stock (dernier motif, compteur de
-    tentatives, dernière vue) **sans re-notifier** ;
-  - **à ignorer** — exclusion **assumée** : la ligne est **écartée des
-    relances** (plus jamais tentée) et sort du rapport ; décision humaine
-    **tracée** (qui, quand, motif — audit D62) ;
-  - **intégré** — **constaté automatiquement** par rapprochement de provenance
-    (D178) lors d'une relance réussie, positionnable manuellement si besoin.
+- **Un statut par ligne** — le cycle complet est décrit ci-dessous (D183).
 - **Écran moteur de gestion des rejets** : consultation, filtres, changement
   de statut. Accès **déclaré** ; par défaut l'administrateur — le stock
   contient du **contenu source brut**, potentiellement sensible, donc écran
   restreint.
-- **Le rapport ne porte que le nouveau** : seules les lignes **nouvellement
-  rejetées** (inconnues du stock) sont diffusées via les opt-in ; l'existant
-  se consulte à l'écran.
-- **Critère de fin objectivé** (renforce D175) : plus aucune ligne « à
-  reprendre » — tout est « intégré » ou « à ignorer » — et la couverture
-  (D176) assumée : le connecteur de reprise peut être débranché. Le devenir du
-  stock au débranchement (conservation en trace ou purge) relève de
-  l'administrateur, comme la durée de vie du connecteur (D175).
+- **Le rapport d'un passage ne porte que l'activité** : les lignes
+  **nouvellement en anomalie** (inconnues du stock) et le **bilan des
+  « à reprendre » retentées** (intégrées ou repassées en anomalie), diffusés
+  via les opt-in ; les stocks dormants ne sont **pas re-notifiés** —
+  l'existant se consulte à l'écran.
+- **Critère de fin objectivé** (renforce D175) : plus aucune ligne « en
+  anomalie » ni « à reprendre » — tout est « intégré » ou « ignoré » — et la
+  couverture (D176) assumée : le connecteur de reprise peut être débranché.
+  Le devenir du stock au débranchement (conservation en trace ou purge)
+  relève de l'administrateur, comme la durée de vie du connecteur (D175).
+
+**Le cycle des statuts : le système constate, l'administrateur décide (D183,
+amende D181).** Quatre statuts, aux mains strictement séparées :
+
+- **en anomalie** — posé par le **système** : la tentative d'intégration a
+  échoué. C'est l'**état d'entrée** d'une ligne dans le stock ; elle y
+  **reste sans être retentée** tant qu'un humain n'a pas statué (pas
+  d'acharnement aveugle sur une ligne connue mauvaise).
+- **à reprendre** — posé par l'**administrateur** (depuis « en anomalie » ou
+  « intégré », D184) : une règle a été corrigée, ou la source l'a été — la
+  ligne est **replanifiée** pour le prochain passage.
+- **ignoré** — posé par l'**administrateur** (depuis « en anomalie ») :
+  exclusion **assumée**, la ligne ne sera jamais intégrée ni retentée ;
+  décision **tracée** (qui, quand, motif — audit D62). Revenir sur un
+  « ignoré » (→ « à reprendre ») reste une décision d'administrateur, tracée
+  de même.
+- **intégré** — posé par le **système** : l'intégration a réussi
+  (rapprochement de provenance D178).
+
+**Un passage d'intégration traite les enregistrements nouveaux et les lignes
+« à reprendre »** — rien d'autre — par la **même voie standard** (translation,
+critère d'acceptation D177, écriture identifiée « reprise » D175). À l'issue,
+le système repositionne chaque ligne — **intégré** ou **en anomalie** (dernier
+motif, compteur de tentatives, dernière vue mis à jour).
+
+**Le retour arrière d'une ligne intégrée (D184).** L'administrateur peut
+repasser une ligne « intégré » en « à reprendre » — cas d'une erreur
+découverte après coup (une règle fausse a produit des données fausses). Cette
+bascule **supprime physiquement** les données issues de la ligne (l'agrégat
+créé et son historique éventuel), avant réimport par le prochain passage —
+comme si la ligne n'avait jamais été intégrée. C'est une **exception assumée**
+au principe « masquer, ne jamais détruire » (D137), justifiée — intervenant en
+phase de reprise, elle **garantit la qualité des données à l'issue de la
+reprise** (pas de fantômes inactivés issus de règles fausses) — et bornée :
+
+- **portée par la provenance** : seules les données dont la provenance (D178)
+  pointe la ligne sont supprimables — la bascule de statut est le **seul
+  chemin** de suppression physique, aucun autre n'est ouvert ;
+- **garde-fou d'intégrité** : si l'enregistrement est déjà référencé par des
+  données **étrangères à la reprise** (associations créées depuis), la bascule
+  est **refusée** — l'administrateur traite d'abord ces références (cohérent
+  avec D137) ;
+- **la trace demeure** : la donnée disparaît, mais la ligne du stock garde la
+  mémoire datée d'avoir été intégrée puis reprise (D182) — l'audit survit à
+  l'effacement.
 
 **Ce n'est toujours pas une quarantaine** : la ligne n'est **ni éditable ni
 injectable depuis le stock** — la correction se fait à la source, l'intégration
@@ -1111,12 +1152,14 @@ D181).** Chaque ligne du stock porte les **dates de son cycle de vie** :
 motif — D62) et **date d'intégration** (bascule « intégré », automatique ou
 manuelle). Le stock devient ainsi le **journal d'audit de la reprise** :
 chaque ligne source a un destin **daté et justifiable** — intégrée (quand),
-écartée (qui, quand, pourquoi), en attente (depuis quand). Combiné à la
+écartée (qui, quand, pourquoi), en anomalie ou replanifiée (depuis quand),
+reprise après erreur (quand — D184). Combiné à la
 **provenance persistante des enregistrements intégrés** (D178 — connecteur,
 date, clé d'origine), l'audit couvre les **deux faces** de la reprise : **ce
 qui est entré** (D178) et **ce qui n'est pas entré** (D181/D182).
-L'**ancienneté des lignes « à reprendre »** devient au passage un indicateur
-de pilotage pour l'administrateur (critère de fin de reprise, D181).
+L'**ancienneté des lignes « en anomalie » et « à reprendre »** devient au
+passage un indicateur de pilotage pour l'administrateur (critère de fin de
+reprise, D181/D183).
 
 **Le double périmètre du projet (D180).** La reprise révèle que Syncytium
 couvre **deux périmètres** avec **un seul moteur** :
@@ -2484,7 +2527,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D182, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
+| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D184, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -3414,3 +3457,19 @@ avant la synthèse Q16).
   de la reprise**, complément symétrique de la provenance persistante (D178) :
   l'audit couvre ce qui est entré **et** ce qui n'est pas entré. Ancienneté
   des « à reprendre » = indicateur de pilotage de la fin de reprise (D181).
+- **2026-07-05 (suite 11)** — **Cycle des statuts complété (D183) et retour
+  arrière (D184)**. L'auteur restructure : statut **« en anomalie »** posé par
+  le **système** à l'échec (état d'entrée — la ligne n'est **jamais retentée
+  sans décision humaine**) ; l'**administrateur** seul décide (« à
+  reprendre » = règle ou source corrigée, replanifiée ; « ignoré ») ; **un
+  passage traite les nouveaux + les « à reprendre »**, par la même voie
+  standard ; à l'issue, le système repositionne (intégré / en anomalie) —
+  **le système constate, l'administrateur décide**. Complexification
+  acceptée : **intégré → à reprendre** (erreur découverte après coup) ⇒
+  **suppression physique** des données issues de la ligne (agrégat +
+  historique), réimport au prochain passage — exception assumée à « masquer,
+  ne jamais détruire » (D137), qui **garantit la qualité des données à
+  l'issue de la reprise**. Garde-fous consignés : provenance = seul chemin
+  (D178), refus si références étrangères à la reprise, trace du stock
+  conservée (D182). L'auteur valide le cycle de dates D182 (« apporte de la
+  visibilité sur les actions faites et sur la qualité de la reprise »).

@@ -201,8 +201,8 @@ posée (voir §6).
 | D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Déduplication : voir D165. Voir §3.9. |
 | D164 | **Synchronisation étendue aux fichiers** : toute synchronisation entre instances (**D113 staging, D114 PCA/PRA**) porte sur **la base ET le dossier de fichiers**, en cohérence temporelle. | Conséquence du stockage dual (D161) — comme la sauvegarde. Voir §7.3. |
 | D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
-| D166 | **Type liste de données simples** (`liste de fichiers`, `liste d'entiers`) — simplifie la description sans entité liée pour les cas triviaux. Élément = contraintes de son type ; doublons autorisés ; ordre = insertion ou clé ; bornes min/max ; champ non triable, filtre « contient ». | Amende D160 (multi-fichiers simple) ; nuance D118 (atomicité = l'élément). **Ouvert : liste d'énumérés** (réintroduirait la multi-sélection D121). Voir §3.10. |
-| D167 | **Type communication** : trace CRM des **échanges** (entreprise ↔ clients) attachée à l'enregistrement — suite chronologique de **messages** (auteur = compte D77, horodatage, contenu, **visibilité interne/partagée** D70), **immuables** (append-only, esprit D153), pièces jointes (D160) ; composant fil de discussion (D64). | Structure proposée, micro-arbitrages ouverts (visibilité par message, immuabilité, pièces jointes). Voir §3.10. |
+| D166 | **Type liste** (forme finale) : applicable à **tous les types sauf la liste** (simples, composées, hooks — pas d'imbrication) ; **propriété « listable » par type** (communication = non-listable : un canal = un champ) ; **liste d'énumérés autorisée** (la multi-sélection revient par la porte générale, l'énuméré restant mono en champ). Élément = contraintes de son type ; doublons OK ; ordre insertion/clé ; bornes ; filtre « contient ». | Amende D160 ; nuance D118 (atomicité = l'élément) ; résout le micro-arbitrage D121. Voir §3.10. |
+| D167 | **Type communication** (forme finale) : trace CRM — messages chronologiques (auteur = compte D77, horodatage, contenu), fil de discussion (D64). **Propriétés à défauts** : visibilité **maximale**, immuable **vrai**, pièces jointes **non**, **notification non** — si vrai, les nouveaux messages (réponse à une question) notifient par **IHM ou mail via l'infra D108–D110** (canaux/profil/audience). | Zéro machinerie nouvelle pour la notification. Voir §3.10. |
 
 ---
 
@@ -890,33 +890,39 @@ quotas en cascade, règle d'anonymisation de fichier.
 
 ### 3.10 Types complexes additionnels (D166–D167)
 
-**Liste de données simples (D166).** La famille s'agrandit : simple / composée /
-**liste de simples** — but : **simplifier la description** (`liste de fichiers`,
+**Liste (D166, forme finale).** La famille s'agrandit : simple / composée /
+**liste** — but : **simplifier la description** (`liste de fichiers`,
 `liste d'entiers` — les notes d'un élève) sans entité liée pour les cas
-triviaux. Amende **D160** (le multi-fichiers simple passe par la liste ;
+triviaux. **La liste s'applique à tous les types sauf la liste** (pas
+d'imbrication) : simples, composées, **types apportés/étendus par hooks**.
+**Le catalogue gagne une propriété par type : « listable »** — le type déclare
+s'il peut entrer dans une liste (la **communication est non-listable** : un
+canal = un champ avec sa sémantique — « SAV » et « commercial » = deux champs
+nommés). Amende **D160** (le multi-fichiers simple passe par la liste ;
 l'entité liée reste pour les cas riches) ; nuance **D118** (l'atomicité vaut
-pour l'*élément* — la liste est un conteneur déclaré). Propriétés :
+pour l'*élément*). **Liste d'énumérés autorisée par construction** — la
+multi-sélection revient par la porte générale du type liste, pas par un
+attribut sur l'énuméré (ce que D121 écartait) : l'énuméré reste mono-sélection
+en tant que champ. Propriétés :
 - l'élément porte **toutes les contraintes de son type** (formats, limites ;
   fichiers : quotas D162, déduplication D165) ;
 - **doublons autorisés** ; **ordre** = insertion ou clé de tri déclarée ;
   **bornes** min/max d'éléments déclarables ;
 - champ liste **non triable** (D125), filtre naturel = **« contient »** ;
   stockage (tableau/JSON vs table fille) = facette D119/D18.
-*Micro-arbitrage ouvert : `liste d'énumérés` — autorisée par construction, elle
-réintroduirait la multi-sélection écartée (D121) ; à trancher.*
 
-**Communication (D167).** Type complexe matérialisant les **échanges** entre
-membres de l'entreprise et/ou clients — la **trace CRM** attachée à
-l'enregistrement (la fiche client porte son fil d'échanges). Structure
-proposée (à valider) :
-- **suite chronologique de messages** : **auteur** (compte D77 — interne ou
-  client), **horodatage**, **contenu**, **visibilité** (interne / partagée —
-  l'audience D70 s'applique : le client ne voit que ce qui lui est destiné) ;
-- **messages immuables** (une trace ne se réécrit pas — esprit D153,
-  append-only) ; **pièces jointes** possibles (fichiers D160) ;
-- IHM : composant **fil de discussion** (D64).
-*Micro-arbitrages ouverts : visibilité par message ? immuabilité ? pièces
-jointes ?*
+**Communication (D167, forme finale).** Type complexe matérialisant les
+**échanges** entre membres de l'entreprise et/ou clients — la **trace CRM**
+attachée à l'enregistrement. **Suite chronologique de messages** (auteur =
+compte D77 — interne ou client ; horodatage ; contenu), composant **fil de
+discussion** en IHM (D64). **Propriétés du type, avec défauts** :
+
+| Propriété | Défaut |
+|---|---|
+| **visibilité** | **maximale** (tous ceux qui voient l'enregistrement ; l'audience D70 s'applique si restreinte) |
+| **immuable** | **vrai** (la trace ne se réécrit pas — esprit D153) |
+| **pièces jointes** | **non** (fichiers D160 si activées) |
+| **notification** | **non** — si **vrai** : les nouveaux messages **notifient** (IHM ou mail — notamment la **réponse à une question**), via l'infrastructure existante D108–D110 (canaux = connecteurs, choix par profil D109, audience respectée) |
 
 ---
 
@@ -3081,3 +3087,13 @@ avant la synthèse Q16).
   contenu, visibilité interne/partagée D70), immuables (append-only), pièces
   jointes ; fil de discussion en IHM ; micro-arbitrages ouverts (visibilité par
   message, immuabilité, pièces jointes).
+- **2026-07-04 (suite 11)** — Micro-arbitrages tranchés (D166–D167, formes
+  finales). **Liste** : applicable à tous les types **sauf la liste** (simples,
+  composées, hooks) ; **propriété « listable » par type** (communication =
+  non-listable — un canal = un champ) ; **liste d'énumérés autorisée** (la
+  multi-sélection revient par la porte générale, D121 préservée en champ).
+  **Communication** : propriétés à défauts — visibilité maximale, immuable
+  vrai, pièces jointes non, **notification non** ; si activée, les nouveaux
+  messages (réponse à une question) notifient par IHM ou mail via
+  l'infrastructure D108–D110 (canaux/profil/audience) — zéro machinerie
+  nouvelle.

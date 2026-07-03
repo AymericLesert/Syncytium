@@ -2281,6 +2281,7 @@ avant la synthèse Q16).
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
 | Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
+| Q53 | **Surfaces de synthèse** (ajout 04/07/2026) : déclaration de la **page d'accueil** (par utilisateur ? groupe/rôle ? module ?), **graphiques** (axes/séries déclarés), **tableaux de synthèse** (croisés — lien avec les compositions matricielles D134 ?), **widgets** (unités de dashboard) et **vignettes de résumé** (KPI). | Briques disponibles : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), **agrégats filtrés (D158)** comme source des chiffres, tableaux de bord intégrés (D38/D44) comme précédent. À traiter avec Q48. |
 
 ---
 
@@ -3097,3 +3098,9 @@ avant la synthèse Q16).
   messages (réponse à une question) notifient par IHM ou mail via
   l'infrastructure D108–D110 (canaux/profil/audience) — zéro machinerie
   nouvelle.
+- **2026-07-04 (suite 12)** — **Q53 ajoutée** au thème E — UI/UX (demande de
+  l'auteur) : les **surfaces de synthèse** — déclaration de la page d'accueil,
+  graphiques, tableaux de synthèse, widgets, vignettes de résumé (KPI). Briques
+  déjà disponibles notées : composants D64, registre D68, rendu déclaratif D69,
+  agrégats filtrés D158 comme source des chiffres, tableaux de bord intégrés
+  D38/D44 en précédent. À traiter avec Q48.

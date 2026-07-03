@@ -195,6 +195,10 @@ posée (voir §6).
 | D157 | **Trois sévérités + protocole en trois passes** : **erreur** (bloquante) / **confirmation** (validée par l'utilisateur) / **information** (non bloquante). À l'enregistrement : (1) toutes les erreurs d'un coup ; (2) confirmations **regroupées** en une validation ; (3) informations **regroupées**. API : rejet+liste / re-soumission avec acquittement / signalées dans la réponse. **Confirmations acceptées tracées** (audit D62). | Jamais d'arrêt à la première erreur, pas de clics en rafale ; qui a validé quoi, quand. Voir §3.8. |
 | D158 | **Agrégats filtrés** dans le langage : `somme(lignes.montant si ligne.etat = "facturée")` — critère de sélection des éléments, acté pour **tout** le langage (calculs, règles, translations). | Pressenti dès Q18, rendu nécessaire par les règles de cohérence. Voir §3.8. |
 | D159 | **Double évaluation** : serveur = **la vérité** (toutes sollicitations) ; l'IHM **porte automatiquement** les règles déclaratives (transport par le moteur). **Hook de validation bi-versions** : serveur **obligatoire**, IHM **optionnelle** (JS, D69) — même contrat (D52) ; sans version IHM, vérification à l'enregistrement seulement. | Le confort est optionnel, la vérité jamais. Voir §3.8. |
+| D160 | **Type `fichier`** (résout Q39) : métadonnées **nom, taille, MIME, empreinte, mots-clés** — les mots-clés = **clé de recherche** (réponse partielle au plein-texte Q38). Un champ = un fichier ; le multi = entité liée. | Voir §3.9. |
+| D161 | **Stockage dual** : **binaires hors base** (dossier dédié, nommage Syncytium — les blobs feraient grossir la base) ; **grands formats texte** (JSON…) → **blob en base**. | Contrainte assumée : **sauvegarde/restauration = base + dossier** en cohérence temporelle (élargit Q40/D93). Voir §3.9. |
+| D162 | **Quota en cascade** : instance, module, entité, champ — **la plus petite taille l'emporte**. | Simple à raisonner, précis à gouverner. Voir §3.9. |
+| D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). **Pas de déduplication** (la suppression par fiche l'interdit). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Voir §3.9. |
 
 ---
 
@@ -835,6 +839,44 @@ n'est vérifiée qu'à l'enregistrement (le protocole des trois passes couvre).
 **Apport au méta-schéma** : règles (condition D90, portée, sévérité, message),
 préconditions d'opérations, critère de sélection des agrégats, hooks de
 validation bi-versions.
+
+### 3.9 Fichiers (Q39 ; D160–D163)
+
+**Le type `fichier` (D160)** — type de base portant : **nom, taille, type MIME,
+empreinte, mots-clés** (ou sous-ensembles de mots-clés). Les **mots-clés sont
+la clé de recherche** (« tous les fichiers contenant ce mot, cet identifiant »)
+— réponse partielle au résiduel plein-texte de Q38, à l'échelle des fichiers.
+Un champ = un fichier (atomicité D118) ; le multi = entité liée en composition.
+
+**Stockage dual (D161).**
+- **Binaires → hors base** : dossier dédié, **nommage géré par Syncytium** —
+  les blobs binaires feraient grossir la base de façon conséquente ;
+- **grands formats texte** (JSON…) → **blob en base**.
+**Contrainte opérationnelle assumée** : la sauvegarde/restauration porte sur
+**la base ET le dossier**, en cohérence temporelle (le périmètre Q40/D93
+s'élargit d'autant).
+
+**Quota en cascade (D162)** : déclaré à **quatre niveaux** — instance, module,
+entité, champ — **la plus petite taille l'emporte**.
+
+**Anonymisation et statut (D163).** L'anonymisation d'un fichier =
+**suppression physique du contenu** (pièce d'identité, avis d'imposition…) +
+**anonymisation des mots-clés, cohérente avec les fiches anonymisées** (le lien
+survit à l'effacement — D139). **Statut de fichier** : `supprimé`
+(physiquement, volontairement), `anonymisé`, `corrompu`, `perdu`.
+- **Le squelette survit, le contenu part** (philosophie D137/D139) : les
+  métadonnées demeurent, seul le contenu disparaît ;
+- `corrompu`/`perdu` **détectés par contrôle d'intégrité** (empreinte +
+  présence), **tâche planifiée** (D54) — maintenance déclarée du magasin ;
+- **pas de déduplication** : la suppression physique par fiche l'interdit (un
+  contenu partagé ne pourrait être supprimé pour l'une sans amputer l'autre).
+Sécurité (acquis) : téléchargement par URL opaque (D75), re-contrôle d'accès à
+chaque accès (D25/D70), contenu jamais exécuté (donnée adverse, D43) ;
+écriture unique (D153) applicable ; magasin partagé avec les résultats de
+tâches (D55) et pièces jointes de notifications (D108).
+
+**Apport au méta-schéma** : type fichier (métadonnées + mots-clés + statut),
+quotas en cascade, règle d'anonymisation de fichier.
 
 ---
 
@@ -2167,7 +2209,7 @@ avant la synthèse Q16).
 | ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
 | ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
 | ~~Q36~~ | ~~Validation à l'écriture ?~~ | **Résolu (D156–D159, §3.8)** : règles inter-champs déclaratives (D90 + message traduit), portée entité/agrégat, **trois sévérités** (erreur/confirmation/information) en **trois passes regroupées**, agrégats filtrés, double évaluation serveur (vérité) + IHM (transport auto), hook bi-versions. |
-| Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
+| ~~Q39~~ | ~~Pièces jointes / fichiers binaires ?~~ | **Résolu (D160–D163, §3.9)** : type fichier (métadonnées + **mots-clés** de recherche + empreinte), **stockage dual** (binaires hors base dans un dossier géré, grands textes en blob), **quota en cascade** (instance/module/entité/champ — la plus petite gagne), anonymisation = suppression physique du contenu + mots-clés cohérents, **statut** supprimé/anonymisé/corrompu/perdu, contrôle d'intégrité planifié, pas de déduplication. |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
@@ -2964,3 +3006,15 @@ avant la synthèse Q16).
   optionnelle, même contrat D52).
 - **2026-07-04 (suite 7)** — Complément D157 validé : **les confirmations
   acceptées sont tracées** (qui a validé quoi, quand — audit D62).
+- **2026-07-04 (suite 8)** — **Q39 close** (D160–D163, nouveau §3.9). Type
+  **fichier** = nom, taille, MIME, empreinte, **mots-clés** (clé de recherche —
+  réponse partielle au plein-texte Q38). **Stockage dual** : binaires **hors
+  base** (dossier dédié, nommage Syncytium — la base ne grossit pas), grands
+  formats texte (JSON) en **blob** ; contrainte assumée : sauvegarde = base +
+  dossier en cohérence temporelle. **Quota en cascade** (instance/module/
+  entité/champ, la plus petite gagne). **Anonymisation de fichier** =
+  suppression physique du contenu + mots-clés anonymisés en cohérence avec les
+  fiches (le lien survit) ; **statut** supprimé/anonymisé/corrompu/perdu — le
+  squelette (métadonnées) survit, le contenu part ; corrompu/perdu détectés par
+  contrôle d'intégrité planifié ; **pas de déduplication** (la suppression par
+  fiche l'interdit).

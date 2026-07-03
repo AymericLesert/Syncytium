@@ -201,6 +201,8 @@ posée (voir §6).
 | D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Déduplication : voir D165. Voir §3.9. |
 | D164 | **Synchronisation étendue aux fichiers** : toute synchronisation entre instances (**D113 staging, D114 PCA/PRA**) porte sur **la base ET le dossier de fichiers**, en cohérence temporelle. | Conséquence du stockage dual (D161) — comme la sauvegarde. Voir §7.3. |
 | D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
+| D166 | **Type liste de données simples** (`liste de fichiers`, `liste d'entiers`) — simplifie la description sans entité liée pour les cas triviaux. Élément = contraintes de son type ; doublons autorisés ; ordre = insertion ou clé ; bornes min/max ; champ non triable, filtre « contient ». | Amende D160 (multi-fichiers simple) ; nuance D118 (atomicité = l'élément). **Ouvert : liste d'énumérés** (réintroduirait la multi-sélection D121). Voir §3.10. |
+| D167 | **Type communication** : trace CRM des **échanges** (entreprise ↔ clients) attachée à l'enregistrement — suite chronologique de **messages** (auteur = compte D77, horodatage, contenu, **visibilité interne/partagée** D70), **immuables** (append-only, esprit D153), pièces jointes (D160) ; composant fil de discussion (D64). | Structure proposée, micro-arbitrages ouverts (visibilité par message, immuabilité, pièces jointes). Voir §3.10. |
 
 ---
 
@@ -885,6 +887,36 @@ tâches (D55) et pièces jointes de notifications (D108).
 
 **Apport au méta-schéma** : type fichier (métadonnées + mots-clés + statut),
 quotas en cascade, règle d'anonymisation de fichier.
+
+### 3.10 Types complexes additionnels (D166–D167)
+
+**Liste de données simples (D166).** La famille s'agrandit : simple / composée /
+**liste de simples** — but : **simplifier la description** (`liste de fichiers`,
+`liste d'entiers` — les notes d'un élève) sans entité liée pour les cas
+triviaux. Amende **D160** (le multi-fichiers simple passe par la liste ;
+l'entité liée reste pour les cas riches) ; nuance **D118** (l'atomicité vaut
+pour l'*élément* — la liste est un conteneur déclaré). Propriétés :
+- l'élément porte **toutes les contraintes de son type** (formats, limites ;
+  fichiers : quotas D162, déduplication D165) ;
+- **doublons autorisés** ; **ordre** = insertion ou clé de tri déclarée ;
+  **bornes** min/max d'éléments déclarables ;
+- champ liste **non triable** (D125), filtre naturel = **« contient »** ;
+  stockage (tableau/JSON vs table fille) = facette D119/D18.
+*Micro-arbitrage ouvert : `liste d'énumérés` — autorisée par construction, elle
+réintroduirait la multi-sélection écartée (D121) ; à trancher.*
+
+**Communication (D167).** Type complexe matérialisant les **échanges** entre
+membres de l'entreprise et/ou clients — la **trace CRM** attachée à
+l'enregistrement (la fiche client porte son fil d'échanges). Structure
+proposée (à valider) :
+- **suite chronologique de messages** : **auteur** (compte D77 — interne ou
+  client), **horodatage**, **contenu**, **visibilité** (interne / partagée —
+  l'audience D70 s'applique : le client ne voit que ce qui lui est destiné) ;
+- **messages immuables** (une trace ne se réécrit pas — esprit D153,
+  append-only) ; **pièces jointes** possibles (fichiers D160) ;
+- IHM : composant **fil de discussion** (D64).
+*Micro-arbitrages ouverts : visibilité par message ? immuabilité ? pièces
+jointes ?*
 
 ---
 
@@ -3040,3 +3072,12 @@ avant la synthèse Q16).
   identique réutilisé ; réconciliation par **comptage de références**
   (effacement physique au dernier détenteur, statut par champ) — correct au
   sens RGPD.
+- **2026-07-04 (suite 10)** — Deux types complexes ajoutés (D166–D167, nouveau
+  §3.10). **Liste de données simples** (liste de fichiers, liste d'entiers) —
+  simplifie la description ; amende D160 (multi-fichiers), nuance D118
+  (atomicité = l'élément) ; ouvert : liste d'énumérés (réintroduirait la
+  multi-sélection D121). **Communication** — trace CRM des échanges
+  entreprise↔clients : messages chronologiques (auteur=compte, horodatage,
+  contenu, visibilité interne/partagée D70), immuables (append-only), pièces
+  jointes ; fil de discussion en IHM ; micro-arbitrages ouverts (visibilité par
+  message, immuabilité, pièces jointes).

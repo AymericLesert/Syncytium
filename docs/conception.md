@@ -961,9 +961,14 @@ manipulation (ADV).
 
 **Consultation temporelle (D172).** L'**API** sert la donnée **courante par
 défaut** ; **une date précisée → l'agrégat tel qu'il était à cette date**
-(lecture directe de l'instantané froid). L'**IHM** gagne un composant
-**« historique »** : synthèse des entrées d'un enregistrement, et **clic sur un
-détail → la fiche à la date du détail**.
+(lecture directe de l'instantané froid). **Résolution à date (précisée le
+05/07/2026)** : le **dernier instantané dont l'horodatage ≤ la date demandée**
+— les modifications **strictement postérieures sont ignorées** (une
+modification datée exactement de la date est incluse) ; date **antérieure à la
+création** → l'enregistrement *n'existait pas* (réponse vide, pas le premier
+instantané). L'**IHM** gagne un composant **« historique »** : synthèse des
+entrées d'un enregistrement, et **clic sur un détail → la fiche à la date du
+détail**.
 
 **Les champs calculés s'appliquent à l'historique (précision 05/07/2026).**
 Dividende des instantanés complets (D169) : les calculs (D35–D36), jamais
@@ -3201,3 +3206,7 @@ avant la synthèse Q16).
   **alerte au technicien à la validation du schéma** (analyse statique des
   chemins), sauf **propriété d'anticipation** déclarée sur l'entité non
   historisée (patron rupture_assumee D13/D102).
+- **2026-07-05 (suite 3)** — Résolution à date formalisée (D172 précisée) : le
+  **dernier instantané dont l'horodatage ≤ la date demandée** — modifications
+  strictement postérieures ignorées ; date antérieure à la création →
+  l'enregistrement n'existait pas (réponse vide).

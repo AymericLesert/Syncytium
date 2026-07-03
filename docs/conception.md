@@ -226,6 +226,7 @@ postures combinables :
 | D178 | **Clés externes déclarées** dans le mapping (**aucune déduction automatique** du modèle d'origine, parfois trompeur) ; **provenance par enregistrement** : connecteur d'origine + date de reprise + clé existante — **persiste** après désactivation/suppression du connecteur (plus alimentée). | La provenance est un fait historique, pas un lien vivant. Voir §3.11. |
 | D179 | **Rejets de reprise : rapport seul (clôt Q49)** — les refusés (D177) ne sont pas conservés ; **rapport d'import** (D120) diffusé selon les **opt-in de notification** (D108–D110), correction à la source / ajustement des règles, **relance sur les manquants**. **Rapport spécifique de non-couverture (D176) au technicien.** | Quarantaine écartée (la source vit pendant la reprise, D175). Voir §3.11. |
 | D180 | **Double périmètre du projet** : (1) **entrepôt de données fiable** (opérationnel à l'échelle TPE — qualité D177, couverture D176, provenance D178, temporalité D168–D174, restitution ; IHM = consultation **et** correction) ; (2) **applications métier** sur description exhaustive et simple. **Un moteur, deux postures, combinables.** | La reprise (Q49) = un ETL déclaratif déjà construit ; qualification honnête consignée (opérationnel ≠ OLAP ; D18/D36 = extensions si volumétrie). Vision §1 élargie. |
+| D181 | **Rapports de reprise persistés + statut de ligne (complète D179)** : stock de rejets consolidé (identité = provenance D178, repli empreinte), statuts **à reprendre** (défaut, retentée, re-rejet sans re-notification) / **à ignorer** (écartée des relances, tracée D62) / **intégré** (constaté par rapprochement de provenance) ; **écran moteur** à accès déclaré (défaut admin) ; **le rapport ne diffuse que le nouveau**. | Toujours pas une quarantaine : trace à statut, ni éditable ni injectable. Fin de reprise objectivée : plus rien « à reprendre » + couverture assumée → débranchement (D175). « Ignorer, jamais oublier » (D176) étendu aux enregistrements. Voir §3.11. |
 
 ---
 
@@ -1055,12 +1056,52 @@ existante** (du système source). À la désactivation/suppression du connecteur
 provenance est un fait historique, pas un lien vivant).
 
 **Rejets : le rapport seul (D179, clôt Q49).** Les enregistrements refusés
-(D177) ne sont **pas conservés** côté Syncytium : ils sont **listés dans le
-rapport d'import** (cellule par cellule, D120), **diffusé selon les opt-in de
-notification existants** (D108–D110) — correction **à la source** ou ajustement
-des règles, puis **relance sur les manquants**. La **non-couverture (D176) fait
-l'objet d'un rapport spécifique émis au technicien** pour analyse.
+(D177) ne sont **pas conservés comme données** côté Syncytium : ils sont
+**listés dans le rapport d'import** (cellule par cellule, D120), **diffusé
+selon les opt-in de notification existants** (D108–D110) — correction **à la
+source** ou ajustement des règles, puis **relance sur les manquants**. La
+**non-couverture (D176) fait l'objet d'un rapport spécifique émis au
+technicien** pour analyse.
 (Quarantaine écartée : la source vit encore pendant la reprise — D175.)
+
+**Le rapport persisté et le statut des lignes rejetées (D181, complète
+D179).** Sans mémoire des rejets déjà vus, le rapport re-signalerait
+éternellement les mêmes lignes — et « exclure une ligne que nous n'intégrerons
+jamais » n'aurait aucun support. Le rapport d'import est donc **stocké** :
+
+- **Stock de rejets consolidé.** Les rapports sont **persistés** (décrits par
+  le méta-modèle de Syncytium, comme les notifications D110 — module moteur).
+  Une ligne rejetée est identifiée par sa **provenance** (connecteur + entité
+  source + clé externe déclarée D178 ; en repli, si la clé elle-même est
+  illisible : empreinte du contenu source).
+- **Trois statuts par ligne** :
+  - **à reprendre** (défaut à la détection) — la ligne sera retentée aux
+    relances ; un re-rejet **met à jour** le stock (dernier motif, compteur de
+    tentatives, dernière vue) **sans re-notifier** ;
+  - **à ignorer** — exclusion **assumée** : la ligne est **écartée des
+    relances** (plus jamais tentée) et sort du rapport ; décision humaine
+    **tracée** (qui, quand, motif — audit D62) ;
+  - **intégré** — **constaté automatiquement** par rapprochement de provenance
+    (D178) lors d'une relance réussie, positionnable manuellement si besoin.
+- **Écran moteur de gestion des rejets** : consultation, filtres, changement
+  de statut. Accès **déclaré** ; par défaut l'administrateur — le stock
+  contient du **contenu source brut**, potentiellement sensible, donc écran
+  restreint.
+- **Le rapport ne porte que le nouveau** : seules les lignes **nouvellement
+  rejetées** (inconnues du stock) sont diffusées via les opt-in ; l'existant
+  se consulte à l'écran.
+- **Critère de fin objectivé** (renforce D175) : plus aucune ligne « à
+  reprendre » — tout est « intégré » ou « à ignorer » — et la couverture
+  (D176) assumée : le connecteur de reprise peut être débranché. Le devenir du
+  stock au débranchement (conservation en trace ou purge) relève de
+  l'administrateur, comme la durée de vie du connecteur (D175).
+
+**Ce n'est toujours pas une quarantaine** : la ligne n'est **ni éditable ni
+injectable depuis le stock** — la correction se fait à la source, l'intégration
+passe par la voie standard. Le stock est une **trace à statut**, pas un sas de
+données. Le principe « **ignorer, jamais oublier** » (D176) s'applique
+désormais aux deux granularités : la structure (entités/champs ignorés du
+mapping) et les enregistrements (lignes « à ignorer » du stock).
 
 **Le double périmètre du projet (D180).** La reprise révèle que Syncytium
 couvre **deux périmètres** avec **un seul moteur** :
@@ -2428,7 +2469,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D179, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
+| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D181, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -3338,3 +3379,15 @@ avant la synthèse Q16).
   l'échelle TPE (≠ OLAP — sans objet à quelques Go ; D18/D36 = extensions).
   Vision §1 élargie. **LE VOLET MODÈLE DE DONNÉES EST CLOS** (Q34–Q37, Q39,
   Q49–Q52 : D115–D180).
+- **2026-07-05 (suite 9)** — **Raffinement des rejets (D181, complète D179)**.
+  L'auteur : le rapport seul suffit, mais il faut pouvoir **exclure des lignes
+  que nous n'intégrerons jamais** → **rapports stockés** + **écran** de statut
+  par ligne (à ignorer / à reprendre / intégré), le rapport ne diffusant que
+  les **lignes nouvellement rejetées**. Consigné : stock consolidé identifié
+  par provenance (D178, repli empreinte), « à ignorer » = écartée des relances
+  et tracée (D62), « intégré » = constaté automatiquement par rapprochement de
+  provenance, écran moteur à accès déclaré (contenu source brut → restreint,
+  défaut admin), fin de reprise **objectivée** (plus rien « à reprendre » →
+  débranchement D175). Toujours pas une quarantaine : **trace à statut**, ni
+  éditable ni injectable — « ignorer, jamais oublier » (D176) vaut désormais
+  pour la structure **et** les enregistrements.

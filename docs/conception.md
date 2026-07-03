@@ -191,6 +191,10 @@ posée (voir §6).
 | D153 | **Écriture unique** (forme finale) : **troisième valeur du mode d'accès en écriture** (D73) — lecture / écriture / **écriture unique** (autorisée une seule fois : champ vide = permise, renseigné = refus). Déclinable par audience/groupe (admin en écriture pleine = correction tracée D62) ; écriture différable (création ou opération). | **Pas d'attribut supplémentaire** — une valeur de plus dans une énumération existante, zéro concept nouveau. Voir §3.7. |
 | D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
 | D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
+| D156 | **Règles inter-champs déclaratives (résout Q36)** : sur l'entité ou la **composition** (portée agrégat, transaction D101) — expression **D90 booléenne** + message (libellé traduit D127). **Une règle = un contrôle, jamais une affectation.** Préconditions d'opérations (D148) = même forme. Évaluées à l'écriture sur les règles dont les sources sont touchées. | Rien au-delà de l'agrégat (opérations/unicité). Voir §3.8. |
+| D157 | **Trois sévérités + protocole en trois passes** : **erreur** (bloquante) / **confirmation** (validée par l'utilisateur) / **information** (non bloquante). À l'enregistrement : (1) toutes les erreurs d'un coup ; (2) confirmations **regroupées** en une validation ; (3) informations **regroupées**. API : rejet+liste / re-soumission avec acquittement / signalées dans la réponse. | Jamais d'arrêt à la première erreur, pas de clics en rafale. Complément proposé : confirmations tracées (D62). Voir §3.8. |
+| D158 | **Agrégats filtrés** dans le langage : `somme(lignes.montant si ligne.etat = "facturée")` — critère de sélection des éléments, acté pour **tout** le langage (calculs, règles, translations). | Pressenti dès Q18, rendu nécessaire par les règles de cohérence. Voir §3.8. |
+| D159 | **Double évaluation** : serveur = **la vérité** (toutes sollicitations) ; l'IHM **porte automatiquement** les règles déclaratives (transport par le moteur). **Hook de validation bi-versions** : serveur **obligatoire**, IHM **optionnelle** (JS, D69) — même contrat (D52) ; sans version IHM, vérification à l'enregistrement seulement. | Le confort est optionnel, la vérité jamais. Voir §3.8. |
 
 ---
 
@@ -784,6 +788,52 @@ Cohérences : déclencheurs calendaires = vocabulaire **planifié** (D54) ;
 bouton), champ en **écriture réservée** (write-once), **compteurs** (bornes,
 déclencheurs, cascades, combinaison), lien parent implicite, visibilité par
 spécialisation.
+
+### 3.8 Validation à l'écriture (Q36 ; D156–D159)
+
+Le mono-champ est **déjà couvert** (obligatoire/limites D118, unique D141,
+format = conversion faillible D120/D131, domaines D123/D129, clés de contrôle
+D122, écriture unique D153). Q36 ajoute les **règles inter-champs**.
+
+**Règles déclaratives (D156).** Déclarées sur l'**entité** (ou la
+**composition** pour porter sur l'agrégat entier — évaluées dans la transaction
+D101) : **expression D90 booléenne** + **message** (identifiant de libellé,
+traduit D127). **Une règle = un contrôle, jamais une affectation** (un total qui
+se *calcule* = champ calculé D35 ; la règle *vérifie* un total saisi/importé).
+Pas de règle inter-enregistrements au-delà de l'agrégat (territoire des
+opérations D148 et de l'unicité D141). Les **préconditions d'opérations**
+(D148) utilisent la même forme. Évaluation : à l'écriture, sur les règles dont
+les **sources sont touchées**.
+
+**Trois sévérités, protocole en trois passes (D157).**
+- **Erreur** — la règle doit être respectée : pas d'enregistrement ;
+- **Confirmation** — l'utilisateur valide en connaissance de cause ;
+- **Information** — non bloquante, l'utilisateur est informé.
+
+À l'enregistrement : **(1)** toutes les **erreurs** d'un coup (jamais d'arrêt à
+la première) ; **(2)** si aucune erreur, toutes les **confirmations regroupées**
+en une seule validation (pas de clics en rafale) ; **(3)** si confirmé, toutes
+les **informations regroupées**, affichées une fois. Transposition API :
+erreurs → rejet avec liste complète ; confirmations → réponse listant les
+confirmations requises, **re-soumission avec acquittement** ; informations →
+dans la réponse de succès. *(Complément proposé : confirmations acceptées
+tracées — audit D62.)*
+
+**Agrégats filtrés (D158).** Les agrégats du langage acceptent un **critère de
+sélection** : `somme(lignes.montant si ligne.etat = "facturée")` — pressenti dès
+Q18, acté pour **tout** le langage (calculs, règles, translations).
+
+**Double évaluation, hook à deux versions (D159).** Le **serveur = la vérité**
+(toutes sollicitations, externes et IHM) ; l'**IHM porte automatiquement les
+règles déclaratives** (le moteur les transporte — évite les allers-retours).
+Le **hook de validation** (échappatoire pour les cas hors D90) se décline en
+**deux versions** : **serveur obligatoire** (la vérité) et **IHM optionnelle**
+(JavaScript, D69) — même contrat déclaré (D52) ; sans version IHM, la règle
+n'est vérifiée qu'à l'enregistrement (le protocole des trois passes couvre).
+
+**Apport au méta-schéma** : règles (condition D90, portée, sévérité, message),
+préconditions d'opérations, critère de sélection des agrégats, hooks de
+validation bi-versions.
 
 ---
 
@@ -2115,7 +2165,7 @@ avant la synthèse Q16).
 | **A — Modèle de données (prioritaire)** | | |
 | ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
 | ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
-| Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
+| ~~Q36~~ | ~~Validation à l'écriture ?~~ | **Résolu (D156–D159, §3.8)** : règles inter-champs déclaratives (D90 + message traduit), portée entité/agrégat, **trois sévérités** (erreur/confirmation/information) en **trois passes regroupées**, agrégats filtrés, double évaluation serveur (vérité) + IHM (transport auto), hook bi-versions. |
 | Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | **B — Cycle de vie & exploitation** | | |
@@ -2899,3 +2949,15 @@ avant la synthèse Q16).
   modèle d'accès (admin en écriture pleine = correction tracée D62, sans règle
   spéciale) ; écriture différée naturelle. Une valeur de plus dans une
   énumération existante, zéro concept nouveau.
+- **2026-07-04 (suite 6)** — **Q36 close** (D156–D159, nouveau §3.8). Règles
+  inter-champs **déclaratives** (expression D90 booléenne + message traduit
+  D127), sur l'entité ou la composition (portée agrégat, transaction D101) ;
+  **une règle = un contrôle, jamais une affectation** (réponse à la question de
+  l'auteur sur total_coherent). **Trois sévérités** (erreur / confirmation /
+  information) avec **protocole en trois passes regroupées** (toutes les
+  erreurs d'un coup, confirmations en une validation, informations en une
+  fois) — transposé à l'API (re-soumission avec acquittement). **Agrégats
+  filtrés** actés pour tout le langage (`somme(... si ...)`, D158). **Double
+  évaluation** : serveur = vérité, IHM = transport automatique des règles
+  déclaratives ; **hook de validation bi-versions** (serveur obligatoire, IHM
+  optionnelle, même contrat D52).

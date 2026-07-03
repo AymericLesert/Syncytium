@@ -30,6 +30,16 @@ Outils existants comparables (pour situer le concept) : Airtable, Directus, Stra
 Budibase. La question « construire sur mesure ou s'appuyer sur un existant » reste
 posée (voir §6).
 
+**Double périmètre (élargi le 05/07/2026, D180)** — un seul moteur, deux
+postures combinables :
+1. **Entrepôt de données fiable** (entrepôt *opérationnel* à l'échelle TPE) —
+   consolider des sources dégradées à travers le filtre de qualité, avec
+   couverture mesurée, provenance, temporalité native et restitution ; l'IHM
+   permet consultation **et** correction ;
+2. **Applications métier** fondées sur une description exhaustive et simple —
+   le développement d'applications dédiées basées sur la donnée et sa
+   transformation.
+
 ---
 
 ## 2. Décisions actées
@@ -203,6 +213,23 @@ posée (voir §6).
 | D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
 | D166 | **Type liste** (forme finale) : applicable à **tous les types sauf la liste** (simples, composées, hooks — pas d'imbrication) ; **propriété « listable » par type** (communication = non-listable : un canal = un champ) ; **liste d'énumérés autorisée** (la multi-sélection revient par la porte générale, l'énuméré restant mono en champ). Élément = contraintes de son type ; doublons OK ; ordre insertion/clé ; bornes ; filtre « contient ». | Amende D160 ; nuance D118 (atomicité = l'élément) ; résout le micro-arbitrage D121. Voir §3.10. |
 | D167 | **Type communication** (forme finale) : trace CRM — messages chronologiques (auteur = compte D77, horodatage, contenu), fil de discussion (D64). **Propriétés à défauts** : visibilité **maximale**, immuable **vrai**, pièces jointes **non**, **notification non** — si vrai, les nouveaux messages (réponse à une question) notifient par **IHM ou mail via l'infra D108–D110** (canaux/profil/audience). | Zéro machinerie nouvelle pour la notification. Voir §3.10. |
+| D168 | **Historisation — portée en cascade (résout Q37)** : propriété du **module et/ou de l'entité**, héritée par les enfants d'agrégat ; **défaut inactive** ; module historisé → toutes ses entités **sauf opt-out**. | Patron de cascade (D162). Voir §3.11. |
+| D169 | **Chaud/froid, instantanés complets** : courant = chaud, historique = froid ; chaque entrée = **toutes les valeurs de l'agrégat** (pas les écarts) + auteur (D76)/horodatage/canal/motif ; **lecture seule**. | Stockage assumé ↔ consultation triviale (fiche à une date = lire l'instantané). Voir §3.11. |
+| D170 | **Confidentialité de l'historique** : visibilité **déclarée par groupe** (responsable métier oui, client non) ; confidentialités de champs **héritées de l'entité d'origine** ; **anonymisation étendue à l'historique** (D139 — sinon fuite). | Voir §3.11. |
+| D171 | **Restauration outillée** : **administrateur seul, sous condition, tracée** — la restauration est une modification historisée. | Cas vécu : fiche client écrasée par erreur ADV. Voir §3.11. |
+| D172 | **Consultation temporelle** : API — donnée **courante par défaut**, **date précisée → l'agrégat à cette date** ; IHM — composant **« historique »** (synthèse des entrées + clic sur un détail → la fiche à la date). **Les champs calculés s'évaluent sur les instantanés** (la fiche à date affiche ses calculs d'époque) — intra-agrégat exact ; traversée d'association résolue à date si la cible est historisée, sinon valeur courante signalée. | Servie directement par les instantanés D169 — dividende du choix « pas d'écarts ». Voir §3.11. |
+| D173 | **Insertion antidatée** (reprise — résout la sous-question historique de Q49) : par défaut pas d'import d'historique ; sinon **sollicitation de l'interface à une date antérieure** + insertion dans l'historique, **contrôles levés** (règles de cohérence). | Complexité assumée ; mécanisme dédié, réservé à la reprise. Voir §3.11. |
+| D174 | **Propagation de la date à travers les associations** : historisée → instantané à date ; non historisée → **valeur courante** ; non historisée référençant une historisée → **la date d'origine s'applique de nouveau** (jamais perdue). Perte de cohérence possible (mélange chaud/froid) → **alerte au technicien à la validation du schéma**, **sauf propriété d'anticipation déclarée** sur l'entité non historisée. | Patron `rupture_assumee` (D13/D102) : on peut assumer, jamais subir en silence. Analyse statique des chemins, pas de coût par requête. Voir §3.11. |
+| D175 | **Connecteur de reprise** (corrigé) = connecteur ordinaire (D79/D83) **déclaré « reprise »** et **en lecture seule par défaut** (il lit le système d'origine ; exception : coexistence avec le connecteur standard) ; **durée de vie = responsabilité de l'administrateur** (débranché quand tout est repris ET qualité satisfaisante, tracé D62). Flux : lecture reprise → translation + **traitements pour l'information complexe** (tâches/hooks) → **écriture par le chemin standard**. | **Le privilège est porté par l'écriture, pas le connecteur** : l'insertion antidatée est **identifiée « reprise »** — ce marquage autorise la levée des contrôles (D173) et fonde la traçabilité. Voir §3.11. |
+| D176 | **Mapping de reprise exhaustif** : le connecteur auto-descriptif **signale les entités/champs source non couverts** ; le mapping **référence toute la structure d'origine**, les éléments non repris **marqués « ignorés »** → **couverture mesurée**. | *On peut ignorer, jamais oublier* — l'exclusion se déclare. Voir §3.11. |
+| D177 | **Critère d'acceptation de la reprise** : enregistré **seulement si toutes les données sont converties avec succès (D120) ET les contraintes de cohérence de la cible résolues (D156)** — au niveau enregistrement/agrégat (D101). | Pas d'enregistrement partiel, pas de données douteuses dans la cible. Voir §3.11. |
+| D178 | **Clés externes déclarées** dans le mapping (**aucune déduction automatique** du modèle d'origine, parfois trompeur) ; **provenance par enregistrement** : connecteur d'origine + date de reprise + clé existante — **persiste** après désactivation/suppression du connecteur (plus alimentée). | La provenance est un fait historique, pas un lien vivant. Voir §3.11. |
+| D179 | **Rejets de reprise : rapport seul (clôt Q49)** — les refusés (D177) ne sont pas conservés ; **rapport d'import** (D120) diffusé selon les **opt-in de notification** (D108–D110), correction à la source / ajustement des règles, **relance sur les manquants**. **Rapport spécifique de non-couverture (D176) au technicien.** | Quarantaine écartée (la source vit pendant la reprise, D175). Voir §3.11. |
+| D180 | **Double périmètre du projet** : (1) **entrepôt de données fiable** (opérationnel à l'échelle TPE — qualité D177, couverture D176, provenance D178, temporalité D168–D174, restitution ; IHM = consultation **et** correction) ; (2) **applications métier** sur description exhaustive et simple. **Un moteur, deux postures, combinables.** | La reprise (Q49) = un ETL déclaratif déjà construit ; qualification honnête consignée (opérationnel ≠ OLAP ; D18/D36 = extensions si volumétrie). Vision §1 élargie. |
+| D181 | **Rapports de reprise persistés + statut de ligne (complète D179)** : stock de rejets consolidé (identité = provenance D178, repli empreinte), statuts **à reprendre** (défaut, retentée, re-rejet sans re-notification) / **à ignorer** (écartée des relances, tracée D62) / **intégré** (constaté par rapprochement de provenance) ; **écran moteur** à accès déclaré (défaut admin) ; **le rapport ne diffuse que le nouveau**. | Toujours pas une quarantaine : trace à statut, ni éditable ni injectable. Fin de reprise objectivée : plus rien « à reprendre » + couverture assumée → débranchement (D175). « Ignorer, jamais oublier » (D176) étendu aux enregistrements. Voir §3.11. |
+| D182 | **Dates du cycle de vie sur chaque ligne du stock (complète D181)** : première détection, dernière tentative, changement de statut (qui/quand/motif — D62), date d'intégration → **le stock = journal d'audit de la reprise** (chaque ligne source a un destin daté et justifiable). | Avec la provenance persistante (D178), l'audit couvre les deux faces : ce qui est entré et ce qui n'est pas entré. Ancienneté des « à reprendre » = indicateur de pilotage (fin de reprise, D181). Voir §3.11. |
+| D183 | **Cycle des statuts du stock (amende D181)** : **en anomalie** (système, échec — état d'entrée, jamais retentée sans décision humaine) / **à reprendre** (admin — règle ou source corrigée, replanifiée) / **ignoré** (admin — exclusion tracée D62, réversible par l'admin) / **intégré** (système, D178). **Un passage traite : les nouveaux + les « à reprendre », même voie standard** (D175/D177) ; à l'issue le système repositionne (intégré ou en anomalie). | **Le système constate, l'administrateur décide.** Pas d'acharnement aveugle sur les lignes connues mauvaises. Rapport d'un passage = nouvelles anomalies + bilan des retentées ; fin de reprise = plus rien en anomalie ni à reprendre. Voir §3.11. |
+| D184 | **Retour arrière d'une ligne intégrée** : intégré → à reprendre (admin — erreur découverte après coup) ⇒ **suppression physique** des données issues de la ligne (agrégat + historique éventuel) puis réimport au prochain passage — comme si jamais intégrée. | **Exception assumée** à « masquer, ne jamais détruire » (D137) : garantit la qualité en fin de reprise ; **portée par la provenance (D178, seul chemin)**, **refusée si références étrangères à la reprise**, **trace du stock conservée** (D182 — l'audit survit à l'effacement). Voir §3.11. |
 
 ---
 
@@ -923,6 +950,239 @@ discussion** en IHM (D64). **Propriétés du type, avec défauts** :
 | **immuable** | **vrai** (la trace ne se réécrit pas — esprit D153) |
 | **pièces jointes** | **non** (fichiers D160 si activées) |
 | **notification** | **non** — si **vrai** : les nouveaux messages **notifient** (IHM ou mail — notamment la **réponse à une question**), via l'infrastructure existante D108–D110 (canaux = connecteurs, choix par profil D109, audience respectée) |
+
+### 3.11 Historisation (Q37 ; D168–D173)
+
+**Portée déclarative en cascade (D168).** L'historisation porte sur **une
+entité et ses agrégats** — propriété du **module et/ou de l'entité**, héritée
+par les enfants d'agrégat. **Défaut : inactive.** Un module historisé historise
+**toutes ses entités sauf opt-out** explicite (« pas d'historisation ») —
+patron de cascade (cf. quotas D162).
+
+**Chaud/froid, instantanés complets, lecture seule (D169).** Le courant =
+valeurs **chaudes** ; l'historique = valeurs **froides**. **On n'historise pas
+les écarts : chaque entrée = toutes les valeurs de l'agrégat** (instantané
+complet), avec son **auteur** (compte + on-behalf-of D76), son **horodatage**,
+son **canal** (IHM/API/opération/tâche/connecteur) et son **motif** quand il
+existe (D62/D157). **Toujours en lecture seule.** Coût de stockage assumé —
+en échange, la consultation est **triviale** (la fiche à une date = lire
+l'instantané, aucun rejeu de diffs).
+
+**Confidentialité et anonymisation (D170).** L'historique est couvert par la
+confidentialité : **visibilité de l'historique déclarée par groupe** (visible
+du responsable métier, pas du client) ; **les confidentialités de champs sont
+portées par l'entité d'origine** (un champ privé reste privé dans le froid) ;
+**l'anonymisation (D139) s'étend à l'historique** — sinon fuite.
+
+**Restauration outillée (D171).** Par l'**administrateur seul**, **sous
+condition**, **tracée** — la restauration est elle-même une modification
+historisée. Motivation vécue : fiche client écrasée par une erreur de
+manipulation (ADV).
+
+**Consultation temporelle (D172).** L'**API** sert la donnée **courante par
+défaut** ; **une date précisée → l'agrégat tel qu'il était à cette date**
+(lecture directe de l'instantané froid). **Résolution à date (précisée le
+05/07/2026)** : le **dernier instantané dont l'horodatage ≤ la date demandée**
+— les modifications **strictement postérieures sont ignorées** (une
+modification datée exactement de la date est incluse). **Fenêtre d'existence** :
+date **antérieure à la création** → l'enregistrement *n'existait pas* (réponse
+vide, pas le premier instantané) ; date **postérieure à la suppression**
+(D137) → **réponse vide par défaut**, **sauf demande expresse** — restitué
+alors avec le **statut « Supprimé »** (miroir temporel du comportement des
+listes : actifs par défaut, inactifs sur demande). L'**IHM** gagne un composant **« historique »** : synthèse des
+entrées d'un enregistrement, et **clic sur un détail → la fiche à la date du
+détail**.
+
+**Les champs calculés s'appliquent à l'historique (précision 05/07/2026).**
+Dividende des instantanés complets (D169) : les calculs (D35–D36), jamais
+stockés, **s'évaluent sur les valeurs froides** — la fiche à une date affiche
+ses calculs *tels qu'ils valaient à cette date*, sans mécanisme nouveau.
+
+**Propagation de la date à travers les associations (D174).** La **date
+d'origine de la requête traverse toute la chaîne** de résolution :
+- entité **historisée** → instantané **à la date** ;
+- entité **non historisée** → **valeur courante** (pas d'historique) ;
+- non historisée **référençant une historisée** → **la date d'origine
+  s'applique de nouveau** — elle n'est jamais perdue en route.
+
+Le mélange chaud/froid peut créer une **perte de cohérence** → **alerte au
+technicien**, détectée à la **validation du schéma** (analyse statique des
+chemins temporels traversant du non-historisé), **sauf si l'entité non
+historisée porte la propriété déclarant l'anticipation** — patron
+`rupture_assumee` (D13/D102) : on peut assumer, jamais subir en silence.
+
+**Insertion antidatée — reprise (D173, résout la sous-question de Q49).** Par
+défaut, la reprise **n'importe pas l'historique**. Pour récupérer l'historique
+d'un système d'origine : **solliciter l'interface à une date antérieure** puis
+**insérer la modification dans l'historique** — en **levant certains
+contrôles** (notamment les règles de cohérence, qui n'ont pas à juger le
+passé). Problématique complexe assumée ; mécanisme dédié, réservé à la reprise.
+
+**Le connecteur de reprise (D175, corrigé le 05/07/2026).** Un connecteur
+**comme un autre** (D79/D83), mais **déclaré comme lié à une reprise**
+(marqueur explicite) et **en lecture seule par défaut** (il *lit* le système
+d'origine ; exception : coexistence avec le connecteur standard).
+- **Durée de vie = responsabilité de l'administrateur** : débranché quand
+  **toutes les données sont reprises ET la qualité est satisfaisante** —
+  jugement appuyé sur les outils existants (rapports d'import D120, vidage de
+  la quarantaine, télémétrie) ; débranchement = action d'administration tracée
+  (D62).
+- **Le flux de reprise** : connecteur « reprise » (lecture) → **translation**
+  (D79/D90) **+ traitements pour les informations complexes** (tâches/hooks —
+  au-delà du déclaratif) → **écriture par le chemin standard**.
+- **Le privilège est porté par l'écriture, pas par le connecteur** :
+  **l'insertion antidatée passe par le chemin d'écriture standard** et est
+  **identifiée comme provenant d'une reprise** — c'est ce marquage de
+  l'écriture qui autorise la levée des contrôles (D173) et fonde la
+  traçabilité. Une écriture non identifiée « reprise » ne peut jamais antidater
+  ni contourner les règles.
+
+**Mapping exhaustif et couverture (D176).** Le connecteur auto-descriptif
+(D83) **analyse le schéma de la base d'origine et signale les entités/champs
+non couverts** par le mapping. Règles : le **mapping référence toute la
+structure du modèle d'origine** ; les éléments non repris sont **explicitement
+marqués « ignorés »** ; la **couverture de la reprise se mesure** (comparaison
+mapping ↔ modèle d'origine) — l'oubli silencieux est impossible : *on peut
+ignorer, jamais oublier*.
+
+**Critère d'acceptation (D177).** Seuls sont enregistrés les enregistrements
+dont **toutes les données ont été converties avec succès** (D120) **et dont les
+contraintes de cohérence de la cible sont résolues** (D156) — au niveau de
+l'enregistrement/agrégat (D101). Pas d'enregistrement partiel.
+
+**Clés externes déclarées, provenance persistante (D178).** Le mapping
+**précise les clés externes à conserver** — **aucune déduction automatique**
+depuis le modèle d'origine (parfois trompeur). Chaque enregistrement repris
+**porte sa provenance** : **connecteur d'origine, date de reprise, clé
+existante** (du système source). À la désactivation/suppression du connecteur,
+**ces informations demeurent** — plus alimentées par l'usage courant (la
+provenance est un fait historique, pas un lien vivant).
+
+**Rejets : le rapport seul (D179, clôt Q49).** Les enregistrements refusés
+(D177) ne sont **pas conservés comme données** côté Syncytium : ils sont
+**listés dans le rapport d'import** (cellule par cellule, D120), **diffusé
+selon les opt-in de notification existants** (D108–D110) — correction **à la
+source** ou ajustement des règles, puis **relance sur les manquants**. La
+**non-couverture (D176) fait l'objet d'un rapport spécifique émis au
+technicien** pour analyse.
+(Quarantaine écartée : la source vit encore pendant la reprise — D175.)
+
+**Le rapport persisté et le statut des lignes rejetées (D181, complète
+D179).** Sans mémoire des rejets déjà vus, le rapport re-signalerait
+éternellement les mêmes lignes — et « exclure une ligne que nous n'intégrerons
+jamais » n'aurait aucun support. Le rapport d'import est donc **stocké** :
+
+- **Stock de rejets consolidé.** Les rapports sont **persistés** (décrits par
+  le méta-modèle de Syncytium, comme les notifications D110 — module moteur).
+  Une ligne rejetée est identifiée par sa **provenance** (connecteur + entité
+  source + clé externe déclarée D178 ; en repli, si la clé elle-même est
+  illisible : empreinte du contenu source).
+- **Un statut par ligne** — le cycle complet est décrit ci-dessous (D183).
+- **Écran moteur de gestion des rejets** : consultation, filtres, changement
+  de statut. Accès **déclaré** ; par défaut l'administrateur — le stock
+  contient du **contenu source brut**, potentiellement sensible, donc écran
+  restreint.
+- **Le rapport d'un passage ne porte que l'activité** : les lignes
+  **nouvellement en anomalie** (inconnues du stock) et le **bilan des
+  « à reprendre » retentées** (intégrées ou repassées en anomalie), diffusés
+  via les opt-in ; les stocks dormants ne sont **pas re-notifiés** —
+  l'existant se consulte à l'écran.
+- **Critère de fin objectivé** (renforce D175) : plus aucune ligne « en
+  anomalie » ni « à reprendre » — tout est « intégré » ou « ignoré » — et la
+  couverture (D176) assumée : le connecteur de reprise peut être débranché.
+  Le devenir du stock au débranchement (conservation en trace ou purge)
+  relève de l'administrateur, comme la durée de vie du connecteur (D175).
+
+**Le cycle des statuts : le système constate, l'administrateur décide (D183,
+amende D181).** Quatre statuts, aux mains strictement séparées :
+
+- **en anomalie** — posé par le **système** : la tentative d'intégration a
+  échoué. C'est l'**état d'entrée** d'une ligne dans le stock ; elle y
+  **reste sans être retentée** tant qu'un humain n'a pas statué (pas
+  d'acharnement aveugle sur une ligne connue mauvaise).
+- **à reprendre** — posé par l'**administrateur** (depuis « en anomalie » ou
+  « intégré », D184) : une règle a été corrigée, ou la source l'a été — la
+  ligne est **replanifiée** pour le prochain passage.
+- **ignoré** — posé par l'**administrateur** (depuis « en anomalie ») :
+  exclusion **assumée**, la ligne ne sera jamais intégrée ni retentée ;
+  décision **tracée** (qui, quand, motif — audit D62). Revenir sur un
+  « ignoré » (→ « à reprendre ») reste une décision d'administrateur, tracée
+  de même.
+- **intégré** — posé par le **système** : l'intégration a réussi
+  (rapprochement de provenance D178).
+
+**Un passage d'intégration traite les enregistrements nouveaux et les lignes
+« à reprendre »** — rien d'autre — par la **même voie standard** (translation,
+critère d'acceptation D177, écriture identifiée « reprise » D175). À l'issue,
+le système repositionne chaque ligne — **intégré** ou **en anomalie** (dernier
+motif, compteur de tentatives, dernière vue mis à jour).
+
+**Le retour arrière d'une ligne intégrée (D184).** L'administrateur peut
+repasser une ligne « intégré » en « à reprendre » — cas d'une erreur
+découverte après coup (une règle fausse a produit des données fausses). Cette
+bascule **supprime physiquement** les données issues de la ligne (l'agrégat
+créé et son historique éventuel), avant réimport par le prochain passage —
+comme si la ligne n'avait jamais été intégrée. C'est une **exception assumée**
+au principe « masquer, ne jamais détruire » (D137), justifiée — intervenant en
+phase de reprise, elle **garantit la qualité des données à l'issue de la
+reprise** (pas de fantômes inactivés issus de règles fausses) — et bornée :
+
+- **portée par la provenance** : seules les données dont la provenance (D178)
+  pointe la ligne sont supprimables — la bascule de statut est le **seul
+  chemin** de suppression physique, aucun autre n'est ouvert ;
+- **garde-fou d'intégrité** : si l'enregistrement est déjà référencé par des
+  données **étrangères à la reprise** (associations créées depuis), la bascule
+  est **refusée** — l'administrateur traite d'abord ces références (cohérent
+  avec D137) ;
+- **la trace demeure** : la donnée disparaît, mais la ligne du stock garde la
+  mémoire datée d'avoir été intégrée puis reprise (D182) — l'audit survit à
+  l'effacement.
+
+**Ce n'est toujours pas une quarantaine** : la ligne n'est **ni éditable ni
+injectable depuis le stock** — la correction se fait à la source, l'intégration
+passe par la voie standard. Le stock est une **trace à statut**, pas un sas de
+données. Le principe « **ignorer, jamais oublier** » (D176) s'applique
+désormais aux deux granularités : la structure (entités/champs ignorés du
+mapping) et les enregistrements (lignes « à ignorer » du stock).
+
+**Les dates du cycle de vie : le stock comme journal d'audit (D182, complète
+D181).** Chaque ligne du stock porte les **dates de son cycle de vie** :
+**première détection** (premier rejet), **dernière tentative** (D181),
+**changement de statut** (la décision « à ignorer » portait déjà qui/quand/
+motif — D62) et **date d'intégration** (bascule « intégré », automatique ou
+manuelle). Le stock devient ainsi le **journal d'audit de la reprise** :
+chaque ligne source a un destin **daté et justifiable** — intégrée (quand),
+écartée (qui, quand, pourquoi), en anomalie ou replanifiée (depuis quand),
+reprise après erreur (quand — D184). Combiné à la
+**provenance persistante des enregistrements intégrés** (D178 — connecteur,
+date, clé d'origine), l'audit couvre les **deux faces** de la reprise : **ce
+qui est entré** (D178) et **ce qui n'est pas entré** (D181/D182).
+L'**ancienneté des lignes « en anomalie » et « à reprendre »** devient au
+passage un indicateur de pilotage pour l'administrateur (critère de fin de
+reprise, D181/D183).
+
+**Le double périmètre du projet (D180).** La reprise révèle que Syncytium
+couvre **deux périmètres** avec **un seul moteur** :
+1. **La construction d'un entrepôt de données fiable** — consolider des sources
+   mal organisées à l'historique incohérent, à travers le filtre de qualité
+   (D177), avec couverture mesurée (D176), provenance/lineage (D178),
+   temporalité native (D168–D174) et restitution (calculs, agrégats filtrés,
+   surfaces de synthèse Q53) — l'IHM permettant **consultation et correction**
+   (ce qu'un entrepôt classique en lecture seule ne permet pas) ;
+2. **La mise à disposition d'applications métier** fondées sur une description
+   aussi exhaustive et simple que possible — le développement d'applications
+   dédiées basées sur la donnée et sa transformation.
+**Qualification honnête** : à l'échelle TPE, (1) est un **entrepôt
+opérationnel** (référentiel consolidé, vivant, gouverné) plus qu'un entrepôt
+analytique OLAP — distinction sans objet à quelques Go ; si la volumétrie
+l'exigeait un jour : abstraction de persistance (D18) et matérialisation des
+agrégats (D36) sont les points d'extension. **Deux postures, combinables dans
+une même instance** — la Vision (§1) s'en trouve élargie.
+
+**Apport au méta-schéma** : propriété d'historisation (module/entité,
+opt-out), visibilité de l'historique par groupe, entrées d'historique
+(instantané + auteur/horodatage/canal/motif), API temporelle, composant
+historique.
 
 ---
 
@@ -2262,12 +2522,12 @@ avant la synthèse Q16).
 | ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
 | ~~Q36~~ | ~~Validation à l'écriture ?~~ | **Résolu (D156–D159, §3.8)** : règles inter-champs déclaratives (D90 + message traduit), portée entité/agrégat, **trois sévérités** (erreur/confirmation/information) en **trois passes regroupées**, agrégats filtrés, double évaluation serveur (vérité) + IHM (transport auto), hook bi-versions. |
 | ~~Q39~~ | ~~Pièces jointes / fichiers binaires ?~~ | **Résolu (D160–D163, §3.9)** : type fichier (métadonnées + **mots-clés** de recherche + empreinte), **stockage dual** (binaires hors base dans un dossier géré, grands textes en blob), **quota en cascade** (instance/module/entité/champ — la plus petite gagne), anonymisation = suppression physique du contenu + mots-clés cohérents, **statut** supprimé/anonymisé/corrompu/perdu, contrôle d'intégrité planifié, pas de déduplication. |
-| Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
+| ~~Q37~~ | ~~Historique des modifications ?~~ | **Résolu (D168–D173, §3.11)** : portée en cascade module/entité (défaut inactive, opt-out), **instantanés complets d'agrégat** chaud/froid en lecture seule, confidentialité héritée + anonymisation étendue, restauration admin tracée, **API temporelle** (agrégat à une date) + composant IHM historique, insertion antidatée pour la reprise (contrôles levés). |
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
+| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D184, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -2281,6 +2541,7 @@ avant la synthèse Q16).
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
 | Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
+| Q53 | **Surfaces de synthèse** (ajout 04/07/2026) : déclaration de la **page d'accueil** (par utilisateur ? groupe/rôle ? module ?), **graphiques** (axes/séries déclarés), **tableaux de synthèse** (croisés — lien avec les compositions matricielles D134 ?), **widgets** (unités de dashboard) et **vignettes de résumé** (KPI). | Briques disponibles : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), **agrégats filtrés (D158)** comme source des chiffres, tableaux de bord intégrés (D38/D44) comme précédent. À traiter avec Q48. |
 
 ---
 
@@ -3097,3 +3358,118 @@ avant la synthèse Q16).
   messages (réponse à une question) notifient par IHM ou mail via
   l'infrastructure D108–D110 (canaux/profil/audience) — zéro machinerie
   nouvelle.
+- **2026-07-04 (suite 12)** — **Q53 ajoutée** au thème E — UI/UX (demande de
+  l'auteur) : les **surfaces de synthèse** — déclaration de la page d'accueil,
+  graphiques, tableaux de synthèse, widgets, vignettes de résumé (KPI). Briques
+  déjà disponibles notées : composants D64, registre D68, rendu déclaratif D69,
+  agrégats filtrés D158 comme source des chiffres, tableaux de bord intégrés
+  D38/D44 en précédent. À traiter avec Q48.
+- **2026-07-05** — **Q37 close** (D168–D173, nouveau §3.11) sur le point de vue
+  de l'auteur. **Portée en cascade** : propriété du module et/ou de l'entité,
+  héritée par les agrégats, défaut inactive, opt-out par entité (D168).
+  **Chaud/froid, instantanés complets** : chaque entrée = toutes les valeurs de
+  l'agrégat (pas les écarts) + auteur/horodatage/canal/motif, lecture seule —
+  stockage assumé contre consultation triviale (D169). **Confidentialité** :
+  visibilité de l'historique par groupe, confidentialités de champs héritées de
+  l'origine, **anonymisation étendue** (D170). **Restauration** : admin seul,
+  sous condition, tracée — cas vécu ADV (D171). **Consultation temporelle** :
+  API à date (défaut courant) + composant IHM « historique » (synthèse + fiche
+  à la date du détail) (D172). **Insertion antidatée** pour la reprise
+  d'historique d'origine, contrôles de cohérence levés — résout la sous-question
+  de Q49 (D173).
+- **2026-07-05 (suite)** — Précision de l'auteur sur D169/D172 : **les champs
+  calculés s'appliquent à l'historique** — dividende des instantanés complets
+  (les calculs, jamais stockés, s'évaluent sur les valeurs froides : la fiche à
+  date affiche ses calculs d'époque). Nuance consignée : intra-agrégat exact ;
+  traversée d'association résolue à la même date si la cible est historisée
+  (jointure temporelle), sinon valeur courante signalée.
+- **2026-07-05 (suite 2)** — Sémantique temporelle complète (D174) : **la date
+  d'origine traverse toute la chaîne** — historisée → à date ; non historisée →
+  courante ; non historisée référençant une historisée → **la date d'origine
+  s'applique de nouveau**. Perte de cohérence possible (mélange chaud/froid) →
+  **alerte au technicien à la validation du schéma** (analyse statique des
+  chemins), sauf **propriété d'anticipation** déclarée sur l'entité non
+  historisée (patron rupture_assumee D13/D102).
+- **2026-07-05 (suite 3)** — Résolution à date formalisée (D172 précisée) : le
+  **dernier instantané dont l'horodatage ≤ la date demandée** — modifications
+  strictement postérieures ignorées ; date antérieure à la création →
+  l'enregistrement n'existait pas (réponse vide).
+- **2026-07-05 (suite 4)** — Second corollaire (D172) : **date postérieure à la
+  suppression → réponse vide par défaut, sauf demande expresse** — restitué
+  avec le statut « Supprimé ». Fenêtre d'existence complète : avant création =
+  vide ; [création…suppression] = instantané à date ; après suppression = vide
+  ou « Supprimé » sur demande (miroir temporel de D137).
+- **2026-07-05 (suite 5)** — Connecteur de reprise (D175) : un connecteur
+  **comme un autre**, mais **déclaré lié à une reprise** (marqueur) ; durée de
+  vie = **responsabilité de l'administrateur** — débranché quand tout est
+  repris ET la qualité satisfaisante (tracé D62). **Le marqueur borne le
+  privilège** : insertion antidatée + levée des contrôles (D173) réservées aux
+  connecteurs « reprise ». Reste pour clore Q49 : la politique des rejets
+  (gradation + mode strict/quarantaine, proposée).
+- **2026-07-05 (suite 6)** — D175 **corrigé** par l'auteur : le connecteur
+  « reprise » est **en lecture seule par défaut** (il lit le système d'origine ;
+  exception : coexistence avec le connecteur standard) ; **l'insertion antidatée
+  passe par le chemin d'écriture standard** et est **identifiée comme provenant
+  d'une reprise** — le privilège (levée des contrôles D173) est porté par le
+  **marquage de l'écriture**, pas par le type de connecteur. La reprise peut
+  mobiliser des **traitements** (tâches/hooks) pour transformer l'information
+  complexe, au-delà de la translation déclarative.
+- **2026-07-05 (suite 7)** — Rigueur de la reprise (D176–D178). **Mapping
+  exhaustif** : le connecteur auto-descriptif signale les entités/champs non
+  couverts ; le mapping référence toute la structure d'origine, les éléments non
+  repris marqués « ignorés » → couverture mesurée (*on peut ignorer, jamais
+  oublier*). **Critère d'acceptation** : enregistré seulement si toutes les
+  données converties avec succès ET cohérence de la cible résolue (pas
+  d'enregistrement partiel). **Clés externes déclarées** (aucune déduction
+  automatique du modèle d'origine) ; **provenance par enregistrement**
+  (connecteur, date, clé existante) qui **persiste** après le débranchement du
+  connecteur.
+- **2026-07-05 (suite 8)** — **Q49 close (D179) et double périmètre acté
+  (D180)**. Rejets : **option A, rapport seul** (diffusé selon les opt-in de
+  notification D108–D110), correction à la source / ajustement des règles,
+  relance sur les manquants ; **rapport spécifique de non-couverture au
+  technicien**. L'auteur révèle le **second périmètre** : la reprise = un ETL
+  déclaratif déjà construit (Extract = connecteur reprise ; Transform =
+  translation + tâches ; Load = critère d'acceptation ; lineage = provenance ;
+  time-travel = historisation) → **Syncytium couvre (1) la construction d'un
+  entrepôt de données fiable et (2) les applications métier — un moteur, deux
+  postures combinables**. Qualification honnête : entrepôt *opérationnel* à
+  l'échelle TPE (≠ OLAP — sans objet à quelques Go ; D18/D36 = extensions).
+  Vision §1 élargie. **LE VOLET MODÈLE DE DONNÉES EST CLOS** (Q34–Q37, Q39,
+  Q49–Q52 : D115–D180).
+- **2026-07-05 (suite 9)** — **Raffinement des rejets (D181, complète D179)**.
+  L'auteur : le rapport seul suffit, mais il faut pouvoir **exclure des lignes
+  que nous n'intégrerons jamais** → **rapports stockés** + **écran** de statut
+  par ligne (à ignorer / à reprendre / intégré), le rapport ne diffusant que
+  les **lignes nouvellement rejetées**. Consigné : stock consolidé identifié
+  par provenance (D178, repli empreinte), « à ignorer » = écartée des relances
+  et tracée (D62), « intégré » = constaté automatiquement par rapprochement de
+  provenance, écran moteur à accès déclaré (contenu source brut → restreint,
+  défaut admin), fin de reprise **objectivée** (plus rien « à reprendre » →
+  débranchement D175). Toujours pas une quarantaine : **trace à statut**, ni
+  éditable ni injectable — « ignorer, jamais oublier » (D176) vaut désormais
+  pour la structure **et** les enregistrements.
+- **2026-07-05 (suite 10)** — **Dates sur les lignes du stock (D182)**.
+  L'auteur : « avec une date sur la ligne, cela nous permettra de faire un
+  audit sur les données et leur intégration ». Consigné : chaque ligne porte
+  les dates de son cycle de vie (première détection, dernière tentative,
+  changement de statut, intégration) — **le stock devient le journal d'audit
+  de la reprise**, complément symétrique de la provenance persistante (D178) :
+  l'audit couvre ce qui est entré **et** ce qui n'est pas entré. Ancienneté
+  des « à reprendre » = indicateur de pilotage de la fin de reprise (D181).
+- **2026-07-05 (suite 11)** — **Cycle des statuts complété (D183) et retour
+  arrière (D184)**. L'auteur restructure : statut **« en anomalie »** posé par
+  le **système** à l'échec (état d'entrée — la ligne n'est **jamais retentée
+  sans décision humaine**) ; l'**administrateur** seul décide (« à
+  reprendre » = règle ou source corrigée, replanifiée ; « ignoré ») ; **un
+  passage traite les nouveaux + les « à reprendre »**, par la même voie
+  standard ; à l'issue, le système repositionne (intégré / en anomalie) —
+  **le système constate, l'administrateur décide**. Complexification
+  acceptée : **intégré → à reprendre** (erreur découverte après coup) ⇒
+  **suppression physique** des données issues de la ligne (agrégat +
+  historique), réimport au prochain passage — exception assumée à « masquer,
+  ne jamais détruire » (D137), qui **garantit la qualité des données à
+  l'issue de la reprise**. Garde-fous consignés : provenance = seul chemin
+  (D178), refus si références étrangères à la reprise, trace du stock
+  conservée (D182). L'auteur valide le cycle de dates D182 (« apporte de la
+  visibilité sur les actions faites et sur la qualité de la reprise »).

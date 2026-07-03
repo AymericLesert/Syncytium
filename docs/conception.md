@@ -210,6 +210,7 @@ posée (voir §6).
 | D172 | **Consultation temporelle** : API — donnée **courante par défaut**, **date précisée → l'agrégat à cette date** ; IHM — composant **« historique »** (synthèse des entrées + clic sur un détail → la fiche à la date). **Les champs calculés s'évaluent sur les instantanés** (la fiche à date affiche ses calculs d'époque) — intra-agrégat exact ; traversée d'association résolue à date si la cible est historisée, sinon valeur courante signalée. | Servie directement par les instantanés D169 — dividende du choix « pas d'écarts ». Voir §3.11. |
 | D173 | **Insertion antidatée** (reprise — résout la sous-question historique de Q49) : par défaut pas d'import d'historique ; sinon **sollicitation de l'interface à une date antérieure** + insertion dans l'historique, **contrôles levés** (règles de cohérence). | Complexité assumée ; mécanisme dédié, réservé à la reprise. Voir §3.11. |
 | D174 | **Propagation de la date à travers les associations** : historisée → instantané à date ; non historisée → **valeur courante** ; non historisée référençant une historisée → **la date d'origine s'applique de nouveau** (jamais perdue). Perte de cohérence possible (mélange chaud/froid) → **alerte au technicien à la validation du schéma**, **sauf propriété d'anticipation déclarée** sur l'entité non historisée. | Patron `rupture_assumee` (D13/D102) : on peut assumer, jamais subir en silence. Analyse statique des chemins, pas de coût par requête. Voir §3.11. |
+| D175 | **Connecteur de reprise** = connecteur ordinaire (D79/D83) **déclaré comme lié à une reprise** (marqueur) ; **durée de vie = responsabilité de l'administrateur** — débranché quand **tout est repris ET la qualité est satisfaisante** (débranchement tracé D62). **Le marqueur borne le privilège** : insertion antidatée + levée des contrôles (D173) **réservées aux connecteurs « reprise »**. | Un connecteur ordinaire ne peut jamais antidater ni contourner les règles. Voir §3.11. |
 
 ---
 
@@ -997,6 +998,18 @@ d'un système d'origine : **solliciter l'interface à une date antérieure** pui
 **insérer la modification dans l'historique** — en **levant certains
 contrôles** (notamment les règles de cohérence, qui n'ont pas à juger le
 passé). Problématique complexe assumée ; mécanisme dédié, réservé à la reprise.
+
+**Le connecteur de reprise (D175).** Un connecteur **comme un autre**
+(D79/D83), mais **déclaré comme lié à une reprise** (marqueur explicite).
+- **Durée de vie = responsabilité de l'administrateur** : débranché quand
+  **toutes les données sont reprises ET la qualité est satisfaisante** —
+  jugement appuyé sur les outils existants (rapports d'import D120, vidage de
+  la quarantaine, télémétrie) ; débranchement = action d'administration tracée
+  (D62).
+- **Le marqueur borne le privilège** : les pouvoirs spéciaux de la reprise —
+  **insertion antidatée et levée des contrôles (D173)** — sont **réservés aux
+  connecteurs marqués « reprise »**. Un connecteur ordinaire ne peut jamais
+  antidater ni contourner les règles.
 
 **Apport au méta-schéma** : propriété d'historisation (module/entité,
 opt-out), visibilité de l'historique par groupe, entrées d'historique
@@ -3218,3 +3231,10 @@ avant la synthèse Q16).
   avec le statut « Supprimé ». Fenêtre d'existence complète : avant création =
   vide ; [création…suppression] = instantané à date ; après suppression = vide
   ou « Supprimé » sur demande (miroir temporel de D137).
+- **2026-07-05 (suite 5)** — Connecteur de reprise (D175) : un connecteur
+  **comme un autre**, mais **déclaré lié à une reprise** (marqueur) ; durée de
+  vie = **responsabilité de l'administrateur** — débranché quand tout est
+  repris ET la qualité satisfaisante (tracé D62). **Le marqueur borne le
+  privilège** : insertion antidatée + levée des contrôles (D173) réservées aux
+  connecteurs « reprise ». Reste pour clore Q49 : la politique des rejets
+  (gradation + mode strict/quarantaine, proposée).

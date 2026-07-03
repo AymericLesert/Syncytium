@@ -188,7 +188,7 @@ posée (voir §6).
 | D150 | **Encapsulation d'exposition dérivée** : les enfants **non modifiables seuls** (D101/D133) **n'apparaissent pas dans les API** — accès via le parent uniquement. | Aucune déclaration nouvelle : l'atomicité induit la visibilité API. Voir §3.7. |
 | D151 | **Écarts d'encapsulation assumés** : champs internes → `privee` (D25) suffit ; **interface de module → écartée** (« la déclaration est une et entière » — confidentialité + organisation modules/entités couvrent le besoin). | Rationale conservée. Voir §3.7. |
 | D152 | **Héritage : pas de surcharge de champ parent** — l'enfant ne redéfinit jamais un champ du parent (type/contraintes intouchables) ; il peut **seulement ajuster sa visibilité**, sans supprimer la valeur. | Lignée « masquer, ne jamais détruire » (D137/D144/D147). Voir §3.7. |
-| D153 | **Champ `write_once`** (lève le reliquat D148 ; amendée 04/07) : renseigné → **immuable** (exception : correction admin **tracée** D62) ; écriture **différable**. **Qui écrit la première valeur = le modèle d'accès existant** (D25/D26/D73) — utilisateur à la création (`nature` d'article) ou opération (`numero_facture`). | Deux propriétés orthogonales (write-once ≠ qui-écrit) ; aucun mécanisme d'accès nouveau. Voir §3.7. |
+| D153 | **Écriture unique** (forme finale) : **troisième valeur du mode d'accès en écriture** (D73) — lecture / écriture / **écriture unique** (autorisée une seule fois : champ vide = permise, renseigné = refus). Déclinable par audience/groupe (admin en écriture pleine = correction tracée D62) ; écriture différable (création ou opération). | **Pas d'attribut supplémentaire** — une valeur de plus dans une énumération existante, zéro concept nouveau. Voir §3.7. |
 | D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
 | D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
 
@@ -738,20 +738,22 @@ l'enfant peut **seulement ajuster la visibilité** d'un champ parent, **sans en
 supprimer la valeur** — lignée « masquer, ne jamais détruire » (D137, D144,
 D147).
 
-**Write-once (D153, lève le reliquat de D148 ; amendée le 04/07/2026).** Deux
-propriétés **orthogonales**, que la première version couplait à tort :
-- **`write_once`** (propriété autonome) : *dès que le champ est renseigné, il
-  devient immuable* — seule exception : correction par un **administrateur,
-  tracée** (audit à motif, D62). L'écriture peut être **différée** (détachée de
-  la création et des états).
-- **Qui écrit la première valeur = le modèle d'accès existant** (confidentialité
-  et droits d'écriture du champ, D25/D26/D73) — **aucun mécanisme nouveau** :
-  - `nature` d'un article : écrite par l'**utilisateur à la création** (droits
-    ordinaires), puis figée ;
-  - `numero_facture` : écrit par l'**opération** de facturation (compteur
-    D154), en différé, puis figé.
-L'« écriture réservée aux opérations » n'était qu'*une configuration* du modèle
-d'accès, pas un concept.
+**Écriture unique (D153, lève le reliquat de D148 ; forme finale 04/07/2026).**
+**Pas d'attribut supplémentaire** : le mode d'accès en écriture d'un champ (ou
+d'une entité) — D73 — gagne une **troisième valeur** :
+
+| Mode | Sémantique |
+|---|---|
+| **lecture** | consultation seule |
+| **écriture** | modification libre (dans les droits) |
+| **écriture unique** | l'écriture n'est autorisée **qu'une fois** — champ vide : permise ; renseigné : refus |
+
+- Déclinable **par audience/groupe** comme tout le modèle d'accès : les
+  utilisateurs en *écriture unique*, le groupe administrateurs en *écriture*
+  pleine — la correction admin reste **tracée** (D62), sans règle spéciale.
+- L'écriture **différée** demeure naturelle : l'unique écriture survient quand
+  elle survient — à la **création** (`nature` d'un article, par l'utilisateur)
+  ou lors d'une **opération** (`numero_facture`, compteur D154, en différé).
 
 **Compteurs (D154).** Le cas du numéro de facture fait émerger les
 **compteurs** : **déclarés dans le modèle, gérés en interne par le moteur**
@@ -2890,3 +2892,10 @@ avant la synthèse Q16).
   d'écriture D25/D26/D73) — utilisateur à la création (`nature` d'un article)
   ou opération (`numero_facture`). L'« écriture réservée aux opérations »
   n'était qu'une configuration, pas un concept.
+- **2026-07-04 (suite 5)** — D153, forme finale (clarification de l'auteur) :
+  **pas d'attribut supplémentaire** — le mode d'accès en écriture (D73) gagne
+  une **troisième valeur : écriture unique** (autorisée une seule fois — vide :
+  permise, renseigné : refus). Déclinable par audience/groupe comme tout le
+  modèle d'accès (admin en écriture pleine = correction tracée D62, sans règle
+  spéciale) ; écriture différée naturelle. Une valeur de plus dans une
+  énumération existante, zéro concept nouveau.

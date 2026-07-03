@@ -30,6 +30,16 @@ Outils existants comparables (pour situer le concept) : Airtable, Directus, Stra
 Budibase. La question « construire sur mesure ou s'appuyer sur un existant » reste
 posée (voir §6).
 
+**Double périmètre (élargi le 05/07/2026, D180)** — un seul moteur, deux
+postures combinables :
+1. **Entrepôt de données fiable** (entrepôt *opérationnel* à l'échelle TPE) —
+   consolider des sources dégradées à travers le filtre de qualité, avec
+   couverture mesurée, provenance, temporalité native et restitution ; l'IHM
+   permet consultation **et** correction ;
+2. **Applications métier** fondées sur une description exhaustive et simple —
+   le développement d'applications dédiées basées sur la donnée et sa
+   transformation.
+
 ---
 
 ## 2. Décisions actées
@@ -214,6 +224,8 @@ posée (voir §6).
 | D176 | **Mapping de reprise exhaustif** : le connecteur auto-descriptif **signale les entités/champs source non couverts** ; le mapping **référence toute la structure d'origine**, les éléments non repris **marqués « ignorés »** → **couverture mesurée**. | *On peut ignorer, jamais oublier* — l'exclusion se déclare. Voir §3.11. |
 | D177 | **Critère d'acceptation de la reprise** : enregistré **seulement si toutes les données sont converties avec succès (D120) ET les contraintes de cohérence de la cible résolues (D156)** — au niveau enregistrement/agrégat (D101). | Pas d'enregistrement partiel, pas de données douteuses dans la cible. Voir §3.11. |
 | D178 | **Clés externes déclarées** dans le mapping (**aucune déduction automatique** du modèle d'origine, parfois trompeur) ; **provenance par enregistrement** : connecteur d'origine + date de reprise + clé existante — **persiste** après désactivation/suppression du connecteur (plus alimentée). | La provenance est un fait historique, pas un lien vivant. Voir §3.11. |
+| D179 | **Rejets de reprise : rapport seul (clôt Q49)** — les refusés (D177) ne sont pas conservés ; **rapport d'import** (D120) diffusé selon les **opt-in de notification** (D108–D110), correction à la source / ajustement des règles, **relance sur les manquants**. **Rapport spécifique de non-couverture (D176) au technicien.** | Quarantaine écartée (la source vit pendant la reprise, D175). Voir §3.11. |
+| D180 | **Double périmètre du projet** : (1) **entrepôt de données fiable** (opérationnel à l'échelle TPE — qualité D177, couverture D176, provenance D178, temporalité D168–D174, restitution ; IHM = consultation **et** correction) ; (2) **applications métier** sur description exhaustive et simple. **Un moteur, deux postures, combinables.** | La reprise (Q49) = un ETL déclaratif déjà construit ; qualification honnête consignée (opérationnel ≠ OLAP ; D18/D36 = extensions si volumétrie). Vision §1 élargie. |
 
 ---
 
@@ -1041,6 +1053,32 @@ depuis le modèle d'origine (parfois trompeur). Chaque enregistrement repris
 existante** (du système source). À la désactivation/suppression du connecteur,
 **ces informations demeurent** — plus alimentées par l'usage courant (la
 provenance est un fait historique, pas un lien vivant).
+
+**Rejets : le rapport seul (D179, clôt Q49).** Les enregistrements refusés
+(D177) ne sont **pas conservés** côté Syncytium : ils sont **listés dans le
+rapport d'import** (cellule par cellule, D120), **diffusé selon les opt-in de
+notification existants** (D108–D110) — correction **à la source** ou ajustement
+des règles, puis **relance sur les manquants**. La **non-couverture (D176) fait
+l'objet d'un rapport spécifique émis au technicien** pour analyse.
+(Quarantaine écartée : la source vit encore pendant la reprise — D175.)
+
+**Le double périmètre du projet (D180).** La reprise révèle que Syncytium
+couvre **deux périmètres** avec **un seul moteur** :
+1. **La construction d'un entrepôt de données fiable** — consolider des sources
+   mal organisées à l'historique incohérent, à travers le filtre de qualité
+   (D177), avec couverture mesurée (D176), provenance/lineage (D178),
+   temporalité native (D168–D174) et restitution (calculs, agrégats filtrés,
+   surfaces de synthèse Q53) — l'IHM permettant **consultation et correction**
+   (ce qu'un entrepôt classique en lecture seule ne permet pas) ;
+2. **La mise à disposition d'applications métier** fondées sur une description
+   aussi exhaustive et simple que possible — le développement d'applications
+   dédiées basées sur la donnée et sa transformation.
+**Qualification honnête** : à l'échelle TPE, (1) est un **entrepôt
+opérationnel** (référentiel consolidé, vivant, gouverné) plus qu'un entrepôt
+analytique OLAP — distinction sans objet à quelques Go ; si la volumétrie
+l'exigeait un jour : abstraction de persistance (D18) et matérialisation des
+agrégats (D36) sont les points d'extension. **Deux postures, combinables dans
+une même instance** — la Vision (§1) s'en trouve élargie.
 
 **Apport au méta-schéma** : propriété d'historisation (module/entité,
 opt-out), visibilité de l'historique par groupe, entrées d'historique
@@ -2390,7 +2428,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| Q49 | **Initialisation d'une instance par reprise de données** : connexion à une **base tierce** et **conversion** vers le modèle Syncytium — **y compris CSV/Excel**. **Sous-questions restantes** : connecteur **jetable** (one-shot) ou **permanent** (cohabitation) ? traitement des **rejets** (source / règles en vol / quarantaine) ? *(Historique d'origine : **résolu par D173** — insertion antidatée, contrôles levés.)* | Assemblage acquis : connecteur auto-descriptif (D83) + translation (D79/D90) + conversions faillibles (D120, dry-run cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82/D142) + estampille (D93) + insertion antidatée (D173). |
+| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D179, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -3287,3 +3325,16 @@ avant la synthèse Q16).
   automatique du modèle d'origine) ; **provenance par enregistrement**
   (connecteur, date, clé existante) qui **persiste** après le débranchement du
   connecteur.
+- **2026-07-05 (suite 8)** — **Q49 close (D179) et double périmètre acté
+  (D180)**. Rejets : **option A, rapport seul** (diffusé selon les opt-in de
+  notification D108–D110), correction à la source / ajustement des règles,
+  relance sur les manquants ; **rapport spécifique de non-couverture au
+  technicien**. L'auteur révèle le **second périmètre** : la reprise = un ETL
+  déclaratif déjà construit (Extract = connecteur reprise ; Transform =
+  translation + tâches ; Load = critère d'acceptation ; lineage = provenance ;
+  time-travel = historisation) → **Syncytium couvre (1) la construction d'un
+  entrepôt de données fiable et (2) les applications métier — un moteur, deux
+  postures combinables**. Qualification honnête : entrepôt *opérationnel* à
+  l'échelle TPE (≠ OLAP — sans objet à quelques Go ; D18/D36 = extensions).
+  Vision §1 élargie. **LE VOLET MODÈLE DE DONNÉES EST CLOS** (Q34–Q37, Q39,
+  Q49–Q52 : D115–D180).

@@ -191,6 +191,18 @@ posée (voir §6).
 | D153 | **Écriture unique** (forme finale) : **troisième valeur du mode d'accès en écriture** (D73) — lecture / écriture / **écriture unique** (autorisée une seule fois : champ vide = permise, renseigné = refus). Déclinable par audience/groupe (admin en écriture pleine = correction tracée D62) ; écriture différable (création ou opération). | **Pas d'attribut supplémentaire** — une valeur de plus dans une énumération existante, zéro concept nouveau. Voir §3.7. |
 | D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
 | D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
+| D156 | **Règles inter-champs déclaratives (résout Q36)** : sur l'entité ou la **composition** (portée agrégat, transaction D101) — expression **D90 booléenne** + message (libellé traduit D127). **Une règle = un contrôle, jamais une affectation.** Préconditions d'opérations (D148) = même forme. Évaluées à l'écriture sur les règles dont les sources sont touchées. | Rien au-delà de l'agrégat (opérations/unicité). Voir §3.8. |
+| D157 | **Trois sévérités + protocole en trois passes** : **erreur** (bloquante) / **confirmation** (validée par l'utilisateur) / **information** (non bloquante). À l'enregistrement : (1) toutes les erreurs d'un coup ; (2) confirmations **regroupées** en une validation ; (3) informations **regroupées**. API : rejet+liste / re-soumission avec acquittement / signalées dans la réponse. **Confirmations acceptées tracées** (audit D62). | Jamais d'arrêt à la première erreur, pas de clics en rafale ; qui a validé quoi, quand. Voir §3.8. |
+| D158 | **Agrégats filtrés** dans le langage : `somme(lignes.montant si ligne.etat = "facturée")` — critère de sélection des éléments, acté pour **tout** le langage (calculs, règles, translations). | Pressenti dès Q18, rendu nécessaire par les règles de cohérence. Voir §3.8. |
+| D159 | **Double évaluation** : serveur = **la vérité** (toutes sollicitations) ; l'IHM **porte automatiquement** les règles déclaratives (transport par le moteur). **Hook de validation bi-versions** : serveur **obligatoire**, IHM **optionnelle** (JS, D69) — même contrat (D52) ; sans version IHM, vérification à l'enregistrement seulement. | Le confort est optionnel, la vérité jamais. Voir §3.8. |
+| D160 | **Type `fichier`** (résout Q39) : métadonnées **nom, taille, MIME, empreinte, mots-clés** — les mots-clés = **clé de recherche** (réponse partielle au plein-texte Q38). Un champ = un fichier ; le multi = entité liée. | Voir §3.9. |
+| D161 | **Stockage dual** : **binaires hors base** (dossier dédié, nommage Syncytium — les blobs feraient grossir la base) ; **grands formats texte** (JSON…) → **blob en base**. | Contrainte assumée : **sauvegarde/restauration = base + dossier** en cohérence temporelle (élargit Q40/D93). Voir §3.9. |
+| D162 | **Quota en cascade** : instance, module, entité, champ — **la plus petite taille l'emporte**. | Simple à raisonner, précis à gouverner. Voir §3.9. |
+| D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Déduplication : voir D165. Voir §3.9. |
+| D164 | **Synchronisation étendue aux fichiers** : toute synchronisation entre instances (**D113 staging, D114 PCA/PRA**) porte sur **la base ET le dossier de fichiers**, en cohérence temporelle. | Conséquence du stockage dual (D161) — comme la sauvegarde. Voir §7.3. |
+| D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
+| D166 | **Type liste** (forme finale) : applicable à **tous les types sauf la liste** (simples, composées, hooks — pas d'imbrication) ; **propriété « listable » par type** (communication = non-listable : un canal = un champ) ; **liste d'énumérés autorisée** (la multi-sélection revient par la porte générale, l'énuméré restant mono en champ). Élément = contraintes de son type ; doublons OK ; ordre insertion/clé ; bornes ; filtre « contient ». | Amende D160 ; nuance D118 (atomicité = l'élément) ; résout le micro-arbitrage D121. Voir §3.10. |
+| D167 | **Type communication** (forme finale) : trace CRM — messages chronologiques (auteur = compte D77, horodatage, contenu), fil de discussion (D64). **Propriétés à défauts** : visibilité **maximale**, immuable **vrai**, pièces jointes **non**, **notification non** — si vrai, les nouveaux messages (réponse à une question) notifient par **IHM ou mail via l'infra D108–D110** (canaux/profil/audience). | Zéro machinerie nouvelle pour la notification. Voir §3.10. |
 
 ---
 
@@ -784,6 +796,133 @@ Cohérences : déclencheurs calendaires = vocabulaire **planifié** (D54) ;
 bouton), champ en **écriture réservée** (write-once), **compteurs** (bornes,
 déclencheurs, cascades, combinaison), lien parent implicite, visibilité par
 spécialisation.
+
+### 3.8 Validation à l'écriture (Q36 ; D156–D159)
+
+Le mono-champ est **déjà couvert** (obligatoire/limites D118, unique D141,
+format = conversion faillible D120/D131, domaines D123/D129, clés de contrôle
+D122, écriture unique D153). Q36 ajoute les **règles inter-champs**.
+
+**Règles déclaratives (D156).** Déclarées sur l'**entité** (ou la
+**composition** pour porter sur l'agrégat entier — évaluées dans la transaction
+D101) : **expression D90 booléenne** + **message** (identifiant de libellé,
+traduit D127). **Une règle = un contrôle, jamais une affectation** (un total qui
+se *calcule* = champ calculé D35 ; la règle *vérifie* un total saisi/importé).
+Pas de règle inter-enregistrements au-delà de l'agrégat (territoire des
+opérations D148 et de l'unicité D141). Les **préconditions d'opérations**
+(D148) utilisent la même forme. Évaluation : à l'écriture, sur les règles dont
+les **sources sont touchées**.
+
+**Trois sévérités, protocole en trois passes (D157).**
+- **Erreur** — la règle doit être respectée : pas d'enregistrement ;
+- **Confirmation** — l'utilisateur valide en connaissance de cause ;
+- **Information** — non bloquante, l'utilisateur est informé.
+
+À l'enregistrement : **(1)** toutes les **erreurs** d'un coup (jamais d'arrêt à
+la première) ; **(2)** si aucune erreur, toutes les **confirmations regroupées**
+en une seule validation (pas de clics en rafale) ; **(3)** si confirmé, toutes
+les **informations regroupées**, affichées une fois. Transposition API :
+erreurs → rejet avec liste complète ; confirmations → réponse listant les
+confirmations requises, **re-soumission avec acquittement** ; informations →
+dans la réponse de succès. **Les confirmations acceptées sont tracées** (qui a
+validé quoi, quand — audit D62) : le dépassement de remise confirmé laisse une
+trace.
+
+**Agrégats filtrés (D158).** Les agrégats du langage acceptent un **critère de
+sélection** : `somme(lignes.montant si ligne.etat = "facturée")` — pressenti dès
+Q18, acté pour **tout** le langage (calculs, règles, translations).
+
+**Double évaluation, hook à deux versions (D159).** Le **serveur = la vérité**
+(toutes sollicitations, externes et IHM) ; l'**IHM porte automatiquement les
+règles déclaratives** (le moteur les transporte — évite les allers-retours).
+Le **hook de validation** (échappatoire pour les cas hors D90) se décline en
+**deux versions** : **serveur obligatoire** (la vérité) et **IHM optionnelle**
+(JavaScript, D69) — même contrat déclaré (D52) ; sans version IHM, la règle
+n'est vérifiée qu'à l'enregistrement (le protocole des trois passes couvre).
+
+**Apport au méta-schéma** : règles (condition D90, portée, sévérité, message),
+préconditions d'opérations, critère de sélection des agrégats, hooks de
+validation bi-versions.
+
+### 3.9 Fichiers (Q39 ; D160–D163)
+
+**Le type `fichier` (D160)** — type de base portant : **nom, taille, type MIME,
+empreinte, mots-clés** (ou sous-ensembles de mots-clés). Les **mots-clés sont
+la clé de recherche** (« tous les fichiers contenant ce mot, cet identifiant »)
+— réponse partielle au résiduel plein-texte de Q38, à l'échelle des fichiers.
+Un champ = un fichier (atomicité D118) ; le multi = entité liée en composition.
+
+**Stockage dual (D161).**
+- **Binaires → hors base** : dossier dédié, **nommage géré par Syncytium** —
+  les blobs binaires feraient grossir la base de façon conséquente ;
+- **grands formats texte** (JSON…) → **blob en base**.
+**Contrainte opérationnelle assumée** : la sauvegarde/restauration porte sur
+**la base ET le dossier**, en cohérence temporelle (le périmètre Q40/D93
+s'élargit d'autant).
+
+**Quota en cascade (D162)** : déclaré à **quatre niveaux** — instance, module,
+entité, champ — **la plus petite taille l'emporte**.
+
+**Anonymisation et statut (D163).** L'anonymisation d'un fichier =
+**suppression physique du contenu** (pièce d'identité, avis d'imposition…) +
+**anonymisation des mots-clés, cohérente avec les fiches anonymisées** (le lien
+survit à l'effacement — D139). **Statut de fichier** : `supprimé`
+(physiquement, volontairement), `anonymisé`, `corrompu`, `perdu`.
+- **Le squelette survit, le contenu part** (philosophie D137/D139) : les
+  métadonnées demeurent, seul le contenu disparaît ;
+- `corrompu`/`perdu` **détectés par contrôle d'intégrité** (empreinte +
+  présence), **tâche planifiée** (D54) — maintenance déclarée du magasin ;
+- **déduplication par empreinte, dès l'enregistrement (D165)** : au dépôt, le
+  moteur calcule l'empreinte — contenu identique existant → **réutilisé** (pas
+  de seconde copie). Réconciliation avec la suppression physique : **comptage
+  de références** — la suppression/anonymisation d'un fichier **décrémente**,
+  le contenu n'est réellement effacé qu'au **dernier détenteur** ; le **statut
+  reste par champ** (chaque fiche sa vérité, un seul contenu). Correct au sens
+  RGPD : un document légitimement détenu ailleurs survit ; toutes les fiches
+  anonymisées → compteur à zéro → effacement physique.
+Sécurité (acquis) : téléchargement par URL opaque (D75), re-contrôle d'accès à
+chaque accès (D25/D70), contenu jamais exécuté (donnée adverse, D43) ;
+écriture unique (D153) applicable ; magasin partagé avec les résultats de
+tâches (D55) et pièces jointes de notifications (D108).
+
+**Apport au méta-schéma** : type fichier (métadonnées + mots-clés + statut),
+quotas en cascade, règle d'anonymisation de fichier.
+
+### 3.10 Types complexes additionnels (D166–D167)
+
+**Liste (D166, forme finale).** La famille s'agrandit : simple / composée /
+**liste** — but : **simplifier la description** (`liste de fichiers`,
+`liste d'entiers` — les notes d'un élève) sans entité liée pour les cas
+triviaux. **La liste s'applique à tous les types sauf la liste** (pas
+d'imbrication) : simples, composées, **types apportés/étendus par hooks**.
+**Le catalogue gagne une propriété par type : « listable »** — le type déclare
+s'il peut entrer dans une liste (la **communication est non-listable** : un
+canal = un champ avec sa sémantique — « SAV » et « commercial » = deux champs
+nommés). Amende **D160** (le multi-fichiers simple passe par la liste ;
+l'entité liée reste pour les cas riches) ; nuance **D118** (l'atomicité vaut
+pour l'*élément*). **Liste d'énumérés autorisée par construction** — la
+multi-sélection revient par la porte générale du type liste, pas par un
+attribut sur l'énuméré (ce que D121 écartait) : l'énuméré reste mono-sélection
+en tant que champ. Propriétés :
+- l'élément porte **toutes les contraintes de son type** (formats, limites ;
+  fichiers : quotas D162, déduplication D165) ;
+- **doublons autorisés** ; **ordre** = insertion ou clé de tri déclarée ;
+  **bornes** min/max d'éléments déclarables ;
+- champ liste **non triable** (D125), filtre naturel = **« contient »** ;
+  stockage (tableau/JSON vs table fille) = facette D119/D18.
+
+**Communication (D167, forme finale).** Type complexe matérialisant les
+**échanges** entre membres de l'entreprise et/ou clients — la **trace CRM**
+attachée à l'enregistrement. **Suite chronologique de messages** (auteur =
+compte D77 — interne ou client ; horodatage ; contenu), composant **fil de
+discussion** en IHM (D64). **Propriétés du type, avec défauts** :
+
+| Propriété | Défaut |
+|---|---|
+| **visibilité** | **maximale** (tous ceux qui voient l'enregistrement ; l'audience D70 s'applique si restreinte) |
+| **immuable** | **vrai** (la trace ne se réécrit pas — esprit D153) |
+| **pièces jointes** | **non** (fichiers D160 si activées) |
+| **notification** | **non** — si **vrai** : les nouveaux messages **notifient** (IHM ou mail — notamment la **réponse à une question**), via l'infrastructure existante D108–D110 (canaux = connecteurs, choix par profil D109, audience respectée) |
 
 ---
 
@@ -1682,6 +1821,12 @@ donne la continuité : **bascule manuelle par le client** en cas de coupure.
 Atouts : réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD —
 D18) ; cohérence protégée à la bascule par l'estampille D93.
 
+**Synchronisation étendue aux fichiers (D164).** Le stockage dual (D161 —
+binaires hors base) impose que **toute synchronisation entre deux instances
+(D113 staging, D114 PCA/PRA) porte sur la base ET le dossier de fichiers**, en
+cohérence temporelle — comme la sauvegarde ; la recréation différée d'un
+staging copie les deux, la bascule PCA/PRA suppose les deux à jour.
+
 **Caveats consignés** : D16 se raffine — « une instance *de production* par TPE »
 + instances **éphémères** (staging) + éventuellement une **passive** ; chaque
 instance reste mono-serveur (D15). **RGPD** : le staging porte des données
@@ -2115,8 +2260,8 @@ avant la synthèse Q16).
 | **A — Modèle de données (prioritaire)** | | |
 | ~~Q34~~ | ~~Catalogue de types de champs ?~~ | **Résolu (D118–D126, §3.4)** : champ = donnée atomique simple/composée, 4 facettes, graphe de conversion, catalogue acté (simples + 11 composés livrés), surcharge par restriction (devises), profil de champ complet (nom invariant, libellés traduits par variantes, descriptions IA-exploitables, comparaison intrinsèque). |
 | ~~Q35~~ | ~~Relations ?~~ | **Résolu (D132–D141, §3.5)** : composition (agrégat, suppression-CAS, formes liste/matrice/n-dim, auto-référence acyclique) vs association (référence, inverse en champ liste, N-N par entité de liaison) ; **suppression = inactivation** (soft delete), comportement dérivé de la nullabilité ; **anonymisation déclarée** (RGPD) ; réactivation admin sous contrôle de clés ; unicité sur actifs. |
-| Q36 | **Validation à l'écriture** : contraintes déclaratives (obligatoire, unique, plage, format) + **règles inter-champs** via le langage d'expression (D90). | Garantit l'intégrité en entrée ; se raccroche à D90. |
-| Q39 | **Pièces jointes / fichiers binaires** : type `fichier`, stockage des blobs, quotas. | Non couvert (le PDF D24 est une sortie de tâche, pas un champ). |
+| ~~Q36~~ | ~~Validation à l'écriture ?~~ | **Résolu (D156–D159, §3.8)** : règles inter-champs déclaratives (D90 + message traduit), portée entité/agrégat, **trois sévérités** (erreur/confirmation/information) en **trois passes regroupées**, agrégats filtrés, double évaluation serveur (vérité) + IHM (transport auto), hook bi-versions. |
+| ~~Q39~~ | ~~Pièces jointes / fichiers binaires ?~~ | **Résolu (D160–D163, §3.9)** : type fichier (métadonnées + **mots-clés** de recherche + empreinte), **stockage dual** (binaires hors base dans un dossier géré, grands textes en blob), **quota en cascade** (instance/module/entité/champ — la plus petite gagne), anonymisation = suppression physique du contenu + mots-clés cohérents, **statut** supprimé/anonymisé/corrompu/perdu, contrôle d'intégrité planifié, pas de déduplication. |
 | Q37 | **Historique / audit des modifications de données** (qui a changé quelle valeur, quand) — **rattachée au modèle de données** (2026-07-02) ; l'auteur précisera son point de vue. | Distinct de la télémétrie (agrégée D46), du journal de migrations (schéma) et de l'audit de supervision (D62) ; conformité / annulation. |
 | **B — Cycle de vie & exploitation** | | |
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
@@ -2899,3 +3044,56 @@ avant la synthèse Q16).
   modèle d'accès (admin en écriture pleine = correction tracée D62, sans règle
   spéciale) ; écriture différée naturelle. Une valeur de plus dans une
   énumération existante, zéro concept nouveau.
+- **2026-07-04 (suite 6)** — **Q36 close** (D156–D159, nouveau §3.8). Règles
+  inter-champs **déclaratives** (expression D90 booléenne + message traduit
+  D127), sur l'entité ou la composition (portée agrégat, transaction D101) ;
+  **une règle = un contrôle, jamais une affectation** (réponse à la question de
+  l'auteur sur total_coherent). **Trois sévérités** (erreur / confirmation /
+  information) avec **protocole en trois passes regroupées** (toutes les
+  erreurs d'un coup, confirmations en une validation, informations en une
+  fois) — transposé à l'API (re-soumission avec acquittement). **Agrégats
+  filtrés** actés pour tout le langage (`somme(... si ...)`, D158). **Double
+  évaluation** : serveur = vérité, IHM = transport automatique des règles
+  déclaratives ; **hook de validation bi-versions** (serveur obligatoire, IHM
+  optionnelle, même contrat D52).
+- **2026-07-04 (suite 7)** — Complément D157 validé : **les confirmations
+  acceptées sont tracées** (qui a validé quoi, quand — audit D62).
+- **2026-07-04 (suite 8)** — **Q39 close** (D160–D163, nouveau §3.9). Type
+  **fichier** = nom, taille, MIME, empreinte, **mots-clés** (clé de recherche —
+  réponse partielle au plein-texte Q38). **Stockage dual** : binaires **hors
+  base** (dossier dédié, nommage Syncytium — la base ne grossit pas), grands
+  formats texte (JSON) en **blob** ; contrainte assumée : sauvegarde = base +
+  dossier en cohérence temporelle. **Quota en cascade** (instance/module/
+  entité/champ, la plus petite gagne). **Anonymisation de fichier** =
+  suppression physique du contenu + mots-clés anonymisés en cohérence avec les
+  fiches (le lien survit) ; **statut** supprimé/anonymisé/corrompu/perdu — le
+  squelette (métadonnées) survit, le contenu part ; corrompu/perdu détectés par
+  contrôle d'intégrité planifié ; **pas de déduplication** (la suppression par
+  fiche l'interdit).
+- **2026-07-04 (suite 9)** — Deux compléments de l'auteur. **D164** : la
+  synchronisation entre instances (D113 staging, D114 PCA/PRA) porte sur **la
+  base ET le dossier de fichiers** (conséquence du stockage dual D161).
+  **D165** (inverse la conclusion « pas de déduplication » de D163) :
+  **déduplication par empreinte, décidée dès l'enregistrement** — contenu
+  identique réutilisé ; réconciliation par **comptage de références**
+  (effacement physique au dernier détenteur, statut par champ) — correct au
+  sens RGPD.
+- **2026-07-04 (suite 10)** — Deux types complexes ajoutés (D166–D167, nouveau
+  §3.10). **Liste de données simples** (liste de fichiers, liste d'entiers) —
+  simplifie la description ; amende D160 (multi-fichiers), nuance D118
+  (atomicité = l'élément) ; ouvert : liste d'énumérés (réintroduirait la
+  multi-sélection D121). **Communication** — trace CRM des échanges
+  entreprise↔clients : messages chronologiques (auteur=compte, horodatage,
+  contenu, visibilité interne/partagée D70), immuables (append-only), pièces
+  jointes ; fil de discussion en IHM ; micro-arbitrages ouverts (visibilité par
+  message, immuabilité, pièces jointes).
+- **2026-07-04 (suite 11)** — Micro-arbitrages tranchés (D166–D167, formes
+  finales). **Liste** : applicable à tous les types **sauf la liste** (simples,
+  composées, hooks) ; **propriété « listable » par type** (communication =
+  non-listable — un canal = un champ) ; **liste d'énumérés autorisée** (la
+  multi-sélection revient par la porte générale, D121 préservée en champ).
+  **Communication** : propriétés à défauts — visibilité maximale, immuable
+  vrai, pièces jointes non, **notification non** ; si activée, les nouveaux
+  messages (réponse à une question) notifient par IHM ou mail via
+  l'infrastructure D108–D110 (canaux/profil/audience) — zéro machinerie
+  nouvelle.

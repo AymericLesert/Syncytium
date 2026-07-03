@@ -178,6 +178,19 @@ posée (voir §6).
 | D140 | **Réactivation d'un inactif** : possible, **par l'administrateur de l'instance**, **sous conditions** — dont le **contrôle de collision de clés** (refus si duplication d'une clé d'un actif ; résolution préalable). | Pendant de D96 pour les données ; rendue nécessaire par D141. Voir §3.5. |
 | D141 | **Unicité sur les enregistrements actifs uniquement** — les inactifs peuvent porter des **doublons de clés**. | Permet « supprimer » puis recréer avec la même clé (email) ; justifie la condition de D140. Voir §3.5. |
 | D142 | **Identité d'un enregistrement (résout Q51)** : **technique** = UUID interne **invariant à vie** (généralise D75/D82 — références, audit, chemins, concurrence) vs **fonctionnelle** = clés métier (actifs seulement, D141). Recréer = **nouvelle** identité ; réactiver = **la même** ; anonymiser = efface la fonctionnelle, **préserve la technique**. | Le squelette référentiel survit à tout ; patron D82 généralisé aux entités synchronisées (clé d'unicité externe → UUID, Q49). Voir §3.5. |
+| D143 | **Héritage d'entité — structure** : héritage **simple** (pas de multiple — association/composition pour les cas rares) ; **pas d'abstrait** (le parent est instanciable comme l'enfant) ; **intra-module** ; multi-niveaux. | Un concept de moins (abstrait) ; cohérence D116. Voir §3.6. |
+| D144 | **Stockage de l'héritage : table unique** (parents + enfants), **porté par Syncytium**. **Visibilité des champs par niveau** = nouvel aspect de la confidentialité : un champ appartient à un niveau, applicable/visible seulement si l'enregistrement l'a **atteint**. | 3e axe de visibilité (après niveau/canal D25 et audience/ligne D70), même machinerie ; rend la promotion triviale et préserve l'identité D142. Voir §3.6. |
+| D145 | **Héritage-état (promotion)** : un enregistrement **progresse dans la hiérarchie** (`tiers → prospect → client` dès la première commande) en conservant son **identité** (D142) ; la promotion **étend les propriétés** et ouvre listes/écrans/traitements du niveau ; **déclencheurs déclarés** (action/tâche ou événement de données D54). | Ajouter un niveau = migration de schéma ; promouvoir = opération de données. Voir §3.6. |
+| D146 | **Double position autorisée** : un enregistrement occupe **plusieurs branches simultanément** (client **et** fournisseur) — le parent porte le commun, chaque spécialisation ses champs (table unique D144), visibilité **par branche**. **L'état = un ensemble de positions.** | Identité unique préservée (D142 — pas de doublon de tiers) ; champs de branches non antinomiques (chargé d'affaires client vs contact fournisseur) = modélisation. Voir §3.6. |
+| D147 | **Cycles d'évolution déclarés** : la hiérarchie porte une **machine à états déclarative** — transitions autorisées (promotions ; **rétrogradations si déclarées** — exception explicite, défaut = progression), avec déclencheurs (D145). Rétrograder **masque** (D144), ne détruit pas (esprit D137). **Référence à niveau minimal : écartée** (cohérence niveaux/références = modélisation + règles métier Q36). | Clôt Q52. Voir §3.6. |
+| D148 | **Opérations d'entité (résout Q50)** : opération = **tâche + déclencheur**, matérialisée en **bouton IHM** ; peut **changer l'état** (transitions D145/D147), **modifier des valeurs**, **enrichir/modifier d'autres enregistrements** (commande→facturation : n° de facture + écritures comptables). | **Zéro machinerie nouvelle** (infrastructure des tâches D53–D62) — une tâche promue au rang de **verbe de l'entité**. Complément à confirmer : champ en **écriture réservée aux opérations**. Voir §3.7. |
+| D149 | **Lien parent matérialisé** : chaque enfant d'une composition accède **directement à son parent** — au service des traitements/tâches (parcours), **non exposé IHM/API**. | Navigation interne descendante et remontante. Voir §3.7. |
+| D150 | **Encapsulation d'exposition dérivée** : les enfants **non modifiables seuls** (D101/D133) **n'apparaissent pas dans les API** — accès via le parent uniquement. | Aucune déclaration nouvelle : l'atomicité induit la visibilité API. Voir §3.7. |
+| D151 | **Écarts d'encapsulation assumés** : champs internes → `privee` (D25) suffit ; **interface de module → écartée** (« la déclaration est une et entière » — confidentialité + organisation modules/entités couvrent le besoin). | Rationale conservée. Voir §3.7. |
+| D152 | **Héritage : pas de surcharge de champ parent** — l'enfant ne redéfinit jamais un champ du parent (type/contraintes intouchables) ; il peut **seulement ajuster sa visibilité**, sans supprimer la valeur. | Lignée « masquer, ne jamais détruire » (D137/D144/D147). Voir §3.7. |
+| D153 | **Écriture unique** (forme finale) : **troisième valeur du mode d'accès en écriture** (D73) — lecture / écriture / **écriture unique** (autorisée une seule fois : champ vide = permise, renseigné = refus). Déclinable par audience/groupe (admin en écriture pleine = correction tracée D62) ; écriture différable (création ou opération). | **Pas d'attribut supplémentaire** — une valeur de plus dans une énumération existante, zéro concept nouveau. Voir §3.7. |
+| D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
+| D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
 
 ---
 
@@ -632,6 +645,145 @@ chaque entité déclare sa **clé d'unicité externe** → rapprochement vers l'
 **Apport au méta-schéma** : déclaration `compose` (cardinalité, raffinement,
 clé d'ordre, dimensions/forme, récursivité) ; champ `reference` (obligatoire,
 comportement à la suppression) ; champ « liste inverse » ; entités de liaison.
+
+### 3.6 Héritage d'une entité (Q52 ; D143–D145)
+
+**Règles de structure (D143).** Héritage **simple** — pas d'héritage multiple
+(cas rares en entreprise, résolus par association/composition) ; **pas de
+notion d'abstrait** — le parent est une implémentation instanciable au même
+titre que l'enfant (un concept de moins) ; **intra-module** (cohérence,
+maintenabilité) ; multi-niveaux (`tiers → prospect → client`).
+
+**Stockage : table unique, porté par Syncytium (D144).** Parents et enfants
+dans **une seule table** — le choix qui rend la promotion triviale (pas de
+déménagement de ligne, les champs du niveau s'activent) et préserve
+l'identité (D142). **La visibilité des champs par niveau = un nouvel aspect de
+la confidentialité** : un champ *appartient à un niveau* de la hiérarchie et
+n'est applicable/visible que si l'enregistrement a **atteint** ce niveau —
+troisième axe de visibilité, orthogonal au niveau/canal (D25) et à
+l'audience/ligne (D70), porté par la même machinerie.
+
+**L'héritage-état : la promotion (D145).** Un enregistrement **progresse dans
+la hiérarchie au cours de sa vie** : dès que le prospect passe une commande, il
+*devient* client — la promotion **étend ses propriétés** et ouvre les listes,
+écrans et traitements du niveau atteint.
+- **L'identité traverse** (D142) : même UUID, références et historique intacts ;
+- **déclencheurs de promotion déclarés dans le modèle** : action explicite
+  (tâche) ou **événement de données** (D54 — « première commande créée ») ;
+- **listes par niveau** : la liste « clients » = les tiers au niveau client
+  (filtre de niveau, D126) ;
+- séparation des plans : ajouter un **niveau** = migration de schéma ;
+  promouvoir un **enregistrement** = opération de données.
+
+**Double position (D146, clôt le résiduel 1).** Un enregistrement peut occuper
+**plusieurs branches simultanément** (client **et** fournisseur) : le parent
+porte le commun, chaque spécialisation ajoute ses champs à la même table
+(D144) — le chargé d'affaires visible sur la seule fiche client, le contact
+commercial sur la seule fiche fournisseur : non antinomiques, c'est de la
+**modélisation**. La visibilité par niveau s'applique **par branche,
+indépendamment** ; l'identité unique (D142) est préservée — une entreprise
+réelle = un enregistrement, le doublon de tiers évité par construction.
+**L'état d'un enregistrement = un ensemble de positions**, pas une seule.
+
+**Cycles d'évolution déclarés (D147, clôt le résiduel 2).** En théorie, pas de
+retour client → prospect — mais **le modèle décrit les cycles** : transitions
+autorisées (promotions, **rétrogradations si déclarées**), chacune avec ses
+déclencheurs (D145) — une **machine à états déclarative** sur l'arbre. Défaut =
+progression ; rétrogradation = exception explicite. Rétrograder **masque** les
+champs du niveau quitté (D144), **ne détruit pas** (esprit D137) — re-promotion
+possible.
+
+**Référence à niveau minimal : écartée (résiduel 3).** Aucune contrainte de
+niveau portée par les références — la cohérence niveaux/références relève de la
+modélisation et des règles métier (Q36), pas d'un mécanisme moteur.
+
+**Apport au méta-schéma** : déclaration d'héritage (parent, niveaux, branches),
+appartenance des champs à un niveau/une branche, **cycle de vie déclaré**
+(transitions + déclencheurs).
+
+### 3.7 Opérations d'entité et encapsulation (Q50 ; D148–D152)
+
+**Opérations d'entité (D148).** Une **opération** déclarée sur une entité =
+**une tâche + un déclencheur**, matérialisée en **bouton dans l'IHM**. Pouvoirs :
+- **changer l'état** (transitions d'héritage D145/D147 — l'opération est le
+  véhicule de la promotion) ;
+- **changer une ou plusieurs valeurs** de l'enregistrement ;
+- **enrichir/modifier d'autres enregistrements** — ex. : *bon de commande →
+  facturation* génère le **numéro de facture** et les **écritures comptables**
+  (orchestration au-delà de l'entité, y compris inter-modules).
+**Zéro machinerie nouvelle** : l'opération réutilise l'infrastructure des tâches
+(droits D53, file/progression D55, notification D87, supervision D56) — une
+tâche promue au rang de **verbe de l'entité**. *(Complément à confirmer : champ
+en **écriture réservée aux opérations** — `numero_facture` jamais saisi à la
+main.)*
+
+**Lien parent matérialisé (D149).** Chaque enfant d'une composition **accède
+directement à son parent** — lien structurel au service des **traitements et
+tâches** (parcours descendant *et remontant* de la structure), **non exposé
+dans l'IHM ni l'API**.
+
+**Encapsulation d'exposition dérivée (D150).** Les enfants **non modifiables
+seuls** (raffinement D101/D133) **n'apparaissent pas dans les API** —
+utilisables uniquement via leur parent. **Aucune déclaration nouvelle** : la
+règle d'atomicité induit la visibilité API.
+
+**Écarts assumés (D151).** Champs internes → couverts par `privee` (D25).
+**Interface de module → écartée** : « la déclaration est une et entière » — la
+confidentialité et l'organisation modules/entités couvrent le besoin, pas de
+concept supplémentaire (rationale conservée).
+
+**Héritage : pas de surcharge de champ parent (D152).** Un champ du parent ne
+peut pas être **redéfini** par l'enfant (type, contraintes : intouchables) ;
+l'enfant peut **seulement ajuster la visibilité** d'un champ parent, **sans en
+supprimer la valeur** — lignée « masquer, ne jamais détruire » (D137, D144,
+D147).
+
+**Écriture unique (D153, lève le reliquat de D148 ; forme finale 04/07/2026).**
+**Pas d'attribut supplémentaire** : le mode d'accès en écriture d'un champ (ou
+d'une entité) — D73 — gagne une **troisième valeur** :
+
+| Mode | Sémantique |
+|---|---|
+| **lecture** | consultation seule |
+| **écriture** | modification libre (dans les droits) |
+| **écriture unique** | l'écriture n'est autorisée **qu'une fois** — champ vide : permise ; renseigné : refus |
+
+- Déclinable **par audience/groupe** comme tout le modèle d'accès : les
+  utilisateurs en *écriture unique*, le groupe administrateurs en *écriture*
+  pleine — la correction admin reste **tracée** (D62), sans règle spéciale.
+- L'écriture **différée** demeure naturelle : l'unique écriture survient quand
+  elle survient — à la **création** (`nature` d'un article, par l'utilisateur)
+  ou lors d'une **opération** (`numero_facture`, compteur D154, en différé).
+
+**Compteurs (D154).** Le cas du numéro de facture fait émerger les
+**compteurs** : **déclarés dans le modèle, gérés en interne par le moteur**
+(ressource moteur, comme D93). Chaque compteur est une **ressource critique** :
+- **jamais de doublon** (unicité d'allocation) ;
+- **continuité de la valeur** — pas de trous (exigence légale de la
+  numérotation des factures en France). Conséquence : **l'allocation fait
+  partie de la transaction de l'opération** (échec = rollback, numéro non
+  consommé) → sérialisation de l'allocation, coût négligeable à l'échelle TPE
+  (D15).
+
+**Compteurs composés à déclencheurs (D155).** Un compteur se **combine** à
+d'autres, chacun évoluant selon son **déclencheur** — cas canonique (numéro de
+facture) :
+
+| Compteur | Départ | Déclencheur |
+|---|---|---|
+| Année | 2026 | le 1er janvier |
+| Mois | 1 (borné 1–12) | le 1er du mois |
+| Libre | 1 | incrément à chaque allocation ; **retour à 1 quand le compteur Mois change** |
+
+Cohérences : déclencheurs calendaires = vocabulaire **planifié** (D54) ;
+**réinitialisation en cascade** = dépendance déclarée entre compteurs ;
+**assemblage du numéro = gabarit D90** (`"{annee}-{mois}-{libre}"` →
+`2026-07-0042`) ; l'unicité du champ résultant découle de la combinaison.
+
+**Apport au méta-schéma** : déclaration d'opérations (tâche + déclencheur +
+bouton), champ en **écriture réservée** (write-once), **compteurs** (bornes,
+déclencheurs, cascades, combinaison), lien parent implicite, visibilité par
+spécialisation.
 
 ---
 
@@ -1971,9 +2123,9 @@ avant la synthèse Q16).
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
-| Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
+| ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
-| Q52 | **Héritage d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : entité **parente** (abstraite ou concrète) dont héritent des spécialisations (champs communs + propres — `tiers` → `client`/`fournisseur`) ? **polymorphisme des références** (une référence vers `tiers` acceptant ses spécialisations) ? représentation en persistance déléguée à l'abstraction (D18) ? | Pendant côté **entités** de la surcharge par restriction des **types** (D123) ; complète le triptyque objet avec Q50 (encapsulation). En attente des précisions de l'auteur. |
+| ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2690,3 +2842,60 @@ avant la synthèse Q16).
   et préserve la technique. **Q52 ajoutée** (héritage d'une entité — à développer
   par l'auteur ; pendant côté entités de la surcharge par restriction des types
   D123 ; complète le triptyque objet avec Q50).
+- **2026-07-04** — Héritage d'entité (Q52 largement résolue, D143–D145, nouveau
+  §3.6). Cadrage de l'auteur : héritage **simple** (pas de multiple —
+  association/composition pour les cas rares), **pas d'abstrait** (parent
+  instanciable), **intra-module**, **stockage en table unique porté par
+  Syncytium** — avec la **visibilité des champs par niveau** comme nouvel aspect
+  de la confidentialité (3e axe, après niveau/canal D25 et audience/ligne D70).
+  Idée maîtresse : **l'héritage-état** — un enregistrement progresse dans la
+  hiérarchie (tiers → prospect → client dès la première commande) en conservant
+  son identité (D142) ; la promotion étend les propriétés et ouvre
+  listes/écrans/traitements ; déclencheurs déclarés (action ou événement de
+  données D54). Ajouter un niveau = migration ; promouvoir = donnée. Résiduels :
+  cumul de branches (client ET fournisseur), rétrogradation, référence à niveau
+  minimal.
+- **2026-07-04 (suite)** — **Q52 close** (D146–D147). **Double position
+  autorisée** : un enregistrement occupe plusieurs branches simultanément
+  (client ET fournisseur) — l'état = **un ensemble de positions** ; parent =
+  commun, chaque branche ses champs (chargé d'affaires client vs contact
+  fournisseur — non antinomiques, modélisation) ; identité unique préservée
+  (D142). **Cycles d'évolution déclarés** : machine à états déclarative sur
+  l'arbre — promotions par défaut, **rétrogradations si déclarées** (exception
+  explicite) ; rétrograder masque (D144), ne détruit pas (esprit D137).
+  **Référence à niveau minimal écartée** (modélisation + règles métier Q36).
+- **2026-07-04 (suite 2)** — **Q50 close** (D148–D152, nouveau §3.7).
+  **Opérations d'entité** : tâche + déclencheur, bouton IHM ; changent l'état
+  (véhicule des transitions D145/D147), des valeurs, d'autres enregistrements
+  (commande→facturation : n° de facture + écritures comptables) — zéro
+  machinerie nouvelle, une tâche promue au rang de verbe de l'entité (D148 ;
+  reliquat : écriture réservée aux opérations, à confirmer). **Lien parent
+  matérialisé** pour les traitements, non exposé IHM/API (D149).
+  **Encapsulation d'exposition dérivée** : enfants non modifiables seuls =
+  hors API, accès via le parent (D150). Champs internes → privee suffit ;
+  **interface de module écartée** (« la déclaration est une et entière »)
+  (D151). **Héritage : pas de surcharge de champ parent** — visibilité
+  ajustable seulement, valeur jamais supprimée (D152).
+- **2026-07-04 (suite 3)** — Reliquat D148 levé (D153–D155). **Écriture
+  réservée** : écrite par les opérations, corrigible par admin seul avec
+  traçabilité, **différable**, **write-once** (renseigné → immuable) (D153).
+  **Compteurs** : déclarés dans le modèle, gérés en interne — ressource
+  critique : pas de doublon + **continuité** (exigence comptable française) ;
+  allocation **dans la transaction** de l'opération (échec = numéro non
+  consommé) (D154). **Compteurs composés à déclencheurs en cascade** (Année /
+  Mois / Libre — retour à 1 au changement de mois), assemblage par gabarit D90
+  (`2026-07-0042`) (D155). Q50 entièrement close.
+- **2026-07-04 (suite 4)** — Réserve de l'auteur sur D153, **amendée** : le
+  write-once est **découplé** de « qui écrit ». `write_once` = propriété
+  autonome (renseigné → immuable, correction admin tracée) ; **l'auteur de la
+  première écriture relève du modèle d'accès existant** (confidentialité/droits
+  d'écriture D25/D26/D73) — utilisateur à la création (`nature` d'un article)
+  ou opération (`numero_facture`). L'« écriture réservée aux opérations »
+  n'était qu'une configuration, pas un concept.
+- **2026-07-04 (suite 5)** — D153, forme finale (clarification de l'auteur) :
+  **pas d'attribut supplémentaire** — le mode d'accès en écriture (D73) gagne
+  une **troisième valeur : écriture unique** (autorisée une seule fois — vide :
+  permise, renseigné : refus). Déclinable par audience/groupe comme tout le
+  modèle d'accès (admin en écriture pleine = correction tracée D62, sans règle
+  spéciale) ; écriture différée naturelle. Une valeur de plus dans une
+  énumération existante, zéro concept nouveau.

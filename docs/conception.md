@@ -188,7 +188,7 @@ posée (voir §6).
 | D150 | **Encapsulation d'exposition dérivée** : les enfants **non modifiables seuls** (D101/D133) **n'apparaissent pas dans les API** — accès via le parent uniquement. | Aucune déclaration nouvelle : l'atomicité induit la visibilité API. Voir §3.7. |
 | D151 | **Écarts d'encapsulation assumés** : champs internes → `privee` (D25) suffit ; **interface de module → écartée** (« la déclaration est une et entière » — confidentialité + organisation modules/entités couvrent le besoin). | Rationale conservée. Voir §3.7. |
 | D152 | **Héritage : pas de surcharge de champ parent** — l'enfant ne redéfinit jamais un champ du parent (type/contraintes intouchables) ; il peut **seulement ajuster sa visibilité**, sans supprimer la valeur. | Lignée « masquer, ne jamais détruire » (D137/D144/D147). Voir §3.7. |
-| D153 | **Champ en écriture réservée** (lève le reliquat D148) : écrit par les **opérations**, corrigible par **administrateur seul avec traçabilité** (D62), écriture **différable** (détachée de la création/des états), **write-once** (renseigné → immuable). | Le `numero_facture` canonique. Voir §3.7. |
+| D153 | **Champ `write_once`** (lève le reliquat D148 ; amendée 04/07) : renseigné → **immuable** (exception : correction admin **tracée** D62) ; écriture **différable**. **Qui écrit la première valeur = le modèle d'accès existant** (D25/D26/D73) — utilisateur à la création (`nature` d'article) ou opération (`numero_facture`). | Deux propriétés orthogonales (write-once ≠ qui-écrit) ; aucun mécanisme d'accès nouveau. Voir §3.7. |
 | D154 | **Compteurs** : déclarés dans le modèle, **gérés en interne par le moteur** — ressource **critique** : **pas de doublon** + **continuité** (pas de trous — exigence comptable française) ; **allocation dans la transaction de l'opération** (échec = numéro non consommé). | Sérialisation de l'allocation, négligeable à l'échelle TPE (D15). Voir §3.7. |
 | D155 | **Compteurs composés à déclencheurs** : combinables (Année / Mois / Libre), chacun avec son déclencheur (calendaire = planifié D54) ; **réinitialisation en cascade** (le libre revient à 1 au changement du mois) ; **assemblage par gabarit D90**. | Cas canonique consigné : `2026-07-0042`. Unicité du champ = la combinaison. Voir §3.7. |
 
@@ -738,15 +738,20 @@ l'enfant peut **seulement ajuster la visibilité** d'un champ parent, **sans en
 supprimer la valeur** — lignée « masquer, ne jamais détruire » (D137, D144,
 D147).
 
-**Écriture réservée (D153, lève le reliquat de D148).** Un champ déclaré en
-**écriture réservée** :
-- est **écrit par les opérations** (D148), jamais par la saisie ordinaire ;
-- est **corrigible par un administrateur seul, avec traçabilité assumée**
-  (audit à motif, D62) ;
-- peut être écrit **de façon différée** — détaché de la création et des
-  changements d'état (`numero_facture` vide jusqu'à l'opération de
-  facturation) ;
-- **write-once** : *dès que le champ est renseigné, il n'est plus modifiable*.
+**Write-once (D153, lève le reliquat de D148 ; amendée le 04/07/2026).** Deux
+propriétés **orthogonales**, que la première version couplait à tort :
+- **`write_once`** (propriété autonome) : *dès que le champ est renseigné, il
+  devient immuable* — seule exception : correction par un **administrateur,
+  tracée** (audit à motif, D62). L'écriture peut être **différée** (détachée de
+  la création et des états).
+- **Qui écrit la première valeur = le modèle d'accès existant** (confidentialité
+  et droits d'écriture du champ, D25/D26/D73) — **aucun mécanisme nouveau** :
+  - `nature` d'un article : écrite par l'**utilisateur à la création** (droits
+    ordinaires), puis figée ;
+  - `numero_facture` : écrit par l'**opération** de facturation (compteur
+    D154), en différé, puis figé.
+L'« écriture réservée aux opérations » n'était qu'*une configuration* du modèle
+d'accès, pas un concept.
 
 **Compteurs (D154).** Le cas du numéro de facture fait émerger les
 **compteurs** : **déclarés dans le modèle, gérés en interne par le moteur**
@@ -2878,3 +2883,10 @@ avant la synthèse Q16).
   consommé) (D154). **Compteurs composés à déclencheurs en cascade** (Année /
   Mois / Libre — retour à 1 au changement de mois), assemblage par gabarit D90
   (`2026-07-0042`) (D155). Q50 entièrement close.
+- **2026-07-04 (suite 4)** — Réserve de l'auteur sur D153, **amendée** : le
+  write-once est **découplé** de « qui écrit ». `write_once` = propriété
+  autonome (renseigné → immuable, correction admin tracée) ; **l'auteur de la
+  première écriture relève du modèle d'accès existant** (confidentialité/droits
+  d'écriture D25/D26/D73) — utilisateur à la création (`nature` d'un article)
+  ou opération (`numero_facture`). L'« écriture réservée aux opérations »
+  n'était qu'une configuration, pas un concept.

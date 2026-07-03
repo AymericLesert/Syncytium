@@ -198,7 +198,9 @@ posée (voir §6).
 | D160 | **Type `fichier`** (résout Q39) : métadonnées **nom, taille, MIME, empreinte, mots-clés** — les mots-clés = **clé de recherche** (réponse partielle au plein-texte Q38). Un champ = un fichier ; le multi = entité liée. | Voir §3.9. |
 | D161 | **Stockage dual** : **binaires hors base** (dossier dédié, nommage Syncytium — les blobs feraient grossir la base) ; **grands formats texte** (JSON…) → **blob en base**. | Contrainte assumée : **sauvegarde/restauration = base + dossier** en cohérence temporelle (élargit Q40/D93). Voir §3.9. |
 | D162 | **Quota en cascade** : instance, module, entité, champ — **la plus petite taille l'emporte**. | Simple à raisonner, précis à gouverner. Voir §3.9. |
-| D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). **Pas de déduplication** (la suppression par fiche l'interdit). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Voir §3.9. |
+| D163 | **Anonymisation de fichier** = **suppression physique du contenu** + **mots-clés anonymisés en cohérence** avec les fiches (D139) ; **statut** : `supprimé` / `anonymisé` / `corrompu` / `perdu` — métadonnées conservées (le squelette survit). `corrompu`/`perdu` détectés par **contrôle d'intégrité planifié** (empreinte + présence). | URL opaque + re-contrôle d'accès + contenu jamais exécuté (acquis D75/D25/D43) ; magasin partagé (tâches D55, notifications D108). Déduplication : voir D165. Voir §3.9. |
+| D164 | **Synchronisation étendue aux fichiers** : toute synchronisation entre instances (**D113 staging, D114 PCA/PRA**) porte sur **la base ET le dossier de fichiers**, en cohérence temporelle. | Conséquence du stockage dual (D161) — comme la sauvegarde. Voir §7.3. |
+| D165 | **Déduplication par empreinte, dès l'enregistrement** (amende D163) : contenu identique existant → **réutilisé**. Réconciliation avec la suppression physique : **comptage de références** — effacement réel au **dernier détenteur** ; **statut par champ** (chaque fiche sa vérité, un seul contenu). | Correct au sens RGPD : un document légitimement détenu ailleurs survit ; toutes fiches anonymisées → compteur zéro → effacement. Voir §3.9. |
 
 ---
 
@@ -868,8 +870,14 @@ survit à l'effacement — D139). **Statut de fichier** : `supprimé`
   métadonnées demeurent, seul le contenu disparaît ;
 - `corrompu`/`perdu` **détectés par contrôle d'intégrité** (empreinte +
   présence), **tâche planifiée** (D54) — maintenance déclarée du magasin ;
-- **pas de déduplication** : la suppression physique par fiche l'interdit (un
-  contenu partagé ne pourrait être supprimé pour l'une sans amputer l'autre).
+- **déduplication par empreinte, dès l'enregistrement (D165)** : au dépôt, le
+  moteur calcule l'empreinte — contenu identique existant → **réutilisé** (pas
+  de seconde copie). Réconciliation avec la suppression physique : **comptage
+  de références** — la suppression/anonymisation d'un fichier **décrémente**,
+  le contenu n'est réellement effacé qu'au **dernier détenteur** ; le **statut
+  reste par champ** (chaque fiche sa vérité, un seul contenu). Correct au sens
+  RGPD : un document légitimement détenu ailleurs survit ; toutes les fiches
+  anonymisées → compteur à zéro → effacement physique.
 Sécurité (acquis) : téléchargement par URL opaque (D75), re-contrôle d'accès à
 chaque accès (D25/D70), contenu jamais exécuté (donnée adverse, D43) ;
 écriture unique (D153) applicable ; magasin partagé avec les résultats de
@@ -1774,6 +1782,12 @@ appliqué entre **deux instances de production de même version** (active/passiv
 donne la continuité : **bascule manuelle par le client** en cas de coupure.
 Atouts : réplication **tech-agnostique** (niveau Syncytium, indépendante du SGBD —
 D18) ; cohérence protégée à la bascule par l'estampille D93.
+
+**Synchronisation étendue aux fichiers (D164).** Le stockage dual (D161 —
+binaires hors base) impose que **toute synchronisation entre deux instances
+(D113 staging, D114 PCA/PRA) porte sur la base ET le dossier de fichiers**, en
+cohérence temporelle — comme la sauvegarde ; la recréation différée d'un
+staging copie les deux, la bascule PCA/PRA suppose les deux à jour.
 
 **Caveats consignés** : D16 se raffine — « une instance *de production* par TPE »
 + instances **éphémères** (staging) + éventuellement une **passive** ; chaque
@@ -3018,3 +3032,11 @@ avant la synthèse Q16).
   squelette (métadonnées) survit, le contenu part ; corrompu/perdu détectés par
   contrôle d'intégrité planifié ; **pas de déduplication** (la suppression par
   fiche l'interdit).
+- **2026-07-04 (suite 9)** — Deux compléments de l'auteur. **D164** : la
+  synchronisation entre instances (D113 staging, D114 PCA/PRA) porte sur **la
+  base ET le dossier de fichiers** (conséquence du stockage dual D161).
+  **D165** (inverse la conclusion « pas de déduplication » de D163) :
+  **déduplication par empreinte, décidée dès l'enregistrement** — contenu
+  identique réutilisé ; réconciliation par **comptage de références**
+  (effacement physique au dernier détenteur, statut par champ) — correct au
+  sens RGPD.

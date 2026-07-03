@@ -230,6 +230,11 @@ postures combinables :
 | D182 | **Dates du cycle de vie sur chaque ligne du stock (complète D181)** : première détection, dernière tentative, changement de statut (qui/quand/motif — D62), date d'intégration → **le stock = journal d'audit de la reprise** (chaque ligne source a un destin daté et justifiable). | Avec la provenance persistante (D178), l'audit couvre les deux faces : ce qui est entré et ce qui n'est pas entré. Ancienneté des « à reprendre » = indicateur de pilotage (fin de reprise, D181). Voir §3.11. |
 | D183 | **Cycle des statuts du stock (amende D181)** : **en anomalie** (système, échec — état d'entrée, jamais retentée sans décision humaine) / **à reprendre** (admin — règle ou source corrigée, replanifiée) / **ignoré** (admin — exclusion tracée D62, réversible par l'admin) / **intégré** (système, D178). **Un passage traite : les nouveaux + les « à reprendre », même voie standard** (D175/D177) ; à l'issue le système repositionne (intégré ou en anomalie). | **Le système constate, l'administrateur décide.** Pas d'acharnement aveugle sur les lignes connues mauvaises. Rapport d'un passage = nouvelles anomalies + bilan des retentées ; fin de reprise = plus rien en anomalie ni à reprendre. Voir §3.11. |
 | D184 | **Retour arrière d'une ligne intégrée** : intégré → à reprendre (admin — erreur découverte après coup) ⇒ **suppression physique** des données issues de la ligne (agrégat + historique éventuel) puis réimport au prochain passage — comme si jamais intégrée. | **Exception assumée** à « masquer, ne jamais détruire » (D137) : garantit la qualité en fin de reprise ; **portée par la provenance (D178, seul chemin)**, **refusée si références étrangères à la reprise**, **trace du stock conservée** (D182 — l'audit survit à l'effacement). Voir §3.11. |
+| D185 | **Triade IHM par entité** : **liste** (colonnes + filtres + tris + actions ajout/modification/suppression) ; **écran unique fiche/formulaire à deux modes** (lecture = consultation/suppression, écriture = création/modification) ; **widget de résumé** (au survol d'une référence → informations essentielles de la cible). | Une seule organisation déclarée, deux rendus — le mode s'ouvre selon l'action et se borne aux droits (D25/D70/D144/D153). Voir §8.6. |
+| D186 | **Défauts sans description** (« le schéma suffit, la déclaration ajuste ») : entité = entrée de menu du module ; liste = tous les champs (ou les premiers remplissant la largeur) ; affichage de champ **par surface** (formulaire/liste/widget) **décliné par mode responsive** (idem liste et formulaire) ; champs empilés sans section ; compositions en **onglets-listes** ; **historique = dernier onglet (invariant)** ; communication en onglet ; référence 1-1 → widget de résumé ; 1-N → liste de la cible filtrée sur l'association. | L'application complète existe sans une ligne de déclaration d'IHM. Voir §8.6. |
+| D187 | **Listes déclarées** : 1..n par entité — colonnes, tris, filtres ; par mode(s) responsive ; **formulaire cible désigné** ; fonctions **ajout / modification / suppression / import / export CSV-Excel / impression PDF** ; **liste « paramétrable » à paramètres enregistrables**. | Import = conversion faillible (D120) ; export = facette affichage (D120) ; impression = tâche (D53). Portée de l'enregistrement des paramètres à préciser. Voir §8.6. |
+| D188 | **Formulaires déclarés** : 1..n par entité, par mode(s) responsive ; organisation en **blocs** (rendus : **onglet / section / popup**) ; sections **en colonnes ou en lignes** ; affichage de champ dédié par mode responsive. | Deux couches (patron D127) : défaut dérivé sans déclaration (D186), blocs en surcharge. Voir §8.6. |
+| D189 | **Menu déclaré** : **le modèle porte l'organisation du menu** ; une entité peut y avoir **plusieurs entrées**. | Chaîne interprétée à valider : entrée de menu → liste → formulaire. Voir §8.6. |
 
 ---
 
@@ -2388,6 +2393,78 @@ Assemblage de briques existantes — pratiquement aucune machinerie neuve.
 **Apport au méta-schéma** : l'entité notification ; canaux autorisés (description)
 + canal choisi (profil) ; gabarits de message en paramètres de connecteur.
 
+### 8.6 L'IHM générée : la triade par entité et ses défauts (Q48 ; D185–D189)
+
+Le principe directeur, validé par les défauts ci-dessous : **« le schéma
+suffit, la déclaration ajuste »**. Une description sans aucune déclaration
+d'IHM produit une application **complète et utilisable** ; chaque déclaration
+raffine — jamais de configuration obligatoire.
+
+**La triade de composants d'une entité (D185).** Une entité ouvre sur trois
+composants :
+
+1. **La liste d'enregistrements** : un jeu de colonnes, un jeu de filtres, un
+   jeu de tris (D125–D126) et des actions — **ajout, modification,
+   suppression**.
+2. **L'écran de saisie et de consultation** : **un même écran, deux modes** —
+   **écriture** (création/modification = formulaire) et **lecture seule**
+   (consultation/suppression = fiche). Une seule organisation déclarée, deux
+   rendus ; le mode s'ouvre selon l'action demandée et se **borne aux droits**
+   (confidentialité D25, audience D70, niveau d'héritage D144, écriture
+   unique D153).
+3. **Le widget de résumé** : au survol d'un champ (une référence), il fait
+   apparaître les **informations essentielles** de l'entité cible.
+
+**Les défauts sans description (D186).** Sans une ligne de déclaration d'IHM :
+
+1. l'entité apparaît comme une **entrée du menu** référençant le module ;
+2. la liste reprend **tous les champs** de l'entité (ou les premiers champs,
+   tels qu'ils remplissent la largeur de la liste) ;
+3. un champ dispose d'un **affichage par surface** — formulaire, liste,
+   widget — chacun **déclinable par mode responsive** ;
+4. de même, formulaire et liste ont leurs **modes d'affichage responsive** ;
+5. dans un formulaire, les champs sont **l'un en dessous de l'autre, sans
+   section** ;
+6. les **compositions** (agrégats) apparaissent chacune **dans un onglet,
+   sous forme de liste** ;
+7. si l'entité est **historisée**, l'historique apparaît **dans le dernier
+   onglet — invariant, toujours vrai** (D168–D174) ;
+8. un champ **communication** (D167) apparaît **dans un onglet** ;
+9. une **association 1-1** (champ référence) affiche le **widget de résumé**
+   de l'entité cible ;
+10. une **association 1-N** (champ liste inverse, D136) affiche **la liste de
+    l'entité associée, filtrée** sur les enregistrements correspondant à
+    l'association.
+
+**Les listes déclarées (D187).** Une entité **affiche une liste** ; la
+description peut en contenir **une ou plusieurs**. Une liste précise **les
+colonnes, les tris et les filtres** ; elle est disponible pour **un ou
+plusieurs modes d'affichage (responsive)** ; elle **précise le formulaire
+utilisé**. Ses fonctions : **ajout, modification, suppression, import,
+export (CSV ou Excel), impression PDF** — l'import s'appuie sur le moteur de
+conversion faillible (D120, rapport cellule par cellule), l'export sur la
+facette affichage (D120), l'impression est une **tâche** (D53). S'y ajoute la
+**liste « paramétrable »** : un composant dont les paramètres sont
+**enregistrables** (colonnes, tris, filtres choisis par l'utilisateur —
+portée à préciser).
+
+**Les formulaires déclarés (D188).** Une entité peut définir **plusieurs
+formulaires** ; un formulaire peut être dédié à **un ou plusieurs modes
+responsive**. Un formulaire organise les champs en **blocs** ; un bloc
+s'affiche comme **onglet**, comme **section** ou comme **popup** ; les
+sections positionnent les éléments **en colonnes ou en lignes**. Un champ
+dispose d'un **affichage dédié au mode responsive**.
+
+**Le menu déclaré (D189).** **Le modèle porte l'organisation du menu.** Une
+entité peut y avoir **plusieurs entrées**. *(Chaîne interprétée, à valider :
+une entrée de menu désigne une liste ; la liste désigne son formulaire —
+menu → liste → formulaire.)*
+
+**Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
+modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
+colonnes/lignes), du menu (entrées multiples) ; affichages de champ par
+surface × mode responsive ; widget de résumé.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -2540,7 +2617,7 @@ avant la synthèse Q16).
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
-| Q48 | **Organisation de l'IHM générée** : quels **écrans** exactement (listes, fiches, formulaires — §3.1 non détaillé), déclaration de la **navigation/menus**, **vues par défaut** d'une entité, tri, regroupements. | L'architecture IHM est décrite (D63–D69, D100) ; son **contenu fonctionnel** ne l'est pas. Dépend de Q34 (types → composants D64). |
+| Q48 | **Organisation de l'IHM générée — cœur arbitré (D185–D189, §8.6)** : triade liste / écran unique à 2 modes / widget de résumé ; défauts complets sans description ; listes et formulaires déclarés (blocs onglet/section/popup) ; menu porté par le modèle. **Restent à clarifier** : chaîne menu→liste→formulaire ; enfants de composition au menu ? ; portée de la liste paramétrable (qui enregistre, pour qui ?) ; contenu et déclaration du widget de résumé ; gabarits d'impression PDF ; jeu des modes responsive ; sélection multiple / actions de masse. | L'architecture IHM (D63–D69, D100) + le contenu fonctionnel (D185–D189) sont posés ; les clarifications ci-contre closent la question. |
 | Q53 | **Surfaces de synthèse** (ajout 04/07/2026) : déclaration de la **page d'accueil** (par utilisateur ? groupe/rôle ? module ?), **graphiques** (axes/séries déclarés), **tableaux de synthèse** (croisés — lien avec les compositions matricielles D134 ?), **widgets** (unités de dashboard) et **vignettes de résumé** (KPI). | Briques disponibles : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), **agrégats filtrés (D158)** comme source des chiffres, tableaux de bord intégrés (D38/D44) comme précédent. À traiter avec Q48. |
 
 ---
@@ -3473,3 +3550,21 @@ avant la synthèse Q16).
   (D178), refus si références étrangères à la reprise, trace du stock
   conservée (D182). L'auteur valide le cycle de dates D182 (« apporte de la
   visibilité sur les actions faites et sur la qualité de la reprise »).
+- **2026-07-05 (soir — ouverture du thème E UI/UX)** — PR #13 fusionnée
+  (le volet modèle de données rejoint `develop`) ; branche
+  `feature/theme-uiux`. **Q48 : cœur arbitré (D185–D189)**. L'auteur pose la
+  **triade par entité** — liste (colonnes/filtres/tris + ajout/modification/
+  suppression), **écran unique fiche/formulaire à deux modes** (tranche le
+  point débattu), **widget de résumé** au survol d'une référence — puis les
+  **défauts sans description** (menu par module, liste = tous les champs ou
+  les premiers remplissant la largeur, affichage de champ par surface ×
+  responsive, champs empilés, compositions en onglets-listes, **historique =
+  dernier onglet invariant**, communication en onglet, 1-1 → widget, 1-N →
+  liste cible filtrée), les **listes déclarées** (1..n, modes responsive,
+  import/export/impression PDF, formulaire cible, liste paramétrable
+  enregistrable), les **formulaires déclarés** (1..n, **blocs**
+  onglet/section/popup, sections en colonnes/lignes) et le **menu porté par
+  le modèle** (entrées multiples par entité). Principe validé par la forme :
+  « **le schéma suffit, la déclaration ajuste** ». Clarifications listées
+  dans Q48 (chaîne menu→liste→formulaire, enfants de composition,
+  paramétrable, widget, PDF, modes responsive, actions de masse).

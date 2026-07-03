@@ -964,9 +964,12 @@ défaut** ; **une date précisée → l'agrégat tel qu'il était à cette date*
 (lecture directe de l'instantané froid). **Résolution à date (précisée le
 05/07/2026)** : le **dernier instantané dont l'horodatage ≤ la date demandée**
 — les modifications **strictement postérieures sont ignorées** (une
-modification datée exactement de la date est incluse) ; date **antérieure à la
-création** → l'enregistrement *n'existait pas* (réponse vide, pas le premier
-instantané). L'**IHM** gagne un composant **« historique »** : synthèse des
+modification datée exactement de la date est incluse). **Fenêtre d'existence** :
+date **antérieure à la création** → l'enregistrement *n'existait pas* (réponse
+vide, pas le premier instantané) ; date **postérieure à la suppression**
+(D137) → **réponse vide par défaut**, **sauf demande expresse** — restitué
+alors avec le **statut « Supprimé »** (miroir temporel du comportement des
+listes : actifs par défaut, inactifs sur demande). L'**IHM** gagne un composant **« historique »** : synthèse des
 entrées d'un enregistrement, et **clic sur un détail → la fiche à la date du
 détail**.
 
@@ -3210,3 +3213,8 @@ avant la synthèse Q16).
   **dernier instantané dont l'horodatage ≤ la date demandée** — modifications
   strictement postérieures ignorées ; date antérieure à la création →
   l'enregistrement n'existait pas (réponse vide).
+- **2026-07-05 (suite 4)** — Second corollaire (D172) : **date postérieure à la
+  suppression → réponse vide par défaut, sauf demande expresse** — restitué
+  avec le statut « Supprimé ». Fenêtre d'existence complète : avant création =
+  vide ; [création…suppression] = instantané à date ; après suppression = vide
+  ou « Supprimé » sur demande (miroir temporel de D137).

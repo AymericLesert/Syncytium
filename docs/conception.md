@@ -227,6 +227,7 @@ postures combinables :
 | D179 | **Rejets de reprise : rapport seul (clôt Q49)** — les refusés (D177) ne sont pas conservés ; **rapport d'import** (D120) diffusé selon les **opt-in de notification** (D108–D110), correction à la source / ajustement des règles, **relance sur les manquants**. **Rapport spécifique de non-couverture (D176) au technicien.** | Quarantaine écartée (la source vit pendant la reprise, D175). Voir §3.11. |
 | D180 | **Double périmètre du projet** : (1) **entrepôt de données fiable** (opérationnel à l'échelle TPE — qualité D177, couverture D176, provenance D178, temporalité D168–D174, restitution ; IHM = consultation **et** correction) ; (2) **applications métier** sur description exhaustive et simple. **Un moteur, deux postures, combinables.** | La reprise (Q49) = un ETL déclaratif déjà construit ; qualification honnête consignée (opérationnel ≠ OLAP ; D18/D36 = extensions si volumétrie). Vision §1 élargie. |
 | D181 | **Rapports de reprise persistés + statut de ligne (complète D179)** : stock de rejets consolidé (identité = provenance D178, repli empreinte), statuts **à reprendre** (défaut, retentée, re-rejet sans re-notification) / **à ignorer** (écartée des relances, tracée D62) / **intégré** (constaté par rapprochement de provenance) ; **écran moteur** à accès déclaré (défaut admin) ; **le rapport ne diffuse que le nouveau**. | Toujours pas une quarantaine : trace à statut, ni éditable ni injectable. Fin de reprise objectivée : plus rien « à reprendre » + couverture assumée → débranchement (D175). « Ignorer, jamais oublier » (D176) étendu aux enregistrements. Voir §3.11. |
+| D182 | **Dates du cycle de vie sur chaque ligne du stock (complète D181)** : première détection, dernière tentative, changement de statut (qui/quand/motif — D62), date d'intégration → **le stock = journal d'audit de la reprise** (chaque ligne source a un destin daté et justifiable). | Avec la provenance persistante (D178), l'audit couvre les deux faces : ce qui est entré et ce qui n'est pas entré. Ancienneté des « à reprendre » = indicateur de pilotage (fin de reprise, D181). Voir §3.11. |
 
 ---
 
@@ -1102,6 +1103,20 @@ passe par la voie standard. Le stock est une **trace à statut**, pas un sas de
 données. Le principe « **ignorer, jamais oublier** » (D176) s'applique
 désormais aux deux granularités : la structure (entités/champs ignorés du
 mapping) et les enregistrements (lignes « à ignorer » du stock).
+
+**Les dates du cycle de vie : le stock comme journal d'audit (D182, complète
+D181).** Chaque ligne du stock porte les **dates de son cycle de vie** :
+**première détection** (premier rejet), **dernière tentative** (D181),
+**changement de statut** (la décision « à ignorer » portait déjà qui/quand/
+motif — D62) et **date d'intégration** (bascule « intégré », automatique ou
+manuelle). Le stock devient ainsi le **journal d'audit de la reprise** :
+chaque ligne source a un destin **daté et justifiable** — intégrée (quand),
+écartée (qui, quand, pourquoi), en attente (depuis quand). Combiné à la
+**provenance persistante des enregistrements intégrés** (D178 — connecteur,
+date, clé d'origine), l'audit couvre les **deux faces** de la reprise : **ce
+qui est entré** (D178) et **ce qui n'est pas entré** (D181/D182).
+L'**ancienneté des lignes « à reprendre »** devient au passage un indicateur
+de pilotage pour l'administrateur (critère de fin de reprise, D181).
 
 **Le double périmètre du projet (D180).** La reprise révèle que Syncytium
 couvre **deux périmètres** avec **un seul moteur** :
@@ -2469,7 +2484,7 @@ avant la synthèse Q16).
 | ~~Q40~~ | ~~Sauvegarde / cohérence donnée↔version ?~~ | **Backup physique délégué** au SGBD/hébergement (D16/D18/Q4). **Résiduel résolu (D93)** : estampille de version interne dans la base (deux axes : description + moteur), garde-fous fail-closed au démarrage. |
 | ~~Q41~~ | ~~Concurrence & verrouillage ?~~ | **Résolu (D111)** : 3e voie — état-avant/état-après, jeton de concurrence au **grain du champ**, unique IHM+API ; fusion des champs disjoints, conflit → agrégat rejeté (409/410), premier arrivé gagne, second notifié. |
 | ~~Q42~~ | ~~Environnement de test / pré-production ?~~ | **Résolu (D112–D114, §7.3)** : multi-environnements — prod (dernière publiée) + un staging par bêta instancié à la volée par migration, API bêta redirigées ; sync synchrone (traduite inter-versions) ou différée ; même mécanisme pour le **PCA/PRA** (actif/passif, bascule client). |
-| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D181, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
+| ~~Q49~~ | ~~Reprise de données ?~~ | **Résolu (D173, D175–D182, §3.11)** : connecteur « reprise » en lecture (durée de vie = admin), écriture standard identifiée « reprise » (antidaté D173), **mapping exhaustif à couverture mesurée** (ignorés marqués + rapport de non-couverture), **critère d'acceptation strict** (converti + cohérent), clés externes déclarées + provenance persistante, **rejets = rapport seul** (opt-in de notification, relance sur les manquants). A révélé le **double périmètre D180** (entrepôt de données fiable + applications métier). |
 | ~~Q50~~ | ~~Encapsulation d'une entité ?~~ | **Résolu (D148–D155, §3.7)** : **opérations d'entité** (tâche + déclencheur + bouton IHM) ; **lien parent matérialisé** ; **encapsulation d'exposition dérivée** ; pas de surcharge de champ parent ; **écriture réservée** (write-once, admin tracé) ; **compteurs** (ressource critique moteur : unicité + continuité, composés à déclencheurs en cascade, assemblage par gabarit). |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
 | ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
@@ -3391,3 +3406,11 @@ avant la synthèse Q16).
   débranchement D175). Toujours pas une quarantaine : **trace à statut**, ni
   éditable ni injectable — « ignorer, jamais oublier » (D176) vaut désormais
   pour la structure **et** les enregistrements.
+- **2026-07-05 (suite 10)** — **Dates sur les lignes du stock (D182)**.
+  L'auteur : « avec une date sur la ligne, cela nous permettra de faire un
+  audit sur les données et leur intégration ». Consigné : chaque ligne porte
+  les dates de son cycle de vie (première détection, dernière tentative,
+  changement de statut, intégration) — **le stock devient le journal d'audit
+  de la reprise**, complément symétrique de la provenance persistante (D178) :
+  l'audit couvre ce qui est entré **et** ce qui n'est pas entré. Ancienneté
+  des « à reprendre » = indicateur de pilotage de la fin de reprise (D181).

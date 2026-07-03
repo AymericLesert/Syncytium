@@ -180,7 +180,9 @@ posée (voir §6).
 | D142 | **Identité d'un enregistrement (résout Q51)** : **technique** = UUID interne **invariant à vie** (généralise D75/D82 — références, audit, chemins, concurrence) vs **fonctionnelle** = clés métier (actifs seulement, D141). Recréer = **nouvelle** identité ; réactiver = **la même** ; anonymiser = efface la fonctionnelle, **préserve la technique**. | Le squelette référentiel survit à tout ; patron D82 généralisé aux entités synchronisées (clé d'unicité externe → UUID, Q49). Voir §3.5. |
 | D143 | **Héritage d'entité — structure** : héritage **simple** (pas de multiple — association/composition pour les cas rares) ; **pas d'abstrait** (le parent est instanciable comme l'enfant) ; **intra-module** ; multi-niveaux. | Un concept de moins (abstrait) ; cohérence D116. Voir §3.6. |
 | D144 | **Stockage de l'héritage : table unique** (parents + enfants), **porté par Syncytium**. **Visibilité des champs par niveau** = nouvel aspect de la confidentialité : un champ appartient à un niveau, applicable/visible seulement si l'enregistrement l'a **atteint**. | 3e axe de visibilité (après niveau/canal D25 et audience/ligne D70), même machinerie ; rend la promotion triviale et préserve l'identité D142. Voir §3.6. |
-| D145 | **Héritage-état (promotion)** : un enregistrement **progresse dans la hiérarchie** (`tiers → prospect → client` dès la première commande) en conservant son **identité** (D142) ; la promotion **étend les propriétés** et ouvre listes/écrans/traitements du niveau ; **déclencheurs déclarés** (action/tâche ou événement de données D54). | Ajouter un niveau = migration de schéma ; promouvoir = opération de données. Résiduels Q52 : cumul de branches, rétrogradation, référence à niveau minimal. Voir §3.6. |
+| D145 | **Héritage-état (promotion)** : un enregistrement **progresse dans la hiérarchie** (`tiers → prospect → client` dès la première commande) en conservant son **identité** (D142) ; la promotion **étend les propriétés** et ouvre listes/écrans/traitements du niveau ; **déclencheurs déclarés** (action/tâche ou événement de données D54). | Ajouter un niveau = migration de schéma ; promouvoir = opération de données. Voir §3.6. |
+| D146 | **Double position autorisée** : un enregistrement occupe **plusieurs branches simultanément** (client **et** fournisseur) — le parent porte le commun, chaque spécialisation ses champs (table unique D144), visibilité **par branche**. **L'état = un ensemble de positions.** | Identité unique préservée (D142 — pas de doublon de tiers) ; champs de branches non antinomiques (chargé d'affaires client vs contact fournisseur) = modélisation. Voir §3.6. |
+| D147 | **Cycles d'évolution déclarés** : la hiérarchie porte une **machine à états déclarative** — transitions autorisées (promotions ; **rétrogradations si déclarées** — exception explicite, défaut = progression), avec déclencheurs (D145). Rétrograder **masque** (D144), ne détruit pas (esprit D137). **Référence à niveau minimal : écartée** (cohérence niveaux/références = modélisation + règles métier Q36). | Clôt Q52. Voir §3.6. |
 
 ---
 
@@ -665,16 +667,31 @@ la hiérarchie au cours de sa vie** : dès que le prospect passe une commande, i
 - séparation des plans : ajouter un **niveau** = migration de schéma ;
   promouvoir un **enregistrement** = opération de données.
 
-**Sous-questions ouvertes (Q52 résiduel)** : (1) **cumul** client ET
-fournisseur — deux enregistrements, résolution par association (comme
-l'héritage multiple), ou double position de branches ? (2) **rétrogradation**
-— autorisée ? données des niveaux quittés conservées (esprit D137) ?
-garde-fous si des références exigent le niveau ? (3) **référence à niveau
-minimal** (`reference: client` = tiers ayant au moins atteint ce niveau) —
-contrainte sur la rétrogradation ?
+**Double position (D146, clôt le résiduel 1).** Un enregistrement peut occuper
+**plusieurs branches simultanément** (client **et** fournisseur) : le parent
+porte le commun, chaque spécialisation ajoute ses champs à la même table
+(D144) — le chargé d'affaires visible sur la seule fiche client, le contact
+commercial sur la seule fiche fournisseur : non antinomiques, c'est de la
+**modélisation**. La visibilité par niveau s'applique **par branche,
+indépendamment** ; l'identité unique (D142) est préservée — une entreprise
+réelle = un enregistrement, le doublon de tiers évité par construction.
+**L'état d'un enregistrement = un ensemble de positions**, pas une seule.
 
-**Apport au méta-schéma** : déclaration d'héritage (parent, niveaux),
-appartenance des champs à un niveau, déclencheurs de promotion.
+**Cycles d'évolution déclarés (D147, clôt le résiduel 2).** En théorie, pas de
+retour client → prospect — mais **le modèle décrit les cycles** : transitions
+autorisées (promotions, **rétrogradations si déclarées**), chacune avec ses
+déclencheurs (D145) — une **machine à états déclarative** sur l'arbre. Défaut =
+progression ; rétrogradation = exception explicite. Rétrograder **masque** les
+champs du niveau quitté (D144), **ne détruit pas** (esprit D137) — re-promotion
+possible.
+
+**Référence à niveau minimal : écartée (résiduel 3).** Aucune contrainte de
+niveau portée par les références — la cohérence niveaux/références relève de la
+modélisation et des règles métier (Q36), pas d'un mécanisme moteur.
+
+**Apport au méta-schéma** : déclaration d'héritage (parent, niveaux, branches),
+appartenance des champs à un niveau/une branche, **cycle de vie déclaré**
+(transitions + déclencheurs).
 
 ---
 
@@ -2016,7 +2033,7 @@ avant la synthèse Q16).
 | Q49 | **Initialisation d'une instance par reprise de données** (ajout 02/07/2026) : connexion à une **base de données tierce** et **conversion** vers le modèle Syncytium — **y compris import CSV/Excel**. Sous-questions : connecteur **jetable** (one-shot) ou début d'un connecteur **permanent** (cohabitation) ? traitement des **rejets** (correction à la source / règles en vol / quarantaine) ? import de l'**historique** d'origine (lien Q37) ? | Cas décisif pour l'adoption. Assemblage pressenti : connecteur auto-descriptif (D83) + translation (D79/D90) + **conversions faillibles (D120) = moteur de l'import** (dry-run = exécution à blanc, rapport cellule par cellule) + tâche à progression (D55) + hot folder (D106) + UUID (D82) + estampille (D93). À traiter avec/après le modèle de données (le mapping suppose Q34). |
 | Q50 | **Encapsulation d'une entité** (ajout 03/07/2026) — à développer par l'auteur. Interprétations candidates : masquer la structure interne derrière une **interface définie** (opérations/vues exposées, champs non accessibles directement) ? comportements attachés à l'entité ? accès aux enfants d'agrégat restreint (prolonge D101/D133) ? | En attente des précisions de l'auteur. |
 | ~~Q51~~ | ~~Identité d'un enregistrement ?~~ | **Résolu (D142)** : identité **technique** (UUID invariant à vie — références, audit, concurrence) vs **fonctionnelle** (clés métier, actifs seulement) ; recréer = nouvelle, réactiver = la même, anonymiser = efface la fonctionnelle et préserve la technique. |
-| Q52 | **Héritage d'une entité** — **largement résolu (D143–D145, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion `tiers → prospect → client`, identité conservée, déclencheurs déclarés). **Résiduels** : cumul de branches (client ET fournisseur), rétrogradation, référence à niveau minimal. | Pendant côté **entités** de la surcharge des **types** (D123) : types = restriction, entités = extension. |
+| ~~Q52~~ | ~~Héritage d'une entité ?~~ | **Résolu (D143–D147, §3.6)** : héritage simple sans abstrait, intra-module, **table unique** (visibilité des champs par niveau = 3e axe de confidentialité), **héritage-état** (promotion, identité conservée, déclencheurs déclarés), **double position** (client ET fournisseur — l'état = un ensemble de positions), **cycles déclarés** (rétrogradation = exception explicite, masque sans détruire) ; référence à niveau minimal écartée. | Types = restriction (D123), entités = extension. |
 | **C — Sécurité d'exécution** | | |
 | ~~Q43~~ | ~~Robustesse d'exécution ?~~ | **Résolu (D104)** : pas de timeout sur les fonctions **simples** ; timeout **paramétrable** sur les fonctions **complexes** (classification au catalogue de fonctions). Gardes existants inchangés (D36/D55/D69/D7). |
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
@@ -2746,3 +2763,12 @@ avant la synthèse Q16).
   données D54). Ajouter un niveau = migration ; promouvoir = donnée. Résiduels :
   cumul de branches (client ET fournisseur), rétrogradation, référence à niveau
   minimal.
+- **2026-07-04 (suite)** — **Q52 close** (D146–D147). **Double position
+  autorisée** : un enregistrement occupe plusieurs branches simultanément
+  (client ET fournisseur) — l'état = **un ensemble de positions** ; parent =
+  commun, chaque branche ses champs (chargé d'affaires client vs contact
+  fournisseur — non antinomiques, modélisation) ; identité unique préservée
+  (D142). **Cycles d'évolution déclarés** : machine à états déclarative sur
+  l'arbre — promotions par défaut, **rétrogradations si déclarées** (exception
+  explicite) ; rétrograder masque (D144), ne détruit pas (esprit D137).
+  **Référence à niveau minimal écartée** (modélisation + règles métier Q36).

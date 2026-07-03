@@ -211,6 +211,9 @@ posée (voir §6).
 | D173 | **Insertion antidatée** (reprise — résout la sous-question historique de Q49) : par défaut pas d'import d'historique ; sinon **sollicitation de l'interface à une date antérieure** + insertion dans l'historique, **contrôles levés** (règles de cohérence). | Complexité assumée ; mécanisme dédié, réservé à la reprise. Voir §3.11. |
 | D174 | **Propagation de la date à travers les associations** : historisée → instantané à date ; non historisée → **valeur courante** ; non historisée référençant une historisée → **la date d'origine s'applique de nouveau** (jamais perdue). Perte de cohérence possible (mélange chaud/froid) → **alerte au technicien à la validation du schéma**, **sauf propriété d'anticipation déclarée** sur l'entité non historisée. | Patron `rupture_assumee` (D13/D102) : on peut assumer, jamais subir en silence. Analyse statique des chemins, pas de coût par requête. Voir §3.11. |
 | D175 | **Connecteur de reprise** (corrigé) = connecteur ordinaire (D79/D83) **déclaré « reprise »** et **en lecture seule par défaut** (il lit le système d'origine ; exception : coexistence avec le connecteur standard) ; **durée de vie = responsabilité de l'administrateur** (débranché quand tout est repris ET qualité satisfaisante, tracé D62). Flux : lecture reprise → translation + **traitements pour l'information complexe** (tâches/hooks) → **écriture par le chemin standard**. | **Le privilège est porté par l'écriture, pas le connecteur** : l'insertion antidatée est **identifiée « reprise »** — ce marquage autorise la levée des contrôles (D173) et fonde la traçabilité. Voir §3.11. |
+| D176 | **Mapping de reprise exhaustif** : le connecteur auto-descriptif **signale les entités/champs source non couverts** ; le mapping **référence toute la structure d'origine**, les éléments non repris **marqués « ignorés »** → **couverture mesurée**. | *On peut ignorer, jamais oublier* — l'exclusion se déclare. Voir §3.11. |
+| D177 | **Critère d'acceptation de la reprise** : enregistré **seulement si toutes les données sont converties avec succès (D120) ET les contraintes de cohérence de la cible résolues (D156)** — au niveau enregistrement/agrégat (D101). | Pas d'enregistrement partiel, pas de données douteuses dans la cible. Voir §3.11. |
+| D178 | **Clés externes déclarées** dans le mapping (**aucune déduction automatique** du modèle d'origine, parfois trompeur) ; **provenance par enregistrement** : connecteur d'origine + date de reprise + clé existante — **persiste** après désactivation/suppression du connecteur (plus alimentée). | La provenance est un fait historique, pas un lien vivant. Voir §3.11. |
 
 ---
 
@@ -1017,6 +1020,27 @@ d'origine ; exception : coexistence avec le connecteur standard).
   l'écriture qui autorise la levée des contrôles (D173) et fonde la
   traçabilité. Une écriture non identifiée « reprise » ne peut jamais antidater
   ni contourner les règles.
+
+**Mapping exhaustif et couverture (D176).** Le connecteur auto-descriptif
+(D83) **analyse le schéma de la base d'origine et signale les entités/champs
+non couverts** par le mapping. Règles : le **mapping référence toute la
+structure du modèle d'origine** ; les éléments non repris sont **explicitement
+marqués « ignorés »** ; la **couverture de la reprise se mesure** (comparaison
+mapping ↔ modèle d'origine) — l'oubli silencieux est impossible : *on peut
+ignorer, jamais oublier*.
+
+**Critère d'acceptation (D177).** Seuls sont enregistrés les enregistrements
+dont **toutes les données ont été converties avec succès** (D120) **et dont les
+contraintes de cohérence de la cible sont résolues** (D156) — au niveau de
+l'enregistrement/agrégat (D101). Pas d'enregistrement partiel.
+
+**Clés externes déclarées, provenance persistante (D178).** Le mapping
+**précise les clés externes à conserver** — **aucune déduction automatique**
+depuis le modèle d'origine (parfois trompeur). Chaque enregistrement repris
+**porte sa provenance** : **connecteur d'origine, date de reprise, clé
+existante** (du système source). À la désactivation/suppression du connecteur,
+**ces informations demeurent** — plus alimentées par l'usage courant (la
+provenance est un fait historique, pas un lien vivant).
 
 **Apport au méta-schéma** : propriété d'historisation (module/entité,
 opt-out), visibilité de l'historique par groupe, entrées d'historique
@@ -3253,3 +3277,13 @@ avant la synthèse Q16).
   **marquage de l'écriture**, pas par le type de connecteur. La reprise peut
   mobiliser des **traitements** (tâches/hooks) pour transformer l'information
   complexe, au-delà de la translation déclarative.
+- **2026-07-05 (suite 7)** — Rigueur de la reprise (D176–D178). **Mapping
+  exhaustif** : le connecteur auto-descriptif signale les entités/champs non
+  couverts ; le mapping référence toute la structure d'origine, les éléments non
+  repris marqués « ignorés » → couverture mesurée (*on peut ignorer, jamais
+  oublier*). **Critère d'acceptation** : enregistré seulement si toutes les
+  données converties avec succès ET cohérence de la cible résolue (pas
+  d'enregistrement partiel). **Clés externes déclarées** (aucune déduction
+  automatique du modèle d'origine) ; **provenance par enregistrement**
+  (connecteur, date, clé existante) qui **persiste** après le débranchement du
+  connecteur.

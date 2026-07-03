@@ -207,7 +207,7 @@ posée (voir §6).
 | D169 | **Chaud/froid, instantanés complets** : courant = chaud, historique = froid ; chaque entrée = **toutes les valeurs de l'agrégat** (pas les écarts) + auteur (D76)/horodatage/canal/motif ; **lecture seule**. | Stockage assumé ↔ consultation triviale (fiche à une date = lire l'instantané). Voir §3.11. |
 | D170 | **Confidentialité de l'historique** : visibilité **déclarée par groupe** (responsable métier oui, client non) ; confidentialités de champs **héritées de l'entité d'origine** ; **anonymisation étendue à l'historique** (D139 — sinon fuite). | Voir §3.11. |
 | D171 | **Restauration outillée** : **administrateur seul, sous condition, tracée** — la restauration est une modification historisée. | Cas vécu : fiche client écrasée par erreur ADV. Voir §3.11. |
-| D172 | **Consultation temporelle** : API — donnée **courante par défaut**, **date précisée → l'agrégat à cette date** ; IHM — composant **« historique »** (synthèse des entrées + clic sur un détail → la fiche à la date). | Servie directement par les instantanés D169. Voir §3.11. |
+| D172 | **Consultation temporelle** : API — donnée **courante par défaut**, **date précisée → l'agrégat à cette date** ; IHM — composant **« historique »** (synthèse des entrées + clic sur un détail → la fiche à la date). **Les champs calculés s'évaluent sur les instantanés** (la fiche à date affiche ses calculs d'époque) — intra-agrégat exact ; traversée d'association résolue à date si la cible est historisée, sinon valeur courante signalée. | Servie directement par les instantanés D169 — dividende du choix « pas d'écarts ». Voir §3.11. |
 | D173 | **Insertion antidatée** (reprise — résout la sous-question historique de Q49) : par défaut pas d'import d'historique ; sinon **sollicitation de l'interface à une date antérieure** + insertion dans l'historique, **contrôles levés** (règles de cohérence). | Complexité assumée ; mécanisme dédié, réservé à la reprise. Voir §3.11. |
 
 ---
@@ -963,6 +963,16 @@ défaut** ; **une date précisée → l'agrégat tel qu'il était à cette date*
 (lecture directe de l'instantané froid). L'**IHM** gagne un composant
 **« historique »** : synthèse des entrées d'un enregistrement, et **clic sur un
 détail → la fiche à la date du détail**.
+
+**Les champs calculés s'appliquent à l'historique (précision 05/07/2026).**
+Dividende des instantanés complets (D169) : les calculs (D35–D36), jamais
+stockés, **s'évaluent sur les valeurs froides** — la fiche à une date affiche
+ses calculs *tels qu'ils valaient à cette date*, sans mécanisme nouveau.
+Nuance d'exactitude : calculs **intra-agrégat** = exacts par construction ;
+calculs **traversant une association** (palier 2) → la cible est résolue **à la
+même date si elle est historisée** (jointure temporelle), sinon **valeur
+courante** (approximation signalée à l'affichage) — le technicien qui veut des
+calculs historiques exacts historise les entités traversées.
 
 **Insertion antidatée — reprise (D173, résout la sous-question de Q49).** Par
 défaut, la reprise **n'importe pas l'historique**. Pour récupérer l'historique
@@ -3169,3 +3179,9 @@ avant la synthèse Q16).
   à la date du détail) (D172). **Insertion antidatée** pour la reprise
   d'historique d'origine, contrôles de cohérence levés — résout la sous-question
   de Q49 (D173).
+- **2026-07-05 (suite)** — Précision de l'auteur sur D169/D172 : **les champs
+  calculés s'appliquent à l'historique** — dividende des instantanés complets
+  (les calculs, jamais stockés, s'évaluent sur les valeurs froides : la fiche à
+  date affiche ses calculs d'époque). Nuance consignée : intra-agrégat exact ;
+  traversée d'association résolue à la même date si la cible est historisée
+  (jointure temporelle), sinon valeur courante signalée.

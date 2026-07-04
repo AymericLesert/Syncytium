@@ -235,6 +235,8 @@ postures combinables :
 | D187 | **Listes déclarées** : 1..n par entité — colonnes, tris, filtres ; par mode(s) responsive ; **formulaire cible désigné** ; fonctions **ajout / modification / suppression / import / export CSV-Excel / impression PDF** ; **liste « paramétrable » à paramètres enregistrables**. | Import = conversion faillible (D120) ; export = facette affichage (D120) ; impression = tâche (D53). Portée de l'enregistrement des paramètres à préciser. Voir §8.6. |
 | D188 | **Formulaires déclarés** : 1..n par entité, par mode(s) responsive ; organisation en **blocs** (rendus : **onglet / section / popup**) ; sections **en colonnes ou en lignes** ; affichage de champ dédié par mode responsive. | Deux couches (patron D127) : défaut dérivé sans déclaration (D186), blocs en surcharge. Voir §8.6. |
 | D189 | **Menu déclaré** : **le modèle porte l'organisation du menu** ; une entité peut y avoir **plusieurs entrées**. | Chaîne interprétée à valider : entrée de menu → liste → formulaire. Voir §8.6. |
+| D190 | **Module fonctionnel = sous-application** : **vue offerte à l'utilisateur aux fonctionnalités restreintes** (au plus ses droits, souvent moins) ; **affectation par l'administrateur** (1..n par utilisateur) ; **navigation** entre modules fonctionnels ; **module de préférence au profil**. **Défaut : un module fonctionnel unique = l'ensemble de l'application.** | **Restreint la surface présentée, n'étend jamais les droits** (sécurité = D25–D27, D70–D77). Distinct du module du schéma (D115/D117) : l'un structure la donnée, l'autre l'expérience. Voir §8.6. |
+| D191 | **Page d'accueil du module fonctionnel** : identification de l'instance (**nom d'application, nom de module fonctionnel, société, logo**) ; **bandeau gauche** = choix du module fonctionnel ; **bandeau haut** = menus et sous-menus ; **corps** = widgets (**indicateurs clés** ou **liste d'entité**) — ou une liste directe. **Défauts** : bandeau gauche absent (module fonctionnel unique) ; bandeau haut = modules du schéma avec **les parents d'agrégats uniquement** ; corps **vide**. | Inspiration design : Microsoft Azure (le design après la structure). Tranche « enfants de composition au menu » (jamais d'entrée par défaut). Widget d'accueil ≠ widget de résumé (D185). Voir §8.6. |
 
 ---
 
@@ -2460,6 +2462,49 @@ entité peut y avoir **plusieurs entrées**. *(Chaîne interprétée, à valider
 une entrée de menu désigne une liste ; la liste désigne son formulaire —
 menu → liste → formulaire.)*
 
+**Le module fonctionnel : la sous-application (D190).** L'application se
+décompose en **sous-applications** — les **modules fonctionnels** :
+
+- un module fonctionnel est une **vue offerte à l'utilisateur** avec des
+  fonctionnalités **restreintes** : elle couvre **au plus** l'ensemble des
+  droits de l'utilisateur, mais il peut y avoir moins. Il **restreint la
+  surface présentée, il n'étend jamais les droits** — la sécurité reste
+  portée par les groupes, la confidentialité et l'audience (D25–D27,
+  D70–D77) ;
+- l'**administrateur affecte** un utilisateur à un ou plusieurs modules
+  fonctionnels ; l'utilisateur **navigue** entre ses modules fonctionnels et
+  choisit dans son **profil** son module fonctionnel **de préférence** ;
+- **défaut sans description** : le module fonctionnel est **l'ensemble des
+  composants de l'application** (module fonctionnel unique).
+
+*Terminologie* : à distinguer du **module** (structure du schéma, D115/D117) —
+le **module structure la donnée**, le **module fonctionnel structure
+l'expérience utilisateur**.
+
+**La page d'accueil du module fonctionnel (D191).** La structure d'écran :
+
+- l'instance est **identifiée** par : un **nom d'application**, un **nom de
+  module fonctionnel**, une **société** et un **logo** ;
+- un **bandeau à gauche** : le choix du module fonctionnel ;
+- un **bandeau en haut** : les **menus et leurs sous-menus** ;
+- le **reste de l'écran** : des **widgets** qui apportent instantanément des
+  **indicateurs clés** ou affichent une **liste représentant une entité** ;
+  une page d'accueil regroupe un ou des widgets, ou affiche **directement une
+  liste** d'une entité ;
+- inspiration de design notée : **Microsoft Azure** — le design sera traité
+  **après** que la structure soit bien définie ;
+- **défauts sans description** :
+  1. le bandeau de gauche **n'apparaît pas** (un seul module fonctionnel
+     disponible) ;
+  2. le bandeau haut contient **les modules** (du schéma), et dans chaque
+     entrée de module **les entités d'agrégats — uniquement les parents**
+     (les enfants de composition n'ont jamais d'entrée par défaut, cohérent
+     D150) ;
+  3. le reste de l'écran est **vide**.
+
+*Terminologie* : le **widget d'accueil** (indicateur clé ou liste d'entité)
+est distinct du **widget de résumé** (survol d'une référence, D185).
+
 **Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir —
 l'auteur signale que « il manque de nombreux points » et que ses propositions
 D185–D189 **demandent encore des précisions** : des raffinements sont
@@ -2471,10 +2516,10 @@ pas des décisions) :
    formulaire en création** (« Nouvelle commande ») ? Le champ 1-N affiche
    « la liste de l'entité associée » : **laquelle**, si la cible en déclare
    plusieurs (proposition : la liste par défaut, sauf désignation) ?
-2. **Les enfants de composition au menu** : proposition — **pas d'entrée de
-   menu par défaut** (ils vivent dans les onglets du parent, cohérent avec
-   l'encapsulation D150), déclarable si besoin ; même logique pour les
-   entités de liaison N-N (D135).
+2. ~~Les enfants de composition au menu~~ — **tranché (D191)** : le menu par
+   défaut porte les entités d'agrégats **uniquement les parents** ; les
+   enfants vivent dans les onglets du parent (D150). **Reste** le cas des
+   entités de liaison N-N (D135) : entrée par défaut ou non ?
 3. **La liste paramétrable** : composant à part ou **propriété** de toute
    liste déclarée (« paramétrable : oui ») ? **Qui enregistre, pour qui ?**
    Proposition : paramètres (colonnes, ordre, tris, filtres) enregistrés au
@@ -3612,3 +3657,18 @@ avant la synthèse Q16).
   décidées) pour reprise aux prochains échanges. L'auteur signale qu'« il
   manque de nombreux points » et que ses propositions **manquent encore de
   précisions** : les D185–D189 seront **raffinés** avant de clore Q48.
+- **2026-07-06** — **Reprise, idées clarifiées : module fonctionnel et page
+  d'accueil (D190–D191)**. (1) **Module fonctionnel** = sous-application :
+  **vue restreinte** offerte à l'utilisateur (au plus ses droits, souvent
+  moins — restreint la surface, n'étend jamais les droits), affectée par
+  l'administrateur (1..n), navigable, **préférence au profil** ; défaut = un
+  module fonctionnel unique couvrant toute l'application. Distinct du module
+  du schéma (D115/D117). (2) **Page d'accueil du module fonctionnel** :
+  identification (application, module fonctionnel, société, logo), bandeau
+  gauche = choix du module fonctionnel, bandeau haut = menus/sous-menus,
+  corps = **widgets** (indicateurs clés ou liste d'entité) ou liste directe ;
+  défauts : bandeau gauche masqué si module fonctionnel unique, bandeau
+  haut = modules du schéma avec **parents d'agrégats uniquement** (tranche
+  la clarification n° 2 — reste le cas des entités de liaison N-N), corps
+  vide. Inspiration design : **Microsoft Azure**, à traiter après la
+  structure. **Suite annoncée par l'auteur (exposé en cours).**

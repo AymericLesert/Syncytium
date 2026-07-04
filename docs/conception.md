@@ -265,6 +265,12 @@ postures combinables :
 | D217 | **i18n — UTC, fuseaux, formats, langues** : dates/heures **stockées en UTC** ; **le fuseau horaire dépend de la langue de l'utilisateur** (le modèle déclare le fuseau par langue — interprétation) ; **format d'affichage porté par la langue** (plusieurs formats possibles par langue ; défaut global au modèle par langue, surchargeable par champ et par langue) ; **le modèle liste les langues permises** (périmètre : 1 à 3). | Précise D131. Une TPE française n'a pas besoin de l'anglais ; FR+EN si marché anglais. Voir §8.7. |
 | D218 | **Notifications localisées** : message à format **personnalisé par langue** (comme les libellés D127), émis **dans la langue de l'opérateur** destinataire ; **journaux internes en anglais**. | Voir §8.7. |
 | D219 | **Gabarits par langue + repli à deux crans** : gabarits **PDF et mails = un par langue** possible ; pendant manquant → **langue par défaut du modèle** (la langue de l'utilisateur reste au profil D124) ; libellé totalement absent → **le nom invariant** (champ, message, gabarit). | Le repli garantit qu'aucun affichage n'est vide. Voir §8.7. |
+| D220 | **Types temporels : brut ou horodatage** — la **date** et l'**heure** sont **brutes** (jamais converties : une échéance au 1ᵉʳ juillet reste le 1ᵉʳ juillet) ; la **date+heure** se déclare **brute** (valeur civile) **ou horodatage** (instant stocké **UTC**, affiché selon la langue D217). | Évite le glissement de jour des valeurs civiles converties. Précise D121. Voir §8.7. |
+| D221 | **Une langue = un fuseau, assumé** ; **surcharge possible au profil**, bornée par une **liste de fuseaux déclarée par l'application**. | Demande faible à l'échelle TPE ; la surcharge couvre l'itinérant/outre-mer. Voir §8.7. |
+| D222 | **Collation = tri sur chaîne normalisée** (suppression des accents et caractères spéciaux), **identique pour tous — aucune surcharge au profil**. | Pagination cohérente entre utilisateurs. Voir §8.7. |
+| D223 | **Formats CSV définis au modèle** (ni utilisateur, ni langue) — **imposés par l'application**. | Uniformité des échanges de fichiers. Voir §8.7. |
+| D224 | **Couverture des traductions** : les pendants manquants (libellés, messages, gabarits) par langue déclarée sont **signalés au technicien** et **consultables dans l'administration**. | « Ignorer, jamais oublier » (D176) appliqué à l'i18n. Voir §8.7. |
+| D225 | **Sérialisation temporelle des API : chaînes de caractères** — horodatage **UTC**, valeurs **brutes** telles quelles ; format **canonique invariant ISO 8601** (brut sans décalage, horodatage suffixé `Z`), **jamais le format d'affichage**. | Le marqueur `Z` distingue seul l'horodatage du brut ; tri lexicographique = tri chronologique. **Clôt Q45.** Voir §8.7. |
 
 ---
 
@@ -2849,6 +2855,43 @@ définie **au global par le modèle** (la langue de l'utilisateur restant le
 choix de son profil, D124) ; en **l'absence totale de libellé**, c'est **le
 nom (invariant) du champ, du message ou du gabarit** qui est utilisé.
 
+**Les types temporels : brut ou horodatage (D220).** La **date** et
+l'**heure** sont des valeurs **« brutes »** — jamais converties : une
+échéance au 1ᵉʳ juillet **reste le 1ᵉʳ juillet**, quel que soit le fuseau.
+La **date+heure** se décline en **deux natures, déclarées** : **« brute »**
+(valeur civile — un rendez-vous à 14 h) ou **« horodatage »** (un instant —
+stocké **UTC**, affiché selon la langue de l'utilisateur, D217).
+
+**Le fuseau : une langue = un fuseau, assumé (D221).** La liaison
+langue → fuseau est **assumée** (« ce n'est pas une demande très forte » à
+l'échelle TPE) ; une **surcharge au profil de l'utilisateur** reste
+possible, **bornée par une liste de fuseaux déclarée par l'application**.
+
+**La collation : le tri sur chaîne normalisée (D222).** Le tri des textes
+s'applique sur une **normalisation de la chaîne** (suppression des
+caractères accentués et des caractères spéciaux) — **identique pour tous
+les utilisateurs, sans surcharge au profil** (aucun intérêt). La pagination
+reste cohérente entre utilisateurs.
+
+**Les formats CSV : au modèle (D223).** Les formats CSV (séparateurs,
+encodage) sont **définis au niveau du modèle** — ni à l'utilisateur, ni à
+la langue : **imposés par l'application**.
+
+**La couverture des traductions (D224).** Les libellés, messages et
+gabarits **sans pendant** dans une langue déclarée sont **signalés au
+technicien** et **consultables dans l'interface d'administration**
+(« ignorer, jamais oublier », patron D176).
+
+**La sérialisation temporelle dans les API (D225).** Les valeurs
+temporelles transitent **en chaînes de caractères** : l'**horodatage en
+UTC** ; la date, l'heure et la date+heure **brutes**, telles quelles.
+Recommandation intégrée : le format de sérialisation est **canonique et
+invariant — ISO 8601** (date `AAAA-MM-JJ`, heure `HH:MM:SS`, date+heure
+brute `AAAA-MM-JJTHH:MM:SS` **sans décalage**, horodatage **suffixé `Z`**) —
+**jamais le format d'affichage d'une langue**. La présence du marqueur `Z`
+distingue d'elle-même l'horodatage du brut, et le tri lexicographique des
+chaînes coïncide avec le tri chronologique.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -3000,7 +3043,7 @@ avant la synthèse Q16).
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
-| Q45 | **Internationalisation — cœur tranché (D217–D219, §8.7)** : UTC, fuseau lié à la langue, formats par langue (multiples, défaut global, surcharge par champ), langues permises listées au modèle (1 à 3), notifications dans la langue de l'opérateur, journaux en anglais, gabarits par langue, repli à deux crans. **En attente d'arbitrage** (points soulevés par l'assistant) : dates/heures **civiles** sans fuseau vs instants UTC ; borne « une langue = un fuseau » ; **collation** fixée par instance ; formats du **CSV** (séparateurs) ; **rapport de couverture des traductions** ; API en ISO 8601 UTC. | Libellés multi-langue déjà actés (D124/D127) ; formats (D131). |
+| ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
@@ -4069,3 +4112,17 @@ avant la synthèse Q16).
   par instance** (pagination cohérente), formats du **CSV** (séparateurs
   colonne/décimal par langue), **rapport de couverture des traductions**
   (patron D176), **API en ISO 8601 UTC**.
+- **2026-07-06 (suite 8)** — **Q45 CLOSE (D220–D225)**. Les six points
+  arbitrés : **types temporels brut/horodatage** (date et heure = brutes,
+  jamais converties — « une échéance au 1ᵉʳ juillet reste le 1ᵉʳ juillet » ;
+  la date+heure se déclare brute ou horodatage UTC) ; **une langue = un
+  fuseau assumé** (surcharge au profil sur liste de fuseaux déclarée par
+  l'application) ; **collation = tri sur chaîne normalisée** (sans accents
+  ni caractères spéciaux, identique pour tous, pas de surcharge) ; **CSV
+  défini au modèle** (imposé par l'application, ni utilisateur ni langue) ;
+  **rapport de couverture des traductions signalé au technicien +
+  consultable dans l'administration** ; **sérialisation API en chaînes** —
+  réponse à la question de l'auteur (« est-ce que cela pose problème ? ») :
+  aucun problème **à condition** d'un format canonique invariant (ISO
+  8601 ; brut sans décalage, horodatage suffixé Z ; jamais le format
+  d'affichage d'une langue) — recommandation intégrée à D225.

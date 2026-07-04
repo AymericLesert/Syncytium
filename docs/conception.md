@@ -279,6 +279,11 @@ postures combinables :
 | D231 | **Étape de wizard = une surface déclarée + un contexte** (formulaires nommés D206, listes, widgets) ; **transitions** suivant/précédent/annuler + **conditionnelles** par expression D90 sur les données saisies. | Le wizard enchaîne, il n'invente pas d'écran (cohérent D151). Voir §8.6. |
 | D232 | **État intermédiaire transitoire** : rien n'est écrit avant la fin ; dernière étape = **transaction d'agrégats** (D101) + validations 3 passes (D156–D159) ; **abandon = rien**. **Brouillon reprenables = un niveau d'état déclaré** (D145–D147), jamais une machinerie moteur. | « Le brouillon est du modèle, pas de la machinerie. » Voir §8.6. |
 | D233 | **Sortie de wizard** : étape **récapitulative** (porte les confirmations tracées D157) ; **opération** possible en sortie (D148 — PDF, mail). **Droits** : entrée filtrée (D193), écritures sous droits d'action (D196) — **un wizard n'élargit jamais les droits**. | Même principe que le module fonctionnel (D190). **Clôt Q54.** Voir §8.6. |
+| D234 | **Import d'exploitation** : **CSV seuls, déposés dans l'écran** du module (ni Excel, ni hot folder) ; **un agrégat = un fichier par entité** ; **dry-run puis import** — l'import **n'est possible que si toutes les valeurs sont acceptées** ; sinon **rapport exact** (données en erreur + lignes, cellule par cellule D120). | Tout-ou-rien au dépôt ; correction à la source, nouveau dépôt. Le stock de rejets (D181–D183) reste propre à la reprise. Voir §8.6. |
+| D235 | **Deux modes d'import** : **remplacement** (classement créé/modifié/inchangé/**supprimé** + **comptage par catégorie** + **confirmation avant lancement**) ; **complément** (pas de suppression). | Rapprochement par la **clé fonctionnelle** (D142) ; « supprimé » = **inactivation** (D137), jamais physique (D184 = reprise) — interprétations. Voir §8.6. |
+| D236 | **Mapping par l'entête** : l'entête de colonne CSV = **un libellé du champ dans la langue de l'opérateur** (D124/D127) — pas de table de mapping ; **tous les champs concernés** (sauf optionnels). | Champs calculés/fichiers/communications hors périmètre CSV (interprétation). Voir §8.6. |
+| D237 | **Réversibilité : l'export miroir** — un export produisant **le fichier ré-importable**, assuré depuis le même module d'import d'exploitation. | Export → tableur → import remplacement = l'édition de masse de Syncytium. Voir §8.6. |
+| D238 | **Provenance d'un import d'exploitation = l'opérateur** qui le réalise (audit D62) ; écran réservé responsable métier/administrateur (D211). | Pas un connecteur — distinction nette avec la reprise (D178). **Clôt Q55.** Voir §8.6. |
 
 ---
 
@@ -2854,6 +2859,44 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   (D196) — **un wizard n'élargit jamais les droits** (même principe que le
   module fonctionnel, D190).
 
+**L'import d'exploitation (D234–D238 — clôt Q55).**
+
+- **La source : des CSV déposés dans l'écran (D234).** Uniquement des
+  fichiers **CSV**, déposés dans l'écran du module (D211) — ni Excel, ni hot
+  folder pour l'exploitation. **Un agrégat = un fichier par entité** (une
+  commande + ses lignes = 2 fichiers). **Deux temps : le dry-run, puis
+  l'import** — et **l'import n'est possible que si toutes les valeurs sont
+  acceptées** (tout-ou-rien à l'échelle du dépôt). Sinon, un **rapport
+  précise exactement la ou les données en erreur et les lignes concernées**
+  (cellule par cellule, D120) — correction à la source, nouveau dépôt.
+  *(Le stock de rejets à statuts D181–D183 reste propre à la reprise :
+  ici, le rapport seul suffit — l'import est bloquant tant que le fichier
+  n'est pas propre.)*
+- **Deux modes : remplacement ou complément (D235).** Le **remplacement**
+  classe les données de l'import en **nouvelles (création), modifiées
+  (modification), non modifiées (inchangé) et supprimées** (présentes en
+  base, absentes du fichier) ; la première étape **vérifie et compte chaque
+  catégorie**, et une **confirmation est demandée avant de lancer
+  l'import**. Le **complément** ne fait **pas de suppression**.
+  *(Interprétations : le rapprochement s'opère sur la **clé fonctionnelle**
+  D142 — le CSV ne transporte pas d'UUID ; la « suppression » du
+  remplacement = **l'inactivation** D137 par la voie standard — la
+  suppression physique reste un privilège de reprise D184.)*
+- **Le mapping par l'entête (D236).** L'entête de colonne CSV = **un libellé
+  du champ dans la langue de l'opérateur** (D124/D127) — pas de table de
+  mapping à déclarer. **L'import concerne tous les champs** (sauf les champs
+  à valeurs optionnelles). *(Interprétation : les champs calculés, fichiers
+  et communications sont hors périmètre CSV par nature.)*
+- **La réversibilité : l'export miroir (D237).** Le pendant de l'import :
+  **un export capable de produire le fichier ré-importable**, assuré
+  **depuis le même module** d'import d'exploitation. Le cycle **export →
+  modification au tableur → import en remplacement** devient le mode
+  d'édition de masse de Syncytium.
+- **La provenance : l'opérateur (D238).** La provenance d'un import
+  d'exploitation est **l'opérateur qui le réalise** (audit D62) — pas un
+  connecteur. L'écran reste réservé au **responsable métier ou à
+  l'administrateur** (D211).
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -3131,7 +3174,7 @@ avant la synthèse Q16).
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
-| Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
+| ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
 | Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
 
@@ -4246,3 +4289,19 @@ avant la synthèse Q16).
   confirmations tracées D157, opération de sortie D148) ; **brouillon = un
   niveau d'état déclaré** (D145–D147), pas une machinerie moteur ; un wizard
   **n'élargit jamais les droits**. Restent au thème E : Q53, Q55, Q56, Q57.
+- **2026-07-06 (suite 12)** — **Q55 CLOSE (D234–D238)**. La vision de
+  l'auteur, plus simple et plus stricte que la proposition : **CSV seuls,
+  déposés dans l'écran** (ni Excel, ni hot folder, ni stock de rejets —
+  rapport seul) ; **un fichier par entité de l'agrégat** (commande + lignes
+  = 2 fichiers) ; **dry-run, puis import possible uniquement si toutes les
+  valeurs sont acceptées** (rapport exact des erreurs sinon : données +
+  lignes) ; **deux modes** — **remplacement** (classement
+  créé/modifié/inchangé/supprimé, **comptage par catégorie, confirmation
+  avant lancement**) et **complément** (sans suppression) ; **mapping par
+  l'entête de colonne = libellé du champ dans la langue de l'opérateur**
+  (pas de table de mapping) ; **tous les champs** sauf optionnels ;
+  **l'export miroir** produisant le fichier ré-importable (réversibilité —
+  le cycle export→tableur→import remplacement = l'édition de masse) ;
+  **provenance = l'opérateur**. Interprétations consignées : rapprochement
+  par la clé fonctionnelle (D142), « supprimé » = inactivation (D137).
+  Restent au thème E : Q53, Q56, Q57.

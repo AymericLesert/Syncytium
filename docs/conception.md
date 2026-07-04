@@ -262,6 +262,28 @@ postures combinables :
 | D214 | **Bloc popup abandonné** : un bloc s'affiche comme **section ou onglet** (composables D199). | Amende D188 ; cohérent avec le refus de la popup de validation (D196). Voir §8.6. |
 | D215 | **Référence 1-1** : affiche **un libellé ou un élément de synthèse** (agrégation de champs, image… — gabarit D90 pressenti) + **lien vers le formulaire de la cible en lecture seule** ; **sélection via une liste nommée** précisée dans la description du formulaire. | Remplace le défaut D186.9 (widget au survol — le widget de résumé n'existant pas par défaut, D201). Voir §8.6. |
 | D216 | **Champ 1-N** : une **liste nommée** (désignée) de l'entité associée, **colonne de lien avec l'entité courante masquée**. | Clôt le micro-point de la clarification n° 1. Voir §8.6. |
+| D217 | **i18n — UTC, fuseaux, formats, langues** : dates/heures **stockées en UTC** ; **le fuseau horaire dépend de la langue de l'utilisateur** (le modèle déclare le fuseau par langue — interprétation) ; **format d'affichage porté par la langue** (plusieurs formats possibles par langue ; défaut global au modèle par langue, surchargeable par champ et par langue) ; **le modèle liste les langues permises** (périmètre : 1 à 3). | Précise D131. Une TPE française n'a pas besoin de l'anglais ; FR+EN si marché anglais. Voir §8.7. |
+| D218 | **Notifications localisées** : message à format **personnalisé par langue** (comme les libellés D127), émis **dans la langue de l'opérateur** destinataire ; **journaux internes en anglais**. | Voir §8.7. |
+| D219 | **Gabarits par langue + repli à deux crans** : gabarits **PDF et mails = un par langue** possible ; pendant manquant → **langue par défaut du modèle** (la langue de l'utilisateur reste au profil D124) ; libellé totalement absent → **le nom invariant** (champ, message, gabarit). | Le repli garantit qu'aucun affichage n'est vide. Voir §8.7. |
+| D220 | **Types temporels : brut ou horodatage** — la **date** et l'**heure** sont **brutes** (jamais converties : une échéance au 1ᵉʳ juillet reste le 1ᵉʳ juillet) ; la **date+heure** se déclare **brute** (valeur civile) **ou horodatage** (instant stocké **UTC**, affiché selon la langue D217). | Évite le glissement de jour des valeurs civiles converties. Précise D121. Voir §8.7. |
+| D221 | **Une langue = un fuseau, assumé** ; **surcharge possible au profil**, bornée par une **liste de fuseaux déclarée par l'application**. | Demande faible à l'échelle TPE ; la surcharge couvre l'itinérant/outre-mer. Voir §8.7. |
+| D222 | **Collation = tri sur chaîne normalisée** (suppression des accents et caractères spéciaux), **identique pour tous — aucune surcharge au profil**. | Pagination cohérente entre utilisateurs. Voir §8.7. |
+| D223 | **Formats CSV définis au modèle** (ni utilisateur, ni langue) — **imposés par l'application**. | Uniformité des échanges de fichiers. Voir §8.7. |
+| D224 | **Couverture des traductions** : les pendants manquants (libellés, messages, gabarits) par langue déclarée sont **signalés au technicien** et **consultables dans l'administration**. | « Ignorer, jamais oublier » (D176) appliqué à l'i18n. Voir §8.7. |
+| D225 | **Sérialisation temporelle des API : chaînes de caractères** — horodatage **UTC**, valeurs **brutes** telles quelles ; format **canonique invariant ISO 8601** (brut sans décalage, horodatage suffixé `Z`), **jamais le format d'affichage**. | Le marqueur `Z` distingue seul l'horodatage du brut ; tri lexicographique = tri chronologique. **Clôt Q45.** Voir §8.7. |
+| D226 | **Recherche plein-texte : mono-entité, portée par la liste** — **la recherche globale trans-entités est écartée (assumée)** ; la correspondance **traverse les références** (« Dupont » sur la liste des commandes → les commandes passées par Dupont) ; mécanique = **contient normalisé** (D222) ; droits = ceux de la liste (D70–D77). | Ni barre d'application, ni index global — périmètre des projets réels. Voir §8.6. |
+| D227 | **Recherches déclarées (unifie D198)** : une recherche **précise la liste des champs concernés** (les autres ignorés), **plusieurs recherches par entité** — le **même objet** que le filtre transverse : une « recherche » nommée (champs + mode). | La déclaration peut viser un champ via référence ou enfant (interprétation) ; défaut = les colonnes affichées (D198). Voir §8.6. |
+| D228 | **Filtrage vivant** : toujours « contient » ; **la liste se filtre à chaque saisie ou sélection, sans bouton « filtrer »** ; **throttling** côté client ; un filtre par type de données → composants graphiques (**Q56**). | UX temps réel, serveur ménagé. Voir §8.6. |
+| D229 | **Recherche par approximation** : mode **stricte** (sous-chaîne normalisée D222) **ou approximation** — score de similarité, **seuil**, lignes **triées par score décroissant** (Dupont exact puis Dupond ; le score prime le tri déclaré pendant la recherche). | Algorithme = choix d'implémentation ; contrat = score + seuil (défaut global, surcharge par recherche — interprétation). **Clôt Q38.** Voir §8.6. |
+| D230 | **Le menu-parcours = un wizard** (mono-utilisateur, une session) ; le **circuit de validation multi-acteurs = un patron d'assemblage** des briques existantes (états D147, opérations D148, notifications D108–D110, listes filtrées) — **pas de moteur BPM caché** : le circuit vit dans la donnée. | Chaque intervention d'un acteur du circuit peut être un petit wizard. Voir §8.6. |
+| D231 | **Étape de wizard = une surface déclarée + un contexte** (formulaires nommés D206, listes, widgets) ; **transitions** suivant/précédent/annuler + **conditionnelles** par expression D90 sur les données saisies. | Le wizard enchaîne, il n'invente pas d'écran (cohérent D151). Voir §8.6. |
+| D232 | **État intermédiaire transitoire** : rien n'est écrit avant la fin ; dernière étape = **transaction d'agrégats** (D101) + validations 3 passes (D156–D159) ; **abandon = rien**. **Brouillon reprenables = un niveau d'état déclaré** (D145–D147), jamais une machinerie moteur. | « Le brouillon est du modèle, pas de la machinerie. » Voir §8.6. |
+| D233 | **Sortie de wizard** : étape **récapitulative** (porte les confirmations tracées D157) ; **opération** possible en sortie (D148 — PDF, mail). **Droits** : entrée filtrée (D193), écritures sous droits d'action (D196) — **un wizard n'élargit jamais les droits**. | Même principe que le module fonctionnel (D190). **Clôt Q54.** Voir §8.6. |
+| D234 | **Import d'exploitation** : **CSV seuls, déposés dans l'écran** du module (ni Excel, ni hot folder) ; **un agrégat = un fichier par entité** ; **dry-run puis import** — l'import **n'est possible que si toutes les valeurs sont acceptées** ; sinon **rapport exact** (données en erreur + lignes, cellule par cellule D120). | Tout-ou-rien au dépôt ; correction à la source, nouveau dépôt. Le stock de rejets (D181–D183) reste propre à la reprise. Voir §8.6. |
+| D235 | **Deux modes d'import** : **remplacement** (classement créé/modifié/inchangé/**supprimé** + **comptage par catégorie** + **confirmation avant lancement**) ; **complément** (pas de suppression). | **Confirmé** : rapprochement par la **clé fonctionnelle** (D142 — l'UUID est interne, jamais exposé aux utilisateurs) ; « supprimé » = **désactivation** (D137), jamais physique (D184 = reprise seule). Voir §8.6. |
+| D236 | **Mapping par l'entête** : l'entête de colonne CSV = **un libellé du champ dans la langue de l'opérateur** (D124/D127) — pas de table de mapping ; **tous les champs concernés** (sauf optionnels). | Champs calculés/fichiers/communications hors périmètre CSV (interprétation). Voir §8.6. |
+| D237 | **Réversibilité : l'export miroir** — un export produisant **le fichier ré-importable**, assuré depuis le même module d'import d'exploitation. | Export → tableur → import remplacement = l'édition de masse de Syncytium. Voir §8.6. |
+| D238 | **Provenance d'un import d'exploitation = l'opérateur** qui le réalise (audit D62) ; écran réservé responsable métier/administrateur (D211). | Pas un connecteur — distinction nette avec la reprise (D178). **Clôt Q55.** Voir §8.6. |
 
 ---
 
@@ -2761,6 +2783,122 @@ formulaire**.
 nommée** (désignée) de l'entité associée, dont **la colonne faisant le lien
 avec l'entité courante est à masquer**.
 
+**La recherche plein-texte : mono-entité, portée par la liste (D226 —
+Q38).** Une recherche plein-texte **ne s'applique qu'à une seule entité** et
+est **disponible sur la liste** de l'entité. **La recherche globale
+trans-entités est écartée** — limitation **assumée** : les projets visés ne
+nécessitent pas cette machinerie (ni barre de recherche d'application, ni
+index global). La subtilité qui fait la puissance du dispositif : **la
+correspondance traverse les références** — sur la liste des commandes, une
+recherche « Dupont » **remonte toutes les commandes passées par Dupont**,
+alors que « Dupont » n'est pas un champ de la commande mais l'affichage de
+sa référence client. Mécanique sous-jacente : le **« contient » sur chaîne
+normalisée** (D222) ; les droits sont ceux de la liste (row-level D70–D77 —
+l'anti-oracle est gratuit).
+
+**Les recherches déclarées (D227, unifie D198).** Une recherche plein-texte
+**précise la liste des champs concernés** (ex. le nom, le prénom, l'adresse
+de domiciliation) — **les autres champs sont ignorés**. **Une entité peut
+définir plusieurs recherches.** C'est **le même objet** que le filtre
+transverse (D198) : une **« recherche » nommée** au méta-schéma — des
+champs + un mode. *(Interprétations : la déclaration peut viser un champ
+**à travers une référence ou un enfant de composition** — c'est ainsi que
+« Dupont » matche depuis les commandes, et qu'un commentaire de ligne
+participe si déclaré ; le **défaut** sans description (D198) reste le filtre
+transverse sur **les colonnes affichées** — l'affichage des références
+comprises.)*
+
+**Le filtrage vivant (D228).** La recherche concerne toujours
+« **contient** ». **La liste se filtre au fil de la saisie ou de la
+sélection — pas de bouton « filtrer »** ; un **throttling** évite de
+solliciter le serveur à chaque caractère. **Pour chaque type de données, un
+filtre pourra être défini** — à décrire avec les composants graphiques
+(**Q56**).
+
+**La recherche par approximation (D229).** Une recherche porte sur une
+**sous-chaîne stricte normalisée** (D222) **ou** sur une **approximation** :
+« Dupont » retrouve les clients contenant Dupont **et, à la suite, les
+« Dupond »**. Un **calcul d'approximation** attribue un score ; seules les
+lignes **au-dessus d'un seuil** apparaissent, **triées par score
+décroissant** (les correspondances exactes d'abord — pendant une recherche
+approximative, le score prime le tri déclaré de la liste). *(Interprétations :
+l'algorithme de similarité est un choix d'implémentation du moteur — le
+contrat est « score + seuil » ; le seuil a un défaut global au modèle,
+surchargeable par recherche.)*
+
+**Le wizard : la spécification du menu-parcours (D230–D233 — clôt Q54).**
+Le terme est acté : le menu-parcours (D194) est un **wizard**.
+
+- **Wizard ≠ circuit (D230).** Le wizard est **mono-utilisateur, une
+  session** : une saisie guidée, écran par écran. Le **circuit de validation
+  multi-acteurs** (le devis qui passe du commercial au responsable) n'est
+  **pas** un concept nouveau : c'est un **patron d'assemblage** des briques
+  existantes — machine à états déclarée (D147), opérations d'entité (D148 :
+  « soumettre », « valider », « refuser »), notifications (D108–D110),
+  listes filtrées (« mes devis à valider »). Le circuit vit **dans la
+  donnée**, pas dans l'IHM — **pas de moteur BPM caché**. Chaque
+  intervention d'un acteur peut elle-même être un petit wizard.
+- **Une étape = une surface existante + un contexte (D231).** Le wizard
+  **enchaîne les surfaces déclarées** (formulaires nommés D206, listes,
+  widgets) — il n'invente pas d'écran. **Transitions** : suivant /
+  précédent / annuler, et des transitions **conditionnelles** par expression
+  D90 sur les données saisies (« si client étranger → étape TVA »).
+- **L'état intermédiaire est transitoire (D232).** Tant que le wizard n'est
+  pas terminé, **rien n'est écrit** ; la dernière étape déclenche **la
+  transaction d'agrégat(s)** (D101) avec les validations en trois passes
+  (D156–D159) ; **abandon = rien**. Les **brouillons reprenables** ne sont
+  **pas une machinerie moteur** : le métier déclare un **niveau d'état**
+  (héritage-état D145–D147, `brouillon → confirmé`) et tout l'existant suit
+  (droits, listes, historique). **Le brouillon est du modèle, pas de la
+  machinerie.**
+- **La sortie et les droits (D233).** Une **étape récapitulative** précède
+  l'écriture — elle porte naturellement les **confirmations tracées**
+  (D157) ; une **opération** (D148) peut suivre la fin (générer le PDF,
+  envoyer le mail). **Droits** : l'entrée de menu-parcours est filtrée
+  comme les autres (D193), les écritures passent sous les droits d'action
+  (D196) — **un wizard n'élargit jamais les droits** (même principe que le
+  module fonctionnel, D190).
+
+**L'import d'exploitation (D234–D238 — clôt Q55).**
+
+- **La source : des CSV déposés dans l'écran (D234).** Uniquement des
+  fichiers **CSV**, déposés dans l'écran du module (D211) — ni Excel, ni hot
+  folder pour l'exploitation. **Un agrégat = un fichier par entité** (une
+  commande + ses lignes = 2 fichiers). **Deux temps : le dry-run, puis
+  l'import** — et **l'import n'est possible que si toutes les valeurs sont
+  acceptées** (tout-ou-rien à l'échelle du dépôt). Sinon, un **rapport
+  précise exactement la ou les données en erreur et les lignes concernées**
+  (cellule par cellule, D120) — correction à la source, nouveau dépôt.
+  *(Le stock de rejets à statuts D181–D183 reste propre à la reprise :
+  ici, le rapport seul suffit — l'import est bloquant tant que le fichier
+  n'est pas propre.)*
+- **Deux modes : remplacement ou complément (D235).** Le **remplacement**
+  classe les données de l'import en **nouvelles (création), modifiées
+  (modification), non modifiées (inchangé) et supprimées** (présentes en
+  base, absentes du fichier) ; la première étape **vérifie et compte chaque
+  catégorie**, et une **confirmation est demandée avant de lancer
+  l'import**. Le **complément** ne fait **pas de suppression**.
+  **Confirmé par l'auteur** : le rapprochement s'opère sur la **clé
+  fonctionnelle** (D142) — l'UUID est un identifiant **interne, non connu
+  et jamais exposé aux utilisateurs**, le CSV ne le transporte pas ; la
+  « suppression » du remplacement est **la désactivation** (inactivation
+  D137), par la voie standard — **aucune suppression physique**, celle-ci
+  restant liée au seul connecteur de reprise (D184).
+- **Le mapping par l'entête (D236).** L'entête de colonne CSV = **un libellé
+  du champ dans la langue de l'opérateur** (D124/D127) — pas de table de
+  mapping à déclarer. **L'import concerne tous les champs** (sauf les champs
+  à valeurs optionnelles). *(Interprétation : les champs calculés, fichiers
+  et communications sont hors périmètre CSV par nature.)*
+- **La réversibilité : l'export miroir (D237).** Le pendant de l'import :
+  **un export capable de produire le fichier ré-importable**, assuré
+  **depuis le même module** d'import d'exploitation. Le cycle **export →
+  modification au tableur → import en remplacement** devient le mode
+  d'édition de masse de Syncytium.
+- **La provenance : l'opérateur (D238).** La provenance d'un import
+  d'exploitation est **l'opérateur qui le réalise** (audit D62) — pas un
+  connecteur. L'écran reste réservé au **responsable métier ou à
+  l'administrateur** (D211).
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -2805,10 +2943,83 @@ utilisateur / menu-parcours, D194) ; les **types de graphiques** des widgets
 de synthèse (Q53) ; **Q55** (l'import d'exploitation, D211) ; **Q56** (le
 catalogue des composants graphiques par type de champ).
 
-**Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
-modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
-colonnes/lignes), du menu (entrées multiples) ; affichages de champ par
-surface × mode responsive ; widget de résumé.
+**Apport au méta-schéma** : modules fonctionnels (menu, affectations) ;
+surfaces nommées + descriptions (listes — colonnes/dimensions/tris/filtres
+transverses/formulaire cible/exports/impressions ; formulaires — blocs
+section-onglet composables, paramètres ; widgets de résumé et de synthèse) ;
+menus (5 types d'entrées) ; affichages de champ par surface × mode
+responsive ; droits d'action par entité (modèle de confidentialité) ;
+gabarits PDF (Q57).
+
+### 8.7 Internationalisation (Q45 ; D217–D219)
+
+**UTC, fuseaux et formats (D217).**
+
+- **Stockage des dates et heures en UTC** — pour ne pas être perturbé par
+  les fuseaux horaires.
+- **Le fuseau horaire dépend de la langue de l'utilisateur** *(interprétation
+  à valider : le modèle déclare le fuseau de chaque langue permise — ex. FR →
+  Europe/Paris)*.
+- Pour la date et l'heure, **pas de spécificité par langue au-delà du format
+  d'affichage**. **Le format est porté par la langue** ; une langue peut
+  offrir **plusieurs formats** (ex. AAAA-MM-JJ ou JJ/MM/AAAA) ; le **format
+  par défaut est défini au global dans le modèle, par langue**, et
+  **surchargeable sur un champ, par langue** (précise D131).
+- **Le modèle liste les langues permises.** Périmètre assumé : **1 langue**
+  (la grande majorité), **2** (une à deux entreprises), **3 au maximum**
+  (un cas très particulier) — une TPE française n'a aucun intérêt à traiter
+  l'anglais ; une société travaillant avec l'Angleterre déclare FR + EN ;
+  un marché européen élargit la liste.
+
+**Notifications et journaux (D218).** Comme pour les libellés (D127), une
+notification est un **message à format, personnalisé par langue** : une
+notification émise est **disponible dans la langue de l'opérateur**
+(destinataire). Les **journaux internes** restent **en anglais**.
+
+**Gabarits et chaîne de repli (D219).** Les **gabarits de PDF et de mails**
+suivent la **même approche : un par langue** possible. **Repli à deux
+crans** : si une langue est déclarée et qu'un **libellé, un message ou un
+gabarit n'a pas son pendant**, la **langue par défaut** est utilisée —
+définie **au global par le modèle** (la langue de l'utilisateur restant le
+choix de son profil, D124) ; en **l'absence totale de libellé**, c'est **le
+nom (invariant) du champ, du message ou du gabarit** qui est utilisé.
+
+**Les types temporels : brut ou horodatage (D220).** La **date** et
+l'**heure** sont des valeurs **« brutes »** — jamais converties : une
+échéance au 1ᵉʳ juillet **reste le 1ᵉʳ juillet**, quel que soit le fuseau.
+La **date+heure** se décline en **deux natures, déclarées** : **« brute »**
+(valeur civile — un rendez-vous à 14 h) ou **« horodatage »** (un instant —
+stocké **UTC**, affiché selon la langue de l'utilisateur, D217).
+
+**Le fuseau : une langue = un fuseau, assumé (D221).** La liaison
+langue → fuseau est **assumée** (« ce n'est pas une demande très forte » à
+l'échelle TPE) ; une **surcharge au profil de l'utilisateur** reste
+possible, **bornée par une liste de fuseaux déclarée par l'application**.
+
+**La collation : le tri sur chaîne normalisée (D222).** Le tri des textes
+s'applique sur une **normalisation de la chaîne** (suppression des
+caractères accentués et des caractères spéciaux) — **identique pour tous
+les utilisateurs, sans surcharge au profil** (aucun intérêt). La pagination
+reste cohérente entre utilisateurs.
+
+**Les formats CSV : au modèle (D223).** Les formats CSV (séparateurs,
+encodage) sont **définis au niveau du modèle** — ni à l'utilisateur, ni à
+la langue : **imposés par l'application**.
+
+**La couverture des traductions (D224).** Les libellés, messages et
+gabarits **sans pendant** dans une langue déclarée sont **signalés au
+technicien** et **consultables dans l'interface d'administration**
+(« ignorer, jamais oublier », patron D176).
+
+**La sérialisation temporelle dans les API (D225).** Les valeurs
+temporelles transitent **en chaînes de caractères** : l'**horodatage en
+UTC** ; la date, l'heure et la date+heure **brutes**, telles quelles.
+Recommandation intégrée : le format de sérialisation est **canonique et
+invariant — ISO 8601** (date `AAAA-MM-JJ`, heure `HH:MM:SS`, date+heure
+brute `AAAA-MM-JJTHH:MM:SS` **sans décalage**, horodatage **suffixé `Z`**) —
+**jamais le format d'affichage d'une langue**. La présence du marqueur `Z`
+distingue d'elle-même l'horodatage du brut, et le tri lexicographique des
+chaînes coïncide avec le tri chronologique.
 
 ---
 
@@ -2960,12 +3171,12 @@ avant la synthèse Q16).
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
-| Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
-| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
+| ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
+| ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
-| Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
-| Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
+| ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
+| ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
 | Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
 
@@ -4015,3 +4226,90 @@ avant la synthèse Q16).
   la réutilisation**, pas pour le **contrat fonctionnel** ; la définition du
   contrat propre du gabarit PDF est versée aux attendus de Q57 (consignation
   rectifiée : « est un composant » → « s'apparente à un composant »).
+- **2026-07-06 (suite 7)** — **Q45 : le cœur tranché (D217–D219, §8.7 —
+  PR #14 créée entre-temps)**. **UTC** au stockage ; **fuseau dépendant de
+  la langue** de l'utilisateur ; **formats portés par la langue** (plusieurs
+  possibles, défaut global au modèle par langue, surcharge par champ) ; **le
+  modèle liste les langues permises** (périmètre réel : 1 langue en grande
+  majorité, 2 parfois, 3 au maximum) ; **notifications = messages à format
+  par langue, émis dans la langue de l'opérateur** ; **journaux internes en
+  anglais** ; **gabarits PDF/mails : un par langue** ; **repli à deux
+  crans** (langue par défaut du modèle, puis nom invariant). L'auteur
+  demande : « Vois-tu d'autres points ? » — points soulevés en réponse :
+  dates/heures **civiles** (sans conversion de fuseau) vs instants UTC,
+  borne « une langue = un fuseau » à consigner, **collation de tri fixée
+  par instance** (pagination cohérente), formats du **CSV** (séparateurs
+  colonne/décimal par langue), **rapport de couverture des traductions**
+  (patron D176), **API en ISO 8601 UTC**.
+- **2026-07-06 (suite 8)** — **Q45 CLOSE (D220–D225)**. Les six points
+  arbitrés : **types temporels brut/horodatage** (date et heure = brutes,
+  jamais converties — « une échéance au 1ᵉʳ juillet reste le 1ᵉʳ juillet » ;
+  la date+heure se déclare brute ou horodatage UTC) ; **une langue = un
+  fuseau assumé** (surcharge au profil sur liste de fuseaux déclarée par
+  l'application) ; **collation = tri sur chaîne normalisée** (sans accents
+  ni caractères spéciaux, identique pour tous, pas de surcharge) ; **CSV
+  défini au modèle** (imposé par l'application, ni utilisateur ni langue) ;
+  **rapport de couverture des traductions signalé au technicien +
+  consultable dans l'administration** ; **sérialisation API en chaînes** —
+  réponse à la question de l'auteur (« est-ce que cela pose problème ? ») :
+  aucun problème **à condition** d'un format canonique invariant (ISO
+  8601 ; brut sans décalage, horodatage suffixé Z ; jamais le format
+  d'affichage d'une langue) — recommandation intégrée à D225.
+- **2026-07-06 (suite 9)** — **Q38 : la troisième voie de l'auteur (D226)**.
+  Ni moteur plein-texte dédié, ni barre de recherche globale : **la
+  recherche plein-texte est mono-entité et portée par la liste** — « cela
+  évite les recherches trans-entités », limitation **assumée** (« mes
+  projets ne nécessitent pas de mettre en place tout cela »). Mais **la
+  correspondance traverse les références** : sur la liste des commandes,
+  « Dupont » remonte **toutes les commandes passées par Dupont** (l'affichage
+  de la référence client matche). Mécanique : contient normalisé (D222),
+  droits de la liste (anti-oracle gratuit). Trois précisions soumises :
+  la référence matche sur sa représentation d'affichage (D215, un seul
+  niveau ?) ; l'agrégat entier participe-t-il (commentaire d'une ligne de
+  commande) ? ; unification avec le filtre transverse (D198) ?
+- **2026-07-06 (suite 10)** — **Q38 CLOSE (D227–D229)**. **Recherches
+  déclarées** : la liste des champs concernés est précisée (les autres
+  ignorés — ex. nom, prénom, adresse), **plusieurs recherches par entité** —
+  unification avec le filtre transverse (D198) : un seul objet « recherche »
+  au méta-schéma ; la traversée des références et des enfants passe par la
+  déclaration des champs (interprétation consignée) ; défaut = les colonnes
+  affichées. **Filtrage vivant** : toujours « contient », la liste se filtre
+  **à chaque saisie ou sélection, sans bouton**, avec **throttling** ; les
+  filtres par type de données seront décrits avec les composants graphiques
+  (Q56). **Approximation** : mode strict (sous-chaîne normalisée D222) ou
+  **approximatif** — score, **seuil**, tri **par score décroissant** (Dupont
+  exact avant Dupond) ; algorithme = implémentation, contrat = score+seuil.
+  Le thème E n'a plus que Q53, Q54, Q55, Q56, Q57.
+- **2026-07-06 (suite 11)** — **Q54 CLOSE (D230–D233)**. L'auteur valide la
+  proposition en bloc (« le terme wizard me plaît et tes propositions me
+  conviennent ») : **menu-parcours = wizard** mono-utilisateur une session ;
+  **circuit de validation multi-acteurs = patron d'assemblage** (états D147,
+  opérations D148, notifications D108–D110, listes filtrées — pas de moteur
+  BPM, le circuit vit dans la donnée) ; étape = surface déclarée + contexte,
+  transitions conditionnelles (D90) ; **état transitoire** (abandon = rien,
+  écriture = transaction d'agrégats D101 à la fin, récapitulatif à
+  confirmations tracées D157, opération de sortie D148) ; **brouillon = un
+  niveau d'état déclaré** (D145–D147), pas une machinerie moteur ; un wizard
+  **n'élargit jamais les droits**. Restent au thème E : Q53, Q55, Q56, Q57.
+- **2026-07-06 (suite 12)** — **Q55 CLOSE (D234–D238)**. La vision de
+  l'auteur, plus simple et plus stricte que la proposition : **CSV seuls,
+  déposés dans l'écran** (ni Excel, ni hot folder, ni stock de rejets —
+  rapport seul) ; **un fichier par entité de l'agrégat** (commande + lignes
+  = 2 fichiers) ; **dry-run, puis import possible uniquement si toutes les
+  valeurs sont acceptées** (rapport exact des erreurs sinon : données +
+  lignes) ; **deux modes** — **remplacement** (classement
+  créé/modifié/inchangé/supprimé, **comptage par catégorie, confirmation
+  avant lancement**) et **complément** (sans suppression) ; **mapping par
+  l'entête de colonne = libellé du champ dans la langue de l'opérateur**
+  (pas de table de mapping) ; **tous les champs** sauf optionnels ;
+  **l'export miroir** produisant le fichier ré-importable (réversibilité —
+  le cycle export→tableur→import remplacement = l'édition de masse) ;
+  **provenance = l'opérateur**. Interprétations consignées : rapprochement
+  par la clé fonctionnelle (D142), « supprimé » = inactivation (D137).
+  Restent au thème E : Q53, Q56, Q57.
+- **2026-07-06 (suite 13)** — **Confirmations sur D235** : le CSV ne
+  transporte pas l'UUID — « c'est un identifiant **interne, non connu, ni
+  exposé aux utilisateurs** » ; **la clé fonctionnelle fait le lien**
+  (D142). « Suppression » = **désactivation** (D137) — aucune suppression
+  physique, celle-ci restant liée au seul connecteur de reprise (D184).
+  Les deux interprétations deviennent fermes.

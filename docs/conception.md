@@ -280,7 +280,7 @@ postures combinables :
 | D232 | **État intermédiaire transitoire** : rien n'est écrit avant la fin ; dernière étape = **transaction d'agrégats** (D101) + validations 3 passes (D156–D159) ; **abandon = rien**. **Brouillon reprenables = un niveau d'état déclaré** (D145–D147), jamais une machinerie moteur. | « Le brouillon est du modèle, pas de la machinerie. » Voir §8.6. |
 | D233 | **Sortie de wizard** : étape **récapitulative** (porte les confirmations tracées D157) ; **opération** possible en sortie (D148 — PDF, mail). **Droits** : entrée filtrée (D193), écritures sous droits d'action (D196) — **un wizard n'élargit jamais les droits**. | Même principe que le module fonctionnel (D190). **Clôt Q54.** Voir §8.6. |
 | D234 | **Import d'exploitation** : **CSV seuls, déposés dans l'écran** du module (ni Excel, ni hot folder) ; **un agrégat = un fichier par entité** ; **dry-run puis import** — l'import **n'est possible que si toutes les valeurs sont acceptées** ; sinon **rapport exact** (données en erreur + lignes, cellule par cellule D120). | Tout-ou-rien au dépôt ; correction à la source, nouveau dépôt. Le stock de rejets (D181–D183) reste propre à la reprise. Voir §8.6. |
-| D235 | **Deux modes d'import** : **remplacement** (classement créé/modifié/inchangé/**supprimé** + **comptage par catégorie** + **confirmation avant lancement**) ; **complément** (pas de suppression). | Rapprochement par la **clé fonctionnelle** (D142) ; « supprimé » = **inactivation** (D137), jamais physique (D184 = reprise) — interprétations. Voir §8.6. |
+| D235 | **Deux modes d'import** : **remplacement** (classement créé/modifié/inchangé/**supprimé** + **comptage par catégorie** + **confirmation avant lancement**) ; **complément** (pas de suppression). | **Confirmé** : rapprochement par la **clé fonctionnelle** (D142 — l'UUID est interne, jamais exposé aux utilisateurs) ; « supprimé » = **désactivation** (D137), jamais physique (D184 = reprise seule). Voir §8.6. |
 | D236 | **Mapping par l'entête** : l'entête de colonne CSV = **un libellé du champ dans la langue de l'opérateur** (D124/D127) — pas de table de mapping ; **tous les champs concernés** (sauf optionnels). | Champs calculés/fichiers/communications hors périmètre CSV (interprétation). Voir §8.6. |
 | D237 | **Réversibilité : l'export miroir** — un export produisant **le fichier ré-importable**, assuré depuis le même module d'import d'exploitation. | Export → tableur → import remplacement = l'édition de masse de Syncytium. Voir §8.6. |
 | D238 | **Provenance d'un import d'exploitation = l'opérateur** qui le réalise (audit D62) ; écran réservé responsable métier/administrateur (D211). | Pas un connecteur — distinction nette avec la reprise (D178). **Clôt Q55.** Voir §8.6. |
@@ -2878,10 +2878,12 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   base, absentes du fichier) ; la première étape **vérifie et compte chaque
   catégorie**, et une **confirmation est demandée avant de lancer
   l'import**. Le **complément** ne fait **pas de suppression**.
-  *(Interprétations : le rapprochement s'opère sur la **clé fonctionnelle**
-  D142 — le CSV ne transporte pas d'UUID ; la « suppression » du
-  remplacement = **l'inactivation** D137 par la voie standard — la
-  suppression physique reste un privilège de reprise D184.)*
+  **Confirmé par l'auteur** : le rapprochement s'opère sur la **clé
+  fonctionnelle** (D142) — l'UUID est un identifiant **interne, non connu
+  et jamais exposé aux utilisateurs**, le CSV ne le transporte pas ; la
+  « suppression » du remplacement est **la désactivation** (inactivation
+  D137), par la voie standard — **aucune suppression physique**, celle-ci
+  restant liée au seul connecteur de reprise (D184).
 - **Le mapping par l'entête (D236).** L'entête de colonne CSV = **un libellé
   du champ dans la langue de l'opérateur** (D124/D127) — pas de table de
   mapping à déclarer. **L'import concerne tous les champs** (sauf les champs
@@ -4305,3 +4307,9 @@ avant la synthèse Q16).
   **provenance = l'opérateur**. Interprétations consignées : rapprochement
   par la clé fonctionnelle (D142), « supprimé » = inactivation (D137).
   Restent au thème E : Q53, Q56, Q57.
+- **2026-07-06 (suite 13)** — **Confirmations sur D235** : le CSV ne
+  transporte pas l'UUID — « c'est un identifiant **interne, non connu, ni
+  exposé aux utilisateurs** » ; **la clé fonctionnelle fait le lien**
+  (D142). « Suppression » = **désactivation** (D137) — aucune suppression
+  physique, celle-ci restant liée au seul connecteur de reprise (D184).
+  Les deux interprétations deviennent fermes.

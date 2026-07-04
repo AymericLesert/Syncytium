@@ -275,6 +275,10 @@ postures combinables :
 | D227 | **Recherches déclarées (unifie D198)** : une recherche **précise la liste des champs concernés** (les autres ignorés), **plusieurs recherches par entité** — le **même objet** que le filtre transverse : une « recherche » nommée (champs + mode). | La déclaration peut viser un champ via référence ou enfant (interprétation) ; défaut = les colonnes affichées (D198). Voir §8.6. |
 | D228 | **Filtrage vivant** : toujours « contient » ; **la liste se filtre à chaque saisie ou sélection, sans bouton « filtrer »** ; **throttling** côté client ; un filtre par type de données → composants graphiques (**Q56**). | UX temps réel, serveur ménagé. Voir §8.6. |
 | D229 | **Recherche par approximation** : mode **stricte** (sous-chaîne normalisée D222) **ou approximation** — score de similarité, **seuil**, lignes **triées par score décroissant** (Dupont exact puis Dupond ; le score prime le tri déclaré pendant la recherche). | Algorithme = choix d'implémentation ; contrat = score + seuil (défaut global, surcharge par recherche — interprétation). **Clôt Q38.** Voir §8.6. |
+| D230 | **Le menu-parcours = un wizard** (mono-utilisateur, une session) ; le **circuit de validation multi-acteurs = un patron d'assemblage** des briques existantes (états D147, opérations D148, notifications D108–D110, listes filtrées) — **pas de moteur BPM caché** : le circuit vit dans la donnée. | Chaque intervention d'un acteur du circuit peut être un petit wizard. Voir §8.6. |
+| D231 | **Étape de wizard = une surface déclarée + un contexte** (formulaires nommés D206, listes, widgets) ; **transitions** suivant/précédent/annuler + **conditionnelles** par expression D90 sur les données saisies. | Le wizard enchaîne, il n'invente pas d'écran (cohérent D151). Voir §8.6. |
+| D232 | **État intermédiaire transitoire** : rien n'est écrit avant la fin ; dernière étape = **transaction d'agrégats** (D101) + validations 3 passes (D156–D159) ; **abandon = rien**. **Brouillon reprenables = un niveau d'état déclaré** (D145–D147), jamais une machinerie moteur. | « Le brouillon est du modèle, pas de la machinerie. » Voir §8.6. |
+| D233 | **Sortie de wizard** : étape **récapitulative** (porte les confirmations tracées D157) ; **opération** possible en sortie (D148 — PDF, mail). **Droits** : entrée filtrée (D193), écritures sous droits d'action (D196) — **un wizard n'élargit jamais les droits**. | Même principe que le module fonctionnel (D190). **Clôt Q54.** Voir §8.6. |
 
 ---
 
@@ -2817,6 +2821,39 @@ l'algorithme de similarité est un choix d'implémentation du moteur — le
 contrat est « score + seuil » ; le seuil a un défaut global au modèle,
 surchargeable par recherche.)*
 
+**Le wizard : la spécification du menu-parcours (D230–D233 — clôt Q54).**
+Le terme est acté : le menu-parcours (D194) est un **wizard**.
+
+- **Wizard ≠ circuit (D230).** Le wizard est **mono-utilisateur, une
+  session** : une saisie guidée, écran par écran. Le **circuit de validation
+  multi-acteurs** (le devis qui passe du commercial au responsable) n'est
+  **pas** un concept nouveau : c'est un **patron d'assemblage** des briques
+  existantes — machine à états déclarée (D147), opérations d'entité (D148 :
+  « soumettre », « valider », « refuser »), notifications (D108–D110),
+  listes filtrées (« mes devis à valider »). Le circuit vit **dans la
+  donnée**, pas dans l'IHM — **pas de moteur BPM caché**. Chaque
+  intervention d'un acteur peut elle-même être un petit wizard.
+- **Une étape = une surface existante + un contexte (D231).** Le wizard
+  **enchaîne les surfaces déclarées** (formulaires nommés D206, listes,
+  widgets) — il n'invente pas d'écran. **Transitions** : suivant /
+  précédent / annuler, et des transitions **conditionnelles** par expression
+  D90 sur les données saisies (« si client étranger → étape TVA »).
+- **L'état intermédiaire est transitoire (D232).** Tant que le wizard n'est
+  pas terminé, **rien n'est écrit** ; la dernière étape déclenche **la
+  transaction d'agrégat(s)** (D101) avec les validations en trois passes
+  (D156–D159) ; **abandon = rien**. Les **brouillons reprenables** ne sont
+  **pas une machinerie moteur** : le métier déclare un **niveau d'état**
+  (héritage-état D145–D147, `brouillon → confirmé`) et tout l'existant suit
+  (droits, listes, historique). **Le brouillon est du modèle, pas de la
+  machinerie.**
+- **La sortie et les droits (D233).** Une **étape récapitulative** précède
+  l'écriture — elle porte naturellement les **confirmations tracées**
+  (D157) ; une **opération** (D148) peut suivre la fin (générer le PDF,
+  envoyer le mail). **Droits** : l'entrée de menu-parcours est filtrée
+  comme les autres (D193), les écritures passent sous les droits d'action
+  (D196) — **un wizard n'élargit jamais les droits** (même principe que le
+  module fonctionnel, D190).
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -3093,7 +3130,7 @@ avant la synthèse Q16).
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
-| Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
+| ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
 | Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
@@ -4198,3 +4235,14 @@ avant la synthèse Q16).
   **approximatif** — score, **seuil**, tri **par score décroissant** (Dupont
   exact avant Dupond) ; algorithme = implémentation, contrat = score+seuil.
   Le thème E n'a plus que Q53, Q54, Q55, Q56, Q57.
+- **2026-07-06 (suite 11)** — **Q54 CLOSE (D230–D233)**. L'auteur valide la
+  proposition en bloc (« le terme wizard me plaît et tes propositions me
+  conviennent ») : **menu-parcours = wizard** mono-utilisateur une session ;
+  **circuit de validation multi-acteurs = patron d'assemblage** (états D147,
+  opérations D148, notifications D108–D110, listes filtrées — pas de moteur
+  BPM, le circuit vit dans la donnée) ; étape = surface déclarée + contexte,
+  transitions conditionnelles (D90) ; **état transitoire** (abandon = rien,
+  écriture = transaction d'agrégats D101 à la fin, récapitulatif à
+  confirmations tracées D157, opération de sortie D148) ; **brouillon = un
+  niveau d'état déclaré** (D145–D147), pas une machinerie moteur ; un wizard
+  **n'élargit jamais les droits**. Restent au thème E : Q53, Q55, Q56, Q57.

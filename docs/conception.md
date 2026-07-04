@@ -271,6 +271,7 @@ postures combinables :
 | D223 | **Formats CSV définis au modèle** (ni utilisateur, ni langue) — **imposés par l'application**. | Uniformité des échanges de fichiers. Voir §8.7. |
 | D224 | **Couverture des traductions** : les pendants manquants (libellés, messages, gabarits) par langue déclarée sont **signalés au technicien** et **consultables dans l'administration**. | « Ignorer, jamais oublier » (D176) appliqué à l'i18n. Voir §8.7. |
 | D225 | **Sérialisation temporelle des API : chaînes de caractères** — horodatage **UTC**, valeurs **brutes** telles quelles ; format **canonique invariant ISO 8601** (brut sans décalage, horodatage suffixé `Z`), **jamais le format d'affichage**. | Le marqueur `Z` distingue seul l'horodatage du brut ; tri lexicographique = tri chronologique. **Clôt Q45.** Voir §8.7. |
+| D226 | **Recherche plein-texte : mono-entité, portée par la liste** — **la recherche globale trans-entités est écartée (assumée)** ; la correspondance **traverse les références** (« Dupont » sur la liste des commandes → les commandes passées par Dupont) ; mécanique = **contient normalisé** (D222) ; droits = ceux de la liste (D70–D77). | Ni barre d'application, ni index global — périmètre des projets réels. Précisions en cours : affichage des références (D215), enfants de composition, articulation avec le filtre transverse (D198). Voir §8.6. |
 
 ---
 
@@ -2770,6 +2771,22 @@ formulaire**.
 nommée** (désignée) de l'entité associée, dont **la colonne faisant le lien
 avec l'entité courante est à masquer**.
 
+**La recherche plein-texte : mono-entité, portée par la liste (D226 —
+Q38).** Une recherche plein-texte **ne s'applique qu'à une seule entité** et
+est **disponible sur la liste** de l'entité. **La recherche globale
+trans-entités est écartée** — limitation **assumée** : les projets visés ne
+nécessitent pas cette machinerie (ni barre de recherche d'application, ni
+index global). La subtilité qui fait la puissance du dispositif : **la
+correspondance traverse les références** — sur la liste des commandes, une
+recherche « Dupont » **remonte toutes les commandes passées par Dupont**,
+alors que « Dupont » n'est pas un champ de la commande mais l'affichage de
+sa référence client. Mécanique sous-jacente : le **« contient » sur chaîne
+normalisée** (D222) ; les droits sont ceux de la liste (row-level D70–D77 —
+l'anti-oracle est gratuit). *Précisions en cours : ce que matche une
+référence (représentation d'affichage D215 ?), la participation des enfants
+de composition (l'agrégat entier ?), l'articulation avec le filtre
+transverse (D198 — un seul mécanisme ?).*
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -3042,7 +3059,7 @@ avant la synthèse Q16).
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
-| Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
+| Q38 | **Recherche & filtrage — quasi close (D125–D126, D198, D226)** : filtre = valeur/jeu/comparateur ; filtres transverses ; **plein-texte mono-entité porté par la liste, traversant les références** (« Dupont » → les commandes de Dupont) ; **recherche globale trans-entités écartée (assumée)**. **Restent 3 précisions** : ce que matche une référence (représentation d'affichage D215 ?) ; les enfants de composition participent-ils (agrégat entier ?) ; plein-texte et filtre transverse (D198) = un seul mécanisme ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
@@ -4126,3 +4143,15 @@ avant la synthèse Q16).
   aucun problème **à condition** d'un format canonique invariant (ISO
   8601 ; brut sans décalage, horodatage suffixé Z ; jamais le format
   d'affichage d'une langue) — recommandation intégrée à D225.
+- **2026-07-06 (suite 9)** — **Q38 : la troisième voie de l'auteur (D226)**.
+  Ni moteur plein-texte dédié, ni barre de recherche globale : **la
+  recherche plein-texte est mono-entité et portée par la liste** — « cela
+  évite les recherches trans-entités », limitation **assumée** (« mes
+  projets ne nécessitent pas de mettre en place tout cela »). Mais **la
+  correspondance traverse les références** : sur la liste des commandes,
+  « Dupont » remonte **toutes les commandes passées par Dupont** (l'affichage
+  de la référence client matche). Mécanique : contient normalisé (D222),
+  droits de la liste (anti-oracle gratuit). Trois précisions soumises :
+  la référence matche sur sa représentation d'affichage (D215, un seul
+  niveau ?) ; l'agrégat entier participe-t-il (commentaire d'une ligne de
+  commande) ? ; unification avec le filtre transverse (D198) ?

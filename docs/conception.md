@@ -237,6 +237,7 @@ postures combinables :
 | D189 | **Menu déclaré** : **le modèle porte l'organisation du menu** ; une entité peut y avoir **plusieurs entrées**. | Chaîne interprétée à valider : entrée de menu → liste → formulaire. Voir §8.6. |
 | D190 | **Module fonctionnel = sous-application** : **vue offerte à l'utilisateur aux fonctionnalités restreintes** (au plus ses droits, souvent moins) ; **affectation par l'administrateur** (1..n par utilisateur) ; **navigation** entre modules fonctionnels ; **module de préférence au profil**. **Défaut : un module fonctionnel unique = l'ensemble de l'application.** | **Restreint la surface présentée, n'étend jamais les droits** (sécurité = D25–D27, D70–D77). Distinct du module du schéma (D115/D117) : l'un structure la donnée, l'autre l'expérience. Voir §8.6. |
 | D191 | **Page d'accueil du module fonctionnel** : identification de l'instance (**nom d'application, nom de module fonctionnel, société, logo**) ; **bandeau gauche** = choix du module fonctionnel ; **bandeau haut** = menus et sous-menus ; **corps** = widgets (**indicateurs clés** ou **liste d'entité**) — ou une liste directe. **Défauts** : bandeau gauche absent (module fonctionnel unique) ; bandeau haut = modules du schéma avec **les parents d'agrégats uniquement** ; corps **vide**. | Inspiration design : Microsoft Azure (le design après la structure). Tranche « enfants de composition au menu » (jamais d'entrée par défaut). Widget d'accueil ≠ widget de résumé (D185). Voir §8.6. |
+| D192 | **Menu à trois niveaux possible** : module → entités parents → **entités enfants et entités de liaison** ; les liaisons ne sont **jamais proposées par défaut** (accessibles depuis une entité). L'IHM offre alors la **modification directe d'un enfant** — l'écriture **reprend l'agrégat parent/racine** (D101/D111/D132). | L'accès direct = **commodité de présentation, jamais un contournement de l'agrégat** (cohérent D150). Clôt le reste de la clarification n° 2. Voir §8.6. |
 
 ---
 
@@ -2505,6 +2506,18 @@ l'expérience utilisateur**.
 *Terminologie* : le **widget d'accueil** (indicateur clé ou liste d'entité)
 est distinct du **widget de résumé** (survol d'une référence, D185).
 
+**Le troisième niveau de menu et l'accès direct aux enfants (D192).** Les
+**entités de liaison** (D135) ne sont **jamais proposées par défaut** — elles
+sont accessibles depuis une entité. Le menu peut cependant prévoir un
+**troisième niveau** : module → entités parents → **entités enfants et
+entités de liaison**. Corollaire : l'IHM propose alors la **modification d'un
+enfant** en accès direct — mais, dans la mécanique du projet, **la mise à
+jour d'un enfant reprend l'entité parent/racine** et s'applique comme une
+écriture de l'agrégat complet (atomicité portée par le modèle D101,
+concurrence état-avant/état-après D111, composition D132) : l'accès direct
+est une **commodité de présentation, jamais un contournement de l'agrégat**
+(cohérent avec D150 — les enfants ne sont pas modifiables seuls).
+
 **Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir —
 l'auteur signale que « il manque de nombreux points » et que ses propositions
 D185–D189 **demandent encore des précisions** : des raffinements sont
@@ -2516,10 +2529,11 @@ pas des décisions) :
    formulaire en création** (« Nouvelle commande ») ? Le champ 1-N affiche
    « la liste de l'entité associée » : **laquelle**, si la cible en déclare
    plusieurs (proposition : la liste par défaut, sauf désignation) ?
-2. ~~Les enfants de composition au menu~~ — **tranché (D191)** : le menu par
-   défaut porte les entités d'agrégats **uniquement les parents** ; les
-   enfants vivent dans les onglets du parent (D150). **Reste** le cas des
-   entités de liaison N-N (D135) : entrée par défaut ou non ?
+2. ~~Les enfants de composition au menu~~ — **tranché (D191, D192)** : le
+   menu par défaut porte les entités d'agrégats **uniquement les parents** ;
+   un **3ᵉ niveau de menu** peut porter les enfants et les entités de
+   liaison (jamais par défaut) ; la modification directe d'un enfant
+   s'applique **via l'agrégat racine** (D101/D111/D132, cohérent D150).
 3. **La liste paramétrable** : composant à part ou **propriété** de toute
    liste déclarée (« paramétrable : oui ») ? **Qui enregistre, pour qui ?**
    Proposition : paramètres (colonnes, ordre, tris, filtres) enregistrés au
@@ -3672,3 +3686,10 @@ avant la synthèse Q16).
   la clarification n° 2 — reste le cas des entités de liaison N-N), corps
   vide. Inspiration design : **Microsoft Azure**, à traiter après la
   structure. **Suite annoncée par l'auteur (exposé en cours).**
+- **2026-07-06 (suite)** — **Troisième niveau de menu (D192)**. Les entités
+  de liaison ne sont **jamais proposées par défaut** (accessibles depuis une
+  entité) ; le menu peut prévoir un **3ᵉ niveau** (entités enfants + entités
+  de liaison) ; la **modification directe d'un enfant reprend l'agrégat
+  parent/racine** (D101/D111/D132, cohérent D150) — l'accès direct est une
+  commodité de présentation, pas un contournement. Clôt la clarification
+  n° 2 en entier.

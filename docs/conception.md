@@ -256,6 +256,12 @@ postures combinables :
 | D208 | **Widget de résumé = configuration de formulaire restreinte** : mêmes items de configuration, **certains composants graphiques interdits** ; widgets de résumé et de synthèse **pluriels et nommés** par entité. | Complète D201 (pas d'onglets, petit par principe). Voir §8.6. |
 | D209 | **Masque d'explication** : à la **première consultation ou sur sollicitation** d'une surface (liste, formulaire, widget de résumé, widget de synthèse), présentation de la **description de la surface** + **les descriptions des champs affichés** (D124). | Les descriptions déclarées = l'aide en ligne, sans rédaction séparée. Première consultation mémorisée au profil (interprétation). Voir §8.6. |
 | D210 | **Modules fonctionnels déclarés** dans la description ; **un module fonctionnel déclare un menu** (D193) ; **affectation utilisateur ↔ module fonctionnel par l'administrateur** (écran d'administration). | Précise D190 — la description déclare la structure, l'administration affecte les personnes. Voir §8.6. |
+| D211 | **Import = écran dédié de module** (responsable métier ou administrateur), **retiré des fonctions de liste**. | Détail à décrire ultérieurement → **Q55 ouverte**. Voir §8.6. |
+| D212 | **Impression PDF confirmée** : défaut = **la liste telle qu'affichée** ; par déclaration : **colonnes dédiées** + mode (tabulaire/widgets) ; **gabarits** pour documents — **impression depuis un formulaire si gabarit** ; **le PDF est un composant** (D68), **plusieurs PDF par liste**. | Documents métier (facture, bon de livraison) couverts par les gabarits. Voir §8.6. |
+| D213 | **Export CSV** : défaut = **les colonnes affichées** ; les colonnes d'un export déclaré portent **leur longueur**. | Précise D196 (export = visible pour l'utilisateur, jamais plus). Voir §8.6. |
+| D214 | **Bloc popup abandonné** : un bloc s'affiche comme **section ou onglet** (composables D199). | Amende D188 ; cohérent avec le refus de la popup de validation (D196). Voir §8.6. |
+| D215 | **Référence 1-1** : affiche **un libellé ou un élément de synthèse** (agrégation de champs, image… — gabarit D90 pressenti) + **lien vers le formulaire de la cible en lecture seule** ; **sélection via une liste nommée** précisée dans la description du formulaire. | Remplace le défaut D186.9 (widget au survol — le widget de résumé n'existant pas par défaut, D201). Voir §8.6. |
+| D216 | **Champ 1-N** : une **liste nommée** (désignée) de l'entité associée, **colonne de lien avec l'entité courante masquée**. | Clôt le micro-point de la clarification n° 1. Voir §8.6. |
 
 ---
 
@@ -2472,9 +2478,10 @@ portée à préciser).
 **Les formulaires déclarés (D188).** Une entité peut définir **plusieurs
 formulaires** ; un formulaire peut être dédié à **un ou plusieurs modes
 responsive**. Un formulaire organise les champs en **blocs** ; un bloc
-s'affiche comme **onglet**, comme **section** ou comme **popup** ; les
-sections positionnent les éléments **en colonnes ou en lignes**. Un champ
-dispose d'un **affichage dédié au mode responsive**.
+s'affiche comme **onglet**, comme **section** ou comme **popup** *(la popup
+sera abandonnée le 06/07/2026 — D214)* ; les sections positionnent les
+éléments **en colonnes ou en lignes**. Un champ dispose d'un **affichage
+dédié au mode responsive**.
 
 **Le menu déclaré (D189).** **Le modèle porte l'organisation du menu.** Une
 entité peut y avoir **plusieurs entrées**. *(Chaîne interprétée, à valider :
@@ -2713,18 +2720,54 @@ déclare un menu** (D193) ; l'**association entre un utilisateur et un module
 fonctionnel est assurée par l'administrateur dans un écran
 d'administration**. Une entrée de menu décrit les paramètres actés en D193.
 
-*Annoncé par l'auteur* : **les composants graphiques par type de champ
-restent à décrire et à affiner.**
+**L'import : un écran de module (D211 — ouvre Q55).** L'import de données
+pour les entités d'un module est **retiré des fonctions de liste** : il est
+associé à un **écran dédié**, réservé au **responsable métier ou à
+l'administrateur**. Le **détail de l'import sera décrit ultérieurement**
+(**Q55**).
 
-**Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir ;
-**statuts mis à jour le 06/07/2026** après le raffinement D190–D204 — les
-propositions restantes ne sont pas des décisions) :
+**L'impression PDF, confirmée et généralisée (D212).**
+
+- **Par défaut** : l'impression affiche **le contenu de la liste telle
+  qu'elle est affichée**.
+- **Par déclaration** : une impression peut se **limiter à une liste de
+  colonnes** (à préciser dans la liste) pour un **mode d'affichage proposé**
+  — tabulaire ou widgets de résumé.
+- Une impression peut **associer un gabarit** pour imprimer des
+  **documents** — et un PDF peut être **imprimé depuis un formulaire si un
+  gabarit est proposé** (facture, bon de livraison…).
+- **Le PDF peut être vu comme un composant** (registre D68) ; pour une
+  liste, **plusieurs PDF sont possibles**.
+
+**L'export CSV, précisé (D213).** **Par défaut**, l'export s'appuie sur
+**les colonnes affichées** dans le tableau ; les colonnes d'un export
+déclaré sont **à déclarer avec leur longueur**.
+
+**La popup abandonnée (D214, amende D188).** Le bloc **popup est
+abandonné** : un bloc s'affiche comme **section ou onglet** (composables,
+D199) — cohérent avec le refus de la popup de validation (D196).
+
+**La référence 1-1 (D215, remplace le défaut D186.9).** Un champ référence
+affiche **un libellé ou un élément de synthèse** — une agrégation de champs,
+une image… (gabarit D90 pressenti) — avec **un lien vers le formulaire de la
+référence, en lecture seule**. Pour **choisir** un item : un **lien vers une
+liste** est proposé — une **liste nommée, précisée dans la description du
+formulaire**.
+
+**Le champ 1-N (D216).** Le champ liste inverse (D136) affiche une **liste
+nommée** (désignée) de l'entité associée, dont **la colonne faisant le lien
+avec l'entité courante est à masquer**.
+
+*Annoncé par l'auteur* : **les composants graphiques par type de champ
+restent à décrire et à affiner** → **Q56**.
+
+**Les sept points de clarification — tous tranchés au 06/07/2026** (trace du
+cheminement) :
 
 1. ~~La chaîne menu → liste → formulaire~~ — **confirmée (D193)** : l'entrée
    par défaut référence **la liste de l'entité** ; l'entrée « **formulaire de
-   création** » existe. **Reste un micro-point** : le champ 1-N affiche « la
-   liste de l'entité associée » — **laquelle**, si la cible en déclare
-   plusieurs (proposition : la liste par défaut, sauf désignation) ?
+   création** » existe. **Micro-point tranché (D216)** : le champ 1-N désigne
+   une **liste nommée**, colonne de lien masquée.
 2. ~~Les enfants de composition au menu~~ — **tranché (D191–D193)** : menu
    par défaut = parents d'agrégats, **sous-menus par défaut = entités
    enfants et associées en lien multiple** (D193 amende D192 : le 3ᵉ niveau
@@ -2736,28 +2779,28 @@ propositions restantes ne sont pas des décisions) :
    responsable métier).
 4. ~~Le widget de résumé~~ — **tranché (D201)** : champs **sélectionnés**
    (lecture seule et/ou modification), sections sans onglets, petit par
-   principe ; **n'existe pas par défaut**. **Corollaire ouvert** : le défaut
-   D186.9 (référence 1-1 → widget au survol) ne vaut que si un widget est
-   déclaré — sinon, simple libellé navigable ?
-5. **Import et impression PDF** : présents en D187, **absents du raffinement
-   D196** (création/modification/suppression/export/actions/masse) —
-   **maintenus ou retirés ?** Si l'impression est maintenue : forme des
-   **gabarits** (documents métier — facture, bon de livraison), impression
-   d'une **fiche** ? (Proposition inchangée : défaut = la liste telle
-   qu'affichée ; l'impression est une tâche D53.)
+   principe ; **n'existe pas par défaut**. **Corollaire tranché (D215)** :
+   la référence 1-1 affiche un **libellé ou un élément de synthèse** + lien
+   vers le formulaire cible en lecture seule ; sélection via **liste
+   nommée** du formulaire.
+5. ~~Import et impression PDF~~ — **tranché (D211–D213)** : l'**import**
+   quitte les listes pour un **écran dédié de module** (responsable
+   métier/administrateur — détail en **Q55**) ; l'**impression PDF est
+   confirmée** (défaut = la liste telle qu'affichée ; déclarable — colonnes,
+   mode ; **gabarits** pour documents, impression depuis un formulaire ;
+   **le PDF est un composant**, plusieurs par liste) ; l'**export CSV** =
+   colonnes affichées par défaut, déclarables avec longueur.
 6. ~~Le jeu des modes responsive~~ — **tranché (D203)** : **{Écran,
    Tablette, Smartphone} × {portrait, paysage}**.
 7. ~~Les actions de masse~~ — **tranché (D196–D197)** : modification en
    masse séquentielle interruptible, suppression en masse à double
    validation, confirmation de suppression = formulaire en lecture seule.
-   **Reste** : le bloc **popup** (D188) a **disparu du raffinement D199**
-   (blocs = section ou onglet, composables) — **maintenu ou abandonné ?**
-   (La confirmation de suppression écarte explicitement la popup.)
+   **La popup est abandonnée (D214)** : blocs = section ou onglet.
 
 **Chantiers ouverts issus du raffinement** : **Q54** (l'expérience
 utilisateur / menu-parcours, D194) ; les **types de graphiques** des widgets
-de synthèse (Q53) ; le **catalogue des composants graphiques par type de
-champ** (annoncé par l'auteur).
+de synthèse (Q53) ; **Q55** (l'import d'exploitation, D211) ; **Q56** (le
+catalogue des composants graphiques par type de champ).
 
 **Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
 modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
@@ -2916,9 +2959,11 @@ avant la synthèse Q16).
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
-| Q48 | **Organisation de l'IHM générée — quasi close (D185–D210, §8.6)** : **quatuor** liste / formulaire unique à 5 usages / widget de résumé / widget de synthèse, **surfaces nommées + description** avec déclinaison par mode et repli (D206) ; **édition en ligne** dans les listes (D205) ; **masque d'explication** (D209) ; **module fonctionnel déclaré** (D190/D210) + page d'accueil (D191/D204) ; **menus hiérarchiques** à 5 types d'entrées, filtrés par la confidentialité (D193) ; masse (D197) ; paramétrage au profil/groupe (D198) ; responsive = {écran, tablette, smartphone} × {portrait, paysage} (D203). **Restent** : import / impression PDF (absents du raffinement — maintenus ?) ; bloc **popup** (maintenu ?) ; défaut de la référence 1-1 **sans widget déclaré** ; liste désignée du champ 1-N ; **catalogue des composants graphiques par type** (annoncé par l'auteur). | L'architecture (D63–D69, D100) + le contenu fonctionnel (D185–D210) sont posés ; les résidus ci-contre closent la question. |
+| ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
+| Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
+| Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
 
 ---
 
@@ -3942,3 +3987,18 @@ avant la synthèse Q16).
   utilisateur↔module par l'administrateur (écran d'administration). Les
   résidus de Q48 (import/PDF, popup, 1-1 sans widget, liste du 1-N)
   demeurent.
+- **2026-07-06 (suite 4)** — **Q48 CLOSE (D211–D216)**. Les quatre résidus
+  tranchés par l'auteur : **import = écran dédié de module** (responsable
+  métier/administrateur), retiré des listes — détail ultérieur → **Q55
+  ouverte** ; **impression PDF confirmée** (défaut = la liste telle
+  qu'affichée ; déclarable — colonnes, mode tabulaire/widgets ; **gabarits**
+  pour documents, impression depuis un formulaire ; **le PDF est un
+  composant**, plusieurs par liste) ; **export CSV** = colonnes affichées,
+  déclarables avec longueur ; **popup abandonnée** (blocs = section ou
+  onglet) ; **référence 1-1** = libellé ou élément de synthèse + lien vers
+  le formulaire cible en lecture seule, sélection via une **liste nommée**
+  du formulaire ; **champ 1-N** = liste nommée, colonne de lien masquée.
+  **Q56 ouverte** (catalogue des composants graphiques par type, annoncé).
+  **L'organisation de l'IHM est close** — restent au thème E : Q53
+  (graphiques, croisés, gouvernance), Q54 (parcours), Q55 (import), Q56
+  (catalogue), résiduels Q38/Q45.

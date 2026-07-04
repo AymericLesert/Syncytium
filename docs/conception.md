@@ -257,7 +257,7 @@ postures combinables :
 | D209 | **Masque d'explication** : à la **première consultation ou sur sollicitation** d'une surface (liste, formulaire, widget de résumé, widget de synthèse), présentation de la **description de la surface** + **les descriptions des champs affichés** (D124). | Les descriptions déclarées = l'aide en ligne, sans rédaction séparée. Première consultation mémorisée au profil (interprétation). Voir §8.6. |
 | D210 | **Modules fonctionnels déclarés** dans la description ; **un module fonctionnel déclare un menu** (D193) ; **affectation utilisateur ↔ module fonctionnel par l'administrateur** (écran d'administration). | Précise D190 — la description déclare la structure, l'administration affecte les personnes. Voir §8.6. |
 | D211 | **Import = écran dédié de module** (responsable métier ou administrateur), **retiré des fonctions de liste**. | Détail à décrire ultérieurement → **Q55 ouverte**. Voir §8.6. |
-| D212 | **Impression PDF confirmée** : défaut = **la liste telle qu'affichée** ; par déclaration : **colonnes dédiées** + mode (tabulaire/widgets) ; **gabarits** pour documents — **impression depuis un formulaire si gabarit** ; **le PDF est un composant** (D68), **plusieurs PDF par liste**. | Documents métier (facture, bon de livraison) couverts par les gabarits. Voir §8.6. |
+| D212 | **Impression PDF confirmée** : défaut = **la liste telle qu'affichée** ; par déclaration : **colonnes dédiées** + mode (tabulaire/widgets) ; **gabarits** pour documents — **impression depuis un formulaire si gabarit** ; **le PDF s'apparente à un composant** (enregistrement, réutilisation) **sans en reprendre exactement les fonctionnalités** ; **plusieurs PDF par liste**. | Documents métier (facture, bon de livraison) couverts par les gabarits. Le contrat propre du gabarit → Q57. Voir §8.6. |
 | D213 | **Export CSV** : défaut = **les colonnes affichées** ; les colonnes d'un export déclaré portent **leur longueur**. | Précise D196 (export = visible pour l'utilisateur, jamais plus). Voir §8.6. |
 | D214 | **Bloc popup abandonné** : un bloc s'affiche comme **section ou onglet** (composables D199). | Amende D188 ; cohérent avec le refus de la popup de validation (D196). Voir §8.6. |
 | D215 | **Référence 1-1** : affiche **un libellé ou un élément de synthèse** (agrégation de champs, image… — gabarit D90 pressenti) + **lien vers le formulaire de la cible en lecture seule** ; **sélection via une liste nommée** précisée dans la description du formulaire. | Remplace le défaut D186.9 (widget au survol — le widget de résumé n'existant pas par défaut, D201). Voir §8.6. |
@@ -2736,8 +2736,11 @@ l'administrateur**. Le **détail de l'import sera décrit ultérieurement**
 - Une impression peut **associer un gabarit** pour imprimer des
   **documents** — et un PDF peut être **imprimé depuis un formulaire si un
   gabarit est proposé** (facture, bon de livraison…).
-- **Le PDF peut être vu comme un composant** (registre D68) ; pour une
-  liste, **plusieurs PDF sont possibles**.
+- **Le PDF peut être vu comme un composant** — l'analogie vaut pour
+  l'enregistrement et la réutilisation, mais **ses fonctionnalités ne sont
+  pas exactement les mêmes qu'un composant graphique** : le contrat propre
+  du gabarit est à définir (**Q57**). Pour une liste, **plusieurs PDF sont
+  possibles**.
 
 **L'export CSV, précisé (D213).** **Par défaut**, l'export s'appuie sur
 **les colonnes affichées** dans le tableau ; les colonnes d'un export
@@ -2964,7 +2967,7 @@ avant la synthèse Q16).
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
 | Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
-| Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?). | Découle de D212 (impression = documents métier via gabarit ; le PDF est un composant D68 ; génération = tâche D53). |
+| Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
 
 ---
 
@@ -4006,3 +4009,9 @@ avant la synthèse Q16).
 - **2026-07-06 (suite 5)** — **Q57 ajoutée** à la demande de l'auteur : la
   **construction des gabarits PDF** (description du gabarit, liaison aux
   données, mise en page, i18n, lieu de déclaration) — découle de D212.
+- **2026-07-06 (suite 6)** — **Précision de l'auteur sur D212/Q57** : « les
+  fonctionnalités ne sont pas exactement les mêmes qu'un composant
+  graphique » — l'analogie composant du PDF vaut pour l'**enregistrement et
+  la réutilisation**, pas pour le **contrat fonctionnel** ; la définition du
+  contrat propre du gabarit PDF est versée aux attendus de Q57 (consignation
+  rectifiée : « est un composant » → « s'apparente à un composant »).

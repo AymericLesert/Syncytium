@@ -262,6 +262,9 @@ postures combinables :
 | D214 | **Bloc popup abandonné** : un bloc s'affiche comme **section ou onglet** (composables D199). | Amende D188 ; cohérent avec le refus de la popup de validation (D196). Voir §8.6. |
 | D215 | **Référence 1-1** : affiche **un libellé ou un élément de synthèse** (agrégation de champs, image… — gabarit D90 pressenti) + **lien vers le formulaire de la cible en lecture seule** ; **sélection via une liste nommée** précisée dans la description du formulaire. | Remplace le défaut D186.9 (widget au survol — le widget de résumé n'existant pas par défaut, D201). Voir §8.6. |
 | D216 | **Champ 1-N** : une **liste nommée** (désignée) de l'entité associée, **colonne de lien avec l'entité courante masquée**. | Clôt le micro-point de la clarification n° 1. Voir §8.6. |
+| D217 | **i18n — UTC, fuseaux, formats, langues** : dates/heures **stockées en UTC** ; **le fuseau horaire dépend de la langue de l'utilisateur** (le modèle déclare le fuseau par langue — interprétation) ; **format d'affichage porté par la langue** (plusieurs formats possibles par langue ; défaut global au modèle par langue, surchargeable par champ et par langue) ; **le modèle liste les langues permises** (périmètre : 1 à 3). | Précise D131. Une TPE française n'a pas besoin de l'anglais ; FR+EN si marché anglais. Voir §8.7. |
+| D218 | **Notifications localisées** : message à format **personnalisé par langue** (comme les libellés D127), émis **dans la langue de l'opérateur** destinataire ; **journaux internes en anglais**. | Voir §8.7. |
+| D219 | **Gabarits par langue + repli à deux crans** : gabarits **PDF et mails = un par langue** possible ; pendant manquant → **langue par défaut du modèle** (la langue de l'utilisateur reste au profil D124) ; libellé totalement absent → **le nom invariant** (champ, message, gabarit). | Le repli garantit qu'aucun affichage n'est vide. Voir §8.7. |
 
 ---
 
@@ -2805,10 +2808,46 @@ utilisateur / menu-parcours, D194) ; les **types de graphiques** des widgets
 de synthèse (Q53) ; **Q55** (l'import d'exploitation, D211) ; **Q56** (le
 catalogue des composants graphiques par type de champ).
 
-**Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
-modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
-colonnes/lignes), du menu (entrées multiples) ; affichages de champ par
-surface × mode responsive ; widget de résumé.
+**Apport au méta-schéma** : modules fonctionnels (menu, affectations) ;
+surfaces nommées + descriptions (listes — colonnes/dimensions/tris/filtres
+transverses/formulaire cible/exports/impressions ; formulaires — blocs
+section-onglet composables, paramètres ; widgets de résumé et de synthèse) ;
+menus (5 types d'entrées) ; affichages de champ par surface × mode
+responsive ; droits d'action par entité (modèle de confidentialité) ;
+gabarits PDF (Q57).
+
+### 8.7 Internationalisation (Q45 ; D217–D219)
+
+**UTC, fuseaux et formats (D217).**
+
+- **Stockage des dates et heures en UTC** — pour ne pas être perturbé par
+  les fuseaux horaires.
+- **Le fuseau horaire dépend de la langue de l'utilisateur** *(interprétation
+  à valider : le modèle déclare le fuseau de chaque langue permise — ex. FR →
+  Europe/Paris)*.
+- Pour la date et l'heure, **pas de spécificité par langue au-delà du format
+  d'affichage**. **Le format est porté par la langue** ; une langue peut
+  offrir **plusieurs formats** (ex. AAAA-MM-JJ ou JJ/MM/AAAA) ; le **format
+  par défaut est défini au global dans le modèle, par langue**, et
+  **surchargeable sur un champ, par langue** (précise D131).
+- **Le modèle liste les langues permises.** Périmètre assumé : **1 langue**
+  (la grande majorité), **2** (une à deux entreprises), **3 au maximum**
+  (un cas très particulier) — une TPE française n'a aucun intérêt à traiter
+  l'anglais ; une société travaillant avec l'Angleterre déclare FR + EN ;
+  un marché européen élargit la liste.
+
+**Notifications et journaux (D218).** Comme pour les libellés (D127), une
+notification est un **message à format, personnalisé par langue** : une
+notification émise est **disponible dans la langue de l'opérateur**
+(destinataire). Les **journaux internes** restent **en anglais**.
+
+**Gabarits et chaîne de repli (D219).** Les **gabarits de PDF et de mails**
+suivent la **même approche : un par langue** possible. **Repli à deux
+crans** : si une langue est déclarée et qu'un **libellé, un message ou un
+gabarit n'a pas son pendant**, la **langue par défaut** est utilisée —
+définie **au global par le modèle** (la langue de l'utilisateur restant le
+choix de son profil, D124) ; en **l'absence totale de libellé**, c'est **le
+nom (invariant) du champ, du message ou du gabarit** qui est utilisé.
 
 ---
 
@@ -2961,7 +3000,7 @@ avant la synthèse Q16).
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
-| Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
+| Q45 | **Internationalisation — cœur tranché (D217–D219, §8.7)** : UTC, fuseau lié à la langue, formats par langue (multiples, défaut global, surcharge par champ), langues permises listées au modèle (1 à 3), notifications dans la langue de l'opérateur, journaux en anglais, gabarits par langue, repli à deux crans. **En attente d'arbitrage** (points soulevés par l'assistant) : dates/heures **civiles** sans fuseau vs instants UTC ; borne « une langue = un fuseau » ; **collation** fixée par instance ; formats du **CSV** (séparateurs) ; **rapport de couverture des traductions** ; API en ISO 8601 UTC. | Libellés multi-langue déjà actés (D124/D127) ; formats (D131). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
@@ -4015,3 +4054,18 @@ avant la synthèse Q16).
   la réutilisation**, pas pour le **contrat fonctionnel** ; la définition du
   contrat propre du gabarit PDF est versée aux attendus de Q57 (consignation
   rectifiée : « est un composant » → « s'apparente à un composant »).
+- **2026-07-06 (suite 7)** — **Q45 : le cœur tranché (D217–D219, §8.7 —
+  PR #14 créée entre-temps)**. **UTC** au stockage ; **fuseau dépendant de
+  la langue** de l'utilisateur ; **formats portés par la langue** (plusieurs
+  possibles, défaut global au modèle par langue, surcharge par champ) ; **le
+  modèle liste les langues permises** (périmètre réel : 1 langue en grande
+  majorité, 2 parfois, 3 au maximum) ; **notifications = messages à format
+  par langue, émis dans la langue de l'opérateur** ; **journaux internes en
+  anglais** ; **gabarits PDF/mails : un par langue** ; **repli à deux
+  crans** (langue par défaut du modèle, puis nom invariant). L'auteur
+  demande : « Vois-tu d'autres points ? » — points soulevés en réponse :
+  dates/heures **civiles** (sans conversion de fuseau) vs instants UTC,
+  borne « une langue = un fuseau » à consigner, **collation de tri fixée
+  par instance** (pagination cohérente), formats du **CSV** (séparateurs
+  colonne/décimal par langue), **rapport de couverture des traductions**
+  (patron D176), **API en ISO 8601 UTC**.

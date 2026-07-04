@@ -238,6 +238,18 @@ postures combinables :
 | D190 | **Module fonctionnel = sous-application** : **vue offerte à l'utilisateur aux fonctionnalités restreintes** (au plus ses droits, souvent moins) ; **affectation par l'administrateur** (1..n par utilisateur) ; **navigation** entre modules fonctionnels ; **module de préférence au profil**. **Défaut : un module fonctionnel unique = l'ensemble de l'application.** | **Restreint la surface présentée, n'étend jamais les droits** (sécurité = D25–D27, D70–D77). Distinct du module du schéma (D115/D117) : l'un structure la donnée, l'autre l'expérience. Voir §8.6. |
 | D191 | **Page d'accueil du module fonctionnel** : identification de l'instance (**nom d'application, nom de module fonctionnel, société, logo**) ; **bandeau gauche** = choix du module fonctionnel ; **bandeau haut** = menus et sous-menus ; **corps** = widgets (**indicateurs clés** ou **liste d'entité**) — ou une liste directe. **Défauts** : bandeau gauche absent (module fonctionnel unique) ; bandeau haut = modules du schéma avec **les parents d'agrégats uniquement** ; corps **vide**. | Inspiration design : Microsoft Azure (le design après la structure). Tranche « enfants de composition au menu » (jamais d'entrée par défaut). Widget d'accueil ≠ widget de résumé (D185). Voir §8.6. |
 | D192 | **Menu à trois niveaux possible** : module → entités parents → **entités enfants et entités de liaison** ; les liaisons ne sont **jamais proposées par défaut** (accessibles depuis une entité). L'IHM offre alors la **modification directe d'un enfant** — l'écriture **reprend l'agrégat parent/racine** (D101/D111/D132). | L'accès direct = **commodité de présentation, jamais un contournement de l'agrégat** (cohérent D150). Clôt le reste de la clarification n° 2. Voir §8.6. |
+| D193 | **Menus** : un menu **par module fonctionnel**, hiérarchique ; entrée = **sous-menu / liste d'entité / formulaire de création / action / widget de synthèse** ; **logo → page d'accueil** ; entrées **filtrées par la confidentialité** (entité invisible → toutes ses entrées invisibles). **Défaut** : modules → entités agrégats ; **sous-menus = entités enfants et associées en lien multiple** (3ᵉ niveau présent par défaut — amende D191/D192) ; entrée → liste de l'entité. | Anti-oracle (patron D126) appliqué à la navigation. Voir §8.6. |
+| D194 | **Expérience utilisateur (menu-parcours)** : un menu peut être un **enchaînement d'écrans et d'appels d'entités** — circuit de validation, processus d'enregistrement. Concept acté. | Spécification (étapes, transitions, état, droits, abandon) → **Q54 ouverte**. Voir §8.6. |
+| D195 | **Quatuor de composants par entité (complète D185)** : liste, formulaire, widget de résumé + **widget de synthèse** (page d'accueil). La liste = **tabulaire ou en widgets de résumé**. | La forme widgets suppose un widget de résumé déclaré (D201). Voir §8.6. |
+| D196 | **Fonctions d'une liste** : création / modification / suppression **si droit** — **les droits d'action par entité s'inscrivent au modèle de confidentialité** ; **confirmation de suppression = formulaire en lecture seule + confirmer/annuler, pas de popup** ; **export CSV/Excel = colonnes visibles de l'utilisateur** ; actions d'entité (D148) autorisées seulement. | Complète D25–D27/D70–D77/D153 (droits d'action). Import/impression PDF (D187) absents du raffinement — à confirmer. Voir §8.6. |
+| D197 | **Masse** : **modification en masse = parcours séquentiel** (validation → suivant, **interruptible à tout moment**, sinon parcours complet sans retour à la liste) ; **suppression en masse = double validation** (1 : nombre + synthèse des supprimés ; 2 : confirmation). | Clôt la clarification n° 7 (sélection multiple). Un seul sélectionné = suppression simple. Voir §8.6. |
+| D198 | **Paramétrage des listes** : tabulaire = colonnes + **dimensions par défaut**, tris au clic d'entête, champs filtrables, **filtres transverses** (texte multi-champs, plusieurs possibles) ; **sélection colonnes/ordre au profil utilisateur ou publiée au groupe** (administration — administrateur/responsable métier) ; en widgets = nombre par ligne, champs du widget de résumé, tris en boutons hauts, mêmes filtres. **Défaut : tabulaire, toutes colonnes, tous tris, filtre transverse global** ; 1..n listes par entité, par mode(s) responsive (défaut tous). | Clôt la clarification n° 3. Voir §8.6. |
+| D199 | **Formulaire unique à cinq usages** (création/modification/suppression/consultation/**historique**) ; **compteurs renseignés à la validation** (continuité D154) ; **blocs composables** (horizontal/vertical), bloc = **section ou onglet** ; **champs à bloc dédié** (propriété du composant graphique — agrégat, liste d'association, carte, pièces jointes) ; un bloc peut **référencer un widget de synthèse filtré sur l'enregistrement courant** ; actions en **boutons du formulaire**. **Défaut** : une section empilée + onglets pour les champs à bloc ; **historique = dernier onglet (invariant)**. | Précise D185/D188 (la popup a disparu de la liste des blocs — à confirmer). Voir §8.6. |
+| D200 | **Composant graphique d'un champ** : défini par **type + propriétés** ; **décliné en responsive par construction** — **aucun choix d'affichage laissé au technicien** ; définissable/surchargeable via hook (D64–D68). | La déclinaison responsive appartient au composant, pas à la description. Voir §8.6. |
+| D201 | **Widget de résumé précisé** : champs **sélectionnés**, **lecture seule et/ou modification** ; pas d'onglets, sections possibles ; **petit par principe**. **Défaut : n'existe pas.** | Clôt la clarification n° 4. Le défaut D186.9 (1-1 → widget) suppose un widget déclaré. Voir §8.6. |
+| D202 | **Widget de synthèse** : sur la page d'accueil — **compteurs, sommes/calculs, graphiques (types à décrire), tableaux de valeurs** ; **drill-down** vers une liste à filtres définis (part de camembert → liste des ventes de la part). **Défaut : n'existe pas.** | Nourrit Q53 (restent : types de graphiques, déclaration fine). Voir §8.6. |
+| D203 | **Modes responsive** : jeu fermé **{Écran, Tablette, Smartphone} × {portrait, paysage}**. | Clôt la clarification n° 6. Dimension transverse : champ, liste, formulaire, widget. Voir §8.6. |
+| D204 | **Page d'accueil personnalisée** : l'utilisateur **sélectionne une entrée du menu ou laisse vierge**, et **choisit les widgets de synthèse à afficher**. | Précise D191 (corps vide par défaut, rempli par l'utilisateur). Voir §8.6. |
 
 ---
 
@@ -2518,45 +2530,180 @@ concurrence état-avant/état-après D111, composition D132) : l'accès direct
 est une **commodité de présentation, jamais un contournement de l'agrégat**
 (cohérent avec D150 — les enfants ne sont pas modifiables seuls).
 
-**Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir —
-l'auteur signale que « il manque de nombreux points » et que ses propositions
-D185–D189 **demandent encore des précisions** : des raffinements sont
-attendus à la reprise ; les recommandations ci-dessous sont des propositions,
-pas des décisions) :
+**Les menus (D193, amende les défauts D191/D192).**
 
-1. **La chaîne menu → liste → formulaire** : interprétation à confirmer.
-   Corollaires : une entrée de menu peut-elle pointer **directement un
-   formulaire en création** (« Nouvelle commande ») ? Le champ 1-N affiche
-   « la liste de l'entité associée » : **laquelle**, si la cible en déclare
+- **Un menu par module fonctionnel**, organisé **par niveaux hiérarchiques**.
+- Une **entrée de menu** peut être : un **menu** (sous-menu), une **liste
+  d'entité**, un **formulaire de création**, une **action** ou un **widget
+  de synthèse**.
+- La **page d'accueil** est accessible **en cliquant sur le logo** de
+  l'application.
+- **Confidentialité** : les entrées sont **filtrées** par le niveau de
+  confidentialité défini dans le modèle — une entité non visible → **toutes
+  les entrées qui la référencent sont invisibles** (anti-oracle, patron
+  D126).
+- **Défaut sans description** : le menu représente **l'ensemble des
+  modules** (un seul module défini → l'ensemble des entités agrégats) ; les
+  **sous-menus** affichent les **entités enfants et associées (en lien
+  multiple)** — le 3ᵉ niveau (D192) est donc **présent par défaut** ; une
+  entrée de menu fait référence à **la liste de l'entité**.
+
+**L'expérience utilisateur : le menu-parcours (D194 — ouvre Q54).** Un menu
+peut aussi être une **expérience utilisateur** : un **enchaînement d'écrans
+et d'appels d'entités** rendant un parcours — un **circuit de validation**,
+un **processus d'enregistrement**, par exemple. Concept acté ; la
+spécification (déclaration des étapes, transitions, état intermédiaire,
+droits, abandon) fait l'objet de la **nouvelle question Q54**.
+
+**Le quatuor de composants d'une entité (D195, complète D185).** À la triade
+s'ajoute le **widget de synthèse de l'entité** (à intégrer sur la page
+d'accueil) : **liste, formulaire, widget de résumé, widget de synthèse**. La
+**liste** est une représentation **tabulaire** classique **ou** une
+représentation **en widgets de résumé** (elle suppose alors un widget de
+résumé déclaré).
+
+**Les fonctions d'une liste (D196).**
+
+- **Création / modification / suppression** d'un enregistrement sélectionné —
+  chacune **uniquement si l'utilisateur en a le droit** : ces **droits
+  d'action par entité s'inscrivent au modèle de confidentialité** (complète
+  D25–D27, D70–D77, D153).
+- **Confirmation de suppression** : affiche **le formulaire en lecture
+  seule** avec un bouton de **confirmation ou d'annulation** — **pas de
+  popup de validation**.
+- **Export CSV / Excel** : **toutes les colonnes visibles pour
+  l'utilisateur** — jamais plus (cohérent avec la confidentialité).
+- **Actions d'entité** (D148) sur un enregistrement, **limitées à celles
+  autorisées** pour l'utilisateur.
+
+**La masse (D197 — clôt la clarification n° 7).**
+
+- **Modification en masse = parcours séquentiel** : après la validation d'un
+  enregistrement, passage **au suivant** ; l'utilisateur peut **interrompre
+  le cheminement à tout moment** ; sinon, tous les enregistrements
+  sélectionnés sont parcourus **sans revenir à la liste**.
+- **Suppression en masse** (un seul sélectionné = suppression simple) :
+  **double validation** — la première précise le **nombre d'enregistrements**
+  et propose une **« synthèse » des enregistrements supprimés** ; la seconde
+  **confirme**.
+
+**Le paramétrage des listes (D198 — clôt la clarification n° 3).**
+
+- **Tabulaire** : les colonnes et leur **dimension par défaut** ; les tris
+  (appliqués **au clic sur l'entête** de colonne) ; les champs filtrables ;
+  le **filtre transverse** — un champ texte **recoupant plusieurs champs**,
+  et **plusieurs filtres transverses possibles** portant sur des champs
+  différents ; une option de **sélection des colonnes affichées et de leur
+  ordre**, enregistrée **au profil de l'utilisateur** ou **mise à
+  disposition de tous les utilisateurs d'un groupe** depuis l'interface
+  d'administration (accessible à l'**administrateur ou au responsable
+  métier** D127).
+- **En widgets** : le **nombre de widgets par ligne** ; les champs affichés
+  **non sélectionnables** (ils appartiennent au widget de résumé) ; les tris
+  en **boutons** dans la partie haute de la liste ; filtres et filtre
+  transverse comme le tabulaire.
+- **Défaut sans description** : format **tabulaire, toutes les colonnes,
+  tous les tris possibles, un filtre transverse sur toutes les colonnes**.
+  Plusieurs listes par entité ; chaque liste restreinte à un ou plusieurs
+  **modes responsive** (défaut : **tous les modes**).
+
+**Le formulaire unique à cinq usages (D199, précise D185/D188).** Le même
+formulaire sert la **création, la modification, la suppression, la
+consultation et la visualisation d'un historique**.
+
+- **Champs clés incrémentaux** (compteurs D154–D155) : renseignés **au
+  moment de la validation de l'enregistrement** seulement — la continuité
+  est préservée (allocation dans la transaction, D154).
+- **Blocs composables** : un bloc peut être **composé d'autres blocs**,
+  organisés **horizontalement ou verticalement** ; un bloc est une
+  **section** ou un **onglet** ; une **section** regroupe plusieurs champs
+  **l'un en dessous de l'autre**.
+- **Champs à bloc dédié** : certains types l'exigent — agrégat
+  (composition), liste d'association, coordonnées géographiques (**via une
+  carte**), pièces jointes… Cette exigence est une **propriété du composant
+  graphique** représentant le champ.
+- Un bloc peut **faire référence à un widget de synthèse avec un filtre
+  spécifique sur l'enregistrement courant** (ex. le chiffre d'affaires lié
+  au client, dans sa fiche).
+- Le formulaire est **déclinable par mode(s) responsive** ; les **actions**
+  sont accessibles **via des boutons du formulaire**.
+- **Défaut sans description** : tous les champs pouvant tenir en section
+  sont regroupés **dans une section**, l'un en dessous de l'autre ; les
+  champs à bloc dédié apparaissent **en onglets** ; l'**historique = toujours
+  un onglet, toujours le dernier** (invariant D186 confirmé).
+
+**Le composant graphique d'un champ (D200).** Défini par **le type du champ
+et ses propriétés** ; **décliné en modes responsive par construction** —
+**aucun choix d'affichage laissé au technicien** (la représentation d'un
+champ dédiée au smartphone n'a pas à s'afficher sur un écran de PC) ;
+définissable ou surchargeable **via hook** (D64–D68, déjà acté).
+
+**Le widget de résumé, précisé (D201 — clôt la clarification n° 4).** Il
+**sélectionne des champs** à afficher **en lecture seule et/ou en
+modification** ; **pas d'onglets**, mais des **sections** possibles ;
+**petit par principe** — « un widget de résumé qui prend tout l'écran n'a
+aucun intérêt ». **Défaut sans description : il n'existe pas.**
+
+**Le widget de synthèse (D202).** Il affiche sur la page d'accueil les
+**informations clés d'une entité** : des **compteurs**, des **sommes ou des
+calculs**, des **graphiques** (types à décrire — Q53), des **tableaux de
+valeurs**. Il peut **accéder à une liste avec des filtres définis** —
+drill-down : un camembert des ventes dont chaque part, cliquée, ouvre **la
+liste des ventes appartenant à la part**. **Défaut sans description : il
+n'existe pas.**
+
+**Les modes responsive (D203 — clôt la clarification n° 6).** Jeu fermé :
+**Écran, Tablette ou Smartphone** × **portrait ou paysage**.
+
+**La page d'accueil personnalisée (D204, précise D191).** Sur la page
+d'accueil, l'utilisateur peut **sélectionner une entrée du menu ou laisser
+vierge**, et **choisir les widgets de synthèse à afficher**.
+
+*Annoncé par l'auteur* : **les composants graphiques par type de champ
+restent à décrire et à affiner.**
+
+**Points à clarifier avant de clore Q48** (consignés le 05/07/2026 au soir ;
+**statuts mis à jour le 06/07/2026** après le raffinement D190–D204 — les
+propositions restantes ne sont pas des décisions) :
+
+1. ~~La chaîne menu → liste → formulaire~~ — **confirmée (D193)** : l'entrée
+   par défaut référence **la liste de l'entité** ; l'entrée « **formulaire de
+   création** » existe. **Reste un micro-point** : le champ 1-N affiche « la
+   liste de l'entité associée » — **laquelle**, si la cible en déclare
    plusieurs (proposition : la liste par défaut, sauf désignation) ?
-2. ~~Les enfants de composition au menu~~ — **tranché (D191, D192)** : le
-   menu par défaut porte les entités d'agrégats **uniquement les parents** ;
-   un **3ᵉ niveau de menu** peut porter les enfants et les entités de
-   liaison (jamais par défaut) ; la modification directe d'un enfant
-   s'applique **via l'agrégat racine** (D101/D111/D132, cohérent D150).
-3. **La liste paramétrable** : composant à part ou **propriété** de toute
-   liste déclarée (« paramétrable : oui ») ? **Qui enregistre, pour qui ?**
-   Proposition : paramètres (colonnes, ordre, tris, filtres) enregistrés au
-   **profil de l'utilisateur** (personnels) ; en option, publication d'une
-   **vue partagée** par un responsable métier (D127).
-4. **Le widget de résumé** : contenu par défaut — champs de la **clé
-   fonctionnelle** (D142) + premiers champs ? ou marque « essentiel »
-   déclarée par champ ? Déclarable comme les listes/formulaires ? Un seul
-   par entité ? Réutilisations pressenties : résultats de la recherche
-   globale (Q38), vignettes de synthèse (Q53).
-5. **L'impression PDF** : défaut proposé = la liste **telle qu'affichée**
-   (colonnes visibles, filtres appliqués) ; documents métier (facture, bon
-   de livraison) = **gabarits déclarés** — forme du gabarit à définir ;
-   l'impression est une **tâche** (D53 : exécutée une fois, supervisée).
-   L'impression d'une **fiche** (agrégat) est-elle offerte ?
-6. **Le jeu des modes responsive** : dimension transverse (champ, liste,
-   formulaire, widget) — à nommer. Proposition : **jeu fermé nommé par le
-   moteur** (ex. *large / moyen / étroit*), le thème (D63) mappant les
-   seuils ; toutes les déclarations référencent ces noms.
-7. **Les actions en marge** : la suppression (inactivation D137, CAS sur
-   l'agrégat D132) vit-elle sur la liste **et** la fiche en mode lecture ?
-   **Sélection multiple** dans une liste (suppression / export de masse) ?
-   Déclencheur d'un bloc **popup** (bouton déclaré dans le formulaire ?).
+2. ~~Les enfants de composition au menu~~ — **tranché (D191–D193)** : menu
+   par défaut = parents d'agrégats, **sous-menus par défaut = entités
+   enfants et associées en lien multiple** (D193 amende D192 : le 3ᵉ niveau
+   est présent par défaut) ; la modification directe d'un enfant s'applique
+   **via l'agrégat racine** (D101/D111/D132, cohérent D150).
+3. ~~La liste paramétrable~~ — **tranché (D198)** : sélection des colonnes
+   et de leur ordre enregistrée **au profil de l'utilisateur**, ou **publiée
+   à un groupe** depuis l'interface d'administration (administrateur ou
+   responsable métier).
+4. ~~Le widget de résumé~~ — **tranché (D201)** : champs **sélectionnés**
+   (lecture seule et/ou modification), sections sans onglets, petit par
+   principe ; **n'existe pas par défaut**. **Corollaire ouvert** : le défaut
+   D186.9 (référence 1-1 → widget au survol) ne vaut que si un widget est
+   déclaré — sinon, simple libellé navigable ?
+5. **Import et impression PDF** : présents en D187, **absents du raffinement
+   D196** (création/modification/suppression/export/actions/masse) —
+   **maintenus ou retirés ?** Si l'impression est maintenue : forme des
+   **gabarits** (documents métier — facture, bon de livraison), impression
+   d'une **fiche** ? (Proposition inchangée : défaut = la liste telle
+   qu'affichée ; l'impression est une tâche D53.)
+6. ~~Le jeu des modes responsive~~ — **tranché (D203)** : **{Écran,
+   Tablette, Smartphone} × {portrait, paysage}**.
+7. ~~Les actions de masse~~ — **tranché (D196–D197)** : modification en
+   masse séquentielle interruptible, suppression en masse à double
+   validation, confirmation de suppression = formulaire en lecture seule.
+   **Reste** : le bloc **popup** (D188) a **disparu du raffinement D199**
+   (blocs = section ou onglet, composables) — **maintenu ou abandonné ?**
+   (La confirmation de suppression écarte explicitement la popup.)
+
+**Chantiers ouverts issus du raffinement** : **Q54** (l'expérience
+utilisateur / menu-parcours, D194) ; les **types de graphiques** des widgets
+de synthèse (Q53) ; le **catalogue des composants graphiques par type de
+champ** (annoncé par l'auteur).
 
 **Apport au méta-schéma** : déclarations de listes (colonnes/tris/filtres/
 modes/actions/formulaire cible), de formulaires (blocs onglet-section-popup,
@@ -2715,8 +2862,9 @@ avant la synthèse Q16).
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
-| Q48 | **Organisation de l'IHM générée — cœur arbitré (D185–D189, §8.6)** : triade liste / écran unique à 2 modes / widget de résumé ; défauts complets sans description ; listes et formulaires déclarés (blocs onglet/section/popup) ; menu porté par le modèle. **Restent à clarifier** : les **7 points détaillés en §8.6** (chaîne menu→liste→formulaire ; enfants de composition au menu ; liste paramétrable ; widget de résumé ; impression PDF ; modes responsive ; actions de masse / popup) — **et des précisions annoncées par l'auteur sur D185–D189**. | L'architecture IHM (D63–D69, D100) + le contenu fonctionnel (D185–D189) sont posés ; les clarifications et raffinements ci-contre closent la question. |
-| Q53 | **Surfaces de synthèse** (ajout 04/07/2026) : déclaration de la **page d'accueil** (par utilisateur ? groupe/rôle ? module ?), **graphiques** (axes/séries déclarés), **tableaux de synthèse** (croisés — lien avec les compositions matricielles D134 ?), **widgets** (unités de dashboard) et **vignettes de résumé** (KPI). | Briques disponibles : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), **agrégats filtrés (D158)** comme source des chiffres, tableaux de bord intégrés (D38/D44) comme précédent. À traiter avec Q48. |
+| Q48 | **Organisation de l'IHM générée — quasi close (D185–D204, §8.6)** : **quatuor** liste / formulaire unique à 5 usages / widget de résumé / widget de synthèse ; **module fonctionnel** (D190) + page d'accueil (D191/D204) ; **menus hiérarchiques** à 5 types d'entrées, filtrés par la confidentialité (D193) ; masse (D197) ; paramétrage au profil/groupe (D198) ; responsive = {écran, tablette, smartphone} × {portrait, paysage} (D203). **Restent** : import / impression PDF (absents du raffinement — maintenus ?) ; bloc **popup** (maintenu ?) ; défaut de la référence 1-1 **sans widget déclaré** ; liste désignée du champ 1-N ; **catalogue des composants graphiques par type** (annoncé par l'auteur). | L'architecture (D63–D69, D100) + le contenu fonctionnel (D185–D204) sont posés ; les résidus ci-contre closent la question. |
+| Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
+| Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
 
 ---
 
@@ -3693,3 +3841,33 @@ avant la synthèse Q16).
   parent/racine** (D101/D111/D132, cohérent D150) — l'accès direct est une
   commodité de présentation, pas un contournement. Clôt la clarification
   n° 2 en entier.
+- **2026-07-06 (suite 2)** — **Le grand raffinement (D193–D204)**. L'auteur
+  précise l'ensemble de l'IHM. **Menus** (D193) : un par module fonctionnel,
+  hiérarchique, 5 types d'entrées (sous-menu/liste/formulaire de
+  création/action/widget de synthèse), logo → accueil, **entrées filtrées
+  par la confidentialité**, défaut à 3 niveaux (modules → agrégats →
+  enfants et associées). **Menu-parcours** (D194) : une expérience
+  utilisateur = enchaînement d'écrans (circuit de validation…) → **Q54
+  ouverte**. **Quatuor** (D195) : + widget de synthèse ; liste tabulaire ou
+  en widgets de résumé. **Fonctions de liste** (D196) : CRUD si droits —
+  **droits d'action au modèle de confidentialité** ; suppression confirmée
+  par le formulaire en lecture seule (**pas de popup**) ; export = colonnes
+  visibles. **Masse** (D197) : modification séquentielle interruptible ;
+  suppression à double validation (nombre + synthèse). **Paramétrage**
+  (D198) : dimensions de colonnes, tris au clic, **filtres transverses
+  multiples**, colonnes/ordre au profil ou publiés au groupe
+  (administrateur/responsable métier). **Formulaire à 5 usages** (D199) :
+  compteurs à la validation, **blocs composables** (section/onglet, h/v),
+  champs à bloc dédié (carte, pièces jointes…), **widget de synthèse
+  embarqué filtré sur l'enregistrement**, historique = dernier onglet.
+  **Composant graphique** (D200) : responsive **par construction**, aucun
+  choix technicien. **Widget de résumé** (D201) : champs choisis
+  lecture/modification, petit, **inexistant par défaut**. **Widget de
+  synthèse** (D202) : compteurs/calculs/graphiques/tableaux + **drill-down**
+  vers liste filtrée ; inexistant par défaut. **Responsive** (D203) :
+  {écran, tablette, smartphone} × {portrait, paysage}. **Accueil** (D204) :
+  l'utilisateur choisit une entrée de menu ou laisse vierge + ses widgets.
+  Clarifications 1/3/4/6/7 closes ; **restent** : import/impression PDF
+  (disparus du raffinement ?), bloc popup (maintenu ?), 1-1 sans widget
+  déclaré, liste désignée du 1-N, catalogue des composants par type
+  (annoncé).

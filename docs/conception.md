@@ -250,6 +250,12 @@ postures combinables :
 | D202 | **Widget de synthèse** : sur la page d'accueil — **compteurs, sommes/calculs, graphiques (types à décrire), tableaux de valeurs** ; **drill-down** vers une liste à filtres définis (part de camembert → liste des ventes de la part). **Défaut : n'existe pas.** | Nourrit Q53 (restent : types de graphiques, déclaration fine). Voir §8.6. |
 | D203 | **Modes responsive** : jeu fermé **{Écran, Tablette, Smartphone} × {portrait, paysage}**. | Clôt la clarification n° 6. Dimension transverse : champ, liste, formulaire, widget. Voir §8.6. |
 | D204 | **Page d'accueil personnalisée** : l'utilisateur **sélectionne une entrée du menu ou laisse vierge**, et **choisit les widgets de synthèse à afficher**. | Précise D191 (corps vide par défaut, rempli par l'utilisateur). Voir §8.6. |
+| D205 | **Édition en ligne dans une liste** : modifier une valeur **directement dans le tableau** — case à cocher, liste de valeurs, champ texte, valeur numérique. | Sous le droit de modification (D196) ; concurrence par champ (D111). Voir §8.6. |
+| D206 | **Déclaration des surfaces** : listes, formulaires, widgets de résumé et de synthèse — chacun **nommé + description à préciser** ; déclinaison **par mode d'affichage avec mode par défaut** (« pour éviter les blancs ») et **repli** (sans précision, la surface vaut pour tous les affichages non précisés) ; **une liste est associée à un formulaire**. | Le repli garantit qu'aucun mode d'affichage n'est orphelin. Voir §8.6. |
+| D207 | **Paramètres d'un formulaire** : **« affichage de l'historique »** (défaut **vrai** — masquable par formulaire) ; **mode lecture seule** précisable. | Nuance l'invariant D186/D199 : l'historique, *s'il est affiché*, reste le dernier onglet. Liste de paramètres ouverte. Voir §8.6. |
+| D208 | **Widget de résumé = configuration de formulaire restreinte** : mêmes items de configuration, **certains composants graphiques interdits** ; widgets de résumé et de synthèse **pluriels et nommés** par entité. | Complète D201 (pas d'onglets, petit par principe). Voir §8.6. |
+| D209 | **Masque d'explication** : à la **première consultation ou sur sollicitation** d'une surface (liste, formulaire, widget de résumé, widget de synthèse), présentation de la **description de la surface** + **les descriptions des champs affichés** (D124). | Les descriptions déclarées = l'aide en ligne, sans rédaction séparée. Première consultation mémorisée au profil (interprétation). Voir §8.6. |
+| D210 | **Modules fonctionnels déclarés** dans la description ; **un module fonctionnel déclare un menu** (D193) ; **affectation utilisateur ↔ module fonctionnel par l'administrateur** (écran d'administration). | Précise D190 — la description déclare la structure, l'administration affecte les personnes. Voir §8.6. |
 
 ---
 
@@ -2659,6 +2665,54 @@ n'existe pas.**
 d'accueil, l'utilisateur peut **sélectionner une entrée du menu ou laisser
 vierge**, et **choisir les widgets de synthèse à afficher**.
 
+**L'édition en ligne dans une liste (D205).** Une liste permet de **modifier
+une valeur directement dans le tableau** — une case à cocher, une liste de
+valeurs, un champ texte ou une valeur numérique. Sous le droit de
+modification (D196) ; la concurrence s'applique champ par champ (D111).
+
+**La déclaration des surfaces (D206).** Pour une entité, la description
+déclare :
+
+- **la ou les listes** — chacune **nommée**, avec une **description à
+  préciser** ; déclinable **par mode d'affichage** avec un **mode par
+  défaut** (« pour éviter les blancs ») ; **sans précision de mode, la liste
+  vaut pour tous les affichages non précisés** ; une liste est **associée à
+  un formulaire** ;
+- **le ou les formulaires** — mêmes règles : nommé, description, déclinaison
+  par mode d'affichage avec mode par défaut et repli sur les affichages non
+  précisés ;
+- **le ou les widgets de résumé** — nommé, description, même approche de
+  déclinaison par mode ;
+- **le ou les widgets de synthèse** — nommé, description.
+
+**Les paramètres d'un formulaire (D207).** Le formulaire porte quelques
+paramètres — actés : **« affichage de l'historique »** (par défaut **vrai** ;
+mis à **faux**, l'onglet historique est masqué — nuance de l'invariant
+D186/D199 : *s'il est affiché*, c'est toujours le dernier onglet) ; le
+**mode d'affichage lecture seule** peut être précisé (formulaire de
+consultation).
+
+**Le widget de résumé : une configuration de formulaire restreinte (D208).**
+Un widget de résumé **reprend les mêmes items de configuration qu'un
+formulaire** ; **certains composants graphiques y seront interdits** (et pas
+d'onglets — D201). Les widgets de résumé — comme les widgets de synthèse —
+sont **pluriels et nommés** par entité.
+
+**Le masque d'explication (D209).** À la **première consultation** — ou
+**sur sollicitation** — d'une liste, d'un formulaire, d'un widget de résumé
+ou d'un widget de synthèse, un **masque d'explication** est proposé : il
+présente la **description déclarée de la surface** et **reprend les
+descriptions des champs affichés** (D124). Les descriptions déclarées
+deviennent ainsi **l'aide en ligne**, sans rédaction séparée.
+*(Interprétation : la « première consultation » se mémorise au profil de
+l'utilisateur.)*
+
+**Les modules fonctionnels déclarés (D210, précise D190).** Les modules
+fonctionnels sont **déclarés dans la description** ; **un module fonctionnel
+déclare un menu** (D193) ; l'**association entre un utilisateur et un module
+fonctionnel est assurée par l'administrateur dans un écran
+d'administration**. Une entrée de menu décrit les paramètres actés en D193.
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner.**
 
@@ -2862,7 +2916,7 @@ avant la synthèse Q16).
 | **E — UI/UX (regroupe l'affichage)** | | |
 | Q38 | **Recherche & filtrage** — **cœur résolu (D125–D126)** : filtre = une valeur / un jeu / un comparateur (fondé sur la comparaison intrinsèque du type) ; champs filtrables déclarés à la table ; tris multi-clés ; anti-oracle (on ne filtre/trie que ce qu'on peut lire). **Résiduels** : plein-texte ? recherche globale trans-entités ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
 | Q45 | **Internationalisation** : libellés multi-langue, formats locaux (date/nombre/monnaie), fuseaux horaires — y compris la langue des **notifications** (D108) et des messages d'erreur. | Framework destiné à plusieurs TPE. |
-| Q48 | **Organisation de l'IHM générée — quasi close (D185–D204, §8.6)** : **quatuor** liste / formulaire unique à 5 usages / widget de résumé / widget de synthèse ; **module fonctionnel** (D190) + page d'accueil (D191/D204) ; **menus hiérarchiques** à 5 types d'entrées, filtrés par la confidentialité (D193) ; masse (D197) ; paramétrage au profil/groupe (D198) ; responsive = {écran, tablette, smartphone} × {portrait, paysage} (D203). **Restent** : import / impression PDF (absents du raffinement — maintenus ?) ; bloc **popup** (maintenu ?) ; défaut de la référence 1-1 **sans widget déclaré** ; liste désignée du champ 1-N ; **catalogue des composants graphiques par type** (annoncé par l'auteur). | L'architecture (D63–D69, D100) + le contenu fonctionnel (D185–D204) sont posés ; les résidus ci-contre closent la question. |
+| Q48 | **Organisation de l'IHM générée — quasi close (D185–D210, §8.6)** : **quatuor** liste / formulaire unique à 5 usages / widget de résumé / widget de synthèse, **surfaces nommées + description** avec déclinaison par mode et repli (D206) ; **édition en ligne** dans les listes (D205) ; **masque d'explication** (D209) ; **module fonctionnel déclaré** (D190/D210) + page d'accueil (D191/D204) ; **menus hiérarchiques** à 5 types d'entrées, filtrés par la confidentialité (D193) ; masse (D197) ; paramétrage au profil/groupe (D198) ; responsive = {écran, tablette, smartphone} × {portrait, paysage} (D203). **Restent** : import / impression PDF (absents du raffinement — maintenus ?) ; bloc **popup** (maintenu ?) ; défaut de la référence 1-1 **sans widget déclaré** ; liste désignée du champ 1-N ; **catalogue des composants graphiques par type** (annoncé par l'auteur). | L'architecture (D63–D69, D100) + le contenu fonctionnel (D185–D210) sont posés ; les résidus ci-contre closent la question. |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
 
@@ -3871,3 +3925,20 @@ avant la synthèse Q16).
   (disparus du raffinement ?), bloc popup (maintenu ?), 1-1 sans widget
   déclaré, liste désignée du 1-N, catalogue des composants par type
   (annoncé).
+- **2026-07-06 (suite 3)** — **La déclaration formalisée (D205–D210)**.
+  **Édition en ligne** dans les listes (case à cocher, liste de valeurs,
+  texte, numérique — D205). **Surfaces déclarées** (D206) : listes,
+  formulaires, widgets de résumé et de synthèse **nommés + description**,
+  déclinés **par mode d'affichage avec mode par défaut et repli** (« pour
+  éviter les blancs ») ; **une liste est associée à un formulaire**
+  (confirme la chaîne). **Paramètres de formulaire** (D207) : « affichage de
+  l'historique » (défaut vrai, masquable — l'invariant devient : *s'il est
+  affiché*, toujours dernier), mode lecture seule précisable. **Widget de
+  résumé = configuration de formulaire restreinte** (D208) — composants
+  interdits, pluriel et nommé. **Masque d'explication** (D209) : première
+  consultation ou sollicitation → descriptions de la surface et des champs
+  (D124) = l'aide en ligne sans rédaction séparée. **Modules fonctionnels
+  déclarés** (D210) : un module fonctionnel déclare un menu, l'affectation
+  utilisateur↔module par l'administrateur (écran d'administration). Les
+  résidus de Q48 (import/PDF, popup, 1-1 sans widget, liste du 1-N)
+  demeurent.

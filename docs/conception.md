@@ -2964,6 +2964,7 @@ avant la synthèse Q16).
 | Q54 | **Expérience utilisateur (menu-parcours)** (ajout 06/07/2026, D194) : spécification de l'**enchaînement d'écrans et d'appels d'entités** — déclaration des **étapes**, **transitions**, **état intermédiaire** (persisté ?), **droits**, **abandon/échec** ; exemples visés : circuit de validation, processus d'enregistrement. | Concept acté (une entrée de menu peut être une expérience, D194). À rapprocher : opérations d'entité (D148), confirmations tracées (D157), tâches et files (D53–D58). |
 | Q55 | **Import d'exploitation** (ajout 06/07/2026, D211) : l'écran dédié par module (responsable métier / administrateur) — **détail à décrire** : formats, mapping, rapport d'erreurs, liens avec la conversion faillible (D120) et le stock de rejets (D181–D184) ? | Retiré des fonctions de liste (D211) ; l'auteur décrira le détail ultérieurement. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
+| Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?). | Découle de D212 (impression = documents métier via gabarit ; le PDF est un composant D68 ; génération = tâche D53). |
 
 ---
 
@@ -4002,3 +4003,6 @@ avant la synthèse Q16).
   **L'organisation de l'IHM est close** — restent au thème E : Q53
   (graphiques, croisés, gouvernance), Q54 (parcours), Q55 (import), Q56
   (catalogue), résiduels Q38/Q45.
+- **2026-07-06 (suite 5)** — **Q57 ajoutée** à la demande de l'auteur : la
+  **construction des gabarits PDF** (description du gabarit, liaison aux
+  données, mise en page, i18n, lieu de déclaration) — découle de D212.

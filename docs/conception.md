@@ -271,7 +271,10 @@ postures combinables :
 | D223 | **Formats CSV définis au modèle** (ni utilisateur, ni langue) — **imposés par l'application**. | Uniformité des échanges de fichiers. Voir §8.7. |
 | D224 | **Couverture des traductions** : les pendants manquants (libellés, messages, gabarits) par langue déclarée sont **signalés au technicien** et **consultables dans l'administration**. | « Ignorer, jamais oublier » (D176) appliqué à l'i18n. Voir §8.7. |
 | D225 | **Sérialisation temporelle des API : chaînes de caractères** — horodatage **UTC**, valeurs **brutes** telles quelles ; format **canonique invariant ISO 8601** (brut sans décalage, horodatage suffixé `Z`), **jamais le format d'affichage**. | Le marqueur `Z` distingue seul l'horodatage du brut ; tri lexicographique = tri chronologique. **Clôt Q45.** Voir §8.7. |
-| D226 | **Recherche plein-texte : mono-entité, portée par la liste** — **la recherche globale trans-entités est écartée (assumée)** ; la correspondance **traverse les références** (« Dupont » sur la liste des commandes → les commandes passées par Dupont) ; mécanique = **contient normalisé** (D222) ; droits = ceux de la liste (D70–D77). | Ni barre d'application, ni index global — périmètre des projets réels. Précisions en cours : affichage des références (D215), enfants de composition, articulation avec le filtre transverse (D198). Voir §8.6. |
+| D226 | **Recherche plein-texte : mono-entité, portée par la liste** — **la recherche globale trans-entités est écartée (assumée)** ; la correspondance **traverse les références** (« Dupont » sur la liste des commandes → les commandes passées par Dupont) ; mécanique = **contient normalisé** (D222) ; droits = ceux de la liste (D70–D77). | Ni barre d'application, ni index global — périmètre des projets réels. Voir §8.6. |
+| D227 | **Recherches déclarées (unifie D198)** : une recherche **précise la liste des champs concernés** (les autres ignorés), **plusieurs recherches par entité** — le **même objet** que le filtre transverse : une « recherche » nommée (champs + mode). | La déclaration peut viser un champ via référence ou enfant (interprétation) ; défaut = les colonnes affichées (D198). Voir §8.6. |
+| D228 | **Filtrage vivant** : toujours « contient » ; **la liste se filtre à chaque saisie ou sélection, sans bouton « filtrer »** ; **throttling** côté client ; un filtre par type de données → composants graphiques (**Q56**). | UX temps réel, serveur ménagé. Voir §8.6. |
+| D229 | **Recherche par approximation** : mode **stricte** (sous-chaîne normalisée D222) **ou approximation** — score de similarité, **seuil**, lignes **triées par score décroissant** (Dupont exact puis Dupond ; le score prime le tri déclaré pendant la recherche). | Algorithme = choix d'implémentation ; contrat = score + seuil (défaut global, surcharge par recherche — interprétation). **Clôt Q38.** Voir §8.6. |
 
 ---
 
@@ -2782,10 +2785,37 @@ recherche « Dupont » **remonte toutes les commandes passées par Dupont**,
 alors que « Dupont » n'est pas un champ de la commande mais l'affichage de
 sa référence client. Mécanique sous-jacente : le **« contient » sur chaîne
 normalisée** (D222) ; les droits sont ceux de la liste (row-level D70–D77 —
-l'anti-oracle est gratuit). *Précisions en cours : ce que matche une
-référence (représentation d'affichage D215 ?), la participation des enfants
-de composition (l'agrégat entier ?), l'articulation avec le filtre
-transverse (D198 — un seul mécanisme ?).*
+l'anti-oracle est gratuit).
+
+**Les recherches déclarées (D227, unifie D198).** Une recherche plein-texte
+**précise la liste des champs concernés** (ex. le nom, le prénom, l'adresse
+de domiciliation) — **les autres champs sont ignorés**. **Une entité peut
+définir plusieurs recherches.** C'est **le même objet** que le filtre
+transverse (D198) : une **« recherche » nommée** au méta-schéma — des
+champs + un mode. *(Interprétations : la déclaration peut viser un champ
+**à travers une référence ou un enfant de composition** — c'est ainsi que
+« Dupont » matche depuis les commandes, et qu'un commentaire de ligne
+participe si déclaré ; le **défaut** sans description (D198) reste le filtre
+transverse sur **les colonnes affichées** — l'affichage des références
+comprises.)*
+
+**Le filtrage vivant (D228).** La recherche concerne toujours
+« **contient** ». **La liste se filtre au fil de la saisie ou de la
+sélection — pas de bouton « filtrer »** ; un **throttling** évite de
+solliciter le serveur à chaque caractère. **Pour chaque type de données, un
+filtre pourra être défini** — à décrire avec les composants graphiques
+(**Q56**).
+
+**La recherche par approximation (D229).** Une recherche porte sur une
+**sous-chaîne stricte normalisée** (D222) **ou** sur une **approximation** :
+« Dupont » retrouve les clients contenant Dupont **et, à la suite, les
+« Dupond »**. Un **calcul d'approximation** attribue un score ; seules les
+lignes **au-dessus d'un seuil** apparaissent, **triées par score
+décroissant** (les correspondances exactes d'abord — pendant une recherche
+approximative, le score prime le tri déclaré de la liste). *(Interprétations :
+l'algorithme de similarité est un choix d'implémentation du moteur — le
+contrat est « score + seuil » ; le seuil a un défaut global au modèle,
+surchargeable par recherche.)*
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -3059,7 +3089,7 @@ avant la synthèse Q16).
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
 | Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
 | **E — UI/UX (regroupe l'affichage)** | | |
-| Q38 | **Recherche & filtrage — quasi close (D125–D126, D198, D226)** : filtre = valeur/jeu/comparateur ; filtres transverses ; **plein-texte mono-entité porté par la liste, traversant les références** (« Dupont » → les commandes de Dupont) ; **recherche globale trans-entités écartée (assumée)**. **Restent 3 précisions** : ce que matche une référence (représentation d'affichage D215 ?) ; les enfants de composition participent-ils (agrégat entier ?) ; plein-texte et filtre transverse (D198) = un seul mécanisme ? | Langage de filtre contraint ≠ D90 (acté par la forme D125). |
+| ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
 | Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
@@ -4155,3 +4185,16 @@ avant la synthèse Q16).
   la référence matche sur sa représentation d'affichage (D215, un seul
   niveau ?) ; l'agrégat entier participe-t-il (commentaire d'une ligne de
   commande) ? ; unification avec le filtre transverse (D198) ?
+- **2026-07-06 (suite 10)** — **Q38 CLOSE (D227–D229)**. **Recherches
+  déclarées** : la liste des champs concernés est précisée (les autres
+  ignorés — ex. nom, prénom, adresse), **plusieurs recherches par entité** —
+  unification avec le filtre transverse (D198) : un seul objet « recherche »
+  au méta-schéma ; la traversée des références et des enfants passe par la
+  déclaration des champs (interprétation consignée) ; défaut = les colonnes
+  affichées. **Filtrage vivant** : toujours « contient », la liste se filtre
+  **à chaque saisie ou sélection, sans bouton**, avec **throttling** ; les
+  filtres par type de données seront décrits avec les composants graphiques
+  (Q56). **Approximation** : mode strict (sous-chaîne normalisée D222) ou
+  **approximatif** — score, **seuil**, tri **par score décroissant** (Dupont
+  exact avant Dupond) ; algorithme = implémentation, contrat = score+seuil.
+  Le thème E n'a plus que Q53, Q54, Q55, Q56, Q57.

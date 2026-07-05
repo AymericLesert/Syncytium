@@ -284,6 +284,17 @@ postures combinables :
 | D236 | **Mapping par l'entête** : l'entête de colonne CSV = **un libellé du champ dans la langue de l'opérateur** (D124/D127) — pas de table de mapping ; **tous les champs concernés** (sauf optionnels). | Champs calculés/fichiers/communications hors périmètre CSV (interprétation). Voir §8.6. |
 | D237 | **Réversibilité : l'export miroir** — un export produisant **le fichier ré-importable**, assuré depuis le même module d'import d'exploitation. | Export → tableur → import remplacement = l'édition de masse de Syncytium. Voir §8.6. |
 | D238 | **Provenance d'un import d'exploitation = l'opérateur** qui le réalise (audit D62) ; écran réservé responsable métier/administrateur (D211). | Pas un connecteur — distinction nette avec la reprise (D178). **Clôt Q55.** Voir §8.6. |
+| D239 | **Catalogue des graphiques du socle** : courbe, barres, secteurs (camembert/anneau), jauge, **combiné** (courbe+barres ou 2 courbes, **2 axes Y max**, même temporalité/échantillon) ; **au-delà de 2 axes = hook** (registre D68). | « Au-delà de 2 axes, illisible » — le socle reste lisible, le registre étend. Voir §8.6. |
+| D240 | **Déclaration d'un graphique** : porte sur **une entité** ; axes déclinés par type. **X = un champ**, découpé par **valeur distincte** (énuméré, valeurs d'une référence), **plages déclarées** (numériques) ou **temporalité** (heure/jour/semaine/mois/année). **Y (1 ou 2)** = **une fonction sur un champ filtrée sur la valeur de X** (somme des CA d'un commercial). | La mesure = l'agrégat filtré (D158) partitionné par X ; le filtre métier vit dans la formule. Voir §8.6. |
+| D241 | **Jauge** : **valeur de référence + valeur calculée**, chacune **formule ou valeur absolue** ; **le dépassement de 100 % est possible** (référence = cible, courante = réalisé). | Deux usages : taux borné (0–100 fixe) ou objectif dépassable. Voir §8.6. |
+| D242 | **Drill-down déclaré** : **par défaut, aucun** ; sur déclaration, une **liste nommée** — le graphique **enrichit le filtre imposé** de la liste avec la valeur cliquée. | Mécanique du filtre imposé (D216). Voir §8.6. |
+| D243 | **Le graphique = une déclaration autonome, nommée et réutilisable** : exploitable dans **plusieurs widgets de synthèse** et **plusieurs formulaires** (blocs D199). | Patron des surfaces nommées (D206) ; le bloc de formulaire le contextualise par filtre imposé. Voir §8.6. |
+| D244 | **Tableau de valeurs** : une **liste nommée** + un **tri imposé** (non sélectionnable par l'utilisateur) + un **nombre de valeurs limité**. | Pas de listes à rallonge dans un widget de synthèse. Voir §8.6. |
+| D245 | **Pas de comparaison/tendance dans le socle** : comparer = **deux widgets de synthèse côte à côte** sur des temporalités différentes ; les comparaisons complexes = **hook**. | Traitements lourds hors socle — même ligne que le combiné >2 axes (D239). Voir §8.6. |
+| D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois) ; sur numériques/dates, **plages ou temporalités déclarées pour réduire le volume** de lignes/colonnes (confirmé, comme D240). | Formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
+| D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
+| D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
+| D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
 
 ---
 
@@ -2899,6 +2910,94 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   connecteur. L'écran reste réservé au **responsable métier ou à
   l'administrateur** (D211).
 
+**Les graphiques des widgets de synthèse (D239–D242 — Q53 en cours).**
+
+- **Le catalogue du socle (D239)** : **courbe, barres, secteurs (camembert/
+  anneau), jauge, combiné**. Le **combiné** mixe courbe + barres ou deux
+  courbes sur **deux axes Y** partageant la même temporalité ou le même
+  échantillon — **borné à 2 axes** (« au-delà, cela peut vite devenir
+  illisible ») ; au-delà : **un composant par hook** (registre D68). Le
+  moteur livre un socle lisible, le registre étend.
+- **La déclaration d'un graphique (D240)** : elle **porte sur une entité** ;
+  les axes et les valeurs **se déclinent par type de graphique**.
+  - **L'axe X** (courbes, barres, anneaux, combinés) **se définit sur un
+    champ** ; le **découpage** : par **valeur distincte** (liste énumérée ou
+    valeurs d'une référence), par **regroupement en plages déclarées** pour
+    les numériques, par **temporalité** (échelle à définir : heure, jour,
+    semaine, mois, année).
+  - **L'axe Y** : **1 ou 2 axes selon le type** ; un axe Y est **une
+    fonction portant sur un champ, filtrée sur la valeur de X** (la somme
+    des CA d'un commercial) — l'agrégat filtré (D158) partitionné par X ;
+    le filtre métier vit dans la formule elle-même
+    (`somme(montant si etat = "facturée")`).
+- **La jauge (D241)** : une **valeur de référence** et une **valeur
+  calculée**, chacune étant **une formule ou une valeur absolue**. Exemples :
+  un taux de progression de 0 à 100 (fixe) avec la moyenne des progressions
+  des enregistrements d'une tâche ; ou une référence = le CA ciblé par la
+  direction et la valeur courante = la somme des CA des collaborateurs —
+  **la jauge peut alors dépasser les 100 %**.
+- **Le drill-down déclaré (D242)** : **par défaut, pas de drill-down**. Sur
+  déclaration, on précise une **liste nommée** ; à l'affichage, le graphique
+  **enrichit le filtre de la liste pour imposer** les éléments respectant la
+  valeur cliquée (la mécanique du filtre imposé, comme le champ 1-N D216).
+- **Le graphique est une déclaration autonome et réutilisable (D243)** : un
+  graphique **se déclare une fois** (nommé + description — patron D206) et
+  est **potentiellement exploitable dans plusieurs widgets de synthèse et
+  dans plusieurs formulaires** (blocs D199 — où le filtre imposé le
+  contextualise sur l'enregistrement courant).
+- **Les tableaux de valeurs : bornés et à tri imposé (D244)** : un tableau
+  de valeurs = une **liste nommée**, un **tri imposé** (non sélectionnable
+  par l'utilisateur) et un **nombre de valeurs limité** — les listes à
+  rallonge n'ont pas leur place dans un widget de synthèse.
+- **Pas de comparaison dans le socle (D245)** : pour comparer deux
+  périodes, **deux widgets de synthèse côte à côte** sur des temporalités
+  différentes — **aucune définition complémentaire**. Les comparaisons
+  complexes (traitements lourds) relèvent du **hook**, si le besoin se fait
+  sentir.
+- **Le tableau croisé dynamique (D246)** : « un outil d'analyse puissant et
+  pourtant simple à mettre en œuvre ». Il concerne **une entité** et décrit
+  **quatre éléments** : un **filtre**, le ou les **champs en ligne**, le ou
+  les **champs en colonne**, et une **formule décrivant l'intersection**.
+  **Plusieurs champs → des groupements hiérarchiques, pliables au besoin**
+  (la répartition par mois des CA par commerciaux et par client : lignes =
+  commercial › client, colonnes = mois, intersection = somme des CA).
+  **Confirmé par l'auteur** : sur les champs **numériques ou dates**, des
+  **plages ou des temporalités peuvent être définies — comme pour les
+  graphiques (D240) — pour réduire le volume de colonnes ou de lignes** ;
+  la formule = un agrégat (D158) partitionné par la cellule. **Indépendant
+  des compositions matricielles (D134)** — le croisé est une présentation,
+  applicable à toute entité.
+- **Rattachement et confidentialité du widget de synthèse (D247)** : un
+  widget de synthèse est **associé à une entité** — et **par construction à
+  un module fonctionnel**. Son **niveau de confidentialité reprend celui de
+  l'entité**, **potentiellement surchargeable**. Le pool de la page
+  d'accueil (D204) en découle : l'utilisateur compose parmi les widgets de
+  ses modules fonctionnels, sous sa confidentialité.
+- **L'évaluation : les règles des champs calculés (D248)** : le widget
+  s'évalue **selon les mêmes règles que les champs calculés** en matière de
+  visibilité — le calcul porte sur le périmètre de l'entité, l'accès au
+  résultat est gouverné par la confidentialité du widget (D247). **Le
+  drill-down, lui, ne s'applique qu'aux valeurs visibles pour
+  l'utilisateur** (D70–D77). L'écart est possible — une valeur affichée
+  peut couvrir des lignes que le drill-down ne montrera pas : **fuite ou
+  valeur déductible, assumée sous la responsabilité du technicien** (qui
+  règle la confidentialité en conséquence). **Une petite alerte informe
+  l'utilisateur** que les valeurs listées **ne couvrent pas la totalité du
+  périmètre du calcul** — pour qu'il ne s'alarme pas si une somme ne
+  correspond pas à la somme des valeurs qu'il voit.
+- **Le tableau de bord et les trois modes de rafraîchissement (D249)** :
+  une page d'accueil garnie de widgets de synthèse **constitue un tableau
+  de bord**. Un widget de synthèse dispose de **trois modes** :
+  - **statique** — calcul à l'affichage, valeurs **non remises en cause
+    jusqu'au rafraîchissement par l'utilisateur** ;
+  - **temps réel** — mise à jour **à chaque notification de mise à jour de
+    l'entité ou d'un enfant de l'entité** (les événements de données D54, à
+    l'échelle de l'agrégat) ;
+  - **fréquence** — une **fréquence déterminée**, avec rafraîchissement
+    selon cette fréquence.
+  **Le mode par défaut est statique** (confirmé par l'auteur) — le moins
+  coûteux ; D36 reste le point d'extension si un calcul devenait lourd.
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -3174,7 +3273,7 @@ avant la synthèse Q16).
 | ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
-| Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
+| ~~Q53~~ | ~~Surfaces de synthèse ?~~ | **Résolu (D191, D202, D204, D239–D249, §8.6)** : page d'accueil personnalisée dans le pool des modules fonctionnels ; **catalogue de graphiques** du socle (courbe, barres, secteurs, jauge, **combiné 2 axes max** — au-delà : hook) ; **déclaration** (X = champ découpé par valeurs/plages/temporalité ; Y = fonction filtrée sur X — agrégat D158) ; **jauge** référence+calculée (dépassement possible) ; **drill-down déclaré** (liste nommée à filtre imposé, valeurs visibles du lecteur seulement + **alerte de périmètre**) ; **graphique = déclaration autonome réutilisable** (widgets + formulaires) ; **tableaux de valeurs bornés à tri imposé** ; **pas de comparaison dans le socle** (2 widgets côte à côte ; complexe = hook) ; **croisé dynamique** (filtre + lignes + colonnes + formule, groupements pliables, plages/temporalités) ; **confidentialité héritée de l'entité surchargeable, évaluation = règles des champs calculés** (écart assumé, responsabilité technicien). |
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
@@ -4313,3 +4412,63 @@ avant la synthèse Q16).
   (D142). « Suppression » = **désactivation** (D137) — aucune suppression
   physique, celle-ci restant liée au seul connecteur de reprise (D184).
   Les deux interprétations deviennent fermes.
+- **2026-07-06 (suite 14)** — **Q53 : les graphiques arbitrés (D239–D242 —
+  PR #15 créée entre-temps)**. **Catalogue du socle** : courbe, barres,
+  secteurs (camembert/anneau), jauge, **combiné** (courbe+barres ou 2
+  courbes, **2 axes Y maximum** — « au-delà, cela peut vite devenir
+  illisible » ; au-delà = hook via le registre D68). **Déclaration** : sur
+  une entité, axes par type de graphique — **X = un champ** découpé par
+  valeur distincte (énuméré, valeurs d'une référence), par **plages
+  déclarées** (numériques) ou par **temporalité** (heure/jour/semaine/mois/
+  année) ; **Y (1 ou 2)** = une fonction sur un champ **filtrée sur la
+  valeur de X** (agrégat filtré D158 partitionné). **Jauge** : valeur de
+  référence + valeur calculée (formule ou valeur absolue), **dépassement de
+  100 % possible**. **Drill-down** : par défaut aucun ; déclaré via une
+  **liste nommée** dont le graphique **enrichit le filtre imposé** avec la
+  valeur cliquée. Restent pour clore Q53 : vignettes KPI (tendance ?),
+  tableau de valeurs, tableau croisé, gouvernance.
+- **2026-07-06 (suite 15)** — **Le graphique réutilisable (D243)**.
+  Précision de l'auteur : un graphique **se déclare une fois** et est
+  **potentiellement exploitable dans plusieurs widgets de synthèse et dans
+  plusieurs formulaires** — déclaration autonome nommée (patron D206),
+  contextualisée dans un bloc de formulaire par le filtre imposé (D199).
+- **2026-07-06 (suite 16)** — **Vignettes et tableaux de valeurs (D244–
+  D245)**. **Tableau de valeurs** = liste nommée + **tri imposé** (non
+  sélectionnable) + **nombre de valeurs limité** (pas de listes à rallonge
+  dans un widget). **Pas de comparaison/tendance dans le socle** : comparer
+  = **deux widgets côte à côte** sur des temporalités différentes ; les
+  comparaisons complexes (traitements lourds) = **hook**. Restent pour
+  clore Q53 : le tableau croisé et la gouvernance.
+- **2026-07-06 (suite 17)** — **Le tableau croisé dynamique (D246)**.
+  L'auteur : « puissant et pourtant simple à mettre en œuvre ». **Une
+  entité + 4 éléments** : filtre, champ(s) en ligne, champ(s) en colonne,
+  **formule d'intersection** ; plusieurs champs → **groupements
+  hiérarchiques pliables** (répartition par mois des CA par commerciaux et
+  par client). Découpage = D240, formule = agrégat D158 par cellule,
+  **indépendant de D134**. Reste pour clore Q53 : la gouvernance.
+- **2026-07-06 (suite 18)** — **Confirmation sur D246** : sur les champs
+  **numériques ou dates**, des **plages ou des temporalités** peuvent être
+  définies — comme pour les graphiques (D240) — **pour réduire le volume de
+  colonnes ou de lignes** du croisé. Le renvoi anticipé vers D240 devient
+  une décision ferme.
+- **2026-07-06 (suite 19)** — **Q53 CLOSE (D247–D248)**. Gouvernance : le
+  widget de synthèse est **associé à une entité, donc par construction à un
+  module fonctionnel** ; **confidentialité héritée de l'entité,
+  surchargeable**. **Évaluation = les règles des champs calculés** (le
+  calcul voit le périmètre de l'entité, l'accès au résultat est gouverné
+  par la confidentialité du widget) ; **le drill-down ne montre que les
+  valeurs visibles du lecteur** — l'écart (fuite/valeur déductible) est
+  **assumé, sous la responsabilité du technicien**, et **une petite alerte
+  prévient l'utilisateur** que les valeurs listées ne couvrent pas la
+  totalité du périmètre du calcul (pas de fausse alerte de
+  non-réconciliation). Proposition intégrée non arbitrée : calcul à
+  l'affichage (D36 en extension). **Le thème E n'a plus que Q56 et Q57.**
+- **2026-07-06 (suite 20)** — **Le tableau de bord et le rafraîchissement
+  (D249)**. Une page d'accueil de widgets de synthèse **constitue un
+  tableau de bord** ; un widget dispose de **trois modes** : **statique**
+  (calcul à l'affichage, jusqu'au rafraîchissement utilisateur — tranche la
+  proposition restée ouverte en D248), **temps réel** (à chaque
+  notification de mise à jour de l'entité ou d'un enfant — événements de
+  données D54 à l'échelle de l'agrégat), **fréquence** (période
+  déterminée). Défaut = statique (interprétation), **confirmé par l'auteur
+  dans la foulée** — « le mode par défaut est bien statique ».

@@ -294,7 +294,7 @@ postures combinables :
 | D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois) ; sur numériques/dates, **plages ou temporalités déclarées pour réduire le volume** de lignes/colonnes (confirmé, comme D240). | Formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
 | D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
 | D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
-| D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; défaut = statique (interprétation) ; D36 en extension. Voir §8.6. |
+| D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
 
 ---
 
@@ -2995,8 +2995,8 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
     l'échelle de l'agrégat) ;
   - **fréquence** — une **fréquence déterminée**, avec rafraîchissement
     selon cette fréquence.
-  *(Interprétation : le mode par défaut = statique, le moins coûteux ; D36
-  reste le point d'extension si un calcul devenait lourd.)*
+  **Le mode par défaut est statique** (confirmé par l'auteur) — le moins
+  coûteux ; D36 reste le point d'extension si un calcul devenait lourd.
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -4470,4 +4470,5 @@ avant la synthèse Q16).
   proposition restée ouverte en D248), **temps réel** (à chaque
   notification de mise à jour de l'entité ou d'un enfant — événements de
   données D54 à l'échelle de l'agrégat), **fréquence** (période
-  déterminée). Défaut = statique (interprétation).
+  déterminée). Défaut = statique (interprétation), **confirmé par l'auteur
+  dans la foulée** — « le mode par défaut est bien statique ».

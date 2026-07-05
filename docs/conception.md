@@ -296,6 +296,8 @@ postures combinables :
 | D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
 | D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
 | D250 | **La matrice d'un composant graphique : 7 types × 3 modes × 2 orientations** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; modes : **écran, tablette, smartphone** ; orientations : **portrait, paysage** (D203) — le tout **par construction** (D200). **Défaut : écran paysage.** | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
+| D251 | **Structure du gabarit PDF** : il **exploite le gabarit d'un formulaire en lecture seule** (blocs D199, types PDF des composants D250) + des ajustements — **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux** (retrouvables sur un formulaire) ; **document = entête (optionnel) + pied de page (optionnel) + un bloc-page** ; entête/pied = **gabarits nommés au même formalisme** ; la **dimension de la page est décrite**. | Liaison aux données = celle du formulaire (l'agrégat courant) ; gabarits par langue (D219). Le gabarit n'invente rien : un formulaire enrichi, rendu en PDF. Voir §8.6. |
+| D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres**. | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53) ; configuration de l'imprimante serveur à préciser. Voir §8.6. |
 
 ---
 
@@ -3030,6 +3032,25 @@ les **orientations** sont **portrait et paysage** — **par construction**
 matrice (7 types × 3 modes × 2 orientations) appartient au composant,
 jamais à la description.
 
+**La structure du gabarit PDF (D251 — Q57).** Le gabarit PDF **exploite le
+gabarit d'un formulaire en lecture seule** (les blocs D199, composés des
+types PDF des composants D250) **avec quelques ajustements** — que l'on
+**pourrait retrouver sur un formulaire** : l'ajout d'un **paragraphe de
+texte**, d'un **titre** et de **sous-titres jusqu'à 4 niveaux**. **Un
+document s'appuie sur : un entête (optionnel) + un pied de page (optionnel)
++ un bloc représentant la page.** L'entête et le pied de page sont des
+**gabarits nommés exploitant le même formalisme qu'un document**. Le format
+du document **décrit la dimension de la page** (A4, étiquette…). La liaison
+aux données est **celle du formulaire** (l'agrégat courant) ; les gabarits
+restent déclinés **par langue** (D219).
+
+**L'impression depuis le serveur (D252).** Un document PDF peut être
+**imprimé directement depuis le serveur** — le cas d'une **étiquette avec
+un QR code ou un code-barres**. *(Corollaires : le QR code et le
+code-barres sont des composants du catalogue Q56 ; l'impression est une
+tâche D53 ; la configuration de l'imprimante côté serveur reste à
+préciser.)*
+
 *Annoncé par l'auteur* : **le catalogue des composants par type de champ
 reste à décrire** → **Q56**.
 
@@ -3309,7 +3330,7 @@ avant la synthèse Q16).
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
-| Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
+| Q57 | **Construction des gabarits PDF — cœur résolu (D250–D252, §8.6)** : le gabarit = **un formulaire en lecture seule enrichi** (paragraphes, titres/sous-titres 4 niveaux), composé des **types PDF des composants** (D250) ; **document = entête + pied (optionnels, gabarits nommés au même formalisme) + bloc-page** ; **dimension de page décrite** ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (étiquettes QR/code-barres, D252). **Restent** : variables de pagination (n° de page, nombre de pages, date d'impression) dans entête/pied ? configuration de l'**imprimante serveur** (déclaration ? administration ?). | Le contrat propre est structurel : un formulaire enrichi rendu en PDF — pas un composant. |
 
 ---
 
@@ -4530,3 +4551,14 @@ avant la synthèse Q16).
   (portrait, paysage) ; **par défaut, tout est prévu pour un écran
   paysage**. Matrice d'un composant : **7 types × 3 modes × 2
   orientations**.
+- **2026-07-06 (suite 25)** — **Q57 : la structure du gabarit PDF (D251–
+  D252)**. Le gabarit **exploite le gabarit d'un formulaire en lecture
+  seule**, avec des ajustements retrouvables sur un formulaire :
+  **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux**. **Document
+  = entête (optionnel) + pied de page (optionnel) + un bloc représentant la
+  page** — entête et pied sont des **gabarits nommés au même formalisme** ;
+  la **dimension de la page est décrite**. **Impression directe depuis le
+  serveur** (étiquette à QR code ou code-barres) — corollaires : QR/code-
+  barres = composants du catalogue Q56, configuration d'imprimante serveur
+  à préciser. Micro-points soumis : variables de pagination dans
+  entête/pied, déclaration de l'imprimante.

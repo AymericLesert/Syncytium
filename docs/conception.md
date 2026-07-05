@@ -304,6 +304,10 @@ postures combinables :
 | D256 | **Boutons radio : uniquement sur un énuméré de faible cardinalité** — seuil à fixer (5 valeurs pressenties). | Variante du composant énuméré. Voir §8.8. |
 | D257 | **Rendu PDF des contenus riches = une image** ; **chaque type aura son pendant PDF** (décrit au fil du catalogue Q56). | Carte, graphique… deviennent des images dans le document. Voir §8.8. |
 | D258 | **Paramètres communs d'un composant** : **libellé, commentaire** (infobulle), **description** (masque D209 / aide détaillée), **valeur de démonstration** (placeholder D128), **états possibles** (lecture / écriture / écriture unique D153), **validation** (D156–D159), **filtre** (D228) — **+ d'autres propriétés par type** si nécessaire. | Alignement terminologique : description courte (D124) → **commentaire** ; description longue → **description** (à répercuter en Q16). Voir §8.8. |
+| D259 | **Composant texte — cadrage** : **pas de zone de texte enrichie** ; **mono/multi-ligne dérivé de la taille maximale** du champ selon un **seuil = paramètre général de l'instance** (**défaut 100 caractères**) ; **N = nombre de lignes affichées** avant repli. | Introduit les **paramètres généraux de l'instance** (réglages à défauts moteur — à intégrer en Q16). Voir §8.8. |
+| D260 | **Masque de saisie** = propriété du champ texte : `_` caractère libre, `9` chiffre, **littéraux imposés**, `[…]` classes/plages (`FR__ ____ [A-E][5-8A-E]__`). | Couvre les saisies formatées (identifiants, codes) au niveau du champ. Voir §8.8. |
+| D261 | **Rendus du texte** : lecture = tel quel (mono) / **N lignes + « voir plus » traductible** (multi, redimensionnable) ; modification = **compteur si grande taille** (seuil = paramètre d'instance), **saisie bloquée à la taille du champ**, placeholder = démo ; widget = **« libellé pour widget » + valeur** en ellipse (**variante de libellé pouvant être vide** — D124 étendu) ; cellule lecture/modification, PDF (complet, jamais tronqué), Excel (natif) validés. | Le libellé est un code décliné par surface (formulaire, colonne, widget…). Voir §8.8. |
+| D262 | **Écarts par mode, transverses à tous les composants** : **tablette** = pas de survol → description non affichée, **infobulle via un petit logo près du libellé** ; **smartphone** = **ni infobulle ni description, libellé plus petit** ; **portrait/paysage = aucun écart**. | Fixe une fois pour toutes la dégradation tablette/smartphone des paramètres communs (D258). Voir §8.8. |
 
 ---
 
@@ -3239,10 +3243,66 @@ terminologique : la « description courte » de D124 prend le nom de
 **commentaire**, la « description longue » celui de **description** — à
 répercuter au méta-schéma, Q16.)*
 
-*Convention rédactionnelle proposée (à valider)* : pour chaque type, décrire
-**en entier le comportement « écran paysage »** (le défaut, D250), puis
-**seulement les écarts** pour les autres modes et orientations — sans écart
-déclaré, le comportement se dégrade gracieusement depuis l'écran paysage.
+*Convention rédactionnelle* (validée par l'usage dès le premier type) : pour
+chaque type, décrire **en entier le comportement « écran paysage »** (le
+défaut, D250), puis **seulement les écarts** pour les autres modes et
+orientations — sans écart déclaré, le comportement se dégrade gracieusement
+depuis l'écran paysage.
+
+#### Le composant « texte » (D259–D262)
+
+**Cadrage (D259).** **Pas de zone de texte enrichie** — Syncytium ne la
+propose pas. Le **mono ou multi-ligne ne se déclare pas** : il **dérive de
+la taille maximale du champ**, comparée à un **seuil défini comme paramètre
+général de l'instance** — **par défaut : 100 caractères** (au-delà : zone de
+texte ajustable). **N = le nombre de lignes affichées par défaut** (avant
+« voir plus »). *(Nouveau concept transverse : les **paramètres généraux de
+l'instance** — réglages d'instance à défauts moteur ; à intégrer au
+méta-schéma, Q16.)*
+
+**Le masque de saisie (D260).** Le champ texte de l'entité porte une
+**propriété de masque** :
+
+- `__ ____ ____` — saisir 10 caractères en 3 groupes (2+4+4) ;
+- `99 99 99 99 99` — saisir 10 chiffres en 5 groupes de 2 ;
+- `____-___` — 7 caractères, « - » imposé entre les 2 groupes ;
+- `FR__ ____ [A-E][5-8A-E]__` — « FR » imposé en tête ; `[A-E]` = un
+  caractère entre A et E ; `[5-8A-E]` = un chiffre entre 5 et 8 **ou** un
+  caractère entre A et E.
+
+Alphabet du masque : `_` = caractère libre, `9` = chiffre, **littéraux
+imposés** (espaces, tirets, préfixes), `[…]` = classes et plages.
+
+**Les rendus (D261).**
+
+- **Lecture seule** : mono-ligne = le texte tel quel, non modifiable ;
+  multi-ligne = les **N premières lignes**, le reste **replié** — « **voir
+  plus** » l'affiche, et ce libellé est **traductible** ; la zone
+  multi-ligne est **redimensionnable verticalement**.
+- **Modification** : **compteur de caractères** affiché si la taille du
+  champ est « grande » (**au-delà d'un seuil, paramètre général de
+  l'instance**) ; **l'utilisateur ne peut pas saisir plus de caractères que
+  la taille du champ** ; zone redimensionnable verticalement ; placeholder
+  = la valeur de démonstration.
+- **Widget de résumé** : **le libellé se décline au format widget** — le
+  rendu est **« libellé pour widget » + espace + valeur du champ**, en
+  **ellipse** pour limiter l'espace ; comme les variantes formulaire et
+  colonne, **la variante widget d'un libellé peut être vide** (D124
+  étendu — un libellé est un code décliné par surface).
+- **Cellule de liste (lecture et modification), PDF, Excel** — validés
+  tels que proposés : tronquée avec ellipse + valeur complète en
+  infobulle / saisie en ligne (échappement = annuler) / **texte complet,
+  jamais tronqué** / cellule **texte native**.
+
+**Les écarts par mode — transverses à tous les composants (D262).**
+
+- **Tablette** : pas d'écart de comportement, mais **le survol n'existe
+  pas** — pas de description au survol ; **l'infobulle s'ouvre par un petit
+  logo à côté du libellé**.
+- **Smartphone** : encore moins d'espace — **ni infobulle, ni
+  description** ; **le libellé s'affiche en plus petit** pour économiser la
+  place.
+- **Portrait / paysage : aucun écart.**
 
 ---
 
@@ -4671,3 +4731,18 @@ avant la synthèse Q16).
   écriture, écriture unique), **validation, filtre** — d'autres propriétés
   possibles **par type**. Alignement terminologique consigné : description
   courte (D124) → commentaire ; description longue → description.
+- **2026-07-06 (suite 31)** — **Le composant texte, premier du catalogue
+  (D259–D262)**. L'auteur corrige et enrichit la proposition : **pas de
+  zone de texte enrichie** ; le mono/multi-ligne **dérive de la taille
+  maximale** selon un **seuil en paramètre général de l'instance** (défaut
+  100 caractères — nouveau concept transverse) ; **N = lignes affichées
+  avant repli** ; **masque de saisie** en propriété du champ (`_`, `9`,
+  littéraux, classes `[A-E]`) ; lecture multi = N lignes + « voir plus »
+  **traductible** ; modification = compteur au-delà d'un seuil d'instance,
+  **saisie bloquée à la taille** ; widget = « libellé pour widget » + valeur
+  en ellipse (**la variante widget d'un libellé peut être vide** — D124
+  étendu) ; cellule/PDF/Excel validés tels que proposés. **Écarts
+  transverses (D262)** : tablette = pas de survol, infobulle par petit logo
+  près du libellé ; smartphone = ni infobulle ni description, libellé plus
+  petit ; portrait/paysage = aucun écart. Convention rédactionnelle validée
+  par l'usage.

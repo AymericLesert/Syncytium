@@ -300,6 +300,9 @@ postures combinables :
 | D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres** ; **les imprimantes disponibles = celles du système d'exploitation du serveur** (pas de déclaration dédiée). | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53). Voir §8.6. |
 | D253 | **Le formulaire peut aussi porter un entête et un pied de page, avec des zones de texte** (complète D199/D251). | Formulaire et gabarit PDF partagent **un seul formalisme** — le gabarit = un formulaire en lecture seule + une dimension de page. Voir §8.6. |
 | D254 | **Variables de contexte = une entité « contexte »** (moteur, lecture seule) : nom du fichier, date/heure du moment, **numéro de page, nombre de pages**, opérateur, nom de l'instance, nom du module… — **exploitables comme un champ d'entité** (expressions/gabarits D90) ; **disponibilité selon le contexte** (pagination au rendu d'un document, opérateur en session). | Aucun mécanisme spécial — mécanisme uniforme. Nom définitif au méta-schéma (Q16). **Clôt Q57.** Voir §8.6. |
+| D255 | **Champs calculés à l'écran : recalculés dès qu'un champ concerné est modifié** (dépendances — règles transportées D159). | Réactivité de saisie sans aller-retour serveur ; le serveur reste la vérité (D159). Voir §8.8. |
+| D256 | **Boutons radio : uniquement sur un énuméré de faible cardinalité** — seuil à fixer (5 valeurs pressenties). | Variante du composant énuméré. Voir §8.8. |
+| D257 | **Rendu PDF des contenus riches = une image** ; **chaque type aura son pendant PDF** (décrit au fil du catalogue Q56). | Carte, graphique… deviennent des images dans le document. Voir §8.8. |
 
 ---
 
@@ -3196,6 +3199,39 @@ brute `AAAA-MM-JJTHH:MM:SS` **sans décalage**, horodatage **suffixé `Z`**) —
 distingue d'elle-même l'horodatage du brut, et le tri lexicographique des
 chaînes coïncide avec le tri chronologique.
 
+### 8.8 Le catalogue des composants graphiques (Q56 ; D255–…)
+
+**« Cette partie est une partie essentielle et consolide tous les points
+abordés jusqu'à présent »** — elle doit rendre la construction d'une
+application **simple, rapide et à l'UI/UX agréable**. Méthode annoncée par
+l'auteur : **la description reprend type par type**, et décrit **le
+comportement du composant en fonction des modes d'affichage et de
+l'orientation** (matrice D250 : 7 types de rendu × 3 modes × 2
+orientations) — de nombreuses combinaisons **à parcourir dans leur
+intégralité**.
+
+**Conventions transverses arbitrées (D255–D257) :**
+
+- **Champs calculés à l'écran (D255)** : **recalculés dès qu'un des champs
+  concernés est modifié** (les dépendances — règles transportées D159).
+- **Boutons radio (D256)** : possibles **uniquement sur une liste énumérée
+  de faible cardinalité** — seuil à fixer (**jusqu'à 5 valeurs ?** l'auteur
+  n'est pas encore fixé).
+- **Rendu PDF des contenus riches (D257)** : **devient une image** ;
+  **chaque type aura son pendant PDF**, décrit au fil du catalogue.
+
+Chaque composant fournit par ailleurs les invariants communs : libellé en
+variante de surface + marque obligatoire (D124), descriptions courte/longue
+(bulle + masque d'explication D209), valeur de démonstration en placeholder
+(D128), états (lecture seule / écriture / écriture unique D153 / masqué),
+affichage des validations transportées (D156–D159), et le **filtre propre
+au type** (D228).
+
+*Convention rédactionnelle proposée (à valider)* : pour chaque type, décrire
+**en entier le comportement « écran paysage »** (le défaut, D250), puis
+**seulement les écarts** pour les autres modes et orientations — sans écart
+déclaré, le comportement se dégrade gracieusement depuis l'écran paysage.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4605,3 +4641,14 @@ avant la synthèse Q16).
   (pagination au rendu d'un document, opérateur en session). Aucun
   mécanisme spécial. **Le thème E n'a plus que Q56** (catalogue des
   composants par type — QR code et code-barres inclus).
+- **2026-07-06 (suite 29)** — **Q56 : ouverture du catalogue (§8.8, D255–
+  D257)**. L'auteur : « cette partie est essentielle et consolide tous les
+  points abordés — je compte sur elle pour rendre la construction d'une
+  application simple, rapide et à l'UI/UX agréable ». Trois conventions
+  arbitrées : **calculés recalculés à l'écran dès qu'une dépendance est
+  modifiée** (D255) ; **boutons radio réservés aux énumérés de faible
+  cardinalité** (seuil à fixer, 5 pressenti — D256) ; **rendu PDF des
+  contenus riches = une image, chaque type aura son pendant PDF** (D257).
+  Méthode annoncée : **parcours intégral type par type**, comportement par
+  mode et orientation. Convention rédactionnelle proposée (à valider) :
+  décrire l'écran paysage en entier, puis les seuls écarts.

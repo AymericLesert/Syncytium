@@ -292,6 +292,8 @@ postures combinables :
 | D244 | **Tableau de valeurs** : une **liste nommée** + un **tri imposé** (non sélectionnable par l'utilisateur) + un **nombre de valeurs limité**. | Pas de listes à rallonge dans un widget de synthèse. Voir §8.6. |
 | D245 | **Pas de comparaison/tendance dans le socle** : comparer = **deux widgets de synthèse côte à côte** sur des temporalités différentes ; les comparaisons complexes = **hook**. | Traitements lourds hors socle — même ligne que le combiné >2 axes (D239). Voir §8.6. |
 | D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois) ; sur numériques/dates, **plages ou temporalités déclarées pour réduire le volume** de lignes/colonnes (confirmé, comme D240). | Formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
+| D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
+| D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. Calcul à l'affichage (D36 en extension) — proposition intégrée. **Clôt Q53.** Voir §8.6. |
 
 ---
 
@@ -2964,6 +2966,26 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   la formule = un agrégat (D158) partitionné par la cellule. **Indépendant
   des compositions matricielles (D134)** — le croisé est une présentation,
   applicable à toute entité.
+- **Rattachement et confidentialité du widget de synthèse (D247)** : un
+  widget de synthèse est **associé à une entité** — et **par construction à
+  un module fonctionnel**. Son **niveau de confidentialité reprend celui de
+  l'entité**, **potentiellement surchargeable**. Le pool de la page
+  d'accueil (D204) en découle : l'utilisateur compose parmi les widgets de
+  ses modules fonctionnels, sous sa confidentialité.
+- **L'évaluation : les règles des champs calculés (D248)** : le widget
+  s'évalue **selon les mêmes règles que les champs calculés** en matière de
+  visibilité — le calcul porte sur le périmètre de l'entité, l'accès au
+  résultat est gouverné par la confidentialité du widget (D247). **Le
+  drill-down, lui, ne s'applique qu'aux valeurs visibles pour
+  l'utilisateur** (D70–D77). L'écart est possible — une valeur affichée
+  peut couvrir des lignes que le drill-down ne montrera pas : **fuite ou
+  valeur déductible, assumée sous la responsabilité du technicien** (qui
+  règle la confidentialité en conséquence). **Une petite alerte informe
+  l'utilisateur** que les valeurs listées **ne couvrent pas la totalité du
+  périmètre du calcul** — pour qu'il ne s'alarme pas si une somme ne
+  correspond pas à la somme des valeurs qu'il voit. *(Proposition intégrée,
+  non arbitrée : calcul à l'affichage, pas de matérialisation — D36 restant
+  le point d'extension si un widget devenait coûteux.)*
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -3240,7 +3262,7 @@ avant la synthèse Q16).
 | ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
 | ~~Q48~~ | ~~Organisation de l'IHM générée ?~~ | **Résolu (D185–D216, §8.6)** : **quatuor de surfaces nommées** (liste tabulaire/widgets avec édition en ligne, formulaire unique à 5 usages en blocs section/onglet, widget de résumé, widget de synthèse) à déclinaison responsive avec repli ; **module fonctionnel** déclaré + page d'accueil personnalisée ; **menus hiérarchiques** à 5 types d'entrées filtrés par la confidentialité ; masse séquentielle + double validation ; **masque d'explication** ; **impression PDF** (composant, gabarits) ; export CSV ; **import → écran de module (Q55)** ; responsive {écran, tablette, smartphone} × {portrait, paysage} ; popup abandonnée. **Ouvre Q54 (menu-parcours), Q55 (import), Q56 (catalogue des composants).** |
-| Q53 | **Surfaces de synthèse — largement entamée (D191, D202, D204)** : page d'accueil structurée (bandeaux + corps de widgets, **personnalisée par l'utilisateur**) ; **widget de synthèse acté** (compteurs, sommes/calculs, graphiques, tableaux de valeurs, **drill-down vers liste filtrée**). **Restent** : les **types de graphiques** (à décrire — annoncé), la **déclaration fine** (axes/séries, sources — agrégats filtrés D158), les **tableaux croisés** (lien compositions matricielles D134 ?), la **gouvernance** des widgets proposés (par module fonctionnel ? par groupe ?). | Briques : composants dashboard/graphiques (D64), registre ouvert (D68), rendu déclaratif (D69), agrégats filtrés (D158), tableaux de bord intégrés (D38/D44). |
+| ~~Q53~~ | ~~Surfaces de synthèse ?~~ | **Résolu (D191, D202, D204, D239–D248, §8.6)** : page d'accueil personnalisée dans le pool des modules fonctionnels ; **catalogue de graphiques** du socle (courbe, barres, secteurs, jauge, **combiné 2 axes max** — au-delà : hook) ; **déclaration** (X = champ découpé par valeurs/plages/temporalité ; Y = fonction filtrée sur X — agrégat D158) ; **jauge** référence+calculée (dépassement possible) ; **drill-down déclaré** (liste nommée à filtre imposé, valeurs visibles du lecteur seulement + **alerte de périmètre**) ; **graphique = déclaration autonome réutilisable** (widgets + formulaires) ; **tableaux de valeurs bornés à tri imposé** ; **pas de comparaison dans le socle** (2 widgets côte à côte ; complexe = hook) ; **croisé dynamique** (filtre + lignes + colonnes + formule, groupements pliables, plages/temporalités) ; **confidentialité héritée de l'entité surchargeable, évaluation = règles des champs calculés** (écart assumé, responsabilité technicien). |
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
@@ -4418,3 +4440,15 @@ avant la synthèse Q16).
   définies — comme pour les graphiques (D240) — **pour réduire le volume de
   colonnes ou de lignes** du croisé. Le renvoi anticipé vers D240 devient
   une décision ferme.
+- **2026-07-06 (suite 19)** — **Q53 CLOSE (D247–D248)**. Gouvernance : le
+  widget de synthèse est **associé à une entité, donc par construction à un
+  module fonctionnel** ; **confidentialité héritée de l'entité,
+  surchargeable**. **Évaluation = les règles des champs calculés** (le
+  calcul voit le périmètre de l'entité, l'accès au résultat est gouverné
+  par la confidentialité du widget) ; **le drill-down ne montre que les
+  valeurs visibles du lecteur** — l'écart (fuite/valeur déductible) est
+  **assumé, sous la responsabilité du technicien**, et **une petite alerte
+  prévient l'utilisateur** que les valeurs listées ne couvrent pas la
+  totalité du périmètre du calcul (pas de fausse alerte de
+  non-réconciliation). Proposition intégrée non arbitrée : calcul à
+  l'affichage (D36 en extension). **Le thème E n'a plus que Q56 et Q57.**

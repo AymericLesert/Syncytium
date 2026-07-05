@@ -291,7 +291,7 @@ postures combinables :
 | D243 | **Le graphique = une déclaration autonome, nommée et réutilisable** : exploitable dans **plusieurs widgets de synthèse** et **plusieurs formulaires** (blocs D199). | Patron des surfaces nommées (D206) ; le bloc de formulaire le contextualise par filtre imposé. Voir §8.6. |
 | D244 | **Tableau de valeurs** : une **liste nommée** + un **tri imposé** (non sélectionnable par l'utilisateur) + un **nombre de valeurs limité**. | Pas de listes à rallonge dans un widget de synthèse. Voir §8.6. |
 | D245 | **Pas de comparaison/tendance dans le socle** : comparer = **deux widgets de synthèse côte à côte** sur des temporalités différentes ; les comparaisons complexes = **hook**. | Traitements lourds hors socle — même ligne que le combiné >2 axes (D239). Voir §8.6. |
-| D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois). | Découpage des champs = D240 ; formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
+| D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois) ; sur numériques/dates, **plages ou temporalités déclarées pour réduire le volume** de lignes/colonnes (confirmé, comme D240). | Formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
 
 ---
 
@@ -2957,11 +2957,13 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   les **champs en colonne**, et une **formule décrivant l'intersection**.
   **Plusieurs champs → des groupements hiérarchiques, pliables au besoin**
   (la répartition par mois des CA par commerciaux et par client : lignes =
-  commercial › client, colonnes = mois, intersection = somme des CA). Le
-  découpage des champs de ligne/colonne suit D240 (valeurs distinctes,
-  plages, temporalité) ; la formule = un agrégat (D158) partitionné par la
-  cellule. **Indépendant des compositions matricielles (D134)** — le croisé
-  est une présentation, applicable à toute entité.
+  commercial › client, colonnes = mois, intersection = somme des CA).
+  **Confirmé par l'auteur** : sur les champs **numériques ou dates**, des
+  **plages ou des temporalités peuvent être définies — comme pour les
+  graphiques (D240) — pour réduire le volume de colonnes ou de lignes** ;
+  la formule = un agrégat (D158) partitionné par la cellule. **Indépendant
+  des compositions matricielles (D134)** — le croisé est une présentation,
+  applicable à toute entité.
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -4411,3 +4413,8 @@ avant la synthèse Q16).
   hiérarchiques pliables** (répartition par mois des CA par commerciaux et
   par client). Découpage = D240, formule = agrégat D158 par cellule,
   **indépendant de D134**. Reste pour clore Q53 : la gouvernance.
+- **2026-07-06 (suite 18)** — **Confirmation sur D246** : sur les champs
+  **numériques ou dates**, des **plages ou des temporalités** peuvent être
+  définies — comme pour les graphiques (D240) — **pour réduire le volume de
+  colonnes ou de lignes** du croisé. Le renvoi anticipé vers D240 devient
+  une décision ferme.

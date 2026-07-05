@@ -299,6 +299,7 @@ postures combinables :
 | D251 | **Structure du gabarit PDF** : il **exploite le gabarit d'un formulaire en lecture seule** (blocs D199, types PDF des composants D250) + des ajustements — **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux** (retrouvables sur un formulaire) ; **document = entête (optionnel) + pied de page (optionnel) + un bloc-page** ; entête/pied = **gabarits nommés au même formalisme** ; la **dimension de la page est décrite**. | Liaison aux données = celle du formulaire (l'agrégat courant) ; gabarits par langue (D219). Le gabarit n'invente rien : un formulaire enrichi, rendu en PDF. Voir §8.6. |
 | D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres** ; **les imprimantes disponibles = celles du système d'exploitation du serveur** (pas de déclaration dédiée). | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53). Voir §8.6. |
 | D253 | **Le formulaire peut aussi porter un entête et un pied de page, avec des zones de texte** (complète D199/D251). | Formulaire et gabarit PDF partagent **un seul formalisme** — le gabarit = un formulaire en lecture seule + une dimension de page. Voir §8.6. |
+| D254 | **Variables de contexte = une entité « contexte »** (moteur, lecture seule) : nom du fichier, date/heure du moment, **numéro de page, nombre de pages**, opérateur, nom de l'instance, nom du module… — **exploitables comme un champ d'entité** (expressions/gabarits D90) ; **disponibilité selon le contexte** (pagination au rendu d'un document, opérateur en session). | Aucun mécanisme spécial — mécanisme uniforme. Nom définitif au méta-schéma (Q16). **Clôt Q57.** Voir §8.6. |
 
 ---
 
@@ -3061,6 +3062,18 @@ formulaire et gabarit PDF partagent **un seul et même formalisme** — le
 gabarit PDF étant exactement *un formulaire en lecture seule + une dimension
 de page*.
 
+**Les variables de contexte : l'entité « contexte » (D254 — clôt Q57).**
+Des variables sont **disponibles selon le contexte** : le **nom du
+fichier**, la **date et l'heure du moment**, le **numéro de page**, le
+**nombre de pages**, l'**opérateur**, le **nom de l'instance**, le **nom du
+module**… Elles sont **exploitables de la même façon qu'un champ d'une
+entité** — une **entité « contexte »** (nom illustratif — à fixer au
+méta-schéma Q16), fournie par le moteur, en **lecture seule**, consommée
+par les expressions et gabarits (D90) comme n'importe quel champ. **La
+disponibilité des champs dépend du contexte** : la pagination n'existe
+qu'au rendu d'un document, l'opérateur en session — aucun mécanisme
+spécial, le patron « mécanisme uniforme » une fois encore.
+
 *Annoncé par l'auteur* : **le catalogue des composants par type de champ
 reste à décrire** → **Q56**.
 
@@ -3340,7 +3353,7 @@ avant la synthèse Q16).
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
-| Q57 | **Construction des gabarits PDF — cœur résolu (D250–D252, §8.6)** : le gabarit = **un formulaire en lecture seule enrichi** (paragraphes, titres/sous-titres 4 niveaux), composé des **types PDF des composants** (D250) ; **document = entête + pied (optionnels, gabarits nommés au même formalisme) + bloc-page** ; **dimension de page décrite** ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (étiquettes QR/code-barres, D252). **Restent** : variables de pagination (n° de page, nombre de pages, date d'impression) dans entête/pied ? configuration de l'**imprimante serveur** (déclaration ? administration ?). | Le contrat propre est structurel : un formulaire enrichi rendu en PDF — pas un composant. |
+| ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 
 ---
 
@@ -4582,3 +4595,13 @@ avant la synthèse Q16).
   au regard du système d'exploitation** — pas de connecteur ni de
   déclaration dédiée. L'auteur demande une explication des « variables de
   pagination » avant d'arbitrer ce dernier micro-point de Q57.
+- **2026-07-06 (suite 28)** — **Q57 CLOSE (D254)**. La généralisation de
+  l'auteur : les variables de pagination deviennent des **variables de
+  contexte** — nom du fichier, date/heure du moment, numéro de page, nombre
+  de pages, opérateur, nom de l'instance, nom du module… — **exploitables
+  de la même façon qu'un champ d'une entité** : une **entité « contexte »**
+  (moteur, lecture seule, nom à fixer en Q16), consommée par les
+  expressions et gabarits D90 ; **disponibilité selon le contexte**
+  (pagination au rendu d'un document, opérateur en session). Aucun
+  mécanisme spécial. **Le thème E n'a plus que Q56** (catalogue des
+  composants par type — QR code et code-barres inclus).

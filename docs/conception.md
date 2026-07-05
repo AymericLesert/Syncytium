@@ -295,7 +295,7 @@ postures combinables :
 | D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
 | D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
 | D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
-| D250 | **La matrice d'un composant graphique : sept types × six modes** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; chaque type décliné en **six modes** {écran, tablette, smartphone} × {portrait, paysage} (D203), **par construction** (D200). | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
+| D250 | **La matrice d'un composant graphique : 7 types × 3 modes × 2 orientations** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; modes : **écran, tablette, smartphone** ; orientations : **portrait, paysage** (D203) — le tout **par construction** (D200). **Défaut : écran paysage.** | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
 
 ---
 
@@ -2700,7 +2700,10 @@ liste des ventes appartenant à la part**. **Défaut sans description : il
 n'existe pas.**
 
 **Les modes responsive (D203 — clôt la clarification n° 6).** Jeu fermé :
-**Écran, Tablette ou Smartphone** × **portrait ou paysage**.
+**Écran, Tablette ou Smartphone** × **portrait ou paysage**. *Vocabulaire
+précisé avec D250 : trois **modes** (écran, tablette, smartphone) × deux
+**orientations** (portrait, paysage) ; **par défaut, tout est prévu pour un
+écran paysage**.*
 
 **La page d'accueil personnalisée (D204, précise D191).** Sur la page
 d'accueil, l'utilisateur peut **sélectionner une entrée du menu ou laisser
@@ -3020,11 +3023,12 @@ liées** : un composant graphique **se décline en sept types** —
    produisent des **cellules typées**, dates et nombres natifs, pas des
    chaînes : l'export miroir D237 y gagne sa ré-importabilité).
 
-**Chaque type est décliné en six modes** — le jeu responsive (D203) :
-**écran portrait, écran paysage, tablette portrait, tablette paysage,
-smartphone portrait, smartphone paysage** — **par construction** (D200).
-Toute la matrice (7 types × 6 modes) appartient au composant, jamais à la
-description.
+**Chaque type est décliné en trois modes × deux orientations** — le jeu
+responsive (D203) : les **modes** sont **écran, tablette, smartphone** ;
+les **orientations** sont **portrait et paysage** — **par construction**
+(D200). **Par défaut, tout est prévu pour un écran paysage.** Toute la
+matrice (7 types × 3 modes × 2 orientations) appartient au composant,
+jamais à la description.
 
 *Annoncé par l'auteur* : **le catalogue des composants par type de champ
 reste à décrire** → **Q56**.
@@ -4521,3 +4525,8 @@ avant la synthèse Q16).
   soit **sept types** au total. La cellule en modification **est** l'édition
   en ligne (D205) : l'interprétation devient structurelle. Matrice finale :
   **7 types × 6 modes**.
+- **2026-07-06 (suite 24)** — **Vocabulaire responsive arrêté (D250/D203)** :
+  **trois modes** (écran, tablette, smartphone) × **deux orientations**
+  (portrait, paysage) ; **par défaut, tout est prévu pour un écran
+  paysage**. Matrice d'un composant : **7 types × 3 modes × 2
+  orientations**.

@@ -297,7 +297,7 @@ postures combinables :
 | D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
 | D250 | **La matrice d'un composant graphique : 7 types × 3 modes × 2 orientations** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; modes : **écran, tablette, smartphone** ; orientations : **portrait, paysage** (D203) — le tout **par construction** (D200). **Défaut : écran paysage.** | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
 | D251 | **Structure du gabarit PDF** : il **exploite le gabarit d'un formulaire en lecture seule** (blocs D199, types PDF des composants D250) + des ajustements — **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux** (retrouvables sur un formulaire) ; **document = entête (optionnel) + pied de page (optionnel) + un bloc-page** ; entête/pied = **gabarits nommés au même formalisme** ; la **dimension de la page est décrite**. | Liaison aux données = celle du formulaire (l'agrégat courant) ; gabarits par langue (D219). Le gabarit n'invente rien : un formulaire enrichi, rendu en PDF. Voir §8.6. |
-| D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres**. | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53) ; configuration de l'imprimante serveur à préciser. Voir §8.6. |
+| D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres** ; **les imprimantes disponibles = celles du système d'exploitation du serveur** (pas de déclaration dédiée). | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53). Voir §8.6. |
 | D253 | **Le formulaire peut aussi porter un entête et un pied de page, avec des zones de texte** (complète D199/D251). | Formulaire et gabarit PDF partagent **un seul formalisme** — le gabarit = un formulaire en lecture seule + une dimension de page. Voir §8.6. |
 
 ---
@@ -3047,10 +3047,11 @@ restent déclinés **par langue** (D219).
 
 **L'impression depuis le serveur (D252).** Un document PDF peut être
 **imprimé directement depuis le serveur** — le cas d'une **étiquette avec
-un QR code ou un code-barres**. *(Corollaires : le QR code et le
+un QR code ou un code-barres**. **Les imprimantes disponibles sont celles
+présentes au regard du système d'exploitation** (du serveur) — pas de
+connecteur ni de déclaration dédiée. *(Corollaires : le QR code et le
 code-barres sont des composants du catalogue Q56 ; l'impression est une
-tâche D53 ; la configuration de l'imprimante côté serveur reste à
-préciser.)*
+tâche D53.)*
 
 **Le formulaire hérite en retour (D253, complète D199/D251).** Un formulaire
 **peut également porter un entête et un pied de page** — avec des **zones de
@@ -4576,3 +4577,8 @@ avant la synthèse Q16).
   des zones de texte** — formulaire et gabarit PDF partagent **un seul
   formalisme** (le gabarit = un formulaire en lecture seule + une dimension
   de page).
+- **2026-07-06 (suite 27)** — **Les imprimantes (D252 précisé)** : les
+  imprimantes disponibles pour l'impression serveur sont **celles présentes
+  au regard du système d'exploitation** — pas de connecteur ni de
+  déclaration dédiée. L'auteur demande une explication des « variables de
+  pagination » avant d'arbitrer ce dernier micro-point de Q57.

@@ -291,6 +291,7 @@ postures combinables :
 | D243 | **Le graphique = une déclaration autonome, nommée et réutilisable** : exploitable dans **plusieurs widgets de synthèse** et **plusieurs formulaires** (blocs D199). | Patron des surfaces nommées (D206) ; le bloc de formulaire le contextualise par filtre imposé. Voir §8.6. |
 | D244 | **Tableau de valeurs** : une **liste nommée** + un **tri imposé** (non sélectionnable par l'utilisateur) + un **nombre de valeurs limité**. | Pas de listes à rallonge dans un widget de synthèse. Voir §8.6. |
 | D245 | **Pas de comparaison/tendance dans le socle** : comparer = **deux widgets de synthèse côte à côte** sur des temporalités différentes ; les comparaisons complexes = **hook**. | Traitements lourds hors socle — même ligne que le combiné >2 axes (D239). Voir §8.6. |
+| D246 | **Tableau croisé dynamique** : une entité + **4 éléments** — filtre, champ(s) **en ligne**, champ(s) **en colonne**, **formule d'intersection** ; plusieurs champs → **groupements hiérarchiques pliables** (CA par commercial › client × mois). | Découpage des champs = D240 ; formule = agrégat (D158) par cellule ; **indépendant de D134** (le croisé est une présentation). Voir §8.6. |
 
 ---
 
@@ -2950,6 +2951,17 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   différentes — **aucune définition complémentaire**. Les comparaisons
   complexes (traitements lourds) relèvent du **hook**, si le besoin se fait
   sentir.
+- **Le tableau croisé dynamique (D246)** : « un outil d'analyse puissant et
+  pourtant simple à mettre en œuvre ». Il concerne **une entité** et décrit
+  **quatre éléments** : un **filtre**, le ou les **champs en ligne**, le ou
+  les **champs en colonne**, et une **formule décrivant l'intersection**.
+  **Plusieurs champs → des groupements hiérarchiques, pliables au besoin**
+  (la répartition par mois des CA par commerciaux et par client : lignes =
+  commercial › client, colonnes = mois, intersection = somme des CA). Le
+  découpage des champs de ligne/colonne suit D240 (valeurs distinctes,
+  plages, temporalité) ; la formule = un agrégat (D158) partitionné par la
+  cellule. **Indépendant des compositions matricielles (D134)** — le croisé
+  est une présentation, applicable à toute entité.
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -4392,3 +4404,10 @@ avant la synthèse Q16).
   = **deux widgets côte à côte** sur des temporalités différentes ; les
   comparaisons complexes (traitements lourds) = **hook**. Restent pour
   clore Q53 : le tableau croisé et la gouvernance.
+- **2026-07-06 (suite 17)** — **Le tableau croisé dynamique (D246)**.
+  L'auteur : « puissant et pourtant simple à mettre en œuvre ». **Une
+  entité + 4 éléments** : filtre, champ(s) en ligne, champ(s) en colonne,
+  **formule d'intersection** ; plusieurs champs → **groupements
+  hiérarchiques pliables** (répartition par mois des CA par commerciaux et
+  par client). Découpage = D240, formule = agrégat D158 par cellule,
+  **indépendant de D134**. Reste pour clore Q53 : la gouvernance.

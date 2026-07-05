@@ -295,6 +295,7 @@ postures combinables :
 | D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
 | D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
 | D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
+| D250 | **Un composant graphique se décline en cinq modes** : **lecture seule / modification / widget de résumé / composant PDF / composant Excel** — chacun décliné en responsive par construction (D200). | Lie Q56 et Q57 : le gabarit PDF compose les modes PDF ; l'export produit des cellules typées (ré-importabilité D237) ; l'interdiction en widget (D208) = mode absent. La matrice des rendus appartient au composant, jamais à la description. Voir §8.6. |
 
 ---
 
@@ -2998,8 +2999,28 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   **Le mode par défaut est statique** (confirmé par l'auteur) — le moins
   coûteux ; D36 reste le point d'extension si un calcul devenait lourd.
 
-*Annoncé par l'auteur* : **les composants graphiques par type de champ
-restent à décrire et à affiner** → **Q56**.
+**Q56–Q57 : les cinq modes d'un composant graphique (D250).** Les deux
+questions sont **intimement liées** : un composant graphique **se décline en
+différents modes** —
+
+1. **en lecture seule** (la consultation — l'écran unique D185, mode
+   lecture) ;
+2. **en modification** (la saisie — mode écriture) ;
+3. **en widget de résumé** (le rendu compact — l'interdiction D208 se lit
+   désormais dans le composant : **un mode absent = un composant interdit**
+   dans cette surface) ;
+4. **en composant PDF** (le rendu imprimé — les gabarits PDF de Q57
+   **composent les modes PDF des composants**, comme un formulaire compose
+   leurs modes écran) ;
+5. **en composant Excel** (le rendu d'export — les exports D196/D213/D237
+   produisent des **cellules typées**, dates et nombres natifs, pas des
+   chaînes : l'export miroir D237 y gagne sa ré-importabilité).
+
+Chaque mode se décline **en responsive par construction** (D200) — toute la
+matrice des rendus appartient au composant, jamais à la description.
+
+*Annoncé par l'auteur* : **le catalogue des composants par type de champ
+reste à décrire** → **Q56**.
 
 **Les sept points de clarification — tous tranchés au 06/07/2026** (trace du
 cheminement) :
@@ -4472,3 +4493,12 @@ avant la synthèse Q16).
   données D54 à l'échelle de l'agrégat), **fréquence** (période
   déterminée). Défaut = statique (interprétation), **confirmé par l'auteur
   dans la foulée** — « le mode par défaut est bien statique ».
+- **2026-07-06 (suite 21)** — **Q56–Q57 ouvertes ensemble : les cinq modes
+  d'un composant (D250 — PR #16 créée entre-temps)**. « Les 2 questions
+  sont intimement liées » : un composant graphique **se décline en
+  lecture seule, modification, widget de résumé, composant PDF et composant
+  Excel** — chaque mode décliné en responsive par construction (D200).
+  Conséquences consignées : le gabarit PDF (Q57) **compose les modes PDF**
+  des composants comme un formulaire compose leurs modes écran ;
+  l'interdiction en widget (D208) = un mode absent ; l'export produit des
+  **cellules typées** (la ré-importabilité D237 y gagne).

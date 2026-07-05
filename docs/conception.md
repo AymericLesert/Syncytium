@@ -303,6 +303,7 @@ postures combinables :
 | D255 | **Champs calculés à l'écran : recalculés dès qu'un champ concerné est modifié** (dépendances — règles transportées D159). | Réactivité de saisie sans aller-retour serveur ; le serveur reste la vérité (D159). Voir §8.8. |
 | D256 | **Boutons radio : uniquement sur un énuméré de faible cardinalité** — seuil à fixer (5 valeurs pressenties). | Variante du composant énuméré. Voir §8.8. |
 | D257 | **Rendu PDF des contenus riches = une image** ; **chaque type aura son pendant PDF** (décrit au fil du catalogue Q56). | Carte, graphique… deviennent des images dans le document. Voir §8.8. |
+| D258 | **Paramètres communs d'un composant** : **libellé, commentaire** (infobulle), **description** (masque D209 / aide détaillée), **valeur de démonstration** (placeholder D128), **états possibles** (lecture / écriture / écriture unique D153), **validation** (D156–D159), **filtre** (D228) — **+ d'autres propriétés par type** si nécessaire. | Alignement terminologique : description courte (D124) → **commentaire** ; description longue → **description** (à répercuter en Q16). Voir §8.8. |
 
 ---
 
@@ -3220,12 +3221,23 @@ intégralité**.
 - **Rendu PDF des contenus riches (D257)** : **devient une image** ;
   **chaque type aura son pendant PDF**, décrit au fil du catalogue.
 
-Chaque composant fournit par ailleurs les invariants communs : libellé en
-variante de surface + marque obligatoire (D124), descriptions courte/longue
-(bulle + masque d'explication D209), valeur de démonstration en placeholder
-(D128), états (lecture seule / écriture / écriture unique D153 / masqué),
-affichage des validations transportées (D156–D159), et le **filtre propre
-au type** (D228).
+**Les paramètres communs d'un composant (D258).** Tout composant, quel que
+soit le type, porte les propriétés suivantes :
+
+- **libellé** (variante selon la surface — D124) ;
+- **commentaire** — pour une **infobulle** ;
+- **description** — pour le **masque des écrans** (D209) ou l'**aide
+  détaillée** ;
+- **valeur de démonstration** — le *placeholder* (D128) ;
+- **états possibles** : **lecture, écriture, écriture unique** (D153) ;
+- **validation** (l'affichage des règles transportées, D156–D159) ;
+- **filtre** (propre au type, D228).
+
+**Pour chaque type, d'autres propriétés pourraient être nécessaires** —
+déclarées par le composant, décrites au fil du catalogue. *(Alignement
+terminologique : la « description courte » de D124 prend le nom de
+**commentaire**, la « description longue » celui de **description** — à
+répercuter au méta-schéma, Q16.)*
 
 *Convention rédactionnelle proposée (à valider)* : pour chaque type, décrire
 **en entier le comportement « écran paysage »** (le défaut, D250), puis
@@ -4652,3 +4664,10 @@ avant la synthèse Q16).
   Méthode annoncée : **parcours intégral type par type**, comportement par
   mode et orientation. Convention rédactionnelle proposée (à valider) :
   décrire l'écran paysage en entier, puis les seuls écarts.
+- **2026-07-06 (suite 30)** — **Les paramètres communs d'un composant
+  (D258)**. L'auteur fixe la liste canonique : **libellé, commentaire**
+  (infobulle), **description** (masque des écrans / aide détaillée),
+  **valeur de démonstration** (placeholder), **états possibles** (lecture,
+  écriture, écriture unique), **validation, filtre** — d'autres propriétés
+  possibles **par type**. Alignement terminologique consigné : description
+  courte (D124) → commentaire ; description longue → description.

@@ -284,6 +284,10 @@ postures combinables :
 | D236 | **Mapping par l'entête** : l'entête de colonne CSV = **un libellé du champ dans la langue de l'opérateur** (D124/D127) — pas de table de mapping ; **tous les champs concernés** (sauf optionnels). | Champs calculés/fichiers/communications hors périmètre CSV (interprétation). Voir §8.6. |
 | D237 | **Réversibilité : l'export miroir** — un export produisant **le fichier ré-importable**, assuré depuis le même module d'import d'exploitation. | Export → tableur → import remplacement = l'édition de masse de Syncytium. Voir §8.6. |
 | D238 | **Provenance d'un import d'exploitation = l'opérateur** qui le réalise (audit D62) ; écran réservé responsable métier/administrateur (D211). | Pas un connecteur — distinction nette avec la reprise (D178). **Clôt Q55.** Voir §8.6. |
+| D239 | **Catalogue des graphiques du socle** : courbe, barres, secteurs (camembert/anneau), jauge, **combiné** (courbe+barres ou 2 courbes, **2 axes Y max**, même temporalité/échantillon) ; **au-delà de 2 axes = hook** (registre D68). | « Au-delà de 2 axes, illisible » — le socle reste lisible, le registre étend. Voir §8.6. |
+| D240 | **Déclaration d'un graphique** : porte sur **une entité** ; axes déclinés par type. **X = un champ**, découpé par **valeur distincte** (énuméré, valeurs d'une référence), **plages déclarées** (numériques) ou **temporalité** (heure/jour/semaine/mois/année). **Y (1 ou 2)** = **une fonction sur un champ filtrée sur la valeur de X** (somme des CA d'un commercial). | La mesure = l'agrégat filtré (D158) partitionné par X ; le filtre métier vit dans la formule. Voir §8.6. |
+| D241 | **Jauge** : **valeur de référence + valeur calculée**, chacune **formule ou valeur absolue** ; **le dépassement de 100 % est possible** (référence = cible, courante = réalisé). | Deux usages : taux borné (0–100 fixe) ou objectif dépassable. Voir §8.6. |
+| D242 | **Drill-down déclaré** : **par défaut, aucun** ; sur déclaration, une **liste nommée** — le graphique **enrichit le filtre imposé** de la liste avec la valeur cliquée. | Mécanique du filtre imposé (D216). Voir §8.6. |
 
 ---
 
@@ -2899,6 +2903,37 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   connecteur. L'écran reste réservé au **responsable métier ou à
   l'administrateur** (D211).
 
+**Les graphiques des widgets de synthèse (D239–D242 — Q53 en cours).**
+
+- **Le catalogue du socle (D239)** : **courbe, barres, secteurs (camembert/
+  anneau), jauge, combiné**. Le **combiné** mixe courbe + barres ou deux
+  courbes sur **deux axes Y** partageant la même temporalité ou le même
+  échantillon — **borné à 2 axes** (« au-delà, cela peut vite devenir
+  illisible ») ; au-delà : **un composant par hook** (registre D68). Le
+  moteur livre un socle lisible, le registre étend.
+- **La déclaration d'un graphique (D240)** : elle **porte sur une entité** ;
+  les axes et les valeurs **se déclinent par type de graphique**.
+  - **L'axe X** (courbes, barres, anneaux, combinés) **se définit sur un
+    champ** ; le **découpage** : par **valeur distincte** (liste énumérée ou
+    valeurs d'une référence), par **regroupement en plages déclarées** pour
+    les numériques, par **temporalité** (échelle à définir : heure, jour,
+    semaine, mois, année).
+  - **L'axe Y** : **1 ou 2 axes selon le type** ; un axe Y est **une
+    fonction portant sur un champ, filtrée sur la valeur de X** (la somme
+    des CA d'un commercial) — l'agrégat filtré (D158) partitionné par X ;
+    le filtre métier vit dans la formule elle-même
+    (`somme(montant si etat = "facturée")`).
+- **La jauge (D241)** : une **valeur de référence** et une **valeur
+  calculée**, chacune étant **une formule ou une valeur absolue**. Exemples :
+  un taux de progression de 0 à 100 (fixe) avec la moyenne des progressions
+  des enregistrements d'une tâche ; ou une référence = le CA ciblé par la
+  direction et la valeur courante = la somme des CA des collaborateurs —
+  **la jauge peut alors dépasser les 100 %**.
+- **Le drill-down déclaré (D242)** : **par défaut, pas de drill-down**. Sur
+  déclaration, on précise une **liste nommée** ; à l'affichage, le graphique
+  **enrichit le filtre de la liste pour imposer** les éléments respectant la
+  valeur cliquée (la mécanique du filtre imposé, comme le champ 1-N D216).
+
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
 
@@ -4313,3 +4348,18 @@ avant la synthèse Q16).
   (D142). « Suppression » = **désactivation** (D137) — aucune suppression
   physique, celle-ci restant liée au seul connecteur de reprise (D184).
   Les deux interprétations deviennent fermes.
+- **2026-07-06 (suite 14)** — **Q53 : les graphiques arbitrés (D239–D242 —
+  PR #15 créée entre-temps)**. **Catalogue du socle** : courbe, barres,
+  secteurs (camembert/anneau), jauge, **combiné** (courbe+barres ou 2
+  courbes, **2 axes Y maximum** — « au-delà, cela peut vite devenir
+  illisible » ; au-delà = hook via le registre D68). **Déclaration** : sur
+  une entité, axes par type de graphique — **X = un champ** découpé par
+  valeur distincte (énuméré, valeurs d'une référence), par **plages
+  déclarées** (numériques) ou par **temporalité** (heure/jour/semaine/mois/
+  année) ; **Y (1 ou 2)** = une fonction sur un champ **filtrée sur la
+  valeur de X** (agrégat filtré D158 partitionné). **Jauge** : valeur de
+  référence + valeur calculée (formule ou valeur absolue), **dépassement de
+  100 % possible**. **Drill-down** : par défaut aucun ; déclaré via une
+  **liste nommée** dont le graphique **enrichit le filtre imposé** avec la
+  valeur cliquée. Restent pour clore Q53 : vignettes KPI (tendance ?),
+  tableau de valeurs, tableau croisé, gouvernance.

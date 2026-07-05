@@ -298,6 +298,7 @@ postures combinables :
 | D250 | **La matrice d'un composant graphique : 7 types × 3 modes × 2 orientations** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; modes : **écran, tablette, smartphone** ; orientations : **portrait, paysage** (D203) — le tout **par construction** (D200). **Défaut : écran paysage.** | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
 | D251 | **Structure du gabarit PDF** : il **exploite le gabarit d'un formulaire en lecture seule** (blocs D199, types PDF des composants D250) + des ajustements — **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux** (retrouvables sur un formulaire) ; **document = entête (optionnel) + pied de page (optionnel) + un bloc-page** ; entête/pied = **gabarits nommés au même formalisme** ; la **dimension de la page est décrite**. | Liaison aux données = celle du formulaire (l'agrégat courant) ; gabarits par langue (D219). Le gabarit n'invente rien : un formulaire enrichi, rendu en PDF. Voir §8.6. |
 | D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres**. | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53) ; configuration de l'imprimante serveur à préciser. Voir §8.6. |
+| D253 | **Le formulaire peut aussi porter un entête et un pied de page, avec des zones de texte** (complète D199/D251). | Formulaire et gabarit PDF partagent **un seul formalisme** — le gabarit = un formulaire en lecture seule + une dimension de page. Voir §8.6. |
 
 ---
 
@@ -3051,6 +3052,14 @@ code-barres sont des composants du catalogue Q56 ; l'impression est une
 tâche D53 ; la configuration de l'imprimante côté serveur reste à
 préciser.)*
 
+**Le formulaire hérite en retour (D253, complète D199/D251).** Un formulaire
+**peut également porter un entête et un pied de page** — avec des **zones de
+texte**. Les enrichissements du gabarit PDF (paragraphes, titres,
+sous-titres — D251) et l'entête/pied valent donc **pour les deux surfaces** :
+formulaire et gabarit PDF partagent **un seul et même formalisme** — le
+gabarit PDF étant exactement *un formulaire en lecture seule + une dimension
+de page*.
+
 *Annoncé par l'auteur* : **le catalogue des composants par type de champ
 reste à décrire** → **Q56**.
 
@@ -4562,3 +4571,8 @@ avant la synthèse Q16).
   barres = composants du catalogue Q56, configuration d'imprimante serveur
   à préciser. Micro-points soumis : variables de pagination dans
   entête/pied, déclaration de l'imprimante.
+- **2026-07-06 (suite 26)** — **Le formulaire hérite en retour (D253)** :
+  un formulaire **peut également avoir un entête et un pied de page, avec
+  des zones de texte** — formulaire et gabarit PDF partagent **un seul
+  formalisme** (le gabarit = un formulaire en lecture seule + une dimension
+  de page).

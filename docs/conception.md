@@ -288,6 +288,7 @@ postures combinables :
 | D240 | **Déclaration d'un graphique** : porte sur **une entité** ; axes déclinés par type. **X = un champ**, découpé par **valeur distincte** (énuméré, valeurs d'une référence), **plages déclarées** (numériques) ou **temporalité** (heure/jour/semaine/mois/année). **Y (1 ou 2)** = **une fonction sur un champ filtrée sur la valeur de X** (somme des CA d'un commercial). | La mesure = l'agrégat filtré (D158) partitionné par X ; le filtre métier vit dans la formule. Voir §8.6. |
 | D241 | **Jauge** : **valeur de référence + valeur calculée**, chacune **formule ou valeur absolue** ; **le dépassement de 100 % est possible** (référence = cible, courante = réalisé). | Deux usages : taux borné (0–100 fixe) ou objectif dépassable. Voir §8.6. |
 | D242 | **Drill-down déclaré** : **par défaut, aucun** ; sur déclaration, une **liste nommée** — le graphique **enrichit le filtre imposé** de la liste avec la valeur cliquée. | Mécanique du filtre imposé (D216). Voir §8.6. |
+| D243 | **Le graphique = une déclaration autonome, nommée et réutilisable** : exploitable dans **plusieurs widgets de synthèse** et **plusieurs formulaires** (blocs D199). | Patron des surfaces nommées (D206) ; le bloc de formulaire le contextualise par filtre imposé. Voir §8.6. |
 
 ---
 
@@ -2933,6 +2934,11 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   déclaration, on précise une **liste nommée** ; à l'affichage, le graphique
   **enrichit le filtre de la liste pour imposer** les éléments respectant la
   valeur cliquée (la mécanique du filtre imposé, comme le champ 1-N D216).
+- **Le graphique est une déclaration autonome et réutilisable (D243)** : un
+  graphique **se déclare une fois** (nommé + description — patron D206) et
+  est **potentiellement exploitable dans plusieurs widgets de synthèse et
+  dans plusieurs formulaires** (blocs D199 — où le filtre imposé le
+  contextualise sur l'enregistrement courant).
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -4363,3 +4369,8 @@ avant la synthèse Q16).
   **liste nommée** dont le graphique **enrichit le filtre imposé** avec la
   valeur cliquée. Restent pour clore Q53 : vignettes KPI (tendance ?),
   tableau de valeurs, tableau croisé, gouvernance.
+- **2026-07-06 (suite 15)** — **Le graphique réutilisable (D243)**.
+  Précision de l'auteur : un graphique **se déclare une fois** et est
+  **potentiellement exploitable dans plusieurs widgets de synthèse et dans
+  plusieurs formulaires** — déclaration autonome nommée (patron D206),
+  contextualisée dans un bloc de formulaire par le filtre imposé (D199).

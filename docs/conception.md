@@ -289,6 +289,8 @@ postures combinables :
 | D241 | **Jauge** : **valeur de référence + valeur calculée**, chacune **formule ou valeur absolue** ; **le dépassement de 100 % est possible** (référence = cible, courante = réalisé). | Deux usages : taux borné (0–100 fixe) ou objectif dépassable. Voir §8.6. |
 | D242 | **Drill-down déclaré** : **par défaut, aucun** ; sur déclaration, une **liste nommée** — le graphique **enrichit le filtre imposé** de la liste avec la valeur cliquée. | Mécanique du filtre imposé (D216). Voir §8.6. |
 | D243 | **Le graphique = une déclaration autonome, nommée et réutilisable** : exploitable dans **plusieurs widgets de synthèse** et **plusieurs formulaires** (blocs D199). | Patron des surfaces nommées (D206) ; le bloc de formulaire le contextualise par filtre imposé. Voir §8.6. |
+| D244 | **Tableau de valeurs** : une **liste nommée** + un **tri imposé** (non sélectionnable par l'utilisateur) + un **nombre de valeurs limité**. | Pas de listes à rallonge dans un widget de synthèse. Voir §8.6. |
+| D245 | **Pas de comparaison/tendance dans le socle** : comparer = **deux widgets de synthèse côte à côte** sur des temporalités différentes ; les comparaisons complexes = **hook**. | Traitements lourds hors socle — même ligne que le combiné >2 axes (D239). Voir §8.6. |
 
 ---
 
@@ -2939,6 +2941,15 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   est **potentiellement exploitable dans plusieurs widgets de synthèse et
   dans plusieurs formulaires** (blocs D199 — où le filtre imposé le
   contextualise sur l'enregistrement courant).
+- **Les tableaux de valeurs : bornés et à tri imposé (D244)** : un tableau
+  de valeurs = une **liste nommée**, un **tri imposé** (non sélectionnable
+  par l'utilisateur) et un **nombre de valeurs limité** — les listes à
+  rallonge n'ont pas leur place dans un widget de synthèse.
+- **Pas de comparaison dans le socle (D245)** : pour comparer deux
+  périodes, **deux widgets de synthèse côte à côte** sur des temporalités
+  différentes — **aucune définition complémentaire**. Les comparaisons
+  complexes (traitements lourds) relèvent du **hook**, si le besoin se fait
+  sentir.
 
 *Annoncé par l'auteur* : **les composants graphiques par type de champ
 restent à décrire et à affiner** → **Q56**.
@@ -4374,3 +4385,10 @@ avant la synthèse Q16).
   **potentiellement exploitable dans plusieurs widgets de synthèse et dans
   plusieurs formulaires** — déclaration autonome nommée (patron D206),
   contextualisée dans un bloc de formulaire par le filtre imposé (D199).
+- **2026-07-06 (suite 16)** — **Vignettes et tableaux de valeurs (D244–
+  D245)**. **Tableau de valeurs** = liste nommée + **tri imposé** (non
+  sélectionnable) + **nombre de valeurs limité** (pas de listes à rallonge
+  dans un widget). **Pas de comparaison/tendance dans le socle** : comparer
+  = **deux widgets côte à côte** sur des temporalités différentes ; les
+  comparaisons complexes (traitements lourds) = **hook**. Restent pour
+  clore Q53 : le tableau croisé et la gouvernance.

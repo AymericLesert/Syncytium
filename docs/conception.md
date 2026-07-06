@@ -327,6 +327,10 @@ postures combinables :
 | D279 | **Date+heure : raccourcis** (maintenant, aujourd'hui…) ; affichage **calendrier + horloge combinés**. | Voir §8.8. |
 | D280 | **Compositions temporelles (agenda, emploi du temps, Gantt…) = évolutions potentielles** via le hook de composant. | Patron D263 (texte enrichi) — l'exigence sur le hook les couvre. Voir §8.8. |
 | D281 | **Socle des temporels validé** : masque **déduit du format de la langue** ; **Excel = valeurs natives** ; **brute telle quelle / horodatage au fuseau de la langue** (affichage **et** export) ; filtre = **plage/comparateur**. | Cohérent D217/D220–D221/D267. Voir §8.8. |
+| D282 | **Booléen** : case à cocher (**3 états si nullable**) ou **toggle (sans nul)** ; filtre oui/non/tous ; **libellés VRAI/FAUX/NUL surchargeables, affichés au survol** (Actif/Inactif…) ; **déclinable en liste énumérée** ; export = **libellé ou valeur** (déclaré, patron D130). | Voir §8.8. |
+| D283 | **Énuméré** : liste déroulante (D129) ; **peut représenter un jeu d'icônes ou d'images** ; cellule (D205), filtre jeu de valeurs (D228), export code/libellé (D130). | Voir §8.8. |
+| D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
+| D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
 
 ---
 
@@ -3410,6 +3414,39 @@ temporelles natives** ; la **brute** affichée telle quelle et
 l'**horodatage** converti dans le **fuseau de la langue** (D217/D220–D221)
 — y compris à l'export ; filtre = **plage/comparateur** (D228).
 
+#### Les composants de choix (D282–D285)
+
+**Le booléen (D282).** **Case à cocher** — **à trois états si le champ peut
+être nul** ; **toggle** éventuellement, **sans valeur nulle**. Filtre :
+**oui / non / tous**. **Les libellés « VRAI / FAUX / NUL » sont
+surchargeables** et **s'affichent en valeur au survol** de la zone (Actif /
+Inactif, Inscrit / Non inscrit…). **Un booléen peut se décliner en liste
+énumérée.** **Export CSV/Excel : le libellé ou la valeur** (déclaré —
+patron D130).
+
+**L'énuméré (D283).** **La liste déroulante représente bien la
+fonctionnalité** (mono-sélection D129, tri par la valeur numérique,
+libellés traduits). **Un énuméré peut également représenter un jeu
+d'icônes ou d'images.** Le reste du socle vaut par les acquis : cellule en
+modification = liste de valeurs (D205), filtre = jeu de valeurs (D228),
+export = code ou libellé déclaré (D130).
+
+**La référence (D284).** La description actée est validée : libellé ou
+élément de synthèse + lien vers la fiche en lecture seule + sélection via
+la liste nommée (D215), recherche incrémentale (D228, approximation D229),
+widget de résumé au survol s'il est déclaré (D201), **Excel = la clé
+fonctionnelle** (ré-importabilité D235–D237). **Ajout : la sélection par
+image** — **une entité peut porter un champ « image »** ; s'il est défini,
+**la sélection via une image + un libellé court est privilégiée dans un
+formulaire dédié** (le choix d'un plat dans un menu, la photo d'un
+utilisateur…).
+
+**Les boutons radio : une surcharge au formulaire (D285, amende D256).**
+Le passage d'un énuméré en boutons radio est **une surcharge graphique sur
+le champ dans un formulaire** (la chaîne D270) — **le seuil automatique de
+cardinalité est abandonné** : la pertinence (faible cardinalité) relève du
+choix du déclarant.
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -4945,3 +4982,13 @@ avant la synthèse Q16).
   socle que tu as proposé est validé » — masque déduit de la langue, Excel
   natif, brute telle quelle / horodatage au fuseau (affichage et export),
   filtre plage. La famille temporelle est close.
+- **2026-07-07 (suite 9)** — **Les choix (D282–D285)**. **Booléen** : case
+  à cocher **à 3 états si nullable**, toggle sans nul ; **libellés
+  VRAI/FAUX/NUL surchargeables affichés au survol** ; déclinable en
+  énuméré ; export = libellé ou valeur. **Énuméré** : déroulante validée ;
+  **jeu d'icônes ou d'images possible**. **Référence** : description
+  validée + **le champ « image » d'une entité** — s'il est défini, la
+  **sélection par image + libellé court** est privilégiée dans un
+  formulaire dédié (choix d'un plat). **Radios (D285, amende D256)** :
+  **surcharge graphique au formulaire** (D270) — le seuil automatique de
+  cardinalité est abandonné.

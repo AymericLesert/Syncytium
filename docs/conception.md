@@ -312,6 +312,8 @@ postures combinables :
 | D264 | **Le masque pilote les lignes** : avec un masque de saisie (D260), **le nombre de lignes dépend du nombre de lignes du masque** (prime la dérivation taille/seuil D259). | Un masque peut être multi-lignes. Voir §8.8. |
 | D265 | **Anatomie d'une zone de saisie** (écran) : **libellé + zone de saisie + post-zone** (devise, %, abréviation… ou rien) ; **tablette/smartphone : libellé ou abréviation configurables**, défaut = les libellés du mode de base. | Transverse : la post-zone servira les composés (montant, pourcentage, mesure). Voir §8.8. |
 | D266 | **Colonnes de liste : modifiables par défaut, lecture seule déclarable** — la déclaration d'une liste peut marquer une colonne **en lecture seule**. | La marque ne fait que restreindre (droits D196, mode d'accès D153, calculés) — jamais élargir. Complète D198/D205. Voir §8.6. |
+| D267 | **Composant nombre = une zone de texte à particularités** : **masque déduit des propriétés du champ et de la langue** (chiffres avant/après la virgule D118, bornes, séparateurs D131 — rien à déclarer) ; **post-libellé** (unité, devise…) placé **avant ou après selon la langue**. | Hérite du cadre du texte (D259–D265). Voir §8.8. |
+| D268 | **Saisie numérique tactile** : **clavier numérique exploité** (réserve UX de l'auteur notée) ; la zone numérique **peut afficher une calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la calculatrice = méthode de saisie tactile. | Aide à la saisie, propriété du composant. Voir §8.8. |
 
 ---
 
@@ -3335,6 +3337,26 @@ imposés** (espaces, tirets, préfixes), `[…]` = classes et plages.
   paysage, D250). *(Anatomie transverse : la post-zone servira les composés
   — montant, pourcentage, mesure.)*
 
+#### Le composant « nombre » (D267–D268)
+
+**Un nombre = une zone de texte à particularités (D267).** Le composant
+nombre **reprend le cadre du texte** (anatomie D265, masque D260) :
+
+- **le masque de saisie se déduit des propriétés du champ et de la langue
+  de l'utilisateur** — chiffres avant/après la virgule (D118), bornes,
+  séparateurs de la langue (D131) : **rien à déclarer** ;
+- **le post-libellé** (la post-zone D265) affiche **une unité, une
+  devise…** — et, **selon la langue, il se place avant ou après** la zone
+  de saisie (« $ 100 » / « 100 € », formats D131).
+
+**La saisie tactile (D268).** Sur un dispositif tactile, **le clavier
+numérique est exploité** (plutôt que l'alphabétique) — voie actée, avec la
+réserve de l'auteur : « parfois, ça gâche un peu l'expérience
+utilisateur ». Une zone de texte numérique **peut afficher une
+calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la
+calculatrice servant aussi **de méthode de saisie sur un dispositif
+tactile**.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4791,3 +4813,11 @@ avant la synthèse Q16).
   D205) ; la déclaration d'une liste peut marquer une colonne **en lecture
   seule** — la marque restreint, elle n'élargit jamais (droits D196, mode
   d'accès D153, calculés).
+- **2026-07-07 (suite 2)** — **Le composant nombre (D267–D268)**. **Un
+  nombre = une zone de texte à particularités** : le masque de saisie **se
+  déduit des propriétés du champ et de la langue** (chiffres avant/après la
+  virgule, bornes, séparateurs D131 — rien à déclarer) ; le
+  **post-libellé** (unité, devise) se place **avant ou après selon la
+  langue**. **Tactile** : clavier numérique exploité (réserve UX de
+  l'auteur notée) ; **calculatrice** à calculs élémentaires **ou clavier
+  stylisé** — méthode de saisie tactile.

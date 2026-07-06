@@ -321,6 +321,7 @@ postures combinables :
 | D273 | **Pourcentage** : post-libellé **%**, bornes 0–100 sauf déclaration ; **avec une borne, la jauge (D269) devient un choix possible**. | Pas de jauge sans bornes. Voir §8.8. |
 | D274 | **Mesure** : nombre + **post-libellé = l'unité déclarée** (D122) — rien de plus. | Voir §8.8. |
 | D275 | **Durée** : déclinée **par un masque de saisie + une option de conversion** (valeur canonique ↔ chaîne, patron D119) ; **Excel = la valeur canonique**. | Le seul composé numérique qui ne soit pas qu'un post-libellé. Voir §8.8. |
+| D276 | **Tout numérique entier borné peut être une jauge** (ex. montant entre 0 et 10 000 €) ; **le curseur** = saisie **simple et sans clavier**. | Généralise D269/D273 — la borne est la condition, pour tout numérique ; précieux sur tactile (D268). Voir §8.8. |
 
 ---
 
@@ -3370,6 +3371,13 @@ possibles) ; dans certains cas, elle peut faire apparaître **deux boutons
 [-] / [+]** pour **incrémenter ou décrémenter une valeur entière**
 (stepper).
 
+**La jauge et le curseur : la borne est la clé (D276, généralise
+D269/D273).** **Tout champ numérique entier borné peut être une jauge** —
+exemple : la saisie d'un montant **entre 0 et 10 000 €**. Et **un curseur**
+permet une **saisie simple et sans clavier** (précieux sur tactile, D268).
+La condition est la même que pour le pourcentage (D273) : **pas de jauge ni
+de curseur sans bornes**.
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -4886,3 +4894,8 @@ avant la synthèse Q16).
   **Mesure** : ne contient pas plus d'informations (post-libellé unité).
   **Durée** : **masque de saisie + option de conversion** (canonique ↔
   chaîne) ; **Excel = la valeur canonique**.
+- **2026-07-07 (suite 6)** — **Jauge et curseur généralisés (D276)** :
+  **tout champ numérique entier borné peut être une jauge** (ex. un montant
+  entre 0 et 10 000 €) ; **le curseur** offre une saisie **simple et sans
+  clavier** (tactile D268). La borne est la condition — généralise
+  D269/D273.

@@ -295,6 +295,43 @@ postures combinables :
 | D247 | **Widget de synthèse : associé à une entité** — donc **par construction à un module fonctionnel** ; **confidentialité héritée de l'entité, surchargeable**. | Le pool de la page d'accueil (D204) en découle. Voir §8.6. |
 | D248 | **Évaluation du widget = les règles des champs calculés** (calcul sur le périmètre de l'entité, accès gouverné par la confidentialité D247) ; **le drill-down ne montre que les valeurs visibles du lecteur** (D70–D77) ; écart possible = **fuite/valeur déductible assumée, responsabilité du technicien** ; **alerte à l'utilisateur** : les valeurs listées ne couvrent pas la totalité du périmètre du calcul. | L'alerte évite la fausse alerte de non-réconciliation. **Clôt Q53** (avec D249). Voir §8.6. |
 | D249 | **Tableau de bord + trois modes de rafraîchissement d'un widget** : **statique** (calcul à l'affichage, jusqu'au rafraîchissement utilisateur), **temps réel** (à chaque notification de mise à jour de l'entité ou d'un enfant), **fréquence** (période déterminée). | Une page d'accueil de widgets = un tableau de bord. Temps réel = événements de données (D54) à l'échelle de l'agrégat ; **défaut = statique (confirmé)** ; D36 en extension. Voir §8.6. |
+| D250 | **La matrice d'un composant graphique : 7 types × 3 modes × 2 orientations** — types : **lecture seule / modification / widget de résumé / cellule de liste en lecture / cellule de liste en modification / PDF / Excel** ; modes : **écran, tablette, smartphone** ; orientations : **portrait, paysage** (D203) — le tout **par construction** (D200). **Défaut : écran paysage.** | Lie Q56 et Q57 : le gabarit PDF compose les types PDF ; l'export = cellules typées (D237) ; interdiction en widget (D208) = type absent ; cellule en modification = l'édition en ligne (D205). La matrice appartient au composant, jamais à la description. Voir §8.6. |
+| D251 | **Structure du gabarit PDF** : il **exploite le gabarit d'un formulaire en lecture seule** (blocs D199, types PDF des composants D250) + des ajustements — **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux** (retrouvables sur un formulaire) ; **document = entête (optionnel) + pied de page (optionnel) + un bloc-page** ; entête/pied = **gabarits nommés au même formalisme** ; la **dimension de la page est décrite**. | Liaison aux données = celle du formulaire (l'agrégat courant) ; gabarits par langue (D219). Le gabarit n'invente rien : un formulaire enrichi, rendu en PDF. Voir §8.6. |
+| D252 | **Impression directe depuis le serveur** : un document PDF peut être imprimé côté serveur — cas de l'**étiquette à QR code ou code-barres** ; **les imprimantes disponibles = celles du système d'exploitation du serveur** (pas de déclaration dédiée). | QR/code-barres = composants du catalogue (Q56) ; impression = tâche (D53). Voir §8.6. |
+| D253 | **Le formulaire peut aussi porter un entête et un pied de page, avec des zones de texte** (complète D199/D251). | Formulaire et gabarit PDF partagent **un seul formalisme** — le gabarit = un formulaire en lecture seule + une dimension de page. Voir §8.6. |
+| D254 | **Variables de contexte = une entité « contexte »** (moteur, lecture seule) : nom du fichier, date/heure du moment, **numéro de page, nombre de pages**, opérateur, nom de l'instance, nom du module… — **exploitables comme un champ d'entité** (expressions/gabarits D90) ; **disponibilité selon le contexte** (pagination au rendu d'un document, opérateur en session). | Aucun mécanisme spécial — mécanisme uniforme. Nom définitif au méta-schéma (Q16). **Clôt Q57.** Voir §8.6. |
+| D255 | **Champs calculés à l'écran : recalculés dès qu'un champ concerné est modifié** (dépendances — règles transportées D159). | Réactivité de saisie sans aller-retour serveur ; le serveur reste la vérité (D159). Voir §8.8. |
+| D256 | **Boutons radio : uniquement sur un énuméré de faible cardinalité** — seuil à fixer (5 valeurs pressenties). | Variante du composant énuméré. Voir §8.8. |
+| D257 | **Rendu PDF des contenus riches = une image** ; **chaque type aura son pendant PDF** (décrit au fil du catalogue Q56). | Carte, graphique… deviennent des images dans le document. Voir §8.8. |
+| D258 | **Paramètres communs d'un composant** : **libellé, commentaire** (infobulle), **description** (masque D209 / aide détaillée), **valeur de démonstration** (placeholder D128), **états possibles** (lecture / écriture / écriture unique D153), **validation** (D156–D159), **filtre** (D228) — **+ d'autres propriétés par type** si nécessaire. | Alignement terminologique : description courte (D124) → **commentaire** ; description longue → **description** (à répercuter en Q16). Voir §8.8. |
+| D259 | **Composant texte — cadrage** : **pas de zone de texte enrichie** ; **mono/multi-ligne dérivé de la taille maximale** du champ selon un **seuil = paramètre général de l'instance** (**défaut 100 caractères**) ; **N = nombre de lignes affichées** avant repli. | Introduit les **paramètres généraux de l'instance** (réglages à défauts moteur — à intégrer en Q16). Voir §8.8. |
+| D260 | **Masque de saisie** = propriété du champ texte : `_` caractère libre, `9` chiffre, **littéraux imposés**, `[…]` classes/plages (`FR__ ____ [A-E][5-8A-E]__`). | Couvre les saisies formatées (identifiants, codes) au niveau du champ. Voir §8.8. |
+| D261 | **Rendus du texte** : lecture = tel quel (mono) / **N lignes + « voir plus » traductible** (multi, redimensionnable) ; modification = **compteur si grande taille** (seuil = paramètre d'instance), **saisie bloquée à la taille du champ**, placeholder = démo ; widget = **« libellé pour widget » + valeur** en ellipse (**variante de libellé pouvant être vide** — D124 étendu) ; cellule lecture/modification, PDF (complet, jamais tronqué), Excel (natif) validés. | Le libellé est un code décliné par surface (formulaire, colonne, widget…). Voir §8.8. |
+| D262 | **Écarts par mode, transverses à tous les composants** : **tablette** = pas de survol → description non affichée, **infobulle via un petit logo près du libellé** ; **smartphone** = **ni infobulle ni description, libellé plus petit** ; **portrait/paysage = aucun écart**. | Fixe une fois pour toutes la dégradation tablette/smartphone des paramètres communs (D258). Voir §8.8. |
+| D263 | **Zone de texte enrichie = évolution potentielle** : ultérieurement, composant graphique d'un **type de champ complexe** (ex. « document ») ; **le hook de composant (D64–D68) devra permettre de développer ce type de composant**. | Hors socle — exigence posée sur l'extensibilité. Voir §8.8. |
+| D264 | **Le masque pilote les lignes** : avec un masque de saisie (D260), **le nombre de lignes dépend du nombre de lignes du masque** (prime la dérivation taille/seuil D259). | Un masque peut être multi-lignes. Voir §8.8. |
+| D265 | **Anatomie d'une zone de saisie** (écran) : **libellé + zone de saisie + post-zone** (devise, %, abréviation… ou rien) ; **tablette/smartphone : libellé ou abréviation configurables**, défaut = les libellés du mode de base. | Transverse : la post-zone servira les composés (montant, pourcentage, mesure). Voir §8.8. |
+| D266 | **Colonnes de liste : modifiables par défaut, lecture seule déclarable** — la déclaration d'une liste peut marquer une colonne **en lecture seule**. | La marque ne fait que restreindre (droits D196, mode d'accès D153, calculés) — jamais élargir. Complète D198/D205. Voir §8.6. |
+| D267 | **Composant nombre = une zone de texte à particularités** : **masque déduit des propriétés du champ et de la langue** (chiffres avant/après la virgule D118, bornes, séparateurs D131 — rien à déclarer) ; **post-libellé** (unité, devise…) placé **avant ou après selon la langue**. | Hérite du cadre du texte (D259–D265). Voir §8.8. |
+| D268 | **Saisie numérique tactile** : **clavier numérique exploité** (réserve UX de l'auteur notée) ; la zone numérique **peut afficher une calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la calculatrice = méthode de saisie tactile. | Aide à la saisie, propriété du composant. Voir §8.8. |
+| D269 | **Variantes du nombre** : présentation en **jauge** (styles multiples, saisie ou affichage) ; **boutons [-] / [+]** pour incrémenter/décrémenter une **valeur entière** (stepper). | Variantes du catalogue numérique. Voir §8.8. |
+| D270 | **Surcharge du composant au formulaire** : le défaut vient de la **description du modèle** (type → composant, champ D64) ; **le formulaire peut surcharger** pour choisir le type de GUI. | Chaîne : type → champ → formulaire ; la surcharge choisit parmi les composants **compatibles avec le type**, n'élargit ni droits ni états. Voir §8.8. |
+| D271 | **Rendus du nombre par surface** : **aligné à droite** partout ; cellule en modification = saisie en ligne (D205) ; **Excel = nombre natif** ; **filtre = comparateur/plage** (D228) ; widget = patron du texte (valeur formatée, ellipse) ; PDF = valeur formatée avec post-libellé. | Validés tels que proposés. Voir §8.8. |
+| D272 | **Montant** : nombre + post-libellé = **devise du jeu déclaré** (D123), placée selon la langue (D267) ; **décimales définies sur les propriétés du champ** (2/3/4 selon la précision — D118), **indépendamment de la devise** ; Excel = format monétaire natif. | La précision est un besoin métier, pas une propriété de la devise. Voir §8.8. |
+| D273 | **Pourcentage** : post-libellé **%**, bornes 0–100 sauf déclaration ; **avec une borne, la jauge (D269) devient un choix possible**. | Pas de jauge sans bornes. Voir §8.8. |
+| D274 | **Mesure** : nombre + **post-libellé = l'unité déclarée** (D122) — rien de plus. | Voir §8.8. |
+| D275 | **Durée** : déclinée **par un masque de saisie + une option de conversion** (valeur canonique ↔ chaîne, patron D119) ; **Excel = la valeur canonique**. | Le seul composé numérique qui ne soit pas qu'un post-libellé. Voir §8.8. |
+| D276 | **Tout numérique entier borné peut être une jauge** (ex. montant entre 0 et 10 000 €) ; **le curseur** = saisie **simple et sans clavier**. | Généralise D269/D273 — la borne est la condition, pour tout numérique ; précieux sur tactile (D268). Voir §8.8. |
+| D277 | **Heure : précision portée par la propriété du champ** — hh / hh:mm / hh:mm:ss / hh:mm:ss.sss ; **horloge** pour saisir ou afficher. | Voir §8.8. |
+| D278 | **Date : raccourcis** (aujourd'hui, la veille, hier, début/fin de mois…) **sur un clavier stylisé** (patron D268) ; **calendrier année/mois/semaine** avec **n° de semaine lié à la langue**. | Les conventions de numérotation des semaines varient par pays. Voir §8.8. |
+| D279 | **Date+heure : raccourcis** (maintenant, aujourd'hui…) ; affichage **calendrier + horloge combinés**. | Voir §8.8. |
+| D280 | **Compositions temporelles (agenda, emploi du temps, Gantt…) = évolutions potentielles** via le hook de composant. | Patron D263 (texte enrichi) — l'exigence sur le hook les couvre. Voir §8.8. |
+| D281 | **Socle des temporels validé** : masque **déduit du format de la langue** ; **Excel = valeurs natives** ; **brute telle quelle / horodatage au fuseau de la langue** (affichage **et** export) ; filtre = **plage/comparateur**. | Cohérent D217/D220–D221/D267. Voir §8.8. |
+| D282 | **Booléen** : case à cocher (**3 états si nullable**) ou **toggle (sans nul)** ; filtre oui/non/tous ; **libellés VRAI/FAUX/NUL surchargeables, affichés au survol** (Actif/Inactif…) ; **déclinable en liste énumérée** ; export = **libellé ou valeur** (déclaré, patron D130). | Voir §8.8. |
+| D283 | **Énuméré** : liste déroulante (D129) ; **peut représenter un jeu d'icônes ou d'images** ; cellule (D205), filtre jeu de valeurs (D228), export code/libellé (D130). | Voir §8.8. |
+| D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
+| D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
+| D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; **vignette calculée automatiquement par le moteur (confirmé)**. Voir §8.8. |
 
 ---
 
@@ -531,7 +568,9 @@ D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
   chiffres avant/après la virgule), booléen, **date**, **heure**,
   **date et heure**, **durée**, fichier, énuméré (**mono-sélection
   uniquement** — pas de multiple : le multi-valué passe par une entité liée,
-  cohérent avec l'atomicité D118).
+  cohérent avec l'atomicité D118) ; **ajoutés le 07/07/2026 (D286)** :
+  **vignette** (image de petite taille) et **image** (grande taille **+
+  déclinaison en vignette**).
 - **Composés livrés** (bibliothèque enrichissable D52/D68) : `montant`,
   `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (clé de Luhn),
   `iban`/`bic` (modulo 97), `tva_intra`, `mesure` (décimal + unité),
@@ -2699,7 +2738,10 @@ liste des ventes appartenant à la part**. **Défaut sans description : il
 n'existe pas.**
 
 **Les modes responsive (D203 — clôt la clarification n° 6).** Jeu fermé :
-**Écran, Tablette ou Smartphone** × **portrait ou paysage**.
+**Écran, Tablette ou Smartphone** × **portrait ou paysage**. *Vocabulaire
+précisé avec D250 : trois **modes** (écran, tablette, smartphone) × deux
+**orientations** (portrait, paysage) ; **par défaut, tout est prévu pour un
+écran paysage**.*
 
 **La page d'accueil personnalisée (D204, précise D191).** Sur la page
 d'accueil, l'utilisateur peut **sélectionner une entrée du menu ou laisser
@@ -2709,6 +2751,14 @@ vierge**, et **choisir les widgets de synthèse à afficher**.
 une valeur directement dans le tableau** — une case à cocher, une liste de
 valeurs, un champ texte ou une valeur numérique. Sous le droit de
 modification (D196) ; la concurrence s'applique champ par champ (D111).
+
+**Colonnes modifiables par défaut, lecture seule déclarable (D266, précisé
+le 07/07/2026).** Dans la déclaration d'une liste, les colonnes sont
+listées et, **par défaut, elles sont toutes modifiables** (édition en ligne
+D205) ; la déclaration peut marquer une colonne **en lecture seule**. La
+marque ne fait que **restreindre** : elle ne rend jamais modifiable un
+champ qui ne l'est pas par ailleurs (droits D196, mode d'accès D153,
+champs calculés).
 
 **La déclaration des surfaces (D206).** Pour une entité, la description
 déclare :
@@ -2998,8 +3048,76 @@ Le terme est acté : le menu-parcours (D194) est un **wizard**.
   **Le mode par défaut est statique** (confirmé par l'auteur) — le moins
   coûteux ; D36 reste le point d'extension si un calcul devenait lourd.
 
-*Annoncé par l'auteur* : **les composants graphiques par type de champ
-restent à décrire et à affiner** → **Q56**.
+**Q56–Q57 : la matrice d'un composant graphique — sept types × six modes
+(D250, précisé le 06/07/2026).** Les deux questions sont **intimement
+liées** : un composant graphique **se décline en sept types** —
+
+1. **en lecture seule** (la consultation — l'écran unique D185, mode
+   lecture) ;
+2. **en modification** (la saisie) ;
+3. **en composant de widget de résumé** (le rendu compact — l'interdiction
+   D208 se lit désormais dans le composant : **un type absent = un composant
+   interdit** dans cette surface) ;
+4. **en composant d'une cellule dans une liste, en lecture** (le rendu
+   tabulaire) ;
+5. **en composant d'une cellule dans une liste, en modification**
+   (l'édition en ligne D205 — la déclinaison confirme l'interprétation) ;
+6. **en composant PDF** (le rendu imprimé — les gabarits PDF de Q57
+   **composent les types PDF des composants**, comme un formulaire compose
+   leurs types écran) ;
+7. **en composant Excel** (le rendu d'export — les exports D196/D213/D237
+   produisent des **cellules typées**, dates et nombres natifs, pas des
+   chaînes : l'export miroir D237 y gagne sa ré-importabilité).
+
+**Chaque type est décliné en trois modes × deux orientations** — le jeu
+responsive (D203) : les **modes** sont **écran, tablette, smartphone** ;
+les **orientations** sont **portrait et paysage** — **par construction**
+(D200). **Par défaut, tout est prévu pour un écran paysage.** Toute la
+matrice (7 types × 3 modes × 2 orientations) appartient au composant,
+jamais à la description.
+
+**La structure du gabarit PDF (D251 — Q57).** Le gabarit PDF **exploite le
+gabarit d'un formulaire en lecture seule** (les blocs D199, composés des
+types PDF des composants D250) **avec quelques ajustements** — que l'on
+**pourrait retrouver sur un formulaire** : l'ajout d'un **paragraphe de
+texte**, d'un **titre** et de **sous-titres jusqu'à 4 niveaux**. **Un
+document s'appuie sur : un entête (optionnel) + un pied de page (optionnel)
++ un bloc représentant la page.** L'entête et le pied de page sont des
+**gabarits nommés exploitant le même formalisme qu'un document**. Le format
+du document **décrit la dimension de la page** (A4, étiquette…). La liaison
+aux données est **celle du formulaire** (l'agrégat courant) ; les gabarits
+restent déclinés **par langue** (D219).
+
+**L'impression depuis le serveur (D252).** Un document PDF peut être
+**imprimé directement depuis le serveur** — le cas d'une **étiquette avec
+un QR code ou un code-barres**. **Les imprimantes disponibles sont celles
+présentes au regard du système d'exploitation** (du serveur) — pas de
+connecteur ni de déclaration dédiée. *(Corollaires : le QR code et le
+code-barres sont des composants du catalogue Q56 ; l'impression est une
+tâche D53.)*
+
+**Le formulaire hérite en retour (D253, complète D199/D251).** Un formulaire
+**peut également porter un entête et un pied de page** — avec des **zones de
+texte**. Les enrichissements du gabarit PDF (paragraphes, titres,
+sous-titres — D251) et l'entête/pied valent donc **pour les deux surfaces** :
+formulaire et gabarit PDF partagent **un seul et même formalisme** — le
+gabarit PDF étant exactement *un formulaire en lecture seule + une dimension
+de page*.
+
+**Les variables de contexte : l'entité « contexte » (D254 — clôt Q57).**
+Des variables sont **disponibles selon le contexte** : le **nom du
+fichier**, la **date et l'heure du moment**, le **numéro de page**, le
+**nombre de pages**, l'**opérateur**, le **nom de l'instance**, le **nom du
+module**… Elles sont **exploitables de la même façon qu'un champ d'une
+entité** — une **entité « contexte »** (nom illustratif — à fixer au
+méta-schéma Q16), fournie par le moteur, en **lecture seule**, consommée
+par les expressions et gabarits (D90) comme n'importe quel champ. **La
+disponibilité des champs dépend du contexte** : la pagination n'existe
+qu'au rendu d'un document, l'opérateur en session — aucun mécanisme
+spécial, le patron « mécanisme uniforme » une fois encore.
+
+*Annoncé par l'auteur* : **le catalogue des composants par type de champ
+reste à décrire** → **Q56**.
 
 **Les sept points de clarification — tous tranchés au 06/07/2026** (trace du
 cheminement) :
@@ -3119,6 +3237,259 @@ brute `AAAA-MM-JJTHH:MM:SS` **sans décalage**, horodatage **suffixé `Z`**) —
 **jamais le format d'affichage d'une langue**. La présence du marqueur `Z`
 distingue d'elle-même l'horodatage du brut, et le tri lexicographique des
 chaînes coïncide avec le tri chronologique.
+
+### 8.8 Le catalogue des composants graphiques (Q56 ; D255–…)
+
+**« Cette partie est une partie essentielle et consolide tous les points
+abordés jusqu'à présent »** — elle doit rendre la construction d'une
+application **simple, rapide et à l'UI/UX agréable**. Méthode annoncée par
+l'auteur : **la description reprend type par type**, et décrit **le
+comportement du composant en fonction des modes d'affichage et de
+l'orientation** (matrice D250 : 7 types de rendu × 3 modes × 2
+orientations) — de nombreuses combinaisons **à parcourir dans leur
+intégralité**.
+
+**Conventions transverses arbitrées (D255–D257) :**
+
+- **Champs calculés à l'écran (D255)** : **recalculés dès qu'un des champs
+  concernés est modifié** (les dépendances — règles transportées D159).
+- **Boutons radio (D256)** : possibles **uniquement sur une liste énumérée
+  de faible cardinalité** — seuil à fixer (**jusqu'à 5 valeurs ?** l'auteur
+  n'est pas encore fixé).
+- **Rendu PDF des contenus riches (D257)** : **devient une image** ;
+  **chaque type aura son pendant PDF**, décrit au fil du catalogue.
+
+**Les paramètres communs d'un composant (D258).** Tout composant, quel que
+soit le type, porte les propriétés suivantes :
+
+- **libellé** (variante selon la surface — D124) ;
+- **commentaire** — pour une **infobulle** ;
+- **description** — pour le **masque des écrans** (D209) ou l'**aide
+  détaillée** ;
+- **valeur de démonstration** — le *placeholder* (D128) ;
+- **états possibles** : **lecture, écriture, écriture unique** (D153) ;
+- **validation** (l'affichage des règles transportées, D156–D159) ;
+- **filtre** (propre au type, D228).
+
+**Pour chaque type, d'autres propriétés pourraient être nécessaires** —
+déclarées par le composant, décrites au fil du catalogue. *(Alignement
+terminologique : la « description courte » de D124 prend le nom de
+**commentaire**, la « description longue » celui de **description** — à
+répercuter au méta-schéma, Q16.)*
+
+*Convention rédactionnelle* (validée par l'usage dès le premier type) : pour
+chaque type, décrire **en entier le comportement « écran paysage »** (le
+défaut, D250), puis **seulement les écarts** pour les autres modes et
+orientations — sans écart déclaré, le comportement se dégrade gracieusement
+depuis l'écran paysage.
+
+#### Le composant « texte » (D259–D262)
+
+**Cadrage (D259).** **Pas de zone de texte enrichie** — Syncytium ne la
+propose pas. Le **mono ou multi-ligne ne se déclare pas** : il **dérive de
+la taille maximale du champ**, comparée à un **seuil défini comme paramètre
+général de l'instance** — **par défaut : 100 caractères** (au-delà : zone de
+texte ajustable). **N = le nombre de lignes affichées par défaut** (avant
+« voir plus »). *(Nouveau concept transverse : les **paramètres généraux de
+l'instance** — réglages d'instance à défauts moteur ; à intégrer au
+méta-schéma, Q16.)*
+
+**Le masque de saisie (D260).** Le champ texte de l'entité porte une
+**propriété de masque** :
+
+- `__ ____ ____` — saisir 10 caractères en 3 groupes (2+4+4) ;
+- `99 99 99 99 99` — saisir 10 chiffres en 5 groupes de 2 ;
+- `____-___` — 7 caractères, « - » imposé entre les 2 groupes ;
+- `FR__ ____ [A-E][5-8A-E]__` — « FR » imposé en tête ; `[A-E]` = un
+  caractère entre A et E ; `[5-8A-E]` = un chiffre entre 5 et 8 **ou** un
+  caractère entre A et E.
+
+Alphabet du masque : `_` = caractère libre, `9` = chiffre, **littéraux
+imposés** (espaces, tirets, préfixes), `[…]` = classes et plages.
+
+**Les rendus (D261).**
+
+- **Lecture seule** : mono-ligne = le texte tel quel, non modifiable ;
+  multi-ligne = les **N premières lignes**, le reste **replié** — « **voir
+  plus** » l'affiche, et ce libellé est **traductible** ; la zone
+  multi-ligne est **redimensionnable verticalement**.
+- **Modification** : **compteur de caractères** affiché si la taille du
+  champ est « grande » (**au-delà d'un seuil, paramètre général de
+  l'instance**) ; **l'utilisateur ne peut pas saisir plus de caractères que
+  la taille du champ** ; zone redimensionnable verticalement ; placeholder
+  = la valeur de démonstration.
+- **Widget de résumé** : **le libellé se décline au format widget** — le
+  rendu est **« libellé pour widget » + espace + valeur du champ**, en
+  **ellipse** pour limiter l'espace ; comme les variantes formulaire et
+  colonne, **la variante widget d'un libellé peut être vide** (D124
+  étendu — un libellé est un code décliné par surface).
+- **Cellule de liste (lecture et modification), PDF, Excel** — validés
+  tels que proposés : tronquée avec ellipse + valeur complète en
+  infobulle / saisie en ligne (échappement = annuler) / **texte complet,
+  jamais tronqué** / cellule **texte native**.
+
+**Les écarts par mode — transverses à tous les composants (D262).**
+
+- **Tablette** : pas d'écart de comportement, mais **le survol n'existe
+  pas** — pas de description au survol ; **l'infobulle s'ouvre par un petit
+  logo à côté du libellé**.
+- **Smartphone** : encore moins d'espace — **ni infobulle, ni
+  description** ; **le libellé s'affiche en plus petit** pour économiser la
+  place.
+- **Portrait / paysage : aucun écart.**
+
+**Compléments du 07/07/2026 (D263–D265).**
+
+- **La zone de texte enrichie : une évolution potentielle (D263).** Elle
+  pourra être proposée **ultérieurement**, comme composant graphique d'un
+  **type de champ complexe** (par exemple un type « document ») — hors du
+  socle actuel. **Le hook de composant graphique (D64–D68) devra permettre
+  de développer ce type de composant** — exigence posée sur l'extensibilité.
+- **Le masque pilote les lignes (D264).** Dans le cadre d'un masque de
+  saisie (D260), **le nombre de lignes dépend du nombre de lignes du
+  masque** — un masque peut être multi-lignes, et sa structure prime la
+  dérivation taille/seuil (D259).
+- **L'anatomie d'une zone de saisie (D265).** Sur un écran d'ordinateur,
+  trois parties : **libellé + zone de saisie + post-zone** — la post-zone
+  accueille **une devise, un %, une abréviation… ou rien**. Sur **tablette
+  et smartphone**, **le libellé ou l'abréviation sont configurables** ;
+  **par défaut, les libellés sont ceux du mode d'affichage de base** (écran
+  paysage, D250). *(Anatomie transverse : la post-zone servira les composés
+  — montant, pourcentage, mesure.)*
+
+#### Le composant « nombre » (D267–D268)
+
+**Un nombre = une zone de texte à particularités (D267).** Le composant
+nombre **reprend le cadre du texte** (anatomie D265, masque D260) :
+
+- **le masque de saisie se déduit des propriétés du champ et de la langue
+  de l'utilisateur** — chiffres avant/après la virgule (D118), bornes,
+  séparateurs de la langue (D131) : **rien à déclarer** ;
+- **le post-libellé** (la post-zone D265) affiche **une unité, une
+  devise…** — et, **selon la langue, il se place avant ou après** la zone
+  de saisie (« $ 100 » / « 100 € », formats D131).
+
+**La saisie tactile (D268).** Sur un dispositif tactile, **le clavier
+numérique est exploité** (plutôt que l'alphabétique) — voie actée, avec la
+réserve de l'auteur : « parfois, ça gâche un peu l'expérience
+utilisateur ». Une zone de texte numérique **peut afficher une
+calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la
+calculatrice servant aussi **de méthode de saisie sur un dispositif
+tactile**.
+
+**Les variantes du nombre (D269).** En saisie comme en affichage, une zone
+numérique peut être présentée comme une **jauge** (différents styles
+possibles) ; dans certains cas, elle peut faire apparaître **deux boutons
+[-] / [+]** pour **incrémenter ou décrémenter une valeur entière**
+(stepper).
+
+**La jauge et le curseur : la borne est la clé (D276, généralise
+D269/D273).** **Tout champ numérique entier borné peut être une jauge** —
+exemple : la saisie d'un montant **entre 0 et 10 000 €**. Et **un curseur**
+permet une **saisie simple et sans clavier** (précieux sur tactile, D268).
+La condition est la même que pour le pourcentage (D273) : **pas de jauge ni
+de curseur sans bornes**.
+
+#### Les composants temporels (D277–D280)
+
+**L'heure (D277).** **La précision est portée par la propriété du champ** :
+**hh, hh:mm, hh:mm:ss ou hh:mm:ss.sss**. Le champ peut disposer d'une
+**horloge** pour **saisir ou afficher** l'heure.
+
+**La date (D278).** Des **raccourcis** — aujourd'hui, la veille, hier,
+début de mois, fin de mois… — disponibles **sur un clavier** (du même type
+que le clavier numérique stylisé, D268) ; un **calendrier année / mois /
+semaine**, avec **un numéro de semaine lié à la langue** (les conventions
+de numérotation varient selon les pays).
+
+**La date + heure (D279).** Ses raccourcis (**maintenant**, aujourd'hui…) ;
+l'affichage **combine calendrier + horloge**.
+
+**Les compositions temporelles : des évolutions (D280, patron D263).**
+Comme pour le texte enrichi : la gestion d'un **calendrier** (agenda), d'un
+**emploi du temps**, d'un **diagramme de Gantt** ou d'autres compositions
+autour des dates et heures — **évolutions potentielles**, développables via
+le **hook de composant** (l'exigence D263 les couvre).
+
+**Socle des temporels — validé (D281)** : masque de saisie **déduit du
+format de la langue** (comme le nombre, D267) ; **Excel = valeurs
+temporelles natives** ; la **brute** affichée telle quelle et
+l'**horodatage** converti dans le **fuseau de la langue** (D217/D220–D221)
+— y compris à l'export ; filtre = **plage/comparateur** (D228).
+
+#### Les composants de choix (D282–D285)
+
+**Le booléen (D282).** **Case à cocher** — **à trois états si le champ peut
+être nul** ; **toggle** éventuellement, **sans valeur nulle**. Filtre :
+**oui / non / tous**. **Les libellés « VRAI / FAUX / NUL » sont
+surchargeables** et **s'affichent en valeur au survol** de la zone (Actif /
+Inactif, Inscrit / Non inscrit…). **Un booléen peut se décliner en liste
+énumérée.** **Export CSV/Excel : le libellé ou la valeur** (déclaré —
+patron D130).
+
+**L'énuméré (D283).** **La liste déroulante représente bien la
+fonctionnalité** (mono-sélection D129, tri par la valeur numérique,
+libellés traduits). **Un énuméré peut également représenter un jeu
+d'icônes ou d'images.** Le reste du socle vaut par les acquis : cellule en
+modification = liste de valeurs (D205), filtre = jeu de valeurs (D228),
+export = code ou libellé déclaré (D130).
+
+**La référence (D284).** La description actée est validée : libellé ou
+élément de synthèse + lien vers la fiche en lecture seule + sélection via
+la liste nommée (D215), recherche incrémentale (D228, approximation D229),
+widget de résumé au survol s'il est déclaré (D201), **Excel = la clé
+fonctionnelle** (ré-importabilité D235–D237). **Ajout : la sélection par
+image** — **une entité peut porter un champ « image »** ; s'il est défini,
+**la sélection via une image + un libellé court est privilégiée dans un
+formulaire dédié** (le choix d'un plat dans un menu, la photo d'un
+utilisateur…).
+
+**Les boutons radio : une surcharge au formulaire (D285, amende D256).**
+Le passage d'un énuméré en boutons radio est **une surcharge graphique sur
+le champ dans un formulaire** (la chaîne D270) — **le seuil automatique de
+cardinalité est abandonné** : la pertinence (faible cardinalité) relève du
+choix du déclarant.
+
+**Deux types de base ajoutés : vignette et image (D286, étend D121).**
+**« Vignette »** = une image de **petite taille** ; **« image »** = la
+**grande taille + sa déclinaison en vignette**. Ils portent le champ
+« image » d'une entité (D284 — sélection de référence par image) et
+s'appuient sur le patron fichier (D160 : binaires hors base, quotas,
+statuts ; déduplication D165). **Confirmé : dans le cas d'une image, la
+vignette est calculée automatiquement** (par le moteur).
+
+**La surcharge du composant au formulaire (D270).** À la déclaration d'un
+champ dans un formulaire, **le composant graphique par défaut est pris en
+compte** (porté par la **description du modèle** — type → composant,
+surcharge au champ D64) ; **le formulaire peut surcharger ce choix** pour
+sélectionner le type de GUI. Chaîne de résolution : **type → champ (modèle)
+→ formulaire**. Garde : la surcharge choisit parmi les composants
+**compatibles avec le type** (le catalogue arbitre) — et n'élargit jamais
+les droits ni les états (D258).
+
+**Les rendus du nombre par surface (D271 — validés).** **Aligné à droite**
+partout (lecture, cellule de liste, PDF) ; cellule de liste en modification
+= la saisie en ligne numérique (D205) ; **Excel = nombre natif** (pas une
+chaîne) ; **filtre = comparateur / plage** (D228) ; **widget de résumé** =
+le patron du texte (« libellé pour widget » + valeur formatée, en
+ellipse) ; PDF = la valeur formatée, post-libellé compris.
+
+**Les composés numériques (D272–D275).**
+
+- **Montant (D272)** : nombre + **post-libellé = la devise** du jeu déclaré
+  (D123), placée selon la langue (D267) ; **le nombre de décimales est
+  défini sur les propriétés du champ** (2, 3 ou 4 selon la précision
+  voulue — D118), **indépendamment de la devise** ; Excel : nombre natif au
+  format monétaire ; filtre plage.
+- **Pourcentage (D273)** : post-libellé **%**, bornes usuelles 0–100 sauf
+  déclaration contraire ; **avec une borne, la jauge (D269) devient un
+  choix possible** — pas de jauge sans bornes.
+- **Mesure (D274)** : nombre + **post-libellé = l'unité déclarée** (D122) —
+  **rien de plus**.
+- **Durée (D275)** : se décline **à l'aide d'un masque de saisie** avec une
+  **option de conversion** transformant **la valeur canonique en chaîne et
+  vice versa** (le patron des facettes D119) ; **Excel fournit la valeur
+  canonique**.
 
 ---
 
@@ -3277,7 +3648,7 @@ avant la synthèse Q16).
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
-| Q57 | **Construction des gabarits PDF** (ajout 06/07/2026) : comment se **décrit** un gabarit (forme déclarative ? langage de mise en page ?), la **liaison aux données** (champs de l'agrégat, expressions/gabarits D90, listes d'enfants), la **mise en page** (en-têtes/pieds, logo et identité de l'instance D191, multi-pages), l'**internationalisation** (libellés D127, formats par langue D131), le **lieu de déclaration** (description ? fichier de gabarit versionné ?) — et le **contrat du gabarit** : ce qu'il partage avec les composants (D68 — enregistrement, réutilisation, extension) et **ce qui lui est propre** (« les fonctionnalités ne sont pas exactement les mêmes qu'un composant graphique »). | Découle de D212 (impression = documents métier via gabarit ; génération = tâche D53). |
+| ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 
 ---
 
@@ -4472,3 +4843,169 @@ avant la synthèse Q16).
   données D54 à l'échelle de l'agrégat), **fréquence** (période
   déterminée). Défaut = statique (interprétation), **confirmé par l'auteur
   dans la foulée** — « le mode par défaut est bien statique ».
+- **2026-07-06 (suite 21)** — **Q56–Q57 ouvertes ensemble : les cinq modes
+  d'un composant (D250 — PR #16 créée entre-temps)**. « Les 2 questions
+  sont intimement liées » : un composant graphique **se décline en
+  lecture seule, modification, widget de résumé, composant PDF et composant
+  Excel** — chaque mode décliné en responsive par construction (D200).
+  Conséquences consignées : le gabarit PDF (Q57) **compose les modes PDF**
+  des composants comme un formulaire compose leurs modes écran ;
+  l'interdiction en widget (D208) = un mode absent ; l'export produit des
+  **cellules typées** (la ré-importabilité D237 y gagne).
+- **2026-07-06 (suite 22)** — **D250 précisé** : le vocabulaire est arrêté —
+  les déclinaisons fonctionnelles sont des **types** (le mot « mode » est
+  réservé au responsive D203) ; un **sixième type** est ajouté : le
+  **composant d'une cellule dans une liste** (rendu tabulaire). **Chaque
+  type est décliné en six modes** : écran/tablette/smartphone ×
+  portrait/paysage — la matrice complète **6 types × 6 modes** appartient
+  au composant, par construction (D200).
+- **2026-07-06 (suite 23)** — **D250 précisé (bis)** : le composant de
+  cellule dans une liste **se décline en 2 — lecture et modification** —
+  soit **sept types** au total. La cellule en modification **est** l'édition
+  en ligne (D205) : l'interprétation devient structurelle. Matrice finale :
+  **7 types × 6 modes**.
+- **2026-07-06 (suite 24)** — **Vocabulaire responsive arrêté (D250/D203)** :
+  **trois modes** (écran, tablette, smartphone) × **deux orientations**
+  (portrait, paysage) ; **par défaut, tout est prévu pour un écran
+  paysage**. Matrice d'un composant : **7 types × 3 modes × 2
+  orientations**.
+- **2026-07-06 (suite 25)** — **Q57 : la structure du gabarit PDF (D251–
+  D252)**. Le gabarit **exploite le gabarit d'un formulaire en lecture
+  seule**, avec des ajustements retrouvables sur un formulaire :
+  **paragraphe de texte, titre, sous-titres jusqu'à 4 niveaux**. **Document
+  = entête (optionnel) + pied de page (optionnel) + un bloc représentant la
+  page** — entête et pied sont des **gabarits nommés au même formalisme** ;
+  la **dimension de la page est décrite**. **Impression directe depuis le
+  serveur** (étiquette à QR code ou code-barres) — corollaires : QR/code-
+  barres = composants du catalogue Q56, configuration d'imprimante serveur
+  à préciser. Micro-points soumis : variables de pagination dans
+  entête/pied, déclaration de l'imprimante.
+- **2026-07-06 (suite 26)** — **Le formulaire hérite en retour (D253)** :
+  un formulaire **peut également avoir un entête et un pied de page, avec
+  des zones de texte** — formulaire et gabarit PDF partagent **un seul
+  formalisme** (le gabarit = un formulaire en lecture seule + une dimension
+  de page).
+- **2026-07-06 (suite 27)** — **Les imprimantes (D252 précisé)** : les
+  imprimantes disponibles pour l'impression serveur sont **celles présentes
+  au regard du système d'exploitation** — pas de connecteur ni de
+  déclaration dédiée. L'auteur demande une explication des « variables de
+  pagination » avant d'arbitrer ce dernier micro-point de Q57.
+- **2026-07-06 (suite 28)** — **Q57 CLOSE (D254)**. La généralisation de
+  l'auteur : les variables de pagination deviennent des **variables de
+  contexte** — nom du fichier, date/heure du moment, numéro de page, nombre
+  de pages, opérateur, nom de l'instance, nom du module… — **exploitables
+  de la même façon qu'un champ d'une entité** : une **entité « contexte »**
+  (moteur, lecture seule, nom à fixer en Q16), consommée par les
+  expressions et gabarits D90 ; **disponibilité selon le contexte**
+  (pagination au rendu d'un document, opérateur en session). Aucun
+  mécanisme spécial. **Le thème E n'a plus que Q56** (catalogue des
+  composants par type — QR code et code-barres inclus).
+- **2026-07-06 (suite 29)** — **Q56 : ouverture du catalogue (§8.8, D255–
+  D257)**. L'auteur : « cette partie est essentielle et consolide tous les
+  points abordés — je compte sur elle pour rendre la construction d'une
+  application simple, rapide et à l'UI/UX agréable ». Trois conventions
+  arbitrées : **calculés recalculés à l'écran dès qu'une dépendance est
+  modifiée** (D255) ; **boutons radio réservés aux énumérés de faible
+  cardinalité** (seuil à fixer, 5 pressenti — D256) ; **rendu PDF des
+  contenus riches = une image, chaque type aura son pendant PDF** (D257).
+  Méthode annoncée : **parcours intégral type par type**, comportement par
+  mode et orientation. Convention rédactionnelle proposée (à valider) :
+  décrire l'écran paysage en entier, puis les seuls écarts.
+- **2026-07-06 (suite 30)** — **Les paramètres communs d'un composant
+  (D258)**. L'auteur fixe la liste canonique : **libellé, commentaire**
+  (infobulle), **description** (masque des écrans / aide détaillée),
+  **valeur de démonstration** (placeholder), **états possibles** (lecture,
+  écriture, écriture unique), **validation, filtre** — d'autres propriétés
+  possibles **par type**. Alignement terminologique consigné : description
+  courte (D124) → commentaire ; description longue → description.
+- **2026-07-06 (suite 31)** — **Le composant texte, premier du catalogue
+  (D259–D262)**. L'auteur corrige et enrichit la proposition : **pas de
+  zone de texte enrichie** ; le mono/multi-ligne **dérive de la taille
+  maximale** selon un **seuil en paramètre général de l'instance** (défaut
+  100 caractères — nouveau concept transverse) ; **N = lignes affichées
+  avant repli** ; **masque de saisie** en propriété du champ (`_`, `9`,
+  littéraux, classes `[A-E]`) ; lecture multi = N lignes + « voir plus »
+  **traductible** ; modification = compteur au-delà d'un seuil d'instance,
+  **saisie bloquée à la taille** ; widget = « libellé pour widget » + valeur
+  en ellipse (**la variante widget d'un libellé peut être vide** — D124
+  étendu) ; cellule/PDF/Excel validés tels que proposés. **Écarts
+  transverses (D262)** : tablette = pas de survol, infobulle par petit logo
+  près du libellé ; smartphone = ni infobulle ni description, libellé plus
+  petit ; portrait/paysage = aucun écart. Convention rédactionnelle validée
+  par l'usage.
+- **2026-07-07** — **Compléments sur le texte (D263–D265)**. **Zone de
+  texte enrichie = évolution potentielle** (composant d'un futur type
+  complexe « document » ; le hook de composant devra le permettre — hors
+  socle). **Le masque pilote les lignes** (un masque multi-lignes prime la
+  dérivation taille/seuil). **Anatomie d'une zone de saisie** : libellé +
+  zone de saisie + **post-zone** (devise, %, abréviation… ou rien) ;
+  tablette/smartphone : libellé ou abréviation **configurables**, défaut =
+  les libellés du mode de base. La post-zone servira les composés (montant,
+  pourcentage, mesure).
+- **2026-07-07 (suite)** — **Retour sur les listes (D266)** : les colonnes
+  déclarées sont **toutes modifiables par défaut** (édition en ligne
+  D205) ; la déclaration d'une liste peut marquer une colonne **en lecture
+  seule** — la marque restreint, elle n'élargit jamais (droits D196, mode
+  d'accès D153, calculés).
+- **2026-07-07 (suite 2)** — **Le composant nombre (D267–D268)**. **Un
+  nombre = une zone de texte à particularités** : le masque de saisie **se
+  déduit des propriétés du champ et de la langue** (chiffres avant/après la
+  virgule, bornes, séparateurs D131 — rien à déclarer) ; le
+  **post-libellé** (unité, devise) se place **avant ou après selon la
+  langue**. **Tactile** : clavier numérique exploité (réserve UX de
+  l'auteur notée) ; **calculatrice** à calculs élémentaires **ou clavier
+  stylisé** — méthode de saisie tactile.
+- **2026-07-07 (suite 3)** — **Variantes et surcharge (D269–D270)**. Le
+  nombre peut se présenter en **jauge** (styles multiples) ou avec des
+  boutons **[-] / [+]** (incrément/décrément d'une valeur entière). **La
+  surcharge du composant au formulaire est actée** : le défaut vient de la
+  description du modèle (type → champ D64), **le formulaire peut
+  surcharger** pour choisir le type de GUI — chaîne type → champ →
+  formulaire, bornée aux composants compatibles avec le type.
+- **2026-07-07 (suite 4)** — **Rendus du nombre validés (D271)** : aligné à
+  droite partout, Excel natif, filtre comparateur/plage, widget au patron
+  du texte, PDF avec post-libellé. Le composant nombre est complet.
+- **2026-07-07 (suite 5)** — **Les composés numériques (D272–D275), famille
+  close**. **Montant** : décimales **définies sur les propriétés du champ**
+  (2/3/4 selon la précision voulue), indépendamment de la devise —
+  correction de la proposition (« dérivées de la devise » écartée) ;
+  post-libellé devise selon la langue. **Pourcentage** : **avec une borne,
+  la jauge devient un choix possible** (pas de jauge sans bornes).
+  **Mesure** : ne contient pas plus d'informations (post-libellé unité).
+  **Durée** : **masque de saisie + option de conversion** (canonique ↔
+  chaîne) ; **Excel = la valeur canonique**.
+- **2026-07-07 (suite 6)** — **Jauge et curseur généralisés (D276)** :
+  **tout champ numérique entier borné peut être une jauge** (ex. un montant
+  entre 0 et 10 000 €) ; **le curseur** offre une saisie **simple et sans
+  clavier** (tactile D268). La borne est la condition — généralise
+  D269/D273.
+- **2026-07-07 (suite 7)** — **Les temporels (D277–D280)**. **Heure** :
+  précision = propriété du champ (hh → hh:mm:ss.sss), **horloge** de
+  saisie/affichage. **Date** : **raccourcis** (aujourd'hui, la veille,
+  hier, début/fin de mois…) sur un **clavier stylisé** (patron D268),
+  **calendrier année/mois/semaine** au **n° de semaine lié à la langue**.
+  **Date+heure** : raccourcis (maintenant…), **calendrier + horloge
+  combinés**. **Compositions temporelles** (agenda, emploi du temps,
+  Gantt…) = **évolutions potentielles via le hook** (patron D263). Socle
+  proposé à confirmer : masque déduit de la langue, Excel natif, brute
+  telle quelle / horodatage au fuseau, filtre plage.
+- **2026-07-07 (suite 8)** — **Socle des temporels validé (D281)** : « le
+  socle que tu as proposé est validé » — masque déduit de la langue, Excel
+  natif, brute telle quelle / horodatage au fuseau (affichage et export),
+  filtre plage. La famille temporelle est close.
+- **2026-07-07 (suite 9)** — **Les choix (D282–D285)**. **Booléen** : case
+  à cocher **à 3 états si nullable**, toggle sans nul ; **libellés
+  VRAI/FAUX/NUL surchargeables affichés au survol** ; déclinable en
+  énuméré ; export = libellé ou valeur. **Énuméré** : déroulante validée ;
+  **jeu d'icônes ou d'images possible**. **Référence** : description
+  validée + **le champ « image » d'une entité** — s'il est défini, la
+  **sélection par image + libellé court** est privilégiée dans un
+  formulaire dédié (choix d'un plat). **Radios (D285, amende D256)** :
+  **surcharge graphique au formulaire** (D270) — le seuil automatique de
+  cardinalité est abandonné.
+- **2026-07-07 (suite 10)** — **Deux types de base ajoutés (D286)** :
+  **vignette** (image de petite taille) et **image** (grande taille **+
+  déclinaison en vignette**) — étend le catalogue D121 ; ils portent le
+  champ « image » d'une entité (D284) et s'appuient sur le patron fichier
+  (D160/D165). **Confirmé dans la foulée : la vignette d'une image est
+  calculée automatiquement** par le moteur.

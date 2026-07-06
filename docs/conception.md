@@ -326,6 +326,7 @@ postures combinables :
 | D278 | **Date : raccourcis** (aujourd'hui, la veille, hier, début/fin de mois…) **sur un clavier stylisé** (patron D268) ; **calendrier année/mois/semaine** avec **n° de semaine lié à la langue**. | Les conventions de numérotation des semaines varient par pays. Voir §8.8. |
 | D279 | **Date+heure : raccourcis** (maintenant, aujourd'hui…) ; affichage **calendrier + horloge combinés**. | Voir §8.8. |
 | D280 | **Compositions temporelles (agenda, emploi du temps, Gantt…) = évolutions potentielles** via le hook de composant. | Patron D263 (texte enrichi) — l'exigence sur le hook les couvre. Voir §8.8. |
+| D281 | **Socle des temporels validé** : masque **déduit du format de la langue** ; **Excel = valeurs natives** ; **brute telle quelle / horodatage au fuseau de la langue** (affichage **et** export) ; filtre = **plage/comparateur**. | Cohérent D217/D220–D221/D267. Voir §8.8. |
 
 ---
 
@@ -3403,11 +3404,11 @@ Comme pour le texte enrichi : la gestion d'un **calendrier** (agenda), d'un
 autour des dates et heures — **évolutions potentielles**, développables via
 le **hook de composant** (l'exigence D263 les couvre).
 
-*Socle proposé, à confirmer* : masque de saisie **déduit du format de la
-langue** (comme le nombre, D267) ; **Excel = valeurs temporelles natives** ;
-la **brute** affichée telle quelle et l'**horodatage** converti dans le
-**fuseau de la langue** (D217/D220–D221) — y compris à l'export ; filtre =
-**plage/comparateur** (D228).
+**Socle des temporels — validé (D281)** : masque de saisie **déduit du
+format de la langue** (comme le nombre, D267) ; **Excel = valeurs
+temporelles natives** ; la **brute** affichée telle quelle et
+l'**horodatage** converti dans le **fuseau de la langue** (D217/D220–D221)
+— y compris à l'export ; filtre = **plage/comparateur** (D228).
 
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
@@ -4940,3 +4941,7 @@ avant la synthèse Q16).
   Gantt…) = **évolutions potentielles via le hook** (patron D263). Socle
   proposé à confirmer : masque déduit de la langue, Excel natif, brute
   telle quelle / horodatage au fuseau, filtre plage.
+- **2026-07-07 (suite 8)** — **Socle des temporels validé (D281)** : « le
+  socle que tu as proposé est validé » — masque déduit de la langue, Excel
+  natif, brute telle quelle / horodatage au fuseau (affichage et export),
+  filtre plage. La famille temporelle est close.

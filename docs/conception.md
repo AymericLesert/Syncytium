@@ -308,6 +308,9 @@ postures combinables :
 | D260 | **Masque de saisie** = propriété du champ texte : `_` caractère libre, `9` chiffre, **littéraux imposés**, `[…]` classes/plages (`FR__ ____ [A-E][5-8A-E]__`). | Couvre les saisies formatées (identifiants, codes) au niveau du champ. Voir §8.8. |
 | D261 | **Rendus du texte** : lecture = tel quel (mono) / **N lignes + « voir plus » traductible** (multi, redimensionnable) ; modification = **compteur si grande taille** (seuil = paramètre d'instance), **saisie bloquée à la taille du champ**, placeholder = démo ; widget = **« libellé pour widget » + valeur** en ellipse (**variante de libellé pouvant être vide** — D124 étendu) ; cellule lecture/modification, PDF (complet, jamais tronqué), Excel (natif) validés. | Le libellé est un code décliné par surface (formulaire, colonne, widget…). Voir §8.8. |
 | D262 | **Écarts par mode, transverses à tous les composants** : **tablette** = pas de survol → description non affichée, **infobulle via un petit logo près du libellé** ; **smartphone** = **ni infobulle ni description, libellé plus petit** ; **portrait/paysage = aucun écart**. | Fixe une fois pour toutes la dégradation tablette/smartphone des paramètres communs (D258). Voir §8.8. |
+| D263 | **Zone de texte enrichie = évolution potentielle** : ultérieurement, composant graphique d'un **type de champ complexe** (ex. « document ») ; **le hook de composant (D64–D68) devra permettre de développer ce type de composant**. | Hors socle — exigence posée sur l'extensibilité. Voir §8.8. |
+| D264 | **Le masque pilote les lignes** : avec un masque de saisie (D260), **le nombre de lignes dépend du nombre de lignes du masque** (prime la dérivation taille/seuil D259). | Un masque peut être multi-lignes. Voir §8.8. |
+| D265 | **Anatomie d'une zone de saisie** (écran) : **libellé + zone de saisie + post-zone** (devise, %, abréviation… ou rien) ; **tablette/smartphone : libellé ou abréviation configurables**, défaut = les libellés du mode de base. | Transverse : la post-zone servira les composés (montant, pourcentage, mesure). Voir §8.8. |
 
 ---
 
@@ -3304,6 +3307,25 @@ imposés** (espaces, tirets, préfixes), `[…]` = classes et plages.
   place.
 - **Portrait / paysage : aucun écart.**
 
+**Compléments du 07/07/2026 (D263–D265).**
+
+- **La zone de texte enrichie : une évolution potentielle (D263).** Elle
+  pourra être proposée **ultérieurement**, comme composant graphique d'un
+  **type de champ complexe** (par exemple un type « document ») — hors du
+  socle actuel. **Le hook de composant graphique (D64–D68) devra permettre
+  de développer ce type de composant** — exigence posée sur l'extensibilité.
+- **Le masque pilote les lignes (D264).** Dans le cadre d'un masque de
+  saisie (D260), **le nombre de lignes dépend du nombre de lignes du
+  masque** — un masque peut être multi-lignes, et sa structure prime la
+  dérivation taille/seuil (D259).
+- **L'anatomie d'une zone de saisie (D265).** Sur un écran d'ordinateur,
+  trois parties : **libellé + zone de saisie + post-zone** — la post-zone
+  accueille **une devise, un %, une abréviation… ou rien**. Sur **tablette
+  et smartphone**, **le libellé ou l'abréviation sont configurables** ;
+  **par défaut, les libellés sont ceux du mode d'affichage de base** (écran
+  paysage, D250). *(Anatomie transverse : la post-zone servira les composés
+  — montant, pourcentage, mesure.)*
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4746,3 +4768,12 @@ avant la synthèse Q16).
   près du libellé ; smartphone = ni infobulle ni description, libellé plus
   petit ; portrait/paysage = aucun écart. Convention rédactionnelle validée
   par l'usage.
+- **2026-07-07** — **Compléments sur le texte (D263–D265)**. **Zone de
+  texte enrichie = évolution potentielle** (composant d'un futur type
+  complexe « document » ; le hook de composant devra le permettre — hors
+  socle). **Le masque pilote les lignes** (un masque multi-lignes prime la
+  dérivation taille/seuil). **Anatomie d'une zone de saisie** : libellé +
+  zone de saisie + **post-zone** (devise, %, abréviation… ou rien) ;
+  tablette/smartphone : libellé ou abréviation **configurables**, défaut =
+  les libellés du mode de base. La post-zone servira les composés (montant,
+  pourcentage, mesure).

@@ -317,6 +317,10 @@ postures combinables :
 | D269 | **Variantes du nombre** : présentation en **jauge** (styles multiples, saisie ou affichage) ; **boutons [-] / [+]** pour incrémenter/décrémenter une **valeur entière** (stepper). | Variantes du catalogue numérique. Voir §8.8. |
 | D270 | **Surcharge du composant au formulaire** : le défaut vient de la **description du modèle** (type → composant, champ D64) ; **le formulaire peut surcharger** pour choisir le type de GUI. | Chaîne : type → champ → formulaire ; la surcharge choisit parmi les composants **compatibles avec le type**, n'élargit ni droits ni états. Voir §8.8. |
 | D271 | **Rendus du nombre par surface** : **aligné à droite** partout ; cellule en modification = saisie en ligne (D205) ; **Excel = nombre natif** ; **filtre = comparateur/plage** (D228) ; widget = patron du texte (valeur formatée, ellipse) ; PDF = valeur formatée avec post-libellé. | Validés tels que proposés. Voir §8.8. |
+| D272 | **Montant** : nombre + post-libellé = **devise du jeu déclaré** (D123), placée selon la langue (D267) ; **décimales définies sur les propriétés du champ** (2/3/4 selon la précision — D118), **indépendamment de la devise** ; Excel = format monétaire natif. | La précision est un besoin métier, pas une propriété de la devise. Voir §8.8. |
+| D273 | **Pourcentage** : post-libellé **%**, bornes 0–100 sauf déclaration ; **avec une borne, la jauge (D269) devient un choix possible**. | Pas de jauge sans bornes. Voir §8.8. |
+| D274 | **Mesure** : nombre + **post-libellé = l'unité déclarée** (D122) — rien de plus. | Voir §8.8. |
+| D275 | **Durée** : déclinée **par un masque de saisie + une option de conversion** (valeur canonique ↔ chaîne, patron D119) ; **Excel = la valeur canonique**. | Le seul composé numérique qui ne soit pas qu'un post-libellé. Voir §8.8. |
 
 ---
 
@@ -3382,6 +3386,23 @@ chaîne) ; **filtre = comparateur / plage** (D228) ; **widget de résumé** =
 le patron du texte (« libellé pour widget » + valeur formatée, en
 ellipse) ; PDF = la valeur formatée, post-libellé compris.
 
+**Les composés numériques (D272–D275).**
+
+- **Montant (D272)** : nombre + **post-libellé = la devise** du jeu déclaré
+  (D123), placée selon la langue (D267) ; **le nombre de décimales est
+  défini sur les propriétés du champ** (2, 3 ou 4 selon la précision
+  voulue — D118), **indépendamment de la devise** ; Excel : nombre natif au
+  format monétaire ; filtre plage.
+- **Pourcentage (D273)** : post-libellé **%**, bornes usuelles 0–100 sauf
+  déclaration contraire ; **avec une borne, la jauge (D269) devient un
+  choix possible** — pas de jauge sans bornes.
+- **Mesure (D274)** : nombre + **post-libellé = l'unité déclarée** (D122) —
+  **rien de plus**.
+- **Durée (D275)** : se décline **à l'aide d'un masque de saisie** avec une
+  **option de conversion** transformant **la valeur canonique en chaîne et
+  vice versa** (le patron des facettes D119) ; **Excel fournit la valeur
+  canonique**.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4856,3 +4877,12 @@ avant la synthèse Q16).
 - **2026-07-07 (suite 4)** — **Rendus du nombre validés (D271)** : aligné à
   droite partout, Excel natif, filtre comparateur/plage, widget au patron
   du texte, PDF avec post-libellé. Le composant nombre est complet.
+- **2026-07-07 (suite 5)** — **Les composés numériques (D272–D275), famille
+  close**. **Montant** : décimales **définies sur les propriétés du champ**
+  (2/3/4 selon la précision voulue), indépendamment de la devise —
+  correction de la proposition (« dérivées de la devise » écartée) ;
+  post-libellé devise selon la langue. **Pourcentage** : **avec une borne,
+  la jauge devient un choix possible** (pas de jauge sans bornes).
+  **Mesure** : ne contient pas plus d'informations (post-libellé unité).
+  **Durée** : **masque de saisie + option de conversion** (canonique ↔
+  chaîne) ; **Excel = la valeur canonique**.

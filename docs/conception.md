@@ -331,7 +331,7 @@ postures combinables :
 | D283 | **Énuméré** : liste déroulante (D129) ; **peut représenter un jeu d'icônes ou d'images** ; cellule (D205), filtre jeu de valeurs (D228), export code/libellé (D130). | Voir §8.8. |
 | D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
 | D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
-| D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; vignette générée par le moteur (interprétation). Voir §8.8. |
+| D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; **vignette calculée automatiquement par le moteur (confirmé)**. Voir §8.8. |
 
 ---
 
@@ -3455,8 +3455,8 @@ choix du déclarant.
 **grande taille + sa déclinaison en vignette**. Ils portent le champ
 « image » d'une entité (D284 — sélection de référence par image) et
 s'appuient sur le patron fichier (D160 : binaires hors base, quotas,
-statuts ; déduplication D165). *(Interprétation : la déclinaison en
-vignette d'une image est générée par le moteur.)*
+statuts ; déduplication D165). **Confirmé : dans le cas d'une image, la
+vignette est calculée automatiquement** (par le moteur).
 
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
@@ -5007,4 +5007,5 @@ avant la synthèse Q16).
   **vignette** (image de petite taille) et **image** (grande taille **+
   déclinaison en vignette**) — étend le catalogue D121 ; ils portent le
   champ « image » d'une entité (D284) et s'appuient sur le patron fichier
-  (D160/D165).
+  (D160/D165). **Confirmé dans la foulée : la vignette d'une image est
+  calculée automatiquement** par le moteur.

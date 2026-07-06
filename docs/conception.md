@@ -311,6 +311,7 @@ postures combinables :
 | D263 | **Zone de texte enrichie = évolution potentielle** : ultérieurement, composant graphique d'un **type de champ complexe** (ex. « document ») ; **le hook de composant (D64–D68) devra permettre de développer ce type de composant**. | Hors socle — exigence posée sur l'extensibilité. Voir §8.8. |
 | D264 | **Le masque pilote les lignes** : avec un masque de saisie (D260), **le nombre de lignes dépend du nombre de lignes du masque** (prime la dérivation taille/seuil D259). | Un masque peut être multi-lignes. Voir §8.8. |
 | D265 | **Anatomie d'une zone de saisie** (écran) : **libellé + zone de saisie + post-zone** (devise, %, abréviation… ou rien) ; **tablette/smartphone : libellé ou abréviation configurables**, défaut = les libellés du mode de base. | Transverse : la post-zone servira les composés (montant, pourcentage, mesure). Voir §8.8. |
+| D266 | **Colonnes de liste : modifiables par défaut, lecture seule déclarable** — la déclaration d'une liste peut marquer une colonne **en lecture seule**. | La marque ne fait que restreindre (droits D196, mode d'accès D153, calculés) — jamais élargir. Complète D198/D205. Voir §8.6. |
 
 ---
 
@@ -2729,6 +2730,14 @@ une valeur directement dans le tableau** — une case à cocher, une liste de
 valeurs, un champ texte ou une valeur numérique. Sous le droit de
 modification (D196) ; la concurrence s'applique champ par champ (D111).
 
+**Colonnes modifiables par défaut, lecture seule déclarable (D266, précisé
+le 07/07/2026).** Dans la déclaration d'une liste, les colonnes sont
+listées et, **par défaut, elles sont toutes modifiables** (édition en ligne
+D205) ; la déclaration peut marquer une colonne **en lecture seule**. La
+marque ne fait que **restreindre** : elle ne rend jamais modifiable un
+champ qui ne l'est pas par ailleurs (droits D196, mode d'accès D153,
+champs calculés).
+
 **La déclaration des surfaces (D206).** Pour une entité, la description
 déclare :
 
@@ -4777,3 +4786,8 @@ avant la synthèse Q16).
   tablette/smartphone : libellé ou abréviation **configurables**, défaut =
   les libellés du mode de base. La post-zone servira les composés (montant,
   pourcentage, mesure).
+- **2026-07-07 (suite)** — **Retour sur les listes (D266)** : les colonnes
+  déclarées sont **toutes modifiables par défaut** (édition en ligne
+  D205) ; la déclaration d'une liste peut marquer une colonne **en lecture
+  seule** — la marque restreint, elle n'élargit jamais (droits D196, mode
+  d'accès D153, calculés).

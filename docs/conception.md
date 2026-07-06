@@ -316,6 +316,7 @@ postures combinables :
 | D268 | **Saisie numérique tactile** : **clavier numérique exploité** (réserve UX de l'auteur notée) ; la zone numérique **peut afficher une calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la calculatrice = méthode de saisie tactile. | Aide à la saisie, propriété du composant. Voir §8.8. |
 | D269 | **Variantes du nombre** : présentation en **jauge** (styles multiples, saisie ou affichage) ; **boutons [-] / [+]** pour incrémenter/décrémenter une **valeur entière** (stepper). | Variantes du catalogue numérique. Voir §8.8. |
 | D270 | **Surcharge du composant au formulaire** : le défaut vient de la **description du modèle** (type → composant, champ D64) ; **le formulaire peut surcharger** pour choisir le type de GUI. | Chaîne : type → champ → formulaire ; la surcharge choisit parmi les composants **compatibles avec le type**, n'élargit ni droits ni états. Voir §8.8. |
+| D271 | **Rendus du nombre par surface** : **aligné à droite** partout ; cellule en modification = saisie en ligne (D205) ; **Excel = nombre natif** ; **filtre = comparateur/plage** (D228) ; widget = patron du texte (valeur formatée, ellipse) ; PDF = valeur formatée avec post-libellé. | Validés tels que proposés. Voir §8.8. |
 
 ---
 
@@ -3374,6 +3375,13 @@ sélectionner le type de GUI. Chaîne de résolution : **type → champ (modèle
 **compatibles avec le type** (le catalogue arbitre) — et n'élargit jamais
 les droits ni les états (D258).
 
+**Les rendus du nombre par surface (D271 — validés).** **Aligné à droite**
+partout (lecture, cellule de liste, PDF) ; cellule de liste en modification
+= la saisie en ligne numérique (D205) ; **Excel = nombre natif** (pas une
+chaîne) ; **filtre = comparateur / plage** (D228) ; **widget de résumé** =
+le patron du texte (« libellé pour widget » + valeur formatée, en
+ellipse) ; PDF = la valeur formatée, post-libellé compris.
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4845,3 +4853,6 @@ avant la synthèse Q16).
   description du modèle (type → champ D64), **le formulaire peut
   surcharger** pour choisir le type de GUI — chaîne type → champ →
   formulaire, bornée aux composants compatibles avec le type.
+- **2026-07-07 (suite 4)** — **Rendus du nombre validés (D271)** : aligné à
+  droite partout, Excel natif, filtre comparateur/plage, widget au patron
+  du texte, PDF avec post-libellé. Le composant nombre est complet.

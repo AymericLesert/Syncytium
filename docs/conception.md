@@ -331,6 +331,7 @@ postures combinables :
 | D283 | **Énuméré** : liste déroulante (D129) ; **peut représenter un jeu d'icônes ou d'images** ; cellule (D205), filtre jeu de valeurs (D228), export code/libellé (D130). | Voir §8.8. |
 | D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
 | D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
+| D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; vignette générée par le moteur (interprétation). Voir §8.8. |
 
 ---
 
@@ -567,7 +568,9 @@ D108 : le vecteur/le contenant). **Aller-retour cohérent** : le format d'export
   chiffres avant/après la virgule), booléen, **date**, **heure**,
   **date et heure**, **durée**, fichier, énuméré (**mono-sélection
   uniquement** — pas de multiple : le multi-valué passe par une entité liée,
-  cohérent avec l'atomicité D118).
+  cohérent avec l'atomicité D118) ; **ajoutés le 07/07/2026 (D286)** :
+  **vignette** (image de petite taille) et **image** (grande taille **+
+  déclinaison en vignette**).
 - **Composés livrés** (bibliothèque enrichissable D52/D68) : `montant`,
   `email`, `pourcentage`, `telephone`, `url`, `siren`/`siret` (clé de Luhn),
   `iban`/`bic` (modulo 97), `tva_intra`, `mesure` (décimal + unité),
@@ -3447,6 +3450,14 @@ le champ dans un formulaire** (la chaîne D270) — **le seuil automatique de
 cardinalité est abandonné** : la pertinence (faible cardinalité) relève du
 choix du déclarant.
 
+**Deux types de base ajoutés : vignette et image (D286, étend D121).**
+**« Vignette »** = une image de **petite taille** ; **« image »** = la
+**grande taille + sa déclinaison en vignette**. Ils portent le champ
+« image » d'une entité (D284 — sélection de référence par image) et
+s'appuient sur le patron fichier (D160 : binaires hors base, quotas,
+statuts ; déduplication D165). *(Interprétation : la déclinaison en
+vignette d'une image est générée par le moteur.)*
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -4992,3 +5003,8 @@ avant la synthèse Q16).
   formulaire dédié (choix d'un plat). **Radios (D285, amende D256)** :
   **surcharge graphique au formulaire** (D270) — le seuil automatique de
   cardinalité est abandonné.
+- **2026-07-07 (suite 10)** — **Deux types de base ajoutés (D286)** :
+  **vignette** (image de petite taille) et **image** (grande taille **+
+  déclinaison en vignette**) — étend le catalogue D121 ; ils portent le
+  champ « image » d'une entité (D284) et s'appuient sur le patron fichier
+  (D160/D165).

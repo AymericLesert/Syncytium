@@ -322,6 +322,10 @@ postures combinables :
 | D274 | **Mesure** : nombre + **post-libellé = l'unité déclarée** (D122) — rien de plus. | Voir §8.8. |
 | D275 | **Durée** : déclinée **par un masque de saisie + une option de conversion** (valeur canonique ↔ chaîne, patron D119) ; **Excel = la valeur canonique**. | Le seul composé numérique qui ne soit pas qu'un post-libellé. Voir §8.8. |
 | D276 | **Tout numérique entier borné peut être une jauge** (ex. montant entre 0 et 10 000 €) ; **le curseur** = saisie **simple et sans clavier**. | Généralise D269/D273 — la borne est la condition, pour tout numérique ; précieux sur tactile (D268). Voir §8.8. |
+| D277 | **Heure : précision portée par la propriété du champ** — hh / hh:mm / hh:mm:ss / hh:mm:ss.sss ; **horloge** pour saisir ou afficher. | Voir §8.8. |
+| D278 | **Date : raccourcis** (aujourd'hui, la veille, hier, début/fin de mois…) **sur un clavier stylisé** (patron D268) ; **calendrier année/mois/semaine** avec **n° de semaine lié à la langue**. | Les conventions de numérotation des semaines varient par pays. Voir §8.8. |
+| D279 | **Date+heure : raccourcis** (maintenant, aujourd'hui…) ; affichage **calendrier + horloge combinés**. | Voir §8.8. |
+| D280 | **Compositions temporelles (agenda, emploi du temps, Gantt…) = évolutions potentielles** via le hook de composant. | Patron D263 (texte enrichi) — l'exigence sur le hook les couvre. Voir §8.8. |
 
 ---
 
@@ -3378,6 +3382,33 @@ permet une **saisie simple et sans clavier** (précieux sur tactile, D268).
 La condition est la même que pour le pourcentage (D273) : **pas de jauge ni
 de curseur sans bornes**.
 
+#### Les composants temporels (D277–D280)
+
+**L'heure (D277).** **La précision est portée par la propriété du champ** :
+**hh, hh:mm, hh:mm:ss ou hh:mm:ss.sss**. Le champ peut disposer d'une
+**horloge** pour **saisir ou afficher** l'heure.
+
+**La date (D278).** Des **raccourcis** — aujourd'hui, la veille, hier,
+début de mois, fin de mois… — disponibles **sur un clavier** (du même type
+que le clavier numérique stylisé, D268) ; un **calendrier année / mois /
+semaine**, avec **un numéro de semaine lié à la langue** (les conventions
+de numérotation varient selon les pays).
+
+**La date + heure (D279).** Ses raccourcis (**maintenant**, aujourd'hui…) ;
+l'affichage **combine calendrier + horloge**.
+
+**Les compositions temporelles : des évolutions (D280, patron D263).**
+Comme pour le texte enrichi : la gestion d'un **calendrier** (agenda), d'un
+**emploi du temps**, d'un **diagramme de Gantt** ou d'autres compositions
+autour des dates et heures — **évolutions potentielles**, développables via
+le **hook de composant** (l'exigence D263 les couvre).
+
+*Socle proposé, à confirmer* : masque de saisie **déduit du format de la
+langue** (comme le nombre, D267) ; **Excel = valeurs temporelles natives** ;
+la **brute** affichée telle quelle et l'**horodatage** converti dans le
+**fuseau de la langue** (D217/D220–D221) — y compris à l'export ; filtre =
+**plage/comparateur** (D228).
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -4899,3 +4930,13 @@ avant la synthèse Q16).
   entre 0 et 10 000 €) ; **le curseur** offre une saisie **simple et sans
   clavier** (tactile D268). La borne est la condition — généralise
   D269/D273.
+- **2026-07-07 (suite 7)** — **Les temporels (D277–D280)**. **Heure** :
+  précision = propriété du champ (hh → hh:mm:ss.sss), **horloge** de
+  saisie/affichage. **Date** : **raccourcis** (aujourd'hui, la veille,
+  hier, début/fin de mois…) sur un **clavier stylisé** (patron D268),
+  **calendrier année/mois/semaine** au **n° de semaine lié à la langue**.
+  **Date+heure** : raccourcis (maintenant…), **calendrier + horloge
+  combinés**. **Compositions temporelles** (agenda, emploi du temps,
+  Gantt…) = **évolutions potentielles via le hook** (patron D263). Socle
+  proposé à confirmer : masque déduit de la langue, Excel natif, brute
+  telle quelle / horodatage au fuseau, filtre plage.

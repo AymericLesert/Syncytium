@@ -314,6 +314,8 @@ postures combinables :
 | D266 | **Colonnes de liste : modifiables par défaut, lecture seule déclarable** — la déclaration d'une liste peut marquer une colonne **en lecture seule**. | La marque ne fait que restreindre (droits D196, mode d'accès D153, calculés) — jamais élargir. Complète D198/D205. Voir §8.6. |
 | D267 | **Composant nombre = une zone de texte à particularités** : **masque déduit des propriétés du champ et de la langue** (chiffres avant/après la virgule D118, bornes, séparateurs D131 — rien à déclarer) ; **post-libellé** (unité, devise…) placé **avant ou après selon la langue**. | Hérite du cadre du texte (D259–D265). Voir §8.8. |
 | D268 | **Saisie numérique tactile** : **clavier numérique exploité** (réserve UX de l'auteur notée) ; la zone numérique **peut afficher une calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la calculatrice = méthode de saisie tactile. | Aide à la saisie, propriété du composant. Voir §8.8. |
+| D269 | **Variantes du nombre** : présentation en **jauge** (styles multiples, saisie ou affichage) ; **boutons [-] / [+]** pour incrémenter/décrémenter une **valeur entière** (stepper). | Variantes du catalogue numérique. Voir §8.8. |
+| D270 | **Surcharge du composant au formulaire** : le défaut vient de la **description du modèle** (type → composant, champ D64) ; **le formulaire peut surcharger** pour choisir le type de GUI. | Chaîne : type → champ → formulaire ; la surcharge choisit parmi les composants **compatibles avec le type**, n'élargit ni droits ni états. Voir §8.8. |
 
 ---
 
@@ -3357,6 +3359,21 @@ calculatrice** (calculs élémentaires) **ou un clavier stylisé** — la
 calculatrice servant aussi **de méthode de saisie sur un dispositif
 tactile**.
 
+**Les variantes du nombre (D269).** En saisie comme en affichage, une zone
+numérique peut être présentée comme une **jauge** (différents styles
+possibles) ; dans certains cas, elle peut faire apparaître **deux boutons
+[-] / [+]** pour **incrémenter ou décrémenter une valeur entière**
+(stepper).
+
+**La surcharge du composant au formulaire (D270).** À la déclaration d'un
+champ dans un formulaire, **le composant graphique par défaut est pris en
+compte** (porté par la **description du modèle** — type → composant,
+surcharge au champ D64) ; **le formulaire peut surcharger ce choix** pour
+sélectionner le type de GUI. Chaîne de résolution : **type → champ (modèle)
+→ formulaire**. Garde : la surcharge choisit parmi les composants
+**compatibles avec le type** (le catalogue arbitre) — et n'élargit jamais
+les droits ni les états (D258).
+
 ---
 
 ## 9. Étude comparative et positionnement (Q5)
@@ -4821,3 +4838,10 @@ avant la synthèse Q16).
   langue**. **Tactile** : clavier numérique exploité (réserve UX de
   l'auteur notée) ; **calculatrice** à calculs élémentaires **ou clavier
   stylisé** — méthode de saisie tactile.
+- **2026-07-07 (suite 3)** — **Variantes et surcharge (D269–D270)**. Le
+  nombre peut se présenter en **jauge** (styles multiples) ou avec des
+  boutons **[-] / [+]** (incrément/décrément d'une valeur entière). **La
+  surcharge du composant au formulaire est actée** : le défaut vient de la
+  description du modèle (type → champ D64), **le formulaire peut
+  surcharger** pour choisir le type de GUI — chaîne type → champ →
+  formulaire, bornée aux composants compatibles avec le type.

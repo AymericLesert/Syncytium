@@ -353,6 +353,7 @@ postures combinables :
 | D305 | **Grammaire = celle des exemples actés** : infixe, chemins pointés, gabarits `{}`, agrégats à filtre intégré, fonctions, imbrication (D90). | « Les exemples actés sont significatifs de ce que cela doit rassembler. » Mots-clés anglais : corollaire ouvert (D301). Voir §3.3. |
 | D306 | **Simple/complexe = propriété de la fonction du catalogue** (matérialise D104). | Timeout paramétrable sur les seules complexes. Voir §3.3. |
 | D307 | **Le déterminisme = propriété de la fonction du catalogue**. | Proposé à confirmer : l'exigence par contexte (migrations = déterministe seulement, dry-run D7). Voir §3.3. |
+| D308 | **Le null non gardé = une anomalie capturée (amende D303)** : dans une expression booléenne ou arithmétique, le null est **anormal** — **capturé** via le circuit d'échec par contexte (D304), **sauf s'il est capté par `isnull`/`ifnull`**. | Table standard validée en référence ; les filtres SGBD suivent la table ternaire (interprétation à confirmer). Ni propagation ni ternaire silencieuses : l'anomalie se voit. Voir §3.3. |
 
 ---
 
@@ -542,6 +543,18 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
   Table standard proposée : `Vrai ou null = Vrai` ; `Faux ou null = null` ;
   `Vrai et null = null` ; `Faux et null = Faux` — commutative, et alignée
   sur le SGBD sous-jacent (les filtres et validations s'y exécutent).
+- **Le null non gardé = une anomalie capturée (D308, amende D303).** La
+  table standard est validée (« tu as raison ») — **mais la doctrine du
+  projet prime** : **une valeur null dans une expression booléenne ou une
+  opération arithmétique est une valeur anormale — elle doit être
+  capturée**, **sauf si elle est captée par `isnull` ou `ifnull`** (les
+  seules portes légitimes du null). La capture emprunte le circuit d'échec
+  par contexte (D304) : null + trace en champ calculé, règle non satisfaite
+  + trace en validation, substitution déclarée en migration.
+  *(Interprétation à confirmer : les **filtres de consultation** exécutés
+  au SGBD suivent, eux, la table ternaire standard — exclure une ligne au
+  champ null n'est pas une anomalie ; la capture vaut pour les expressions
+  du langage : calculs, validations, migrations, transitions.)*
 - **L'échec d'une expression, par contexte (D304).** **Migration /
   translation** : la substitution déclarée (D13) ; **champ calculé** : null
   + une trace ; **validation** : **une règle non satisfaite — qui fait
@@ -5257,3 +5270,11 @@ avant la synthèse Q16).
   coercition** (fourni en réponse — ratification attendue). Restent : la
   table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
   déterminisme, la ratification coercition.
+- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
+  « Tu as raison » : la table standard est validée en référence — mais la
+  doctrine du projet prime : **le null dans une expression booléenne ou
+  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
+  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
+  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
+  filtres de consultation au SGBD suivent la table ternaire standard (pas
+  d'anomalie à exclure une ligne à champ null).

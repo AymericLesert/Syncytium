@@ -346,6 +346,8 @@ postures combinables :
 | D298 | **Champ calculé** : lecture seule partout, **recalculé à l'écran sur dépendance modifiée** (D255) ; **composant = celui du type de résultat**. | Un calculé montant s'affiche comme un montant. Voir §8.8. |
 | D299 | **Période** : **deux dates liées** (début ≤ fin contrôlé en frappe), raccourcis D278 ; cellule = « du … au … » ; **Excel = deux colonnes natives**. | Voir §8.8. |
 | D300 | **QR code / code-barres** : composants de **sortie** (rendent la valeur d'un champ) — usage premier PDF/étiquettes (D252), affichables à l'écran ; Excel = la valeur source. | **Clôt Q56 — et le thème E.** Voir §8.8. |
+| D301 | **Le catalogue de fonctions du langage est en anglais** (`sum`, `count`, `if`, `isnull`…) — internationalisation potentielle + **similitude avec les langages connus** (Visual Basic, Python…). | Les exemples consignés seront anglicisés à la rédaction du catalogue ; corollaire ouvert : les mots-clés de la grammaire (le « si » filtrant). Voir §3.3. |
+| D302 | **La logique « selon que » ajoutée au catalogue** : sélection **multi-branches** (`Select Case` / `match`) — facilite les **tables de correspondance** en ligne. | Le pendant expression du transcodage (D90) pour les petits cas. Voir §3.3. |
 
 ---
 
@@ -509,6 +511,21 @@ Gardes existants inchangés : hooks de calcul → délai max (D36) ; tâches →
 **heartbeat** (D55 — une tâche longue mais vivante progresse, une tâche morte est
 tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-run
 (D7) reste le filet des regex pathologiques sur données réelles.
+
+**Spécification fine du langage (Q47, en cours — D301–…).**
+
+- **Le catalogue de fonctions est en anglais (D301).** Deux raisons : une
+  **internationalisation potentielle**, et la **similitude avec des langages
+  déjà connus et exploités** (Visual Basic, Python…) — `sum`, `count`,
+  `min`, `max`, `if`, `isnull`… *(Corollaire à trancher : les mots-clés de
+  la grammaire suivent-ils — le « si » filtrant des agrégats devient `if` ?
+  Les exemples déjà consignés au document seront anglicisés lors de la
+  rédaction du catalogue.)*
+- **La logique « selon que » (D302).** Ajoutée au catalogue : la **sélection
+  multi-branches** (à la `Select Case` de VB / `match` de Python) — `selon
+  que (valeur) : cas a → x ; cas b → y ; défaut → z` — qui **facilite la
+  construction des tables de correspondance** : c'est le pendant en ligne du
+  transcodage (D90), pour les cas trop petits pour mériter une table.
 
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
@@ -5184,3 +5201,13 @@ avant la synthèse Q16).
   PDF/étiquettes D252, Excel = valeur source). **300 décisions.** Le thème
   E (Q38, Q45, Q48, Q53–Q57) est résolu en totalité — restent au projet :
   Q47 (langage), les différées Q5/Q7/Q30, et Q16 (méta-schéma, en dernier).
+- **2026-07-16 (suite 4)** — **Q47 ouverte (PR #18 fusionnée, branche
+  feature/langage)**. Proposition en sept points (null, coercition,
+  erreurs, catalogue, grammaire, simple/complexe, déterminisme). Premiers
+  arbitrages : **le catalogue de fonctions est en anglais (D301)** —
+  internationalisation potentielle + similitude avec les langages connus
+  (VB, Python) — la proposition « noms en français » est écartée, les
+  exemples consignés seront anglicisés ; **la logique « selon que » est
+  ajoutée (D302)** — sélection multi-branches facilitant les tables de
+  correspondance, pendant en ligne du transcodage. Corollaire soumis : les
+  mots-clés de la grammaire (le « si » filtrant → `if` ?).

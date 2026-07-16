@@ -355,6 +355,9 @@ postures combinables :
 | D307 | **Le déterminisme = propriété de la fonction du catalogue**. | Proposé à confirmer : l'exigence par contexte (migrations = déterministe seulement, dry-run D7). Voir §3.3. |
 | D308 | **Le null non gardé = une anomalie capturée (amende D303)** : dans une expression booléenne ou arithmétique, le null est **anormal** — **capturé** via le circuit d'échec par contexte (D304), **sauf s'il est capté par `isnull`/`ifnull`**. | Table standard validée en référence ; les filtres SGBD suivent la table ternaire (interprétation à confirmer). Ni propagation ni ternaire silencieuses : l'anomalie se voit. Voir §3.3. |
 | D309 | **Les mots-clés de la grammaire sont en anglais** : `sum(lignes.montant if ligne.etat = "facturée")` ; le « selon que » prendra sa forme anglaise (`case`/`match`). | Clôt le corollaire D301/D305. Fonctions et mots-clés anglais ; noms de champs/entités = ceux du modèle. Voir §3.3. |
+| D310 | **Filtres et null** : les filtres **peuvent cibler les lignes null** (critère « vide/null ») ; doctrine — **« dans une table, null n'est pas une anomalie ; dans une évaluation pour un calcul, oui »** : null stocké = légitime (table ternaire au SGBD, sans capture), null évalué = capturé (D308). | La ligne de partage stocké/évalué. Voir §3.3. |
+| D311 | **Déterminisme : exigé uniquement pour les migrations** (dry-run D7 rejouable) — aucune restriction ailleurs. | Confirme D307 côté contexte, en plus simple. Voir §3.3. |
+| D312 | **Coercition ratifiée côté langage** : sûre **implicite**, explicite **par fonction** (`to_*`), faillible **à échec propre** (D304) — **jamais de coercition silencieuse** (D120). | **Clôt Q47.** Voir §3.3. |
 
 ---
 
@@ -578,6 +581,22 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
   (D302) prendra sa forme anglaise au catalogue (`case`/`match`, à fixer).
   **Fonctions et mots-clés en anglais ; les noms de champs et d'entités
   restent ceux du modèle.**
+- **Les filtres et le null : la doctrine complète (D310).** **Les filtres
+  peuvent cibler les lignes null si besoin** (un critère « vide/null » du
+  filtre) ; et la ligne de partage est nette — **« dans une table, null
+  n'est pas une anomalie ; mais dans une évaluation pour un calcul,
+  oui »** : le null **stocké** est légitime (la table ternaire standard
+  s'applique aux filtres exécutés au SGBD, sans capture), le null
+  **évalué** dans une expression est capturé (D308).
+- **Le déterminisme : exigé uniquement pour les migrations (D311).** Les
+  migrations n'admettent que des fonctions déterministes (le dry-run D7
+  doit être rejouable) ; **partout ailleurs, aucune restriction**
+  (validations, filtres, gabarits, affichage).
+- **La coercition est validée (D312 — clôt Q47).** Le résumé est ratifié :
+  conversions **sûres implicites** aux frontières et dans les expressions ;
+  **explicites par fonction** (`to_integer`, `to_text`… — D301) ;
+  **faillibles à échec propre** (traité par contexte, D304) — **jamais de
+  coercition silencieuse** (D120 confirmé côté langage).
 
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
@@ -3841,7 +3860,7 @@ avant la synthèse Q16).
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
-| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
+| ~~Q47~~ | ~~Spécification fine du langage d'expression ?~~ | **Résolu (D90–D92, D104, D120, D301–D312, §3.3)** : **catalogue de fonctions et mots-clés en anglais** (similitude VB/Python, i18n potentielle) + « selon que » (`case`) ; **null** — table ternaire standard en référence, **null évalué non gardé = anomalie capturée** (`isnull`/`ifnull` seules portes), null stocké légitime (filtres ciblant le vide) ; **échec par contexte** (substitution en migration / null+trace en calculé / règle non satisfaite + trace en validation) ; **coercition** sûre implicite / explicite par `to_*` / faillible à échec propre — jamais silencieuse ; **grammaire = les exemples actés** (infixe, chemins, gabarits `{}`, `if` filtrant) ; **simple/complexe et déterminisme = propriétés de la fonction** ; **déterminisme exigé aux seules migrations**. |
 | **E — UI/UX (regroupe l'affichage)** | | |
 | ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
@@ -5289,3 +5308,13 @@ avant la synthèse Q16).
   (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
   forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
   champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
+- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
+  confirmations : **les filtres peuvent cibler les lignes null** et la
+  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
+  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
+  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
+  migrations** (D311) ; **la coercition est validée** (D312 — sûre
+  implicite, explicite par `to_*`, faillible à échec propre, jamais
+  silencieuse). **Le langage d'expression est entièrement spécifié**
+  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
+  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.

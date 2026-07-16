@@ -332,6 +332,20 @@ postures combinables :
 | D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
 | D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
 | D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; **vignette calculée automatiquement par le moteur (confirmé)**. Voir §8.8. |
+| D287 | **La calculatrice remplace le clavier natif** — sur smartphone **et** tablette : un seul dispositif de saisie des nombres. | Précise D268. Voir §8.8. |
+| D288 | **Temporels par mode** : smartphone = **calendrier plein écran** (semaine/mois/agenda multi-semaines, lisibilité maîtrisée, tactile seul) ; tablette = calendrier **à proximité du champ** ; PC = **saisie clavier + calendrier sur demande** (icône). | Voir §8.8. |
+| D289 | **Choix par mode** : smartphone = déroulante (unique/multiple), **choix par image plein écran empilé, radios empilées** ; tablette = déroulante, image en **zone restreinte près du champ** (clavier limité) ; PC = **raccourcis clavier + parcours par saisie** (début de mots, throttling D228). | Voir §8.8. |
+| D290 | **Listes par mode** : smartphone = tableau pour les **petites listes**, **widgets recommandés au volume** (1 colonne portrait / **2 colonnes paysage**) ; tablette/PC = tableaux ou widgets **multi-colonnes** ; **filtres : PC toujours affichés, smartphone derrière une icône, tablette au choix**. | **Premier écart d'orientation** (nuance D262 — les dispositions peuvent différer par orientation). Voir §8.8. |
+| D291 | **Géolocalisation : la position courante du terminal est affichable sur la carte** (repère en lecture, « ma position » en saisie). | Sous réserve de l'autorisation de géolocalisation du terminal. Voir §8.8. |
+| D292 | **Fichier** : **types autorisés portés par le champ** ; **smartphone : appareil photo / galerie** comme sources ; lecture = icône + nom + taille + téléchargement, statut visible (D163) ; **PDF/Excel = le nom** ; filtre = nom + mots-clés (D160) ; pièces jointes = bloc dédié (D199). | Voir §8.8. |
+| D293 | **Image** : aperçu immédiat au dépôt ; **visionneuse au clic — plein écran (smartphone), pourcentage de l'écran (tablette), zone définie (PC)** ; cellule/widget = la vignette (D286) ; PDF = l'image (D257) ; **pas de recadrage dans le socle** (hook, D263). | Voir §8.8. |
+| D294 | **Géolocalisation** : pointer sur la carte ou lat/long clavier ; **fond de carte déclarable à l'instance** ; **géocodage = connecteur avec un défaut open source dans le socle** — candidats : **API Adresse/BAN (Addok)** et **Nominatim (OSM)**, auto-hébergeables ; Excel = `lat,long` ; pas de filtre socle. | Politiques d'usage à re-vérifier en Q7. Voir §8.8. |
+| D295 | **Communication** : fil chronologique immuable, saisie en bas, plein écran sur smartphone ; **pas d'affichage en cellule de liste** ; PDF = fil complet si inclus ; Excel exclu (D236). | Voir §8.8. |
+| D296 | **Liste** : multi-sélection (énumérés) ou éditeur de liste ; tags en lecture, ellipse en cellule ; **séparateur Excel/CSV déclaré au modèle, surchargeable à la fonctionnalité** (précise D223). | Ré-importabilité (D237) préservée. Voir §8.8. |
+| D297 | **Compteur** : **lecture seule partout** ; placeholder « (attribué à la validation) » en création (D154/D199) ; cellule/PDF/Excel = la valeur assemblée (D155). | Voir §8.8. |
+| D298 | **Champ calculé** : lecture seule partout, **recalculé à l'écran sur dépendance modifiée** (D255) ; **composant = celui du type de résultat**. | Un calculé montant s'affiche comme un montant. Voir §8.8. |
+| D299 | **Période** : **deux dates liées** (début ≤ fin contrôlé en frappe), raccourcis D278 ; cellule = « du … au … » ; **Excel = deux colonnes natives**. | Voir §8.8. |
+| D300 | **QR code / code-barres** : composants de **sortie** (rendent la valeur d'un champ) — usage premier PDF/étiquettes (D252), affichables à l'écran ; Excel = la valeur source. | **Clôt Q56 — et le thème E.** Voir §8.8. |
 
 ---
 
@@ -3458,6 +3472,125 @@ s'appuient sur le patron fichier (D160 : binaires hors base, quotas,
 statuts ; déduplication D165). **Confirmé : dans le cas d'une image, la
 vignette est calculée automatiquement** (par le moteur).
 
+#### Les comportements par mode — arbitrages transverses (D287–D290)
+
+**La calculatrice remplace le clavier natif (D287, précise D268).** Sur
+**smartphone comme sur tablette**, la calculatrice **remplace** le clavier
+natif — **inutile d'avoir deux dispositifs de saisie des nombres**.
+
+**Les temporels par mode (D288).**
+
+- **Smartphone** : le calendrier **peut prendre l'écran complet** ; il doit
+  pouvoir afficher **la semaine, le mois**, ou mettre à disposition **un
+  agenda sur plusieurs semaines/mois**, **en gardant le contrôle sur la
+  lisibilité**, accessible **via le tactile uniquement**.
+- **Tablette** : l'écran est plus grand — le calendrier s'affiche **à
+  proximité du champ** à la saisie d'une nouvelle date.
+- **PC** : la date peut être **saisie au clavier**, le calendrier s'affiche
+  **sur demande, par une icône**.
+
+**Les choix par mode (D289).**
+
+- **Smartphone** : le choix (sans image) = **liste déroulante** (saisie
+  **unique ou multiple**) ; **le choix par image prend l'écran et
+  s'empile** ; **les radios s'empilent** également.
+- **Tablette** : déroulante identique ; le choix par image dans une **zone
+  plus restreinte, proche du champ**, avec **limitation de l'usage du
+  clavier**.
+- **PC** : **raccourcis clavier** pour sélectionner, et **parcours de la
+  liste par saisie d'une valeur** (début de mots, **avec throttling** —
+  D228).
+
+**La géolocalisation : la position courante du terminal (D291).** La carte
+doit pouvoir **afficher la position courante du terminal** — repère de
+contexte en lecture, et aide à la saisie (« ma position » comme point de
+départ). *(Note : sous réserve de l'autorisation de géolocalisation
+accordée par l'utilisateur au navigateur/terminal.)*
+
+#### La famille des contenus (D292–D296)
+
+**Le fichier (D292).** Dépôt par **glisser-déposer** sur PC ; **sur
+smartphone, l'appareil photo et la galerie servent à sélectionner une photo
+ou un fichier**. **Les types de fichiers autorisés sont portés par le
+champ.** Quota contrôlé à la volée (D162). Lecture = icône selon le type +
+nom + taille, **téléchargement au clic**, statut visible quand dégradé
+(D163) ; cellule = icône + nom tronqué ; widget = icône + nom ; **PDF et
+Excel = le nom du fichier** ; filtre = « contient » sur le nom et les
+mots-clés (D160) ; pièces jointes multiples = le bloc dédié (D199).
+
+**L'image (D293).** Dépôt comme un fichier avec **aperçu immédiat**
+(appareil photo sur mobile) ; lecture = **la vignette** (D286), **clic →
+visionneuse** : **plein écran sur smartphone, en pourcentage de l'écran sur
+tablette, en zone définie sur PC**. Cellule et widget = la vignette ; PDF =
+l'image dimensionnée au bloc (D257) ; Excel = le nom du fichier. **Pas de
+recadrage dans le socle** (évolution par hook, patron D263).
+
+**La géolocalisation (D294).** Saisie = **pointer sur la carte** (bloc
+dédié D199) ou **lat/long au clavier** ; position courante du terminal
+(D291). Lecture = mini-carte centrée + marqueur ; cellule = lat/long en
+texte court, clic → carte ; PDF = **une image de la carte** (D257) ; Excel
+= `lat,long` canonique (ré-importable) ; non triable (D125), pas de filtre
+dans le socle (la proximité = hook). **Le fond de carte est déclarable à
+l'instance** (paramètre général, D259). **Le géocodage = un connecteur
+(D78), avec un connecteur par défaut dans le socle, open source** —
+candidats identifiés : **l'API Adresse / Base Adresse Nationale**
+(adresse.data.gouv.fr — service public français, données ouvertes, moteur
+**Addok** open source auto-hébergeable ; le candidat naturel du périmètre
+TPE français) et **Nominatim** (le géocodeur open source d'OpenStreetMap,
+auto-hébergeable ; API publique à politique stricte : ~1 req/s,
+attribution, pas d'autocomplétion). Choix et politiques d'usage à
+re-vérifier à la pile technique (Q7).
+
+**La communication (D295).** L'onglet acté (D167/D186) : fil chronologique
+(auteur, horodatage, contenu), **saisie du nouveau message en bas**,
+messages **immuables**, pièces jointes si activées, notifications opt-in
+(D108–D110) ; sur smartphone, **le fil en plein écran**. **Pas d'affichage
+dans une cellule de liste.** PDF = le fil complet si le bloc est inclus au
+gabarit ; Excel = exclu (D236).
+
+**La liste (D296).** Modification : **multi-sélection** (cases ou tags)
+pour les énumérés, **éditeur de liste** sinon (ajouter / retirer /
+réordonner quand l'ordre est l'insertion) ; lecture = tags ; cellule = les
+premières valeurs + ellipse ; PDF = les valeurs énumérées ; **Excel/CSV :
+le séparateur interne est déclaré au modèle (défaut) et éventuellement
+surchargeable à la fonctionnalité** (précise D223 — condition de la
+ré-importabilité D237) ; filtre = « contient » (D166).
+
+#### La famille des générés (D297–D300 — clôt Q56 et le thème E)
+
+**Le compteur (D297).** **Lecture seule partout** ; en création,
+placeholder « *(attribué à la validation)* » (D199/D154 — la continuité
+est préservée) ; cellule, PDF et Excel = **la valeur assemblée** (gabarit
+D155).
+
+**Le champ calculé (D298).** **Lecture seule partout**, **recalculé à
+l'écran dès qu'une dépendance change** (D255) ; son composant est **celui
+de son type de résultat** — un calculé de type montant s'affiche comme un
+montant.
+
+**La période (D299).** **Deux dates liées** — début ≤ fin **contrôlé en
+frappe** ; les raccourcis de date (D278) s'appliquent ; cellule = « du … au
+… » ; **Excel = deux colonnes natives**.
+
+**Le QR code et le code-barres (D300).** Composants de **sortie** : ils
+**rendent la valeur d'un champ** (texte, référence, compteur…) ; usage
+premier = **PDF et étiquettes** (D252), affichables à l'écran en lecture ;
+**Excel = la valeur source**.
+
+**Les listes par mode (D290).**
+
+- **Smartphone** : **le tableau est proposé pour les petites listes de
+  valeurs** ; dès que le volume devient important, **la liste de widgets
+  est recommandée** — widgets **l'un au-dessus de l'autre en portrait**,
+  **en 2 colonnes en paysage** *(premier écart d'orientation du catalogue —
+  nuance à D262, qui reste vrai pour les paramètres communs : les écarts
+  d'orientation restent possibles au niveau des dispositions)*.
+- **Tablette / PC** : **tableaux ou listes de widgets**, les widgets
+  pouvant s'afficher **sur plusieurs colonnes**.
+- **Les filtres** : **PC = systématiquement affichés** ; **smartphone =
+  proposés derrière un petit icône significatif** ; **tablette = l'une ou
+  l'autre des options**.
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -3647,7 +3780,7 @@ avant la synthèse Q16).
 | ~~Q53~~ | ~~Surfaces de synthèse ?~~ | **Résolu (D191, D202, D204, D239–D249, §8.6)** : page d'accueil personnalisée dans le pool des modules fonctionnels ; **catalogue de graphiques** du socle (courbe, barres, secteurs, jauge, **combiné 2 axes max** — au-delà : hook) ; **déclaration** (X = champ découpé par valeurs/plages/temporalité ; Y = fonction filtrée sur X — agrégat D158) ; **jauge** référence+calculée (dépassement possible) ; **drill-down déclaré** (liste nommée à filtre imposé, valeurs visibles du lecteur seulement + **alerte de périmètre**) ; **graphique = déclaration autonome réutilisable** (widgets + formulaires) ; **tableaux de valeurs bornés à tri imposé** ; **pas de comparaison dans le socle** (2 widgets côte à côte ; complexe = hook) ; **croisé dynamique** (filtre + lignes + colonnes + formule, groupements pliables, plages/temporalités) ; **confidentialité héritée de l'entité surchargeable, évaluation = règles des champs calculés** (écart assumé, responsabilité technicien). |
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
-| Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
+| ~~Q56~~ | ~~Catalogue des composants graphiques par type de champ ?~~ | **Résolu (D250, D255–D300, §8.8)** : matrice **7 types × 3 modes × 2 orientations** (défaut écran paysage) ; paramètres communs (D258) ; **texte** (masque de saisie, seuils en paramètres d'instance, anatomie libellé/zone/post-libellé), **nombre + composés** (masque déduit, jauge/curseur/stepper à bornes, calculatrice remplaçant le clavier natif, surcharge au formulaire type→champ→formulaire), **temporels** (précision d'heure, raccourcis sur clavier stylisé, calendrier plein écran/proche/icône selon le mode), **choix** (booléen 3 états, énuméré icônes, référence + sélection par image, radios en surcharge), **contenus** (fichier, image + visionneuse graduée, géolocalisation + géocodage open source BAN/Nominatim, communication, liste), **générés** (compteur, calculé, période, QR/code-barres) ; comportements par mode tranchés (D287–D290), dégradation gracieuse pour le reste ; **évolutions par hook** : texte enrichi, agenda/Gantt, recadrage. **Clôt le thème E.** |
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 
 ---
@@ -5009,3 +5142,45 @@ avant la synthèse Q16).
   champ « image » d'une entité (D284) et s'appuient sur le patron fichier
   (D160/D165). **Confirmé dans la foulée : la vignette d'une image est
   calculée automatiquement** par le moteur.
+- **2026-07-16 (reprise — PR #17 fusionnée entre-temps)** — **Les
+  comportements par mode tranchés (D287–D290)**. Audit : seul le texte
+  avait son bloc d'écarts explicite — quatre points soumis, quatre
+  arbitrages : **la calculatrice remplace le clavier natif** (smartphone
+  et tablette — un seul dispositif) ; **temporels** (smartphone :
+  calendrier plein écran, semaine/mois/agenda, tactile seul ; tablette : à
+  proximité du champ ; PC : saisie clavier + icône) ; **choix**
+  (smartphone : déroulante unique/multiple, image plein écran empilée,
+  radios empilées ; tablette : image en zone restreinte ; PC : raccourcis
+  clavier + parcours par saisie throttlée) ; **listes** (smartphone :
+  tableau pour les petites listes, widgets au volume — **1 colonne
+  portrait / 2 colonnes paysage, premier écart d'orientation**, nuance
+  D262 ; filtres : PC affichés, smartphone icône, tablette au choix).
+  Le reste suit la **dégradation gracieuse** (convention §8.8).
+- **2026-07-16 (suite)** — **Famille des contenus ouverte** (fichier,
+  image/vignette, géolocalisation, communication, liste — proposition
+  soumise). Premier arbitrage : **la carte affiche la position courante du
+  terminal (D291)** — repère en lecture, « ma position » en saisie, sous
+  réserve de l'autorisation du terminal.
+- **2026-07-16 (suite 2)** — **La famille des contenus close (D292–D296)**.
+  Les six points arbitrés : **types de fichiers autorisés portés par le
+  champ** ; **appareil photo/galerie** sur smartphone ; **visionneuse**
+  plein écran (smartphone) / pourcentage d'écran (tablette) / zone définie
+  (PC) ; **géocodage = connecteur avec un défaut open source dans le
+  socle** — question de l'auteur sur OpenStreetMap, réponse : **Nominatim**
+  (géocodeur OSM, auto-hébergeable, API publique à politique stricte) et
+  surtout **l'API Adresse / BAN** (service public français, moteur Addok
+  open source — candidat naturel du périmètre TPE) ; **fond de carte
+  déclarable à l'instance** ; **pas de communication en cellule de liste**
+  (proposition compteur+date rejetée) ; **séparateur CSV déclaré au modèle,
+  surchargeable à la fonctionnalité**. Reste pour clore Q56 : la famille
+  des générés (compteur, calculé, période, QR/code-barres).
+- **2026-07-16 (suite 3)** — **Q56 CLOSE (D297–D300) — LE THÈME E EST
+  ENTIÈREMENT CLOS.** La famille des générés validée en bloc (« ta
+  proposition me convient ») : **compteur** (lecture seule, placeholder
+  « attribué à la validation », valeur assemblée D155), **champ calculé**
+  (lecture seule, recalcul sur dépendance D255, composant = celui du type
+  de résultat), **période** (deux dates liées contrôlées en frappe, Excel =
+  deux colonnes natives), **QR code/code-barres** (composants de sortie,
+  PDF/étiquettes D252, Excel = valeur source). **300 décisions.** Le thème
+  E (Q38, Q45, Q48, Q53–Q57) est résolu en totalité — restent au projet :
+  Q47 (langage), les différées Q5/Q7/Q30, et Q16 (méta-schéma, en dernier).

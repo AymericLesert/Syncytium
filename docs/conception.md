@@ -342,6 +342,10 @@ postures combinables :
 | D294 | **Géolocalisation** : pointer sur la carte ou lat/long clavier ; **fond de carte déclarable à l'instance** ; **géocodage = connecteur avec un défaut open source dans le socle** — candidats : **API Adresse/BAN (Addok)** et **Nominatim (OSM)**, auto-hébergeables ; Excel = `lat,long` ; pas de filtre socle. | Politiques d'usage à re-vérifier en Q7. Voir §8.8. |
 | D295 | **Communication** : fil chronologique immuable, saisie en bas, plein écran sur smartphone ; **pas d'affichage en cellule de liste** ; PDF = fil complet si inclus ; Excel exclu (D236). | Voir §8.8. |
 | D296 | **Liste** : multi-sélection (énumérés) ou éditeur de liste ; tags en lecture, ellipse en cellule ; **séparateur Excel/CSV déclaré au modèle, surchargeable à la fonctionnalité** (précise D223). | Ré-importabilité (D237) préservée. Voir §8.8. |
+| D297 | **Compteur** : **lecture seule partout** ; placeholder « (attribué à la validation) » en création (D154/D199) ; cellule/PDF/Excel = la valeur assemblée (D155). | Voir §8.8. |
+| D298 | **Champ calculé** : lecture seule partout, **recalculé à l'écran sur dépendance modifiée** (D255) ; **composant = celui du type de résultat**. | Un calculé montant s'affiche comme un montant. Voir §8.8. |
+| D299 | **Période** : **deux dates liées** (début ≤ fin contrôlé en frappe), raccourcis D278 ; cellule = « du … au … » ; **Excel = deux colonnes natives**. | Voir §8.8. |
+| D300 | **QR code / code-barres** : composants de **sortie** (rendent la valeur d'un champ) — usage premier PDF/étiquettes (D252), affichables à l'écran ; Excel = la valeur source. | **Clôt Q56 — et le thème E.** Voir §8.8. |
 
 ---
 
@@ -3552,6 +3556,27 @@ le séparateur interne est déclaré au modèle (défaut) et éventuellement
 surchargeable à la fonctionnalité** (précise D223 — condition de la
 ré-importabilité D237) ; filtre = « contient » (D166).
 
+#### La famille des générés (D297–D300 — clôt Q56 et le thème E)
+
+**Le compteur (D297).** **Lecture seule partout** ; en création,
+placeholder « *(attribué à la validation)* » (D199/D154 — la continuité
+est préservée) ; cellule, PDF et Excel = **la valeur assemblée** (gabarit
+D155).
+
+**Le champ calculé (D298).** **Lecture seule partout**, **recalculé à
+l'écran dès qu'une dépendance change** (D255) ; son composant est **celui
+de son type de résultat** — un calculé de type montant s'affiche comme un
+montant.
+
+**La période (D299).** **Deux dates liées** — début ≤ fin **contrôlé en
+frappe** ; les raccourcis de date (D278) s'appliquent ; cellule = « du … au
+… » ; **Excel = deux colonnes natives**.
+
+**Le QR code et le code-barres (D300).** Composants de **sortie** : ils
+**rendent la valeur d'un champ** (texte, référence, compteur…) ; usage
+premier = **PDF et étiquettes** (D252), affichables à l'écran en lecture ;
+**Excel = la valeur source**.
+
 **Les listes par mode (D290).**
 
 - **Smartphone** : **le tableau est proposé pour les petites listes de
@@ -3755,7 +3780,7 @@ avant la synthèse Q16).
 | ~~Q53~~ | ~~Surfaces de synthèse ?~~ | **Résolu (D191, D202, D204, D239–D249, §8.6)** : page d'accueil personnalisée dans le pool des modules fonctionnels ; **catalogue de graphiques** du socle (courbe, barres, secteurs, jauge, **combiné 2 axes max** — au-delà : hook) ; **déclaration** (X = champ découpé par valeurs/plages/temporalité ; Y = fonction filtrée sur X — agrégat D158) ; **jauge** référence+calculée (dépassement possible) ; **drill-down déclaré** (liste nommée à filtre imposé, valeurs visibles du lecteur seulement + **alerte de périmètre**) ; **graphique = déclaration autonome réutilisable** (widgets + formulaires) ; **tableaux de valeurs bornés à tri imposé** ; **pas de comparaison dans le socle** (2 widgets côte à côte ; complexe = hook) ; **croisé dynamique** (filtre + lignes + colonnes + formule, groupements pliables, plages/temporalités) ; **confidentialité héritée de l'entité surchargeable, évaluation = règles des champs calculés** (écart assumé, responsabilité technicien). |
 | ~~Q54~~ | ~~Expérience utilisateur (menu-parcours) ?~~ | **Résolu (D230–D233, §8.6)** : le menu-parcours = **wizard** (mono-utilisateur, une session — étapes = surfaces déclarées + contexte, transitions conditionnelles D90, état transitoire, transaction finale D101 + récapitulatif à confirmations tracées, opération de sortie D148, droits jamais élargis) ; le **circuit de validation multi-acteurs = patron d'assemblage** (états D147 + opérations D148 + notifications D108 + listes filtrées) — pas de moteur BPM ; **brouillon = niveau d'état déclaré**, pas de machinerie. |
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
-| Q56 | **Catalogue des composants graphiques par type de champ** (ajout 06/07/2026) : pour chaque type (D118–D131), le composant par défaut et ses propriétés, les **déclinaisons responsive par construction** (D200), les composants à **bloc dédié** (D199 — carte, pièces jointes…), les **interdits en widget de résumé** (D208). | Annoncé par l'auteur (« encore à décrire et à affiner ») ; c'est le pont avec la cartographie type→composant (D64). |
+| ~~Q56~~ | ~~Catalogue des composants graphiques par type de champ ?~~ | **Résolu (D250, D255–D300, §8.8)** : matrice **7 types × 3 modes × 2 orientations** (défaut écran paysage) ; paramètres communs (D258) ; **texte** (masque de saisie, seuils en paramètres d'instance, anatomie libellé/zone/post-libellé), **nombre + composés** (masque déduit, jauge/curseur/stepper à bornes, calculatrice remplaçant le clavier natif, surcharge au formulaire type→champ→formulaire), **temporels** (précision d'heure, raccourcis sur clavier stylisé, calendrier plein écran/proche/icône selon le mode), **choix** (booléen 3 états, énuméré icônes, référence + sélection par image, radios en surcharge), **contenus** (fichier, image + visionneuse graduée, géolocalisation + géocodage open source BAN/Nominatim, communication, liste), **générés** (compteur, calculé, période, QR/code-barres) ; comportements par mode tranchés (D287–D290), dégradation gracieuse pour le reste ; **évolutions par hook** : texte enrichi, agenda/Gantt, recadrage. **Clôt le thème E.** |
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 
 ---
@@ -5149,3 +5174,13 @@ avant la synthèse Q16).
   (proposition compteur+date rejetée) ; **séparateur CSV déclaré au modèle,
   surchargeable à la fonctionnalité**. Reste pour clore Q56 : la famille
   des générés (compteur, calculé, période, QR/code-barres).
+- **2026-07-16 (suite 3)** — **Q56 CLOSE (D297–D300) — LE THÈME E EST
+  ENTIÈREMENT CLOS.** La famille des générés validée en bloc (« ta
+  proposition me convient ») : **compteur** (lecture seule, placeholder
+  « attribué à la validation », valeur assemblée D155), **champ calculé**
+  (lecture seule, recalcul sur dépendance D255, composant = celui du type
+  de résultat), **période** (deux dates liées contrôlées en frappe, Excel =
+  deux colonnes natives), **QR code/code-barres** (composants de sortie,
+  PDF/étiquettes D252, Excel = valeur source). **300 décisions.** Le thème
+  E (Q38, Q45, Q48, Q53–Q57) est résolu en totalité — restent au projet :
+  Q47 (langage), les différées Q5/Q7/Q30, et Q16 (méta-schéma, en dernier).

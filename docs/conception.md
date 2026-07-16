@@ -354,6 +354,7 @@ postures combinables :
 | D306 | **Simple/complexe = propriété de la fonction du catalogue** (matérialise D104). | Timeout paramétrable sur les seules complexes. Voir §3.3. |
 | D307 | **Le déterminisme = propriété de la fonction du catalogue**. | Proposé à confirmer : l'exigence par contexte (migrations = déterministe seulement, dry-run D7). Voir §3.3. |
 | D308 | **Le null non gardé = une anomalie capturée (amende D303)** : dans une expression booléenne ou arithmétique, le null est **anormal** — **capturé** via le circuit d'échec par contexte (D304), **sauf s'il est capté par `isnull`/`ifnull`**. | Table standard validée en référence ; les filtres SGBD suivent la table ternaire (interprétation à confirmer). Ni propagation ni ternaire silencieuses : l'anomalie se voit. Voir §3.3. |
+| D309 | **Les mots-clés de la grammaire sont en anglais** : `sum(lignes.montant if ligne.etat = "facturée")` ; le « selon que » prendra sa forme anglaise (`case`/`match`). | Clôt le corollaire D301/D305. Fonctions et mots-clés anglais ; noms de champs/entités = ceux du modèle. Voir §3.3. |
 
 ---
 
@@ -571,6 +572,12 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
   est marquée déterministe ou non. *(Proposé, à confirmer : chaque contexte
   d'usage déclare ce qu'il accepte — les migrations n'admettent que le
   déterministe, dry-run D7 oblige ; l'affichage admet tout.)*
+- **Les mots-clés de la grammaire sont en anglais (D309, clôt le corollaire
+  de D301/D305).** Le « si » filtrant des agrégats devient `if` —
+  `sum(lignes.montant if ligne.etat = "facturée")` — et le « selon que »
+  (D302) prendra sa forme anglaise au catalogue (`case`/`match`, à fixer).
+  **Fonctions et mots-clés en anglais ; les noms de champs et d'entités
+  restent ceux du modèle.**
 
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
@@ -5278,3 +5285,7 @@ avant la synthèse Q16).
   ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
   filtres de consultation au SGBD suivent la table ternaire standard (pas
   d'anomalie à exclure une ligne à champ null).
+- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
+  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
+  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
+  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.

@@ -346,6 +346,18 @@ postures combinables :
 | D298 | **Champ calculé** : lecture seule partout, **recalculé à l'écran sur dépendance modifiée** (D255) ; **composant = celui du type de résultat**. | Un calculé montant s'affiche comme un montant. Voir §8.8. |
 | D299 | **Période** : **deux dates liées** (début ≤ fin contrôlé en frappe), raccourcis D278 ; cellule = « du … au … » ; **Excel = deux colonnes natives**. | Voir §8.8. |
 | D300 | **QR code / code-barres** : composants de **sortie** (rendent la valeur d'un champ) — usage premier PDF/étiquettes (D252), affichables à l'écran ; Excel = la valeur source. | **Clôt Q56 — et le thème E.** Voir §8.8. |
+| D301 | **Le catalogue de fonctions du langage est en anglais** (`sum`, `count`, `if`, `isnull`…) — internationalisation potentielle + **similitude avec les langages connus** (Visual Basic, Python…). | Les exemples consignés seront anglicisés à la rédaction du catalogue ; corollaire ouvert : les mots-clés de la grammaire (le « si » filtrant). Voir §3.3. |
+| D302 | **La logique « selon que » ajoutée au catalogue** : sélection **multi-branches** (`Select Case` / `match`) — facilite les **tables de correspondance** en ligne. | Le pendant expression du transcodage (D90) pour les petits cas. Voir §3.3. |
+| D303 | **Le null : logique ternaire retenue** (avantage sur la propagation d'anomalie et l'interruption) ; `isnull` / `ifnull` pour trancher explicitement. | **Table de vérité à confirmer** — deux écarts au standard SQL/Kleene dans la dictée (OU asymétrique, `Faux et null`) ; table standard proposée, alignée sur le SGBD. Voir §3.3. |
+| D304 | **Échec d'une expression, par contexte** : migration = **substitution déclarée** (D13) ; champ calculé = **null + trace** ; validation = **règle non satisfaite + trace**. | Rien n'échoue en silence ; le doute profite à la sécurité. Voir §3.3. |
+| D305 | **Grammaire = celle des exemples actés** : infixe, chemins pointés, gabarits `{}`, agrégats à filtre intégré, fonctions, imbrication (D90). | « Les exemples actés sont significatifs de ce que cela doit rassembler. » Mots-clés anglais : corollaire ouvert (D301). Voir §3.3. |
+| D306 | **Simple/complexe = propriété de la fonction du catalogue** (matérialise D104). | Timeout paramétrable sur les seules complexes. Voir §3.3. |
+| D307 | **Le déterminisme = propriété de la fonction du catalogue**. | Proposé à confirmer : l'exigence par contexte (migrations = déterministe seulement, dry-run D7). Voir §3.3. |
+| D308 | **Le null non gardé = une anomalie capturée (amende D303)** : dans une expression booléenne ou arithmétique, le null est **anormal** — **capturé** via le circuit d'échec par contexte (D304), **sauf s'il est capté par `isnull`/`ifnull`**. | Table standard validée en référence ; les filtres SGBD suivent la table ternaire (interprétation à confirmer). Ni propagation ni ternaire silencieuses : l'anomalie se voit. Voir §3.3. |
+| D309 | **Les mots-clés de la grammaire sont en anglais** : `sum(lignes.montant if ligne.etat = "facturée")` ; le « selon que » prendra sa forme anglaise (`case`/`match`). | Clôt le corollaire D301/D305. Fonctions et mots-clés anglais ; noms de champs/entités = ceux du modèle. Voir §3.3. |
+| D310 | **Filtres et null** : les filtres **peuvent cibler les lignes null** (critère « vide/null ») ; doctrine — **« dans une table, null n'est pas une anomalie ; dans une évaluation pour un calcul, oui »** : null stocké = légitime (table ternaire au SGBD, sans capture), null évalué = capturé (D308). | La ligne de partage stocké/évalué. Voir §3.3. |
+| D311 | **Déterminisme : exigé uniquement pour les migrations** (dry-run D7 rejouable) — aucune restriction ailleurs. | Confirme D307 côté contexte, en plus simple. Voir §3.3. |
+| D312 | **Coercition ratifiée côté langage** : sûre **implicite**, explicite **par fonction** (`to_*`), faillible **à échec propre** (D304) — **jamais de coercition silencieuse** (D120). | **Clôt Q47.** Voir §3.3. |
 
 ---
 
@@ -509,6 +521,82 @@ Gardes existants inchangés : hooks de calcul → délai max (D36) ; tâches →
 **heartbeat** (D55 — une tâche longue mais vivante progresse, une tâche morte est
 tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-run
 (D7) reste le filet des regex pathologiques sur données réelles.
+
+**Spécification fine du langage (Q47, en cours — D301–…).**
+
+- **Le catalogue de fonctions est en anglais (D301).** Deux raisons : une
+  **internationalisation potentielle**, et la **similitude avec des langages
+  déjà connus et exploités** (Visual Basic, Python…) — `sum`, `count`,
+  `min`, `max`, `if`, `isnull`… *(Corollaire à trancher : les mots-clés de
+  la grammaire suivent-ils — le « si » filtrant des agrégats devient `if` ?
+  Les exemples déjà consignés au document seront anglicisés lors de la
+  rédaction du catalogue.)*
+- **La logique « selon que » (D302).** Ajoutée au catalogue : la **sélection
+  multi-branches** (à la `Select Case` de VB / `match` de Python) — `selon
+  que (valeur) : cas a → x ; cas b → y ; défaut → z` — qui **facilite la
+  construction des tables de correspondance** : c'est le pendant en ligne du
+  transcodage (D90), pour les cas trop petits pour mériter une table.
+- **Le null : la logique ternaire est retenue (D303).** L'auteur préfère la
+  logique ternaire à la propagation stricte : « elle présente un avantage
+  sur la propagation d'une anomalie et une interruption », les fonctions
+  `isnull` / `ifnull` permettant de trancher explicitement. **La table de
+  vérité exacte reste à confirmer** — la dictée de l'auteur comporte deux
+  lignes en écart avec la logique ternaire standard (SQL/Kleene) : un OU
+  asymétrique (`Faux ou null → null` mais `null ou Faux → Faux`) et un ET
+  où `Faux et null → null` (le standard donne `Faux` — le faux absorbe).
+  Table standard proposée : `Vrai ou null = Vrai` ; `Faux ou null = null` ;
+  `Vrai et null = null` ; `Faux et null = Faux` — commutative, et alignée
+  sur le SGBD sous-jacent (les filtres et validations s'y exécutent).
+- **Le null non gardé = une anomalie capturée (D308, amende D303).** La
+  table standard est validée (« tu as raison ») — **mais la doctrine du
+  projet prime** : **une valeur null dans une expression booléenne ou une
+  opération arithmétique est une valeur anormale — elle doit être
+  capturée**, **sauf si elle est captée par `isnull` ou `ifnull`** (les
+  seules portes légitimes du null). La capture emprunte le circuit d'échec
+  par contexte (D304) : null + trace en champ calculé, règle non satisfaite
+  + trace en validation, substitution déclarée en migration.
+  *(Interprétation à confirmer : les **filtres de consultation** exécutés
+  au SGBD suivent, eux, la table ternaire standard — exclure une ligne au
+  champ null n'est pas une anomalie ; la capture vaut pour les expressions
+  du langage : calculs, validations, migrations, transitions.)*
+- **L'échec d'une expression, par contexte (D304).** **Migration /
+  translation** : la substitution déclarée (D13) ; **champ calculé** : null
+  + une trace ; **validation** : **une règle non satisfaite — qui fait
+  l'objet d'une trace** (précision de l'auteur). Le doute profite à la
+  sécurité, et rien n'échoue en silence.
+- **La grammaire : celle des exemples actés (D305).** « Les exemples actés
+  sont significatifs de ce que cela doit rassembler » — expressions
+  infixes, chemins pointés (`client.nom`, `lignes.montant`), gabarits
+  `{}`, agrégats à filtre intégré, fonctions `nom(args)`, imbrication
+  libre (D90). *(Corollaire D301 toujours ouvert : les mots-clés — le
+  « si » filtrant — passent-ils à l'anglais `if` ?)*
+- **Simple/complexe = une propriété de la fonction du catalogue (D306)**
+  (matérialise D104) ; **le déterminisme aussi (D307)** — chaque fonction
+  est marquée déterministe ou non. *(Proposé, à confirmer : chaque contexte
+  d'usage déclare ce qu'il accepte — les migrations n'admettent que le
+  déterministe, dry-run D7 oblige ; l'affichage admet tout.)*
+- **Les mots-clés de la grammaire sont en anglais (D309, clôt le corollaire
+  de D301/D305).** Le « si » filtrant des agrégats devient `if` —
+  `sum(lignes.montant if ligne.etat = "facturée")` — et le « selon que »
+  (D302) prendra sa forme anglaise au catalogue (`case`/`match`, à fixer).
+  **Fonctions et mots-clés en anglais ; les noms de champs et d'entités
+  restent ceux du modèle.**
+- **Les filtres et le null : la doctrine complète (D310).** **Les filtres
+  peuvent cibler les lignes null si besoin** (un critère « vide/null » du
+  filtre) ; et la ligne de partage est nette — **« dans une table, null
+  n'est pas une anomalie ; mais dans une évaluation pour un calcul,
+  oui »** : le null **stocké** est légitime (la table ternaire standard
+  s'applique aux filtres exécutés au SGBD, sans capture), le null
+  **évalué** dans une expression est capturé (D308).
+- **Le déterminisme : exigé uniquement pour les migrations (D311).** Les
+  migrations n'admettent que des fonctions déterministes (le dry-run D7
+  doit être rejouable) ; **partout ailleurs, aucune restriction**
+  (validations, filtres, gabarits, affichage).
+- **La coercition est validée (D312 — clôt Q47).** Le résumé est ratifié :
+  conversions **sûres implicites** aux frontières et dans les expressions ;
+  **explicites par fonction** (`to_integer`, `to_text`… — D301) ;
+  **faillibles à échec propre** (traité par contexte, D304) — **jamais de
+  coercition silencieuse** (D120 confirmé côté langage).
 
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
@@ -3772,7 +3860,7 @@ avant la synthèse Q16).
 | ~~Q44~~ | ~~Authentification API & débit global ?~~ | **Résolu (D105, D107)** : rate limiting 15 req/sec + surcharge par compte (429/`Retry-After`) ; **clé API rotative** par défaut ; **on-behalf-of par header dédié** (périmètre D76) ; OAuth2/RFC 8693 en déclinaison (D78). |
 | **D — Transverses** | | |
 | ~~Q46~~ | ~~Infrastructure de notifications ?~~ | **Résolu (D108–D110, §8.5)** : canaux = connecteurs (vecteur vs contenant, templates en paramètres) ; canaux autorisés dans la description + choix par profil ; persistée d'abord (entité du méta-modèle, outbox) → livraison garantie, historique à rétention max, in-app = lecture du magasin. |
-| Q47 | **Spécification fine du langage d'expression** (D90–D92) : catalogue de fonctions, sémantique (**null**, coercition, erreurs → substitution), grammaire + classification **simple/complexe** (D104). | Pilier du méta-schéma ; précise D90. |
+| ~~Q47~~ | ~~Spécification fine du langage d'expression ?~~ | **Résolu (D90–D92, D104, D120, D301–D312, §3.3)** : **catalogue de fonctions et mots-clés en anglais** (similitude VB/Python, i18n potentielle) + « selon que » (`case`) ; **null** — table ternaire standard en référence, **null évalué non gardé = anomalie capturée** (`isnull`/`ifnull` seules portes), null stocké légitime (filtres ciblant le vide) ; **échec par contexte** (substitution en migration / null+trace en calculé / règle non satisfaite + trace en validation) ; **coercition** sûre implicite / explicite par `to_*` / faillible à échec propre — jamais silencieuse ; **grammaire = les exemples actés** (infixe, chemins, gabarits `{}`, `if` filtrant) ; **simple/complexe et déterminisme = propriétés de la fonction** ; **déterminisme exigé aux seules migrations**. |
 | **E — UI/UX (regroupe l'affichage)** | | |
 | ~~Q38~~ | ~~Recherche & filtrage ?~~ | **Résolu (D125–D126, D198, D222, D226–D229, §8.6)** : filtre = valeur/jeu/comparateur (comparaison intrinsèque du type) ; **plein-texte mono-entité porté par la liste** — recherche globale trans-entités **écartée (assumée)** ; **recherches déclarées** (champs listés, plusieurs par entité, = le filtre transverse unifié) traversant références et enfants par déclaration ; **filtrage vivant** (saisie/sélection, throttling, pas de bouton) ; mode **strict** (contient normalisé) **ou approximation** (score + seuil, tri par score — Dupont puis Dupond) ; anti-oracle via les droits de la liste. Filtres par type → Q56. |
 | ~~Q45~~ | ~~Internationalisation ?~~ | **Résolu (D124/D127/D131 + D217–D225, §8.7)** : langues permises **listées au modèle** (1 à 3), langue au profil, formats par langue (multiples, défaut global, surcharge par champ) ; **types temporels brut/horodatage** (brut jamais converti, horodatage UTC) ; **une langue = un fuseau** assumé + surcharge au profil sur liste déclarée ; **collation normalisée uniforme** ; **CSV au modèle** ; notifications **dans la langue de l'opérateur**, journaux en anglais ; gabarits PDF/mails par langue ; **repli à deux crans** + **rapport de couverture des traductions** (signalé + administrable) ; API en **ISO 8601 canonique** (brut sans décalage, horodatage `Z`). |
@@ -5184,3 +5272,49 @@ avant la synthèse Q16).
   PDF/étiquettes D252, Excel = valeur source). **300 décisions.** Le thème
   E (Q38, Q45, Q48, Q53–Q57) est résolu en totalité — restent au projet :
   Q47 (langage), les différées Q5/Q7/Q30, et Q16 (méta-schéma, en dernier).
+- **2026-07-16 (suite 4)** — **Q47 ouverte (PR #18 fusionnée, branche
+  feature/langage)**. Proposition en sept points (null, coercition,
+  erreurs, catalogue, grammaire, simple/complexe, déterminisme). Premiers
+  arbitrages : **le catalogue de fonctions est en anglais (D301)** —
+  internationalisation potentielle + similitude avec les langages connus
+  (VB, Python) — la proposition « noms en français » est écartée, les
+  exemples consignés seront anglicisés ; **la logique « selon que » est
+  ajoutée (D302)** — sélection multi-branches facilitant les tables de
+  correspondance, pendant en ligne du transcodage. Corollaire soumis : les
+  mots-clés de la grammaire (le « si » filtrant → `if` ?).
+- **2026-07-16 (suite 5)** — **Q47 : cinq arbitrages (D303–D307)**. **Le
+  null : la logique ternaire retenue** (contre la proposition de
+  propagation bivaluée) — mais la **table dictée comporte deux écarts au
+  standard** (OU asymétrique ; `Faux et null → null` là où le standard
+  absorbe en Faux) : table standard SQL/Kleene proposée en confirmation,
+  argument = l'alignement sur le SGBD où s'exécutent filtres et
+  validations. **Échec par contexte** (D304) : substitution en migration,
+  null+trace en calculé, **règle non satisfaite + trace** en validation
+  (précision de l'auteur). **Grammaire = les exemples actés** (D305).
+  **Simple/complexe et déterminisme = propriétés de la fonction du
+  catalogue** (D306–D307). Demande de l'auteur : un **résumé de la
+  coercition** (fourni en réponse — ratification attendue). Restent : la
+  table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
+  déterminisme, la ratification coercition.
+- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
+  « Tu as raison » : la table standard est validée en référence — mais la
+  doctrine du projet prime : **le null dans une expression booléenne ou
+  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
+  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
+  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
+  filtres de consultation au SGBD suivent la table ternaire standard (pas
+  d'anomalie à exclure une ligne à champ null).
+- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
+  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
+  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
+  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
+- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
+  confirmations : **les filtres peuvent cibler les lignes null** et la
+  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
+  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
+  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
+  migrations** (D311) ; **la coercition est validée** (D312 — sûre
+  implicite, explicite par `to_*`, faillible à échec propre, jamais
+  silencieuse). **Le langage d'expression est entièrement spécifié**
+  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
+  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.

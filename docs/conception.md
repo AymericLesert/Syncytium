@@ -336,6 +336,7 @@ postures combinables :
 | D288 | **Temporels par mode** : smartphone = **calendrier plein écran** (semaine/mois/agenda multi-semaines, lisibilité maîtrisée, tactile seul) ; tablette = calendrier **à proximité du champ** ; PC = **saisie clavier + calendrier sur demande** (icône). | Voir §8.8. |
 | D289 | **Choix par mode** : smartphone = déroulante (unique/multiple), **choix par image plein écran empilé, radios empilées** ; tablette = déroulante, image en **zone restreinte près du champ** (clavier limité) ; PC = **raccourcis clavier + parcours par saisie** (début de mots, throttling D228). | Voir §8.8. |
 | D290 | **Listes par mode** : smartphone = tableau pour les **petites listes**, **widgets recommandés au volume** (1 colonne portrait / **2 colonnes paysage**) ; tablette/PC = tableaux ou widgets **multi-colonnes** ; **filtres : PC toujours affichés, smartphone derrière une icône, tablette au choix**. | **Premier écart d'orientation** (nuance D262 — les dispositions peuvent différer par orientation). Voir §8.8. |
+| D291 | **Géolocalisation : la position courante du terminal est affichable sur la carte** (repère en lecture, « ma position » en saisie). | Sous réserve de l'autorisation de géolocalisation du terminal. Voir §8.8. |
 
 ---
 
@@ -3491,6 +3492,12 @@ natif — **inutile d'avoir deux dispositifs de saisie des nombres**.
   liste par saisie d'une valeur** (début de mots, **avec throttling** —
   D228).
 
+**La géolocalisation : la position courante du terminal (D291).** La carte
+doit pouvoir **afficher la position courante du terminal** — repère de
+contexte en lecture, et aide à la saisie (« ma position » comme point de
+départ). *(Note : sous réserve de l'autorisation de géolocalisation
+accordée par l'utilisateur au navigateur/terminal.)*
+
 **Les listes par mode (D290).**
 
 - **Smartphone** : **le tableau est proposé pour les petites listes de
@@ -5070,3 +5077,8 @@ avant la synthèse Q16).
   portrait / 2 colonnes paysage, premier écart d'orientation**, nuance
   D262 ; filtres : PC affichés, smartphone icône, tablette au choix).
   Le reste suit la **dégradation gracieuse** (convention §8.8).
+- **2026-07-16 (suite)** — **Famille des contenus ouverte** (fichier,
+  image/vignette, géolocalisation, communication, liste — proposition
+  soumise). Premier arbitrage : **la carte affiche la position courante du
+  terminal (D291)** — repère en lecture, « ma position » en saisie, sous
+  réserve de l'autorisation du terminal.

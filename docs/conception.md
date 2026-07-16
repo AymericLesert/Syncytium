@@ -337,6 +337,11 @@ postures combinables :
 | D289 | **Choix par mode** : smartphone = déroulante (unique/multiple), **choix par image plein écran empilé, radios empilées** ; tablette = déroulante, image en **zone restreinte près du champ** (clavier limité) ; PC = **raccourcis clavier + parcours par saisie** (début de mots, throttling D228). | Voir §8.8. |
 | D290 | **Listes par mode** : smartphone = tableau pour les **petites listes**, **widgets recommandés au volume** (1 colonne portrait / **2 colonnes paysage**) ; tablette/PC = tableaux ou widgets **multi-colonnes** ; **filtres : PC toujours affichés, smartphone derrière une icône, tablette au choix**. | **Premier écart d'orientation** (nuance D262 — les dispositions peuvent différer par orientation). Voir §8.8. |
 | D291 | **Géolocalisation : la position courante du terminal est affichable sur la carte** (repère en lecture, « ma position » en saisie). | Sous réserve de l'autorisation de géolocalisation du terminal. Voir §8.8. |
+| D292 | **Fichier** : **types autorisés portés par le champ** ; **smartphone : appareil photo / galerie** comme sources ; lecture = icône + nom + taille + téléchargement, statut visible (D163) ; **PDF/Excel = le nom** ; filtre = nom + mots-clés (D160) ; pièces jointes = bloc dédié (D199). | Voir §8.8. |
+| D293 | **Image** : aperçu immédiat au dépôt ; **visionneuse au clic — plein écran (smartphone), pourcentage de l'écran (tablette), zone définie (PC)** ; cellule/widget = la vignette (D286) ; PDF = l'image (D257) ; **pas de recadrage dans le socle** (hook, D263). | Voir §8.8. |
+| D294 | **Géolocalisation** : pointer sur la carte ou lat/long clavier ; **fond de carte déclarable à l'instance** ; **géocodage = connecteur avec un défaut open source dans le socle** — candidats : **API Adresse/BAN (Addok)** et **Nominatim (OSM)**, auto-hébergeables ; Excel = `lat,long` ; pas de filtre socle. | Politiques d'usage à re-vérifier en Q7. Voir §8.8. |
+| D295 | **Communication** : fil chronologique immuable, saisie en bas, plein écran sur smartphone ; **pas d'affichage en cellule de liste** ; PDF = fil complet si inclus ; Excel exclu (D236). | Voir §8.8. |
+| D296 | **Liste** : multi-sélection (énumérés) ou éditeur de liste ; tags en lecture, ellipse en cellule ; **séparateur Excel/CSV déclaré au modèle, surchargeable à la fonctionnalité** (précise D223). | Ré-importabilité (D237) préservée. Voir §8.8. |
 
 ---
 
@@ -3498,6 +3503,55 @@ contexte en lecture, et aide à la saisie (« ma position » comme point de
 départ). *(Note : sous réserve de l'autorisation de géolocalisation
 accordée par l'utilisateur au navigateur/terminal.)*
 
+#### La famille des contenus (D292–D296)
+
+**Le fichier (D292).** Dépôt par **glisser-déposer** sur PC ; **sur
+smartphone, l'appareil photo et la galerie servent à sélectionner une photo
+ou un fichier**. **Les types de fichiers autorisés sont portés par le
+champ.** Quota contrôlé à la volée (D162). Lecture = icône selon le type +
+nom + taille, **téléchargement au clic**, statut visible quand dégradé
+(D163) ; cellule = icône + nom tronqué ; widget = icône + nom ; **PDF et
+Excel = le nom du fichier** ; filtre = « contient » sur le nom et les
+mots-clés (D160) ; pièces jointes multiples = le bloc dédié (D199).
+
+**L'image (D293).** Dépôt comme un fichier avec **aperçu immédiat**
+(appareil photo sur mobile) ; lecture = **la vignette** (D286), **clic →
+visionneuse** : **plein écran sur smartphone, en pourcentage de l'écran sur
+tablette, en zone définie sur PC**. Cellule et widget = la vignette ; PDF =
+l'image dimensionnée au bloc (D257) ; Excel = le nom du fichier. **Pas de
+recadrage dans le socle** (évolution par hook, patron D263).
+
+**La géolocalisation (D294).** Saisie = **pointer sur la carte** (bloc
+dédié D199) ou **lat/long au clavier** ; position courante du terminal
+(D291). Lecture = mini-carte centrée + marqueur ; cellule = lat/long en
+texte court, clic → carte ; PDF = **une image de la carte** (D257) ; Excel
+= `lat,long` canonique (ré-importable) ; non triable (D125), pas de filtre
+dans le socle (la proximité = hook). **Le fond de carte est déclarable à
+l'instance** (paramètre général, D259). **Le géocodage = un connecteur
+(D78), avec un connecteur par défaut dans le socle, open source** —
+candidats identifiés : **l'API Adresse / Base Adresse Nationale**
+(adresse.data.gouv.fr — service public français, données ouvertes, moteur
+**Addok** open source auto-hébergeable ; le candidat naturel du périmètre
+TPE français) et **Nominatim** (le géocodeur open source d'OpenStreetMap,
+auto-hébergeable ; API publique à politique stricte : ~1 req/s,
+attribution, pas d'autocomplétion). Choix et politiques d'usage à
+re-vérifier à la pile technique (Q7).
+
+**La communication (D295).** L'onglet acté (D167/D186) : fil chronologique
+(auteur, horodatage, contenu), **saisie du nouveau message en bas**,
+messages **immuables**, pièces jointes si activées, notifications opt-in
+(D108–D110) ; sur smartphone, **le fil en plein écran**. **Pas d'affichage
+dans une cellule de liste.** PDF = le fil complet si le bloc est inclus au
+gabarit ; Excel = exclu (D236).
+
+**La liste (D296).** Modification : **multi-sélection** (cases ou tags)
+pour les énumérés, **éditeur de liste** sinon (ajouter / retirer /
+réordonner quand l'ordre est l'insertion) ; lecture = tags ; cellule = les
+premières valeurs + ellipse ; PDF = les valeurs énumérées ; **Excel/CSV :
+le séparateur interne est déclaré au modèle (défaut) et éventuellement
+surchargeable à la fonctionnalité** (précise D223 — condition de la
+ré-importabilité D237) ; filtre = « contient » (D166).
+
 **Les listes par mode (D290).**
 
 - **Smartphone** : **le tableau est proposé pour les petites listes de
@@ -5082,3 +5136,16 @@ avant la synthèse Q16).
   soumise). Premier arbitrage : **la carte affiche la position courante du
   terminal (D291)** — repère en lecture, « ma position » en saisie, sous
   réserve de l'autorisation du terminal.
+- **2026-07-16 (suite 2)** — **La famille des contenus close (D292–D296)**.
+  Les six points arbitrés : **types de fichiers autorisés portés par le
+  champ** ; **appareil photo/galerie** sur smartphone ; **visionneuse**
+  plein écran (smartphone) / pourcentage d'écran (tablette) / zone définie
+  (PC) ; **géocodage = connecteur avec un défaut open source dans le
+  socle** — question de l'auteur sur OpenStreetMap, réponse : **Nominatim**
+  (géocodeur OSM, auto-hébergeable, API publique à politique stricte) et
+  surtout **l'API Adresse / BAN** (service public français, moteur Addok
+  open source — candidat naturel du périmètre TPE) ; **fond de carte
+  déclarable à l'instance** ; **pas de communication en cellule de liste**
+  (proposition compteur+date rejetée) ; **séparateur CSV déclaré au modèle,
+  surchargeable à la fonctionnalité**. Reste pour clore Q56 : la famille
+  des générés (compteur, calculé, période, QR/code-barres).

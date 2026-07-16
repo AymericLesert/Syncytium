@@ -348,6 +348,11 @@ postures combinables :
 | D300 | **QR code / code-barres** : composants de **sortie** (rendent la valeur d'un champ) — usage premier PDF/étiquettes (D252), affichables à l'écran ; Excel = la valeur source. | **Clôt Q56 — et le thème E.** Voir §8.8. |
 | D301 | **Le catalogue de fonctions du langage est en anglais** (`sum`, `count`, `if`, `isnull`…) — internationalisation potentielle + **similitude avec les langages connus** (Visual Basic, Python…). | Les exemples consignés seront anglicisés à la rédaction du catalogue ; corollaire ouvert : les mots-clés de la grammaire (le « si » filtrant). Voir §3.3. |
 | D302 | **La logique « selon que » ajoutée au catalogue** : sélection **multi-branches** (`Select Case` / `match`) — facilite les **tables de correspondance** en ligne. | Le pendant expression du transcodage (D90) pour les petits cas. Voir §3.3. |
+| D303 | **Le null : logique ternaire retenue** (avantage sur la propagation d'anomalie et l'interruption) ; `isnull` / `ifnull` pour trancher explicitement. | **Table de vérité à confirmer** — deux écarts au standard SQL/Kleene dans la dictée (OU asymétrique, `Faux et null`) ; table standard proposée, alignée sur le SGBD. Voir §3.3. |
+| D304 | **Échec d'une expression, par contexte** : migration = **substitution déclarée** (D13) ; champ calculé = **null + trace** ; validation = **règle non satisfaite + trace**. | Rien n'échoue en silence ; le doute profite à la sécurité. Voir §3.3. |
+| D305 | **Grammaire = celle des exemples actés** : infixe, chemins pointés, gabarits `{}`, agrégats à filtre intégré, fonctions, imbrication (D90). | « Les exemples actés sont significatifs de ce que cela doit rassembler. » Mots-clés anglais : corollaire ouvert (D301). Voir §3.3. |
+| D306 | **Simple/complexe = propriété de la fonction du catalogue** (matérialise D104). | Timeout paramétrable sur les seules complexes. Voir §3.3. |
+| D307 | **Le déterminisme = propriété de la fonction du catalogue**. | Proposé à confirmer : l'exigence par contexte (migrations = déterministe seulement, dry-run D7). Voir §3.3. |
 
 ---
 
@@ -526,6 +531,33 @@ tuée, quel que soit son déclencheur D54) ; IHM → navigateur (D69). Le dry-ru
   que (valeur) : cas a → x ; cas b → y ; défaut → z` — qui **facilite la
   construction des tables de correspondance** : c'est le pendant en ligne du
   transcodage (D90), pour les cas trop petits pour mériter une table.
+- **Le null : la logique ternaire est retenue (D303).** L'auteur préfère la
+  logique ternaire à la propagation stricte : « elle présente un avantage
+  sur la propagation d'une anomalie et une interruption », les fonctions
+  `isnull` / `ifnull` permettant de trancher explicitement. **La table de
+  vérité exacte reste à confirmer** — la dictée de l'auteur comporte deux
+  lignes en écart avec la logique ternaire standard (SQL/Kleene) : un OU
+  asymétrique (`Faux ou null → null` mais `null ou Faux → Faux`) et un ET
+  où `Faux et null → null` (le standard donne `Faux` — le faux absorbe).
+  Table standard proposée : `Vrai ou null = Vrai` ; `Faux ou null = null` ;
+  `Vrai et null = null` ; `Faux et null = Faux` — commutative, et alignée
+  sur le SGBD sous-jacent (les filtres et validations s'y exécutent).
+- **L'échec d'une expression, par contexte (D304).** **Migration /
+  translation** : la substitution déclarée (D13) ; **champ calculé** : null
+  + une trace ; **validation** : **une règle non satisfaite — qui fait
+  l'objet d'une trace** (précision de l'auteur). Le doute profite à la
+  sécurité, et rien n'échoue en silence.
+- **La grammaire : celle des exemples actés (D305).** « Les exemples actés
+  sont significatifs de ce que cela doit rassembler » — expressions
+  infixes, chemins pointés (`client.nom`, `lignes.montant`), gabarits
+  `{}`, agrégats à filtre intégré, fonctions `nom(args)`, imbrication
+  libre (D90). *(Corollaire D301 toujours ouvert : les mots-clés — le
+  « si » filtrant — passent-ils à l'anglais `if` ?)*
+- **Simple/complexe = une propriété de la fonction du catalogue (D306)**
+  (matérialise D104) ; **le déterminisme aussi (D307)** — chaque fonction
+  est marquée déterministe ou non. *(Proposé, à confirmer : chaque contexte
+  d'usage déclare ce qu'il accepte — les migrations n'admettent que le
+  déterministe, dry-run D7 oblige ; l'affichage admet tout.)*
 
 **Apport au méta-schéma** : le langage d'expression unique **multi-valué** est un
 **pilier** — même grammaire pour calculs et transformations, un seul concept de
@@ -5211,3 +5243,17 @@ avant la synthèse Q16).
   ajoutée (D302)** — sélection multi-branches facilitant les tables de
   correspondance, pendant en ligne du transcodage. Corollaire soumis : les
   mots-clés de la grammaire (le « si » filtrant → `if` ?).
+- **2026-07-16 (suite 5)** — **Q47 : cinq arbitrages (D303–D307)**. **Le
+  null : la logique ternaire retenue** (contre la proposition de
+  propagation bivaluée) — mais la **table dictée comporte deux écarts au
+  standard** (OU asymétrique ; `Faux et null → null` là où le standard
+  absorbe en Faux) : table standard SQL/Kleene proposée en confirmation,
+  argument = l'alignement sur le SGBD où s'exécutent filtres et
+  validations. **Échec par contexte** (D304) : substitution en migration,
+  null+trace en calculé, **règle non satisfaite + trace** en validation
+  (précision de l'auteur). **Grammaire = les exemples actés** (D305).
+  **Simple/complexe et déterminisme = propriétés de la fonction du
+  catalogue** (D306–D307). Demande de l'auteur : un **résumé de la
+  coercition** (fourni en réponse — ratification attendue). Restent : la
+  table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
+  déterminisme, la ratification coercition.

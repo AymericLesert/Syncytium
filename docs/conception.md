@@ -332,6 +332,10 @@ postures combinables :
 | D284 | **Référence** : description D215/D228/D229/D201 validée, **Excel = clé fonctionnelle** ; **une entité peut porter un champ « image »** — s'il est défini, **sélection via image + libellé court privilégiée dans un formulaire dédié** (choix d'un plat, photo d'un utilisateur). | Ré-importabilité préservée (D235–D237). Voir §8.8. |
 | D285 | **Boutons radio = surcharge graphique au formulaire** (chaîne D270) — **le seuil automatique de cardinalité est abandonné** (amende D256). | La pertinence relève du déclarant. Voir §8.8. |
 | D286 | **Types de base ajoutés (étend D121)** : **vignette** (image petite taille) et **image** (grande taille **+ déclinaison en vignette**). | Portent le champ « image » d'une entité (D284) ; patron fichier (D160/D165) ; **vignette calculée automatiquement par le moteur (confirmé)**. Voir §8.8. |
+| D287 | **La calculatrice remplace le clavier natif** — sur smartphone **et** tablette : un seul dispositif de saisie des nombres. | Précise D268. Voir §8.8. |
+| D288 | **Temporels par mode** : smartphone = **calendrier plein écran** (semaine/mois/agenda multi-semaines, lisibilité maîtrisée, tactile seul) ; tablette = calendrier **à proximité du champ** ; PC = **saisie clavier + calendrier sur demande** (icône). | Voir §8.8. |
+| D289 | **Choix par mode** : smartphone = déroulante (unique/multiple), **choix par image plein écran empilé, radios empilées** ; tablette = déroulante, image en **zone restreinte près du champ** (clavier limité) ; PC = **raccourcis clavier + parcours par saisie** (début de mots, throttling D228). | Voir §8.8. |
+| D290 | **Listes par mode** : smartphone = tableau pour les **petites listes**, **widgets recommandés au volume** (1 colonne portrait / **2 colonnes paysage**) ; tablette/PC = tableaux ou widgets **multi-colonnes** ; **filtres : PC toujours affichés, smartphone derrière une icône, tablette au choix**. | **Premier écart d'orientation** (nuance D262 — les dispositions peuvent différer par orientation). Voir §8.8. |
 
 ---
 
@@ -3458,6 +3462,49 @@ s'appuient sur le patron fichier (D160 : binaires hors base, quotas,
 statuts ; déduplication D165). **Confirmé : dans le cas d'une image, la
 vignette est calculée automatiquement** (par le moteur).
 
+#### Les comportements par mode — arbitrages transverses (D287–D290)
+
+**La calculatrice remplace le clavier natif (D287, précise D268).** Sur
+**smartphone comme sur tablette**, la calculatrice **remplace** le clavier
+natif — **inutile d'avoir deux dispositifs de saisie des nombres**.
+
+**Les temporels par mode (D288).**
+
+- **Smartphone** : le calendrier **peut prendre l'écran complet** ; il doit
+  pouvoir afficher **la semaine, le mois**, ou mettre à disposition **un
+  agenda sur plusieurs semaines/mois**, **en gardant le contrôle sur la
+  lisibilité**, accessible **via le tactile uniquement**.
+- **Tablette** : l'écran est plus grand — le calendrier s'affiche **à
+  proximité du champ** à la saisie d'une nouvelle date.
+- **PC** : la date peut être **saisie au clavier**, le calendrier s'affiche
+  **sur demande, par une icône**.
+
+**Les choix par mode (D289).**
+
+- **Smartphone** : le choix (sans image) = **liste déroulante** (saisie
+  **unique ou multiple**) ; **le choix par image prend l'écran et
+  s'empile** ; **les radios s'empilent** également.
+- **Tablette** : déroulante identique ; le choix par image dans une **zone
+  plus restreinte, proche du champ**, avec **limitation de l'usage du
+  clavier**.
+- **PC** : **raccourcis clavier** pour sélectionner, et **parcours de la
+  liste par saisie d'une valeur** (début de mots, **avec throttling** —
+  D228).
+
+**Les listes par mode (D290).**
+
+- **Smartphone** : **le tableau est proposé pour les petites listes de
+  valeurs** ; dès que le volume devient important, **la liste de widgets
+  est recommandée** — widgets **l'un au-dessus de l'autre en portrait**,
+  **en 2 colonnes en paysage** *(premier écart d'orientation du catalogue —
+  nuance à D262, qui reste vrai pour les paramètres communs : les écarts
+  d'orientation restent possibles au niveau des dispositions)*.
+- **Tablette / PC** : **tableaux ou listes de widgets**, les widgets
+  pouvant s'afficher **sur plusieurs colonnes**.
+- **Les filtres** : **PC = systématiquement affichés** ; **smartphone =
+  proposés derrière un petit icône significatif** ; **tablette = l'une ou
+  l'autre des options**.
+
 **La surcharge du composant au formulaire (D270).** À la déclaration d'un
 champ dans un formulaire, **le composant graphique par défaut est pris en
 compte** (porté par la **description du modèle** — type → composant,
@@ -5009,3 +5056,17 @@ avant la synthèse Q16).
   champ « image » d'une entité (D284) et s'appuient sur le patron fichier
   (D160/D165). **Confirmé dans la foulée : la vignette d'une image est
   calculée automatiquement** par le moteur.
+- **2026-07-16 (reprise — PR #17 fusionnée entre-temps)** — **Les
+  comportements par mode tranchés (D287–D290)**. Audit : seul le texte
+  avait son bloc d'écarts explicite — quatre points soumis, quatre
+  arbitrages : **la calculatrice remplace le clavier natif** (smartphone
+  et tablette — un seul dispositif) ; **temporels** (smartphone :
+  calendrier plein écran, semaine/mois/agenda, tactile seul ; tablette : à
+  proximité du champ ; PC : saisie clavier + icône) ; **choix**
+  (smartphone : déroulante unique/multiple, image plein écran empilée,
+  radios empilées ; tablette : image en zone restreinte ; PC : raccourcis
+  clavier + parcours par saisie throttlée) ; **listes** (smartphone :
+  tableau pour les petites listes, widgets au volume — **1 colonne
+  portrait / 2 colonnes paysage, premier écart d'orientation**, nuance
+  D262 ; filtres : PC affichés, smartphone icône, tablette au choix).
+  Le reste suit la **dégradation gracieuse** (convention §8.8).

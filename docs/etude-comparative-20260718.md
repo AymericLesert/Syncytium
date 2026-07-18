@@ -76,19 +76,26 @@ correspondante**. Trois sources indépendantes convergent sur les
 affirmations Cadwyn (README GitHub, docs.cadwyn.dev, article Monite), et
 les points N1–N3 sont recoupés par la vérification directe du §3.
 
-| # | Affirmation (résumé) | Source | Statut |
+| # | Affirmation | Source | Statut |
 |---|---|---|---|
-| N1 | Cadwyn : on ne maintient que la version la plus récente, les antérieures sont générées automatiquement depuis les « version changes ». | github.com/zmievsa/cadwyn, docs.cadwyn.dev | 1 vote pour, 2 en erreur ; cohérent §3 |
-| N2 | Cadwyn : chaîne de translation bidirectionnelle (requêtes migrées vers l'avant, réponses vers l'arrière, le métier ne voyant que la version de tête). | github.com/zmievsa/cadwyn, docs.cadwyn.dev, dev.to/monite | panels en erreur ; cohérent §3 |
-| N3 | Cadwyn : VersionChange écrits à la main (pas dérivés d'un journal de migrations du modèle) ; pas d'épinglage par compte ni de statuts de versions ; la doc traite le versionnement des données comme un sujet séparé (« Beware of data versioning »). | docs.cadwyn.dev, dev.to/monite | **recoupé et confirmé par la vérification directe (§3)** |
-| N4 | Monite a publié Cadwyn en open source (précédent direct depuis au moins août 2024). | dev.to/monite/api-versioning-at-monite | panels en erreur |
-| N5 | Stripe épingle chaque compte sur une version par défaut (gérée dans Workbench), surchargeable par requête via l'en-tête `Stripe-Version` — précédent commercial direct de l'épinglage par compte (notre D98). | docs.stripe.com/api/versioning | panels en erreur ; conforme à la connaissance établie |
-| N6 | La pré-planification déclarative d'Atlas (`schema plan`) serait réservée au niveau **Pro payant** (connexion `atlas login` exigée). | atlasgo.io/declarative/plan | panels en erreur |
-| N7 | XTDB v2 : première version stable annoncée le 12 juin 2025 par JUXT (API SQL et format de stockage stables, partenaires en production). | xtdb.com/blog/launching-xtdb-v2 | panels en erreur |
-| N8 | XTDB v2 : toutes les tables **bitemporelles par défaut** (system time + valid time, inspiré SQL:2011), lecture « à une date » en SQL (`SELECT * FROM users FOR VALID_TIME AS OF '2024-01-01'…`) — précédent de l'API temporelle **au grain de la ligne**, pas par instantanés d'agrégats (« No need for explicit snapshots and copies »). | xtdb.com/blog/launching-xtdb-v2 | panels en erreur |
+| N1 | Cadwyn : on ne maintient que l'implémentation de la version la plus récente ; les antérieures sont **générées automatiquement** (rétro-portage des évolutions et correctifs). | github.com/zmievsa/cadwyn | **1 vote pour, 2 en erreur** — la seule à vote exprimé ; cohérente §3 |
+| N2 | Cadwyn : **chaîne de translation bidirectionnelle** — requêtes migrées de proche en proche vers la version de tête, réponses redescendues jusqu'à la version demandée. | github.com/zmievsa/cadwyn | 3 votes en erreur ; cohérente §3 |
+| N3 | Cadwyn : les migrations sont des classes **« VersionChange » écrites à la main** (DSL au niveau du code applicatif, convertisseurs décorés) — **pas dérivées d'un journal de migrations du modèle** ; épinglage par compte et cycle de vie **absents** de la documentation. | github.com/zmievsa/cadwyn | 3 en erreur — **recoupée et confirmée par la vérification directe (§3)** |
+| N4 | Cadwyn est open source (GitHub/PyPI), versionnement « à la Stripe » pour FastAPI/Python, présenté prêt pour la production. | docs.cadwyn.dev | 3 en erreur (la variante README est, elle, **confirmée 2-0** — C3) |
+| N5 | Cadwyn : seule la version la plus récente se code ; les antérieures sont générées depuis des modules « version change » indépendants. | docs.cadwyn.dev | 3 en erreur |
+| N6 | Cadwyn : translation bidirectionnelle — requêtes migrées en avant, réponses en arrière, **le métier ne travaillant qu'avec la version HEAD**. | docs.cadwyn.dev | 3 en erreur |
+| N7 | Cadwyn : les « version changes » sont écrits **manuellement** (instructions de schéma + décorateurs `convert_request`/`convert_response`) ; la documentation traite le versionnement des **données** comme un sujet séparé (« Beware of data versioning »). | docs.cadwyn.dev | 3 en erreur — **recoupée par la vérification directe (§3)** |
+| N8 | **Monite** a publié Cadwyn en open source — précédent direct depuis **au moins août 2024**. | dev.to/monite/api-versioning-at-monite | 3 en erreur |
+| N9 | Cadwyn/Monite : les version-changes **s'enchaînent en une chaîne de transformateurs** migrant toute requête vers n'importe quelle version plus récente, toute réponse vers n'importe quelle plus ancienne. | dev.to/monite/api-versioning-at-monite | 3 en erreur |
+| N10 | Cadwyn/Monite : versions **déclarées manuellement** ; l'article ne décrit **ni auto-génération depuis un journal de migrations, ni épinglage par compte, ni statuts de versions**. | dev.to/monite/api-versioning-at-monite | 3 en erreur ; cohérente §3 |
+| N11 | **Stripe épingle chaque compte** sur une version par défaut (gérée dans Workbench), surchargeable par requête via l'en-tête `Stripe-Version` — le précédent commercial direct de l'épinglage par compte (notre D98). | docs.stripe.com/api/versioning | 3 en erreur ; conforme à la connaissance établie (D98 s'en inspirait dès l'origine) |
+| N12 | La pré-planification déclarative d'**Atlas** (`schema plan`) n'est **pas open source** : réservée au niveau **Pro payant**, connexion `atlas login` exigée. | atlasgo.io/declarative/plan | 3 en erreur |
+| N13 | **XTDB v2** : première version stable annoncée le **12 juin 2025** par JUXT (API SQL et format de stockage stables, « Design Partners » en production) — une base bitemporelle open source production-ready. | xtdb.com/blog/launching-xtdb-v2 | 3 en erreur |
+| N14 | XTDB v2 : toutes les tables **bitemporelles par défaut** (system time + valid time, SQL:2011), lecture « à une date » (`SELECT * FROM users FOR VALID_TIME AS OF '2024-01-01'…`) — précédent de l'API temporelle **au grain de la ligne**, pas par instantanés d'agrégats (« No need for explicit snapshots and copies »). | xtdb.com/blog/launching-xtdb-v2 | 3 en erreur |
 
-*(Les 6 affirmations restantes des 14 sont des variantes des précédentes
-issues de sources redondantes — regroupées ici par thème.)*
+Le motif d'échec est **uniforme** : les panels sont tombés sur les limites
+de quota (session, puis mensuelle) — **aucune de ces affirmations n'a reçu
+de vote de réfutation**.
 
 ## 5. Les sources collectées (24)
 

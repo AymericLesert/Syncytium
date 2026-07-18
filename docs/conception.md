@@ -40,6 +40,33 @@ postures combinables :
    le développement d'applications dédiées basées sur la donnée et sa
    transformation.
 
+### 1.1 Les dix piliers de Syncytium (ajouté le 18/07/2026)
+
+Les piliers sont les engagements structurants du framework — ceux que
+l'étude comparative évalue (§9, §9.5,
+[etude-comparative-20260718.md](etude-comparative-20260718.md)) et que les
+décisions D1–D312 construisent. Chaque pilier renvoie à ses décisions et à
+sa section de référence.
+
+| # | Pilier | En une phrase | Références |
+|---|--------|---------------|------------|
+| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131 ; §3 ; synthèse méta-schéma à venir (Q16) |
+| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9 ; §4 |
+| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103 ; §5 |
+| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300 ; §8.3, §8.6–§8.8 |
+| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184 ; §3.11 |
+| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174 ; §3.11 |
+| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312 ; §3.3 |
+| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196 ; §5.5–§5.7 |
+| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97 ; §6 |
+| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19 ; §7.2, §9.2, §9.5 |
+
+Le tout repose sur des **principes transverses** consignés au fil des
+décisions — « expliciter plutôt que subir en silence », « le moteur fournit
+le cadre, l'extension porte la sémantique », « masquer, ne jamais
+détruire », « la translation déclarative est un primitif transverse » — qui
+ne sont pas des piliers mais les irriguent tous.
+
 ---
 
 ## 2. Décisions actées
@@ -358,6 +385,8 @@ postures combinables :
 | D310 | **Filtres et null** : les filtres **peuvent cibler les lignes null** (critère « vide/null ») ; doctrine — **« dans une table, null n'est pas une anomalie ; dans une évaluation pour un calcul, oui »** : null stocké = légitime (table ternaire au SGBD, sans capture), null évalué = capturé (D308). | La ligne de partage stocké/évalué. Voir §3.3. |
 | D311 | **Déterminisme : exigé uniquement pour les migrations** (dry-run D7 rejouable) — aucune restriction ailleurs. | Confirme D307 côté contexte, en plus simple. Voir §3.3. |
 | D312 | **Coercition ratifiée côté langage** : sûre **implicite**, explicite **par fonction** (`to_*`), faillible **à échec propre** (D304) — **jamais de coercition silencieuse** (D120). | **Clôt Q47.** Voir §3.3. |
+| D313 | **Q5 actée : la construction de bout en bout.** « Cette étude confirme mon intuition concernant une ouverture pour une construction de bout en bout. **Je valide ce choix.** » | Fondée sur l'étude reprise au périmètre complet (§9.5, tableau piliers × outils) : aucun outil ne couvre deux piliers, l'auto-génération du P3 sans coche pleine. **Clôt Q5 — la dernière décision stratégique.** |
+| D314 | **La feuille de route avant développement** : (1) répondre aux **questions restantes** (Q30, Q16…) ; (2) **rédiger une documentation en amont** des développements (→ Q58) ; (3) **mises en situation** sur des **exemples concrets** clients, vérifiant la compatibilité de la solution avec les besoins — exemples **intégrés à la documentation** pour montrer l'intérêt (→ Q59). **Aucun code tant que tous les points ne sont pas validés.** | La méthode fondatrice (« discuter avant de développer ») devient la feuille de route formelle. |
 
 ---
 
@@ -3792,6 +3821,119 @@ Piste hybride (socle existant + couche différenciante par-dessus) généralemen
 incompatible avec l'exigence de tech-agnosticité et d'AGPL → à écarter sauf
 réévaluation.
 
+### 9.5 Mise à jour du 18/07/2026 — l'étude reprise avec le périmètre complet
+
+**Méthode.** L'étude initiale précédait la clôture du modèle de données, du
+thème E et du langage ; elle a été **reprise avec le périmètre des 312
+décisions** (harnais de recherche : 5 angles priorisés — piliers 1, 2, 3, 6,
+10 —, 24 sources collectées, 118 affirmations extraites, 25 soumises aux
+panels de vérification adversariale). Bilan : **11 affirmations confirmées à
+l'unanimité, 0 réfutée**, 14 non passées en panel (limites de quota) — dont
+la clé de voûte, **re-vérifiée directement sur la documentation primaire le
+18/07/2026**. Les piliers 4, 5, 7, 8 et 9 n'ont pas fait l'objet d'angles
+dédiés (aucun acteur comparable remonté par les recherches croisées — sans
+constituer une preuve d'absence).
+
+**Pilier 1 — génération depuis une description unique.** Confirmé (3-0) :
+**Frappe Framework** est l'acteur le plus proche — « *The basic building
+block of Frappe Framework is a DocType. It is the model+view+controller for
+your application* », et « *changing the metadata will change the schema and
+the user interface automatically* » (frappe.io/framework/doctype). Le
+DocType génère modèle + IHM ; **il ne génère pas d'API à translation
+versionnée** — la boucle complète de Syncytium reste sans équivalent.
+
+**Pilier 2 — migrations à chaud déclaratives.** Confirmés (3-0) :
+**pgroll** (Apache-2.0, PostgreSQL) — migrations **déclaratives JSON**,
+zéro-interruption, expand/contract avec backfill, **rollback à tout moment
+pendant la migration** ; son README **ne documente ni dry-run sur données
+réelles, ni règles d'éclatement regex / fusion gabarit** du niveau
+Syncytium. **Reshape** (MIT, PostgreSQL) — migrations déclaratives
+TOML/JSON, et **coexistence de l'ancien et du nouveau schéma pendant la
+migration** (vues + triggers traduisant les écritures entre schémas).
+**Atlas** — pré-planification déclarative (`schema plan` : générer, relire,
+approuver avant `apply`) ; la source suggère (non vérifié en panel) que
+cette capacité relève du niveau **Pro payant**.
+
+**Pilier 3 — LE DIFFÉRENCIATEUR, verdict affiné.** Trois faits :
+1. **Confirmé (2-0)** : il existe désormais **un précédent open source du
+   versionnement d'API « à la Stripe »** — **Cadwyn** (MIT, Python/FastAPI,
+   « *Production-ready community-driven modern Stripe-like API versioning
+   in FastAPI* ») — ce qui **invalide partiellement** le constat antérieur
+   d'« absence totale de précédent ».
+2. **Vérifié directement (docs.cadwyn.dev, 18/07/2026)** : les
+   « VersionChange » de Cadwyn sont **des classes écrites à la main** par
+   les développeurs (instructions de schéma + convertisseurs
+   `convert_request`/`convert_response` en Python) — **aucune génération
+   automatique depuis un journal de migrations du modèle de données,
+   aucun épinglage par compte, aucun statut de cycle de vie** (bêta,
+   dépréciée, interdite) dans la documentation.
+3. **Confirmé (3-0)** : **Reshape** produit bien une compatibilité
+   bidirectionnelle **auto-générée depuis les définitions de migration —
+   mais au niveau du schéma SQL** (vues Postgres), **temporaire** (la
+   complétion supprime l'ancien schéma) — ni chaîne persistante, ni
+   épinglage. Idem **pgroll** (schémas virtuels versionnés par
+   `search_path`, le temps de la migration).
+
+**Reformulation actée du pilier 3** : *le patron de translation à la Stripe
+a des précédents open source — Cadwyn côté API (écrit à la main), Reshape et
+pgroll côté SQL (auto-généré mais temporaire). La combinaison de Syncytium —
+la chaîne de translation d'API **auto-générée depuis le journal de
+migrations déclaratives du modèle**, **persistante**, avec **cycle de vie
+des versions** et **épinglage par compte** — reste sans équivalent
+identifié.* Ces trois outils passent du statut de menace à celui
+d'**études de conception pour l'implémentation**. Le modèle de référence
+vit toujours : **Stripe 2026 confirmé (3-0)** — versions datées + nommées
+(courante : `2026-06-24.dahlia`), releases majeures non rétrocompatibles
+(Acacia…) et mensuelles rétrocompatibles.
+
+**Pilier 6 — temporalité.** Sources primaires collectées (non passées en
+panel) : **XTDB v2** (stable depuis juin 2025, v2.1.0 déc. 2025) rend
+toutes les tables **bitemporelles par défaut** avec lecture SQL « à une
+date » (`FOR VALID_TIME AS OF`) — précédent direct de l'API temporelle,
+**au grain de la ligne** ; l'historisation Syncytium par **instantanés
+d'agrégats complets** avec champs calculés sur instantanés (D168–D174)
+reste distincte.
+
+**Pilier 10 — licences.** Sources primaires collectées (non passées en
+panel) : **Directus v12 (mai 2026) quitte définitivement l'open source**
+(BSL 1.1 → « Monospace Sustainable Core License ») ; **Redis est revenu à
+l'AGPLv3** — deux signaux qui **renforcent le positionnement AGPL** de
+Syncytium (D19) : le terrain « open source véritable » se dégage.
+
+**Verdict Q5 (mis à jour).** **(a)** L'ensemble n'est couvert par aucun
+acteur — confirmé sur les piliers sondés. **(b)** Le pilier 3 a un
+**précédent partiel qui prouve la faisabilité du patron et laisse
+l'auto-génération sans équivalent** — le différenciateur se reformule, il
+ne disparaît pas. **(c)** Le socle le moins mauvais pour un adossement
+resterait **Frappe** (pilier 1), au sacrifice des piliers 2, 3, 5, 6 et de
+la maîtrise du méta-schéma. **Le « construire » sort renforcé et affiné de
+la re-vérification.**
+
+**Le détail complet de l'étude** — affirmations verbatim, citations, votes
+des panels, affirmations non départagées, sources et limites — est consigné
+dans **[etude-comparative-20260718.md](etude-comparative-20260718.md)**.
+
+**Passe complémentaire superficielle (18/07/2026)** — à la demande de
+l'auteur, les piliers 4, 5, 7, 8 et 9 ont été sondés par une recherche
+rapide, **indicative et non vérifiée** (détail au §7 du document d'étude) :
+**aucun acteur d'ensemble n'y apparaît** ; deux nuances honnêtes — le
+**round-trip tableur (P8) est un patron établi au niveau fonctionnalité**
+(AppSheet : ré-import CSV apparié par clé ; Azure Boards ; Dataverse) que
+Syncytium raffine (remplacement/complément, dry-run bloquant, mapping par
+libellés) plutôt qu'il ne l'invente ; et **l'idée d'un langage partagé
+entre couches (P9) a un ancêtre** (Java Unified EL) de portée bien moindre.
+Rien ne remet en cause le verdict.
+
+**LA DÉCISION EST ACTÉE (18/07/2026, D313 — clôt Q5).** « Cette étude
+confirme mon intuition concernant une ouverture pour une **construction de
+bout en bout**. **Je valide ce choix.** » Et la feuille de route qui
+l'encadre (D314) : répondre d'abord aux questions restantes ; **rédiger une
+documentation en amont des développements** ; puis des **mises en
+situation** — vérifier la compatibilité de la solution avec les besoins
+des clients sur des **exemples concrets**, intégrés à la documentation pour
+montrer l'intérêt de la solution. **Aucun code tant que tous les points ne
+sont pas validés.**
+
 ---
 
 ## 10. Questions ouvertes
@@ -3802,7 +3944,7 @@ réévaluation.
 | ~~Q2~~ | ~~Systèmes tiers : sous contrôle ou externes ?~~ | **Résolu (D11)** : non maîtrisés → compatibilité bidirectionnelle obligatoire, voir §5. |
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
-| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
+| ~~Q5~~ | ~~Construire sur mesure ou s'appuyer sur un existant ?~~ | **Résolu (D313, 18/07/2026)** : **la construction de bout en bout est validée par l'auteur** — « cette étude confirme mon intuition ». Fondement : l'étude reprise au périmètre complet (§9.5 + [etude-comparative-20260718.md](etude-comparative-20260718.md)) — l'ensemble n'est couvert par personne, l'auto-génération du P3 sans équivalent (Cadwyn/Reshape/pgroll = précédents partiels devenus études de conception), Directus hors open source et Redis en AGPL. Encadrée par la feuille de route D314 : questions restantes, documentation en amont (Q58), mises en situation (Q59) — **aucun code avant validation de tous les points**. |
 | ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
@@ -3870,6 +4012,8 @@ avant la synthèse Q16).
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | ~~Q56~~ | ~~Catalogue des composants graphiques par type de champ ?~~ | **Résolu (D250, D255–D300, §8.8)** : matrice **7 types × 3 modes × 2 orientations** (défaut écran paysage) ; paramètres communs (D258) ; **texte** (masque de saisie, seuils en paramètres d'instance, anatomie libellé/zone/post-libellé), **nombre + composés** (masque déduit, jauge/curseur/stepper à bornes, calculatrice remplaçant le clavier natif, surcharge au formulaire type→champ→formulaire), **temporels** (précision d'heure, raccourcis sur clavier stylisé, calendrier plein écran/proche/icône selon le mode), **choix** (booléen 3 états, énuméré icônes, référence + sélection par image, radios en surcharge), **contenus** (fichier, image + visionneuse graduée, géolocalisation + géocodage open source BAN/Nominatim, communication, liste), **générés** (compteur, calculé, période, QR/code-barres) ; comportements par mode tranchés (D287–D290), dégradation gracieuse pour le reste ; **évolutions par hook** : texte enrichi, agenda/Gantt, recadrage. **Clôt le thème E.** |
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
+| Q58 | **La documentation en amont des développements** (ajout 18/07/2026, D314) : forme et structure (guide du technicien ? de l'utilisateur ? référence du méta-schéma ?), publics, lien avec les descriptions du modèle (D124 — « exploitables par des IA »), **intégration des exemples concrets** issus des mises en situation (Q59). | La documentation précède le code — décision de méthode D314. |
+| Q59 | **Les mises en situation** (ajout 18/07/2026, D314) : choix des **cas clients concrets**, méthode de vérification de la **compatibilité de la solution avec les besoins**, critères de validation, et **intégration des exemples à la documentation** (Q58) pour montrer l'intérêt de la solution. | Le banc d'essai de la conception avant tout développement. |
 
 ---
 
@@ -5296,6 +5440,71 @@ avant la synthèse Q16).
   coercition** (fourni en réponse — ratification attendue). Restent : la
   table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
   déterminisme, la ratification coercition.
+- **2026-07-18** — **L'étude comparative reprise avec le périmètre complet
+  (§9.5 — PR #19 fusionnée entre-temps, branche feature/etude-q5)**. À la
+  demande de l'auteur (« l'étude a été faite lorsque nous n'avions pas tout
+  couvert »), le harnais de recherche a été relancé (2 passes — la première
+  fauchée par les limites de quota, la seconde en reprise sur cache) : 24
+  sources, 118 affirmations, **11 confirmées à l'unanimité des panels
+  adversariaux, 0 réfutée**. Faits saillants : **Frappe/DocType confirmé**
+  comme l'acteur le plus proche du pilier 1 (modèle+vue+contrôleur d'une
+  déclaration, sans API à translation) ; **pgroll/Reshape/Atlas** documentés
+  au pilier 2 (déclaratif zéro-interruption, sans règles regex/gabarit ni
+  dry-run du niveau Syncytium) ; **pilier 3 affiné** — **Cadwyn** (MIT,
+  FastAPI) confirmé comme **précédent OSS du versionnement à la Stripe**,
+  mais **vérification directe** (docs.cadwyn.dev, 18/07) : VersionChange
+  **écrits à la main**, **aucune auto-génération depuis un journal de
+  migrations, ni épinglage par compte, ni cycle de vie** ; Reshape/pgroll =
+  compat bidirectionnelle auto-générée **au niveau SQL, temporaire**. La
+  reformulation du différenciateur est actée en §9.5. **Directus quitte
+  l'open source (MSCL), Redis revient à l'AGPL** — positionnement D19
+  renforcé. **Verdict : le « construire » sort renforcé — Q5 prête à être
+  actée par l'auteur.**
+- **2026-07-18 (suite)** — **Le détail de l'étude consigné au dépôt**
+  (`docs/etude-comparative-20260718.md` : affirmations verbatim, citations,
+  votes, non-départagées, sources, limites — le §9.5 y renvoie), et **la
+  section §1.1 « Les neuf piliers de Syncytium » ajoutée** à la demande de
+  l'auteur : P1 description unique, P2 migrations à chaud, P3 compat d'API
+  bidirectionnelle auto-générée (le différenciateur), P4 IHM générée, P5
+  double périmètre, P6 temporalité, P7 langage unique, P8 sécurité par
+  construction, P9 observabilité — chacun renvoyant à ses décisions et
+  sections ; les principes transverses distingués des piliers.
+- **2026-07-18 (suite 2)** — **P10 ajouté : la liste devient « Les dix
+  piliers »**. L'auteur relève l'absence du « pilier 10 » de l'étude ;
+  l'explication est consignée avec la correction : dans la grille de
+  l'étude, le pilier 10 examinait le **paysage des licences** (un
+  contexte) — mais **l'engagement open source (AGPL) est bien un pilier du
+  projet** (décision fondatrice D19 : « la solution ne devra pas devenir
+  commerciale », dépendances compatibles, moteur public D16–D17) ; ce que
+  l'étude examinait, c'est le paysage qui **valide** ce pilier (Directus
+  sorti de l'open source, Redis revenu à l'AGPL).
+- **2026-07-18 (suite 3)** — **Passe complémentaire superficielle sur les
+  piliers 4/5/7/8/9** (question de l'auteur : « recherche non faite ou
+  échouée ? » — réponse : non menée, le harnais priorise 5 angles ; passe
+  légère demandée et exécutée : un sondage par pilier, sans vérification).
+  Constats indicatifs consignés au §7 du document d'étude : **aucun acteur
+  d'ensemble** sur P4 (IHM riche générée), P5 (entrepôt+applications à
+  lineage d'enregistrement), P7 (compteurs/héritage-état/sécurité ligne en
+  propriétés déclarables) ; **précédents de patron** à noter honnêtement
+  sur **P8** (le round-trip tableur existe au niveau fonctionnalité —
+  AppSheet en ré-import apparié par clé, Azure Boards, Dataverse — sans les
+  modes remplacement/complément ni le dry-run bloquant) et **P9** (Java
+  Unified EL = ancêtre d'un langage partagé entre couches, de portée bien
+  moindre). Rien ne remet en cause le verdict — **Q5 attend la phrase de
+  l'auteur.**
+- **2026-07-18 (suite 4)** — **Q5 ACTÉE (D313) : LA CONSTRUCTION DE BOUT EN
+  BOUT.** La phrase de l'auteur : « Cette étude confirme mon intuition
+  concernant une ouverture pour une construction de bout en bout. **Je
+  valide ce choix.** » (Entre-temps : le tableau de synthèse piliers ×
+  outils ajouté au §9 du document d'étude, avec sa lecture en trois lignes,
+  et les 14 affirmations non départagées énumérées en intégralité.) **La
+  feuille de route est consignée (D314)** : répondre aux questions
+  restantes (Q30, Q16…) ; **rédiger une documentation en amont des
+  développements** (→ **Q58 ouverte**) ; **mises en situation** sur des
+  exemples concrets clients, vérifiant la compatibilité avec les besoins,
+  exemples intégrés à la documentation (→ **Q59 ouverte**) ; **aucun code
+  tant que tous les points ne sont pas validés**. La dernière décision
+  stratégique est prise — restent au projet : Q7, Q16, Q30, Q58, Q59.
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

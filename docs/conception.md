@@ -3792,6 +3792,94 @@ Piste hybride (socle existant + couche différenciante par-dessus) généralemen
 incompatible avec l'exigence de tech-agnosticité et d'AGPL → à écarter sauf
 réévaluation.
 
+### 9.5 Mise à jour du 18/07/2026 — l'étude reprise avec le périmètre complet
+
+**Méthode.** L'étude initiale précédait la clôture du modèle de données, du
+thème E et du langage ; elle a été **reprise avec le périmètre des 312
+décisions** (harnais de recherche : 5 angles priorisés — piliers 1, 2, 3, 6,
+10 —, 24 sources collectées, 118 affirmations extraites, 25 soumises aux
+panels de vérification adversariale). Bilan : **11 affirmations confirmées à
+l'unanimité, 0 réfutée**, 14 non passées en panel (limites de quota) — dont
+la clé de voûte, **re-vérifiée directement sur la documentation primaire le
+18/07/2026**. Les piliers 4, 5, 7, 8 et 9 n'ont pas fait l'objet d'angles
+dédiés (aucun acteur comparable remonté par les recherches croisées — sans
+constituer une preuve d'absence).
+
+**Pilier 1 — génération depuis une description unique.** Confirmé (3-0) :
+**Frappe Framework** est l'acteur le plus proche — « *The basic building
+block of Frappe Framework is a DocType. It is the model+view+controller for
+your application* », et « *changing the metadata will change the schema and
+the user interface automatically* » (frappe.io/framework/doctype). Le
+DocType génère modèle + IHM ; **il ne génère pas d'API à translation
+versionnée** — la boucle complète de Syncytium reste sans équivalent.
+
+**Pilier 2 — migrations à chaud déclaratives.** Confirmés (3-0) :
+**pgroll** (Apache-2.0, PostgreSQL) — migrations **déclaratives JSON**,
+zéro-interruption, expand/contract avec backfill, **rollback à tout moment
+pendant la migration** ; son README **ne documente ni dry-run sur données
+réelles, ni règles d'éclatement regex / fusion gabarit** du niveau
+Syncytium. **Reshape** (MIT, PostgreSQL) — migrations déclaratives
+TOML/JSON, et **coexistence de l'ancien et du nouveau schéma pendant la
+migration** (vues + triggers traduisant les écritures entre schémas).
+**Atlas** — pré-planification déclarative (`schema plan` : générer, relire,
+approuver avant `apply`) ; la source suggère (non vérifié en panel) que
+cette capacité relève du niveau **Pro payant**.
+
+**Pilier 3 — LE DIFFÉRENCIATEUR, verdict affiné.** Trois faits :
+1. **Confirmé (2-0)** : il existe désormais **un précédent open source du
+   versionnement d'API « à la Stripe »** — **Cadwyn** (MIT, Python/FastAPI,
+   « *Production-ready community-driven modern Stripe-like API versioning
+   in FastAPI* ») — ce qui **invalide partiellement** le constat antérieur
+   d'« absence totale de précédent ».
+2. **Vérifié directement (docs.cadwyn.dev, 18/07/2026)** : les
+   « VersionChange » de Cadwyn sont **des classes écrites à la main** par
+   les développeurs (instructions de schéma + convertisseurs
+   `convert_request`/`convert_response` en Python) — **aucune génération
+   automatique depuis un journal de migrations du modèle de données,
+   aucun épinglage par compte, aucun statut de cycle de vie** (bêta,
+   dépréciée, interdite) dans la documentation.
+3. **Confirmé (3-0)** : **Reshape** produit bien une compatibilité
+   bidirectionnelle **auto-générée depuis les définitions de migration —
+   mais au niveau du schéma SQL** (vues Postgres), **temporaire** (la
+   complétion supprime l'ancien schéma) — ni chaîne persistante, ni
+   épinglage. Idem **pgroll** (schémas virtuels versionnés par
+   `search_path`, le temps de la migration).
+
+**Reformulation actée du pilier 3** : *le patron de translation à la Stripe
+a des précédents open source — Cadwyn côté API (écrit à la main), Reshape et
+pgroll côté SQL (auto-généré mais temporaire). La combinaison de Syncytium —
+la chaîne de translation d'API **auto-générée depuis le journal de
+migrations déclaratives du modèle**, **persistante**, avec **cycle de vie
+des versions** et **épinglage par compte** — reste sans équivalent
+identifié.* Ces trois outils passent du statut de menace à celui
+d'**études de conception pour l'implémentation**. Le modèle de référence
+vit toujours : **Stripe 2026 confirmé (3-0)** — versions datées + nommées
+(courante : `2026-06-24.dahlia`), releases majeures non rétrocompatibles
+(Acacia…) et mensuelles rétrocompatibles.
+
+**Pilier 6 — temporalité.** Sources primaires collectées (non passées en
+panel) : **XTDB v2** (stable depuis juin 2025, v2.1.0 déc. 2025) rend
+toutes les tables **bitemporelles par défaut** avec lecture SQL « à une
+date » (`FOR VALID_TIME AS OF`) — précédent direct de l'API temporelle,
+**au grain de la ligne** ; l'historisation Syncytium par **instantanés
+d'agrégats complets** avec champs calculés sur instantanés (D168–D174)
+reste distincte.
+
+**Pilier 10 — licences.** Sources primaires collectées (non passées en
+panel) : **Directus v12 (mai 2026) quitte définitivement l'open source**
+(BSL 1.1 → « Monospace Sustainable Core License ») ; **Redis est revenu à
+l'AGPLv3** — deux signaux qui **renforcent le positionnement AGPL** de
+Syncytium (D19) : le terrain « open source véritable » se dégage.
+
+**Verdict Q5 (mis à jour).** **(a)** L'ensemble n'est couvert par aucun
+acteur — confirmé sur les piliers sondés. **(b)** Le pilier 3 a un
+**précédent partiel qui prouve la faisabilité du patron et laisse
+l'auto-génération sans équivalent** — le différenciateur se reformule, il
+ne disparaît pas. **(c)** Le socle le moins mauvais pour un adossement
+resterait **Frappe** (pilier 1), au sacrifice des piliers 2, 3, 5, 6 et de
+la maîtrise du méta-schéma. **Le « construire » sort renforcé et affiné de
+la re-vérification.**
+
 ---
 
 ## 10. Questions ouvertes
@@ -3802,7 +3890,7 @@ réévaluation.
 | ~~Q2~~ | ~~Systèmes tiers : sous contrôle ou externes ?~~ | **Résolu (D11)** : non maîtrisés → compatibilité bidirectionnelle obligatoire, voir §5. |
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
-| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Largement éclairé par l'étude §9** : aucun équivalent sur l'ensemble ; le pilier (2) (compat d'API bidirectionnelle auto-générée) est sans précédent OSS → le « construire » est justifié, à condition d'assumer le tronc commun. Décision stratégique finale à acter par l'auteur. |
+| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Étude reprise le 18/07/2026 avec le périmètre complet (§9.5)** : l'ensemble n'est couvert par personne ; le différenciateur se **reformule** (le patron de translation à la Stripe a des précédents — Cadwyn côté API écrit main, Reshape/pgroll côté SQL temporaire — mais **l'auto-génération depuis le journal de migrations, persistante, à cycle de vie et épinglage par compte, reste sans équivalent**) ; Directus a quitté l'open source, Redis revient à l'AGPL → positionnement renforcé. **Le « construire » sort renforcé — décision finale à acter par l'auteur.** |
 | ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
@@ -5296,6 +5384,26 @@ avant la synthèse Q16).
   coercition** (fourni en réponse — ratification attendue). Restent : la
   table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
   déterminisme, la ratification coercition.
+- **2026-07-18** — **L'étude comparative reprise avec le périmètre complet
+  (§9.5 — PR #19 fusionnée entre-temps, branche feature/etude-q5)**. À la
+  demande de l'auteur (« l'étude a été faite lorsque nous n'avions pas tout
+  couvert »), le harnais de recherche a été relancé (2 passes — la première
+  fauchée par les limites de quota, la seconde en reprise sur cache) : 24
+  sources, 118 affirmations, **11 confirmées à l'unanimité des panels
+  adversariaux, 0 réfutée**. Faits saillants : **Frappe/DocType confirmé**
+  comme l'acteur le plus proche du pilier 1 (modèle+vue+contrôleur d'une
+  déclaration, sans API à translation) ; **pgroll/Reshape/Atlas** documentés
+  au pilier 2 (déclaratif zéro-interruption, sans règles regex/gabarit ni
+  dry-run du niveau Syncytium) ; **pilier 3 affiné** — **Cadwyn** (MIT,
+  FastAPI) confirmé comme **précédent OSS du versionnement à la Stripe**,
+  mais **vérification directe** (docs.cadwyn.dev, 18/07) : VersionChange
+  **écrits à la main**, **aucune auto-génération depuis un journal de
+  migrations, ni épinglage par compte, ni cycle de vie** ; Reshape/pgroll =
+  compat bidirectionnelle auto-générée **au niveau SQL, temporaire**. La
+  reformulation du différenciateur est actée en §9.5. **Directus quitte
+  l'open source (MSCL), Redis revient à l'AGPL** — positionnement D19
+  renforcé. **Verdict : le « construire » sort renforcé — Q5 prête à être
+  actée par l'auteur.**
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

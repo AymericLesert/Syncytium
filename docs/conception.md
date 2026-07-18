@@ -40,9 +40,9 @@ postures combinables :
    le développement d'applications dédiées basées sur la donnée et sa
    transformation.
 
-### 1.1 Les neuf piliers de Syncytium (ajouté le 18/07/2026)
+### 1.1 Les dix piliers de Syncytium (ajouté le 18/07/2026)
 
-Les piliers sont les capacités structurantes du framework — celles que
+Les piliers sont les engagements structurants du framework — ceux que
 l'étude comparative évalue (§9, §9.5,
 [etude-comparative-20260718.md](etude-comparative-20260718.md)) et que les
 décisions D1–D312 construisent. Chaque pilier renvoie à ses décisions et à
@@ -59,6 +59,7 @@ sa section de référence.
 | **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312 ; §3.3 |
 | **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196 ; §5.5–§5.7 |
 | **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97 ; §6 |
+| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19 ; §7.2, §9.2, §9.5 |
 
 Le tout repose sur des **principes transverses** consignés au fil des
 décisions — « expliciter plutôt que subir en silence », « le moteur fournit
@@ -5443,6 +5444,15 @@ avant la synthèse Q16).
   double périmètre, P6 temporalité, P7 langage unique, P8 sécurité par
   construction, P9 observabilité — chacun renvoyant à ses décisions et
   sections ; les principes transverses distingués des piliers.
+- **2026-07-18 (suite 2)** — **P10 ajouté : la liste devient « Les dix
+  piliers »**. L'auteur relève l'absence du « pilier 10 » de l'étude ;
+  l'explication est consignée avec la correction : dans la grille de
+  l'étude, le pilier 10 examinait le **paysage des licences** (un
+  contexte) — mais **l'engagement open source (AGPL) est bien un pilier du
+  projet** (décision fondatrice D19 : « la solution ne devra pas devenir
+  commerciale », dépendances compatibles, moteur public D16–D17) ; ce que
+  l'étude examinait, c'est le paysage qui **valide** ce pilier (Directus
+  sorti de l'open source, Redis revenu à l'AGPL).
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

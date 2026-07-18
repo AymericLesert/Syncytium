@@ -3880,6 +3880,10 @@ resterait **Frappe** (pilier 1), au sacrifice des piliers 2, 3, 5, 6 et de
 la maîtrise du méta-schéma. **Le « construire » sort renforcé et affiné de
 la re-vérification.**
 
+**Le détail complet de l'étude** — affirmations verbatim, citations, votes
+des panels, affirmations non départagées, sources et limites — est consigné
+dans **[etude-comparative-20260718.md](etude-comparative-20260718.md)**.
+
 ---
 
 ## 10. Questions ouvertes

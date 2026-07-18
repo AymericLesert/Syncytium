@@ -311,8 +311,14 @@ données** (§7). ⁴ XTDB : « valid time » au grain de la ligne (N14).
 (connaissance générale). ⁷ Directus hors open source (MSCL) ; NocoDB en
 AGPL-3.0.
 
-**Lecture.** Les ✓ se concentrent en **P1** (Frappe et les plateformes
-data-first) et sur des piliers isolés, chacun chez un spécialiste (Cadwyn
-le patron P3, XTDB la lecture à date P6, AppSheet le round-trip P8) —
-**aucune colonne ne coche l'auto-génération du P3**, et **P5, P7 et P9
-sont des colonnes vides**. Aucun adossement ne couvre deux piliers.
+**Lecture — la synthèse en trois lignes.**
+
+1. **Aucun outil ne couvre deux piliers** : les ✓ se concentrent en **P1**
+   (Frappe et les plateformes data-first) et sur des piliers isolés,
+   chacun chez un spécialiste — Cadwyn le patron P3, XTDB la lecture à
+   date P6, AppSheet le round-trip P8.
+2. **La ligne « auto-générée depuis les migrations du modèle » (P3) n'a
+   aucune coche pleine** — et **P5, P7 et P9 sont des colonnes vides**.
+3. **S'adosser à la meilleure colonne (Frappe) donnerait P1 et des
+   demi-coches** — au prix de tous les autres piliers et de la maîtrise du
+   méta-schéma.

@@ -3911,6 +3911,17 @@ la re-vérification.**
 des panels, affirmations non départagées, sources et limites — est consigné
 dans **[etude-comparative-20260718.md](etude-comparative-20260718.md)**.
 
+**Passe complémentaire superficielle (18/07/2026)** — à la demande de
+l'auteur, les piliers 4, 5, 7, 8 et 9 ont été sondés par une recherche
+rapide, **indicative et non vérifiée** (détail au §7 du document d'étude) :
+**aucun acteur d'ensemble n'y apparaît** ; deux nuances honnêtes — le
+**round-trip tableur (P8) est un patron établi au niveau fonctionnalité**
+(AppSheet : ré-import CSV apparié par clé ; Azure Boards ; Dataverse) que
+Syncytium raffine (remplacement/complément, dry-run bloquant, mapping par
+libellés) plutôt qu'il ne l'invente ; et **l'idée d'un langage partagé
+entre couches (P9) a un ancêtre** (Java Unified EL) de portée bien moindre.
+Rien ne remet en cause le verdict.
+
 ---
 
 ## 10. Questions ouvertes
@@ -5453,6 +5464,20 @@ avant la synthèse Q16).
   commerciale », dépendances compatibles, moteur public D16–D17) ; ce que
   l'étude examinait, c'est le paysage qui **valide** ce pilier (Directus
   sorti de l'open source, Redis revenu à l'AGPL).
+- **2026-07-18 (suite 3)** — **Passe complémentaire superficielle sur les
+  piliers 4/5/7/8/9** (question de l'auteur : « recherche non faite ou
+  échouée ? » — réponse : non menée, le harnais priorise 5 angles ; passe
+  légère demandée et exécutée : un sondage par pilier, sans vérification).
+  Constats indicatifs consignés au §7 du document d'étude : **aucun acteur
+  d'ensemble** sur P4 (IHM riche générée), P5 (entrepôt+applications à
+  lineage d'enregistrement), P7 (compteurs/héritage-état/sécurité ligne en
+  propriétés déclarables) ; **précédents de patron** à noter honnêtement
+  sur **P8** (le round-trip tableur existe au niveau fonctionnalité —
+  AppSheet en ré-import apparié par clé, Azure Boards, Dataverse — sans les
+  modes remplacement/complément ni le dry-run bloquant) et **P9** (Java
+  Unified EL = ancêtre d'un langage partagé entre couches, de portée bien
+  moindre). Rien ne remet en cause le verdict — **Q5 attend la phrase de
+  l'auteur.**
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

@@ -140,18 +140,94 @@ déclaratives du modèle, persistante, avec cycle de vie des versions et
 statut de menaces à celui d'**études de conception pour
 l'implémentation**.
 
-## 7. Limites de l'exercice
+## 7. Passe complémentaire superficielle (18/07/2026) — piliers 4, 5, 7, 8, 9
 
-- **Les piliers 4, 5, 7, 8 et 9** (IHM riche, double périmètre
-  entrepôt+ETL, spécificités métier, import/export miroir + gabarits PDF,
-  langage transverse unique) **n'ont pas eu d'angle de recherche dédié** —
-  les 5 angles ont priorisé les piliers structurants 1/2/3/6/10. Aucun
-  acteur comparable n'y est apparu dans les recherches croisées, **sans que
-  cela constitue une preuve d'absence**.
+> **Statut : indicatif.** À la demande de l'auteur, une passe **volontairement
+> superficielle** — un sondage de recherche par pilier, sans lecture
+> approfondie des sources ni vérification adversariale. Elle comble l'angle
+> mort signalé au §8 sans prétendre au niveau de preuve des piliers
+> principaux.
+
+**P4 — IHM générée riche.** Les recherches remontent des générateurs de
+formulaires et des catalogues de tableaux de bord (Budibase et consorts),
+et OpenMetadata — un **catalogue de métadonnées de données**, domaine
+distinct. **Aucune plateforme n'émerge** qui génère depuis un schéma la
+combinaison wizard déclaratif + tableaux de bord à drill-down + croisés
+dynamiques + catalogue de composants décliné par mode/orientation. Les
+acteurs du pilier 1 (Frappe, NocoBase) restent les plus proches, loin du
+niveau spécifié.
+
+**P5 — entrepôt opérationnel + applications.** Le paysage est net : d'un
+côté les orchestrateurs/ETL à lineage (**Kestra, Dagster, Airbyte,
+DataHub**) — lineage au grain du *jeu de données*, pas de l'enregistrement,
+sans IHM applicative ; de l'autre les app-builders sans reprise outillée.
+**La combinaison** (ETL déclaratif à couverture mesurée + stock de rejets à
+statuts + provenance par enregistrement + insertion antidatée, dans le même
+moteur que les applications) **n'apparaît nulle part**.
+
+**P7 — spécificités métier.** Les recherches ne remontent que des
+**applications** de facturation autonomes (Crater, InvoicePlane,
+SolidInvoice) qui codent en dur leur numérotation. **Aucun framework**
+n'expose compteurs sans trou + machine à états d'enregistrement (héritage-
+état) + sécurité ligne à identifiants opaques comme **propriétés
+déclarables d'un modèle**.
+
+**P8 — import/export miroir.** **Le patron round-trip a des précédents
+établis au niveau fonctionnalité** — à consigner honnêtement :
+**AppSheet** (Google) fait du ré-import CSV **apparié par clé** qui met à
+jour les enregistrements existants ; **Azure DevOps Boards** documente le
+cycle export → édition Excel → ré-import ; **Power Apps/Dataverse** offre
+l'upsert à l'import ; des services dédiés (CSVbox, Flatfile) outillent
+l'import à validation. En revanche, **les modes remplacement (avec
+désactivation des absents) / complément, l'import bloquant tant que le
+dry-run n'est pas propre, et le mapping par libellés dans la langue de
+l'opérateur** ne sont pas retrouvés assemblés. Précédent de patron : oui ;
+équivalent du dispositif : non trouvé.
+
+**P9 — langage d'expression transverse unique.** Deux voisinages, aucun
+équivalent : le **Java Unified EL** (JSF/JSP) est un précédent historique
+d'un langage d'expression **partagé entre les couches d'une pile** — mais
+pour le templating/la validation d'IHM, pas pour migrations + translation
+d'API + connecteurs ; et les cadres académiques MDE (**BESSER/B-UML**,
+Dandelion+) unifient la modélisation par transformations de modèles, sans
+langage d'expression unique embarqué dans un produit. **Aucune plateforme
+low-code trouvée** dont un seul langage serve calculs, migrations,
+translation, validations, wizards et documents.
+
+**Bilan de la passe.** Rien ne remet en cause le verdict du §6 ; deux
+nuances honnêtes s'y ajoutent — le round-trip tableur (P8) est un patron
+établi que Syncytium raffine plutôt qu'il ne l'invente, et l'idée d'un
+langage partagé entre couches (P9) a un ancêtre (Java UEL) dont la portée
+était bien moindre.
+
+Sources principales du sondage : [Budibase — form
+builders](https://budibase.com/blog/open-source-form-builder/),
+[OpenMetadata](https://open-metadata.org/),
+[Kestra](https://kestra.io/resources/data/open-source-etl-tool),
+[DataHub](https://datahub.com/blog/open-source-data-lineage/),
+[Crater](https://github.com/crater-invoice-inc/crater),
+[InvoicePlane](https://invoiceplane.com/), [AppSheet — edit multiple rows
+using CSV](https://support.google.com/appsheet/answer/11918330), [Azure
+Boards — bulk import/export
+CSV](https://learn.microsoft.com/en-us/azure/devops/boards/queries/import-work-items-from-csv),
+[Power Apps —
+import/export](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-import-export),
+[BESSER (arXiv)](https://arxiv.org/html/2405.13620v1), [Unified EL
+(Eclipse)](https://wiki.eclipse.org/Unified_Expression_Language_Support).
+
+## 8. Limites de l'exercice
+
+- **Les piliers 4, 5, 7, 8 et 9** n'ont pas eu d'angle de recherche dédié
+  dans le harnais principal (les 5 angles ont priorisé les piliers
+  structurants 1/2/3/6/10) — **l'angle mort a été comblé par la passe
+  superficielle du §7**, au niveau de preuve indicatif qui est le sien.
 - **14 affirmations sur 25 n'ont pas été départagées** par les panels
   (erreurs de quota) — la plus décisive a été re-vérifiée directement
   (§3), les autres restent au statut « sources primaires convergentes, non
   vérifiées adversarialement ».
+- **La passe complémentaire (§7) est volontairement superficielle** : un
+  sondage par pilier, sans lecture approfondie ni vérification — ses
+  constats sont indicatifs.
 - **L'étape de synthèse automatique a échoué** (quota) : le présent
   document tient lieu de synthèse, rédigée à partir des résultats bruts
   vérifiés.

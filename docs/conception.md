@@ -385,6 +385,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D310 | **Filtres et null** : les filtres **peuvent cibler les lignes null** (critère « vide/null ») ; doctrine — **« dans une table, null n'est pas une anomalie ; dans une évaluation pour un calcul, oui »** : null stocké = légitime (table ternaire au SGBD, sans capture), null évalué = capturé (D308). | La ligne de partage stocké/évalué. Voir §3.3. |
 | D311 | **Déterminisme : exigé uniquement pour les migrations** (dry-run D7 rejouable) — aucune restriction ailleurs. | Confirme D307 côté contexte, en plus simple. Voir §3.3. |
 | D312 | **Coercition ratifiée côté langage** : sûre **implicite**, explicite **par fonction** (`to_*`), faillible **à échec propre** (D304) — **jamais de coercition silencieuse** (D120). | **Clôt Q47.** Voir §3.3. |
+| D313 | **Q5 actée : la construction de bout en bout.** « Cette étude confirme mon intuition concernant une ouverture pour une construction de bout en bout. **Je valide ce choix.** » | Fondée sur l'étude reprise au périmètre complet (§9.5, tableau piliers × outils) : aucun outil ne couvre deux piliers, l'auto-génération du P3 sans coche pleine. **Clôt Q5 — la dernière décision stratégique.** |
+| D314 | **La feuille de route avant développement** : (1) répondre aux **questions restantes** (Q30, Q16…) ; (2) **rédiger une documentation en amont** des développements (→ Q58) ; (3) **mises en situation** sur des **exemples concrets** clients, vérifiant la compatibilité de la solution avec les besoins — exemples **intégrés à la documentation** pour montrer l'intérêt (→ Q59). **Aucun code tant que tous les points ne sont pas validés.** | La méthode fondatrice (« discuter avant de développer ») devient la feuille de route formelle. |
 
 ---
 
@@ -3922,6 +3924,16 @@ libellés) plutôt qu'il ne l'invente ; et **l'idée d'un langage partagé
 entre couches (P9) a un ancêtre** (Java Unified EL) de portée bien moindre.
 Rien ne remet en cause le verdict.
 
+**LA DÉCISION EST ACTÉE (18/07/2026, D313 — clôt Q5).** « Cette étude
+confirme mon intuition concernant une ouverture pour une **construction de
+bout en bout**. **Je valide ce choix.** » Et la feuille de route qui
+l'encadre (D314) : répondre d'abord aux questions restantes ; **rédiger une
+documentation en amont des développements** ; puis des **mises en
+situation** — vérifier la compatibilité de la solution avec les besoins
+des clients sur des **exemples concrets**, intégrés à la documentation pour
+montrer l'intérêt de la solution. **Aucun code tant que tous les points ne
+sont pas validés.**
+
 ---
 
 ## 10. Questions ouvertes
@@ -3932,7 +3944,7 @@ Rien ne remet en cause le verdict.
 | ~~Q2~~ | ~~Systèmes tiers : sous contrôle ou externes ?~~ | **Résolu (D11)** : non maîtrisés → compatibilité bidirectionnelle obligatoire, voir §5. |
 | ~~Q3~~ | ~~Sens des intégrations ?~~ | **Résolu (D20–D24)** : les deux — exposition sélective avec champs calculés, lecture/écriture unitaire-liste-lot, connecteurs vers systèmes externes, tâches asynchrones suivies — voir §5.5. Détails ouverts : Q17–Q21. |
 | ~~Q4~~ | ~~Contexte de déploiement, authentification ?~~ | **Résolu (D15–D16, D29)** : une instance par TPE, hébergement au choix du client ; authentification locale via l'interface (socle) ou provisionnée par AD (clients équipés). |
-| Q5 | **Construire sur mesure ou s'appuyer sur un existant** ? | **Étude reprise le 18/07/2026 avec le périmètre complet (§9.5)** : l'ensemble n'est couvert par personne ; le différenciateur se **reformule** (le patron de translation à la Stripe a des précédents — Cadwyn côté API écrit main, Reshape/pgroll côté SQL temporaire — mais **l'auto-génération depuis le journal de migrations, persistante, à cycle de vie et épinglage par compte, reste sans équivalent**) ; Directus a quitté l'open source, Redis revient à l'AGPL → positionnement renforcé. **Le « construire » sort renforcé — décision finale à acter par l'auteur.** |
+| ~~Q5~~ | ~~Construire sur mesure ou s'appuyer sur un existant ?~~ | **Résolu (D313, 18/07/2026)** : **la construction de bout en bout est validée par l'auteur** — « cette étude confirme mon intuition ». Fondement : l'étude reprise au périmètre complet (§9.5 + [etude-comparative-20260718.md](etude-comparative-20260718.md)) — l'ensemble n'est couvert par personne, l'auto-génération du P3 sans équivalent (Cadwyn/Reshape/pgroll = précédents partiels devenus études de conception), Directus hors open source et Redis en AGPL. Encadrée par la feuille de route D314 : questions restantes, documentation en amont (Q58), mises en situation (Q59) — **aucun code avant validation de tous les points**. |
 | ~~Q6~~ | ~~Syntaxe des règles ?~~ | **Résolu (D90–D91, §3.3)** : langage d'expression **unique** (gabarit, regex, transcodage constante/lookup, arithmétique, agrégats, composable ; hook = échappatoire), partagé par calculs/migrations/API/connecteurs ; invertibilité par règle (substitution sinon). |
 | Q7 | Pile technique (langage, base de données, framework d'interface). | **Différé volontairement (D18)** — critères pour la base déjà consignés au §7.1 (transactionnalité D9 en tête) ; abstraction de la persistance imposée dès la conception ; **dépendances compatibles AGPL** (D19) ; **renderer d'IHM interchangeable** grâce au modèle déclaratif (D69), critère : supporter un rendu `config → HTML`. |
 | ~~Q8~~ | ~~Fenêtre de support / durée de dépréciation ?~~ | **Résolu (D12, D94)** : pas une durée mais une **version minimale supportée** déclarée ; appel sous le seuil → **426 Upgrade Required**. |
@@ -4000,6 +4012,8 @@ avant la synthèse Q16).
 | ~~Q55~~ | ~~Import d'exploitation ?~~ | **Résolu (D211, D234–D238, §8.6)** : **CSV déposés dans l'écran** du module, un fichier par entité de l'agrégat, **dry-run puis import possible seulement si tout est accepté** (rapport exact sinon) ; modes **remplacement** (créé/modifié/inchangé/supprimé, comptage + confirmation) et **complément** (sans suppression) ; **mapping par entête = libellé dans la langue de l'opérateur** ; tous les champs sauf optionnels ; **export miroir ré-importable** (réversibilité — édition de masse au tableur) ; **provenance = l'opérateur**. |
 | ~~Q56~~ | ~~Catalogue des composants graphiques par type de champ ?~~ | **Résolu (D250, D255–D300, §8.8)** : matrice **7 types × 3 modes × 2 orientations** (défaut écran paysage) ; paramètres communs (D258) ; **texte** (masque de saisie, seuils en paramètres d'instance, anatomie libellé/zone/post-libellé), **nombre + composés** (masque déduit, jauge/curseur/stepper à bornes, calculatrice remplaçant le clavier natif, surcharge au formulaire type→champ→formulaire), **temporels** (précision d'heure, raccourcis sur clavier stylisé, calendrier plein écran/proche/icône selon le mode), **choix** (booléen 3 états, énuméré icônes, référence + sélection par image, radios en surcharge), **contenus** (fichier, image + visionneuse graduée, géolocalisation + géocodage open source BAN/Nominatim, communication, liste), **générés** (compteur, calculé, période, QR/code-barres) ; comportements par mode tranchés (D287–D290), dégradation gracieuse pour le reste ; **évolutions par hook** : texte enrichi, agenda/Gantt, recadrage. **Clôt le thème E.** |
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
+| Q58 | **La documentation en amont des développements** (ajout 18/07/2026, D314) : forme et structure (guide du technicien ? de l'utilisateur ? référence du méta-schéma ?), publics, lien avec les descriptions du modèle (D124 — « exploitables par des IA »), **intégration des exemples concrets** issus des mises en situation (Q59). | La documentation précède le code — décision de méthode D314. |
+| Q59 | **Les mises en situation** (ajout 18/07/2026, D314) : choix des **cas clients concrets**, méthode de vérification de la **compatibilité de la solution avec les besoins**, critères de validation, et **intégration des exemples à la documentation** (Q58) pour montrer l'intérêt de la solution. | Le banc d'essai de la conception avant tout développement. |
 
 ---
 
@@ -5478,6 +5492,19 @@ avant la synthèse Q16).
   Unified EL = ancêtre d'un langage partagé entre couches, de portée bien
   moindre). Rien ne remet en cause le verdict — **Q5 attend la phrase de
   l'auteur.**
+- **2026-07-18 (suite 4)** — **Q5 ACTÉE (D313) : LA CONSTRUCTION DE BOUT EN
+  BOUT.** La phrase de l'auteur : « Cette étude confirme mon intuition
+  concernant une ouverture pour une construction de bout en bout. **Je
+  valide ce choix.** » (Entre-temps : le tableau de synthèse piliers ×
+  outils ajouté au §9 du document d'étude, avec sa lecture en trois lignes,
+  et les 14 affirmations non départagées énumérées en intégralité.) **La
+  feuille de route est consignée (D314)** : répondre aux questions
+  restantes (Q30, Q16…) ; **rédiger une documentation en amont des
+  développements** (→ **Q58 ouverte**) ; **mises en situation** sur des
+  exemples concrets clients, vérifiant la compatibilité avec les besoins,
+  exemples intégrés à la documentation (→ **Q59 ouverte**) ; **aucun code
+  tant que tous les points ne sont pas validés**. La dernière décision
+  stratégique est prise — restent au projet : Q7, Q16, Q30, Q58, Q59.
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

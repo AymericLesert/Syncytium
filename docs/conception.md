@@ -40,6 +40,32 @@ postures combinables :
    le développement d'applications dédiées basées sur la donnée et sa
    transformation.
 
+### 1.1 Les neuf piliers de Syncytium (ajouté le 18/07/2026)
+
+Les piliers sont les capacités structurantes du framework — celles que
+l'étude comparative évalue (§9, §9.5,
+[etude-comparative-20260718.md](etude-comparative-20260718.md)) et que les
+décisions D1–D312 construisent. Chaque pilier renvoie à ses décisions et à
+sa section de référence.
+
+| # | Pilier | En une phrase | Références |
+|---|--------|---------------|------------|
+| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131 ; §3 ; synthèse méta-schéma à venir (Q16) |
+| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9 ; §4 |
+| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103 ; §5 |
+| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300 ; §8.3, §8.6–§8.8 |
+| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184 ; §3.11 |
+| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174 ; §3.11 |
+| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312 ; §3.3 |
+| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196 ; §5.5–§5.7 |
+| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97 ; §6 |
+
+Le tout repose sur des **principes transverses** consignés au fil des
+décisions — « expliciter plutôt que subir en silence », « le moteur fournit
+le cadre, l'extension porte la sémantique », « masquer, ne jamais
+détruire », « la translation déclarative est un primitif transverse » — qui
+ne sont pas des piliers mais les irriguent tous.
+
 ---
 
 ## 2. Décisions actées
@@ -5408,6 +5434,15 @@ avant la synthèse Q16).
   l'open source (MSCL), Redis revient à l'AGPL** — positionnement D19
   renforcé. **Verdict : le « construire » sort renforcé — Q5 prête à être
   actée par l'auteur.**
+- **2026-07-18 (suite)** — **Le détail de l'étude consigné au dépôt**
+  (`docs/etude-comparative-20260718.md` : affirmations verbatim, citations,
+  votes, non-départagées, sources, limites — le §9.5 y renvoie), et **la
+  section §1.1 « Les neuf piliers de Syncytium » ajoutée** à la demande de
+  l'auteur : P1 description unique, P2 migrations à chaud, P3 compat d'API
+  bidirectionnelle auto-générée (le différenciateur), P4 IHM générée, P5
+  double périmètre, P6 temporalité, P7 langage unique, P8 sécurité par
+  construction, P9 observabilité — chacun renvoyant à ses décisions et
+  sections ; les principes transverses distingués des piliers.
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

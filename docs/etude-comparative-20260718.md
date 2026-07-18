@@ -240,3 +240,79 @@ import/export](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/
   vérifiés.
 - Constats **datés du 17–18/07/2026** — le paysage des licences, en
   particulier, évolue vite.
+
+## 9. Tableau de synthèse — piliers × outils
+
+**Légende** : ✓ = couvert · ◐ = partiel ou approchant · — = non couvert /
+non trouvé. Confiance par colonne : **[V]** = adossée à l'étude vérifiée
+(C1–C11 + vérification directe §3), **[S]** = passe superficielle (§7),
+**[C]** = connaissance générale. Stripe = référence commerciale (un
+service, pas un outil adossable) ; le Java Unified EL (P9, §7) n'a pas de
+colonne — précédent historique sans produit comparable.
+
+| Fonctionnalité \ Outil | Frappe [V] | NocoBase [S] | Directus·NocoDB [C] | Budibase·Appsmith [S] | Cadwyn [V] | pgroll·Reshape·Atlas [V] | XTDB·Datomic [S] | Kestra·Dagster·DataHub [S] | AppSheet·Dataverse [S] | Stripe* [V] |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **P1 — Description déclarative unique** | | | | | | | | | | |
+| Modèle généré depuis la déclaration | ✓ | ✓ | ✓ | ◐ | — | — | — | — | ◐ | — |
+| IHM générée automatiquement | ✓ | ✓ | ✓ | — | — | — | — | — | ◐ | — |
+| API générée automatiquement | ✓ | ◐ | ✓ | ◐ | — | — | — | — | ◐ | — |
+| API générées **et** versionnées à translation | — | — | — | — | — | — | — | — | — | — |
+| **P2 — Migrations à chaud** | | | | | | | | | | |
+| Migrations déclaratives | ◐ | — | — | — | — | ✓ | — | — | — | — |
+| Zéro interruption (à chaud) | ◐ | — | — | — | — | ✓ | — | — | — | — |
+| Règles riches (regex, gabarit, fusion) | — | — | — | — | — | — | — | — | — | — |
+| Dry-run sur données réelles | — | — | — | — | — | ◐¹ | — | — | — | — |
+| Fenêtre de faible affluence | — | — | — | — | — | — | — | — | — | — |
+| **P3 — Compatibilité d'API bidirectionnelle** | | | | | | | | | | |
+| Chaîne de translation « à la Stripe » | — | — | — | — | ✓ | — | — | — | — | ✓ |
+| Bidirectionnelle (requêtes ↑ / réponses ↓) | — | — | — | — | ✓ | ◐² | — | — | — | ✓ |
+| **Auto-générée depuis les migrations du modèle** | — | — | — | — | — | ◐² | — | — | — | — |
+| Persistante (anciennes versions maintenues) | — | — | — | — | ✓ | — | — | — | — | ✓ |
+| Cycle de vie (officielle/bêta/interdite/dépréciée) | — | — | — | — | — | — | — | — | — | ◐ |
+| Épinglage par compte | — | — | — | — | — | — | — | — | — | ✓ |
+| **P4 — IHM riche générée** | | | | | | | | | | |
+| Wizard déclaratif | — | — | — | ◐ | — | — | — | — | — | — |
+| Tableaux de bord à widgets + drill-down | ◐ | — | — | ◐ | — | — | — | — | — | — |
+| Croisés dynamiques déclaratifs | — | — | — | — | — | — | — | — | — | — |
+| Composants déclinés par mode × orientation | — | — | — | — | — | — | — | — | — | — |
+| Aide auto-générée depuis les descriptions | — | — | — | — | — | — | — | — | — | — |
+| **P5 — Entrepôt + applications** | | | | | | | | | | |
+| ETL déclaratif **intégré** au moteur applicatif | — | — | — | — | — | — | — | ◐³ | — | — |
+| Lineage **par enregistrement** | — | — | — | — | — | — | — | ◐³ | — | — |
+| Stock de rejets à statuts | — | — | — | — | — | — | — | — | — | — |
+| Insertion antidatée maîtrisée | — | — | — | — | — | — | ◐⁴ | — | — | — |
+| **P6 — Temporalité native** | | | | | | | | | | |
+| Lecture « à une date » (API temporelle) | — | — | — | — | — | — | ✓ | — | — | — |
+| Instantanés d'**agrégats complets** | — | — | — | — | — | — | — | — | — | — |
+| Champs calculés sur instantanés | — | — | — | — | — | — | — | — | — | — |
+| **P7 — Spécificités métier déclarables** | | | | | | | | | | |
+| Compteurs sans trou | ◐⁵ | — | — | — | — | — | — | — | — | — |
+| Héritage-état (promotion d'enregistrement) | — | — | — | — | — | — | — | — | — | — |
+| Sécurité ligne à identifiants opaques | ◐ | — | — | — | — | — | — | — | ◐ | — |
+| Validation 3 sévérités + confirmations tracées | — | — | — | — | — | — | — | — | — | — |
+| **P8 — Miroir tableur + documents** | | | | | | | | | | |
+| Round-trip tableur apparié par clé | ◐ | — | — | — | — | — | — | — | ✓ | — |
+| Remplacement/complément + dry-run bloquant | — | — | — | — | — | — | — | — | — | — |
+| Gabarits PDF = formulaires (formalisme unique) | ◐⁶ | — | — | — | — | — | — | — | — | — |
+| Impression serveur d'étiquettes | — | — | — | — | — | — | — | — | — | — |
+| **P9 — Langage transverse unique** | | | | | | | | | | |
+| Un langage : calculs + validations + migrations + translation + documents | — | — | — | — | — | — | — | — | — | — |
+| **P10 — Open source (état 2026)** | ✓ | ✓ | ◐⁷ | ◐ | ✓ | ✓/◐¹ | ✓/◐ | ✓ | — | — |
+
+¹ Atlas : la pré-planification (`schema plan`) est une revue de plan, non
+un dry-run sur données, et serait réservée au niveau Pro payant (N12).
+² pgroll/Reshape : compatibilité bidirectionnelle **auto-générée depuis
+les migrations**, mais **au niveau SQL et temporaire** — supprimée à la
+complétion (C6, C9, C10). ³ Kestra/Dagster/DataHub : ETL déclaratif
+**autonome** (sans moteur applicatif), lineage **au grain du jeu de
+données** (§7). ⁴ XTDB : « valid time » au grain de la ligne (N14).
+⁵ Frappe : *naming series* séquentielles, trous possibles à l'annulation
+(connaissance générale). ⁶ Frappe : *print formats* générés des DocTypes
+(connaissance générale). ⁷ Directus hors open source (MSCL) ; NocoDB en
+AGPL-3.0.
+
+**Lecture.** Les ✓ se concentrent en **P1** (Frappe et les plateformes
+data-first) et sur des piliers isolés, chacun chez un spécialiste (Cadwyn
+le patron P3, XTDB la lecture à date P6, AppSheet le round-trip P8) —
+**aucune colonne ne coche l'auto-génération du P3**, et **P5, P7 et P9
+sont des colonnes vides**. Aucun adossement ne couvre deux piliers.

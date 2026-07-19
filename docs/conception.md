@@ -407,6 +407,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D332 | **Diffable et commentaires : questions caduques** — le moteur ne réécrivant jamais les enveloppes, les fichiers restent tels qu'écrits (commentaires compris) ; un outil de mise à niveau serait **un outil du technicien, pas un geste du moteur**. | **Clôt la phase 2 de Q16** (le versionnement du format est entièrement spécifié : D322–D332). Voir §3.2c. |
 | D333 | **Documentation générée automatiquement** : le méta-schéma et la configuration construisent en automatique — **autant que possible** — une **documentation technique**, les **masques d'explication** (D209) et une **documentation fonctionnelle**. | Prémices : D124 (« exploitables par des IA ») et `document: md.yml` (D320). Deux sources complémentaires avec la documentation rédigée en amont (D314/Q58). Voir §3.2c. |
 | D334 | **Documentation vivante + partage élargi** : la documentation technique **exploite les données enregistrées en base** (usage ou non-usage de valeurs et de plages — la télémétrie D38–D51 en troisième source) ; **des informations dédiées au technicien pourront être partagées aux utilisateurs, aux techniciens de parties tierces et aux usagers**. | Le modèle dit ce qui est *permis*, la base dit ce qui est *fait*. Partage sous les règles d'accès existantes (D25–D27 — interprétation). Voir §3.2c. |
+| D335 | **La langue du dépôt** : les **noms de dossiers, de fichiers et les propriétés de configuration sont en anglais** — la structure en anglais, la sémantique métier dans la langue du modèle. | Cohérent D301/D309 ; les échantillons D320 s'y conformaient déjà. Voir §3.2c. |
 
 ---
 
@@ -669,6 +670,14 @@ automatique de la documentation »). La documentation du projet a donc
 la conception, les exemples des mises en situation Q59) et celle
 **générée depuis les descriptions** — qui vit avec le modèle et ne se
 périme jamais.
+
+**La langue du dépôt de description (D335).** **Les noms des dossiers,
+des fichiers et les propriétés dans les fichiers de configuration sont en
+anglais** — cohérent avec le langage (D301 : fonctions, D309 : mots-clés) :
+**la structure en anglais, la sémantique métier dans la langue du modèle**
+(les noms d'entités et de champs restent ceux du technicien). Les
+échantillons de la phase 3 s'y conformaient déjà (`users`, `document`,
+`instances`, `triggers`, `environment.name`).
 
 **La documentation vivante et son partage élargi (D334).** La
 documentation technique **exploite aussi les données enregistrées dans la
@@ -5927,3 +5936,13 @@ avant la synthèse Q16).
   être partagées aux utilisateurs, aux techniciens de parties tierces et
   aux usagers** (sous les règles d'accès existantes — interprétation
   consignée).
+- **2026-07-18 (soir, suite 2)** — **Q16 phase 1 lancée : le domaine 1
+  (la racine) livré** — arborescence (fichier racine, configuration
+  technique commune, dossier des versions), contenu du fichier racine
+  (identité d'instance, langues/fuseaux/formats, compte de secours,
+  références par patterns), configuration technique détaillée. Premier
+  arbitrage : **la langue du dépôt (D335)** — noms de dossiers, de
+  fichiers et propriétés de configuration **en anglais** (structure en
+  anglais, sémantique métier dans la langue du modèle — cohérent
+  D301/D309). En attente : statut de version au fichier d'entrée
+  (officielle/bêta), groupes versionnés, modules fonctionnels versionnés.

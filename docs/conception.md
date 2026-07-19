@@ -416,7 +416,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D341 | **Groupes et modules fonctionnels versionnés avec le schéma** (contenu versionné D325) ; **les affectations restent des actes d'administration en base** (personnes↔groupes D27, utilisateurs↔modules fonctionnels D210). | Le modèle des droits et l'expérience évoluent avec le schéma. **Clôt le domaine 1 de l'inventaire (Q16 phase 1).** Voir §3.2c. |
 | D342 | **`technical/` écarté au profit d'`environments/` — un dossier par environnement** : **connecteurs, logs, settings et documentation spécifiques à chaque environnement** ; les valeurs partagées passent par les variables (D321/D323). | Amende D339 (fichiers → dossiers), précise D325 (commune aux versions, déclinée par environnement). Voir §3.2c. |
 | D343 | **Journaux par environnement** : staging = **debug/verbose** ; production active = **info + puits de logs éventuel** ; passive = **warning** ; **formats et emplacements de stockage différents** par environnement. | Voir §3.2c. |
-| D344 | **Cohérence du dossier des versions** : **erreur si une même version apparaît dans deux sous-dossiers simultanément** ; **le statut est porté par l'ingestion** (registre D326 — les dossiers sont le geste, l'état ingéré la vérité) ; **transitions unidirectionnelles** : `beta → production`, `production → deprecated | forbidden` — **jamais l'inverse**. | Micro-point : `deprecated → forbidden` permis ? Voir §3.2c. |
+| D344 | **Cohérence du dossier des versions** : **erreur si une même version apparaît dans deux sous-dossiers simultanément** ; **le statut est porté par l'ingestion** (registre D326 — les dossiers sont le geste, l'état ingéré la vérité) ; **transitions unidirectionnelles** : `beta → production`, `production → deprecated | forbidden` — **jamais l'inverse, et `deprecated → forbidden` écarté** (une dépréciée est éprouvée par l'usage ; le bug critique se constate en production). | Graphe complet : beta → production → deprecated (Sunset) ou production → forbidden. Voir §3.2c. |
 
 ---
 
@@ -748,9 +748,13 @@ passif.)*
    logique interne D327) ;
 3. **Les transitions sont unidirectionnelles** : une version **peut passer
    de `beta` à `production`, ou de `production` à `deprecated` ou
-   `forbidden` — jamais le chemin inverse**. *(Micro-point soumis :
-   `deprecated → forbidden` est-il permis ? — sinon une dépréciée à bug
-   critique resterait appelable jusqu'au Sunset.)*
+   `forbidden` — jamais le chemin inverse**. **Et `deprecated → forbidden`
+   est écarté** : « s'il est déprécié, cela signifie qu'il a été utilisé
+   suffisamment longtemps pour être éprouvé » — un bug critique se
+   constate **en production**, et c'est là que la version est classée
+   `forbidden`. Le graphe complet : `beta → production → deprecated`
+   (extinction naturelle au Sunset) ou `production → forbidden`
+   (interdiction sur bug critique).
 
 **La configuration par environnement (D342, amende D339 et précise
 D325).** **Le nom `technical/` est écarté au profit d'`environments/`** —
@@ -6157,3 +6161,9 @@ avant la synthèse Q16).
   unidirectionnelles** (beta → production, production → deprecated ou
   forbidden, **jamais l'inverse**). Micro-point soumis : deprecated →
   forbidden permis ?
+- **2026-07-18 (soir, suite 9)** — **`deprecated → forbidden` écarté (D344
+  complété)** : « s'il est déprécié, cela signifie qu'il a été utilisé
+  suffisamment longtemps pour être éprouvé » — le bug critique se constate
+  **en production**, où la version est classée `forbidden`. Le graphe du
+  cycle de vie est complet : beta → production → deprecated (extinction au
+  Sunset) ou production → forbidden.

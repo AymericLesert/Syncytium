@@ -423,6 +423,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D348 | **Le bloc `settings` de `module.yml`** : regroupe **les propriétés potentiellement diffusées dans les sous-composants** (history D168, quota D162…) ; **structuration à consolider au fil des domaines** — section volontairement ouverte. | Le patron s'esquisse : des `settings` à chaque étage (environnement, module, entité, champ), chaque niveau raffinant les défauts du supérieur. Voir §3.2c. |
 | D349 | **Le `settings.yml` du module** : le bloc settings est **externalisé dans un fichier `settings.yml`, référencé par `module.yml`** (`settings: settings.yml` — la référence de fichier D320) — anticipant sa croissance. | « La suite nous dira si c'est le cas. » Un `settings.yml` à chaque étage — le patron s'affirme. Voir §3.2c. |
 | D350 | **La déclaration d'un module marque son activation** — pas de drapeau : présent dans la description = actif ; désactiver = retirer de la description (nouvelle version, migration). | D117.3 (« activation par instance ») porté par le contenu de la description propre à chaque instance (D16). Le geste déclaratif est l'acte. Voir §3.2c. |
+| D351 | **Le menu du module est stocké dans `menu.yml`** (dossier du module, référencé par `module.yml` — patron D349) ; **optionnel** : sans lui, le défaut D186/D191/D193 s'applique. | Contenu détaillé au domaine 4 (entrées à 5 types, hiérarchie, filtrage par confidentialité). Le dossier de module est complet : module.yml + settings.yml + menu.yml + entities/. Voir §3.2c. |
 
 ---
 
@@ -851,6 +852,26 @@ migration). L'« activation par instance » (D117.3) est portée par le
 contenu de la description propre à chaque instance (D16) — **le geste
 déclaratif est l'acte**, dans la droite ligne de « déposer = publier »
 (D324).
+
+**Le menu du module : `menu.yml` (D351).** **Le menu du module est stocké
+dans `menu.yml`**, dans le dossier du module — référencé par `module.yml`
+(le patron D349). Le fichier est **optionnel** : sans lui, le défaut
+s'applique (les entités agrégats en entrées — D186/D191/D193). Son
+contenu détaillé (les entrées à cinq types, la hiérarchie, le filtrage par
+la confidentialité — D193) sera précisé au **domaine 4** (les surfaces).
+Le dossier de module atteint sa forme complète :
+
+```yaml
+sales/
+  module.yml                   # l'entrée : name, labels, comment, description,
+                               #   settings: settings.yml, menu: menu.yml,
+                               #   entities: - entities/*.yml
+  settings.yml                 # les propriétés diffusées (D348–D349)
+  menu.yml                     # le menu du module (D351, optionnel)
+  entities/
+    customer.yml               # une entité par fichier (D347)
+    order.yml
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6324,3 +6345,8 @@ avant la synthèse Q16).
   L'« activation par instance » (D117.3) est portée par le contenu de la
   description de chaque instance (D16). Reste sur module.yml : le menu
   (avec les surfaces du domaine 4 ?).
+- **2026-07-18 (soir, suite 17)** — **Le menu du module dans `menu.yml`
+  (D351)** — fichier optionnel du dossier de module, référencé par
+  `module.yml` ; sans lui, le défaut D186/D191/D193 s'applique ; contenu
+  détaillé au domaine 4. **Le dossier de module est complet** :
+  `module.yml` + `settings.yml` + `menu.yml` + `entities/`.

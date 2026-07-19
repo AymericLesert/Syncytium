@@ -406,6 +406,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D331 | **Ascendante = conversion à l'ingestion** : le moteur vN+1 **lit les formats antérieurs** (journal de migrations du format embarqué complet) et **compile l'enveloppe ancienne directement en logique interne à jour** ; **les fichiers du technicien ne sont jamais réécrits**. | Validée par l'auteur. Voir §3.2c. |
 | D332 | **Diffable et commentaires : questions caduques** — le moteur ne réécrivant jamais les enveloppes, les fichiers restent tels qu'écrits (commentaires compris) ; un outil de mise à niveau serait **un outil du technicien, pas un geste du moteur**. | **Clôt la phase 2 de Q16** (le versionnement du format est entièrement spécifié : D322–D332). Voir §3.2c. |
 | D333 | **Documentation générée automatiquement** : le méta-schéma et la configuration construisent en automatique — **autant que possible** — une **documentation technique**, les **masques d'explication** (D209) et une **documentation fonctionnelle**. | Prémices : D124 (« exploitables par des IA ») et `document: md.yml` (D320). Deux sources complémentaires avec la documentation rédigée en amont (D314/Q58). Voir §3.2c. |
+| D334 | **Documentation vivante + partage élargi** : la documentation technique **exploite les données enregistrées en base** (usage ou non-usage de valeurs et de plages — la télémétrie D38–D51 en troisième source) ; **des informations dédiées au technicien pourront être partagées aux utilisateurs, aux techniciens de parties tierces et aux usagers**. | Le modèle dit ce qui est *permis*, la base dit ce qui est *fait*. Partage sous les règles d'accès existantes (D25–D27 — interprétation). Voir §3.2c. |
 
 ---
 
@@ -668,6 +669,20 @@ automatique de la documentation »). La documentation du projet a donc
 la conception, les exemples des mises en situation Q59) et celle
 **générée depuis les descriptions** — qui vit avec le modèle et ne se
 périme jamais.
+
+**La documentation vivante et son partage élargi (D334).** La
+documentation technique **exploite aussi les données enregistrées dans la
+base** pour apporter des **informations utiles sur l'usage — ou le
+non-usage — de valeurs ou de plages de valeurs** : la télémétrie
+(D38–D51, la diversité D46/D48 en tête) devient une **troisième source**
+de la documentation, celle qui dit non pas ce que le modèle *permet* mais
+ce que l'instance *fait*. Et **certaines informations dédiées au
+technicien pourront être partagées** — **aux utilisateurs, aux
+techniciens de parties tierces** (les consommateurs des API, dont la
+documentation générée s'enrichit) **et aux usagers**. *(Harmonisation
+naturelle : le partage s'opère sous les règles d'accès existantes —
+confidentialité D25–D27, groupes — le destinataire ne voit que ce que ses
+droits permettent.)*
 
 **Le corollaire : diffable et commentaires, questions caduques (D332 —
 clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
@@ -5904,3 +5919,11 @@ avant la synthèse Q16).
   et une **documentation fonctionnelle** — deux sources complémentaires
   avec la documentation rédigée en amont (D314/Q58) : la générée vit avec
   le modèle et ne se périme jamais.
+- **2026-07-18 (soir, suite)** — **La documentation vivante (D334)** : la
+  documentation technique **exploite aussi les données enregistrées en
+  base** — l'usage ou le non-usage de valeurs et de plages (la télémétrie
+  D38–D51 devient la **troisième source** : le modèle dit le permis, la
+  base dit le fait) ; et **des informations dédiées au technicien pourront
+  être partagées aux utilisateurs, aux techniciens de parties tierces et
+  aux usagers** (sous les règles d'accès existantes — interprétation
+  consignée).

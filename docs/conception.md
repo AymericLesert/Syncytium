@@ -419,6 +419,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D344 | **Cohérence du dossier des versions** : **erreur si une même version apparaît dans deux sous-dossiers simultanément** ; **le statut est porté par l'ingestion** (registre D326 — les dossiers sont le geste, l'état ingéré la vérité) ; **transitions unidirectionnelles** : `beta → production`, `production → deprecated | forbidden` — **jamais l'inverse, et `deprecated → forbidden` écarté** (une dépréciée est éprouvée par l'usage ; le bug critique se constate en production). | Complété par D345 : `beta → forbidden` permis (bug critique en validation). Voir §3.2c. |
 | D345 | **Conservation et ordre des numéros** : **`beta → forbidden` permis** (bug critique en phase de validation) ; **dépréciées et interdites conservées** (mémoire historique) ; **ordre incrémental : `beta` > `production` > `deprecated`** — **`forbidden` hors contrainte**. | Rien ne s'efface ; l'ordre des numéros reflète le cycle de vie. Voir §3.2c. |
 | D346 | **Le dossier `resources/`** — à la racine (même niveau que `syncytium.yml`) : **logos, icônes, images et autres documents, partagés avec toutes les versions**. | Ressources de la description (logo D191, icônes D283…) ≠ stockage des fichiers de données (D160, hors dépôt). Voir §3.2c. |
+| D347 | **Le dossier d'un module** : `module.yml` (l'entrée) + **sous-dossier `entities/`, un fichier par entité** — `entities: - entities/*.yml`. | La séparation par sous-dossier exclut le fichier d'entrée du pattern par construction. Domaine 2, premier arbitrage. Voir §3.2c. |
 
 ---
 
@@ -772,6 +773,28 @@ sont partagés avec toutes les versions**. *(Distinction à retenir :
 l'instance D191, les icônes d'énumérés D283… ; le stockage des fichiers de
 **données** D160 reste, lui, hors dépôt, dans le dossier d'exploitation de
 l'instance.)*
+
+**Le dossier d'un module (D347 — domaine 2, premier arbitrage).** Dans le
+dossier d'un module : **le fichier `module.yml`** (l'entrée du module) et
+**un sous-dossier `entities/` contenant un fichier par entité**. La
+propriété `entities` de `module.yml` s'écrit donc :
+
+```yaml
+# versions/<statut>/<version>/sales/module.yml
+entities:
+  - entities/*.yml
+```
+
+*(Le pattern à plat `*.yml` aurait inclus `module.yml` lui-même comme
+entité — la séparation par sous-dossier l'exclut par construction.)*
+
+```yaml
+sales/
+  module.yml                   # l'entrée du module
+  entities/
+    customer.yml               # une entité par fichier
+    order.yml
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6218,3 +6241,11 @@ avant la synthèse Q16).
   stockage des fichiers de données (D160). Le domaine 2 (livré) attend ses
   arbitrages : grain module/entité, surfaces séparées, schema.yml en
   pattern.
+- **2026-07-18 (soir, suite 13)** — **Le dossier d'un module (D347)** —
+  la complétude du domaine 1 sera vérifiée après tous les domaines
+  (méthode de l'auteur) ; `module.yml` détaillé et **corrigé par
+  l'auteur** : le dossier d'un module = `module.yml` + **sous-dossier
+  `entities/`** (un fichier par entité), `entities: - entities/*.yml` — le
+  pattern à plat aurait inclus le fichier d'entrée comme entité. Restent
+  au module.yml : l'activation (racine ou settings ?), le menu (avec les
+  surfaces ?), les propriétés manquantes.

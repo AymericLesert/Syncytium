@@ -424,6 +424,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D349 | **Le `settings.yml` du module** : le bloc settings est **externalisé dans un fichier `settings.yml`, référencé par `module.yml`** (`settings: settings.yml` — la référence de fichier D320) — anticipant sa croissance. | « La suite nous dira si c'est le cas. » Un `settings.yml` à chaque étage — le patron s'affirme. Voir §3.2c. |
 | D350 | **La déclaration d'un module marque son activation** — pas de drapeau : présent dans la description = actif ; désactiver = retirer de la description (nouvelle version, migration). | D117.3 (« activation par instance ») porté par le contenu de la description propre à chaque instance (D16). Le geste déclaratif est l'acte. Voir §3.2c. |
 | D351 | **Le menu du module est stocké dans `menu.yml`** (dossier du module, référencé par `module.yml` — patron D349) ; **optionnel** : sans lui, le défaut D186/D191/D193 s'applique. | Contenu détaillé au domaine 4 (entrées à 5 types, hiérarchie, filtrage par confidentialité). Le dossier de module est complet : module.yml + settings.yml + menu.yml + entities/. Voir §3.2c. |
+| D352 | **L'externalisation des blocs d'entité est libre, jamais imposée** : cas simples = **un fichier unique léger** (le découpage excessif alourdit) ; entité conséquente = **le découpage bienvenu** (référence de fichier D320) — au choix du technicien, cas par cas. | La souplesse sans convention imposée. Voir §3.2c. |
 
 ---
 
@@ -873,6 +874,14 @@ sales/
     customer.yml               # une entité par fichier (D347)
     order.yml
 ```
+
+**L'externalisation libre des blocs d'entité (D352).**
+**L'externalisation n'est pas imposée** : dans les cas les plus simples,
+**le fichier d'entité est suffisamment léger** pour tout contenir — « un
+découpage trop détaillé va rendre le processus trop lourd ». Mais **une
+entité très conséquente bénéficiera d'un découpage**, par la référence de
+fichier native du format (D320) — bloc en ligne ou
+`validations: validations.yml`, **au choix du technicien**, cas par cas.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6353,3 +6362,14 @@ avant la synthèse Q16).
   `module.yml` + `settings.yml` + `menu.yml` + `entities/`. Précision de
   l'auteur dans la foulée : **le bloc `menu: menu.yml` figure
   explicitement dans `module.yml`** — l'exemple complet est mis à jour.
+- **2026-07-20** — **Le fichier d'entité abordé (module non clôturé — la
+  complétude se vérifiera en fin de parcours)** ; structure proposée :
+  identité (name/labels/comment/description), clé fonctionnelle, champ
+  image, héritage-état, settings (raffinement des défauts), access
+  (audiences + droits d'action), compositions, compteurs, opérations,
+  validations, champs. Premier arbitrage : **l'externalisation des blocs
+  est libre, jamais imposée (D352)** — fichier unique léger pour les cas
+  simples (« un découpage trop détaillé va rendre le processus trop
+  lourd »), découpage bienvenu pour les entités conséquentes, au choix du
+  technicien. Restent : la forme du bloc états (machine à états), le
+  détail du bloc fields.

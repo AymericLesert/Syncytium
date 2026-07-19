@@ -425,6 +425,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D350 | **La déclaration d'un module marque son activation** — pas de drapeau : présent dans la description = actif ; désactiver = retirer de la description (nouvelle version, migration). | D117.3 (« activation par instance ») porté par le contenu de la description propre à chaque instance (D16). Le geste déclaratif est l'acte. Voir §3.2c. |
 | D351 | **Le menu du module est stocké dans `menu.yml`** (dossier du module, référencé par `module.yml` — patron D349) ; **optionnel** : sans lui, le défaut D186/D191/D193 s'applique. | Contenu détaillé au domaine 4 (entrées à 5 types, hiérarchie, filtrage par confidentialité). Le dossier de module est complet : module.yml + settings.yml + menu.yml + entities/. Voir §3.2c. |
 | D352 | **L'externalisation des blocs d'entité est libre, jamais imposée** : cas simples = **un fichier unique léger** (le découpage excessif alourdit) ; entité conséquente = **le découpage bienvenu** (référence de fichier D320) — au choix du technicien, cas par cas. | La souplesse sans convention imposée. Voir §3.2c. |
+| D353 | **Héritage : `inheritance` (enfant) = la seule référence au parent** ; **la machine à états = un bloc sur le parent**, référençant les enfants (niveaux, branches D146, promotions/rétrogradations D147, déclencheurs D54/D148). | « Le paramétrage doit être naturel » — la hiérarchie se lit là où elle est entière ; forme concrète en proposition. Voir §3.2c. |
 
 ---
 
@@ -882,6 +883,15 @@ découpage trop détaillé va rendre le processus trop lourd ». Mais **une
 entité très conséquente bénéficiera d'un découpage**, par la référence de
 fichier native du format (D320) — bloc en ligne ou
 `validations: validations.yml`, **au choix du technicien**, cas par cas.
+
+**L'héritage : l'enfant pointe, le parent décrit (D353).** **La propriété
+`inheritance` fait référence uniquement à l'entité parent** — c'est tout
+ce que porte l'enfant. **La machine à états est un bloc décrit sur le
+parent, qui fait référence aux enfants** : les niveaux, les branches
+(positions multiples D146), les promotions et rétrogradations (D147), les
+déclencheurs (D54/D148) se déclarent là où la hiérarchie entière est
+visible. L'exigence de l'auteur : **une approche qui rende le paramétrage
+naturel** — la forme concrète du bloc est en proposition.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6373,3 +6383,9 @@ avant la synthèse Q16).
   lourd »), découpage bienvenu pour les entités conséquentes, au choix du
   technicien. Restent : la forme du bloc états (machine à états), le
   détail du bloc fields.
+- **2026-07-20 (suite)** — **L'héritage restructuré (D353)** :
+  **`inheritance` (sur l'enfant) = la seule référence au parent** ; **la
+  machine à états = un bloc sur le parent référençant les enfants** —
+  niveaux, branches, promotions/rétrogradations, déclencheurs se déclarent
+  là où la hiérarchie est entière. Exigence : « une approche qui rende le
+  paramétrage naturel » — forme concrète proposée en réponse.

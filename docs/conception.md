@@ -6190,3 +6190,10 @@ avant la synthèse Q16).
   l'histoire** (rien ne s'efface) ; **ordre incrémental : beta >
   production > deprecated — forbidden hors contrainte** (une bêta comme
   une production de tout numéro peut y être classée).
+- **2026-07-18 (soir, suite 11)** — **Deux règles de méthode demandées par
+  l'auteur, consignées** : (1) **avant de proposer la phase suivante,
+  demander si tous les points du sujet en cours ont été vus** — la
+  complétude se vérifie avec l'auteur, elle ne se présume pas ; (2) **dans
+  le cadre du méta-schéma, chaque livraison de domaine inclut un rappel de
+  l'organisation des dossiers et fichiers** — pour conserver la vue
+  d'ensemble à mesure que l'inventaire grandit.

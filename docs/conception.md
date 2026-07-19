@@ -420,6 +420,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D345 | **Conservation et ordre des numéros** : **`beta → forbidden` permis** (bug critique en phase de validation) ; **dépréciées et interdites conservées** (mémoire historique) ; **ordre incrémental : `beta` > `production` > `deprecated`** — **`forbidden` hors contrainte**. | Rien ne s'efface ; l'ordre des numéros reflète le cycle de vie. Voir §3.2c. |
 | D346 | **Le dossier `resources/`** — à la racine (même niveau que `syncytium.yml`) : **logos, icônes, images et autres documents, partagés avec toutes les versions**. | Ressources de la description (logo D191, icônes D283…) ≠ stockage des fichiers de données (D160, hors dépôt). Voir §3.2c. |
 | D347 | **Le dossier d'un module** : `module.yml` (l'entrée) + **sous-dossier `entities/`, un fichier par entité** — `entities: - entities/*.yml`. | La séparation par sous-dossier exclut le fichier d'entrée du pattern par construction. Domaine 2, premier arbitrage. Voir §3.2c. |
+| D348 | **Le bloc `settings` de `module.yml`** : regroupe **les propriétés potentiellement diffusées dans les sous-composants** (history D168, quota D162…) ; **structuration à consolider au fil des domaines** — section volontairement ouverte. | Le patron s'esquisse : des `settings` à chaque étage (environnement, module, entité, champ), chaque niveau raffinant les défauts du supérieur. Voir §3.2c. |
 
 ---
 
@@ -795,6 +796,32 @@ sales/
     customer.yml               # une entité par fichier
     order.yml
 ```
+
+**Le bloc `settings` de `module.yml` (D348).** Le fichier de module
+s'enrichit d'un **bloc `settings`** qui **regroupe les propriétés
+potentiellement diffusées dans les sous-composants** — les défauts en
+cascade : l'historisation (D168, opt-out), le quota (D162, la plus petite
+taille l'emporte)… **La structuration de cette section se consolidera au
+fur et à mesure des échanges et des compléments poussés par les autres
+domaines** — section volontairement ouverte.
+
+```yaml
+# sales/module.yml
+name: sales
+labels: { fr: Ventes }
+comment: { fr: Gestion commerciale }
+description: { fr: ... }
+settings:                      # les propriétés diffusées aux sous-composants
+  history: false               #   D168 — héritée par les entités, opt-out
+  quota: 2GB                   #   D162 — cascade, la plus petite l'emporte
+entities:
+  - entities/*.yml
+```
+
+*(Le patron s'esquisse : des `settings` à chaque étage — l'environnement
+(`settings.yml`, D342), le module (`settings:`), et vraisemblablement
+l'entité et le champ — chaque niveau raffinant les défauts du niveau
+supérieur, dans les cascades déjà actées.)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6249,3 +6276,10 @@ avant la synthèse Q16).
   pattern à plat aurait inclus le fichier d'entrée comme entité. Restent
   au module.yml : l'activation (racine ou settings ?), le menu (avec les
   surfaces ?), les propriétés manquantes.
+- **2026-07-18 (soir, suite 14)** — **Le bloc `settings` de module.yml
+  (D348)** : il regroupe **les propriétés potentiellement diffusées dans
+  les sous-composants** (history, quota…) — « la structuration de cette
+  section se consolidera au fur et à mesure de nos échanges et des
+  compléments poussés par les autres domaines ». Le patron des `settings`
+  en cascade s'esquisse (environnement → module → entité → champ).
+  Restent : l'activation et le menu.

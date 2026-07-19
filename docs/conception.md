@@ -418,6 +418,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D343 | **Journaux par environnement** : staging = **debug/verbose** ; production active = **info + puits de logs éventuel** ; passive = **warning** ; **formats et emplacements de stockage différents** par environnement. | Voir §3.2c. |
 | D344 | **Cohérence du dossier des versions** : **erreur si une même version apparaît dans deux sous-dossiers simultanément** ; **le statut est porté par l'ingestion** (registre D326 — les dossiers sont le geste, l'état ingéré la vérité) ; **transitions unidirectionnelles** : `beta → production`, `production → deprecated | forbidden` — **jamais l'inverse, et `deprecated → forbidden` écarté** (une dépréciée est éprouvée par l'usage ; le bug critique se constate en production). | Complété par D345 : `beta → forbidden` permis (bug critique en validation). Voir §3.2c. |
 | D345 | **Conservation et ordre des numéros** : **`beta → forbidden` permis** (bug critique en phase de validation) ; **dépréciées et interdites conservées** (mémoire historique) ; **ordre incrémental : `beta` > `production` > `deprecated`** — **`forbidden` hors contrainte**. | Rien ne s'efface ; l'ordre des numéros reflète le cycle de vie. Voir §3.2c. |
+| D346 | **Le dossier `resources/`** — à la racine (même niveau que `syncytium.yml`) : **logos, icônes, images et autres documents, partagés avec toutes les versions**. | Ressources de la description (logo D191, icônes D283…) ≠ stockage des fichiers de données (D160, hors dépôt). Voir §3.2c. |
 
 ---
 
@@ -763,6 +764,15 @@ passif.)*
       └──────────────────→ forbidden   (bug critique en validation)
    ```
 
+**Le dossier `resources/` (D346).** **Les logos, icônes, images ou autres
+documents sont stockés dans un dossier `resources/`**, positionné **au
+même niveau que `syncytium.yml`** (la racine du dépôt) — **ces fichiers
+sont partagés avec toutes les versions**. *(Distinction à retenir :
+`resources/` = les ressources de la **description** — le logo de
+l'instance D191, les icônes d'énumérés D283… ; le stockage des fichiers de
+**données** D160 reste, lui, hors dépôt, dans le dossier d'exploitation de
+l'instance.)*
+
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
 **historiques** : rien ne s'efface, les dossiers `deprecated/` et
@@ -798,6 +808,8 @@ syncytium.yml                  # le fichier racine (D322) : identité de l'insta
                                # (permises, défaut, fuseaux, formats — D217–D221/D131),
                                # compte administrateur de secours (D29/D81),
                                # références par patterns (D320)
+resources/                     # logos, icônes, images, documents — partagés avec
+                               # toutes les versions (D346)
 environments/                  # un dossier PAR environnement (D342)
   staging/                     #   le test
     environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
@@ -6197,3 +6209,12 @@ avant la synthèse Q16).
   le cadre du méta-schéma, chaque livraison de domaine inclut un rappel de
   l'organisation des dossiers et fichiers** — pour conserver la vue
   d'ensemble à mesure que l'inventaire grandit.
+- **2026-07-18 (soir, suite 12)** — **Le dossier `resources/` (D346)** —
+  la règle de complétude paie dès sa première application : à la question
+  « avons-nous fait le tour du domaine 1 ? », l'auteur ajoute **le dossier
+  `resources/`** à la racine (même niveau que `syncytium.yml`) — logos,
+  icônes, images et autres documents, **partagés avec toutes les
+  versions**. Distinction consignée : ressources de la description ≠
+  stockage des fichiers de données (D160). Le domaine 2 (livré) attend ses
+  arbitrages : grain module/entité, surfaces séparées, schema.yml en
+  pattern.

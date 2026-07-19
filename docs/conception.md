@@ -391,6 +391,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D316 | **Exploitation des séquences répétées** : (1) recommandations d'optimisation au consommateur (cache, lots) ; (2) **une séquence lourde et longue qui se répète peut se transformer en service proposé** — une ou quelques requêtes limitées la remplaçant ; le moteur propose (fréquence + coût constaté), **le technicien décide**. | Consultatif uniquement (D45). Voir §6.5. |
 | D317 | **Normalisation des appels** : **endpoint + liste des propriétés, valeurs ignorées** — deux appels au même endpoint sur les mêmes propriétés = la même « lettre » de la grammaire. | Le pendant API des requêtes SQL normalisées du projet d'origine. Voir §6.5. |
 | D318 | **Seuils de pertinence** : **récurrence sur plage temporelle** (1×/jour, /semaine, /mois — la régularité pèse autant que le volume) + **rapport longueur normalisée / longueur réelle** (le taux de compression = le gain estimé du service). **Valeurs à évaluer sur données réelles** (calibrage en Q59). | Dilemme nommé : seuil trop bas = bruit, trop haut = optimisations sous les radars. Patron D47–D51. Voir §6.5. |
+| D319 | **Pas de catalogue de motifs prédéfini** : les motifs **se déduisent des motifs identifiés** par la grammaire — **non connus à l'avance** ; le catalogue de détections dédiées proposé est écarté. | Un seul moteur de détection, sans a priori — les schémas classiques émergeront comme règles courtes. **Clôt Q30.** Voir §6.5. |
 
 ---
 
@@ -2236,6 +2237,13 @@ proposer des optimisations — remplacer des appels unitaires par des
   minimale doit être évaluée pour être pertinente ») — calibrage naturel
   lors des mises en situation (Q59), patron défaut global + surcharge
   (D47–D51).
+- **Pas de catalogue de motifs prédéfini (D319 — clôt Q30).** Les motifs
+  **se déduisent des motifs identifiés** par la grammaire — ils ne sont
+  **pas connus à l'avance**. Le catalogue de détections dédiées proposé
+  (cache, N+1, polling, crawl bienveillant) est **écarté** comme mécanisme :
+  ces schémas, s'ils existent chez un consommateur, **émergeront de
+  SEQUITUR** comme règles courtes et fréquentes — un seul moteur de
+  détection, sans a priori.
 
 **Solution intégrée sur méta-schéma (D44).** Ces canaux forment une **solution
 intégrée** : écrite dans le format Syncytium mais **possédée par le moteur**
@@ -4002,7 +4010,7 @@ sont pas validés.**
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
 | ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Clos (D47, D50, D51, D97)** : défauts fixés — fenêtre 30 j (unité jour), linéaire par défaut / log sur demande, pic z ≥ 3 + plancher 100/j, crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5. Ajustables à l'initialisation de l'instance. |
-| Q30 | **Volet conseil — approche arbitrée (D315–D316, §6.5)** : détection par **SEQUITUR** sur les appels normalisés (paires ≥ 2 → règles, récursif) → grammaire des séquences répétées ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le technicien décide). **Normalisation tranchée (D317)** : endpoint + liste des propriétés, valeurs ignorées ; **seuils tranchés (D318)** : récurrence sur plage temporelle + rapport longueur normalisée/réelle, valeurs à calibrer en Q59. **Reste** : le sort du **catalogue de motifs simples** (cache, N+1, polling, crawl bienveillant — détections dédiées ou émergentes de SEQUITUR ?). | Voir §6.5. |
+| ~~Q30~~ | ~~Volet conseil — étude dédiée ?~~ | **Résolu (D45, D315–D319, §6.5)** : détection par **SEQUITUR** sur les appels **normalisés (endpoint + liste des propriétés, valeurs ignorées)** — paires ≥ 2 → règles récursives, **grammaire des séquences répétées** ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le moteur propose avec fréquence + gain, **le technicien décide**) ; **seuils** = récurrence sur plage temporelle + **rapport longueur normalisée/réelle** (valeurs calibrées sur données réelles, Q59) ; **aucun catalogue de motifs prédéfini** — les motifs se déduisent, non connus à l'avance. |
 | ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
@@ -5575,6 +5583,13 @@ avant la synthèse Q16).
   mesure le gain) ; **valeurs à évaluer sur données réelles** (calibrage
   aux mises en situation Q59). Reste : le sort du catalogue de motifs
   simples.
+- **2026-07-18 (suite 7)** — **Q30 CLOSE (D319)**. Le catalogue de motifs
+  prédéfini est **écarté** : « cela peut être déduit des motifs identifiés
+  et non connus à l'avance » — un seul moteur de détection (SEQUITUR), sans
+  a priori ; les schémas classiques (cache, N+1, polling, crawl)
+  émergeront de la grammaire comme règles courtes s'ils existent. Le volet
+  conseil est entièrement spécifié (D45, D315–D319). Restent au projet :
+  Q7, Q16, Q58, Q59.
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

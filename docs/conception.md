@@ -402,6 +402,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D327 | **Le fichier = une enveloppe convertie en logique interne** ; **après lecture, la modification des fichiers ne permet ni reconstruction ni altération de l'existant** (pas de re-vérification à chaque sollicitation ou relance). | Les fichiers sont inertes après ingestion — la logique interne est la vérité opérationnelle. Voir §3.2c. |
 | D328 | **La migration s'effectue dès que la description de version est validée** ; la version devient alors **sollicitable via les API et par les IHM**. | Harmonisé avec le pipeline D7–D9 (dry-run, affluence, exécution) et la chaîne des versions publiées (D94–D100). Voir §3.2c. |
 | D329 | **Journal de migrations compilé** : le moteur **traduit les descriptions en un journal à format interne qui lui est propre** (performance) ; **migration gérée en mémoire** ; **à la relance, les règles sont prêtes à l'emploi** — les optimisations déjà réalisées et **réutilisables** (forme compilée persistée). | Pièce maîtresse de la logique interne (D327) ; nourrit aussi la chaîne de translation des API (§5.1). Voir §3.2c. |
+| D330 | **Descendante = refus propre immédiat** : format déclaré > format supporté → refus **sur la seule lecture de l'en-tête**, avant toute ingestion, avec la **version de moteur requise** ; consigné au registre (D326) avec la cause **« format non supporté »** — le bump du build ne sert à rien, **c'est le moteur qui doit monter**. | Le miroir du 426 (D94) transposé au contrat moteur↔description. Option (c) validée « sans hésiter ». Voir §3.2c. |
 
 ---
 
@@ -627,6 +628,18 @@ dry-run, fenêtre d'affluence, exécution transactionnelle)*. **La version
 peut alors être sollicitée par un tiers via les API, ou par les IHM** —
 elle rejoint la chaîne des versions publiées (D94–D99), l'IHM basculant
 sur la dernière (D100).
+
+**La descendante : le refus propre immédiat (D330).** Une description
+déclarant **un format postérieur à celui que le moteur supporte** (le parc
+étant hétérogène — mise à jour manuelle D17) est **refusée proprement,
+immédiatement, sur la seule lecture de l'en-tête** (D322) : *« cette
+description déclare le format N ; ce moteur supporte le format M au
+maximum ; moteur requis : ≥ vX »* — **avant toute tentative d'ingestion**.
+Le refus est **consigné au registre** (D326) avec sa cause **« format non
+supporté »**, distincte d'une erreur de validation : ici, **incrémenter le
+build ne sert à rien — c'est le moteur qui doit monter**. Le miroir du 426
+(D94) : ni comportement dégradé, ni silence — un refus net, daté,
+actionnable.
 
 **Le journal de migrations compilé (D329).** **Pour des questions de
 performance, le moteur traduit les descriptions en un journal de
@@ -5826,3 +5839,12 @@ avant la synthèse Q16).
   **réutilisables** (forme compilée persistée, aucune recompilation).
   Pièce maîtresse de la logique interne (D327), nourrissant aussi la
   chaîne de translation des API (§5.1).
+- **2026-07-18 (suite 14)** — **La descendante tranchée (D330)** :
+  « sans hésiter l'option (c) » — **refus propre immédiat sur la seule
+  lecture de l'en-tête** (format déclaré > format supporté), avec la
+  version de moteur requise, avant toute ingestion ; consigné au registre
+  (D326) avec la cause « format non supporté » (le bump du build ne sert à
+  rien — c'est le moteur qui doit monter). Le miroir du 426 (D94).
+  Restent en phase 2 : l'ascendante (moteur vN+1 lisant les enveloppes
+  anciennes — conversion à l'ingestion ?) et le sort diffable/commentaires
+  (probablement caduc avec l'architecture d'enveloppe D327).

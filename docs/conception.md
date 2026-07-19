@@ -408,6 +408,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D333 | **Documentation générée automatiquement** : le méta-schéma et la configuration construisent en automatique — **autant que possible** — une **documentation technique**, les **masques d'explication** (D209) et une **documentation fonctionnelle**. | Prémices : D124 (« exploitables par des IA ») et `document: md.yml` (D320). Deux sources complémentaires avec la documentation rédigée en amont (D314/Q58). Voir §3.2c. |
 | D334 | **Documentation vivante + partage élargi** : la documentation technique **exploite les données enregistrées en base** (usage ou non-usage de valeurs et de plages — la télémétrie D38–D51 en troisième source) ; **des informations dédiées au technicien pourront être partagées aux utilisateurs, aux techniciens de parties tierces et aux usagers**. | Le modèle dit ce qui est *permis*, la base dit ce qui est *fait*. Partage sous les règles d'accès existantes (D25–D27 — interprétation). Voir §3.2c. |
 | D335 | **La langue du dépôt** : les **noms de dossiers, de fichiers et les propriétés de configuration sont en anglais** — la structure en anglais, la sémantique métier dans la langue du modèle. | Cohérent D301/D309 ; les échantillons D320 s'y conformaient déjà. Voir §3.2c. |
+| D336 | **Le dépôt du client est distinct du projet** : le dossier de description est **versionné par le client dans un dépôt différent** du projet Syncytium. | Moteur public / descriptions par TPE — le contrat entre les deux = le format versionné (D322–D332). Voir §3.2c. |
+| D337 | **Le dossier `template/` : un projet « Hello world ! »** embarqué dans le projet Syncytium — **facilite la prise en main par le technicien**. | Description minimale clonable, application immédiate ; premier des exemples de la documentation (D314/Q58–Q59). Voir §3.2c. |
 
 ---
 
@@ -678,6 +680,19 @@ anglais** — cohérent avec le langage (D301 : fonctions, D309 : mots-clés) :
 (les noms d'entités et de champs restent ceux du technicien). Les
 échantillons de la phase 3 s'y conformaient déjà (`users`, `document`,
 `instances`, `triggers`, `environment.name`).
+
+**Le dépôt du client, distinct du projet (D336).** **Le dossier de
+description sera versionné par le client, dans un dépôt différent du
+projet Syncytium** — le moteur (public) et les descriptions (propres à
+chaque TPE) vivent dans des dépôts séparés ; le contrat entre les deux est
+le format versionné (D322–D332).
+
+**Le dossier « template » : Hello world ! (D337).** **Le projet Syncytium
+embarque un dossier `template/`** définissant un projet **« Hello
+world ! »** — le point de départ qui **facilite la prise en main par le
+technicien** : une description minimale complète, clonable, dont
+l'application générée fonctionne immédiatement. Premier des exemples
+promis à la documentation (D314/Q58–Q59).
 
 **La documentation vivante et son partage élargi (D334).** La
 documentation technique **exploite aussi les données enregistrées dans la
@@ -5946,3 +5961,11 @@ avant la synthèse Q16).
   anglais, sémantique métier dans la langue du modèle — cohérent
   D301/D309). En attente : statut de version au fichier d'entrée
   (officielle/bêta), groupes versionnés, modules fonctionnels versionnés.
+- **2026-07-18 (soir, suite 3)** — **Le dépôt client et le template
+  (D336–D337)**. **Le dossier de description est versionné par le client
+  dans un dépôt différent du projet Syncytium** (moteur public /
+  descriptions par TPE — le contrat = le format versionné). **Le projet
+  Syncytium embarque un dossier `template/`** : un projet **« Hello
+  world ! »** facilitant la prise en main par le technicien — description
+  minimale clonable, application immédiate, premier exemple de la
+  documentation (D314/Q58–Q59).

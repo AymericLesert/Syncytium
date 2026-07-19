@@ -410,7 +410,9 @@ ne sont pas des piliers mais les irriguent tous.
 | D335 | **La langue du dépôt** : les **noms de dossiers, de fichiers et les propriétés de configuration sont en anglais** — la structure en anglais, la sémantique métier dans la langue du modèle. | Cohérent D301/D309 ; les échantillons D320 s'y conformaient déjà. Voir §3.2c. |
 | D336 | **Le dépôt du client est distinct du projet** : le dossier de description est **versionné par le client dans un dépôt différent** du projet Syncytium. | Moteur public / descriptions par TPE — le contrat entre les deux = le format versionné (D322–D332). Voir §3.2c. |
 | D337 | **Le dossier `template/` : un projet « Hello world ! »** embarqué dans le projet Syncytium — **facilite la prise en main par le technicien**. | Description minimale clonable, application immédiate ; premier des exemples de la documentation (D314/Q58–Q59). Voir §3.2c. |
-| D338 | **Le statut d'une version = son emplacement** : pas de statut dans le fichier — **le dossier `versions/` est décliné par environnement** (sous-dossiers = les environnements déclarés) ; **déposer dans un environnement = publier pour cet environnement** (étend D324). | Interprétations : promotion bêta→officielle = déplacement du fichier vers production (staging supprimé D112) ; interdite/dépréciée = actes d'administration (D103). Voir §3.2c. |
+| D338 | **Le statut d'une version = son emplacement** : pas de statut dans le fichier — **le dossier `versions/` est décliné par environnement** (sous-dossiers = les environnements déclarés) ; **déposer dans un environnement = publier pour cet environnement** (étend D324). | Interprétation « interdite/dépréciée hors fichiers » amendée par D340 — tout le cycle de vie est en dossiers. Voir §3.2c. |
+| D339 | **Le dossier `environments/`** : `staging.yml` (test), `production.yml` (production **active**), `passive.yml` (production **passive** — PCA/PRA D113–D114) — les caractéristiques techniques par environnement. | Voir §3.2c. |
+| D340 | **Quatre dossiers de versions** : `beta/`, `production/`, `deprecated/`, `forbidden/` — **le cycle de vie D103 entièrement matérialisé par l'emplacement**, les transitions = des **gestes de fichier** (promotion, dépréciation avec Sunset, interdiction). | Dépréciées servies jusqu'au Sunset, interdites refusées (D94/D103 inchangés) ; `beta/` → staging, `production/` → actif + passif. Voir §3.2c. |
 
 ---
 
@@ -698,11 +700,39 @@ versions/
 ```
 
 **Déposer une version dans le dossier d'un environnement = la publier pour
-cet environnement** (le geste D324, étendu). *(Interprétations à valider :
-la promotion bêta → officielle = le déplacement du fichier vers
-l'environnement de production — à la validation, le staging est supprimé
-D112 ; les statuts interdite/dépréciée (D103) restent des actes
-d'administration en vie courante, hors fichiers.)*
+cet environnement** (le geste D324, étendu). *(L'interprétation
+« interdite/dépréciée = actes hors fichiers » est **amendée par D340** :
+tout le cycle de vie est en dossiers.)*
+
+**Le dossier `environments/` (D339).** Il contient **les caractéristiques
+techniques de chaque environnement** :
+
+- `staging.yml` — l'environnement de **test** ;
+- `production.yml` — l'environnement de **production (actif)** ;
+- `passive.yml` — l'environnement de **production (passif)** (le PCA/PRA,
+  D113–D114).
+
+**Les quatre dossiers de versions (D340).** **Les statuts interdits et
+dépréciés sont aussi dans des dossiers dédiés** — les versions vivent donc
+dans **quatre dossiers possibles** :
+
+```yaml
+versions/
+  beta/          # bêtas en test — le staging s'instancie (D112)
+  production/    # les versions officielles servies (active + passive)
+  deprecated/    # les dépréciées — encore appelables jusqu'au Sunset (D12/D94)
+  forbidden/     # les interdites — refusées proprement (D103)
+```
+
+**Le cycle de vie D103 est entièrement matérialisé par l'emplacement**, et
+**les transitions sont des gestes de fichier** : `beta/ → production/` = la
+promotion (le staging est supprimé, D112) ; `production/ → deprecated/` =
+la dépréciation (le Sunset court) ; `→ forbidden/` = l'interdiction (la
+version à bug révélé). *(Harmonisation : les dépréciées restent servies
+par la chaîne de translation jusqu'au Sunset, les interdites sont refusées
+— les sémantiques D94/D103 inchangées ; la correspondance
+versions ↔ environnements : `beta/` → staging, `production/` → actif +
+passif.)*
 
 **Le dépôt du client, distinct du projet (D336).** **Le dossier de
 description sera versionné par le client, dans un dépôt différent du
@@ -6001,4 +6031,15 @@ avant la synthèse Q16).
   D324 étendu). Interprétations soumises : promotion bêta → officielle =
   déplacement du fichier vers production ; interdite/dépréciée = actes
   d'administration (D103). Restent au domaine 1 : les groupes et les
+  modules fonctionnels (versionnés ?).
+- **2026-07-18 (soir, suite 5)** — **Environnements et cycle de vie en
+  dossiers (D339–D340)**. **`environments/`** : `staging.yml` (test),
+  `production.yml` (active), `passive.yml` (passive PCA/PRA). **Les
+  statuts interdits et dépréciés sont aussi des dossiers** — les versions
+  vivent dans **quatre dossiers : `beta/`, `production/`, `deprecated/`,
+  `forbidden/`** ; le cycle de vie D103 entièrement matérialisé par
+  l'emplacement, les transitions = des gestes de fichier (l'interprétation
+  « actes hors fichiers » de D338 est amendée). Harmonisation : dépréciées
+  servies jusqu'au Sunset, interdites refusées (D94/D103) ; beta →
+  staging, production → actif+passif. Restent au domaine 1 : groupes et
   modules fonctionnels (versionnés ?).

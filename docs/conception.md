@@ -394,7 +394,10 @@ ne sont pas des piliers mais les irriguent tous.
 | D319 | **Pas de catalogue de motifs prédéfini** : les motifs **se déduisent des motifs identifiés** par la grammaire — **non connus à l'avance** ; le catalogue de détections dédiées proposé est écarté. | Un seul moteur de détection, sans a priori — les schémas classiques émergeront comme règles courtes. **Clôt Q30.** Voir §6.5. |
 | D320 | **Format de description : syntaxe empruntée au YAML, pas de format personnalisé** ; **décomposition en plusieurs fichiers et/ou dossiers** — une valeur peut référencer **un fichier ou un pattern de fichiers** (`01-Utilisateurs/*.yml`, `./*/instance.yml`). | Q16 phase 3. Voir §3.2c. |
 | D321 | **Variables d'interpolation** : `${KEY}` / `${KEY?DefaultValue}` — KEY = **item de configuration à navigation relative remontante** (`{name}` = même niveau ; `{.name}` = niveau précédent ; `{..name}` = parent du précédent — chaque point remonte d'un niveau), **mot-clé** (`PROJECT`, `VERSION`, `date`, `date:<format>`… liste extensible), ou **variable d'environnement** ; `?` = défaut si absent ; **imbrication permise** (`${triggers.${environment.name}.filename}`). | Spécification éprouvée sur l'implémentation existante de l'auteur ; pas d'ancrage racine — résolution relative au nœud courant. Voir §3.2c. |
-| D322 | **Organisation versionnée de la description** : la description **déclare en tête la version du méta-schéma** ; **un fichier d'entrée par version, référençant un sous-dossier** contenant le détail de la description. | Q16 phase 2, premier pas — s'appuie sur la décomposition D320. Question de lecture en cours : « par version » = méta-schéma ou schéma client (journal D2–D3) ? Voir §3.2c. |
+| D322 | **Organisation versionnée de la description** : la description **déclare en tête la version du méta-schéma** (le format) ; **un fichier d'entrée par version du schéma client, référençant un sous-dossier** contenant le détail de la description. | Q16 phase 2, premier pas — s'appuie sur la décomposition D320 ; lecture résolue par D324 (le dossier des versions matérialise le journal). Voir §3.2c. |
+| D323 | **Philosophie des petits fichiers** : de petits fichiers de configuration plutôt qu'un seul ; **les redondances n'étant pas facilement éliminables, les variables (D321) référencent une valeur une fois** pour la réutiliser partout. | La raison d'être du dispositif de la phase 3. Voir §3.2c. |
+| D324 | **Le dossier des versions** : une description par version, **dans un même dossier** où le moteur **découvre les versions disponibles** ; **déposer un nouveau fichier = publier une nouvelle version** (versionnement **croissant** exigé) ; version à **4 valeurs `<majeure>.<mineure>.<indice>.<build>`**. | Le geste concret du déploiement à chaud (D17). Voir §3.2c. |
+| D325 | **Partage commun / versionné** : la **configuration technique commune** à toutes les versions (connecteurs, journaux, items à venir) vs **le contenu versionné** (schéma de données, IHM, configuration générale — dont seuils de télémétrie et méta-niveau). | L'arborescence du dépôt reflète ce partage. Voir §3.2c. |
 
 ---
 
@@ -562,10 +565,40 @@ annoncé lié à l'organisation de la phase 3 :
   sous-dossier contenant le détail de la description** — la décomposition
   multi-fichiers/dossiers (D320) porte cette organisation.
 
-*(Question de lecture en cours : « un fichier d'entrée par version » — la
-version du **méta-schéma** (le format), ou la version du **schéma client**
-(celle du journal de migrations D2–D3, chaque montée de version
-matérialisée par son fichier d'entrée + son dossier) ?)*
+*(Question de lecture **résolue par les précisions ci-dessous** : le
+fichier d'entrée est **par version du schéma client** — le dossier des
+versions matérialise le journal ; l'en-tête du fichier porte, lui, la
+version du **format**.)*
+
+**La philosophie des petits fichiers (D323).** L'auteur préfère
+**travailler avec des petits fichiers de configuration** plutôt que tout
+tenir dans un seul fichier. Et, **par expérience, les redondances
+d'information ne sont pas facilement éliminables** : l'usage des
+**variables** (D321) permet de **référencer la valeur pertinente une
+fois** et de l'utiliser autant de fois que nécessaire — c'est la raison
+d'être du dispositif de la phase 3.
+
+**Le dossier des versions : déposer un fichier = publier une version
+(D324).** Les descriptions de version (**une par version**) sont
+**stockées dans un même dossier**, où **le moteur découvre toutes les
+versions disponibles**. **La mise à disposition d'un nouveau fichier
+signifie la présence d'une nouvelle version** — sous condition d'un
+**versionnement cohérent : la nouvelle version doit être croissante**.
+**Une version porte quatre valeurs :
+`<majeure>.<mineure>.<indice>.<build>`.** Le déploiement à chaud de la
+description (D17) trouve ici son geste concret : **déposer un fichier**.
+
+**Le partage commun / versionné (D325).** L'arborescence du dépôt de
+description distingue :
+
+- **la configuration technique commune à toutes les versions** — les
+  **connecteurs**, les **journaux**, et d'autres items à identifier par la
+  suite ;
+- **le contenu versionné** — chaque version détaille **le schéma de
+  données, les IHM, et des items de configuration générale** (dont
+  l'observation — les seuils de télémétrie — et le méta-niveau — les
+  entités moteur : contexte, notifications, stock de rejets, solutions
+  intégrées).
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -5720,3 +5753,16 @@ avant la synthèse Q16).
   matérialisée en fichier + dossier) ? *(Note : ordre chronologique du
   journal rétabli ce jour — les suites 6 à 8 du 16/07, déplacées par un
   ancrage d'insertion, ont été remises à leur place.)*
+- **2026-07-18 (suite 11)** — **L'organisation du dépôt de description
+  précisée (D323–D325)**. **Petits fichiers** plutôt qu'un seul (les
+  redondances n'étant pas facilement éliminables, **les variables D321
+  référencent une fois, réutilisent partout**). **Le dossier des
+  versions** : une description par version dans un même dossier, le moteur
+  y découvre les versions disponibles — **déposer un nouveau fichier =
+  publier une nouvelle version** (croissance exigée) ; version à 4 valeurs
+  `<majeure>.<mineure>.<indice>.<build>`. **Partage commun/versionné** :
+  configuration technique commune (connecteurs, journaux) vs contenu
+  versionné (schéma de données, IHM, configuration générale — seuils de
+  télémétrie, méta-niveau). La question de lecture de D322 est résolue :
+  **un fichier par version du schéma client** (le dossier matérialise le
+  journal), l'en-tête portant la version du format.

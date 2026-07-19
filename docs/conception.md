@@ -414,6 +414,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D339 | **Le dossier `environments/`** : `staging.yml` (test), `production.yml` (production **active**), `passive.yml` (production **passive** — PCA/PRA D113–D114) — les caractéristiques techniques par environnement. | Voir §3.2c. |
 | D340 | **Quatre dossiers de versions** : `beta/`, `production/`, `deprecated/`, `forbidden/` — **le cycle de vie D103 entièrement matérialisé par l'emplacement**, les transitions = des **gestes de fichier** (promotion, dépréciation avec Sunset, interdiction). | Dépréciées servies jusqu'au Sunset, interdites refusées (D94/D103 inchangés) ; `beta/` → staging, `production/` → actif + passif. Voir §3.2c. |
 | D341 | **Groupes et modules fonctionnels versionnés avec le schéma** (contenu versionné D325) ; **les affectations restent des actes d'administration en base** (personnes↔groupes D27, utilisateurs↔modules fonctionnels D210). | Le modèle des droits et l'expérience évoluent avec le schéma. **Clôt le domaine 1 de l'inventaire (Q16 phase 1).** Voir §3.2c. |
+| D342 | **`technical/` écarté au profit d'`environments/` — un dossier par environnement** : **connecteurs, logs, settings et documentation spécifiques à chaque environnement** ; les valeurs partagées passent par les variables (D321/D323). | Amende D339 (fichiers → dossiers), précise D325 (commune aux versions, déclinée par environnement). Voir §3.2c. |
+| D343 | **Journaux par environnement** : staging = **debug/verbose** ; production active = **info + puits de logs éventuel** ; passive = **warning** ; **formats et emplacements de stockage différents** par environnement. | Voir §3.2c. |
 
 ---
 
@@ -735,8 +737,24 @@ par la chaîne de translation jusqu'au Sunset, les interdites sont refusées
 versions ↔ environnements : `beta/` → staging, `production/` → actif +
 passif.)*
 
+**La configuration par environnement (D342, amende D339 et précise
+D325).** **Le nom `technical/` est écarté au profit d'`environments/`** —
+avec **un dossier par environnement** : **les connecteurs, les logs, les
+settings et la documentation sont spécifiques à chaque environnement**.
+La configuration reste **commune aux versions** (D325) mais se **décline
+par environnement** ; les valeurs partagées entre environnements passent
+par les **variables** (D321/D323 — le `${environment.name}` des
+échantillons prend tout son sens).
+
+**Les journaux par environnement (D343).** Les journaux n'ont **pas la
+même configuration selon l'environnement** : **staging = debug ou
+verbose** (il faut plus de traces) ; **production active = info**, avec
+**éventuellement une redirection vers un puits de logs** ; **production
+passive = warning**. **Les fichiers de journaux sont formatés différemment
+et stockés dans des emplacements différents** selon l'environnement.
+
 **La vue consolidée du domaine 1 — l'arborescence du dépôt de
-description** (artefact de clôture, consolidé de D320–D341) :
+description** (artefact de clôture, consolidé de D320–D343) :
 
 ```yaml
 syncytium.yml                  # le fichier racine (D322) : identité de l'instance
@@ -744,17 +762,26 @@ syncytium.yml                  # le fichier racine (D322) : identité de l'insta
                                # (permises, défaut, fuseaux, formats — D217–D221/D131),
                                # compte administrateur de secours (D29/D81),
                                # références par patterns (D320)
-technical/                     # la configuration commune (D325)
-  connectors/                  #   identité (un actif, D80), données (D79),
-                               #   notifications (D108), géocodage (D294), reprise (D175)
-  logs.yml                     #   conservation des journaux (D41)
-  environments/                #   (D339)
-    staging.yml                #     test
-    production.yml             #     production active
-    passive.yml                #     production passive (PCA/PRA, D113–D114)
-  settings.yml                 #   paramètres généraux (D259) : seuils, CSV (D223),
-                               #   fond de carte (D294)… — extensibles
-  documentation.yml            #   génération de la documentation (D333)
+environments/                  # un dossier PAR environnement (D342)
+  staging/                     #   le test
+    environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
+    connectors/                #     identité (un actif, D80), données (D79),
+                               #     notifications (D108), géocodage (D294), reprise (D175)
+    logs.yml                   #     debug / verbose (D343)
+    settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
+    documentation.yml          #     génération de la documentation (D333)
+  production/                  #   la production active
+    environment.yml
+    connectors/
+    logs.yml                   #     info + puits de logs éventuel (D343)
+    settings.yml
+    documentation.yml
+  passive/                     #   la production passive (PCA/PRA, D113–D114)
+    environment.yml
+    connectors/
+    logs.yml                   #     warning (D343)
+    settings.yml
+    documentation.yml
 versions/                      # (D324, D338, D340)
   beta/                        #   → le staging s'instancie (D112)
   production/                  #   → servies par l'actif + le passif
@@ -6099,3 +6126,12 @@ avant la synthèse Q16).
   environnements en fichiers, cycle de vie des versions en quatre
   dossiers, groupes et modules fonctionnels versionnés. **Prochain :
   le domaine 2 — la donnée.**
+- **2026-07-18 (soir, suite 7)** — **La configuration par environnement
+  (D342–D343)**. Après la vue consolidée du domaine 1, le nom
+  `technical/` est écarté : **`environments/`, un dossier par
+  environnement** — **connecteurs, logs, settings et documentation
+  spécifiques à chaque environnement** (les valeurs partagées passant par
+  les variables D321/D323). **Journaux par environnement** : staging =
+  debug/verbose, production active = info + puits de logs éventuel,
+  passive = warning — formats et emplacements de stockage différents.
+  L'arborescence consolidée est réécrite en conséquence.

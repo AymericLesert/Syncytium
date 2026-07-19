@@ -421,6 +421,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D346 | **Le dossier `resources/`** — à la racine (même niveau que `syncytium.yml`) : **logos, icônes, images et autres documents, partagés avec toutes les versions**. | Ressources de la description (logo D191, icônes D283…) ≠ stockage des fichiers de données (D160, hors dépôt). Voir §3.2c. |
 | D347 | **Le dossier d'un module** : `module.yml` (l'entrée) + **sous-dossier `entities/`, un fichier par entité** — `entities: - entities/*.yml`. | La séparation par sous-dossier exclut le fichier d'entrée du pattern par construction. Domaine 2, premier arbitrage. Voir §3.2c. |
 | D348 | **Le bloc `settings` de `module.yml`** : regroupe **les propriétés potentiellement diffusées dans les sous-composants** (history D168, quota D162…) ; **structuration à consolider au fil des domaines** — section volontairement ouverte. | Le patron s'esquisse : des `settings` à chaque étage (environnement, module, entité, champ), chaque niveau raffinant les défauts du supérieur. Voir §3.2c. |
+| D349 | **Le `settings.yml` du module** : le bloc settings est **externalisé dans un fichier `settings.yml`, référencé par `module.yml`** (`settings: settings.yml` — la référence de fichier D320) — anticipant sa croissance. | « La suite nous dira si c'est le cas. » Un `settings.yml` à chaque étage — le patron s'affirme. Voir §3.2c. |
 
 ---
 
@@ -805,23 +806,41 @@ taille l'emporte)… **La structuration de cette section se consolidera au
 fur et à mesure des échanges et des compléments poussés par les autres
 domaines** — section volontairement ouverte.
 
+**Le `settings.yml` du module (D349).** Le bloc est **externalisé dans un
+fichier `settings.yml`, référencé par `module.yml`** — anticipant sa
+croissance (« la suite nous dira si c'est le cas ») ; la référence de
+fichier est le mécanisme natif du format (D320) :
+
+```yaml
+sales/
+  module.yml                   # l'entrée du module
+  settings.yml                 # les propriétés diffusées aux sous-composants
+  entities/
+    customer.yml
+    order.yml
+```
+
 ```yaml
 # sales/module.yml
 name: sales
 labels: { fr: Ventes }
 comment: { fr: Gestion commerciale }
 description: { fr: ... }
-settings:                      # les propriétés diffusées aux sous-composants
-  history: false               #   D168 — héritée par les entités, opt-out
-  quota: 2GB                   #   D162 — cascade, la plus petite l'emporte
+settings: settings.yml         # référence de fichier (D320)
 entities:
   - entities/*.yml
 ```
 
-*(Le patron s'esquisse : des `settings` à chaque étage — l'environnement
-(`settings.yml`, D342), le module (`settings:`), et vraisemblablement
-l'entité et le champ — chaque niveau raffinant les défauts du niveau
-supérieur, dans les cascades déjà actées.)*
+```yaml
+# sales/settings.yml
+history: false                 # D168 — héritée par les entités, opt-out
+quota: 2GB                     # D162 — cascade, la plus petite l'emporte
+```
+
+*(Le patron s'affirme : un `settings.yml` à chaque étage — l'environnement
+(D342), le module (D349), et vraisemblablement l'entité et le champ —
+chaque niveau raffinant les défauts du niveau supérieur, dans les cascades
+déjà actées.)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6283,3 +6302,9 @@ avant la synthèse Q16).
   compléments poussés par les autres domaines ». Le patron des `settings`
   en cascade s'esquisse (environnement → module → entité → champ).
   Restent : l'activation et le menu.
+- **2026-07-18 (soir, suite 15)** — **Le `settings.yml` du module
+  (D349)** : le bloc settings est **externalisé en fichier**, référencé
+  par `module.yml` (`settings: settings.yml` — la référence de fichier
+  D320) — « il est possible que ce bloc prenne de l'ampleur, la suite
+  nous dira si c'est le cas ». Un `settings.yml` à chaque étage : le
+  patron s'affirme.

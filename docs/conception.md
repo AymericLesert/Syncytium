@@ -405,6 +405,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D330 | **Descendante = refus propre immédiat** : format déclaré > format supporté → refus **sur la seule lecture de l'en-tête**, avant toute ingestion, avec la **version de moteur requise** ; consigné au registre (D326) avec la cause **« format non supporté »** — le bump du build ne sert à rien, **c'est le moteur qui doit monter**. | Le miroir du 426 (D94) transposé au contrat moteur↔description. Option (c) validée « sans hésiter ». Voir §3.2c. |
 | D331 | **Ascendante = conversion à l'ingestion** : le moteur vN+1 **lit les formats antérieurs** (journal de migrations du format embarqué complet) et **compile l'enveloppe ancienne directement en logique interne à jour** ; **les fichiers du technicien ne sont jamais réécrits**. | Validée par l'auteur. Voir §3.2c. |
 | D332 | **Diffable et commentaires : questions caduques** — le moteur ne réécrivant jamais les enveloppes, les fichiers restent tels qu'écrits (commentaires compris) ; un outil de mise à niveau serait **un outil du technicien, pas un geste du moteur**. | **Clôt la phase 2 de Q16** (le versionnement du format est entièrement spécifié : D322–D332). Voir §3.2c. |
+| D333 | **Documentation générée automatiquement** : le méta-schéma et la configuration construisent en automatique — **autant que possible** — une **documentation technique**, les **masques d'explication** (D209) et une **documentation fonctionnelle**. | Prémices : D124 (« exploitables par des IA ») et `document: md.yml` (D320). Deux sources complémentaires avec la documentation rédigée en amont (D314/Q58). Voir §3.2c. |
 
 ---
 
@@ -649,6 +650,24 @@ son journal de migrations du format, embarqué complet, lui permet de
 **compiler directement une enveloppe ancienne en logique interne à jour**,
 au moment de l'ingestion. **Les fichiers du technicien ne sont jamais
 réécrits par le moteur.**
+
+**La documentation générée automatiquement (D333).** **Le méta-schéma et
+la configuration doivent construire en automatique — autant que
+possible :**
+
+1. une **documentation technique** ;
+2. les **masques d'explication** (déjà actés, D209) ;
+3. une **documentation fonctionnelle**.
+
+Les prémices étaient consignées sans être promues : les descriptions
+déclarées **« exploitables par des IA »** (D124 — commentaire et
+description de chaque champ, entité, surface) et la ligne
+`document: md.yml` de l'échantillon D320 (« configuration de la génération
+automatique de la documentation »). La documentation du projet a donc
+**deux sources complémentaires** : celle **rédigée en amont** (D314/Q58 —
+la conception, les exemples des mises en situation Q59) et celle
+**générée depuis les descriptions** — qui vit avec le modèle et ne se
+périme jamais.
 
 **Le corollaire : diffable et commentaires, questions caduques (D332 —
 clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
@@ -5875,3 +5894,13 @@ avant la synthèse Q16).
   de mise à niveau serait un outil du technicien, pas un geste du moteur.
   **Le versionnement du format est entièrement spécifié (D322–D332).**
   Reste la phase 1 : l'inventaire structuré, domaine par domaine.
+- **2026-07-18 (soir)** — **La documentation générée automatiquement
+  (D333)**. Question de l'auteur à la reprise : l'exigence était-elle
+  consignée ? Réponse : partiellement — les masques d'explication oui
+  (D209), la documentation auto seulement effleurée (D124 « exploitables
+  par des IA », `document: md.yml` de l'échantillon D320). **Actée** : le
+  méta-schéma et la configuration construisent en automatique, autant que
+  possible, une **documentation technique**, les **masques d'explication**
+  et une **documentation fonctionnelle** — deux sources complémentaires
+  avec la documentation rédigée en amont (D314/Q58) : la générée vit avec
+  le modèle et ne se périme jamais.

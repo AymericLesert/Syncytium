@@ -829,6 +829,7 @@ labels: { fr: Ventes }
 comment: { fr: Gestion commerciale }
 description: { fr: ... }
 settings: settings.yml         # référence de fichier (D320)
+menu: menu.yml                 # le bloc menu → menu.yml (D351)
 entities:
   - entities/*.yml
 ```
@@ -6349,4 +6350,6 @@ avant la synthèse Q16).
   (D351)** — fichier optionnel du dossier de module, référencé par
   `module.yml` ; sans lui, le défaut D186/D191/D193 s'applique ; contenu
   détaillé au domaine 4. **Le dossier de module est complet** :
-  `module.yml` + `settings.yml` + `menu.yml` + `entities/`.
+  `module.yml` + `settings.yml` + `menu.yml` + `entities/`. Précision de
+  l'auteur dans la foulée : **le bloc `menu: menu.yml` figure
+  explicitement dans `module.yml`** — l'exemple complet est mis à jour.

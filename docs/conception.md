@@ -425,7 +425,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D350 | **La déclaration d'un module marque son activation** — pas de drapeau : présent dans la description = actif ; désactiver = retirer de la description (nouvelle version, migration). | D117.3 (« activation par instance ») porté par le contenu de la description propre à chaque instance (D16). Le geste déclaratif est l'acte. Voir §3.2c. |
 | D351 | **Le menu du module est stocké dans `menu.yml`** (dossier du module, référencé par `module.yml` — patron D349) ; **optionnel** : sans lui, le défaut D186/D191/D193 s'applique. | Contenu détaillé au domaine 4 (entrées à 5 types, hiérarchie, filtrage par confidentialité). Le dossier de module est complet : module.yml + settings.yml + menu.yml + entities/. Voir §3.2c. |
 | D352 | **L'externalisation des blocs d'entité est libre, jamais imposée** : cas simples = **un fichier unique léger** (le découpage excessif alourdit) ; entité conséquente = **le découpage bienvenu** (référence de fichier D320) — au choix du technicien, cas par cas. | La souplesse sans convention imposée. Voir §3.2c. |
-| D353 | **Héritage : `inheritance` (enfant) = la seule référence au parent** ; **la machine à états = un bloc sur le parent**, référençant les enfants (niveaux, branches D146, promotions/rétrogradations D147, déclencheurs D54/D148). | « Le paramétrage doit être naturel » — la hiérarchie se lit là où elle est entière ; forme concrète en proposition. Voir §3.2c. |
+| D353 | **Héritage : `inheritance` (enfant) = la seule référence au parent** ; **la machine à états = un bloc sur le parent**, référençant les enfants (niveaux, branches D146, promotions/rétrogradations D147, déclencheurs D54/D148). | « Le paramétrage doit être naturel » — la hiérarchie se lit là où elle est entière ; forme `states:` validée (D354). Voir §3.2c. |
+| D354 | **La sémantique du `when` : le cliquet** — déclencheur automatique sous **3 formes** (événement de données D54, opération D148, **expression D90**) ; **la transition s'exécute à la première vraie** ; si la condition redevient fausse, **l'état acquis est conservé** (le client reste client) ; **le retour = une action explicite autorisée** (D147/D196). | La condition déclenche le franchissement, elle ne tient pas l'état. Voir §3.2c. |
 
 ---
 
@@ -892,6 +893,21 @@ parent, qui fait référence aux enfants** : les niveaux, les branches
 déclencheurs (D54/D148) se déclarent là où la hiérarchie entière est
 visible. L'exigence de l'auteur : **une approche qui rende le paramétrage
 naturel** — la forme concrète du bloc est en proposition.
+
+**La sémantique du `when` : le cliquet (D354).** La forme proposée est
+validée (« belle proposition ») et sa sémantique précisée :
+
+1. **`when` décrit le déclencheur automatique**, sous **trois formes** : un
+   **événement de données** (D54), une **opération** (D148), ou une
+   **expression** (D90 — `when: total_orders >= 1`) ;
+2. **Le franchissement est un cliquet** : la transition s'exécute **la
+   première fois** que la condition devient vraie — le prospect devient
+   client à la première commande. **Si la condition redevient fausse
+   ensuite** (une commande supprimée, `total_orders = 0`), **le client
+   reste client** : la promotion acquise ne se perd pas d'elle-même ;
+3. **Le retour n'advient que par une action explicite et autorisée** —
+   l'opération de rétrogradation (D147/D148), sous les droits de
+   l'utilisateur (D196).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6389,3 +6405,11 @@ avant la synthèse Q16).
   niveaux, branches, promotions/rétrogradations, déclencheurs se déclarent
   là où la hiérarchie est entière. Exigence : « une approche qui rende le
   paramétrage naturel » — forme concrète proposée en réponse.
+- **2026-07-20 (suite 2)** — **Le cliquet (D354)**. La forme `states:` est
+  validée (« belle proposition ») ; la sémantique du `when` est précisée :
+  **trois déclencheurs** (événement de données, opération, expression) ;
+  **le franchissement s'exécute à la première vraie** — puis, si la
+  condition redevient fausse (commande supprimée, total à zéro), **le
+  client reste client** ; **le retour n'advient que par une action
+  explicite autorisée**. La promotion est un cliquet, pas un asservissement
+  à la condition.

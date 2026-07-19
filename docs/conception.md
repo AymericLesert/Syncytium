@@ -413,6 +413,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D338 | **Le statut d'une version = son emplacement** : pas de statut dans le fichier — **le dossier `versions/` est décliné par environnement** (sous-dossiers = les environnements déclarés) ; **déposer dans un environnement = publier pour cet environnement** (étend D324). | Interprétation « interdite/dépréciée hors fichiers » amendée par D340 — tout le cycle de vie est en dossiers. Voir §3.2c. |
 | D339 | **Le dossier `environments/`** : `staging.yml` (test), `production.yml` (production **active**), `passive.yml` (production **passive** — PCA/PRA D113–D114) — les caractéristiques techniques par environnement. | Voir §3.2c. |
 | D340 | **Quatre dossiers de versions** : `beta/`, `production/`, `deprecated/`, `forbidden/` — **le cycle de vie D103 entièrement matérialisé par l'emplacement**, les transitions = des **gestes de fichier** (promotion, dépréciation avec Sunset, interdiction). | Dépréciées servies jusqu'au Sunset, interdites refusées (D94/D103 inchangés) ; `beta/` → staging, `production/` → actif + passif. Voir §3.2c. |
+| D341 | **Groupes et modules fonctionnels versionnés avec le schéma** (contenu versionné D325) ; **les affectations restent des actes d'administration en base** (personnes↔groupes D27, utilisateurs↔modules fonctionnels D210). | Le modèle des droits et l'expérience évoluent avec le schéma. **Clôt le domaine 1 de l'inventaire (Q16 phase 1).** Voir §3.2c. |
 
 ---
 
@@ -733,6 +734,14 @@ par la chaîne de translation jusqu'au Sunset, les interdites sont refusées
 — les sémantiques D94/D103 inchangées ; la correspondance
 versions ↔ environnements : `beta/` → staging, `production/` → actif +
 passif.)*
+
+**Groupes et modules fonctionnels : versionnés (D341 — clôt le domaine 1
+de l'inventaire).** **Les groupes (D26–D27) et les modules fonctionnels
+(D190/D210) sont versionnés avec le schéma** — ils appartiennent au
+contenu versionné (D325) : le modèle des droits et l'expérience utilisateur
+évoluent avec le schéma qu'ils gouvernent. Les **affectations**, elles,
+restent des **actes d'administration en base** : personnes ↔ groupes
+(D27), utilisateurs ↔ modules fonctionnels (D210).
 
 **Le dépôt du client, distinct du projet (D336).** **Le dossier de
 description sera versionné par le client, dans un dépôt différent du
@@ -6043,3 +6052,12 @@ avant la synthèse Q16).
   servies jusqu'au Sunset, interdites refusées (D94/D103) ; beta →
   staging, production → actif+passif. Restent au domaine 1 : groupes et
   modules fonctionnels (versionnés ?).
+- **2026-07-18 (soir, suite 6)** — **LE DOMAINE 1 EST CLOS (D341)** : **les
+  groupes et les modules fonctionnels sont versionnés avec le schéma**
+  (contenu versionné D325) — les affectations restant des actes
+  d'administration en base (D27, D210). La racine de l'inventaire est
+  entièrement arbitrée (D333–D341) : documentation à trois sources, langue
+  anglaise du dépôt, dépôt client distinct + template Hello world,
+  environnements en fichiers, cycle de vie des versions en quatre
+  dossiers, groupes et modules fonctionnels versionnés. **Prochain :
+  le domaine 2 — la donnée.**

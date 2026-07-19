@@ -389,6 +389,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D314 | **La feuille de route avant développement** : (1) répondre aux **questions restantes** (Q30, Q16…) ; (2) **rédiger une documentation en amont** des développements (→ Q58) ; (3) **mises en situation** sur des **exemples concrets** clients, vérifiant la compatibilité de la solution avec les besoins — exemples **intégrés à la documentation** pour montrer l'intérêt (→ Q59). **Aucun code tant que tous les points ne sont pas validés.** | La méthode fondatrice (« discuter avant de développer ») devient la feuille de route formelle. |
 | D315 | **Détection du volet conseil = l'algorithme SEQUITUR** sur les **appels normalisés** : les paires apparaissant ≥ 2 fois deviennent des **règles**, substituées récursivement jusqu'à épuisement → **grammaire hiérarchique des séquences répétées** (journaux D40–D41, par compte technique). | Hérité du précédent projet de l'auteur (séquences PostgreSQL → curseurs, lectures/màj par bloc). Voir §6.5. |
 | D316 | **Exploitation des séquences répétées** : (1) recommandations d'optimisation au consommateur (cache, lots) ; (2) **une séquence lourde et longue qui se répète peut se transformer en service proposé** — une ou quelques requêtes limitées la remplaçant ; le moteur propose (fréquence + coût constaté), **le technicien décide**. | Consultatif uniquement (D45). Voir §6.5. |
+| D317 | **Normalisation des appels** : **endpoint + liste des propriétés, valeurs ignorées** — deux appels au même endpoint sur les mêmes propriétés = la même « lettre » de la grammaire. | Le pendant API des requêtes SQL normalisées du projet d'origine. Voir §6.5. |
+| D318 | **Seuils de pertinence** : **récurrence sur plage temporelle** (1×/jour, /semaine, /mois — la régularité pèse autant que le volume) + **rapport longueur normalisée / longueur réelle** (le taux de compression = le gain estimé du service). **Valeurs à évaluer sur données réelles** (calibrage en Q59). | Dilemme nommé : seuil trop bas = bruit, trop haut = optimisations sous les radars. Patron D47–D51. Voir §6.5. |
 
 ---
 
@@ -2215,6 +2217,26 @@ proposer des optimisations — remplacer des appels unitaires par des
      avec le consultatif-uniquement de D45 et le patron « le moteur propose,
      le technicien dispose ».
 
+- **La normalisation des appels (D317).** Elle s'effectue **via les
+  endpoints et la liste des propriétés** concernées — **en ignorant les
+  valeurs**. Le pendant API des requêtes SQL normalisées du projet
+  d'origine : deux appels au même endpoint portant les mêmes propriétés
+  sont la même « lettre » de la grammaire, quelles que soient les valeurs.
+- **Les seuils de pertinence (D318).** Le dilemme est nommé : un seuil de
+  fréquence **trop bas** fait remonter des séquences sans poids et alerte
+  trop souvent ; **trop élevé**, il fait passer les optimisations **sous
+  les radars**. Deux critères combinés :
+  1. **la récurrence sur une plage temporelle** — une séquence revenant
+     **une fois par jour, par semaine ou par mois** peut s'avérer une
+     optimisation pertinente (la régularité pèse autant que le volume) ;
+  2. **le rapport entre la longueur des requêtes normalisées et la
+     longueur des requêtes réelles** — le taux de compression de la
+     grammaire mesure le **gain** qu'offrirait le service.
+  Les **valeurs** restent **à évaluer sur données réelles** (« la fréquence
+  minimale doit être évaluée pour être pertinente ») — calibrage naturel
+  lors des mises en situation (Q59), patron défaut global + surcharge
+  (D47–D51).
+
 **Solution intégrée sur méta-schéma (D44).** Ces canaux forment une **solution
 intégrée** : écrite dans le format Syncytium mais **possédée par le moteur**
 (non éditable par le client), par opposition aux **solutions client**.
@@ -3980,7 +4002,7 @@ sont pas validés.**
 | ~~Q13~~ | ~~Restitution de la télémétrie ?~~ | **Résolu (D43–D44, §6.5)** : cinq canaux (tableau de bord, rapport de dry-run, synthèse périodique, alerte d'échéance, analyse de sécurité), réunis en solution intégrée sur le méta-schéma. |
 | ~~Q28~~ | ~~Seuils de diversité ?~~ | **Résolu (D46, D48, D49)** : deux indicateurs (représentative, scalaire), seuils déclarés par champ dans le schéma, **pas de défaut** (seuil absent = aucun contrôle). Faux positifs neutralisés par construction. |
 | ~~Q29~~ | ~~Calibration du modèle de risque ?~~ | **Clos (D47, D50, D51, D97)** : défauts fixés — fenêtre 30 j (unité jour), linéaire par défaut / log sur demande, pic z ≥ 3 + plancher 100/j, crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5. Ajustables à l'initialisation de l'instance. |
-| Q30 | **Volet conseil — approche arbitrée (D315–D316, §6.5)** : détection par **SEQUITUR** sur les appels normalisés (paires ≥ 2 → règles, récursif) → grammaire des séquences répétées ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le technicien décide). **Restent à préciser** : la **normalisation** des appels (endpoint + méthode, valeurs abstraites ?), les **seuils** de proposition (fréquence minimale, longueur/coût minimal d'une séquence candidate-service — patron D47–D51), le **catalogue de motifs simples** (cache, N+1, polling, crawl bienveillant — proposés, en marge de SEQUITUR). | Voir §6.5. |
+| Q30 | **Volet conseil — approche arbitrée (D315–D316, §6.5)** : détection par **SEQUITUR** sur les appels normalisés (paires ≥ 2 → règles, récursif) → grammaire des séquences répétées ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le technicien décide). **Normalisation tranchée (D317)** : endpoint + liste des propriétés, valeurs ignorées ; **seuils tranchés (D318)** : récurrence sur plage temporelle + rapport longueur normalisée/réelle, valeurs à calibrer en Q59. **Reste** : le sort du **catalogue de motifs simples** (cache, N+1, polling, crawl bienveillant — détections dédiées ou émergentes de SEQUITUR ?). | Voir §6.5. |
 | ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
 | Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
@@ -5544,6 +5566,15 @@ avant la synthèse Q16).
   (fréquence + coût), le technicien décide. Restent à préciser :
   normalisation des appels, seuils de proposition, sort du catalogue de
   motifs simples proposé.
+- **2026-07-18 (suite 6)** — **Q30 : normalisation et seuils (D317–D318)**.
+  **Normalisation = endpoint + liste des propriétés, valeurs ignorées.**
+  **Seuils** : le dilemme est nommé (trop bas = bruit, trop haut = sous les
+  radars) ; deux critères combinés — **récurrence sur plage temporelle**
+  (une séquence à 1×/jour, /semaine ou /mois peut être pertinente) et
+  **rapport longueur normalisée / longueur réelle** (le taux de compression
+  mesure le gain) ; **valeurs à évaluer sur données réelles** (calibrage
+  aux mises en situation Q59). Reste : le sort du catalogue de motifs
+  simples.
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

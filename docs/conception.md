@@ -410,6 +410,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D335 | **La langue du dépôt** : les **noms de dossiers, de fichiers et les propriétés de configuration sont en anglais** — la structure en anglais, la sémantique métier dans la langue du modèle. | Cohérent D301/D309 ; les échantillons D320 s'y conformaient déjà. Voir §3.2c. |
 | D336 | **Le dépôt du client est distinct du projet** : le dossier de description est **versionné par le client dans un dépôt différent** du projet Syncytium. | Moteur public / descriptions par TPE — le contrat entre les deux = le format versionné (D322–D332). Voir §3.2c. |
 | D337 | **Le dossier `template/` : un projet « Hello world ! »** embarqué dans le projet Syncytium — **facilite la prise en main par le technicien**. | Description minimale clonable, application immédiate ; premier des exemples de la documentation (D314/Q58–Q59). Voir §3.2c. |
+| D338 | **Le statut d'une version = son emplacement** : pas de statut dans le fichier — **le dossier `versions/` est décliné par environnement** (sous-dossiers = les environnements déclarés) ; **déposer dans un environnement = publier pour cet environnement** (étend D324). | Interprétations : promotion bêta→officielle = déplacement du fichier vers production (staging supprimé D112) ; interdite/dépréciée = actes d'administration (D103). Voir §3.2c. |
 
 ---
 
@@ -680,6 +681,28 @@ anglais** — cohérent avec le langage (D301 : fonctions, D309 : mots-clés) :
 (les noms d'entités et de champs restent ceux du technicien). Les
 échantillons de la phase 3 s'y conformaient déjà (`users`, `document`,
 `instances`, `triggers`, `environment.name`).
+
+**Le statut d'une version = son emplacement (D338).** **Le statut de la
+version n'est pas dans le fichier : le dossier `versions/` est décliné par
+environnement** — les sous-dossiers portent les noms des environnements
+déclarés (`technical/environments/` — production, stagings, D112–D114) :
+
+```yaml
+versions/
+  staging/
+    1.1.0.0.yml        # une bêta en test — son staging s'instancie (D112)
+    1.1.0.0/
+  production/
+    1.0.0.0.yml        # la version officielle servie
+    1.0.0.0/
+```
+
+**Déposer une version dans le dossier d'un environnement = la publier pour
+cet environnement** (le geste D324, étendu). *(Interprétations à valider :
+la promotion bêta → officielle = le déplacement du fichier vers
+l'environnement de production — à la validation, le staging est supprimé
+D112 ; les statuts interdite/dépréciée (D103) restent des actes
+d'administration en vie courante, hors fichiers.)*
 
 **Le dépôt du client, distinct du projet (D336).** **Le dossier de
 description sera versionné par le client, dans un dépôt différent du
@@ -5969,3 +5992,13 @@ avant la synthèse Q16).
   world ! »** facilitant la prise en main par le technicien — description
   minimale clonable, application immédiate, premier exemple de la
   documentation (D314/Q58–Q59).
+- **2026-07-18 (soir, suite 4)** — **Le statut d'une version = son
+  emplacement (D338)**. Après un rappel des environnements consignés
+  (production, stagings par bêta, actif/passif — pas d'UAT), la troisième
+  voie de l'auteur : **pas de statut dans le fichier — le dossier
+  `versions/` est décliné par environnement**. Déposer une version dans le
+  dossier d'un environnement = la publier pour cet environnement (le geste
+  D324 étendu). Interprétations soumises : promotion bêta → officielle =
+  déplacement du fichier vers production ; interdite/dépréciée = actes
+  d'administration (D103). Restent au domaine 1 : les groupes et les
+  modules fonctionnels (versionnés ?).

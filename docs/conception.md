@@ -398,6 +398,9 @@ ne sont pas des piliers mais les irriguent tous.
 | D323 | **Philosophie des petits fichiers** : de petits fichiers de configuration plutôt qu'un seul ; **les redondances n'étant pas facilement éliminables, les variables (D321) référencent une valeur une fois** pour la réutiliser partout. | La raison d'être du dispositif de la phase 3. Voir §3.2c. |
 | D324 | **Le dossier des versions** : une description par version, **dans un même dossier** où le moteur **découvre les versions disponibles** ; **déposer un nouveau fichier = publier une nouvelle version** (versionnement **croissant** exigé) ; version à **4 valeurs `<majeure>.<mineure>.<indice>.<build>`**. | Le geste concret du déploiement à chaud (D17). Voir §3.2c. |
 | D325 | **Partage commun / versionné** : la **configuration technique commune** à toutes les versions (connecteurs, journaux, items à venir) vs **le contenu versionné** (schéma de données, IHM, configuration générale — dont seuils de télémétrie et méta-niveau). | L'arborescence du dépôt reflète ce partage. Voir §3.2c. |
+| D326 | **Registre des versions essayées** : le moteur **conserve la référence des versions testées et validées** ; **une version en erreur n'est pas réessayée sans incrément (au moins) du build**. | Le retry est un acte explicite — pas d'acharnement, tentatives traçables. Voir §3.2c. |
+| D327 | **Le fichier = une enveloppe convertie en logique interne** ; **après lecture, la modification des fichiers ne permet ni reconstruction ni altération de l'existant** (pas de re-vérification à chaque sollicitation ou relance). | Les fichiers sont inertes après ingestion — la logique interne est la vérité opérationnelle. Voir §3.2c. |
+| D328 | **La migration s'effectue dès que la description de version est validée** ; la version devient alors **sollicitable via les API et par les IHM**. | Harmonisé avec le pipeline D7–D9 (dry-run, affluence, exécution) et la chaîne des versions publiées (D94–D100). Voir §3.2c. |
 
 ---
 
@@ -599,6 +602,30 @@ description distingue :
   l'observation — les seuils de télémétrie — et le méta-niveau — les
   entités moteur : contexte, notifications, stock de rejets, solutions
   intégrées).
+
+**Le registre des versions essayées (D326).** **Le moteur conserve une
+référence sur les versions qui ont été testées et validées.** **Si une
+version est en erreur, la modification du fichier sans évolution du build
+(au moins) ne fera pas un nouvel essai** — le nouvel essai est un acte
+explicite : incrémenter la version. Pas d'acharnement sur un fichier
+cassé, et chaque tentative est traçable.
+
+**L'enveloppe et la logique interne (D327).** **Le fichier de
+configuration est une enveloppe** que le moteur **convertit en logique
+interne** pour permettre son usage **en toute sécurité**. **Une fois le
+fichier de la version lu, la modification des fichiers ne permet ni
+reconstruction ni altération de l'existant** — afin d'éviter de tout
+vérifier à chaque sollicitation ou relance de l'application. Les fichiers
+deviennent **inertes après ingestion** : la logique interne est la vérité
+opérationnelle, le dépôt de fichiers n'est que la source de publication.
+
+**Le déclenchement et la mise en service (D328).** **La migration
+s'effectue dès que la description de version est validée** *(lecture
+harmonisée avec le pipeline D7–D9 : la validation enclenche la chaîne —
+dry-run, fenêtre d'affluence, exécution transactionnelle)*. **La version
+peut alors être sollicitée par un tiers via les API, ou par les IHM** —
+elle rejoint la chaîne des versions publiées (D94–D99), l'IHM basculant
+sur la dernière (D100).
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -5766,3 +5793,16 @@ avant la synthèse Q16).
   télémétrie, méta-niveau). La question de lecture de D322 est résolue :
   **un fichier par version du schéma client** (le dossier matérialise le
   journal), l'en-tête portant la version du format.
+- **2026-07-18 (suite 12)** — **Le cycle de vie d'une version de
+  description (D326–D328)**. **Le moteur conserve la référence des
+  versions testées et validées** ; une version **en erreur n'est pas
+  réessayée sans incrément du build** au moins (le retry est explicite).
+  **Le fichier est une enveloppe convertie en logique interne** pour un
+  usage en toute sécurité ; **après lecture, modifier les fichiers ne
+  reconstruit ni n'altère l'existant** (pas de re-vérification à chaque
+  sollicitation ou relance) — les fichiers sont inertes après ingestion.
+  **La migration s'effectue dès que la description est validée**
+  (harmonisée au pipeline D7–D9), et la version devient **sollicitable via
+  les API et les IHM** (chaîne D94–D100). Restent en phase 2 : la
+  conversion du format à la montée de version moteur (dogfooding), la
+  descendante, le YAML diffable, les commentaires.

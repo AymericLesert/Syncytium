@@ -735,6 +735,44 @@ par la chaîne de translation jusqu'au Sunset, les interdites sont refusées
 versions ↔ environnements : `beta/` → staging, `production/` → actif +
 passif.)*
 
+**La vue consolidée du domaine 1 — l'arborescence du dépôt de
+description** (artefact de clôture, consolidé de D320–D341) :
+
+```yaml
+syncytium.yml                  # le fichier racine (D322) : identité de l'instance
+                               # (application, société, logo — D191/D254), langues
+                               # (permises, défaut, fuseaux, formats — D217–D221/D131),
+                               # compte administrateur de secours (D29/D81),
+                               # références par patterns (D320)
+technical/                     # la configuration commune (D325)
+  connectors/                  #   identité (un actif, D80), données (D79),
+                               #   notifications (D108), géocodage (D294), reprise (D175)
+  logs.yml                     #   conservation des journaux (D41)
+  environments/                #   (D339)
+    staging.yml                #     test
+    production.yml             #     production active
+    passive.yml                #     production passive (PCA/PRA, D113–D114)
+  settings.yml                 #   paramètres généraux (D259) : seuils, CSV (D223),
+                               #   fond de carte (D294)… — extensibles
+  documentation.yml            #   génération de la documentation (D333)
+versions/                      # (D324, D338, D340)
+  beta/                        #   → le staging s'instancie (D112)
+  production/                  #   → servies par l'actif + le passif
+  deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
+  forbidden/                   #   → refusées (D103)
+    # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
+    # du format) + <maj>.<min>.<indice>.<build>/ (le détail — domaines 2 à 8 :
+    # schéma de données, IHM, configuration générale, groupes + modules
+    # fonctionnels D341)
+```
+
+À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
+de l'eau — `settings.yml` ou fichiers propres) : rate limiting (D105),
+dossier des binaires + quota d'instance (D160/D162), rétentions (D110,
+D55), synchronisation actif/passif (D113–D114). Côté **projet Syncytium**
+(dépôt distinct, D336) : le dossier **`template/`** « Hello world ! »
+(D337).
+
 **Groupes et modules fonctionnels : versionnés (D341 — clôt le domaine 1
 de l'inventaire).** **Les groupes (D26–D27) et les modules fonctionnels
 (D190/D210) sont versionnés avec le schéma** — ils appartiennent au

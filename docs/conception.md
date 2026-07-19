@@ -393,7 +393,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D318 | **Seuils de pertinence** : **récurrence sur plage temporelle** (1×/jour, /semaine, /mois — la régularité pèse autant que le volume) + **rapport longueur normalisée / longueur réelle** (le taux de compression = le gain estimé du service). **Valeurs à évaluer sur données réelles** (calibrage en Q59). | Dilemme nommé : seuil trop bas = bruit, trop haut = optimisations sous les radars. Patron D47–D51. Voir §6.5. |
 | D319 | **Pas de catalogue de motifs prédéfini** : les motifs **se déduisent des motifs identifiés** par la grammaire — **non connus à l'avance** ; le catalogue de détections dédiées proposé est écarté. | Un seul moteur de détection, sans a priori — les schémas classiques émergeront comme règles courtes. **Clôt Q30.** Voir §6.5. |
 | D320 | **Format de description : syntaxe empruntée au YAML, pas de format personnalisé** ; **décomposition en plusieurs fichiers et/ou dossiers** — une valeur peut référencer **un fichier ou un pattern de fichiers** (`01-Utilisateurs/*.yml`, `./*/instance.yml`). | Q16 phase 3. Voir §3.2c. |
-| D321 | **Variables d'interpolation** : `${KEY}` / `${KEY?DefaultValue}` — KEY = **item de configuration** (`.item.subitem` racine / `item.subitem` courant), **mot-clé** (`PROJECT`, `VERSION`, `date`, `date:<format>`… liste extensible), ou **variable d'environnement** ; `?` = défaut si absent ; **imbrication permise** (`${triggers.${environment.name}.filename}`). | Spécification éprouvée sur l'implémentation existante de l'auteur. Ambiguïté à trancher : le point initial (racine ou nœud précédent). Voir §3.2c. |
+| D321 | **Variables d'interpolation** : `${KEY}` / `${KEY?DefaultValue}` — KEY = **item de configuration à navigation relative remontante** (`{name}` = même niveau ; `{.name}` = niveau précédent ; `{..name}` = parent du précédent — chaque point remonte d'un niveau), **mot-clé** (`PROJECT`, `VERSION`, `date`, `date:<format>`… liste extensible), ou **variable d'environnement** ; `?` = défaut si absent ; **imbrication permise** (`${triggers.${environment.name}.filename}`). | Spécification éprouvée sur l'implémentation existante de l'auteur ; pas d'ancrage racine — résolution relative au nœud courant. Voir §3.2c. |
 
 ---
 
@@ -543,9 +543,13 @@ Exemples consignés :
 **Mots-clés standards** : `PROJECT`, `VERSION`, `date`, `date:<format>`… —
 **la liste pourra être étendue au besoin**.
 
-*Ambiguïté à trancher* : la spécification donne `.item.subitem` = « depuis
-la racine », l'exemple `${.item}` = « le nœud précédent » — le point
-initial désigne-t-il **la racine** ou **le nœud parent/précédent** ?
+**L'ambiguïté levée (18/07/2026) : la navigation est relative et
+remontante.** `{name}` fait référence à la propriété « name » située **au
+même niveau** de configuration ; `{.name}` à la propriété située **au
+niveau précédent** ; `{..name}` à celle du **parent du précédent** —
+**chaque point initial remonte d'un niveau**. *(La mention « from the
+root » de la spécification d'origine est caduque : il n'y a pas d'ancrage
+à la racine, la résolution est relative au nœud courant.)*
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -4066,7 +4070,7 @@ sont pas validés.**
 | ~~Q30~~ | ~~Volet conseil — étude dédiée ?~~ | **Résolu (D45, D315–D319, §6.5)** : détection par **SEQUITUR** sur les appels **normalisés (endpoint + liste des propriétés, valeurs ignorées)** — paires ≥ 2 → règles récursives, **grammaire des séquences répétées** ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le moteur propose avec fréquence + gain, **le technicien décide**) ; **seuils** = récurrence sur plage temporelle + **rapport longueur normalisée/réelle** (valeurs calibrées sur données réelles, Q59) ; **aucun catalogue de motifs prédéfini** — les motifs se déduisent, non connus à l'avance. |
 | ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
-| Q16 | **Le méta-schéma — EN COURS (ouverte le 18/07/2026, branche feature/meta-schema)**. Méthode actée en trois phases : **(1) l'inventaire structuré** (l'arborescence complète du format, domaine par domaine — à produire) ; **(2) le versionnement du format** (compatibilité moteur ↔ descriptions, conversion des descriptions à la montée de version — à discuter) ; **(3) la forme concrète — ARBITRÉE (D320–D321, §3.2c)** : syntaxe **YAML** sans format personnalisé, **multi-fichiers/dossiers** avec patterns, **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` (items de configuration, mots-clés extensibles, variables d'environnement, imbrication). Reste en phase 3 : la sémantique du point initial (racine ou nœud précédent). | Le point de convergence des 321 décisions ; le test de complétude du langage (D44). |
+| Q16 | **Le méta-schéma — EN COURS (ouverte le 18/07/2026, branche feature/meta-schema)**. Méthode actée en trois phases : **(1) l'inventaire structuré** (l'arborescence complète du format, domaine par domaine — à produire) ; **(2) le versionnement du format** (compatibilité moteur ↔ descriptions, conversion des descriptions à la montée de version — à discuter) ; **(3) la forme concrète — ARBITRÉE (D320–D321, §3.2c)** : syntaxe **YAML** sans format personnalisé, **multi-fichiers/dossiers** avec patterns, **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` (items de configuration à **navigation relative remontante** — chaque point initial remonte d'un niveau —, mots-clés extensibles, variables d'environnement, imbrication). **La phase 3 est close.** | Le point de convergence des 321 décisions ; le test de complétude du langage (D44). |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés) ; **atomicité portée par le modèle** (agrégats déclarés = plancher ; raffinement si autorisé ; composition libre vers le haut). |
@@ -5658,6 +5662,13 @@ avant la synthèse Q16).
   sur l'implémentation existante de l'auteur** (« PySyncytium » apparaît
   dans les exemples). Ambiguïté soumise : le point initial — racine (spec)
   ou nœud précédent (exemple) ?
+- **2026-07-18 (suite 9)** — **L'ambiguïté levée : la navigation est
+  relative et remontante (D321 précisé)**. `{name}` = la propriété au
+  **même niveau** ; `{.name}` = au **niveau précédent** ; `{..name}` = au
+  **parent du précédent** — chaque point initial remonte d'un niveau ; pas
+  d'ancrage à la racine (la mention « from the root » de la spécification
+  d'origine est caduque). **La phase 3 de Q16 est close** — restent les
+  phases 2 (versionnement du format) et 1 (l'inventaire).
 - **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
   « Tu as raison » : la table standard est validée en référence — mais la
   doctrine du projet prime : **le null dans une expression booléenne ou

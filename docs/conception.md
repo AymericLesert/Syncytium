@@ -403,6 +403,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D328 | **La migration s'effectue dès que la description de version est validée** ; la version devient alors **sollicitable via les API et par les IHM**. | Harmonisé avec le pipeline D7–D9 (dry-run, affluence, exécution) et la chaîne des versions publiées (D94–D100). Voir §3.2c. |
 | D329 | **Journal de migrations compilé** : le moteur **traduit les descriptions en un journal à format interne qui lui est propre** (performance) ; **migration gérée en mémoire** ; **à la relance, les règles sont prêtes à l'emploi** — les optimisations déjà réalisées et **réutilisables** (forme compilée persistée). | Pièce maîtresse de la logique interne (D327) ; nourrit aussi la chaîne de translation des API (§5.1). Voir §3.2c. |
 | D330 | **Descendante = refus propre immédiat** : format déclaré > format supporté → refus **sur la seule lecture de l'en-tête**, avant toute ingestion, avec la **version de moteur requise** ; consigné au registre (D326) avec la cause **« format non supporté »** — le bump du build ne sert à rien, **c'est le moteur qui doit monter**. | Le miroir du 426 (D94) transposé au contrat moteur↔description. Option (c) validée « sans hésiter ». Voir §3.2c. |
+| D331 | **Ascendante = conversion à l'ingestion** : le moteur vN+1 **lit les formats antérieurs** (journal de migrations du format embarqué complet) et **compile l'enveloppe ancienne directement en logique interne à jour** ; **les fichiers du technicien ne sont jamais réécrits**. | Validée par l'auteur. Voir §3.2c. |
+| D332 | **Diffable et commentaires : questions caduques** — le moteur ne réécrivant jamais les enveloppes, les fichiers restent tels qu'écrits (commentaires compris) ; un outil de mise à niveau serait **un outil du technicien, pas un geste du moteur**. | **Clôt la phase 2 de Q16** (le versionnement du format est entièrement spécifié : D322–D332). Voir §3.2c. |
 
 ---
 
@@ -640,6 +642,22 @@ supporté »**, distincte d'une erreur de validation : ici, **incrémenter le
 build ne sert à rien — c'est le moteur qui doit monter**. Le miroir du 426
 (D94) : ni comportement dégradé, ni silence — un refus net, daté,
 actionnable.
+
+**L'ascendante : la conversion à l'ingestion, les fichiers jamais
+réécrits (D331).** Un moteur vN+1 **sait lire les formats antérieurs** —
+son journal de migrations du format, embarqué complet, lui permet de
+**compiler directement une enveloppe ancienne en logique interne à jour**,
+au moment de l'ingestion. **Les fichiers du technicien ne sont jamais
+réécrits par le moteur.**
+
+**Le corollaire : diffable et commentaires, questions caduques (D332 —
+clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
+il n'y a **ni problème de YAML diffable, ni sort des commentaires** : les
+fichiers restent **exactement tels que le technicien les a écrits**,
+commentaires compris — seule la logique interne (D327/D329) change de
+forme. Si un outil d'assistance à la mise à niveau des descriptions
+voyait le jour, ce serait **un outil du technicien, pas un geste du
+moteur**.
 
 **Le journal de migrations compilé (D329).** **Pour des questions de
 performance, le moteur traduit les descriptions en un journal de
@@ -4171,7 +4189,7 @@ sont pas validés.**
 | ~~Q30~~ | ~~Volet conseil — étude dédiée ?~~ | **Résolu (D45, D315–D319, §6.5)** : détection par **SEQUITUR** sur les appels **normalisés (endpoint + liste des propriétés, valeurs ignorées)** — paires ≥ 2 → règles récursives, **grammaire des séquences répétées** ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le moteur propose avec fréquence + gain, **le technicien décide**) ; **seuils** = récurrence sur plage temporelle + **rapport longueur normalisée/réelle** (valeurs calibrées sur données réelles, Q59) ; **aucun catalogue de motifs prédéfini** — les motifs se déduisent, non connus à l'avance. |
 | ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
-| Q16 | **Le méta-schéma — EN COURS (ouverte le 18/07/2026, branche feature/meta-schema)**. Méthode actée en trois phases : **(1) l'inventaire structuré** (l'arborescence complète du format, domaine par domaine — à produire) ; **(2) le versionnement du format** (compatibilité moteur ↔ descriptions, conversion des descriptions à la montée de version — à discuter) ; **(3) la forme concrète — ARBITRÉE (D320–D321, §3.2c)** : syntaxe **YAML** sans format personnalisé, **multi-fichiers/dossiers** avec patterns, **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` (items de configuration à **navigation relative remontante** — chaque point initial remonte d'un niveau —, mots-clés extensibles, variables d'environnement, imbrication). **La phase 3 est close.** | Le point de convergence des 321 décisions ; le test de complétude du langage (D44). |
+| Q16 | **Le méta-schéma — EN COURS (ouverte le 18/07/2026, branche feature/meta-schema)**. Méthode actée en trois phases : **(1) l'inventaire structuré** (l'arborescence complète du format, domaine par domaine — à produire) ; **(2) le versionnement du format** (compatibilité moteur ↔ descriptions, conversion des descriptions à la montée de version — à discuter) ; **(3) la forme concrète — ARBITRÉE (D320–D321, §3.2c)** : syntaxe **YAML** sans format personnalisé, **multi-fichiers/dossiers** avec patterns, **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` (items de configuration à **navigation relative remontante** — chaque point initial remonte d'un niveau —, mots-clés extensibles, variables d'environnement, imbrication). **La phase 3 est close — et la phase 2 aussi (D322–D332)** : dossier des versions (déposer = publier, version 4 valeurs croissante), partage commun/versionné, registre des essais (retry par bump du build), enveloppe → logique interne (fichiers inertes), journal de migrations compilé persisté, migration dès validation, **descendante = refus propre sur l'en-tête**, **ascendante = conversion à l'ingestion sans réécriture des fichiers** (diffable/commentaires caducs). **Reste la phase 1 : l'inventaire structuré, domaine par domaine.** | Le point de convergence des 332 décisions ; le test de complétude du langage (D44). |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés) ; **atomicité portée par le modèle** (agrégats déclarés = plancher ; raffinement si autorisé ; composition libre vers le haut). |
@@ -5848,3 +5866,12 @@ avant la synthèse Q16).
   Restent en phase 2 : l'ascendante (moteur vN+1 lisant les enveloppes
   anciennes — conversion à l'ingestion ?) et le sort diffable/commentaires
   (probablement caduc avec l'architecture d'enveloppe D327).
+- **2026-07-18 (suite 15)** — **LA PHASE 2 DE Q16 EST CLOSE (D331–D332)**.
+  L'ascendante validée : **conversion à l'ingestion** — le moteur vN+1 lit
+  les formats antérieurs (journal du format embarqué complet) et compile
+  l'enveloppe ancienne en logique interne à jour ; **les fichiers du
+  technicien ne sont jamais réécrits**. Corollaire : **diffable et
+  commentaires caducs** — les fichiers restent tels qu'écrits ; un outil
+  de mise à niveau serait un outil du technicien, pas un geste du moteur.
+  **Le versionnement du format est entièrement spécifié (D322–D332).**
+  Reste la phase 1 : l'inventaire structuré, domaine par domaine.

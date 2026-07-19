@@ -401,6 +401,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D326 | **Registre des versions essayées** : le moteur **conserve la référence des versions testées et validées** ; **une version en erreur n'est pas réessayée sans incrément (au moins) du build**. | Le retry est un acte explicite — pas d'acharnement, tentatives traçables. Voir §3.2c. |
 | D327 | **Le fichier = une enveloppe convertie en logique interne** ; **après lecture, la modification des fichiers ne permet ni reconstruction ni altération de l'existant** (pas de re-vérification à chaque sollicitation ou relance). | Les fichiers sont inertes après ingestion — la logique interne est la vérité opérationnelle. Voir §3.2c. |
 | D328 | **La migration s'effectue dès que la description de version est validée** ; la version devient alors **sollicitable via les API et par les IHM**. | Harmonisé avec le pipeline D7–D9 (dry-run, affluence, exécution) et la chaîne des versions publiées (D94–D100). Voir §3.2c. |
+| D329 | **Journal de migrations compilé** : le moteur **traduit les descriptions en un journal à format interne qui lui est propre** (performance) ; **migration gérée en mémoire** ; **à la relance, les règles sont prêtes à l'emploi** — les optimisations déjà réalisées et **réutilisables** (forme compilée persistée). | Pièce maîtresse de la logique interne (D327) ; nourrit aussi la chaîne de translation des API (§5.1). Voir §3.2c. |
 
 ---
 
@@ -626,6 +627,17 @@ dry-run, fenêtre d'affluence, exécution transactionnelle)*. **La version
 peut alors être sollicitée par un tiers via les API, ou par les IHM** —
 elle rejoint la chaîne des versions publiées (D94–D99), l'IHM basculant
 sur la dernière (D100).
+
+**Le journal de migrations compilé (D329).** **Pour des questions de
+performance, le moteur traduit les descriptions en un journal de
+migrations selon un format qui lui est propre.** **La migration est gérée
+en mémoire** pour rendre les données plus rapidement. Et **en cas de
+relance du serveur, les règles de migration sont déjà prêtes à l'emploi** —
+**les traitements optimisant les temps de traitement sont déjà réalisés et
+réutilisables** : la forme compilée est **persistée**, aucune
+recompilation à la relance. C'est la pièce maîtresse de la logique interne
+(D327) — et le même journal compilé nourrit naturellement la chaîne de
+translation des API (§5.1), qui en dérive.
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -5806,3 +5818,11 @@ avant la synthèse Q16).
   les API et les IHM** (chaîne D94–D100). Restent en phase 2 : la
   conversion du format à la montée de version moteur (dogfooding), la
   descendante, le YAML diffable, les commentaires.
+- **2026-07-18 (suite 13)** — **Le journal de migrations compilé (D329)**.
+  Pour la performance : **le moteur traduit les descriptions en un journal
+  de migrations à format interne qui lui est propre** ; **la migration est
+  gérée en mémoire** ; **à la relance du serveur, les règles sont déjà
+  prêtes à l'emploi** — les traitements d'optimisation déjà réalisés et
+  **réutilisables** (forme compilée persistée, aucune recompilation).
+  Pièce maîtresse de la logique interne (D327), nourrissant aussi la
+  chaîne de translation des API (§5.1).

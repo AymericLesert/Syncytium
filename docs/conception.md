@@ -394,6 +394,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D319 | **Pas de catalogue de motifs prédéfini** : les motifs **se déduisent des motifs identifiés** par la grammaire — **non connus à l'avance** ; le catalogue de détections dédiées proposé est écarté. | Un seul moteur de détection, sans a priori — les schémas classiques émergeront comme règles courtes. **Clôt Q30.** Voir §6.5. |
 | D320 | **Format de description : syntaxe empruntée au YAML, pas de format personnalisé** ; **décomposition en plusieurs fichiers et/ou dossiers** — une valeur peut référencer **un fichier ou un pattern de fichiers** (`01-Utilisateurs/*.yml`, `./*/instance.yml`). | Q16 phase 3. Voir §3.2c. |
 | D321 | **Variables d'interpolation** : `${KEY}` / `${KEY?DefaultValue}` — KEY = **item de configuration à navigation relative remontante** (`{name}` = même niveau ; `{.name}` = niveau précédent ; `{..name}` = parent du précédent — chaque point remonte d'un niveau), **mot-clé** (`PROJECT`, `VERSION`, `date`, `date:<format>`… liste extensible), ou **variable d'environnement** ; `?` = défaut si absent ; **imbrication permise** (`${triggers.${environment.name}.filename}`). | Spécification éprouvée sur l'implémentation existante de l'auteur ; pas d'ancrage racine — résolution relative au nœud courant. Voir §3.2c. |
+| D322 | **Organisation versionnée de la description** : la description **déclare en tête la version du méta-schéma** ; **un fichier d'entrée par version, référençant un sous-dossier** contenant le détail de la description. | Q16 phase 2, premier pas — s'appuie sur la décomposition D320. Question de lecture en cours : « par version » = méta-schéma ou schéma client (journal D2–D3) ? Voir §3.2c. |
 
 ---
 
@@ -550,6 +551,21 @@ niveau précédent** ; `{..name}` à celle du **parent du précédent** —
 **chaque point initial remonte d'un niveau**. *(La mention « from the
 root » de la spécification d'origine est caduque : il n'y a pas d'ancrage
 à la racine, la résolution est relative au nœud courant.)*
+
+**L'organisation versionnée de la description (D322 — Q16 phase 2, premier
+pas).** Traitement étape par étape de la proposition de versionnement,
+annoncé lié à l'organisation de la phase 3 :
+
+- **chaque description déclare en tête la version du méta-schéma** qu'elle
+  utilise ;
+- **un fichier d'entrée par version** ; **ce fichier fait référence à un
+  sous-dossier contenant le détail de la description** — la décomposition
+  multi-fichiers/dossiers (D320) porte cette organisation.
+
+*(Question de lecture en cours : « un fichier d'entrée par version » — la
+version du **méta-schéma** (le format), ou la version du **schéma client**
+(celle du journal de migrations D2–D3, chaque montée de version
+matérialisée par son fichier d'entrée + son dossier) ?)*
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -5552,6 +5568,28 @@ avant la synthèse Q16).
   coercition** (fourni en réponse — ratification attendue). Restent : la
   table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
   déterminisme, la ratification coercition.
+- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
+  « Tu as raison » : la table standard est validée en référence — mais la
+  doctrine du projet prime : **le null dans une expression booléenne ou
+  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
+  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
+  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
+  filtres de consultation au SGBD suivent la table ternaire standard (pas
+  d'anomalie à exclure une ligne à champ null).
+- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
+  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
+  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
+  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
+- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
+  confirmations : **les filtres peuvent cibler les lignes null** et la
+  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
+  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
+  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
+  migrations** (D311) ; **la coercition est validée** (D312 — sûre
+  implicite, explicite par `to_*`, faillible à échec propre, jamais
+  silencieuse). **Le langage d'expression est entièrement spécifié**
+  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
+  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.
 - **2026-07-18** — **L'étude comparative reprise avec le périmètre complet
   (§9.5 — PR #19 fusionnée entre-temps, branche feature/etude-q5)**. À la
   demande de l'auteur (« l'étude a été faite lorsque nous n'avions pas tout
@@ -5669,25 +5707,16 @@ avant la synthèse Q16).
   d'ancrage à la racine (la mention « from the root » de la spécification
   d'origine est caduque). **La phase 3 de Q16 est close** — restent les
   phases 2 (versionnement du format) et 1 (l'inventaire).
-- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
-  « Tu as raison » : la table standard est validée en référence — mais la
-  doctrine du projet prime : **le null dans une expression booléenne ou
-  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
-  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
-  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
-  filtres de consultation au SGBD suivent la table ternaire standard (pas
-  d'anomalie à exclure une ligne à champ null).
-- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
-  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
-  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
-  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
-- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
-  confirmations : **les filtres peuvent cibler les lignes null** et la
-  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
-  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
-  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
-  migrations** (D311) ; **la coercition est validée** (D312 — sûre
-  implicite, explicite par `to_*`, faillible à échec propre, jamais
-  silencieuse). **Le langage d'expression est entièrement spécifié**
-  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
-  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.
+- **2026-07-18 (suite 10)** — **Phase 2 ouverte, étape par étape (D322)**.
+  La proposition de versionnement (6 points : version en tête, conversion
+  par le journal de migrations du méta-schéma en dogfooding D4–D6,
+  ascendante matérialisée, descendante = refus propre façon 426, YAML
+  diffable, sort des commentaires) sera traitée **point par point** —
+  l'auteur annonce un **lien avec l'organisation de la phase 3**. Premier
+  pas consigné : **version du méta-schéma déclarée en tête ; un fichier
+  d'entrée par version, référençant un sous-dossier au détail de la
+  description**. Question de lecture soumise : « par version » — le
+  méta-schéma (format) ou le schéma client (journal D2–D3, chaque montée
+  matérialisée en fichier + dossier) ? *(Note : ordre chronologique du
+  journal rétabli ce jour — les suites 6 à 8 du 16/07, déplacées par un
+  ancrage d'insertion, ont été remises à leur place.)*

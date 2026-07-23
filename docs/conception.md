@@ -431,7 +431,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D356 | **Le bloc `fields` = mapping ordonné** : le nom du champ en clé, **l'ordre de déclaration décrit l'affichage par défaut** ; **+ forme courte** : une valeur chaîne = le type, tout au défaut (`notes: text`). | « Utile pour faire un mode simple et rapide » — l'esprit des cas simples légers (D352). Voir §3.2c. |
 | D357 | **L'identité fonctionnelle déclarée sur l'entité** : `identity: [code]` — pas de drapeau champ par champ. | Les clés composites se lisent d'un regard ; la clé simple s'écrit aussi facilement (D142). Voir §3.2c. |
 | D358 | **Les valeurs du catalogue en anglais** (étend D335) : types (`amount`, `thumbnail`…), confidentialité (`public`/`protected`/`private` — D25), modes (`write-once`)… | L'anglais pour la machine, les `labels` pour l'humain — la ligne du catalogue de fonctions (D301). Voir §3.2c. |
-| D359 | **Types personnalisés** : définissables dans le `settings` de **l'instance, du module ou de l'entité** ; un champ les utilise comme tout type et **reprend toutes les propriétés par défaut, surchargeables**. Ex. : `progression` = entier 0..100 + composant « fuel » → champ `avancement: progression`. | La bibliothèque enrichissable (D52/D68) trouve son geste déclaratif, la dérivation D123 son domicile, la forme courte (D356) son plein sens. Voir §3.2c. |
+| D359 | **Types personnalisés** : définissables dans le `settings` de **l'instance, du module ou de l'entité** ; un champ les utilise comme tout type et **reprend toutes les propriétés par défaut, surchargeables**. Ex. : `progression` = entier 0..100 + composant « fuel » → champ `avancement: progression`. | La bibliothèque enrichissable (D52/D68) trouve son geste déclaratif, la forme courte (D356) son plein sens ; le graphe de conversion reste aux types du catalogue (D360). Voir §3.2c. |
+| D360 | **Résolution des types personnalisés** : le plus proche l'emporte (**entité > module > version > Syncytium**), noms du catalogue **réservés** ; étage « instance » = **`settings.yml` à la racine du dossier de version** (contenu versionné D325) ; **chaînage possible** ; **ne portent pas le graphe de conversion** — le graphe (D120/D123) reste aux types du catalogue, les propriétés reprises se résolvent en contraintes du champ. | « Les types custom facilitent le déclaratif mais ne portent pas le graphe de conversion. » Voir §3.2c. |
 
 ---
 
@@ -1042,8 +1043,29 @@ fields:
 
 *(La convergence : les composés livrés D122 deviennent des types définis
 à l'étage Syncytium de la cascade — la bibliothèque enrichissable D52/D68
-trouve son geste déclaratif, la dérivation par restriction D123 son
-domicile.)*
+trouve son geste déclaratif ; le graphe de conversion, lui, reste aux
+types du catalogue — D360.)*
+
+**La résolution des types personnalisés (D360).** Trois précisions
+closent le mécanisme :
+
+1. **Le niveau le plus proche l'emporte** — entité > module > version >
+   Syncytium — et **les noms du catalogue de base sont réservés** (pas de
+   type personnalisé nommé `text`). L'étage « instance » est ancré : **un
+   `settings.yml` à la racine du dossier de version** — un type est du
+   **schéma**, il migre avec lui (contenu versionné D325), il ne peut
+   vivre dans `environments/` (commun aux versions). La cascade
+   complète : **Syncytium (composés livrés D122) → version → module →
+   entité**.
+2. **Le chaînage est possible** : un type personnalisé peut dériver d'un
+   autre type personnalisé (`progression_fine` à partir de `progression`)
+   — même mécanisme, récursif.
+3. **« Les types custom facilitent le déclaratif mais ne portent pas le
+   graphe de conversion. »** Le graphe (D120/D123) reste porté par les
+   **types du catalogue** : le champ convertit selon son type de base ;
+   les propriétés reprises du type personnalisé (bornes, jeux de
+   valeurs…) se résolvent en **contraintes du champ**, vérifiées aux
+   frontières.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6578,3 +6600,14 @@ avant la synthèse Q16).
   l'étage « instance » (settings.yml à la racine du dossier de version —
   contenu versionné D325), la résolution des noms, le chaînage, les trois
   micro-arbitrages du catalogue (renommages, `list of`, `to:`).
+- **2026-07-23 (suite 2)** — **La résolution des types personnalisés
+  (D360)** : **le plus proche l'emporte** (entité > module > version >
+  Syncytium), les noms du catalogue de base réservés ; l'étage
+  « instance » ancré au **`settings.yml` de la racine du dossier de
+  version** (un type est du schéma — contenu versionné D325) ; **le
+  chaînage possible** ; et la correction de l'auteur : « les types custom
+  facilitent le déclaratif **mais ne portent pas le graphe de
+  conversion** » — le graphe (D120/D123) reste aux types du catalogue,
+  les propriétés reprises se résolvent en contraintes du champ (la note
+  de convergence de D359 est amendée en conséquence). Toujours ouverts :
+  les renommages, `list of`, `to:`.

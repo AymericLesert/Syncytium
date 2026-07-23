@@ -444,6 +444,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D369 | **Le mutualisé au-delà du texte** : « la recherche va s'appuyer sur **la conversion du type en texte** » — la forme affichée (facette D119) est la clé de recherche partagée ; entier, date, montant rejoignent la boîte commune par leur forme lisible. | Doctrine générale du champ partagé — aucun type exclu. Voir §3.2c. |
 | D370 | **`integer` porte `mask` = un format** : `"000000"` (aligné à droite, six chiffres), `"00 00 00"` (espace entre deux chiffres) — le `0` = emplacement de chiffre, littéraux intercalés. | L'esprit D260, le `9` du texte devenant le `0` du nombre ; cohérence masque/bornes = erreur d'ingestion (note en proposition). Voir §3.2c. |
 | D371 | **`searchable: range`** = recherche par **plage de valeurs** ; sur l'entier, **`normalized` revient à `strict`** (accepté, équivalent) et **`similarity` est autorisé — basé sur la conversion en texte**. | Étend D369 : la conversion en texte porte **tous** les modes textuels hors du type texte ; `range` = types à ordre naturel (D125 — note). Voir §3.2c. |
+| D372 | **`integer` clos** : **bornes dans le nom du type** (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **octets jamais déclarés** — dimensionnés **en fonction des bornes ou des valeurs affectées**, « un peu comme le mode `auto` du texte ». | La symétrie de D366 ; le moteur dimensionne, le technicien décrit le domaine. Voir §3.2c. |
 
 ---
 
@@ -1234,6 +1235,25 @@ basé sur la conversion en texte** : la doctrine D369 s'étend — **la
 conversion en texte porte tous les modes textuels hors du type texte**,
 le mutualisé comme la similarité (les chiffres intervertis d'un numéro se
 retrouvent).
+
+**Les bornes et les octets de l'entier (D372 — clôt `integer`).** **Les
+bornes se déclarent dans le nom du type** : `integer` (non borné),
+`integer[100]` (maxi 100), `integer[0..100]`, `integer[0..]` (positif) —
+ou en propriétés `min`/`max` explicites (la symétrie de D366). **Les
+octets ne se déclarent jamais** : le moteur dimensionne la représentation
+interne **en fonction des bornes ou des valeurs affectées** — « un peu
+comme le mode `auto` du texte » : sans borne, le stockage s'ajuste aux
+valeurs réelles.
+
+```yaml
+fields:
+  quantity: integer[0..]           # positif, stockage auto
+  progress: integer[0..100]        # borné — jauge/curseur possibles (D275)
+  serial:
+    type: integer
+    mask: "00 00 00"               # format (D370)
+    searchable: similarity[0.9]    # les chiffres intervertis se retrouvent (D371)
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6836,3 +6856,9 @@ avant la synthèse Q16).
   autorisé, basé sur la conversion en texte** — la doctrine D369 s'étend :
   la conversion porte tous les modes textuels hors du type texte.
   Toujours à valider : les bornes en crochet, les octets déduits.
+- **2026-07-23 (suite 9)** — **`integer` clos (D372)** : **les bornes
+  dans le nom du type** (`integer[100]`, `integer[0..100]`,
+  `integer[0..]`) ou `min`/`max` explicites ; **les octets dimensionnés
+  en fonction des bornes ou des valeurs affectées** — « un peu comme le
+  mode auto du texte ». Le deuxième type du parcours est complet
+  (D369–D372). Suivant : `decimal`.

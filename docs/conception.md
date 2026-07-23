@@ -443,6 +443,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D368 | **Champ de recherche mutualisé** : **contient normalisé par défaut** (D222/D226) ; **la similarité déclarable** — « utile pour intégrer les fautes de frappe » — en second paramètre : `mutualizable[who, similarity[0.8]]`. | Déclarations divergentes sur un même nom = erreur d'ingestion (esprit D344 — note). Voir §3.2c. |
 | D369 | **Le mutualisé au-delà du texte** : « la recherche va s'appuyer sur **la conversion du type en texte** » — la forme affichée (facette D119) est la clé de recherche partagée ; entier, date, montant rejoignent la boîte commune par leur forme lisible. | Doctrine générale du champ partagé — aucun type exclu. Voir §3.2c. |
 | D370 | **`integer` porte `mask` = un format** : `"000000"` (aligné à droite, six chiffres), `"00 00 00"` (espace entre deux chiffres) — le `0` = emplacement de chiffre, littéraux intercalés. | L'esprit D260, le `9` du texte devenant le `0` du nombre ; cohérence masque/bornes = erreur d'ingestion (note en proposition). Voir §3.2c. |
+| D371 | **`searchable: range`** = recherche par **plage de valeurs** ; sur l'entier, **`normalized` revient à `strict`** (accepté, équivalent) et **`similarity` est autorisé — basé sur la conversion en texte**. | Étend D369 : la conversion en texte porte **tous** les modes textuels hors du type texte ; `range` = types à ordre naturel (D125 — note). Voir §3.2c. |
 
 ---
 
@@ -1222,6 +1223,17 @@ chiffre, les littéraux s'intercalent — l'esprit D260, le `9` du texte
 devenant le `0` du nombre. *(Cohérence : un masque à six positions et une
 borne `max` qui le déborde = erreur à l'ingestion — l'esprit D344/D366 ;
 note en proposition.)*
+
+**Les modes de recherche de l'entier : `range`, et la conversion qui
+porte tout (D371).** **`searchable` peut prendre la valeur `range`** —
+le champ de recherche propose alors **une plage de valeurs** *(les types
+à ordre naturel, D125 — l'entier, et plus tard les dates, les montants ;
+note)*. Sur un entier, **`normalized` revient à faire `strict`** (rien à
+normaliser — accepté, équivalent), et **`similarity` est aussi autorisé,
+basé sur la conversion en texte** : la doctrine D369 s'étend — **la
+conversion en texte porte tous les modes textuels hors du type texte**,
+le mutualisé comme la similarité (les chiffres intervertis d'un numéro se
+retrouvent).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6817,3 +6829,10 @@ avant la synthèse Q16).
   `0` du nombre. Restent à valider sur `integer` : les bornes en crochet
   (`integer[0..100]`), les octets déduits des bornes, les modes propres
   (`strict` seul avec le mutualisé ?).
+- **2026-07-23 (suite 8)** — **Les modes de recherche de l'entier
+  (D371)** : **`range`** rejoint `searchable` — la recherche par **plage
+  de valeurs** (types à ordre naturel D125, note) ; `normalized` revient
+  à `strict` sur un entier (accepté, équivalent) ; **`similarity`
+  autorisé, basé sur la conversion en texte** — la doctrine D369 s'étend :
+  la conversion porte tous les modes textuels hors du type texte.
+  Toujours à valider : les bornes en crochet, les octets déduits.

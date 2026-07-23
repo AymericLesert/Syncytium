@@ -440,6 +440,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D365 | **Pas de `settings` au champ** : « le champ porte les settings » — les valeurs en cascade (quota D162…) s'écrivent en **propriétés directes** ; la cascade de blocs s'arrête à l'entité. | Amende la note D349 (« vraisemblablement l'entité et le champ ») et la famille 6. Voir §3.2c. |
 | D366 | **`text` — `size` à quatre formes** : `auto` (défaut — s'auto-ajuste au contenu) / `<max>` / `<min>..` / `<min>..<max>`, **déclarable dans le nom du type** (`text[30]`, `text[3..10]`, `text[3..]`) ; mono/multi-ligne **déduit** (seuil d'instance), surchargeable par `component` ; `mask` déduit taille et lignes — `mask` + `size` = **erreur d'ingestion**. | Le crochet = **paramètre en ligne** du format ; la forme courte reste entière (D356). Voir §3.2c. |
 | D367 | **`searchable` = le mode de recherche** : absent (défaut — pas de recherche) / `strict` (valeur égale) / `normalized` (D222) / `similarity[0.8]` (seuil D229 en ligne) — chacun **ouvre un champ de recherche propre au champ** ; `mutualizable[name]` = **champ de recherche mutualisé** entre plusieurs champs. | La « recherche nommée » de D227 déclarée côté champs ; raffine D226–D229. Voir §3.2c. |
+| D368 | **Champ de recherche mutualisé** : **contient normalisé par défaut** (D222/D226) ; **la similarité déclarable** — « utile pour intégrer les fautes de frappe » — en second paramètre : `mutualizable[who, similarity[0.8]]`. | Déclarations divergentes sur un même nom = erreur d'ingestion (esprit D344 — note). Voir §3.2c. |
 
 ---
 
@@ -1194,6 +1195,15 @@ fields:
     type: text[60]
     searchable: mutualizable[who]
 ```
+
+**Le champ de recherche mutualisé : normalisé par défaut, similarité
+possible (D368).** Le mutualisé d'un texte **répond au « contient
+normalisé » par défaut** (D222/D226) — le nom suffit, zéro déclaration de
+plus. Mais **« l'usage de la similarité peut être utile pour intégrer les
+fautes de frappe dans une recherche »** : le mode se déclare alors en
+second paramètre — `mutualizable[who, similarity[0.8]]`. *(Cohérence
+entre membres : des déclarations divergentes sur un même nom = erreur à
+l'ingestion — l'esprit D344.)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6772,3 +6782,10 @@ avant la synthèse Q16).
   propre) et `mutualizable[name]` (champ partagé entre plusieurs champs —
   la « recherche nommée » D227 déclarée côté champs, le seuil D229 en
   paramètre en ligne). Ouvert : le mode du champ de recherche mutualisé.
+- **2026-07-23 (suite 6)** — **Le mutualisé arbitré (D368)** : **contient
+  normalisé par défaut** (la définition D222/D226 retenue telle quelle),
+  et **la similarité déclarable** en second paramètre — « utile pour
+  intégrer les fautes de frappe dans une recherche »
+  (`mutualizable[who, similarity[0.8]]`). Le type `text` est complet
+  (socle D364–D365 + D366–D368). En attente : `integer` (bornes en
+  crochet, octets déduits des bornes, `searchable` restreint).

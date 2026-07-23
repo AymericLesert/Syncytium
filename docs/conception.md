@@ -445,7 +445,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D370 | **`integer` porte `mask` = un format** : `"000000"` (aligné à droite, six chiffres), `"00 00 00"` (espace entre deux chiffres) — le `0` = emplacement de chiffre, littéraux intercalés. | L'esprit D260, le `9` du texte devenant le `0` du nombre ; cohérence masque/bornes = erreur d'ingestion (note en proposition). Voir §3.2c. |
 | D371 | **`searchable: range`** = recherche par **plage de valeurs** ; sur l'entier, **`normalized` revient à `strict`** (accepté, équivalent) et **`similarity` est autorisé — basé sur la conversion en texte**. | Étend D369 : la conversion en texte porte **tous** les modes textuels hors du type texte ; `range` = types à ordre naturel (D125 — note). Voir §3.2c. |
 | D372 | **`integer` clos** : **bornes dans le nom du type** (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **octets jamais déclarés** — dimensionnés **en fonction des bornes ou des valeurs affectées**, « un peu comme le mode `auto` du texte ». | La symétrie de D366 ; le moteur dimensionne, le technicien décrit le domaine. Voir §3.2c. |
-| D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` en proposition ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
+| D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` **validé** (« "storage" me convient ») ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
 
 ---
 
@@ -1263,8 +1263,9 @@ rien n'est défini**. **Le stockage est exact ou réel** : l'**exact**
 entier en convertissant les décimales dans la partie entière de la
 valeur », le dimensionnement suivant les critères de l'entier (D372) ;
 « cette structure offre des calculs optimisés et performants ». Le
-**réel** autorise des arrondis (mesures, grandeurs continues). *(Forme en
-proposition : `storage: exact` — le défaut — ou `storage: real`.)* **Le
+**réel** autorise des arrondis (mesures, grandeurs continues). **La forme
+est validée** (« pour décimal, "storage" me convient ») :
+`storage: exact` — le défaut — ou `storage: real`. **Le
 `mask` s'étend à la partie décimale** : `"0 000.00"` — les séparateurs
 sont symboliques, **rendus selon la langue** (la virgule française —
 D217/D221). **La recherche reprend le jeu de l'entier** (D371) tel quel.
@@ -6898,3 +6899,12 @@ avant la synthèse Q16).
   le `mask` étendu aux décimales (séparateurs symboliques rendus selon la
   langue) ; la recherche reprend le jeu de l'entier. En proposition : le
   nom `storage: exact | real` et le défaut `exact`. Suivant : `boolean`.
+- **2026-07-23 (suite 11)** — **`storage` validé** (« pour décimal,
+  "storage" me convient ») : D373 entièrement clos. **Pause du soir.** En
+  attente à la reprise : la proposition `boolean` en quatre points
+  (`values` surchargeant les libellés VRAI/FAUX/NUL par langue, tri-état
+  découlant de `required`, recherche `strict`/`mutualizable` par le
+  libellé D369, composants D281 — toggle sans nul). Puis la suite du
+  parcours : `date`, `time`, `datetime`, `duration`, `file`, `enum`, les
+  composés, les contenus, les structurels — et les compositions
+  (l'agrégat D116).

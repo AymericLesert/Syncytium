@@ -431,6 +431,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D356 | **Le bloc `fields` = mapping ordonné** : le nom du champ en clé, **l'ordre de déclaration décrit l'affichage par défaut** ; **+ forme courte** : une valeur chaîne = le type, tout au défaut (`notes: text`). | « Utile pour faire un mode simple et rapide » — l'esprit des cas simples légers (D352). Voir §3.2c. |
 | D357 | **L'identité fonctionnelle déclarée sur l'entité** : `identity: [code]` — pas de drapeau champ par champ. | Les clés composites se lisent d'un regard ; la clé simple s'écrit aussi facilement (D142). Voir §3.2c. |
 | D358 | **Les valeurs du catalogue en anglais** (étend D335) : types (`amount`, `thumbnail`…), confidentialité (`public`/`protected`/`private` — D25), modes (`write-once`)… | L'anglais pour la machine, les `labels` pour l'humain — la ligne du catalogue de fonctions (D301). Voir §3.2c. |
+| D359 | **Types personnalisés** : définissables dans le `settings` de **l'instance, du module ou de l'entité** ; un champ les utilise comme tout type et **reprend toutes les propriétés par défaut, surchargeables**. Ex. : `progression` = entier 0..100 + composant « fuel » → champ `avancement: progression`. | La bibliothèque enrichissable (D52/D68) trouve son geste déclaratif, la dérivation D123 son domicile, la forme courte (D356) son plein sens. Voir §3.2c. |
 
 ---
 
@@ -1010,6 +1011,39 @@ formulaire pourra surcharger encore), l'étage champ du patron `settings`
 (quota D162) ; **(7) hors déclaration** — les champs générés : UUID
 (D142), horodatages et opérateur, provenance, positions (D146) — **le
 moteur les porte, le technicien ne les écrit jamais**.
+
+**Les types personnalisés, déclarés dans les settings (D359).** **Un type
+peut être défini dans le `settings` de l'instance, du module ou de
+l'entité** ; sur un champ, **ce type s'utilise comme n'importe quel
+type** et **reprend toutes ses propriétés par défaut, avec possibilité de
+les surcharger**. L'exemple fondateur : définir un type `progression` —
+entier de 0 à 100, composant « fuel » — puis déclarer un champ
+`avancement` de type `progression` :
+
+```yaml
+# settings.yml (instance, module ou entité)
+types:
+  progression:
+    type: integer
+    min: 0
+    max: 100
+    component: fuel
+```
+
+```yaml
+# dans une entité
+fields:
+  avancement: progression        # la forme courte (D356) prend tout son sens
+  completion:
+    type: progression
+    max: 200                     # surcharge d'une propriété héritée du type
+    labels: { fr: Complétude }
+```
+
+*(La convergence : les composés livrés D122 deviennent des types définis
+à l'étage Syncytium de la cascade — la bibliothèque enrichissable D52/D68
+trouve son geste déclaratif, la dérivation par restriction D123 son
+domicile.)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6532,3 +6566,15 @@ avant la synthèse Q16).
   du catalogue en anglais** (types, confidentialité, modes — étend D335,
   la ligne D301). Reste au bloc `fields` : le détail des familles
   (facettes par type, contraintes, accès, comportement).
+- **2026-07-23 (suite)** — **Les types personnalisés (D359)**. En regard
+  du catalogue des types proposé (simples/composés/contenus en anglais),
+  l'auteur introduit **le type défini dans le `settings` de l'instance,
+  du module ou de l'entité** : le champ qui l'utilise **reprend toutes
+  les propriétés par défaut et peut les surcharger** — l'exemple
+  fondateur `progression` (entier 0..100, composant « fuel ») porté par
+  un champ `avancement`. La bibliothèque enrichissable (D52/D68) trouve
+  son geste déclaratif, la dérivation par restriction (D123) son
+  domicile, la forme courte (D356) son plein sens. Micro-points ouverts :
+  l'étage « instance » (settings.yml à la racine du dossier de version —
+  contenu versionné D325), la résolution des noms, le chaînage, les trois
+  micro-arbitrages du catalogue (renommages, `list of`, `to:`).

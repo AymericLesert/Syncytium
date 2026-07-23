@@ -428,6 +428,9 @@ ne sont pas des piliers mais les irriguent tous.
 | D353 | **Héritage : `inheritance` (enfant) = la seule référence au parent** ; **la machine à états = un bloc sur le parent**, référençant les enfants (niveaux, branches D146, promotions/rétrogradations D147, déclencheurs D54/D148). | « Le paramétrage doit être naturel » — la hiérarchie se lit là où elle est entière ; forme `states:` validée (D354). Voir §3.2c. |
 | D354 | **La sémantique du `when` : le cliquet** — déclencheur automatique sous **3 formes** (événement de données D54, opération D148, **expression D90**) ; **la transition s'exécute à la première vraie** ; si la condition redevient fausse, **l'état acquis est conservé** (le client reste client) ; **le retour = une action explicite autorisée** (D147/D196). | La condition déclenche le franchissement, elle ne tient pas l'état. Voir §3.2c. |
 | D355 | **La création directe à un niveau est possible** : un client peut être créé **sans passer par la phase prospect** — l'enregistrement naît avec la position du niveau choisi. | Identité unique dès la naissance (D142), autres branches acquérables ensuite (D146). Voir §3.2c. |
+| D356 | **Le bloc `fields` = mapping ordonné** : le nom du champ en clé, **l'ordre de déclaration décrit l'affichage par défaut** ; **+ forme courte** : une valeur chaîne = le type, tout au défaut (`notes: text`). | « Utile pour faire un mode simple et rapide » — l'esprit des cas simples légers (D352). Voir §3.2c. |
+| D357 | **L'identité fonctionnelle déclarée sur l'entité** : `identity: [code]` — pas de drapeau champ par champ. | Les clés composites se lisent d'un regard ; la clé simple s'écrit aussi facilement (D142). Voir §3.2c. |
+| D358 | **Les valeurs du catalogue en anglais** (étend D335) : types (`amount`, `thumbnail`…), confidentialité (`public`/`protected`/`private` — D25), modes (`write-once`)… | L'anglais pour la machine, les `labels` pour l'humain — la ligne du catalogue de fonctions (D301). Voir §3.2c. |
 
 ---
 
@@ -916,6 +919,97 @@ prospect » — un enregistrement peut **naître directement à un niveau** de
 la hiérarchie, avec la position correspondante d'emblée (l'identité D142
 unique dès la naissance, les autres branches D146 restant acquérables
 ensuite).
+
+**Le bloc `fields` : le mapping ordonné et la forme courte (D356).** Le
+bloc `fields` est un **mapping ordonné** : le nom du champ est la clé, et
+**l'ordre de déclaration décrit l'affichage par défaut** (le formulaire
+par défaut le suit). **La forme courte est retenue** : quand la valeur
+d'un champ est une chaîne, **elle est le type**, tout le reste au défaut
+(`notes: text`) — « utile pour faire un mode simple et rapide », dans
+l'esprit des cas simples légers (D352).
+
+**L'identité fonctionnelle au niveau de l'entité (D357).** La clé métier
+(D142) se déclare **sur l'entité** — `identity: [code]` — et non champ
+par champ : **les clés composites s'y lisent d'un regard**
+(`identity: [last_name, first_name, birth_date]`), et la clé simple s'y
+écrit tout aussi facilement.
+
+**Les valeurs du catalogue en anglais (D358).** D335 (noms et propriétés
+en anglais) s'étend aux **valeurs du catalogue** : les types (`text`,
+`amount`, `percentage`, `thumbnail`…), la confidentialité
+(`public` / `protected` / `private` — les niveaux D25), les modes
+(`write-once`)… **L'anglais pour la machine, les `labels` français pour
+l'humain** — la droite ligne du catalogue de fonctions (D301).
+
+L'exemple canonique du bloc :
+
+```yaml
+# sales/entities/customer.yml
+name: customer
+labels: { fr: Client }
+inheritance: third_party            # D353 — seule référence au parent
+identity: [code]                    # la clé métier, sur l'entité (D357)
+
+fields:
+  code:
+    type: text
+    size: 10
+    mask: "C-999999"                # masque de saisie (D260)
+    labels: { fr: Code client }
+    mode: write-once                # écriture unique — posé à la création
+  company_name:
+    type: text
+    size: 80
+    labels: { fr: Raison sociale }
+    required: true
+    searchable: true                # recherche plein-texte (D226)
+  revenue:
+    type: amount                    # composé (D122) : décimal + devise
+    currencies: [EUR]               # dérivation par restriction (D123)
+    min: 0
+    labels: { fr: Chiffre d'affaires }
+    confidentiality: protected      # D25
+  category:
+    type: enum
+    values:
+      bronze: { labels: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
+      silver: { labels: { fr: Argent } }
+      gold:   { labels: { fr: Or } }
+    default: bronze
+  advisor:
+    type: reference
+    to: hr/employee                 # l'association : le champ porte la référence
+    filter: active = true           # restreint les valeurs proposées (D90)
+    labels: { fr: Chargé d'affaires }
+  logo:
+    type: image                     # D286 — vignette calculée par le moteur
+  total_orders:
+    type: integer
+    computed: count(orders)         # D90 — recalculé quand un champ concerné change
+  notes: text                       # la forme courte (D356)
+```
+
+**Les sept familles d'un champ (l'inventaire de convergence).** Le bloc
+`fields` fait converger : **(1) la nature** — `type` simple (D118/D121),
+composé (D122), dérivé par restriction (D123), `list of …` (D166,
+« listable » par type), vignette/image (D286), communication (D167),
+référence *(la liste 1-N nommée D216 n'est pas un champ stocké — elle
+viendra aux surfaces)* ; **(2) le stockage** — les facettes (D118–D119) :
+`size`, `decimals`, `min`/`max`, `mask` (D260), précision de l'heure
+(D277), `kind: raw | timestamp` (D220), devises/unités (D123), types de
+fichiers permis (D292), `values` d'énuméré (D283) ; **(3) les libellés**
+— `labels`, `comment` (infobulle), `description` (masque d'explication,
+D333), `placeholder` (valeur de démonstration) ; **(4) les contraintes**
+— `required`, `validation` (expression D90 — règle non satisfaite =
+trace), `default`, `filter` ; **(5) l'accès** — `confidentiality` (D25),
+`mode` : lecture / écriture / écriture unique *(la visibilité par niveau
+D144 est structurelle : un champ déclaré sur l'enfant appartient à ce
+niveau)* ; **(6) le comportement** — `computed` (D90), `searchable`
+(D226), `component` (surcharge du défaut type→composant, D64/D270 — le
+formulaire pourra surcharger encore), l'étage champ du patron `settings`
+(quota D162) ; **(7) hors déclaration** — les champs générés : UUID
+(D142), horodatages et opérateur, provenance, positions (D146) — **le
+moteur les porte, le technicien ne les écrit jamais**.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6426,3 +6520,15 @@ avant la synthèse Q16).
   prospect » ; l'enregistrement naît avec la position du niveau choisi
   (identité D142 dès la naissance, branches D146 acquérables ensuite).
   Reste au fichier d'entité : le bloc `fields`.
+- **2026-07-23** — **Le bloc `fields` : la forme (D356–D358)**. Livraison
+  du bloc avec l'exemple canonique et l'inventaire en **sept familles**
+  (nature, stockage, libellés, contraintes, accès, comportement, champs
+  générés hors déclaration) ; trois arbitrages : **le mapping ordonné**
+  — l'ordre de déclaration décrit l'affichage par défaut — **et la forme
+  courte** (`notes: text`, « utile pour faire un mode simple et
+  rapide ») ; **l'identité fonctionnelle sur l'entité**
+  (`identity: [code]` — « une bonne lisibilité si nous avons des clés
+  multiples », et tout aussi simple pour une clé simple) ; **les valeurs
+  du catalogue en anglais** (types, confidentialité, modes — étend D335,
+  la ligne D301). Reste au bloc `fields` : le détail des familles
+  (facettes par type, contraintes, accès, comportement).

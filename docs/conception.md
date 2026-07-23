@@ -441,6 +441,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D366 | **`text` — `size` à quatre formes** : `auto` (défaut — s'auto-ajuste au contenu) / `<max>` / `<min>..` / `<min>..<max>`, **déclarable dans le nom du type** (`text[30]`, `text[3..10]`, `text[3..]`) ; mono/multi-ligne **déduit** (seuil d'instance), surchargeable par `component` ; `mask` déduit taille et lignes — `mask` + `size` = **erreur d'ingestion**. | Le crochet = **paramètre en ligne** du format ; la forme courte reste entière (D356). Voir §3.2c. |
 | D367 | **`searchable` = le mode de recherche** : absent (défaut — pas de recherche) / `strict` (valeur égale) / `normalized` (D222) / `similarity[0.8]` (seuil D229 en ligne) — chacun **ouvre un champ de recherche propre au champ** ; `mutualizable[name]` = **champ de recherche mutualisé** entre plusieurs champs. | La « recherche nommée » de D227 déclarée côté champs ; raffine D226–D229. Voir §3.2c. |
 | D368 | **Champ de recherche mutualisé** : **contient normalisé par défaut** (D222/D226) ; **la similarité déclarable** — « utile pour intégrer les fautes de frappe » — en second paramètre : `mutualizable[who, similarity[0.8]]`. | Déclarations divergentes sur un même nom = erreur d'ingestion (esprit D344 — note). Voir §3.2c. |
+| D369 | **Le mutualisé au-delà du texte** : « la recherche va s'appuyer sur **la conversion du type en texte** » — la forme affichée (facette D119) est la clé de recherche partagée ; entier, date, montant rejoignent la boîte commune par leur forme lisible. | Doctrine générale du champ partagé — aucun type exclu. Voir §3.2c. |
+| D370 | **`integer` porte `mask` = un format** : `"000000"` (aligné à droite, six chiffres), `"00 00 00"` (espace entre deux chiffres) — le `0` = emplacement de chiffre, littéraux intercalés. | L'esprit D260, le `9` du texte devenant le `0` du nombre ; cohérence masque/bornes = erreur d'ingestion (note en proposition). Voir §3.2c. |
 
 ---
 
@@ -1204,6 +1206,22 @@ fautes de frappe dans une recherche »** : le mode se déclare alors en
 second paramètre — `mutualizable[who, similarity[0.8]]`. *(Cohérence
 entre membres : des déclarations divergentes sur un même nom = erreur à
 l'ingestion — l'esprit D344.)*
+
+**Le mutualisé au-delà du texte : la conversion en texte (D369).** **Si
+`mutualizable` est utilisé** sur un champ non textuel, **« la recherche
+va s'appuyer sur la conversion du type en texte »** — la forme affichée
+(la facette d'affichage D119) devient la clé de recherche partagée : un
+entier, une date, un montant rejoignent la boîte commune par leur forme
+lisible.
+
+**Le `mask` de l'entier : le format (D370).** **Un `integer` peut porter
+une propriété `mask` pour proposer un format** : `"000000"` — **entier
+aligné à droite**, valeurs à six chiffres ; `"00 00 00"` — aligné à
+droite, **un espace entre deux chiffres**. Le `0` est l'emplacement de
+chiffre, les littéraux s'intercalent — l'esprit D260, le `9` du texte
+devenant le `0` du nombre. *(Cohérence : un masque à six positions et une
+borne `max` qui le déborde = erreur à l'ingestion — l'esprit D344/D366 ;
+note en proposition.)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6789,3 +6807,13 @@ avant la synthèse Q16).
   (`mutualizable[who, similarity[0.8]]`). Le type `text` est complet
   (socle D364–D365 + D366–D368). En attente : `integer` (bornes en
   crochet, octets déduits des bornes, `searchable` restreint).
+- **2026-07-23 (suite 7)** — **`integer` : le mutualisé par conversion,
+  le masque-format (D369–D370)**. **D369, doctrine générale** : si
+  `mutualizable` est utilisé sur un champ non textuel, « la recherche va
+  s'appuyer sur la conversion du type en texte » — la forme affichée est
+  la clé partagée, aucun type exclu. **D370** : l'entier porte un `mask`
+  de **format** — `"000000"` (aligné à droite, six chiffres),
+  `"00 00 00"` (espace entre deux chiffres) ; le `9` du texte devient le
+  `0` du nombre. Restent à valider sur `integer` : les bornes en crochet
+  (`integer[0..100]`), les octets déduits des bornes, les modes propres
+  (`strict` seul avec le mutualisé ?).

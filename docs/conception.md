@@ -436,6 +436,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D361 | **Catalogue nominatif des types, anglais natif** : « les types "réel" ou "tva_intra" n'existent pas dans Syncytium — nous utiliserons `decimal` ou `vat_number` » ; siren/siret/iban/bic inchangés (identifiants du domaine). Simples, composés, contenus, structurels — chaque type avec ses facettes. | Les noms français du document = étiquettes de travail (D358). Voir §3.2c. |
 | D362 | **La liste : `type: list of text`** — la phrase se lit ; **les facettes déclarées sur le champ s'appliquent à chaque élément** (`size`, `mask`… contraignent chaque valeur). | D166 : l'atomicité est l'élément ; mots-clés anglais (D301). Voir §3.2c. |
 | D363 | **Adressage logique par points** : `<module>.<entité>.<champ>` — **le point, pas la barre oblique** : « l'organisation des dossiers peut être finalement libre » — le chemin logique est **découplé de l'arborescence physique** ; nom local suffisant dans le même module. | Le namespace est porté par les déclarations (`name:`), les dossiers ne sont qu'une convention (les patterns D320 listent ce qui est inclus). Voir §3.2c. |
+| D364 | **Socle commun du champ finalisé** (dix propriétés) ; **`validation` = plusieurs règles**, chacune portée par **le conditionnel d'autres valeurs de l'enregistrement ou une expression régulière** — chaque règle en échec = refus + trace (D307). | Le `matches` et le `if` du langage (D90/D301) ; forme liste en proposition. Voir §3.2c. |
+| D365 | **Pas de `settings` au champ** : « le champ porte les settings » — les valeurs en cascade (quota D162…) s'écrivent en **propriétés directes** ; la cascade de blocs s'arrête à l'entité. | Amende la note D349 (« vraisemblablement l'entité et le champ ») et la famille 6. Voir §3.2c. |
 
 ---
 
@@ -853,9 +855,9 @@ quota: 2GB                     # D162 — cascade, la plus petite l'emporte
 ```
 
 *(Le patron s'affirme : un `settings.yml` à chaque étage — l'environnement
-(D342), le module (D349), et vraisemblablement l'entité et le champ —
-chaque niveau raffinant les défauts du niveau supérieur, dans les cascades
-déjà actées.)*
+(D342), le module (D349), et vraisemblablement l'entité — chaque niveau
+raffinant les défauts du niveau supérieur, dans les cascades déjà actées ;
+le champ, lui, porte ses settings en propriétés directes — D365.)*
 
 **La déclaration vaut activation (D350).** **La déclaration d'un module
 marque son activation** — pas de drapeau d'activation : un module présent
@@ -1011,8 +1013,9 @@ trace), `default`, `filter` ; **(5) l'accès** — `confidentiality` (D25),
 D144 est structurelle : un champ déclaré sur l'enfant appartient à ce
 niveau)* ; **(6) le comportement** — `computed` (D90), `searchable`
 (D226), `component` (surcharge du défaut type→composant, D64/D270 — le
-formulaire pourra surcharger encore), l'étage champ du patron `settings`
-(quota D162) ; **(7) hors déclaration** — les champs générés : UUID
+formulaire pourra surcharger encore), les valeurs en cascade en
+propriétés directes du champ (quota D162 — D365) ; **(7) hors
+déclaration** — les champs générés : UUID
 (D142), horodatages et opérateur, provenance, positions (D146) — **le
 moteur les porte, le technicien ne les écrit jamais**.
 
@@ -1108,6 +1111,42 @@ Le namespace est porté par les déclarations (`name:`), les dossiers ne
 sont qu'une convention (les patterns D320 listent explicitement ce qui
 est inclus). Dans le même module, le nom local suffit (`to: employee`) ;
 au-delà, le chemin qualifié (`to: hr.employee`).
+
+**Le socle commun du champ (D364–D365).** Les propriétés de tout champ,
+quel que soit son type — le socle est finalisé :
+
+| Propriété | Rôle | Source |
+|---|---|---|
+| `labels` | le libellé par langue | D217 |
+| `comment` | l'infobulle | invariants de l'auteur |
+| `description` | le masque d'explication, la documentation | D188/D333 |
+| `placeholder` | la valeur de démonstration | invariants de l'auteur |
+| `required` | obligatoire — défaut : optionnel | D118 |
+| `default` | la valeur initiale — littéral ou expression (D90) évaluée à la création | — |
+| `validation` | les règles de validation — D364 | D90/D307 |
+| `confidentiality` | `public` / `protected` / `private` | D25 |
+| `mode` | `editable` (défaut) / `read-only` / `write-once` | — |
+| `component` | la surcharge du composant par défaut du type | D64/D270 |
+
+**`validation` : plusieurs règles (D364).** La propriété **peut contenir
+plusieurs règles**, chacune portée par **le conditionnel d'autres valeurs
+de l'enregistrement, ou par le respect d'une expression régulière** — le
+langage les porte déjà (D90 : le `matches` du catalogue, le `if`
+conditionnant la règle). Chaque règle en échec = refus + trace (la
+doctrine D307). La forme en proposition :
+
+```yaml
+validation:
+  - zip_code matches "^[0-9]{5}$" if country = "FR"   # conditionnée par un autre champ
+  - end_date >= start_date                            # expression pure (D90)
+```
+
+**Pas de `settings` au champ (D365).** « La propriété `settings` d'un
+champ n'est pas utile car **le champ porte les settings**. » Les valeurs
+en cascade qui atteignent le champ (le quota D162…) s'écrivent en
+**propriétés directes** — la cascade de blocs `settings` s'arrête à
+l'entité (version D360 → module D349 → entité) ; le champ, lui, est à
+plat.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6666,3 +6705,13 @@ avant la synthèse Q16).
   convention. L'exemple canonique passe à `to: hr.employee`. Le bloc
   `fields` approche de sa complétude — restent les compositions
   (l'agrégat D116) et la contre-vérification des familles.
+- **2026-07-23 (suite 4)** — **Le parcours type par type est engagé**
+  (« nous allons détailler chaque type porté par Syncytium ») et **le
+  socle commun est finalisé (D364–D365)** : la table des dix propriétés
+  de tout champ est consignée ; **`validation` peut contenir plusieurs
+  règles** — conditionnées par d'autres valeurs de l'enregistrement ou
+  par une expression régulière (forme liste en proposition) ; **pas de
+  `settings` au champ** — « le champ porte les settings » : propriétés
+  directes, la cascade de blocs s'arrête à l'entité (la note D349 et la
+  famille 6 sont amendées). Reste en attente : le détail de `text`
+  (quatre règles proposées).

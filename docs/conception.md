@@ -438,6 +438,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D363 | **Adressage logique par points** : `<module>.<entité>.<champ>` — **le point, pas la barre oblique** : « l'organisation des dossiers peut être finalement libre » — le chemin logique est **découplé de l'arborescence physique** ; nom local suffisant dans le même module. | Le namespace est porté par les déclarations (`name:`), les dossiers ne sont qu'une convention (les patterns D320 listent ce qui est inclus). Voir §3.2c. |
 | D364 | **Socle commun du champ finalisé** (dix propriétés) ; **`validation` = plusieurs règles**, chacune portée par **le conditionnel d'autres valeurs de l'enregistrement ou une expression régulière** — chaque règle en échec = refus + trace (D307). | Le `matches` et le `if` du langage (D90/D301) ; forme liste en proposition. Voir §3.2c. |
 | D365 | **Pas de `settings` au champ** : « le champ porte les settings » — les valeurs en cascade (quota D162…) s'écrivent en **propriétés directes** ; la cascade de blocs s'arrête à l'entité. | Amende la note D349 (« vraisemblablement l'entité et le champ ») et la famille 6. Voir §3.2c. |
+| D366 | **`text` — `size` à quatre formes** : `auto` (défaut — s'auto-ajuste au contenu) / `<max>` / `<min>..` / `<min>..<max>`, **déclarable dans le nom du type** (`text[30]`, `text[3..10]`, `text[3..]`) ; mono/multi-ligne **déduit** (seuil d'instance), surchargeable par `component` ; `mask` déduit taille et lignes — `mask` + `size` = **erreur d'ingestion**. | Le crochet = **paramètre en ligne** du format ; la forme courte reste entière (D356). Voir §3.2c. |
+| D367 | **`searchable` = le mode de recherche** : absent (défaut — pas de recherche) / `strict` (valeur égale) / `normalized` (D222) / `similarity[0.8]` (seuil D229 en ligne) — chacun **ouvre un champ de recherche propre au champ** ; `mutualizable[name]` = **champ de recherche mutualisé** entre plusieurs champs. | La « recherche nommée » de D227 déclarée côté champs ; raffine D226–D229. Voir §3.2c. |
 
 ---
 
@@ -1147,6 +1149,51 @@ en cascade qui atteignent le champ (le quota D162…) s'écrivent en
 **propriétés directes** — la cascade de blocs `settings` s'arrête à
 l'entité (version D360 → module D349 → entité) ; le champ, lui, est à
 plat.
+
+**Le type `text` — la taille (D366).** `size` a **quatre formes** :
+**`auto`** (pas de taille — elle **s'auto-ajuste en fonction du
+contenu** ; le défaut), **`<max>`** (taille maximale), **`<min>..`** (à
+partir de), **`<min>..<max>`** (entre les deux). Et **la taille peut être
+définie dans le nom du type** : `notes: text` (auto), `name: text[30]`,
+`code: text[3..10]`, `story: text[3..]` — la forme courte (D356) reste
+entière. **Le mono/multi-ligne se déduit de la taille** (face au seuil
+d'instance) et **se surcharge éventuellement par `component`** (D270).
+**`mask` (D260) déduit ce qu'il impose** : la taille de la longueur du
+masque, les lignes des lignes du masque — et **déclarer `mask` et `size`
+ensemble = erreur à l'ingestion** (pas d'arbitrage silencieux entre deux
+vérités, l'esprit D344). *(Le crochet s'affirme comme **le paramètre en
+ligne** du format — `text[3..10]`, `similarity[0.8]`,
+`mutualizable[who]`.)*
+
+**Le type `text` — `searchable`, le mode de recherche (D367).** La
+propriété ne dit plus « cherchable » mais **comment** : **absent = pas de
+recherche (le défaut)** ; **`strict`** (valeur égale) ; **`normalized`**
+(valeur normalisée — D222) ; **`similarity[0.8]`** (similarité ≥ 0,8 — le
+seuil de D229 devient un paramètre en ligne, par champ). **Ces trois
+valeurs ouvrent un champ de recherche spécifique au champ.**
+**`mutualizable[name]`** nomme un **champ de recherche mutualisé entre
+plusieurs champs** — la « recherche nommée » de D227, déclarée côté
+champs : chaque membre la rejoint en la nommant.
+
+```yaml
+fields:
+  notes: text                       # auto — la taille s'ajuste au contenu
+  name: text[30]                    # 30 caractères maxi
+  code: text[3..10]                 # entre 3 et 10 caractères
+  story: text[3..]                  # au moins 3 caractères, sans borne
+  registration:
+    type: text
+    mask: "FR__ ____ [A-E]9"        # taille et lignes déduites du masque (D260)
+  city:
+    type: text[40]
+    searchable: normalized          # champ de recherche dédié, valeur normalisée
+  last_name:
+    type: text[60]
+    searchable: mutualizable[who]   # rejoint la recherche partagée « who »
+  first_name:
+    type: text[60]
+    searchable: mutualizable[who]
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6715,3 +6762,13 @@ avant la synthèse Q16).
   directes, la cascade de blocs s'arrête à l'entité (la note D349 et la
   famille 6 sont amendées). Reste en attente : le détail de `text`
   (quatre règles proposées).
+- **2026-07-23 (suite 5)** — **Le type `text` (D366–D367)** : **`size` à
+  quatre formes** (auto / max / min.. / min..max) et **la taille dans le
+  nom du type** (`text[3..10]`) — **le crochet s'affirme comme le
+  paramètre en ligne du format** ; mono/multi-ligne déduit, surchargeable
+  par `component` ; `mask` validé (« très bien » — déduction + conflit =
+  erreur d'ingestion) ; **`searchable` devient un mode** : `strict` /
+  `normalized` / `similarity[0.8]` (chacun ouvre un champ de recherche
+  propre) et `mutualizable[name]` (champ partagé entre plusieurs champs —
+  la « recherche nommée » D227 déclarée côté champs, le seuil D229 en
+  paramètre en ligne). Ouvert : le mode du champ de recherche mutualisé.

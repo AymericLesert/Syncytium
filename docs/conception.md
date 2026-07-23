@@ -433,6 +433,9 @@ ne sont pas des piliers mais les irriguent tous.
 | D358 | **Les valeurs du catalogue en anglais** (étend D335) : types (`amount`, `thumbnail`…), confidentialité (`public`/`protected`/`private` — D25), modes (`write-once`)… | L'anglais pour la machine, les `labels` pour l'humain — la ligne du catalogue de fonctions (D301). Voir §3.2c. |
 | D359 | **Types personnalisés** : définissables dans le `settings` de **l'instance, du module ou de l'entité** ; un champ les utilise comme tout type et **reprend toutes les propriétés par défaut, surchargeables**. Ex. : `progression` = entier 0..100 + composant « fuel » → champ `avancement: progression`. | La bibliothèque enrichissable (D52/D68) trouve son geste déclaratif, la forme courte (D356) son plein sens ; le graphe de conversion reste aux types du catalogue (D360). Voir §3.2c. |
 | D360 | **Résolution des types personnalisés** : le plus proche l'emporte (**entité > module > version > Syncytium**), noms du catalogue **réservés** ; étage « instance » = **`settings.yml` à la racine du dossier de version** (contenu versionné D325) ; **chaînage possible** ; **ne portent pas le graphe de conversion** — le graphe (D120/D123) reste aux types du catalogue, les propriétés reprises se résolvent en contraintes du champ. | « Les types custom facilitent le déclaratif mais ne portent pas le graphe de conversion. » Voir §3.2c. |
+| D361 | **Catalogue nominatif des types, anglais natif** : « les types "réel" ou "tva_intra" n'existent pas dans Syncytium — nous utiliserons `decimal` ou `vat_number` » ; siren/siret/iban/bic inchangés (identifiants du domaine). Simples, composés, contenus, structurels — chaque type avec ses facettes. | Les noms français du document = étiquettes de travail (D358). Voir §3.2c. |
+| D362 | **La liste : `type: list of text`** — la phrase se lit ; **les facettes déclarées sur le champ s'appliquent à chaque élément** (`size`, `mask`… contraignent chaque valeur). | D166 : l'atomicité est l'élément ; mots-clés anglais (D301). Voir §3.2c. |
+| D363 | **Adressage logique par points** : `<module>.<entité>.<champ>` — **le point, pas la barre oblique** : « l'organisation des dossiers peut être finalement libre » — le chemin logique est **découplé de l'arborescence physique** ; nom local suffisant dans le même module. | Le namespace est porté par les déclarations (`name:`), les dossiers ne sont qu'une convention (les patterns D320 listent ce qui est inclus). Voir §3.2c. |
 
 ---
 
@@ -980,7 +983,7 @@ fields:
     default: bronze
   advisor:
     type: reference
-    to: hr/employee                 # l'association : le champ porte la référence
+    to: hr.employee                 # l'adressage logique par points (D363)
     filter: active = true           # restreint les valeurs proposées (D90)
     labels: { fr: Chargé d'affaires }
   logo:
@@ -1066,6 +1069,45 @@ closent le mécanisme :
    les propriétés reprises du type personnalisé (bornes, jeux de
    valeurs…) se résolvent en **contraintes du champ**, vérifiées aux
    frontières.
+
+**Le catalogue nominatif des types (D361).** Les noms canoniques sont
+anglais **nativement** : « les types "réel" ou "tva_intra" n'existent pas
+dans Syncytium — nous utiliserons `decimal` ou `vat_number` » (les noms
+français du document sont des étiquettes de travail — D358). Le
+catalogue, avec les facettes de chacun :
+
+- **Simples (D118/D121)** : `text` (`size` — mono/multi-ligne déduit,
+  `mask` D260), `integer` (`min`/`max` — borné → jauge ou curseur D275),
+  `decimal` (`decimals` D273, `min`/`max`), `boolean` (`values` —
+  libellés VRAI/FAUX/NUL surchargeables D281), `date` (brute par nature
+  D220, raccourcis D278), `time` (`precision` : `hh`…`hh:mm:ss.sss`
+  D277), `datetime` (`kind: raw | timestamp` D220), `duration` (`mask` +
+  option de conversion D276), `file` (`extensions` permises D292,
+  métadonnées D160 automatiques), `enum` (`values` : clé → `labels`,
+  `icon`/`image` D283 ← `resources/`).
+- **Composés (D122)**, dérivables par restriction (D123) : `amount`
+  (`currencies`), `email`, `percentage` (borné → jauge D274), `phone`,
+  `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
+  (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
+  des identifiants du domaine, pas des mots à traduire.
+- **Contenus** : `thumbnail`, `image` (D286 — vignette automatique),
+  `communication` (D167 — défauts : visibilité maximale, immuable, sans
+  pièces jointes, sans notification).
+- **Structurels** : `reference` (`to`, `filter`), la liste (D362).
+
+**La liste : `list of` (D362).** La syntaxe **`type: list of text`** est
+validée — la phrase se lit (les mots-clés anglais, D301) ; **les facettes
+déclarées sur le champ s'appliquent à chaque élément** (`size`, `mask`…
+contraignent chaque valeur — D166 : l'atomicité est l'élément).
+
+**L'adressage logique par points (D363).** La référence s'écrit
+**`<module>.<entité>.<champ>`** — **le séparateur est le point, pas la
+barre oblique** : « l'organisation des dossiers peut être finalement
+libre » — **le chemin logique est découplé de l'arborescence physique**.
+Le namespace est porté par les déclarations (`name:`), les dossiers ne
+sont qu'une convention (les patterns D320 listent explicitement ce qui
+est inclus). Dans le même module, le nom local suffit (`to: employee`) ;
+au-delà, le chemin qualifié (`to: hr.employee`).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6611,3 +6653,16 @@ avant la synthèse Q16).
   les propriétés reprises se résolvent en contraintes du champ (la note
   de convergence de D359 est amendée en conséquence). Toujours ouverts :
   les renommages, `list of`, `to:`.
+- **2026-07-23 (suite 3)** — **Le catalogue nominatif, la liste,
+  l'adressage (D361–D363)**. **D361** : les noms canoniques sont anglais
+  nativement — « les types "réel" ou "tva_intra" n'existent pas dans
+  Syncytium » ; le catalogue complet (simples, composés, contenus,
+  structurels) est consigné avec les facettes de chacun. **D362** :
+  `type: list of text` — les facettes du champ s'appliquent à chaque
+  élément. **D363** : l'adressage logique **par points**
+  (`<module>.<entité>.<champ>`) — pas la barre oblique, car
+  « l'organisation des dossiers peut être finalement libre » : le
+  namespace est porté par les déclarations, l'arborescence n'est qu'une
+  convention. L'exemple canonique passe à `to: hr.employee`. Le bloc
+  `fields` approche de sa complétude — restent les compositions
+  (l'agrégat D116) et la contre-vérification des familles.

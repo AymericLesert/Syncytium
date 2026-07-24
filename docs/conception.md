@@ -455,6 +455,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D380 | **Doctrine du tri complétée** : `decimal`/`duration` — **nul ≡ 0** ; **propriété `sort`** au socle pour les types à variantes (`text` : `alphabetical` défaut \| `natural` ; l'énuméré viendra) ; **référence triée sur le libellé affiché**, calculé sur sa valeur. | Le parcours énonce désormais la règle de tri à chaque type. Voir §3.2c. |
 | D381 | **Temporels clos** (« ok pour tout ») : précision en crochet (`time[hh:mm]`) ; nature en crochet (`datetime[raw]` **défaut** \| `datetime[timestamp]`, précision en 2ᵉ paramètre) ; bornes `min`/`max` en **littéraux ISO** (le dynamique → `validation`) ; **pas de `mask`** (le format vient de la langue D217/D221) ; recherche `strict`/`range`/`mutualizable` ; **nul trié en tête**. | D220/D277–D280 trouvent leur écriture déclarative. Voir §3.2c. |
 | D382 | **La date à précision** (complète D381) : `date[yyyy-mm-dd]` (le jour — défaut), **`date[yyyy-mm]`** (le mois), **`date[yyyy-ww]`** (la semaine — numérotation liée à la langue D279). | Valeur brute (D220), sérialisation ISO à la granularité (`2026-07`, `2026-W30`), calendrier au bon grain. Voir §3.2c. |
+| D383 | **Temporels — la nature la plus fine par défaut** (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`, précision `datetime` la plus fine — `raw` reste le défaut de nature) ; **le `mask` possible**, le masque de la langue (D217/D221) restant le défaut. | Amende le point 4 de D381. Voir §3.2c. |
 
 ---
 
@@ -1382,9 +1383,10 @@ crochet** — `datetime[raw]` (valeur civile, **le défaut**) ou
 précision de la partie heure en second paramètre
 (`datetime[timestamp, hh:mm]`) ; **(3)** les bornes `min`/`max` en
 **littéraux ISO** — les bornes dynamiques (« pas dans le passé »)
-passent par `validation` (D90), jamais par les facettes ; **(4)** **pas
-de `mask`** : le format d'affichage vient de la langue (D217/D221), les
-raccourcis, calendriers et horloges sont des composants (D278–D280) ;
+passent par `validation` (D90), jamais par les facettes ; **(4)** le
+`mask` — **amendé par D383** : possible, **le masque de la langue
+(D217/D221) restant le défaut** ; les raccourcis, calendriers et horloges
+sont des composants (D278–D280) ;
 **(5)** la recherche : `strict`, **`range` en usage roi** (la plage de
 dates), `mutualizable` par la forme affichée (D369) ; **(6)** **le nul
 temporel se trie en tête** — avant toute valeur, le pendant du
@@ -1412,6 +1414,15 @@ semaine, dont la numérotation suit la langue D279). La valeur reste brute
 (D220), la comparaison chronologique, les bornes et la sérialisation à la
 granularité déclarée (ISO 8601 — `2026-07`, `2026-W30`) ; le calendrier
 se présente au bon grain — année, mois, semaine (D279).
+
+**Les temporels : la nature la plus fine par défaut, le masque possible
+(D383 — amende D381).** **(1) « Par défaut, la nature la plus fine est
+sélectionnée »** : `date` = `date[yyyy-mm-dd]`, `time` =
+`time[hh:mm:ss.sss]`, la précision de `datetime` = la plus fine — sa
+nature `raw` demeure, elle, le défaut (D381). **(2) « Le masque est
+possible »** — le point 4 de D381 s'assouplit : **par défaut, le masque
+de la langue s'applique** (D217/D221) ; un `mask` déclaré au champ
+surcharge ce défaut, pour l'affichage comme pour la saisie.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7095,3 +7106,9 @@ avant la synthèse Q16).
   `date[yyyy-mm]` (le mois), `date[yyyy-ww]` (la semaine, numérotation
   liée à la langue D279) ; sérialisation ISO à la granularité, calendrier
   au bon grain. La proposition `file` (cinq points) reste en attente.
+- **2026-07-24 (suite 9)** — **La nature la plus fine par défaut, le
+  masque possible (D383, amende D381)** : sans crochet, le temporel prend
+  sa nature la plus fine (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`) ; le
+  `mask` redevient possible — par défaut, le masque de la langue
+  s'applique (D217/D221), le champ pouvant le surcharger. La proposition
+  `file` toujours en attente.

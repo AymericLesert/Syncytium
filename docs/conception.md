@@ -450,6 +450,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D375 | **Le booléen — la recherche par le composant** : « une recherche `strict` s'appuie sur **une case à cocher ou un toggle** » — le champ de recherche est le composant du type ; le tri-état en recherche vise aussi **les lignes nulles** (doctrine Q47). | La ligne de D228 (un filtre par type de données) appliquée à la recherche déclarée. Voir §3.2c. |
 | D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
 | D377 | **`boolean` clos** : `values` surcharge les libellés VRAI/FAUX/NUL par langue (D281/D130) ; **tri-état découlant de `required`** ; recherche non engagée = aucun filtre (réinitialisation — D228) ; composant case/toggle-sans-nul/énuméré en surcharge ; **naissance : optionnel → nul, obligatoire → `false`** sauf `default: true`. | « Je valide les points. » Le stockage dit la même chose que l'écran. Voir §3.2c. |
+| D378 | **Durée — la virgule du masque** : « une heure en centième, une minute en centième ou une heure en dix-millième » — le masque D276 porte le sexagésimal (`00:00`) **et la notation décimale industrielle** (`0.00 h`, `0.00 min`, `0.0000 h`) ; la conversion fait le pont vers **la valeur canonique unique**. | Le séparateur symbolique rendu selon la langue (D373) ; Excel reçoit le canonique. Voir §3.2c. |
 
 ---
 
@@ -1336,6 +1337,18 @@ fields:
     type: boolean                  # optionnel — tri-état, naît nul (D374)
     searchable: strict             # case tri-état en recherche (D375)
 ```
+
+**La durée : la virgule du masque, la notation décimale (D378).** **« Dans
+le masque d'une durée, la virgule signifie une heure en centième, une
+minute en centième ou une heure en dix-millième. »** Le masque (D276)
+porte donc **deux notations** : le deux-points sexagésimal (`"00:00"` —
+1:30 = une heure trente) et **le séparateur décimal industriel** — la
+virgule de l'auteur, symbolique et rendue selon la langue (D373) :
+`"0.00 h"` (l'heure en centièmes — 1,50 = 1 h 30), `"0.00 min"` (la
+minute en centièmes), `"0.0000 h"` (l'heure en dix-millièmes — la
+comptabilité industrielle du temps). **L'option de conversion (D276)**
+fait le pont : la saisie dans une notation, **la valeur canonique unique**
+au stockage et aux exports (Excel).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6984,3 +6997,12 @@ avant la synthèse Q16).
   D228), les composants D281, la naissance (optionnel → nul, obligatoire
   → `false` sauf `default: true`). Quatrième type complet (D374–D377).
   Suivants : les temporels — `date`, `time`, `datetime`, `duration`.
+- **2026-07-24 (suite 4)** — **La virgule du masque de durée (D378)** :
+  « une heure en centième, une minute en centième ou une heure en
+  dix-millième » — le masque D276 porte deux notations, le sexagésimal
+  (`00:00`) et la décimale industrielle (`0.00 h`, `0.00 min`,
+  `0.0000 h` — séparateur symbolique rendu selon la langue D373) ;
+  l'option de conversion fait le pont vers la valeur canonique unique
+  (stockage, exports). Restent les cinq autres points temporels
+  (précision en crochet, raw/timestamp, bornes ISO, pas de mask
+  date/heure, recherche range).

@@ -461,6 +461,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D386 | **L'entité désigne son champ image** — « pour que, dans une liste, l'image soit sélectionnable » : propriété d'en-tête `image: <champ>` (forme en proposition), le **visage de l'entité**. | Ancre déclarativement le choix par l'image (D284–D285) et la vignette en cellule/widget (D286/D293). Voir §3.2c. |
 | D387 | **`enum`** : `values` gagne **`description`** (l'infobulle, en complément du libellé) ; **ordre de déclaration = présentation + tri** (`sort: declaration` défaut \| `label`) ; **stockage numérique** — clé numérique → entier, clé chaîne → **transformée en valeur numérique** ; attention aux migrations : « l'ajout intercalé d'une valeur ». | Résolution en proposition : code interne **stable**, l'intercalé reçoit un code nouveau (présentation ≠ dictionnaire de stockage) — pour le domaine migrations. Voir §3.2c. |
 | D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
+| D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
 
 ---
 
@@ -1522,6 +1523,20 @@ recherche par le composant** — une liste de sélection du jeu de valeurs
 optionnel peut recevoir son libellé via une entrée `null:` dans `values`
 (le patron booléen D377). Les dix simples d'origine (D118/D121) sont
 détaillés — restent `image`/`thumbnail` (D385) avant les composés.
+
+**`image` et `thumbnail` clos (D389).** Les cinq points validés :
+**(1) les dimensions dans le crochet** — `image[1920x1080]`, la boîte
+maximale ; l'ajustement **conserve les proportions, jamais de
+recadrage** (D293 — le hook D263 pour qui veut recadrer) ; sans crochet,
+la boîte par défaut du settings d'instance ; **(2) la vignette
+automatique** (D286) aux dimensions du settings d'instance —
+**`thumbnail[128x128]` ne garde que la petite taille**, l'image garde la
+grande + sa déclinaison ; **(3) `extensions`** : le jeu image par défaut,
+restreignable dedans, la forme à libellés (D384) disponible ; **(4)
+l'héritage `file` intégral** — quota, métadonnées, déduplication,
+recherche nom + mots-clés, tri sur le nom ; **(5) rien d'autre au
+champ** — caméra/galerie, visionneuse selon le terminal (D293), rendu
+PDF = l'image (D257).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7244,3 +7259,9 @@ avant la synthèse Q16).
   dix simples d'origine sont détaillés** — text, integer, decimal,
   boolean, date, time, datetime, duration, file, enum. Suivants :
   `image`/`thumbnail`, puis les composés.
+- **2026-07-24 (suite 15)** — **`image`/`thumbnail` clos (D389)** : « ok
+  pour les 5 points » — dimensions dans le crochet (`image[1920x1080]`,
+  proportions conservées, jamais de recadrage D293), vignette automatique
+  au settings, `thumbnail` = la petite taille seule, extensions du jeu
+  image, héritage `file` intégral. **Les simples sont au complet** —
+  place aux composés (D122).

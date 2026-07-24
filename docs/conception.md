@@ -446,6 +446,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D371 | **`searchable: range`** = recherche par **plage de valeurs** ; sur l'entier, **`normalized` revient à `strict`** (accepté, équivalent) et **`similarity` est autorisé — basé sur la conversion en texte**. | Étend D369 : la conversion en texte porte **tous** les modes textuels hors du type texte ; `range` = types à ordre naturel (D125 — note). Voir §3.2c. |
 | D372 | **`integer` clos** : **bornes dans le nom du type** (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **octets jamais déclarés** — dimensionnés **en fonction des bornes ou des valeurs affectées**, « un peu comme le mode `auto` du texte ». | La symétrie de D366 ; le moteur dimensionne, le technicien décrit le domaine. Voir §3.2c. |
 | D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` **validé** (« "storage" me convient ») ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
+| D374 | **Le booléen — cycle du tri-état** : « une case à cocher à 3 états : **faux → vrai → nul → faux**… » — chaque clic avance d'un cran ; le nul se ressaisit à la main, valeur de plein droit. | Le tri-état découle de `required` (proposition en arbitrage) ; cohérent avec la doctrine du nul en table (Q47). Voir §3.2c. |
 
 ---
 
@@ -1283,6 +1284,13 @@ fields:
     type: decimal[-50..60]
     storage: real                  # les arrondis assumés
 ```
+
+**Le booléen : le cycle du tri-état (D374).** **« Une case à cocher à
+3 états : faux → vrai → nul → faux… »** — sur un booléen optionnel (le
+tri-état), **chaque clic avance d'un cran dans ce cycle** : l'état nul se
+ressaisit à la main, comme les deux autres, sans passer par un
+effacement — le nul de la table est une valeur de plein droit (la
+doctrine Q47), son composant le traite pareil.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6908,3 +6916,9 @@ avant la synthèse Q16).
   parcours : `date`, `time`, `datetime`, `duration`, `file`, `enum`, les
   composés, les contenus, les structurels — et les compositions
   (l'agrégat D116).
+- **2026-07-24** — **Reprise sur le booléen : le cycle du tri-état
+  (D374)** : « une case à cocher à 3 états : **faux → vrai → nul →
+  faux**… » — chaque clic avance d'un cran, le nul se ressaisit à la main
+  comme les deux autres états. La proposition en cinq points (values des
+  libellés, tri-état par `required`, recherche par le libellé, toggle
+  sans nul, naissance nul/false) reste en arbitrage pour clore le type.

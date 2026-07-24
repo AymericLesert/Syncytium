@@ -458,6 +458,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D383 | **Temporels — la nature la plus fine par défaut** (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`, précision `datetime` la plus fine — `raw` reste le défaut de nature) ; **le `mask` possible**, le masque de la langue (D217/D221) restant le défaut. | Amende le point 4 de D381. Voir §3.2c. |
 | D384 | **`file` clos** : `extensions` en **deux formes** — liste simple ou **mapping à libellés par langue** (`pdf: { fr: facture }` — le document attendu, nommé) ; `quota` acquis (D162/D365) ; **métadonnées jamais déclarées** (D160) ; recherche **nom + mots-clés**, tri sur le nom (nul ≡ chaîne vide) ; le reste au moteur/composants (D161/D165/D292–D293). | Le libellé d'extension nourrit l'écran de dépôt et la documentation (D333). Voir §3.2c. |
 | D385 | **`image` = un simple dérivé de `file`** : extensions limitées aux formats d'image, **taille ajustée/retaillée par le moteur** ; `thumbnail` suit la même filiation (D286). | Reclasse le catalogue D361 (thumbnail/image quittent les « contenus ») ; hérite du socle D384, détail au parcours après `enum`. Voir §3.2c. |
+| D386 | **L'entité désigne son champ image** — « pour que, dans une liste, l'image soit sélectionnable » : propriété d'en-tête `image: <champ>` (forme en proposition), le **visage de l'entité**. | Ancre déclarativement le choix par l'image (D284–D285) et la vignette en cellule/widget (D286/D293). Voir §3.2c. |
 
 ---
 
@@ -1464,6 +1465,25 @@ ajustée/retaillée par le moteur** (la vignette automatique D286 en
 découle). `thumbnail` suit la même filiation (D286 — la petite taille).
 Le catalogue D361 se lit désormais avec `thumbnail` et `image` parmi les
 simples ; leur détail viendra au parcours, après `enum`.
+
+**Le champ image de l'entité : la sélection par l'image (D386).**
+**« Dans une entité, nous pouvons associer un champ `image` pour que,
+dans une liste, l'image soit sélectionnable. »** L'entité **désigne l'un
+de ses champs image comme son visage** — la forme en proposition, une
+propriété d'en-tête :
+
+```yaml
+name: customer
+labels: { fr: Client }
+image: logo                       # le champ désigné — le visage de l'entité
+fields:
+  logo:
+    type: image                   # D385
+```
+
+La désignation ancre ce qui était acté côté composants : **le choix d'une
+référence par l'image** (D284–D285 — la liste de sélection présente les
+images), la vignette en cellule et en widget (D286/D293).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7166,3 +7186,8 @@ avant la synthèse Q16).
   `thumbnail` suit (D286). Le catalogue D361 est reclassé : thumbnail et
   image parmi les simples. La proposition `enum` (cinq points) reste en
   attente ; image/thumbnail se détailleront ensuite.
+- **2026-07-24 (suite 12)** — **L'entité désigne son champ image
+  (D386)** : « pour que, dans une liste, l'image soit sélectionnable » —
+  propriété d'en-tête `image: <champ>` (forme en proposition), le visage
+  de l'entité ; ancre le choix par l'image (D284–D285) et la vignette en
+  cellule (D286/D293). `enum` toujours en attente.

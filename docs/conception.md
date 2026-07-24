@@ -447,6 +447,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D372 | **`integer` clos** : **bornes dans le nom du type** (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **octets jamais déclarés** — dimensionnés **en fonction des bornes ou des valeurs affectées**, « un peu comme le mode `auto` du texte ». | La symétrie de D366 ; le moteur dimensionne, le technicien décrit le domaine. Voir §3.2c. |
 | D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` **validé** (« "storage" me convient ») ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
 | D374 | **Le booléen — cycle du tri-état** : « une case à cocher à 3 états : **faux → vrai → nul → faux**… » — chaque clic avance d'un cran ; le nul se ressaisit à la main, valeur de plein droit. | Le tri-état découle de `required` (proposition en arbitrage) ; cohérent avec la doctrine du nul en table (Q47). Voir §3.2c. |
+| D375 | **Le booléen — la recherche par le composant** : « une recherche `strict` s'appuie sur **une case à cocher ou un toggle** » — le champ de recherche est le composant du type ; le tri-état en recherche vise aussi **les lignes nulles** (doctrine Q47). | La ligne de D228 (un filtre par type de données) appliquée à la recherche déclarée. Voir §3.2c. |
 
 ---
 
@@ -1291,6 +1292,15 @@ tri-état), **chaque clic avance d'un cran dans ce cycle** : l'état nul se
 ressaisit à la main, comme les deux autres, sans passer par un
 effacement — le nul de la table est une valeur de plein droit (la
 doctrine Q47), son composant le traite pareil.
+
+**Le booléen : la recherche par le composant (D375).** **« Une recherche
+`strict` s'appuie sur une case à cocher ou un toggle »** — le champ de
+recherche d'un booléen n'est pas une boîte de texte : **c'est le
+composant du type qui sert la recherche** (la ligne de D228 — un filtre
+par type de données). Le tri-état en recherche permet de **viser les
+lignes nulles** (« les filtres peuvent également concerner les lignes
+null si besoin » — la doctrine Q47) ; le toggle, sans nul, filtre
+vrai/faux.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6922,3 +6932,9 @@ avant la synthèse Q16).
   comme les deux autres états. La proposition en cinq points (values des
   libellés, tri-état par `required`, recherche par le libellé, toggle
   sans nul, naissance nul/false) reste en arbitrage pour clore le type.
+- **2026-07-24 (suite)** — **La recherche du booléen par le composant
+  (D375)** : « une recherche `strict` s'appuie sur une case à cocher ou
+  un toggle » — le champ de recherche est le composant du type (la ligne
+  D228), le tri-état en recherche visant aussi les lignes nulles
+  (doctrine Q47). Le point 3 de la proposition est précisé ; les points
+  1, 2, 4, 5 restent à confirmer pour clore le booléen.

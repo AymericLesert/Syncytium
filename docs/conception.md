@@ -451,7 +451,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
 | D377 | **`boolean` clos** : `values` surcharge les libellés VRAI/FAUX/NUL par langue (D281/D130) ; **tri-état découlant de `required`** ; recherche non engagée = aucun filtre (réinitialisation — D228) ; composant case/toggle-sans-nul/énuméré en surcharge ; **naissance : optionnel → nul, obligatoire → `false`** sauf `default: true`. | « Je valide les points. » Le stockage dit la même chose que l'écran. Voir §3.2c. |
 | D378 | **Durée — la virgule du masque** : « une heure en centième, une minute en centième ou une heure en dix-millième » — le masque D276 porte le sexagésimal (`00:00`) **et la notation décimale industrielle** (`0.00 h`, `0.00 min`, `0.0000 h`) ; la conversion fait le pont vers **la valeur canonique unique**. | Le séparateur symbolique rendu selon la langue (D373) ; Excel reçoit le canonique. Voir §3.2c. |
-| D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; `decimal`/`duration` → 0 et nul temporel : notes à confirmer. Voir §3.2c. |
+| D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; nul temporel à la clôture des temporels. Voir §3.2c. |
+| D380 | **Doctrine du tri complétée** : `decimal`/`duration` — **nul ≡ 0** ; **propriété `sort`** au socle pour les types à variantes (`text` : `alphabetical` défaut \| `natural` ; l'énuméré viendra) ; **référence triée sur le libellé affiché**, calculé sur sa valeur. | Le parcours énonce désormais la règle de tri à chaque type. Voir §3.2c. |
 
 ---
 
@@ -1356,11 +1357,19 @@ place fixe au tri — **il a une équivalence par type** : **`boolean` :
 nul < faux < vrai** (un rang propre, sous le faux) ; **`text` : le nul
 correspond à la chaîne vide** ; **`integer` : le nul est égal à 0** — il
 se classe **parmi** les valeurs (entre négatifs et positifs), pas à une
-extrémité. *(Par extension naturelle — notes : `decimal` et `duration` →
-0 ; le nul des temporels à arbitrer avec leur clôture.)* La table reste
-souveraine (Q47) : l'équivalence ne vaut que pour la comparaison
-intrinsèque du type (D125) — le nul stocké demeure nul, l'export le rend
-tel quel.
+extrémité. *(Le nul des temporels : à arbitrer avec leur clôture.)* La
+table reste souveraine (Q47) : l'équivalence ne vaut que pour la
+comparaison intrinsèque du type (D125) — le nul stocké demeure nul,
+l'export le rend tel quel.
+
+**La doctrine du tri complétée (D380).** **(1) `decimal` et `duration` :
+nul ≡ 0** — l'équivalence D379 étendue. **(2) La propriété `sort` entre
+au socle**, pour les seuls types à variantes : `text` →
+`sort: alphabetical` (défaut — la collation D222) ou `sort: natural`
+(les nombres lus comme des nombres : `item2` < `item10`) ; l'énuméré y
+viendra (déclaration \| libellé). **(3) La référence trie sur son libellé
+affiché** (ce que l'utilisateur voit — D216), **le calculé sur sa
+valeur**. Le parcours énonce désormais la règle de tri à chaque type.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7026,3 +7035,9 @@ avant la synthèse Q16).
   `integer` : nul ≡ 0, classé parmi les valeurs. Ma proposition « nul
   toujours en queue » est écartée. En attente : le reste de la doctrine
   du tri, le nul des temporels, les cinq points temporels.
+- **2026-07-24 (suite 6)** — **La doctrine du tri complétée (D380)** :
+  `decimal` et `duration` — nul ≡ 0 ; la propriété `sort` au socle pour
+  les types à variantes (`text` : alphabetical défaut | natural) ; la
+  référence triée sur son libellé affiché, le calculé sur sa valeur.
+  Restent : le nul des temporels (à leur clôture) et les cinq points
+  temporels en attente.

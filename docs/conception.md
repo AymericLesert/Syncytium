@@ -454,6 +454,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; nul temporel à la clôture des temporels. Voir §3.2c. |
 | D380 | **Doctrine du tri complétée** : `decimal`/`duration` — **nul ≡ 0** ; **propriété `sort`** au socle pour les types à variantes (`text` : `alphabetical` défaut \| `natural` ; l'énuméré viendra) ; **référence triée sur le libellé affiché**, calculé sur sa valeur. | Le parcours énonce désormais la règle de tri à chaque type. Voir §3.2c. |
 | D381 | **Temporels clos** (« ok pour tout ») : précision en crochet (`time[hh:mm]`) ; nature en crochet (`datetime[raw]` **défaut** \| `datetime[timestamp]`, précision en 2ᵉ paramètre) ; bornes `min`/`max` en **littéraux ISO** (le dynamique → `validation`) ; **pas de `mask`** (le format vient de la langue D217/D221) ; recherche `strict`/`range`/`mutualizable` ; **nul trié en tête**. | D220/D277–D280 trouvent leur écriture déclarative. Voir §3.2c. |
+| D382 | **La date à précision** (complète D381) : `date[yyyy-mm-dd]` (le jour — défaut), **`date[yyyy-mm]`** (le mois), **`date[yyyy-ww]`** (la semaine — numérotation liée à la langue D279). | Valeur brute (D220), sérialisation ISO à la granularité (`2026-07`, `2026-W30`), calendrier au bon grain. Voir §3.2c. |
 
 ---
 
@@ -1402,6 +1403,15 @@ fields:
   signed_at:
     type: datetime[timestamp]      # instant UTC, affiché selon la langue (D220)
 ```
+
+**La date à précision (D382 — complète D381).** **`date` porte aussi une
+nature dans le crochet** : **`date[yyyy-mm-dd]`** (le jour — le défaut de
+`date`), **`date[yyyy-mm]`** (le mois — l'échéance mensuelle, la
+facturation), **`date[yyyy-ww]`** (la semaine — `ww` le numéro de
+semaine, dont la numérotation suit la langue D279). La valeur reste brute
+(D220), la comparaison chronologique, les bornes et la sérialisation à la
+granularité déclarée (ISO 8601 — `2026-07`, `2026-W30`) ; le calendrier
+se présente au bon grain — année, mois, semaine (D279).
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7080,3 +7090,8 @@ avant la synthèse Q16).
   langue), recherche `strict`/`range`/`mutualizable`, le nul trié en
   tête. Avec D378, `date`/`time`/`datetime`/`duration` sont complets —
   huit types clos sur le parcours. Suivants : `file`, `enum`.
+- **2026-07-24 (suite 8)** — **La date à précision (D382)** : `date`
+  porte aussi une nature dans le crochet — `date[yyyy-mm-dd]` (défaut),
+  `date[yyyy-mm]` (le mois), `date[yyyy-ww]` (la semaine, numérotation
+  liée à la langue D279) ; sérialisation ISO à la granularité, calendrier
+  au bon grain. La proposition `file` (cinq points) reste en attente.

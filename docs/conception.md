@@ -456,6 +456,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D381 | **Temporels clos** (« ok pour tout ») : précision en crochet (`time[hh:mm]`) ; nature en crochet (`datetime[raw]` **défaut** \| `datetime[timestamp]`, précision en 2ᵉ paramètre) ; bornes `min`/`max` en **littéraux ISO** (le dynamique → `validation`) ; **pas de `mask`** (le format vient de la langue D217/D221) ; recherche `strict`/`range`/`mutualizable` ; **nul trié en tête**. | D220/D277–D280 trouvent leur écriture déclarative. Voir §3.2c. |
 | D382 | **La date à précision** (complète D381) : `date[yyyy-mm-dd]` (le jour — défaut), **`date[yyyy-mm]`** (le mois), **`date[yyyy-ww]`** (la semaine — numérotation liée à la langue D279). | Valeur brute (D220), sérialisation ISO à la granularité (`2026-07`, `2026-W30`), calendrier au bon grain. Voir §3.2c. |
 | D383 | **Temporels — la nature la plus fine par défaut** (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`, précision `datetime` la plus fine — `raw` reste le défaut de nature) ; **le `mask` possible**, le masque de la langue (D217/D221) restant le défaut. | Amende le point 4 de D381. Voir §3.2c. |
+| D384 | **`file` clos** : `extensions` en **deux formes** — liste simple ou **mapping à libellés par langue** (`pdf: { fr: facture }` — le document attendu, nommé) ; `quota` acquis (D162/D365) ; **métadonnées jamais déclarées** (D160) ; recherche **nom + mots-clés**, tri sur le nom (nul ≡ chaîne vide) ; le reste au moteur/composants (D161/D165/D292–D293). | Le libellé d'extension nourrit l'écran de dépôt et la documentation (D333). Voir §3.2c. |
 
 ---
 
@@ -1423,6 +1424,35 @@ nature `raw` demeure, elle, le défaut (D381). **(2) « Le masque est
 possible »** — le point 4 de D381 s'assouplit : **par défaut, le masque
 de la langue s'applique** (D217/D221) ; un `mask` déclaré au champ
 surcharge ce défaut, pour l'affichage comme pour la saisie.
+
+**Le type `file` (D384 — clos).** **(1) `extensions`, deux formes** : la
+liste simple — `extensions: [pdf, docx, jpg]` — ou **la forme à
+libellés**, chaque extension nommant par langue **le document attendu** :
+
+```yaml
+fields:
+  invoice:
+    type: file
+    extensions:
+      pdf:  { fr: facture }
+      docx: { fr: document qualité }
+      jpg:  { fr: image }
+    quota: 10MB                    # propriété directe (D365), cascade D162
+  attachment:
+    type: file
+    extensions: [pdf, docx, jpg]   # la forme simple ; absente = tout accepté
+```
+
+*(Le libellé nourrit l'écran de dépôt et la documentation D333 — le champ
+ne dit plus « pdf accepté » mais « la facture ».)* **(2)** `quota` :
+déjà acquis (D162/D365). **(3) Les métadonnées ne se déclarent jamais** —
+nom, taille, MIME, empreinte, mots-clés (D160), le moteur les porte.
+**(4) La recherche porte sur le nom et les mots-clés** (`normalized`,
+`similarity`, `mutualizable` — la conversion en texte d'un fichier est
+son nom) ; **le tri sur le nom**, nul ≡ chaîne vide (D379). **(5) Rien
+d'autre au champ** : déduplication (D165), stockage dual (D161),
+caméra/galerie/visionneuse (D292–D293) relèvent du moteur et des
+composants.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7112,3 +7142,10 @@ avant la synthèse Q16).
   `mask` redevient possible — par défaut, le masque de la langue
   s'applique (D217/D221), le champ pouvant le surcharger. La proposition
   `file` toujours en attente.
+- **2026-07-24 (suite 10)** — **`file` clos (D384)** : `extensions` en
+  deux formes — la liste simple ou **le mapping à libellés par langue**
+  (`pdf: { fr: facture }` — le champ ne dit plus « pdf accepté » mais
+  « la facture », l'écran de dépôt et la documentation D333 s'en
+  nourrissent) ; quota acquis, métadonnées automatiques, recherche
+  nom+mots-clés, tri sur le nom, le reste au moteur. Neuvième type clos.
+  Dernier simple : `enum`.

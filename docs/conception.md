@@ -451,6 +451,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
 | D377 | **`boolean` clos** : `values` surcharge les libellés VRAI/FAUX/NUL par langue (D281/D130) ; **tri-état découlant de `required`** ; recherche non engagée = aucun filtre (réinitialisation — D228) ; composant case/toggle-sans-nul/énuméré en surcharge ; **naissance : optionnel → nul, obligatoire → `false`** sauf `default: true`. | « Je valide les points. » Le stockage dit la même chose que l'écran. Voir §3.2c. |
 | D378 | **Durée — la virgule du masque** : « une heure en centième, une minute en centième ou une heure en dix-millième » — le masque D276 porte le sexagésimal (`00:00`) **et la notation décimale industrielle** (`0.00 h`, `0.00 min`, `0.0000 h`) ; la conversion fait le pont vers **la valeur canonique unique**. | Le séparateur symbolique rendu selon la langue (D373) ; Excel reçoit le canonique. Voir §3.2c. |
+| D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; `decimal`/`duration` → 0 et nul temporel : notes à confirmer. Voir §3.2c. |
 
 ---
 
@@ -1349,6 +1350,17 @@ minute en centièmes), `"0.0000 h"` (l'heure en dix-millièmes — la
 comptabilité industrielle du temps). **L'option de conversion (D276)**
 fait le pont : la saisie dans une notation, **la valeur canonique unique**
 au stockage et aux exports (Excel).
+
+**Le tri et le nul : l'équivalence par type (D379).** Le nul n'a pas une
+place fixe au tri — **il a une équivalence par type** : **`boolean` :
+nul < faux < vrai** (un rang propre, sous le faux) ; **`text` : le nul
+correspond à la chaîne vide** ; **`integer` : le nul est égal à 0** — il
+se classe **parmi** les valeurs (entre négatifs et positifs), pas à une
+extrémité. *(Par extension naturelle — notes : `decimal` et `duration` →
+0 ; le nul des temporels à arbitrer avec leur clôture.)* La table reste
+souveraine (Q47) : l'équivalence ne vaut que pour la comparaison
+intrinsèque du type (D125) — le nul stocké demeure nul, l'export le rend
+tel quel.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7006,3 +7018,11 @@ avant la synthèse Q16).
   (stockage, exports). Restent les cinq autres points temporels
   (précision en crochet, raw/timestamp, bornes ISO, pas de mask
   date/heure, recherche range).
+- **2026-07-24 (suite 5)** — **« Dans les types, il manque la règle du
+  tri »** : doctrine proposée (comparaison intrinsèque D125 énoncée à
+  chaque type, propriété `sort` pour les variantes, référence triée sur
+  son libellé) et **le nul arbitré (D379)** : une **équivalence par
+  type** — `boolean` : nul < faux < vrai ; `text` : nul ≡ chaîne vide ;
+  `integer` : nul ≡ 0, classé parmi les valeurs. Ma proposition « nul
+  toujours en queue » est écartée. En attente : le reste de la doctrine
+  du tri, le nul des temporels, les cinq points temporels.

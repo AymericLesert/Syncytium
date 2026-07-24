@@ -460,6 +460,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D385 | **`image` = un simple dérivé de `file`** : extensions limitées aux formats d'image, **taille ajustée/retaillée par le moteur** ; `thumbnail` suit la même filiation (D286). | Reclasse le catalogue D361 (thumbnail/image quittent les « contenus ») ; hérite du socle D384, détail au parcours après `enum`. Voir §3.2c. |
 | D386 | **L'entité désigne son champ image** — « pour que, dans une liste, l'image soit sélectionnable » : propriété d'en-tête `image: <champ>` (forme en proposition), le **visage de l'entité**. | Ancre déclarativement le choix par l'image (D284–D285) et la vignette en cellule/widget (D286/D293). Voir §3.2c. |
 | D387 | **`enum`** : `values` gagne **`description`** (l'infobulle, en complément du libellé) ; **ordre de déclaration = présentation + tri** (`sort: declaration` défaut \| `label`) ; **stockage numérique** — clé numérique → entier, clé chaîne → **transformée en valeur numérique** ; attention aux migrations : « l'ajout intercalé d'une valeur ». | Résolution en proposition : code interne **stable**, l'intercalé reçoit un code nouveau (présentation ≠ dictionnaire de stockage) — pour le domaine migrations. Voir §3.2c. |
+| D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
 
 ---
 
@@ -1513,6 +1514,14 @@ reçoit un code **nouveau**, jamais une renumérotation — l'ordre de
 déclaration régit la présentation, le dictionnaire régit le stockage, la
 donnée survit à la réorganisation du fichier ; à consigner au domaine
 migrations.)*
+
+**`enum` clos (D388).** Les deux derniers points validés : **(4) la
+recherche par le composant** — une liste de sélection du jeu de valeurs
+(D228), **multi-sélection en recherche**, `mutualizable` par le libellé
+(D369) ; **(5) le nul trié en tête**, et la ligne vide d'un champ
+optionnel peut recevoir son libellé via une entrée `null:` dans `values`
+(le patron booléen D377). Les dix simples d'origine (D118/D121) sont
+détaillés — restent `image`/`thumbnail` (D385) avant les composés.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7229,3 +7238,9 @@ avant la synthèse Q16).
   résolution en proposition : codes internes stables, l'intercalé reçoit
   un code nouveau). Restent les points 4–5 (recherche par le composant,
   le nul) pour clore `enum`.
+- **2026-07-24 (suite 14)** — **`enum` clos (D388)** : la recherche par
+  le composant (liste de sélection, multi-sélection, mutualizable par le
+  libellé) et le nul (en tête, entrée `null:` pour la ligne vide). **Les
+  dix simples d'origine sont détaillés** — text, integer, decimal,
+  boolean, date, time, datetime, duration, file, enum. Suivants :
+  `image`/`thumbnail`, puis les composés.

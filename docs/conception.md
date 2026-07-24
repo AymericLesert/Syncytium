@@ -449,6 +449,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D374 | **Le booléen — cycle du tri-état** : « une case à cocher à 3 états : **faux → vrai → nul → faux**… » — chaque clic avance d'un cran ; le nul se ressaisit à la main, valeur de plein droit. | Le tri-état découle de `required` (proposition en arbitrage) ; cohérent avec la doctrine du nul en table (Q47). Voir §3.2c. |
 | D375 | **Le booléen — la recherche par le composant** : « une recherche `strict` s'appuie sur **une case à cocher ou un toggle** » — le champ de recherche est le composant du type ; le tri-état en recherche vise aussi **les lignes nulles** (doctrine Q47). | La ligne de D228 (un filtre par type de données) appliquée à la recherche déclarée. Voir §3.2c. |
 | D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
+| D377 | **`boolean` clos** : `values` surcharge les libellés VRAI/FAUX/NUL par langue (D281/D130) ; **tri-état découlant de `required`** ; recherche non engagée = aucun filtre (réinitialisation — D228) ; composant case/toggle-sans-nul/énuméré en surcharge ; **naissance : optionnel → nul, obligatoire → `false`** sauf `default: true`. | « Je valide les points. » Le stockage dit la même chose que l'écran. Voir §3.2c. |
 
 ---
 
@@ -1310,6 +1311,31 @@ recherche garde ses trois états même quand la donnée n'en a que deux —
 **la position nulle signifie « aucun filtrage »**, tout passe. *(Le sens
 de la position nulle suit donc la donnée : champ optionnel → elle vise
 les lignes nulles (D375) ; champ obligatoire → elle dit « tous ».)*
+
+**Le type `boolean` (D377 — clos).** Les points sont validés : **(1)
+`values` surcharge les libellés des trois états** — VRAI/FAUX/NUL (D281),
+par langue — servant l'affichage, le survol, l'export (D130) et la
+conversion en texte ; **(2) le tri-état n'est jamais déclaré : il découle
+de `required`** ; **(3)** la recherche par le composant (D375–D376), et
+**la recherche non engagée ne filtre rien** — la réinitialisation
+désengage la case (l'esprit du filtrage vivant D228), aucun quatrième
+état ; **(4) le composant** : case à cocher par défaut, `toggle` sans
+état nul, énuméré/radios en surcharge (D281) ; **(5) la naissance** :
+l'optionnel naît **nul**, l'obligatoire naît **`false`** sauf
+`default: true` — le stockage dit la même chose que l'écran.
+
+```yaml
+fields:
+  active:
+    type: boolean
+    required: true                 # deux états — toggle possible
+    values:
+      true:  { labels: { fr: Actif } }
+      false: { labels: { fr: Inactif } }
+  audited:
+    type: boolean                  # optionnel — tri-état, naît nul (D374)
+    searchable: strict             # case tri-état en recherche (D375)
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6952,3 +6978,9 @@ avant la synthèse Q16).
   position nulle **filtre Vrai & Faux** (aucun filtrage). Le sens de la
   position nulle suit la donnée : optionnel → les lignes nulles (D375),
   obligatoire → « tous ».
+- **2026-07-24 (suite 3)** — **`boolean` clos (D377)** : « je valide les
+  points » — `values` des libellés par langue, tri-état par `required`,
+  la recherche non engagée qui ne filtre rien (réinitialisation, esprit
+  D228), les composants D281, la naissance (optionnel → nul, obligatoire
+  → `false` sauf `default: true`). Quatrième type complet (D374–D377).
+  Suivants : les temporels — `date`, `time`, `datetime`, `duration`.

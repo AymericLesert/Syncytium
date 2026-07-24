@@ -457,6 +457,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D382 | **La date à précision** (complète D381) : `date[yyyy-mm-dd]` (le jour — défaut), **`date[yyyy-mm]`** (le mois), **`date[yyyy-ww]`** (la semaine — numérotation liée à la langue D279). | Valeur brute (D220), sérialisation ISO à la granularité (`2026-07`, `2026-W30`), calendrier au bon grain. Voir §3.2c. |
 | D383 | **Temporels — la nature la plus fine par défaut** (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`, précision `datetime` la plus fine — `raw` reste le défaut de nature) ; **le `mask` possible**, le masque de la langue (D217/D221) restant le défaut. | Amende le point 4 de D381. Voir §3.2c. |
 | D384 | **`file` clos** : `extensions` en **deux formes** — liste simple ou **mapping à libellés par langue** (`pdf: { fr: facture }` — le document attendu, nommé) ; `quota` acquis (D162/D365) ; **métadonnées jamais déclarées** (D160) ; recherche **nom + mots-clés**, tri sur le nom (nul ≡ chaîne vide) ; le reste au moteur/composants (D161/D165/D292–D293). | Le libellé d'extension nourrit l'écran de dépôt et la documentation (D333). Voir §3.2c. |
+| D385 | **`image` = un simple dérivé de `file`** : extensions limitées aux formats d'image, **taille ajustée/retaillée par le moteur** ; `thumbnail` suit la même filiation (D286). | Reclasse le catalogue D361 (thumbnail/image quittent les « contenus ») ; hérite du socle D384, détail au parcours après `enum`. Voir §3.2c. |
 
 ---
 
@@ -1112,9 +1113,9 @@ catalogue, avec les facettes de chacun :
   `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
   (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
   des identifiants du domaine, pas des mots à traduire.
-- **Contenus** : `thumbnail`, `image` (D286 — vignette automatique),
-  `communication` (D167 — défauts : visibilité maximale, immuable, sans
-  pièces jointes, sans notification).
+- **Contenus** : `communication` (D167 — défauts : visibilité maximale,
+  immuable, sans pièces jointes, sans notification). *(`thumbnail` et
+  `image` : reclassés parmi les simples, dérivés de `file` — D385.)*
 - **Structurels** : `reference` (`to`, `filter`), la liste (D362).
 
 **La liste : `list of` (D362).** La syntaxe **`type: list of text`** est
@@ -1453,6 +1454,16 @@ son nom) ; **le tri sur le nom**, nul ≡ chaîne vide (D379). **(5) Rien
 d'autre au champ** : déduplication (D165), stockage dual (D161),
 caméra/galerie/visionneuse (D292–D293) relèvent du moteur et des
 composants.
+
+**`image` : un simple dérivé de `file` (D385).** **« Nous aurons un
+autre type simple `image` qui dérive de fichiers — les extensions sont
+limitées, la taille de l'image est ajustée/retaillée… »** Le type hérite
+du socle de `file` (D384 — quota, métadonnées, recherche nom+mots-clés)
+et **le restreint** : extensions bornées aux formats d'image, **la taille
+ajustée/retaillée par le moteur** (la vignette automatique D286 en
+découle). `thumbnail` suit la même filiation (D286 — la petite taille).
+Le catalogue D361 se lit désormais avec `thumbnail` et `image` parmi les
+simples ; leur détail viendra au parcours, après `enum`.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7149,3 +7160,9 @@ avant la synthèse Q16).
   nourrissent) ; quota acquis, métadonnées automatiques, recherche
   nom+mots-clés, tri sur le nom, le reste au moteur. Neuvième type clos.
   Dernier simple : `enum`.
+- **2026-07-24 (suite 11)** — **`image`, un simple dérivé de `file`
+  (D385)** : « les extensions sont limitées, la taille de l'image est
+  ajustée/retaillée… » — hérite du socle D384 et le restreint ;
+  `thumbnail` suit (D286). Le catalogue D361 est reclassé : thumbnail et
+  image parmi les simples. La proposition `enum` (cinq points) reste en
+  attente ; image/thumbnail se détailleront ensuite.

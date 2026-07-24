@@ -453,6 +453,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D378 | **Durée — la virgule du masque** : « une heure en centième, une minute en centième ou une heure en dix-millième » — le masque D276 porte le sexagésimal (`00:00`) **et la notation décimale industrielle** (`0.00 h`, `0.00 min`, `0.0000 h`) ; la conversion fait le pont vers **la valeur canonique unique**. | Le séparateur symbolique rendu selon la langue (D373) ; Excel reçoit le canonique. Voir §3.2c. |
 | D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; nul temporel à la clôture des temporels. Voir §3.2c. |
 | D380 | **Doctrine du tri complétée** : `decimal`/`duration` — **nul ≡ 0** ; **propriété `sort`** au socle pour les types à variantes (`text` : `alphabetical` défaut \| `natural` ; l'énuméré viendra) ; **référence triée sur le libellé affiché**, calculé sur sa valeur. | Le parcours énonce désormais la règle de tri à chaque type. Voir §3.2c. |
+| D381 | **Temporels clos** (« ok pour tout ») : précision en crochet (`time[hh:mm]`) ; nature en crochet (`datetime[raw]` **défaut** \| `datetime[timestamp]`, précision en 2ᵉ paramètre) ; bornes `min`/`max` en **littéraux ISO** (le dynamique → `validation`) ; **pas de `mask`** (le format vient de la langue D217/D221) ; recherche `strict`/`range`/`mutualizable` ; **nul trié en tête**. | D220/D277–D280 trouvent leur écriture déclarative. Voir §3.2c. |
 
 ---
 
@@ -1370,6 +1371,37 @@ au socle**, pour les seuls types à variantes : `text` →
 viendra (déclaration \| libellé). **(3) La référence trie sur son libellé
 affiché** (ce que l'utilisateur voit — D216), **le calculé sur sa
 valeur**. Le parcours énonce désormais la règle de tri à chaque type.
+
+**Les temporels (D381 — clôt `date`, `time`, `datetime`, `duration`).**
+« Ok pour tout » — les six points : **(1)** `time` : **la précision dans
+le crochet** — `time[hh]`, `time[hh:mm]`, `time[hh:mm:ss]`,
+`time[hh:mm:ss.sss]` (D277) ; **(2)** `datetime` : **la nature dans le
+crochet** — `datetime[raw]` (valeur civile, **le défaut**) ou
+`datetime[timestamp]` (instant UTC, affiché selon la langue — D220), la
+précision de la partie heure en second paramètre
+(`datetime[timestamp, hh:mm]`) ; **(3)** les bornes `min`/`max` en
+**littéraux ISO** — les bornes dynamiques (« pas dans le passé »)
+passent par `validation` (D90), jamais par les facettes ; **(4)** **pas
+de `mask`** : le format d'affichage vient de la langue (D217/D221), les
+raccourcis, calendriers et horloges sont des composants (D278–D280) ;
+**(5)** la recherche : `strict`, **`range` en usage roi** (la plage de
+dates), `mutualizable` par la forme affichée (D369) ; **(6)** **le nul
+temporel se trie en tête** — avant toute valeur, le pendant du
+`nul < faux` booléen (D379).
+
+```yaml
+fields:
+  due_date:
+    type: date
+    min: 2020-01-01                # littéral ISO — le dynamique passe par validation
+    searchable: range              # la plage de dates
+  opening:
+    type: time[hh:mm]              # la précision dans le crochet (D277)
+  meeting:
+    type: datetime[raw, hh:mm]     # valeur civile (défaut), précision minute
+  signed_at:
+    type: datetime[timestamp]      # instant UTC, affiché selon la langue (D220)
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7041,3 +7073,10 @@ avant la synthèse Q16).
   référence triée sur son libellé affiché, le calculé sur sa valeur.
   Restent : le nul des temporels (à leur clôture) et les cinq points
   temporels en attente.
+- **2026-07-24 (suite 7)** — **Les temporels clos (D381)** : « ok pour
+  tout » — la précision et la nature dans le crochet (`time[hh:mm]`,
+  `datetime[raw]` défaut / `datetime[timestamp]`), bornes ISO (le
+  dynamique par `validation`), pas de `mask` (le format vient de la
+  langue), recherche `strict`/`range`/`mutualizable`, le nul trié en
+  tête. Avec D378, `date`/`time`/`datetime`/`duration` sont complets —
+  huit types clos sur le parcours. Suivants : `file`, `enum`.

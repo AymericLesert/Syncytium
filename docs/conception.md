@@ -462,6 +462,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D387 | **`enum`** : `values` gagne **`description`** (l'infobulle, en complément du libellé) ; **ordre de déclaration = présentation + tri** (`sort: declaration` défaut \| `label`) ; **stockage numérique** — clé numérique → entier, clé chaîne → **transformée en valeur numérique** ; attention aux migrations : « l'ajout intercalé d'une valeur ». | Résolution en proposition : code interne **stable**, l'intercalé reçoit un code nouveau (présentation ≠ dictionnaire de stockage) — pour le domaine migrations. Voir §3.2c. |
 | D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
 | D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
+| D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
 
 ---
 
@@ -1537,6 +1538,13 @@ l'héritage `file` intégral** — quota, métadonnées, déduplication,
 recherche nom + mots-clés, tri sur le nom ; **(5) rien d'autre au
 champ** — caméra/galerie, visionneuse selon le terminal (D293), rendu
 PDF = l'image (D257).
+
+**Le placeholder d'une image : une icône (D390).** **« Le placeholder
+d'une image est une icône pour matérialiser le fond d'une image non
+définie. »** La propriété du socle (D364) s'interprète par type : la
+valeur de démonstration pour le texte et les nombres, **une icône de
+fond pour `image` et `thumbnail`** — `placeholder: package.png`, puisée
+dans `resources/` (D346), affichée tant que l'image n'est pas déposée.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7265,3 +7273,8 @@ avant la synthèse Q16).
   au settings, `thumbnail` = la petite taille seule, extensions du jeu
   image, héritage `file` intégral. **Les simples sont au complet** —
   place aux composés (D122).
+- **2026-07-25** — **Le placeholder d'une image (D390)** : « une icône
+  pour matérialiser le fond d'une image non définie » — le placeholder
+  du socle s'interprète par type (valeur de démonstration pour texte et
+  nombres, icône de fond ← `resources/` pour image/thumbnail). Rappel
+  complet des douze simples livré avant de lancer les composés.

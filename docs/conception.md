@@ -448,6 +448,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` **validé** (« "storage" me convient ») ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
 | D374 | **Le booléen — cycle du tri-état** : « une case à cocher à 3 états : **faux → vrai → nul → faux**… » — chaque clic avance d'un cran ; le nul se ressaisit à la main, valeur de plein droit. | Le tri-état découle de `required` (proposition en arbitrage) ; cohérent avec la doctrine du nul en table (Q47). Voir §3.2c. |
 | D375 | **Le booléen — la recherche par le composant** : « une recherche `strict` s'appuie sur **une case à cocher ou un toggle** » — le champ de recherche est le composant du type ; le tri-état en recherche vise aussi **les lignes nulles** (doctrine Q47). | La ligne de D228 (un filtre par type de données) appliquée à la recherche déclarée. Voir §3.2c. |
+| D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
 
 ---
 
@@ -1301,6 +1302,14 @@ par type de données). Le tri-état en recherche permet de **viser les
 lignes nulles** (« les filtres peuvent également concerner les lignes
 null si besoin » — la doctrine Q47) ; le toggle, sans nul, filtre
 vrai/faux.
+
+**Le booléen `required` : le troisième état dit « tous » (D376).**
+**« Pour un booléen sans valeur nulle (`required`), la recherche `strict`
+avec une case à cocher : "null" filtre Vrai & Faux. »** La case de
+recherche garde ses trois états même quand la donnée n'en a que deux —
+**la position nulle signifie « aucun filtrage »**, tout passe. *(Le sens
+de la position nulle suit donc la donnée : champ optionnel → elle vise
+les lignes nulles (D375) ; champ obligatoire → elle dit « tous ».)*
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -6938,3 +6947,8 @@ avant la synthèse Q16).
   D228), le tri-état en recherche visant aussi les lignes nulles
   (doctrine Q47). Le point 3 de la proposition est précisé ; les points
   1, 2, 4, 5 restent à confirmer pour clore le booléen.
+- **2026-07-24 (suite 2)** — **Le troisième état dit « tous » (D376)** :
+  pour un booléen `required`, la case de recherche tri-état demeure — sa
+  position nulle **filtre Vrai & Faux** (aucun filtrage). Le sens de la
+  position nulle suit la donnée : optionnel → les lignes nulles (D375),
+  obligatoire → « tous ».

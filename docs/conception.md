@@ -464,6 +464,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
 | D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
 | D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
+| D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
 
 ---
 
@@ -1584,6 +1585,16 @@ s'ajoutent** — et chacun est arbitré :
 
 Les autres — `email`, `url`, `vat_number`, `siren`, `siret`, `iban`,
 `bic` — vivent de la règle générale : la validation intégrée suffit.
+
+**La géolocalisation : la zone de texte associée (D392).** **« La
+géolocalisation, en plus des coordonnées, peut être associée à une zone
+de texte »** — l'adresse ou le lieu nommé, porté par la valeur
+(alimenté à la saisie ou par le géocodage D294). **« La recherche
+mutualisable s'appuie sur cette valeur ; si cette valeur n'est pas
+présente, la standardisation des coordonnées en chaîne de caractères
+servira pour ce type de recherche. »** La conversion en texte du type
+(D369) est ainsi définie : **le texte associé, sinon les coordonnées
+standardisées**.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7333,3 +7344,9 @@ avant la synthèse Q16).
 - **2026-07-25 (suite 2)** — **`focus` validé** (« le focus de la
   géolocalisation est au champ ou hérité du setting » — la cascade
   D360) : les composés sont clos. Suivant : `communication` (D167).
+- **2026-07-25 (suite 3)** — **La zone de texte de la géolocalisation
+  (D392)** : la valeur porte, en plus des coordonnées, un texte associé
+  (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie sur ce
+  texte, sinon sur la standardisation des coordonnées en chaîne** — la
+  conversion en texte (D369) du type est définie. Rappel complet des
+  composés livré.

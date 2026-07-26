@@ -465,6 +465,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
 | D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
 | D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
+| D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166). | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
 
 ---
 
@@ -1595,6 +1596,31 @@ présente, la standardisation des coordonnées en chaîne de caractères
 servira pour ce type de recherche. »** La conversion en texte du type
 (D369) est ainsi définie : **le texte associé, sinon les coordonnées
 standardisées**.
+
+**Le type `communication` (D393 — clos).** **(1) « Pas de visibilité
+"maximale" : elle se cale sur les niveaux de confidentialité »** — la
+visibilité du fil est portée par la confidentialité (D25, le socle
+D364), pas de propriété séparée. **(2) `attachments` peut faire
+référence à `file`, `image` ou `thumbnail`** — `attachments: false`
+(défaut) ou le type d'attaché, **avec les propriétés vues
+précédemment** (extensions, quota, dimensions en crochet — D384/D389)
+posées à plat sur le champ. **(3) Amende D295 — la cellule de liste** :
+**une communication apparaît comme une petite icône (thumbnail)** ; **au
+survol, le ou les derniers échanges sont résumés — la taille est
+paramétrable, en nombre de lignes** *(forme en proposition :
+`preview: 3`)*. **(4) Non listable** — confirmé (D166) : un canal = un
+champ. L'auteur (compte D77) et l'horodatage de chaque message restent
+générés, jamais déclarés.
+
+```yaml
+history:
+  type: communication
+  confidentiality: protected     # la visibilité du fil (D25) — le socle suffit
+  attachments: image             # false (défaut) | file | image | thumbnail
+  quota: 5MB                     # le kit du type d'attaché, à plat (D365)
+  notification: true             # opt-in — IHM ou mail (D108–D110)
+  preview: 3                     # le résumé au survol, en lignes (proposition)
+```
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -4948,9 +4974,11 @@ re-vérifier à la pile technique (Q7).
 **La communication (D295).** L'onglet acté (D167/D186) : fil chronologique
 (auteur, horodatage, contenu), **saisie du nouveau message en bas**,
 messages **immuables**, pièces jointes si activées, notifications opt-in
-(D108–D110) ; sur smartphone, **le fil en plein écran**. **Pas d'affichage
-dans une cellule de liste.** PDF = le fil complet si le bloc est inclus au
-gabarit ; Excel = exclu (D236).
+(D108–D110) ; sur smartphone, **le fil en plein écran**. ~~Pas d'affichage
+dans une cellule de liste.~~ **Amendé par D393** : en liste, **une petite
+icône (thumbnail)** — au survol, **le ou les derniers échanges résumés**
+(taille paramétrable en nombre de lignes). PDF = le fil complet si le
+bloc est inclus au gabarit ; Excel = exclu (D236).
 
 **La liste (D296).** Modification : **multi-sélection** (cases ou tags)
 pour les énumérés, **éditeur de liste** sinon (ajouter / retirer /
@@ -7350,3 +7378,12 @@ avant la synthèse Q16).
   texte, sinon sur la standardisation des coordonnées en chaîne** — la
   conversion en texte (D369) du type est définie. Rappel complet des
   composés livré.
+- **2026-07-25 (suite 4)** — **`communication` clos (D393)** : la
+  visibilité se cale sur les niveaux de confidentialité (pas de
+  « maximale » — le socle D25/D364 suffit) ; `attachments` référence
+  `file`, `image` ou `thumbnail` avec leur kit à plat ; **amende D295** :
+  en cellule de liste, une petite icône (thumbnail), au survol les
+  derniers échanges résumés — taille paramétrable en nombre de lignes
+  (`preview:` en proposition) ; non listable confirmé. Reste en
+  suspens : la recherche sur le contenu des messages (proposée, non
+  arbitrée).

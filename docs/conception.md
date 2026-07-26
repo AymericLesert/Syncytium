@@ -463,6 +463,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
 | D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
 | D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
+| D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` en proposition (cascade D360). Voir §3.2c. |
 
 ---
 
@@ -1545,6 +1546,44 @@ définie. »** La propriété du socle (D364) s'interprète par type : la
 valeur de démonstration pour le texte et les nombres, **une icône de
 fond pour `image` et `thumbnail`** — `placeholder: package.png`, puisée
 dans `resources/` (D346), affichée tant que l'image n'est pas déposée.
+
+**Les composés (D391).** La règle générale est actée — **le composé
+hérite du kit déclaratif entier de sa base** (crochet, `mask`,
+`searchable`, `sort`), **sa validation est intégrée** (Luhn, mod 97, la
+conversion faillible D120 — jamais à déclarer), **ses facettes propres
+s'ajoutent** — et chacun est arbitré :
+
+1. **`amount`** : les devises autorisées **paramétrables** —
+   `currencies: [EUR, USD]` — **défaut : toutes les devises de la norme
+   ISO** (D123/ISO 4217).
+2. **`percentage`** : **les bornes permises, défaut 0..100** — « mais
+   dans certains cas, le % peut être < 0 ou > 100 : **dans ce cas, la
+   représentation varie** » (la jauge D274 vaut pour le cadre 0..100 ;
+   hors cadre, le composant s'adapte).
+3. **`measure`** : les unités autorisées paramétrables, **trois
+   régimes** — **statiques** (`units: [kg, g, t]`), **table de
+   référence** (`units: stock.unit` — l'adressage D363), ou **libres** ;
+   **défaut : libres**.
+4. **`phone`** : le numéro **national ou international, paramétrable** —
+   **défaut : le national seul**.
+5. **`geolocation` — amende D125** : **« le tri s'effectue en fonction
+   de la distance (à vol d'oiseau) liée à une focale définie dans la
+   configuration »** — **défaut : la localisation courante** (D291),
+   sinon **une adresse** (géocodée D294) **ou des coordonnées** ; **la
+   recherche trie par la distance entre un point de recherche et la
+   valeur**. L'ordre n'est pas intrinsèque — il est **relatif à la
+   focale**. *(Forme en proposition : `focus:` au champ, hérité du
+   settings — la cascade D360.)*
+6. **`period` hérite du format d'une date/heure** — le crochet temporel
+   (D381–D383) : `period[yyyy-mm]`, `period[yyyy-ww]`,
+   `period[yyyy-mm-dd, hh:mm]`… début ≤ fin intégré, `range` en usage
+   roi.
+7. **Le nul de chaque composé se trie en premier** — la règle composée
+   prime l'équivalence de la base (l'`amount` nul avant les montants, là
+   où le `decimal` nul vaut 0 — D379).
+
+Les autres — `email`, `url`, `vat_number`, `siren`, `siret`, `iban`,
+`bic` — vivent de la règle générale : la validation intégrée suffit.
 
 **La conservation et l'ordre des numéros (D345).** **Les versions
 dépréciées et interdites sont conservées** — pour des questions
@@ -7278,3 +7317,16 @@ avant la synthèse Q16).
   du socle s'interprète par type (valeur de démonstration pour texte et
   nombres, icône de fond ← `resources/` pour image/thumbnail). Rappel
   complet des douze simples livré avant de lancer les composés.
+- **2026-07-25 (suite)** — **Les composés arbitrés (D391)** : la règle
+  générale actée (héritage du kit de la base, validation intégrée,
+  facettes propres) ; `amount` — devises paramétrables, défaut tout
+  l'ISO ; `percentage` — bornes, défaut 0..100, hors cadre la
+  représentation varie ; `measure` — unités statiques / table de
+  référence / libres (défaut) ; `phone` — national (défaut) ou
+  international ; **`geolocation` devient triable par la distance à vol
+  d'oiseau vers une focale** (défaut : la localisation courante ; sinon
+  adresse ou coordonnées — amende D125), la recherche triant par la
+  distance à un point de recherche ; `period` hérite du format
+  date/heure ; **le nul de chaque composé en premier** (prime
+  l'équivalence de la base D379). Les sept à validation intégrée vivent
+  de la règle générale.

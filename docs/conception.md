@@ -463,7 +463,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
 | D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
 | D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
-| D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` en proposition (cascade D360). Voir §3.2c. |
+| D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
 
 ---
 
@@ -1572,8 +1572,8 @@ s'ajoutent** — et chacun est arbitré :
    sinon **une adresse** (géocodée D294) **ou des coordonnées** ; **la
    recherche trie par la distance entre un point de recherche et la
    valeur**. L'ordre n'est pas intrinsèque — il est **relatif à la
-   focale**. *(Forme en proposition : `focus:` au champ, hérité du
-   settings — la cascade D360.)*
+   focale**. **La forme est validée : « le focus de la géolocalisation
+   est au champ ou hérité du setting »** — `focus:`, la cascade D360.
 6. **`period` hérite du format d'une date/heure** — le crochet temporel
    (D381–D383) : `period[yyyy-mm]`, `period[yyyy-ww]`,
    `period[yyyy-mm-dd, hh:mm]`… début ≤ fin intégré, `range` en usage
@@ -7330,3 +7330,6 @@ avant la synthèse Q16).
   date/heure ; **le nul de chaque composé en premier** (prime
   l'équivalence de la base D379). Les sept à validation intégrée vivent
   de la règle générale.
+- **2026-07-25 (suite 2)** — **`focus` validé** (« le focus de la
+  géolocalisation est au champ ou hérité du setting » — la cascade
+  D360) : les composés sont clos. Suivant : `communication` (D167).

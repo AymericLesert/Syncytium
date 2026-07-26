@@ -465,7 +465,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
 | D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
 | D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
-| D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166). | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
+| D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166) ; **la recherche porte sur le contenu des messages**. | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
 
 ---
 
@@ -1610,7 +1610,9 @@ survol, le ou les derniers échanges sont résumés — la taille est
 paramétrable, en nombre de lignes** *(forme en proposition :
 `preview: 3`)*. **(4) Non listable** — confirmé (D166) : un canal = un
 champ. L'auteur (compte D77) et l'horodatage de chaque message restent
-générés, jamais déclarés.
+générés, jamais déclarés. **(5) « La recherche porte sur le contenu des
+messages »** — `normalized`, `similarity`, `mutualizable` : la
+conversion en texte d'un fil est son contenu (D369).
 
 ```yaml
 history:
@@ -7387,3 +7389,7 @@ avant la synthèse Q16).
   (`preview:` en proposition) ; non listable confirmé. Reste en
   suspens : la recherche sur le contenu des messages (proposée, non
   arbitrée).
+- **2026-07-25 (suite 5)** — **« La recherche porte sur le contenu des
+  messages »** : D393 complété en place — `communication` est
+  entièrement clos. Suivants : la `reference` en détail, puis les
+  compositions (l'agrégat D116).

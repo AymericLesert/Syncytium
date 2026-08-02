@@ -466,6 +466,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
 | D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
 | D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166) ; **la recherche porte sur le contenu des messages**. | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
+| D394 | **Référence = association origine → destination** : l'origine **porte le champ** (le nom chez elle), le lien naturel et sémantique vers la destination ; **l'accès retour (destination → origine) jamais déclaré — Syncytium le propose**. | « Une relation parent-enfant (avec un seul enfant) » — la ligne D353 ; éclaire D216 (la liste nommée du 1-N habille un accès que le moteur possède). Voir §3.2c. |
+| D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` et accès `origin.` en proposition. Voir §3.2c. |
 
 ---
 
@@ -1613,6 +1615,45 @@ champ. L'auteur (compte D77) et l'horodatage de chaque message restent
 générés, jamais déclarés. **(5) « La recherche porte sur le contenu des
 messages »** — `normalized`, `similarity`, `mutualizable` : la
 conversion en texte d'un fil est son contenu (D369).
+
+**La référence : l'origine pointe, la destination accède (D394).** **« La
+référence est une association entre une entité d'origine et une entité
+de destination »** : **l'entité d'origine porte le champ** — le nom de
+la référence est chez elle — et **« le lien se fait naturellement et par
+sémantique de l'origine vers la destination »** ; « une référence peut
+être vue comme une relation parent-enfant (avec un seul enfant) » — la
+ligne de D353 : celui qui pointe porte. **« Le lien de la destination
+vers l'origine ne fait pas appel à la définition par l'utilisateur d'un
+champ dédié : Syncytium doit le proposer »** — **l'accès retour est
+automatique**, offert à la destination sans que le technicien ne
+l'écrive. *(Ce qui éclaire D216 : la « liste nommée » du 1-N est
+l'habillage d'un accès que le moteur possède déjà.)*
+
+**Le filtre de référence : deux régimes et un rapport (D395).** **La
+condition de sélection s'évalue depuis l'entité destination** (ses
+champs ; l'enregistrement d'origine accessible — *forme en proposition :
+`origin.`*). **Le filtre fonctionne à la sélection** ; **le contrôle de
+conformité dans le temps est soumis à une option** : soit **la condition
+est immuable** — la règle doit tenir (le responsable appartenant à la
+même société que l'emploi) ; brisée, « une mise à jour sera à prévoir
+pour valider la donnée » — soit **elle est liée à la sélection
+seulement** (la semaine d'un calendrier dont le statut évolue au cours
+du temps). Et **le filtre sait identifier les éléments qui ne respectent
+plus la condition** — modification du filtre, référence à un champ
+calculé qui dérive… — **sous forme d'un rapport**.
+
+```yaml
+responsible:
+  type: reference
+  to: hr.employee
+  filter: company = origin.company   # évaluée depuis la destination
+  check: immutable                   # brisée → donnée à valider, rapport
+week:
+  type: reference
+  to: planning.week
+  filter: status = "open"
+  check: selection                   # défaut — la règle vaut au moment du choix
+```
 
 ```yaml
 history:
@@ -7393,3 +7434,16 @@ avant la synthèse Q16).
   messages »** : D393 complété en place — `communication` est
   entièrement clos. Suivants : la `reference` en détail, puis les
   compositions (l'agrégat D116).
+- **2026-07-26** — **La référence recadrée (D394–D395)**. Le programme
+  relationnel est ouvert (référence, composition, associations) ;
+  l'auteur bute sur le point 2 et pose la sémantique : **l'origine porte
+  le champ, le lien va de l'origine vers la destination** (« une
+  relation parent-enfant avec un seul enfant » — la ligne D353), et
+  **l'accès retour n'est jamais déclaré : Syncytium le propose** (ce qui
+  éclaire D216). **Le filtre (D395)** : évalué **depuis la
+  destination**, il fonctionne à la sélection ; **le contrôle de
+  conformité est une option** — condition **immuable** (brisée → donnée
+  à valider) ou **liée à la sélection seulement** — avec **le rapport
+  des non-conformes** (filtre modifié, champ calculé dérivant). En
+  proposition : `check: selection | immutable`, l'accès `origin.`.
+  Points 1, 3, 4, 5 de la référence toujours en attente.

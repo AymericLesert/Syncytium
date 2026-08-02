@@ -477,6 +477,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
 | D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
 | D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | En proposition : le champ garde sa `validation` locale (D364) pour les règles de sa valeur ; la trace D307 cite le niveau. Voir §3.2c. |
+| D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
 
 ---
 
@@ -1839,6 +1840,26 @@ validation:
 demeure pour les règles propres à sa valeur — le `matches` d'un code
 postal ; l'entité porte les règles croisées ; la trace D307 cite le
 niveau qui a refusé.)*
+
+**L'association conditionnelle : l'accès retour déclaré (D405).** **« Il
+manque un champ dans `customer` pour matérialiser la liste des
+commandes »** — la forme :
+
+```yaml
+orders: association with order if order.customer = me
+```
+
+**L'`if` fait l'association dérivée** : la condition définit
+l'appartenance — les commandes dont le champ `customer` est
+l'enregistrement courant (`me`, D396). C'est **la vue dérivée navigable
+de D136**, enfin déclarative : **jamais stockée** (la vérité reste la
+référence N-1 — D136/D398), **en lecture** (on n'édite pas une
+condition, on édite la référence qui la fonde), servie par la machinerie
+que le moteur possède déjà (D394). Le nom déclaré (`orders`) sert
+partout — `computed: count(orders)`, les surfaces, les chemins (D71).
+*(Sans `if`, l'association reste stockée et libre — les `tags` de D400 ;
+l'`if` départage les deux natures. Le trou n° 2 de la contre-passe — le
+nom de l'accès retour — se referme : le nom vient de la déclaration.)*
 
 ```yaml
 history:
@@ -7703,3 +7724,11 @@ avant la synthèse Q16).
   est au même niveau que `fields:`** — les règles de l'enregistrement à
   l'entité (en proposition : le champ garde ses règles locales D364).
   L'artefact et les trois trous restent en arbitrage.
+- **2026-07-26 (suite 10)** — **L'association conditionnelle (D405)** :
+  « il manque un champ dans customer pour matérialiser la liste des
+  commandes » — `orders: association with order if order.customer = me`.
+  L'`if` fait l'association **dérivée** (la vue navigable D136 :
+  jamais stockée, en lecture, la vérité restant la référence) ; sans
+  `if`, l'association stockée libre (D400). Le nom vient de la
+  déclaration — le trou n° 2 de la contre-passe (le nom de l'accès
+  retour) se referme ; `count(orders)` s'écrit naturellement.

@@ -480,6 +480,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
 | D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
 | D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte) ; **défaut : le rapport existe — à la demande, vers l'administrateur** (D29), aucun rythme implicite ; **`report: no` = l'exclusion explicite** (« pour ne pas déclencher de rapport »), posable à tout étage. | Amende D406 ; le premier défaut « report: no » est écarté par revirement. Voir §3.2c. |
+| D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
 
 ---
 
@@ -1897,6 +1898,26 @@ explicite** — « pour ne pas déclencher de rapport », posable à
 n'importe quel étage (l'opt-out local de la cascade). *(Le premier
 défaut consigné — « report: no par défaut » — est écarté par revirement
 de l'auteur.)*
+
+**Le nom du type est la clé — les hooks sans le mot « hook » (D408).**
+**« Tous les types que nous venons de voir ont des propriétés
+communes : le nom du type est la clé. »** L'espace de noms des types est
+**un** : le catalogue de base (réservé — D360), les types personnalisés
+(D359), les entités (la référence par le nom — D396), et **les hooks de
+type, qui ajoutent de nouveaux noms dans Syncytium** — **« exploitables
+et déclarables comme les types standard »**. **« Le mot-clé `hook` ne
+doit pas apparaître »** : pas de `type: hook.<nom>` (ma forme est
+écartée) — le champ écrit `progress_ring: gauge_3d` comme il écrirait
+`text` ; **l'usage est indistinguable, seule la déclaration du hook (le
+contrat, le code) relève du domaine 6**. Et la pointe finale : **« pour
+aller plus loin, tous les types proposés sont finalement des hooks qui
+appartiennent à Syncytium »** — le catalogue de base est **l'ensemble
+des hooks que Syncytium embarque** : un seul mécanisme de bout en bout
+(la ligne D52 — interne et externe uniformes), le moteur mange sa propre
+cuisine ; « réservé » (D360) signifie simplement que ces noms-là sont
+déjà pris par les hooks de la maison. *(L'unicité de l'espace de noms
+durcit la règle de collision : tout doublon de nom entre catalogue,
+personnalisés, entités et hooks = erreur à l'ingestion — D344/D396.)*
 
 ```yaml
 history:
@@ -7798,3 +7819,14 @@ avant la synthèse Q16).
   **`report: no` devient l'exclusion explicite** (« pour ne pas
   déclencher de rapport »), posable à tout étage de la cascade. Toujours
   en attente : le hook → domaine 6, l'artefact.
+- **2026-07-26 (suite 16)** — **Le nom du type est la clé (D408)** : un
+  seul espace de noms — catalogue, personnalisés, entités, et **les
+  hooks de type qui ajoutent de nouveaux noms dans Syncytium**,
+  exploitables et déclarables comme les types standard ; **le mot-clé
+  `hook` ne doit pas apparaître** (ma forme `type: hook.<nom>` écartée).
+  Et la pointe finale de l'auteur : **« tous les types proposés sont
+  finalement des hooks qui appartiennent à Syncytium »** — le catalogue
+  de base = les hooks embarqués, un seul mécanisme de bout en bout (la
+  ligne D52), le moteur mangeant sa propre cuisine. La déclaration
+  (contrat, code) au domaine 6 ; le doublon de nom = erreur d'ingestion.
+  Dernier point de la contre-passe : l'artefact de clôture.

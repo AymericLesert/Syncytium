@@ -467,7 +467,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
 | D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166) ; **la recherche porte sur le contenu des messages**. | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
 | D394 | **Référence = association origine → destination** : l'origine **porte le champ** (le nom chez elle), le lien naturel et sémantique vers la destination ; **l'accès retour (destination → origine) jamais déclaré — Syncytium le propose**. | « Une relation parent-enfant (avec un seul enfant) » — la ligne D353 ; éclaire D216 (la liste nommée du 1-N habille un accès que le moteur possède). Voir §3.2c. |
-| D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` et accès `origin.` en proposition. Voir §3.2c. |
+| D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` en proposition ; accès à l'origine par `me.` (D396). Voir §3.2c. |
+| D396 | **Raccourci de référence** : « si le type est le nom d'une entité, c'est une référence » — `company: hr.company` (le `to` devient inutile) ; **l'origine se lit par `me.`** dans le filtre (`filter: company = me.company` — préféré à `origin`). | Collision nom de type personnalisé / entité = erreur d'ingestion (note en proposition, esprit D344). Voir §3.2c. |
 
 ---
 
@@ -1631,8 +1632,7 @@ l'habillage d'un accès que le moteur possède déjà.)*
 
 **Le filtre de référence : deux régimes et un rapport (D395).** **La
 condition de sélection s'évalue depuis l'entité destination** (ses
-champs ; l'enregistrement d'origine accessible — *forme en proposition :
-`origin.`*). **Le filtre fonctionne à la sélection** ; **le contrôle de
+champs ; l'enregistrement d'origine accessible via **`me.`** — D396). **Le filtre fonctionne à la sélection** ; **le contrôle de
 conformité dans le temps est soumis à une option** : soit **la condition
 est immuable** — la règle doit tenir (le responsable appartenant à la
 même société que l'emploi) ; brisée, « une mise à jour sera à prévoir
@@ -1644,16 +1644,25 @@ calculé qui dérive… — **sous forme d'un rapport**.
 
 ```yaml
 responsible:
-  type: reference
-  to: hr.employee
-  filter: company = origin.company   # évaluée depuis la destination
+  type: hr.employee                  # le raccourci D396 : nom d'entité = référence
+  filter: company = me.company       # évaluée depuis la destination ; me. = l'origine
   check: immutable                   # brisée → donnée à valider, rapport
 week:
-  type: reference
-  to: planning.week
+  type: planning.week
   filter: status = "open"
   check: selection                   # défaut — la règle vaut au moment du choix
 ```
+
+**Le raccourci de la référence et l'accès `me.` (D396).** **« Si le type
+est le nom d'une entité, nous considérerons que c'est une référence »** —
+`company: hr.company` est la forme courte complète (D356/D363), le `to`
+devenant inutile : le type **est** la cible. *(Note en proposition : une
+collision de nom entre un type personnalisé et une entité visible =
+erreur à l'ingestion — pas d'arbitrage silencieux, l'esprit D344.)* Et
+dans le filtre, **l'enregistrement d'origine se lit par `me.`** —
+`filter: company = me.company`, « je préfère `me` ou `this` à
+`origin` » : les champs nus sont ceux du candidat (la destination),
+`me.` est celui qui pointe.
 
 ```yaml
 history:
@@ -7447,3 +7456,10 @@ avant la synthèse Q16).
   des non-conformes** (filtre modifié, champ calculé dérivant). En
   proposition : `check: selection | immutable`, l'accès `origin.`.
   Points 1, 3, 4, 5 de la référence toujours en attente.
+- **2026-07-26 (suite)** — **Le raccourci et le `me.` (D396)** : « si le
+  type est le nom d'une entité, c'est une référence » —
+  `company: hr.company`, le `to` inutile ; et l'origine se lit par
+  **`me.`** dans le filtre (« je préfère me ou this à origin » —
+  l'exemple D395 corrigé en place). Toujours ouverts : les questions
+  2–4 du filtre détaillé (écriture hors IHM, rythme du rapport, l'état
+  « à valider »), les points 1, 3, 4, 5 de la référence.

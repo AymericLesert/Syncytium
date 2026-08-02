@@ -478,7 +478,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
 | D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | **Confirmé : « la validation est possible sur un champ ou sur une entité »** — le champ garde ses règles locales (D364) ; la trace D307 cite le niveau. Voir §3.2c. |
 | D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
-| D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — défaut `migration`, l'à-la-demande toujours là. Voir §3.2c. |
+| D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
+| D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte, opt-out `report: no`) ; **`report: no` est le défaut** : sans déclaration, aucun rapport automatique. | Amende D406 ; un report activé sans `when` bat au rythme `migration` (relecture — note). Voir §3.2c. |
 
 ---
 
@@ -1882,10 +1883,18 @@ advisor:
 ```
 
 **L'à-la-demande existe toujours** (l'écran du technicien), rien à
-déclarer. *(Notes : `when` par défaut = `migration` — le moment où
-filtres et calculs changent ; la résolution des noms de `to` — groupe
-d'abord, utilisateur ensuite, collision = erreur d'ingestion, l'esprit
-D344.)*
+déclarer. *(Notes : la résolution des noms de `to` — groupe d'abord,
+utilisateur ensuite, collision = erreur d'ingestion, l'esprit D344.)*
+
+**Le `report` en cascade, inactif par défaut (D407 — amende D406).**
+**« Le report peut être paramétré au niveau de l'instance, du module, de
+l'entité ou du champ »** — la cascade des settings (D348–D349/D360) : le
+plus proche l'emporte, chaque étage raffine le précédent, l'opt-out
+local par `report: no`. **Et `report: no` est le défaut** : sans
+déclaration à aucun étage, **aucun rapport automatique** —
+l'à-la-demande demeure (D406). *(La note « défaut `migration` » de D406
+se relit ainsi : un report **activé** sans `when` bat au rythme
+`migration`.)*
 
 ```yaml
 history:
@@ -7772,3 +7781,10 @@ avant la synthèse Q16).
 - **2026-07-26 (suite 13)** — **La forme de `report:` validée** (« cette
   forme me convient ») : `when`/`to`/`by`, défaut `migration` — D406
   acté en place. Point suivant : le type hook → domaine 6.
+- **2026-07-26 (suite 14)** — **Le `report` en cascade, inactif par
+  défaut (D407)** : paramétrable à l'instance, au module, à l'entité ou
+  au champ (le plus proche l'emporte, opt-out `report: no`) ; **`report:
+  no` est le défaut** — sans déclaration, aucun rapport automatique,
+  l'à-la-demande demeurant. Le « défaut migration » de D406 se relit :
+  un report activé sans `when` bat au rythme migration. En attente : le
+  renvoi du hook au domaine 6, l'artefact de clôture.

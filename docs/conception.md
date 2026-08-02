@@ -471,6 +471,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D396 | **Raccourci de référence** : « si le type est le nom d'une entité, c'est une référence » — `company: hr.company` (le `to` devient inutile) ; **l'origine se lit par `me.`** dans le filtre (`filter: company = me.company` — préféré à `origin`). | Collision nom de type personnalisé / entité = erreur d'ingestion (note en proposition, esprit D344). Voir §3.2c. |
 | D397 | **Référence — régimes et label** : l'écriture **API soumise au filtre, sauf forçage explicite** de l'appelant ; **le rythme du rapport = une propriété du champ** ; l'état « à valider » **porté par le moteur, visible, non bloquant** ; **`label:` d'entité validé** (champ ou gabarit, défaut : la clé fonctionnelle) — recherche et tri sur le libellé affiché, composant à recherche/choix par image (D386). | La valeur forcée relève du rapport (note) ; `report:` en proposition. Voir §3.2c. |
 | D398 | **Stockage de la référence (clôt la référence)** : **l'UUID technique de la cible** (D142) — jamais la clé fonctionnelle (D141), jamais le libellé ; les frontières traduisent (IHM = `label`, **CSV = clé fonctionnelle**, API = UUID) ; référence vers un inactif **valide** (sélection = actifs seuls) ; **pas de cascade** (elle appartient à la composition) ; dénormalisation = choix du moteur. | « Je valide le stockage. » L'esprit D372 : le technicien décrit, le moteur dimensionne. Voir §3.2c. |
+| D399 | **La composition = un champ du possesseur** : « la composition est sur l'entité d'origine, et le type est `list of <nom de l'entité>` » — `lines: { type: list of order_line }` sur `order` ; **l'enfant ne déclare rien**, l'accès retour automatique (D394). | La référence pointe **un**, la composition pointe **plusieurs** — même geste, le `list of` (D362) fait la différence ; la facette sur l'enfant est écartée. Voir §3.2c. |
 
 ---
 
@@ -1709,6 +1710,28 @@ sélection ne proposant que les actifs ; **pas de cascade sur la
 référence** (la cascade appartient à la composition) ; **(5) la
 performance au moteur** : dénormaliser le libellé est un choix
 d'implémentation **invisible au modèle** (l'esprit D372).
+
+**La composition : le possesseur déclare la liste (D399).** **« La
+composition est sur l'entité d'origine — et le type est
+`list of <nom de l'entité>`. »** La commande possède ses lignes :
+
+```yaml
+# sales/entities/order.yml
+name: order
+labels: { fr: Commande }
+fields:
+  customer: customer                 # référence (D396) — association libre
+  lines:
+    type: list of order_line         # la COMPOSITION — la commande possède
+                                     # (nom local — même module, D363)
+```
+
+**L'enfant ne déclare rien** — l'accès retour (la ligne → sa commande)
+est automatique (D394 : Syncytium le propose). La symétrie s'achève :
+**la référence pointe un, la composition pointe plusieurs** — le même
+geste (l'origine porte le champ), le `list of` (D362) faisant toute la
+différence, le nom d'entité disant la cible (D396). *(La proposition
+inverse — une facette `composition: true` sur l'enfant — est écartée.)*
 
 ```yaml
 history:
@@ -7524,3 +7547,13 @@ avant la synthèse Q16).
   reste valide, la sélection ne propose que les actifs ; pas de cascade
   (elle appartient à la composition) ; la dénormalisation au moteur.
   Suivante : **la composition** (l'agrégat D101/D116).
+- **2026-07-26 (suite 4)** — **La composition : le possesseur déclare
+  (D399)**. Ma proposition (facette `composition: true` sur l'enfant)
+  est écartée : « la composition est sur l'entité d'origine, et le type
+  est `list of <nom de l'entité>` » — dans `order`, un champ `lines` de
+  type `list of order_line` (nom local, D363). L'enfant ne déclare
+  rien, l'accès retour automatique (D394). La symétrie : la référence
+  pointe un, la composition pointe plusieurs — le même geste. Ouverts :
+  tout `list of <entité>` vaut-il composition ? l'imbrication ? les six
+  conséquences (cascade, atomicité D101, naissance liée, intra-module
+  D116, cascades de configuration, surfaces) reformulées côté parent.

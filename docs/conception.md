@@ -475,6 +475,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D400 | **Le trio des liens** : `list of <entité>` = **la** composition (« c'est la définition ») ; **`association with <entité>`** = l'association multiple libre — inter-modules (D116), sans cascade, machinerie de liaison **au moteur** ; **l'imbrication multi-niveaux nécessaire** (« facture → indice → ligne ») — **la racine demeure l'ancre de l'agrégat** (D101/D111). | Référence = un ; composition = plusieurs possédés ; association = plusieurs libres. Voir §3.2c. |
 | D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
 | D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
+| D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
 
 ---
 
@@ -1797,6 +1798,27 @@ modules:
 
 *(La proposition `by:` — les dimensions par champs de l'enfant — est
 écartée : la combinaison EST l'élément.)*
+
+**La cellule du lien n-aire : les champs associés (D403).** **(1)** La
+définition prend la forme **`list of [size, color]
+{ quantity: integer[0..], name: text, … }`** — le tuple indexe,
+**l'accolade porte les champs de la cellule** : « dans les propriétés
+associées, nous exploitons **toute la puissance des champs déjà
+définis** » — types, facettes, masques, validations, tout le kit du
+champ. **« Le moteur prend en charge la modélisation de cet objet de
+façon transparente »** — jamais une entité à écrire à la main. *(Notes :
+le « string » de l'exemple d'origine se lit `text` — le catalogue D361 ;
+la forme éclatée en bloc YAML équivaut à l'accolade quand les champs
+s'enrichissent — l'esprit D352.)* **(2) « Une cellule par combinaison de
+clé de la liste ou de l'association »** — l'unicité est **structurelle**,
+garantie par le moteur sur le tuple entier, pour les deux formes du
+lien.
+
+```yaml
+# stock/entities/item.yml
+cells:
+  type: list of [size, color] { quantity: integer[0..] }   # la matrice (D134)
+```
 
 ```yaml
 history:
@@ -7645,3 +7667,10 @@ avant la synthèse Q16).
   [module, right]` pour la forme libre. Ma proposition `by:` est
   écartée. Ouverts : la valeur portée par la combinaison (la quantité de
   la cellule taille × couleur), l'unicité par combinaison (D134).
+- **2026-07-26 (suite 8)** — **La cellule du n-aire (D403)** :
+  `list of [size, color] { quantity: integer[0..], … }` — l'accolade
+  porte les champs de la cellule avec « toute la puissance des champs
+  déjà définis », le moteur modélisant l'objet de façon transparente ;
+  **une cellule par combinaison de clé** de la liste ou de
+  l'association — l'unicité structurelle. Le programme relationnel
+  (référence, composition, association, n-aire) est couvert.

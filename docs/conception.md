@@ -470,6 +470,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` en proposition ; accès à l'origine par `me.` (D396). Voir §3.2c. |
 | D396 | **Raccourci de référence** : « si le type est le nom d'une entité, c'est une référence » — `company: hr.company` (le `to` devient inutile) ; **l'origine se lit par `me.`** dans le filtre (`filter: company = me.company` — préféré à `origin`). | Collision nom de type personnalisé / entité = erreur d'ingestion (note en proposition, esprit D344). Voir §3.2c. |
 | D397 | **Référence — régimes et label** : l'écriture **API soumise au filtre, sauf forçage explicite** de l'appelant ; **le rythme du rapport = une propriété du champ** ; l'état « à valider » **porté par le moteur, visible, non bloquant** ; **`label:` d'entité validé** (champ ou gabarit, défaut : la clé fonctionnelle) — recherche et tri sur le libellé affiché, composant à recherche/choix par image (D386). | La valeur forcée relève du rapport (note) ; `report:` en proposition. Voir §3.2c. |
+| D398 | **Stockage de la référence (clôt la référence)** : **l'UUID technique de la cible** (D142) — jamais la clé fonctionnelle (D141), jamais le libellé ; les frontières traduisent (IHM = `label`, **CSV = clé fonctionnelle**, API = UUID) ; référence vers un inactif **valide** (sélection = actifs seuls) ; **pas de cascade** (elle appartient à la composition) ; dénormalisation = choix du moteur. | « Je valide le stockage. » L'esprit D372 : le technicien décrit, le moteur dimensionne. Voir §3.2c. |
 
 ---
 
@@ -1692,6 +1693,22 @@ identity: [code]
 label: "{code} — {company_name}"   # le visage textuel (D397)
 image: logo                        # le visage graphique (D386)
 ```
+
+**Le stockage de la référence (D398 — clôt la référence).** Les cinq
+points validés : **(1) le stockage est l'UUID technique de la cible**
+(D142 — l'invariant à vie : il survit au renommage, à l'anonymisation,
+à la réactivation ; le squelette référentiel D75/D82) ; **(2) jamais la
+clé fonctionnelle** — elle mute, les inactifs la dupliquent (D141) —
+**jamais le libellé** — il se recalcule du gabarit (D397) ; **(3) les
+frontières traduisent** : l'IHM montre le `label`, **le CSV transporte
+la clé fonctionnelle** (l'UUID « non connu, ni exposé » — Q49), l'API
+manipule l'UUID ; **(4) l'intégrité** : la cible doit exister à
+l'écriture ; la « suppression » étant une désactivation (D141), **une
+référence vers un inactif reste valide** — l'histoire tient, la
+sélection ne proposant que les actifs ; **pas de cascade sur la
+référence** (la cascade appartient à la composition) ; **(5) la
+performance au moteur** : dénormaliser le libellé est un choix
+d'implémentation **invisible au modèle** (l'esprit D372).
 
 ```yaml
 history:
@@ -7500,3 +7517,10 @@ avant la synthèse Q16).
   la clé fonctionnelle), recherche et tri sur le libellé affiché,
   composant à recherche/choix par image. **Avant de clore : le
   stockage de la référence, à la demande de l'auteur.**
+- **2026-07-26 (suite 3)** — **Le stockage validé (D398) : la référence
+  est close.** L'UUID technique de la cible (D142), jamais la clé
+  fonctionnelle ni le libellé ; les frontières traduisent (IHM = label,
+  CSV = clé fonctionnelle, API = UUID) ; la référence vers un inactif
+  reste valide, la sélection ne propose que les actifs ; pas de cascade
+  (elle appartient à la composition) ; la dénormalisation au moteur.
+  Suivante : **la composition** (l'agrégat D101/D116).

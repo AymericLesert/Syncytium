@@ -481,6 +481,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
 | D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte) ; **défaut : le rapport existe — à la demande, vers l'administrateur** (D29), aucun rythme implicite ; **`report: no` = l'exclusion explicite** (« pour ne pas déclencher de rapport »), posable à tout étage. | Amende D406 ; le premier défaut « report: no » est écarté par revirement. Voir §3.2c. |
 | D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
+| D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et lieu de déclaration du compteur nommé : en proposition. Voir §3.2c. |
 
 ---
 
@@ -1918,6 +1919,36 @@ cuisine ; « réservé » (D360) signifie simplement que ces noms-là sont
 déjà pris par les hooks de la maison. *(L'unicité de l'espace de noms
 durcit la règle de collision : tout doublon de nom entre catalogue,
 personnalisés, entités et hooks = erreur à l'ingestion — D344/D396.)*
+
+**Le type `counter` (D409).** Les compteurs du modèle (D154–D155)
+reçoivent leur écriture — le kit livré : **`type: counter`**, géré par le
+moteur (allocation **dans la transaction**, échec = numéro non consommé,
+unicité et **continuité** — l'exigence comptable) ; **`format:`** le
+gabarit (D90/D155) aux segments calendaires et au segment compteur
+masqué (`{counter:000000}` — le `0` du nombre D370) ; **« la
+réinitialisation doit être définie sur la déclaration »** — `reset:`
+explicite (`yearly`, `monthly`… — les déclencheurs calendaires D54/D155,
+la cascade par déclaration ; *défaut en proposition : `never`, la
+séquence continue* ; ma déduction depuis le gabarit est écartée) ;
+**jamais saisi** (`write-once` de fait), candidat naturel à l'identité.
+Et l'arbitrage de l'auteur : **« par défaut, le compteur est attaché au
+champ ; mais il est possible de le mutualiser sur plusieurs champs dans
+plusieurs entités »** — **`counter` = la séquence propre au champ,
+`counter[my_counter]` = le compteur nommé partagé** (le crochet nomme —
+le patron `mutualizable[name]`, D367).
+
+```yaml
+# sales/entities/invoice.yml
+number:
+  type: counter[accounting]              # la séquence partagée « accounting »
+  format: "FAC-{year}-{counter:000000}"
+  reset: yearly                          # défini sur la déclaration
+# sales/entities/credit_note.yml
+number:
+  type: counter[accounting]              # la même séquence — la chronologie commune
+  format: "AVR-{year}-{counter:000000}"
+  reset: yearly
+```
 
 ```yaml
 history:
@@ -7830,3 +7861,13 @@ avant la synthèse Q16).
   ligne D52), le moteur mangeant sa propre cuisine. La déclaration
   (contrat, code) au domaine 6 ; le doublon de nom = erreur d'ingestion.
   Dernier point de la contre-passe : l'artefact de clôture.
+- **2026-07-26 (suite 17)** — **Le type `counter` (D409)** : « a-t-on un
+  type counter ? » — le concept existait (D154–D155), l'écriture
+  manquait. Le kit : allocation transactionnelle, continuité, `format:`
+  gabarit au segment masqué, **`reset:` défini sur la déclaration**
+  (« doit être définie » — ma déduction depuis le gabarit écartée),
+  jamais saisi ; **attaché au champ par défaut, mutualisable par le
+  nom** — `counter[my_counter]` sur plusieurs champs de plusieurs
+  entités (le crochet nomme, patron D367). En proposition : le défaut
+  `reset: never`, le lieu de déclaration du compteur nommé (le settings
+  de l'étage englobant — cascade D360).

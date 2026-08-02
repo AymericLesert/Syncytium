@@ -472,6 +472,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D397 | **Référence — régimes et label** : l'écriture **API soumise au filtre, sauf forçage explicite** de l'appelant ; **le rythme du rapport = une propriété du champ** ; l'état « à valider » **porté par le moteur, visible, non bloquant** ; **`label:` d'entité validé** (champ ou gabarit, défaut : la clé fonctionnelle) — recherche et tri sur le libellé affiché, composant à recherche/choix par image (D386). | La valeur forcée relève du rapport (note) ; `report:` en proposition. Voir §3.2c. |
 | D398 | **Stockage de la référence (clôt la référence)** : **l'UUID technique de la cible** (D142) — jamais la clé fonctionnelle (D141), jamais le libellé ; les frontières traduisent (IHM = `label`, **CSV = clé fonctionnelle**, API = UUID) ; référence vers un inactif **valide** (sélection = actifs seuls) ; **pas de cascade** (elle appartient à la composition) ; dénormalisation = choix du moteur. | « Je valide le stockage. » L'esprit D372 : le technicien décrit, le moteur dimensionne. Voir §3.2c. |
 | D399 | **La composition = un champ du possesseur** : « la composition est sur l'entité d'origine, et le type est `list of <nom de l'entité>` » — `lines: { type: list of order_line }` sur `order` ; **l'enfant ne déclare rien**, l'accès retour automatique (D394). | La référence pointe **un**, la composition pointe **plusieurs** — même geste, le `list of` (D362) fait la différence ; la facette sur l'enfant est écartée. Voir §3.2c. |
+| D400 | **Le trio des liens** : `list of <entité>` = **la** composition (« c'est la définition ») ; **`association with <entité>`** = l'association multiple libre — inter-modules (D116), sans cascade, machinerie de liaison **au moteur** ; **l'imbrication multi-niveaux nécessaire** (« facture → indice → ligne ») — **la racine demeure l'ancre de l'agrégat** (D101/D111). | Référence = un ; composition = plusieurs possédés ; association = plusieurs libres. Voir §3.2c. |
 
 ---
 
@@ -1732,6 +1733,33 @@ est automatique (D394 : Syncytium le propose). La symétrie s'achève :
 geste (l'origine porte le champ), le `list of` (D362) faisant toute la
 différence, le nom d'entité disant la cible (D396). *(La proposition
 inverse — une facette `composition: true` sur l'enfant — est écartée.)*
+
+**Le trio des liens, et l'imbrication (D400).** **(1) « Oui, c'est la
+définition de la composition »** — tout `list of <entité>` est la
+possession forte. Et **« pour une association, nous pouvons utiliser
+`association with` »** — le trio est complet :
+
+```yaml
+customer: customer                    # la RÉFÉRENCE — un, lié (D396/D398)
+lines:
+  type: list of order_line            # la COMPOSITION — plusieurs, possédés (D399)
+tags:
+  type: association with catalog.tag  # l'ASSOCIATION — plusieurs, libres (D400)
+```
+
+La référence pointe **un**. La composition possède **plusieurs** — la
+cascade de vie (désactivation/réactivation D140), l'atomicité de
+l'agrégat (D101, la reprise à la racine D111), l'intra-module vérifié à
+l'ingestion (D116), les cascades de configuration (D162/D168), la
+naissance dans la liste du parent. L'association relie **plusieurs,
+librement** — inter-modules permise (D116), sans cascade ni possession,
+l'accès retour automatique des deux côtés (D394), **la machinerie de
+liaison au moteur** — jamais une entité à construire à la main. **(2)
+« L'imbrication est nécessaire sur plusieurs niveaux »** — « facture →
+indice → ligne » : les compositions s'emboîtent, **la racine demeure
+l'ancre de l'agrégat** — le plancher transactionnel (D101), la
+concurrence ancrée à la racine (D111), la cascade de vie de haut en
+bas.
 
 ```yaml
 history:
@@ -7557,3 +7585,13 @@ avant la synthèse Q16).
   tout `list of <entité>` vaut-il composition ? l'imbrication ? les six
   conséquences (cascade, atomicité D101, naissance liée, intra-module
   D116, cascades de configuration, surfaces) reformulées côté parent.
+- **2026-07-26 (suite 5)** — **Le trio des liens (D400)** : « oui, c'est
+  la définition de la composition » — tout `list of <entité>` = la
+  possession forte, avec ses conséquences (cascade de vie, atomicité
+  D101, intra-module D116, cascades de configuration, naissance dans la
+  liste du parent) ; **`association with <entité>`** pour l'association
+  multiple libre (inter-modules D116, sans cascade, la machinerie de
+  liaison au moteur) ; **l'imbrication multi-niveaux nécessaire** —
+  « facture → indice → ligne », la racine demeurant l'ancre de
+  l'agrégat (D101/D111). Le trio : référence = un ; composition =
+  plusieurs possédés ; association = plusieurs libres.

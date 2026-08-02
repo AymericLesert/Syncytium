@@ -479,7 +479,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | **Confirmé : « la validation est possible sur un champ ou sur une entité »** — le champ garde ses règles locales (D364) ; la trace D307 cite le niveau. Voir §3.2c. |
 | D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
 | D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
-| D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte, opt-out `report: no`) ; **`report: no` est le défaut** : sans déclaration, aucun rapport automatique. | Amende D406 ; un report activé sans `when` bat au rythme `migration` (relecture — note). Voir §3.2c. |
+| D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte) ; **défaut : le rapport existe — à la demande, vers l'administrateur** (D29), aucun rythme implicite ; **`report: no` = l'exclusion explicite** (« pour ne pas déclencher de rapport »), posable à tout étage. | Amende D406 ; le premier défaut « report: no » est écarté par revirement. Voir §3.2c. |
 
 ---
 
@@ -1886,15 +1886,17 @@ advisor:
 déclarer. *(Notes : la résolution des noms de `to` — groupe d'abord,
 utilisateur ensuite, collision = erreur d'ingestion, l'esprit D344.)*
 
-**Le `report` en cascade, inactif par défaut (D407 — amende D406).**
-**« Le report peut être paramétré au niveau de l'instance, du module, de
-l'entité ou du champ »** — la cascade des settings (D348–D349/D360) : le
-plus proche l'emporte, chaque étage raffine le précédent, l'opt-out
-local par `report: no`. **Et `report: no` est le défaut** : sans
-déclaration à aucun étage, **aucun rapport automatique** —
-l'à-la-demande demeure (D406). *(La note « défaut `migration` » de D406
-se relit ainsi : un report **activé** sans `when` bat au rythme
-`migration`.)*
+**Le `report` en cascade (D407 — amende D406).** **« Le report peut
+être paramétré au niveau de l'instance, du module, de l'entité ou du
+champ »** — la cascade des settings (D348–D349/D360) : le plus proche
+l'emporte, chaque étage raffine le précédent. **Le défaut : le rapport
+existe — à la demande, vers l'administrateur** (D29) : sans `when`,
+aucun rythme automatique implicite (en déclarer un l'ajoute) ; sans
+`to:`, l'administrateur de l'instance. **Et `report: no` est l'exclusion
+explicite** — « pour ne pas déclencher de rapport », posable à
+n'importe quel étage (l'opt-out local de la cascade). *(Le premier
+défaut consigné — « report: no par défaut » — est écarté par revirement
+de l'auteur.)*
 
 ```yaml
 history:
@@ -7788,3 +7790,11 @@ avant la synthèse Q16).
   l'à-la-demande demeurant. Le « défaut migration » de D406 se relit :
   un report activé sans `when` bat au rythme migration. En attente : le
   renvoi du hook au domaine 6, l'artefact de clôture.
+- **2026-07-26 (suite 15)** — **D407 mis au propre après revirement** :
+  d'abord les corrections (sans `when` = à la demande, ma relecture
+  « migration » écartée ; destinataire par défaut = l'administrateur
+  D29), puis le revirement — « j'ai changé d'avis » : **le rapport
+  existe par défaut** (à la demande, vers l'administrateur), et
+  **`report: no` devient l'exclusion explicite** (« pour ne pas
+  déclencher de rapport »), posable à tout étage de la cascade. Toujours
+  en attente : le hook → domaine 6, l'artefact.

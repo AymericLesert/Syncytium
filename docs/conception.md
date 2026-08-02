@@ -473,6 +473,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D398 | **Stockage de la référence (clôt la référence)** : **l'UUID technique de la cible** (D142) — jamais la clé fonctionnelle (D141), jamais le libellé ; les frontières traduisent (IHM = `label`, **CSV = clé fonctionnelle**, API = UUID) ; référence vers un inactif **valide** (sélection = actifs seuls) ; **pas de cascade** (elle appartient à la composition) ; dénormalisation = choix du moteur. | « Je valide le stockage. » L'esprit D372 : le technicien décrit, le moteur dimensionne. Voir §3.2c. |
 | D399 | **La composition = un champ du possesseur** : « la composition est sur l'entité d'origine, et le type est `list of <nom de l'entité>` » — `lines: { type: list of order_line }` sur `order` ; **l'enfant ne déclare rien**, l'accès retour automatique (D394). | La référence pointe **un**, la composition pointe **plusieurs** — même geste, le `list of` (D362) fait la différence ; la facette sur l'enfant est écartée. Voir §3.2c. |
 | D400 | **Le trio des liens** : `list of <entité>` = **la** composition (« c'est la définition ») ; **`association with <entité>`** = l'association multiple libre — inter-modules (D116), sans cascade, machinerie de liaison **au moteur** ; **l'imbrication multi-niveaux nécessaire** (« facture → indice → ligne ») — **la racine demeure l'ancre de l'agrégat** (D101/D111). | Référence = un ; composition = plusieurs possédés ; association = plusieurs libres. Voir §3.2c. |
+| D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
 
 ---
 
@@ -1760,6 +1761,16 @@ indice → ligne » : les compositions s'emboîtent, **la racine demeure
 l'ancre de l'agrégat** — le plancher transactionnel (D101), la
 concurrence ancrée à la racine (D111), la cascade de vie de haut en
 bas.
+
+**L'association reprend les propriétés de la référence (D401).** **« Dans
+le cadre de l'association, nous reprenons les mêmes propriétés qu'une
+référence »** : le `filter` évalué depuis la destination avec `me.`
+(D395/D396), le `check: selection | immutable` et son rapport des
+non-conformes (D395), l'écriture API sous filtre sauf forçage explicite
+(D397), l'affichage par le `label` et l'`image` de la cible (D397/D386),
+la recherche et le tri sur le libellé affiché, le stockage par UUID
+(D398) — **chaque élément lié se comporte comme une référence** ; seule
+la cardinalité et la liberté du lien changent (D400).
 
 ```yaml
 history:
@@ -7595,3 +7606,8 @@ avant la synthèse Q16).
   « facture → indice → ligne », la racine demeurant l'ancre de
   l'agrégat (D101/D111). Le trio : référence = un ; composition =
   plusieurs possédés ; association = plusieurs libres.
+- **2026-07-26 (suite 6)** — **L'association reprend les propriétés de
+  la référence (D401)** : filter/me., check et rapport, forçage API,
+  affichage label/image, recherche et tri sur le libellé, stockage UUID
+  — chaque élément lié se comporte comme une référence, seules la
+  cardinalité et la liberté du lien changent.

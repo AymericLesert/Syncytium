@@ -392,6 +392,97 @@ ne sont pas des piliers mais les irriguent tous.
 | D317 | **Normalisation des appels** : **endpoint + liste des propriétés, valeurs ignorées** — deux appels au même endpoint sur les mêmes propriétés = la même « lettre » de la grammaire. | Le pendant API des requêtes SQL normalisées du projet d'origine. Voir §6.5. |
 | D318 | **Seuils de pertinence** : **récurrence sur plage temporelle** (1×/jour, /semaine, /mois — la régularité pèse autant que le volume) + **rapport longueur normalisée / longueur réelle** (le taux de compression = le gain estimé du service). **Valeurs à évaluer sur données réelles** (calibrage en Q59). | Dilemme nommé : seuil trop bas = bruit, trop haut = optimisations sous les radars. Patron D47–D51. Voir §6.5. |
 | D319 | **Pas de catalogue de motifs prédéfini** : les motifs **se déduisent des motifs identifiés** par la grammaire — **non connus à l'avance** ; le catalogue de détections dédiées proposé est écarté. | Un seul moteur de détection, sans a priori — les schémas classiques émergeront comme règles courtes. **Clôt Q30.** Voir §6.5. |
+| D320 | **Format de description : syntaxe empruntée au YAML, pas de format personnalisé** ; **décomposition en plusieurs fichiers et/ou dossiers** — une valeur peut référencer **un fichier ou un pattern de fichiers** (`01-Utilisateurs/*.yml`, `./*/instance.yml`). | Q16 phase 3. Voir §3.2c. |
+| D321 | **Variables d'interpolation** : `${KEY}` / `${KEY?DefaultValue}` — KEY = **item de configuration à navigation relative remontante** (`{name}` = même niveau ; `{.name}` = niveau précédent ; `{..name}` = parent du précédent — chaque point remonte d'un niveau), **mot-clé** (`PROJECT`, `VERSION`, `date`, `date:<format>`… liste extensible), ou **variable d'environnement** ; `?` = défaut si absent ; **imbrication permise** (`${triggers.${environment.name}.filename}`). | Spécification éprouvée sur l'implémentation existante de l'auteur ; pas d'ancrage racine — résolution relative au nœud courant. Voir §3.2c. |
+| D322 | **Organisation versionnée de la description** : la description **déclare en tête la version du méta-schéma** (le format) ; **un fichier d'entrée par version du schéma client, référençant un sous-dossier** contenant le détail de la description. | Q16 phase 2, premier pas — s'appuie sur la décomposition D320 ; lecture résolue par D324 (le dossier des versions matérialise le journal). Voir §3.2c. |
+| D323 | **Philosophie des petits fichiers** : de petits fichiers de configuration plutôt qu'un seul ; **les redondances n'étant pas facilement éliminables, les variables (D321) référencent une valeur une fois** pour la réutiliser partout. | La raison d'être du dispositif de la phase 3. Voir §3.2c. |
+| D324 | **Le dossier des versions** : une description par version, **dans un même dossier** où le moteur **découvre les versions disponibles** ; **déposer un nouveau fichier = publier une nouvelle version** (versionnement **croissant** exigé) ; version à **4 valeurs `<majeure>.<mineure>.<indice>.<build>`**. | Le geste concret du déploiement à chaud (D17). Voir §3.2c. |
+| D325 | **Partage commun / versionné** : la **configuration technique commune** à toutes les versions (connecteurs, journaux, items à venir) vs **le contenu versionné** (schéma de données, IHM, configuration générale — dont seuils de télémétrie et méta-niveau). | L'arborescence du dépôt reflète ce partage. Voir §3.2c. |
+| D326 | **Registre des versions essayées** : le moteur **conserve la référence des versions testées et validées** ; **une version en erreur n'est pas réessayée sans incrément (au moins) du build**. | Le retry est un acte explicite — pas d'acharnement, tentatives traçables. Voir §3.2c. |
+| D327 | **Le fichier = une enveloppe convertie en logique interne** ; **après lecture, la modification des fichiers ne permet ni reconstruction ni altération de l'existant** (pas de re-vérification à chaque sollicitation ou relance). | Les fichiers sont inertes après ingestion — la logique interne est la vérité opérationnelle. Voir §3.2c. |
+| D328 | **La migration s'effectue dès que la description de version est validée** ; la version devient alors **sollicitable via les API et par les IHM**. | Harmonisé avec le pipeline D7–D9 (dry-run, affluence, exécution) et la chaîne des versions publiées (D94–D100). Voir §3.2c. |
+| D329 | **Journal de migrations compilé** : le moteur **traduit les descriptions en un journal à format interne qui lui est propre** (performance) ; **migration gérée en mémoire** ; **à la relance, les règles sont prêtes à l'emploi** — les optimisations déjà réalisées et **réutilisables** (forme compilée persistée). | Pièce maîtresse de la logique interne (D327) ; nourrit aussi la chaîne de translation des API (§5.1). Voir §3.2c. |
+| D330 | **Descendante = refus propre immédiat** : format déclaré > format supporté → refus **sur la seule lecture de l'en-tête**, avant toute ingestion, avec la **version de moteur requise** ; consigné au registre (D326) avec la cause **« format non supporté »** — le bump du build ne sert à rien, **c'est le moteur qui doit monter**. | Le miroir du 426 (D94) transposé au contrat moteur↔description. Option (c) validée « sans hésiter ». Voir §3.2c. |
+| D331 | **Ascendante = conversion à l'ingestion** : le moteur vN+1 **lit les formats antérieurs** (journal de migrations du format embarqué complet) et **compile l'enveloppe ancienne directement en logique interne à jour** ; **les fichiers du technicien ne sont jamais réécrits**. | Validée par l'auteur. Voir §3.2c. |
+| D332 | **Diffable et commentaires : questions caduques** — le moteur ne réécrivant jamais les enveloppes, les fichiers restent tels qu'écrits (commentaires compris) ; un outil de mise à niveau serait **un outil du technicien, pas un geste du moteur**. | **Clôt la phase 2 de Q16** (le versionnement du format est entièrement spécifié : D322–D332). Voir §3.2c. |
+| D333 | **Documentation générée automatiquement** : le méta-schéma et la configuration construisent en automatique — **autant que possible** — une **documentation technique**, les **masques d'explication** (D209) et une **documentation fonctionnelle**. | Prémices : D124 (« exploitables par des IA ») et `document: md.yml` (D320). Deux sources complémentaires avec la documentation rédigée en amont (D314/Q58). Voir §3.2c. |
+| D334 | **Documentation vivante + partage élargi** : la documentation technique **exploite les données enregistrées en base** (usage ou non-usage de valeurs et de plages — la télémétrie D38–D51 en troisième source) ; **des informations dédiées au technicien pourront être partagées aux utilisateurs, aux techniciens de parties tierces et aux usagers**. | Le modèle dit ce qui est *permis*, la base dit ce qui est *fait*. Partage sous les règles d'accès existantes (D25–D27 — interprétation). Voir §3.2c. |
+| D335 | **La langue du dépôt** : les **noms de dossiers, de fichiers et les propriétés de configuration sont en anglais** — la structure en anglais, la sémantique métier dans la langue du modèle. | Cohérent D301/D309 ; les échantillons D320 s'y conformaient déjà. Voir §3.2c. |
+| D336 | **Le dépôt du client est distinct du projet** : le dossier de description est **versionné par le client dans un dépôt différent** du projet Syncytium. | Moteur public / descriptions par TPE — le contrat entre les deux = le format versionné (D322–D332). Voir §3.2c. |
+| D337 | **Le dossier `template/` : un projet « Hello world ! »** embarqué dans le projet Syncytium — **facilite la prise en main par le technicien**. | Description minimale clonable, application immédiate ; premier des exemples de la documentation (D314/Q58–Q59). Voir §3.2c. |
+| D338 | **Le statut d'une version = son emplacement** : pas de statut dans le fichier — **le dossier `versions/` est décliné par environnement** (sous-dossiers = les environnements déclarés) ; **déposer dans un environnement = publier pour cet environnement** (étend D324). | Interprétation « interdite/dépréciée hors fichiers » amendée par D340 — tout le cycle de vie est en dossiers. Voir §3.2c. |
+| D339 | **Le dossier `environments/`** : `staging.yml` (test), `production.yml` (production **active**), `passive.yml` (production **passive** — PCA/PRA D113–D114) — les caractéristiques techniques par environnement. | Voir §3.2c. |
+| D340 | **Quatre dossiers de versions** : `beta/`, `production/`, `deprecated/`, `forbidden/` — **le cycle de vie D103 entièrement matérialisé par l'emplacement**, les transitions = des **gestes de fichier** (promotion, dépréciation avec Sunset, interdiction). | Dépréciées servies jusqu'au Sunset, interdites refusées (D94/D103 inchangés) ; `beta/` → staging, `production/` → actif + passif. Voir §3.2c. |
+| D341 | **Groupes et modules fonctionnels versionnés avec le schéma** (contenu versionné D325) ; **les affectations restent des actes d'administration en base** (personnes↔groupes D27, utilisateurs↔modules fonctionnels D210). | Le modèle des droits et l'expérience évoluent avec le schéma. **Clôt le domaine 1 de l'inventaire (Q16 phase 1).** Voir §3.2c. |
+| D342 | **`technical/` écarté au profit d'`environments/` — un dossier par environnement** : **connecteurs, logs, settings et documentation spécifiques à chaque environnement** ; les valeurs partagées passent par les variables (D321/D323). | Amende D339 (fichiers → dossiers), précise D325 (commune aux versions, déclinée par environnement). Voir §3.2c. |
+| D343 | **Journaux par environnement** : staging = **debug/verbose** ; production active = **info + puits de logs éventuel** ; passive = **warning** ; **formats et emplacements de stockage différents** par environnement. | Voir §3.2c. |
+| D344 | **Cohérence du dossier des versions** : **erreur si une même version apparaît dans deux sous-dossiers simultanément** ; **le statut est porté par l'ingestion** (registre D326 — les dossiers sont le geste, l'état ingéré la vérité) ; **transitions unidirectionnelles** : `beta → production`, `production → deprecated | forbidden` — **jamais l'inverse, et `deprecated → forbidden` écarté** (une dépréciée est éprouvée par l'usage ; le bug critique se constate en production). | Complété par D345 : `beta → forbidden` permis (bug critique en validation). Voir §3.2c. |
+| D345 | **Conservation et ordre des numéros** : **`beta → forbidden` permis** (bug critique en phase de validation) ; **dépréciées et interdites conservées** (mémoire historique) ; **ordre incrémental : `beta` > `production` > `deprecated`** — **`forbidden` hors contrainte**. | Rien ne s'efface ; l'ordre des numéros reflète le cycle de vie. Voir §3.2c. |
+| D346 | **Le dossier `resources/`** — à la racine (même niveau que `syncytium.yml`) : **logos, icônes, images et autres documents, partagés avec toutes les versions**. | Ressources de la description (logo D191, icônes D283…) ≠ stockage des fichiers de données (D160, hors dépôt). Voir §3.2c. |
+| D347 | **Le dossier d'un module** : `module.yml` (l'entrée) + **sous-dossier `entities/`, un fichier par entité** — `entities: - entities/*.yml`. | La séparation par sous-dossier exclut le fichier d'entrée du pattern par construction. Domaine 2, premier arbitrage. Voir §3.2c. |
+| D348 | **Le bloc `settings` de `module.yml`** : regroupe **les propriétés potentiellement diffusées dans les sous-composants** (history D168, quota D162…) ; **structuration à consolider au fil des domaines** — section volontairement ouverte. | Le patron s'esquisse : des `settings` à chaque étage (environnement, module, entité, champ), chaque niveau raffinant les défauts du supérieur. Voir §3.2c. |
+| D349 | **Le `settings.yml` du module** : le bloc settings est **externalisé dans un fichier `settings.yml`, référencé par `module.yml`** (`settings: settings.yml` — la référence de fichier D320) — anticipant sa croissance. | « La suite nous dira si c'est le cas. » Un `settings.yml` à chaque étage — le patron s'affirme. Voir §3.2c. |
+| D350 | **La déclaration d'un module marque son activation** — pas de drapeau : présent dans la description = actif ; désactiver = retirer de la description (nouvelle version, migration). | D117.3 (« activation par instance ») porté par le contenu de la description propre à chaque instance (D16). Le geste déclaratif est l'acte. Voir §3.2c. |
+| D351 | **Le menu du module est stocké dans `menu.yml`** (dossier du module, référencé par `module.yml` — patron D349) ; **optionnel** : sans lui, le défaut D186/D191/D193 s'applique. | Contenu détaillé au domaine 4 (entrées à 5 types, hiérarchie, filtrage par confidentialité). Le dossier de module est complet : module.yml + settings.yml + menu.yml + entities/. Voir §3.2c. |
+| D352 | **L'externalisation des blocs d'entité est libre, jamais imposée** : cas simples = **un fichier unique léger** (le découpage excessif alourdit) ; entité conséquente = **le découpage bienvenu** (référence de fichier D320) — au choix du technicien, cas par cas. | La souplesse sans convention imposée. Voir §3.2c. |
+| D353 | **Héritage : `inheritance` (enfant) = la seule référence au parent** ; **la machine à états = un bloc sur le parent**, référençant les enfants (niveaux, branches D146, promotions/rétrogradations D147, déclencheurs D54/D148). | « Le paramétrage doit être naturel » — la hiérarchie se lit là où elle est entière ; forme `states:` validée (D354). Voir §3.2c. |
+| D354 | **La sémantique du `when` : le cliquet** — déclencheur automatique sous **3 formes** (événement de données D54, opération D148, **expression D90**) ; **la transition s'exécute à la première vraie** ; si la condition redevient fausse, **l'état acquis est conservé** (le client reste client) ; **le retour = une action explicite autorisée** (D147/D196). | La condition déclenche le franchissement, elle ne tient pas l'état. Voir §3.2c. |
+| D355 | **La création directe à un niveau est possible** : un client peut être créé **sans passer par la phase prospect** — l'enregistrement naît avec la position du niveau choisi. | Identité unique dès la naissance (D142), autres branches acquérables ensuite (D146). Voir §3.2c. |
+| D356 | **Le bloc `fields` = mapping ordonné** : le nom du champ en clé, **l'ordre de déclaration décrit l'affichage par défaut** ; **+ forme courte** : une valeur chaîne = le type, tout au défaut (`notes: text`). | « Utile pour faire un mode simple et rapide » — l'esprit des cas simples légers (D352). Voir §3.2c. |
+| D357 | **L'identité fonctionnelle déclarée sur l'entité** : `identity: [code]` — pas de drapeau champ par champ. | Les clés composites se lisent d'un regard ; la clé simple s'écrit aussi facilement (D142). Voir §3.2c. |
+| D358 | **Les valeurs du catalogue en anglais** (étend D335) : types (`amount`, `thumbnail`…), confidentialité (`public`/`protected`/`private` — D25), modes (`write-once`)… | L'anglais pour la machine, les `labels` pour l'humain — la ligne du catalogue de fonctions (D301). Voir §3.2c. |
+| D359 | **Types personnalisés** : définissables dans le `settings` de **l'instance, du module ou de l'entité** ; un champ les utilise comme tout type et **reprend toutes les propriétés par défaut, surchargeables**. Ex. : `progression` = entier 0..100 + composant « fuel » → champ `avancement: progression`. | La bibliothèque enrichissable (D52/D68) trouve son geste déclaratif, la forme courte (D356) son plein sens ; le graphe de conversion reste aux types du catalogue (D360). Voir §3.2c. |
+| D360 | **Résolution des types personnalisés** : le plus proche l'emporte (**entité > module > version > Syncytium**), noms du catalogue **réservés** ; étage « instance » = **`settings.yml` à la racine du dossier de version** (contenu versionné D325) ; **chaînage possible** ; **ne portent pas le graphe de conversion** — le graphe (D120/D123) reste aux types du catalogue, les propriétés reprises se résolvent en contraintes du champ. | « Les types custom facilitent le déclaratif mais ne portent pas le graphe de conversion. » Voir §3.2c. |
+| D361 | **Catalogue nominatif des types, anglais natif** : « les types "réel" ou "tva_intra" n'existent pas dans Syncytium — nous utiliserons `decimal` ou `vat_number` » ; siren/siret/iban/bic inchangés (identifiants du domaine). Simples, composés, contenus, structurels — chaque type avec ses facettes. | Les noms français du document = étiquettes de travail (D358). Voir §3.2c. |
+| D362 | **La liste : `type: list of text`** — la phrase se lit ; **les facettes déclarées sur le champ s'appliquent à chaque élément** (`size`, `mask`… contraignent chaque valeur). | D166 : l'atomicité est l'élément ; mots-clés anglais (D301). Voir §3.2c. |
+| D363 | **Adressage logique par points** : `<module>.<entité>.<champ>` — **le point, pas la barre oblique** : « l'organisation des dossiers peut être finalement libre » — le chemin logique est **découplé de l'arborescence physique** ; nom local suffisant dans le même module. | Le namespace est porté par les déclarations (`name:`), les dossiers ne sont qu'une convention (les patterns D320 listent ce qui est inclus). Voir §3.2c. |
+| D364 | **Socle commun du champ finalisé** (dix propriétés) ; **`validation` = plusieurs règles**, chacune portée par **le conditionnel d'autres valeurs de l'enregistrement ou une expression régulière** — chaque règle en échec = refus + trace (D307). | Le `matches` et le `if` du langage (D90/D301) ; forme liste en proposition. Voir §3.2c. |
+| D365 | **Pas de `settings` au champ** : « le champ porte les settings » — les valeurs en cascade (quota D162…) s'écrivent en **propriétés directes** ; la cascade de blocs s'arrête à l'entité. | Amende la note D349 (« vraisemblablement l'entité et le champ ») et la famille 6. Voir §3.2c. |
+| D366 | **`text` — `size` à quatre formes** : `auto` (défaut — s'auto-ajuste au contenu) / `<max>` / `<min>..` / `<min>..<max>`, **déclarable dans le nom du type** (`text[30]`, `text[3..10]`, `text[3..]`) ; mono/multi-ligne **déduit** (seuil d'instance), surchargeable par `component` ; `mask` déduit taille et lignes — `mask` + `size` = **erreur d'ingestion**. | Le crochet = **paramètre en ligne** du format ; la forme courte reste entière (D356). Voir §3.2c. |
+| D367 | **`searchable` = le mode de recherche** : absent (défaut — pas de recherche) / `strict` (valeur égale) / `normalized` (D222) / `similarity[0.8]` (seuil D229 en ligne) — chacun **ouvre un champ de recherche propre au champ** ; `mutualizable[name]` = **champ de recherche mutualisé** entre plusieurs champs. | La « recherche nommée » de D227 déclarée côté champs ; raffine D226–D229. Voir §3.2c. |
+| D368 | **Champ de recherche mutualisé** : **contient normalisé par défaut** (D222/D226) ; **la similarité déclarable** — « utile pour intégrer les fautes de frappe » — en second paramètre : `mutualizable[who, similarity[0.8]]`. | Déclarations divergentes sur un même nom = erreur d'ingestion (esprit D344 — note). Voir §3.2c. |
+| D369 | **Le mutualisé au-delà du texte** : « la recherche va s'appuyer sur **la conversion du type en texte** » — la forme affichée (facette D119) est la clé de recherche partagée ; entier, date, montant rejoignent la boîte commune par leur forme lisible. | Doctrine générale du champ partagé — aucun type exclu. Voir §3.2c. |
+| D370 | **`integer` porte `mask` = un format** : `"000000"` (aligné à droite, six chiffres), `"00 00 00"` (espace entre deux chiffres) — le `0` = emplacement de chiffre, littéraux intercalés. | L'esprit D260, le `9` du texte devenant le `0` du nombre ; cohérence masque/bornes = erreur d'ingestion (note en proposition). Voir §3.2c. |
+| D371 | **`searchable: range`** = recherche par **plage de valeurs** ; sur l'entier, **`normalized` revient à `strict`** (accepté, équivalent) et **`similarity` est autorisé — basé sur la conversion en texte**. | Étend D369 : la conversion en texte porte **tous** les modes textuels hors du type texte ; `range` = types à ordre naturel (D125 — note). Voir §3.2c. |
+| D372 | **`integer` clos** : **bornes dans le nom du type** (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **octets jamais déclarés** — dimensionnés **en fonction des bornes ou des valeurs affectées**, « un peu comme le mode `auto` du texte ». | La symétrie de D366 ; le moteur dimensionne, le technicien décrit le domaine. Voir §3.2c. |
+| D373 | **`decimal` clos** : `decimals` = **propriété** (défaut : **le `settings`, ou 2**) ; stockage **exact** (« stockage en entier en convertissant les décimales dans la partie entière » — dimensionnement D372, « calculs optimisés et performants ») **ou réel** (arrondis autorisés) ; `mask` étendu aux décimales (séparateurs rendus selon la langue D217/D221) ; recherche = le jeu de l'entier (D371) ; bornes en crochet. | `storage: exact` (défaut) / `real` **validé** (« "storage" me convient ») ; `decimal[2]` écarté (ambigu). Voir §3.2c. |
+| D374 | **Le booléen — cycle du tri-état** : « une case à cocher à 3 états : **faux → vrai → nul → faux**… » — chaque clic avance d'un cran ; le nul se ressaisit à la main, valeur de plein droit. | Le tri-état découle de `required` (proposition en arbitrage) ; cohérent avec la doctrine du nul en table (Q47). Voir §3.2c. |
+| D375 | **Le booléen — la recherche par le composant** : « une recherche `strict` s'appuie sur **une case à cocher ou un toggle** » — le champ de recherche est le composant du type ; le tri-état en recherche vise aussi **les lignes nulles** (doctrine Q47). | La ligne de D228 (un filtre par type de données) appliquée à la recherche déclarée. Voir §3.2c. |
+| D376 | **Booléen `required` en recherche** : la case tri-état demeure — **sa position nulle filtre Vrai & Faux** (« aucun filtrage », tout passe). | Le sens de la position nulle suit la donnée : optionnel → lignes nulles (D375) ; obligatoire → « tous ». Voir §3.2c. |
+| D377 | **`boolean` clos** : `values` surcharge les libellés VRAI/FAUX/NUL par langue (D281/D130) ; **tri-état découlant de `required`** ; recherche non engagée = aucun filtre (réinitialisation — D228) ; composant case/toggle-sans-nul/énuméré en surcharge ; **naissance : optionnel → nul, obligatoire → `false`** sauf `default: true`. | « Je valide les points. » Le stockage dit la même chose que l'écran. Voir §3.2c. |
+| D378 | **Durée — la virgule du masque** : « une heure en centième, une minute en centième ou une heure en dix-millième » — le masque D276 porte le sexagésimal (`00:00`) **et la notation décimale industrielle** (`0.00 h`, `0.00 min`, `0.0000 h`) ; la conversion fait le pont vers **la valeur canonique unique**. | Le séparateur symbolique rendu selon la langue (D373) ; Excel reçoit le canonique. Voir §3.2c. |
+| D379 | **Le tri du nul = une équivalence par type** : `boolean` — **nul < faux < vrai** ; `text` — **nul ≡ chaîne vide** ; `integer` — **nul ≡ 0** (classé parmi les valeurs, pas à une extrémité). | Vaut pour la comparaison intrinsèque (D125) seulement — le nul stocké demeure nul (Q47) ; nul temporel à la clôture des temporels. Voir §3.2c. |
+| D380 | **Doctrine du tri complétée** : `decimal`/`duration` — **nul ≡ 0** ; **propriété `sort`** au socle pour les types à variantes (`text` : `alphabetical` défaut \| `natural` ; l'énuméré viendra) ; **référence triée sur le libellé affiché**, calculé sur sa valeur. | Le parcours énonce désormais la règle de tri à chaque type. Voir §3.2c. |
+| D381 | **Temporels clos** (« ok pour tout ») : précision en crochet (`time[hh:mm]`) ; nature en crochet (`datetime[raw]` **défaut** \| `datetime[timestamp]`, précision en 2ᵉ paramètre) ; bornes `min`/`max` en **littéraux ISO** (le dynamique → `validation`) ; **pas de `mask`** (le format vient de la langue D217/D221) ; recherche `strict`/`range`/`mutualizable` ; **nul trié en tête**. | D220/D277–D280 trouvent leur écriture déclarative. Voir §3.2c. |
+| D382 | **La date à précision** (complète D381) : `date[yyyy-mm-dd]` (le jour — défaut), **`date[yyyy-mm]`** (le mois), **`date[yyyy-ww]`** (la semaine — numérotation liée à la langue D279). | Valeur brute (D220), sérialisation ISO à la granularité (`2026-07`, `2026-W30`), calendrier au bon grain. Voir §3.2c. |
+| D383 | **Temporels — la nature la plus fine par défaut** (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`, précision `datetime` la plus fine — `raw` reste le défaut de nature) ; **le `mask` possible**, le masque de la langue (D217/D221) restant le défaut. | Amende le point 4 de D381. Voir §3.2c. |
+| D384 | **`file` clos** : `extensions` en **deux formes** — liste simple ou **mapping à libellés par langue** (`pdf: { fr: facture }` — le document attendu, nommé) ; `quota` acquis (D162/D365) ; **métadonnées jamais déclarées** (D160) ; recherche **nom + mots-clés**, tri sur le nom (nul ≡ chaîne vide) ; le reste au moteur/composants (D161/D165/D292–D293). | Le libellé d'extension nourrit l'écran de dépôt et la documentation (D333). Voir §3.2c. |
+| D385 | **`image` = un simple dérivé de `file`** : extensions limitées aux formats d'image, **taille ajustée/retaillée par le moteur** ; `thumbnail` suit la même filiation (D286). | Reclasse le catalogue D361 (thumbnail/image quittent les « contenus ») ; hérite du socle D384, détail au parcours après `enum`. Voir §3.2c. |
+| D386 | **L'entité désigne son champ image** — « pour que, dans une liste, l'image soit sélectionnable » : propriété d'en-tête `image: <champ>` (forme en proposition), le **visage de l'entité**. | Ancre déclarativement le choix par l'image (D284–D285) et la vignette en cellule/widget (D286/D293). Voir §3.2c. |
+| D387 | **`enum`** : `values` gagne **`description`** (l'infobulle, en complément du libellé) ; **ordre de déclaration = présentation + tri** (`sort: declaration` défaut \| `label`) ; **stockage numérique** — clé numérique → entier, clé chaîne → **transformée en valeur numérique** ; attention aux migrations : « l'ajout intercalé d'une valeur ». | Résolution en proposition : code interne **stable**, l'intercalé reçoit un code nouveau (présentation ≠ dictionnaire de stockage) — pour le domaine migrations. Voir §3.2c. |
+| D388 | **`enum` clos** : recherche **par le composant** — liste de sélection du jeu de valeurs (D228), multi-sélection en recherche, `mutualizable` par le libellé ; **nul trié en tête**, entrée `null:` dans `values` pour le libellé de la ligne vide (patron D377). | Les dix simples d'origine (D118/D121) sont détaillés. Voir §3.2c. |
+| D389 | **`image`/`thumbnail` clos** : dimensions **dans le crochet** (`image[1920x1080]` — boîte maximale, proportions conservées, **jamais de recadrage** D293) ; vignette automatique aux dimensions du settings ; `thumbnail` ne garde **que** la petite taille ; extensions = jeu image restreignable ; héritage `file` intégral (D384). | « Ok pour les 5 points. » Les simples sont au complet — place aux composés. Voir §3.2c. |
+| D390 | **Le placeholder d'une image = une icône** — « pour matérialiser le fond d'une image non définie » (`placeholder: package.png` ← `resources/` D346). | Le placeholder du socle (D364) s'interprète par type : valeur de démonstration (texte, nombres), icône de fond (image, thumbnail). Voir §3.2c. |
+| D391 | **Les composés arbitrés** : héritage du kit de la base + validation intégrée + facettes propres ; `amount` — `currencies` paramétrables (**défaut : tout l'ISO**) ; `percentage` — bornes, **défaut 0..100**, hors cadre la représentation varie ; `measure` — unités **statiques / table de référence / libres** (défaut) ; `phone` — **national** (défaut) ou international ; **`geolocation` triable par la distance à une focale** (défaut : la localisation courante — amende D125), recherche par distance à un point ; `period` hérite du **format date/heure** (crochet D381–D383) ; **le nul des composés en premier**. | La règle composée prime l'équivalence de la base (D379) ; `focus:` **validé** — au champ ou hérité du setting (cascade D360). Voir §3.2c. |
+| D392 | **Géolocalisation — la zone de texte associée** : la valeur porte, en plus des coordonnées, un texte (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie dessus, sinon sur la standardisation des coordonnées en chaîne**. | Définit la conversion en texte du type (D369). Voir §3.2c. |
+| D393 | **`communication` clos** : la visibilité **= la confidentialité** (D25, socle — pas de « maximale ») ; `attachments` **référence `file`, `image` ou `thumbnail`** avec leur kit à plat ; **amende D295** — en cellule, **une petite icône** + au survol **les derniers échanges résumés** (taille paramétrable en lignes) ; **non listable** (D166) ; **la recherche porte sur le contenu des messages**. | Auteur et horodatage générés (D77) ; `preview:` en proposition. Voir §3.2c. |
+| D394 | **Référence = association origine → destination** : l'origine **porte le champ** (le nom chez elle), le lien naturel et sémantique vers la destination ; **l'accès retour (destination → origine) jamais déclaré — Syncytium le propose**. | « Une relation parent-enfant (avec un seul enfant) » — la ligne D353 ; éclaire D216 (la liste nommée du 1-N habille un accès que le moteur possède). Voir §3.2c. |
+| D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` en proposition ; accès à l'origine par `me.` (D396). Voir §3.2c. |
+| D396 | **Raccourci de référence** : « si le type est le nom d'une entité, c'est une référence » — `company: hr.company` (le `to` devient inutile) ; **l'origine se lit par `me.`** dans le filtre (`filter: company = me.company` — préféré à `origin`). | Collision nom de type personnalisé / entité = erreur d'ingestion (note en proposition, esprit D344). Voir §3.2c. |
+| D397 | **Référence — régimes et label** : l'écriture **API soumise au filtre, sauf forçage explicite** de l'appelant ; **le rythme du rapport = une propriété du champ** ; l'état « à valider » **porté par le moteur, visible, non bloquant** ; **`label:` d'entité validé** (champ ou gabarit, défaut : la clé fonctionnelle) — recherche et tri sur le libellé affiché, composant à recherche/choix par image (D386). | La valeur forcée relève du rapport (note) ; `report:` en proposition. Voir §3.2c. |
+| D398 | **Stockage de la référence (clôt la référence)** : **l'UUID technique de la cible** (D142) — jamais la clé fonctionnelle (D141), jamais le libellé ; les frontières traduisent (IHM = `label`, **CSV = clé fonctionnelle**, API = UUID) ; référence vers un inactif **valide** (sélection = actifs seuls) ; **pas de cascade** (elle appartient à la composition) ; dénormalisation = choix du moteur. | « Je valide le stockage. » L'esprit D372 : le technicien décrit, le moteur dimensionne. Voir §3.2c. |
+| D399 | **La composition = un champ du possesseur** : « la composition est sur l'entité d'origine, et le type est `list of <nom de l'entité>` » — `lines: { type: list of order_line }` sur `order` ; **l'enfant ne déclare rien**, l'accès retour automatique (D394). | La référence pointe **un**, la composition pointe **plusieurs** — même geste, le `list of` (D362) fait la différence ; la facette sur l'enfant est écartée. Voir §3.2c. |
+| D400 | **Le trio des liens** : `list of <entité>` = **la** composition (« c'est la définition ») ; **`association with <entité>`** = l'association multiple libre — inter-modules (D116), sans cascade, machinerie de liaison **au moteur** ; **l'imbrication multi-niveaux nécessaire** (« facture → indice → ligne ») — **la racine demeure l'ancre de l'agrégat** (D101/D111). | Référence = un ; composition = plusieurs possédés ; association = plusieurs libres. Voir §3.2c. |
+| D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
+| D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
+| D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
+| D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | **Confirmé : « la validation est possible sur un champ ou sur une entité »** — le champ garde ses règles locales (D364) ; la trace D307 cite le niveau. Voir §3.2c. |
+| D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
+| D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
+| D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte) ; **défaut : le rapport existe — à la demande, vers l'administrateur** (D29), aucun rythme implicite ; **`report: no` = l'exclusion explicite** (« pour ne pas déclencher de rapport »), posable à tout étage. | Amende D406 ; le premier défaut « report: no » est écarté par revirement. Voir §3.2c. |
+| D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
+| D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et compteur nommé au settings englobant : **validés** (D410). Voir §3.2c. |
+| D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
 
 ---
 
@@ -492,7 +583,1605 @@ Entité ──── regroupe ──► Champ (1..n)
   **composition** (possession forte, unité transactionnelle, intra-module) vs
   **association** (lien souple, libre).
 
-### 3.3 Langage d'expression unique (D90–D91, résout Q6)
+### 3.2c La forme du format de description (Q16, phase 3 ; D320–D321)
+
+**La syntaxe : le YAML, étendu (D320).** La syntaxe est **empruntée au
+YAML** — **pas de format personnalisé**. Le format est **étendu pour
+décomposer le méta-schéma en plusieurs fichiers et/ou dossiers** : une
+valeur peut **faire référence à un autre fichier ou à un pattern de
+fichiers** pour en charger plusieurs —
+
+```yaml
+users:
+  - 01-Utilisateurs/*.yml
+
+# Configuration de la génération automatique de la documentation
+document: md.yml
+
+# Liste des instances à appliquer
+instances:
+  - ./*/instance.yml
+```
+
+**Les variables d'interpolation (D321).** Le fichier intègre des **variables
+d'environnement**, des **variables spécifiques au projet** et des
+**références à d'autres valeurs de la configuration**. La spécification de
+l'auteur (éprouvée sur son implémentation existante) :
+
+> The format of this kind of string is `${KEY}` or `${KEY?DefaultValue}`
+>
+> Where KEY can be another configuration item (`.item.subitem` from the
+> root, or `item.subitem` from the current item)
+> KEY can be a keyword (VERSION or PROJECT)
+> KEY can be an environment variable
+>
+> The character `?` means that if the KEY doesn't exist the default value
+> replaces it.
+
+Exemples consignés :
+
+| Expression | Résultat |
+|---|---|
+| `${PWD}/config` | `/home/developer/workspace/SDK/config` |
+| `${ENV_NOT_FOUND?hello world}/config` | `hello world/config` |
+| `${name} - ${version}` | `PySyncytium - v0.0.0.0` |
+| `${triggers.csv.filename}` | la valeur `filename` du trigger `csv`, ailleurs dans la configuration |
+| `${triggers.${environment.name}.filename}` | idem, la clé étant **elle-même variable** (imbrication) |
+| `${.item}` | l'information du nœud précédent de l'item de configuration |
+
+**Mots-clés standards** : `PROJECT`, `VERSION`, `date`, `date:<format>`… —
+**la liste pourra être étendue au besoin**.
+
+**L'ambiguïté levée (18/07/2026) : la navigation est relative et
+remontante.** `{name}` fait référence à la propriété « name » située **au
+même niveau** de configuration ; `{.name}` à la propriété située **au
+niveau précédent** ; `{..name}` à celle du **parent du précédent** —
+**chaque point initial remonte d'un niveau**. *(La mention « from the
+root » de la spécification d'origine est caduque : il n'y a pas d'ancrage
+à la racine, la résolution est relative au nœud courant.)*
+
+**L'organisation versionnée de la description (D322 — Q16 phase 2, premier
+pas).** Traitement étape par étape de la proposition de versionnement,
+annoncé lié à l'organisation de la phase 3 :
+
+- **chaque description déclare en tête la version du méta-schéma** qu'elle
+  utilise ;
+- **un fichier d'entrée par version** ; **ce fichier fait référence à un
+  sous-dossier contenant le détail de la description** — la décomposition
+  multi-fichiers/dossiers (D320) porte cette organisation.
+
+*(Question de lecture **résolue par les précisions ci-dessous** : le
+fichier d'entrée est **par version du schéma client** — le dossier des
+versions matérialise le journal ; l'en-tête du fichier porte, lui, la
+version du **format**.)*
+
+**La philosophie des petits fichiers (D323).** L'auteur préfère
+**travailler avec des petits fichiers de configuration** plutôt que tout
+tenir dans un seul fichier. Et, **par expérience, les redondances
+d'information ne sont pas facilement éliminables** : l'usage des
+**variables** (D321) permet de **référencer la valeur pertinente une
+fois** et de l'utiliser autant de fois que nécessaire — c'est la raison
+d'être du dispositif de la phase 3.
+
+**Le dossier des versions : déposer un fichier = publier une version
+(D324).** Les descriptions de version (**une par version**) sont
+**stockées dans un même dossier**, où **le moteur découvre toutes les
+versions disponibles**. **La mise à disposition d'un nouveau fichier
+signifie la présence d'une nouvelle version** — sous condition d'un
+**versionnement cohérent : la nouvelle version doit être croissante**.
+**Une version porte quatre valeurs :
+`<majeure>.<mineure>.<indice>.<build>`.** Le déploiement à chaud de la
+description (D17) trouve ici son geste concret : **déposer un fichier**.
+
+**Le partage commun / versionné (D325).** L'arborescence du dépôt de
+description distingue :
+
+- **la configuration technique commune à toutes les versions** — les
+  **connecteurs**, les **journaux**, et d'autres items à identifier par la
+  suite ;
+- **le contenu versionné** — chaque version détaille **le schéma de
+  données, les IHM, et des items de configuration générale** (dont
+  l'observation — les seuils de télémétrie — et le méta-niveau — les
+  entités moteur : contexte, notifications, stock de rejets, solutions
+  intégrées).
+
+**Le registre des versions essayées (D326).** **Le moteur conserve une
+référence sur les versions qui ont été testées et validées.** **Si une
+version est en erreur, la modification du fichier sans évolution du build
+(au moins) ne fera pas un nouvel essai** — le nouvel essai est un acte
+explicite : incrémenter la version. Pas d'acharnement sur un fichier
+cassé, et chaque tentative est traçable.
+
+**L'enveloppe et la logique interne (D327).** **Le fichier de
+configuration est une enveloppe** que le moteur **convertit en logique
+interne** pour permettre son usage **en toute sécurité**. **Une fois le
+fichier de la version lu, la modification des fichiers ne permet ni
+reconstruction ni altération de l'existant** — afin d'éviter de tout
+vérifier à chaque sollicitation ou relance de l'application. Les fichiers
+deviennent **inertes après ingestion** : la logique interne est la vérité
+opérationnelle, le dépôt de fichiers n'est que la source de publication.
+
+**Le déclenchement et la mise en service (D328).** **La migration
+s'effectue dès que la description de version est validée** *(lecture
+harmonisée avec le pipeline D7–D9 : la validation enclenche la chaîne —
+dry-run, fenêtre d'affluence, exécution transactionnelle)*. **La version
+peut alors être sollicitée par un tiers via les API, ou par les IHM** —
+elle rejoint la chaîne des versions publiées (D94–D99), l'IHM basculant
+sur la dernière (D100).
+
+**La descendante : le refus propre immédiat (D330).** Une description
+déclarant **un format postérieur à celui que le moteur supporte** (le parc
+étant hétérogène — mise à jour manuelle D17) est **refusée proprement,
+immédiatement, sur la seule lecture de l'en-tête** (D322) : *« cette
+description déclare le format N ; ce moteur supporte le format M au
+maximum ; moteur requis : ≥ vX »* — **avant toute tentative d'ingestion**.
+Le refus est **consigné au registre** (D326) avec sa cause **« format non
+supporté »**, distincte d'une erreur de validation : ici, **incrémenter le
+build ne sert à rien — c'est le moteur qui doit monter**. Le miroir du 426
+(D94) : ni comportement dégradé, ni silence — un refus net, daté,
+actionnable.
+
+**L'ascendante : la conversion à l'ingestion, les fichiers jamais
+réécrits (D331).** Un moteur vN+1 **sait lire les formats antérieurs** —
+son journal de migrations du format, embarqué complet, lui permet de
+**compiler directement une enveloppe ancienne en logique interne à jour**,
+au moment de l'ingestion. **Les fichiers du technicien ne sont jamais
+réécrits par le moteur.**
+
+**La documentation générée automatiquement (D333).** **Le méta-schéma et
+la configuration doivent construire en automatique — autant que
+possible :**
+
+1. une **documentation technique** ;
+2. les **masques d'explication** (déjà actés, D209) ;
+3. une **documentation fonctionnelle**.
+
+Les prémices étaient consignées sans être promues : les descriptions
+déclarées **« exploitables par des IA »** (D124 — commentaire et
+description de chaque champ, entité, surface) et la ligne
+`document: md.yml` de l'échantillon D320 (« configuration de la génération
+automatique de la documentation »). La documentation du projet a donc
+**deux sources complémentaires** : celle **rédigée en amont** (D314/Q58 —
+la conception, les exemples des mises en situation Q59) et celle
+**générée depuis les descriptions** — qui vit avec le modèle et ne se
+périme jamais.
+
+**La langue du dépôt de description (D335).** **Les noms des dossiers,
+des fichiers et les propriétés dans les fichiers de configuration sont en
+anglais** — cohérent avec le langage (D301 : fonctions, D309 : mots-clés) :
+**la structure en anglais, la sémantique métier dans la langue du modèle**
+(les noms d'entités et de champs restent ceux du technicien). Les
+échantillons de la phase 3 s'y conformaient déjà (`users`, `document`,
+`instances`, `triggers`, `environment.name`).
+
+**Le statut d'une version = son emplacement (D338).** **Le statut de la
+version n'est pas dans le fichier : le dossier `versions/` est décliné par
+environnement** — les sous-dossiers portent les noms des environnements
+déclarés (`technical/environments/` — production, stagings, D112–D114) :
+
+```yaml
+versions/
+  staging/
+    1.1.0.0.yml        # une bêta en test — son staging s'instancie (D112)
+    1.1.0.0/
+  production/
+    1.0.0.0.yml        # la version officielle servie
+    1.0.0.0/
+```
+
+**Déposer une version dans le dossier d'un environnement = la publier pour
+cet environnement** (le geste D324, étendu). *(L'interprétation
+« interdite/dépréciée = actes hors fichiers » est **amendée par D340** :
+tout le cycle de vie est en dossiers.)*
+
+**Le dossier `environments/` (D339).** Il contient **les caractéristiques
+techniques de chaque environnement** :
+
+- `staging.yml` — l'environnement de **test** ;
+- `production.yml` — l'environnement de **production (actif)** ;
+- `passive.yml` — l'environnement de **production (passif)** (le PCA/PRA,
+  D113–D114).
+
+**Les quatre dossiers de versions (D340).** **Les statuts interdits et
+dépréciés sont aussi dans des dossiers dédiés** — les versions vivent donc
+dans **quatre dossiers possibles** :
+
+```yaml
+versions/
+  beta/          # bêtas en test — le staging s'instancie (D112)
+  production/    # les versions officielles servies (active + passive)
+  deprecated/    # les dépréciées — encore appelables jusqu'au Sunset (D12/D94)
+  forbidden/     # les interdites — refusées proprement (D103)
+```
+
+**Le cycle de vie D103 est entièrement matérialisé par l'emplacement**, et
+**les transitions sont des gestes de fichier** : `beta/ → production/` = la
+promotion (le staging est supprimé, D112) ; `production/ → deprecated/` =
+la dépréciation (le Sunset court) ; `→ forbidden/` = l'interdiction (la
+version à bug révélé). *(Harmonisation : les dépréciées restent servies
+par la chaîne de translation jusqu'au Sunset, les interdites sont refusées
+— les sémantiques D94/D103 inchangées ; la correspondance
+versions ↔ environnements : `beta/` → staging, `production/` → actif +
+passif.)*
+
+**La cohérence du dossier des versions (D344).** Trois règles :
+
+1. **Unicité d'emplacement** : lors de l'exploration de `versions/`,
+   Syncytium **lève une erreur si une même version apparaît dans deux
+   sous-dossiers simultanément** ;
+2. **Le statut est porté par l'ingestion** : les dossiers sont le geste de
+   publication, **l'état ingéré est la vérité** (le registre D326, la
+   logique interne D327) ;
+3. **Les transitions sont unidirectionnelles** : une version **peut passer
+   de `beta` à `production`, ou de `production` à `deprecated` ou
+   `forbidden` — jamais le chemin inverse**. **Et `deprecated → forbidden`
+   est écarté** : « s'il est déprécié, cela signifie qu'il a été utilisé
+   suffisamment longtemps pour être éprouvé » — un bug critique se
+   constate **en production**, et c'est là que la version est classée
+   `forbidden`. **Complété (D345)** : **`beta → forbidden` est permis** —
+   si un bug critique est découvert **lors de la phase de validation**.
+   Le graphe complet :
+
+   ```
+   beta ──→ production ──→ deprecated  (extinction naturelle au Sunset)
+      │               └──→ forbidden   (bug critique en production)
+      └──────────────────→ forbidden   (bug critique en validation)
+   ```
+
+**Le dossier `resources/` (D346).** **Les logos, icônes, images ou autres
+documents sont stockés dans un dossier `resources/`**, positionné **au
+même niveau que `syncytium.yml`** (la racine du dépôt) — **ces fichiers
+sont partagés avec toutes les versions**. *(Distinction à retenir :
+`resources/` = les ressources de la **description** — le logo de
+l'instance D191, les icônes d'énumérés D283… ; le stockage des fichiers de
+**données** D160 reste, lui, hors dépôt, dans le dossier d'exploitation de
+l'instance.)*
+
+**Le dossier d'un module (D347 — domaine 2, premier arbitrage).** Dans le
+dossier d'un module : **le fichier `module.yml`** (l'entrée du module) et
+**un sous-dossier `entities/` contenant un fichier par entité**. La
+propriété `entities` de `module.yml` s'écrit donc :
+
+```yaml
+# versions/<statut>/<version>/sales/module.yml
+entities:
+  - entities/*.yml
+```
+
+*(Le pattern à plat `*.yml` aurait inclus `module.yml` lui-même comme
+entité — la séparation par sous-dossier l'exclut par construction.)*
+
+```yaml
+sales/
+  module.yml                   # l'entrée du module
+  entities/
+    customer.yml               # une entité par fichier
+    order.yml
+```
+
+**Le bloc `settings` de `module.yml` (D348).** Le fichier de module
+s'enrichit d'un **bloc `settings`** qui **regroupe les propriétés
+potentiellement diffusées dans les sous-composants** — les défauts en
+cascade : l'historisation (D168, opt-out), le quota (D162, la plus petite
+taille l'emporte)… **La structuration de cette section se consolidera au
+fur et à mesure des échanges et des compléments poussés par les autres
+domaines** — section volontairement ouverte.
+
+**Le `settings.yml` du module (D349).** Le bloc est **externalisé dans un
+fichier `settings.yml`, référencé par `module.yml`** — anticipant sa
+croissance (« la suite nous dira si c'est le cas ») ; la référence de
+fichier est le mécanisme natif du format (D320) :
+
+```yaml
+sales/
+  module.yml                   # l'entrée du module
+  settings.yml                 # les propriétés diffusées aux sous-composants
+  entities/
+    customer.yml
+    order.yml
+```
+
+```yaml
+# sales/module.yml
+name: sales
+labels: { fr: Ventes }
+comment: { fr: Gestion commerciale }
+description: { fr: ... }
+settings: settings.yml         # référence de fichier (D320)
+menu: menu.yml                 # le bloc menu → menu.yml (D351)
+entities:
+  - entities/*.yml
+```
+
+```yaml
+# sales/settings.yml
+history: false                 # D168 — héritée par les entités, opt-out
+quota: 2GB                     # D162 — cascade, la plus petite l'emporte
+```
+
+*(Le patron s'affirme : un `settings.yml` à chaque étage — l'environnement
+(D342), le module (D349), et vraisemblablement l'entité — chaque niveau
+raffinant les défauts du niveau supérieur, dans les cascades déjà actées ;
+le champ, lui, porte ses settings en propriétés directes — D365.)*
+
+**La déclaration vaut activation (D350).** **La déclaration d'un module
+marque son activation** — pas de drapeau d'activation : un module présent
+dans la description d'une version est **actif** ; le désactiver, c'est
+**le retirer de la description** (une nouvelle version, donc une
+migration). L'« activation par instance » (D117.3) est portée par le
+contenu de la description propre à chaque instance (D16) — **le geste
+déclaratif est l'acte**, dans la droite ligne de « déposer = publier »
+(D324).
+
+**Le menu du module : `menu.yml` (D351).** **Le menu du module est stocké
+dans `menu.yml`**, dans le dossier du module — référencé par `module.yml`
+(le patron D349). Le fichier est **optionnel** : sans lui, le défaut
+s'applique (les entités agrégats en entrées — D186/D191/D193). Son
+contenu détaillé (les entrées à cinq types, la hiérarchie, le filtrage par
+la confidentialité — D193) sera précisé au **domaine 4** (les surfaces).
+Le dossier de module atteint sa forme complète :
+
+```yaml
+sales/
+  module.yml                   # l'entrée : name, labels, comment, description,
+                               #   settings: settings.yml, menu: menu.yml,
+                               #   entities: - entities/*.yml
+  settings.yml                 # les propriétés diffusées (D348–D349)
+  menu.yml                     # le menu du module (D351, optionnel)
+  entities/
+    customer.yml               # une entité par fichier (D347)
+    order.yml
+```
+
+**L'externalisation libre des blocs d'entité (D352).**
+**L'externalisation n'est pas imposée** : dans les cas les plus simples,
+**le fichier d'entité est suffisamment léger** pour tout contenir — « un
+découpage trop détaillé va rendre le processus trop lourd ». Mais **une
+entité très conséquente bénéficiera d'un découpage**, par la référence de
+fichier native du format (D320) — bloc en ligne ou
+`validations: validations.yml`, **au choix du technicien**, cas par cas.
+
+**L'héritage : l'enfant pointe, le parent décrit (D353).** **La propriété
+`inheritance` fait référence uniquement à l'entité parent** — c'est tout
+ce que porte l'enfant. **La machine à états est un bloc décrit sur le
+parent, qui fait référence aux enfants** : les niveaux, les branches
+(positions multiples D146), les promotions et rétrogradations (D147), les
+déclencheurs (D54/D148) se déclarent là où la hiérarchie entière est
+visible. L'exigence de l'auteur : **une approche qui rende le paramétrage
+naturel** — la forme concrète du bloc est en proposition.
+
+**La sémantique du `when` : le cliquet (D354).** La forme proposée est
+validée (« belle proposition ») et sa sémantique précisée :
+
+1. **`when` décrit le déclencheur automatique**, sous **trois formes** : un
+   **événement de données** (D54), une **opération** (D148), ou une
+   **expression** (D90 — `when: total_orders >= 1`) ;
+2. **Le franchissement est un cliquet** : la transition s'exécute **la
+   première fois** que la condition devient vraie — le prospect devient
+   client à la première commande. **Si la condition redevient fausse
+   ensuite** (une commande supprimée, `total_orders = 0`), **le client
+   reste client** : la promotion acquise ne se perd pas d'elle-même ;
+3. **Le retour n'advient que par une action explicite et autorisée** —
+   l'opération de rétrogradation (D147/D148), sous les droits de
+   l'utilisateur (D196).
+
+**La création directe à un niveau (D355).** **La création directe doit
+être possible** : « un client peut être créé sans être passé par la phase
+prospect » — un enregistrement peut **naître directement à un niveau** de
+la hiérarchie, avec la position correspondante d'emblée (l'identité D142
+unique dès la naissance, les autres branches D146 restant acquérables
+ensuite).
+
+**Le bloc `fields` : le mapping ordonné et la forme courte (D356).** Le
+bloc `fields` est un **mapping ordonné** : le nom du champ est la clé, et
+**l'ordre de déclaration décrit l'affichage par défaut** (le formulaire
+par défaut le suit). **La forme courte est retenue** : quand la valeur
+d'un champ est une chaîne, **elle est le type**, tout le reste au défaut
+(`notes: text`) — « utile pour faire un mode simple et rapide », dans
+l'esprit des cas simples légers (D352).
+
+**L'identité fonctionnelle au niveau de l'entité (D357).** La clé métier
+(D142) se déclare **sur l'entité** — `identity: [code]` — et non champ
+par champ : **les clés composites s'y lisent d'un regard**
+(`identity: [last_name, first_name, birth_date]`), et la clé simple s'y
+écrit tout aussi facilement.
+
+**Les valeurs du catalogue en anglais (D358).** D335 (noms et propriétés
+en anglais) s'étend aux **valeurs du catalogue** : les types (`text`,
+`amount`, `percentage`, `thumbnail`…), la confidentialité
+(`public` / `protected` / `private` — les niveaux D25), les modes
+(`write-once`)… **L'anglais pour la machine, les `labels` français pour
+l'humain** — la droite ligne du catalogue de fonctions (D301).
+
+L'exemple canonique du bloc :
+
+```yaml
+# sales/entities/customer.yml
+name: customer
+labels: { fr: Client }
+inheritance: third_party            # D353 — seule référence au parent
+identity: [code]                    # la clé métier, sur l'entité (D357)
+
+fields:
+  code:
+    type: text
+    size: 10
+    mask: "C-999999"                # masque de saisie (D260)
+    labels: { fr: Code client }
+    mode: write-once                # écriture unique — posé à la création
+  company_name:
+    type: text
+    size: 80
+    labels: { fr: Raison sociale }
+    required: true
+    searchable: true                # recherche plein-texte (D226)
+  revenue:
+    type: amount                    # composé (D122) : décimal + devise
+    currencies: [EUR]               # dérivation par restriction (D123)
+    min: 0
+    labels: { fr: Chiffre d'affaires }
+    confidentiality: protected      # D25
+  category:
+    type: enum
+    values:
+      bronze: { labels: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
+      silver: { labels: { fr: Argent } }
+      gold:   { labels: { fr: Or } }
+    default: bronze
+  advisor:
+    type: reference
+    to: hr.employee                 # l'adressage logique par points (D363)
+    filter: active = true           # restreint les valeurs proposées (D90)
+    labels: { fr: Chargé d'affaires }
+  logo:
+    type: image                     # D286 — vignette calculée par le moteur
+  total_orders:
+    type: integer
+    computed: count(orders)         # D90 — recalculé quand un champ concerné change
+  notes: text                       # la forme courte (D356)
+```
+
+**Les sept familles d'un champ (l'inventaire de convergence).** Le bloc
+`fields` fait converger : **(1) la nature** — `type` simple (D118/D121),
+composé (D122), dérivé par restriction (D123), `list of …` (D166,
+« listable » par type), vignette/image (D286), communication (D167),
+référence *(la liste 1-N nommée D216 n'est pas un champ stocké — elle
+viendra aux surfaces)* ; **(2) le stockage** — les facettes (D118–D119) :
+`size`, `decimals`, `min`/`max`, `mask` (D260), précision de l'heure
+(D277), `kind: raw | timestamp` (D220), devises/unités (D123), types de
+fichiers permis (D292), `values` d'énuméré (D283) ; **(3) les libellés**
+— `labels`, `comment` (infobulle), `description` (masque d'explication,
+D333), `placeholder` (valeur de démonstration) ; **(4) les contraintes**
+— `required`, `validation` (expression D90 — règle non satisfaite =
+trace), `default`, `filter` ; **(5) l'accès** — `confidentiality` (D25),
+`mode` : lecture / écriture / écriture unique *(la visibilité par niveau
+D144 est structurelle : un champ déclaré sur l'enfant appartient à ce
+niveau)* ; **(6) le comportement** — `computed` (D90), `searchable`
+(D226), `component` (surcharge du défaut type→composant, D64/D270 — le
+formulaire pourra surcharger encore), les valeurs en cascade en
+propriétés directes du champ (quota D162 — D365) ; **(7) hors
+déclaration** — les champs générés : UUID
+(D142), horodatages et opérateur, provenance, positions (D146) — **le
+moteur les porte, le technicien ne les écrit jamais**.
+
+**Les types personnalisés, déclarés dans les settings (D359).** **Un type
+peut être défini dans le `settings` de l'instance, du module ou de
+l'entité** ; sur un champ, **ce type s'utilise comme n'importe quel
+type** et **reprend toutes ses propriétés par défaut, avec possibilité de
+les surcharger**. L'exemple fondateur : définir un type `progression` —
+entier de 0 à 100, composant « fuel » — puis déclarer un champ
+`avancement` de type `progression` :
+
+```yaml
+# settings.yml (instance, module ou entité)
+types:
+  progression:
+    type: integer
+    min: 0
+    max: 100
+    component: fuel
+```
+
+```yaml
+# dans une entité
+fields:
+  avancement: progression        # la forme courte (D356) prend tout son sens
+  completion:
+    type: progression
+    max: 200                     # surcharge d'une propriété héritée du type
+    labels: { fr: Complétude }
+```
+
+*(La convergence : les composés livrés D122 deviennent des types définis
+à l'étage Syncytium de la cascade — la bibliothèque enrichissable D52/D68
+trouve son geste déclaratif ; le graphe de conversion, lui, reste aux
+types du catalogue — D360.)*
+
+**La résolution des types personnalisés (D360).** Trois précisions
+closent le mécanisme :
+
+1. **Le niveau le plus proche l'emporte** — entité > module > version >
+   Syncytium — et **les noms du catalogue de base sont réservés** (pas de
+   type personnalisé nommé `text`). L'étage « instance » est ancré : **un
+   `settings.yml` à la racine du dossier de version** — un type est du
+   **schéma**, il migre avec lui (contenu versionné D325), il ne peut
+   vivre dans `environments/` (commun aux versions). La cascade
+   complète : **Syncytium (composés livrés D122) → version → module →
+   entité**.
+2. **Le chaînage est possible** : un type personnalisé peut dériver d'un
+   autre type personnalisé (`progression_fine` à partir de `progression`)
+   — même mécanisme, récursif.
+3. **« Les types custom facilitent le déclaratif mais ne portent pas le
+   graphe de conversion. »** Le graphe (D120/D123) reste porté par les
+   **types du catalogue** : le champ convertit selon son type de base ;
+   les propriétés reprises du type personnalisé (bornes, jeux de
+   valeurs…) se résolvent en **contraintes du champ**, vérifiées aux
+   frontières.
+
+**Le catalogue nominatif des types (D361).** Les noms canoniques sont
+anglais **nativement** : « les types "réel" ou "tva_intra" n'existent pas
+dans Syncytium — nous utiliserons `decimal` ou `vat_number` » (les noms
+français du document sont des étiquettes de travail — D358). Le
+catalogue, avec les facettes de chacun :
+
+- **Simples (D118/D121)** : `text` (`size` — mono/multi-ligne déduit,
+  `mask` D260), `integer` (`min`/`max` — borné → jauge ou curseur D275),
+  `decimal` (`decimals` D273, `min`/`max`), `boolean` (`values` —
+  libellés VRAI/FAUX/NUL surchargeables D281), `date` (brute par nature
+  D220, raccourcis D278), `time` (`precision` : `hh`…`hh:mm:ss.sss`
+  D277), `datetime` (`kind: raw | timestamp` D220), `duration` (`mask` +
+  option de conversion D276), `file` (`extensions` permises D292,
+  métadonnées D160 automatiques), `enum` (`values` : clé → `labels`,
+  `icon`/`image` D283 ← `resources/`).
+- **Composés (D122)**, dérivables par restriction (D123) : `amount`
+  (`currencies`), `email`, `percentage` (borné → jauge D274), `phone`,
+  `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
+  (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
+  des identifiants du domaine, pas des mots à traduire.
+- **Contenus** : `communication` (D167 — défauts : visibilité maximale,
+  immuable, sans pièces jointes, sans notification). *(`thumbnail` et
+  `image` : reclassés parmi les simples, dérivés de `file` — D385.)*
+- **Structurels** : `reference` (`to`, `filter`), la liste (D362).
+
+**La liste : `list of` (D362).** La syntaxe **`type: list of text`** est
+validée — la phrase se lit (les mots-clés anglais, D301) ; **les facettes
+déclarées sur le champ s'appliquent à chaque élément** (`size`, `mask`…
+contraignent chaque valeur — D166 : l'atomicité est l'élément).
+
+**L'adressage logique par points (D363).** La référence s'écrit
+**`<module>.<entité>.<champ>`** — **le séparateur est le point, pas la
+barre oblique** : « l'organisation des dossiers peut être finalement
+libre » — **le chemin logique est découplé de l'arborescence physique**.
+Le namespace est porté par les déclarations (`name:`), les dossiers ne
+sont qu'une convention (les patterns D320 listent explicitement ce qui
+est inclus). Dans le même module, le nom local suffit (`to: employee`) ;
+au-delà, le chemin qualifié (`to: hr.employee`).
+
+**Le socle commun du champ (D364–D365).** Les propriétés de tout champ,
+quel que soit son type — le socle est finalisé :
+
+| Propriété | Rôle | Source |
+|---|---|---|
+| `labels` | le libellé par langue | D217 |
+| `comment` | l'infobulle | invariants de l'auteur |
+| `description` | le masque d'explication, la documentation | D188/D333 |
+| `placeholder` | la valeur de démonstration | invariants de l'auteur |
+| `required` | obligatoire — défaut : optionnel | D118 |
+| `default` | la valeur initiale — littéral ou expression (D90) évaluée à la création | — |
+| `validation` | les règles de validation — D364 | D90/D307 |
+| `confidentiality` | `public` / `protected` / `private` | D25 |
+| `mode` | `editable` (défaut) / `read-only` / `write-once` | — |
+| `component` | la surcharge du composant par défaut du type | D64/D270 |
+
+**`validation` : plusieurs règles (D364).** La propriété **peut contenir
+plusieurs règles**, chacune portée par **le conditionnel d'autres valeurs
+de l'enregistrement, ou par le respect d'une expression régulière** — le
+langage les porte déjà (D90 : le `matches` du catalogue, le `if`
+conditionnant la règle). Chaque règle en échec = refus + trace (la
+doctrine D307). La forme en proposition :
+
+```yaml
+validation:
+  - zip_code matches "^[0-9]{5}$" if country = "FR"   # conditionnée par un autre champ
+  - end_date >= start_date                            # expression pure (D90)
+```
+
+**Pas de `settings` au champ (D365).** « La propriété `settings` d'un
+champ n'est pas utile car **le champ porte les settings**. » Les valeurs
+en cascade qui atteignent le champ (le quota D162…) s'écrivent en
+**propriétés directes** — la cascade de blocs `settings` s'arrête à
+l'entité (version D360 → module D349 → entité) ; le champ, lui, est à
+plat.
+
+**Le type `text` — la taille (D366).** `size` a **quatre formes** :
+**`auto`** (pas de taille — elle **s'auto-ajuste en fonction du
+contenu** ; le défaut), **`<max>`** (taille maximale), **`<min>..`** (à
+partir de), **`<min>..<max>`** (entre les deux). Et **la taille peut être
+définie dans le nom du type** : `notes: text` (auto), `name: text[30]`,
+`code: text[3..10]`, `story: text[3..]` — la forme courte (D356) reste
+entière. **Le mono/multi-ligne se déduit de la taille** (face au seuil
+d'instance) et **se surcharge éventuellement par `component`** (D270).
+**`mask` (D260) déduit ce qu'il impose** : la taille de la longueur du
+masque, les lignes des lignes du masque — et **déclarer `mask` et `size`
+ensemble = erreur à l'ingestion** (pas d'arbitrage silencieux entre deux
+vérités, l'esprit D344). *(Le crochet s'affirme comme **le paramètre en
+ligne** du format — `text[3..10]`, `similarity[0.8]`,
+`mutualizable[who]`.)*
+
+**Le type `text` — `searchable`, le mode de recherche (D367).** La
+propriété ne dit plus « cherchable » mais **comment** : **absent = pas de
+recherche (le défaut)** ; **`strict`** (valeur égale) ; **`normalized`**
+(valeur normalisée — D222) ; **`similarity[0.8]`** (similarité ≥ 0,8 — le
+seuil de D229 devient un paramètre en ligne, par champ). **Ces trois
+valeurs ouvrent un champ de recherche spécifique au champ.**
+**`mutualizable[name]`** nomme un **champ de recherche mutualisé entre
+plusieurs champs** — la « recherche nommée » de D227, déclarée côté
+champs : chaque membre la rejoint en la nommant.
+
+```yaml
+fields:
+  notes: text                       # auto — la taille s'ajuste au contenu
+  name: text[30]                    # 30 caractères maxi
+  code: text[3..10]                 # entre 3 et 10 caractères
+  story: text[3..]                  # au moins 3 caractères, sans borne
+  registration:
+    type: text
+    mask: "FR__ ____ [A-E]9"        # taille et lignes déduites du masque (D260)
+  city:
+    type: text[40]
+    searchable: normalized          # champ de recherche dédié, valeur normalisée
+  last_name:
+    type: text[60]
+    searchable: mutualizable[who]   # rejoint la recherche partagée « who »
+  first_name:
+    type: text[60]
+    searchable: mutualizable[who]
+```
+
+**Le champ de recherche mutualisé : normalisé par défaut, similarité
+possible (D368).** Le mutualisé d'un texte **répond au « contient
+normalisé » par défaut** (D222/D226) — le nom suffit, zéro déclaration de
+plus. Mais **« l'usage de la similarité peut être utile pour intégrer les
+fautes de frappe dans une recherche »** : le mode se déclare alors en
+second paramètre — `mutualizable[who, similarity[0.8]]`. *(Cohérence
+entre membres : des déclarations divergentes sur un même nom = erreur à
+l'ingestion — l'esprit D344.)*
+
+**Le mutualisé au-delà du texte : la conversion en texte (D369).** **Si
+`mutualizable` est utilisé** sur un champ non textuel, **« la recherche
+va s'appuyer sur la conversion du type en texte »** — la forme affichée
+(la facette d'affichage D119) devient la clé de recherche partagée : un
+entier, une date, un montant rejoignent la boîte commune par leur forme
+lisible.
+
+**Le `mask` de l'entier : le format (D370).** **Un `integer` peut porter
+une propriété `mask` pour proposer un format** : `"000000"` — **entier
+aligné à droite**, valeurs à six chiffres ; `"00 00 00"` — aligné à
+droite, **un espace entre deux chiffres**. Le `0` est l'emplacement de
+chiffre, les littéraux s'intercalent — l'esprit D260, le `9` du texte
+devenant le `0` du nombre. *(Cohérence : un masque à six positions et une
+borne `max` qui le déborde = erreur à l'ingestion — l'esprit D344/D366 ;
+note en proposition.)*
+
+**Les modes de recherche de l'entier : `range`, et la conversion qui
+porte tout (D371).** **`searchable` peut prendre la valeur `range`** —
+le champ de recherche propose alors **une plage de valeurs** *(les types
+à ordre naturel, D125 — l'entier, et plus tard les dates, les montants ;
+note)*. Sur un entier, **`normalized` revient à faire `strict`** (rien à
+normaliser — accepté, équivalent), et **`similarity` est aussi autorisé,
+basé sur la conversion en texte** : la doctrine D369 s'étend — **la
+conversion en texte porte tous les modes textuels hors du type texte**,
+le mutualisé comme la similarité (les chiffres intervertis d'un numéro se
+retrouvent).
+
+**Les bornes et les octets de l'entier (D372 — clôt `integer`).** **Les
+bornes se déclarent dans le nom du type** : `integer` (non borné),
+`integer[100]` (maxi 100), `integer[0..100]`, `integer[0..]` (positif) —
+ou en propriétés `min`/`max` explicites (la symétrie de D366). **Les
+octets ne se déclarent jamais** : le moteur dimensionne la représentation
+interne **en fonction des bornes ou des valeurs affectées** — « un peu
+comme le mode `auto` du texte » : sans borne, le stockage s'ajuste aux
+valeurs réelles.
+
+```yaml
+fields:
+  quantity: integer[0..]           # positif, stockage auto
+  progress: integer[0..100]        # borné — jauge/curseur possibles (D275)
+  serial:
+    type: integer
+    mask: "00 00 00"               # format (D370)
+    searchable: similarity[0.9]    # les chiffres intervertis se retrouvent (D371)
+```
+
+**Le type `decimal` (D373 — clos).** **`decimals` est une propriété** —
+son défaut **vient du `settings`** (la cascade D360/D349), **ou vaut 2 si
+rien n'est défini**. **Le stockage est exact ou réel** : l'**exact**
+évite les problèmes d'arrondis — « nous pouvons faire un stockage en
+entier en convertissant les décimales dans la partie entière de la
+valeur », le dimensionnement suivant les critères de l'entier (D372) ;
+« cette structure offre des calculs optimisés et performants ». Le
+**réel** autorise des arrondis (mesures, grandeurs continues). **La forme
+est validée** (« pour décimal, "storage" me convient ») :
+`storage: exact` — le défaut — ou `storage: real`. **Le
+`mask` s'étend à la partie décimale** : `"0 000.00"` — les séparateurs
+sont symboliques, **rendus selon la langue** (la virgule française —
+D217/D221). **La recherche reprend le jeu de l'entier** (D371) tel quel.
+Les bornes : dans le nom du type (`decimal[0..100]`) ou `min`/`max` — la
+symétrie D372, le crochet ne portant jamais les décimales (`decimal[2]`
+serait ambigu).
+
+```yaml
+fields:
+  price:
+    type: decimal[0..]
+    decimals: 2                    # défaut : le settings, sinon 2
+    mask: "0 000.00"               # séparateurs rendus selon la langue
+  temperature:
+    type: decimal[-50..60]
+    storage: real                  # les arrondis assumés
+```
+
+**Le booléen : le cycle du tri-état (D374).** **« Une case à cocher à
+3 états : faux → vrai → nul → faux… »** — sur un booléen optionnel (le
+tri-état), **chaque clic avance d'un cran dans ce cycle** : l'état nul se
+ressaisit à la main, comme les deux autres, sans passer par un
+effacement — le nul de la table est une valeur de plein droit (la
+doctrine Q47), son composant le traite pareil.
+
+**Le booléen : la recherche par le composant (D375).** **« Une recherche
+`strict` s'appuie sur une case à cocher ou un toggle »** — le champ de
+recherche d'un booléen n'est pas une boîte de texte : **c'est le
+composant du type qui sert la recherche** (la ligne de D228 — un filtre
+par type de données). Le tri-état en recherche permet de **viser les
+lignes nulles** (« les filtres peuvent également concerner les lignes
+null si besoin » — la doctrine Q47) ; le toggle, sans nul, filtre
+vrai/faux.
+
+**Le booléen `required` : le troisième état dit « tous » (D376).**
+**« Pour un booléen sans valeur nulle (`required`), la recherche `strict`
+avec une case à cocher : "null" filtre Vrai & Faux. »** La case de
+recherche garde ses trois états même quand la donnée n'en a que deux —
+**la position nulle signifie « aucun filtrage »**, tout passe. *(Le sens
+de la position nulle suit donc la donnée : champ optionnel → elle vise
+les lignes nulles (D375) ; champ obligatoire → elle dit « tous ».)*
+
+**Le type `boolean` (D377 — clos).** Les points sont validés : **(1)
+`values` surcharge les libellés des trois états** — VRAI/FAUX/NUL (D281),
+par langue — servant l'affichage, le survol, l'export (D130) et la
+conversion en texte ; **(2) le tri-état n'est jamais déclaré : il découle
+de `required`** ; **(3)** la recherche par le composant (D375–D376), et
+**la recherche non engagée ne filtre rien** — la réinitialisation
+désengage la case (l'esprit du filtrage vivant D228), aucun quatrième
+état ; **(4) le composant** : case à cocher par défaut, `toggle` sans
+état nul, énuméré/radios en surcharge (D281) ; **(5) la naissance** :
+l'optionnel naît **nul**, l'obligatoire naît **`false`** sauf
+`default: true` — le stockage dit la même chose que l'écran.
+
+```yaml
+fields:
+  active:
+    type: boolean
+    required: true                 # deux états — toggle possible
+    values:
+      true:  { labels: { fr: Actif } }
+      false: { labels: { fr: Inactif } }
+  audited:
+    type: boolean                  # optionnel — tri-état, naît nul (D374)
+    searchable: strict             # case tri-état en recherche (D375)
+```
+
+**La durée : la virgule du masque, la notation décimale (D378).** **« Dans
+le masque d'une durée, la virgule signifie une heure en centième, une
+minute en centième ou une heure en dix-millième. »** Le masque (D276)
+porte donc **deux notations** : le deux-points sexagésimal (`"00:00"` —
+1:30 = une heure trente) et **le séparateur décimal industriel** — la
+virgule de l'auteur, symbolique et rendue selon la langue (D373) :
+`"0.00 h"` (l'heure en centièmes — 1,50 = 1 h 30), `"0.00 min"` (la
+minute en centièmes), `"0.0000 h"` (l'heure en dix-millièmes — la
+comptabilité industrielle du temps). **L'option de conversion (D276)**
+fait le pont : la saisie dans une notation, **la valeur canonique unique**
+au stockage et aux exports (Excel).
+
+**Le tri et le nul : l'équivalence par type (D379).** Le nul n'a pas une
+place fixe au tri — **il a une équivalence par type** : **`boolean` :
+nul < faux < vrai** (un rang propre, sous le faux) ; **`text` : le nul
+correspond à la chaîne vide** ; **`integer` : le nul est égal à 0** — il
+se classe **parmi** les valeurs (entre négatifs et positifs), pas à une
+extrémité. *(Le nul des temporels : à arbitrer avec leur clôture.)* La
+table reste souveraine (Q47) : l'équivalence ne vaut que pour la
+comparaison intrinsèque du type (D125) — le nul stocké demeure nul,
+l'export le rend tel quel.
+
+**La doctrine du tri complétée (D380).** **(1) `decimal` et `duration` :
+nul ≡ 0** — l'équivalence D379 étendue. **(2) La propriété `sort` entre
+au socle**, pour les seuls types à variantes : `text` →
+`sort: alphabetical` (défaut — la collation D222) ou `sort: natural`
+(les nombres lus comme des nombres : `item2` < `item10`) ; l'énuméré y
+viendra (déclaration \| libellé). **(3) La référence trie sur son libellé
+affiché** (ce que l'utilisateur voit — D216), **le calculé sur sa
+valeur**. Le parcours énonce désormais la règle de tri à chaque type.
+
+**Les temporels (D381 — clôt `date`, `time`, `datetime`, `duration`).**
+« Ok pour tout » — les six points : **(1)** `time` : **la précision dans
+le crochet** — `time[hh]`, `time[hh:mm]`, `time[hh:mm:ss]`,
+`time[hh:mm:ss.sss]` (D277) ; **(2)** `datetime` : **la nature dans le
+crochet** — `datetime[raw]` (valeur civile, **le défaut**) ou
+`datetime[timestamp]` (instant UTC, affiché selon la langue — D220), la
+précision de la partie heure en second paramètre
+(`datetime[timestamp, hh:mm]`) ; **(3)** les bornes `min`/`max` en
+**littéraux ISO** — les bornes dynamiques (« pas dans le passé »)
+passent par `validation` (D90), jamais par les facettes ; **(4)** le
+`mask` — **amendé par D383** : possible, **le masque de la langue
+(D217/D221) restant le défaut** ; les raccourcis, calendriers et horloges
+sont des composants (D278–D280) ;
+**(5)** la recherche : `strict`, **`range` en usage roi** (la plage de
+dates), `mutualizable` par la forme affichée (D369) ; **(6)** **le nul
+temporel se trie en tête** — avant toute valeur, le pendant du
+`nul < faux` booléen (D379).
+
+```yaml
+fields:
+  due_date:
+    type: date
+    min: 2020-01-01                # littéral ISO — le dynamique passe par validation
+    searchable: range              # la plage de dates
+  opening:
+    type: time[hh:mm]              # la précision dans le crochet (D277)
+  meeting:
+    type: datetime[raw, hh:mm]     # valeur civile (défaut), précision minute
+  signed_at:
+    type: datetime[timestamp]      # instant UTC, affiché selon la langue (D220)
+```
+
+**La date à précision (D382 — complète D381).** **`date` porte aussi une
+nature dans le crochet** : **`date[yyyy-mm-dd]`** (le jour — le défaut de
+`date`), **`date[yyyy-mm]`** (le mois — l'échéance mensuelle, la
+facturation), **`date[yyyy-ww]`** (la semaine — `ww` le numéro de
+semaine, dont la numérotation suit la langue D279). La valeur reste brute
+(D220), la comparaison chronologique, les bornes et la sérialisation à la
+granularité déclarée (ISO 8601 — `2026-07`, `2026-W30`) ; le calendrier
+se présente au bon grain — année, mois, semaine (D279).
+
+**Les temporels : la nature la plus fine par défaut, le masque possible
+(D383 — amende D381).** **(1) « Par défaut, la nature la plus fine est
+sélectionnée »** : `date` = `date[yyyy-mm-dd]`, `time` =
+`time[hh:mm:ss.sss]`, la précision de `datetime` = la plus fine — sa
+nature `raw` demeure, elle, le défaut (D381). **(2) « Le masque est
+possible »** — le point 4 de D381 s'assouplit : **par défaut, le masque
+de la langue s'applique** (D217/D221) ; un `mask` déclaré au champ
+surcharge ce défaut, pour l'affichage comme pour la saisie.
+
+**Le type `file` (D384 — clos).** **(1) `extensions`, deux formes** : la
+liste simple — `extensions: [pdf, docx, jpg]` — ou **la forme à
+libellés**, chaque extension nommant par langue **le document attendu** :
+
+```yaml
+fields:
+  invoice:
+    type: file
+    extensions:
+      pdf:  { fr: facture }
+      docx: { fr: document qualité }
+      jpg:  { fr: image }
+    quota: 10MB                    # propriété directe (D365), cascade D162
+  attachment:
+    type: file
+    extensions: [pdf, docx, jpg]   # la forme simple ; absente = tout accepté
+```
+
+*(Le libellé nourrit l'écran de dépôt et la documentation D333 — le champ
+ne dit plus « pdf accepté » mais « la facture ».)* **(2)** `quota` :
+déjà acquis (D162/D365). **(3) Les métadonnées ne se déclarent jamais** —
+nom, taille, MIME, empreinte, mots-clés (D160), le moteur les porte.
+**(4) La recherche porte sur le nom et les mots-clés** (`normalized`,
+`similarity`, `mutualizable` — la conversion en texte d'un fichier est
+son nom) ; **le tri sur le nom**, nul ≡ chaîne vide (D379). **(5) Rien
+d'autre au champ** : déduplication (D165), stockage dual (D161),
+caméra/galerie/visionneuse (D292–D293) relèvent du moteur et des
+composants.
+
+**`image` : un simple dérivé de `file` (D385).** **« Nous aurons un
+autre type simple `image` qui dérive de fichiers — les extensions sont
+limitées, la taille de l'image est ajustée/retaillée… »** Le type hérite
+du socle de `file` (D384 — quota, métadonnées, recherche nom+mots-clés)
+et **le restreint** : extensions bornées aux formats d'image, **la taille
+ajustée/retaillée par le moteur** (la vignette automatique D286 en
+découle). `thumbnail` suit la même filiation (D286 — la petite taille).
+Le catalogue D361 se lit désormais avec `thumbnail` et `image` parmi les
+simples ; leur détail viendra au parcours, après `enum`.
+
+**Le champ image de l'entité : la sélection par l'image (D386).**
+**« Dans une entité, nous pouvons associer un champ `image` pour que,
+dans une liste, l'image soit sélectionnable. »** L'entité **désigne l'un
+de ses champs image comme son visage** — la forme en proposition, une
+propriété d'en-tête :
+
+```yaml
+name: customer
+labels: { fr: Client }
+image: logo                       # le champ désigné — le visage de l'entité
+fields:
+  logo:
+    type: image                   # D385
+```
+
+La désignation ancre ce qui était acté côté composants : **le choix d'une
+référence par l'image** (D284–D285 — la liste de sélection présente les
+images), la vignette en cellule et en widget (D286/D293).
+
+**Le type `enum` : les values enrichies, le stockage numérique (D387).**
+**(1) `values` gagne une `description`** — « pour infobulle, en
+complément du libellé » — chaque valeur porte : `labels`, `description`,
+`icon`/`image` (D283) :
+
+```yaml
+category:
+  type: enum
+  values:
+    bronze: { labels: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
+    silver: { labels: { fr: Argent } }
+    gold:   { labels: { fr: Or } }
+  default: bronze
+```
+
+**(2) L'ordre de déclaration porte la présentation et le tri** ; le tri
+paramétrable — `sort: declaration` (défaut) ou `sort: label` (D380).
+**(3) Le stockage dépend de la clé** : **clé numérique → un entier** ;
+**clé chaîne → transformée en valeur numérique** — l'optimisation du
+stockage, le dictionnaire interne du moteur. **Le point d'attention des
+migrations** : « il faudra faire attention lors des migrations avec
+l'ajout intercalé d'une valeur » — *(résolution en proposition : le code
+interne est **stable**, une valeur insérée au milieu de la déclaration
+reçoit un code **nouveau**, jamais une renumérotation — l'ordre de
+déclaration régit la présentation, le dictionnaire régit le stockage, la
+donnée survit à la réorganisation du fichier ; à consigner au domaine
+migrations.)*
+
+**`enum` clos (D388).** Les deux derniers points validés : **(4) la
+recherche par le composant** — une liste de sélection du jeu de valeurs
+(D228), **multi-sélection en recherche**, `mutualizable` par le libellé
+(D369) ; **(5) le nul trié en tête**, et la ligne vide d'un champ
+optionnel peut recevoir son libellé via une entrée `null:` dans `values`
+(le patron booléen D377). Les dix simples d'origine (D118/D121) sont
+détaillés — restent `image`/`thumbnail` (D385) avant les composés.
+
+**`image` et `thumbnail` clos (D389).** Les cinq points validés :
+**(1) les dimensions dans le crochet** — `image[1920x1080]`, la boîte
+maximale ; l'ajustement **conserve les proportions, jamais de
+recadrage** (D293 — le hook D263 pour qui veut recadrer) ; sans crochet,
+la boîte par défaut du settings d'instance ; **(2) la vignette
+automatique** (D286) aux dimensions du settings d'instance —
+**`thumbnail[128x128]` ne garde que la petite taille**, l'image garde la
+grande + sa déclinaison ; **(3) `extensions`** : le jeu image par défaut,
+restreignable dedans, la forme à libellés (D384) disponible ; **(4)
+l'héritage `file` intégral** — quota, métadonnées, déduplication,
+recherche nom + mots-clés, tri sur le nom ; **(5) rien d'autre au
+champ** — caméra/galerie, visionneuse selon le terminal (D293), rendu
+PDF = l'image (D257).
+
+**Le placeholder d'une image : une icône (D390).** **« Le placeholder
+d'une image est une icône pour matérialiser le fond d'une image non
+définie. »** La propriété du socle (D364) s'interprète par type : la
+valeur de démonstration pour le texte et les nombres, **une icône de
+fond pour `image` et `thumbnail`** — `placeholder: package.png`, puisée
+dans `resources/` (D346), affichée tant que l'image n'est pas déposée.
+
+**Les composés (D391).** La règle générale est actée — **le composé
+hérite du kit déclaratif entier de sa base** (crochet, `mask`,
+`searchable`, `sort`), **sa validation est intégrée** (Luhn, mod 97, la
+conversion faillible D120 — jamais à déclarer), **ses facettes propres
+s'ajoutent** — et chacun est arbitré :
+
+1. **`amount`** : les devises autorisées **paramétrables** —
+   `currencies: [EUR, USD]` — **défaut : toutes les devises de la norme
+   ISO** (D123/ISO 4217).
+2. **`percentage`** : **les bornes permises, défaut 0..100** — « mais
+   dans certains cas, le % peut être < 0 ou > 100 : **dans ce cas, la
+   représentation varie** » (la jauge D274 vaut pour le cadre 0..100 ;
+   hors cadre, le composant s'adapte).
+3. **`measure`** : les unités autorisées paramétrables, **trois
+   régimes** — **statiques** (`units: [kg, g, t]`), **table de
+   référence** (`units: stock.unit` — l'adressage D363), ou **libres** ;
+   **défaut : libres**.
+4. **`phone`** : le numéro **national ou international, paramétrable** —
+   **défaut : le national seul**.
+5. **`geolocation` — amende D125** : **« le tri s'effectue en fonction
+   de la distance (à vol d'oiseau) liée à une focale définie dans la
+   configuration »** — **défaut : la localisation courante** (D291),
+   sinon **une adresse** (géocodée D294) **ou des coordonnées** ; **la
+   recherche trie par la distance entre un point de recherche et la
+   valeur**. L'ordre n'est pas intrinsèque — il est **relatif à la
+   focale**. **La forme est validée : « le focus de la géolocalisation
+   est au champ ou hérité du setting »** — `focus:`, la cascade D360.
+6. **`period` hérite du format d'une date/heure** — le crochet temporel
+   (D381–D383) : `period[yyyy-mm]`, `period[yyyy-ww]`,
+   `period[yyyy-mm-dd, hh:mm]`… début ≤ fin intégré, `range` en usage
+   roi.
+7. **Le nul de chaque composé se trie en premier** — la règle composée
+   prime l'équivalence de la base (l'`amount` nul avant les montants, là
+   où le `decimal` nul vaut 0 — D379).
+
+Les autres — `email`, `url`, `vat_number`, `siren`, `siret`, `iban`,
+`bic` — vivent de la règle générale : la validation intégrée suffit.
+
+**La géolocalisation : la zone de texte associée (D392).** **« La
+géolocalisation, en plus des coordonnées, peut être associée à une zone
+de texte »** — l'adresse ou le lieu nommé, porté par la valeur
+(alimenté à la saisie ou par le géocodage D294). **« La recherche
+mutualisable s'appuie sur cette valeur ; si cette valeur n'est pas
+présente, la standardisation des coordonnées en chaîne de caractères
+servira pour ce type de recherche. »** La conversion en texte du type
+(D369) est ainsi définie : **le texte associé, sinon les coordonnées
+standardisées**.
+
+**Le type `communication` (D393 — clos).** **(1) « Pas de visibilité
+"maximale" : elle se cale sur les niveaux de confidentialité »** — la
+visibilité du fil est portée par la confidentialité (D25, le socle
+D364), pas de propriété séparée. **(2) `attachments` peut faire
+référence à `file`, `image` ou `thumbnail`** — `attachments: false`
+(défaut) ou le type d'attaché, **avec les propriétés vues
+précédemment** (extensions, quota, dimensions en crochet — D384/D389)
+posées à plat sur le champ. **(3) Amende D295 — la cellule de liste** :
+**une communication apparaît comme une petite icône (thumbnail)** ; **au
+survol, le ou les derniers échanges sont résumés — la taille est
+paramétrable, en nombre de lignes** *(forme en proposition :
+`preview: 3`)*. **(4) Non listable** — confirmé (D166) : un canal = un
+champ. L'auteur (compte D77) et l'horodatage de chaque message restent
+générés, jamais déclarés. **(5) « La recherche porte sur le contenu des
+messages »** — `normalized`, `similarity`, `mutualizable` : la
+conversion en texte d'un fil est son contenu (D369).
+
+**La référence : l'origine pointe, la destination accède (D394).** **« La
+référence est une association entre une entité d'origine et une entité
+de destination »** : **l'entité d'origine porte le champ** — le nom de
+la référence est chez elle — et **« le lien se fait naturellement et par
+sémantique de l'origine vers la destination »** ; « une référence peut
+être vue comme une relation parent-enfant (avec un seul enfant) » — la
+ligne de D353 : celui qui pointe porte. **« Le lien de la destination
+vers l'origine ne fait pas appel à la définition par l'utilisateur d'un
+champ dédié : Syncytium doit le proposer »** — **l'accès retour est
+automatique**, offert à la destination sans que le technicien ne
+l'écrive. *(Ce qui éclaire D216 : la « liste nommée » du 1-N est
+l'habillage d'un accès que le moteur possède déjà.)*
+
+**Le filtre de référence : deux régimes et un rapport (D395).** **La
+condition de sélection s'évalue depuis l'entité destination** (ses
+champs ; l'enregistrement d'origine accessible via **`me.`** — D396). **Le filtre fonctionne à la sélection** ; **le contrôle de
+conformité dans le temps est soumis à une option** : soit **la condition
+est immuable** — la règle doit tenir (le responsable appartenant à la
+même société que l'emploi) ; brisée, « une mise à jour sera à prévoir
+pour valider la donnée » — soit **elle est liée à la sélection
+seulement** (la semaine d'un calendrier dont le statut évolue au cours
+du temps). Et **le filtre sait identifier les éléments qui ne respectent
+plus la condition** — modification du filtre, référence à un champ
+calculé qui dérive… — **sous forme d'un rapport**.
+
+```yaml
+responsible:
+  type: hr.employee                  # le raccourci D396 : nom d'entité = référence
+  filter: company = me.company       # évaluée depuis la destination ; me. = l'origine
+  check: immutable                   # brisée → donnée à valider, rapport
+week:
+  type: planning.week
+  filter: status = "open"
+  check: selection                   # défaut — la règle vaut au moment du choix
+```
+
+**Le raccourci de la référence et l'accès `me.` (D396).** **« Si le type
+est le nom d'une entité, nous considérerons que c'est une référence »** —
+`company: hr.company` est la forme courte complète (D356/D363), le `to`
+devenant inutile : le type **est** la cible. *(Note en proposition : une
+collision de nom entre un type personnalisé et une entité visible =
+erreur à l'ingestion — pas d'arbitrage silencieux, l'esprit D344.)* Et
+dans le filtre, **l'enregistrement d'origine se lit par `me.`** —
+`filter: company = me.company`, « je préfère `me` ou `this` à
+`origin` » : les champs nus sont ceux du candidat (la destination),
+`me.` est celui qui pointe.
+
+**La référence : les régimes d'écriture, le rapport, le label (D397).**
+**(1) « L'écriture via l'API doit être soumise au filtre aussi — sauf si
+l'API exprime explicitement le forçage de la valeur »** : le refus
+propre est la règle sur tous les canaux, le forçage un acte assumé de
+l'appelant *(note : une valeur forcée hors filtre relève du rapport des
+non-conformes — D395)*. **(2) Le rythme du rapport est défini dans les
+paramètres, au même titre que les autres propriétés du champ** *(forme à
+préciser — `report:` en proposition)*. **(3) L'état « à valider » est
+porté par le moteur — visible et non bloquant** (jamais la machine à
+états déclarée D353). **(4) Les propositions restantes sont validées** :
+**`label:` en en-tête d'entité** — un champ ou un gabarit d'expression
+(`label: "{code} — {company_name}"`, D90), **défaut : la clé
+fonctionnelle** (D357) — le visage textuel servi partout (référence,
+sélection, widgets — le pendant de `image:` D386) ; **la recherche
+porte sur le libellé affiché de la cible** (`normalized`, `similarity`,
+`mutualizable` ; la traversée D226 demeure) ; **le tri sur le libellé
+affiché** (D380), nul ≡ chaîne vide ; **le composant** — liste
+déroulante à recherche au début de mots et throttling, **choix par
+image si la cible désigne son visage** (D386).
+
+```yaml
+name: customer
+labels: { fr: Client }
+identity: [code]
+label: "{code} — {company_name}"   # le visage textuel (D397)
+image: logo                        # le visage graphique (D386)
+```
+
+**Le stockage de la référence (D398 — clôt la référence).** Les cinq
+points validés : **(1) le stockage est l'UUID technique de la cible**
+(D142 — l'invariant à vie : il survit au renommage, à l'anonymisation,
+à la réactivation ; le squelette référentiel D75/D82) ; **(2) jamais la
+clé fonctionnelle** — elle mute, les inactifs la dupliquent (D141) —
+**jamais le libellé** — il se recalcule du gabarit (D397) ; **(3) les
+frontières traduisent** : l'IHM montre le `label`, **le CSV transporte
+la clé fonctionnelle** (l'UUID « non connu, ni exposé » — Q49), l'API
+manipule l'UUID ; **(4) l'intégrité** : la cible doit exister à
+l'écriture ; la « suppression » étant une désactivation (D141), **une
+référence vers un inactif reste valide** — l'histoire tient, la
+sélection ne proposant que les actifs ; **pas de cascade sur la
+référence** (la cascade appartient à la composition) ; **(5) la
+performance au moteur** : dénormaliser le libellé est un choix
+d'implémentation **invisible au modèle** (l'esprit D372).
+
+**La composition : le possesseur déclare la liste (D399).** **« La
+composition est sur l'entité d'origine — et le type est
+`list of <nom de l'entité>`. »** La commande possède ses lignes :
+
+```yaml
+# sales/entities/order.yml
+name: order
+labels: { fr: Commande }
+fields:
+  customer: customer                 # référence (D396) — association libre
+  lines:
+    type: list of order_line         # la COMPOSITION — la commande possède
+                                     # (nom local — même module, D363)
+```
+
+**L'enfant ne déclare rien** — l'accès retour (la ligne → sa commande)
+est automatique (D394 : Syncytium le propose). La symétrie s'achève :
+**la référence pointe un, la composition pointe plusieurs** — le même
+geste (l'origine porte le champ), le `list of` (D362) faisant toute la
+différence, le nom d'entité disant la cible (D396). *(La proposition
+inverse — une facette `composition: true` sur l'enfant — est écartée.)*
+
+**Le trio des liens, et l'imbrication (D400).** **(1) « Oui, c'est la
+définition de la composition »** — tout `list of <entité>` est la
+possession forte. Et **« pour une association, nous pouvons utiliser
+`association with` »** — le trio est complet :
+
+```yaml
+customer: customer                    # la RÉFÉRENCE — un, lié (D396/D398)
+lines:
+  type: list of order_line            # la COMPOSITION — plusieurs, possédés (D399)
+tags:
+  type: association with catalog.tag  # l'ASSOCIATION — plusieurs, libres (D400)
+```
+
+La référence pointe **un**. La composition possède **plusieurs** — la
+cascade de vie (désactivation/réactivation D140), l'atomicité de
+l'agrégat (D101, la reprise à la racine D111), l'intra-module vérifié à
+l'ingestion (D116), les cascades de configuration (D162/D168), la
+naissance dans la liste du parent. L'association relie **plusieurs,
+librement** — inter-modules permise (D116), sans cascade ni possession,
+l'accès retour automatique des deux côtés (D394), **la machinerie de
+liaison au moteur** — jamais une entité à construire à la main. **(2)
+« L'imbrication est nécessaire sur plusieurs niveaux »** — « facture →
+indice → ligne » : les compositions s'emboîtent, **la racine demeure
+l'ancre de l'agrégat** — le plancher transactionnel (D101), la
+concurrence ancrée à la racine (D111), la cascade de vie de haut en
+bas.
+
+**L'association reprend les propriétés de la référence (D401).** **« Dans
+le cadre de l'association, nous reprenons les mêmes propriétés qu'une
+référence »** : le `filter` évalué depuis la destination avec `me.`
+(D395/D396), le `check: selection | immutable` et son rapport des
+non-conformes (D395), l'écriture API sous filtre sauf forçage explicite
+(D397), l'affichage par le `label` et l'`image` de la cible (D397/D386),
+la recherche et le tri sur le libellé affiché, le stockage par UUID
+(D398) — **chaque élément lié se comporte comme une référence** ; seule
+la cardinalité et la liberté du lien changent (D400).
+
+**La composition et l'association n-aires : le tuple d'entités (D402).**
+Les matrices et hypercubes (D134) **se rapportent au lien** — l'exemple
+fondateur : des utilisateurs, des modules, des droits. **« Le champ
+`modules` de l'entité `user` est de type `list of [module, right]` »** —
+chaque élément de la liste est **une combinaison des entités nommées** —
+**« avec des propriétés pour chaque entité nommée, comme pour une
+composition »** ; et **`association with [module, right]`** pour la
+forme libre, les propriétés par entité nommée comme pour une
+association. Le kit de la référence (D401) s'applique **à chacune des
+entités nommées** :
+
+```yaml
+# system/entities/user.yml
+modules:
+  type: list of [module, right]      # chaque élément = (module, droit)
+  module:
+    filter: active = true            # le kit de la référence, par entité nommée
+  right:
+    filter: level <= me.clearance
+    check: immutable
+```
+
+*(La proposition `by:` — les dimensions par champs de l'enfant — est
+écartée : la combinaison EST l'élément.)*
+
+**La cellule du lien n-aire : les champs associés (D403).** **(1)** La
+définition prend la forme **`list of [size, color]
+{ quantity: integer[0..], name: text, … }`** — le tuple indexe,
+**l'accolade porte les champs de la cellule** : « dans les propriétés
+associées, nous exploitons **toute la puissance des champs déjà
+définis** » — types, facettes, masques, validations, tout le kit du
+champ. **« Le moteur prend en charge la modélisation de cet objet de
+façon transparente »** — jamais une entité à écrire à la main. *(Notes :
+le « string » de l'exemple d'origine se lit `text` — le catalogue D361 ;
+la forme éclatée en bloc YAML équivaut à l'accolade quand les champs
+s'enrichissent — l'esprit D352.)* **(2) « Une cellule par combinaison de
+clé de la liste ou de l'association »** — l'unicité est **structurelle**,
+garantie par le moteur sur le tuple entier, pour les deux formes du
+lien.
+
+```yaml
+# stock/entities/item.yml
+cells:
+  type: list of [size, color] { quantity: integer[0..] }   # la matrice (D134)
+```
+
+**Le bloc `validation:` au niveau de l'entité (D404).** **« `validation:`
+est au même niveau que `fields:` dans la configuration »** — les règles
+de l'enregistrement (celles qui croisent plusieurs champs) vivent dans
+un bloc d'entité, frère de `fields:` :
+
+```yaml
+name: customer
+fields:
+  satisfaction: percentage
+  category: { type: enum, values: { bronze: …, gold: … } }
+validation:
+  - satisfaction >= 50 if category = "gold"   # la règle de l'enregistrement
+```
+
+**Confirmé : « la validation est possible sur un champ ou sur une
+entité. »** Le champ garde ses règles locales (D364 — le `matches` d'un
+code postal), l'entité porte les règles croisées ; la trace D307 cite le
+niveau qui a refusé.
+
+**L'association conditionnelle : l'accès retour déclaré (D405).** **« Il
+manque un champ dans `customer` pour matérialiser la liste des
+commandes »** — la forme :
+
+```yaml
+orders: association with order if order.customer = me
+```
+
+**L'`if` fait l'association dérivée** : la condition définit
+l'appartenance — les commandes dont le champ `customer` est
+l'enregistrement courant (`me`, D396). C'est **la vue dérivée navigable
+de D136**, enfin déclarative : **jamais stockée** (la vérité reste la
+référence N-1 — D136/D398), **en lecture** (on n'édite pas une
+condition, on édite la référence qui la fonde), servie par la machinerie
+que le moteur possède déjà (D394). Le nom déclaré (`orders`) sert
+partout — `computed: count(orders)`, les surfaces, les chemins (D71).
+*(Sans `if`, l'association reste stockée et libre — les `tags` de D400 ;
+l'`if` départage les deux natures. Le trou n° 2 de la contre-passe — le
+nom de l'accès retour — se referme : le nom vient de la déclaration.)*
+
+**Le rapport des non-conformes : rythmes et destinataires (D406).**
+**« Il faudra pouvoir affecter les rapports à un utilisateur ou un
+groupe, sous forme de mails ou de notifications »** — l'infrastructure
+existante (D108–D110 : canaux, profils) et les groupes (D26–D27)
+servent. La forme consolidée est **validée** (« cette forme me
+convient ») :
+
+```yaml
+advisor:
+  type: hr.employee
+  filter: company = me.company
+  check: immutable
+  report:
+    when: [migration, weekly]     # les rythmes automatiques, cumulables —
+                                  #   migration (défaut) | continuous | daily | weekly | monthly
+    to: [quality_team, aymeric]   # un groupe (D26) ou un utilisateur
+    by: [mail, notification]     # les canaux (D108–D110)
+```
+
+**L'à-la-demande existe toujours** (l'écran du technicien), rien à
+déclarer. *(Notes : la résolution des noms de `to` — groupe d'abord,
+utilisateur ensuite, collision = erreur d'ingestion, l'esprit D344.)*
+
+**Le `report` en cascade (D407 — amende D406).** **« Le report peut
+être paramétré au niveau de l'instance, du module, de l'entité ou du
+champ »** — la cascade des settings (D348–D349/D360) : le plus proche
+l'emporte, chaque étage raffine le précédent. **Le défaut : le rapport
+existe — à la demande, vers l'administrateur** (D29) : sans `when`,
+aucun rythme automatique implicite (en déclarer un l'ajoute) ; sans
+`to:`, l'administrateur de l'instance. **Et `report: no` est l'exclusion
+explicite** — « pour ne pas déclencher de rapport », posable à
+n'importe quel étage (l'opt-out local de la cascade). *(Le premier
+défaut consigné — « report: no par défaut » — est écarté par revirement
+de l'auteur.)*
+
+**Le nom du type est la clé — les hooks sans le mot « hook » (D408).**
+**« Tous les types que nous venons de voir ont des propriétés
+communes : le nom du type est la clé. »** L'espace de noms des types est
+**un** : le catalogue de base (réservé — D360), les types personnalisés
+(D359), les entités (la référence par le nom — D396), et **les hooks de
+type, qui ajoutent de nouveaux noms dans Syncytium** — **« exploitables
+et déclarables comme les types standard »**. **« Le mot-clé `hook` ne
+doit pas apparaître »** : pas de `type: hook.<nom>` (ma forme est
+écartée) — le champ écrit `progress_ring: gauge_3d` comme il écrirait
+`text` ; **l'usage est indistinguable, seule la déclaration du hook (le
+contrat, le code) relève du domaine 6**. Et la pointe finale : **« pour
+aller plus loin, tous les types proposés sont finalement des hooks qui
+appartiennent à Syncytium »** — le catalogue de base est **l'ensemble
+des hooks que Syncytium embarque** : un seul mécanisme de bout en bout
+(la ligne D52 — interne et externe uniformes), le moteur mange sa propre
+cuisine ; « réservé » (D360) signifie simplement que ces noms-là sont
+déjà pris par les hooks de la maison. *(L'unicité de l'espace de noms
+durcit la règle de collision : tout doublon de nom entre catalogue,
+personnalisés, entités et hooks = erreur à l'ingestion — D344/D396.)*
+
+**Le type `counter` (D409).** Les compteurs du modèle (D154–D155)
+reçoivent leur écriture — le kit livré : **`type: counter`**, géré par le
+moteur (allocation **dans la transaction**, échec = numéro non consommé,
+unicité et **continuité** — l'exigence comptable) ; **`format:`** le
+gabarit (D90/D155) aux segments calendaires et au segment compteur
+masqué (`{counter:000000}` — le `0` du nombre D370) ; **« la
+réinitialisation doit être définie sur la déclaration »** — `reset:`
+explicite (`yearly`, `monthly`… — les déclencheurs calendaires D54/D155,
+la cascade par déclaration ; *défaut en proposition : `never`, la
+séquence continue* ; ma déduction depuis le gabarit est écartée) ;
+**jamais saisi** (`write-once` de fait), candidat naturel à l'identité.
+Et l'arbitrage de l'auteur : **« par défaut, le compteur est attaché au
+champ ; mais il est possible de le mutualiser sur plusieurs champs dans
+plusieurs entités »** — **`counter` = la séquence propre au champ,
+`counter[my_counter]` = le compteur nommé partagé** (le crochet nomme —
+le patron `mutualizable[name]`, D367).
+
+```yaml
+# sales/entities/invoice.yml
+number:
+  type: counter[accounting]              # la séquence partagée « accounting »
+  format: "FAC-{year}-{counter:000000}"
+  reset: yearly                          # défini sur la déclaration
+# sales/entities/credit_note.yml
+number:
+  type: counter[accounting]              # la même séquence — la chronologie commune
+  format: "AVR-{year}-{counter:000000}"
+  reset: yearly
+```
+
+**L'artefact de clôture du bloc `fields` (D410).** Validé (« oui »),
+avec les deux virgules actées : **le défaut `reset: never`** (la
+séquence continue) et **le compteur nommé déclaré au `settings` de
+l'étage englobant** (module si partagé dans le module, version au-delà —
+la cascade D360), le champ gardant son `format:` propre. Les deux
+fichiers canoniques :
+
+```yaml
+# sales/entities/customer.yml
+name: customer
+labels: { fr: Client }
+comment: { fr: Les clients de la société }
+inheritance: third_party             # l'enfant pointe (D353) — les états sur le parent
+identity: [code]                     # la clé fonctionnelle (D357)
+label: "{code} — {company_name}"     # le visage textuel (D397)
+image: logo                          # le visage graphique (D386)
+
+fields:
+  code:
+    type: text
+    mask: "C-999999"                 # taille et lignes déduites (D366)
+    mode: write-once
+    labels: { fr: Code client }
+  company_name:
+    type: text[80]
+    required: true
+    searchable: mutualizable[who]    # la recherche partagée (D368)
+    labels: { fr: Raison sociale }
+  notes: text                        # la forme courte — auto (D356/D366)
+  employees: integer[0..]            # positif, octets auto (D372)
+  revenue:
+    type: amount
+    currencies: [EUR]                # composé dérivé (D391)
+    confidentiality: protected
+  satisfaction: percentage           # 0..100 → jauge (D391)
+  active:
+    type: boolean
+    required: true                   # deux états (D377)
+    default: true
+  created: datetime[timestamp]       # instant UTC (D381)
+  logo:
+    type: image[512x512]             # boîte max, vignette auto (D389)
+    placeholder: company.png         # l'icône de fond (D390)
+  category:
+    type: enum
+    values:
+      bronze: { labels: { fr: Bronze }, icon: bronze.png }
+      silver: { labels: { fr: Argent } }
+      gold:   { labels: { fr: Or } }
+    default: bronze                  # stockage numérique (D387)
+  headquarters: geolocation          # focale + texte associé (D391–D392)
+  progress: progression              # type personnalisé (D359) — un hook (D408)
+  advisor:
+    type: hr.employee                # la référence (D396)
+    filter: company = me.company     # depuis la destination (D395)
+    check: immutable                 # report défaut : à la demande → administrateur (D407)
+  tags:
+    type: association with catalog.tag                     # l'association stockée (D400)
+  orders: association with order if order.customer = me    # la vue dérivée (D405)
+  total_orders:
+    type: integer
+    computed: count(orders)          # s'appuie sur la vue (D405)
+
+validation:
+  - satisfaction >= 50 if category = "gold"   # les règles de l'enregistrement (D404)
+```
+
+```yaml
+# sales/entities/order.yml
+name: order
+labels: { fr: Commande }
+identity: [number]
+label: "{number}"
+
+fields:
+  number:
+    type: counter                        # la séquence propre au champ (D409)
+    format: "CMD-{year}-{counter:000000}"
+    reset: yearly
+  customer: customer                     # référence, nom local (D396)
+  lines:
+    type: list of order_line             # la composition (D399), imbricable (D400)
+  discounts:
+    type: list of [product, season] { rate: percentage }   # le n-aire (D402–D403)
+```
+
+**La contre-passe est soldée** — les sept familles vérifiées, les trois
+trous refermés (l'accès retour déclaré D405, `report:` D406–D407, les
+hooks sans le mot D408), le compteur entré au catalogue (D409). **Le
+bloc `fields` est clos** — sous la règle générale du chantier : la
+complétude finale s'appréciera après tous les domaines.
+
+```yaml
+history:
+  type: communication
+  confidentiality: protected     # la visibilité du fil (D25) — le socle suffit
+  attachments: image             # false (défaut) | file | image | thumbnail
+  quota: 5MB                     # le kit du type d'attaché, à plat (D365)
+  notification: true             # opt-in — IHM ou mail (D108–D110)
+  preview: 3                     # le résumé au survol, en lignes (proposition)
+```
+
+**La conservation et l'ordre des numéros (D345).** **Les versions
+dépréciées et interdites sont conservées** — pour des questions
+**historiques** : rien ne s'efface, les dossiers `deprecated/` et
+`forbidden/` sont la mémoire du parc. Et **la règle d'ordre incrémental**
+des numéros : **`beta` > `production` > `deprecated`** — une bêta porte
+toujours un numéro supérieur aux versions de production, elles-mêmes
+supérieures aux dépréciées. **Les versions `forbidden` échappent à cette
+contrainte** — naturellement : une bêta comme une production de n'importe
+quel numéro peut y être classée.
+
+**La configuration par environnement (D342, amende D339 et précise
+D325).** **Le nom `technical/` est écarté au profit d'`environments/`** —
+avec **un dossier par environnement** : **les connecteurs, les logs, les
+settings et la documentation sont spécifiques à chaque environnement**.
+La configuration reste **commune aux versions** (D325) mais se **décline
+par environnement** ; les valeurs partagées entre environnements passent
+par les **variables** (D321/D323 — le `${environment.name}` des
+échantillons prend tout son sens).
+
+**Les journaux par environnement (D343).** Les journaux n'ont **pas la
+même configuration selon l'environnement** : **staging = debug ou
+verbose** (il faut plus de traces) ; **production active = info**, avec
+**éventuellement une redirection vers un puits de logs** ; **production
+passive = warning**. **Les fichiers de journaux sont formatés différemment
+et stockés dans des emplacements différents** selon l'environnement.
+
+**La vue consolidée du domaine 1 — l'arborescence du dépôt de
+description** (artefact de clôture, consolidé de D320–D343) :
+
+```yaml
+syncytium.yml                  # le fichier racine (D322) : identité de l'instance
+                               # (application, société, logo — D191/D254), langues
+                               # (permises, défaut, fuseaux, formats — D217–D221/D131),
+                               # compte administrateur de secours (D29/D81),
+                               # références par patterns (D320)
+resources/                     # logos, icônes, images, documents — partagés avec
+                               # toutes les versions (D346)
+environments/                  # un dossier PAR environnement (D342)
+  staging/                     #   le test
+    environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
+    connectors/                #     identité (un actif, D80), données (D79),
+                               #     notifications (D108), géocodage (D294), reprise (D175)
+    logs.yml                   #     debug / verbose (D343)
+    settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
+    documentation.yml          #     génération de la documentation (D333)
+  production/                  #   la production active
+    environment.yml
+    connectors/
+    logs.yml                   #     info + puits de logs éventuel (D343)
+    settings.yml
+    documentation.yml
+  passive/                     #   la production passive (PCA/PRA, D113–D114)
+    environment.yml
+    connectors/
+    logs.yml                   #     warning (D343)
+    settings.yml
+    documentation.yml
+versions/                      # (D324, D338, D340)
+  beta/                        #   → le staging s'instancie (D112)
+  production/                  #   → servies par l'actif + le passif
+  deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
+  forbidden/                   #   → refusées (D103)
+    # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
+    # du format) + <maj>.<min>.<indice>.<build>/ (le détail — domaines 2 à 8 :
+    # schéma de données, IHM, configuration générale, groupes + modules
+    # fonctionnels D341)
+```
+
+À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
+de l'eau — `settings.yml` ou fichiers propres) : rate limiting (D105),
+dossier des binaires + quota d'instance (D160/D162), rétentions (D110,
+D55), synchronisation actif/passif (D113–D114). Côté **projet Syncytium**
+(dépôt distinct, D336) : le dossier **`template/`** « Hello world ! »
+(D337).
+
+**Groupes et modules fonctionnels : versionnés (D341 — clôt le domaine 1
+de l'inventaire).** **Les groupes (D26–D27) et les modules fonctionnels
+(D190/D210) sont versionnés avec le schéma** — ils appartiennent au
+contenu versionné (D325) : le modèle des droits et l'expérience utilisateur
+évoluent avec le schéma qu'ils gouvernent. Les **affectations**, elles,
+restent des **actes d'administration en base** : personnes ↔ groupes
+(D27), utilisateurs ↔ modules fonctionnels (D210).
+
+**Le dépôt du client, distinct du projet (D336).** **Le dossier de
+description sera versionné par le client, dans un dépôt différent du
+projet Syncytium** — le moteur (public) et les descriptions (propres à
+chaque TPE) vivent dans des dépôts séparés ; le contrat entre les deux est
+le format versionné (D322–D332).
+
+**Le dossier « template » : Hello world ! (D337).** **Le projet Syncytium
+embarque un dossier `template/`** définissant un projet **« Hello
+world ! »** — le point de départ qui **facilite la prise en main par le
+technicien** : une description minimale complète, clonable, dont
+l'application générée fonctionne immédiatement. Premier des exemples
+promis à la documentation (D314/Q58–Q59).
+
+**La documentation vivante et son partage élargi (D334).** La
+documentation technique **exploite aussi les données enregistrées dans la
+base** pour apporter des **informations utiles sur l'usage — ou le
+non-usage — de valeurs ou de plages de valeurs** : la télémétrie
+(D38–D51, la diversité D46/D48 en tête) devient une **troisième source**
+de la documentation, celle qui dit non pas ce que le modèle *permet* mais
+ce que l'instance *fait*. Et **certaines informations dédiées au
+technicien pourront être partagées** — **aux utilisateurs, aux
+techniciens de parties tierces** (les consommateurs des API, dont la
+documentation générée s'enrichit) **et aux usagers**. *(Harmonisation
+naturelle : le partage s'opère sous les règles d'accès existantes —
+confidentialité D25–D27, groupes — le destinataire ne voit que ce que ses
+droits permettent.)*
+
+**Le corollaire : diffable et commentaires, questions caduques (D332 —
+clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
+il n'y a **ni problème de YAML diffable, ni sort des commentaires** : les
+fichiers restent **exactement tels que le technicien les a écrits**,
+commentaires compris — seule la logique interne (D327/D329) change de
+forme. Si un outil d'assistance à la mise à niveau des descriptions
+voyait le jour, ce serait **un outil du technicien, pas un geste du
+moteur**.
+
+**Le journal de migrations compilé (D329).** **Pour des questions de
+performance, le moteur traduit les descriptions en un journal de
+migrations selon un format qui lui est propre.** **La migration est gérée
+en mémoire** pour rendre les données plus rapidement. Et **en cas de
+relance du serveur, les règles de migration sont déjà prêtes à l'emploi** —
+**les traitements optimisant les temps de traitement sont déjà réalisés et
+réutilisables** : la forme compilée est **persistée**, aucune
+recompilation à la relance. C'est la pièce maîtresse de la logique interne
+(D327) — et le même journal compilé nourrit naturellement la chaîne de
+translation des API (§5.1), qui en dérive.
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),
@@ -3716,9 +5405,11 @@ re-vérifier à la pile technique (Q7).
 **La communication (D295).** L'onglet acté (D167/D186) : fil chronologique
 (auteur, horodatage, contenu), **saisie du nouveau message en bas**,
 messages **immuables**, pièces jointes si activées, notifications opt-in
-(D108–D110) ; sur smartphone, **le fil en plein écran**. **Pas d'affichage
-dans une cellule de liste.** PDF = le fil complet si le bloc est inclus au
-gabarit ; Excel = exclu (D236).
+(D108–D110) ; sur smartphone, **le fil en plein écran**. ~~Pas d'affichage
+dans une cellule de liste.~~ **Amendé par D393** : en liste, **une petite
+icône (thumbnail)** — au survol, **le ou les derniers échanges résumés**
+(taille paramétrable en nombre de lignes). PDF = le fil complet si le
+bloc est inclus au gabarit ; Excel = exclu (D236).
 
 **La liste (D296).** Modification : **multi-sélection** (cases ou tags)
 pour les énumérés, **éditeur de liste** sinon (ajouter / retirer /
@@ -4013,7 +5704,7 @@ sont pas validés.**
 | ~~Q30~~ | ~~Volet conseil — étude dédiée ?~~ | **Résolu (D45, D315–D319, §6.5)** : détection par **SEQUITUR** sur les appels **normalisés (endpoint + liste des propriétés, valeurs ignorées)** — paires ≥ 2 → règles récursives, **grammaire des séquences répétées** ; exploitation = recommandations d'optimisation **et transformation des séquences lourdes en services proposés** (le moteur propose avec fréquence + gain, **le technicien décide**) ; **seuils** = récurrence sur plage temporelle + **rapport longueur normalisée/réelle** (valeurs calibrées sur données réelles, Q59) ; **aucun catalogue de motifs prédéfini** — les motifs se déduisent, non connus à l'avance. |
 | ~~Q14~~ | ~~Modèle de déploiement / qui est le technicien ?~~ | **Résolu (D16, D17, D95)** : une instance par TPE, moteur public, mise à jour technique manuelle, description à chaud (§7.2). Le **« technicien » = un rôle moteur de Syncytium**, paramétrable, affectable à 1..n personnes physiques (D95). |
 | ~~Q15~~ | ~~Licence ?~~ | **Résolu (D19)** : AGPL. Gouvernance des contributions : **question à part entière, formellement différée** — les premières versions **ne solliciteront pas** de contributions externes ; réouverture selon retours et besoins (CLA/DCO + processus à définir alors). |
-| Q16 | **Versionnement du format de descriptif** : politique de compatibilité moteur ↔ descriptions dans un parc hétérogène ; la procédure de migration technique inclut-elle la conversion des descriptions ? | Miroir de la problématique API (§5), transposée au contrat moteur/description — voir §7.2. **Le format de description = le méta-schéma (D44)** : Q16 versionne donc le méta-schéma, possédé par le moteur. **À TRAITER EN DERNIER — synthèse** : le méta-schéma est le point de convergence ; hooks, API, connecteurs et règles y déposeront des propriétés. Le définir avant eux serait prématuré. Contributeurs déjà connus : D2, D25, D27, D4–D6, D35–D36, D37, D49–D50 ; **interfaces de hooks versionnées (D52)** ; **déclaration de tâche + principals contextuels (D53–D58)** ; **thème, cartographie type→composant, surcharges, interface de composant, registre (D63–D68)** ; **vocabulaire de description de rendu déclaratif (D69)** ; **dimension d'audience + appartenance + délégation (D70–D77)** ; **connecteurs : modèle auto-décrit, clé d'unicité, entité virtuelle (D78–D89)** ; **langage d'expression unique (D90–D91)**. |
+| Q16 | **Le méta-schéma — EN COURS (ouverte le 18/07/2026, branche feature/meta-schema)**. Méthode actée en trois phases : **(1) l'inventaire structuré** (l'arborescence complète du format, domaine par domaine — à produire) ; **(2) le versionnement du format** (compatibilité moteur ↔ descriptions, conversion des descriptions à la montée de version — à discuter) ; **(3) la forme concrète — ARBITRÉE (D320–D321, §3.2c)** : syntaxe **YAML** sans format personnalisé, **multi-fichiers/dossiers** avec patterns, **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` (items de configuration à **navigation relative remontante** — chaque point initial remonte d'un niveau —, mots-clés extensibles, variables d'environnement, imbrication). **La phase 3 est close — et la phase 2 aussi (D322–D332)** : dossier des versions (déposer = publier, version 4 valeurs croissante), partage commun/versionné, registre des essais (retry par bump du build), enveloppe → logique interne (fichiers inertes), journal de migrations compilé persisté, migration dès validation, **descendante = refus propre sur l'en-tête**, **ascendante = conversion à l'ingestion sans réécriture des fichiers** (diffable/commentaires caducs). **Reste la phase 1 : l'inventaire structuré, domaine par domaine.** | Le point de convergence des 332 décisions ; le test de complétude du langage (D44). |
 | ~~Q17~~ | ~~Confidentialité : globale ou par profil ?~~ | **Résolu (D25, D26)** : trois niveaux emboîtés (public/protégée/privée) + restriction par compte ou groupe, défaut global — voir §5.5. Détails ouverts : Q22–Q23. |
 | ~~Q18~~ | ~~Portée des champs calculés ?~~ | **Résolu (D35–D36)** : paliers 1+2 actés ; agrégats en vocabulaire minimal à la volée + hook de code personnalisé — voir §5.5. Modalités du hook : Q26. |
 | ~~Q19~~ | ~~Pagination et lots ?~~ | **Résolu (D100, D101)** : curseur **opaque porté par la mécanique** (embarque la version de schéma) ; **lots de transactions** (1 niveau — ligne-à-ligne et tout-ou-rien = cas dégénérés) ; **atomicité portée par le modèle** (agrégats déclarés = plancher ; raffinement si autorisé ; composition libre vers le haut). |
@@ -5495,6 +7186,28 @@ avant la synthèse Q16).
   coercition** (fourni en réponse — ratification attendue). Restent : la
   table ternaire exacte, les mots-clés anglais, l'exigence de contexte du
   déterminisme, la ratification coercition.
+- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
+  « Tu as raison » : la table standard est validée en référence — mais la
+  doctrine du projet prime : **le null dans une expression booléenne ou
+  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
+  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
+  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
+  filtres de consultation au SGBD suivent la table ternaire standard (pas
+  d'anomalie à exclure une ligne à champ null).
+- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
+  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
+  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
+  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
+- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
+  confirmations : **les filtres peuvent cibler les lignes null** et la
+  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
+  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
+  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
+  migrations** (D311) ; **la coercition est validée** (D312 — sûre
+  implicite, explicite par `to_*`, faillible à échec propre, jamais
+  silencieuse). **Le langage d'expression est entièrement spécifié**
+  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
+  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.
 - **2026-07-18** — **L'étude comparative reprise avec le périmètre complet
   (§9.5 — PR #19 fusionnée entre-temps, branche feature/etude-q5)**. À la
   demande de l'auteur (« l'étude a été faite lorsque nous n'avions pas tout
@@ -5590,25 +7303,673 @@ avant la synthèse Q16).
   émergeront de la grammaire comme règles courtes s'ils existent. Le volet
   conseil est entièrement spécifié (D45, D315–D319). Restent au projet :
   Q7, Q16, Q58, Q59.
-- **2026-07-16 (suite 6)** — **Le null tranché (D308, amende D303)**.
-  « Tu as raison » : la table standard est validée en référence — mais la
-  doctrine du projet prime : **le null dans une expression booléenne ou
-  arithmétique est une valeur anormale, capturée** (circuit D304), **sauf
-  s'il est capté par `isnull`/`ifnull`**. Ni propagation silencieuse, ni
-  ternaire silencieuse : l'anomalie se voit. Interprétation soumise : les
-  filtres de consultation au SGBD suivent la table ternaire standard (pas
-  d'anomalie à exclure une ligne à champ null).
-- **2026-07-16 (suite 7)** — **Les mots-clés de la grammaire en anglais
-  (D309)** : le « si » filtrant devient `if`, le « selon que » prendra sa
-  forme anglaise au catalogue — fonctions et mots-clés anglais, noms de
-  champs et d'entités = ceux du modèle. Clôt le corollaire D301/D305.
-- **2026-07-16 (suite 8)** — **Q47 CLOSE (D310–D312)**. Les trois dernières
-  confirmations : **les filtres peuvent cibler les lignes null** et la
-  doctrine est nette — « **dans une table, null n'est pas une anomalie ;
-  dans une évaluation pour un calcul, oui** » (null stocké légitime, null
-  évalué capturé D308) ; **le déterminisme n'est exigé que pour les
-  migrations** (D311) ; **la coercition est validée** (D312 — sûre
-  implicite, explicite par `to_*`, faillible à échec propre, jamais
-  silencieuse). **Le langage d'expression est entièrement spécifié**
-  (D90–D92, D104, D120, D301–D312). Restent au projet : Q5 (une ligne),
-  Q7, Q30, et **Q16 — la synthèse méta-schéma, dernière question**.
+- **2026-07-18 (suite 8 — PR #21 fusionnée, branche feature/meta-schema)**
+  — **Q16 OUVERTE — la synthèse finale.** Méthode proposée en trois phases
+  (1 : inventaire structuré de l'arborescence, domaine par domaine ; 2 :
+  versionnement du format moteur↔description ; 3 : forme concrète).
+  **L'auteur prend la phase 3 d'emblée et l'arbitre (D320–D321)** :
+  **syntaxe empruntée au YAML, pas de format personnalisé** ;
+  **décomposition en plusieurs fichiers/dossiers** avec valeurs référençant
+  des fichiers ou patterns (`01-Utilisateurs/*.yml`, `./*/instance.yml`) ;
+  **variables d'interpolation** `${KEY}`/`${KEY?Défaut}` — items de
+  configuration (`.item.subitem`), mots-clés (`PROJECT`, `VERSION`,
+  `date:<format>`… extensibles), variables d'environnement, **imbrication**
+  (`${triggers.${environment.name}.filename}`) — spécification **éprouvée
+  sur l'implémentation existante de l'auteur** (« PySyncytium » apparaît
+  dans les exemples). Ambiguïté soumise : le point initial — racine (spec)
+  ou nœud précédent (exemple) ?
+- **2026-07-18 (suite 9)** — **L'ambiguïté levée : la navigation est
+  relative et remontante (D321 précisé)**. `{name}` = la propriété au
+  **même niveau** ; `{.name}` = au **niveau précédent** ; `{..name}` = au
+  **parent du précédent** — chaque point initial remonte d'un niveau ; pas
+  d'ancrage à la racine (la mention « from the root » de la spécification
+  d'origine est caduque). **La phase 3 de Q16 est close** — restent les
+  phases 2 (versionnement du format) et 1 (l'inventaire).
+- **2026-07-18 (suite 10)** — **Phase 2 ouverte, étape par étape (D322)**.
+  La proposition de versionnement (6 points : version en tête, conversion
+  par le journal de migrations du méta-schéma en dogfooding D4–D6,
+  ascendante matérialisée, descendante = refus propre façon 426, YAML
+  diffable, sort des commentaires) sera traitée **point par point** —
+  l'auteur annonce un **lien avec l'organisation de la phase 3**. Premier
+  pas consigné : **version du méta-schéma déclarée en tête ; un fichier
+  d'entrée par version, référençant un sous-dossier au détail de la
+  description**. Question de lecture soumise : « par version » — le
+  méta-schéma (format) ou le schéma client (journal D2–D3, chaque montée
+  matérialisée en fichier + dossier) ? *(Note : ordre chronologique du
+  journal rétabli ce jour — les suites 6 à 8 du 16/07, déplacées par un
+  ancrage d'insertion, ont été remises à leur place.)*
+- **2026-07-18 (suite 11)** — **L'organisation du dépôt de description
+  précisée (D323–D325)**. **Petits fichiers** plutôt qu'un seul (les
+  redondances n'étant pas facilement éliminables, **les variables D321
+  référencent une fois, réutilisent partout**). **Le dossier des
+  versions** : une description par version dans un même dossier, le moteur
+  y découvre les versions disponibles — **déposer un nouveau fichier =
+  publier une nouvelle version** (croissance exigée) ; version à 4 valeurs
+  `<majeure>.<mineure>.<indice>.<build>`. **Partage commun/versionné** :
+  configuration technique commune (connecteurs, journaux) vs contenu
+  versionné (schéma de données, IHM, configuration générale — seuils de
+  télémétrie, méta-niveau). La question de lecture de D322 est résolue :
+  **un fichier par version du schéma client** (le dossier matérialise le
+  journal), l'en-tête portant la version du format.
+- **2026-07-18 (suite 12)** — **Le cycle de vie d'une version de
+  description (D326–D328)**. **Le moteur conserve la référence des
+  versions testées et validées** ; une version **en erreur n'est pas
+  réessayée sans incrément du build** au moins (le retry est explicite).
+  **Le fichier est une enveloppe convertie en logique interne** pour un
+  usage en toute sécurité ; **après lecture, modifier les fichiers ne
+  reconstruit ni n'altère l'existant** (pas de re-vérification à chaque
+  sollicitation ou relance) — les fichiers sont inertes après ingestion.
+  **La migration s'effectue dès que la description est validée**
+  (harmonisée au pipeline D7–D9), et la version devient **sollicitable via
+  les API et les IHM** (chaîne D94–D100). Restent en phase 2 : la
+  conversion du format à la montée de version moteur (dogfooding), la
+  descendante, le YAML diffable, les commentaires.
+- **2026-07-18 (suite 13)** — **Le journal de migrations compilé (D329)**.
+  Pour la performance : **le moteur traduit les descriptions en un journal
+  de migrations à format interne qui lui est propre** ; **la migration est
+  gérée en mémoire** ; **à la relance du serveur, les règles sont déjà
+  prêtes à l'emploi** — les traitements d'optimisation déjà réalisés et
+  **réutilisables** (forme compilée persistée, aucune recompilation).
+  Pièce maîtresse de la logique interne (D327), nourrissant aussi la
+  chaîne de translation des API (§5.1).
+- **2026-07-18 (suite 14)** — **La descendante tranchée (D330)** :
+  « sans hésiter l'option (c) » — **refus propre immédiat sur la seule
+  lecture de l'en-tête** (format déclaré > format supporté), avec la
+  version de moteur requise, avant toute ingestion ; consigné au registre
+  (D326) avec la cause « format non supporté » (le bump du build ne sert à
+  rien — c'est le moteur qui doit monter). Le miroir du 426 (D94).
+  Restent en phase 2 : l'ascendante (moteur vN+1 lisant les enveloppes
+  anciennes — conversion à l'ingestion ?) et le sort diffable/commentaires
+  (probablement caduc avec l'architecture d'enveloppe D327).
+- **2026-07-18 (suite 15)** — **LA PHASE 2 DE Q16 EST CLOSE (D331–D332)**.
+  L'ascendante validée : **conversion à l'ingestion** — le moteur vN+1 lit
+  les formats antérieurs (journal du format embarqué complet) et compile
+  l'enveloppe ancienne en logique interne à jour ; **les fichiers du
+  technicien ne sont jamais réécrits**. Corollaire : **diffable et
+  commentaires caducs** — les fichiers restent tels qu'écrits ; un outil
+  de mise à niveau serait un outil du technicien, pas un geste du moteur.
+  **Le versionnement du format est entièrement spécifié (D322–D332).**
+  Reste la phase 1 : l'inventaire structuré, domaine par domaine.
+- **2026-07-18 (soir)** — **La documentation générée automatiquement
+  (D333)**. Question de l'auteur à la reprise : l'exigence était-elle
+  consignée ? Réponse : partiellement — les masques d'explication oui
+  (D209), la documentation auto seulement effleurée (D124 « exploitables
+  par des IA », `document: md.yml` de l'échantillon D320). **Actée** : le
+  méta-schéma et la configuration construisent en automatique, autant que
+  possible, une **documentation technique**, les **masques d'explication**
+  et une **documentation fonctionnelle** — deux sources complémentaires
+  avec la documentation rédigée en amont (D314/Q58) : la générée vit avec
+  le modèle et ne se périme jamais.
+- **2026-07-18 (soir, suite)** — **La documentation vivante (D334)** : la
+  documentation technique **exploite aussi les données enregistrées en
+  base** — l'usage ou le non-usage de valeurs et de plages (la télémétrie
+  D38–D51 devient la **troisième source** : le modèle dit le permis, la
+  base dit le fait) ; et **des informations dédiées au technicien pourront
+  être partagées aux utilisateurs, aux techniciens de parties tierces et
+  aux usagers** (sous les règles d'accès existantes — interprétation
+  consignée).
+- **2026-07-18 (soir, suite 2)** — **Q16 phase 1 lancée : le domaine 1
+  (la racine) livré** — arborescence (fichier racine, configuration
+  technique commune, dossier des versions), contenu du fichier racine
+  (identité d'instance, langues/fuseaux/formats, compte de secours,
+  références par patterns), configuration technique détaillée. Premier
+  arbitrage : **la langue du dépôt (D335)** — noms de dossiers, de
+  fichiers et propriétés de configuration **en anglais** (structure en
+  anglais, sémantique métier dans la langue du modèle — cohérent
+  D301/D309). En attente : statut de version au fichier d'entrée
+  (officielle/bêta), groupes versionnés, modules fonctionnels versionnés.
+- **2026-07-18 (soir, suite 3)** — **Le dépôt client et le template
+  (D336–D337)**. **Le dossier de description est versionné par le client
+  dans un dépôt différent du projet Syncytium** (moteur public /
+  descriptions par TPE — le contrat = le format versionné). **Le projet
+  Syncytium embarque un dossier `template/`** : un projet **« Hello
+  world ! »** facilitant la prise en main par le technicien — description
+  minimale clonable, application immédiate, premier exemple de la
+  documentation (D314/Q58–Q59).
+- **2026-07-18 (soir, suite 4)** — **Le statut d'une version = son
+  emplacement (D338)**. Après un rappel des environnements consignés
+  (production, stagings par bêta, actif/passif — pas d'UAT), la troisième
+  voie de l'auteur : **pas de statut dans le fichier — le dossier
+  `versions/` est décliné par environnement**. Déposer une version dans le
+  dossier d'un environnement = la publier pour cet environnement (le geste
+  D324 étendu). Interprétations soumises : promotion bêta → officielle =
+  déplacement du fichier vers production ; interdite/dépréciée = actes
+  d'administration (D103). Restent au domaine 1 : les groupes et les
+  modules fonctionnels (versionnés ?).
+- **2026-07-18 (soir, suite 5)** — **Environnements et cycle de vie en
+  dossiers (D339–D340)**. **`environments/`** : `staging.yml` (test),
+  `production.yml` (active), `passive.yml` (passive PCA/PRA). **Les
+  statuts interdits et dépréciés sont aussi des dossiers** — les versions
+  vivent dans **quatre dossiers : `beta/`, `production/`, `deprecated/`,
+  `forbidden/`** ; le cycle de vie D103 entièrement matérialisé par
+  l'emplacement, les transitions = des gestes de fichier (l'interprétation
+  « actes hors fichiers » de D338 est amendée). Harmonisation : dépréciées
+  servies jusqu'au Sunset, interdites refusées (D94/D103) ; beta →
+  staging, production → actif+passif. Restent au domaine 1 : groupes et
+  modules fonctionnels (versionnés ?).
+- **2026-07-18 (soir, suite 6)** — **LE DOMAINE 1 EST CLOS (D341)** : **les
+  groupes et les modules fonctionnels sont versionnés avec le schéma**
+  (contenu versionné D325) — les affectations restant des actes
+  d'administration en base (D27, D210). La racine de l'inventaire est
+  entièrement arbitrée (D333–D341) : documentation à trois sources, langue
+  anglaise du dépôt, dépôt client distinct + template Hello world,
+  environnements en fichiers, cycle de vie des versions en quatre
+  dossiers, groupes et modules fonctionnels versionnés. **Prochain :
+  le domaine 2 — la donnée.**
+- **2026-07-18 (soir, suite 7)** — **La configuration par environnement
+  (D342–D343)**. Après la vue consolidée du domaine 1, le nom
+  `technical/` est écarté : **`environments/`, un dossier par
+  environnement** — **connecteurs, logs, settings et documentation
+  spécifiques à chaque environnement** (les valeurs partagées passant par
+  les variables D321/D323). **Journaux par environnement** : staging =
+  debug/verbose, production active = info + puits de logs éventuel,
+  passive = warning — formats et emplacements de stockage différents.
+  L'arborescence consolidée est réécrite en conséquence.
+- **2026-07-18 (soir, suite 8)** — **La cohérence des versions (D344)** :
+  **erreur si une même version apparaît dans deux sous-dossiers
+  simultanément** ; **le statut est porté par l'ingestion** (les dossiers
+  = le geste, l'état ingéré = la vérité — registre D326) ; **transitions
+  unidirectionnelles** (beta → production, production → deprecated ou
+  forbidden, **jamais l'inverse**). Micro-point soumis : deprecated →
+  forbidden permis ?
+- **2026-07-18 (soir, suite 9)** — **`deprecated → forbidden` écarté (D344
+  complété)** : « s'il est déprécié, cela signifie qu'il a été utilisé
+  suffisamment longtemps pour être éprouvé » — le bug critique se constate
+  **en production**, où la version est classée `forbidden`. Le graphe du
+  cycle de vie est complet : beta → production → deprecated (extinction au
+  Sunset) ou production → forbidden.
+- **2026-07-18 (soir, suite 10)** — **Le graphe final et l'ordre des
+  numéros (D345)** : **`beta → forbidden` permis** (bug critique découvert
+  en phase de validation) ; **dépréciées et interdites conservées pour
+  l'histoire** (rien ne s'efface) ; **ordre incrémental : beta >
+  production > deprecated — forbidden hors contrainte** (une bêta comme
+  une production de tout numéro peut y être classée).
+- **2026-07-18 (soir, suite 11)** — **Deux règles de méthode demandées par
+  l'auteur, consignées** : (1) **avant de proposer la phase suivante,
+  demander si tous les points du sujet en cours ont été vus** — la
+  complétude se vérifie avec l'auteur, elle ne se présume pas ; (2) **dans
+  le cadre du méta-schéma, chaque livraison de domaine inclut un rappel de
+  l'organisation des dossiers et fichiers** — pour conserver la vue
+  d'ensemble à mesure que l'inventaire grandit.
+- **2026-07-18 (soir, suite 12)** — **Le dossier `resources/` (D346)** —
+  la règle de complétude paie dès sa première application : à la question
+  « avons-nous fait le tour du domaine 1 ? », l'auteur ajoute **le dossier
+  `resources/`** à la racine (même niveau que `syncytium.yml`) — logos,
+  icônes, images et autres documents, **partagés avec toutes les
+  versions**. Distinction consignée : ressources de la description ≠
+  stockage des fichiers de données (D160). Le domaine 2 (livré) attend ses
+  arbitrages : grain module/entité, surfaces séparées, schema.yml en
+  pattern.
+- **2026-07-18 (soir, suite 13)** — **Le dossier d'un module (D347)** —
+  la complétude du domaine 1 sera vérifiée après tous les domaines
+  (méthode de l'auteur) ; `module.yml` détaillé et **corrigé par
+  l'auteur** : le dossier d'un module = `module.yml` + **sous-dossier
+  `entities/`** (un fichier par entité), `entities: - entities/*.yml` — le
+  pattern à plat aurait inclus le fichier d'entrée comme entité. Restent
+  au module.yml : l'activation (racine ou settings ?), le menu (avec les
+  surfaces ?), les propriétés manquantes.
+- **2026-07-18 (soir, suite 14)** — **Le bloc `settings` de module.yml
+  (D348)** : il regroupe **les propriétés potentiellement diffusées dans
+  les sous-composants** (history, quota…) — « la structuration de cette
+  section se consolidera au fur et à mesure de nos échanges et des
+  compléments poussés par les autres domaines ». Le patron des `settings`
+  en cascade s'esquisse (environnement → module → entité → champ).
+  Restent : l'activation et le menu.
+- **2026-07-18 (soir, suite 15)** — **Le `settings.yml` du module
+  (D349)** : le bloc settings est **externalisé en fichier**, référencé
+  par `module.yml` (`settings: settings.yml` — la référence de fichier
+  D320) — « il est possible que ce bloc prenne de l'ampleur, la suite
+  nous dira si c'est le cas ». Un `settings.yml` à chaque étage : le
+  patron s'affirme.
+- **2026-07-18 (soir, suite 16)** — **La déclaration vaut activation
+  (D350)** : pas de drapeau — un module présent dans la description est
+  actif ; le désactiver = le retirer (nouvelle version, migration).
+  L'« activation par instance » (D117.3) est portée par le contenu de la
+  description de chaque instance (D16). Reste sur module.yml : le menu
+  (avec les surfaces du domaine 4 ?).
+- **2026-07-18 (soir, suite 17)** — **Le menu du module dans `menu.yml`
+  (D351)** — fichier optionnel du dossier de module, référencé par
+  `module.yml` ; sans lui, le défaut D186/D191/D193 s'applique ; contenu
+  détaillé au domaine 4. **Le dossier de module est complet** :
+  `module.yml` + `settings.yml` + `menu.yml` + `entities/`. Précision de
+  l'auteur dans la foulée : **le bloc `menu: menu.yml` figure
+  explicitement dans `module.yml`** — l'exemple complet est mis à jour.
+- **2026-07-20** — **Le fichier d'entité abordé (module non clôturé — la
+  complétude se vérifiera en fin de parcours)** ; structure proposée :
+  identité (name/labels/comment/description), clé fonctionnelle, champ
+  image, héritage-état, settings (raffinement des défauts), access
+  (audiences + droits d'action), compositions, compteurs, opérations,
+  validations, champs. Premier arbitrage : **l'externalisation des blocs
+  est libre, jamais imposée (D352)** — fichier unique léger pour les cas
+  simples (« un découpage trop détaillé va rendre le processus trop
+  lourd »), découpage bienvenu pour les entités conséquentes, au choix du
+  technicien. Restent : la forme du bloc états (machine à états), le
+  détail du bloc fields.
+- **2026-07-20 (suite)** — **L'héritage restructuré (D353)** :
+  **`inheritance` (sur l'enfant) = la seule référence au parent** ; **la
+  machine à états = un bloc sur le parent référençant les enfants** —
+  niveaux, branches, promotions/rétrogradations, déclencheurs se déclarent
+  là où la hiérarchie est entière. Exigence : « une approche qui rende le
+  paramétrage naturel » — forme concrète proposée en réponse.
+- **2026-07-20 (suite 2)** — **Le cliquet (D354)**. La forme `states:` est
+  validée (« belle proposition ») ; la sémantique du `when` est précisée :
+  **trois déclencheurs** (événement de données, opération, expression) ;
+  **le franchissement s'exécute à la première vraie** — puis, si la
+  condition redevient fausse (commande supprimée, total à zéro), **le
+  client reste client** ; **le retour n'advient que par une action
+  explicite autorisée**. La promotion est un cliquet, pas un asservissement
+  à la condition.
+- **2026-07-20 (suite 3)** — **La création directe à un niveau (D355)** :
+  possible — « un client peut être créé sans être passé par la phase
+  prospect » ; l'enregistrement naît avec la position du niveau choisi
+  (identité D142 dès la naissance, branches D146 acquérables ensuite).
+  Reste au fichier d'entité : le bloc `fields`.
+- **2026-07-23** — **Le bloc `fields` : la forme (D356–D358)**. Livraison
+  du bloc avec l'exemple canonique et l'inventaire en **sept familles**
+  (nature, stockage, libellés, contraintes, accès, comportement, champs
+  générés hors déclaration) ; trois arbitrages : **le mapping ordonné**
+  — l'ordre de déclaration décrit l'affichage par défaut — **et la forme
+  courte** (`notes: text`, « utile pour faire un mode simple et
+  rapide ») ; **l'identité fonctionnelle sur l'entité**
+  (`identity: [code]` — « une bonne lisibilité si nous avons des clés
+  multiples », et tout aussi simple pour une clé simple) ; **les valeurs
+  du catalogue en anglais** (types, confidentialité, modes — étend D335,
+  la ligne D301). Reste au bloc `fields` : le détail des familles
+  (facettes par type, contraintes, accès, comportement).
+- **2026-07-23 (suite)** — **Les types personnalisés (D359)**. En regard
+  du catalogue des types proposé (simples/composés/contenus en anglais),
+  l'auteur introduit **le type défini dans le `settings` de l'instance,
+  du module ou de l'entité** : le champ qui l'utilise **reprend toutes
+  les propriétés par défaut et peut les surcharger** — l'exemple
+  fondateur `progression` (entier 0..100, composant « fuel ») porté par
+  un champ `avancement`. La bibliothèque enrichissable (D52/D68) trouve
+  son geste déclaratif, la dérivation par restriction (D123) son
+  domicile, la forme courte (D356) son plein sens. Micro-points ouverts :
+  l'étage « instance » (settings.yml à la racine du dossier de version —
+  contenu versionné D325), la résolution des noms, le chaînage, les trois
+  micro-arbitrages du catalogue (renommages, `list of`, `to:`).
+- **2026-07-23 (suite 2)** — **La résolution des types personnalisés
+  (D360)** : **le plus proche l'emporte** (entité > module > version >
+  Syncytium), les noms du catalogue de base réservés ; l'étage
+  « instance » ancré au **`settings.yml` de la racine du dossier de
+  version** (un type est du schéma — contenu versionné D325) ; **le
+  chaînage possible** ; et la correction de l'auteur : « les types custom
+  facilitent le déclaratif **mais ne portent pas le graphe de
+  conversion** » — le graphe (D120/D123) reste aux types du catalogue,
+  les propriétés reprises se résolvent en contraintes du champ (la note
+  de convergence de D359 est amendée en conséquence). Toujours ouverts :
+  les renommages, `list of`, `to:`.
+- **2026-07-23 (suite 3)** — **Le catalogue nominatif, la liste,
+  l'adressage (D361–D363)**. **D361** : les noms canoniques sont anglais
+  nativement — « les types "réel" ou "tva_intra" n'existent pas dans
+  Syncytium » ; le catalogue complet (simples, composés, contenus,
+  structurels) est consigné avec les facettes de chacun. **D362** :
+  `type: list of text` — les facettes du champ s'appliquent à chaque
+  élément. **D363** : l'adressage logique **par points**
+  (`<module>.<entité>.<champ>`) — pas la barre oblique, car
+  « l'organisation des dossiers peut être finalement libre » : le
+  namespace est porté par les déclarations, l'arborescence n'est qu'une
+  convention. L'exemple canonique passe à `to: hr.employee`. Le bloc
+  `fields` approche de sa complétude — restent les compositions
+  (l'agrégat D116) et la contre-vérification des familles.
+- **2026-07-23 (suite 4)** — **Le parcours type par type est engagé**
+  (« nous allons détailler chaque type porté par Syncytium ») et **le
+  socle commun est finalisé (D364–D365)** : la table des dix propriétés
+  de tout champ est consignée ; **`validation` peut contenir plusieurs
+  règles** — conditionnées par d'autres valeurs de l'enregistrement ou
+  par une expression régulière (forme liste en proposition) ; **pas de
+  `settings` au champ** — « le champ porte les settings » : propriétés
+  directes, la cascade de blocs s'arrête à l'entité (la note D349 et la
+  famille 6 sont amendées). Reste en attente : le détail de `text`
+  (quatre règles proposées).
+- **2026-07-23 (suite 5)** — **Le type `text` (D366–D367)** : **`size` à
+  quatre formes** (auto / max / min.. / min..max) et **la taille dans le
+  nom du type** (`text[3..10]`) — **le crochet s'affirme comme le
+  paramètre en ligne du format** ; mono/multi-ligne déduit, surchargeable
+  par `component` ; `mask` validé (« très bien » — déduction + conflit =
+  erreur d'ingestion) ; **`searchable` devient un mode** : `strict` /
+  `normalized` / `similarity[0.8]` (chacun ouvre un champ de recherche
+  propre) et `mutualizable[name]` (champ partagé entre plusieurs champs —
+  la « recherche nommée » D227 déclarée côté champs, le seuil D229 en
+  paramètre en ligne). Ouvert : le mode du champ de recherche mutualisé.
+- **2026-07-23 (suite 6)** — **Le mutualisé arbitré (D368)** : **contient
+  normalisé par défaut** (la définition D222/D226 retenue telle quelle),
+  et **la similarité déclarable** en second paramètre — « utile pour
+  intégrer les fautes de frappe dans une recherche »
+  (`mutualizable[who, similarity[0.8]]`). Le type `text` est complet
+  (socle D364–D365 + D366–D368). En attente : `integer` (bornes en
+  crochet, octets déduits des bornes, `searchable` restreint).
+- **2026-07-23 (suite 7)** — **`integer` : le mutualisé par conversion,
+  le masque-format (D369–D370)**. **D369, doctrine générale** : si
+  `mutualizable` est utilisé sur un champ non textuel, « la recherche va
+  s'appuyer sur la conversion du type en texte » — la forme affichée est
+  la clé partagée, aucun type exclu. **D370** : l'entier porte un `mask`
+  de **format** — `"000000"` (aligné à droite, six chiffres),
+  `"00 00 00"` (espace entre deux chiffres) ; le `9` du texte devient le
+  `0` du nombre. Restent à valider sur `integer` : les bornes en crochet
+  (`integer[0..100]`), les octets déduits des bornes, les modes propres
+  (`strict` seul avec le mutualisé ?).
+- **2026-07-23 (suite 8)** — **Les modes de recherche de l'entier
+  (D371)** : **`range`** rejoint `searchable` — la recherche par **plage
+  de valeurs** (types à ordre naturel D125, note) ; `normalized` revient
+  à `strict` sur un entier (accepté, équivalent) ; **`similarity`
+  autorisé, basé sur la conversion en texte** — la doctrine D369 s'étend :
+  la conversion porte tous les modes textuels hors du type texte.
+  Toujours à valider : les bornes en crochet, les octets déduits.
+- **2026-07-23 (suite 9)** — **`integer` clos (D372)** : **les bornes
+  dans le nom du type** (`integer[100]`, `integer[0..100]`,
+  `integer[0..]`) ou `min`/`max` explicites ; **les octets dimensionnés
+  en fonction des bornes ou des valeurs affectées** — « un peu comme le
+  mode auto du texte ». Le deuxième type du parcours est complet
+  (D369–D372). Suivant : `decimal`.
+- **2026-07-23 (suite 10)** — **`decimal` clos (D373)** : `decimals` en
+  **propriété** (défaut : le settings, sinon 2 — une cascade de plus) ;
+  **stockage exact ou réel** — l'exact par **entier mis à l'échelle**
+  (les décimales converties dans la partie entière, dimensionnement D372,
+  « calculs optimisés et performants »), le réel assumant les arrondis ;
+  le `mask` étendu aux décimales (séparateurs symboliques rendus selon la
+  langue) ; la recherche reprend le jeu de l'entier. En proposition : le
+  nom `storage: exact | real` et le défaut `exact`. Suivant : `boolean`.
+- **2026-07-23 (suite 11)** — **`storage` validé** (« pour décimal,
+  "storage" me convient ») : D373 entièrement clos. **Pause du soir.** En
+  attente à la reprise : la proposition `boolean` en quatre points
+  (`values` surchargeant les libellés VRAI/FAUX/NUL par langue, tri-état
+  découlant de `required`, recherche `strict`/`mutualizable` par le
+  libellé D369, composants D281 — toggle sans nul). Puis la suite du
+  parcours : `date`, `time`, `datetime`, `duration`, `file`, `enum`, les
+  composés, les contenus, les structurels — et les compositions
+  (l'agrégat D116).
+- **2026-07-24** — **Reprise sur le booléen : le cycle du tri-état
+  (D374)** : « une case à cocher à 3 états : **faux → vrai → nul →
+  faux**… » — chaque clic avance d'un cran, le nul se ressaisit à la main
+  comme les deux autres états. La proposition en cinq points (values des
+  libellés, tri-état par `required`, recherche par le libellé, toggle
+  sans nul, naissance nul/false) reste en arbitrage pour clore le type.
+- **2026-07-24 (suite)** — **La recherche du booléen par le composant
+  (D375)** : « une recherche `strict` s'appuie sur une case à cocher ou
+  un toggle » — le champ de recherche est le composant du type (la ligne
+  D228), le tri-état en recherche visant aussi les lignes nulles
+  (doctrine Q47). Le point 3 de la proposition est précisé ; les points
+  1, 2, 4, 5 restent à confirmer pour clore le booléen.
+- **2026-07-24 (suite 2)** — **Le troisième état dit « tous » (D376)** :
+  pour un booléen `required`, la case de recherche tri-état demeure — sa
+  position nulle **filtre Vrai & Faux** (aucun filtrage). Le sens de la
+  position nulle suit la donnée : optionnel → les lignes nulles (D375),
+  obligatoire → « tous ».
+- **2026-07-24 (suite 3)** — **`boolean` clos (D377)** : « je valide les
+  points » — `values` des libellés par langue, tri-état par `required`,
+  la recherche non engagée qui ne filtre rien (réinitialisation, esprit
+  D228), les composants D281, la naissance (optionnel → nul, obligatoire
+  → `false` sauf `default: true`). Quatrième type complet (D374–D377).
+  Suivants : les temporels — `date`, `time`, `datetime`, `duration`.
+- **2026-07-24 (suite 4)** — **La virgule du masque de durée (D378)** :
+  « une heure en centième, une minute en centième ou une heure en
+  dix-millième » — le masque D276 porte deux notations, le sexagésimal
+  (`00:00`) et la décimale industrielle (`0.00 h`, `0.00 min`,
+  `0.0000 h` — séparateur symbolique rendu selon la langue D373) ;
+  l'option de conversion fait le pont vers la valeur canonique unique
+  (stockage, exports). Restent les cinq autres points temporels
+  (précision en crochet, raw/timestamp, bornes ISO, pas de mask
+  date/heure, recherche range).
+- **2026-07-24 (suite 5)** — **« Dans les types, il manque la règle du
+  tri »** : doctrine proposée (comparaison intrinsèque D125 énoncée à
+  chaque type, propriété `sort` pour les variantes, référence triée sur
+  son libellé) et **le nul arbitré (D379)** : une **équivalence par
+  type** — `boolean` : nul < faux < vrai ; `text` : nul ≡ chaîne vide ;
+  `integer` : nul ≡ 0, classé parmi les valeurs. Ma proposition « nul
+  toujours en queue » est écartée. En attente : le reste de la doctrine
+  du tri, le nul des temporels, les cinq points temporels.
+- **2026-07-24 (suite 6)** — **La doctrine du tri complétée (D380)** :
+  `decimal` et `duration` — nul ≡ 0 ; la propriété `sort` au socle pour
+  les types à variantes (`text` : alphabetical défaut | natural) ; la
+  référence triée sur son libellé affiché, le calculé sur sa valeur.
+  Restent : le nul des temporels (à leur clôture) et les cinq points
+  temporels en attente.
+- **2026-07-24 (suite 7)** — **Les temporels clos (D381)** : « ok pour
+  tout » — la précision et la nature dans le crochet (`time[hh:mm]`,
+  `datetime[raw]` défaut / `datetime[timestamp]`), bornes ISO (le
+  dynamique par `validation`), pas de `mask` (le format vient de la
+  langue), recherche `strict`/`range`/`mutualizable`, le nul trié en
+  tête. Avec D378, `date`/`time`/`datetime`/`duration` sont complets —
+  huit types clos sur le parcours. Suivants : `file`, `enum`.
+- **2026-07-24 (suite 8)** — **La date à précision (D382)** : `date`
+  porte aussi une nature dans le crochet — `date[yyyy-mm-dd]` (défaut),
+  `date[yyyy-mm]` (le mois), `date[yyyy-ww]` (la semaine, numérotation
+  liée à la langue D279) ; sérialisation ISO à la granularité, calendrier
+  au bon grain. La proposition `file` (cinq points) reste en attente.
+- **2026-07-24 (suite 9)** — **La nature la plus fine par défaut, le
+  masque possible (D383, amende D381)** : sans crochet, le temporel prend
+  sa nature la plus fine (`date[yyyy-mm-dd]`, `time[hh:mm:ss.sss]`) ; le
+  `mask` redevient possible — par défaut, le masque de la langue
+  s'applique (D217/D221), le champ pouvant le surcharger. La proposition
+  `file` toujours en attente.
+- **2026-07-24 (suite 10)** — **`file` clos (D384)** : `extensions` en
+  deux formes — la liste simple ou **le mapping à libellés par langue**
+  (`pdf: { fr: facture }` — le champ ne dit plus « pdf accepté » mais
+  « la facture », l'écran de dépôt et la documentation D333 s'en
+  nourrissent) ; quota acquis, métadonnées automatiques, recherche
+  nom+mots-clés, tri sur le nom, le reste au moteur. Neuvième type clos.
+  Dernier simple : `enum`.
+- **2026-07-24 (suite 11)** — **`image`, un simple dérivé de `file`
+  (D385)** : « les extensions sont limitées, la taille de l'image est
+  ajustée/retaillée… » — hérite du socle D384 et le restreint ;
+  `thumbnail` suit (D286). Le catalogue D361 est reclassé : thumbnail et
+  image parmi les simples. La proposition `enum` (cinq points) reste en
+  attente ; image/thumbnail se détailleront ensuite.
+- **2026-07-24 (suite 12)** — **L'entité désigne son champ image
+  (D386)** : « pour que, dans une liste, l'image soit sélectionnable » —
+  propriété d'en-tête `image: <champ>` (forme en proposition), le visage
+  de l'entité ; ancre le choix par l'image (D284–D285) et la vignette en
+  cellule (D286/D293). `enum` toujours en attente.
+- **2026-07-24 (suite 13)** — **`enum` : values enrichies, stockage
+  numérique (D387)** : `description` sur chaque valeur (l'infobulle en
+  complément du libellé) ; l'ordre de déclaration = présentation + tri,
+  paramétrable ; **le stockage dépend de la clé** — numérique → entier,
+  chaîne → transformée en valeur numérique (optimisation), avec le point
+  d'attention des migrations (« l'ajout intercalé d'une valeur » —
+  résolution en proposition : codes internes stables, l'intercalé reçoit
+  un code nouveau). Restent les points 4–5 (recherche par le composant,
+  le nul) pour clore `enum`.
+- **2026-07-24 (suite 14)** — **`enum` clos (D388)** : la recherche par
+  le composant (liste de sélection, multi-sélection, mutualizable par le
+  libellé) et le nul (en tête, entrée `null:` pour la ligne vide). **Les
+  dix simples d'origine sont détaillés** — text, integer, decimal,
+  boolean, date, time, datetime, duration, file, enum. Suivants :
+  `image`/`thumbnail`, puis les composés.
+- **2026-07-24 (suite 15)** — **`image`/`thumbnail` clos (D389)** : « ok
+  pour les 5 points » — dimensions dans le crochet (`image[1920x1080]`,
+  proportions conservées, jamais de recadrage D293), vignette automatique
+  au settings, `thumbnail` = la petite taille seule, extensions du jeu
+  image, héritage `file` intégral. **Les simples sont au complet** —
+  place aux composés (D122).
+- **2026-07-25** — **Le placeholder d'une image (D390)** : « une icône
+  pour matérialiser le fond d'une image non définie » — le placeholder
+  du socle s'interprète par type (valeur de démonstration pour texte et
+  nombres, icône de fond ← `resources/` pour image/thumbnail). Rappel
+  complet des douze simples livré avant de lancer les composés.
+- **2026-07-25 (suite)** — **Les composés arbitrés (D391)** : la règle
+  générale actée (héritage du kit de la base, validation intégrée,
+  facettes propres) ; `amount` — devises paramétrables, défaut tout
+  l'ISO ; `percentage` — bornes, défaut 0..100, hors cadre la
+  représentation varie ; `measure` — unités statiques / table de
+  référence / libres (défaut) ; `phone` — national (défaut) ou
+  international ; **`geolocation` devient triable par la distance à vol
+  d'oiseau vers une focale** (défaut : la localisation courante ; sinon
+  adresse ou coordonnées — amende D125), la recherche triant par la
+  distance à un point de recherche ; `period` hérite du format
+  date/heure ; **le nul de chaque composé en premier** (prime
+  l'équivalence de la base D379). Les sept à validation intégrée vivent
+  de la règle générale.
+- **2026-07-25 (suite 2)** — **`focus` validé** (« le focus de la
+  géolocalisation est au champ ou hérité du setting » — la cascade
+  D360) : les composés sont clos. Suivant : `communication` (D167).
+- **2026-07-25 (suite 3)** — **La zone de texte de la géolocalisation
+  (D392)** : la valeur porte, en plus des coordonnées, un texte associé
+  (l'adresse, le lieu — géocodage D294) ; **le mutualisé s'appuie sur ce
+  texte, sinon sur la standardisation des coordonnées en chaîne** — la
+  conversion en texte (D369) du type est définie. Rappel complet des
+  composés livré.
+- **2026-07-25 (suite 4)** — **`communication` clos (D393)** : la
+  visibilité se cale sur les niveaux de confidentialité (pas de
+  « maximale » — le socle D25/D364 suffit) ; `attachments` référence
+  `file`, `image` ou `thumbnail` avec leur kit à plat ; **amende D295** :
+  en cellule de liste, une petite icône (thumbnail), au survol les
+  derniers échanges résumés — taille paramétrable en nombre de lignes
+  (`preview:` en proposition) ; non listable confirmé. Reste en
+  suspens : la recherche sur le contenu des messages (proposée, non
+  arbitrée).
+- **2026-07-25 (suite 5)** — **« La recherche porte sur le contenu des
+  messages »** : D393 complété en place — `communication` est
+  entièrement clos. Suivants : la `reference` en détail, puis les
+  compositions (l'agrégat D116).
+- **2026-07-26** — **La référence recadrée (D394–D395)**. Le programme
+  relationnel est ouvert (référence, composition, associations) ;
+  l'auteur bute sur le point 2 et pose la sémantique : **l'origine porte
+  le champ, le lien va de l'origine vers la destination** (« une
+  relation parent-enfant avec un seul enfant » — la ligne D353), et
+  **l'accès retour n'est jamais déclaré : Syncytium le propose** (ce qui
+  éclaire D216). **Le filtre (D395)** : évalué **depuis la
+  destination**, il fonctionne à la sélection ; **le contrôle de
+  conformité est une option** — condition **immuable** (brisée → donnée
+  à valider) ou **liée à la sélection seulement** — avec **le rapport
+  des non-conformes** (filtre modifié, champ calculé dérivant). En
+  proposition : `check: selection | immutable`, l'accès `origin.`.
+  Points 1, 3, 4, 5 de la référence toujours en attente.
+- **2026-07-26 (suite)** — **Le raccourci et le `me.` (D396)** : « si le
+  type est le nom d'une entité, c'est une référence » —
+  `company: hr.company`, le `to` inutile ; et l'origine se lit par
+  **`me.`** dans le filtre (« je préfère me ou this à origin » —
+  l'exemple D395 corrigé en place). Toujours ouverts : les questions
+  2–4 du filtre détaillé (écriture hors IHM, rythme du rapport, l'état
+  « à valider »), les points 1, 3, 4, 5 de la référence.
+- **2026-07-26 (suite 2)** — **La référence presque close (D397)** :
+  l'écriture API soumise au filtre **sauf forçage explicite** ; le
+  rythme du rapport = une propriété du champ ; l'état « à valider »
+  porté par le moteur, visible et non bloquant ; et les propositions
+  restantes validées — **`label:` d'entité** (champ ou gabarit, défaut
+  la clé fonctionnelle), recherche et tri sur le libellé affiché,
+  composant à recherche/choix par image. **Avant de clore : le
+  stockage de la référence, à la demande de l'auteur.**
+- **2026-07-26 (suite 3)** — **Le stockage validé (D398) : la référence
+  est close.** L'UUID technique de la cible (D142), jamais la clé
+  fonctionnelle ni le libellé ; les frontières traduisent (IHM = label,
+  CSV = clé fonctionnelle, API = UUID) ; la référence vers un inactif
+  reste valide, la sélection ne propose que les actifs ; pas de cascade
+  (elle appartient à la composition) ; la dénormalisation au moteur.
+  Suivante : **la composition** (l'agrégat D101/D116).
+- **2026-07-26 (suite 4)** — **La composition : le possesseur déclare
+  (D399)**. Ma proposition (facette `composition: true` sur l'enfant)
+  est écartée : « la composition est sur l'entité d'origine, et le type
+  est `list of <nom de l'entité>` » — dans `order`, un champ `lines` de
+  type `list of order_line` (nom local, D363). L'enfant ne déclare
+  rien, l'accès retour automatique (D394). La symétrie : la référence
+  pointe un, la composition pointe plusieurs — le même geste. Ouverts :
+  tout `list of <entité>` vaut-il composition ? l'imbrication ? les six
+  conséquences (cascade, atomicité D101, naissance liée, intra-module
+  D116, cascades de configuration, surfaces) reformulées côté parent.
+- **2026-07-26 (suite 5)** — **Le trio des liens (D400)** : « oui, c'est
+  la définition de la composition » — tout `list of <entité>` = la
+  possession forte, avec ses conséquences (cascade de vie, atomicité
+  D101, intra-module D116, cascades de configuration, naissance dans la
+  liste du parent) ; **`association with <entité>`** pour l'association
+  multiple libre (inter-modules D116, sans cascade, la machinerie de
+  liaison au moteur) ; **l'imbrication multi-niveaux nécessaire** —
+  « facture → indice → ligne », la racine demeurant l'ancre de
+  l'agrégat (D101/D111). Le trio : référence = un ; composition =
+  plusieurs possédés ; association = plusieurs libres.
+- **2026-07-26 (suite 6)** — **L'association reprend les propriétés de
+  la référence (D401)** : filter/me., check et rapport, forçage API,
+  affichage label/image, recherche et tri sur le libellé, stockage UUID
+  — chaque élément lié se comporte comme une référence, seules la
+  cardinalité et la liberté du lien changent.
+- **2026-07-26 (suite 7)** — **Le lien n-aire (D402)** : les matrices et
+  hypercubes (D134) se rapportent au lien — « le champ `modules` de
+  l'entité `user` est de type `list of [module, right]` », chaque
+  élément étant une combinaison des entités nommées, avec des propriétés
+  par entité nommée (le kit D401 pour chacune) ; `association with
+  [module, right]` pour la forme libre. Ma proposition `by:` est
+  écartée. Ouverts : la valeur portée par la combinaison (la quantité de
+  la cellule taille × couleur), l'unicité par combinaison (D134).
+- **2026-07-26 (suite 8)** — **La cellule du n-aire (D403)** :
+  `list of [size, color] { quantity: integer[0..], … }` — l'accolade
+  porte les champs de la cellule avec « toute la puissance des champs
+  déjà définis », le moteur modélisant l'objet de façon transparente ;
+  **une cellule par combinaison de clé** de la liste ou de
+  l'association — l'unicité structurelle. Le programme relationnel
+  (référence, composition, association, n-aire) est couvert.
+- **2026-07-26 (suite 9)** — **La contre-passe du bloc `fields`** :
+  livrée — les sept familles vérifiées (aucune propriété orpheline),
+  trois trous détectés (le nom de l'accès retour automatique D394, la
+  forme de `report:` D397, le type hook → domaine 6) et l'artefact de
+  clôture (customer.yml complet + order.yml) proposé. Première
+  correction de l'auteur consignée (**D404**) : **le bloc `validation:`
+  est au même niveau que `fields:`** — les règles de l'enregistrement à
+  l'entité (en proposition : le champ garde ses règles locales D364).
+  L'artefact et les trois trous restent en arbitrage.
+- **2026-07-26 (suite 10)** — **L'association conditionnelle (D405)** :
+  « il manque un champ dans customer pour matérialiser la liste des
+  commandes » — `orders: association with order if order.customer = me`.
+  L'`if` fait l'association **dérivée** (la vue navigable D136 :
+  jamais stockée, en lecture, la vérité restant la référence) ; sans
+  `if`, l'association stockée libre (D400). Le nom vient de la
+  déclaration — le trou n° 2 de la contre-passe (le nom de l'accès
+  retour) se referme ; `count(orders)` s'écrit naturellement.
+- **2026-07-26 (suite 11)** — **La validation à deux niveaux confirmée**
+  (« la validation est possible sur un champ ou sur une entité ») :
+  D404 acté en place — le champ pour les règles de sa valeur, l'entité
+  pour les règles croisées, la trace citant le niveau. Les points
+  restants de la contre-passe seront pris **un par un** : `report:`,
+  le hook → domaine 6, l'artefact de clôture.
+- **2026-07-26 (suite 12)** — **Le rapport affectable (D406)** : « il
+  faudra pouvoir affecter les rapports à un utilisateur ou un groupe,
+  sous forme de mails ou de notifications » — l'infra D108–D110 et les
+  groupes D26–D27 servent ; forme consolidée en proposition
+  (`when`/`to`/`by`, défaut `migration`, l'à-la-demande toujours là).
+- **2026-07-26 (suite 13)** — **La forme de `report:` validée** (« cette
+  forme me convient ») : `when`/`to`/`by`, défaut `migration` — D406
+  acté en place. Point suivant : le type hook → domaine 6.
+- **2026-07-26 (suite 14)** — **Le `report` en cascade, inactif par
+  défaut (D407)** : paramétrable à l'instance, au module, à l'entité ou
+  au champ (le plus proche l'emporte, opt-out `report: no`) ; **`report:
+  no` est le défaut** — sans déclaration, aucun rapport automatique,
+  l'à-la-demande demeurant. Le « défaut migration » de D406 se relit :
+  un report activé sans `when` bat au rythme migration. En attente : le
+  renvoi du hook au domaine 6, l'artefact de clôture.
+- **2026-07-26 (suite 15)** — **D407 mis au propre après revirement** :
+  d'abord les corrections (sans `when` = à la demande, ma relecture
+  « migration » écartée ; destinataire par défaut = l'administrateur
+  D29), puis le revirement — « j'ai changé d'avis » : **le rapport
+  existe par défaut** (à la demande, vers l'administrateur), et
+  **`report: no` devient l'exclusion explicite** (« pour ne pas
+  déclencher de rapport »), posable à tout étage de la cascade. Toujours
+  en attente : le hook → domaine 6, l'artefact.
+- **2026-07-26 (suite 16)** — **Le nom du type est la clé (D408)** : un
+  seul espace de noms — catalogue, personnalisés, entités, et **les
+  hooks de type qui ajoutent de nouveaux noms dans Syncytium**,
+  exploitables et déclarables comme les types standard ; **le mot-clé
+  `hook` ne doit pas apparaître** (ma forme `type: hook.<nom>` écartée).
+  Et la pointe finale de l'auteur : **« tous les types proposés sont
+  finalement des hooks qui appartiennent à Syncytium »** — le catalogue
+  de base = les hooks embarqués, un seul mécanisme de bout en bout (la
+  ligne D52), le moteur mangeant sa propre cuisine. La déclaration
+  (contrat, code) au domaine 6 ; le doublon de nom = erreur d'ingestion.
+  Dernier point de la contre-passe : l'artefact de clôture.
+- **2026-07-26 (suite 17)** — **Le type `counter` (D409)** : « a-t-on un
+  type counter ? » — le concept existait (D154–D155), l'écriture
+  manquait. Le kit : allocation transactionnelle, continuité, `format:`
+  gabarit au segment masqué, **`reset:` défini sur la déclaration**
+  (« doit être définie » — ma déduction depuis le gabarit écartée),
+  jamais saisi ; **attaché au champ par défaut, mutualisable par le
+  nom** — `counter[my_counter]` sur plusieurs champs de plusieurs
+  entités (le crochet nomme, patron D367). En proposition : le défaut
+  `reset: never`, le lieu de déclaration du compteur nommé (le settings
+  de l'étage englobant — cascade D360).
+- **2026-07-26 (suite 18)** — **L'artefact validé : le bloc `fields`
+  est clos (D410)**. « Oui » — customer.yml et order.yml canoniques
+  consignés en artefact de clôture, les deux virgules actées (défaut
+  `reset: never`, compteur nommé au settings englobant). La contre-passe
+  est soldée : sept familles vérifiées, trois trous refermés
+  (D405–D408), le compteur au catalogue (D409). La complétude finale
+  s'appréciera après tous les domaines (règle du chantier). Question de
+  méthode posée : d'autres points au domaine 2, ou ouverture du
+  domaine 3 ?

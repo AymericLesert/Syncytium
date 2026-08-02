@@ -478,7 +478,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
 | D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | **Confirmé : « la validation est possible sur un champ ou sur une entité »** — le champ garde ses règles locales (D364) ; la trace D307 cite le niveau. Voir §3.2c. |
 | D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
-| D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme consolidée en proposition : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là. Voir §3.2c. |
+| D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — défaut `migration`, l'à-la-demande toujours là. Voir §3.2c. |
 
 ---
 
@@ -1866,7 +1866,8 @@ nom de l'accès retour — se referme : le nom vient de la déclaration.)*
 **« Il faudra pouvoir affecter les rapports à un utilisateur ou un
 groupe, sous forme de mails ou de notifications »** — l'infrastructure
 existante (D108–D110 : canaux, profils) et les groupes (D26–D27)
-servent. La forme consolidée, en proposition :
+servent. La forme consolidée est **validée** (« cette forme me
+convient ») :
 
 ```yaml
 advisor:
@@ -1881,10 +1882,10 @@ advisor:
 ```
 
 **L'à-la-demande existe toujours** (l'écran du technicien), rien à
-déclarer. *(Notes en proposition : `when` par défaut = `migration` — le
-moment où filtres et calculs changent ; la résolution des noms de `to` —
-groupe d'abord, utilisateur ensuite, collision = erreur d'ingestion,
-l'esprit D344.)*
+déclarer. *(Notes : `when` par défaut = `migration` — le moment où
+filtres et calculs changent ; la résolution des noms de `to` — groupe
+d'abord, utilisateur ensuite, collision = erreur d'ingestion, l'esprit
+D344.)*
 
 ```yaml
 history:
@@ -7768,3 +7769,6 @@ avant la synthèse Q16).
   sous forme de mails ou de notifications » — l'infra D108–D110 et les
   groupes D26–D27 servent ; forme consolidée en proposition
   (`when`/`to`/`by`, défaut `migration`, l'à-la-demande toujours là).
+- **2026-07-26 (suite 13)** — **La forme de `report:` validée** (« cette
+  forme me convient ») : `when`/`to`/`by`, défaut `migration` — D406
+  acté en place. Point suivant : le type hook → domaine 6.

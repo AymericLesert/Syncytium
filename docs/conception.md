@@ -476,6 +476,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
 | D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
 | D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
+| D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | En proposition : le champ garde sa `validation` locale (D364) pour les règles de sa valeur ; la trace D307 cite le niveau. Voir §3.2c. |
 
 ---
 
@@ -1819,6 +1820,25 @@ lien.
 cells:
   type: list of [size, color] { quantity: integer[0..] }   # la matrice (D134)
 ```
+
+**Le bloc `validation:` au niveau de l'entité (D404).** **« `validation:`
+est au même niveau que `fields:` dans la configuration »** — les règles
+de l'enregistrement (celles qui croisent plusieurs champs) vivent dans
+un bloc d'entité, frère de `fields:` :
+
+```yaml
+name: customer
+fields:
+  satisfaction: percentage
+  category: { type: enum, values: { bronze: …, gold: … } }
+validation:
+  - satisfaction >= 50 if category = "gold"   # la règle de l'enregistrement
+```
+
+*(En proposition : la propriété `validation` du champ (le socle D364)
+demeure pour les règles propres à sa valeur — le `matches` d'un code
+postal ; l'entité porte les règles croisées ; la trace D307 cite le
+niveau qui a refusé.)*
 
 ```yaml
 history:
@@ -7674,3 +7694,12 @@ avant la synthèse Q16).
   **une cellule par combinaison de clé** de la liste ou de
   l'association — l'unicité structurelle. Le programme relationnel
   (référence, composition, association, n-aire) est couvert.
+- **2026-07-26 (suite 9)** — **La contre-passe du bloc `fields`** :
+  livrée — les sept familles vérifiées (aucune propriété orpheline),
+  trois trous détectés (le nom de l'accès retour automatique D394, la
+  forme de `report:` D397, le type hook → domaine 6) et l'artefact de
+  clôture (customer.yml complet + order.yml) proposé. Première
+  correction de l'auteur consignée (**D404**) : **le bloc `validation:`
+  est au même niveau que `fields:`** — les règles de l'enregistrement à
+  l'entité (en proposition : le champ garde ses règles locales D364).
+  L'artefact et les trois trous restent en arbitrage.

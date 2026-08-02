@@ -476,7 +476,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
 | D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
 | D403 | **La cellule du n-aire** : `list of [size, color] { quantity: integer[0..], … }` — **l'accolade porte les champs de la cellule**, avec « toute la puissance des champs déjà définis » ; **le moteur modélise cet objet de façon transparente** ; **unicité structurelle** — une cellule par combinaison de clé (liste et association). | « string » → `text` (D361) ; forme éclatée ≡ accolade (esprit D352) — notes. Voir §3.2c. |
-| D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | En proposition : le champ garde sa `validation` locale (D364) pour les règles de sa valeur ; la trace D307 cite le niveau. Voir §3.2c. |
+| D404 | **Le bloc `validation:` au niveau de l'entité**, frère de `fields:` — les règles de l'enregistrement (multi-champs) y vivent. | **Confirmé : « la validation est possible sur un champ ou sur une entité »** — le champ garde ses règles locales (D364) ; la trace D307 cite le niveau. Voir §3.2c. |
 | D405 | **L'association conditionnelle** : `orders: association with order if order.customer = me` — **l'`if` fait l'association dérivée** (la vue navigable D136, jamais stockée, en lecture — la vérité reste la référence) ; sans `if`, l'association stockée libre (D400). | Matérialise l'accès retour (D394) en le nommant — le trou n° 2 de la contre-passe se referme ; `count(orders)`, surfaces, chemins (D71). Voir §3.2c. |
 
 ---
@@ -1836,10 +1836,10 @@ validation:
   - satisfaction >= 50 if category = "gold"   # la règle de l'enregistrement
 ```
 
-*(En proposition : la propriété `validation` du champ (le socle D364)
-demeure pour les règles propres à sa valeur — le `matches` d'un code
-postal ; l'entité porte les règles croisées ; la trace D307 cite le
-niveau qui a refusé.)*
+**Confirmé : « la validation est possible sur un champ ou sur une
+entité. »** Le champ garde ses règles locales (D364 — le `matches` d'un
+code postal), l'entité porte les règles croisées ; la trace D307 cite le
+niveau qui a refusé.
 
 **L'association conditionnelle : l'accès retour déclaré (D405).** **« Il
 manque un champ dans `customer` pour matérialiser la liste des
@@ -7732,3 +7732,9 @@ avant la synthèse Q16).
   `if`, l'association stockée libre (D400). Le nom vient de la
   déclaration — le trou n° 2 de la contre-passe (le nom de l'accès
   retour) se referme ; `count(orders)` s'écrit naturellement.
+- **2026-07-26 (suite 11)** — **La validation à deux niveaux confirmée**
+  (« la validation est possible sur un champ ou sur une entité ») :
+  D404 acté en place — le champ pour les règles de sa valeur, l'entité
+  pour les règles croisées, la trace citant le niveau. Les points
+  restants de la contre-passe seront pris **un par un** : `report:`,
+  le hook → domaine 6, l'artefact de clôture.

@@ -474,6 +474,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D399 | **La composition = un champ du possesseur** : « la composition est sur l'entité d'origine, et le type est `list of <nom de l'entité>` » — `lines: { type: list of order_line }` sur `order` ; **l'enfant ne déclare rien**, l'accès retour automatique (D394). | La référence pointe **un**, la composition pointe **plusieurs** — même geste, le `list of` (D362) fait la différence ; la facette sur l'enfant est écartée. Voir §3.2c. |
 | D400 | **Le trio des liens** : `list of <entité>` = **la** composition (« c'est la définition ») ; **`association with <entité>`** = l'association multiple libre — inter-modules (D116), sans cascade, machinerie de liaison **au moteur** ; **l'imbrication multi-niveaux nécessaire** (« facture → indice → ligne ») — **la racine demeure l'ancre de l'agrégat** (D101/D111). | Référence = un ; composition = plusieurs possédés ; association = plusieurs libres. Voir §3.2c. |
 | D401 | **L'association reprend les propriétés de la référence** : `filter`/`me.` (D395/D396), `check` + rapport (D395), forçage API (D397), affichage `label`/`image` de la cible, recherche/tri sur le libellé, stockage UUID (D398). | Chaque élément lié = une référence ; seules la cardinalité et la liberté changent (D400). Voir §3.2c. |
+| D402 | **Le lien n-aire** : `list of [module, right]` / `association with [module, right]` — **chaque élément = une combinaison des entités nommées**, avec **des propriétés par entité nommée** (le kit D401 pour chacune). Les matrices/hypercubes (D134) se rapportent au lien. | Exemple fondateur : user × module × droit ; la proposition `by:` est écartée — la combinaison EST l'élément. Voir §3.2c. |
 
 ---
 
@@ -1771,6 +1772,31 @@ non-conformes (D395), l'écriture API sous filtre sauf forçage explicite
 la recherche et le tri sur le libellé affiché, le stockage par UUID
 (D398) — **chaque élément lié se comporte comme une référence** ; seule
 la cardinalité et la liberté du lien changent (D400).
+
+**La composition et l'association n-aires : le tuple d'entités (D402).**
+Les matrices et hypercubes (D134) **se rapportent au lien** — l'exemple
+fondateur : des utilisateurs, des modules, des droits. **« Le champ
+`modules` de l'entité `user` est de type `list of [module, right]` »** —
+chaque élément de la liste est **une combinaison des entités nommées** —
+**« avec des propriétés pour chaque entité nommée, comme pour une
+composition »** ; et **`association with [module, right]`** pour la
+forme libre, les propriétés par entité nommée comme pour une
+association. Le kit de la référence (D401) s'applique **à chacune des
+entités nommées** :
+
+```yaml
+# system/entities/user.yml
+modules:
+  type: list of [module, right]      # chaque élément = (module, droit)
+  module:
+    filter: active = true            # le kit de la référence, par entité nommée
+  right:
+    filter: level <= me.clearance
+    check: immutable
+```
+
+*(La proposition `by:` — les dimensions par champs de l'enfant — est
+écartée : la combinaison EST l'élément.)*
 
 ```yaml
 history:
@@ -7611,3 +7637,11 @@ avant la synthèse Q16).
   affichage label/image, recherche et tri sur le libellé, stockage UUID
   — chaque élément lié se comporte comme une référence, seules la
   cardinalité et la liberté du lien changent.
+- **2026-07-26 (suite 7)** — **Le lien n-aire (D402)** : les matrices et
+  hypercubes (D134) se rapportent au lien — « le champ `modules` de
+  l'entité `user` est de type `list of [module, right]` », chaque
+  élément étant une combinaison des entités nommées, avec des propriétés
+  par entité nommée (le kit D401 pour chacune) ; `association with
+  [module, right]` pour la forme libre. Ma proposition `by:` est
+  écartée. Ouverts : la valeur portée par la combinaison (la quantité de
+  la cellule taille × couleur), l'unicité par combinaison (D134).

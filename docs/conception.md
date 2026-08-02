@@ -469,6 +469,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D394 | **Référence = association origine → destination** : l'origine **porte le champ** (le nom chez elle), le lien naturel et sémantique vers la destination ; **l'accès retour (destination → origine) jamais déclaré — Syncytium le propose**. | « Une relation parent-enfant (avec un seul enfant) » — la ligne D353 ; éclaire D216 (la liste nommée du 1-N habille un accès que le moteur possède). Voir §3.2c. |
 | D395 | **Filtre de référence** : la condition **s'évalue depuis la destination** ; fonctionne **à la sélection** ; contrôle de conformité **en option** — **immuable** (brisée → « une mise à jour sera à prévoir pour valider la donnée ») ou **liée à la sélection seulement** ; **rapport des non-conformes** (filtre modifié, champ calculé dérivant). | `check: selection` (défaut) \| `immutable` en proposition ; accès à l'origine par `me.` (D396). Voir §3.2c. |
 | D396 | **Raccourci de référence** : « si le type est le nom d'une entité, c'est une référence » — `company: hr.company` (le `to` devient inutile) ; **l'origine se lit par `me.`** dans le filtre (`filter: company = me.company` — préféré à `origin`). | Collision nom de type personnalisé / entité = erreur d'ingestion (note en proposition, esprit D344). Voir §3.2c. |
+| D397 | **Référence — régimes et label** : l'écriture **API soumise au filtre, sauf forçage explicite** de l'appelant ; **le rythme du rapport = une propriété du champ** ; l'état « à valider » **porté par le moteur, visible, non bloquant** ; **`label:` d'entité validé** (champ ou gabarit, défaut : la clé fonctionnelle) — recherche et tri sur le libellé affiché, composant à recherche/choix par image (D386). | La valeur forcée relève du rapport (note) ; `report:` en proposition. Voir §3.2c. |
 
 ---
 
@@ -1663,6 +1664,34 @@ dans le filtre, **l'enregistrement d'origine se lit par `me.`** —
 `filter: company = me.company`, « je préfère `me` ou `this` à
 `origin` » : les champs nus sont ceux du candidat (la destination),
 `me.` est celui qui pointe.
+
+**La référence : les régimes d'écriture, le rapport, le label (D397).**
+**(1) « L'écriture via l'API doit être soumise au filtre aussi — sauf si
+l'API exprime explicitement le forçage de la valeur »** : le refus
+propre est la règle sur tous les canaux, le forçage un acte assumé de
+l'appelant *(note : une valeur forcée hors filtre relève du rapport des
+non-conformes — D395)*. **(2) Le rythme du rapport est défini dans les
+paramètres, au même titre que les autres propriétés du champ** *(forme à
+préciser — `report:` en proposition)*. **(3) L'état « à valider » est
+porté par le moteur — visible et non bloquant** (jamais la machine à
+états déclarée D353). **(4) Les propositions restantes sont validées** :
+**`label:` en en-tête d'entité** — un champ ou un gabarit d'expression
+(`label: "{code} — {company_name}"`, D90), **défaut : la clé
+fonctionnelle** (D357) — le visage textuel servi partout (référence,
+sélection, widgets — le pendant de `image:` D386) ; **la recherche
+porte sur le libellé affiché de la cible** (`normalized`, `similarity`,
+`mutualizable` ; la traversée D226 demeure) ; **le tri sur le libellé
+affiché** (D380), nul ≡ chaîne vide ; **le composant** — liste
+déroulante à recherche au début de mots et throttling, **choix par
+image si la cible désigne son visage** (D386).
+
+```yaml
+name: customer
+labels: { fr: Client }
+identity: [code]
+label: "{code} — {company_name}"   # le visage textuel (D397)
+image: logo                        # le visage graphique (D386)
+```
 
 ```yaml
 history:
@@ -7463,3 +7492,11 @@ avant la synthèse Q16).
   l'exemple D395 corrigé en place). Toujours ouverts : les questions
   2–4 du filtre détaillé (écriture hors IHM, rythme du rapport, l'état
   « à valider »), les points 1, 3, 4, 5 de la référence.
+- **2026-07-26 (suite 2)** — **La référence presque close (D397)** :
+  l'écriture API soumise au filtre **sauf forçage explicite** ; le
+  rythme du rapport = une propriété du champ ; l'état « à valider »
+  porté par le moteur, visible et non bloquant ; et les propositions
+  restantes validées — **`label:` d'entité** (champ ou gabarit, défaut
+  la clé fonctionnelle), recherche et tri sur le libellé affiché,
+  composant à recherche/choix par image. **Avant de clore : le
+  stockage de la référence, à la demande de l'auteur.**

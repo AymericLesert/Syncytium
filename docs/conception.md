@@ -481,7 +481,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D406 | **Le rapport des non-conformes : affectable** — « à un utilisateur ou un groupe, sous forme de mails ou de notifications » (l'infra D108–D110, les groupes D26–D27). | Forme **validée** (« cette forme me convient ») : `report: { when: [migration, weekly], to: [...], by: [mail, notification] }` — l'à-la-demande toujours là ; défaut amendé par D407. Voir §3.2c. |
 | D407 | **`report` en cascade** — instance / module / entité / champ (le plus proche l'emporte) ; **défaut : le rapport existe — à la demande, vers l'administrateur** (D29), aucun rythme implicite ; **`report: no` = l'exclusion explicite** (« pour ne pas déclencher de rapport »), posable à tout étage. | Amende D406 ; le premier défaut « report: no » est écarté par revirement. Voir §3.2c. |
 | D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
-| D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et lieu de déclaration du compteur nommé : en proposition. Voir §3.2c. |
+| D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et compteur nommé au settings englobant : **validés** (D410). Voir §3.2c. |
+| D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
 
 ---
 
@@ -1949,6 +1950,98 @@ number:
   format: "AVR-{year}-{counter:000000}"
   reset: yearly
 ```
+
+**L'artefact de clôture du bloc `fields` (D410).** Validé (« oui »),
+avec les deux virgules actées : **le défaut `reset: never`** (la
+séquence continue) et **le compteur nommé déclaré au `settings` de
+l'étage englobant** (module si partagé dans le module, version au-delà —
+la cascade D360), le champ gardant son `format:` propre. Les deux
+fichiers canoniques :
+
+```yaml
+# sales/entities/customer.yml
+name: customer
+labels: { fr: Client }
+comment: { fr: Les clients de la société }
+inheritance: third_party             # l'enfant pointe (D353) — les états sur le parent
+identity: [code]                     # la clé fonctionnelle (D357)
+label: "{code} — {company_name}"     # le visage textuel (D397)
+image: logo                          # le visage graphique (D386)
+
+fields:
+  code:
+    type: text
+    mask: "C-999999"                 # taille et lignes déduites (D366)
+    mode: write-once
+    labels: { fr: Code client }
+  company_name:
+    type: text[80]
+    required: true
+    searchable: mutualizable[who]    # la recherche partagée (D368)
+    labels: { fr: Raison sociale }
+  notes: text                        # la forme courte — auto (D356/D366)
+  employees: integer[0..]            # positif, octets auto (D372)
+  revenue:
+    type: amount
+    currencies: [EUR]                # composé dérivé (D391)
+    confidentiality: protected
+  satisfaction: percentage           # 0..100 → jauge (D391)
+  active:
+    type: boolean
+    required: true                   # deux états (D377)
+    default: true
+  created: datetime[timestamp]       # instant UTC (D381)
+  logo:
+    type: image[512x512]             # boîte max, vignette auto (D389)
+    placeholder: company.png         # l'icône de fond (D390)
+  category:
+    type: enum
+    values:
+      bronze: { labels: { fr: Bronze }, icon: bronze.png }
+      silver: { labels: { fr: Argent } }
+      gold:   { labels: { fr: Or } }
+    default: bronze                  # stockage numérique (D387)
+  headquarters: geolocation          # focale + texte associé (D391–D392)
+  progress: progression              # type personnalisé (D359) — un hook (D408)
+  advisor:
+    type: hr.employee                # la référence (D396)
+    filter: company = me.company     # depuis la destination (D395)
+    check: immutable                 # report défaut : à la demande → administrateur (D407)
+  tags:
+    type: association with catalog.tag                     # l'association stockée (D400)
+  orders: association with order if order.customer = me    # la vue dérivée (D405)
+  total_orders:
+    type: integer
+    computed: count(orders)          # s'appuie sur la vue (D405)
+
+validation:
+  - satisfaction >= 50 if category = "gold"   # les règles de l'enregistrement (D404)
+```
+
+```yaml
+# sales/entities/order.yml
+name: order
+labels: { fr: Commande }
+identity: [number]
+label: "{number}"
+
+fields:
+  number:
+    type: counter                        # la séquence propre au champ (D409)
+    format: "CMD-{year}-{counter:000000}"
+    reset: yearly
+  customer: customer                     # référence, nom local (D396)
+  lines:
+    type: list of order_line             # la composition (D399), imbricable (D400)
+  discounts:
+    type: list of [product, season] { rate: percentage }   # le n-aire (D402–D403)
+```
+
+**La contre-passe est soldée** — les sept familles vérifiées, les trois
+trous refermés (l'accès retour déclaré D405, `report:` D406–D407, les
+hooks sans le mot D408), le compteur entré au catalogue (D409). **Le
+bloc `fields` est clos** — sous la règle générale du chantier : la
+complétude finale s'appréciera après tous les domaines.
 
 ```yaml
 history:
@@ -7871,3 +7964,12 @@ avant la synthèse Q16).
   entités (le crochet nomme, patron D367). En proposition : le défaut
   `reset: never`, le lieu de déclaration du compteur nommé (le settings
   de l'étage englobant — cascade D360).
+- **2026-07-26 (suite 18)** — **L'artefact validé : le bloc `fields`
+  est clos (D410)**. « Oui » — customer.yml et order.yml canoniques
+  consignés en artefact de clôture, les deux virgules actées (défaut
+  `reset: never`, compteur nommé au settings englobant). La contre-passe
+  est soldée : sept familles vérifiées, trois trous refermés
+  (D405–D408), le compteur au catalogue (D409). La complétude finale
+  s'appréciera après tous les domaines (règle du chantier). Question de
+  méthode posée : d'autres points au domaine 2, ou ouverture du
+  domaine 3 ?

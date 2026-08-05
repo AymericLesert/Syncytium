@@ -487,6 +487,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
 | D413 | **La forme riche de `history`** : `mode:` (valeur D411) + `visibility:` (les groupes qui voient l'historique — D26/D170) ; forme courte inchangée (visibilité = la confidentialité de l'entité). | **L'écriture de l'historisation est complète** (D411–D413) — le fond D168–D174 a son format. Voir §3.2c. |
 | D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** — **« un groupe est constitué d'autres groupes »** : le contenant déclare (`groups: [accounting, sales_team]`), pas de lien parent. | La ligne D399 (le possesseur déclare) ; multi-appartenance naturelle, le membre d'un constituant est membre du contenant ; acyclicité à l'ingestion (D135). Voir §3.2c. |
+| D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; portée du mot « module fonctionnel » en clarification. Voir §3.2c. |
 
 ---
 
@@ -2140,6 +2141,18 @@ groups:
 contenants — et le sens est fixé — **le membre d'un constituant est
 membre du contenant** : la visibilité accordée à `managers` atteint
 comptables et commerciaux.)*
+
+**`modules.yml` : la liste des modules (D415).** **« Le fichier
+`<version>/modules.yml` décrit la liste des modules. Il fait le lien
+avec les fichiers `module.yml` présents dans chaque module
+fonctionnel. »** La racine de version porte donc **la liste explicite**
+des modules — pas de découverte implicite par les dossiers : la ligne
+de D320/D363 (les fichiers d'entrée listent ce qui est inclus,
+l'arborescence physique reste libre) — chaque entrée pointant le
+`module.yml` du module (D347). *(Clarification en cours : la portée du
+mot « module fonctionnel » dans la phrase — les dossiers de modules du
+schéma (D347), ou les modules fonctionnels de l'expérience (D190)
+recevant chacun leur dossier et leur `module.yml`.)*
 
 ```yaml
 history:
@@ -8111,3 +8124,10 @@ avant la synthèse Q16).
   renversement D399 rejoué). La constitution par liste règle les deux
   notes : multi-appartenance naturelle, le membre d'un constituant est
   membre du contenant.
+- **2026-07-26 (suite 24)** — Rappels livrés (les modules fonctionnels —
+  l'acquis D190–D210/D341 ; l'arborescence complète). **D415 :
+  `modules.yml` à la racine de version** — « décrit la liste des
+  modules, fait le lien avec les fichiers module.yml » : la liste
+  explicite, pas de découverte implicite (la ligne D320/D363). En
+  clarification : la portée de « module fonctionnel » dans sa phrase
+  (modules du schéma D347 ou modules fonctionnels D190 en dossiers).

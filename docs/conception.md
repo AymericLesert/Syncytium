@@ -483,7 +483,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
 | D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et compteur nommé au settings englobant : **validés** (D410). Voir §3.2c. |
 | D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
-| D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; restent `visibility:` (D170) et l'anticipation (D174). Voir §3.2c. |
+| D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; reste `visibility:` (D170). Voir §3.2c. |
+| D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
 
 ---
 
@@ -2069,8 +2070,25 @@ history: false                   # l'opt-out (D168)
 
 *(Articulation avec D168 — lecture consignée : `history` **absent** =
 inactif, le défaut D168 inchangé ; **activé sans précision** (`true`) =
-`perpetual`. Restent à écrire : la `visibility:` par groupe (D170),
-l'anticipation de l'entité non historisée (D174).)*
+`perpetual`. Reste à écrire : la `visibility:` par groupe (D170).)*
+
+**La lecture à date hors couverture : la règle canonique (D412 — amende
+D174).** **« La propriété `assume_current` n'est pas utile. »** À la
+place, une règle universelle pour toute lecture à date sur une entité
+**non historisée ou non couverte** (au-delà de la rétention D411) :
+
+1. **date postérieure à la création** → la requête délivre **« l'état à
+   la dernière valeur connue avant l'horizon de l'historique »** —
+   l'entité non historisée sert sa valeur courante (la seule connue), la
+   rétention dépassée sert son plus ancien instantané retenu : la
+   dégradation est **graduelle et déterministe** ;
+2. **date antérieure à la création** → **la requête ne retourne rien**
+   (l'enregistrement n'existait pas).
+
+*(La propriété d'anticipation de D174 disparaît — la règle canonique
+vaut anticipation universelle : le comportement est défini, plus rien
+n'est subi en silence ; l'alerte à la validation du schéma perd son
+objet — note.)*
 
 ```yaml
 history:
@@ -8012,3 +8030,12 @@ avant la synthèse Q16).
   entité porte aussi sur les agrégations** (D169). Absent = inactif
   (D168 inchangé). Restent : `visibility:` (D170), l'anticipation
   (D174).
+- **2026-07-26 (suite 20)** — **La lecture à date hors couverture
+  (D412, amende D174)** : « la propriété assume_current n'est pas
+  utile » — la règle canonique : date postérieure à la création →
+  **l'état à la dernière valeur connue avant l'horizon de l'historique**
+  (non historisée = la valeur courante, rétention dépassée = le plus
+  ancien instantané) ; date antérieure à la création → **rien**. La
+  dégradation graduelle et déterministe remplace l'anticipation
+  déclarée ; l'alerte de D174 perd son objet (note). Reste :
+  `visibility:` (D170).

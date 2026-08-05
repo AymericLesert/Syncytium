@@ -485,6 +485,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
 | D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; reste `visibility:` (D170). Voir §3.2c. |
 | D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
+| D413 | **La forme riche de `history`** : `mode:` (valeur D411) + `visibility:` (les groupes qui voient l'historique — D26/D170) ; forme courte inchangée (visibilité = la confidentialité de l'entité). | **L'écriture de l'historisation est complète** (D411–D413) — le fond D168–D174 a son format. Voir §3.2c. |
 
 ---
 
@@ -2089,6 +2090,21 @@ place, une règle universelle pour toute lecture à date sur une entité
 vaut anticipation universelle : le comportement est défini, plus rien
 n'est subi en silence ; l'alerte à la validation du schéma perd son
 objet — note.)*
+
+**La forme riche de `history` : la visibilité (D413 — clôt l'écriture
+de l'historisation).** Validée (« oui, on valide ») :
+
+```yaml
+history:
+  mode: temporal[730]          # la valeur D411 (perpetual, false, temporal[x], update[x])
+  visibility: [managers]       # les groupes qui voient l'historique (D26/D170)
+```
+
+La **forme courte** demeure (`history: temporal[730]`) quand la
+visibilité suit simplement la confidentialité de l'entité (D170).
+**L'écriture de l'historisation est complète** : les valeurs (D411), la
+lecture hors couverture (D412), la visibilité (D413) — le fond D168–D174
+a son format.
 
 ```yaml
 history:
@@ -8039,3 +8055,10 @@ avant la synthèse Q16).
   dégradation graduelle et déterministe remplace l'anticipation
   déclarée ; l'alerte de D174 perd son objet (note). Reste :
   `visibility:` (D170).
+- **2026-07-26 (suite 21)** — **La visibilité validée (D413) :
+  l'écriture de l'historisation est complète.** La forme riche
+  `history: { mode:, visibility: }` (les groupes D26/D170), la forme
+  courte inchangée. D411–D413 donnent leur format à D168–D174. Retour à
+  la question pendante : d'autres points au domaine 2 (l'écriture des
+  groupes et modules fonctionnels D341 reste le creux identifié), ou
+  ouverture du domaine 3.

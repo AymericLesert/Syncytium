@@ -483,6 +483,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
 | D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et compteur nommé au settings englobant : **validés** (D410). Voir §3.2c. |
 | D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
+| D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; restent `visibility:` (D170) et l'anticipation (D174). Voir §3.2c. |
 
 ---
 
@@ -2042,6 +2043,34 @@ trous refermés (l'accès retour déclaré D405, `report:` D406–D407, les
 hooks sans le mot D408), le compteur entré au catalogue (D409). **Le
 bloc `fields` est clos** — sous la règle générale du chantier : la
 complétude finale s'appréciera après tous les domaines.
+
+**L'historisation : les valeurs de `history` (D411).** L'écriture
+déclarative de D168–D174 s'ouvre — **« la propriété `history` d'une
+entité porte aussi sur les agrégations »** (l'instantané d'agrégat
+D169 : les enfants de composition suivent la racine). Les valeurs :
+
+- **`perpetual` (ou `true`)** — conserve **toutes les modifications
+  depuis la création** de l'enregistrement — le défaut du mode activé ;
+- **`false`** — **aucun historique** (désactive) ;
+- **`temporal[x]`** — l'historique sur **une période de `x` jours** ;
+- **`update[x]`** — l'historique sur **les `x` dernières
+  modifications**.
+
+Le crochet-paramètre (D366) porte la rétention.
+
+```yaml
+# sales/settings.yml — l'étage module (la cascade D168)
+history: temporal[730]           # deux ans glissants pour tout le module
+# sales/entities/customer.yml — la surcharge d'entité
+history: perpetual               # le client garde tout
+# sales/entities/draft_note.yml
+history: false                   # l'opt-out (D168)
+```
+
+*(Articulation avec D168 — lecture consignée : `history` **absent** =
+inactif, le défaut D168 inchangé ; **activé sans précision** (`true`) =
+`perpetual`. Restent à écrire : la `visibility:` par groupe (D170),
+l'anticipation de l'entité non historisée (D174).)*
 
 ```yaml
 history:
@@ -7973,3 +8002,13 @@ avant la synthèse Q16).
   s'appréciera après tous les domaines (règle du chantier). Question de
   méthode posée : d'autres points au domaine 2, ou ouverture du
   domaine 3 ?
+- **2026-07-26 (suite 19 — PR #22 créée)** — Rappel des huit domaines et
+  de leur avancement livré (1 livré, 2 en cours de clôture, 3–8 non
+  ouverts avec leurs renvois). L'auteur sonde le domaine 2 : **la
+  gestion de l'historique** — le fond était acté (Q37, D168–D174, P6),
+  l'écriture manquait. **D411** : les valeurs de `history` —
+  `perpetual`/`true` (défaut du mode activé), `false`, `temporal[x]`
+  (jours), `update[x]` (dernières modifications) ; **la propriété d'une
+  entité porte aussi sur les agrégations** (D169). Absent = inactif
+  (D168 inchangé). Restent : `visibility:` (D170), l'anticipation
+  (D174).

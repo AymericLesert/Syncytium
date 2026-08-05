@@ -483,6 +483,12 @@ ne sont pas des piliers mais les irriguent tous.
 | D408 | **Le nom du type est la clé** — un seul espace de noms : catalogue, personnalisés (D359), entités (D396), **hooks de type** (de nouveaux noms, exploitables comme les types standard) ; **le mot-clé `hook` n'apparaît jamais** ; et **« tous les types proposés sont finalement des hooks qui appartiennent à Syncytium »** — le catalogue = les hooks embarqués. | Un seul mécanisme de bout en bout (D52) ; déclaration au domaine 6 ; doublon de nom = erreur d'ingestion (D344/D396). Voir §3.2c. |
 | D409 | **Le type `counter`** (l'écriture de D154–D155) : allocation transactionnelle, continuité ; `format:` gabarit à segment masqué (`{counter:000000}`) ; **`reset:` défini sur la déclaration** (jamais déduit) ; jamais saisi ; **attaché au champ par défaut, mutualisable par le nom** — `counter[my_counter]` entre champs et entités. | Le crochet nomme (patron D367) ; défaut `reset: never` et compteur nommé au settings englobant : **validés** (D410). Voir §3.2c. |
 | D410 | **L'artefact de clôture du bloc `fields` validé** : customer.yml + order.yml canoniques consignés ; défaut **`reset: never`** ; **compteur nommé déclaré au `settings` de l'étage englobant** (cascade D360). | La contre-passe soldée — **le bloc `fields` est clos** (complétude finale après tous les domaines, règle du chantier). Voir §3.2c. |
+| D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; reste `visibility:` (D170). Voir §3.2c. |
+| D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
+| D413 | **La forme riche de `history`** : `mode:` (valeur D411) + `visibility:` (les groupes qui voient l'historique — D26/D170) ; forme courte inchangée (visibilité = la confidentialité de l'entité). | **L'écriture de l'historisation est complète** (D411–D413) — le fond D168–D174 a son format. Voir §3.2c. |
+| D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** — **« un groupe est constitué d'autres groupes »** : le contenant déclare (`groups: [accounting, sales_team]`), pas de lien parent. | La ligne D399 (le possesseur déclare) ; multi-appartenance naturelle, le membre d'un constituant est membre du contenant ; acyclicité à l'ingestion (D135). Voir §3.2c. |
+| D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; les modules listés = les modules unifiés (D416). Voir §3.2c. |
+| D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
 
 ---
 
@@ -2043,6 +2049,124 @@ hooks sans le mot D408), le compteur entré au catalogue (D409). **Le
 bloc `fields` est clos** — sous la règle générale du chantier : la
 complétude finale s'appréciera après tous les domaines.
 
+**L'historisation : les valeurs de `history` (D411).** L'écriture
+déclarative de D168–D174 s'ouvre — **« la propriété `history` d'une
+entité porte aussi sur les agrégations »** (l'instantané d'agrégat
+D169 : les enfants de composition suivent la racine). Les valeurs :
+
+- **`perpetual` (ou `true`)** — conserve **toutes les modifications
+  depuis la création** de l'enregistrement — le défaut du mode activé ;
+- **`false`** — **aucun historique** (désactive) ;
+- **`temporal[x]`** — l'historique sur **une période de `x` jours** ;
+- **`update[x]`** — l'historique sur **les `x` dernières
+  modifications**.
+
+Le crochet-paramètre (D366) porte la rétention.
+
+```yaml
+# sales/settings.yml — l'étage module (la cascade D168)
+history: temporal[730]           # deux ans glissants pour tout le module
+# sales/entities/customer.yml — la surcharge d'entité
+history: perpetual               # le client garde tout
+# sales/entities/draft_note.yml
+history: false                   # l'opt-out (D168)
+```
+
+*(Articulation avec D168 — lecture consignée : `history` **absent** =
+inactif, le défaut D168 inchangé ; **activé sans précision** (`true`) =
+`perpetual`. Reste à écrire : la `visibility:` par groupe (D170).)*
+
+**La lecture à date hors couverture : la règle canonique (D412 — amende
+D174).** **« La propriété `assume_current` n'est pas utile. »** À la
+place, une règle universelle pour toute lecture à date sur une entité
+**non historisée ou non couverte** (au-delà de la rétention D411) :
+
+1. **date postérieure à la création** → la requête délivre **« l'état à
+   la dernière valeur connue avant l'horizon de l'historique »** —
+   l'entité non historisée sert sa valeur courante (la seule connue), la
+   rétention dépassée sert son plus ancien instantané retenu : la
+   dégradation est **graduelle et déterministe** ;
+2. **date antérieure à la création** → **la requête ne retourne rien**
+   (l'enregistrement n'existait pas).
+
+*(La propriété d'anticipation de D174 disparaît — la règle canonique
+vaut anticipation universelle : le comportement est défini, plus rien
+n'est subi en silence ; l'alerte à la validation du schéma perd son
+objet — note.)*
+
+**La forme riche de `history` : la visibilité (D413 — clôt l'écriture
+de l'historisation).** Validée (« oui, on valide ») :
+
+```yaml
+history:
+  mode: temporal[730]          # la valeur D411 (perpetual, false, temporal[x], update[x])
+  visibility: [managers]       # les groupes qui voient l'historique (D26/D170)
+```
+
+La **forme courte** demeure (`history: temporal[730]`) quand la
+visibilité suit simplement la confidentialité de l'entité (D170).
+**L'écriture de l'historisation est complète** : les valeurs (D411), la
+lecture hors couverture (D412), la visibilité (D413) — le fond D168–D174
+a son format.
+
+**Les groupes : `groups.yml` et la hiérarchie acyclique (D414).**
+L'écriture des groupes versionnés (D341) : **`groups.yml` à la racine du
+dossier de version** — les groupes sont **transverses aux modules** —
+référencé par le fichier d'entrée (`groups: groups.yml`, le patron
+D349), externalisation libre (D352). **Le mapping ordonné** clé →
+`labels`/`comment`/`description` (le patron D387) — **le nom est la
+clé**, cité tel quel partout (confidentialité D25–D27, `visibility`
+D413, `to:` des rapports D406). **Rien d'autre dans la description** :
+les affectations restent en base (D27/D341), la doctrine de suppression
+tient (D34). Et **« la hiérarchie de groupes est requise, à condition
+qu'il n'y ait pas de cycle »** — l'acyclicité vérifiée à l'ingestion
+(erreur — l'esprit D344, le garde-fou D135). **La forme, corrigée par
+l'auteur : « l'organisation ne se fait pas via un lien parent — un
+groupe est constitué d'autres groupes »** — le contenant déclare ses
+constituants (la ligne D399 : le possesseur déclare) :
+
+```yaml
+# groups.yml
+groups:
+  accounting:
+    labels: { fr: Comptables }
+  sales_team:
+    labels: { fr: Équipe commerciale }
+  managers:
+    labels: { fr: Encadrement }
+    groups: [accounting, sales_team]   # constitué d'autres groupes
+```
+
+*(La constitution par liste règle les deux notes : la
+**multi-appartenance est naturelle** — un groupe cité dans plusieurs
+contenants — et le sens est fixé — **le membre d'un constituant est
+membre du contenant** : la visibilité accordée à `managers` atteint
+comptables et commerciaux.)*
+
+**`modules.yml` : la liste des modules (D415).** **« Le fichier
+`<version>/modules.yml` décrit la liste des modules. Il fait le lien
+avec les fichiers `module.yml` présents dans chaque module
+fonctionnel. »** La racine de version porte donc **la liste explicite**
+des modules — pas de découverte implicite par les dossiers : la ligne
+de D320/D363 (les fichiers d'entrée listent ce qui est inclus,
+l'arborescence physique reste libre) — chaque entrée pointant le
+`module.yml` du module (D347).
+
+**Les modules fonctionnels = les modules (D416).** La clarification
+tranche par **l'unification** : **un seul concept**. Le module structure
+la donnée **et** l'expérience — son `menu.yml` (D351) **est** le menu du
+module fonctionnel (D193), sa page d'accueil est celle de D191,
+**l'affectation utilisateur ↔ module** est l'acte d'administration
+(D210/D341), la restriction de surface sans extension de droits (D190)
+est la sienne, le bandeau gauche (D191) choisit entre les modules. La
+distinction terminologique de D190 (« le module structure la donnée, le
+module fonctionnel structure l'expérience ») est **dissoute** — les
+décisions passées se lisent en y remplaçant « module fonctionnel » par
+« module ». Le creux de l'arborescence disparaît : `modules.yml` (D415)
+liste **ces** modules-là. *(Note : le menu d'un module peut citer des
+entités d'autres modules — les associations inter-modules restent
+libres, D116.)*
+
 ```yaml
 history:
   type: communication
@@ -2116,9 +2240,9 @@ versions/                      # (D324, D338, D340)
   deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
   forbidden/                   #   → refusées (D103)
     # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
-    # du format) + <maj>.<min>.<indice>.<build>/ (le détail — domaines 2 à 8 :
-    # schéma de données, IHM, configuration générale, groupes + modules
-    # fonctionnels D341)
+    # du format) + <maj>.<min>.<indice>.<build>/ (le détail : settings.yml D360,
+    # groups.yml D414, modules.yml D415 → les modules D416 — donnée ET
+    # expérience unifiées ; IHM et configuration générale, domaines 3 à 8)
 ```
 
 À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
@@ -4452,7 +4576,9 @@ décompose en **sous-applications** — les **modules fonctionnels** :
 
 *Terminologie* : à distinguer du **module** (structure du schéma, D115/D117) —
 le **module structure la donnée**, le **module fonctionnel structure
-l'expérience utilisateur**.
+l'expérience utilisateur**. **[Distinction dissoute par D416 : les
+modules fonctionnels = les modules — un seul concept, la donnée et
+l'expérience portées par le même dossier.]**
 
 **La page d'accueil du module fonctionnel (D191).** La structure d'écran :
 
@@ -7973,3 +8099,60 @@ avant la synthèse Q16).
   s'appréciera après tous les domaines (règle du chantier). Question de
   méthode posée : d'autres points au domaine 2, ou ouverture du
   domaine 3 ?
+- **2026-07-26 (suite 19 — PR #22 créée)** — Rappel des huit domaines et
+  de leur avancement livré (1 livré, 2 en cours de clôture, 3–8 non
+  ouverts avec leurs renvois). L'auteur sonde le domaine 2 : **la
+  gestion de l'historique** — le fond était acté (Q37, D168–D174, P6),
+  l'écriture manquait. **D411** : les valeurs de `history` —
+  `perpetual`/`true` (défaut du mode activé), `false`, `temporal[x]`
+  (jours), `update[x]` (dernières modifications) ; **la propriété d'une
+  entité porte aussi sur les agrégations** (D169). Absent = inactif
+  (D168 inchangé). Restent : `visibility:` (D170), l'anticipation
+  (D174).
+- **2026-07-26 (suite 20)** — **La lecture à date hors couverture
+  (D412, amende D174)** : « la propriété assume_current n'est pas
+  utile » — la règle canonique : date postérieure à la création →
+  **l'état à la dernière valeur connue avant l'horizon de l'historique**
+  (non historisée = la valeur courante, rétention dépassée = le plus
+  ancien instantané) ; date antérieure à la création → **rien**. La
+  dégradation graduelle et déterministe remplace l'anticipation
+  déclarée ; l'alerte de D174 perd son objet (note). Reste :
+  `visibility:` (D170).
+- **2026-07-26 (suite 21)** — **La visibilité validée (D413) :
+  l'écriture de l'historisation est complète.** La forme riche
+  `history: { mode:, visibility: }` (les groupes D26/D170), la forme
+  courte inchangée. D411–D413 donnent leur format à D168–D174. Retour à
+  la question pendante : d'autres points au domaine 2 (l'écriture des
+  groupes et modules fonctionnels D341 reste le creux identifié), ou
+  ouverture du domaine 3.
+- **2026-07-26 (suite 22)** — **Les groupes écrits (D414)** :
+  `groups.yml` à la racine de version (transverses, patron D349),
+  mapping clé → libellés, le nom = la clé, les affectations en base ;
+  **« la hiérarchie de groupes est requise, à condition qu'il n'y ait
+  pas de cycle »** — `parent:` (le sous-groupe pointe, D353),
+  acyclicité vérifiée à l'ingestion (garde-fou D135). En proposition :
+  l'appartenance qui remonte, `parent` simple ou liste.
+- **2026-07-26 (suite 23)** — **La forme des groupes corrigée (D414
+  amendé)** : « l'organisation ne se fait pas via un lien parent — un
+  groupe est constitué d'autres groupes » : le contenant déclare ses
+  constituants (`groups: [accounting, sales_team]` — la ligne D399, le
+  renversement D399 rejoué). La constitution par liste règle les deux
+  notes : multi-appartenance naturelle, le membre d'un constituant est
+  membre du contenant.
+- **2026-07-26 (suite 24)** — Rappels livrés (les modules fonctionnels —
+  l'acquis D190–D210/D341 ; l'arborescence complète). **D415 :
+  `modules.yml` à la racine de version** — « décrit la liste des
+  modules, fait le lien avec les fichiers module.yml » : la liste
+  explicite, pas de découverte implicite (la ligne D320/D363). En
+  clarification : la portée de « module fonctionnel » dans sa phrase
+  (modules du schéma D347 ou modules fonctionnels D190 en dossiers).
+- **2026-07-26 (suite 25)** — **L'unification (D416) : « les modules
+  fonctionnels = les modules. »** Un seul concept — la donnée et
+  l'expérience portées par le même dossier : menu.yml (D351) est LE menu
+  (D193), la page d'accueil est celle de D191, l'affectation
+  utilisateur ↔ module (D210/D341), la restriction sans extension de
+  droits (D190). La distinction terminologique de D190 est dissoute
+  (amendée en place) ; le creux de l'arborescence disparaît —
+  modules.yml (D415) liste ces modules-là ; l'arborescence consolidée
+  est retouchée. Note : le menu peut citer des entités d'autres modules
+  (D116).

@@ -487,7 +487,8 @@ ne sont pas des piliers mais les irriguent tous.
 | D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
 | D413 | **La forme riche de `history`** : `mode:` (valeur D411) + `visibility:` (les groupes qui voient l'historique — D26/D170) ; forme courte inchangée (visibilité = la confidentialité de l'entité). | **L'écriture de l'historisation est complète** (D411–D413) — le fond D168–D174 a son format. Voir §3.2c. |
 | D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** — **« un groupe est constitué d'autres groupes »** : le contenant déclare (`groups: [accounting, sales_team]`), pas de lien parent. | La ligne D399 (le possesseur déclare) ; multi-appartenance naturelle, le membre d'un constituant est membre du contenant ; acyclicité à l'ingestion (D135). Voir §3.2c. |
-| D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; portée du mot « module fonctionnel » en clarification. Voir §3.2c. |
+| D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; les modules listés = les modules unifiés (D416). Voir §3.2c. |
+| D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
 
 ---
 
@@ -2149,10 +2150,22 @@ fonctionnel. »** La racine de version porte donc **la liste explicite**
 des modules — pas de découverte implicite par les dossiers : la ligne
 de D320/D363 (les fichiers d'entrée listent ce qui est inclus,
 l'arborescence physique reste libre) — chaque entrée pointant le
-`module.yml` du module (D347). *(Clarification en cours : la portée du
-mot « module fonctionnel » dans la phrase — les dossiers de modules du
-schéma (D347), ou les modules fonctionnels de l'expérience (D190)
-recevant chacun leur dossier et leur `module.yml`.)*
+`module.yml` du module (D347).
+
+**Les modules fonctionnels = les modules (D416).** La clarification
+tranche par **l'unification** : **un seul concept**. Le module structure
+la donnée **et** l'expérience — son `menu.yml` (D351) **est** le menu du
+module fonctionnel (D193), sa page d'accueil est celle de D191,
+**l'affectation utilisateur ↔ module** est l'acte d'administration
+(D210/D341), la restriction de surface sans extension de droits (D190)
+est la sienne, le bandeau gauche (D191) choisit entre les modules. La
+distinction terminologique de D190 (« le module structure la donnée, le
+module fonctionnel structure l'expérience ») est **dissoute** — les
+décisions passées se lisent en y remplaçant « module fonctionnel » par
+« module ». Le creux de l'arborescence disparaît : `modules.yml` (D415)
+liste **ces** modules-là. *(Note : le menu d'un module peut citer des
+entités d'autres modules — les associations inter-modules restent
+libres, D116.)*
 
 ```yaml
 history:
@@ -2227,9 +2240,9 @@ versions/                      # (D324, D338, D340)
   deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
   forbidden/                   #   → refusées (D103)
     # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
-    # du format) + <maj>.<min>.<indice>.<build>/ (le détail — domaines 2 à 8 :
-    # schéma de données, IHM, configuration générale, groupes + modules
-    # fonctionnels D341)
+    # du format) + <maj>.<min>.<indice>.<build>/ (le détail : settings.yml D360,
+    # groups.yml D414, modules.yml D415 → les modules D416 — donnée ET
+    # expérience unifiées ; IHM et configuration générale, domaines 3 à 8)
 ```
 
 À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
@@ -4563,7 +4576,9 @@ décompose en **sous-applications** — les **modules fonctionnels** :
 
 *Terminologie* : à distinguer du **module** (structure du schéma, D115/D117) —
 le **module structure la donnée**, le **module fonctionnel structure
-l'expérience utilisateur**.
+l'expérience utilisateur**. **[Distinction dissoute par D416 : les
+modules fonctionnels = les modules — un seul concept, la donnée et
+l'expérience portées par le même dossier.]**
 
 **La page d'accueil du module fonctionnel (D191).** La structure d'écran :
 
@@ -8131,3 +8146,13 @@ avant la synthèse Q16).
   explicite, pas de découverte implicite (la ligne D320/D363). En
   clarification : la portée de « module fonctionnel » dans sa phrase
   (modules du schéma D347 ou modules fonctionnels D190 en dossiers).
+- **2026-07-26 (suite 25)** — **L'unification (D416) : « les modules
+  fonctionnels = les modules. »** Un seul concept — la donnée et
+  l'expérience portées par le même dossier : menu.yml (D351) est LE menu
+  (D193), la page d'accueil est celle de D191, l'affectation
+  utilisateur ↔ module (D210/D341), la restriction sans extension de
+  droits (D190). La distinction terminologique de D190 est dissoute
+  (amendée en place) ; le creux de l'arborescence disparaît —
+  modules.yml (D415) liste ces modules-là ; l'arborescence consolidée
+  est retouchée. Note : le menu peut citer des entités d'autres modules
+  (D116).

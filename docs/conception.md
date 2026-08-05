@@ -486,6 +486,7 @@ ne sont pas des piliers mais les irriguent tous.
 | D411 | **Les valeurs de `history`** (l'écriture de D168–D174) : **`perpetual`/`true`** (tout depuis la création — défaut du mode activé), **`false`** (désactive), **`temporal[x]`** (x jours), **`update[x]`** (x dernières modifications) ; **la propriété d'une entité porte aussi sur les agrégations** (D169). | Le crochet-paramètre porte la rétention ; absent = inactif (D168 inchangé) ; reste `visibility:` (D170). Voir §3.2c. |
 | D412 | **Lecture à date hors couverture** (amende D174) : `assume_current` **inutile** — la règle canonique : date **postérieure à la création** → **l'état à la dernière valeur connue avant l'horizon** (non historisée = valeur courante, rétention dépassée = plus ancien instantané) ; date **antérieure à la création** → **rien**. | La dégradation graduelle et déterministe remplace l'anticipation déclarée ; l'alerte de D174 perd son objet (note). Voir §3.2c. |
 | D413 | **La forme riche de `history`** : `mode:` (valeur D411) + `visibility:` (les groupes qui voient l'historique — D26/D170) ; forme courte inchangée (visibilité = la confidentialité de l'entité). | **L'écriture de l'historisation est complète** (D411–D413) — le fond D168–D174 a son format. Voir §3.2c. |
+| D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** (`parent:` — acyclicité vérifiée à l'ingestion). | Le sous-groupe pointe (D353) ; appartenance qui remonte et `parent` simple/liste : notes en proposition. Voir §3.2c. |
 
 ---
 
@@ -2105,6 +2106,34 @@ visibilité suit simplement la confidentialité de l'entité (D170).
 **L'écriture de l'historisation est complète** : les valeurs (D411), la
 lecture hors couverture (D412), la visibilité (D413) — le fond D168–D174
 a son format.
+
+**Les groupes : `groups.yml` et la hiérarchie acyclique (D414).**
+L'écriture des groupes versionnés (D341) : **`groups.yml` à la racine du
+dossier de version** — les groupes sont **transverses aux modules** —
+référencé par le fichier d'entrée (`groups: groups.yml`, le patron
+D349), externalisation libre (D352). **Le mapping ordonné** clé →
+`labels`/`comment`/`description` (le patron D387) — **le nom est la
+clé**, cité tel quel partout (confidentialité D25–D27, `visibility`
+D413, `to:` des rapports D406). **Rien d'autre dans la description** :
+les affectations restent en base (D27/D341), la doctrine de suppression
+tient (D34). Et **« la hiérarchie de groupes est requise, à condition
+qu'il n'y ait pas de cycle »** — l'acyclicité vérifiée à l'ingestion
+(erreur — l'esprit D344, le garde-fou D135) :
+
+```yaml
+# groups.yml
+groups:
+  managers:
+    labels: { fr: Encadrement }
+  sales_team:
+    labels: { fr: Équipe commerciale }
+    parent: managers               # le sous-groupe pointe (la ligne D353)
+```
+
+*(Notes en proposition : l'appartenance **remonte** — le membre d'un
+sous-groupe est membre de ses parents, la visibilité accordée au parent
+atteint les sous-groupes ; `parent:` simple ou liste — la
+multi-appartenance — à trancher.)*
 
 ```yaml
 history:
@@ -8062,3 +8091,10 @@ avant la synthèse Q16).
   la question pendante : d'autres points au domaine 2 (l'écriture des
   groupes et modules fonctionnels D341 reste le creux identifié), ou
   ouverture du domaine 3.
+- **2026-07-26 (suite 22)** — **Les groupes écrits (D414)** :
+  `groups.yml` à la racine de version (transverses, patron D349),
+  mapping clé → libellés, le nom = la clé, les affectations en base ;
+  **« la hiérarchie de groupes est requise, à condition qu'il n'y ait
+  pas de cycle »** — `parent:` (le sous-groupe pointe, D353),
+  acyclicité vérifiée à l'ingestion (garde-fou D135). En proposition :
+  l'appartenance qui remonte, `parent` simple ou liste.

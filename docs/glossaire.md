@@ -58,13 +58,17 @@ donnée : `public` (partout), `protected` (l'interface et les tâches),
 un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
 `counter[accounting]`. *(D366)*
 
-**Configuration** — Tout ce que le technicien écrit : l'ensemble des
+**Configuration** (`settings`) — Tout ce que le technicien écrit : l'ensemble des
 fichiers YAML qui décrivent l'application. Syncytium la lit, la
 vérifie, puis la fait vivre. *(D336)*
+La configuration peut se décomposé par étage (la version, le module, l'entité) et diffusés en cascade à ce qu'il
+contient : le plus proche l'emporte. *(D348/D360)*
 
 **Description** ((`comment`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte pour comprendre la nature de l'information, une description détaillée pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
 *Ex. : `comment: { fr: Le code se génère à la création }`.*
 *(D364)*
+
+**Valeur de démonstration** (`placeholder`) — Description visuelle permet de capter l'attention d'un utilisateur sur la validité de la donnée. L'exemple affiché dans un champ vide ; pour une image, l'icône de fond. *(D364/D390)*
 
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
 
@@ -141,7 +145,7 @@ sans arrêter l'application : la base, les écrans et les API suivent.
 
 **Module** (`module`, `module.yml`) — Une part de l'application : ses
 entités, son menu, sa page d'accueil — la donnée et l'expérience
-ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel).
+ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel) comme pour un ERP : la gestion ADV, le référentiel des produits, la gestion et la planification de la production, ...
 *(D347/D416)*
 
 **Opération** — Une action déclarée sur une entité, au-delà du
@@ -152,7 +156,7 @@ déclencheur possible d'un changement d'état. *(D148)*
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
 *(D178)*
 
-**Rapport des non-conformes** (`report`) — La liste de ce qui ne
+**Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a
 dérivé. Produit à la demande, à la migration ou en continu, adressé à
 qui de droit. Ce rapport permet également de couvrir les modifications directes à la base de données par un outil tiers sans passer par Syncytiium. *(D395/D406)*
@@ -178,19 +182,13 @@ Dans Syncytium, la navigation entre le parent et l'enfant est conservée et perm
 description : logos, icônes, fonds — partagés par toutes les versions. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...)
 *(D346)*
 
-**Settings** (`settings.yml`, le bloc `settings:`) — Les réglages d'un
-étage (la version, le module, l'entité), diffusés en cascade à ce qu'il
-contient : le plus proche l'emporte. *(D348/D360)*
-
-**Surface** — Un écran généré et nommé : la liste, le formulaire, le
+**Surface** ou Facette d'une entité ou composant graphique élaboré pour une entité — Un écran généré et nommé : la liste, le formulaire, le
 widget de résumé, le widget de synthèse. *(Q48)*
 
 **Technicien** — Celui qui écrit la description. Un rôle, pas un
-métier : une à plusieurs personnes le portent. *(D95)*
+métier : une à plusieurs personnes le portent. Le technicien est celui qui porte la validité de la configuration et la stabilité de l'application. *(D95)*
 
-**Télémétrie** — Les compteurs d'usage de l'application : ce qui sert,
-ce qui dort. Elle éclaire les migrations, la sécurité et le conseil.
-*(D38)*
+**Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*
 
 **Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
 chronologique — réglable là où plusieurs ordres se défendent.
@@ -198,33 +196,27 @@ chronologique — réglable là où plusieurs ordres se défendent.
 
 **Type** (`type`) — Le contrat d'un champ : ce qu'il accepte, comment
 il se stocke, s'affiche et se cherche. Le nom suffit — un type du
-catalogue, un type personnalisé, une entité (la référence) ou un hook.
+catalogue (simple, référence ou composé - hook inclus) ou un type personnalisé (ensemble de propriétés communes à plusieurs champs).
 *(D408)*
 
-**Type personnalisé** — Un type défini dans les settings à partir d'un
-autre : un paquet de défauts réutilisable.
+**Type personnalisé** — Description commune d'un type et de ses propriétés tel qu'il puisse être réutilisable sur plusieurs champs de l'application.
 *Ex. : `progression` = `integer[0..100]` + la jauge « fuel » →
 `avancement: progression`.* *(D359)*
 
-**Forme courte** — L'écriture minimale d'un champ : le type seul, tout
-au défaut. *Ex. : `notes: text` ; `customer: customer`.* *(D356)*
-
-
-**Valeur de démonstration** (`placeholder`) — L'exemple affiché dans un
-champ vide ; pour une image, l'icône de fond. *(D364/D390)*
+**Type court** — L'écriture minimale d'un champ : le type seul, tout au défaut.
+*Ex. : `notes: text` ; `customer: customer`.* *(D356)*
 
 **Validation** (`validation`) — Les règles de refus : sur le champ (sa
 valeur) ou sur l'entité (la cohérence de l'enregistrement). Toute règle
 enfreinte refuse et trace. *Ex. : `- end_date >= start_date`.*
 *(D364/D404)*
 
-**Entrée de version** — Le fichier qui ouvre une version : il annonce
-le format utilisé et pointe le dossier du détail.
+**Version (de description)** — Identifiant numérique décrivant la version de la configuration d'une application (x.y.z.w).
+Les nombres permettent de trier par ordre croissant les différentes versions d'une application.
+Chaque version peut avoir l'un des 4 statuts : bêta, production, dépréciée, interdite.
+Le fait de déposer une version, nous considérons que la version est publiée. *(D324/D340)*
+Dans la configuration, chaque version fera l'objet d'une entrée et cette entrée est un sous-dossier de l'application. Chaque sous-dossier reprend alors tous les éléments nécessaires au bon fonctionnement de l'application.
 *Ex. : `2.1.0.14.yml` → `2.1.0.14/`.* *(D322)*
-
-**Version (de description)** — Un état publié du modèle : quatre
-nombres croissants, un dossier par statut (bêta, production, dépréciée,
-interdite). Déposer, c'est publier. *(D324/D340)*
 
 **Visages de l'entité** (`label`, `image`) — La manière dont un
 enregistrement se présente : son libellé et son image, servis partout —
@@ -245,10 +237,4 @@ référence), le widget de synthèse (graphiques et indicateurs).
 
 **Wizard** — Le parcours guidé : des étapes, des transitions, une
 transaction à la sortie. *(D230)*
-
-A reprendre et à décrire :
-
-**Ingestion** — L'entrée d'une description dans le moteur : lecture,
-vérifications, conversion. Toute incohérence s'arrête là, franchement.
-*(D330)*
 

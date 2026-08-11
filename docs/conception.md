@@ -494,6 +494,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; les modules listés = les modules unifiés (D416). Voir §3.2c. |
 | D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
 | D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — **à la façon d'un dictionnaire** : le terme français porte les échanges, sa traduction dans la configuration entre parenthèses (Champ/`field`), définition claire et concise, un exemple quand il éclaire, la décision en rappel discret (~55 entrées). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; la première version trop technique reprise sur retour de l'auteur ; pointeur en §1. |
+| D418 | **Le glossaire relu et enrichi par l'auteur** (commits directs) — les évolutions de fond : **le couple Configuration/Description** (la configuration = les fichiers du technicien + les settings en cascade ; la description = le contexte d'un élément — aide, infobulle, masques — **jusqu'à l'interface pour outils tiers dont l'IA**) ; **« Application »** entre au vocabulaire (le cadre d'exécution d'une instance) ; **la clé d'un compteur reste unique malgré la réinitialisation** ; **les hooks élargis** (écrans de saisie, formats CSV/Excel fournis = des hooks) ; **utilisateurs associés par le technicien ou par une passerelle d'authentification** ; **le rapport des non-conformités couvre aussi les modifications directes en base par un outil tiers** ; **les ressources élargies** (tout fichier utile — modèles PDF/Word/Excel) ; renommages français (exécution à blanc, type court, composant graphique, groupe d'utilisateurs, rapport des non-conformités). | Entrées supprimées : Infobulle (absorbée par Description), Ingestion (question posée par l'auteur) ; « méta-schéma » redéfini (le modèle porté par une version) — l'articulation avec l'usage Q16 (le format) à clarifier. |
 
 ---
 
@@ -8180,3 +8181,18 @@ avant la synthèse Q16).
   tête d'entrée, un exemple quand il éclaire, la décision en rappel
   discret. Entrées ajoutées au passage : libellé, infobulle, valeur de
   démonstration, recherche, tri, settings, visages de l'entité.
+- **2026-08-11** — **Le glossaire relu et enrichi par l'auteur (D418)** :
+  deux commits directs (« Update glossaire.md », « Revise glossary terms
+  and definitions »). Les évolutions de fond consignées : le couple
+  **Configuration/Description** (les fichiers vs le contexte d'un
+  élément — jusqu'à l'interface pour l'IA), **Application** au
+  vocabulaire, la clé du compteur unique malgré le reset, les hooks
+  élargis (écrans, formats CSV/Excel), les utilisateurs associés par
+  technicien **ou passerelle d'authentification**, le rapport des
+  non-conformités couvrant les modifications directes en base, les
+  ressources élargies (modèles PDF/Word/Excel), les renommages français
+  (exécution à blanc, type court, composant graphique, groupe
+  d'utilisateurs). Supprimées : Infobulle (absorbée), **Ingestion** —
+  l'auteur demande le rappel de nos échanges sur ce terme ;
+  « méta-schéma » redéfini (le modèle d'une version) — l'articulation
+  avec l'usage Q16 (le format) à clarifier.

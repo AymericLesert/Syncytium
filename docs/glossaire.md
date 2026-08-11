@@ -105,6 +105,10 @@ reste au 1ᵉʳ juillet. *(D220)*
 enregistrement (un UUID), qui ne change jamais — même renommé, même
 anonymisé. C'est lui que les références retiennent. *(D142)*
 
+**Ingestion** — Processus visant à convertir une version de
+configuration en une entrée dans le moteur exploitable par toutes les
+composantes de l'application (API, Écrans, CSV, ...). *(D330)*
+
 **Instance** — L'installation d'un client. Elle regroupe tous les éléments nécessaires au fonctionnement de l'application : son moteur, ses environnements, sa base, sa
 description. Une par TPE. *(D16)*
 

@@ -1,238 +1,259 @@
 # Glossaire
 
-Le vocabulaire du projet Syncytium, fixé terme par terme (D417). Chaque
-entrée renvoie aux décisions qui la fondent (voir
-[conception.md](conception.md), §2). L'unification « les modules
-fonctionnels = les modules » (D416) a montré le besoin : les termes
-vivent, le glossaire les ancre. Il a vocation à nourrir la
-documentation générée (D333) et la documentation en amont (Q58).
-
-*Ordre alphabétique. Les termes en gras dans une définition ont leur
-propre entrée.*
+Le vocabulaire du projet, à la façon d'un dictionnaire. **Le terme
+français est celui de nos échanges** ; entre parenthèses, **sa
+traduction dans la configuration** — l'anglais des fichiers. Chaque
+définition se veut claire et concise, avec un exemple quand il
+éclaire ; la décision fondatrice est rappelée en fin d'entrée, pour qui
+veut creuser.
 
 ---
 
-**Agrégat** — la racine et ses **compositions**, prises comme un tout :
-le plancher transactionnel (D101), la frontière intra-module (D116) ;
-l'**instantané** d'historisation le capture entier (D169) ; la mise à
-jour d'un enfant reprend la racine (D111/D192).
+**Agrégat** — Un enregistrement « racine » et tout ce qu'il possède,
+pris comme un tout indivisible. Une commande et ses lignes s'enregistrent,
+s'historisent et disparaissent ensemble. *(D101)*
 
-**Anonymisation** — l'effacement de la **clé fonctionnelle** d'un
-enregistrement, l'**identité technique** préservée (D139/D142) ;
-s'étend à l'historique (D170).
+**Anonymisation** — L'effacement des données personnelles d'un
+enregistrement, qui garde son squelette : les liens et l'historique
+tiennent, le contenu s'efface. *(D139)*
 
-**Association** — le lien libre entre entités
-(`association with <entité>`) : plusieurs, sans possession ni cascade,
-inter-modules permis (D400) ; reprend les propriétés de la
-**référence** (D401). Voir **vue dérivée** pour la forme
-conditionnelle.
+**Association** (`association with`) — Le lien souple entre
+enregistrements, sans possession : chacun vit sa vie.
+*Ex. : `tags: association with catalog.tag`.* *(D400)*
 
-**Audience** — la dimension interne (collaborateurs) / externe
-(clients, portail) du modèle d'accès (D70).
+**Audience** — Le public d'une donnée : l'interne (les collaborateurs)
+ou l'externe (les clients, par un portail). *(D70)*
 
-**Champ** — la donnée atomique d'une **entité** (D118) : un **type**,
-ses facettes, et le socle commun de dix propriétés (D364).
+**Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
+entité : un nom, un type, des propriétés.
+*Ex. : `company_name: text[80]` — la raison sociale, 80 caractères au
+plus.* *(D118)*
 
-**Champ calculé** — un champ porté par une expression
-(`computed:`, D90), recalculé quand un champ concerné change (D255) ;
-en lecture à date, évalué sur les **instantanés** (D172).
+**Champ calculé** (`computed`) — Un champ que personne ne saisit : sa
+valeur se calcule à partir d'autres champs et se met à jour avec eux.
+*Ex. : `total_orders: { computed: count(orders) }`.* *(D90)*
 
-**Clé fonctionnelle** — l'identité métier d'un enregistrement
-(`identity:` sur l'entité, D142/D357) ; unique parmi les actifs
-seulement (D141) ; portée par le CSV aux frontières (D398).
+**Clé fonctionnelle** (`identity`) — Ce qui identifie un enregistrement
+aux yeux du métier : un code client, un numéro de facture. Elle peut
+changer un jour ; l'identité technique, elle, jamais.
+*Ex. : `identity: [code]`.* *(D142/D357)*
 
-**Composant** — le rendu graphique d'un type (D64, la matrice 7 types ×
-3 modes × 2 orientations D250) ; surchargeable par `component` au champ
-puis au formulaire, parmi les compatibles (D270).
+**Composant** (`component`) — L'habillage d'un champ à l'écran : la
+jauge d'un pourcentage, le calendrier d'une date, le toggle d'un
+booléen. *(D64)*
 
-**Composé (type)** — un type bâti sur une base, à validation intégrée
-et facettes propres (D122/D391) : `amount`, `percentage`, `siren`,
-`geolocation`, `period`…
+**Composé (type)** — Un type prêt à l'emploi, bâti sur un type de base
+avec sa validation incorporée : `amount` (un montant et sa devise),
+`siren` (contrôlé), `period` (début ≤ fin)… *(D122)*
 
-**Composition** — la possession forte : le possesseur déclare
-(`lines: list of order_line`, D399), l'enfant ne déclare rien ; cascade
-de vie, atomicité de l'**agrégat**, intra-module (D116/D400) ;
-imbrication multi-niveaux, la racine pour ancre (D400).
+**Composition** (`list of`) — Le lien de possession : le parent déclare
+ce qu'il possède, les enfants naissent, vivent et disparaissent avec
+lui. *Ex. : `lines: { type: list of order_line }` — la commande possède
+ses lignes.* *(D399)*
 
-**Compteur** — le type `counter` (D154–D155/D409) : allocation dans la
-transaction, unicité et continuité (l'exigence comptable),
-format-gabarit (`{counter:000000}`), `reset:` déclaré, mutualisable par
-le nom (`counter[accounting]`).
+**Compteur** (`counter`) — Un numéroteur automatique : jamais deux fois
+le même numéro, jamais de trou.
+*Ex. : `number: { type: counter, format: "CMD-{year}-{counter:000000}" }`.*
+*(D154/D409)*
 
-**Confidentialité** — les trois niveaux emboîtés d'un champ :
-`public` ⊂ `protected` ⊂ `private` (D25), affinés par restrictions de
-**groupes** (D26–D27).
+**Confidentialité** (`confidentiality`) — Le niveau d'exposition d'une
+donnée : `public` (partout), `protected` (l'interface et les tâches),
+`private` (les tâches seulement) — resserrable par groupes. *(D25)*
 
-**Connecteur** — l'échange déclaré avec un système tiers (D79–D89) : le
-moteur porte le cadre, le connecteur la sémantique ; le connecteur de
-reprise est un connecteur ordinaire déclaré « reprise » (D175).
+**Connecteur** — La passerelle déclarée vers un autre système : elle
+lit ou écrit à la place d'un humain, dans les règles du modèle. *(D79)*
 
-**Crochet (paramètre en ligne)** — la convention `type[paramètre]` du
-format (D366) : `text[3..10]`, `time[hh:mm]`, `image[1920x1080]`,
-`similarity[0.8]`, `mutualizable[who]`, `counter[nom]`,
-`temporal[730]`…
+**Crochet** (`type[paramètre]`) — La convention d'écriture qui glisse
+un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
+`counter[accounting]`. *(D366)*
 
-**Description** — l'ensemble des fichiers YAML écrits par le
-**technicien** (le dépôt du client, distinct du projet — D336) ;
-enveloppe convertie en logique interne à l'**ingestion**, inerte
-ensuite (D330).
+**Description** — Tout ce que le technicien écrit : l'ensemble des
+fichiers YAML qui décrivent l'application. Syncytium la lit, la
+vérifie, puis la fait vivre. *(D336)*
 
-**Dry-run** — l'exécution à blanc avec rapport : les migrations sur
-données réelles, l'import cellule par cellule (D120).
+**Dry-run** — La répétition générale : exécuter à blanc — une
+migration, un import — pour lire le rapport des conséquences avant de
+se lancer. *(D120)*
 
-**Entité** — l'objet métier d'un **module** : un fichier propre (D347),
-un en-tête (`name`, `labels`, `inheritance`, `identity`, `label`,
-`image`, `history`), ses `fields:` et ses `validation:` (D404/D410).
+**Entité** (`entity`, un fichier par entité) — Un objet du métier : le
+client, la commande, le produit. Chaque entité a son fichier, ses
+champs, ses règles. *(D347)*
 
-**Entrée de version** — le fichier `<version>.yml` : son en-tête
-déclare la version du **méta-schéma**, il référence le sous-dossier du
-détail (D322).
+**Entrée de version** — Le fichier qui ouvre une version : il annonce
+le format utilisé et pointe le dossier du détail.
+*Ex. : `2.1.0.14.yml` → `2.1.0.14/`.* *(D322)*
 
-**Environnement** — staging, production active, production passive
-(D112–D114) ; configuration commune aux versions, déclinée par
-environnement dans `environments/` (D342–D343).
+**Environnement** (`environments/`) — Un lieu d'exécution : le staging
+(l'essai), la production active (le quotidien), la passive (le
+secours). Chacun a ses connecteurs et ses journaux. *(D342)*
 
-**Facette** — un aspect d'un type : logique (canonique), stockage,
-affichage (défaut de l'export), API (D119).
+**Facette** — Une des quatre faces d'un type : sa logique (la valeur
+vraie), son stockage, son affichage, sa forme d'API. *(D119)*
 
-**Forme courte** — la déclaration en une valeur chaîne : `notes: text`
-(D356), `customer: customer` (D396), `satisfaction: percentage` — le
-type seul, tout au défaut.
+**Forme courte** — L'écriture minimale d'un champ : le type seul, tout
+au défaut. *Ex. : `notes: text` ; `customer: customer`.* *(D356)*
 
-**Groupe** — l'ensemble nommé servant la **confidentialité**, la
-visibilité d'historique, les destinataires de rapports (D26/D414) ;
-constitué d'autres groupes (acyclique) ; les affectations de personnes
-restent en base (D27/D341).
+**Groupe** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
+brique des droits : la confidentialité, la visibilité d'un historique,
+les destinataires d'un rapport. Un groupe peut en contenir d'autres.
+*Ex. : `managers: { groups: [accounting, sales_team] }`.* *(D26/D414)*
 
-**Hook** — l'extension par code au contrat Syncytium (D36/D52) : types,
-composants (D263), fonctions, connecteurs. Les types du catalogue sont
-les hooks embarqués par Syncytium ; le mot « hook » n'apparaît jamais
-dans une description (D408).
+**Historisation** (`history`) — La mémoire d'une entité : chaque
+modification photographie l'agrégat entier. On en règle la profondeur :
+tout (`perpetual`), une période (`temporal[365]`), les dernières
+modifications (`update[10]`), rien (`false`). *(D168/D411)*
 
-**Horodatage** — `datetime[timestamp]` : l'instant stocké UTC, affiché
-selon la langue (D220) ; s'oppose à la valeur **brute** (civile), qui
-ne se convertit jamais.
+**Hook** — Le prolongement par code : un type, un composant ou une
+fonction sur mesure, écrits contre le contrat de Syncytium. Dans les
+fichiers, il ne se voit pas : c'est un nom de plus. *(D52/D408)*
 
-**Identité technique** — l'UUID interne, invariant à vie (D142) : le
-squelette référentiel (références D398, audit, chemins) ; jamais exposé
-aux utilisateurs (Q49).
+**Horodatage** (`datetime[timestamp]`) — Un instant absolu, stocké en
+temps universel et affiché à l'heure de chacun. S'oppose à la valeur
+**brute**, qui reste ce qu'on a écrit — une échéance au 1ᵉʳ juillet
+reste au 1ᵉʳ juillet. *(D220)*
 
-**Ingestion** — la lecture, la validation et la conversion d'une
-description déposée (D330) ; les incohérences y sont des **erreurs**
-franches (version en double D344, masque + taille D366, cycle de
-groupes D414, doublon de nom de type D408…).
+**Identité technique** — Le matricule interne et invisible d'un
+enregistrement (un UUID), qui ne change jamais — même renommé, même
+anonymisé. C'est lui que les références retiennent. *(D142)*
 
-**Instance** — l'installation d'un client : une par TPE (D16) — le
-moteur, la base, la description, ses environnements.
+**Infobulle** (`comment`) — Le mot d'aide qui apparaît au survol d'un
+champ. *Ex. : `comment: { fr: Le code se génère à la création }`.*
+*(D364)*
 
-**Instantané** — l'entrée d'historique : **toutes** les valeurs de
-l'**agrégat** à une date, jamais des écarts (D169) ; lecture seule ;
-sert la consultation temporelle (D172) et la règle de lecture hors
-couverture (D412).
+**Ingestion** — L'entrée d'une description dans le moteur : lecture,
+vérifications, conversion. Toute incohérence s'arrête là, franchement.
+*(D330)*
 
-**Langage d'expression** — le langage unique du projet (§3.3,
-D90/D301–D312) : calculs, validations, filtres (`me.`), gabarits
-(`"{code} — {company_name}"`), migrations ; catalogue et mots-clés en
-anglais, échec par contexte, coercition jamais silencieuse.
+**Instance** — L'installation d'un client : son moteur, sa base, sa
+description. Une par TPE. *(D16)*
 
-**Liste (type)** — `list of X` : la multi-valuation d'un type (D166/
-D362 — les facettes du champ contraignent chaque élément) ;
-`list of <entité>` = **composition** (D399) ; `list of [a, b]` = le
-lien **n-aire** (D402).
+**Instantané** — La photographie complète d'un agrégat à une date,
+rangée dans l'historique. On la consulte, on ne la modifie pas.
+*(D169)*
 
-**Masque d'explication** — l'aide en ligne portée par les
-`description:` du modèle (D209/D333) ; ne pas confondre avec le
-**masque de saisie**.
+**Langage d'expression** — La langue unique des formules : calculs,
+validations, filtres, gabarits.
+*Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
 
-**Masque de saisie** — le format contraint d'une valeur (`mask`) :
-`_`/`9`/littéraux/classes pour le texte (D260), le `0` des nombres
-(D370), les deux notations de la durée (D378) ; ne pas confondre avec
-le **masque d'explication**.
+**Libellé** (`labels`) — Le nom d'une chose dans la langue de
+l'utilisateur. *Ex. : `labels: { fr: Client }`.* *(D217)*
 
-**Méta-schéma** — le format des descriptions lui-même : versionné
-(l'en-tête de l'**entrée de version**, D322), converti à l'ingestion
-(ascendant), refusé proprement (descendant) (D332) ; auto-descriptif à
-terme (D44).
+**Liste (type)** (`list of`) — Un champ à plusieurs valeurs du même
+type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
+devient la composition. *(D166/D362)*
 
-**Migration** — le passage d'une version de description à la suivante,
-à chaud (D3) ; le journal compilé au format du moteur, persistant
-(D331) ; déclenche les rapports `when: migration` (D406).
+**Masque d'explication** — L'aide en ligne tissée dans l'application,
+nourrie par les `description:` du modèle. À ne pas confondre avec le
+masque de saisie. *(D209)*
 
-**Mode (d'un champ)** — `editable` (défaut), `read-only`,
-`write-once` — l'écriture unique, posée à la création (D364).
+**Masque de saisie** (`mask`) — Le gabarit d'une valeur au clavier :
+`"C-999999"`, `"00 00 00"`, `"0.00 h"`. Il guide la saisie et fixe le
+format. À ne pas confondre avec le masque d'explication. *(D260)*
 
-**Module** — LE concept unifié (D416) : la donnée **et** l'expérience.
-Un dossier avec `module.yml`, `settings.yml`, `menu.yml`, `entities/`
-(D347–D351) ; la déclaration vaut activation (D350) ; l'affectation
-utilisateur ↔ module est un acte d'administration (D210/D341) ; il
-restreint la surface, n'étend jamais les droits (D190). `modules.yml`
-en donne la liste explicite (D415).
+**Méta-schéma** — La grammaire des descriptions : le format lui-même,
+versionné comme le reste. C'est lui que Q16 spécifie. *(D322)*
 
-**Mutualisé (champ de recherche)** — la boîte de recherche partagée
-entre plusieurs champs (`mutualizable[nom]`, D367–D368) ; tout type y
-entre par sa conversion en texte (D369) — la forme affichée, le
-libellé, le texte associé d'une géolocalisation (D392).
+**Migration** — Le passage d'une version de description à la suivante,
+sans arrêter l'application : la base, les écrans et les API suivent.
+*(D3)*
 
-**Opération** — l'action déclarée d'une entité (D148) : sous droits
-(D196), déclencheur possible d'une transition d'états (D354).
+**Mode (d'un champ)** (`mode`) — Son droit d'écriture : modifiable
+(`editable`), lecture seule (`read-only`), écrit une fois pour toutes
+(`write-once`). *(D364)*
 
-**Provenance** — l'origine d'un enregistrement repris : connecteur,
-date, clé d'origine (D178) — un fait historique, jamais un lien vivant.
+**Module** (`module`, `module.yml`) — Une part de l'application : ses
+entités, son menu, sa page d'accueil — la donnée et l'expérience
+ensemble. L'administrateur affecte chaque utilisateur à ses modules.
+*(D347/D416)*
 
-**Rapport des non-conformes** — le rapport d'un filtre de lien (D395) :
-paramétré en cascade à quatre étages, existant par défaut (à la
-demande, vers l'administrateur), `report: no` pour l'exclure,
-`when`/`to`/`by` pour l'enrichir (D406–D407).
+**Opération** — Une action déclarée sur une entité, au-delà du
+créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
+déclencheur possible d'un changement d'état. *(D148)*
 
-**Référence** — le lien unitaire : l'origine porte le champ
-(`advisor: hr.employee`, D394/D396), la destination y accède en retour
-sans rien déclarer ; filtre évalué depuis la destination (`me.` =
-l'origine), `check: selection | immutable` (D395) ; stockage = l'UUID
-(D398).
+**Provenance** — La carte d'identité d'origine d'une donnée reprise :
+de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
+*(D178)*
 
-**Ressources** — le dossier `resources/` : logos, icônes d'énumérés,
-placeholders — partagés entre toutes les versions (D346/D390).
+**Rapport des non-conformes** (`report`) — La liste de ce qui ne
+respecte plus une règle de lien — le filtre a changé, la donnée a
+dérivé. Produit à la demande, à la migration ou en continu, adressé à
+qui de droit. *(D395/D406)*
 
-**Surface** — un écran nommé généré : la liste, le formulaire, le
-widget de résumé, le widget de synthèse (Q48, D185+) ; le domaine 4 de
-l'inventaire.
+**Recherche** (`searchable`) — La manière dont un champ se cherche :
+exacte (`strict`), tolérante aux accents (`normalized`), aux fautes de
+frappe (`similarity[0.8]`), par plage (`range`) — ou pas du tout
+(l'absence). *(D367/D371)*
 
-**Technicien** — le rôle qui écrit la description (D95) : paramétrable,
-porté par une à n personnes ; distinct de l'administrateur (les actes
-en base) et de l'opérateur (l'usage).
+**Recherche mutualisée** (`mutualizable[nom]`) — Une boîte de recherche
+partagée par plusieurs champs : on y tape une fois, elle cherche
+partout où elle est branchée. *Ex. : `searchable: mutualizable[who]`
+sur le nom et le prénom.* *(D367)*
 
-**Télémétrie** — l'observation d'usage déclarée au modèle (D38–D43) :
-par champ (à la volée), par entité (stockée), par API (comptée) ;
-nourrit le conseil SEQUITUR (D315–D319) et la documentation vivante
-(D334).
+**Référence** (le nom d'entité en guise de type) — Le lien vers un
+enregistrement d'une autre entité. Celui qui pointe porte le champ ;
+celui qui est pointé y accède en retour, sans rien déclarer.
+*Ex. : `advisor: hr.employee`.* *(D394/D396)*
 
-**Type** — le contrat d'un champ : **le nom est la clé** (D408) — le
-catalogue (les hooks embarqués), les **types personnalisés**, les
-entités (la **référence** par le nom), les hooks tiers.
+**Ressources** (`resources/`) — Le dossier des images de la
+description : logos, icônes, fonds — partagés par toutes les versions.
+*(D346)*
 
-**Type personnalisé** — le type déclaré dans un `settings:`
-(version / module / entité — D359) : des défauts surchargeables,
-chaînable, le plus proche l'emporte, sans porter le graphe de
-conversion (D360).
+**Settings** (`settings.yml`, le bloc `settings:`) — Les réglages d'un
+étage (la version, le module, l'entité), diffusés en cascade à ce qu'il
+contient : le plus proche l'emporte. *(D348/D360)*
 
-**Validation** — les règles de refus : au champ (sa valeur — le
-`matches`), à l'entité (l'enregistrement — le bloc `validation:`)
-(D364/D404) ; toute règle en échec = refus + trace (D307).
+**Surface** — Un écran généré et nommé : la liste, le formulaire, le
+widget de résumé, le widget de synthèse. *(Q48)*
 
-**Version (de description)** — la publication d'un état :
-`<majeure>.<mineure>.<indice>.<build>` croissante, déposer = publier
-(D324), le statut est l'emplacement (`beta/ production/ deprecated/
-forbidden/`, D338/D340), transitions unidirectionnelles (D344–D345).
+**Technicien** — Celui qui écrit la description. Un rôle, pas un
+métier : une à plusieurs personnes le portent. *(D95)*
 
-**Vue dérivée** — l'association conditionnelle
-(`orders: association with order if order.customer = me`, D405) :
-jamais stockée, en lecture — la vérité reste la référence qui la fonde.
+**Télémétrie** — Les compteurs d'usage de l'application : ce qui sert,
+ce qui dort. Elle éclaire les migrations, la sécurité et le conseil.
+*(D38)*
 
-**Wizard** — le menu-parcours : mono-utilisateur, une session, des
-étapes-surfaces à transitions conditionnelles, la transaction à la
-sortie (D230–D233) ; n'élargit jamais les droits.
+**Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
+chronologique — réglable là où plusieurs ordres se défendent.
+*Ex. : `sort: natural` — item2 avant item10.* *(D125/D380)*
 
-**Widget** — trois espèces à ne pas confondre : le **widget
-d'accueil** (indicateur ou liste sur la page d'accueil, D191), le
-**widget de résumé** (le survol d'une référence, D185), le **widget de
-synthèse** (graphiques, KPI, tableaux croisés — D247, Q53).
+**Type** (`type`) — Le contrat d'un champ : ce qu'il accepte, comment
+il se stocke, s'affiche et se cherche. Le nom suffit — un type du
+catalogue, un type personnalisé, une entité (la référence) ou un hook.
+*(D408)*
+
+**Type personnalisé** — Un type défini dans les settings à partir d'un
+autre : un paquet de défauts réutilisable.
+*Ex. : `progression` = `integer[0..100]` + la jauge « fuel » →
+`avancement: progression`.* *(D359)*
+
+**Valeur de démonstration** (`placeholder`) — L'exemple affiché dans un
+champ vide ; pour une image, l'icône de fond. *(D364/D390)*
+
+**Validation** (`validation`) — Les règles de refus : sur le champ (sa
+valeur) ou sur l'entité (la cohérence de l'enregistrement). Toute règle
+enfreinte refuse et trace. *Ex. : `- end_date >= start_date`.*
+*(D364/D404)*
+
+**Version (de description)** — Un état publié du modèle : quatre
+nombres croissants, un dossier par statut (bêta, production, dépréciée,
+interdite). Déposer, c'est publier. *(D324/D340)*
+
+**Visages de l'entité** (`label`, `image`) — La manière dont un
+enregistrement se présente : son libellé et son image, servis partout —
+de la liste déroulante au widget.
+*Ex. : `label: "{code} — {company_name}"` ; `image: logo`.*
+*(D397/D386)*
+
+**Vue dérivée** (`association with … if …`) — Une liste calculée par
+une condition, jamais stockée : on la lit ; pour la changer, on change
+la donnée qui la fonde.
+*Ex. : `orders: association with order if order.customer = me` — les
+commandes de ce client.* *(D405)*
+
+**Widget** — Une tuile d'information. Trois espèces : le widget
+d'accueil (sur la page d'accueil), le widget de résumé (au survol d'une
+référence), le widget de synthèse (graphiques et indicateurs).
+*(D185/D191/D247)*
+
+**Wizard** — Le parcours guidé : des étapes, des transitions, une
+transaction à la sortie. *(D230)*

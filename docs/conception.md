@@ -493,7 +493,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** — **« un groupe est constitué d'autres groupes »** : le contenant déclare (`groups: [accounting, sales_team]`), pas de lien parent. | La ligne D399 (le possesseur déclare) ; multi-appartenance naturelle, le membre d'un constituant est membre du contenant ; acyclicité à l'ingestion (D135). Voir §3.2c. |
 | D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; les modules listés = les modules unifiés (D416). Voir §3.2c. |
 | D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
-| D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — fixant le vocabulaire terme par terme, chaque entrée ancrée à ses décisions fondatrices (~50 entrées à la création). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; pointeur en §1. |
+| D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — **à la façon d'un dictionnaire** : le terme français porte les échanges, sa traduction dans la configuration entre parenthèses (Champ/`field`), définition claire et concise, un exemple quand il éclaire, la décision en rappel discret (~55 entrées). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; la première version trop technique reprise sur retour de l'auteur ; pointeur en §1. |
 
 ---
 
@@ -8170,3 +8170,13 @@ avant la synthèse Q16).
   de l'unification D416 : les termes vivent, le glossaire les ancre) ;
   le pointeur ajouté en §1. La liste livrée pour arbitrage —
   enrichissements bienvenus.
+- **2026-08-10 (suite)** — **Le glossaire repris en dictionnaire (D417
+  amendé)**. Le retour de lecture de l'auteur : « la description est
+  très technique… je souhaite des définitions claires et concises » —
+  et la règle lexicale : **le terme français nous accompagne dans nos
+  échanges, l'anglais est sa traduction dans la configuration**
+  (Champ/`field`). Le glossaire est réécrit : définitions de
+  dictionnaire en langage courant, le couple français/configuration en
+  tête d'entrée, un exemple quand il éclaire, la décision en rappel
+  discret. Entrées ajoutées au passage : libellé, infobulle, valeur de
+  démonstration, recherche, tri, settings, visages de l'entité.

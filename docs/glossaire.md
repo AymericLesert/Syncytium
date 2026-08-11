@@ -135,7 +135,9 @@ masque de saisie. *(D209)*
 `"C-999999"`, `"00 00 00"`, `"0.00 h"`. Il guide la saisie et fixe le
 format. À ne pas confondre avec le masque d'explication. *(D260)*
 
-**Méta-schéma** — La description complète d'un modèle de données : modules, entités et champs. Chaque version porte un méta-schéma. *(D322)*
+**Méta-schéma** — La description complète d'un modèle de données —
+modules, entités, champs — **et la grammaire utilisée** pour les
+écrire. Chaque version porte un méta-schéma. *(D322)*
 
 **Migration** — Le passage d'une version de configuration à la suivante,
 sans arrêter l'application : la base, les écrans et les API suivent.

@@ -495,6 +495,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
 | D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — **à la façon d'un dictionnaire** : le terme français porte les échanges, sa traduction dans la configuration entre parenthèses (Champ/`field`), définition claire et concise, un exemple quand il éclaire, la décision en rappel discret (~55 entrées). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; la première version trop technique reprise sur retour de l'auteur ; pointeur en §1. |
 | D418 | **Le glossaire relu et enrichi par l'auteur** (commits directs) — les évolutions de fond : **le couple Configuration/Description** (la configuration = les fichiers du technicien + les settings en cascade ; la description = le contexte d'un élément — aide, infobulle, masques — **jusqu'à l'interface pour outils tiers dont l'IA**) ; **« Application »** entre au vocabulaire (le cadre d'exécution d'une instance) ; **la clé d'un compteur reste unique malgré la réinitialisation** ; **les hooks élargis** (écrans de saisie, formats CSV/Excel fournis = des hooks) ; **utilisateurs associés par le technicien ou par une passerelle d'authentification** ; **le rapport des non-conformités couvre aussi les modifications directes en base par un outil tiers** ; **les ressources élargies** (tout fichier utile — modèles PDF/Word/Excel) ; renommages français (exécution à blanc, type court, composant graphique, groupe d'utilisateurs, rapport des non-conformités). | Entrées supprimées : Infobulle (absorbée par Description) ; **Ingestion réintégrée avec la définition de l'auteur** (« convertir une version de configuration en une entrée dans le moteur exploitable par toutes les composantes — API, Écrans, CSV… ») ; « méta-schéma » **tranché** : un seul mot couvrant **le modèle porté par une version ET la grammaire utilisée** (la proposition « format de description » écartée). |
+| D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
 
 ---
 
@@ -1149,7 +1150,8 @@ catalogue, avec les facettes de chacun :
   (`currencies`), `email`, `percentage` (borné → jauge D274), `phone`,
   `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
   (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
-  des identifiants du domaine, pas des mots à traduire.
+  des identifiants du domaine, pas des mots à traduire — et `uuid`
+  (D419, les identifiants externes).
 - **Contenus** : `communication` (D167 — défauts : visibilité maximale,
   immuable, sans pièces jointes, sans notification). *(`thumbnail` et
   `image` : reclassés parmi les simples, dérivés de `file` — D385.)*
@@ -2172,6 +2174,24 @@ décisions passées se lisent en y remplaçant « module fonctionnel » par
 liste **ces** modules-là. *(Note : le menu d'un module peut citer des
 entités d'autres modules — les associations inter-modules restent
 libres, D116.)*
+
+**Le composé `uuid` (D419).** « Dans les types de base, a-t-on le type
+UUID ? » — non : **l'UUID interne est hors déclaration** (D142/Q49, la
+famille 7 du bloc `fields`). Pour **les identifiants venus d'ailleurs**
+(systèmes tiers, clés externes D178), **`uuid` entre aux composés** :
+base `text`, **validation intégrée** (le format canonique 8-4-4-4-12,
+la casse normalisée), **stockage compact au moteur** (16 octets
+binaires, jamais la chaîne — l'esprit D372), recherche
+`strict`/`mutualizable` par la forme texte (D369), tri sur la forme
+canonique, nul ≡ chaîne vide (D379). **La frontière demeure** :
+l'identité technique interne reste invisible et non typée dans les
+fichiers.
+
+```yaml
+external_id:
+  type: uuid                       # l'identifiant d'un système tiers
+  mode: write-once
+```
 
 ```yaml
 history:
@@ -8210,3 +8230,11 @@ avant la synthèse Q16).
   écartée ; l'entrée du glossaire est amendée. La relecture du
   glossaire est soldée — le chantier reprend : l'ouverture du
   domaine 3.
+- **2026-08-11 (suite 3)** — **Le composé `uuid` (D419)**. La sonde de
+  l'auteur (« a-t-on le type UUID ? ») : non — l'UUID interne est hors
+  déclaration (D142/Q49). Pour **les identifiants externes** (systèmes
+  tiers, clés D178), `uuid` entre aux composés : validation intégrée
+  (8-4-4-4-12), stockage compact au moteur (16 octets), recherche et
+  tri sur la forme canonique, nul ≡ chaîne vide. La frontière est
+  nette : l'identité technique reste invisible et non typée. Catalogue
+  (D361) et glossaire complétés.

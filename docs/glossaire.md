@@ -212,6 +212,11 @@ catalogue (simple, référence ou composé - hook inclus) ou un type personnalis
 **Type court** — L'écriture minimale d'un champ : le type seul, tout au défaut.
 *Ex. : `notes: text` ; `customer: customer`.* *(D356)*
 
+**UUID** (`uuid`) — Identifiant universel unique. Le type sert les
+identifiants venus de systèmes tiers ; l'identité technique interne,
+elle, n'est jamais déclarée dans la configuration.
+*Ex. : `external_id: uuid`.* *(D419)*
+
 **Validation** (`validation`) — Les règles de refus : sur le champ (sa
 valeur) ou sur l'entité (la cohérence de l'enregistrement). Toute règle
 enfreinte refuse et trace. *Ex. : `- end_date >= start_date`.*

@@ -498,6 +498,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
 | D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
 | D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
+| D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | Forme en proposition : `crud: [create, read, update, delete]` sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
 
 ---
 
@@ -2233,6 +2234,36 @@ navigation vers le parent : `update: order.status = "draft"`) ;
 explicite sous ses propres `when`/`rights` : « valider » agit sur la
 commande que la condition verrouille, la ligne D354 — le retour par
 l'acte explicite, jamais par l'édition libre.)*
+
+**Le statut d'état couvre le CRUD entier (D422 — élargit D421).** Le
+cycle de vie rejoint la condition de mise à jour (« selon le cycle de
+vie, nous pourrons mettre un statut de modification ») — et **« le
+statut ne porte pas que sur la modification : il concerne tous les
+éléments du CRUD — Création d'un sous-composant, Lecture/consultation
+de l'enregistrement, mise à jour et suppression. »** La forme en
+proposition — **chaque état du cycle porte ses droits** :
+
+```yaml
+fields:
+  status:
+    type: enum                     # le champ porteur du cycle de vie
+    values:
+      draft:     { labels: { fr: Brouillon }, crud: [create, read, update, delete] }
+      confirmed: { labels: { fr: Confirmée }, crud: [read] }
+      archived:  { labels: { fr: Archivée },  crud: [read] }
+    default: draft
+```
+
+*(Les quatre lettres : **create** = la création d'un **sous-composant**
+— ajouter une ligne à l'agrégat ; **read** = la consultation de
+l'enregistrement — sans elle, l'état masque (la donnée se protège) ;
+**update** = la mise à jour — l'agrégat entier (D420) ; **delete** = la
+suppression-désactivation (D141). Absent = tout permis. Le même
+vocabulaire vaut pour les états hiérarchiques du bloc `states:` (D353) ;
+l'en-tête d'entité garde les formes libres symétriques
+(`update: <expression>`, D421) pour les cas hors cycle — les deux
+déclarés = erreur d'ingestion ; **les opérations passent outre**,
+inchangé.)*
 
 ```yaml
 history:
@@ -8303,3 +8334,14 @@ avant la synthèse Q16).
   **les opérations qui passent outre** (le chemin explicite — la ligne
   D354). La proposition « opérations » (bloc operations:, when/rights/
   confirm/effects) reste en arbitrage.
+- **2026-08-12 (suite 2)** — **Le statut d'état couvre le CRUD entier
+  (D422)** : le cycle de vie rejoint la condition de mise à jour, et
+  « le statut ne porte pas que sur la modification : il concerne tous
+  les éléments du CRUD — création d'un sous-composant,
+  lecture/consultation, mise à jour, suppression ». Forme en
+  proposition : `crud: [create, read, update, delete]` porté par chaque
+  valeur du cycle (énuméré D387) ou chaque état hiérarchique (D353) ;
+  absent = tout permis ; read absent = l'état masque ; l'en-tête
+  d'entité garde les formes libres (D421), les deux déclarés = erreur
+  d'ingestion ; les opérations passent outre. En arbitrage : la forme
+  `crud:`, le défaut, la sémantique du read.

@@ -500,6 +500,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
 | D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | **La propriété se nomme `allow`** — toute combinaison (`allow: [read, delete]`) — sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
 | D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
+| D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
 
 ---
 
@@ -2288,6 +2289,35 @@ allow:
 
 *(Le `update: <expression>` de D421 se fond dans ce bloc — un nom
 unique, `allow`, deux foyers exclusifs.)*
+
+**Le cycle de vie : `states` désigne le porteur (D424).** Le focus de
+l'auteur sur le cycle de vie tranche le creux du champ porteur :
+**« un état hiérarchique est déjà un statut »** — l'entité à hiérarchie
+(D353) a son statut dans ses positions, rien à cumuler. **« Dans le cas
+d'une entité sans état hiérarchique, nous pouvons réutiliser le bloc
+`states` pour préciser le champ ayant un type énuméré, pour
+matérialiser le cycle de vie »** :
+
+```yaml
+# sales/entities/order.yml — entité sans hiérarchie
+name: order
+states: status                   # le champ énuméré porteur du cycle de vie
+fields:
+  status:
+    type: enum
+    values:
+      draft:     { labels: { fr: Brouillon },  allow: [create, read, update, delete] }
+      confirmed: { labels: { fr: Confirmée },  allow: [read] }
+      archived:  { labels: { fr: Archivée },   allow: [read, delete] }
+    default: draft
+```
+
+**Un seul statut par entité, deux sources** : la hiérarchie (le bloc
+`states:` du parent, D353) ou le champ énuméré désigné
+(`states: <champ>` — la désignation, le patron `image:`/`label:`).
+*(Notes en proposition : `states:` désignant un champ non énuméré =
+erreur d'ingestion ; hiérarchie et champ désigné ensemble = erreur — un
+seul statut ; la naissance = le `default` de l'énuméré.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8397,3 +8427,13 @@ avant la synthèse Q16).
   le bloc verbe → expression en en-tête d'entité (le `update:` de D421
   s'y fond). D421/D422 clos. Restent au domaine 3 : les opérations (en
   arbitrage), les déclencheurs, les notifications, les tâches.
+- **2026-08-12 (suite 5)** — **Focus cycle de vie — `states` désigne le
+  porteur (D424)**. La vue d'ensemble livrée (trois cycles, le
+  mouvement, les interactions, trois creux) ; l'auteur tranche le
+  premier creux : « un état hiérarchique est déjà un statut » — pas de
+  cumul ; l'entité sans hiérarchie **réutilise le bloc `states`** pour
+  désigner son champ énuméré (`states: status`). Un seul statut par
+  entité, deux sources. Notes en proposition : champ non énuméré =
+  erreur, deux sources = erreur, la naissance = le `default`. Restent
+  du focus : le graphe des transitions (creux 2 — les passages légaux
+  déclarés ou la liberté des opérations).

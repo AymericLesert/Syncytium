@@ -497,6 +497,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D418 | **Le glossaire relu et enrichi par l'auteur** (commits directs) — les évolutions de fond : **le couple Configuration/Description** (la configuration = les fichiers du technicien + les settings en cascade ; la description = le contexte d'un élément — aide, infobulle, masques — **jusqu'à l'interface pour outils tiers dont l'IA**) ; **« Application »** entre au vocabulaire (le cadre d'exécution d'une instance) ; **la clé d'un compteur reste unique malgré la réinitialisation** ; **les hooks élargis** (écrans de saisie, formats CSV/Excel fournis = des hooks) ; **utilisateurs associés par le technicien ou par une passerelle d'authentification** ; **le rapport des non-conformités couvre aussi les modifications directes en base par un outil tiers** ; **les ressources élargies** (tout fichier utile — modèles PDF/Word/Excel) ; renommages français (exécution à blanc, type court, composant graphique, groupe d'utilisateurs, rapport des non-conformités). | Entrées supprimées : Infobulle (absorbée par Description) ; **Ingestion réintégrée avec la définition de l'auteur** (« convertir une version de configuration en une entrée dans le moteur exploitable par toutes les composantes — API, Écrans, CSV… ») ; « méta-schéma » **tranché** : un seul mot couvrant **le modèle porté par une version ET la grammaire utilisée** (la proposition « format de description » écartée). |
 | D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
 | D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
+| D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
 
 ---
 
@@ -2209,6 +2210,29 @@ légitime **est le `filter`** (D395/D401) : « une condition qui filtre
 les items faisant partie d'une association, en plus du lien entre les
 deux entités — le terme qui s'approprie le plus est `filter` » — déjà
 acquis, aucun mot-clé nouveau.
+
+**La condition de mise à jour : une affaire d'entité (D421).** **« La
+condition de mise à jour porte sur l'entité et non sur l'association ou
+la composition »** — le cas « brouillon » trouve son foyer : une
+propriété d'en-tête d'entité, en proposition **`update:`** (expression
+D90 sur l'enregistrement) :
+
+```yaml
+# sales/entities/order.yml
+name: order
+update: status = "draft"        # la commande n'est modifiable qu'en brouillon
+```
+
+*(Articulations en proposition : **(a)** condition fausse = lecture
+seule de fait — les écrans grisent, l'API refuse proprement + trace
+(D307) ; **(b)** le grain agrégat (D420) : la condition de la racine
+couvre ses compositions — ajouter, modifier ou retirer une ligne, c'est
+modifier l'agrégat ; l'enfant peut porter la sienne en plus (la
+navigation vers le parent : `update: order.status = "draft"`) ;
+**(c)** **les opérations déclarées passent outre** — le chemin
+explicite sous ses propres `when`/`rights` : « valider » agit sur la
+commande que la condition verrouille, la ligne D354 — le retour par
+l'acte explicite, jamais par l'édition libre.)*
 
 ```yaml
 history:
@@ -8270,3 +8294,12 @@ avant la synthèse Q16).
   `filter`** des liens (D395/D401), déjà acquis. Le §3.5 est amendé en
   place. Restent au domaine 3 : opérations, déclencheurs,
   notifications, tâches.
+- **2026-08-12 (suite)** — **La condition de mise à jour : une affaire
+  d'entité (D421)** : « la condition de mise à jour porte sur l'entité
+  et non sur l'association ou la composition » — le cas « brouillon »
+  trouve son foyer : `update:` en en-tête d'entité (expression D90).
+  En proposition : lecture seule de fait quand la condition est fausse
+  (refus propre D307), la racine couvrant ses compositions (D420), et
+  **les opérations qui passent outre** (le chemin explicite — la ligne
+  D354). La proposition « opérations » (bloc operations:, when/rights/
+  confirm/effects) reste en arbitrage.

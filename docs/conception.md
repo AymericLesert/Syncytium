@@ -524,6 +524,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D445 | **Les comportements de la liste** : `selection: one \| multiple` ; la création en **bouton du cadre/entête** ; la modification au **double-clic** (ligne non readonly) ; la liste **en lecture seule** = le double-clic consulte ; la suppression — **1 ligne = formulaire lecture seule + confirmation** (D196), **n lignes = popup avec le nombre** (l'exception assumée, D202) ; **l'opération de masse sur la sélection**. | Les opérations (D432) rencontrent la sélection ; la masse séquentielle et la double validation (D202). Voir §3.2c. |
 | D446 | **`sizable`** — le redimensionnement des colonnes : **`none` / `auto` / `manual` / `auto+manual`** — l'ajustement par l'utilisateur seulement si `manual` ; « la liste est un composant complet et complexe, dont la lisibilité doit s'adapter au format d'affichage ». | Défaut `auto` en proposition (la ligne D443 — le moteur dimensionne). Voir §3.2c. |
 | D447 | **La préséance et la colonne fantôme** : « les types portent des propriétés d'affichage dans une liste — **par défaut, elles priment** ; la liste surcharge » (la chaîne **type → colonne**, le pendant de D270) ; **une colonne peut être présente, non affichée et non visible** (jamais révélée, même `sizable: manual`) — « utile pour un export CSV simplifié ». | `visible: false` en proposition ; l'export prend les colonnes **présentes**, les `export.columns` (D444) pour le hors-liste ; exemples canoniques — montant : devise + droite ; toggle : centré ; texte court : gauche ; multi-lignes : justifié. Voir §3.2c. |
+| D448 | **La grammaire commune des surfaces** : « forms, summary et widget vont partager un vocabulaire et une grammaire commune » — le socle, `header`/`footer` à gabarits (D253), `mode`, `blocks` (`section`/`tab`) au contenu `fields`/`charts` ; **les spécialisations par restriction** (forms entière + history ; summary sans onglets, un seul ; widgets = charts/KPI/TCD) ; le gabarit PDF et le wizard réutiliseront la grammaire. | « La base que nous allons **reformuler et étoffer** » — l'arbitrage surface par surface suit. Voir §3.2c. |
 
 ---
 
@@ -2889,6 +2890,35 @@ columns:
 *(Notes en proposition : la propriété `visible: false` ; l'export prend
 les colonnes **présentes** — affichées ou non — les `export.columns` de
 D444 restant pour les compléments hors liste.)*
+
+**La grammaire commune des surfaces (D448 — la base).** **« Forms,
+summary et widget vont partager un vocabulaire et une grammaire
+commune »** — l'acquis le préparait (le résumé = une config de
+formulaire restreinte D201, le gabarit PDF = un formulaire en lecture
+seule D253). La base validée (« les surfaces et la définition
+convient ») :
+
+```yaml
+<surface>:
+  labels: { fr: … }              # le socle (D438) : labels, comment, description, icon
+  header: "{gabarit}"            # les zones de texte à gabarits (D253/D90)
+  footer: "{gabarit}"
+  mode: read-only                # précisable (D207)
+  blocks:                        # la liste ordonnée
+    - section:                   #   empilée — labels + contenu
+        fields: [ … ]            #   des champs (forme courte/riche, D270/D447)
+    - tab:                       #   en onglet
+        charts: [ … ]            #   et/ou des graphiques (Q53)
+```
+
+**Les spécialisations par restriction** : `forms` = la grammaire
+entière (les deux modes D185, `history:` en dernier onglet D207/D186) ;
+`summary` = restreinte (D201 — pas d'onglets, champs sélectionnés,
+petit par principe, un seul par entité) ; `widgets` = le contenu
+bascule (charts/KPI/TCD — Q53/D247, le drill-down, la confidentialité
+héritée). Le gabarit PDF (D253) et les étapes de wizard (D233)
+réutiliseront la même grammaire. **« La grammaire présentée constitue
+une base que nous allons reformuler et étoffer. »**
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9221,3 +9251,12 @@ avant la synthèse Q16).
   un alignement à droite, un toggle est centré, un texte court est
   aligné à gauche, un texte sur plusieurs lignes s'affiche en
   justifié… » — gravés dans le bloc.
+- **2026-08-12 (suite 31)** — **La grammaire commune des surfaces
+  (D448)**. L'auteur garde la main sur la liste (« je pourrais
+  potentiellement y revenir ») et ouvre forms/summary/widgets par leur
+  socle partagé : « ces 3 éléments vont partager un vocabulaire et une
+  grammaire commune ». La base validée (socle, header/footer à
+  gabarits, mode, blocks section/tab au contenu fields/charts ; les
+  spécialisations par restriction ; le gabarit PDF D253 et le wizard
+  D233 en réutilisateurs) — « une base que nous allons **reformuler et
+  étoffer** ». L'arbitrage surface par surface suit.

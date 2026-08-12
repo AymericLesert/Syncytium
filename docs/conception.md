@@ -522,6 +522,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`) ; **la forme abrégée délègue au moteur** : « Syncytium décide alors du format par défaut et de la dimension de la colonne en fonction de son type ». | L'esprit D372 — le technicien décrit, le moteur dimensionne ; `align` au défaut du type, `width` %/px/auto, `style` relevant du thème (D191). Voir §3.2c. |
 | D444 | **La liste raffinée — l'artefact** : **l'opération en colonne** (l'icône à 3 états : actionnable / non visible / non actionnable) ; **l'export** — colonnes visibles + complémentaires, **CSV = un fichier par type de composants**, **Excel = un fichier à onglets, surchargeable par un modèle** ; **l'auto-rafraîchissement** (pas de bouton) ; la confidentialité = non visible **et non triable** ; **la pagination à indicateurs** (« 21–40 sur 156 »). | La symétrie de l'import d'agrégat (Q55) ; le modèle Excel ← resources/ (D418) ; **l'export porte son tri** (l'écriture de D442, figée) ; l'exemple canonique consigné. Voir §3.2c. |
 | D445 | **Les comportements de la liste** : `selection: one \| multiple` ; la création en **bouton du cadre/entête** ; la modification au **double-clic** (ligne non readonly) ; la liste **en lecture seule** = le double-clic consulte ; la suppression — **1 ligne = formulaire lecture seule + confirmation** (D196), **n lignes = popup avec le nombre** (l'exception assumée, D202) ; **l'opération de masse sur la sélection**. | Les opérations (D432) rencontrent la sélection ; la masse séquentielle et la double validation (D202). Voir §3.2c. |
+| D446 | **`sizable`** — le redimensionnement des colonnes : **`none` / `auto` / `manual` / `auto+manual`** — l'ajustement par l'utilisateur seulement si `manual` ; « la liste est un composant complet et complexe, dont la lisibilité doit s'adapter au format d'affichage ». | Défaut `auto` en proposition (la ligne D443 — le moteur dimensionne). Voir §3.2c. |
 
 ---
 
@@ -2846,6 +2847,21 @@ fichier.)*
    appliquée sur toutes les lignes sélectionnées simultanément » — les
    opérations (D432) rencontrent la sélection (la masse séquentielle
    D202).
+
+**Le redimensionnement des colonnes : `sizable` (D446).** Le cadre
+posé : **« une liste est un composant graphique complet et complexe,
+dont la lisibilité doit s'adapter au format d'affichage. »** Et **les
+colonnes peuvent avoir une taille ajustable — uniquement si la
+propriété `sizable: manual` est positionnée** :
+
+- **`none`** — les tailles fixes (déclarées ou déduites, D443) ;
+- **`auto`** — le moteur ajuste au contenu et au format d'affichage ;
+- **`manual`** — l'utilisateur redimensionne ;
+- **`auto+manual`** — l'ajustement du moteur, la main de l'utilisateur
+  par-dessus.
+
+*(Note en proposition : le défaut = `auto` — la ligne de D443, le
+moteur dimensionne.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9159,3 +9175,9 @@ avant la synthèse Q16).
   D202) ; **l'opération de masse** appliquée à toutes les lignes
   sélectionnées (D432 × D202). Le formulaire (point 4) toujours en
   arbitrage.
+- **2026-08-12 (suite 28)** — **`sizable` (D446)** : « une liste est un
+  composant graphique complet et complexe, dont la lisibilité doit
+  s'adapter au format d'affichage » — le redimensionnement des colonnes
+  gouverné : `none` / `auto` / `manual` / `auto+manual`, l'ajustement
+  par l'utilisateur seulement si `manual` ; défaut `auto` en
+  proposition. Le formulaire (point 4) toujours en arbitrage.

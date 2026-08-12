@@ -503,6 +503,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
 | D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
 | D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; **le composant du statut se déduit de la déclaration** — liste-navigatrice (sans `when`) ou champ en lecture + boutons (avec `when`), le mixte combine ; l'articulation avec le cliquet D354 : question posée. Voir §3.2c. |
+| D427 | **Le triptyque du `when`** (solde l'articulation D354) : sans `when` = **libre** (la liste navigatrice) ; `when: <opération>` = **l'acte** (un bouton) ; `when: <expression>` = **l'automatisme** — **le cliquet D354 intact** (« déduit d'un élément de l'entité via le langage d'expression »). | Trois écritures, trois vécus — un seul graphe. Le focus cycle de vie est soldé (D420–D427). Voir §3.2c. |
 
 ---
 
@@ -2385,6 +2386,20 @@ déroulante-navigatrice ; les transitions-opérations (avec `when`) font
 le champ en lecture avec ses boutons ; un graphe mixte combine les
 deux. La forme n'est jamais déclarée : elle se lit dans le graphe
 (l'esprit D366 — le déduit plutôt que le déclaré).
+
+**Le triptyque du `when` (D427 — solde l'articulation avec D354).**
+**« Le `when` peut faire référence à une opération ou à une
+condition »** — les trois régimes d'une transition, complets :
+
+| Déclaration | Régime | Surface |
+|---|---|---|
+| sans `when` | **libre** | la liste navigatrice du graphe |
+| `when: <opération>` | **l'acte** | **un bouton** (« nous allons y venir » — les opérations) |
+| `when: <expression>` | **l'automatisme** | aucune — **le cliquet D354 intact** : « déduit d'un élément de l'entité via une condition utilisant le langage d'expression (`count(orders) > 0`) » |
+
+Le prospect devient client à la première commande **sans geste** ;
+la commande se confirme **par le bouton** ; le brouillon s'annule **à la
+sélection**. Trois écritures, trois vécus — un seul graphe.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8530,3 +8545,11 @@ avant la synthèse Q16).
   navigatrice (sans when), le champ en lecture + boutons (avec when),
   le graphe mixte combine ; la forme jamais déclarée, lue dans le
   graphe (l'esprit D366).
+- **2026-08-12 (suite 8)** — **Le triptyque du `when` (D427) : le focus
+  cycle de vie est soldé (D420–D427)**. « Le when peut faire référence
+  à une opération ou à une condition » : sans when = libre (la liste
+  navigatrice) ; when-opération = l'acte (un bouton — « nous allons y
+  venir ») ; when-expression = **l'automatisme, le cliquet D354
+  intact** (déduit d'un élément de l'entité — count(orders) > 0). Trois
+  écritures, trois vécus, un seul graphe. Suivant : les opérations (la
+  proposition en arbitrage).

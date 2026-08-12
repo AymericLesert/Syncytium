@@ -499,6 +499,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
 | D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
 | D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | **La propriété se nomme `allow`** — toute combinaison (`allow: [read, delete]`) — sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
+| D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
 
 ---
 
@@ -2259,6 +2260,34 @@ que les mots update, create, read ou delete, je propose `allow`, qui
 permet de définir l'une ou l'autre des valeurs ou des combinaisons de
 ces dernières. » Toute combinaison se déclare — `allow: [read, delete]` :
 l'état qui se consulte et se purge, mais ne se modifie plus.
+
+**Les deux formes conservées, exclusives (D423 — clôt D421/D422).**
+« Dans un grand nombre de situations, le cycle suffira… mais il existe
+quelques cas particuliers qui peuvent nécessiter une forme libre. **Pour
+éviter de faire un hook inutile, je préfère conserver les 2
+possibilités. Par contre, le technicien devra choisir entre l'un ou
+l'autre — les 2 simultanément ne seront pas autorisés** » (erreur à
+l'ingestion, D344). Un seul mot pour les deux mécanismes — la forme en
+proposition :
+
+```yaml
+# LE CYCLE : allow par état (D422)
+fields:
+  status:
+    type: enum
+    values:
+      draft:    { allow: [create, read, update, delete] }
+      archived: { allow: [read, delete] }
+
+# OU LA FORME LIBRE : le bloc allow d'en-tête, verbe → expression (D90)
+name: order
+allow:
+  update: locked = false
+  delete: false
+```
+
+*(Le `update: <expression>` de D421 se fond dans ce bloc — un nom
+unique, `allow`, deux foyers exclusifs.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8358,3 +8387,13 @@ avant la synthèse Q16).
   et se purge sans se modifier. Reste en arbitrage : le sort de la
   forme libre `update: <expression>` de D421 (le cycle + `allow`
   couvrent-ils tout ?).
+- **2026-08-12 (suite 4)** — **Les deux formes conservées, exclusives
+  (D423)** : le cycle suffira le plus souvent, mais « quelques cas
+  particuliers peuvent nécessiter une forme libre — pour éviter de
+  faire un hook inutile, je préfère conserver les 2 possibilités ; par
+  contre, le technicien devra choisir : les 2 simultanément ne seront
+  pas autorisés » (erreur à l'ingestion). Forme consignée : un nom
+  unique `allow` à deux foyers — la liste de verbes par état (D422) ou
+  le bloc verbe → expression en en-tête d'entité (le `update:` de D421
+  s'y fond). D421/D422 clos. Restent au domaine 3 : les opérations (en
+  arbitrage), les déclencheurs, les notifications, les tâches.

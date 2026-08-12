@@ -510,6 +510,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D431 | **La propriété se nomme `validate`, et `validate: true` est le défaut** — le patron D196 (lecture seule + confirmer/annuler, jamais de popup) généralisé aux opérations ; **`validate: false` à déclarer** pour l'exécution directe au clic. | « Validate me convient mieux que confirm » ; la relecture avant engagement est la règle ; les opérations automatiques (D428) non concernées. Voir §3.2c. |
 | D432 | **Le bloc `operations:` clos** : au même niveau que `fields:`/`validation:` (mapping ordonné = l'ordre des boutons) ; **jamais d'effet d'état** (la transition au graphe) ; `effects:` ordonnés — `notify`, `document`, `set`, **`function`** (« une fonction interne à Syncytium — un catalogue ou une liste fournie en hook ») ; **disponible partout par défaut**, l'exclusion d'interface déclarable (« un écran ou l'API »). | `except: [api]` en proposition ; le passe-outre des `allow` demeure (D421c). Voir §3.2c. |
 | D433 | **Le changement d'état = une opération du catalogue, l'opération par défaut** (celle qu'un `promote` invoque sans autre précision) — la ligne D408 étendue aux opérations : le catalogue embarqué. | **Q60 ouverte** : l'inventaire du catalogue des fonctions/opérations, « un point ultérieurement ». Voir §3.2c et §10. |
+| D434 | **Le calendaire riche — `every:`** : les durées (`5min`/`2h`/`2d`/`2w`/`1m`), les raccourcis (`daily`/`weekly`/`monthly`), **le crochet précisant le(s) moment(s)** — `daily[08:00]`, `weekly[tuesday at 15:30]`, moments multiples (`weekly[monday at 09:30:45, wednesday at 20:35:12]`) ; **heures en UTC du serveur**. | Le crochet-paramètre (D366), le `at` du langage (D301) ; sans crochet = moment au moteur, le `when:` du rapport D406 s'aligne (notes). Voir §3.2c. |
 
 ---
 
@@ -2510,6 +2511,31 @@ précision) — les effets (notify, document, set, function) ayant
 vocation à s'y ranger. **« Je propose que nous fassions un point
 ultérieurement sur l'ensemble des fonctions à mettre au catalogue »** —
 **Q60 ouverte** (l'inventaire du catalogue, §10).
+
+**Le calendaire riche : `every:` (D434).** Le rythme d'évaluation des
+opérations automatiques temporelles — **« le calendaire est plus
+riche »** :
+
+- **les durées** : `every: 5min` / `2h` / `2d` / `2w` / `1m` (minutes,
+  heures, jours, semaines, mois) ;
+- **les raccourcis** : `daily`, `weekly`, `monthly` ;
+- **le crochet précise le(s) moment(s) de déclenchement** (le
+  paramètre en ligne, D366) — **les heures en UTC du serveur** :
+  `daily[08:00]` (tous les jours à 8 h), `weekly[tuesday at 15:30]`
+  (les mardis à 15 h 30), **et les moments multiples** :
+  `weekly[monday at 09:30:45, wednesday at 20:35:12]` — le `at` du
+  langage (D301).
+
+```yaml
+archive:
+  when: age(updated) > 365
+  every: daily[02:00]           # évaluée chaque nuit à 2 h UTC
+  effects: [ set: { archived_at: now() } ]
+```
+
+*(Notes en proposition : sans crochet, le moment est au moteur ; le
+vocabulaire vaut partout où un rythme se déclare — le `when:` du
+rapport D406 s'aligne.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8717,3 +8743,11 @@ avant la synthèse Q16).
   (§10). En attente : les trois arbitrages livrés (le calendaire
   `every:`, les notifications par simplification, les tâches
   `background:`).
+- **2026-08-12 (suite 15)** — **Le calendaire riche (D434)** : « le
+  calendaire est plus riche » — `every:` en durées (5min/2h/2d/2w/1m),
+  raccourcis (daily/weekly/monthly), **le crochet précisant les
+  moments** (daily[08:00], weekly[tuesday at 15:30], moments multiples
+  séparés par virgules), les heures en **UTC du serveur**. Notes : sans
+  crochet le moment est au moteur, le when: du rapport D406 s'aligne.
+  Restent : les notifications par simplification, les tâches
+  background.

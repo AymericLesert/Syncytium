@@ -504,6 +504,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
 | D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; **le composant du statut se déduit de la déclaration** — liste-navigatrice (sans `when`) ou champ en lecture + boutons (avec `when`), le mixte combine ; l'articulation avec le cliquet D354 : question posée. Voir §3.2c. |
 | D427 | **Le triptyque du `when`** (solde l'articulation D354) : sans `when` = **libre** (la liste navigatrice) ; `when: <opération>` = **l'acte** (un bouton) ; `when: <expression>` = **l'automatisme** — **le cliquet D354 intact** (« déduit d'un élément de l'entité via le langage d'expression »). | Trois écritures, trois vécus — un seul graphe. Le focus cycle de vie est soldé (D420–D427). Voir §3.2c. |
+| D428 | **L'opération porte sa nature** (raffine D427) : **avec `when` = automatique** (le `when` est son déclencheur, jamais une simple garde) ; **sans `when` = un bouton / une fonction API** ; l'expression en ligne d'un `promote` = **l'abréviation** d'une opération automatique anonyme. | « Cycle de vie » et « État hiérarchique » ajoutés au glossaire à la demande de l'auteur. Voir §3.2c. |
 
 ---
 
@@ -2399,7 +2400,33 @@ condition »** — les trois régimes d'une transition, complets :
 
 Le prospect devient client à la première commande **sans geste** ;
 la commande se confirme **par le bouton** ; le brouillon s'annule **à la
-sélection**. Trois écritures, trois vécus — un seul graphe.
+sélection**. Trois écritures, trois vécus — un seul graphe. *(Raffiné
+par D428 : la nature de l'opération nommée se lit dans sa propre
+déclaration.)*
+
+**L'opération porte sa nature : le `when` la rend automatique (D428 —
+raffine D427).** Les deux exemples de l'auteur :
+
+```yaml
+promote: [ { to: confirmed, when: count(lines) > 0 } ]
+  # → OPÉRATION AUTOMATIQUE — « l'abréviation de l'opération » :
+  #   le moteur la matérialise, elle se déclenche seule (le cliquet)
+
+promote: [ { to: confirmed, when: confirm } ]
+  # → « confirm » EST l'opération — sa nature se lit dans SA déclaration :
+operations:
+  confirm:
+    labels: { fr: Confirmer }    # SANS when → un bouton / une fonction API
+    rights: [sales_team]         #   — l'acte explicite qui déclenche l'action
+  archive:
+    when: age(updated) > 365     # AVEC when → une opération AUTOMATIQUE
+```
+
+**« Si présence de `when`, cela sera une opération automatique ; si
+`when` est manquant, ce sera un bouton / une fonction API déclenchant
+l'action. »** Le `when` d'une opération est donc **son déclencheur
+automatique** — jamais une simple garde ; l'expression en ligne dans un
+`promote` est **l'abréviation** d'une opération automatique anonyme.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8553,3 +8580,12 @@ avant la synthèse Q16).
   intact** (déduit d'un élément de l'entité — count(orders) > 0). Trois
   écritures, trois vécus, un seul graphe. Suivant : les opérations (la
   proposition en arbitrage).
+- **2026-08-12 (suite 9)** — **L'opération porte sa nature (D428)** :
+  les deux exemples de l'auteur — `when: count(lines) > 0` en ligne
+  dans un promote = **l'opération automatique abrégée** ;
+  `when: confirm` = l'opération nommée, dont la nature se lit dans SA
+  déclaration : **avec `when` = automatique** (le when est son
+  déclencheur, jamais une simple garde), **sans `when` = un bouton /
+  une fonction API**. Le triptyque D427 raffiné en place. **« Cycle de
+  vie » et « État hiérarchique » ajoutés au glossaire** à sa demande.
+  La proposition opérations à re-livrer sous ce modèle.

@@ -58,6 +58,12 @@ donnée : `public` (partout), `protected` (l'interface et les tâches),
 un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
 `counter[accounting]`. *(D366)*
 
+**Cycle de vie** (`states: <champ>`) — La suite d'états qu'un
+enregistrement traverse : brouillon, confirmée, expédiée… Porté par un
+champ énuméré désigné, chaque état déclare ses droits (`allow`) et ses
+passages (`promote`/`demote`) — le graphe se lit, le moteur refuse tout
+passage hors graphe. *Ex. : `states: status`.* *(D421–D428)*
+
 **Configuration** (`settings`) — Tout ce que le technicien écrit : l'ensemble des
 fichiers YAML qui décrivent l'application. Syncytium la lit, la
 vérifie, puis la fait vivre. *(D336)*
@@ -79,6 +85,13 @@ champs, ses règles, sa représentation, ... *(D347)*
 **Environnement** (`environments/`) — Un cadre d'exécution hermétique : le staging
 (l'essai), la production active (le quotidien), la passive (le
 secours). Chacun a ses connecteurs et ses journaux. Un environnement vise à tester de nouveaux concepts, évolutions ou corrections d'anomalie sans impacter les autres environnements. Cela suit une règle bien définie (Staging avec Production). Ici, la production active/passive permet de synchroniser les informations entre les 2 environnements afin de faciliter en cas d'interruption de l'infrastructure sur l'un, une bascule quasi-automatique sur l'autre. *(D342)*
+
+**État hiérarchique** (`states:` sur le parent) — La position d'un
+enregistrement dans une hiérarchie d'héritage : le prospect devient
+client, le tiers est client **et** fournisseur. « Un état hiérarchique
+est déjà un statut » : les positions montent au cliquet (la première
+condition vraie franchit, l'acquis se garde), redescendent par l'acte
+explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*

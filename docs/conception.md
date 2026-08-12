@@ -527,6 +527,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D448 | **La grammaire commune des surfaces** : « forms, summary et widget vont partager un vocabulaire et une grammaire commune » — le socle, `header`/`footer` à gabarits (D253), `mode`, `blocks` (`section`/`tab`) au contenu `fields`/`charts` ; **les spécialisations par restriction** (forms entière + history ; summary sans onglets, un seul ; widgets = charts/KPI/TCD) ; le gabarit PDF et le wizard réutiliseront la grammaire. | « La base que nous allons **reformuler et étoffer** » — l'arbitrage surface par surface suit. Voir §3.2c. |
 | D449 | **Le formulaire reformulé** : l'icône **jamais dans `labels`** (le dictionnaire D440 amendé — les langues seules) ; « **un formulaire est conçu pour un mode d'écran** » (D206/D250) ; **quatre parties** — « un **titre** (zone de texte à gabarit), un **entête**, un **corps** et un **pied de page** — des blocs ». | À trancher : la propriété d'écran visé et son défaut (PC paysage D250) ; l'entête/pied — sections seules ou tous blocs. Voir §3.2c. |
 | D450 | **`screen` en tableau** (« la compatibilité de plusieurs affichages »), défaut **`[pc paysage]`** ; entête/corps/pied acceptent **sections et onglets** — car **« les blocs sont des composants »** : « un composant "type" à signature commune qui assure un rendu — une section, une grille, des onglets sont des composants ». | Le catalogue des conteneurs (`section`, `grid`, `tabs`…) **extensible** — les livrés sont les hooks embarqués (D408/D263), l'inventaire rejoint Q60. Voir §3.2c. |
+| D451 | **Le formulaire arborescent** : « un nœud est un composant qui affiche un composé graphique basé sur **l'enregistrement d'une entité, d'un champ et des opérations** » — conteneurs, feuilles-champs et boutons d'opérations : un seul arbre, une signature commune, **l'imbrication libre**. | Les quatre parties (D449) = les branches maîtresses ; le contexte (enregistrement, champ, opérations) nourrit chaque rendu. Voir §3.2c. |
 
 ---
 
@@ -2971,6 +2972,19 @@ composants-conteneurs du catalogue** — `section`, `grid` (la grille
 entre au vocabulaire), `tabs`… — à signature commune, **le catalogue
 extensible** (la ligne D408/D263 : les conteneurs livrés sont les hooks
 embarqués, l'inventaire rejoint Q60).
+
+**Le formulaire arborescent (D451).** **« Un formulaire est décrit de
+façon arborescente. Un nœud est un composant qui affiche un composé
+graphique basé sur l'enregistrement d'une entité, d'un champ et des
+opérations. »** L'arbre unifie tout : **chaque nœud est un composant**
+(D450) — les conteneurs (`section`, `grid`, `tabs`…) portent des
+enfants, les feuilles rendent un champ (les composants D64/D270), les
+opérations s'y matérialisent (les boutons D432) — et chacun rend son
+composé graphique **à partir du contexte** : l'enregistrement de
+l'entité, le champ visé, les opérations disponibles. Les quatre parties
+(titre, entête, corps, pied — D449) sont les branches maîtresses de
+l'arbre ; **l'imbrication est libre** (une grille dans un onglet dans
+une section), la signature commune assurant le rendu à chaque étage.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9329,3 +9343,10 @@ avant la synthèse Q16).
   onglets sont des composants » : les blocs = des composants-conteneurs
   du catalogue (section, grid, tabs…), extensible (D408/D263),
   l'inventaire rejoignant Q60.
+- **2026-08-12 (suite 34)** — **Le formulaire arborescent (D451)** :
+  « un formulaire est décrit de façon arborescente ; un nœud est un
+  composant qui affiche un composé graphique basé sur l'enregistrement
+  d'une entité, d'un champ et des opérations » — un seul arbre unifiant
+  conteneurs, feuilles-champs et boutons d'opérations, la signature
+  commune (D450) à chaque étage, l'imbrication libre, les quatre
+  parties (D449) en branches maîtresses.

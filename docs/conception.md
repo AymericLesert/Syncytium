@@ -501,6 +501,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | **La propriété se nomme `allow`** — toute combinaison (`allow: [read, delete]`) — sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
 | D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
 | D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
+| D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
 
 ---
 
@@ -2318,6 +2319,39 @@ fields:
 *(Notes en proposition : `states:` désignant un champ non énuméré =
 erreur d'ingestion ; hiérarchie et champ désigné ensemble = erreur — un
 seul statut ; la naissance = le `default` de l'énuméré.)*
+
+**Le graphe déclaré et le `promote` en tableau (D425).** La logique des
+états hiérarchiques (D353–D355) **se transpose mot pour mot** à
+l'énuméré-cycle : chaque valeur déclare ses passages — le graphe se
+lit, le moteur refuse tout passage hors graphe, l'ingestion attrape
+l'opération incohérente. Et l'arbitrage de l'auteur : **« le `promote`
+est un tableau, car nous pouvons avoir le choix entre plusieurs
+états »** :
+
+```yaml
+values:
+  draft:
+    labels: { fr: Brouillon }
+    allow: [create, read, update, delete]
+    promote:
+      - { to: confirmed, when: operation.confirm }
+      - { to: cancelled, when: operation.cancel }
+  confirmed:
+    allow: [read]
+    promote:
+      - { to: shipped, when: operation.ship }
+    demote:
+      - { to: draft }              # le retour — action explicite seule (D354)
+  shipped:
+    allow: [read, delete]
+```
+
+*(Notes en proposition : `demote` en tableau par symétrie — plusieurs
+retours possibles ; deux `when` vrais au même instant → **l'ordre du
+tableau départage**, la première entrée déclarée gagne — l'esprit du
+mapping ordonné D356 ; le cliquet D354 inchangé — la première vraie
+franchit, le retour explicite. Le tableau vaut pour **les deux
+sources** : la hiérarchie D353 s'aligne.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8437,3 +8471,12 @@ avant la synthèse Q16).
   erreur, deux sources = erreur, la naissance = le `default`. Restent
   du focus : le graphe des transitions (creux 2 — les passages légaux
   déclarés ou la liberté des opérations).
+- **2026-08-12 (suite 6)** — **Le graphe déclaré, `promote` en tableau
+  (D425)**. Le rappel exact de D353–D355 livré à sa demande ; la
+  transposition à l'énuméré-cycle validée par la construction — chaque
+  valeur déclare ses passages, hors graphe = refus — et l'arbitrage :
+  « le promote est un tableau, car nous pouvons avoir le choix entre
+  plusieurs états ». Notes en proposition : demote en tableau, l'ordre
+  du tableau départage les when simultanés, le cliquet inchangé, le
+  tableau vaut pour la hiérarchie aussi. Ouverts : la naissance directe
+  à une valeur (D355 transposé), les notes.

@@ -506,6 +506,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D427 | **Le triptyque du `when`** (solde l'articulation D354) : sans `when` = **libre** (la liste navigatrice) ; `when: <opération>` = **l'acte** (un bouton) ; `when: <expression>` = **l'automatisme** — **le cliquet D354 intact** (« déduit d'un élément de l'entité via le langage d'expression »). | Trois écritures, trois vécus — un seul graphe. Le focus cycle de vie est soldé (D420–D427). Voir §3.2c. |
 | D428 | **L'opération porte sa nature** (raffine D427) : **avec `when` = automatique** (le `when` est son déclencheur, jamais une simple garde) ; **sans `when` = un bouton / une fonction API** ; l'expression en ligne d'un `promote` = **l'abréviation** d'une opération automatique anonyme. | « Cycle de vie » et « État hiérarchique » ajoutés au glossaire à la demande de l'auteur. Voir §3.2c. |
 | D429 | **La trace des actions = l'historisation** : « les actions sont tracées si l'entité possède un historique » — l'instantané photographie chaque acte (auteur, canal, motif — D169) ; **sans historique, pas de trace d'opération**. | Aucune machinerie de trace séparée — l'acquis D411–D413 porte tout. Voir §3.2c. |
+| D430 | **La garde du bouton : le `if` au graphe** — `when: confirm if count(lines) > 0` : le passage n'est légal que si la condition tient (le bouton se grise, l'API refuse proprement D307). | Aucune propriété nouvelle — la garde vit où la transition vit ; `enabled:` et la validation-au-clic écartés. Voir §3.2c. |
 
 ---
 
@@ -2435,6 +2436,21 @@ tracées si l'entité possède un historique »** — la trace des opérations
 photographie chaque acte dans ses instantanés (l'auteur, le canal, le
 motif — D169) ; **sans historique, pas de trace d'opération**. Aucune
 machinerie de trace séparée.
+
+**La garde du bouton : le `if` au graphe (D430).** Le bouton
+conditionné s'écrit **dans le graphe**, avec le `if` du langage
+(D306) :
+
+```yaml
+promote: [ { to: confirmed, when: confirm if count(lines) > 0 } ]
+```
+
+**Le passage par l'opération n'est légal que si la condition tient** —
+le bouton se grise sinon, l'API refuse proprement (D307). Aucune
+propriété nouvelle : le `when` de l'opération reste le déclencheur
+automatique (D428), la garde vit là où la transition vit. *(Les
+alternatives — `enabled:` dédié, la validation au clic — sont
+écartées.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8605,3 +8621,11 @@ avant la synthèse Q16).
   par l'automatisme, comment griser « Confirmer » tant que la commande
   est vide) — trois options posées, recommandation : la condition dans
   le graphe via le `if` du langage.
+- **2026-08-12 (suite 11)** — **La garde du bouton : le `if` au graphe
+  (D430)** : « ok pour ta proposition » —
+  `when: confirm if count(lines) > 0` : le passage n'est légal que si
+  la condition tient, le bouton se grise, l'API refuse proprement ;
+  aucune propriété nouvelle, la garde vit où la transition vit. Le
+  modèle transitions/opérations est complet — reste la forme finale du
+  bloc `operations:` (labels/rights/confirm/effects, l'invocation,
+  le passe-outre) à valider d'un bloc.

@@ -502,7 +502,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
 | D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
 | D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
-| D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; l'articulation `when`-automatique (le cliquet) vs `when`-opération : question posée. Voir §3.2c. |
+| D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; **le composant du statut se déduit de la déclaration** — liste-navigatrice (sans `when`) ou champ en lecture + boutons (avec `when`), le mixte combine ; l'articulation avec le cliquet D354 : question posée. Voir §3.2c. |
 
 ---
 
@@ -2376,6 +2376,15 @@ action) »**. Les deux régimes d'une transition :
 
 Le retour (`demote`) reste un chemin explicite (D354), jamais la
 sélection libre.
+
+**Et le composant du statut se déduit de la déclaration** : **« liste
+de valeurs dont la liste dépend de l'état — ou un champ non modifiable
+avec des boutons ajoutés sur l'interface pour matérialiser le champ
+d'état »** — les transitions libres (sans `when`) font la liste
+déroulante-navigatrice ; les transitions-opérations (avec `when`) font
+le champ en lecture avec ses boutons ; un graphe mixte combine les
+deux. La forme n'est jamais déclarée : elle se lit dans le graphe
+(l'esprit D366 — le déduit plutôt que le déclaré).
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8514,4 +8523,10 @@ avant la synthèse Q16).
   — le chemin nommé, gardé par le when, tracé. Le demote jamais en
   sélection libre. Question posée : l'articulation avec le cliquet
   automatique de D354 (le when-expression déclenche-t-il encore de
-  lui-même, ou tout when passe-t-il par l'acte ?).
+  lui-même, ou tout when passe-t-il par l'acte ?). Et le troisième
+  temps de l'auteur : **le composant du statut se déduit de la
+  déclaration** — « liste de valeurs dont la liste dépend de l'état, ou
+  un champ non modifiable avec des boutons ajoutés » — la liste
+  navigatrice (sans when), le champ en lecture + boutons (avec when),
+  le graphe mixte combine ; la forme jamais déclarée, lue dans le
+  graphe (l'esprit D366).

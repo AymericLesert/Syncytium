@@ -518,6 +518,8 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D439 | **Le menu = des adresses** : liste ordonnée filtrée par la confidentialité (inchangé) ; `<module>.<entité>` (liste par défaut), `[<liste>]` (nommée), `.<opération>`, `[+<formulaire>]` (création, nom optionnel), `[@<wizard>]` (nom optionnel), `<module>[<dashboard>]` (**le dashboard au module**), `<nom>:` (sous-menu — libellé au module) ; **`icon` rejoint le socle des surfaces**. | Ma proposition de blocs typés écartée ; le menu = pures adresses, l'icône vient de la surface visée ; notes : libellés de sous-menus, bloc dashboards (point 6). Voir §3.2c. |
 | D440 | **Le dictionnaire de libellés du module (clôt le point 2)** : « les labels sont utilisés au-delà du menu — dans un champ, les libellés peuvent y faire référence » — bloc `labels:` de `module.yml` (externalisable D349/D352) ; **la chaîne vaut référence, le mapping vaut inline**. | L'esprit des variables (D323) — la redondance s'éteint ; nom introuvable = erreur, étage version en cascade (notes). Le dashboard → point 6. Voir §3.2c. |
 | D441 | **Le `searchable` de liste** : « la liste des champs ou des noms mutualisés à positionner dans un filtre de tri — **par défaut, tous les champs sont inclus dans la recherche** ». | Le champ déclare *comment* (D367), la liste déclare *lesquels* ; amende le défaut de D227 (« colonnes affichées » → « tous les champs »). Voir §3.2c. |
+| D442 | **La liste close** : `columns:` (l'ordre d'affichage) ; `filter:` (les expressions) ; **`sort:` par colonne** — sans = toutes triables, avec = la présente triable avec **sa cascade de clés secondaires** (`nom: [prenom, numero]`), l'absente non triable, `+`/`-` (croissant par défaut) ; **`editable:` à défaut readonly** — la colonne s'ouvre en se déclarant. | **Amende D266** (qui ouvrait tout par défaut) ; clôt le point 3 du domaine 4. Voir §3.2c. |
+| D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`). | Notes : `align` au défaut du type (nombres à droite D370), `width` %/px/auto, `style` = un nom relevant du thème (D191). Voir §3.2c. |
 
 ---
 
@@ -2710,6 +2712,51 @@ lists:
 
 *(Amende le défaut de D227 — « les colonnes affichées » devient « tous
 les champs ».)*
+
+**La liste close (D442 — clôt le point 3, amende D266).** Les quatre
+arbitrages : **(1) `columns:`** — les colonnes **dans l'ordre
+d'affichage** ; **(2) `filter:`** — « filtrer les éléments à afficher »,
+par les expressions (D90) ; **(3) `sort:` — le tri se pense PAR
+COLONNE** (le clic sur l'en-tête), pas par liste :
+
+- **sans `sort:`** — le tri est **autorisé pour chaque colonne** (le
+  défaut) ;
+- **avec `sort:`** — la colonne présente est triable, **avec sa cascade
+  de clés secondaires** ; la colonne absente **n'est pas triable** ;
+- **`+`/`-`** préfixent les clés (croissant par défaut).
+
+```yaml
+lists:
+  main:
+    columns: [numero, nom, prenom]
+    sort:
+      numero: asc                # triable, seul
+      nom: [prenom, numero]      # triable — 1re clé le nom, puis prénom, puis numéro
+                                 # prenom absent → NON triable
+    editable: [status]           # les colonnes modifiables —
+                                 # « par défaut, toutes les colonnes sont readonly »
+```
+
+**(4) `editable:`** — les colonnes modifiables en ligne (D205) ; **le
+défaut s'inverse : toutes readonly** — la colonne s'ouvre en se
+déclarant (**amende D266**, qui ouvrait tout par défaut).
+
+**La colonne riche (D443 — complète D442).** **« Les colonnes portent
+également des informations sur le style, l'alignement et la
+dimension »** — la forme courte demeure (le nom seul), la forme riche
+s'ouvre :
+
+```yaml
+columns:
+  - numero                        # la forme courte
+  - nom: { align: left, width: 30%, style: bold }
+  - total: { align: right }       # (défaut naturel des nombres — D370)
+```
+
+*(Notes en proposition : `align` — left/center/right, le défaut suit le
+type (les nombres à droite D370, le texte à gauche) ; `width` — %, px
+ou auto ; `style` — un nom, dont le contenu relève du thème (« le
+design sera traité après la structure », D191).)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8984,3 +9031,14 @@ avant la synthèse Q16).
   comment D367, la liste déclare lesquels ; le défaut de D227 amendé).
   Restent : columns/filter/sort, le défaut d'editable (tout ouvert
   D206 ou tout fermé ?).
+- **2026-08-12 (suite 24)** — **La liste close (D442–D443)**. Les
+  quatre arbitrages : columns dans l'ordre d'affichage ; filter par
+  expressions ; **le tri PAR COLONNE** — sans `sort:` toutes triables ;
+  avec, la colonne présente porte **sa cascade de clés secondaires**
+  (`sort: { numero: asc, nom: [prenom, numero] }` — prénom absent = non
+  triable), `+`/`-` croissant par défaut ; **editable à défaut
+  readonly** (amende **D266** — ma première référence D206 corrigée).
+  Puis **la colonne riche (D443)** : « le style, l'alignement et la
+  dimension » — forme courte ou riche, align au défaut du type, width,
+  style relevant du thème. Le point 3 du domaine 4 est clos. Suivant :
+  le formulaire (point 4).

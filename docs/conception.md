@@ -9419,3 +9419,13 @@ avant la synthèse Q16).
   dimension (par défaut : 100 % de l'écran) » — la surimpression est le
   mode d'affichage du formulaire, `dimension:` en règle la portée
   (`dimension: 70%` — le patron de la visionneuse D293).
+- **2026-08-12 (suite 38 — pause)** — **La signature des nœuds en
+  arbitrage.** La proposition livrée : le type-clé (section, grid,
+  tabs/tab, champ, opération, sur-mesure — le nom est la clé D408), le
+  socle optionnel, `visible:` (condition d'affichage, expression D90 —
+  proposition), le contenu et ses abréviations (`fields:`/`charts:`
+  homogènes), les propriétés propres par type (grid.columns…), le
+  contexte reçu jamais déclaré (D451). **`children` est écarté**
+  (« je préfère content ou items ») — ma recommandation : **`items`**
+  (le mot de l'auteur, D439) ; **le choix content/items reste à
+  trancher à la reprise**, puis la signature entière se consignera.

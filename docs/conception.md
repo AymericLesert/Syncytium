@@ -502,6 +502,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
 | D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
 | D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
+| D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; l'articulation `when`-automatique (le cliquet) vs `when`-opération : question posée. Voir §3.2c. |
 
 ---
 
@@ -2352,6 +2353,29 @@ tableau départage**, la première entrée déclarée gagne — l'esprit du
 mapping ordonné D356 ; le cliquet D354 inchangé — la première vraie
 franchit, le retour explicite. Le tableau vaut pour **les deux
 sources** : la hiérarchie D353 s'aligne.)*
+
+**Le `when` facultatif et le composant navigateur du graphe (D426 —
+clôt le focus cycle de vie).** Les trois virgules sont validées (« les
+3 points me vont ») : **`demote` en tableau**, **l'ordre du tableau
+départage** les `when` simultanés, **la naissance libre** (D355
+transposé — l'import et l'API peuvent poser un état à la création). Et
+la précision de l'auteur, en deux temps : **« le `when` est facultatif —
+sans préciser le `when`, cela doit influer le fonctionnement du
+composant graphique de sélection d'une valeur de la liste énumérée, en
+ne sélectionnant que les états suivants (`promote`) autorisés »** ; et
+**« la présence du `when` marquera une opération (un bouton ou une
+action) »**. Les deux régimes d'une transition :
+
+- **sans `when`** — la transition **libre** : le composant du
+  champ-cycle devient **un navigateur du graphe** — la liste déroulante
+  n'offre que la valeur courante et les cibles `promote` atteignables
+  depuis l'état courant, sous les droits ;
+- **avec `when`** — la transition **marque une opération** : un bouton
+  ou une action porte le passage (le chemin nommé, tracé), le `when` en
+  est la garde — la sélection libre ne l'offre pas.
+
+Le retour (`demote`) reste un chemin explicite (D354), jamais la
+sélection libre.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8480,3 +8504,14 @@ avant la synthèse Q16).
   du tableau départage les when simultanés, le cliquet inchangé, le
   tableau vaut pour la hiérarchie aussi. Ouverts : la naissance directe
   à une valeur (D355 transposé), les notes.
+- **2026-08-12 (suite 7)** — **Les deux régimes d'une transition (D426 —
+  clôt le focus cycle de vie)**. Les trois virgules validées (« les 3
+  points me vont ») : demote en tableau, l'ordre départage, la
+  naissance libre. Puis les deux temps de l'auteur : **sans `when` = la
+  transition libre** — le composant de sélection devient **navigateur du
+  graphe** (n'offre que les cibles promote atteignables) ; **« la
+  présence du when marquera une opération (un bouton ou une action) »**
+  — le chemin nommé, gardé par le when, tracé. Le demote jamais en
+  sélection libre. Question posée : l'articulation avec le cliquet
+  automatique de D354 (le when-expression déclenche-t-il encore de
+  lui-même, ou tout when passe-t-il par l'acte ?).

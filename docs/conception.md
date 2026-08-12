@@ -529,6 +529,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D450 | **`screen` en tableau** (« la compatibilité de plusieurs affichages »), défaut **`[pc paysage]`** ; entête/corps/pied acceptent **sections et onglets** — car **« les blocs sont des composants »** : « un composant "type" à signature commune qui assure un rendu — une section, une grille, des onglets sont des composants ». | Le catalogue des conteneurs (`section`, `grid`, `tabs`…) **extensible** — les livrés sont les hooks embarqués (D408/D263), l'inventaire rejoint Q60. Voir §3.2c. |
 | D451 | **Le formulaire arborescent** : « un nœud est un composant qui affiche un composé graphique basé sur **l'enregistrement d'une entité, d'un champ et des opérations** » — conteneurs, feuilles-champs et boutons d'opérations : un seul arbre, une signature commune, **l'imbrication libre**. | Les quatre parties (D449) = les branches maîtresses ; le contexte (enregistrement, champ, opérations) nourrit chaque rendu. Voir §3.2c. |
 | D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
+| D453 | **Les propriétés du `form`** : **le gabarit déclinable par langue** (`title:` — chaîne unique ou mapping) ; **`mode: updatable` (défaut) \| `read-only`** ; **`history: false` = désactiver l'onglet d'une entité historisée** (défaut `true`, toujours dernier — D186/D411). | Vaut pour tous les gabarits (D253/D449) ; sans historisation, pas d'onglet. Voir §3.2c. |
 
 ---
 
@@ -2999,6 +3000,23 @@ repasse par les champs et leurs règles (validation D364/D404, `allow`
 D422, concurrence D111) : le composant personnalisé ne contourne
 jamais le modèle. **Le contrat (signature, code, sandbox) relève du
 domaine 6.**
+
+**Les propriétés du `form` (D453).** Trois arbitrages : **(1) la zone
+de texte à gabarit se décline par langue** — `title:` (et tout gabarit,
+D253/D449) accepte la chaîne unique ou le mapping par langue :
+
+```yaml
+title:
+  fr: "{code} — {company_name}"
+  en: "{code} — {company_name} (customer)"
+```
+
+**(2) `mode: read-only` ou `updatable`** — le défaut est `updatable`,
+le `read-only` fige (la consultation seule, D207). **(3)
+`history: false` — « pour désactiver l'onglet history d'une entité
+ayant un historique »** : le défaut est `true` — l'onglet paraît
+lorsque l'entité est historisée (D411), toujours dernier (l'invariant
+D186) ; sans historisation, pas d'onglet, rien à déclarer.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9373,3 +9391,11 @@ avant la synthèse Q16).
   **l'écriture repasse toujours par les champs et leurs règles**
   (validation, allow, concurrence) — jamais de contournement du
   modèle ; le contrat au domaine 6.
+- **2026-08-12 (suite 36)** — **Les propriétés du `form` (D453)** : la
+  zone de texte à gabarit **déclinable par langue** (chaîne unique ou
+  mapping — vaut pour tous les gabarits D253/D449) ;
+  **`mode: updatable` (défaut) | `read-only`** ; **`history: false`
+  pour désactiver l'onglet d'une entité historisée** (défaut true,
+  toujours dernier). Reste à l'étoffage : la signature des nœuds, la
+  grille, la `selection:` des références (D215), la `list:` des
+  compositions (D216).

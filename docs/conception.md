@@ -507,6 +507,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D428 | **L'opération porte sa nature** (raffine D427) : **avec `when` = automatique** (le `when` est son déclencheur, jamais une simple garde) ; **sans `when` = un bouton / une fonction API** ; l'expression en ligne d'un `promote` = **l'abréviation** d'une opération automatique anonyme. | « Cycle de vie » et « État hiérarchique » ajoutés au glossaire à la demande de l'auteur. Voir §3.2c. |
 | D429 | **La trace des actions = l'historisation** : « les actions sont tracées si l'entité possède un historique » — l'instantané photographie chaque acte (auteur, canal, motif — D169) ; **sans historique, pas de trace d'opération**. | Aucune machinerie de trace séparée — l'acquis D411–D413 porte tout. Voir §3.2c. |
 | D430 | **La garde du bouton : le `if` au graphe** — `when: confirm if count(lines) > 0` : le passage n'est légal que si la condition tient (le bouton se grise, l'API refuse proprement D307). | Aucune propriété nouvelle — la garde vit où la transition vit ; `enabled:` et la validation-au-clic écartés. Voir §3.2c. |
+| D431 | **La propriété se nomme `validate`, et `validate: true` est le défaut** — le patron D196 (lecture seule + confirmer/annuler, jamais de popup) généralisé aux opérations ; **`validate: false` à déclarer** pour l'exécution directe au clic. | « Validate me convient mieux que confirm » ; la relecture avant engagement est la règle ; les opérations automatiques (D428) non concernées. Voir §3.2c. |
 
 ---
 
@@ -2451,6 +2452,17 @@ propriété nouvelle : le `when` de l'opération reste le déclencheur
 automatique (D428), la garde vit là où la transition vit. *(Les
 alternatives — `enabled:` dédié, la validation au clic — sont
 écartées.)*
+
+**La confirmation par défaut : `validate` (D431).** Le patron de D196
+(le formulaire en lecture seule + confirmer/annuler, jamais de popup)
+généralisé aux opérations — **la propriété se nomme `validate`**
+(« validate me convient mieux que confirm » — le mot ne collisionne
+plus avec une opération nommée `confirm`) et **le défaut s'inverse :
+`validate: true` est le défaut** ; **`validate: false` doit être déclaré
+pour un passage automatique en cliquant sur le bouton** — l'exécution
+directe est l'exception assumée, la relecture avant engagement est la
+règle. *(Note : les opérations automatiques — avec `when`, D428 — ne
+sont pas concernées : personne ne clique.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8629,3 +8641,12 @@ avant la synthèse Q16).
   modèle transitions/opérations est complet — reste la forme finale du
   bloc `operations:` (labels/rights/confirm/effects, l'invocation,
   le passe-outre) à valider d'un bloc.
+- **2026-08-12 (suite 12)** — **`validate: true` par défaut (D431)**.
+  La question de l'auteur (« qu'entends-tu par confirm: true ? ») ; la
+  réponse — le patron D196 généralisé (lecture seule +
+  confirmer/annuler, jamais de popup) ; ses deux arbitrages : **le
+  défaut s'inverse** (la relecture est la règle, `validate: false` à
+  déclarer pour l'exécution directe) et **la propriété se nomme
+  `validate`** (« me convient mieux que confirm »). Les opérations
+  automatiques non concernées. Restent les points 1, 2, 4, 5 du bloc
+  operations.

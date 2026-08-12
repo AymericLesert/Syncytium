@@ -513,7 +513,8 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D434 | **Le calendaire riche — `every:`** : les durées (`5min`/`2h`/`2d`/`2w`/`1m`), les raccourcis (`daily`/`weekly`/`monthly`), **le crochet précisant le(s) moment(s)** — `daily[08:00]`, `weekly[tuesday at 15:30]`, moments multiples (`weekly[monday at 09:30:45, wednesday at 20:35:12]`) ; **heures en UTC du serveur**. | Le crochet-paramètre (D366), le `at` du langage (D301) ; sans crochet = moment au moteur, le `when:` du rapport D406 s'aligne (notes). Voir §3.2c. |
 | D435 | **`every: continuous`** = « à chaque mise à jour d'un enregistrement de l'entité » (les événements de données D54) — **le même mot que le rapport** (D406) — **et il est le défaut** (`every:` absent = `continuous`). | Le temporel exige son rythme calendaire déclaré (note). Voir §3.2c. |
 | D436 | **Notifications soldées par simplification** (« pour le moment, pas de nouveaux éléments » — l'opération automatique + `notify:` couvre tout) ; **les tâches : `mode`** — **`synchronous`** (interface en pause + barre de progression), **`asynchronous`** (enregistrée, la file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage avant lancement). | `background` écarté ; défaut `synchronous` en proposition ; couvre les points 3 et 4 du domaine 3. Voir §3.2c. |
-| D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `ihm`** ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Notes : « ihm » vs `ui` (D335) à trancher ; références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
+| D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `gui`** (nom : D438) ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
+| D438 | **Le point 1 du domaine 4 clos** : le bloc se nomme **`gui`** ; **la première déclarée = la surface par défaut** (l'ordre D356) ; **le socle des surfaces = le patron des champs** (labels/comment/description) ; **la déclaration remplace le défaut** (« le défaut proposé par le système n'est plus disponible »). | Suivant : le menu (point 2 — le différé D351). Voir §3.2c. |
 
 ---
 
@@ -2575,16 +2576,16 @@ purge_archives:
 *(Note en proposition : le défaut = `synchronous` — le clic classique ;
 la supervision D56 suit l'asynchrone et le décalé.)*
 
-**Le domaine 4 ouvert — l'ancrage des surfaces : le bloc `ihm` et les
-trois étages (D437).** Le périmètre en huit points est validé (« le
+**Le domaine 4 ouvert — l'ancrage des surfaces : le bloc `gui` et les
+trois étages (D437, nom arbitré par D438).** Le périmètre en huit points est validé (« le
 plan me convient ») ; le point 1 s'arbitre : **« les cinq blocs sont à
-positionner dans un bloc `ihm` »** (`lists`, `forms`, `summary`,
+positionner dans un bloc »** — nommé **`gui`** (D438) (`lists`, `forms`, `summary`,
 `charts`, `widgets`), et **la complexité se sert par étages** :
 
 1. **Les entités les plus simples : pas de configuration requise** —
    les défauts D186 servent l'application entière (le pilier P4) ;
 2. **Les petites entités, un peu de personnalisation : un seul
-   fichier** — le bloc `ihm` en ligne dans `customer.yml` ;
+   fichier** — le bloc `gui` en ligne dans `customer.yml` ;
 3. **Les entités complexes : un dossier**, un fichier par bloc —
    `entities/customer/` contenant `entity.yml`, `lists.yml`,
    `forms.yml`, `summary.yml`, `charts.yml`, `widgets.yml`…
@@ -2594,7 +2595,7 @@ positionner dans un bloc `ihm` »** (`lists`, `forms`, `summary`,
 # sales/entities/customer.yml
 name: customer
 fields: { … }
-ihm:
+gui:
   lists:
     main: { labels: { fr: Les clients } }
   summary:
@@ -2604,17 +2605,25 @@ ihm:
 # sales/entities/customer/entity.yml
 name: customer
 fields: { … }
-ihm:
+gui:
   lists: lists.yml               # les références explicites (D320/D415)
   forms: forms.yml
   summary: summary.yml
 ```
 
-*(Notes en proposition : le nom du bloc — « ihm » est français ; `ui`
-serait l'anglais de D335, sauf à assumer « ihm » comme identifiant du
-domaine (le patron siren/siret D361) — à trancher ; le pattern du
-module s'adapte au dossier d'entité — `- entities/*.yml` et
+*(Le nom est tranché par D438 : **`gui`** ; le pattern du module
+s'adapte au dossier d'entité — `- entities/*.yml` et
 `- entities/*/entity.yml`.)*
+
+**Le point 1 du domaine 4 clos (D438).** Les quatre virgules validées :
+**(1) le bloc se nomme `gui`** (« gui me convient » — l'anglais D335) ;
+**(2) la première déclarée est la surface par défaut** (l'ordre du
+mapping D356 — la première liste est celle du menu, le premier
+formulaire celui de la fiche) ; **(3) le socle des surfaces s'appuie
+sur le patron des champs** (`labels`/`comment`/`description` — « nous
+avons défini ce qu'il faut, sauf oubli ») ; **(4) la déclaration
+remplace le défaut** — « dès qu'un item est déclaré, le défaut proposé
+par le système n'est plus disponible ».
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8857,3 +8866,9 @@ avant la synthèse Q16).
   charts.yml, widgets.yml). Notes à trancher : « ihm » vs `ui` (D335),
   et les points 2–4 de l'ancrage (la première déclarée = le défaut, le
   socle des surfaces, la déclaration remplace le défaut).
+- **2026-08-12 (suite 19)** — **Le point 1 du domaine 4 clos (D438)** :
+  le bloc se nomme **`gui`** (« gui me convient » — D437 amendé en
+  place) ; la première déclarée = la surface par défaut ; le socle des
+  surfaces = le patron des champs (« nous avons défini ce qu'il faut,
+  sauf oubli ») ; la déclaration remplace le défaut. Suivant : le menu
+  (point 2 — le différé D351).

@@ -496,6 +496,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — **à la façon d'un dictionnaire** : le terme français porte les échanges, sa traduction dans la configuration entre parenthèses (Champ/`field`), définition claire et concise, un exemple quand il éclaire, la décision en rappel discret (~55 entrées). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; la première version trop technique reprise sur retour de l'auteur ; pointeur en §1. |
 | D418 | **Le glossaire relu et enrichi par l'auteur** (commits directs) — les évolutions de fond : **le couple Configuration/Description** (la configuration = les fichiers du technicien + les settings en cascade ; la description = le contexte d'un élément — aide, infobulle, masques — **jusqu'à l'interface pour outils tiers dont l'IA**) ; **« Application »** entre au vocabulaire (le cadre d'exécution d'une instance) ; **la clé d'un compteur reste unique malgré la réinitialisation** ; **les hooks élargis** (écrans de saisie, formats CSV/Excel fournis = des hooks) ; **utilisateurs associés par le technicien ou par une passerelle d'authentification** ; **le rapport des non-conformités couvre aussi les modifications directes en base par un outil tiers** ; **les ressources élargies** (tout fichier utile — modèles PDF/Word/Excel) ; renommages français (exécution à blanc, type court, composant graphique, groupe d'utilisateurs, rapport des non-conformités). | Entrées supprimées : Infobulle (absorbée par Description) ; **Ingestion réintégrée avec la définition de l'auteur** (« convertir une version de configuration en une entrée dans le moteur exploitable par toutes les composantes — API, Écrans, CSV… ») ; « méta-schéma » **tranché** : un seul mot couvrant **le modèle porté par une version ET la grammaire utilisée** (la proposition « format de description » écartée). |
 | D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
+| D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
 
 ---
 
@@ -2193,6 +2194,22 @@ external_id:
   mode: write-once
 ```
 
+**Le raffinement d'agrégat écarté (D420 — ouvre et clôt le point 5 du
+domaine 3, amende D101/D133).** La proposition `refine:` est examinée
+puis **écartée** : **« par nature, une composition est indivisible, le
+parent ne peut pas être réaffecté ; une association fait que chaque
+item vit sa vie et peut changer de propriétaire »** — la distinction
+est **déjà portée par le mot-clé** (`list of` vs `association with`).
+Le raffinement transactionnel de D101 (« ligne seule si le modèle
+l'autorise ») **n'existe plus** : **l'agrégat est toujours le grain
+d'écriture** — la mise à jour d'un enfant reprend la racine (D192, la
+règle unique), la concurrence par champ (D111) et l'échelle TPE (D15)
+rendant le grain fin sans objet. Et ce que « refine » visait de
+légitime **est le `filter`** (D395/D401) : « une condition qui filtre
+les items faisant partie d'une association, en plus du lien entre les
+deux entités — le terme qui s'approprie le plus est `filter` » — déjà
+acquis, aucun mot-clé nouveau.
+
 ```yaml
 history:
   type: communication
@@ -2674,7 +2691,8 @@ intra-module) et **association** (« référence », libre, inter-modules).
 **Déclaration de la composition (D133).** Tout se lit sur la déclaration
 `compose` du parent :
 - le **raffinement conditionnel** (D101 — enfants modifiables seuls ou non) s'y
-  déclare (pas sur l'enfant : lisibilité) ;
+  déclare (pas sur l'enfant : lisibilité) — **[écarté par D420 :
+  l'agrégat est toujours le grain d'écriture]** ;
 - l'**ordre des enfants = une clé de tri déclarée** (un ou plusieurs champs) —
   portée par les fonctions de comparaison des types (D125) et le multi-clés
   (D126), rien de neuf.
@@ -8238,3 +8256,17 @@ avant la synthèse Q16).
   tri sur la forme canonique, nul ≡ chaîne vide. La frontière est
   nette : l'identité technique reste invisible et non typée. Catalogue
   (D361) et glossaire complétés.
+- **2026-08-12** — **Le domaine 3 ouvert (« les règles et le
+  comportement »)** : le périmètre proposé en cinq points (opérations
+  D148, déclencheurs D54, notifications D108–D110, tâches D24/D55,
+  raffinement d'agrégat D101/D133) ; l'auteur commence par le point 5,
+  « le plus clair dans mon esprit ». **D420 — le raffinement écarté,
+  par simplification** : après le rappel exact de D399/D133/D90 demandé
+  par l'auteur, son arbitrage — la composition est indivisible par
+  nature, l'association porte la vie libre, **le mot-clé fait la
+  distinction** ; l'agrégat est **toujours** le grain d'écriture
+  (D192 règle unique ; D111 par champ et l'échelle D15 rendent le grain
+  fin sans objet) ; et ce que « refine » visait de légitime **est le
+  `filter`** des liens (D395/D401), déjà acquis. Le §3.5 est amendé en
+  place. Restent au domaine 3 : opérations, déclencheurs,
+  notifications, tâches.

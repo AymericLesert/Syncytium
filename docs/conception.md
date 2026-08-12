@@ -513,6 +513,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D434 | **Le calendaire riche — `every:`** : les durées (`5min`/`2h`/`2d`/`2w`/`1m`), les raccourcis (`daily`/`weekly`/`monthly`), **le crochet précisant le(s) moment(s)** — `daily[08:00]`, `weekly[tuesday at 15:30]`, moments multiples (`weekly[monday at 09:30:45, wednesday at 20:35:12]`) ; **heures en UTC du serveur**. | Le crochet-paramètre (D366), le `at` du langage (D301) ; sans crochet = moment au moteur, le `when:` du rapport D406 s'aligne (notes). Voir §3.2c. |
 | D435 | **`every: continuous`** = « à chaque mise à jour d'un enregistrement de l'entité » (les événements de données D54) — **le même mot que le rapport** (D406) — **et il est le défaut** (`every:` absent = `continuous`). | Le temporel exige son rythme calendaire déclaré (note). Voir §3.2c. |
 | D436 | **Notifications soldées par simplification** (« pour le moment, pas de nouveaux éléments » — l'opération automatique + `notify:` couvre tout) ; **les tâches : `mode`** — **`synchronous`** (interface en pause + barre de progression), **`asynchronous`** (enregistrée, la file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage avant lancement). | `background` écarté ; défaut `synchronous` en proposition ; couvre les points 3 et 4 du domaine 3. Voir §3.2c. |
+| D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `ihm`** ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Notes : « ihm » vs `ui` (D335) à trancher ; références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
 
 ---
 
@@ -2573,6 +2574,47 @@ purge_archives:
 
 *(Note en proposition : le défaut = `synchronous` — le clic classique ;
 la supervision D56 suit l'asynchrone et le décalé.)*
+
+**Le domaine 4 ouvert — l'ancrage des surfaces : le bloc `ihm` et les
+trois étages (D437).** Le périmètre en huit points est validé (« le
+plan me convient ») ; le point 1 s'arbitre : **« les cinq blocs sont à
+positionner dans un bloc `ihm` »** (`lists`, `forms`, `summary`,
+`charts`, `widgets`), et **la complexité se sert par étages** :
+
+1. **Les entités les plus simples : pas de configuration requise** —
+   les défauts D186 servent l'application entière (le pilier P4) ;
+2. **Les petites entités, un peu de personnalisation : un seul
+   fichier** — le bloc `ihm` en ligne dans `customer.yml` ;
+3. **Les entités complexes : un dossier**, un fichier par bloc —
+   `entities/customer/` contenant `entity.yml`, `lists.yml`,
+   `forms.yml`, `summary.yml`, `charts.yml`, `widgets.yml`…
+
+```yaml
+# étage 2 — le fichier unique
+# sales/entities/customer.yml
+name: customer
+fields: { … }
+ihm:
+  lists:
+    main: { labels: { fr: Les clients } }
+  summary:
+    fields: [company_name, category]
+
+# étage 3 — le dossier
+# sales/entities/customer/entity.yml
+name: customer
+fields: { … }
+ihm:
+  lists: lists.yml               # les références explicites (D320/D415)
+  forms: forms.yml
+  summary: summary.yml
+```
+
+*(Notes en proposition : le nom du bloc — « ihm » est français ; `ui`
+serait l'anglais de D335, sauf à assumer « ihm » comme identifiant du
+domaine (le patron siren/siret D361) — à trancher ; le pattern du
+module s'adapte au dossier d'entité — `- entities/*.yml` et
+`- entities/*/entity.yml`.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8805,3 +8847,13 @@ avant la synthèse Q16).
   avant lancement — le + relatif, le at calendaire). Défaut
   `synchronous` en proposition. **Les cinq points du domaine 3 sont
   couverts** — la question de complétude est posée.
+- **2026-08-12 (suite 18 — PR #24 créée)** — **Le domaine 4 ouvert
+  (« les surfaces »), l'ancrage arbitré (D437)**. Le périmètre en huit
+  points validé (« le plan me convient ») ; le point 1 : **les cinq
+  blocs dans un bloc `ihm`** (lists, forms, summary, charts, widgets)
+  et **les trois étages de complexité** — rien (les défauts D186), un
+  fichier unique (le bloc en ligne), un dossier par entité (entity.yml
+  + un fichier par bloc : lists.yml, forms.yml, summary.yml,
+  charts.yml, widgets.yml). Notes à trancher : « ihm » vs `ui` (D335),
+  et les points 2–4 de l'ancrage (la première déclarée = le défaut, le
+  socle des surfaces, la déclaration remplace le défaut).

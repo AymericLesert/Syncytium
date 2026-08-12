@@ -520,6 +520,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D441 | **Le `searchable` de liste** : « la liste des champs ou des noms mutualisés à positionner dans un filtre de tri — **par défaut, tous les champs sont inclus dans la recherche** ». | Le champ déclare *comment* (D367), la liste déclare *lesquels* ; amende le défaut de D227 (« colonnes affichées » → « tous les champs »). Voir §3.2c. |
 | D442 | **La liste close** : `columns:` (l'ordre d'affichage) ; `filter:` (les expressions) ; **`sort:` par colonne** — sans = toutes triables, avec = la présente triable avec **sa cascade de clés secondaires** (`nom: [prenom, numero]`), l'absente non triable, `+`/`-` (croissant par défaut) ; **`editable:` à défaut readonly** — la colonne s'ouvre en se déclarant. | **Amende D266** (qui ouvrait tout par défaut) ; clôt le point 3 du domaine 4. Voir §3.2c. |
 | D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`) ; **la forme abrégée délègue au moteur** : « Syncytium décide alors du format par défaut et de la dimension de la colonne en fonction de son type ». | L'esprit D372 — le technicien décrit, le moteur dimensionne ; `align` au défaut du type, `width` %/px/auto, `style` relevant du thème (D191). Voir §3.2c. |
+| D444 | **La liste raffinée — l'artefact** : **l'opération en colonne** (l'icône à 3 états : actionnable / non visible / non actionnable) ; **l'export** — colonnes visibles + complémentaires, **CSV = un fichier par type de composants**, **Excel = un fichier à onglets, surchargeable par un modèle** ; **l'auto-rafraîchissement** (pas de bouton) ; la confidentialité = non visible **et non triable** ; **la pagination à indicateurs** (« 21–40 sur 156 »). | La symétrie de l'import d'agrégat (Q55) ; le modèle Excel ← resources/ (D418) ; **l'export porte son tri** (l'écriture de D442, figée) ; l'exemple canonique consigné. Voir §3.2c. |
 
 ---
 
@@ -2764,6 +2765,64 @@ alors du format par défaut et de la dimension de la colonne en fonction
 de son type** » : le masque du champ (D260/D370), l'alignement du type,
 la largeur du contenu — l'esprit D372, le technicien décrit, le moteur
 dimensionne.
+
+**La liste raffinée en six points (D444 — l'artefact de la liste).** La
+relecture de la description canonique par l'auteur :
+
+1. **L'opération en colonne dédiée** : « si le nom de la colonne est
+   une opération, une icône peut s'afficher si l'opération est
+   disponible pour la ligne » (la propriété `icon` de l'opération —
+   D439) — **l'icône à trois états : actionnable, non visible, non
+   actionnable** *(lecture en proposition : non visible = les droits
+   D196, non actionnable = la garde du graphe momentanément fausse
+   D430)* ;
+2. **L'export** : les colonnes visibles par défaut, **une liste de
+   colonnes complémentaires précisable** ; **le CSV exporte plusieurs
+   fichiers — un par type de composants** (`customer.csv`,
+   `orders.csv` — la symétrie de l'import d'agrégat Q55) ; **l'Excel,
+   un seul fichier à un onglet par type de composants**, **surchargeable
+   par un modèle de document Excel** (← `resources/`, D418) ;
+3. **Le filtrage vivant confirmé — et la liste s'auto-rafraîchit** :
+   « pour éviter la pression d'un bouton pour le rafraîchissement » ;
+4. **La confidentialité** : les colonnes non autorisées sont **non
+   visibles et non triables** — « elles ne sont simplement pas
+   utilisées » (ni tri, ni recherche, ni export) ;
+5. **Le responsive** : conforme aux échanges du thème E (D250 et
+   arbitrages) ;
+6. **La pagination au curseur opaque (D100), attendue — avec des
+   indicateurs** : « le nombre de lignes ou les numéros de lignes en
+   cours d'affichage rendraient la navigation plus claire » (« 21–40
+   sur 156 »).
+
+L'exemple canonique de la liste, complet :
+
+```yaml
+lists:
+  pending:                             # la première déclarée = la liste par défaut (D438)
+    labels: { fr: Commandes en attente }
+    icon: pending.png                  # le socle des surfaces (D439)
+    columns:                           # l'ordre d'affichage (D442) ; abrégé = moteur (D443)
+      - number
+      - customer                       # référence → le label de la cible (D397)
+      - total: { align: right, width: 10%, style: bold }
+      - status
+      - confirm                        # une OPÉRATION — l'icône à trois états (D444)
+    filter: status != "archived"       # les lignes affichées (D90/D442)
+    sort:                              # le tri PAR COLONNE (D442)
+      number: asc
+      customer: [number]
+    searchable: [who, total, status]   # défaut : tous les champs (D441)
+    editable: [status]                 # défaut : toutes readonly (D442)
+    export:
+      columns: [notes, created]        # les complémentaires (D444)
+      sort: [customer, -created]       # le tri de l'export — l'écriture de l'affichage
+      excel: order_export.xlsx         # le modèle Excel ← resources/ (D444)
+```
+
+*(Complément de l'auteur : « pour l'export CSV, nous pouvons également
+préciser un tri des colonnes — avec le format que nous avons vu pour
+l'affichage » : la cascade de clés à `+`/`-` (D442), figée pour le
+fichier.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9055,3 +9114,15 @@ avant la synthèse Q16).
   du champ, l'alignement du type, la largeur du contenu (l'esprit
   D372). La proposition « formulaire » (blocks section/tab,
   header/footer, history, surcharges) reste en arbitrage.
+- **2026-08-12 (suite 26)** — **La liste raffinée, l'artefact consigné
+  (D444)**. La relecture de la description canonique : **l'opération en
+  colonne dédiée** (l'icône à trois états — actionnable / non visible /
+  non actionnable) ; **l'export** — colonnes visibles + complémentaires,
+  **le CSV en un fichier par type de composants** (customer.csv,
+  orders.csv — la symétrie Q55), **l'Excel en un fichier à onglets,
+  surchargeable par un modèle**, et **le tri d'export** (l'écriture de
+  l'affichage, figée) ; **l'auto-rafraîchissement** (pas de bouton) ; la
+  confidentialité = non visible et non triable ; le responsive
+  conforme ; **la pagination à indicateurs** (« 21–40 sur 156 »).
+  L'exemple canonique complet est gravé. La proposition « formulaire »
+  toujours en arbitrage.

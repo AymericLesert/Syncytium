@@ -512,6 +512,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D433 | **Le changement d'état = une opération du catalogue, l'opération par défaut** (celle qu'un `promote` invoque sans autre précision) — la ligne D408 étendue aux opérations : le catalogue embarqué. | **Q60 ouverte** : l'inventaire du catalogue des fonctions/opérations, « un point ultérieurement ». Voir §3.2c et §10. |
 | D434 | **Le calendaire riche — `every:`** : les durées (`5min`/`2h`/`2d`/`2w`/`1m`), les raccourcis (`daily`/`weekly`/`monthly`), **le crochet précisant le(s) moment(s)** — `daily[08:00]`, `weekly[tuesday at 15:30]`, moments multiples (`weekly[monday at 09:30:45, wednesday at 20:35:12]`) ; **heures en UTC du serveur**. | Le crochet-paramètre (D366), le `at` du langage (D301) ; sans crochet = moment au moteur, le `when:` du rapport D406 s'aligne (notes). Voir §3.2c. |
 | D435 | **`every: continuous`** = « à chaque mise à jour d'un enregistrement de l'entité » (les événements de données D54) — **le même mot que le rapport** (D406) — **et il est le défaut** (`every:` absent = `continuous`). | Le temporel exige son rythme calendaire déclaré (note). Voir §3.2c. |
+| D436 | **Notifications soldées par simplification** (« pour le moment, pas de nouveaux éléments » — l'opération automatique + `notify:` couvre tout) ; **les tâches : `mode`** — **`synchronous`** (interface en pause + barre de progression), **`asynchronous`** (enregistrée, la file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage avant lancement). | `background` écarté ; défaut `synchronous` en proposition ; couvre les points 3 et 4 du domaine 3. Voir §3.2c. |
 
 ---
 
@@ -2545,6 +2546,33 @@ rapport** (D406), le vocabulaire unifié (« on garde continuous »).
 **Et il est le défaut** : `every:` absent = `continuous`. *(Note :
 l'expression temporelle (`age(…)`) exige, elle, son rythme calendaire
 déclaré — le défaut continu ne la réveillerait qu'aux écritures.)*
+
+**Les notifications soldées, le `mode` d'exécution (D436 — couvre les
+points 3 et 4 du domaine 3).** **(1) Les notifications : « pour le
+moment, je ne vois pas de nouveaux éléments »** — le point se solde
+**par simplification** : l'opération automatique + l'effet `notify:`
+(D406/D432) couvre l'événement de données, le calendaire et l'acte ; le
+rapport (D406–D407) et la communication (D393) ont leurs canaux. **(2)
+Les tâches : `mode` plutôt que `background`**, à trois valeurs :
+
+- **`synchronous`** — « met en pause l'interface avec une barre de
+  progression et attend la fin du traitement » ;
+- **`asynchronous`** — « l'opération est enregistrée et déclenchée dès
+  que le serveur est en mesure de la traiter » (la file d'attente
+  D24/D55 : état, progression, résultat conservé) ;
+- **`await[…]`** — « décaler, le crochet décrivant le décalage avant le
+  lancement » : `await[+3h]`, `await[+2d at 08:00]` — le `+` relatif,
+  le `at` du calendaire (D434).
+
+```yaml
+purge_archives:
+  rights: [administrator]
+  mode: await[+2d at 02:00]     # enregistrée, lancée dans deux jours à 2 h
+  effects: [ function: purge ]
+```
+
+*(Note en proposition : le défaut = `synchronous` — le clic classique ;
+la supervision D56 suit l'asynchrone et le décalé.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8767,3 +8795,13 @@ avant la synthèse Q16).
   continuous). Le temporel exige son rythme calendaire déclaré.
   Restent : les notifications par simplification, les tâches
   background.
+- **2026-08-12 (suite 17)** — **Les points 3 et 4 du domaine 3 soldés
+  (D436)**. Les notifications : « pour le moment, je ne vois pas de
+  nouveaux éléments » — la simplification (l'opération automatique +
+  notify couvre tout). Les tâches : **`mode` plutôt que `background`** —
+  `synchronous` (interface en pause, barre de progression, attente),
+  `asynchronous` (enregistrée, déclenchée dès que le serveur peut — la
+  file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage
+  avant lancement — le + relatif, le at calendaire). Défaut
+  `synchronous` en proposition. **Les cinq points du domaine 3 sont
+  couverts** — la question de complétude est posée.

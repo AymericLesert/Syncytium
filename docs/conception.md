@@ -526,6 +526,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D447 | **La préséance et la colonne fantôme** : « les types portent des propriétés d'affichage dans une liste — **par défaut, elles priment** ; la liste surcharge » (la chaîne **type → colonne**, le pendant de D270) ; **une colonne peut être présente, non affichée et non visible** (jamais révélée, même `sizable: manual`) — « utile pour un export CSV simplifié ». | `visible: false` en proposition ; l'export prend les colonnes **présentes**, les `export.columns` (D444) pour le hors-liste ; exemples canoniques — montant : devise + droite ; toggle : centré ; texte court : gauche ; multi-lignes : justifié. Voir §3.2c. |
 | D448 | **La grammaire commune des surfaces** : « forms, summary et widget vont partager un vocabulaire et une grammaire commune » — le socle, `header`/`footer` à gabarits (D253), `mode`, `blocks` (`section`/`tab`) au contenu `fields`/`charts` ; **les spécialisations par restriction** (forms entière + history ; summary sans onglets, un seul ; widgets = charts/KPI/TCD) ; le gabarit PDF et le wizard réutiliseront la grammaire. | « La base que nous allons **reformuler et étoffer** » — l'arbitrage surface par surface suit. Voir §3.2c. |
 | D449 | **Le formulaire reformulé** : l'icône **jamais dans `labels`** (le dictionnaire D440 amendé — les langues seules) ; « **un formulaire est conçu pour un mode d'écran** » (D206/D250) ; **quatre parties** — « un **titre** (zone de texte à gabarit), un **entête**, un **corps** et un **pied de page** — des blocs ». | À trancher : la propriété d'écran visé et son défaut (PC paysage D250) ; l'entête/pied — sections seules ou tous blocs. Voir §3.2c. |
+| D450 | **`screen` en tableau** (« la compatibilité de plusieurs affichages »), défaut **`[pc paysage]`** ; entête/corps/pied acceptent **sections et onglets** — car **« les blocs sont des composants »** : « un composant "type" à signature commune qui assure un rendu — une section, une grille, des onglets sont des composants ». | Le catalogue des conteneurs (`section`, `grid`, `tabs`…) **extensible** — les livrés sont les hooks embarqués (D408/D263), l'inventaire rejoint Q60. Voir §3.2c. |
 
 ---
 
@@ -2956,6 +2957,20 @@ forms:
 (`screen: pc` — défaut PC paysage D250 ?) ; l'entête et le pied
 acceptent-ils les mêmes blocs que le corps — sections, onglets — ou les
 sections seules ?)*
+
+**`screen` en tableau, et les blocs sont des composants (D450).**
+**(1) `screen`** est validée — **un tableau, « pour une compatibilité
+de plusieurs affichages »** (`screen: [pc, tablet]`), **défaut :
+`[pc paysage]`** (D250). **(2) « Dans l'absolu, l'entête, le corps et
+le pied acceptent sections et onglets »** — ma restriction est écartée,
+et le principe de fond est posé : **« un composant graphique est un
+composant "type" ayant une signature commune qui permet d'assurer un
+rendu. Ici, une section, une grille, des onglets… sont des
+composants. »** Les blocs ne sont pas une grammaire à part : **des
+composants-conteneurs du catalogue** — `section`, `grid` (la grille
+entre au vocabulaire), `tabs`… — à signature commune, **le catalogue
+extensible** (la ligne D408/D263 : les conteneurs livrés sont les hooks
+embarqués, l'inventaire rejoint Q60).
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9305,3 +9320,12 @@ avant la synthèse Q16).
   quatre parties** — le titre (zone de texte à gabarit), l'entête, le
   corps et le pied (des blocs). À trancher : la propriété d'écran visé
   et son défaut, les blocs permis en entête/pied.
+- **2026-08-12 (suite 33)** — **`screen` en tableau, les blocs sont des
+  composants (D450)** : `screen: [pc, tablet]` pour la compatibilité de
+  plusieurs affichages, défaut `[pc paysage]` (D250) ; l'entête, le
+  corps et le pied acceptent sections **et** onglets — le principe de
+  fond : « un composant graphique est un composant type à signature
+  commune qui assure un rendu — une section, **une grille**, des
+  onglets sont des composants » : les blocs = des composants-conteneurs
+  du catalogue (section, grid, tabs…), extensible (D408/D263),
+  l'inventaire rejoignant Q60.

@@ -508,6 +508,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D429 | **La trace des actions = l'historisation** : « les actions sont tracées si l'entité possède un historique » — l'instantané photographie chaque acte (auteur, canal, motif — D169) ; **sans historique, pas de trace d'opération**. | Aucune machinerie de trace séparée — l'acquis D411–D413 porte tout. Voir §3.2c. |
 | D430 | **La garde du bouton : le `if` au graphe** — `when: confirm if count(lines) > 0` : le passage n'est légal que si la condition tient (le bouton se grise, l'API refuse proprement D307). | Aucune propriété nouvelle — la garde vit où la transition vit ; `enabled:` et la validation-au-clic écartés. Voir §3.2c. |
 | D431 | **La propriété se nomme `validate`, et `validate: true` est le défaut** — le patron D196 (lecture seule + confirmer/annuler, jamais de popup) généralisé aux opérations ; **`validate: false` à déclarer** pour l'exécution directe au clic. | « Validate me convient mieux que confirm » ; la relecture avant engagement est la règle ; les opérations automatiques (D428) non concernées. Voir §3.2c. |
+| D432 | **Le bloc `operations:` clos** : au même niveau que `fields:`/`validation:` (mapping ordonné = l'ordre des boutons) ; **jamais d'effet d'état** (la transition au graphe) ; `effects:` ordonnés — `notify`, `document`, `set`, **`function`** (« une fonction interne à Syncytium — un catalogue ou une liste fournie en hook ») ; **disponible partout par défaut**, l'exclusion d'interface déclarable (« un écran ou l'API »). | `except: [api]` en proposition ; le passe-outre des `allow` demeure (D421c). Voir §3.2c. |
 
 ---
 
@@ -2463,6 +2464,40 @@ pour un passage automatique en cliquant sur le bouton** — l'exécution
 directe est l'exception assumée, la relecture avant engagement est la
 règle. *(Note : les opérations automatiques — avec `when`, D428 — ne
 sont pas concernées : personne ne clique.)*
+
+**Le bloc `operations:` (D432 — clôt les opérations).** Les quatre
+points validés : **(1)** `operations:` **au même niveau que `fields:`
+et `validation:`** — mapping ordonné, l'ordre de déclaration = l'ordre
+des boutons ; **(2)** **jamais d'effet d'état** — la transition
+appartient au graphe (D425–D430) ; l'opération citée par aucun
+`promote`/`demote` est une action sans transition (générer, recalculer,
+notifier) — légitime ; **(3)** **`effects:` ordonnés** — `notify:` (la
+forme `to`/`by`, D406), `document:` (le gabarit PDF, D212), `set:`
+(l'affectation de champs), et **`function:` — « l'appel d'une fonction
+interne à Syncytium, présente dans un catalogue ou dans une liste de
+fonctions fournie en hook »** (D36/D301/D408) ; **(4)** **disponible
+partout par défaut** (bouton de liste et de formulaire, API, sortie de
+wizard D233) — **« possibilité de préciser que l'opération ne soit pas
+disponible dans l'une ou l'autre des interfaces (un écran ou l'API) »**
+*(forme en proposition : `except: [api]`)* ; le passe-outre des `allow`
+demeure (D421c).
+
+```yaml
+operations:
+  confirm:                        # sans when → bouton / fonction API (D428)
+    labels: { fr: Confirmer }
+    rights: [sales_team]          # les groupes (D196/D414)
+    validate: false               # l'exécution directe — la relecture est le défaut (D431)
+    effects:
+      - notify: { to: [logistics], by: [notification] }
+      - document: order_form
+      - function: recompute_totals   # le catalogue ou un hook (D432)
+    except: [api]                 # indisponible côté API (proposition)
+  archive:
+    when: age(updated) > 365      # avec when → automatique (D428)
+    effects:
+      - set: { archived_at: now() }
+```
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8650,3 +8685,13 @@ avant la synthèse Q16).
   `validate`** (« me convient mieux que confirm »). Les opérations
   automatiques non concernées. Restent les points 1, 2, 4, 5 du bloc
   operations.
+- **2026-08-12 (suite 13)** — **Les opérations closes (D432)** : le
+  bloc `operations:` au même niveau que fields/validation (mapping
+  ordonné = l'ordre des boutons) ; jamais d'effet d'état ; `effects:`
+  ordonnés — notify, document, set, et **function** (« l'appel d'une
+  fonction interne à Syncytium, présente dans un catalogue ou dans une
+  liste de fonctions fournie en hook ») ; **disponible partout par
+  défaut**, l'exclusion d'interface déclarable (un écran ou l'API —
+  `except:` en proposition). Le point 1 du domaine 3 est soldé —
+  restent : les déclencheurs calendaires, les notifications
+  déclarées, les tâches.

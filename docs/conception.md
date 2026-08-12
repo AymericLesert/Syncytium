@@ -521,6 +521,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D442 | **La liste close** : `columns:` (l'ordre d'affichage) ; `filter:` (les expressions) ; **`sort:` par colonne** — sans = toutes triables, avec = la présente triable avec **sa cascade de clés secondaires** (`nom: [prenom, numero]`), l'absente non triable, `+`/`-` (croissant par défaut) ; **`editable:` à défaut readonly** — la colonne s'ouvre en se déclarant. | **Amende D266** (qui ouvrait tout par défaut) ; clôt le point 3 du domaine 4. Voir §3.2c. |
 | D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`) ; **la forme abrégée délègue au moteur** : « Syncytium décide alors du format par défaut et de la dimension de la colonne en fonction de son type ». | L'esprit D372 — le technicien décrit, le moteur dimensionne ; `align` au défaut du type, `width` %/px/auto, `style` relevant du thème (D191). Voir §3.2c. |
 | D444 | **La liste raffinée — l'artefact** : **l'opération en colonne** (l'icône à 3 états : actionnable / non visible / non actionnable) ; **l'export** — colonnes visibles + complémentaires, **CSV = un fichier par type de composants**, **Excel = un fichier à onglets, surchargeable par un modèle** ; **l'auto-rafraîchissement** (pas de bouton) ; la confidentialité = non visible **et non triable** ; **la pagination à indicateurs** (« 21–40 sur 156 »). | La symétrie de l'import d'agrégat (Q55) ; le modèle Excel ← resources/ (D418) ; **l'export porte son tri** (l'écriture de D442, figée) ; l'exemple canonique consigné. Voir §3.2c. |
+| D445 | **Les comportements de la liste** : `selection: one \| multiple` ; la création en **bouton du cadre/entête** ; la modification au **double-clic** (ligne non readonly) ; la liste **en lecture seule** = le double-clic consulte ; la suppression — **1 ligne = formulaire lecture seule + confirmation** (D196), **n lignes = popup avec le nombre** (l'exception assumée, D202) ; **l'opération de masse sur la sélection**. | Les opérations (D432) rencontrent la sélection ; la masse séquentielle et la double validation (D202). Voir §3.2c. |
 
 ---
 
@@ -2823,6 +2824,28 @@ lists:
 préciser un tri des colonnes — avec le format que nous avons vu pour
 l'affichage » : la cascade de clés à `+`/`-` (D442), figée pour le
 fichier.)*
+
+**Les comportements de la liste (D445).** Six gestes arbitrés :
+
+1. **`selection: one | multiple`** — la liste porte une sélection
+   simple ou multiple ;
+2. **La création** : un bouton **dans le cadre de la liste ou dans
+   l'entête, au même titre que les filtres** ;
+3. **La modification** : **le double-clic** sur une ligne qui n'est pas
+   en lecture seule — le formulaire s'ouvre en écriture ;
+4. **La liste en lecture seule** : ni création ni suppression — mais
+   **le double-clic ouvre la consultation** de la ligne (le formulaire
+   en lecture) ;
+5. **La suppression, à deux visages** : **une ligne sélectionnée** → le
+   formulaire de la ligne **en lecture seule avec la demande de
+   confirmation** (le patron D196) ; **plusieurs lignes** → **une popup
+   de confirmation précisant le nombre de lignes** — l'exception popup
+   assumée pour la masse (le formulaire n'aurait pas de sens pour n
+   lignes ; la double validation D202) ;
+6. **L'opération de masse** : « une opération peut être sélectionnée et
+   appliquée sur toutes les lignes sélectionnées simultanément » — les
+   opérations (D432) rencontrent la sélection (la masse séquentielle
+   D202).
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9126,3 +9149,13 @@ avant la synthèse Q16).
   conforme ; **la pagination à indicateurs** (« 21–40 sur 156 »).
   L'exemple canonique complet est gravé. La proposition « formulaire »
   toujours en arbitrage.
+- **2026-08-12 (suite 27)** — **Les comportements de la liste (D445)** :
+  `selection: one | multiple` ; la création en bouton du cadre/entête
+  (au même titre que les filtres) ; la modification au double-clic
+  (ligne non readonly) ; la liste en lecture seule = le double-clic
+  consulte ; **la suppression à deux visages** — une ligne = le
+  formulaire en lecture seule + confirmation (D196), plusieurs lignes =
+  la popup précisant le nombre (l'exception assumée pour la masse,
+  D202) ; **l'opération de masse** appliquée à toutes les lignes
+  sélectionnées (D432 × D202). Le formulaire (point 4) toujours en
+  arbitrage.

@@ -523,6 +523,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D444 | **La liste raffinée — l'artefact** : **l'opération en colonne** (l'icône à 3 états : actionnable / non visible / non actionnable) ; **l'export** — colonnes visibles + complémentaires, **CSV = un fichier par type de composants**, **Excel = un fichier à onglets, surchargeable par un modèle** ; **l'auto-rafraîchissement** (pas de bouton) ; la confidentialité = non visible **et non triable** ; **la pagination à indicateurs** (« 21–40 sur 156 »). | La symétrie de l'import d'agrégat (Q55) ; le modèle Excel ← resources/ (D418) ; **l'export porte son tri** (l'écriture de D442, figée) ; l'exemple canonique consigné. Voir §3.2c. |
 | D445 | **Les comportements de la liste** : `selection: one \| multiple` ; la création en **bouton du cadre/entête** ; la modification au **double-clic** (ligne non readonly) ; la liste **en lecture seule** = le double-clic consulte ; la suppression — **1 ligne = formulaire lecture seule + confirmation** (D196), **n lignes = popup avec le nombre** (l'exception assumée, D202) ; **l'opération de masse sur la sélection**. | Les opérations (D432) rencontrent la sélection ; la masse séquentielle et la double validation (D202). Voir §3.2c. |
 | D446 | **`sizable`** — le redimensionnement des colonnes : **`none` / `auto` / `manual` / `auto+manual`** — l'ajustement par l'utilisateur seulement si `manual` ; « la liste est un composant complet et complexe, dont la lisibilité doit s'adapter au format d'affichage ». | Défaut `auto` en proposition (la ligne D443 — le moteur dimensionne). Voir §3.2c. |
+| D447 | **La préséance et la colonne fantôme** : « les types portent des propriétés d'affichage dans une liste — **par défaut, elles priment** ; la liste surcharge » (la chaîne **type → colonne**, le pendant de D270) ; **une colonne peut être présente, non affichée et non visible** (jamais révélée, même `sizable: manual`) — « utile pour un export CSV simplifié ». | `visible: false` en proposition ; l'export prend les colonnes **présentes**, les `export.columns` (D444) pour le hors-liste. Voir §3.2c. |
 
 ---
 
@@ -2862,6 +2863,29 @@ propriété `sizable: manual` est positionnée** :
 
 *(Note en proposition : le défaut = `auto` — la ligne de D443, le
 moteur dimensionne.)*
+
+**La préséance du type et la colonne non affichée (D447).** **(1) « Les
+types portent aussi des propriétés d'affichage dans une liste — par
+défaut, ce sont ces propriétés qui priment ; lors de la définition
+d'une liste, nous pouvons surcharger »** : la chaîne **type → colonne
+de liste** (le pendant de D270 — type → champ → formulaire), la facette
+d'affichage (D119) et les défauts du type (D443) servant tant que la
+colonne ne dit rien. **(2) La colonne présente mais non affichée** :
+**« une colonne peut être présente, non affichée et non visible — même
+avec un redimensionnement possible »** (jamais révélée, y compris en
+`sizable: manual`) — **« utile pour faire un export CSV simplifié sans
+décrire les mêmes colonnes que l'affichage »** :
+
+```yaml
+columns:
+  - number
+  - customer
+  - notes: { visible: false }     # présente pour l'export, jamais à l'écran
+```
+
+*(Notes en proposition : la propriété `visible: false` ; l'export prend
+les colonnes **présentes** — affichées ou non — les `export.columns` de
+D444 restant pour les compléments hors liste.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9181,3 +9205,11 @@ avant la synthèse Q16).
   gouverné : `none` / `auto` / `manual` / `auto+manual`, l'ajustement
   par l'utilisateur seulement si `manual` ; défaut `auto` en
   proposition. Le formulaire (point 4) toujours en arbitrage.
+- **2026-08-12 (suite 29)** — **La préséance du type et la colonne
+  fantôme (D447)** : les propriétés d'affichage du type priment par
+  défaut, la colonne de liste surcharge (la chaîne type → colonne, le
+  pendant de D270) ; et **la colonne présente, non affichée et non
+  visible** — jamais révélée même en sizable manual — « utile pour un
+  export CSV simplifié sans décrire les mêmes colonnes que
+  l'affichage » (`visible: false` en proposition ; l'export prend les
+  présentes). Le formulaire (point 4) toujours en arbitrage.

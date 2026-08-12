@@ -519,7 +519,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D440 | **Le dictionnaire de libellés du module (clôt le point 2)** : « les labels sont utilisés au-delà du menu — dans un champ, les libellés peuvent y faire référence » — bloc `labels:` de `module.yml` (externalisable D349/D352) ; **la chaîne vaut référence, le mapping vaut inline**. | L'esprit des variables (D323) — la redondance s'éteint ; nom introuvable = erreur, étage version en cascade (notes). Le dashboard → point 6. Voir §3.2c. |
 | D441 | **Le `searchable` de liste** : « la liste des champs ou des noms mutualisés à positionner dans un filtre de tri — **par défaut, tous les champs sont inclus dans la recherche** ». | Le champ déclare *comment* (D367), la liste déclare *lesquels* ; amende le défaut de D227 (« colonnes affichées » → « tous les champs »). Voir §3.2c. |
 | D442 | **La liste close** : `columns:` (l'ordre d'affichage) ; `filter:` (les expressions) ; **`sort:` par colonne** — sans = toutes triables, avec = la présente triable avec **sa cascade de clés secondaires** (`nom: [prenom, numero]`), l'absente non triable, `+`/`-` (croissant par défaut) ; **`editable:` à défaut readonly** — la colonne s'ouvre en se déclarant. | **Amende D266** (qui ouvrait tout par défaut) ; clôt le point 3 du domaine 4. Voir §3.2c. |
-| D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`). | Notes : `align` au défaut du type (nombres à droite D370), `width` %/px/auto, `style` = un nom relevant du thème (D191). Voir §3.2c. |
+| D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`) ; **la forme abrégée délègue au moteur** : « Syncytium décide alors du format par défaut et de la dimension de la colonne en fonction de son type ». | L'esprit D372 — le technicien décrit, le moteur dimensionne ; `align` au défaut du type, `width` %/px/auto, `style` relevant du thème (D191). Voir §3.2c. |
 
 ---
 
@@ -2757,6 +2757,13 @@ columns:
 type (les nombres à droite D370, le texte à gauche) ; `width` — %, px
 ou auto ; `style` — un nom, dont le contenu relève du thème (« le
 design sera traité après la structure », D191).)*
+
+**Et la forme abrégée délègue au moteur** : « ta proposition pour les
+colonnes est une version simplifiée et abrégée — **Syncytium décide
+alors du format par défaut et de la dimension de la colonne en fonction
+de son type** » : le masque du champ (D260/D370), l'alignement du type,
+la largeur du contenu — l'esprit D372, le technicien décrit, le moteur
+dimensionne.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9042,3 +9049,9 @@ avant la synthèse Q16).
   dimension » — forme courte ou riche, align au défaut du type, width,
   style relevant du thème. Le point 3 du domaine 4 est clos. Suivant :
   le formulaire (point 4).
+- **2026-08-12 (suite 25)** — **La forme abrégée délègue au moteur
+  (D443 complété)** : « Syncytium décide alors du format par défaut et
+  de la dimension de la colonne en fonction de son type » — le masque
+  du champ, l'alignement du type, la largeur du contenu (l'esprit
+  D372). La proposition « formulaire » (blocks section/tab,
+  header/footer, history, surcharges) reste en arbitrage.

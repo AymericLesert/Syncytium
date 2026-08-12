@@ -498,7 +498,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
 | D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
 | D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
-| D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | Forme en proposition : `crud: [create, read, update, delete]` sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
+| D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | **La propriété se nomme `allow`** — toute combinaison (`allow: [read, delete]`) — sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
 
 ---
 
@@ -2248,11 +2248,17 @@ fields:
   status:
     type: enum                     # le champ porteur du cycle de vie
     values:
-      draft:     { labels: { fr: Brouillon }, crud: [create, read, update, delete] }
-      confirmed: { labels: { fr: Confirmée }, crud: [read] }
-      archived:  { labels: { fr: Archivée },  crud: [read] }
+      draft:     { labels: { fr: Brouillon }, allow: [create, read, update, delete] }
+      confirmed: { labels: { fr: Confirmée }, allow: [read] }
+      archived:  { labels: { fr: Archivée },  allow: [read] }
     default: draft
 ```
+
+**Le nom de la propriété : `allow` (arbitrage de l'auteur)** — « plutôt
+que les mots update, create, read ou delete, je propose `allow`, qui
+permet de définir l'une ou l'autre des valeurs ou des combinaisons de
+ces dernières. » Toute combinaison se déclare — `allow: [read, delete]` :
+l'état qui se consulte et se purge, mais ne se modifie plus.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8345,3 +8351,10 @@ avant la synthèse Q16).
   d'entité garde les formes libres (D421), les deux déclarés = erreur
   d'ingestion ; les opérations passent outre. En arbitrage : la forme
   `crud:`, le défaut, la sémantique du read.
+- **2026-08-12 (suite 3)** — **La propriété se nomme `allow` (D422
+  amendé)** : « plutôt que les mots update, create, read ou delete, je
+  propose allow, qui permet de définir l'une ou l'autre des valeurs ou
+  des combinaisons » — `allow: [read, delete]` : l'état qui se consulte
+  et se purge sans se modifier. Reste en arbitrage : le sort de la
+  forme libre `update: <expression>` de D421 (le cycle + `allow`
+  couvrent-ils tout ?).

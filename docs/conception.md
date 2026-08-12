@@ -517,6 +517,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D438 | **Le point 1 du domaine 4 clos** : le bloc se nomme **`gui`** ; **la première déclarée = la surface par défaut** (l'ordre D356) ; **le socle des surfaces = le patron des champs** (labels/comment/description) ; **la déclaration remplace le défaut** (« le défaut proposé par le système n'est plus disponible »). | Suivant : le menu (point 2 — le différé D351). Voir §3.2c. |
 | D439 | **Le menu = des adresses** : liste ordonnée filtrée par la confidentialité (inchangé) ; `<module>.<entité>` (liste par défaut), `[<liste>]` (nommée), `.<opération>`, `[+<formulaire>]` (création, nom optionnel), `[@<wizard>]` (nom optionnel), `<module>[<dashboard>]` (**le dashboard au module**), `<nom>:` (sous-menu — libellé au module) ; **`icon` rejoint le socle des surfaces**. | Ma proposition de blocs typés écartée ; le menu = pures adresses, l'icône vient de la surface visée ; notes : libellés de sous-menus, bloc dashboards (point 6). Voir §3.2c. |
 | D440 | **Le dictionnaire de libellés du module (clôt le point 2)** : « les labels sont utilisés au-delà du menu — dans un champ, les libellés peuvent y faire référence » — bloc `labels:` de `module.yml` (externalisable D349/D352) ; **la chaîne vaut référence, le mapping vaut inline**. | L'esprit des variables (D323) — la redondance s'éteint ; nom introuvable = erreur, étage version en cascade (notes). Le dashboard → point 6. Voir §3.2c. |
+| D441 | **Le `searchable` de liste** : « la liste des champs ou des noms mutualisés à positionner dans un filtre de tri — **par défaut, tous les champs sont inclus dans la recherche** ». | Le champ déclare *comment* (D367), la liste déclare *lesquels* ; amende le défaut de D227 (« colonnes affichées » → « tous les champs »). Voir §3.2c. |
 
 ---
 
@@ -2691,6 +2692,24 @@ coexistent ; la redondance des libellés s'éteint (l'esprit des
 variables, D323). *(Notes en proposition : un nom introuvable = erreur
 d'ingestion ; l'étage version en cascade — le plus proche l'emporte,
 D360.)*
+
+**La liste : le `searchable` de surface (D441).** **« Une propriété
+`searchable` décrit la liste des champs ou des noms mutualisés à
+positionner dans un filtre de tri. Par défaut, tous les champs sont
+inclus dans la recherche. »** Les deux étages se répondent : **le champ
+déclare comment il se cherche** (les modes — D367), **la liste déclare
+lesquels apparaissent** :
+
+```yaml
+lists:
+  pending:
+    columns: [number, customer, total, status]
+    searchable: [who, total, status]   # champs ou noms mutualisés (D367-D368)
+                                       # défaut : TOUS les champs
+```
+
+*(Amende le défaut de D227 — « les colonnes affichées » devient « tous
+les champs ».)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8957,3 +8976,11 @@ avant la synthèse Q16).
   le mapping valant inline** (la forme courte D356, l'esprit des
   variables D323). Le dashboard renvoyé au point 6. Suivant : la liste
   (point 3).
+- **2026-08-12 (suite 23)** — **Le `searchable` de liste (D441)** : la
+  proposition « liste » livrée (columns/filter/sort/editable) ;
+  l'auteur arbitre la recherche — « une propriété searchable décrit la
+  liste des champs ou des noms mutualisés à positionner dans un filtre
+  de tri ; par défaut, tous les champs sont inclus » (le champ déclare
+  comment D367, la liste déclare lesquels ; le défaut de D227 amendé).
+  Restent : columns/filter/sort, le défaut d'editable (tout ouvert
+  D206 ou tout fermé ?).

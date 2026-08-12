@@ -509,6 +509,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D430 | **La garde du bouton : le `if` au graphe** — `when: confirm if count(lines) > 0` : le passage n'est légal que si la condition tient (le bouton se grise, l'API refuse proprement D307). | Aucune propriété nouvelle — la garde vit où la transition vit ; `enabled:` et la validation-au-clic écartés. Voir §3.2c. |
 | D431 | **La propriété se nomme `validate`, et `validate: true` est le défaut** — le patron D196 (lecture seule + confirmer/annuler, jamais de popup) généralisé aux opérations ; **`validate: false` à déclarer** pour l'exécution directe au clic. | « Validate me convient mieux que confirm » ; la relecture avant engagement est la règle ; les opérations automatiques (D428) non concernées. Voir §3.2c. |
 | D432 | **Le bloc `operations:` clos** : au même niveau que `fields:`/`validation:` (mapping ordonné = l'ordre des boutons) ; **jamais d'effet d'état** (la transition au graphe) ; `effects:` ordonnés — `notify`, `document`, `set`, **`function`** (« une fonction interne à Syncytium — un catalogue ou une liste fournie en hook ») ; **disponible partout par défaut**, l'exclusion d'interface déclarable (« un écran ou l'API »). | `except: [api]` en proposition ; le passe-outre des `allow` demeure (D421c). Voir §3.2c. |
+| D433 | **Le changement d'état = une opération du catalogue, l'opération par défaut** (celle qu'un `promote` invoque sans autre précision) — la ligne D408 étendue aux opérations : le catalogue embarqué. | **Q60 ouverte** : l'inventaire du catalogue des fonctions/opérations, « un point ultérieurement ». Voir §3.2c et §10. |
 
 ---
 
@@ -2498,6 +2499,17 @@ operations:
     effects:
       - set: { archived_at: now() }
 ```
+
+**Le changement d'état, opération du catalogue — Q60 ouverte (D433).**
+**« Une opération ne servira pas uniquement à un changement d'état. Un
+changement d'état est une des opérations disponibles au catalogue — et
+c'est l'opération par défaut. »** La ligne D408 s'étend aux
+opérations : **le catalogue d'opérations embarqué**, le changement
+d'état en tête (l'opération qu'un `promote` invoque sans autre
+précision) — les effets (notify, document, set, function) ayant
+vocation à s'y ranger. **« Je propose que nous fassions un point
+ultérieurement sur l'ensemble des fonctions à mettre au catalogue »** —
+**Q60 ouverte** (l'inventaire du catalogue, §10).
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -6230,6 +6242,7 @@ avant la synthèse Q16).
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 | Q58 | **La documentation en amont des développements** (ajout 18/07/2026, D314) : forme et structure (guide du technicien ? de l'utilisateur ? référence du méta-schéma ?), publics, lien avec les descriptions du modèle (D124 — « exploitables par des IA »), **intégration des exemples concrets** issus des mises en situation (Q59). | La documentation précède le code — décision de méthode D314. |
 | Q59 | **Les mises en situation** (ajout 18/07/2026, D314) : choix des **cas clients concrets**, méthode de vérification de la **compatibilité de la solution avec les besoins**, critères de validation, et **intégration des exemples à la documentation** (Q58) pour montrer l'intérêt de la solution. | Le banc d'essai de la conception avant tout développement. |
+| Q60 | **L'inventaire du catalogue des fonctions/opérations** (ajout 12/08/2026, D433) : l'ensemble des fonctions à mettre au catalogue — les opérations embarquées (**le changement d'état, l'opération par défaut**), les effets (notify, document, set, function — D432), leur articulation avec le catalogue d'expressions (D301) et les hooks (D408). | « Je propose que nous fassions un point ultérieurement sur l'ensemble des fonctions à mettre au catalogue. » |
 
 ---
 
@@ -8695,3 +8708,12 @@ avant la synthèse Q16).
   `except:` en proposition). Le point 1 du domaine 3 est soldé —
   restent : les déclencheurs calendaires, les notifications
   déclarées, les tâches.
+- **2026-08-12 (suite 14)** — **Le changement d'état, opération du
+  catalogue (D433) — Q60 ouverte.** « Une opération ne servira pas
+  uniquement à un changement d'état : un changement d'état est une des
+  opérations disponibles au catalogue, et c'est l'opération par
+  défaut » — la ligne D408 étendue aux opérations. L'inventaire du
+  catalogue des fonctions/opérations = **un point ultérieur → Q60**
+  (§10). En attente : les trois arbitrages livrés (le calendaire
+  `every:`, les notifications par simplification, les tâches
+  `background:`).

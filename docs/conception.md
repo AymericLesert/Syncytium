@@ -525,6 +525,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D446 | **`sizable`** — le redimensionnement des colonnes : **`none` / `auto` / `manual` / `auto+manual`** — l'ajustement par l'utilisateur seulement si `manual` ; « la liste est un composant complet et complexe, dont la lisibilité doit s'adapter au format d'affichage ». | Défaut `auto` en proposition (la ligne D443 — le moteur dimensionne). Voir §3.2c. |
 | D447 | **La préséance et la colonne fantôme** : « les types portent des propriétés d'affichage dans une liste — **par défaut, elles priment** ; la liste surcharge » (la chaîne **type → colonne**, le pendant de D270) ; **une colonne peut être présente, non affichée et non visible** (jamais révélée, même `sizable: manual`) — « utile pour un export CSV simplifié ». | `visible: false` en proposition ; l'export prend les colonnes **présentes**, les `export.columns` (D444) pour le hors-liste ; exemples canoniques — montant : devise + droite ; toggle : centré ; texte court : gauche ; multi-lignes : justifié. Voir §3.2c. |
 | D448 | **La grammaire commune des surfaces** : « forms, summary et widget vont partager un vocabulaire et une grammaire commune » — le socle, `header`/`footer` à gabarits (D253), `mode`, `blocks` (`section`/`tab`) au contenu `fields`/`charts` ; **les spécialisations par restriction** (forms entière + history ; summary sans onglets, un seul ; widgets = charts/KPI/TCD) ; le gabarit PDF et le wizard réutiliseront la grammaire. | « La base que nous allons **reformuler et étoffer** » — l'arbitrage surface par surface suit. Voir §3.2c. |
+| D449 | **Le formulaire reformulé** : l'icône **jamais dans `labels`** (le dictionnaire D440 amendé — les langues seules) ; « **un formulaire est conçu pour un mode d'écran** » (D206/D250) ; **quatre parties** — « un **titre** (zone de texte à gabarit), un **entête**, un **corps** et un **pied de page** — des blocs ». | À trancher : la propriété d'écran visé et son défaut (PC paysage D250) ; l'entête/pied — sections seules ou tous blocs. Voir §3.2c. |
 
 ---
 
@@ -2682,7 +2683,7 @@ courte D356) :
 ```yaml
 # sales/module.yml (ou labels: labels.yml)
 labels:
-  references:    { fr: Références }
+  references:    { fr: Références }    # les langues seules — jamais d'icône (D449)
   customer_code: { fr: Code client }
 
 # l'usage — partout
@@ -2919,6 +2920,42 @@ bascule (charts/KPI/TCD — Q53/D247, le drill-down, la confidentialité
 héritée). Le gabarit PDF (D253) et les étapes de wizard (D233)
 réutiliseront la même grammaire. **« La grammaire présentée constitue
 une base que nous allons reformuler et étoffer. »**
+
+**Le formulaire reformulé : l'écran visé et les quatre parties (D449 —
+ouvre l'étoffage).** Trois recadrages de l'auteur : **(1) l'icône ne
+vit qu'au rang de l'item** — « dans labels, icon fait doublon avec
+l'icon au rang au-dessus » : le dictionnaire de libellés (D440, amendé)
+ne porte que les langues, l'icône appartient au socle de l'item
+(D439) ; **(2) « un formulaire est conçu pour un mode d'écran »**
+(smartphone, PC, tablette) — la ligne des surfaces (D206 : la
+déclinaison par mode d'affichage à repli ; D250 : le défaut est
+l'écran paysage) ; **(3) la structure en quatre parties** : **« un
+titre, un entête, un corps et un pied de page — le titre est une zone
+de texte à gabarit ; l'entête, le corps et le pied sont des blocs »** :
+
+```yaml
+forms:
+  default:
+    labels: { fr: Fiche client }
+    icon: customer.png
+    title: "{code} — {company_name}"   # LA zone de texte à gabarit (D90/D253)
+    header:                            # un BLOC
+      - section: { fields: [category, active] }
+    body:                              # le corps — des blocs
+      - section:
+          labels: { fr: Identité }
+          fields: [code, company_name, advisor]
+      - tab:
+          labels: { fr: Commandes }
+          fields: [orders]
+    footer:                            # un bloc
+      - section: { fields: [updated] }
+```
+
+*(À trancher : le nom et le défaut de la propriété d'écran visé
+(`screen: pc` — défaut PC paysage D250 ?) ; l'entête et le pied
+acceptent-ils les mêmes blocs que le corps — sections, onglets — ou les
+sections seules ?)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9260,3 +9297,11 @@ avant la synthèse Q16).
   spécialisations par restriction ; le gabarit PDF D253 et le wizard
   D233 en réutilisateurs) — « une base que nous allons **reformuler et
   étoffer** ». L'arbitrage surface par surface suit.
+- **2026-08-12 (suite 32)** — **Les forms d'abord, la grammaire entière
+  livrée — et reformulée (D449)**. Les trois recadrages : l'icône
+  jamais dans `labels` (le dictionnaire D440 amendé — « icon fait
+  doublon avec l'icon au rang au-dessus ») ; « un formulaire est conçu
+  pour un mode d'écran » (la ligne D206/D250) ; **la structure en
+  quatre parties** — le titre (zone de texte à gabarit), l'entête, le
+  corps et le pied (des blocs). À trancher : la propriété d'écran visé
+  et son défaut, les blocs permis en entête/pied.

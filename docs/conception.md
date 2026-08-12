@@ -516,6 +516,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `gui`** (nom : D438) ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
 | D438 | **Le point 1 du domaine 4 clos** : le bloc se nomme **`gui`** ; **la première déclarée = la surface par défaut** (l'ordre D356) ; **le socle des surfaces = le patron des champs** (labels/comment/description) ; **la déclaration remplace le défaut** (« le défaut proposé par le système n'est plus disponible »). | Suivant : le menu (point 2 — le différé D351). Voir §3.2c. |
 | D439 | **Le menu = des adresses** : liste ordonnée filtrée par la confidentialité (inchangé) ; `<module>.<entité>` (liste par défaut), `[<liste>]` (nommée), `.<opération>`, `[+<formulaire>]` (création, nom optionnel), `[@<wizard>]` (nom optionnel), `<module>[<dashboard>]` (**le dashboard au module**), `<nom>:` (sous-menu — libellé au module) ; **`icon` rejoint le socle des surfaces**. | Ma proposition de blocs typés écartée ; le menu = pures adresses, l'icône vient de la surface visée ; notes : libellés de sous-menus, bloc dashboards (point 6). Voir §3.2c. |
+| D440 | **Le dictionnaire de libellés du module (clôt le point 2)** : « les labels sont utilisés au-delà du menu — dans un champ, les libellés peuvent y faire référence » — bloc `labels:` de `module.yml` (externalisable D349/D352) ; **la chaîne vaut référence, le mapping vaut inline**. | L'esprit des variables (D323) — la redondance s'éteint ; nom introuvable = erreur, étage version en cascade (notes). Le dashboard → point 6. Voir §3.2c. |
 
 ---
 
@@ -2662,6 +2663,34 @@ dans `resources/` D346) ; le menu reste ainsi une pure liste
 d'adresses, l'icône venant de la surface visée. *(Notes à trancher : où
 se déclarent les libellés de sous-menus au module ; le bloc
 `dashboards` du module — détaillé au point 6.)*
+
+**Le dictionnaire de libellés du module (D440 — clôt le point 2).**
+**« Les labels sont utilisés au-delà du menu : dans un champ, les
+libellés peuvent y faire référence »** — le module porte un
+**dictionnaire de libellés** (le bloc `labels:` de `module.yml`,
+externalisable — D349/D352), et **la chaîne vaut référence** (la forme
+courte D356) :
+
+```yaml
+# sales/module.yml (ou labels: labels.yml)
+labels:
+  references:    { fr: Références }
+  customer_code: { fr: Code client }
+
+# l'usage — partout
+fields:
+  code:
+    labels: customer_code        # la référence au dictionnaire
+menu:
+  - references:                  # le sous-menu — le même dictionnaire (D439)
+      - catalog.product
+```
+
+**La chaîne = la référence, le mapping = l'inline** — les deux formes
+coexistent ; la redondance des libellés s'éteint (l'esprit des
+variables, D323). *(Notes en proposition : un nom introuvable = erreur
+d'ingestion ; l'étage version en cascade — le plus proche l'emporte,
+D360.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8921,3 +8950,10 @@ avant la synthèse Q16).
   au module). **`icon` rejoint le socle des surfaces** (menu
   « moderne ») — le menu reste une pure liste d'adresses. À trancher :
   les libellés de sous-menus au module, le bloc dashboards (point 6).
+- **2026-08-12 (suite 22)** — **Le dictionnaire de libellés (D440) : le
+  point 2 est clos.** « Les labels sont utilisés au-delà du menu — dans
+  un champ, les libellés peuvent y faire référence » : le bloc
+  `labels:` du module (externalisable), **la chaîne valant référence et
+  le mapping valant inline** (la forme courte D356, l'esprit des
+  variables D323). Le dashboard renvoyé au point 6. Suivant : la liste
+  (point 3).

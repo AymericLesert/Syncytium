@@ -530,6 +530,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D451 | **Le formulaire arborescent** : « un nœud est un composant qui affiche un composé graphique basé sur **l'enregistrement d'une entité, d'un champ et des opérations** » — conteneurs, feuilles-champs et boutons d'opérations : un seul arbre, une signature commune, **l'imbrication libre**. | Les quatre parties (D449) = les branches maîtresses ; le contexte (enregistrement, champ, opérations) nourrit chaque rendu. Voir §3.2c. |
 | D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
 | D453 | **Les propriétés du `form`** : **le gabarit déclinable par langue** (`title:` — chaîne unique ou mapping) ; **`mode: updatable` (défaut) \| `read-only`** ; **`history: false` = désactiver l'onglet d'une entité historisée** (défaut `true`, toujours dernier — D186/D411). | Vaut pour tous les gabarits (D253/D449) ; sans historisation, pas d'onglet. Voir §3.2c. |
+| D454 | **La surimpression et sa `dimension`** : « le formulaire peut s'afficher en surimpression de l'écran — la totalité ou une portion » ; **`dimension:` — défaut 100 % de l'écran**, la portion déclarée (`dimension: 70%`). | La surimpression est le mode d'affichage du formulaire ; le patron de la visionneuse (D293). Voir §3.2c. |
 
 ---
 
@@ -3017,6 +3018,19 @@ le `read-only` fige (la consultation seule, D207). **(3)
 ayant un historique »** : le défaut est `true` — l'onglet paraît
 lorsque l'entité est historisée (D411), toujours dernier (l'invariant
 D186) ; sans historisation, pas d'onglet, rien à déclarer.
+
+**La surimpression et sa dimension (D454).** **« Le formulaire peut
+s'afficher en surimpression de l'écran — soit sur la totalité de
+l'écran, soit sur une portion »** ; et l'arbitrage : **« nous ajoutons
+une dimension — par défaut : 100 % de l'écran »** :
+
+```yaml
+dimension: 70%               # la portion ; absent = 100 % de l'écran
+```
+
+**La surimpression est le mode d'affichage du formulaire**, sa
+`dimension` en règle la portée — la totalité par défaut, la portion
+déclarée (le patron de la visionneuse D293).
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9399,3 +9413,9 @@ avant la synthèse Q16).
   toujours dernier). Reste à l'étoffage : la signature des nœuds, la
   grille, la `selection:` des références (D215), la `list:` des
   compositions (D216).
+- **2026-08-12 (suite 37)** — **La surimpression et sa dimension
+  (D454)** : « le formulaire peut s'afficher en surimpression de
+  l'écran — la totalité ou une portion » ; « nous ajoutons une
+  dimension (par défaut : 100 % de l'écran) » — la surimpression est le
+  mode d'affichage du formulaire, `dimension:` en règle la portée
+  (`dimension: 70%` — le patron de la visionneuse D293).

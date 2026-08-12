@@ -515,6 +515,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D436 | **Notifications soldées par simplification** (« pour le moment, pas de nouveaux éléments » — l'opération automatique + `notify:` couvre tout) ; **les tâches : `mode`** — **`synchronous`** (interface en pause + barre de progression), **`asynchronous`** (enregistrée, la file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage avant lancement). | `background` écarté ; défaut `synchronous` en proposition ; couvre les points 3 et 4 du domaine 3. Voir §3.2c. |
 | D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `gui`** (nom : D438) ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
 | D438 | **Le point 1 du domaine 4 clos** : le bloc se nomme **`gui`** ; **la première déclarée = la surface par défaut** (l'ordre D356) ; **le socle des surfaces = le patron des champs** (labels/comment/description) ; **la déclaration remplace le défaut** (« le défaut proposé par le système n'est plus disponible »). | Suivant : le menu (point 2 — le différé D351). Voir §3.2c. |
+| D439 | **Le menu = des adresses** : liste ordonnée filtrée par la confidentialité (inchangé) ; `<module>.<entité>` (liste par défaut), `[<liste>]` (nommée), `.<opération>`, `[+<formulaire>]` (création, nom optionnel), `[@<wizard>]` (nom optionnel), `<module>[<dashboard>]` (**le dashboard au module**), `<nom>:` (sous-menu — libellé au module) ; **`icon` rejoint le socle des surfaces**. | Ma proposition de blocs typés écartée ; le menu = pures adresses, l'icône vient de la surface visée ; notes : libellés de sous-menus, bloc dashboards (point 6). Voir §3.2c. |
 
 ---
 
@@ -2624,6 +2625,43 @@ sur le patron des champs** (`labels`/`comment`/`description` — « nous
 avons défini ce qu'il faut, sauf oubli ») ; **(4) la déclaration
 remplace le défaut** — « dès qu'un item est déclaré, le défaut proposé
 par le système n'est plus disponible ».
+
+**Le menu : la syntaxe d'adressage (D439).** Ma proposition de blocs
+typés est écartée — la vision de l'auteur : **le menu reste une liste
+d'entrées ordonnées** (l'ordre de déclaration), **filtrée par le niveau
+de confidentialité** — « ça ne change pas » ; le défaut affiche les
+entités (la visibilité de l'entité et sa liste par défaut). **Chaque
+entrée est une adresse** :
+
+| Adresse | Cible |
+|---|---|
+| `<module>.<entité>` | **la liste par défaut** de l'entité |
+| `<module>.<entité>[<liste>]` | une **liste nommée** de l'entité |
+| `<module>.<entité>.<opération>` | **le déclenchement d'une opération** |
+| `<module>.<entité>[+<formulaire>]` | **un formulaire de création** — le nom optionnel (`[+]` = le défaut) |
+| `<module>.<entité>[@<wizard>]` | **un wizard** — le nom optionnel |
+| `<module>[<dashboard>]` | **un dashboard** — « défini au niveau du module » |
+| `<nom>:` + liste | **un sous-menu** — le nom référence **un libellé déclaré au niveau du module** |
+
+```yaml
+# sales/menu.yml
+menu:
+  - sales.customer                 # la liste par défaut
+  - sales.order[pending]           # la liste nommée
+  - sales.order[+]                 # le formulaire de création par défaut
+  - sales[overview]                # le dashboard du module
+  - references:                    # le sous-menu (libellé au module)
+      - catalog.product
+      - catalog.tag[@import]       # le wizard « import » de l'entité tag
+```
+
+**Et « chaque item `gui` doit disposer d'un champ `icon` »** — pour
+construire un menu « moderne » : **l'icône rejoint le socle des
+surfaces** (D438.3 — `labels`/`comment`/`description`/`icon`, puisée
+dans `resources/` D346) ; le menu reste ainsi une pure liste
+d'adresses, l'icône venant de la surface visée. *(Notes à trancher : où
+se déclarent les libellés de sous-menus au module ; le bloc
+`dashboards` du module — détaillé au point 6.)*
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -8872,3 +8910,14 @@ avant la synthèse Q16).
   surfaces = le patron des champs (« nous avons défini ce qu'il faut,
   sauf oubli ») ; la déclaration remplace le défaut. Suivant : le menu
   (point 2 — le différé D351).
+- **2026-08-12 (suite 20)** — **Le menu : la syntaxe d'adressage
+  (D439)**. Ma proposition de blocs typés ne convenait pas — la vision
+  de l'auteur : le menu reste une liste ordonnée filtrée par la
+  confidentialité (« ça ne change pas »), et **chaque entrée est une
+  adresse** — `<module>.<entité>` (liste par défaut), `[<liste>]`
+  (nommée), `.<opération>`, `[+<formulaire>]` (création, nom
+  optionnel), `[@<wizard>]`, `<module>[<dashboard>]` (**le dashboard
+  défini au niveau du module**), `<nom>:` (sous-menu, libellé déclaré
+  au module). **`icon` rejoint le socle des surfaces** (menu
+  « moderne ») — le menu reste une pure liste d'adresses. À trancher :
+  les libellés de sous-menus au module, le bloc dashboards (point 6).

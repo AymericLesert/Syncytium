@@ -528,6 +528,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D449 | **Le formulaire reformulé** : l'icône **jamais dans `labels`** (le dictionnaire D440 amendé — les langues seules) ; « **un formulaire est conçu pour un mode d'écran** » (D206/D250) ; **quatre parties** — « un **titre** (zone de texte à gabarit), un **entête**, un **corps** et un **pied de page** — des blocs ». | À trancher : la propriété d'écran visé et son défaut (PC paysage D250) ; l'entête/pied — sections seules ou tous blocs. Voir §3.2c. |
 | D450 | **`screen` en tableau** (« la compatibilité de plusieurs affichages »), défaut **`[pc paysage]`** ; entête/corps/pied acceptent **sections et onglets** — car **« les blocs sont des composants »** : « un composant "type" à signature commune qui assure un rendu — une section, une grille, des onglets sont des composants ». | Le catalogue des conteneurs (`section`, `grid`, `tabs`…) **extensible** — les livrés sont les hooks embarqués (D408/D263), l'inventaire rejoint Q60. Voir §3.2c. |
 | D451 | **Le formulaire arborescent** : « un nœud est un composant qui affiche un composé graphique basé sur **l'enregistrement d'une entité, d'un champ et des opérations** » — conteneurs, feuilles-champs et boutons d'opérations : un seul arbre, une signature commune, **l'imbrication libre**. | Les quatre parties (D449) = les branches maîtresses ; le contexte (enregistrement, champ, opérations) nourrit chaque rendu. Voir §3.2c. |
+| D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
 
 ---
 
@@ -2985,6 +2986,19 @@ l'entité, le champ visé, les opérations disponibles. Les quatre parties
 (titre, entête, corps, pied — D449) sont les branches maîtresses de
 l'arbre ; **l'imbrication est libre** (une grille dans un onglet dans
 une section), la signature commune assurant le rendu à chaque étage.
+
+**Le composant de saisie personnalisé (D452).** **« Section, grid ou
+tab sont fournis par Syncytium. Dans un cas d'usage, j'ai besoin de
+construire un composant de saisie personnalisée et détaillée qui ne
+pourra pas se matérialiser avec les éléments de base. »** Le hook de
+composant (D263) prend donc sa place **dans l'arbre du formulaire**
+(D451) : **un nœud comme les autres** — la signature commune (D450), le
+contexte servi (l'enregistrement, les champs, les opérations), **le nom
+sans le mot « hook »** (D408). Il saisit comme il affiche — l'écriture
+repasse par les champs et leurs règles (validation D364/D404, `allow`
+D422, concurrence D111) : le composant personnalisé ne contourne
+jamais le modèle. **Le contrat (signature, code, sandbox) relève du
+domaine 6.**
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9350,3 +9364,12 @@ avant la synthèse Q16).
   conteneurs, feuilles-champs et boutons d'opérations, la signature
   commune (D450) à chaque étage, l'imbrication libre, les quatre
   parties (D449) en branches maîtresses.
+- **2026-08-12 (suite 35)** — **Le composant de saisie personnalisé
+  (D452)** : « section, grid ou tab sont fournis par Syncytium — dans
+  un cas d'usage, j'ai besoin de construire un composant de saisie
+  personnalisée et détaillée qui ne pourra pas se matérialiser avec les
+  éléments de base » : le hook de composant (D263) devient un nœud
+  comme les autres dans l'arbre (D451), au nom sans « hook » (D408) ;
+  **l'écriture repasse toujours par les champs et leurs règles**
+  (validation, allow, concurrence) — jamais de contournement du
+  modèle ; le contrat au domaine 6.

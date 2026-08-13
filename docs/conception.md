@@ -577,6 +577,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D496 | **Le type `color` et `picker.color`** : « le stockage est un entier, l'affichage en hexadécimal et une base traduisant les couleurs en RGB » — la pastille en lecture, le sélecteur en saisie (D458) ; « j'ajoute aussi picker.color » — la famille pointée s'agrandit (D470/D473). | La base nomme les couleurs de `colors:` (D467) ; `values:` restreignant la palette en proposition. Voir §3.2c. |
 | D497 | **Le type `range`** : « un stockage de 2 valeurs dont l'une est égale ou plus petite que l'autre » — la plage de dates ou de valeurs, la contrainte intégrée ; ni la recherche (D371) ni `period` (D391) ne couvraient le générique. | `range of <type>` en proposition (l'écho de `list of` D362) ; le double curseur pour les bornés. Voir §3.2c. |
 | D498 | **`range of` validé** — « déclinaison de list of avec 2 contraintes en nombre et en ordre » ; min et/ou max indéfinissables (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **« la jauge étant un cas particulier d'un range »** (relit D494). Les liaisons D495 validées. | Voir §3.2c. |
+| D499 | **Les cellules confirmées** : `duration` compatible `calculator` « sur la base de 2 clocks » ; `datetime` = la combinaison `calendar` + `clock` ; `uuid` « à saisir et en lecture sous forme de texte formaté » — les fonctions multiples, dont les id tiers (relit D419). | La synthèse mise à jour. Voir §3.2c. |
 
 ---
 
@@ -3515,6 +3516,17 @@ d'un range »** — la relecture de D494 : min/value/max en une, la jauge
 porte un range et sa valeur — `gauge` devient un composant compatible
 du type. **Les liaisons des seuils d'entité (D495) sont également
 validées** (`from`/`threshold`/`color`).
+
+**Les cellules confirmées de la synthèse (D499).** Les trois « à
+confirmer » du tableau types × composants trouvent leurs réponses :
+**« duration est compatible avec calculator sur la base de 2
+clocks »** — la durée calculée entre deux horloges (le début, la fin —
+la différence fait la durée) ; **« datetime nécessite la combinaison
+des 2 composants calendar + clock »** ; **« uuid à saisir et en
+lecture sous forme de texte formaté — ça peut servir à plusieurs
+fonctions dont celle de conserver des id vers des systèmes tiers »**
+(relit D419 : la saisie n'est pas exclue, le texte formaté vaut dans
+les deux sens).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10336,3 +10348,7 @@ avant la synthèse Q16).
   les composants graphiques ») — types × défaut × compatibles, les
   quatre règles transversales, les cellules °à confirmer. L'auteur
   relèvera les manques et y répondra.
+- **2026-08-13 (suite 60)** — **Les cellules confirmées (D499)** :
+  duration/calculator sur deux clocks ; datetime = calendar + clock ;
+  uuid en texte formaté, saisie et lecture (les id tiers parmi ses
+  fonctions). Reste °à confirmer : le dropdown de référence.

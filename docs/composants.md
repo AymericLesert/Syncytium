@@ -76,13 +76,13 @@ Quatre règles transversales l'allègent :
 | `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
-| `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` °à confirmer |
+| `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `date` | `calendar` (la nature au crochet D381) | — |
 | `time` | `clock` | — |
-| `datetime` | `calendar` + `clock` (la paire) °à confirmer | — |
+| `datetime` | **`calendar` + `clock`** — « la combinaison des 2 composants » (D499) | — |
 | `file` | saisie : `picker.file` (D473) ; lecture : le bloc fichier (icône+nom+taille D292), `viewer` si visualisable (D475) | `viewer[carousel]` (le paginé feuilleté D481) |
 | `image` / `thumbnail` | saisie : `picker.image` (D473) ; lecture : `viewer` (la vignette, la visionneuse D286/D293) | — |
-| `uuid` | `text` en lecture (l'identifiant externe D419) °à confirmer | — |
+| `uuid` | **`text` formaté — la saisie et la lecture** (D499 ; les fonctions multiples, dont les id des systèmes tiers — D419) | — |
 | `password` | `password` (la saisie masquée, jamais relue D463) | — |
 | `color` | `color` (la pastille, le sélecteur D496) | `picker.color` |
 | `list of <simple>` | `list` (l'éditeur D486) ; la multi-sélection si `values:` (D296) | `viewer[mosaic\|carousel]` si `list of image` (D475) ; `picker.color` si `list of color` |

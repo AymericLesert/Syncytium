@@ -540,6 +540,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D459 | **Le type-hook doit se représenter** : « un type ajouté via le hook doit inclure une phase de représentation graphique — ou via un document PDF, Word… » — **aucun type sans visage** : le composant d'écran et/ou le rendu de document (`template`, D456). | La ligne D455 (une facette = un hook) — la facette d'affichage d'un type hooké est due ; le contrat au domaine 6. Voir §3.2c. |
 | D460 | **`field[<nom>]`** — la forme explicite du nœud-champ dans les `items` (« certains noms de champs sont aussi des composants — pour éviter l'ambiguïté, c'est nécessaire ») ; **la surcharge de représentation au nœud** : le style par état (vide/faux, coché/vrai, le nul), la taille… | La chaîne type → colonne → nœud (D270/D447) s'achève au formulaire ; formes `style:`/`size:` en proposition. Voir §3.2c. |
 | D461 | **Un seul vocabulaire de représentation, trois étages** : les propriétés de représentation (`component`, `style`, `size`, `readonly`…) **se portent au type (D64/D359), se surchargent au champ, se surchargent encore au nœud `gui`** — les mêmes mots partout, le plus proche l'emporte. | `field[active]` confirmé (« dans mon esprit ») ; la cascade au vocabulaire unique (l'esprit D360). Voir §3.2c. |
+| D462 | **Les colonnes gardent le nom nu** — « l'ambiguïté n'est pas présente : des noms de champs, les opérations sont des verbes » ; **la préconisation** (jamais un contrôle) : une action = un verbe ; **la préséance : le champ l'emporte** sur l'opération homonyme. | « Syncytium n'apporte pas de contrôles » — la préconisation rejoint la documentation du technicien (Q58). Voir §3.2c. |
 
 ---
 
@@ -3139,6 +3140,15 @@ vues sur la définition du champ. »** **Les mêmes mots à chaque étage** —
 champ les surcharge, le nœud `gui` les surcharge encore** — la chaîne
 D270/D447/D460 devient une cascade au vocabulaire unique, le plus
 proche l'emporte (l'esprit D360).
+
+**Les colonnes gardent le nom nu (D462).** **« Pour les colonnes d'une
+liste, l'ambiguïté n'est pas présente : ce sont des noms de champs — et
+les opérations sont des verbes en général. »** Pas de `field[…]` aux
+`columns` ; **la préconisation au technicien** (la documentation Q58,
+jamais un contrôle — « Syncytium n'apporte pas de contrôles ») : **une
+approche cohérente, une action marquée par un verbe**. Et la règle de
+préséance : **« si un nom de champ = un nom d'opération, le nom du
+champ l'emporte. »**
 
 **Le type-hook doit se représenter (D459).** **« Un type ajouté via le
 hook doit inclure une phase de représentation graphique — ou via un
@@ -9619,3 +9629,10 @@ avant la synthèse Q16).
   trois étages (type → champ → nœud gui), le plus proche l'emporte.
   Toujours ouvertes : la question des columns, la validation finale de
   l'exemple checkbox.
+- **2026-08-13 (suite 8)** — **Les colonnes au nom nu (D462)** :
+  « l'ambiguïté n'est pas présente — ce sont des noms de champs, les
+  opérations sont des verbes en général » ; la préconisation au
+  technicien (une action = un verbe — jamais un contrôle, « Syncytium
+  n'apporte pas de contrôles », la documentation Q58) ; la préséance :
+  **si un nom de champ = un nom d'opération, le champ l'emporte**.
+  Reste : la validation finale de l'exemple checkbox.

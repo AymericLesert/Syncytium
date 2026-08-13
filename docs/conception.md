@@ -10367,3 +10367,7 @@ avant la synthèse Q16).
   tenant compte du cycle de vie (les états atteignables, D425–D427).
   La synthèse complète — plus aucune cellule à confirmer. Cinq cents
   décisions consignées depuis le 12 juin.
+- **2026-08-13 (suite 62)** — **La synthèse relue et validée par
+  l'auteur** (« les liens sont faits. J'ai relu l'ensemble des types
+  et des composants graphiques. Pour le moment, je ne vois plus de
+  manques »). La reprise sur sections/section.

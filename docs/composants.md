@@ -1293,7 +1293,9 @@ gui:
    niveau que layout** — « pour que chaque section ait la même
    dimension » (D502, l'uniforme ; la section peut les surcharger —
    le variable, le plus proche l'emporte D461 ; sans précision, tout
-   l'espace est pris D501) ; le socle du vocabulaire (D461) ;
+   l'espace est pris D501) ; **`size:`** — « les dimensions de
+   l'espace occupé par l'ensemble des sections » (D503 — la cohérence
+   D484 : size à l'affichage) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des sections, rien d'autre** : « chaque item est
    alors une section » (D489) ;
 7. **Modes et déclinaisons** — partout où un conteneur vit :
@@ -1302,9 +1304,12 @@ gui:
    permet de définir le format attendu » (D450/D490) — rien
    d'automatique ;
 8. **États et interactions** — la visibilité par les droits et la
-   confidentialité ; rien d'autre au socle ;
+   confidentialité ; **le débordement de `size:`** — les barres de
+   scrolling **visibles ou évanescentes** (« plus moderne »), **le
+   swipe au tactile** sans barres, les barres restant « le
+   positionnement de l'écran par rapport à l'ensemble » (D503) ;
 9. **Décisions fondatrices** — D449–D451, D455, D461, D487,
-   D489–D491, D501–D502 ;
+   D489–D491, D501–D503 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1374,6 +1379,7 @@ body:                              # la section seule, directement (D490)
         - field[street]            # les feuilles (D489)
         - sections:                # l'emboîtement par l'organisateur
             layout: column[2]      # deux colonnes, le repli au-delà (D491)
+            size: 400px            # l'espace du tout — au-delà, le défilement (D503)
             height: 120px          # l'uniforme — chaque section à la même taille (D502)
             items:
               - section:

@@ -581,6 +581,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D500 | **Le dropdown de la référence et du statut** : « reference : utilisation d'un dropdown possible » ; « le statut peut être un dropdown aussi, avec une liste de valeurs en tenant compte du cycle de vie » — les états atteignables seuls (D425–D427). | La synthèse n'a plus de cellule à confirmer. Voir §3.2c. |
 | D501 | **`width`/`height` sur la section** : « layout fournit le découpage en colonnes et en lignes ; width et height permettent de calibrer la taille des sections. Sans précision, l'ensemble de l'espace est pris. » | Le calibrage au sein de l'organisateur. Voir §3.2c. |
 | D502 | **Les deux étages du calibrage** (précise D501) : width/height « au même niveau que layout pour que chaque section ait la même dimension » — et « également définissables sur la section » pour la taille variable ; le plus proche l'emporte (D461). | Voir §3.2c. |
+| D503 | **`size:` sur `sections`** : « les dimensions de l'espace occupé par l'ensemble » — au débordement, les barres de scrolling « visibles ou évaporeux », le swipe au tactile, les barres indiquant le positionnement. | La cohérence D484 (size = à l'affichage). Voir §3.2c. |
 
 ---
 
@@ -3554,6 +3555,20 @@ sections de taille variable, width et height sont également
 définissables sur la section. »** L'uniforme à l'organisateur (toutes
 les sections à la même taille), le variable à la section — **le plus
 proche l'emporte** (la ligne D461).
+
+**`size:` sur l'organisateur, le défilement au débordement (D503).**
+**« Dans sections, `size` permet de préciser les dimensions de
+l'espace occupé par l'ensemble des sections décrites. Si l'affichage
+excède cet espace, des barres de scrolling seront visibles ou
+évaporeux (plus moderne). Sur un écran tactile, le swipe permet de se
+déplacer dans une zone sans avoir besoin d'afficher les barres de
+scrolling. Cependant, les barres permettent d'afficher le
+positionnement de l'écran par rapport à l'ensemble des éléments
+affichés. »** L'enveloppe du tout — la cohérence D484 (`size` = la
+dimension à l'affichage) : `size` dimensionne l'organisateur,
+`width`/`height` calibrent ses parties ; au débordement, les barres —
+pleines ou évanescentes —, le swipe au tactile, les barres restant
+l'indicateur de position.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10396,3 +10411,7 @@ avant la synthèse Q16).
   (D502)** : width/height au niveau de layout (l'uniforme) et sur la
   section (le variable) — le plus proche l'emporte (D461). Les fiches
   ajustées.
+- **2026-08-13 (suite 65)** — **size sur l'organisateur (D503)** :
+  l'espace du tout ; au débordement les barres visibles ou
+  évanescentes, le swipe au tactile, les barres = l'indicateur de
+  position. La fiche sections complétée.

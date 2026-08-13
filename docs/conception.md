@@ -553,6 +553,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D472 | **`picker.image` s'efface** (amende D471) : `picker.record` seul, « avec un composant matérialisant la liste de sélection — le nom de la liste, ou le nom du champ représentant une image de l'enregistrement » — **la valeur d'une propriété dit la présentation**. | La simplification (la ligne D420) ; virgule : porter la matérialisation par `selection:` élargi plutôt que `component:` (collision D461) — en proposition. Voir §3.2c. |
 | D473 | **La famille `picker` recomposée** : `picker.record` (les enregistrements — D472), `picker.file` (« un ou plusieurs fichiers quelconques » — le défaut de `file`), **`picker.image` (« un ou plusieurs fichiers images, dont la liste des formats est exploitable par Syncytium »** — le défaut d'`image`/`thumbnail`, dérivé de picker.file). | L'ancien picker.image (la référence par l'image) fondu dans picker.record ; le « un ou plusieurs » suit le lien/type (D470) ; la fiche réécrite. Voir §3.2c. |
 | D474 | **`selection` = le nombre** (`1`, `1..`, `1..5` — l'écriture des bornes D366, la déduction D470 en défaut) ; **`by` = la présentation** (une liste de la cible, ou son champ-image — « component n'est pas adapté ; by me plaît »). | Solde D472 ; le `selection:` de D215 remplacé par `by:` ; l'harmonisation D445 (`one`/`multiple` → `1`/`1..`) en proposition. Voir §3.2c. |
+| D475 | **La famille `viewer`** : « image-viewer et carousel sont un même objet : viewer » — **généralisé aux fichiers visualisables** (PDF, Word, Excel… — « l'image, un type parmi tant d'autres ») ; **`carousel` = le viewer des collections** (liste/association d'images ou vignettes, le défilement à intervalle ou avant/après). | Les fiches réécrites ; `interval: 5s` en proposition (la seconde aux durées D434). Voir §3.2c. |
 
 ---
 
@@ -3257,6 +3258,16 @@ formats est exploitable par Syncytium. »** La famille finale :
 Le « un ou plusieurs » suit le lien ou le type (la déduction D470) ;
 l'ancien picker.image (la référence par l'image) est fondu dans
 `picker.record` (D472).
+
+**La famille `viewer` (D475).** **« Image-viewer et carousel sont un
+même objet : `viewer` »** — généralisé : **« nous pouvons ajouter un
+viewer pour d'autres types de fichiers (Word, Excel, PDF…), une image
+étant un type parmi tant d'autres. »** Et **`carousel` = le viewer des
+collections** : « une liste ou une association faisant référence à des
+images et/ou des vignettes de fichiers — une succession d'images qui
+changent à intervalle régulier, sur la pression d'une touche
+avant/après… ». Les fiches réécrites ; `interval:` en proposition
+(l'unité seconde s'ajoutant aux durées D434).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9911,3 +9922,10 @@ avant la synthèse Q16).
   picker.file validée (« oui ») — record, image, file au complet
   (D469–D474). Suivante : `image-viewer` (la visionneuse — la lecture
   de l'image, le pendant du picker).
+- **2026-08-13 (suite 27)** — **La famille `viewer` (D475)** :
+  « image-viewer et carousel sont un même objet : viewer » — généralisé
+  aux fichiers visualisables (PDF, Word, Excel — l'image un type parmi
+  d'autres) ; **carousel = le viewer des collections** (liste ou
+  association d'images/vignettes, le défilement à intervalle régulier
+  ou avant/après). Les fiches viewer et carousel réécrites ;
+  `interval: 5s` en proposition. En attente de leurs validations.

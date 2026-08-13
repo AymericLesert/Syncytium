@@ -353,10 +353,15 @@ gui:
    l'ingestion, l'esprit D344) ;
 4. **Contexte consommé** — le champ (les bornes, les décimales), son
    `mode`, les droits ;
-5. **Propriétés** — le remplissage se déduit des bornes ; **`colors:`**
-   (D467) — le dégradé deux couleurs (`{ min: red, max: green }` — le
-   défaut, du rouge au vert) **ou les seuils** (`{ 0: red, 50: orange,
-   80: green }` — la couleur à partir du seuil) ;
+5. **Propriétés** — **les trois valeurs en une** (D494, précise
+   D241) : `min`, `value`, `max` — min et max **fixes ou dépendants**
+   (un champ, une formule), les bornes du type (D276) en défaut ;
+   **`colors:`** (D467) — le dégradé deux couleurs (`{ min: red,
+   max: green }` — le défaut, du rouge au vert), **les seuils**
+   (`{ 0: red, 50: orange, 80: green }`) **ou la table de référence**
+   (D495 — l'entité et ses liaisons : la colonne du seuil, la colonne
+   de la couleur ; *écriture en proposition :* `colors: { from:
+   quality.threshold, threshold: level, color: tint }`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
    regard — listes, résumés, widgets) ; en modification, le glissé
@@ -366,7 +371,8 @@ gui:
 8. **États et interactions** — **le dépassement** : le `percentage`
    hors cadre change de représentation (D391) ; grisée si
    `readonly`/droits ;
-9. **Décisions fondatrices** — D274–D275, D391 ;
+9. **Décisions fondatrices** — D241, D274–D276, D391, D467,
+   D494–D495 ;
 10. **Exemple de configuration** —
 
 ```yaml

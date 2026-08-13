@@ -572,6 +572,8 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D491 | **La grille au crochet** (amende D490) : « oublie grid… column[3] — maximum de 3 colonnes, après 3 on crée une ligne… row[2] — 2 lignes, puis ajoute une colonne » — `layout: column[n] \| row[n]`, le conteneur `grid` retiré du catalogue. | Le mot nomme l'unité, le crochet la compte, le flux replie. Voir §3.2c. |
 | D492 | **La liste en widgets** : « elle peut se présenter sous forme d'une liste de widgets — la propriété `widget: <nom du widget>` de l'entité de l'élément » — le tableau (`columns:`) ou les widgets, la mécanique de la liste demeurant. | `widget:`/`columns:` exclusifs — validé. Voir §3.2c. |
 | D493 | **`title:` au titre de la section** : « le nom d'un regroupement est un libellé en titre de la section — au lieu de label, j'utilise title » — title = ce qui titre (l'entité D465, le formulaire D449, la section) ; label demeure ailleurs. | Les exemples balayés (label → title sous section). Voir §3.2c. |
+| D494 | **La jauge aux trois valeurs** (précise D241) : « min, value et max — min et max peuvent être fixes comme dépendre de valeurs. La jauge porte ces 3 valeurs en une » ; les bornes du type (D276) en défaut. | Chacune fixe ou formule/champ (la ligne D241). Voir §3.2c. |
+| D495 | **Les seuils depuis une entité** : les couleurs de jauge (D467) peuvent « dépendre d'une entité en expliquant les liaisons entre les colonnes et les valeurs (seuil et couleur) » — la table de référence, l'écho de `units:` (D363). | Écriture en proposition (`from`/`threshold`/`color`) ; vaut pour gauge, fuel, le fond gradué. Voir §3.2c. |
 
 ---
 
@@ -3447,6 +3449,27 @@ l'écho du titre du formulaire (D449, la zone à gabarit déclinable par
 langue) et du `title` de l'entité (D465) : **title = ce qui titre**.
 `label` demeure ailleurs (le `shortcut` D464, le `paragraph` D488, les
 `values`…).
+
+**La jauge aux trois valeurs (D494 — précise D241).** **« Nous pouvons
+avoir 3 valeurs pour une jauge : min, value et max. Min et max peuvent
+être fixes comme dépendre de valeurs. La jauge porte alors ces 3
+valeurs en une. »** La vérification : D241 consignait la valeur de
+référence et la valeur calculée, « chacune une formule ou une valeur
+absolue » — le min restait implicite. La forme à trois valeurs le rend
+explicite : **min, value, max — chacun fixe ou dépendant** (un champ,
+une formule — la ligne D241), portés en une seule jauge ; les bornes
+du type (D276) restent le défaut de min/max.
+
+**Les seuils depuis une entité (D495).** **« Pour les seuils, je
+propose aussi que cela puisse dépendre d'une entité en expliquant les
+liaisons entre les colonnes et les valeurs (seuil et couleur). »** Les
+couleurs de jauge (D467) gagnent une troisième source : **une table de
+référence** — l'écho des unités de `measure` (`units: stock.unit`,
+l'adressage D363) — en nommant les liaisons : la colonne du seuil, la
+colonne de la couleur. *(L'écriture en proposition :
+`colors: { from: quality.threshold, threshold: level, color: tint }`.)*
+Vaut partout où `colors:` vaut — `gauge`, `fuel`, le fond gradué
+(D466–D467).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10230,3 +10253,9 @@ avant la synthèse Q16).
   lieu de label, j'utilise title » — title = ce qui titre ; label
   demeure ailleurs (shortcut, paragraph, values). Les exemples de
   composants.md balayés.
+- **2026-08-13 (suite 53)** — **Retour sur la jauge** : la
+  vérification D241 (référence + calculée, formule ou absolue) — la
+  forme à trois valeurs consignée (D494 : min, value, max en une,
+  chacun fixe ou dépendant) ; les seuils depuis une entité (D495, la
+  liaison seuil/couleur — écriture en proposition) ; la question du
+  type color/rgb posée — absent du catalogue, la proposition faite.

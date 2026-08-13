@@ -10043,3 +10043,7 @@ avant la synthèse Q16).
   template[<nom>] en proposition ; le rendu du carrousel dans un
   document différé au point template (Q55). La fiche viewer en attente
   de validation.
+- **2026-08-13 (suite 36)** — **La fiche `viewer` validée** (« oui,
+  même si je pourrais l'amender lorsque nous traiterons des
+  templates ») — la réserve notée pour Q55. Suivante : `map` (la
+  carte — la lecture de la géolocalisation).

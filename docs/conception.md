@@ -557,6 +557,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D476 | **Les durées complètes** (amende D434) : **`s`, `min`, `h`, `d`, `w`, `m`, `y`** — la seconde et l'année s'ajoutent ; le vocabulaire vaut partout (`every:`, `interval:`, `await[…]`). | `temporal[1y]` possible en note (le `[365]` nu = des jours, D411). Voir §3.2c. |
 | D477 | **« Viewer est le composant graphique et carousel un mode d'affichage »** (amende D475) : une seule fiche `viewer` — le mode déduit du contenu (le fichier seul → la vignette, la collection → le carrousel), forçable au crochet. | `viewer[carousel]` en proposition. Voir §3.2c. |
 | D478 | **Les trois modes du viewer** : « le crochet est un raccourci pour la définition du mode » (`viewer[carousel]` ≡ `mode: carousel`) ; « le viewer peut afficher **une image, une planche ou un carousel** ». | Le nom anglais de la planche en proposition : `mosaic` (le conteneur `grid` D451 déjà pris). Voir §3.2c. |
+| D479 | **La planche dimensionnée** : « besoin de préciser le nombre d'images en colonne et en ligne dans la zone » — `mosaic[4x3]` (colonnes × lignes), absent = l'auto, l'excédent se feuillette. | L'écriture au crochet en proposition (l'écho d'`image[512x512]`). Voir §3.2c. |
 
 ---
 
@@ -3296,6 +3297,13 @@ collection — *nom du catalogue en proposition : `mosaic`, l'anglais des
 valeurs sans collision avec le conteneur `grid` D451*), `carousel` (la
 succession qui défile). *(En proposition : au template, le carrousel se
 rend en planche.)*
+
+**La planche dimensionnée (D479).** **« Dans le cadre d'une planche,
+besoin de préciser le nombre d'images en colonne et en ligne dans la
+zone. »** L'écriture au crochet *(en proposition)* : **`mosaic[4x3]`**
+— colonnes × lignes, l'écho d'`image[512x512]` ; absent = l'auto selon
+la dimension de la zone et des vignettes ; l'excédent de la collection
+se feuillette.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9973,3 +9981,8 @@ avant la synthèse Q16).
   en clair, le crochet en abrégé ; « le viewer peut afficher une image,
   une planche ou un carousel ». Le nom anglais de la planche en
   proposition (mosaic). La fiche en attente de validation.
+- **2026-08-13 (suite 31)** — **La planche dimensionnée (D479)** :
+  « besoin de préciser le nombre d'images en colonne et en ligne dans
+  la zone » — mosaic[4x3] (colonnes × lignes) en proposition, absent =
+  l'auto, l'excédent se feuillette. La fiche viewer en attente de
+  validation.

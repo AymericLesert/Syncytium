@@ -905,8 +905,11 @@ gui:
 5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ;
    **`mode:`** — « le viewer peut afficher une image, une planche ou
    un carousel » (D478) : `image` (le fichier seul en vignette),
-   `mosaic` (*nom en proposition* — la planche de vignettes),
-   `carousel` (la succession qui défile) ; déduit du contenu — le
+   `mosaic` (*nom en proposition* — la planche de vignettes) —
+   « besoin de préciser le nombre d'images en colonne et en ligne dans
+   la zone » (D479) : `mosaic[4x3]`, colonnes × lignes (*l'écriture en
+   proposition — l'écho d'`image[512x512]`*), absent = l'auto selon la
+   zone ; `carousel` (la succession qui défile) ; déduit du contenu — le
    fichier seul → `image`, la collection → `carousel` (D477) ; **le
    crochet est un raccourci de la définition du mode** :
    `viewer[carousel]` ≡ `mode: carousel` (D478) ; `interval:` — le
@@ -916,8 +919,9 @@ gui:
 7. **Modes et déclinaisons** — **`image`** : la vignette, la
    visionneuse au clic — plein écran sur smartphone, pourcentage sur
    tablette, zone définie sur PC (D293) ; **`mosaic`** : la planche —
-   toutes les vignettes de la collection, le clic ouvrant la
-   visionneuse ; **`carousel`** : « une liste ou une association
+   les vignettes de la collection en grille, `mosaic[4x3]` fixant
+   colonnes × lignes (D479 — l'excédent se feuillette), le clic ouvrant
+   la visionneuse ; **`carousel`** : « une liste ou une association
    faisant référence à des images et/ou des vignettes de fichiers » —
    la succession qui défile, « à intervalle régulier, sur la pression
    d'une touche avant/après » (D475), le clic ouvrant la visionneuse ;
@@ -929,7 +933,7 @@ gui:
    fermeture au geste sur tactile ; les commandes avant/après, la pause
    au survol ;
 9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
-   D475–D478 ;
+   D475–D479 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -966,7 +970,7 @@ gui:
               - field[gallery]:    # la collection => carousel déduit (D477)
                   interval: 5s     # le défilement automatique (D476)
               - field[gallery]:
-                  component: viewer[mosaic]   # la planche — ≡ mode: mosaic (D478)
+                  component: viewer[mosaic[4x3]]   # la planche : 4 colonnes × 3 lignes (D479)
 ```
 
 

@@ -484,3 +484,50 @@ gui:
             items:
               - field[workload]
 ```
+
+## `clock`
+
+1. **Nom et famille** — `clock`, une feuille ;
+2. **Rôle** — l'horloge : la saisie et l'affichage d'une heure — « le
+   cadran pour saisir ou afficher » (D277) ;
+3. **Types servis** — `time` (**le défaut du type**) ; la partie heure
+   d'un `datetime` — en tandem avec `calendar` (D280 : la date + heure
+   combine calendrier et horloge) ;
+4. **Contexte consommé** — le champ (**la précision du crochet** —
+   `time[hh]` … `time[hh:mm:ss.sss]`, D277/D383), son `mode`, les
+   droits ;
+5. **Propriétés** — rien de propre : la précision vient du type, le
+   format d'affichage de la langue (le masque de langue par défaut,
+   D383) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : **le cadran au tactile,
+   la saisie directe au clavier sur PC** (l'horloge au clic — l'esprit
+   des arbitrages date du thème E) ; lecture : l'heure formatée selon
+   la langue ; résumé / template / Excel : la valeur canonique à la
+   précision déclarée ;
+8. **États et interactions** — grisée si `readonly`/droits ; le refus
+   affiché (D307) ; en recherche : `strict` / **`range`** (la plage
+   horaire) / `mutualizable` (D381) ;
+9. **Décisions fondatrices** — D277, D381, D383 ;
+10. **Exemple de configuration** —
+
+```yaml
+# stock/entities/warehouse.yml
+fields:
+  opening: time[hh:mm]             # la précision au crochet (D277) — clock par défaut
+  closing: time[hh:mm]
+
+gui:
+  lists:
+    main:
+      columns: [name, opening, closing]
+      searchable: [opening]        # la plage horaire (range — D381)
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Horaires }
+            items:
+              - field[opening]
+              - field[closing]
+```

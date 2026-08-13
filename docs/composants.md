@@ -41,8 +41,9 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icon-set` · `record-picker`/
   `image-picker` · `file-drop` · `image-viewer` · `carousel` · `map` ·
-  `thread` · `list` (l'éditeur du type liste) — **le composant par
-  défaut d'un type porte le nom du type** (D458) ;
+  `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
+  masquée, D463) — **le composant par défaut d'un type porte le nom du
+  type** (D458) ;
 - **Les graphiques** : `chart` (courbe, barres, secteurs, combiné) ·
   `kpi` · `pivot` — famille ouverte ;
 - **Les actes** : le bouton, l'icône, le passage d'étape — l'utilisateur

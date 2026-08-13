@@ -541,6 +541,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D460 | **`field[<nom>]`** — la forme explicite du nœud-champ dans les `items` (« certains noms de champs sont aussi des composants — pour éviter l'ambiguïté, c'est nécessaire ») ; **la surcharge de représentation au nœud** : le style par état (vide/faux, coché/vrai, le nul), la taille… | La chaîne type → colonne → nœud (D270/D447) s'achève au formulaire ; formes `style:`/`size:` en proposition. Voir §3.2c. |
 | D461 | **Un seul vocabulaire de représentation, trois étages** : les propriétés de représentation (`component`, `style`, `size`, `readonly`…) **se portent au type (D64/D359), se surchargent au champ, se surchargent encore au nœud `gui`** — les mêmes mots partout, le plus proche l'emporte. | `field[active]` confirmé (« dans mon esprit ») ; la cascade au vocabulaire unique (l'esprit D360). Voir §3.2c. |
 | D462 | **Les colonnes gardent le nom nu** — « l'ambiguïté n'est pas présente : des noms de champs, les opérations sont des verbes » ; **la préconisation** (jamais un contrôle) : une action = un verbe ; **la préséance : le champ l'emporte** sur l'opération homonyme. | « Syncytium n'apporte pas de contrôles » — la préconisation rejoint la documentation du technicien (Q58). Voir §3.2c. |
+| D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
 
 ---
 
@@ -1196,7 +1197,8 @@ catalogue, avec les facettes de chacun :
   `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
   (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
   des identifiants du domaine, pas des mots à traduire — et `uuid`
-  (D419, les identifiants externes).
+  (D419, les identifiants externes), `password` (D463, l'empreinte
+  seule).
 - **Contenus** : `communication` (D167 — défauts : visibilité maximale,
   immuable, sans pièces jointes, sans notification). *(`thumbnail` et
   `image` : reclassés parmi les simples, dérivés de `file` — D385.)*
@@ -3140,6 +3142,21 @@ vues sur la définition du champ. »** **Les mêmes mots à chaque étage** —
 champ les surcharge, le nœud `gui` les surcharge encore** — la chaîne
 D270/D447/D460 devient une cascade au vocabulaire unique, le plus
 proche l'emporte (l'esprit D360).
+
+**Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
+type password ? ») — non ; il entre aux composés, **avec des garanties
+structurelles, jamais des options** : **(1) le stockage est
+l'empreinte, jamais le clair** (la ligne D33 — salée, l'algorithme au
+moteur) — **le champ est write-only** : il s'écrit, ne se relit jamais
+(la lecture montre « défini / non défini ») ; **(2) le composant** — la
+saisie masquée, l'œil de révélation à la saisie seulement, la double
+saisie en création ; **(3) les exclusions structurelles** — jamais en
+colonne de liste, jamais `searchable` ni `mutualizable` (la conversion
+D369 exclue), jamais exporté (CSV, Excel, template), **l'empreinte
+seule aux instantanés** (D169) — le clair n'existe nulle part ;
+**(4) la force déclarable** par la `validation` du champ (longueur,
+classes — le refus propre D307). **« La facette décrite me
+convient. »**
 
 **Les colonnes gardent le nom nu (D462).** **« Pour les colonnes d'une
 liste, l'ambiguïté n'est pas présente : ce sont des noms de champs — et

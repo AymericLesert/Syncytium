@@ -634,3 +634,52 @@ gui:
             items:
               - field[category]
 ```
+
+## `radios`
+
+1. **Nom et famille** — `radios`, une feuille ;
+2. **Rôle** — les boutons radios : le jeu de valeurs étalé sous les
+   yeux, un clic pour choisir — le choix visible sans dérouler ;
+3. **Types servis** — `enum` **aux petits jeux de valeurs** (le seuil
+   resté ouvert au thème E — « jusqu'à 5 valeurs ? je ne suis pas
+   encore fixé ») ; le booléen décliné (D281) ; **jamais un défaut — la
+   surcharge** (`component: radios`, proposée au formulaire dès le
+   thème E, D284) ;
+4. **Contexte consommé** — les `values` du champ (`label`,
+   `description`, `icon` — D387), le `mode`, les droits ;
+5. **Propriétés** — rien de déclaré : la disposition se déduit de la
+   place (**les radios s'empilent sur smartphone** — l'arbitrage du
+   thème E) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : le clic direct, tout est
+   visible ; lecture : le libellé de la valeur, sobre ; template /
+   Excel : le code ou le libellé (D130) ;
+8. **États et interactions** — grisés si `readonly`/droits ; **en
+   recherche, les radios ne servent pas** : le composant de recherche
+   de l'énuméré reste la liste multi-sélection (D388) ;
+9. **Décisions fondatrices** — D129, D281, D283–D284, les arbitrages
+   responsive du thème E ;
+10. **Exemple de configuration** —
+
+```yaml
+# production/entities/task.yml
+fields:
+  priority:
+    type: enum
+    values:
+      low:    { label: { fr: Basse } }
+      normal: { label: { fr: Normale } }
+      high:   { label: { fr: Haute } }
+    default: normal
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Priorité }
+            items:
+              - field[priority]:
+                  component: radios   # la surcharge au nœud — trois valeurs
+                                      #   étalées, le clic direct (D461)
+```

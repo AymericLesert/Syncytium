@@ -558,6 +558,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D477 | **« Viewer est le composant graphique et carousel un mode d'affichage »** (amende D475) : une seule fiche `viewer` — le mode déduit du contenu (le fichier seul → la vignette, la collection → le carrousel), forçable au crochet. | `viewer[carousel]` en proposition. Voir §3.2c. |
 | D478 | **Les trois modes du viewer** : « le crochet est un raccourci pour la définition du mode » (`viewer[carousel]` ≡ `mode: carousel`) ; « le viewer peut afficher **une image, une planche ou un carousel** ». | Le nom anglais de la planche en proposition : `mosaic` (le conteneur `grid` D451 déjà pris). Voir §3.2c. |
 | D479 | **La planche dimensionnée** : « besoin de préciser le nombre d'images en colonne et en ligne dans la zone » — `mosaic[4x3]` (colonnes × lignes), absent = l'auto, l'excédent se feuillette. | L'écriture au crochet en proposition (l'écho d'`image[512x512]`). Voir §3.2c. |
+| D480 | **`mosaic` et le crochet actés** : « la dimension dans les crochets est une bonne idée (pour un raccourci). Il faut prévoir une propriété quand même » — la grille aussi en clair. | `columns:`/`lines:` en proposition (les mots du vocabulaire D441/D464). Voir §3.2c. |
 
 ---
 
@@ -3304,6 +3305,13 @@ zone. »** L'écriture au crochet *(en proposition)* : **`mosaic[4x3]`**
 — colonnes × lignes, l'écho d'`image[512x512]` ; absent = l'auto selon
 la dimension de la zone et des vignettes ; l'excédent de la collection
 se feuillette.
+
+**Mosaic acté, la propriété derrière le raccourci (D480).** **« Mosaic
+me plaît et la dimension dans les crochets est une bonne idée (pour un
+raccourci). Il faut prévoir une propriété quand même. »** Le nom
+`mosaic` et le crochet `mosaic[4x3]` actés — le crochet n'étant qu'un
+**raccourci**, la grille se déclare aussi en clair *(en proposition :
+`columns:` et `lines:`, les mots déjà au vocabulaire — D441/D464)*.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9986,3 +9994,7 @@ avant la synthèse Q16).
   la zone » — mosaic[4x3] (colonnes × lignes) en proposition, absent =
   l'auto, l'excédent se feuillette. La fiche viewer en attente de
   validation.
+- **2026-08-13 (suite 32)** — **Mosaic acté (D480)** : le nom et le
+  crochet-raccourci retenus, « il faut prévoir une propriété quand
+  même » — columns:/lines: en proposition. Le rendu template du
+  carrousel à éclaircir (le point 3 incompris).

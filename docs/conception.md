@@ -552,6 +552,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D471 | **Les trois présentations du picker** : « par une liste, par une liste d'identifiants, ou par une liste d'images » — l'entité représentée par ses **clés fonctionnelles et/ou son champ image** ; **`picker.image` dérive de `picker.record`** (la présentation images fixée, tout hérité). | `by: list` (défaut) \| `identity` en proposition sur picker.record. Voir §3.2c. |
 | D472 | **`picker.image` s'efface** (amende D471) : `picker.record` seul, « avec un composant matérialisant la liste de sélection — le nom de la liste, ou le nom du champ représentant une image de l'enregistrement » — **la valeur d'une propriété dit la présentation**. | La simplification (la ligne D420) ; virgule : porter la matérialisation par `selection:` élargi plutôt que `component:` (collision D461) — en proposition. Voir §3.2c. |
 | D473 | **La famille `picker` recomposée** : `picker.record` (les enregistrements — D472), `picker.file` (« un ou plusieurs fichiers quelconques » — le défaut de `file`), **`picker.image` (« un ou plusieurs fichiers images, dont la liste des formats est exploitable par Syncytium »** — le défaut d'`image`/`thumbnail`, dérivé de picker.file). | L'ancien picker.image (la référence par l'image) fondu dans picker.record ; le « un ou plusieurs » suit le lien/type (D470) ; la fiche réécrite. Voir §3.2c. |
+| D474 | **`selection` = le nombre** (`1`, `1..`, `1..5` — l'écriture des bornes D366, la déduction D470 en défaut) ; **`by` = la présentation** (une liste de la cible, ou son champ-image — « component n'est pas adapté ; by me plaît »). | Solde D472 ; le `selection:` de D215 remplacé par `by:` ; l'harmonisation D445 (`one`/`multiple` → `1`/`1..`) en proposition. Voir §3.2c. |
 
 ---
 
@@ -3255,6 +3256,24 @@ formats est exploitable par Syncytium. »** La famille finale :
 Le « un ou plusieurs » suit le lien ou le type (la déduction D470) ;
 l'ancien picker.image (la référence par l'image) est fondu dans
 `picker.record` (D472).
+
+**`selection` = le nombre, `by` = la présentation (D474 — solde
+D472).** **« La propriété `selection` définit le nombre d'éléments à
+sélectionner : `1`, `1..` ou `1..5` »** — la cardinalité, à l'écriture
+des bornes (D366), **la déduction du lien en défaut** (la référence =
+`1`, la liste et l'association = `1..` — D470) ; **« component n'est
+pas adapté ; ta proposition `by` me plaît »** — **`by:`** porte la
+matérialisation : **le nom d'une liste de la cible** → la présentation
+liste ; **le nom du champ-image de la cible** → la galerie de visages ;
+absent → la liste par défaut filtrée. *(Note : le `selection: <liste>`
+de D215 est remplacé par `by:` ; l'harmonisation du `selection:
+one | multiple` de la liste (D445) vers `1 | 1..` — en proposition.)*
+
+```yaml
+- field[product]:
+    by: catalog_photos           # le champ-image ou la liste — la présentation
+    selection: 1..5              # la cardinalité — au plus cinq
+```
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9872,3 +9891,11 @@ avant la synthèse Q16).
   picker.record (D472). La fiche picker.image réécrite au nouveau
   sens ; en attente : la virgule selection:/component: (D472), les
   validations.
+- **2026-08-13 (suite 24)** — **`selection` = le nombre, `by` = la
+  présentation (D474)** : « la propriété selection définit le nombre
+  d'éléments à sélectionner : 1, 1.. ou 1..5 » (les bornes D366, la
+  déduction D470 en défaut) ; « component n'est pas adapté ; ta
+  proposition by me plaît » — `by:` porte la liste ou le champ-image.
+  Le selection: de D215 remplacé ; l'harmonisation D445
+  (one/multiple → 1/1..) en proposition. La fiche picker.record
+  reprise.

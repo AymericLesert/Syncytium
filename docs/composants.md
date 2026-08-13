@@ -750,10 +750,11 @@ gui:
    depuis la destination** avec `me.` — D395/D396), **le `title` de la
    cible** (le visage, D465), les droits — **les actifs seuls** à la
    sélection (D398) ;
-5. **Propriétés** — **`selection:`** — la liste nommée de la cible qui
-   sert le choix (D215), défaut : sa liste par défaut filtrée ;
-   **`by: list` (défaut) ou `by: identity`** — la présentation par la
-   liste ou par les clés fonctionnelles (D471, en proposition) ;
+5. **Propriétés** — **`by:`** — la présentation (D474) : le nom d'une
+   liste de la cible → la liste ; le nom de son champ-image → la
+   galerie de visages ; absent → la liste par défaut filtrée ;
+   **`selection:`** — le nombre d'éléments (`1`, `1..`, `1..5` — la
+   déduction du lien en défaut, D470/D474) ;
    **`anchor:`** (D469) — l'ancrage de la liste : `center` (le centre
    de l'écran), `right` (à droite du champ), `field` (à la place du
    champ) — *défauts au moteur selon l'écran (smartphone = plein
@@ -789,7 +790,8 @@ gui:
             label: { fr: Encadrement }
             items:
               - field[responsible]:
-                  selection: active_employees   # la liste nommée de la cible (D215)
+                  by: active_employees          # la présentation — la liste (D474)
+                  selection: 1                  # la cardinalité (D474)
                   anchor: right                 # à droite du champ (D469)
                   dimension: 60% 80%            # largeur × hauteur (D454/D469)
 ```

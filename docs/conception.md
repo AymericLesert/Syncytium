@@ -586,6 +586,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D505 | **Le chemin de traitement** (complète D504) : « en wizard, les tabs parcourus décrivent le chemin de traitement — en cliquant sur une phase, nous revenons sur un onglet » — le retour libre sur l'exploré, l'avance gardée. | Voir §3.2c. |
 | D506 | **La dimension unique des volets** : « pour chaque tab, toujours la même dimension — les zones sont centrées si elles représentent un espace plus petit » — aucun calibrage par volet (le contraste avec D502), le contenu plus petit centré. | Voir §3.2c. |
 | D507 | **La géométrie de `pages`** : « pages prend toute la place, pas de dimension ; le header et le footer sont optionnels — s'ils sont définis, ils sont toujours visibles ; la hauteur du footer et du header sont paramétrables ; la page prend toujours le reste ». | Aucun size: (contraste D503) ; height: sur header/footer. Voir §3.2c. |
+| D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
 
 ---
 
@@ -3613,6 +3614,15 @@ sur `pages` (le contraste avec D503) — tout l'espace est à lui ;
 l'entête et le pied, optionnels mais **toujours visibles** une fois
 déclarés, portent leur **`height:`** ; **la page prend toujours le
 reste**.
+
+**La navigation des pages, celle des tabs (D508).** **« La navigation
+entre les pages s'effectue de la même façon que les tabs. Les pages
+ont un numéro (par défaut) et nous pouvons lui affecter un nom et/ou
+un icône comme un tab. L'affichage des pages suit alors la même
+logique que tabs. »** La poignée de la page est **son numéro** — le
+`title:` et l'`icon:` s'y affectent comme sur un onglet (D493/D439) —
+et l'affichage hérite de la logique de `tabs` : la barre des poignées,
+ses modes (D504), le chemin (D505), le swipe.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10490,3 +10500,7 @@ avant la synthèse Q16).
   toute la place, pas de dimension ; header/footer optionnels,
   toujours visibles s'ils sont définis, leur hauteur paramétrable ;
   la page prend toujours le reste ». La fiche corrigée.
+- **2026-08-14 (suite)** — **La navigation des pages = tabs (D508)** :
+  le numéro en poignée par défaut, le nom et/ou l'icône comme un tab,
+  l'affichage à la logique de tabs (les modes D504, le chemin D505).
+  Les fiches alignées.

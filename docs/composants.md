@@ -1637,14 +1637,16 @@ body:
    pages qui tournent, **leur `height:` est paramétrable**, et **« la
    page prend toujours le reste »** ; au template, ils se répètent à
    chaque page (*en proposition*) ;
-7. **Modes et déclinaisons** — au formulaire : une page à l'écran, la
-   navigation de page en page (*en proposition : les flèches, le swipe
-   au tactile — l'esprit D503*) ; **template** : les pages physiques
-   du document, l'entête et le pied répétés ;
-8. **États et interactions** — la page masquée par les droits saute ;
-   le positionnement visible (la page n sur N — *en proposition*) ;
+7. **Modes et déclinaisons** — au formulaire : une page à l'écran —
+   **« la navigation s'effectue de la même façon que les tabs, et
+   l'affichage suit la même logique »** (D508) : la barre des
+   poignées, ses modes (D504), le chemin (D505), le swipe ;
+   **template** : les pages physiques du document, l'entête et le pied
+   répétés ;
+8. **États et interactions** — la page masquée par les droits saute,
+   la pagination se resserre ; les poignées disent le positionnement ;
 9. **Décisions fondatrices** — D449, D455–D456, D461, D487, D489 (le
-   patron), D507 ;
+   patron), D507–D508 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
@@ -1657,6 +1659,7 @@ body:
         - page:
             items: [ field[customer], field[lines] ]
         - page:
+            title: { fr: Notes }         # la poignée nommée — sinon le numéro (D508)
             items: [ field[notes] ]
         - footer:
             height: 40px
@@ -1672,14 +1675,16 @@ body:
 3. **Types servis** — aucun ;
 4. **Contexte consommé** — le contexte transmis tel quel (D455) ; les
    droits (la page masquée saute) ;
-5. **Propriétés** — `title:` (*en proposition — la page nommée, D493*) ;
-   le socle (D461) ;
+5. **Propriétés** — **la poignée : le numéro par défaut** — « nous
+   pouvons lui affecter un nom et/ou un icône comme un tab » (D508) :
+   `title:` (D493) et `icon:` (D439) ; le socle (D461) ;
 6. **Items** — des `sections` ou des feuilles (l'alternance D489 —
    *le miroir en proposition*) ;
 7. **Modes et déclinaisons** — au formulaire : la page à l'écran ; au
    template : la page physique — le saut force le passage ;
 8. **États et interactions** — masquée par droits ou confidentialité,
    la pagination se resserre ;
-9. **Décisions fondatrices** — D449, D455–D456, D461, D489, D493 ;
+9. **Décisions fondatrices** — D439, D449, D455–D456, D461, D489,
+   D493, D508 ;
 10. **Exemple de configuration** — *(voir la fiche `pages` : le couple
     vit ensemble)*.

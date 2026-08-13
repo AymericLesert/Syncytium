@@ -9641,3 +9641,8 @@ avant la synthèse Q16).
   + l'exemple). **L'exemple de `toggle` livré** (le champ obligatoire à
   `component: toggle`, les values, la liste — filtre vrai/faux,
   bascule en ligne — le nœud à `size:`) ; en attente de validation.
+- **2026-08-13 (suite 10)** — **`component: toggle` au nœud aussi** :
+  la précision de l'auteur — « component: toggle peut également être
+  présent sous field » — la cascade D461 explicitée au troisième étage
+  dans l'exemple (le formulaire seul bascule en toggle, ailleurs le
+  champ garde son composant).

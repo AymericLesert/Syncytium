@@ -162,5 +162,7 @@ gui:
             labels: { fr: Fonctionnement }
             items:
               - field[automated]:
-                  size: 32px     # la surcharge au nœud — le vocabulaire unique (D461)
+                  component: toggle   # la surcharge peut aussi vivre AU NŒUD (D461) —
+                  size: 32px          #   ce formulaire seul bascule en toggle ; ailleurs,
+                                      #   le champ garde son composant
 ```

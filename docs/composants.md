@@ -892,13 +892,17 @@ gui:
    composant graphique et carousel un mode d'affichage »** (D477) ;
 2. **Rôle** — la visionneuse : **le fichier regardé** — la vignette en
    place, le plein cadre au clic ; **tout type visualisable** : l'image
-   n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel… ; et
-   **les collections**, par le mode carousel ;
+   n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel,
+   PowerPoint… ; **les collections**, par le mode carousel ; et **le
+   document paginé feuilleté** — « un carrousel d'un document PDF
+   correspond à un défilement des pages » (D481) ;
 3. **Types servis** — `image` et `thumbnail` **en lecture** (le défaut
    de leur mode lecture — D286/D293) ; `file` dont le format est
    visualisable (la vignette de fichier sinon) ; les collections :
    `list of image`, une association ou une liste d'entités **au
-   visage** (`image:` — D386), une liste de fichiers ;
+   visage** (`image:` — D386), une liste de fichiers ; **le document
+   paginé seul** (PDF, PowerPoint…) en mode carousel — la page fait
+   l'image (D481) ;
 4. **Contexte consommé** — le champ ou le lien (D470), les dimensions
    du crochet et la vignette auto (D389), le `placeholder` (D390), les
    visages des cibles, les droits ;
@@ -935,7 +939,7 @@ gui:
    fermeture au geste sur tactile ; les commandes avant/après, la pause
    au survol ;
 9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
-   D475–D480 ;
+   D475–D481 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -978,6 +982,19 @@ gui:
                   mode: mosaic
                   columns: 4       # en proposition
                   lines: 3         # en proposition
+
+# workshop/entities/procedure.yml — le document paginé feuilleté (D481)
+fields:
+  handbook:
+    type: file
+    extensions: [pdf, pptx]
+gui:
+  forms:
+    default:
+      body:
+        - field[handbook]:
+            component: viewer[carousel]  # le défilement des pages
+            interval: 10s                # la présentation, le mode opératoire
 ```
 
 

@@ -570,6 +570,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D489 | **Le couple `sections`/`section`** : sections organise (colonne ou ligne) et ne contient que des sections ; une section « organise différents nœuds — soit sections, soit une des feuilles » — l'alternance stricte. | `layout: column \| row` + crochet `sections[row]` en proposition ; la section seule = raccourci d'un sections à l'item unique (proposition). Voir §3.2c. |
 | D490 | **Les arbitrages du couple** : `layout: column \| row \| grid[2]` (le crochet = les colonnes de la grille) ; « la section seule est un conteneur (header, body ou footer) » — la section nue y vit directement, ailleurs l'organisateur ; « si l'affichage doit changer, screen permet de définir le format attendu » — rien d'automatique. | Voir §3.2c. |
 | D491 | **La grille au crochet** (amende D490) : « oublie grid… column[3] — maximum de 3 colonnes, après 3 on crée une ligne… row[2] — 2 lignes, puis ajoute une colonne » — `layout: column[n] \| row[n]`, le conteneur `grid` retiré du catalogue. | Le mot nomme l'unité, le crochet la compte, le flux replie. Voir §3.2c. |
+| D492 | **La liste en widgets** : « elle peut se présenter sous forme d'une liste de widgets — la propriété `widget: <nom du widget>` de l'entité de l'élément » — le tableau (`columns:`) ou les widgets, la mécanique de la liste demeurant. | `widget:`/`columns:` exclusifs (lecture). Voir §3.2c. |
 
 ---
 
@@ -3426,6 +3427,16 @@ conteneur `grid` quitte le catalogue et la valeur `grid[n]` disparaît :
 jusqu'à trois colonnes par ligne, puis la ligne suivante ; `row` = la
 ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis la
 colonne suivante. La grille est couverte par le crochet.
+
+**La liste en widgets (D492).** **« Nous avons une représentation
+tabulaire de la liste. Elle peut se présenter sous forme d'une liste
+de widgets — la propriété `widget: <nom du widget>` de l'entité de
+l'élément de la liste. »** Deux représentations pour la liste
+complète : **le tableau** (`columns:` — D441) ou **la liste de
+widgets** — chaque enregistrement rendu par le widget que son entité
+déclare (`gui: widgets:` — D455). *(Lecture : `widget:` et `columns:`
+s'excluent — l'un ou l'autre visage ; toute la mécanique de la liste —
+filtre, tri, recherche, sélection, pagination, opérations — demeure.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10196,3 +10207,8 @@ avant la synthèse Q16).
   column[n] | row[n] — column[3] : trois colonnes par ligne puis
   repli ; row[2] : deux lignes par colonne puis repli. Les fiches et
   l'inventaire corrigés.
+- **2026-08-13 (suite 50)** — **La liste en widgets (D492)** : « elle
+  peut se présenter sous forme d'une liste de widgets — widget: <nom
+  du widget> de l'entité de l'élément » — le tableau ou les widgets,
+  la mécanique demeure. La fiche list complétée ; sections/section
+  toujours en attente de validation.

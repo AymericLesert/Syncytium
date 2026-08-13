@@ -1154,7 +1154,11 @@ gui:
    facettes — D362), les `values:` des énumérés, les droits ;
 5. **Propriétés** — le socle du vocabulaire (D461) ; **le vocabulaire
    de la liste complète vaut où il garde son sens** (D486 : editable,
-   selection, sizable… — la colonne unique dispensant columns) ;
+   selection, sizable… — la colonne unique dispensant columns) ; **la
+   liste complète a deux visages** (D492) : le tableau (`columns:` —
+   D441) ou **la liste de widgets** — `widget: <nom du widget>` de
+   l'entité de l'élément, la mécanique (filtre, tri, recherche,
+   sélection, pagination, opérations) demeurant ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **saisie** : la multi-sélection (cases
    ou tags) pour les énumérés, l'éditeur — ajouter / retirer /
@@ -1170,7 +1174,7 @@ gui:
    réordonnancement seulement quand l'ordre est l'insertion (D296) ;
    grisé si `readonly`/droits ;
 9. **Décisions fondatrices** — D166, D223, D237, D296, D362, D441–D447,
-   D458, D486 ;
+   D458, D486, D492 ;
 10. **Exemple de configuration** —
 
 ```yaml

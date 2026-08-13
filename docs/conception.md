@@ -554,6 +554,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D473 | **La famille `picker` recomposée** : `picker.record` (les enregistrements — D472), `picker.file` (« un ou plusieurs fichiers quelconques » — le défaut de `file`), **`picker.image` (« un ou plusieurs fichiers images, dont la liste des formats est exploitable par Syncytium »** — le défaut d'`image`/`thumbnail`, dérivé de picker.file). | L'ancien picker.image (la référence par l'image) fondu dans picker.record ; le « un ou plusieurs » suit le lien/type (D470) ; la fiche réécrite. Voir §3.2c. |
 | D474 | **`selection` = le nombre** (`1`, `1..`, `1..5` — l'écriture des bornes D366, la déduction D470 en défaut) ; **`by` = la présentation** (une liste de la cible, ou son champ-image — « component n'est pas adapté ; by me plaît »). | Solde D472 ; le `selection:` de D215 remplacé par `by:` ; l'harmonisation D445 (`one`/`multiple` → `1`/`1..`) en proposition. Voir §3.2c. |
 | D475 | **La famille `viewer`** : « image-viewer et carousel sont un même objet : viewer » — **généralisé aux fichiers visualisables** (PDF, Word, Excel… — « l'image, un type parmi tant d'autres ») ; **`carousel` = le viewer des collections** (liste/association d'images ou vignettes, le défilement à intervalle ou avant/après). | Les fiches réécrites ; `interval: 5s` en proposition (la seconde aux durées D434). Voir §3.2c. |
+| D476 | **Les durées complètes** (amende D434) : **`s`, `min`, `h`, `d`, `w`, `m`, `y`** — la seconde et l'année s'ajoutent ; le vocabulaire vaut partout (`every:`, `interval:`, `await[…]`). | `temporal[1y]` possible en note (le `[365]` nu = des jours, D411). Voir §3.2c. |
 
 ---
 
@@ -3268,6 +3269,13 @@ images et/ou des vignettes de fichiers — une succession d'images qui
 changent à intervalle régulier, sur la pression d'une touche
 avant/après… ». Les fiches réécrites ; `interval:` en proposition
 (l'unité seconde s'ajoutant aux durées D434).
+
+**Le vocabulaire des durées complet (D476 — amende D434).** **« Les
+durées : `s`, `min`, `h`, `d`, `w`, `m` et `y` »** — la seconde et
+l'année rejoignent le jeu de D434. Le vocabulaire vaut **partout où une
+durée s'écrit** : `every:` (D434), `interval:` (D475), `await[+3h]`
+(D436) — *(et en note : `temporal[1y]` devient possible, l'unité
+explicite aux rétentions D411 — le `[365]` nu restant des jours).*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9929,3 +9937,8 @@ avant la synthèse Q16).
   association d'images/vignettes, le défilement à intervalle régulier
   ou avant/après). Les fiches viewer et carousel réécrites ;
   `interval: 5s` en proposition. En attente de leurs validations.
+- **2026-08-13 (suite 28)** — **Les durées complètes (D476)** : « s,
+  min, h, d, w, m et y » — la seconde et l'année rejoignent D434 ; le
+  vocabulaire vaut partout où une durée s'écrit (every, interval,
+  await ; temporal[1y] possible en note). Les fiches viewer/carousel
+  toujours en attente de validation.

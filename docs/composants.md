@@ -1715,7 +1715,7 @@ page:
 8. **États et interactions** — masqués par les droits ; rien d'autre
    au socle ;
 9. **Décisions fondatrices** — D449–D450, D455, D461, D487, D490,
-   D507, D509 ;
+   D507, D509–D510 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1730,4 +1730,12 @@ forms:
           items: [ field[customer] ]
     footer:
       items: [ field[total] ]
+
+# le multi-pages : la liste d'éléments (D510)
+forms:
+  wizard_entry:
+    - header: { items: [ field[number] ] }
+    - page:   { items: [ field[customer] ] }
+    - page:   { items: [ field[lines] ] }
+    - footer: { items: [ field[total] ] }
 ```

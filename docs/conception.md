@@ -588,6 +588,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D507 | **La géométrie de `pages`** : « pages prend toute la place, pas de dimension ; le header et le footer sont optionnels — s'ils sont définis, ils sont toujours visibles ; la hauteur du footer et du header sont paramétrables ; la page prend toujours le reste ». | Aucun size: (contraste D503) ; height: sur header/footer. Voir §3.2c. |
 | D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
 | D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
+| D510 | **Le multi-pages en liste** : « le multi-pages se fait à l'aide d'une liste d'éléments — default: [ { header: … }, { page: … }, { page: … }, { footer: … } ] » — les clés pour l'usuel, la liste dès que les pages se répètent. | Solde la virgule D509. Voir §3.2c. |
 
 ---
 
@@ -3637,6 +3638,12 @@ la clé s'écrit `page:`. Le quatuor D449 se relit : le titre, l'entête,
 `sections`/`section`, `tabs`/`tab`, `pages`/`page`, `header`/`footer`.
 *(La virgule : plusieurs pages au formulaire — la clé `page:` ne se
 répète pas en YAML ; l'écriture du multi-pages à préciser.)*
+
+**Le multi-pages en liste (D510 — solde la virgule).** **« Le
+multi-pages se fait à l'aide d'une liste d'éléments :
+`default: [ { header: … }, { page: … }, { page: … }, { footer: … } ]`. »**
+Deux plumes pour le même `pages` implicite : **les clés** pour l'usuel
+(une page), **la liste d'éléments** dès que les pages se répètent.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10531,3 +10538,7 @@ avant la synthèse Q16).
   complémentaires ». Body quitte le vocabulaire ; la fiche réécrite
   en header/footer ; les exemples balayés (body: → page:). La
   virgule : l'écriture du multi-pages.
+- **2026-08-14 (suite 4)** — **Le multi-pages en liste (D510)** :
+  « default: [ { header: … }, { page: … }, { page: … },
+  { footer: … } ] » — les clés pour l'usuel, la liste d'éléments dès
+  que les pages se répètent.

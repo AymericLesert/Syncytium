@@ -560,6 +560,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D479 | **La planche dimensionnée** : « besoin de préciser le nombre d'images en colonne et en ligne dans la zone » — `mosaic[4x3]` (colonnes × lignes), absent = l'auto, l'excédent se feuillette. | L'écriture au crochet en proposition (l'écho d'`image[512x512]`). Voir §3.2c. |
 | D480 | **`mosaic` et le crochet actés** : « la dimension dans les crochets est une bonne idée (pour un raccourci). Il faut prévoir une propriété quand même » — la grille aussi en clair. | `columns:`/`lines:` en proposition (les mots du vocabulaire D441/D464). Voir §3.2c. |
 | D481 | **Le document paginé feuilleté** : « un carrousel d'un document PDF correspond à un défilement des pages. Un PowerPoint suit le même principe » — le carrousel défile une succession : les éléments d'une collection **ou les pages d'un document** ; l'usage : « une présentation ou un mode opératoire ». | La page fait l'image ; `interval:` fait tourner la présentation. Voir §3.2c. |
+| D482 | **`sheet:`** — la grille de la planche en une seule propriété : `sheet: 4x3` (colonnes × lignes) ; le crochet `mosaic[4x3]` en est le raccourci (remplace la proposition columns/lines). | Voir §3.2c. |
 
 ---
 
@@ -3322,6 +3323,11 @@ défile donc **une succession** — les éléments d'une collection (D475)
 **ou les pages d'un document paginé seul** : la page fait l'image ;
 avec `interval:`, la présentation tourne d'elle-même (l'affichage
 d'atelier, le mode opératoire).
+
+**`sheet:` — la grille de la planche (D482, remplace la proposition
+D480).** **« Columns/lines à remplacer par `sheet: columns x lines`. »**
+Une seule propriété : `sheet: 4x3` — colonnes × lignes ; le crochet
+`mosaic[4x3]` en est le raccourci.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10015,3 +10021,7 @@ avant la synthèse Q16).
   document ; l'usage : la présentation, le mode opératoire. La fiche
   viewer en attente de validation (columns:/lines: et le rendu
   template toujours en proposition).
+- **2026-08-13 (suite 34)** — **`sheet:` (D482)** : « columns/lines à
+  remplacer par sheet: columns x lines » — la grille de la planche en
+  une seule propriété, le crochet mosaic[4x3] en raccourci. Reste le
+  rendu template du carrousel (proposition : la planche).

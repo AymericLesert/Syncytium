@@ -912,10 +912,8 @@ gui:
    `mosaic` (la planche de vignettes — le nom acté D480) —
    « besoin de préciser le nombre d'images en colonne et en ligne dans
    la zone » (D479) : le crochet `mosaic[4x3]`, colonnes × lignes, en
-   **raccourci** d'une propriété en clair — « il faut prévoir une
-   propriété quand même » (D480 ; *en proposition : `columns:` et
-   `lines:`, les mots déjà au vocabulaire — D441/D464*) ; absent =
-   l'auto selon la zone ; `carousel` (la succession qui défile) ; déduit du contenu — le
+   **raccourci** de la propriété en clair **`sheet:`** —
+   `sheet: 4x3` (D480/D482) ; absent = l'auto selon la zone ; `carousel` (la succession qui défile) ; déduit du contenu — le
    fichier seul → `image`, la collection → `carousel` (D477) ; **le
    crochet est un raccourci de la définition du mode** :
    `viewer[carousel]` ≡ `mode: carousel` (D478) ; `interval:` — le
@@ -939,7 +937,7 @@ gui:
    fermeture au geste sur tactile ; les commandes avant/après, la pause
    au survol ;
 9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
-   D475–D481 ;
+   D475–D482 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -977,11 +975,10 @@ gui:
                   interval: 5s     # le défilement automatique (D476)
               - field[gallery]:
                   component: viewer[mosaic[4x3]]   # la planche : 4 colonnes × 3 lignes (D479)
-              - field[gallery]:                    # la même, en clair (D480)
+              - field[gallery]:                    # la même, en clair (D482)
                   component: viewer
                   mode: mosaic
-                  columns: 4       # en proposition
-                  lines: 3         # en proposition
+                  sheet: 4x3       # la planche : colonnes x lignes
 
 # workshop/entities/procedure.yml — le document paginé feuilleté (D481)
 fields:

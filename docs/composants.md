@@ -1205,19 +1205,22 @@ gui:
    (le graphe D455) ;
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité ;
-5. **Propriétés** — **la disposition** (*en proposition :
-   `layout: column | row` — défaut `column`, l'empilement ; le crochet
-   en raccourci : `sections[row]` — D478*) ; le socle du vocabulaire
-   (D461) ;
+5. **Propriétés** — **la disposition** : `layout: column | row |
+   grid[2]` (D490) — l'empilement (défaut), la ligne, ou la grille
+   dont le crochet porte le nombre de colonnes ; le crochet en
+   raccourci du composant : `sections[row]` (D478) ; le socle du
+   vocabulaire (D461) ;
 6. **Items** — **des sections, rien d'autre** : « chaque item est
    alors une section » (D489) ;
 7. **Modes et déclinaisons** — partout où un conteneur vit :
-   `header`/`body`/`footer`, `pages`, le template (D487) ; le rendu
-   s'adapte au `screen:` déclaré (D450 — *en proposition : la ligne se
-   ré-empile sur l'écran étroit*) ;
+   `header`/`body`/`footer`, `pages`, le template (D487) ; **le format
+   par écran se déclare** : « si l'affichage doit changer, screen
+   permet de définir le format attendu » (D450/D490) — rien
+   d'automatique ;
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
-9. **Décisions fondatrices** — D449–D451, D455, D461, D487, D489 ;
+9. **Décisions fondatrices** — D449–D451, D455, D461, D487,
+   D489–D490 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1226,7 +1229,7 @@ gui:
     default:
       body:
         - sections:                # l'organisateur (D489)
-            layout: row            # côte à côte (proposition — défaut : column)
+            layout: row            # column (défaut) | row | grid[2] (D490)
             items:
               - section:
                   label: { fr: Adresse, en: Address }
@@ -1264,24 +1267,28 @@ gui:
 7. **Modes et déclinaisons** — au formulaire : le cadre, l'intitulé en
    tête s'il est nommé ; dans `header`/`body`/`footer` comme dans
    `pages` (D450/D487) ; le rendu s'adapte au `screen:` déclaré
-   (D450) ; template : le regroupement du gabarit ; *(en proposition :
-   la section seule sous un conteneur = le raccourci d'un `sections` à
-   l'item unique)* ;
+   (D450) ; template : le regroupement du gabarit ; **la section seule
+   vit directement sous un conteneur — header, body ou footer**
+   (D490 — l'écho de D450/D451) ; ailleurs, la composition passe par
+   l'organisateur `sections` ;
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489 ;
+   D487, D489–D490 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 
 ```yaml
-- section:
-    label: { fr: Adresse }
-    items:
-      - field[street]              # les feuilles (D489)
-      - sections:                  # ou un organisateur emboîté
-          items:
-            - section: { items: [ field[zip], field[city] ] }
+body:                              # la section seule, directement (D490)
+  - section:
+      label: { fr: Adresse }
+      items:
+        - field[street]            # les feuilles (D489)
+        - sections:                # l'emboîtement par l'organisateur
+            layout: grid[2]
+            items:
+              - section: { items: [ field[zip], field[city] ] }
+              - section: { items: [ field[country] ] }
 ```
 
 ## `paragraph`

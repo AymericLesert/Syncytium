@@ -568,6 +568,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D487 | **Le bloc n'existe pas** : « block n'existe pas en tant que tel — il se décline selon les différents items » ; header/body/footer = des conteneurs du catalogue reconnus par leur nom et leur rôle, au formulaire (D449) comme dans `pages`. | La ligne D455 : tout est composant. Voir §3.2c. |
 | D488 | **Le contenu fixe** : « il manque une feuille essentielle : un texte fixe, un paragraphe et/ou une image fixe » — les informations légales, le logo ; deux feuilles sans champ derrière, nourries par la configuration. | Noms en proposition : `paragraph`, `picture` (`text`/`image` pris — D458). Voir §3.2c. |
 | D489 | **Le couple `sections`/`section`** : sections organise (colonne ou ligne) et ne contient que des sections ; une section « organise différents nœuds — soit sections, soit une des feuilles » — l'alternance stricte. | `layout: column \| row` + crochet `sections[row]` en proposition ; la section seule = raccourci d'un sections à l'item unique (proposition). Voir §3.2c. |
+| D490 | **Les arbitrages du couple** : `layout: column \| row \| grid[2]` (le crochet = les colonnes de la grille) ; « la section seule est un conteneur (header, body ou footer) » — la section nue y vit directement, ailleurs l'organisateur ; « si l'affichage doit changer, screen permet de définir le format attendu » — rien d'automatique. | Voir §3.2c. |
 
 ---
 
@@ -3402,6 +3403,17 @@ la disposition `layout: column | row` — défaut `column`, l'empilement —
 avec le crochet en raccourci `sections[row]` (D478) ; et la section
 seule sous un conteneur = le raccourci d'un `sections` à l'item
 unique.)*
+
+**Les trois arbitrages du couple (D490).** **(1) « `layout: column |
+row | grid[2]` »** — la grille rejoint la disposition, le crochet
+portant le nombre de colonnes. **(2) « La section seule est un
+conteneur (header, body ou footer) »** — la section nue vit
+directement sous l'entête, le corps ou le pied (l'écho de D450/D451 :
+« l'entête, le corps et le pied acceptent sections ») ; ailleurs, la
+composition passe par l'organisateur `sections`. **(3) « Un écran va
+dépendre de screen. Si l'affichage doit changer, screen permet de
+définir le format attendu »** — aucun ré-empilement automatique : le
+format par écran se déclare (D450).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10161,3 +10173,9 @@ avant la synthèse Q16).
   l'alternance stricte. Les fiches sections et section réécrites, en
   attente de validation (layout:, le crochet, la section seule en
   raccourci — propositions).
+- **2026-08-13 (suite 48)** — **Les trois arbitrages (D490)** :
+  layout: column | row | grid[2] ; la section seule vit directement
+  sous header/body/footer (ailleurs, l'organisateur) ; l'affichage par
+  écran relève de screen: (D450), rien d'automatique. Les fiches
+  corrigées — la question ouverte : le conteneur grid du catalogue,
+  absorbé par layout: grid[n] ?

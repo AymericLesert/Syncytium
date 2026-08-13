@@ -575,6 +575,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D494 | **La jauge aux trois valeurs** (précise D241) : « min, value et max — min et max peuvent être fixes comme dépendre de valeurs. La jauge porte ces 3 valeurs en une » ; les bornes du type (D276) en défaut. | Chacune fixe ou formule/champ (la ligne D241). Voir §3.2c. |
 | D495 | **Les seuils depuis une entité** : les couleurs de jauge (D467) peuvent « dépendre d'une entité en expliquant les liaisons entre les colonnes et les valeurs (seuil et couleur) » — la table de référence, l'écho de `units:` (D363). | Écriture en proposition (`from`/`threshold`/`color`) ; vaut pour gauge, fuel, le fond gradué. Voir §3.2c. |
 | D496 | **Le type `color` et `picker.color`** : « le stockage est un entier, l'affichage en hexadécimal et une base traduisant les couleurs en RGB » — la pastille en lecture, le sélecteur en saisie (D458) ; « j'ajoute aussi picker.color » — la famille pointée s'agrandit (D470/D473). | La base nomme les couleurs de `colors:` (D467) ; `values:` restreignant la palette en proposition. Voir §3.2c. |
+| D497 | **Le type `range`** : « un stockage de 2 valeurs dont l'une est égale ou plus petite que l'autre » — la plage de dates ou de valeurs, la contrainte intégrée ; ni la recherche (D371) ni `period` (D391) ne couvraient le générique. | `range of <type>` en proposition (l'écho de `list of` D362) ; le double curseur pour les bornés. Voir §3.2c. |
 
 ---
 
@@ -3487,6 +3488,20 @@ qui s'ouvre — `selection:` (D474), `anchor:` et `dimension:` (D469).
 *(En proposition : si le champ porte des `values:`, la palette s'y
 restreint — l'écho de dropdown/icons.)* Le type sert la colonne
 couleur des seuils d'entité (D495).
+
+**Le type `range` (D497).** **« Range étant un stockage de 2 valeurs
+dont l'une est égale ou plus petite que l'autre »** — une plage de
+dates ou de valeurs. La vérification : `range` n'existait que comme
+régime de recherche (D371) ; `period` (D391) portait la paire
+temporelle, début ≤ fin. Le type générique naît : **deux valeurs d'un
+même type ordonné, la première ≤ la seconde, portées en une** —
+la contrainte intégrée (l'esprit `period`). *(L'écriture en
+proposition : **`range of <type>`** — l'écho de `list of` D362, la
+phrase se lit : `range of decimal`, `range of date` ; les facettes du
+champ s'appliquent aux deux valeurs ; la saisie = les deux champs du
+type liés, le double curseur pour les bornés — l'écho D276 ; la
+recherche `range` (D371) en usage naturel ; `period` demeure, le frère
+temporel au crochet.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10283,3 +10298,12 @@ avant la synthèse Q16).
   hex à l'écran, la base des couleurs nommées — celles de colors:
   D467), picker.color à la famille pointée. Les fiches color et
   picker.color écrites, en attente de validation.
+- **2026-08-13 (suite 55)** — **Le type range (D497)** : « un stockage
+  de 2 valeurs dont l'une est égale ou plus petite que l'autre » — le
+  générique manquait (la recherche D371 et period D391 vérifiés) ;
+  range of <type> en proposition, la contrainte intégrée, le double
+  curseur pour les bornés.
+- **2026-08-13 (suite 56)** — **Les fiches `color` et `picker.color`
+  validées** (« je valide color et picker.color »). Restent en
+  attente : sections/section, les liaisons D495, l'écriture range of
+  <type> (D497).

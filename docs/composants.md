@@ -35,14 +35,14 @@ matérialisation ; l'analogie des web components est consignée (D455).
 - **Les surfaces** : `form` · `summary` · `wizard` · `widget` · `list`
   · `dashboard` · `template` ;
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
-  saut de page) · `section` (le regroupement potentiellement nommé) ·
+  saut de page) · `sections` (l'organisateur — D489) · `section` (le regroupement potentiellement nommé) ·
   `tabs`/`tab` ;
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
-  `picker.image` · `picker.file` · `viewer` · `map` · `paragraph` · `picture` ·
+  `picker.image` · `picker.file` · `picker.color` · `viewer` · `map` · `paragraph` · `picture` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
-  masquée, D463) — **le composant par défaut d'un type porte le nom du
+  masquée, D463) · `color` (la pastille — D496) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
 - **Les graphiques** : `chart` (courbe, barres, secteurs, combiné) ·
   `kpi` · `pivot` — famille ouverte ;
@@ -1376,4 +1376,74 @@ gui:
         - picture:
             file: banner.png       # la forme en clair (proposition)
             size: 120px            # à l'affichage (D484)
+```
+
+## `color`
+
+1. **Nom et famille** — `color`, une feuille — le composant naturel du
+   type `color` (D458/D496) ;
+2. **Rôle** — la couleur regardée et saisie : **la pastille** — le code
+   hexadécimal en légende —, le sélecteur à l'appel ;
+3. **Types servis** — `color` (D496) : **le stockage est un entier**
+   (le RGB(A) assemblé, au moteur), **l'affichage en hexadécimal**
+   (`#RRGGBB`, l'alpha en option) et **la base des couleurs nommées**
+   traduisant `red`, `orange`, `green`… en RGB — celles de `colors:`
+   (D467) ; la validation intégrée (la règle générale des composés) ;
+4. **Contexte consommé** — le champ, son `mode`, les droits ;
+5. **Propriétés** — le socle du vocabulaire (D461) ; la saisie s'ouvre
+   en `picker.color` (D496) — l'ancre et la dimension du déploiement
+   (D469/D484) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **lecture** : la pastille + le code
+   hex ; **cellule** : la pastille ; **saisie** : le sélecteur
+   (`picker.color`) ; **template** : la pastille imprimée ;
+   **CSV/Excel** : l'hexadécimal (l'affichage canonique),
+   ré-importable ; **le tri sur l'entier stocké**, le nul en premier
+   (la règle des composés D391) ;
+8. **États et interactions** — grisée si `readonly`/droits ; le refus
+   des valeurs hors format ou hors base (la validation du type) ;
+9. **Décisions fondatrices** — D458, D461, D467, D469, D484, D496 ;
+10. **Exemple de configuration** —
+
+```yaml
+# quality/entities/threshold.yml — l'entité des seuils (D495)
+fields:
+  level: integer[0..100]
+  tint:  color                   # entier au moteur, hex à l'écran (D496)
+
+gui:
+  lists:
+    main:
+      columns: [level, tint]     # la pastille en cellule
+```
+
+## `picker.color`
+
+1. **Nom et famille** — `picker.color`, une feuille de la famille
+   pointée (D470/D473/D496) ;
+2. **Rôle** — **« sélectionner une couleur »** : la palette qui
+   s'ouvre, le choix qui se referme ;
+3. **Types servis** — `color` (la saisie — le défaut du type
+   l'appelle, D458) ; `list of color` (D362) en sélection multiple ;
+4. **Contexte consommé** — le champ (ses `values:` éventuelles), la
+   base des couleurs nommées (D496), les droits ;
+5. **Propriétés** — `selection:` — le nombre (D474 : `1` défaut,
+   `1..`, `1..5`) ; `anchor:` — centre de l'écran, à droite du champ,
+   à la place du champ (D469) ; `dimension:` — le déploiement
+   (D469/D484) ; le socle (D461) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — la palette (la base des couleurs
+   nommées) et le code hexadécimal saisissable ; *(en proposition : si
+   le champ porte des `values:`, la palette s'y restreint — l'écho de
+   dropdown/icons)* ; smartphone : le plein écran (l'esprit D293) ;
+8. **États et interactions** — le refus des valeurs hors format (la
+   validation du type) ; grisé si `readonly`/droits ;
+9. **Décisions fondatrices** — D469–D470, D473–D474, D496 ;
+10. **Exemple de configuration** —
+
+```yaml
+- field[tint]:
+    component: picker.color
+    anchor: right                # à droite du champ (D469)
+    dimension: 30%               # le déploiement (D484)
 ```

@@ -574,6 +574,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D493 | **`title:` au titre de la section** : « le nom d'un regroupement est un libellé en titre de la section — au lieu de label, j'utilise title » — title = ce qui titre (l'entité D465, le formulaire D449, la section) ; label demeure ailleurs. | Les exemples balayés (label → title sous section). Voir §3.2c. |
 | D494 | **La jauge aux trois valeurs** (précise D241) : « min, value et max — min et max peuvent être fixes comme dépendre de valeurs. La jauge porte ces 3 valeurs en une » ; les bornes du type (D276) en défaut. | Chacune fixe ou formule/champ (la ligne D241). Voir §3.2c. |
 | D495 | **Les seuils depuis une entité** : les couleurs de jauge (D467) peuvent « dépendre d'une entité en expliquant les liaisons entre les colonnes et les valeurs (seuil et couleur) » — la table de référence, l'écho de `units:` (D363). | Écriture en proposition (`from`/`threshold`/`color`) ; vaut pour gauge, fuel, le fond gradué. Voir §3.2c. |
+| D496 | **Le type `color` et `picker.color`** : « le stockage est un entier, l'affichage en hexadécimal et une base traduisant les couleurs en RGB » — la pastille en lecture, le sélecteur en saisie (D458) ; « j'ajoute aussi picker.color » — la famille pointée s'agrandit (D470/D473). | La base nomme les couleurs de `colors:` (D467) ; `values:` restreignant la palette en proposition. Voir §3.2c. |
 
 ---
 
@@ -3470,6 +3471,22 @@ colonne de la couleur. *(L'écriture en proposition :
 `colors: { from: quality.threshold, threshold: level, color: tint }`.)*
 Vaut partout où `colors:` vaut — `gauge`, `fuel`, le fond gradué
 (D466–D467).
+
+**Le type `color` et `picker.color` (D496).** **« J'ajoute aussi
+`picker.color` pour sélectionner une couleur »** — l'ajout vaut
+adoption du type : **`color`**. Et la précision fonde sa mécanique :
+**« Le stockage est un entier. L'affichage en hexadécimal et une base
+traduisant les couleurs en RGB. »** — le moteur stocke **un entier**
+(le RGB(A) assemblé), l'affichage s'écrit en **hexadécimal**
+(`#RRGGBB`, l'alpha en option), et **la base des couleurs nommées**
+traduit `red`, `orange`, `green`… en RGB — celles-là mêmes que
+`colors:` emploie (D467). La pastille en lecture, le sélecteur en
+saisie — le composant par défaut au nom du type (D458). Et
+**`picker.color` rejoint la famille pointée** (D470/D473) : la palette
+qui s'ouvre — `selection:` (D474), `anchor:` et `dimension:` (D469).
+*(En proposition : si le champ porte des `values:`, la palette s'y
+restreint — l'écho de dropdown/icons.)* Le type sert la colonne
+couleur des seuils d'entité (D495).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10259,3 +10276,10 @@ avant la synthèse Q16).
   chacun fixe ou dépendant) ; les seuils depuis une entité (D495, la
   liaison seuil/couleur — écriture en proposition) ; la question du
   type color/rgb posée — absent du catalogue, la proposition faite.
+- **2026-08-13 (suite 54)** — **color et picker.color (D496)** :
+  « j'ajoute aussi picker.color pour sélectionner une couleur » puis
+  « le stockage est un entier, l'affichage en hexadécimal et une base
+  traduisant les couleurs en RGB » — le type acté (entier au moteur,
+  hex à l'écran, la base des couleurs nommées — celles de colors:
+  D467), picker.color à la famille pointée. Les fiches color et
+  picker.color écrites, en attente de validation.

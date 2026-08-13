@@ -548,6 +548,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D467 | **Les couleurs de jauge** : « les couleurs à afficher doivent être spécifiées » — **le dégradé min → max** (`colors: { min: red, max: green }` — **le défaut, du rouge au vert**) **ou la couleur par seuil** (`{ 0: red, 50: orange, 80: green }`). | Vaut pour `gauge`, `fuel` et le fond gradué (D466), aux trois étages (D461) ; fiches complétées. Voir §3.2c. |
 | D468 | **Le seuil des radios = la configuration générale** — un paramètre du `settings` (« il est possible de définir 3, 5 ou 10 selon les besoins ») ; la virgule du thème E refermée. | Le pendant du seuil mono/multi-ligne (D366) ; au-delà, le repli en `dropdown` (note en proposition). Voir §3.2c. |
 | D469 | **Le `record-picker` enrichi** : **`anchor:`** — l'ancrage de la liste (« centre de l'écran, à droite du champ, à la place du champ ») ; **`dimension:`** — « plein écran, pourcentage en largeur et en hauteur » (la réutilisation de D454). | Défauts au moteur selon l'écran (smartphone plein écran) ; la forme à deux axes (`60% 80%`) en proposition. |
+| D470 | **La famille `picker` pointée** : `picker.record`, `picker.image`, `picker.file` (« picker me convient, mais plutôt picker.record… ») — **le point du namespace (D363) gagne les noms de composants** ; `file-drop` renommé. | La porte ouverte aux autres familles (chart.line, chart.bar… — note en proposition) ; l'inventaire et les fiches repris. |
 
 ---
 
@@ -9783,3 +9784,12 @@ avant la synthèse Q16).
   place du champ) et `dimension:` (plein écran, pourcentage en largeur
   et hauteur — la réutilisation de D454). La fiche complétée ;
   suivante : `image-picker`.
+- **2026-08-13 (suite 19)** — **La famille `picker` pointée (D470)** :
+  « picker me convient, mais je propose plutôt picker.record,
+  picker.image et picker.file » — le point du namespace (D363) gagne
+  les noms de composants, `file-drop` renommé ; la porte ouverte aux
+  autres familles (chart.* en note). L'inventaire et les fiches
+  repris ; **la fiche `picker.image` livrée** (le choix par l'image —
+  la cible au visage `image:` D386 exigé, les vignettes, le plein écran
+  empilé sur smartphone, anchor/dimension de la famille). En attente de
+  validation.

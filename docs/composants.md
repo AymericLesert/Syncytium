@@ -39,8 +39,8 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `grid` · `tabs`/`tab` ;
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
-  `toggle` · `dropdown`/`radios`/`icons` · `record-picker`/
-  `image-picker` · `file-drop` · `image-viewer` · `carousel` · `map` ·
+  `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
+  `picker.image` · `picker.file` · `image-viewer` · `carousel` · `map` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
   masquée, D463) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
@@ -736,9 +736,9 @@ gui:
               - field[category]: { size: 48px }   # la taille au nœud (D461)
 ```
 
-## `record-picker`
+## `picker.record`
 
-1. **Nom et famille** — `record-picker`, une feuille ;
+1. **Nom et famille** — `picker.record`, une feuille ;
 2. **Rôle** — le sélecteur d'enregistrement : le choix de la cible
    d'une référence — la liste qui cherche ;
 3. **Types servis** — **la référence** (le nom d'entité en type, D396)
@@ -788,4 +788,56 @@ gui:
                   selection: active_employees   # la liste nommée de la cible (D215)
                   anchor: right                 # à droite du champ (D469)
                   dimension: 60% 80%            # largeur × hauteur (D454/D469)
+```
+
+## `picker.image`
+
+1. **Nom et famille** — `picker.image`, une feuille — la famille
+   `picker` (D470) ;
+2. **Rôle** — le choix d'une référence **par l'image** : les visages
+   des cibles étalés, un clic pour choisir — « sélectionner une valeur
+   via une image personnalisable » (D285) ;
+3. **Types servis** — la référence dont **la cible désigne son visage**
+   (`image:` en en-tête — D386) ; jamais un défaut — la surcharge
+   (`component: picker.image`) ; sans `image:` déclarée sur la cible,
+   pas de picker.image (*erreur à l'ingestion, en proposition*) ;
+4. **Contexte consommé** — le champ (le `filter` D395, les actifs seuls
+   D398), **l'`image:` et le `title` de la cible** (D386/D465), les
+   droits ;
+5. **Propriétés** — `selection:` (la liste nommée de la cible — D215),
+   **`anchor:`** et **`dimension:`** (la famille picker — D469),
+   `size` (la taille des vignettes, D461) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : les images étalées, le
+   titre en infobulle ; **smartphone : le choix par image prend l'écran
+   et s'empile** (l'arbitrage du thème E) ; lecture : la vignette de la
+   cible + le titre (D286/D397) ; template : l'image rendue (D257) ;
+   CSV : la clé fonctionnelle (D398) ;
+8. **États et interactions** — grisé si `readonly`/droits ; le filtre
+   restreint les visages proposés (D395) ;
+9. **Décisions fondatrices** — D285–D286, D386, D395–D398, D469–D470 ;
+10. **Exemple de configuration** —
+
+```yaml
+# catalog/entities/product.yml — la cible au visage
+name: product
+title: "{code} — {name}"
+image: photo                     # le visage graphique (D386)
+
+# sales/entities/order_line.yml
+fields:
+  product:
+    type: catalog.product        # la référence (D396)
+    component: picker.image      # le choix par l'image (D285/D470)
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Article }
+            items:
+              - field[product]:
+                  dimension: 80%          # la galerie en surimpression (D469)
+                  size: 96px              # les vignettes (D461)
 ```

@@ -547,6 +547,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { background: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; **le nom : `background`** (fill/gradient écartés). Voir §3.2c. |
 | D467 | **Les couleurs de jauge** : « les couleurs à afficher doivent être spécifiées » — **le dégradé min → max** (`colors: { min: red, max: green }` — **le défaut, du rouge au vert**) **ou la couleur par seuil** (`{ 0: red, 50: orange, 80: green }`). | Vaut pour `gauge`, `fuel` et le fond gradué (D466), aux trois étages (D461) ; fiches complétées. Voir §3.2c. |
 | D468 | **Le seuil des radios = la configuration générale** — un paramètre du `settings` (« il est possible de définir 3, 5 ou 10 selon les besoins ») ; la virgule du thème E refermée. | Le pendant du seuil mono/multi-ligne (D366) ; au-delà, le repli en `dropdown` (note en proposition). Voir §3.2c. |
+| D469 | **Le `record-picker` enrichi** : **`anchor:`** — l'ancrage de la liste (« centre de l'écran, à droite du champ, à la place du champ ») ; **`dimension:`** — « plein écran, pourcentage en largeur et en hauteur » (la réutilisation de D454). | Défauts au moteur selon l'écran (smartphone plein écran) ; la forme à deux axes (`60% 80%`) en proposition. |
 
 ---
 
@@ -9777,3 +9778,8 @@ avant la synthèse Q16).
   (le sélecteur de référence — filter/me., le title de la cible D465,
   les actifs seuls D398, `selection:` D215, CSV = la clé
   fonctionnelle). En attente : sa validation.
+- **2026-08-13 (suite 18)** — **`record-picker` validé et enrichi
+  (D469)** : `anchor:` (centre de l'écran, à droite du champ, à la
+  place du champ) et `dimension:` (plein écran, pourcentage en largeur
+  et hauteur — la réutilisation de D454). La fiche complétée ;
+  suivante : `image-picker`.

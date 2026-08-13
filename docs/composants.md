@@ -749,7 +749,13 @@ gui:
    cible** (le visage, D465), les droits — **les actifs seuls** à la
    sélection (D398) ;
 5. **Propriétés** — **`selection:`** — la liste nommée de la cible qui
-   sert le choix (D215) ; défaut : sa liste par défaut filtrée ;
+   sert le choix (D215), défaut : sa liste par défaut filtrée ;
+   **`anchor:`** (D469) — l'ancrage de la liste : `center` (le centre
+   de l'écran), `right` (à droite du champ), `field` (à la place du
+   champ) — *défauts au moteur selon l'écran (smartphone = plein
+   écran)* ; **`dimension:`** (D469 — la réutilisation de D454) — plein
+   écran ou le pourcentage **en largeur et en hauteur**
+   (`dimension: 60% 80%`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — modification : la liste à recherche **au
    début de mots avec throttling** (le PC aux raccourcis clavier —
@@ -780,4 +786,6 @@ gui:
             items:
               - field[responsible]:
                   selection: active_employees   # la liste nommée de la cible (D215)
+                  anchor: right                 # à droite du champ (D469)
+                  dimension: 60% 80%            # largeur × hauteur (D454/D469)
 ```

@@ -9561,3 +9561,12 @@ avant la synthèse Q16).
   type sans visage : le composant d'écran et/ou le rendu de document
   (template D456) ; la facette d'affichage d'un type hooké est due
   (D455) ; le contrat au domaine 6.
+- **2026-08-13 (suite 5)** — **Le parcours des feuilles, une par une**
+  (« pas de groupement ») : la fiche `toggle` livrée ; puis **le
+  protocole enrichi à la demande de l'auteur** — les neuf rubriques
+  **et la validation par un exemple de configuration** avant la feuille
+  suivante : **la rubrique 10 entre au modèle** (composants.md), et
+  `checkbox` est reprise avec son exemple complet (le champ obligatoire
+  et l'optionnel tri-état, la liste — searchable/editable — et le
+  formulaire). En attente : sa validation de l'exemple checkbox, puis
+  l'exemple toggle.

@@ -26,7 +26,9 @@ matérialisation ; l'analogie des web components est consignée (D455).
    template (PDF) / Excel — × écran, tablette, smartphone (D250) ;
 8. **États et interactions** — actionnable / grisé / masqué (D444),
    l'affichage du refus (D307), le clavier, le tactile ;
-9. **Décisions fondatrices** — le rappel discret.
+9. **Décisions fondatrices** — le rappel discret ;
+10. **Exemple de configuration** — la mise en situation qui **valide la
+    fiche** avant de passer à la suivante (le protocole de l'auteur).
 
 ## L'inventaire (D456)
 
@@ -69,7 +71,40 @@ matérialisation ; l'analogie des web components est consignée (D455).
    recherche, le composant sert le filtre : le tri-état vise les lignes
    nulles, la position nulle dit « tous » si le champ est obligatoire
    (D375–D376) ;
-9. **Décisions fondatrices** — D281, D374–D377.
+9. **Décisions fondatrices** — D281, D374–D377 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/customer.yml
+fields:
+  active:
+    type: boolean
+    required: true               # deux états — la checkbox simple (le défaut du type)
+    default: true                # l'obligatoire naît false sauf default (D377)
+    values:
+      true:  { labels: { fr: Actif } }
+      false: { labels: { fr: Inactif } }
+  audited:
+    type: boolean                # optionnel — la checkbox TRI-ÉTAT (D374)
+    comment: { fr: Audit réalisé ? }
+
+gui:
+  lists:
+    main:
+      columns: [code, company_name, active, audited]
+      searchable: [active, audited]   # la case sert le filtre — tri-état pour
+                                      #   audited (lignes nulles), « tous » pour
+                                      #   active (obligatoire) — D375–D376
+      editable: [active]              # l'édition en ligne — le clic cycle (D374)
+  forms:
+    default:
+      body:
+        - section:
+            labels: { fr: Statut }
+            items:
+              - active                # la forme courte — checkbox par défaut
+              - audited: { readonly: true }   # la forme riche (D270)
+```
 
 ## `toggle`
 

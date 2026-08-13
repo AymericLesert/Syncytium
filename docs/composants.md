@@ -582,3 +582,55 @@ gui:
               - field[due_date]
               - field[billing_month]
 ```
+
+## `dropdown`
+
+1. **Nom et famille** — `dropdown`, une feuille ;
+2. **Rôle** — la liste déroulante : le choix d'une valeur dans un jeu
+   fermé ;
+3. **Types servis** — `enum` (**le défaut du type**, D129/D283) ; le
+   booléen décliné en liste énumérée (la surcharge
+   `component: dropdown`, D281) ;
+4. **Contexte consommé** — le champ (**les `values`** — clé, `label`,
+   `description`-infobulle, `icon`/`image`, l'ordre de déclaration —
+   D387 ; le `default`), la langue, le `mode`, les droits ;
+5. **Propriétés** — rien de propre : tout vient des `values` du champ ;
+   **la ligne vide de l'optionnel** porte le libellé de l'entrée
+   `null:` (D388) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : la liste déroulante —
+   **smartphone : la liste plein écran** (votre arbitrage) ; **PC : les
+   raccourcis clavier, la saisie au début de mots avec throttling**
+   (thème E) ; lecture : le libellé (et l'icône si déclarée) ; résumé :
+   le libellé ; template / Excel : **le code ou le libellé** (D130) ;
+8. **États et interactions** — grisée si `readonly`/droits ; en
+   recherche : **la liste de sélection du jeu de valeurs,
+   multi-sélection** (D388), `mutualizable` par le libellé (D369) ;
+9. **Décisions fondatrices** — D129, D281, D283, D387–D388 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/customer.yml
+fields:
+  category:
+    type: enum                     # dropdown par défaut
+    values:
+      bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
+      silver: { label: { fr: Argent } }
+      gold:   { label: { fr: Or } }
+    default: bronze
+
+gui:
+  lists:
+    main:
+      columns: [code, company_name, category]
+      searchable: [category]       # la multi-sélection du jeu de valeurs (D388)
+      editable: [category]         # la liste en cellule (D205)
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Classification }
+            items:
+              - field[category]
+```

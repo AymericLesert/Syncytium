@@ -550,6 +550,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D469 | **Le `record-picker` enrichi** : **`anchor:`** — l'ancrage de la liste (« centre de l'écran, à droite du champ, à la place du champ ») ; **`dimension:`** — « plein écran, pourcentage en largeur et en hauteur » (la réutilisation de D454). | Défauts au moteur selon l'écran (smartphone plein écran) ; la forme à deux axes (`60% 80%`) en proposition. |
 | D470 | **La famille `picker` pointée** : `picker.record`, `picker.image`, `picker.file` (« picker me convient, mais plutôt picker.record… ») — **le point du namespace (D363) gagne les noms de composants** ; `file-drop` renommé ; **la sélection unique ou multiple, déduite du lien** — la référence = unique, la liste et l'association = multiple (le vocabulaire D445). | La porte ouverte aux autres familles (chart.line, chart.bar… — note en proposition) ; l'inventaire et les fiches repris. |
 | D471 | **Les trois présentations du picker** : « par une liste, par une liste d'identifiants, ou par une liste d'images » — l'entité représentée par ses **clés fonctionnelles et/ou son champ image** ; **`picker.image` dérive de `picker.record`** (la présentation images fixée, tout hérité). | `by: list` (défaut) \| `identity` en proposition sur picker.record. Voir §3.2c. |
+| D472 | **`picker.image` s'efface** (amende D471) : `picker.record` seul, « avec un composant matérialisant la liste de sélection — le nom de la liste, ou le nom du champ représentant une image de l'enregistrement » — **la valeur d'une propriété dit la présentation**. | La simplification (la ligne D420) ; virgule : porter la matérialisation par `selection:` élargi plutôt que `component:` (collision D461) — en proposition. Voir §3.2c. |
 
 ---
 
@@ -3226,6 +3227,18 @@ aliment pour un menu…) :
 `by: list` — le défaut — ou `by: identity`*) ; **`picker.image` est la
 dérivée qui fixe la troisième** — héritant tout du parent (le filtre,
 l'ancrage, la dimension, la sélection déduite — D469/D470).
+
+**`picker.image` s'efface (D472 — amende D471).** La simplification :
+**« picker.image s'efface pour devenir picker.record avec un composant
+matérialisant la liste de sélection — le nom de la liste, ou le nom du
+champ représentant une image de l'enregistrement. »** Un seul picker
+d'enregistrement ; **la valeur d'une propriété dit la présentation** :
+le nom d'une liste nommée de la cible → la liste (D215) ; le nom du
+champ-image de la cible → la galerie de visages (D386). *(Virgule de
+nommage : l'auteur écrit `component:` — mais le mot désigne déjà le
+picker au champ (D461) ; je propose de porter cette matérialisation par
+**`selection:`** (D215 élargi) — la valeur dit tout, `by:` disparaît
+aussi.)*
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9826,3 +9839,11 @@ avant la synthèse Q16).
   D386 — la photo d'un profil, l'image d'un aliment) ; picker.record
   porte liste et identifiants (`by:` en proposition), picker.image fixe
   les images en héritant tout. Les fiches mises à jour.
+- **2026-08-13 (suite 22)** — **`picker.image` s'efface (D472)** : la
+  simplification — « picker.record avec un composant matérialisant la
+  liste de sélection : le nom de la liste, ou le nom du champ
+  représentant une image de l'enregistrement » — une seule propriété,
+  sa valeur dit la présentation (liste nommée → la liste D215 ;
+  champ-image → la galerie D386). Virgule : `selection:` élargi plutôt
+  que `component:` (la collision D461) — en proposition ; les fiches à
+  reprendre après son arbitrage.

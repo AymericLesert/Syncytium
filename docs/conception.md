@@ -531,6 +531,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
 | D453 | **Les propriétés du `form`** : **le gabarit déclinable par langue** (`title:` — chaîne unique ou mapping) ; **`mode: updatable` (défaut) \| `read-only`** ; **`history: false` = désactiver l'onglet d'une entité historisée** (défaut `true`, toujours dernier — D186/D411). | Vaut pour tous les gabarits (D253/D449) ; sans historisation, pas d'onglet. Voir §3.2c. |
 | D454 | **La surimpression et sa `dimension`** : « le formulaire peut s'afficher en surimpression de l'écran — la totalité ou une portion » ; **`dimension:` — défaut 100 % de l'écran**, la portion déclarée (`dimension: 70%`). | La surimpression est le mode d'affichage du formulaire ; le patron de la visionneuse (D293). Voir §3.2c. |
+| D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue). Voir §3.2c. |
 
 ---
 
@@ -3031,6 +3032,41 @@ dimension: 70%               # la portion ; absent = 100 % de l'écran
 **La surimpression est le mode d'affichage du formulaire**, sa
 `dimension` en règle la portée — la totalité par défaut, la portion
 déclarée (le patron de la visionneuse D293).
+
+**Le modèle unifié du composant graphique (D455 — la clé de voûte du
+domaine 4).** **`items` est validé**, et la description reprend de
+fond : **un formulaire est un composant graphique** ayant —
+
+- **un nom** : `form`, `summary`, `wizard` ou `widget`… **extensible
+  via un hook identifié par un nom unique** (la ligne D408 — les
+  surfaces elles-mêmes sont des composants du catalogue) ;
+- **des propriétés** : `dimension`, `title`… (D453–D454) ;
+- **des composants (`items`)** : **`pages`, `header`, `body`,
+  `footer`** — les pages entrent au vocabulaire (le multi-pages, le
+  wizard s'y adossera) ;
+- **un contexte** : **l'enregistrement de l'entité** pour laquelle le
+  formulaire est défini, **le contexte d'appel** (l'origine de
+  l'appel) **et le contexte de l'utilisateur**… — le contexte D451
+  enrichi ;
+- **la liberté compositionnelle** : « rien n'empêche de définir un
+  formulaire qui inclut un wizard dans une page ou une section, qui
+  affiche des références sous forme de widgets, qui utilise les
+  listes… » — les surfaces s'emboîtent librement.
+
+**La mécanique** : les composants constituent des nœuds, et la
+représentation graphique est **un graphe acyclique que Syncytium
+parcourra de la feuille à la racine** ; **les composants transmis au
+composant graphique auront déjà été analysés et traduits par
+Syncytium** — le composant reçoit du digéré, il ne fait que rendre.
+
+**La portée** : **« un composant graphique est un nœud de l'arbre dont
+le formulaire n'est qu'une matérialisation »** — l'approche vaut pour
+**tous** les composants déjà décrits dans les facettes de types (le
+thème E entier) ; et **« une facette peut être vue comme un hook, dont
+un catalogue est fourni par Syncytium »** — la doctrine D408 atteint sa
+généralité totale : les types, les opérations, les conteneurs, les
+surfaces **et les facettes** sont des hooks, Syncytium livrant le
+catalogue.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9429,3 +9465,15 @@ avant la synthèse Q16).
   (« je préfère content ou items ») — ma recommandation : **`items`**
   (le mot de l'auteur, D439) ; **le choix content/items reste à
   trancher à la reprise**, puis la signature entière se consignera.
+- **2026-08-13** — **Le modèle unifié du composant graphique (D455)**.
+  À la reprise, `items` validé — et la dictée de fond : un formulaire =
+  un composant graphique (un nom — form/summary/wizard/widget,
+  extensible par hook au nom unique ; des propriétés ; des items —
+  **pages**, header, body, footer ; **un contexte** — l'enregistrement,
+  l'origine de l'appel, l'utilisateur) ; l'emboîtement libre (un wizard
+  dans une page, des références en widgets, des listes) ; **le graphe
+  acyclique parcouru de la feuille à la racine**, les composants
+  recevant du pré-analysé ; « le formulaire n'est qu'une
+  matérialisation » du nœud — l'approche vaut pour tous les composants
+  des facettes de types, et **« une facette peut être vue comme un
+  hook »** (catalogue fourni par Syncytium) — la doctrine D408 totale.

@@ -735,3 +735,49 @@ gui:
             items:
               - field[category]: { size: 48px }   # la taille au nœud (D461)
 ```
+
+## `record-picker`
+
+1. **Nom et famille** — `record-picker`, une feuille ;
+2. **Rôle** — le sélecteur d'enregistrement : le choix de la cible
+   d'une référence — la liste qui cherche ;
+3. **Types servis** — **la référence** (le nom d'entité en type, D396)
+   — **le défaut** ; l'association, dont chaque élément se choisit
+   pareillement (D401) ;
+4. **Contexte consommé** — le champ (la cible, **le `filter` évalué
+   depuis la destination** avec `me.` — D395/D396), **le `title` de la
+   cible** (le visage, D465), les droits — **les actifs seuls** à la
+   sélection (D398) ;
+5. **Propriétés** — **`selection:`** — la liste nommée de la cible qui
+   sert le choix (D215) ; défaut : sa liste par défaut filtrée ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : la liste à recherche **au
+   début de mots avec throttling** (le PC aux raccourcis clavier —
+   thème E) ; smartphone : la liste plein écran ; lecture : **le titre
+   de la cible + le lien vers sa fiche en lecture seule** (D215) ;
+   résumé : le titre ; template : le titre ; **CSV : la clé
+   fonctionnelle** (l'UUID jamais — D398) ;
+8. **États et interactions** — grisé si `readonly`/droits ; **le filtre
+   restreint les candidats** (D395 — `check: immutable` surveille
+   ensuite) ; la sélection ne propose que les actifs (D398) ;
+9. **Décisions fondatrices** — D215, D284, D395–D398, D465 ;
+10. **Exemple de configuration** —
+
+```yaml
+# hr/entities/employment.yml
+fields:
+  responsible:
+    type: hr.employee              # la référence (D396) — record-picker par défaut
+    filter: company = me.company   # les candidats restreints (D395)
+    check: immutable
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Encadrement }
+            items:
+              - field[responsible]:
+                  selection: active_employees   # la liste nommée de la cible (D215)
+```

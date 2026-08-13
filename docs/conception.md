@@ -567,6 +567,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D486 | **Un seul `list`** : « le composant graphique list vu avant les types est intimement lié à list ici » — la liste complète (D441–D447) et l'éditeur, un même composant ; `list of <entité>` la déploie, `list of <type simple>` la resserre sur la colonne unique. | Le vocabulaire D441–D447 vaut où il garde son sens. Voir §3.2c. |
 | D487 | **Le bloc n'existe pas** : « block n'existe pas en tant que tel — il se décline selon les différents items » ; header/body/footer = des conteneurs du catalogue reconnus par leur nom et leur rôle, au formulaire (D449) comme dans `pages`. | La ligne D455 : tout est composant. Voir §3.2c. |
 | D488 | **Le contenu fixe** : « il manque une feuille essentielle : un texte fixe, un paragraphe et/ou une image fixe » — les informations légales, le logo ; deux feuilles sans champ derrière, nourries par la configuration. | Noms en proposition : `paragraph`, `picture` (`text`/`image` pris — D458). Voir §3.2c. |
+| D489 | **Le couple `sections`/`section`** : sections organise (colonne ou ligne) et ne contient que des sections ; une section « organise différents nœuds — soit sections, soit une des feuilles » — l'alternance stricte. | `layout: column \| row` + crochet `sections[row]` en proposition ; la section seule = raccourci d'un sections à l'item unique (proposition). Voir §3.2c. |
 
 ---
 
@@ -3387,6 +3388,20 @@ libellés par langue D465, ou le dictionnaire du module D440) et
 **l'image fixe** (un fichier livré avec la configuration, comme les
 icônes D439). *(Les noms en proposition : `paragraph` et `picture` —
 `text` et `image` étant les composants de champ, D458.)*
+
+**Le couple `sections`/`section` (D489).** **« Sections permet de
+décrire l'organisation de différentes sections (organisation en
+colonne ou en ligne). Une section décrit une partie du composant
+sections. Le nœud sections a des propriétés et des items — chaque item
+est alors une section. Une section est un nœud qui permet d'organiser
+différents nœuds (soit sections, soit une des feuilles vues
+précédemment). »** L'alternance est stricte : `sections` ne contient
+que des sections ; une section contient des `sections` ou des
+feuilles — l'emboîtement passe par l'organisateur. *(En proposition :
+la disposition `layout: column | row` — défaut `column`, l'empilement —
+avec le crochet en raccourci `sections[row]` (D478) ; et la section
+seule sous un conteneur = le raccourci d'un `sections` à l'item
+unique.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10140,3 +10155,9 @@ avant la synthèse Q16).
   (« les termes paragraph et picture sont validés et nous les
   amenderons lors de la génération de documents ») — les noms actés,
   l'amendement réservé à Q55. Retour à la fiche `section`.
+- **2026-08-13 (suite 47)** — **Le couple sections/section (D489)** :
+  sections = l'organisateur (colonne ou ligne), chaque item une
+  section ; une section organise des nœuds (sections ou feuilles) —
+  l'alternance stricte. Les fiches sections et section réécrites, en
+  attente de validation (layout:, le crochet, la section seule en
+  raccourci — propositions).

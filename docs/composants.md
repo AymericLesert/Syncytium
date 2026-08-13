@@ -1194,12 +1194,59 @@ gui:
         - field[languages]         # les cases ou les tags (D296)
 ```
 
+## `sections`
+
+1. **Nom et famille** — `sections`, un conteneur — **l'organisateur** :
+   « permet de décrire l'organisation de différentes sections —
+   organisation en colonne ou en ligne » (D489) ;
+2. **Rôle** — poser la disposition des sections qu'il contient : en
+   colonne (l'empilement) ou en ligne (côte à côte) ;
+3. **Types servis** — aucun : le conteneur est indifférent au contenu
+   (le graphe D455) ;
+4. **Contexte consommé** — le contexte transmis tel quel aux items
+   (D455) ; les droits et la confidentialité ;
+5. **Propriétés** — **la disposition** (*en proposition :
+   `layout: column | row` — défaut `column`, l'empilement ; le crochet
+   en raccourci : `sections[row]` — D478*) ; le socle du vocabulaire
+   (D461) ;
+6. **Items** — **des sections, rien d'autre** : « chaque item est
+   alors une section » (D489) ;
+7. **Modes et déclinaisons** — partout où un conteneur vit :
+   `header`/`body`/`footer`, `pages`, le template (D487) ; le rendu
+   s'adapte au `screen:` déclaré (D450 — *en proposition : la ligne se
+   ré-empile sur l'écran étroit*) ;
+8. **États et interactions** — la visibilité par les droits et la
+   confidentialité ; rien d'autre au socle ;
+9. **Décisions fondatrices** — D449–D451, D455, D461, D487, D489 ;
+10. **Exemple de configuration** —
+
+```yaml
+gui:
+  forms:
+    default:
+      body:
+        - sections:                # l'organisateur (D489)
+            layout: row            # côte à côte (proposition — défaut : column)
+            items:
+              - section:
+                  label: { fr: Adresse, en: Address }
+                  items:
+                    - field[street]
+                    - field[city]
+              - section:
+                  label: { fr: Contact }
+                  items:
+                    - field[phone]
+                    - field[email]
+```
+
 ## `section`
 
-1. **Nom et famille** — `section`, un conteneur — **« un regroupement
-   potentiellement nommé »** ; fournie par Syncytium (D451) ;
-2. **Rôle** — regrouper des composants sous un intitulé facultatif —
-   l'unité de lecture du formulaire ; le nœud pur : aucune valeur
+1. **Nom et famille** — `section`, un conteneur — **« une partie du
+   composant sections »** (D489) ; « un regroupement potentiellement
+   nommé » ; fournie par Syncytium (D451) ;
+2. **Rôle** — **« organiser différents nœuds »** sous un intitulé
+   facultatif — l'unité de lecture ; le nœud pur : aucune valeur
    portée, aucun bloc à part (D487) ;
 3. **Types servis** — aucun : le conteneur est indifférent à ce qu'il
    contient (le graphe D455) ;
@@ -1210,37 +1257,31 @@ gui:
 5. **Propriétés** — `label:` — les libellés par langue (D465),
    **facultatif** (« potentiellement nommé ») ; le socle du vocabulaire
    (D461 : style…) ;
-6. **Items** — **libres** : des champs (`field[<nom>]` — D460), des
-   conteneurs emboîtés (sections, `grid`, `tabs`…), tout composant —
-   l'emboîtement libre du modèle unifié (D455) ;
+6. **Items** — **« soit sections, soit une des feuilles vues
+   précédemment »** (D489) — l'alternance stricte : l'emboîtement de
+   sections passe par l'organisateur `sections` ; les champs par
+   `field[<nom>]` (D460) ;
 7. **Modes et déclinaisons** — au formulaire : le cadre, l'intitulé en
    tête s'il est nommé ; dans `header`/`body`/`footer` comme dans
    `pages` (D450/D487) ; le rendu s'adapte au `screen:` déclaré
-   (D450) ; template : le regroupement du gabarit ;
+   (D450) ; template : le regroupement du gabarit ; *(en proposition :
+   la section seule sous un conteneur = le raccourci d'un `sections` à
+   l'item unique)* ;
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487 ;
-10. **Exemple de configuration** —
+   D487, D489 ;
+10. **Exemple de configuration** — *(le couple vit ensemble — voir
+    aussi la fiche `sections`)* —
 
 ```yaml
-gui:
-  forms:
-    default:
-      body:
-        - section:                 # anonyme — le regroupement seul
-            items:
-              - field[number]
-              - field[date]
-        - section:
-            label: { fr: Adresse, en: Address }
-            items:
-              - field[street]
-              - field[city]
-              - section:           # l'emboîtement libre (D455)
-                  label: { fr: Contact }
-                  items:
-                    - field[phone]
+- section:
+    label: { fr: Adresse }
+    items:
+      - field[street]              # les feuilles (D489)
+      - sections:                  # ou un organisateur emboîté
+          items:
+            - section: { items: [ field[zip], field[city] ] }
 ```
 
 ## `paragraph`

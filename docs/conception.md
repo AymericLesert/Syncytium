@@ -546,6 +546,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D465 | **Le triptyque `label`/`title`/`labels`** : **`label` = les libellés par langue, partout** (remplace `labels`) ; **le visage de l'enregistrement (D397) se renomme `title`** — le gabarit d'affichage, cohérent avec le formulaire (D449/D453), **utilisable sur un formulaire et surchargeable** (la cascade entité → formulaire) ; **`labels` ne survit qu'au dictionnaire du module** (D440). | Renommage appliqué aux trois documents (conception — 43 occurrences, glossaire, composants) ; le socle D364 amendé. Voir §3.2c. |
 | D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { background: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; **le nom : `background`** (fill/gradient écartés). Voir §3.2c. |
 | D467 | **Les couleurs de jauge** : « les couleurs à afficher doivent être spécifiées » — **le dégradé min → max** (`colors: { min: red, max: green }` — **le défaut, du rouge au vert**) **ou la couleur par seuil** (`{ 0: red, 50: orange, 80: green }`). | Vaut pour `gauge`, `fuel` et le fond gradué (D466), aux trois étages (D461) ; fiches complétées. Voir §3.2c. |
+| D468 | **Le seuil des radios = la configuration générale** — un paramètre du `settings` (« il est possible de définir 3, 5 ou 10 selon les besoins ») ; la virgule du thème E refermée. | Le pendant du seuil mono/multi-ligne (D366) ; au-delà, le repli en `dropdown` (note en proposition). Voir §3.2c. |
 
 ---
 
@@ -3194,6 +3195,15 @@ colors: { 0: red, 50: orange, 80: green }  # ou les seuils — la couleur à par
 par seuil** (rouge, orange, vert) — la propriété vaut pour `gauge`,
 `fuel` et le fond gradué (D466), aux trois étages du vocabulaire unique
 (D461).
+
+**Le seuil des radios : la configuration générale (D468).** La virgule
+du thème E (« jusqu'à 5 valeurs ? je ne suis pas encore fixé ») se
+referme : **« le seuil des radios est un élément de la configuration
+générale »** — un paramètre du `settings` (la cascade D360, le pendant
+du seuil mono/multi-ligne D366) — **« ainsi, il est possible de définir
+3, 5 ou 10 selon les besoins. »** *(Note en proposition : au-delà du
+seuil, le repli en `dropdown` — le composant s'adapte, l'esprit
+D366/D391.)*
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9754,3 +9764,10 @@ avant la synthèse Q16).
   gradué (D466), aux trois étages (D461). Les fiches gauge et fuel
   complétées. Ouverts : le nom du fond gradué (fill ?), la fiche
   slider.
+- **2026-08-13 (suite 16)** — **Le parcours file** : `background` acté
+  (D466 amendé) ; les fiches `slider`, `clock`, `calendar`, `dropdown`
+  validées une à une, exemple à l'appui ; la fiche `radios` livrée — et
+  **le seuil des radios tranché (D468)** : « un élément de la
+  configuration générale — il est possible de définir 3, 5 ou 10 selon
+  les besoins » (le settings, le pendant du seuil D366 ; le repli
+  dropdown en note). En attente : la validation de `radios`.

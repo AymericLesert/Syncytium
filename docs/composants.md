@@ -133,4 +133,34 @@ gui:
    recherche, il filtre **vrai/faux seuls** — le « tous » n'existe pas
    en toggle : c'est la réinitialisation qui désengage (D375–D377), la
    case tri-état restant le composant du « tous » (D376) ;
-9. **Décisions fondatrices** — D281, D375–D377.
+9. **Décisions fondatrices** — D281, D375–D377 ;
+10. **Exemple de configuration** —
+
+```yaml
+# stock/entities/warehouse.yml
+fields:
+  automated:
+    type: boolean
+    required: true               # le toggle exige l'obligatoire — jamais de nul (D281/D377)
+    default: false
+    component: toggle            # la surcharge du défaut checkbox, au champ (D461)
+    values:
+      true:  { labels: { fr: Automatisé } }
+      false: { labels: { fr: Manuel } }
+
+gui:
+  lists:
+    main:
+      columns: [code, name, automated]
+      searchable: [automated]    # le toggle filtre vrai/faux — la réinitialisation
+                                 #   désengage (D375/D377)
+      editable: [automated]      # la bascule en ligne
+  forms:
+    default:
+      body:
+        - section:
+            labels: { fr: Fonctionnement }
+            items:
+              - field[automated]:
+                  size: 32px     # la surcharge au nœud — le vocabulaire unique (D461)
+```

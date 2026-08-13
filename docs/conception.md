@@ -9636,3 +9636,8 @@ avant la synthèse Q16).
   n'apporte pas de contrôles », la documentation Q58) ; la préséance :
   **si un nom de champ = un nom d'opération, le champ l'emporte**.
   Reste : la validation finale de l'exemple checkbox.
+- **2026-08-13 (suite 9)** — **`checkbox` validée** (« je valide la
+  checkbox ») : la première fiche complète du protocole (neuf rubriques
+  + l'exemple). **L'exemple de `toggle` livré** (le champ obligatoire à
+  `component: toggle`, les values, la liste — filtre vrai/faux,
+  bascule en ligne — le nœud à `size:`) ; en attente de validation.

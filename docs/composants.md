@@ -752,6 +752,8 @@ gui:
    sélection (D398) ;
 5. **Propriétés** — **`selection:`** — la liste nommée de la cible qui
    sert le choix (D215), défaut : sa liste par défaut filtrée ;
+   **`by: list` (défaut) ou `by: identity`** — la présentation par la
+   liste ou par les clés fonctionnelles (D471, en proposition) ;
    **`anchor:`** (D469) — l'ancrage de la liste : `center` (le centre
    de l'écran), `right` (à droite du champ), `field` (à la place du
    champ) — *défauts au moteur selon l'écran (smartphone = plein
@@ -794,8 +796,8 @@ gui:
 
 ## `picker.image`
 
-1. **Nom et famille** — `picker.image`, une feuille — la famille
-   `picker` (D470) ;
+1. **Nom et famille** — `picker.image`, une feuille — **la dérivée de
+   `picker.record`** (D471), la famille `picker` (D470) ;
 2. **Rôle** — le choix d'une référence **par l'image** : les visages
    des cibles étalés, un clic pour choisir — « sélectionner une valeur
    via une image personnalisable » (D285) ;

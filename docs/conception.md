@@ -549,6 +549,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D468 | **Le seuil des radios = la configuration générale** — un paramètre du `settings` (« il est possible de définir 3, 5 ou 10 selon les besoins ») ; la virgule du thème E refermée. | Le pendant du seuil mono/multi-ligne (D366) ; au-delà, le repli en `dropdown` (note en proposition). Voir §3.2c. |
 | D469 | **Le `record-picker` enrichi** : **`anchor:`** — l'ancrage de la liste (« centre de l'écran, à droite du champ, à la place du champ ») ; **`dimension:`** — « plein écran, pourcentage en largeur et en hauteur » (la réutilisation de D454). | Défauts au moteur selon l'écran (smartphone plein écran) ; la forme à deux axes (`60% 80%`) en proposition. |
 | D470 | **La famille `picker` pointée** : `picker.record`, `picker.image`, `picker.file` (« picker me convient, mais plutôt picker.record… ») — **le point du namespace (D363) gagne les noms de composants** ; `file-drop` renommé ; **la sélection unique ou multiple, déduite du lien** — la référence = unique, la liste et l'association = multiple (le vocabulaire D445). | La porte ouverte aux autres familles (chart.line, chart.bar… — note en proposition) ; l'inventaire et les fiches repris. |
+| D471 | **Les trois présentations du picker** : « par une liste, par une liste d'identifiants, ou par une liste d'images » — l'entité représentée par ses **clés fonctionnelles et/ou son champ image** ; **`picker.image` dérive de `picker.record`** (la présentation images fixée, tout hérité). | `by: list` (défaut) \| `identity` en proposition sur picker.record. Voir §3.2c. |
 
 ---
 
@@ -3206,6 +3207,25 @@ du seuil mono/multi-ligne D366) — **« ainsi, il est possible de définir
 3, 5 ou 10 selon les besoins. »** *(Note en proposition : au-delà du
 seuil, le repli en `dropdown` — le composant s'adapte, l'esprit
 D366/D391.)*
+
+**Les trois présentations du picker (D471).** **« Picker.image est un
+dérivé de picker.record »** — et la sélection offre **trois
+présentations** : **« par une liste (définie précédemment), par une
+liste d'identifiants, ou par une liste d'images — une entité dispose de
+clé(s) fonctionnelle(s) et/ou d'un champ image/icon qui permet de
+représenter un enregistrement »** (la photo d'un profil, l'image d'un
+aliment pour un menu…) :
+
+| Présentation | Montre | S'appuie sur |
+|---|---|---|
+| **la liste** | la liste nommée de la cible | `selection:` (D215) |
+| **les identifiants** | les clés fonctionnelles | `identity` (D357) |
+| **les images** | les visages | `image:` (D386) |
+
+`picker.record` porte les deux premières (*forme en proposition :
+`by: list` — le défaut — ou `by: identity`*) ; **`picker.image` est la
+dérivée qui fixe la troisième** — héritant tout du parent (le filtre,
+l'ancrage, la dimension, la sélection déduite — D469/D470).
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9799,3 +9819,10 @@ avant la synthèse Q16).
   listes ou des associations » — unique pour la référence, multiple
   pour la liste et l'association (le vocabulaire D445, la déduction
   D366). Les fiches picker.record et picker.image complétées.
+- **2026-08-13 (suite 21)** — **Les trois présentations du picker
+  (D471)** : « picker.image est un dérivé de picker.record » — la
+  sélection par **la liste** (nommée, D215), par **les identifiants**
+  (les clés fonctionnelles, D357) ou par **les images** (les visages,
+  D386 — la photo d'un profil, l'image d'un aliment) ; picker.record
+  porte liste et identifiants (`by:` en proposition), picker.image fixe
+  les images en héritant tout. Les fiches mises à jour.

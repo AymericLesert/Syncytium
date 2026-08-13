@@ -1262,7 +1262,8 @@ gui:
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : le paragraphe en
    place ; **template** : le texte du gabarit — les mentions légales
-   d'une facture ; jamais en colonne (aucun champ) ;
+   d'une facture ; jamais en colonne (aucun champ) ; *la fiche sera
+   étoffée au point gabarit / génération de documents (Q55)* ;
 8. **États et interactions** — la visibilité par les droits ; rien
    d'autre — le texte ne se clique pas ;
 9. **Décisions fondatrices** — D440, D455, D461, D465, D488 ;
@@ -1279,4 +1280,38 @@ gui:
               en: Dupont Ltd — Trade register 123 456 789
         - paragraph:
             label: legal           # la référence au dictionnaire du module (D440)
+```
+
+## `picture`
+
+1. **Nom et famille** — `picture` (*nom en proposition — D488*), une
+   feuille — **l'image fixe** : « son logo » ;
+2. **Rôle** — l'image venue de la configuration, affichée telle
+   quelle — **aucun champ derrière** : le logo, l'illustration ;
+3. **Types servis** — aucun : le fichier est livré avec la
+   configuration, comme les icônes du menu (D439) ;
+4. **Contexte consommé** — les droits et la confidentialité ;
+5. **Propriétés** — le fichier — la forme courte `picture: logo.png`,
+   ou `file:` en clair (*en proposition*) ; le couple `size:` /
+   `dimension:` (D484) ; le socle du vocabulaire (D461) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — au formulaire : l'image en place ;
+   **template** : le logo du gabarit — l'entête de la facture ; jamais
+   en colonne (aucun champ) ; *la fiche sera étoffée au point gabarit /
+   génération de documents (Q55)* ;
+8. **États et interactions** — la visibilité par les droits ; le
+   fichier manquant = une erreur d'ingestion (D330), jamais un
+   placeholder ;
+9. **Décisions fondatrices** — D439, D455, D461, D484, D488 ;
+10. **Exemple de configuration** —
+
+```yaml
+gui:
+  forms:
+    default:
+      header:
+        - picture: logo.png        # la forme courte — le fichier de la configuration
+        - picture:
+            file: banner.png       # la forme en clair (proposition)
+            size: 120px            # à l'affichage (D484)
 ```

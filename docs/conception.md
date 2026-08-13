@@ -10131,3 +10131,8 @@ avant la synthèse Q16).
   image fixe » (les informations légales, le logo) — paragraph et
   picture en proposition. Les fiches section et paragraph en attente
   de validation.
+- **2026-08-13 (suite 45)** — **La réserve sur le contenu fixe** :
+  « les feuilles paragraph et picture seront étoffées lorsque nous
+  ferons du gabarit ou de la génération de documents » — les deux
+  fiches minimales à dessein, l'enrichissement différé à Q55 (la même
+  réserve que viewer). La fiche picture écrite.

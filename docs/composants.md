@@ -1289,7 +1289,9 @@ gui:
    la ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis
    la colonne suivante — la grille est couverte par le crochet
    (« oublie grid ») ; le crochet en raccourci du composant :
-   `sections[row]` (D478) ; le socle du vocabulaire (D461) ;
+   `sections[row]` (D478) ; **les sections se calibrent par
+   `width`/`height`** (D501 — sans précision, tout l'espace est
+   pris) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des sections, rien d'autre** : « chaque item est
    alors une section » (D489) ;
 7. **Modes et déclinaisons** — partout où un conteneur vit :
@@ -1300,7 +1302,7 @@ gui:
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D461, D487,
-   D489–D491 ;
+   D489–D491, D501 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1340,7 +1342,9 @@ gui:
 5. **Propriétés** — **`title:`** — « le nom d'un regroupement est en
    fait un libellé en titre de la section » (D493) : les libellés par
    langue (D465) en position de titre, **facultatif** (« potentiellement
-   nommé ») ; le socle du vocabulaire (D461 : style…) ;
+   nommé ») ; **`width:` / `height:`** — « calibrer la taille » au
+   sein de l'organisateur, « sans précision, l'ensemble de l'espace
+   est pris » (D501) ; le socle du vocabulaire (D461 : style…) ;
 6. **Items** — **« soit sections, soit une des feuilles vues
    précédemment »** (D489) — l'alternance stricte : l'emboîtement de
    sections passe par l'organisateur `sections` ; les champs par
@@ -1355,7 +1359,7 @@ gui:
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489–D491, D493 ;
+   D487, D489–D491, D493, D501 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 
@@ -1368,8 +1372,10 @@ body:                              # la section seule, directement (D490)
         - sections:                # l'emboîtement par l'organisateur
             layout: column[2]      # deux colonnes, le repli au-delà (D491)
             items:
-              - section: { items: [ field[zip], field[city] ] }
-              - section: { items: [ field[country] ] }
+              - section:
+                  width: 70%       # le calibrage (D501)
+                  items: [ field[zip], field[city] ]
+              - section: { items: [ field[country] ] }   # le reste de l'espace
 ```
 
 ## `paragraph`

@@ -579,6 +579,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D498 | **`range of` validé** — « déclinaison de list of avec 2 contraintes en nombre et en ordre » ; min et/ou max indéfinissables (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **« la jauge étant un cas particulier d'un range »** (relit D494). Les liaisons D495 validées. | Voir §3.2c. |
 | D499 | **Les cellules confirmées** : `duration` compatible `calculator` « sur la base de 2 clocks » ; `datetime` = la combinaison `calendar` + `clock` ; `uuid` « à saisir et en lecture sous forme de texte formaté » — les fonctions multiples, dont les id tiers (relit D419). | La synthèse mise à jour. Voir §3.2c. |
 | D500 | **Le dropdown de la référence et du statut** : « reference : utilisation d'un dropdown possible » ; « le statut peut être un dropdown aussi, avec une liste de valeurs en tenant compte du cycle de vie » — les états atteignables seuls (D425–D427). | La synthèse n'a plus de cellule à confirmer. Voir §3.2c. |
+| D501 | **`width`/`height` sur la section** : « layout fournit le découpage en colonnes et en lignes ; width et height permettent de calibrer la taille des sections. Sans précision, l'ensemble de l'espace est pris. » | Le calibrage au sein de l'organisateur. Voir §3.2c. |
 
 ---
 
@@ -3537,6 +3538,13 @@ atteignables** depuis l'état courant (le graphe promote/demote,
 D425–D427 — la sélection libre restant le mode sans `when`). La
 dernière cellule « à confirmer » de la synthèse se ferme — le registre
 atteint sa cinq-centième décision.
+
+**La taille des sections : `width`/`height` (D501).** **« Layout
+fournit le découpage en colonnes et en lignes. `width` et `height`
+permettent de calibrer la taille des sections. Sans précision,
+l'ensemble de l'espace est pris. »** La section se calibre **au sein
+de son organisateur** — la largeur, la hauteur ; sans elles, les
+sections se partagent tout l'espace du découpage.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10371,3 +10379,7 @@ avant la synthèse Q16).
   l'auteur** (« les liens sont faits. J'ai relu l'ensemble des types
   et des composants graphiques. Pour le moment, je ne vois plus de
   manques »). La reprise sur sections/section.
+- **2026-08-13 (suite 63)** — **width/height (D501)** : « layout
+  fournit le découpage ; width et height calibrent la taille des
+  sections ; sans précision, l'ensemble de l'espace est pris ». Les
+  fiches complétées, en attente de validation.

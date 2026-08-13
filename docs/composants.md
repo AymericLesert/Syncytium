@@ -353,8 +353,10 @@ gui:
    l'ingestion, l'esprit D344) ;
 4. **Contexte consommé** — le champ (les bornes, les décimales), son
    `mode`, les droits ;
-5. **Propriétés** — rien d'obligatoire : le remplissage se déduit des
-   bornes ; le style (les zones, les couleurs) relève du thème (D443) ;
+5. **Propriétés** — le remplissage se déduit des bornes ; **`colors:`**
+   (D467) — le dégradé deux couleurs (`{ min: red, max: green }` — le
+   défaut, du rouge au vert) **ou les seuils** (`{ 0: red, 50: orange,
+   80: green }` — la couleur à partir du seuil) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
    regard — listes, résumés, widgets) ; en modification, le glissé
@@ -401,8 +403,9 @@ gui:
    `integer[0..100]` + `component: fuel` (D359) ;
 4. **Contexte consommé** — le champ (les bornes, les décimales), son
    `mode`, les droits ;
-5. **Propriétés** — rien d'obligatoire : l'arc se déduit des bornes ;
-   le style (les zones de l'arc) relève du thème (D443) ;
+5. **Propriétés** — l'arc se déduit des bornes ; **`colors:`** (D467) —
+   le dégradé min/max (défaut rouge → vert) ou les seuils
+   valeur → couleur ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **la lecture avant tout** (cellules,
    résumés, widgets — le cadran est un affichage) ; en modification, la

@@ -231,3 +231,64 @@ gui:
                   shortcut: { lines: 6 }    # la surcharge au nœud (D461/D464)
               - field[registration]
 ```
+
+## `number`
+
+1. **Nom et famille** — `number`, une feuille ;
+2. **Rôle** — la zone numérique : la saisie et l'affichage d'un nombre,
+   entier ou décimal ;
+3. **Types servis** — `integer` et `decimal` (**le défaut des deux**) ;
+   les composés à base numérique (`amount`, `percentage`, `measure` —
+   leur défaut aussi, la post-zone venant du type, D391) ;
+4. **Contexte consommé** — le champ (les bornes D372, les décimales
+   D373, le masque D370, l'unité ou la devise du composé), son `mode`,
+   les droits ;
+5. **Propriétés** — **les trois parties** (D271/D272) : le libellé, la
+   zone de saisie, **la post-zone** (l'unité, la devise, le % — selon
+   la langue, avant ou après, D272) ; **le masque-format** (`"00 00
+   00"`, `"0 000.00"` — le `0` du nombre, les séparateurs rendus selon
+   la langue, D370/D373) ; **l'alignement à droite** (D447) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : la saisie guidée par le
+   masque ; **sur tactile, le clavier numérique, la calculatrice ou le
+   clavier stylisé** (D272 — le satellite `calculator` ; sur
+   smartphone, la calculatrice remplace le clavier natif) ; lecture :
+   le nombre formaté ; résumé : « libellé pour widget » + valeur ;
+   template / Excel : **la valeur canonique** (Excel reçoit le nombre,
+   jamais la chaîne) ;
+8. **États et interactions** — grisée si `readonly`/droits ; le refus
+   des bornes et validations affiché (D307) ; en recherche : `strict` /
+   **`range`** (la plage, l'usage roi du nombre) / `mutualizable` par
+   la forme affichée (D369/D371) ;
+9. **Décisions fondatrices** — D272–D273, D370–D373, D447 ;
+10. **Exemple de configuration** —
+
+```yaml
+# stock/entities/item.yml
+fields:
+  quantity: integer[0..]           # number par défaut, aligné à droite
+  price:
+    type: amount                   # le composé — la devise en post-zone (D391)
+    currencies: [EUR]
+  weight:
+    type: measure
+    units: [kg, g]
+    mask: "0 000.00"               # les séparateurs selon la langue (D373)
+
+gui:
+  lists:
+    main:
+      columns: [quantity, price, weight]
+      searchable: [price]          # la plage de montants (range — D371)
+      editable: [quantity]
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Mesures }
+            items:
+              - field[quantity]
+              - field[price]
+              - field[weight]:
+                  component: calculator   # le satellite au nœud (D461)
+```

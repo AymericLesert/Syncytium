@@ -1688,3 +1688,54 @@ body:
    D493, D508 ;
 10. **Exemple de configuration** — *(voir la fiche `pages` : le couple
     vit ensemble)*.
+
+## `header` / `body` / `footer`
+
+1. **Nom et famille** — `header`, `body`, `footer` — trois conteneurs
+   d'un même sang : **les sections seules aux rôles réservés**
+   (D487/D490 — « la section seule est un conteneur ») ; *une seule
+   fiche pour les trois, leur nature étant commune (en proposition —
+   à découper si besoin)* ;
+2. **Rôle** — l'entête se fige en haut, le pied en bas, **le corps
+   prend le reste** — au formulaire (D449) comme dans `pages`
+   (D507) ;
+3. **Types servis** — aucun : des conteneurs (D455) ;
+4. **Contexte consommé** — le contexte transmis tel quel aux items
+   (D455) ; les droits et la confidentialité ;
+5. **Propriétés** — **`height:`** sur l'entête et le pied — consignée
+   dans `pages` (D507) ; *au formulaire, la même logique (en
+   proposition)* ; le socle du vocabulaire (D461) ;
+6. **Items** — « l'entête, le corps et le pied acceptent sections et
+   onglets » (D450) : les sections seules (D490), l'organisateur
+   `sections`, les `tabs`, les feuilles — et `pages` dans le corps ;
+7. **Modes et déclinaisons** — au formulaire : les trois parties de
+   D449 (le titre restant une propriété du formulaire) ; dans
+   `pages` : l'entête et le pied **toujours visibles**, la page
+   prenant le reste (D507) ; au template : répétés à chaque page
+   (*en proposition — D507*) ; **la double écriture** *(lecture en
+   proposition)* : **les clés au formulaire** (`header:` / `body:` /
+   `footer:` — la forme consacrée de nos exemples), **les items dans
+   `pages`** (`- header:`) — le même composant sous deux plumes ;
+8. **États et interactions** — masqués par les droits ; rien d'autre
+   au socle ;
+9. **Décisions fondatrices** — D449–D450, D455, D461, D487, D490,
+   D507 ;
+10. **Exemple de configuration** —
+
+```yaml
+forms:
+  default:
+    header:                        # la clé au formulaire (D449)
+      - field[number]
+    body:
+      - section:
+          title: { fr: Client }
+          items: [ field[customer] ]
+    footer:
+      - field[total]               # le pied — le corps prend le reste
+
+# et dans pages : l'écriture en items (D507)
+#   - pages:
+#       items:
+#         - header: { height: 60px, items: [...] }
+```

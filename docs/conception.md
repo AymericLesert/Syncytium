@@ -10504,3 +10504,9 @@ avant la synthèse Q16).
   le numéro en poignée par défaut, le nom et/ou l'icône comme un tab,
   l'affichage à la logique de tabs (les modes D504, le chemin D505).
   Les fiches alignées.
+- **2026-08-14 (suite 2)** — **Les fiches `pages` et `page` validées**
+  (« je valide pages et page »). Dernier conteneur : la fiche
+  commune `header`/`body`/`footer` (les sections seules aux rôles
+  réservés — D487/D490), proposée avec deux lectures (une fiche pour
+  les trois ; la double écriture — les clés au formulaire, les items
+  dans pages).

@@ -1549,8 +1549,10 @@ gui:
    prendre d'avance tant que l'onglet précédent n'a pas été exploré »
    — l'écho du cliquet D354) ; le crochet en raccourci :
    `tabs[bottom]`, `tabs[wizard]` (*l'écriture en proposition —
-   D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; le socle
-   du vocabulaire (D461) ;
+   D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
+   dimension unique des volets** — « pour chaque tab, toujours la même
+   dimension » (D506 — aucun `width`/`height` par volet, le contraste
+   avec D502) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
    proposition*) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
@@ -1567,7 +1569,7 @@ gui:
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
 9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
-   D487, D489 (le patron), D503–D505 ;
+   D487, D489 (le patron), D503–D506 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
@@ -1603,11 +1605,13 @@ body:
    afficher le texte en survol »** (D504 — la poignée compacte, le
    titre en info-bulle) ; le socle (D461) ;
 6. **Items** — des `sections` ou des feuilles (l'alternance D489) ;
-7. **Modes et déclinaisons** — le volet plein cadre ; la poignée =
-   le titre + l'icône ; smartphone : la barre défilable ;
+7. **Modes et déclinaisons** — le volet plein cadre, **à la dimension
+   commune** — « les zones sont centrées si elles représentent un
+   espace plus petit » (D506) ; la poignée = le titre + l'icône ;
+   smartphone : la barre défilable ;
 8. **États et interactions** — la bascule ; masqué par droits ou
    confidentialité ;
 9. **Décisions fondatrices** — D439, D449–D451, D455, D461, D489,
-   D493, D504 ;
+   D493, D504, D506 ;
 10. **Exemple de configuration** — *(voir la fiche `tabs` : le couple
     vit ensemble)*.

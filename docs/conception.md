@@ -584,6 +584,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D503 | **`size:` sur `sections`** : « les dimensions de l'espace occupé par l'ensemble » — au débordement, les barres de scrolling « visibles ou évaporeux », le swipe au tactile, les barres indiquant le positionnement. | La cohérence D484 (size = à l'affichage). Voir §3.2c. |
 | D504 | **Les modes de `tabs`** : la barre en haut (Windows, défaut), en bas (Excel), latérale (gauche/droite) — et **le mode wizard** : « voir toutes les étapes mais ne pas prendre d'avance tant que l'onglet précédent n'a pas été exploré ». | `mode: top \| bottom \| left \| right \| wizard` + crochet `tabs[…]` en proposition (D478) ; l'écho du cliquet D354. Voir §3.2c. |
 | D505 | **Le chemin de traitement** (complète D504) : « en wizard, les tabs parcourus décrivent le chemin de traitement — en cliquant sur une phase, nous revenons sur un onglet » — le retour libre sur l'exploré, l'avance gardée. | Voir §3.2c. |
+| D506 | **La dimension unique des volets** : « pour chaque tab, toujours la même dimension — les zones sont centrées si elles représentent un espace plus petit » — aucun calibrage par volet (le contraste avec D502), le contenu plus petit centré. | Voir §3.2c. |
 
 ---
 
@@ -3595,6 +3596,13 @@ phase, nous revenons sur un onglet. »** La barre du mode wizard est le
 fil d'Ariane du parcours : **le retour libre** sur toute étape
 explorée — d'un clic sur la phase —, **l'avance gardée** (D504, le
 cliquet D354).
+
+**La dimension unique des volets (D506).** **« Par contre, pour chaque
+tab, toujours la même dimension — et les zones sont centrées si elles
+représentent un espace plus petit. »** Le contraste avec les sections
+(D502) est assumé : **aucun calibrage par volet** — tous les onglets à
+la même dimension, et le contenu plus petit **se centre** dans le
+volet.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10457,3 +10465,7 @@ avant la synthèse Q16).
   « en wizard, les tabs parcourus décrivent le chemin de traitement —
   en cliquant sur une phase, nous revenons sur un onglet » — le
   retour libre sur l'exploré, l'avance gardée.
+- **2026-08-13 (suite 69)** — **La dimension unique des volets
+  (D506)** : « pour chaque tab, toujours la même dimension — les
+  zones centrées si plus petites » — aucun calibrage par volet (le
+  contraste avec D502).

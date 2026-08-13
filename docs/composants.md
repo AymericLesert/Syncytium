@@ -797,53 +797,42 @@ gui:
 ## `picker.image`
 
 1. **Nom et famille** — `picker.image`, une feuille — **la dérivée de
-   `picker.record`** (D471), la famille `picker` (D470) ;
-2. **Rôle** — le choix d'une référence **par l'image** : les visages
-   des cibles étalés, un clic pour choisir — « sélectionner une valeur
-   via une image personnalisable » (D285) ;
-3. **Types servis** — la référence dont **la cible désigne son visage**
-   (`image:` en en-tête — D386) ; jamais un défaut — la surcharge
-   (`component: picker.image`) ; sans `image:` déclarée sur la cible,
-   pas de picker.image (*erreur à l'ingestion, en proposition*) ; **la
-   sélection se déduit du lien** — unique (référence) ou multiple
-   (liste, association — D470) ;
-4. **Contexte consommé** — le champ (le `filter` D395, les actifs seuls
-   D398), **l'`image:` et le `title` de la cible** (D386/D465), les
-   droits ;
-5. **Propriétés** — `selection:` (la liste nommée de la cible — D215),
-   **`anchor:`** et **`dimension:`** (la famille picker — D469),
-   `size` (la taille des vignettes, D461) ;
+   `picker.file`** (D473), la famille `picker` (D470) ;
+2. **Rôle** — le choix d'un ou plusieurs **fichiers images** — « dont
+   la liste des formats est exploitable par Syncytium » (D473) ;
+3. **Types servis** — `image` et `thumbnail` (**leur défaut** —
+   D385/D389) ; le « un ou plusieurs » suit le type (la liste — D470) ;
+4. **Contexte consommé** — le champ (les `extensions` du jeu image, le
+   `quota`, les dimensions du crochet — D389), le `mode`, les droits ;
+5. **Propriétés** — `anchor:` et `dimension:` (la famille — D469) ;
+   rien d'autre : les formats exploitables bornent d'eux-mêmes ;
 6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : les images étalées, le
-   titre en infobulle ; **smartphone : le choix par image prend l'écran
-   et s'empile** (l'arbitrage du thème E) ; lecture : la vignette de la
-   cible + le titre (D286/D397) ; template : l'image rendue (D257) ;
-   CSV : la clé fonctionnelle (D398) ;
-8. **États et interactions** — grisé si `readonly`/droits ; le filtre
-   restreint les visages proposés (D395) ;
-9. **Décisions fondatrices** — D285–D286, D386, D395–D398, D469–D470 ;
+7. **Modes et déclinaisons** — modification : le dépôt (glisser ou
+   parcourir) — **sur smartphone, l'appareil photo et la galerie**
+   (D292) ; **l'aperçu immédiat au dépôt** (D293), la vignette calculée
+   (D286/D389) ; lecture : la vignette, la visionneuse au clic (plein
+   écran / pourcentage / zone — D293) ; template : l'image rendue
+   (D257) ; CSV : le nom du fichier ;
+8. **États et interactions** — grisé si `readonly`/droits ; le refus
+   des formats hors jeu et du quota, propre (D307/D384) ;
+9. **Décisions fondatrices** — D286, D292–D293, D385, D389, D470,
+   D473 ;
 10. **Exemple de configuration** —
 
 ```yaml
-# catalog/entities/product.yml — la cible au visage
-name: product
-title: "{code} — {name}"
-image: photo                     # le visage graphique (D386)
-
-# sales/entities/order_line.yml
+# hr/entities/employee.yml
 fields:
-  product:
-    type: catalog.product        # la référence (D396)
-    component: picker.image      # le choix par l'image (D285/D470)
+  photo:
+    type: image[512x512]           # la boîte max, la vignette auto (D389)
+    placeholder: avatar.png        # l'icône de fond (D390)
 
 gui:
   forms:
     default:
       body:
         - section:
-            label: { fr: Article }
+            label: { fr: Profil }
             items:
-              - field[product]:
-                  dimension: 80%          # la galerie en surimpression (D469)
-                  size: 96px              # les vignettes (D461)
+              - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
 ```
+

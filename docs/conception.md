@@ -551,6 +551,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D470 | **La famille `picker` pointée** : `picker.record`, `picker.image`, `picker.file` (« picker me convient, mais plutôt picker.record… ») — **le point du namespace (D363) gagne les noms de composants** ; `file-drop` renommé ; **la sélection unique ou multiple, déduite du lien** — la référence = unique, la liste et l'association = multiple (le vocabulaire D445). | La porte ouverte aux autres familles (chart.line, chart.bar… — note en proposition) ; l'inventaire et les fiches repris. |
 | D471 | **Les trois présentations du picker** : « par une liste, par une liste d'identifiants, ou par une liste d'images » — l'entité représentée par ses **clés fonctionnelles et/ou son champ image** ; **`picker.image` dérive de `picker.record`** (la présentation images fixée, tout hérité). | `by: list` (défaut) \| `identity` en proposition sur picker.record. Voir §3.2c. |
 | D472 | **`picker.image` s'efface** (amende D471) : `picker.record` seul, « avec un composant matérialisant la liste de sélection — le nom de la liste, ou le nom du champ représentant une image de l'enregistrement » — **la valeur d'une propriété dit la présentation**. | La simplification (la ligne D420) ; virgule : porter la matérialisation par `selection:` élargi plutôt que `component:` (collision D461) — en proposition. Voir §3.2c. |
+| D473 | **La famille `picker` recomposée** : `picker.record` (les enregistrements — D472), `picker.file` (« un ou plusieurs fichiers quelconques » — le défaut de `file`), **`picker.image` (« un ou plusieurs fichiers images, dont la liste des formats est exploitable par Syncytium »** — le défaut d'`image`/`thumbnail`, dérivé de picker.file). | L'ancien picker.image (la référence par l'image) fondu dans picker.record ; le « un ou plusieurs » suit le lien/type (D470) ; la fiche réécrite. Voir §3.2c. |
 
 ---
 
@@ -3239,6 +3240,21 @@ nommage : l'auteur écrit `component:` — mais le mot désigne déjà le
 picker au champ (D461) ; je propose de porter cette matérialisation par
 **`selection:`** (D215 élargi) — la valeur dit tout, `by:` disparaît
 aussi.)*
+
+**La famille `picker` recomposée (D473).** **« Nous avons `picker.file`
+pour choisir un ou plusieurs fichiers (quelconques), et `picker.image`
+pour choisir un ou plusieurs fichiers images — dont la liste des
+formats est exploitable par Syncytium. »** La famille finale :
+
+| Picker | Choisit | Défaut de |
+|---|---|---|
+| `picker.record` | un/des enregistrements — la présentation par liste ou par champ-image (D472) | la référence, l'association, la liste d'entités |
+| `picker.file` | un/des fichiers **quelconques** | le type `file` (D384) |
+| `picker.image` | un/des fichiers **images** — les formats exploitables (dérivé de `picker.file` : appareil photo, galerie, aperçu — D292–D293) | les types `image`/`thumbnail` (D385/D389) |
+
+Le « un ou plusieurs » suit le lien ou le type (la déduction D470) ;
+l'ancien picker.image (la référence par l'image) est fondu dans
+`picker.record` (D472).
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9847,3 +9863,12 @@ avant la synthèse Q16).
   champ-image → la galerie D386). Virgule : `selection:` élargi plutôt
   que `component:` (la collision D461) — en proposition ; les fiches à
   reprendre après son arbitrage.
+- **2026-08-13 (suite 23)** — **La famille picker recomposée (D473)** :
+  picker.file = un ou plusieurs fichiers quelconques (le défaut de
+  file) ; **picker.image = un ou plusieurs fichiers IMAGES** (les
+  formats exploitables par Syncytium — le défaut d'image/thumbnail,
+  dérivé de picker.file : appareil photo, galerie, aperçu D292–D293) ;
+  l'ancien picker.image (la référence par l'image) fondu dans
+  picker.record (D472). La fiche picker.image réécrite au nouveau
+  sens ; en attente : la virgule selection:/component: (D472), les
+  validations.

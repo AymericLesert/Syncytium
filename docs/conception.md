@@ -555,6 +555,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D474 | **`selection` = le nombre** (`1`, `1..`, `1..5` — l'écriture des bornes D366, la déduction D470 en défaut) ; **`by` = la présentation** (une liste de la cible, ou son champ-image — « component n'est pas adapté ; by me plaît »). | Solde D472 ; le `selection:` de D215 remplacé par `by:` ; l'harmonisation D445 (`one`/`multiple` → `1`/`1..`) en proposition. Voir §3.2c. |
 | D475 | **La famille `viewer`** : « image-viewer et carousel sont un même objet : viewer » — **généralisé aux fichiers visualisables** (PDF, Word, Excel… — « l'image, un type parmi tant d'autres ») ; **`carousel` = le viewer des collections** (liste/association d'images ou vignettes, le défilement à intervalle ou avant/après). | Les fiches réécrites ; `interval: 5s` en proposition (la seconde aux durées D434). Voir §3.2c. |
 | D476 | **Les durées complètes** (amende D434) : **`s`, `min`, `h`, `d`, `w`, `m`, `y`** — la seconde et l'année s'ajoutent ; le vocabulaire vaut partout (`every:`, `interval:`, `await[…]`). | `temporal[1y]` possible en note (le `[365]` nu = des jours, D411). Voir §3.2c. |
+| D477 | **« Viewer est le composant graphique et carousel un mode d'affichage »** (amende D475) : une seule fiche `viewer` — le mode déduit du contenu (le fichier seul → la vignette, la collection → le carrousel), forçable au crochet. | `viewer[carousel]` en proposition. Voir §3.2c. |
 
 ---
 
@@ -3276,6 +3277,14 @@ l'année rejoignent le jeu de D434. Le vocabulaire vaut **partout où une
 durée s'écrit** : `every:` (D434), `interval:` (D475), `await[+3h]`
 (D436) — *(et en note : `temporal[1y]` devient possible, l'unité
 explicite aux rétentions D411 — le `[365]` nu restant des jours).*
+
+**Le carousel, un mode d'affichage (D477 — amende D475).** **« Viewer
+est le composant graphique et carousel un mode d'affichage. »** Le
+carrousel quitte l'inventaire des feuilles : **une seule fiche
+`viewer`**, dont le mode se déduit du contenu — le fichier seul → la
+vignette et la visionneuse au clic (D293), la collection → le
+carrousel (le défilement D475, `interval:` D476) — et se force au
+crochet, `viewer[carousel]` *(l'écriture en proposition)*.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9942,3 +9951,9 @@ avant la synthèse Q16).
   vocabulaire vaut partout où une durée s'écrit (every, interval,
   await ; temporal[1y] possible en note). Les fiches viewer/carousel
   toujours en attente de validation.
+- **2026-08-13 (suite 29)** — **Le carousel, un mode d'affichage
+  (D477)** : « viewer est le composant graphique et carousel un mode
+  d'affichage » — la fiche carousel repliée dans viewer, le mode déduit
+  du contenu (fichier seul → vignette, collection → carrousel),
+  forçable au crochet viewer[carousel] (en proposition). La fiche
+  unifiée en attente de validation.

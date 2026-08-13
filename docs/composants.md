@@ -40,7 +40,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
-  `picker.image` · `picker.file` · `viewer` · `carousel` · `map` ·
+  `picker.image` · `picker.file` · `viewer` · `map` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
   masquée, D463) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
@@ -888,29 +888,47 @@ gui:
 ## `viewer`
 
 1. **Nom et famille** — `viewer`, une feuille — « image-viewer et
-   carousel sont un même objet : viewer » (D475) ;
+   carousel sont un même objet : viewer » (D475) ; **« viewer est le
+   composant graphique et carousel un mode d'affichage »** (D477) ;
 2. **Rôle** — la visionneuse : **le fichier regardé** — la vignette en
    place, le plein cadre au clic ; **tout type visualisable** : l'image
-   n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel… ;
+   n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel… ; et
+   **les collections**, par le mode carousel ;
 3. **Types servis** — `image` et `thumbnail` **en lecture** (le défaut
    de leur mode lecture — D286/D293) ; `file` dont le format est
-   visualisable (PDF, Word, Excel… — la vignette de fichier sinon) ;
-4. **Contexte consommé** — le champ (les dimensions du crochet, la
-   vignette auto — D389), le `placeholder` (D390), les droits ;
-5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ;
+   visualisable (la vignette de fichier sinon) ; les collections :
+   `list of image`, une association ou une liste d'entités **au
+   visage** (`image:` — D386), une liste de fichiers ;
+4. **Contexte consommé** — le champ ou le lien (D470), les dimensions
+   du crochet et la vignette auto (D389), le `placeholder` (D390), les
+   visages des cibles, les droits ;
+5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ; **le
+   mode d'affichage** (D477) : déduit du contenu — le fichier seul →
+   la vignette, la collection → le carrousel — et forçable au crochet,
+   `viewer[carousel]` (*l'écriture en proposition*) ; `interval:` — le
+   défilement automatique du carrousel (`interval: 5s` — D476 ;
+   absent = manuel seul) ;
 6. **Items** — aucun ;
-7. **Modes et déclinaisons** — lecture : **la vignette, la visionneuse
-   au clic — plein écran sur smartphone, pourcentage sur tablette, zone
-   définie sur PC** (D293) ; cellule et widget : la vignette (D286) ;
-   template : l'image rendue (D257), le document lié ; **pas de
-   recadrage dans le socle** (le hook D263) ;
+7. **Modes et déclinaisons** — **le fichier seul** : la vignette, la
+   visionneuse au clic — plein écran sur smartphone, pourcentage sur
+   tablette, zone définie sur PC (D293) ; **carousel** : « une liste ou
+   une association faisant référence à des images et/ou des vignettes
+   de fichiers » — la succession qui défile, « à intervalle régulier,
+   sur la pression d'une touche avant/après » (D475), le clic ouvrant
+   la visionneuse ; cellule et widget : la vignette (D286) ; template :
+   l'image rendue (D257), la première image ou la planche pour une
+   collection (*en proposition*) ; **pas de recadrage dans le socle**
+   (le hook D263) ;
 8. **États et interactions** — le `placeholder` tant que le fichier
-   manque (D390) ; le zoom et la fermeture au geste sur tactile ;
-9. **Décisions fondatrices** — D257, D286, D293, D389–D390, D475 ;
+   manque ou que la collection est vide (D390) ; le zoom et la
+   fermeture au geste sur tactile ; les commandes avant/après, la pause
+   au survol ;
+9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
+   D475–D477 ;
 10. **Exemple de configuration** —
 
 ```yaml
-# hr/entities/employee.yml
+# hr/entities/employee.yml — le fichier seul
 fields:
   photo:
     type: image[512x512]           # la boîte max, la vignette auto (D389)
@@ -918,9 +936,6 @@ fields:
   contract: { type: file, extensions: [pdf] }
 
 gui:
-  lists:
-    main:
-      columns: [name, photo]       # la vignette en cellule (D286)
   forms:
     default:
       body:
@@ -930,36 +945,8 @@ gui:
               - field[photo]:
                   dimension: 60%   # la visionneuse au clic (D293)
               - field[contract]    # le PDF visualisé en place (D475)
-```
 
-## `carousel`
-
-1. **Nom et famille** — `carousel`, une feuille — **le `viewer` des
-   collections** (D475) ;
-2. **Rôle** — le carrousel : « une liste ou une association faisant
-   référence à des images et/ou des vignettes de fichiers » — la
-   succession qui défile ;
-3. **Types servis** — les collections d'images : `list of image`, une
-   association ou une liste d'entités **au visage** (`image:` — D386),
-   une liste de fichiers (les vignettes) ;
-4. **Contexte consommé** — la collection (le lien — D470), les visages
-   des cibles, les droits ;
-5. **Propriétés** — **le défilement** : « à intervalle régulier, sur la
-   pression d'une touche avant/après » — `interval:` (*en proposition —
-   l'unité seconde s'ajoutant au vocabulaire des durées D434 :
-   `interval: 5s` ; absent = manuel seul*) ; `dimension:` (D469) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — lecture : le défilement automatique
-   (l'intervalle) et manuel (avant/après — la touche, le geste
-   tactile) ; le clic ouvre la visionneuse (`viewer`) ; template : la
-   première image ou la planche (*en proposition*) ;
-8. **États et interactions** — les commandes avant/après, la pause au
-   survol ; le `placeholder` si la collection est vide ;
-9. **Décisions fondatrices** — D386, D456, D470, D475 ;
-10. **Exemple de configuration** —
-
-```yaml
-# catalog/entities/product.yml
+# catalog/entities/product.yml — la collection : le mode carousel
 fields:
   gallery:
     type: list of image            # la collection d'images (D362/D385)
@@ -971,9 +958,9 @@ gui:
         - section:
             label: { fr: Galerie }
             items:
-              - field[gallery]:
-                  component: carousel
-                  interval: 5s     # le défilement automatique (proposition)
+              - field[gallery]:    # la collection => carousel déduit (D477)
+                  interval: 5s     # le défilement automatique (D476)
 ```
+
 
 

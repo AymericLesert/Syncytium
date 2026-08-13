@@ -1091,7 +1091,9 @@ gui:
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **saisie et lecture** : le fil
    chronologique, la saisie en bas, les pièces jointes si activées
-   (D295) — l'onglet acté au formulaire (D167/D186) ; **smartphone** :
+   (D295) — **le fil épouse son contenant** : une section, un onglet…
+   « ça prend la place qu'on lui laisse » (D485 — l'onglet de
+   D167/D186, un habitat parmi d'autres) ; **smartphone** :
    le fil en plein écran (D295) ; **cellule** : une petite icône
    (thumbnail) — au survol, le ou les derniers échanges résumés
    (D393, amende D295) ; **template** : le fil complet si le bloc est
@@ -1103,7 +1105,7 @@ gui:
    les notifications opt-in (D108–D110) ; en lecture seule, le fil se
    consulte sans zone de saisie ;
 9. **Décisions fondatrices** — D108–D110, D166–D167, D186, D236, D295,
-   D393 ;
+   D393, D485 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1124,5 +1126,8 @@ gui:
   forms:
     default:
       body:
-        - field[discussion]           # le fil — saisie en bas, messages immuables (D295)
+        - section:
+            label: { fr: Échanges }
+            items:
+              - field[discussion]   # le fil prend la place qu'on lui laisse (D485)
 ```

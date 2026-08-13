@@ -563,6 +563,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D482 | **`sheet:`** — la grille de la planche en une seule propriété : `sheet: 4x3` (colonnes × lignes) ; le crochet `mosaic[4x3]` en est le raccourci (remplace la proposition columns/lines). | Voir §3.2c. |
 | D483 | **Le viewer du document généré** : « le fichier de la facture n'existe pas en tant que tel mais comme un PDF généré à partir des informations de la facture et de ses lignes — un viewer peut faire référence à un template de document à générer ». | `template[<nom>]` en items (en proposition, l'écho de `field[<nom>]`) ; combiné à D481, le document généré se feuillette. Voir §3.2c. |
 | D484 | **Le couple `size:`/`dimension:`** : « size décrit la dimension à l'affichage et dimension la dimension en extension (suite à un clic) » — size à plat (le socle D461), dimension au déploiement (la visionneuse D293, le picker D469, la surimpression D454). | Voir §3.2c. |
+| D485 | **Le fil épouse son contenant** (précise D167/D186) : « il peut prendre une section ou un onglet… ça prend la place qu'on lui laisse » — l'onglet, un habitat parmi d'autres. | Voir §3.2c. |
 
 ---
 
@@ -3349,6 +3350,13 @@ et la visionneuse (`viewer` — D293), la liste du picker (D469), le
 formulaire en surimpression (D454). `size` vit dans le socle du
 vocabulaire aux trois étages (D461) ; `dimension` porte le déploiement
 — plein écran, pourcentage, zone définie.
+
+**Le fil épouse son contenant (D485 — précise D167/D186).** **« J'avais
+indiqué qu'un onglet pourrait représenter un thread. Cependant, il peut
+prendre une section ou un onglet… ça prend la place qu'on lui
+laisse. »** L'onglet n'est qu'un habitat possible du fil : une section,
+un onglet, tout conteneur — le `thread` remplit l'espace que la
+déclaration lui donne.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10065,3 +10073,8 @@ avant la synthèse Q16).
   de validation.
 - **2026-08-13 (suite 38)** — **La fiche `map` validée** (« oui »).
   Suivante : `thread` (le fil de communication — D295/D393).
+- **2026-08-13 (suite 39)** — **Le fil épouse son contenant (D485)** :
+  « il peut prendre une section ou un onglet… ça prend la place qu'on
+  lui laisse » — l'onglet de D167/D186, un habitat parmi d'autres. La
+  fiche thread corrigée, en attente de validation (preview: 3 en
+  proposition).

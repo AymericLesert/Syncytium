@@ -102,8 +102,15 @@ gui:
         - section:
             labels: { fr: Statut }
             items:
-              - active                # la forme courte — checkbox par défaut
-              - audited: { readonly: true }   # la forme riche (D270)
+              - field[active]         # la forme explicite (D460) — l'ambiguïté
+                                      #   champ/composant levée
+              - field[audited]:
+                  readonly: true      # la forme riche (D270)
+                  style:              # la surcharge de représentation (D460) —
+                    true:  check      #   l'apparence des états : coché = vrai,
+                    false: empty      #   vide = faux, le nul distinct
+                    null:  dash
+                  size: 24px          # la taille
 ```
 
 ## `toggle`

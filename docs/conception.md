@@ -538,6 +538,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D457 | **Le document dédié `docs/composants.md`** : les fiches du catalogue groupées — « cela préparera la phase de documentation à rédiger ultérieurement » (Q58) ; **le modèle de fiche en neuf rubriques validé** (« la fiche de description me convient ») ; la première fiche : `checkbox`. | Le patron du glossaire (D417) — pointeur en §1 ; le parcours remplira les fiches. |
 | D458 | **Les renommages des feuilles** : `text-zone` → **`text`**, `number-zone` → **`number`**, `list-editor` → **`list`** (« suffit ») — et la lecture consignée : **le composant par défaut d'un type porte le nom du type** (D64 devient nominal), les espaces de noms se résolvant par le contexte (`type:` vs `component:`). | Les collisions assumées — le contexte du slot départage ; composants.md à jour. |
 | D459 | **Le type-hook doit se représenter** : « un type ajouté via le hook doit inclure une phase de représentation graphique — ou via un document PDF, Word… » — **aucun type sans visage** : le composant d'écran et/ou le rendu de document (`template`, D456). | La ligne D455 (une facette = un hook) — la facette d'affichage d'un type hooké est due ; le contrat au domaine 6. Voir §3.2c. |
+| D460 | **`field[<nom>]`** — la forme explicite du nœud-champ dans les `items` (« certains noms de champs sont aussi des composants — pour éviter l'ambiguïté, c'est nécessaire ») ; **la surcharge de représentation au nœud** : le style par état (vide/faux, coché/vrai, le nul), la taille… | La chaîne type → colonne → nœud (D270/D447) s'achève au formulaire ; formes `style:`/`size:` en proposition. Voir §3.2c. |
 
 ---
 
@@ -3106,6 +3107,26 @@ familles est validé avec cinq retouches :
    wizard s'y adosse, D233).
 
 La description élément par élément peut s'ouvrir.
+
+**Le nœud-champ explicite et la surcharge de représentation (D460).**
+La validation de l'exemple `checkbox` apporte deux règles : **(1)
+`field[<nom du champ>]`** — la forme explicite du nœud-champ dans les
+`items` : « il est possible que certains noms de champs soient aussi
+des composants graphiques — pour éviter l'ambiguïté, c'est
+nécessaire » ; **(2) la surcharge de représentation au `gui`** : le
+nœud peut surcharger **la représentation de la valeur** — « notamment
+des informations sur le style de la checkbox (vide = faux, null, ou
+coché = vrai), la taille… » — la chaîne type → colonne → nœud
+(D270/D447) s'achève au formulaire :
+
+```yaml
+items:
+  - field[active]                # la forme explicite
+  - field[audited]:
+      readonly: true
+      style: { true: check, false: empty, null: dash }   # l'apparence par état
+      size: 24px                 # (formes en proposition)
+```
 
 **Le type-hook doit se représenter (D459).** **« Un type ajouté via le
 hook doit inclure une phase de représentation graphique — ou via un
@@ -9570,3 +9591,11 @@ avant la synthèse Q16).
   et l'optionnel tri-état, la liste — searchable/editable — et le
   formulaire). En attente : sa validation de l'exemple checkbox, puis
   l'exemple toggle.
+- **2026-08-13 (suite 6)** — **`field[<nom>]` et la surcharge de
+  représentation (D460)**. Le retour sur l'exemple checkbox : « la
+  description du champ est claire, la partie gui a besoin d'être
+  complétée » — la forme explicite `field[active]` (l'ambiguïté
+  champ/composant levée, nécessaire), et la surcharge de représentation
+  au nœud (le style par état — vide = faux, coché = vrai, le nul — la
+  taille…). L'exemple checkbox repris dans composants.md ; en attente :
+  sa validation, la question des columns (la même explicitation ?).

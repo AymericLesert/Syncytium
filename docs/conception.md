@@ -9646,3 +9646,9 @@ avant la synthèse Q16).
   présent sous field » — la cascade D461 explicitée au troisième étage
   dans l'exemple (le formulaire seul bascule en toggle, ailleurs le
   champ garde son composant).
+- **2026-08-13 (suite 11)** — **`toggle` validé** (« ok pour toggle ») ;
+  **la fiche `text` livrée** — les trois parties (D271), le
+  mono/multi déduit, la post-zone venue du type, **`lines:`** (les
+  lignes avant « voir plus » — nom en proposition), le justifié
+  multi-lignes (D447), les modes du thème E, la recherche D367–D368 ;
+  l'exemple de configuration joint. En attente de validation.

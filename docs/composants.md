@@ -166,3 +166,61 @@ gui:
                   size: 32px          #   ce formulaire seul bascule en toggle ; ailleurs,
                                       #   le champ garde son composant
 ```
+
+## `text`
+
+1. **Nom et famille** — `text`, une feuille ;
+2. **Rôle** — la zone de texte : la saisie et l'affichage d'un texte,
+   du mot court au paragraphe ;
+3. **Types servis** — `text` (**le défaut du type**, D458) ; les
+   composés à base texte (`email`, `url`, `phone`, `siren`… — leur
+   défaut aussi, la validation intégrée venant du type, D391) ;
+4. **Contexte consommé** — le champ (la taille D366, le masque D260, la
+   recherche D367), son `mode`, les droits ;
+5. **Propriétés** — **les trois parties** (D271) : le libellé, la zone
+   de saisie, **la post-zone** (la devise, le %, une abréviation — ou
+   rien : elle vient du type, D271/D391) ; le mono/multi-ligne **déduit
+   de la taille** face au seuil d'instance (D366), surchargeable par
+   `component` ; **`lines:`** — les lignes affichées avant le « voir
+   plus » traductible et le compteur (thème E — *nom en proposition*) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : la saisie, guidée par le
+   masque s'il existe (les lignes du masque font les lignes de la zone,
+   D366) ; lecture : le texte — le multi-lignes **justifié** (D447), le
+   « voir plus » au-delà des `lines` ; résumé : « libellé pour
+   widget » + valeur ; template / Excel : la valeur ; smartphone : le
+   libellé plus petit au-dessus, l'infobulle par petite icône (pas de
+   survol tactile — thème E) ;
+8. **États et interactions** — grisée si `readonly`/droits ; le refus
+   de validation affiché (D307) ; en recherche : `strict` /
+   `normalized` / `similarity[x]` / `mutualizable[nom]` (D367–D368) —
+   la boîte au filtrage vivant (D228) ;
+9. **Décisions fondatrices** — D222, D260, D271, D366–D368, D447 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/customer.yml
+fields:
+  name: text[80]                 # mono-ligne (sous le seuil) — text par défaut
+  notes:
+    type: text                   # auto → multi-lignes (D366)
+    lines: 4                     # 4 lignes puis « voir plus » (proposition)
+  registration:
+    type: text
+    mask: "FR__ ____ [A-E]9"     # la saisie guidée (D260/D366)
+
+gui:
+  lists:
+    main:
+      columns: [name, registration]
+      searchable: [name]         # la boîte au filtrage vivant (D228/D441)
+  forms:
+    default:
+      body:
+        - section:
+            labels: { fr: Identité }
+            items:
+              - field[name]
+              - field[notes]: { lines: 6 }    # la surcharge au nœud (D461)
+              - field[registration]
+```

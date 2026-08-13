@@ -1131,3 +1131,60 @@ gui:
             items:
               - field[discussion]   # le fil prend la place qu'on lui laisse (D485)
 ```
+
+## `list`
+
+1. **Nom et famille** — `list`, une feuille — l'éditeur de liste (l'ex
+   `list-editor`, renommé D458) : le composant naturel du type
+   `list of <type simple>` (D362/D458) ;
+2. **Rôle** — **la collection de valeurs simples éditée** : ajouter,
+   retirer, réordonner — « la phrase se lit » : `list of text`
+   (D362) ;
+3. **Types servis** — `list of <type simple>` (D362 — text, number,
+   date… ; **les facettes déclarées sur le champ s'appliquent à chaque
+   élément** : size, mask…) ; **deux régimes** (D296) : les énumérés
+   (`values:`) → la multi-sélection ; les libres → l'éditeur. **Les
+   frontières** : `list of <entité>` = la composition (D399), servie
+   par la liste embarquée (D441) ; les collections d'images = le
+   `viewer` (D475) ;
+4. **Contexte consommé** — le champ (le type de l'élément et ses
+   facettes — D362), les `values:` des énumérés, les droits ;
+5. **Propriétés** — le socle du vocabulaire (D461 : style, size,
+   readonly…) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **saisie** : la multi-sélection (cases
+   ou tags) pour les énumérés, l'éditeur — ajouter / retirer /
+   réordonner quand l'ordre est l'insertion — sinon (D296) ;
+   **lecture** : les tags ; **cellule** : les premières valeurs +
+   l'ellipse (D296) ; **template** : les valeurs énumérées ;
+   **CSV/Excel** : le séparateur interne déclaré au modèle,
+   surchargeable à la fonctionnalité (D296, précise D223 — la
+   ré-importabilité D237 préservée) ; **filtre** : « contient »
+   (D166) ;
+8. **États et interactions** — chaque élément contrôlé par les facettes
+   du champ (D362) — le refus propre à l'élément fautif ; le
+   réordonnancement seulement quand l'ordre est l'insertion (D296) ;
+   grisé si `readonly`/droits ;
+9. **Décisions fondatrices** — D166, D223, D237, D296, D362, D458 ;
+10. **Exemple de configuration** —
+
+```yaml
+# crm/entities/contact.yml
+fields:
+  name: text
+  keywords:
+    type: list of text[30]         # chaque élément contraint par la facette (D362)
+  languages:
+    type: list of text
+    values: [fr, en, de, es]       # les énumérés => la multi-sélection (D296)
+
+gui:
+  lists:
+    main:
+      columns: [name, keywords]    # les premières valeurs + ellipse (D296)
+  forms:
+    default:
+      body:
+        - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
+        - field[languages]         # les cases ou les tags (D296)
+```

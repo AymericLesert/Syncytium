@@ -388,3 +388,54 @@ gui:
               - field[satisfaction]
               - field[workload]
 ```
+
+## `fuel`
+
+1. **Nom et famille** — `fuel`, une feuille — le cadran à aiguille, le
+   cousin circulaire de la jauge ;
+2. **Rôle** — le cadran de carburant : la valeur bornée en arc,
+   l'aiguille pointant la position — la lecture instantanée ;
+3. **Types servis** — les numériques **bornés** (les bornes exigées,
+   comme `gauge`) ; jamais un défaut — la surcharge ; **l'exemple
+   fondateur du projet** : le type personnalisé `progression` =
+   `integer[0..100]` + `component: fuel` (D359) ;
+4. **Contexte consommé** — le champ (les bornes, les décimales), son
+   `mode`, les droits ;
+5. **Propriétés** — rien d'obligatoire : l'arc se déduit des bornes ;
+   le style (les zones de l'arc) relève du thème (D443) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **la lecture avant tout** (cellules,
+   résumés, widgets — le cadran est un affichage) ; en modification, la
+   saisie redevient `number` — le cadran illustre, il ne saisit pas
+   *(en proposition)* ; template / Excel : la valeur canonique ;
+8. **États et interactions** — grisé si `readonly`/droits ; le
+   dépassement change de représentation (la ligne D391) ;
+9. **Décisions fondatrices** — D359 (l'exemple fondateur), D274–D275 ;
+10. **Exemple de configuration** —
+
+```yaml
+# settings.yml — l'étage version ou module : le type fondateur (D359)
+types:
+  progression:
+    type: integer
+    min: 0
+    max: 100
+    component: fuel
+
+# production/entities/task.yml
+fields:
+  name: text[60]
+  avancement: progression          # la forme courte — le cadran partout (D359)
+
+gui:
+  lists:
+    main:
+      columns: [name, avancement]  # le cadran en cellule — la lecture instantanée
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Suivi }
+            items:
+              - field[avancement]  # en modification : la saisie number, le cadran illustre
+```

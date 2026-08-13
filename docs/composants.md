@@ -1012,5 +1012,59 @@ gui:
             component: viewer[carousel]  # ses pages feuilletées (D481)
 ```
 
+## `map`
 
+1. **Nom et famille** — `map`, une feuille — la carte : le composant
+   naturel de `geolocation` (D458) ;
+2. **Rôle** — **la géolocalisation regardée et saisie** : la mini-carte
+   centrée au marqueur en lecture ; le pointage sur la carte en
+   saisie (D294) ;
+3. **Types servis** — `geolocation` (le composé D391–D392 : les
+   coordonnées + le texte associé — l'adresse, le lieu) ;
+4. **Contexte consommé** — la valeur (coordonnées et texte associé —
+   D392), **le fond de carte déclaré à l'instance** (D259/D294), la
+   focale (`focus:` au champ ou hérité du setting — D391), **la
+   position courante du terminal** (D291), les droits ;
+5. **Propriétés** — le socle du vocabulaire (D461 : style, size,
+   readonly…) ; `dimension:` — la carte dépliée (*en proposition —
+   l'écho de la visionneuse D293/D469*) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **saisie** : pointer sur la carte (le
+   bloc dédié D199), le lat/long au clavier, l'adresse géocodée
+   (D294 — le connecteur, défaut open source : BAN/Addok, Nominatim),
+   **« ma position » en point de départ** (D291) ; **lecture** : la
+   mini-carte centrée + le marqueur, le texte associé en légende
+   (D392) ; **cellule** : le lat/long en texte court — le clic déplie
+   la carte (D294) ; widget : idem cellule ; **template** : une image
+   de la carte (D257) ; **CSV/Excel** : `lat,long` canonique,
+   ré-importable (D294) ; **le tri : la distance à vol d'oiseau,
+   relative à la focale** (D391 — amende D125) ; pas de filtre dans le
+   socle (la proximité = un hook) ;
+8. **États et interactions** — la position courante **sous réserve de
+   l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
+   le zoom et le déplacement au geste ;
+9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
+   D391–D392 ;
+10. **Exemple de configuration** —
 
+```yaml
+# logistics/entities/site.yml
+fields:
+  name: text
+  location:
+    type: geolocation            # coordonnées + texte associé (D392)
+    # focus: 48.86,2.35          # la focale du tri — défaut : ma position (D391)
+
+gui:
+  lists:
+    main:
+      columns: [name, location]  # lat,long court — le clic déplie la carte (D294)
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Localisation }
+            items:
+              - field[location]:
+                  dimension: 60%   # la carte dépliée (proposition)
+```

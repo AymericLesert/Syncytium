@@ -69,7 +69,9 @@ ne sont pas des piliers mais les irriguent tous.
 
 Le vocabulaire du projet est fixé dans **[le glossaire](glossaire.md)** —
 un document à part, terme par terme avec ses décisions fondatrices
-(D417), au service de la rédaction documentaire (Q58).
+(D417), au service de la rédaction documentaire (Q58). Les composants
+graphiques ont **[leur catalogue dédié](composants.md)** — les fiches
+de description au modèle en neuf rubriques (D457), même vocation.
 
 ---
 
@@ -533,6 +535,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D454 | **La surimpression et sa `dimension`** : « le formulaire peut s'afficher en surimpression de l'écran — la totalité ou une portion » ; **`dimension:` — défaut 100 % de l'écran**, la portion déclarée (`dimension: 70%`). | La surimpression est le mode d'affichage du formulaire ; le patron de la visionneuse (D293). Voir §3.2c. |
 | D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue) ; **l'analogie des web components** (« ou une extension ») consignée — l'écho pour Q7. Voir §3.2c. |
 | D456 | **Le catalogue des composants arbitré** (cinq familles) : **+ `template`** (PDF, Word — la génération PDF sur cette base) ; **`pages` = une section à header/page(s)/footer, `page` = un saut de page, la section = un regroupement potentiellement nommé** ; **+ `carousel`** ; les graphiques couvrent ; **l'acte à trois déclencheurs** — le bouton, l'icône, **le passage d'étape**. | La description élément par élément s'ouvre ; le wizard s'adossera au passage d'étape (D233). Voir §3.2c. |
+| D457 | **Le document dédié `docs/composants.md`** : les fiches du catalogue groupées — « cela préparera la phase de documentation à rédiger ultérieurement » (Q58) ; **le modèle de fiche en neuf rubriques validé** (« la fiche de description me convient ») ; la première fiche : `checkbox`. | Le patron du glossaire (D417) — pointeur en §1 ; le parcours remplira les fiches. |
 
 ---
 
@@ -9526,3 +9529,12 @@ avant la synthèse Q16).
   ouverte) ; **l'acte à trois déclencheurs** — un bouton, un icône, le
   passage à l'étape suivante (l'utilisateur acte une opération). La
   description élément par élément s'ouvre.
+- **2026-08-13 (suite 2)** — **Le document dédié et le modèle de fiche
+  (D457)**. Le parcours commence par les feuilles (« les plus
+  basiques » — le point 3 ; « il manquait la description ») ; le modèle
+  de fiche en **neuf rubriques** proposé et **validé** (« la fiche de
+  description me convient ») ; l'arbitrage : **« groupons les
+  composants dans un document dédié — cela préparera la phase de
+  documentation »** (Q58) → **docs/composants.md** créé (le modèle,
+  l'inventaire D456, la fiche `checkbox` en première), le pointeur en
+  §1 (le patron du glossaire D417).

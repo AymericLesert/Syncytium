@@ -684,3 +684,54 @@ gui:
                   component: radios   # la surcharge au nœud — trois valeurs
                                       #   étalées, le clic direct (D461)
 ```
+
+## `icon-set`
+
+1. **Nom et famille** — `icon-set`, une feuille ;
+2. **Rôle** — le jeu d'icônes : l'énuméré en images — chaque valeur est
+   une icône, le choix d'un regard et d'un clic ;
+3. **Types servis** — `enum` dont **les `values` portent `icon` ou
+   `image`** (D283/D387) — sans icônes déclarées, pas d'icon-set
+   (*erreur à l'ingestion, en proposition*) ; jamais un défaut — la
+   surcharge (`component: icon-set`) ;
+4. **Contexte consommé** — les `values` du champ (`icon`/`image` ←
+   `resources/` D346, le `label` pour l'infobulle), le `mode`, les
+   droits ;
+5. **Propriétés** — **`size`** (la taille des icônes — le vocabulaire
+   unique D461) ; rien d'autre : les icônes viennent des `values` ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : les icônes étalées, la
+   sélection marquée ; **smartphone : le choix par image prend l'écran
+   et s'empile** (l'arbitrage du thème E) ; lecture : l'icône de la
+   valeur, le libellé en infobulle ; template : l'icône rendue (l'image
+   au PDF, D257) ; Excel : le code ou le libellé (D130) ;
+8. **États et interactions** — grisé si `readonly`/droits ; en
+   recherche : la liste multi-sélection du jeu, icônes affichées
+   (D388) ;
+9. **Décisions fondatrices** — D283, D346, D387–D388 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/customer.yml
+fields:
+  category:
+    type: enum
+    values:
+      bronze: { label: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D346)
+      silver: { label: { fr: Argent }, icon: silver.png }
+      gold:   { label: { fr: Or },     icon: gold.png }
+    default: bronze
+    component: icon-set            # la surcharge au champ — les icônes partout
+
+gui:
+  lists:
+    main:
+      columns: [code, company_name, category]   # l'icône en cellule
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Classification }
+            items:
+              - field[category]: { size: 48px }   # la taille au nœud (D461)
+```

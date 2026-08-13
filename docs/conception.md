@@ -556,6 +556,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D475 | **La famille `viewer`** : « image-viewer et carousel sont un même objet : viewer » — **généralisé aux fichiers visualisables** (PDF, Word, Excel… — « l'image, un type parmi tant d'autres ») ; **`carousel` = le viewer des collections** (liste/association d'images ou vignettes, le défilement à intervalle ou avant/après). | Les fiches réécrites ; `interval: 5s` en proposition (la seconde aux durées D434). Voir §3.2c. |
 | D476 | **Les durées complètes** (amende D434) : **`s`, `min`, `h`, `d`, `w`, `m`, `y`** — la seconde et l'année s'ajoutent ; le vocabulaire vaut partout (`every:`, `interval:`, `await[…]`). | `temporal[1y]` possible en note (le `[365]` nu = des jours, D411). Voir §3.2c. |
 | D477 | **« Viewer est le composant graphique et carousel un mode d'affichage »** (amende D475) : une seule fiche `viewer` — le mode déduit du contenu (le fichier seul → la vignette, la collection → le carrousel), forçable au crochet. | `viewer[carousel]` en proposition. Voir §3.2c. |
+| D478 | **Les trois modes du viewer** : « le crochet est un raccourci pour la définition du mode » (`viewer[carousel]` ≡ `mode: carousel`) ; « le viewer peut afficher **une image, une planche ou un carousel** ». | Le nom anglais de la planche en proposition : `mosaic` (le conteneur `grid` D451 déjà pris). Voir §3.2c. |
 
 ---
 
@@ -3285,6 +3286,16 @@ carrousel quitte l'inventaire des feuilles : **une seule fiche
 vignette et la visionneuse au clic (D293), la collection → le
 carrousel (le défilement D475, `interval:` D476) — et se force au
 crochet, `viewer[carousel]` *(l'écriture en proposition)*.
+
+**Les trois modes du viewer (D478).** **« Le crochet est un raccourci
+pour la définition du mode »** — la propriété `mode:` existe en clair,
+`viewer[carousel]` ≡ `mode: carousel`. Et **« le viewer peut afficher
+une image, une planche ou un carousel »** — trois modes : `image` (le
+fichier seul en vignette), **la planche** (toutes les vignettes de la
+collection — *nom du catalogue en proposition : `mosaic`, l'anglais des
+valeurs sans collision avec le conteneur `grid` D451*), `carousel` (la
+succession qui défile). *(En proposition : au template, le carrousel se
+rend en planche.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -9957,3 +9968,8 @@ avant la synthèse Q16).
   du contenu (fichier seul → vignette, collection → carrousel),
   forçable au crochet viewer[carousel] (en proposition). La fiche
   unifiée en attente de validation.
+- **2026-08-13 (suite 30)** — **Les trois modes du viewer (D478)** :
+  « le crochet est un raccourci pour la définition du mode » — mode:
+  en clair, le crochet en abrégé ; « le viewer peut afficher une image,
+  une planche ou un carousel ». Le nom anglais de la planche en
+  proposition (mosaic). La fiche en attente de validation.

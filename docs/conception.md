@@ -67,6 +67,12 @@ le cadre, l'extension porte la sémantique », « masquer, ne jamais
 détruire », « la translation déclarative est un primitif transverse » — qui
 ne sont pas des piliers mais les irriguent tous.
 
+Le vocabulaire du projet est fixé dans **[le glossaire](glossaire.md)** —
+un document à part, terme par terme avec ses décisions fondatrices
+(D417), au service de la rédaction documentaire (Q58). Les composants
+graphiques ont **[leur catalogue dédié](composants.md)** — les fiches
+de description au modèle en neuf rubriques (D457), même vocation.
+
 ---
 
 ## 2. Décisions actées
@@ -489,6 +495,100 @@ ne sont pas des piliers mais les irriguent tous.
 | D414 | **Les groupes** : `groups.yml` à la **racine de version** (transverses aux modules, patron D349/D352), mapping clé → libellés (le nom = la clé, cité partout) ; affectations en base (D27/D341) ; **hiérarchie requise, sans cycle** — **« un groupe est constitué d'autres groupes »** : le contenant déclare (`groups: [accounting, sales_team]`), pas de lien parent. | La ligne D399 (le possesseur déclare) ; multi-appartenance naturelle, le membre d'un constituant est membre du contenant ; acyclicité à l'ingestion (D135). Voir §3.2c. |
 | D415 | **`modules.yml` à la racine de version** : « décrit la liste des modules — il fait le lien avec les fichiers `module.yml` » — **la liste explicite**, pas de découverte implicite par les dossiers. | La ligne D320/D363 (l'entrée liste, l'arborescence libre) ; les modules listés = les modules unifiés (D416). Voir §3.2c. |
 | D416 | **Les modules fonctionnels = les modules** — l'unification : le module structure **la donnée et l'expérience** (menu.yml D351 = le menu D193, page d'accueil D191, affectation utilisateur ↔ module D210/D341, restriction sans extension de droits D190). | La distinction de D190 est dissoute — lire « module » partout ; le menu peut citer des entités d'autres modules (D116). Voir §3.2c. |
+| D417 | **Le glossaire** : un document à part — `docs/glossaire.md` — **à la façon d'un dictionnaire** : le terme français porte les échanges, sa traduction dans la configuration entre parenthèses (Champ/`field`), définition claire et concise, un exemple quand il éclaire, la décision en rappel discret (~55 entrées). | « Il nous sera utile lors de la rédaction de la documentation » (Q58) ; né de l'unification D416 ; la première version trop technique reprise sur retour de l'auteur ; pointeur en §1. |
+| D418 | **Le glossaire relu et enrichi par l'auteur** (commits directs) — les évolutions de fond : **le couple Configuration/Description** (la configuration = les fichiers du technicien + les settings en cascade ; la description = le contexte d'un élément — aide, infobulle, masques — **jusqu'à l'interface pour outils tiers dont l'IA**) ; **« Application »** entre au vocabulaire (le cadre d'exécution d'une instance) ; **la clé d'un compteur reste unique malgré la réinitialisation** ; **les hooks élargis** (écrans de saisie, formats CSV/Excel fournis = des hooks) ; **utilisateurs associés par le technicien ou par une passerelle d'authentification** ; **le rapport des non-conformités couvre aussi les modifications directes en base par un outil tiers** ; **les ressources élargies** (tout fichier utile — modèles PDF/Word/Excel) ; renommages français (exécution à blanc, type court, composant graphique, groupe d'utilisateurs, rapport des non-conformités). | Entrées supprimées : Infobulle (absorbée par Description) ; **Ingestion réintégrée avec la définition de l'auteur** (« convertir une version de configuration en une entrée dans le moteur exploitable par toutes les composantes — API, Écrans, CSV… ») ; « méta-schéma » **tranché** : un seul mot couvrant **le modèle porté par une version ET la grammaire utilisée** (la proposition « format de description » écartée). |
+| D419 | **Le composé `uuid`** : pour **les identifiants externes** (systèmes tiers, clés D178) — base `text`, validation intégrée (8-4-4-4-12), **stockage compact au moteur** (16 octets), recherche/tri sur la forme canonique. | **L'UUID interne demeure hors déclaration** (D142/Q49 — la famille 7) : la frontière est nette. Voir §3.2c. |
+| D420 | **Le raffinement d'agrégat écarté** (amende D101/D133) : **l'agrégat est toujours le grain d'écriture** — la composition est indivisible par nature, l'association porte la vie libre (**le mot-clé fait la distinction**) ; ce que « refine » visait de légitime **est le `filter`** des liens (D395/D401). | Ouvre et clôt le point 5 du domaine 3 — par simplification ; D192 règle unique ; D111/D15 rendent le grain fin sans objet. Voir §3.2c. |
+| D421 | **La condition de mise à jour porte sur l'entité** — jamais sur l'association ou la composition : propriété d'en-tête `update:` (expression D90 — `update: status = "draft"`). | En proposition : condition fausse = lecture seule de fait (refus propre D307) ; la racine couvre ses compositions (D420) ; **les opérations passent outre** (le chemin explicite, D354). Voir §3.2c. |
+| D422 | **Le statut d'état couvre le CRUD entier** (élargit D421) : chaque état du cycle de vie porte ses droits — **create** (un sous-composant), **read** (la consultation — sans elle, l'état masque), **update** (l'agrégat D420), **delete** (la désactivation D141). | **La propriété se nomme `allow`** — toute combinaison (`allow: [read, delete]`) — sur la valeur d'énuméré ou l'état `states:` ; absent = tout permis ; les opérations passent outre. Voir §3.2c. |
+| D423 | **Les deux formes conservées, exclusives** : le cycle (`allow` par état, D422) **ou** la forme libre (le bloc `allow:` d'en-tête, verbe → expression D90) — « pour éviter de faire un hook inutile » ; **« les 2 simultanément ne seront pas autorisés »** (erreur à l'ingestion, D344). | Un nom unique — `allow` — deux foyers ; le `update:` de D421 se fond dans le bloc. Clôt D421/D422. Voir §3.2c. |
+| D424 | **`states` désigne le porteur du cycle** : « un état hiérarchique est déjà un statut » (pas de cumul) ; l'entité **sans** hiérarchie **réutilise le bloc `states`** pour désigner son champ énuméré — `states: status`. | **Un seul statut par entité, deux sources** (la hiérarchie D353 ou le champ désigné) ; notes : champ non énuméré = erreur, les deux sources = erreur, la naissance = le `default`. Voir §3.2c. |
+| D425 | **Le graphe déclaré, `promote` en tableau** : la logique hiérarchique (D353–D355) transposée à l'énuméré-cycle — chaque valeur déclare ses passages ; **« le promote est un tableau, car nous pouvons avoir le choix entre plusieurs états »** ; hors graphe = refus. | Notes : `demote` en tableau par symétrie ; deux `when` vrais → l'ordre du tableau départage ; le cliquet D354 inchangé ; vaut pour les deux sources. Voir §3.2c. |
+| D426 | **Les deux régimes d'une transition (clôt le focus cycle de vie)** : les trois virgules validées (demote en tableau, l'ordre départage, **la naissance libre** D355) ; **sans `when` = la transition libre** — le composant de sélection devient **navigateur du graphe** (les cibles `promote` seules) ; **« la présence du `when` marquera une opération (un bouton ou une action) »** — le chemin nommé, gardé, tracé. | Le `demote` jamais en sélection libre (D354) ; **le composant du statut se déduit de la déclaration** — liste-navigatrice (sans `when`) ou champ en lecture + boutons (avec `when`), le mixte combine ; l'articulation avec le cliquet D354 : question posée. Voir §3.2c. |
+| D427 | **Le triptyque du `when`** (solde l'articulation D354) : sans `when` = **libre** (la liste navigatrice) ; `when: <opération>` = **l'acte** (un bouton) ; `when: <expression>` = **l'automatisme** — **le cliquet D354 intact** (« déduit d'un élément de l'entité via le langage d'expression »). | Trois écritures, trois vécus — un seul graphe. Le focus cycle de vie est soldé (D420–D427). Voir §3.2c. |
+| D428 | **L'opération porte sa nature** (raffine D427) : **avec `when` = automatique** (le `when` est son déclencheur, jamais une simple garde) ; **sans `when` = un bouton / une fonction API** ; l'expression en ligne d'un `promote` = **l'abréviation** d'une opération automatique anonyme. | « Cycle de vie » et « État hiérarchique » ajoutés au glossaire à la demande de l'auteur. Voir §3.2c. |
+| D429 | **La trace des actions = l'historisation** : « les actions sont tracées si l'entité possède un historique » — l'instantané photographie chaque acte (auteur, canal, motif — D169) ; **sans historique, pas de trace d'opération**. | Aucune machinerie de trace séparée — l'acquis D411–D413 porte tout. Voir §3.2c. |
+| D430 | **La garde du bouton : le `if` au graphe** — `when: confirm if count(lines) > 0` : le passage n'est légal que si la condition tient (le bouton se grise, l'API refuse proprement D307). | Aucune propriété nouvelle — la garde vit où la transition vit ; `enabled:` et la validation-au-clic écartés. Voir §3.2c. |
+| D431 | **La propriété se nomme `validate`, et `validate: true` est le défaut** — le patron D196 (lecture seule + confirmer/annuler, jamais de popup) généralisé aux opérations ; **`validate: false` à déclarer** pour l'exécution directe au clic. | « Validate me convient mieux que confirm » ; la relecture avant engagement est la règle ; les opérations automatiques (D428) non concernées. Voir §3.2c. |
+| D432 | **Le bloc `operations:` clos** : au même niveau que `fields:`/`validation:` (mapping ordonné = l'ordre des boutons) ; **jamais d'effet d'état** (la transition au graphe) ; `effects:` ordonnés — `notify`, `document`, `set`, **`function`** (« une fonction interne à Syncytium — un catalogue ou une liste fournie en hook ») ; **disponible partout par défaut**, l'exclusion d'interface déclarable (« un écran ou l'API »). | `except: [api]` en proposition ; le passe-outre des `allow` demeure (D421c). Voir §3.2c. |
+| D433 | **Le changement d'état = une opération du catalogue, l'opération par défaut** (celle qu'un `promote` invoque sans autre précision) — la ligne D408 étendue aux opérations : le catalogue embarqué. | **Q60 ouverte** : l'inventaire du catalogue des fonctions/opérations, « un point ultérieurement ». Voir §3.2c et §10. |
+| D434 | **Le calendaire riche — `every:`** : les durées (`5min`/`2h`/`2d`/`2w`/`1m`), les raccourcis (`daily`/`weekly`/`monthly`), **le crochet précisant le(s) moment(s)** — `daily[08:00]`, `weekly[tuesday at 15:30]`, moments multiples (`weekly[monday at 09:30:45, wednesday at 20:35:12]`) ; **heures en UTC du serveur**. | Le crochet-paramètre (D366), le `at` du langage (D301) ; sans crochet = moment au moteur, le `when:` du rapport D406 s'aligne (notes). Voir §3.2c. |
+| D435 | **`every: continuous`** = « à chaque mise à jour d'un enregistrement de l'entité » (les événements de données D54) — **le même mot que le rapport** (D406) — **et il est le défaut** (`every:` absent = `continuous`). | Le temporel exige son rythme calendaire déclaré (note). Voir §3.2c. |
+| D436 | **Notifications soldées par simplification** (« pour le moment, pas de nouveaux éléments » — l'opération automatique + `notify:` couvre tout) ; **les tâches : `mode`** — **`synchronous`** (interface en pause + barre de progression), **`asynchronous`** (enregistrée, la file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage avant lancement). | `background` écarté ; défaut `synchronous` en proposition ; couvre les points 3 et 4 du domaine 3. Voir §3.2c. |
+| D437 | **Domaine 4 ouvert — l'ancrage des surfaces** : les cinq blocs (`lists`, `forms`, `summary`, `charts`, `widgets`) **dans un bloc `gui`** (nom : D438) ; **trois étages de complexité** — rien (les défauts D186), un seul fichier (le bloc en ligne), **un dossier par entité** (`entity.yml` + un fichier par bloc). | Références explicites (D320/D415) ; le pattern du module s'adapte. Voir §3.2c. |
+| D438 | **Le point 1 du domaine 4 clos** : le bloc se nomme **`gui`** ; **la première déclarée = la surface par défaut** (l'ordre D356) ; **le socle des surfaces = le patron des champs** (labels/comment/description) ; **la déclaration remplace le défaut** (« le défaut proposé par le système n'est plus disponible »). | Suivant : le menu (point 2 — le différé D351). Voir §3.2c. |
+| D439 | **Le menu = des adresses** : liste ordonnée filtrée par la confidentialité (inchangé) ; `<module>.<entité>` (liste par défaut), `[<liste>]` (nommée), `.<opération>`, `[+<formulaire>]` (création, nom optionnel), `[@<wizard>]` (nom optionnel), `<module>[<dashboard>]` (**le dashboard au module**), `<nom>:` (sous-menu — libellé au module) ; **`icon` rejoint le socle des surfaces**. | Ma proposition de blocs typés écartée ; le menu = pures adresses, l'icône vient de la surface visée ; notes : libellés de sous-menus, bloc dashboards (point 6). Voir §3.2c. |
+| D440 | **Le dictionnaire de libellés du module (clôt le point 2)** : « les labels sont utilisés au-delà du menu — dans un champ, les libellés peuvent y faire référence » — bloc `labels:` de `module.yml` (externalisable D349/D352) ; **la chaîne vaut référence, le mapping vaut inline**. | L'esprit des variables (D323) — la redondance s'éteint ; nom introuvable = erreur, étage version en cascade (notes). Le dashboard → point 6. Voir §3.2c. |
+| D441 | **Le `searchable` de liste** : « la liste des champs ou des noms mutualisés à positionner dans un filtre de tri — **par défaut, tous les champs sont inclus dans la recherche** ». | Le champ déclare *comment* (D367), la liste déclare *lesquels* ; amende le défaut de D227 (« colonnes affichées » → « tous les champs »). Voir §3.2c. |
+| D442 | **La liste close** : `columns:` (l'ordre d'affichage) ; `filter:` (les expressions) ; **`sort:` par colonne** — sans = toutes triables, avec = la présente triable avec **sa cascade de clés secondaires** (`nom: [prenom, numero]`), l'absente non triable, `+`/`-` (croissant par défaut) ; **`editable:` à défaut readonly** — la colonne s'ouvre en se déclarant. | **Amende D266** (qui ouvrait tout par défaut) ; clôt le point 3 du domaine 4. Voir §3.2c. |
+| D443 | **La colonne riche** (complète D442) : « les colonnes portent également **le style, l'alignement et la dimension** » — forme courte (le nom) ou riche (`nom: { align: left, width: 30%, style: bold }`) ; **la forme abrégée délègue au moteur** : « Syncytium décide alors du format par défaut et de la dimension de la colonne en fonction de son type ». | L'esprit D372 — le technicien décrit, le moteur dimensionne ; `align` au défaut du type, `width` %/px/auto, `style` relevant du thème (D191). Voir §3.2c. |
+| D444 | **La liste raffinée — l'artefact** : **l'opération en colonne** (l'icône à 3 états : actionnable / non visible / non actionnable) ; **l'export** — colonnes visibles + complémentaires, **CSV = un fichier par type de composants**, **Excel = un fichier à onglets, surchargeable par un modèle** ; **l'auto-rafraîchissement** (pas de bouton) ; la confidentialité = non visible **et non triable** ; **la pagination à indicateurs** (« 21–40 sur 156 »). | La symétrie de l'import d'agrégat (Q55) ; le modèle Excel ← resources/ (D418) ; **l'export porte son tri** (l'écriture de D442, figée) ; l'exemple canonique consigné. Voir §3.2c. |
+| D445 | **Les comportements de la liste** : `selection: 1 \| 1..` (harmonisé D474) ; la création en **bouton du cadre/entête** ; la modification au **double-clic** (ligne non readonly) ; la liste **en lecture seule** = le double-clic consulte ; la suppression — **1 ligne = formulaire lecture seule + confirmation** (D196), **n lignes = popup avec le nombre** (l'exception assumée, D202) ; **l'opération de masse sur la sélection**. | Les opérations (D432) rencontrent la sélection ; la masse séquentielle et la double validation (D202). Voir §3.2c. |
+| D446 | **`sizable`** — le redimensionnement des colonnes : **`none` / `auto` / `manual` / `auto+manual`** — l'ajustement par l'utilisateur seulement si `manual` ; « la liste est un composant complet et complexe, dont la lisibilité doit s'adapter au format d'affichage ». | Défaut `auto` en proposition (la ligne D443 — le moteur dimensionne). Voir §3.2c. |
+| D447 | **La préséance et la colonne fantôme** : « les types portent des propriétés d'affichage dans une liste — **par défaut, elles priment** ; la liste surcharge » (la chaîne **type → colonne**, le pendant de D270) ; **une colonne peut être présente, non affichée et non visible** (jamais révélée, même `sizable: manual`) — « utile pour un export CSV simplifié ». | `visible: false` en proposition ; l'export prend les colonnes **présentes**, les `export.columns` (D444) pour le hors-liste ; exemples canoniques — montant : devise + droite ; toggle : centré ; texte court : gauche ; multi-lignes : justifié. Voir §3.2c. |
+| D448 | **La grammaire commune des surfaces** : « forms, summary et widget vont partager un vocabulaire et une grammaire commune » — le socle, `header`/`footer` à gabarits (D253), `mode`, `blocks` (`section`/`tab`) au contenu `fields`/`charts` ; **les spécialisations par restriction** (forms entière + history ; summary sans onglets, un seul ; widgets = charts/KPI/TCD) ; le gabarit PDF et le wizard réutiliseront la grammaire. | « La base que nous allons **reformuler et étoffer** » — l'arbitrage surface par surface suit. Voir §3.2c. |
+| D449 | **Le formulaire reformulé** : l'icône **jamais dans `labels`** (le dictionnaire D440 amendé — les langues seules) ; « **un formulaire est conçu pour un mode d'écran** » (D206/D250) ; **quatre parties** — « un **titre** (zone de texte à gabarit), un **entête**, un **corps** et un **pied de page** — des blocs ». | À trancher : la propriété d'écran visé et son défaut (PC paysage D250) ; l'entête/pied — sections seules ou tous blocs. Voir §3.2c. |
+| D450 | **`screen` en tableau** (« la compatibilité de plusieurs affichages »), défaut **`[pc paysage]`** ; entête/corps/pied acceptent **sections et onglets** — car **« les blocs sont des composants »** : « un composant "type" à signature commune qui assure un rendu — une section, une grille, des onglets sont des composants ». | Le catalogue des conteneurs (`section`, `grid`, `tabs`…) **extensible** — les livrés sont les hooks embarqués (D408/D263), l'inventaire rejoint Q60. Voir §3.2c. |
+| D451 | **Le formulaire arborescent** : « un nœud est un composant qui affiche un composé graphique basé sur **l'enregistrement d'une entité, d'un champ et des opérations** » — conteneurs, feuilles-champs et boutons d'opérations : un seul arbre, une signature commune, **l'imbrication libre**. | Les quatre parties (D449) = les branches maîtresses ; le contexte (enregistrement, champ, opérations) nourrit chaque rendu. Voir §3.2c. |
+| D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
+| D453 | **Les propriétés du `form`** : **le gabarit déclinable par langue** (`title:` — chaîne unique ou mapping) ; **`mode: updatable` (défaut) \| `read-only`** ; **`history: false` = désactiver l'onglet d'une entité historisée** (défaut `true`, toujours dernier — D186/D411). | Vaut pour tous les gabarits (D253/D449) ; sans historisation, pas d'onglet. Voir §3.2c. |
+| D454 | **La surimpression et sa `dimension`** : « le formulaire peut s'afficher en surimpression de l'écran — la totalité ou une portion » ; **`dimension:` — défaut 100 % de l'écran**, la portion déclarée (`dimension: 70%`). | La surimpression est le mode d'affichage du formulaire ; le patron de la visionneuse (D293). Voir §3.2c. |
+| D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue) ; **l'analogie des web components** (« ou une extension ») consignée — l'écho pour Q7. Voir §3.2c. |
+| D456 | **Le catalogue des composants arbitré** (cinq familles) : **+ `template`** (PDF, Word — la génération PDF sur cette base) ; **`pages` = une section à header/page(s)/footer, `page` = un saut de page, la section = un regroupement potentiellement nommé** ; **+ `carousel`** ; les graphiques couvrent ; **l'acte à trois déclencheurs** — le bouton, l'icône, **le passage d'étape**. | La description élément par élément s'ouvre ; le wizard s'adossera au passage d'étape (D233). Voir §3.2c. |
+| D457 | **Le document dédié `docs/composants.md`** : les fiches du catalogue groupées — « cela préparera la phase de documentation à rédiger ultérieurement » (Q58) ; **le modèle de fiche en neuf rubriques validé** (« la fiche de description me convient ») ; la première fiche : `checkbox`. | Le patron du glossaire (D417) — pointeur en §1 ; le parcours remplira les fiches. |
+| D458 | **Les renommages des feuilles** : `text-zone` → **`text`**, `number-zone` → **`number`**, `list-editor` → **`list`** (« suffit ») — et la lecture consignée : **le composant par défaut d'un type porte le nom du type** (D64 devient nominal), les espaces de noms se résolvant par le contexte (`type:` vs `component:`). | Les collisions assumées — le contexte du slot départage ; composants.md à jour. |
+| D459 | **Le type-hook doit se représenter** : « un type ajouté via le hook doit inclure une phase de représentation graphique — ou via un document PDF, Word… » — **aucun type sans visage** : le composant d'écran et/ou le rendu de document (`template`, D456). | La ligne D455 (une facette = un hook) — la facette d'affichage d'un type hooké est due ; le contrat au domaine 6. Voir §3.2c. |
+| D460 | **`field[<nom>]`** — la forme explicite du nœud-champ dans les `items` (« certains noms de champs sont aussi des composants — pour éviter l'ambiguïté, c'est nécessaire ») ; **la surcharge de représentation au nœud** : le style par état (vide/faux, coché/vrai, le nul), la taille… | La chaîne type → colonne → nœud (D270/D447) s'achève au formulaire ; formes `style:`/`size:` en proposition. Voir §3.2c. |
+| D461 | **Un seul vocabulaire de représentation, trois étages** : les propriétés de représentation (`component`, `style`, `size`, `readonly`…) **se portent au type (D64/D359), se surchargent au champ, se surchargent encore au nœud `gui`** — les mêmes mots partout, le plus proche l'emporte. | `field[active]` confirmé (« dans mon esprit ») ; la cascade au vocabulaire unique (l'esprit D360). Voir §3.2c. |
+| D462 | **Les colonnes gardent le nom nu** — « l'ambiguïté n'est pas présente : des noms de champs, les opérations sont des verbes » ; **la préconisation** (jamais un contrôle) : une action = un verbe ; **la préséance : le champ l'emporte** sur l'opération homonyme. | « Syncytium n'apporte pas de contrôles » — la préconisation rejoint la documentation du technicien (Q58). Voir §3.2c. |
+| D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
+| D464 | **Le raccourci du texte : `shortcut`** (au lieu de `lines`) — trois propriétés : **`lines`** (les lignes visibles), **`icon`** (`next.svg`), **`label`** (par langue — « Voir plus »/« More ») ; absent = le défaut traduit du moteur. | La fiche `text` reprise ; virgule : `label` vs le `labels` du socle — à harmoniser ? |
+| D465 | **Le triptyque `label`/`title`/`labels`** : **`label` = les libellés par langue, partout** (remplace `labels`) ; **le visage de l'enregistrement (D397) se renomme `title`** — le gabarit d'affichage, cohérent avec le formulaire (D449/D453), **utilisable sur un formulaire et surchargeable** (la cascade entité → formulaire) ; **`labels` ne survit qu'au dictionnaire du module** (D440). | Renommage appliqué aux trois documents (conception — 43 occurrences, glossaire, composants) ; le socle D364 amendé. Voir §3.2c. |
+| D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { background: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; **le nom : `background`** (fill/gradient écartés). Voir §3.2c. |
+| D467 | **Les couleurs de jauge** : « les couleurs à afficher doivent être spécifiées » — **le dégradé min → max** (`colors: { min: red, max: green }` — **le défaut, du rouge au vert**) **ou la couleur par seuil** (`{ 0: red, 50: orange, 80: green }`). | Vaut pour `gauge`, `fuel` et le fond gradué (D466), aux trois étages (D461) ; fiches complétées. Voir §3.2c. |
+| D468 | **Le seuil des radios = la configuration générale** — un paramètre du `settings` (« il est possible de définir 3, 5 ou 10 selon les besoins ») ; la virgule du thème E refermée. | Le pendant du seuil mono/multi-ligne (D366) ; au-delà, le repli en `dropdown` (note en proposition). Voir §3.2c. |
+| D469 | **Le `record-picker` enrichi** : **`anchor:`** — l'ancrage de la liste (« centre de l'écran, à droite du champ, à la place du champ ») ; **`dimension:`** — « plein écran, pourcentage en largeur et en hauteur » (la réutilisation de D454). | Défauts au moteur selon l'écran (smartphone plein écran) ; la forme à deux axes (`60% 80%`) en proposition. |
+| D470 | **La famille `picker` pointée** : `picker.record`, `picker.image`, `picker.file` (« picker me convient, mais plutôt picker.record… ») — **le point du namespace (D363) gagne les noms de composants** ; `file-drop` renommé ; **la sélection unique ou multiple, déduite du lien** — la référence = unique, la liste et l'association = multiple (le vocabulaire D445). | La porte ouverte aux autres familles (chart.line, chart.bar… — note en proposition) ; l'inventaire et les fiches repris. |
+| D471 | **Les trois présentations du picker** : « par une liste, par une liste d'identifiants, ou par une liste d'images » — l'entité représentée par ses **clés fonctionnelles et/ou son champ image** ; **`picker.image` dérive de `picker.record`** (la présentation images fixée, tout hérité). | `by: list` (défaut) \| `identity` en proposition sur picker.record. Voir §3.2c. |
+| D472 | **`picker.image` s'efface** (amende D471) : `picker.record` seul, « avec un composant matérialisant la liste de sélection — le nom de la liste, ou le nom du champ représentant une image de l'enregistrement » — **la valeur d'une propriété dit la présentation**. | La simplification (la ligne D420) ; virgule : porter la matérialisation par `selection:` élargi plutôt que `component:` (collision D461) — en proposition. Voir §3.2c. |
+| D473 | **La famille `picker` recomposée** : `picker.record` (les enregistrements — D472), `picker.file` (« un ou plusieurs fichiers quelconques » — le défaut de `file`), **`picker.image` (« un ou plusieurs fichiers images, dont la liste des formats est exploitable par Syncytium »** — le défaut d'`image`/`thumbnail`, dérivé de picker.file). | L'ancien picker.image (la référence par l'image) fondu dans picker.record ; le « un ou plusieurs » suit le lien/type (D470) ; la fiche réécrite. Voir §3.2c. |
+| D474 | **`selection` = le nombre** (`1`, `1..`, `1..5` — l'écriture des bornes D366, la déduction D470 en défaut) ; **`by` = la présentation** (une liste de la cible, ou son champ-image — « component n'est pas adapté ; by me plaît »). | Solde D472 ; le `selection:` de D215 remplacé par `by:` ; l'harmonisation D445 (`one`/`multiple` → `1`/`1..`) en proposition. Voir §3.2c. |
+| D475 | **La famille `viewer`** : « image-viewer et carousel sont un même objet : viewer » — **généralisé aux fichiers visualisables** (PDF, Word, Excel… — « l'image, un type parmi tant d'autres ») ; **`carousel` = le viewer des collections** (liste/association d'images ou vignettes, le défilement à intervalle ou avant/après). | Les fiches réécrites ; `interval: 5s` en proposition (la seconde aux durées D434). Voir §3.2c. |
+| D476 | **Les durées complètes** (amende D434) : **`s`, `min`, `h`, `d`, `w`, `m`, `y`** — la seconde et l'année s'ajoutent ; le vocabulaire vaut partout (`every:`, `interval:`, `await[…]`). | `temporal[1y]` possible en note (le `[365]` nu = des jours, D411). Voir §3.2c. |
+| D477 | **« Viewer est le composant graphique et carousel un mode d'affichage »** (amende D475) : une seule fiche `viewer` — le mode déduit du contenu (le fichier seul → la vignette, la collection → le carrousel), forçable au crochet. | `viewer[carousel]` en proposition. Voir §3.2c. |
+| D478 | **Les trois modes du viewer** : « le crochet est un raccourci pour la définition du mode » (`viewer[carousel]` ≡ `mode: carousel`) ; « le viewer peut afficher **une image, une planche ou un carousel** ». | Le nom anglais de la planche en proposition : `mosaic` (le conteneur `grid` D451 déjà pris). Voir §3.2c. |
+| D479 | **La planche dimensionnée** : « besoin de préciser le nombre d'images en colonne et en ligne dans la zone » — `mosaic[4x3]` (colonnes × lignes), absent = l'auto, l'excédent se feuillette. | L'écriture au crochet en proposition (l'écho d'`image[512x512]`). Voir §3.2c. |
+| D480 | **`mosaic` et le crochet actés** : « la dimension dans les crochets est une bonne idée (pour un raccourci). Il faut prévoir une propriété quand même » — la grille aussi en clair. | `columns:`/`lines:` en proposition (les mots du vocabulaire D441/D464). Voir §3.2c. |
+| D481 | **Le document paginé feuilleté** : « un carrousel d'un document PDF correspond à un défilement des pages. Un PowerPoint suit le même principe » — le carrousel défile une succession : les éléments d'une collection **ou les pages d'un document** ; l'usage : « une présentation ou un mode opératoire ». | La page fait l'image ; `interval:` fait tourner la présentation. Voir §3.2c. |
+| D482 | **`sheet:`** — la grille de la planche en une seule propriété : `sheet: 4x3` (colonnes × lignes) ; le crochet `mosaic[4x3]` en est le raccourci (remplace la proposition columns/lines). | Voir §3.2c. |
+| D483 | **Le viewer du document généré** : « le fichier de la facture n'existe pas en tant que tel mais comme un PDF généré à partir des informations de la facture et de ses lignes — un viewer peut faire référence à un template de document à générer ». | `template[<nom>]` en items (en proposition, l'écho de `field[<nom>]`) ; combiné à D481, le document généré se feuillette. Voir §3.2c. |
+| D484 | **Le couple `size:`/`dimension:`** : « size décrit la dimension à l'affichage et dimension la dimension en extension (suite à un clic) » — size à plat (le socle D461), dimension au déploiement (la visionneuse D293, le picker D469, la surimpression D454). | Voir §3.2c. |
+| D485 | **Le fil épouse son contenant** (précise D167/D186) : « il peut prendre une section ou un onglet… ça prend la place qu'on lui laisse » — l'onglet, un habitat parmi d'autres. | Voir §3.2c. |
+| D486 | **Un seul `list`** : « le composant graphique list vu avant les types est intimement lié à list ici » — la liste complète (D441–D447) et l'éditeur, un même composant ; `list of <entité>` la déploie, `list of <type simple>` la resserre sur la colonne unique. | Le vocabulaire D441–D447 vaut où il garde son sens. Voir §3.2c. |
+| D487 | **Le bloc n'existe pas** : « block n'existe pas en tant que tel — il se décline selon les différents items » ; header/body/footer = des conteneurs du catalogue reconnus par leur nom et leur rôle, au formulaire (D449) comme dans `pages`. | La ligne D455 : tout est composant. Voir §3.2c. |
+| D488 | **Le contenu fixe** : « il manque une feuille essentielle : un texte fixe, un paragraphe et/ou une image fixe » — les informations légales, le logo ; deux feuilles sans champ derrière, nourries par la configuration. | Noms en proposition : `paragraph`, `picture` (`text`/`image` pris — D458). Voir §3.2c. |
+| D489 | **Le couple `sections`/`section`** : sections organise (colonne ou ligne) et ne contient que des sections ; une section « organise différents nœuds — soit sections, soit une des feuilles » — l'alternance stricte. | `layout: column \| row` + crochet `sections[row]` en proposition ; la section seule = raccourci d'un sections à l'item unique (proposition). Voir §3.2c. |
+| D490 | **Les arbitrages du couple** : `layout: column \| row \| grid[2]` (le crochet = les colonnes de la grille) ; « la section seule est un conteneur (header, body ou footer) » — la section nue y vit directement, ailleurs l'organisateur ; « si l'affichage doit changer, screen permet de définir le format attendu » — rien d'automatique. | Voir §3.2c. |
+| D491 | **La grille au crochet** (amende D490) : « oublie grid… column[3] — maximum de 3 colonnes, après 3 on crée une ligne… row[2] — 2 lignes, puis ajoute une colonne » — `layout: column[n] \| row[n]`, le conteneur `grid` retiré du catalogue. | Le mot nomme l'unité, le crochet la compte, le flux replie. Voir §3.2c. |
+| D492 | **La liste en widgets** : « elle peut se présenter sous forme d'une liste de widgets — la propriété `widget: <nom du widget>` de l'entité de l'élément » — le tableau (`columns:`) ou les widgets, la mécanique de la liste demeurant. | `widget:`/`columns:` exclusifs — validé. Voir §3.2c. |
+| D493 | **`title:` au titre de la section** : « le nom d'un regroupement est un libellé en titre de la section — au lieu de label, j'utilise title » — title = ce qui titre (l'entité D465, le formulaire D449, la section) ; label demeure ailleurs. | Les exemples balayés (label → title sous section). Voir §3.2c. |
+| D494 | **La jauge aux trois valeurs** (précise D241) : « min, value et max — min et max peuvent être fixes comme dépendre de valeurs. La jauge porte ces 3 valeurs en une » ; les bornes du type (D276) en défaut. | Chacune fixe ou formule/champ (la ligne D241). Voir §3.2c. |
+| D495 | **Les seuils depuis une entité** : les couleurs de jauge (D467) peuvent « dépendre d'une entité en expliquant les liaisons entre les colonnes et les valeurs (seuil et couleur) » — la table de référence, l'écho de `units:` (D363). | Écriture en proposition (`from`/`threshold`/`color`) ; vaut pour gauge, fuel, le fond gradué. Voir §3.2c. |
+| D496 | **Le type `color` et `picker.color`** : « le stockage est un entier, l'affichage en hexadécimal et une base traduisant les couleurs en RGB » — la pastille en lecture, le sélecteur en saisie (D458) ; « j'ajoute aussi picker.color » — la famille pointée s'agrandit (D470/D473). | La base nomme les couleurs de `colors:` (D467) ; `values:` restreignant la palette en proposition. Voir §3.2c. |
+| D497 | **Le type `range`** : « un stockage de 2 valeurs dont l'une est égale ou plus petite que l'autre » — la plage de dates ou de valeurs, la contrainte intégrée ; ni la recherche (D371) ni `period` (D391) ne couvraient le générique. | `range of <type>` en proposition (l'écho de `list of` D362) ; le double curseur pour les bornés. Voir §3.2c. |
+| D498 | **`range of` validé** — « déclinaison de list of avec 2 contraintes en nombre et en ordre » ; min et/ou max indéfinissables (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **« la jauge étant un cas particulier d'un range »** (relit D494). Les liaisons D495 validées. | Voir §3.2c. |
+| D499 | **Les cellules confirmées** : `duration` compatible `calculator` « sur la base de 2 clocks » ; `datetime` = la combinaison `calendar` + `clock` ; `uuid` « à saisir et en lecture sous forme de texte formaté » — les fonctions multiples, dont les id tiers (relit D419). | La synthèse mise à jour. Voir §3.2c. |
+| D500 | **Le dropdown de la référence et du statut** : « reference : utilisation d'un dropdown possible » ; « le statut peut être un dropdown aussi, avec une liste de valeurs en tenant compte du cycle de vie » — les états atteignables seuls (D425–D427). | La synthèse n'a plus de cellule à confirmer. Voir §3.2c. |
+| D501 | **`width`/`height` sur la section** : « layout fournit le découpage en colonnes et en lignes ; width et height permettent de calibrer la taille des sections. Sans précision, l'ensemble de l'espace est pris. » | Le calibrage au sein de l'organisateur. Voir §3.2c. |
+| D502 | **Les deux étages du calibrage** (précise D501) : width/height « au même niveau que layout pour que chaque section ait la même dimension » — et « également définissables sur la section » pour la taille variable ; le plus proche l'emporte (D461). | Voir §3.2c. |
+| D503 | **`size:` sur `sections`** : « les dimensions de l'espace occupé par l'ensemble » — au débordement, les barres de scrolling « visibles ou évaporeux », le swipe au tactile, les barres indiquant le positionnement. | La cohérence D484 (size = à l'affichage). Voir §3.2c. |
+| D504 | **Les modes de `tabs`** : la barre en haut (Windows, défaut), en bas (Excel), latérale (gauche/droite) — et **le mode wizard** : « voir toutes les étapes mais ne pas prendre d'avance tant que l'onglet précédent n'a pas été exploré ». | `mode: top \| bottom \| left \| right \| wizard` + crochet `tabs[…]` en proposition (D478) ; l'écho du cliquet D354. Voir §3.2c. |
+| D505 | **Le chemin de traitement** (complète D504) : « en wizard, les tabs parcourus décrivent le chemin de traitement — en cliquant sur une phase, nous revenons sur un onglet » — le retour libre sur l'exploré, l'avance gardée. | Voir §3.2c. |
+| D506 | **La dimension unique des volets** : « pour chaque tab, toujours la même dimension — les zones sont centrées si elles représentent un espace plus petit » — aucun calibrage par volet (le contraste avec D502), le contenu plus petit centré. | Voir §3.2c. |
+| D507 | **La géométrie de `pages`** : « pages prend toute la place, pas de dimension ; le header et le footer sont optionnels — s'ils sont définis, ils sont toujours visibles ; la hauteur du footer et du header sont paramétrables ; la page prend toujours le reste ». | Aucun size: (contraste D503) ; height: sur header/footer. Voir §3.2c. |
+| D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
+| D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
+| D510 | **Le multi-pages en liste** : « le multi-pages se fait à l'aide d'une liste d'éléments — default: [ { header: … }, { page: … }, { page: … }, { footer: … } ] » — les clés pour l'usuel, la liste dès que les pages se répètent. | Solde la virgule D509. Voir §3.2c. |
 
 ---
 
@@ -890,7 +990,7 @@ sales/
 ```yaml
 # sales/module.yml
 name: sales
-labels: { fr: Ventes }
+label: { fr: Ventes }
 comment: { fr: Gestion commerciale }
 description: { fr: ... }
 settings: settings.yml         # référence de fichier (D320)
@@ -1004,7 +1104,7 @@ L'exemple canonique du bloc :
 ```yaml
 # sales/entities/customer.yml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 inheritance: third_party            # D353 — seule référence au parent
 identity: [code]                    # la clé métier, sur l'entité (D357)
 
@@ -1013,32 +1113,32 @@ fields:
     type: text
     size: 10
     mask: "C-999999"                # masque de saisie (D260)
-    labels: { fr: Code client }
+    label: { fr: Code client }
     mode: write-once                # écriture unique — posé à la création
   company_name:
     type: text
     size: 80
-    labels: { fr: Raison sociale }
+    label: { fr: Raison sociale }
     required: true
     searchable: true                # recherche plein-texte (D226)
   revenue:
     type: amount                    # composé (D122) : décimal + devise
     currencies: [EUR]               # dérivation par restriction (D123)
     min: 0
-    labels: { fr: Chiffre d'affaires }
+    label: { fr: Chiffre d'affaires }
     confidentiality: protected      # D25
   category:
     type: enum
     values:
-      bronze: { labels: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
-      silver: { labels: { fr: Argent } }
-      gold:   { labels: { fr: Or } }
+      bronze: { label: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
+      silver: { label: { fr: Argent } }
+      gold:   { label: { fr: Or } }
     default: bronze
   advisor:
     type: reference
     to: hr.employee                 # l'adressage logique par points (D363)
     filter: active = true           # restreint les valeurs proposées (D90)
-    labels: { fr: Chargé d'affaires }
+    label: { fr: Chargé d'affaires }
   logo:
     type: image                     # D286 — vignette calculée par le moteur
   total_orders:
@@ -1095,7 +1195,7 @@ fields:
   completion:
     type: progression
     max: 200                     # surcharge d'une propriété héritée du type
-    labels: { fr: Complétude }
+    label: { fr: Complétude }
 ```
 
 *(La convergence : les composés livrés D122 deviennent des types définis
@@ -1143,7 +1243,9 @@ catalogue, avec les facettes de chacun :
   (`currencies`), `email`, `percentage` (borné → jauge D274), `phone`,
   `url`, `siren`, `siret`, `iban`, `bic`, `vat_number`, `measure`
   (`units`), `geolocation`, `period` — siren/siret/iban/bic inchangés :
-  des identifiants du domaine, pas des mots à traduire.
+  des identifiants du domaine, pas des mots à traduire — et `uuid`
+  (D419, les identifiants externes), `password` (D463, l'empreinte
+  seule).
 - **Contenus** : `communication` (D167 — défauts : visibilité maximale,
   immuable, sans pièces jointes, sans notification). *(`thumbnail` et
   `image` : reclassés parmi les simples, dérivés de `file` — D385.)*
@@ -1168,7 +1270,7 @@ quel que soit son type — le socle est finalisé :
 
 | Propriété | Rôle | Source |
 |---|---|---|
-| `labels` | le libellé par langue | D217 |
+| `label` | le libellé par langue (`labels` réservé au dictionnaire du module — D465) | D217 |
 | `comment` | l'infobulle | invariants de l'auteur |
 | `description` | le masque d'explication, la documentation | D188/D333 |
 | `placeholder` | la valeur de démonstration | invariants de l'auteur |
@@ -1369,8 +1471,8 @@ fields:
     type: boolean
     required: true                 # deux états — toggle possible
     values:
-      true:  { labels: { fr: Actif } }
-      false: { labels: { fr: Inactif } }
+      true:  { label: { fr: Actif } }
+      false: { label: { fr: Inactif } }
   audited:
     type: boolean                  # optionnel — tri-état, naît nul (D374)
     searchable: strict             # case tri-état en recherche (D375)
@@ -1504,7 +1606,7 @@ propriété d'en-tête :
 
 ```yaml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 image: logo                       # le champ désigné — le visage de l'entité
 fields:
   logo:
@@ -1524,9 +1626,9 @@ complément du libellé » — chaque valeur porte : `labels`, `description`,
 category:
   type: enum
   values:
-    bronze: { labels: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
-    silver: { labels: { fr: Argent } }
-    gold:   { labels: { fr: Or } }
+    bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
+    silver: { label: { fr: Argent } }
+    gold:   { label: { fr: Or } }
   default: bronze
 ```
 
@@ -1706,9 +1808,9 @@ image si la cible désigne son visage** (D386).
 
 ```yaml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 identity: [code]
-label: "{code} — {company_name}"   # le visage textuel (D397)
+title: "{code} — {company_name}"   # le visage textuel (D397, renommé title par D465)
 image: logo                        # le visage graphique (D386)
 ```
 
@@ -1735,7 +1837,7 @@ composition est sur l'entité d'origine — et le type est
 ```yaml
 # sales/entities/order.yml
 name: order
-labels: { fr: Commande }
+label: { fr: Commande }
 fields:
   customer: customer                 # référence (D396) — association libre
   lines:
@@ -1967,11 +2069,11 @@ fichiers canoniques :
 ```yaml
 # sales/entities/customer.yml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 comment: { fr: Les clients de la société }
 inheritance: third_party             # l'enfant pointe (D353) — les états sur le parent
 identity: [code]                     # la clé fonctionnelle (D357)
-label: "{code} — {company_name}"     # le visage textuel (D397)
+title: "{code} — {company_name}"     # le visage textuel (D397 → title, D465)
 image: logo                          # le visage graphique (D386)
 
 fields:
@@ -1979,12 +2081,12 @@ fields:
     type: text
     mask: "C-999999"                 # taille et lignes déduites (D366)
     mode: write-once
-    labels: { fr: Code client }
+    label: { fr: Code client }
   company_name:
     type: text[80]
     required: true
     searchable: mutualizable[who]    # la recherche partagée (D368)
-    labels: { fr: Raison sociale }
+    label: { fr: Raison sociale }
   notes: text                        # la forme courte — auto (D356/D366)
   employees: integer[0..]            # positif, octets auto (D372)
   revenue:
@@ -2003,9 +2105,9 @@ fields:
   category:
     type: enum
     values:
-      bronze: { labels: { fr: Bronze }, icon: bronze.png }
-      silver: { labels: { fr: Argent } }
-      gold:   { labels: { fr: Or } }
+      bronze: { label: { fr: Bronze }, icon: bronze.png }
+      silver: { label: { fr: Argent } }
+      gold:   { label: { fr: Or } }
     default: bronze                  # stockage numérique (D387)
   headquarters: geolocation          # focale + texte associé (D391–D392)
   progress: progression              # type personnalisé (D359) — un hook (D408)
@@ -2027,9 +2129,9 @@ validation:
 ```yaml
 # sales/entities/order.yml
 name: order
-labels: { fr: Commande }
+label: { fr: Commande }
 identity: [number]
-label: "{number}"
+title: "{number}"
 
 fields:
   number:
@@ -2129,11 +2231,11 @@ constituants (la ligne D399 : le possesseur déclare) :
 # groups.yml
 groups:
   accounting:
-    labels: { fr: Comptables }
+    label: { fr: Comptables }
   sales_team:
-    labels: { fr: Équipe commerciale }
+    label: { fr: Équipe commerciale }
   managers:
-    labels: { fr: Encadrement }
+    label: { fr: Encadrement }
     groups: [accounting, sales_team]   # constitué d'autres groupes
 ```
 
@@ -2166,6 +2268,1443 @@ décisions passées se lisent en y remplaçant « module fonctionnel » par
 liste **ces** modules-là. *(Note : le menu d'un module peut citer des
 entités d'autres modules — les associations inter-modules restent
 libres, D116.)*
+
+**Le composé `uuid` (D419).** « Dans les types de base, a-t-on le type
+UUID ? » — non : **l'UUID interne est hors déclaration** (D142/Q49, la
+famille 7 du bloc `fields`). Pour **les identifiants venus d'ailleurs**
+(systèmes tiers, clés externes D178), **`uuid` entre aux composés** :
+base `text`, **validation intégrée** (le format canonique 8-4-4-4-12,
+la casse normalisée), **stockage compact au moteur** (16 octets
+binaires, jamais la chaîne — l'esprit D372), recherche
+`strict`/`mutualizable` par la forme texte (D369), tri sur la forme
+canonique, nul ≡ chaîne vide (D379). **La frontière demeure** :
+l'identité technique interne reste invisible et non typée dans les
+fichiers.
+
+```yaml
+external_id:
+  type: uuid                       # l'identifiant d'un système tiers
+  mode: write-once
+```
+
+**Le raffinement d'agrégat écarté (D420 — ouvre et clôt le point 5 du
+domaine 3, amende D101/D133).** La proposition `refine:` est examinée
+puis **écartée** : **« par nature, une composition est indivisible, le
+parent ne peut pas être réaffecté ; une association fait que chaque
+item vit sa vie et peut changer de propriétaire »** — la distinction
+est **déjà portée par le mot-clé** (`list of` vs `association with`).
+Le raffinement transactionnel de D101 (« ligne seule si le modèle
+l'autorise ») **n'existe plus** : **l'agrégat est toujours le grain
+d'écriture** — la mise à jour d'un enfant reprend la racine (D192, la
+règle unique), la concurrence par champ (D111) et l'échelle TPE (D15)
+rendant le grain fin sans objet. Et ce que « refine » visait de
+légitime **est le `filter`** (D395/D401) : « une condition qui filtre
+les items faisant partie d'une association, en plus du lien entre les
+deux entités — le terme qui s'approprie le plus est `filter` » — déjà
+acquis, aucun mot-clé nouveau.
+
+**La condition de mise à jour : une affaire d'entité (D421).** **« La
+condition de mise à jour porte sur l'entité et non sur l'association ou
+la composition »** — le cas « brouillon » trouve son foyer : une
+propriété d'en-tête d'entité, en proposition **`update:`** (expression
+D90 sur l'enregistrement) :
+
+```yaml
+# sales/entities/order.yml
+name: order
+update: status = "draft"        # la commande n'est modifiable qu'en brouillon
+```
+
+*(Articulations en proposition : **(a)** condition fausse = lecture
+seule de fait — les écrans grisent, l'API refuse proprement + trace
+(D307) ; **(b)** le grain agrégat (D420) : la condition de la racine
+couvre ses compositions — ajouter, modifier ou retirer une ligne, c'est
+modifier l'agrégat ; l'enfant peut porter la sienne en plus (la
+navigation vers le parent : `update: order.status = "draft"`) ;
+**(c)** **les opérations déclarées passent outre** — le chemin
+explicite sous ses propres `when`/`rights` : « valider » agit sur la
+commande que la condition verrouille, la ligne D354 — le retour par
+l'acte explicite, jamais par l'édition libre.)*
+
+**Le statut d'état couvre le CRUD entier (D422 — élargit D421).** Le
+cycle de vie rejoint la condition de mise à jour (« selon le cycle de
+vie, nous pourrons mettre un statut de modification ») — et **« le
+statut ne porte pas que sur la modification : il concerne tous les
+éléments du CRUD — Création d'un sous-composant, Lecture/consultation
+de l'enregistrement, mise à jour et suppression. »** La forme en
+proposition — **chaque état du cycle porte ses droits** :
+
+```yaml
+fields:
+  status:
+    type: enum                     # le champ porteur du cycle de vie
+    values:
+      draft:     { label: { fr: Brouillon }, allow: [create, read, update, delete] }
+      confirmed: { label: { fr: Confirmée }, allow: [read] }
+      archived:  { label: { fr: Archivée },  allow: [read] }
+    default: draft
+```
+
+**Le nom de la propriété : `allow` (arbitrage de l'auteur)** — « plutôt
+que les mots update, create, read ou delete, je propose `allow`, qui
+permet de définir l'une ou l'autre des valeurs ou des combinaisons de
+ces dernières. » Toute combinaison se déclare — `allow: [read, delete]` :
+l'état qui se consulte et se purge, mais ne se modifie plus.
+
+**Les deux formes conservées, exclusives (D423 — clôt D421/D422).**
+« Dans un grand nombre de situations, le cycle suffira… mais il existe
+quelques cas particuliers qui peuvent nécessiter une forme libre. **Pour
+éviter de faire un hook inutile, je préfère conserver les 2
+possibilités. Par contre, le technicien devra choisir entre l'un ou
+l'autre — les 2 simultanément ne seront pas autorisés** » (erreur à
+l'ingestion, D344). Un seul mot pour les deux mécanismes — la forme en
+proposition :
+
+```yaml
+# LE CYCLE : allow par état (D422)
+fields:
+  status:
+    type: enum
+    values:
+      draft:    { allow: [create, read, update, delete] }
+      archived: { allow: [read, delete] }
+
+# OU LA FORME LIBRE : le bloc allow d'en-tête, verbe → expression (D90)
+name: order
+allow:
+  update: locked = false
+  delete: false
+```
+
+*(Le `update: <expression>` de D421 se fond dans ce bloc — un nom
+unique, `allow`, deux foyers exclusifs.)*
+
+**Le cycle de vie : `states` désigne le porteur (D424).** Le focus de
+l'auteur sur le cycle de vie tranche le creux du champ porteur :
+**« un état hiérarchique est déjà un statut »** — l'entité à hiérarchie
+(D353) a son statut dans ses positions, rien à cumuler. **« Dans le cas
+d'une entité sans état hiérarchique, nous pouvons réutiliser le bloc
+`states` pour préciser le champ ayant un type énuméré, pour
+matérialiser le cycle de vie »** :
+
+```yaml
+# sales/entities/order.yml — entité sans hiérarchie
+name: order
+states: status                   # le champ énuméré porteur du cycle de vie
+fields:
+  status:
+    type: enum
+    values:
+      draft:     { label: { fr: Brouillon },  allow: [create, read, update, delete] }
+      confirmed: { label: { fr: Confirmée },  allow: [read] }
+      archived:  { label: { fr: Archivée },   allow: [read, delete] }
+    default: draft
+```
+
+**Un seul statut par entité, deux sources** : la hiérarchie (le bloc
+`states:` du parent, D353) ou le champ énuméré désigné
+(`states: <champ>` — la désignation, le patron `image:`/`label:`).
+*(Notes en proposition : `states:` désignant un champ non énuméré =
+erreur d'ingestion ; hiérarchie et champ désigné ensemble = erreur — un
+seul statut ; la naissance = le `default` de l'énuméré.)*
+
+**Le graphe déclaré et le `promote` en tableau (D425).** La logique des
+états hiérarchiques (D353–D355) **se transpose mot pour mot** à
+l'énuméré-cycle : chaque valeur déclare ses passages — le graphe se
+lit, le moteur refuse tout passage hors graphe, l'ingestion attrape
+l'opération incohérente. Et l'arbitrage de l'auteur : **« le `promote`
+est un tableau, car nous pouvons avoir le choix entre plusieurs
+états »** :
+
+```yaml
+values:
+  draft:
+    label: { fr: Brouillon }
+    allow: [create, read, update, delete]
+    promote:
+      - { to: confirmed, when: operation.confirm }
+      - { to: cancelled, when: operation.cancel }
+  confirmed:
+    allow: [read]
+    promote:
+      - { to: shipped, when: operation.ship }
+    demote:
+      - { to: draft }              # le retour — action explicite seule (D354)
+  shipped:
+    allow: [read, delete]
+```
+
+*(Notes en proposition : `demote` en tableau par symétrie — plusieurs
+retours possibles ; deux `when` vrais au même instant → **l'ordre du
+tableau départage**, la première entrée déclarée gagne — l'esprit du
+mapping ordonné D356 ; le cliquet D354 inchangé — la première vraie
+franchit, le retour explicite. Le tableau vaut pour **les deux
+sources** : la hiérarchie D353 s'aligne.)*
+
+**Le `when` facultatif et le composant navigateur du graphe (D426 —
+clôt le focus cycle de vie).** Les trois virgules sont validées (« les
+3 points me vont ») : **`demote` en tableau**, **l'ordre du tableau
+départage** les `when` simultanés, **la naissance libre** (D355
+transposé — l'import et l'API peuvent poser un état à la création). Et
+la précision de l'auteur, en deux temps : **« le `when` est facultatif —
+sans préciser le `when`, cela doit influer le fonctionnement du
+composant graphique de sélection d'une valeur de la liste énumérée, en
+ne sélectionnant que les états suivants (`promote`) autorisés »** ; et
+**« la présence du `when` marquera une opération (un bouton ou une
+action) »**. Les deux régimes d'une transition :
+
+- **sans `when`** — la transition **libre** : le composant du
+  champ-cycle devient **un navigateur du graphe** — la liste déroulante
+  n'offre que la valeur courante et les cibles `promote` atteignables
+  depuis l'état courant, sous les droits ;
+- **avec `when`** — la transition **marque une opération** : un bouton
+  ou une action porte le passage (le chemin nommé, tracé), le `when` en
+  est la garde — la sélection libre ne l'offre pas.
+
+Le retour (`demote`) reste un chemin explicite (D354), jamais la
+sélection libre.
+
+**Et le composant du statut se déduit de la déclaration** : **« liste
+de valeurs dont la liste dépend de l'état — ou un champ non modifiable
+avec des boutons ajoutés sur l'interface pour matérialiser le champ
+d'état »** — les transitions libres (sans `when`) font la liste
+déroulante-navigatrice ; les transitions-opérations (avec `when`) font
+le champ en lecture avec ses boutons ; un graphe mixte combine les
+deux. La forme n'est jamais déclarée : elle se lit dans le graphe
+(l'esprit D366 — le déduit plutôt que le déclaré).
+
+**Le triptyque du `when` (D427 — solde l'articulation avec D354).**
+**« Le `when` peut faire référence à une opération ou à une
+condition »** — les trois régimes d'une transition, complets :
+
+| Déclaration | Régime | Surface |
+|---|---|---|
+| sans `when` | **libre** | la liste navigatrice du graphe |
+| `when: <opération>` | **l'acte** | **un bouton** (« nous allons y venir » — les opérations) |
+| `when: <expression>` | **l'automatisme** | aucune — **le cliquet D354 intact** : « déduit d'un élément de l'entité via une condition utilisant le langage d'expression (`count(orders) > 0`) » |
+
+Le prospect devient client à la première commande **sans geste** ;
+la commande se confirme **par le bouton** ; le brouillon s'annule **à la
+sélection**. Trois écritures, trois vécus — un seul graphe. *(Raffiné
+par D428 : la nature de l'opération nommée se lit dans sa propre
+déclaration.)*
+
+**L'opération porte sa nature : le `when` la rend automatique (D428 —
+raffine D427).** Les deux exemples de l'auteur :
+
+```yaml
+promote: [ { to: confirmed, when: count(lines) > 0 } ]
+  # → OPÉRATION AUTOMATIQUE — « l'abréviation de l'opération » :
+  #   le moteur la matérialise, elle se déclenche seule (le cliquet)
+
+promote: [ { to: confirmed, when: confirm } ]
+  # → « confirm » EST l'opération — sa nature se lit dans SA déclaration :
+operations:
+  confirm:
+    label: { fr: Confirmer }    # SANS when → un bouton / une fonction API
+    rights: [sales_team]         #   — l'acte explicite qui déclenche l'action
+  archive:
+    when: age(updated) > 365     # AVEC when → une opération AUTOMATIQUE
+```
+
+**« Si présence de `when`, cela sera une opération automatique ; si
+`when` est manquant, ce sera un bouton / une fonction API déclenchant
+l'action. »** Le `when` d'une opération est donc **son déclencheur
+automatique** — jamais une simple garde ; l'expression en ligne dans un
+`promote` est **l'abréviation** d'une opération automatique anonyme.
+
+**La trace des actions : l'historisation (D429).** **« Les actions sont
+tracées si l'entité possède un historique »** — la trace des opérations
+**monte sur l'historisation** (D411–D413) : l'entité historisée
+photographie chaque acte dans ses instantanés (l'auteur, le canal, le
+motif — D169) ; **sans historique, pas de trace d'opération**. Aucune
+machinerie de trace séparée.
+
+**La garde du bouton : le `if` au graphe (D430).** Le bouton
+conditionné s'écrit **dans le graphe**, avec le `if` du langage
+(D306) :
+
+```yaml
+promote: [ { to: confirmed, when: confirm if count(lines) > 0 } ]
+```
+
+**Le passage par l'opération n'est légal que si la condition tient** —
+le bouton se grise sinon, l'API refuse proprement (D307). Aucune
+propriété nouvelle : le `when` de l'opération reste le déclencheur
+automatique (D428), la garde vit là où la transition vit. *(Les
+alternatives — `enabled:` dédié, la validation au clic — sont
+écartées.)*
+
+**La confirmation par défaut : `validate` (D431).** Le patron de D196
+(le formulaire en lecture seule + confirmer/annuler, jamais de popup)
+généralisé aux opérations — **la propriété se nomme `validate`**
+(« validate me convient mieux que confirm » — le mot ne collisionne
+plus avec une opération nommée `confirm`) et **le défaut s'inverse :
+`validate: true` est le défaut** ; **`validate: false` doit être déclaré
+pour un passage automatique en cliquant sur le bouton** — l'exécution
+directe est l'exception assumée, la relecture avant engagement est la
+règle. *(Note : les opérations automatiques — avec `when`, D428 — ne
+sont pas concernées : personne ne clique.)*
+
+**Le bloc `operations:` (D432 — clôt les opérations).** Les quatre
+points validés : **(1)** `operations:` **au même niveau que `fields:`
+et `validation:`** — mapping ordonné, l'ordre de déclaration = l'ordre
+des boutons ; **(2)** **jamais d'effet d'état** — la transition
+appartient au graphe (D425–D430) ; l'opération citée par aucun
+`promote`/`demote` est une action sans transition (générer, recalculer,
+notifier) — légitime ; **(3)** **`effects:` ordonnés** — `notify:` (la
+forme `to`/`by`, D406), `document:` (le gabarit PDF, D212), `set:`
+(l'affectation de champs), et **`function:` — « l'appel d'une fonction
+interne à Syncytium, présente dans un catalogue ou dans une liste de
+fonctions fournie en hook »** (D36/D301/D408) ; **(4)** **disponible
+partout par défaut** (bouton de liste et de formulaire, API, sortie de
+wizard D233) — **« possibilité de préciser que l'opération ne soit pas
+disponible dans l'une ou l'autre des interfaces (un écran ou l'API) »**
+*(forme en proposition : `except: [api]`)* ; le passe-outre des `allow`
+demeure (D421c).
+
+```yaml
+operations:
+  confirm:                        # sans when → bouton / fonction API (D428)
+    label: { fr: Confirmer }
+    rights: [sales_team]          # les groupes (D196/D414)
+    validate: false               # l'exécution directe — la relecture est le défaut (D431)
+    effects:
+      - notify: { to: [logistics], by: [notification] }
+      - document: order_form
+      - function: recompute_totals   # le catalogue ou un hook (D432)
+    except: [api]                 # indisponible côté API (proposition)
+  archive:
+    when: age(updated) > 365      # avec when → automatique (D428)
+    effects:
+      - set: { archived_at: now() }
+```
+
+**Le changement d'état, opération du catalogue — Q60 ouverte (D433).**
+**« Une opération ne servira pas uniquement à un changement d'état. Un
+changement d'état est une des opérations disponibles au catalogue — et
+c'est l'opération par défaut. »** La ligne D408 s'étend aux
+opérations : **le catalogue d'opérations embarqué**, le changement
+d'état en tête (l'opération qu'un `promote` invoque sans autre
+précision) — les effets (notify, document, set, function) ayant
+vocation à s'y ranger. **« Je propose que nous fassions un point
+ultérieurement sur l'ensemble des fonctions à mettre au catalogue »** —
+**Q60 ouverte** (l'inventaire du catalogue, §10).
+
+**Le calendaire riche : `every:` (D434).** Le rythme d'évaluation des
+opérations automatiques temporelles — **« le calendaire est plus
+riche »** :
+
+- **les durées** : `every: 5min` / `2h` / `2d` / `2w` / `1m` (minutes,
+  heures, jours, semaines, mois) ;
+- **les raccourcis** : `daily`, `weekly`, `monthly` ;
+- **le crochet précise le(s) moment(s) de déclenchement** (le
+  paramètre en ligne, D366) — **les heures en UTC du serveur** :
+  `daily[08:00]` (tous les jours à 8 h), `weekly[tuesday at 15:30]`
+  (les mardis à 15 h 30), **et les moments multiples** :
+  `weekly[monday at 09:30:45, wednesday at 20:35:12]` — le `at` du
+  langage (D301).
+
+```yaml
+archive:
+  when: age(updated) > 365
+  every: daily[02:00]           # évaluée chaque nuit à 2 h UTC
+  effects: [ set: { archived_at: now() } ]
+```
+
+*(Notes en proposition : sans crochet, le moment est au moteur ; le
+vocabulaire vaut partout où un rythme se déclare — le `when:` du
+rapport D406 s'aligne.)*
+
+**`every: continuous` (D435 — complète D434).** Le rythme des données :
+**`continuous` signifie « à chaque mise à jour d'un enregistrement de
+l'entité »** (les événements de données, D54) — **le même mot que le
+rapport** (D406), le vocabulaire unifié (« on garde continuous »).
+**Et il est le défaut** : `every:` absent = `continuous`. *(Note :
+l'expression temporelle (`age(…)`) exige, elle, son rythme calendaire
+déclaré — le défaut continu ne la réveillerait qu'aux écritures.)*
+
+**Les notifications soldées, le `mode` d'exécution (D436 — couvre les
+points 3 et 4 du domaine 3).** **(1) Les notifications : « pour le
+moment, je ne vois pas de nouveaux éléments »** — le point se solde
+**par simplification** : l'opération automatique + l'effet `notify:`
+(D406/D432) couvre l'événement de données, le calendaire et l'acte ; le
+rapport (D406–D407) et la communication (D393) ont leurs canaux. **(2)
+Les tâches : `mode` plutôt que `background`**, à trois valeurs :
+
+- **`synchronous`** — « met en pause l'interface avec une barre de
+  progression et attend la fin du traitement » ;
+- **`asynchronous`** — « l'opération est enregistrée et déclenchée dès
+  que le serveur est en mesure de la traiter » (la file d'attente
+  D24/D55 : état, progression, résultat conservé) ;
+- **`await[…]`** — « décaler, le crochet décrivant le décalage avant le
+  lancement » : `await[+3h]`, `await[+2d at 08:00]` — le `+` relatif,
+  le `at` du calendaire (D434).
+
+```yaml
+purge_archives:
+  rights: [administrator]
+  mode: await[+2d at 02:00]     # enregistrée, lancée dans deux jours à 2 h
+  effects: [ function: purge ]
+```
+
+*(Note en proposition : le défaut = `synchronous` — le clic classique ;
+la supervision D56 suit l'asynchrone et le décalé.)*
+
+**Le domaine 4 ouvert — l'ancrage des surfaces : le bloc `gui` et les
+trois étages (D437, nom arbitré par D438).** Le périmètre en huit points est validé (« le
+plan me convient ») ; le point 1 s'arbitre : **« les cinq blocs sont à
+positionner dans un bloc »** — nommé **`gui`** (D438) (`lists`, `forms`, `summary`,
+`charts`, `widgets`), et **la complexité se sert par étages** :
+
+1. **Les entités les plus simples : pas de configuration requise** —
+   les défauts D186 servent l'application entière (le pilier P4) ;
+2. **Les petites entités, un peu de personnalisation : un seul
+   fichier** — le bloc `gui` en ligne dans `customer.yml` ;
+3. **Les entités complexes : un dossier**, un fichier par bloc —
+   `entities/customer/` contenant `entity.yml`, `lists.yml`,
+   `forms.yml`, `summary.yml`, `charts.yml`, `widgets.yml`…
+
+```yaml
+# étage 2 — le fichier unique
+# sales/entities/customer.yml
+name: customer
+fields: { … }
+gui:
+  lists:
+    main: { label: { fr: Les clients } }
+  summary:
+    fields: [company_name, category]
+
+# étage 3 — le dossier
+# sales/entities/customer/entity.yml
+name: customer
+fields: { … }
+gui:
+  lists: lists.yml               # les références explicites (D320/D415)
+  forms: forms.yml
+  summary: summary.yml
+```
+
+*(Le nom est tranché par D438 : **`gui`** ; le pattern du module
+s'adapte au dossier d'entité — `- entities/*.yml` et
+`- entities/*/entity.yml`.)*
+
+**Le point 1 du domaine 4 clos (D438).** Les quatre virgules validées :
+**(1) le bloc se nomme `gui`** (« gui me convient » — l'anglais D335) ;
+**(2) la première déclarée est la surface par défaut** (l'ordre du
+mapping D356 — la première liste est celle du menu, le premier
+formulaire celui de la fiche) ; **(3) le socle des surfaces s'appuie
+sur le patron des champs** (`label`/`comment`/`description` — « nous
+avons défini ce qu'il faut, sauf oubli ») ; **(4) la déclaration
+remplace le défaut** — « dès qu'un item est déclaré, le défaut proposé
+par le système n'est plus disponible ».
+
+**Le menu : la syntaxe d'adressage (D439).** Ma proposition de blocs
+typés est écartée — la vision de l'auteur : **le menu reste une liste
+d'entrées ordonnées** (l'ordre de déclaration), **filtrée par le niveau
+de confidentialité** — « ça ne change pas » ; le défaut affiche les
+entités (la visibilité de l'entité et sa liste par défaut). **Chaque
+entrée est une adresse** :
+
+| Adresse | Cible |
+|---|---|
+| `<module>.<entité>` | **la liste par défaut** de l'entité |
+| `<module>.<entité>[<liste>]` | une **liste nommée** de l'entité |
+| `<module>.<entité>.<opération>` | **le déclenchement d'une opération** |
+| `<module>.<entité>[+<formulaire>]` | **un formulaire de création** — le nom optionnel (`[+]` = le défaut) |
+| `<module>.<entité>[@<wizard>]` | **un wizard** — le nom optionnel |
+| `<module>[<dashboard>]` | **un dashboard** — « défini au niveau du module » |
+| `<nom>:` + liste | **un sous-menu** — le nom référence **un libellé déclaré au niveau du module** |
+
+```yaml
+# sales/menu.yml
+menu:
+  - sales.customer                 # la liste par défaut
+  - sales.order[pending]           # la liste nommée
+  - sales.order[+]                 # le formulaire de création par défaut
+  - sales[overview]                # le dashboard du module
+  - references:                    # le sous-menu (libellé au module)
+      - catalog.product
+      - catalog.tag[@import]       # le wizard « import » de l'entité tag
+```
+
+**Et « chaque item `gui` doit disposer d'un champ `icon` »** — pour
+construire un menu « moderne » : **l'icône rejoint le socle des
+surfaces** (D438.3 — `labels`/`comment`/`description`/`icon`, puisée
+dans `resources/` D346) ; le menu reste ainsi une pure liste
+d'adresses, l'icône venant de la surface visée. *(Notes à trancher : où
+se déclarent les libellés de sous-menus au module ; le bloc
+`dashboards` du module — détaillé au point 6.)*
+
+**Le dictionnaire de libellés du module (D440 — clôt le point 2).**
+**« Les labels sont utilisés au-delà du menu : dans un champ, les
+libellés peuvent y faire référence »** — le module porte un
+**dictionnaire de libellés** (le bloc `labels:` de `module.yml`,
+externalisable — D349/D352), et **la chaîne vaut référence** (la forme
+courte D356) :
+
+```yaml
+# sales/module.yml (ou labels: labels.yml)
+labels:
+  references:    { fr: Références }    # les langues seules — jamais d'icône (D449)
+  customer_code: { fr: Code client }
+
+# l'usage — partout
+fields:
+  code:
+    labels: customer_code        # la référence au dictionnaire
+menu:
+  - references:                  # le sous-menu — le même dictionnaire (D439)
+      - catalog.product
+```
+
+**La chaîne = la référence, le mapping = l'inline** — les deux formes
+coexistent ; la redondance des libellés s'éteint (l'esprit des
+variables, D323). *(Notes en proposition : un nom introuvable = erreur
+d'ingestion ; l'étage version en cascade — le plus proche l'emporte,
+D360.)*
+
+**La liste : le `searchable` de surface (D441).** **« Une propriété
+`searchable` décrit la liste des champs ou des noms mutualisés à
+positionner dans un filtre de tri. Par défaut, tous les champs sont
+inclus dans la recherche. »** Les deux étages se répondent : **le champ
+déclare comment il se cherche** (les modes — D367), **la liste déclare
+lesquels apparaissent** :
+
+```yaml
+lists:
+  pending:
+    columns: [number, customer, total, status]
+    searchable: [who, total, status]   # champs ou noms mutualisés (D367-D368)
+                                       # défaut : TOUS les champs
+```
+
+*(Amende le défaut de D227 — « les colonnes affichées » devient « tous
+les champs ».)*
+
+**La liste close (D442 — clôt le point 3, amende D266).** Les quatre
+arbitrages : **(1) `columns:`** — les colonnes **dans l'ordre
+d'affichage** ; **(2) `filter:`** — « filtrer les éléments à afficher »,
+par les expressions (D90) ; **(3) `sort:` — le tri se pense PAR
+COLONNE** (le clic sur l'en-tête), pas par liste :
+
+- **sans `sort:`** — le tri est **autorisé pour chaque colonne** (le
+  défaut) ;
+- **avec `sort:`** — la colonne présente est triable, **avec sa cascade
+  de clés secondaires** ; la colonne absente **n'est pas triable** ;
+- **`+`/`-`** préfixent les clés (croissant par défaut).
+
+```yaml
+lists:
+  main:
+    columns: [numero, nom, prenom]
+    sort:
+      numero: asc                # triable, seul
+      nom: [prenom, numero]      # triable — 1re clé le nom, puis prénom, puis numéro
+                                 # prenom absent → NON triable
+    editable: [status]           # les colonnes modifiables —
+                                 # « par défaut, toutes les colonnes sont readonly »
+```
+
+**(4) `editable:`** — les colonnes modifiables en ligne (D205) ; **le
+défaut s'inverse : toutes readonly** — la colonne s'ouvre en se
+déclarant (**amende D266**, qui ouvrait tout par défaut).
+
+**La colonne riche (D443 — complète D442).** **« Les colonnes portent
+également des informations sur le style, l'alignement et la
+dimension »** — la forme courte demeure (le nom seul), la forme riche
+s'ouvre :
+
+```yaml
+columns:
+  - numero                        # la forme courte
+  - nom: { align: left, width: 30%, style: bold }
+  - total: { align: right }       # (défaut naturel des nombres — D370)
+```
+
+*(Notes en proposition : `align` — left/center/right, le défaut suit le
+type (les nombres à droite D370, le texte à gauche) ; `width` — %, px
+ou auto ; `style` — un nom, dont le contenu relève du thème (« le
+design sera traité après la structure », D191).)*
+
+**Et la forme abrégée délègue au moteur** : « ta proposition pour les
+colonnes est une version simplifiée et abrégée — **Syncytium décide
+alors du format par défaut et de la dimension de la colonne en fonction
+de son type** » : le masque du champ (D260/D370), l'alignement du type,
+la largeur du contenu — l'esprit D372, le technicien décrit, le moteur
+dimensionne.
+
+**La liste raffinée en six points (D444 — l'artefact de la liste).** La
+relecture de la description canonique par l'auteur :
+
+1. **L'opération en colonne dédiée** : « si le nom de la colonne est
+   une opération, une icône peut s'afficher si l'opération est
+   disponible pour la ligne » (la propriété `icon` de l'opération —
+   D439) — **l'icône à trois états : actionnable, non visible, non
+   actionnable** *(lecture en proposition : non visible = les droits
+   D196, non actionnable = la garde du graphe momentanément fausse
+   D430)* ;
+2. **L'export** : les colonnes visibles par défaut, **une liste de
+   colonnes complémentaires précisable** ; **le CSV exporte plusieurs
+   fichiers — un par type de composants** (`customer.csv`,
+   `orders.csv` — la symétrie de l'import d'agrégat Q55) ; **l'Excel,
+   un seul fichier à un onglet par type de composants**, **surchargeable
+   par un modèle de document Excel** (← `resources/`, D418) ;
+3. **Le filtrage vivant confirmé — et la liste s'auto-rafraîchit** :
+   « pour éviter la pression d'un bouton pour le rafraîchissement » ;
+4. **La confidentialité** : les colonnes non autorisées sont **non
+   visibles et non triables** — « elles ne sont simplement pas
+   utilisées » (ni tri, ni recherche, ni export) ;
+5. **Le responsive** : conforme aux échanges du thème E (D250 et
+   arbitrages) ;
+6. **La pagination au curseur opaque (D100), attendue — avec des
+   indicateurs** : « le nombre de lignes ou les numéros de lignes en
+   cours d'affichage rendraient la navigation plus claire » (« 21–40
+   sur 156 »).
+
+L'exemple canonique de la liste, complet :
+
+```yaml
+lists:
+  pending:                             # la première déclarée = la liste par défaut (D438)
+    label: { fr: Commandes en attente }
+    icon: pending.png                  # le socle des surfaces (D439)
+    columns:                           # l'ordre d'affichage (D442) ; abrégé = moteur (D443)
+      - number
+      - customer                       # référence → le label de la cible (D397)
+      - total: { align: right, width: 10%, style: bold }
+      - status
+      - confirm                        # une OPÉRATION — l'icône à trois états (D444)
+    filter: status != "archived"       # les lignes affichées (D90/D442)
+    sort:                              # le tri PAR COLONNE (D442)
+      number: asc
+      customer: [number]
+    searchable: [who, total, status]   # défaut : tous les champs (D441)
+    editable: [status]                 # défaut : toutes readonly (D442)
+    export:
+      columns: [notes, created]        # les complémentaires (D444)
+      sort: [customer, -created]       # le tri de l'export — l'écriture de l'affichage
+      excel: order_export.xlsx         # le modèle Excel ← resources/ (D444)
+```
+
+*(Complément de l'auteur : « pour l'export CSV, nous pouvons également
+préciser un tri des colonnes — avec le format que nous avons vu pour
+l'affichage » : la cascade de clés à `+`/`-` (D442), figée pour le
+fichier.)*
+
+**Les comportements de la liste (D445).** Six gestes arbitrés :
+
+1. **`selection: 1 | 1..`** — la liste porte une sélection simple ou
+   multiple *(harmonisé par D474 — l'écriture des bornes ; « one » et
+   « multiple » d'origine)* ;
+2. **La création** : un bouton **dans le cadre de la liste ou dans
+   l'entête, au même titre que les filtres** ;
+3. **La modification** : **le double-clic** sur une ligne qui n'est pas
+   en lecture seule — le formulaire s'ouvre en écriture ;
+4. **La liste en lecture seule** : ni création ni suppression — mais
+   **le double-clic ouvre la consultation** de la ligne (le formulaire
+   en lecture) ;
+5. **La suppression, à deux visages** : **une ligne sélectionnée** → le
+   formulaire de la ligne **en lecture seule avec la demande de
+   confirmation** (le patron D196) ; **plusieurs lignes** → **une popup
+   de confirmation précisant le nombre de lignes** — l'exception popup
+   assumée pour la masse (le formulaire n'aurait pas de sens pour n
+   lignes ; la double validation D202) ;
+6. **L'opération de masse** : « une opération peut être sélectionnée et
+   appliquée sur toutes les lignes sélectionnées simultanément » — les
+   opérations (D432) rencontrent la sélection (la masse séquentielle
+   D202).
+
+**Le redimensionnement des colonnes : `sizable` (D446).** Le cadre
+posé : **« une liste est un composant graphique complet et complexe,
+dont la lisibilité doit s'adapter au format d'affichage. »** Et **les
+colonnes peuvent avoir une taille ajustable — uniquement si la
+propriété `sizable: manual` est positionnée** :
+
+- **`none`** — les tailles fixes (déclarées ou déduites, D443) ;
+- **`auto`** — le moteur ajuste au contenu et au format d'affichage ;
+- **`manual`** — l'utilisateur redimensionne ;
+- **`auto+manual`** — l'ajustement du moteur, la main de l'utilisateur
+  par-dessus.
+
+*(Note en proposition : le défaut = `auto` — la ligne de D443, le
+moteur dimensionne.)*
+
+**La préséance du type et la colonne non affichée (D447).** **(1) « Les
+types portent aussi des propriétés d'affichage dans une liste — par
+défaut, ce sont ces propriétés qui priment ; lors de la définition
+d'une liste, nous pouvons surcharger »** : la chaîne **type → colonne
+de liste** (le pendant de D270 — type → champ → formulaire), la facette
+d'affichage (D119) et les défauts du type (D443) servant tant que la
+colonne ne dit rien. Les exemples canoniques de l'auteur : **un montant
+affiche la devise et s'aligne à droite ; un toggle est centré ; un
+texte court s'aligne à gauche ; un texte sur plusieurs lignes s'affiche
+en justifié**… **(2) La colonne présente mais non affichée** :
+**« une colonne peut être présente, non affichée et non visible — même
+avec un redimensionnement possible »** (jamais révélée, y compris en
+`sizable: manual`) — **« utile pour faire un export CSV simplifié sans
+décrire les mêmes colonnes que l'affichage »** :
+
+```yaml
+columns:
+  - number
+  - customer
+  - notes: { visible: false }     # présente pour l'export, jamais à l'écran
+```
+
+*(Notes en proposition : la propriété `visible: false` ; l'export prend
+les colonnes **présentes** — affichées ou non — les `export.columns` de
+D444 restant pour les compléments hors liste.)*
+
+**La grammaire commune des surfaces (D448 — la base).** **« Forms,
+summary et widget vont partager un vocabulaire et une grammaire
+commune »** — l'acquis le préparait (le résumé = une config de
+formulaire restreinte D201, le gabarit PDF = un formulaire en lecture
+seule D253). La base validée (« les surfaces et la définition
+convient ») :
+
+```yaml
+<surface>:
+  label: { fr: … }              # le socle (D438) : labels, comment, description, icon
+  header: "{gabarit}"            # les zones de texte à gabarits (D253/D90)
+  footer: "{gabarit}"
+  mode: read-only                # précisable (D207)
+  blocks:                        # la liste ordonnée
+    - section:                   #   empilée — labels + contenu
+        fields: [ … ]            #   des champs (forme courte/riche, D270/D447)
+    - tab:                       #   en onglet
+        charts: [ … ]            #   et/ou des graphiques (Q53)
+```
+
+**Les spécialisations par restriction** : `forms` = la grammaire
+entière (les deux modes D185, `history:` en dernier onglet D207/D186) ;
+`summary` = restreinte (D201 — pas d'onglets, champs sélectionnés,
+petit par principe, un seul par entité) ; `widgets` = le contenu
+bascule (charts/KPI/TCD — Q53/D247, le drill-down, la confidentialité
+héritée). Le gabarit PDF (D253) et les étapes de wizard (D233)
+réutiliseront la même grammaire. **« La grammaire présentée constitue
+une base que nous allons reformuler et étoffer. »**
+
+**Le formulaire reformulé : l'écran visé et les quatre parties (D449 —
+ouvre l'étoffage).** Trois recadrages de l'auteur : **(1) l'icône ne
+vit qu'au rang de l'item** — « dans labels, icon fait doublon avec
+l'icon au rang au-dessus » : le dictionnaire de libellés (D440, amendé)
+ne porte que les langues, l'icône appartient au socle de l'item
+(D439) ; **(2) « un formulaire est conçu pour un mode d'écran »**
+(smartphone, PC, tablette) — la ligne des surfaces (D206 : la
+déclinaison par mode d'affichage à repli ; D250 : le défaut est
+l'écran paysage) ; **(3) la structure en quatre parties** : **« un
+titre, un entête, un corps et un pied de page — le titre est une zone
+de texte à gabarit ; l'entête, le corps et le pied sont des blocs »** :
+
+```yaml
+forms:
+  default:
+    label: { fr: Fiche client }
+    icon: customer.png
+    title: "{code} — {company_name}"   # LA zone de texte à gabarit (D90/D253)
+    header:                            # un BLOC
+      - section: { fields: [category, active] }
+    page:                              # ex-body (D509) — la page du pages implicite
+      - section:
+          label: { fr: Identité }
+          fields: [code, company_name, advisor]
+      - tab:
+          label: { fr: Commandes }
+          fields: [orders]
+    footer:                            # un bloc
+      - section: { fields: [updated] }
+```
+
+*(À trancher : le nom et le défaut de la propriété d'écran visé
+(`screen: pc` — défaut PC paysage D250 ?) ; l'entête et le pied
+acceptent-ils les mêmes blocs que le corps — sections, onglets — ou les
+sections seules ?)*
+
+**`screen` en tableau, et les blocs sont des composants (D450).**
+**(1) `screen`** est validée — **un tableau, « pour une compatibilité
+de plusieurs affichages »** (`screen: [pc, tablet]`), **défaut :
+`[pc paysage]`** (D250). **(2) « Dans l'absolu, l'entête, le corps et
+le pied acceptent sections et onglets »** — ma restriction est écartée,
+et le principe de fond est posé : **« un composant graphique est un
+composant "type" ayant une signature commune qui permet d'assurer un
+rendu. Ici, une section, une grille, des onglets… sont des
+composants. »** Les blocs ne sont pas une grammaire à part : **des
+composants-conteneurs du catalogue** — `section`, `grid` (la grille
+entre au vocabulaire), `tabs`… — à signature commune, **le catalogue
+extensible** (la ligne D408/D263 : les conteneurs livrés sont les hooks
+embarqués, l'inventaire rejoint Q60).
+
+**Le formulaire arborescent (D451).** **« Un formulaire est décrit de
+façon arborescente. Un nœud est un composant qui affiche un composé
+graphique basé sur l'enregistrement d'une entité, d'un champ et des
+opérations. »** L'arbre unifie tout : **chaque nœud est un composant**
+(D450) — les conteneurs (`section`, `grid`, `tabs`…) portent des
+enfants, les feuilles rendent un champ (les composants D64/D270), les
+opérations s'y matérialisent (les boutons D432) — et chacun rend son
+composé graphique **à partir du contexte** : l'enregistrement de
+l'entité, le champ visé, les opérations disponibles. Les quatre parties
+(titre, entête, corps, pied — D449) sont les branches maîtresses de
+l'arbre ; **l'imbrication est libre** (une grille dans un onglet dans
+une section), la signature commune assurant le rendu à chaque étage.
+
+**Le composant de saisie personnalisé (D452).** **« Section, grid ou
+tab sont fournis par Syncytium. Dans un cas d'usage, j'ai besoin de
+construire un composant de saisie personnalisée et détaillée qui ne
+pourra pas se matérialiser avec les éléments de base. »** Le hook de
+composant (D263) prend donc sa place **dans l'arbre du formulaire**
+(D451) : **un nœud comme les autres** — la signature commune (D450), le
+contexte servi (l'enregistrement, les champs, les opérations), **le nom
+sans le mot « hook »** (D408). Il saisit comme il affiche — l'écriture
+repasse par les champs et leurs règles (validation D364/D404, `allow`
+D422, concurrence D111) : le composant personnalisé ne contourne
+jamais le modèle. **Le contrat (signature, code, sandbox) relève du
+domaine 6.**
+
+**Les propriétés du `form` (D453).** Trois arbitrages : **(1) la zone
+de texte à gabarit se décline par langue** — `title:` (et tout gabarit,
+D253/D449) accepte la chaîne unique ou le mapping par langue :
+
+```yaml
+title:
+  fr: "{code} — {company_name}"
+  en: "{code} — {company_name} (customer)"
+```
+
+**(2) `mode: read-only` ou `updatable`** — le défaut est `updatable`,
+le `read-only` fige (la consultation seule, D207). **(3)
+`history: false` — « pour désactiver l'onglet history d'une entité
+ayant un historique »** : le défaut est `true` — l'onglet paraît
+lorsque l'entité est historisée (D411), toujours dernier (l'invariant
+D186) ; sans historisation, pas d'onglet, rien à déclarer.
+
+**La surimpression et sa dimension (D454).** **« Le formulaire peut
+s'afficher en surimpression de l'écran — soit sur la totalité de
+l'écran, soit sur une portion »** ; et l'arbitrage : **« nous ajoutons
+une dimension — par défaut : 100 % de l'écran »** :
+
+```yaml
+dimension: 70%               # la portion ; absent = 100 % de l'écran
+```
+
+**La surimpression est le mode d'affichage du formulaire**, sa
+`dimension` en règle la portée — la totalité par défaut, la portion
+déclarée (le patron de la visionneuse D293).
+
+**Le modèle unifié du composant graphique (D455 — la clé de voûte du
+domaine 4).** **`items` est validé**, et la description reprend de
+fond : **un formulaire est un composant graphique** ayant —
+
+- **un nom** : `form`, `summary`, `wizard` ou `widget`… **extensible
+  via un hook identifié par un nom unique** (la ligne D408 — les
+  surfaces elles-mêmes sont des composants du catalogue) ;
+- **des propriétés** : `dimension`, `title`… (D453–D454) ;
+- **des composants (`items`)** : **`pages`, `header`, `body`,
+  `footer`** — les pages entrent au vocabulaire (le multi-pages, le
+  wizard s'y adossera) ;
+- **un contexte** : **l'enregistrement de l'entité** pour laquelle le
+  formulaire est défini, **le contexte d'appel** (l'origine de
+  l'appel) **et le contexte de l'utilisateur**… — le contexte D451
+  enrichi ;
+- **la liberté compositionnelle** : « rien n'empêche de définir un
+  formulaire qui inclut un wizard dans une page ou une section, qui
+  affiche des références sous forme de widgets, qui utilise les
+  listes… » — les surfaces s'emboîtent librement.
+
+**La mécanique** : les composants constituent des nœuds, et la
+représentation graphique est **un graphe acyclique que Syncytium
+parcourra de la feuille à la racine** ; **les composants transmis au
+composant graphique auront déjà été analysés et traduits par
+Syncytium** — le composant reçoit du digéré, il ne fait que rendre.
+
+**La portée** : **« un composant graphique est un nœud de l'arbre dont
+le formulaire n'est qu'une matérialisation »** — l'approche vaut pour
+**tous** les composants déjà décrits dans les facettes de types (le
+thème E entier) ; et **« une facette peut être vue comme un hook, dont
+un catalogue est fourni par Syncytium »** — la doctrine D408 atteint sa
+généralité totale : les types, les opérations, les conteneurs, les
+surfaces **et les facettes** sont des hooks, Syncytium livrant le
+catalogue.
+
+**L'analogie consignée** : **« cela s'apparente à la notion de web
+components — ou à une extension des web components — utilisés par les
+navigateurs web »** : le nom unique d'élément (les custom elements ↔
+les hooks au nom unique D408/D455), l'encapsulation du rendu (la
+signature commune D450), l'arbre composé. L'écho est noté pour **Q7 —
+la pile technique** : les web components comme substrat naturel de la
+GUI générée.
+
+**Le catalogue des composants arbitré (D456).** L'inventaire en cinq
+familles est validé avec cinq retouches :
+
+1. **`template` entre aux surfaces** — « pour générer des documents
+   PDF, Word… ; Syncytium proposera la génération de PDF sur la base de
+   ce template » (le gabarit D251–D253 trouve son composant ; Word
+   rejoint PDF) ;
+2. **`pages`, `page`, `section` redéfinis** : **« `page` est un
+   composant de `pages` — `page` est un saut de page ; `pages` est une
+   section pouvant contenir un header, page(s) et footer ; une section
+   est un regroupement potentiellement nommé »** — la pagination a son
+   conteneur (l'entête et le pied *par page* — le socle du `template`),
+   le saut sa marque, la section sa définition ;
+3. **`carousel` entre** — le viewer d'images défilant (aux côtés
+   d'`image-viewer`, D293) ;
+4. **Les graphiques couvrent les besoins** — « à voir si j'en
+   ajoute » (la famille reste ouverte) ;
+5. **Les nœuds d'acte précisés** : **« en appuyant sur un bouton, un
+   icône, ou en passant à l'étape suivante, l'utilisateur acte une
+   opération »** — trois déclencheurs d'acte : le bouton (D432),
+   l'icône (la colonne d'opération D444), **le passage d'étape** (le
+   wizard s'y adosse, D233).
+
+La description élément par élément peut s'ouvrir.
+
+**Le nœud-champ explicite et la surcharge de représentation (D460).**
+La validation de l'exemple `checkbox` apporte deux règles : **(1)
+`field[<nom du champ>]`** — la forme explicite du nœud-champ dans les
+`items` : « il est possible que certains noms de champs soient aussi
+des composants graphiques — pour éviter l'ambiguïté, c'est
+nécessaire » ; **(2) la surcharge de représentation au `gui`** : le
+nœud peut surcharger **la représentation de la valeur** — « notamment
+des informations sur le style de la checkbox (vide = faux, null, ou
+coché = vrai), la taille… » — la chaîne type → colonne → nœud
+(D270/D447) s'achève au formulaire :
+
+```yaml
+items:
+  - field[active]                # la forme explicite
+  - field[audited]:
+      readonly: true
+      style: { true: check, false: empty, null: dash }   # l'apparence par état
+      size: 24px                 # (formes en proposition)
+```
+
+**Un seul vocabulaire de représentation, trois étages (D461).** La
+forme courte `field[active]` est confirmée (« dans mon esprit ») — et
+la surcharge s'unifie : **« la description du type pouvait contenir des
+informations sur sa représentation avec `component` (D64/D359) — ici,
+nous reprenons les mêmes propriétés, qui surchargent les propriétés
+vues sur la définition du champ. »** **Les mêmes mots à chaque étage** —
+`component`, `style`, `size`, `readonly`… : **le type les porte, le
+champ les surcharge, le nœud `gui` les surcharge encore** — la chaîne
+D270/D447/D460 devient une cascade au vocabulaire unique, le plus
+proche l'emporte (l'esprit D360).
+
+**Le triptyque `label` / `title` / `labels` (D465).** Le renommage
+global : **« remplaçons `labels` par `label`, à l'exception du
+catalogue de libellés »** — et l'objection levée par le renommage du
+visage : **(1) `label`** = les libellés par langue, **partout**
+(champs, surfaces, valeurs, opérations, `shortcut`…) ; **(2) le visage
+de l'enregistrement (D397) se renomme `title`** — le gabarit
+d'affichage, cohérent avec le `title` du formulaire (D449/D453) — et
+**« la propriété `title` d'une entité sera utilisable sur un formulaire
+et surchargeable sur le formulaire »** (la cascade entité →
+formulaire) ; **(3) `labels`** ne survit qu'au **dictionnaire du
+module** (D440) :
+
+```yaml
+name: customer
+label: { fr: Client }                # les libellés par langue
+title: "{code} — {company_name}"     # le visage (ex-label D397) — sert le
+image: logo                          #   formulaire par défaut, s'y surcharge
+```
+
+**Le fond gradué (D466).** La proposition de l'auteur, née de la fiche
+`fuel` : **« un style gradué d'une cellule en fonction d'une jauge — un
+fond gradué d'un champ en fonction de la valeur d'un autre champ dont
+la valeur est une valeur bornée. »** La jauge devient **un fond** : la
+cellule du nom se remplit à proportion de l'avancement — la lecture de
+deux informations en une. La forme en proposition, au vocabulaire
+unique (D461) :
+
+```yaml
+columns:
+  - name: { background: avancement }   # le fond gradué par le champ borné
+```
+
+*(Les bornes du champ pilote exigées — l'esprit `gauge` ; **le nom est
+tranché : `background`**.)*
+
+**Les couleurs de jauge (D467).** **« Dans le cas d'une jauge, les
+couleurs à afficher doivent être spécifiées »** — deux formes :
+
+```yaml
+colors: { min: red, max: green }           # le dégradé — LE DÉFAUT, du rouge au vert
+colors: { 0: red, 50: orange, 80: green }  # ou les seuils — la couleur à partir de la valeur
+```
+
+**Le dégradé mini → maxi** (défaut : du rouge au vert) **ou la couleur
+par seuil** (rouge, orange, vert) — la propriété vaut pour `gauge`,
+`fuel` et le fond gradué (D466), aux trois étages du vocabulaire unique
+(D461).
+
+**Le seuil des radios : la configuration générale (D468).** La virgule
+du thème E (« jusqu'à 5 valeurs ? je ne suis pas encore fixé ») se
+referme : **« le seuil des radios est un élément de la configuration
+générale »** — un paramètre du `settings` (la cascade D360, le pendant
+du seuil mono/multi-ligne D366) — **« ainsi, il est possible de définir
+3, 5 ou 10 selon les besoins. »** *(Note en proposition : au-delà du
+seuil, le repli en `dropdown` — le composant s'adapte, l'esprit
+D366/D391.)*
+
+**Les trois présentations du picker (D471).** **« Picker.image est un
+dérivé de picker.record »** — et la sélection offre **trois
+présentations** : **« par une liste (définie précédemment), par une
+liste d'identifiants, ou par une liste d'images — une entité dispose de
+clé(s) fonctionnelle(s) et/ou d'un champ image/icon qui permet de
+représenter un enregistrement »** (la photo d'un profil, l'image d'un
+aliment pour un menu…) :
+
+| Présentation | Montre | S'appuie sur |
+|---|---|---|
+| **la liste** | la liste nommée de la cible | `selection:` (D215) |
+| **les identifiants** | les clés fonctionnelles | `identity` (D357) |
+| **les images** | les visages | `image:` (D386) |
+
+`picker.record` porte les deux premières (*forme en proposition :
+`by: list` — le défaut — ou `by: identity`*) ; **`picker.image` est la
+dérivée qui fixe la troisième** — héritant tout du parent (le filtre,
+l'ancrage, la dimension, la sélection déduite — D469/D470).
+
+**`picker.image` s'efface (D472 — amende D471).** La simplification :
+**« picker.image s'efface pour devenir picker.record avec un composant
+matérialisant la liste de sélection — le nom de la liste, ou le nom du
+champ représentant une image de l'enregistrement. »** Un seul picker
+d'enregistrement ; **la valeur d'une propriété dit la présentation** :
+le nom d'une liste nommée de la cible → la liste (D215) ; le nom du
+champ-image de la cible → la galerie de visages (D386). *(Virgule de
+nommage : l'auteur écrit `component:` — mais le mot désigne déjà le
+picker au champ (D461) ; je propose de porter cette matérialisation par
+**`selection:`** (D215 élargi) — la valeur dit tout, `by:` disparaît
+aussi.)*
+
+**La famille `picker` recomposée (D473).** **« Nous avons `picker.file`
+pour choisir un ou plusieurs fichiers (quelconques), et `picker.image`
+pour choisir un ou plusieurs fichiers images — dont la liste des
+formats est exploitable par Syncytium. »** La famille finale :
+
+| Picker | Choisit | Défaut de |
+|---|---|---|
+| `picker.record` | un/des enregistrements — la présentation par liste ou par champ-image (D472) | la référence, l'association, la liste d'entités |
+| `picker.file` | un/des fichiers **quelconques** | le type `file` (D384) |
+| `picker.image` | un/des fichiers **images** — les formats exploitables (dérivé de `picker.file` : appareil photo, galerie, aperçu — D292–D293) | les types `image`/`thumbnail` (D385/D389) |
+
+Le « un ou plusieurs » suit le lien ou le type (la déduction D470) ;
+l'ancien picker.image (la référence par l'image) est fondu dans
+`picker.record` (D472).
+
+**La famille `viewer` (D475).** **« Image-viewer et carousel sont un
+même objet : `viewer` »** — généralisé : **« nous pouvons ajouter un
+viewer pour d'autres types de fichiers (Word, Excel, PDF…), une image
+étant un type parmi tant d'autres. »** Et **`carousel` = le viewer des
+collections** : « une liste ou une association faisant référence à des
+images et/ou des vignettes de fichiers — une succession d'images qui
+changent à intervalle régulier, sur la pression d'une touche
+avant/après… ». Les fiches réécrites ; `interval:` en proposition
+(l'unité seconde s'ajoutant aux durées D434).
+
+**Le vocabulaire des durées complet (D476 — amende D434).** **« Les
+durées : `s`, `min`, `h`, `d`, `w`, `m` et `y` »** — la seconde et
+l'année rejoignent le jeu de D434. Le vocabulaire vaut **partout où une
+durée s'écrit** : `every:` (D434), `interval:` (D475), `await[+3h]`
+(D436) — *(et en note : `temporal[1y]` devient possible, l'unité
+explicite aux rétentions D411 — le `[365]` nu restant des jours).*
+
+**Le carousel, un mode d'affichage (D477 — amende D475).** **« Viewer
+est le composant graphique et carousel un mode d'affichage. »** Le
+carrousel quitte l'inventaire des feuilles : **une seule fiche
+`viewer`**, dont le mode se déduit du contenu — le fichier seul → la
+vignette et la visionneuse au clic (D293), la collection → le
+carrousel (le défilement D475, `interval:` D476) — et se force au
+crochet, `viewer[carousel]` *(l'écriture en proposition)*.
+
+**Les trois modes du viewer (D478).** **« Le crochet est un raccourci
+pour la définition du mode »** — la propriété `mode:` existe en clair,
+`viewer[carousel]` ≡ `mode: carousel`. Et **« le viewer peut afficher
+une image, une planche ou un carousel »** — trois modes : `image` (le
+fichier seul en vignette), **la planche** (toutes les vignettes de la
+collection — *nom du catalogue en proposition : `mosaic`, l'anglais des
+valeurs sans collision avec le conteneur `grid` D451*), `carousel` (la
+succession qui défile). *(En proposition : au template, le carrousel se
+rend en planche.)*
+
+**La planche dimensionnée (D479).** **« Dans le cadre d'une planche,
+besoin de préciser le nombre d'images en colonne et en ligne dans la
+zone. »** L'écriture au crochet *(en proposition)* : **`mosaic[4x3]`**
+— colonnes × lignes, l'écho d'`image[512x512]` ; absent = l'auto selon
+la dimension de la zone et des vignettes ; l'excédent de la collection
+se feuillette.
+
+**Mosaic acté, la propriété derrière le raccourci (D480).** **« Mosaic
+me plaît et la dimension dans les crochets est une bonne idée (pour un
+raccourci). Il faut prévoir une propriété quand même. »** Le nom
+`mosaic` et le crochet `mosaic[4x3]` actés — le crochet n'étant qu'un
+**raccourci**, la grille se déclare aussi en clair *(en proposition :
+`columns:` et `lines:`, les mots déjà au vocabulaire — D441/D464)*.
+
+**Le document paginé feuilleté (D481).** **« Un carrousel d'un document
+PDF correspond à un défilement des pages. Un PowerPoint suit le même
+principe. Un carrousel depuis l'un de ces documents peut être utilisé
+pour afficher une présentation ou un mode opératoire. »** Le carrousel
+défile donc **une succession** — les éléments d'une collection (D475)
+**ou les pages d'un document paginé seul** : la page fait l'image ;
+avec `interval:`, la présentation tourne d'elle-même (l'affichage
+d'atelier, le mode opératoire).
+
+**`sheet:` — la grille de la planche (D482, remplace la proposition
+D480).** **« Columns/lines à remplacer par `sheet: columns x lines`. »**
+Une seule propriété : `sheet: 4x3` — colonnes × lignes ; le crochet
+`mosaic[4x3]` en est le raccourci.
+
+**Le viewer du document généré (D483).** **« Le fichier de la facture
+n'existe pas en tant que tel mais comme un fichier PDF généré à partir
+des informations de la facture et de ses lignes. Par conséquent, un
+viewer peut faire référence à un template de document à générer. »**
+La source du viewer s'élargit : le champ, le lien — **ou le template**,
+le document naissant à la volée de l'enregistrement. Combiné à D481,
+la facture générée se feuillette en carrousel. *(L'écriture en
+proposition : `template[<nom>]` en items — l'écho de `field[<nom>]`
+D460, viewer en composant naturel.)*
+
+**Le couple `size:`/`dimension:` (D484).** **« `size:` décrit la
+dimension à l'affichage et `dimension:` décrit la dimension en
+extension (suite à un clic). »** La doctrine vaut pour tout composant
+qui se déploie : la mini-carte et la carte dépliée (`map`), la vignette
+et la visionneuse (`viewer` — D293), la liste du picker (D469), le
+formulaire en surimpression (D454). `size` vit dans le socle du
+vocabulaire aux trois étages (D461) ; `dimension` porte le déploiement
+— plein écran, pourcentage, zone définie.
+
+**Le fil épouse son contenant (D485 — précise D167/D186).** **« J'avais
+indiqué qu'un onglet pourrait représenter un thread. Cependant, il peut
+prendre une section ou un onglet… ça prend la place qu'on lui
+laisse. »** L'onglet n'est qu'un habitat possible du fil : une section,
+un onglet, tout conteneur — le `thread` remplit l'espace que la
+déclaration lui donne.
+
+**Un seul `list` (D486).** **« Le composant graphique `list` vu avant
+les types et les composants de base est intimement lié à `list`
+ici. »** La liste complète (D441–D447) et l'éditeur de liste sont **un
+même composant** : `list of <entité>` (la composition — D399) déploie
+la liste embarquée aux colonnes de l'entité ; `list of <type simple>`
+la **resserre sur la colonne unique des valeurs** — et le vocabulaire
+de la liste complète (columns, editable, selection, sizable, l'export…)
+vaut partout où il garde son sens.
+
+**Le bloc n'existe pas (D487).** **« Block n'existe pas en tant que
+tel. Il se décline selon les différents items vus ci-dessus. »** Le mot
+« bloc » (D449) était générique : aucun composant ne le porte — il se
+matérialise par les conteneurs du catalogue (`section`, `grid`, `tabs`,
+`pages`, `page`) et par `header`/`body`/`footer`, des conteneurs
+reconnus par leur nom et leur rôle — au formulaire (D449) comme dans
+`pages`. La ligne du modèle unifié (D455) : tout est composant.
+
+**Le contenu fixe (D488).** **« Il manque une feuille essentielle : un
+texte fixe, un paragraphe et/ou une image fixe. Par exemple, mettre du
+texte pour indiquer les informations légales de l'entreprise et son
+logo. »** Deux feuilles s'ajoutent à l'inventaire — le contenu venu de
+la configuration, aucun champ derrière : **le texte fixe** (les
+libellés par langue D465, ou le dictionnaire du module D440) et
+**l'image fixe** (un fichier livré avec la configuration, comme les
+icônes D439). *(Les noms en proposition : `paragraph` et `picture` —
+`text` et `image` étant les composants de champ, D458.)*
+
+**Le couple `sections`/`section` (D489).** **« Sections permet de
+décrire l'organisation de différentes sections (organisation en
+colonne ou en ligne). Une section décrit une partie du composant
+sections. Le nœud sections a des propriétés et des items — chaque item
+est alors une section. Une section est un nœud qui permet d'organiser
+différents nœuds (soit sections, soit une des feuilles vues
+précédemment). »** L'alternance est stricte : `sections` ne contient
+que des sections ; une section contient des `sections` ou des
+feuilles — l'emboîtement passe par l'organisateur. *(En proposition :
+la disposition `layout: column | row` — défaut `column`, l'empilement —
+avec le crochet en raccourci `sections[row]` (D478) ; et la section
+seule sous un conteneur = le raccourci d'un `sections` à l'item
+unique.)*
+
+**Les trois arbitrages du couple (D490).** **(1) « `layout: column |
+row | grid[2]` »** — la grille rejoint la disposition, le crochet
+portant le nombre de colonnes. **(2) « La section seule est un
+conteneur (header, body ou footer) »** — la section nue vit
+directement sous l'entête, le corps ou le pied (l'écho de D450/D451 :
+« l'entête, le corps et le pied acceptent sections ») ; ailleurs, la
+composition passe par l'organisateur `sections`. **(3) « Un écran va
+dépendre de screen. Si l'affichage doit changer, screen permet de
+définir le format attendu »** — aucun ré-empilement automatique : le
+format par écran se déclare (D450).
+
+**La grille au crochet, `grid` oublié (D491 — amende D490).**
+**« Oublie grid… mais j'amende : `column[3]` — maximum de 3 colonnes :
+après 3 colonnes, on crée une ligne avec de nouveau jusqu'à 3
+colonnes… et `row[2]` — 2 lignes, puis ajoute une colonne… »** Le
+conteneur `grid` quitte le catalogue et la valeur `grid[n]` disparaît :
+**le mot nomme l'unité, le crochet la compte, le flux replie au-delà**
+— `column` (défaut) = l'empilement en colonne unique ; `column[3]` =
+jusqu'à trois colonnes par ligne, puis la ligne suivante ; `row` = la
+ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis la
+colonne suivante. La grille est couverte par le crochet.
+
+**La liste en widgets (D492).** **« Nous avons une représentation
+tabulaire de la liste. Elle peut se présenter sous forme d'une liste
+de widgets — la propriété `widget: <nom du widget>` de l'entité de
+l'élément de la liste. »** Deux représentations pour la liste
+complète : **le tableau** (`columns:` — D441) ou **la liste de
+widgets** — chaque enregistrement rendu par le widget que son entité
+déclare (`gui: widgets:` — D455). **L'exclusion mutuelle `widget:`/`columns:` est validée** — l'un ou
+l'autre visage ; toute la mécanique de la liste — filtre, tri,
+recherche, sélection, pagination, opérations — demeure.
+
+**Le titre de la section : `title:` (D493).** **« Le nom d'un
+regroupement est en fait un libellé en titre de la section. Au lieu de
+label, j'utilise `title`. »** La section se nomme par **`title:`** —
+les libellés par langue (la mécanique D465) en position de titre —
+l'écho du titre du formulaire (D449, la zone à gabarit déclinable par
+langue) et du `title` de l'entité (D465) : **title = ce qui titre**.
+`label` demeure ailleurs (le `shortcut` D464, le `paragraph` D488, les
+`values`…).
+
+**La jauge aux trois valeurs (D494 — précise D241).** **« Nous pouvons
+avoir 3 valeurs pour une jauge : min, value et max. Min et max peuvent
+être fixes comme dépendre de valeurs. La jauge porte alors ces 3
+valeurs en une. »** La vérification : D241 consignait la valeur de
+référence et la valeur calculée, « chacune une formule ou une valeur
+absolue » — le min restait implicite. La forme à trois valeurs le rend
+explicite : **min, value, max — chacun fixe ou dépendant** (un champ,
+une formule — la ligne D241), portés en une seule jauge ; les bornes
+du type (D276) restent le défaut de min/max.
+
+**Les seuils depuis une entité (D495).** **« Pour les seuils, je
+propose aussi que cela puisse dépendre d'une entité en expliquant les
+liaisons entre les colonnes et les valeurs (seuil et couleur). »** Les
+couleurs de jauge (D467) gagnent une troisième source : **une table de
+référence** — l'écho des unités de `measure` (`units: stock.unit`,
+l'adressage D363) — en nommant les liaisons : la colonne du seuil, la
+colonne de la couleur. *(L'écriture en proposition :
+`colors: { from: quality.threshold, threshold: level, color: tint }`.)*
+Vaut partout où `colors:` vaut — `gauge`, `fuel`, le fond gradué
+(D466–D467).
+
+**Le type `color` et `picker.color` (D496).** **« J'ajoute aussi
+`picker.color` pour sélectionner une couleur »** — l'ajout vaut
+adoption du type : **`color`**. Et la précision fonde sa mécanique :
+**« Le stockage est un entier. L'affichage en hexadécimal et une base
+traduisant les couleurs en RGB. »** — le moteur stocke **un entier**
+(le RGB(A) assemblé), l'affichage s'écrit en **hexadécimal**
+(`#RRGGBB`, l'alpha en option), et **la base des couleurs nommées**
+traduit `red`, `orange`, `green`… en RGB — celles-là mêmes que
+`colors:` emploie (D467). La pastille en lecture, le sélecteur en
+saisie — le composant par défaut au nom du type (D458). Et
+**`picker.color` rejoint la famille pointée** (D470/D473) : la palette
+qui s'ouvre — `selection:` (D474), `anchor:` et `dimension:` (D469).
+*(En proposition : si le champ porte des `values:`, la palette s'y
+restreint — l'écho de dropdown/icons.)* Le type sert la colonne
+couleur des seuils d'entité (D495).
+
+**Le type `range` (D497).** **« Range étant un stockage de 2 valeurs
+dont l'une est égale ou plus petite que l'autre »** — une plage de
+dates ou de valeurs. La vérification : `range` n'existait que comme
+régime de recherche (D371) ; `period` (D391) portait la paire
+temporelle, début ≤ fin. Le type générique naît : **deux valeurs d'un
+même type ordonné, la première ≤ la seconde, portées en une** —
+la contrainte intégrée (l'esprit `period`). *(L'écriture en
+proposition : **`range of <type>`** — l'écho de `list of` D362, la
+phrase se lit : `range of decimal`, `range of date` ; les facettes du
+champ s'appliquent aux deux valeurs ; la saisie = les deux champs du
+type liés, le double curseur pour les bornés — l'écho D276 ; la
+recherche `range` (D371) en usage naturel ; `period` demeure, le frère
+temporel au crochet.)*
+
+**`range of` validé, la jauge un cas particulier (D498 — solde
+D497).** **« Je valide `range of`, déclinaison de `list of` avec 2
+contraintes en nombre et en ordre. »** Et trois précisions : **« dans
+le range of, j'autorise le fait de ne pas définir de min et/ou de
+max »** — la plage ouverte (« ≥ 5 », « ≤ 10 ») ; **« les libellés de
+ce type de champ portent sur 3 éléments : min, value et max »** — le
+libellé se décline par élément ; **« la jauge étant un cas particulier
+d'un range »** — la relecture de D494 : min/value/max en une, la jauge
+porte un range et sa valeur — `gauge` devient un composant compatible
+du type. **Les liaisons des seuils d'entité (D495) sont également
+validées** (`from`/`threshold`/`color`).
+
+**Les cellules confirmées de la synthèse (D499).** Les trois « à
+confirmer » du tableau types × composants trouvent leurs réponses :
+**« duration est compatible avec calculator sur la base de 2
+clocks »** — la durée calculée entre deux horloges (le début, la fin —
+la différence fait la durée) ; **« datetime nécessite la combinaison
+des 2 composants calendar + clock »** ; **« uuid à saisir et en
+lecture sous forme de texte formaté — ça peut servir à plusieurs
+fonctions dont celle de conserver des id vers des systèmes tiers »**
+(relit D419 : la saisie n'est pas exclue, le texte formaté vaut dans
+les deux sens).
+
+**Le dropdown de la référence et du statut (D500).** **« Reference :
+utilisation d'un dropdown possible. »** Et **« le statut peut être un
+dropdown aussi, avec une liste de valeurs en tenant compte du cycle de
+vie »** — la liste déroulante du statut n'offre que **les états
+atteignables** depuis l'état courant (le graphe promote/demote,
+D425–D427 — la sélection libre restant le mode sans `when`). La
+dernière cellule « à confirmer » de la synthèse se ferme — le registre
+atteint sa cinq-centième décision.
+
+**La taille des sections : `width`/`height` (D501).** **« Layout
+fournit le découpage en colonnes et en lignes. `width` et `height`
+permettent de calibrer la taille des sections. Sans précision,
+l'ensemble de l'espace est pris. »** La section se calibre **au sein
+de son organisateur** — la largeur, la hauteur ; sans elles, les
+sections se partagent tout l'espace du découpage.
+
+**Les deux étages du calibrage (D502 — précise D501).** **« Width et
+height sont des propriétés à positionner au même niveau que layout
+pour que chaque section ait la même dimension. Par contre, pour des
+sections de taille variable, width et height sont également
+définissables sur la section. »** L'uniforme à l'organisateur (toutes
+les sections à la même taille), le variable à la section — **le plus
+proche l'emporte** (la ligne D461).
+
+**`size:` sur l'organisateur, le défilement au débordement (D503).**
+**« Dans sections, `size` permet de préciser les dimensions de
+l'espace occupé par l'ensemble des sections décrites. Si l'affichage
+excède cet espace, des barres de scrolling seront visibles ou
+évaporeux (plus moderne). Sur un écran tactile, le swipe permet de se
+déplacer dans une zone sans avoir besoin d'afficher les barres de
+scrolling. Cependant, les barres permettent d'afficher le
+positionnement de l'écran par rapport à l'ensemble des éléments
+affichés. »** L'enveloppe du tout — la cohérence D484 (`size` = la
+dimension à l'affichage) : `size` dimensionne l'organisateur,
+`width`/`height` calibrent ses parties ; au débordement, les barres —
+pleines ou évanescentes —, le swipe au tactile, les barres restant
+l'indicateur de position.
+
+**Les modes de `tabs` (D504).** **« Les tabs se déclinent en plusieurs
+modes : les onglets tels que nous les connaissons avec les composants
+graphiques Windows (pour un affichage haut), comme Excel (pour un
+affichage bas), comme un wizard pour représenter les différentes
+étapes — avec la possibilité de voir toutes les étapes mais de ne pas
+prendre d'avance tant que l'onglet précédent n'a pas été exploré. Nous
+pouvons aussi avoir une représentation latérale (à gauche ou à
+droite). »** Quatre visages : la barre en haut (le défaut), en bas, à
+gauche ou à droite — et **le mode wizard** : toutes les étapes
+visibles, l'avance au rythme de l'exploration (l'écho du cliquet
+D354 ; la parenté avec la surface `wizard` D230–D233 notée). Et la
+poignée se compacte : **« les icônes permettent de minimiser le texte
+ou afficher le texte en survol »** — la barre d'icônes seules, le
+titre en survol. *(En proposition : `mode: top | bottom | left |
+right | wizard` — le crochet en raccourci, `tabs[bottom]`,
+`tabs[wizard]` — D478.)*
+
+**Le chemin de traitement (D505 — complète D504).** **« En wizard, les
+tabs parcourus décrivent le chemin de traitement… en cliquant sur une
+phase, nous revenons sur un onglet. »** La barre du mode wizard est le
+fil d'Ariane du parcours : **le retour libre** sur toute étape
+explorée — d'un clic sur la phase —, **l'avance gardée** (D504, le
+cliquet D354).
+
+**La dimension unique des volets (D506).** **« Par contre, pour chaque
+tab, toujours la même dimension — et les zones sont centrées si elles
+représentent un espace plus petit. »** Le contraste avec les sections
+(D502) est assumé : **aucun calibrage par volet** — tous les onglets à
+la même dimension, et le contenu plus petit **se centre** dans le
+volet.
+
+**La géométrie de `pages` (D507).** **« Pages prend toute la place,
+pas de dimension. Le header et le footer sont optionnels. S'ils sont
+définis, ils sont toujours visibles. La hauteur du footer et du header
+sont paramétrables. La page prend toujours le reste. »** Aucun `size:`
+sur `pages` (le contraste avec D503) — tout l'espace est à lui ;
+l'entête et le pied, optionnels mais **toujours visibles** une fois
+déclarés, portent leur **`height:`** ; **la page prend toujours le
+reste**.
+
+**La navigation des pages, celle des tabs (D508).** **« La navigation
+entre les pages s'effectue de la même façon que les tabs. Les pages
+ont un numéro (par défaut) et nous pouvons lui affecter un nom et/ou
+un icône comme un tab. L'affichage des pages suit alors la même
+logique que tabs. »** La poignée de la page est **son numéro** — le
+`title:` et l'`icon:` s'y affectent comme sur un onglet (D493/D439) —
+et l'affichage hérite de la logique de `tabs` : la barre des poignées,
+ses modes (D504), le chemin (D505), le swipe.
+
+**Le formulaire est un `pages`, `body` disparaît (D509 — amende
+D449/D455/D490).** **« Pages est le premier composant d'un formulaire
+sans avoir besoin de le déclarer. Header et footer sont déjà décrits.
+Ici, body est à remplacer par `page`. »** Et la famille se clôt :
+**« pas besoin de composants complémentaires. »** La racine de tout
+formulaire est un `pages` **implicite** — ses items : `header`,
+`page`(s), `footer` (D507) ; **le mot `body` quitte le vocabulaire**,
+la clé s'écrit `page:`. Le quatuor D449 se relit : le titre, l'entête,
+**la ou les pages**, le pied. Les conteneurs au complet :
+`sections`/`section`, `tabs`/`tab`, `pages`/`page`, `header`/`footer`.
+*(La virgule : plusieurs pages au formulaire — la clé `page:` ne se
+répète pas en YAML ; l'écriture du multi-pages à préciser.)*
+
+**Le multi-pages en liste (D510 — solde la virgule).** **« Le
+multi-pages se fait à l'aide d'une liste d'éléments :
+`default: [ { header: … }, { page: … }, { page: … }, { footer: … } ]`. »**
+Deux plumes pour le même `pages` implicite : **les clés** pour l'usuel
+(une page), **la liste d'éléments** dès que les pages se répètent.
+
+**`selection` = le nombre, `by` = la présentation (D474 — solde
+D472).** **« La propriété `selection` définit le nombre d'éléments à
+sélectionner : `1`, `1..` ou `1..5` »** — la cardinalité, à l'écriture
+des bornes (D366), **la déduction du lien en défaut** (la référence =
+`1`, la liste et l'association = `1..` — D470) ; **« component n'est
+pas adapté ; ta proposition `by` me plaît »** — **`by:`** porte la
+matérialisation : **le nom d'une liste de la cible** → la présentation
+liste ; **le nom du champ-image de la cible** → la galerie de visages ;
+absent → la liste par défaut filtrée. *(Note : le `selection: <liste>`
+de D215 est remplacé par `by:` ; l'harmonisation du `selection:
+one | multiple` de la liste (D445) vers `1 | 1..` — en proposition.)*
+
+```yaml
+- field[product]:
+    by: catalog_photos           # le champ-image ou la liste — la présentation
+    selection: 1..5              # la cardinalité — au plus cinq
+```
+
+**Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
+type password ? ») — non ; il entre aux composés, **avec des garanties
+structurelles, jamais des options** : **(1) le stockage est
+l'empreinte, jamais le clair** (la ligne D33 — salée, l'algorithme au
+moteur) — **le champ est write-only** : il s'écrit, ne se relit jamais
+(la lecture montre « défini / non défini ») ; **(2) le composant** — la
+saisie masquée, l'œil de révélation à la saisie seulement, la double
+saisie en création ; **(3) les exclusions structurelles** — jamais en
+colonne de liste, jamais `searchable` ni `mutualizable` (la conversion
+D369 exclue), jamais exporté (CSV, Excel, template), **l'empreinte
+seule aux instantanés** (D169) — le clair n'existe nulle part ;
+**(4) la force déclarable** par la `validation` du champ (longueur,
+classes — le refus propre D307). **« La facette décrite me
+convient. »**
+
+**Les colonnes gardent le nom nu (D462).** **« Pour les colonnes d'une
+liste, l'ambiguïté n'est pas présente : ce sont des noms de champs — et
+les opérations sont des verbes en général. »** Pas de `field[…]` aux
+`columns` ; **la préconisation au technicien** (la documentation Q58,
+jamais un contrôle — « Syncytium n'apporte pas de contrôles ») : **une
+approche cohérente, une action marquée par un verbe**. Et la règle de
+préséance : **« si un nom de champ = un nom d'opération, le nom du
+champ l'emporte. »**
+
+**Le type-hook doit se représenter (D459).** **« Un type ajouté via le
+hook doit inclure une phase de représentation graphique — ou via un
+document PDF, Word… »** Le contrat du type sur mesure comprend **ses
+rendus** : le composant d'écran et/ou le rendu de document (le
+`template`, D456) — **aucun type sans visage** (la ligne D455 : une
+facette est un hook — la facette d'affichage d'un type hooké est due).
+Le contrat détaillé au domaine 6.
+
+*(Les quatre lettres : **create** = la création d'un **sous-composant**
+— ajouter une ligne à l'agrégat ; **read** = la consultation de
+l'enregistrement — sans elle, l'état masque (la donnée se protège) ;
+**update** = la mise à jour — l'agrégat entier (D420) ; **delete** = la
+suppression-désactivation (D141). Absent = tout permis. Le même
+vocabulaire vaut pour les états hiérarchiques du bloc `states:` (D353) ;
+l'en-tête d'entité garde les formes libres symétriques
+(`update: <expression>`, D421) pour les cas hors cycle — les deux
+déclarés = erreur d'ingestion ; **les opérations passent outre**,
+inchangé.)*
 
 ```yaml
 history:
@@ -2648,7 +4187,8 @@ intra-module) et **association** (« référence », libre, inter-modules).
 **Déclaration de la composition (D133).** Tout se lit sur la déclaration
 `compose` du parent :
 - le **raffinement conditionnel** (D101 — enfants modifiables seuls ou non) s'y
-  déclare (pas sur l'enfant : lisibilité) ;
+  déclare (pas sur l'enfant : lisibilité) — **[écarté par D420 :
+  l'agrégat est toujours le grain d'écriture]** ;
 - l'**ordre des enfants = une clé de tri déclarée** (un ou plusieurs champs) —
   portée par les fonctions de comparaison des types (D125) et le multi-clés
   (D126), rien de neuf.
@@ -5886,6 +7426,7 @@ avant la synthèse Q16).
 | ~~Q57~~ | ~~Construction des gabarits PDF ?~~ | **Résolu (D212, D219, D250–D254, §8.6)** : le gabarit = **un formulaire en lecture seule + une dimension de page** (un seul formalisme — paragraphes, titres/sous-titres 4 niveaux, zones de texte, entête/pied optionnels en gabarits nommés valant aussi pour les formulaires), composé des **types PDF des composants** (D250) ; un gabarit **par langue** (D219) ; **impression directe depuis le serveur** (imprimantes = celles de l'OS ; étiquettes QR/code-barres) ; **variables de contexte = entité « contexte »** (pagination, opérateur, instance… — exploitables comme des champs, D254). |
 | Q58 | **La documentation en amont des développements** (ajout 18/07/2026, D314) : forme et structure (guide du technicien ? de l'utilisateur ? référence du méta-schéma ?), publics, lien avec les descriptions du modèle (D124 — « exploitables par des IA »), **intégration des exemples concrets** issus des mises en situation (Q59). | La documentation précède le code — décision de méthode D314. |
 | Q59 | **Les mises en situation** (ajout 18/07/2026, D314) : choix des **cas clients concrets**, méthode de vérification de la **compatibilité de la solution avec les besoins**, critères de validation, et **intégration des exemples à la documentation** (Q58) pour montrer l'intérêt de la solution. | Le banc d'essai de la conception avant tout développement. |
+| Q60 | **L'inventaire du catalogue des fonctions/opérations** (ajout 12/08/2026, D433) : l'ensemble des fonctions à mettre au catalogue — les opérations embarquées (**le changement d'état, l'opération par défaut**), les effets (notify, document, set, function — D432), leur articulation avec le catalogue d'expressions (D301) et les hooks (D408). | « Je propose que nous fassions un point ultérieurement sur l'ensemble des fonctions à mettre au catalogue. » |
 
 ---
 
@@ -8156,3 +9697,855 @@ avant la synthèse Q16).
   modules.yml (D415) liste ces modules-là ; l'arborescence consolidée
   est retouchée. Note : le menu peut citer des entités d'autres modules
   (D116).
+- **2026-08-10** — **Le glossaire (D417)**. À la reprise, la
+  préconisation de l'auteur : « ajouter un volet glossaire dans notre
+  documentation technique… un document glossaire.md à part — il nous
+  sera utile lors de la rédaction de la documentation » (Q58). Créé :
+  **docs/glossaire.md** — une cinquantaine de termes en ordre
+  alphabétique, chacun défini et ancré à ses décisions fondatrices (né
+  de l'unification D416 : les termes vivent, le glossaire les ancre) ;
+  le pointeur ajouté en §1. La liste livrée pour arbitrage —
+  enrichissements bienvenus.
+- **2026-08-10 (suite)** — **Le glossaire repris en dictionnaire (D417
+  amendé)**. Le retour de lecture de l'auteur : « la description est
+  très technique… je souhaite des définitions claires et concises » —
+  et la règle lexicale : **le terme français nous accompagne dans nos
+  échanges, l'anglais est sa traduction dans la configuration**
+  (Champ/`field`). Le glossaire est réécrit : définitions de
+  dictionnaire en langage courant, le couple français/configuration en
+  tête d'entrée, un exemple quand il éclaire, la décision en rappel
+  discret. Entrées ajoutées au passage : libellé, infobulle, valeur de
+  démonstration, recherche, tri, settings, visages de l'entité.
+- **2026-08-11** — **Le glossaire relu et enrichi par l'auteur (D418)** :
+  deux commits directs (« Update glossaire.md », « Revise glossary terms
+  and definitions »). Les évolutions de fond consignées : le couple
+  **Configuration/Description** (les fichiers vs le contexte d'un
+  élément — jusqu'à l'interface pour l'IA), **Application** au
+  vocabulaire, la clé du compteur unique malgré le reset, les hooks
+  élargis (écrans, formats CSV/Excel), les utilisateurs associés par
+  technicien **ou passerelle d'authentification**, le rapport des
+  non-conformités couvrant les modifications directes en base, les
+  ressources élargies (modèles PDF/Word/Excel), les renommages français
+  (exécution à blanc, type court, composant graphique, groupe
+  d'utilisateurs). Supprimées : Infobulle (absorbée), **Ingestion** —
+  l'auteur demande le rappel de nos échanges sur ce terme ;
+  « méta-schéma » redéfini (le modèle d'une version) — l'articulation
+  avec l'usage Q16 (le format) à clarifier.
+- **2026-08-11 (suite)** — **« Ingestion » réintégrée au glossaire**,
+  avec la définition de l'auteur : « processus visant à convertir une
+  version de configuration en une entrée dans le moteur exploitable par
+  toutes les composantes de l'application (API, Écrans, CSV…) »
+  (D330). Le terme des « erreurs d'ingestion » est fixé. Reste ouvert :
+  l'articulation méta-schéma (le modèle d'une version) / le format de
+  description (la grammaire Q16).
+- **2026-08-11 (suite 2)** — **« Méta-schéma » tranché** : le mot couvre
+  **le modèle porté par une version — modules, entités, champs — ET la
+  grammaire utilisée** pour les écrire. Un seul terme pour le tout ; ma
+  proposition d'un second terme (« format de description ») est
+  écartée ; l'entrée du glossaire est amendée. La relecture du
+  glossaire est soldée — le chantier reprend : l'ouverture du
+  domaine 3.
+- **2026-08-11 (suite 3)** — **Le composé `uuid` (D419)**. La sonde de
+  l'auteur (« a-t-on le type UUID ? ») : non — l'UUID interne est hors
+  déclaration (D142/Q49). Pour **les identifiants externes** (systèmes
+  tiers, clés D178), `uuid` entre aux composés : validation intégrée
+  (8-4-4-4-12), stockage compact au moteur (16 octets), recherche et
+  tri sur la forme canonique, nul ≡ chaîne vide. La frontière est
+  nette : l'identité technique reste invisible et non typée. Catalogue
+  (D361) et glossaire complétés.
+- **2026-08-12** — **Le domaine 3 ouvert (« les règles et le
+  comportement »)** : le périmètre proposé en cinq points (opérations
+  D148, déclencheurs D54, notifications D108–D110, tâches D24/D55,
+  raffinement d'agrégat D101/D133) ; l'auteur commence par le point 5,
+  « le plus clair dans mon esprit ». **D420 — le raffinement écarté,
+  par simplification** : après le rappel exact de D399/D133/D90 demandé
+  par l'auteur, son arbitrage — la composition est indivisible par
+  nature, l'association porte la vie libre, **le mot-clé fait la
+  distinction** ; l'agrégat est **toujours** le grain d'écriture
+  (D192 règle unique ; D111 par champ et l'échelle D15 rendent le grain
+  fin sans objet) ; et ce que « refine » visait de légitime **est le
+  `filter`** des liens (D395/D401), déjà acquis. Le §3.5 est amendé en
+  place. Restent au domaine 3 : opérations, déclencheurs,
+  notifications, tâches.
+- **2026-08-12 (suite)** — **La condition de mise à jour : une affaire
+  d'entité (D421)** : « la condition de mise à jour porte sur l'entité
+  et non sur l'association ou la composition » — le cas « brouillon »
+  trouve son foyer : `update:` en en-tête d'entité (expression D90).
+  En proposition : lecture seule de fait quand la condition est fausse
+  (refus propre D307), la racine couvrant ses compositions (D420), et
+  **les opérations qui passent outre** (le chemin explicite — la ligne
+  D354). La proposition « opérations » (bloc operations:, when/rights/
+  confirm/effects) reste en arbitrage.
+- **2026-08-12 (suite 2)** — **Le statut d'état couvre le CRUD entier
+  (D422)** : le cycle de vie rejoint la condition de mise à jour, et
+  « le statut ne porte pas que sur la modification : il concerne tous
+  les éléments du CRUD — création d'un sous-composant,
+  lecture/consultation, mise à jour, suppression ». Forme en
+  proposition : `crud: [create, read, update, delete]` porté par chaque
+  valeur du cycle (énuméré D387) ou chaque état hiérarchique (D353) ;
+  absent = tout permis ; read absent = l'état masque ; l'en-tête
+  d'entité garde les formes libres (D421), les deux déclarés = erreur
+  d'ingestion ; les opérations passent outre. En arbitrage : la forme
+  `crud:`, le défaut, la sémantique du read.
+- **2026-08-12 (suite 3)** — **La propriété se nomme `allow` (D422
+  amendé)** : « plutôt que les mots update, create, read ou delete, je
+  propose allow, qui permet de définir l'une ou l'autre des valeurs ou
+  des combinaisons » — `allow: [read, delete]` : l'état qui se consulte
+  et se purge sans se modifier. Reste en arbitrage : le sort de la
+  forme libre `update: <expression>` de D421 (le cycle + `allow`
+  couvrent-ils tout ?).
+- **2026-08-12 (suite 4)** — **Les deux formes conservées, exclusives
+  (D423)** : le cycle suffira le plus souvent, mais « quelques cas
+  particuliers peuvent nécessiter une forme libre — pour éviter de
+  faire un hook inutile, je préfère conserver les 2 possibilités ; par
+  contre, le technicien devra choisir : les 2 simultanément ne seront
+  pas autorisés » (erreur à l'ingestion). Forme consignée : un nom
+  unique `allow` à deux foyers — la liste de verbes par état (D422) ou
+  le bloc verbe → expression en en-tête d'entité (le `update:` de D421
+  s'y fond). D421/D422 clos. Restent au domaine 3 : les opérations (en
+  arbitrage), les déclencheurs, les notifications, les tâches.
+- **2026-08-12 (suite 5)** — **Focus cycle de vie — `states` désigne le
+  porteur (D424)**. La vue d'ensemble livrée (trois cycles, le
+  mouvement, les interactions, trois creux) ; l'auteur tranche le
+  premier creux : « un état hiérarchique est déjà un statut » — pas de
+  cumul ; l'entité sans hiérarchie **réutilise le bloc `states`** pour
+  désigner son champ énuméré (`states: status`). Un seul statut par
+  entité, deux sources. Notes en proposition : champ non énuméré =
+  erreur, deux sources = erreur, la naissance = le `default`. Restent
+  du focus : le graphe des transitions (creux 2 — les passages légaux
+  déclarés ou la liberté des opérations).
+- **2026-08-12 (suite 6)** — **Le graphe déclaré, `promote` en tableau
+  (D425)**. Le rappel exact de D353–D355 livré à sa demande ; la
+  transposition à l'énuméré-cycle validée par la construction — chaque
+  valeur déclare ses passages, hors graphe = refus — et l'arbitrage :
+  « le promote est un tableau, car nous pouvons avoir le choix entre
+  plusieurs états ». Notes en proposition : demote en tableau, l'ordre
+  du tableau départage les when simultanés, le cliquet inchangé, le
+  tableau vaut pour la hiérarchie aussi. Ouverts : la naissance directe
+  à une valeur (D355 transposé), les notes.
+- **2026-08-12 (suite 7)** — **Les deux régimes d'une transition (D426 —
+  clôt le focus cycle de vie)**. Les trois virgules validées (« les 3
+  points me vont ») : demote en tableau, l'ordre départage, la
+  naissance libre. Puis les deux temps de l'auteur : **sans `when` = la
+  transition libre** — le composant de sélection devient **navigateur du
+  graphe** (n'offre que les cibles promote atteignables) ; **« la
+  présence du when marquera une opération (un bouton ou une action) »**
+  — le chemin nommé, gardé par le when, tracé. Le demote jamais en
+  sélection libre. Question posée : l'articulation avec le cliquet
+  automatique de D354 (le when-expression déclenche-t-il encore de
+  lui-même, ou tout when passe-t-il par l'acte ?). Et le troisième
+  temps de l'auteur : **le composant du statut se déduit de la
+  déclaration** — « liste de valeurs dont la liste dépend de l'état, ou
+  un champ non modifiable avec des boutons ajoutés » — la liste
+  navigatrice (sans when), le champ en lecture + boutons (avec when),
+  le graphe mixte combine ; la forme jamais déclarée, lue dans le
+  graphe (l'esprit D366).
+- **2026-08-12 (suite 8)** — **Le triptyque du `when` (D427) : le focus
+  cycle de vie est soldé (D420–D427)**. « Le when peut faire référence
+  à une opération ou à une condition » : sans when = libre (la liste
+  navigatrice) ; when-opération = l'acte (un bouton — « nous allons y
+  venir ») ; when-expression = **l'automatisme, le cliquet D354
+  intact** (déduit d'un élément de l'entité — count(orders) > 0). Trois
+  écritures, trois vécus, un seul graphe. Suivant : les opérations (la
+  proposition en arbitrage).
+- **2026-08-12 (suite 9)** — **L'opération porte sa nature (D428)** :
+  les deux exemples de l'auteur — `when: count(lines) > 0` en ligne
+  dans un promote = **l'opération automatique abrégée** ;
+  `when: confirm` = l'opération nommée, dont la nature se lit dans SA
+  déclaration : **avec `when` = automatique** (le when est son
+  déclencheur, jamais une simple garde), **sans `when` = un bouton /
+  une fonction API**. Le triptyque D427 raffiné en place. **« Cycle de
+  vie » et « État hiérarchique » ajoutés au glossaire** à sa demande.
+  La proposition opérations à re-livrer sous ce modèle.
+- **2026-08-12 (suite 10)** — **La trace des actions = l'historisation
+  (D429)** : « les actions sont tracées si l'entité possède un
+  historique » — l'instantané porte l'acte (auteur, canal, motif D169),
+  sans historique pas de trace, aucune machinerie séparée. La question
+  du bouton-sous-condition reformulée explicitement (le when étant pris
+  par l'automatisme, comment griser « Confirmer » tant que la commande
+  est vide) — trois options posées, recommandation : la condition dans
+  le graphe via le `if` du langage.
+- **2026-08-12 (suite 11)** — **La garde du bouton : le `if` au graphe
+  (D430)** : « ok pour ta proposition » —
+  `when: confirm if count(lines) > 0` : le passage n'est légal que si
+  la condition tient, le bouton se grise, l'API refuse proprement ;
+  aucune propriété nouvelle, la garde vit où la transition vit. Le
+  modèle transitions/opérations est complet — reste la forme finale du
+  bloc `operations:` (labels/rights/confirm/effects, l'invocation,
+  le passe-outre) à valider d'un bloc.
+- **2026-08-12 (suite 12)** — **`validate: true` par défaut (D431)**.
+  La question de l'auteur (« qu'entends-tu par confirm: true ? ») ; la
+  réponse — le patron D196 généralisé (lecture seule +
+  confirmer/annuler, jamais de popup) ; ses deux arbitrages : **le
+  défaut s'inverse** (la relecture est la règle, `validate: false` à
+  déclarer pour l'exécution directe) et **la propriété se nomme
+  `validate`** (« me convient mieux que confirm »). Les opérations
+  automatiques non concernées. Restent les points 1, 2, 4, 5 du bloc
+  operations.
+- **2026-08-12 (suite 13)** — **Les opérations closes (D432)** : le
+  bloc `operations:` au même niveau que fields/validation (mapping
+  ordonné = l'ordre des boutons) ; jamais d'effet d'état ; `effects:`
+  ordonnés — notify, document, set, et **function** (« l'appel d'une
+  fonction interne à Syncytium, présente dans un catalogue ou dans une
+  liste de fonctions fournie en hook ») ; **disponible partout par
+  défaut**, l'exclusion d'interface déclarable (un écran ou l'API —
+  `except:` en proposition). Le point 1 du domaine 3 est soldé —
+  restent : les déclencheurs calendaires, les notifications
+  déclarées, les tâches.
+- **2026-08-12 (suite 14)** — **Le changement d'état, opération du
+  catalogue (D433) — Q60 ouverte.** « Une opération ne servira pas
+  uniquement à un changement d'état : un changement d'état est une des
+  opérations disponibles au catalogue, et c'est l'opération par
+  défaut » — la ligne D408 étendue aux opérations. L'inventaire du
+  catalogue des fonctions/opérations = **un point ultérieur → Q60**
+  (§10). En attente : les trois arbitrages livrés (le calendaire
+  `every:`, les notifications par simplification, les tâches
+  `background:`).
+- **2026-08-12 (suite 15)** — **Le calendaire riche (D434)** : « le
+  calendaire est plus riche » — `every:` en durées (5min/2h/2d/2w/1m),
+  raccourcis (daily/weekly/monthly), **le crochet précisant les
+  moments** (daily[08:00], weekly[tuesday at 15:30], moments multiples
+  séparés par virgules), les heures en **UTC du serveur**. Notes : sans
+  crochet le moment est au moteur, le when: du rapport D406 s'aligne.
+  Restent : les notifications par simplification, les tâches
+  background.
+- **2026-08-12 (suite 16)** — **`every: continuous`, le défaut (D435)** :
+  le mot cherché existait — « à chaque mise à jour d'un enregistrement
+  de l'entité » = `continuous`, le même mot que le rapport (D406), « on
+  garde continuous » — **et il est par défaut** (`every:` absent =
+  continuous). Le temporel exige son rythme calendaire déclaré.
+  Restent : les notifications par simplification, les tâches
+  background.
+- **2026-08-12 (suite 17)** — **Les points 3 et 4 du domaine 3 soldés
+  (D436)**. Les notifications : « pour le moment, je ne vois pas de
+  nouveaux éléments » — la simplification (l'opération automatique +
+  notify couvre tout). Les tâches : **`mode` plutôt que `background`** —
+  `synchronous` (interface en pause, barre de progression, attente),
+  `asynchronous` (enregistrée, déclenchée dès que le serveur peut — la
+  file D24/D55), **`await[+3h]` / `await[+2d at 08:00]`** (le décalage
+  avant lancement — le + relatif, le at calendaire). Défaut
+  `synchronous` en proposition. **Les cinq points du domaine 3 sont
+  couverts** — la question de complétude est posée.
+- **2026-08-12 (suite 18 — PR #24 créée)** — **Le domaine 4 ouvert
+  (« les surfaces »), l'ancrage arbitré (D437)**. Le périmètre en huit
+  points validé (« le plan me convient ») ; le point 1 : **les cinq
+  blocs dans un bloc `ihm`** (lists, forms, summary, charts, widgets)
+  et **les trois étages de complexité** — rien (les défauts D186), un
+  fichier unique (le bloc en ligne), un dossier par entité (entity.yml
+  + un fichier par bloc : lists.yml, forms.yml, summary.yml,
+  charts.yml, widgets.yml). Notes à trancher : « ihm » vs `ui` (D335),
+  et les points 2–4 de l'ancrage (la première déclarée = le défaut, le
+  socle des surfaces, la déclaration remplace le défaut).
+- **2026-08-12 (suite 19)** — **Le point 1 du domaine 4 clos (D438)** :
+  le bloc se nomme **`gui`** (« gui me convient » — D437 amendé en
+  place) ; la première déclarée = la surface par défaut ; le socle des
+  surfaces = le patron des champs (« nous avons défini ce qu'il faut,
+  sauf oubli ») ; la déclaration remplace le défaut. Suivant : le menu
+  (point 2 — le différé D351).
+- **2026-08-12 (suite 20)** — **Le menu : la syntaxe d'adressage
+  (D439)**. Ma proposition de blocs typés ne convenait pas — la vision
+  de l'auteur : le menu reste une liste ordonnée filtrée par la
+  confidentialité (« ça ne change pas »), et **chaque entrée est une
+  adresse** — `<module>.<entité>` (liste par défaut), `[<liste>]`
+  (nommée), `.<opération>`, `[+<formulaire>]` (création, nom
+  optionnel), `[@<wizard>]`, `<module>[<dashboard>]` (**le dashboard
+  défini au niveau du module**), `<nom>:` (sous-menu, libellé déclaré
+  au module). **`icon` rejoint le socle des surfaces** (menu
+  « moderne ») — le menu reste une pure liste d'adresses. À trancher :
+  les libellés de sous-menus au module, le bloc dashboards (point 6).
+- **2026-08-12 (suite 22)** — **Le dictionnaire de libellés (D440) : le
+  point 2 est clos.** « Les labels sont utilisés au-delà du menu — dans
+  un champ, les libellés peuvent y faire référence » : le bloc
+  `labels:` du module (externalisable), **la chaîne valant référence et
+  le mapping valant inline** (la forme courte D356, l'esprit des
+  variables D323). Le dashboard renvoyé au point 6. Suivant : la liste
+  (point 3).
+- **2026-08-12 (suite 23)** — **Le `searchable` de liste (D441)** : la
+  proposition « liste » livrée (columns/filter/sort/editable) ;
+  l'auteur arbitre la recherche — « une propriété searchable décrit la
+  liste des champs ou des noms mutualisés à positionner dans un filtre
+  de tri ; par défaut, tous les champs sont inclus » (le champ déclare
+  comment D367, la liste déclare lesquels ; le défaut de D227 amendé).
+  Restent : columns/filter/sort, le défaut d'editable (tout ouvert
+  D206 ou tout fermé ?).
+- **2026-08-12 (suite 24)** — **La liste close (D442–D443)**. Les
+  quatre arbitrages : columns dans l'ordre d'affichage ; filter par
+  expressions ; **le tri PAR COLONNE** — sans `sort:` toutes triables ;
+  avec, la colonne présente porte **sa cascade de clés secondaires**
+  (`sort: { numero: asc, nom: [prenom, numero] }` — prénom absent = non
+  triable), `+`/`-` croissant par défaut ; **editable à défaut
+  readonly** (amende **D266** — ma première référence D206 corrigée).
+  Puis **la colonne riche (D443)** : « le style, l'alignement et la
+  dimension » — forme courte ou riche, align au défaut du type, width,
+  style relevant du thème. Le point 3 du domaine 4 est clos. Suivant :
+  le formulaire (point 4).
+- **2026-08-12 (suite 25)** — **La forme abrégée délègue au moteur
+  (D443 complété)** : « Syncytium décide alors du format par défaut et
+  de la dimension de la colonne en fonction de son type » — le masque
+  du champ, l'alignement du type, la largeur du contenu (l'esprit
+  D372). La proposition « formulaire » (blocks section/tab,
+  header/footer, history, surcharges) reste en arbitrage.
+- **2026-08-12 (suite 26)** — **La liste raffinée, l'artefact consigné
+  (D444)**. La relecture de la description canonique : **l'opération en
+  colonne dédiée** (l'icône à trois états — actionnable / non visible /
+  non actionnable) ; **l'export** — colonnes visibles + complémentaires,
+  **le CSV en un fichier par type de composants** (customer.csv,
+  orders.csv — la symétrie Q55), **l'Excel en un fichier à onglets,
+  surchargeable par un modèle**, et **le tri d'export** (l'écriture de
+  l'affichage, figée) ; **l'auto-rafraîchissement** (pas de bouton) ; la
+  confidentialité = non visible et non triable ; le responsive
+  conforme ; **la pagination à indicateurs** (« 21–40 sur 156 »).
+  L'exemple canonique complet est gravé. La proposition « formulaire »
+  toujours en arbitrage.
+- **2026-08-12 (suite 27)** — **Les comportements de la liste (D445)** :
+  `selection: one | multiple` ; la création en bouton du cadre/entête
+  (au même titre que les filtres) ; la modification au double-clic
+  (ligne non readonly) ; la liste en lecture seule = le double-clic
+  consulte ; **la suppression à deux visages** — une ligne = le
+  formulaire en lecture seule + confirmation (D196), plusieurs lignes =
+  la popup précisant le nombre (l'exception assumée pour la masse,
+  D202) ; **l'opération de masse** appliquée à toutes les lignes
+  sélectionnées (D432 × D202). Le formulaire (point 4) toujours en
+  arbitrage.
+- **2026-08-12 (suite 28)** — **`sizable` (D446)** : « une liste est un
+  composant graphique complet et complexe, dont la lisibilité doit
+  s'adapter au format d'affichage » — le redimensionnement des colonnes
+  gouverné : `none` / `auto` / `manual` / `auto+manual`, l'ajustement
+  par l'utilisateur seulement si `manual` ; défaut `auto` en
+  proposition. Le formulaire (point 4) toujours en arbitrage.
+- **2026-08-12 (suite 29)** — **La préséance du type et la colonne
+  fantôme (D447)** : les propriétés d'affichage du type priment par
+  défaut, la colonne de liste surcharge (la chaîne type → colonne, le
+  pendant de D270) ; et **la colonne présente, non affichée et non
+  visible** — jamais révélée même en sizable manual — « utile pour un
+  export CSV simplifié sans décrire les mêmes colonnes que
+  l'affichage » (`visible: false` en proposition ; l'export prend les
+  présentes). Le formulaire (point 4) toujours en arbitrage.
+- **2026-08-12 (suite 30)** — **Les exemples canoniques de la préséance
+  (D447 complété)** : « un montant affiche la devise et s'affiche avec
+  un alignement à droite, un toggle est centré, un texte court est
+  aligné à gauche, un texte sur plusieurs lignes s'affiche en
+  justifié… » — gravés dans le bloc.
+- **2026-08-12 (suite 31)** — **La grammaire commune des surfaces
+  (D448)**. L'auteur garde la main sur la liste (« je pourrais
+  potentiellement y revenir ») et ouvre forms/summary/widgets par leur
+  socle partagé : « ces 3 éléments vont partager un vocabulaire et une
+  grammaire commune ». La base validée (socle, header/footer à
+  gabarits, mode, blocks section/tab au contenu fields/charts ; les
+  spécialisations par restriction ; le gabarit PDF D253 et le wizard
+  D233 en réutilisateurs) — « une base que nous allons **reformuler et
+  étoffer** ». L'arbitrage surface par surface suit.
+- **2026-08-12 (suite 32)** — **Les forms d'abord, la grammaire entière
+  livrée — et reformulée (D449)**. Les trois recadrages : l'icône
+  jamais dans `labels` (le dictionnaire D440 amendé — « icon fait
+  doublon avec l'icon au rang au-dessus ») ; « un formulaire est conçu
+  pour un mode d'écran » (la ligne D206/D250) ; **la structure en
+  quatre parties** — le titre (zone de texte à gabarit), l'entête, le
+  corps et le pied (des blocs). À trancher : la propriété d'écran visé
+  et son défaut, les blocs permis en entête/pied.
+- **2026-08-12 (suite 33)** — **`screen` en tableau, les blocs sont des
+  composants (D450)** : `screen: [pc, tablet]` pour la compatibilité de
+  plusieurs affichages, défaut `[pc paysage]` (D250) ; l'entête, le
+  corps et le pied acceptent sections **et** onglets — le principe de
+  fond : « un composant graphique est un composant type à signature
+  commune qui assure un rendu — une section, **une grille**, des
+  onglets sont des composants » : les blocs = des composants-conteneurs
+  du catalogue (section, grid, tabs…), extensible (D408/D263),
+  l'inventaire rejoignant Q60.
+- **2026-08-12 (suite 34)** — **Le formulaire arborescent (D451)** :
+  « un formulaire est décrit de façon arborescente ; un nœud est un
+  composant qui affiche un composé graphique basé sur l'enregistrement
+  d'une entité, d'un champ et des opérations » — un seul arbre unifiant
+  conteneurs, feuilles-champs et boutons d'opérations, la signature
+  commune (D450) à chaque étage, l'imbrication libre, les quatre
+  parties (D449) en branches maîtresses.
+- **2026-08-12 (suite 35)** — **Le composant de saisie personnalisé
+  (D452)** : « section, grid ou tab sont fournis par Syncytium — dans
+  un cas d'usage, j'ai besoin de construire un composant de saisie
+  personnalisée et détaillée qui ne pourra pas se matérialiser avec les
+  éléments de base » : le hook de composant (D263) devient un nœud
+  comme les autres dans l'arbre (D451), au nom sans « hook » (D408) ;
+  **l'écriture repasse toujours par les champs et leurs règles**
+  (validation, allow, concurrence) — jamais de contournement du
+  modèle ; le contrat au domaine 6.
+- **2026-08-12 (suite 36)** — **Les propriétés du `form` (D453)** : la
+  zone de texte à gabarit **déclinable par langue** (chaîne unique ou
+  mapping — vaut pour tous les gabarits D253/D449) ;
+  **`mode: updatable` (défaut) | `read-only`** ; **`history: false`
+  pour désactiver l'onglet d'une entité historisée** (défaut true,
+  toujours dernier). Reste à l'étoffage : la signature des nœuds, la
+  grille, la `selection:` des références (D215), la `list:` des
+  compositions (D216).
+- **2026-08-12 (suite 37)** — **La surimpression et sa dimension
+  (D454)** : « le formulaire peut s'afficher en surimpression de
+  l'écran — la totalité ou une portion » ; « nous ajoutons une
+  dimension (par défaut : 100 % de l'écran) » — la surimpression est le
+  mode d'affichage du formulaire, `dimension:` en règle la portée
+  (`dimension: 70%` — le patron de la visionneuse D293).
+- **2026-08-12 (suite 38 — pause)** — **La signature des nœuds en
+  arbitrage.** La proposition livrée : le type-clé (section, grid,
+  tabs/tab, champ, opération, sur-mesure — le nom est la clé D408), le
+  socle optionnel, `visible:` (condition d'affichage, expression D90 —
+  proposition), le contenu et ses abréviations (`fields:`/`charts:`
+  homogènes), les propriétés propres par type (grid.columns…), le
+  contexte reçu jamais déclaré (D451). **`children` est écarté**
+  (« je préfère content ou items ») — ma recommandation : **`items`**
+  (le mot de l'auteur, D439) ; **le choix content/items reste à
+  trancher à la reprise**, puis la signature entière se consignera.
+- **2026-08-13** — **Le modèle unifié du composant graphique (D455)**.
+  À la reprise, `items` validé — et la dictée de fond : un formulaire =
+  un composant graphique (un nom — form/summary/wizard/widget,
+  extensible par hook au nom unique ; des propriétés ; des items —
+  **pages**, header, body, footer ; **un contexte** — l'enregistrement,
+  l'origine de l'appel, l'utilisateur) ; l'emboîtement libre (un wizard
+  dans une page, des références en widgets, des listes) ; **le graphe
+  acyclique parcouru de la feuille à la racine**, les composants
+  recevant du pré-analysé ; « le formulaire n'est qu'une
+  matérialisation » du nœud — l'approche vaut pour tous les composants
+  des facettes de types, et **« une facette peut être vue comme un
+  hook »** (catalogue fourni par Syncytium) — la doctrine D408 totale.
+  Et l'analogie de l'auteur : **« cela s'apparente à la notion de web
+  components (ou à une extension des web components) utilisés par les
+  navigateurs web »** — consignée, avec l'écho pour Q7 (la pile
+  technique : les custom elements comme substrat naturel de la GUI).
+- **2026-08-13 (suite)** — **Le catalogue des composants arbitré
+  (D456)**. L'inventaire en cinq familles (surfaces, conteneurs,
+  feuilles par type, graphiques, actes) validé avec cinq retouches :
+  **+ `template`** (PDF, Word — la génération PDF proposée sur cette
+  base) ; **`pages`/`page`/`section` redéfinis** (« page est un saut de
+  page ; pages est une section pouvant contenir un header, page(s) et
+  footer ; une section est un regroupement potentiellement nommé ») ;
+  **+ `carousel`** (viewer d'images) ; les graphiques couvrent (famille
+  ouverte) ; **l'acte à trois déclencheurs** — un bouton, un icône, le
+  passage à l'étape suivante (l'utilisateur acte une opération). La
+  description élément par élément s'ouvre.
+- **2026-08-13 (suite 2)** — **Le document dédié et le modèle de fiche
+  (D457)**. Le parcours commence par les feuilles (« les plus
+  basiques » — le point 3 ; « il manquait la description ») ; le modèle
+  de fiche en **neuf rubriques** proposé et **validé** (« la fiche de
+  description me convient ») ; l'arbitrage : **« groupons les
+  composants dans un document dédié — cela préparera la phase de
+  documentation »** (Q58) → **docs/composants.md** créé (le modèle,
+  l'inventaire D456, la fiche `checkbox` en première), le pointeur en
+  §1 (le patron du glossaire D417).
+- **2026-08-13 (suite 3)** — **Les renommages des feuilles (D458)** :
+  `text-zone` → `text`, `number-zone` → `number`, `list-editor` →
+  `list` (« suffit ») — et l'élégance en cadeau : **le composant par
+  défaut d'un type porte le nom du type** (la table D64 devient
+  nominale — text rend text) ; les espaces de noms se résolvent par le
+  contexte (`type:` vs `component:`), les collisions assumées.
+  composants.md est à jour.
+- **2026-08-13 (suite 4)** — **Le type-hook doit se représenter
+  (D459)** : « un type ajouté via le hook doit inclure une phase de
+  représentation graphique — ou via un document PDF, Word… » — aucun
+  type sans visage : le composant d'écran et/ou le rendu de document
+  (template D456) ; la facette d'affichage d'un type hooké est due
+  (D455) ; le contrat au domaine 6.
+- **2026-08-13 (suite 5)** — **Le parcours des feuilles, une par une**
+  (« pas de groupement ») : la fiche `toggle` livrée ; puis **le
+  protocole enrichi à la demande de l'auteur** — les neuf rubriques
+  **et la validation par un exemple de configuration** avant la feuille
+  suivante : **la rubrique 10 entre au modèle** (composants.md), et
+  `checkbox` est reprise avec son exemple complet (le champ obligatoire
+  et l'optionnel tri-état, la liste — searchable/editable — et le
+  formulaire). En attente : sa validation de l'exemple checkbox, puis
+  l'exemple toggle.
+- **2026-08-13 (suite 6)** — **`field[<nom>]` et la surcharge de
+  représentation (D460)**. Le retour sur l'exemple checkbox : « la
+  description du champ est claire, la partie gui a besoin d'être
+  complétée » — la forme explicite `field[active]` (l'ambiguïté
+  champ/composant levée, nécessaire), et la surcharge de représentation
+  au nœud (le style par état — vide = faux, coché = vrai, le nul — la
+  taille…). L'exemple checkbox repris dans composants.md ; en attente :
+  sa validation, la question des columns (la même explicitation ?).
+- **2026-08-13 (suite 7)** — **Un seul vocabulaire de représentation
+  (D461)** : `field[active]` confirmé ; « la description du type
+  pouvait contenir des informations sur sa représentation avec
+  component — ici, nous reprenons les mêmes propriétés, qui surchargent
+  les propriétés vues sur la définition du champ » — les mêmes mots aux
+  trois étages (type → champ → nœud gui), le plus proche l'emporte.
+  Toujours ouvertes : la question des columns, la validation finale de
+  l'exemple checkbox.
+- **2026-08-13 (suite 8)** — **Les colonnes au nom nu (D462)** :
+  « l'ambiguïté n'est pas présente — ce sont des noms de champs, les
+  opérations sont des verbes en général » ; la préconisation au
+  technicien (une action = un verbe — jamais un contrôle, « Syncytium
+  n'apporte pas de contrôles », la documentation Q58) ; la préséance :
+  **si un nom de champ = un nom d'opération, le champ l'emporte**.
+  Reste : la validation finale de l'exemple checkbox.
+- **2026-08-13 (suite 9)** — **`checkbox` validée** (« je valide la
+  checkbox ») : la première fiche complète du protocole (neuf rubriques
+  + l'exemple). **L'exemple de `toggle` livré** (le champ obligatoire à
+  `component: toggle`, les values, la liste — filtre vrai/faux,
+  bascule en ligne — le nœud à `size:`) ; en attente de validation.
+- **2026-08-13 (suite 10)** — **`component: toggle` au nœud aussi** :
+  la précision de l'auteur — « component: toggle peut également être
+  présent sous field » — la cascade D461 explicitée au troisième étage
+  dans l'exemple (le formulaire seul bascule en toggle, ailleurs le
+  champ garde son composant).
+- **2026-08-13 (suite 11)** — **`toggle` validé** (« ok pour toggle ») ;
+  **la fiche `text` livrée** — les trois parties (D271), le
+  mono/multi déduit, la post-zone venue du type, **`lines:`** (les
+  lignes avant « voir plus » — nom en proposition), le justifié
+  multi-lignes (D447), les modes du thème E, la recherche D367–D368 ;
+  l'exemple de configuration joint. En attente de validation.
+- **2026-08-13 (suite 12)** — **`password` (D463)** puis **`shortcut`
+  (D464)** : la sonde « avons-nous un type password ? » → le composé
+  aux garanties structurelles (l'empreinte jamais le clair D33,
+  write-only, exclusions absolues — « la facette décrite me
+  convient ») ; et le raccourci du texte — **`shortcut:`** au lieu de
+  `lines` : `lines`/`icon`/`label` (par langue), le défaut traduit du
+  moteur sinon. La fiche `text` reprise ; virgule ouverte : `label` vs
+  `labels` (l'harmonisation). En attente : la validation de `text`.
+- **2026-08-13 (suite 13)** — **Le triptyque label/title/labels
+  (D465)** : « remplaçons labels par label, à l'exception du catalogue
+  de libellés » — l'objection de la collision D397 levée par le
+  renommage du visage : **`label` = les libellés par langue partout ;
+  le visage devient `title`** (cohérent avec le formulaire — « la
+  propriété title d'une entité sera utilisable sur un formulaire et
+  surchargeable ») ; **`labels` = le dictionnaire du module seul**.
+  Renommage appliqué : conception (43 occurrences en ligne + le socle
+  D364 + les artefacts), glossaire (Libellé, Visages), composants (7).
+  En attente : la validation de la fiche `text`.
+- **2026-08-13 (suite 14)** — **Le parcours des fiches avance** :
+  `text` validée (exemple à l'appui — le protocole corrigé : la
+  validation se demande l'exemple présenté dans l'échange), `number`
+  validée, `calculator` validée, `gauge` validée, **`fuel` validée avec
+  sa virgule** (le cadran illustre, la saisie redevient number en
+  modification). Et **le fond gradué (D466)** : « un fond gradué d'un
+  champ en fonction de la valeur d'un autre champ borné » — la jauge en
+  fond de cellule (`fill:` en proposition — le nom à trancher).
+- **2026-08-13 (suite 15)** — **Les couleurs de jauge (D467)** : « les
+  couleurs à afficher doivent être spécifiées » — le dégradé min → max
+  (défaut : du rouge au vert) ou la couleur par seuil (rouge, orange,
+  vert) ; la propriété `colors:` vaut pour gauge, fuel et le fond
+  gradué (D466), aux trois étages (D461). Les fiches gauge et fuel
+  complétées. Ouverts : le nom du fond gradué (fill ?), la fiche
+  slider.
+- **2026-08-13 (suite 16)** — **Le parcours file** : `background` acté
+  (D466 amendé) ; les fiches `slider`, `clock`, `calendar`, `dropdown`
+  validées une à une, exemple à l'appui ; la fiche `radios` livrée — et
+  **le seuil des radios tranché (D468)** : « un élément de la
+  configuration générale — il est possible de définir 3, 5 ou 10 selon
+  les besoins » (le settings, le pendant du seuil D366 ; le repli
+  dropdown en note). En attente : la validation de `radios`.
+- **2026-08-13 (suite 17)** — Le parcours file : `radios` et `icons`
+  validées (**`icon-set` renommé `icons`** — la préférence de
+  l'auteur, 6 occurrences reprises) ; la fiche `record-picker` livrée
+  (le sélecteur de référence — filter/me., le title de la cible D465,
+  les actifs seuls D398, `selection:` D215, CSV = la clé
+  fonctionnelle). En attente : sa validation.
+- **2026-08-13 (suite 18)** — **`record-picker` validé et enrichi
+  (D469)** : `anchor:` (centre de l'écran, à droite du champ, à la
+  place du champ) et `dimension:` (plein écran, pourcentage en largeur
+  et hauteur — la réutilisation de D454). La fiche complétée ;
+  suivante : `image-picker`.
+- **2026-08-13 (suite 19)** — **La famille `picker` pointée (D470)** :
+  « picker me convient, mais je propose plutôt picker.record,
+  picker.image et picker.file » — le point du namespace (D363) gagne
+  les noms de composants, `file-drop` renommé ; la porte ouverte aux
+  autres familles (chart.* en note). L'inventaire et les fiches
+  repris ; **la fiche `picker.image` livrée** (le choix par l'image —
+  la cible au visage `image:` D386 exigé, les vignettes, le plein écran
+  empilé sur smartphone, anchor/dimension de la famille). En attente de
+  validation.
+- **2026-08-13 (suite 20)** — **La sélection des pickers, déduite du
+  lien (D470 complété)** : « pour les 3 pickers, nous pouvons avoir une
+  sélection unique ou une sélection multiple — cas des références, des
+  listes ou des associations » — unique pour la référence, multiple
+  pour la liste et l'association (le vocabulaire D445, la déduction
+  D366). Les fiches picker.record et picker.image complétées.
+- **2026-08-13 (suite 21)** — **Les trois présentations du picker
+  (D471)** : « picker.image est un dérivé de picker.record » — la
+  sélection par **la liste** (nommée, D215), par **les identifiants**
+  (les clés fonctionnelles, D357) ou par **les images** (les visages,
+  D386 — la photo d'un profil, l'image d'un aliment) ; picker.record
+  porte liste et identifiants (`by:` en proposition), picker.image fixe
+  les images en héritant tout. Les fiches mises à jour.
+- **2026-08-13 (suite 22)** — **`picker.image` s'efface (D472)** : la
+  simplification — « picker.record avec un composant matérialisant la
+  liste de sélection : le nom de la liste, ou le nom du champ
+  représentant une image de l'enregistrement » — une seule propriété,
+  sa valeur dit la présentation (liste nommée → la liste D215 ;
+  champ-image → la galerie D386). Virgule : `selection:` élargi plutôt
+  que `component:` (la collision D461) — en proposition ; les fiches à
+  reprendre après son arbitrage.
+- **2026-08-13 (suite 23)** — **La famille picker recomposée (D473)** :
+  picker.file = un ou plusieurs fichiers quelconques (le défaut de
+  file) ; **picker.image = un ou plusieurs fichiers IMAGES** (les
+  formats exploitables par Syncytium — le défaut d'image/thumbnail,
+  dérivé de picker.file : appareil photo, galerie, aperçu D292–D293) ;
+  l'ancien picker.image (la référence par l'image) fondu dans
+  picker.record (D472). La fiche picker.image réécrite au nouveau
+  sens ; en attente : la virgule selection:/component: (D472), les
+  validations.
+- **2026-08-13 (suite 24)** — **`selection` = le nombre, `by` = la
+  présentation (D474)** : « la propriété selection définit le nombre
+  d'éléments à sélectionner : 1, 1.. ou 1..5 » (les bornes D366, la
+  déduction D470 en défaut) ; « component n'est pas adapté ; ta
+  proposition by me plaît » — `by:` porte la liste ou le champ-image.
+  Le selection: de D215 remplacé ; l'harmonisation D445
+  (one/multiple → 1/1..) en proposition. La fiche picker.record
+  reprise.
+- **2026-08-13 (suite 25)** — **« Ok »** : l'harmonisation D445
+  appliquée (`selection: 1 | 1..` — le même vocabulaire partout), les
+  fiches `picker.record` et `picker.image` validées ; **la fiche
+  `picker.file` livrée** (le dépôt et le parcours, les extensions à
+  libellés qui guident, le quota, la caméra/galerie selon le jeu,
+  la déduplication silencieuse). En attente de validation — la famille
+  picker se fermerait.
+- **2026-08-13 (suite 26)** — **La famille `picker` scellée** :
+  picker.file validée (« oui ») — record, image, file au complet
+  (D469–D474). Suivante : `image-viewer` (la visionneuse — la lecture
+  de l'image, le pendant du picker).
+- **2026-08-13 (suite 27)** — **La famille `viewer` (D475)** :
+  « image-viewer et carousel sont un même objet : viewer » — généralisé
+  aux fichiers visualisables (PDF, Word, Excel — l'image un type parmi
+  d'autres) ; **carousel = le viewer des collections** (liste ou
+  association d'images/vignettes, le défilement à intervalle régulier
+  ou avant/après). Les fiches viewer et carousel réécrites ;
+  `interval: 5s` en proposition. En attente de leurs validations.
+- **2026-08-13 (suite 28)** — **Les durées complètes (D476)** : « s,
+  min, h, d, w, m et y » — la seconde et l'année rejoignent D434 ; le
+  vocabulaire vaut partout où une durée s'écrit (every, interval,
+  await ; temporal[1y] possible en note). Les fiches viewer/carousel
+  toujours en attente de validation.
+- **2026-08-13 (suite 29)** — **Le carousel, un mode d'affichage
+  (D477)** : « viewer est le composant graphique et carousel un mode
+  d'affichage » — la fiche carousel repliée dans viewer, le mode déduit
+  du contenu (fichier seul → vignette, collection → carrousel),
+  forçable au crochet viewer[carousel] (en proposition). La fiche
+  unifiée en attente de validation.
+- **2026-08-13 (suite 30)** — **Les trois modes du viewer (D478)** :
+  « le crochet est un raccourci pour la définition du mode » — mode:
+  en clair, le crochet en abrégé ; « le viewer peut afficher une image,
+  une planche ou un carousel ». Le nom anglais de la planche en
+  proposition (mosaic). La fiche en attente de validation.
+- **2026-08-13 (suite 31)** — **La planche dimensionnée (D479)** :
+  « besoin de préciser le nombre d'images en colonne et en ligne dans
+  la zone » — mosaic[4x3] (colonnes × lignes) en proposition, absent =
+  l'auto, l'excédent se feuillette. La fiche viewer en attente de
+  validation.
+- **2026-08-13 (suite 32)** — **Mosaic acté (D480)** : le nom et le
+  crochet-raccourci retenus, « il faut prévoir une propriété quand
+  même » — columns:/lines: en proposition. Le rendu template du
+  carrousel à éclaircir (le point 3 incompris).
+- **2026-08-13 (suite 33)** — **Le document paginé feuilleté (D481)** :
+  « un carrousel d'un document PDF correspond à un défilement des
+  pages. Un PowerPoint suit le même principe » — le carrousel défile
+  une succession : les éléments d'une collection ou les pages d'un
+  document ; l'usage : la présentation, le mode opératoire. La fiche
+  viewer en attente de validation (columns:/lines: et le rendu
+  template toujours en proposition).
+- **2026-08-13 (suite 34)** — **`sheet:` (D482)** : « columns/lines à
+  remplacer par sheet: columns x lines » — la grille de la planche en
+  une seule propriété, le crochet mosaic[4x3] en raccourci. Reste le
+  rendu template du carrousel (proposition : la planche).
+- **2026-08-13 (suite 35)** — **Le viewer du document généré (D483)** :
+  « le fichier de la facture n'existe pas en tant que tel mais comme un
+  PDF généré à partir des informations de la facture et de ses lignes —
+  un viewer peut faire référence à un template de document à générer ».
+  template[<nom>] en proposition ; le rendu du carrousel dans un
+  document différé au point template (Q55). La fiche viewer en attente
+  de validation.
+- **2026-08-13 (suite 36)** — **La fiche `viewer` validée** (« oui,
+  même si je pourrais l'amender lorsque nous traiterons des
+  templates ») — la réserve notée pour Q55. Suivante : `map` (la
+  carte — la lecture de la géolocalisation).
+- **2026-08-13 (suite 37)** — **Le couple size/dimension (D484)** :
+  « size: décrit la dimension à l'affichage et dimension: décrit la
+  dimension en extension (suite à un clic) » — la doctrine unifiant la
+  mini-carte/carte dépliée, la vignette/visionneuse (D293), la liste
+  du picker (D469), la surimpression (D454). La fiche map en attente
+  de validation.
+- **2026-08-13 (suite 38)** — **La fiche `map` validée** (« oui »).
+  Suivante : `thread` (le fil de communication — D295/D393).
+- **2026-08-13 (suite 39)** — **Le fil épouse son contenant (D485)** :
+  « il peut prendre une section ou un onglet… ça prend la place qu'on
+  lui laisse » — l'onglet de D167/D186, un habitat parmi d'autres. La
+  fiche thread corrigée, en attente de validation (preview: 3 en
+  proposition).
+- **2026-08-13 (suite 40)** — **La fiche `thread` validée** (« oui, je
+  valide »). Suivante : `list` (l'éditeur du type liste — D296/D362).
+- **2026-08-13 (suite 41)** — **Un seul `list` (D486)** : « le
+  composant graphique list vu avant les types est intimement lié à
+  list ici » — la liste complète (D441–D447) et l'éditeur, un même
+  composant (déployé pour l'entité, resserré sur la colonne unique
+  pour le type simple). La fiche corrigée, en attente de validation.
+- **2026-08-13 (suite 42)** — **La fiche `list` validée** (« oui ») —
+  **les feuilles sont au complet** : 21 fiches validées (checkbox,
+  toggle, text, number, password, calculator, gauge, fuel, slider,
+  clock, calendar, dropdown, radios, icons, picker.record,
+  picker.image, picker.file, viewer, map, thread, list). Famille
+  suivante : les conteneurs (section, grid, tabs, pages, page — le
+  statut de header/body/footer à trancher).
+- **2026-08-13 (suite 43)** — **Le bloc n'existe pas (D487)** :
+  « block n'existe pas en tant que tel — il se décline selon les
+  différents items » ; header/body/footer = des conteneurs du
+  catalogue. Première fiche de la famille : `section`.
+- **2026-08-13 (suite 44)** — **Le contenu fixe (D488)** : « il manque
+  une feuille essentielle : un texte fixe, un paragraphe et/ou une
+  image fixe » (les informations légales, le logo) — paragraph et
+  picture en proposition. Les fiches section et paragraph en attente
+  de validation.
+- **2026-08-13 (suite 45)** — **La réserve sur le contenu fixe** :
+  « les feuilles paragraph et picture seront étoffées lorsque nous
+  ferons du gabarit ou de la génération de documents » — les deux
+  fiches minimales à dessein, l'enrichissement différé à Q55 (la même
+  réserve que viewer). La fiche picture écrite.
+- **2026-08-13 (suite 46)** — **`paragraph` et `picture` validées**
+  (« les termes paragraph et picture sont validés et nous les
+  amenderons lors de la génération de documents ») — les noms actés,
+  l'amendement réservé à Q55. Retour à la fiche `section`.
+- **2026-08-13 (suite 47)** — **Le couple sections/section (D489)** :
+  sections = l'organisateur (colonne ou ligne), chaque item une
+  section ; une section organise des nœuds (sections ou feuilles) —
+  l'alternance stricte. Les fiches sections et section réécrites, en
+  attente de validation (layout:, le crochet, la section seule en
+  raccourci — propositions).
+- **2026-08-13 (suite 48)** — **Les trois arbitrages (D490)** :
+  layout: column | row | grid[2] ; la section seule vit directement
+  sous header/body/footer (ailleurs, l'organisateur) ; l'affichage par
+  écran relève de screen: (D450), rien d'automatique. Les fiches
+  corrigées — la question ouverte : le conteneur grid du catalogue,
+  absorbé par layout: grid[n] ?
+- **2026-08-13 (suite 49)** — **La grille au crochet (D491)** :
+  « oublie grid » — le conteneur retiré du catalogue ; layout:
+  column[n] | row[n] — column[3] : trois colonnes par ligne puis
+  repli ; row[2] : deux lignes par colonne puis repli. Les fiches et
+  l'inventaire corrigés.
+- **2026-08-13 (suite 50)** — **La liste en widgets (D492)** : « elle
+  peut se présenter sous forme d'une liste de widgets — widget: <nom
+  du widget> de l'entité de l'élément » — le tableau ou les widgets,
+  la mécanique demeure. La fiche list complétée ; sections/section
+  toujours en attente de validation.
+- **2026-08-13 (suite 51)** — **L'exclusion widget/columns validée**
+  (« je valide l'exclusion mutuelle widget / columns »). Les fiches
+  sections/section toujours en attente.
+- **2026-08-13 (suite 52)** — **`title:` au titre de la section
+  (D493)** : « le nom d'un regroupement est un libellé en titre — au
+  lieu de label, j'utilise title » — title = ce qui titre ; label
+  demeure ailleurs (shortcut, paragraph, values). Les exemples de
+  composants.md balayés.
+- **2026-08-13 (suite 53)** — **Retour sur la jauge** : la
+  vérification D241 (référence + calculée, formule ou absolue) — la
+  forme à trois valeurs consignée (D494 : min, value, max en une,
+  chacun fixe ou dépendant) ; les seuils depuis une entité (D495, la
+  liaison seuil/couleur — écriture en proposition) ; la question du
+  type color/rgb posée — absent du catalogue, la proposition faite.
+- **2026-08-13 (suite 54)** — **color et picker.color (D496)** :
+  « j'ajoute aussi picker.color pour sélectionner une couleur » puis
+  « le stockage est un entier, l'affichage en hexadécimal et une base
+  traduisant les couleurs en RGB » — le type acté (entier au moteur,
+  hex à l'écran, la base des couleurs nommées — celles de colors:
+  D467), picker.color à la famille pointée. Les fiches color et
+  picker.color écrites, en attente de validation.
+- **2026-08-13 (suite 55)** — **Le type range (D497)** : « un stockage
+  de 2 valeurs dont l'une est égale ou plus petite que l'autre » — le
+  générique manquait (la recherche D371 et period D391 vérifiés) ;
+  range of <type> en proposition, la contrainte intégrée, le double
+  curseur pour les bornés.
+- **2026-08-13 (suite 56)** — **Les fiches `color` et `picker.color`
+  validées** (« je valide color et picker.color »). Restent en
+  attente : sections/section, les liaisons D495, l'écriture range of
+  <type> (D497).
+- **2026-08-13 (suite 57)** — **range of validé (D498)** : la
+  déclinaison de list of aux deux contraintes (nombre, ordre) ; la
+  plage ouverte autorisée ; les libellés sur min/value/max ; « la
+  jauge étant un cas particulier d'un range ». Les liaisons D495
+  validées. **Sections/section mis en attente de relecture** à la
+  demande de l'auteur. Le tableau de synthèse types × composants
+  demandé — livré dans l'échange.
+- **2026-08-13 (suite 58)** — **Le tableau corrigé** : « association
+  with est absent de la liste » — les lignes du trio des liens (D400)
+  distinguées : l'association stockée, le n-aire (D402), la dérivée à
+  l'if (D405), et la liste nommée de l'accès retour (D394/D216).
+- **2026-08-13 (suite 59)** — **La synthèse intégrée à l'entête de
+  composants.md** (« cela fait le lien entre le modèle de données et
+  les composants graphiques ») — types × défaut × compatibles, les
+  quatre règles transversales, les cellules °à confirmer. L'auteur
+  relèvera les manques et y répondra.
+- **2026-08-13 (suite 60)** — **Les cellules confirmées (D499)** :
+  duration/calculator sur deux clocks ; datetime = calendar + clock ;
+  uuid en texte formaté, saisie et lecture (les id tiers parmi ses
+  fonctions). Reste °à confirmer : le dropdown de référence.
+- **2026-08-13 (suite 61)** — **D500** : le dropdown possible sur la
+  référence ; le statut en dropdown aussi, la liste des valeurs
+  tenant compte du cycle de vie (les états atteignables, D425–D427).
+  La synthèse complète — plus aucune cellule à confirmer. Cinq cents
+  décisions consignées depuis le 12 juin.
+- **2026-08-13 (suite 62)** — **La synthèse relue et validée par
+  l'auteur** (« les liens sont faits. J'ai relu l'ensemble des types
+  et des composants graphiques. Pour le moment, je ne vois plus de
+  manques »). La reprise sur sections/section.
+- **2026-08-13 (suite 63)** — **width/height (D501)** : « layout
+  fournit le découpage ; width et height calibrent la taille des
+  sections ; sans précision, l'ensemble de l'espace est pris ». Les
+  fiches complétées, en attente de validation.
+- **2026-08-13 (suite 64)** — **Les deux étages du calibrage
+  (D502)** : width/height au niveau de layout (l'uniforme) et sur la
+  section (le variable) — le plus proche l'emporte (D461). Les fiches
+  ajustées.
+- **2026-08-13 (suite 65)** — **size sur l'organisateur (D503)** :
+  l'espace du tout ; au débordement les barres visibles ou
+  évanescentes, le swipe au tactile, les barres = l'indicateur de
+  position. La fiche sections complétée.
+- **2026-08-13 (suite 66)** — **Les fiches `sections` et `section`
+  validées** (« je valide sections et section »). Suivant : le couple
+  `tabs`/`tab`, proposé au miroir (l'organisateur et sa partie —
+  D489), avec quatre écritures en proposition (items = des tab seuls,
+  title requis sur la poignée, icon: D439, les onglets à la suite au
+  template).
+- **2026-08-13 (suite 67)** — **Les modes de tabs (D504)** : haut
+  (Windows, défaut), bas (Excel), latéral (gauche/droite), et le mode
+  wizard — toutes les étapes visibles, l'avance au rythme de
+  l'exploration (l'écho du cliquet D354) ; « les icônes permettent de
+  minimiser le texte ou afficher le texte en survol ». mode: +
+  crochet en proposition. Les fiches complétées.
+- **2026-08-13 (suite 68)** — **Le chemin de traitement (D505)** :
+  « en wizard, les tabs parcourus décrivent le chemin de traitement —
+  en cliquant sur une phase, nous revenons sur un onglet » — le
+  retour libre sur l'exploré, l'avance gardée.
+- **2026-08-13 (suite 69)** — **La dimension unique des volets
+  (D506)** : « pour chaque tab, toujours la même dimension — les
+  zones centrées si plus petites » — aucun calibrage par volet (le
+  contraste avec D502).
+- **2026-08-13 (suite 70)** — **Les fiches `tabs` et `tab` validées**
+  (« je valide tabs et tab »). Suivant : le couple `pages`/`page` —
+  les fiches proposées sur la définition d'origine (« pages est une
+  section pouvant contenir un header, page(s) et footer ; page est un
+  saut de page »), trois lectures en proposition (l'alternance des
+  items, header/footer constants autour des pages, la navigation au
+  swipe/flèches).
+- **2026-08-14** — **La géométrie de pages (D507)** : « pages prend
+  toute la place, pas de dimension ; header/footer optionnels,
+  toujours visibles s'ils sont définis, leur hauteur paramétrable ;
+  la page prend toujours le reste ». La fiche corrigée.
+- **2026-08-14 (suite)** — **La navigation des pages = tabs (D508)** :
+  le numéro en poignée par défaut, le nom et/ou l'icône comme un tab,
+  l'affichage à la logique de tabs (les modes D504, le chemin D505).
+  Les fiches alignées.
+- **2026-08-14 (suite 2)** — **Les fiches `pages` et `page` validées**
+  (« je valide pages et page »). Dernier conteneur : la fiche
+  commune `header`/`body`/`footer` (les sections seules aux rôles
+  réservés — D487/D490), proposée avec deux lectures (une fiche pour
+  les trois ; la double écriture — les clés au formulaire, les items
+  dans pages).
+- **2026-08-14 (suite 3)** — **Le formulaire est un pages (D509)** :
+  « pages est le premier composant d'un formulaire sans avoir besoin
+  de le déclarer ; header et footer sont déjà décrits ; body est à
+  remplacer par page » — et « pas besoin de composants
+  complémentaires ». Body quitte le vocabulaire ; la fiche réécrite
+  en header/footer ; les exemples balayés (body: → page:). La
+  virgule : l'écriture du multi-pages.
+- **2026-08-14 (suite 4)** — **Le multi-pages en liste (D510)** :
+  « default: [ { header: … }, { page: … }, { page: … },
+  { footer: … } ] » — les clés pour l'usuel, la liste d'éléments dès
+  que les pages se répètent.
+- **2026-08-14 (suite 5, fin de séance)** — **La fiche
+  `header`/`footer` validée** (« je valide header/footer ») — **la
+  famille des conteneurs est soldée** : quatre couples
+  (sections/section, tabs/tab, pages/page, header/footer), « pas
+  besoin de composants complémentaires » (D509). L'auteur clôt la
+  séance ; **la prochaine : une passe sur la construction des
+  surfaces pour une entité.**

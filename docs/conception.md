@@ -10095,3 +10095,10 @@ avant la synthèse Q16).
   list ici » — la liste complète (D441–D447) et l'éditeur, un même
   composant (déployé pour l'entité, resserré sur la colonne unique
   pour le type simple). La fiche corrigée, en attente de validation.
+- **2026-08-13 (suite 42)** — **La fiche `list` validée** (« oui ») —
+  **les feuilles sont au complet** : 21 fiches validées (checkbox,
+  toggle, text, number, password, calculator, gauge, fuel, slider,
+  clock, calendar, dropdown, radios, icons, picker.record,
+  picker.image, picker.file, viewer, map, thread, list). Famille
+  suivante : les conteneurs (section, grid, tabs, pages, page — le
+  statut de header/body/footer à trancher).

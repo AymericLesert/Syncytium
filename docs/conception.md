@@ -10331,3 +10331,8 @@ avant la synthèse Q16).
   with est absent de la liste » — les lignes du trio des liens (D400)
   distinguées : l'association stockée, le n-aire (D402), la dérivée à
   l'if (D405), et la liste nommée de l'accès retour (D394/D216).
+- **2026-08-13 (suite 59)** — **La synthèse intégrée à l'entête de
+  composants.md** (« cela fait le lien entre le modèle de données et
+  les composants graphiques ») — types × défaut × compatibles, les
+  quatre règles transversales, les cellules °à confirmer. L'auteur
+  relèvera les manques et y répondra.

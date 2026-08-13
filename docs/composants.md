@@ -49,6 +49,72 @@ matérialisation ; l'analogie des web components est consignée (D455).
 - **Les actes** : le bouton, l'icône, le passage d'étape — l'utilisateur
   acte une opération (D432/D444/D456).
 
+## La synthèse — du modèle de données aux composants
+
+Cette synthèse **fait le lien entre le modèle de données et les
+composants graphiques** : chaque type déclarable, son composant par
+défaut, et les composants compatibles (exploitables avec
+`component:`). *(Les manques en cours de relevé par l'auteur ; les
+cellules °à confirmer relèvent de la passe de complétude.)*
+
+Quatre règles transversales l'allègent :
+
+- **R1** — le composant par défaut d'un type porte le nom du type
+  (D458) ;
+- **R2** — la borne ouvre la famille de la jauge : `gauge`, `slider`,
+  `fuel` (D276 — « pas de jauge sans bornes ») ;
+- **R3** — les `values:` ouvrent le trio des énumérés :
+  `dropdown`/`radios` (le seuil en configuration générale — D468) et
+  `icons` si les valeurs portent des icônes ;
+- **R4** — tout hook au nom unique étend chaque ligne (D408/D452).
+
+### Les types simples
+
+| Type | Composant par défaut | Compatibles (`component:`) |
+|---|---|---|
+| `boolean` | `checkbox` (3 états — faux→vrai→nul) | `toggle` |
+| `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` |
+| `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
+| `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
+| `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` °à confirmer |
+| `date` | `calendar` (la nature au crochet D381) | — |
+| `time` | `clock` | — |
+| `datetime` | `calendar` + `clock` (la paire) °à confirmer | — |
+| `file` | saisie : `picker.file` (D473) ; lecture : le bloc fichier (icône+nom+taille D292), `viewer` si visualisable (D475) | `viewer[carousel]` (le paginé feuilleté D481) |
+| `image` / `thumbnail` | saisie : `picker.image` (D473) ; lecture : `viewer` (la vignette, la visionneuse D286/D293) | — |
+| `uuid` | `text` en lecture (l'identifiant externe D419) °à confirmer | — |
+| `password` | `password` (la saisie masquée, jamais relue D463) | — |
+| `color` | `color` (la pastille, le sélecteur D496) | `picker.color` |
+| `list of <simple>` | `list` (l'éditeur D486) ; la multi-sélection si `values:` (D296) | `viewer[mosaic\|carousel]` si `list of image` (D475) ; `picker.color` si `list of color` |
+| `range of <type>` | les deux champs du type liés (D497–D498) | le double curseur si borné ; `gauge` (le cas particulier D498) |
+
+### Les composés
+
+| Type | Composant par défaut | Compatibles (`component:`) |
+|---|---|---|
+| `amount` | `number` (la devise, aligné à droite D443) | `calculator` ; R2 si borné |
+| `percentage` | `number` (le % post-libellé D273) | `gauge` (le choix naturel 0..100 — D274), `fuel`, `slider` |
+| `measure` | `number` + l'unité (les trois régimes D391) | `calculator` |
+| `phone` | `text` masqué (national par défaut D391) | — |
+| `geolocation` | `map` (la mini-carte, le pointage D294) | — |
+| `period` | les deux calendriers liés (début ≤ fin D391) | — |
+| `email`, `url`, `vat_number`, `siren`, `siret`, `iban`, `bic` | `text` (la validation intégrée D391) | — |
+| `communication` | `thread` (le fil D295/D393) | — |
+
+### Les liens et les générés
+
+| Type | Composant par défaut | Compatibles (`component:`) |
+|---|---|---|
+| `reference` (D394 — un, pointé) | saisie : `picker.record` (D470) ; lecture : le `title` de la cible (D465) | `dropdown` °à confirmer (peu de cibles) |
+| la composition — `list of <entité>` (D399/D400 — plusieurs, possédés) | la liste embarquée (D441/D486) | la liste en widgets (`widget:` — D492) |
+| l'association — `association with <entité>` (D400 — plusieurs, libres) | la liste embarquée (D441/D486) | `picker.record` (`selection: 1..` — D474) ; `viewer[carousel\|mosaic]` au visage (D386/D475) ; `widget:` (D492) |
+| le lien n-aire — `list of [a, b]` / `association with [a, b]` (D402) | la liste embarquée (les combinaisons en lignes) | `widget:` (D492) |
+| l'association dérivée — `association with <entité> if …` (D405) | la liste embarquée **en lecture** | `widget:`, `viewer` au visage |
+| la liste nommée (l'accès retour automatique du 1-N — D216/D394) | la liste embarquée | comme l'association |
+| `counter` | la valeur assemblée, lecture seule partout (D155/D297) | — |
+| le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
+| le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | — |
+
 ---
 
 # Les feuilles

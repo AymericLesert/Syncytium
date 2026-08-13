@@ -580,6 +580,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D499 | **Les cellules confirmées** : `duration` compatible `calculator` « sur la base de 2 clocks » ; `datetime` = la combinaison `calendar` + `clock` ; `uuid` « à saisir et en lecture sous forme de texte formaté » — les fonctions multiples, dont les id tiers (relit D419). | La synthèse mise à jour. Voir §3.2c. |
 | D500 | **Le dropdown de la référence et du statut** : « reference : utilisation d'un dropdown possible » ; « le statut peut être un dropdown aussi, avec une liste de valeurs en tenant compte du cycle de vie » — les états atteignables seuls (D425–D427). | La synthèse n'a plus de cellule à confirmer. Voir §3.2c. |
 | D501 | **`width`/`height` sur la section** : « layout fournit le découpage en colonnes et en lignes ; width et height permettent de calibrer la taille des sections. Sans précision, l'ensemble de l'espace est pris. » | Le calibrage au sein de l'organisateur. Voir §3.2c. |
+| D502 | **Les deux étages du calibrage** (précise D501) : width/height « au même niveau que layout pour que chaque section ait la même dimension » — et « également définissables sur la section » pour la taille variable ; le plus proche l'emporte (D461). | Voir §3.2c. |
 
 ---
 
@@ -3545,6 +3546,14 @@ permettent de calibrer la taille des sections. Sans précision,
 l'ensemble de l'espace est pris. »** La section se calibre **au sein
 de son organisateur** — la largeur, la hauteur ; sans elles, les
 sections se partagent tout l'espace du découpage.
+
+**Les deux étages du calibrage (D502 — précise D501).** **« Width et
+height sont des propriétés à positionner au même niveau que layout
+pour que chaque section ait la même dimension. Par contre, pour des
+sections de taille variable, width et height sont également
+définissables sur la section. »** L'uniforme à l'organisateur (toutes
+les sections à la même taille), le variable à la section — **le plus
+proche l'emporte** (la ligne D461).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10383,3 +10392,7 @@ avant la synthèse Q16).
   fournit le découpage ; width et height calibrent la taille des
   sections ; sans précision, l'ensemble de l'espace est pris ». Les
   fiches complétées, en attente de validation.
+- **2026-08-13 (suite 64)** — **Les deux étages du calibrage
+  (D502)** : width/height au niveau de layout (l'uniforme) et sur la
+  section (le variable) — le plus proche l'emporte (D461). Les fiches
+  ajustées.

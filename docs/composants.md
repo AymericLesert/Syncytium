@@ -338,3 +338,53 @@ gui:
                   component: calculator   # ou au nœud seul — ce formulaire (D461)
               - field[discount]
 ```
+
+## `gauge`
+
+1. **Nom et famille** — `gauge`, une feuille — le satellite des
+   numériques bornés ;
+2. **Rôle** — la jauge : la valeur dans son cadre, d'un coup d'œil — la
+   barre qui se remplit entre les bornes ;
+3. **Types servis** — les numériques **bornés** (`integer[a..b]`,
+   `decimal[a..b]`, l'`amount` borné — « un montant entre 0 et
+   10 000 € », D275) ; **le choix naturel du `percentage` dans son
+   cadre 0..100** (D274) ; une surcharge (`component: gauge`) — **les
+   bornes sont exigées** : sans bornes, pas de jauge (erreur à
+   l'ingestion, l'esprit D344) ;
+4. **Contexte consommé** — le champ (les bornes, les décimales), son
+   `mode`, les droits ;
+5. **Propriétés** — rien d'obligatoire : le remplissage se déduit des
+   bornes ; le style (les zones, les couleurs) relève du thème (D443) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
+   regard — listes, résumés, widgets) ; en modification, le glissé
+   possible — mais `slider` est le composant de saisie dédié (D275) ;
+   template / Excel : la valeur canonique ; identique aux trois
+   écrans ;
+8. **États et interactions** — **le dépassement** : le `percentage`
+   hors cadre change de représentation (D391) ; grisée si
+   `readonly`/droits ;
+9. **Décisions fondatrices** — D274–D275, D391 ;
+10. **Exemple de configuration** —
+
+```yaml
+# hr/entities/employee.yml
+fields:
+  satisfaction: percentage         # 0..100 — la jauge, choix naturel (D274)
+  workload:
+    type: integer[0..40]
+    component: gauge               # la surcharge — les bornes exigées
+
+gui:
+  lists:
+    main:
+      columns: [name, satisfaction, workload]   # la jauge en cellule — un regard
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Activité }
+            items:
+              - field[satisfaction]
+              - field[workload]
+```

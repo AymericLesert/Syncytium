@@ -531,3 +531,54 @@ gui:
               - field[opening]
               - field[closing]
 ```
+
+## `calendar`
+
+1. **Nom et famille** — `calendar`, une feuille ;
+2. **Rôle** — le calendrier : la saisie et l'affichage d'une date — la
+   vue année, mois ou semaine, et les raccourcis du quotidien ;
+3. **Types servis** — `date` (**le défaut du type**) et la partie date
+   du `datetime` (en tandem avec `clock`, D280) ; **la granularité du
+   crochet** — `date[yyyy-mm-dd]`, `[yyyy-mm]`, `[yyyy-ww]` : « le
+   calendrier au bon grain » (D382) ;
+4. **Contexte consommé** — le champ (la granularité, les bornes ISO, le
+   masque de langue D383), **la langue** (le numéro de semaine et le
+   premier jour lui sont liés — D279), le `mode`, les droits ;
+5. **Propriétés** — rien de propre : **les raccourcis livrés et
+   traduits** (aujourd'hui, la veille, hier, début et fin de mois —
+   D278), la numérotation de semaine par la langue (D279) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : **smartphone = le plein
+   écran** (la semaine, le mois ou l'agenda — tactile) ; **tablette = à
+   proximité du champ** ; **PC = la saisie au clavier d'abord, le
+   calendrier par l'icône** (vos arbitrages du thème E) ; lecture : la
+   date formatée à la langue ; template / Excel : la valeur canonique
+   ISO à la granularité (D382) ;
+8. **États et interactions** — grisé si `readonly`/droits ; le refus
+   des bornes affiché (D307) ; en recherche : `strict` / **`range`**
+   (la plage de dates — l'usage roi, D381) / `mutualizable` ;
+9. **Décisions fondatrices** — D278–D280, D381–D383 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/invoice.yml
+fields:
+  due_date:
+    type: date                     # le jour — calendar par défaut
+    min: 2020-01-01                # la borne ISO (D381)
+  billing_month: date[yyyy-mm]     # le mois — le calendrier au bon grain (D382)
+
+gui:
+  lists:
+    main:
+      columns: [number, due_date, billing_month]
+      searchable: [due_date]       # la plage de dates — l'usage roi (D381)
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Échéances }
+            items:
+              - field[due_date]
+              - field[billing_month]
+```

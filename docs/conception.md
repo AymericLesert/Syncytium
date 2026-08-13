@@ -536,6 +536,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue) ; **l'analogie des web components** (« ou une extension ») consignée — l'écho pour Q7. Voir §3.2c. |
 | D456 | **Le catalogue des composants arbitré** (cinq familles) : **+ `template`** (PDF, Word — la génération PDF sur cette base) ; **`pages` = une section à header/page(s)/footer, `page` = un saut de page, la section = un regroupement potentiellement nommé** ; **+ `carousel`** ; les graphiques couvrent ; **l'acte à trois déclencheurs** — le bouton, l'icône, **le passage d'étape**. | La description élément par élément s'ouvre ; le wizard s'adossera au passage d'étape (D233). Voir §3.2c. |
 | D457 | **Le document dédié `docs/composants.md`** : les fiches du catalogue groupées — « cela préparera la phase de documentation à rédiger ultérieurement » (Q58) ; **le modèle de fiche en neuf rubriques validé** (« la fiche de description me convient ») ; la première fiche : `checkbox`. | Le patron du glossaire (D417) — pointeur en §1 ; le parcours remplira les fiches. |
+| D458 | **Les renommages des feuilles** : `text-zone` → **`text`**, `number-zone` → **`number`**, `list-editor` → **`list`** (« suffit ») — et la lecture consignée : **le composant par défaut d'un type porte le nom du type** (D64 devient nominal), les espaces de noms se résolvant par le contexte (`type:` vs `component:`). | Les collisions assumées — le contexte du slot départage ; composants.md à jour. |
 
 ---
 
@@ -9538,3 +9539,10 @@ avant la synthèse Q16).
   documentation »** (Q58) → **docs/composants.md** créé (le modèle,
   l'inventaire D456, la fiche `checkbox` en première), le pointeur en
   §1 (le patron du glossaire D417).
+- **2026-08-13 (suite 3)** — **Les renommages des feuilles (D458)** :
+  `text-zone` → `text`, `number-zone` → `number`, `list-editor` →
+  `list` (« suffit ») — et l'élégance en cadeau : **le composant par
+  défaut d'un type porte le nom du type** (la table D64 devient
+  nominale — text rend text) ; les espaces de noms se résolvent par le
+  contexte (`type:` vs `component:`), les collisions assumées.
+  composants.md est à jour.

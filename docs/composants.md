@@ -35,11 +35,12 @@ matérialisation ; l'analogie des web components est consignée (D455).
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
   saut de page) · `section` (le regroupement potentiellement nommé) ·
   `grid` · `tabs`/`tab` ;
-- **Les feuilles** : `text-zone` · `number-zone` · `calculator` ·
+- **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icon-set` · `record-picker`/
   `image-picker` · `file-drop` · `image-viewer` · `carousel` · `map` ·
-  `thread` · `list-editor` ;
+  `thread` · `list` (l'éditeur du type liste) — **le composant par
+  défaut d'un type porte le nom du type** (D458) ;
 - **Les graphiques** : `chart` (courbe, barres, secteurs, combiné) ·
   `kpi` · `pivot` — famille ouverte ;
 - **Les actes** : le bouton, l'icône, le passage d'étape — l'utilisateur

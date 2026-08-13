@@ -582,6 +582,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D501 | **`width`/`height` sur la section** : « layout fournit le découpage en colonnes et en lignes ; width et height permettent de calibrer la taille des sections. Sans précision, l'ensemble de l'espace est pris. » | Le calibrage au sein de l'organisateur. Voir §3.2c. |
 | D502 | **Les deux étages du calibrage** (précise D501) : width/height « au même niveau que layout pour que chaque section ait la même dimension » — et « également définissables sur la section » pour la taille variable ; le plus proche l'emporte (D461). | Voir §3.2c. |
 | D503 | **`size:` sur `sections`** : « les dimensions de l'espace occupé par l'ensemble » — au débordement, les barres de scrolling « visibles ou évaporeux », le swipe au tactile, les barres indiquant le positionnement. | La cohérence D484 (size = à l'affichage). Voir §3.2c. |
+| D504 | **Les modes de `tabs`** : la barre en haut (Windows, défaut), en bas (Excel), latérale (gauche/droite) — et **le mode wizard** : « voir toutes les étapes mais ne pas prendre d'avance tant que l'onglet précédent n'a pas été exploré ». | `mode: top \| bottom \| left \| right \| wizard` + crochet `tabs[…]` en proposition (D478) ; l'écho du cliquet D354. Voir §3.2c. |
 
 ---
 
@@ -3569,6 +3570,23 @@ dimension à l'affichage) : `size` dimensionne l'organisateur,
 `width`/`height` calibrent ses parties ; au débordement, les barres —
 pleines ou évanescentes —, le swipe au tactile, les barres restant
 l'indicateur de position.
+
+**Les modes de `tabs` (D504).** **« Les tabs se déclinent en plusieurs
+modes : les onglets tels que nous les connaissons avec les composants
+graphiques Windows (pour un affichage haut), comme Excel (pour un
+affichage bas), comme un wizard pour représenter les différentes
+étapes — avec la possibilité de voir toutes les étapes mais de ne pas
+prendre d'avance tant que l'onglet précédent n'a pas été exploré. Nous
+pouvons aussi avoir une représentation latérale (à gauche ou à
+droite). »** Quatre visages : la barre en haut (le défaut), en bas, à
+gauche ou à droite — et **le mode wizard** : toutes les étapes
+visibles, l'avance au rythme de l'exploration (l'écho du cliquet
+D354 ; la parenté avec la surface `wizard` D230–D233 notée). Et la
+poignée se compacte : **« les icônes permettent de minimiser le texte
+ou afficher le texte en survol »** — la barre d'icônes seules, le
+titre en survol. *(En proposition : `mode: top | bottom | left |
+right | wizard` — le crochet en raccourci, `tabs[bottom]`,
+`tabs[wizard]` — D478.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10421,3 +10439,9 @@ avant la synthèse Q16).
   D489), avec quatre écritures en proposition (items = des tab seuls,
   title requis sur la poignée, icon: D439, les onglets à la suite au
   template).
+- **2026-08-13 (suite 67)** — **Les modes de tabs (D504)** : haut
+  (Windows, défaut), bas (Excel), latéral (gauche/droite), et le mode
+  wizard — toutes les étapes visibles, l'avance au rythme de
+  l'exploration (l'écho du cliquet D354) ; « les icônes permettent de
+  minimiser le texte ou afficher le texte en survol ». mode: +
+  crochet en proposition. Les fiches complétées.

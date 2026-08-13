@@ -1543,25 +1543,35 @@ gui:
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité — **l'onglet masqué
    disparaît de la barre** ;
-5. **Propriétés** — `size:` — l'espace du tout (l'écho D503/D484) ; le
-   socle du vocabulaire (D461) ;
+5. **Propriétés** — **`mode:`** — les visages de la barre (D504) :
+   `top` (Windows — le défaut), `bottom` (Excel), `left`/`right` (la
+   latérale), **`wizard`** (« voir toutes les étapes mais ne pas
+   prendre d'avance tant que l'onglet précédent n'a pas été exploré »
+   — l'écho du cliquet D354) ; le crochet en raccourci :
+   `tabs[bottom]`, `tabs[wizard]` (*l'écriture en proposition —
+   D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; le socle
+   du vocabulaire (D461) ;
 6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
    proposition*) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
-   courant ; l'entête, le corps et le pied acceptent les onglets
-   (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
-   (l'esprit D503) ; **template** : les onglets rendus à la suite
-   (*en proposition — rien ne bascule sur le papier*) ;
+   courant — en haut, en bas, latérale (D504) ; **le mode wizard** :
+   les étapes toutes visibles, l'avance au rythme de l'exploration
+   (la parenté avec la surface `wizard` D230–D233) ; l'entête, le
+   corps et le pied acceptent les onglets (D450) ; **tactile** : le
+   swipe bascule d'un onglet à l'autre (l'esprit D503) ;
+   **template** : les onglets rendus à la suite (*en proposition —
+   rien ne bascule sur le papier*) ;
 8. **États et interactions** — la bascule au clic ou au swipe ;
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
 9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
-   D487, D489 (le patron), D503 ;
+   D487, D489 (le patron), D503–D504 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
 body:
   - tabs:
+      mode: wizard               # les étapes — l'avance à l'exploration (D504)
       items:
         - tab:
             title: { fr: Général }
@@ -1587,13 +1597,15 @@ body:
 5. **Propriétés** — **`title:`** — la poignée se nomme (D493 ; *requis
    en proposition — un onglet sans poignée ne se choisit pas*) ;
    **`icon:`** — « chaque item gui doit disposer d'un champ icône »
-   (D439) ; le socle (D461) ;
+   (D439) ; **« les icônes permettent de minimiser le texte ou
+   afficher le texte en survol »** (D504 — la poignée compacte, le
+   titre en info-bulle) ; le socle (D461) ;
 6. **Items** — des `sections` ou des feuilles (l'alternance D489) ;
 7. **Modes et déclinaisons** — le volet plein cadre ; la poignée =
    le titre + l'icône ; smartphone : la barre défilable ;
 8. **États et interactions** — la bascule ; masqué par droits ou
    confidentialité ;
 9. **Décisions fondatrices** — D439, D449–D451, D455, D461, D489,
-   D493 ;
+   D493, D504 ;
 10. **Exemple de configuration** — *(voir la fiche `tabs` : le couple
     vit ensemble)*.

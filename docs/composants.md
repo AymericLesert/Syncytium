@@ -742,8 +742,10 @@ gui:
 2. **Rôle** — le sélecteur d'enregistrement : le choix de la cible
    d'une référence — la liste qui cherche ;
 3. **Types servis** — **la référence** (le nom d'entité en type, D396)
-   — **le défaut** ; l'association, dont chaque élément se choisit
-   pareillement (D401) ;
+   — **le défaut** ; l'association et la liste d'entités, dont les
+   éléments se choisissent pareillement (D401) ; **la sélection se
+   déduit du lien** : la référence = unique, la liste et l'association
+   = multiple (D470 — le vocabulaire de D445) ;
 4. **Contexte consommé** — le champ (la cible, **le `filter` évalué
    depuis la destination** avec `me.` — D395/D396), **le `title` de la
    cible** (le visage, D465), les droits — **les actifs seuls** à la
@@ -800,7 +802,9 @@ gui:
 3. **Types servis** — la référence dont **la cible désigne son visage**
    (`image:` en en-tête — D386) ; jamais un défaut — la surcharge
    (`component: picker.image`) ; sans `image:` déclarée sur la cible,
-   pas de picker.image (*erreur à l'ingestion, en proposition*) ;
+   pas de picker.image (*erreur à l'ingestion, en proposition*) ; **la
+   sélection se déduit du lien** — unique (référence) ou multiple
+   (liste, association — D470) ;
 4. **Contexte consommé** — le champ (le `filter` D395, les actifs seuls
    D398), **l'`image:` et le `title` de la cible** (D386/D465), les
    droits ;

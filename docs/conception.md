@@ -537,6 +537,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D456 | **Le catalogue des composants arbitré** (cinq familles) : **+ `template`** (PDF, Word — la génération PDF sur cette base) ; **`pages` = une section à header/page(s)/footer, `page` = un saut de page, la section = un regroupement potentiellement nommé** ; **+ `carousel`** ; les graphiques couvrent ; **l'acte à trois déclencheurs** — le bouton, l'icône, **le passage d'étape**. | La description élément par élément s'ouvre ; le wizard s'adossera au passage d'étape (D233). Voir §3.2c. |
 | D457 | **Le document dédié `docs/composants.md`** : les fiches du catalogue groupées — « cela préparera la phase de documentation à rédiger ultérieurement » (Q58) ; **le modèle de fiche en neuf rubriques validé** (« la fiche de description me convient ») ; la première fiche : `checkbox`. | Le patron du glossaire (D417) — pointeur en §1 ; le parcours remplira les fiches. |
 | D458 | **Les renommages des feuilles** : `text-zone` → **`text`**, `number-zone` → **`number`**, `list-editor` → **`list`** (« suffit ») — et la lecture consignée : **le composant par défaut d'un type porte le nom du type** (D64 devient nominal), les espaces de noms se résolvant par le contexte (`type:` vs `component:`). | Les collisions assumées — le contexte du slot départage ; composants.md à jour. |
+| D459 | **Le type-hook doit se représenter** : « un type ajouté via le hook doit inclure une phase de représentation graphique — ou via un document PDF, Word… » — **aucun type sans visage** : le composant d'écran et/ou le rendu de document (`template`, D456). | La ligne D455 (une facette = un hook) — la facette d'affichage d'un type hooké est due ; le contrat au domaine 6. Voir §3.2c. |
 
 ---
 
@@ -3105,6 +3106,14 @@ familles est validé avec cinq retouches :
    wizard s'y adosse, D233).
 
 La description élément par élément peut s'ouvrir.
+
+**Le type-hook doit se représenter (D459).** **« Un type ajouté via le
+hook doit inclure une phase de représentation graphique — ou via un
+document PDF, Word… »** Le contrat du type sur mesure comprend **ses
+rendus** : le composant d'écran et/ou le rendu de document (le
+`template`, D456) — **aucun type sans visage** (la ligne D455 : une
+facette est un hook — la facette d'affichage d'un type hooké est due).
+Le contrat détaillé au domaine 6.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9546,3 +9555,9 @@ avant la synthèse Q16).
   nominale — text rend text) ; les espaces de noms se résolvent par le
   contexte (`type:` vs `component:`), les collisions assumées.
   composants.md est à jour.
+- **2026-08-13 (suite 4)** — **Le type-hook doit se représenter
+  (D459)** : « un type ajouté via le hook doit inclure une phase de
+  représentation graphique — ou via un document PDF, Word… » — aucun
+  type sans visage : le composant d'écran et/ou le rendu de document
+  (template D456) ; la facette d'affichage d'un type hooké est due
+  (D455) ; le contrat au domaine 6.

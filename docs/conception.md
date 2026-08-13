@@ -10549,3 +10549,8 @@ avant la synthèse Q16).
   besoin de composants complémentaires » (D509). L'auteur clôt la
   séance ; **la prochaine : une passe sur la construction des
   surfaces pour une entité.**
+- **2026-08-14 (suite 6)** — **La PR #24 fusionnée** (« Q16 — le
+  glossaire, le domaine 3, et le domaine 4 : le catalogue des
+  composants, D417–D510 » — 140 commits, 3 fichiers). Develop porte
+  désormais glossaire.md, composants.md et la conception jusqu'à
+  D510.

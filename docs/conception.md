@@ -531,7 +531,7 @@ un document à part, terme par terme avec ses décisions fondatrices
 | D452 | **Le composant de saisie personnalisé** : « un cas d'usage a besoin d'un composant de saisie personnalisée et détaillée qui ne pourra pas se matérialiser avec les éléments de base » — **un nœud comme les autres** dans l'arbre (D451), la signature commune (D450), le nom sans « hook » (D408) ; **l'écriture repasse toujours par les champs et leurs règles**. | Le contrat (signature, code, sandbox) au domaine 6 ; le composant ne contourne jamais le modèle. Voir §3.2c. |
 | D453 | **Les propriétés du `form`** : **le gabarit déclinable par langue** (`title:` — chaîne unique ou mapping) ; **`mode: updatable` (défaut) \| `read-only`** ; **`history: false` = désactiver l'onglet d'une entité historisée** (défaut `true`, toujours dernier — D186/D411). | Vaut pour tous les gabarits (D253/D449) ; sans historisation, pas d'onglet. Voir §3.2c. |
 | D454 | **La surimpression et sa `dimension`** : « le formulaire peut s'afficher en surimpression de l'écran — la totalité ou une portion » ; **`dimension:` — défaut 100 % de l'écran**, la portion déclarée (`dimension: 70%`). | La surimpression est le mode d'affichage du formulaire ; le patron de la visionneuse (D293). Voir §3.2c. |
-| D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue). Voir §3.2c. |
+| D455 | **Le modèle unifié du composant graphique** (`items` validé) : un formulaire = un composant — **un nom** (`form`/`summary`/`wizard`/`widget`… extensible par hook), **des propriétés**, **des items** (**pages**, header, body, footer), **un contexte** (l'enregistrement, **l'origine de l'appel, l'utilisateur**) ; l'emboîtement libre des surfaces ; **le graphe acyclique parcouru de la feuille à la racine**, les composants recevant du **pré-analysé** ; « le formulaire n'est qu'une matérialisation » — et **« une facette peut être vue comme un hook »**. | La clé de voûte du domaine 4 — la doctrine D408 totale (types, opérations, conteneurs, surfaces, facettes = hooks au catalogue) ; **l'analogie des web components** (« ou une extension ») consignée — l'écho pour Q7. Voir §3.2c. |
 
 ---
 
@@ -3067,6 +3067,14 @@ un catalogue est fourni par Syncytium »** — la doctrine D408 atteint sa
 généralité totale : les types, les opérations, les conteneurs, les
 surfaces **et les facettes** sont des hooks, Syncytium livrant le
 catalogue.
+
+**L'analogie consignée** : **« cela s'apparente à la notion de web
+components — ou à une extension des web components — utilisés par les
+navigateurs web »** : le nom unique d'élément (les custom elements ↔
+les hooks au nom unique D408/D455), l'encapsulation du rendu (la
+signature commune D450), l'arbre composé. L'écho est noté pour **Q7 —
+la pile technique** : les web components comme substrat naturel de la
+GUI générée.
 
 *(Les quatre lettres : **create** = la création d'un **sous-composant**
 — ajouter une ligne à l'agrégat ; **read** = la consultation de
@@ -9477,3 +9485,7 @@ avant la synthèse Q16).
   matérialisation » du nœud — l'approche vaut pour tous les composants
   des facettes de types, et **« une facette peut être vue comme un
   hook »** (catalogue fourni par Syncytium) — la doctrine D408 totale.
+  Et l'analogie de l'auteur : **« cela s'apparente à la notion de web
+  components (ou à une extension des web components) utilisés par les
+  navigateurs web »** — consignée, avec l'écho pour Q7 (la pile
+  technique : les custom elements comme substrat naturel de la GUI).

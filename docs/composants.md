@@ -1530,3 +1530,70 @@ gui:
     anchor: right                # à droite du champ (D469)
     dimension: 30%               # le déploiement (D484)
 ```
+
+## `tabs`
+
+1. **Nom et famille** — `tabs`, un conteneur — **l'organisateur des
+   onglets** (l'inventaire D456) ; le couple `tabs`/`tab` au miroir de
+   `sections`/`section` (*le patron D489 — en proposition*) ;
+2. **Rôle** — poser les onglets : **un seul volet visible à la fois**,
+   la bascule par la poignée ;
+3. **Types servis** — aucun : le conteneur est indifférent au contenu
+   (D455) ;
+4. **Contexte consommé** — le contexte transmis tel quel aux items
+   (D455) ; les droits et la confidentialité — **l'onglet masqué
+   disparaît de la barre** ;
+5. **Propriétés** — `size:` — l'espace du tout (l'écho D503/D484) ; le
+   socle du vocabulaire (D461) ;
+6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
+   proposition*) ;
+7. **Modes et déclinaisons** — la barre des poignées + le volet
+   courant ; l'entête, le corps et le pied acceptent les onglets
+   (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
+   (l'esprit D503) ; **template** : les onglets rendus à la suite
+   (*en proposition — rien ne bascule sur le papier*) ;
+8. **États et interactions** — la bascule au clic ou au swipe ;
+   l'onglet masqué par les droits disparaît ; le fil peut prendre un
+   onglet (D485) ;
+9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
+   D487, D489 (le patron), D503 ;
+10. **Exemple de configuration** — *(le couple vit ensemble)* —
+
+```yaml
+body:
+  - tabs:
+      items:
+        - tab:
+            title: { fr: Général }
+            items:
+              - field[name]
+              - field[status]
+        - tab:
+            title: { fr: Échanges }
+            icon: chat.svg         # l'icône de l'item gui (D439)
+            items:
+              - field[discussion]  # le fil prend l'onglet (D485)
+```
+
+## `tab`
+
+1. **Nom et famille** — `tab`, un conteneur — **une partie de `tabs`**
+   (le miroir de `section` — D489) ;
+2. **Rôle** — l'onglet : le volet nommé qui se montre seul, sa
+   poignée dans la barre ;
+3. **Types servis** — aucun ;
+4. **Contexte consommé** — le contexte transmis tel quel (D455) ; les
+   droits (l'onglet masqué disparaît, poignée comprise) ;
+5. **Propriétés** — **`title:`** — la poignée se nomme (D493 ; *requis
+   en proposition — un onglet sans poignée ne se choisit pas*) ;
+   **`icon:`** — « chaque item gui doit disposer d'un champ icône »
+   (D439) ; le socle (D461) ;
+6. **Items** — des `sections` ou des feuilles (l'alternance D489) ;
+7. **Modes et déclinaisons** — le volet plein cadre ; la poignée =
+   le titre + l'icône ; smartphone : la barre défilable ;
+8. **États et interactions** — la bascule ; masqué par droits ou
+   confidentialité ;
+9. **Décisions fondatrices** — D439, D449–D451, D455, D461, D489,
+   D493 ;
+10. **Exemple de configuration** — *(voir la fiche `tabs` : le couple
+    vit ensemble)*.

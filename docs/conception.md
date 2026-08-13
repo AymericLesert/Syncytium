@@ -10415,3 +10415,9 @@ avant la synthèse Q16).
   l'espace du tout ; au débordement les barres visibles ou
   évanescentes, le swipe au tactile, les barres = l'indicateur de
   position. La fiche sections complétée.
+- **2026-08-13 (suite 66)** — **Les fiches `sections` et `section`
+  validées** (« je valide sections et section »). Suivant : le couple
+  `tabs`/`tab`, proposé au miroir (l'organisateur et sa partie —
+  D489), avec quatre écritures en proposition (items = des tab seuls,
+  title requis sur la poignée, icon: D439, les onglets à la suite au
+  template).

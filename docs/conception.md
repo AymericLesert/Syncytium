@@ -583,6 +583,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D502 | **Les deux étages du calibrage** (précise D501) : width/height « au même niveau que layout pour que chaque section ait la même dimension » — et « également définissables sur la section » pour la taille variable ; le plus proche l'emporte (D461). | Voir §3.2c. |
 | D503 | **`size:` sur `sections`** : « les dimensions de l'espace occupé par l'ensemble » — au débordement, les barres de scrolling « visibles ou évaporeux », le swipe au tactile, les barres indiquant le positionnement. | La cohérence D484 (size = à l'affichage). Voir §3.2c. |
 | D504 | **Les modes de `tabs`** : la barre en haut (Windows, défaut), en bas (Excel), latérale (gauche/droite) — et **le mode wizard** : « voir toutes les étapes mais ne pas prendre d'avance tant que l'onglet précédent n'a pas été exploré ». | `mode: top \| bottom \| left \| right \| wizard` + crochet `tabs[…]` en proposition (D478) ; l'écho du cliquet D354. Voir §3.2c. |
+| D505 | **Le chemin de traitement** (complète D504) : « en wizard, les tabs parcourus décrivent le chemin de traitement — en cliquant sur une phase, nous revenons sur un onglet » — le retour libre sur l'exploré, l'avance gardée. | Voir §3.2c. |
 
 ---
 
@@ -3587,6 +3588,13 @@ ou afficher le texte en survol »** — la barre d'icônes seules, le
 titre en survol. *(En proposition : `mode: top | bottom | left |
 right | wizard` — le crochet en raccourci, `tabs[bottom]`,
 `tabs[wizard]` — D478.)*
+
+**Le chemin de traitement (D505 — complète D504).** **« En wizard, les
+tabs parcourus décrivent le chemin de traitement… en cliquant sur une
+phase, nous revenons sur un onglet. »** La barre du mode wizard est le
+fil d'Ariane du parcours : **le retour libre** sur toute étape
+explorée — d'un clic sur la phase —, **l'avance gardée** (D504, le
+cliquet D354).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10445,3 +10453,7 @@ avant la synthèse Q16).
   l'exploration (l'écho du cliquet D354) ; « les icônes permettent de
   minimiser le texte ou afficher le texte en survol ». mode: +
   crochet en proposition. Les fiches complétées.
+- **2026-08-13 (suite 68)** — **Le chemin de traitement (D505)** :
+  « en wizard, les tabs parcourus décrivent le chemin de traitement —
+  en cliquant sur une phase, nous revenons sur un onglet » — le
+  retour libre sur l'exploré, l'avance gardée.

@@ -1556,7 +1556,9 @@ gui:
 7. **Modes et déclinaisons** — la barre des poignées + le volet
    courant — en haut, en bas, latérale (D504) ; **le mode wizard** :
    les étapes toutes visibles, l'avance au rythme de l'exploration
-   (la parenté avec la surface `wizard` D230–D233) ; l'entête, le
+   (la parenté avec la surface `wizard` D230–D233) — **« les tabs
+   parcourus décrivent le chemin de traitement »** : le clic sur une
+   phase explorée y ramène, l'avance reste gardée (D505) ; l'entête, le
    corps et le pied acceptent les onglets (D450) ; **tactile** : le
    swipe bascule d'un onglet à l'autre (l'esprit D503) ;
    **template** : les onglets rendus à la suite (*en proposition —
@@ -1565,7 +1567,7 @@ gui:
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
 9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
-   D487, D489 (le patron), D503–D504 ;
+   D487, D489 (le patron), D503–D505 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml

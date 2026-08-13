@@ -70,3 +70,25 @@ matérialisation ; l'analogie des web components est consignée (D455).
    nulles, la position nulle dit « tous » si le champ est obligatoire
    (D375–D376) ;
 9. **Décisions fondatrices** — D281, D374–D377.
+
+## `toggle`
+
+1. **Nom et famille** — `toggle`, une feuille ;
+2. **Rôle** — l'interrupteur : le vrai/faux d'un booléen qui bascule
+   d'un geste — l'état se lit à la position ;
+3. **Types servis** — `boolean` **obligatoire seulement** (`required` —
+   jamais d'état nul, D281/D377) ; en surcharge du défaut
+   (`component: toggle`) ;
+4. **Contexte consommé** — le champ, son `mode` (D364), les droits ;
+5. **Propriétés** — les libellés d'états hérités des `values` du champ
+   (D377), montrés au survol (D281) ; rien d'autre : tout se déduit ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : la bascule au clic, au
+   glissé sur tactile ; lecture : la position figée ; résumé /
+   template / Excel : le libellé ou la valeur (D130) ; identique aux
+   trois écrans — la cible tactile suffit d'elle-même ;
+8. **États et interactions** — grisé si `readonly` ou droits ; en
+   recherche, il filtre **vrai/faux seuls** — le « tous » n'existe pas
+   en toggle : c'est la réinitialisation qui désengage (D375–D377), la
+   case tri-état restant le composant du « tous » (D376) ;
+9. **Décisions fondatrices** — D281, D375–D377.

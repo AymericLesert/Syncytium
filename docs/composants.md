@@ -1615,3 +1615,66 @@ body:
    D493, D504, D506 ;
 10. **Exemple de configuration** — *(voir la fiche `tabs` : le couple
     vit ensemble)*.
+
+## `pages`
+
+1. **Nom et famille** — `pages`, un conteneur — **« une section
+   pouvant contenir un header, des page(s) et un footer »** (la
+   définition de l'auteur, D456) ; le troisième couple, après
+   `sections`/`section` et `tabs`/`tab` (le patron D489) ;
+2. **Rôle** — **paginer** : le contenu découpé en pages — au
+   formulaire comme au template ;
+3. **Types servis** — aucun : le conteneur est indifférent au contenu
+   (D455) ;
+4. **Contexte consommé** — le contexte transmis tel quel aux items
+   (D455) ; les droits et la confidentialité ;
+5. **Propriétés** — `size:` — l'espace du tout (l'écho D503/D484) ; le
+   socle du vocabulaire (D461) ;
+6. **Items** — **un `header` (facultatif), des `page`, un `footer`
+   (facultatif)** — sa définition ; *(lecture en proposition :
+   l'entête et le pied restent constants pendant que les pages
+   tournent — et se répètent à chaque page au template)* ;
+7. **Modes et déclinaisons** — au formulaire : une page à l'écran, la
+   navigation de page en page (*en proposition : les flèches, le swipe
+   au tactile — l'esprit D503*) ; **template** : les pages physiques
+   du document, l'entête et le pied répétés ;
+8. **États et interactions** — la page masquée par les droits saute ;
+   le positionnement visible (la page n sur N — *en proposition*) ;
+9. **Décisions fondatrices** — D449, D455–D456, D461, D487, D489 (le
+   patron), D503 ;
+10. **Exemple de configuration** — *(le couple vit ensemble)* —
+
+```yaml
+body:
+  - pages:
+      items:
+        - header:
+            items: [ field[number] ]     # constant — chaque page le montre
+        - page:
+            items: [ field[customer], field[lines] ]
+        - page:
+            items: [ field[notes] ]
+        - footer:
+            items: [ field[total] ]      # le pied, constant aussi
+```
+
+## `page`
+
+1. **Nom et famille** — `page`, un conteneur — **« un composant de
+   `pages` : le saut de page »** (la définition de l'auteur, D456) ;
+2. **Rôle** — la page : une part du découpage — le saut qui la sépare
+   de la suivante ;
+3. **Types servis** — aucun ;
+4. **Contexte consommé** — le contexte transmis tel quel (D455) ; les
+   droits (la page masquée saute) ;
+5. **Propriétés** — `title:` (*en proposition — la page nommée, D493*) ;
+   le socle (D461) ;
+6. **Items** — des `sections` ou des feuilles (l'alternance D489 —
+   *le miroir en proposition*) ;
+7. **Modes et déclinaisons** — au formulaire : la page à l'écran ; au
+   template : la page physique — le saut force le passage ;
+8. **États et interactions** — masquée par droits ou confidentialité,
+   la pagination se resserre ;
+9. **Décisions fondatrices** — D449, D455–D456, D461, D489, D493 ;
+10. **Exemple de configuration** — *(voir la fiche `pages` : le couple
+    vit ensemble)*.

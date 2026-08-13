@@ -10469,3 +10469,10 @@ avant la synthèse Q16).
   (D506)** : « pour chaque tab, toujours la même dimension — les
   zones centrées si plus petites » — aucun calibrage par volet (le
   contraste avec D502).
+- **2026-08-13 (suite 70)** — **Les fiches `tabs` et `tab` validées**
+  (« je valide tabs et tab »). Suivant : le couple `pages`/`page` —
+  les fiches proposées sur la définition d'origine (« pages est une
+  section pouvant contenir un header, page(s) et footer ; page est un
+  saut de page »), trois lectures en proposition (l'alternance des
+  items, header/footer constants autour des pages, la navigation au
+  swipe/flèches).

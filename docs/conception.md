@@ -566,6 +566,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D485 | **Le fil épouse son contenant** (précise D167/D186) : « il peut prendre une section ou un onglet… ça prend la place qu'on lui laisse » — l'onglet, un habitat parmi d'autres. | Voir §3.2c. |
 | D486 | **Un seul `list`** : « le composant graphique list vu avant les types est intimement lié à list ici » — la liste complète (D441–D447) et l'éditeur, un même composant ; `list of <entité>` la déploie, `list of <type simple>` la resserre sur la colonne unique. | Le vocabulaire D441–D447 vaut où il garde son sens. Voir §3.2c. |
 | D487 | **Le bloc n'existe pas** : « block n'existe pas en tant que tel — il se décline selon les différents items » ; header/body/footer = des conteneurs du catalogue reconnus par leur nom et leur rôle, au formulaire (D449) comme dans `pages`. | La ligne D455 : tout est composant. Voir §3.2c. |
+| D488 | **Le contenu fixe** : « il manque une feuille essentielle : un texte fixe, un paragraphe et/ou une image fixe » — les informations légales, le logo ; deux feuilles sans champ derrière, nourries par la configuration. | Noms en proposition : `paragraph`, `picture` (`text`/`image` pris — D458). Voir §3.2c. |
 
 ---
 
@@ -3376,6 +3377,16 @@ matérialise par les conteneurs du catalogue (`section`, `grid`, `tabs`,
 `pages`, `page`) et par `header`/`body`/`footer`, des conteneurs
 reconnus par leur nom et leur rôle — au formulaire (D449) comme dans
 `pages`. La ligne du modèle unifié (D455) : tout est composant.
+
+**Le contenu fixe (D488).** **« Il manque une feuille essentielle : un
+texte fixe, un paragraphe et/ou une image fixe. Par exemple, mettre du
+texte pour indiquer les informations légales de l'entreprise et son
+logo. »** Deux feuilles s'ajoutent à l'inventaire — le contenu venu de
+la configuration, aucun champ derrière : **le texte fixe** (les
+libellés par langue D465, ou le dictionnaire du module D440) et
+**l'image fixe** (un fichier livré avec la configuration, comme les
+icônes D439). *(Les noms en proposition : `paragraph` et `picture` —
+`text` et `image` étant les composants de champ, D458.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10115,3 +10126,8 @@ avant la synthèse Q16).
   « block n'existe pas en tant que tel — il se décline selon les
   différents items » ; header/body/footer = des conteneurs du
   catalogue. Première fiche de la famille : `section`.
+- **2026-08-13 (suite 44)** — **Le contenu fixe (D488)** : « il manque
+  une feuille essentielle : un texte fixe, un paragraphe et/ou une
+  image fixe » (les informations légales, le logo) — paragraph et
+  picture en proposition. Les fiches section et paragraph en attente
+  de validation.

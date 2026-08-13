@@ -40,7 +40,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
-  `picker.image` · `picker.file` · `viewer` · `map` ·
+  `picker.image` · `picker.file` · `viewer` · `map` · `paragraph` · `picture` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
   masquée, D463) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
@@ -1241,4 +1241,42 @@ gui:
                   label: { fr: Contact }
                   items:
                     - field[phone]
+```
+
+## `paragraph`
+
+1. **Nom et famille** — `paragraph` (*nom en proposition — D488*), une
+   feuille — **le texte fixe** : « mettre du texte pour indiquer les
+   informations légales de l'entreprise » ;
+2. **Rôle** — le texte venu de la configuration, affiché tel quel —
+   **aucun champ derrière** : la mention, l'explication,
+   l'avertissement ;
+3. **Types servis** — aucun : le contenu est déclaré, par langue
+   (D465) ou par référence au dictionnaire du module (`labels` —
+   D440) ;
+4. **Contexte consommé** — la langue de l'utilisateur (le contexte —
+   D455) ; les droits et la confidentialité ;
+5. **Propriétés** — `label:` — les libellés par langue (D465), ou la
+   référence au dictionnaire (D440) ; le socle du vocabulaire (D461 :
+   style…) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — au formulaire : le paragraphe en
+   place ; **template** : le texte du gabarit — les mentions légales
+   d'une facture ; jamais en colonne (aucun champ) ;
+8. **États et interactions** — la visibilité par les droits ; rien
+   d'autre — le texte ne se clique pas ;
+9. **Décisions fondatrices** — D440, D455, D461, D465, D488 ;
+10. **Exemple de configuration** —
+
+```yaml
+gui:
+  forms:
+    default:
+      footer:
+        - paragraph:
+            label:
+              fr: SARL Dupont — RCS Lyon 123 456 789 — TVA FR12 345678901
+              en: Dupont Ltd — Trade register 123 456 789
+        - paragraph:
+            label: legal           # la référence au dictionnaire du module (D440)
 ```

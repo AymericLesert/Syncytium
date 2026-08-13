@@ -912,7 +912,7 @@ gui:
    template et l'enregistrement** (la génération à la volée — D483),
    les dimensions du crochet et la vignette auto (D389), le
    `placeholder` (D390), les visages des cibles, les droits ;
-5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ;
+5. **Propriétés** — `dimension:` (la visionneuse — D454/D469/D484) ;
    **`mode:`** — « le viewer peut afficher une image, une planche ou
    un carousel » (D478) : `image` (le fichier seul en vignette),
    `mosaic` (la planche de vignettes — le nom acté D480) —
@@ -1025,9 +1025,10 @@ gui:
    D392), **le fond de carte déclaré à l'instance** (D259/D294), la
    focale (`focus:` au champ ou hérité du setting — D391), **la
    position courante du terminal** (D291), les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461 : style, size,
-   readonly…) ; `dimension:` — la carte dépliée (*en proposition —
-   l'écho de la visionneuse D293/D469*) ;
+5. **Propriétés** — le socle du vocabulaire (D461 : style,
+   readonly…) ; **`size:`** — la mini-carte à l'affichage ;
+   **`dimension:`** — la carte dépliée au clic (**le couple D484** :
+   size à plat, dimension en extension) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **saisie** : pointer sur la carte (le
    bloc dédié D199), le lat/long au clavier, l'adresse géocodée
@@ -1044,7 +1045,7 @@ gui:
    l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
    le zoom et le déplacement au geste ;
 9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
-   D391–D392 ;
+   D391–D392, D484 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1066,5 +1067,6 @@ gui:
             label: { fr: Localisation }
             items:
               - field[location]:
-                  dimension: 60%   # la carte dépliée (proposition)
+                  size: 200px      # la mini-carte à l'affichage (D484)
+                  dimension: 60%   # la carte dépliée au clic (D484)
 ```

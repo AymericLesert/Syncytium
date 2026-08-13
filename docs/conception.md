@@ -564,6 +564,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D483 | **Le viewer du document généré** : « le fichier de la facture n'existe pas en tant que tel mais comme un PDF généré à partir des informations de la facture et de ses lignes — un viewer peut faire référence à un template de document à générer ». | `template[<nom>]` en items (en proposition, l'écho de `field[<nom>]`) ; combiné à D481, le document généré se feuillette. Voir §3.2c. |
 | D484 | **Le couple `size:`/`dimension:`** : « size décrit la dimension à l'affichage et dimension la dimension en extension (suite à un clic) » — size à plat (le socle D461), dimension au déploiement (la visionneuse D293, le picker D469, la surimpression D454). | Voir §3.2c. |
 | D485 | **Le fil épouse son contenant** (précise D167/D186) : « il peut prendre une section ou un onglet… ça prend la place qu'on lui laisse » — l'onglet, un habitat parmi d'autres. | Voir §3.2c. |
+| D486 | **Un seul `list`** : « le composant graphique list vu avant les types est intimement lié à list ici » — la liste complète (D441–D447) et l'éditeur, un même composant ; `list of <entité>` la déploie, `list of <type simple>` la resserre sur la colonne unique. | Le vocabulaire D441–D447 vaut où il garde son sens. Voir §3.2c. |
 
 ---
 
@@ -3357,6 +3358,15 @@ prendre une section ou un onglet… ça prend la place qu'on lui
 laisse. »** L'onglet n'est qu'un habitat possible du fil : une section,
 un onglet, tout conteneur — le `thread` remplit l'espace que la
 déclaration lui donne.
+
+**Un seul `list` (D486).** **« Le composant graphique `list` vu avant
+les types et les composants de base est intimement lié à `list`
+ici. »** La liste complète (D441–D447) et l'éditeur de liste sont **un
+même composant** : `list of <entité>` (la composition — D399) déploie
+la liste embarquée aux colonnes de l'entité ; `list of <type simple>`
+la **resserre sur la colonne unique des valeurs** — et le vocabulaire
+de la liste complète (columns, editable, selection, sizable, l'export…)
+vaut partout où il garde son sens.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10080,3 +10090,8 @@ avant la synthèse Q16).
   proposition).
 - **2026-08-13 (suite 40)** — **La fiche `thread` validée** (« oui, je
   valide »). Suivante : `list` (l'éditeur du type liste — D296/D362).
+- **2026-08-13 (suite 41)** — **Un seul `list` (D486)** : « le
+  composant graphique list vu avant les types est intimement lié à
+  list ici » — la liste complète (D441–D447) et l'éditeur, un même
+  composant (déployé pour l'entité, resserré sur la colonne unique
+  pour le type simple). La fiche corrigée, en attente de validation.

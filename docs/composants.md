@@ -1136,21 +1136,25 @@ gui:
 
 1. **Nom et famille** — `list`, une feuille — l'éditeur de liste (l'ex
    `list-editor`, renommé D458) : le composant naturel du type
-   `list of <type simple>` (D362/D458) ;
+   `list of <type simple>` (D362/D458) — **intimement lié à la liste
+   complète** (D441–D447) : un même composant (D486) ;
 2. **Rôle** — **la collection de valeurs simples éditée** : ajouter,
    retirer, réordonner — « la phrase se lit » : `list of text`
    (D362) ;
 3. **Types servis** — `list of <type simple>` (D362 — text, number,
    date… ; **les facettes déclarées sur le champ s'appliquent à chaque
    élément** : size, mask…) ; **deux régimes** (D296) : les énumérés
-   (`values:`) → la multi-sélection ; les libres → l'éditeur. **Les
-   frontières** : `list of <entité>` = la composition (D399), servie
-   par la liste embarquée (D441) ; les collections d'images = le
-   `viewer` (D475) ;
+   (`values:`) → la multi-sélection ; les libres → l'éditeur. **La
+   parenté (D486)** : la liste complète et l'éditeur sont un même
+   composant — `list of <entité>` (la composition D399) le déploie aux
+   colonnes de l'entité (D441), `list of <type simple>` le **resserre
+   sur la colonne unique des valeurs** ; les collections d'images
+   restent au `viewer` (D475) ;
 4. **Contexte consommé** — le champ (le type de l'élément et ses
    facettes — D362), les `values:` des énumérés, les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461 : style, size,
-   readonly…) ;
+5. **Propriétés** — le socle du vocabulaire (D461) ; **le vocabulaire
+   de la liste complète vaut où il garde son sens** (D486 : editable,
+   selection, sizable… — la colonne unique dispensant columns) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **saisie** : la multi-sélection (cases
    ou tags) pour les énumérés, l'éditeur — ajouter / retirer /
@@ -1165,7 +1169,8 @@ gui:
    du champ (D362) — le refus propre à l'élément fautif ; le
    réordonnancement seulement quand l'ordre est l'insertion (D296) ;
    grisé si `readonly`/droits ;
-9. **Décisions fondatrices** — D166, D223, D237, D296, D362, D458 ;
+9. **Décisions fondatrices** — D166, D223, D237, D296, D362, D441–D447,
+   D458, D486 ;
 10. **Exemple de configuration** —
 
 ```yaml

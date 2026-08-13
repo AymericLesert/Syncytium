@@ -36,7 +36,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
   · `dashboard` · `template` ;
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
   saut de page) · `section` (le regroupement potentiellement nommé) ·
-  `grid` · `tabs`/`tab` ;
+  `tabs`/`tab` ;
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
@@ -1205,11 +1205,14 @@ gui:
    (le graphe D455) ;
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité ;
-5. **Propriétés** — **la disposition** : `layout: column | row |
-   grid[2]` (D490) — l'empilement (défaut), la ligne, ou la grille
-   dont le crochet porte le nombre de colonnes ; le crochet en
-   raccourci du composant : `sections[row]` (D478) ; le socle du
-   vocabulaire (D461) ;
+5. **Propriétés** — **la disposition** : `layout: column[n] | row[n]`
+   (D490/D491) — **le mot nomme l'unité, le crochet la compte, le flux
+   replie au-delà** : `column` (défaut) = l'empilement ; `column[3]` =
+   jusqu'à trois colonnes par ligne, puis la ligne suivante ; `row` =
+   la ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis
+   la colonne suivante — la grille est couverte par le crochet
+   (« oublie grid ») ; le crochet en raccourci du composant :
+   `sections[row]` (D478) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des sections, rien d'autre** : « chaque item est
    alors une section » (D489) ;
 7. **Modes et déclinaisons** — partout où un conteneur vit :
@@ -1220,7 +1223,7 @@ gui:
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D461, D487,
-   D489–D490 ;
+   D489–D491 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1229,7 +1232,7 @@ gui:
     default:
       body:
         - sections:                # l'organisateur (D489)
-            layout: row            # column (défaut) | row | grid[2] (D490)
+            layout: row            # column[n] | row[n] (D490/D491)
             items:
               - section:
                   label: { fr: Adresse, en: Address }
@@ -1274,7 +1277,7 @@ gui:
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489–D490 ;
+   D487, D489–D491 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 
@@ -1285,7 +1288,7 @@ body:                              # la section seule, directement (D490)
       items:
         - field[street]            # les feuilles (D489)
         - sections:                # l'emboîtement par l'organisateur
-            layout: grid[2]
+            layout: column[2]      # deux colonnes, le repli au-delà (D491)
             items:
               - section: { items: [ field[zip], field[city] ] }
               - section: { items: [ field[country] ] }

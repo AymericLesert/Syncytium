@@ -569,6 +569,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D488 | **Le contenu fixe** : « il manque une feuille essentielle : un texte fixe, un paragraphe et/ou une image fixe » — les informations légales, le logo ; deux feuilles sans champ derrière, nourries par la configuration. | Noms en proposition : `paragraph`, `picture` (`text`/`image` pris — D458). Voir §3.2c. |
 | D489 | **Le couple `sections`/`section`** : sections organise (colonne ou ligne) et ne contient que des sections ; une section « organise différents nœuds — soit sections, soit une des feuilles » — l'alternance stricte. | `layout: column \| row` + crochet `sections[row]` en proposition ; la section seule = raccourci d'un sections à l'item unique (proposition). Voir §3.2c. |
 | D490 | **Les arbitrages du couple** : `layout: column \| row \| grid[2]` (le crochet = les colonnes de la grille) ; « la section seule est un conteneur (header, body ou footer) » — la section nue y vit directement, ailleurs l'organisateur ; « si l'affichage doit changer, screen permet de définir le format attendu » — rien d'automatique. | Voir §3.2c. |
+| D491 | **La grille au crochet** (amende D490) : « oublie grid… column[3] — maximum de 3 colonnes, après 3 on crée une ligne… row[2] — 2 lignes, puis ajoute une colonne » — `layout: column[n] \| row[n]`, le conteneur `grid` retiré du catalogue. | Le mot nomme l'unité, le crochet la compte, le flux replie. Voir §3.2c. |
 
 ---
 
@@ -3414,6 +3415,17 @@ composition passe par l'organisateur `sections`. **(3) « Un écran va
 dépendre de screen. Si l'affichage doit changer, screen permet de
 définir le format attendu »** — aucun ré-empilement automatique : le
 format par écran se déclare (D450).
+
+**La grille au crochet, `grid` oublié (D491 — amende D490).**
+**« Oublie grid… mais j'amende : `column[3]` — maximum de 3 colonnes :
+après 3 colonnes, on crée une ligne avec de nouveau jusqu'à 3
+colonnes… et `row[2]` — 2 lignes, puis ajoute une colonne… »** Le
+conteneur `grid` quitte le catalogue et la valeur `grid[n]` disparaît :
+**le mot nomme l'unité, le crochet la compte, le flux replie au-delà**
+— `column` (défaut) = l'empilement en colonne unique ; `column[3]` =
+jusqu'à trois colonnes par ligne, puis la ligne suivante ; `row` = la
+ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis la
+colonne suivante. La grille est couverte par le crochet.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10179,3 +10191,8 @@ avant la synthèse Q16).
   écran relève de screen: (D450), rien d'automatique. Les fiches
   corrigées — la question ouverte : le conteneur grid du catalogue,
   absorbé par layout: grid[n] ?
+- **2026-08-13 (suite 49)** — **La grille au crochet (D491)** :
+  « oublie grid » — le conteneur retiré du catalogue ; layout:
+  column[n] | row[n] — column[3] : trois colonnes par ligne puis
+  repli ; row[2] : deux lignes par colonne puis repli. Les fiches et
+  l'inventaire corrigés.

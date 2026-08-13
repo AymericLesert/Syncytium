@@ -585,6 +585,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D504 | **Les modes de `tabs`** : la barre en haut (Windows, défaut), en bas (Excel), latérale (gauche/droite) — et **le mode wizard** : « voir toutes les étapes mais ne pas prendre d'avance tant que l'onglet précédent n'a pas été exploré ». | `mode: top \| bottom \| left \| right \| wizard` + crochet `tabs[…]` en proposition (D478) ; l'écho du cliquet D354. Voir §3.2c. |
 | D505 | **Le chemin de traitement** (complète D504) : « en wizard, les tabs parcourus décrivent le chemin de traitement — en cliquant sur une phase, nous revenons sur un onglet » — le retour libre sur l'exploré, l'avance gardée. | Voir §3.2c. |
 | D506 | **La dimension unique des volets** : « pour chaque tab, toujours la même dimension — les zones sont centrées si elles représentent un espace plus petit » — aucun calibrage par volet (le contraste avec D502), le contenu plus petit centré. | Voir §3.2c. |
+| D507 | **La géométrie de `pages`** : « pages prend toute la place, pas de dimension ; le header et le footer sont optionnels — s'ils sont définis, ils sont toujours visibles ; la hauteur du footer et du header sont paramétrables ; la page prend toujours le reste ». | Aucun size: (contraste D503) ; height: sur header/footer. Voir §3.2c. |
 
 ---
 
@@ -3603,6 +3604,15 @@ représentent un espace plus petit. »** Le contraste avec les sections
 (D502) est assumé : **aucun calibrage par volet** — tous les onglets à
 la même dimension, et le contenu plus petit **se centre** dans le
 volet.
+
+**La géométrie de `pages` (D507).** **« Pages prend toute la place,
+pas de dimension. Le header et le footer sont optionnels. S'ils sont
+définis, ils sont toujours visibles. La hauteur du footer et du header
+sont paramétrables. La page prend toujours le reste. »** Aucun `size:`
+sur `pages` (le contraste avec D503) — tout l'espace est à lui ;
+l'entête et le pied, optionnels mais **toujours visibles** une fois
+déclarés, portent leur **`height:`** ; **la page prend toujours le
+reste**.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10476,3 +10486,7 @@ avant la synthèse Q16).
   saut de page »), trois lectures en proposition (l'alternance des
   items, header/footer constants autour des pages, la navigation au
   swipe/flèches).
+- **2026-08-14** — **La géométrie de pages (D507)** : « pages prend
+  toute la place, pas de dimension ; header/footer optionnels,
+  toujours visibles s'ils sont définis, leur hauteur paramétrable ;
+  la page prend toujours le reste ». La fiche corrigée.

@@ -1628,12 +1628,15 @@ body:
    (D455) ;
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité ;
-5. **Propriétés** — `size:` — l'espace du tout (l'écho D503/D484) ; le
-   socle du vocabulaire (D461) ;
+5. **Propriétés** — **aucune dimension** : « pages prend toute la
+   place » (D507 — le contraste avec D503) ; le socle du vocabulaire
+   (D461) ;
 6. **Items** — **un `header` (facultatif), des `page`, un `footer`
-   (facultatif)** — sa définition ; *(lecture en proposition :
-   l'entête et le pied restent constants pendant que les pages
-   tournent — et se répètent à chaque page au template)* ;
+   (facultatif)** — sa définition ; **« s'ils sont définis, ils sont
+   toujours visibles »** (D507) — l'entête et le pied encadrent les
+   pages qui tournent, **leur `height:` est paramétrable**, et **« la
+   page prend toujours le reste »** ; au template, ils se répètent à
+   chaque page (*en proposition*) ;
 7. **Modes et déclinaisons** — au formulaire : une page à l'écran, la
    navigation de page en page (*en proposition : les flèches, le swipe
    au tactile — l'esprit D503*) ; **template** : les pages physiques
@@ -1641,7 +1644,7 @@ body:
 8. **États et interactions** — la page masquée par les droits saute ;
    le positionnement visible (la page n sur N — *en proposition*) ;
 9. **Décisions fondatrices** — D449, D455–D456, D461, D487, D489 (le
-   patron), D503 ;
+   patron), D507 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
@@ -1649,13 +1652,15 @@ body:
   - pages:
       items:
         - header:
-            items: [ field[number] ]     # constant — chaque page le montre
+            height: 60px                 # la hauteur paramétrable (D507)
+            items: [ field[number] ]     # toujours visible (D507)
         - page:
             items: [ field[customer], field[lines] ]
         - page:
             items: [ field[notes] ]
         - footer:
-            items: [ field[total] ]      # le pied, constant aussi
+            height: 40px
+            items: [ field[total] ]      # toujours visible — la page prend le reste
 ```
 
 ## `page`

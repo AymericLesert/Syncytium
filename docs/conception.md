@@ -9771,3 +9771,9 @@ avant la synthèse Q16).
   configuration générale — il est possible de définir 3, 5 ou 10 selon
   les besoins » (le settings, le pendant du seuil D366 ; le repli
   dropdown en note). En attente : la validation de `radios`.
+- **2026-08-13 (suite 17)** — Le parcours file : `radios` et `icons`
+  validées (**`icon-set` renommé `icons`** — la préférence de
+  l'auteur, 6 occurrences reprises) ; la fiche `record-picker` livrée
+  (le sélecteur de référence — filter/me., le title de la cible D465,
+  les actifs seuls D398, `selection:` D215, CSV = la clé
+  fonctionnelle). En attente : sa validation.

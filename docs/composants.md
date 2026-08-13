@@ -39,7 +39,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `grid` · `tabs`/`tab` ;
 - **Les feuilles** : `text` · `number` · `calculator` ·
   `gauge`/`fuel`/`slider` · `clock` · `calendar` · `checkbox` ·
-  `toggle` · `dropdown`/`radios`/`icon-set` · `record-picker`/
+  `toggle` · `dropdown`/`radios`/`icons` · `record-picker`/
   `image-picker` · `file-drop` · `image-viewer` · `carousel` · `map` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
   masquée, D463) — **le composant par défaut d'un type porte le nom du
@@ -685,15 +685,15 @@ gui:
                                       #   étalées, le clic direct (D461)
 ```
 
-## `icon-set`
+## `icons`
 
-1. **Nom et famille** — `icon-set`, une feuille ;
+1. **Nom et famille** — `icons`, une feuille ;
 2. **Rôle** — le jeu d'icônes : l'énuméré en images — chaque valeur est
    une icône, le choix d'un regard et d'un clic ;
 3. **Types servis** — `enum` dont **les `values` portent `icon` ou
-   `image`** (D283/D387) — sans icônes déclarées, pas d'icon-set
+   `image`** (D283/D387) — sans icônes déclarées, pas d'icons
    (*erreur à l'ingestion, en proposition*) ; jamais un défaut — la
-   surcharge (`component: icon-set`) ;
+   surcharge (`component: icons`) ;
 4. **Contexte consommé** — les `values` du champ (`icon`/`image` ←
    `resources/` D346, le `label` pour l'infobulle), le `mode`, les
    droits ;
@@ -721,7 +721,7 @@ fields:
       silver: { label: { fr: Argent }, icon: silver.png }
       gold:   { label: { fr: Or },     icon: gold.png }
     default: bronze
-    component: icon-set            # la surcharge au champ — les icônes partout
+    component: icons            # la surcharge au champ — les icônes partout
 
 gui:
   lists:

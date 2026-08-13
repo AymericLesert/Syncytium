@@ -542,6 +542,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D461 | **Un seul vocabulaire de représentation, trois étages** : les propriétés de représentation (`component`, `style`, `size`, `readonly`…) **se portent au type (D64/D359), se surchargent au champ, se surchargent encore au nœud `gui`** — les mêmes mots partout, le plus proche l'emporte. | `field[active]` confirmé (« dans mon esprit ») ; la cascade au vocabulaire unique (l'esprit D360). Voir §3.2c. |
 | D462 | **Les colonnes gardent le nom nu** — « l'ambiguïté n'est pas présente : des noms de champs, les opérations sont des verbes » ; **la préconisation** (jamais un contrôle) : une action = un verbe ; **la préséance : le champ l'emporte** sur l'opération homonyme. | « Syncytium n'apporte pas de contrôles » — la préconisation rejoint la documentation du technicien (Q58). Voir §3.2c. |
 | D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
+| D464 | **Le raccourci du texte : `shortcut`** (au lieu de `lines`) — trois propriétés : **`lines`** (les lignes visibles), **`icon`** (`next.svg`), **`label`** (par langue — « Voir plus »/« More ») ; absent = le défaut traduit du moteur. | La fiche `text` reprise ; virgule : `label` vs le `labels` du socle — à harmoniser ? |
 
 ---
 
@@ -9669,3 +9670,11 @@ avant la synthèse Q16).
   lignes avant « voir plus » — nom en proposition), le justifié
   multi-lignes (D447), les modes du thème E, la recherche D367–D368 ;
   l'exemple de configuration joint. En attente de validation.
+- **2026-08-13 (suite 12)** — **`password` (D463)** puis **`shortcut`
+  (D464)** : la sonde « avons-nous un type password ? » → le composé
+  aux garanties structurelles (l'empreinte jamais le clair D33,
+  write-only, exclusions absolues — « la facette décrite me
+  convient ») ; et le raccourci du texte — **`shortcut:`** au lieu de
+  `lines` : `lines`/`icon`/`label` (par langue), le défaut traduit du
+  moteur sinon. La fiche `text` reprise ; virgule ouverte : `label` vs
+  `labels` (l'harmonisation). En attente : la validation de `text`.

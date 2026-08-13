@@ -182,8 +182,10 @@ gui:
    de saisie, **la post-zone** (la devise, le %, une abréviation — ou
    rien : elle vient du type, D271/D391) ; le mono/multi-ligne **déduit
    de la taille** face au seuil d'instance (D366), surchargeable par
-   `component` ; **`lines:`** — les lignes affichées avant le « voir
-   plus » traductible et le compteur (thème E — *nom en proposition*) ;
+   `component` ; **`shortcut:`** — le raccourci du texte long (D464) :
+   `lines` (les lignes visibles), `icon` (l'icône du déploiement),
+   `label` (le libellé par langue — « Voir plus ») ; absent, le moteur
+   applique son défaut traduit (thème E) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — modification : la saisie, guidée par le
    masque s'il existe (les lignes du masque font les lignes de la zone,
@@ -205,7 +207,10 @@ fields:
   name: text[80]                 # mono-ligne (sous le seuil) — text par défaut
   notes:
     type: text                   # auto → multi-lignes (D366)
-    lines: 4                     # 4 lignes puis « voir plus » (proposition)
+    shortcut:                    # le raccourci (D464)
+      lines: 4                   #   4 lignes visibles, puis…
+      icon: next.svg             #   …l'icône et…
+      label: { fr: Voir plus, en: More }   # …le libellé par langue
   registration:
     type: text
     mask: "FR__ ____ [A-E]9"     # la saisie guidée (D260/D366)
@@ -222,6 +227,7 @@ gui:
             labels: { fr: Identité }
             items:
               - field[name]
-              - field[notes]: { lines: 6 }    # la surcharge au nœud (D461)
+              - field[notes]:
+                  shortcut: { lines: 6 }    # la surcharge au nœud (D461/D464)
               - field[registration]
 ```

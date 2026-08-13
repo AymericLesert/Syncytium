@@ -10542,3 +10542,10 @@ avant la synthèse Q16).
   « default: [ { header: … }, { page: … }, { page: … },
   { footer: … } ] » — les clés pour l'usuel, la liste d'éléments dès
   que les pages se répètent.
+- **2026-08-14 (suite 5, fin de séance)** — **La fiche
+  `header`/`footer` validée** (« je valide header/footer ») — **la
+  famille des conteneurs est soldée** : quatre couples
+  (sections/section, tabs/tab, pages/page, header/footer), « pas
+  besoin de composants complémentaires » (D509). L'auteur clôt la
+  séance ; **la prochaine : une passe sur la construction des
+  surfaces pour une entité.**

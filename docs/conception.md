@@ -578,6 +578,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D497 | **Le type `range`** : « un stockage de 2 valeurs dont l'une est égale ou plus petite que l'autre » — la plage de dates ou de valeurs, la contrainte intégrée ; ni la recherche (D371) ni `period` (D391) ne couvraient le générique. | `range of <type>` en proposition (l'écho de `list of` D362) ; le double curseur pour les bornés. Voir §3.2c. |
 | D498 | **`range of` validé** — « déclinaison de list of avec 2 contraintes en nombre et en ordre » ; min et/ou max indéfinissables (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **« la jauge étant un cas particulier d'un range »** (relit D494). Les liaisons D495 validées. | Voir §3.2c. |
 | D499 | **Les cellules confirmées** : `duration` compatible `calculator` « sur la base de 2 clocks » ; `datetime` = la combinaison `calendar` + `clock` ; `uuid` « à saisir et en lecture sous forme de texte formaté » — les fonctions multiples, dont les id tiers (relit D419). | La synthèse mise à jour. Voir §3.2c. |
+| D500 | **Le dropdown de la référence et du statut** : « reference : utilisation d'un dropdown possible » ; « le statut peut être un dropdown aussi, avec une liste de valeurs en tenant compte du cycle de vie » — les états atteignables seuls (D425–D427). | La synthèse n'a plus de cellule à confirmer. Voir §3.2c. |
 
 ---
 
@@ -3527,6 +3528,15 @@ lecture sous forme de texte formaté — ça peut servir à plusieurs
 fonctions dont celle de conserver des id vers des systèmes tiers »**
 (relit D419 : la saisie n'est pas exclue, le texte formaté vaut dans
 les deux sens).
+
+**Le dropdown de la référence et du statut (D500).** **« Reference :
+utilisation d'un dropdown possible. »** Et **« le statut peut être un
+dropdown aussi, avec une liste de valeurs en tenant compte du cycle de
+vie »** — la liste déroulante du statut n'offre que **les états
+atteignables** depuis l'état courant (le graphe promote/demote,
+D425–D427 — la sélection libre restant le mode sans `when`). La
+dernière cellule « à confirmer » de la synthèse se ferme — le registre
+atteint sa cinq-centième décision.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10352,3 +10362,8 @@ avant la synthèse Q16).
   duration/calculator sur deux clocks ; datetime = calendar + clock ;
   uuid en texte formaté, saisie et lecture (les id tiers parmi ses
   fonctions). Reste °à confirmer : le dropdown de référence.
+- **2026-08-13 (suite 61)** — **D500** : le dropdown possible sur la
+  référence ; le statut en dropdown aussi, la liste des valeurs
+  tenant compte du cycle de vie (les états atteignables, D425–D427).
+  La synthèse complète — plus aucune cellule à confirmer. Cinq cents
+  décisions consignées depuis le 12 juin.

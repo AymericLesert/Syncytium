@@ -55,7 +55,7 @@ Cette synthèse **fait le lien entre le modèle de données et les
 composants graphiques** : chaque type déclarable, son composant par
 défaut, et les composants compatibles (exploitables avec
 `component:`). *(Les manques en cours de relevé par l'auteur ; les
-cellules °à confirmer relèvent de la passe de complétude.)*
+cellules jadis « à confirmer » sont toutes fermées — D499/D500.)*
 
 Quatre règles transversales l'allègent :
 
@@ -105,7 +105,7 @@ Quatre règles transversales l'allègent :
 
 | Type | Composant par défaut | Compatibles (`component:`) |
 |---|---|---|
-| `reference` (D394 — un, pointé) | saisie : `picker.record` (D470) ; lecture : le `title` de la cible (D465) | `dropdown` °à confirmer (peu de cibles) |
+| `reference` (D394 — un, pointé) | saisie : `picker.record` (D470) ; lecture : le `title` de la cible (D465) | `dropdown` (D500) |
 | la composition — `list of <entité>` (D399/D400 — plusieurs, possédés) | la liste embarquée (D441/D486) | la liste en widgets (`widget:` — D492) |
 | l'association — `association with <entité>` (D400 — plusieurs, libres) | la liste embarquée (D441/D486) | `picker.record` (`selection: 1..` — D474) ; `viewer[carousel\|mosaic]` au visage (D386/D475) ; `widget:` (D492) |
 | le lien n-aire — `list of [a, b]` / `association with [a, b]` (D402) | la liste embarquée (les combinaisons en lignes) | `widget:` (D492) |
@@ -113,7 +113,7 @@ Quatre règles transversales l'allègent :
 | la liste nommée (l'accès retour automatique du 1-N — D216/D394) | la liste embarquée | comme l'association |
 | `counter` | la valeur assemblée, lecture seule partout (D155/D297) | — |
 | le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
-| le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | — |
+| le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | `dropdown` — la liste des valeurs **tenant compte du cycle de vie** : les états atteignables seuls (D500) |
 
 ---
 

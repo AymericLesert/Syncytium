@@ -893,19 +893,25 @@ gui:
 2. **Rôle** — la visionneuse : **le fichier regardé** — la vignette en
    place, le plein cadre au clic ; **tout type visualisable** : l'image
    n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel,
-   PowerPoint… ; **les collections**, par le mode carousel ; et **le
+   PowerPoint… ; **les collections**, par le mode carousel ; **le
    document paginé feuilleté** — « un carrousel d'un document PDF
-   correspond à un défilement des pages » (D481) ;
+   correspond à un défilement des pages » (D481) ; et **le document
+   généré** — « le fichier de la facture n'existe pas en tant que tel
+   mais comme un PDF généré à partir des informations de la facture et
+   de ses lignes : un viewer peut faire référence à un template de
+   document à générer » (D483) ;
 3. **Types servis** — `image` et `thumbnail` **en lecture** (le défaut
    de leur mode lecture — D286/D293) ; `file` dont le format est
    visualisable (la vignette de fichier sinon) ; les collections :
    `list of image`, une association ou une liste d'entités **au
    visage** (`image:` — D386), une liste de fichiers ; **le document
    paginé seul** (PDF, PowerPoint…) en mode carousel — la page fait
-   l'image (D481) ;
-4. **Contexte consommé** — le champ ou le lien (D470), les dimensions
-   du crochet et la vignette auto (D389), le `placeholder` (D390), les
-   visages des cibles, les droits ;
+   l'image (D481) ; **le template** — le document généré à la volée
+   depuis l'enregistrement, sans fichier stocké (D483) ;
+4. **Contexte consommé** — le champ ou le lien (D470), **ou le
+   template et l'enregistrement** (la génération à la volée — D483),
+   les dimensions du crochet et la vignette auto (D389), le
+   `placeholder` (D390), les visages des cibles, les droits ;
 5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ;
    **`mode:`** — « le viewer peut afficher une image, une planche ou
    un carousel » (D478) : `image` (le fichier seul en vignette),
@@ -918,7 +924,9 @@ gui:
    crochet est un raccourci de la définition du mode** :
    `viewer[carousel]` ≡ `mode: carousel` (D478) ; `interval:` — le
    défilement automatique du carrousel (`interval: 5s` — D476 ;
-   absent = manuel seul) ;
+   absent = manuel seul) ; en items, **`template[<nom>]`** référence le
+   document à générer (*l'écriture en proposition — l'écho de
+   `field[<nom>]` D460 ; viewer, son composant naturel*) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **`image`** : la vignette, la
    visionneuse au clic — plein écran sur smartphone, pourcentage sur
@@ -937,7 +945,7 @@ gui:
    fermeture au geste sur tactile ; les commandes avant/après, la pause
    au survol ;
 9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
-   D475–D482 ;
+   D475–D483 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -992,6 +1000,16 @@ gui:
         - field[handbook]:
             component: viewer[carousel]  # le défilement des pages
             interval: 10s                # la présentation, le mode opératoire
+
+# sales/entities/order.yml — le document généré, regardé (D483)
+gui:
+  templates:
+    invoice: …                           # le patron du document (Q55)
+  forms:
+    default:
+      body:
+        - template[invoice]:             # la facture générée à la volée —
+            component: viewer[carousel]  # ses pages feuilletées (D481)
 ```
 
 

@@ -561,6 +561,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D480 | **`mosaic` et le crochet actés** : « la dimension dans les crochets est une bonne idée (pour un raccourci). Il faut prévoir une propriété quand même » — la grille aussi en clair. | `columns:`/`lines:` en proposition (les mots du vocabulaire D441/D464). Voir §3.2c. |
 | D481 | **Le document paginé feuilleté** : « un carrousel d'un document PDF correspond à un défilement des pages. Un PowerPoint suit le même principe » — le carrousel défile une succession : les éléments d'une collection **ou les pages d'un document** ; l'usage : « une présentation ou un mode opératoire ». | La page fait l'image ; `interval:` fait tourner la présentation. Voir §3.2c. |
 | D482 | **`sheet:`** — la grille de la planche en une seule propriété : `sheet: 4x3` (colonnes × lignes) ; le crochet `mosaic[4x3]` en est le raccourci (remplace la proposition columns/lines). | Voir §3.2c. |
+| D483 | **Le viewer du document généré** : « le fichier de la facture n'existe pas en tant que tel mais comme un PDF généré à partir des informations de la facture et de ses lignes — un viewer peut faire référence à un template de document à générer ». | `template[<nom>]` en items (en proposition, l'écho de `field[<nom>]`) ; combiné à D481, le document généré se feuillette. Voir §3.2c. |
 
 ---
 
@@ -3328,6 +3329,16 @@ d'atelier, le mode opératoire).
 D480).** **« Columns/lines à remplacer par `sheet: columns x lines`. »**
 Une seule propriété : `sheet: 4x3` — colonnes × lignes ; le crochet
 `mosaic[4x3]` en est le raccourci.
+
+**Le viewer du document généré (D483).** **« Le fichier de la facture
+n'existe pas en tant que tel mais comme un fichier PDF généré à partir
+des informations de la facture et de ses lignes. Par conséquent, un
+viewer peut faire référence à un template de document à générer. »**
+La source du viewer s'élargit : le champ, le lien — **ou le template**,
+le document naissant à la volée de l'enregistrement. Combiné à D481,
+la facture générée se feuillette en carrousel. *(L'écriture en
+proposition : `template[<nom>]` en items — l'écho de `field[<nom>]`
+D460, viewer en composant naturel.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10025,3 +10036,10 @@ avant la synthèse Q16).
   remplacer par sheet: columns x lines » — la grille de la planche en
   une seule propriété, le crochet mosaic[4x3] en raccourci. Reste le
   rendu template du carrousel (proposition : la planche).
+- **2026-08-13 (suite 35)** — **Le viewer du document généré (D483)** :
+  « le fichier de la facture n'existe pas en tant que tel mais comme un
+  PDF généré à partir des informations de la facture et de ses lignes —
+  un viewer peut faire référence à un template de document à générer ».
+  template[<nom>] en proposition ; le rendu du carrousel dans un
+  document différé au point template (Q55). La fiche viewer en attente
+  de validation.

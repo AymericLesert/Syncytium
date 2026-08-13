@@ -342,7 +342,8 @@ gui:
 ## `gauge`
 
 1. **Nom et famille** — `gauge`, une feuille — le satellite des
-   numériques bornés ;
+   numériques bornés ; **« la jauge étant un cas particulier d'un
+   range »** (D498 — min/value/max en une, D494) ;
 2. **Rôle** — la jauge : la valeur dans son cadre, d'un coup d'œil — la
    barre qui se remplit entre les bornes ;
 3. **Types servis** — les numériques **bornés** (`integer[a..b]`,
@@ -372,7 +373,7 @@ gui:
    hors cadre change de représentation (D391) ; grisée si
    `readonly`/droits ;
 9. **Décisions fondatrices** — D241, D274–D276, D391, D467,
-   D494–D495 ;
+   D494–D495, D498 ;
 10. **Exemple de configuration** —
 
 ```yaml

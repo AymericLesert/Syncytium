@@ -576,6 +576,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D495 | **Les seuils depuis une entité** : les couleurs de jauge (D467) peuvent « dépendre d'une entité en expliquant les liaisons entre les colonnes et les valeurs (seuil et couleur) » — la table de référence, l'écho de `units:` (D363). | Écriture en proposition (`from`/`threshold`/`color`) ; vaut pour gauge, fuel, le fond gradué. Voir §3.2c. |
 | D496 | **Le type `color` et `picker.color`** : « le stockage est un entier, l'affichage en hexadécimal et une base traduisant les couleurs en RGB » — la pastille en lecture, le sélecteur en saisie (D458) ; « j'ajoute aussi picker.color » — la famille pointée s'agrandit (D470/D473). | La base nomme les couleurs de `colors:` (D467) ; `values:` restreignant la palette en proposition. Voir §3.2c. |
 | D497 | **Le type `range`** : « un stockage de 2 valeurs dont l'une est égale ou plus petite que l'autre » — la plage de dates ou de valeurs, la contrainte intégrée ; ni la recherche (D371) ni `period` (D391) ne couvraient le générique. | `range of <type>` en proposition (l'écho de `list of` D362) ; le double curseur pour les bornés. Voir §3.2c. |
+| D498 | **`range of` validé** — « déclinaison de list of avec 2 contraintes en nombre et en ordre » ; min et/ou max indéfinissables (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **« la jauge étant un cas particulier d'un range »** (relit D494). Les liaisons D495 validées. | Voir §3.2c. |
 
 ---
 
@@ -3502,6 +3503,18 @@ champ s'appliquent aux deux valeurs ; la saisie = les deux champs du
 type liés, le double curseur pour les bornés — l'écho D276 ; la
 recherche `range` (D371) en usage naturel ; `period` demeure, le frère
 temporel au crochet.)*
+
+**`range of` validé, la jauge un cas particulier (D498 — solde
+D497).** **« Je valide `range of`, déclinaison de `list of` avec 2
+contraintes en nombre et en ordre. »** Et trois précisions : **« dans
+le range of, j'autorise le fait de ne pas définir de min et/ou de
+max »** — la plage ouverte (« ≥ 5 », « ≤ 10 ») ; **« les libellés de
+ce type de champ portent sur 3 éléments : min, value et max »** — le
+libellé se décline par élément ; **« la jauge étant un cas particulier
+d'un range »** — la relecture de D494 : min/value/max en une, la jauge
+porte un range et sa valeur — `gauge` devient un composant compatible
+du type. **Les liaisons des seuils d'entité (D495) sont également
+validées** (`from`/`threshold`/`color`).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10307,3 +10320,10 @@ avant la synthèse Q16).
   validées** (« je valide color et picker.color »). Restent en
   attente : sections/section, les liaisons D495, l'écriture range of
   <type> (D497).
+- **2026-08-13 (suite 57)** — **range of validé (D498)** : la
+  déclinaison de list of aux deux contraintes (nombre, ordre) ; la
+  plage ouverte autorisée ; les libellés sur min/value/max ; « la
+  jauge étant un cas particulier d'un range ». Les liaisons D495
+  validées. **Sections/section mis en attente de relecture** à la
+  demande de l'auteur. Le tableau de synthèse types × composants
+  demandé — livré dans l'échange.

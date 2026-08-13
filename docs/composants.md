@@ -838,3 +838,49 @@ gui:
               - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
 ```
 
+## `picker.file`
+
+1. **Nom et famille** — `picker.file`, une feuille — la famille
+   `picker` (D470/D473) ;
+2. **Rôle** — le choix d'un ou plusieurs fichiers **quelconques** — le
+   dépôt (glisser) et le parcours ;
+3. **Types servis** — `file` (**le défaut du type**, D384) ; le nombre
+   suit le type et `selection:` (D474) ;
+4. **Contexte consommé** — le champ (**les `extensions`** — la liste
+   simple ou à libellés « la facture (pdf) », D384 ; **le `quota`**
+   D162/D365), le `mode`, les droits ;
+5. **Propriétés** — `selection:` (le nombre — D474), `anchor:` et
+   `dimension:` (la famille — D469) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : **le glisser-déposer et
+   le parcours** ; smartphone : l'appareil photo et la galerie si le
+   jeu d'extensions le permet, le gestionnaire de fichiers sinon
+   (D292) ; **la forme à libellés guide le dépôt** (« déposez la
+   facture (pdf) » — D384) ; lecture : le nom et les métadonnées, le
+   téléchargement sous droits ; template / CSV : le nom du fichier ;
+8. **États et interactions** — grisé si `readonly`/droits ; **le refus
+   propre** des extensions hors jeu et du quota (D307/D384) ; la
+   déduplication silencieuse au moteur (D165) ;
+9. **Décisions fondatrices** — D160–D165, D292, D384, D469–D474 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/customer.yml
+fields:
+  invoice:
+    type: file
+    extensions:
+      pdf:  { fr: facture }        # la forme à libellés (D384) — guide le dépôt
+      docx: { fr: document qualité }
+    quota: 10MB
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Documents }
+            items:
+              - field[invoice]:
+                  selection: 1     # un seul fichier (D474)
+```

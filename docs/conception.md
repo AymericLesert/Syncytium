@@ -10078,3 +10078,5 @@ avant la synthèse Q16).
   lui laisse » — l'onglet de D167/D186, un habitat parmi d'autres. La
   fiche thread corrigée, en attente de validation (preview: 3 en
   proposition).
+- **2026-08-13 (suite 40)** — **La fiche `thread` validée** (« oui, je
+  valide »). Suivante : `list` (l'éditeur du type liste — D296/D362).

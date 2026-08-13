@@ -1245,7 +1245,7 @@ gui:
 
 ## `paragraph`
 
-1. **Nom et famille** — `paragraph` (*nom en proposition — D488*), une
+1. **Nom et famille** — `paragraph` (D488 — le nom validé), une
    feuille — **le texte fixe** : « mettre du texte pour indiquer les
    informations légales de l'entreprise » ;
 2. **Rôle** — le texte venu de la configuration, affiché tel quel —
@@ -1284,7 +1284,7 @@ gui:
 
 ## `picture`
 
-1. **Nom et famille** — `picture` (*nom en proposition — D488*), une
+1. **Nom et famille** — `picture` (D488 — le nom validé), une
    feuille — **l'image fixe** : « son logo » ;
 2. **Rôle** — l'image venue de la configuration, affichée telle
    quelle — **aucun champ derrière** : le logo, l'illustration ;

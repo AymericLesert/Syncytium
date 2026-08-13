@@ -10136,3 +10136,7 @@ avant la synthèse Q16).
   ferons du gabarit ou de la génération de documents » — les deux
   fiches minimales à dessein, l'enrichissement différé à Q55 (la même
   réserve que viewer). La fiche picture écrite.
+- **2026-08-13 (suite 46)** — **`paragraph` et `picture` validées**
+  (« les termes paragraph et picture sont validés et nous les
+  amenderons lors de la génération de documents ») — les noms actés,
+  l'amendement réservé à Q55. Retour à la fiche `section`.

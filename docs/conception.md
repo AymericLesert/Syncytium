@@ -544,6 +544,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
 | D464 | **Le raccourci du texte : `shortcut`** (au lieu de `lines`) — trois propriétés : **`lines`** (les lignes visibles), **`icon`** (`next.svg`), **`label`** (par langue — « Voir plus »/« More ») ; absent = le défaut traduit du moteur. | La fiche `text` reprise ; virgule : `label` vs le `labels` du socle — à harmoniser ? |
 | D465 | **Le triptyque `label`/`title`/`labels`** : **`label` = les libellés par langue, partout** (remplace `labels`) ; **le visage de l'enregistrement (D397) se renomme `title`** — le gabarit d'affichage, cohérent avec le formulaire (D449/D453), **utilisable sur un formulaire et surchargeable** (la cascade entité → formulaire) ; **`labels` ne survit qu'au dictionnaire du module** (D440). | Renommage appliqué aux trois documents (conception — 43 occurrences, glossaire, composants) ; le socle D364 amendé. Voir §3.2c. |
+| D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { fill: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; le nom (`fill`/`background`/`gradient`) à trancher. Voir §3.2c. |
 
 ---
 
@@ -3163,6 +3164,22 @@ label: { fr: Client }                # les libellés par langue
 title: "{code} — {company_name}"     # le visage (ex-label D397) — sert le
 image: logo                          #   formulaire par défaut, s'y surcharge
 ```
+
+**Le fond gradué (D466).** La proposition de l'auteur, née de la fiche
+`fuel` : **« un style gradué d'une cellule en fonction d'une jauge — un
+fond gradué d'un champ en fonction de la valeur d'un autre champ dont
+la valeur est une valeur bornée. »** La jauge devient **un fond** : la
+cellule du nom se remplit à proportion de l'avancement — la lecture de
+deux informations en une. La forme en proposition, au vocabulaire
+unique (D461) :
+
+```yaml
+columns:
+  - name: { fill: avancement }     # le fond gradué par le champ borné
+```
+
+*(Les bornes du champ pilote exigées — l'esprit `gauge` ; le nom de la
+propriété — `fill`, `background`, `gradient` — à trancher.)*
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9708,3 +9725,11 @@ avant la synthèse Q16).
   Renommage appliqué : conception (43 occurrences en ligne + le socle
   D364 + les artefacts), glossaire (Libellé, Visages), composants (7).
   En attente : la validation de la fiche `text`.
+- **2026-08-13 (suite 14)** — **Le parcours des fiches avance** :
+  `text` validée (exemple à l'appui — le protocole corrigé : la
+  validation se demande l'exemple présenté dans l'échange), `number`
+  validée, `calculator` validée, `gauge` validée, **`fuel` validée avec
+  sa virgule** (le cadran illustre, la saisie redevient number en
+  modification). Et **le fond gradué (D466)** : « un fond gradué d'un
+  champ en fonction de la valeur d'un autre champ borné » — la jauge en
+  fond de cellule (`fill:` en proposition — le nom à trancher).

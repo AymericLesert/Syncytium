@@ -83,8 +83,8 @@ fields:
     required: true               # deux états — la checkbox simple (le défaut du type)
     default: true                # l'obligatoire naît false sauf default (D377)
     values:
-      true:  { labels: { fr: Actif } }
-      false: { labels: { fr: Inactif } }
+      true:  { label: { fr: Actif } }
+      false: { label: { fr: Inactif } }
   audited:
     type: boolean                # optionnel — la checkbox TRI-ÉTAT (D374)
     comment: { fr: Audit réalisé ? }
@@ -101,7 +101,7 @@ gui:
     default:
       body:
         - section:
-            labels: { fr: Statut }
+            label: { fr: Statut }
             items:
               - field[active]         # la forme explicite (D460) — l'ambiguïté
                                       #   champ/composant levée
@@ -146,8 +146,8 @@ fields:
     default: false
     component: toggle            # la surcharge du défaut checkbox, au champ (D461)
     values:
-      true:  { labels: { fr: Automatisé } }
-      false: { labels: { fr: Manuel } }
+      true:  { label: { fr: Automatisé } }
+      false: { label: { fr: Manuel } }
 
 gui:
   lists:
@@ -160,7 +160,7 @@ gui:
     default:
       body:
         - section:
-            labels: { fr: Fonctionnement }
+            label: { fr: Fonctionnement }
             items:
               - field[automated]:
                   component: toggle   # la surcharge peut aussi vivre AU NŒUD (D461) —
@@ -224,7 +224,7 @@ gui:
     default:
       body:
         - section:
-            labels: { fr: Identité }
+            label: { fr: Identité }
             items:
               - field[name]
               - field[notes]:

@@ -133,8 +133,9 @@ rangée dans l'historique. On la consulte, on ne la modifie pas.
 validations, filtres, gabarits.
 *Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
 
-**Libellé** (`labels`) — Le nom d'une chose dans la langue de
-l'utilisateur. *Ex. : `labels: { fr: Client }`.* *(D217)*
+**Libellé** (`label`) — Le nom d'une chose dans la langue de
+l'utilisateur. *Ex. : `label: { fr: Client }`.* Le pluriel `labels`
+ne survit qu'au dictionnaire du module (D440). *(D217/D465)*
 
 **Liste (type)** (`list of`) — Un champ à plusieurs valeurs du même
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
@@ -242,11 +243,11 @@ Le fait de déposer une version, nous considérons que la version est publiée. 
 Dans la configuration, chaque version fera l'objet d'une entrée et cette entrée est un sous-dossier de l'application. Chaque sous-dossier reprend alors tous les éléments nécessaires au bon fonctionnement de l'application.
 *Ex. : `2.1.0.14.yml` → `2.1.0.14/`.* *(D322)*
 
-**Visages de l'entité** (`label`, `image`) — La manière dont un
+**Visages de l'entité** (`title`, `image`) — La manière dont un
 enregistrement se présente : son libellé et son image, servis partout —
 de la liste déroulante au widget.
-*Ex. : `label: "{code} — {company_name}"` ; `image: logo`.*
-*(D397/D386)*
+*Ex. : `title: "{code} — {company_name}"` ; `image: logo`.*
+*(D397/D386/D465)*
 
 **Vue dérivée** (`association with … if …`) — Une liste calculée par
 une condition, jamais stockée : on la lit ; pour la changer, on change

@@ -543,6 +543,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D462 | **Les colonnes gardent le nom nu** — « l'ambiguïté n'est pas présente : des noms de champs, les opérations sont des verbes » ; **la préconisation** (jamais un contrôle) : une action = un verbe ; **la préséance : le champ l'emporte** sur l'opération homonyme. | « Syncytium n'apporte pas de contrôles » — la préconisation rejoint la documentation du technicien (Q58). Voir §3.2c. |
 | D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
 | D464 | **Le raccourci du texte : `shortcut`** (au lieu de `lines`) — trois propriétés : **`lines`** (les lignes visibles), **`icon`** (`next.svg`), **`label`** (par langue — « Voir plus »/« More ») ; absent = le défaut traduit du moteur. | La fiche `text` reprise ; virgule : `label` vs le `labels` du socle — à harmoniser ? |
+| D465 | **Le triptyque `label`/`title`/`labels`** : **`label` = les libellés par langue, partout** (remplace `labels`) ; **le visage de l'enregistrement (D397) se renomme `title`** — le gabarit d'affichage, cohérent avec le formulaire (D449/D453), **utilisable sur un formulaire et surchargeable** (la cascade entité → formulaire) ; **`labels` ne survit qu'au dictionnaire du module** (D440). | Renommage appliqué aux trois documents (conception — 43 occurrences, glossaire, composants) ; le socle D364 amendé. Voir §3.2c. |
 
 ---
 
@@ -944,7 +945,7 @@ sales/
 ```yaml
 # sales/module.yml
 name: sales
-labels: { fr: Ventes }
+label: { fr: Ventes }
 comment: { fr: Gestion commerciale }
 description: { fr: ... }
 settings: settings.yml         # référence de fichier (D320)
@@ -1058,7 +1059,7 @@ L'exemple canonique du bloc :
 ```yaml
 # sales/entities/customer.yml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 inheritance: third_party            # D353 — seule référence au parent
 identity: [code]                    # la clé métier, sur l'entité (D357)
 
@@ -1067,32 +1068,32 @@ fields:
     type: text
     size: 10
     mask: "C-999999"                # masque de saisie (D260)
-    labels: { fr: Code client }
+    label: { fr: Code client }
     mode: write-once                # écriture unique — posé à la création
   company_name:
     type: text
     size: 80
-    labels: { fr: Raison sociale }
+    label: { fr: Raison sociale }
     required: true
     searchable: true                # recherche plein-texte (D226)
   revenue:
     type: amount                    # composé (D122) : décimal + devise
     currencies: [EUR]               # dérivation par restriction (D123)
     min: 0
-    labels: { fr: Chiffre d'affaires }
+    label: { fr: Chiffre d'affaires }
     confidentiality: protected      # D25
   category:
     type: enum
     values:
-      bronze: { labels: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
-      silver: { labels: { fr: Argent } }
-      gold:   { labels: { fr: Or } }
+      bronze: { label: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D283/D346)
+      silver: { label: { fr: Argent } }
+      gold:   { label: { fr: Or } }
     default: bronze
   advisor:
     type: reference
     to: hr.employee                 # l'adressage logique par points (D363)
     filter: active = true           # restreint les valeurs proposées (D90)
-    labels: { fr: Chargé d'affaires }
+    label: { fr: Chargé d'affaires }
   logo:
     type: image                     # D286 — vignette calculée par le moteur
   total_orders:
@@ -1149,7 +1150,7 @@ fields:
   completion:
     type: progression
     max: 200                     # surcharge d'une propriété héritée du type
-    labels: { fr: Complétude }
+    label: { fr: Complétude }
 ```
 
 *(La convergence : les composés livrés D122 deviennent des types définis
@@ -1224,7 +1225,7 @@ quel que soit son type — le socle est finalisé :
 
 | Propriété | Rôle | Source |
 |---|---|---|
-| `labels` | le libellé par langue | D217 |
+| `label` | le libellé par langue (`labels` réservé au dictionnaire du module — D465) | D217 |
 | `comment` | l'infobulle | invariants de l'auteur |
 | `description` | le masque d'explication, la documentation | D188/D333 |
 | `placeholder` | la valeur de démonstration | invariants de l'auteur |
@@ -1425,8 +1426,8 @@ fields:
     type: boolean
     required: true                 # deux états — toggle possible
     values:
-      true:  { labels: { fr: Actif } }
-      false: { labels: { fr: Inactif } }
+      true:  { label: { fr: Actif } }
+      false: { label: { fr: Inactif } }
   audited:
     type: boolean                  # optionnel — tri-état, naît nul (D374)
     searchable: strict             # case tri-état en recherche (D375)
@@ -1560,7 +1561,7 @@ propriété d'en-tête :
 
 ```yaml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 image: logo                       # le champ désigné — le visage de l'entité
 fields:
   logo:
@@ -1580,9 +1581,9 @@ complément du libellé » — chaque valeur porte : `labels`, `description`,
 category:
   type: enum
   values:
-    bronze: { labels: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
-    silver: { labels: { fr: Argent } }
-    gold:   { labels: { fr: Or } }
+    bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
+    silver: { label: { fr: Argent } }
+    gold:   { label: { fr: Or } }
   default: bronze
 ```
 
@@ -1762,9 +1763,9 @@ image si la cible désigne son visage** (D386).
 
 ```yaml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 identity: [code]
-label: "{code} — {company_name}"   # le visage textuel (D397)
+title: "{code} — {company_name}"   # le visage textuel (D397, renommé title par D465)
 image: logo                        # le visage graphique (D386)
 ```
 
@@ -1791,7 +1792,7 @@ composition est sur l'entité d'origine — et le type est
 ```yaml
 # sales/entities/order.yml
 name: order
-labels: { fr: Commande }
+label: { fr: Commande }
 fields:
   customer: customer                 # référence (D396) — association libre
   lines:
@@ -2023,11 +2024,11 @@ fichiers canoniques :
 ```yaml
 # sales/entities/customer.yml
 name: customer
-labels: { fr: Client }
+label: { fr: Client }
 comment: { fr: Les clients de la société }
 inheritance: third_party             # l'enfant pointe (D353) — les états sur le parent
 identity: [code]                     # la clé fonctionnelle (D357)
-label: "{code} — {company_name}"     # le visage textuel (D397)
+title: "{code} — {company_name}"     # le visage textuel (D397 → title, D465)
 image: logo                          # le visage graphique (D386)
 
 fields:
@@ -2035,12 +2036,12 @@ fields:
     type: text
     mask: "C-999999"                 # taille et lignes déduites (D366)
     mode: write-once
-    labels: { fr: Code client }
+    label: { fr: Code client }
   company_name:
     type: text[80]
     required: true
     searchable: mutualizable[who]    # la recherche partagée (D368)
-    labels: { fr: Raison sociale }
+    label: { fr: Raison sociale }
   notes: text                        # la forme courte — auto (D356/D366)
   employees: integer[0..]            # positif, octets auto (D372)
   revenue:
@@ -2059,9 +2060,9 @@ fields:
   category:
     type: enum
     values:
-      bronze: { labels: { fr: Bronze }, icon: bronze.png }
-      silver: { labels: { fr: Argent } }
-      gold:   { labels: { fr: Or } }
+      bronze: { label: { fr: Bronze }, icon: bronze.png }
+      silver: { label: { fr: Argent } }
+      gold:   { label: { fr: Or } }
     default: bronze                  # stockage numérique (D387)
   headquarters: geolocation          # focale + texte associé (D391–D392)
   progress: progression              # type personnalisé (D359) — un hook (D408)
@@ -2083,9 +2084,9 @@ validation:
 ```yaml
 # sales/entities/order.yml
 name: order
-labels: { fr: Commande }
+label: { fr: Commande }
 identity: [number]
-label: "{number}"
+title: "{number}"
 
 fields:
   number:
@@ -2185,11 +2186,11 @@ constituants (la ligne D399 : le possesseur déclare) :
 # groups.yml
 groups:
   accounting:
-    labels: { fr: Comptables }
+    label: { fr: Comptables }
   sales_team:
-    labels: { fr: Équipe commerciale }
+    label: { fr: Équipe commerciale }
   managers:
-    labels: { fr: Encadrement }
+    label: { fr: Encadrement }
     groups: [accounting, sales_team]   # constitué d'autres groupes
 ```
 
@@ -2293,9 +2294,9 @@ fields:
   status:
     type: enum                     # le champ porteur du cycle de vie
     values:
-      draft:     { labels: { fr: Brouillon }, allow: [create, read, update, delete] }
-      confirmed: { labels: { fr: Confirmée }, allow: [read] }
-      archived:  { labels: { fr: Archivée },  allow: [read] }
+      draft:     { label: { fr: Brouillon }, allow: [create, read, update, delete] }
+      confirmed: { label: { fr: Confirmée }, allow: [read] }
+      archived:  { label: { fr: Archivée },  allow: [read] }
     default: draft
 ```
 
@@ -2349,9 +2350,9 @@ fields:
   status:
     type: enum
     values:
-      draft:     { labels: { fr: Brouillon },  allow: [create, read, update, delete] }
-      confirmed: { labels: { fr: Confirmée },  allow: [read] }
-      archived:  { labels: { fr: Archivée },   allow: [read, delete] }
+      draft:     { label: { fr: Brouillon },  allow: [create, read, update, delete] }
+      confirmed: { label: { fr: Confirmée },  allow: [read] }
+      archived:  { label: { fr: Archivée },   allow: [read, delete] }
     default: draft
 ```
 
@@ -2373,7 +2374,7 @@ est un tableau, car nous pouvons avoir le choix entre plusieurs
 ```yaml
 values:
   draft:
-    labels: { fr: Brouillon }
+    label: { fr: Brouillon }
     allow: [create, read, update, delete]
     promote:
       - { to: confirmed, when: operation.confirm }
@@ -2455,7 +2456,7 @@ promote: [ { to: confirmed, when: confirm } ]
   # → « confirm » EST l'opération — sa nature se lit dans SA déclaration :
 operations:
   confirm:
-    labels: { fr: Confirmer }    # SANS when → un bouton / une fonction API
+    label: { fr: Confirmer }    # SANS when → un bouton / une fonction API
     rights: [sales_team]         #   — l'acte explicite qui déclenche l'action
   archive:
     when: age(updated) > 365     # AVEC when → une opération AUTOMATIQUE
@@ -2520,7 +2521,7 @@ demeure (D421c).
 ```yaml
 operations:
   confirm:                        # sans when → bouton / fonction API (D428)
-    labels: { fr: Confirmer }
+    label: { fr: Confirmer }
     rights: [sales_team]          # les groupes (D196/D414)
     validate: false               # l'exécution directe — la relecture est le défaut (D431)
     effects:
@@ -2626,7 +2627,7 @@ name: customer
 fields: { … }
 gui:
   lists:
-    main: { labels: { fr: Les clients } }
+    main: { label: { fr: Les clients } }
   summary:
     fields: [company_name, category]
 
@@ -2649,7 +2650,7 @@ s'adapte au dossier d'entité — `- entities/*.yml` et
 **(2) la première déclarée est la surface par défaut** (l'ordre du
 mapping D356 — la première liste est celle du menu, le premier
 formulaire celui de la fiche) ; **(3) le socle des surfaces s'appuie
-sur le patron des champs** (`labels`/`comment`/`description` — « nous
+sur le patron des champs** (`label`/`comment`/`description` — « nous
 avons défini ce qu'il faut, sauf oubli ») ; **(4) la déclaration
 remplace le défaut** — « dès qu'un item est déclaré, le défaut proposé
 par le système n'est plus disponible ».
@@ -2822,7 +2823,7 @@ L'exemple canonique de la liste, complet :
 ```yaml
 lists:
   pending:                             # la première déclarée = la liste par défaut (D438)
-    labels: { fr: Commandes en attente }
+    label: { fr: Commandes en attente }
     icon: pending.png                  # le socle des surfaces (D439)
     columns:                           # l'ordre d'affichage (D442) ; abrégé = moteur (D443)
       - number
@@ -2919,7 +2920,7 @@ convient ») :
 
 ```yaml
 <surface>:
-  labels: { fr: … }              # le socle (D438) : labels, comment, description, icon
+  label: { fr: … }              # le socle (D438) : labels, comment, description, icon
   header: "{gabarit}"            # les zones de texte à gabarits (D253/D90)
   footer: "{gabarit}"
   mode: read-only                # précisable (D207)
@@ -2954,17 +2955,17 @@ de texte à gabarit ; l'entête, le corps et le pied sont des blocs »** :
 ```yaml
 forms:
   default:
-    labels: { fr: Fiche client }
+    label: { fr: Fiche client }
     icon: customer.png
     title: "{code} — {company_name}"   # LA zone de texte à gabarit (D90/D253)
     header:                            # un BLOC
       - section: { fields: [category, active] }
     body:                              # le corps — des blocs
       - section:
-          labels: { fr: Identité }
+          label: { fr: Identité }
           fields: [code, company_name, advisor]
       - tab:
-          labels: { fr: Commandes }
+          label: { fr: Commandes }
           fields: [orders]
     footer:                            # un bloc
       - section: { fields: [updated] }
@@ -3143,6 +3144,25 @@ vues sur la définition du champ. »** **Les mêmes mots à chaque étage** —
 champ les surcharge, le nœud `gui` les surcharge encore** — la chaîne
 D270/D447/D460 devient une cascade au vocabulaire unique, le plus
 proche l'emporte (l'esprit D360).
+
+**Le triptyque `label` / `title` / `labels` (D465).** Le renommage
+global : **« remplaçons `labels` par `label`, à l'exception du
+catalogue de libellés »** — et l'objection levée par le renommage du
+visage : **(1) `label`** = les libellés par langue, **partout**
+(champs, surfaces, valeurs, opérations, `shortcut`…) ; **(2) le visage
+de l'enregistrement (D397) se renomme `title`** — le gabarit
+d'affichage, cohérent avec le `title` du formulaire (D449/D453) — et
+**« la propriété `title` d'une entité sera utilisable sur un formulaire
+et surchargeable sur le formulaire »** (la cascade entité →
+formulaire) ; **(3) `labels`** ne survit qu'au **dictionnaire du
+module** (D440) :
+
+```yaml
+name: customer
+label: { fr: Client }                # les libellés par langue
+title: "{code} — {company_name}"     # le visage (ex-label D397) — sert le
+image: logo                          #   formulaire par défaut, s'y surcharge
+```
 
 **Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
 type password ? ») — non ; il entre aux composés, **avec des garanties
@@ -9678,3 +9698,13 @@ avant la synthèse Q16).
   `lines` : `lines`/`icon`/`label` (par langue), le défaut traduit du
   moteur sinon. La fiche `text` reprise ; virgule ouverte : `label` vs
   `labels` (l'harmonisation). En attente : la validation de `text`.
+- **2026-08-13 (suite 13)** — **Le triptyque label/title/labels
+  (D465)** : « remplaçons labels par label, à l'exception du catalogue
+  de libellés » — l'objection de la collision D397 levée par le
+  renommage du visage : **`label` = les libellés par langue partout ;
+  le visage devient `title`** (cohérent avec le formulaire — « la
+  propriété title d'une entité sera utilisable sur un formulaire et
+  surchargeable ») ; **`labels` = le dictionnaire du module seul**.
+  Renommage appliqué : conception (43 occurrences en ligne + le socle
+  D364 + les artefacts), glossaire (Libellé, Visages), composants (7).
+  En attente : la validation de la fiche `text`.

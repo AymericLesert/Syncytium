@@ -10063,3 +10063,5 @@ avant la synthèse Q16).
   mini-carte/carte dépliée, la vignette/visionneuse (D293), la liste
   du picker (D469), la surimpression (D454). La fiche map en attente
   de validation.
+- **2026-08-13 (suite 38)** — **La fiche `map` validée** (« oui »).
+  Suivante : `thread` (le fil de communication — D295/D393).

@@ -539,6 +539,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D458 | **Les renommages des feuilles** : `text-zone` → **`text`**, `number-zone` → **`number`**, `list-editor` → **`list`** (« suffit ») — et la lecture consignée : **le composant par défaut d'un type porte le nom du type** (D64 devient nominal), les espaces de noms se résolvant par le contexte (`type:` vs `component:`). | Les collisions assumées — le contexte du slot départage ; composants.md à jour. |
 | D459 | **Le type-hook doit se représenter** : « un type ajouté via le hook doit inclure une phase de représentation graphique — ou via un document PDF, Word… » — **aucun type sans visage** : le composant d'écran et/ou le rendu de document (`template`, D456). | La ligne D455 (une facette = un hook) — la facette d'affichage d'un type hooké est due ; le contrat au domaine 6. Voir §3.2c. |
 | D460 | **`field[<nom>]`** — la forme explicite du nœud-champ dans les `items` (« certains noms de champs sont aussi des composants — pour éviter l'ambiguïté, c'est nécessaire ») ; **la surcharge de représentation au nœud** : le style par état (vide/faux, coché/vrai, le nul), la taille… | La chaîne type → colonne → nœud (D270/D447) s'achève au formulaire ; formes `style:`/`size:` en proposition. Voir §3.2c. |
+| D461 | **Un seul vocabulaire de représentation, trois étages** : les propriétés de représentation (`component`, `style`, `size`, `readonly`…) **se portent au type (D64/D359), se surchargent au champ, se surchargent encore au nœud `gui`** — les mêmes mots partout, le plus proche l'emporte. | `field[active]` confirmé (« dans mon esprit ») ; la cascade au vocabulaire unique (l'esprit D360). Voir §3.2c. |
 
 ---
 
@@ -3127,6 +3128,17 @@ items:
       style: { true: check, false: empty, null: dash }   # l'apparence par état
       size: 24px                 # (formes en proposition)
 ```
+
+**Un seul vocabulaire de représentation, trois étages (D461).** La
+forme courte `field[active]` est confirmée (« dans mon esprit ») — et
+la surcharge s'unifie : **« la description du type pouvait contenir des
+informations sur sa représentation avec `component` (D64/D359) — ici,
+nous reprenons les mêmes propriétés, qui surchargent les propriétés
+vues sur la définition du champ. »** **Les mêmes mots à chaque étage** —
+`component`, `style`, `size`, `readonly`… : **le type les porte, le
+champ les surcharge, le nœud `gui` les surcharge encore** — la chaîne
+D270/D447/D460 devient une cascade au vocabulaire unique, le plus
+proche l'emporte (l'esprit D360).
 
 **Le type-hook doit se représenter (D459).** **« Un type ajouté via le
 hook doit inclure une phase de représentation graphique — ou via un
@@ -9599,3 +9611,11 @@ avant la synthèse Q16).
   au nœud (le style par état — vide = faux, coché = vrai, le nul — la
   taille…). L'exemple checkbox repris dans composants.md ; en attente :
   sa validation, la question des columns (la même explicitation ?).
+- **2026-08-13 (suite 7)** — **Un seul vocabulaire de représentation
+  (D461)** : `field[active]` confirmé ; « la description du type
+  pouvait contenir des informations sur sa représentation avec
+  component — ici, nous reprenons les mêmes propriétés, qui surchargent
+  les propriétés vues sur la définition du champ » — les mêmes mots aux
+  trois étages (type → champ → nœud gui), le plus proche l'emporte.
+  Toujours ouvertes : la question des columns, la validation finale de
+  l'exemple checkbox.

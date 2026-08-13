@@ -10327,3 +10327,7 @@ avant la synthèse Q16).
   validées. **Sections/section mis en attente de relecture** à la
   demande de l'auteur. Le tableau de synthèse types × composants
   demandé — livré dans l'échange.
+- **2026-08-13 (suite 58)** — **Le tableau corrigé** : « association
+  with est absent de la liste » — les lignes du trio des liens (D400)
+  distinguées : l'association stockée, le n-aire (D402), la dérivée à
+  l'if (D405), et la liste nommée de l'accès retour (D394/D216).

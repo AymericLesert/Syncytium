@@ -884,3 +884,48 @@ gui:
               - field[invoice]:
                   selection: 1     # un seul fichier (D474)
 ```
+
+## `image-viewer`
+
+1. **Nom et famille** — `image-viewer`, une feuille — le pendant de
+   lecture de `picker.image` ;
+2. **Rôle** — la visionneuse : l'image regardée — la vignette en place,
+   le plein cadre au clic ;
+3. **Types servis** — `image` et `thumbnail` **en lecture** (le défaut
+   de leur mode lecture — D286/D293) ;
+4. **Contexte consommé** — le champ (les dimensions du crochet, la
+   vignette auto — D389), le `placeholder` (l'icône de fond si l'image
+   manque — D390), les droits ;
+5. **Propriétés** — `dimension:` (la visionneuse — D454/D469) ; rien
+   d'autre : la vignette vient du moteur (D286) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — lecture : **la vignette, la visionneuse
+   au clic — plein écran sur smartphone, pourcentage de l'écran sur
+   tablette, zone définie sur PC** (D293) ; cellule et widget : la
+   vignette (D286) ; template : l'image rendue (D257) ; **pas de
+   recadrage dans le socle** (le hook D263) ;
+8. **États et interactions** — le `placeholder` tant que l'image
+   manque (D390) ; le zoom et la fermeture au geste sur tactile ;
+9. **Décisions fondatrices** — D257, D286, D293, D389–D390 ;
+10. **Exemple de configuration** —
+
+```yaml
+# hr/entities/employee.yml
+fields:
+  photo:
+    type: image[512x512]           # la boîte max, la vignette auto (D389)
+    placeholder: avatar.png        # l'icône de fond (D390)
+
+gui:
+  lists:
+    main:
+      columns: [name, photo]       # la vignette en cellule (D286)
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Profil }
+            items:
+              - field[photo]:
+                  dimension: 60%   # la visionneuse au clic — 60 % de l'écran (D293)
+```

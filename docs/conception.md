@@ -9907,3 +9907,7 @@ avant la synthèse Q16).
   libellés qui guident, le quota, la caméra/galerie selon le jeu,
   la déduplication silencieuse). En attente de validation — la famille
   picker se fermerait.
+- **2026-08-13 (suite 26)** — **La famille `picker` scellée** :
+  picker.file validée (« oui ») — record, image, file au complet
+  (D469–D474). Suivante : `image-viewer` (la visionneuse — la lecture
+  de l'image, le pendant du picker).

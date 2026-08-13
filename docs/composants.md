@@ -292,3 +292,49 @@ gui:
               - field[weight]:
                   component: calculator   # le satellite au nœud (D461)
 ```
+
+## `calculator`
+
+1. **Nom et famille** — `calculator`, une feuille — le satellite de
+   `number` ;
+2. **Rôle** — la calculatrice : la saisie numérique tactile, **avec les
+   calculs élémentaires** (+, −, ×, ÷) — le résultat alimente le champ ;
+3. **Types servis** — les numériques (`integer`, `decimal` et leurs
+   composés) ; **jamais un défaut — une surcharge** (`component:
+   calculator`, aux trois étages D461) ; sur smartphone et tablette,
+   **elle remplace le clavier natif** (l'arbitrage du thème E) ;
+4. **Contexte consommé** — le champ (les bornes, les décimales, le
+   masque), son `mode`, les droits ;
+5. **Propriétés** — aucune propre : les touches et opérations
+   élémentaires sont livrées, le format vient du champ (D370/D373) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **la modification seulement** (la
+   calculatrice est une saisie) ; en lecture, résumé, template et
+   Excel : le rendu `number` standard ; sur PC, disponible au clic
+   (l'icône près du champ) — sur tactile, le plein usage ;
+8. **États et interactions** — grisée si `readonly`/droits ; le refus
+   des bornes affiché (D307) ;
+9. **Décisions fondatrices** — D272, les arbitrages responsive du
+   thème E, D461 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order_line.yml
+fields:
+  quantity: integer[1..]
+  discount:
+    type: decimal[0..100]
+    decimals: 2
+    component: calculator          # la surcharge au champ — partout
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Ligne }
+            items:
+              - field[quantity]:
+                  component: calculator   # ou au nœud seul — ce formulaire (D461)
+              - field[discount]
+```

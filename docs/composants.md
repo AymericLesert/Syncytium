@@ -442,3 +442,45 @@ gui:
             items:
               - field[avancement]  # en modification : la saisie number, le cadran illustre
 ```
+
+## `slider`
+
+1. **Nom et famille** — `slider`, une feuille — le curseur, la saisie
+   des numériques bornés ;
+2. **Rôle** — le curseur : « une saisie simple et sans clavier »
+   (D275) — la poignée glisse entre les bornes, la valeur suit ;
+3. **Types servis** — les numériques **bornés** (les bornes exigées —
+   l'esprit `gauge`) ; jamais un défaut — la surcharge
+   (`component: slider`, aux trois étages D461) ;
+4. **Contexte consommé** — le champ (les bornes, les décimales — le pas
+   s'en déduit), son `mode`, les droits ;
+5. **Propriétés** — le pas se déduit des décimales (`decimals: 0` → pas
+   de 1) ; **`colors:`** (D467) applicable à la piste ; la valeur
+   affichée près de la poignée ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — modification : le glissé (le tactile en
+   premier — la cible large) ; lecture : la piste figée, la valeur ;
+   résumé / template / Excel : la valeur canonique ; identique aux
+   trois écrans, le pas tactile élargi sur smartphone ;
+8. **États et interactions** — grisé si `readonly`/droits ; le clavier
+   PC : les flèches ajustent d'un pas (l'accessibilité) ;
+9. **Décisions fondatrices** — D275, D461, D467 ;
+10. **Exemple de configuration** —
+
+```yaml
+# hr/entities/employee.yml
+fields:
+  workload:
+    type: integer[0..40]
+    component: slider              # la surcharge — la saisie au glissé
+    colors: { 0: green, 30: orange, 38: red }   # les seuils (D467)
+
+gui:
+  forms:
+    default:
+      body:
+        - section:
+            label: { fr: Charge }
+            items:
+              - field[workload]
+```

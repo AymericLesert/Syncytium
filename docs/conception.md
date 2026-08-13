@@ -544,7 +544,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D463 | **Le composé `password`** — les garanties structurelles : **l'empreinte jamais le clair** (D33), **write-only** (« défini / non défini » en lecture) ; saisie masquée + double saisie ; **jamais** en liste, recherche, export ni conversion (D369) — l'empreinte seule aux instantanés (D169) ; la force par `validation`. | « La facette décrite me convient. » Catalogue (D361) et composants.md complétés. Voir §3.2c. |
 | D464 | **Le raccourci du texte : `shortcut`** (au lieu de `lines`) — trois propriétés : **`lines`** (les lignes visibles), **`icon`** (`next.svg`), **`label`** (par langue — « Voir plus »/« More ») ; absent = le défaut traduit du moteur. | La fiche `text` reprise ; virgule : `label` vs le `labels` du socle — à harmoniser ? |
 | D465 | **Le triptyque `label`/`title`/`labels`** : **`label` = les libellés par langue, partout** (remplace `labels`) ; **le visage de l'enregistrement (D397) se renomme `title`** — le gabarit d'affichage, cohérent avec le formulaire (D449/D453), **utilisable sur un formulaire et surchargeable** (la cascade entité → formulaire) ; **`labels` ne survit qu'au dictionnaire du module** (D440). | Renommage appliqué aux trois documents (conception — 43 occurrences, glossaire, composants) ; le socle D364 amendé. Voir §3.2c. |
-| D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { fill: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; le nom (`fill`/`background`/`gradient`) à trancher. Voir §3.2c. |
+| D466 | **Le fond gradué** : « un fond gradué d'un champ en fonction de la valeur d'un autre champ dont la valeur est bornée » — la jauge en fond de cellule (`name: { background: avancement }`), deux informations en une. | Les bornes du champ pilote exigées ; **le nom : `background`** (fill/gradient écartés). Voir §3.2c. |
 | D467 | **Les couleurs de jauge** : « les couleurs à afficher doivent être spécifiées » — **le dégradé min → max** (`colors: { min: red, max: green }` — **le défaut, du rouge au vert**) **ou la couleur par seuil** (`{ 0: red, 50: orange, 80: green }`). | Vaut pour `gauge`, `fuel` et le fond gradué (D466), aux trois étages (D461) ; fiches complétées. Voir §3.2c. |
 
 ---
@@ -3176,11 +3176,11 @@ unique (D461) :
 
 ```yaml
 columns:
-  - name: { fill: avancement }     # le fond gradué par le champ borné
+  - name: { background: avancement }   # le fond gradué par le champ borné
 ```
 
-*(Les bornes du champ pilote exigées — l'esprit `gauge` ; le nom de la
-propriété — `fill`, `background`, `gradient` — à trancher.)*
+*(Les bornes du champ pilote exigées — l'esprit `gauge` ; **le nom est
+tranché : `background`**.)*
 
 **Les couleurs de jauge (D467).** **« Dans le cas d'une jauge, les
 couleurs à afficher doivent être spécifiées »** — deux formes :

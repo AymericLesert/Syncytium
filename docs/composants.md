@@ -1070,3 +1070,59 @@ gui:
                   size: 200px      # la mini-carte à l'affichage (D484)
                   dimension: 60%   # la carte dépliée au clic (D484)
 ```
+
+## `thread`
+
+1. **Nom et famille** — `thread`, une feuille — le fil : le composant
+   naturel de `communication` (D458) ;
+2. **Rôle** — **le fil chronologique regardé et nourri** : les messages
+   immuables — auteur, horodatage, contenu —, la saisie du nouveau
+   message en bas (D295) ;
+3. **Types servis** — `communication` (D166/D393 : un canal = un champ,
+   non listable ; l'auteur et l'horodatage générés, jamais déclarés) ;
+4. **Contexte consommé** — le fil et ses attachés (`attachments:` —
+   `file`, `image` ou `thumbnail`, leurs propriétés à plat sur le
+   champ — D393), **la confidentialité** (D25/D364 — la visibilité du
+   fil s'y cale, aucune propriété séparée), les notifications opt-in
+   (D108–D110), les droits ;
+5. **Propriétés** — le socle du vocabulaire (D461) ; **`preview:`** —
+   le nombre de lignes du résumé au survol en cellule (D393 — *la
+   forme `preview: 3` en proposition*) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **saisie et lecture** : le fil
+   chronologique, la saisie en bas, les pièces jointes si activées
+   (D295) — l'onglet acté au formulaire (D167/D186) ; **smartphone** :
+   le fil en plein écran (D295) ; **cellule** : une petite icône
+   (thumbnail) — au survol, le ou les derniers échanges résumés
+   (D393, amende D295) ; **template** : le fil complet si le bloc est
+   inclus au gabarit (D295) ; **Excel** : exclu (D236) ; **recherche** :
+   le contenu des messages — `normalized`, `similarity`,
+   `mutualizable` (D393) ;
+8. **États et interactions** — les messages immuables (jamais d'édition
+   ni de suppression) ; la visibilité par la confidentialité (D393) ;
+   les notifications opt-in (D108–D110) ; en lecture seule, le fil se
+   consulte sans zone de saisie ;
+9. **Décisions fondatrices** — D108–D110, D166–D167, D186, D236, D295,
+   D393 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml
+fields:
+  discussion:
+    type: communication
+    attachments: image[1024x1024]  # le type d'attaché, ses propriétés à plat (D389/D393)
+    quota: 5MB
+
+gui:
+  lists:
+    main:
+      columns:
+        - number
+        - customer
+        - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393 — proposition)
+  forms:
+    default:
+      body:
+        - field[discussion]           # le fil — saisie en bas, messages immuables (D295)
+```

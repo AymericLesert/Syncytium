@@ -1193,3 +1193,52 @@ gui:
         - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
         - field[languages]         # les cases ou les tags (D296)
 ```
+
+## `section`
+
+1. **Nom et famille** — `section`, un conteneur — **« un regroupement
+   potentiellement nommé »** ; fournie par Syncytium (D451) ;
+2. **Rôle** — regrouper des composants sous un intitulé facultatif —
+   l'unité de lecture du formulaire ; le nœud pur : aucune valeur
+   portée, aucun bloc à part (D487) ;
+3. **Types servis** — aucun : le conteneur est indifférent à ce qu'il
+   contient (le graphe D455) ;
+4. **Contexte consommé** — le contexte transmis tel quel aux items
+   (l'enregistrement, l'origine de l'appel, l'utilisateur — D455) ;
+   les droits et la confidentialité (la section masquée masque ses
+   items) ;
+5. **Propriétés** — `label:` — les libellés par langue (D465),
+   **facultatif** (« potentiellement nommé ») ; le socle du vocabulaire
+   (D461 : style…) ;
+6. **Items** — **libres** : des champs (`field[<nom>]` — D460), des
+   conteneurs emboîtés (sections, `grid`, `tabs`…), tout composant —
+   l'emboîtement libre du modèle unifié (D455) ;
+7. **Modes et déclinaisons** — au formulaire : le cadre, l'intitulé en
+   tête s'il est nommé ; dans `header`/`body`/`footer` comme dans
+   `pages` (D450/D487) ; le rendu s'adapte au `screen:` déclaré
+   (D450) ; template : le regroupement du gabarit ;
+8. **États et interactions** — la visibilité par les droits et la
+   confidentialité ; rien d'autre au socle ;
+9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
+   D487 ;
+10. **Exemple de configuration** —
+
+```yaml
+gui:
+  forms:
+    default:
+      body:
+        - section:                 # anonyme — le regroupement seul
+            items:
+              - field[number]
+              - field[date]
+        - section:
+            label: { fr: Adresse, en: Address }
+            items:
+              - field[street]
+              - field[city]
+              - section:           # l'emboîtement libre (D455)
+                  label: { fr: Contact }
+                  items:
+                    - field[phone]
+```

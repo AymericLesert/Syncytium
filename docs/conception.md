@@ -565,6 +565,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D484 | **Le couple `size:`/`dimension:`** : « size décrit la dimension à l'affichage et dimension la dimension en extension (suite à un clic) » — size à plat (le socle D461), dimension au déploiement (la visionneuse D293, le picker D469, la surimpression D454). | Voir §3.2c. |
 | D485 | **Le fil épouse son contenant** (précise D167/D186) : « il peut prendre une section ou un onglet… ça prend la place qu'on lui laisse » — l'onglet, un habitat parmi d'autres. | Voir §3.2c. |
 | D486 | **Un seul `list`** : « le composant graphique list vu avant les types est intimement lié à list ici » — la liste complète (D441–D447) et l'éditeur, un même composant ; `list of <entité>` la déploie, `list of <type simple>` la resserre sur la colonne unique. | Le vocabulaire D441–D447 vaut où il garde son sens. Voir §3.2c. |
+| D487 | **Le bloc n'existe pas** : « block n'existe pas en tant que tel — il se décline selon les différents items » ; header/body/footer = des conteneurs du catalogue reconnus par leur nom et leur rôle, au formulaire (D449) comme dans `pages`. | La ligne D455 : tout est composant. Voir §3.2c. |
 
 ---
 
@@ -3367,6 +3368,14 @@ la liste embarquée aux colonnes de l'entité ; `list of <type simple>`
 la **resserre sur la colonne unique des valeurs** — et le vocabulaire
 de la liste complète (columns, editable, selection, sizable, l'export…)
 vaut partout où il garde son sens.
+
+**Le bloc n'existe pas (D487).** **« Block n'existe pas en tant que
+tel. Il se décline selon les différents items vus ci-dessus. »** Le mot
+« bloc » (D449) était générique : aucun composant ne le porte — il se
+matérialise par les conteneurs du catalogue (`section`, `grid`, `tabs`,
+`pages`, `page`) et par `header`/`body`/`footer`, des conteneurs
+reconnus par leur nom et leur rôle — au formulaire (D449) comme dans
+`pages`. La ligne du modèle unifié (D455) : tout est composant.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10102,3 +10111,7 @@ avant la synthèse Q16).
   picker.image, picker.file, viewer, map, thread, list). Famille
   suivante : les conteneurs (section, grid, tabs, pages, page — le
   statut de header/body/footer à trancher).
+- **2026-08-13 (suite 43)** — **Le bloc n'existe pas (D487)** :
+  « block n'existe pas en tant que tel — il se décline selon les
+  différents items » ; header/body/footer = des conteneurs du
+  catalogue. Première fiche de la famille : `section`.

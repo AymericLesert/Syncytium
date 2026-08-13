@@ -571,6 +571,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D490 | **Les arbitrages du couple** : `layout: column \| row \| grid[2]` (le crochet = les colonnes de la grille) ; « la section seule est un conteneur (header, body ou footer) » — la section nue y vit directement, ailleurs l'organisateur ; « si l'affichage doit changer, screen permet de définir le format attendu » — rien d'automatique. | Voir §3.2c. |
 | D491 | **La grille au crochet** (amende D490) : « oublie grid… column[3] — maximum de 3 colonnes, après 3 on crée une ligne… row[2] — 2 lignes, puis ajoute une colonne » — `layout: column[n] \| row[n]`, le conteneur `grid` retiré du catalogue. | Le mot nomme l'unité, le crochet la compte, le flux replie. Voir §3.2c. |
 | D492 | **La liste en widgets** : « elle peut se présenter sous forme d'une liste de widgets — la propriété `widget: <nom du widget>` de l'entité de l'élément » — le tableau (`columns:`) ou les widgets, la mécanique de la liste demeurant. | `widget:`/`columns:` exclusifs — validé. Voir §3.2c. |
+| D493 | **`title:` au titre de la section** : « le nom d'un regroupement est un libellé en titre de la section — au lieu de label, j'utilise title » — title = ce qui titre (l'entité D465, le formulaire D449, la section) ; label demeure ailleurs. | Les exemples balayés (label → title sous section). Voir §3.2c. |
 
 ---
 
@@ -3437,6 +3438,15 @@ widgets** — chaque enregistrement rendu par le widget que son entité
 déclare (`gui: widgets:` — D455). **L'exclusion mutuelle `widget:`/`columns:` est validée** — l'un ou
 l'autre visage ; toute la mécanique de la liste — filtre, tri,
 recherche, sélection, pagination, opérations — demeure.
+
+**Le titre de la section : `title:` (D493).** **« Le nom d'un
+regroupement est en fait un libellé en titre de la section. Au lieu de
+label, j'utilise `title`. »** La section se nomme par **`title:`** —
+les libellés par langue (la mécanique D465) en position de titre —
+l'écho du titre du formulaire (D449, la zone à gabarit déclinable par
+langue) et du `title` de l'entité (D465) : **title = ce qui titre**.
+`label` demeure ailleurs (le `shortcut` D464, le `paragraph` D488, les
+`values`…).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10215,3 +10225,8 @@ avant la synthèse Q16).
 - **2026-08-13 (suite 51)** — **L'exclusion widget/columns validée**
   (« je valide l'exclusion mutuelle widget / columns »). Les fiches
   sections/section toujours en attente.
+- **2026-08-13 (suite 52)** — **`title:` au titre de la section
+  (D493)** : « le nom d'un regroupement est un libellé en titre — au
+  lieu de label, j'utilise title » — title = ce qui titre ; label
+  demeure ailleurs (shortcut, paragraph, values). Les exemples de
+  composants.md balayés.

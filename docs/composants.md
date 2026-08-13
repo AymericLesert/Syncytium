@@ -101,7 +101,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Statut }
+            title: { fr: Statut }
             items:
               - field[active]         # la forme explicite (D460) — l'ambiguïté
                                       #   champ/composant levée
@@ -160,7 +160,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Fonctionnement }
+            title: { fr: Fonctionnement }
             items:
               - field[automated]:
                   component: toggle   # la surcharge peut aussi vivre AU NŒUD (D461) —
@@ -224,7 +224,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Identité }
+            title: { fr: Identité }
             items:
               - field[name]
               - field[notes]:
@@ -285,7 +285,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Mesures }
+            title: { fr: Mesures }
             items:
               - field[quantity]
               - field[price]
@@ -332,7 +332,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Ligne }
+            title: { fr: Ligne }
             items:
               - field[quantity]:
                   component: calculator   # ou au nœud seul — ce formulaire (D461)
@@ -385,7 +385,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Activité }
+            title: { fr: Activité }
             items:
               - field[satisfaction]
               - field[workload]
@@ -438,7 +438,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Suivi }
+            title: { fr: Suivi }
             items:
               - field[avancement]  # en modification : la saisie number, le cadran illustre
 ```
@@ -480,7 +480,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Charge }
+            title: { fr: Charge }
             items:
               - field[workload]
 ```
@@ -526,7 +526,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Horaires }
+            title: { fr: Horaires }
             items:
               - field[opening]
               - field[closing]
@@ -577,7 +577,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Échéances }
+            title: { fr: Échéances }
             items:
               - field[due_date]
               - field[billing_month]
@@ -630,7 +630,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Classification }
+            title: { fr: Classification }
             items:
               - field[category]
 ```
@@ -678,7 +678,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Priorité }
+            title: { fr: Priorité }
             items:
               - field[priority]:
                   component: radios   # la surcharge au nœud — trois valeurs
@@ -731,7 +731,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Classification }
+            title: { fr: Classification }
             items:
               - field[category]: { size: 48px }   # la taille au nœud (D461)
 ```
@@ -787,7 +787,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Encadrement }
+            title: { fr: Encadrement }
             items:
               - field[responsible]:
                   by: active_employees          # la présentation — la liste (D474)
@@ -833,7 +833,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Profil }
+            title: { fr: Profil }
             items:
               - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
 ```
@@ -879,7 +879,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Documents }
+            title: { fr: Documents }
             items:
               - field[invoice]:
                   selection: 1     # un seul fichier (D474)
@@ -961,7 +961,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Profil }
+            title: { fr: Profil }
             items:
               - field[photo]:
                   dimension: 60%   # la visionneuse au clic (D293)
@@ -977,7 +977,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Galerie }
+            title: { fr: Galerie }
             items:
               - field[gallery]:    # la collection => carousel déduit (D477)
                   interval: 5s     # le défilement automatique (D476)
@@ -1064,7 +1064,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Localisation }
+            title: { fr: Localisation }
             items:
               - field[location]:
                   size: 200px      # la mini-carte à l'affichage (D484)
@@ -1127,7 +1127,7 @@ gui:
     default:
       body:
         - section:
-            label: { fr: Échanges }
+            title: { fr: Échanges }
             items:
               - field[discussion]   # le fil prend la place qu'on lui laisse (D485)
 ```
@@ -1239,12 +1239,12 @@ gui:
             layout: row            # column[n] | row[n] (D490/D491)
             items:
               - section:
-                  label: { fr: Adresse, en: Address }
+                  title: { fr: Adresse, en: Address }
                   items:
                     - field[street]
                     - field[city]
               - section:
-                  label: { fr: Contact }
+                  title: { fr: Contact }
                   items:
                     - field[phone]
                     - field[email]
@@ -1264,9 +1264,10 @@ gui:
    (l'enregistrement, l'origine de l'appel, l'utilisateur — D455) ;
    les droits et la confidentialité (la section masquée masque ses
    items) ;
-5. **Propriétés** — `label:` — les libellés par langue (D465),
-   **facultatif** (« potentiellement nommé ») ; le socle du vocabulaire
-   (D461 : style…) ;
+5. **Propriétés** — **`title:`** — « le nom d'un regroupement est en
+   fait un libellé en titre de la section » (D493) : les libellés par
+   langue (D465) en position de titre, **facultatif** (« potentiellement
+   nommé ») ; le socle du vocabulaire (D461 : style…) ;
 6. **Items** — **« soit sections, soit une des feuilles vues
    précédemment »** (D489) — l'alternance stricte : l'emboîtement de
    sections passe par l'organisateur `sections` ; les champs par
@@ -1281,14 +1282,14 @@ gui:
 8. **États et interactions** — la visibilité par les droits et la
    confidentialité ; rien d'autre au socle ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489–D491 ;
+   D487, D489–D491, D493 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 
 ```yaml
 body:                              # la section seule, directement (D490)
   - section:
-      label: { fr: Adresse }
+      title: { fr: Adresse }
       items:
         - field[street]            # les feuilles (D489)
         - sections:                # l'emboîtement par l'organisateur

@@ -587,6 +587,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D506 | **La dimension unique des volets** : « pour chaque tab, toujours la même dimension — les zones sont centrées si elles représentent un espace plus petit » — aucun calibrage par volet (le contraste avec D502), le contenu plus petit centré. | Voir §3.2c. |
 | D507 | **La géométrie de `pages`** : « pages prend toute la place, pas de dimension ; le header et le footer sont optionnels — s'ils sont définis, ils sont toujours visibles ; la hauteur du footer et du header sont paramétrables ; la page prend toujours le reste ». | Aucun size: (contraste D503) ; height: sur header/footer. Voir §3.2c. |
 | D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
+| D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
 
 ---
 
@@ -3004,7 +3005,7 @@ forms:
     title: "{code} — {company_name}"   # LA zone de texte à gabarit (D90/D253)
     header:                            # un BLOC
       - section: { fields: [category, active] }
-    body:                              # le corps — des blocs
+    page:                              # ex-body (D509) — la page du pages implicite
       - section:
           label: { fr: Identité }
           fields: [code, company_name, advisor]
@@ -3623,6 +3624,19 @@ logique que tabs. »** La poignée de la page est **son numéro** — le
 `title:` et l'`icon:` s'y affectent comme sur un onglet (D493/D439) —
 et l'affichage hérite de la logique de `tabs` : la barre des poignées,
 ses modes (D504), le chemin (D505), le swipe.
+
+**Le formulaire est un `pages`, `body` disparaît (D509 — amende
+D449/D455/D490).** **« Pages est le premier composant d'un formulaire
+sans avoir besoin de le déclarer. Header et footer sont déjà décrits.
+Ici, body est à remplacer par `page`. »** Et la famille se clôt :
+**« pas besoin de composants complémentaires. »** La racine de tout
+formulaire est un `pages` **implicite** — ses items : `header`,
+`page`(s), `footer` (D507) ; **le mot `body` quitte le vocabulaire**,
+la clé s'écrit `page:`. Le quatuor D449 se relit : le titre, l'entête,
+**la ou les pages**, le pied. Les conteneurs au complet :
+`sections`/`section`, `tabs`/`tab`, `pages`/`page`, `header`/`footer`.
+*(La virgule : plusieurs pages au formulaire — la clé `page:` ne se
+répète pas en YAML ; l'écriture du multi-pages à préciser.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10510,3 +10524,10 @@ avant la synthèse Q16).
   réservés — D487/D490), proposée avec deux lectures (une fiche pour
   les trois ; la double écriture — les clés au formulaire, les items
   dans pages).
+- **2026-08-14 (suite 3)** — **Le formulaire est un pages (D509)** :
+  « pages est le premier composant d'un formulaire sans avoir besoin
+  de le déclarer ; header et footer sont déjà décrits ; body est à
+  remplacer par page » — et « pas besoin de composants
+  complémentaires ». Body quitte le vocabulaire ; la fiche réécrite
+  en header/footer ; les exemples balayés (body: → page:). La
+  virgule : l'écriture du multi-pages.

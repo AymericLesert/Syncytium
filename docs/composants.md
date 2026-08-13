@@ -165,7 +165,7 @@ gui:
       editable: [active]              # l'édition en ligne — le clic cycle (D374)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Statut }
             items:
@@ -224,7 +224,7 @@ gui:
       editable: [automated]      # la bascule en ligne
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Fonctionnement }
             items:
@@ -288,7 +288,7 @@ gui:
       searchable: [name]         # la boîte au filtrage vivant (D228/D441)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Identité }
             items:
@@ -349,7 +349,7 @@ gui:
       editable: [quantity]
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Mesures }
             items:
@@ -396,7 +396,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Ligne }
             items:
@@ -456,7 +456,7 @@ gui:
       columns: [name, satisfaction, workload]   # la jauge en cellule — un regard
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Activité }
             items:
@@ -509,7 +509,7 @@ gui:
       columns: [name, avancement]  # le cadran en cellule — la lecture instantanée
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Suivi }
             items:
@@ -551,7 +551,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Charge }
             items:
@@ -597,7 +597,7 @@ gui:
       searchable: [opening]        # la plage horaire (range — D381)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Horaires }
             items:
@@ -648,7 +648,7 @@ gui:
       searchable: [due_date]       # la plage de dates — l'usage roi (D381)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Échéances }
             items:
@@ -701,7 +701,7 @@ gui:
       editable: [category]         # la liste en cellule (D205)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Classification }
             items:
@@ -749,7 +749,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Priorité }
             items:
@@ -802,7 +802,7 @@ gui:
       columns: [code, company_name, category]   # l'icône en cellule
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Classification }
             items:
@@ -858,7 +858,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Encadrement }
             items:
@@ -904,7 +904,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Profil }
             items:
@@ -950,7 +950,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Documents }
             items:
@@ -1032,7 +1032,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Profil }
             items:
@@ -1048,7 +1048,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Galerie }
             items:
@@ -1069,7 +1069,7 @@ fields:
 gui:
   forms:
     default:
-      body:
+      page:
         - field[handbook]:
             component: viewer[carousel]  # le défilement des pages
             interval: 10s                # la présentation, le mode opératoire
@@ -1080,7 +1080,7 @@ gui:
     invoice: …                           # le patron du document (Q55)
   forms:
     default:
-      body:
+      page:
         - template[invoice]:             # la facture générée à la volée —
             component: viewer[carousel]  # ses pages feuilletées (D481)
 ```
@@ -1135,7 +1135,7 @@ gui:
       columns: [name, location]  # lat,long court — le clic déplie la carte (D294)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Localisation }
             items:
@@ -1198,7 +1198,7 @@ gui:
         - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393 — proposition)
   forms:
     default:
-      body:
+      page:
         - section:
             title: { fr: Échanges }
             items:
@@ -1266,7 +1266,7 @@ gui:
       columns: [name, keywords]    # les premières valeurs + ellipse (D296)
   forms:
     default:
-      body:
+      page:
         - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
         - field[languages]         # les cases ou les tags (D296)
 ```
@@ -1316,7 +1316,7 @@ gui:
 gui:
   forms:
     default:
-      body:
+      page:
         - sections:                # l'organisateur (D489)
             layout: row            # column[n] | row[n] (D490/D491)
             items:
@@ -1372,7 +1372,7 @@ gui:
     aussi la fiche `sections`)* —
 
 ```yaml
-body:                              # la section seule, directement (D490)
+page:                              # la section seule, directement (D490)
   - section:
       title: { fr: Adresse }
       items:
@@ -1573,7 +1573,7 @@ gui:
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
-body:
+page:
   - tabs:
       mode: wizard               # les étapes — l'avance à l'exploration (D504)
       items:
@@ -1650,7 +1650,7 @@ body:
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
-body:
+page:
   - pages:
       items:
         - header:
@@ -1689,53 +1689,45 @@ body:
 10. **Exemple de configuration** — *(voir la fiche `pages` : le couple
     vit ensemble)*.
 
-## `header` / `body` / `footer`
+## `header` / `footer`
 
-1. **Nom et famille** — `header`, `body`, `footer` — trois conteneurs
-   d'un même sang : **les sections seules aux rôles réservés**
-   (D487/D490 — « la section seule est un conteneur ») ; *une seule
-   fiche pour les trois, leur nature étant commune (en proposition —
-   à découper si besoin)* ;
-2. **Rôle** — l'entête se fige en haut, le pied en bas, **le corps
-   prend le reste** — au formulaire (D449) comme dans `pages`
-   (D507) ;
+1. **Nom et famille** — `header` et `footer` — deux conteneurs d'un
+   même sang : les rôles réservés de `pages` (D487/D490, amendés
+   D509 — **le formulaire est un `pages` implicite**, `body` a quitté
+   le vocabulaire au profit de `page`) ; « pas besoin de composants
+   complémentaires » : la famille des conteneurs est close ;
+2. **Rôle** — l'entête se fige en haut, le pied en bas — **« s'ils
+   sont définis, ils sont toujours visibles »**, et **la page prend
+   toujours le reste** (D507) ;
 3. **Types servis** — aucun : des conteneurs (D455) ;
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité ;
-5. **Propriétés** — **`height:`** sur l'entête et le pied — consignée
-   dans `pages` (D507) ; *au formulaire, la même logique (en
-   proposition)* ; le socle du vocabulaire (D461) ;
-6. **Items** — « l'entête, le corps et le pied acceptent sections et
-   onglets » (D450) : les sections seules (D490), l'organisateur
-   `sections`, les `tabs`, les feuilles — et `pages` dans le corps ;
-7. **Modes et déclinaisons** — au formulaire : les trois parties de
-   D449 (le titre restant une propriété du formulaire) ; dans
-   `pages` : l'entête et le pied **toujours visibles**, la page
-   prenant le reste (D507) ; au template : répétés à chaque page
-   (*en proposition — D507*) ; **la double écriture** *(lecture en
-   proposition)* : **les clés au formulaire** (`header:` / `body:` /
-   `footer:` — la forme consacrée de nos exemples), **les items dans
-   `pages`** (`- header:`) — le même composant sous deux plumes ;
+5. **Propriétés** — **`height:`** — « la hauteur du footer et du
+   header sont paramétrables » (D507) ; le socle du vocabulaire
+   (D461) ;
+6. **Items** — « l'entête et le pied acceptent sections et onglets »
+   (D450) : les sections seules (D490), l'organisateur `sections`,
+   les `tabs`, les feuilles ;
+7. **Modes et déclinaisons** — au formulaire (le `pages` implicite —
+   D509) comme dans un `pages` déclaré (D507) : toujours visibles
+   pendant que les pages tournent ; au template : répétés à chaque
+   page (*en proposition — D507*) ;
 8. **États et interactions** — masqués par les droits ; rien d'autre
    au socle ;
 9. **Décisions fondatrices** — D449–D450, D455, D461, D487, D490,
-   D507 ;
+   D507, D509 ;
 10. **Exemple de configuration** —
 
 ```yaml
 forms:
-  default:
-    header:                        # la clé au formulaire (D449)
-      - field[number]
-    body:
+  default:                         # le formulaire = un pages implicite (D509)
+    header:
+      height: 60px                 # la hauteur paramétrable (D507)
+      items: [ field[number] ]
+    page:                          # ex-body (D509) — la page prend le reste
       - section:
           title: { fr: Client }
           items: [ field[customer] ]
     footer:
-      - field[total]               # le pied — le corps prend le reste
-
-# et dans pages : l'écriture en items (D507)
-#   - pages:
-#       items:
-#         - header: { height: 60px, items: [...] }
+      items: [ field[total] ]
 ```

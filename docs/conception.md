@@ -634,6 +634,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D553 | **Le contexte empilé de l'opération** : « le contexte ne représente pas seulement les informations de l'appel en cours mais l'ensemble des contextes qui se sont empilés jusqu'à l'usage de l'opération » — la pile des contextes, le pendant de D535 ; « l'origine de l'appel » (D455) = la pile entière. | Voir §3.2c. |
 | D554 | **Le dashboard aux deux auteurs** (unifie D204/D247) : « le dashboard est à la charge du technicien — un panel accessible depuis un menu ou une page d'accueil ; le pool est un dashboard personnalisable à l'utilisateur en piochant dans les widgets disponibles » — le même objet, deux auteurs. | La vérification : D204/D247 confirment. Voir §3.2c. |
 | D555 | **Le squelette de dashboard** (précise D554) : « le technicien décrit un ou plusieurs squelettes — avec des widgets contraints et des widgets libres » ; l'accueil composé = le squelette entièrement libre. | L'item `free` (répétable) en proposition. Voir §3.2c. |
+| D556 | **L'emplacement `_` et l'icône du choix** (amende D555) : « un widget interchangeable doit faire apparaître un icône qui permette de choisir un widget disponible selon son propre catalogue ou par sa libération » ; « "_" me parle plus que "free" — free pouvant être lui-même un nom de widget ». | L'item `_` acté ; la collision évitée par construction. Voir §3.2c. |
 
 ---
 
@@ -4179,6 +4180,17 @@ et **les emplacements libres** — l'utilisateur y pioche du pool
 (D247). *(L'écriture en proposition : l'item **`free`** —
 l'emplacement libre, répétable.)* La page d'accueil composée (D554)
 devient le cas limite : **le squelette entièrement libre.**
+
+**L'emplacement `_` et l'icône du choix (D556 — amende D555).**
+**« Dans un dashboard, un widget interchangeable doit faire
+apparaître un icône qui permette à l'utilisateur de choisir un widget
+disponible selon son propre catalogue ou par sa libération. »** —
+l'emplacement libre porte son icône : le choix s'ouvre parmi les
+widgets disponibles — le catalogue propre de l'utilisateur (le pool
+D247), ou un widget rendu disponible par la libération d'un autre
+emplacement. Et l'écriture est actée : **« "_" me parle plus que
+"free" — free pouvant être lui-même un nom de widget »** — l'item
+**`_`**, la collision évitée par construction.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11363,3 +11375,7 @@ avant la synthèse Q16).
   les widgets contraints et les emplacements libres (l'item free en
   proposition) ; l'accueil = le squelette entièrement libre. La
   fiche complétée.
+- **2026-08-14 (suite 67)** — **L'emplacement _ (D556)** : l'icône du
+  choix sur le widget interchangeable (le catalogue propre ou la
+  libération) ; « _ » acté à la place de free (la collision évitée).
+  La fiche ajustée.

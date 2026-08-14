@@ -645,6 +645,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D564 | **Les quatre destinations du template** : « générer un document Word, PDF, Excel ou un mail — le template porte une propriété `format` qui précise le format de destination ». | `format: pdf \| word \| excel \| mail` (défaut pdf en proposition) ; le mail = le publipostage D562, l'Excel = le modèle D445. Voir §3.2c. |
 | D565 | **Le défaut et l'extension** (solde D564) : « le format pourra être étendu à d'autres formats en fonction des besoins à venir. PDF en défaut me convient. » | La ligne des hooks (D408). Voir §3.2c. |
 | D566 | **La signature formelle du nœud** (clôt le point) : l'adresse universelle `<type>[<nom>]` (render/field/operation/template/chart/widget) ; `visible:` conditionnel — faux = ni déclaré ni construit ; les propriétés et les états **évalués à la sollicitation** ; les enfants au champ déclaré par le type, **évalués de la feuille à la racine avant construction** ; la pile de contexte depuis la racine ; le hook = l'objet du composant et de son rendu multi-formats. | La section en tête de composants.md. Voir §3.2c. |
+| D567 | **Les deux amendements de la signature** (amende D566) : les enfants « dans un ou plusieurs noms — header, page, footer ; chaque élément est facultatif » ; `visible:` **vivant** — « en fonction de la valeur d'un champ ou d'un contexte, un élément peut devenir visible ou masqué (le toggle de la saisie conditionnelle) » — le « ni déclaré ni construit » effacé. | L'écho du recalcul D255. Voir §3.2c. |
 
 ---
 
@@ -4325,6 +4326,18 @@ régime du 2/3).
 donné, **un objet qui se chargera de gérer le composant et son rendu
 dans les différents formats — Web, PDF, Word, Excel, Email…** »
 (les destinations D564 + le Web).
+
+**Les deux amendements de la signature (D567 — amende D566).**
+**(4) Les enfants aux noms multiples** : « les enfants peuvent être
+dans un ou plusieurs noms : header, page, footer. **Chaque élément
+est facultatif.** » — le type de composant déclare le **ou les**
+champs d'enfants. **(2) `visible:` devient vivant** : « je change de
+fusil d'épaule — nous pouvons inclure une petite phase dynamique :
+**en fonction de la valeur d'un champ ou d'un contexte, un élément
+peut devenir visible ou masqué** (cas d'un toggle pour gérer une
+saisie conditionnelle). » Le composant est construit, sa visibilité
+s'évalue **au fil de la valeur** — l'écho du recalcul à l'écran
+(D255) ; le « ni déclaré ni construit » de D566 s'efface.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11573,6 +11586,11 @@ avant la synthèse Q16).
   depuis la racine, les états-propriétés, le hook-objet au rendu
   multi-formats. La section écrite en tête de composants.md — **le
   domaine 4 ne porte plus de point en attente.**
+- **2026-08-14 (suite 82)** — **Les deux amendements (D567)** : les
+  enfants aux noms multiples (header/page/footer, chacun facultatif) ;
+  visible: vivant — la valeur d'un champ ou du contexte montre/masque
+  (le toggle de la saisie conditionnelle), le « ni construit »
+  effacé. La section ajustée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

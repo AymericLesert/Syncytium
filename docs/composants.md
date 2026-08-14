@@ -132,9 +132,11 @@ arbitrés par l'auteur :
    (`- section:`) demeurent au YAML ; l'adresse est la forme
    canonique du moteur. `component:` « convertit ou remplace le nom
    du type » (D458/D566) ;
-2. **`visible:` — une condition** (D90) : évaluée fausse, **« le
-   composant n'est pas déclaré ni construit »** — l'absence, pas le
-   masquage ;
+2. **`visible:` — une condition vivante** (D90/D567) : « en fonction
+   de la valeur d'un champ ou d'un contexte, un élément peut devenir
+   visible ou masqué » — le toggle qui gère une saisie
+   conditionnelle ; le composant est construit, sa visibilité
+   s'évalue **au fil de la valeur** (l'écho du recalcul D255) ;
 3. **Les propriétés, à l'évaluation paresseuse** — « le composant
    consulte les propriétés, dont l'évaluation s'effectuera à la
    sollicitation ; Syncytium ne tente pas de construire toutes les
@@ -142,9 +144,10 @@ arbitrés par l'auteur :
    champ → le nœud, le plus proche l'emporte : style D536, size D533,
    title D493, label D465, icon D439…) ; chaque composant a les
    siennes — **la fiche fait foi** ;
-4. **Les enfants, au champ déclaré par le type** — la définition d'un
-   type de composant « précise le nom du champ couvrant les enfants »
-   (`items`, `steps`…) ; les alternances déclarées tiennent
+4. **Les enfants, aux champs déclarés par le type** — la définition
+   d'un type de composant précise **le ou les noms des champs
+   d'enfants** (`items`, `steps` — ou `header`, `page`, `footer` :
+   « chaque élément est facultatif », D567) ; les alternances déclarées tiennent
    (D489–D490, D546) et l'abréviation `fields: [a, b]` ≡
    `items: [ field[a], field[b] ]` ; **le moteur évalue tous les
    enfants de la feuille à la racine avant d'appeler/de construire le

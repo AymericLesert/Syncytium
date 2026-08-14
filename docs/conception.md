@@ -599,6 +599,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D518 | **Le défaut de l'assise** (complète D517) : « si on: est absent, l'assise porte sur l'entité elle-même » — l'entité porteuse ; on: pour désigner ailleurs. | Voir §3.2c. |
 | D519 | **Les secteurs arbitrés** : `mode: pie \| donut \| quarter` ; les variables du gabarit `{value}`/`{percent}`/`{total}` (« {percent} % ({value} / {total}) ») ; le clic sur une part → la liste de ses éléments ; « autres » acté — **son drill affiche une barre de répartition** pour préciser la valeur à filtrer. | Le drill à deux étages. Voir §3.2c. |
 | D520 | **L'épaisseur et les angles** (complète D519) : « sur donut, l'épaisseur ; sur quarter, l'angle de départ, de fin et l'épaisseur — représenter l'assemblée nationale de la gauche vers la droite ». | `thickness:` et les angles aux bornes (`quarter[-90..90]`) en proposition ; l'hémicycle fondateur. Voir §3.2c. |
+| D521 | **Le graphique, le tableau, ou les deux** (au socle des charts) : « les charts doivent se présenter soit en graphique, soit sous forme d'un tableau — pour avoir une vue sur les différentes valeurs directement — ou les deux ». | L'écho des tableaux de valeurs D244 ; `display: graph \| table \| both` en proposition (défaut graph). Voir §3.2c. |
 
 ---
 
@@ -3771,6 +3772,14 @@ l'anneau ou de l'arc, en pourcentage du rayon ; **les angles au
 crochet aux bornes** — `quarter[-90..90]`, l'écho de D366/D497 — le
 départ..la fin en degrés, 0° à midi, le sens horaire ; `quarter` nu =
 `[0..90]`, le quart ; l'hémicycle = `quarter[-90..90]`.)*
+
+**Le graphique, le tableau, ou les deux (D521 — au socle des
+charts).** **« Les charts doivent se présenter soit en graphique, soit
+sous forme d'un tableau (pour avoir une vue sur les différentes
+valeurs directement), ou les deux. »** La présentation rejoint le
+socle commun de la famille — l'écho des tableaux de valeurs (D244).
+*(L'écriture en proposition : `display: graph | table | both` —
+défaut `graph`.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10737,3 +10746,8 @@ avant la synthèse Q16).
   thickness: sur donut/quarter ; les angles de quarter au crochet aux
   bornes (quarter[-90..90] en proposition) — l'hémicycle de
   l'assemblée nationale en usage fondateur.
+- **2026-08-14 (suite 19)** — **La fiche `chart.pie` validée** (« je
+  valide chart.pie ») — et **le tableau au socle (D521)** : « les
+  charts doivent se présenter soit en graphique, soit sous forme d'un
+  tableau, ou les deux » (l'écho D244) ; display: graph|table|both en
+  proposition. Suivante : chart.scatter.

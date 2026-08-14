@@ -1846,6 +1846,8 @@ gui:
    d'affichage** (D515) : **la forme riche des axes** — `x:`/`y:`
    acceptent `{ value:, min:, max:, scale: }` (les début et fin
    d'axe — l'écho D494 ; `scale: linear` défaut `| log`),
+   **`display: graph | table | both`** — le graphique, le tableau des
+   valeurs, ou les deux (D521 — l'écho D244 ; défaut `graph`),
    **`colors:`** (la mécanique D467 — la couleur par série, le
    dégradé), **`labels:`** (D516) — `true` : la valeur au format du
    champ ; **le gabarit** pour personnaliser (la collision avec le
@@ -1865,8 +1867,8 @@ gui:
    vignette** : « voir toutes les valeurs utilisées pour le calcul »
    (D516 — si l'agrégat dépend d'une liste ou d'une association, le
    détail des contributions s'ouvre) ; la confidentialité masque ;
-9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
-   D439, D512, D515–D518 ;
+9. **Décisions fondatrices** — D90, D158, D239–D244, D247–D249,
+   D439, D512, D515–D518, D521 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1902,10 +1904,11 @@ charts:
    possibles ;
 4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
    héritée surchargeable (D247), les droits ;
-5. **Propriétés** — **le socle commun** (D515–D518) : `on:`, `x:`,
-   `y:` (la forme riche — et la liste : plusieurs séries), `filter:`,
-   `drill:`, `colors:`, `labels:`, `title:` ; **les écarts propres**
-   (*en proposition*) : **`mode: vertical | horizontal`** (défaut
+5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
+   compris) : `on:`, `x:`, `y:` (la forme riche — et la liste :
+   plusieurs séries), `filter:`, `drill:`, `colors:`, `labels:`,
+   `title:` ; **les écarts propres** (*en proposition*) :
+   **`mode: vertical | horizontal`** (défaut
    vertical — le crochet en raccourci : `chart.bars[horizontal]`,
    D478) ; **`stacked:`** — les séries empilées (`true`), côte à côte
    sinon (défaut) ;
@@ -1945,9 +1948,9 @@ charts:
    valeurs** (les parts — D240), `y:` = l'agrégat qui mesure la part ;
 4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
    héritée surchargeable (D247), les droits ;
-5. **Propriétés** — **le socle commun** (D515–D518 : `on:`, `x:`,
-   `y:`, `filter:`, `drill:`, `colors:`, `labels:`, `title:`) ; **les
-   écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
+5. **Propriétés** — **le socle commun** (D515–D518, D521 —
+   `display:` compris) : `on:`, `x:`, `y:`, `filter:`, `drill:`,
+   `colors:`, `labels:`, `title:` ; **les écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
    camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
    `chart.pie[donut]`, D478) ; **`thickness:`** — l'épaisseur de
    l'anneau et de l'arc (D520 — *en proposition : le pourcentage du

@@ -619,6 +619,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D538 | **Le graphique au résumé** : « un summary peut contenir un kpi ou un chart — à condition que son affichage reste modeste » (D243 réutilisable, la modestie D201). | `chart[<nom>]` en items en proposition (la famille des adresses D460/D483/D511). Voir §3.2c. |
 | D539 | **La troisième assise du chart** (élargit D517) : « elle s'appuie sur une entité ou un champ de type list of ou association with » — le champ-collection : le graphique des éléments liés à l'enregistrement du contexte. | `on: <champ>` en proposition. Voir §3.2c. |
 | D540 | **Le chart, feuille du formulaire** : « un form peut donc avoir un composant chart comme feuille — nous le faisons entrer de fait dans summary » — `chart[<nom>]` en item du form, le résumé l'héritant (la modestie D538). | Confirme D243/D538. Voir §3.2c. |
+| D541 | **La tendance du kpi** (note pour plus tard) : « en exploitant l'historique d'une entité, nous pourrions présenter la tendance » — la valeur rejouée aux instants passés (D411/D172) ; le détail différé. | La frontière avec D245 à confirmer au moment venu. Voir §3.2c. |
 
 ---
 
@@ -4000,6 +4001,16 @@ fait dans summary. »** La conséquence est actée : `chart[<nom>]` est
 un item du formulaire au même titre que les feuilles (D243 tenait la
 promesse) — et le résumé, restriction du formulaire (D201), **en
 hérite de fait** — la modestie en condition (D538).
+
+**La tendance du kpi (D541 — la note pour plus tard).** **« Un kpi
+peut avoir une notion d'historique. En exploitant l'historique d'une
+entité, nous pourrions présenter la tendance. »** La piste consignée,
+le détail différé : la valeur du kpi rejouée aux instants passés —
+l'historisation (D411) et l'API temporelle « au plus proche ≤ date »
+(D172) savent déjà le faire — la tendance en regard du chiffre. *(À
+arbitrer au moment venu : la frontière avec D245 — « pas de
+comparaison dans le socle » ; la tendance issue de l'historique n'est
+pas la comparaison de périodes, la lecture à confirmer.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11098,3 +11109,7 @@ avant la synthèse Q16).
   surfaces** : list, form, summary, widget validées (D530–D540) ;
   restent wizard, dashboard, template — puis la signature des nœuds,
   Q60, les domaines 5–8.
+- **2026-08-14 (suite 48)** — **La tendance du kpi (D541, note pour
+  plus tard)** : « en exploitant l'historique d'une entité, nous
+  pourrions présenter la tendance » — la piste consignée
+  (D411/D172), le détail différé, la frontière avec D245 à confirmer.

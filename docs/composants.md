@@ -1559,42 +1559,35 @@ gui:
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité — **l'onglet masqué
    disparaît de la barre** ;
-5. **Propriétés** — **`mode:`** — les visages de la barre (D504) :
-   `top` (Windows — le défaut), `bottom` (Excel), `left`/`right` (la
-   latérale), **`wizard`** (« voir toutes les étapes mais ne pas
-   prendre d'avance tant que l'onglet précédent n'a pas été exploré »
-   — l'écho du cliquet D354) ; le crochet en raccourci :
-   `tabs[bottom]`, `tabs[wizard]` (*l'écriture en proposition —
-   D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
+5. **Propriétés** — **`mode:`** — les visages de la barre (D504,
+   amendé D552) : `top` (Windows — le défaut), `bottom` (Excel),
+   `left`/`right` (la latérale) — **le mode wizard a quitté tabs**
+   (D552 : la séparation) ; le crochet en raccourci : `tabs[bottom]`
+   (*l'écriture en proposition — D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
    dimension unique des volets** — « pour chaque tab, toujours la même
    dimension » (D506 — aucun `width`/`height` par volet, le contraste
    avec D502) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
    proposition*) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
-   courant — en haut, en bas, latérale (D504) ; **le mode wizard** :
-   les étapes toutes visibles, l'avance au rythme de l'exploration —
-   **« les tabs parcourus décrivent le chemin de traitement »** : le
-   clic sur une phase explorée y ramène, l'avance reste gardée
-   (D505) ; **`tabs[wizard]` est le wizard même** (D551) : l'`if:` et
-   l'`operation:` d'étape, la chaîne de pré-exécutions, la
-   transformation finale, le cliquet, le `breadcrumb:`, les
-   graphiques — tout D546–D550 s'y porte ; l'entête, le
-   corps et le pied acceptent les onglets (D450) ; **tactile** : le
-   swipe bascule d'un onglet à l'autre (l'esprit D503) ;
-   **template** : les onglets rendus à la suite (*en proposition —
-   rien ne bascule sur le papier*) ;
+   courant — en haut, en bas, latérale (D504/D552) ; **la parenté
+   visuelle avec le `wizard` est assumée, les objets restent
+   distincts** (D552 — la navigation libre ici, le parcours contraint
+   là-bas) ; l'entête, le corps et le pied acceptent les onglets
+   (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
+   (l'esprit D503) ; **template** : les onglets rendus à la suite
+   (*en proposition — rien ne bascule sur le papier*) ;
 8. **États et interactions** — la bascule au clic ou au swipe ;
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
 9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
-   D487, D489 (le patron), D503–D506 ;
+   D487, D489 (le patron), D503–D506, D552 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
 page:
   - tabs:
-      mode: wizard               # les étapes — l'avance à l'exploration (D504)
+      mode: bottom               # la barre en bas — le style Excel (D504)
       items:
         - tab:
             title: { fr: Général }
@@ -1774,9 +1767,14 @@ forms:
    d'état du graphe (D425–D427, l'opération du catalogue par défaut —
    D433) ;
 4. **Contexte consommé** — l'opération : sa garde (`if` — D430), ses
-   droits (D196), son `validate:` (D431) ; l'enregistrement ou la
-   sélection (l'opération de masse — D446) ; **la pré-exécution**
-   (D511) — les modifications à venir, chiffrées ;
+   droits (D196), son `validate:` (D431) ; **la pile des contextes**
+   (D553) — « l'ensemble des contextes qui se sont empilés jusqu'à
+   l'usage de l'opération » : le périmètre de la liste,
+   l'enregistrement du formulaire, le transitoire du wizard —
+   l'origine de l'appel (D455) est la pile entière ;
+   l'enregistrement ou la sélection (l'opération de masse — D446) ;
+   **la pré-exécution** (D511) — les modifications à venir,
+   chiffrées ;
 5. **Propriétés** — la surcharge de la présentation : `label:`,
    `icon:`, `style:` (le verbe du catalogue en défaut) ;
    **`validate:`** — `true` (défaut — la relecture D431) ou **le
@@ -1800,7 +1798,7 @@ forms:
    seule + confirmer/annuler, jamais de popup D196) ; l'exécution
    `synchronous`/`asynchronous`/`await` (D436) ;
 9. **Décisions fondatrices** — D196, D425–D433, D436, D439, D444,
-   D446, D456, D460, D462, D504–D505, D511 ;
+   D446, D456, D460, D462, D504–D505, D511, D553 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2560,10 +2558,10 @@ widgets:
 
 1. **Nom et famille** — `wizard`, une surface — `gui: wizards:
    <nom>:` ; le menu l'adresse (`[@wizard]` — D439) ; la première
-   déclarée = le défaut (D438) ; **le même objet que `tabs[wizard]`**
-   (D551 — l'écho D486 : « un seul list ») — tout ce qui suit vaut
-   des deux côtés, seule change la porte d'entrée (le menu ou
-   l'emboîtement) ;
+   déclarée = le défaut (D438) ; **séparé de `tabs`**
+   (D552 — « je valide la séparation ») : deux objets, une parenté
+   visuelle assumée — le vocabulaire du parcours (steps/step) tout
+   entier chez lui ;
 2. **Rôle** — **le parcours guidé : « mono-utilisateur, une
    session »** (D230) — les étapes s'enchaînent, la transaction
    conclut ; **la démarche au sens large** (D546) : créer un
@@ -2592,8 +2590,8 @@ widgets:
    niveau d'état déclaré D233 reste l'affaire de l'entité) ;
 6. **Items** — **un `header` et un `footer` optionnels** (D548 —
    l'écho de `pages` D507 : toujours visibles autour des steps) ;
-   **les étapes : `steps:`/`step:` — « un habillage de `tabs[wizard]`
-   où chaque step est en fait un tab »** (D546, le couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
+   **les étapes : `steps:`/`step:`** (D546, le couple acté ; la
+   séparation D552 — le step n'est plus un tab) : chaque étape porte sa poignée (`title:`/`icon:` —
    le chemin D505), ses items (les sections, les feuilles — la page
    d'un formulaire — **et les graphiques : `chart[<nom>]`, kpi,
    pivot, « l'aide à la décision »**, D550), sa condition (*en proposition :* **`if:`** — la
@@ -2603,10 +2601,11 @@ widgets:
    `operation: <nom>`) : **pré-exécutée au passage** (D547 — le
    chiffrage D511), **la transformation n'ayant lieu qu'à la
    validation définitive du wizard** ;
-7. **Modes et déclinaisons** — **le squelette `tabs[wizard]`**
-   (D504–D505) : toutes les étapes visibles, **l'avance au rythme de
-   l'exploration**, « les tabs parcourus décrivent le chemin de
-   traitement » — le retour libre d'un clic ; **le passage d'étape =
+7. **Modes et déclinaisons** — **le stepper** : toutes les étapes
+   visibles, **l'avance au rythme de l'exploration**, « le chemin de
+   traitement » navigable — le retour libre d'un clic (D505 —
+   désormais l'affaire du wizard seul ; la parenté visuelle avec les
+   onglets assumée, D552) ; **le passage d'étape =
    un acte** (D511) ; emboîtable — « rien n'empêche un formulaire
    qui inclut un wizard dans une page » (D455) ; le circuit de
    validation multi-acteurs reste **hors wizard** — le patron
@@ -2619,8 +2618,8 @@ widgets:
    (D505) s'arrête au dernier step confirmé (le cliquet) ;
    l'interruption emporte le transitoire (D547 — le draft effacé) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
-   D438–D439, D449–D450, D455, D465, D504–D505, D507, D511, D525,
-   D532–D533, D535, D540, D546–D550 ;
+   D438–D439, D449–D450, D455, D465, D505, D507, D511, D525,
+   D532–D533, D535, D540, D546–D550, D552 ;
 10. **Exemple de configuration** —
 
 ```yaml

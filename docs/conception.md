@@ -631,6 +631,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D550 | **L'aide à la décision au parcours** : « nous pouvons inclure des charts, des kpi ou des pivots pour apporter une aide à la décision » — les graphiques aux steps (`chart[<nom>]` — D540). | Voir §3.2c. |
 | D551 | **Un seul wizard** : « tout ce que nous venons de voir avec wizard doit être également porté par tabs[wizard]… car cela doit être le même objet » — la surface et le conteneur, un même composant (l'écho D486) ; seule change la porte d'entrée. | Les fiches wizard et tabs liées. Voir §3.2c. |
 | D552 | **La séparation tabs/wizard** (amende D504, rend D551 caduque) : « je valide la séparation — ça confirme mon ressenti » — le mode wizard quitte tabs (restent top/bottom/left/right), le wizard garde steps/step et sa mécanique, le chemin D505 à lui seul ; deux objets, une parenté visuelle. | La transactionnalité n'est pas un habillage ; if:/operation: orphelines sur un tab libre ; le mot fait la chose. Voir §3.2c. |
+| D553 | **Le contexte empilé de l'opération** : « le contexte ne représente pas seulement les informations de l'appel en cours mais l'ensemble des contextes qui se sont empilés jusqu'à l'usage de l'opération » — la pile des contextes, le pendant de D535 ; « l'origine de l'appel » (D455) = la pile entière. | Voir §3.2c. |
 
 ---
 
@@ -4143,6 +4144,17 @@ objets, une parenté visuelle assumée** ; le wizard garde son
 vocabulaire entier (steps/step, breadcrumb, la mécanique D547) et le
 chemin de traitement (D505) devient son affaire seule ;
 l'emboîtement passe par D455 (le wizard dans une page, sans tabs).
+
+**Le contexte empilé de l'opération (D553).** **« Pour une opération,
+le contexte ne représente pas seulement les informations de l'appel
+en cours mais l'ensemble des contextes qui se sont empilés jusqu'à
+l'usage de l'opération. »** La pile des surimpressions (D535) a son
+pendant de données : **la pile des contextes** — l'opération invoquée
+au fond de la pile (la liste → le formulaire → le wizard → le step)
+voit tout ce qui s'est empilé : le périmètre de la liste,
+l'enregistrement du formulaire, le transitoire du wizard.
+« L'origine de l'appel » de D455 se relit : **la pile entière, pas le
+dernier maillon.**
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11305,3 +11317,9 @@ avant la synthèse Q16).
   retiré de tabs (D504 amendé), D551 caduque (deux objets, une
   parenté visuelle), le chemin D505 au wizard seul. Les deux fiches
   reprises.
+- **2026-08-14 (suite 63)** — **Le contexte empilé (D553)** :
+  l'opération voit « l'ensemble des contextes qui se sont empilés
+  jusqu'à son usage » — la pile des contextes, le pendant de la pile
+  des surimpressions (D535) ; l'origine de l'appel (D455) = la pile
+  entière. La fiche operation complétée. *(Le commit 6efcb72
+  annonçait D553 par erreur — le voici réellement porté.)*

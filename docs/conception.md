@@ -11614,6 +11614,14 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 84)** — **Les quatre valeurs du repli (D569)** :
   dropdown: false|true (ouvert par défaut)|opened|closed —
   l'orthographe opened consignée.
+- **2026-08-14 (suite 85)** — **La signature (D566–D567) et la
+  section repliable (D568–D569) validées** (« je les valide ») —
+  **LE DOMAINE 4 EST SOLDÉ** : le catalogue des composants (les cinq
+  familles, 47 fiches), la synthèse types × composants, la signature
+  formelle du nœud — tout consigné, tout validé. Restent : Q60 (le
+  catalogue des fonctions — le point différé de D433), les domaines
+  5–8, la passe de complétude finale, Q58, Q59, Q7 — puis le code
+  (D314).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

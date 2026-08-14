@@ -617,6 +617,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D536 | **La propriété `style:` définie** : « par défaut, le style global de l'application ; prévoyons une propriété style qui regroupe la fonte, la taille et sa mise en forme » — le thème d'instance en défaut, la surcharge à la cascade D461. | `style: { font:, size:, format: [bold…] }` en proposition (le size intérieur = la police — D458 départage). Voir §3.2c. |
 | D537 | **Le résumé précisé** : « le 1-1 affiche le title **ou l'image** si elle est définie » (le visage D386) ; petit par principe confirmé ; « plusieurs sections (pour mêler des affichages horizontaux et verticaux) — pas plusieurs pages, ni plusieurs tabs ». | L'organisateur D489–D491 dans le résumé ; D201 confirmé. Voir §3.2c. |
 | D538 | **Le graphique au résumé** : « un summary peut contenir un kpi ou un chart — à condition que son affichage reste modeste » (D243 réutilisable, la modestie D201). | `chart[<nom>]` en items en proposition (la famille des adresses D460/D483/D511). Voir §3.2c. |
+| D539 | **La troisième assise du chart** (élargit D517) : « elle s'appuie sur une entité ou un champ de type list of ou association with » — le champ-collection : le graphique des éléments liés à l'enregistrement du contexte. | `on: <champ>` en proposition. Voir §3.2c. |
 
 ---
 
@@ -3981,6 +3982,16 @@ condition (le petit par principe D201 s'étend à l'embarqué).
 *(L'écriture en proposition : **`chart[<nom>]`** en items — la
 famille des adresses, l'écho de `field[<nom>]` D460,
 `operation[<nom>]` D511 et `template[<nom>]` D483.)*
+
+**La troisième assise du chart (D539 — élargit D517).** **« Une
+précision concernant les charts : elle s'appuie sur une entité ou un
+champ de type `list of` ou `association with`. »** Le graphique se
+fonde donc sur : l'entité (porteuse par défaut — D518), la liste
+nommée (D517), **ou le champ-collection** — la composition ou
+l'association de l'enregistrement du contexte : le graphique des
+lignes de *la* commande affichée. *(L'écriture en proposition :
+`on: <champ>` — le nom du champ `list of`/`association with` de
+l'entité porteuse.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11060,3 +11071,7 @@ avant la synthèse Q16).
   « un kpi ou un chart, à condition que son affichage reste
   modeste » — chart[<nom>] en items en proposition (la famille des
   adresses).
+- **2026-08-14 (suite 44)** — **La troisième assise (D539)** : « la
+  chart s'appuie sur une entité ou un champ de type list of ou
+  association with » — le champ-collection, le graphique des éléments
+  liés à l'enregistrement du contexte ; on: <champ> en proposition.

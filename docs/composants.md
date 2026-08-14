@@ -1829,9 +1829,10 @@ gui:
 2. **Rôle** — l'évolution d'un agrégat le long d'un axe : la tendance
    d'un regard ;
 3. **Types servis** — aucun champ : **le graphique est une déclaration
-   autonome réutilisable** (D243) — **son assise : une entité ou une
-   liste nommée** (le composant déjà vu — le périmètre, le filtre et
-   la confidentialité hérités), **les axes faisant référence aux
+   autonome réutilisable** (D243) — **son assise : une entité, une
+   liste nommée, ou un champ de type `list of` / `association with`**
+   (D517/D539 — le champ-collection : le graphique des éléments liés
+   à l'enregistrement du contexte), **les axes faisant référence aux
    champs de l'assise** (D517) ;
 4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
    temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
@@ -1872,7 +1873,7 @@ gui:
    (D516 — si l'agrégat dépend d'une liste ou d'une association, le
    détail des contributions s'ouvre) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D90, D158, D239–D244, D247–D249,
-   D439, D512, D515–D518, D521 ;
+   D439, D512, D515–D518, D521, D539 ;
 10. **Exemple de configuration** —
 
 ```yaml

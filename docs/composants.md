@@ -2712,3 +2712,71 @@ dashboards:
             - section: { items: [ widget[order.monthly] ] }   # contraint (D555)
             - section: { items: [ _ ] }      # l'emplacement libre — le pool (D556)
 ```
+
+## `template`
+
+1. **Nom et famille** — `template`, une surface — `gui: templates:
+   <nom>:` (l'ajout de l'auteur au catalogue — D456) ; la première
+   déclarée = le défaut (D438) ;
+2. **Rôle** — **le patron du document généré** : « un formulaire en
+   lecture seule + une dimension de page » (D250) — la facture, le
+   devis, l'étiquette, le bon de livraison ;
+3. **Types servis** — l'entité — l'enregistrement dans son agrégat ;
+   **les quatre portes** : l'effet `document:` d'une opération
+   (D432), le viewer à la volée (`template[<nom>]` — D483, « le
+   fichier qui n'existe pas »), les exports de la liste
+   (`exports: [ template[…] ]` — D530), **l'impression directe du
+   serveur** (D252 — les imprimantes de l'OS, l'étiquette) ;
+4. **Contexte consommé** — l'enregistrement ; **les variables de
+   contexte = l'entité « contexte »** (D254 — la pagination,
+   l'opérateur, l'instance : des champs comme les autres) ; la
+   langue — **un gabarit par langue** (D253 ; *l'écriture de la
+   déclinaison en proposition*) ;
+5. **Propriétés** — **le formalisme unique avec les formulaires**
+   (D250) : `title:` (le gabarit — D449), le `pages` implicite
+   (D509) ; **la dimension de page** (*en proposition :* `paper:` —
+   `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; les titres à
+   quatre niveaux (D250) ;
+6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
+   chaque page** (la proposition de D507 confirmée par l'usage) —,
+   les `page`(s), les sections ; **les feuilles aux pendants PDF**
+   (D257 — « un pendant PDF par type » : l'image dimensionnée au
+   bloc, le fil complet si inclus…) ; **le contenu fixe** —
+   `paragraph`/`picture` (D488 — **le rendez-vous Q55 : les fiches à
+   étoffer ici**) ; `qrcode`/`barcode` (D542–D545 — l'étiquette) ;
+   les graphiques en image (D257) ;
+7. **Modes et déclinaisons** — le PDF d'abord (D212) ; jamais
+   d'interaction — le papier n'agit pas (l'écho D511) ; le viewer le
+   feuillette à l'écran (D481/D483) ;
+8. **États et interactions** — la lecture seule par nature (D250) ;
+   la confidentialité s'applique au rendu (les champs masqués
+   n'apparaissent pas) ;
+9. **Décisions fondatrices** — D212, D250–D254, D257, D432, D438,
+   D449, D481, D483, D488, D507, D509, D530, D542–D545 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — le fil de la passe
+templates:
+  invoice:                         # document: invoice (D432) — template[invoice] (D483)
+    title: "Facture {number}"
+    paper: A4                      # la dimension de page (D250 — proposition)
+    header:
+      height: 40mm
+      items:
+        - picture: logo.png        # l'image fixe (D488)
+        - field[number]: { component: qrcode, size: 25mm }   # (D543)
+    page:
+      - field[customer]
+      - field[lines]               # la composition — le tableau
+      - paragraph: { label: legal }   # le texte fixe du dictionnaire (D440/D488)
+    footer:
+      height: 15mm
+      items: [ field[total] ]      # répété à chaque page (D507)
+
+  label:                           # l'étiquette (D252)
+    paper: 105x48mm
+    page:
+      - field[sku]: { component: qrcode, size: 30mm }
+      - field[name]
+```

@@ -11402,3 +11402,11 @@ avant la synthèse Q16).
   (D558)** : « la limiter à un dashboard m'embête » — la liste, le
   dashboard (du module actif — D557) ou la page vide ; la lettre de
   D204 retrouvée.
+- **2026-08-14 (suite 70)** — **La fiche `dashboard` validée** (« je
+  valide dashboard »). La dernière surface : la fiche `template`
+  écrite sur le matériau Q57 (D250–D254) — le formulaire en lecture
+  seule + la dimension de page, l'entité contexte, un gabarit par
+  langue, les quatre portes (l'effet document, le viewer, les
+  exports, l'impression serveur) ; le rendez-vous Q55 atteint
+  (paragraph/picture/viewer à étoffer) ; en proposition : paper:,
+  l'écriture du gabarit par langue.

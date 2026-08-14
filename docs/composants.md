@@ -2570,17 +2570,23 @@ widgets:
    dans son agrégat (D101) ;
 4. **Contexte consommé** — l'enregistrement transitoire, l'origine de
    l'appel, l'utilisateur (D455) ; les droits (D196) ;
-5. **Propriétés** — `title:` (D449/D465) ; `size:` (la pile — D535) ;
-   `screen:` (D450/D532) ; **les étapes = des surfaces déclarées**
+5. **Propriétés** — `title:` (D449/D465) ; **`size:` obligatoire** —
+   « un wizard doit avoir une dimension », **surchargeable au nœud
+   incluant** quand il s'emboîte dans un formulaire (D548/D455, le
+   plus proche l'emporte D461 ; la pile D535, la grammaire D533) ;
+   **le fil d'Ariane en haut ou en bas** (D548 — *en proposition :*
+   `mode: top` (défaut) `| bottom`, les bords D525) ; `screen:`
+   (D450/D532) ; **les étapes = des surfaces déclarées**
    (D231) ; **les transitions conditionnelles** — « si client
    étranger → étape TVA » (D231/D90) ; **la transaction finale**
    (D232/D101 — rien ne s'écrit avant la conclusion, la relecture
    D431 en clôture) ; **pas de brouillon** — « le mode draft s'efface
    avec la possibilité de pré-exécuter une opération » (D547 ; le
    niveau d'état déclaré D233 reste l'affaire de l'entité) ;
-6. **Items** — **les étapes : `steps:`/`step:` — « un habillage de
-   `tabs[wizard]` où chaque step est en fait un tab »** (D546, le
-   couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
+6. **Items** — **un `header` et un `footer` optionnels** (D548 —
+   l'écho de `pages` D507 : toujours visibles autour des steps) ;
+   **les étapes : `steps:`/`step:` — « un habillage de `tabs[wizard]`
+   où chaque step est en fait un tab »** (D546, le couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
    le chemin D505), ses items (les sections, les feuilles — la page
    d'un formulaire), sa condition (*en proposition :* **`if:`** — la
    transition conditionnelle D231/D90, l'étape sautée si la condition
@@ -2605,8 +2611,8 @@ widgets:
    (D505) s'arrête au dernier step confirmé (le cliquet) ;
    l'interruption emporte le transitoire (D547 — le draft effacé) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
-   D438–D439, D449–D450, D455, D465, D504–D505, D511, D532, D535,
-   D546–D547 ;
+   D438–D439, D449–D450, D455, D465, D504–D505, D507, D511, D525,
+   D532–D533, D535, D546–D548 ;
 10. **Exemple de configuration** —
 
 ```yaml

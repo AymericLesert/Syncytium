@@ -2227,8 +2227,14 @@ les widgets, le wizard, les templates, le dashboard du module).*
    champs ou les noms mutualisés — défaut : tous) ; `editable:`
    (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
-   (D447) ; **l'export** CSV (un fichier par type de composant) /
-   Excel (un onglet par type, le modèle, le tri d'export — D445) ;
+   (D447) ; **`add:` / `update:` / `delete:`** — « le
+   formulaire/widget à appeler » pour chaque geste (D530 — les
+   défauts : le formulaire par défaut D438, les gestes D446) ;
+   **`exports:`** — « les différents exports ou générations de
+   documents » (D530) : CSV (un fichier par type de composant), Excel
+   (l'onglet par type, le modèle, le tri d'export — D445), **le
+   template** (la génération — D483/D511) — *en proposition :*
+   `exports: [ csv, excel[stock.xlsx], template[order_sheet] ]` ;
    `title:` (D493) ;
 6. **Items** — aucun : la surface se déclare par ses propriétés ;
 7. **Modes et déclinaisons** — le tableau ou les widgets (D492) ; **le
@@ -2237,14 +2243,15 @@ les widgets, le wizard, les templates, le dashboard du module).*
    indicateurs de position ; l'embarquée d'une composition ou d'une
    association (D486) ; le responsive au repli (Q48) ;
 8. **États et interactions** — **la création : le bouton compris dans
-   le cadre** ; **la modification au double-clic** ; la lecture seule
-   → la consultation ; **la suppression** : une ligne = le formulaire
-   en lecture seule + la confirmation, plusieurs = le décompte
-   confirmé (D446) ; **l'opération de masse** sur les lignes
+   le cadre** — le formulaire d'`add:` (D530) ; **la modification au
+   double-clic** — celui d'`update:` ; la lecture seule → la
+   consultation ; **la suppression** : une ligne = le formulaire de
+   `delete:` en lecture seule + la confirmation, plusieurs = le
+   décompte confirmé (D446/D530) ; **l'opération de masse** sur les lignes
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
 9. **Décisions fondatrices** — D226–D229, D437–D448, D462, D466–D467,
-   D486, D492–D493 ;
+   D486, D492–D493, D530 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2263,6 +2270,9 @@ lists:
     editable: [notes]              # le reste readonly (D441)
     selection: 1..                 # la multi-sélection (D446)
     sizable: auto+manual           # (D447)
+    add: quick_entry               # le formulaire du bouton + (D530)
+    update: default                # celui du double-clic — le défaut sinon (D438)
+    exports: [ csv, excel[orders.xlsx], template[order_sheet] ]   # (D530)
 
   cards:                           # le second visage (D492)
     widget: card                   # chaque enregistrement rendu par son widget

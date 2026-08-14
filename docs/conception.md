@@ -608,6 +608,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D527 | **L'organisation du kpi** : « mis en valeur avec un style différent de la feuille » ; « l'organisation se découpe en 4 » — la position du label (haut/gauche/bas/droite), l'icône au bord opposé. | `layout: top \| left \| bottom \| right` en proposition (défaut top ; la collision avec D490 notée). Voir §3.2c. |
 | D528 | **Le tri du croisé sur la valeur** : « visualiser les plus gros CA » — les lignes par la valeur agrégée, chaque niveau du groupement par son sous-total ; le défaut = l'ordre naturel du champ. | `sort: -value` en proposition (le signe D441). Voir §3.2c. |
 | D529 | **Le tri aux trois clés** (élargit D528) : « le tri peut s'appuyer sur les rows, les columns ou la value » — les signes et cascades D441 (`sort: { seller: -value, date: + }`). | Voir §3.2c. |
+| D530 | **Les appels du geste et les exports** : « add, update or delete pour préciser le formulaire/widget à appeler » (les défauts : le formulaire par défaut D438, les gestes D446) ; « exports: permet de préciser les différents exports ou générations de documents ». | `exports: [ csv, excel[modèle], template[gabarit] ]` en proposition. Voir §3.2c. |
 
 ---
 
@@ -3868,6 +3869,20 @@ s'appuyer sur les rows, les columns ou la value. »** La clé du tri :
 un champ des lignes, un champ des colonnes, ou la valeur — les signes
 et les cascades de D441 valent (`sort: { seller: -value, date: + }` —
 les commerciaux par leur CA décroissant, les mois chronologiques).
+
+**Les appels du geste et les exports de la liste (D530).** **« Sur la
+liste, il manque les propriétés `add`, `update` or `delete` pour
+préciser le formulaire/widget à appeler. La propriété `exports:`
+permet de préciser les différents exports ou générations de
+documents. »** Les trois gestes de D446 nomment leur surface : `add:`
+(le bouton du cadre), `update:` (le double-clic), `delete:` (la
+lecture seule + confirmation) — le formulaire ou le widget appelé,
+**le formulaire par défaut (D438) sans déclaration**. Et **`exports:`**
+précise la panoplie — les exports (D445) et **les générations de
+documents** (l'effet document, le template — D483/D511). *(L'écriture
+en proposition : `exports: [ csv, excel[stock.xlsx],
+template[order_sheet] ]` — le crochet portant le modèle ou le
+gabarit.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10897,3 +10912,8 @@ avant la synthèse Q16).
   dashboard), la fiche + l'exemple + la validation à chaque étape. La
   fiche de la liste-surface écrite (le visage déclaré du composant
   unique D486).
+- **2026-08-14 (suite 33)** — **Les appels du geste et les exports
+  (D530)** : add/update/delete nomment le formulaire ou le widget
+  appelé (le défaut D438) ; exports: précise les exports et les
+  générations de documents (le crochet au modèle/gabarit en
+  proposition). La fiche complétée.

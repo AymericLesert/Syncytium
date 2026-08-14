@@ -630,6 +630,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D549 | **Les arbitrages du wizard** (amende D548) : « size est optionnel — sans valeur, l'espace disponible ; depuis un menu, tout l'écran » ; « plutôt que mode, je préfère **breadcrumb: none \| top \| bottom** ». | Défaut top (l'esprit D504) ; none masque le fil. Voir §3.2c. |
 | D550 | **L'aide à la décision au parcours** : « nous pouvons inclure des charts, des kpi ou des pivots pour apporter une aide à la décision » — les graphiques aux steps (`chart[<nom>]` — D540). | Voir §3.2c. |
 | D551 | **Un seul wizard** : « tout ce que nous venons de voir avec wizard doit être également porté par tabs[wizard]… car cela doit être le même objet » — la surface et le conteneur, un même composant (l'écho D486) ; seule change la porte d'entrée. | Les fiches wizard et tabs liées. Voir §3.2c. |
+| D552 | **La séparation tabs/wizard** (amende D504, rend D551 caduque) : « je valide la séparation — ça confirme mon ressenti » — le mode wizard quitte tabs (restent top/bottom/left/right), le wizard garde steps/step et sa mécanique, le chemin D505 à lui seul ; deux objets, une parenté visuelle. | La transactionnalité n'est pas un habillage ; if:/operation: orphelines sur un tab libre ; le mot fait la chose. Voir §3.2c. |
 
 ---
 
@@ -4126,6 +4127,22 @@ transformation finale (D547), le cliquet, le header/footer (D548), le
 `breadcrumb:` et le `size:` optionnel (D549), les graphiques (D550) —
 tout vaut des deux côtés ; seule change la porte d'entrée (le menu ou
 l'emboîtement).
+
+**La séparation tabs/wizard (D552 — amende D504/D546, rend D551
+caduque).** La revue demandée (« ça m'embête d'avoir 2 vocabulaires —
+tabs/steps — pour un même objet ») s'est conclue : **« je valide la
+séparation. Ça confirme mon ressenti. »** Les raisons consignées :
+**la transactionnalité n'est pas un habillage** (le contrat du wizard
+— rien avant la validation définitive, le cliquet, la session unique —
+n'est pas un mode d'affichage) ; **les propriétés orphelines
+trahissent** (`if:`/`operation:` sans sens sur un tab libre) ; **le
+mot fait la chose** (step = l'étape d'une démarche, tab = le volet
+d'un classeur). Concrètement : **le mode `wizard` quitte `tabs`**
+(D504 amendé — restent top/bottom/left/right) ; **D551 devient : deux
+objets, une parenté visuelle assumée** ; le wizard garde son
+vocabulaire entier (steps/step, breadcrumb, la mécanique D547) et le
+chemin de traitement (D505) devient son affaire seule ;
+l'emboîtement passe par D455 (le wizard dans une page, sans tabs).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11283,3 +11300,8 @@ avant la synthèse Q16).
   objet — faut-il sortir wizard de tabs, ou au contraire fusionner
   les 2 ? » — la validation du wizard suspendue, les deux voies
   posées dans l'échange avec recommandation ; l'arbitrage attendu.
+- **2026-08-14 (suite 62)** — **La séparation validée (D552)** : « je
+  valide la séparation. Ça confirme mon ressenti » — le mode wizard
+  retiré de tabs (D504 amendé), D551 caduque (deux objets, une
+  parenté visuelle), le chemin D505 au wizard seul. Les deux fiches
+  reprises.

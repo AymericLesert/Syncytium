@@ -629,6 +629,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D548 | **L'anatomie du wizard** : « un header et un footer ; le fil d'Ariane en bas ou en haut de la zone ; une dimension (size) surchargeable si le wizard s'inclut dans un formulaire ». | `mode: top \| bottom` en proposition (D525) ; l'écho pages D507 ; le plus proche l'emporte (D461). Voir §3.2c. |
 | D549 | **Les arbitrages du wizard** (amende D548) : « size est optionnel — sans valeur, l'espace disponible ; depuis un menu, tout l'écran » ; « plutôt que mode, je préfère **breadcrumb: none \| top \| bottom** ». | Défaut top (l'esprit D504) ; none masque le fil. Voir §3.2c. |
 | D550 | **L'aide à la décision au parcours** : « nous pouvons inclure des charts, des kpi ou des pivots pour apporter une aide à la décision » — les graphiques aux steps (`chart[<nom>]` — D540). | Voir §3.2c. |
+| D551 | **Un seul wizard** : « tout ce que nous venons de voir avec wizard doit être également porté par tabs[wizard]… car cela doit être le même objet » — la surface et le conteneur, un même composant (l'écho D486) ; seule change la porte d'entrée. | Les fiches wizard et tabs liées. Voir §3.2c. |
 
 ---
 
@@ -4114,6 +4115,17 @@ aide à la décision. »** Les graphiques entrent aux steps
 (`chart[<nom>]` — D540, la famille entière) : le chiffre, la courbe
 ou le croisé éclairent le choix avant le passage — l'aide à la
 décision au fil du parcours guidé.
+
+**Un seul wizard (D551).** **« Tout ce que nous venons de voir avec
+wizard doit être également porté par `tabs[wizard]`… car cela doit
+être le même objet. »** La ligne de D486 (« un seul list ») se
+répète : **la surface `wizard` (`gui: wizards:`) et le conteneur
+`tabs[wizard]` sont le même composant** — les steps-tabs, l'`if:` et
+l'`operation:` d'étape (D546), la chaîne de pré-exécutions et la
+transformation finale (D547), le cliquet, le header/footer (D548), le
+`breadcrumb:` et le `size:` optionnel (D549), les graphiques (D550) —
+tout vaut des deux côtés ; seule change la porte d'entrée (le menu ou
+l'emboîtement).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11262,3 +11274,7 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 59)** — **L'aide à la décision (D550)** : les
   charts, kpi et pivots aux steps du wizard (chart[<nom>] — D540) —
   la 550e décision.
+- **2026-08-14 (suite 60)** — **Un seul wizard (D551)** : « cela doit
+  être le même objet » — la surface wizard et tabs[wizard], un même
+  composant (l'écho D486), tout D546–D550 valant des deux côtés. Les
+  fiches liées.

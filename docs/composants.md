@@ -1573,10 +1573,13 @@ gui:
    proposition*) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
    courant — en haut, en bas, latérale (D504) ; **le mode wizard** :
-   les étapes toutes visibles, l'avance au rythme de l'exploration
-   (la parenté avec la surface `wizard` D230–D233) — **« les tabs
-   parcourus décrivent le chemin de traitement »** : le clic sur une
-   phase explorée y ramène, l'avance reste gardée (D505) ; l'entête, le
+   les étapes toutes visibles, l'avance au rythme de l'exploration —
+   **« les tabs parcourus décrivent le chemin de traitement »** : le
+   clic sur une phase explorée y ramène, l'avance reste gardée
+   (D505) ; **`tabs[wizard]` est le wizard même** (D551) : l'`if:` et
+   l'`operation:` d'étape, la chaîne de pré-exécutions, la
+   transformation finale, le cliquet, le `breadcrumb:`, les
+   graphiques — tout D546–D550 s'y porte ; l'entête, le
    corps et le pied acceptent les onglets (D450) ; **tactile** : le
    swipe bascule d'un onglet à l'autre (l'esprit D503) ;
    **template** : les onglets rendus à la suite (*en proposition —
@@ -2557,7 +2560,10 @@ widgets:
 
 1. **Nom et famille** — `wizard`, une surface — `gui: wizards:
    <nom>:` ; le menu l'adresse (`[@wizard]` — D439) ; la première
-   déclarée = le défaut (D438) ;
+   déclarée = le défaut (D438) ; **le même objet que `tabs[wizard]`**
+   (D551 — l'écho D486 : « un seul list ») — tout ce qui suit vaut
+   des deux côtés, seule change la porte d'entrée (le menu ou
+   l'emboîtement) ;
 2. **Rôle** — **le parcours guidé : « mono-utilisateur, une
    session »** (D230) — les étapes s'enchaînent, la transaction
    conclut ; **la démarche au sens large** (D546) : créer un

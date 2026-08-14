@@ -2570,12 +2570,13 @@ widgets:
    dans son agrégat (D101) ;
 4. **Contexte consommé** — l'enregistrement transitoire, l'origine de
    l'appel, l'utilisateur (D455) ; les droits (D196) ;
-5. **Propriétés** — `title:` (D449/D465) ; **`size:` obligatoire** —
-   « un wizard doit avoir une dimension », **surchargeable au nœud
-   incluant** quand il s'emboîte dans un formulaire (D548/D455, le
-   plus proche l'emporte D461 ; la pile D535, la grammaire D533) ;
-   **le fil d'Ariane en haut ou en bas** (D548 — *en proposition :*
-   `mode: top` (défaut) `| bottom`, les bords D525) ; `screen:`
+5. **Propriétés** — `title:` (D449/D465) ; **`size:` optionnel** — « sans
+   valeur, ça prend l'espace disponible ; en cas d'appel depuis un
+   menu, le wizard prend tout l'écran » (D549) ; surchargeable au
+   nœud incluant quand il s'emboîte dans un formulaire (D548/D455,
+   le plus proche l'emporte D461 ; la grammaire D533) ;
+   **`breadcrumb: none | top | bottom`** — le fil d'Ariane (D549,
+   défaut `top` — les étapes visibles D504 ; `none` le masque) ; `screen:`
    (D450/D532) ; **les étapes = des surfaces déclarées**
    (D231) ; **les transitions conditionnelles** — « si client
    étranger → étape TVA » (D231/D90) ; **la transaction finale**
@@ -2612,7 +2613,7 @@ widgets:
    l'interruption emporte le transitoire (D547 — le draft effacé) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
    D438–D439, D449–D450, D455, D465, D504–D505, D507, D511, D525,
-   D532–D533, D535, D546–D548 ;
+   D532–D533, D535, D546–D549 ;
 10. **Exemple de configuration** —
 
 ```yaml

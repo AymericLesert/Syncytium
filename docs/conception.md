@@ -627,6 +627,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D546 | **Le wizard précisé** : steps/step = « un habillage de tabs[wizard] où chaque step est un tab » ; « un step peut contenir une opération sur la validation » ; les opérations de base de toute entité (create/read/update/delete, enrichies) ; la démarche guidée — créer, modifier/supprimer un ensemble d'une liste, **imprimer les menus**, mettre à jour une tournée. | `operation: <nom>` au step en proposition. Voir §3.2c. |
 | D547 | **La chaîne de pré-exécutions** (amende D546) : « le mode draft s'efface… les steps avec une opération sont pré-exécutés ; la transformation n'aura lieu qu'à la validation définitive du wizard » ; « avec un message de confirmation, si l'utilisateur valide, il ne pourra pas revenir en arrière » — le cliquet sur le chemin D505. | `draft:` retiré ; la transaction finale D232/D101 exécute tout. Voir §3.2c. |
 | D548 | **L'anatomie du wizard** : « un header et un footer ; le fil d'Ariane en bas ou en haut de la zone ; une dimension (size) surchargeable si le wizard s'inclut dans un formulaire ». | `mode: top \| bottom` en proposition (D525) ; l'écho pages D507 ; le plus proche l'emporte (D461). Voir §3.2c. |
+| D549 | **Les arbitrages du wizard** (amende D548) : « size est optionnel — sans valeur, l'espace disponible ; depuis un menu, tout l'écran » ; « plutôt que mode, je préfère **breadcrumb: none \| top \| bottom** ». | Défaut top (l'esprit D504) ; none masque le fil. Voir §3.2c. |
 
 ---
 
@@ -4098,6 +4099,13 @@ des steps ; **le fil d'Ariane** (le chemin D505) en haut ou en bas —
 D525)* ; **`size:` obligatoire** (la pile D535, la grammaire D533),
 **surchargeable au nœud incluant** quand le wizard s'emboîte dans un
 formulaire (D455 — le plus proche l'emporte, D461).
+
+**Les deux arbitrages (D549 — amende D548).** **« `size` est
+optionnel. Sans valeur, ça prend l'espace disponible. En cas d'appel
+depuis un menu, le wizard prend tout l'écran. »** Et le nom du fil :
+**« plutôt que mode, je préfère `breadcrumb: none | top | bottom`. »**
+— `none` masque le fil d'Ariane ; le défaut `top` (les étapes
+visibles — l'esprit D504).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11239,3 +11247,7 @@ avant la synthèse Q16).
   haut ou en bas (mode: top|bottom en proposition) ; size:
   obligatoire, surchargeable à l'inclusion dans un formulaire. La
   fiche complétée.
+- **2026-08-14 (suite 58)** — **Les arbitrages du wizard (D549)** :
+  size optionnel (sans valeur l'espace disponible, tout l'écran
+  depuis un menu) ; breadcrumb: none|top|bottom (défaut top). La
+  fiche ajustée.

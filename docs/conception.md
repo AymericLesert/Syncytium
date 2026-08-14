@@ -635,6 +635,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D554 | **Le dashboard aux deux auteurs** (unifie D204/D247) : « le dashboard est à la charge du technicien — un panel accessible depuis un menu ou une page d'accueil ; le pool est un dashboard personnalisable à l'utilisateur en piochant dans les widgets disponibles » — le même objet, deux auteurs. | La vérification : D204/D247 confirment. Voir §3.2c. |
 | D555 | **Le squelette de dashboard** (précise D554) : « le technicien décrit un ou plusieurs squelettes — avec des widgets contraints et des widgets libres » ; l'accueil composé = le squelette entièrement libre. | L'item `free` (répétable) en proposition. Voir §3.2c. |
 | D556 | **L'emplacement `_` et l'icône du choix** (amende D555) : « un widget interchangeable doit faire apparaître un icône qui permette de choisir un widget disponible selon son propre catalogue ou par sa libération » ; « "_" me parle plus que "free" — free pouvant être lui-même un nom de widget ». | L'item `_` acté ; la collision évitée par construction. Voir §3.2c. |
+| D557 | **L'accueil au module actif** : « une page d'accueil fait référence à un dashboard selon le module activé » — le module actif fournit son tableau de bord. | Complète D554–D556. Voir §3.2c. |
 
 ---
 
@@ -4191,6 +4192,12 @@ D247), ou un widget rendu disponible par la libération d'un autre
 emplacement. Et l'écriture est actée : **« "_" me parle plus que
 "free" — free pouvant être lui-même un nom de widget »** — l'item
 **`_`**, la collision évitée par construction.
+
+**L'accueil au module actif (D557).** **« Une page d'accueil fait
+référence à un dashboard selon le module activé. »** L'accueil n'est
+pas un tableau figé : **le module actif fournit son dashboard** — en
+changeant de module, l'utilisateur change de tableau de bord (le
+squelette du technicien, ses emplacements `_` composés — D554–D556).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11379,3 +11386,6 @@ avant la synthèse Q16).
   choix sur le widget interchangeable (le catalogue propre ou la
   libération) ; « _ » acté à la place de free (la collision évitée).
   La fiche ajustée.
+- **2026-08-14 (suite 68)** — **L'accueil au module actif (D557)** :
+  « une page d'accueil fait référence à un dashboard selon le module
+  activé » — le changement de module change le tableau de bord.

@@ -633,6 +633,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D552 | **La séparation tabs/wizard** (amende D504, rend D551 caduque) : « je valide la séparation — ça confirme mon ressenti » — le mode wizard quitte tabs (restent top/bottom/left/right), le wizard garde steps/step et sa mécanique, le chemin D505 à lui seul ; deux objets, une parenté visuelle. | La transactionnalité n'est pas un habillage ; if:/operation: orphelines sur un tab libre ; le mot fait la chose. Voir §3.2c. |
 | D553 | **Le contexte empilé de l'opération** : « le contexte ne représente pas seulement les informations de l'appel en cours mais l'ensemble des contextes qui se sont empilés jusqu'à l'usage de l'opération » — la pile des contextes, le pendant de D535 ; « l'origine de l'appel » (D455) = la pile entière. | Voir §3.2c. |
 | D554 | **Le dashboard aux deux auteurs** (unifie D204/D247) : « le dashboard est à la charge du technicien — un panel accessible depuis un menu ou une page d'accueil ; le pool est un dashboard personnalisable à l'utilisateur en piochant dans les widgets disponibles » — le même objet, deux auteurs. | La vérification : D204/D247 confirment. Voir §3.2c. |
+| D555 | **Le squelette de dashboard** (précise D554) : « le technicien décrit un ou plusieurs squelettes — avec des widgets contraints et des widgets libres » ; l'accueil composé = le squelette entièrement libre. | L'item `free` (répétable) en proposition. Voir §3.2c. |
 
 ---
 
@@ -4169,6 +4170,15 @@ l'utilisateur en piochant dans les widgets disponibles. »** — **la
 page d'accueil composée est un dashboard dont l'utilisateur est
 l'auteur** : le même objet, deux auteurs — le technicien déclare le
 panel, l'utilisateur compose le sien du pool.
+
+**Le squelette de dashboard (D555 — précise D554).** **« Le
+technicien décrit donc un ou plusieurs squelettes de dashboards —
+avec des widgets contraints et des widgets libres. »** Le squelette :
+**les widgets contraints** (fixés par le technicien, non retirables)
+et **les emplacements libres** — l'utilisateur y pioche du pool
+(D247). *(L'écriture en proposition : l'item **`free`** —
+l'emplacement libre, répétable.)* La page d'accueil composée (D554)
+devient le cas limite : **le squelette entièrement libre.**
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11349,3 +11359,7 @@ avant la synthèse Q16).
   D204/D247 mot pour mot ; l'unification actée : la page d'accueil
   composée est un dashboard dont l'utilisateur est l'auteur — le
   même objet, deux auteurs. La fiche ajustée.
+- **2026-08-14 (suite 66)** — **Le squelette de dashboard (D555)** :
+  les widgets contraints et les emplacements libres (l'item free en
+  proposition) ; l'accueil = le squelette entièrement libre. La
+  fiche complétée.

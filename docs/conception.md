@@ -10581,3 +10581,8 @@ avant la synthèse Q16).
   dry-run D234) ; le message de confirmation au gabarit
   (validate: { message: } en proposition). La fiche operation
   écrite, en attente de validation.
+- **2026-08-14 (suite 8)** — **La fiche `operation` validée** (« je
+  valide ») — validate: { message: <gabarit> } et les variables de la
+  pré-exécution actés. **La famille des actes est soldée** (une fiche
+  unique — l'habitat fait le visage). Restent : les graphiques
+  (chart/kpi/pivot — Q53) et les surfaces.

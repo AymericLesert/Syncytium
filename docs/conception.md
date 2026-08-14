@@ -638,6 +638,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D557 | **L'accueil au module actif** : « une page d'accueil fait référence à un dashboard selon le module activé » — le module actif fournit son tableau de bord. | Complète D554–D556. Voir §3.2c. |
 | D558 | **La homepage aux trois pointes** (amende D557) : « la limiter à un dashboard m'embête — la homepage doit pouvoir pointer une liste, un dashboard ou une page vide ». | La lettre de D204 retrouvée ; la composition aux emplacements `_` (D555–D556). Voir §3.2c. |
 | D559 | **Le template précisé** : `margin:` en mm ; « le paragraph peut être un gabarit — le cas d'une lettre » (le publipostage, l'étoffement Q55) ; « la déclinaison par langue se porte sur chaque item » (amende la lecture de D253 — un seul gabarit, les items déclinés). | Voir §3.2c. |
+| D560 | **Le publipostage étoffé** : « paragraph doit être étoffé pour disposer d'un mode publipostage riche et facile à intégrer » — les cinq briques en proposition : les variables au format de la langue (les chemins D71), l'`if:` conditionnel, `style:`/les titres, la source (en place ou dictionnaire D440), le multi-alinéas. | À arbitrer. Voir §3.2c. |
 
 ---
 
@@ -4218,6 +4219,19 @@ l'étoffement Q55 commence ; **« la déclinaison par langue se porte
 sur chaque item »** — la lecture de D253 s'amende : **un seul
 gabarit**, ses items déclinés par langue (la mécanique D465), non un
 gabarit entier par langue.
+
+**Le publipostage étoffé (D560).** **« Paragraph doit être étoffé
+pour disposer d'un mode publipostage riche et facile à intégrer. »**
+L'étoffement proposé — cinq briques *(toutes en proposition, à
+arbitrer)* : **(1) les variables** — `{champ}` rendu au format de la
+langue du document (la conversion D369), les chemins de référence
+traversés (`{customer.address.city}` — D71) ; **(2) la condition** —
+`if:` sur le paragraphe (le bloc ne s'imprime que si — D90, l'écho
+D546) ; **(3) la mise en forme** — `style:` (D536) et les titres à
+quatre niveaux (D250) ; **(4) la source** — le texte en place
+(décliné par langue D559) ou le dictionnaire du module (D440) ;
+**(5) le multi-alinéas** — un seul `paragraph` porte plusieurs
+alinéas (la lettre s'écrit d'un bloc).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11426,3 +11440,7 @@ avant la synthèse Q16).
   commence) ; la déclinaison par langue à chaque item (D253 amendé :
   un seul gabarit, les items déclinés). Les écarts
   template/formulaire posés dans l'échange pour revue.
+- **2026-08-14 (suite 72)** — **Le publipostage étoffé (D560)** :
+  « riche et facile à intégrer » — les cinq briques proposées
+  (variables aux chemins, if:, style:/titres, la source, le
+  multi-alinéas), l'arbitrage attendu.

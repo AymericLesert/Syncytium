@@ -2675,15 +2675,18 @@ wizards:
    `widget[order.monthly]`) ; les graphiques directs
    (`chart[<nom>]` — D243/D540) ; les `sections` et leurs layouts
    pour la disposition (D489–D491) ;
-7. **Modes et déclinaisons** — **le dashboard déclaré ≠ la page
-   d'accueil composée** : l'accueil reste à l'utilisateur (D204 — le
-   pool des widgets de ses modules) ; le tableau de bord est l'œuvre
-   du technicien, au module ; le responsive au repli (D203) ;
+7. **Modes et déclinaisons** — **le même objet, deux auteurs**
+   (D554) : **le technicien déclare le panel** (les dashboards du
+   module — le menu, l'accueil pointé) ; **l'utilisateur compose le
+   sien** — la page d'accueil = un dashboard personnel, pioché dans
+   le pool des widgets de ses modules, sous sa confidentialité
+   (D204/D247/D191) ; le responsive au repli (D203) ;
 8. **États et interactions** — **le drill-down** de chaque widget
    (D202/D242) ; la confidentialité masque widget par widget (D247) ;
    le rafraîchissement vit selon son mode (D249) ;
-9. **Décisions fondatrices** — D202–D204, D242–D243, D247–D249,
-   D434, D438–D439, D449–D450, D455, D461, D465, D532, D535, D540 ;
+9. **Décisions fondatrices** — D191, D202–D204, D242–D243,
+   D247–D249, D434, D438–D439, D449–D450, D455, D461, D465, D532,
+   D535, D540, D554 ;
 10. **Exemple de configuration** —
 
 ```yaml

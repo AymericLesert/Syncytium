@@ -632,6 +632,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D551 | **Un seul wizard** : « tout ce que nous venons de voir avec wizard doit être également porté par tabs[wizard]… car cela doit être le même objet » — la surface et le conteneur, un même composant (l'écho D486) ; seule change la porte d'entrée. | Les fiches wizard et tabs liées. Voir §3.2c. |
 | D552 | **La séparation tabs/wizard** (amende D504, rend D551 caduque) : « je valide la séparation — ça confirme mon ressenti » — le mode wizard quitte tabs (restent top/bottom/left/right), le wizard garde steps/step et sa mécanique, le chemin D505 à lui seul ; deux objets, une parenté visuelle. | La transactionnalité n'est pas un habillage ; if:/operation: orphelines sur un tab libre ; le mot fait la chose. Voir §3.2c. |
 | D553 | **Le contexte empilé de l'opération** : « le contexte ne représente pas seulement les informations de l'appel en cours mais l'ensemble des contextes qui se sont empilés jusqu'à l'usage de l'opération » — la pile des contextes, le pendant de D535 ; « l'origine de l'appel » (D455) = la pile entière. | Voir §3.2c. |
+| D554 | **Le dashboard aux deux auteurs** (unifie D204/D247) : « le dashboard est à la charge du technicien — un panel accessible depuis un menu ou une page d'accueil ; le pool est un dashboard personnalisable à l'utilisateur en piochant dans les widgets disponibles » — le même objet, deux auteurs. | La vérification : D204/D247 confirment. Voir §3.2c. |
 
 ---
 
@@ -4155,6 +4156,19 @@ voit tout ce qui s'est empilé : le périmètre de la liste,
 l'enregistrement du formulaire, le transitoire du wizard.
 « L'origine de l'appel » de D455 se relit : **la pile entière, pas le
 dernier maillon.**
+
+**Le dashboard aux deux auteurs (D554 — unifie D204/D247).** La
+vérification demandée (« est-ce bien cela ? ») : oui — D204 («
+l'utilisateur sélectionne une entrée du menu ou laisse vierge, et
+choisit les widgets ») et D247 (« le pool : les widgets de ses
+modules, sous sa confidentialité ») disent exactement cela. Et la
+formulation de l'auteur unifie : **« le dashboard est à la charge du
+technicien — un panel de dashboards accessibles depuis un menu ou une
+page d'accueil. Le pool est un dashboard personnalisable à
+l'utilisateur en piochant dans les widgets disponibles. »** — **la
+page d'accueil composée est un dashboard dont l'utilisateur est
+l'auteur** : le même objet, deux auteurs — le technicien déclare le
+panel, l'utilisateur compose le sien du pool.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11330,3 +11344,8 @@ avant la synthèse Q16).
   widgets assemblés ; en proposition : le bloc dashboards: au module,
   refresh: static|live|every[…] (D434), widget[<entité>.<nom>]
   (la famille des adresses).
+- **2026-08-14 (suite 65)** — **Le dashboard aux deux auteurs
+  (D554)** : la vérification (« est-ce bien cela ? ») — oui,
+  D204/D247 mot pour mot ; l'unification actée : la page d'accueil
+  composée est un dashboard dont l'utilisateur est l'auteur — le
+  même objet, deux auteurs. La fiche ajustée.

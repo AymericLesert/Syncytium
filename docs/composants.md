@@ -2737,7 +2737,8 @@ dashboards:
    déclarée = le défaut (D438) ;
 2. **Rôle** — **le patron du document généré** : « un formulaire en
    lecture seule + une dimension de page » (D250) — la facture, le
-   devis, l'étiquette, le bon de livraison ;
+   devis, l'étiquette, le bon de livraison — **vers quatre
+   destinations : « Word, PDF, Excel ou un mail »** (D564) ;
 3. **Types servis** — l'entité — l'enregistrement dans son agrégat ;
    **les quatre portes** : l'effet `document:` d'une opération
    (D432), le viewer à la volée (`template[<nom>]` — D483, « le
@@ -2754,8 +2755,11 @@ dashboards:
    (D250) : `title:` (le gabarit — D449), le `pages` implicite
    (D509) ; **la dimension de page** (*en proposition :* `paper:` —
    `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; **`margin:`**
-   — « les marges en mm » (D559) ; les titres à quatre niveaux
-   (D250) ;
+   — « les marges en mm » (D559) ; **`format:`** — « le format de
+   destination » (D564) : `pdf` (*le défaut en proposition* — la
+   lignée D212/D250) `| word | excel | mail` — le mail portant le
+   publipostage (D562), l'Excel le modèle (D445) ; les titres à
+   quatre niveaux (D250) ;
 6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
    chaque page** (la proposition de D507 confirmée par l'usage) —,
    les `page`(s), les sections ; **les feuilles aux pendants PDF**
@@ -2771,7 +2775,8 @@ dashboards:
    la confidentialité s'applique au rendu (les champs masqués
    n'apparaissent pas) ;
 9. **Décisions fondatrices** — D212, D250–D254, D257, D432, D438,
-   D449, D481, D483, D488, D507, D509, D530, D542–D545, D559 ;
+   D445, D449, D481, D483, D488, D507, D509, D530, D542–D545, D559,
+   D562, D564 ;
 10. **Exemple de configuration** —
 
 ```yaml

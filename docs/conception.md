@@ -642,6 +642,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D561 | **La sixième brique** (complète D560) : « l'affichage d'une liste sous forme de bullet points ou d'indices » — la collection dans la lettre. | `{overdue[bullets]}` / `{overdue[numbers]}` en proposition (le crochet ; le `title` D465 par élément). Voir §3.2c. |
 | D562 | **Mustache + markdown au paragraph** (remplace les écritures D560–D561) : « la combinaison doit couvrir les différents cas ; des limites portant sur les composants (pas de liste, pas d'image…) » — mustache (variables, chemins, sections-itérations), markdown (titres, gras, puces, tableaux) ; `![…]` exclu, l'`if:` d'expression demeure (D90), le champ texte utilisateur reste nu (D261). | Deux standards, zéro syntaxe maison. Voir §3.2c. |
 | D563 | **Le comportement d'`url`** (les cinq points validés) : le lien en lecture — le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone (D271/D391) ; l'icône demeure en saisie ; l'ellipse en cellule ; le lien actif au template, la valeur nue en Excel/CSV ; l'aperçu de la cible = un hook (D263). | La synthèse complétée (la ligne url séparée). Voir §3.2c. |
+| D564 | **Les quatre destinations du template** : « générer un document Word, PDF, Excel ou un mail — le template porte une propriété `format` qui précise le format de destination ». | `format: pdf \| word \| excel \| mail` (défaut pdf en proposition) ; le mail = le publipostage D562, l'Excel = le modèle D445. Voir §3.2c. |
 
 ---
 
@@ -4274,6 +4275,15 @@ clic ouvre, le double-clic édite (D446) ; **(4) le template** — le
 texte et le lien actif ; Excel/CSV — la valeur nue, ré-importable ;
 **(5) pas de prévisualisation au socle** — l'aperçu de la cible = un
 hook (la ligne D263).
+
+**Les quatre destinations du template (D564).** **« Le template est
+utilisé pour générer un document Word, PDF, Excel ou un mail. Le
+template porte une propriété `format` qui précise le format de
+destination. »** Le gabarit s'ouvre au-delà du PDF (D212/D250 — qui
+reste le défaut naturel, *en proposition*) : **`format: pdf | word |
+excel | mail`**. Le mail rejoint le publipostage (D562) — la lettre
+mustache+markdown devient le corps du message ; l'Excel rejoint le
+modèle des exports (D445).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11503,6 +11513,11 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 77)** — **La PR #25 créée** (« Q16 domaine 4 —
   les actes, les graphiques, les surfaces : le catalogue au complet,
   D511–D563 » — 75 commits, 2 fichiers) vers develop.
+- **2026-08-14 (suite 78)** — **Les quatre destinations du template
+  (D564)** : Word, PDF, Excel ou un mail — format: précise la
+  destination (défaut pdf en proposition) ; le mail rejoint le
+  publipostage (D562). La fiche complétée — le commit rejoint la PR
+  #25 ouverte.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

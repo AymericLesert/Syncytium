@@ -42,7 +42,8 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
   `picker.image` · `picker.file` · `picker.color` · `viewer` · `map` · `paragraph` · `picture` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
-  masquée, D463) · `color` (la pastille — D496) — **le composant par défaut d'un type porte le nom du
+  masquée, D463) · `color` (la pastille — D496) · `qrcode`/`barcode`
+  (les composants de sortie — D300/D542) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
 - **Les graphiques** : la famille pointée **`chart.line`** ·
   **`chart.bars`** · **`chart.pie`** · **`chart.combo`** ·
@@ -75,7 +76,7 @@ Quatre règles transversales l'allègent :
 | Type | Composant par défaut | Compatibles (`component:`) |
 |---|---|---|
 | `boolean` | `checkbox` (3 états — faux→vrai→nul) | `toggle` |
-| `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` |
+| `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` ; `qrcode`/`barcode` (la sortie — D300/D542) |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
 | `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
@@ -113,7 +114,7 @@ Quatre règles transversales l'allègent :
 | le lien n-aire — `list of [a, b]` / `association with [a, b]` (D402) | la liste embarquée (les combinaisons en lignes) | `widget:` (D492) |
 | l'association dérivée — `association with <entité> if …` (D405) | la liste embarquée **en lecture** | `widget:`, `viewer` au visage |
 | la liste nommée (l'accès retour automatique du 1-N — D216/D394) | la liste embarquée | comme l'association |
-| `counter` | la valeur assemblée, lecture seule partout (D155/D297) | — |
+| `counter` | la valeur assemblée, lecture seule partout (D155/D297) | `qrcode`/`barcode` (l'étiquette — D252/D542) |
 | le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
 | le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | `dropdown` — la liste des valeurs **tenant compte du cycle de vie** : les états atteignables seuls (D500) |
 
@@ -2200,6 +2201,50 @@ charts:
     sort: -value                 # les plus gros CA d'abord (D528)
     filter: state = "invoiced"
     title: { fr: CA par commercial et par mois }
+```
+
+## `qrcode` / `barcode`
+
+1. **Nom et famille** — `qrcode` et `barcode`, deux feuilles
+   jumelles — **les composants de sortie** (D300, clôt Q56) ; une
+   fiche commune (D542 — le manque relevé par l'auteur) ;
+2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
+   valeur encodée, lisible à la machine : l'étiquette, le document,
+   l'écran ;
+3. **Types servis** — les champs à valeur textuelle — le texte, le
+   compteur, l'`uuid`, la référence… : **la conversion en texte du
+   type** (D369) fait la valeur encodée ; en surcharge
+   (`component: qrcode`) ;
+4. **Contexte consommé** — le champ, sa valeur convertie (D369), les
+   droits ;
+5. **Propriétés** — le socle (D461) ; `size:` (D484/D533) ; **le
+   format du code-barres au crochet** (*en proposition :*
+   `barcode[ean13]`, `barcode[code128]` — le défaut `code128`) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **la sortie d'abord** : le PDF et
+   l'étiquette (D252 — l'impression directe du serveur, les
+   imprimantes de l'OS), l'écran en lecture ; **Excel = la valeur
+   source** (D300) ; jamais la saisie (*le scan reste hors D300 — la
+   question pour plus tard si besoin*) ;
+8. **États et interactions** — la lecture seule par nature ; masqué
+   par la confidentialité ;
+9. **Décisions fondatrices** — D252, D300, D369, D461, D484, D542 ;
+10. **Exemple de configuration** —
+
+```yaml
+# stock/entities/product.yml
+fields:
+  sku: counter[product]            # le compteur mutualisé (D410)
+
+gui:
+  templates:
+    label:                         # l'étiquette imprimée du serveur (D252)
+      page:
+        - field[sku]:
+            component: qrcode      # la valeur rendue en QR (D300)
+        - field[name]
+        - field[price]:
+            component: barcode[ean13]   # le format au crochet (proposition)
 ```
 
 # Les surfaces

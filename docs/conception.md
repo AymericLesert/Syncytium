@@ -620,6 +620,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D539 | **La troisième assise du chart** (élargit D517) : « elle s'appuie sur une entité ou un champ de type list of ou association with » — le champ-collection : le graphique des éléments liés à l'enregistrement du contexte. | `on: <champ>` en proposition. Voir §3.2c. |
 | D540 | **Le chart, feuille du formulaire** : « un form peut donc avoir un composant chart comme feuille — nous le faisons entrer de fait dans summary » — `chart[<nom>]` en item du form, le résumé l'héritant (la modestie D538). | Confirme D243/D538. Voir §3.2c. |
 | D541 | **La tendance du kpi** (note pour plus tard) : « en exploitant l'historique d'une entité, nous pourrions présenter la tendance » — la valeur rejouée aux instants passés (D411/D172) ; le détail différé. | La frontière avec D245 à confirmer au moment venu. Voir §3.2c. |
+| D542 | **`qrcode` et `barcode` fichés** (répare un manque) : décidés (D252/D300 — les composants de sortie) mais absents de l'inventaire des fiches — les deux feuilles jumelles ajoutées, la fiche commune. | `barcode[ean13\|code128…]` au crochet en proposition (défaut code128) ; le scan hors D300. Voir §3.2c. |
 
 ---
 
@@ -4011,6 +4012,20 @@ l'historisation (D411) et l'API temporelle « au plus proche ≤ date »
 arbitrer au moment venu : la frontière avec D245 — « pas de
 comparaison dans le socle » ; la tendance issue de l'historique n'est
 pas la comparaison de périodes, la lecture à confirmer.)*
+
+**Le QR code et le code-barres fichés (D542 — répare un manque).**
+**« Avant de reprendre, avons-nous décrit les qrcode et code
+barres ? »** La vérification : décidés — D252 (l'étiquette imprimée
+du serveur) et D300 (les composants de **sortie**, « ils rendent la
+valeur d'un champ », clôt Q56) — mais jamais fichés : l'inventaire
+des feuilles les avait manqués. Réparé : **`qrcode` et `barcode`**,
+deux feuilles jumelles à la fiche commune — la valeur convertie en
+texte (D369) rendue lisible à la machine ; l'écran en lecture, le
+PDF/l'étiquette en usage premier, Excel = la valeur source. *(En
+proposition : le format du code-barres au crochet —
+`barcode[ean13]`, `barcode[code128]` — le défaut `code128` ; la
+saisie par scan reste hors D300 — les composants sont de sortie, la
+question du scan pour plus tard si besoin.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11113,3 +11128,7 @@ avant la synthèse Q16).
   plus tard)** : « en exploitant l'historique d'une entité, nous
   pourrions présenter la tendance » — la piste consignée
   (D411/D172), le détail différé, la frontière avec D245 à confirmer.
+- **2026-08-14 (suite 49)** — **qrcode et barcode fichés (D542)** :
+  la question de l'auteur relève le manque — décidés (D252/D300)
+  mais jamais fichés ; la fiche commune écrite, l'inventaire et la
+  synthèse complétés ; le format au crochet en proposition.

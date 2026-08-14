@@ -612,6 +612,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D531 | **Les actions et l'anatomie de la liste** : `actions:` (l'opération porte son icône, surchargeable) ; « une liste est comme pages » — le header (titre, colonnes, filtres, l'icône-menu des exports, les icônes add/update/delete + actions à icône), la zone page (le tableau), le footer (le sous-total ou un gabarit, les boutons des actions sans icône). | L'icône trie : header ; sans icône : bouton du pied. `{count}` au gabarit en proposition. Voir §3.2c. |
 | D532 | **`size:` et `screen:` sur la liste** : « comme la form — size pour marquer la zone de couverture de l'écran, screen pour indiquer sur quel support la liste a été définie et/ou autorisée à s'afficher ». | La cohérence D484/D503 et D450. Voir §3.2c. |
 | D533 | **La grammaire de `size:`** : « 75% → 75 % de l'écran avec centrage ; 90% 50% → la longueur et la hauteur ; ou 1000px 320px en pixels » — une valeur centrée, deux valeurs largeur puis hauteur, % ou px. | Vaut partout où size s'écrit (D484). Voir §3.2c. |
+| D534 | **La confusion levée** (clarifie D532) : « j'ai introduit une confusion entre dimension et size » — la doctrine D484 départage : le formulaire s'ouvre à l'appel → `dimension:` (D454) ; la liste s'affiche → `size:` ; la grammaire D533 vaut pour les deux. | Voir §3.2c. |
 
 ---
 
@@ -3924,6 +3925,15 @@ pixels. »** Une valeur = la part de l'écran, **centrée** ; deux
 valeurs = **la largeur puis la hauteur** ; l'unité : `%` ou `px`. La
 grammaire vaut **partout où `size` s'écrit** (D484 — la carte, les
 sections, le kpi, la liste…).
+
+**La confusion levée (D534 — clarifie D532).** **« J'ai introduit une
+confusion entre dimension et size. »** La doctrine D484 départage :
+**le formulaire s'ouvre à l'appel → `dimension:`** (D454 — la
+surimpression, l'extension au clic) ; **la liste s'affiche →
+`size:`** (D532 — la couverture de l'écran). Le « comme la form » de
+D532 se lit : comme le formulaire porte ses propriétés d'emprise et de
+support, la liste porte les siennes. **La grammaire D533 vaut pour les
+deux mots** — une ou deux valeurs, % ou px.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10976,3 +10986,8 @@ avant la synthèse Q16).
   gabarit (D449/D465), la surimpression (D454, la grammaire D533) ;
   la virgule size/dimension au formulaire signalée (D532 évoquait
   size — la lecture D484 dit dimension, l'extension à l'appel).
+- **2026-08-14 (suite 38)** — **La confusion levée (D534)** : « j'ai
+  introduit une confusion entre dimension et size » — D484
+  départage : le formulaire à l'appel → dimension (D454), la liste à
+  l'affichage → size ; la grammaire D533 pour les deux. La fiche form
+  confirmée sur dimension:.

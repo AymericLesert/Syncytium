@@ -2322,8 +2322,10 @@ lists:
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
    (D453) ; **`dimension:`** — la surimpression à l'appel, défaut
-   100 % de l'écran (D454 — l'extension D484 ; la grammaire D533 :
-   une ou deux valeurs, % ou px) ;
+   100 % de l'écran (D454 — l'extension D484, **la confusion
+   size/dimension levée par D534** : le formulaire s'ouvre → dimension,
+   la liste s'affiche → size ; la grammaire D533 : une ou deux
+   valeurs, % ou px) ;
 6. **Items** — **le `pages` implicite** (D509) : `header`, `page`(s),
    `footer` — les clés à l'usuel, **la liste d'éléments au
    multi-pages** (D510) ; dans les pages : les sections seules
@@ -2343,7 +2345,7 @@ lists:
    `title` en tête, vivant avec l'enregistrement ;
 9. **Décisions fondatrices** — D101, D111, D154, D196, D199, D203,
    D307, D437–D438, D446, D449–D455, D460, D465, D483, D509–D511,
-   D530, D533 ;
+   D530, D533–D534 ;
 10. **Exemple de configuration** —
 
 ```yaml

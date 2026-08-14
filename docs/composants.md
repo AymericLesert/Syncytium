@@ -2043,3 +2043,44 @@ charts:
       - { zone: [2,1], title: { fr: À éviter },      color: red }
     labels: true                  # le visage au survol (D386)
 ```
+
+## `chart.combo`
+
+1. **Nom et famille** — `chart.combo`, un graphique de la famille
+   pointée (D512) — le combiné ;
+2. **Rôle** — deux mesures d'un regard : **« courbe + barres ou deux
+   courbes, 2 axes Y max, même temporalité/échantillon »** (D239) ;
+3. **Types servis** — l'assise (D517–D518) ; **un `x:` commun** (le
+   même découpage — la même temporalité par construction) ; **deux
+   séries `y:`, chacune son axe** (gauche/droite) ;
+4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
+   D247, les droits) ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 —
+   `display:` compris) ; **les écarts propres** (*écritures en
+   proposition*) : `y:` en liste de séries —
+   `{ value:, as: line | bars, axis: left | right }` — la nature et
+   l'axe de chacune (défauts : la première à gauche, la seconde à
+   droite) ; **deux axes maximum** — « au-delà de 2 axes, illisible »
+   (D239) : la troisième série refusée à l'ingestion, le hook pour
+   aller au-delà ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
+   l'image (D257) ; le tableau des valeurs — les deux séries en
+   colonnes (`display:` — D521) ;
+8. **États et interactions** — le drill-down au clic (D242) ; les
+   valeurs du calcul (D516) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
+   D515–D518, D521 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  activity:
+    component: chart.combo
+    x: date[month]               # le découpage commun (D239/D240)
+    y:
+      - { value: sum(total), as: bars, axis: left }    # le CA en barres
+      - { value: count(),    as: line, axis: right }   # le volume en courbe
+    labels: true
+```

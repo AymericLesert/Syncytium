@@ -10790,3 +10790,8 @@ avant la synthèse Q16).
   redondance effacée — l'axe porte min/max/threshold, la zone
   s'adresse (zone: [1,1] + title) ; la convention [colonne, ligne]
   depuis l'origine en proposition. La fiche simplifiée.
+- **2026-08-14 (suite 22)** — **La fiche `chart.scatter` validée**
+  (« oui »), la convention [colonne, ligne] depuis l'origine actée.
+  Suivante : `chart.combo` — le combiné (D239 : courbe+barres ou 2
+  courbes, 2 axes Y max) ; en proposition : y: en liste de séries
+  { value:, as: line|bars, axis: left|right }.

@@ -2575,8 +2575,9 @@ widgets:
    (D231) ; **les transitions conditionnelles** — « si client
    étranger → étape TVA » (D231/D90) ; **la transaction finale**
    (D232/D101 — rien ne s'écrit avant la conclusion, la relecture
-   D431 en clôture) ; **le brouillon = un niveau d'état déclaré,
-   jamais une machinerie** (D233) ;
+   D431 en clôture) ; **pas de brouillon** — « le mode draft s'efface
+   avec la possibilité de pré-exécuter une opération » (D547 ; le
+   niveau d'état déclaré D233 reste l'affaire de l'entité) ;
 6. **Items** — **les étapes : `steps:`/`step:` — « un habillage de
    `tabs[wizard]` où chaque step est en fait un tab »** (D546, le
    couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
@@ -2584,8 +2585,10 @@ widgets:
    d'un formulaire), sa condition (*en proposition :* **`if:`** — la
    transition conditionnelle D231/D90, l'étape sautée si la condition
    ne tient pas), et **son opération** — « un step peut contenir une
-   opération sur la validation » (D546 — jouée au passage, l'acte
-   D511 ; *en proposition :* `operation: <nom>`) ;
+   opération sur la validation » (D546 — *en proposition :*
+   `operation: <nom>`) : **pré-exécutée au passage** (D547 — le
+   chiffrage D511), **la transformation n'ayant lieu qu'à la
+   validation définitive du wizard** ;
 7. **Modes et déclinaisons** — **le squelette `tabs[wizard]`**
    (D504–D505) : toutes les étapes visibles, **l'avance au rythme de
    l'exploration**, « les tabs parcourus décrivent le chemin de
@@ -2596,13 +2599,14 @@ widgets:
    d'assemblage états + opérations + notifications, sans moteur BPM
    (D233) ;
 8. **États et interactions** — **l'état transitoire** jusqu'à la
-   transaction finale (D232/D101) ; l'interruption : **le brouillon
-   déclaré** (*en proposition :* `draft: <état>` — l'enregistrement
-   survit au niveau d'état déclaré D233 ; absent, la session
-   emporte tout) ;
+   transaction finale (D232/D101) — **la chaîne de pré-exécutions**
+   (D547) : rien ne se transforme avant la validation définitive ;
+   **la confirmation validée barre le retour** — le chemin navigable
+   (D505) s'arrête au dernier step confirmé (le cliquet) ;
+   l'interruption emporte le transitoire (D547 — le draft effacé) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
    D438–D439, D449–D450, D455, D465, D504–D505, D511, D532, D535,
-   D546 ;
+   D546–D547 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2610,7 +2614,6 @@ widgets:
 wizards:
   new_order:                       # le menu : sales.order[@new_order] (D439)
     title: { fr: Nouvelle commande }
-    draft: draft                   # l'interruption survit à l'état déclaré (D233)
     steps:
       - step:
           title: { fr: Client }

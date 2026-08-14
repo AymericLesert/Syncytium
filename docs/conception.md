@@ -625,6 +625,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D544 | **Les deux modes du champ encodé** (précise D300/D543) : « la saisie en mode texte et l'affichage en mode graphique — la saisie peut nécessiter une size différente de l'affichage ». | `size: { input:, display: }` en proposition (la forme courte = l'affichage seul). Voir §3.2c. |
 | D545 | **La valeur sous les barres** : « l'affichage du code-barres peut nécessiter l'affichage de la valeur de la référence sous le code-barres » — l'humain sous la machine. | `labels: true` en proposition (l'écho D516, défaut false). Voir §3.2c. |
 | D546 | **Le wizard précisé** : steps/step = « un habillage de tabs[wizard] où chaque step est un tab » ; « un step peut contenir une opération sur la validation » ; les opérations de base de toute entité (create/read/update/delete, enrichies) ; la démarche guidée — créer, modifier/supprimer un ensemble d'une liste, **imprimer les menus**, mettre à jour une tournée. | `operation: <nom>` au step en proposition. Voir §3.2c. |
+| D547 | **La chaîne de pré-exécutions** (amende D546) : « le mode draft s'efface… les steps avec une opération sont pré-exécutés ; la transformation n'aura lieu qu'à la validation définitive du wizard » ; « avec un message de confirmation, si l'utilisateur valide, il ne pourra pas revenir en arrière » — le cliquet sur le chemin D505. | `draft:` retiré ; la transaction finale D232/D101 exécute tout. Voir §3.2c. |
 
 ---
 
@@ -4071,6 +4072,20 @@ semaine → la liste des menus → le mode de diffusion), **créer un
 client**, **mettre à jour une tournée** — le wizard orchestre les
 opérations, il ne fait pas que des naissances. *(L'écriture en
 proposition : `operation: <nom>` au step.)*
+
+**La chaîne de pré-exécutions (D547 — amende D546, retire le
+draft).** **« Le mode draft s'efface avec la possibilité de
+pré-exécuter une opération. Avec un message de confirmation, si
+l'utilisateur valide, il ne pourra pas revenir en arrière. Dans un
+wizard, les steps avec une opération sont pré-exécutés. La
+transformation n'aura lieu qu'à la validation définitive du
+wizard. »** Le wizard se referme en une mécanique pure : **les
+opérations d'étape se jouent en pré-exécution** (le chiffrage D511)
+au fil de l'avance ; **la transformation unique à la validation
+définitive** — la transaction finale (D232/D101) exécute tout d'un
+coup ; **la confirmation validée barre le retour** — le chemin
+navigable (D505) s'arrête au dernier step confirmé (le cliquet) ; la
+proposition `draft:` est retirée — la pré-exécution la remplace.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11202,3 +11217,8 @@ avant la synthèse Q16).
   opérations de base create/read/update/delete ; la démarche
   élargie — créer, agir sur un ensemble d'une liste, imprimer les
   menus, mettre à jour une tournée. La fiche complétée.
+- **2026-08-14 (suite 56)** — **La chaîne de pré-exécutions (D547)** :
+  le draft s'efface ; les steps à opération pré-exécutés, la
+  transformation à la validation définitive ; la confirmation validée
+  barre le retour (le cliquet sur le chemin D505). La fiche
+  corrigée.

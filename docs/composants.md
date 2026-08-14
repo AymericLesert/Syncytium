@@ -2223,7 +2223,10 @@ charts:
    **« largeur × hauteur »** (`size: 200px 60px` — la grammaire
    D533) ; **la saisie peut porter sa propre taille** (D544 — *en
    proposition :* `size: { input: 30, display: 120px }`, la forme
-   courte valant l'affichage seul) ; **le format du code-barres au crochet** (*en
+   courte valant l'affichage seul) ; **`labels:`** — « la valeur de
+   la référence sous le code-barres » (D545 — *en proposition :*
+   `labels: true`, la valeur au format du champ — l'écho D516 ;
+   défaut `false`) ; **le format du code-barres au crochet** (*en
    proposition :* `barcode[ean13]`, `barcode[code128]` — le défaut
    `code128`) ;
 6. **Items** — aucun ;
@@ -2237,7 +2240,7 @@ charts:
 8. **États et interactions** — la lecture seule par nature ; masqué
    par la confidentialité ;
 9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
-   D533, D542–D544 ;
+   D516, D533, D542–D545 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2256,6 +2259,7 @@ gui:
         - field[price]:
             component: barcode[ean13]   # le format au crochet (proposition)
             size: 200px 60px       # largeur × hauteur (D543)
+            labels: true           # la valeur sous les barres (D545)
 ```
 
 # Les surfaces

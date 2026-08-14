@@ -623,6 +623,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D542 | **`qrcode` et `barcode` fichés** (répare un manque) : décidés (D252/D300 — les composants de sortie) mais absents de l'inventaire des fiches — les deux feuilles jumelles ajoutées, la fiche commune. | `barcode[ean13\|code128…]` au crochet en proposition (défaut code128) ; le scan hors D300. Voir §3.2c. |
 | D543 | **Le `size` des jumeaux** : le qrcode — « la taille unique pour les côtés » (`size: 120px`, le carré) ; le code-barres — « largeur × hauteur » (la grammaire D533). | Voir §3.2c. |
 | D544 | **Les deux modes du champ encodé** (précise D300/D543) : « la saisie en mode texte et l'affichage en mode graphique — la saisie peut nécessiter une size différente de l'affichage ». | `size: { input:, display: }` en proposition (la forme courte = l'affichage seul). Voir §3.2c. |
+| D545 | **La valeur sous les barres** : « l'affichage du code-barres peut nécessiter l'affichage de la valeur de la référence sous le code-barres » — l'humain sous la machine. | `labels: true` en proposition (l'écho D516, défaut false). Voir §3.2c. |
 
 ---
 
@@ -4044,6 +4045,13 @@ texte — la taille D366, le masque), **l'affichage est le graphique**
 — et chacun peut porter sa taille. *(L'écriture en proposition :
 `size: { input: …, display: … }` — la forme courte `size: 120px` =
 l'affichage seul, la saisie restant au régime du texte.)*
+
+**La valeur sous les barres (D545).** **« L'affichage du code-barres
+peut nécessiter l'affichage de la valeur de la référence sous le
+code-barres. »** La valeur lisible à l'humain, sous la valeur lisible
+à la machine — l'usage des étiquettes EAN. *(L'écriture en
+proposition : `labels: true` — l'écho D516, la valeur au format du
+champ ; défaut `false`.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11157,3 +11165,6 @@ avant la synthèse Q16).
   (D544)** : la saisie en mode texte (le régime du champ), l'affichage
   en mode graphique — chacun sa taille ; size: { input:, display: }
   en proposition.
+- **2026-08-14 (suite 52)** — **La valeur sous les barres (D545)** :
+  labels: true en proposition (l'écho D516, défaut false) — l'humain
+  sous la machine.

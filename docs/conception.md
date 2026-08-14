@@ -647,6 +647,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D566 | **La signature formelle du nœud** (clôt le point) : l'adresse universelle `<type>[<nom>]` (render/field/operation/template/chart/widget) ; `visible:` conditionnel — faux = ni déclaré ni construit ; les propriétés et les états **évalués à la sollicitation** ; les enfants au champ déclaré par le type, **évalués de la feuille à la racine avant construction** ; la pile de contexte depuis la racine ; le hook = l'objet du composant et de son rendu multi-formats. | La section en tête de composants.md. Voir §3.2c. |
 | D567 | **Les deux amendements de la signature** (amende D566) : les enfants « dans un ou plusieurs noms — header, page, footer ; chaque élément est facultatif » ; `visible:` **vivant** — « en fonction de la valeur d'un champ ou d'un contexte, un élément peut devenir visible ou masqué (le toggle de la saisie conditionnelle) » — le « ni déclaré ni construit » effacé. | L'écho du recalcul D255. Voir §3.2c. |
 | D568 | **La section repliable** : « refermer ou ouvrir si le composant a la propriété `dropdown: true`, avec un icône pour matérialiser l'affichage ou pas ». | La collision avec la feuille notée (D458) ; le défaut déplié en proposition. Voir §3.2c. |
+| D569 | **Les quatre valeurs du repli** (solde D568) : `dropdown: false` (défaut — fixe) `\| true` (repliable, ouverte par défaut) `\| opened \| closed` (l'état d'entrée explicite). | L'orthographe `opened` consignée. Voir §3.2c. |
 
 ---
 
@@ -4346,6 +4347,13 @@ icône pour matérialiser l'affichage ou pas. »** La section se replie
 et se déplie — l'icône (le chevron) dit l'état. *(La collision avec
 la feuille `dropdown` notée — le contexte départage, D458 ; le défaut
 en proposition : la section s'ouvre dépliée.)*
+
+**Les quatre valeurs (D569 — solde D568).** **« `dropdown: false |
+true (avec open par défaut) | openned | closed`. »** — `false` (le
+défaut : la section fixe), `true` (repliable, **ouverte par
+défaut**), `opened` (repliable, ouverte — l'équivalent de true),
+`closed` (repliable, **fermée d'entrée**). *(L'orthographe consignée
+`opened` — la coquille « openned » corrigée au registre.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11603,6 +11611,9 @@ avant la synthèse Q16).
   dropdown: true — le repli/dépli à l'icône ; la collision avec la
   feuille notée, le défaut déplié en proposition. La fiche section
   complétée.
+- **2026-08-14 (suite 84)** — **Les quatre valeurs du repli (D569)** :
+  dropdown: false|true (ouvert par défaut)|opened|closed —
+  l'orthographe opened consignée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

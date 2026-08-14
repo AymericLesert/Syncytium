@@ -628,6 +628,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D547 | **La chaîne de pré-exécutions** (amende D546) : « le mode draft s'efface… les steps avec une opération sont pré-exécutés ; la transformation n'aura lieu qu'à la validation définitive du wizard » ; « avec un message de confirmation, si l'utilisateur valide, il ne pourra pas revenir en arrière » — le cliquet sur le chemin D505. | `draft:` retiré ; la transaction finale D232/D101 exécute tout. Voir §3.2c. |
 | D548 | **L'anatomie du wizard** : « un header et un footer ; le fil d'Ariane en bas ou en haut de la zone ; une dimension (size) surchargeable si le wizard s'inclut dans un formulaire ». | `mode: top \| bottom` en proposition (D525) ; l'écho pages D507 ; le plus proche l'emporte (D461). Voir §3.2c. |
 | D549 | **Les arbitrages du wizard** (amende D548) : « size est optionnel — sans valeur, l'espace disponible ; depuis un menu, tout l'écran » ; « plutôt que mode, je préfère **breadcrumb: none \| top \| bottom** ». | Défaut top (l'esprit D504) ; none masque le fil. Voir §3.2c. |
+| D550 | **L'aide à la décision au parcours** : « nous pouvons inclure des charts, des kpi ou des pivots pour apporter une aide à la décision » — les graphiques aux steps (`chart[<nom>]` — D540). | Voir §3.2c. |
 
 ---
 
@@ -4106,6 +4107,13 @@ depuis un menu, le wizard prend tout l'écran. »** Et le nom du fil :
 **« plutôt que mode, je préfère `breadcrumb: none | top | bottom`. »**
 — `none` masque le fil d'Ariane ; le défaut `top` (les étapes
 visibles — l'esprit D504).
+
+**L'aide à la décision au parcours (D550).** **« Bien sûr, nous
+pouvons inclure des charts, des kpi ou des pivots pour apporter une
+aide à la décision. »** Les graphiques entrent aux steps
+(`chart[<nom>]` — D540, la famille entière) : le chiffre, la courbe
+ou le croisé éclairent le choix avant le passage — l'aide à la
+décision au fil du parcours guidé.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11251,3 +11259,6 @@ avant la synthèse Q16).
   size optionnel (sans valeur l'espace disponible, tout l'écran
   depuis un menu) ; breadcrumb: none|top|bottom (défaut top). La
   fiche ajustée.
+- **2026-08-14 (suite 59)** — **L'aide à la décision (D550)** : les
+  charts, kpi et pivots aux steps du wizard (chart[<nom>] — D540) —
+  la 550e décision.

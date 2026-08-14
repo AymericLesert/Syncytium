@@ -2235,13 +2235,24 @@ les widgets, le wizard, les templates, le dashboard du module).*
    (l'onglet par type, le modèle, le tri d'export — D445), **le
    template** (la génération — D483/D511) — *en proposition :*
    `exports: [ csv, excel[stock.xlsx], template[order_sheet] ]` ;
-   `title:` (D493) ;
-6. **Items** — aucun : la surface se déclare par ses propriétés ;
-7. **Modes et déclinaisons** — le tableau ou les widgets (D492) ; **le
-   filtrage vivant** — la liste s'auto-rafraîchit sans bouton
-   (D226–D229/D444) ; **la pagination au curseur opaque** avec les
-   indicateurs de position ; l'embarquée d'une composition ou d'une
-   association (D486) ; le responsive au repli (Q48) ;
+   **`actions:`** — la liste d'opérations (D531) : **l'opération
+   porte son icône à la déclaration, la liste la surcharge** au
+   besoin ; `title:` (D493) ;
+6. **Items** — aucun à déclarer : **l'anatomie est celle d'un
+   `pages`** (D531 — intrinsèque) ;
+7. **Modes et déclinaisons** — **« une liste est comme pages »**
+   (D531) : **le header** — le titre, les colonnes (le tabulaire ;
+   « non visibles sur les widgets, sauf pour assurer les tris »), les
+   filtres, **l'icône-menu des exports**, les icônes de l'ajout, de
+   la modification, de la suppression, **étendues aux actions à
+   icône** ; **la zone page** — le contenu du tableau ; **le
+   footer** — le sous-total ou un gabarit (`{count}` — *en
+   proposition*), **les boutons des actions sans icône** ; le tableau
+   ou les widgets (D492) ; **le filtrage vivant** — la liste
+   s'auto-rafraîchit sans bouton (D226–D229/D444) ; **la pagination
+   au curseur opaque** avec les indicateurs ; l'embarquée d'une
+   composition ou d'une association (D486) ; le responsive au repli
+   (Q48) ;
 8. **États et interactions** — **la création : le bouton compris dans
    le cadre** — le formulaire d'`add:` (D530) ; **la modification au
    double-clic** — celui d'`update:` ; la lecture seule → la
@@ -2251,7 +2262,7 @@ les widgets, le wizard, les templates, le dashboard du module).*
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
 9. **Décisions fondatrices** — D226–D229, D437–D448, D462, D466–D467,
-   D486, D492–D493, D530 ;
+   D486, D492–D493, D530–D531 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2273,6 +2284,8 @@ lists:
     add: quick_entry               # le formulaire du bouton + (D530)
     update: default                # celui du double-clic — le défaut sinon (D438)
     exports: [ csv, excel[orders.xlsx], template[order_sheet] ]   # (D530)
+    actions: [ invoice, cancel ]   # les opérations — l'icône au header, sinon
+                                   # le bouton du pied (D531)
 
   cards:                           # le second visage (D492)
     widget: card                   # chaque enregistrement rendu par son widget

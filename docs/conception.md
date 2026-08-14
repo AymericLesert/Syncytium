@@ -609,6 +609,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D528 | **Le tri du croisé sur la valeur** : « visualiser les plus gros CA » — les lignes par la valeur agrégée, chaque niveau du groupement par son sous-total ; le défaut = l'ordre naturel du champ. | `sort: -value` en proposition (le signe D441). Voir §3.2c. |
 | D529 | **Le tri aux trois clés** (élargit D528) : « le tri peut s'appuyer sur les rows, les columns ou la value » — les signes et cascades D441 (`sort: { seller: -value, date: + }`). | Voir §3.2c. |
 | D530 | **Les appels du geste et les exports** : « add, update or delete pour préciser le formulaire/widget à appeler » (les défauts : le formulaire par défaut D438, les gestes D446) ; « exports: permet de préciser les différents exports ou générations de documents ». | `exports: [ csv, excel[modèle], template[gabarit] ]` en proposition. Voir §3.2c. |
+| D531 | **Les actions et l'anatomie de la liste** : `actions:` (l'opération porte son icône, surchargeable) ; « une liste est comme pages » — le header (titre, colonnes, filtres, l'icône-menu des exports, les icônes add/update/delete + actions à icône), la zone page (le tableau), le footer (le sous-total ou un gabarit, les boutons des actions sans icône). | L'icône trie : header ; sans icône : bouton du pied. `{count}` au gabarit en proposition. Voir §3.2c. |
 
 ---
 
@@ -3883,6 +3884,28 @@ documents** (l'effet document, le template — D483/D511). *(L'écriture
 en proposition : `exports: [ csv, excel[stock.xlsx],
 template[order_sheet] ]` — le crochet portant le modèle ou le
 gabarit.)*
+
+**Les actions et l'anatomie de la liste (D531).** **« J'ajoute
+`actions:` avec une liste d'opérations. Dans la définition d'une
+opération, nous associons un icône que nous pouvons surcharger dans la
+liste. »** — l'opération porte son icône à la déclaration (D432
+enrichi), la liste peut la surcharger. Et l'anatomie : **« une liste
+est comme pages »** (D507/D509) :
+
+- **le header** — le titre, **les colonnes** (l'affichage tabulaire —
+  « non visibles sur les widgets, sauf pour assurer les tris »), les
+  filtres de la liste, **une icône servant d'entrée de menu pour les
+  exports**, les icônes de l'ajout, de la modification, de la
+  suppression — **« la zone des icônes est étendue aux actions ayant
+  un icon »** ;
+- **la zone page** — le contenu du tableau ;
+- **le footer** — « éventuellement un sous-total ou un gabarit
+  (nombre de lignes, commentaire…) et **des boutons pour les actions
+  sans icône** ».
+
+La répartition est réglée d'elle-même : l'action à icône monte au
+header, l'action sans icône devient bouton du pied. *(En proposition :
+le gabarit du pied aux variables — `{count}` le nombre de lignes.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10917,3 +10940,9 @@ avant la synthèse Q16).
   appelé (le défaut D438) ; exports: précise les exports et les
   générations de documents (le crochet au modèle/gabarit en
   proposition). La fiche complétée.
+- **2026-08-14 (suite 34)** — **Les actions et l'anatomie (D531)** :
+  actions: (l'icône à l'opération, surchargeable) ; « une liste est
+  comme pages » — header (titre/colonnes/filtres/icône-exports/icônes
+  des gestes et actions), la zone page (le tableau), footer
+  (sous-total ou gabarit + les boutons des actions sans icône). La
+  fiche restructurée.

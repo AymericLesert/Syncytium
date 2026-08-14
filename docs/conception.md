@@ -11092,3 +11092,9 @@ avant la synthèse Q16).
   `widget` écrite — la lecture proposée : une seule surface aux deux
   usages, la carte de l'enregistrement (D492) et la synthèse au
   drill-down (D202), le pool de l'accueil (D204), l'évaluation D248.
+- **2026-08-14 (suite 47, pause)** — **La fiche `widget` validée**
+  (« je valide widget ») — la lecture des deux usages en une surface
+  actée. L'auteur fait une pause. **L'état de la passe des
+  surfaces** : list, form, summary, widget validées (D530–D540) ;
+  restent wizard, dashboard, template — puis la signature des nœuds,
+  Q60, les domaines 5–8.

@@ -2336,7 +2336,9 @@ lists:
    multi-pages** (D510) ; dans les pages : les sections seules
    (D490), l'organisateur `sections`, les `tabs`, les feuilles
    (`field[<nom>]` — D460), les actes (`operation[<nom>]` — D511),
-   les documents (`template[<nom>]` — D483), les graphiques (D243) ;
+   les documents (`template[<nom>]` — D483), **les graphiques —
+   `chart[<nom>]` en feuille** (D243/D540, le résumé en héritant de
+   fait — D538) ;
 7. **Modes et déclinaisons** — **les cinq usages d'un seul
    formulaire** (D199) : la création (les compteurs « *(attribué à la
    validation)* » — D154/D199), la modification (la concurrence par

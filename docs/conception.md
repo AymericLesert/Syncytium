@@ -10855,3 +10855,8 @@ avant la synthèse Q16).
   style en exergue (distinct de la feuille) ; les 4 organisations —
   la position du label, l'icône au bord opposé ; layout: top|left|
   bottom|right en proposition (défaut top).
+- **2026-08-14 (suite 28)** — **La fiche `kpi` validée** (« je valide
+  kpi »). Dernière des graphiques : `pivot` — le croisé dynamique
+  (D246 : les quatre éléments, les groupements pliables) ; en
+  proposition : rows:/columns:/value:, le clic sur une cellule
+  ouvrant la liste de l'intersection.

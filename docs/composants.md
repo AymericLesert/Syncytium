@@ -2140,3 +2140,51 @@ charts:
     layout: left                 # le label à gauche, l'icône à droite (D527)
     drill: invoiced              # le clic : la liste (D242)
 ```
+
+## `pivot`
+
+1. **Nom et famille** — `pivot`, un graphique (D512 — à côté de la
+   famille pointée) — le croisé dynamique ;
+2. **Rôle** — **« un outil d'analyse puissant et pourtant simple à
+   mettre en œuvre »** (D246) : les lignes croisent les colonnes, la
+   formule remplit l'intersection ;
+3. **Types servis** — l'assise (D517–D518) ; **les quatre éléments**
+   (D246) : un filtre, le ou les champs en ligne, le ou les champs en
+   colonne, une formule à l'intersection ;
+4. **Contexte consommé** — la confidentialité héritée surchargeable
+   (D247), les droits ; **indépendant des compositions matricielles**
+   (D134) — le croisé est une présentation, applicable à toute
+   entité ;
+5. **Propriétés** — (*les noms en proposition*) : **`rows:`** — le ou
+   les champs en ligne (la liste = le groupement hiérarchique,
+   `[seller, customer]` : commercial › client) ; **`columns:`** — le
+   ou les champs en colonne (le mot des listes D441) ; **`value:`** —
+   la formule : un agrégat (D158) **partitionné par la cellule** ;
+   `filter:` (D90) ; **les plages et temporalités** sur les champs
+   numériques ou dates — « comme pour les graphiques (D240), pour
+   réduire le volume » : `date[month]`, les crochets ; `title:`
+   (D493) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **les groupements hiérarchiques,
+   pliables au besoin** (D246) ; réutilisable : le widget (D247), le
+   tableau de bord (D249), le formulaire (D243) ; **template** : le
+   tableau rendu, groupements dépliés ;
+8. **États et interactions** — **le pli et le dépli** des
+   groupements ; *(en proposition : le clic sur une cellule ouvre la
+   liste des éléments de l'intersection — l'écho D242/D519)* ; la
+   confidentialité masque ;
+9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
+   D512, D517–D518 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — l'exemple fondateur de D246
+charts:
+  revenue_matrix:
+    component: pivot
+    rows: [seller, customer]     # la hiérarchie pliable — commercial › client
+    columns: [date[month]]       # la temporalité (D240)
+    value: sum(total)            # l'agrégat partitionné par la cellule (D158)
+    filter: state = "invoiced"
+    title: { fr: CA par commercial et par mois }
+```

@@ -10970,3 +10970,9 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 36)** — **La grammaire de size (D533)** : une
   valeur = la part de l'écran centrée ; deux valeurs = largeur puis
   hauteur ; % ou px — partout où size s'écrit (D484).
+- **2026-08-14 (suite 37)** — **La fiche `list` (surface) validée**
+  (« je valide la liste »). Le fil avance : la fiche `form` écrite —
+  les cinq usages (D199), le pages implicite (D509–D510), le titre à
+  gabarit (D449/D465), la surimpression (D454, la grammaire D533) ;
+  la virgule size/dimension au formulaire signalée (D532 évoquait
+  size — la lecture D484 dit dimension, l'extension à l'appel).

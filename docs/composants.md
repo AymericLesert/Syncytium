@@ -2298,3 +2298,74 @@ lists:
 
 # et le menu l'adresse (D439) : sales.order[pending]
 ```
+
+## `form`
+
+1. **Nom et famille** — `form`, une surface — `gui: forms: <nom>:` ;
+   **la première déclarée est le formulaire par défaut** (D438) ;
+   adressé par le menu (`[+form]` — D439), appelé par la liste
+   (`add:`/`update:`/`delete:` — D530), par une opération (la
+   relecture `validate:` — D431/D511) ;
+2. **Rôle** — l'enregistrement en face à face : **le formulaire
+   unique aux cinq usages** — la création, la modification, la
+   suppression, la consultation, la visualisation d'un historique
+   (D199) ;
+3. **Types servis** — l'entité — l'enregistrement dans son agrégat
+   (D101 : les compositions embarquées) ;
+4. **Contexte consommé** — **l'enregistrement, l'origine de l'appel,
+   l'utilisateur** (D455) ; les droits d'action (D196), la
+   confidentialité ; le `title` de l'entité (D465) ;
+5. **Propriétés** — **`title:`** — la zone de texte à gabarit,
+   déclinable par langue (D449/D453) : le `title` de l'entité
+   utilisable et surchargeable (D465) ; **`screen:`** — le support de
+   conception et l'autorisation (`[pc paysage]` défaut — D450/D532) ;
+   **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
+   `false` désactive l'onglet historique d'une entité historisée
+   (D453) ; **`dimension:`** — la surimpression à l'appel, défaut
+   100 % de l'écran (D454 — l'extension D484 ; la grammaire D533 :
+   une ou deux valeurs, % ou px) ;
+6. **Items** — **le `pages` implicite** (D509) : `header`, `page`(s),
+   `footer` — les clés à l'usuel, **la liste d'éléments au
+   multi-pages** (D510) ; dans les pages : les sections seules
+   (D490), l'organisateur `sections`, les `tabs`, les feuilles
+   (`field[<nom>]` — D460), les actes (`operation[<nom>]` — D511),
+   les documents (`template[<nom>]` — D483), les graphiques (D243) ;
+7. **Modes et déclinaisons** — **les cinq usages d'un seul
+   formulaire** (D199) : la création (les compteurs « *(attribué à la
+   validation)* » — D154/D199), la modification (la concurrence par
+   champ — D111), la suppression (la lecture seule + la
+   confirmation — D446), la consultation (`mode: read-only`),
+   l'historique (l'onglet — D453) ; **jamais de popup** (D196) ; la
+   relecture d'opération (D431 — lecture seule + confirmer/annuler) ;
+   le responsive au repli (D203) ;
+8. **États et interactions** — les droits déterminent l'usage offert
+   (D196) ; le refus de validation affiché au champ (D307) ; le
+   `title` en tête, vivant avec l'enregistrement ;
+9. **Décisions fondatrices** — D101, D111, D154, D196, D199, D203,
+   D307, D437–D438, D446, D449–D455, D460, D465, D483, D509–D511,
+   D530, D533 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — le fil de la passe
+forms:
+  default:                          # la première déclarée = le défaut (D438)
+    title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
+    screen: [pc paysage]            # le support (D450)
+    dimension: 75%                  # la surimpression centrée (D454/D533)
+    header:
+      items: [ field[number], field[state] ]
+    page:                           # le pages implicite (D509)
+      - section:
+          title: { fr: Client }
+          items: [ field[customer], field[date] ]
+      - field[lines]                # la composition — la liste embarquée (D486)
+      - field[discussion]           # le fil prend la place qu'on lui laisse (D485)
+    footer:
+      items: [ field[total], operation[invoice] ]   # l'acte au pied (D511)
+
+  quick_entry:                      # le formulaire d'add: de la liste (D530)
+    page:
+      - field[customer]
+      - field[lines]
+```

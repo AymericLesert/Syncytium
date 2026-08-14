@@ -11480,3 +11480,12 @@ avant la synthèse Q16).
   standards ; les limites sur les composants (pas de liste, pas
   d'image — ![…] exclu) ; l'if: d'expression demeure ; la frontière
   D261 préservée (le champ texte utilisateur reste nu).
+- **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
+  (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
+  SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,
+  dashboard, template — D530–D562) sur le fil sales.order. **LE
+  CATALOGUE DE COMPOSANTS.MD EST AU COMPLET : les cinq familles**
+  (les feuilles — 26 fiches, les conteneurs — 4 couples +
+  header/footer, l'acte unique, les graphiques — 7 fiches, les
+  surfaces — 7 fiches). Restent au domaine 4 : la signature formelle
+  des nœuds, puis Q60, les domaines 5–8, la passe de complétude.

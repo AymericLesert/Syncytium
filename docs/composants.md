@@ -1413,7 +1413,11 @@ gui:
    nommé ») ; **`width:` / `height:`** — « calibrer la taille » :
    l'uniforme se pose sur l'organisateur, **la taille variable sur la
    section** — le plus proche l'emporte (D501–D502 ; « sans précision,
-   l'ensemble de l'espace est pris ») ; le socle du vocabulaire (D461 : style…) ;
+   l'ensemble de l'espace est pris ») ; **`dropdown: true`** — la
+   section repliable : « refermer ou ouvrir, avec un icône pour
+   matérialiser l'affichage ou pas » (D568 — le chevron ; *la
+   collision avec la feuille `dropdown` notée, le contexte départage
+   D458 ; le défaut déplié en proposition*) ; le socle du vocabulaire (D461 : style…) ;
 6. **Items** — **« soit sections, soit une des feuilles vues
    précédemment »** (D489) — l'alternance stricte : l'emboîtement de
    sections passe par l'organisateur `sections` ; les champs par
@@ -1426,9 +1430,10 @@ gui:
    (D490 — l'écho de D450/D451) ; ailleurs, la composition passe par
    l'organisateur `sections` ;
 8. **États et interactions** — la visibilité par les droits et la
-   confidentialité ; rien d'autre au socle ;
+   confidentialité ; **le repli et le dépli à l'icône**
+   (`dropdown: true` — D568) ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489–D491, D493, D501–D502 ;
+   D487, D489–D491, D493, D501–D502, D568 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 

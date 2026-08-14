@@ -2221,19 +2221,23 @@ charts:
    (D543) : le qrcode — **« la taille unique pour les côtés »**
    (`size: 120px`, le carré — jamais deux valeurs) ; le code-barres —
    **« largeur × hauteur »** (`size: 200px 60px` — la grammaire
-   D533) ; **le format du code-barres au crochet** (*en
+   D533) ; **la saisie peut porter sa propre taille** (D544 — *en
+   proposition :* `size: { input: 30, display: 120px }`, la forme
+   courte valant l'affichage seul) ; **le format du code-barres au crochet** (*en
    proposition :* `barcode[ean13]`, `barcode[code128]` — le défaut
    `code128`) ;
 6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **la sortie d'abord** : le PDF et
-   l'étiquette (D252 — l'impression directe du serveur, les
-   imprimantes de l'OS), l'écran en lecture ; **Excel = la valeur
-   source** (D300) ; jamais la saisie (*le scan reste hors D300 — la
-   question pour plus tard si besoin*) ;
+7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
+   **la saisie en mode texte** — la zone du champ, son régime (la
+   taille D366, le masque) — et **l'affichage en mode graphique** ;
+   le PDF et l'étiquette en usage premier (D252 — l'impression
+   directe du serveur, les imprimantes de l'OS) ; **Excel = la valeur
+   source** (D300) ; *(le scan reste hors D300 — la question pour
+   plus tard si besoin)* ;
 8. **États et interactions** — la lecture seule par nature ; masqué
    par la confidentialité ;
-9. **Décisions fondatrices** — D252, D300, D369, D461, D484, D533,
-   D542–D543 ;
+9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
+   D533, D542–D544 ;
 10. **Exemple de configuration** —
 
 ```yaml

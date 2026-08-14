@@ -11500,6 +11500,9 @@ avant la synthèse Q16).
   non) — les cinq points validés (le lien au nouvel onglet, l'icône
   post-zone, l'ellipse, le lien actif au template, l'aperçu en
   hook). La synthèse complétée.
+- **2026-08-14 (suite 77)** — **La PR #25 créée** (« Q16 domaine 4 —
+  les actes, les graphiques, les surfaces : le catalogue au complet,
+  D511–D563 » — 75 commits, 2 fichiers) vers develop.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

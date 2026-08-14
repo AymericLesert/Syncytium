@@ -10696,3 +10696,8 @@ avant la synthèse Q16).
   (« oui »). Suivante : `chart.bars` — le socle commun hérité
   (D515–D518), les écarts propres en proposition (mode:
   vertical|horizontal au crochet D478, stacked: pour l'empilement).
+- **2026-08-14 (suite 16)** — **La fiche `chart.bars` validée** (« je
+  valide chart.bars »). Suivante : `chart.pie` — les écarts propres en
+  proposition (mode: pie|donut au crochet, la variable {percent} au
+  gabarit des labels, le regroupement des petites parts en « autres »
+  à seuil).

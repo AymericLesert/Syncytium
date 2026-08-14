@@ -615,6 +615,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D534 | **La confusion levée** (clarifie D532) : « j'ai introduit une confusion entre dimension et size » — la doctrine D484 départage : le formulaire s'ouvre à l'appel → `dimension:` (D454) ; la liste s'affiche → `size:` ; la grammaire D533 vaut pour les deux. | Voir §3.2c. |
 | D535 | **`size` aux surfaces, la pile des surimpressions** (amende D454/D534) : « size me convient mieux pour les 2 usages — un form ou une liste apparaissent en surimpression par rapport aux actions antécédentes cumulées » — toute surface s'ouvre au-dessus de la pile ; le couple D484 demeure au grain du champ. | Le dimension: du formulaire (D454) devient size:. Voir §3.2c. |
 | D536 | **La propriété `style:` définie** : « par défaut, le style global de l'application ; prévoyons une propriété style qui regroupe la fonte, la taille et sa mise en forme » — le thème d'instance en défaut, la surcharge à la cascade D461. | `style: { font:, size:, format: [bold…] }` en proposition (le size intérieur = la police — D458 départage). Voir §3.2c. |
+| D537 | **Le résumé précisé** : « le 1-1 affiche le title **ou l'image** si elle est définie » (le visage D386) ; petit par principe confirmé ; « plusieurs sections (pour mêler des affichages horizontaux et verticaux) — pas plusieurs pages, ni plusieurs tabs ». | L'organisateur D489–D491 dans le résumé ; D201 confirmé. Voir §3.2c. |
 
 ---
 
@@ -3961,6 +3962,16 @@ proposition : `style: { font: Roboto, size: 14px, format: [bold,
 italic] }` — le `size` intérieur = la taille de la police, le contexte
 départageant du size d'emprise D535 (D458) ; `format:` parmi bold,
 italic, underline, strike.)*
+
+**Le résumé précisé (D537).** **« Le 1-1 affiche le title ou l'image
+si elle est définie »** — le visage de l'entité (D386) vaut aussi à la
+référence. **« Je confirme : cela doit rester petit par principe.
+Cependant, nous pourrions avoir plusieurs sections (pour mêler des
+affichages horizontaux et verticaux). Pas plusieurs pages, ni
+plusieurs tabs. »** La restriction du résumé se précise : **plusieurs
+sections** — l'organisateur et ses layouts (D489–D491) mêlent
+l'horizontal et le vertical — mais **l'unique page et jamais
+d'onglets** (D201 confirmé).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11032,3 +11043,7 @@ avant la synthèse Q16).
   restreinte (D201 : les champs sélectionnés, pas d'onglets, petit
   par principe, le défaut n'existe pas), le visage déployé de la
   référence (D215).
+- **2026-08-14 (suite 42)** — **Le résumé précisé (D537)** : le 1-1
+  affiche le title ou l'image (D386) ; plusieurs sections pour mêler
+  l'horizontal et le vertical — pas plusieurs pages ni tabs. La fiche
+  summary ajustée.

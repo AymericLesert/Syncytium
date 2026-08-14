@@ -101,7 +101,8 @@ Quatre règles transversales l'allègent :
 | `phone` | `text` masqué (national par défaut D391) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
-| `email`, `url`, `vat_number`, `siren`, `siret`, `iban`, `bic` | `text` (la validation intégrée D391) | — |
+| `url` | `text` — **le lien en lecture** : le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone, l'ellipse en cellule (D563) | — |
+| `email`, `vat_number`, `siren`, `siret`, `iban`, `bic` | `text` (la validation intégrée D391) | — |
 | `communication` | `thread` (le fil D295/D393) | — |
 
 ### Les liens et les générés

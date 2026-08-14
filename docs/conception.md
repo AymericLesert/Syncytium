@@ -641,6 +641,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D560 | **Le publipostage étoffé** : « paragraph doit être étoffé pour disposer d'un mode publipostage riche et facile à intégrer » — les cinq briques en proposition : les variables au format de la langue (les chemins D71), l'`if:` conditionnel, `style:`/les titres, la source (en place ou dictionnaire D440), le multi-alinéas. | À arbitrer. Voir §3.2c. |
 | D561 | **La sixième brique** (complète D560) : « l'affichage d'une liste sous forme de bullet points ou d'indices » — la collection dans la lettre. | `{overdue[bullets]}` / `{overdue[numbers]}` en proposition (le crochet ; le `title` D465 par élément). Voir §3.2c. |
 | D562 | **Mustache + markdown au paragraph** (remplace les écritures D560–D561) : « la combinaison doit couvrir les différents cas ; des limites portant sur les composants (pas de liste, pas d'image…) » — mustache (variables, chemins, sections-itérations), markdown (titres, gras, puces, tableaux) ; `![…]` exclu, l'`if:` d'expression demeure (D90), le champ texte utilisateur reste nu (D261). | Deux standards, zéro syntaxe maison. Voir §3.2c. |
+| D563 | **Le comportement d'`url`** (les cinq points validés) : le lien en lecture — le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone (D271/D391) ; l'icône demeure en saisie ; l'ellipse en cellule ; le lien actif au template, la valeur nue en Excel/CSV ; l'aperçu de la cible = un hook (D263). | La synthèse complétée (la ligne url séparée). Voir §3.2c. |
 
 ---
 
@@ -4259,6 +4260,20 @@ propriété de l'alinéa** (D90 — mustache est sans logique) ; la source
 (en place ou dictionnaire D440) et le multi-alinéas vont de soi. Le
 champ texte de l'utilisateur reste nu (la frontière D261 — le
 markdown n'entre pas dans la donnée).
+
+**Le comportement d'`url` (D563).** La question (« le type url
+existe-t-il ? ») a relevé le manque : le type existait (D391, la
+règle générale), son comportement non. Les cinq points validés :
+**(1) la lecture = le lien** — le clic ouvre **dans un nouvel onglet
+du navigateur**, jamais dans l'application (la pile D535 intouchée) ;
+**l'icône du lien externe en post-zone** (l'anatomie D271, la
+post-zone venant du type D391) ; **(2) la modification** — la zone de
+texte, la validation intégrée ; l'icône post-zone demeure (vérifier
+sans quitter la saisie) ; **(3) la cellule** — l'ellipse (D296), le
+clic ouvre, le double-clic édite (D446) ; **(4) le template** — le
+texte et le lien actif ; Excel/CSV — la valeur nue, ré-importable ;
+**(5) pas de prévisualisation au socle** — l'aperçu de la cible = un
+hook (la ligne D263).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11480,6 +11495,11 @@ avant la synthèse Q16).
   standards ; les limites sur les composants (pas de liste, pas
   d'image — ![…] exclu) ; l'if: d'expression demeure ; la frontière
   D261 préservée (le champ texte utilisateur reste nu).
+- **2026-08-14 (suite 76)** — **Le comportement d'url (D563)** : la
+  question a relevé le manque (le type existait, le comportement
+  non) — les cinq points validés (le lien au nouvel onglet, l'icône
+  post-zone, l'ellipse, le lien actif au template, l'aperçu en
+  hook). La synthèse complétée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

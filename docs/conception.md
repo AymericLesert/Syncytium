@@ -604,6 +604,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D523 | **La matrice adressée** (simplifie D522) : « l'axe définit min, max et threshold ; les zones définissent les positions dans la matrice créée — plutôt que x et y, `zone: [1,1]` » — plus aucune borne répétée. | Convention `[colonne, ligne]` depuis l'origine (bas-gauche) en proposition. Voir §3.2c. |
 | D524 | **L'orientation du combiné** : « axis: left \| right, ou bottom \| up, pour une représentation en ligne contre une représentation en colonne » — la paire d'axes dit l'orientation, homogène par construction. | La virgule « up »/« top » (D504) signalée. Voir §3.2c. |
 | D525 | **`top` harmonisé** (amende D524) : « j'harmonise en effet avec top » — `axis: bottom \| top`, le vocabulaire unique des bords avec les tabs (D504). | Voir §3.2c. |
+| D526 | **L'icône aux seuils** : « je souhaite aussi pouvoir associer éventuellement une icône — cas d'un feu tricolore » — les seuils portent la couleur (D467) et/ou l'icône. | `icons:` en proposition (la mécanique D467 dupliquée ; la collision avec la feuille notée — D458) ; la liaison `icon:` à la table D495. Voir §3.2c. |
 
 ---
 
@@ -3827,6 +3828,17 @@ trancher.)*
 effet avec top »** — la paire couchée s'écrit **`bottom | top`**, le
 vocabulaire unique avec les tabs (D504) : top/bottom/left/right
 partout où un bord se nomme.
+
+**L'icône aux seuils (D526).** **« La combinaison valeur/couleur est
+une approche. Je souhaite aussi pouvoir associer éventuellement une
+icône — cas d'un feu tricolore, par exemple. »** Les seuils portent
+la couleur (D467) **et/ou l'icône** : le feu rouge/orange/vert à côté
+du chiffre. *(L'écriture en proposition : **`icons:`** — la mécanique
+de `colors:` dupliquée, `{ 0: red_light.svg, 50: orange_light.svg,
+80: green_light.svg }` — la collision avec la feuille `icons` notée,
+le contexte départage (D458) ; et la table d'entité (D495) gagne la
+liaison `icon:` en option.)* Vaut où les seuils valent (D467) — le
+`kpi` en usage premier.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10822,3 +10834,7 @@ avant la synthèse Q16).
   valide chart.combo »). Suivante : `kpi` — le chiffre-clé (value:
   sans axe, colors: par seuils D467, drill D242, pas de comparaison
   au socle D245 — le hook).
+- **2026-08-14 (suite 26)** — **L'icône aux seuils (D526)** : « le
+  feu tricolore » — icons: en proposition (la mécanique D467
+  dupliquée, la collision avec la feuille notée), la liaison icon: à
+  la table D495. La fiche kpi complétée.

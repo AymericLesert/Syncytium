@@ -2102,7 +2102,10 @@ charts:
    `title:` (D493), `labels:` — le gabarit du format (D516,
    `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
    couleur (la mécanique D467, la table d'entité D495 comprise) ;
-   `drill:` (D242) ; **pas de comparaison dans le socle** (D245 —
+   **`icons:` par seuils** — « associer éventuellement une icône :
+   cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ; la
+   collision avec la feuille `icons` notée, le contexte départage
+   D458 ; la liaison `icon:` à la table D495) ; `drill:` (D242) ; **pas de comparaison dans le socle** (D245 —
    l'évolution contre une période = un hook) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **le widget roi** (l'entité → le
@@ -2112,7 +2115,7 @@ charts:
 8. **États et interactions** — le clic : le drill-down (D242) ou les
    valeurs du calcul (D516) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D158, D242–D243, D245, D247–D249,
-   D467, D495, D512, D515–D518 ;
+   D467, D495, D512, D515–D518, D526 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2125,5 +2128,7 @@ charts:
     title: { fr: CA du mois }
     labels: { fr: "{value} € HT" }
     colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
+    icons:  { 0: red_light.svg, 50000: orange_light.svg, 100000: green_light.svg }
+                                 # le feu tricolore (D526)
     drill: invoiced              # le clic : la liste (D242)
 ```

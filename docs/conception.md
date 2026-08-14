@@ -11027,3 +11027,8 @@ avant la synthèse Q16).
   form ») — et **style: défini (D536)** : le style global de
   l'application en défaut, la surcharge {fonte, taille, mise en
   forme} à la cascade D461. La fiche text complétée.
+- **2026-08-14 (suite 41)** — **style: validé** (« je valide style »).
+  Le fil avance : la fiche `summary` écrite — la config de formulaire
+  restreinte (D201 : les champs sélectionnés, pas d'onglets, petit
+  par principe, le défaut n'existe pas), le visage déployé de la
+  référence (D215).

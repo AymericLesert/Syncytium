@@ -2375,3 +2375,49 @@ forms:
       - field[customer]
       - field[lines]
 ```
+
+## `summary`
+
+1. **Nom et famille** — `summary`, une surface — `gui: summaries:
+   <nom>:` (*l'écriture en proposition*) ; la première déclarée = le
+   défaut (D438) — mais **« défaut : n'existe pas »** (D201) : sans
+   déclaration, l'entité n'offre aucun résumé ;
+2. **Rôle** — l'enregistrement en bref : **« petit par principe »**
+   (D201) — le visage déployé d'une référence (D215), la carte qui se
+   montre sans quitter le contexte ;
+3. **Types servis** — l'entité ; l'appel vient d'ailleurs : la
+   référence 1-1 (D186/D215 — le libellé, puis le résumé), le widget ;
+4. **Contexte consommé** — l'enregistrement, l'origine de l'appel,
+   l'utilisateur (D455) ; les droits (D196), la confidentialité ;
+5. **Propriétés** — **une config de formulaire restreinte** (D201) :
+   les champs **sélectionnés**, **lecture seule et/ou modification**
+   (le `mode` au nœud — D461) ; `title:` (D449/D465) ; `size:` — la
+   surimpression sur la pile, petite par principe (D535/D533) ;
+   `screen:` (D450/D532) ;
+6. **Items** — la restriction du formulaire : les sections seules
+   (D490) et les feuilles — **« pas d'onglets, sections possibles »**
+   (D201) ; le `pages` implicite réduit à l'unique page ;
+7. **Modes et déclinaisons** — l'appel depuis la référence (D215 — le
+   1-1 affiche le libellé, le résumé se déploie) ; la lecture seule
+   et/ou la modification mêlées (D201) ; le responsive au repli
+   (D203) ;
+8. **États et interactions** — les droits décident du modifiable ; la
+   fermeture rend à la surface précédente (la pile — D535) ;
+9. **Décisions fondatrices** — D186, D196, D201, D203, D215,
+   D437–D438, D449–D450, D455, D461, D465, D490, D532–D533, D535 ;
+10. **Exemple de configuration** —
+
+```yaml
+# crm/entities/customer.yml, bloc gui — le résumé du client
+summaries:
+  card:                            # sans déclaration : aucun résumé (D201)
+    title: "{name}"
+    size: 30%                      # petit par principe (D201), centré (D533)
+    page:
+      - field[name]
+      - field[phone]
+      - field[balance]: { mode: read-only }   # le mêlé lecture/modification (D201)
+
+# et depuis la commande : field[customer] affiche le title (D465) ;
+# le clic déploie ce résumé au-dessus de la pile (D215/D535)
+```

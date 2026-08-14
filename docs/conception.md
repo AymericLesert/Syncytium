@@ -597,6 +597,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D516 | **`labels:` et les valeurs du calcul** (amende D515) : « labels: true affiche la valeur dans le format du champ, le gabarit pour personnaliser » ; « en cliquant sur une vignette, voir toutes les valeurs utilisées pour le calcul (si le calcul dépend d'une liste ou d'une association) ». | La collision avec le dictionnaire D440 notée (le contexte départage — D458). Voir §3.2c. |
 | D517 | **L'assise du graphique** : « un chart doit s'appuyer sur une entité ou une liste (composant déjà vu) ; les axes font référence aux champs » — l'entité ou la liste nommée (le périmètre hérité), les axes sur ses champs. | `on:` à l'adresse D439 en proposition (`sales.order[invoiced]`). Voir §3.2c. |
 | D518 | **Le défaut de l'assise** (complète D517) : « si on: est absent, l'assise porte sur l'entité elle-même » — l'entité porteuse ; on: pour désigner ailleurs. | Voir §3.2c. |
+| D519 | **Les secteurs arbitrés** : `mode: pie \| donut \| quarter` ; les variables du gabarit `{value}`/`{percent}`/`{total}` (« {percent} % ({value} / {total}) ») ; le clic sur une part → la liste de ses éléments ; « autres » acté — **son drill affiche une barre de répartition** pour préciser la valeur à filtrer. | Le drill à deux étages. Voir §3.2c. |
 
 ---
 
@@ -3744,6 +3745,20 @@ liste nommée, le crochet de l'adresse.)*
 absent, l'assise porte sur l'entité elle-même »** — l'entité porteuse
 de la déclaration ; `on:` ne s'écrit que pour désigner une autre
 assise (une liste nommée, une autre entité).
+
+**Les secteurs arbitrés (D519).** Les trois virgules de `chart.pie`
+tranchées : **(1) `mode: pie | donut | quarter`** — le quart de cercle
+rejoint le camembert et l'anneau. **(2) Les variables du gabarit des
+labels** : `{percent}` validée — **« cette variable s'ajoute à la
+valeur pouvant être utilisée : "{percent} % ({value} / {total})" »** —
+le trio `{value}`, `{percent}`, `{total}`. **(3) Le clic et les
+« autres »** : « en cliquant sur une valeur, afficher la liste des
+éléments correspondant à la part » (D242) ; le regroupement des
+petites parts en « autres » est acté — **« mais le drill sur autres
+doit afficher une barre avec une répartition de toutes les autres
+valeurs, afin de permettre à l'utilisateur de préciser la valeur à
+filtrer dans la liste »** — **le drill à deux étages** : le secteur →
+la liste ; « autres » → la barre de répartition → la liste.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10701,3 +10716,8 @@ avant la synthèse Q16).
   proposition (mode: pie|donut au crochet, la variable {percent} au
   gabarit des labels, le regroupement des petites parts en « autres »
   à seuil).
+- **2026-08-14 (suite 17)** — **Les secteurs arbitrés (D519)** :
+  mode: pie|donut|quarter ; les variables {value}/{percent}/{total} ;
+  le clic sur une part → la liste de ses éléments ; « autres » acté,
+  son drill ouvrant une barre de répartition (le drill à deux
+  étages). La fiche chart.pie complétée.

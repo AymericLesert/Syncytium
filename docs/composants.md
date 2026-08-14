@@ -1947,21 +1947,25 @@ charts:
    héritée surchargeable (D247), les droits ;
 5. **Propriétés** — **le socle commun** (D515–D518 : `on:`, `x:`,
    `y:`, `filter:`, `drill:`, `colors:`, `labels:`, `title:`) ; **les
-   écarts propres** (*en proposition*) : **`mode: pie | donut`** — le
-   camembert (défaut) ou l'anneau (D239 ; le crochet en raccourci :
-   `chart.pie[donut]`, D478) ; **la variable `{percent}`** au gabarit
-   des labels (D516 — la part en pourcentage, à côté de `{value}`) ;
-   **le regroupement des petites parts en « autres »** — un seuil,
-   rien par défaut ;
+   écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
+   camembert (défaut), l'anneau, le quart de cercle (le crochet en
+   raccourci : `chart.pie[donut]`, D478) ; **les variables du
+   gabarit** des labels : `{value}`, `{percent}`, `{total}` —
+   « {percent} % ({value} / {total}) » (D516/D519) ; **le
+   regroupement des petites parts en « autres »** — un seuil, rien
+   par défaut (D519) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — réutilisable : le widget, le
    formulaire, le tableau de bord (D243/D249) ; **template** :
    l'image (D257) ; tactile : la part touchée montre sa valeur ;
-8. **États et interactions** — le drill-down au clic (D242) ; le clic
-   sur une part : les valeurs du calcul (D516) ; la confidentialité
+8. **États et interactions** — **le clic sur une part : la liste de
+   ses éléments** (D242/D519) ; **le drill d'« autres » à deux
+   étages** : une barre de répartition de toutes les autres valeurs
+   s'ouvre — l'utilisateur y précise la valeur à filtrer dans la
+   liste (D519) ; les valeurs du calcul (D516) ; la confidentialité
    masque ;
-9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
-   D515–D518 ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512, D515–D516,
+   D519 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1971,6 +1975,6 @@ charts:
     component: chart.pie[donut]     # ≡ mode: donut — l'anneau (D239/D478)
     x: category                     # les parts (D240 — par valeurs)
     y: sum(total)
-    labels: { fr: "{percent} %" }   # le gabarit — {percent} (proposition)
-    drill: by_category              # la liste au filtre imposé (D242)
+    labels: { fr: "{percent} % ({value} / {total})" }   # le trio (D519)
+    drill: by_category              # le clic : la liste de la part (D242/D519)
 ```

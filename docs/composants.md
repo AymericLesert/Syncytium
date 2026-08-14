@@ -2060,10 +2060,10 @@ charts:
    proposition*) : `y:` en liste de séries —
    `{ value:, as: line | bars, axis: left | right }` — la nature et
    l'axe de chacune (défauts : la première à gauche, la seconde à
-   droite) ; **ou `axis: bottom | up`** — « la représentation en
-   ligne contre la représentation en colonne » (D524) : les valeurs
-   couchées, la paire homogène par construction (*la virgule
-   up/top — D504 — à harmoniser*) ; **deux axes maximum** — « au-delà de 2 axes, illisible »
+   droite) ; **ou `axis: bottom | top`** — « la représentation en
+   ligne contre la représentation en colonne » (D524, harmonisé
+   D525) : les valeurs couchées, la paire homogène par construction —
+   les bords d'un seul vocabulaire (D504) ; **deux axes maximum** — « au-delà de 2 axes, illisible »
    (D239) : la troisième série refusée à l'ingestion, le hook pour
    aller au-delà ;
 6. **Items** — aucun ;
@@ -2073,7 +2073,7 @@ charts:
 8. **États et interactions** — le drill-down au clic (D242) ; les
    valeurs du calcul (D516) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
-   D515–D518, D521, D524 ;
+   D515–D518, D521, D524–D525 ;
 10. **Exemple de configuration** —
 
 ```yaml

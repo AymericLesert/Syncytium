@@ -603,6 +603,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D522 | **Le nuage de points** : un point par enregistrement (le visage D386) ; « les axes se déclinent via des seuils qui ne se chevauchent pas » — la concentration/dispersion, **et la catégorisation** : « un MoSCoW en s'appuyant sur 2 critères, les gains/bénéfices de l'effort ». | `thresholds:` à l'axe riche + `zones:` (title/color, les bornes D366) en proposition ; le clic sur une zone → la liste. Voir §3.2c. |
 | D523 | **La matrice adressée** (simplifie D522) : « l'axe définit min, max et threshold ; les zones définissent les positions dans la matrice créée — plutôt que x et y, `zone: [1,1]` » — plus aucune borne répétée. | Convention `[colonne, ligne]` depuis l'origine (bas-gauche) en proposition. Voir §3.2c. |
 | D524 | **L'orientation du combiné** : « axis: left \| right, ou bottom \| up, pour une représentation en ligne contre une représentation en colonne » — la paire d'axes dit l'orientation, homogène par construction. | La virgule « up »/« top » (D504) signalée. Voir §3.2c. |
+| D525 | **`top` harmonisé** (amende D524) : « j'harmonise en effet avec top » — `axis: bottom \| top`, le vocabulaire unique des bords avec les tabs (D504). | Voir §3.2c. |
 
 ---
 
@@ -3821,6 +3822,11 @@ représentation en ligne. La paire est homogène par construction (les
 deux séries du même régime). *(La virgule de vocabulaire signalée :
 « up » ici, « top » chez les tabs (D504) — l'harmonisation à
 trancher.)*
+
+**L'harmonisation : `top` (D525 — amende D524).** **« J'harmonise en
+effet avec top »** — la paire couchée s'écrit **`bottom | top`**, le
+vocabulaire unique avec les tabs (D504) : top/bottom/left/right
+partout où un bord se nomme.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10809,3 +10815,6 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 23)** — **L'orientation du combiné (D524)** :
   axis: left|right ou bottom|up — la représentation en colonne ou en
   ligne, la paire homogène ; la virgule up/top (D504) signalée.
+- **2026-08-14 (suite 24)** — **top harmonisé (D525)** : « j'harmonise
+  en effet avec top » — axis: bottom|top, les bords nommés d'un seul
+  vocabulaire (D504).

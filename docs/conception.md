@@ -640,6 +640,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D559 | **Le template précisé** : `margin:` en mm ; « le paragraph peut être un gabarit — le cas d'une lettre » (le publipostage, l'étoffement Q55) ; « la déclinaison par langue se porte sur chaque item » (amende la lecture de D253 — un seul gabarit, les items déclinés). | Voir §3.2c. |
 | D560 | **Le publipostage étoffé** : « paragraph doit être étoffé pour disposer d'un mode publipostage riche et facile à intégrer » — les cinq briques en proposition : les variables au format de la langue (les chemins D71), l'`if:` conditionnel, `style:`/les titres, la source (en place ou dictionnaire D440), le multi-alinéas. | À arbitrer. Voir §3.2c. |
 | D561 | **La sixième brique** (complète D560) : « l'affichage d'une liste sous forme de bullet points ou d'indices » — la collection dans la lettre. | `{overdue[bullets]}` / `{overdue[numbers]}` en proposition (le crochet ; le `title` D465 par élément). Voir §3.2c. |
+| D562 | **Mustache + markdown au paragraph** (remplace les écritures D560–D561) : « la combinaison doit couvrir les différents cas ; des limites portant sur les composants (pas de liste, pas d'image…) » — mustache (variables, chemins, sections-itérations), markdown (titres, gras, puces, tableaux) ; `![…]` exclu, l'`if:` d'expression demeure (D90), le champ texte utilisateur reste nu (D261). | Deux standards, zéro syntaxe maison. Voir §3.2c. |
 
 ---
 
@@ -4240,6 +4241,24 @@ entre dans la lettre — les commandes en retard énumérées en puces ou
 numérotées. *(L'écriture en proposition : la variable-collection au
 crochet — `{overdue[bullets]}` / `{overdue[numbers]}` — chaque
 élément rendu par son `title` (D465).)*
+
+**Mustache + markdown (D562 — remplace les écritures de D560–D561).**
+**« Une combinaison dans paragraph du mustache et du markdown doit
+couvrir les différents cas, je pense. Il y aura des limites portant
+sur les composants (pas de liste, pas d'image…). »** Deux standards à
+la place des briques maison : **mustache** — les variables
+`{{champ}}`, les chemins `{{customer.name}}` (D71), **les sections**
+`{{#overdue}}…{{/overdue}}` (l'itération des collections — la puce
+markdown dans la section fait la liste D561) ; **markdown** — la
+forme : les titres (`#`…`####` — les quatre niveaux D250), le
+gras/l'italique, les puces et les indices, les tableaux. **Les
+limites** : les composants n'entrent pas dans le texte — pas de
+composant liste, pas d'image (la syntaxe `![…]` exclue — l'image
+reste `picture`, hors du texte) ; **l'`if:` d'expression demeure la
+propriété de l'alinéa** (D90 — mustache est sans logique) ; la source
+(en place ou dictionnaire D440) et le multi-alinéas vont de soi. Le
+champ texte de l'utilisateur reste nu (la frontière D261 — le
+markdown n'entre pas dans la donnée).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11456,3 +11475,8 @@ avant la synthèse Q16).
   liste sous forme de bullet points ou d'indices » — la
   variable-collection au crochet en proposition ({overdue[bullets]},
   le title par élément).
+- **2026-08-14 (suite 74)** — **Mustache + markdown (D562)** : la
+  combinaison couvre les cas — les briques maison remplacées par deux
+  standards ; les limites sur les composants (pas de liste, pas
+  d'image — ![…] exclu) ; l'if: d'expression demeure ; la frontière
+  D261 préservée (le champ texte utilisateur reste nu).

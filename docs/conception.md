@@ -616,6 +616,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D535 | **`size` aux surfaces, la pile des surimpressions** (amende D454/D534) : « size me convient mieux pour les 2 usages — un form ou une liste apparaissent en surimpression par rapport aux actions antécédentes cumulées » — toute surface s'ouvre au-dessus de la pile ; le couple D484 demeure au grain du champ. | Le dimension: du formulaire (D454) devient size:. Voir §3.2c. |
 | D536 | **La propriété `style:` définie** : « par défaut, le style global de l'application ; prévoyons une propriété style qui regroupe la fonte, la taille et sa mise en forme » — le thème d'instance en défaut, la surcharge à la cascade D461. | `style: { font:, size:, format: [bold…] }` en proposition (le size intérieur = la police — D458 départage). Voir §3.2c. |
 | D537 | **Le résumé précisé** : « le 1-1 affiche le title **ou l'image** si elle est définie » (le visage D386) ; petit par principe confirmé ; « plusieurs sections (pour mêler des affichages horizontaux et verticaux) — pas plusieurs pages, ni plusieurs tabs ». | L'organisateur D489–D491 dans le résumé ; D201 confirmé. Voir §3.2c. |
+| D538 | **Le graphique au résumé** : « un summary peut contenir un kpi ou un chart — à condition que son affichage reste modeste » (D243 réutilisable, la modestie D201). | `chart[<nom>]` en items en proposition (la famille des adresses D460/D483/D511). Voir §3.2c. |
 
 ---
 
@@ -3972,6 +3973,14 @@ plusieurs tabs. »** La restriction du résumé se précise : **plusieurs
 sections** — l'organisateur et ses layouts (D489–D491) mêlent
 l'horizontal et le vertical — mais **l'unique page et jamais
 d'onglets** (D201 confirmé).
+
+**Le graphique au résumé (D538).** **« Un summary peut contenir un
+kpi ou un chart — à condition que son affichage reste modeste. »**
+Les graphiques réutilisables (D243) entrent au résumé, la modestie en
+condition (le petit par principe D201 s'étend à l'embarqué).
+*(L'écriture en proposition : **`chart[<nom>]`** en items — la
+famille des adresses, l'écho de `field[<nom>]` D460,
+`operation[<nom>]` D511 et `template[<nom>]` D483.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11047,3 +11056,7 @@ avant la synthèse Q16).
   affiche le title ou l'image (D386) ; plusieurs sections pour mêler
   l'horizontal et le vertical — pas plusieurs pages ni tabs. La fiche
   summary ajustée.
+- **2026-08-14 (suite 43)** — **Le graphique au résumé (D538)** :
+  « un kpi ou un chart, à condition que son affichage reste
+  modeste » — chart[<nom>] en items en proposition (la famille des
+  adresses).

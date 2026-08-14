@@ -2160,10 +2160,13 @@ charts:
    `[seller, customer]` : commercial › client) ; **`columns:`** — le
    ou les champs en colonne (le mot des listes D441) ; **`value:`** —
    la formule : un agrégat (D158) **partitionné par la cellule** ;
-   `filter:` (D90) ; **les plages et temporalités** sur les champs
-   numériques ou dates — « comme pour les graphiques (D240), pour
-   réduire le volume » : `date[month]`, les crochets ; `title:`
-   (D493) ;
+   `filter:` (D90) ; **`sort:`** — le tri sur la valeur :
+   « visualiser les plus gros CA » (D528 — *en proposition :*
+   `sort: -value`, le signe D441) — chaque niveau du groupement trié
+   par son sous-total, l'ordre naturel du champ en défaut ; **les
+   plages et temporalités** sur les champs numériques ou dates —
+   « comme pour les graphiques (D240), pour réduire le volume » :
+   `date[month]`, les crochets ; `title:` (D493) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **les groupements hiérarchiques,
    pliables au besoin** (D246) ; réutilisable : le widget (D247), le
@@ -2174,7 +2177,7 @@ charts:
    liste des éléments de l'intersection — l'écho D242/D519)* ; la
    confidentialité masque ;
 9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
-   D512, D517–D518 ;
+   D441, D512, D517–D518, D528 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2185,6 +2188,7 @@ charts:
     rows: [seller, customer]     # la hiérarchie pliable — commercial › client
     columns: [date[month]]       # la temporalité (D240)
     value: sum(total)            # l'agrégat partitionné par la cellule (D158)
+    sort: -value                 # les plus gros CA d'abord (D528)
     filter: state = "invoiced"
     title: { fr: CA par commercial et par mois }
 ```

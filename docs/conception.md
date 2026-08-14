@@ -606,6 +606,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D525 | **`top` harmonisé** (amende D524) : « j'harmonise en effet avec top » — `axis: bottom \| top`, le vocabulaire unique des bords avec les tabs (D504). | Voir §3.2c. |
 | D526 | **L'icône aux seuils** : « je souhaite aussi pouvoir associer éventuellement une icône — cas d'un feu tricolore » — les seuils portent la couleur (D467) et/ou l'icône. | `icons:` en proposition (la mécanique D467 dupliquée ; la collision avec la feuille notée — D458) ; la liaison `icon:` à la table D495. Voir §3.2c. |
 | D527 | **L'organisation du kpi** : « mis en valeur avec un style différent de la feuille » ; « l'organisation se découpe en 4 » — la position du label (haut/gauche/bas/droite), l'icône au bord opposé. | `layout: top \| left \| bottom \| right` en proposition (défaut top ; la collision avec D490 notée). Voir §3.2c. |
+| D528 | **Le tri du croisé sur la valeur** : « visualiser les plus gros CA » — les lignes par la valeur agrégée, chaque niveau du groupement par son sous-total ; le défaut = l'ordre naturel du champ. | `sort: -value` en proposition (le signe D441). Voir §3.2c. |
 
 ---
 
@@ -3852,6 +3853,14 @@ du label, **l'icône au bord opposé**. *(L'écriture en proposition :
 bords du vocabulaire unique (D525) ; défaut `top` — le premier cité ;
 la collision avec le `layout:` des sections (D490) notée, les valeurs
 départagent — D458.)*
+
+**Le tri du croisé sur la valeur (D528).** **« J'ajoute un tri
+également sur la value pour notamment visualiser les plus gros CA,
+par exemple. »** Les lignes s'ordonnent par la valeur agrégée — et
+dans un groupement hiérarchique, **chaque niveau se trie par son
+sous-total** (les commerciaux par leur CA, leurs clients par le
+leur). Le défaut demeure l'ordre naturel du champ. *(L'écriture en
+proposition : `sort: -value` — le signe du tri des listes, D441.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10860,3 +10869,7 @@ avant la synthèse Q16).
   (D246 : les quatre éléments, les groupements pliables) ; en
   proposition : rows:/columns:/value:, le clic sur une cellule
   ouvrant la liste de l'intersection.
+- **2026-08-14 (suite 29)** — **Le tri du croisé (D528)** : « un tri
+  sur la value pour visualiser les plus gros CA » — chaque niveau du
+  groupement par son sous-total, sort: -value en proposition (D441).
+  La fiche pivot complétée.

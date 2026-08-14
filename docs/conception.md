@@ -598,6 +598,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D517 | **L'assise du graphique** : « un chart doit s'appuyer sur une entité ou une liste (composant déjà vu) ; les axes font référence aux champs » — l'entité ou la liste nommée (le périmètre hérité), les axes sur ses champs. | `on:` à l'adresse D439 en proposition (`sales.order[invoiced]`). Voir §3.2c. |
 | D518 | **Le défaut de l'assise** (complète D517) : « si on: est absent, l'assise porte sur l'entité elle-même » — l'entité porteuse ; on: pour désigner ailleurs. | Voir §3.2c. |
 | D519 | **Les secteurs arbitrés** : `mode: pie \| donut \| quarter` ; les variables du gabarit `{value}`/`{percent}`/`{total}` (« {percent} % ({value} / {total}) ») ; le clic sur une part → la liste de ses éléments ; « autres » acté — **son drill affiche une barre de répartition** pour préciser la valeur à filtrer. | Le drill à deux étages. Voir §3.2c. |
+| D520 | **L'épaisseur et les angles** (complète D519) : « sur donut, l'épaisseur ; sur quarter, l'angle de départ, de fin et l'épaisseur — représenter l'assemblée nationale de la gauche vers la droite ». | `thickness:` et les angles aux bornes (`quarter[-90..90]`) en proposition ; l'hémicycle fondateur. Voir §3.2c. |
 
 ---
 
@@ -3759,6 +3760,17 @@ doit afficher une barre avec une répartition de toutes les autres
 valeurs, afin de permettre à l'utilisateur de préciser la valeur à
 filtrer dans la liste »** — **le drill à deux étages** : le secteur →
 la liste ; « autres » → la barre de répartition → la liste.
+
+**L'épaisseur et les angles (D520 — complète D519).** **« Sur donut,
+une propriété sur l'épaisseur doit être possible. Sur quarter,
+l'angle de départ, de fin et l'épaisseur. Par exemple, quarter doit me
+permettre de représenter l'assemblée nationale avec ses représentants
+de la gauche vers la droite… »** — l'hémicycle en usage fondateur.
+*(Les écritures en proposition : **`thickness:`** — l'épaisseur de
+l'anneau ou de l'arc, en pourcentage du rayon ; **les angles au
+crochet aux bornes** — `quarter[-90..90]`, l'écho de D366/D497 — le
+départ..la fin en degrés, 0° à midi, le sens horaire ; `quarter` nu =
+`[0..90]`, le quart ; l'hémicycle = `quarter[-90..90]`.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10721,3 +10733,7 @@ avant la synthèse Q16).
   le clic sur une part → la liste de ses éléments ; « autres » acté,
   son drill ouvrant une barre de répartition (le drill à deux
   étages). La fiche chart.pie complétée.
+- **2026-08-14 (suite 18)** — **L'épaisseur et les angles (D520)** :
+  thickness: sur donut/quarter ; les angles de quarter au crochet aux
+  bornes (quarter[-90..90] en proposition) — l'hémicycle de
+  l'assemblée nationale en usage fondateur.

@@ -1948,8 +1948,13 @@ charts:
 5. **Propriétés** — **le socle commun** (D515–D518 : `on:`, `x:`,
    `y:`, `filter:`, `drill:`, `colors:`, `labels:`, `title:`) ; **les
    écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
-   camembert (défaut), l'anneau, le quart de cercle (le crochet en
-   raccourci : `chart.pie[donut]`, D478) ; **les variables du
+   camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
+   `chart.pie[donut]`, D478) ; **`thickness:`** — l'épaisseur de
+   l'anneau et de l'arc (D520 — *en proposition : le pourcentage du
+   rayon*) ; **les angles de `quarter`** — le départ et la fin, *en
+   proposition au crochet aux bornes* : `quarter[-90..90]` (0° à
+   midi, le sens horaire ; nu = `[0..90]`) — « représenter
+   l'assemblée nationale de la gauche vers la droite » (D520) ; **les variables du
    gabarit** des labels : `{value}`, `{percent}`, `{total}` —
    « {percent} % ({value} / {total}) » (D516/D519) ; **le
    regroupement des petites parts en « autres »** — un seuil, rien
@@ -1965,7 +1970,7 @@ charts:
    liste (D519) ; les valeurs du calcul (D516) ; la confidentialité
    masque ;
 9. **Décisions fondatrices** — D239–D243, D247–D249, D512, D515–D516,
-   D519 ;
+   D519–D520 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1977,4 +1982,12 @@ charts:
     y: sum(total)
     labels: { fr: "{percent} % ({value} / {total})" }   # le trio (D519)
     drill: by_category              # le clic : la liste de la part (D242/D519)
+
+  assembly:                         # l'hémicycle (D520)
+    component: chart.pie
+    mode: quarter[-90..90]          # de la gauche vers la droite
+    thickness: 40%                  # l'épaisseur de l'arc
+    on: politics.deputy
+    x: party
+    y: count()
 ```

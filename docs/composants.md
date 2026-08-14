@@ -2160,10 +2160,12 @@ charts:
    `[seller, customer]` : commercial › client) ; **`columns:`** — le
    ou les champs en colonne (le mot des listes D441) ; **`value:`** —
    la formule : un agrégat (D158) **partitionné par la cellule** ;
-   `filter:` (D90) ; **`sort:`** — le tri sur la valeur :
-   « visualiser les plus gros CA » (D528 — *en proposition :*
-   `sort: -value`, le signe D441) — chaque niveau du groupement trié
-   par son sous-total, l'ordre naturel du champ en défaut ; **les
+   `filter:` (D90) ; **`sort:`** — « le tri peut s'appuyer
+   sur les rows, les columns ou la value » (D528–D529) : la clé = un
+   champ des lignes, un champ des colonnes, ou `value` — les signes
+   et cascades D441 (`sort: { seller: -value, date: + }`) ; chaque
+   niveau du groupement trié par son sous-total, l'ordre naturel du
+   champ en défaut ; **les
    plages et temporalités** sur les champs numériques ou dates —
    « comme pour les graphiques (D240), pour réduire le volume » :
    `date[month]`, les crochets ; `title:` (D493) ;
@@ -2177,7 +2179,7 @@ charts:
    liste des éléments de l'intersection — l'écho D242/D519)* ; la
    confidentialité masque ;
 9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
-   D441, D512, D517–D518, D528 ;
+   D441, D512, D517–D518, D528–D529 ;
 10. **Exemple de configuration** —
 
 ```yaml

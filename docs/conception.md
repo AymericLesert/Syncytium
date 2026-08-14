@@ -607,6 +607,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D526 | **L'icône aux seuils** : « je souhaite aussi pouvoir associer éventuellement une icône — cas d'un feu tricolore » — les seuils portent la couleur (D467) et/ou l'icône. | `icons:` en proposition (la mécanique D467 dupliquée ; la collision avec la feuille notée — D458) ; la liaison `icon:` à la table D495. Voir §3.2c. |
 | D527 | **L'organisation du kpi** : « mis en valeur avec un style différent de la feuille » ; « l'organisation se découpe en 4 » — la position du label (haut/gauche/bas/droite), l'icône au bord opposé. | `layout: top \| left \| bottom \| right` en proposition (défaut top ; la collision avec D490 notée). Voir §3.2c. |
 | D528 | **Le tri du croisé sur la valeur** : « visualiser les plus gros CA » — les lignes par la valeur agrégée, chaque niveau du groupement par son sous-total ; le défaut = l'ordre naturel du champ. | `sort: -value` en proposition (le signe D441). Voir §3.2c. |
+| D529 | **Le tri aux trois clés** (élargit D528) : « le tri peut s'appuyer sur les rows, les columns ou la value » — les signes et cascades D441 (`sort: { seller: -value, date: + }`). | Voir §3.2c. |
 
 ---
 
@@ -3861,6 +3862,12 @@ dans un groupement hiérarchique, **chaque niveau se trie par son
 sous-total** (les commerciaux par leur CA, leurs clients par le
 leur). Le défaut demeure l'ordre naturel du champ. *(L'écriture en
 proposition : `sort: -value` — le signe du tri des listes, D441.)*
+
+**Le tri aux trois clés (D529 — élargit D528).** **« Le tri peut
+s'appuyer sur les rows, les columns ou la value. »** La clé du tri :
+un champ des lignes, un champ des colonnes, ou la valeur — les signes
+et les cascades de D441 valent (`sort: { seller: -value, date: + }` —
+les commerciaux par leur CA décroissant, les mois chronologiques).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10873,3 +10880,6 @@ avant la synthèse Q16).
   sur la value pour visualiser les plus gros CA » — chaque niveau du
   groupement par son sous-total, sort: -value en proposition (D441).
   La fiche pivot complétée.
+- **2026-08-14 (suite 30)** — **Le tri aux trois clés (D529)** : « le
+  tri peut s'appuyer sur les rows, les columns ou la value » — les
+  signes et cascades D441.

@@ -605,6 +605,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D524 | **L'orientation du combiné** : « axis: left \| right, ou bottom \| up, pour une représentation en ligne contre une représentation en colonne » — la paire d'axes dit l'orientation, homogène par construction. | La virgule « up »/« top » (D504) signalée. Voir §3.2c. |
 | D525 | **`top` harmonisé** (amende D524) : « j'harmonise en effet avec top » — `axis: bottom \| top`, le vocabulaire unique des bords avec les tabs (D504). | Voir §3.2c. |
 | D526 | **L'icône aux seuils** : « je souhaite aussi pouvoir associer éventuellement une icône — cas d'un feu tricolore » — les seuils portent la couleur (D467) et/ou l'icône. | `icons:` en proposition (la mécanique D467 dupliquée ; la collision avec la feuille notée — D458) ; la liaison `icon:` à la table D495. Voir §3.2c. |
+| D527 | **L'organisation du kpi** : « mis en valeur avec un style différent de la feuille » ; « l'organisation se découpe en 4 » — la position du label (haut/gauche/bas/droite), l'icône au bord opposé. | `layout: top \| left \| bottom \| right` en proposition (défaut top ; la collision avec D490 notée). Voir §3.2c. |
 
 ---
 
@@ -3839,6 +3840,18 @@ de `colors:` dupliquée, `{ 0: red_light.svg, 50: orange_light.svg,
 le contexte départage (D458) ; et la table d'entité (D495) gagne la
 liaison `icon:` en option.)* Vaut où les seuils valent (D467) — le
 `kpi` en usage premier.
+
+**L'organisation du kpi (D527).** **« Un kpi sera mis en valeur avec
+un style différent de la feuille que nous avons déjà vue »** — le
+chiffre-clé s'affiche en exergue, jamais comme un champ. Et
+**« l'organisation se découpe en 4 : le label en haut - l'icône
+dessous, le label à gauche - l'icône à droite, le label en bas -
+l'icône dessus, le label à droite - l'icône à gauche »** — la position
+du label, **l'icône au bord opposé**. *(L'écriture en proposition :
+`layout: top | left | bottom | right` — la position du label, les
+bords du vocabulaire unique (D525) ; défaut `top` — le premier cité ;
+la collision avec le `layout:` des sections (D490) notée, les valeurs
+départagent — D458.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10838,3 +10851,7 @@ avant la synthèse Q16).
   feu tricolore » — icons: en proposition (la mécanique D467
   dupliquée, la collision avec la feuille notée), la liaison icon: à
   la table D495. La fiche kpi complétée.
+- **2026-08-14 (suite 27)** — **L'organisation du kpi (D527)** : le
+  style en exergue (distinct de la feuille) ; les 4 organisations —
+  la position du label, l'icône au bord opposé ; layout: top|left|
+  bottom|right en proposition (défaut top).

@@ -2105,17 +2105,24 @@ charts:
    **`icons:` par seuils** — « associer éventuellement une icône :
    cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ; la
    collision avec la feuille `icons` notée, le contexte départage
-   D458 ; la liaison `icon:` à la table D495) ; `drill:` (D242) ; **pas de comparaison dans le socle** (D245 —
+   D458 ; la liaison `icon:` à la table D495) ; **`layout:`** —
+   « l'organisation se découpe en 4 » (D527) : la position du label —
+   `top` (défaut) `| left | bottom | right` (les bords D525),
+   **l'icône au bord opposé** (*la collision avec le layout des
+   sections D490 notée — les valeurs départagent, D458*) ; `drill:`
+   (D242) ; **pas de comparaison dans le socle** (D245 —
    l'évolution contre une période = un hook) ;
 6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **le widget roi** (l'entité → le
-   module fonctionnel — D247), le tableau de bord (le
-   rafraîchissement D249), le formulaire possible (D243) ;
-   **template** : la valeur au format ;
+7. **Modes et déclinaisons** — **« mis en valeur avec un style
+   différent de la feuille »** (D527) : le chiffre en exergue, jamais
+   comme un champ ; **le widget roi** (l'entité → le module
+   fonctionnel — D247), le tableau de bord (le rafraîchissement
+   D249), le formulaire possible (D243) ; **template** : la valeur au
+   format ;
 8. **États et interactions** — le clic : le drill-down (D242) ou les
    valeurs du calcul (D516) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D158, D242–D243, D245, D247–D249,
-   D467, D495, D512, D515–D518, D526 ;
+   D467, D495, D512, D515–D518, D526–D527 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2130,5 +2137,6 @@ charts:
     colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
     icons:  { 0: red_light.svg, 50000: orange_light.svg, 100000: green_light.svg }
                                  # le feu tricolore (D526)
+    layout: left                 # le label à gauche, l'icône à droite (D527)
     drill: invoiced              # le clic : la liste (D242)
 ```

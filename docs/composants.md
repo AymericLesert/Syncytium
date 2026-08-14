@@ -2756,9 +2756,11 @@ dashboards:
    (D509) ; **la dimension de page** (*en proposition :* `paper:` —
    `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; **`margin:`**
    — « les marges en mm » (D559) ; **`format:`** — « le format de
-   destination » (D564) : `pdf` (*le défaut en proposition* — la
-   lignée D212/D250) `| word | excel | mail` — le mail portant le
-   publipostage (D562), l'Excel le modèle (D445) ; les titres à
+   destination » (D564–D565) : `pdf` (**le défaut acté** — la lignée
+   D212/D250) `| word | excel | mail` — le mail portant le
+   publipostage (D562), l'Excel le modèle (D445) ; **« étendu à
+   d'autres formats en fonction des besoins à venir »** (D565 — la
+   ligne des hooks D408) ; les titres à
    quatre niveaux (D250) ;
 6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
    chaque page** (la proposition de D507 confirmée par l'usage) —,

@@ -1411,7 +1411,11 @@ page:                              # la section seule, directement (D490)
    informations légales de l'entreprise » ;
 2. **Rôle** — le texte venu de la configuration, affiché tel quel —
    **aucun champ derrière** : la mention, l'explication,
-   l'avertissement ;
+   l'avertissement ; **et le gabarit** — « le paragraph peut être un
+   gabarit, utilisable dans le cas d'une lettre » (D559,
+   l'étoffement Q55) : les variables de l'enregistrement dans le
+   texte (« Cher {customer}, votre commande {number}… ») — le
+   publipostage ;
 3. **Types servis** — aucun : le contenu est déclaré, par langue
    (D465) ou par référence au dictionnaire du module (`labels` —
    D440) ;
@@ -1427,7 +1431,7 @@ page:                              # la section seule, directement (D490)
    étoffée au point gabarit / génération de documents (Q55)* ;
 8. **États et interactions** — la visibilité par les droits ; rien
    d'autre — le texte ne se clique pas ;
-9. **Décisions fondatrices** — D440, D455, D461, D465, D488 ;
+9. **Décisions fondatrices** — D440, D455, D461, D465, D488, D559 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2730,13 +2734,15 @@ dashboards:
 4. **Contexte consommé** — l'enregistrement ; **les variables de
    contexte = l'entité « contexte »** (D254 — la pagination,
    l'opérateur, l'instance : des champs comme les autres) ; la
-   langue — **un gabarit par langue** (D253 ; *l'écriture de la
-   déclinaison en proposition*) ;
+   langue — **« la déclinaison par langue se porte sur chaque item »**
+   (D559, amende la lecture de D253) : un seul gabarit, ses items
+   déclinés (la mécanique D465) ;
 5. **Propriétés** — **le formalisme unique avec les formulaires**
    (D250) : `title:` (le gabarit — D449), le `pages` implicite
    (D509) ; **la dimension de page** (*en proposition :* `paper:` —
-   `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; les titres à
-   quatre niveaux (D250) ;
+   `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; **`margin:`**
+   — « les marges en mm » (D559) ; les titres à quatre niveaux
+   (D250) ;
 6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
    chaque page** (la proposition de D507 confirmée par l'usage) —,
    les `page`(s), les sections ; **les feuilles aux pendants PDF**
@@ -2752,7 +2758,7 @@ dashboards:
    la confidentialité s'applique au rendu (les champs masqués
    n'apparaissent pas) ;
 9. **Décisions fondatrices** — D212, D250–D254, D257, D432, D438,
-   D449, D481, D483, D488, D507, D509, D530, D542–D545 ;
+   D449, D481, D483, D488, D507, D509, D530, D542–D545, D559 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2761,6 +2767,7 @@ templates:
   invoice:                         # document: invoice (D432) — template[invoice] (D483)
     title: "Facture {number}"
     paper: A4                      # la dimension de page (D250 — proposition)
+    margin: 15mm                   # les marges (D559)
     header:
       height: 40mm
       items:

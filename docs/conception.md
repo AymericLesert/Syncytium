@@ -11323,3 +11323,10 @@ avant la synthèse Q16).
   des surimpressions (D535) ; l'origine de l'appel (D455) = la pile
   entière. La fiche operation complétée. *(Le commit 6efcb72
   annonçait D553 par erreur — le voici réellement porté.)*
+- **2026-08-14 (suite 64)** — **Les fiches `tabs` et `wizard`
+  validées après séparation** (« je valide tabs et wizard »). Le fil
+  avance : la fiche `dashboard` écrite — la surface du module
+  (module[dashboard] D439), les trois rafraîchissements (D249), les
+  widgets assemblés ; en proposition : le bloc dashboards: au module,
+  refresh: static|live|every[…] (D434), widget[<entité>.<nom>]
+  (la famille des adresses).

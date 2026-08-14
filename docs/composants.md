@@ -2651,3 +2651,51 @@ wizards:
           items: [ field[channel] ]
           operation: print_menus   # l'opération à la validation du step (D546)
 ```
+
+## `dashboard`
+
+1. **Nom et famille** — `dashboard`, une surface — **au module** :
+   `module.yml`, bloc gui (*l'écriture `dashboards:` en
+   proposition*) ; le menu l'adresse — `module[dashboard]` (D439) ;
+   la première déclarée = le défaut (D438) ;
+2. **Rôle** — le tableau de bord : **la vue d'ensemble du module** —
+   les widgets et les graphiques de ses entités, assemblés ;
+3. **Types servis** — le module — ses entités au travers de leurs
+   widgets et charts (chacun sous sa confidentialité — D247) ;
+4. **Contexte consommé** — l'utilisateur (ses droits, sa
+   confidentialité — chaque widget filtre de lui-même), le module ;
+5. **Propriétés** — `title:` (D449/D465) ; `size:` (la pile D535 —
+   tout l'écran depuis le menu, l'esprit D549) ; `screen:`
+   (D450/D532) ; **le rafraîchissement** — les trois modes de D249
+   (*l'écriture en proposition :* `refresh: static | live |
+   every[5min]` — les durées D434/D476 ; surchargeable au widget, la
+   cascade D461) ;
+6. **Items** — **les widgets des entités du module** (*en
+   proposition :* `widget[<entité>.<nom>]` — la famille des adresses,
+   `widget[order.monthly]`) ; les graphiques directs
+   (`chart[<nom>]` — D243/D540) ; les `sections` et leurs layouts
+   pour la disposition (D489–D491) ;
+7. **Modes et déclinaisons** — **le dashboard déclaré ≠ la page
+   d'accueil composée** : l'accueil reste à l'utilisateur (D204 — le
+   pool des widgets de ses modules) ; le tableau de bord est l'œuvre
+   du technicien, au module ; le responsive au repli (D203) ;
+8. **États et interactions** — **le drill-down** de chaque widget
+   (D202/D242) ; la confidentialité masque widget par widget (D247) ;
+   le rafraîchissement vit selon son mode (D249) ;
+9. **Décisions fondatrices** — D202–D204, D242–D243, D247–D249,
+   D434, D438–D439, D449–D450, D455, D461, D465, D532, D535, D540 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/module.yml, bloc gui — le tableau de bord du module (D439)
+dashboards:
+  main:                            # le menu : sales[main] (D439)
+    title: { fr: Pilotage des ventes }
+    refresh: every[5min]           # static | live | every[…] (D249/D434)
+    page:
+      - sections:
+          layout: column[2]
+          items:
+            - section: { items: [ widget[order.monthly] ] }
+            - section: { items: [ widget[customer.top10] ] }
+```

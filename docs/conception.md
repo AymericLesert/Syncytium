@@ -11278,3 +11278,8 @@ avant la synthèse Q16).
   être le même objet » — la surface wizard et tabs[wizard], un même
   composant (l'écho D486), tout D546–D550 valant des deux côtés. Les
   fiches liées.
+- **2026-08-14 (suite 61)** — **La revue tabs/wizard ouverte** :
+  « ça m'embête d'avoir 2 vocabulaires (tabs/steps) pour un même
+  objet — faut-il sortir wizard de tabs, ou au contraire fusionner
+  les 2 ? » — la validation du wizard suspendue, les deux voies
+  posées dans l'échange avec recommandation ; l'arbitrage attendu.

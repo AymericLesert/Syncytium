@@ -614,6 +614,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D533 | **La grammaire de `size:`** : « 75% → 75 % de l'écran avec centrage ; 90% 50% → la longueur et la hauteur ; ou 1000px 320px en pixels » — une valeur centrée, deux valeurs largeur puis hauteur, % ou px. | Vaut partout où size s'écrit (D484). Voir §3.2c. |
 | D534 | **La confusion levée** (clarifie D532) : « j'ai introduit une confusion entre dimension et size » — la doctrine D484 départage : le formulaire s'ouvre à l'appel → `dimension:` (D454) ; la liste s'affiche → `size:` ; la grammaire D533 vaut pour les deux. | Voir §3.2c. |
 | D535 | **`size` aux surfaces, la pile des surimpressions** (amende D454/D534) : « size me convient mieux pour les 2 usages — un form ou une liste apparaissent en surimpression par rapport aux actions antécédentes cumulées » — toute surface s'ouvre au-dessus de la pile ; le couple D484 demeure au grain du champ. | Le dimension: du formulaire (D454) devient size:. Voir §3.2c. |
+| D536 | **La propriété `style:` définie** : « par défaut, le style global de l'application ; prévoyons une propriété style qui regroupe la fonte, la taille et sa mise en forme » — le thème d'instance en défaut, la surcharge à la cascade D461. | `style: { font:, size:, format: [bold…] }` en proposition (le size intérieur = la police — D458 départage). Voir §3.2c. |
 
 ---
 
@@ -3947,6 +3948,19 @@ la règle générale, non une extension particulière. Le `dimension:` du
 formulaire (D454) devient `size:` ; **le couple D484 demeure au grain
 du champ** (la vignette/la visionneuse, la mini-carte/la carte
 dépliée, le picker déployé — `dimension:`).
+
+**La propriété `style:` définie (D536).** Le retour sur `text` — et le
+mot du socle (D461) reçoit son contenu : **« par défaut, ces éléments
+sont pris dans le cadre du style global de l'application, mais nous
+pouvons avoir besoin de les surcharger. Prévoyons une propriété
+`style` qui regroupe la fonte, la taille et sa mise en forme. »** Le
+défaut : **le style global de l'instance** (le thème — le paramètre
+général, l'esprit D259) ; la surcharge à la cascade D461 (le type → le
+champ → le nœud gui, le plus proche l'emporte). *(L'écriture en
+proposition : `style: { font: Roboto, size: 14px, format: [bold,
+italic] }` — le `size` intérieur = la taille de la police, le contexte
+départageant du size d'emprise D535 (D458) ; `format:` parmi bold,
+italic, underline, strike.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11009,3 +11023,7 @@ avant la synthèse Q16).
   surimpression sur la pile des actions antécédentes cumulées ; le
   dimension: du formulaire (D454) devient size: ; le couple D484
   demeure au grain du champ. La fiche form corrigée.
+- **2026-08-14 (suite 40)** — **La fiche `form` validée** (« je valide
+  form ») — et **style: défini (D536)** : le style global de
+  l'application en défaut, la surcharge {fonte, taille, mise en
+  forme} à la cascade D461. La fiche text complétée.

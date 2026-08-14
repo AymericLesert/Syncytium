@@ -253,7 +253,11 @@ gui:
    `component` ; **`shortcut:`** — le raccourci du texte long (D464) :
    `lines` (les lignes visibles), `icon` (l'icône du déploiement),
    `label` (le libellé par langue — « Voir plus ») ; absent, le moteur
-   applique son défaut traduit (thème E) ;
+   applique son défaut traduit (thème E) ; **`style:`** — « la fonte,
+   la taille et sa mise en forme » (D536) : le défaut au **style
+   global de l'application**, la surcharge à la cascade D461 (*en
+   proposition : `style: { font: Roboto, size: 14px, format: [bold,
+   italic] }` — le size intérieur = la police, D458 départage*) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — modification : la saisie, guidée par le
    masque s'il existe (les lignes du masque font les lignes de la zone,

@@ -639,6 +639,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D558 | **La homepage aux trois pointes** (amende D557) : « la limiter à un dashboard m'embête — la homepage doit pouvoir pointer une liste, un dashboard ou une page vide ». | La lettre de D204 retrouvée ; la composition aux emplacements `_` (D555–D556). Voir §3.2c. |
 | D559 | **Le template précisé** : `margin:` en mm ; « le paragraph peut être un gabarit — le cas d'une lettre » (le publipostage, l'étoffement Q55) ; « la déclinaison par langue se porte sur chaque item » (amende la lecture de D253 — un seul gabarit, les items déclinés). | Voir §3.2c. |
 | D560 | **Le publipostage étoffé** : « paragraph doit être étoffé pour disposer d'un mode publipostage riche et facile à intégrer » — les cinq briques en proposition : les variables au format de la langue (les chemins D71), l'`if:` conditionnel, `style:`/les titres, la source (en place ou dictionnaire D440), le multi-alinéas. | À arbitrer. Voir §3.2c. |
+| D561 | **La sixième brique** (complète D560) : « l'affichage d'une liste sous forme de bullet points ou d'indices » — la collection dans la lettre. | `{overdue[bullets]}` / `{overdue[numbers]}` en proposition (le crochet ; le `title` D465 par élément). Voir §3.2c. |
 
 ---
 
@@ -4232,6 +4233,13 @@ quatre niveaux (D250) ; **(4) la source** — le texte en place
 (décliné par langue D559) ou le dictionnaire du module (D440) ;
 **(5) le multi-alinéas** — un seul `paragraph` porte plusieurs
 alinéas (la lettre s'écrit d'un bloc).
+
+**La sixième brique (D561 — complète D560).** **« L'affichage d'une
+liste sous forme de bullet points ou d'indices. »** La collection
+entre dans la lettre — les commandes en retard énumérées en puces ou
+numérotées. *(L'écriture en proposition : la variable-collection au
+crochet — `{overdue[bullets]}` / `{overdue[numbers]}` — chaque
+élément rendu par son `title` (D465).)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11444,3 +11452,7 @@ avant la synthèse Q16).
   « riche et facile à intégrer » — les cinq briques proposées
   (variables aux chemins, if:, style:/titres, la source, le
   multi-alinéas), l'arbitrage attendu.
+- **2026-08-14 (suite 73)** — **La sixième brique (D561)** : « une
+  liste sous forme de bullet points ou d'indices » — la
+  variable-collection au crochet en proposition ({overdue[bullets]},
+  le title par élément).

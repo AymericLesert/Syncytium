@@ -1428,7 +1428,10 @@ page:                              # la section seule, directement (D490)
    langue du document (D369) et les chemins (`{customer.address.city}`
    — D71) ; **`if:`** — l'alinéa conditionnel (D90) ; **`style:`**
    (D536) et les titres à quatre niveaux (D250) ; le
-   **multi-alinéas** — la lettre d'un seul bloc ;
+   **multi-alinéas** — la lettre d'un seul bloc ; **la liste en puces
+   ou en indices** (D561) — la collection énumérée dans la lettre
+   (*en proposition :* `{overdue[bullets]}` / `{overdue[numbers]}` —
+   le `title` D465 par élément) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : le paragraphe en
    place ; **template** : le texte du gabarit — les mentions légales
@@ -1437,7 +1440,7 @@ page:                              # la section seule, directement (D490)
 8. **États et interactions** — la visibilité par les droits ; rien
    d'autre — le texte ne se clique pas ;
 9. **Décisions fondatrices** — D71, D90, D250, D369, D440, D455,
-   D461, D465, D488, D536, D559–D560 ;
+   D461, D465, D488, D536, D559–D561 ;
 10. **Exemple de configuration** —
 
 ```yaml

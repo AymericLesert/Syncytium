@@ -11171,3 +11171,9 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 53)** — **La fiche `qrcode`/`barcode` validée**
   (« je valide qrcode/barcode ») — le manque de D542 refermé
   (D542–D545). La passe des surfaces peut reprendre : le wizard.
+- **2026-08-14 (suite 54)** — **La fiche `wizard` écrite** : le
+  matériau Q54 (D230–D233) sur le squelette tabs[wizard]
+  (D504–D505) — mono-utilisateur une session, les étapes-surfaces aux
+  transitions conditionnelles, l'état transitoire à transaction
+  finale, le brouillon déclaré ; en proposition : le couple
+  steps:/step:, l'if: d'étape, le draft: <état>.

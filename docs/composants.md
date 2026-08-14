@@ -2552,3 +2552,66 @@ widgets:
       - chart[monthly_revenue]     # le kpi (D540)
       - chart[revenue_by_month]    # la courbe — le drill vers la liste (D202/D242)
 ```
+
+## `wizard`
+
+1. **Nom et famille** — `wizard`, une surface — `gui: wizards:
+   <nom>:` ; le menu l'adresse (`[@wizard]` — D439) ; la première
+   déclarée = le défaut (D438) ;
+2. **Rôle** — **le parcours guidé : « mono-utilisateur, une
+   session »** (D230) — les étapes s'enchaînent, la transaction
+   conclut ;
+3. **Types servis** — l'entité — l'enregistrement en construction,
+   dans son agrégat (D101) ;
+4. **Contexte consommé** — l'enregistrement transitoire, l'origine de
+   l'appel, l'utilisateur (D455) ; les droits (D196) ;
+5. **Propriétés** — `title:` (D449/D465) ; `size:` (la pile — D535) ;
+   `screen:` (D450/D532) ; **les étapes = des surfaces déclarées**
+   (D231) ; **les transitions conditionnelles** — « si client
+   étranger → étape TVA » (D231/D90) ; **la transaction finale**
+   (D232/D101 — rien ne s'écrit avant la conclusion, la relecture
+   D431 en clôture) ; **le brouillon = un niveau d'état déclaré,
+   jamais une machinerie** (D233) ;
+6. **Items** — **les étapes** (*le couple en proposition :* `steps:`
+   / `step:` — le patron D489) : chaque étape porte sa poignée
+   (`title:`/`icon:` — le chemin D505), ses items (les sections, les
+   feuilles — la page d'un formulaire), et sa condition (*en
+   proposition :* **`if:`** — la transition conditionnelle D231/D90,
+   l'étape sautée si la condition ne tient pas) ;
+7. **Modes et déclinaisons** — **le squelette `tabs[wizard]`**
+   (D504–D505) : toutes les étapes visibles, **l'avance au rythme de
+   l'exploration**, « les tabs parcourus décrivent le chemin de
+   traitement » — le retour libre d'un clic ; **le passage d'étape =
+   un acte** (D511) ; emboîtable — « rien n'empêche un formulaire
+   qui inclut un wizard dans une page » (D455) ; le circuit de
+   validation multi-acteurs reste **hors wizard** — le patron
+   d'assemblage états + opérations + notifications, sans moteur BPM
+   (D233) ;
+8. **États et interactions** — **l'état transitoire** jusqu'à la
+   transaction finale (D232/D101) ; l'interruption : **le brouillon
+   déclaré** (*en proposition :* `draft: <état>` — l'enregistrement
+   survit au niveau d'état déclaré D233 ; absent, la session
+   emporte tout) ;
+9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
+   D438–D439, D449–D450, D455, D465, D504–D505, D511, D532, D535 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+wizards:
+  new_order:                       # le menu : sales.order[@new_order] (D439)
+    title: { fr: Nouvelle commande }
+    draft: draft                   # l'interruption survit à l'état déclaré (D233)
+    steps:
+      - step:
+          title: { fr: Client }
+          items: [ field[customer] ]
+      - step:
+          title: { fr: TVA }
+          if: customer.country != "FR"   # la transition conditionnelle (D231/D90)
+          items: [ field[vat_number] ]
+      - step:
+          title: { fr: Lignes }
+          items: [ field[lines] ]
+    validate: true                 # la relecture, puis la transaction finale (D232/D431)
+```

@@ -2560,7 +2560,12 @@ widgets:
    déclarée = le défaut (D438) ;
 2. **Rôle** — **le parcours guidé : « mono-utilisateur, une
    session »** (D230) — les étapes s'enchaînent, la transaction
-   conclut ;
+   conclut ; **la démarche au sens large** (D546) : créer un
+   enregistrement, modifier ou supprimer **un ensemble répondant à
+   une liste**, imprimer (les menus : la semaine → la liste → la
+   diffusion), mettre à jour une tournée — le wizard orchestre les
+   opérations de l'entité (les quatre de base `create`/`read`/
+   `update`/`delete`, enrichies — D546) ;
 3. **Types servis** — l'entité — l'enregistrement en construction,
    dans son agrégat (D101) ;
 4. **Contexte consommé** — l'enregistrement transitoire, l'origine de
@@ -2572,12 +2577,15 @@ widgets:
    (D232/D101 — rien ne s'écrit avant la conclusion, la relecture
    D431 en clôture) ; **le brouillon = un niveau d'état déclaré,
    jamais une machinerie** (D233) ;
-6. **Items** — **les étapes** (*le couple en proposition :* `steps:`
-   / `step:` — le patron D489) : chaque étape porte sa poignée
-   (`title:`/`icon:` — le chemin D505), ses items (les sections, les
-   feuilles — la page d'un formulaire), et sa condition (*en
-   proposition :* **`if:`** — la transition conditionnelle D231/D90,
-   l'étape sautée si la condition ne tient pas) ;
+6. **Items** — **les étapes : `steps:`/`step:` — « un habillage de
+   `tabs[wizard]` où chaque step est en fait un tab »** (D546, le
+   couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
+   le chemin D505), ses items (les sections, les feuilles — la page
+   d'un formulaire), sa condition (*en proposition :* **`if:`** — la
+   transition conditionnelle D231/D90, l'étape sautée si la condition
+   ne tient pas), et **son opération** — « un step peut contenir une
+   opération sur la validation » (D546 — jouée au passage, l'acte
+   D511 ; *en proposition :* `operation: <nom>`) ;
 7. **Modes et déclinaisons** — **le squelette `tabs[wizard]`**
    (D504–D505) : toutes les étapes visibles, **l'avance au rythme de
    l'exploration**, « les tabs parcourus décrivent le chemin de
@@ -2593,7 +2601,8 @@ widgets:
    survit au niveau d'état déclaré D233 ; absent, la session
    emporte tout) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
-   D438–D439, D449–D450, D455, D465, D504–D505, D511, D532, D535 ;
+   D438–D439, D449–D450, D455, D465, D504–D505, D511, D532, D535,
+   D546 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2614,4 +2623,15 @@ wizards:
           title: { fr: Lignes }
           items: [ field[lines] ]
     validate: true                 # la relecture, puis la transaction finale (D232/D431)
+
+# catering/entities/menu.yml — l'impression guidée (D546)
+wizards:
+  print_week:
+    steps:
+      - step: { title: { fr: Semaine }, items: [ field[week] ] }
+      - step: { title: { fr: Menus },   items: [ field[menus] ] }
+      - step:
+          title: { fr: Diffusion }
+          items: [ field[channel] ]
+          operation: print_menus   # l'opération à la validation du step (D546)
 ```

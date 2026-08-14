@@ -594,6 +594,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D513 | **La carte des collections** : « le composant doit pouvoir s'adapter pour une coordonnée ou une liste de coordonnées dont des lignes sont possibles ou pas » — les marqueurs multiples, le tracé dans l'ordre de la collection. | Rien n'était consigné (vérifié) ; `lines: true \| false` en proposition (défaut false). Voir §3.2c. |
 | D514 | **La frontière de la route** (complète D513) : les lieux d'un produit (sans relier) / le parcours d'un commercial (relié) ; le socle relie au trait droit — **« le tracé de la route, je préfère le laisser aux hooks »** (les abonnements aux outils annexes). | Le patron du géocodage D294 — candidats open source auto-hébergeables : OSRM, Valhalla (Q7). Voir §3.2c. |
 | D515 | **Les réglages d'affichage du graphique** : « paramétrer les échelles, les début et fin d'axe et quelques éléments d'affichage (vignettes, couleurs, dégradé…) ». | En proposition : la forme riche des axes `{ value:, min:, max:, scale: }` (l'écho D494), `colors:` (D467, le dégradé), `points:` (les vignettes — le visage au nuage D386). Voir §3.2c. |
+| D516 | **`labels:` et les valeurs du calcul** (amende D515) : « labels: true affiche la valeur dans le format du champ, le gabarit pour personnaliser » ; « en cliquant sur une vignette, voir toutes les valeurs utilisées pour le calcul (si le calcul dépend d'une liste ou d'une association) ». | La collision avec le dictionnaire D440 notée (le contexte départage — D458). Voir §3.2c. |
 
 ---
 
@@ -3714,6 +3715,18 @@ et fin d'axe (l'écho D494), `scale: linear` (défaut) `| log` ;
 **le dégradé** compris ; **`points:`** — les vignettes aux points de
 la courbe : la valeur affichée — et au nuage (`chart.scatter`), **le
 visage de l'enregistrement** (D386).)*
+
+**`labels:` et les valeurs du calcul (D516 — amende D515).** La
+proposition `points:` s'efface : **« je verrai plutôt `labels`, avec
+un gabarit d'affichage si besoin de personnaliser. Sinon,
+`labels: true` — affiche la valeur dans le format du champ. »** Le
+vrai comme le gabarit *(la collision avec `labels`, le dictionnaire du
+module D440/D465, est notée — le contexte départage, D458)*. Et
+l'interaction : **« en cliquant sur une vignette, je souhaite voir
+toutes les valeurs utilisées pour le calcul (si le calcul dépend
+d'une liste ou d'une association) »** — le détail de l'agrégat
+s'ouvre au clic : les valeurs contributrices (l'écho du drill-down
+D242 et de l'écart assumé des évaluations D248).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10651,3 +10664,7 @@ avant la synthèse Q16).
   les échelles, les début/fin d'axe, les éléments d'affichage
   (vignettes, couleurs, dégradé) — la forme riche des axes, colors:
   D467 et points: en proposition. La fiche chart.line complétée.
+- **2026-08-14 (suite 12)** — **labels: et les valeurs du calcul
+  (D516)** : labels: true (la valeur au format du champ) ou le
+  gabarit ; le clic sur une vignette ouvre toutes les valeurs du
+  calcul (liste/association). La fiche chart.line ajustée.

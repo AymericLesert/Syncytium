@@ -1841,8 +1841,10 @@ gui:
    acceptent `{ value:, min:, max:, scale: }` (les début et fin
    d'axe — l'écho D494 ; `scale: linear` défaut `| log`),
    **`colors:`** (la mécanique D467 — la couleur par série, le
-   dégradé), **`points:`** (les vignettes aux points — la valeur ;
-   le visage au nuage, D386) ; *(en proposition : `y:` accepte une
+   dégradé), **`labels:`** (D516) — `true` : la valeur au format du
+   champ ; **le gabarit** pour personnaliser (la collision avec le
+   dictionnaire D440 notée — le contexte départage, D458) ; le visage
+   au nuage (D386) ; *(en proposition : `y:` accepte une
    liste — plusieurs séries sur le même axe ; les deux axes restent à
    `chart.combo`, D239)* ;
 6. **Items** — aucun ;
@@ -1853,9 +1855,12 @@ gui:
    tactile : le point touché montre sa valeur ;
 8. **États et interactions** — **le drill-down au clic** : le
    graphique « enrichit le filtre de la liste pour imposer » les
-   éléments de la valeur cliquée (D242) ; la confidentialité masque ;
+   éléments de la valeur cliquée (D242) ; **le clic sur une
+   vignette** : « voir toutes les valeurs utilisées pour le calcul »
+   (D516 — si l'agrégat dépend d'une liste ou d'une association, le
+   détail des contributions s'ouvre) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
-   D512, D515 ;
+   D512, D515–D516 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1874,5 +1879,5 @@ charts:
     x: date[month]
     y: { value: avg(margin), min: 0, max: 100, scale: linear }
     colors: { serie: blue }      # la mécanique D467 — le dégradé possible
-    points: true                 # les vignettes aux points
+    labels: true                 # la valeur au format du champ (D516)
 ```

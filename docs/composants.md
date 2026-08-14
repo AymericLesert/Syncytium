@@ -1739,3 +1739,68 @@ forms:
     - page:   { items: [ field[lines] ] }
     - footer: { items: [ field[total] ] }
 ```
+
+# Les actes
+
+## `operation` (l'acte)
+
+1. **Nom et famille** — l'acte, **une fiche unique** : en items,
+   **`operation[<nom>]`** — « pour être en phase avec les fields »
+   (D511, l'écho de `field[<nom>]` D460 et `template[<nom>]` D483) ;
+   la matérialisation se déduit de l'habitat ;
+2. **Rôle** — **« l'utilisateur acte une opération »** (D456) : le
+   geste qui engage — le bouton, l'icône, le passage d'étape ;
+3. **Types servis** — les opérations du bloc `operations:` (D432 —
+   sans `when` : le bouton / la fonction API, D428) ; le changement
+   d'état du graphe (D425–D427, l'opération du catalogue par défaut —
+   D433) ;
+4. **Contexte consommé** — l'opération : sa garde (`if` — D430), ses
+   droits (D196), son `validate:` (D431) ; l'enregistrement ou la
+   sélection (l'opération de masse — D446) ; **la pré-exécution**
+   (D511) — les modifications à venir, chiffrées ;
+5. **Propriétés** — la surcharge de la présentation : `label:`,
+   `icon:`, `style:` (le verbe du catalogue en défaut) ;
+   **`validate:`** — `true` (défaut — la relecture D431) ou **le
+   message au gabarit nourri de la pré-exécution** (D511 — *écriture
+   en proposition :* `validate: { message: { fr: "{invoices}
+   factures seront créées" } }`, les variables = les résultats nommés
+   de la pré-exécution) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **l'habitat fait le visage** : le
+   formulaire → **le bouton** ; la colonne de liste → **l'icône à
+   trois états** (D444, le verbe au nom nu — D462) ; le wizard → **le
+   passage d'étape** (D504–D505, l'avance gardée) ; le menu →
+   l'adresse `<module>.<entité>.<opération>` (D439) ; **les deux
+   modes de l'opération** (D511) : la pré-exécution — « identifier
+   les modifications à apporter » — puis l'exécution réelle ;
+   template : jamais (le papier n'agit pas) ;
+8. **États et interactions** — **les trois états** (D444) :
+   actionnable / **non actionnable** (la garde grise le bouton, l'API
+   refuse proprement — D430) / **non visible** (les droits D196, la
+   confidentialité) ; la relecture avant engagement (D431 — lecture
+   seule + confirmer/annuler, jamais de popup D196) ; l'exécution
+   `synchronous`/`asynchronous`/`await` (D436) ;
+9. **Décisions fondatrices** — D196, D425–D433, D436, D439, D444,
+   D446, D456, D460, D462, D504–D505, D511 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml
+operations:
+  invoice:
+    validate:
+      message: { fr: "{invoices} factures seront créées" }  # le gabarit — la pré-exécution nourrit (D511)
+    effects:
+      - function: create_invoices
+
+gui:
+  forms:
+    default:
+      footer:
+        items:
+          - operation[invoice]:        # le bouton au formulaire (D511)
+              icon: invoice.svg
+  lists:
+    main:
+      columns: [number, customer, invoice]   # l'icône à trois états (D444/D462)
+```

@@ -589,6 +589,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
 | D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
 | D510 | **Le multi-pages en liste** : « le multi-pages se fait à l'aide d'une liste d'éléments — default: [ { header: … }, { page: … }, { page: … }, { footer: … } ] » — les clés pour l'usuel, la liste dès que les pages se répètent. | Solde la virgule D509. Voir §3.2c. |
+| D511 | **L'acte et les deux modes** : « operation[<nom>] pour être en phase avec les fields » ; « une opération doit avoir 2 modes — la pré-exécution identifie les modifications à apporter (les factures à créer ; l'import : ajoutées/modifiées/non modifiées/supprimées) » ; le message de confirmation au gabarit nourri de la pré-exécution. | Généralise D234 et l'exécution à blanc ; `validate: { message: }` en proposition (étend D431). Voir §3.2c. |
 
 ---
 
@@ -3644,6 +3645,25 @@ multi-pages se fait à l'aide d'une liste d'éléments :
 `default: [ { header: … }, { page: … }, { page: … }, { footer: … } ]`. »**
 Deux plumes pour le même `pages` implicite : **les clés** pour l'usuel
 (une page), **la liste d'éléments** dès que les pages se répètent.
+
+**L'acte : `operation[<nom>]` et les deux modes de l'opération
+(D511).** L'écriture actée : **« `operation[<nom>]` pour être en phase
+avec les fields »** (l'écho de `field[<nom>]` D460 et `template[<nom>]`
+D483). Et le concept s'approfondit : **« une opération doit avoir 2
+modes : une pré-exécution permet d'identifier les modifications à
+apporter — par exemple, calculer le nombre de factures à créer, ou
+lors de l'import d'un fichier CSV, le nombre de lignes ajoutées,
+modifiées, non modifiées et supprimées. Cela donne du contexte à
+l'utilisateur avant que l'opération ne soit réellement exécutée. »**
+La pré-exécution **généralise** le dry-run de l'import (D234) et
+l'exécution à blanc du glossaire — toute opération sait se jouer à
+blanc. Et **« un message de confirmation avec un gabarit dont les
+informations sont issues de l'opération en mode pré-exécution »** —
+la relecture de D431 s'enrichit du contexte chiffré. *(L'écriture en
+proposition : `validate: true` — la relecture simple, le défaut —
+s'étend en `validate: { message: <gabarit> }`, le gabarit consommant
+les résultats nommés de la pré-exécution : « {invoices} factures
+seront créées ».)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10554,3 +10574,10 @@ avant la synthèse Q16).
   composants, D417–D510 » — 140 commits, 3 fichiers). Develop porte
   désormais glossaire.md, composants.md et la conception jusqu'à
   D510.
+- **2026-08-14 (suite 7)** — **Les actes ouverts (D511)** : la fiche
+  unique tranchée par l'usage, operation[<nom>] acté (« en phase avec
+  les fields ») ; les deux modes de l'opération — la pré-exécution
+  (le contexte chiffré avant l'engagement, la généralisation du
+  dry-run D234) ; le message de confirmation au gabarit
+  (validate: { message: } en proposition). La fiche operation
+  écrite, en attente de validation.

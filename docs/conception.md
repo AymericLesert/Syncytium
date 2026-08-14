@@ -618,6 +618,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D537 | **Le résumé précisé** : « le 1-1 affiche le title **ou l'image** si elle est définie » (le visage D386) ; petit par principe confirmé ; « plusieurs sections (pour mêler des affichages horizontaux et verticaux) — pas plusieurs pages, ni plusieurs tabs ». | L'organisateur D489–D491 dans le résumé ; D201 confirmé. Voir §3.2c. |
 | D538 | **Le graphique au résumé** : « un summary peut contenir un kpi ou un chart — à condition que son affichage reste modeste » (D243 réutilisable, la modestie D201). | `chart[<nom>]` en items en proposition (la famille des adresses D460/D483/D511). Voir §3.2c. |
 | D539 | **La troisième assise du chart** (élargit D517) : « elle s'appuie sur une entité ou un champ de type list of ou association with » — le champ-collection : le graphique des éléments liés à l'enregistrement du contexte. | `on: <champ>` en proposition. Voir §3.2c. |
+| D540 | **Le chart, feuille du formulaire** : « un form peut donc avoir un composant chart comme feuille — nous le faisons entrer de fait dans summary » — `chart[<nom>]` en item du form, le résumé l'héritant (la modestie D538). | Confirme D243/D538. Voir §3.2c. |
 
 ---
 
@@ -3992,6 +3993,13 @@ l'association de l'enregistrement du contexte : le graphique des
 lignes de *la* commande affichée. *(L'écriture en proposition :
 `on: <champ>` — le nom du champ `list of`/`association with` de
 l'entité porteuse.)*
+
+**Le chart, feuille du formulaire (D540).** **« Un form peut donc
+avoir un composant chart comme feuille. Nous le faisons entrer de
+fait dans summary. »** La conséquence est actée : `chart[<nom>]` est
+un item du formulaire au même titre que les feuilles (D243 tenait la
+promesse) — et le résumé, restriction du formulaire (D201), **en
+hérite de fait** — la modestie en condition (D538).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11075,3 +11083,7 @@ avant la synthèse Q16).
   chart s'appuie sur une entité ou un champ de type list of ou
   association with » — le champ-collection, le graphique des éléments
   liés à l'enregistrement du contexte ; on: <champ> en proposition.
+- **2026-08-14 (suite 45)** — **Le chart, feuille du formulaire
+  (D540)** : « un form peut donc avoir un composant chart comme
+  feuille — nous le faisons entrer de fait dans summary » (la
+  restriction D201 le laisse passer, la modestie D538).

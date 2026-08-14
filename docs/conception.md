@@ -613,6 +613,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D532 | **`size:` et `screen:` sur la liste** : « comme la form — size pour marquer la zone de couverture de l'écran, screen pour indiquer sur quel support la liste a été définie et/ou autorisée à s'afficher ». | La cohérence D484/D503 et D450. Voir §3.2c. |
 | D533 | **La grammaire de `size:`** : « 75% → 75 % de l'écran avec centrage ; 90% 50% → la longueur et la hauteur ; ou 1000px 320px en pixels » — une valeur centrée, deux valeurs largeur puis hauteur, % ou px. | Vaut partout où size s'écrit (D484). Voir §3.2c. |
 | D534 | **La confusion levée** (clarifie D532) : « j'ai introduit une confusion entre dimension et size » — la doctrine D484 départage : le formulaire s'ouvre à l'appel → `dimension:` (D454) ; la liste s'affiche → `size:` ; la grammaire D533 vaut pour les deux. | Voir §3.2c. |
+| D535 | **`size` aux surfaces, la pile des surimpressions** (amende D454/D534) : « size me convient mieux pour les 2 usages — un form ou une liste apparaissent en surimpression par rapport aux actions antécédentes cumulées » — toute surface s'ouvre au-dessus de la pile ; le couple D484 demeure au grain du champ. | Le dimension: du formulaire (D454) devient size:. Voir §3.2c. |
 
 ---
 
@@ -3934,6 +3935,18 @@ surimpression, l'extension au clic) ; **la liste s'affiche →
 D532 se lit : comme le formulaire porte ses propriétés d'emprise et de
 support, la liste porte les siennes. **La grammaire D533 vaut pour les
 deux mots** — une ou deux valeurs, % ou px.
+
+**`size` aux surfaces, la pile des surimpressions (D535 — amende D454
+et D534).** **« Size me convient mieux pour les 2 usages. Un form ou
+une liste — ou, comme nous le verrons, les autres points —
+apparaissent en surimpression par rapport aux actions antécédentes
+cumulées. »** Les surfaces portent toutes **`size:`** : chacune
+s'ouvre **au-dessus de la pile** des surfaces précédentes — la liste,
+puis le formulaire, puis le sous-formulaire… — la surimpression est
+la règle générale, non une extension particulière. Le `dimension:` du
+formulaire (D454) devient `size:` ; **le couple D484 demeure au grain
+du champ** (la vignette/la visionneuse, la mini-carte/la carte
+dépliée, le picker déployé — `dimension:`).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10991,3 +11004,8 @@ avant la synthèse Q16).
   départage : le formulaire à l'appel → dimension (D454), la liste à
   l'affichage → size ; la grammaire D533 pour les deux. La fiche form
   confirmée sur dimension:.
+- **2026-08-14 (suite 39)** — **size aux surfaces (D535)** : « size me
+  convient mieux pour les 2 usages » — toute surface s'ouvre en
+  surimpression sur la pile des actions antécédentes cumulées ; le
+  dimension: du formulaire (D454) devient size: ; le couple D484
+  demeure au grain du champ. La fiche form corrigée.

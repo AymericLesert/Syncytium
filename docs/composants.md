@@ -2321,11 +2321,11 @@ lists:
    conception et l'autorisation (`[pc paysage]` défaut — D450/D532) ;
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
-   (D453) ; **`dimension:`** — la surimpression à l'appel, défaut
-   100 % de l'écran (D454 — l'extension D484, **la confusion
-   size/dimension levée par D534** : le formulaire s'ouvre → dimension,
-   la liste s'affiche → size ; la grammaire D533 : une ou deux
-   valeurs, % ou px) ;
+   (D453) ; **`size:`** — la surimpression, défaut 100 % de
+   l'écran (D454 amendé par **D535 : toute surface s'ouvre au-dessus
+   de la pile des actions antécédentes cumulées** — size pour toutes
+   les surfaces, le couple D484 restant au grain du champ ; la
+   grammaire D533 : une ou deux valeurs, % ou px) ;
 6. **Items** — **le `pages` implicite** (D509) : `header`, `page`(s),
    `footer` — les clés à l'usuel, **la liste d'éléments au
    multi-pages** (D510) ; dans les pages : les sections seules
@@ -2345,7 +2345,7 @@ lists:
    `title` en tête, vivant avec l'enregistrement ;
 9. **Décisions fondatrices** — D101, D111, D154, D196, D199, D203,
    D307, D437–D438, D446, D449–D455, D460, D465, D483, D509–D511,
-   D530, D533–D534 ;
+   D530, D533–D535 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2354,7 +2354,7 @@ forms:
   default:                          # la première déclarée = le défaut (D438)
     title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
     screen: [pc paysage]            # le support (D450)
-    dimension: 75%                  # la surimpression centrée (D454/D533)
+    size: 75%                       # la surimpression centrée sur la pile (D535/D533)
     header:
       items: [ field[number], field[state] ]
     page:                           # le pages implicite (D509)

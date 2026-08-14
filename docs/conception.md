@@ -10883,3 +10883,10 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 30)** — **Le tri aux trois clés (D529)** : « le
   tri peut s'appuyer sur les rows, les columns ou la value » — les
   signes et cascades D441.
+- **2026-08-14 (suite 31)** — **La fiche `pivot` validée** (« je
+  valide pivot ») — **la famille des graphiques est soldée** : sept
+  fiches (chart.line, chart.bars, chart.pie, chart.scatter,
+  chart.combo, kpi, pivot — D512–D529). Quatre familles sur cinq au
+  complet (les feuilles, les conteneurs, les actes, les graphiques) ;
+  **ne restent que les surfaces — la passe réservée : la construction
+  des surfaces pour une entité.**

@@ -11087,3 +11087,8 @@ avant la synthèse Q16).
   (D540)** : « un form peut donc avoir un composant chart comme
   feuille — nous le faisons entrer de fait dans summary » (la
   restriction D201 le laisse passer, la modestie D538).
+- **2026-08-14 (suite 46)** — **`summary` et `on: <champ>` validés**
+  (« je valide summary et on: <champ> »). Le fil avance : la fiche
+  `widget` écrite — la lecture proposée : une seule surface aux deux
+  usages, la carte de l'enregistrement (D492) et la synthèse au
+  drill-down (D202), le pool de l'accueil (D204), l'évaluation D248.

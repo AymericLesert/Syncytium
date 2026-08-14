@@ -2435,3 +2435,58 @@ summaries:
 # et depuis la commande : field[customer] affiche le title (D465) ;
 # le clic déploie ce résumé au-dessus de la pile (D215/D535)
 ```
+
+## `widget`
+
+1. **Nom et famille** — `widget`, une surface — `gui: widgets:
+   <nom>:` ; **associé à une entité — et par construction à un module
+   fonctionnel** (D247) ; **« défaut : n'existe pas »** (D202) ;
+2. **Rôle** — la petite surface autonome — **deux usages, une seule
+   surface** (*la lecture en proposition*) : **la carte d'un
+   enregistrement** (D492 — la liste en widgets) et **la synthèse**
+   (D202 — « compteurs, sommes/calculs, graphiques, tableaux de
+   valeurs », le drill-down) ;
+3. **Types servis** — l'entité : l'enregistrement (la carte) ou son
+   périmètre agrégé (la synthèse) ;
+4. **Contexte consommé** — l'enregistrement (la carte) ou le
+   périmètre (la synthèse) ; **la confidentialité héritée de
+   l'entité, surchargeable** (D247) ; l'utilisateur (le pool de
+   l'accueil — D204) ;
+5. **Propriétés** — `title:` (D449/D465) ; `size:` (la surimpression
+   sur la pile — D535, la grammaire D533) ; `screen:` (D450/D532) ;
+   la config de formulaire restreinte (l'esprit D201 — petit par
+   nature) ;
+6. **Items** — les sections et les feuilles (la carte — D492) ; les
+   graphiques — `chart[<nom>]` (la synthèse — D243/D540) ; l'unique
+   page, jamais d'onglets (l'écho D537) ;
+7. **Modes et déclinaisons** — **la liste en widgets** (`widget:
+   <nom>` — D492) ; **la page d'accueil** : le pool — « l'utilisateur
+   compose parmi les widgets de ses modules fonctionnels, sous sa
+   confidentialité » (D204/D247) ; le tableau de bord (D249) ;
+   **l'évaluation aux règles des champs calculés** (D248 — l'écart
+   drill-down assumé, l'alerte de périmètre) ;
+8. **États et interactions** — **le drill-down** vers une liste à
+   filtres définis (D202/D242) ; le clic sur la carte ouvre le
+   formulaire de l'enregistrement (l'écho D522) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D202, D204, D242–D243, D247–D249,
+   D437–D438, D449–D450, D455, D465, D492, D533, D535, D538, D540 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+widgets:
+  card:                            # la carte de l'enregistrement (D492)
+    page:
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ field[number], field[state] ] }
+            - section: { items: [ field[total] ] }
+
+  monthly:                         # la synthèse (D202) — le pool de l'accueil (D204)
+    title: { fr: Le mois en cours }
+    page:
+      - chart[monthly_revenue]     # le kpi (D540)
+      - chart[revenue_by_month]    # la courbe — le drill vers la liste (D202/D242)
+```

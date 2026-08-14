@@ -119,6 +119,47 @@ Quatre règles transversales l'allègent :
 | le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
 | le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | `dropdown` — la liste des valeurs **tenant compte du cycle de vie** : les états atteignables seuls (D500) |
 
+## La signature du nœud (D566)
+
+Tout nœud de l'arbre gui obéit à une même signature — sept traits,
+arbitrés par l'auteur :
+
+1. **La clé : l'adresse universelle `<type>[<nom>]`** — les types :
+   **`render`** (les composants de présentation — sections, section,
+   tabs, tab, pages, page, header, footer…), **`field`** (D460),
+   **`operation`** (D511), **`template`** (D483), **`chart`** (D540),
+   **`widget`** (D555)… — et `_` (D556). Les écritures courtes
+   (`- section:`) demeurent au YAML ; l'adresse est la forme
+   canonique du moteur. `component:` « convertit ou remplace le nom
+   du type » (D458/D566) ;
+2. **`visible:` — une condition** (D90) : évaluée fausse, **« le
+   composant n'est pas déclaré ni construit »** — l'absence, pas le
+   masquage ;
+3. **Les propriétés, à l'évaluation paresseuse** — « le composant
+   consulte les propriétés, dont l'évaluation s'effectuera à la
+   sollicitation ; Syncytium ne tente pas de construire toutes les
+   propriétés » ; le socle vit à la cascade (D461 — le type → le
+   champ → le nœud, le plus proche l'emporte : style D536, size D533,
+   title D493, label D465, icon D439…) ; chaque composant a les
+   siennes — **la fiche fait foi** ;
+4. **Les enfants, au champ déclaré par le type** — la définition d'un
+   type de composant « précise le nom du champ couvrant les enfants »
+   (`items`, `steps`…) ; les alternances déclarées tiennent
+   (D489–D490, D546) et l'abréviation `fields: [a, b]` ≡
+   `items: [ field[a], field[b] ]` ; **le moteur évalue tous les
+   enfants de la feuille à la racine avant d'appeler/de construire le
+   composant** (D455) ;
+5. **La pile de contexte** — « fournie depuis la racine du
+   composant » (D553) : l'enregistrement, les contextes empilés,
+   l'utilisateur — le pré-analysé (D455) ;
+6. **Les états = des propriétés**, « évaluées à la demande » —
+   la visibilité, le readonly, l'actionnable (D444), le refus au
+   champ (D307) ;
+7. **Le hook** — « ajoute au catalogue de composants, pour un nom
+   donné, **un objet qui se chargera de gérer le composant et son
+   rendu dans les différents formats — Web, PDF, Word, Excel,
+   Email…** » (D408/D452, les destinations D564).
+
 ---
 
 # Les feuilles

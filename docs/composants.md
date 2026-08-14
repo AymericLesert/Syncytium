@@ -2009,12 +2009,14 @@ charts:
 4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
    D247, les droits) ; **le visage de l'enregistrement** (D386) ;
 5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
-   compris) ; **les écarts propres** (D522, *écritures en
-   proposition*) : **`thresholds:`** dans la forme riche de l'axe —
-   la liste croissante de seuils, « qui ne se chevauchent pas » par
-   construction — les bandes ; **`zones:`** — la zone au croisement
-   des bandes (`x: 0..50` aux bornes D366, `title:` D493, `color:`
-   D496) : le MoSCoW à deux critères, l'effort/bénéfice ;
+   compris) ; **les écarts propres** (D522–D523) :
+   **`threshold:`** dans la forme riche de l'axe — « l'axe définit
+   min, max et threshold » : la liste croissante des seuils, les
+   bandes ; **`zones:`** — la zone **s'adresse dans la matrice
+   créée** : `zone: [1,1]` + `title:` (+ `color:`) — plus aucune
+   borne répétée (D523 ; *la convention en proposition :
+   `[colonne, ligne]` depuis l'origine des axes, `[1,1]` en bas à
+   gauche*) : le MoSCoW à deux critères, l'effort/bénéfice ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
    l'image (D257) ; **le survol** : le visage de l'enregistrement
@@ -2024,7 +2026,7 @@ charts:
    liste de ses éléments** (l'écho D519) ; la confidentialité
    masque ;
 9. **Décisions fondatrices** — D239–D243, D247–D249, D386, D512,
-   D515–D518, D521–D522 ;
+   D515–D518, D521–D523 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2032,12 +2034,12 @@ charts:
 charts:
   priorities:
     component: chart.scatter
-    x: { value: effort,  min: 0, max: 100, thresholds: [50] }
-    y: { value: benefit, min: 0, max: 100, thresholds: [50] }
-    zones:
-      - { x: 0..50,   y: 50..100, title: { fr: Gains rapides }, color: green }
-      - { x: 50..100, y: 50..100, title: { fr: Grands projets }, color: orange }
-      - { x: 0..50,   y: 0..50,   title: { fr: Tâches de fond }, color: gray }
-      - { x: 50..100, y: 0..50,   title: { fr: À éviter },      color: red }
+    x: { value: effort,  min: 0, max: 100, threshold: [50] }   # les bandes (D523)
+    y: { value: benefit, min: 0, max: 100, threshold: [50] }
+    zones:                        # la position dans la matrice — [colonne, ligne] (D523)
+      - { zone: [1,2], title: { fr: Gains rapides }, color: green }
+      - { zone: [2,2], title: { fr: Grands projets }, color: orange }
+      - { zone: [1,1], title: { fr: Tâches de fond }, color: gray }
+      - { zone: [2,1], title: { fr: À éviter },      color: red }
     labels: true                  # le visage au survol (D386)
 ```

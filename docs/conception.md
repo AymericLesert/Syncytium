@@ -601,6 +601,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D520 | **L'épaisseur et les angles** (complète D519) : « sur donut, l'épaisseur ; sur quarter, l'angle de départ, de fin et l'épaisseur — représenter l'assemblée nationale de la gauche vers la droite ». | `thickness:` et les angles aux bornes (`quarter[-90..90]`) en proposition ; l'hémicycle fondateur. Voir §3.2c. |
 | D521 | **Le graphique, le tableau, ou les deux** (au socle des charts) : « les charts doivent se présenter soit en graphique, soit sous forme d'un tableau — pour avoir une vue sur les différentes valeurs directement — ou les deux ». | L'écho des tableaux de valeurs D244 ; `display: graph \| table \| both` en proposition (défaut graph). Voir §3.2c. |
 | D522 | **Le nuage de points** : un point par enregistrement (le visage D386) ; « les axes se déclinent via des seuils qui ne se chevauchent pas » — la concentration/dispersion, **et la catégorisation** : « un MoSCoW en s'appuyant sur 2 critères, les gains/bénéfices de l'effort ». | `thresholds:` à l'axe riche + `zones:` (title/color, les bornes D366) en proposition ; le clic sur une zone → la liste. Voir §3.2c. |
+| D523 | **La matrice adressée** (simplifie D522) : « l'axe définit min, max et threshold ; les zones définissent les positions dans la matrice créée — plutôt que x et y, `zone: [1,1]` » — plus aucune borne répétée. | Convention `[colonne, ligne]` depuis l'origine (bas-gauche) en proposition. Voir §3.2c. |
 
 ---
 
@@ -3800,6 +3801,15 @@ la forme riche de l'axe — la liste croissante, non chevauchante par
 construction ; **`zones:`** — la zone au croisement des bandes,
 `x: 0..50` aux bornes D366, `title:` et `color:` ; le clic sur une
 zone → la liste de ses éléments, l'écho D519.)*
+
+**La matrice adressée (D523 — simplifie D522).** **« Je vois une
+redondance entre threshold et le découpage des zones. Nous pouvons
+simplifier : l'axe définit min, max et threshold. Les zones
+définissent les positions dans la matrice créée — plutôt que x et y,
+`zone: [1,1]`, `title: { … }`. »** Les seuils font la matrice une
+fois ; la zone s'y **adresse** par sa position — plus aucune borne
+répétée. *(La convention en proposition : `[colonne, ligne]` depuis
+l'origine des axes — `[1,1]` en bas à gauche.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10776,3 +10786,7 @@ avant la synthèse Q16).
   d'axe non chevauchants, les zones aux croisements — la
   catégorisation (MoSCoW, effort/bénéfice) ; thresholds:/zones: en
   proposition. La fiche chart.scatter écrite.
+- **2026-08-14 (suite 21)** — **La matrice adressée (D523)** : la
+  redondance effacée — l'axe porte min/max/threshold, la zone
+  s'adresse (zone: [1,1] + title) ; la convention [colonne, ligne]
+  depuis l'origine en proposition. La fiche simplifiée.

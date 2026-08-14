@@ -1836,7 +1836,8 @@ gui:
 5. **Propriétés** — la déclaration (*les noms en proposition*) :
    **`on:`** — l'assise à l'adresse (D517/D439) : `sales.order`
    (l'entité) ou `sales.order[invoiced]` (la liste nommée, le crochet
-   de l'adresse) ; **`x:`** — le découpage d'un champ de l'assise
+   de l'adresse) — **absent : l'entité porteuse de la déclaration**
+   (D518) ; **`x:`** — le découpage d'un champ de l'assise
    (`date[month]` : le crochet temporel),
    **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
    `filter:` — le périmètre (D90), **`drill:`** — le drill-down
@@ -1865,16 +1866,16 @@ gui:
    (D516 — si l'agrégat dépend d'une liste ou d'une association, le
    détail des contributions s'ouvre) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
-   D439, D512, D515–D517 ;
+   D439, D512, D515–D518 ;
 10. **Exemple de configuration** —
 
 ```yaml
-# sales/gui — le graphique, déclaration autonome (D243)
+# sales/entities/order.yml, bloc gui — la déclaration autonome (D243)
 charts:
   revenue_by_month:
     component: chart.line
     title: { fr: Chiffre d'affaires }
-    on: sales.order              # l'assise : l'entité (D517)
+                                 # on: absent — l'assise : l'entité porteuse (D518)
     x: date[month]               # le champ, découpé (D240/D517)
     y: sum(total)                # l'agrégat d'un champ (D158)
     filter: state = "invoiced"   # le périmètre (D90)

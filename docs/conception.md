@@ -596,6 +596,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D515 | **Les réglages d'affichage du graphique** : « paramétrer les échelles, les début et fin d'axe et quelques éléments d'affichage (vignettes, couleurs, dégradé…) ». | En proposition : la forme riche des axes `{ value:, min:, max:, scale: }` (l'écho D494), `colors:` (D467, le dégradé), `points:` (les vignettes — le visage au nuage D386). Voir §3.2c. |
 | D516 | **`labels:` et les valeurs du calcul** (amende D515) : « labels: true affiche la valeur dans le format du champ, le gabarit pour personnaliser » ; « en cliquant sur une vignette, voir toutes les valeurs utilisées pour le calcul (si le calcul dépend d'une liste ou d'une association) ». | La collision avec le dictionnaire D440 notée (le contexte départage — D458). Voir §3.2c. |
 | D517 | **L'assise du graphique** : « un chart doit s'appuyer sur une entité ou une liste (composant déjà vu) ; les axes font référence aux champs » — l'entité ou la liste nommée (le périmètre hérité), les axes sur ses champs. | `on:` à l'adresse D439 en proposition (`sales.order[invoiced]`). Voir §3.2c. |
+| D518 | **Le défaut de l'assise** (complète D517) : « si on: est absent, l'assise porte sur l'entité elle-même » — l'entité porteuse ; on: pour désigner ailleurs. | Voir §3.2c. |
 
 ---
 
@@ -3738,6 +3739,11 @@ l'assise** (`x:` un champ à découpage, `y:` l'agrégat d'un champ).
 *(L'écriture en proposition : **`on:`** à l'adresse D439 —
 `on: sales.order` pour l'entité, `on: sales.order[invoiced]` pour la
 liste nommée, le crochet de l'adresse.)*
+
+**Le défaut de l'assise (D518 — complète D517).** **« Si `on:` est
+absent, l'assise porte sur l'entité elle-même »** — l'entité porteuse
+de la déclaration ; `on:` ne s'écrit que pour désigner une autre
+assise (une liste nommée, une autre entité).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10683,3 +10689,6 @@ avant la synthèse Q16).
   « s'appuyer sur une entité ou une liste ; les axes font référence
   aux champs » — on: à l'adresse D439 en proposition, le périmètre de
   la liste hérité. La fiche chart.line ancrée.
+- **2026-08-14 (suite 14)** — **Le défaut de l'assise (D518)** : « si
+  on: est absent, l'assise porte sur l'entité elle-même » — l'entité
+  porteuse de la déclaration.

@@ -590,6 +590,8 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
 | D510 | **Le multi-pages en liste** : « le multi-pages se fait à l'aide d'une liste d'éléments — default: [ { header: … }, { page: … }, { page: … }, { footer: … } ] » — les clés pour l'usuel, la liste dès que les pages se répètent. | Solde la virgule D509. Voir §3.2c. |
 | D511 | **L'acte et les deux modes** : « operation[<nom>] pour être en phase avec les fields » ; « une opération doit avoir 2 modes — la pré-exécution identifie les modifications à apporter (les factures à créer ; l'import : ajoutées/modifiées/non modifiées/supprimées) » ; le message de confirmation au gabarit nourri de la pré-exécution. | Généralise D234 et l'exécution à blanc ; `validate: { message: }` en proposition (étend D431). Voir §3.2c. |
+| D512 | **La famille `chart.*`** actée (l'écho des pickers, la note D470) : `chart.line`, `chart.bars`, `chart.pie`, `chart.combo` — et « j'ajouterais également **le nuage de points** » : `chart.scatter` ; `kpi` et `pivot` à part, la jauge restant la feuille `gauge`. | Le hook étend (`chart.radar`…) — D239. Voir §3.2c. |
+| D513 | **La carte des collections** : « le composant doit pouvoir s'adapter pour une coordonnée ou une liste de coordonnées dont des lignes sont possibles ou pas » — les marqueurs multiples, le tracé dans l'ordre de la collection. | Rien n'était consigné (vérifié) ; `lines: true \| false` en proposition (défaut false). Voir §3.2c. |
 
 ---
 
@@ -3664,6 +3666,27 @@ proposition : `validate: true` — la relecture simple, le défaut —
 s'étend en `validate: { message: <gabarit> }`, le gabarit consommant
 les résultats nommés de la pré-exécution : « {invoices} factures
 seront créées ».)*
+
+**La famille `chart.*` et le nuage de points (D512).** La famille
+pointée des graphiques est actée — l'écho des pickers, la note de D470
+tenue : **`chart.line`** (la courbe), **`chart.bars`** (les barres),
+**`chart.pie`** (les secteurs — camembert/anneau), **`chart.combo`**
+(le combiné, 2 axes Y max — D239), et l'ajout de l'auteur :
+**« j'ajouterais également le nuage de points »** — **`chart.scatter`**.
+`kpi` (le chiffre-clé) et `pivot` (le croisé dynamique D246) vivent à
+part ; la jauge reste la feuille `gauge` (D494/D498) ; le hook étend la
+famille (`chart.radar`…) sans toucher au moteur (D239).
+
+**La carte des collections (D513 — complète la fiche map).** **« Le
+composant doit pouvoir s'adapter pour une coordonnée ou une liste de
+coordonnées dont des lignes sont possibles ou pas. »** La vérification :
+rien n'était consigné — la fiche `map` servait la coordonnée seule.
+Désormais : **une coordonnée** = le marqueur (D294) ; **une liste de
+coordonnées** (`list of geolocation`, l'association aux coordonnées) =
+**les marqueurs multiples sur une même carte**, et **les lignes** —
+le tracé reliant les points dans l'ordre de la collection (l'itinéraire,
+la tournée) — **possibles ou pas**. *(L'écriture en proposition :
+`lines: true | false` — défaut `false`, les marqueurs seuls.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10586,3 +10609,9 @@ avant la synthèse Q16).
   pré-exécution actés. **La famille des actes est soldée** (une fiche
   unique — l'habitat fait le visage). Restent : les graphiques
   (chart/kpi/pivot — Q53) et les surfaces.
+- **2026-08-14 (suite 9)** — **Les graphiques ouverts** : la famille
+  pointée chart.* actée avec le nuage de points (chart.scatter —
+  D512) ; kpi et pivot à part. **La carte des collections (D513)** :
+  une coordonnée ou une liste de coordonnées, les lignes possibles ou
+  pas (rien n'était consigné — la fiche map complétée ; lines: en
+  proposition). Première fiche à venir : chart.line.

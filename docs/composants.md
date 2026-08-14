@@ -44,8 +44,10 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
   masquée, D463) · `color` (la pastille — D496) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
-- **Les graphiques** : `chart` (courbe, barres, secteurs, combiné) ·
-  `kpi` · `pivot` — famille ouverte ;
+- **Les graphiques** : la famille pointée **`chart.line`** ·
+  **`chart.bars`** · **`chart.pie`** · **`chart.combo`** ·
+  **`chart.scatter`** (le nuage de points — D512) · `kpi` · `pivot` —
+  le hook étend (`chart.radar`…, D239) ; la jauge = la feuille `gauge` ;
 - **Les actes** : le bouton, l'icône, le passage d'étape — l'utilisateur
   acte une opération (D432/D444/D456).
 
@@ -1093,7 +1095,12 @@ gui:
    centrée au marqueur en lecture ; le pointage sur la carte en
    saisie (D294) ;
 3. **Types servis** — `geolocation` (le composé D391–D392 : les
-   coordonnées + le texte associé — l'adresse, le lieu) ;
+   coordonnées + le texte associé — l'adresse, le lieu) ; **la liste
+   de coordonnées** (`list of geolocation`, l'association aux
+   coordonnées) — « le composant doit pouvoir s'adapter » (D513) :
+   les marqueurs multiples sur une même carte, **les lignes possibles
+   ou pas** (le tracé dans l'ordre de la collection — *en
+   proposition : `lines: true | false`, défaut `false`*) ;
 4. **Contexte consommé** — la valeur (coordonnées et texte associé —
    D392), **le fond de carte déclaré à l'instance** (D259/D294), la
    focale (`focus:` au champ ou hérité du setting — D391), **la
@@ -1118,7 +1125,7 @@ gui:
    l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
    le zoom et le déplacement au geste ;
 9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
-   D391–D392, D484 ;
+   D391–D392, D484, D513 ;
 10. **Exemple de configuration** —
 
 ```yaml

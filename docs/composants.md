@@ -1825,14 +1825,19 @@ gui:
 2. **Rôle** — l'évolution d'un agrégat le long d'un axe : la tendance
    d'un regard ;
 3. **Types servis** — aucun champ : **le graphique est une déclaration
-   autonome réutilisable** (D243) — sa source : une entité, un axe X,
-   un agrégat Y ;
+   autonome réutilisable** (D243) — **son assise : une entité ou une
+   liste nommée** (le composant déjà vu — le périmètre, le filtre et
+   la confidentialité hérités), **les axes faisant référence aux
+   champs de l'assise** (D517) ;
 4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
    temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
    confidentialité héritée de l'entité, surchargeable (D247) ; les
    droits ;
 5. **Propriétés** — la déclaration (*les noms en proposition*) :
-   **`x:`** — le découpage (`date[month]` : le crochet temporel),
+   **`on:`** — l'assise à l'adresse (D517/D439) : `sales.order`
+   (l'entité) ou `sales.order[invoiced]` (la liste nommée, le crochet
+   de l'adresse) ; **`x:`** — le découpage d'un champ de l'assise
+   (`date[month]` : le crochet temporel),
    **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
    `filter:` — le périmètre (D90), **`drill:`** — le drill-down
    déclaré : la liste nommée au filtre imposé (D242 — « par défaut,
@@ -1860,7 +1865,7 @@ gui:
    (D516 — si l'agrégat dépend d'une liste ou d'une association, le
    détail des contributions s'ouvre) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
-   D512, D515–D516 ;
+   D439, D512, D515–D517 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1869,15 +1874,17 @@ charts:
   revenue_by_month:
     component: chart.line
     title: { fr: Chiffre d'affaires }
-    x: date[month]               # le découpage temporel (D240)
-    y: sum(total)                # l'agrégat filtré sur X (D158)
+    on: sales.order              # l'assise : l'entité (D517)
+    x: date[month]               # le champ, découpé (D240/D517)
+    y: sum(total)                # l'agrégat d'un champ (D158)
     filter: state = "invoiced"   # le périmètre (D90)
     drill: invoiced              # la liste nommée au filtre imposé (D242)
 
-  margin_by_month:               # la forme riche des axes (D515)
+  margin_by_month:
     component: chart.line
+    on: sales.order[invoiced]    # l'assise : la liste — le périmètre hérité (D517)
     x: date[month]
-    y: { value: avg(margin), min: 0, max: 100, scale: linear }
+    y: { value: avg(margin), min: 0, max: 100, scale: linear }   # (D515)
     colors: { serie: blue }      # la mécanique D467 — le dégradé possible
     labels: true                 # la valeur au format du champ (D516)
 ```

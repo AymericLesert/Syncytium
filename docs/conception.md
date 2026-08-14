@@ -595,6 +595,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D514 | **La frontière de la route** (complète D513) : les lieux d'un produit (sans relier) / le parcours d'un commercial (relié) ; le socle relie au trait droit — **« le tracé de la route, je préfère le laisser aux hooks »** (les abonnements aux outils annexes). | Le patron du géocodage D294 — candidats open source auto-hébergeables : OSRM, Valhalla (Q7). Voir §3.2c. |
 | D515 | **Les réglages d'affichage du graphique** : « paramétrer les échelles, les début et fin d'axe et quelques éléments d'affichage (vignettes, couleurs, dégradé…) ». | En proposition : la forme riche des axes `{ value:, min:, max:, scale: }` (l'écho D494), `colors:` (D467, le dégradé), `points:` (les vignettes — le visage au nuage D386). Voir §3.2c. |
 | D516 | **`labels:` et les valeurs du calcul** (amende D515) : « labels: true affiche la valeur dans le format du champ, le gabarit pour personnaliser » ; « en cliquant sur une vignette, voir toutes les valeurs utilisées pour le calcul (si le calcul dépend d'une liste ou d'une association) ». | La collision avec le dictionnaire D440 notée (le contexte départage — D458). Voir §3.2c. |
+| D517 | **L'assise du graphique** : « un chart doit s'appuyer sur une entité ou une liste (composant déjà vu) ; les axes font référence aux champs » — l'entité ou la liste nommée (le périmètre hérité), les axes sur ses champs. | `on:` à l'adresse D439 en proposition (`sales.order[invoiced]`). Voir §3.2c. |
 
 ---
 
@@ -3727,6 +3728,16 @@ toutes les valeurs utilisées pour le calcul (si le calcul dépend
 d'une liste ou d'une association) »** — le détail de l'agrégat
 s'ouvre au clic : les valeurs contributrices (l'écho du drill-down
 D242 et de l'écart assumé des évaluations D248).
+
+**L'assise du graphique (D517).** **« Un composant chart doit
+s'appuyer sur une entité ou une liste (composant déjà vu). Les axes
+font référence aux champs. »** La déclaration se fonde : **l'assise**
+— une entité, ou **une liste nommée** dont le périmètre (filtre,
+confidentialité) s'hérite — et **les axes référencent les champs de
+l'assise** (`x:` un champ à découpage, `y:` l'agrégat d'un champ).
+*(L'écriture en proposition : **`on:`** à l'adresse D439 —
+`on: sales.order` pour l'entité, `on: sales.order[invoiced]` pour la
+liste nommée, le crochet de l'adresse.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10668,3 +10679,7 @@ avant la synthèse Q16).
   (D516)** : labels: true (la valeur au format du champ) ou le
   gabarit ; le clic sur une vignette ouvre toutes les valeurs du
   calcul (liste/association). La fiche chart.line ajustée.
+- **2026-08-14 (suite 13)** — **L'assise du graphique (D517)** :
+  « s'appuyer sur une entité ou une liste ; les axes font référence
+  aux champs » — on: à l'adresse D439 en proposition, le périmètre de
+  la liste hérité. La fiche chart.line ancrée.

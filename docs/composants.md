@@ -2589,7 +2589,8 @@ widgets:
    **les étapes : `steps:`/`step:` — « un habillage de `tabs[wizard]`
    où chaque step est en fait un tab »** (D546, le couple acté) : chaque étape porte sa poignée (`title:`/`icon:` —
    le chemin D505), ses items (les sections, les feuilles — la page
-   d'un formulaire), sa condition (*en proposition :* **`if:`** — la
+   d'un formulaire — **et les graphiques : `chart[<nom>]`, kpi,
+   pivot, « l'aide à la décision »**, D550), sa condition (*en proposition :* **`if:`** — la
    transition conditionnelle D231/D90, l'étape sautée si la condition
    ne tient pas), et **son opération** — « un step peut contenir une
    opération sur la validation » (D546 — *en proposition :*
@@ -2613,7 +2614,7 @@ widgets:
    l'interruption emporte le transitoire (D547 — le draft effacé) ;
 9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
    D438–D439, D449–D450, D455, D465, D504–D505, D507, D511, D525,
-   D532–D533, D535, D546–D549 ;
+   D532–D533, D535, D540, D546–D550 ;
 10. **Exemple de configuration** —
 
 ```yaml

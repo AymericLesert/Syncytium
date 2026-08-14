@@ -11168,3 +11168,6 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 52)** — **La valeur sous les barres (D545)** :
   labels: true en proposition (l'écho D516, défaut false) — l'humain
   sous la machine.
+- **2026-08-14 (suite 53)** — **La fiche `qrcode`/`barcode` validée**
+  (« je valide qrcode/barcode ») — le manque de D542 refermé
+  (D542–D545). La passe des surfaces peut reprendre : le wizard.

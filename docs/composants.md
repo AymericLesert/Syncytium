@@ -1836,9 +1836,15 @@ gui:
    **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
    `filter:` — le périmètre (D90), **`drill:`** — le drill-down
    déclaré : la liste nommée au filtre imposé (D242 — « par défaut,
-   pas de drill-down ») ; `title:` (D493) ; *(en proposition : `y:`
-   accepte une liste — plusieurs séries sur le même axe ; les deux
-   axes restent à `chart.combo`, D239)* ;
+   pas de drill-down ») ; `title:` (D493) ; **les réglages
+   d'affichage** (D515) : **la forme riche des axes** — `x:`/`y:`
+   acceptent `{ value:, min:, max:, scale: }` (les début et fin
+   d'axe — l'écho D494 ; `scale: linear` défaut `| log`),
+   **`colors:`** (la mécanique D467 — la couleur par série, le
+   dégradé), **`points:`** (les vignettes aux points — la valeur ;
+   le visage au nuage, D386) ; *(en proposition : `y:` accepte une
+   liste — plusieurs séries sur le même axe ; les deux axes restent à
+   `chart.combo`, D239)* ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **réutilisable** : le widget (associé à
    une entité → le module fonctionnel — D247), le formulaire, le
@@ -1849,7 +1855,7 @@ gui:
    graphique « enrichit le filtre de la liste pour imposer » les
    éléments de la valeur cliquée (D242) ; la confidentialité masque ;
 9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
-   D512 ;
+   D512, D515 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1862,4 +1868,11 @@ charts:
     y: sum(total)                # l'agrégat filtré sur X (D158)
     filter: state = "invoiced"   # le périmètre (D90)
     drill: invoiced              # la liste nommée au filtre imposé (D242)
+
+  margin_by_month:               # la forme riche des axes (D515)
+    component: chart.line
+    x: date[month]
+    y: { value: avg(margin), min: 0, max: 100, scale: linear }
+    colors: { serie: blue }      # la mécanique D467 — le dégradé possible
+    points: true                 # les vignettes aux points
 ```

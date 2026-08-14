@@ -593,6 +593,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D512 | **La famille `chart.*`** actée (l'écho des pickers, la note D470) : `chart.line`, `chart.bars`, `chart.pie`, `chart.combo` — et « j'ajouterais également **le nuage de points** » : `chart.scatter` ; `kpi` et `pivot` à part, la jauge restant la feuille `gauge`. | Le hook étend (`chart.radar`…) — D239. Voir §3.2c. |
 | D513 | **La carte des collections** : « le composant doit pouvoir s'adapter pour une coordonnée ou une liste de coordonnées dont des lignes sont possibles ou pas » — les marqueurs multiples, le tracé dans l'ordre de la collection. | Rien n'était consigné (vérifié) ; `lines: true \| false` en proposition (défaut false). Voir §3.2c. |
 | D514 | **La frontière de la route** (complète D513) : les lieux d'un produit (sans relier) / le parcours d'un commercial (relié) ; le socle relie au trait droit — **« le tracé de la route, je préfère le laisser aux hooks »** (les abonnements aux outils annexes). | Le patron du géocodage D294 — candidats open source auto-hébergeables : OSRM, Valhalla (Q7). Voir §3.2c. |
+| D515 | **Les réglages d'affichage du graphique** : « paramétrer les échelles, les début et fin d'axe et quelques éléments d'affichage (vignettes, couleurs, dégradé…) ». | En proposition : la forme riche des axes `{ value:, min:, max:, scale: }` (l'écho D494), `colors:` (D467, le dégradé), `points:` (les vignettes — le visage au nuage D386). Voir §3.2c. |
 
 ---
 
@@ -3701,6 +3702,18 @@ la route = un hook/connecteur** — le patron exact du géocodage
 (D294) : les services payants existent (Google, Mapbox), et des
 candidats open source auto-hébergeables aussi (**OSRM**, **Valhalla**
 — sur les données OpenStreetMap) ; le choix à re-vérifier en Q7.
+
+**Les réglages d'affichage du graphique (D515).** **« Nous avons
+besoin de pouvoir paramétrer les échelles, les début et fin d'axe et
+éventuellement quelques éléments d'affichage — affichage de vignettes,
+couleurs, utilisation de dégradé… »** *(Les écritures en proposition,
+réemployant l'existant :* **la forme riche des axes** — `x:` et `y:`
+acceptent `{ value:, min:, max:, scale: }` : `min`/`max` = les début
+et fin d'axe (l'écho D494), `scale: linear` (défaut) `| log` ;
+**`colors:`** — la mécanique D467 réemployée : la couleur par série,
+**le dégradé** compris ; **`points:`** — les vignettes aux points de
+la courbe : la valeur affichée — et au nuage (`chart.scatter`), **le
+visage de l'enregistrement** (D386).)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10634,3 +10647,7 @@ avant la synthèse Q16).
   socle au trait droit, « le tracé de la route aux hooks » — le
   patron du géocodage (D294), OSRM/Valhalla en candidats
   auto-hébergeables (Q7).
+- **2026-08-14 (suite 11)** — **Les réglages d'affichage (D515)** :
+  les échelles, les début/fin d'axe, les éléments d'affichage
+  (vignettes, couleurs, dégradé) — la forme riche des axes, colors:
+  D467 et points: en proposition. La fiche chart.line complétée.

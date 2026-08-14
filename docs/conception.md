@@ -11528,6 +11528,9 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 79)** — **Le défaut pdf acté (D565)** : « le
   format pourra être étendu à d'autres formats en fonction des
   besoins à venir » — la ligne des hooks (D408).
+- **2026-08-14 (suite 80)** — **La PR #25 fusionnée** (« le catalogue
+  au complet », D511–D565, 78 commits). Develop porte le catalogue
+  entier de composants.md — les cinq familles fichées et validées.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

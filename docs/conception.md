@@ -610,6 +610,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D529 | **Le tri aux trois clés** (élargit D528) : « le tri peut s'appuyer sur les rows, les columns ou la value » — les signes et cascades D441 (`sort: { seller: -value, date: + }`). | Voir §3.2c. |
 | D530 | **Les appels du geste et les exports** : « add, update or delete pour préciser le formulaire/widget à appeler » (les défauts : le formulaire par défaut D438, les gestes D446) ; « exports: permet de préciser les différents exports ou générations de documents ». | `exports: [ csv, excel[modèle], template[gabarit] ]` en proposition. Voir §3.2c. |
 | D531 | **Les actions et l'anatomie de la liste** : `actions:` (l'opération porte son icône, surchargeable) ; « une liste est comme pages » — le header (titre, colonnes, filtres, l'icône-menu des exports, les icônes add/update/delete + actions à icône), la zone page (le tableau), le footer (le sous-total ou un gabarit, les boutons des actions sans icône). | L'icône trie : header ; sans icône : bouton du pied. `{count}` au gabarit en proposition. Voir §3.2c. |
+| D532 | **`size:` et `screen:` sur la liste** : « comme la form — size pour marquer la zone de couverture de l'écran, screen pour indiquer sur quel support la liste a été définie et/ou autorisée à s'afficher ». | La cohérence D484/D503 et D450. Voir §3.2c. |
 
 ---
 
@@ -3906,6 +3907,14 @@ est comme pages »** (D507/D509) :
 La répartition est réglée d'elle-même : l'action à icône monte au
 header, l'action sans icône devient bouton du pied. *(En proposition :
 le gabarit du pied aux variables — `{count}` le nombre de lignes.)*
+
+**`size:` et `screen:` sur la liste (D532).** **« Comme la form, la
+liste porte aussi une propriété `size` pour marquer la zone de
+couverture de l'écran, et l'option `screen` pour indiquer sur quel
+support la liste a été définie et/ou autorisée à s'afficher. »** La
+cohérence s'étend : `size` = la couverture à l'affichage (D484/D503),
+`screen` = le support de conception **et** l'autorisation (D450 — le
+tableau `[pc paysage]` en défaut).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10946,3 +10955,6 @@ avant la synthèse Q16).
   des gestes et actions), la zone page (le tableau), footer
   (sous-total ou gabarit + les boutons des actions sans icône). La
   fiche restructurée.
+- **2026-08-14 (suite 35)** — **size et screen sur la liste (D532)** :
+  la couverture de l'écran (D484/D503) et le support de conception
+  et/ou d'autorisation (D450). La fiche complétée.

@@ -2237,7 +2237,10 @@ les widgets, le wizard, les templates, le dashboard du module).*
    `exports: [ csv, excel[stock.xlsx], template[order_sheet] ]` ;
    **`actions:`** — la liste d'opérations (D531) : **l'opération
    porte son icône à la déclaration, la liste la surcharge** au
-   besoin ; `title:` (D493) ;
+   besoin ; **`size:`** — « la zone de couverture de l'écran »
+   (D532 — la cohérence D484/D503) ; **`screen:`** — « le support sur
+   lequel la liste a été définie et/ou autorisée à s'afficher »
+   (D532/D450 — `[pc paysage]` en défaut) ; `title:` (D493) ;
 6. **Items** — aucun à déclarer : **l'anatomie est celle d'un
    `pages`** (D531 — intrinsèque) ;
 7. **Modes et déclinaisons** — **« une liste est comme pages »**
@@ -2261,8 +2264,8 @@ les widgets, le wizard, les templates, le dashboard du module).*
    décompte confirmé (D446/D530) ; **l'opération de masse** sur les lignes
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
-9. **Décisions fondatrices** — D226–D229, D437–D448, D462, D466–D467,
-   D486, D492–D493, D530–D531 ;
+9. **Décisions fondatrices** — D226–D229, D437–D448, D450, D462,
+   D466–D467, D484, D486, D492–D493, D530–D532 ;
 10. **Exemple de configuration** —
 
 ```yaml

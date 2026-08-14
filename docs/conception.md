@@ -589,6 +589,61 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D508 | **La navigation des pages = celle des tabs** : « les pages ont un numéro (par défaut), nous pouvons lui affecter un nom et/ou un icône comme un tab — l'affichage suit la même logique que tabs » (les modes D504, le chemin D505, le swipe). | Voir §3.2c. |
 | D509 | **Le formulaire est un `pages` implicite, `body` disparaît** (amende D449/D455/D490) : « pages est le premier composant d'un formulaire sans avoir besoin de le déclarer ; header et footer sont déjà décrits ; body est à remplacer par page » — et « pas besoin de composants complémentaires » : les conteneurs sont au complet. | La clé `page:` remplace `body:` (30 occurrences balayées) ; le multi-pages à préciser. Voir §3.2c. |
 | D510 | **Le multi-pages en liste** : « le multi-pages se fait à l'aide d'une liste d'éléments — default: [ { header: … }, { page: … }, { page: … }, { footer: … } ] » — les clés pour l'usuel, la liste dès que les pages se répètent. | Solde la virgule D509. Voir §3.2c. |
+| D511 | **L'acte et les deux modes** : « operation[<nom>] pour être en phase avec les fields » ; « une opération doit avoir 2 modes — la pré-exécution identifie les modifications à apporter (les factures à créer ; l'import : ajoutées/modifiées/non modifiées/supprimées) » ; le message de confirmation au gabarit nourri de la pré-exécution. | Généralise D234 et l'exécution à blanc ; `validate: { message: }` en proposition (étend D431). Voir §3.2c. |
+| D512 | **La famille `chart.*`** actée (l'écho des pickers, la note D470) : `chart.line`, `chart.bars`, `chart.pie`, `chart.combo` — et « j'ajouterais également **le nuage de points** » : `chart.scatter` ; `kpi` et `pivot` à part, la jauge restant la feuille `gauge`. | Le hook étend (`chart.radar`…) — D239. Voir §3.2c. |
+| D513 | **La carte des collections** : « le composant doit pouvoir s'adapter pour une coordonnée ou une liste de coordonnées dont des lignes sont possibles ou pas » — les marqueurs multiples, le tracé dans l'ordre de la collection. | Rien n'était consigné (vérifié) ; `lines: true \| false` en proposition (défaut false). Voir §3.2c. |
+| D514 | **La frontière de la route** (complète D513) : les lieux d'un produit (sans relier) / le parcours d'un commercial (relié) ; le socle relie au trait droit — **« le tracé de la route, je préfère le laisser aux hooks »** (les abonnements aux outils annexes). | Le patron du géocodage D294 — candidats open source auto-hébergeables : OSRM, Valhalla (Q7). Voir §3.2c. |
+| D515 | **Les réglages d'affichage du graphique** : « paramétrer les échelles, les début et fin d'axe et quelques éléments d'affichage (vignettes, couleurs, dégradé…) ». | En proposition : la forme riche des axes `{ value:, min:, max:, scale: }` (l'écho D494), `colors:` (D467, le dégradé), `points:` (les vignettes — le visage au nuage D386). Voir §3.2c. |
+| D516 | **`labels:` et les valeurs du calcul** (amende D515) : « labels: true affiche la valeur dans le format du champ, le gabarit pour personnaliser » ; « en cliquant sur une vignette, voir toutes les valeurs utilisées pour le calcul (si le calcul dépend d'une liste ou d'une association) ». | La collision avec le dictionnaire D440 notée (le contexte départage — D458). Voir §3.2c. |
+| D517 | **L'assise du graphique** : « un chart doit s'appuyer sur une entité ou une liste (composant déjà vu) ; les axes font référence aux champs » — l'entité ou la liste nommée (le périmètre hérité), les axes sur ses champs. | `on:` à l'adresse D439 en proposition (`sales.order[invoiced]`). Voir §3.2c. |
+| D518 | **Le défaut de l'assise** (complète D517) : « si on: est absent, l'assise porte sur l'entité elle-même » — l'entité porteuse ; on: pour désigner ailleurs. | Voir §3.2c. |
+| D519 | **Les secteurs arbitrés** : `mode: pie \| donut \| quarter` ; les variables du gabarit `{value}`/`{percent}`/`{total}` (« {percent} % ({value} / {total}) ») ; le clic sur une part → la liste de ses éléments ; « autres » acté — **son drill affiche une barre de répartition** pour préciser la valeur à filtrer. | Le drill à deux étages. Voir §3.2c. |
+| D520 | **L'épaisseur et les angles** (complète D519) : « sur donut, l'épaisseur ; sur quarter, l'angle de départ, de fin et l'épaisseur — représenter l'assemblée nationale de la gauche vers la droite ». | `thickness:` et les angles aux bornes (`quarter[-90..90]`) en proposition ; l'hémicycle fondateur. Voir §3.2c. |
+| D521 | **Le graphique, le tableau, ou les deux** (au socle des charts) : « les charts doivent se présenter soit en graphique, soit sous forme d'un tableau — pour avoir une vue sur les différentes valeurs directement — ou les deux ». | L'écho des tableaux de valeurs D244 ; `display: graph \| table \| both` en proposition (défaut graph). Voir §3.2c. |
+| D522 | **Le nuage de points** : un point par enregistrement (le visage D386) ; « les axes se déclinent via des seuils qui ne se chevauchent pas » — la concentration/dispersion, **et la catégorisation** : « un MoSCoW en s'appuyant sur 2 critères, les gains/bénéfices de l'effort ». | `thresholds:` à l'axe riche + `zones:` (title/color, les bornes D366) en proposition ; le clic sur une zone → la liste. Voir §3.2c. |
+| D523 | **La matrice adressée** (simplifie D522) : « l'axe définit min, max et threshold ; les zones définissent les positions dans la matrice créée — plutôt que x et y, `zone: [1,1]` » — plus aucune borne répétée. | Convention `[colonne, ligne]` depuis l'origine (bas-gauche) en proposition. Voir §3.2c. |
+| D524 | **L'orientation du combiné** : « axis: left \| right, ou bottom \| up, pour une représentation en ligne contre une représentation en colonne » — la paire d'axes dit l'orientation, homogène par construction. | La virgule « up »/« top » (D504) signalée. Voir §3.2c. |
+| D525 | **`top` harmonisé** (amende D524) : « j'harmonise en effet avec top » — `axis: bottom \| top`, le vocabulaire unique des bords avec les tabs (D504). | Voir §3.2c. |
+| D526 | **L'icône aux seuils** : « je souhaite aussi pouvoir associer éventuellement une icône — cas d'un feu tricolore » — les seuils portent la couleur (D467) et/ou l'icône. | `icons:` en proposition (la mécanique D467 dupliquée ; la collision avec la feuille notée — D458) ; la liaison `icon:` à la table D495. Voir §3.2c. |
+| D527 | **L'organisation du kpi** : « mis en valeur avec un style différent de la feuille » ; « l'organisation se découpe en 4 » — la position du label (haut/gauche/bas/droite), l'icône au bord opposé. | `layout: top \| left \| bottom \| right` en proposition (défaut top ; la collision avec D490 notée). Voir §3.2c. |
+| D528 | **Le tri du croisé sur la valeur** : « visualiser les plus gros CA » — les lignes par la valeur agrégée, chaque niveau du groupement par son sous-total ; le défaut = l'ordre naturel du champ. | `sort: -value` en proposition (le signe D441). Voir §3.2c. |
+| D529 | **Le tri aux trois clés** (élargit D528) : « le tri peut s'appuyer sur les rows, les columns ou la value » — les signes et cascades D441 (`sort: { seller: -value, date: + }`). | Voir §3.2c. |
+| D530 | **Les appels du geste et les exports** : « add, update or delete pour préciser le formulaire/widget à appeler » (les défauts : le formulaire par défaut D438, les gestes D446) ; « exports: permet de préciser les différents exports ou générations de documents ». | `exports: [ csv, excel[modèle], template[gabarit] ]` en proposition. Voir §3.2c. |
+| D531 | **Les actions et l'anatomie de la liste** : `actions:` (l'opération porte son icône, surchargeable) ; « une liste est comme pages » — le header (titre, colonnes, filtres, l'icône-menu des exports, les icônes add/update/delete + actions à icône), la zone page (le tableau), le footer (le sous-total ou un gabarit, les boutons des actions sans icône). | L'icône trie : header ; sans icône : bouton du pied. `{count}` au gabarit en proposition. Voir §3.2c. |
+| D532 | **`size:` et `screen:` sur la liste** : « comme la form — size pour marquer la zone de couverture de l'écran, screen pour indiquer sur quel support la liste a été définie et/ou autorisée à s'afficher ». | La cohérence D484/D503 et D450. Voir §3.2c. |
+| D533 | **La grammaire de `size:`** : « 75% → 75 % de l'écran avec centrage ; 90% 50% → la longueur et la hauteur ; ou 1000px 320px en pixels » — une valeur centrée, deux valeurs largeur puis hauteur, % ou px. | Vaut partout où size s'écrit (D484). Voir §3.2c. |
+| D534 | **La confusion levée** (clarifie D532) : « j'ai introduit une confusion entre dimension et size » — la doctrine D484 départage : le formulaire s'ouvre à l'appel → `dimension:` (D454) ; la liste s'affiche → `size:` ; la grammaire D533 vaut pour les deux. | Voir §3.2c. |
+| D535 | **`size` aux surfaces, la pile des surimpressions** (amende D454/D534) : « size me convient mieux pour les 2 usages — un form ou une liste apparaissent en surimpression par rapport aux actions antécédentes cumulées » — toute surface s'ouvre au-dessus de la pile ; le couple D484 demeure au grain du champ. | Le dimension: du formulaire (D454) devient size:. Voir §3.2c. |
+| D536 | **La propriété `style:` définie** : « par défaut, le style global de l'application ; prévoyons une propriété style qui regroupe la fonte, la taille et sa mise en forme » — le thème d'instance en défaut, la surcharge à la cascade D461. | `style: { font:, size:, format: [bold…] }` en proposition (le size intérieur = la police — D458 départage). Voir §3.2c. |
+| D537 | **Le résumé précisé** : « le 1-1 affiche le title **ou l'image** si elle est définie » (le visage D386) ; petit par principe confirmé ; « plusieurs sections (pour mêler des affichages horizontaux et verticaux) — pas plusieurs pages, ni plusieurs tabs ». | L'organisateur D489–D491 dans le résumé ; D201 confirmé. Voir §3.2c. |
+| D538 | **Le graphique au résumé** : « un summary peut contenir un kpi ou un chart — à condition que son affichage reste modeste » (D243 réutilisable, la modestie D201). | `chart[<nom>]` en items en proposition (la famille des adresses D460/D483/D511). Voir §3.2c. |
+| D539 | **La troisième assise du chart** (élargit D517) : « elle s'appuie sur une entité ou un champ de type list of ou association with » — le champ-collection : le graphique des éléments liés à l'enregistrement du contexte. | `on: <champ>` en proposition. Voir §3.2c. |
+| D540 | **Le chart, feuille du formulaire** : « un form peut donc avoir un composant chart comme feuille — nous le faisons entrer de fait dans summary » — `chart[<nom>]` en item du form, le résumé l'héritant (la modestie D538). | Confirme D243/D538. Voir §3.2c. |
+| D541 | **La tendance du kpi** (note pour plus tard) : « en exploitant l'historique d'une entité, nous pourrions présenter la tendance » — la valeur rejouée aux instants passés (D411/D172) ; le détail différé. | La frontière avec D245 à confirmer au moment venu. Voir §3.2c. |
+| D542 | **`qrcode` et `barcode` fichés** (répare un manque) : décidés (D252/D300 — les composants de sortie) mais absents de l'inventaire des fiches — les deux feuilles jumelles ajoutées, la fiche commune. | `barcode[ean13\|code128…]` au crochet en proposition (défaut code128) ; le scan hors D300. Voir §3.2c. |
+| D543 | **Le `size` des jumeaux** : le qrcode — « la taille unique pour les côtés » (`size: 120px`, le carré) ; le code-barres — « largeur × hauteur » (la grammaire D533). | Voir §3.2c. |
+| D544 | **Les deux modes du champ encodé** (précise D300/D543) : « la saisie en mode texte et l'affichage en mode graphique — la saisie peut nécessiter une size différente de l'affichage ». | `size: { input:, display: }` en proposition (la forme courte = l'affichage seul). Voir §3.2c. |
+| D545 | **La valeur sous les barres** : « l'affichage du code-barres peut nécessiter l'affichage de la valeur de la référence sous le code-barres » — l'humain sous la machine. | `labels: true` en proposition (l'écho D516, défaut false). Voir §3.2c. |
+| D546 | **Le wizard précisé** : steps/step = « un habillage de tabs[wizard] où chaque step est un tab » ; « un step peut contenir une opération sur la validation » ; les opérations de base de toute entité (create/read/update/delete, enrichies) ; la démarche guidée — créer, modifier/supprimer un ensemble d'une liste, **imprimer les menus**, mettre à jour une tournée. | `operation: <nom>` au step en proposition. Voir §3.2c. |
+| D547 | **La chaîne de pré-exécutions** (amende D546) : « le mode draft s'efface… les steps avec une opération sont pré-exécutés ; la transformation n'aura lieu qu'à la validation définitive du wizard » ; « avec un message de confirmation, si l'utilisateur valide, il ne pourra pas revenir en arrière » — le cliquet sur le chemin D505. | `draft:` retiré ; la transaction finale D232/D101 exécute tout. Voir §3.2c. |
+| D548 | **L'anatomie du wizard** : « un header et un footer ; le fil d'Ariane en bas ou en haut de la zone ; une dimension (size) surchargeable si le wizard s'inclut dans un formulaire ». | `mode: top \| bottom` en proposition (D525) ; l'écho pages D507 ; le plus proche l'emporte (D461). Voir §3.2c. |
+| D549 | **Les arbitrages du wizard** (amende D548) : « size est optionnel — sans valeur, l'espace disponible ; depuis un menu, tout l'écran » ; « plutôt que mode, je préfère **breadcrumb: none \| top \| bottom** ». | Défaut top (l'esprit D504) ; none masque le fil. Voir §3.2c. |
+| D550 | **L'aide à la décision au parcours** : « nous pouvons inclure des charts, des kpi ou des pivots pour apporter une aide à la décision » — les graphiques aux steps (`chart[<nom>]` — D540). | Voir §3.2c. |
+| D551 | **Un seul wizard** : « tout ce que nous venons de voir avec wizard doit être également porté par tabs[wizard]… car cela doit être le même objet » — la surface et le conteneur, un même composant (l'écho D486) ; seule change la porte d'entrée. | Les fiches wizard et tabs liées. Voir §3.2c. |
+| D552 | **La séparation tabs/wizard** (amende D504, rend D551 caduque) : « je valide la séparation — ça confirme mon ressenti » — le mode wizard quitte tabs (restent top/bottom/left/right), le wizard garde steps/step et sa mécanique, le chemin D505 à lui seul ; deux objets, une parenté visuelle. | La transactionnalité n'est pas un habillage ; if:/operation: orphelines sur un tab libre ; le mot fait la chose. Voir §3.2c. |
+| D553 | **Le contexte empilé de l'opération** : « le contexte ne représente pas seulement les informations de l'appel en cours mais l'ensemble des contextes qui se sont empilés jusqu'à l'usage de l'opération » — la pile des contextes, le pendant de D535 ; « l'origine de l'appel » (D455) = la pile entière. | Voir §3.2c. |
+| D554 | **Le dashboard aux deux auteurs** (unifie D204/D247) : « le dashboard est à la charge du technicien — un panel accessible depuis un menu ou une page d'accueil ; le pool est un dashboard personnalisable à l'utilisateur en piochant dans les widgets disponibles » — le même objet, deux auteurs. | La vérification : D204/D247 confirment. Voir §3.2c. |
+| D555 | **Le squelette de dashboard** (précise D554) : « le technicien décrit un ou plusieurs squelettes — avec des widgets contraints et des widgets libres » ; l'accueil composé = le squelette entièrement libre. | L'item `free` (répétable) en proposition. Voir §3.2c. |
+| D556 | **L'emplacement `_` et l'icône du choix** (amende D555) : « un widget interchangeable doit faire apparaître un icône qui permette de choisir un widget disponible selon son propre catalogue ou par sa libération » ; « "_" me parle plus que "free" — free pouvant être lui-même un nom de widget ». | L'item `_` acté ; la collision évitée par construction. Voir §3.2c. |
+| D557 | **L'accueil au module actif** : « une page d'accueil fait référence à un dashboard selon le module activé » — le module actif fournit son tableau de bord. | Complète D554–D556. Voir §3.2c. |
+| D558 | **La homepage aux trois pointes** (amende D557) : « la limiter à un dashboard m'embête — la homepage doit pouvoir pointer une liste, un dashboard ou une page vide ». | La lettre de D204 retrouvée ; la composition aux emplacements `_` (D555–D556). Voir §3.2c. |
+| D559 | **Le template précisé** : `margin:` en mm ; « le paragraph peut être un gabarit — le cas d'une lettre » (le publipostage, l'étoffement Q55) ; « la déclinaison par langue se porte sur chaque item » (amende la lecture de D253 — un seul gabarit, les items déclinés). | Voir §3.2c. |
+| D560 | **Le publipostage étoffé** : « paragraph doit être étoffé pour disposer d'un mode publipostage riche et facile à intégrer » — les cinq briques en proposition : les variables au format de la langue (les chemins D71), l'`if:` conditionnel, `style:`/les titres, la source (en place ou dictionnaire D440), le multi-alinéas. | À arbitrer. Voir §3.2c. |
+| D561 | **La sixième brique** (complète D560) : « l'affichage d'une liste sous forme de bullet points ou d'indices » — la collection dans la lettre. | `{overdue[bullets]}` / `{overdue[numbers]}` en proposition (le crochet ; le `title` D465 par élément). Voir §3.2c. |
+| D562 | **Mustache + markdown au paragraph** (remplace les écritures D560–D561) : « la combinaison doit couvrir les différents cas ; des limites portant sur les composants (pas de liste, pas d'image…) » — mustache (variables, chemins, sections-itérations), markdown (titres, gras, puces, tableaux) ; `![…]` exclu, l'`if:` d'expression demeure (D90), le champ texte utilisateur reste nu (D261). | Deux standards, zéro syntaxe maison. Voir §3.2c. |
+| D563 | **Le comportement d'`url`** (les cinq points validés) : le lien en lecture — le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone (D271/D391) ; l'icône demeure en saisie ; l'ellipse en cellule ; le lien actif au template, la valeur nue en Excel/CSV ; l'aperçu de la cible = un hook (D263). | La synthèse complétée (la ligne url séparée). Voir §3.2c. |
+| D564 | **Les quatre destinations du template** : « générer un document Word, PDF, Excel ou un mail — le template porte une propriété `format` qui précise le format de destination ». | `format: pdf \| word \| excel \| mail` (défaut pdf en proposition) ; le mail = le publipostage D562, l'Excel = le modèle D445. Voir §3.2c. |
+| D565 | **Le défaut et l'extension** (solde D564) : « le format pourra être étendu à d'autres formats en fonction des besoins à venir. PDF en défaut me convient. » | La ligne des hooks (D408). Voir §3.2c. |
 
 ---
 
@@ -3644,6 +3699,598 @@ multi-pages se fait à l'aide d'une liste d'éléments :
 `default: [ { header: … }, { page: … }, { page: … }, { footer: … } ]`. »**
 Deux plumes pour le même `pages` implicite : **les clés** pour l'usuel
 (une page), **la liste d'éléments** dès que les pages se répètent.
+
+**L'acte : `operation[<nom>]` et les deux modes de l'opération
+(D511).** L'écriture actée : **« `operation[<nom>]` pour être en phase
+avec les fields »** (l'écho de `field[<nom>]` D460 et `template[<nom>]`
+D483). Et le concept s'approfondit : **« une opération doit avoir 2
+modes : une pré-exécution permet d'identifier les modifications à
+apporter — par exemple, calculer le nombre de factures à créer, ou
+lors de l'import d'un fichier CSV, le nombre de lignes ajoutées,
+modifiées, non modifiées et supprimées. Cela donne du contexte à
+l'utilisateur avant que l'opération ne soit réellement exécutée. »**
+La pré-exécution **généralise** le dry-run de l'import (D234) et
+l'exécution à blanc du glossaire — toute opération sait se jouer à
+blanc. Et **« un message de confirmation avec un gabarit dont les
+informations sont issues de l'opération en mode pré-exécution »** —
+la relecture de D431 s'enrichit du contexte chiffré. *(L'écriture en
+proposition : `validate: true` — la relecture simple, le défaut —
+s'étend en `validate: { message: <gabarit> }`, le gabarit consommant
+les résultats nommés de la pré-exécution : « {invoices} factures
+seront créées ».)*
+
+**La famille `chart.*` et le nuage de points (D512).** La famille
+pointée des graphiques est actée — l'écho des pickers, la note de D470
+tenue : **`chart.line`** (la courbe), **`chart.bars`** (les barres),
+**`chart.pie`** (les secteurs — camembert/anneau), **`chart.combo`**
+(le combiné, 2 axes Y max — D239), et l'ajout de l'auteur :
+**« j'ajouterais également le nuage de points »** — **`chart.scatter`**.
+`kpi` (le chiffre-clé) et `pivot` (le croisé dynamique D246) vivent à
+part ; la jauge reste la feuille `gauge` (D494/D498) ; le hook étend la
+famille (`chart.radar`…) sans toucher au moteur (D239).
+
+**La carte des collections (D513 — complète la fiche map).** **« Le
+composant doit pouvoir s'adapter pour une coordonnée ou une liste de
+coordonnées dont des lignes sont possibles ou pas. »** La vérification :
+rien n'était consigné — la fiche `map` servait la coordonnée seule.
+Désormais : **une coordonnée** = le marqueur (D294) ; **une liste de
+coordonnées** (`list of geolocation`, l'association aux coordonnées) =
+**les marqueurs multiples sur une même carte**, et **les lignes** —
+le tracé reliant les points dans l'ordre de la collection (l'itinéraire,
+la tournée) — **possibles ou pas**. *(L'écriture en proposition :
+`lines: true | false` — défaut `false`, les marqueurs seuls.)*
+
+**Les deux usages et la frontière de la route (D514 — complète
+D513).** Les usages posés : **« présenter tous les lieux de commandes
+pour un produit (pas besoin de relier les points), ou représenter le
+parcours d'un commercial (relier les points entre eux) »**. Et la
+frontière : **« nous pourrions également prévoir le tracé de la route,
+mais cela nécessite de prendre des abonnements à des outils annexes —
+je préfère le laisser aux hooks. »** Le socle relie **au trait droit**
+(à vol d'oiseau — l'écho D391) sans aucune dépendance ; **le tracé de
+la route = un hook/connecteur** — le patron exact du géocodage
+(D294) : les services payants existent (Google, Mapbox), et des
+candidats open source auto-hébergeables aussi (**OSRM**, **Valhalla**
+— sur les données OpenStreetMap) ; le choix à re-vérifier en Q7.
+
+**Les réglages d'affichage du graphique (D515).** **« Nous avons
+besoin de pouvoir paramétrer les échelles, les début et fin d'axe et
+éventuellement quelques éléments d'affichage — affichage de vignettes,
+couleurs, utilisation de dégradé… »** *(Les écritures en proposition,
+réemployant l'existant :* **la forme riche des axes** — `x:` et `y:`
+acceptent `{ value:, min:, max:, scale: }` : `min`/`max` = les début
+et fin d'axe (l'écho D494), `scale: linear` (défaut) `| log` ;
+**`colors:`** — la mécanique D467 réemployée : la couleur par série,
+**le dégradé** compris ; **`points:`** — les vignettes aux points de
+la courbe : la valeur affichée — et au nuage (`chart.scatter`), **le
+visage de l'enregistrement** (D386).)*
+
+**`labels:` et les valeurs du calcul (D516 — amende D515).** La
+proposition `points:` s'efface : **« je verrai plutôt `labels`, avec
+un gabarit d'affichage si besoin de personnaliser. Sinon,
+`labels: true` — affiche la valeur dans le format du champ. »** Le
+vrai comme le gabarit *(la collision avec `labels`, le dictionnaire du
+module D440/D465, est notée — le contexte départage, D458)*. Et
+l'interaction : **« en cliquant sur une vignette, je souhaite voir
+toutes les valeurs utilisées pour le calcul (si le calcul dépend
+d'une liste ou d'une association) »** — le détail de l'agrégat
+s'ouvre au clic : les valeurs contributrices (l'écho du drill-down
+D242 et de l'écart assumé des évaluations D248).
+
+**L'assise du graphique (D517).** **« Un composant chart doit
+s'appuyer sur une entité ou une liste (composant déjà vu). Les axes
+font référence aux champs. »** La déclaration se fonde : **l'assise**
+— une entité, ou **une liste nommée** dont le périmètre (filtre,
+confidentialité) s'hérite — et **les axes référencent les champs de
+l'assise** (`x:` un champ à découpage, `y:` l'agrégat d'un champ).
+*(L'écriture en proposition : **`on:`** à l'adresse D439 —
+`on: sales.order` pour l'entité, `on: sales.order[invoiced]` pour la
+liste nommée, le crochet de l'adresse.)*
+
+**Le défaut de l'assise (D518 — complète D517).** **« Si `on:` est
+absent, l'assise porte sur l'entité elle-même »** — l'entité porteuse
+de la déclaration ; `on:` ne s'écrit que pour désigner une autre
+assise (une liste nommée, une autre entité).
+
+**Les secteurs arbitrés (D519).** Les trois virgules de `chart.pie`
+tranchées : **(1) `mode: pie | donut | quarter`** — le quart de cercle
+rejoint le camembert et l'anneau. **(2) Les variables du gabarit des
+labels** : `{percent}` validée — **« cette variable s'ajoute à la
+valeur pouvant être utilisée : "{percent} % ({value} / {total})" »** —
+le trio `{value}`, `{percent}`, `{total}`. **(3) Le clic et les
+« autres »** : « en cliquant sur une valeur, afficher la liste des
+éléments correspondant à la part » (D242) ; le regroupement des
+petites parts en « autres » est acté — **« mais le drill sur autres
+doit afficher une barre avec une répartition de toutes les autres
+valeurs, afin de permettre à l'utilisateur de préciser la valeur à
+filtrer dans la liste »** — **le drill à deux étages** : le secteur →
+la liste ; « autres » → la barre de répartition → la liste.
+
+**L'épaisseur et les angles (D520 — complète D519).** **« Sur donut,
+une propriété sur l'épaisseur doit être possible. Sur quarter,
+l'angle de départ, de fin et l'épaisseur. Par exemple, quarter doit me
+permettre de représenter l'assemblée nationale avec ses représentants
+de la gauche vers la droite… »** — l'hémicycle en usage fondateur.
+*(Les écritures en proposition : **`thickness:`** — l'épaisseur de
+l'anneau ou de l'arc, en pourcentage du rayon ; **les angles au
+crochet aux bornes** — `quarter[-90..90]`, l'écho de D366/D497 — le
+départ..la fin en degrés, 0° à midi, le sens horaire ; `quarter` nu =
+`[0..90]`, le quart ; l'hémicycle = `quarter[-90..90]`.)*
+
+**Le graphique, le tableau, ou les deux (D521 — au socle des
+charts).** **« Les charts doivent se présenter soit en graphique, soit
+sous forme d'un tableau (pour avoir une vue sur les différentes
+valeurs directement), ou les deux. »** La présentation rejoint le
+socle commun de la famille — l'écho des tableaux de valeurs (D244).
+*(L'écriture en proposition : `display: graph | table | both` —
+défaut `graph`.)*
+
+**Le nuage de points : la dispersion et la catégorisation (D522).**
+Le grain d'abord — la lecture validée par l'usage : **le nuage montre
+les enregistrements eux-mêmes** — un point par enregistrement, `x:` et
+`y:` deux champs nus (sans agrégat), le visage au survol (D386), le
+clic ouvrant le formulaire. Puis les mots de l'auteur : **« les axes
+se déclinent également via des seuils qui ne se chevauchent pas.
+L'idée est d'utiliser un nuage de points pour représenter une
+concentration ou une dispersion d'une certaine valeur. Mais cela doit
+permettre aussi d'aider à catégoriser des éléments — par exemple, la
+réalisation d'un MoSCoW (en s'appuyant sur 2 critères), ou alors sur
+les gains/bénéfices de l'effort d'une action ou d'un ensemble
+d'actions… »** Les seuils découpent les axes en bandes, **les
+croisements font les zones** — la matrice de décision (MoSCoW,
+effort/bénéfice). *(Les écritures en proposition : `thresholds:` dans
+la forme riche de l'axe — la liste croissante, non chevauchante par
+construction ; **`zones:`** — la zone au croisement des bandes,
+`x: 0..50` aux bornes D366, `title:` et `color:` ; le clic sur une
+zone → la liste de ses éléments, l'écho D519.)*
+
+**La matrice adressée (D523 — simplifie D522).** **« Je vois une
+redondance entre threshold et le découpage des zones. Nous pouvons
+simplifier : l'axe définit min, max et threshold. Les zones
+définissent les positions dans la matrice créée — plutôt que x et y,
+`zone: [1,1]`, `title: { … }`. »** Les seuils font la matrice une
+fois ; la zone s'y **adresse** par sa position — plus aucune borne
+répétée. *(La convention en proposition : `[colonne, ligne]` depuis
+l'origine des axes — `[1,1]` en bas à gauche.)*
+
+**L'orientation du combiné (D524).** **« `axis: left | right`, ou
+`bottom | up`, pour une représentation en ligne contre une
+représentation en colonne. »** Le combiné s'oriente par la paire
+d'axes : **à gauche/droite** — les valeurs debout, la représentation
+en colonne (le défaut) ; **en bas/haut** — les valeurs couchées, la
+représentation en ligne. La paire est homogène par construction (les
+deux séries du même régime). *(La virgule de vocabulaire signalée :
+« up » ici, « top » chez les tabs (D504) — l'harmonisation à
+trancher.)*
+
+**L'harmonisation : `top` (D525 — amende D524).** **« J'harmonise en
+effet avec top »** — la paire couchée s'écrit **`bottom | top`**, le
+vocabulaire unique avec les tabs (D504) : top/bottom/left/right
+partout où un bord se nomme.
+
+**L'icône aux seuils (D526).** **« La combinaison valeur/couleur est
+une approche. Je souhaite aussi pouvoir associer éventuellement une
+icône — cas d'un feu tricolore, par exemple. »** Les seuils portent
+la couleur (D467) **et/ou l'icône** : le feu rouge/orange/vert à côté
+du chiffre. *(L'écriture en proposition : **`icons:`** — la mécanique
+de `colors:` dupliquée, `{ 0: red_light.svg, 50: orange_light.svg,
+80: green_light.svg }` — la collision avec la feuille `icons` notée,
+le contexte départage (D458) ; et la table d'entité (D495) gagne la
+liaison `icon:` en option.)* Vaut où les seuils valent (D467) — le
+`kpi` en usage premier.
+
+**L'organisation du kpi (D527).** **« Un kpi sera mis en valeur avec
+un style différent de la feuille que nous avons déjà vue »** — le
+chiffre-clé s'affiche en exergue, jamais comme un champ. Et
+**« l'organisation se découpe en 4 : le label en haut - l'icône
+dessous, le label à gauche - l'icône à droite, le label en bas -
+l'icône dessus, le label à droite - l'icône à gauche »** — la position
+du label, **l'icône au bord opposé**. *(L'écriture en proposition :
+`layout: top | left | bottom | right` — la position du label, les
+bords du vocabulaire unique (D525) ; défaut `top` — le premier cité ;
+la collision avec le `layout:` des sections (D490) notée, les valeurs
+départagent — D458.)*
+
+**Le tri du croisé sur la valeur (D528).** **« J'ajoute un tri
+également sur la value pour notamment visualiser les plus gros CA,
+par exemple. »** Les lignes s'ordonnent par la valeur agrégée — et
+dans un groupement hiérarchique, **chaque niveau se trie par son
+sous-total** (les commerciaux par leur CA, leurs clients par le
+leur). Le défaut demeure l'ordre naturel du champ. *(L'écriture en
+proposition : `sort: -value` — le signe du tri des listes, D441.)*
+
+**Le tri aux trois clés (D529 — élargit D528).** **« Le tri peut
+s'appuyer sur les rows, les columns ou la value. »** La clé du tri :
+un champ des lignes, un champ des colonnes, ou la valeur — les signes
+et les cascades de D441 valent (`sort: { seller: -value, date: + }` —
+les commerciaux par leur CA décroissant, les mois chronologiques).
+
+**Les appels du geste et les exports de la liste (D530).** **« Sur la
+liste, il manque les propriétés `add`, `update` or `delete` pour
+préciser le formulaire/widget à appeler. La propriété `exports:`
+permet de préciser les différents exports ou générations de
+documents. »** Les trois gestes de D446 nomment leur surface : `add:`
+(le bouton du cadre), `update:` (le double-clic), `delete:` (la
+lecture seule + confirmation) — le formulaire ou le widget appelé,
+**le formulaire par défaut (D438) sans déclaration**. Et **`exports:`**
+précise la panoplie — les exports (D445) et **les générations de
+documents** (l'effet document, le template — D483/D511). *(L'écriture
+en proposition : `exports: [ csv, excel[stock.xlsx],
+template[order_sheet] ]` — le crochet portant le modèle ou le
+gabarit.)*
+
+**Les actions et l'anatomie de la liste (D531).** **« J'ajoute
+`actions:` avec une liste d'opérations. Dans la définition d'une
+opération, nous associons un icône que nous pouvons surcharger dans la
+liste. »** — l'opération porte son icône à la déclaration (D432
+enrichi), la liste peut la surcharger. Et l'anatomie : **« une liste
+est comme pages »** (D507/D509) :
+
+- **le header** — le titre, **les colonnes** (l'affichage tabulaire —
+  « non visibles sur les widgets, sauf pour assurer les tris »), les
+  filtres de la liste, **une icône servant d'entrée de menu pour les
+  exports**, les icônes de l'ajout, de la modification, de la
+  suppression — **« la zone des icônes est étendue aux actions ayant
+  un icon »** ;
+- **la zone page** — le contenu du tableau ;
+- **le footer** — « éventuellement un sous-total ou un gabarit
+  (nombre de lignes, commentaire…) et **des boutons pour les actions
+  sans icône** ».
+
+La répartition est réglée d'elle-même : l'action à icône monte au
+header, l'action sans icône devient bouton du pied. *(En proposition :
+le gabarit du pied aux variables — `{count}` le nombre de lignes.)*
+
+**`size:` et `screen:` sur la liste (D532).** **« Comme la form, la
+liste porte aussi une propriété `size` pour marquer la zone de
+couverture de l'écran, et l'option `screen` pour indiquer sur quel
+support la liste a été définie et/ou autorisée à s'afficher. »** La
+cohérence s'étend : `size` = la couverture à l'affichage (D484/D503),
+`screen` = le support de conception **et** l'autorisation (D450 — le
+tableau `[pc paysage]` en défaut).
+
+**La grammaire de `size:` (D533).** **« `size: 75%` → 75 % de l'écran
+avec centrage ; `size: 90% 50%` → 90 % de la longueur de l'écran et
+50 % de la hauteur ; ou `1000px 320px` pour un dimensionnement en
+pixels. »** Une valeur = la part de l'écran, **centrée** ; deux
+valeurs = **la largeur puis la hauteur** ; l'unité : `%` ou `px`. La
+grammaire vaut **partout où `size` s'écrit** (D484 — la carte, les
+sections, le kpi, la liste…).
+
+**La confusion levée (D534 — clarifie D532).** **« J'ai introduit une
+confusion entre dimension et size. »** La doctrine D484 départage :
+**le formulaire s'ouvre à l'appel → `dimension:`** (D454 — la
+surimpression, l'extension au clic) ; **la liste s'affiche →
+`size:`** (D532 — la couverture de l'écran). Le « comme la form » de
+D532 se lit : comme le formulaire porte ses propriétés d'emprise et de
+support, la liste porte les siennes. **La grammaire D533 vaut pour les
+deux mots** — une ou deux valeurs, % ou px.
+
+**`size` aux surfaces, la pile des surimpressions (D535 — amende D454
+et D534).** **« Size me convient mieux pour les 2 usages. Un form ou
+une liste — ou, comme nous le verrons, les autres points —
+apparaissent en surimpression par rapport aux actions antécédentes
+cumulées. »** Les surfaces portent toutes **`size:`** : chacune
+s'ouvre **au-dessus de la pile** des surfaces précédentes — la liste,
+puis le formulaire, puis le sous-formulaire… — la surimpression est
+la règle générale, non une extension particulière. Le `dimension:` du
+formulaire (D454) devient `size:` ; **le couple D484 demeure au grain
+du champ** (la vignette/la visionneuse, la mini-carte/la carte
+dépliée, le picker déployé — `dimension:`).
+
+**La propriété `style:` définie (D536).** Le retour sur `text` — et le
+mot du socle (D461) reçoit son contenu : **« par défaut, ces éléments
+sont pris dans le cadre du style global de l'application, mais nous
+pouvons avoir besoin de les surcharger. Prévoyons une propriété
+`style` qui regroupe la fonte, la taille et sa mise en forme. »** Le
+défaut : **le style global de l'instance** (le thème — le paramètre
+général, l'esprit D259) ; la surcharge à la cascade D461 (le type → le
+champ → le nœud gui, le plus proche l'emporte). *(L'écriture en
+proposition : `style: { font: Roboto, size: 14px, format: [bold,
+italic] }` — le `size` intérieur = la taille de la police, le contexte
+départageant du size d'emprise D535 (D458) ; `format:` parmi bold,
+italic, underline, strike.)*
+
+**Le résumé précisé (D537).** **« Le 1-1 affiche le title ou l'image
+si elle est définie »** — le visage de l'entité (D386) vaut aussi à la
+référence. **« Je confirme : cela doit rester petit par principe.
+Cependant, nous pourrions avoir plusieurs sections (pour mêler des
+affichages horizontaux et verticaux). Pas plusieurs pages, ni
+plusieurs tabs. »** La restriction du résumé se précise : **plusieurs
+sections** — l'organisateur et ses layouts (D489–D491) mêlent
+l'horizontal et le vertical — mais **l'unique page et jamais
+d'onglets** (D201 confirmé).
+
+**Le graphique au résumé (D538).** **« Un summary peut contenir un
+kpi ou un chart — à condition que son affichage reste modeste. »**
+Les graphiques réutilisables (D243) entrent au résumé, la modestie en
+condition (le petit par principe D201 s'étend à l'embarqué).
+*(L'écriture en proposition : **`chart[<nom>]`** en items — la
+famille des adresses, l'écho de `field[<nom>]` D460,
+`operation[<nom>]` D511 et `template[<nom>]` D483.)*
+
+**La troisième assise du chart (D539 — élargit D517).** **« Une
+précision concernant les charts : elle s'appuie sur une entité ou un
+champ de type `list of` ou `association with`. »** Le graphique se
+fonde donc sur : l'entité (porteuse par défaut — D518), la liste
+nommée (D517), **ou le champ-collection** — la composition ou
+l'association de l'enregistrement du contexte : le graphique des
+lignes de *la* commande affichée. *(L'écriture en proposition :
+`on: <champ>` — le nom du champ `list of`/`association with` de
+l'entité porteuse.)*
+
+**Le chart, feuille du formulaire (D540).** **« Un form peut donc
+avoir un composant chart comme feuille. Nous le faisons entrer de
+fait dans summary. »** La conséquence est actée : `chart[<nom>]` est
+un item du formulaire au même titre que les feuilles (D243 tenait la
+promesse) — et le résumé, restriction du formulaire (D201), **en
+hérite de fait** — la modestie en condition (D538).
+
+**La tendance du kpi (D541 — la note pour plus tard).** **« Un kpi
+peut avoir une notion d'historique. En exploitant l'historique d'une
+entité, nous pourrions présenter la tendance. »** La piste consignée,
+le détail différé : la valeur du kpi rejouée aux instants passés —
+l'historisation (D411) et l'API temporelle « au plus proche ≤ date »
+(D172) savent déjà le faire — la tendance en regard du chiffre. *(À
+arbitrer au moment venu : la frontière avec D245 — « pas de
+comparaison dans le socle » ; la tendance issue de l'historique n'est
+pas la comparaison de périodes, la lecture à confirmer.)*
+
+**Le QR code et le code-barres fichés (D542 — répare un manque).**
+**« Avant de reprendre, avons-nous décrit les qrcode et code
+barres ? »** La vérification : décidés — D252 (l'étiquette imprimée
+du serveur) et D300 (les composants de **sortie**, « ils rendent la
+valeur d'un champ », clôt Q56) — mais jamais fichés : l'inventaire
+des feuilles les avait manqués. Réparé : **`qrcode` et `barcode`**,
+deux feuilles jumelles à la fiche commune — la valeur convertie en
+texte (D369) rendue lisible à la machine ; l'écran en lecture, le
+PDF/l'étiquette en usage premier, Excel = la valeur source. *(En
+proposition : le format du code-barres au crochet —
+`barcode[ean13]`, `barcode[code128]` — le défaut `code128` ; la
+saisie par scan reste hors D300 — les composants sont de sortie, la
+question du scan pour plus tard si besoin.)*
+
+**Le `size` des jumeaux (D543).** **« Pour le qrcode, `size` fournit
+la taille unique pour les côtés : `size: 120px` — un qrcode de 120 px
+de côté. Pour le code-barres, `size` fournit une taille en largeur ×
+hauteur. »** Le carré par nature (une seule valeur — jamais deux), le
+rectangle à la grammaire pleine (D533).
+
+**Les deux modes du champ encodé (D544 — précise D300/D543).**
+**« C'est un champ qui se décline en 2 modes : la saisie en mode
+texte et l'affichage en mode graphique. La saisie peut nécessiter une
+size différente de l'affichage. »** Le composant de sortie (D300) se
+précise : **la saisie est la zone de texte du champ** (le régime du
+texte — la taille D366, le masque), **l'affichage est le graphique**
+— et chacun peut porter sa taille. *(L'écriture en proposition :
+`size: { input: …, display: … }` — la forme courte `size: 120px` =
+l'affichage seul, la saisie restant au régime du texte.)*
+
+**La valeur sous les barres (D545).** **« L'affichage du code-barres
+peut nécessiter l'affichage de la valeur de la référence sous le
+code-barres. »** La valeur lisible à l'humain, sous la valeur lisible
+à la machine — l'usage des étiquettes EAN. *(L'écriture en
+proposition : `labels: true` — l'écho D516, la valeur au format du
+champ ; défaut `false`.)*
+
+**Le wizard précisé : l'habillage, l'opération d'étape, la démarche
+(D546).** **« Le wizard avec steps/step est un habillage de
+`tabs[wizard]` où chaque step est en fait un tab. »** Le squelette est
+acté — le couple validé. **« Pour un wizard, un step peut contenir
+une opération sur la validation »** — l'opération jouée au passage de
+l'étape (l'acte D511, sa pré-exécution et son `validate:`
+s'appliquant). **« Chaque entité dispose des opérations de base
+`create`, `read`, `update` et `delete`, enrichies par d'autres
+opérations »** — le catalogue de base (l'écho D422/D433). Et la
+démarche s'élargit : **« le wizard permet de guider l'utilisateur
+dans sa démarche : la création d'un nouvel enregistrement, la
+modification/suppression d'un ensemble d'enregistrements répondant à
+une liste… »** — les usages fondateurs : **imprimer les menus** (la
+semaine → la liste des menus → le mode de diffusion), **créer un
+client**, **mettre à jour une tournée** — le wizard orchestre les
+opérations, il ne fait pas que des naissances. *(L'écriture en
+proposition : `operation: <nom>` au step.)*
+
+**La chaîne de pré-exécutions (D547 — amende D546, retire le
+draft).** **« Le mode draft s'efface avec la possibilité de
+pré-exécuter une opération. Avec un message de confirmation, si
+l'utilisateur valide, il ne pourra pas revenir en arrière. Dans un
+wizard, les steps avec une opération sont pré-exécutés. La
+transformation n'aura lieu qu'à la validation définitive du
+wizard. »** Le wizard se referme en une mécanique pure : **les
+opérations d'étape se jouent en pré-exécution** (le chiffrage D511)
+au fil de l'avance ; **la transformation unique à la validation
+définitive** — la transaction finale (D232/D101) exécute tout d'un
+coup ; **la confirmation validée barre le retour** — le chemin
+navigable (D505) s'arrête au dernier step confirmé (le cliquet) ; la
+proposition `draft:` est retirée — la pré-exécution la remplace.
+
+**L'anatomie du wizard (D548).** **« Un wizard peut avoir un header
+et un footer. Le fil d'Ariane peut être affiché en bas ou en haut de
+la zone. Un wizard doit avoir une dimension (`size`), surchargeable
+si le wizard s'inclut dans un formulaire. »** L'écho de `pages`
+(D507) : l'entête et le pied optionnels, toujours visibles autour
+des steps ; **le fil d'Ariane** (le chemin D505) en haut ou en bas —
+*(en proposition : `mode: top` (défaut) `| bottom` — les bords
+D525)* ; **`size:` obligatoire** (la pile D535, la grammaire D533),
+**surchargeable au nœud incluant** quand le wizard s'emboîte dans un
+formulaire (D455 — le plus proche l'emporte, D461).
+
+**Les deux arbitrages (D549 — amende D548).** **« `size` est
+optionnel. Sans valeur, ça prend l'espace disponible. En cas d'appel
+depuis un menu, le wizard prend tout l'écran. »** Et le nom du fil :
+**« plutôt que mode, je préfère `breadcrumb: none | top | bottom`. »**
+— `none` masque le fil d'Ariane ; le défaut `top` (les étapes
+visibles — l'esprit D504).
+
+**L'aide à la décision au parcours (D550).** **« Bien sûr, nous
+pouvons inclure des charts, des kpi ou des pivots pour apporter une
+aide à la décision. »** Les graphiques entrent aux steps
+(`chart[<nom>]` — D540, la famille entière) : le chiffre, la courbe
+ou le croisé éclairent le choix avant le passage — l'aide à la
+décision au fil du parcours guidé.
+
+**Un seul wizard (D551).** **« Tout ce que nous venons de voir avec
+wizard doit être également porté par `tabs[wizard]`… car cela doit
+être le même objet. »** La ligne de D486 (« un seul list ») se
+répète : **la surface `wizard` (`gui: wizards:`) et le conteneur
+`tabs[wizard]` sont le même composant** — les steps-tabs, l'`if:` et
+l'`operation:` d'étape (D546), la chaîne de pré-exécutions et la
+transformation finale (D547), le cliquet, le header/footer (D548), le
+`breadcrumb:` et le `size:` optionnel (D549), les graphiques (D550) —
+tout vaut des deux côtés ; seule change la porte d'entrée (le menu ou
+l'emboîtement).
+
+**La séparation tabs/wizard (D552 — amende D504/D546, rend D551
+caduque).** La revue demandée (« ça m'embête d'avoir 2 vocabulaires —
+tabs/steps — pour un même objet ») s'est conclue : **« je valide la
+séparation. Ça confirme mon ressenti. »** Les raisons consignées :
+**la transactionnalité n'est pas un habillage** (le contrat du wizard
+— rien avant la validation définitive, le cliquet, la session unique —
+n'est pas un mode d'affichage) ; **les propriétés orphelines
+trahissent** (`if:`/`operation:` sans sens sur un tab libre) ; **le
+mot fait la chose** (step = l'étape d'une démarche, tab = le volet
+d'un classeur). Concrètement : **le mode `wizard` quitte `tabs`**
+(D504 amendé — restent top/bottom/left/right) ; **D551 devient : deux
+objets, une parenté visuelle assumée** ; le wizard garde son
+vocabulaire entier (steps/step, breadcrumb, la mécanique D547) et le
+chemin de traitement (D505) devient son affaire seule ;
+l'emboîtement passe par D455 (le wizard dans une page, sans tabs).
+
+**Le contexte empilé de l'opération (D553).** **« Pour une opération,
+le contexte ne représente pas seulement les informations de l'appel
+en cours mais l'ensemble des contextes qui se sont empilés jusqu'à
+l'usage de l'opération. »** La pile des surimpressions (D535) a son
+pendant de données : **la pile des contextes** — l'opération invoquée
+au fond de la pile (la liste → le formulaire → le wizard → le step)
+voit tout ce qui s'est empilé : le périmètre de la liste,
+l'enregistrement du formulaire, le transitoire du wizard.
+« L'origine de l'appel » de D455 se relit : **la pile entière, pas le
+dernier maillon.**
+
+**Le dashboard aux deux auteurs (D554 — unifie D204/D247).** La
+vérification demandée (« est-ce bien cela ? ») : oui — D204 («
+l'utilisateur sélectionne une entrée du menu ou laisse vierge, et
+choisit les widgets ») et D247 (« le pool : les widgets de ses
+modules, sous sa confidentialité ») disent exactement cela. Et la
+formulation de l'auteur unifie : **« le dashboard est à la charge du
+technicien — un panel de dashboards accessibles depuis un menu ou une
+page d'accueil. Le pool est un dashboard personnalisable à
+l'utilisateur en piochant dans les widgets disponibles. »** — **la
+page d'accueil composée est un dashboard dont l'utilisateur est
+l'auteur** : le même objet, deux auteurs — le technicien déclare le
+panel, l'utilisateur compose le sien du pool.
+
+**Le squelette de dashboard (D555 — précise D554).** **« Le
+technicien décrit donc un ou plusieurs squelettes de dashboards —
+avec des widgets contraints et des widgets libres. »** Le squelette :
+**les widgets contraints** (fixés par le technicien, non retirables)
+et **les emplacements libres** — l'utilisateur y pioche du pool
+(D247). *(L'écriture en proposition : l'item **`free`** —
+l'emplacement libre, répétable.)* La page d'accueil composée (D554)
+devient le cas limite : **le squelette entièrement libre.**
+
+**L'emplacement `_` et l'icône du choix (D556 — amende D555).**
+**« Dans un dashboard, un widget interchangeable doit faire
+apparaître un icône qui permette à l'utilisateur de choisir un widget
+disponible selon son propre catalogue ou par sa libération. »** —
+l'emplacement libre porte son icône : le choix s'ouvre parmi les
+widgets disponibles — le catalogue propre de l'utilisateur (le pool
+D247), ou un widget rendu disponible par la libération d'un autre
+emplacement. Et l'écriture est actée : **« "_" me parle plus que
+"free" — free pouvant être lui-même un nom de widget »** — l'item
+**`_`**, la collision évitée par construction.
+
+**L'accueil au module actif (D557).** **« Une page d'accueil fait
+référence à un dashboard selon le module activé. »** L'accueil n'est
+pas un tableau figé : **le module actif fournit son dashboard** — en
+changeant de module, l'utilisateur change de tableau de bord (le
+squelette du technicien, ses emplacements `_` composés — D554–D556).
+
+**La homepage aux trois pointes (D558 — amende D557).** **« J'hésite
+sur la homepage : la limiter à un dashboard m'embête. La homepage
+doit pouvoir pointer une liste, un dashboard ou une page vide. »**
+L'accueil pointe : **une liste** (l'entrée du menu — la lettre de
+D204 retrouvée), **un dashboard** (celui du module activé — D557), ou
+**la page vide** (D191). La composition personnelle vit désormais aux
+emplacements `_` des squelettes (D555–D556).
+
+**Le template précisé (D559).** Trois apports : **« `margin:` pour
+définir les marges en mm »** ; **« le paragraph peut être un
+gabarit — utilisable dans le cas d'une lettre »** — le publipostage
+naît : le texte fixe (D488) sait porter les variables de
+l'enregistrement (« Cher {customer}, votre commande {number}… ») —
+l'étoffement Q55 commence ; **« la déclinaison par langue se porte
+sur chaque item »** — la lecture de D253 s'amende : **un seul
+gabarit**, ses items déclinés par langue (la mécanique D465), non un
+gabarit entier par langue.
+
+**Le publipostage étoffé (D560).** **« Paragraph doit être étoffé
+pour disposer d'un mode publipostage riche et facile à intégrer. »**
+L'étoffement proposé — cinq briques *(toutes en proposition, à
+arbitrer)* : **(1) les variables** — `{champ}` rendu au format de la
+langue du document (la conversion D369), les chemins de référence
+traversés (`{customer.address.city}` — D71) ; **(2) la condition** —
+`if:` sur le paragraphe (le bloc ne s'imprime que si — D90, l'écho
+D546) ; **(3) la mise en forme** — `style:` (D536) et les titres à
+quatre niveaux (D250) ; **(4) la source** — le texte en place
+(décliné par langue D559) ou le dictionnaire du module (D440) ;
+**(5) le multi-alinéas** — un seul `paragraph` porte plusieurs
+alinéas (la lettre s'écrit d'un bloc).
+
+**La sixième brique (D561 — complète D560).** **« L'affichage d'une
+liste sous forme de bullet points ou d'indices. »** La collection
+entre dans la lettre — les commandes en retard énumérées en puces ou
+numérotées. *(L'écriture en proposition : la variable-collection au
+crochet — `{overdue[bullets]}` / `{overdue[numbers]}` — chaque
+élément rendu par son `title` (D465).)*
+
+**Mustache + markdown (D562 — remplace les écritures de D560–D561).**
+**« Une combinaison dans paragraph du mustache et du markdown doit
+couvrir les différents cas, je pense. Il y aura des limites portant
+sur les composants (pas de liste, pas d'image…). »** Deux standards à
+la place des briques maison : **mustache** — les variables
+`{{champ}}`, les chemins `{{customer.name}}` (D71), **les sections**
+`{{#overdue}}…{{/overdue}}` (l'itération des collections — la puce
+markdown dans la section fait la liste D561) ; **markdown** — la
+forme : les titres (`#`…`####` — les quatre niveaux D250), le
+gras/l'italique, les puces et les indices, les tableaux. **Les
+limites** : les composants n'entrent pas dans le texte — pas de
+composant liste, pas d'image (la syntaxe `![…]` exclue — l'image
+reste `picture`, hors du texte) ; **l'`if:` d'expression demeure la
+propriété de l'alinéa** (D90 — mustache est sans logique) ; la source
+(en place ou dictionnaire D440) et le multi-alinéas vont de soi. Le
+champ texte de l'utilisateur reste nu (la frontière D261 — le
+markdown n'entre pas dans la donnée).
+
+**Le comportement d'`url` (D563).** La question (« le type url
+existe-t-il ? ») a relevé le manque : le type existait (D391, la
+règle générale), son comportement non. Les cinq points validés :
+**(1) la lecture = le lien** — le clic ouvre **dans un nouvel onglet
+du navigateur**, jamais dans l'application (la pile D535 intouchée) ;
+**l'icône du lien externe en post-zone** (l'anatomie D271, la
+post-zone venant du type D391) ; **(2) la modification** — la zone de
+texte, la validation intégrée ; l'icône post-zone demeure (vérifier
+sans quitter la saisie) ; **(3) la cellule** — l'ellipse (D296), le
+clic ouvre, le double-clic édite (D446) ; **(4) le template** — le
+texte et le lien actif ; Excel/CSV — la valeur nue, ré-importable ;
+**(5) pas de prévisualisation au socle** — l'aperçu de la cible = un
+hook (la ligne D263).
+
+**Les quatre destinations du template (D564).** **« Le template est
+utilisé pour générer un document Word, PDF, Excel ou un mail. Le
+template porte une propriété `format` qui précise le format de
+destination. »** Le gabarit s'ouvre au-delà du PDF (D212/D250 — qui
+reste le défaut naturel, *en proposition*) : **`format: pdf | word |
+excel | mail`**. Le mail rejoint le publipostage (D562) — la lettre
+mustache+markdown devient le corps du message ; l'Excel rejoint le
+modèle des exports (D445).
+
+**Le défaut et l'extension (D565 — solde D564).** **« Le format
+pourra être étendu à d'autres formats en fonction des besoins à
+venir. PDF en défaut me convient. »** Le défaut `pdf` acté ; le
+catalogue des formats s'étend par les besoins — la ligne des hooks
+(D408), sans toucher au moteur.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10549,3 +11196,344 @@ avant la synthèse Q16).
   besoin de composants complémentaires » (D509). L'auteur clôt la
   séance ; **la prochaine : une passe sur la construction des
   surfaces pour une entité.**
+- **2026-08-14 (suite 6)** — **La PR #24 fusionnée** (« Q16 — le
+  glossaire, le domaine 3, et le domaine 4 : le catalogue des
+  composants, D417–D510 » — 140 commits, 3 fichiers). Develop porte
+  désormais glossaire.md, composants.md et la conception jusqu'à
+  D510.
+- **2026-08-14 (suite 7)** — **Les actes ouverts (D511)** : la fiche
+  unique tranchée par l'usage, operation[<nom>] acté (« en phase avec
+  les fields ») ; les deux modes de l'opération — la pré-exécution
+  (le contexte chiffré avant l'engagement, la généralisation du
+  dry-run D234) ; le message de confirmation au gabarit
+  (validate: { message: } en proposition). La fiche operation
+  écrite, en attente de validation.
+- **2026-08-14 (suite 8)** — **La fiche `operation` validée** (« je
+  valide ») — validate: { message: <gabarit> } et les variables de la
+  pré-exécution actés. **La famille des actes est soldée** (une fiche
+  unique — l'habitat fait le visage). Restent : les graphiques
+  (chart/kpi/pivot — Q53) et les surfaces.
+- **2026-08-14 (suite 9)** — **Les graphiques ouverts** : la famille
+  pointée chart.* actée avec le nuage de points (chart.scatter —
+  D512) ; kpi et pivot à part. **La carte des collections (D513)** :
+  une coordonnée ou une liste de coordonnées, les lignes possibles ou
+  pas (rien n'était consigné — la fiche map complétée ; lines: en
+  proposition). Première fiche à venir : chart.line.
+- **2026-08-14 (suite 10)** — **La frontière de la route (D514)** :
+  les deux usages (les lieux sans relier, le parcours relié) ; le
+  socle au trait droit, « le tracé de la route aux hooks » — le
+  patron du géocodage (D294), OSRM/Valhalla en candidats
+  auto-hébergeables (Q7).
+- **2026-08-14 (suite 11)** — **Les réglages d'affichage (D515)** :
+  les échelles, les début/fin d'axe, les éléments d'affichage
+  (vignettes, couleurs, dégradé) — la forme riche des axes, colors:
+  D467 et points: en proposition. La fiche chart.line complétée.
+- **2026-08-14 (suite 12)** — **labels: et les valeurs du calcul
+  (D516)** : labels: true (la valeur au format du champ) ou le
+  gabarit ; le clic sur une vignette ouvre toutes les valeurs du
+  calcul (liste/association). La fiche chart.line ajustée.
+- **2026-08-14 (suite 13)** — **L'assise du graphique (D517)** :
+  « s'appuyer sur une entité ou une liste ; les axes font référence
+  aux champs » — on: à l'adresse D439 en proposition, le périmètre de
+  la liste hérité. La fiche chart.line ancrée.
+- **2026-08-14 (suite 14)** — **Le défaut de l'assise (D518)** : « si
+  on: est absent, l'assise porte sur l'entité elle-même » — l'entité
+  porteuse de la déclaration.
+- **2026-08-14 (suite 15)** — **La fiche `chart.line` validée**
+  (« oui »). Suivante : `chart.bars` — le socle commun hérité
+  (D515–D518), les écarts propres en proposition (mode:
+  vertical|horizontal au crochet D478, stacked: pour l'empilement).
+- **2026-08-14 (suite 16)** — **La fiche `chart.bars` validée** (« je
+  valide chart.bars »). Suivante : `chart.pie` — les écarts propres en
+  proposition (mode: pie|donut au crochet, la variable {percent} au
+  gabarit des labels, le regroupement des petites parts en « autres »
+  à seuil).
+- **2026-08-14 (suite 17)** — **Les secteurs arbitrés (D519)** :
+  mode: pie|donut|quarter ; les variables {value}/{percent}/{total} ;
+  le clic sur une part → la liste de ses éléments ; « autres » acté,
+  son drill ouvrant une barre de répartition (le drill à deux
+  étages). La fiche chart.pie complétée.
+- **2026-08-14 (suite 18)** — **L'épaisseur et les angles (D520)** :
+  thickness: sur donut/quarter ; les angles de quarter au crochet aux
+  bornes (quarter[-90..90] en proposition) — l'hémicycle de
+  l'assemblée nationale en usage fondateur.
+- **2026-08-14 (suite 19)** — **La fiche `chart.pie` validée** (« je
+  valide chart.pie ») — et **le tableau au socle (D521)** : « les
+  charts doivent se présenter soit en graphique, soit sous forme d'un
+  tableau, ou les deux » (l'écho D244) ; display: graph|table|both en
+  proposition. Suivante : chart.scatter.
+- **2026-08-14 (suite 20)** — **Le nuage de points (D522)** : le
+  grain (un point par enregistrement, le visage D386) ; les seuils
+  d'axe non chevauchants, les zones aux croisements — la
+  catégorisation (MoSCoW, effort/bénéfice) ; thresholds:/zones: en
+  proposition. La fiche chart.scatter écrite.
+- **2026-08-14 (suite 21)** — **La matrice adressée (D523)** : la
+  redondance effacée — l'axe porte min/max/threshold, la zone
+  s'adresse (zone: [1,1] + title) ; la convention [colonne, ligne]
+  depuis l'origine en proposition. La fiche simplifiée.
+- **2026-08-14 (suite 22)** — **La fiche `chart.scatter` validée**
+  (« oui »), la convention [colonne, ligne] depuis l'origine actée.
+  Suivante : `chart.combo` — le combiné (D239 : courbe+barres ou 2
+  courbes, 2 axes Y max) ; en proposition : y: en liste de séries
+  { value:, as: line|bars, axis: left|right }.
+- **2026-08-14 (suite 23)** — **L'orientation du combiné (D524)** :
+  axis: left|right ou bottom|up — la représentation en colonne ou en
+  ligne, la paire homogène ; la virgule up/top (D504) signalée.
+- **2026-08-14 (suite 24)** — **top harmonisé (D525)** : « j'harmonise
+  en effet avec top » — axis: bottom|top, les bords nommés d'un seul
+  vocabulaire (D504).
+- **2026-08-14 (suite 25)** — **La fiche `chart.combo` validée** (« je
+  valide chart.combo »). Suivante : `kpi` — le chiffre-clé (value:
+  sans axe, colors: par seuils D467, drill D242, pas de comparaison
+  au socle D245 — le hook).
+- **2026-08-14 (suite 26)** — **L'icône aux seuils (D526)** : « le
+  feu tricolore » — icons: en proposition (la mécanique D467
+  dupliquée, la collision avec la feuille notée), la liaison icon: à
+  la table D495. La fiche kpi complétée.
+- **2026-08-14 (suite 27)** — **L'organisation du kpi (D527)** : le
+  style en exergue (distinct de la feuille) ; les 4 organisations —
+  la position du label, l'icône au bord opposé ; layout: top|left|
+  bottom|right en proposition (défaut top).
+- **2026-08-14 (suite 28)** — **La fiche `kpi` validée** (« je valide
+  kpi »). Dernière des graphiques : `pivot` — le croisé dynamique
+  (D246 : les quatre éléments, les groupements pliables) ; en
+  proposition : rows:/columns:/value:, le clic sur une cellule
+  ouvrant la liste de l'intersection.
+- **2026-08-14 (suite 29)** — **Le tri du croisé (D528)** : « un tri
+  sur la value pour visualiser les plus gros CA » — chaque niveau du
+  groupement par son sous-total, sort: -value en proposition (D441).
+  La fiche pivot complétée.
+- **2026-08-14 (suite 30)** — **Le tri aux trois clés (D529)** : « le
+  tri peut s'appuyer sur les rows, les columns ou la value » — les
+  signes et cascades D441.
+- **2026-08-14 (suite 31)** — **La fiche `pivot` validée** (« je
+  valide pivot ») — **la famille des graphiques est soldée** : sept
+  fiches (chart.line, chart.bars, chart.pie, chart.scatter,
+  chart.combo, kpi, pivot — D512–D529). Quatre familles sur cinq au
+  complet (les feuilles, les conteneurs, les actes, les graphiques) ;
+  **ne restent que les surfaces — la passe réservée : la construction
+  des surfaces pour une entité.**
+- **2026-08-14 (suite 32)** — **La passe des surfaces ouverte** : la
+  méthode validée (« la méthode me convient, entrons par la liste ») —
+  le fil conducteur sales.order, les surfaces dans l'ordre d'usage
+  (liste → formulaire → résumé → widgets → wizard → templates →
+  dashboard), la fiche + l'exemple + la validation à chaque étape. La
+  fiche de la liste-surface écrite (le visage déclaré du composant
+  unique D486).
+- **2026-08-14 (suite 33)** — **Les appels du geste et les exports
+  (D530)** : add/update/delete nomment le formulaire ou le widget
+  appelé (le défaut D438) ; exports: précise les exports et les
+  générations de documents (le crochet au modèle/gabarit en
+  proposition). La fiche complétée.
+- **2026-08-14 (suite 34)** — **Les actions et l'anatomie (D531)** :
+  actions: (l'icône à l'opération, surchargeable) ; « une liste est
+  comme pages » — header (titre/colonnes/filtres/icône-exports/icônes
+  des gestes et actions), la zone page (le tableau), footer
+  (sous-total ou gabarit + les boutons des actions sans icône). La
+  fiche restructurée.
+- **2026-08-14 (suite 35)** — **size et screen sur la liste (D532)** :
+  la couverture de l'écran (D484/D503) et le support de conception
+  et/ou d'autorisation (D450). La fiche complétée.
+- **2026-08-14 (suite 36)** — **La grammaire de size (D533)** : une
+  valeur = la part de l'écran centrée ; deux valeurs = largeur puis
+  hauteur ; % ou px — partout où size s'écrit (D484).
+- **2026-08-14 (suite 37)** — **La fiche `list` (surface) validée**
+  (« je valide la liste »). Le fil avance : la fiche `form` écrite —
+  les cinq usages (D199), le pages implicite (D509–D510), le titre à
+  gabarit (D449/D465), la surimpression (D454, la grammaire D533) ;
+  la virgule size/dimension au formulaire signalée (D532 évoquait
+  size — la lecture D484 dit dimension, l'extension à l'appel).
+- **2026-08-14 (suite 38)** — **La confusion levée (D534)** : « j'ai
+  introduit une confusion entre dimension et size » — D484
+  départage : le formulaire à l'appel → dimension (D454), la liste à
+  l'affichage → size ; la grammaire D533 pour les deux. La fiche form
+  confirmée sur dimension:.
+- **2026-08-14 (suite 39)** — **size aux surfaces (D535)** : « size me
+  convient mieux pour les 2 usages » — toute surface s'ouvre en
+  surimpression sur la pile des actions antécédentes cumulées ; le
+  dimension: du formulaire (D454) devient size: ; le couple D484
+  demeure au grain du champ. La fiche form corrigée.
+- **2026-08-14 (suite 40)** — **La fiche `form` validée** (« je valide
+  form ») — et **style: défini (D536)** : le style global de
+  l'application en défaut, la surcharge {fonte, taille, mise en
+  forme} à la cascade D461. La fiche text complétée.
+- **2026-08-14 (suite 41)** — **style: validé** (« je valide style »).
+  Le fil avance : la fiche `summary` écrite — la config de formulaire
+  restreinte (D201 : les champs sélectionnés, pas d'onglets, petit
+  par principe, le défaut n'existe pas), le visage déployé de la
+  référence (D215).
+- **2026-08-14 (suite 42)** — **Le résumé précisé (D537)** : le 1-1
+  affiche le title ou l'image (D386) ; plusieurs sections pour mêler
+  l'horizontal et le vertical — pas plusieurs pages ni tabs. La fiche
+  summary ajustée.
+- **2026-08-14 (suite 43)** — **Le graphique au résumé (D538)** :
+  « un kpi ou un chart, à condition que son affichage reste
+  modeste » — chart[<nom>] en items en proposition (la famille des
+  adresses).
+- **2026-08-14 (suite 44)** — **La troisième assise (D539)** : « la
+  chart s'appuie sur une entité ou un champ de type list of ou
+  association with » — le champ-collection, le graphique des éléments
+  liés à l'enregistrement du contexte ; on: <champ> en proposition.
+- **2026-08-14 (suite 45)** — **Le chart, feuille du formulaire
+  (D540)** : « un form peut donc avoir un composant chart comme
+  feuille — nous le faisons entrer de fait dans summary » (la
+  restriction D201 le laisse passer, la modestie D538).
+- **2026-08-14 (suite 46)** — **`summary` et `on: <champ>` validés**
+  (« je valide summary et on: <champ> »). Le fil avance : la fiche
+  `widget` écrite — la lecture proposée : une seule surface aux deux
+  usages, la carte de l'enregistrement (D492) et la synthèse au
+  drill-down (D202), le pool de l'accueil (D204), l'évaluation D248.
+- **2026-08-14 (suite 47, pause)** — **La fiche `widget` validée**
+  (« je valide widget ») — la lecture des deux usages en une surface
+  actée. L'auteur fait une pause. **L'état de la passe des
+  surfaces** : list, form, summary, widget validées (D530–D540) ;
+  restent wizard, dashboard, template — puis la signature des nœuds,
+  Q60, les domaines 5–8.
+- **2026-08-14 (suite 48)** — **La tendance du kpi (D541, note pour
+  plus tard)** : « en exploitant l'historique d'une entité, nous
+  pourrions présenter la tendance » — la piste consignée
+  (D411/D172), le détail différé, la frontière avec D245 à confirmer.
+- **2026-08-14 (suite 49)** — **qrcode et barcode fichés (D542)** :
+  la question de l'auteur relève le manque — décidés (D252/D300)
+  mais jamais fichés ; la fiche commune écrite, l'inventaire et la
+  synthèse complétés ; le format au crochet en proposition.
+- **2026-08-14 (suite 50)** — **Le size des jumeaux (D543)** : le
+  qrcode au carré (une valeur unique — le côté), le code-barres en
+  largeur × hauteur (D533). La fiche complétée.
+- **2026-08-14 (suite 51)** — **Les deux modes du champ encodé
+  (D544)** : la saisie en mode texte (le régime du champ), l'affichage
+  en mode graphique — chacun sa taille ; size: { input:, display: }
+  en proposition.
+- **2026-08-14 (suite 52)** — **La valeur sous les barres (D545)** :
+  labels: true en proposition (l'écho D516, défaut false) — l'humain
+  sous la machine.
+- **2026-08-14 (suite 53)** — **La fiche `qrcode`/`barcode` validée**
+  (« je valide qrcode/barcode ») — le manque de D542 refermé
+  (D542–D545). La passe des surfaces peut reprendre : le wizard.
+- **2026-08-14 (suite 54)** — **La fiche `wizard` écrite** : le
+  matériau Q54 (D230–D233) sur le squelette tabs[wizard]
+  (D504–D505) — mono-utilisateur une session, les étapes-surfaces aux
+  transitions conditionnelles, l'état transitoire à transaction
+  finale, le brouillon déclaré ; en proposition : le couple
+  steps:/step:, l'if: d'étape, le draft: <état>.
+- **2026-08-14 (suite 55)** — **Le wizard précisé (D546)** :
+  l'habillage de tabs[wizard] acté (step = tab) ; l'opération à la
+  validation du step (operation: <nom> en proposition) ; les
+  opérations de base create/read/update/delete ; la démarche
+  élargie — créer, agir sur un ensemble d'une liste, imprimer les
+  menus, mettre à jour une tournée. La fiche complétée.
+- **2026-08-14 (suite 56)** — **La chaîne de pré-exécutions (D547)** :
+  le draft s'efface ; les steps à opération pré-exécutés, la
+  transformation à la validation définitive ; la confirmation validée
+  barre le retour (le cliquet sur le chemin D505). La fiche
+  corrigée.
+- **2026-08-14 (suite 57)** — **L'anatomie du wizard (D548)** :
+  header/footer optionnels (l'écho pages D507) ; le fil d'Ariane en
+  haut ou en bas (mode: top|bottom en proposition) ; size:
+  obligatoire, surchargeable à l'inclusion dans un formulaire. La
+  fiche complétée.
+- **2026-08-14 (suite 58)** — **Les arbitrages du wizard (D549)** :
+  size optionnel (sans valeur l'espace disponible, tout l'écran
+  depuis un menu) ; breadcrumb: none|top|bottom (défaut top). La
+  fiche ajustée.
+- **2026-08-14 (suite 59)** — **L'aide à la décision (D550)** : les
+  charts, kpi et pivots aux steps du wizard (chart[<nom>] — D540) —
+  la 550e décision.
+- **2026-08-14 (suite 60)** — **Un seul wizard (D551)** : « cela doit
+  être le même objet » — la surface wizard et tabs[wizard], un même
+  composant (l'écho D486), tout D546–D550 valant des deux côtés. Les
+  fiches liées.
+- **2026-08-14 (suite 61)** — **La revue tabs/wizard ouverte** :
+  « ça m'embête d'avoir 2 vocabulaires (tabs/steps) pour un même
+  objet — faut-il sortir wizard de tabs, ou au contraire fusionner
+  les 2 ? » — la validation du wizard suspendue, les deux voies
+  posées dans l'échange avec recommandation ; l'arbitrage attendu.
+- **2026-08-14 (suite 62)** — **La séparation validée (D552)** : « je
+  valide la séparation. Ça confirme mon ressenti » — le mode wizard
+  retiré de tabs (D504 amendé), D551 caduque (deux objets, une
+  parenté visuelle), le chemin D505 au wizard seul. Les deux fiches
+  reprises.
+- **2026-08-14 (suite 63)** — **Le contexte empilé (D553)** :
+  l'opération voit « l'ensemble des contextes qui se sont empilés
+  jusqu'à son usage » — la pile des contextes, le pendant de la pile
+  des surimpressions (D535) ; l'origine de l'appel (D455) = la pile
+  entière. La fiche operation complétée. *(Le commit 6efcb72
+  annonçait D553 par erreur — le voici réellement porté.)*
+- **2026-08-14 (suite 64)** — **Les fiches `tabs` et `wizard`
+  validées après séparation** (« je valide tabs et wizard »). Le fil
+  avance : la fiche `dashboard` écrite — la surface du module
+  (module[dashboard] D439), les trois rafraîchissements (D249), les
+  widgets assemblés ; en proposition : le bloc dashboards: au module,
+  refresh: static|live|every[…] (D434), widget[<entité>.<nom>]
+  (la famille des adresses).
+- **2026-08-14 (suite 65)** — **Le dashboard aux deux auteurs
+  (D554)** : la vérification (« est-ce bien cela ? ») — oui,
+  D204/D247 mot pour mot ; l'unification actée : la page d'accueil
+  composée est un dashboard dont l'utilisateur est l'auteur — le
+  même objet, deux auteurs. La fiche ajustée.
+- **2026-08-14 (suite 66)** — **Le squelette de dashboard (D555)** :
+  les widgets contraints et les emplacements libres (l'item free en
+  proposition) ; l'accueil = le squelette entièrement libre. La
+  fiche complétée.
+- **2026-08-14 (suite 67)** — **L'emplacement _ (D556)** : l'icône du
+  choix sur le widget interchangeable (le catalogue propre ou la
+  libération) ; « _ » acté à la place de free (la collision évitée).
+  La fiche ajustée.
+- **2026-08-14 (suite 68)** — **L'accueil au module actif (D557)** :
+  « une page d'accueil fait référence à un dashboard selon le module
+  activé » — le changement de module change le tableau de bord.
+- **2026-08-14 (suite 69)** — **La homepage aux trois pointes
+  (D558)** : « la limiter à un dashboard m'embête » — la liste, le
+  dashboard (du module actif — D557) ou la page vide ; la lettre de
+  D204 retrouvée.
+- **2026-08-14 (suite 70)** — **La fiche `dashboard` validée** (« je
+  valide dashboard »). La dernière surface : la fiche `template`
+  écrite sur le matériau Q57 (D250–D254) — le formulaire en lecture
+  seule + la dimension de page, l'entité contexte, un gabarit par
+  langue, les quatre portes (l'effet document, le viewer, les
+  exports, l'impression serveur) ; le rendez-vous Q55 atteint
+  (paragraph/picture/viewer à étoffer) ; en proposition : paper:,
+  l'écriture du gabarit par langue.
+- **2026-08-14 (suite 71)** — **Le template précisé (D559)** :
+  margin: en mm ; le paragraph-gabarit (la lettre — l'étoffement Q55
+  commence) ; la déclinaison par langue à chaque item (D253 amendé :
+  un seul gabarit, les items déclinés). Les écarts
+  template/formulaire posés dans l'échange pour revue.
+- **2026-08-14 (suite 72)** — **Le publipostage étoffé (D560)** :
+  « riche et facile à intégrer » — les cinq briques proposées
+  (variables aux chemins, if:, style:/titres, la source, le
+  multi-alinéas), l'arbitrage attendu.
+- **2026-08-14 (suite 73)** — **La sixième brique (D561)** : « une
+  liste sous forme de bullet points ou d'indices » — la
+  variable-collection au crochet en proposition ({overdue[bullets]},
+  le title par élément).
+- **2026-08-14 (suite 74)** — **Mustache + markdown (D562)** : la
+  combinaison couvre les cas — les briques maison remplacées par deux
+  standards ; les limites sur les composants (pas de liste, pas
+  d'image — ![…] exclu) ; l'if: d'expression demeure ; la frontière
+  D261 préservée (le champ texte utilisateur reste nu).
+- **2026-08-14 (suite 76)** — **Le comportement d'url (D563)** : la
+  question a relevé le manque (le type existait, le comportement
+  non) — les cinq points validés (le lien au nouvel onglet, l'icône
+  post-zone, l'ellipse, le lien actif au template, l'aperçu en
+  hook). La synthèse complétée.
+- **2026-08-14 (suite 77)** — **La PR #25 créée** (« Q16 domaine 4 —
+  les actes, les graphiques, les surfaces : le catalogue au complet,
+  D511–D563 » — 75 commits, 2 fichiers) vers develop.
+- **2026-08-14 (suite 78)** — **Les quatre destinations du template
+  (D564)** : Word, PDF, Excel ou un mail — format: précise la
+  destination (défaut pdf en proposition) ; le mail rejoint le
+  publipostage (D562). La fiche complétée — le commit rejoint la PR
+  #25 ouverte.
+- **2026-08-14 (suite 79)** — **Le défaut pdf acté (D565)** : « le
+  format pourra être étendu à d'autres formats en fonction des
+  besoins à venir » — la ligne des hooks (D408).
+- **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
+  (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
+  SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,
+  dashboard, template — D530–D562) sur le fil sales.order. **LE
+  CATALOGUE DE COMPOSANTS.MD EST AU COMPLET : les cinq familles**
+  (les feuilles — 26 fiches, les conteneurs — 4 couples +
+  header/footer, l'acte unique, les graphiques — 7 fiches, les
+  surfaces — 7 fiches). Restent au domaine 4 : la signature formelle
+  des nœuds, puis Q60, les domaines 5–8, la passe de complétude.

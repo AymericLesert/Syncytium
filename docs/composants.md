@@ -42,10 +42,13 @@ matérialisation ; l'analogie des web components est consignée (D455).
   `toggle` · `dropdown`/`radios`/`icons` · `picker.record` ·
   `picker.image` · `picker.file` · `picker.color` · `viewer` · `map` · `paragraph` · `picture` ·
   `thread` · `list` (l'éditeur du type liste) · `password` (la saisie
-  masquée, D463) · `color` (la pastille — D496) — **le composant par défaut d'un type porte le nom du
+  masquée, D463) · `color` (la pastille — D496) · `qrcode`/`barcode`
+  (les composants de sortie — D300/D542) — **le composant par défaut d'un type porte le nom du
   type** (D458) ;
-- **Les graphiques** : `chart` (courbe, barres, secteurs, combiné) ·
-  `kpi` · `pivot` — famille ouverte ;
+- **Les graphiques** : la famille pointée **`chart.line`** ·
+  **`chart.bars`** · **`chart.pie`** · **`chart.combo`** ·
+  **`chart.scatter`** (le nuage de points — D512) · `kpi` · `pivot` —
+  le hook étend (`chart.radar`…, D239) ; la jauge = la feuille `gauge` ;
 - **Les actes** : le bouton, l'icône, le passage d'étape — l'utilisateur
   acte une opération (D432/D444/D456).
 
@@ -73,7 +76,7 @@ Quatre règles transversales l'allègent :
 | Type | Composant par défaut | Compatibles (`component:`) |
 |---|---|---|
 | `boolean` | `checkbox` (3 états — faux→vrai→nul) | `toggle` |
-| `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` |
+| `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` ; `qrcode`/`barcode` (la sortie — D300/D542) |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
 | `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
@@ -98,7 +101,8 @@ Quatre règles transversales l'allègent :
 | `phone` | `text` masqué (national par défaut D391) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
-| `email`, `url`, `vat_number`, `siren`, `siret`, `iban`, `bic` | `text` (la validation intégrée D391) | — |
+| `url` | `text` — **le lien en lecture** : le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone, l'ellipse en cellule (D563) | — |
+| `email`, `vat_number`, `siren`, `siret`, `iban`, `bic` | `text` (la validation intégrée D391) | — |
 | `communication` | `thread` (le fil D295/D393) | — |
 
 ### Les liens et les générés
@@ -111,7 +115,7 @@ Quatre règles transversales l'allègent :
 | le lien n-aire — `list of [a, b]` / `association with [a, b]` (D402) | la liste embarquée (les combinaisons en lignes) | `widget:` (D492) |
 | l'association dérivée — `association with <entité> if …` (D405) | la liste embarquée **en lecture** | `widget:`, `viewer` au visage |
 | la liste nommée (l'accès retour automatique du 1-N — D216/D394) | la liste embarquée | comme l'association |
-| `counter` | la valeur assemblée, lecture seule partout (D155/D297) | — |
+| `counter` | la valeur assemblée, lecture seule partout (D155/D297) | `qrcode`/`barcode` (l'étiquette — D252/D542) |
 | le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
 | le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | `dropdown` — la liste des valeurs **tenant compte du cycle de vie** : les états atteignables seuls (D500) |
 
@@ -251,7 +255,11 @@ gui:
    `component` ; **`shortcut:`** — le raccourci du texte long (D464) :
    `lines` (les lignes visibles), `icon` (l'icône du déploiement),
    `label` (le libellé par langue — « Voir plus ») ; absent, le moteur
-   applique son défaut traduit (thème E) ;
+   applique son défaut traduit (thème E) ; **`style:`** — « la fonte,
+   la taille et sa mise en forme » (D536) : le défaut au **style
+   global de l'application**, la surcharge à la cascade D461 (*en
+   proposition : `style: { font: Roboto, size: 14px, format: [bold,
+   italic] }` — le size intérieur = la police, D458 départage*) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — modification : la saisie, guidée par le
    masque s'il existe (les lignes du masque font les lignes de la zone,
@@ -1093,7 +1101,16 @@ gui:
    centrée au marqueur en lecture ; le pointage sur la carte en
    saisie (D294) ;
 3. **Types servis** — `geolocation` (le composé D391–D392 : les
-   coordonnées + le texte associé — l'adresse, le lieu) ;
+   coordonnées + le texte associé — l'adresse, le lieu) ; **la liste
+   de coordonnées** (`list of geolocation`, l'association aux
+   coordonnées) — « le composant doit pouvoir s'adapter » (D513) :
+   les marqueurs multiples sur une même carte, **les lignes possibles
+   ou pas** (D513–D514 : « les lieux de commandes pour un produit » —
+   sans relier ; « le parcours d'un commercial » — relié **au trait
+   droit** ; *en proposition : `lines: true | false`, défaut
+   `false`*) ; **le tracé de la route = un hook** (« les abonnements
+   aux outils annexes » — le patron du géocodage D294, OSRM/Valhalla
+   en candidats open source, Q7) ;
 4. **Contexte consommé** — la valeur (coordonnées et texte associé —
    D392), **le fond de carte déclaré à l'instance** (D259/D294), la
    focale (`focus:` au champ ou hérité du setting — D391), **la
@@ -1118,7 +1135,7 @@ gui:
    l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
    le zoom et le déplacement au geste ;
 9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
-   D391–D392, D484 ;
+   D391–D392, D484, D513–D514 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1395,7 +1412,11 @@ page:                              # la section seule, directement (D490)
    informations légales de l'entreprise » ;
 2. **Rôle** — le texte venu de la configuration, affiché tel quel —
    **aucun champ derrière** : la mention, l'explication,
-   l'avertissement ;
+   l'avertissement ; **et le gabarit** — « le paragraph peut être un
+   gabarit, utilisable dans le cas d'une lettre » (D559,
+   l'étoffement Q55) : les variables de l'enregistrement dans le
+   texte (« Cher {customer}, votre commande {number}… ») — le
+   publipostage ;
 3. **Types servis** — aucun : le contenu est déclaré, par langue
    (D465) ou par référence au dictionnaire du module (`labels` —
    D440) ;
@@ -1403,7 +1424,18 @@ page:                              # la section seule, directement (D490)
    D455) ; les droits et la confidentialité ;
 5. **Propriétés** — `label:` — les libellés par langue (D465), ou la
    référence au dictionnaire (D440) ; le socle du vocabulaire (D461 :
-   style…) ;
+   style…) ; **le mode publipostage : mustache + markdown**
+   (D559–D562) — **mustache** : les variables `{{champ}}` au format
+   de la langue du document (D369), les chemins
+   (`{{customer.address.city}}` — D71), **les sections**
+   `{{#overdue}}…{{/overdue}}` (l'itération des collections — la puce
+   markdown dans la section fait la liste D561) ; **markdown** : les
+   titres (`#`…`####` — D250), le gras/l'italique, les puces et les
+   indices, les tableaux ; **les limites** : aucun composant dans le
+   texte — pas de liste-composant, pas d'image (`![…]` exclu —
+   l'image reste `picture`) ; **`if:`** — l'alinéa conditionnel à
+   l'expression (D90 — mustache est sans logique) ; le champ texte de
+   l'utilisateur reste nu (D261) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : le paragraphe en
    place ; **template** : le texte du gabarit — les mentions légales
@@ -1411,7 +1443,8 @@ page:                              # la section seule, directement (D490)
    étoffée au point gabarit / génération de documents (Q55)* ;
 8. **États et interactions** — la visibilité par les droits ; rien
    d'autre — le texte ne se clique pas ;
-9. **Décisions fondatrices** — D440, D455, D461, D465, D488 ;
+9. **Décisions fondatrices** — D71, D90, D250, D261, D369, D440,
+   D455, D461, D465, D488, D536, D559–D562 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -1543,39 +1576,35 @@ gui:
 4. **Contexte consommé** — le contexte transmis tel quel aux items
    (D455) ; les droits et la confidentialité — **l'onglet masqué
    disparaît de la barre** ;
-5. **Propriétés** — **`mode:`** — les visages de la barre (D504) :
-   `top` (Windows — le défaut), `bottom` (Excel), `left`/`right` (la
-   latérale), **`wizard`** (« voir toutes les étapes mais ne pas
-   prendre d'avance tant que l'onglet précédent n'a pas été exploré »
-   — l'écho du cliquet D354) ; le crochet en raccourci :
-   `tabs[bottom]`, `tabs[wizard]` (*l'écriture en proposition —
-   D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
+5. **Propriétés** — **`mode:`** — les visages de la barre (D504,
+   amendé D552) : `top` (Windows — le défaut), `bottom` (Excel),
+   `left`/`right` (la latérale) — **le mode wizard a quitté tabs**
+   (D552 : la séparation) ; le crochet en raccourci : `tabs[bottom]`
+   (*l'écriture en proposition — D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
    dimension unique des volets** — « pour chaque tab, toujours la même
    dimension » (D506 — aucun `width`/`height` par volet, le contraste
    avec D502) ; le socle du vocabulaire (D461) ;
 6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
    proposition*) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
-   courant — en haut, en bas, latérale (D504) ; **le mode wizard** :
-   les étapes toutes visibles, l'avance au rythme de l'exploration
-   (la parenté avec la surface `wizard` D230–D233) — **« les tabs
-   parcourus décrivent le chemin de traitement »** : le clic sur une
-   phase explorée y ramène, l'avance reste gardée (D505) ; l'entête, le
-   corps et le pied acceptent les onglets (D450) ; **tactile** : le
-   swipe bascule d'un onglet à l'autre (l'esprit D503) ;
-   **template** : les onglets rendus à la suite (*en proposition —
-   rien ne bascule sur le papier*) ;
+   courant — en haut, en bas, latérale (D504/D552) ; **la parenté
+   visuelle avec le `wizard` est assumée, les objets restent
+   distincts** (D552 — la navigation libre ici, le parcours contraint
+   là-bas) ; l'entête, le corps et le pied acceptent les onglets
+   (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
+   (l'esprit D503) ; **template** : les onglets rendus à la suite
+   (*en proposition — rien ne bascule sur le papier*) ;
 8. **États et interactions** — la bascule au clic ou au swipe ;
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
 9. **Décisions fondatrices** — D449–D451, D455–D456, D461, D485,
-   D487, D489 (le patron), D503–D506 ;
+   D487, D489 (le patron), D503–D506, D552 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
 ```yaml
 page:
   - tabs:
-      mode: wizard               # les étapes — l'avance à l'exploration (D504)
+      mode: bottom               # la barre en bas — le style Excel (D504)
       items:
         - tab:
             title: { fr: Général }
@@ -1738,4 +1767,1043 @@ forms:
     - page:   { items: [ field[customer] ] }
     - page:   { items: [ field[lines] ] }
     - footer: { items: [ field[total] ] }
+```
+
+# Les actes
+
+## `operation` (l'acte)
+
+1. **Nom et famille** — l'acte, **une fiche unique** : en items,
+   **`operation[<nom>]`** — « pour être en phase avec les fields »
+   (D511, l'écho de `field[<nom>]` D460 et `template[<nom>]` D483) ;
+   la matérialisation se déduit de l'habitat ;
+2. **Rôle** — **« l'utilisateur acte une opération »** (D456) : le
+   geste qui engage — le bouton, l'icône, le passage d'étape ;
+3. **Types servis** — les opérations du bloc `operations:` (D432 —
+   sans `when` : le bouton / la fonction API, D428) ; le changement
+   d'état du graphe (D425–D427, l'opération du catalogue par défaut —
+   D433) ;
+4. **Contexte consommé** — l'opération : sa garde (`if` — D430), ses
+   droits (D196), son `validate:` (D431) ; **la pile des contextes**
+   (D553) — « l'ensemble des contextes qui se sont empilés jusqu'à
+   l'usage de l'opération » : le périmètre de la liste,
+   l'enregistrement du formulaire, le transitoire du wizard —
+   l'origine de l'appel (D455) est la pile entière ;
+   l'enregistrement ou la sélection (l'opération de masse — D446) ;
+   **la pré-exécution** (D511) — les modifications à venir,
+   chiffrées ;
+5. **Propriétés** — la surcharge de la présentation : `label:`,
+   `icon:`, `style:` (le verbe du catalogue en défaut) ;
+   **`validate:`** — `true` (défaut — la relecture D431) ou **le
+   message au gabarit nourri de la pré-exécution** (D511 — *écriture
+   en proposition :* `validate: { message: { fr: "{invoices}
+   factures seront créées" } }`, les variables = les résultats nommés
+   de la pré-exécution) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **l'habitat fait le visage** : le
+   formulaire → **le bouton** ; la colonne de liste → **l'icône à
+   trois états** (D444, le verbe au nom nu — D462) ; le wizard → **le
+   passage d'étape** (D504–D505, l'avance gardée) ; le menu →
+   l'adresse `<module>.<entité>.<opération>` (D439) ; **les deux
+   modes de l'opération** (D511) : la pré-exécution — « identifier
+   les modifications à apporter » — puis l'exécution réelle ;
+   template : jamais (le papier n'agit pas) ;
+8. **États et interactions** — **les trois états** (D444) :
+   actionnable / **non actionnable** (la garde grise le bouton, l'API
+   refuse proprement — D430) / **non visible** (les droits D196, la
+   confidentialité) ; la relecture avant engagement (D431 — lecture
+   seule + confirmer/annuler, jamais de popup D196) ; l'exécution
+   `synchronous`/`asynchronous`/`await` (D436) ;
+9. **Décisions fondatrices** — D196, D425–D433, D436, D439, D444,
+   D446, D456, D460, D462, D504–D505, D511, D553 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml
+operations:
+  invoice:
+    validate:
+      message: { fr: "{invoices} factures seront créées" }  # le gabarit — la pré-exécution nourrit (D511)
+    effects:
+      - function: create_invoices
+
+gui:
+  forms:
+    default:
+      footer:
+        items:
+          - operation[invoice]:        # le bouton au formulaire (D511)
+              icon: invoice.svg
+  lists:
+    main:
+      columns: [number, customer, invoice]   # l'icône à trois états (D444/D462)
+```
+
+# Les graphiques
+
+## `chart.line`
+
+1. **Nom et famille** — `chart.line`, un graphique de la famille
+   pointée (D512) — la courbe ;
+2. **Rôle** — l'évolution d'un agrégat le long d'un axe : la tendance
+   d'un regard ;
+3. **Types servis** — aucun champ : **le graphique est une déclaration
+   autonome réutilisable** (D243) — **son assise : une entité, une
+   liste nommée, ou un champ de type `list of` / `association with`**
+   (D517/D539 — le champ-collection : le graphique des éléments liés
+   à l'enregistrement du contexte), **les axes faisant référence aux
+   champs de l'assise** (D517) ;
+4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
+   temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
+   confidentialité héritée de l'entité, surchargeable (D247) ; les
+   droits ;
+5. **Propriétés** — la déclaration (*les noms en proposition*) :
+   **`on:`** — l'assise à l'adresse (D517/D439) : `sales.order`
+   (l'entité) ou `sales.order[invoiced]` (la liste nommée, le crochet
+   de l'adresse) — **absent : l'entité porteuse de la déclaration**
+   (D518) ; **`x:`** — le découpage d'un champ de l'assise
+   (`date[month]` : le crochet temporel),
+   **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
+   `filter:` — le périmètre (D90), **`drill:`** — le drill-down
+   déclaré : la liste nommée au filtre imposé (D242 — « par défaut,
+   pas de drill-down ») ; `title:` (D493) ; **les réglages
+   d'affichage** (D515) : **la forme riche des axes** — `x:`/`y:`
+   acceptent `{ value:, min:, max:, scale: }` (les début et fin
+   d'axe — l'écho D494 ; `scale: linear` défaut `| log`),
+   **`display: graph | table | both`** — le graphique, le tableau des
+   valeurs, ou les deux (D521 — l'écho D244 ; défaut `graph`),
+   **`colors:`** (la mécanique D467 — la couleur par série, le
+   dégradé), **`labels:`** (D516) — `true` : la valeur au format du
+   champ ; **le gabarit** pour personnaliser (la collision avec le
+   dictionnaire D440 notée — le contexte départage, D458) ; le visage
+   au nuage (D386) ; *(en proposition : `y:` accepte une
+   liste — plusieurs séries sur le même axe ; les deux axes restent à
+   `chart.combo`, D239)* ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **réutilisable** : le widget (associé à
+   une entité → le module fonctionnel — D247), le formulaire, le
+   tableau de bord (le rafraîchissement statique / temps réel /
+   fréquence — D249) ; **template** : l'image du graphique (D257) ;
+   tactile : le point touché montre sa valeur ;
+8. **États et interactions** — **le drill-down au clic** : le
+   graphique « enrichit le filtre de la liste pour imposer » les
+   éléments de la valeur cliquée (D242) ; **le clic sur une
+   vignette** : « voir toutes les valeurs utilisées pour le calcul »
+   (D516 — si l'agrégat dépend d'une liste ou d'une association, le
+   détail des contributions s'ouvre) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D90, D158, D239–D244, D247–D249,
+   D439, D512, D515–D518, D521, D539 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — la déclaration autonome (D243)
+charts:
+  revenue_by_month:
+    component: chart.line
+    title: { fr: Chiffre d'affaires }
+                                 # on: absent — l'assise : l'entité porteuse (D518)
+    x: date[month]               # le champ, découpé (D240/D517)
+    y: sum(total)                # l'agrégat d'un champ (D158)
+    filter: state = "invoiced"   # le périmètre (D90)
+    drill: invoiced              # la liste nommée au filtre imposé (D242)
+
+  margin_by_month:
+    component: chart.line
+    on: sales.order[invoiced]    # l'assise : la liste — le périmètre hérité (D517)
+    x: date[month]
+    y: { value: avg(margin), min: 0, max: 100, scale: linear }   # (D515)
+    colors: { serie: blue }      # la mécanique D467 — le dégradé possible
+    labels: true                 # la valeur au format du champ (D516)
+```
+
+## `chart.bars`
+
+1. **Nom et famille** — `chart.bars`, un graphique de la famille
+   pointée (D512) — les barres ;
+2. **Rôle** — la comparaison des quantités par catégorie : la barre
+   qui mesure ;
+3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
+   `on:`), les axes aux champs — le découpage **par valeurs** y est
+   roi (les catégories — D240), les plages et la temporalité
+   possibles ;
+4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
+   héritée surchargeable (D247), les droits ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
+   compris) : `on:`, `x:`, `y:` (la forme riche — et la liste :
+   plusieurs séries), `filter:`, `drill:`, `colors:`, `labels:`,
+   `title:` ; **les écarts propres** (*en proposition*) :
+   **`mode: vertical | horizontal`** (défaut
+   vertical — le crochet en raccourci : `chart.bars[horizontal]`,
+   D478) ; **`stacked:`** — les séries empilées (`true`), côte à côte
+   sinon (défaut) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable : le widget, le
+   formulaire, le tableau de bord (D243/D249) ; **template** :
+   l'image (D257) ; tactile : la barre touchée montre sa valeur ;
+8. **États et interactions** — le drill-down au clic (D242) ; le clic
+   sur une barre : les valeurs du calcul (D516) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
+   D515–D518 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  revenue_by_seller:
+    component: chart.bars[horizontal]   # ≡ mode: horizontal (D478)
+    x: seller                    # le découpage par valeurs (D240)
+    y: [ sum(total), sum(margin) ]      # deux séries côte à côte
+    labels: true
+
+  stock_by_site:
+    component: chart.bars
+    stacked: true                # les séries empilées (proposition)
+    x: site
+    y: [ sum(reserved), sum(available) ]
+```
+
+## `chart.pie`
+
+1. **Nom et famille** — `chart.pie`, un graphique de la famille
+   pointée (D512) — les secteurs : « camembert/anneau » (D239) ;
+2. **Rôle** — la répartition d'un tout : chaque part son secteur ;
+3. **Types servis** — l'assise (D517–D518) ; `x:` = le découpage **par
+   valeurs** (les parts — D240), `y:` = l'agrégat qui mesure la part ;
+4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
+   héritée surchargeable (D247), les droits ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 —
+   `display:` compris) : `on:`, `x:`, `y:`, `filter:`, `drill:`,
+   `colors:`, `labels:`, `title:` ; **les écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
+   camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
+   `chart.pie[donut]`, D478) ; **`thickness:`** — l'épaisseur de
+   l'anneau et de l'arc (D520 — *en proposition : le pourcentage du
+   rayon*) ; **les angles de `quarter`** — le départ et la fin, *en
+   proposition au crochet aux bornes* : `quarter[-90..90]` (0° à
+   midi, le sens horaire ; nu = `[0..90]`) — « représenter
+   l'assemblée nationale de la gauche vers la droite » (D520) ; **les variables du
+   gabarit** des labels : `{value}`, `{percent}`, `{total}` —
+   « {percent} % ({value} / {total}) » (D516/D519) ; **le
+   regroupement des petites parts en « autres »** — un seuil, rien
+   par défaut (D519) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable : le widget, le
+   formulaire, le tableau de bord (D243/D249) ; **template** :
+   l'image (D257) ; tactile : la part touchée montre sa valeur ;
+8. **États et interactions** — **le clic sur une part : la liste de
+   ses éléments** (D242/D519) ; **le drill d'« autres » à deux
+   étages** : une barre de répartition de toutes les autres valeurs
+   s'ouvre — l'utilisateur y précise la valeur à filtrer dans la
+   liste (D519) ; les valeurs du calcul (D516) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512, D515–D516,
+   D519–D520 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  revenue_by_category:
+    component: chart.pie[donut]     # ≡ mode: donut — l'anneau (D239/D478)
+    x: category                     # les parts (D240 — par valeurs)
+    y: sum(total)
+    labels: { fr: "{percent} % ({value} / {total})" }   # le trio (D519)
+    drill: by_category              # le clic : la liste de la part (D242/D519)
+
+  assembly:                         # l'hémicycle (D520)
+    component: chart.pie
+    mode: quarter[-90..90]          # de la gauche vers la droite
+    thickness: 40%                  # l'épaisseur de l'arc
+    on: politics.deputy
+    x: party
+    y: count()
+```
+
+## `chart.scatter`
+
+1. **Nom et famille** — `chart.scatter`, un graphique de la famille
+   pointée — le nuage de points, l'ajout de l'auteur (D512) ;
+2. **Rôle** — **« représenter une concentration ou une dispersion
+   d'une certaine valeur »** — et **« aider à catégoriser des
+   éléments »** (D522) : la matrice de décision ;
+3. **Types servis** — l'assise (D517–D518) ; **le grain diffère** :
+   un point par **enregistrement** — `x:` et `y:` deux champs
+   numériques **nus** (sans agrégat), là où courbe et barres
+   agrègent (D522) ;
+4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
+   D247, les droits) ; **le visage de l'enregistrement** (D386) ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
+   compris) ; **les écarts propres** (D522–D523) :
+   **`threshold:`** dans la forme riche de l'axe — « l'axe définit
+   min, max et threshold » : la liste croissante des seuils, les
+   bandes ; **`zones:`** — la zone **s'adresse dans la matrice
+   créée** : `zone: [1,1]` + `title:` (+ `color:`) — plus aucune
+   borne répétée (D523 ; *la convention en proposition :
+   `[colonne, ligne]` depuis l'origine des axes, `[1,1]` en bas à
+   gauche*) : le MoSCoW à deux critères, l'effort/bénéfice ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
+   l'image (D257) ; **le survol** : le visage de l'enregistrement
+   (D386) ; le tableau des valeurs (`display:` — D521) ;
+8. **États et interactions** — **le clic sur un point : le
+   formulaire de l'enregistrement** ; **le clic sur une zone : la
+   liste de ses éléments** (l'écho D519) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D386, D512,
+   D515–D518, D521–D523 ;
+10. **Exemple de configuration** —
+
+```yaml
+# projects/entities/action.yml, bloc gui — la matrice effort/bénéfice (D522)
+charts:
+  priorities:
+    component: chart.scatter
+    x: { value: effort,  min: 0, max: 100, threshold: [50] }   # les bandes (D523)
+    y: { value: benefit, min: 0, max: 100, threshold: [50] }
+    zones:                        # la position dans la matrice — [colonne, ligne] (D523)
+      - { zone: [1,2], title: { fr: Gains rapides }, color: green }
+      - { zone: [2,2], title: { fr: Grands projets }, color: orange }
+      - { zone: [1,1], title: { fr: Tâches de fond }, color: gray }
+      - { zone: [2,1], title: { fr: À éviter },      color: red }
+    labels: true                  # le visage au survol (D386)
+```
+
+## `chart.combo`
+
+1. **Nom et famille** — `chart.combo`, un graphique de la famille
+   pointée (D512) — le combiné ;
+2. **Rôle** — deux mesures d'un regard : **« courbe + barres ou deux
+   courbes, 2 axes Y max, même temporalité/échantillon »** (D239) ;
+3. **Types servis** — l'assise (D517–D518) ; **un `x:` commun** (le
+   même découpage — la même temporalité par construction) ; **deux
+   séries `y:`, chacune son axe** (gauche/droite) ;
+4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
+   D247, les droits) ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 —
+   `display:` compris) ; **les écarts propres** (*écritures en
+   proposition*) : `y:` en liste de séries —
+   `{ value:, as: line | bars, axis: left | right }` — la nature et
+   l'axe de chacune (défauts : la première à gauche, la seconde à
+   droite) ; **ou `axis: bottom | top`** — « la représentation en
+   ligne contre la représentation en colonne » (D524, harmonisé
+   D525) : les valeurs couchées, la paire homogène par construction —
+   les bords d'un seul vocabulaire (D504) ; **deux axes maximum** — « au-delà de 2 axes, illisible »
+   (D239) : la troisième série refusée à l'ingestion, le hook pour
+   aller au-delà ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
+   l'image (D257) ; le tableau des valeurs — les deux séries en
+   colonnes (`display:` — D521) ;
+8. **États et interactions** — le drill-down au clic (D242) ; les
+   valeurs du calcul (D516) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
+   D515–D518, D521, D524–D525 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  activity:
+    component: chart.combo
+    x: date[month]               # le découpage commun (D239/D240)
+    y:
+      - { value: sum(total), as: bars, axis: left }    # le CA en barres
+      - { value: count(),    as: line, axis: right }   # le volume en courbe
+    labels: true
+```
+
+## `kpi`
+
+1. **Nom et famille** — `kpi`, un graphique (D512 — à côté de la
+   famille pointée) — le chiffre-clé ;
+2. **Rôle** — un agrégat en grand : l'indicateur d'un regard ;
+3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
+   `on:`) ; **la valeur = un agrégat (D158) — aucun axe** ;
+4. **Contexte consommé** — le socle des graphiques : la
+   confidentialité héritée surchargeable (D247), les droits ;
+5. **Propriétés** — `on:` (D517–D518), **`value:`** — l'agrégat
+   (*l'écho de `y:`, sans axe — en proposition*), `filter:` (D90),
+   `title:` (D493), `labels:` — le gabarit du format (D516,
+   `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
+   couleur (la mécanique D467, la table d'entité D495 comprise) ;
+   **`icons:` par seuils** — « associer éventuellement une icône :
+   cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ; la
+   collision avec la feuille `icons` notée, le contexte départage
+   D458 ; la liaison `icon:` à la table D495) ; **`layout:`** —
+   « l'organisation se découpe en 4 » (D527) : la position du label —
+   `top` (défaut) `| left | bottom | right` (les bords D525),
+   **l'icône au bord opposé** (*la collision avec le layout des
+   sections D490 notée — les valeurs départagent, D458*) ; `drill:`
+   (D242) ; **pas de comparaison dans le socle** (D245 —
+   l'évolution contre une période = un hook) ; *(la note pour plus
+   tard — D541 : la tendance issue de l'historique de l'entité,
+   D411/D172 — le détail différé)* ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **« mis en valeur avec un style
+   différent de la feuille »** (D527) : le chiffre en exergue, jamais
+   comme un champ ; **le widget roi** (l'entité → le module
+   fonctionnel — D247), le tableau de bord (le rafraîchissement
+   D249), le formulaire possible (D243) ; **template** : la valeur au
+   format ;
+8. **États et interactions** — le clic : le drill-down (D242) ou les
+   valeurs du calcul (D516) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D158, D242–D243, D245, D247–D249,
+   D467, D495, D512, D515–D518, D526–D527 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  monthly_revenue:
+    component: kpi
+    value: sum(total)            # l'agrégat (D158) — aucun axe
+    filter: date in current_month
+    title: { fr: CA du mois }
+    labels: { fr: "{value} € HT" }
+    colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
+    icons:  { 0: red_light.svg, 50000: orange_light.svg, 100000: green_light.svg }
+                                 # le feu tricolore (D526)
+    layout: left                 # le label à gauche, l'icône à droite (D527)
+    drill: invoiced              # le clic : la liste (D242)
+```
+
+## `pivot`
+
+1. **Nom et famille** — `pivot`, un graphique (D512 — à côté de la
+   famille pointée) — le croisé dynamique ;
+2. **Rôle** — **« un outil d'analyse puissant et pourtant simple à
+   mettre en œuvre »** (D246) : les lignes croisent les colonnes, la
+   formule remplit l'intersection ;
+3. **Types servis** — l'assise (D517–D518) ; **les quatre éléments**
+   (D246) : un filtre, le ou les champs en ligne, le ou les champs en
+   colonne, une formule à l'intersection ;
+4. **Contexte consommé** — la confidentialité héritée surchargeable
+   (D247), les droits ; **indépendant des compositions matricielles**
+   (D134) — le croisé est une présentation, applicable à toute
+   entité ;
+5. **Propriétés** — (*les noms en proposition*) : **`rows:`** — le ou
+   les champs en ligne (la liste = le groupement hiérarchique,
+   `[seller, customer]` : commercial › client) ; **`columns:`** — le
+   ou les champs en colonne (le mot des listes D441) ; **`value:`** —
+   la formule : un agrégat (D158) **partitionné par la cellule** ;
+   `filter:` (D90) ; **`sort:`** — « le tri peut s'appuyer
+   sur les rows, les columns ou la value » (D528–D529) : la clé = un
+   champ des lignes, un champ des colonnes, ou `value` — les signes
+   et cascades D441 (`sort: { seller: -value, date: + }`) ; chaque
+   niveau du groupement trié par son sous-total, l'ordre naturel du
+   champ en défaut ; **les
+   plages et temporalités** sur les champs numériques ou dates —
+   « comme pour les graphiques (D240), pour réduire le volume » :
+   `date[month]`, les crochets ; `title:` (D493) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **les groupements hiérarchiques,
+   pliables au besoin** (D246) ; réutilisable : le widget (D247), le
+   tableau de bord (D249), le formulaire (D243) ; **template** : le
+   tableau rendu, groupements dépliés ;
+8. **États et interactions** — **le pli et le dépli** des
+   groupements ; *(en proposition : le clic sur une cellule ouvre la
+   liste des éléments de l'intersection — l'écho D242/D519)* ; la
+   confidentialité masque ;
+9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
+   D441, D512, D517–D518, D528–D529 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — l'exemple fondateur de D246
+charts:
+  revenue_matrix:
+    component: pivot
+    rows: [seller, customer]     # la hiérarchie pliable — commercial › client
+    columns: [date[month]]       # la temporalité (D240)
+    value: sum(total)            # l'agrégat partitionné par la cellule (D158)
+    sort: -value                 # les plus gros CA d'abord (D528)
+    filter: state = "invoiced"
+    title: { fr: CA par commercial et par mois }
+```
+
+## `qrcode` / `barcode`
+
+1. **Nom et famille** — `qrcode` et `barcode`, deux feuilles
+   jumelles — **les composants de sortie** (D300, clôt Q56) ; une
+   fiche commune (D542 — le manque relevé par l'auteur) ;
+2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
+   valeur encodée, lisible à la machine : l'étiquette, le document,
+   l'écran ;
+3. **Types servis** — les champs à valeur textuelle — le texte, le
+   compteur, l'`uuid`, la référence… : **la conversion en texte du
+   type** (D369) fait la valeur encodée ; en surcharge
+   (`component: qrcode`) ;
+4. **Contexte consommé** — le champ, sa valeur convertie (D369), les
+   droits ;
+5. **Propriétés** — le socle (D461) ; **`size:` aux deux régimes**
+   (D543) : le qrcode — **« la taille unique pour les côtés »**
+   (`size: 120px`, le carré — jamais deux valeurs) ; le code-barres —
+   **« largeur × hauteur »** (`size: 200px 60px` — la grammaire
+   D533) ; **la saisie peut porter sa propre taille** (D544 — *en
+   proposition :* `size: { input: 30, display: 120px }`, la forme
+   courte valant l'affichage seul) ; **`labels:`** — « la valeur de
+   la référence sous le code-barres » (D545 — *en proposition :*
+   `labels: true`, la valeur au format du champ — l'écho D516 ;
+   défaut `false`) ; **le format du code-barres au crochet** (*en
+   proposition :* `barcode[ean13]`, `barcode[code128]` — le défaut
+   `code128`) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
+   **la saisie en mode texte** — la zone du champ, son régime (la
+   taille D366, le masque) — et **l'affichage en mode graphique** ;
+   le PDF et l'étiquette en usage premier (D252 — l'impression
+   directe du serveur, les imprimantes de l'OS) ; **Excel = la valeur
+   source** (D300) ; *(le scan reste hors D300 — la question pour
+   plus tard si besoin)* ;
+8. **États et interactions** — la lecture seule par nature ; masqué
+   par la confidentialité ;
+9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
+   D516, D533, D542–D545 ;
+10. **Exemple de configuration** —
+
+```yaml
+# stock/entities/product.yml
+fields:
+  sku: counter[product]            # le compteur mutualisé (D410)
+
+gui:
+  templates:
+    label:                         # l'étiquette imprimée du serveur (D252)
+      page:
+        - field[sku]:
+            component: qrcode      # la valeur rendue en QR (D300)
+            size: 120px            # le carré — 120 px de côté (D543)
+        - field[name]
+        - field[price]:
+            component: barcode[ean13]   # le format au crochet (proposition)
+            size: 200px 60px       # largeur × hauteur (D543)
+            labels: true           # la valeur sous les barres (D545)
+```
+
+# Les surfaces
+
+*Le fil conducteur de la passe : `sales.order` — les surfaces
+construites dans l'ordre d'usage (la liste, le formulaire, le résumé,
+les widgets, le wizard, les templates, le dashboard du module).*
+
+## `list` (la surface)
+
+1. **Nom et famille** — `list`, une surface — **le même composant que
+   la feuille** (D486 : « un seul list ») ; ici son visage déclaré :
+   `gui: lists: <nom>:` — **la première déclarée est la surface par
+   défaut** (D438), le menu l'adresse (`sales.order[pending]` —
+   D439) ;
+2. **Rôle** — **la porte d'entrée de l'entité** : les enregistrements
+   en tableau ou en widgets, la recherche, le tri, les opérations ;
+3. **Types servis** — l'entité (ses champs en colonnes) ; **les deux
+   visages exclusifs** (D492) : le tableau (`columns:`) ou la liste
+   de widgets (`widget:`) ;
+4. **Contexte consommé** — la confidentialité (les colonnes non
+   visibles et non triables), les droits d'action (D196), le module ;
+5. **Propriétés** — **`columns:`** — l'ordre d'affichage, les noms
+   nus (le champ l'emporte sur l'opération homonyme — D462) ; par
+   colonne : le style, l'alignement, la dimension (D442 — **le type
+   prime le format** : l'amount à droite avec devise, le toggle
+   centré, le multi-lignes justifié — D443/D448), la colonne fantôme
+   (`visible: false`), le fond gradué (`background:` — D466), les
+   couleurs (`colors:` — D467), l'aperçu du fil (`preview:` — D393) ;
+   **`widget:`** (D492) ; `filter:` (l'expression D90) ; `sort:` (par
+   colonne, à cascades, les signes — D441) ; `searchable:` (les
+   champs ou les noms mutualisés — défaut : tous) ; `editable:`
+   (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
+   (D445–D446) ; `sizable: none | auto | manual | auto+manual`
+   (D447) ; **`add:` / `update:` / `delete:`** — « le
+   formulaire/widget à appeler » pour chaque geste (D530 — les
+   défauts : le formulaire par défaut D438, les gestes D446) ;
+   **`exports:`** — « les différents exports ou générations de
+   documents » (D530) : CSV (un fichier par type de composant), Excel
+   (l'onglet par type, le modèle, le tri d'export — D445), **le
+   template** (la génération — D483/D511) — *en proposition :*
+   `exports: [ csv, excel[stock.xlsx], template[order_sheet] ]` ;
+   **`actions:`** — la liste d'opérations (D531) : **l'opération
+   porte son icône à la déclaration, la liste la surcharge** au
+   besoin ; **`size:`** — « la zone de couverture de l'écran »
+   (D532) ; **la grammaire** (D533, vaut partout — D484) :
+   `size: 75%` — la part de l'écran, **centrée** ; `size: 90% 50%` —
+   la largeur puis la hauteur ; `size: 1000px 320px` — les pixels ; **`screen:`** — « le support sur
+   lequel la liste a été définie et/ou autorisée à s'afficher »
+   (D532/D450 — `[pc paysage]` en défaut) ; `title:` (D493) ;
+6. **Items** — aucun à déclarer : **l'anatomie est celle d'un
+   `pages`** (D531 — intrinsèque) ;
+7. **Modes et déclinaisons** — **« une liste est comme pages »**
+   (D531) : **le header** — le titre, les colonnes (le tabulaire ;
+   « non visibles sur les widgets, sauf pour assurer les tris »), les
+   filtres, **l'icône-menu des exports**, les icônes de l'ajout, de
+   la modification, de la suppression, **étendues aux actions à
+   icône** ; **la zone page** — le contenu du tableau ; **le
+   footer** — le sous-total ou un gabarit (`{count}` — *en
+   proposition*), **les boutons des actions sans icône** ; le tableau
+   ou les widgets (D492) ; **le filtrage vivant** — la liste
+   s'auto-rafraîchit sans bouton (D226–D229/D444) ; **la pagination
+   au curseur opaque** avec les indicateurs ; l'embarquée d'une
+   composition ou d'une association (D486) ; le responsive au repli
+   (Q48) ;
+8. **États et interactions** — **la création : le bouton compris dans
+   le cadre** — le formulaire d'`add:` (D530) ; **la modification au
+   double-clic** — celui d'`update:` ; la lecture seule → la
+   consultation ; **la suppression** : une ligne = le formulaire de
+   `delete:` en lecture seule + la confirmation, plusieurs = le
+   décompte confirmé (D446/D530) ; **l'opération de masse** sur les lignes
+   sélectionnées (D446) ; les opérations en colonne à trois états
+   (D444) ;
+9. **Décisions fondatrices** — D226–D229, D437–D448, D450, D462,
+   D466–D467, D484, D486, D492–D493, D530–D533 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui (D437)
+lists:
+  pending:                        # la première déclarée = le défaut (D438)
+    title: { fr: Commandes en cours }
+    columns:
+      - number
+      - customer
+      - total: { background: progress }   # le fond gradué (D466)
+      - discussion: { preview: 3 }        # le fil au survol (D393)
+      - invoice                    # l'opération — l'icône à 3 états (D444/D462)
+    filter: state in [draft, confirmed]
+    sort: { date: -, number: + }   # les cascades (D441)
+    editable: [notes]              # le reste readonly (D441)
+    selection: 1..                 # la multi-sélection (D446)
+    sizable: auto+manual           # (D447)
+    add: quick_entry               # le formulaire du bouton + (D530)
+    update: default                # celui du double-clic — le défaut sinon (D438)
+    exports: [ csv, excel[orders.xlsx], template[order_sheet] ]   # (D530)
+    actions: [ invoice, cancel ]   # les opérations — l'icône au header, sinon
+                                   # le bouton du pied (D531)
+
+  cards:                           # le second visage (D492)
+    widget: card                   # chaque enregistrement rendu par son widget
+    filter: state in [draft, confirmed]
+
+# et le menu l'adresse (D439) : sales.order[pending]
+```
+
+## `form`
+
+1. **Nom et famille** — `form`, une surface — `gui: forms: <nom>:` ;
+   **la première déclarée est le formulaire par défaut** (D438) ;
+   adressé par le menu (`[+form]` — D439), appelé par la liste
+   (`add:`/`update:`/`delete:` — D530), par une opération (la
+   relecture `validate:` — D431/D511) ;
+2. **Rôle** — l'enregistrement en face à face : **le formulaire
+   unique aux cinq usages** — la création, la modification, la
+   suppression, la consultation, la visualisation d'un historique
+   (D199) ;
+3. **Types servis** — l'entité — l'enregistrement dans son agrégat
+   (D101 : les compositions embarquées) ;
+4. **Contexte consommé** — **l'enregistrement, l'origine de l'appel,
+   l'utilisateur** (D455) ; les droits d'action (D196), la
+   confidentialité ; le `title` de l'entité (D465) ;
+5. **Propriétés** — **`title:`** — la zone de texte à gabarit,
+   déclinable par langue (D449/D453) : le `title` de l'entité
+   utilisable et surchargeable (D465) ; **`screen:`** — le support de
+   conception et l'autorisation (`[pc paysage]` défaut — D450/D532) ;
+   **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
+   `false` désactive l'onglet historique d'une entité historisée
+   (D453) ; **`size:`** — la surimpression, défaut 100 % de
+   l'écran (D454 amendé par **D535 : toute surface s'ouvre au-dessus
+   de la pile des actions antécédentes cumulées** — size pour toutes
+   les surfaces, le couple D484 restant au grain du champ ; la
+   grammaire D533 : une ou deux valeurs, % ou px) ;
+6. **Items** — **le `pages` implicite** (D509) : `header`, `page`(s),
+   `footer` — les clés à l'usuel, **la liste d'éléments au
+   multi-pages** (D510) ; dans les pages : les sections seules
+   (D490), l'organisateur `sections`, les `tabs`, les feuilles
+   (`field[<nom>]` — D460), les actes (`operation[<nom>]` — D511),
+   les documents (`template[<nom>]` — D483), **les graphiques —
+   `chart[<nom>]` en feuille** (D243/D540, le résumé en héritant de
+   fait — D538) ;
+7. **Modes et déclinaisons** — **les cinq usages d'un seul
+   formulaire** (D199) : la création (les compteurs « *(attribué à la
+   validation)* » — D154/D199), la modification (la concurrence par
+   champ — D111), la suppression (la lecture seule + la
+   confirmation — D446), la consultation (`mode: read-only`),
+   l'historique (l'onglet — D453) ; **jamais de popup** (D196) ; la
+   relecture d'opération (D431 — lecture seule + confirmer/annuler) ;
+   le responsive au repli (D203) ;
+8. **États et interactions** — les droits déterminent l'usage offert
+   (D196) ; le refus de validation affiché au champ (D307) ; le
+   `title` en tête, vivant avec l'enregistrement ;
+9. **Décisions fondatrices** — D101, D111, D154, D196, D199, D203,
+   D307, D437–D438, D446, D449–D455, D460, D465, D483, D509–D511,
+   D530, D533–D535 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — le fil de la passe
+forms:
+  default:                          # la première déclarée = le défaut (D438)
+    title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
+    screen: [pc paysage]            # le support (D450)
+    size: 75%                       # la surimpression centrée sur la pile (D535/D533)
+    header:
+      items: [ field[number], field[state] ]
+    page:                           # le pages implicite (D509)
+      - section:
+          title: { fr: Client }
+          items: [ field[customer], field[date] ]
+      - field[lines]                # la composition — la liste embarquée (D486)
+      - field[discussion]           # le fil prend la place qu'on lui laisse (D485)
+    footer:
+      items: [ field[total], operation[invoice] ]   # l'acte au pied (D511)
+
+  quick_entry:                      # le formulaire d'add: de la liste (D530)
+    page:
+      - field[customer]
+      - field[lines]
+```
+
+## `summary`
+
+1. **Nom et famille** — `summary`, une surface — `gui: summaries:
+   <nom>:` (*l'écriture en proposition*) ; la première déclarée = le
+   défaut (D438) — mais **« défaut : n'existe pas »** (D201) : sans
+   déclaration, l'entité n'offre aucun résumé ;
+2. **Rôle** — l'enregistrement en bref : **« petit par principe »**
+   (D201) — le visage déployé d'une référence (D215), la carte qui se
+   montre sans quitter le contexte ;
+3. **Types servis** — l'entité ; l'appel vient d'ailleurs : la
+   référence 1-1 — **« le 1-1 affiche le title ou l'image si elle est
+   définie »** (D537, le visage D386), puis le résumé se déploie
+   (D186/D215) ; le widget ;
+4. **Contexte consommé** — l'enregistrement, l'origine de l'appel,
+   l'utilisateur (D455) ; les droits (D196), la confidentialité ;
+5. **Propriétés** — **une config de formulaire restreinte** (D201) :
+   les champs **sélectionnés**, **lecture seule et/ou modification**
+   (le `mode` au nœud — D461) ; `title:` (D449/D465) ; `size:` — la
+   surimpression sur la pile, petite par principe (D535/D533) ;
+   `screen:` (D450/D532) ;
+6. **Items** — la restriction du formulaire : **plusieurs sections
+   possibles — « pour mêler des affichages horizontaux et
+   verticaux »** (D537 — l'organisateur `sections` et ses layouts,
+   D489–D491) et les feuilles ; **un kpi ou un chart — « à condition
+   que son affichage reste modeste »** (D538 — `chart[<nom>]` en
+   items, *la famille des adresses en proposition*) ; **l'unique
+   page, jamais d'onglets** (D201/D537) ;
+7. **Modes et déclinaisons** — l'appel depuis la référence (D215 — le
+   1-1 affiche le libellé, le résumé se déploie) ; la lecture seule
+   et/ou la modification mêlées (D201) ; le responsive au repli
+   (D203) ;
+8. **États et interactions** — les droits décident du modifiable ; la
+   fermeture rend à la surface précédente (la pile — D535) ;
+9. **Décisions fondatrices** — D186, D196, D201, D203, D215, D243,
+   D386, D437–D438, D449–D450, D455, D461, D465, D489–D491,
+   D532–D533, D535, D537–D538 ;
+10. **Exemple de configuration** —
+
+```yaml
+# crm/entities/customer.yml, bloc gui — le résumé du client
+summaries:
+  card:                            # sans déclaration : aucun résumé (D201)
+    title: "{name}"
+    size: 30%                      # petit par principe (D201), centré (D533)
+    page:
+      - sections:
+          layout: row              # l'horizontal et le vertical mêlés (D537)
+          items:
+            - section: { items: [ field[photo] ] }
+            - section: { items: [ field[name], field[phone] ] }
+      - field[balance]: { mode: read-only }   # le mêlé lecture/modification (D201)
+      - chart[orders_kpi]          # le kpi modeste (D538)
+
+# et depuis la commande : field[customer] affiche le title (D465) ;
+# le clic déploie ce résumé au-dessus de la pile (D215/D535)
+```
+
+## `widget`
+
+1. **Nom et famille** — `widget`, une surface — `gui: widgets:
+   <nom>:` ; **associé à une entité — et par construction à un module
+   fonctionnel** (D247) ; **« défaut : n'existe pas »** (D202) ;
+2. **Rôle** — la petite surface autonome — **deux usages, une seule
+   surface** (*la lecture en proposition*) : **la carte d'un
+   enregistrement** (D492 — la liste en widgets) et **la synthèse**
+   (D202 — « compteurs, sommes/calculs, graphiques, tableaux de
+   valeurs », le drill-down) ;
+3. **Types servis** — l'entité : l'enregistrement (la carte) ou son
+   périmètre agrégé (la synthèse) ;
+4. **Contexte consommé** — l'enregistrement (la carte) ou le
+   périmètre (la synthèse) ; **la confidentialité héritée de
+   l'entité, surchargeable** (D247) ; l'utilisateur (le pool de
+   l'accueil — D204) ;
+5. **Propriétés** — `title:` (D449/D465) ; `size:` (la surimpression
+   sur la pile — D535, la grammaire D533) ; `screen:` (D450/D532) ;
+   la config de formulaire restreinte (l'esprit D201 — petit par
+   nature) ;
+6. **Items** — les sections et les feuilles (la carte — D492) ; les
+   graphiques — `chart[<nom>]` (la synthèse — D243/D540) ; l'unique
+   page, jamais d'onglets (l'écho D537) ;
+7. **Modes et déclinaisons** — **la liste en widgets** (`widget:
+   <nom>` — D492) ; **la page d'accueil** : le pool — « l'utilisateur
+   compose parmi les widgets de ses modules fonctionnels, sous sa
+   confidentialité » (D204/D247) ; le tableau de bord (D249) ;
+   **l'évaluation aux règles des champs calculés** (D248 — l'écart
+   drill-down assumé, l'alerte de périmètre) ;
+8. **États et interactions** — **le drill-down** vers une liste à
+   filtres définis (D202/D242) ; le clic sur la carte ouvre le
+   formulaire de l'enregistrement (l'écho D522) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D202, D204, D242–D243, D247–D249,
+   D437–D438, D449–D450, D455, D465, D492, D533, D535, D538, D540 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+widgets:
+  card:                            # la carte de l'enregistrement (D492)
+    page:
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ field[number], field[state] ] }
+            - section: { items: [ field[total] ] }
+
+  monthly:                         # la synthèse (D202) — le pool de l'accueil (D204)
+    title: { fr: Le mois en cours }
+    page:
+      - chart[monthly_revenue]     # le kpi (D540)
+      - chart[revenue_by_month]    # la courbe — le drill vers la liste (D202/D242)
+```
+
+## `wizard`
+
+1. **Nom et famille** — `wizard`, une surface — `gui: wizards:
+   <nom>:` ; le menu l'adresse (`[@wizard]` — D439) ; la première
+   déclarée = le défaut (D438) ; **séparé de `tabs`**
+   (D552 — « je valide la séparation ») : deux objets, une parenté
+   visuelle assumée — le vocabulaire du parcours (steps/step) tout
+   entier chez lui ;
+2. **Rôle** — **le parcours guidé : « mono-utilisateur, une
+   session »** (D230) — les étapes s'enchaînent, la transaction
+   conclut ; **la démarche au sens large** (D546) : créer un
+   enregistrement, modifier ou supprimer **un ensemble répondant à
+   une liste**, imprimer (les menus : la semaine → la liste → la
+   diffusion), mettre à jour une tournée — le wizard orchestre les
+   opérations de l'entité (les quatre de base `create`/`read`/
+   `update`/`delete`, enrichies — D546) ;
+3. **Types servis** — l'entité — l'enregistrement en construction,
+   dans son agrégat (D101) ;
+4. **Contexte consommé** — l'enregistrement transitoire, l'origine de
+   l'appel, l'utilisateur (D455) ; les droits (D196) ;
+5. **Propriétés** — `title:` (D449/D465) ; **`size:` optionnel** — « sans
+   valeur, ça prend l'espace disponible ; en cas d'appel depuis un
+   menu, le wizard prend tout l'écran » (D549) ; surchargeable au
+   nœud incluant quand il s'emboîte dans un formulaire (D548/D455,
+   le plus proche l'emporte D461 ; la grammaire D533) ;
+   **`breadcrumb: none | top | bottom`** — le fil d'Ariane (D549,
+   défaut `top` — les étapes visibles D504 ; `none` le masque) ; `screen:`
+   (D450/D532) ; **les étapes = des surfaces déclarées**
+   (D231) ; **les transitions conditionnelles** — « si client
+   étranger → étape TVA » (D231/D90) ; **la transaction finale**
+   (D232/D101 — rien ne s'écrit avant la conclusion, la relecture
+   D431 en clôture) ; **pas de brouillon** — « le mode draft s'efface
+   avec la possibilité de pré-exécuter une opération » (D547 ; le
+   niveau d'état déclaré D233 reste l'affaire de l'entité) ;
+6. **Items** — **un `header` et un `footer` optionnels** (D548 —
+   l'écho de `pages` D507 : toujours visibles autour des steps) ;
+   **les étapes : `steps:`/`step:`** (D546, le couple acté ; la
+   séparation D552 — le step n'est plus un tab) : chaque étape porte sa poignée (`title:`/`icon:` —
+   le chemin D505), ses items (les sections, les feuilles — la page
+   d'un formulaire — **et les graphiques : `chart[<nom>]`, kpi,
+   pivot, « l'aide à la décision »**, D550), sa condition (*en proposition :* **`if:`** — la
+   transition conditionnelle D231/D90, l'étape sautée si la condition
+   ne tient pas), et **son opération** — « un step peut contenir une
+   opération sur la validation » (D546 — *en proposition :*
+   `operation: <nom>`) : **pré-exécutée au passage** (D547 — le
+   chiffrage D511), **la transformation n'ayant lieu qu'à la
+   validation définitive du wizard** ;
+7. **Modes et déclinaisons** — **le stepper** : toutes les étapes
+   visibles, **l'avance au rythme de l'exploration**, « le chemin de
+   traitement » navigable — le retour libre d'un clic (D505 —
+   désormais l'affaire du wizard seul ; la parenté visuelle avec les
+   onglets assumée, D552) ; **le passage d'étape =
+   un acte** (D511) ; emboîtable — « rien n'empêche un formulaire
+   qui inclut un wizard dans une page » (D455) ; le circuit de
+   validation multi-acteurs reste **hors wizard** — le patron
+   d'assemblage états + opérations + notifications, sans moteur BPM
+   (D233) ;
+8. **États et interactions** — **l'état transitoire** jusqu'à la
+   transaction finale (D232/D101) — **la chaîne de pré-exécutions**
+   (D547) : rien ne se transforme avant la validation définitive ;
+   **la confirmation validée barre le retour** — le chemin navigable
+   (D505) s'arrête au dernier step confirmé (le cliquet) ;
+   l'interruption emporte le transitoire (D547 — le draft effacé) ;
+9. **Décisions fondatrices** — D90, D101, D196, D230–D233, D431,
+   D438–D439, D449–D450, D455, D465, D505, D507, D511, D525,
+   D532–D533, D535, D540, D546–D550, D552 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+wizards:
+  new_order:                       # le menu : sales.order[@new_order] (D439)
+    title: { fr: Nouvelle commande }
+    steps:
+      - step:
+          title: { fr: Client }
+          items: [ field[customer] ]
+      - step:
+          title: { fr: TVA }
+          if: customer.country != "FR"   # la transition conditionnelle (D231/D90)
+          items: [ field[vat_number] ]
+      - step:
+          title: { fr: Lignes }
+          items: [ field[lines] ]
+    validate: true                 # la relecture, puis la transaction finale (D232/D431)
+
+# catering/entities/menu.yml — l'impression guidée (D546)
+wizards:
+  print_week:
+    steps:
+      - step: { title: { fr: Semaine }, items: [ field[week] ] }
+      - step: { title: { fr: Menus },   items: [ field[menus] ] }
+      - step:
+          title: { fr: Diffusion }
+          items: [ field[channel] ]
+          operation: print_menus   # l'opération à la validation du step (D546)
+```
+
+## `dashboard`
+
+1. **Nom et famille** — `dashboard`, une surface — **au module** :
+   `module.yml`, bloc gui (*l'écriture `dashboards:` en
+   proposition*) ; le menu l'adresse — `module[dashboard]` (D439) ;
+   la première déclarée = le défaut (D438) ;
+2. **Rôle** — le tableau de bord : **la vue d'ensemble du module** —
+   les widgets et les graphiques de ses entités, assemblés ;
+3. **Types servis** — le module — ses entités au travers de leurs
+   widgets et charts (chacun sous sa confidentialité — D247) ;
+4. **Contexte consommé** — l'utilisateur (ses droits, sa
+   confidentialité — chaque widget filtre de lui-même), le module ;
+5. **Propriétés** — `title:` (D449/D465) ; `size:` (la pile D535 —
+   tout l'écran depuis le menu, l'esprit D549) ; `screen:`
+   (D450/D532) ; **le rafraîchissement** — les trois modes de D249
+   (*l'écriture en proposition :* `refresh: static | live |
+   every[5min]` — les durées D434/D476 ; surchargeable au widget, la
+   cascade D461) ;
+6. **Items** — **le squelette** (D555) : **les widgets contraints**
+   (*en proposition :* `widget[<entité>.<nom>]` — la famille des
+   adresses, `widget[order.monthly]` — fixés, non retirables) et
+   **les emplacements libres** — l'item **`_`** (D556, acté — « free
+   pouvant être lui-même un nom de widget », la collision évitée),
+   répétable : **l'icône du choix** y apparaît, l'utilisateur pioche
+   parmi les widgets disponibles — son catalogue propre (le pool
+   D247) ou la libération d'un autre emplacement (D556) ; les graphiques
+   directs (`chart[<nom>]` — D243/D540) ; les `sections` et leurs
+   layouts pour la disposition (D489–D491) ;
+7. **Modes et déclinaisons** — **le même objet, deux auteurs**
+   (D554) : **le technicien déclare le panel** (les dashboards du
+   module — le menu, l'accueil pointé) ; **l'utilisateur compose le
+   sien** — la page d'accueil = un dashboard personnel, pioché dans
+   le pool des widgets de ses modules, sous sa confidentialité
+   (D204/D247/D191) — **le cas limite du squelette entièrement
+   libre** (D555) ; **la homepage pointe une liste, un dashboard ou une
+   page vide** (D558) — le dashboard suivant le module activé
+   (D557 : le changement de module change le tableau de bord) ; le responsive au repli (D203) ;
+8. **États et interactions** — **le drill-down** de chaque widget
+   (D202/D242) ; la confidentialité masque widget par widget (D247) ;
+   le rafraîchissement vit selon son mode (D249) ; **l'emplacement
+   interchangeable porte son icône** — le choix, le remplacement, la
+   libération (D556) ;
+9. **Décisions fondatrices** — D191, D202–D204, D242–D243,
+   D247–D249, D434, D438–D439, D449–D450, D455, D461, D465, D532,
+   D535, D540, D554–D558 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/module.yml, bloc gui — le tableau de bord du module (D439)
+dashboards:
+  main:                            # le menu : sales[main] (D439)
+    title: { fr: Pilotage des ventes }
+    refresh: every[5min]           # static | live | every[…] (D249/D434)
+    page:
+      - sections:
+          layout: column[2]
+          items:
+            - section: { items: [ widget[order.monthly] ] }   # contraint (D555)
+            - section: { items: [ _ ] }      # l'emplacement libre — le pool (D556)
+```
+
+## `template`
+
+1. **Nom et famille** — `template`, une surface — `gui: templates:
+   <nom>:` (l'ajout de l'auteur au catalogue — D456) ; la première
+   déclarée = le défaut (D438) ;
+2. **Rôle** — **le patron du document généré** : « un formulaire en
+   lecture seule + une dimension de page » (D250) — la facture, le
+   devis, l'étiquette, le bon de livraison — **vers quatre
+   destinations : « Word, PDF, Excel ou un mail »** (D564) ;
+3. **Types servis** — l'entité — l'enregistrement dans son agrégat ;
+   **les quatre portes** : l'effet `document:` d'une opération
+   (D432), le viewer à la volée (`template[<nom>]` — D483, « le
+   fichier qui n'existe pas »), les exports de la liste
+   (`exports: [ template[…] ]` — D530), **l'impression directe du
+   serveur** (D252 — les imprimantes de l'OS, l'étiquette) ;
+4. **Contexte consommé** — l'enregistrement ; **les variables de
+   contexte = l'entité « contexte »** (D254 — la pagination,
+   l'opérateur, l'instance : des champs comme les autres) ; la
+   langue — **« la déclinaison par langue se porte sur chaque item »**
+   (D559, amende la lecture de D253) : un seul gabarit, ses items
+   déclinés (la mécanique D465) ;
+5. **Propriétés** — **le formalisme unique avec les formulaires**
+   (D250) : `title:` (le gabarit — D449), le `pages` implicite
+   (D509) ; **la dimension de page** (*en proposition :* `paper:` —
+   `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; **`margin:`**
+   — « les marges en mm » (D559) ; **`format:`** — « le format de
+   destination » (D564–D565) : `pdf` (**le défaut acté** — la lignée
+   D212/D250) `| word | excel | mail` — le mail portant le
+   publipostage (D562), l'Excel le modèle (D445) ; **« étendu à
+   d'autres formats en fonction des besoins à venir »** (D565 — la
+   ligne des hooks D408) ; les titres à
+   quatre niveaux (D250) ;
+6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
+   chaque page** (la proposition de D507 confirmée par l'usage) —,
+   les `page`(s), les sections ; **les feuilles aux pendants PDF**
+   (D257 — « un pendant PDF par type » : l'image dimensionnée au
+   bloc, le fil complet si inclus…) ; **le contenu fixe** —
+   `paragraph`/`picture` (D488 — **le rendez-vous Q55 : les fiches à
+   étoffer ici**) ; `qrcode`/`barcode` (D542–D545 — l'étiquette) ;
+   les graphiques en image (D257) ;
+7. **Modes et déclinaisons** — le PDF d'abord (D212) ; jamais
+   d'interaction — le papier n'agit pas (l'écho D511) ; le viewer le
+   feuillette à l'écran (D481/D483) ;
+8. **États et interactions** — la lecture seule par nature (D250) ;
+   la confidentialité s'applique au rendu (les champs masqués
+   n'apparaissent pas) ;
+9. **Décisions fondatrices** — D212, D250–D254, D257, D432, D438,
+   D445, D449, D481, D483, D488, D507, D509, D530, D542–D545, D559,
+   D562, D564 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui — le fil de la passe
+templates:
+  invoice:                         # document: invoice (D432) — template[invoice] (D483)
+    title: "Facture {number}"
+    paper: A4                      # la dimension de page (D250 — proposition)
+    margin: 15mm                   # les marges (D559)
+    header:
+      height: 40mm
+      items:
+        - picture: logo.png        # l'image fixe (D488)
+        - field[number]: { component: qrcode, size: 25mm }   # (D543)
+    page:
+      - field[customer]
+      - field[lines]               # la composition — le tableau
+      - paragraph: { label: legal }   # le texte fixe du dictionnaire (D440/D488)
+    footer:
+      height: 15mm
+      items: [ field[total] ]      # répété à chaque page (D507)
+
+  label:                           # l'étiquette (D252)
+    paper: 105x48mm
+    page:
+      - field[sku]: { component: qrcode, size: 30mm }
+      - field[name]
 ```

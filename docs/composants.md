@@ -2116,7 +2116,9 @@ charts:
    **l'icône au bord opposé** (*la collision avec le layout des
    sections D490 notée — les valeurs départagent, D458*) ; `drill:`
    (D242) ; **pas de comparaison dans le socle** (D245 —
-   l'évolution contre une période = un hook) ;
+   l'évolution contre une période = un hook) ; *(la note pour plus
+   tard — D541 : la tendance issue de l'historique de l'entité,
+   D411/D172 — le détail différé)* ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **« mis en valeur avec un style
    différent de la feuille »** (D527) : le chiffre en exergue, jamais

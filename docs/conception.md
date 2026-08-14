@@ -621,6 +621,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D540 | **Le chart, feuille du formulaire** : « un form peut donc avoir un composant chart comme feuille — nous le faisons entrer de fait dans summary » — `chart[<nom>]` en item du form, le résumé l'héritant (la modestie D538). | Confirme D243/D538. Voir §3.2c. |
 | D541 | **La tendance du kpi** (note pour plus tard) : « en exploitant l'historique d'une entité, nous pourrions présenter la tendance » — la valeur rejouée aux instants passés (D411/D172) ; le détail différé. | La frontière avec D245 à confirmer au moment venu. Voir §3.2c. |
 | D542 | **`qrcode` et `barcode` fichés** (répare un manque) : décidés (D252/D300 — les composants de sortie) mais absents de l'inventaire des fiches — les deux feuilles jumelles ajoutées, la fiche commune. | `barcode[ean13\|code128…]` au crochet en proposition (défaut code128) ; le scan hors D300. Voir §3.2c. |
+| D543 | **Le `size` des jumeaux** : le qrcode — « la taille unique pour les côtés » (`size: 120px`, le carré) ; le code-barres — « largeur × hauteur » (la grammaire D533). | Voir §3.2c. |
 
 ---
 
@@ -4026,6 +4027,12 @@ proposition : le format du code-barres au crochet —
 `barcode[ean13]`, `barcode[code128]` — le défaut `code128` ; la
 saisie par scan reste hors D300 — les composants sont de sortie, la
 question du scan pour plus tard si besoin.)*
+
+**Le `size` des jumeaux (D543).** **« Pour le qrcode, `size` fournit
+la taille unique pour les côtés : `size: 120px` — un qrcode de 120 px
+de côté. Pour le code-barres, `size` fournit une taille en largeur ×
+hauteur. »** Le carré par nature (une seule valeur — jamais deux), le
+rectangle à la grammaire pleine (D533).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11132,3 +11139,6 @@ avant la synthèse Q16).
   la question de l'auteur relève le manque — décidés (D252/D300)
   mais jamais fichés ; la fiche commune écrite, l'inventaire et la
   synthèse complétés ; le format au crochet en proposition.
+- **2026-08-14 (suite 50)** — **Le size des jumeaux (D543)** : le
+  qrcode au carré (une valeur unique — le côté), le code-barres en
+  largeur × hauteur (D533). La fiche complétée.

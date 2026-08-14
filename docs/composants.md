@@ -2686,9 +2686,9 @@ wizards:
    sien** — la page d'accueil = un dashboard personnel, pioché dans
    le pool des widgets de ses modules, sous sa confidentialité
    (D204/D247/D191) — **le cas limite du squelette entièrement
-   libre** (D555) ; **« une page d'accueil fait référence à un
-   dashboard selon le module activé »** (D557) — le changement de
-   module change le tableau de bord ; le responsive au repli (D203) ;
+   libre** (D555) ; **la homepage pointe une liste, un dashboard ou une
+   page vide** (D558) — le dashboard suivant le module activé
+   (D557 : le changement de module change le tableau de bord) ; le responsive au repli (D203) ;
 8. **États et interactions** — **le drill-down** de chaque widget
    (D202/D242) ; la confidentialité masque widget par widget (D247) ;
    le rafraîchissement vit selon son mode (D249) ; **l'emplacement
@@ -2696,7 +2696,7 @@ wizards:
    libération (D556) ;
 9. **Décisions fondatrices** — D191, D202–D204, D242–D243,
    D247–D249, D434, D438–D439, D449–D450, D455, D461, D465, D532,
-   D535, D540, D554–D557 ;
+   D535, D540, D554–D558 ;
 10. **Exemple de configuration** —
 
 ```yaml

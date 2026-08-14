@@ -636,6 +636,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D555 | **Le squelette de dashboard** (précise D554) : « le technicien décrit un ou plusieurs squelettes — avec des widgets contraints et des widgets libres » ; l'accueil composé = le squelette entièrement libre. | L'item `free` (répétable) en proposition. Voir §3.2c. |
 | D556 | **L'emplacement `_` et l'icône du choix** (amende D555) : « un widget interchangeable doit faire apparaître un icône qui permette de choisir un widget disponible selon son propre catalogue ou par sa libération » ; « "_" me parle plus que "free" — free pouvant être lui-même un nom de widget ». | L'item `_` acté ; la collision évitée par construction. Voir §3.2c. |
 | D557 | **L'accueil au module actif** : « une page d'accueil fait référence à un dashboard selon le module activé » — le module actif fournit son tableau de bord. | Complète D554–D556. Voir §3.2c. |
+| D558 | **La homepage aux trois pointes** (amende D557) : « la limiter à un dashboard m'embête — la homepage doit pouvoir pointer une liste, un dashboard ou une page vide ». | La lettre de D204 retrouvée ; la composition aux emplacements `_` (D555–D556). Voir §3.2c. |
 
 ---
 
@@ -4198,6 +4199,14 @@ référence à un dashboard selon le module activé. »** L'accueil n'est
 pas un tableau figé : **le module actif fournit son dashboard** — en
 changeant de module, l'utilisateur change de tableau de bord (le
 squelette du technicien, ses emplacements `_` composés — D554–D556).
+
+**La homepage aux trois pointes (D558 — amende D557).** **« J'hésite
+sur la homepage : la limiter à un dashboard m'embête. La homepage
+doit pouvoir pointer une liste, un dashboard ou une page vide. »**
+L'accueil pointe : **une liste** (l'entrée du menu — la lettre de
+D204 retrouvée), **un dashboard** (celui du module activé — D557), ou
+**la page vide** (D191). La composition personnelle vit désormais aux
+emplacements `_` des squelettes (D555–D556).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11389,3 +11398,7 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 68)** — **L'accueil au module actif (D557)** :
   « une page d'accueil fait référence à un dashboard selon le module
   activé » — le changement de module change le tableau de bord.
+- **2026-08-14 (suite 69)** — **La homepage aux trois pointes
+  (D558)** : « la limiter à un dashboard m'embête » — la liste, le
+  dashboard (du module actif — D557) ou la page vide ; la lettre de
+  D204 retrouvée.

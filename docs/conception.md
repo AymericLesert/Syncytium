@@ -602,6 +602,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D521 | **Le graphique, le tableau, ou les deux** (au socle des charts) : « les charts doivent se présenter soit en graphique, soit sous forme d'un tableau — pour avoir une vue sur les différentes valeurs directement — ou les deux ». | L'écho des tableaux de valeurs D244 ; `display: graph \| table \| both` en proposition (défaut graph). Voir §3.2c. |
 | D522 | **Le nuage de points** : un point par enregistrement (le visage D386) ; « les axes se déclinent via des seuils qui ne se chevauchent pas » — la concentration/dispersion, **et la catégorisation** : « un MoSCoW en s'appuyant sur 2 critères, les gains/bénéfices de l'effort ». | `thresholds:` à l'axe riche + `zones:` (title/color, les bornes D366) en proposition ; le clic sur une zone → la liste. Voir §3.2c. |
 | D523 | **La matrice adressée** (simplifie D522) : « l'axe définit min, max et threshold ; les zones définissent les positions dans la matrice créée — plutôt que x et y, `zone: [1,1]` » — plus aucune borne répétée. | Convention `[colonne, ligne]` depuis l'origine (bas-gauche) en proposition. Voir §3.2c. |
+| D524 | **L'orientation du combiné** : « axis: left \| right, ou bottom \| up, pour une représentation en ligne contre une représentation en colonne » — la paire d'axes dit l'orientation, homogène par construction. | La virgule « up »/« top » (D504) signalée. Voir §3.2c. |
 
 ---
 
@@ -3810,6 +3811,16 @@ définissent les positions dans la matrice créée — plutôt que x et y,
 fois ; la zone s'y **adresse** par sa position — plus aucune borne
 répétée. *(La convention en proposition : `[colonne, ligne]` depuis
 l'origine des axes — `[1,1]` en bas à gauche.)*
+
+**L'orientation du combiné (D524).** **« `axis: left | right`, ou
+`bottom | up`, pour une représentation en ligne contre une
+représentation en colonne. »** Le combiné s'oriente par la paire
+d'axes : **à gauche/droite** — les valeurs debout, la représentation
+en colonne (le défaut) ; **en bas/haut** — les valeurs couchées, la
+représentation en ligne. La paire est homogène par construction (les
+deux séries du même régime). *(La virgule de vocabulaire signalée :
+« up » ici, « top » chez les tabs (D504) — l'harmonisation à
+trancher.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10795,3 +10806,6 @@ avant la synthèse Q16).
   Suivante : `chart.combo` — le combiné (D239 : courbe+barres ou 2
   courbes, 2 axes Y max) ; en proposition : y: en liste de séries
   { value:, as: line|bars, axis: left|right }.
+- **2026-08-14 (suite 23)** — **L'orientation du combiné (D524)** :
+  axis: left|right ou bottom|up — la représentation en colonne ou en
+  ligne, la paire homogène ; la virgule up/top (D504) signalée.

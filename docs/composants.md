@@ -1099,8 +1099,12 @@ gui:
    de coordonnées** (`list of geolocation`, l'association aux
    coordonnées) — « le composant doit pouvoir s'adapter » (D513) :
    les marqueurs multiples sur une même carte, **les lignes possibles
-   ou pas** (le tracé dans l'ordre de la collection — *en
-   proposition : `lines: true | false`, défaut `false`*) ;
+   ou pas** (D513–D514 : « les lieux de commandes pour un produit » —
+   sans relier ; « le parcours d'un commercial » — relié **au trait
+   droit** ; *en proposition : `lines: true | false`, défaut
+   `false`*) ; **le tracé de la route = un hook** (« les abonnements
+   aux outils annexes » — le patron du géocodage D294, OSRM/Valhalla
+   en candidats open source, Q7) ;
 4. **Contexte consommé** — la valeur (coordonnées et texte associé —
    D392), **le fond de carte déclaré à l'instance** (D259/D294), la
    focale (`focus:` au champ ou hérité du setting — D391), **la
@@ -1125,7 +1129,7 @@ gui:
    l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
    le zoom et le déplacement au geste ;
 9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
-   D391–D392, D484, D513 ;
+   D391–D392, D484, D513–D514 ;
 10. **Exemple de configuration** —
 
 ```yaml

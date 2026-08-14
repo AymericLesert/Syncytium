@@ -592,6 +592,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D511 | **L'acte et les deux modes** : « operation[<nom>] pour être en phase avec les fields » ; « une opération doit avoir 2 modes — la pré-exécution identifie les modifications à apporter (les factures à créer ; l'import : ajoutées/modifiées/non modifiées/supprimées) » ; le message de confirmation au gabarit nourri de la pré-exécution. | Généralise D234 et l'exécution à blanc ; `validate: { message: }` en proposition (étend D431). Voir §3.2c. |
 | D512 | **La famille `chart.*`** actée (l'écho des pickers, la note D470) : `chart.line`, `chart.bars`, `chart.pie`, `chart.combo` — et « j'ajouterais également **le nuage de points** » : `chart.scatter` ; `kpi` et `pivot` à part, la jauge restant la feuille `gauge`. | Le hook étend (`chart.radar`…) — D239. Voir §3.2c. |
 | D513 | **La carte des collections** : « le composant doit pouvoir s'adapter pour une coordonnée ou une liste de coordonnées dont des lignes sont possibles ou pas » — les marqueurs multiples, le tracé dans l'ordre de la collection. | Rien n'était consigné (vérifié) ; `lines: true \| false` en proposition (défaut false). Voir §3.2c. |
+| D514 | **La frontière de la route** (complète D513) : les lieux d'un produit (sans relier) / le parcours d'un commercial (relié) ; le socle relie au trait droit — **« le tracé de la route, je préfère le laisser aux hooks »** (les abonnements aux outils annexes). | Le patron du géocodage D294 — candidats open source auto-hébergeables : OSRM, Valhalla (Q7). Voir §3.2c. |
 
 ---
 
@@ -3687,6 +3688,19 @@ coordonnées** (`list of geolocation`, l'association aux coordonnées) =
 le tracé reliant les points dans l'ordre de la collection (l'itinéraire,
 la tournée) — **possibles ou pas**. *(L'écriture en proposition :
 `lines: true | false` — défaut `false`, les marqueurs seuls.)*
+
+**Les deux usages et la frontière de la route (D514 — complète
+D513).** Les usages posés : **« présenter tous les lieux de commandes
+pour un produit (pas besoin de relier les points), ou représenter le
+parcours d'un commercial (relier les points entre eux) »**. Et la
+frontière : **« nous pourrions également prévoir le tracé de la route,
+mais cela nécessite de prendre des abonnements à des outils annexes —
+je préfère le laisser aux hooks. »** Le socle relie **au trait droit**
+(à vol d'oiseau — l'écho D391) sans aucune dépendance ; **le tracé de
+la route = un hook/connecteur** — le patron exact du géocodage
+(D294) : les services payants existent (Google, Mapbox), et des
+candidats open source auto-hébergeables aussi (**OSRM**, **Valhalla**
+— sur les données OpenStreetMap) ; le choix à re-vérifier en Q7.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10615,3 +10629,8 @@ avant la synthèse Q16).
   une coordonnée ou une liste de coordonnées, les lignes possibles ou
   pas (rien n'était consigné — la fiche map complétée ; lines: en
   proposition). Première fiche à venir : chart.line.
+- **2026-08-14 (suite 10)** — **La frontière de la route (D514)** :
+  les deux usages (les lieux sans relier, le parcours relié) ; le
+  socle au trait droit, « le tracé de la route aux hooks » — le
+  patron du géocodage (D294), OSRM/Valhalla en candidats
+  auto-hébergeables (Q7).

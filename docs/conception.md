@@ -10692,3 +10692,7 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 14)** — **Le défaut de l'assise (D518)** : « si
   on: est absent, l'assise porte sur l'entité elle-même » — l'entité
   porteuse de la déclaration.
+- **2026-08-14 (suite 15)** — **La fiche `chart.line` validée**
+  (« oui »). Suivante : `chart.bars` — le socle commun hérité
+  (D515–D518), les écarts propres en proposition (mode:
+  vertical|horizontal au crochet D478, stacked: pour l'empilement).

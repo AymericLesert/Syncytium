@@ -1889,3 +1889,49 @@ charts:
     colors: { serie: blue }      # la mécanique D467 — le dégradé possible
     labels: true                 # la valeur au format du champ (D516)
 ```
+
+## `chart.bars`
+
+1. **Nom et famille** — `chart.bars`, un graphique de la famille
+   pointée (D512) — les barres ;
+2. **Rôle** — la comparaison des quantités par catégorie : la barre
+   qui mesure ;
+3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
+   `on:`), les axes aux champs — le découpage **par valeurs** y est
+   roi (les catégories — D240), les plages et la temporalité
+   possibles ;
+4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
+   héritée surchargeable (D247), les droits ;
+5. **Propriétés** — **le socle commun** (D515–D518) : `on:`, `x:`,
+   `y:` (la forme riche — et la liste : plusieurs séries), `filter:`,
+   `drill:`, `colors:`, `labels:`, `title:` ; **les écarts propres**
+   (*en proposition*) : **`mode: vertical | horizontal`** (défaut
+   vertical — le crochet en raccourci : `chart.bars[horizontal]`,
+   D478) ; **`stacked:`** — les séries empilées (`true`), côte à côte
+   sinon (défaut) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable : le widget, le
+   formulaire, le tableau de bord (D243/D249) ; **template** :
+   l'image (D257) ; tactile : la barre touchée montre sa valeur ;
+8. **États et interactions** — le drill-down au clic (D242) ; le clic
+   sur une barre : les valeurs du calcul (D516) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
+   D515–D518 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  revenue_by_seller:
+    component: chart.bars[horizontal]   # ≡ mode: horizontal (D478)
+    x: seller                    # le découpage par valeurs (D240)
+    y: [ sum(total), sum(margin) ]      # deux séries côte à côte
+    labels: true
+
+  stock_by_site:
+    component: chart.bars
+    stacked: true                # les séries empilées (proposition)
+    x: site
+    y: [ sum(reserved), sum(available) ]
+```

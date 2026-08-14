@@ -10818,3 +10818,7 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 24)** — **top harmonisé (D525)** : « j'harmonise
   en effet avec top » — axis: bottom|top, les bords nommés d'un seul
   vocabulaire (D504).
+- **2026-08-14 (suite 25)** — **La fiche `chart.combo` validée** (« je
+  valide chart.combo »). Suivante : `kpi` — le chiffre-clé (value:
+  sans axe, colors: par seuils D467, drill D242, pas de comparaison
+  au socle D245 — le hook).

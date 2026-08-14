@@ -2087,3 +2087,43 @@ charts:
       - { value: count(),    as: line, axis: right }   # le volume en courbe
     labels: true
 ```
+
+## `kpi`
+
+1. **Nom et famille** — `kpi`, un graphique (D512 — à côté de la
+   famille pointée) — le chiffre-clé ;
+2. **Rôle** — un agrégat en grand : l'indicateur d'un regard ;
+3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
+   `on:`) ; **la valeur = un agrégat (D158) — aucun axe** ;
+4. **Contexte consommé** — le socle des graphiques : la
+   confidentialité héritée surchargeable (D247), les droits ;
+5. **Propriétés** — `on:` (D517–D518), **`value:`** — l'agrégat
+   (*l'écho de `y:`, sans axe — en proposition*), `filter:` (D90),
+   `title:` (D493), `labels:` — le gabarit du format (D516,
+   `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
+   couleur (la mécanique D467, la table d'entité D495 comprise) ;
+   `drill:` (D242) ; **pas de comparaison dans le socle** (D245 —
+   l'évolution contre une période = un hook) ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **le widget roi** (l'entité → le
+   module fonctionnel — D247), le tableau de bord (le
+   rafraîchissement D249), le formulaire possible (D243) ;
+   **template** : la valeur au format ;
+8. **États et interactions** — le clic : le drill-down (D242) ou les
+   valeurs du calcul (D516) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D158, D242–D243, D245, D247–D249,
+   D467, D495, D512, D515–D518 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui
+charts:
+  monthly_revenue:
+    component: kpi
+    value: sum(total)            # l'agrégat (D158) — aucun axe
+    filter: date in current_month
+    title: { fr: CA du mois }
+    labels: { fr: "{value} € HT" }
+    colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
+    drill: invoiced              # le clic : la liste (D242)
+```

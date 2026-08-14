@@ -10890,3 +10890,10 @@ avant la synthèse Q16).
   complet (les feuilles, les conteneurs, les actes, les graphiques) ;
   **ne restent que les surfaces — la passe réservée : la construction
   des surfaces pour une entité.**
+- **2026-08-14 (suite 32)** — **La passe des surfaces ouverte** : la
+  méthode validée (« la méthode me convient, entrons par la liste ») —
+  le fil conducteur sales.order, les surfaces dans l'ordre d'usage
+  (liste → formulaire → résumé → widgets → wizard → templates →
+  dashboard), la fiche + l'exemple + la validation à chaque étape. La
+  fiche de la liste-surface écrite (le visage déclaré du composant
+  unique D486).

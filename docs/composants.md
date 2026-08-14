@@ -2194,3 +2194,79 @@ charts:
     filter: state = "invoiced"
     title: { fr: CA par commercial et par mois }
 ```
+
+# Les surfaces
+
+*Le fil conducteur de la passe : `sales.order` — les surfaces
+construites dans l'ordre d'usage (la liste, le formulaire, le résumé,
+les widgets, le wizard, les templates, le dashboard du module).*
+
+## `list` (la surface)
+
+1. **Nom et famille** — `list`, une surface — **le même composant que
+   la feuille** (D486 : « un seul list ») ; ici son visage déclaré :
+   `gui: lists: <nom>:` — **la première déclarée est la surface par
+   défaut** (D438), le menu l'adresse (`sales.order[pending]` —
+   D439) ;
+2. **Rôle** — **la porte d'entrée de l'entité** : les enregistrements
+   en tableau ou en widgets, la recherche, le tri, les opérations ;
+3. **Types servis** — l'entité (ses champs en colonnes) ; **les deux
+   visages exclusifs** (D492) : le tableau (`columns:`) ou la liste
+   de widgets (`widget:`) ;
+4. **Contexte consommé** — la confidentialité (les colonnes non
+   visibles et non triables), les droits d'action (D196), le module ;
+5. **Propriétés** — **`columns:`** — l'ordre d'affichage, les noms
+   nus (le champ l'emporte sur l'opération homonyme — D462) ; par
+   colonne : le style, l'alignement, la dimension (D442 — **le type
+   prime le format** : l'amount à droite avec devise, le toggle
+   centré, le multi-lignes justifié — D443/D448), la colonne fantôme
+   (`visible: false`), le fond gradué (`background:` — D466), les
+   couleurs (`colors:` — D467), l'aperçu du fil (`preview:` — D393) ;
+   **`widget:`** (D492) ; `filter:` (l'expression D90) ; `sort:` (par
+   colonne, à cascades, les signes — D441) ; `searchable:` (les
+   champs ou les noms mutualisés — défaut : tous) ; `editable:`
+   (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
+   (D445–D446) ; `sizable: none | auto | manual | auto+manual`
+   (D447) ; **l'export** CSV (un fichier par type de composant) /
+   Excel (un onglet par type, le modèle, le tri d'export — D445) ;
+   `title:` (D493) ;
+6. **Items** — aucun : la surface se déclare par ses propriétés ;
+7. **Modes et déclinaisons** — le tableau ou les widgets (D492) ; **le
+   filtrage vivant** — la liste s'auto-rafraîchit sans bouton
+   (D226–D229/D444) ; **la pagination au curseur opaque** avec les
+   indicateurs de position ; l'embarquée d'une composition ou d'une
+   association (D486) ; le responsive au repli (Q48) ;
+8. **États et interactions** — **la création : le bouton compris dans
+   le cadre** ; **la modification au double-clic** ; la lecture seule
+   → la consultation ; **la suppression** : une ligne = le formulaire
+   en lecture seule + la confirmation, plusieurs = le décompte
+   confirmé (D446) ; **l'opération de masse** sur les lignes
+   sélectionnées (D446) ; les opérations en colonne à trois états
+   (D444) ;
+9. **Décisions fondatrices** — D226–D229, D437–D448, D462, D466–D467,
+   D486, D492–D493 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/entities/order.yml, bloc gui (D437)
+lists:
+  pending:                        # la première déclarée = le défaut (D438)
+    title: { fr: Commandes en cours }
+    columns:
+      - number
+      - customer
+      - total: { background: progress }   # le fond gradué (D466)
+      - discussion: { preview: 3 }        # le fil au survol (D393)
+      - invoice                    # l'opération — l'icône à 3 états (D444/D462)
+    filter: state in [draft, confirmed]
+    sort: { date: -, number: + }   # les cascades (D441)
+    editable: [notes]              # le reste readonly (D441)
+    selection: 1..                 # la multi-sélection (D446)
+    sizable: auto+manual           # (D447)
+
+  cards:                           # le second visage (D492)
+    widget: card                   # chaque enregistrement rendu par son widget
+    filter: state in [draft, confirmed]
+
+# et le menu l'adresse (D439) : sales.order[pending]
+```

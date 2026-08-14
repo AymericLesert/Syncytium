@@ -1994,3 +1994,50 @@ charts:
     x: party
     y: count()
 ```
+
+## `chart.scatter`
+
+1. **Nom et famille** — `chart.scatter`, un graphique de la famille
+   pointée — le nuage de points, l'ajout de l'auteur (D512) ;
+2. **Rôle** — **« représenter une concentration ou une dispersion
+   d'une certaine valeur »** — et **« aider à catégoriser des
+   éléments »** (D522) : la matrice de décision ;
+3. **Types servis** — l'assise (D517–D518) ; **le grain diffère** :
+   un point par **enregistrement** — `x:` et `y:` deux champs
+   numériques **nus** (sans agrégat), là où courbe et barres
+   agrègent (D522) ;
+4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
+   D247, les droits) ; **le visage de l'enregistrement** (D386) ;
+5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
+   compris) ; **les écarts propres** (D522, *écritures en
+   proposition*) : **`thresholds:`** dans la forme riche de l'axe —
+   la liste croissante de seuils, « qui ne se chevauchent pas » par
+   construction — les bandes ; **`zones:`** — la zone au croisement
+   des bandes (`x: 0..50` aux bornes D366, `title:` D493, `color:`
+   D496) : le MoSCoW à deux critères, l'effort/bénéfice ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
+   l'image (D257) ; **le survol** : le visage de l'enregistrement
+   (D386) ; le tableau des valeurs (`display:` — D521) ;
+8. **États et interactions** — **le clic sur un point : le
+   formulaire de l'enregistrement** ; **le clic sur une zone : la
+   liste de ses éléments** (l'écho D519) ; la confidentialité
+   masque ;
+9. **Décisions fondatrices** — D239–D243, D247–D249, D386, D512,
+   D515–D518, D521–D522 ;
+10. **Exemple de configuration** —
+
+```yaml
+# projects/entities/action.yml, bloc gui — la matrice effort/bénéfice (D522)
+charts:
+  priorities:
+    component: chart.scatter
+    x: { value: effort,  min: 0, max: 100, thresholds: [50] }
+    y: { value: benefit, min: 0, max: 100, thresholds: [50] }
+    zones:
+      - { x: 0..50,   y: 50..100, title: { fr: Gains rapides }, color: green }
+      - { x: 50..100, y: 50..100, title: { fr: Grands projets }, color: orange }
+      - { x: 0..50,   y: 0..50,   title: { fr: Tâches de fond }, color: gray }
+      - { x: 50..100, y: 0..50,   title: { fr: À éviter },      color: red }
+    labels: true                  # le visage au survol (D386)
+```

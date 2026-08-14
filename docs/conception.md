@@ -600,6 +600,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D519 | **Les secteurs arbitrés** : `mode: pie \| donut \| quarter` ; les variables du gabarit `{value}`/`{percent}`/`{total}` (« {percent} % ({value} / {total}) ») ; le clic sur une part → la liste de ses éléments ; « autres » acté — **son drill affiche une barre de répartition** pour préciser la valeur à filtrer. | Le drill à deux étages. Voir §3.2c. |
 | D520 | **L'épaisseur et les angles** (complète D519) : « sur donut, l'épaisseur ; sur quarter, l'angle de départ, de fin et l'épaisseur — représenter l'assemblée nationale de la gauche vers la droite ». | `thickness:` et les angles aux bornes (`quarter[-90..90]`) en proposition ; l'hémicycle fondateur. Voir §3.2c. |
 | D521 | **Le graphique, le tableau, ou les deux** (au socle des charts) : « les charts doivent se présenter soit en graphique, soit sous forme d'un tableau — pour avoir une vue sur les différentes valeurs directement — ou les deux ». | L'écho des tableaux de valeurs D244 ; `display: graph \| table \| both` en proposition (défaut graph). Voir §3.2c. |
+| D522 | **Le nuage de points** : un point par enregistrement (le visage D386) ; « les axes se déclinent via des seuils qui ne se chevauchent pas » — la concentration/dispersion, **et la catégorisation** : « un MoSCoW en s'appuyant sur 2 critères, les gains/bénéfices de l'effort ». | `thresholds:` à l'axe riche + `zones:` (title/color, les bornes D366) en proposition ; le clic sur une zone → la liste. Voir §3.2c. |
 
 ---
 
@@ -3780,6 +3781,25 @@ valeurs directement), ou les deux. »** La présentation rejoint le
 socle commun de la famille — l'écho des tableaux de valeurs (D244).
 *(L'écriture en proposition : `display: graph | table | both` —
 défaut `graph`.)*
+
+**Le nuage de points : la dispersion et la catégorisation (D522).**
+Le grain d'abord — la lecture validée par l'usage : **le nuage montre
+les enregistrements eux-mêmes** — un point par enregistrement, `x:` et
+`y:` deux champs nus (sans agrégat), le visage au survol (D386), le
+clic ouvrant le formulaire. Puis les mots de l'auteur : **« les axes
+se déclinent également via des seuils qui ne se chevauchent pas.
+L'idée est d'utiliser un nuage de points pour représenter une
+concentration ou une dispersion d'une certaine valeur. Mais cela doit
+permettre aussi d'aider à catégoriser des éléments — par exemple, la
+réalisation d'un MoSCoW (en s'appuyant sur 2 critères), ou alors sur
+les gains/bénéfices de l'effort d'une action ou d'un ensemble
+d'actions… »** Les seuils découpent les axes en bandes, **les
+croisements font les zones** — la matrice de décision (MoSCoW,
+effort/bénéfice). *(Les écritures en proposition : `thresholds:` dans
+la forme riche de l'axe — la liste croissante, non chevauchante par
+construction ; **`zones:`** — la zone au croisement des bandes,
+`x: 0..50` aux bornes D366, `title:` et `color:` ; le clic sur une
+zone → la liste de ses éléments, l'écho D519.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10751,3 +10771,8 @@ avant la synthèse Q16).
   charts doivent se présenter soit en graphique, soit sous forme d'un
   tableau, ou les deux » (l'écho D244) ; display: graph|table|both en
   proposition. Suivante : chart.scatter.
+- **2026-08-14 (suite 20)** — **Le nuage de points (D522)** : le
+  grain (un point par enregistrement, le visage D386) ; les seuils
+  d'axe non chevauchants, les zones aux croisements — la
+  catégorisation (MoSCoW, effort/bénéfice) ; thresholds:/zones: en
+  proposition. La fiche chart.scatter écrite.

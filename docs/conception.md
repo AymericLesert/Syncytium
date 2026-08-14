@@ -611,6 +611,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D530 | **Les appels du geste et les exports** : « add, update or delete pour préciser le formulaire/widget à appeler » (les défauts : le formulaire par défaut D438, les gestes D446) ; « exports: permet de préciser les différents exports ou générations de documents ». | `exports: [ csv, excel[modèle], template[gabarit] ]` en proposition. Voir §3.2c. |
 | D531 | **Les actions et l'anatomie de la liste** : `actions:` (l'opération porte son icône, surchargeable) ; « une liste est comme pages » — le header (titre, colonnes, filtres, l'icône-menu des exports, les icônes add/update/delete + actions à icône), la zone page (le tableau), le footer (le sous-total ou un gabarit, les boutons des actions sans icône). | L'icône trie : header ; sans icône : bouton du pied. `{count}` au gabarit en proposition. Voir §3.2c. |
 | D532 | **`size:` et `screen:` sur la liste** : « comme la form — size pour marquer la zone de couverture de l'écran, screen pour indiquer sur quel support la liste a été définie et/ou autorisée à s'afficher ». | La cohérence D484/D503 et D450. Voir §3.2c. |
+| D533 | **La grammaire de `size:`** : « 75% → 75 % de l'écran avec centrage ; 90% 50% → la longueur et la hauteur ; ou 1000px 320px en pixels » — une valeur centrée, deux valeurs largeur puis hauteur, % ou px. | Vaut partout où size s'écrit (D484). Voir §3.2c. |
 
 ---
 
@@ -3915,6 +3916,14 @@ support la liste a été définie et/ou autorisée à s'afficher. »** La
 cohérence s'étend : `size` = la couverture à l'affichage (D484/D503),
 `screen` = le support de conception **et** l'autorisation (D450 — le
 tableau `[pc paysage]` en défaut).
+
+**La grammaire de `size:` (D533).** **« `size: 75%` → 75 % de l'écran
+avec centrage ; `size: 90% 50%` → 90 % de la longueur de l'écran et
+50 % de la hauteur ; ou `1000px 320px` pour un dimensionnement en
+pixels. »** Une valeur = la part de l'écran, **centrée** ; deux
+valeurs = **la largeur puis la hauteur** ; l'unité : `%` ou `px`. La
+grammaire vaut **partout où `size` s'écrit** (D484 — la carte, les
+sections, le kpi, la liste…).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -10958,3 +10967,6 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 35)** — **size et screen sur la liste (D532)** :
   la couverture de l'écran (D484/D503) et le support de conception
   et/ou d'autorisation (D450). La fiche complétée.
+- **2026-08-14 (suite 36)** — **La grammaire de size (D533)** : une
+  valeur = la part de l'écran centrée ; deux valeurs = largeur puis
+  hauteur ; % ou px — partout où size s'écrit (D484).

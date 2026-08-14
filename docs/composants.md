@@ -2238,7 +2238,9 @@ les widgets, le wizard, les templates, le dashboard du module).*
    **`actions:`** — la liste d'opérations (D531) : **l'opération
    porte son icône à la déclaration, la liste la surcharge** au
    besoin ; **`size:`** — « la zone de couverture de l'écran »
-   (D532 — la cohérence D484/D503) ; **`screen:`** — « le support sur
+   (D532) ; **la grammaire** (D533, vaut partout — D484) :
+   `size: 75%` — la part de l'écran, **centrée** ; `size: 90% 50%` —
+   la largeur puis la hauteur ; `size: 1000px 320px` — les pixels ; **`screen:`** — « le support sur
    lequel la liste a été définie et/ou autorisée à s'afficher »
    (D532/D450 — `[pc paysage]` en défaut) ; `title:` (D493) ;
 6. **Items** — aucun à déclarer : **l'anatomie est celle d'un
@@ -2265,7 +2267,7 @@ les widgets, le wizard, les templates, le dashboard du module).*
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
 9. **Décisions fondatrices** — D226–D229, D437–D448, D450, D462,
-   D466–D467, D484, D486, D492–D493, D530–D532 ;
+   D466–D467, D484, D486, D492–D493, D530–D533 ;
 10. **Exemple de configuration** —
 
 ```yaml

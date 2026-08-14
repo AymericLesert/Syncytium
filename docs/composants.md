@@ -1815,3 +1815,51 @@ gui:
     main:
       columns: [number, customer, invoice]   # l'icône à trois états (D444/D462)
 ```
+
+# Les graphiques
+
+## `chart.line`
+
+1. **Nom et famille** — `chart.line`, un graphique de la famille
+   pointée (D512) — la courbe ;
+2. **Rôle** — l'évolution d'un agrégat le long d'un axe : la tendance
+   d'un regard ;
+3. **Types servis** — aucun champ : **le graphique est une déclaration
+   autonome réutilisable** (D243) — sa source : une entité, un axe X,
+   un agrégat Y ;
+4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
+   temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
+   confidentialité héritée de l'entité, surchargeable (D247) ; les
+   droits ;
+5. **Propriétés** — la déclaration (*les noms en proposition*) :
+   **`x:`** — le découpage (`date[month]` : le crochet temporel),
+   **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
+   `filter:` — le périmètre (D90), **`drill:`** — le drill-down
+   déclaré : la liste nommée au filtre imposé (D242 — « par défaut,
+   pas de drill-down ») ; `title:` (D493) ; *(en proposition : `y:`
+   accepte une liste — plusieurs séries sur le même axe ; les deux
+   axes restent à `chart.combo`, D239)* ;
+6. **Items** — aucun ;
+7. **Modes et déclinaisons** — **réutilisable** : le widget (associé à
+   une entité → le module fonctionnel — D247), le formulaire, le
+   tableau de bord (le rafraîchissement statique / temps réel /
+   fréquence — D249) ; **template** : l'image du graphique (D257) ;
+   tactile : le point touché montre sa valeur ;
+8. **États et interactions** — **le drill-down au clic** : le
+   graphique « enrichit le filtre de la liste pour imposer » les
+   éléments de la valeur cliquée (D242) ; la confidentialité masque ;
+9. **Décisions fondatrices** — D90, D158, D239–D243, D247–D249,
+   D512 ;
+10. **Exemple de configuration** —
+
+```yaml
+# sales/gui — le graphique, déclaration autonome (D243)
+charts:
+  revenue_by_month:
+    component: chart.line
+    title: { fr: Chiffre d'affaires }
+    x: date[month]               # le découpage temporel (D240)
+    y: sum(total)                # l'agrégat filtré sur X (D158)
+    filter: state = "invoiced"   # le périmètre (D90)
+    drill: invoiced              # la liste nommée au filtre imposé (D242)
+```

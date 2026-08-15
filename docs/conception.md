@@ -12349,6 +12349,9 @@ avant la synthèse Q16).
   d'opérations du socle » (les effets = des références) ; le
   déclenchement par connecteur acté (les webhooks, l'import
   automatique) ; hooks.md mis à jour.
+- **2026-08-15 (suite 39)** — **La PR #29 créée** (« la passe de
+  complétude — les huit domaines consignés, les connecteurs, hooks.md
+  et types.md », D602–D609, 14 commits, 4 fichiers) vers develop.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

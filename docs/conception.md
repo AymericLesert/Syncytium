@@ -682,6 +682,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D601 | **La boîte seule** (précise D600) : « si form: est absent et si message: est précisé, seule une boîte de dialogue de validation sera affichée » — le léger et le riche. | Voir §3.2c. |
 | D602 | **Les huit domaines de Q16 consignés** (répare un manque) : 1. l'organisation et l'arborescence · 2. la donnée, sa structure et les droits · 3. le méta-schéma · 4. les surfaces · 5. les cas d'usage · 6. la documentation · 7. l'architecture technique · 8. l'implémentation. Le recoupement : 1–4 livrés (3 = règles/comportement + Q60) ; 5=Q59, 6=Q58, 7=Q7/Q47, 8=D314 ; les renvois « domaine 6 » de D408/D452/D459 relus (couverts par Q60, le reliquat au domaine 7). | Voir §3.2c. |
 | D603 | **Les connecteurs — les cinq arbitrages** : `connectors.yml` à la racine, **global** (aucune déclinaison) ; le catalogue de base + le hook de connecteur ; les paramètres = les propriétés, **pas de contexte** (le démarrage du projet) ; **les secrets = la référence à une variable d'environnement**, chiffrable à la clé dérivée (environnement + machine) ; `every:` à la grammaire D434. | Le dépôt versionné (D336) sans secret en clair. Voir §3.2c. |
+| D604 | **Le catalogue de base des connecteurs** (complète D603) : les bases de données standard (SQLServer, MySQL, Postgre…), l'AD Azure, les fichiers (CSV, JSON…) — + le géocodage (D294), l'itinéraire (D514), le smtp (D564), la reprise (D175) ; `every:` « pour rafraîchir ou tester » — le file watcher : « la détection de présence d'un fichier, le fichier mis à jour et relu ». | L'entrant naît par le fichier ; l'AD Azure = un visage de la passerelle D418. Voir §3.2c. |
 
 ---
 
@@ -4809,6 +4810,22 @@ chiffrement à la clé dérivée (l'environnement + la machine) — le
 dépôt versionné (D336) reste propre. **(5) « `every:` reprend la même
 grammaire »** (D434/D476) — « pour des hooks qui ont besoin d'être
 régulièrement rafraîchis ».
+
+**Le catalogue de base des connecteurs (D604 — complète D603).**
+**« Le catalogue de hooks regroupe : un connecteur vers les bases de
+données standard (SQLServer, MySQL, Postgre…), un connecteur vers
+l'AD Azure, un connecteur de fichiers (CSV, JSON…) — ta liste
+complète bien la mienne. »** Le catalogue de base réunit donc : **les
+bases de données standard**, **l'AD Azure** (la passerelle
+d'authentification D418 y trouve un premier visage), **les fichiers**
+(CSV, JSON…), le géocodage (`ban`/`nominatim` — D294), l'itinéraire
+(`osrm`/`valhalla` — D514), le mail sortant (`smtp` — D564/D574), la
+reprise (D175–D179). Et l'`every:` précisé : **« utilisé pour les
+connecteurs qui ont besoin d'être régulièrement rafraîchis ou
+testés — par exemple un file watcher : la détection de présence d'un
+fichier, le fichier mis à jour et relu. »** — **l'échange entrant
+naît là** : le fichier déposé, détecté, relu — la porte d'entrée par
+le connecteur de fichiers.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12219,6 +12236,10 @@ avant la synthèse Q16).
   clé environnement + machine), every: D434. Le catalogue de base en
   proposition dans l'échange (la phrase de l'auteur interrompue —
   « le catalogue de hooks »).
+- **2026-08-15 (suite 31)** — **Le catalogue de base (D604)** : les
+  bases de données standard, l'AD Azure, les fichiers (CSV, JSON) —
+  la liste complémentaire acceptée ; every: pour rafraîchir ou
+  tester, le file watcher — l'entrant naît par le fichier.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

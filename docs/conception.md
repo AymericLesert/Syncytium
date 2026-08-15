@@ -713,6 +713,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D632 | **Le mapping automatique** : « la migration à chaud trouve sa mécanique, et le mapping (automatique) est le mécanisme exploité » — la translation déclarative dérive les correspondances des deux méta-schémas, le technicien n'écrit rien. | Le mapping manuel reste au `from:` (D610 — les systèmes étrangers). Voir §3.2c. |
 | D633 | **Le contrat directory** : `get_users`, `get_users_from_group`, `get_groups` — « ce connecteur n'a pas de pendant en écriture, uniquement de la lecture ». | L'authentification (D418/D604) flaguée — cette famille ou le chantier sécurité ? Voir §3.2c. |
 | D634 | **Le contrat file** : `get_files()` (le pattern), `get_file(filename)` (la description **si stable depuis un laps** — « attendre qu'un fichier en cours d'écriture soit terminé »), `commit(filename)` (le renommage/déplacement au dossier configuré — les méta-caractères : le compteur, l'identifiant, la date et heure). | Le guetteur = every: + get_files ; l'écriture (les exports D445) flaguée. Voir §3.2c. |
+| D635 | **Le thread d'écoute** (précise D634) : « every: est utilisé sur connect ou initialize pour démarrer un thread dédié à l'écoute des fichiers » — le connecteur écoute lui-même, l'événement déclenche l'opération (D609). | Voir §3.2c. |
 
 ---
 
@@ -5078,6 +5079,14 @@ de destination au gabarit de méta-caractères) ; le guetteur (D604) =
 `every:` + `get_files()`. *(La question flaguée : l'écriture — le
 dépôt des exports (D445/D530) passe-t-il par une méthode à venir de
 cette famille, ou ailleurs ?)*
+
+**Le thread d'écoute (D635 — précise D634).** **« `every:` est
+utilisé sur `connect` ou `initialize` pour démarrer un thread dédié à
+l'écoute des fichiers. »** — la mécanique du guetteur se précise : le
+connecteur porte **son propre thread d'écoute**, né à
+l'`initialize`/au `connect` et cadencé par l'`every:` — ce n'est pas
+le moteur qui interroge du dehors ; l'événement détecté déclenche
+l'opération déclarée (`when: <connecteur>` — D609).
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12780,6 +12789,9 @@ avant la synthèse Q16).
   au pattern, get_file à la garde de stabilité (l'attente de la fin
   d'écriture), commit à l'acquittement (le déplacement au gabarit de
   méta-caractères) ; l'écriture des exports flaguée.
+- **2026-08-16 (suite 7)** — **Le thread d'écoute (D635)** : every:
+  sur connect/initialize démarre le thread dédié — le connecteur
+  écoute lui-même, l'événement déclenche (D609).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

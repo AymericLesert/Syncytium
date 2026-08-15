@@ -148,4 +148,4 @@ operations:
   (D605 pose le principe) ;
 - **la défaillance** — le connecteur en échec : le comportement, le
   rapport (D406 ?), la reprise après incident ;
-- **l'écriture `implementation:`** — en proposition (D613).
+

@@ -119,6 +119,50 @@ Quatre règles transversales l'allègent :
 | le champ calculé | le composant de son type de résultat (D298) | les compatibles de ce type |
 | le statut (`states:`) | déduit de la déclaration : la liste navigatrice ou la lecture + boutons (D427) | `dropdown` — la liste des valeurs **tenant compte du cycle de vie** : les états atteignables seuls (D500) |
 
+## La signature du nœud (D566)
+
+Tout nœud de l'arbre gui obéit à une même signature — sept traits,
+arbitrés par l'auteur :
+
+1. **La clé : l'adresse universelle `<type>[<nom>]`** — les types :
+   **`render`** (les composants de présentation — sections, section,
+   tabs, tab, pages, page, header, footer…), **`field`** (D460),
+   **`operation`** (D511), **`template`** (D483), **`chart`** (D540),
+   **`widget`** (D555)… — et `_` (D556). Les écritures courtes
+   (`- section:`) demeurent au YAML ; l'adresse est la forme
+   canonique du moteur. `component:` « convertit ou remplace le nom
+   du type » (D458/D566) ;
+2. **`visible:` — une condition vivante** (D90/D567) : « en fonction
+   de la valeur d'un champ ou d'un contexte, un élément peut devenir
+   visible ou masqué » — le toggle qui gère une saisie
+   conditionnelle ; le composant est construit, sa visibilité
+   s'évalue **au fil de la valeur** (l'écho du recalcul D255) ;
+3. **Les propriétés, à l'évaluation paresseuse** — « le composant
+   consulte les propriétés, dont l'évaluation s'effectuera à la
+   sollicitation ; Syncytium ne tente pas de construire toutes les
+   propriétés » ; le socle vit à la cascade (D461 — le type → le
+   champ → le nœud, le plus proche l'emporte : style D536, size D533,
+   title D493, label D465, icon D439…) ; chaque composant a les
+   siennes — **la fiche fait foi** ;
+4. **Les enfants, aux champs déclarés par le type** — la définition
+   d'un type de composant précise **le ou les noms des champs
+   d'enfants** (`items`, `steps` — ou `header`, `page`, `footer` :
+   « chaque élément est facultatif », D567) ; les alternances déclarées tiennent
+   (D489–D490, D546) et l'abréviation `fields: [a, b]` ≡
+   `items: [ field[a], field[b] ]` ; **le moteur évalue tous les
+   enfants de la feuille à la racine avant d'appeler/de construire le
+   composant** (D455) ;
+5. **La pile de contexte** — « fournie depuis la racine du
+   composant » (D553) : l'enregistrement, les contextes empilés,
+   l'utilisateur — le pré-analysé (D455) ;
+6. **Les états = des propriétés**, « évaluées à la demande » —
+   la visibilité, le readonly, l'actionnable (D444), le refus au
+   champ (D307) ;
+7. **Le hook** — « ajoute au catalogue de composants, pour un nom
+   donné, **un objet qui se chargera de gérer le composant et son
+   rendu dans les différents formats — Web, PDF, Word, Excel,
+   Email…** » (D408/D452, les destinations D564).
+
 ---
 
 # Les feuilles
@@ -1369,7 +1413,12 @@ gui:
    nommé ») ; **`width:` / `height:`** — « calibrer la taille » :
    l'uniforme se pose sur l'organisateur, **la taille variable sur la
    section** — le plus proche l'emporte (D501–D502 ; « sans précision,
-   l'ensemble de l'espace est pris ») ; le socle du vocabulaire (D461 : style…) ;
+   l'ensemble de l'espace est pris ») ; **`dropdown:`** — la section
+   repliable : « refermer ou ouvrir, avec un icône pour matérialiser
+   l'affichage ou pas » (D568) — **`false`** (défaut : fixe)
+   **`| true`** (repliable, ouverte par défaut) **`| opened |
+   closed`** (l'état d'entrée explicite — D569 ; *la collision avec
+   la feuille `dropdown` notée, le contexte départage D458*) ; le socle du vocabulaire (D461 : style…) ;
 6. **Items** — **« soit sections, soit une des feuilles vues
    précédemment »** (D489) — l'alternance stricte : l'emboîtement de
    sections passe par l'organisateur `sections` ; les champs par
@@ -1382,9 +1431,10 @@ gui:
    (D490 — l'écho de D450/D451) ; ailleurs, la composition passe par
    l'organisateur `sections` ;
 8. **États et interactions** — la visibilité par les droits et la
-   confidentialité ; rien d'autre au socle ;
+   confidentialité ; **le repli et le dépli à l'icône**
+   (`dropdown: true` — D568) ;
 9. **Décisions fondatrices** — D449–D451, D455, D460–D461, D465,
-   D487, D489–D491, D493, D501–D502 ;
+   D487, D489–D491, D493, D501–D502, D568–D569 ;
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 

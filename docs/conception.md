@@ -644,6 +644,10 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D563 | **Le comportement d'`url`** (les cinq points validés) : le lien en lecture — le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone (D271/D391) ; l'icône demeure en saisie ; l'ellipse en cellule ; le lien actif au template, la valeur nue en Excel/CSV ; l'aperçu de la cible = un hook (D263). | La synthèse complétée (la ligne url séparée). Voir §3.2c. |
 | D564 | **Les quatre destinations du template** : « générer un document Word, PDF, Excel ou un mail — le template porte une propriété `format` qui précise le format de destination ». | `format: pdf \| word \| excel \| mail` (défaut pdf en proposition) ; le mail = le publipostage D562, l'Excel = le modèle D445. Voir §3.2c. |
 | D565 | **Le défaut et l'extension** (solde D564) : « le format pourra être étendu à d'autres formats en fonction des besoins à venir. PDF en défaut me convient. » | La ligne des hooks (D408). Voir §3.2c. |
+| D566 | **La signature formelle du nœud** (clôt le point) : l'adresse universelle `<type>[<nom>]` (render/field/operation/template/chart/widget) ; `visible:` conditionnel — faux = ni déclaré ni construit ; les propriétés et les états **évalués à la sollicitation** ; les enfants au champ déclaré par le type, **évalués de la feuille à la racine avant construction** ; la pile de contexte depuis la racine ; le hook = l'objet du composant et de son rendu multi-formats. | La section en tête de composants.md. Voir §3.2c. |
+| D567 | **Les deux amendements de la signature** (amende D566) : les enfants « dans un ou plusieurs noms — header, page, footer ; chaque élément est facultatif » ; `visible:` **vivant** — « en fonction de la valeur d'un champ ou d'un contexte, un élément peut devenir visible ou masqué (le toggle de la saisie conditionnelle) » — le « ni déclaré ni construit » effacé. | L'écho du recalcul D255. Voir §3.2c. |
+| D568 | **La section repliable** : « refermer ou ouvrir si le composant a la propriété `dropdown: true`, avec un icône pour matérialiser l'affichage ou pas ». | La collision avec la feuille notée (D458) ; le défaut déplié en proposition. Voir §3.2c. |
+| D569 | **Les quatre valeurs du repli** (solde D568) : `dropdown: false` (défaut — fixe) `\| true` (repliable, ouverte par défaut) `\| opened \| closed` (l'état d'entrée explicite). | L'orthographe `opened` consignée. Voir §3.2c. |
 
 ---
 
@@ -4291,6 +4295,65 @@ pourra être étendu à d'autres formats en fonction des besoins à
 venir. PDF en défaut me convient. »** Le défaut `pdf` acté ; le
 catalogue des formats s'étend par les besoins — la ligne des hooks
 (D408), sans toucher au moteur.
+
+**La signature formelle du nœud (D566 — clôt le point).** La synthèse
+proposée, arbitrée point par point par l'auteur :
+
+**(0) `visible:` — une condition** : « dépend d'une condition ; si la
+visibilité est false, **le composant n'est pas déclaré ni
+construit** » — l'absence, pas le masquage.
+**(1) La clé — l'adresse universelle `<type>[<nom>]`** :
+« `render[<nom>]` pour représenter sections/section/tabs/tab… —
+chaque composant ui a donc `<type>[<nom>]` avec type : `render`,
+`field`, `operation`, `template`, `chart`, `widget`… » *(la lecture :
+les écritures courtes — `- section:` — demeurent au YAML, l'adresse
+est la forme canonique du moteur.)*
+**(2/3) Les propriétés à l'évaluation paresseuse** : « le composant
+pour la restitution consulte les propriétés, dont l'évaluation
+s'effectuera **à la sollicitation**. Syncytium ne tente pas de
+construire toutes les propriétés — le composant a ainsi ses propres
+propriétés. `component` permet de convertir ou de remplacer le nom du
+type. »
+**(4) Les enfants au champ déclaré** : « les enfants se déduisent
+comme décrit [les alternances D489/D490/D546, l'abréviation
+`fields:`]. En définissant un type de composants, **on précise le nom
+du champ couvrant les enfants** [items, steps…]. Ainsi, le moteur
+évalue **tous les enfants de la feuille à la racine avant
+d'appeler/de construire le composant** » (D455 tenu).
+**(5) La pile de contexte** : « fournie depuis la racine du
+composant » (D553 généralisé à tout nœud).
+**(6) Les états = des propriétés**, « évaluées à la demande » (le
+régime du 2/3).
+**(7) Le hook** : « ajoute au catalogue de composants, pour un nom
+donné, **un objet qui se chargera de gérer le composant et son rendu
+dans les différents formats — Web, PDF, Word, Excel, Email…** »
+(les destinations D564 + le Web).
+
+**Les deux amendements de la signature (D567 — amende D566).**
+**(4) Les enfants aux noms multiples** : « les enfants peuvent être
+dans un ou plusieurs noms : header, page, footer. **Chaque élément
+est facultatif.** » — le type de composant déclare le **ou les**
+champs d'enfants. **(2) `visible:` devient vivant** : « je change de
+fusil d'épaule — nous pouvons inclure une petite phase dynamique :
+**en fonction de la valeur d'un champ ou d'un contexte, un élément
+peut devenir visible ou masqué** (cas d'un toggle pour gérer une
+saisie conditionnelle). » Le composant est construit, sa visibilité
+s'évalue **au fil de la valeur** — l'écho du recalcul à l'écran
+(D255) ; le « ni déclaré ni construit » de D566 s'efface.
+
+**La section repliable (D568).** **« La possibilité de refermer ou
+d'ouvrir si le composant a la propriété `dropdown: true`, avec un
+icône pour matérialiser l'affichage ou pas. »** La section se replie
+et se déplie — l'icône (le chevron) dit l'état. *(La collision avec
+la feuille `dropdown` notée — le contexte départage, D458 ; le défaut
+en proposition : la section s'ouvre dépliée.)*
+
+**Les quatre valeurs (D569 — solde D568).** **« `dropdown: false |
+true (avec open par défaut) | openned | closed`. »** — `false` (le
+défaut : la section fixe), `true` (repliable, **ouverte par
+défaut**), `opened` (repliable, ouverte — l'équivalent de true),
+`closed` (repliable, **fermée d'entrée**). *(L'orthographe consignée
+`opened` — la coquille « openned » corrigée au registre.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11528,6 +11591,40 @@ avant la synthèse Q16).
 - **2026-08-14 (suite 79)** — **Le défaut pdf acté (D565)** : « le
   format pourra être étendu à d'autres formats en fonction des
   besoins à venir » — la ligne des hooks (D408).
+- **2026-08-14 (suite 80)** — **La PR #25 fusionnée** (« le catalogue
+  au complet », D511–D565, 78 commits). Develop porte le catalogue
+  entier de composants.md — les cinq familles fichées et validées.
+- **2026-08-14 (suite 81)** — **La signature formelle du nœud
+  (D566)** : les sept arbitrages de l'auteur — l'adresse universelle
+  <type>[<nom>], visible: conditionnel (ni déclaré ni construit),
+  l'évaluation à la sollicitation, les enfants au champ déclaré
+  (évalués feuille → racine avant construction), la pile de contexte
+  depuis la racine, les états-propriétés, le hook-objet au rendu
+  multi-formats. La section écrite en tête de composants.md — **le
+  domaine 4 ne porte plus de point en attente.**
+- **2026-08-14 (suite 82)** — **Les deux amendements (D567)** : les
+  enfants aux noms multiples (header/page/footer, chacun facultatif) ;
+  visible: vivant — la valeur d'un champ ou du contexte montre/masque
+  (le toggle de la saisie conditionnelle), le « ni construit »
+  effacé. La section ajustée.
+- **2026-08-14 (suite 83)** — **La section repliable (D568)** :
+  dropdown: true — le repli/dépli à l'icône ; la collision avec la
+  feuille notée, le défaut déplié en proposition. La fiche section
+  complétée.
+- **2026-08-14 (suite 84)** — **Les quatre valeurs du repli (D569)** :
+  dropdown: false|true (ouvert par défaut)|opened|closed —
+  l'orthographe opened consignée.
+- **2026-08-14 (suite 85)** — **La signature (D566–D567) et la
+  section repliable (D568–D569) validées** (« je les valide ») —
+  **LE DOMAINE 4 EST SOLDÉ** : le catalogue des composants (les cinq
+  familles, 47 fiches), la synthèse types × composants, la signature
+  formelle du nœud — tout consigné, tout validé. Restent : Q60 (le
+  catalogue des fonctions — le point différé de D433), les domaines
+  5–8, la passe de complétude finale, Q58, Q59, Q7 — puis le code
+  (D314).
+- **2026-08-15** — **La PR #26 créée** (« le domaine 4 soldé : la
+  signature du nœud, la section repliable », D566–D569, 6 commits) —
+  la table rase avant Q60.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

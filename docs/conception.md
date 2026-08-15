@@ -653,6 +653,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D572 | **Les signatures distinctes, la librairie d'exploration** : les deux signatures à finaliser en Q60 (celle des fonctions abordée au domaine 2) ; « le hook de code nécessitera une librairie qui explore le modèle de données de façon transparente ». | Voir §3.2c. |
 | D573 | **Les paramètres dynamiques** : « la valeur initiale définie dans la configuration, modifiable par le technicien via le module d'administration » — la troisième temporalité (le statique, le dynamique, la donnée). | Les paramètres généraux (D366/D468/D259) ont vocation à rejoindre la famille. Voir §3.2c. |
 | D574 | **Les dix-sept opérations de socle** (complète D570) : les 11 + `duplicate`/`restore`/`report`/`send` (les candidats acceptés) + **`notify`** (« générer une information de notification aux utilisateurs ») + **`refresh`** (« déclencher un recalcul d'un graphique ou d'un champ calculé »). | « Au final, cela nous fournit 17 opérations de socle. » Voir §3.2c. |
+| D575 | **Les fonctions — les quatre arbitrages** : `sum` remplace « somme » + les sommes pondérées + « les calculs matriciels basés sur les sommes et les produits » ; `min`/`max` **universels** (tous les types sont triables) ; les agrégats couvrent **les listes ou les associations** ; la famille du **contexte courant** à décrire (l'utilisateur, la localisation, la date/heure, l'instance, l'application, le module, l'entité, le champ, les propriétés de configuration — le pont D254/D573). | Voir §3.2c. |
 
 ---
 
@@ -4421,6 +4422,24 @@ et l'effet `notify` (D432) se rejoignent — la notification comme
 traitement à part entière ; `restore` matérialise D172–D174 ;
 `report` le « à la demande » de D406 ; `send` l'issue du format
 `mail` D564.)*
+
+**Les fonctions : les quatre arbitrages fondateurs (D575).**
+**(1) `sum` remplace « somme »** — l'anglais du catalogue (D301) vaut
+aussi aux fonctions ; **« à ajouter les sommes pondérées. Par
+extrapolation, nous pouvons inclure les calculs matriciels basés sur
+les sommes et les produits »** — la famille somme-produit s'ouvre.
+**(2) `min`/`max` universels** : « utilisables pour tous les types
+car ils sont triables. Min : le plus petit, Max : le plus grand » —
+les règles de tri (D368 et suivantes) font l'ordre, le nul y compris.
+**(3) « Les agrégats couvrent les listes ou les associations »** —
+le domaine de l'agrégat = la collection (l'écho D539).
+**(4) La famille du contexte courant, à décrire** : « l'utilisateur
+courant, la localisation, la date et heure courante, l'instance,
+l'application, le module, l'entité, le champ… **ou des propriétés
+liées aux éléments de configuration** » — le pont avec l'entité
+contexte (D254) et les paramètres dynamiques (D573 — « d'où ma
+remarque en commençant »). « En intégrant ces éléments, cela
+complétera les familles abordées. »
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11712,6 +11731,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 4)** — **Les dix-sept opérations de socle
   (D574)** : les quatre candidats acceptés + notify et refresh — le
   catalogue scellé à 17.
+- **2026-08-15 (suite 5)** — **Les fonctions : les quatre arbitrages
+  (D575)** : sum (les pondérées, les matriciels), min/max universels,
+  les agrégats sur listes/associations, la famille du contexte
+  courant (le pont D254/D573). L'inventaire des familles recomposé
+  dans l'échange, en attente de validation.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

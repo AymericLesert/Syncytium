@@ -667,6 +667,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D586 | **L'enregistrement en paramètre du label** (complète D585) : « le nom des champs devient les paramètres » — `label(mon_nom, customer)`, les champs nourrissent le gabarit sans les épeler. | L'écho D465/D562 — un seul mécanisme de gabarit. Voir §3.2c. |
 | D587 | **Le catalogue des fonctions libres** : « min, max, sum, avg… sont à inclure. Le catalogue s'enrichira, si besoin » — les variadiques scalaires doublant les méthodes de collection (D580), l'extension par les besoins (D408/D565). | Voir §3.2c. |
 | D588 | **`context.settings` et les deux modes** (précise D573) : `<nom>` référence un élément statique ou dynamique — `{ mode: dynamic \| static, value: <défaut> }` ; « les paramètres dynamiques portent une valeur par défaut surchargeable via le module d'administration ». | La cascade D349/D360 ; le typage D581 vaut. Voir §3.2c. |
+| D589 | **Le type du paramètre, `context` acté** : « un paramètre porte aussi type: (par défaut : text) » ; « le nom context me convient — si une entité se nomme context, l'entité prend le pas ; lors de l'ingestion, un warning sera nécessaire » ; l'inventaire des champs consigné (user traversable, location, now, instance/application/module, entity/field, file/page/pages, settings). | La préséance à l'entité + le warning (l'esprit D344). Voir §3.2c. |
 
 ---
 
@@ -4602,6 +4603,22 @@ l'administration. *(L'exemple normalisé dans la forme — chaque
 paramètre : `{ mode:, value: }` ; le nom se résout à la cascade des
 settings (D349/D360) ; chaque paramètre est typé — le typage statique
 D581 vaut sur `context.settings.marge` comme partout.)*
+
+**Le type du paramètre, le nom `context` acté (D589).** **« Un
+paramètre porte aussi `type:` (par défaut : `text`). »** — la
+déclaration complète : `marge: { mode: dynamic, type: percentage,
+value: 5% }` ; le typage statique (D581) s'appuie sur la
+déclaration. Et **le nom du contexte est acté : « le nom "context" me
+convient. Si une entité se nomme "context", l'entité prend le pas.
+Lors de l'ingestion, un warning sera nécessaire. »** — la préséance à
+l'entité, le warning à l'ingestion (l'esprit D344). **L'inventaire
+des champs consigné tel que proposé** : `user` (la référence
+traversable), `location` (D291), `now` (datetime — la date par
+conversion D579), `instance`/`application`/`module` (les noms),
+`entity`/`field` (la réflexion), `file`/`page`/`pages` (au rendu d'un
+document seulement — D254), `settings.<nom>` (D588) ; **la
+disponibilité selon le contexte** (D254) et la lecture du **sommet
+consolidé de la pile** (D553).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11934,6 +11951,12 @@ avant la synthèse Q16).
   dynamic|static, value: } ; le dynamique surchargeable à
   l'administration (D573). Le contexte courant (context., l'inventaire
   des champs) toujours en attente d'arbitrage.
+- **2026-08-15 (suite 13)** — **type: au paramètre, context acté
+  (D589)** : le paramètre { mode:, type: (défaut text), value: } ;
+  le nom context — l'entité homonyme prend le pas, le warning à
+  l'ingestion ; l'inventaire des champs consigné. **La famille du
+  contexte courant est décrite** — restent les signatures des hooks
+  (D572) pour clore Q60.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

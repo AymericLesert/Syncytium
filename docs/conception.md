@@ -12298,6 +12298,15 @@ avant la synthèse Q16).
   des échanges — le type progression/fuel (le fondateur), le
   composant gauge_3d, l'opération invoice du fil, la fonction
   extract_name (D593), les connecteurs geocoding + le guetteur.
+- **2026-08-15 (suite 36)** — **hooks.md complété des sept manques**
+  (le croisement systématique du registre — la relecture de l'auteur
+  les pressentait) : la collection-type aux agrégats (D580), le type
+  label (D585–D586), le contexte et les settings lus par les hooks
+  (D553/D588–D591), le composant au nom du type (D458), le wizard et
+  la transaction (D547/D594), la migration inter-connecteurs (D606),
+  les libres et iif (D583/D587). **Le point 8 reste ouvert à
+  l'arbitrage : l'articulation entre l'opération déclarée
+  (when:/effects: — D428–D432) et le hook d'opération (D570).**
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

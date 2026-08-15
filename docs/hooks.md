@@ -51,10 +51,28 @@ graphe de conversion).
 - **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
   géolocalisation : « un type emmène avec lui des fonctions
   dédiées » ;
+- **le composant par défaut au nom du type** (D458) — le type-hook
+  nomme son composant comme le socle nomme les siens ; le contexte
+  départage les espaces de noms ;
 - **les règles de tri et le nul** (D368 et suivantes), la recherche,
   le masque — le kit des facettes ;
 - **la représentation obligatoire** (D459) : « aucun type sans
   visage » — le composant d'écran et/ou le rendu de document.
+
+**La collection est un type — et porte les agrégats** (D580) : les
+fonctions de la collection (`list of`, `association with`) sont ses
+méthodes — `commandes.sum(montant if etat = "facturée")` (l'élément
+en contexte implicite dans la parenthèse), `count()`, `avg`,
+`min`/`max` (universels — tous les types sont triables, D575),
+`first`, `last`, `any`, `exists` ; la forme contextuelle sans préfixe
+quand la collection est le contexte (l'assise d'un chart — D517).
+
+**Le type `label`** (D585–D586) — le type-hook du socle qui montre la
+voie : l'accès au catalogue des labels (D440), les gabarits nommés
+paramétrables (`label(mon_nom, { prenom: …, nom: … })` — l'ordre des
+mots par langue), et l'enregistrement en paramètre
+(`label(mon_nom, customer)` — « le nom des champs devient les
+paramètres »).
 
 **L'exemple** — le fondateur des échanges (« définir un type
 progression… puis un champ avancement de type progression ») :
@@ -142,6 +160,24 @@ formulaire et le message ; `commit` scelle et retourne l'issue
 (`download` du PDF, par exemple) ; `rollback` défait si l'utilisateur
 annule.
 
+**Le wizard, la même transaction** (D546–D547/D594) : les steps qui
+portent une `operation:` s'exécutent **dans la transaction du
+wizard, tenue ouverte au fil des étapes** — « la transformation
+n'aura lieu qu'à la validation définitive du wizard » ; la
+confirmation validée barre le retour (le cliquet — D505/D547) ;
+l'abandon annule tout.
+
+**Ce que le hook lit** : **la pile des contextes** (D553 —
+l'opération au fond de la pile voit le périmètre de la liste,
+l'enregistrement du formulaire, le transitoire du wizard),
+**`context.`** (D589 — `user` traversable, `location`, `now`,
+`instance`/`application`/`module`, `entity`/`field`,
+`file`/`page`/`pages` au document) et **`context.settings.<nom>`**
+(D588/D591 — `{ mode: static | dynamic, type:, value: }`, la
+cascade application → module → entité, le dynamique ajusté au module
+d'administration — D573). La fonction lit le contexte **en lecture
+seule** (D571).
+
 ### 4. Le hook de fonction (D571, D592–D593)
 
 Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
@@ -153,6 +189,12 @@ statique D581 s'y appuie), le contexte en lecture seule — **aucune
 écriture, aucune opération déclenchée** (la pureté D571). Le moteur
 appelle au fil du **graphe d'exécution acyclique** (D592 — le cycle =
 une erreur d'ingestion), au paramètre modifié.
+
+**Les fonctions libres** (D583/D587) complètent le monde des
+fonctions : les variadiques scalaires (`min`, `max`, `sum`, `avg` —
+`max(0, stock.sum(quantity))`) et `iif(condition, alors, sinon)` —
+« le catalogue s'enrichira, si besoin » : la porte des hooks de
+fonction libre.
 
 **L'exemple** — la regex aux groupes nommés (D593) :
 
@@ -185,7 +227,13 @@ sa veille et sa lecture, le géocodage son adresse et son inverse. Les
 propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
-un connecteur** (D606).
+un connecteur** (D606) : les bases du catalogue portent l'instance,
+pas seulement l'échange. **La migration inter-connecteurs** (D606) :
+« Syncytium peut convertir ou transférer des données d'un connecteur
+à l'autre » — le changement de moteur (SQLServer → PostgreSQL…) par
+la translation déclarative (le primitif aux quatre usages), **en
+instantané ou en différentiel** — le différentiel rejoignant la
+réplication passive du PCA-PRA (D112–D114).
 
 **L'exemple** — la déclaration à la racine (D603–D604) :
 

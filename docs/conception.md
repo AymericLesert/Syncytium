@@ -654,6 +654,10 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D573 | **Les paramètres dynamiques** : « la valeur initiale définie dans la configuration, modifiable par le technicien via le module d'administration » — la troisième temporalité (le statique, le dynamique, la donnée). | Les paramètres généraux (D366/D468/D259) ont vocation à rejoindre la famille. Voir §3.2c. |
 | D574 | **Les dix-sept opérations de socle** (complète D570) : les 11 + `duplicate`/`restore`/`report`/`send` (les candidats acceptés) + **`notify`** (« générer une information de notification aux utilisateurs ») + **`refresh`** (« déclencher un recalcul d'un graphique ou d'un champ calculé »). | « Au final, cela nous fournit 17 opérations de socle. » Voir §3.2c. |
 | D575 | **Les fonctions — les quatre arbitrages** : `sum` remplace « somme » + les sommes pondérées + « les calculs matriciels basés sur les sommes et les produits » ; `min`/`max` **universels** (tous les types sont triables) ; les agrégats couvrent **les listes ou les associations** ; la famille du **contexte courant** à décrire (l'utilisateur, la localisation, la date/heure, l'instance, l'application, le module, l'entité, le champ, les propriétés de configuration — le pont D254/D573). | Voir §3.2c. |
+| D576 | **Les agrégats-collections fusionnés** : « les points 1 et 6 sont regroupés » ; `first`, `last`, `any`, `exists` complètent ; min/max au double régime — l'agrégat **ou** la liste de valeurs (`max(0, sum(stock.quantity))`). | Voir §3.2c. |
+| D577 | **Les opérateurs numériques** : `+` `-` `*` `/` (réelle) `\` (entière) `%` (modulo) `!` (factoriel) `**` (puissance) — « pour simplifier l'écriture » ; `exp`, `sin`, `cos`, `tan`… en fonctions. | Voir §3.2c. |
+| D578 | **Le texte** : la concaténation **via le gabarit** (D562), l'extraction via les regex, les extractions de chaîne, les règles de conversion (D579). | Voir §3.2c. |
+| D579 | **Les fonctions de type — l'iceberg** : « un type emmène avec lui des fonctions dédiées » (`distance`/`euclide` pour la géolocalisation) ; **la conversion = une fonction au nom du type** (`text(x)`, `date(x)`…) — « la signature d'un type doit porter en elle la conversion intrinsèque » (D369 en cas particulier). | L'écho D408/D458 — le type emmène composant et fonctions. Voir §3.2c. |
 
 ---
 
@@ -4440,6 +4444,46 @@ liées aux éléments de configuration** » — le pont avec l'entité
 contexte (D254) et les paramètres dynamiques (D573 — « d'où ma
 remarque en commençant »). « En intégrant ces éléments, cela
 complétera les familles abordées. »
+
+**Les agrégats-collections fusionnés, min/max au double régime
+(D576).** **« Les points 1 et 6 sont regroupés »** — les collections
+se fondent dans les agrégats : une seule famille. **« First, last,
+any or exists complètent le catalogue disponible. »** Et le double
+régime de min/max : **« le min/max s'applique à un agrégat ou à une
+liste de valeurs définies ou calculées — ex : `max(0,
+sum(stock.quantity))` »** — l'agrégat sur la collection, ou le
+variadique sur les valeurs (le borné d'écriture).
+
+**Les opérateurs numériques (D577).** **« Pour les numériques et pour
+simplifier l'écriture, nous utiliserons les opérateurs : `+`
+(l'addition), `-` (la soustraction), `*` (la multiplication), `/`
+(la division réelle), `\` (la division entière), `%` (le modulo),
+`!` (le factoriel) et `**` (la puissance). Nous pouvons ajouter
+`exp`, `sin`, `cos`, `tan`… »** — l'écriture d'abord, les
+transcendantes en fonctions.
+
+**Le texte (D578).** **« Le texte se retrouve avec la concaténation
+via le gabarit, l'extraction via les regex, des extractions de
+chaîne, et des règles de conversion. »** — pas de fonction de
+concaténation : le gabarit (mustache — D562) la porte ; les regex et
+les extractions de chaîne en fonctions ; les conversions par la
+règle D579.
+
+**Les fonctions de type — l'iceberg (D579).** **« La géodistance
+montre le haut de l'iceberg. En fait, un type emmène avec lui des
+fonctions dédiées pour combiner des valeurs et obtenir une valeur
+dans le type dédié. Ici, `distance` or `euclide` calcule la distance
+entre 2 localisations. »** — le catalogue des fonctions se
+décentralise : **chaque type porte les siennes** (la ligne D408 — le
+type-hook emmène ses fonctions, comme il emmène son composant D458).
+Et **la conversion** : **« une forme de fonction simplifiée, d'une
+valeur d'un type vers le type d'appartenance de la conversion — une
+fonction dont le nom est le nom du type assure la conversion. La
+signature d'un type doit alors porter en elle la conversion
+intrinsèque. »** — `text(x)`, `integer(x)`, `date(x)`… (l'écho
+D458 : le nom du type, partout où le type se matérialise) ; la
+conversion en texte (D369) devient le cas particulier d'une règle
+générale portée par la signature du type.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11736,6 +11780,14 @@ avant la synthèse Q16).
   les agrégats sur listes/associations, la famille du contexte
   courant (le pont D254/D573). L'inventaire des familles recomposé
   dans l'échange, en attente de validation.
+- **2026-08-15 (suite 6)** — **Les familles arbitrées (D576–D579)** :
+  agrégats-collections fusionnés (+ first/last/any/exists, min/max au
+  double régime) ; les opérateurs numériques (+ - * / \ % ! ** ;
+  exp/sin/cos/tan en fonctions) ; le texte (le gabarit, les regex,
+  les extractions, les conversions) ; **les fonctions de type —
+  l'iceberg** (le type emmène ses fonctions ; la conversion = la
+  fonction au nom du type, la signature du type portant la conversion
+  intrinsèque). L'inventaire recomposé, en attente de validation.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

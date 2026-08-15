@@ -699,6 +699,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D618 | **Le `settings.yml` de la version** : « settings.yml se retrouve aussi dans la version, en plus du module » — l'étage application de la cascade (D591) a son fichier ; le module raffine (D349), l'entité précise (D348/D360). | Voir §3.2c. |
 | D619 | **Les familles closes** (précise D603/D605) : « Syncytium fournit un nombre limité de familles. Il n'existe pas de hook de famille. Le hook porte sur l'implémentation d'une famille. » — le moteur n'appelle que les contrats qu'il connaît ; le hook = une classe dans une famille. | Voir §3.2c. |
 | D620 | **La famille contraint le contrat** (complète D619) : « une famille va contraindre la définition du contrat » — les méthodes et leurs signatures imposées à toute classe ; la conformité vérifiable au chargement. | Voir §3.2c. |
+| D621 | **Le socle commun des connecteurs** : `initialize`/`release` (le démarrage/l'arrêt de l'application), `connect`/`disconnect` (à l'appel), **`ping()`** au lieu de test — le statut (error, initialized, disconnected, connected, closed…), `every:` = la fréquence du ping ; le comportement en propriétés du socle (permanent / à l'appel / au laps d'inactivité). | `connection: permanent \| on_demand \| idle[15min]` en proposition. Voir §3.2c. |
 
 ---
 
@@ -4905,6 +4906,24 @@ impose le contrat à toute classe : les méthodes, leurs signatures ;
 l'implémentation le remplit, elle ne le choisit pas — la conformité
 d'une classe à sa famille est vérifiable au chargement (l'esprit
 D330/D344 : l'écart ne passe pas).
+
+**Le socle commun des connecteurs (D621).** **« Le socle commun
+dispose aussi d'`initialize` et `release` : un connecteur est
+initialisé au démarrage de l'application et libéré à l'arrêt. Le
+volet `connect`/`disconnect` se pare à l'appel du connecteur. Par
+conséquent, le comportement d'un connecteur doit être décrit dans ses
+propriétés, dont certaines sont définies comme socle commun — par
+exemple : connecté en permanence du démarrage à l'arrêt, connecté au
+moment de l'appel et déconnecté ensuite, ou connecté un certain laps
+de temps — sans activité durant un laps donné, Syncytium le
+déconnecte. Au lieu de test, `ping()` me convient davantage — il
+retourne un statut : "error", "initialized", "disconnected",
+"connected", "closed"… `every:` précise la fréquence du ping. »**
+Le socle commun du contrat : **`initialize`/`release`** (le démarrage
+et l'arrêt de l'application), **`connect`/`disconnect`** (à l'appel),
+**`ping()`** (le statut — la fréquence à l'`every:`). *(L'écriture de
+la politique en proposition : `connection: permanent | on_demand |
+idle[15min]` — le laps au crochet, les durées D434/D476.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12540,6 +12559,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 51)** — **La famille contraint le contrat
   (D620)** : les méthodes et signatures imposées, l'implémentation
   les remplit — la conformité vérifiée au chargement.
+- **2026-08-15 (suite 52)** — **Le socle commun des connecteurs
+  (D621)** : initialize/release, connect/disconnect à l'appel,
+  ping() au statut (every: = sa fréquence), la politique de connexion
+  en propriété (permanent / à l'appel / au laps d'inactivité —
+  connection: en proposition).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -38,22 +38,22 @@ fonctionnement de l'application » (D610/D612) :
 
 ```yaml
 connectors:
-  main_db: { type: storage, implementation: postgresql, secrets: [db_password] }
-  smtp:    { implementation: smtp_std }        # le simple : le nom = le type (D612)
+  main_db: { type: storage, class: postgresql, secrets: [db_password] }
+  smtp:    { class: smtp_std }        # le simple : le nom = le type (D612)
   location:
-    implementation: ban                        # le géocodage (D294/D604)
+    class: ban                        # le géocodage (D294/D604)
     parameters: { url: https://api-adresse.data.gouv.fr }
     secrets: [api_key]
   incoming_orders:
     type: file
-    implementation: file_std
+    class: file_std
     parameters: { path: /exchange/in, format: csv }
     every: 5min                                # le guetteur (D603–D604)
 ```
 
 - **`type:`** — la famille-contrat ; « pour les cas les plus simples,
   le type est le nom du connecteur » (D612) ;
-- **`implementation:`** — *(l'écriture en proposition — D613)* : le
+- **`class:`** — la classe qui remplit le contrat (D613/D615) ; le
   mot `hook` ne paraît pas dans la configuration (D408) ;
 - **`parameters:`** — les propriétés (la forme des settings — D588) ;
 - **`secrets:`** — **la référence seule** : « les secrets peuvent

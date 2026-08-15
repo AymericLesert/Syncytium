@@ -693,6 +693,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D612 | **Le câblage précisé** (complète D611) : le câblage optionnel au simple, explicite au complexe ; **la famille = `type:`** — « pour les cas les plus simples, le type est le nom du connecteur » (l'écho D458) ; plusieurs connecteurs en service (la sobriété — quelques-uns suffisent) ; **`context.connector.<rôle>`** acté, plusieurs connecteurs par item non exclus ; la carte pouvant choisir son connecteur selon l'écran. | Voir §3.2c. |
 | D613 | **Le type et l'implémentation** (clarifie D611–D612) : « postgresql n'est pas un type — storage est bien le type ; postgresql, sqlserver, mysql, oracle… constituent une implémentation compatible avec storage » — le type = la famille = le rôle (le contrat D605), l'implémentation le remplit. | `implementation:` en proposition (le mot hook quitte la configuration — D408). Voir §3.2c. |
 | D614 | **`connectors.md` créé** : le cinquième artefact préparatoire (Q58/domaine 6) — la nature (global, sans contexte, le type-contrat et l'implémentation, le stockage-connecteur), la déclaration, le câblage aux rôles, les secrets, le catalogue de base, les déclencheurs, la migration ; les points ouverts listés. | Le report des décisions — aucun contenu nouveau. |
+| D615 | **`class:`** (solde D613) : « class serait plus intéressant pour moi » — confirmé : le vocabulaire objet (le type = le contrat, la classe le remplit), court, sans collision ; le YAML écrit `class:`, la prose garde « l'implémentation ». | hooks.md et connectors.md balayés. Voir §3.2c. |
 
 ---
 
@@ -4840,6 +4841,15 @@ doctrine D408 enfin respectée jusque dans connectors.yml :*
 `main_db: { type: storage, implementation: postgresql }` *; le
 simple demeure : le nom = le type —*
 `smtp: { implementation: smtp_std }`*.)*
+
+**`class:` (D615 — solde D613).** L'écriture arrêtée : **« class
+serait plus intéressant pour moi »** — confirmé. Le vocabulaire
+objet, exact au sens (le type est le contrat, la classe le remplit),
+court, sans collision au registre ; le mot `hook` reste hors de la
+configuration (D408). La prose du registre garde « l'implémentation »
+comme mot français ; le YAML écrit `class:` —
+`main_db: { type: storage, class: postgresql }`,
+`smtp: { class: smtp_std }`.
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12451,6 +12461,9 @@ avant la synthèse Q16).
   câblage, les secrets, le catalogue de base, les déclencheurs, la
   migration/transformation, les points ouverts (le mapping du from,
   les contrats par famille, la défaillance, implementation:).
+- **2026-08-15 (suite 46)** — **class: confirmé (D615)** : le
+  vocabulaire objet, court, sans collision — implementation: balayé
+  des deux documents.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

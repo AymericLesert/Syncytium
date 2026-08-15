@@ -678,6 +678,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D597 | **L'issue au commit, le message-label** : « le commit d'une opération retourne l'issue — Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle contient » ; « le message du commit est un label » (D585 — le catalogue D440, le gabarit nourri de la transaction D586/D594). | Le hook rend une valeur, le moteur déclenche. Voir §3.2c. |
 | D598 | **Les valeurs nommées de l'opération** (précise D597) : « les noms du label sont portés par l'opération — nb_creations, nb_updates, nb_deletes… utilisées par le message de confirmation » — les comptes de la transaction nommés (D594) + les résultats d'execute (D511), en paramètres du gabarit (D585–D586). | Voir §3.2c. |
 | D599 | **L'inviolabilité de la librairie** (clôt les signatures — **et Q60**) : « la librairie mise en place assure l'inviolabilité des règles et des droits » — le hook citoyen du moteur : droits (D196), confidentialité, validation (D307), concurrence (D111) jamais contournables. | Le catalogue des fonctions est complet (D570–D599). Voir §3.2c. |
+| D600 | **Le confirm au formulaire** (enrichit D595/D597) : « le rendre plus riche avec un formulaire et des champs alimentés par l'exécution — la création simplifiée validée en consultant l'enregistrement en lecture seule et/ou en modification » — les éditions rejoignent la transaction avant le scellé (D594). | `commit: { mode: confirm, form: <nom>, message: }` en proposition. Voir §3.2c. |
 
 ---
 
@@ -4729,6 +4730,21 @@ d'exploration (D572) est l'unique porte, et elle porte les règles.
 unifiées dans les types (D579–D587), le contexte courant et les
 paramètres (D588–D591), les graphes acycliques (D592), les signatures
 des hooks (D593–D599) — le catalogue des fonctions est complet.
+
+**Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
+opérations, nous avons `confirm` qui affiche une boîte de dialogue
+avec un message. Nous pouvons le rendre plus riche avec un formulaire
+et des champs qui sont alimentés par l'exécution. Par exemple : une
+procédure simplifiée de création d'un enregistrement qui se valide en
+consultant l'enregistrement dans un formulaire en lecture seule et/ou
+en modification. »** La relecture (D431/D196) prend toute sa
+dimension : le `confirm` présente **le message (le label — D597), ou
+un formulaire nourri par la transaction active** (D594) — la lecture
+seule pour consulter, **la modification pour ajuster : les éditions
+de l'utilisateur rejoignent la transaction avant le scellé**.
+*(L'écriture en proposition : `commit: { mode: confirm, form: <nom>,
+message: … }` — le formulaire nommé de l'entité, son `mode` D453
+valant.)* La six-centième décision.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12108,6 +12124,12 @@ avant la synthèse Q16).
   code (D314).
 - **2026-08-15 (suite 24)** — **La PR #28 créée** (« Q60 close — le
   catalogue des fonctions », D570–D599, 23 commits) vers develop.
+- **2026-08-15 (suite 25)** — **Le confirm au formulaire (D600)** :
+  la relecture enrichie — le formulaire nourri par la transaction
+  active, la lecture seule et/ou la modification, les éditions
+  rejoignant la transaction avant le scellé ; form: en proposition.
+  **La six-centième décision** — le commit rejoint la PR #28
+  ouverte.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

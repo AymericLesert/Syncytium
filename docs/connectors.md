@@ -113,12 +113,12 @@ d'une classe vérifiée au chargement :
 | `file` | les fichiers — le dépôt, le guetteur à `every:` | csv, json… | D604 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
-| `api` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete ; le webhook entrant (D609) | — | D623 |
+| `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
-lecture, le file, l'api.)*
+lecture, le file, le webhook.)*
 
 **Le socle commun du contrat** (D621–D622) : `initialize`/`release`
 (le démarrage et l'arrêt de l'application), `connect`/`disconnect`

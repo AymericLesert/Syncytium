@@ -674,6 +674,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D593 | **Les valeurs nommées de la fonction** (précise D571) : « une valeur (par défaut) — ou plusieurs valeurs nommées : le cas d'une regex à groupes nommés affectés à plusieurs champs » — `result: <type>` ou `result: { nom: type, … }`, l'appel unique au graphe. | L'affectation au point en proposition (`extract_name(raw).prenom`). Voir §3.2c. |
 | D594 | **La transaction tenue ouverte** (simplifie D511/D547) : « pas 2 modes — une opération ajoute des éléments dans une transaction ; le preview exécute et attend la validation ; valider = la transaction validée, annuler/stopper = annulée ». | Le chiffrage = le contenu de la transaction active ; le wizard = une transaction au fil des steps (D101) ; le mode disparaît de la signature. Voir §3.2c. |
 | D595 | **Les quatre fonctions du hook d'opération** (précise D594) : `execute` (remplit la transaction), `confirm` (la relecture), `commit` (scelle, l'après-coup), `rollback` (défait) ; « une opération peut se valider ou s'annuler automatiquement selon les paramètres de l'appel ». | L'objet du hook (D566.7) ; l'écho D428/D431. Voir §3.2c. |
+| D596 | **`commit: auto \| confirm`** (renomme D431) : « plutôt que validate, je préfère commit » — confirm le défaut (la relecture), auto la validation automatique ; le mot aligné sur la fonction du hook (D595). | La forme riche `commit: { mode:, message: }` en proposition (D511) ; les fiches balayées. Voir §3.2c. |
 
 ---
 
@@ -4683,6 +4684,15 @@ défait proprement. Et **« une opération peut se valider ou s'annuler
 automatiquement selon les paramètres de l'appel de l'opération »** —
 l'auto-commit (l'opération automatique D428, le `validate: false`
 D431) comme l'auto-annulation, décidés à l'appel.
+
+**`commit: auto | confirm` (D596 — renomme D431).** **« Plutôt que
+validate, je préfère `commit: auto | confirm`. »** La propriété de
+l'opération se renomme — le mot s'aligne sur la fonction du hook
+(D595) : **`commit: confirm`** (le défaut — la relecture avant le
+scellé, D196/D431) ou **`commit: auto`** (la validation automatique).
+*(La forme riche en proposition : `commit: { mode: confirm, message:
+<gabarit> }` — le message de D511 s'y loge ; les écritures
+`validate:` balayées dans les fiches.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12041,6 +12051,10 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 19)** — **Les quatre fonctions du hook
   (D595)** : execute, confirm, commit, rollback — l'objet prend
   forme ; l'auto-validation/annulation aux paramètres de l'appel.
+- **2026-08-15 (suite 20)** — **commit: auto|confirm (D596)** :
+  validate: renommé — le mot aligné sur la fonction du hook ; confirm
+  en défaut, la forme riche au message (D511) en proposition ; les
+  fiches balayées.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

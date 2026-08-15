@@ -120,13 +120,74 @@ d'une classe vérifiée au chargement :
 (D175–D179) s'appuie sur les familles existantes — le storage en
 lecture, le file, le webhook.)*
 
-**Le socle commun du contrat** (D621–D622) : `initialize`/`release`
-(le démarrage et l'arrêt de l'application), `connect`/`disconnect`
-(à l'appel), **`ping()`** — le statut (`error`, `initialized`,
-`disconnected`, `connected`, `closed`…), la fréquence à l'`every:` ;
-les propriétés du socle : `connection: permanent | on_demand |
-idle[15min]` *(en proposition)* et `pool:` (le parallélisme
-asynchrone — D436).
+## Le socle commun du contrat (D621–D630)
+
+**Les méthodes** — toute classe les implémente :
+
+| la méthode | le moment, le rôle |
+|---|---|
+| `initialize` / `release` | le démarrage et l'arrêt de l'application (D621) |
+| `connect` / `disconnect` | à l'appel du connecteur (D621) |
+| `ping()` | la santé — **le statut** : `error`, `initialized`, `disconnected`, `connected`, `closed`… ; `every:` en précise la fréquence (D621) |
+| `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
+| `describe()` *(nom en proposition)* | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) |
+
+**Les propriétés du socle** : `connection: permanent | on_demand |
+idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
+asynchrone — D622/D436), `retry:` et `timeout:` (la reprise sur
+erreur — D625 ; l'homonymie notée : ce retry n'est pas la reprise de
+données D175), `onerror:` (la page de maintenance des connecteurs
+clés — D627).
+
+**La position de sécurité** (D625–D627) : « en cas d'erreur, il faut
+passer sur une page de maintenance et une alerte doit être émise »
+(D626) ; et **la condition indispensable** : « l'application doit
+démarrer uniquement si l'envoi de mail à l'administrateur est
+possible » — le canal d'alerte avant tout, le smtp vérifié au
+démarrage.
+
+## Les contrats par famille
+
+### `storage` (D629, D631–D632)
+
+| le groupe | les méthodes |
+|---|---|
+| la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
+| l'introspection | `get_schema` — le schéma, les tables, les colonnes, les contraintes, les dépendances |
+| les migrations | `create_table` · `update_table` · `delete_table` |
+| le schéma | `create_schema` · `delete_schema` · **`switch_schema`** — « créer l'instance automatiquement ou faire migrer silencieusement », la bascule atomique (D631) |
+| les enregistrements | `create` · `read` · `update` · `delete` |
+
+**La migration à chaud en quatre gestes** : `create_schema` → la
+migration → `switch_schema` → `delete_schema` — et **le mapping est
+automatique** (D632) : la translation déclarative dérive les
+correspondances des deux méta-schémas, le technicien n'écrit rien
+(le mapping manuel demeure l'affaire du `from:` — les systèmes
+étrangers).
+
+### `smtp` (D628)
+
+`send(message, pièces[], destinataires[])` — **le message au format
+HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
+en HTML fait le corps), **les pièces jointes : une liste de fichiers,
+quel que soit le format** ; **l'expéditeur est configuré dans les
+propriétés du connecteur**.
+
+### `directory` (D633)
+
+`get_users` (tous les utilisateurs de l'AD) · `get_users_from_group`
+(les utilisateurs d'un groupe) · `get_groups` (tous les groupes) —
+**« uniquement de la lecture », aucun pendant en écriture** : la
+synchronisation des comptes et des groupes, les affectations restant
+des actes d'administration (D341/D210). *(L'authentification — la
+passerelle D418 — flaguée pour le chantier sécurité.)*
+
+### `file`, `location`, `webhook`, `siren`
+
+Les contrats à détailler — les pistes consignées : `file` (`watch` —
+le guetteur D604, la liste, la lecture, l'écriture), `location`
+(le géocodage et l'inverse — D294/D392), `webhook` (`get`/`put`/
+`post`/`delete` — D623), `siren` (la vérification — D611).
 
 Le catalogue s'étend par le hook de connecteur (D603) — **une classe
 dans une famille, jamais une famille neuve** : « Syncytium fournit un
@@ -162,17 +223,21 @@ operations:
 - **l'instantané ou le différentiel** (D606) — le changement de
   moteur par la translation, le différentiel rejoignant la
   réplication passive du PCA-PRA (D112–D114) ;
+- **le mapping automatique de la migration à chaud** (D632) : entre
+  deux versions du méta-schéma, la translation déclarative dérive les
+  correspondances — le technicien n'écrit rien ;
 - **le chantier ouvert** (D610) : « le from décrit la procédure de
   migration/transformation — une configuration basée sur les éléments
   déjà vus, que nous allons étendre » (la reprise D175–D179, l'import
-  D234–D238, la transaction tenue ouverte D594).
+  D234–D238, la transaction tenue ouverte D594) — **le mapping manuel
+  vers les systèmes étrangers**.
 
 ## Les points ouverts
 
 - **le mapping du `from:`** — la configuration de la procédure (le
   chantier nommé, D610) ;
-- **les contrats détaillés par famille** — les méthodes de chacune
-  (D605 pose le principe) ;
-- **la défaillance** — le connecteur en échec : le comportement, le
-  rapport (D406 ?), la reprise après incident ;
+- **les contrats de `file`, `location`, `webhook`, `siren`** — à
+  détailler ;
+- **l'authentification** (la passerelle D418) — au chantier
+  sécurité ;
 

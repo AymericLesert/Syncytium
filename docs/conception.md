@@ -12752,6 +12752,12 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 4)** — **Le contrat directory (D633)** :
   get_users, get_users_from_group, get_groups — la lecture seule ;
   l'authentification flaguée pour le chantier sécurité.
+- **2026-08-16 (suite 5)** — **connectors.md mis à jour** : le socle
+  commun complet (les méthodes D621/D627/D630, les propriétés
+  D621–D622/D625/D627, la position de sécurité D626), les contrats
+  détaillés (storage D629/D631–D632, smtp D628, directory D633), les
+  quatre familles restantes en pistes, les points ouverts
+  actualisés.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

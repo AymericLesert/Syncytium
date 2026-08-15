@@ -710,6 +710,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D629 | **Le contrat storage** : `begin`/`commit`/`rollback` (la transaction — D594) ; `get_schema` (l'introspection — tables, colonnes, contraintes, dépendances) ; `create_table`/`update_table`/`delete_table` (les migrations) ; `create_schema`/`delete_schema` (« créer l'instance automatiquement ou faire migrer silencieusement ») ; `create`/`read`/`update`/`delete` (les enregistrements). | Voir §3.2c. |
 | D630 | **La documentation au socle commun** : « un connecteur doit disposer d'une méthode pour générer de la documentation en markdown/html — la documentation automatique de l'instance ». | `describe()` en proposition ; la brique de Q58 (l'écho D124). Voir §3.2c. |
 | D631 | **`switch_schema`** (complète D629) : « basculer vers le nouveau schéma après la migration » — la bascule atomique ; la migration silencieuse = create_schema → la migration → switch_schema → delete_schema (la lecture notée). | Voir §3.2c. |
+| D632 | **Le mapping automatique** : « la migration à chaud trouve sa mécanique, et le mapping (automatique) est le mécanisme exploité » — la translation déclarative dérive les correspondances des deux méta-schémas, le technicien n'écrit rien. | Le mapping manuel reste au `from:` (D610 — les systèmes étrangers). Voir §3.2c. |
 
 ---
 
@@ -5036,6 +5037,16 @@ migration. »** — la bascule atomique ; *(la lecture notée : la
 migration silencieuse s'écrit alors `create_schema` → la migration →
 `switch_schema` → `delete_schema` — la migration à chaud D100/D112 en
 quatre gestes du contrat.)*
+
+**Le mapping automatique de la migration à chaud (D632).** **« La
+migration à chaud de la base de données trouve sa mécanique, et le
+mapping (automatique) est le mécanisme exploité. »** — entre deux
+versions du modèle, **le mapping se calcule** : la translation
+déclarative (le primitif aux quatre usages) dérive les
+correspondances des deux méta-schémas — le technicien n'écrit rien
+pour la migration à chaud. *(La frontière notée : le mapping
+**manuel** demeure l'affaire du `from:` vers les systèmes étrangers —
+D610, le chantier du mapping externe.)*
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12721,6 +12732,10 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 2)** — **switch_schema (D631)** : la bascule
   vers le nouveau schéma après la migration — la migration
   silencieuse en quatre gestes (la lecture notée).
+- **2026-08-16 (suite 3)** — **Le mapping automatique (D632)** : la
+  migration à chaud exploite le mapping calculé des deux
+  méta-schémas (la translation déclarative) ; le mapping manuel reste
+  au from: (les systèmes étrangers).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

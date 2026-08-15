@@ -698,6 +698,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D617 | **Les connecteurs à l'environnement** (amende D603/D616) : « le contenu de connectors.yml est à reporter dans environments/<env>.yml — lors de l'ingestion, Syncytium doit vérifier que les connecteurs sont tous décrits dans chaque environnement » — connectors.yml s'efface, le contrôle de complétude à l'ingestion. | Le connecteur reste global (D603 — aucune déclinaison module/entité). Voir §3.2c. |
 | D618 | **Le `settings.yml` de la version** : « settings.yml se retrouve aussi dans la version, en plus du module » — l'étage application de la cascade (D591) a son fichier ; le module raffine (D349), l'entité précise (D348/D360). | Voir §3.2c. |
 | D619 | **Les familles closes** (précise D603/D605) : « Syncytium fournit un nombre limité de familles. Il n'existe pas de hook de famille. Le hook porte sur l'implémentation d'une famille. » — le moteur n'appelle que les contrats qu'il connaît ; le hook = une classe dans une famille. | Voir §3.2c. |
+| D620 | **La famille contraint le contrat** (complète D619) : « une famille va contraindre la définition du contrat » — les méthodes et leurs signatures imposées à toute classe ; la conformité vérifiable au chargement. | Voir §3.2c. |
 
 ---
 
@@ -4897,6 +4898,13 @@ jeu des familles est **celui du moteur** : le moteur n'appelle que
 les contrats qu'il connaît ; le hook de connecteur ajoute **une
 classe dans une famille** (un Oracle au `storage`, un Mailjet au
 `smtp`) — jamais une famille neuve.
+
+**La famille contraint le contrat (D620 — complète D619).** **« Une
+famille va contraindre la définition du contrat. »** — la famille
+impose le contrat à toute classe : les méthodes, leurs signatures ;
+l'implémentation le remplit, elle ne le choisit pas — la conformité
+d'une classe à sa famille est vérifiable au chargement (l'esprit
+D330/D344 : l'écart ne passe pas).
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12529,6 +12537,9 @@ avant la synthèse Q16).
   familles est celui du moteur. Les contrats par famille en cours
   d'arbitrage (le socle commun, les méthodes, le sort de la reprise
   posés dans l'échange).
+- **2026-08-15 (suite 51)** — **La famille contraint le contrat
+  (D620)** : les méthodes et signatures imposées, l'implémentation
+  les remplit — la conformité vérifiée au chargement.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

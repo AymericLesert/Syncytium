@@ -688,6 +688,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
 | D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
 | D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
+| D610 | **La liaison au stockage** : `connectors.yml` = la liste des disponibles ; « le modèle de données est attaché à un connecteur — celui de la lecture/écriture » ; à la racine : `connector: { storage: main_db }` ou `{ storage: main_db, from: legacy_db }` — le `from` = la procédure de migration/transformation, « une configuration basée sur les éléments déjà vus, que nous allons étendre ». | La surcharge par entité écartée — le legacy passe par le from. Voir §3.2c. |
 
 ---
 
@@ -4768,6 +4769,20 @@ signifie *pas de code* — l'orchestration de références, elle, est
 déclarative. La séquence s'exécute **dans la même transaction tenue
 ouverte** (D594) ; le chiffrage, le confirm et l'issue valent pour
 les deux formes.
+
+**La liaison au stockage (D610).** **« Le fichier `connectors.yml`
+décrit la liste des connecteurs disponibles. Le modèle de données est
+attaché à un connecteur : celui qui permet la lecture/écriture. Pour
+les migrations/transformations, nous avons besoin de définir un
+connecteur d'entrée et éventuellement un connecteur de sortie. À la
+racine du projet : `connector: { storage: main_db }` ou
+`connector: { storage: main_db, from: legacy_db }`. Le `from` décrit
+la procédure de migration/transformation. »** — le modèle vit sur
+**un** stockage (la question de la surcharge par entité se referme :
+la base legacy passe par le `from`, pas par une liaison éparse) ; et
+le chantier suivant est nommé : **« pour ce point, nous devons
+décrire une configuration basée sur les éléments déjà vus (que nous
+allons étendre) »** — la procédure de migration/transformation.
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12352,6 +12367,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 39)** — **La PR #29 créée** (« la passe de
   complétude — les huit domaines consignés, les connecteurs, hooks.md
   et types.md », D602–D609, 14 commits, 4 fichiers) vers develop.
+- **2026-08-15 (suite 40)** — **La liaison au stockage (D610)** :
+  connector: { storage:, from: } à la racine — un seul stockage, le
+  from portant la migration/transformation ; le chantier suivant
+  nommé : la configuration de la procédure (les éléments déjà vus, à
+  étendre).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

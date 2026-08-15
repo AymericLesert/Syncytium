@@ -12185,6 +12185,14 @@ avant la synthèse Q16).
   l'architecture (Q7/Q47), 8 = l'implémentation (D314) ; les renvois
   « domaine 6 » de D408/D452/D459 relus vers Q60 et le domaine 7. Le
   manque réparé — le domaine 5 (les cas d'usage) prêt à s'ouvrir.
+- **2026-08-15 (suite 29)** — **La passe de complétude ouverte** : la
+  revue des manques sur les quatre sujets transversaux (les
+  connecteurs/échanges, la sécurité/droits, l'administration/
+  exploitation, la migration/versions) posée dans l'échange ; l'auteur
+  tranche — « nous allons compléter les manques, commençons par les
+  connecteurs et les échanges ». Les cinq manques du sujet : la
+  déclaration, les secrets, le contrat du hook-connecteur, les
+  entrants, la planification.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -222,11 +222,32 @@ forme juridique, le code NAF, l'adresse du siège, les
 établissements/SIRET, l'état actif/cessé… — à arrêter à
 l'implémentation de la classe.)*
 
-### `webhook`
+### `webhook` (D640–D641)
 
-Le contrat à détailler — la piste consignée : `get`/`put`/`post`/
-`delete`, le point d'entrée dans les appels d'API versionnés
-(D623–D624).
+Le connecteur ne sort pas : **il déclare des entrées que Syncytium
+sert**. Chaque point d'entrée porte :
+
+- **le mode** de l'api — `get`, `put`, `post` ou `delete` ;
+- **le point d'entrée** — la route versionnée
+  `api/<version>/webhook/<nom du point d'entrée>` (D623–D624) ;
+- **les paramètres** — « présents dans le header de l'api ou dans
+  l'url de l'api ».
+
+**Un webhook = une liste de points d'entrée** (D641) ; le moteur
+monte les routes, contrôle les paramètres, reçoit. **Le `when:` est
+un abonnement** : `when: <connecteur>` (toute entrée) ou l'entrée
+précisée — posé à l'`initialize` (D621), l'appel entrant déclenche
+l'opération déclarée (D609).
+
+```yaml
+connectors:
+  orders_api:
+    type: webhook
+    class: webhook_std
+    entries:
+      new_order:    { mode: post, parameters: [ source, order_id ] }
+      order_status: { mode: get,  parameters: [ order_id ] }
+```
 
 Le catalogue s'étend par le hook de connecteur (D603) — **une classe
 dans une famille, jamais une famille neuve** : « Syncytium fournit un
@@ -249,7 +270,16 @@ operations:
     when: incoming_orders          # l'événement du connecteur (D609)
     operations: [ import, notify ] # la liste d'opérations du socle (D609)
     commit: auto
+  import_order:
+    when: orders_api.new_order     # l'abonnement au point d'entrée (D641)
+    operations: [ import ]
+    commit: auto
 ```
+
+- **le `when:` en abonnement** (D641) : posé à l'initialisation de
+  l'application — le connecteur et éventuellement le point d'entrée
+  attendu ; l'appel entrant (webhook) ou l'événement détecté (file)
+  déclenche.
 
 ## La migration et la transformation
 
@@ -275,7 +305,6 @@ operations:
 
 - **le mapping du `from:`** — la configuration de la procédure (le
   chantier nommé, D610) ;
-- **le contrat de `webhook`** — à détailler ;
 - **les champs de l'API Sirene** (D639) — l'inventaire à
   l'implémentation ;
 - **l'authentification** (la passerelle D418) — au chantier

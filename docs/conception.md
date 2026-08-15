@@ -718,6 +718,8 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D637 | **Le contrat location** : `geocode(address: {}) : geolocation` et `reverse(geolocation) : address` — les signatures typées (le type du modèle D391, le texte associé D392). | Voir §3.2c. |
 | D638 | **Le contenu du type geolocation** (précise D391/D637) : « des coordonnées longitude/latitude et/ou adresse postale normalisée sur geocode » — geocode rend le point ET l'adresse mise au propre ; l'un et/ou l'autre selon la source. | types.md et connectors.md mis au niveau. Voir §3.2c. |
 | D639 | **Le contrat siren** : `verify(siren) : {}` — « retourne les informations de l'entreprise si le SIREN est vérifié » ; la vérification et l'enrichissement en un geste ; flagué : l'inventaire des champs de l'API Sirene à l'implémentation. | connectors.md mis au niveau. Voir §3.2c. |
+| D640 | **Le contrat webhook — l'entrée** : le mode (get/put/post/delete), le point d'entrée `api/<version>/webhook/<nom>`, les paramètres au header ou à l'URL — « une nouvelle entrée gérée par Syncytium » : le moteur monte la route et reçoit. | Voir §3.2c. |
+| D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
 
 ---
 
@@ -5132,6 +5134,54 @@ pré-remplit (l'esprit D294 : le service public nourrit la saisie).
 Sirene de l'INSEE (la dénomination, la forme juridique, le code NAF,
 l'adresse du siège, les établissements/SIRET, l'état actif/cessé…) —
 à arrêter au moment de l'implémentation de la classe.
+
+**Le contrat de la famille webhook — l'entrée (D640).** **« Le
+webhook dispose d'une propriété qui précise le mode de l'api (get,
+put, post ou delete), une propriété qui précise le point d'entrée
+après l'api webhook (`api/<version>/webhook/<nom du point d'entrée>`)
+et une liste de paramètres présents dans le header de l'api ou dans
+l'url de l'api. Ceci décrit une nouvelle entrée gérée par
+Syncytium. »** — le connecteur webhook ne sort pas : **il déclare une
+entrée que Syncytium sert** — la route versionnée
+`api/<version>/webhook/<nom>` (les API versionnées de D623–D624), le
+mode HTTP, les paramètres attendus (au header ou à l'URL) ; le moteur
+monte la route, contrôle les paramètres, reçoit.
+
+**La liste d'entrées et l'abonnement (D641).** **« Nous étendons
+webhook à une liste de points d'entrée. Un `when:` précise le
+connecteur et éventuellement le nom du point d'entrée attendu. Ceci
+porte un abonnement sur le webhook à l'initialisation de
+l'application. Et, cela facilite le déclenchement d'une
+opération. »** — un connecteur webhook = **plusieurs points
+d'entrée** (chacun son mode et ses paramètres) ; le `when:` de
+l'opération déclarée (D609) s'écrit `when: <connecteur>` (toute
+entrée) ou précise l'entrée — *l'écriture en proposition :*
+`when: orders_api.new_order` *(le point, comme le champ)*. **Le when
+est un abonnement** : à l'`initialize` du socle (D621), Syncytium
+monte les routes et relie chaque entrée aux opérations abonnées —
+l'appel entrant déclenche, rien à interroger.
+
+*(L'écriture en proposition :*
+
+```yaml
+# environments/production.yml
+connectors:
+  orders_api:
+    type: webhook
+    class: webhook_std
+    entries:
+      new_order:    { mode: post, parameters: [ source, order_id ] }
+      order_status: { mode: get,  parameters: [ order_id ] }
+
+# le module — l'opération déclarée (D609)
+operations:
+  import_order:
+    when: orders_api.new_order     # l'abonnement (D641)
+    operations: [ import, notify ]
+    commit: auto
+```
+
+*— la route servie : `api/<version>/webhook/new_order`.)*
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12852,6 +12902,11 @@ avant la synthèse Q16).
   verify(siren) : {} — les informations de l'entreprise si vérifié ;
   l'inventaire des champs de l'API Sirene flagué pour
   l'implémentation.
+- **2026-08-16 (suite 12)** — **Le contrat webhook (D640–D641)** :
+  l'entrée (le mode, la route api/<version>/webhook/<nom>, les
+  paramètres header/url — servie par Syncytium), la liste d'entrées,
+  le when: en abonnement posé à l'initialisation. **Les sept contrats
+  de famille sont posés.** connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

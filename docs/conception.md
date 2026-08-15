@@ -683,6 +683,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D602 | **Les huit domaines de Q16 consignés** (répare un manque) : 1. l'organisation et l'arborescence · 2. la donnée, sa structure et les droits · 3. le méta-schéma · 4. les surfaces · 5. les cas d'usage · 6. la documentation · 7. l'architecture technique · 8. l'implémentation. Le recoupement : 1–4 livrés (3 = règles/comportement + Q60) ; 5=Q59, 6=Q58, 7=Q7/Q47, 8=D314 ; les renvois « domaine 6 » de D408/D452/D459 relus (couverts par Q60, le reliquat au domaine 7). | Voir §3.2c. |
 | D603 | **Les connecteurs — les cinq arbitrages** : `connectors.yml` à la racine, **global** (aucune déclinaison) ; le catalogue de base + le hook de connecteur ; les paramètres = les propriétés, **pas de contexte** (le démarrage du projet) ; **les secrets = la référence à une variable d'environnement**, chiffrable à la clé dérivée (environnement + machine) ; `every:` à la grammaire D434. | Le dépôt versionné (D336) sans secret en clair. Voir §3.2c. |
 | D604 | **Le catalogue de base des connecteurs** (complète D603) : les bases de données standard (SQLServer, MySQL, Postgre…), l'AD Azure, les fichiers (CSV, JSON…) — + le géocodage (D294), l'itinéraire (D514), le smtp (D564), la reprise (D175) ; `every:` « pour rafraîchir ou tester » — le file watcher : « la détection de présence d'un fichier, le fichier mis à jour et relu ». | L'entrant naît par le fichier ; l'AD Azure = un visage de la passerelle D418. Voir §3.2c. |
+| D605 | **Le contrat par famille** (solde les connecteurs) : « la famille (ou le type) permet de définir les interactions avec Syncytium — chaque famille a ses propres méthodes et fonctions » — la ligne D579 jusqu'aux connecteurs ; le hook implémente le contrat de sa famille. | Les cinq manques du sujet refermés (D603–D605). Voir §3.2c. |
 
 ---
 
@@ -4826,6 +4827,20 @@ testés — par exemple un file watcher : la détection de présence d'un
 fichier, le fichier mis à jour et relu. »** — **l'échange entrant
 naît là** : le fichier déposé, détecté, relu — la porte d'entrée par
 le connecteur de fichiers.
+
+**Le contrat par famille (D605 — solde le sujet des connecteurs).**
+**« La famille (ou le type) permet de définir les interactions avec
+Syncytium. Chaque famille a ses propres méthodes et fonctions. »** —
+le contrat du hook-connecteur n'est pas universel : **il est porté
+par la famille** (la ligne D579 — le type emmène ses fonctions,
+jusqu'aux connecteurs) : la base de données a ses méthodes, le
+fichier les siennes (la veille, la lecture), le géocodage les siennes
+(l'adresse → les coordonnées, l'inverse), le mail son envoi,
+l'annuaire son authentification, la reprise sa lecture seule (D175).
+Un hook de connecteur implémente le contrat de sa famille. **Les cinq
+manques des connecteurs sont refermés** : la déclaration (D603), les
+secrets (D603), la planification (D603–D604), les entrants (D604 —
+le watcher), le contrat (D605).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12240,6 +12255,11 @@ avant la synthèse Q16).
   bases de données standard, l'AD Azure, les fichiers (CSV, JSON) —
   la liste complémentaire acceptée ; every: pour rafraîchir ou
   tester, le file watcher — l'entrant naît par le fichier.
+- **2026-08-15 (suite 32)** — **Le contrat par famille (D605)** :
+  chaque famille de connecteurs a ses propres méthodes et fonctions
+  (la ligne D579 jusqu'au bout) — **le sujet des connecteurs et des
+  échanges est soldé** (D603–D605, les cinq manques refermés).
+  Suivant dans la passe : la sécurité et les droits.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

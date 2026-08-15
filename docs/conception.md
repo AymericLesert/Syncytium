@@ -670,6 +670,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D589 | **Le type du paramètre, `context` acté** : « un paramètre porte aussi type: (par défaut : text) » ; « le nom context me convient — si une entité se nomme context, l'entité prend le pas ; lors de l'ingestion, un warning sera nécessaire » ; l'inventaire des champs consigné (user traversable, location, now, instance/application/module, entity/field, file/page/pages, settings). | La préséance à l'entité + le warning (l'esprit D344). Voir §3.2c. |
 | D590 | **L'abréviation du paramètre** : « marge: 10% — l'abréviation (mode: static et type: text) » — la forme courte aux défauts. | Voir §3.2c. |
 | D591 | **La cascade des settings** (complète D588) : « les settings dans le module ou l'entité viennent compléter ou surcharger la valeur des settings définis dans l'application » — les trois étages, le plus proche l'emporte (D360/D461). | `context.settings.<nom>` résout au plus proche. Voir §3.2c. |
+| D592 | **Le graphe d'exécution acyclique** (contraint D571) : « ils doivent être acycliques » — le cycle de calcul = une erreur d'ingestion (D330/D344), le contrôle statique. | La ligne des graphes acycliques (D455, les groupes). Voir §3.2c. |
 
 ---
 
@@ -4634,6 +4635,14 @@ des settings définis dans l'application. »** — les trois étages
 (l'application → le module → l'entité), le complément ou la
 surcharge, **le plus proche l'emporte** (la ligne D360/D461) ;
 `context.settings.<nom>` résout au plus proche du lieu d'évaluation.
+
+**Le graphe d'exécution acyclique (D592 — contraint D571).** **« Sur
+les graphes d'exécution, nous devons inclure une contrainte : ils
+doivent être acycliques. »** — le cycle de calcul (a dépend de b qui
+dépend de a) est **une erreur d'ingestion** (l'esprit D330/D344 — le
+contrôle statique, comme le typage D581) ; la ligne des graphes
+acycliques du projet (les composants D455, la hiérarchie des groupes)
+se poursuit.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11977,6 +11986,9 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 15)** — **La cascade des settings (D591)** :
   l'application → le module → l'entité, le complément ou la
   surcharge — le plus proche l'emporte (D360/D461).
+- **2026-08-15 (suite 16)** — **Le graphe acyclique (D592)** : la
+  contrainte sur les graphes d'exécution — le cycle = une erreur
+  d'ingestion (le contrôle statique).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

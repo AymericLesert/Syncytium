@@ -680,6 +680,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D599 | **L'inviolabilité de la librairie** (clôt les signatures — **et Q60**) : « la librairie mise en place assure l'inviolabilité des règles et des droits » — le hook citoyen du moteur : droits (D196), confidentialité, validation (D307), concurrence (D111) jamais contournables. | Le catalogue des fonctions est complet (D570–D599). Voir §3.2c. |
 | D600 | **Le confirm au formulaire** (enrichit D595/D597) : « le rendre plus riche avec un formulaire et des champs alimentés par l'exécution — la création simplifiée validée en consultant l'enregistrement en lecture seule et/ou en modification » — les éditions rejoignent la transaction avant le scellé (D594). | `commit: { mode: confirm, form: <nom>, message: }` en proposition. Voir §3.2c. |
 | D601 | **La boîte seule** (précise D600) : « si form: est absent et si message: est précisé, seule une boîte de dialogue de validation sera affichée » — le léger et le riche. | Voir §3.2c. |
+| D602 | **Les huit domaines de Q16 consignés** (répare un manque) : 1. l'organisation et l'arborescence · 2. la donnée, sa structure et les droits · 3. le méta-schéma · 4. les surfaces · 5. les cas d'usage · 6. la documentation · 7. l'architecture technique · 8. l'implémentation. Le recoupement : 1–4 livrés (3 = règles/comportement + Q60) ; 5=Q59, 6=Q58, 7=Q7/Q47, 8=D314 ; les renvois « domaine 6 » de D408/D452/D459 relus (couverts par Q60, le reliquat au domaine 7). | Voir §3.2c. |
 
 ---
 
@@ -4753,6 +4754,41 @@ validation sera affichée. »** — les deux visages du confirm : la
 boîte au message (le léger), le formulaire sur la transaction (le
 riche) ; le message accompagne le formulaire quand les deux sont
 déclarés.
+
+**Les huit domaines de Q16, enfin consignés (D602 — répare un
+manque).** Le découpage vivait dans les échanges sans être posé au
+document ; l'auteur le repose :
+
+1. **l'organisation et l'arborescence d'une application** — « revue
+   et amendée au fur et à mesure de nos explorations » ;
+2. **la donnée, sa structure et les droits** ;
+3. **le méta-schéma** ;
+4. **les surfaces** ;
+5. **les cas d'usage** ;
+6. **la rédaction de la documentation synthétique et détaillée** ;
+7. **le choix de l'architecture technique** ;
+8. **l'implémentation**.
+
+**Le recoupement des échanges** (la demande de l'auteur) : les
+domaines 1 (D335–D346, amendé au fil — les dossiers module/entité,
+gui) et 2 (D347–D419 — les types, l'historisation, les groupes, la
+confidentialité au socle) sont livrés ; le domaine 3 fut vécu sous
+l'intitulé « les règles et le comportement » (D420–D436) — sa part du
+méta-schéma — que Q60 (D570–D601, le langage et les hooks) complète ;
+le domaine 4 est soldé (D437–D569, le catalogue entier). **Les
+domaines 5–8 correspondent aux chantiers déjà nommés** : 5 = les cas
+d'usage (Q59 — les mises en situation), 6 = la documentation (Q58 —
+le glossaire, composants.md et la synthèse en préparation), 7 =
+l'architecture technique (Q7, Q47 — la spec du langage, le langage
+des hooks D570, la sandbox), 8 = l'implémentation (D314 — le code
+après la conception). **Deux réconciliations consignées** : (a)
+l'intitulé du domaine 3 — « le méta-schéma » englobe les règles, le
+comportement et le langage (D420–D436 + D570–D601) ; (b) **les
+renvois « domaine 6 » des décisions D408/D452/D459** (le contrat des
+hooks — signature, code, sandbox) furent écrits sous un découpage de
+travail antérieur : **ils se relisent** — le contrat est couvert par
+Q60 (D570–D601), le reliquat (la sandbox, le langage du code) relève
+du domaine 7.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12143,6 +12179,12 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 27)** — **La PR #28 fusionnée** (« Q60 close »,
   D570–D601, 26 commits) — develop porte le catalogue des fonctions.
   **Le domaine 5 s'ouvre.**
+- **2026-08-15 (suite 28)** — **Les huit domaines consignés (D602)** :
+  le découpage reposé par l'auteur et croisé avec les échanges — 1–4
+  livrés, 5 = les cas d'usage (Q59), 6 = la documentation (Q58), 7 =
+  l'architecture (Q7/Q47), 8 = l'implémentation (D314) ; les renvois
+  « domaine 6 » de D408/D452/D459 relus vers Q60 et le domaine 7. Le
+  manque réparé — le domaine 5 (les cas d'usage) prêt à s'ouvrir.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

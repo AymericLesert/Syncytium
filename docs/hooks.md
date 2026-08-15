@@ -56,6 +56,22 @@ graphe de conversion).
 - **la représentation obligatoire** (D459) : « aucun type sans
   visage » — le composant d'écran et/ou le rendu de document.
 
+**L'exemple** — le fondateur des échanges (« définir un type
+progression… puis un champ avancement de type progression ») :
+
+```yaml
+# le type déclaré au setting (l'instance, le module ou l'entité)
+settings:
+  types:
+    progression:
+      type: integer[0..100]        # le socle du type (le chaînage possible)
+      component: fuel              # son visage (D459)
+
+# l'usage — comme un type du socle (D408 : le mot hook n'apparaît pas)
+fields:
+  avancement: progression
+```
+
 ### 2. Le hook de composant (D64–D68, D452, D566)
 
 Ajoute **un composant graphique** au catalogue — une feuille, un
@@ -69,6 +85,20 @@ commune (l'adresse `<type>[<nom>]`, le `visible:` vivant,
 l'évaluation paresseuse, les enfants déclarés, la pile de contexte —
 D566–D567) — et **« l'écriture repasse toujours par les champs et
 leurs règles »** : le composant ne contourne jamais le modèle.
+
+**L'exemple** — consigné à l'ère du modèle unifié (« le champ écrit
+`gauge_3d` comme il écrirait un composant du socle ») :
+
+```yaml
+# le hook enregistre « gauge_3d » au catalogue des composants —
+# l'objet gère le rendu Web, PDF, Word, Excel, Email (D566.7)
+
+# l'usage — la première classe (D65/D68) :
+fields:
+  progress_ring:
+    type: percentage
+    component: gauge_3d            # comme un built-in ; s'il échoue, le repli (D68)
+```
 
 ### 3. Le hook d'opération (D570, D594–D601)
 
@@ -93,6 +123,25 @@ le module, l'application. `commit: auto | confirm` à la déclaration
 (D596). L'opération voit **la pile des contextes** (D553) et peut
 appeler une fonction — jamais l'inverse (D571).
 
+**L'exemple** — le fil `sales.order` :
+
+```yaml
+# sales/entities/order.yml — la déclaration référence le hook par son nom
+operations:
+  invoice:
+    scope: selection               # les cinq portées (D570)
+    commit:
+      mode: confirm                # auto | confirm (D596)
+      form: default                # la relecture au formulaire (D600)
+      message: { fr: "{nb_creations} factures créées" }   # les valeurs nommées (D598)
+```
+
+Le hook `invoice` (le code) : `execute` crée les factures **dans la
+transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
+formulaire et le message ; `commit` scelle et retourne l'issue
+(`download` du PDF, par exemple) ; `rollback` défait si l'utilisateur
+annule.
+
 ### 4. Le hook de fonction (D571, D592–D593)
 
 Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
@@ -104,6 +153,21 @@ statique D581 s'y appuie), le contexte en lecture seule — **aucune
 écriture, aucune opération déclenchée** (la pureté D571). Le moteur
 appelle au fil du **graphe d'exécution acyclique** (D592 — le cycle =
 une erreur d'ingestion), au paramètre modifié.
+
+**L'exemple** — la regex aux groupes nommés (D593) :
+
+```yaml
+# la déclaration du hook (la signature — le code au langage de Syncytium)
+functions:
+  extract_name:
+    parameters: { raw: text }
+    result: { prenom: text, nom: text }   # les valeurs nommées (D593)
+
+# l'usage — un seul calcul, deux champs (le graphe D592)
+fields:
+  prenom: { formula: extract_name(raw).prenom }
+  nom:    { formula: extract_name(raw).nom }
+```
 
 ### 5. Le hook de connecteur (D603–D606)
 
@@ -122,6 +186,22 @@ propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
 un connecteur** (D606).
+
+**L'exemple** — la déclaration à la racine (D603–D604) :
+
+```yaml
+# connectors.yml — à la racine de la version, global (D603)
+connectors:
+  geocoding:
+    hook: ban                      # le catalogue de base (D294/D604)
+    parameters: { url: https://api-adresse.data.gouv.fr }
+    secrets: [api_key]             # la référence — la valeur en variable
+                                   # d'environnement, chiffrable (D603)
+  incoming_orders:
+    hook: file                     # le connecteur de fichiers (D604)
+    parameters: { path: /exchange/in, format: csv }
+    every: 5min                    # le guetteur — détecté, relu (D604)
+```
 
 ### Les autres points d'extension consignés
 

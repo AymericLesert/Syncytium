@@ -12293,6 +12293,11 @@ avant la synthèse Q16).
   points d'extension, les règles transversales (la librairie
   inviolable, le renvoi domaine 6 relu, la signature d'abord).
   L'entrée Connecteur du glossaire enrichie au passage (D603–D606).
+- **2026-08-15 (suite 35)** — **Les exemples ajoutés à hooks.md**
+  (« où sont les exemples ? ») : chaque famille reçoit le sien, puisé
+  des échanges — le type progression/fuel (le fondateur), le
+  composant gauge_3d, l'opération invoice du fil, la fonction
+  extract_name (D593), les connecteurs geocoding + le guetteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

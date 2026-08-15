@@ -11630,6 +11630,10 @@ avant la synthèse Q16).
   soldés, D1–D569 » — 509 commits, la première publication de la
   conception sur la branche vitrine : main était resté à
   l'initialisation du dépôt).
+- **2026-08-15 (suite 2)** — **La PR #27 fusionnée : la conception
+  publiée sur main** (D1–D569, 509 commits — la vitrine à jour).
+  **Q60 s'ouvre** : le catalogue des fonctions, le point différé de
+  D433.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

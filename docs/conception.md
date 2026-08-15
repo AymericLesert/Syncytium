@@ -12106,6 +12106,8 @@ avant la synthèse Q16).
   la librairie inviolable. Trente décisions (D570–D599). Restent :
   les domaines 5–8, la passe de complétude, Q58/Q59/Q7 — puis le
   code (D314).
+- **2026-08-15 (suite 24)** — **La PR #28 créée** (« Q60 close — le
+  catalogue des fonctions », D570–D599, 23 commits) vers develop.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -686,6 +686,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D605 | **Le contrat par famille** (solde les connecteurs) : « la famille (ou le type) permet de définir les interactions avec Syncytium — chaque famille a ses propres méthodes et fonctions » — la ligne D579 jusqu'aux connecteurs ; le hook implémente le contrat de sa famille. | Les cinq manques du sujet refermés (D603–D605). Voir §3.2c. |
 | D606 | **Les deux sens, le stockage-connecteur, la migration inter-connecteurs** : « un connecteur décrit les sortants et les entrants » ; « les entités sont liées à un connecteur de base de données » — le stockage est un connecteur ; « une migration d'un connecteur vers un autre, en instantanée ou en différentiel ». | La translation aux 4 usages (vérifié — évoqué dès l'origine) ; le différentiel = la réplication passive (D112–D114). Voir §3.2c. |
 | D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
+| D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
 
 ---
 
@@ -12307,6 +12308,11 @@ avant la synthèse Q16).
   les libres et iif (D583/D587). **Le point 8 reste ouvert à
   l'arbitrage : l'articulation entre l'opération déclarée
   (when:/effects: — D428–D432) et le hook d'opération (D570).**
+- **2026-08-15 (suite 37)** — **types.md créé (D608)** : le quatrième
+  artefact préparatoire — le catalogue des types par croisement du
+  registre (le socle commun, les simples, les composés, les
+  collections et plages, les liens, les générés et le contexte, les
+  types-hooks) ; chaque ligne cite ses décisions.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

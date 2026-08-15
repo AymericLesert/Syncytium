@@ -12372,6 +12372,9 @@ avant la synthèse Q16).
   from portant la migration/transformation ; le chantier suivant
   nommé : la configuration de la procédure (les éléments déjà vus, à
   étendre).
+- **2026-08-15 (suite 41)** — **La PR #29 fusionnée** (silencieusement,
+  le patron connu — vérifiée : bcde1d2 sur develop) ; la branche
+  recréée porte D610.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

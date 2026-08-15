@@ -716,6 +716,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D635 | **Le thread d'écoute** (précise D634) : « every: est utilisé sur connect ou initialize pour démarrer un thread dédié à l'écoute des fichiers » — le connecteur écoute lui-même, l'événement déclenche l'opération (D609). | Voir §3.2c. |
 | D636 | **Les storages de format** (referme D634) : « les storages "csv", "xml"… sont définis pour les exports et exploitables pour les imports » — les formats = des classes de storage ; la coopération file/storage (le guetteur détecte, le storage lit, le commit acquitte). | Voir §3.2c. |
 | D637 | **Le contrat location** : `geocode(address: {}) : geolocation` et `reverse(geolocation) : address` — les signatures typées (le type du modèle D391, le texte associé D392). | Voir §3.2c. |
+| D638 | **Le contenu du type geolocation** (précise D391/D637) : « des coordonnées longitude/latitude et/ou adresse postale normalisée sur geocode » — geocode rend le point ET l'adresse mise au propre ; l'un et/ou l'autre selon la source. | types.md et connectors.md mis au niveau. Voir §3.2c. |
 
 ---
 
@@ -5107,6 +5108,17 @@ deux signatures typées : l'adresse (l'objet structuré) vers le type
 `geolocation` du modèle (D391), et l'inverse — le texte associé
 (D392) s'y nourrit, le connecteur `ban`/`nominatim` (D294) les
 implémente.
+
+**Le contenu du type geolocation (D638 — précise D391/D637).**
+**« geolocation, le type, fait référence à des coordonnées
+longitude/latitude et/ou adresse postale normalisée sur geocode. »**
+— le type porte **les coordonnées (longitude/latitude) et/ou
+l'adresse postale normalisée** : `geocode` ne rend pas que le point,
+il rend aussi l'adresse mise au propre par le géocodeur (la BAN
+normalise) ; l'un et/ou l'autre — la saisie peut n'avoir que
+l'adresse, le GPS que les coordonnées, le géocodage réunit les deux.
+Le texte associé (D392) se relit : l'adresse normalisée en est le
+premier visage.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12819,6 +12831,10 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 9)** — **Le contrat location (D637)** :
   geocode(address) : geolocation, reverse(geolocation) : address —
   les signatures typées.
+- **2026-08-16 (suite 10)** — **Le contenu du type geolocation
+  (D638)** : les coordonnées longitude/latitude et/ou l'adresse
+  postale normalisée sur geocode — l'un et/ou l'autre selon la
+  source. types.md et connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

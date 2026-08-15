@@ -207,9 +207,10 @@ acquitte, le storage csv/xml lit les enregistrements.
 
 `geocode(address: {}) : geolocation` · `reverse(geolocation) :
 address` — les signatures typées : l'adresse (l'objet structuré) vers
-le type `geolocation` du modèle (D391) et l'inverse ; le texte
-associé (D392) s'y nourrit, `ban`/`nominatim` (D294) les
-implémentent.
+le type `geolocation` du modèle (D391) et l'inverse ; **le type porte
+les coordonnées longitude/latitude et/ou l'adresse postale
+normalisée** (D638) — geocode rend le point ET l'adresse mise au
+propre ; `ban`/`nominatim` (D294) les implémentent.
 
 ### `webhook`, `siren`
 

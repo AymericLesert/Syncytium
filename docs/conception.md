@@ -668,6 +668,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D587 | **Le catalogue des fonctions libres** : « min, max, sum, avg… sont à inclure. Le catalogue s'enrichira, si besoin » — les variadiques scalaires doublant les méthodes de collection (D580), l'extension par les besoins (D408/D565). | Voir §3.2c. |
 | D588 | **`context.settings` et les deux modes** (précise D573) : `<nom>` référence un élément statique ou dynamique — `{ mode: dynamic \| static, value: <défaut> }` ; « les paramètres dynamiques portent une valeur par défaut surchargeable via le module d'administration ». | La cascade D349/D360 ; le typage D581 vaut. Voir §3.2c. |
 | D589 | **Le type du paramètre, `context` acté** : « un paramètre porte aussi type: (par défaut : text) » ; « le nom context me convient — si une entité se nomme context, l'entité prend le pas ; lors de l'ingestion, un warning sera nécessaire » ; l'inventaire des champs consigné (user traversable, location, now, instance/application/module, entity/field, file/page/pages, settings). | La préséance à l'entité + le warning (l'esprit D344). Voir §3.2c. |
+| D590 | **L'abréviation du paramètre** : « marge: 10% — l'abréviation (mode: static et type: text) » — la forme courte aux défauts. | Voir §3.2c. |
 
 ---
 
@@ -4619,6 +4620,12 @@ conversion D579), `instance`/`application`/`module` (les noms),
 document seulement — D254), `settings.<nom>` (D588) ; **la
 disponibilité selon le contexte** (D254) et la lecture du **sommet
 consolidé de la pile** (D553).
+
+**L'abréviation du paramètre (D590).** **« Sur le setting,
+`marge: 10%` — l'abréviation (mode: static et type: text). »** La
+forme courte aux défauts : `marge: 10%` ≡ `{ mode: static,
+type: text, value: 10% }` — la doctrine des abréviations, comme
+partout.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11957,6 +11964,8 @@ avant la synthèse Q16).
   l'ingestion ; l'inventaire des champs consigné. **La famille du
   contexte courant est décrite** — restent les signatures des hooks
   (D572) pour clore Q60.
+- **2026-08-15 (suite 14)** — **L'abréviation du paramètre (D590)** :
+  marge: 10% ≡ { mode: static, type: text, value: 10% }.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

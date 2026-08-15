@@ -648,6 +648,10 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D567 | **Les deux amendements de la signature** (amende D566) : les enfants « dans un ou plusieurs noms — header, page, footer ; chaque élément est facultatif » ; `visible:` **vivant** — « en fonction de la valeur d'un champ ou d'un contexte, un élément peut devenir visible ou masqué (le toggle de la saisie conditionnelle) » — le « ni déclaré ni construit » effacé. | L'écho du recalcul D255. Voir §3.2c. |
 | D568 | **La section repliable** : « refermer ou ouvrir si le composant a la propriété `dropdown: true`, avec un icône pour matérialiser l'affichage ou pas ». | La collision avec la feuille notée (D458) ; le défaut déplié en proposition. Voir §3.2c. |
 | D569 | **Les quatre valeurs du repli** (solde D568) : `dropdown: false` (défaut — fixe) `\| true` (repliable, ouverte par défaut) `\| opened \| closed` (l'état d'entrée explicite). | L'orthographe `opened` consignée. Voir §3.2c. |
+| D570 | **L'opération définie** (Q60 s'ouvre) : les cinq portées (l'enregistrement, la liste, la sélection, le module, l'application) ; « ne se construit pas dans la configuration — toujours à l'aide d'un hook de code » (signature + code) ; **les hooks de base : create, read, update, delete, promote, demote, generate, download, print, export, import** ; les issues (l'écran, le téléchargement, l'impression, le message, rien) ; peut appeler une fonction. | Voir §3.2c. |
+| D571 | **La fonction définie** : les champs calculés ; retourne une valeur ou une liste de valeurs, aux types du modèle ; déclenchable au paramètre modifié ; **le graphe d'exécution** pour l'ordre cohérent ; un hook de code ; **« ne déclenche aucune opération »** — la pureté. | L'appel ne va que dans un sens. Voir §3.2c. |
+| D572 | **Les signatures distinctes, la librairie d'exploration** : les deux signatures à finaliser en Q60 (celle des fonctions abordée au domaine 2) ; « le hook de code nécessitera une librairie qui explore le modèle de données de façon transparente ». | Voir §3.2c. |
+| D573 | **Les paramètres dynamiques** : « la valeur initiale définie dans la configuration, modifiable par le technicien via le module d'administration » — la troisième temporalité (le statique, le dynamique, la donnée). | Les paramètres généraux (D366/D468/D259) ont vocation à rejoindre la famille. Voir §3.2c. |
 
 ---
 
@@ -4354,6 +4358,53 @@ défaut : la section fixe), `true` (repliable, **ouverte par
 défaut**), `opened` (repliable, ouverte — l'équivalent de true),
 `closed` (repliable, **fermée d'entrée**). *(L'orthographe consignée
 `opened` — la coquille « openned » corrigée au registre.)*
+
+**Q60 s'ouvre — l'opération définie (D570).** La distinction
+opération/fonction est actée, et l'opération reçoit sa définition :
+**« une opération réalise une séquence de traitements sur au moins un
+enregistrement, une liste d'enregistrements, une liste
+d'enregistrements sélectionnés, un module ou l'application »** — les
+cinq portées. **« Une opération est définie par son nom. Une
+opération ne se construit pas dans la configuration : elle se
+construit toujours à l'aide d'un hook de code. Un hook de code
+définit une signature et un code propre au langage exploité par
+Syncytium. »** **Les hooks de base du socle : `create`, `read`,
+`update`, `delete`, `promote`, `demote`, `generate`, `download`,
+`print`, `export`, `import`.** Les issues : **« une opération ouvre
+un écran, permet le téléchargement d'un fichier, déclenche une
+impression, affiche un message de fin de traitement, ou ne retourne
+rien »** — et **« une opération peut éventuellement appeler une
+fonction »**.
+
+**La fonction définie (D571).** **« Une fonction est utilisée par les
+champs calculés. Elle retourne toujours une valeur ou une liste de
+valeurs — chaque valeur a l'un des types couverts par le modèle de
+données. Une fonction est déclenchable si l'un des paramètres est
+modifié »** (l'écho du recalcul D255/D298). **« Syncytium construit
+un graphe d'exécution pour que l'ordre de calcul des fonctions soit
+cohérent. Tout comme une opération, une fonction est un hook de code.
+Une fonction ne déclenche aucune opération »** — la pureté : la
+fonction calcule, l'opération agit ; l'appel ne va que dans un sens
+(l'opération peut appeler une fonction, jamais l'inverse).
+
+**Les signatures et la librairie d'exploration (D572).** **« Le hook
+de code d'une opération n'a pas la même signature que le hook de code
+d'une fonction »** — la signature des fonctions fut abordée au
+domaine 2 ; **Q60 finalisera les deux définitions**. Et le chantier
+consigné : **« le traitement du hook de code nécessitera une librairie
+qui explore le modèle de données de façon transparente »** — l'auteur
+du hook lit les entités, les champs, les liens sans connaître le
+stockage.
+
+**Les paramètres dynamiques (D573).** **« La configuration porte des
+éléments statiques, qui varient d'une version à l'autre. J'introduis
+des paramètres "dynamiques" : la valeur initiale est définie dans la
+configuration, et modifiable par le technicien via le module
+d'administration. »** — la troisième temporalité : le statique (la
+version), le dynamique (l'administration), la donnée (l'utilisateur).
+*(L'écho : les paramètres généraux déjà croisés — le seuil
+mono/multi-ligne D366, le seuil des radios D468, le fond de carte
+D259 — ont vocation à rejoindre cette famille.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11634,6 +11685,14 @@ avant la synthèse Q16).
   publiée sur main** (D1–D569, 509 commits — la vitrine à jour).
   **Q60 s'ouvre** : le catalogue des fonctions, le point différé de
   D433.
+- **2026-08-15 (suite 3)** — **Le cadre de Q60 posé (D570–D573)** :
+  l'opération (les cinq portées, le hook de code obligatoire, les 11
+  de base, les issues) et la fonction (les champs calculés, le graphe
+  d'exécution, la pureté) définies ; les signatures à finaliser ; la
+  librairie d'exploration du modèle consignée ; les paramètres
+  dynamiques introduits. La question de l'auteur (« vois-tu des
+  éléments que j'aurais oubliés ? ») — la réponse dans l'échange :
+  duplicate, restore, report, send en candidats.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

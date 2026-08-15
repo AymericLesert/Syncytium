@@ -706,6 +706,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D625 | **La reprise sur erreur** : « à gérer par les connecteurs — les propriétés au socle commun (retry:, timeout:, …) ; en cas d'erreur, Syncytium se met en position de sécurité ». | L'homonymie notée (≠ la reprise de données D175) ; la position de sécurité en lecture proposée (rollback, statut error, les déclenchements suspendus, le rapport à l'administrateur). Voir §3.2c. |
 | D626 | **La page de maintenance, la condition indispensable** (complète D625) : « en cas d'erreur, passer sur une page de maintenance et émettre une alerte ; l'application doit démarrer uniquement si l'envoi de mail à l'administrateur est possible — une condition indispensable ». | Le canal d'alerte avant tout (le smtp vérifié au démarrage) ; la graduation par famille en question. Voir §3.2c. |
 | D627 | **`onerror`** (solde D625–D626) : la propriété (la page de maintenance pour les connecteurs clés) et **la méthode au socle commun** — « elle retourne soit un mock de résultat (implémenté par le connecteur), soit l'appel à une page de maintenance » ; la graduation clé/non-critique tranchée. | L'écho de la dégradation D68. Voir §3.2c. |
+| D628 | **`smtp.send`** (le premier contrat détaillé) : « un message (au format HTML), des pièces jointes (une liste de fichiers, quel que soit le format), depuis un expéditeur (configuré aux propriétés du connecteur) et vers une liste de destinataires ». | Le markdown du template mail (D562/D564) rendu en HTML fait le corps. Voir §3.2c. |
 
 ---
 
@@ -5000,6 +5001,17 @@ graduation est tranchée : **le connecteur clé → la page de
 maintenance** ; **le non-critique → le mock** (le repli de service —
 l'écho de la dégradation D68) ; la méthode au socle commun, la
 propriété `onerror:` au réglage.
+
+**La méthode `send` de la famille smtp (D628 — le premier contrat
+détaillé).** **« `send()` envoie un message, des pièces jointes,
+depuis un expéditeur et vers une liste de destinataires.
+L'expéditeur est configuré dans les propriétés du connecteur smtp.
+Le message est au format HTML, et les pièces jointes sont une liste
+de fichiers, quel que soit le format. »** — la signature :
+`send(message HTML, pièces[], destinataires[])`, l'expéditeur venant
+du connecteur. Le pont noté : le template au format `mail`
+(D562/D564) — le mustache + markdown rendu **en HTML** fait le corps
+du message.
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12663,6 +12675,10 @@ avant la synthèse Q16).
   tranchée — le connecteur clé → la page de maintenance (la propriété
   onerror:), le non-critique → le mock (la méthode au socle commun,
   implémentée par le connecteur).
+- **2026-08-16** — **smtp.send (D628)** : le message HTML, les pièces
+  jointes de tout format, l'expéditeur aux propriétés du connecteur,
+  la liste de destinataires — le premier contrat de famille détaillé ;
+  le markdown du template mail rendu en HTML.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

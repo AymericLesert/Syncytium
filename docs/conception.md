@@ -695,6 +695,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D614 | **`connectors.md` créé** : le cinquième artefact préparatoire (Q58/domaine 6) — la nature (global, sans contexte, le type-contrat et l'implémentation, le stockage-connecteur), la déclaration, le câblage aux rôles, les secrets, le catalogue de base, les déclencheurs, la migration ; les points ouverts listés. | Le report des décisions — aucun contenu nouveau. |
 | D615 | **`class:`** (solde D613) : « class serait plus intéressant pour moi » — confirmé : le vocabulaire objet (le type = le contrat, la classe le remplit), court, sans collision ; le YAML écrit `class:`, la prose garde « l'implémentation ». | hooks.md et connectors.md balayés. Voir §3.2c. |
 | D616 | **Les connecteurs par environnement** : « staging, production actif/passif — chaque environnement doit disposer de ses propres connecteurs » (D339–D340). | En proposition : le catalogue à la version, les valeurs (parameters/secrets) à l'environnement — D603 l'anticipait (la clé environnement+machine) ; l'actif/passif = deux storages en réplication différentielle (D606). Voir §3.2c. |
+| D617 | **Les connecteurs à l'environnement** (amende D603/D616) : « le contenu de connectors.yml est à reporter dans environments/<env>.yml — lors de l'ingestion, Syncytium doit vérifier que les connecteurs sont tous décrits dans chaque environnement » — connectors.yml s'efface, le contrôle de complétude à l'ingestion. | Le connecteur reste global (D603 — aucune déclinaison module/entité). Voir §3.2c. |
 
 ---
 
@@ -4865,6 +4866,19 @@ passif sa réplique. D603 l'anticipait : la clé des secrets se dérive
 de l'environnement et de la machine. L'actif/passif se relit : les
 deux storages, la réplication différentielle entre eux —
 D606/D112–D114.)*
+
+**Les connecteurs à l'environnement (D617 — amende D603/D616).**
+**« Le contenu de `connectors.yml` est à reporter dans
+`environments/staging.yml` ou autre environnement. Lors de
+l'ingestion, Syncytium doit vérifier que les connecteurs sont tous
+décrits dans chaque environnement. »** — la déclaration entière vit
+**à l'environnement** (chacun les siens — types, classes, paramètres,
+secrets) ; le fichier `connectors.yml` de la version s'efface ; le
+connecteur reste **global** au sens de D603 (aucune déclinaison par
+module ni entité). Et **le contrôle de complétude à l'ingestion** :
+tous les connecteurs [que la configuration référence] doivent être
+décrits **dans chaque environnement** — l'écart est une erreur
+d'ingestion (l'esprit D330/D344).
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12484,6 +12498,11 @@ avant la synthèse Q16).
   répartition en proposition (le catalogue à la version, les valeurs
   à l'environnement) ; l'actif/passif relu (deux storages, la
   réplication différentielle).
+- **2026-08-15 (suite 48)** — **Les connecteurs à l'environnement
+  (D617)** : le contenu de connectors.yml reporté dans
+  environments/<env>.yml — le fichier de version s'efface, la
+  complétude vérifiée à l'ingestion (tous les connecteurs décrits
+  dans chaque environnement). connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

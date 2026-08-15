@@ -13,9 +13,12 @@ renvoient à la [conception](conception.md).
   base de données, un annuaire, des fichiers, un géocodeur, un
   serveur de mail… ; **le connecteur décrit ses entrants et ses
   sortants** (D606) ;
-- **Global** (D603) : déclaré dans `connectors.yml` **à la racine de
-  la version** — « il ne trouve pas de déclinaison dans les modules,
-  ni les entités » ;
+- **Global** (D603/D617) : « il ne trouve pas de déclinaison dans
+  les modules, ni les entités » — et **déclaré à l'environnement**
+  (`environments/<env>.yml`) : « chaque environnement doit disposer
+  de ses propres connecteurs » (D616), l'ingestion vérifiant que
+  **tous les connecteurs sont décrits dans chaque environnement**
+  (D617) ;
 - **Sans contexte** (D603) : « les paramètres d'un connecteur sont
   juste les propriétés du connecteur — il se définit au démarrage du
   projet » — hors de la pile des contextes (D553), l'exception
@@ -31,12 +34,16 @@ renvoient à la [conception](conception.md).
 - **La sobriété** (D612) : « quelques connecteurs suffiront au bon
   fonctionnement de l'application ».
 
-## La déclaration — `connectors.yml`
+## La déclaration — `environments/<env>.yml`
 
-Le fichier « décrit la liste des connecteurs disponibles pour le
-fonctionnement de l'application » (D610/D612) :
+La déclaration « décrit la liste des connecteurs disponibles pour le
+fonctionnement de l'application » (D610/D612) — **portée par chaque
+environnement** (D616–D617 : le staging les siens, la production les
+siens, le passif sa réplique ; la complétude vérifiée à
+l'ingestion) :
 
 ```yaml
+# environments/staging.yml
 connectors:
   main_db: { type: storage, class: postgresql, secrets: [db_password] }
   smtp:    { class: smtp_std }        # le simple : le nom = le type (D612)

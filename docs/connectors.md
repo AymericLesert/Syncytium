@@ -111,8 +111,11 @@ connector: { storage: main_db, from: legacy_db }
 | `smtp` — le mail sortant | smtp_std | D564/D574 |
 | la reprise | le connecteur de reprise — lecture seule, durée de vie administrée | D175–D179 |
 
-Le catalogue s'étend par le hook de connecteur (D603) — le contrat de
-la famille à implémenter (D605), voir [hooks.md](hooks.md).
+Le catalogue s'étend par le hook de connecteur (D603) — **une classe
+dans une famille, jamais une famille neuve** : « Syncytium fournit un
+nombre limité de familles ; il n'existe pas de hook de famille »
+(D619) — le contrat de la famille à implémenter (D605), voir
+[hooks.md](hooks.md).
 
 ## Les déclencheurs et les échanges
 

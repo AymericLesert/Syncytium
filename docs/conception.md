@@ -673,6 +673,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D592 | **Le graphe d'exécution acyclique** (contraint D571) : « ils doivent être acycliques » — le cycle de calcul = une erreur d'ingestion (D330/D344), le contrôle statique. | La ligne des graphes acycliques (D455, les groupes). Voir §3.2c. |
 | D593 | **Les valeurs nommées de la fonction** (précise D571) : « une valeur (par défaut) — ou plusieurs valeurs nommées : le cas d'une regex à groupes nommés affectés à plusieurs champs » — `result: <type>` ou `result: { nom: type, … }`, l'appel unique au graphe. | L'affectation au point en proposition (`extract_name(raw).prenom`). Voir §3.2c. |
 | D594 | **La transaction tenue ouverte** (simplifie D511/D547) : « pas 2 modes — une opération ajoute des éléments dans une transaction ; le preview exécute et attend la validation ; valider = la transaction validée, annuler/stopper = annulée ». | Le chiffrage = le contenu de la transaction active ; le wizard = une transaction au fil des steps (D101) ; le mode disparaît de la signature. Voir §3.2c. |
+| D595 | **Les quatre fonctions du hook d'opération** (précise D594) : `execute` (remplit la transaction), `confirm` (la relecture), `commit` (scelle, l'après-coup), `rollback` (défait) ; « une opération peut se valider ou s'annuler automatiquement selon les paramètres de l'appel ». | L'objet du hook (D566.7) ; l'écho D428/D431. Voir §3.2c. |
 
 ---
 
@@ -4671,6 +4672,17 @@ active** (les ajoutés/modifiés/supprimés s'y lisent), la relecture
 ouverte au fil des steps**, validée à la validation définitive,
 annulée à l'abandon — les lots de transactions à agrégats (D101) en
 socle. Le paramètre de mode disparaît de la signature du hook.
+
+**Les quatre fonctions du hook d'opération (D595 — précise D594).**
+**« Le hook de l'opération a plusieurs fonctions : `execute`,
+`confirm`, `commit` et `rollback`. »** — l'objet du hook (D566.7)
+prend forme : `execute` remplit la transaction (D594), `confirm`
+produit la relecture (le chiffrage au gabarit — D511/D431), `commit`
+scelle (et porte l'après-coup — l'envoi, l'impression), `rollback`
+défait proprement. Et **« une opération peut se valider ou s'annuler
+automatiquement selon les paramètres de l'appel de l'opération »** —
+l'auto-commit (l'opération automatique D428, le `validate: false`
+D431) comme l'auto-annulation, décidés à l'appel.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12026,6 +12038,9 @@ avant la synthèse Q16).
   (D594)** : pas deux modes — l'exécution suspendue avant le commit,
   le chiffrage lu dans la transaction active, le wizard une seule
   transaction au fil des steps ; le mode hors de la signature.
+- **2026-08-15 (suite 19)** — **Les quatre fonctions du hook
+  (D595)** : execute, confirm, commit, rollback — l'objet prend
+  forme ; l'auto-validation/annulation aux paramètres de l'appel.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

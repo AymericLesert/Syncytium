@@ -677,6 +677,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D596 | **`commit: auto \| confirm`** (renomme D431) : « plutôt que validate, je préfère commit » — confirm le défaut (la relecture), auto la validation automatique ; le mot aligné sur la fonction du hook (D595). | La forme riche `commit: { mode:, message: }` en proposition (D511) ; les fiches balayées. Voir §3.2c. |
 | D597 | **L'issue au commit, le message-label** : « le commit d'une opération retourne l'issue — Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle contient » ; « le message du commit est un label » (D585 — le catalogue D440, le gabarit nourri de la transaction D586/D594). | Le hook rend une valeur, le moteur déclenche. Voir §3.2c. |
 | D598 | **Les valeurs nommées de l'opération** (précise D597) : « les noms du label sont portés par l'opération — nb_creations, nb_updates, nb_deletes… utilisées par le message de confirmation » — les comptes de la transaction nommés (D594) + les résultats d'execute (D511), en paramètres du gabarit (D585–D586). | Voir §3.2c. |
+| D599 | **L'inviolabilité de la librairie** (clôt les signatures — **et Q60**) : « la librairie mise en place assure l'inviolabilité des règles et des droits » — le hook citoyen du moteur : droits (D196), confidentialité, validation (D307), concurrence (D111) jamais contournables. | Le catalogue des fonctions est complet (D570–D599). Voir §3.2c. |
 
 ---
 
@@ -4716,6 +4717,18 @@ nommé — nb_creations, nb_updates, nb_deletes…) et les résultats
 propres de l'`execute` (D511) ; le message-label les consomme en
 paramètres de gabarit (D585–D586) — `message: { fr: "{nb_creations}
 factures créées, {nb_updates} commandes mises à jour" }`.
+
+**L'inviolabilité de la librairie (D599 — clôt les signatures et
+Q60).** **« Bien sûr, la librairie mise en place assure
+l'inviolabilité des règles et des droits. »** — le hook est un
+citoyen du moteur, jamais un super-utilisateur : les droits (D196),
+la confidentialité (D25/D364), la validation (D307), la concurrence
+par champ (D111) **ne se contournent pas** — la librairie
+d'exploration (D572) est l'unique porte, et elle porte les règles.
+**Q60 EST CLOSE** : les 17 opérations de socle (D574), les fonctions
+unifiées dans les types (D579–D587), le contexte courant et les
+paramètres (D588–D591), les graphes acycliques (D592), les signatures
+des hooks (D593–D599) — le catalogue des fonctions est complet.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12085,6 +12098,14 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 22)** — **Les valeurs nommées de l'opération
   (D598)** : nb_creations, nb_updates, nb_deletes… — les comptes de
   la transaction nommés, consommés par le message de confirmation.
+- **2026-08-15 (suite 23)** — **L'inviolabilité validée (D599) —
+  Q60 EST CLOSE** : les 17 opérations, la grande unification des
+  fonctions dans les types, le contexte et les paramètres, les
+  signatures des hooks (execute/confirm/commit/rollback, la
+  transaction tenue ouverte, l'issue au commit, les valeurs nommées),
+  la librairie inviolable. Trente décisions (D570–D599). Restent :
+  les domaines 5–8, la passe de complétude, Q58/Q59/Q7 — puis le
+  code (D314).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

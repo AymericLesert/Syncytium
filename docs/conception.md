@@ -671,6 +671,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D590 | **L'abréviation du paramètre** : « marge: 10% — l'abréviation (mode: static et type: text) » — la forme courte aux défauts. | Voir §3.2c. |
 | D591 | **La cascade des settings** (complète D588) : « les settings dans le module ou l'entité viennent compléter ou surcharger la valeur des settings définis dans l'application » — les trois étages, le plus proche l'emporte (D360/D461). | `context.settings.<nom>` résout au plus proche. Voir §3.2c. |
 | D592 | **Le graphe d'exécution acyclique** (contraint D571) : « ils doivent être acycliques » — le cycle de calcul = une erreur d'ingestion (D330/D344), le contrôle statique. | La ligne des graphes acycliques (D455, les groupes). Voir §3.2c. |
+| D593 | **Les valeurs nommées de la fonction** (précise D571) : « une valeur (par défaut) — ou plusieurs valeurs nommées : le cas d'une regex à groupes nommés affectés à plusieurs champs » — `result: <type>` ou `result: { nom: type, … }`, l'appel unique au graphe. | L'affectation au point en proposition (`extract_name(raw).prenom`). Voir §3.2c. |
 
 ---
 
@@ -4643,6 +4644,17 @@ dépend de a) est **une erreur d'ingestion** (l'esprit D330/D344 — le
 contrôle statique, comme le typage D581) ; la ligne des graphes
 acycliques du projet (les composants D455, la hiérarchie des groupes)
 se poursuit.
+
+**Les valeurs nommées de la fonction (D593 — précise D571).** **« Une
+fonction retourne une valeur (par défaut). Elle peut retourner
+plusieurs valeurs nommées — cas d'une regex avec des groupes nommés à
+affecter à plusieurs champs. »** La déclaration s'élargit :
+`result: <type>` (le défaut — une valeur) ou `result: { prenom: text,
+nom: text }` (les valeurs nommées, chacune typée) ; **un seul calcul
+nourrit plusieurs champs** — le graphe d'exécution (D571) y gagne
+l'appel unique. *(L'écriture de l'affectation en proposition : le
+champ calculé lie la valeur nommée par le point —
+`extract_name(raw).prenom`.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11989,6 +12001,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 16)** — **Le graphe acyclique (D592)** : la
   contrainte sur les graphes d'exécution — le cycle = une erreur
   d'ingestion (le contrôle statique).
+- **2026-08-15 (suite 17)** — **Les valeurs nommées (D593)** : la
+  fonction retourne une valeur (défaut) ou plusieurs valeurs nommées
+  (la regex aux groupes nommés) — un seul calcul, plusieurs champs ;
+  l'affectation au point en proposition. Les signatures des hooks en
+  cours d'arbitrage (les trois contrats posés dans l'échange).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -234,7 +234,10 @@ sert**. Chaque point d'entrée porte :
   l'url de l'api ».
 
 **Un webhook = une liste de points d'entrée** (D641) ; le moteur
-monte les routes, contrôle les paramètres, reçoit. **Le `when:` est
+monte les routes, contrôle les paramètres, reçoit. **Le
+déclenchement passe par une authentification obligatoire** (D642) :
+aucune entrée anonyme — la garde est d'office sur la route, le
+mécanisme (clé, jeton, signature…) au chantier sécurité (D418). **Le `when:` est
 un abonnement** : `when: <connecteur>` (toute entrée) ou l'entrée
 précisée — posé à l'`initialize` (D621), l'appel entrant déclenche
 l'opération déclarée (D609).
@@ -307,6 +310,6 @@ operations:
   chantier nommé, D610) ;
 - **les champs de l'API Sirene** (D639) — l'inventaire à
   l'implémentation ;
-- **l'authentification** (la passerelle D418) — au chantier
-  sécurité ;
+- **l'authentification** (la passerelle D418, la garde du webhook
+  D642) — au chantier sécurité ;
 

@@ -720,6 +720,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D639 | **Le contrat siren** : `verify(siren) : {}` — « retourne les informations de l'entreprise si le SIREN est vérifié » ; la vérification et l'enrichissement en un geste ; flagué : l'inventaire des champs de l'API Sirene à l'implémentation. | connectors.md mis au niveau. Voir §3.2c. |
 | D640 | **Le contrat webhook — l'entrée** : le mode (get/put/post/delete), le point d'entrée `api/<version>/webhook/<nom>`, les paramètres au header ou à l'URL — « une nouvelle entrée gérée par Syncytium » : le moteur monte la route et reçoit. | Voir §3.2c. |
 | D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
+| D642 | **L'authentification obligatoire du webhook** (complète D640) : « le déclenchement du webhook doit passer par une authentification obligatoire » — aucune entrée anonyme, la garde d'office sur la route ; le mécanisme au chantier sécurité (D418/D633). | Voir §3.2c. |
 
 ---
 
@@ -5182,6 +5183,16 @@ operations:
 ```
 
 *— la route servie : `api/<version>/webhook/new_order`.)*
+
+**L'authentification obligatoire du webhook (D642 — complète D640).**
+**« Le déclenchement du webhook doit passer par une authentification
+obligatoire. »** — aucune entrée anonyme : l'appel entrant
+s'authentifie avant de déclencher quoi que ce soit — la route montée
+par Syncytium porte la garde d'office, ce n'est pas une option de la
+déclaration. **Le mécanisme** (la clé d'API au header, le jeton, la
+signature…) rejoint le chantier sécurité (la passerelle
+d'authentification D418, flaguée en D633) — le principe est arrêté
+ici, la mécanique s'y arrêtera.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12907,6 +12918,9 @@ avant la synthèse Q16).
   paramètres header/url — servie par Syncytium), la liste d'entrées,
   le when: en abonnement posé à l'initialisation. **Les sept contrats
   de famille sont posés.** connectors.md mis au niveau.
+- **2026-08-16 (suite 13)** — **L'authentification obligatoire du
+  webhook (D642)** : aucune entrée anonyme — la garde d'office sur la
+  route ; le mécanisme au chantier sécurité (D418/D633).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

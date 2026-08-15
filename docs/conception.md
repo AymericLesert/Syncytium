@@ -680,6 +680,14 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D599 | **L'inviolabilité de la librairie** (clôt les signatures — **et Q60**) : « la librairie mise en place assure l'inviolabilité des règles et des droits » — le hook citoyen du moteur : droits (D196), confidentialité, validation (D307), concurrence (D111) jamais contournables. | Le catalogue des fonctions est complet (D570–D599). Voir §3.2c. |
 | D600 | **Le confirm au formulaire** (enrichit D595/D597) : « le rendre plus riche avec un formulaire et des champs alimentés par l'exécution — la création simplifiée validée en consultant l'enregistrement en lecture seule et/ou en modification » — les éditions rejoignent la transaction avant le scellé (D594). | `commit: { mode: confirm, form: <nom>, message: }` en proposition. Voir §3.2c. |
 | D601 | **La boîte seule** (précise D600) : « si form: est absent et si message: est précisé, seule une boîte de dialogue de validation sera affichée » — le léger et le riche. | Voir §3.2c. |
+| D602 | **Les huit domaines de Q16 consignés** (répare un manque) : 1. l'organisation et l'arborescence · 2. la donnée, sa structure et les droits · 3. le méta-schéma · 4. les surfaces · 5. les cas d'usage · 6. la documentation · 7. l'architecture technique · 8. l'implémentation. Le recoupement : 1–4 livrés (3 = règles/comportement + Q60) ; 5=Q59, 6=Q58, 7=Q7/Q47, 8=D314 ; les renvois « domaine 6 » de D408/D452/D459 relus (couverts par Q60, le reliquat au domaine 7). | Voir §3.2c. |
+| D603 | **Les connecteurs — les cinq arbitrages** : `connectors.yml` à la racine, **global** (aucune déclinaison) ; le catalogue de base + le hook de connecteur ; les paramètres = les propriétés, **pas de contexte** (le démarrage du projet) ; **les secrets = la référence à une variable d'environnement**, chiffrable à la clé dérivée (environnement + machine) ; `every:` à la grammaire D434. | Le dépôt versionné (D336) sans secret en clair. Voir §3.2c. |
+| D604 | **Le catalogue de base des connecteurs** (complète D603) : les bases de données standard (SQLServer, MySQL, Postgre…), l'AD Azure, les fichiers (CSV, JSON…) — + le géocodage (D294), l'itinéraire (D514), le smtp (D564), la reprise (D175) ; `every:` « pour rafraîchir ou tester » — le file watcher : « la détection de présence d'un fichier, le fichier mis à jour et relu ». | L'entrant naît par le fichier ; l'AD Azure = un visage de la passerelle D418. Voir §3.2c. |
+| D605 | **Le contrat par famille** (solde les connecteurs) : « la famille (ou le type) permet de définir les interactions avec Syncytium — chaque famille a ses propres méthodes et fonctions » — la ligne D579 jusqu'aux connecteurs ; le hook implémente le contrat de sa famille. | Les cinq manques du sujet refermés (D603–D605). Voir §3.2c. |
+| D606 | **Les deux sens, le stockage-connecteur, la migration inter-connecteurs** : « un connecteur décrit les sortants et les entrants » ; « les entités sont liées à un connecteur de base de données » — le stockage est un connecteur ; « une migration d'un connecteur vers un autre, en instantanée ou en différentiel ». | La translation aux 4 usages (vérifié — évoqué dès l'origine) ; le différentiel = la réplication passive (D112–D114). Voir §3.2c. |
+| D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
+| D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
+| D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
 
 ---
 
@@ -4732,6 +4740,35 @@ unifiées dans les types (D579–D587), le contexte courant et les
 paramètres (D588–D591), les graphes acycliques (D592), les signatures
 des hooks (D593–D599) — le catalogue des fonctions est complet.
 
+**Le pont de l'opération : le hook et la déclaration (D609 — referme
+le point 8 de la relecture des hooks).** La clé de l'auteur :
+**« l'opération elle-même est un hook de code. Par contre,
+l'utilisation de l'opération dans l'application répond à plusieurs
+usages dépendant du mode de déclenchement. La déclaration des
+opérations permet de décrire une opération et son mode de
+déclenchement quand il n'est pas lié à l'IHM — par exemple, sur une
+mise à jour, sur la réception d'un fichier. »** Les deux plans : **le
+hook = l'opération** (l'objet D595, la transaction D594) ; **la
+déclaration (`operations:` — D432) = l'usage** — le nom, les
+paramètres, le `commit:` (D596), la garde (D430), et **le
+déclenchement hors-IHM** : `when: <expression>` (D428), `every:
+continuous` (D435 — « sur une mise à jour »), le calendaire (D434),
+**l'événement de connecteur** — acté : « utile pour traiter des
+webhooks ou pour déclencher automatiquement un process d'import »
+*(l'écriture en proposition : `when: <nom du connecteur>` — le
+contexte départage, D458)* ; l'IHM lie sans déclaration de
+déclenchement (le bouton D511, la colonne D444, les actions D531, le
+step D546, le menu D439). **Et la composition déclarative est
+actée** : **« une opération peut être une liste d'opérations
+disponibles dans le socle »** — les effets de D432 se relisent comme
+**des références aux hooks du socle** (`notify` → l'opération notify,
+`document` → generate, `set` → update, `function` → un hook de
+fonction) : « ne se construit pas dans la configuration » (D570)
+signifie *pas de code* — l'orchestration de références, elle, est
+déclarative. La séquence s'exécute **dans la même transaction tenue
+ouverte** (D594) ; le chiffrage, le confirm et l'issue valent pour
+les deux formes.
+
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
 avec un message. Nous pouvons le rendre plus riche avec un formulaire
@@ -4753,6 +4790,106 @@ validation sera affichée. »** — les deux visages du confirm : la
 boîte au message (le léger), le formulaire sur la transaction (le
 riche) ; le message accompagne le formulaire quand les deux sont
 déclarés.
+
+**Les huit domaines de Q16, enfin consignés (D602 — répare un
+manque).** Le découpage vivait dans les échanges sans être posé au
+document ; l'auteur le repose :
+
+1. **l'organisation et l'arborescence d'une application** — « revue
+   et amendée au fur et à mesure de nos explorations » ;
+2. **la donnée, sa structure et les droits** ;
+3. **le méta-schéma** ;
+4. **les surfaces** ;
+5. **les cas d'usage** ;
+6. **la rédaction de la documentation synthétique et détaillée** ;
+7. **le choix de l'architecture technique** ;
+8. **l'implémentation**.
+
+**Le recoupement des échanges** (la demande de l'auteur) : les
+domaines 1 (D335–D346, amendé au fil — les dossiers module/entité,
+gui) et 2 (D347–D419 — les types, l'historisation, les groupes, la
+confidentialité au socle) sont livrés ; le domaine 3 fut vécu sous
+l'intitulé « les règles et le comportement » (D420–D436) — sa part du
+méta-schéma — que Q60 (D570–D601, le langage et les hooks) complète ;
+le domaine 4 est soldé (D437–D569, le catalogue entier). **Les
+domaines 5–8 correspondent aux chantiers déjà nommés** : 5 = les cas
+d'usage (Q59 — les mises en situation), 6 = la documentation (Q58 —
+le glossaire, composants.md et la synthèse en préparation), 7 =
+l'architecture technique (Q7, Q47 — la spec du langage, le langage
+des hooks D570, la sandbox), 8 = l'implémentation (D314 — le code
+après la conception). **Deux réconciliations consignées** : (a)
+l'intitulé du domaine 3 — « le méta-schéma » englobe les règles, le
+comportement et le langage (D420–D436 + D570–D601) ; (b) **les
+renvois « domaine 6 » des décisions D408/D452/D459** (le contrat des
+hooks — signature, code, sandbox) furent écrits sous un découpage de
+travail antérieur : **ils se relisent** — le contrat est couvert par
+Q60 (D570–D601), le reliquat (la sandbox, le langage du code) relève
+du domaine 7.
+
+**Les connecteurs : les cinq arbitrages (D603 — la passe de
+complétude, premier sujet).** **(1) « `connectors.yml` est bien à la
+racine de la version. Il ne trouve pas de déclinaison dans les
+modules, ni les entités. Un connecteur est global. »** **(2) « Les
+connecteurs sont disponibles dans un catalogue de base offert par
+Syncytium et sont extensibles via un hook de connecteur. »**
+**(3) « Les paramètres d'un connecteur sont juste les propriétés du
+connecteur. Le connecteur n'a pas de contexte, car il se définit au
+démarrage du projet »** — hors de la pile (D553), l'exception
+assumée. **(4) « Les secrets sont définis dans la configuration…
+Les secrets peuvent faire référence à une variable d'environnement,
+et la variable peut être cryptée via une clé construite en fonction
+de l'environnement et de la machine d'exécution. »** — la
+configuration porte la référence, jamais la valeur en clair ; le
+chiffrement à la clé dérivée (l'environnement + la machine) — le
+dépôt versionné (D336) reste propre. **(5) « `every:` reprend la même
+grammaire »** (D434/D476) — « pour des hooks qui ont besoin d'être
+régulièrement rafraîchis ».
+
+**Le catalogue de base des connecteurs (D604 — complète D603).**
+**« Le catalogue de hooks regroupe : un connecteur vers les bases de
+données standard (SQLServer, MySQL, Postgre…), un connecteur vers
+l'AD Azure, un connecteur de fichiers (CSV, JSON…) — ta liste
+complète bien la mienne. »** Le catalogue de base réunit donc : **les
+bases de données standard**, **l'AD Azure** (la passerelle
+d'authentification D418 y trouve un premier visage), **les fichiers**
+(CSV, JSON…), le géocodage (`ban`/`nominatim` — D294), l'itinéraire
+(`osrm`/`valhalla` — D514), le mail sortant (`smtp` — D564/D574), la
+reprise (D175–D179). Et l'`every:` précisé : **« utilisé pour les
+connecteurs qui ont besoin d'être régulièrement rafraîchis ou
+testés — par exemple un file watcher : la détection de présence d'un
+fichier, le fichier mis à jour et relu. »** — **l'échange entrant
+naît là** : le fichier déposé, détecté, relu — la porte d'entrée par
+le connecteur de fichiers.
+
+**Le contrat par famille (D605 — solde le sujet des connecteurs).**
+**« La famille (ou le type) permet de définir les interactions avec
+Syncytium. Chaque famille a ses propres méthodes et fonctions. »** —
+le contrat du hook-connecteur n'est pas universel : **il est porté
+par la famille** (la ligne D579 — le type emmène ses fonctions,
+jusqu'aux connecteurs) : la base de données a ses méthodes, le
+fichier les siennes (la veille, la lecture), le géocodage les siennes
+(l'adresse → les coordonnées, l'inverse), le mail son envoi,
+l'annuaire son authentification, la reprise sa lecture seule (D175).
+Un hook de connecteur implémente le contrat de sa famille. **Les cinq
+manques des connecteurs sont refermés** : la déclaration (D603), les
+secrets (D603), la planification (D603–D604), les entrants (D604 —
+le watcher), le contrat (D605).
+
+**Les deux sens, le stockage-connecteur, la migration
+inter-connecteurs (D606 — élargit D603–D605).** **« Un connecteur
+décrit les sortants et les entrants. »** Et la vérification demandée
+(« il me semble que je l'avais déjà évoqué ») : oui — la translation
+déclarative fut posée dès l'origine comme **le primitif transverse
+aux quatre usages** (les migrations, les API, **les connecteurs**, la
+réplication) ; **« Syncytium peut convertir ou transférer des données
+d'un connecteur à l'autre »** en est l'exercice. Les précisions
+nouvelles : **« les entités sont liées à un connecteur de base de
+données »** — **le stockage même est un connecteur** (les bases du
+catalogue D604 ne servent pas que l'échange : elles portent
+l'instance) ; et **« nous pouvons prévoir une migration d'un
+connecteur vers un autre, en instantanée ou en différentiel »** — le
+changement de moteur (SQLServer → PostgreSQL…) par la translation,
+le différentiel rejoignant la réplication passive (D112–D114).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12140,6 +12277,81 @@ avant la synthèse Q16).
   ouverte.
 - **2026-08-15 (suite 26)** — **La boîte seule (D601)** : form:
   absent + message: précisé = la boîte de dialogue seule.
+- **2026-08-15 (suite 27)** — **La PR #28 fusionnée** (« Q60 close »,
+  D570–D601, 26 commits) — develop porte le catalogue des fonctions.
+  **Le domaine 5 s'ouvre.**
+- **2026-08-15 (suite 28)** — **Les huit domaines consignés (D602)** :
+  le découpage reposé par l'auteur et croisé avec les échanges — 1–4
+  livrés, 5 = les cas d'usage (Q59), 6 = la documentation (Q58), 7 =
+  l'architecture (Q7/Q47), 8 = l'implémentation (D314) ; les renvois
+  « domaine 6 » de D408/D452/D459 relus vers Q60 et le domaine 7. Le
+  manque réparé — le domaine 5 (les cas d'usage) prêt à s'ouvrir.
+- **2026-08-15 (suite 29)** — **La passe de complétude ouverte** : la
+  revue des manques sur les quatre sujets transversaux (les
+  connecteurs/échanges, la sécurité/droits, l'administration/
+  exploitation, la migration/versions) posée dans l'échange ; l'auteur
+  tranche — « nous allons compléter les manques, commençons par les
+  connecteurs et les échanges ». Les cinq manques du sujet : la
+  déclaration, les secrets, le contrat du hook-connecteur, les
+  entrants, la planification.
+- **2026-08-15 (suite 30)** — **Les connecteurs arbitrés (D603)** :
+  global à la racine, le catalogue + le hook, les paramètres sans
+  contexte, les secrets par variable d'environnement chiffrable (la
+  clé environnement + machine), every: D434. Le catalogue de base en
+  proposition dans l'échange (la phrase de l'auteur interrompue —
+  « le catalogue de hooks »).
+- **2026-08-15 (suite 31)** — **Le catalogue de base (D604)** : les
+  bases de données standard, l'AD Azure, les fichiers (CSV, JSON) —
+  la liste complémentaire acceptée ; every: pour rafraîchir ou
+  tester, le file watcher — l'entrant naît par le fichier.
+- **2026-08-15 (suite 32)** — **Le contrat par famille (D605)** :
+  chaque famille de connecteurs a ses propres méthodes et fonctions
+  (la ligne D579 jusqu'au bout) — **le sujet des connecteurs et des
+  échanges est soldé** (D603–D605, les cinq manques refermés).
+  Suivant dans la passe : la sécurité et les droits.
+- **2026-08-15 (suite 33)** — **Le stockage-connecteur et la
+  migration inter-connecteurs (D606)** : les deux sens décrits ; les
+  entités liées à un connecteur de base de données — le stockage est
+  un connecteur ; la migration instantanée ou différentielle (la
+  réplication D112–D114) ; la translation aux quatre usages vérifiée
+  (évoquée dès l'origine).
+- **2026-08-15 (suite 34)** — **hooks.md créé (D607)** : le troisième
+  artefact préparatoire (après le glossaire D417 et composants.md
+  D457) — le report des échanges sur les hooks : la doctrine (D52/
+  D408 — le catalogue = les hooks embarqués, le mot jamais écrit, la
+  première classe, la dégradation), les cinq familles aux contrats
+  (type, composant, opération, fonction, connecteur), les autres
+  points d'extension, les règles transversales (la librairie
+  inviolable, le renvoi domaine 6 relu, la signature d'abord).
+  L'entrée Connecteur du glossaire enrichie au passage (D603–D606).
+- **2026-08-15 (suite 35)** — **Les exemples ajoutés à hooks.md**
+  (« où sont les exemples ? ») : chaque famille reçoit le sien, puisé
+  des échanges — le type progression/fuel (le fondateur), le
+  composant gauge_3d, l'opération invoice du fil, la fonction
+  extract_name (D593), les connecteurs geocoding + le guetteur.
+- **2026-08-15 (suite 36)** — **hooks.md complété des sept manques**
+  (le croisement systématique du registre — la relecture de l'auteur
+  les pressentait) : la collection-type aux agrégats (D580), le type
+  label (D585–D586), le contexte et les settings lus par les hooks
+  (D553/D588–D591), le composant au nom du type (D458), le wizard et
+  la transaction (D547/D594), la migration inter-connecteurs (D606),
+  les libres et iif (D583/D587). **Le point 8 reste ouvert à
+  l'arbitrage : l'articulation entre l'opération déclarée
+  (when:/effects: — D428–D432) et le hook d'opération (D570).**
+- **2026-08-15 (suite 37)** — **types.md créé (D608)** : le quatrième
+  artefact préparatoire — le catalogue des types par croisement du
+  registre (le socle commun, les simples, les composés, les
+  collections et plages, les liens, les générés et le contexte, les
+  types-hooks) ; chaque ligne cite ses décisions.
+- **2026-08-15 (suite 38)** — **Le pont de l'opération (D609)** : le
+  point 8 refermé — le hook = l'opération, la déclaration = l'usage
+  et le déclenchement hors-IHM ; « une opération peut être une liste
+  d'opérations du socle » (les effets = des références) ; le
+  déclenchement par connecteur acté (les webhooks, l'import
+  automatique) ; hooks.md mis à jour.
+- **2026-08-15 (suite 39)** — **La PR #29 créée** (« la passe de
+  complétude — les huit domaines consignés, les connecteurs, hooks.md
+  et types.md », D602–D609, 14 commits, 4 fichiers) vers develop.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

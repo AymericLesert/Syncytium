@@ -108,9 +108,9 @@ d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
-| `storage` | les bases de données — le stockage du modèle et les échanges | postgresql, sqlserver, mysql, oracle… | D604/D606/D613 |
+| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** | D604/D606/D613/D636 |
 | `smtp` | le mail sortant | smtp_std | D564/D574 |
-| `file` | les fichiers — le dépôt, le guetteur à `every:` | csv, json… | D604 |
+| `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
@@ -165,6 +165,12 @@ correspondances des deux méta-schémas, le technicien n'écrit rien
 (le mapping manuel demeure l'affaire du `from:` — les systèmes
 étrangers).
 
+**Les storages de format (D636)** : « les storages "csv", "xml"… sont
+définis pour les exports et exploitables pour les imports » — les
+formats structurés sont **des classes de cette famille** (le contrat
+borné à ce que le format sait faire) : l'export (D445/D530) écrit
+vers un storage de format, l'import (D234–D238) en lit.
+
 ### `smtp` (D628)
 
 `send(message, pièces[], destinataires[])` — **le message au format
@@ -182,12 +188,34 @@ synchronisation des comptes et des groupes, les affectations restant
 des actes d'administration (D341/D210). *(L'authentification — la
 passerelle D418 — flaguée pour le chantier sécurité.)*
 
-### `file`, `location`, `webhook`, `siren`
+### `file` (D634–D635)
 
-Les contrats à détailler — les pistes consignées : `file` (`watch` —
-le guetteur D604, la liste, la lecture, l'écriture), `location`
-(le géocodage et l'inverse — D294/D392), `webhook` (`get`/`put`/
-`post`/`delete` — D623), `siren` (la vérification — D611).
+| la méthode | le rôle |
+|---|---|
+| `get_files(pattern)` | la liste des fichiers au motif |
+| `get_file(filename)` | la lecture — **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » |
+| `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… |
+
+**Le thread d'écoute** (D635) : « `every:` est utilisé sur `connect`
+ou `initialize` pour démarrer un thread dédié à l'écoute des
+fichiers » — le connecteur écoute lui-même, l'événement détecté
+déclenche l'opération déclarée (`when:` — D609). **Le contenu se lit
+par un storage de format** (D636) : la famille `file` détecte et
+acquitte, le storage csv/xml lit les enregistrements.
+
+### `location` (D637)
+
+`geocode(address: {}) : geolocation` · `reverse(geolocation) :
+address` — les signatures typées : l'adresse (l'objet structuré) vers
+le type `geolocation` du modèle (D391) et l'inverse ; le texte
+associé (D392) s'y nourrit, `ban`/`nominatim` (D294) les
+implémentent.
+
+### `webhook`, `siren`
+
+Les contrats à détailler — les pistes consignées : `webhook`
+(`get`/`put`/`post`/`delete` — D623), `siren` (la vérification —
+D611).
 
 Le catalogue s'étend par le hook de connecteur (D603) — **une classe
 dans une famille, jamais une famille neuve** : « Syncytium fournit un
@@ -236,8 +264,7 @@ operations:
 
 - **le mapping du `from:`** — la configuration de la procédure (le
   chantier nommé, D610) ;
-- **les contrats de `file`, `location`, `webhook`, `siren`** — à
-  détailler ;
+- **les contrats de `webhook` et `siren`** — à détailler ;
 - **l'authentification** (la passerelle D418) — au chantier
   sécurité ;
 

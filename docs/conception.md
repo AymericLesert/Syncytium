@@ -703,6 +703,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D622 | **Le pool de connexions** (complète D621) : « pool pour définir un pool de connexions — surtout pour l'exécution d'opérations asynchrones en parallèle » (la file D24/D55, D436). | `pool: 5` en proposition (défaut 1). Voir §3.2c. |
 | D623 | **Les sept familles** (arrête D619) : `storage`, `smtp`, `file`, `directory`, `location`, **`api`** (get, put, post, delete — « un point d'entrée dans les différents appels d'api versionnés »), `siren` ; « route est un exemple d'extension ultérieure » — l'extension du jeu = l'affaire du moteur. | L'api règle le webhook (D609) ; la reprise n'est pas une famille (la lecture notée — les familles existantes la portent). Voir §3.2c. |
 | D624 | **`webhook`** (renomme dans D623) : « "api" à remplacer par "webhook" » — la famille du point d'entrée des API versionnées (get, put, post, delete). | Voir §3.2c. |
+| D625 | **La reprise sur erreur** : « à gérer par les connecteurs — les propriétés au socle commun (retry:, timeout:, …) ; en cas d'erreur, Syncytium se met en position de sécurité ». | L'homonymie notée (≠ la reprise de données D175) ; la position de sécurité en lecture proposée (rollback, statut error, les déclenchements suspendus, le rapport à l'administrateur). Voir §3.2c. |
 
 ---
 
@@ -4956,6 +4957,21 @@ lecture, le file, l'api.)*
 "webhook". »** — la famille du point d'entrée dans les API
 versionnées se nomme **`webhook`** (get, put, post, delete) ; le mot
 dit l'usage premier (D609 — « traiter des webhooks »).
+
+**La reprise sur erreur et la position de sécurité (D625).** **« La
+reprise est à gérer par les connecteurs, et les propriétés de reprise
+font partie de la configuration commune (`retry:`, `timeout:`, …).
+En cas d'erreur, le comportement de Syncytium doit se mettre en
+position de sécurité. »** — le socle commun (D621–D622) s'enrichit
+des propriétés de reprise sur erreur. *(L'homonymie notée : cette
+reprise-là — le retry — n'est pas la reprise de données de D175.)*
+*(Les écritures en proposition : `retry: 3` ou `retry: { count: 3,
+delay: 30s }` — les durées D476 ; `timeout: 10s`. Et la position de
+sécurité, en lecture proposée : la transaction en cours **rollback**
+(D594–D595), le connecteur au statut **error** (le ping D621), les
+déclenchements qui en dépendent **suspendus**, **le rapport à
+l'administrateur** (D406/notify D574) — jamais une perte
+silencieuse.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12606,6 +12622,10 @@ avant la synthèse Q16).
   famille (la lecture notée). connectors.md mis au niveau.
 - **2026-08-15 (suite 55)** — **webhook (D624)** : la famille api
   renommée — le mot dit l'usage premier (D609).
+- **2026-08-15 (suite 56)** — **La reprise sur erreur (D625)** :
+  retry:/timeout: au socle commun ; la position de sécurité (la
+  lecture proposée : rollback, error, les déclenchements suspendus,
+  le rapport) ; l'homonymie avec la reprise de données notée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

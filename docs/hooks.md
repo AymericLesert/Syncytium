@@ -148,7 +148,9 @@ déclenchement quand il n'est pas lié à l'IHM** : `when:
 <expression>` (D428), `every: continuous` (D435 — sur une mise à
 jour), le calendaire (D434), **l'événement de connecteur** (les
 webhooks, l'import automatique à la réception d'un fichier —
-`when: <nom du connecteur>` en proposition). L'IHM lie sans
+`when: <connecteur>[.<point d'entrée>]`, **un abonnement posé à
+l'initialisation de l'application** — D641 ; le webhook entrant
+s'authentifie obligatoirement — D642). L'IHM lie sans
 déclaration (le bouton, la colonne, les actions, le step, le menu).
 **Et la composition déclarative** : « une opération peut être une
 liste d'opérations disponibles dans le socle » — les effets de D432
@@ -228,20 +230,32 @@ fields:
   nom:    { formula: extract_name(raw).nom }
 ```
 
-### 5. Le hook de connecteur (D603–D606)
+### 5. Le hook de connecteur (D603–D642)
 
-Ajoute **un connecteur** — la passerelle globale (`connectors.yml` à
-la racine, aucune déclinaison — D603). Le catalogue de base (D604) :
-les bases de données standard (SQLServer, MySQL, PostgreSQL…), l'AD
-Azure, les fichiers (CSV, JSON — le guetteur à `every:`), le
-géocodage (`ban`/`nominatim` — D294), l'itinéraire
-(`osrm`/`valhalla` — D514), le mail (`smtp` — D564), la reprise
-(D175–D179).
+Ajoute **une classe de connecteur** — la passerelle globale, déclarée
+à l'environnement (`environments/<env>.yml` — D603/D617, aucune
+déclinaison). **Les sept familles sont closes** (D619/D623) :
+`storage` (les bases — et les formats csv/xml/json des exports et
+imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
+Azure), `location` (le géocodage), `webhook` (les entrées servies),
+`siren` — « il n'existe pas de hook de famille : le hook porte sur
+l'implémentation d'une famille » (une classe, jamais un contrat
+neuf ; `route` attend une version ultérieure du moteur).
 
-**Le contrat par famille (D605)** : « chaque famille a ses propres
-méthodes et fonctions » — la base de données les siennes, le fichier
-sa veille et sa lecture, le géocodage son adresse et son inverse. Les
-propriétés paramètrent (pas de contexte — le démarrage du projet),
+**Le contrat par famille (D605/D620)** : « chaque famille a ses
+propres méthodes et fonctions » — la famille contraint le contrat, la
+conformité de la classe se vérifie au chargement. **Et le socle
+commun d'abord** (D621–D630) : toute classe implémente
+`initialize`/`release`, `connect`/`disconnect`, `ping()` (le statut
+error/initialized/disconnected/connected/closed, la fréquence à
+`every:`), `onerror` (le mock ou la page de maintenance — D627) et
+`describe()` (la documentation markdown/html de l'instance — D630).
+Les contrats détaillés — storage (la transaction, le schéma, la
+migration à chaud), smtp (`send`), file (`get_files`/`get_file`/
+`commit`), directory (la lecture seule), location
+(`geocode`/`reverse`), webhook (les entrées, l'abonnement,
+l'authentification obligatoire), siren (`verify`) — sont dans
+[connectors.md](connectors.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
 un connecteur** (D606) : les bases du catalogue portent l'instance,
@@ -252,18 +266,19 @@ la translation déclarative (le primitif aux quatre usages), **en
 instantané ou en différentiel** — le différentiel rejoignant la
 réplication passive du PCA-PRA (D112–D114).
 
-**L'exemple** — la déclaration à la racine (D603–D604) :
+**L'exemple** — la déclaration à l'environnement (D603/D617) :
 
 ```yaml
-# connectors.yml — à la racine de la version, global (D603)
+# environments/production.yml — chaque environnement les siens (D617)
 connectors:
-  geocoding:
-    hook: ban                      # le catalogue de base (D294/D604)
+  location:                        # le nom = le type (D612–D613)
+    class: ban            # l'implémentation compatible (D294/D604/D613)
     parameters: { url: https://api-adresse.data.gouv.fr }
     secrets: [api_key]             # la référence — la valeur en variable
                                    # d'environnement, chiffrable (D603)
   incoming_orders:
-    hook: file                     # le connecteur de fichiers (D604)
+    type: file                     # le type — le contrat de famille (D605/D613)
+    class: file_std
     parameters: { path: /exchange/in, format: csv }
     every: 5min                    # le guetteur — détecté, relu (D604)
 ```

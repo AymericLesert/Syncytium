@@ -688,6 +688,39 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
 | D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
 | D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
+| D610 | **La liaison au stockage** : `connectors.yml` = la liste des disponibles ; « le modèle de données est attaché à un connecteur — celui de la lecture/écriture » ; à la racine : `connector: { storage: main_db }` ou `{ storage: main_db, from: legacy_db }` — le `from` = la procédure de migration/transformation, « une configuration basée sur les éléments déjà vus, que nous allons étendre ». | La surcharge par entité écartée — le legacy passe par le from. Voir §3.2c. |
+| D611 | **Le câblage par rôles nommés** (précise D610) : `connector: { storage:, smtp:, location:, siren:, … }` — le hook nomme le rôle qu'il attend (disponible au contexte d'exécution), la racine l'associe au connecteur, **la surcharge locale** par la propriété au nom du rôle vers un connecteur compatible (la famille D605). | « siren » ouvre la vérification des types-identifiants par connecteur. Voir §3.2c. |
+| D612 | **Le câblage précisé** (complète D611) : le câblage optionnel au simple, explicite au complexe ; **la famille = `type:`** — « pour les cas les plus simples, le type est le nom du connecteur » (l'écho D458) ; plusieurs connecteurs en service (la sobriété — quelques-uns suffisent) ; **`context.connector.<rôle>`** acté, plusieurs connecteurs par item non exclus ; la carte pouvant choisir son connecteur selon l'écran. | Voir §3.2c. |
+| D613 | **Le type et l'implémentation** (clarifie D611–D612) : « postgresql n'est pas un type — storage est bien le type ; postgresql, sqlserver, mysql, oracle… constituent une implémentation compatible avec storage » — le type = la famille = le rôle (le contrat D605), l'implémentation le remplit. | `implementation:` en proposition (le mot hook quitte la configuration — D408). Voir §3.2c. |
+| D614 | **`connectors.md` créé** : le cinquième artefact préparatoire (Q58/domaine 6) — la nature (global, sans contexte, le type-contrat et l'implémentation, le stockage-connecteur), la déclaration, le câblage aux rôles, les secrets, le catalogue de base, les déclencheurs, la migration ; les points ouverts listés. | Le report des décisions — aucun contenu nouveau. |
+| D615 | **`class:`** (solde D613) : « class serait plus intéressant pour moi » — confirmé : le vocabulaire objet (le type = le contrat, la classe le remplit), court, sans collision ; le YAML écrit `class:`, la prose garde « l'implémentation ». | hooks.md et connectors.md balayés. Voir §3.2c. |
+| D616 | **Les connecteurs par environnement** : « staging, production actif/passif — chaque environnement doit disposer de ses propres connecteurs » (D339–D340). | En proposition : le catalogue à la version, les valeurs (parameters/secrets) à l'environnement — D603 l'anticipait (la clé environnement+machine) ; l'actif/passif = deux storages en réplication différentielle (D606). Voir §3.2c. |
+| D617 | **Les connecteurs à l'environnement** (amende D603/D616) : « le contenu de connectors.yml est à reporter dans environments/<env>.yml — lors de l'ingestion, Syncytium doit vérifier que les connecteurs sont tous décrits dans chaque environnement » — connectors.yml s'efface, le contrôle de complétude à l'ingestion. | Le connecteur reste global (D603 — aucune déclinaison module/entité). Voir §3.2c. |
+| D618 | **Le `settings.yml` de la version** : « settings.yml se retrouve aussi dans la version, en plus du module » — l'étage application de la cascade (D591) a son fichier ; le module raffine (D349), l'entité précise (D348/D360). | Voir §3.2c. |
+| D619 | **Les familles closes** (précise D603/D605) : « Syncytium fournit un nombre limité de familles. Il n'existe pas de hook de famille. Le hook porte sur l'implémentation d'une famille. » — le moteur n'appelle que les contrats qu'il connaît ; le hook = une classe dans une famille. | Voir §3.2c. |
+| D620 | **La famille contraint le contrat** (complète D619) : « une famille va contraindre la définition du contrat » — les méthodes et leurs signatures imposées à toute classe ; la conformité vérifiable au chargement. | Voir §3.2c. |
+| D621 | **Le socle commun des connecteurs** : `initialize`/`release` (le démarrage/l'arrêt de l'application), `connect`/`disconnect` (à l'appel), **`ping()`** au lieu de test — le statut (error, initialized, disconnected, connected, closed…), `every:` = la fréquence du ping ; le comportement en propriétés du socle (permanent / à l'appel / au laps d'inactivité). | `connection: permanent \| on_demand \| idle[15min]` en proposition. Voir §3.2c. |
+| D622 | **Le pool de connexions** (complète D621) : « pool pour définir un pool de connexions — surtout pour l'exécution d'opérations asynchrones en parallèle » (la file D24/D55, D436). | `pool: 5` en proposition (défaut 1). Voir §3.2c. |
+| D623 | **Les sept familles** (arrête D619) : `storage`, `smtp`, `file`, `directory`, `location`, **`api`** (get, put, post, delete — « un point d'entrée dans les différents appels d'api versionnés »), `siren` ; « route est un exemple d'extension ultérieure » — l'extension du jeu = l'affaire du moteur. | L'api règle le webhook (D609) ; la reprise n'est pas une famille (la lecture notée — les familles existantes la portent). Voir §3.2c. |
+| D624 | **`webhook`** (renomme dans D623) : « "api" à remplacer par "webhook" » — la famille du point d'entrée des API versionnées (get, put, post, delete). | Voir §3.2c. |
+| D625 | **La reprise sur erreur** : « à gérer par les connecteurs — les propriétés au socle commun (retry:, timeout:, …) ; en cas d'erreur, Syncytium se met en position de sécurité ». | L'homonymie notée (≠ la reprise de données D175) ; la position de sécurité en lecture proposée (rollback, statut error, les déclenchements suspendus, le rapport à l'administrateur). Voir §3.2c. |
+| D626 | **La page de maintenance, la condition indispensable** (complète D625) : « en cas d'erreur, passer sur une page de maintenance et émettre une alerte ; l'application doit démarrer uniquement si l'envoi de mail à l'administrateur est possible — une condition indispensable ». | Le canal d'alerte avant tout (le smtp vérifié au démarrage) ; la graduation par famille en question. Voir §3.2c. |
+| D627 | **`onerror`** (solde D625–D626) : la propriété (la page de maintenance pour les connecteurs clés) et **la méthode au socle commun** — « elle retourne soit un mock de résultat (implémenté par le connecteur), soit l'appel à une page de maintenance » ; la graduation clé/non-critique tranchée. | L'écho de la dégradation D68. Voir §3.2c. |
+| D628 | **`smtp.send`** (le premier contrat détaillé) : « un message (au format HTML), des pièces jointes (une liste de fichiers, quel que soit le format), depuis un expéditeur (configuré aux propriétés du connecteur) et vers une liste de destinataires ». | Le markdown du template mail (D562/D564) rendu en HTML fait le corps. Voir §3.2c. |
+| D629 | **Le contrat storage** : `begin`/`commit`/`rollback` (la transaction — D594) ; `get_schema` (l'introspection — tables, colonnes, contraintes, dépendances) ; `create_table`/`update_table`/`delete_table` (les migrations) ; `create_schema`/`delete_schema` (« créer l'instance automatiquement ou faire migrer silencieusement ») ; `create`/`read`/`update`/`delete` (les enregistrements). | Voir §3.2c. |
+| D630 | **La documentation au socle commun** : « un connecteur doit disposer d'une méthode pour générer de la documentation en markdown/html — la documentation automatique de l'instance ». | `describe()` en proposition ; la brique de Q58 (l'écho D124). Voir §3.2c. |
+| D631 | **`switch_schema`** (complète D629) : « basculer vers le nouveau schéma après la migration » — la bascule atomique ; la migration silencieuse = create_schema → la migration → switch_schema → delete_schema (la lecture notée). | Voir §3.2c. |
+| D632 | **Le mapping automatique** : « la migration à chaud trouve sa mécanique, et le mapping (automatique) est le mécanisme exploité » — la translation déclarative dérive les correspondances des deux méta-schémas, le technicien n'écrit rien. | Le mapping manuel reste au `from:` (D610 — les systèmes étrangers). Voir §3.2c. |
+| D633 | **Le contrat directory** : `get_users`, `get_users_from_group`, `get_groups` — « ce connecteur n'a pas de pendant en écriture, uniquement de la lecture ». | L'authentification (D418/D604) flaguée — cette famille ou le chantier sécurité ? Voir §3.2c. |
+| D634 | **Le contrat file** : `get_files()` (le pattern), `get_file(filename)` (la description **si stable depuis un laps** — « attendre qu'un fichier en cours d'écriture soit terminé »), `commit(filename)` (le renommage/déplacement au dossier configuré — les méta-caractères : le compteur, l'identifiant, la date et heure). | Le guetteur = every: + get_files ; l'écriture (les exports D445) flaguée. Voir §3.2c. |
+| D635 | **Le thread d'écoute** (précise D634) : « every: est utilisé sur connect ou initialize pour démarrer un thread dédié à l'écoute des fichiers » — le connecteur écoute lui-même, l'événement déclenche l'opération (D609). | Voir §3.2c. |
+| D636 | **Les storages de format** (referme D634) : « les storages "csv", "xml"… sont définis pour les exports et exploitables pour les imports » — les formats = des classes de storage ; la coopération file/storage (le guetteur détecte, le storage lit, le commit acquitte). | Voir §3.2c. |
+| D637 | **Le contrat location** : `geocode(address: {}) : geolocation` et `reverse(geolocation) : address` — les signatures typées (le type du modèle D391, le texte associé D392). | Voir §3.2c. |
+| D638 | **Le contenu du type geolocation** (précise D391/D637) : « des coordonnées longitude/latitude et/ou adresse postale normalisée sur geocode » — geocode rend le point ET l'adresse mise au propre ; l'un et/ou l'autre selon la source. | types.md et connectors.md mis au niveau. Voir §3.2c. |
+| D639 | **Le contrat siren** : `verify(siren) : {}` — « retourne les informations de l'entreprise si le SIREN est vérifié » ; la vérification et l'enrichissement en un geste ; flagué : l'inventaire des champs de l'API Sirene à l'implémentation. | connectors.md mis au niveau. Voir §3.2c. |
+| D640 | **Le contrat webhook — l'entrée** : le mode (get/put/post/delete), le point d'entrée `api/<version>/webhook/<nom>`, les paramètres au header ou à l'URL — « une nouvelle entrée gérée par Syncytium » : le moteur monte la route et reçoit. | Voir §3.2c. |
+| D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
+| D642 | **L'authentification obligatoire du webhook** (complète D640) : « le déclenchement du webhook doit passer par une authentification obligatoire » — aucune entrée anonyme, la garde d'office sur la route ; le mécanisme au chantier sécurité (D418/D633). | Voir §3.2c. |
 
 ---
 
@@ -4768,6 +4801,406 @@ signifie *pas de code* — l'orchestration de références, elle, est
 déclarative. La séquence s'exécute **dans la même transaction tenue
 ouverte** (D594) ; le chiffrage, le confirm et l'issue valent pour
 les deux formes.
+
+**La liaison au stockage (D610).** **« Le fichier `connectors.yml`
+décrit la liste des connecteurs disponibles. Le modèle de données est
+attaché à un connecteur : celui qui permet la lecture/écriture. Pour
+les migrations/transformations, nous avons besoin de définir un
+connecteur d'entrée et éventuellement un connecteur de sortie. À la
+racine du projet : `connector: { storage: main_db }` ou
+`connector: { storage: main_db, from: legacy_db }`. Le `from` décrit
+la procédure de migration/transformation. »** — le modèle vit sur
+**un** stockage (la question de la surcharge par entité se referme :
+la base legacy passe par le `from`, pas par une liaison éparse) ; et
+le chantier suivant est nommé : **« pour ce point, nous devons
+décrire une configuration basée sur les éléments déjà vus (que nous
+allons étendre) »** — la procédure de migration/transformation.
+
+**Le câblage par rôles nommés (D611 — précise D610).** **« Dans
+`connector`, nous pouvons déclarer les connecteurs "storage", "smtp",
+"location", "siren"… — des noms exploitables par Syncytium pour
+différents items. Le nom est défini par le hook du composant et
+disponible dans le contexte d'exécution. En cas de besoin, le
+connecteur peut être surchargé par un autre connecteur. Par exemple,
+pour l'opération `send`, le connecteur attendu est "smtp" — mais s'il
+existe une propriété `smtp` sur l'opération send, elle peut préciser
+un connecteur compatible avec le smtp. »** Le bloc `connector:` de la
+racine est donc **le câblage des rôles** : chaque hook (opération,
+type, composant) **nomme le rôle dont il a besoin** (`send` → smtp,
+la géolocalisation → location, le stockage → storage, le `from` de la
+migration — D610) ; la racine associe le rôle au connecteur déclaré
+(connectors.yml) ; **la surcharge locale** par la propriété au nom du
+rôle, vers un connecteur **compatible** (la famille — D605). *(La
+porte ouverte notée : le rôle « siren » — la vérification des
+types-identifiants par connecteur.)*
+
+**Le câblage précisé — les quatre réponses (D612 — complète D611).**
+**(1) « Le câblage n'est pas toujours requis, pour des questions de
+simplicité. Dans les cas les plus complexes, le câblage doit être
+explicite. »** `connectors.yml` décrit le catalogue du fonctionnement
+de l'application ; le mapping entre 2 bases = 2 connecteurs a minima ;
+et la trouvaille : **« dans le cas de l'affichage d'une carte, nous
+pouvons définir plusieurs connecteurs et, en fonction de l'écran,
+utiliser l'un ou l'autre »** — le choix du connecteur peut suivre le
+contexte d'affichage. **(2) « La famille est un type de connecteur
+(`type:`). Pour les cas les plus simples, le type est le nom du
+connecteur »** — l'écho de D458 : le nom porte le type quand la
+sobriété suffit (`smtp:` est un smtp ; `marketing_mail: { type:
+smtp, … }` quand le nom se libère). **(3)** Plusieurs connecteurs en
+service simultanément — mais **« quelques connecteurs suffiront au
+bon fonctionnement »** : la sobriété TPE. **(4) « Le hook de code lit
+le connecteur via `context.connector.<rôle>` »** — acté ; **« quant à
+l'utilisation de plusieurs connecteurs par un item, cela n'est pas
+exclu. »**
+
+**Le type et l'implémentation (D613 — clarifie D611–D612).** Après la
+relecture approfondie de l'auteur : **« "postgresql" n'est pas un
+type. "storage" est bien le type. Par contre, "postgresql",
+"sqlserver", "mysql", "oracle"… constituent une implémentation
+compatible avec "storage". »** Les trois notions fusionnent : **le
+type = la famille = le rôle** — `storage`, `smtp`, `location`,
+`siren`… porte **le contrat** (D605), le câblage (D611) et le nom du
+cas simple (D612) ; **l'implémentation** (`postgresql`, `ban`,
+`smtp_std`…) le remplit — la compatibilité se juge au type.
+*(L'écriture en proposition : **`implementation:`** désigne
+l'implémentation — le mot `hook:` quitte la configuration, la
+doctrine D408 enfin respectée jusque dans connectors.yml :*
+`main_db: { type: storage, implementation: postgresql }` *; le
+simple demeure : le nom = le type —*
+`smtp: { implementation: smtp_std }`*.)*
+
+**`class:` (D615 — solde D613).** L'écriture arrêtée : **« class
+serait plus intéressant pour moi »** — confirmé. Le vocabulaire
+objet, exact au sens (le type est le contrat, la classe le remplit),
+court, sans collision au registre ; le mot `hook` reste hors de la
+configuration (D408). La prose du registre garde « l'implémentation »
+comme mot français ; le YAML écrit `class:` —
+`main_db: { type: storage, class: postgresql }`,
+`smtp: { class: smtp_std }`.
+
+**Les connecteurs par environnement (D616).** Le rappel de l'auteur :
+**« une application dispose de plusieurs environnements possibles —
+staging, production actif/passif (D339–D340). Chaque environnement
+doit disposer de ses propres connecteurs. »** *(La répartition en
+proposition : **le catalogue à la version** — connectors.yml déclare
+ce que l'application attend (les noms, les types, les classes, les
+rôles) — et **les valeurs à l'environnement** —
+`environments/<env>.yml` porte les `parameters:` et les `secrets:`
+propres : le staging pointe sa base, la production la sienne, le
+passif sa réplique. D603 l'anticipait : la clé des secrets se dérive
+de l'environnement et de la machine. L'actif/passif se relit : les
+deux storages, la réplication différentielle entre eux —
+D606/D112–D114.)*
+
+**Les connecteurs à l'environnement (D617 — amende D603/D616).**
+**« Le contenu de `connectors.yml` est à reporter dans
+`environments/staging.yml` ou autre environnement. Lors de
+l'ingestion, Syncytium doit vérifier que les connecteurs sont tous
+décrits dans chaque environnement. »** — la déclaration entière vit
+**à l'environnement** (chacun les siens — types, classes, paramètres,
+secrets) ; le fichier `connectors.yml` de la version s'efface ; le
+connecteur reste **global** au sens de D603 (aucune déclinaison par
+module ni entité). Et **le contrôle de complétude à l'ingestion** :
+tous les connecteurs [que la configuration référence] doivent être
+décrits **dans chaque environnement** — l'écart est une erreur
+d'ingestion (l'esprit D330/D344).
+
+**Le `settings.yml` de la version (D618 — complète l'arborescence).**
+**« settings.yml se retrouve aussi dans la version, en plus du
+module. »** — l'étage application de la cascade (D591) a son
+fichier : les paramètres de l'application (D588–D590 —
+`settings: application:` y vivait déjà en exemple) se déclarent à la
+racine de la version ; le module raffine (D349), l'entité précise
+(D348/D360) — « le plus proche l'emporte ».
+
+**Les familles closes (D619 — précise D603/D605).** **« Syncytium
+fournit un nombre limité de familles. Il n'existe pas de hook de
+famille. Le hook porte sur l'implémentation d'une famille. »** — le
+jeu des familles est **celui du moteur** : le moteur n'appelle que
+les contrats qu'il connaît ; le hook de connecteur ajoute **une
+classe dans une famille** (un Oracle au `storage`, un Mailjet au
+`smtp`) — jamais une famille neuve.
+
+**La famille contraint le contrat (D620 — complète D619).** **« Une
+famille va contraindre la définition du contrat. »** — la famille
+impose le contrat à toute classe : les méthodes, leurs signatures ;
+l'implémentation le remplit, elle ne le choisit pas — la conformité
+d'une classe à sa famille est vérifiable au chargement (l'esprit
+D330/D344 : l'écart ne passe pas).
+
+**Le socle commun des connecteurs (D621).** **« Le socle commun
+dispose aussi d'`initialize` et `release` : un connecteur est
+initialisé au démarrage de l'application et libéré à l'arrêt. Le
+volet `connect`/`disconnect` se pare à l'appel du connecteur. Par
+conséquent, le comportement d'un connecteur doit être décrit dans ses
+propriétés, dont certaines sont définies comme socle commun — par
+exemple : connecté en permanence du démarrage à l'arrêt, connecté au
+moment de l'appel et déconnecté ensuite, ou connecté un certain laps
+de temps — sans activité durant un laps donné, Syncytium le
+déconnecte. Au lieu de test, `ping()` me convient davantage — il
+retourne un statut : "error", "initialized", "disconnected",
+"connected", "closed"… `every:` précise la fréquence du ping. »**
+Le socle commun du contrat : **`initialize`/`release`** (le démarrage
+et l'arrêt de l'application), **`connect`/`disconnect`** (à l'appel),
+**`ping()`** (le statut — la fréquence à l'`every:`). *(L'écriture de
+la politique en proposition : `connection: permanent | on_demand |
+idle[15min]` — le laps au crochet, les durées D434/D476.)*
+
+**Le pool de connexions (D622 — complète D621).** **« Nous pouvons
+ajouter `pool` pour définir un pool de connexions — surtout dans le
+cas de l'exécution d'opérations asynchrones, si cela est exécuté en
+parallèle. »** — la propriété du socle commun : le parallélisme de la
+file asynchrone (D24/D55, le mode `asynchronous` D436) puise dans le
+pool. *(L'écriture en proposition : `pool: 5` — le nombre de
+connexions ; défaut 1, la connexion unique.)*
+
+**Les sept familles (D623 — arrête le jeu de D619).** **« Les
+familles à implémenter sont : `storage`, `smtp`, `file`, `directory`,
+`location`, `api` (get, put, post, delete), `siren`. `route` est un
+exemple d'extension ultérieure. Dans le cas de `api`, cela définit un
+point d'entrée dans les différents appels d'api versionnés. »** Le
+jeu clos du moteur compte **sept familles** ; la famille **`api`**
+règle l'entrant HTTP (le webhook de D609 — le point d'entrée dans les
+API versionnées, la compatibilité bidirectionnelle) avec ses quatre
+méthodes (`get`, `put`, `post`, `delete`) ; **`siren`** porte la
+vérification des identifiants (D611). **`route` attend une version
+ultérieure du moteur** — l'extension du jeu des familles est
+l'affaire de Syncytium, jamais du hook (D619). *(La lecture notée :
+**la reprise n'est pas une famille** — le connecteur de reprise
+(D175–D179) s'appuie sur les familles existantes, le storage en
+lecture, le file, l'api.)*
+
+**`webhook` (D624 — renomme dans D623).** **« "api" à remplacer par
+"webhook". »** — la famille du point d'entrée dans les API
+versionnées se nomme **`webhook`** (get, put, post, delete) ; le mot
+dit l'usage premier (D609 — « traiter des webhooks »).
+
+**La reprise sur erreur et la position de sécurité (D625).** **« La
+reprise est à gérer par les connecteurs, et les propriétés de reprise
+font partie de la configuration commune (`retry:`, `timeout:`, …).
+En cas d'erreur, le comportement de Syncytium doit se mettre en
+position de sécurité. »** — le socle commun (D621–D622) s'enrichit
+des propriétés de reprise sur erreur. *(L'homonymie notée : cette
+reprise-là — le retry — n'est pas la reprise de données de D175.)*
+*(Les écritures en proposition : `retry: 3` ou `retry: { count: 3,
+delay: 30s }` — les durées D476 ; `timeout: 10s`. Et la position de
+sécurité, en lecture proposée : la transaction en cours **rollback**
+(D594–D595), le connecteur au statut **error** (le ping D621), les
+déclenchements qui en dépendent **suspendus**, **le rapport à
+l'administrateur** (D406/notify D574) — jamais une perte
+silencieuse.)*
+
+**La page de maintenance et la condition indispensable (D626 —
+complète D625).** **« En cas d'erreur, il faut passer sur une page de
+maintenance et une alerte doit être émise. L'application doit
+démarrer uniquement si l'envoi de mail à l'administrateur est
+possible. Ceci est une condition indispensable. »** — la position de
+sécurité est complète : **la page de maintenance** (l'écho de D8 — la
+mise en attente) et **l'alerte émise** ; et l'invariant premier : **le
+canal d'alerte avant tout** — au démarrage, l'`initialize`/`ping` du
+smtp vers l'administrateur est vérifié ; **sans lui, l'application ne
+démarre pas.** *(La nuance en question : la graduation — l'erreur du
+`storage` impose la maintenance ; l'erreur d'un connecteur
+périphérique (la location, le siren) suspend-elle seulement ses
+usages ?)*
+
+**`onerror` — la graduation tranchée (D627 — solde D625–D626).**
+**« `onerror:` est une propriété qui fait référence à une page de
+maintenance pour les connecteurs clés. Dans le cas d'un connecteur
+non critique, nous pouvons proposer un retour mock, qui doit être
+implémenté par le connecteur. Par conséquent, j'ajoute au socle
+commun la méthode `onerror` : cette méthode retourne alors soit un
+mock de résultat, soit l'appel à une page de maintenance. »** La
+graduation est tranchée : **le connecteur clé → la page de
+maintenance** ; **le non-critique → le mock** (le repli de service —
+l'écho de la dégradation D68) ; la méthode au socle commun, la
+propriété `onerror:` au réglage.
+
+**La méthode `send` de la famille smtp (D628 — le premier contrat
+détaillé).** **« `send()` envoie un message, des pièces jointes,
+depuis un expéditeur et vers une liste de destinataires.
+L'expéditeur est configuré dans les propriétés du connecteur smtp.
+Le message est au format HTML, et les pièces jointes sont une liste
+de fichiers, quel que soit le format. »** — la signature :
+`send(message HTML, pièces[], destinataires[])`, l'expéditeur venant
+du connecteur. Le pont noté : le template au format `mail`
+(D562/D564) — le mustache + markdown rendu **en HTML** fait le corps
+du message.
+
+**Le contrat de la famille storage (D629).** Les méthodes, aux mots
+de l'auteur : **« `begin`, `commit`, `rollback` pour gérer la
+transaction ; `get_schema` pour consulter le schéma de la base de
+données (le schéma, la liste des tables, des colonnes, des
+contraintes et des dépendances) ; `create_table`, `update_table` et
+`delete_table` pour gérer la maintenance du modèle de données sur les
+phases de migration ; `create_schema`, `delete_schema` pour créer un
+schéma — utilisé pour créer l'instance automatiquement ou pour faire
+migrer silencieusement le modèle ; `create`, `read`, `update`,
+`delete` pour gérer les enregistrements. »** — la transaction
+(l'assise de D594), l'introspection, la structure aux migrations, le
+schéma à l'instance (la création automatique, la migration
+silencieuse — l'écho D100/D112), les enregistrements.
+
+**`switch_schema` (D631 — complète D629).** **« Sur storage, j'ajoute
+`switch_schema` pour basculer vers le nouveau schéma après la
+migration. »** — la bascule atomique ; *(la lecture notée : la
+migration silencieuse s'écrit alors `create_schema` → la migration →
+`switch_schema` → `delete_schema` — la migration à chaud D100/D112 en
+quatre gestes du contrat.)*
+
+**Le mapping automatique de la migration à chaud (D632).** **« La
+migration à chaud de la base de données trouve sa mécanique, et le
+mapping (automatique) est le mécanisme exploité. »** — entre deux
+versions du modèle, **le mapping se calcule** : la translation
+déclarative (le primitif aux quatre usages) dérive les
+correspondances des deux méta-schémas — le technicien n'écrit rien
+pour la migration à chaud. *(La frontière notée : le mapping
+**manuel** demeure l'affaire du `from:` vers les systèmes étrangers —
+D610, le chantier du mapping externe.)*
+
+**Le contrat de la famille directory (D633).** **« `get_users` : la
+liste de tous les utilisateurs de l'AD ; `get_users_from_group` : la
+liste des utilisateurs de l'AD appartenant à un groupe ; `get_groups` :
+la liste de tous les groupes de l'AD. Ce connecteur n'a pas de
+pendant en écriture — uniquement de la lecture. »** — la famille sert
+la synchronisation des comptes et des groupes (les affectations
+D341/D210 restent des actes d'administration en base). *(La question
+flaguée : l'authentification — la passerelle D418, dont l'AD Azure
+est « le premier visage » D604 — passe-t-elle par cette famille (une
+méthode à venir) ou par un autre canal ? Le chantier sécurité de la
+passe tranchera.)*
+
+**Le contrat de la famille file (D634).** **« `get_files()` : la
+liste des fichiers répondant à un pattern de nom de fichiers ;
+`get_file(filename)` : fournit une description de fichier s'il n'est
+pas mis à jour depuis un laps de temps — Syncytium doit attendre
+qu'un fichier en cours d'écriture soit terminé ; `commit(filename)` :
+renomme et/ou déplace le fichier dans un dossier fourni en
+configuration — le nom du fichier de destination peut contenir des
+méta-caractères pour préciser un compteur, un identifiant, une date
+et heure… »** Les finesses consignées : **la garde de stabilité**
+(le fichier livré seulement quand l'écriture est finie — le laps en
+propriété) ; **le `commit` du fichier** (l'acquittement — l'écho du
+mot de la transaction D594/D629 : le fichier traité se range, le nom
+de destination au gabarit de méta-caractères) ; le guetteur (D604) =
+`every:` + `get_files()`. *(La question flaguée : l'écriture — le
+dépôt des exports (D445/D530) passe-t-il par une méthode à venir de
+cette famille, ou ailleurs ?)*
+
+**Le thread d'écoute (D635 — précise D634).** **« `every:` est
+utilisé sur `connect` ou `initialize` pour démarrer un thread dédié à
+l'écoute des fichiers. »** — la mécanique du guetteur se précise : le
+connecteur porte **son propre thread d'écoute**, né à
+l'`initialize`/au `connect` et cadencé par l'`every:` — ce n'est pas
+le moteur qui interroge du dehors ; l'événement détecté déclenche
+l'opération déclarée (`when: <connecteur>` — D609).
+
+**Les storages de format (D636 — referme la question de D634).**
+**« Les storages "csv", "xml"… sont définis pour les exports et
+exploitables pour les imports. »** — les formats de fichiers sont
+**des classes de la famille storage** : le CSV, le XML se lisent et
+s'écrivent comme des enregistrements (le contrat D629, borné à ce que
+le format sait faire) — l'export écrit vers un storage de format,
+l'import en lit. **Les deux familles coopèrent** : le guetteur
+(`file`) détecte et garde la stabilité, le storage de format lit les
+enregistrements, le `commit(filename)` acquitte — la question de
+l'écriture (D634) est refermée.
+
+**Le contrat de la famille location (D637).** **« `geocode(address:
+{}) : geolocation`, et `reverse(geolocation) : address`. »** — les
+deux signatures typées : l'adresse (l'objet structuré) vers le type
+`geolocation` du modèle (D391), et l'inverse — le texte associé
+(D392) s'y nourrit, le connecteur `ban`/`nominatim` (D294) les
+implémente.
+
+**Le contenu du type geolocation (D638 — précise D391/D637).**
+**« geolocation, le type, fait référence à des coordonnées
+longitude/latitude et/ou adresse postale normalisée sur geocode. »**
+— le type porte **les coordonnées (longitude/latitude) et/ou
+l'adresse postale normalisée** : `geocode` ne rend pas que le point,
+il rend aussi l'adresse mise au propre par le géocodeur (la BAN
+normalise) ; l'un et/ou l'autre — la saisie peut n'avoir que
+l'adresse, le GPS que les coordonnées, le géocodage réunit les deux.
+Le texte associé (D392) se relit : l'adresse normalisée en est le
+premier visage.
+
+**Le contrat de la famille siren (D639).** **« La famille siren porte
+`verify(siren) : {}`. Cette méthode retourne les informations de
+l'entreprise si le SIREN est vérifié. À voir quelles informations
+sont disponibles via l'api SIREN. »** — la vérification et
+l'enrichissement en un geste : l'identifiant vérifié rend l'objet
+entreprise (l'échec rend l'invalidité) — le formulaire client se
+pré-remplit (l'esprit D294 : le service public nourrit la saisie).
+**Le point flagué** : l'inventaire des champs disponibles via l'API
+Sirene de l'INSEE (la dénomination, la forme juridique, le code NAF,
+l'adresse du siège, les établissements/SIRET, l'état actif/cessé…) —
+à arrêter au moment de l'implémentation de la classe.
+
+**Le contrat de la famille webhook — l'entrée (D640).** **« Le
+webhook dispose d'une propriété qui précise le mode de l'api (get,
+put, post ou delete), une propriété qui précise le point d'entrée
+après l'api webhook (`api/<version>/webhook/<nom du point d'entrée>`)
+et une liste de paramètres présents dans le header de l'api ou dans
+l'url de l'api. Ceci décrit une nouvelle entrée gérée par
+Syncytium. »** — le connecteur webhook ne sort pas : **il déclare une
+entrée que Syncytium sert** — la route versionnée
+`api/<version>/webhook/<nom>` (les API versionnées de D623–D624), le
+mode HTTP, les paramètres attendus (au header ou à l'URL) ; le moteur
+monte la route, contrôle les paramètres, reçoit.
+
+**La liste d'entrées et l'abonnement (D641).** **« Nous étendons
+webhook à une liste de points d'entrée. Un `when:` précise le
+connecteur et éventuellement le nom du point d'entrée attendu. Ceci
+porte un abonnement sur le webhook à l'initialisation de
+l'application. Et, cela facilite le déclenchement d'une
+opération. »** — un connecteur webhook = **plusieurs points
+d'entrée** (chacun son mode et ses paramètres) ; le `when:` de
+l'opération déclarée (D609) s'écrit `when: <connecteur>` (toute
+entrée) ou précise l'entrée — *l'écriture en proposition :*
+`when: orders_api.new_order` *(le point, comme le champ)*. **Le when
+est un abonnement** : à l'`initialize` du socle (D621), Syncytium
+monte les routes et relie chaque entrée aux opérations abonnées —
+l'appel entrant déclenche, rien à interroger.
+
+*(L'écriture en proposition :*
+
+```yaml
+# environments/production.yml
+connectors:
+  orders_api:
+    type: webhook
+    class: webhook_std
+    entries:
+      new_order:    { mode: post, parameters: [ source, order_id ] }
+      order_status: { mode: get,  parameters: [ order_id ] }
+
+# le module — l'opération déclarée (D609)
+operations:
+  import_order:
+    when: orders_api.new_order     # l'abonnement (D641)
+    operations: [ import, notify ]
+    commit: auto
+```
+
+*— la route servie : `api/<version>/webhook/new_order`.)*
+
+**L'authentification obligatoire du webhook (D642 — complète D640).**
+**« Le déclenchement du webhook doit passer par une authentification
+obligatoire. »** — aucune entrée anonyme : l'appel entrant
+s'authentifie avant de déclencher quoi que ce soit — la route montée
+par Syncytium porte la garde d'office, ce n'est pas une option de la
+déclaration. **Le mécanisme** (la clé d'API au header, le jeton, la
+signature…) rejoint le chantier sécurité (la passerelle
+d'authentification D418, flaguée en D633) — le principe est arrêté
+ici, la mécanique s'y arrêtera.
+
+**La documentation au socle commun (D630).** **« Un connecteur doit
+disposer d'une méthode pour générer de la documentation en
+markdown/html, pour la documentation automatique de l'instance. »** —
+le socle commun (D621–D622, D627) s'enrichit : chaque connecteur se
+documente lui-même — la brique de l'autodocumentation (Q58/le domaine
+6, l'écho D124 « exploitables par des IA »). *(Le nom en proposition :
+`describe()` — le markdown/html retourné.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12352,6 +12785,142 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 39)** — **La PR #29 créée** (« la passe de
   complétude — les huit domaines consignés, les connecteurs, hooks.md
   et types.md », D602–D609, 14 commits, 4 fichiers) vers develop.
+- **2026-08-15 (suite 40)** — **La liaison au stockage (D610)** :
+  connector: { storage:, from: } à la racine — un seul stockage, le
+  from portant la migration/transformation ; le chantier suivant
+  nommé : la configuration de la procédure (les éléments déjà vus, à
+  étendre).
+- **2026-08-15 (suite 41)** — **La PR #29 fusionnée** (silencieusement,
+  le patron connu — vérifiée : bcde1d2 sur develop) ; la branche
+  recréée porte D610.
+- **2026-08-15 (suite 42)** — **Le câblage par rôles nommés (D611)** :
+  le hook nomme son besoin (send → smtp, la géoloc → location), la
+  racine câble, la surcharge locale vers un connecteur compatible ;
+  le rôle siren noté (la vérification des identifiants).
+- **2026-08-15 (suite 43)** — **Le câblage précisé (D612)** : les
+  quatre réponses — l'optionnel au simple, la famille = type: (le nom
+  au plus simple), la sobriété des connecteurs,
+  context.connector.<rôle> acté, la carte au connecteur selon
+  l'écran.
+- **2026-08-15 (suite 44)** — **Le type et l'implémentation (D613)** :
+  storage est le type, postgresql une implémentation compatible — le
+  type = la famille = le rôle ; implementation: en proposition (le
+  mot hook quitte connectors.yml, la doctrine D408 respectée). Les
+  exemples de hooks.md balayés.
+- **2026-08-15 (suite 45)** — **connectors.md créé (D614)** : le
+  cinquième artefact préparatoire — la nature, la déclaration, le
+  câblage, les secrets, le catalogue de base, les déclencheurs, la
+  migration/transformation, les points ouverts (le mapping du from,
+  les contrats par famille, la défaillance, implementation:).
+- **2026-08-15 (suite 46)** — **class: confirmé (D615)** : le
+  vocabulaire objet, court, sans collision — implementation: balayé
+  des deux documents.
+- **2026-08-15 (suite 47)** — **Les connecteurs par environnement
+  (D616)** : chaque environnement ses propres connecteurs — la
+  répartition en proposition (le catalogue à la version, les valeurs
+  à l'environnement) ; l'actif/passif relu (deux storages, la
+  réplication différentielle).
+- **2026-08-15 (suite 48)** — **Les connecteurs à l'environnement
+  (D617)** : le contenu de connectors.yml reporté dans
+  environments/<env>.yml — le fichier de version s'efface, la
+  complétude vérifiée à l'ingestion (tous les connecteurs décrits
+  dans chaque environnement). connectors.md mis au niveau.
+- **2026-08-15 (suite 49)** — **Le settings.yml de la version
+  (D618)** : l'étage application de la cascade a son fichier — la
+  version, le module (D349), l'entité (D348/D360).
+- **2026-08-15 (suite 50)** — **Les familles closes (D619)** : pas de
+  hook de famille — le hook porte l'implémentation ; le jeu des
+  familles est celui du moteur. Les contrats par famille en cours
+  d'arbitrage (le socle commun, les méthodes, le sort de la reprise
+  posés dans l'échange).
+- **2026-08-15 (suite 51)** — **La famille contraint le contrat
+  (D620)** : les méthodes et signatures imposées, l'implémentation
+  les remplit — la conformité vérifiée au chargement.
+- **2026-08-15 (suite 52)** — **Le socle commun des connecteurs
+  (D621)** : initialize/release, connect/disconnect à l'appel,
+  ping() au statut (every: = sa fréquence), la politique de connexion
+  en propriété (permanent / à l'appel / au laps d'inactivité —
+  connection: en proposition).
+- **2026-08-15 (suite 53)** — **Le pool de connexions (D622)** : la
+  propriété du socle pour le parallélisme asynchrone (D436) ;
+  pool: <n> en proposition (défaut 1).
+- **2026-08-15 (suite 54)** — **Les sept familles (D623)** : storage,
+  smtp, file, directory, location, api (get/put/post/delete — le
+  point d'entrée des API versionnées, le webhook réglé), siren ;
+  route en extension ultérieure du moteur ; la reprise n'est pas une
+  famille (la lecture notée). connectors.md mis au niveau.
+- **2026-08-15 (suite 55)** — **webhook (D624)** : la famille api
+  renommée — le mot dit l'usage premier (D609).
+- **2026-08-15 (suite 56)** — **La reprise sur erreur (D625)** :
+  retry:/timeout: au socle commun ; la position de sécurité (la
+  lecture proposée : rollback, error, les déclenchements suspendus,
+  le rapport) ; l'homonymie avec la reprise de données notée.
+- **2026-08-15 (suite 57)** — **La page de maintenance et la
+  condition indispensable (D626)** : l'erreur → la maintenance +
+  l'alerte ; le démarrage conditionné à l'envoi de mail à
+  l'administrateur — le canal d'alerte avant tout ; la graduation par
+  famille en question.
+- **2026-08-15 (suite 58)** — **onerror (D627)** : la graduation
+  tranchée — le connecteur clé → la page de maintenance (la propriété
+  onerror:), le non-critique → le mock (la méthode au socle commun,
+  implémentée par le connecteur).
+- **2026-08-16** — **smtp.send (D628)** : le message HTML, les pièces
+  jointes de tout format, l'expéditeur aux propriétés du connecteur,
+  la liste de destinataires — le premier contrat de famille détaillé ;
+  le markdown du template mail rendu en HTML.
+- **2026-08-16 (suite)** — **Le contrat storage (D629)** : la
+  transaction, get_schema, create/update/delete_table,
+  create/delete_schema (l'instance automatique, la migration
+  silencieuse), le CRUD des enregistrements. **La documentation au
+  socle (D630)** : chaque connecteur génère sa documentation
+  markdown/html — l'autodocumentation de l'instance (describe() en
+  proposition).
+- **2026-08-16 (suite 2)** — **switch_schema (D631)** : la bascule
+  vers le nouveau schéma après la migration — la migration
+  silencieuse en quatre gestes (la lecture notée).
+- **2026-08-16 (suite 3)** — **Le mapping automatique (D632)** : la
+  migration à chaud exploite le mapping calculé des deux
+  méta-schémas (la translation déclarative) ; le mapping manuel reste
+  au from: (les systèmes étrangers).
+- **2026-08-16 (suite 4)** — **Le contrat directory (D633)** :
+  get_users, get_users_from_group, get_groups — la lecture seule ;
+  l'authentification flaguée pour le chantier sécurité.
+- **2026-08-16 (suite 5)** — **connectors.md mis à jour** : le socle
+  commun complet (les méthodes D621/D627/D630, les propriétés
+  D621–D622/D625/D627, la position de sécurité D626), les contrats
+  détaillés (storage D629/D631–D632, smtp D628, directory D633), les
+  quatre familles restantes en pistes, les points ouverts
+  actualisés.
+- **2026-08-16 (suite 6)** — **Le contrat file (D634)** : get_files
+  au pattern, get_file à la garde de stabilité (l'attente de la fin
+  d'écriture), commit à l'acquittement (le déplacement au gabarit de
+  méta-caractères) ; l'écriture des exports flaguée.
+- **2026-08-16 (suite 7)** — **Le thread d'écoute (D635)** : every:
+  sur connect/initialize démarre le thread dédié — le connecteur
+  écoute lui-même, l'événement déclenche (D609).
+- **2026-08-16 (suite 8)** — **Les storages de format (D636)** :
+  csv, xml… = des classes de storage — l'export y écrit, l'import y
+  lit ; la coopération des familles file/storage ; la question de
+  l'écriture refermée.
+- **2026-08-16 (suite 9)** — **Le contrat location (D637)** :
+  geocode(address) : geolocation, reverse(geolocation) : address —
+  les signatures typées.
+- **2026-08-16 (suite 10)** — **Le contenu du type geolocation
+  (D638)** : les coordonnées longitude/latitude et/ou l'adresse
+  postale normalisée sur geocode — l'un et/ou l'autre selon la
+  source. types.md et connectors.md mis au niveau.
+- **2026-08-16 (suite 11)** — **Le contrat siren (D639)** :
+  verify(siren) : {} — les informations de l'entreprise si vérifié ;
+  l'inventaire des champs de l'API Sirene flagué pour
+  l'implémentation.
+- **2026-08-16 (suite 12)** — **Le contrat webhook (D640–D641)** :
+  l'entrée (le mode, la route api/<version>/webhook/<nom>, les
+  paramètres header/url — servie par Syncytium), la liste d'entrées,
+  le when: en abonnement posé à l'initialisation. **Les sept contrats
+  de famille sont posés.** connectors.md mis au niveau.
+- **2026-08-16 (suite 13)** — **L'authentification obligatoire du
+  webhook (D642)** : aucune entrée anonyme — la garde d'office sur la
+  route ; le mécanisme au chantier sécurité (D418/D633).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

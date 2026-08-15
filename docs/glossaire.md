@@ -52,20 +52,32 @@ le même numéro, jamais de trou. Il peut être réinitialisé sous condition. M
 donnée : `public` (partout), `protected` (l'interface et les tâches),
 `private` (les tâches seulement) — resserrable par groupes. *(D25)*
 
-**Connecteur** (`connectors.yml`) — Une passerelle entre Syncytium et
-un système tiers : une base de données, un annuaire, des fichiers, un
-géocodeur, un serveur de mail… Le connecteur décrit ses entrants et
-ses sortants — la lecture et l'écriture selon les spécificités de sa
-famille. Il est **global** : déclaré à la racine de la version, sans
-déclinaison par module ni entité. Sa famille définit ses méthodes ;
-ses propriétés le paramètrent (pas de contexte — il naît au démarrage
-du projet) ; ses secrets référencent des variables d'environnement
-(chiffrables) ; `every:` le rafraîchit ou le teste (le guetteur de
-fichiers). Le stockage des entités est lui-même un connecteur de base
-de données — et Syncytium sait convertir ou transférer d'un
-connecteur à l'autre. *(D79, D603–D606)*
+**Connecteur** (`environments/<env>.yml`) — Une passerelle entre
+Syncytium et un système tiers : une base de données, un annuaire, des
+fichiers, un géocodeur, un serveur de mail… Le connecteur décrit ses
+entrants et ses sortants — la lecture et l'écriture selon les
+spécificités de sa famille. Il est **global** (aucune déclinaison par
+module ni entité) et **déclaré à l'environnement** : chaque
+environnement les siens, la complétude vérifiée à l'ingestion. **Son
+type est sa famille — et son contrat** : sept familles closes
+(`storage`, `smtp`, `file`, `directory`, `location`, `webhook`,
+`siren`) dont chacune contraint les méthodes ; sa **classe**
+(`postgresql`, `ban`, `smtp_std`…) remplit le contrat. Toute classe
+implémente le socle commun : `initialize`/`release`,
+`connect`/`disconnect`, `ping()` (le statut, la fréquence à
+`every:`), `onerror` (le mock ou la page de maintenance),
+`describe()` (la documentation de l'instance). Ses propriétés le
+paramètrent (pas de contexte — il naît au démarrage du projet) ; ses
+secrets référencent des variables d'environnement (chiffrables) ; le
+câblage `connector: { storage: main_db, from: legacy_db }` nomme les
+rôles à la racine (optionnel au simple : le nom = le type) ; `when:
+<connecteur>[.<entrée>]` abonne une opération à ses événements.
+L'application ne démarre que si le mail à l'administrateur est
+possible — le canal d'alerte avant tout. Le stockage des entités est
+lui-même un connecteur — et Syncytium sait convertir ou transférer
+d'un connecteur à l'autre. *(D79, D603–D642)*
 
-Exemple : `geocoding: { hook: ban, parameters: { url: … },
+Exemple : `location: { class: ban, parameters: { url: … },
 secrets: [api_key] }`.
 
 **Crochet** (`type[paramètre]`) — La convention d'écriture qui glisse

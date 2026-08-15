@@ -664,6 +664,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D583 | **`iif` et `select`** (complète D582) : « dans les comparateurs, j'intègre iif et select » — `iif(condition, alors, sinon)` ; `select` multi-branches (l'écriture en proposition — le dernier sans clé fait le défaut) ; toutes les branches d'un même type (D581). | Voir §3.2c. |
 | D584 | **`select`, une fonction du type** (amende D583) : `state.select(draft: "En cours", …, "...": "autres")` — la valeur porte son select, la clé `"..."` fait le défaut. | La doctrine D579/D580 au conditionnel. Voir §3.2c. |
 | D585 | **Le type `label`** : l'accès au catalogue des labels (D440), « un label peut couvrir un gabarit paramétrable », les gabarits nommés réutilisables — `label(mon_nom, { prenom: …, nom: … })`, l'ordre des mots par langue. | La langue dans les expressions — `state.select(draft: label(…))`. Voir §3.2c. |
+| D586 | **L'enregistrement en paramètre du label** (complète D585) : « le nom des champs devient les paramètres » — `label(mon_nom, customer)`, les champs nourrissent le gabarit sans les épeler. | L'écho D465/D562 — un seul mécanisme de gabarit. Voir §3.2c. |
 
 ---
 
@@ -4563,6 +4564,15 @@ nourrissent le gabarit — **et l'ordre des mots change avec la langue**
 nommés. La composition ferme la boucle du select :
 `state.select(draft: label(status_draft), …)` — plus une chaîne crue
 dans les formules.
+
+**L'enregistrement en paramètre du label (D586 — complète D585).**
+**« Pour un label paramétrable nommé, nous pouvons passer en
+paramètre l'enregistrement. Le nom des champs devient les
+paramètres. »** — `label(mon_nom, customer)` : les champs de
+l'enregistrement nourrissent le gabarit par leurs noms, sans les
+épeler — le raccourci du publipostage (l'écho du title-gabarit D465
+et de la lettre D562 : un seul mécanisme, du visage de
+l'enregistrement à la formule).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11884,6 +11894,9 @@ avant la synthèse Q16).
   le catalogue D440 accessible aux expressions, les gabarits nommés
   paramétrables (l'ordre des mots par langue), label(mon_nom,
   { prenom:, nom: }).
+- **2026-08-15 (suite 10)** — **L'enregistrement en paramètre
+  (D586)** : label(mon_nom, customer) — les champs deviennent les
+  paramètres du gabarit, sans les épeler.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

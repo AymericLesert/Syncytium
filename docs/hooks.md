@@ -1,0 +1,150 @@
+# Les hooks de Syncytium
+
+Ce document rassemble **les échanges consignés sur les hooks** — le
+mécanisme unique d'extension de Syncytium. Il prépare la documentation
+à rédiger (Q58, le domaine 6 — D602) et suit le vocabulaire du
+[glossaire](glossaire.md) ; les décisions citées renvoient à la
+[conception](conception.md) ; les composants graphiques au
+[catalogue](composants.md).
+
+## La doctrine
+
+- **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les
+  connecteurs et les composants relèvent d'un mécanisme uniforme —
+  ce que Syncytium embarque et ce que le technicien ajoute passent
+  par la même porte ;
+- **« Tous les types proposés sont finalement des hooks qui
+  appartiennent à Syncytium »** (D408) — **le catalogue = les hooks
+  embarqués** : le socle n'est pas un cas particulier, il est le
+  premier client du mécanisme ;
+- **Le mot « hook » n'apparaît jamais dans la configuration**
+  (D408) : un hook ajoute **un nom** au catalogue concerné (un type,
+  un composant, une opération, une fonction, un connecteur) — et ce
+  nom s'emploie comme un nom du socle ; le doublon de nom = une
+  erreur d'ingestion (D344/D396) ;
+- **La première classe** (D65/D68) : un élément ajouté a les mêmes
+  droits que le socle — mappable en défaut de type, surchargeable au
+  champ ; **le registre est namespacé** (D52), les éléments
+  partageables (AGPL — l'écosystème D68) ;
+- **La dégradation** (D68) : si un hook échoue, **le repli sur le
+  built-in par défaut** ;
+- **Un hook de code définit une signature et un code propre au
+  langage exploité par Syncytium** (D570) — le langage et la sandbox
+  relèvent du domaine 7 (l'architecture technique — D602).
+
+## Les familles
+
+### 1. Le hook de type (D408, D459, D579–D584)
+
+Ajoute **un type** au catalogue — exploitable comme les types
+standard (le chaînage possible, les types custom ne portant pas le
+graphe de conversion).
+
+**La signature du type porte :**
+- **la conversion intrinsèque** (D579) — la fonction au nom du type
+  (`text(x)`, `montype(x)`) ; la promotion implicite sans perte
+  seulement (D581) ;
+- **la table des opérateurs** (D581) — les combinaisons d'opérandes
+  admises et le type du résultat ;
+- **les comparateurs** (D582) — l'ordre des règles de tri, l'égalité
+  de l'équivalence ; le `select` (D584) ;
+- **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
+  géolocalisation : « un type emmène avec lui des fonctions
+  dédiées » ;
+- **les règles de tri et le nul** (D368 et suivantes), la recherche,
+  le masque — le kit des facettes ;
+- **la représentation obligatoire** (D459) : « aucun type sans
+  visage » — le composant d'écran et/ou le rendu de document.
+
+### 2. Le hook de composant (D64–D68, D452, D566)
+
+Ajoute **un composant graphique** au catalogue — une feuille, un
+conteneur, une surface (D455 : « une facette = un hook »).
+
+**Le contrat (D566.7)** : « un objet qui se chargera de gérer le
+composant **et son rendu dans les différents formats — Web, PDF,
+Word, Excel, Email…** » (les destinations D564). Le composant
+personnalisé est **un nœud comme les autres** (D452) — la signature
+commune (l'adresse `<type>[<nom>]`, le `visible:` vivant,
+l'évaluation paresseuse, les enfants déclarés, la pile de contexte —
+D566–D567) — et **« l'écriture repasse toujours par les champs et
+leurs règles »** : le composant ne contourne jamais le modèle.
+
+### 3. Le hook d'opération (D570, D594–D601)
+
+Ajoute **une opération** — « une opération ne se construit pas dans
+la configuration : elle se construit toujours à l'aide d'un hook de
+code » (D570). Les 17 opérations de socle (D574) sont les hooks
+embarqués : `create`, `read`, `update`, `delete`, `duplicate`,
+`promote`, `demote`, `generate`, `download`, `print`, `send`,
+`export`, `import`, `report`, `restore`, `notify`, `refresh`.
+
+**Le contrat — l'objet aux quatre fonctions (D595) :**
+
+| la fonction | le rôle |
+|---|---|
+| `execute` | remplit **la transaction tenue ouverte** (D594) — le preview est l'exécution suspendue avant le commit |
+| `confirm` | la relecture — le message-label (D597) aux valeurs nommées (`nb_creations`, `nb_updates`, `nb_deletes`… — D598), ou un formulaire nourri par la transaction (D600–D601) |
+| `commit` | scelle — et **retourne l'issue** (l'écran, le téléchargement, l'impression, le message, rien — D570/D597) : le moteur lit et déclenche |
+| `rollback` | défait proprement |
+
+Les cinq portées (D570) : l'enregistrement, la liste, la sélection,
+le module, l'application. `commit: auto | confirm` à la déclaration
+(D596). L'opération voit **la pile des contextes** (D553) et peut
+appeler une fonction — jamais l'inverse (D571).
+
+### 4. Le hook de fonction (D571, D592–D593)
+
+Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
+aux types du modèle, ou **des valeurs nommées** (D593 — la regex à
+groupes nommés nourrit plusieurs champs d'un seul appel).
+
+**Le contrat** : les paramètres typés, le résultat déclaré (le typage
+statique D581 s'y appuie), le contexte en lecture seule — **aucune
+écriture, aucune opération déclenchée** (la pureté D571). Le moteur
+appelle au fil du **graphe d'exécution acyclique** (D592 — le cycle =
+une erreur d'ingestion), au paramètre modifié.
+
+### 5. Le hook de connecteur (D603–D606)
+
+Ajoute **un connecteur** — la passerelle globale (`connectors.yml` à
+la racine, aucune déclinaison — D603). Le catalogue de base (D604) :
+les bases de données standard (SQLServer, MySQL, PostgreSQL…), l'AD
+Azure, les fichiers (CSV, JSON — le guetteur à `every:`), le
+géocodage (`ban`/`nominatim` — D294), l'itinéraire
+(`osrm`/`valhalla` — D514), le mail (`smtp` — D564), la reprise
+(D175–D179).
+
+**Le contrat par famille (D605)** : « chaque famille a ses propres
+méthodes et fonctions » — la base de données les siennes, le fichier
+sa veille et sa lecture, le géocodage son adresse et son inverse. Les
+propriétés paramètrent (pas de contexte — le démarrage du projet),
+**les secrets par variable d'environnement chiffrable** (D603), les
+deux sens décrits (D606) — et **le stockage des entités est lui-même
+un connecteur** (D606).
+
+### Les autres points d'extension consignés
+
+- **les écrans et les formats CSV/Excel** (D418 — le glossaire les
+  élargit) ; **les graphiques au-delà de 2 axes** (D239) ; **le
+  recadrage d'image** (D263 — le patron) ; **le tracé de la route**
+  (D514) ; **la comparaison du kpi** (D245) ; **la proximité en
+  filtre** (D294) ; **les formats du template** (D565 — « étendu à
+  d'autres formats en fonction des besoins ») ; **les fonctions
+  libres** (D587 — « le catalogue s'enrichira, si besoin »).
+
+## Les règles transversales
+
+1. **La librairie d'exploration** (D572/D599) : le hook lit le modèle
+   « de façon transparente » (les noms logiques, jamais le stockage)
+   et écrit dans la transaction — **« la librairie mise en place
+   assure l'inviolabilité des règles et des droits »** : les droits
+   (D196), la confidentialité (D25/D364), la validation (D307), la
+   concurrence par champ (D111) ne se contournent pas — **le hook est
+   un citoyen du moteur, jamais un super-utilisateur** ;
+2. **Le renvoi historique « domaine 6 »** (D408/D452/D459) se relit
+   (D602) : le contrat des hooks est couvert par Q60 (D570–D601) ; le
+   reliquat — la sandbox, le langage du code — relève du domaine 7 ;
+3. **La signature d'abord** : chaque famille déclare ce que le typage
+   statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
+   passe jamais l'ingestion.

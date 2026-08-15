@@ -685,6 +685,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D604 | **Le catalogue de base des connecteurs** (complète D603) : les bases de données standard (SQLServer, MySQL, Postgre…), l'AD Azure, les fichiers (CSV, JSON…) — + le géocodage (D294), l'itinéraire (D514), le smtp (D564), la reprise (D175) ; `every:` « pour rafraîchir ou tester » — le file watcher : « la détection de présence d'un fichier, le fichier mis à jour et relu ». | L'entrant naît par le fichier ; l'AD Azure = un visage de la passerelle D418. Voir §3.2c. |
 | D605 | **Le contrat par famille** (solde les connecteurs) : « la famille (ou le type) permet de définir les interactions avec Syncytium — chaque famille a ses propres méthodes et fonctions » — la ligne D579 jusqu'aux connecteurs ; le hook implémente le contrat de sa famille. | Les cinq manques du sujet refermés (D603–D605). Voir §3.2c. |
 | D606 | **Les deux sens, le stockage-connecteur, la migration inter-connecteurs** : « un connecteur décrit les sortants et les entrants » ; « les entités sont liées à un connecteur de base de données » — le stockage est un connecteur ; « une migration d'un connecteur vers un autre, en instantanée ou en différentiel ». | La translation aux 4 usages (vérifié — évoqué dès l'origine) ; le différentiel = la réplication passive (D112–D114). Voir §3.2c. |
+| D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
 
 ---
 
@@ -12283,6 +12284,15 @@ avant la synthèse Q16).
   un connecteur ; la migration instantanée ou différentielle (la
   réplication D112–D114) ; la translation aux quatre usages vérifiée
   (évoquée dès l'origine).
+- **2026-08-15 (suite 34)** — **hooks.md créé (D607)** : le troisième
+  artefact préparatoire (après le glossaire D417 et composants.md
+  D457) — le report des échanges sur les hooks : la doctrine (D52/
+  D408 — le catalogue = les hooks embarqués, le mot jamais écrit, la
+  première classe, la dégradation), les cinq familles aux contrats
+  (type, composant, opération, fonction, connecteur), les autres
+  points d'extension, les règles transversales (la librairie
+  inviolable, le renvoi domaine 6 relu, la signature d'abord).
+  L'entrée Connecteur du glossaire enrichie au passage (D603–D606).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

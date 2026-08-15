@@ -705,6 +705,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D624 | **`webhook`** (renomme dans D623) : « "api" à remplacer par "webhook" » — la famille du point d'entrée des API versionnées (get, put, post, delete). | Voir §3.2c. |
 | D625 | **La reprise sur erreur** : « à gérer par les connecteurs — les propriétés au socle commun (retry:, timeout:, …) ; en cas d'erreur, Syncytium se met en position de sécurité ». | L'homonymie notée (≠ la reprise de données D175) ; la position de sécurité en lecture proposée (rollback, statut error, les déclenchements suspendus, le rapport à l'administrateur). Voir §3.2c. |
 | D626 | **La page de maintenance, la condition indispensable** (complète D625) : « en cas d'erreur, passer sur une page de maintenance et émettre une alerte ; l'application doit démarrer uniquement si l'envoi de mail à l'administrateur est possible — une condition indispensable ». | Le canal d'alerte avant tout (le smtp vérifié au démarrage) ; la graduation par famille en question. Voir §3.2c. |
+| D627 | **`onerror`** (solde D625–D626) : la propriété (la page de maintenance pour les connecteurs clés) et **la méthode au socle commun** — « elle retourne soit un mock de résultat (implémenté par le connecteur), soit l'appel à une page de maintenance » ; la graduation clé/non-critique tranchée. | L'écho de la dégradation D68. Voir §3.2c. |
 
 ---
 
@@ -4987,6 +4988,18 @@ démarre pas.** *(La nuance en question : la graduation — l'erreur du
 `storage` impose la maintenance ; l'erreur d'un connecteur
 périphérique (la location, le siren) suspend-elle seulement ses
 usages ?)*
+
+**`onerror` — la graduation tranchée (D627 — solde D625–D626).**
+**« `onerror:` est une propriété qui fait référence à une page de
+maintenance pour les connecteurs clés. Dans le cas d'un connecteur
+non critique, nous pouvons proposer un retour mock, qui doit être
+implémenté par le connecteur. Par conséquent, j'ajoute au socle
+commun la méthode `onerror` : cette méthode retourne alors soit un
+mock de résultat, soit l'appel à une page de maintenance. »** La
+graduation est tranchée : **le connecteur clé → la page de
+maintenance** ; **le non-critique → le mock** (le repli de service —
+l'écho de la dégradation D68) ; la méthode au socle commun, la
+propriété `onerror:` au réglage.
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12646,6 +12659,10 @@ avant la synthèse Q16).
   l'alerte ; le démarrage conditionné à l'envoi de mail à
   l'administrateur — le canal d'alerte avant tout ; la graduation par
   famille en question.
+- **2026-08-15 (suite 58)** — **onerror (D627)** : la graduation
+  tranchée — le connecteur clé → la page de maintenance (la propriété
+  onerror:), le non-critique → le mock (la méthode au socle commun,
+  implémentée par le connecteur).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

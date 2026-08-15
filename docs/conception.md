@@ -712,6 +712,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D631 | **`switch_schema`** (complète D629) : « basculer vers le nouveau schéma après la migration » — la bascule atomique ; la migration silencieuse = create_schema → la migration → switch_schema → delete_schema (la lecture notée). | Voir §3.2c. |
 | D632 | **Le mapping automatique** : « la migration à chaud trouve sa mécanique, et le mapping (automatique) est le mécanisme exploité » — la translation déclarative dérive les correspondances des deux méta-schémas, le technicien n'écrit rien. | Le mapping manuel reste au `from:` (D610 — les systèmes étrangers). Voir §3.2c. |
 | D633 | **Le contrat directory** : `get_users`, `get_users_from_group`, `get_groups` — « ce connecteur n'a pas de pendant en écriture, uniquement de la lecture ». | L'authentification (D418/D604) flaguée — cette famille ou le chantier sécurité ? Voir §3.2c. |
+| D634 | **Le contrat file** : `get_files()` (le pattern), `get_file(filename)` (la description **si stable depuis un laps** — « attendre qu'un fichier en cours d'écriture soit terminé »), `commit(filename)` (le renommage/déplacement au dossier configuré — les méta-caractères : le compteur, l'identifiant, la date et heure). | Le guetteur = every: + get_files ; l'écriture (les exports D445) flaguée. Voir §3.2c. |
 
 ---
 
@@ -5060,6 +5061,23 @@ flaguée : l'authentification — la passerelle D418, dont l'AD Azure
 est « le premier visage » D604 — passe-t-elle par cette famille (une
 méthode à venir) ou par un autre canal ? Le chantier sécurité de la
 passe tranchera.)*
+
+**Le contrat de la famille file (D634).** **« `get_files()` : la
+liste des fichiers répondant à un pattern de nom de fichiers ;
+`get_file(filename)` : fournit une description de fichier s'il n'est
+pas mis à jour depuis un laps de temps — Syncytium doit attendre
+qu'un fichier en cours d'écriture soit terminé ; `commit(filename)` :
+renomme et/ou déplace le fichier dans un dossier fourni en
+configuration — le nom du fichier de destination peut contenir des
+méta-caractères pour préciser un compteur, un identifiant, une date
+et heure… »** Les finesses consignées : **la garde de stabilité**
+(le fichier livré seulement quand l'écriture est finie — le laps en
+propriété) ; **le `commit` du fichier** (l'acquittement — l'écho du
+mot de la transaction D594/D629 : le fichier traité se range, le nom
+de destination au gabarit de méta-caractères) ; le guetteur (D604) =
+`every:` + `get_files()`. *(La question flaguée : l'écriture — le
+dépôt des exports (D445/D530) passe-t-il par une méthode à venir de
+cette famille, ou ailleurs ?)*
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12758,6 +12776,10 @@ avant la synthèse Q16).
   détaillés (storage D629/D631–D632, smtp D628, directory D633), les
   quatre familles restantes en pistes, les points ouverts
   actualisés.
+- **2026-08-16 (suite 6)** — **Le contrat file (D634)** : get_files
+  au pattern, get_file à la garde de stabilité (l'attente de la fin
+  d'écriture), commit à l'acquittement (le déplacement au gabarit de
+  méta-caractères) ; l'écriture des exports flaguée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

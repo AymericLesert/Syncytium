@@ -681,6 +681,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D600 | **Le confirm au formulaire** (enrichit D595/D597) : « le rendre plus riche avec un formulaire et des champs alimentés par l'exécution — la création simplifiée validée en consultant l'enregistrement en lecture seule et/ou en modification » — les éditions rejoignent la transaction avant le scellé (D594). | `commit: { mode: confirm, form: <nom>, message: }` en proposition. Voir §3.2c. |
 | D601 | **La boîte seule** (précise D600) : « si form: est absent et si message: est précisé, seule une boîte de dialogue de validation sera affichée » — le léger et le riche. | Voir §3.2c. |
 | D602 | **Les huit domaines de Q16 consignés** (répare un manque) : 1. l'organisation et l'arborescence · 2. la donnée, sa structure et les droits · 3. le méta-schéma · 4. les surfaces · 5. les cas d'usage · 6. la documentation · 7. l'architecture technique · 8. l'implémentation. Le recoupement : 1–4 livrés (3 = règles/comportement + Q60) ; 5=Q59, 6=Q58, 7=Q7/Q47, 8=D314 ; les renvois « domaine 6 » de D408/D452/D459 relus (couverts par Q60, le reliquat au domaine 7). | Voir §3.2c. |
+| D603 | **Les connecteurs — les cinq arbitrages** : `connectors.yml` à la racine, **global** (aucune déclinaison) ; le catalogue de base + le hook de connecteur ; les paramètres = les propriétés, **pas de contexte** (le démarrage du projet) ; **les secrets = la référence à une variable d'environnement**, chiffrable à la clé dérivée (environnement + machine) ; `every:` à la grammaire D434. | Le dépôt versionné (D336) sans secret en clair. Voir §3.2c. |
 
 ---
 
@@ -4789,6 +4790,25 @@ hooks — signature, code, sandbox) furent écrits sous un découpage de
 travail antérieur : **ils se relisent** — le contrat est couvert par
 Q60 (D570–D601), le reliquat (la sandbox, le langage du code) relève
 du domaine 7.
+
+**Les connecteurs : les cinq arbitrages (D603 — la passe de
+complétude, premier sujet).** **(1) « `connectors.yml` est bien à la
+racine de la version. Il ne trouve pas de déclinaison dans les
+modules, ni les entités. Un connecteur est global. »** **(2) « Les
+connecteurs sont disponibles dans un catalogue de base offert par
+Syncytium et sont extensibles via un hook de connecteur. »**
+**(3) « Les paramètres d'un connecteur sont juste les propriétés du
+connecteur. Le connecteur n'a pas de contexte, car il se définit au
+démarrage du projet »** — hors de la pile (D553), l'exception
+assumée. **(4) « Les secrets sont définis dans la configuration…
+Les secrets peuvent faire référence à une variable d'environnement,
+et la variable peut être cryptée via une clé construite en fonction
+de l'environnement et de la machine d'exécution. »** — la
+configuration porte la référence, jamais la valeur en clair ; le
+chiffrement à la clé dérivée (l'environnement + la machine) — le
+dépôt versionné (D336) reste propre. **(5) « `every:` reprend la même
+grammaire »** (D434/D476) — « pour des hooks qui ont besoin d'être
+régulièrement rafraîchis ».
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12193,6 +12213,12 @@ avant la synthèse Q16).
   connecteurs et les échanges ». Les cinq manques du sujet : la
   déclaration, les secrets, le contrat du hook-connecteur, les
   entrants, la planification.
+- **2026-08-15 (suite 30)** — **Les connecteurs arbitrés (D603)** :
+  global à la racine, le catalogue + le hook, les paramètres sans
+  contexte, les secrets par variable d'environnement chiffrable (la
+  clé environnement + machine), every: D434. Le catalogue de base en
+  proposition dans l'échange (la phrase de l'auteur interrompue —
+  « le catalogue de hooks »).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

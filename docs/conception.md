@@ -714,6 +714,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D633 | **Le contrat directory** : `get_users`, `get_users_from_group`, `get_groups` — « ce connecteur n'a pas de pendant en écriture, uniquement de la lecture ». | L'authentification (D418/D604) flaguée — cette famille ou le chantier sécurité ? Voir §3.2c. |
 | D634 | **Le contrat file** : `get_files()` (le pattern), `get_file(filename)` (la description **si stable depuis un laps** — « attendre qu'un fichier en cours d'écriture soit terminé »), `commit(filename)` (le renommage/déplacement au dossier configuré — les méta-caractères : le compteur, l'identifiant, la date et heure). | Le guetteur = every: + get_files ; l'écriture (les exports D445) flaguée. Voir §3.2c. |
 | D635 | **Le thread d'écoute** (précise D634) : « every: est utilisé sur connect ou initialize pour démarrer un thread dédié à l'écoute des fichiers » — le connecteur écoute lui-même, l'événement déclenche l'opération (D609). | Voir §3.2c. |
+| D636 | **Les storages de format** (referme D634) : « les storages "csv", "xml"… sont définis pour les exports et exploitables pour les imports » — les formats = des classes de storage ; la coopération file/storage (le guetteur détecte, le storage lit, le commit acquitte). | Voir §3.2c. |
 
 ---
 
@@ -5087,6 +5088,17 @@ connecteur porte **son propre thread d'écoute**, né à
 l'`initialize`/au `connect` et cadencé par l'`every:` — ce n'est pas
 le moteur qui interroge du dehors ; l'événement détecté déclenche
 l'opération déclarée (`when: <connecteur>` — D609).
+
+**Les storages de format (D636 — referme la question de D634).**
+**« Les storages "csv", "xml"… sont définis pour les exports et
+exploitables pour les imports. »** — les formats de fichiers sont
+**des classes de la famille storage** : le CSV, le XML se lisent et
+s'écrivent comme des enregistrements (le contrat D629, borné à ce que
+le format sait faire) — l'export écrit vers un storage de format,
+l'import en lit. **Les deux familles coopèrent** : le guetteur
+(`file`) détecte et garde la stabilité, le storage de format lit les
+enregistrements, le `commit(filename)` acquitte — la question de
+l'écriture (D634) est refermée.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12792,6 +12804,10 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 7)** — **Le thread d'écoute (D635)** : every:
   sur connect/initialize démarre le thread dédié — le connecteur
   écoute lui-même, l'événement déclenche (D609).
+- **2026-08-16 (suite 8)** — **Les storages de format (D636)** :
+  csv, xml… = des classes de storage — l'export y écrit, l'import y
+  lit ; la coopération des familles file/storage ; la question de
+  l'écriture refermée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

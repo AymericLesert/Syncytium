@@ -675,6 +675,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D594 | **La transaction tenue ouverte** (simplifie D511/D547) : « pas 2 modes — une opération ajoute des éléments dans une transaction ; le preview exécute et attend la validation ; valider = la transaction validée, annuler/stopper = annulée ». | Le chiffrage = le contenu de la transaction active ; le wizard = une transaction au fil des steps (D101) ; le mode disparaît de la signature. Voir §3.2c. |
 | D595 | **Les quatre fonctions du hook d'opération** (précise D594) : `execute` (remplit la transaction), `confirm` (la relecture), `commit` (scelle, l'après-coup), `rollback` (défait) ; « une opération peut se valider ou s'annuler automatiquement selon les paramètres de l'appel ». | L'objet du hook (D566.7) ; l'écho D428/D431. Voir §3.2c. |
 | D596 | **`commit: auto \| confirm`** (renomme D431) : « plutôt que validate, je préfère commit » — confirm le défaut (la relecture), auto la validation automatique ; le mot aligné sur la fonction du hook (D595). | La forme riche `commit: { mode:, message: }` en proposition (D511) ; les fiches balayées. Voir §3.2c. |
+| D597 | **L'issue au commit, le message-label** : « le commit d'une opération retourne l'issue — Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle contient » ; « le message du commit est un label » (D585 — le catalogue D440, le gabarit nourri de la transaction D586/D594). | Le hook rend une valeur, le moteur déclenche. Voir §3.2c. |
 
 ---
 
@@ -4693,6 +4694,17 @@ scellé, D196/D431) ou **`commit: auto`** (la validation automatique).
 *(La forme riche en proposition : `commit: { mode: confirm, message:
 <gabarit> }` — le message de D511 s'y loge ; les écritures
 `validate:` balayées dans les fiches.)*
+
+**L'issue au commit, le message-label (D597).** **« L'issue est
+portée par le commit. Le commit d'une opération retourne l'issue.
+Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle
+contient. »** — la fonction `commit` (D595) retourne l'issue (l'écran,
+le téléchargement, l'impression, le message, rien — D570), **le
+moteur lit et déclenche** : le hook ne manipule jamais l'interface,
+il rend une valeur. Et **« le message du commit est un label — à
+rapprocher du catalogue de labels »** (D585) : le message en place ou
+la référence au dictionnaire (D440), le gabarit nourri de la
+transaction (D586/D594) — la langue réglée par construction.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12055,6 +12067,10 @@ avant la synthèse Q16).
   validate: renommé — le mot aligné sur la fonction du hook ; confirm
   en défaut, la forme riche au message (D511) en proposition ; les
   fiches balayées.
+- **2026-08-15 (suite 21)** — **L'issue au commit, le message-label
+  (D597)** : le commit retourne l'issue, le moteur lit et déclenche ;
+  le message = un label (D585/D440, le gabarit à la transaction).
+  Reste l'inviolable de la librairie à valider.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

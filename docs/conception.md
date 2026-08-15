@@ -672,6 +672,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D591 | **La cascade des settings** (complète D588) : « les settings dans le module ou l'entité viennent compléter ou surcharger la valeur des settings définis dans l'application » — les trois étages, le plus proche l'emporte (D360/D461). | `context.settings.<nom>` résout au plus proche. Voir §3.2c. |
 | D592 | **Le graphe d'exécution acyclique** (contraint D571) : « ils doivent être acycliques » — le cycle de calcul = une erreur d'ingestion (D330/D344), le contrôle statique. | La ligne des graphes acycliques (D455, les groupes). Voir §3.2c. |
 | D593 | **Les valeurs nommées de la fonction** (précise D571) : « une valeur (par défaut) — ou plusieurs valeurs nommées : le cas d'une regex à groupes nommés affectés à plusieurs champs » — `result: <type>` ou `result: { nom: type, … }`, l'appel unique au graphe. | L'affectation au point en proposition (`extract_name(raw).prenom`). Voir §3.2c. |
+| D594 | **La transaction tenue ouverte** (simplifie D511/D547) : « pas 2 modes — une opération ajoute des éléments dans une transaction ; le preview exécute et attend la validation ; valider = la transaction validée, annuler/stopper = annulée ». | Le chiffrage = le contenu de la transaction active ; le wizard = une transaction au fil des steps (D101) ; le mode disparaît de la signature. Voir §3.2c. |
 
 ---
 
@@ -4655,6 +4656,21 @@ nourrit plusieurs champs** — le graphe d'exécution (D571) y gagne
 l'appel unique. *(L'écriture de l'affectation en proposition : le
 champ calculé lie la valeur nommée par le point —
 `extract_name(raw).prenom`.)*
+
+**La transaction tenue ouverte (D594 — simplifie D511/D547).** **« Nous
+n'allons pas implémenter 2 modes par opération. Une opération ajoute
+des éléments dans une transaction. Le preview exécute et attend une
+validation de l'utilisateur — la transaction reste active. Si
+l'utilisateur valide, la transaction est validée. Si l'utilisateur
+annule ou stoppe l'exécution de l'opération, la transaction est
+annulée. »** La pré-exécution n'est pas un mode : **c'est l'exécution
+même, suspendue avant le commit** — un seul code, une seule
+mécanique ; **le chiffrage (D511) = le contenu de la transaction
+active** (les ajoutés/modifiés/supprimés s'y lisent), la relecture
+(D431) le présente ; **le wizard (D547) = une transaction tenue
+ouverte au fil des steps**, validée à la validation définitive,
+annulée à l'abandon — les lots de transactions à agrégats (D101) en
+socle. Le paramètre de mode disparaît de la signature du hook.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12006,6 +12022,10 @@ avant la synthèse Q16).
   (la regex aux groupes nommés) — un seul calcul, plusieurs champs ;
   l'affectation au point en proposition. Les signatures des hooks en
   cours d'arbitrage (les trois contrats posés dans l'échange).
+- **2026-08-15 (suite 18)** — **La transaction tenue ouverte
+  (D594)** : pas deux modes — l'exécution suspendue avant le commit,
+  le chiffrage lu dans la transaction active, le wizard une seule
+  transaction au fil des steps ; le mode hors de la signature.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -662,6 +662,8 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D581 | **Les opérateurs, le parenthésage, le typage** : la table d'opérateurs à la signature du type (`date - date` → duration, `date + date` → erreur) ; la précédence fixée ; **le typage statique à l'ingestion** — l'inférence de la feuille à la racine, la promotion sans perte, la conversion explicite (D579). | Jamais d'erreur de type à l'exécution (D330/D344). Voir §3.2c. |
 | D582 | **Les comparateurs, des fonctions** : « naturellement » — `=` `!=` `<` `<=` `>` `>=` `in`, des fonctions de type au résultat boolean ; l'ordre des règles de tri (D368+), l'égalité de l'équivalence. | Le catalogue central vidé dans les types — restent le contexte courant, les libres, le gabarit. Voir §3.2c. |
 | D583 | **`iif` et `select`** (complète D582) : « dans les comparateurs, j'intègre iif et select » — `iif(condition, alors, sinon)` ; `select` multi-branches (l'écriture en proposition — le dernier sans clé fait le défaut) ; toutes les branches d'un même type (D581). | Voir §3.2c. |
+| D584 | **`select`, une fonction du type** (amende D583) : `state.select(draft: "En cours", …, "...": "autres")` — la valeur porte son select, la clé `"..."` fait le défaut. | La doctrine D579/D580 au conditionnel. Voir §3.2c. |
+| D585 | **Le type `label`** : l'accès au catalogue des labels (D440), « un label peut couvrir un gabarit paramétrable », les gabarits nommés réutilisables — `label(mon_nom, { prenom: …, nom: … })`, l'ordre des mots par langue. | La langue dans les expressions — `state.select(draft: label(…))`. Voir §3.2c. |
 
 ---
 
@@ -4539,6 +4541,28 @@ proposition : `select(<expression>, <valeur>: <résultat>, …,
 tient : **toutes les branches d'un même type** (ou la promotion sans
 perte — D581), l'inférence feuille → racine traverse le
 conditionnel.
+
+**`select`, une fonction du type ; la clé `"..."` (D584 — amende
+D583).** **« `select` est une fonction du type :
+`state.select(draft: "En cours", confirmed: "Validée", "...":
+"autres")`. »** — la doctrine D579/D580 s'applique au conditionnel
+même : la valeur porte son select ; et **la clé `"..."` marque la
+branche par défaut** (l'écriture du dernier-sans-clé s'efface).
+
+**Le type `label` (D585).** La langue entre aux expressions : **« nous
+pouvons introduire un type `label` qui permet d'accéder aux
+différents labels définis dans le catalogue des labels (D440). Un
+label peut couvrir un gabarit paramétrable. Les gabarits paramétrés
+nommés peuvent être utilisés sur plusieurs objets différents. Ex :
+`labels: { mon_nom: { fr: "{prenom} {nom}", en: "{nom} {prenom}" } }` —
+l'usage : `label(mon_nom, { prenom: "Aymeric", nom: "Lesert" })`. »**
+Le type `label` rejoint le modèle : la fonction au nom du type (D579)
+construit la valeur depuis le catalogue, les paramètres nommés
+nourrissent le gabarit — **et l'ordre des mots change avec la langue**
+(fr : prénom-nom, en : nom-prénom) : l'argument même des gabarits
+nommés. La composition ferme la boucle du select :
+`state.select(draft: label(status_draft), …)` — plus une chaîne crue
+dans les formules.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11855,6 +11879,11 @@ avant la synthèse Q16).
   conditionnel en ligne et la sélection multi-branches rejoignent les
   comparateurs ; les branches d'un même type (D581) ; l'écriture du
   select en proposition.
+- **2026-08-15 (suite 9)** — **select au type, le type label
+  (D584–D585)** : state.select(…, "...": défaut) ; le type label —
+  le catalogue D440 accessible aux expressions, les gabarits nommés
+  paramétrables (l'ordre des mots par langue), label(mon_nom,
+  { prenom:, nom: }).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -707,6 +707,8 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D626 | **La page de maintenance, la condition indispensable** (complète D625) : « en cas d'erreur, passer sur une page de maintenance et émettre une alerte ; l'application doit démarrer uniquement si l'envoi de mail à l'administrateur est possible — une condition indispensable ». | Le canal d'alerte avant tout (le smtp vérifié au démarrage) ; la graduation par famille en question. Voir §3.2c. |
 | D627 | **`onerror`** (solde D625–D626) : la propriété (la page de maintenance pour les connecteurs clés) et **la méthode au socle commun** — « elle retourne soit un mock de résultat (implémenté par le connecteur), soit l'appel à une page de maintenance » ; la graduation clé/non-critique tranchée. | L'écho de la dégradation D68. Voir §3.2c. |
 | D628 | **`smtp.send`** (le premier contrat détaillé) : « un message (au format HTML), des pièces jointes (une liste de fichiers, quel que soit le format), depuis un expéditeur (configuré aux propriétés du connecteur) et vers une liste de destinataires ». | Le markdown du template mail (D562/D564) rendu en HTML fait le corps. Voir §3.2c. |
+| D629 | **Le contrat storage** : `begin`/`commit`/`rollback` (la transaction — D594) ; `get_schema` (l'introspection — tables, colonnes, contraintes, dépendances) ; `create_table`/`update_table`/`delete_table` (les migrations) ; `create_schema`/`delete_schema` (« créer l'instance automatiquement ou faire migrer silencieusement ») ; `create`/`read`/`update`/`delete` (les enregistrements). | Voir §3.2c. |
+| D630 | **La documentation au socle commun** : « un connecteur doit disposer d'une méthode pour générer de la documentation en markdown/html — la documentation automatique de l'instance ». | `describe()` en proposition ; la brique de Q58 (l'écho D124). Voir §3.2c. |
 
 ---
 
@@ -5012,6 +5014,28 @@ de fichiers, quel que soit le format. »** — la signature :
 du connecteur. Le pont noté : le template au format `mail`
 (D562/D564) — le mustache + markdown rendu **en HTML** fait le corps
 du message.
+
+**Le contrat de la famille storage (D629).** Les méthodes, aux mots
+de l'auteur : **« `begin`, `commit`, `rollback` pour gérer la
+transaction ; `get_schema` pour consulter le schéma de la base de
+données (le schéma, la liste des tables, des colonnes, des
+contraintes et des dépendances) ; `create_table`, `update_table` et
+`delete_table` pour gérer la maintenance du modèle de données sur les
+phases de migration ; `create_schema`, `delete_schema` pour créer un
+schéma — utilisé pour créer l'instance automatiquement ou pour faire
+migrer silencieusement le modèle ; `create`, `read`, `update`,
+`delete` pour gérer les enregistrements. »** — la transaction
+(l'assise de D594), l'introspection, la structure aux migrations, le
+schéma à l'instance (la création automatique, la migration
+silencieuse — l'écho D100/D112), les enregistrements.
+
+**La documentation au socle commun (D630).** **« Un connecteur doit
+disposer d'une méthode pour générer de la documentation en
+markdown/html, pour la documentation automatique de l'instance. »** —
+le socle commun (D621–D622, D627) s'enrichit : chaque connecteur se
+documente lui-même — la brique de l'autodocumentation (Q58/le domaine
+6, l'écho D124 « exploitables par des IA »). *(Le nom en proposition :
+`describe()` — le markdown/html retourné.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12679,6 +12703,13 @@ avant la synthèse Q16).
   jointes de tout format, l'expéditeur aux propriétés du connecteur,
   la liste de destinataires — le premier contrat de famille détaillé ;
   le markdown du template mail rendu en HTML.
+- **2026-08-16 (suite)** — **Le contrat storage (D629)** : la
+  transaction, get_schema, create/update/delete_table,
+  create/delete_schema (l'instance automatique, la migration
+  silencieuse), le CRUD des enregistrements. **La documentation au
+  socle (D630)** : chaque connecteur génère sa documentation
+  markdown/html — l'autodocumentation de l'instance (describe() en
+  proposition).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

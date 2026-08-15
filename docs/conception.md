@@ -11622,6 +11622,9 @@ avant la synthèse Q16).
   catalogue des fonctions — le point différé de D433), les domaines
   5–8, la passe de complétude finale, Q58, Q59, Q7 — puis le code
   (D314).
+- **2026-08-15** — **La PR #26 créée** (« le domaine 4 soldé : la
+  signature du nœud, la section repliable », D566–D569, 6 commits) —
+  la table rase avant Q60.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -240,8 +240,10 @@ géocodage (`ban`/`nominatim` — D294), l'itinéraire
 
 **Le contrat par famille (D605)** : « chaque famille a ses propres
 méthodes et fonctions » — la base de données les siennes, le fichier
-sa veille et sa lecture, le géocodage son adresse et son inverse. Les
-propriétés paramètrent (pas de contexte — le démarrage du projet),
+sa veille et sa lecture, le géocodage son adresse et son inverse.
+**Les familles sont closes** (D619) : « il n'existe pas de hook de
+famille — le hook porte sur l'implémentation d'une famille » (une
+classe, jamais un contrat neuf). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
 un connecteur** (D606) : les bases du catalogue portent l'instance,

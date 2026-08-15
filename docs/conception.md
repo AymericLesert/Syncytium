@@ -689,6 +689,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
 | D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
 | D610 | **La liaison au stockage** : `connectors.yml` = la liste des disponibles ; « le modèle de données est attaché à un connecteur — celui de la lecture/écriture » ; à la racine : `connector: { storage: main_db }` ou `{ storage: main_db, from: legacy_db }` — le `from` = la procédure de migration/transformation, « une configuration basée sur les éléments déjà vus, que nous allons étendre ». | La surcharge par entité écartée — le legacy passe par le from. Voir §3.2c. |
+| D611 | **Le câblage par rôles nommés** (précise D610) : `connector: { storage:, smtp:, location:, siren:, … }` — le hook nomme le rôle qu'il attend (disponible au contexte d'exécution), la racine l'associe au connecteur, **la surcharge locale** par la propriété au nom du rôle vers un connecteur compatible (la famille D605). | « siren » ouvre la vérification des types-identifiants par connecteur. Voir §3.2c. |
 
 ---
 
@@ -4783,6 +4784,24 @@ la base legacy passe par le `from`, pas par une liaison éparse) ; et
 le chantier suivant est nommé : **« pour ce point, nous devons
 décrire une configuration basée sur les éléments déjà vus (que nous
 allons étendre) »** — la procédure de migration/transformation.
+
+**Le câblage par rôles nommés (D611 — précise D610).** **« Dans
+`connector`, nous pouvons déclarer les connecteurs "storage", "smtp",
+"location", "siren"… — des noms exploitables par Syncytium pour
+différents items. Le nom est défini par le hook du composant et
+disponible dans le contexte d'exécution. En cas de besoin, le
+connecteur peut être surchargé par un autre connecteur. Par exemple,
+pour l'opération `send`, le connecteur attendu est "smtp" — mais s'il
+existe une propriété `smtp` sur l'opération send, elle peut préciser
+un connecteur compatible avec le smtp. »** Le bloc `connector:` de la
+racine est donc **le câblage des rôles** : chaque hook (opération,
+type, composant) **nomme le rôle dont il a besoin** (`send` → smtp,
+la géolocalisation → location, le stockage → storage, le `from` de la
+migration — D610) ; la racine associe le rôle au connecteur déclaré
+(connectors.yml) ; **la surcharge locale** par la propriété au nom du
+rôle, vers un connecteur **compatible** (la famille — D605). *(La
+porte ouverte notée : le rôle « siren » — la vérification des
+types-identifiants par connecteur.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12375,6 +12394,10 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 41)** — **La PR #29 fusionnée** (silencieusement,
   le patron connu — vérifiée : bcde1d2 sur develop) ; la branche
   recréée porte D610.
+- **2026-08-15 (suite 42)** — **Le câblage par rôles nommés (D611)** :
+  le hook nomme son besoin (send → smtp, la géoloc → location), la
+  racine câble, la surcharge locale vers un connecteur compatible ;
+  le rôle siren noté (la vérification des identifiants).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

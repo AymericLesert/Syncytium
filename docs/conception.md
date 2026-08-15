@@ -717,6 +717,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D636 | **Les storages de format** (referme D634) : « les storages "csv", "xml"… sont définis pour les exports et exploitables pour les imports » — les formats = des classes de storage ; la coopération file/storage (le guetteur détecte, le storage lit, le commit acquitte). | Voir §3.2c. |
 | D637 | **Le contrat location** : `geocode(address: {}) : geolocation` et `reverse(geolocation) : address` — les signatures typées (le type du modèle D391, le texte associé D392). | Voir §3.2c. |
 | D638 | **Le contenu du type geolocation** (précise D391/D637) : « des coordonnées longitude/latitude et/ou adresse postale normalisée sur geocode » — geocode rend le point ET l'adresse mise au propre ; l'un et/ou l'autre selon la source. | types.md et connectors.md mis au niveau. Voir §3.2c. |
+| D639 | **Le contrat siren** : `verify(siren) : {}` — « retourne les informations de l'entreprise si le SIREN est vérifié » ; la vérification et l'enrichissement en un geste ; flagué : l'inventaire des champs de l'API Sirene à l'implémentation. | connectors.md mis au niveau. Voir §3.2c. |
 
 ---
 
@@ -5119,6 +5120,18 @@ normalise) ; l'un et/ou l'autre — la saisie peut n'avoir que
 l'adresse, le GPS que les coordonnées, le géocodage réunit les deux.
 Le texte associé (D392) se relit : l'adresse normalisée en est le
 premier visage.
+
+**Le contrat de la famille siren (D639).** **« La famille siren porte
+`verify(siren) : {}`. Cette méthode retourne les informations de
+l'entreprise si le SIREN est vérifié. À voir quelles informations
+sont disponibles via l'api SIREN. »** — la vérification et
+l'enrichissement en un geste : l'identifiant vérifié rend l'objet
+entreprise (l'échec rend l'invalidité) — le formulaire client se
+pré-remplit (l'esprit D294 : le service public nourrit la saisie).
+**Le point flagué** : l'inventaire des champs disponibles via l'API
+Sirene de l'INSEE (la dénomination, la forme juridique, le code NAF,
+l'adresse du siège, les établissements/SIRET, l'état actif/cessé…) —
+à arrêter au moment de l'implémentation de la classe.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12835,6 +12848,10 @@ avant la synthèse Q16).
   (D638)** : les coordonnées longitude/latitude et/ou l'adresse
   postale normalisée sur geocode — l'un et/ou l'autre selon la
   source. types.md et connectors.md mis au niveau.
+- **2026-08-16 (suite 11)** — **Le contrat siren (D639)** :
+  verify(siren) : {} — les informations de l'entreprise si vérifié ;
+  l'inventaire des champs de l'API Sirene flagué pour
+  l'implémentation.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

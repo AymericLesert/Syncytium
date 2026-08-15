@@ -212,11 +212,21 @@ les coordonnées longitude/latitude et/ou l'adresse postale
 normalisée** (D638) — geocode rend le point ET l'adresse mise au
 propre ; `ban`/`nominatim` (D294) les implémentent.
 
-### `webhook`, `siren`
+### `siren` (D639)
 
-Les contrats à détailler — les pistes consignées : `webhook`
-(`get`/`put`/`post`/`delete` — D623), `siren` (la vérification —
-D611).
+`verify(siren) : {}` — « retourne les informations de l'entreprise si
+le SIREN est vérifié » : la vérification et l'enrichissement en un
+geste, le formulaire client pré-rempli. *(Flagué : l'inventaire des
+champs disponibles via l'API Sirene de l'INSEE — la dénomination, la
+forme juridique, le code NAF, l'adresse du siège, les
+établissements/SIRET, l'état actif/cessé… — à arrêter à
+l'implémentation de la classe.)*
+
+### `webhook`
+
+Le contrat à détailler — la piste consignée : `get`/`put`/`post`/
+`delete`, le point d'entrée dans les appels d'API versionnés
+(D623–D624).
 
 Le catalogue s'étend par le hook de connecteur (D603) — **une classe
 dans une famille, jamais une famille neuve** : « Syncytium fournit un
@@ -265,7 +275,9 @@ operations:
 
 - **le mapping du `from:`** — la configuration de la procédure (le
   chantier nommé, D610) ;
-- **les contrats de `webhook` et `siren`** — à détailler ;
+- **le contrat de `webhook`** — à détailler ;
+- **les champs de l'API Sirene** (D639) — l'inventaire à
+  l'implémentation ;
 - **l'authentification** (la passerelle D418) — au chantier
   sécurité ;
 

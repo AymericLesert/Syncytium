@@ -12140,6 +12140,9 @@ avant la synthèse Q16).
   ouverte.
 - **2026-08-15 (suite 26)** — **La boîte seule (D601)** : form:
   absent + message: précisé = la boîte de dialogue seule.
+- **2026-08-15 (suite 27)** — **La PR #28 fusionnée** (« Q60 close »,
+  D570–D601, 26 commits) — develop porte le catalogue des fonctions.
+  **Le domaine 5 s'ouvre.**
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

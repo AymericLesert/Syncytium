@@ -690,6 +690,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
 | D610 | **La liaison au stockage** : `connectors.yml` = la liste des disponibles ; « le modèle de données est attaché à un connecteur — celui de la lecture/écriture » ; à la racine : `connector: { storage: main_db }` ou `{ storage: main_db, from: legacy_db }` — le `from` = la procédure de migration/transformation, « une configuration basée sur les éléments déjà vus, que nous allons étendre ». | La surcharge par entité écartée — le legacy passe par le from. Voir §3.2c. |
 | D611 | **Le câblage par rôles nommés** (précise D610) : `connector: { storage:, smtp:, location:, siren:, … }` — le hook nomme le rôle qu'il attend (disponible au contexte d'exécution), la racine l'associe au connecteur, **la surcharge locale** par la propriété au nom du rôle vers un connecteur compatible (la famille D605). | « siren » ouvre la vérification des types-identifiants par connecteur. Voir §3.2c. |
+| D612 | **Le câblage précisé** (complète D611) : le câblage optionnel au simple, explicite au complexe ; **la famille = `type:`** — « pour les cas les plus simples, le type est le nom du connecteur » (l'écho D458) ; plusieurs connecteurs en service (la sobriété — quelques-uns suffisent) ; **`context.connector.<rôle>`** acté, plusieurs connecteurs par item non exclus ; la carte pouvant choisir son connecteur selon l'écran. | Voir §3.2c. |
 
 ---
 
@@ -4802,6 +4803,25 @@ migration — D610) ; la racine associe le rôle au connecteur déclaré
 rôle, vers un connecteur **compatible** (la famille — D605). *(La
 porte ouverte notée : le rôle « siren » — la vérification des
 types-identifiants par connecteur.)*
+
+**Le câblage précisé — les quatre réponses (D612 — complète D611).**
+**(1) « Le câblage n'est pas toujours requis, pour des questions de
+simplicité. Dans les cas les plus complexes, le câblage doit être
+explicite. »** `connectors.yml` décrit le catalogue du fonctionnement
+de l'application ; le mapping entre 2 bases = 2 connecteurs a minima ;
+et la trouvaille : **« dans le cas de l'affichage d'une carte, nous
+pouvons définir plusieurs connecteurs et, en fonction de l'écran,
+utiliser l'un ou l'autre »** — le choix du connecteur peut suivre le
+contexte d'affichage. **(2) « La famille est un type de connecteur
+(`type:`). Pour les cas les plus simples, le type est le nom du
+connecteur »** — l'écho de D458 : le nom porte le type quand la
+sobriété suffit (`smtp:` est un smtp ; `marketing_mail: { type:
+smtp, … }` quand le nom se libère). **(3)** Plusieurs connecteurs en
+service simultanément — mais **« quelques connecteurs suffiront au
+bon fonctionnement »** : la sobriété TPE. **(4) « Le hook de code lit
+le connecteur via `context.connector.<rôle>` »** — acté ; **« quant à
+l'utilisation de plusieurs connecteurs par un item, cela n'est pas
+exclu. »**
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12398,6 +12418,11 @@ avant la synthèse Q16).
   le hook nomme son besoin (send → smtp, la géoloc → location), la
   racine câble, la surcharge locale vers un connecteur compatible ;
   le rôle siren noté (la vérification des identifiants).
+- **2026-08-15 (suite 43)** — **Le câblage précisé (D612)** : les
+  quatre réponses — l'optionnel au simple, la famille = type: (le nom
+  au plus simple), la sobriété des connecteurs,
+  context.connector.<rôle> acté, la carte au connecteur selon
+  l'écran.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

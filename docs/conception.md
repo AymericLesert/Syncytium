@@ -661,6 +661,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D580 | **Les agrégats portés par la collection** (pousse D579) : « sum(commandes.montant) devient `commandes.sum(montant)` » — l'élément en contexte implicite dans la parenthèse (le filtre sans alias, la pondérée lisible), min/max aux deux formes, `count()` nu, la forme contextuelle à l'assise (D517). | Voir §3.2c. |
 | D581 | **Les opérateurs, le parenthésage, le typage** : la table d'opérateurs à la signature du type (`date - date` → duration, `date + date` → erreur) ; la précédence fixée ; **le typage statique à l'ingestion** — l'inférence de la feuille à la racine, la promotion sans perte, la conversion explicite (D579). | Jamais d'erreur de type à l'exécution (D330/D344). Voir §3.2c. |
 | D582 | **Les comparateurs, des fonctions** : « naturellement » — `=` `!=` `<` `<=` `>` `>=` `in`, des fonctions de type au résultat boolean ; l'ordre des règles de tri (D368+), l'égalité de l'équivalence. | Le catalogue central vidé dans les types — restent le contexte courant, les libres, le gabarit. Voir §3.2c. |
+| D583 | **`iif` et `select`** (complète D582) : « dans les comparateurs, j'intègre iif et select » — `iif(condition, alors, sinon)` ; `select` multi-branches (l'écriture en proposition — le dernier sans clé fait le défaut) ; toutes les branches d'un même type (D581). | Voir §3.2c. |
 
 ---
 
@@ -4528,6 +4529,16 @@ l'équivalence ; `in` porte l'appartenance (la liste, la plage). Le
 paysage final : **le catalogue central s'est vidé dans les types** —
 restent au centre le contexte courant (D575), les rares libres
 (`max(0, x)` variadique) et le gabarit (D562/D578).
+
+**`iif` et `select` (D583 — complète D582).** **« Dans les
+comparateurs, j'intègre `iif` et `select`. »** Le conditionnel entre
+au langage : **`iif(condition, alors, sinon)`** — le si en ligne ;
+**`select`** — la sélection multi-branches *(l'écriture en
+proposition : `select(<expression>, <valeur>: <résultat>, …,
+<défaut>)` — le dernier sans clé fait le défaut)*. Le typage statique
+tient : **toutes les branches d'un même type** (ou la promotion sans
+perte — D581), l'inférence feuille → racine traverse le
+conditionnel.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11840,6 +11851,10 @@ avant la synthèse Q16).
   fixée ; le typage statique à l'ingestion (feuille → racine, la
   promotion sans perte). Le catalogue central vidé dans les types —
   restent le contexte courant, les libres, le gabarit.
+- **2026-08-15 (suite 8)** — **iif et select (D583)** : le
+  conditionnel en ligne et la sélection multi-branches rejoignent les
+  comparateurs ; les branches d'un même type (D581) ; l'écriture du
+  select en proposition.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -694,6 +694,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D613 | **Le type et l'implémentation** (clarifie D611–D612) : « postgresql n'est pas un type — storage est bien le type ; postgresql, sqlserver, mysql, oracle… constituent une implémentation compatible avec storage » — le type = la famille = le rôle (le contrat D605), l'implémentation le remplit. | `implementation:` en proposition (le mot hook quitte la configuration — D408). Voir §3.2c. |
 | D614 | **`connectors.md` créé** : le cinquième artefact préparatoire (Q58/domaine 6) — la nature (global, sans contexte, le type-contrat et l'implémentation, le stockage-connecteur), la déclaration, le câblage aux rôles, les secrets, le catalogue de base, les déclencheurs, la migration ; les points ouverts listés. | Le report des décisions — aucun contenu nouveau. |
 | D615 | **`class:`** (solde D613) : « class serait plus intéressant pour moi » — confirmé : le vocabulaire objet (le type = le contrat, la classe le remplit), court, sans collision ; le YAML écrit `class:`, la prose garde « l'implémentation ». | hooks.md et connectors.md balayés. Voir §3.2c. |
+| D616 | **Les connecteurs par environnement** : « staging, production actif/passif — chaque environnement doit disposer de ses propres connecteurs » (D339–D340). | En proposition : le catalogue à la version, les valeurs (parameters/secrets) à l'environnement — D603 l'anticipait (la clé environnement+machine) ; l'actif/passif = deux storages en réplication différentielle (D606). Voir §3.2c. |
 
 ---
 
@@ -4850,6 +4851,20 @@ configuration (D408). La prose du registre garde « l'implémentation »
 comme mot français ; le YAML écrit `class:` —
 `main_db: { type: storage, class: postgresql }`,
 `smtp: { class: smtp_std }`.
+
+**Les connecteurs par environnement (D616).** Le rappel de l'auteur :
+**« une application dispose de plusieurs environnements possibles —
+staging, production actif/passif (D339–D340). Chaque environnement
+doit disposer de ses propres connecteurs. »** *(La répartition en
+proposition : **le catalogue à la version** — connectors.yml déclare
+ce que l'application attend (les noms, les types, les classes, les
+rôles) — et **les valeurs à l'environnement** —
+`environments/<env>.yml` porte les `parameters:` et les `secrets:`
+propres : le staging pointe sa base, la production la sienne, le
+passif sa réplique. D603 l'anticipait : la clé des secrets se dérive
+de l'environnement et de la machine. L'actif/passif se relit : les
+deux storages, la réplication différentielle entre eux —
+D606/D112–D114.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12464,6 +12479,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 46)** — **class: confirmé (D615)** : le
   vocabulaire objet, court, sans collision — implementation: balayé
   des deux documents.
+- **2026-08-15 (suite 47)** — **Les connecteurs par environnement
+  (D616)** : chaque environnement ses propres connecteurs — la
+  répartition en proposition (le catalogue à la version, les valeurs
+  à l'environnement) ; l'actif/passif relu (deux storages, la
+  réplication différentielle).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

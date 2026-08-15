@@ -691,6 +691,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D610 | **La liaison au stockage** : `connectors.yml` = la liste des disponibles ; « le modèle de données est attaché à un connecteur — celui de la lecture/écriture » ; à la racine : `connector: { storage: main_db }` ou `{ storage: main_db, from: legacy_db }` — le `from` = la procédure de migration/transformation, « une configuration basée sur les éléments déjà vus, que nous allons étendre ». | La surcharge par entité écartée — le legacy passe par le from. Voir §3.2c. |
 | D611 | **Le câblage par rôles nommés** (précise D610) : `connector: { storage:, smtp:, location:, siren:, … }` — le hook nomme le rôle qu'il attend (disponible au contexte d'exécution), la racine l'associe au connecteur, **la surcharge locale** par la propriété au nom du rôle vers un connecteur compatible (la famille D605). | « siren » ouvre la vérification des types-identifiants par connecteur. Voir §3.2c. |
 | D612 | **Le câblage précisé** (complète D611) : le câblage optionnel au simple, explicite au complexe ; **la famille = `type:`** — « pour les cas les plus simples, le type est le nom du connecteur » (l'écho D458) ; plusieurs connecteurs en service (la sobriété — quelques-uns suffisent) ; **`context.connector.<rôle>`** acté, plusieurs connecteurs par item non exclus ; la carte pouvant choisir son connecteur selon l'écran. | Voir §3.2c. |
+| D613 | **Le type et l'implémentation** (clarifie D611–D612) : « postgresql n'est pas un type — storage est bien le type ; postgresql, sqlserver, mysql, oracle… constituent une implémentation compatible avec storage » — le type = la famille = le rôle (le contrat D605), l'implémentation le remplit. | `implementation:` en proposition (le mot hook quitte la configuration — D408). Voir §3.2c. |
 
 ---
 
@@ -4822,6 +4823,22 @@ bon fonctionnement »** : la sobriété TPE. **(4) « Le hook de code lit
 le connecteur via `context.connector.<rôle>` »** — acté ; **« quant à
 l'utilisation de plusieurs connecteurs par un item, cela n'est pas
 exclu. »**
+
+**Le type et l'implémentation (D613 — clarifie D611–D612).** Après la
+relecture approfondie de l'auteur : **« "postgresql" n'est pas un
+type. "storage" est bien le type. Par contre, "postgresql",
+"sqlserver", "mysql", "oracle"… constituent une implémentation
+compatible avec "storage". »** Les trois notions fusionnent : **le
+type = la famille = le rôle** — `storage`, `smtp`, `location`,
+`siren`… porte **le contrat** (D605), le câblage (D611) et le nom du
+cas simple (D612) ; **l'implémentation** (`postgresql`, `ban`,
+`smtp_std`…) le remplit — la compatibilité se juge au type.
+*(L'écriture en proposition : **`implementation:`** désigne
+l'implémentation — le mot `hook:` quitte la configuration, la
+doctrine D408 enfin respectée jusque dans connectors.yml :*
+`main_db: { type: storage, implementation: postgresql }` *; le
+simple demeure : le nom = le type —*
+`smtp: { implementation: smtp_std }`*.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12423,6 +12440,11 @@ avant la synthèse Q16).
   au plus simple), la sobriété des connecteurs,
   context.connector.<rôle> acté, la carte au connecteur selon
   l'écran.
+- **2026-08-15 (suite 44)** — **Le type et l'implémentation (D613)** :
+  storage est le type, postgresql une implémentation compatible — le
+  type = la famille = le rôle ; implementation: en proposition (le
+  mot hook quitte connectors.yml, la doctrine D408 respectée). Les
+  exemples de hooks.md balayés.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

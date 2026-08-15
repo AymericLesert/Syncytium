@@ -257,13 +257,14 @@ réplication passive du PCA-PRA (D112–D114).
 ```yaml
 # connectors.yml — à la racine de la version, global (D603)
 connectors:
-  geocoding:
-    hook: ban                      # le catalogue de base (D294/D604)
+  location:                        # le nom = le type (D612–D613)
+    implementation: ban            # l'implémentation compatible (D294/D604/D613)
     parameters: { url: https://api-adresse.data.gouv.fr }
     secrets: [api_key]             # la référence — la valeur en variable
                                    # d'environnement, chiffrable (D603)
   incoming_orders:
-    hook: file                     # le connecteur de fichiers (D604)
+    type: file                     # le type — le contrat de famille (D605/D613)
+    implementation: file_std
     parameters: { path: /exchange/in, format: csv }
     every: 5min                    # le guetteur — détecté, relu (D604)
 ```

@@ -687,6 +687,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D606 | **Les deux sens, le stockage-connecteur, la migration inter-connecteurs** : « un connecteur décrit les sortants et les entrants » ; « les entités sont liées à un connecteur de base de données » — le stockage est un connecteur ; « une migration d'un connecteur vers un autre, en instantanée ou en différentiel ». | La translation aux 4 usages (vérifié — évoqué dès l'origine) ; le différentiel = la réplication passive (D112–D114). Voir §3.2c. |
 | D607 | **`hooks.md` créé** : le troisième artefact préparatoire (Q58/domaine 6 — la ligne du glossaire D417 et de composants.md D457) — la doctrine, les cinq familles de hooks et leurs contrats, les points d'extension, les règles transversales. | Le report des échanges consignés — aucun contenu nouveau. |
 | D608 | **`types.md` créé** : le quatrième artefact préparatoire (Q58/domaine 6) — le catalogue des types par croisement du registre : le socle commun (le kit, le tri, la signature D579–D584), les simples, les composés, les collections/plages, les liens, les générés et le contexte, les types-hooks. | Le report des décisions — aucun contenu nouveau. |
+| D609 | **Le pont de l'opération** (referme le point 8) : le hook = l'opération, la déclaration = l'usage et le déclenchement hors-IHM (`when:`, `every:`, **l'événement de connecteur** — les webhooks, l'import automatique) ; **« une opération peut être une liste d'opérations disponibles dans le socle »** — les effets D432 = des références aux hooks, la composition déclarative sans code, la même transaction (D594). | `when: <nom du connecteur>` en proposition. Voir §3.2c. |
 
 ---
 
@@ -4738,6 +4739,35 @@ d'exploration (D572) est l'unique porte, et elle porte les règles.
 unifiées dans les types (D579–D587), le contexte courant et les
 paramètres (D588–D591), les graphes acycliques (D592), les signatures
 des hooks (D593–D599) — le catalogue des fonctions est complet.
+
+**Le pont de l'opération : le hook et la déclaration (D609 — referme
+le point 8 de la relecture des hooks).** La clé de l'auteur :
+**« l'opération elle-même est un hook de code. Par contre,
+l'utilisation de l'opération dans l'application répond à plusieurs
+usages dépendant du mode de déclenchement. La déclaration des
+opérations permet de décrire une opération et son mode de
+déclenchement quand il n'est pas lié à l'IHM — par exemple, sur une
+mise à jour, sur la réception d'un fichier. »** Les deux plans : **le
+hook = l'opération** (l'objet D595, la transaction D594) ; **la
+déclaration (`operations:` — D432) = l'usage** — le nom, les
+paramètres, le `commit:` (D596), la garde (D430), et **le
+déclenchement hors-IHM** : `when: <expression>` (D428), `every:
+continuous` (D435 — « sur une mise à jour »), le calendaire (D434),
+**l'événement de connecteur** — acté : « utile pour traiter des
+webhooks ou pour déclencher automatiquement un process d'import »
+*(l'écriture en proposition : `when: <nom du connecteur>` — le
+contexte départage, D458)* ; l'IHM lie sans déclaration de
+déclenchement (le bouton D511, la colonne D444, les actions D531, le
+step D546, le menu D439). **Et la composition déclarative est
+actée** : **« une opération peut être une liste d'opérations
+disponibles dans le socle »** — les effets de D432 se relisent comme
+**des références aux hooks du socle** (`notify` → l'opération notify,
+`document` → generate, `set` → update, `function` → un hook de
+fonction) : « ne se construit pas dans la configuration » (D570)
+signifie *pas de code* — l'orchestration de références, elle, est
+déclarative. La séquence s'exécute **dans la même transaction tenue
+ouverte** (D594) ; le chiffrage, le confirm et l'issue valent pour
+les deux formes.
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12313,6 +12343,12 @@ avant la synthèse Q16).
   registre (le socle commun, les simples, les composés, les
   collections et plages, les liens, les générés et le contexte, les
   types-hooks) ; chaque ligne cite ses décisions.
+- **2026-08-15 (suite 38)** — **Le pont de l'opération (D609)** : le
+  point 8 refermé — le hook = l'opération, la déclaration = l'usage
+  et le déclenchement hors-IHM ; « une opération peut être une liste
+  d'opérations du socle » (les effets = des références) ; le
+  déclenchement par connecteur acté (les webhooks, l'import
+  automatique) ; hooks.md mis à jour.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

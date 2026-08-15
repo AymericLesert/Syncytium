@@ -141,6 +141,23 @@ le module, l'application. `commit: auto | confirm` à la déclaration
 (D596). L'opération voit **la pile des contextes** (D553) et peut
 appeler une fonction — jamais l'inverse (D571).
 
+**Le pont hook/déclaration (D609)** : le hook **est** l'opération ;
+la déclaration (`operations:` — D432) en décrit **l'usage** — le nom,
+les paramètres, le `commit:`, la garde `if` (D430), et **le mode de
+déclenchement quand il n'est pas lié à l'IHM** : `when:
+<expression>` (D428), `every: continuous` (D435 — sur une mise à
+jour), le calendaire (D434), **l'événement de connecteur** (les
+webhooks, l'import automatique à la réception d'un fichier —
+`when: <nom du connecteur>` en proposition). L'IHM lie sans
+déclaration (le bouton, la colonne, les actions, le step, le menu).
+**Et la composition déclarative** : « une opération peut être une
+liste d'opérations disponibles dans le socle » — les effets de D432
+sont **des références aux hooks** (`notify` → notify, `document` →
+generate, `set` → update, `function` → une fonction) ; « ne se
+construit pas dans la configuration » signifie *pas de code* —
+l'orchestration de références est déclarative, et la séquence
+s'exécute **dans la même transaction tenue ouverte** (D594).
+
 **L'exemple** — le fil `sales.order` :
 
 ```yaml

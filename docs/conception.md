@@ -648,6 +648,38 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D567 | **Les deux amendements de la signature** (amende D566) : les enfants « dans un ou plusieurs noms — header, page, footer ; chaque élément est facultatif » ; `visible:` **vivant** — « en fonction de la valeur d'un champ ou d'un contexte, un élément peut devenir visible ou masqué (le toggle de la saisie conditionnelle) » — le « ni déclaré ni construit » effacé. | L'écho du recalcul D255. Voir §3.2c. |
 | D568 | **La section repliable** : « refermer ou ouvrir si le composant a la propriété `dropdown: true`, avec un icône pour matérialiser l'affichage ou pas ». | La collision avec la feuille notée (D458) ; le défaut déplié en proposition. Voir §3.2c. |
 | D569 | **Les quatre valeurs du repli** (solde D568) : `dropdown: false` (défaut — fixe) `\| true` (repliable, ouverte par défaut) `\| opened \| closed` (l'état d'entrée explicite). | L'orthographe `opened` consignée. Voir §3.2c. |
+| D570 | **L'opération définie** (Q60 s'ouvre) : les cinq portées (l'enregistrement, la liste, la sélection, le module, l'application) ; « ne se construit pas dans la configuration — toujours à l'aide d'un hook de code » (signature + code) ; **les hooks de base : create, read, update, delete, promote, demote, generate, download, print, export, import** ; les issues (l'écran, le téléchargement, l'impression, le message, rien) ; peut appeler une fonction. | Voir §3.2c. |
+| D571 | **La fonction définie** : les champs calculés ; retourne une valeur ou une liste de valeurs, aux types du modèle ; déclenchable au paramètre modifié ; **le graphe d'exécution** pour l'ordre cohérent ; un hook de code ; **« ne déclenche aucune opération »** — la pureté. | L'appel ne va que dans un sens. Voir §3.2c. |
+| D572 | **Les signatures distinctes, la librairie d'exploration** : les deux signatures à finaliser en Q60 (celle des fonctions abordée au domaine 2) ; « le hook de code nécessitera une librairie qui explore le modèle de données de façon transparente ». | Voir §3.2c. |
+| D573 | **Les paramètres dynamiques** : « la valeur initiale définie dans la configuration, modifiable par le technicien via le module d'administration » — la troisième temporalité (le statique, le dynamique, la donnée). | Les paramètres généraux (D366/D468/D259) ont vocation à rejoindre la famille. Voir §3.2c. |
+| D574 | **Les dix-sept opérations de socle** (complète D570) : les 11 + `duplicate`/`restore`/`report`/`send` (les candidats acceptés) + **`notify`** (« générer une information de notification aux utilisateurs ») + **`refresh`** (« déclencher un recalcul d'un graphique ou d'un champ calculé »). | « Au final, cela nous fournit 17 opérations de socle. » Voir §3.2c. |
+| D575 | **Les fonctions — les quatre arbitrages** : `sum` remplace « somme » + les sommes pondérées + « les calculs matriciels basés sur les sommes et les produits » ; `min`/`max` **universels** (tous les types sont triables) ; les agrégats couvrent **les listes ou les associations** ; la famille du **contexte courant** à décrire (l'utilisateur, la localisation, la date/heure, l'instance, l'application, le module, l'entité, le champ, les propriétés de configuration — le pont D254/D573). | Voir §3.2c. |
+| D576 | **Les agrégats-collections fusionnés** : « les points 1 et 6 sont regroupés » ; `first`, `last`, `any`, `exists` complètent ; min/max au double régime — l'agrégat **ou** la liste de valeurs (`max(0, sum(stock.quantity))`). | Voir §3.2c. |
+| D577 | **Les opérateurs numériques** : `+` `-` `*` `/` (réelle) `\` (entière) `%` (modulo) `!` (factoriel) `**` (puissance) — « pour simplifier l'écriture » ; `exp`, `sin`, `cos`, `tan`… en fonctions. | Voir §3.2c. |
+| D578 | **Le texte** : la concaténation **via le gabarit** (D562), l'extraction via les regex, les extractions de chaîne, les règles de conversion (D579). | Voir §3.2c. |
+| D579 | **Les fonctions de type — l'iceberg** : « un type emmène avec lui des fonctions dédiées » (`distance`/`euclide` pour la géolocalisation) ; **la conversion = une fonction au nom du type** (`text(x)`, `date(x)`…) — « la signature d'un type doit porter en elle la conversion intrinsèque » (D369 en cas particulier). | L'écho D408/D458 — le type emmène composant et fonctions. Voir §3.2c. |
+| D580 | **Les agrégats portés par la collection** (pousse D579) : « sum(commandes.montant) devient `commandes.sum(montant)` » — l'élément en contexte implicite dans la parenthèse (le filtre sans alias, la pondérée lisible), min/max aux deux formes, `count()` nu, la forme contextuelle à l'assise (D517). | Voir §3.2c. |
+| D581 | **Les opérateurs, le parenthésage, le typage** : la table d'opérateurs à la signature du type (`date - date` → duration, `date + date` → erreur) ; la précédence fixée ; **le typage statique à l'ingestion** — l'inférence de la feuille à la racine, la promotion sans perte, la conversion explicite (D579). | Jamais d'erreur de type à l'exécution (D330/D344). Voir §3.2c. |
+| D582 | **Les comparateurs, des fonctions** : « naturellement » — `=` `!=` `<` `<=` `>` `>=` `in`, des fonctions de type au résultat boolean ; l'ordre des règles de tri (D368+), l'égalité de l'équivalence. | Le catalogue central vidé dans les types — restent le contexte courant, les libres, le gabarit. Voir §3.2c. |
+| D583 | **`iif` et `select`** (complète D582) : « dans les comparateurs, j'intègre iif et select » — `iif(condition, alors, sinon)` ; `select` multi-branches (l'écriture en proposition — le dernier sans clé fait le défaut) ; toutes les branches d'un même type (D581). | Voir §3.2c. |
+| D584 | **`select`, une fonction du type** (amende D583) : `state.select(draft: "En cours", …, "...": "autres")` — la valeur porte son select, la clé `"..."` fait le défaut. | La doctrine D579/D580 au conditionnel. Voir §3.2c. |
+| D585 | **Le type `label`** : l'accès au catalogue des labels (D440), « un label peut couvrir un gabarit paramétrable », les gabarits nommés réutilisables — `label(mon_nom, { prenom: …, nom: … })`, l'ordre des mots par langue. | La langue dans les expressions — `state.select(draft: label(…))`. Voir §3.2c. |
+| D586 | **L'enregistrement en paramètre du label** (complète D585) : « le nom des champs devient les paramètres » — `label(mon_nom, customer)`, les champs nourrissent le gabarit sans les épeler. | L'écho D465/D562 — un seul mécanisme de gabarit. Voir §3.2c. |
+| D587 | **Le catalogue des fonctions libres** : « min, max, sum, avg… sont à inclure. Le catalogue s'enrichira, si besoin » — les variadiques scalaires doublant les méthodes de collection (D580), l'extension par les besoins (D408/D565). | Voir §3.2c. |
+| D588 | **`context.settings` et les deux modes** (précise D573) : `<nom>` référence un élément statique ou dynamique — `{ mode: dynamic \| static, value: <défaut> }` ; « les paramètres dynamiques portent une valeur par défaut surchargeable via le module d'administration ». | La cascade D349/D360 ; le typage D581 vaut. Voir §3.2c. |
+| D589 | **Le type du paramètre, `context` acté** : « un paramètre porte aussi type: (par défaut : text) » ; « le nom context me convient — si une entité se nomme context, l'entité prend le pas ; lors de l'ingestion, un warning sera nécessaire » ; l'inventaire des champs consigné (user traversable, location, now, instance/application/module, entity/field, file/page/pages, settings). | La préséance à l'entité + le warning (l'esprit D344). Voir §3.2c. |
+| D590 | **L'abréviation du paramètre** : « marge: 10% — l'abréviation (mode: static et type: text) » — la forme courte aux défauts. | Voir §3.2c. |
+| D591 | **La cascade des settings** (complète D588) : « les settings dans le module ou l'entité viennent compléter ou surcharger la valeur des settings définis dans l'application » — les trois étages, le plus proche l'emporte (D360/D461). | `context.settings.<nom>` résout au plus proche. Voir §3.2c. |
+| D592 | **Le graphe d'exécution acyclique** (contraint D571) : « ils doivent être acycliques » — le cycle de calcul = une erreur d'ingestion (D330/D344), le contrôle statique. | La ligne des graphes acycliques (D455, les groupes). Voir §3.2c. |
+| D593 | **Les valeurs nommées de la fonction** (précise D571) : « une valeur (par défaut) — ou plusieurs valeurs nommées : le cas d'une regex à groupes nommés affectés à plusieurs champs » — `result: <type>` ou `result: { nom: type, … }`, l'appel unique au graphe. | L'affectation au point en proposition (`extract_name(raw).prenom`). Voir §3.2c. |
+| D594 | **La transaction tenue ouverte** (simplifie D511/D547) : « pas 2 modes — une opération ajoute des éléments dans une transaction ; le preview exécute et attend la validation ; valider = la transaction validée, annuler/stopper = annulée ». | Le chiffrage = le contenu de la transaction active ; le wizard = une transaction au fil des steps (D101) ; le mode disparaît de la signature. Voir §3.2c. |
+| D595 | **Les quatre fonctions du hook d'opération** (précise D594) : `execute` (remplit la transaction), `confirm` (la relecture), `commit` (scelle, l'après-coup), `rollback` (défait) ; « une opération peut se valider ou s'annuler automatiquement selon les paramètres de l'appel ». | L'objet du hook (D566.7) ; l'écho D428/D431. Voir §3.2c. |
+| D596 | **`commit: auto \| confirm`** (renomme D431) : « plutôt que validate, je préfère commit » — confirm le défaut (la relecture), auto la validation automatique ; le mot aligné sur la fonction du hook (D595). | La forme riche `commit: { mode:, message: }` en proposition (D511) ; les fiches balayées. Voir §3.2c. |
+| D597 | **L'issue au commit, le message-label** : « le commit d'une opération retourne l'issue — Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle contient » ; « le message du commit est un label » (D585 — le catalogue D440, le gabarit nourri de la transaction D586/D594). | Le hook rend une valeur, le moteur déclenche. Voir §3.2c. |
+| D598 | **Les valeurs nommées de l'opération** (précise D597) : « les noms du label sont portés par l'opération — nb_creations, nb_updates, nb_deletes… utilisées par le message de confirmation » — les comptes de la transaction nommés (D594) + les résultats d'execute (D511), en paramètres du gabarit (D585–D586). | Voir §3.2c. |
+| D599 | **L'inviolabilité de la librairie** (clôt les signatures — **et Q60**) : « la librairie mise en place assure l'inviolabilité des règles et des droits » — le hook citoyen du moteur : droits (D196), confidentialité, validation (D307), concurrence (D111) jamais contournables. | Le catalogue des fonctions est complet (D570–D599). Voir §3.2c. |
+| D600 | **Le confirm au formulaire** (enrichit D595/D597) : « le rendre plus riche avec un formulaire et des champs alimentés par l'exécution — la création simplifiée validée en consultant l'enregistrement en lecture seule et/ou en modification » — les éditions rejoignent la transaction avant le scellé (D594). | `commit: { mode: confirm, form: <nom>, message: }` en proposition. Voir §3.2c. |
+| D601 | **La boîte seule** (précise D600) : « si form: est absent et si message: est précisé, seule une boîte de dialogue de validation sera affichée » — le léger et le riche. | Voir §3.2c. |
 
 ---
 
@@ -4354,6 +4386,373 @@ défaut : la section fixe), `true` (repliable, **ouverte par
 défaut**), `opened` (repliable, ouverte — l'équivalent de true),
 `closed` (repliable, **fermée d'entrée**). *(L'orthographe consignée
 `opened` — la coquille « openned » corrigée au registre.)*
+
+**Q60 s'ouvre — l'opération définie (D570).** La distinction
+opération/fonction est actée, et l'opération reçoit sa définition :
+**« une opération réalise une séquence de traitements sur au moins un
+enregistrement, une liste d'enregistrements, une liste
+d'enregistrements sélectionnés, un module ou l'application »** — les
+cinq portées. **« Une opération est définie par son nom. Une
+opération ne se construit pas dans la configuration : elle se
+construit toujours à l'aide d'un hook de code. Un hook de code
+définit une signature et un code propre au langage exploité par
+Syncytium. »** **Les hooks de base du socle : `create`, `read`,
+`update`, `delete`, `promote`, `demote`, `generate`, `download`,
+`print`, `export`, `import`.** Les issues : **« une opération ouvre
+un écran, permet le téléchargement d'un fichier, déclenche une
+impression, affiche un message de fin de traitement, ou ne retourne
+rien »** — et **« une opération peut éventuellement appeler une
+fonction »**.
+
+**La fonction définie (D571).** **« Une fonction est utilisée par les
+champs calculés. Elle retourne toujours une valeur ou une liste de
+valeurs — chaque valeur a l'un des types couverts par le modèle de
+données. Une fonction est déclenchable si l'un des paramètres est
+modifié »** (l'écho du recalcul D255/D298). **« Syncytium construit
+un graphe d'exécution pour que l'ordre de calcul des fonctions soit
+cohérent. Tout comme une opération, une fonction est un hook de code.
+Une fonction ne déclenche aucune opération »** — la pureté : la
+fonction calcule, l'opération agit ; l'appel ne va que dans un sens
+(l'opération peut appeler une fonction, jamais l'inverse).
+
+**Les signatures et la librairie d'exploration (D572).** **« Le hook
+de code d'une opération n'a pas la même signature que le hook de code
+d'une fonction »** — la signature des fonctions fut abordée au
+domaine 2 ; **Q60 finalisera les deux définitions**. Et le chantier
+consigné : **« le traitement du hook de code nécessitera une librairie
+qui explore le modèle de données de façon transparente »** — l'auteur
+du hook lit les entités, les champs, les liens sans connaître le
+stockage.
+
+**Les paramètres dynamiques (D573).** **« La configuration porte des
+éléments statiques, qui varient d'une version à l'autre. J'introduis
+des paramètres "dynamiques" : la valeur initiale est définie dans la
+configuration, et modifiable par le technicien via le module
+d'administration. »** — la troisième temporalité : le statique (la
+version), le dynamique (l'administration), la donnée (l'utilisateur).
+*(L'écho : les paramètres généraux déjà croisés — le seuil
+mono/multi-ligne D366, le seuil des radios D468, le fond de carte
+D259 — ont vocation à rejoindre cette famille.)*
+
+**Les dix-sept opérations de socle (D574 — complète D570).** Les
+quatre candidats acceptés (« les 4 candidats me conviennent ») et
+deux ajouts de l'auteur : **« nous pouvons aussi ajouter `notify` —
+pour générer une information de notification aux utilisateurs — et
+`refresh` pour déclencher un recalcul d'un graphique ou d'un champ
+calculé. Au final, cela nous fournit 17 opérations de socle. »** Le
+catalogue scellé : **`create`, `read`, `update`, `delete`,
+`promote`, `demote`, `duplicate`, `generate`, `download`, `print`,
+`send`, `export`, `import`, `report`, `restore`, `notify`,
+`refresh`** — dix-sept. *(Les parentés notées : l'opération `notify`
+et l'effet `notify` (D432) se rejoignent — la notification comme
+traitement à part entière ; `restore` matérialise D172–D174 ;
+`report` le « à la demande » de D406 ; `send` l'issue du format
+`mail` D564.)*
+
+**Les fonctions : les quatre arbitrages fondateurs (D575).**
+**(1) `sum` remplace « somme »** — l'anglais du catalogue (D301) vaut
+aussi aux fonctions ; **« à ajouter les sommes pondérées. Par
+extrapolation, nous pouvons inclure les calculs matriciels basés sur
+les sommes et les produits »** — la famille somme-produit s'ouvre.
+**(2) `min`/`max` universels** : « utilisables pour tous les types
+car ils sont triables. Min : le plus petit, Max : le plus grand » —
+les règles de tri (D368 et suivantes) font l'ordre, le nul y compris.
+**(3) « Les agrégats couvrent les listes ou les associations »** —
+le domaine de l'agrégat = la collection (l'écho D539).
+**(4) La famille du contexte courant, à décrire** : « l'utilisateur
+courant, la localisation, la date et heure courante, l'instance,
+l'application, le module, l'entité, le champ… **ou des propriétés
+liées aux éléments de configuration** » — le pont avec l'entité
+contexte (D254) et les paramètres dynamiques (D573 — « d'où ma
+remarque en commençant »). « En intégrant ces éléments, cela
+complétera les familles abordées. »
+
+**Les agrégats-collections fusionnés, min/max au double régime
+(D576).** **« Les points 1 et 6 sont regroupés »** — les collections
+se fondent dans les agrégats : une seule famille. **« First, last,
+any or exists complètent le catalogue disponible. »** Et le double
+régime de min/max : **« le min/max s'applique à un agrégat ou à une
+liste de valeurs définies ou calculées — ex : `max(0,
+sum(stock.quantity))` »** — l'agrégat sur la collection, ou le
+variadique sur les valeurs (le borné d'écriture).
+
+**Les opérateurs numériques (D577).** **« Pour les numériques et pour
+simplifier l'écriture, nous utiliserons les opérateurs : `+`
+(l'addition), `-` (la soustraction), `*` (la multiplication), `/`
+(la division réelle), `\` (la division entière), `%` (le modulo),
+`!` (le factoriel) et `**` (la puissance). Nous pouvons ajouter
+`exp`, `sin`, `cos`, `tan`… »** — l'écriture d'abord, les
+transcendantes en fonctions.
+
+**Le texte (D578).** **« Le texte se retrouve avec la concaténation
+via le gabarit, l'extraction via les regex, des extractions de
+chaîne, et des règles de conversion. »** — pas de fonction de
+concaténation : le gabarit (mustache — D562) la porte ; les regex et
+les extractions de chaîne en fonctions ; les conversions par la
+règle D579.
+
+**Les fonctions de type — l'iceberg (D579).** **« La géodistance
+montre le haut de l'iceberg. En fait, un type emmène avec lui des
+fonctions dédiées pour combiner des valeurs et obtenir une valeur
+dans le type dédié. Ici, `distance` or `euclide` calcule la distance
+entre 2 localisations. »** — le catalogue des fonctions se
+décentralise : **chaque type porte les siennes** (la ligne D408 — le
+type-hook emmène ses fonctions, comme il emmène son composant D458).
+Et **la conversion** : **« une forme de fonction simplifiée, d'une
+valeur d'un type vers le type d'appartenance de la conversion — une
+fonction dont le nom est le nom du type assure la conversion. La
+signature d'un type doit alors porter en elle la conversion
+intrinsèque. »** — `text(x)`, `integer(x)`, `date(x)`… (l'écho
+D458 : le nom du type, partout où le type se matérialise) ; la
+conversion en texte (D369) devient le cas particulier d'une règle
+générale portée par la signature du type.
+
+**Les agrégats portés par la collection (D580 — pousse D579).**
+**« Je vais pousser l'approche des fonctions de type aux fonctions
+des agrégats : sum, min, max, avg… sont portées par la liste
+(`list of`) ou l'association (`association with`). Ex :
+`sum(commandes.montant)` devient `commandes.sum(montant)`. »** La
+bascule actée, avec les trois précisions : **dans la parenthèse,
+l'élément est le contexte implicite** — le filtre perd son alias
+(`lignes.sum(montant if etat = "facturée")`) et la pondérée se lit
+(`lignes.sum(quantite * prix)`) ; **min/max gardent leurs deux
+formes** — la méthode (l'agrégat) et la fonction libre variadique
+(`max(0, x)` — D576) ; **`count()` sans argument**
+(`commandes.count()`) ; **la forme contextuelle demeure** quand la
+collection est le contexte — l'assise du chart (`y: sum(total)` —
+D517), le préfixe ne s'écrivant que pour désigner ailleurs.
+
+**Les opérateurs, le parenthésage, le typage (D581).** La poussée
+suivante validée : **les opérateurs sont des fonctions de type à
+l'écriture symbolique** — **la signature du type déclare sa table
+d'opérateurs** (les combinaisons d'opérandes admises, le type du
+résultat : `amount + amount` → amount à devise compatible,
+`date - date` → duration, `date + date` → l'erreur, `text + text`
+n'existe pas — le gabarit D578) ; **le parenthésage** groupe, **la
+précédence fixée** : `!`, puis `**`, puis `* / \ %`, puis `+ -`,
+puis les comparaisons, puis les logiques ; **la justesse des types =
+le typage statique à l'ingestion** — l'expression s'infère **de la
+feuille à la racine** (le parcours de D566), toute combinaison
+impossible est une erreur d'ingestion (D330/D344 — jamais à
+l'exécution), le type final doit être celui de la destination ; **la
+promotion implicite seulement sans perte** (integer → decimal), la
+conversion explicite sinon (la fonction au nom du type — D579).
+
+**Les comparateurs, des fonctions (D582).** **« Naturellement, les
+comparateurs sont alors des fonctions. »** — `=`, `!=`, `<`, `<=`,
+`>`, `>=`, `in` : des fonctions de type à l'écriture symbolique, le
+résultat `boolean` — **l'ordre vient des règles de tri consignées par
+type** (D368 et suivantes — le nul y compris), l'égalité de
+l'équivalence ; `in` porte l'appartenance (la liste, la plage). Le
+paysage final : **le catalogue central s'est vidé dans les types** —
+restent au centre le contexte courant (D575), les rares libres
+(`max(0, x)` variadique) et le gabarit (D562/D578).
+
+**`iif` et `select` (D583 — complète D582).** **« Dans les
+comparateurs, j'intègre `iif` et `select`. »** Le conditionnel entre
+au langage : **`iif(condition, alors, sinon)`** — le si en ligne ;
+**`select`** — la sélection multi-branches *(l'écriture en
+proposition : `select(<expression>, <valeur>: <résultat>, …,
+<défaut>)` — le dernier sans clé fait le défaut)*. Le typage statique
+tient : **toutes les branches d'un même type** (ou la promotion sans
+perte — D581), l'inférence feuille → racine traverse le
+conditionnel.
+
+**`select`, une fonction du type ; la clé `"..."` (D584 — amende
+D583).** **« `select` est une fonction du type :
+`state.select(draft: "En cours", confirmed: "Validée", "...":
+"autres")`. »** — la doctrine D579/D580 s'applique au conditionnel
+même : la valeur porte son select ; et **la clé `"..."` marque la
+branche par défaut** (l'écriture du dernier-sans-clé s'efface).
+
+**Le type `label` (D585).** La langue entre aux expressions : **« nous
+pouvons introduire un type `label` qui permet d'accéder aux
+différents labels définis dans le catalogue des labels (D440). Un
+label peut couvrir un gabarit paramétrable. Les gabarits paramétrés
+nommés peuvent être utilisés sur plusieurs objets différents. Ex :
+`labels: { mon_nom: { fr: "{prenom} {nom}", en: "{nom} {prenom}" } }` —
+l'usage : `label(mon_nom, { prenom: "Aymeric", nom: "Lesert" })`. »**
+Le type `label` rejoint le modèle : la fonction au nom du type (D579)
+construit la valeur depuis le catalogue, les paramètres nommés
+nourrissent le gabarit — **et l'ordre des mots change avec la langue**
+(fr : prénom-nom, en : nom-prénom) : l'argument même des gabarits
+nommés. La composition ferme la boucle du select :
+`state.select(draft: label(status_draft), …)` — plus une chaîne crue
+dans les formules.
+
+**L'enregistrement en paramètre du label (D586 — complète D585).**
+**« Pour un label paramétrable nommé, nous pouvons passer en
+paramètre l'enregistrement. Le nom des champs devient les
+paramètres. »** — `label(mon_nom, customer)` : les champs de
+l'enregistrement nourrissent le gabarit par leurs noms, sans les
+épeler — le raccourci du publipostage (l'écho du title-gabarit D465
+et de la lettre D562 : un seul mécanisme, du visage de
+l'enregistrement à la formule).
+
+**Le catalogue des fonctions libres (D587).** **« Les fonctions
+libres font partie d'un catalogue. `min`, `max`, `sum`, `avg`… sont à
+inclure. Le catalogue s'enrichira, si besoin. »** — les formes
+variadiques scalaires (`max(0, x)`, `sum(a, b, c)`…) doublent les
+méthodes de collection (D580) ; l'extension par les besoins — la
+ligne des hooks (D408/D565).
+
+**`context.settings` et les deux modes du paramètre (D588 — précise
+D573).** **« `context.settings.<nom>`, où `<nom>` fait référence soit
+à un élément de configuration statique, soit dynamique »** — la
+déclaration au bloc settings porte le mode :
+
+```yaml
+settings:
+  application:
+    marge: { mode: dynamic, value: 5% }   # surchargeable à l'administration (D573)
+    tva:   { mode: static,  value: 20% }  # la valeur de la version
+```
+
+**« Les paramètres dynamiques portent une valeur par défaut,
+surchargeable via le module d'administration. »** Le statique vit et
+meurt avec la version ; le dynamique naît avec elle et vit à
+l'administration. *(L'exemple normalisé dans la forme — chaque
+paramètre : `{ mode:, value: }` ; le nom se résout à la cascade des
+settings (D349/D360) ; chaque paramètre est typé — le typage statique
+D581 vaut sur `context.settings.marge` comme partout.)*
+
+**Le type du paramètre, le nom `context` acté (D589).** **« Un
+paramètre porte aussi `type:` (par défaut : `text`). »** — la
+déclaration complète : `marge: { mode: dynamic, type: percentage,
+value: 5% }` ; le typage statique (D581) s'appuie sur la
+déclaration. Et **le nom du contexte est acté : « le nom "context" me
+convient. Si une entité se nomme "context", l'entité prend le pas.
+Lors de l'ingestion, un warning sera nécessaire. »** — la préséance à
+l'entité, le warning à l'ingestion (l'esprit D344). **L'inventaire
+des champs consigné tel que proposé** : `user` (la référence
+traversable), `location` (D291), `now` (datetime — la date par
+conversion D579), `instance`/`application`/`module` (les noms),
+`entity`/`field` (la réflexion), `file`/`page`/`pages` (au rendu d'un
+document seulement — D254), `settings.<nom>` (D588) ; **la
+disponibilité selon le contexte** (D254) et la lecture du **sommet
+consolidé de la pile** (D553).
+
+**L'abréviation du paramètre (D590).** **« Sur le setting,
+`marge: 10%` — l'abréviation (mode: static et type: text). »** La
+forme courte aux défauts : `marge: 10%` ≡ `{ mode: static,
+type: text, value: 10% }` — la doctrine des abréviations, comme
+partout.
+
+**La cascade des settings (D591 — complète D588).** **« Les settings
+dans le module ou l'entité viennent compléter ou surcharger la valeur
+des settings définis dans l'application. »** — les trois étages
+(l'application → le module → l'entité), le complément ou la
+surcharge, **le plus proche l'emporte** (la ligne D360/D461) ;
+`context.settings.<nom>` résout au plus proche du lieu d'évaluation.
+
+**Le graphe d'exécution acyclique (D592 — contraint D571).** **« Sur
+les graphes d'exécution, nous devons inclure une contrainte : ils
+doivent être acycliques. »** — le cycle de calcul (a dépend de b qui
+dépend de a) est **une erreur d'ingestion** (l'esprit D330/D344 — le
+contrôle statique, comme le typage D581) ; la ligne des graphes
+acycliques du projet (les composants D455, la hiérarchie des groupes)
+se poursuit.
+
+**Les valeurs nommées de la fonction (D593 — précise D571).** **« Une
+fonction retourne une valeur (par défaut). Elle peut retourner
+plusieurs valeurs nommées — cas d'une regex avec des groupes nommés à
+affecter à plusieurs champs. »** La déclaration s'élargit :
+`result: <type>` (le défaut — une valeur) ou `result: { prenom: text,
+nom: text }` (les valeurs nommées, chacune typée) ; **un seul calcul
+nourrit plusieurs champs** — le graphe d'exécution (D571) y gagne
+l'appel unique. *(L'écriture de l'affectation en proposition : le
+champ calculé lie la valeur nommée par le point —
+`extract_name(raw).prenom`.)*
+
+**La transaction tenue ouverte (D594 — simplifie D511/D547).** **« Nous
+n'allons pas implémenter 2 modes par opération. Une opération ajoute
+des éléments dans une transaction. Le preview exécute et attend une
+validation de l'utilisateur — la transaction reste active. Si
+l'utilisateur valide, la transaction est validée. Si l'utilisateur
+annule ou stoppe l'exécution de l'opération, la transaction est
+annulée. »** La pré-exécution n'est pas un mode : **c'est l'exécution
+même, suspendue avant le commit** — un seul code, une seule
+mécanique ; **le chiffrage (D511) = le contenu de la transaction
+active** (les ajoutés/modifiés/supprimés s'y lisent), la relecture
+(D431) le présente ; **le wizard (D547) = une transaction tenue
+ouverte au fil des steps**, validée à la validation définitive,
+annulée à l'abandon — les lots de transactions à agrégats (D101) en
+socle. Le paramètre de mode disparaît de la signature du hook.
+
+**Les quatre fonctions du hook d'opération (D595 — précise D594).**
+**« Le hook de l'opération a plusieurs fonctions : `execute`,
+`confirm`, `commit` et `rollback`. »** — l'objet du hook (D566.7)
+prend forme : `execute` remplit la transaction (D594), `confirm`
+produit la relecture (le chiffrage au gabarit — D511/D431), `commit`
+scelle (et porte l'après-coup — l'envoi, l'impression), `rollback`
+défait proprement. Et **« une opération peut se valider ou s'annuler
+automatiquement selon les paramètres de l'appel de l'opération »** —
+l'auto-commit (l'opération automatique D428, le `validate: false`
+D431) comme l'auto-annulation, décidés à l'appel.
+
+**`commit: auto | confirm` (D596 — renomme D431).** **« Plutôt que
+validate, je préfère `commit: auto | confirm`. »** La propriété de
+l'opération se renomme — le mot s'aligne sur la fonction du hook
+(D595) : **`commit: confirm`** (le défaut — la relecture avant le
+scellé, D196/D431) ou **`commit: auto`** (la validation automatique).
+*(La forme riche en proposition : `commit: { mode: confirm, message:
+<gabarit> }` — le message de D511 s'y loge ; les écritures
+`validate:` balayées dans les fiches.)*
+
+**L'issue au commit, le message-label (D597).** **« L'issue est
+portée par le commit. Le commit d'une opération retourne l'issue.
+Syncytium lira la valeur retournée [et] déclenchera l'action qu'elle
+contient. »** — la fonction `commit` (D595) retourne l'issue (l'écran,
+le téléchargement, l'impression, le message, rien — D570), **le
+moteur lit et déclenche** : le hook ne manipule jamais l'interface,
+il rend une valeur. Et **« le message du commit est un label — à
+rapprocher du catalogue de labels »** (D585) : le message en place ou
+la référence au dictionnaire (D440), le gabarit nourri de la
+transaction (D586/D594) — la langue réglée par construction.
+
+**Les valeurs nommées de l'opération (D598 — précise D597).** **« Les
+noms du label sont portés par l'opération — `nb_creations`,
+`nb_updates`, `nb_deletes`… Et ces valeurs peuvent être utilisées par
+le message de confirmation. »** L'opération expose ses valeurs
+nommées : **les comptes de la transaction** (le chiffrage D594,
+nommé — nb_creations, nb_updates, nb_deletes…) et les résultats
+propres de l'`execute` (D511) ; le message-label les consomme en
+paramètres de gabarit (D585–D586) — `message: { fr: "{nb_creations}
+factures créées, {nb_updates} commandes mises à jour" }`.
+
+**L'inviolabilité de la librairie (D599 — clôt les signatures et
+Q60).** **« Bien sûr, la librairie mise en place assure
+l'inviolabilité des règles et des droits. »** — le hook est un
+citoyen du moteur, jamais un super-utilisateur : les droits (D196),
+la confidentialité (D25/D364), la validation (D307), la concurrence
+par champ (D111) **ne se contournent pas** — la librairie
+d'exploration (D572) est l'unique porte, et elle porte les règles.
+**Q60 EST CLOSE** : les 17 opérations de socle (D574), les fonctions
+unifiées dans les types (D579–D587), le contexte courant et les
+paramètres (D588–D591), les graphes acycliques (D592), les signatures
+des hooks (D593–D599) — le catalogue des fonctions est complet.
+
+**Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
+opérations, nous avons `confirm` qui affiche une boîte de dialogue
+avec un message. Nous pouvons le rendre plus riche avec un formulaire
+et des champs qui sont alimentés par l'exécution. Par exemple : une
+procédure simplifiée de création d'un enregistrement qui se valide en
+consultant l'enregistrement dans un formulaire en lecture seule et/ou
+en modification. »** La relecture (D431/D196) prend toute sa
+dimension : le `confirm` présente **le message (le label — D597), ou
+un formulaire nourri par la transaction active** (D594) — la lecture
+seule pour consulter, **la modification pour ajuster : les éditions
+de l'utilisateur rejoignent la transaction avant le scellé**.
+*(L'écriture en proposition : `commit: { mode: confirm, form: <nom>,
+message: … }` — le formulaire nommé de l'entité, son `mode` D453
+valant.)* La six-centième décision.
+
+**La boîte seule (D601 — précise D600).** **« Si `form:` est absent
+et si `message:` est précisé, seule une boîte de dialogue de
+validation sera affichée. »** — les deux visages du confirm : la
+boîte au message (le léger), le formulaire sur la transaction (le
+riche) ; le message accompagne le formulaire quand les deux sont
+déclarés.
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11625,6 +12024,122 @@ avant la synthèse Q16).
 - **2026-08-15** — **La PR #26 créée** (« le domaine 4 soldé : la
   signature du nœud, la section repliable », D566–D569, 6 commits) —
   la table rase avant Q60.
+- **2026-08-15 (suite)** — **La PR #26 fusionnée**, et **la PR #27
+  créée vers main** (« la conception au 15/08/2026 : les domaines 1–4
+  soldés, D1–D569 » — 509 commits, la première publication de la
+  conception sur la branche vitrine : main était resté à
+  l'initialisation du dépôt).
+- **2026-08-15 (suite 2)** — **La PR #27 fusionnée : la conception
+  publiée sur main** (D1–D569, 509 commits — la vitrine à jour).
+  **Q60 s'ouvre** : le catalogue des fonctions, le point différé de
+  D433.
+- **2026-08-15 (suite 3)** — **Le cadre de Q60 posé (D570–D573)** :
+  l'opération (les cinq portées, le hook de code obligatoire, les 11
+  de base, les issues) et la fonction (les champs calculés, le graphe
+  d'exécution, la pureté) définies ; les signatures à finaliser ; la
+  librairie d'exploration du modèle consignée ; les paramètres
+  dynamiques introduits. La question de l'auteur (« vois-tu des
+  éléments que j'aurais oubliés ? ») — la réponse dans l'échange :
+  duplicate, restore, report, send en candidats.
+- **2026-08-15 (suite 4)** — **Les dix-sept opérations de socle
+  (D574)** : les quatre candidats acceptés + notify et refresh — le
+  catalogue scellé à 17.
+- **2026-08-15 (suite 5)** — **Les fonctions : les quatre arbitrages
+  (D575)** : sum (les pondérées, les matriciels), min/max universels,
+  les agrégats sur listes/associations, la famille du contexte
+  courant (le pont D254/D573). L'inventaire des familles recomposé
+  dans l'échange, en attente de validation.
+- **2026-08-15 (suite 6)** — **Les familles arbitrées (D576–D579)** :
+  agrégats-collections fusionnés (+ first/last/any/exists, min/max au
+  double régime) ; les opérateurs numériques (+ - * / \ % ! ** ;
+  exp/sin/cos/tan en fonctions) ; le texte (le gabarit, les regex,
+  les extractions, les conversions) ; **les fonctions de type —
+  l'iceberg** (le type emmène ses fonctions ; la conversion = la
+  fonction au nom du type, la signature du type portant la conversion
+  intrinsèque). L'inventaire recomposé, en attente de validation.
+- **2026-08-15 (suite 7)** — **La grande unification des fonctions
+  (D580–D582)** : les agrégats aux collections
+  (commandes.sum(montant), l'élément en contexte implicite) ; les
+  opérateurs et les comparateurs = des fonctions de type à l'écriture
+  symbolique (la table à la signature du type) ; la précédence
+  fixée ; le typage statique à l'ingestion (feuille → racine, la
+  promotion sans perte). Le catalogue central vidé dans les types —
+  restent le contexte courant, les libres, le gabarit.
+- **2026-08-15 (suite 8)** — **iif et select (D583)** : le
+  conditionnel en ligne et la sélection multi-branches rejoignent les
+  comparateurs ; les branches d'un même type (D581) ; l'écriture du
+  select en proposition.
+- **2026-08-15 (suite 9)** — **select au type, le type label
+  (D584–D585)** : state.select(…, "...": défaut) ; le type label —
+  le catalogue D440 accessible aux expressions, les gabarits nommés
+  paramétrables (l'ordre des mots par langue), label(mon_nom,
+  { prenom:, nom: }).
+- **2026-08-15 (suite 10)** — **L'enregistrement en paramètre
+  (D586)** : label(mon_nom, customer) — les champs deviennent les
+  paramètres du gabarit, sans les épeler.
+- **2026-08-15 (suite 11)** — **Le catalogue des libres (D587)** :
+  min, max, sum, avg… en variadiques scalaires ; l'enrichissement au
+  besoin (D408/D565).
+- **2026-08-15 (suite 12)** — **context.settings (D588)** : le nom
+  référence un paramètre statique ou dynamique — { mode:
+  dynamic|static, value: } ; le dynamique surchargeable à
+  l'administration (D573). Le contexte courant (context., l'inventaire
+  des champs) toujours en attente d'arbitrage.
+- **2026-08-15 (suite 13)** — **type: au paramètre, context acté
+  (D589)** : le paramètre { mode:, type: (défaut text), value: } ;
+  le nom context — l'entité homonyme prend le pas, le warning à
+  l'ingestion ; l'inventaire des champs consigné. **La famille du
+  contexte courant est décrite** — restent les signatures des hooks
+  (D572) pour clore Q60.
+- **2026-08-15 (suite 14)** — **L'abréviation du paramètre (D590)** :
+  marge: 10% ≡ { mode: static, type: text, value: 10% }.
+- **2026-08-15 (suite 15)** — **La cascade des settings (D591)** :
+  l'application → le module → l'entité, le complément ou la
+  surcharge — le plus proche l'emporte (D360/D461).
+- **2026-08-15 (suite 16)** — **Le graphe acyclique (D592)** : la
+  contrainte sur les graphes d'exécution — le cycle = une erreur
+  d'ingestion (le contrôle statique).
+- **2026-08-15 (suite 17)** — **Les valeurs nommées (D593)** : la
+  fonction retourne une valeur (défaut) ou plusieurs valeurs nommées
+  (la regex aux groupes nommés) — un seul calcul, plusieurs champs ;
+  l'affectation au point en proposition. Les signatures des hooks en
+  cours d'arbitrage (les trois contrats posés dans l'échange).
+- **2026-08-15 (suite 18)** — **La transaction tenue ouverte
+  (D594)** : pas deux modes — l'exécution suspendue avant le commit,
+  le chiffrage lu dans la transaction active, le wizard une seule
+  transaction au fil des steps ; le mode hors de la signature.
+- **2026-08-15 (suite 19)** — **Les quatre fonctions du hook
+  (D595)** : execute, confirm, commit, rollback — l'objet prend
+  forme ; l'auto-validation/annulation aux paramètres de l'appel.
+- **2026-08-15 (suite 20)** — **commit: auto|confirm (D596)** :
+  validate: renommé — le mot aligné sur la fonction du hook ; confirm
+  en défaut, la forme riche au message (D511) en proposition ; les
+  fiches balayées.
+- **2026-08-15 (suite 21)** — **L'issue au commit, le message-label
+  (D597)** : le commit retourne l'issue, le moteur lit et déclenche ;
+  le message = un label (D585/D440, le gabarit à la transaction).
+  Reste l'inviolable de la librairie à valider.
+- **2026-08-15 (suite 22)** — **Les valeurs nommées de l'opération
+  (D598)** : nb_creations, nb_updates, nb_deletes… — les comptes de
+  la transaction nommés, consommés par le message de confirmation.
+- **2026-08-15 (suite 23)** — **L'inviolabilité validée (D599) —
+  Q60 EST CLOSE** : les 17 opérations, la grande unification des
+  fonctions dans les types, le contexte et les paramètres, les
+  signatures des hooks (execute/confirm/commit/rollback, la
+  transaction tenue ouverte, l'issue au commit, les valeurs nommées),
+  la librairie inviolable. Trente décisions (D570–D599). Restent :
+  les domaines 5–8, la passe de complétude, Q58/Q59/Q7 — puis le
+  code (D314).
+- **2026-08-15 (suite 24)** — **La PR #28 créée** (« Q60 close — le
+  catalogue des fonctions », D570–D599, 23 commits) vers develop.
+- **2026-08-15 (suite 25)** — **Le confirm au formulaire (D600)** :
+  la relecture enrichie — le formulaire nourri par la transaction
+  active, la lecture seule et/ou la modification, les éditions
+  rejoignant la transaction avant le scellé ; form: en proposition.
+  **La six-centième décision** — le commit rejoint la PR #28
+  ouverte.
+- **2026-08-15 (suite 26)** — **La boîte seule (D601)** : form:
+  absent + message: précisé = la boîte de dialogue seule.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

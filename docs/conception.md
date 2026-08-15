@@ -692,6 +692,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D611 | **Le câblage par rôles nommés** (précise D610) : `connector: { storage:, smtp:, location:, siren:, … }` — le hook nomme le rôle qu'il attend (disponible au contexte d'exécution), la racine l'associe au connecteur, **la surcharge locale** par la propriété au nom du rôle vers un connecteur compatible (la famille D605). | « siren » ouvre la vérification des types-identifiants par connecteur. Voir §3.2c. |
 | D612 | **Le câblage précisé** (complète D611) : le câblage optionnel au simple, explicite au complexe ; **la famille = `type:`** — « pour les cas les plus simples, le type est le nom du connecteur » (l'écho D458) ; plusieurs connecteurs en service (la sobriété — quelques-uns suffisent) ; **`context.connector.<rôle>`** acté, plusieurs connecteurs par item non exclus ; la carte pouvant choisir son connecteur selon l'écran. | Voir §3.2c. |
 | D613 | **Le type et l'implémentation** (clarifie D611–D612) : « postgresql n'est pas un type — storage est bien le type ; postgresql, sqlserver, mysql, oracle… constituent une implémentation compatible avec storage » — le type = la famille = le rôle (le contrat D605), l'implémentation le remplit. | `implementation:` en proposition (le mot hook quitte la configuration — D408). Voir §3.2c. |
+| D614 | **`connectors.md` créé** : le cinquième artefact préparatoire (Q58/domaine 6) — la nature (global, sans contexte, le type-contrat et l'implémentation, le stockage-connecteur), la déclaration, le câblage aux rôles, les secrets, le catalogue de base, les déclencheurs, la migration ; les points ouverts listés. | Le report des décisions — aucun contenu nouveau. |
 
 ---
 
@@ -12445,6 +12446,11 @@ avant la synthèse Q16).
   type = la famille = le rôle ; implementation: en proposition (le
   mot hook quitte connectors.yml, la doctrine D408 respectée). Les
   exemples de hooks.md balayés.
+- **2026-08-15 (suite 45)** — **connectors.md créé (D614)** : le
+  cinquième artefact préparatoire — la nature, la déclaration, le
+  câblage, les secrets, le catalogue de base, les déclencheurs, la
+  migration/transformation, les points ouverts (le mapping du from,
+  les contrats par famille, la défaillance, implementation:).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

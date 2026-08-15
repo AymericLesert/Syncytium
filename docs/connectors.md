@@ -99,17 +99,34 @@ connector: { storage: main_db, from: legacy_db }
   cas de l'affichage d'une carte, nous pouvons définir plusieurs
   connecteurs et, en fonction de l'écran, utiliser l'un ou l'autre ».
 
-## Le catalogue de base (D604)
+## Les sept familles (D623) et le catalogue de base (D604)
 
-| la famille (le type) | les implémentations consignées | l'acquis |
-|---|---|---|
-| `storage` — les bases de données | SQLServer, MySQL, PostgreSQL, Oracle… | D604/D606/D613 |
-| l'annuaire | l'AD Azure — le premier visage de la passerelle d'authentification | D418/D604 |
-| `file` — les fichiers | CSV, JSON… — le guetteur à `every:` | D604 |
-| `location` — le géocodage | `ban` (Addok), `nominatim` | D294 |
-| l'itinéraire | `osrm`, `valhalla` | D514 |
-| `smtp` — le mail sortant | smtp_std | D564/D574 |
-| la reprise | le connecteur de reprise — lecture seule, durée de vie administrée | D175–D179 |
+**Le jeu est clos** (D619) — sept familles, « route est un exemple
+d'extension ultérieure » (l'extension = l'affaire du moteur, jamais
+du hook) ; **la famille contraint le contrat** (D620), la conformité
+d'une classe vérifiée au chargement :
+
+| le type (la famille) | le rôle | les classes consignées | l'acquis |
+|---|---|---|---|
+| `storage` | les bases de données — le stockage du modèle et les échanges | postgresql, sqlserver, mysql, oracle… | D604/D606/D613 |
+| `smtp` | le mail sortant | smtp_std | D564/D574 |
+| `file` | les fichiers — le dépôt, le guetteur à `every:` | csv, json… | D604 |
+| `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
+| `location` | le géocodage | ban (Addok), nominatim | D294 |
+| `api` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete ; le webhook entrant (D609) | — | D623 |
+| `siren` | la vérification des identifiants | — | D611/D623 |
+
+*(La reprise n'est pas une famille : le connecteur de reprise
+(D175–D179) s'appuie sur les familles existantes — le storage en
+lecture, le file, l'api.)*
+
+**Le socle commun du contrat** (D621–D622) : `initialize`/`release`
+(le démarrage et l'arrêt de l'application), `connect`/`disconnect`
+(à l'appel), **`ping()`** — le statut (`error`, `initialized`,
+`disconnected`, `connected`, `closed`…), la fréquence à l'`every:` ;
+les propriétés du socle : `connection: permanent | on_demand |
+idle[15min]` *(en proposition)* et `pool:` (le parallélisme
+asynchrone — D436).
 
 Le catalogue s'étend par le hook de connecteur (D603) — **une classe
 dans une famille, jamais une famille neuve** : « Syncytium fournit un

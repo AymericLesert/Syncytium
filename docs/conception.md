@@ -701,6 +701,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D620 | **La famille contraint le contrat** (complète D619) : « une famille va contraindre la définition du contrat » — les méthodes et leurs signatures imposées à toute classe ; la conformité vérifiable au chargement. | Voir §3.2c. |
 | D621 | **Le socle commun des connecteurs** : `initialize`/`release` (le démarrage/l'arrêt de l'application), `connect`/`disconnect` (à l'appel), **`ping()`** au lieu de test — le statut (error, initialized, disconnected, connected, closed…), `every:` = la fréquence du ping ; le comportement en propriétés du socle (permanent / à l'appel / au laps d'inactivité). | `connection: permanent \| on_demand \| idle[15min]` en proposition. Voir §3.2c. |
 | D622 | **Le pool de connexions** (complète D621) : « pool pour définir un pool de connexions — surtout pour l'exécution d'opérations asynchrones en parallèle » (la file D24/D55, D436). | `pool: 5` en proposition (défaut 1). Voir §3.2c. |
+| D623 | **Les sept familles** (arrête D619) : `storage`, `smtp`, `file`, `directory`, `location`, **`api`** (get, put, post, delete — « un point d'entrée dans les différents appels d'api versionnés »), `siren` ; « route est un exemple d'extension ultérieure » — l'extension du jeu = l'affaire du moteur. | L'api règle le webhook (D609) ; la reprise n'est pas une famille (la lecture notée — les familles existantes la portent). Voir §3.2c. |
 
 ---
 
@@ -4933,6 +4934,22 @@ parallèle. »** — la propriété du socle commun : le parallélisme de la
 file asynchrone (D24/D55, le mode `asynchronous` D436) puise dans le
 pool. *(L'écriture en proposition : `pool: 5` — le nombre de
 connexions ; défaut 1, la connexion unique.)*
+
+**Les sept familles (D623 — arrête le jeu de D619).** **« Les
+familles à implémenter sont : `storage`, `smtp`, `file`, `directory`,
+`location`, `api` (get, put, post, delete), `siren`. `route` est un
+exemple d'extension ultérieure. Dans le cas de `api`, cela définit un
+point d'entrée dans les différents appels d'api versionnés. »** Le
+jeu clos du moteur compte **sept familles** ; la famille **`api`**
+règle l'entrant HTTP (le webhook de D609 — le point d'entrée dans les
+API versionnées, la compatibilité bidirectionnelle) avec ses quatre
+méthodes (`get`, `put`, `post`, `delete`) ; **`siren`** porte la
+vérification des identifiants (D611). **`route` attend une version
+ultérieure du moteur** — l'extension du jeu des familles est
+l'affaire de Syncytium, jamais du hook (D619). *(La lecture notée :
+**la reprise n'est pas une famille** — le connecteur de reprise
+(D175–D179) s'appuie sur les familles existantes, le storage en
+lecture, le file, l'api.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12576,6 +12593,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 53)** — **Le pool de connexions (D622)** : la
   propriété du socle pour le parallélisme asynchrone (D436) ;
   pool: <n> en proposition (défaut 1).
+- **2026-08-15 (suite 54)** — **Les sept familles (D623)** : storage,
+  smtp, file, directory, location, api (get/put/post/delete — le
+  point d'entrée des API versionnées, le webhook réglé), siren ;
+  route en extension ultérieure du moteur ; la reprise n'est pas une
+  famille (la lecture notée). connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

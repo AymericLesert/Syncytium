@@ -700,6 +700,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D619 | **Les familles closes** (précise D603/D605) : « Syncytium fournit un nombre limité de familles. Il n'existe pas de hook de famille. Le hook porte sur l'implémentation d'une famille. » — le moteur n'appelle que les contrats qu'il connaît ; le hook = une classe dans une famille. | Voir §3.2c. |
 | D620 | **La famille contraint le contrat** (complète D619) : « une famille va contraindre la définition du contrat » — les méthodes et leurs signatures imposées à toute classe ; la conformité vérifiable au chargement. | Voir §3.2c. |
 | D621 | **Le socle commun des connecteurs** : `initialize`/`release` (le démarrage/l'arrêt de l'application), `connect`/`disconnect` (à l'appel), **`ping()`** au lieu de test — le statut (error, initialized, disconnected, connected, closed…), `every:` = la fréquence du ping ; le comportement en propriétés du socle (permanent / à l'appel / au laps d'inactivité). | `connection: permanent \| on_demand \| idle[15min]` en proposition. Voir §3.2c. |
+| D622 | **Le pool de connexions** (complète D621) : « pool pour définir un pool de connexions — surtout pour l'exécution d'opérations asynchrones en parallèle » (la file D24/D55, D436). | `pool: 5` en proposition (défaut 1). Voir §3.2c. |
 
 ---
 
@@ -4924,6 +4925,14 @@ et l'arrêt de l'application), **`connect`/`disconnect`** (à l'appel),
 **`ping()`** (le statut — la fréquence à l'`every:`). *(L'écriture de
 la politique en proposition : `connection: permanent | on_demand |
 idle[15min]` — le laps au crochet, les durées D434/D476.)*
+
+**Le pool de connexions (D622 — complète D621).** **« Nous pouvons
+ajouter `pool` pour définir un pool de connexions — surtout dans le
+cas de l'exécution d'opérations asynchrones, si cela est exécuté en
+parallèle. »** — la propriété du socle commun : le parallélisme de la
+file asynchrone (D24/D55, le mode `asynchronous` D436) puise dans le
+pool. *(L'écriture en proposition : `pool: 5` — le nombre de
+connexions ; défaut 1, la connexion unique.)*
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12564,6 +12573,9 @@ avant la synthèse Q16).
   ping() au statut (every: = sa fréquence), la politique de connexion
   en propriété (permanent / à l'appel / au laps d'inactivité —
   connection: en proposition).
+- **2026-08-15 (suite 53)** — **Le pool de connexions (D622)** : la
+  propriété du socle pour le parallélisme asynchrone (D436) ;
+  pool: <n> en proposition (défaut 1).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

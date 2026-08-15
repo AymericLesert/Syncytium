@@ -652,6 +652,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D571 | **La fonction définie** : les champs calculés ; retourne une valeur ou une liste de valeurs, aux types du modèle ; déclenchable au paramètre modifié ; **le graphe d'exécution** pour l'ordre cohérent ; un hook de code ; **« ne déclenche aucune opération »** — la pureté. | L'appel ne va que dans un sens. Voir §3.2c. |
 | D572 | **Les signatures distinctes, la librairie d'exploration** : les deux signatures à finaliser en Q60 (celle des fonctions abordée au domaine 2) ; « le hook de code nécessitera une librairie qui explore le modèle de données de façon transparente ». | Voir §3.2c. |
 | D573 | **Les paramètres dynamiques** : « la valeur initiale définie dans la configuration, modifiable par le technicien via le module d'administration » — la troisième temporalité (le statique, le dynamique, la donnée). | Les paramètres généraux (D366/D468/D259) ont vocation à rejoindre la famille. Voir §3.2c. |
+| D574 | **Les dix-sept opérations de socle** (complète D570) : les 11 + `duplicate`/`restore`/`report`/`send` (les candidats acceptés) + **`notify`** (« générer une information de notification aux utilisateurs ») + **`refresh`** (« déclencher un recalcul d'un graphique ou d'un champ calculé »). | « Au final, cela nous fournit 17 opérations de socle. » Voir §3.2c. |
 
 ---
 
@@ -4405,6 +4406,21 @@ version), le dynamique (l'administration), la donnée (l'utilisateur).
 *(L'écho : les paramètres généraux déjà croisés — le seuil
 mono/multi-ligne D366, le seuil des radios D468, le fond de carte
 D259 — ont vocation à rejoindre cette famille.)*
+
+**Les dix-sept opérations de socle (D574 — complète D570).** Les
+quatre candidats acceptés (« les 4 candidats me conviennent ») et
+deux ajouts de l'auteur : **« nous pouvons aussi ajouter `notify` —
+pour générer une information de notification aux utilisateurs — et
+`refresh` pour déclencher un recalcul d'un graphique ou d'un champ
+calculé. Au final, cela nous fournit 17 opérations de socle. »** Le
+catalogue scellé : **`create`, `read`, `update`, `delete`,
+`promote`, `demote`, `duplicate`, `generate`, `download`, `print`,
+`send`, `export`, `import`, `report`, `restore`, `notify`,
+`refresh`** — dix-sept. *(Les parentés notées : l'opération `notify`
+et l'effet `notify` (D432) se rejoignent — la notification comme
+traitement à part entière ; `restore` matérialise D172–D174 ;
+`report` le « à la demande » de D406 ; `send` l'issue du format
+`mail` D564.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11693,6 +11709,9 @@ avant la synthèse Q16).
   dynamiques introduits. La question de l'auteur (« vois-tu des
   éléments que j'aurais oubliés ? ») — la réponse dans l'échange :
   duplicate, restore, report, send en candidats.
+- **2026-08-15 (suite 4)** — **Les dix-sept opérations de socle
+  (D574)** : les quatre candidats acceptés + notify et refresh — le
+  catalogue scellé à 17.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

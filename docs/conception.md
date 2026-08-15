@@ -658,6 +658,9 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D577 | **Les opérateurs numériques** : `+` `-` `*` `/` (réelle) `\` (entière) `%` (modulo) `!` (factoriel) `**` (puissance) — « pour simplifier l'écriture » ; `exp`, `sin`, `cos`, `tan`… en fonctions. | Voir §3.2c. |
 | D578 | **Le texte** : la concaténation **via le gabarit** (D562), l'extraction via les regex, les extractions de chaîne, les règles de conversion (D579). | Voir §3.2c. |
 | D579 | **Les fonctions de type — l'iceberg** : « un type emmène avec lui des fonctions dédiées » (`distance`/`euclide` pour la géolocalisation) ; **la conversion = une fonction au nom du type** (`text(x)`, `date(x)`…) — « la signature d'un type doit porter en elle la conversion intrinsèque » (D369 en cas particulier). | L'écho D408/D458 — le type emmène composant et fonctions. Voir §3.2c. |
+| D580 | **Les agrégats portés par la collection** (pousse D579) : « sum(commandes.montant) devient `commandes.sum(montant)` » — l'élément en contexte implicite dans la parenthèse (le filtre sans alias, la pondérée lisible), min/max aux deux formes, `count()` nu, la forme contextuelle à l'assise (D517). | Voir §3.2c. |
+| D581 | **Les opérateurs, le parenthésage, le typage** : la table d'opérateurs à la signature du type (`date - date` → duration, `date + date` → erreur) ; la précédence fixée ; **le typage statique à l'ingestion** — l'inférence de la feuille à la racine, la promotion sans perte, la conversion explicite (D579). | Jamais d'erreur de type à l'exécution (D330/D344). Voir §3.2c. |
+| D582 | **Les comparateurs, des fonctions** : « naturellement » — `=` `!=` `<` `<=` `>` `>=` `in`, des fonctions de type au résultat boolean ; l'ordre des règles de tri (D368+), l'égalité de l'équivalence. | Le catalogue central vidé dans les types — restent le contexte courant, les libres, le gabarit. Voir §3.2c. |
 
 ---
 
@@ -4484,6 +4487,47 @@ intrinsèque. »** — `text(x)`, `integer(x)`, `date(x)`… (l'écho
 D458 : le nom du type, partout où le type se matérialise) ; la
 conversion en texte (D369) devient le cas particulier d'une règle
 générale portée par la signature du type.
+
+**Les agrégats portés par la collection (D580 — pousse D579).**
+**« Je vais pousser l'approche des fonctions de type aux fonctions
+des agrégats : sum, min, max, avg… sont portées par la liste
+(`list of`) ou l'association (`association with`). Ex :
+`sum(commandes.montant)` devient `commandes.sum(montant)`. »** La
+bascule actée, avec les trois précisions : **dans la parenthèse,
+l'élément est le contexte implicite** — le filtre perd son alias
+(`lignes.sum(montant if etat = "facturée")`) et la pondérée se lit
+(`lignes.sum(quantite * prix)`) ; **min/max gardent leurs deux
+formes** — la méthode (l'agrégat) et la fonction libre variadique
+(`max(0, x)` — D576) ; **`count()` sans argument**
+(`commandes.count()`) ; **la forme contextuelle demeure** quand la
+collection est le contexte — l'assise du chart (`y: sum(total)` —
+D517), le préfixe ne s'écrivant que pour désigner ailleurs.
+
+**Les opérateurs, le parenthésage, le typage (D581).** La poussée
+suivante validée : **les opérateurs sont des fonctions de type à
+l'écriture symbolique** — **la signature du type déclare sa table
+d'opérateurs** (les combinaisons d'opérandes admises, le type du
+résultat : `amount + amount` → amount à devise compatible,
+`date - date` → duration, `date + date` → l'erreur, `text + text`
+n'existe pas — le gabarit D578) ; **le parenthésage** groupe, **la
+précédence fixée** : `!`, puis `**`, puis `* / \ %`, puis `+ -`,
+puis les comparaisons, puis les logiques ; **la justesse des types =
+le typage statique à l'ingestion** — l'expression s'infère **de la
+feuille à la racine** (le parcours de D566), toute combinaison
+impossible est une erreur d'ingestion (D330/D344 — jamais à
+l'exécution), le type final doit être celui de la destination ; **la
+promotion implicite seulement sans perte** (integer → decimal), la
+conversion explicite sinon (la fonction au nom du type — D579).
+
+**Les comparateurs, des fonctions (D582).** **« Naturellement, les
+comparateurs sont alors des fonctions. »** — `=`, `!=`, `<`, `<=`,
+`>`, `>=`, `in` : des fonctions de type à l'écriture symbolique, le
+résultat `boolean` — **l'ordre vient des règles de tri consignées par
+type** (D368 et suivantes — le nul y compris), l'égalité de
+l'équivalence ; `in` porte l'appartenance (la liste, la plage). Le
+paysage final : **le catalogue central s'est vidé dans les types** —
+restent au centre le contexte courant (D575), les rares libres
+(`max(0, x)` variadique) et le gabarit (D562/D578).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11788,6 +11832,14 @@ avant la synthèse Q16).
   l'iceberg** (le type emmène ses fonctions ; la conversion = la
   fonction au nom du type, la signature du type portant la conversion
   intrinsèque). L'inventaire recomposé, en attente de validation.
+- **2026-08-15 (suite 7)** — **La grande unification des fonctions
+  (D580–D582)** : les agrégats aux collections
+  (commandes.sum(montant), l'élément en contexte implicite) ; les
+  opérateurs et les comparateurs = des fonctions de type à l'écriture
+  symbolique (la table à la signature du type) ; la précédence
+  fixée ; le typage statique à l'ingestion (feuille → racine, la
+  promotion sans perte). Le catalogue central vidé dans les types —
+  restent le contexte courant, les libres, le gabarit.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -684,6 +684,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D603 | **Les connecteurs — les cinq arbitrages** : `connectors.yml` à la racine, **global** (aucune déclinaison) ; le catalogue de base + le hook de connecteur ; les paramètres = les propriétés, **pas de contexte** (le démarrage du projet) ; **les secrets = la référence à une variable d'environnement**, chiffrable à la clé dérivée (environnement + machine) ; `every:` à la grammaire D434. | Le dépôt versionné (D336) sans secret en clair. Voir §3.2c. |
 | D604 | **Le catalogue de base des connecteurs** (complète D603) : les bases de données standard (SQLServer, MySQL, Postgre…), l'AD Azure, les fichiers (CSV, JSON…) — + le géocodage (D294), l'itinéraire (D514), le smtp (D564), la reprise (D175) ; `every:` « pour rafraîchir ou tester » — le file watcher : « la détection de présence d'un fichier, le fichier mis à jour et relu ». | L'entrant naît par le fichier ; l'AD Azure = un visage de la passerelle D418. Voir §3.2c. |
 | D605 | **Le contrat par famille** (solde les connecteurs) : « la famille (ou le type) permet de définir les interactions avec Syncytium — chaque famille a ses propres méthodes et fonctions » — la ligne D579 jusqu'aux connecteurs ; le hook implémente le contrat de sa famille. | Les cinq manques du sujet refermés (D603–D605). Voir §3.2c. |
+| D606 | **Les deux sens, le stockage-connecteur, la migration inter-connecteurs** : « un connecteur décrit les sortants et les entrants » ; « les entités sont liées à un connecteur de base de données » — le stockage est un connecteur ; « une migration d'un connecteur vers un autre, en instantanée ou en différentiel ». | La translation aux 4 usages (vérifié — évoqué dès l'origine) ; le différentiel = la réplication passive (D112–D114). Voir §3.2c. |
 
 ---
 
@@ -4841,6 +4842,22 @@ Un hook de connecteur implémente le contrat de sa famille. **Les cinq
 manques des connecteurs sont refermés** : la déclaration (D603), les
 secrets (D603), la planification (D603–D604), les entrants (D604 —
 le watcher), le contrat (D605).
+
+**Les deux sens, le stockage-connecteur, la migration
+inter-connecteurs (D606 — élargit D603–D605).** **« Un connecteur
+décrit les sortants et les entrants. »** Et la vérification demandée
+(« il me semble que je l'avais déjà évoqué ») : oui — la translation
+déclarative fut posée dès l'origine comme **le primitif transverse
+aux quatre usages** (les migrations, les API, **les connecteurs**, la
+réplication) ; **« Syncytium peut convertir ou transférer des données
+d'un connecteur à l'autre »** en est l'exercice. Les précisions
+nouvelles : **« les entités sont liées à un connecteur de base de
+données »** — **le stockage même est un connecteur** (les bases du
+catalogue D604 ne servent pas que l'échange : elles portent
+l'instance) ; et **« nous pouvons prévoir une migration d'un
+connecteur vers un autre, en instantanée ou en différentiel »** — le
+changement de moteur (SQLServer → PostgreSQL…) par la translation,
+le différentiel rejoignant la réplication passive (D112–D114).
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -12260,6 +12277,12 @@ avant la synthèse Q16).
   (la ligne D579 jusqu'au bout) — **le sujet des connecteurs et des
   échanges est soldé** (D603–D605, les cinq manques refermés).
   Suivant dans la passe : la sécurité et les droits.
+- **2026-08-15 (suite 33)** — **Le stockage-connecteur et la
+  migration inter-connecteurs (D606)** : les deux sens décrits ; les
+  entités liées à un connecteur de base de données — le stockage est
+  un connecteur ; la migration instantanée ou différentielle (la
+  réplication D112–D114) ; la translation aux quatre usages vérifiée
+  (évoquée dès l'origine).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

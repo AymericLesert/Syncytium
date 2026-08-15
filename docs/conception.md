@@ -711,6 +711,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D630 | **La documentation au socle commun** : « un connecteur doit disposer d'une méthode pour générer de la documentation en markdown/html — la documentation automatique de l'instance ». | `describe()` en proposition ; la brique de Q58 (l'écho D124). Voir §3.2c. |
 | D631 | **`switch_schema`** (complète D629) : « basculer vers le nouveau schéma après la migration » — la bascule atomique ; la migration silencieuse = create_schema → la migration → switch_schema → delete_schema (la lecture notée). | Voir §3.2c. |
 | D632 | **Le mapping automatique** : « la migration à chaud trouve sa mécanique, et le mapping (automatique) est le mécanisme exploité » — la translation déclarative dérive les correspondances des deux méta-schémas, le technicien n'écrit rien. | Le mapping manuel reste au `from:` (D610 — les systèmes étrangers). Voir §3.2c. |
+| D633 | **Le contrat directory** : `get_users`, `get_users_from_group`, `get_groups` — « ce connecteur n'a pas de pendant en écriture, uniquement de la lecture ». | L'authentification (D418/D604) flaguée — cette famille ou le chantier sécurité ? Voir §3.2c. |
 
 ---
 
@@ -5047,6 +5048,18 @@ correspondances des deux méta-schémas — le technicien n'écrit rien
 pour la migration à chaud. *(La frontière notée : le mapping
 **manuel** demeure l'affaire du `from:` vers les systèmes étrangers —
 D610, le chantier du mapping externe.)*
+
+**Le contrat de la famille directory (D633).** **« `get_users` : la
+liste de tous les utilisateurs de l'AD ; `get_users_from_group` : la
+liste des utilisateurs de l'AD appartenant à un groupe ; `get_groups` :
+la liste de tous les groupes de l'AD. Ce connecteur n'a pas de
+pendant en écriture — uniquement de la lecture. »** — la famille sert
+la synchronisation des comptes et des groupes (les affectations
+D341/D210 restent des actes d'administration en base). *(La question
+flaguée : l'authentification — la passerelle D418, dont l'AD Azure
+est « le premier visage » D604 — passe-t-elle par cette famille (une
+méthode à venir) ou par un autre canal ? Le chantier sécurité de la
+passe tranchera.)*
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12736,6 +12749,9 @@ avant la synthèse Q16).
   migration à chaud exploite le mapping calculé des deux
   méta-schémas (la translation déclarative) ; le mapping manuel reste
   au from: (les systèmes étrangers).
+- **2026-08-16 (suite 4)** — **Le contrat directory (D633)** :
+  get_users, get_users_from_group, get_groups — la lecture seule ;
+  l'authentification flaguée pour le chantier sécurité.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

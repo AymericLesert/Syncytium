@@ -709,6 +709,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D628 | **`smtp.send`** (le premier contrat détaillé) : « un message (au format HTML), des pièces jointes (une liste de fichiers, quel que soit le format), depuis un expéditeur (configuré aux propriétés du connecteur) et vers une liste de destinataires ». | Le markdown du template mail (D562/D564) rendu en HTML fait le corps. Voir §3.2c. |
 | D629 | **Le contrat storage** : `begin`/`commit`/`rollback` (la transaction — D594) ; `get_schema` (l'introspection — tables, colonnes, contraintes, dépendances) ; `create_table`/`update_table`/`delete_table` (les migrations) ; `create_schema`/`delete_schema` (« créer l'instance automatiquement ou faire migrer silencieusement ») ; `create`/`read`/`update`/`delete` (les enregistrements). | Voir §3.2c. |
 | D630 | **La documentation au socle commun** : « un connecteur doit disposer d'une méthode pour générer de la documentation en markdown/html — la documentation automatique de l'instance ». | `describe()` en proposition ; la brique de Q58 (l'écho D124). Voir §3.2c. |
+| D631 | **`switch_schema`** (complète D629) : « basculer vers le nouveau schéma après la migration » — la bascule atomique ; la migration silencieuse = create_schema → la migration → switch_schema → delete_schema (la lecture notée). | Voir §3.2c. |
 
 ---
 
@@ -5028,6 +5029,13 @@ migrer silencieusement le modèle ; `create`, `read`, `update`,
 (l'assise de D594), l'introspection, la structure aux migrations, le
 schéma à l'instance (la création automatique, la migration
 silencieuse — l'écho D100/D112), les enregistrements.
+
+**`switch_schema` (D631 — complète D629).** **« Sur storage, j'ajoute
+`switch_schema` pour basculer vers le nouveau schéma après la
+migration. »** — la bascule atomique ; *(la lecture notée : la
+migration silencieuse s'écrit alors `create_schema` → la migration →
+`switch_schema` → `delete_schema` — la migration à chaud D100/D112 en
+quatre gestes du contrat.)*
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12710,6 +12718,9 @@ avant la synthèse Q16).
   socle (D630)** : chaque connecteur génère sa documentation
   markdown/html — l'autodocumentation de l'instance (describe() en
   proposition).
+- **2026-08-16 (suite 2)** — **switch_schema (D631)** : la bascule
+  vers le nouveau schéma après la migration — la migration
+  silencieuse en quatre gestes (la lecture notée).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

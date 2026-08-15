@@ -696,6 +696,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D615 | **`class:`** (solde D613) : « class serait plus intéressant pour moi » — confirmé : le vocabulaire objet (le type = le contrat, la classe le remplit), court, sans collision ; le YAML écrit `class:`, la prose garde « l'implémentation ». | hooks.md et connectors.md balayés. Voir §3.2c. |
 | D616 | **Les connecteurs par environnement** : « staging, production actif/passif — chaque environnement doit disposer de ses propres connecteurs » (D339–D340). | En proposition : le catalogue à la version, les valeurs (parameters/secrets) à l'environnement — D603 l'anticipait (la clé environnement+machine) ; l'actif/passif = deux storages en réplication différentielle (D606). Voir §3.2c. |
 | D617 | **Les connecteurs à l'environnement** (amende D603/D616) : « le contenu de connectors.yml est à reporter dans environments/<env>.yml — lors de l'ingestion, Syncytium doit vérifier que les connecteurs sont tous décrits dans chaque environnement » — connectors.yml s'efface, le contrôle de complétude à l'ingestion. | Le connecteur reste global (D603 — aucune déclinaison module/entité). Voir §3.2c. |
+| D618 | **Le `settings.yml` de la version** : « settings.yml se retrouve aussi dans la version, en plus du module » — l'étage application de la cascade (D591) a son fichier ; le module raffine (D349), l'entité précise (D348/D360). | Voir §3.2c. |
 
 ---
 
@@ -4879,6 +4880,14 @@ module ni entité). Et **le contrôle de complétude à l'ingestion** :
 tous les connecteurs [que la configuration référence] doivent être
 décrits **dans chaque environnement** — l'écart est une erreur
 d'ingestion (l'esprit D330/D344).
+
+**Le `settings.yml` de la version (D618 — complète l'arborescence).**
+**« settings.yml se retrouve aussi dans la version, en plus du
+module. »** — l'étage application de la cascade (D591) a son
+fichier : les paramètres de l'application (D588–D590 —
+`settings: application:` y vivait déjà en exemple) se déclarent à la
+racine de la version ; le module raffine (D349), l'entité précise
+(D348/D360) — « le plus proche l'emporte ».
 
 **Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
 opérations, nous avons `confirm` qui affiche une boîte de dialogue
@@ -12503,6 +12512,9 @@ avant la synthèse Q16).
   environments/<env>.yml — le fichier de version s'efface, la
   complétude vérifiée à l'ingestion (tous les connecteurs décrits
   dans chaque environnement). connectors.md mis au niveau.
+- **2026-08-15 (suite 49)** — **Le settings.yml de la version
+  (D618)** : l'étage application de la cascade a son fichier — la
+  version, le module (D349), l'entité (D348/D360).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

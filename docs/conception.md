@@ -666,6 +666,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D585 | **Le type `label`** : l'accès au catalogue des labels (D440), « un label peut couvrir un gabarit paramétrable », les gabarits nommés réutilisables — `label(mon_nom, { prenom: …, nom: … })`, l'ordre des mots par langue. | La langue dans les expressions — `state.select(draft: label(…))`. Voir §3.2c. |
 | D586 | **L'enregistrement en paramètre du label** (complète D585) : « le nom des champs devient les paramètres » — `label(mon_nom, customer)`, les champs nourrissent le gabarit sans les épeler. | L'écho D465/D562 — un seul mécanisme de gabarit. Voir §3.2c. |
 | D587 | **Le catalogue des fonctions libres** : « min, max, sum, avg… sont à inclure. Le catalogue s'enrichira, si besoin » — les variadiques scalaires doublant les méthodes de collection (D580), l'extension par les besoins (D408/D565). | Voir §3.2c. |
+| D588 | **`context.settings` et les deux modes** (précise D573) : `<nom>` référence un élément statique ou dynamique — `{ mode: dynamic \| static, value: <défaut> }` ; « les paramètres dynamiques portent une valeur par défaut surchargeable via le module d'administration ». | La cascade D349/D360 ; le typage D581 vaut. Voir §3.2c. |
 
 ---
 
@@ -4581,6 +4582,26 @@ inclure. Le catalogue s'enrichira, si besoin. »** — les formes
 variadiques scalaires (`max(0, x)`, `sum(a, b, c)`…) doublent les
 méthodes de collection (D580) ; l'extension par les besoins — la
 ligne des hooks (D408/D565).
+
+**`context.settings` et les deux modes du paramètre (D588 — précise
+D573).** **« `context.settings.<nom>`, où `<nom>` fait référence soit
+à un élément de configuration statique, soit dynamique »** — la
+déclaration au bloc settings porte le mode :
+
+```yaml
+settings:
+  application:
+    marge: { mode: dynamic, value: 5% }   # surchargeable à l'administration (D573)
+    tva:   { mode: static,  value: 20% }  # la valeur de la version
+```
+
+**« Les paramètres dynamiques portent une valeur par défaut,
+surchargeable via le module d'administration. »** Le statique vit et
+meurt avec la version ; le dynamique naît avec elle et vit à
+l'administration. *(L'exemple normalisé dans la forme — chaque
+paramètre : `{ mode:, value: }` ; le nom se résout à la cascade des
+settings (D349/D360) ; chaque paramètre est typé — le typage statique
+D581 vaut sur `context.settings.marge` comme partout.)*
 
 **`selection` = le nombre, `by` = la présentation (D474 — solde
 D472).** **« La propriété `selection` définit le nombre d'éléments à
@@ -11908,6 +11929,11 @@ avant la synthèse Q16).
 - **2026-08-15 (suite 11)** — **Le catalogue des libres (D587)** :
   min, max, sum, avg… en variadiques scalaires ; l'enrichissement au
   besoin (D408/D565).
+- **2026-08-15 (suite 12)** — **context.settings (D588)** : le nom
+  référence un paramètre statique ou dynamique — { mode:
+  dynamic|static, value: } ; le dynamique surchargeable à
+  l'administration (D573). Le contexte courant (context., l'inventaire
+  des champs) toujours en attente d'arbitrage.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

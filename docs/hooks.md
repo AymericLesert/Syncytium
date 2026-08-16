@@ -56,7 +56,7 @@ versions/<statut>/<version>/
 
 ## Les familles
 
-### 1. Le hook de type (D408, D459, D579–D584)
+### 1. Le hook de type (D408, D459, D579–D584, D681)
 
 Ajoute **un type** au catalogue — exploitable comme les types
 standard (le chaînage possible, les types custom ne portant pas le
@@ -79,7 +79,13 @@ graphe de conversion).
 - **les règles de tri et le nul** (D368 et suivantes), la recherche,
   le masque — le kit des facettes ;
 - **la représentation obligatoire** (D459) : « aucun type sans
-  visage » — le composant d'écran et/ou le rendu de document.
+  visage » — le composant d'écran et/ou le rendu de document ;
+- **les règles de conversion vers un storage** (D681 — le patron
+  visiteur) : « le contrat d'un type doit inclure les règles de
+  conversion vers un storage » — la classe storage visite le type,
+  le type se décrit, la classe rend la forme native ; un type-hook
+  sans ses règles de conversion ne se stocke pas — l'ingestion le
+  refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses

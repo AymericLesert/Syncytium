@@ -813,6 +813,8 @@ documentation) :
 | D690 | **`rights.md` créé** : le huitième artefact préparatoire (Q58) — la sécurité et les droits consolidés (la doctrine P8, la confidentialité D25/D364, les droits d'action D196/D422–D423, l'audience anti-IDOR D70–D77, les groupes/modules, les connecteurs, la provenance) + les cinq points du chantier du sujet 2 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des connecteurs. |
 | D691 | **Les droits d'action couvrent les opérations** (referme le point 2 du chantier) : le socle (les 18) et les déclarées — le droit d'exécuter se déclare comme les autres droits d'action (D196) ; la réconciliation avec D422 : l'opération passe outre les allow d'état, le droit de la déclencher se contrôle. | Voir §3.2c. |
 | D692 | **La famille authentication** (la 8e — referme D418/D642) : le contrat `challenge()`/`verify(preuve)` aux deux visages (l'utilisateur → la session ; l'API → la preuve au porteur) ; les classes `local`/`azure_ad`/`sso` ; la session, le rapprochement (D82) et l'orchestration au moteur (D686) ; la garde du webhook appelle le même verify. | Validé. Voir §3.2c. |
+| D693 | **La session** : duration (l'inactivité au glissement, défaut 8h) et limit (l'absolu, défaut 7d) en settings dynamiques ; la borne SSO de l'IdP prime ; les sessions simultanées libres, la révocation administrateur ; l'API hors session ; la session ne fige jamais des droits. | « Je valide la session. » Voir §3.2c. |
+| D694 | **La vérification au début, le cache de droits** (précise D693) : la vérification au début d'une opération ou d'une sollicitation (l'acte entamé s'achève sous ses droits de départ) ; la latence minimisée par un cache invalidé à chaque modification de droits par les interfaces administrateur. | Voir §3.2c. |
 
 ---
 
@@ -6179,6 +6181,43 @@ de Syncytium, D619/D623) :
   client secret), le `describe` ; **le multi-connecteurs** : l'AD
   pour les internes, le local pour les clients (D77 — l'étanchéité
   par canal) ; la passerelle de D418 a son visage.
+
+**La session (D693 — « je valide la session »).** Les réglages aux
+settings de l'application (la forme D588, les durées D476), en mode
+`dynamic` — l'administrateur ajuste sans republier :
+
+```yaml
+settings:
+  application:
+    session:
+      duration: { mode: dynamic, type: duration, value: 8h }   # l'inactivité
+      limit:    { mode: dynamic, type: duration, value: 7d }   # l'absolu
+```
+
+— **`duration:`** l'inactivité au glissement (chaque action
+renouvelle, le délai passé déconnecte) ; **`limit:`** la borne
+absolue (la re-authentification obligatoire ; pour le SSO, la borne
+de l'IdP prime si plus courte) ; **les sessions simultanées libres**
+(le PC et la tablette — D15), **la révocation en acte
+d'administration** (les sessions d'un compte visibles et coupables —
+la pièce au module d'administration) ; la déconnexion manuelle
+toujours ; **l'API hors session** (D692) ; le changement
+d'affectations prend effet à la prochaine action — la session ne
+fige jamais des droits.
+
+**La vérification au début et le cache de droits (D694 — précise
+D693.4).** **« La vérification des actions s'effectue sur le début
+d'une opération ou d'une sollicitation. À Syncytium de minimiser le
+temps de latence de la vérification par un cache à mettre à jour à
+chaque modification de droits par les interfaces administrateur. »**
+— le moment est fixé : **le début** de l'opération ou de la
+sollicitation (jamais en cours de route — l'acte entamé s'achève
+sous les droits de son départ, la transaction D594 cohérente) ; et
+la latence se paie par **un cache de droits** tenu par le moteur,
+**invalidé à chaque modification de droits par les interfaces
+administrateur** (l'affectation D341, les groupes, les modules) — le
+chemin d'écriture des droits étant exclusivement administratif, le
+cache n'a pas d'autre source d'invalidation à surveiller.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14128,6 +14167,12 @@ avant la synthèse Q16).
   moteur, la garde du webhook branchée (D642 refermé), la passerelle
   D418 incarnée. hooks.md, connectors.md, glossaire.md et rights.md
   mis au niveau.
+- **2026-08-16 (suite 55)** — **La session et le cache de droits
+  (D693–D694)** : duration/limit en settings dynamiques, le
+  glissement et la borne, les sessions simultanées à révocation
+  administrateur, l'API hors session ; la vérification au début
+  d'opération/sollicitation, le cache invalidé aux modifications
+  administratives. rights.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

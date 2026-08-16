@@ -151,14 +151,41 @@ La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans
 [connectors.md](connectors.md).
 
+## La session (D693–D694)
+
+Les réglages aux settings de l'application (D588), en mode
+`dynamic` :
+
+```yaml
+settings:
+  application:
+    session:
+      duration: { mode: dynamic, type: duration, value: 8h }   # l'inactivité
+      limit:    { mode: dynamic, type: duration, value: 7d }   # l'absolu
+```
+
+- **`duration:`** — l'inactivité au glissement : chaque action
+  renouvelle, le délai passé déconnecte ;
+- **`limit:`** — la borne absolue : la re-authentification
+  obligatoire ; pour le SSO, la borne de l'IdP prime si plus
+  courte ;
+- **les sessions simultanées libres** (D15) — la révocation est un
+  acte d'administration (les sessions d'un compte visibles et
+  coupables) ; la déconnexion manuelle toujours ;
+- **l'API hors session** (D692) — chaque requête porte sa preuve ;
+- **la session ne fige jamais des droits** : la vérification
+  s'effectue **au début d'une opération ou d'une sollicitation**
+  (D694 — l'acte entamé s'achève sous les droits de son départ, la
+  transaction cohérente D594) ; la latence est minimisée par **un
+  cache de droits**, invalidé à chaque modification de droits par
+  les interfaces administrateur (D341).
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **la session** — les réglages fins (la durée, le renouvellement,
-   la déconnexion — des settings ?) ;
-2. **le RGPD** — les données personnelles marquées au modèle ? le
+1. **le RGPD** — les données personnelles marquées au modèle ? le
    droit à l'effacement face à l'historisation (D168) et à la
    provenance persistante (D178) ; la rétention ;
-3. **l'audit** — la trace des écritures existe ; l'audit des
+2. **l'audit** — la trace des écritures existe ; l'audit des
    **lectures** (qui a consulté quoi), celui des actes
    d'administration, la surface qui le consulte ;
-4. **le chiffrement** — au repos (le storage), en transit.
+3. **le chiffrement** — au repos (le storage), en transit.

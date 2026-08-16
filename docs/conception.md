@@ -789,6 +789,8 @@ documentation) :
 | D670 | **Le versionnement plein** (tranche D668) : source/ et mapping/ versionnés comme tout le reste — le coût des itérations absorbé par le build (D323), le beta/ (D340), le dry-run (D667) ; la traçabilité double (les règles par la version, les résultats par le module historisé). | « Le versionnement est plein. » Voir §3.2c. |
 | D671 | **Les options de la migration** (amende D669) : `{ mode: absolute \| relative, reset: true \| false }` — deux propriétés orthogonales, « relative » retenu (« partiel » abandonné), reset = les tables cibles effacées avant l'import. | Voir §3.2c. |
 | D672 | **Le différentiel par comparaison** (solde le mapping) : évalué après la migration — enregistrement par enregistrement (la clé D654) et champ par champ, seuls les écarts s'écrivent ; l'entité cible historisée assure l'évolution de la valeur (D168). | Pas de détection côté source. Voir §3.2c. |
+| D673 | **Le critère de la migration de schéma** (la jonction versions↔storage) : l'écart structurel seul déclenche — module/entité (ajout/renommage/suppression), champ **non calculé** (ajout/renommage/modification/suppression ; modifié = le type ou le défaut) ; le reste active sans migration. | Le calculé ne touche pas le schéma. Voir §3.2c. |
+| D674 | **La procédure en quatre temps** (précise D631) : la duplication en schéma temporaire → les transformations des différences (D632) → la bascule sur validation (suppression + renommage ; non validé = l'original intact) → les écritures en attente pendant la phase. | Voir §3.2c. |
 
 ---
 
@@ -5859,6 +5861,45 @@ concurrence par champ D111, l'écriture par le chemin standard) ; et
 assurée** (D168 — chaque delta laisse son instantané). Le
 différentiel n'est pas un mode de plus : c'est la conséquence
 naturelle du rejeu par la clé.
+
+**Le critère de la migration de schéma (D673 — ouvre la jonction
+versions↔storage).** **« Si l'écart entre 2 versions impose une mise
+à jour du modèle de données (ajout/renommage/suppression d'un module
+ou d'une entité, ajout/renommage/modification/suppression d'un champ
+non calculé — un champ est considéré comme modifié si le type ou la
+valeur par défaut changent), une procédure de migration du schéma
+sera portée par Syncytium. »** — le critère est **structurel** :
+seuls les écarts qui touchent le stockage déclenchent la procédure —
+et **le champ calculé n'en fait pas partie** (sa formule change sans
+toucher le schéma — le recalcul suffit) ; **modifié = le type ou la
+valeur par défaut** ; le renommage passe par `old_name` (D651), qui
+nourrit la transformation. L'écart sans portée structurelle (une
+surface, un libellé, une formule, un droit) active la version **sans
+migration de schéma**.
+
+**La procédure en quatre temps (D674 — précise D631).** **« 1. la
+duplication du schéma dans un schéma temporaire ; 2. l'application
+d'un ensemble de transformations liées aux différences entre les 2
+modèles dans le schéma temporaire ; 3. si les transformations sont
+validées, le schéma est supprimé et le schéma temporaire est
+renommé ; 4. durant cette phase de migration, les opérations de mise
+à jour des données seront mises en attente. »** — la mécanique de
+D631 se précise :
+
+1. **la duplication** — le schéma copié (structure et données) dans
+   un schéma temporaire ;
+2. **les transformations** — dérivées **des différences entre les
+   deux modèles** (le mapping automatique — D632) et appliquées au
+   temporaire ; l'original reste intact ;
+3. **la bascule sur validation** — validées, l'ancien schéma est
+   supprimé, le temporaire est renommé (le `switch_schema` de D631
+   réalisé par le renommage) ; **non validées, le temporaire se jette
+   et l'original n'a jamais bougé — le retour arrière d'avant-bascule
+   est gratuit** ;
+4. **les écritures en attente** — pendant la phase, les mises à jour
+   de données sont **mises en attente** (jamais rejetées) et
+   reprennent sur le schéma neuf (la fenêtre d'affluence de D8 en
+   creux : la migration se programme aux heures calmes).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13731,6 +13772,12 @@ avant la synthèse Q16).
   enregistrement et champ par champ — l'historisation cible assure
   l'évolution. **LE CHANTIER DU MAPPING EST SOLDÉ** (D646–D672).
   mapping.md et le §1.2 mis au niveau.
+- **2026-08-16 (suite 39)** — **La jonction versions↔storage
+  (D673–D674)** : le critère structurel (champ non calculé ; modifié
+  = type ou défaut) ; la procédure en quatre temps — duplication en
+  temporaire, transformations des différences, bascule sur
+  validation (le retour d'avant-bascule gratuit), écritures en
+  attente. mapping.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

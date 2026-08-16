@@ -60,6 +60,30 @@ unit_price:
   persistent (D11–D13 : la substitution vers l'ancien, le défaut
   vers le neuf).
 
+### La migration du schéma (D673–D674)
+
+**Le critère est structurel** (D673) : seuls les écarts qui touchent
+le stockage déclenchent la procédure — l'ajout, le renommage ou la
+suppression d'un module ou d'une entité ; l'ajout, le renommage, la
+modification ou la suppression d'un **champ non calculé** (modifié =
+**le type ou la valeur par défaut**). Le champ calculé ne touche pas
+le schéma (le recalcul suffit) ; l'écart sans portée structurelle
+active la version **sans migration de schéma**.
+
+**La procédure en quatre temps** (D674 — précise D631) :
+
+1. **la duplication** du schéma (structure et données) dans un
+   schéma temporaire ;
+2. **les transformations** dérivées des différences entre les deux
+   modèles (le mapping automatique — D632), appliquées au
+   temporaire — l'original intact ;
+3. **la bascule sur validation** : l'ancien supprimé, le temporaire
+   renommé (le `switch_schema` de D631) ; non validées, le
+   temporaire se jette — **le retour arrière d'avant-bascule est
+   gratuit** ;
+4. **les écritures en attente** pendant la phase — jamais rejetées,
+   reprises sur le schéma neuf.
+
 ## L'usage 2 — la migration d'un système existant
 
 ### Les migrations déclarées (D662)
@@ -294,6 +318,6 @@ postures de D180 incarnées.
 
 ## Les points ouverts
 
-- **la jonction avec les versions** (sujet 4 de la passe) — le lien
-  journal de migrations ↔ gestes storage, le retour arrière après
-  `switch_schema`.
+- **l'après-bascule** — le schéma remplacé est supprimé (D674) : le
+  retour arrière post-bascule relève du registre des versions et de
+  la restauration (à confirmer au sujet 4 de la passe).

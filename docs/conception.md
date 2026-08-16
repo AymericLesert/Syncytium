@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -100,10 +100,13 @@ documentation) :
    mapping/, les migrations déclarées, le module de suivi historisé,
    `migrate` la 18e opération, le versionnement plein, le
    différentiel par comparaison) ;
-2. **la sécurité et les droits** — à ouvrir ; les flags accumulés :
-   la passerelle d'authentification (D418), l'authentification du
-   `directory` (D633), le mécanisme de la garde du webhook (D642) ;
-   le RGPD (dont la tension avec l'historisation D168), l'audit ;
+2. **la sécurité et les droits** — **soldé** (rights.md — D690 ;
+   « ces 2 commandes complètent la partie sécurité », D708) :
+   l'authentification (la famille D692, les 4 volets, la session
+   D693–D694), les droits étendus aux opérations (D691), le degré
+   intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
+   (D695–D698), l'audit des lectures (D702–D704), le chiffrement
+   (D705–D708) ;
 3. **l'administration et l'exploitation** — à ouvrir ; le module
    d'administration jamais décrit, la télémétrie (Q12–Q13) ;
 4. **la migration et les versions** — largement soldée : le mapping
@@ -809,6 +812,25 @@ documentation) :
 | D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
 | D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
 | D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
+| D690 | **`rights.md` créé** : le huitième artefact préparatoire (Q58) — la sécurité et les droits consolidés (la doctrine P8, la confidentialité D25/D364, les droits d'action D196/D422–D423, l'audience anti-IDOR D70–D77, les groupes/modules, les connecteurs, la provenance) + les cinq points du chantier du sujet 2 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des connecteurs. |
+| D691 | **Les droits d'action couvrent les opérations** (referme le point 2 du chantier) : le socle (les 18) et les déclarées — le droit d'exécuter se déclare comme les autres droits d'action (D196) ; la réconciliation avec D422 : l'opération passe outre les allow d'état, le droit de la déclencher se contrôle. | Voir §3.2c. |
+| D692 | **La famille authentication** (la 8e — referme D418/D642) : le contrat `challenge()`/`verify(preuve)` aux deux visages (l'utilisateur → la session ; l'API → la preuve au porteur) ; les classes `local`/`azure_ad`/`sso` ; la session, le rapprochement (D82) et l'orchestration au moteur (D686) ; la garde du webhook appelle le même verify. | Validé. Voir §3.2c. |
+| D693 | **La session** : duration (l'inactivité au glissement, défaut 8h) et limit (l'absolu, défaut 7d) en settings dynamiques ; la borne SSO de l'IdP prime ; les sessions simultanées libres, la révocation administrateur ; l'API hors session ; la session ne fige jamais des droits. | « Je valide la session. » Voir §3.2c. |
+| D694 | **La vérification au début, le cache de droits** (précise D693) : la vérification au début d'une opération ou d'une sollicitation (l'acte entamé s'achève sous ses droits de départ) ; la latence minimisée par un cache invalidé à chaque modification de droits par les interfaces administrateur. | Voir §3.2c. |
+| D695 | **Le marquage rgpd:** (le volet RGPD, pièce 1) : `rgpd: personal \| sensitive \| consent` — l'article 9 porté (sensitive), le consentement tracé ; le modèle sait ce qui est personnel. | Voir §3.2c. |
+| D696 | **L'anonymisation par algorithme** (pièce 2) : la valeur construite à règle aléatoire, jamais dérivée de l'origine (l'exception : la longueur) — ni blanc ni haché ; les enregistrements ET les historiques modifiés. | Voir §3.2c. |
+| D697 | **anonymize, la 19e opération — le degré intrinsèque** (pièce 3) : l'usage limité à l'administration ; le principe posé — chaque opération du socle porte un degré intrinsèque d'autorisation (le plancher) ; l'inventaire des degrés flagué. | Voir §3.2c. |
+| D698 | **La rétention et le registre** (pièce 4 — boucle le volet) : la rétention échue s'anonymise d'office (D411/D696) ; le registre des traitements auto-documenté (D333/D645). | Voir §3.2c. |
+| D699 | **Le degré intrinsèque au contrat, porté par le groupe** (solde D697) : le contrat des opérations le déclare ; user \| manager \| administrator ; le groupe d'utilisateurs porte le degré (`degree:` en proposition, défaut user) ; **l'appartenance à un groupe est obligatoire pour utiliser l'application**. | Voir §3.2c. |
+| D700 | **allow: aux groupes** (complète D423/D691) : le verbe ou l'opération accepte la liste des groupes autorisés, en plus de l'expression ; le degré intrinsèque reste le plancher — le plus exigeant l'emporte. | Voir §3.2c. |
+| D701 | **L'inventaire des dix-neuf planchers validé** : user (le quotidien — 14 opérations), manager (import, report), administrator (restore, migrate, anonymize). | « Je valide l'inventaire. » L'exemple détaillé dans rights.md. Voir §3.2c. |
+| D702 | **Le grain de l'audit des lectures** : une ligne par lecture en masse de l'entité parente ou par transaction — le nombre d'éléments concernés, jamais une ligne par enregistrement ; la volumétrie à l'échelle de l'acte. | Voir §3.2c. |
+| D703 | **La propriété trace:** : le défaut automatique (rgpd: sensitive audité d'office) + `trace: audit` (l'opt-in) + **`trace: limited`** (l'exclusion — le mot de passe, la clé jamais tracés, D463/D603). | Voir §3.2c. |
+| D704 | **L'audit au module d'administration** : une entité du module d'administration (porté par Syncytium — D666) ; les surfaces standard, le degré administrator, la rétention déclarée (D411). | Le module admin prend corps (sessions D693, audit D704). Voir §3.2c. |
+| D705 | **Le chiffrement en transit** : ce que Syncytium sert = HTTPS sans dérogation ; ce qu'il appelle = chiffré par défaut, l'exception déclarée au connecteur (`unencrypted:` en proposition — signalée, visible au describe). | « Je valide ce point. » Voir §3.2c. |
+| D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
+| D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
+| D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
 
 ---
 
@@ -6130,6 +6152,295 @@ type structuré D687) reflétant la description des champs de l'entité
 mémoire : le lazy loading des listes (D227), le traitement en masse
 au suivi de progression (la migration D667 et son module de suivi
 D666–D668, le composant progression).
+
+**Les droits d'action couvrent les opérations (D691 — referme le
+point 2 du chantier sécurité).** **« Les droits d'action couvrent
+les opérations du socle et les opérations déclarées. »** — le modèle
+de D196 (les droits d'action par entité au modèle de
+confidentialité) s'étend explicitement **aux dix-huit opérations du
+socle et aux opérations déclarées** : le droit d'exécuter se déclare
+et se contrôle comme les autres droits d'action. **La
+réconciliation avec D422** (« les opérations passent outre ») : deux
+choses distinctes — l'opération autorisée **passe outre les `allow`
+d'état de l'entité** (le promote écrit un enregistrement que l'état
+fige — l'acte porte sa légitimité), mais **le droit de déclencher
+l'opération** relève des droits d'action (D196/D691) : on contrôle
+qui appuie, pas ce que l'acte a le droit d'écrire.
+
+**La famille authentication (D692 — ouvre le point 1 du chantier et
+referme D418/D642).** Validé (« je valide ») — **la huitième famille
+de connecteur**, créée par le moteur (l'extension du jeu = l'affaire
+de Syncytium, D619/D623) :
+
+- **le contrat en deux gestes** : **`challenge()`** — comment
+  demander l'identité (le formulaire login/mdp, la redirection SSO,
+  le schéma du 401 pour l'API) — et **`verify(preuve)`** — juger la
+  preuve reçue (le couple saisi, le ticket au retour de redirection,
+  **le jeton porté par la requête**) : tous les chemins finissent en
+  une identité vérifiée ;
+- **les deux visages** : l'utilisateur (le défi interactif → la
+  session) et **l'API** (la preuve au porteur — chaque requête la
+  porte, pas de session) — le 401/Authorization de HTTP est
+  lui-même un défi/preuve ;
+- **les trois classes** : `local` (le haché vérifié par Syncytium,
+  les clés d'API des comptes techniques), `azure_ad` (le bind vers
+  l'annuaire, le bearer Entra), `sso` (la redirection OIDC, la
+  signature du jeton) — chaque classe déclare ce qu'elle sait
+  vérifier ;
+- **l'orchestration au moteur** (D686) : la session (la durée, le
+  renouvellement), l'écran de connexion, le rapprochement du compte
+  (D82 — la clé d'unicité par connecteur), la typologie des comptes
+  (D77) ; **la garde du webhook (D642) appelle ce même `verify`** —
+  le flag refermé, rien de dédié ;
+- **le socle commun hérité** : le `ping()` (la santé de l'IdP),
+  l'`onerror` (la maintenance si le SSO tombe), les secrets (le
+  client secret), le `describe` ; **le multi-connecteurs** : l'AD
+  pour les internes, le local pour les clients (D77 — l'étanchéité
+  par canal) ; la passerelle de D418 a son visage.
+
+**La session (D693 — « je valide la session »).** Les réglages aux
+settings de l'application (la forme D588, les durées D476), en mode
+`dynamic` — l'administrateur ajuste sans republier :
+
+```yaml
+settings:
+  application:
+    session:
+      duration: { mode: dynamic, type: duration, value: 8h }   # l'inactivité
+      limit:    { mode: dynamic, type: duration, value: 7d }   # l'absolu
+```
+
+— **`duration:`** l'inactivité au glissement (chaque action
+renouvelle, le délai passé déconnecte) ; **`limit:`** la borne
+absolue (la re-authentification obligatoire ; pour le SSO, la borne
+de l'IdP prime si plus courte) ; **les sessions simultanées libres**
+(le PC et la tablette — D15), **la révocation en acte
+d'administration** (les sessions d'un compte visibles et coupables —
+la pièce au module d'administration) ; la déconnexion manuelle
+toujours ; **l'API hors session** (D692) ; le changement
+d'affectations prend effet à la prochaine action — la session ne
+fige jamais des droits.
+
+**La vérification au début et le cache de droits (D694 — précise
+D693.4).** **« La vérification des actions s'effectue sur le début
+d'une opération ou d'une sollicitation. À Syncytium de minimiser le
+temps de latence de la vérification par un cache à mettre à jour à
+chaque modification de droits par les interfaces administrateur. »**
+— le moment est fixé : **le début** de l'opération ou de la
+sollicitation (jamais en cours de route — l'acte entamé s'achève
+sous les droits de son départ, la transaction D594 cohérente) ; et
+la latence se paie par **un cache de droits** tenu par le moteur,
+**invalidé à chaque modification de droits par les interfaces
+administrateur** (l'affectation D341, les groupes, les modules) — le
+chemin d'écriture des droits étant exclusivement administratif, le
+cache n'a pas d'autre source d'invalidation à surveiller.
+
+**Le marquage rgpd: (D695 — le volet RGPD, pièce 1).** **« Porte
+l'article 9 du RGPD — `rgpd: personal | sensitive | consent`. »** —
+la facette du champ se nomme **`rgpd:`**, aux trois valeurs :
+**`personal`** (la donnée personnelle), **`sensitive`** (la donnée
+sensible — l'article 9 : la santé, les opinions, le régime
+renforcé), **`consent`** (le traitement assis sur le consentement).
+Le modèle sait qui voit (la confidentialité D25/D364) et désormais
+**ce qui est personnel** :
+
+```yaml
+fields:
+  name:       { type: text, rgpd: personal }
+  email:      { type: text, rgpd: personal }
+  blood_type: { type: text, rgpd: sensitive, confidentiality: private }
+  newsletter: { type: boolean, rgpd: consent }
+```
+
+**L'anonymisation — l'algorithme, jamais l'effacement simple (D696 —
+pièce 2).** **« L'anonymisation n'est pas un effacement simple. Il
+vise à construire une valeur répondant à un algorithme incluant une
+règle aléatoire non basée sur la valeur d'origine (peut-être à
+l'exception de la longueur de la chaîne). L'anonymisation consiste à
+modifier les valeurs de ces champs dans les enregistrements et dans
+les historiques. »** — la valeur de remplacement est **construite** :
+un algorithme à règle aléatoire, **jamais dérivée de la valeur
+d'origine** (l'exception admise : la longueur de la chaîne — la
+silhouette sans la personne) — ni un blanc (la trahison du vide), ni
+un haché (la ré-identification possible). La modification porte
+**les enregistrements et les historiques** (D168 — les instantanés
+compris) ; l'enregistrement demeure, ses agrégats et ses
+statistiques aussi.
+
+**anonymize, la dix-neuvième opération — et le degré intrinsèque
+d'autorisation (D697 — pièce 3).** **« L'opération anonymize peut
+être ajoutée avec une règle limitant son usage à l'administration.
+Cela signifie que les opérations définies dans le socle portent un
+degré intrinsèque d'autorisation (nous ne l'avons pas abordé
+encore). »** — `anonymize` entre au socle (le catalogue D574 passe à
+**dix-neuf**), l'usage limité à l'administration ; et le principe
+nouveau est posé : **chaque opération du socle porte un degré
+intrinsèque d'autorisation** — le plancher que la déclaration ne
+peut abaisser (anonymize = l'administration, restore = ? , migrate =
+?) — **l'inventaire des degrés est flagué** (le module
+d'administration, sujet 3, ou la fiche des opérations).
+
+**La rétention et le registre (D698 — pièce 4, « cela boucle le
+volet RGPD élégamment »).** La rétention rejoint l'historisation
+(D411) : la donnée marquée dont la rétention échoit **s'anonymise
+d'office** (l'algorithme D696) ; et **le registre des traitements
+s'auto-documente** (D333/D645) — les champs `rgpd:`, leur
+confidentialité, leur rétention, leurs connecteurs sortants : le
+document que la TPE peine à tenir, Syncytium le génère.
+
+**Le degré intrinsèque — au contrat, porté par le groupe (D699 —
+solde le flag de D697).** **« Le degré intrinsèque est porté par le
+contrat des opérations. Les 3 valeurs user | manager | administrator
+couvrent le besoin. Un groupe d'utilisateurs porte ce degré. Un
+utilisateur, pour utiliser l'application, est forcément associé à un
+groupe d'utilisateurs. »** — quatre pièces :
+
+- **le degré vit au contrat de l'opération** (la signature du hook —
+  comme execute/confirm/commit/rollback, D595) : chaque opération du
+  socle et chaque hook d'opération le déclare ;
+- **les trois valeurs** : `user` · `manager` · `administrator` ;
+- **le groupe porte le degré** — pas une qualité du compte : le
+  groupe d'utilisateurs (D414) déclare son degré *(l'écriture en
+  proposition :* `degree:` *dans groups.yml, défaut `user` —*
+  `admins: { degree: administrator }`*)* ; l'utilisateur atteint le
+  degré de son meilleur groupe (la multi-appartenance D414) ;
+- **l'appartenance obligatoire** : « un utilisateur, pour utiliser
+  l'application, est forcément associé à un groupe » — le compte
+  sans groupe n'entre pas (le fail-closed D71 jusqu'à la porte).
+
+**allow: aux groupes (D700 — complète D423/D691).** **« allow:
+complète en précisant les groupes d'utilisateurs autorisés. »** — la
+forme libre s'enrichit : le verbe (ou l'opération) accepte **la
+liste des groupes autorisés**, en plus de l'expression (D90) :
+
+```yaml
+allow:
+  update: locked = false          # l'expression (D423)
+  delete: [admins]                # les groupes autorisés (D700)
+operations:
+  archive:
+    allow: [managers, admins]     # le droit de déclencher (D691/D700)
+```
+
+Le degré intrinsèque reste le plancher : un `allow:` généreux
+n'abaisse jamais le degré exigé par le contrat — les deux se
+composent, le plus exigeant l'emporte.
+
+**L'inventaire des dix-neuf planchers (D701 — « je valide
+l'inventaire »).** La table gravée :
+
+| le degré | les opérations |
+|---|---|
+| `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
+| `manager` | `import` · `report` |
+| `administrator` | `restore` · `migrate` · `anonymize` |
+
+— le quotidien aux droits déclarés ; l'import déjà réservé (D211/
+D238) ; la restauration (D174), la migration (D667) et
+l'anonymisation (D697) à l'administration. L'exemple détaillé porté
+dans rights.md (demande de l'auteur).
+
+**L'audit des lectures — le grain de la trace (D702).** **« Tout
+tracer n'est pas envisageable. La trace à la lecture en masse de
+l'entité parente, ou à la transaction, avec des informations portant
+sur le nombre d'éléments concernés. Cela limitera la volumétrie. »**
+— le grain est arrêté : **une ligne d'audit par lecture en masse de
+l'entité parente ou par transaction** — qui, quand, quoi (l'entité,
+le périmètre), par où, et **le nombre d'éléments concernés** —
+jamais une ligne par enregistrement : la volumétrie reste à
+l'échelle de l'acte, pas de la donnée.
+
+**La propriété trace: — audit et limited (D703).** Le défaut
+automatique validé (« une belle mécanique ») — **ce qui est `rgpd:
+sensitive` s'audite d'office** — et la propriété **`trace:`** le
+complète aux deux sens :
+
+- **`trace: audit`** — l'opt-in : le champ tracé au-delà du défaut
+  automatique ;
+- **`trace: limited`** — l'exclusion : le champ **écarté de toute
+  trace** pour des raisons de confidentialité — « un mot de passe ou
+  une clé ne doivent pas être tracés » (l'écho des garanties du
+  `password` D463 et des secrets D603 : la valeur sensible
+  n'apparaît dans aucun journal, aucun rapport, aucun audit).
+
+**L'audit au module d'administration (D704).** **« L'audit est porté
+dans une entité du module d'administration. »** — pas un module
+dédié : **le module d'administration** (porté par Syncytium — le
+patron D666) accueille l'entité d'audit ; les surfaces standard la
+consultent (le degré `administrator` — D699/D701), la rétention de
+l'audit se déclare comme toute historisation (D411). Le module
+d'administration prend corps pièce à pièce : la révocation des
+sessions (D693), l'audit (D704) — sa description complète attend le
+sujet 3.
+
+**Le chiffrement en transit (D705 — « je valide ce point »).** Tout
+ce que Syncytium **sert** (l'IHM, les API, les routes webhook D640)
+est HTTPS — obligatoire, sans dérogation. Tout ce que Syncytium
+**appelle** (les huit familles) exige le transport chiffré **par
+défaut** ; l'exception se déclare au connecteur *(l'écriture en
+proposition :* `unencrypted: true` *)* — signalée par l'ingestion,
+visible au `describe()` : expliciter plutôt que subir en silence.
+
+**Le chiffrement au repos — l'affaire du type (D706 — amende ma
+proposition).** **« Le chiffrement du storage n'est pas de la
+responsabilité de Syncytium. Une valeur encrypted serait plutôt un
+type (comme password). C'est le type qui gère le chiffrement — pas
+tous les types, juste ceux qui ont le pouvoir de le faire. »** —
+deux arbitrages :
+
+- **le storage hors responsabilité** : le TDE, le disque chiffré —
+  l'infrastructure et la classe, jamais le moteur (la recommandation
+  d'exploitation, rien de plus) ;
+- **pas de facette `encrypted:` — un type** : le chiffrement est
+  **un pouvoir de type** (le `password` D463 montre la voie) —
+  certains types chiffrent, les autres non ; les fonctions de valeur
+  du visiteur (D683) portent le chiffre à l'écriture et le déchiffre
+  à la lecture, et **le type déclare ce qu'il sait encore faire**
+  (la recherche stricte au mieux, le tri perdu — la signature du
+  type dit ses capacités, D579/D582, rien à documenter à part). Le
+  technicien qui veut un texte chiffré prend le type chiffrant —
+  le choix est un type, pas une option.
+
+**Les clés obligatoirement chiffrées — le patron unique (D707 —
+durcit D603, solde le chiffrement).** **« Les clés sont
+obligatoirement chiffrées. Elles sont stockées dans des variables
+d'environnement exploitées par Syncytium, jamais versionnées (cas
+d'un fichier .env). Le chiffrement est assuré par des commandes
+propres à Syncytium pour créer les clés chiffrées avant de les
+enregistrer dans l'environnement (à voir pour rendre cela
+automatique). Syncytium se charge alors de déchiffrer les valeurs à
+l'usage. Les clés concernées peuvent être les clés d'api, les mots
+de passe de connexion à un connecteur… »** — le « chiffrable » de
+D603 devient **obligatoire**, et le patron s'unifie pour tout
+secret :
+
+1. **la maison** : les variables d'environnement (le `.env`) —
+   **jamais versionnées** (D336), exploitées par Syncytium ;
+2. **la création** : **les commandes propres à Syncytium** chiffrent
+   la valeur *avant* son enregistrement dans l'environnement (la clé
+   dérivée environnement + machine — D603) ; *(flagué :
+   l'automatisation de ce geste)* ;
+3. **l'usage** : Syncytium déchiffre à l'usage — la valeur en clair
+   ne vit qu'en mémoire, le temps de l'appel ;
+4. **le périmètre** : les clés d'API, les mots de passe de
+   connecteurs… — et les clés des types chiffrants (D706) : un seul
+   patron pour tout ce qui est secret.
+
+**Les deux commandes — encrypt et decrypt (D708 — incarne D707,
+complète la partie sécurité).** Les commandes propres à Syncytium
+prennent forme :
+
+- **`encrypt <nom de la variable d'environnement> <clé à
+  chiffrer>`** — chiffre la clé et l'enregistre dans le `.env` (ou
+  un autre fichier si nécessaire) ;
+- **`decrypt <nom de la variable d'environnement>`** — retourne la
+  valeur qui a été chiffrée — « pour des besoins de débogage et de
+  vérification du bon fonctionnement d'un service ».
+
+*(La lecture notée : les commandes s'exécutent sur la machine — la
+clé dérivée environnement + machine (D603) fait que le `.env` copié
+ailleurs reste muet ; le decrypt n'est utile qu'à qui a déjà la
+machine.)* **« Ces 2 commandes complètent la partie sécurité. »**
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14058,6 +14369,80 @@ avant la synthèse Q16).
   read() retourne un curseur — le lazy loading, la masse au suivi de
   progression ; la ligne convertie en enregistrement au fil du
   parcours. L'écriture en lots, la lecture au curseur.
+- **2026-08-16 (suite 51)** — **La PR #31 fusionnée (vérifiée)** :
+  « Le mapping, la jonction versions↔storage et le contrat storage
+  refondé (D643–D689) », 42 commits sur develop. **Le sujet 2 de la
+  passe s'ouvre : la sécurité et les droits.**
+- **2026-08-16 (suite 52)** — **rights.md créé (D690)** : le
+  huitième artefact — l'acquis consolidé (P8, la confidentialité,
+  les allow, l'audience, les groupes, les connecteurs, la trace) et
+  les cinq points ouverts du chantier (l'authentification, le droit
+  de déclencher, le RGPD, l'audit, le chiffrement). Le §1.2 mis au
+  niveau.
+- **2026-08-16 (suite 53)** — **Les droits d'action étendus aux
+  opérations (D691)** : « les droits d'action couvrent les
+  opérations du socle et les opérations déclarées » — le point 2 du
+  chantier (le droit de déclencher) refermé ; la réconciliation avec
+  le passe-outre de D422 consignée. rights.md mis au niveau.
+- **2026-08-16 (suite 54)** — **La famille authentication (D692)** :
+  la 8e famille — challenge()/verify(preuve), les deux visages
+  (utilisateur/API), les classes local/azure_ad/sso, la session au
+  moteur, la garde du webhook branchée (D642 refermé), la passerelle
+  D418 incarnée. hooks.md, connectors.md, glossaire.md et rights.md
+  mis au niveau.
+- **2026-08-16 (suite 55)** — **La session et le cache de droits
+  (D693–D694)** : duration/limit en settings dynamiques, le
+  glissement et la borne, les sessions simultanées à révocation
+  administrateur, l'API hors session ; la vérification au début
+  d'opération/sollicitation, le cache invalidé aux modifications
+  administratives. rights.md mis au niveau.
+- **2026-08-16 (suite 56)** — **LE VOLET RGPD BOUCLÉ (D695–D698)** :
+  le marquage rgpd: personal|sensitive|consent (l'article 9),
+  l'anonymisation par algorithme aléatoire (enregistrements +
+  historiques), anonymize la 19e opération à l'usage administratif —
+  le degré intrinsèque d'autorisation des opérations posé (inventaire
+  flagué), la rétention qui anonymise d'office, le registre des
+  traitements auto-documenté. rights.md, hooks.md et types.md mis au
+  niveau.
+- **2026-08-16 (suite 57)** — **Le degré intrinsèque et allow: aux
+  groupes (D699–D700)** : le degré au contrat des opérations
+  (user/manager/administrator), le groupe le porte (degree: en
+  proposition), l'appartenance obligatoire ; allow: précise les
+  groupes autorisés — le plancher demeure, le plus exigeant
+  l'emporte. L'inventaire des 19 planchers reste à valider.
+  rights.md, hooks.md et glossaire.md mis au niveau. **La 700e
+  décision.**
+- **2026-08-16 (suite 58)** — **L'inventaire des planchers validé
+  (D701)** : user/manager/administrator répartis sur les 19 ;
+  l'exemple détaillé porté dans rights.md (qui peut quoi — la
+  composition plancher × allow). L'audit des lectures s'ouvre.
+- **2026-08-16 (suite 59)** — **L'audit des lectures soldé
+  (D702–D704)** : le grain à l'acte (la masse ou la transaction, le
+  nombre d'éléments — jamais l'enregistrement) ; trace: audit
+  (l'opt-in) et trace: limited (l'exclusion — mot de passe, clé) en
+  complément du défaut automatique rgpd: sensitive ; l'entité
+  d'audit au module d'administration. rights.md et types.md mis au
+  niveau.
+- **2026-08-16 (suite 60)** — **Le chiffrement (D705–D706)** : le
+  transit validé (servi = HTTPS sans dérogation ; appelé = chiffré
+  par défaut, l'exception déclarée) ; le repos — le storage hors
+  responsabilité, le chiffrement = un pouvoir de type (comme
+  password, les fonctions de valeur D683). rights.md mis au niveau.
+  Reste le point 3 (les clés) — D603 rappelé à l'auteur.
+- **2026-08-16 (suite 61)** — **Les clés obligatoirement chiffrées
+  (D707)** : le patron unique — le .env jamais versionné, les
+  commandes Syncytium qui chiffrent avant l'enregistrement
+  (l'automatisation flaguée), le déchiffrement à l'usage ; le
+  chiffrement est soldé. Le chantier sécurité n'a plus de point
+  ouvert consigné — la clôture du sujet 2 attend la relecture de
+  l'auteur.
+- **2026-08-16 (suite 62)** — **encrypt/decrypt (D708)** : les deux
+  commandes consignées — le chiffrement vers le .env, le
+  déchiffrement de vérification ; la partie sécurité complétée.
+  rights.md mis au niveau.
+- **2026-08-16 (suite 63)** — **LE SUJET 2 (LA SÉCURITÉ ET LES
+  DROITS) EST SOLDÉ** (D690–D708) — le §1.2 mis au niveau. Reste le
+  sujet 3 : l'administration et l'exploitation.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

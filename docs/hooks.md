@@ -156,12 +156,17 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 18 opérations de socle (D574, `migrate` ajouté
-par D667) sont les hooks
-embarqués : `create`, `read`, `update`, `delete`, `duplicate`,
-`promote`, `demote`, `generate`, `download`, `print`, `send`,
-`export`, `import`, `report`, `restore`, `notify`, `refresh`,
-`migrate` (D667).
+code » (D570). Les 19 opérations de socle (D574, `migrate` D667,
+`anonymize` D697) sont les hooks embarqués : `create`, `read`,
+`update`, `delete`, `duplicate`, `promote`, `demote`, `generate`,
+`download`, `print`, `send`, `export`, `import`, `report`,
+`restore`, `notify`, `refresh`, `migrate`, `anonymize`. **Chaque
+opération porte un degré intrinsèque d'autorisation, déclaré à son
+contrat** (D697/D699 — `user` | `manager` | `administrator`, le
+plancher que la déclaration ne peut abaisser ; le groupe
+d'utilisateurs porte le degré, l'appartenance à un groupe est
+obligatoire ; `allow:` précise les groupes autorisés — D700, le plus
+exigeant l'emporte).
 
 **Le contrat — l'objet aux quatre fonctions (D595) :**
 
@@ -270,13 +275,17 @@ fields:
 
 Ajoute **une classe de connecteur** — la passerelle globale, déclarée
 à l'environnement (`environments/<env>.yml` — D603/D617, aucune
-déclinaison). **Les sept familles sont closes** (D619/D623) :
+déclinaison). **Les huit familles sont closes** (D619/D623/D692) :
 `storage` (les bases — et les formats csv/xml/json des exports et
 imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
 Azure), `location` (le géocodage), `webhook` (les entrées servies),
-`siren` — « il n'existe pas de hook de famille : le hook porte sur
-l'implémentation d'une famille » (une classe, jamais un contrat
-neuf ; `route` attend une version ultérieure du moteur).
+`siren`, **`authentication`** (D692 — le contrat
+`challenge()`/`verify(preuve)` aux deux visages, l'utilisateur et
+l'API ; les classes `local`/`azure_ad`/`sso` ; la session et le
+rapprochement du compte au moteur — D82/D686) — « il n'existe pas de
+hook de famille : le hook porte sur l'implémentation d'une famille »
+(une classe, jamais un contrat neuf ; `route` attend une version
+ultérieure du moteur).
 
 **Le contrat par famille (D605/D620)** : « chaque famille a ses
 propres méthodes et fonctions » — la famille contraint le contrat, la

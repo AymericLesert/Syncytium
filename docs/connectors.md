@@ -99,9 +99,9 @@ connector: { storage: main_db, from: legacy_db }
   cas de l'affichage d'une carte, nous pouvons définir plusieurs
   connecteurs et, en fonction de l'écran, utiliser l'un ou l'autre ».
 
-## Les sept familles (D623) et le catalogue de base (D604)
+## Les huit familles (D623/D692) et le catalogue de base (D604)
 
-**Le jeu est clos** (D619) — sept familles, « route est un exemple
+**Le jeu est clos** (D619) — huit familles, « route est un exemple
 d'extension ultérieure » (l'extension = l'affaire du moteur, jamais
 du hook) ; **la famille contraint le contrat** (D620), la conformité
 d'une classe vérifiée au chargement :
@@ -115,6 +115,7 @@ d'une classe vérifiée au chargement :
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
+| `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso | D418/D692 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -243,6 +244,26 @@ le type `geolocation` du modèle (D391) et l'inverse ; **le type porte
 les coordonnées longitude/latitude et/ou l'adresse postale
 normalisée** (D638) — geocode rend le point ET l'adresse mise au
 propre ; `ban`/`nominatim` (D294) les implémentent.
+
+### `authentication` (D692)
+
+**Le contrat en deux gestes**, aux deux visages :
+
+| le geste | l'utilisateur (interactif) | l'API (au porteur) |
+|---|---|---|
+| `challenge()` | le formulaire login/mdp, ou la redirection SSO | le schéma attendu (le 401 — Bearer, ApiKey…) |
+| `verify(preuve)` | le couple saisi (local : le haché ; azure_ad : le bind), le ticket au retour (sso) | **le jeton porté par la requête** — la clé d'API, le bearer |
+
+Tous les chemins finissent en **une identité vérifiée**, rapprochée
+du compte (D82 — la clé d'unicité par connecteur) ; **la session,
+l'écran de connexion et l'orchestration vivent au moteur** (D686) ;
+l'API ne porte pas de session — chaque requête porte sa preuve (le
+compte technique D77). **La garde du webhook (D642) appelle ce même
+`verify`** — rien de dédié. Les classes : `local` (le haché, les
+clés d'API), `azure_ad` (le bind, le bearer Entra), `sso` (l'OIDC,
+la signature du jeton) — chaque classe déclare ce qu'elle sait
+vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
+l'AD pour les internes, le local pour les clients).
 
 ### `siren` (D639)
 

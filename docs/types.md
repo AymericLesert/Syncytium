@@ -22,8 +22,10 @@ composants.md.
   valeur intercalée), `searchable` (strict / normalized /
   similarity[0.8] / range / mutualizable[nom] — selon le type),
   `mask`, `report:` (`no` par défaut — D406), la confidentialité
-  (D25/D364), `component`/`style`/`size` (la cascade D461 — le plus
-  proche l'emporte) ;
+  (D25/D364), **`rgpd:`** (`personal` / `sensitive` / `consent` —
+  D695, l'anonymisation D696), **`trace:`** (`audit` / `limited` —
+  D703 ; le sensitive audité d'office), `component`/`style`/`size`
+  (la cascade D461 — le plus proche l'emporte) ;
 - **le tri et le nul** (D368 et suivantes) — chaque type porte sa
   règle ; **le nul des composés se trie en premier** (D391) ;
 - **la signature du type** (D579–D584) : **la conversion

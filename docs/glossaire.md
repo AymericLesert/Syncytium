@@ -59,9 +59,9 @@ entrants et ses sortants — la lecture et l'écriture selon les
 spécificités de sa famille. Il est **global** (aucune déclinaison par
 module ni entité) et **déclaré à l'environnement** : chaque
 environnement les siens, la complétude vérifiée à l'ingestion. **Son
-type est sa famille — et son contrat** : sept familles closes
+type est sa famille — et son contrat** : huit familles closes
 (`storage`, `smtp`, `file`, `directory`, `location`, `webhook`,
-`siren`) dont chacune contraint les méthodes ; sa **classe**
+`siren`, `authentication`) dont chacune contraint les méthodes ; sa **classe**
 (`postgresql`, `ban`, `smtp_std`…) remplit le contrat. Toute classe
 implémente le socle commun : `initialize`/`release`,
 `connect`/`disconnect`, `ping()` (le statut, la fréquence à
@@ -125,7 +125,10 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
-*Ex. : `managers: { groups: [accounting, sales_team] }`.* *(D26/D414)*
+Le groupe porte **le degré d'autorisation** (`degree:` — `user`,
+`manager` ou `administrator`, D699) ; l'appartenance à un groupe est
+**obligatoire** pour utiliser l'application.
+*Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 
 **Historisation** (`history`) — La mémoire d'une entité : chaque
 modification photographie l'agrégat entier. On en règle la profondeur :

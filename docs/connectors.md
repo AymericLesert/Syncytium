@@ -158,7 +158,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` |
 

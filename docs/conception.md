@@ -804,6 +804,7 @@ documentation) :
 | D682 | **Les trois gestes du champ** (précise D681) : le type porte les règles storage du cycle de vie — la création (les colonnes natives), la modification (l'altération + le transcodage D647), la suppression ; les méthodes d'entité (D680) se composent des gestes des types. | Voir §3.2c. |
 | D683 | **Les fonctions de valeur** (complète D682) : le type porte aussi create/update/read d'une valeur — les méthodes d'enregistrement (D680) se composent des fonctions de valeur, la symétrie structure/donnée complète ; delete n'a pas de fonction de valeur. | Voir §3.2c. |
 | D684 | **Le retour de read_instance, l'identification du type** (complète D680–D683) : read_instance retourne l'équivalent d'un module (entités + champs, jamais tables/colonnes) ; la mutualisation — plusieurs colonnes vers un seul champ d'un type ; le type peut **s'identifier** dans la description (la réciproque du visiteur). | Voir §3.2c. |
+| D685 | **La borne du retour** (nuance D684) : read_instance ne construit que les items de stockage — les entités, les champs stockés, les contraintes, les dépendances ; jamais les surfaces, les champs calculés, les opérations. | Le storage décrit ce qu'il sait. Voir §3.2c. |
 
 ---
 
@@ -6064,6 +6065,17 @@ description. »** — trois facettes d'un même point :
   geolocation se déclare) ; le contrat du type gagne cette
   reconnaissance — read_instance compose les identifications comme
   create_entity compose les créations.
+
+**La borne du retour — le stockage seul (D685 — nuance D684).**
+**« read_instance fournit un retour tel que nous le définissons.
+Cependant, il ne porte pas les surfaces, les champs calculés…
+Seuls les items de stockage sont construits. »** — le retour est
+**borné à ce qui est persisté** : les entités, les champs stockés,
+les contraintes et les dépendances — jamais les surfaces, les champs
+calculés, les opérations, les droits. Le storage décrit ce qu'il
+sait — la structure persistée ; le reste est l'affaire de la
+description du technicien (l'ossature engendrée reste une ossature —
+D652).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13975,6 +13987,9 @@ avant la synthèse Q16).
   (D684)** : le retour = l'équivalent d'un module ; la mutualisation
   N colonnes → 1 champ ; le type s'identifie dans la description —
   la réciproque du visiteur. Les artefacts mis au niveau.
+- **2026-08-16 (suite 47)** — **La borne du retour (D685)** :
+  read_instance ne construit que les items de stockage — pas de
+  surfaces, pas de champs calculés ; l'ossature reste une ossature.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

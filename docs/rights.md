@@ -336,6 +336,20 @@ fields:
    connecteurs, les clés des types chiffrants (D706) — un seul
    patron pour tout ce qui est secret.
 
+**Les deux commandes** (D708) :
+
+```bash
+# chiffre la clé et l'enregistre dans .env (ou un autre fichier si nécessaire)
+syncytium encrypt DB_PASSWORD "le-mot-de-passe"
+
+# retourne la valeur chiffrée — le débogage, la vérification d'un service
+syncytium decrypt DB_PASSWORD
+```
+
+La clé de chiffrement étant dérivée de l'environnement **et de la
+machine** (D603), un `.env` copié ailleurs reste muet — le `decrypt`
+n'est utile qu'à qui a déjà la machine.
+
 ## Les points ouverts — le chantier du sujet 2
 
 Aucun point consigné — la clôture du sujet 2 attend la relecture de

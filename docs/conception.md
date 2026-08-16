@@ -828,6 +828,7 @@ documentation) :
 | D705 | **Le chiffrement en transit** : ce que Syncytium sert = HTTPS sans dérogation ; ce qu'il appelle = chiffré par défaut, l'exception déclarée au connecteur (`unencrypted:` en proposition — signalée, visible au describe). | « Je valide ce point. » Voir §3.2c. |
 | D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
 | D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
+| D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
 
 ---
 
@@ -6422,6 +6423,22 @@ secret :
 4. **le périmètre** : les clés d'API, les mots de passe de
    connecteurs… — et les clés des types chiffrants (D706) : un seul
    patron pour tout ce qui est secret.
+
+**Les deux commandes — encrypt et decrypt (D708 — incarne D707,
+complète la partie sécurité).** Les commandes propres à Syncytium
+prennent forme :
+
+- **`encrypt <nom de la variable d'environnement> <clé à
+  chiffrer>`** — chiffre la clé et l'enregistre dans le `.env` (ou
+  un autre fichier si nécessaire) ;
+- **`decrypt <nom de la variable d'environnement>`** — retourne la
+  valeur qui a été chiffrée — « pour des besoins de débogage et de
+  vérification du bon fonctionnement d'un service ».
+
+*(La lecture notée : les commandes s'exécutent sur la machine — la
+clé dérivée environnement + machine (D603) fait que le `.env` copié
+ailleurs reste muet ; le decrypt n'est utile qu'à qui a déjà la
+machine.)* **« Ces 2 commandes complètent la partie sécurité. »**
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14417,6 +14434,10 @@ avant la synthèse Q16).
   chiffrement est soldé. Le chantier sécurité n'a plus de point
   ouvert consigné — la clôture du sujet 2 attend la relecture de
   l'auteur.
+- **2026-08-16 (suite 62)** — **encrypt/decrypt (D708)** : les deux
+  commandes consignées — le chiffrement vers le .env, le
+  déchiffrement de vérification ; la partie sécurité complétée.
+  rights.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

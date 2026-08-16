@@ -752,6 +752,8 @@ migration et les versions.
 | D647 | **L'unification — l'usage 1 implicite** : entre versions, rien à écrire (le from: implicite = la version précédente, porté par Syncytium) sauf le renommage (garder l'ancien nom), la dépréciation inscrite (champs/entités/modules), les règles de création/suppression persistantes (D11–D13), le changement de type par les conversions du type (D579/D584). | Voir §3.2c. |
 | D648 | **L'usage 2 — le même langage, l'exhaustivité du schéma** : le from: tire le storage d'origine (get_schema D629) ; l'exhaustivité des tables/colonnes/dépendances/contraintes — couvert ou déclaré ignoré (D176 étendu) ; la traduction par les fonctions et conversions du langage unique. | Voir §3.2c. |
 | D649 | **Le dry-run du from: à deux modes** : absolu (tout-ou-rien — la bascule vers Syncytium) ; relatif (l'entrepôt — les conformes portés, les erreurs isolées + rapport à l'administrateur, la vue sur le taux de couverture vs la source). | Les deux postures D180 incarnées ; la reprise D175–D179 = le mode relatif. Voir §3.2c. |
+| D650 | **La dépréciation en trois temps** (solde D647) : l'intention (l'avertissement), l'acte (déprécié mais répond encore), la suppression (un geste de version — champ, table ou module) ; **la documentation obligatoire** — le remplacement ou l'abandon précisé. | L'écriture deprecated: planned \| true + forme riche en proposition. Voir §3.2c. |
+| D651 | **Le renommage par old_name** (solde D647) : un champ, une entité ou un module renommé porte `old_name: <ancien nom>` — le journal de migrations et la chaîne API (P3) en dérivent la continuité. | Voir §3.2c. |
 
 ---
 
@@ -5352,6 +5354,53 @@ taux de couverture des données par rapport à la source d'origine. »**
 par ce trio — la reprise D175–D179 est le mode relatif du `from:`,
 ses règles persistent ; le mode absolu en est le durcissement pour
 la bascule définitive.)*
+
+**La dépréciation — l'intention, l'acte, la suppression (D650 —
+solde le mécanisme de D647).** **« Pour deprecated, j'inscris 2
+modes avant la suppression : l'intention d'abord pour signifier que,
+attention, à terme le champ va être déprécié ou que nous prévoyons
+de le déprécier ; l'acte pour indiquer que ce champ est déprécié
+(même s'il continue à fournir une réponse). La suppression venant
+avec une version et la suppression du champ, de la table ou du
+module. La dépréciation doit s'accompagner d'une documentation pour
+préciser le remplacement ou l'abandon de cet item. »** — le cycle en
+trois temps :
+
+1. **l'intention** — l'avertissement : l'élément vivra encore, mais
+   son avenir est scellé — les consommateurs (API, techniciens) sont
+   prévenus sans que rien ne change ;
+2. **l'acte** — l'élément **est** déprécié : il continue de fournir
+   une réponse (le « masquer, jamais détruire » — la descendante
+   sert toujours), mais il quitte le neuf ;
+3. **la suppression** — un geste de version ordinaire : le champ, la
+   table ou le module disparaît de la description, les règles de
+   compatibilité (D11–D13) prennent le relais pour les versions
+   antérieures.
+
+**La documentation est obligatoire** : la dépréciation précise **le
+remplacement ou l'abandon** de l'item — l'auto-documentation (D333/
+D645) la diffuse, l'ingestion la vérifie. *(L'écriture en
+proposition :* `deprecated: planned | true` *pour les deux modes, la
+forme riche portant la documentation —*
+
+```yaml
+unit_price:
+  type: amount
+  deprecated:
+    mode: planned            # l'intention ; true = l'acte
+    documentation: "Remplacé par pricing.unit_price à la 2.x."
+    replaced_by: pricing.unit_price   # absent = l'abandon
+```
+
+*— l'absence de documentation = une erreur d'ingestion.)*
+
+**Le renommage — old_name (D651 — solde l'écriture de D647).**
+**« Le renommage d'un champ, d'une entité ou d'un module s'assure
+par `old_name`. »** — la propriété unique aux trois grains :
+l'élément renommé porte `old_name: <ancien nom>` — le journal de
+migrations en dérive la translation, la chaîne API (P3) continue de
+servir l'ancien nom aux versions antérieures, l'adressage logique
+(D363) suit.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13126,6 +13175,10 @@ avant la synthèse Q16).
   ignorée), le dry-run à deux modes absolu (bascule) / relatif
   (entrepôt — erreurs isolées, rapport, taux de couverture).
   L'unification from:/reprise tranchée. connectors.md mis au niveau.
+- **2026-08-16 (suite 20)** — **La dépréciation et le renommage
+  (D650–D651)** : l'intention / l'acte / la suppression, la
+  documentation obligatoire (remplacement ou abandon) ; old_name aux
+  trois grains (champ, entité, module). connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

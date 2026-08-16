@@ -315,6 +315,11 @@ operations:
   tables, colonnes, dépendances et contraintes — tout est couvert ou
   **déclaré ignoré** (D176 étendu), la traduction par les fonctions
   et conversions du langage unique ;
+- **la dépréciation et le renommage (D650–D651)** : la dépréciation
+  en trois temps — l'intention, l'acte (l'élément répond encore), la
+  suppression par une version — **à documentation obligatoire** (le
+  remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
+  ou d'un module s'assure par **`old_name:`** ;
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —
   tout-ou-rien, la bascule d'un système A vers une application
   Syncytium ; **relatif** — l'entrepôt : les conformes portés, les

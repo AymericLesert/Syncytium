@@ -14058,6 +14058,10 @@ avant la synthèse Q16).
   read() retourne un curseur — le lazy loading, la masse au suivi de
   progression ; la ligne convertie en enregistrement au fil du
   parcours. L'écriture en lots, la lecture au curseur.
+- **2026-08-16 (suite 51)** — **La PR #31 fusionnée (vérifiée)** :
+  « Le mapping, la jonction versions↔storage et le contrat storage
+  refondé (D643–D689) », 42 commits sur develop. **Le sujet 2 de la
+  passe s'ouvre : la sécurité et les droits.**
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

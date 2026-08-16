@@ -286,6 +286,9 @@ operations:
 
 ## La migration et la transformation
 
+Le détail — la description de la source, la grammaire des règles et
+les exemples — vit dans **[mapping.md](mapping.md)** (D661).
+
 - **les deux fonctions essentielles du mapping** (D646) : **la
   migration entre 2 versions** (à chaud — et la mécanique de la
   compatibilité ascendante/descendante, le pilier P3) et **la

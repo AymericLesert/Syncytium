@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -780,6 +780,7 @@ documentation) :
 | D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` **validée**. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
 | D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire ; **l'écriture validée**. | Voir §3.2c. |
 | D660 | **La normalisation par champ calculé sur la source** (précise D658) : source/ parle toute la grammaire, champs calculés compris — la normalisation s'écrit sur la description de la source (`formula:`), le mapping consomme le champ calculé comme une colonne. | Voir §3.2c. |
+| D661 | **`mapping.md` créé** : le sixième artefact préparatoire (Q58) — la description de la source et le mapping (D646–D660) : les deux usages, source/ et mapping/, la grammaire des règles, le dry-run, les exemples ; aucun contenu nouveau. | À la demande de l'auteur. |
 
 ---
 
@@ -13492,6 +13493,11 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 30)** — **distinct: et les constructeurs
   validés** (« je valide distinct: et le constructeur de composés »)
   — les écritures de D658–D659 arrêtées.
+- **2026-08-16 (suite 31)** — **mapping.md créé (D661)** : le
+  sixième artefact documentaire — la source et le mapping réunis
+  (D646–D660), les exemples complets, les points ouverts (la vue de
+  couverture, le pilotage, la jonction versions). §1.2 et
+  connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

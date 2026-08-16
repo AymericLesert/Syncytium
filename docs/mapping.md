@@ -1,0 +1,222 @@
+# Le mapping de Syncytium — la source et la migration
+
+Ce document rassemble **la nature et les exemples des échanges
+consignés sur le mapping** — la description de la source et les
+règles de migration — le sixième artefact préparatoire de la
+documentation (Q58, le domaine 6 — D602), après le
+[glossaire](glossaire.md), les [composants](composants.md), les
+[hooks](hooks.md), les [types](types.md) et les
+[connecteurs](connectors.md). Les décisions citées renvoient à la
+[conception](conception.md).
+
+## Le cadre — les deux fonctions essentielles (D646)
+
+« Le mapping va permettre de couvrir 2 fonctions essentielles : la
+migration entre 2 versions ; la migration entre 2 schémas
+(storage). » Un seul mapping, deux visages :
+
+1. **entre deux versions** — la migration à chaud (les quatre gestes
+   `create_schema` → migration → `switch_schema` → `delete_schema`,
+   D631) **et la mécanique de la compatibilité ascendante et
+   descendante** : le même mapping qui migre les données engendre la
+   chaîne de translation des API (le pilier P3, D11–D13) ;
+2. **entre deux schémas (storage)** — le `from:` (D610) : le système
+   existant vers le nouveau ; **les interfaces de Syncytium offrent
+   une vue sur les données migrées et validées** (D646) — l'IHM en
+   poste de contrôle (l'écho de la reprise D175–D179 et de la
+   posture entrepôt D180).
+
+**Les deux usages sont unifiés** (D647) — le même langage, les mêmes
+conversions.
+
+## L'usage 1 — la migration entre versions : l'implicite (D647)
+
+Entre deux versions, **rien ne s'écrit** : le `from:` implicite est
+la version précédente, Syncytium le porte. Les seules écritures :
+
+- **le renommage** — `old_name: <ancien nom>` sur le champ, l'entité
+  ou le module renommé (D651) : le journal de migrations en dérive
+  la translation, la chaîne API continue de servir l'ancien nom ;
+- **la dépréciation en trois temps** (D650) : **l'intention**
+  (l'avertissement — l'élément vit encore, son avenir est scellé),
+  **l'acte** (déprécié mais il répond encore), **la suppression**
+  (un geste de version — l'élément quitte la description, D11–D13
+  prend le relais). **La documentation est obligatoire** — le
+  remplacement ou l'abandon précisé, vérifié à l'ingestion :
+
+```yaml
+unit_price:
+  type: amount
+  deprecated:
+    mode: planned            # l'intention ; true = l'acte
+    documentation: "Remplacé par pricing.unit_price à la 2.x."
+    replaced_by: pricing.unit_price   # absent = l'abandon
+```
+
+- **le changement de type** — la compatibilité ou le transcodage :
+  **chaque type porte sa ou ses règles de conversion** (D647,
+  D579/D584) ;
+- **la création et la suppression de champ** — les règles actées
+  persistent (D11–D13 : la substitution vers l'ancien, le défaut
+  vers le neuf).
+
+## L'usage 2 — la migration d'un système existant
+
+### Les deux maisons (D652–D653)
+
+« La destination est décrite par le méta-modèle. La source doit être
+décrite par le méta-modèle également. » À la racine de la version :
+
+- **`source/`** — la description du modèle d'origine, **table par
+  table et colonne par colonne, dans la grammaire de description** ;
+  **Syncytium s'assure de la complétude du modèle** : la description
+  confrontée au schéma réel (`get_schema` — D629), l'écart signalé ;
+  `get_schema` peut engendrer l'ossature, le technicien la raffine ;
+- **`mapping/`** — les règles de conversion, **table par table, aux
+  origines multiples possibles**.
+
+Le typage statique (D581) vérifie les expressions des deux côtés ;
+l'exhaustivité (D648) se juge entre deux descriptions du même
+langage.
+
+### La description de la source (`source/`)
+
+`source/` parle **toute** la grammaire (D652), avec deux mots
+propres :
+
+- **`ignored`** (D657) — l'élément **attendu** dans la source mais
+  non développé : sur une entité (`audit_log: ignored`) ou sur un
+  champ, **comme un type** (`ref_ext: ignored`). L'exhaustivité
+  (D648) se joue entièrement ici : chaque table et chaque colonne du
+  schéma réel est décrite ou marquée `ignored` ;
+- **la normalisation par champ calculé** (D660) — le nettoyage, la
+  casse, le transcodage s'écrivent sur la description de la source
+  (`formula:`), et le mapping consomme le champ calculé comme une
+  colonne.
+
+```yaml
+# source/customers.yml — le modèle d'origine, la même grammaire (D652)
+customers:
+  identity: [code]                    # la contrainte d'unicité (D357)
+  fields:
+    code:     text[8]
+    name:     text[..60]
+    bal_cts:  integer                 # le solde en centimes
+    fax:      ignored                 # attendue, non développée (D657)
+    city_raw: text[..40]
+    city:     { formula: upper(trim(city_raw)) }   # la normalisation (D660)
+
+# source/customer_notes.yml
+customer_notes:
+  fields:
+    customer_code: customers.code     # la dépendance déclarée (D648/D396)
+    text:          text
+
+# source/audit_log.yml — l'entité attendue mais ignorée (D657)
+audit_log: ignored
+```
+
+### Les règles (`mapping/`)
+
+**Le sens : de la table source vers la table cible** (D655) — chaque
+table source déclare où vont ses colonnes. **La forme de la règle**
+(D656) : la règle au nom de la table source — `to:` la cible (entité
+ou agrégat), `key:` la clé fonctionnelle, `parent:` la clé du
+possesseur, `fields:` les expressions du langage unique.
+
+**La construction et la clé fonctionnelle** (D654) : le mapping
+construit l'enregistrement avant sa validation (D177 — converti ET
+cohérent, l'écriture par le chemin standard D175) ; **la clé
+fonctionnelle** (D142/D398) l'identifie — le rejeu sans doublon, et
+**les origines multiples se rejoignent par la clé** : la jointure
+n'est pas une syntaxe, c'est la clé (D655). Elle lie aussi **les
+agrégats** : la ligne retrouve sa commande, l'association son
+vis-à-vis.
+
+```yaml
+# mapping/customers.yml — une règle par table source (D655–D656)
+customers:
+  to: sales.customer                  # la cible
+  key: code                           # la clé fonctionnelle (D654)
+  fields:
+    code:    code
+    name:    upper(name)
+    balance: amount(bal_cts / 100)
+
+# mapping/customer_notes.yml — la seconde origine, même cible
+customer_notes:
+  to: sales.customer
+  key: customer_code                  # la même clé — les contributions se rejoignent
+  fields:
+    notes: text
+
+# mapping/order_lines.yml — la composition par la clé
+order_lines:
+  to: sales.order.lines               # l'agrégat : la ligne rejoint sa commande
+  key: [order_no, line_no]
+  parent: order_no                    # la clé fonctionnelle du possesseur
+  fields:
+    item:     item_code
+    quantity: qty
+```
+
+### Au-delà du 1-1 (D658–D660)
+
+- **le référentiel par valeurs distinctes** (D658, validé) : la
+  destination prend les valeurs distinctes d'un champ ou d'une liste
+  de champs — la valeur devient la clé fonctionnelle, les entités
+  porteuses référencent par la clé ; la même table source porte
+  plusieurs règles :
+
+```yaml
+# mapping/cities.yml — le référentiel des valeurs distinctes (D658)
+customers:
+  to: sales.city
+  distinct: [city]               # sur la valeur normalisée (D660)
+  key: city
+  fields:
+    label: city
+
+# mapping/customers.yml — l'entité qui référence, par la clé
+customers:
+  to: sales.customer
+  key: code
+  fields:
+    city: city                   # la référence résolue par la clé (D654)
+```
+
+- **les composés par la fonction du type** (D659, validé) : plusieurs
+  colonnes source vers un champ cible — la fonction de construction
+  portée par le type (D579/D584), rien de neuf dans la grammaire :
+
+```yaml
+  fields:
+    position: geolocation(lat, lng)             # 2 colonnes → 1 champ
+    total:    amount(total_cts / 100, currency) # le montant et la devise
+```
+
+## Le dry-run à deux modes (D649)
+
+- **absolu** — le tout-ou-rien : valide uniquement si toutes les
+  règles et transcriptions se déroulent sans erreur — **la bascule**
+  d'un système A vers une application Syncytium ;
+- **relatif** — **l'entrepôt** : seuls les enregistrements conformes
+  sont portés, les erreurs isolées, le rapport à l'administrateur
+  (D108–D110/D179), et **la vue sur le taux de couverture** par
+  rapport à la source d'origine.
+
+La reprise (D175–D179) est le mode relatif du `from:` ; le mode
+absolu en est le durcissement pour la bascule définitive — les deux
+postures de D180 incarnées.
+
+## Les points ouverts
+
+- **la vue du taux de couverture** — la surface qui la porte (la
+  proposition en discussion : un tableau de bord de migration fourni
+  d'office — par table source, par entité cible, le taux global, le
+  drill-down vers les rejets — logé au module d'administration) ;
+- **le pilotage** — le déclenchement du `from:`, la relance sur les
+  manquants, la détection des deltas en mode différentiel ;
+- **la jonction avec les versions** (sujet 4 de la passe) — le lien
+  journal de migrations ↔ gestes storage, le retour arrière après
+  `switch_schema`.

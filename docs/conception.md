@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -100,10 +100,11 @@ documentation) :
    mapping/, les migrations déclarées, le module de suivi historisé,
    `migrate` la 18e opération, le versionnement plein, le
    différentiel par comparaison) ;
-2. **la sécurité et les droits** — à ouvrir ; les flags accumulés :
-   la passerelle d'authentification (D418), l'authentification du
-   `directory` (D633), le mécanisme de la garde du webhook (D642) ;
-   le RGPD (dont la tension avec l'historisation D168), l'audit ;
+2. **la sécurité et les droits** — **ouvert** (rights.md — D690) :
+   l'acquis consolidé ; les cinq points au chantier —
+   l'authentification (D418/D633/D642), le droit de déclencher, le
+   RGPD (la tension avec l'historisation D168), l'audit des
+   lectures, le chiffrement ;
 3. **l'administration et l'exploitation** — à ouvrir ; le module
    d'administration jamais décrit, la télémétrie (Q12–Q13) ;
 4. **la migration et les versions** — largement soldée : le mapping
@@ -809,6 +810,7 @@ documentation) :
 | D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
 | D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
 | D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
+| D690 | **`rights.md` créé** : le huitième artefact préparatoire (Q58) — la sécurité et les droits consolidés (la doctrine P8, la confidentialité D25/D364, les droits d'action D196/D422–D423, l'audience anti-IDOR D70–D77, les groupes/modules, les connecteurs, la provenance) + les cinq points du chantier du sujet 2 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des connecteurs. |
 
 ---
 
@@ -14062,6 +14064,12 @@ avant la synthèse Q16).
   « Le mapping, la jonction versions↔storage et le contrat storage
   refondé (D643–D689) », 42 commits sur develop. **Le sujet 2 de la
   passe s'ouvre : la sécurité et les droits.**
+- **2026-08-16 (suite 52)** — **rights.md créé (D690)** : le
+  huitième artefact — l'acquis consolidé (P8, la confidentialité,
+  les allow, l'audience, les groupes, les connecteurs, la trace) et
+  les cinq points ouverts du chantier (l'authentification, le droit
+  de déclencher, le RGPD, l'audit, le chiffrement). Le §1.2 mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

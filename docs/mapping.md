@@ -74,19 +74,25 @@ défini (le référentiel avant l'entité qui le référence, le
 possesseur avant ses lignes).
 
 ```yaml
-# settings.yml — les migrations déclarées (D662, écriture en proposition)
+# settings.yml — les migrations déclarées (D662/D664)
 migrations:
-  legacy_erp:                        # l'ordre de définition = l'ordre d'exécution
-    connector: legacy_db             # le connecteur storage source
-    source:  [customers, customer_notes, order_lines]  # l'ordre de parcours
+  legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
+    connector: legacy_db            # le connecteur storage source
+    source:
+      - legacy_db/source/*.yml      # un fichier par entité
+    mapping:
+      - legacy_db/mapping/*.yml     # un fichier par règle de migration
   old_crm:
     connector: crm_db
-    source:  [contacts]
+    source:  [old_crm/source/*.yml]
+    mapping: [old_crm/mapping/*.yml]
 ```
 
-Les dossiers se déclinent par migration (`source/legacy_erp/`,
-`mapping/legacy_erp/`) ; le câblage `from:` (D610) se relit comme le
-raccourci du cas à une seule migration.
+**La migration référence ses fichiers par patterns** (D664 — le
+patron multi-fichiers de D320–D321) : un fichier par entité source,
+un fichier par règle de migration ; l'organisation des dossiers est
+libre, la déclaration fait foi. Le câblage `from:` (D610) se relit
+comme le raccourci du cas à une seule migration.
 
 ### Les deux maisons (D652–D653)
 

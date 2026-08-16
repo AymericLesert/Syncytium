@@ -783,6 +783,7 @@ documentation) :
 | D661 | **`mapping.md` créé** : le sixième artefact préparatoire (Q58) — la description de la source et le mapping (D646–D660) : les deux usages, source/ et mapping/, la grammaire des règles, le dry-run, les exemples ; aucun contenu nouveau. | À la demande de l'auteur. |
 | D662 | **Les migrations déclarées** (étend D610) : la convergence de plusieurs sources — le setting lie { connecteur storage · descriptions sources · mapping } par migration ; l'ordre d'exécution = l'ordre de définition des migrations, l'ordre de parcours = l'ordre de définition des entités sources. | L'écriture migrations: en proposition ; from: relu comme le raccourci à une migration. Voir §3.2c. |
 | D663 | **Le filter: de la source** : la sélection des enregistrements parcourus par la migration (les 10 dernières années, l'instance — le multi-instances d'une entité) — le périmètre déclaré, hors taux de couverture. | Voir §3.2c. |
+| D664 | **La déclaration aux patterns** (amende D662) : la migration référence ses fichiers — `source:` liste de patterns (un fichier par entité), `mapping:` liste (un fichier par règle) — le patron D320–D321 ; l'organisation des dossiers libre, pas de dossiers réservés. | Voir §3.2c. |
 
 ---
 
@@ -5723,6 +5724,30 @@ customers:
 
 Les enregistrements exclus par le `filter:` ne comptent pas au taux
 de couverture — la sélection est un périmètre déclaré, pas un rejet.
+
+**La déclaration aux patterns de fichiers (D664 — amende l'écriture
+de D662).** Ma proposition (source: une liste de noms d'entités,
+les dossiers réservés source/ et mapping/) « ne répond pas à mes
+critères » — la sienne :
+
+```yaml
+migrations:
+  legacy_erp:
+    connector: legacy_db
+    source:
+      - legacy_db/source/*.yml    # un fichier par entité
+    mapping:
+      - legacy_db/mapping/*.yml   # un fichier par règle de migration
+```
+
+— **la migration référence ses fichiers par patterns** (le patron
+multi-fichiers à patterns de D320–D321, déjà la règle de
+l'ingestion) : `source:` la liste des chemins (**un fichier par
+entité**), `mapping:` la liste (**un fichier par règle de
+migration**) ; l'organisation des dossiers est **libre** (ici sous
+`legacy_db/`) — pas de dossiers réservés à la racine, la déclaration
+fait foi. L'ordre (D662) se lit sur la liste ; le grain est affiné :
+un fichier par entité source, un fichier par règle.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13562,6 +13587,10 @@ avant la synthèse Q16).
   deux étages (migrations puis entités) ; filter: sélectionne les
   enregistrements parcourus (les 10 ans, l'instance) — le périmètre
   déclaré, hors couverture. mapping.md mis au niveau.
+- **2026-08-16 (suite 33)** — **La déclaration aux patterns
+  (D664)** : source:/mapping: en listes de patterns de fichiers (un
+  fichier par entité, un par règle — D320–D321), l'organisation
+  libre, pas de dossiers réservés. mapping.md repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

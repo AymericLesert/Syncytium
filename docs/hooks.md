@@ -144,7 +144,8 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 17 opérations de socle (D574) sont les hooks
+code » (D570). Les 18 opérations de socle (D574, `migrate` ajouté
+par D667) sont les hooks
 embarqués : `create`, `read`, `update`, `delete`, `duplicate`,
 `promote`, `demote`, `generate`, `download`, `print`, `send`,
 `export`, `import`, `report`, `restore`, `notify`, `refresh`.

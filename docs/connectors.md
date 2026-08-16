@@ -333,6 +333,21 @@ operations:
   vers la table cible** — chaque table source déclare où vont ses
   colonnes ; les origines multiples se rejoignent **par la clé
   fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
+- **la forme de la règle (D656)** — la règle au nom de la table
+  source :
+
+```yaml
+# mapping/order_lines.yml — la composition par la clé
+order_lines:
+  to: sales.order.lines       # la cible — entité ou agrégat
+  key: [order_no, line_no]    # la clé fonctionnelle (D654)
+  parent: order_no            # la clé du possesseur (composition D399)
+  fields:
+    item:     item_code       # les expressions du langage unique
+    quantity: qty
+ignored: [fax, updated_by]    # déclarés ignorés (D648)
+```
+
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —
   tout-ou-rien, la bascule d'un système A vers une application
   Syncytium ; **relatif** — l'entrepôt : les conformes portés, les

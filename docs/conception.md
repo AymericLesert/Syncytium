@@ -775,6 +775,7 @@ documentation) :
 | D653 | **Les deux maisons** (tranche D652) : `source/` = la description du modèle d'origine — Syncytium s'assure de la complétude du modèle (confrontée à get_schema) ; `mapping/` = les règles de conversion table par table, aux origines multiples possibles. | Voir §3.2c. |
 | D654 | **La construction de l'enregistrement** : le mapping construit l'enregistrement avant sa validation (D177) ; l'identification par la clé fonctionnelle (D142/D398) — le rapprochement au rejeu, et la construction des agrégats (compositions/associations) par la clé. | Voir §3.2c. |
 | D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
+| D656 | **La forme de la règle validée** : la règle au nom de la table source — `to:` (la cible, entité ou agrégat), `key:` (la clé fonctionnelle, simple ou composée), `parent:` (la clé du possesseur — la composition), `fields:` (les expressions du langage unique), `ignored:` (les colonnes/tables déclarées ignorées). | « La forme me convient. » Voir §3.2c. |
 
 ---
 
@@ -5484,6 +5485,42 @@ l'enregistrement identifié par la clé, **la jointure n'est pas une
 syntaxe, c'est la clé** ; et l'exhaustivité (D648) se lit dans le
 sens naturel — chaque table source est mappée ou déclarée ignorée,
 colonne par colonne.
+
+**La forme de la règle validée (D656 — « la forme me convient »).**
+L'écriture arrêtée : la règle au nom de la table source, `to:` la
+cible (entité ou agrégat `sales.order.lines`), `key:` la clé
+fonctionnelle (simple ou composée), `parent:` la clé fonctionnelle
+du possesseur (la composition — D399/D654), `fields:` les champs
+cible nourris d'expressions du langage unique évaluées sur la
+source, `ignored:` les colonnes ou tables déclarées ignorées (D648) :
+
+```yaml
+# mapping/customers.yml — une règle par table source (D655)
+customers:
+  to: sales.customer                  # la cible
+  key: code                           # la clé fonctionnelle (D654)
+  fields:
+    code:    code
+    name:    upper(name)
+    balance: amount(bal_cts / 100)
+
+# mapping/customer_notes.yml — la seconde origine, même cible
+customer_notes:
+  to: sales.customer
+  key: customer_code                  # la même clé — les contributions se rejoignent
+  fields:
+    notes: text
+
+# mapping/order_lines.yml — la composition par la clé
+order_lines:
+  to: sales.order.lines               # l'agrégat : la ligne rejoint sa commande
+  key: [order_no, line_no]
+  parent: order_no                    # la clé fonctionnelle du possesseur
+  fields:
+    item:     item_code
+    quantity: qty
+ignored: [fax, updated_by]            # les colonnes ignorées, déclarées (D648)
+```
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13286,6 +13323,10 @@ avant la synthèse Q16).
   lecture de la table source vers la table cible — l'unité = la
   table source, les origines multiples rejointes par la clé
   fonctionnelle, l'exhaustivité dans le sens naturel.
+- **2026-08-16 (suite 25)** — **La forme de la règle validée
+  (D656)** : to:/key:/parent:/fields:/ignored: — l'exemple gravé au
+  bloc. La question 2 (la grammaire) est soldée ; restent la vue du
+  taux de couverture et le pilotage.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

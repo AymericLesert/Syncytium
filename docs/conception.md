@@ -5494,8 +5494,40 @@ du possesseur (la composition — D399/D654), `fields:` les champs
 cible nourris d'expressions du langage unique évaluées sur la
 source, `ignored:` les colonnes ou tables déclarées ignorées (D648) :
 
+L'exemple complet — les deux maisons (complété à la demande de
+l'auteur : la description de la source ET le mapping) :
+
 ```yaml
-# mapping/customers.yml — une règle par table source (D655)
+# ------- source/ — le modèle d'origine, la même grammaire (D652) -------
+
+# source/customers.yml — table par table, colonne par colonne
+customers:
+  identity: [code]                    # la contrainte d'unicité (D357)
+  fields:
+    code:     text[8]
+    name:     text[..60]
+    bal_cts:  integer                 # le solde en centimes
+    fax:      text[..20]              # ignoré au mapping (D648)
+
+# source/customer_notes.yml
+customer_notes:
+  fields:
+    customer_code: customers.code     # la dépendance déclarée (D648/D396)
+    text:          text
+
+# source/order_lines.yml
+order_lines:
+  identity: [order_no, line_no]
+  fields:
+    order_no:   text[10]
+    line_no:    integer
+    item_code:  text[8]
+    qty:        integer
+    updated_by: text[..30]            # ignoré au mapping
+
+# ------- mapping/ — les règles, de la source vers la cible (D655) -------
+
+# mapping/customers.yml — une règle par table source
 customers:
   to: sales.customer                  # la cible
   key: code                           # la clé fonctionnelle (D654)
@@ -5519,8 +5551,15 @@ order_lines:
   fields:
     item:     item_code
     quantity: qty
-ignored: [fax, updated_by]            # les colonnes ignorées, déclarées (D648)
+ignored: [customers.fax, order_lines.updated_by]   # déclarés ignorés (D648)
 ```
+
+*(La lecture de l'exemple : `source/` parle strictement la grammaire
+du méta-modèle — `fields:`, les types aux crochets, `identity:` pour
+la contrainte d'unicité, le raccourci référence (D396) pour la
+dépendance ; la complétude de cette description est vérifiée contre
+`get_schema` (D653). Le mapping n'invente rien : les noms de
+`source/` à gauche du langage, les champs de la cible à droite.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13327,6 +13366,11 @@ avant la synthèse Q16).
   (D656)** : to:/key:/parent:/fields:/ignored: — l'exemple gravé au
   bloc. La question 2 (la grammaire) est soldée ; restent la vue du
   taux de couverture et le pilotage.
+- **2026-08-16 (suite 26)** — **L'exemple complété** (demande de
+  l'auteur) : la description de la source ajoutée au mapping — les
+  deux maisons côte à côte ; source/ parle la grammaire du
+  méta-modèle (fields:, types aux crochets, identity:, le raccourci
+  référence D396 pour la dépendance).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

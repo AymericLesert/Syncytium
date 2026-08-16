@@ -337,7 +337,17 @@ operations:
   source :
 
 ```yaml
-# mapping/order_lines.yml — la composition par la clé
+# source/order_lines.yml — le modèle d'origine, la même grammaire (D652)
+order_lines:
+  identity: [order_no, line_no]
+  fields:
+    order_no:   text[10]
+    line_no:    integer
+    item_code:  text[8]
+    qty:        integer
+    updated_by: text[..30]    # ignoré au mapping
+
+# mapping/order_lines.yml — la règle, de la source vers la cible (D655)
 order_lines:
   to: sales.order.lines       # la cible — entité ou agrégat
   key: [order_no, line_no]    # la clé fonctionnelle (D654)
@@ -345,7 +355,7 @@ order_lines:
   fields:
     item:     item_code       # les expressions du langage unique
     quantity: qty
-ignored: [fax, updated_by]    # déclarés ignorés (D648)
+ignored: [order_lines.updated_by]   # déclarés ignorés (D648)
 ```
 
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —

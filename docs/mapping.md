@@ -81,10 +81,13 @@ active la version **sans migration de schéma**.
    renommé (le `switch_schema` de D631) ; non validées, le
    temporaire se jette — **le retour arrière d'avant-bascule est
    gratuit** ;
-4. **les écritures en attente** pendant la phase — jamais rejetées,
-   reprises sur le schéma neuf ; **les lectures continuent** (D676 —
-   « cela ne modifie pas les données, ni sa structure » : la
-   migration vraiment à chaud, seule l'écriture attend).
+4. **les écritures en attente** pendant la phase — jamais rejetées ;
+   au rejeu sur le schéma neuf, **la compatibilité ascendante les
+   traduit** (D677 — formulées dans l'ancienne version, elles passent
+   par la chaîne P3 comme un appel d'API antérieur) ; **les lectures
+   continuent** (D676 — « cela ne modifie pas les données, ni sa
+   structure » : la migration vraiment à chaud, seule l'écriture
+   attend).
 
 **Le délai de grâce** (D675) : configurable — l'ancien schéma survit
 le délai déclaré avant sa suppression (le retour arrière

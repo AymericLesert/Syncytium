@@ -796,6 +796,7 @@ documentation) :
 | D674 | **La procédure en quatre temps** (précise D631) : la duplication en schéma temporaire → les transformations des différences (D632) → la bascule sur validation (suppression + renommage ; non validé = l'original intact) → les écritures en attente pendant la phase. | Voir §3.2c. |
 | D675 | **Le délai de grâce** (complète D674) : configurable — l'ancien schéma survit le délai déclaré (le retour post-bascule pendant la grâce) ; le défaut : pas de délai (la restauration D174/D332 prend le relais) ; `grace:` en proposition. | Voir §3.2c. |
 | D676 | **Les lectures continues** (complète D674) : pendant la phase, la lecture ne s'interrompt jamais — « cela ne modifie pas les données, ni sa structure » ; seule l'écriture attend. | La migration vraiment à chaud. Voir §3.2c. |
+| D677 | **Le rejeu par la compatibilité ascendante** (boucle D674) : les écritures en attente, formulées dans l'ancienne version, sont rejouées par la chaîne ascendante (P3, D11–D13) — comme un appel d'API antérieur ; aucune mécanique dédiée. | Voir §3.2c. |
 
 ---
 
@@ -5923,6 +5924,17 @@ structure. »**
   ne s'interrompt jamais : « cela ne modifie pas les données, ni sa
   structure » — la migration est vraiment à chaud, **seule
   l'écriture attend** (D674, temps 4).
+
+**Le rejeu par la compatibilité ascendante (D677 — boucle la
+procédure).** **« Les mises à jour en attente peuvent être jouées en
+appliquant la compatibilité ascendante. »** — les écritures mises en
+attente ont été formulées **dans le modèle de l'ancienne version** ;
+au rejeu sur le schéma neuf, **la chaîne de translation ascendante**
+(le pilier P3 — D11–D13) les traduit — exactement comme un appel
+d'API d'une version antérieure. Aucune mécanique dédiée à la file
+d'attente : la compatibilité d'API sert la reprise des écritures —
+le même mapping, une fois de plus (D646, l'usage 1 dans toute sa
+portée).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13806,6 +13818,10 @@ avant la synthèse Q16).
   les lectures jamais interrompues — seule l'écriture attend. La
   jonction versions↔storage est refermée ; mapping.md et le §1.2 mis
   au niveau.
+- **2026-08-16 (suite 41)** — **Le rejeu par l'ascendante (D677)** :
+  les écritures en attente rejouées par la chaîne de compatibilité
+  ascendante (P3) — comme un appel d'API antérieur, aucune mécanique
+  dédiée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

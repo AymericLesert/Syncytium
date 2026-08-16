@@ -748,6 +748,7 @@ migration et les versions.
 | D643 | **Les domaines en première partie** (prolonge D602) : « ils font partie des bases de l'approche et des éléments à couvrir — cela complète mon approche (décrire, clarifier et spécifier avant de coder) » — le nouveau §1.2 : la démarche (D314), la carte des huit domaines et leur état, les quatre sujets transversaux de la passe. | Voir §1.2 et §3.2c. |
 | D644 | **Le dossier hooks/ et hooks.yml** (complète le domaine 1) : `hooks/` à la racine de la version, un sous-dossier par type de hooks ; `hooks.yml` à la racine les liste (le parallèle de modules.yml D415) ; les hooks du socle dans l'arborescence de Syncytium. | Voir §3.2c. |
 | D645 | **describe partout, la documentation technique dynamique** (généralise D630) : tous les hooks portent `describe` ; la doc technique de l'application = celle de Syncytium + les hooks ajoutés automatiquement — construite dynamiquement, version par version. | Le nom describe confirmé. Voir §3.2c. |
+| D646 | **Les deux fonctions du mapping** (ouvre le chantier D610) : la migration entre 2 versions (à chaud + la mécanique de la compatibilité ascendante/descendante — le pilier P3) et la migration entre 2 schémas storage (le système existant vers le nouveau — les interfaces de Syncytium en vue sur les données migrées et validées). | Voir §3.2c. |
 
 ---
 
@@ -5249,6 +5250,29 @@ l'application les siens : la même porte (D52), deux maisons.
 racine de la version » — une version épingle ses hooks, cohérent
 avec « déposer un fichier = publier une version » D323 et la
 documentation version par version D645.)*
+
+**Le mapping — les deux fonctions essentielles (D646 — ouvre le
+chantier de D610).** **« Le mapping va permettre de couvrir 2
+fonctions essentielles : la migration entre 2 versions ; la
+migration entre 2 schémas (storage). Le premier usage migre à chaud
+une version vers une autre et offre la mécanique pour la
+compatibilité ascendante et descendante. Le deuxième usage sert à la
+migration d'un système existant vers un nouveau système. Dans le cas
+de cet usage, les interfaces mises à disposition par Syncytium
+offriront une vue sur les données migrées et validées. »** — un seul
+mapping, deux visages :
+
+1. **entre deux versions** — la migration à chaud (les quatre gestes
+   de D631, le mapping automatique de D632) **et la mécanique de la
+   compatibilité ascendante et descendante** : le même mapping qui
+   fait migrer les données engendre la chaîne de translation des API
+   (le pilier P3, D11–D13) — une seule source, les deux effets ;
+2. **entre deux schémas (storage)** — le `from:` de D610 : le système
+   existant (`legacy_db`) vers le nouveau ; **les interfaces de
+   Syncytium offrent une vue sur les données migrées et validées** —
+   l'IHM générée comme poste de contrôle de la migration (l'écho de
+   la reprise D175–D179 : la couverture mesurée, l'acceptation
+   stricte — et de la posture entrepôt D180 : consulter et corriger).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13009,6 +13033,11 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 17)** — **La racine de la version confirmée**
   (D644) : « je confirme le hooks/ à la racine de la version » — une
   version épingle ses hooks.
+- **2026-08-16 (suite 18)** — **Les deux fonctions du mapping
+  (D646)** : entre versions (à chaud + compatibilité
+  ascendante/descendante — P3) et entre schémas storage (le système
+  existant vers le nouveau, l'IHM en vue sur les données migrées et
+  validées). Le chantier de D610 est ouvert.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -286,6 +286,12 @@ operations:
 
 ## La migration et la transformation
 
+- **les deux fonctions essentielles du mapping** (D646) : **la
+  migration entre 2 versions** (à chaud — et la mécanique de la
+  compatibilité ascendante/descendante, le pilier P3) et **la
+  migration entre 2 schémas storage** (le système existant vers le
+  nouveau — les interfaces de Syncytium offrent une vue sur les
+  données migrées et validées) ;
 - **« Syncytium peut convertir ou transférer des données d'un
   connecteur à l'autre »** (D606) — la translation déclarative, le
   primitif aux quatre usages ;

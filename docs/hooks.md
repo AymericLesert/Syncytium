@@ -88,8 +88,10 @@ graphe de conversion).
   (les colonnes natives), la modification (l'altération + le
   transcodage — D647/D673), la suppression — **et les fonctions de
   valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
-  native écrite et relue) ; un type-hook sans ses règles de
-  conversion ne se stocke pas — l'ingestion le refuse.
+  native écrite et relue) — et **l'identification** (D684) : le type
+  sait **se reconnaître** dans une structure native à l'introspection
+  (`read_instance` compose les identifications) ; un type-hook sans
+  ses règles de conversion ne se stocke pas — l'ingestion le refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses

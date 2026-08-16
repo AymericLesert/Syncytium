@@ -803,6 +803,7 @@ documentation) :
 | D681 | **La conversion au type — le visiteur** (prolonge D579) : le contrat d'un type inclut ses règles de conversion vers un storage — le patron visiteur ; le hook de type les fournit, un storage nouveau visite tous les types. | Voir §3.2c. |
 | D682 | **Les trois gestes du champ** (précise D681) : le type porte les règles storage du cycle de vie — la création (les colonnes natives), la modification (l'altération + le transcodage D647), la suppression ; les méthodes d'entité (D680) se composent des gestes des types. | Voir §3.2c. |
 | D683 | **Les fonctions de valeur** (complète D682) : le type porte aussi create/update/read d'une valeur — les méthodes d'enregistrement (D680) se composent des fonctions de valeur, la symétrie structure/donnée complète ; delete n'a pas de fonction de valeur. | Voir §3.2c. |
+| D684 | **Le retour de read_instance, l'identification du type** (complète D680–D683) : read_instance retourne l'équivalent d'un module (entités + champs, jamais tables/colonnes) ; la mutualisation — plusieurs colonnes vers un seul champ d'un type ; le type peut **s'identifier** dans la description (la réciproque du visiteur). | Voir §3.2c. |
 
 ---
 
@@ -6038,6 +6039,31 @@ gestes de structure — **la symétrie est complète** : le visiteur
 couvre la structure et la donnée. *(La lecture notée : `delete`
 d'enregistrement n'a pas de fonction de valeur — retirer une ligne
 ne convertit rien.)*
+
+**Le retour de read_instance et l'identification du type (D684 —
+complète D680–D683).** **« Sur la fonction read_instance, le storage
+retourne l'équivalent d'un module (liste d'entités et de ses
+champs). Pour la mutualisation des champs, une association entre
+plusieurs colonnes d'une table vers un seul champ d'un type donné.
+Un type doit avoir la possibilité de s'identifier dans la
+description. »** — trois facettes d'un même point :
+
+- **read_instance parle le méta-modèle jusqu'au bout** : le retour
+  est **l'équivalent d'un module** — la liste des entités et de
+  leurs champs (jamais des tables et des colonnes) — la boucle de
+  D680 fermée : ce que le contrat rend est ce que le moteur parle,
+  et `source/` (D652) peut naître de ce retour tel quel ;
+- **la mutualisation des champs** : le retour sait associer
+  **plusieurs colonnes d'une table vers un seul champ d'un type
+  donné** — la réciproque de la création (D682 : l'amount et ses
+  deux colonnes se relisent en un champ) ;
+- **l'identification du type** : « un type doit avoir la possibilité
+  de s'identifier dans la description » — **la réciproque du
+  visiteur** : à l'introspection, chaque type examine la structure
+  native et reconnaît sa forme (les deux réels lat/lng → la
+  geolocation se déclare) ; le contrat du type gagne cette
+  reconnaissance — read_instance compose les identifications comme
+  create_entity compose les créations.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13945,6 +13971,10 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 45)** — **Les fonctions de valeur (D683)** :
   create/update/read d'une valeur — la symétrie structure/donnée du
   visiteur complète ; les artefacts mis au niveau.
+- **2026-08-16 (suite 46)** — **read_instance et l'identification
+  (D684)** : le retour = l'équivalent d'un module ; la mutualisation
+  N colonnes → 1 champ ; le type s'identifie dans la description —
+  la réciproque du visiteur. Les artefacts mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

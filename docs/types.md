@@ -41,7 +41,9 @@ composants.md.
   trois gestes du champ** (la création, la modification —
   l'altération + le transcodage —, la suppression) **et les
   fonctions de valeur** (D683 — `create`/`update`/`read` d'une
-  valeur) ; le hook de type les fournit ;
+  valeur) **et l'identification** (D684 — le type se reconnaît dans
+  la structure native à l'introspection) ; le hook de type les
+  fournit ;
 - **le type personnalisé** (D359) : déclaré au `settings` (l'instance,
   le module ou l'entité) — un nom, un type de base, des facettes
   figées ; **le chaînage possible** ; les types custom ne portent pas

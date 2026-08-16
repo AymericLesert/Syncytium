@@ -158,7 +158,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`read_instance`** (l'introspection — les entités, les champs, les contraintes, les dépendances) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` |
 
@@ -176,8 +176,10 @@ l'altération + le transcodage —, la suppression) **et les fonctions
 de valeur** (D683 — `create`/`update`/`read` d'une valeur) ; les
 méthodes d'entité **se composent des gestes des types**, les
 méthodes d'enregistrement **des fonctions de valeur** — la symétrie
-structure/donnée ; un storage nouveau visite tous les types sans
-qu'aucun ne change.
+structure/donnée ; et **le type s'identifie à l'introspection**
+(D684 — la réciproque : read_instance compose les reconnaissances
+des types) ; un storage nouveau visite tous les types sans qu'aucun
+ne change.
 
 **La migration à chaud** (D631/D674) : `duplicate_instance` → les
 transformations dérivées des différences (D632 — le mapping

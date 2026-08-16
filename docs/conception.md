@@ -73,6 +73,30 @@ un document à part, terme par terme avec ses décisions fondatrices
 graphiques ont **[leur catalogue dédié](composants.md)** — les fiches
 de description au modèle en neuf rubriques (D457), même vocation.
 
+### 1.2 La démarche et les huit domaines (D314, D602, D643)
+
+L'approche du projet tient en une ligne : **décrire, clarifier et
+spécifier avant de coder** (D314 — aucun code tant que tous les
+points ne sont pas validés). Les huit domaines en sont la carte —
+**les bases de l'approche et les éléments à couvrir** (D643) :
+
+| # | Le domaine | L'état | Les références |
+|---|---|---|---|
+| 1 | **L'organisation et l'arborescence d'une application** — « revue et amendée au fur et à mesure de nos explorations » | Livré | D333–D346 |
+| 2 | **La donnée, sa structure et les droits** | Livré | D347–D419 |
+| 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
+| 4 | **Les surfaces** | Livré | D437–D569 |
+| 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors |
+| 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
+| 8 | **L'implémentation** | Après tout le reste | D314 |
+
+**La passe de complétude** (ouverte le 15/08) balaie quatre sujets
+transversaux avant d'ouvrir les domaines 5–8 : les connecteurs et
+les échanges (quasi soldé — D603–D642, reste le mapping du `from:`),
+la sécurité et les droits, l'administration et l'exploitation, la
+migration et les versions.
+
 ---
 
 ## 2. Décisions actées
@@ -721,6 +745,7 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D640 | **Le contrat webhook — l'entrée** : le mode (get/put/post/delete), le point d'entrée `api/<version>/webhook/<nom>`, les paramètres au header ou à l'URL — « une nouvelle entrée gérée par Syncytium » : le moteur monte la route et reçoit. | Voir §3.2c. |
 | D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
 | D642 | **L'authentification obligatoire du webhook** (complète D640) : « le déclenchement du webhook doit passer par une authentification obligatoire » — aucune entrée anonyme, la garde d'office sur la route ; le mécanisme au chantier sécurité (D418/D633). | Voir §3.2c. |
+| D643 | **Les domaines en première partie** (prolonge D602) : « ils font partie des bases de l'approche et des éléments à couvrir — cela complète mon approche (décrire, clarifier et spécifier avant de coder) » — le nouveau §1.2 : la démarche (D314), la carte des huit domaines et leur état, les quatre sujets transversaux de la passe. | Voir §1.2 et §3.2c. |
 
 ---
 
@@ -5193,6 +5218,17 @@ déclaration. **Le mécanisme** (la clé d'API au header, le jeton, la
 signature…) rejoint le chantier sécurité (la passerelle
 d'authentification D418, flaguée en D633) — le principe est arrêté
 ici, la mécanique s'y arrêtera.
+
+**Les domaines en première partie (D643 — prolonge D602).** **« Les
+domaines sont à positionner dans la première partie de la conception.
+Ils font partie des bases de l'approche et des éléments à couvrir.
+Cela complète mon approche (décrire, clarifier et spécifier avant de
+coder). »** — les huit domaines quittent le seul fil des décisions
+pour vivre en **§1.2**, aux côtés de la vision et des piliers : la
+démarche (D314) en une ligne, la carte des huit domaines avec leur
+état, et les quatre sujets transversaux de la passe de complétude —
+la première partie dit désormais le *quoi couvrir* autant que le
+*pourquoi construire*.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12921,6 +12957,10 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 13)** — **L'authentification obligatoire du
   webhook (D642)** : aucune entrée anonyme — la garde d'office sur la
   route ; le mécanisme au chantier sécurité (D418/D633).
+- **2026-08-16 (suite 14)** — **Les domaines en première partie
+  (D643)** : le §1.2 créé — la démarche « décrire, clarifier et
+  spécifier avant de coder » (D314), la carte des huit domaines à
+  l'état, les quatre sujets transversaux de la passe de complétude.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

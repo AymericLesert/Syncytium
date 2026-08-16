@@ -808,6 +808,7 @@ documentation) :
 | D686 | **L'orchestration par Syncytium** (solde les deux questions) : la bascule composée par le moteur sur les primitives du contrat ; les files d'attente au moteur — « l'accès aux données est géré et piloté par Syncytium et non le storage directement ». | Voir §3.2c. |
 | D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
 | D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
+| D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
 
 ---
 
@@ -6115,6 +6116,20 @@ le multi-valeurs) — l'optimisation appartient à l'implémentation,
 le contrat n'impose que la forme. L'unité reste un lot de un ; la
 migration (D667), l'import (D234) et la réplication y trouvent leur
 débit — l'écho des lots de transactions (D101).
+
+**Le curseur en lecture (D689 — complète D688).** **« Le read()
+retourne un curseur et non une liste évaluée de valeurs — utile dans
+le cadre d'un lazy loading ou d'un traitement en masse avec un suivi
+d'une progression. Un curseur convertit une ligne en un
+enregistrement reflétant la description des champs d'une entité
+qu'il représente. »** — l'asymétrie du contrat est arrêtée :
+**l'écriture en lots, la lecture au curseur**. Le curseur convertit
+**au fil du parcours** — chaque ligne devient un enregistrement (le
+type structuré D687) reflétant la description des champs de l'entité
+(les fonctions de valeur D683 à la demande) — jamais tout en
+mémoire : le lazy loading des listes (D227), le traitement en masse
+au suivi de progression (la migration D667 et son module de suivi
+D666–D668, le composant progression).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14039,6 +14054,10 @@ avant la synthèse Q16).
   create/update/delete portent une liste d'enregistrements — le
   traitement par lot, spécifique à la classe. connectors.md mis au
   niveau.
+- **2026-08-16 (suite 50)** — **Le curseur en lecture (D689)** :
+  read() retourne un curseur — le lazy loading, la masse au suivi de
+  progression ; la ligne convertie en enregistrement au fil du
+  parcours. L'écriture en lots, la lecture au curseur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

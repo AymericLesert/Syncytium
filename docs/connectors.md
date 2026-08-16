@@ -160,7 +160,7 @@ conversion vers le stockage**.
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
 | l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
-| les enregistrements | `create` · `read` · `update` · `delete` — **create/update/delete portent une liste** (D688) : le traitement par lot, spécifique à l'implémentation (le bulk natif) |
+| les enregistrements | `create` · `read` · `update` · `delete` — **l'écriture en lots** (D688 : create/update/delete portent une liste — le bulk natif de la classe), **la lecture au curseur** (D689 : read() rend un curseur qui convertit chaque ligne en enregistrement au fil du parcours — le lazy loading, la masse au suivi de progression) |
 
 **La version n'a pas de méthode** (D680) : une **entité système** du
 storage — définie, construite et maintenue par Syncytium, la version

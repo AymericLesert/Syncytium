@@ -774,6 +774,7 @@ documentation) :
 | D652 | **La source décrite par le méta-modèle — source/** : « la source doit être décrite par le méta-modèle également » — le dossier source/ à la racine de la version décrit le modèle d'origine table par table, colonne par colonne, dans la grammaire de description ; le typage statique et les conversions de type jouent des deux côtés ; get_schema peut en engendrer l'ossature. | Voir §3.2c. |
 | D653 | **Les deux maisons** (tranche D652) : `source/` = la description du modèle d'origine — Syncytium s'assure de la complétude du modèle (confrontée à get_schema) ; `mapping/` = les règles de conversion table par table, aux origines multiples possibles. | Voir §3.2c. |
 | D654 | **La construction de l'enregistrement** : le mapping construit l'enregistrement avant sa validation (D177) ; l'identification par la clé fonctionnelle (D142/D398) — le rapprochement au rejeu, et la construction des agrégats (compositions/associations) par la clé. | Voir §3.2c. |
+| D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
 
 ---
 
@@ -5471,6 +5472,18 @@ identifie l'enregistrement — le rapprochement au rejeu (la relance
 D179 sans doublon), et **elle lie les agrégats** : la ligne retrouve
 sa commande, l'association son vis-à-vis, par la clé fonctionnelle —
 l'écho des clés externes déclarées (D178 : jamais déduites).
+
+**Le sens de la règle — de la source vers la cible (D655 — précise
+D653).** **« Lecture de la table source vers la table cible. »** —
+l'unité de la règle est **la table source** : on lit l'origine, on
+alimente la cible. La lecture consignée avec ses conséquences :
+chaque table source déclare où vont ses colonnes ; **les origines
+multiples se rejoignent par la clé fonctionnelle** (D654) — deux
+tables source qui nourrissent la même entité contribuent chacune à
+l'enregistrement identifié par la clé, **la jointure n'est pas une
+syntaxe, c'est la clé** ; et l'exhaustivité (D648) se lit dans le
+sens naturel — chaque table source est mappée ou déclarée ignorée,
+colonne par colonne.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13269,6 +13282,10 @@ avant la synthèse Q16).
   par table, origines multiples) ; le mapping construit
   l'enregistrement avant validation, la clé fonctionnelle
   l'identifie et lie les agrégats. connectors.md mis au niveau.
+- **2026-08-16 (suite 24)** — **Le sens de la règle (D655)** : la
+  lecture de la table source vers la table cible — l'unité = la
+  table source, les origines multiples rejointes par la clé
+  fonctionnelle, l'exhaustivité dans le sens naturel.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

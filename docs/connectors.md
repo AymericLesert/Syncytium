@@ -329,6 +329,10 @@ operations:
   construit l'enregistrement avant sa validation (D177) ; la clé
   fonctionnelle (D142/D398) l'identifie — le rejeu sans doublon, et
   la construction des agrégats (compositions/associations) ;
+- **le sens de la règle (D655)** : la lecture **de la table source
+  vers la table cible** — chaque table source déclare où vont ses
+  colonnes ; les origines multiples se rejoignent **par la clé
+  fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —
   tout-ou-rien, la bascule d'un système A vers une application
   Syncytium ; **relatif** — l'entrepôt : les conformes portés, les

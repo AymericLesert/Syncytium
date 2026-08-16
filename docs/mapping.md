@@ -278,19 +278,22 @@ postures de D180 incarnées.
   portent `history:` (D168) — le suivi de la migration et
   **l'évolution de la qualité de la couverture dans le temps** (le
   taux qui monte au fil des ajustements, la courbe du catalogue) ;
-- **le mode de la migration** (D669 — une option de la migration
-  déclarée) : **`absolute`** (le tout-ou-rien de la bascule),
-  **`partial`** (l'entrepôt — succède au « relatif » de D649),
-  **`partial+reset`** (**le contenu des tables cibles effacé avant
-  l'import** — le périmètre de la migration seul, le patron de
-  l'exploration répétée).
+- **les options de la migration** (D669/D671) : `{ mode: absolute |
+  relative, reset: true | false }` — deux propriétés orthogonales :
+  `absolute` (le tout-ou-rien de la bascule) / `relative`
+  (l'entrepôt — les conformes portés, les erreurs isolées au
+  rapport) ; `reset: true` **efface le contenu des tables cibles
+  avant l'import** (le périmètre de la migration seul — le patron de
+  l'exploration répétée) ;
+- **le différentiel par comparaison** (D672) : évalué **après la
+  migration** — l'enregistrement reconstruit se compare à la cible
+  par la clé fonctionnelle (D654), **champ par champ** ; seuls les
+  écarts s'écrivent, et l'entité cible historisée assure l'évolution
+  de la valeur (D168) — le différentiel est la conséquence du rejeu
+  par la clé, pas un mode de plus.
 
 ## Les points ouverts
 
-- **la détection des deltas** en mode différentiel (le pilotage
-  fin) ;
 - **la jonction avec les versions** (sujet 4 de la passe) — le lien
   journal de migrations ↔ gestes storage, le retour arrière après
   `switch_schema`.
-- **l'écriture `migrations:`** (D662) — la forme du setting en
-  proposition.

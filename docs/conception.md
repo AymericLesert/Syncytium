@@ -95,14 +95,11 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 transversaux** avant d'ouvrir les domaines 5–6 (les cas d'usage, la
 documentation) :
 
-1. **les connecteurs et les échanges** — quasi soldé (D603–D651 : les
-   sept contrats, l'écriture du mapping D646–D651) ; **les questions
-   gardées pour la prochaine séance** : la maison du mapping de
-   l'usage 2 (dans la version ?), la grammaire concrète de la
-   correspondance (table→entité, champ par champ, les ignorés), la
-   vue du taux de couverture (quelle surface ?), le pilotage (le
-   déclenchement du `from:`, la relance, la détection des deltas en
-   différentiel) ;
+1. **les connecteurs et les échanges** — **soldé** (D603–D672 : les
+   sept contrats, le mapping entier — les deux maisons source/ et
+   mapping/, les migrations déclarées, le module de suivi historisé,
+   `migrate` la 18e opération, le versionnement plein, le
+   différentiel par comparaison) ;
 2. **la sécurité et les droits** — à ouvrir ; les flags accumulés :
    la passerelle d'authentification (D418), l'authentification du
    `directory` (D633), le mécanisme de la garde du webhook (D642) ;
@@ -790,6 +787,8 @@ documentation) :
 | D668 | **Le module migration historisé** (complète D666) : les entités portent history: — le suivi de la migration et l'évolution de la qualité de la couverture dans le temps (D168–D174). | Voir §3.2c. |
 | D669 | **Le mode de la migration** (étend D649) : l'option de la migration déclarée — `absolute` (la bascule), `partial` (l'entrepôt — « partiel » succède à « relatif »), `partial+reset` (le contenu des tables cibles effacé avant l'import — le périmètre de la migration seul). | Voir §3.2c. |
 | D670 | **Le versionnement plein** (tranche D668) : source/ et mapping/ versionnés comme tout le reste — le coût des itérations absorbé par le build (D323), le beta/ (D340), le dry-run (D667) ; la traçabilité double (les règles par la version, les résultats par le module historisé). | « Le versionnement est plein. » Voir §3.2c. |
+| D671 | **Les options de la migration** (amende D669) : `{ mode: absolute \| relative, reset: true \| false }` — deux propriétés orthogonales, « relative » retenu (« partiel » abandonné), reset = les tables cibles effacées avant l'import. | Voir §3.2c. |
+| D672 | **Le différentiel par comparaison** (solde le mapping) : évalué après la migration — enregistrement par enregistrement (la clé D654) et champ par champ, seuls les écarts s'écrivent ; l'entité cible historisée assure l'évolution de la valeur (D168). | Pas de détection côté source. Voir §3.2c. |
 
 ---
 
@@ -5834,6 +5833,32 @@ module historisé (D668) trace les résultats, l'entité de suivi
 consigne la version des règles à chaque passage. Aucune pièce de
 configuration n'échappe à la trace — surtout pas celle qui écrit
 dans les données.
+
+**Les options de la migration — l'écriture arrêtée (D671 — amende
+D669).** **« Les options de la migration : { mode: absolute |
+relative, reset: true | false } (ici, relative au lieu de
+partiel). »** — deux propriétés orthogonales au lieu des trois
+modes : **`mode: absolute | relative`** (le mot « relative » de D649
+retenu — « partiel » abandonné) et **`reset: true | false`** (le
+contenu des tables cibles effacé avant l'import — le périmètre de la
+migration seul), composables librement (`relative` + `reset` = la
+reconstruction d'entrepôt ; `absolute` + `reset` = la bascule à
+blanc).
+
+**Le différentiel par comparaison (D672 — solde le dernier point du
+mapping).** **« Le différentiel va être évalué après la migration en
+comparant enregistrement par enregistrement et champ par champ. Si
+l'entité cible est historisée, l'évolution de la valeur sera
+assurée. »** — pas de détection côté source (ni horodatage, ni
+journal du moteur) : `migrate` relit la source (au périmètre du
+`filter:`), reconstruit les enregistrements, et **compare à la cible
+enregistrement par enregistrement (la clé fonctionnelle — D654) et
+champ par champ** — seuls les écarts s'écrivent (l'écho de la
+concurrence par champ D111, l'écriture par le chemin standard) ; et
+**si l'entité cible est historisée, l'évolution de la valeur est
+assurée** (D168 — chaque delta laisse son instantané). Le
+différentiel n'est pas un mode de plus : c'est la conséquence
+naturelle du rejeu par la clé.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13699,6 +13724,13 @@ avant la synthèse Q16).
   source/ et mapping/ versionnés comme tout — le coût absorbé par le
   build, le beta/, le dry-run ; la traçabilité double. Le seul point
   ouvert du mapping : la détection des deltas en différentiel.
+- **2026-08-16 (suite 38)** — **Les options et le différentiel
+  (D671–D672)** : { mode: absolute | relative, reset: true | false }
+  (relative retenu, partiel abandonné) ; le différentiel évalué
+  après la migration par comparaison enregistrement par
+  enregistrement et champ par champ — l'historisation cible assure
+  l'évolution. **LE CHANTIER DU MAPPING EST SOLDÉ** (D646–D672).
+  mapping.md et le §1.2 mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

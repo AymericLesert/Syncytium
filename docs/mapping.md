@@ -89,11 +89,14 @@ active la version **sans migration de schéma**.
    structure » : la migration vraiment à chaud, seule l'écriture
    attend).
 
-**Le délai de grâce** (D675) : configurable — l'ancien schéma survit
-le délai déclaré avant sa suppression (le retour arrière
-post-bascule pendant la grâce) ; **le défaut : pas de délai** — la
-restauration (D174) et le registre des versions (D332) prennent le
-relais.
+**Le délai de grâce et la restauration** (D675/D678) : configurable
+— sous grâce, l'ancien schéma devient **le schéma sauvegardé** ; **le
+défaut : pas de délai, l'ancien schéma est supprimé**. La
+restauration (`restore` — D574) est **le geste inverse de la
+bascule** : le courant renommé, le sauvegardé repositionné — et
+**chaque schéma porte sa version dans une table système**, rien à
+deviner. Les lectures ne s'arrêtent que le temps du renommage
+(D679 — « normalement, cela est très court »).
 
 ## L'usage 2 — la migration d'un système existant
 

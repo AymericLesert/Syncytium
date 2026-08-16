@@ -797,6 +797,8 @@ documentation) :
 | D675 | **Le délai de grâce** (complète D674) : configurable — l'ancien schéma survit le délai déclaré (le retour post-bascule pendant la grâce) ; le défaut : pas de délai (la restauration D174/D332 prend le relais) ; `grace:` en proposition. | Voir §3.2c. |
 | D676 | **Les lectures continues** (complète D674) : pendant la phase, la lecture ne s'interrompt jamais — « cela ne modifie pas les données, ni sa structure » ; seule l'écriture attend. | La migration vraiment à chaud. Voir §3.2c. |
 | D677 | **Le rejeu par la compatibilité ascendante** (boucle D674) : les écritures en attente, formulées dans l'ancienne version, sont rejouées par la chaîne ascendante (P3, D11–D13) — comme un appel d'API antérieur ; aucune mécanique dédiée. | Voir §3.2c. |
+| D678 | **La restauration par renommage, la version en table système** (précise D675/D174) : le défaut = la suppression ; sous grâce, l'ancien = le schéma sauvegardé et `restore` = le geste inverse de la bascule (le courant renommé, le sauvegardé repositionné) ; **chaque schéma porte sa version dans une table système**. | Voir §3.2c. |
+| D679 | **Les lectures en attente durant le renommage** (précise D676) : continues pendant la phase, mises en attente le temps du renommage — « normalement, cela est très court ». | Voir §3.2c. |
 
 ---
 
@@ -5935,6 +5937,27 @@ d'API d'une version antérieure. Aucune mécanique dédiée à la file
 d'attente : la compatibilité d'API sert la reprise des écritures —
 le même mapping, une fois de plus (D646, l'usage 1 dans toute sa
 portée).
+
+**La restauration par renommage — la version en table système (D678
+— précise D675/D174).** **« Par défaut, l'ancien schéma est
+supprimé. La restauration est une opération qui vise à renommer le
+schéma courant et à repositionner le schéma sauvegardé comme schéma.
+Pour rappel, le schéma porte sa version dans une table système. »**
+— le défaut confirmé (pas de grâce : la suppression au temps 3) ;
+quand la grâce est configurée, l'ancien schéma devient **le schéma
+sauvegardé**, et **la restauration** (l'opération `restore` du socle
+— D574) est **le geste inverse de la bascule** : le courant renommé,
+le sauvegardé repositionné — la symétrie parfaite. **Chaque schéma
+porte sa version dans une table système** : la bascule et la
+restauration n'ont rien à deviner, le schéma se déclare.
+
+**Les lectures en attente durant le renommage (D679 — précise
+D676).** **« Les lectures durant le renommage du schéma seront mises
+en attente. Normalement, cela est très court. »** — la précision :
+les lectures continuent pendant toute la phase (D676) **sauf durant
+le renommage** — l'instant de la bascule — où elles rejoignent la
+file d'attente ; « normalement, cela est très court » (un renommage
+de schéma, pas une copie).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13822,6 +13845,12 @@ avant la synthèse Q16).
   les écritures en attente rejouées par la chaîne de compatibilité
   ascendante (P3) — comme un appel d'API antérieur, aucune mécanique
   dédiée.
+- **2026-08-16 (suite 42)** — **La restauration et le renommage
+  (D678–D679)** : restore = le geste inverse de la bascule (le
+  courant renommé, le sauvegardé repositionné), la version du schéma
+  en table système ; les lectures en attente le seul temps du
+  renommage. Le contrat storage à détailler — ouvert à la demande de
+  l'auteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

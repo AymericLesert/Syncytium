@@ -827,6 +827,7 @@ documentation) :
 | D704 | **L'audit au module d'administration** : une entité du module d'administration (porté par Syncytium — D666) ; les surfaces standard, le degré administrator, la rétention déclarée (D411). | Le module admin prend corps (sessions D693, audit D704). Voir §3.2c. |
 | D705 | **Le chiffrement en transit** : ce que Syncytium sert = HTTPS sans dérogation ; ce qu'il appelle = chiffré par défaut, l'exception déclarée au connecteur (`unencrypted:` en proposition — signalée, visible au describe). | « Je valide ce point. » Voir §3.2c. |
 | D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
+| D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
 
 ---
 
@@ -6396,6 +6397,31 @@ deux arbitrages :
   type dit ses capacités, D579/D582, rien à documenter à part). Le
   technicien qui veut un texte chiffré prend le type chiffrant —
   le choix est un type, pas une option.
+
+**Les clés obligatoirement chiffrées — le patron unique (D707 —
+durcit D603, solde le chiffrement).** **« Les clés sont
+obligatoirement chiffrées. Elles sont stockées dans des variables
+d'environnement exploitées par Syncytium, jamais versionnées (cas
+d'un fichier .env). Le chiffrement est assuré par des commandes
+propres à Syncytium pour créer les clés chiffrées avant de les
+enregistrer dans l'environnement (à voir pour rendre cela
+automatique). Syncytium se charge alors de déchiffrer les valeurs à
+l'usage. Les clés concernées peuvent être les clés d'api, les mots
+de passe de connexion à un connecteur… »** — le « chiffrable » de
+D603 devient **obligatoire**, et le patron s'unifie pour tout
+secret :
+
+1. **la maison** : les variables d'environnement (le `.env`) —
+   **jamais versionnées** (D336), exploitées par Syncytium ;
+2. **la création** : **les commandes propres à Syncytium** chiffrent
+   la valeur *avant* son enregistrement dans l'environnement (la clé
+   dérivée environnement + machine — D603) ; *(flagué :
+   l'automatisation de ce geste)* ;
+3. **l'usage** : Syncytium déchiffre à l'usage — la valeur en clair
+   ne vit qu'en mémoire, le temps de l'appel ;
+4. **le périmètre** : les clés d'API, les mots de passe de
+   connecteurs… — et les clés des types chiffrants (D706) : un seul
+   patron pour tout ce qui est secret.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14384,6 +14410,13 @@ avant la synthèse Q16).
   responsabilité, le chiffrement = un pouvoir de type (comme
   password, les fonctions de valeur D683). rights.md mis au niveau.
   Reste le point 3 (les clés) — D603 rappelé à l'auteur.
+- **2026-08-16 (suite 61)** — **Les clés obligatoirement chiffrées
+  (D707)** : le patron unique — le .env jamais versionné, les
+  commandes Syncytium qui chiffrent avant l'enregistrement
+  (l'automatisation flaguée), le déchiffrement à l'usage ; le
+  chiffrement est soldé. Le chantier sécurité n'a plus de point
+  ouvert consigné — la clôture du sujet 2 attend la relecture de
+  l'auteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

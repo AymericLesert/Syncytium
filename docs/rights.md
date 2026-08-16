@@ -319,8 +319,25 @@ fields:
   (D683) et déclare ce qu'il sait encore faire (la recherche
   stricte au mieux, le tri perdu — la signature du type D579/D582).
 
+## Les clés — le patron unique des secrets (D603/D707)
+
+**Les clés sont obligatoirement chiffrées** (D707 — le
+« chiffrable » de D603 durci) :
+
+1. **la maison** : les variables d'environnement (le `.env`) —
+   **jamais versionnées** (D336), exploitées par Syncytium ;
+2. **la création** : **les commandes propres à Syncytium** chiffrent
+   la valeur *avant* son enregistrement dans l'environnement (la clé
+   dérivée environnement + machine — D603) ; *(flagué :
+   l'automatisation de ce geste)* ;
+3. **l'usage** : Syncytium déchiffre à l'usage — la valeur en clair
+   ne vit qu'en mémoire, le temps de l'appel ;
+4. **le périmètre** : les clés d'API, les mots de passe de
+   connecteurs, les clés des types chiffrants (D706) — un seul
+   patron pour tout ce qui est secret.
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **les clés du chiffrement de type** (D706) — la dérivation (le
-   patron des secrets D603 ?) et la rotation (un acte
-   d'administration ?) — en discussion.
+Aucun point consigné — la clôture du sujet 2 attend la relecture de
+l'auteur (le flag mineur : l'automatisation de la commande de
+chiffrement, D707).

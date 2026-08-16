@@ -777,6 +777,8 @@ documentation) :
 | D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
 | D656 | **La forme de la règle validée** : la règle au nom de la table source — `to:` (la cible, entité ou agrégat), `key:` (la clé fonctionnelle, simple ou composée), `parent:` (la clé du possesseur — la composition), `fields:` (les expressions du langage unique), `ignored:` (les colonnes/tables déclarées ignorées). | « La forme me convient. » Voir §3.2c. |
 | D657 | **ignored dans la source, comme un type** (amende D656) : le marqueur vit dans source/ — l'entité attendue mais non développée (`audit_log: ignored`), le champ ignoré comme un type (`ref_ext: ignored`) ; l'exhaustivité (D648) se joue entièrement dans source/, le mapping ne porte que les correspondances. | Voir §3.2c. |
+| D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` en proposition. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
+| D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire. | Voir §3.2c. |
 
 ---
 
@@ -5585,6 +5587,57 @@ est décrite ou marquée `ignored` ; le mapping ne porte plus que les
 correspondances ; une colonne décrite mais qu'aucune règle ne
 consomme entre au **taux de couverture** (D649) — visible, jamais
 silencieuse.
+
+**Au-delà du 1-1 : le référentiel par valeurs distinctes (D658).**
+**« Le mapping n'est pas toujours de la relation 1-1. Nous pouvons
+construire un référentiel à partir de la liste de valeurs
+disponibles depuis un champ ou une liste de champs d'une entité. La
+table de destination prend les différentes valeurs distinctes d'un
+champ ou d'une liste de champs. »** — le patron classique de
+l'assainissement : la colonne libre du legacy (la catégorie, la
+ville tapée à la main) **engendre une entité de référence** — les
+valeurs distinctes deviennent les enregistrements, la valeur
+devient la clé fonctionnelle (D654), et les entités qui la
+portaient la référencent par cette clé. *(L'écriture en
+proposition :*
+
+```yaml
+# mapping/categories.yml — le référentiel des valeurs distinctes
+customers:
+  to: sales.category
+  distinct: [category]           # un champ ou une liste de champs
+  key: category                  # la valeur = la clé fonctionnelle
+  fields:
+    label: category
+
+# mapping/customers.yml — l'entité qui la référence, par la clé
+customers:
+  to: sales.customer
+  key: code
+  fields:
+    category: category           # la référence résolue par la clé (D654)
+```
+
+*— la même table source peut porter plusieurs règles.)*
+
+**Les composés construits par la fonction du type (D659).** **« Pour
+les types composés, le mapping doit permettre de faire le lien entre
+plusieurs champs dans un seul champ. Pour un type geolocation, c'est
+une agrégation de 2 champs (latitude et longitude). Pour un type
+amount, le champ peut prendre 2 valeurs : le montant et la
+devise… »** — plusieurs colonnes source, un champ cible : **la
+fonction de construction que le type porte** (D579/D584 — le type
+emmène ses fonctions) fait le lien, dans le langage existant :
+
+```yaml
+  fields:
+    position: geolocation(lat, lng)             # 2 colonnes → 1 champ
+    total:    amount(total_cts / 100, currency) # le montant et la devise
+```
+
+*(Rien de neuf dans la grammaire : le mapping est une expression —
+la construction des composés était déjà dans le langage, la
+décision confirme qu'elle sert le mapping.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13400,6 +13453,12 @@ avant la synthèse Q16).
   l'entité attendue mais non développée, le champ ignoré comme un
   type — l'exhaustivité entière dans source/, le mapping n'a plus
   d'ignored ; les exemples repris.
+- **2026-08-16 (suite 28)** — **Au-delà du 1-1 (D658–D659)** : le
+  référentiel construit des valeurs distinctes d'un ou plusieurs
+  champs (la valeur = la clé fonctionnelle ; distinct: en
+  proposition) ; les composés par la fonction de construction du
+  type (geolocation(lat, lng), amount(montant, devise)).
+  connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

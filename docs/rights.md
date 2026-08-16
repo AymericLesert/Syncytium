@@ -212,10 +212,41 @@ fields:
   D333/D645) : les champs `rgpd:`, leur confidentialité, leur
   rétention, leurs connecteurs sortants — généré, jamais rédigé.
 
+## Le degré intrinsèque d'autorisation (D697, D699–D700)
+
+**Le contrat de chaque opération déclare son degré** — le plancher
+que la déclaration ne peut abaisser. **Les trois valeurs** : `user`
+· `manager` · `administrator`. **Le groupe d'utilisateurs porte le
+degré** (`degree:` dans groups.yml — en proposition, défaut
+`user`) ; l'utilisateur atteint le degré de son meilleur groupe
+(D414) ; **l'appartenance à un groupe est obligatoire** — le compte
+sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
+**`allow:` complète en précisant les groupes autorisés** (D700) :
+
+```yaml
+# groups.yml — le degré porté par le groupe (D699)
+groups:
+  sales_team: { }                      # degree: user (le défaut)
+  managers:   { degree: manager, groups: [sales_team] }
+  admins:     { degree: administrator }
+
+# l'entité — allow: l'expression OU les groupes (D423/D700)
+allow:
+  update: locked = false
+  delete: [admins]
+operations:
+  archive:
+    allow: [managers, admins]          # le droit de déclencher (D691)
+```
+
+Le plancher et l'`allow:` se composent — **le plus exigeant
+l'emporte**. *(L'inventaire des dix-neuf planchers — en
+proposition : `user` pour le quotidien, `manager` pour
+`import`/`report`, `administrator` pour
+`restore`/`migrate`/`anonymize` — reste à valider.)*
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **le degré intrinsèque d'autorisation** (D697) — l'inventaire
-   des planchers des dix-neuf opérations du socle ;
 2. **l'audit** — la trace des écritures existe ; l'audit des
    **lectures** (qui a consulté quoi), celui des actes
    d'administration, la surface qui le consulte ;

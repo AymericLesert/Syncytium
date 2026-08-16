@@ -161,9 +161,12 @@ code » (D570). Les 19 opérations de socle (D574, `migrate` D667,
 `update`, `delete`, `duplicate`, `promote`, `demote`, `generate`,
 `download`, `print`, `send`, `export`, `import`, `report`,
 `restore`, `notify`, `refresh`, `migrate`, `anonymize`. **Chaque
-opération du socle porte un degré intrinsèque d'autorisation**
-(D697 — le plancher que la déclaration ne peut abaisser :
-`anonymize` = l'administration ; l'inventaire des degrés flagué).
+opération porte un degré intrinsèque d'autorisation, déclaré à son
+contrat** (D697/D699 — `user` | `manager` | `administrator`, le
+plancher que la déclaration ne peut abaisser ; le groupe
+d'utilisateurs porte le degré, l'appartenance à un groupe est
+obligatoire ; `allow:` précise les groupes autorisés — D700, le plus
+exigeant l'emporte).
 
 **Le contrat — l'objet aux quatre fonctions (D595) :**
 

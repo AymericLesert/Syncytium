@@ -819,6 +819,8 @@ documentation) :
 | D696 | **L'anonymisation par algorithme** (pièce 2) : la valeur construite à règle aléatoire, jamais dérivée de l'origine (l'exception : la longueur) — ni blanc ni haché ; les enregistrements ET les historiques modifiés. | Voir §3.2c. |
 | D697 | **anonymize, la 19e opération — le degré intrinsèque** (pièce 3) : l'usage limité à l'administration ; le principe posé — chaque opération du socle porte un degré intrinsèque d'autorisation (le plancher) ; l'inventaire des degrés flagué. | Voir §3.2c. |
 | D698 | **La rétention et le registre** (pièce 4 — boucle le volet) : la rétention échue s'anonymise d'office (D411/D696) ; le registre des traitements auto-documenté (D333/D645). | Voir §3.2c. |
+| D699 | **Le degré intrinsèque au contrat, porté par le groupe** (solde D697) : le contrat des opérations le déclare ; user \| manager \| administrator ; le groupe d'utilisateurs porte le degré (`degree:` en proposition, défaut user) ; **l'appartenance à un groupe est obligatoire pour utiliser l'application**. | Voir §3.2c. |
+| D700 | **allow: aux groupes** (complète D423/D691) : le verbe ou l'opération accepte la liste des groupes autorisés, en plus de l'expression ; le degré intrinsèque reste le plancher — le plus exigeant l'emporte. | Voir §3.2c. |
 
 ---
 
@@ -6275,6 +6277,44 @@ d'office** (l'algorithme D696) ; et **le registre des traitements
 s'auto-documente** (D333/D645) — les champs `rgpd:`, leur
 confidentialité, leur rétention, leurs connecteurs sortants : le
 document que la TPE peine à tenir, Syncytium le génère.
+
+**Le degré intrinsèque — au contrat, porté par le groupe (D699 —
+solde le flag de D697).** **« Le degré intrinsèque est porté par le
+contrat des opérations. Les 3 valeurs user | manager | administrator
+couvrent le besoin. Un groupe d'utilisateurs porte ce degré. Un
+utilisateur, pour utiliser l'application, est forcément associé à un
+groupe d'utilisateurs. »** — quatre pièces :
+
+- **le degré vit au contrat de l'opération** (la signature du hook —
+  comme execute/confirm/commit/rollback, D595) : chaque opération du
+  socle et chaque hook d'opération le déclare ;
+- **les trois valeurs** : `user` · `manager` · `administrator` ;
+- **le groupe porte le degré** — pas une qualité du compte : le
+  groupe d'utilisateurs (D414) déclare son degré *(l'écriture en
+  proposition :* `degree:` *dans groups.yml, défaut `user` —*
+  `admins: { degree: administrator }`*)* ; l'utilisateur atteint le
+  degré de son meilleur groupe (la multi-appartenance D414) ;
+- **l'appartenance obligatoire** : « un utilisateur, pour utiliser
+  l'application, est forcément associé à un groupe » — le compte
+  sans groupe n'entre pas (le fail-closed D71 jusqu'à la porte).
+
+**allow: aux groupes (D700 — complète D423/D691).** **« allow:
+complète en précisant les groupes d'utilisateurs autorisés. »** — la
+forme libre s'enrichit : le verbe (ou l'opération) accepte **la
+liste des groupes autorisés**, en plus de l'expression (D90) :
+
+```yaml
+allow:
+  update: locked = false          # l'expression (D423)
+  delete: [admins]                # les groupes autorisés (D700)
+operations:
+  archive:
+    allow: [managers, admins]     # le droit de déclencher (D691/D700)
+```
+
+Le degré intrinsèque reste le plancher : un `allow:` généreux
+n'abaisse jamais le degré exigé par le contrat — les deux se
+composent, le plus exigeant l'emporte.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14238,6 +14278,14 @@ avant la synthèse Q16).
   flagué), la rétention qui anonymise d'office, le registre des
   traitements auto-documenté. rights.md, hooks.md et types.md mis au
   niveau.
+- **2026-08-16 (suite 57)** — **Le degré intrinsèque et allow: aux
+  groupes (D699–D700)** : le degré au contrat des opérations
+  (user/manager/administrator), le groupe le porte (degree: en
+  proposition), l'appartenance obligatoire ; allow: précise les
+  groupes autorisés — le plancher demeure, le plus exigeant
+  l'emporte. L'inventaire des 19 planchers reste à valider.
+  rights.md, hooks.md et glossaire.md mis au niveau. **La 700e
+  décision.**
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

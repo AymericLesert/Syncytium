@@ -779,6 +779,7 @@ documentation) :
 | D657 | **ignored dans la source, comme un type** (amende D656) : le marqueur vit dans source/ — l'entité attendue mais non développée (`audit_log: ignored`), le champ ignoré comme un type (`ref_ext: ignored`) ; l'exhaustivité (D648) se joue entièrement dans source/, le mapping ne porte que les correspondances. | Voir §3.2c. |
 | D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` en proposition. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
 | D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire. | Voir §3.2c. |
+| D660 | **La normalisation par champ calculé sur la source** (précise D658) : source/ parle toute la grammaire, champs calculés compris — la normalisation s'écrit sur la description de la source (`formula:`), le mapping consomme le champ calculé comme une colonne. | Voir §3.2c. |
 
 ---
 
@@ -5638,6 +5639,31 @@ emmène ses fonctions) fait le lien, dans le langage existant :
 *(Rien de neuf dans la grammaire : le mapping est une expression —
 la construction des composés était déjà dans le langage, la
 décision confirme qu'elle sert le mapping.)*
+
+**La normalisation par champ calculé sur la source (D660 — précise
+D658).** **« La normalisation d'une valeur passera par un champ
+calculé sur la description de l'entité source. Le champ calculé est
+utilisable dans le mapping. »** — `source/` parle **toute** la
+grammaire (D652), champs calculés compris : le nettoyage, la casse,
+le transcodage s'écrivent **sur la description de la source**
+(`formula:` — la grammaire existante), et le mapping consomme le
+champ calculé comme une colonne — la normalisation vit avec la
+source qu'elle assainit, les règles restent de pures
+correspondances :
+
+```yaml
+# source/customers.yml — la normalisation à la source (D660)
+customers:
+  fields:
+    city_raw: text[..40]
+    city:     { formula: upper(trim(city_raw)) }
+
+# mapping/cities.yml — le référentiel sur la valeur normalisée (D658)
+customers:
+  to: sales.city
+  distinct: [city]
+  key: city
+```
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13459,6 +13485,10 @@ avant la synthèse Q16).
   proposition) ; les composés par la fonction de construction du
   type (geolocation(lat, lng), amount(montant, devise)).
   connectors.md mis au niveau.
+- **2026-08-16 (suite 29)** — **La normalisation à la source
+  (D660)** : le champ calculé sur la description de l'entité source
+  (formula:), utilisable dans le mapping — la normalisation vit avec
+  la source, les règles restent des correspondances.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

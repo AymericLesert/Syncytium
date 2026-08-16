@@ -333,6 +333,9 @@ operations:
   vers la table cible** — chaque table source déclare où vont ses
   colonnes ; les origines multiples se rejoignent **par la clé
   fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
+- **la normalisation à la source (D660)** : le champ calculé sur la
+  description de l'entité source (`formula:` — source/ parle toute
+  la grammaire), consommé par le mapping comme une colonne ;
 - **au-delà du 1-1 (D658–D659)** : **le référentiel par valeurs
   distinctes** — la destination prend les valeurs distinctes d'un
   champ ou d'une liste de champs, la valeur devient la clé

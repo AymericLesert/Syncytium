@@ -100,11 +100,13 @@ documentation) :
    mapping/, les migrations déclarées, le module de suivi historisé,
    `migrate` la 18e opération, le versionnement plein, le
    différentiel par comparaison) ;
-2. **la sécurité et les droits** — **ouvert** (rights.md — D690) :
-   l'acquis consolidé ; les cinq points au chantier —
-   l'authentification (D418/D633/D642), le droit de déclencher, le
-   RGPD (la tension avec l'historisation D168), l'audit des
-   lectures, le chiffrement ;
+2. **la sécurité et les droits** — **soldé** (rights.md — D690 ;
+   « ces 2 commandes complètent la partie sécurité », D708) :
+   l'authentification (la famille D692, les 4 volets, la session
+   D693–D694), les droits étendus aux opérations (D691), le degré
+   intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
+   (D695–D698), l'audit des lectures (D702–D704), le chiffrement
+   (D705–D708) ;
 3. **l'administration et l'exploitation** — à ouvrir ; le module
    d'administration jamais décrit, la télémétrie (Q12–Q13) ;
 4. **la migration et les versions** — largement soldée : le mapping
@@ -14438,6 +14440,9 @@ avant la synthèse Q16).
   commandes consignées — le chiffrement vers le .env, le
   déchiffrement de vérification ; la partie sécurité complétée.
   rights.md mis au niveau.
+- **2026-08-16 (suite 63)** — **LE SUJET 2 (LA SÉCURITÉ ET LES
+  DROITS) EST SOLDÉ** (D690–D708) — le §1.2 mis au niveau. Reste le
+  sujet 3 : l'administration et l'exploitation.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

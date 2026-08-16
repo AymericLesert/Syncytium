@@ -771,6 +771,7 @@ documentation) :
 | D649 | **Le dry-run du from: à deux modes** : absolu (tout-ou-rien — la bascule vers Syncytium) ; relatif (l'entrepôt — les conformes portés, les erreurs isolées + rapport à l'administrateur, la vue sur le taux de couverture vs la source). | Les deux postures D180 incarnées ; la reprise D175–D179 = le mode relatif. Voir §3.2c. |
 | D650 | **La dépréciation en trois temps** (solde D647) : l'intention (l'avertissement), l'acte (déprécié mais répond encore), la suppression (un geste de version — champ, table ou module) ; **la documentation obligatoire** — le remplacement ou l'abandon précisé. | L'écriture deprecated: planned \| true + forme riche en proposition. Voir §3.2c. |
 | D651 | **Le renommage par old_name** (solde D647) : un champ, une entité ou un module renommé porte `old_name: <ancien nom>` — le journal de migrations et la chaîne API (P3) en dérivent la continuité. | Voir §3.2c. |
+| D652 | **La source décrite par le méta-modèle — source/** : « la source doit être décrite par le méta-modèle également » — le dossier source/ à la racine de la version décrit le modèle d'origine table par table, colonne par colonne, dans la grammaire de description ; le typage statique et les conversions de type jouent des deux côtés ; get_schema peut en engendrer l'ossature. | Voir §3.2c. |
 
 ---
 
@@ -5418,6 +5419,28 @@ l'élément renommé porte `old_name: <ancien nom>` — le journal de
 migrations en dérive la translation, la chaîne API (P3) continue de
 servir l'ancien nom aux versions antérieures, l'adressage logique
 (D363) suit.
+
+**La source décrite par le méta-modèle — le dossier source/ (D652 —
+amende la maison proposée).** **« Le cadre du mapping porte sur une
+description exhaustive de la source et une alimentation de la
+destination par un mapping. La destination est décrite par le
+méta-modèle. La source doit être décrite par le méta-modèle
+également. Au lieu de mapping, je prévois `source/` : ce dossier
+décrit le modèle de données d'origine table par table et colonne par
+colonne en utilisant la grammaire de description que nous avons
+abordée. »** — le renversement fondateur : **la source n'est pas un
+monde étranger, elle entre dans la grammaire** — le dossier
+`source/` à la racine de la version décrit le modèle d'origine table
+par table, colonne par colonne, avec la même grammaire que la
+destination (les types, les crochets, les contraintes). Les
+conséquences : **le typage statique** (D581) vérifie les expressions
+du mapping des deux côtés ; **les conversions portées par les
+types** (D647/D579) s'appliquent de la source vers la cible ;
+**l'exhaustivité** (D648) se juge entre deux descriptions du même
+langage — et `get_schema` (D629) peut engendrer l'ossature de
+`source/`, le technicien la raffine. *(Le débat ouvert au moment de
+cette décision : le mapping lui-même — porté par la description de
+la destination, ou par un fichier dédié ? — tranché en D653.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13203,6 +13226,13 @@ avant la synthèse Q16).
   différentiel) et l'ordre de marche — compléter les quatre sujets
   transversaux (connecteur/migration à finir, sécurité, administration)
   **avant** les cas d'usage (Q59) et la documentation (Q58).
+- **2026-08-16 (suite 22 — reprise du mapping)** — **La source
+  décrite par le méta-modèle (D652)** : le dossier source/ (au lieu
+  de mapping/) décrit le modèle d'origine table par table, colonne
+  par colonne, dans la grammaire de description — le typage statique
+  et les conversions des types jouent des deux côtés. Le débat
+  ouvert : le mapping porté par la destination ou par un fichier
+  dédié.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

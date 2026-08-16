@@ -188,6 +188,15 @@ automatique, le technicien n'écrit rien) → la bascule par
 D675/D678). Le mapping manuel demeure l'affaire des migrations
 déclarées (voir [mapping.md](mapping.md)).
 
+**L'orchestration par Syncytium** (D686–D687) : la bascule et **les
+files d'attente** (les écritures pendant la phase, les lectures
+pendant le renommage — D674/D679) sont composées **par le moteur**
+sur les primitives du contrat — « l'accès aux données est géré et
+piloté par Syncytium et non le storage directement » ; et
+**l'enregistrement est un type structuré propre à Syncytium,
+multi-storage** — le storage se charge de sa conversion en stockage
+(les fonctions de valeur D683) : il convertit, jamais ne définit.
+
 **Les storages de format (D636)** : « les storages "csv", "xml"… sont
 définis pour les exports et exploitables pour les imports » — les
 formats structurés sont **des classes de cette famille** (le contrat

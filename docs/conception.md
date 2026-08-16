@@ -805,6 +805,8 @@ documentation) :
 | D683 | **Les fonctions de valeur** (complète D682) : le type porte aussi create/update/read d'une valeur — les méthodes d'enregistrement (D680) se composent des fonctions de valeur, la symétrie structure/donnée complète ; delete n'a pas de fonction de valeur. | Voir §3.2c. |
 | D684 | **Le retour de read_instance, l'identification du type** (complète D680–D683) : read_instance retourne l'équivalent d'un module (entités + champs, jamais tables/colonnes) ; la mutualisation — plusieurs colonnes vers un seul champ d'un type ; le type peut **s'identifier** dans la description (la réciproque du visiteur). | Voir §3.2c. |
 | D685 | **La borne du retour** (nuance D684) : read_instance ne construit que les items de stockage — les entités, les champs stockés, les contraintes, les dépendances ; jamais les surfaces, les champs calculés, les opérations. | Le storage décrit ce qu'il sait. Voir §3.2c. |
+| D686 | **L'orchestration par Syncytium** (solde les deux questions) : la bascule composée par le moteur sur les primitives du contrat ; les files d'attente au moteur — « l'accès aux données est géré et piloté par Syncytium et non le storage directement ». | Voir §3.2c. |
+| D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
 
 ---
 
@@ -6076,6 +6078,31 @@ calculés, les opérations, les droits. Le storage décrit ce qu'il
 sait — la structure persistée ; le reste est l'affaire de la
 description du technicien (l'ossature engendrée reste une ossature —
 D652).
+
+**L'orchestration par Syncytium (D686 — solde les deux questions).**
+**« Syncytium orchestre via le contrat du storage. Ce n'est pas le
+storage qui porte cette mécanique. Les files d'attente des requêtes
+sont également orchestrées par Syncytium, car l'accès aux données
+est géré et piloté par Syncytium et non le storage directement. »**
+— les deux questions tranchées d'un même geste : **la bascule**
+(D674/D678) est composée par le moteur sur les primitives du contrat
+(l'attente → `rename_instance` ×2 → l'entité système → la reprise) ;
+**les files d'attente** (les écritures pendant la phase, les
+lectures pendant le renommage) vivent au moteur — l'accès aux
+données est géré et piloté par Syncytium, le storage n'en sait
+rien ; la classe reste simple, la mécanique vaut pour tous les
+moteurs.
+
+**L'enregistrement — un type structuré du moteur, multi-storage
+(D687).** **« La nature de l'enregistrement est d'ailleurs un type
+structuré propre à Syncytium et multi-storage. Le storage se charge
+de procéder à sa conversion en stockage. »** — l'enregistrement
+qui circule dans le moteur (la transaction D594, les hooks D599, les
+files D686) est **un type structuré de Syncytium**, indépendant de
+tout moteur de stockage — et **multi-storage** : le même
+enregistrement peut se convertir vers plusieurs storages (l'export
+csv, la réplication passive, la migration — chacun par ses fonctions
+de valeur D683). Le storage convertit, jamais ne définit.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13990,6 +14017,12 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 47)** — **La borne du retour (D685)** :
   read_instance ne construit que les items de stockage — pas de
   surfaces, pas de champs calculés ; l'ossature reste une ossature.
+- **2026-08-16 (suite 48)** — **L'orchestration et l'enregistrement
+  (D686–D687)** : la bascule et les files d'attente au moteur (via
+  le contrat — le storage ne porte pas la mécanique) ;
+  l'enregistrement = un type structuré propre à Syncytium,
+  multi-storage — le storage convertit, jamais ne définit. **LE
+  CONTRAT STORAGE EST CLOS.** connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

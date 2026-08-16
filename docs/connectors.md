@@ -320,6 +320,15 @@ operations:
   suppression par une version — **à documentation obligatoire** (le
   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
   ou d'un module s'assure par **`old_name:`** ;
+- **les deux maisons (D652–D653)** : **`source/`** — le modèle
+  d'origine décrit **dans la grammaire du méta-modèle**, table par
+  table et colonne par colonne (Syncytium s'assure de la complétude
+  du modèle contre `get_schema`) ; **`mapping/`** — les règles de
+  conversion table par table, aux origines multiples possibles ;
+- **la construction et la clé fonctionnelle (D654)** : le mapping
+  construit l'enregistrement avant sa validation (D177) ; la clé
+  fonctionnelle (D142/D398) l'identifie — le rejeu sans doublon, et
+  la construction des agrégats (compositions/associations) ;
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —
   tout-ou-rien, la bascule d'un système A vers une application
   Syncytium ; **relatif** — l'entrepôt : les conformes portés, les

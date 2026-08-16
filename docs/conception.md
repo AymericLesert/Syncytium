@@ -772,6 +772,8 @@ documentation) :
 | D650 | **La dépréciation en trois temps** (solde D647) : l'intention (l'avertissement), l'acte (déprécié mais répond encore), la suppression (un geste de version — champ, table ou module) ; **la documentation obligatoire** — le remplacement ou l'abandon précisé. | L'écriture deprecated: planned \| true + forme riche en proposition. Voir §3.2c. |
 | D651 | **Le renommage par old_name** (solde D647) : un champ, une entité ou un module renommé porte `old_name: <ancien nom>` — le journal de migrations et la chaîne API (P3) en dérivent la continuité. | Voir §3.2c. |
 | D652 | **La source décrite par le méta-modèle — source/** : « la source doit être décrite par le méta-modèle également » — le dossier source/ à la racine de la version décrit le modèle d'origine table par table, colonne par colonne, dans la grammaire de description ; le typage statique et les conversions de type jouent des deux côtés ; get_schema peut en engendrer l'ossature. | Voir §3.2c. |
+| D653 | **Les deux maisons** (tranche D652) : `source/` = la description du modèle d'origine — Syncytium s'assure de la complétude du modèle (confrontée à get_schema) ; `mapping/` = les règles de conversion table par table, aux origines multiples possibles. | Voir §3.2c. |
+| D654 | **La construction de l'enregistrement** : le mapping construit l'enregistrement avant sa validation (D177) ; l'identification par la clé fonctionnelle (D142/D398) — le rapprochement au rejeu, et la construction des agrégats (compositions/associations) par la clé. | Voir §3.2c. |
 
 ---
 
@@ -5441,6 +5443,34 @@ langage — et `get_schema` (D629) peut engendrer l'ossature de
 `source/`, le technicien la raffine. *(Le débat ouvert au moment de
 cette décision : le mapping lui-même — porté par la description de
 la destination, ou par un fichier dédié ? — tranché en D653.)*
+
+**Les deux maisons — source/ et mapping/ (D653 — tranche le débat de
+D652).** **« `source/` contient la description du modèle d'origine —
+Syncytium doit s'assurer de la complétude du modèle. `mapping/`
+contient les règles de conversion table par table avec peut-être des
+origines multiples. »** — ni l'un ni l'autre des deux termes du
+débat : **deux dossiers**, chacun son rôle —
+
+- **`source/`** : la description seule (D652) — et **Syncytium
+  s'assure de la complétude du modèle** : la description confrontée
+  au schéma réel (`get_schema` — D629), l'écart signalé (l'esprit
+  D330/D344 : rien ne manque, rien ne traîne) ;
+- **`mapping/`** : les règles de conversion, **table par table**,
+  **aux origines multiples possibles** (plusieurs tables source
+  nourrissant une cible — la jointure vit dans la règle).
+
+**La construction de l'enregistrement et la clé fonctionnelle
+(D654).** **« Le mapping assure la construction d'un enregistrement
+avant sa validation. L'enregistrement est identifié par une clé
+fonctionnelle. La clé fonctionnelle peut être utilisée pour assurer
+la construction des agrégats (compositions / associations). »** — la
+chaîne se relit : le mapping **construit** l'enregistrement candidat,
+la validation le juge (D177 — converti ET cohérent, l'écriture par
+le chemin standard D175) ; **la clé fonctionnelle** (D142/D398)
+identifie l'enregistrement — le rapprochement au rejeu (la relance
+D179 sans doublon), et **elle lie les agrégats** : la ligne retrouve
+sa commande, l'association son vis-à-vis, par la clé fonctionnelle —
+l'écho des clés externes déclarées (D178 : jamais déduites).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13233,6 +13263,12 @@ avant la synthèse Q16).
   et les conversions des types jouent des deux côtés. Le débat
   ouvert : le mapping porté par la destination ou par un fichier
   dédié.
+- **2026-08-16 (suite 23)** — **Les deux maisons et la clé
+  fonctionnelle (D653–D654)** : source/ (la description, la
+  complétude assurée par Syncytium) et mapping/ (les règles table
+  par table, origines multiples) ; le mapping construit
+  l'enregistrement avant validation, la clé fonctionnelle
+  l'identifie et lie les agrégats. connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

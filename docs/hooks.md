@@ -286,10 +286,13 @@ commun d'abord** (D621–D630) : toute classe implémente
 error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et
 `describe()` (la documentation markdown/html de l'instance — D630).
-Les contrats détaillés — storage (la transaction, le schéma, la
-migration à chaud), smtp (`send`), file (`get_files`/`get_file`/
-`commit`), directory (la lecture seule), location
-(`geocode`/`reverse`), webhook (les entrées, l'abonnement,
+Les contrats détaillés — storage (la transaction, l'instance —
+`read_instance`/`duplicate_instance`/`rename_instance` —, les
+entités et les enregistrements composés des types-visiteurs
+(D680–D689 : l'écriture en lots, la lecture au curseur), la
+migration à chaud orchestrée par le moteur), smtp (`send`), file
+(`get_files`/`get_file`/`commit`), directory (la lecture seule),
+location (`geocode`/`reverse`), webhook (les entrées, l'abonnement,
 l'authentification obligatoire), siren (`verify`) — sont dans
 [connectors.md](connectors.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les

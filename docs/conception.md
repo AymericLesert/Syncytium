@@ -802,6 +802,7 @@ documentation) :
 | D680 | **Le contrat storage réécrit** (amende D629) : le vocabulaire du méta-modèle — l'instance (`create/read/duplicate/rename/delete_instance`, read_instance remplace get_schema), les entités (`create/update/delete_entity`), les enregistrements ; la version = une entité système maintenue par Syncytium (pas de méthode) ; la mission de la classe = la conversion vers le stockage. | Voir §3.2c. |
 | D681 | **La conversion au type — le visiteur** (prolonge D579) : le contrat d'un type inclut ses règles de conversion vers un storage — le patron visiteur ; le hook de type les fournit, un storage nouveau visite tous les types. | Voir §3.2c. |
 | D682 | **Les trois gestes du champ** (précise D681) : le type porte les règles storage du cycle de vie — la création (les colonnes natives), la modification (l'altération + le transcodage D647), la suppression ; les méthodes d'entité (D680) se composent des gestes des types. | Voir §3.2c. |
+| D683 | **Les fonctions de valeur** (complète D682) : le type porte aussi create/update/read d'une valeur — les méthodes d'enregistrement (D680) se composent des fonctions de valeur, la symétrie structure/donnée complète ; delete n'a pas de fonction de valeur. | Voir §3.2c. |
 
 ---
 
@@ -6022,6 +6023,21 @@ Les méthodes d'entité du contrat storage (D680 —
 `create_entity`/`update_entity`/`delete_entity`) **se composent des
 gestes des types** : l'entité est la somme de ses champs, chaque
 champ sait naître, muter et disparaître dans le storage visité.
+
+**Les fonctions de valeur (D683 — complète D682).** **« Cela se
+complète avec les fonctions de : create d'une valeur, update d'une
+valeur, read d'une valeur. »** — au cycle de vie de la structure
+(D682) répond **celui de la donnée** : le type porte aussi la
+conversion de **ses valeurs** vers et depuis le storage — `create`
+(la valeur du modèle écrite en forme native), `update` (la mise à
+jour), `read` (la forme native relue en valeur du modèle). Les
+méthodes d'enregistrement du contrat (D680 —
+`create`/`read`/`update`/`delete`) **se composent des fonctions de
+valeur des types**, comme les méthodes d'entité se composent des
+gestes de structure — **la symétrie est complète** : le visiteur
+couvre la structure et la donnée. *(La lecture notée : `delete`
+d'enregistrement n'a pas de fonction de valeur — retirer une ligne
+ne convertit rien.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13926,6 +13942,9 @@ avant la synthèse Q16).
   le type porte la création, la modification et la suppression d'un
   champ au storage — les méthodes d'entité se composent des gestes
   des types. Les artefacts mis au niveau.
+- **2026-08-16 (suite 45)** — **Les fonctions de valeur (D683)** :
+  create/update/read d'une valeur — la symétrie structure/donnée du
+  visiteur complète ; les artefacts mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

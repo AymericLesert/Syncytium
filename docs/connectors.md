@@ -172,10 +172,12 @@ contrat d'un type inclut ses règles de conversion vers un storage —
 la classe visite le type, le type se décrit, la classe rend la forme
 native (`amount` en DECIMAL ici, en deux colonnes là) ; le contrat
 couvre **les trois gestes du champ** (la création, la modification —
-l'altération + le transcodage —, la suppression), et les méthodes
-d'entité (`create/update/delete_entity`) **se composent des gestes
-des types** ; un storage nouveau visite tous les types sans qu'aucun
-ne change.
+l'altération + le transcodage —, la suppression) **et les fonctions
+de valeur** (D683 — `create`/`update`/`read` d'une valeur) ; les
+méthodes d'entité **se composent des gestes des types**, les
+méthodes d'enregistrement **des fonctions de valeur** — la symétrie
+structure/donnée ; un storage nouveau visite tous les types sans
+qu'aucun ne change.
 
 **La migration à chaud** (D631/D674) : `duplicate_instance` → les
 transformations dérivées des différences (D632 — le mapping

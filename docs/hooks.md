@@ -86,8 +86,10 @@ graphe de conversion).
   type, le type se décrit, la classe rend la forme native ; le
   contrat couvre **les trois gestes du champ** (D682) : la création
   (les colonnes natives), la modification (l'altération + le
-  transcodage — D647/D673), la suppression ; un type-hook sans ses
-  règles de conversion ne se stocke pas — l'ingestion le refuse.
+  transcodage — D647/D673), la suppression — **et les fonctions de
+  valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
+  native écrite et relue) ; un type-hook sans ses règles de
+  conversion ne se stocke pas — l'ingestion le refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses

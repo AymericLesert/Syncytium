@@ -5245,6 +5245,10 @@ explicite, le parallèle exact de `modules.yml` (D415 : ce qui existe
 se déclare, jamais ne se déduit du disque). **Les hooks du socle
 vivent dans l'arborescence de Syncytium** — le moteur ses hooks,
 l'application les siens : la même porte (D52), deux maisons.
+*(La lecture confirmée par l'auteur : « je confirme le hooks/ à la
+racine de la version » — une version épingle ses hooks, cohérent
+avec « déposer un fichier = publier une version » D323 et la
+documentation version par version D645.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13002,6 +13006,9 @@ avant la synthèse Q16).
   les hooks portent describe — la documentation technique assemblée
   dynamiquement, version par version (D630 généralisé, le nom
   confirmé). hooks.md et connectors.md mis au niveau.
+- **2026-08-16 (suite 17)** — **La racine de la version confirmée**
+  (D644) : « je confirme le hooks/ à la racine de la version » — une
+  version épingle ses hooks.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

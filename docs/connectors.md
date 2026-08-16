@@ -339,7 +339,7 @@ operations:
 - **au-delà du 1-1 (D658–D659)** : **le référentiel par valeurs
   distinctes** — la destination prend les valeurs distinctes d'un
   champ ou d'une liste de champs, la valeur devient la clé
-  fonctionnelle (`distinct:` en proposition) ; **les composés par la
+  fonctionnelle (`distinct:` validé) ; **les composés par la
   fonction du type** — `geolocation(lat, lng)`,
   `amount(montant, devise)` (D579/D584) ;
 - **la forme de la règle (D656)** — la règle au nom de la table

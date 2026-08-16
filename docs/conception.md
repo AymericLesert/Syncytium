@@ -777,8 +777,8 @@ documentation) :
 | D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
 | D656 | **La forme de la règle validée** : la règle au nom de la table source — `to:` (la cible, entité ou agrégat), `key:` (la clé fonctionnelle, simple ou composée), `parent:` (la clé du possesseur — la composition), `fields:` (les expressions du langage unique), `ignored:` (les colonnes/tables déclarées ignorées). | « La forme me convient. » Voir §3.2c. |
 | D657 | **ignored dans la source, comme un type** (amende D656) : le marqueur vit dans source/ — l'entité attendue mais non développée (`audit_log: ignored`), le champ ignoré comme un type (`ref_ext: ignored`) ; l'exhaustivité (D648) se joue entièrement dans source/, le mapping ne porte que les correspondances. | Voir §3.2c. |
-| D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` en proposition. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
-| D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire. | Voir §3.2c. |
+| D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` **validée**. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
+| D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire ; **l'écriture validée**. | Voir §3.2c. |
 | D660 | **La normalisation par champ calculé sur la source** (précise D658) : source/ parle toute la grammaire, champs calculés compris — la normalisation s'écrit sur la description de la source (`formula:`), le mapping consomme le champ calculé comme une colonne. | Voir §3.2c. |
 
 ---
@@ -5599,8 +5599,8 @@ l'assainissement : la colonne libre du legacy (la catégorie, la
 ville tapée à la main) **engendre une entité de référence** — les
 valeurs distinctes deviennent les enregistrements, la valeur
 devient la clé fonctionnelle (D654), et les entités qui la
-portaient la référencent par cette clé. *(L'écriture en
-proposition :*
+portaient la référencent par cette clé. *(L'écriture validée —
+« je valide distinct: et le constructeur de composés » :*
 
 ```yaml
 # mapping/categories.yml — le référentiel des valeurs distinctes
@@ -13489,6 +13489,9 @@ avant la synthèse Q16).
   (D660)** : le champ calculé sur la description de l'entité source
   (formula:), utilisable dans le mapping — la normalisation vit avec
   la source, les règles restent des correspondances.
+- **2026-08-16 (suite 30)** — **distinct: et les constructeurs
+  validés** (« je valide distinct: et le constructeur de composés »)
+  — les écritures de D658–D659 arrêtées.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

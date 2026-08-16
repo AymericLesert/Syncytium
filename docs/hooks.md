@@ -156,7 +156,8 @@ code » (D570). Les 18 opérations de socle (D574, `migrate` ajouté
 par D667) sont les hooks
 embarqués : `create`, `read`, `update`, `delete`, `duplicate`,
 `promote`, `demote`, `generate`, `download`, `print`, `send`,
-`export`, `import`, `report`, `restore`, `notify`, `refresh`.
+`export`, `import`, `report`, `restore`, `notify`, `refresh`,
+`migrate` (D667).
 
 **Le contrat — l'objet aux quatre fonctions (D595) :**
 

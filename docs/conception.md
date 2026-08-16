@@ -12961,6 +12961,10 @@ avant la synthèse Q16).
   (D643)** : le §1.2 créé — la démarche « décrire, clarifier et
   spécifier avant de coder » (D314), la carte des huit domaines à
   l'état, les quatre sujets transversaux de la passe de complétude.
+- **2026-08-16 (suite 15)** — **La PR #30 fusionnée (vérifiée)** :
+  « La passe de complétude : les connecteurs et les échanges
+  (D610–D642) », 37 commits sur develop ; la branche recréée porte
+  D643.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

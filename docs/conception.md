@@ -106,10 +106,13 @@ documentation) :
    le RGPD (dont la tension avec l'historisation D168), l'audit ;
 3. **l'administration et l'exploitation** — à ouvrir ; le module
    d'administration jamais décrit, la télémétrie (Q12–Q13) ;
-4. **la migration et les versions** — largement dégrossie par le
-   mapping (D646–D651) ; restent la jonction journal↔gestes storage,
-   le retour arrière après `switch_schema`, le registre des versions
-   essayées face à l'échec à chaud.
+4. **la migration et les versions** — largement soldée : le mapping
+   entier (D646–D672), la jonction journal↔gestes storage (D673–D674
+   — le critère structurel, la procédure en quatre temps), le retour
+   arrière (D674–D675 — gratuit avant bascule, le délai de grâce
+   après) ; reste à confirmer : l'échec à chaud rejoint le registre
+   des versions essayées (la lecture D674+D332 — le temporaire jeté,
+   le retry par bump du build).
 
 ---
 
@@ -791,6 +794,8 @@ documentation) :
 | D672 | **Le différentiel par comparaison** (solde le mapping) : évalué après la migration — enregistrement par enregistrement (la clé D654) et champ par champ, seuls les écarts s'écrivent ; l'entité cible historisée assure l'évolution de la valeur (D168). | Pas de détection côté source. Voir §3.2c. |
 | D673 | **Le critère de la migration de schéma** (la jonction versions↔storage) : l'écart structurel seul déclenche — module/entité (ajout/renommage/suppression), champ **non calculé** (ajout/renommage/modification/suppression ; modifié = le type ou le défaut) ; le reste active sans migration. | Le calculé ne touche pas le schéma. Voir §3.2c. |
 | D674 | **La procédure en quatre temps** (précise D631) : la duplication en schéma temporaire → les transformations des différences (D632) → la bascule sur validation (suppression + renommage ; non validé = l'original intact) → les écritures en attente pendant la phase. | Voir §3.2c. |
+| D675 | **Le délai de grâce** (complète D674) : configurable — l'ancien schéma survit le délai déclaré (le retour post-bascule pendant la grâce) ; le défaut : pas de délai (la restauration D174/D332 prend le relais) ; `grace:` en proposition. | Voir §3.2c. |
+| D676 | **Les lectures continues** (complète D674) : pendant la phase, la lecture ne s'interrompt jamais — « cela ne modifie pas les données, ni sa structure » ; seule l'écriture attend. | La migration vraiment à chaud. Voir §3.2c. |
 
 ---
 
@@ -5900,6 +5905,24 @@ D631 se précise :
    de données sont **mises en attente** (jamais rejetées) et
    reprennent sur le schéma neuf (la fenêtre d'affluence de D8 en
    creux : la migration se programme aux heures calmes).
+
+**Le délai de grâce et les lectures continues (D675–D676 — complètent
+D674).** **« Par configuration, nous allons prévoir un délai de
+grâce (dont par défaut, pas de délai). Pendant la phase, les
+lectures continuent car cela ne modifie pas les données, ni sa
+structure. »**
+
+- **le délai de grâce (D675)** — configurable : l'ancien schéma
+  survit le délai déclaré avant sa suppression — le retour arrière
+  post-bascule pendant la grâce ; **le défaut : pas de délai** (la
+  suppression au temps 3, le retour post-bascule relevant alors du
+  registre des versions et de la restauration — D174/D332) ; *(en
+  proposition : la durée à la grammaire D476 —* `grace: 7d` *à la
+  configuration générale, défaut* `grace: 0`*)* ;
+- **les lectures continues (D676)** — pendant la phase, la lecture
+  ne s'interrompt jamais : « cela ne modifie pas les données, ni sa
+  structure » — la migration est vraiment à chaud, **seule
+  l'écriture attend** (D674, temps 4).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13778,6 +13801,11 @@ avant la synthèse Q16).
   temporaire, transformations des différences, bascule sur
   validation (le retour d'avant-bascule gratuit), écritures en
   attente. mapping.md mis au niveau.
+- **2026-08-16 (suite 40)** — **Le délai de grâce et les lectures
+  continues (D675–D676)** : la grâce configurable (défaut : aucune),
+  les lectures jamais interrompues — seule l'écriture attend. La
+  jonction versions↔storage est refermée ; mapping.md et le §1.2 mis
+  au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

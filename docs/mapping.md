@@ -82,7 +82,15 @@ active la version **sans migration de schéma**.
    temporaire se jette — **le retour arrière d'avant-bascule est
    gratuit** ;
 4. **les écritures en attente** pendant la phase — jamais rejetées,
-   reprises sur le schéma neuf.
+   reprises sur le schéma neuf ; **les lectures continuent** (D676 —
+   « cela ne modifie pas les données, ni sa structure » : la
+   migration vraiment à chaud, seule l'écriture attend).
+
+**Le délai de grâce** (D675) : configurable — l'ancien schéma survit
+le délai déclaré avant sa suppression (le retour arrière
+post-bascule pendant la grâce) ; **le défaut : pas de délai** — la
+restauration (D174) et le registre des versions (D332) prennent le
+relais.
 
 ## L'usage 2 — la migration d'un système existant
 
@@ -318,6 +326,5 @@ postures de D180 incarnées.
 
 ## Les points ouverts
 
-- **l'après-bascule** — le schéma remplacé est supprimé (D674) : le
-  retour arrière post-bascule relève du registre des versions et de
-  la restauration (à confirmer au sujet 4 de la passe).
+Aucun — le chantier du mapping et la jonction versions↔storage sont
+soldés (D646–D676).

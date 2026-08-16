@@ -789,6 +789,7 @@ documentation) :
 | D667 | **migrate, la 18e opération du socle** (complète D574 ; solde le déclenchement) : `migrate` exécute une migration déclarée et se déclenche comme toute opération (bouton, when:, every:, API) ; la relance = la ré-exécution (le rejeu par la clé D654) ; le dry-run absolu = le preview suspendu avant commit (D594). | Voir §3.2c. |
 | D668 | **Le module migration historisé** (complète D666) : les entités portent history: — le suivi de la migration et l'évolution de la qualité de la couverture dans le temps (D168–D174). | Voir §3.2c. |
 | D669 | **Le mode de la migration** (étend D649) : l'option de la migration déclarée — `absolute` (la bascule), `partial` (l'entrepôt — « partiel » succède à « relatif »), `partial+reset` (le contenu des tables cibles effacé avant l'import — le périmètre de la migration seul). | Voir §3.2c. |
+| D670 | **Le versionnement plein** (tranche D668) : source/ et mapping/ versionnés comme tout le reste — le coût des itérations absorbé par le build (D323), le beta/ (D340), le dry-run (D667) ; la traçabilité double (les règles par la version, les résultats par le module historisé). | « Le versionnement est plein. » Voir §3.2c. |
 
 ---
 
@@ -5820,6 +5821,19 @@ option de la migration déclarée** (D662) :
   cibles avant l'import** : la reconstruction à neuf du périmètre de
   la migration (les tables qu'elle alimente — jamais au-delà), le
   patron de l'exploration répétée.
+
+**Le versionnement plein (D670 — tranche la question de D668).**
+**« Le versionnement est plein. »** — `source/` et `mapping/` sont
+versionnés comme tout le reste ; la question du coût des itérations
+d'exploration (posée par l'auteur) se résout par la machinerie
+existante : **le bump du build** (D323 — le geste le moins cher),
+**le statut beta/ sur le staging** (D340 — l'exploration y vit),
+**le dry-run qui n'engage rien** (le preview de migrate — D667), et
+**la traçabilité double** — le versionnement trace les règles, le
+module historisé (D668) trace les résultats, l'entité de suivi
+consigne la version des règles à chaque passage. Aucune pièce de
+configuration n'échappe à la trace — surtout pas celle qui écrit
+dans les données.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13681,6 +13695,10 @@ avant la synthèse Q16).
   tables cibles effacées avant l'import). La question du
   versionnement de source/mapping posée par l'auteur — en
   discussion. mapping.md mis au niveau.
+- **2026-08-16 (suite 37)** — **Le versionnement plein (D670)** :
+  source/ et mapping/ versionnés comme tout — le coût absorbé par le
+  build, le beta/, le dry-run ; la traçabilité double. Le seul point
+  ouvert du mapping : la détection des deltas en différentiel.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

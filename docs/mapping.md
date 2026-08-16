@@ -91,7 +91,12 @@ migrations:
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est
-libre, la déclaration fait foi. **L'ordre au sein d'un pattern est
+libre, la déclaration fait foi. **Le versionnement est plein**
+(D670) : `source/` et `mapping/` sont versionnés comme tout le
+reste — l'itération d'exploration passe par le bump du build (D323),
+le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
+version des règles est consignée à chaque passage dans le module
+`migration` (D668). **L'ordre au sein d'un pattern est
 alphabétique** (D665) — le préfixe numérique décrit les étapes de la
 migration : `001_referentiels.yml`, `002_customers.yml`,
 `003_orders.yml`. Le câblage `from:` (D610) se relit

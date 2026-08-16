@@ -13900,7 +13900,8 @@ avant la synthèse Q16).
   entité — read_instance, duplicate_instance, rename_instance…), la
   version en entité système, la mission = la conversion ; le contrat
   de conversion porté par le type (le patron visiteur). connectors.md,
-  types.md et mapping.md mis au niveau.
+  types.md, mapping.md et hooks.md (la signature du hook de type
+  enrichie — relevé par l'auteur) mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

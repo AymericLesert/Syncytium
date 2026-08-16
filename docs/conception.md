@@ -785,6 +785,8 @@ documentation) :
 | D663 | **Le filter: de la source** : la sélection des enregistrements parcourus par la migration (les 10 dernières années, l'instance — le multi-instances d'une entité) — le périmètre déclaré, hors taux de couverture. | Voir §3.2c. |
 | D664 | **La déclaration aux patterns** (amende D662) : la migration référence ses fichiers — `source:` liste de patterns (un fichier par entité), `mapping:` liste (un fichier par règle) — le patron D320–D321 ; l'organisation des dossiers libre, pas de dossiers réservés. | Voir §3.2c. |
 | D665 | **L'ordre alphabétique dans le pattern** (précise D662/D664) : le préfixe numérique (001, 002, 003…) des fichiers de mapping décrit les étapes de la migration — l'ordre visible au nommage. | Voir §3.2c. |
+| D666 | **Le module migration** (solde la vue de couverture) : l'état de la couverture stocké dans un module `migration` défini par Syncytium — la vue exploite les éléments déjà décrits (listes, widgets, dashboards sur les entités du module) ; le taux = une donnée du modèle. | Le socle premier client (D408/D416). Voir §3.2c. |
+| D667 | **migrate, la 18e opération du socle** (complète D574 ; solde le déclenchement) : `migrate` exécute une migration déclarée et se déclenche comme toute opération (bouton, when:, every:, API) ; la relance = la ré-exécution (le rejeu par la clé D654) ; le dry-run absolu = le preview suspendu avant commit (D594). | Voir §3.2c. |
 
 ---
 
@@ -5758,6 +5760,39 @@ alphabétique des fichiers** ; le préfixe numérique
 (`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`)
 décrit **les étapes de la migration** — l'ordre est visible dans
 l'explorateur de fichiers, sans déclaration supplémentaire.
+
+*(Le filter: confirmé — « les enregistrements ne respectant pas
+filter: ne sont pas exclus et ne font pas partie de la couverture » :
+le périmètre déclaré, ni rejet ni couverture — la lecture de D663
+validée.)*
+
+**Le module migration — la couverture dans le modèle (D666 — solde
+la vue de couverture).** **« L'état de la couverture peut être
+stocké dans un module "migration" dont la définition est portée par
+Syncytium. Ainsi, la vue de la couverture exploite les éléments que
+nous avons déjà décrits. »** — pas de surface spéciale : **un module
+`migration`, défini par Syncytium** (le socle premier client du
+mécanisme — D408/D416), dont les entités stockent l'état de la
+couverture (par migration, par entité source, par règle, les rejets
+et leurs causes) — et **la vue est déclarée comme toute vue** : les
+listes, les widgets, les kpi, les tableaux de bord du catalogue
+(D437–D569) sur ces entités ; la confidentialité, les droits et le
+menu du module comme partout (D416). Le taux de couverture est une
+donnée du modèle — consultable, filtrable, exportable, historisable.
+
+**migrate — la dix-huitième opération du socle (D667 — solde le
+déclenchement).** **« La migration (`migrate`) est une opération qui
+vient enrichir les 17 existantes. Le déclenchement peut se
+construire comme toutes les opérations. »** — le catalogue de D574
+passe à **dix-huit** : `migrate` exécute une migration déclarée
+(D662) et se déclenche **comme toute opération** (D428/D609) — le
+bouton d'administration, le `when:` d'expression, l'`every:`
+calendaire (la migration différentielle nocturne), l'API, le
+`when: <connecteur>` ; la relance = la ré-exécution (le rejeu sans
+doublon par la clé fonctionnelle — D654) ; le hook d'opération
+(execute/confirm/commit/rollback — D595) et la transaction tenue
+ouverte (D594) s'appliquent — le dry-run absolu (D649) n'est que le
+preview de `migrate` suspendu avant commit.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13604,6 +13639,14 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 34)** — **L'ordre alphabétique (D665)** : le
   préfixe numérique 001/002/003 des fichiers décrit les étapes de
   migration — l'ordre au nommage, visible.
+- **2026-08-16 (suite 35)** — **Le module migration et la 18e
+  opération (D666–D667)** : le filter: confirmé (ni rejet ni
+  couverture) ; la couverture stockée dans un module migration porté
+  par Syncytium — la vue par les éléments déjà décrits ; migrate
+  enrichit les 17 opérations du socle, le déclenchement comme toute
+  opération, le dry-run absolu = le preview avant commit. Les
+  questions 3 et 4 (déclenchement) soldées ; mapping.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

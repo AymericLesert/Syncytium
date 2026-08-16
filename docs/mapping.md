@@ -249,14 +249,31 @@ La reprise (D175–D179) est le mode relatif du `from:` ; le mode
 absolu en est le durcissement pour la bascule définitive — les deux
 postures de D180 incarnées.
 
+## La couverture et le pilotage (D666–D667)
+
+- **le module `migration`** (D666) — défini par Syncytium (le socle
+  premier client — D408/D416) : ses entités stockent l'état de la
+  couverture (par migration, par entité source, par règle, les
+  rejets et leurs causes) — **la vue exploite les éléments déjà
+  décrits** : les listes, les widgets, les kpi, les tableaux de bord
+  du catalogue sur ces entités ; le taux de couverture est une
+  donnée du modèle — consultable, filtrable, exportable ;
+- **`migrate`, la dix-huitième opération du socle** (D667 — complète
+  D574) : elle exécute une migration déclarée (D662) et **se
+  déclenche comme toute opération** (D428/D609) — le bouton
+  d'administration, le `when:`, l'`every:` calendaire (le
+  différentiel nocturne), l'API ; la relance = la ré-exécution, le
+  rejeu sans doublon par la clé fonctionnelle (D654) ; le dry-run
+  absolu (D649) = le preview de `migrate` suspendu avant commit
+  (D594–D595) ;
+- **le `filter:`** (D663, confirmé) : les enregistrements hors
+  filtre ne sont ni des rejets ni de la couverture — le périmètre
+  déclaré.
+
 ## Les points ouverts
 
-- **la vue du taux de couverture** — la surface qui la porte (la
-  proposition en discussion : un tableau de bord de migration fourni
-  d'office — par table source, par entité cible, le taux global, le
-  drill-down vers les rejets — logé au module d'administration) ;
-- **le pilotage** — le déclenchement du `from:`, la relance sur les
-  manquants, la détection des deltas en mode différentiel ;
+- **la détection des deltas** en mode différentiel (le pilotage
+  fin) ;
 - **la jonction avec les versions** (sujet 4 de la passe) — le lien
   journal de migrations ↔ gestes storage, le retour arrière après
   `switch_schema`.

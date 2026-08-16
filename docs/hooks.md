@@ -32,9 +32,31 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
   langage exploité par Syncytium** (D570) — le langage et la sandbox
   relèvent du domaine 7 (l'architecture technique — D602).
 
+## La maison des hooks — `hooks/` et `hooks.yml` (D644)
+
+Les hooks de l'application vivent **à la racine de la version** : le
+dossier `hooks/`, **un sous-dossier par type de hooks** ; le fichier
+**`hooks.yml`** les liste — la liste explicite, le parallèle de
+`modules.yml` (D415 : ce qui existe se déclare). Les hooks du socle
+vivent dans l'arborescence de Syncytium — la même porte (D52), deux
+maisons.
+
+```text
+versions/<statut>/<version>/
+├── settings.yml · groups.yml · modules.yml
+├── hooks.yml                  # la liste explicite (D644)
+├── hooks/
+│   ├── types/                 # un sous-dossier par type de hooks
+│   ├── components/
+│   ├── operations/
+│   ├── functions/
+│   └── connectors/
+└── <modules>/
+```
+
 ## Les familles
 
-### 1. Le hook de type (D408, D459, D579–D584)
+### 1. Le hook de type (D408, D459, D579–D584, D681)
 
 Ajoute **un type** au catalogue — exploitable comme les types
 standard (le chaînage possible, les types custom ne portant pas le
@@ -57,7 +79,19 @@ graphe de conversion).
 - **les règles de tri et le nul** (D368 et suivantes), la recherche,
   le masque — le kit des facettes ;
 - **la représentation obligatoire** (D459) : « aucun type sans
-  visage » — le composant d'écran et/ou le rendu de document.
+  visage » — le composant d'écran et/ou le rendu de document ;
+- **les règles de conversion vers un storage** (D681–D682 — le
+  patron visiteur) : « le contrat d'un type doit inclure les règles
+  de conversion vers un storage » — la classe storage visite le
+  type, le type se décrit, la classe rend la forme native ; le
+  contrat couvre **les trois gestes du champ** (D682) : la création
+  (les colonnes natives), la modification (l'altération + le
+  transcodage — D647/D673), la suppression — **et les fonctions de
+  valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
+  native écrite et relue) — et **l'identification** (D684) : le type
+  sait **se reconnaître** dans une structure native à l'introspection
+  (`read_instance` compose les identifications) ; un type-hook sans
+  ses règles de conversion ne se stocke pas — l'ingestion le refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses
@@ -122,10 +156,12 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 17 opérations de socle (D574) sont les hooks
+code » (D570). Les 18 opérations de socle (D574, `migrate` ajouté
+par D667) sont les hooks
 embarqués : `create`, `read`, `update`, `delete`, `duplicate`,
 `promote`, `demote`, `generate`, `download`, `print`, `send`,
-`export`, `import`, `report`, `restore`, `notify`, `refresh`.
+`export`, `import`, `report`, `restore`, `notify`, `refresh`,
+`migrate` (D667).
 
 **Le contrat — l'objet aux quatre fonctions (D595) :**
 
@@ -250,10 +286,13 @@ commun d'abord** (D621–D630) : toute classe implémente
 error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et
 `describe()` (la documentation markdown/html de l'instance — D630).
-Les contrats détaillés — storage (la transaction, le schéma, la
-migration à chaud), smtp (`send`), file (`get_files`/`get_file`/
-`commit`), directory (la lecture seule), location
-(`geocode`/`reverse`), webhook (les entrées, l'abonnement,
+Les contrats détaillés — storage (la transaction, l'instance —
+`read_instance`/`duplicate_instance`/`rename_instance` —, les
+entités et les enregistrements composés des types-visiteurs
+(D680–D689 : l'écriture en lots, la lecture au curseur), la
+migration à chaud orchestrée par le moteur), smtp (`send`), file
+(`get_files`/`get_file`/`commit`), directory (la lecture seule),
+location (`geocode`/`reverse`), webhook (les entrées, l'abonnement,
 l'authentification obligatoire), siren (`verify`) — sont dans
 [connectors.md](connectors.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
 **les secrets par variable d'environnement chiffrable** (D603), les
@@ -308,3 +347,9 @@ connectors:
 3. **La signature d'abord** : chaque famille déclare ce que le typage
    statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
    passe jamais l'ingestion.
+4. **describe partout** (D645 — généralise D630) : **tout hook porte
+   une méthode `describe`** qui écrit la documentation de son
+   fonctionnement — la documentation technique de l'application
+   (celle de Syncytium + les hooks ajoutés automatiquement) se
+   construit **dynamiquement, version par version** : la version
+   documentée est exactement la version servie.

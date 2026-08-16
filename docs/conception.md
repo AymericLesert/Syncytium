@@ -73,6 +73,47 @@ un document à part, terme par terme avec ses décisions fondatrices
 graphiques ont **[leur catalogue dédié](composants.md)** — les fiches
 de description au modèle en neuf rubriques (D457), même vocation.
 
+### 1.2 La démarche et les huit domaines (D314, D602, D643)
+
+L'approche du projet tient en une ligne : **décrire, clarifier et
+spécifier avant de coder** (D314 — aucun code tant que tous les
+points ne sont pas validés). Les huit domaines en sont la carte —
+**les bases de l'approche et les éléments à couvrir** (D643) :
+
+| # | Le domaine | L'état | Les références |
+|---|---|---|---|
+| 1 | **L'organisation et l'arborescence d'une application** — « revue et amendée au fur et à mesure de nos explorations » | Livré | D333–D346 |
+| 2 | **La donnée, sa structure et les droits** | Livré | D347–D419 |
+| 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
+| 4 | **Les surfaces** | Livré | D437–D569 |
+| 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping |
+| 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
+| 8 | **L'implémentation** | Après tout le reste | D314 |
+
+**La passe de complétude** (ouverte le 15/08) balaie **quatre sujets
+transversaux** avant d'ouvrir les domaines 5–6 (les cas d'usage, la
+documentation) :
+
+1. **les connecteurs et les échanges** — **soldé** (D603–D672 : les
+   sept contrats, le mapping entier — les deux maisons source/ et
+   mapping/, les migrations déclarées, le module de suivi historisé,
+   `migrate` la 18e opération, le versionnement plein, le
+   différentiel par comparaison) ;
+2. **la sécurité et les droits** — à ouvrir ; les flags accumulés :
+   la passerelle d'authentification (D418), l'authentification du
+   `directory` (D633), le mécanisme de la garde du webhook (D642) ;
+   le RGPD (dont la tension avec l'historisation D168), l'audit ;
+3. **l'administration et l'exploitation** — à ouvrir ; le module
+   d'administration jamais décrit, la télémétrie (Q12–Q13) ;
+4. **la migration et les versions** — largement soldée : le mapping
+   entier (D646–D672), la jonction journal↔gestes storage (D673–D674
+   — le critère structurel, la procédure en quatre temps), le retour
+   arrière (D674–D675 — gratuit avant bascule, le délai de grâce
+   après) ; reste à confirmer : l'échec à chaud rejoint le registre
+   des versions essayées (la lecture D674+D332 — le temporaire jeté,
+   le retry par bump du build).
+
 ---
 
 ## 2. Décisions actées
@@ -721,6 +762,53 @@ de description au modèle en neuf rubriques (D457), même vocation.
 | D640 | **Le contrat webhook — l'entrée** : le mode (get/put/post/delete), le point d'entrée `api/<version>/webhook/<nom>`, les paramètres au header ou à l'URL — « une nouvelle entrée gérée par Syncytium » : le moteur monte la route et reçoit. | Voir §3.2c. |
 | D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
 | D642 | **L'authentification obligatoire du webhook** (complète D640) : « le déclenchement du webhook doit passer par une authentification obligatoire » — aucune entrée anonyme, la garde d'office sur la route ; le mécanisme au chantier sécurité (D418/D633). | Voir §3.2c. |
+| D643 | **Les domaines en première partie** (prolonge D602) : « ils font partie des bases de l'approche et des éléments à couvrir — cela complète mon approche (décrire, clarifier et spécifier avant de coder) » — le nouveau §1.2 : la démarche (D314), la carte des huit domaines et leur état, les quatre sujets transversaux de la passe. | Voir §1.2 et §3.2c. |
+| D644 | **Le dossier hooks/ et hooks.yml** (complète le domaine 1) : `hooks/` à la racine de la version, un sous-dossier par type de hooks ; `hooks.yml` à la racine les liste (le parallèle de modules.yml D415) ; les hooks du socle dans l'arborescence de Syncytium. | Voir §3.2c. |
+| D645 | **describe partout, la documentation technique dynamique** (généralise D630) : tous les hooks portent `describe` ; la doc technique de l'application = celle de Syncytium + les hooks ajoutés automatiquement — construite dynamiquement, version par version. | Le nom describe confirmé. Voir §3.2c. |
+| D646 | **Les deux fonctions du mapping** (ouvre le chantier D610) : la migration entre 2 versions (à chaud + la mécanique de la compatibilité ascendante/descendante — le pilier P3) et la migration entre 2 schémas storage (le système existant vers le nouveau — les interfaces de Syncytium en vue sur les données migrées et validées). | Voir §3.2c. |
+| D647 | **L'unification — l'usage 1 implicite** : entre versions, rien à écrire (le from: implicite = la version précédente, porté par Syncytium) sauf le renommage (garder l'ancien nom), la dépréciation inscrite (champs/entités/modules), les règles de création/suppression persistantes (D11–D13), le changement de type par les conversions du type (D579/D584). | Voir §3.2c. |
+| D648 | **L'usage 2 — le même langage, l'exhaustivité du schéma** : le from: tire le storage d'origine (get_schema D629) ; l'exhaustivité des tables/colonnes/dépendances/contraintes — couvert ou déclaré ignoré (D176 étendu) ; la traduction par les fonctions et conversions du langage unique. | Voir §3.2c. |
+| D649 | **Le dry-run du from: à deux modes** : absolu (tout-ou-rien — la bascule vers Syncytium) ; relatif (l'entrepôt — les conformes portés, les erreurs isolées + rapport à l'administrateur, la vue sur le taux de couverture vs la source). | Les deux postures D180 incarnées ; la reprise D175–D179 = le mode relatif. Voir §3.2c. |
+| D650 | **La dépréciation en trois temps** (solde D647) : l'intention (l'avertissement), l'acte (déprécié mais répond encore), la suppression (un geste de version — champ, table ou module) ; **la documentation obligatoire** — le remplacement ou l'abandon précisé. | L'écriture deprecated: planned \| true + forme riche en proposition. Voir §3.2c. |
+| D651 | **Le renommage par old_name** (solde D647) : un champ, une entité ou un module renommé porte `old_name: <ancien nom>` — le journal de migrations et la chaîne API (P3) en dérivent la continuité. | Voir §3.2c. |
+| D652 | **La source décrite par le méta-modèle — source/** : « la source doit être décrite par le méta-modèle également » — le dossier source/ à la racine de la version décrit le modèle d'origine table par table, colonne par colonne, dans la grammaire de description ; le typage statique et les conversions de type jouent des deux côtés ; get_schema peut en engendrer l'ossature. | Voir §3.2c. |
+| D653 | **Les deux maisons** (tranche D652) : `source/` = la description du modèle d'origine — Syncytium s'assure de la complétude du modèle (confrontée à get_schema) ; `mapping/` = les règles de conversion table par table, aux origines multiples possibles. | Voir §3.2c. |
+| D654 | **La construction de l'enregistrement** : le mapping construit l'enregistrement avant sa validation (D177) ; l'identification par la clé fonctionnelle (D142/D398) — le rapprochement au rejeu, et la construction des agrégats (compositions/associations) par la clé. | Voir §3.2c. |
+| D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
+| D656 | **La forme de la règle validée** : la règle au nom de la table source — `to:` (la cible, entité ou agrégat), `key:` (la clé fonctionnelle, simple ou composée), `parent:` (la clé du possesseur — la composition), `fields:` (les expressions du langage unique), `ignored:` (les colonnes/tables déclarées ignorées). | « La forme me convient. » Voir §3.2c. |
+| D657 | **ignored dans la source, comme un type** (amende D656) : le marqueur vit dans source/ — l'entité attendue mais non développée (`audit_log: ignored`), le champ ignoré comme un type (`ref_ext: ignored`) ; l'exhaustivité (D648) se joue entièrement dans source/, le mapping ne porte que les correspondances. | Voir §3.2c. |
+| D658 | **Le référentiel par valeurs distinctes** : la table de destination prend les valeurs distinctes d'un champ ou d'une liste de champs — la valeur = la clé fonctionnelle, les entités porteuses la référencent par la clé (D654) ; l'écriture `distinct:` **validée**. | Le mapping n'est pas toujours du 1-1. Voir §3.2c. |
+| D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire ; **l'écriture validée**. | Voir §3.2c. |
+| D660 | **La normalisation par champ calculé sur la source** (précise D658) : source/ parle toute la grammaire, champs calculés compris — la normalisation s'écrit sur la description de la source (`formula:`), le mapping consomme le champ calculé comme une colonne. | Voir §3.2c. |
+| D661 | **`mapping.md` créé** : le sixième artefact préparatoire (Q58) — la description de la source et le mapping (D646–D660) : les deux usages, source/ et mapping/, la grammaire des règles, le dry-run, les exemples ; aucun contenu nouveau. | À la demande de l'auteur. |
+| D662 | **Les migrations déclarées** (étend D610) : la convergence de plusieurs sources — le setting lie { connecteur storage · descriptions sources · mapping } par migration ; l'ordre d'exécution = l'ordre de définition des migrations, l'ordre de parcours = l'ordre de définition des entités sources. | L'écriture migrations: en proposition ; from: relu comme le raccourci à une migration. Voir §3.2c. |
+| D663 | **Le filter: de la source** : la sélection des enregistrements parcourus par la migration (les 10 dernières années, l'instance — le multi-instances d'une entité) — le périmètre déclaré, hors taux de couverture. | Voir §3.2c. |
+| D664 | **La déclaration aux patterns** (amende D662) : la migration référence ses fichiers — `source:` liste de patterns (un fichier par entité), `mapping:` liste (un fichier par règle) — le patron D320–D321 ; l'organisation des dossiers libre, pas de dossiers réservés. | Voir §3.2c. |
+| D665 | **L'ordre alphabétique dans le pattern** (précise D662/D664) : le préfixe numérique (001, 002, 003…) des fichiers de mapping décrit les étapes de la migration — l'ordre visible au nommage. | Voir §3.2c. |
+| D666 | **Le module migration** (solde la vue de couverture) : l'état de la couverture stocké dans un module `migration` défini par Syncytium — la vue exploite les éléments déjà décrits (listes, widgets, dashboards sur les entités du module) ; le taux = une donnée du modèle. | Le socle premier client (D408/D416). Voir §3.2c. |
+| D667 | **migrate, la 18e opération du socle** (complète D574 ; solde le déclenchement) : `migrate` exécute une migration déclarée et se déclenche comme toute opération (bouton, when:, every:, API) ; la relance = la ré-exécution (le rejeu par la clé D654) ; le dry-run absolu = le preview suspendu avant commit (D594). | Voir §3.2c. |
+| D668 | **Le module migration historisé** (complète D666) : les entités portent history: — le suivi de la migration et l'évolution de la qualité de la couverture dans le temps (D168–D174). | Voir §3.2c. |
+| D669 | **Le mode de la migration** (étend D649) : l'option de la migration déclarée — `absolute` (la bascule), `partial` (l'entrepôt — « partiel » succède à « relatif »), `partial+reset` (le contenu des tables cibles effacé avant l'import — le périmètre de la migration seul). | Voir §3.2c. |
+| D670 | **Le versionnement plein** (tranche D668) : source/ et mapping/ versionnés comme tout le reste — le coût des itérations absorbé par le build (D323), le beta/ (D340), le dry-run (D667) ; la traçabilité double (les règles par la version, les résultats par le module historisé). | « Le versionnement est plein. » Voir §3.2c. |
+| D671 | **Les options de la migration** (amende D669) : `{ mode: absolute \| relative, reset: true \| false }` — deux propriétés orthogonales, « relative » retenu (« partiel » abandonné), reset = les tables cibles effacées avant l'import. | Voir §3.2c. |
+| D672 | **Le différentiel par comparaison** (solde le mapping) : évalué après la migration — enregistrement par enregistrement (la clé D654) et champ par champ, seuls les écarts s'écrivent ; l'entité cible historisée assure l'évolution de la valeur (D168). | Pas de détection côté source. Voir §3.2c. |
+| D673 | **Le critère de la migration de schéma** (la jonction versions↔storage) : l'écart structurel seul déclenche — module/entité (ajout/renommage/suppression), champ **non calculé** (ajout/renommage/modification/suppression ; modifié = le type ou le défaut) ; le reste active sans migration. | Le calculé ne touche pas le schéma. Voir §3.2c. |
+| D674 | **La procédure en quatre temps** (précise D631) : la duplication en schéma temporaire → les transformations des différences (D632) → la bascule sur validation (suppression + renommage ; non validé = l'original intact) → les écritures en attente pendant la phase. | Voir §3.2c. |
+| D675 | **Le délai de grâce** (complète D674) : configurable — l'ancien schéma survit le délai déclaré (le retour post-bascule pendant la grâce) ; le défaut : pas de délai (la restauration D174/D332 prend le relais) ; `grace:` en proposition. | Voir §3.2c. |
+| D676 | **Les lectures continues** (complète D674) : pendant la phase, la lecture ne s'interrompt jamais — « cela ne modifie pas les données, ni sa structure » ; seule l'écriture attend. | La migration vraiment à chaud. Voir §3.2c. |
+| D677 | **Le rejeu par la compatibilité ascendante** (boucle D674) : les écritures en attente, formulées dans l'ancienne version, sont rejouées par la chaîne ascendante (P3, D11–D13) — comme un appel d'API antérieur ; aucune mécanique dédiée. | Voir §3.2c. |
+| D678 | **La restauration par renommage, la version en table système** (précise D675/D174) : le défaut = la suppression ; sous grâce, l'ancien = le schéma sauvegardé et `restore` = le geste inverse de la bascule (le courant renommé, le sauvegardé repositionné) ; **chaque schéma porte sa version dans une table système**. | Voir §3.2c. |
+| D679 | **Les lectures en attente durant le renommage** (précise D676) : continues pendant la phase, mises en attente le temps du renommage — « normalement, cela est très court ». | Voir §3.2c. |
+| D680 | **Le contrat storage réécrit** (amende D629) : le vocabulaire du méta-modèle — l'instance (`create/read/duplicate/rename/delete_instance`, read_instance remplace get_schema), les entités (`create/update/delete_entity`), les enregistrements ; la version = une entité système maintenue par Syncytium (pas de méthode) ; la mission de la classe = la conversion vers le stockage. | Voir §3.2c. |
+| D681 | **La conversion au type — le visiteur** (prolonge D579) : le contrat d'un type inclut ses règles de conversion vers un storage — le patron visiteur ; le hook de type les fournit, un storage nouveau visite tous les types. | Voir §3.2c. |
+| D682 | **Les trois gestes du champ** (précise D681) : le type porte les règles storage du cycle de vie — la création (les colonnes natives), la modification (l'altération + le transcodage D647), la suppression ; les méthodes d'entité (D680) se composent des gestes des types. | Voir §3.2c. |
+| D683 | **Les fonctions de valeur** (complète D682) : le type porte aussi create/update/read d'une valeur — les méthodes d'enregistrement (D680) se composent des fonctions de valeur, la symétrie structure/donnée complète ; delete n'a pas de fonction de valeur. | Voir §3.2c. |
+| D684 | **Le retour de read_instance, l'identification du type** (complète D680–D683) : read_instance retourne l'équivalent d'un module (entités + champs, jamais tables/colonnes) ; la mutualisation — plusieurs colonnes vers un seul champ d'un type ; le type peut **s'identifier** dans la description (la réciproque du visiteur). | Voir §3.2c. |
+| D685 | **La borne du retour** (nuance D684) : read_instance ne construit que les items de stockage — les entités, les champs stockés, les contraintes, les dépendances ; jamais les surfaces, les champs calculés, les opérations. | Le storage décrit ce qu'il sait. Voir §3.2c. |
+| D686 | **L'orchestration par Syncytium** (solde les deux questions) : la bascule composée par le moteur sur les primitives du contrat ; les files d'attente au moteur — « l'accès aux données est géré et piloté par Syncytium et non le storage directement ». | Voir §3.2c. |
+| D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
+| D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
+| D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
 
 ---
 
@@ -5193,6 +5281,869 @@ déclaration. **Le mécanisme** (la clé d'API au header, le jeton, la
 signature…) rejoint le chantier sécurité (la passerelle
 d'authentification D418, flaguée en D633) — le principe est arrêté
 ici, la mécanique s'y arrêtera.
+
+**Les domaines en première partie (D643 — prolonge D602).** **« Les
+domaines sont à positionner dans la première partie de la conception.
+Ils font partie des bases de l'approche et des éléments à couvrir.
+Cela complète mon approche (décrire, clarifier et spécifier avant de
+coder). »** — les huit domaines quittent le seul fil des décisions
+pour vivre en **§1.2**, aux côtés de la vision et des piliers : la
+démarche (D314) en une ligne, la carte des huit domaines avec leur
+état, et les quatre sujets transversaux de la passe de complétude —
+la première partie dit désormais le *quoi couvrir* autant que le
+*pourquoi construire*.
+
+**Le dossier hooks/ et hooks.yml (D644 — complète le domaine 1).**
+**« Dans l'arborescence d'un projet, j'ajoute un dossier `hooks` qui
+contiendra un sous-dossier par type de hooks qui enrichira
+l'application. Syncytium portera ses hooks dans son arborescence. Le
+sous-dossier est à la racine. Et, un fichier `hooks.yml` à la racine
+permettra de les lister. »** — les hooks de l'application ont leur
+maison : **`hooks/` à la racine de la version**, un sous-dossier par
+type de hooks (les cinq familles — types, composants, opérations,
+fonctions, connecteurs) ; **`hooks.yml` les liste** — la liste
+explicite, le parallèle exact de `modules.yml` (D415 : ce qui existe
+se déclare, jamais ne se déduit du disque). **Les hooks du socle
+vivent dans l'arborescence de Syncytium** — le moteur ses hooks,
+l'application les siens : la même porte (D52), deux maisons.
+*(La lecture confirmée par l'auteur : « je confirme le hooks/ à la
+racine de la version » — une version épingle ses hooks, cohérent
+avec « déposer un fichier = publier une version » D323 et la
+documentation version par version D645.)*
+
+**Le mapping — les deux fonctions essentielles (D646 — ouvre le
+chantier de D610).** **« Le mapping va permettre de couvrir 2
+fonctions essentielles : la migration entre 2 versions ; la
+migration entre 2 schémas (storage). Le premier usage migre à chaud
+une version vers une autre et offre la mécanique pour la
+compatibilité ascendante et descendante. Le deuxième usage sert à la
+migration d'un système existant vers un nouveau système. Dans le cas
+de cet usage, les interfaces mises à disposition par Syncytium
+offriront une vue sur les données migrées et validées. »** — un seul
+mapping, deux visages :
+
+1. **entre deux versions** — la migration à chaud (les quatre gestes
+   de D631, le mapping automatique de D632) **et la mécanique de la
+   compatibilité ascendante et descendante** : le même mapping qui
+   fait migrer les données engendre la chaîne de translation des API
+   (le pilier P3, D11–D13) — une seule source, les deux effets ;
+2. **entre deux schémas (storage)** — le `from:` de D610 : le système
+   existant (`legacy_db`) vers le nouveau ; **les interfaces de
+   Syncytium offrent une vue sur les données migrées et validées** —
+   l'IHM générée comme poste de contrôle de la migration (l'écho de
+   la reprise D175–D179 : la couverture mesurée, l'acceptation
+   stricte — et de la posture entrepôt D180 : consulter et corriger).
+
+**L'écriture du mapping — l'unification et l'usage 1 implicite
+(D647 — arbitre la question posée).** **« Les 2 usages sont
+unifiés : le 1er usage est "implicite" sauf sur un renommage de
+champ (besoin de garder l'ancien nom par rapport à la version
+précédente), un mécanisme de dépréciation sur les champs, les
+entités et les modules doit être inscrit. Les règles que nous avons
+vues concernant la compatibilité suite à la création et la
+suppression d'un champ doivent persister. Le changement de types
+doit respecter des règles de compatibilité ou de transcodage.
+Chaque type porte sa/ses règles de conversion. Le from: porte la
+version précédente de façon implicite (Syncytium le porte en raison
+de l'évolution). »** — un seul mapping, et **l'usage 1 n'écrit
+rien** : entre deux versions, le mapping se dérive (D632) — le
+`from:` implicite est la version précédente, Syncytium le porte.
+Les seules écritures de l'usage 1 :
+
+- **le renommage** — garder l'ancien nom par rapport à la version
+  précédente (la primitive de renommage D4–D9, et la descendante qui
+  continue de servir l'ancien nom — P3) ;
+- **la dépréciation inscrite** — un mécanisme de dépréciation sur
+  les champs, les entités **et les modules** (le cycle de vie des
+  éléments du méta-schéma, l'écho du « masquer, jamais détruire ») ;
+- **la création et la suppression de champ** — les règles de
+  compatibilité déjà actées persistent (D11–D13 : la valeur de
+  substitution vers l'ancien, le défaut vers le neuf) ;
+- **le changement de type** — la compatibilité ou le transcodage :
+  **chaque type porte sa ou ses règles de conversion** — la grande
+  unification (D579/D584 : les conversions au nom du type) sert la
+  migration comme elle sert le calcul.
+
+**L'usage 2 — le même langage, l'exhaustivité du schéma (D648).**
+**« Le langage utilisé pour cette partie est exploitable pour le
+2ème point. Le from: tire le storage d'origine. Des règles
+complémentaires portent sur le schéma en plus : l'exhaustivité des
+tables, des colonnes, des dépendances et des contraintes. La
+transcription doit assurer cette exhaustivité. Si un élément doit
+être ignoré, il doit être déclaré comme ignoré. Les fonctions et les
+conversions sont alors pleinement exploitables pour faire la
+traduction. »** — le `from:` **tire** le storage d'origine
+(`get_schema` — D629 : les tables, les colonnes, les contraintes,
+les dépendances) ; la transcription se juge à **l'exhaustivité** :
+tout élément du schéma source est couvert ou **déclaré ignoré** —
+la règle de la reprise (D176 : « on peut ignorer, jamais oublier »,
+la couverture mesurée) étendue du champ à la table, à la dépendance
+et à la contrainte. La traduction s'écrit avec **les fonctions et
+les conversions du langage unique** (D579–D587) — rien de nouveau à
+apprendre, le mapping est une expression.
+
+**Le dry-run du from: à deux modes (D649 — les deux postures de
+D180 incarnées).** **« Le dry-run dispose de 2 modes : absolu
+(valide uniquement si toutes les règles et transcriptions se
+déroulent sans erreur), relatif (seuls les enregistrements des
+entités respectant les règles sont portés. Les erreurs sont isolées
+et un rapport est émis à destination de l'administrateur). Le
+premier mode est un mode de bascule d'un système A vers une
+application Syncytium. Le deuxième mode est un mode de type entrepôt
+de données. Seules les données de qualité et parfaitement
+exploitables pour les utilisateurs via un système autre que
+Syncytium sont mises à disposition, tout en ayant une vue sur le
+taux de couverture des données par rapport à la source d'origine. »**
+
+- **absolu** — le tout-ou-rien : la bascule d'un système A vers une
+  application Syncytium (l'esprit de l'import D234 — rien ne passe
+  tant qu'une erreur demeure) ;
+- **relatif** — l'entrepôt : seuls les enregistrements conformes
+  sont portés, **les erreurs isolées, le rapport à
+  l'administrateur** (D108–D110/D179), et **la vue sur le taux de
+  couverture par rapport à la source d'origine** (D176/D646 — la
+  source, venue d'un système autre que Syncytium, reste vivante ;
+  Syncytium n'expose que la donnée de qualité).
+
+*(La lecture consignée : l'unification `from:`/reprise est tranchée
+par ce trio — la reprise D175–D179 est le mode relatif du `from:`,
+ses règles persistent ; le mode absolu en est le durcissement pour
+la bascule définitive.)*
+
+**La dépréciation — l'intention, l'acte, la suppression (D650 —
+solde le mécanisme de D647).** **« Pour deprecated, j'inscris 2
+modes avant la suppression : l'intention d'abord pour signifier que,
+attention, à terme le champ va être déprécié ou que nous prévoyons
+de le déprécier ; l'acte pour indiquer que ce champ est déprécié
+(même s'il continue à fournir une réponse). La suppression venant
+avec une version et la suppression du champ, de la table ou du
+module. La dépréciation doit s'accompagner d'une documentation pour
+préciser le remplacement ou l'abandon de cet item. »** — le cycle en
+trois temps :
+
+1. **l'intention** — l'avertissement : l'élément vivra encore, mais
+   son avenir est scellé — les consommateurs (API, techniciens) sont
+   prévenus sans que rien ne change ;
+2. **l'acte** — l'élément **est** déprécié : il continue de fournir
+   une réponse (le « masquer, jamais détruire » — la descendante
+   sert toujours), mais il quitte le neuf ;
+3. **la suppression** — un geste de version ordinaire : le champ, la
+   table ou le module disparaît de la description, les règles de
+   compatibilité (D11–D13) prennent le relais pour les versions
+   antérieures.
+
+**La documentation est obligatoire** : la dépréciation précise **le
+remplacement ou l'abandon** de l'item — l'auto-documentation (D333/
+D645) la diffuse, l'ingestion la vérifie. *(L'écriture en
+proposition :* `deprecated: planned | true` *pour les deux modes, la
+forme riche portant la documentation —*
+
+```yaml
+unit_price:
+  type: amount
+  deprecated:
+    mode: planned            # l'intention ; true = l'acte
+    documentation: "Remplacé par pricing.unit_price à la 2.x."
+    replaced_by: pricing.unit_price   # absent = l'abandon
+```
+
+*— l'absence de documentation = une erreur d'ingestion.)*
+
+**Le renommage — old_name (D651 — solde l'écriture de D647).**
+**« Le renommage d'un champ, d'une entité ou d'un module s'assure
+par `old_name`. »** — la propriété unique aux trois grains :
+l'élément renommé porte `old_name: <ancien nom>` — le journal de
+migrations en dérive la translation, la chaîne API (P3) continue de
+servir l'ancien nom aux versions antérieures, l'adressage logique
+(D363) suit.
+
+**La source décrite par le méta-modèle — le dossier source/ (D652 —
+amende la maison proposée).** **« Le cadre du mapping porte sur une
+description exhaustive de la source et une alimentation de la
+destination par un mapping. La destination est décrite par le
+méta-modèle. La source doit être décrite par le méta-modèle
+également. Au lieu de mapping, je prévois `source/` : ce dossier
+décrit le modèle de données d'origine table par table et colonne par
+colonne en utilisant la grammaire de description que nous avons
+abordée. »** — le renversement fondateur : **la source n'est pas un
+monde étranger, elle entre dans la grammaire** — le dossier
+`source/` à la racine de la version décrit le modèle d'origine table
+par table, colonne par colonne, avec la même grammaire que la
+destination (les types, les crochets, les contraintes). Les
+conséquences : **le typage statique** (D581) vérifie les expressions
+du mapping des deux côtés ; **les conversions portées par les
+types** (D647/D579) s'appliquent de la source vers la cible ;
+**l'exhaustivité** (D648) se juge entre deux descriptions du même
+langage — et `get_schema` (D629) peut engendrer l'ossature de
+`source/`, le technicien la raffine. *(Le débat ouvert au moment de
+cette décision : le mapping lui-même — porté par la description de
+la destination, ou par un fichier dédié ? — tranché en D653.)*
+
+**Les deux maisons — source/ et mapping/ (D653 — tranche le débat de
+D652).** **« `source/` contient la description du modèle d'origine —
+Syncytium doit s'assurer de la complétude du modèle. `mapping/`
+contient les règles de conversion table par table avec peut-être des
+origines multiples. »** — ni l'un ni l'autre des deux termes du
+débat : **deux dossiers**, chacun son rôle —
+
+- **`source/`** : la description seule (D652) — et **Syncytium
+  s'assure de la complétude du modèle** : la description confrontée
+  au schéma réel (`get_schema` — D629), l'écart signalé (l'esprit
+  D330/D344 : rien ne manque, rien ne traîne) ;
+- **`mapping/`** : les règles de conversion, **table par table**,
+  **aux origines multiples possibles** (plusieurs tables source
+  nourrissant une cible — la jointure vit dans la règle).
+
+**La construction de l'enregistrement et la clé fonctionnelle
+(D654).** **« Le mapping assure la construction d'un enregistrement
+avant sa validation. L'enregistrement est identifié par une clé
+fonctionnelle. La clé fonctionnelle peut être utilisée pour assurer
+la construction des agrégats (compositions / associations). »** — la
+chaîne se relit : le mapping **construit** l'enregistrement candidat,
+la validation le juge (D177 — converti ET cohérent, l'écriture par
+le chemin standard D175) ; **la clé fonctionnelle** (D142/D398)
+identifie l'enregistrement — le rapprochement au rejeu (la relance
+D179 sans doublon), et **elle lie les agrégats** : la ligne retrouve
+sa commande, l'association son vis-à-vis, par la clé fonctionnelle —
+l'écho des clés externes déclarées (D178 : jamais déduites).
+
+**Le sens de la règle — de la source vers la cible (D655 — précise
+D653).** **« Lecture de la table source vers la table cible. »** —
+l'unité de la règle est **la table source** : on lit l'origine, on
+alimente la cible. La lecture consignée avec ses conséquences :
+chaque table source déclare où vont ses colonnes ; **les origines
+multiples se rejoignent par la clé fonctionnelle** (D654) — deux
+tables source qui nourrissent la même entité contribuent chacune à
+l'enregistrement identifié par la clé, **la jointure n'est pas une
+syntaxe, c'est la clé** ; et l'exhaustivité (D648) se lit dans le
+sens naturel — chaque table source est mappée ou déclarée ignorée,
+colonne par colonne.
+
+**La forme de la règle validée (D656 — « la forme me convient »).**
+L'écriture arrêtée : la règle au nom de la table source, `to:` la
+cible (entité ou agrégat `sales.order.lines`), `key:` la clé
+fonctionnelle (simple ou composée), `parent:` la clé fonctionnelle
+du possesseur (la composition — D399/D654), `fields:` les champs
+cible nourris d'expressions du langage unique évaluées sur la
+source, `ignored:` les colonnes ou tables déclarées ignorées (D648) :
+
+L'exemple complet — les deux maisons (complété à la demande de
+l'auteur : la description de la source ET le mapping) :
+
+```yaml
+# ------- source/ — le modèle d'origine, la même grammaire (D652) -------
+
+# source/customers.yml — table par table, colonne par colonne
+customers:
+  identity: [code]                    # la contrainte d'unicité (D357)
+  fields:
+    code:     text[8]
+    name:     text[..60]
+    bal_cts:  integer                 # le solde en centimes
+    fax:      ignored                 # attendue, non développée (D657)
+
+# source/audit_log.yml — l'entité attendue mais ignorée (D657)
+audit_log: ignored
+
+# source/customer_notes.yml
+customer_notes:
+  fields:
+    customer_code: customers.code     # la dépendance déclarée (D648/D396)
+    text:          text
+
+# source/order_lines.yml
+order_lines:
+  identity: [order_no, line_no]
+  fields:
+    order_no:   text[10]
+    line_no:    integer
+    item_code:  text[8]
+    qty:        integer
+    updated_by: ignored               # comme un type (D657)
+
+# ------- mapping/ — les règles, de la source vers la cible (D655) -------
+
+# mapping/customers.yml — une règle par table source
+customers:
+  to: sales.customer                  # la cible
+  key: code                           # la clé fonctionnelle (D654)
+  fields:
+    code:    code
+    name:    upper(name)
+    balance: amount(bal_cts / 100)
+
+# mapping/customer_notes.yml — la seconde origine, même cible
+customer_notes:
+  to: sales.customer
+  key: customer_code                  # la même clé — les contributions se rejoignent
+  fields:
+    notes: text
+
+# mapping/order_lines.yml — la composition par la clé
+order_lines:
+  to: sales.order.lines               # l'agrégat : la ligne rejoint sa commande
+  key: [order_no, line_no]
+  parent: order_no                    # la clé fonctionnelle du possesseur
+  fields:
+    item:     item_code
+    quantity: qty
+```
+
+*(La lecture de l'exemple : `source/` parle strictement la grammaire
+du méta-modèle — `fields:`, les types aux crochets, `identity:` pour
+la contrainte d'unicité, le raccourci référence (D396) pour la
+dépendance ; la complétude de cette description est vérifiée contre
+`get_schema` (D653). Le mapping n'invente rien : les noms de
+`source/` à gauche du langage, les champs de la cible à droite.)*
+
+**ignored dans la source — comme un type (D657 — amende la place de
+D656).** **« Cette propriété est plutôt dans la description de la
+source. Sur une entité, cela signifie que nous attendons l'entité
+dans la source mais que nous l'ignorons (la description n'est pas
+développée). ignored peut porter sur un champ (comme un type) —
+`ref_ext: ignored` sur une entité line. »** — le marqueur quitte le
+mapping pour vivre **dans `source/`**, aux deux grains :
+
+- **l'entité ignorée** — `audit_log: ignored` : la table est
+  **attendue** dans la source (la complétude D653 la reconnaît) mais
+  sa description n'est pas développée ;
+- **le champ ignoré** — **comme un type** : `ref_ext: ignored` — la
+  colonne existe, elle est attendue, elle ne sera ni décrite plus
+  avant ni mappée.
+
+La lecture consignée : **l'exhaustivité (D648) se joue entièrement
+dans `source/`** — chaque table et chaque colonne du schéma réel y
+est décrite ou marquée `ignored` ; le mapping ne porte plus que les
+correspondances ; une colonne décrite mais qu'aucune règle ne
+consomme entre au **taux de couverture** (D649) — visible, jamais
+silencieuse.
+
+**Au-delà du 1-1 : le référentiel par valeurs distinctes (D658).**
+**« Le mapping n'est pas toujours de la relation 1-1. Nous pouvons
+construire un référentiel à partir de la liste de valeurs
+disponibles depuis un champ ou une liste de champs d'une entité. La
+table de destination prend les différentes valeurs distinctes d'un
+champ ou d'une liste de champs. »** — le patron classique de
+l'assainissement : la colonne libre du legacy (la catégorie, la
+ville tapée à la main) **engendre une entité de référence** — les
+valeurs distinctes deviennent les enregistrements, la valeur
+devient la clé fonctionnelle (D654), et les entités qui la
+portaient la référencent par cette clé. *(L'écriture validée —
+« je valide distinct: et le constructeur de composés » :*
+
+```yaml
+# mapping/categories.yml — le référentiel des valeurs distinctes
+customers:
+  to: sales.category
+  distinct: [category]           # un champ ou une liste de champs
+  key: category                  # la valeur = la clé fonctionnelle
+  fields:
+    label: category
+
+# mapping/customers.yml — l'entité qui la référence, par la clé
+customers:
+  to: sales.customer
+  key: code
+  fields:
+    category: category           # la référence résolue par la clé (D654)
+```
+
+*— la même table source peut porter plusieurs règles.)*
+
+**Les composés construits par la fonction du type (D659).** **« Pour
+les types composés, le mapping doit permettre de faire le lien entre
+plusieurs champs dans un seul champ. Pour un type geolocation, c'est
+une agrégation de 2 champs (latitude et longitude). Pour un type
+amount, le champ peut prendre 2 valeurs : le montant et la
+devise… »** — plusieurs colonnes source, un champ cible : **la
+fonction de construction que le type porte** (D579/D584 — le type
+emmène ses fonctions) fait le lien, dans le langage existant :
+
+```yaml
+  fields:
+    position: geolocation(lat, lng)             # 2 colonnes → 1 champ
+    total:    amount(total_cts / 100, currency) # le montant et la devise
+```
+
+*(Rien de neuf dans la grammaire : le mapping est une expression —
+la construction des composés était déjà dans le langage, la
+décision confirme qu'elle sert le mapping.)*
+
+**La normalisation par champ calculé sur la source (D660 — précise
+D658).** **« La normalisation d'une valeur passera par un champ
+calculé sur la description de l'entité source. Le champ calculé est
+utilisable dans le mapping. »** — `source/` parle **toute** la
+grammaire (D652), champs calculés compris : le nettoyage, la casse,
+le transcodage s'écrivent **sur la description de la source**
+(`formula:` — la grammaire existante), et le mapping consomme le
+champ calculé comme une colonne — la normalisation vit avec la
+source qu'elle assainit, les règles restent de pures
+correspondances :
+
+```yaml
+# source/customers.yml — la normalisation à la source (D660)
+customers:
+  fields:
+    city_raw: text[..40]
+    city:     { formula: upper(trim(city_raw)) }
+
+# mapping/cities.yml — le référentiel sur la valeur normalisée (D658)
+customers:
+  to: sales.city
+  distinct: [city]
+  key: city
+```
+
+**Les migrations déclarées — la convergence de plusieurs sources
+(D662 — étend D610).** **« Une migration peut faire converger
+plusieurs sources vers une seule destination. Le `from:` seul ne
+suffit pas. Par conséquent, le setting peut décrire une migration en
+faisant le lien entre le connecteur storage, la description des
+entités sources et du mapping pour cette migration. L'ordre des
+migrations se déduit de l'ordre de définition, et l'ordre de
+définition des entités sources décrit l'ordre de parcours des
+entités. »** — la migration devient **un objet déclaré** : le lien
+{ connecteur storage source · les descriptions de `source/` · le
+mapping } — et plusieurs migrations convergent vers la même
+instance. **L'ordre est celui de la définition, aux deux étages** :
+les migrations s'exécutent dans l'ordre où elles sont déclarées, et
+les entités sources se parcourent dans l'ordre où elles sont
+définies (le technicien maîtrise les dépendances — le référentiel
+avant l'entité qui le référence, le possesseur avant ses lignes).
+*(L'écriture en proposition :*
+
+```yaml
+# settings.yml — les migrations déclarées (D662)
+migrations:
+  legacy_erp:                        # l'ordre de définition = l'ordre d'exécution
+    connector: legacy_db             # le connecteur storage source
+    source:  [customers, customer_notes, order_lines]  # l'ordre de parcours
+  old_crm:
+    connector: crm_db
+    source:  [contacts]
+```
+
+*— les dossiers se déclinent par migration : `source/legacy_erp/`,
+`mapping/legacy_erp/` ; le câblage `from:` (D610) se relit comme le
+raccourci du cas à une seule migration.)*
+
+**Le filter: de la source (D663).** **« Dans une source, nous
+ajoutons la propriété `filter:` qui permet de sélectionner les
+enregistrements parcourus par la migration. Cette propriété peut
+exclure les enregistrements des données antérieures aux 10 dernières
+années, ou prendre en compte les données d'une instance — surtout si
+une entité recoupe des données de plusieurs instances. »** — la
+sélection à la source, dans le langage unique :
+
+```yaml
+# source/legacy_erp/orders.yml
+orders:
+  filter: order_date >= now() - 10y   # les 10 dernières années (D663)
+  fields: …
+
+# le multi-instances : l'entité recoupe plusieurs instances
+customers:
+  filter: company_code = "PARIS"      # les données de l'instance
+  fields: …
+```
+
+Les enregistrements exclus par le `filter:` ne comptent pas au taux
+de couverture — la sélection est un périmètre déclaré, pas un rejet.
+
+**La déclaration aux patterns de fichiers (D664 — amende l'écriture
+de D662).** Ma proposition (source: une liste de noms d'entités,
+les dossiers réservés source/ et mapping/) « ne répond pas à mes
+critères » — la sienne :
+
+```yaml
+migrations:
+  legacy_erp:
+    connector: legacy_db
+    source:
+      - legacy_db/source/*.yml    # un fichier par entité
+    mapping:
+      - legacy_db/mapping/*.yml   # un fichier par règle de migration
+```
+
+— **la migration référence ses fichiers par patterns** (le patron
+multi-fichiers à patterns de D320–D321, déjà la règle de
+l'ingestion) : `source:` la liste des chemins (**un fichier par
+entité**), `mapping:` la liste (**un fichier par règle de
+migration**) ; l'organisation des dossiers est **libre** (ici sous
+`legacy_db/`) — pas de dossiers réservés à la racine, la déclaration
+fait foi. L'ordre (D662) se lit sur la liste ; le grain est affiné :
+un fichier par entité source, un fichier par règle.
+
+**L'ordre alphabétique — le préfixe numérique fait les étapes (D665
+— précise D662/D664).** **« Je prends la première, car le nom du
+mapping peut être préfixé par 001, 002, 003… et cela décrit les
+étapes de migration. »** — au sein d'un pattern, **l'ordre
+alphabétique des fichiers** ; le préfixe numérique
+(`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`)
+décrit **les étapes de la migration** — l'ordre est visible dans
+l'explorateur de fichiers, sans déclaration supplémentaire.
+
+*(Le filter: confirmé — « les enregistrements ne respectant pas
+filter: ne sont pas exclus et ne font pas partie de la couverture » :
+le périmètre déclaré, ni rejet ni couverture — la lecture de D663
+validée.)*
+
+**Le module migration — la couverture dans le modèle (D666 — solde
+la vue de couverture).** **« L'état de la couverture peut être
+stocké dans un module "migration" dont la définition est portée par
+Syncytium. Ainsi, la vue de la couverture exploite les éléments que
+nous avons déjà décrits. »** — pas de surface spéciale : **un module
+`migration`, défini par Syncytium** (le socle premier client du
+mécanisme — D408/D416), dont les entités stockent l'état de la
+couverture (par migration, par entité source, par règle, les rejets
+et leurs causes) — et **la vue est déclarée comme toute vue** : les
+listes, les widgets, les kpi, les tableaux de bord du catalogue
+(D437–D569) sur ces entités ; la confidentialité, les droits et le
+menu du module comme partout (D416). Le taux de couverture est une
+donnée du modèle — consultable, filtrable, exportable, historisable.
+
+**migrate — la dix-huitième opération du socle (D667 — solde le
+déclenchement).** **« La migration (`migrate`) est une opération qui
+vient enrichir les 17 existantes. Le déclenchement peut se
+construire comme toutes les opérations. »** — le catalogue de D574
+passe à **dix-huit** : `migrate` exécute une migration déclarée
+(D662) et se déclenche **comme toute opération** (D428/D609) — le
+bouton d'administration, le `when:` d'expression, l'`every:`
+calendaire (la migration différentielle nocturne), l'API, le
+`when: <connecteur>` ; la relance = la ré-exécution (le rejeu sans
+doublon par la clé fonctionnelle — D654) ; le hook d'opération
+(execute/confirm/commit/rollback — D595) et la transaction tenue
+ouverte (D594) s'appliquent — le dry-run absolu (D649) n'est que le
+preview de `migrate` suspendu avant commit.
+
+**Le module migration historisé (D668 — complète D666).** **« Les
+entités sont historisées pour permettre de gérer un suivi de la
+migration et une évolution de la qualité de la couverture. »** — les
+entités du module `migration` portent `history:` (D168) : chaque
+passage laisse son instantané — **la qualité de la couverture se lit
+dans le temps** (le taux qui monte au fil des ajustements de règles,
+la courbe en chart du catalogue), le suivi de la migration est une
+donnée temporelle comme une autre (l'API « à une date », les champs
+calculés sur instantanés — D168–D174).
+
+**Le mode de la migration — absolu, partiel, partiel+reset (D669 —
+étend D649).** **« Une migration porte aussi une option pour
+indiquer le mode absolu, partiel ou partiel+reset (reset efface le
+contenu des tables avant l'import). »** — le mode devient **une
+option de la migration déclarée** (D662) :
+
+- **`absolute`** — le tout-ou-rien de la bascule (D649) ;
+- **`partial`** — l'entrepôt : les conformes portés, les erreurs
+  isolées au rapport *(le mot « partiel » succède au « relatif » de
+  D649 — la même sémantique)* ;
+- **`partial+reset`** — **le reset efface le contenu des tables
+  cibles avant l'import** : la reconstruction à neuf du périmètre de
+  la migration (les tables qu'elle alimente — jamais au-delà), le
+  patron de l'exploration répétée.
+
+**Le versionnement plein (D670 — tranche la question de D668).**
+**« Le versionnement est plein. »** — `source/` et `mapping/` sont
+versionnés comme tout le reste ; la question du coût des itérations
+d'exploration (posée par l'auteur) se résout par la machinerie
+existante : **le bump du build** (D323 — le geste le moins cher),
+**le statut beta/ sur le staging** (D340 — l'exploration y vit),
+**le dry-run qui n'engage rien** (le preview de migrate — D667), et
+**la traçabilité double** — le versionnement trace les règles, le
+module historisé (D668) trace les résultats, l'entité de suivi
+consigne la version des règles à chaque passage. Aucune pièce de
+configuration n'échappe à la trace — surtout pas celle qui écrit
+dans les données.
+
+**Les options de la migration — l'écriture arrêtée (D671 — amende
+D669).** **« Les options de la migration : { mode: absolute |
+relative, reset: true | false } (ici, relative au lieu de
+partiel). »** — deux propriétés orthogonales au lieu des trois
+modes : **`mode: absolute | relative`** (le mot « relative » de D649
+retenu — « partiel » abandonné) et **`reset: true | false`** (le
+contenu des tables cibles effacé avant l'import — le périmètre de la
+migration seul), composables librement (`relative` + `reset` = la
+reconstruction d'entrepôt ; `absolute` + `reset` = la bascule à
+blanc).
+
+**Le différentiel par comparaison (D672 — solde le dernier point du
+mapping).** **« Le différentiel va être évalué après la migration en
+comparant enregistrement par enregistrement et champ par champ. Si
+l'entité cible est historisée, l'évolution de la valeur sera
+assurée. »** — pas de détection côté source (ni horodatage, ni
+journal du moteur) : `migrate` relit la source (au périmètre du
+`filter:`), reconstruit les enregistrements, et **compare à la cible
+enregistrement par enregistrement (la clé fonctionnelle — D654) et
+champ par champ** — seuls les écarts s'écrivent (l'écho de la
+concurrence par champ D111, l'écriture par le chemin standard) ; et
+**si l'entité cible est historisée, l'évolution de la valeur est
+assurée** (D168 — chaque delta laisse son instantané). Le
+différentiel n'est pas un mode de plus : c'est la conséquence
+naturelle du rejeu par la clé.
+
+**Le critère de la migration de schéma (D673 — ouvre la jonction
+versions↔storage).** **« Si l'écart entre 2 versions impose une mise
+à jour du modèle de données (ajout/renommage/suppression d'un module
+ou d'une entité, ajout/renommage/modification/suppression d'un champ
+non calculé — un champ est considéré comme modifié si le type ou la
+valeur par défaut changent), une procédure de migration du schéma
+sera portée par Syncytium. »** — le critère est **structurel** :
+seuls les écarts qui touchent le stockage déclenchent la procédure —
+et **le champ calculé n'en fait pas partie** (sa formule change sans
+toucher le schéma — le recalcul suffit) ; **modifié = le type ou la
+valeur par défaut** ; le renommage passe par `old_name` (D651), qui
+nourrit la transformation. L'écart sans portée structurelle (une
+surface, un libellé, une formule, un droit) active la version **sans
+migration de schéma**.
+
+**La procédure en quatre temps (D674 — précise D631).** **« 1. la
+duplication du schéma dans un schéma temporaire ; 2. l'application
+d'un ensemble de transformations liées aux différences entre les 2
+modèles dans le schéma temporaire ; 3. si les transformations sont
+validées, le schéma est supprimé et le schéma temporaire est
+renommé ; 4. durant cette phase de migration, les opérations de mise
+à jour des données seront mises en attente. »** — la mécanique de
+D631 se précise :
+
+1. **la duplication** — le schéma copié (structure et données) dans
+   un schéma temporaire ;
+2. **les transformations** — dérivées **des différences entre les
+   deux modèles** (le mapping automatique — D632) et appliquées au
+   temporaire ; l'original reste intact ;
+3. **la bascule sur validation** — validées, l'ancien schéma est
+   supprimé, le temporaire est renommé (le `switch_schema` de D631
+   réalisé par le renommage) ; **non validées, le temporaire se jette
+   et l'original n'a jamais bougé — le retour arrière d'avant-bascule
+   est gratuit** ;
+4. **les écritures en attente** — pendant la phase, les mises à jour
+   de données sont **mises en attente** (jamais rejetées) et
+   reprennent sur le schéma neuf (la fenêtre d'affluence de D8 en
+   creux : la migration se programme aux heures calmes).
+
+**Le délai de grâce et les lectures continues (D675–D676 — complètent
+D674).** **« Par configuration, nous allons prévoir un délai de
+grâce (dont par défaut, pas de délai). Pendant la phase, les
+lectures continuent car cela ne modifie pas les données, ni sa
+structure. »**
+
+- **le délai de grâce (D675)** — configurable : l'ancien schéma
+  survit le délai déclaré avant sa suppression — le retour arrière
+  post-bascule pendant la grâce ; **le défaut : pas de délai** (la
+  suppression au temps 3, le retour post-bascule relevant alors du
+  registre des versions et de la restauration — D174/D332) ; *(en
+  proposition : la durée à la grammaire D476 —* `grace: 7d` *à la
+  configuration générale, défaut* `grace: 0`*)* ;
+- **les lectures continues (D676)** — pendant la phase, la lecture
+  ne s'interrompt jamais : « cela ne modifie pas les données, ni sa
+  structure » — la migration est vraiment à chaud, **seule
+  l'écriture attend** (D674, temps 4).
+
+**Le rejeu par la compatibilité ascendante (D677 — boucle la
+procédure).** **« Les mises à jour en attente peuvent être jouées en
+appliquant la compatibilité ascendante. »** — les écritures mises en
+attente ont été formulées **dans le modèle de l'ancienne version** ;
+au rejeu sur le schéma neuf, **la chaîne de translation ascendante**
+(le pilier P3 — D11–D13) les traduit — exactement comme un appel
+d'API d'une version antérieure. Aucune mécanique dédiée à la file
+d'attente : la compatibilité d'API sert la reprise des écritures —
+le même mapping, une fois de plus (D646, l'usage 1 dans toute sa
+portée).
+
+**La restauration par renommage — la version en table système (D678
+— précise D675/D174).** **« Par défaut, l'ancien schéma est
+supprimé. La restauration est une opération qui vise à renommer le
+schéma courant et à repositionner le schéma sauvegardé comme schéma.
+Pour rappel, le schéma porte sa version dans une table système. »**
+— le défaut confirmé (pas de grâce : la suppression au temps 3) ;
+quand la grâce est configurée, l'ancien schéma devient **le schéma
+sauvegardé**, et **la restauration** (l'opération `restore` du socle
+— D574) est **le geste inverse de la bascule** : le courant renommé,
+le sauvegardé repositionné — la symétrie parfaite. **Chaque schéma
+porte sa version dans une table système** : la bascule et la
+restauration n'ont rien à deviner, le schéma se déclare.
+
+**Les lectures en attente durant le renommage (D679 — précise
+D676).** **« Les lectures durant le renommage du schéma seront mises
+en attente. Normalement, cela est très court. »** — la précision :
+les lectures continuent pendant toute la phase (D676) **sauf durant
+le renommage** — l'instant de la bascule — où elles rejoignent la
+file d'attente ; « normalement, cela est très court » (un renommage
+de schéma, pas une copie).
+
+**Le contrat storage réécrit — le vocabulaire du modèle (D680 —
+amende D629).** **« get_version n'est pas porté par storage : il est
+porté dans une entité du storage (entité définie, construite et
+maintenue par Syncytium) — la version est un paramètre système.
+"table" à renommer en "entité" pour coller au langage du modèle de
+données. "schema" à renommer en "instance" (schema est une
+déclinaison d'une instance sous SQLServer ou sous MySQL…) :
+create_instance, read_instance, duplicate_instance, rename_instance,
+delete_instance. read_instance = get_instance, en lieu et place de
+get_schema. Le contrat manipule donc des structures comme celles
+gérées par le moteur — le storage ayant pour mission d'assurer la
+conversion vers le stockage. »** Le contrat arrêté :
+
+| le groupe | les méthodes |
+|---|---|
+| la transaction | `begin` · `commit` · `rollback` |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — en lieu et place de get_schema) · **`duplicate_instance`** (le temps 1 de D674) · **`rename_instance`** (la bascule, la restauration — D674/D678) · `delete_instance` |
+| les entités | `create_entity` · `update_entity` · `delete_entity` |
+| les enregistrements | `create` · `read` · `update` · `delete` |
+
+**Le principe fondateur** : le contrat parle **le langage du
+méta-modèle** (l'instance, l'entité, le champ) — jamais celui du
+moteur (le schema SQLServer, la database MySQL) ; **la mission de la
+classe storage est la conversion vers le stockage**. La version n'a
+pas de méthode : **une entité système** du storage (définie,
+construite et maintenue par Syncytium — la version en paramètre
+système), lue et écrite par le `read`/`update` standard.
+
+**Le contrat de conversion au type — le patron visiteur (D681 —
+prolonge D579).** **« Le contrat de conversion est à porter par le
+type. Par conséquent, le contrat d'un type doit inclure les règles
+de conversion vers un storage. Je pousse le concept du design
+pattern "visiteur". »** — la grande unification atteint la
+persistance : le type emmenait ses fonctions (D579), **il emmène
+aussi sa conversion vers le stockage** — le contrat d'un type inclut
+les règles de conversion vers un storage (le patron visiteur : la
+classe storage visite le type, le type se décrit, la classe rend la
+forme native — `amount` en DECIMAL ici, en deux colonnes là ;
+`geolocation` en point PostGIS ou en deux réels). Le hook de type
+(D408) doit donc les fournir — et un storage nouveau visite tous les
+types sans qu'aucun ne change.
+
+**Les trois gestes du champ (D682 — précise D681).** **« Le type
+porte les règles liées au storage : la création d'un champ, la
+modification d'un champ, la suppression d'un champ. »** — le contrat
+de conversion du type couvre **le cycle de vie du champ au
+stockage**, pas la seule valeur :
+
+- **la création** — la ou les colonnes natives qu'un champ de ce
+  type engendre (l'amount et sa devise, la geolocation et ses deux
+  réels) ;
+- **la modification** — le geste de transformation quand le type ou
+  le défaut change (D673) : l'altération native et **le transcodage**
+  (D647 — chaque type porte sa règle de conversion) ;
+- **la suppression** — le retrait propre de ses colonnes.
+
+Les méthodes d'entité du contrat storage (D680 —
+`create_entity`/`update_entity`/`delete_entity`) **se composent des
+gestes des types** : l'entité est la somme de ses champs, chaque
+champ sait naître, muter et disparaître dans le storage visité.
+
+**Les fonctions de valeur (D683 — complète D682).** **« Cela se
+complète avec les fonctions de : create d'une valeur, update d'une
+valeur, read d'une valeur. »** — au cycle de vie de la structure
+(D682) répond **celui de la donnée** : le type porte aussi la
+conversion de **ses valeurs** vers et depuis le storage — `create`
+(la valeur du modèle écrite en forme native), `update` (la mise à
+jour), `read` (la forme native relue en valeur du modèle). Les
+méthodes d'enregistrement du contrat (D680 —
+`create`/`read`/`update`/`delete`) **se composent des fonctions de
+valeur des types**, comme les méthodes d'entité se composent des
+gestes de structure — **la symétrie est complète** : le visiteur
+couvre la structure et la donnée. *(La lecture notée : `delete`
+d'enregistrement n'a pas de fonction de valeur — retirer une ligne
+ne convertit rien.)*
+
+**Le retour de read_instance et l'identification du type (D684 —
+complète D680–D683).** **« Sur la fonction read_instance, le storage
+retourne l'équivalent d'un module (liste d'entités et de ses
+champs). Pour la mutualisation des champs, une association entre
+plusieurs colonnes d'une table vers un seul champ d'un type donné.
+Un type doit avoir la possibilité de s'identifier dans la
+description. »** — trois facettes d'un même point :
+
+- **read_instance parle le méta-modèle jusqu'au bout** : le retour
+  est **l'équivalent d'un module** — la liste des entités et de
+  leurs champs (jamais des tables et des colonnes) — la boucle de
+  D680 fermée : ce que le contrat rend est ce que le moteur parle,
+  et `source/` (D652) peut naître de ce retour tel quel ;
+- **la mutualisation des champs** : le retour sait associer
+  **plusieurs colonnes d'une table vers un seul champ d'un type
+  donné** — la réciproque de la création (D682 : l'amount et ses
+  deux colonnes se relisent en un champ) ;
+- **l'identification du type** : « un type doit avoir la possibilité
+  de s'identifier dans la description » — **la réciproque du
+  visiteur** : à l'introspection, chaque type examine la structure
+  native et reconnaît sa forme (les deux réels lat/lng → la
+  geolocation se déclare) ; le contrat du type gagne cette
+  reconnaissance — read_instance compose les identifications comme
+  create_entity compose les créations.
+
+**La borne du retour — le stockage seul (D685 — nuance D684).**
+**« read_instance fournit un retour tel que nous le définissons.
+Cependant, il ne porte pas les surfaces, les champs calculés…
+Seuls les items de stockage sont construits. »** — le retour est
+**borné à ce qui est persisté** : les entités, les champs stockés,
+les contraintes et les dépendances — jamais les surfaces, les champs
+calculés, les opérations, les droits. Le storage décrit ce qu'il
+sait — la structure persistée ; le reste est l'affaire de la
+description du technicien (l'ossature engendrée reste une ossature —
+D652).
+
+**L'orchestration par Syncytium (D686 — solde les deux questions).**
+**« Syncytium orchestre via le contrat du storage. Ce n'est pas le
+storage qui porte cette mécanique. Les files d'attente des requêtes
+sont également orchestrées par Syncytium, car l'accès aux données
+est géré et piloté par Syncytium et non le storage directement. »**
+— les deux questions tranchées d'un même geste : **la bascule**
+(D674/D678) est composée par le moteur sur les primitives du contrat
+(l'attente → `rename_instance` ×2 → l'entité système → la reprise) ;
+**les files d'attente** (les écritures pendant la phase, les
+lectures pendant le renommage) vivent au moteur — l'accès aux
+données est géré et piloté par Syncytium, le storage n'en sait
+rien ; la classe reste simple, la mécanique vaut pour tous les
+moteurs.
+
+**L'enregistrement — un type structuré du moteur, multi-storage
+(D687).** **« La nature de l'enregistrement est d'ailleurs un type
+structuré propre à Syncytium et multi-storage. Le storage se charge
+de procéder à sa conversion en stockage. »** — l'enregistrement
+qui circule dans le moteur (la transaction D594, les hooks D599, les
+files D686) est **un type structuré de Syncytium**, indépendant de
+tout moteur de stockage — et **multi-storage** : le même
+enregistrement peut se convertir vers plusieurs storages (l'export
+csv, la réplication passive, la migration — chacun par ses fonctions
+de valeur D683). Le storage convertit, jamais ne définit.
+
+**Le lot au contrat d'enregistrement (D688 — complète D680).**
+**« Le contrat de création, de mise à jour ou de suppression porte
+une liste d'enregistrements. Le but est de gérer les traitements par
+lot (traitement spécifique à l'implémentation du storage). »** —
+`create`, `update` et `delete` reçoivent **une liste** : la classe
+exploite le geste natif de son moteur (le bulk insert, le batch,
+le multi-valeurs) — l'optimisation appartient à l'implémentation,
+le contrat n'impose que la forme. L'unité reste un lot de un ; la
+migration (D667), l'import (D234) et la réplication y trouvent leur
+débit — l'écho des lots de transactions (D101).
+
+**Le curseur en lecture (D689 — complète D688).** **« Le read()
+retourne un curseur et non une liste évaluée de valeurs — utile dans
+le cadre d'un lazy loading ou d'un traitement en masse avec un suivi
+d'une progression. Un curseur convertit une ligne en un
+enregistrement reflétant la description des champs d'une entité
+qu'il représente. »** — l'asymétrie du contrat est arrêtée :
+**l'écriture en lots, la lecture au curseur**. Le curseur convertit
+**au fil du parcours** — chaque ligne devient un enregistrement (le
+type structuré D687) reflétant la description des champs de l'entité
+(les fonctions de valeur D683 à la demande) — jamais tout en
+mémoire : le lazy loading des listes (D227), le traitement en masse
+au suivi de progression (la migration D667 et son module de suivi
+D666–D668, le composant progression).
+
+**describe partout — la documentation technique dynamique (D645 —
+généralise D630).** **« Dans le principe de l'auto-documentation,
+tous les hooks devront contenir une méthode `describe` capable
+d'écrire la documentation à diffuser sur son fonctionnement. La
+documentation technique d'une application portera la documentation
+technique de Syncytium et les hooks seront ajoutés automatiquement à
+la documentation. La documentation technique étant construite
+dynamiquement, version par version. »** — le `describe()` proposé
+pour les connecteurs (D630) **devient la règle de tous les hooks**
+(le nom est confirmé) ; la documentation technique (D333) s'assemble
+**dynamiquement, version par version** : le socle de Syncytium + les
+hooks de la version, chacun s'auto-décrivant — la version documentée
+est exactement la version servie, rien à rédiger, rien à oublier.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12921,6 +13872,192 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 13)** — **L'authentification obligatoire du
   webhook (D642)** : aucune entrée anonyme — la garde d'office sur la
   route ; le mécanisme au chantier sécurité (D418/D633).
+- **2026-08-16 (suite 14)** — **Les domaines en première partie
+  (D643)** : le §1.2 créé — la démarche « décrire, clarifier et
+  spécifier avant de coder » (D314), la carte des huit domaines à
+  l'état, les quatre sujets transversaux de la passe de complétude.
+- **2026-08-16 (suite 15)** — **La PR #30 fusionnée (vérifiée)** :
+  « La passe de complétude : les connecteurs et les échanges
+  (D610–D642) », 37 commits sur develop ; la branche recréée porte
+  D643.
+- **2026-08-16 (suite 16)** — **hooks/ et hooks.yml (D644),
+  describe partout (D645)** : le dossier à la racine de la version
+  (un sous-dossier par type, hooks.yml en liste explicite — le
+  parallèle de modules.yml), les hooks du socle chez Syncytium ; tous
+  les hooks portent describe — la documentation technique assemblée
+  dynamiquement, version par version (D630 généralisé, le nom
+  confirmé). hooks.md et connectors.md mis au niveau.
+- **2026-08-16 (suite 17)** — **La racine de la version confirmée**
+  (D644) : « je confirme le hooks/ à la racine de la version » — une
+  version épingle ses hooks.
+- **2026-08-16 (suite 18)** — **Les deux fonctions du mapping
+  (D646)** : entre versions (à chaud + compatibilité
+  ascendante/descendante — P3) et entre schémas storage (le système
+  existant vers le nouveau, l'IHM en vue sur les données migrées et
+  validées). Le chantier de D610 est ouvert.
+- **2026-08-16 (suite 19)** — **L'écriture du mapping (D647–D649)** :
+  les deux usages unifiés — l'usage 1 implicite (renommage,
+  dépréciation inscrite, règles de création/suppression, conversions
+  du type ; le from: implicite = la version précédente), l'usage 2
+  au même langage (le from: tire le storage, l'exhaustivité
+  tables/colonnes/dépendances/contraintes couverte ou déclarée
+  ignorée), le dry-run à deux modes absolu (bascule) / relatif
+  (entrepôt — erreurs isolées, rapport, taux de couverture).
+  L'unification from:/reprise tranchée. connectors.md mis au niveau.
+- **2026-08-16 (suite 20)** — **La dépréciation et le renommage
+  (D650–D651)** : l'intention / l'acte / la suppression, la
+  documentation obligatoire (remplacement ou abandon) ; old_name aux
+  trois grains (champ, entité, module). connectors.md mis au niveau.
+- **2026-08-16 (suite 21 — clôture de séance)** — À la demande de
+  l'auteur, les questions ouvertes sont gardées pour la prochaine
+  séance et consignées au §1.2 : les quatre questions du mapping
+  (la maison, la grammaire, la vue de couverture, le pilotage/
+  différentiel) et l'ordre de marche — compléter les quatre sujets
+  transversaux (connecteur/migration à finir, sécurité, administration)
+  **avant** les cas d'usage (Q59) et la documentation (Q58).
+- **2026-08-16 (suite 22 — reprise du mapping)** — **La source
+  décrite par le méta-modèle (D652)** : le dossier source/ (au lieu
+  de mapping/) décrit le modèle d'origine table par table, colonne
+  par colonne, dans la grammaire de description — le typage statique
+  et les conversions des types jouent des deux côtés. Le débat
+  ouvert : le mapping porté par la destination ou par un fichier
+  dédié.
+- **2026-08-16 (suite 23)** — **Les deux maisons et la clé
+  fonctionnelle (D653–D654)** : source/ (la description, la
+  complétude assurée par Syncytium) et mapping/ (les règles table
+  par table, origines multiples) ; le mapping construit
+  l'enregistrement avant validation, la clé fonctionnelle
+  l'identifie et lie les agrégats. connectors.md mis au niveau.
+- **2026-08-16 (suite 24)** — **Le sens de la règle (D655)** : la
+  lecture de la table source vers la table cible — l'unité = la
+  table source, les origines multiples rejointes par la clé
+  fonctionnelle, l'exhaustivité dans le sens naturel.
+- **2026-08-16 (suite 25)** — **La forme de la règle validée
+  (D656)** : to:/key:/parent:/fields:/ignored: — l'exemple gravé au
+  bloc. La question 2 (la grammaire) est soldée ; restent la vue du
+  taux de couverture et le pilotage.
+- **2026-08-16 (suite 26)** — **L'exemple complété** (demande de
+  l'auteur) : la description de la source ajoutée au mapping — les
+  deux maisons côte à côte ; source/ parle la grammaire du
+  méta-modèle (fields:, types aux crochets, identity:, le raccourci
+  référence D396 pour la dépendance).
+- **2026-08-16 (suite 27)** — **ignored dans la source (D657)** :
+  l'entité attendue mais non développée, le champ ignoré comme un
+  type — l'exhaustivité entière dans source/, le mapping n'a plus
+  d'ignored ; les exemples repris.
+- **2026-08-16 (suite 28)** — **Au-delà du 1-1 (D658–D659)** : le
+  référentiel construit des valeurs distinctes d'un ou plusieurs
+  champs (la valeur = la clé fonctionnelle ; distinct: en
+  proposition) ; les composés par la fonction de construction du
+  type (geolocation(lat, lng), amount(montant, devise)).
+  connectors.md mis au niveau.
+- **2026-08-16 (suite 29)** — **La normalisation à la source
+  (D660)** : le champ calculé sur la description de l'entité source
+  (formula:), utilisable dans le mapping — la normalisation vit avec
+  la source, les règles restent des correspondances.
+- **2026-08-16 (suite 30)** — **distinct: et les constructeurs
+  validés** (« je valide distinct: et le constructeur de composés »)
+  — les écritures de D658–D659 arrêtées.
+- **2026-08-16 (suite 31)** — **mapping.md créé (D661)** : le
+  sixième artefact documentaire — la source et le mapping réunis
+  (D646–D660), les exemples complets, les points ouverts (la vue de
+  couverture, le pilotage, la jonction versions). §1.2 et
+  connectors.md mis au niveau.
+- **2026-08-16 (suite 32)** — **Les migrations déclarées et le
+  filter: (D662–D663)** : la convergence de plusieurs sources — le
+  setting lie connecteur/sources/mapping par migration, l'ordre aux
+  deux étages (migrations puis entités) ; filter: sélectionne les
+  enregistrements parcourus (les 10 ans, l'instance) — le périmètre
+  déclaré, hors couverture. mapping.md mis au niveau.
+- **2026-08-16 (suite 33)** — **La déclaration aux patterns
+  (D664)** : source:/mapping: en listes de patterns de fichiers (un
+  fichier par entité, un par règle — D320–D321), l'organisation
+  libre, pas de dossiers réservés. mapping.md repris.
+- **2026-08-16 (suite 34)** — **L'ordre alphabétique (D665)** : le
+  préfixe numérique 001/002/003 des fichiers décrit les étapes de
+  migration — l'ordre au nommage, visible.
+- **2026-08-16 (suite 35)** — **Le module migration et la 18e
+  opération (D666–D667)** : le filter: confirmé (ni rejet ni
+  couverture) ; la couverture stockée dans un module migration porté
+  par Syncytium — la vue par les éléments déjà décrits ; migrate
+  enrichit les 17 opérations du socle, le déclenchement comme toute
+  opération, le dry-run absolu = le preview avant commit. Les
+  questions 3 et 4 (déclenchement) soldées ; mapping.md mis au
+  niveau.
+- **2026-08-16 (suite 36)** — **L'historisation et les modes
+  (D668–D669)** : le module migration historisé (la qualité de la
+  couverture dans le temps) ; le mode = une option de la migration
+  déclarée — absolute / partial (ex-relatif) / partial+reset (les
+  tables cibles effacées avant l'import). La question du
+  versionnement de source/mapping posée par l'auteur — en
+  discussion. mapping.md mis au niveau.
+- **2026-08-16 (suite 37)** — **Le versionnement plein (D670)** :
+  source/ et mapping/ versionnés comme tout — le coût absorbé par le
+  build, le beta/, le dry-run ; la traçabilité double. Le seul point
+  ouvert du mapping : la détection des deltas en différentiel.
+- **2026-08-16 (suite 38)** — **Les options et le différentiel
+  (D671–D672)** : { mode: absolute | relative, reset: true | false }
+  (relative retenu, partiel abandonné) ; le différentiel évalué
+  après la migration par comparaison enregistrement par
+  enregistrement et champ par champ — l'historisation cible assure
+  l'évolution. **LE CHANTIER DU MAPPING EST SOLDÉ** (D646–D672).
+  mapping.md et le §1.2 mis au niveau.
+- **2026-08-16 (suite 39)** — **La jonction versions↔storage
+  (D673–D674)** : le critère structurel (champ non calculé ; modifié
+  = type ou défaut) ; la procédure en quatre temps — duplication en
+  temporaire, transformations des différences, bascule sur
+  validation (le retour d'avant-bascule gratuit), écritures en
+  attente. mapping.md mis au niveau.
+- **2026-08-16 (suite 40)** — **Le délai de grâce et les lectures
+  continues (D675–D676)** : la grâce configurable (défaut : aucune),
+  les lectures jamais interrompues — seule l'écriture attend. La
+  jonction versions↔storage est refermée ; mapping.md et le §1.2 mis
+  au niveau.
+- **2026-08-16 (suite 41)** — **Le rejeu par l'ascendante (D677)** :
+  les écritures en attente rejouées par la chaîne de compatibilité
+  ascendante (P3) — comme un appel d'API antérieur, aucune mécanique
+  dédiée.
+- **2026-08-16 (suite 42)** — **La restauration et le renommage
+  (D678–D679)** : restore = le geste inverse de la bascule (le
+  courant renommé, le sauvegardé repositionné), la version du schéma
+  en table système ; les lectures en attente le seul temps du
+  renommage. Le contrat storage à détailler — ouvert à la demande de
+  l'auteur.
+- **2026-08-16 (suite 43)** — **Le contrat storage réécrit, le
+  visiteur (D680–D681)** : le vocabulaire du méta-modèle (instance/
+  entité — read_instance, duplicate_instance, rename_instance…), la
+  version en entité système, la mission = la conversion ; le contrat
+  de conversion porté par le type (le patron visiteur). connectors.md,
+  types.md, mapping.md et hooks.md (la signature du hook de type
+  enrichie — relevé par l'auteur) mis au niveau.
+- **2026-08-16 (suite 44)** — **Les trois gestes du champ (D682)** :
+  le type porte la création, la modification et la suppression d'un
+  champ au storage — les méthodes d'entité se composent des gestes
+  des types. Les artefacts mis au niveau.
+- **2026-08-16 (suite 45)** — **Les fonctions de valeur (D683)** :
+  create/update/read d'une valeur — la symétrie structure/donnée du
+  visiteur complète ; les artefacts mis au niveau.
+- **2026-08-16 (suite 46)** — **read_instance et l'identification
+  (D684)** : le retour = l'équivalent d'un module ; la mutualisation
+  N colonnes → 1 champ ; le type s'identifie dans la description —
+  la réciproque du visiteur. Les artefacts mis au niveau.
+- **2026-08-16 (suite 47)** — **La borne du retour (D685)** :
+  read_instance ne construit que les items de stockage — pas de
+  surfaces, pas de champs calculés ; l'ossature reste une ossature.
+- **2026-08-16 (suite 48)** — **L'orchestration et l'enregistrement
+  (D686–D687)** : la bascule et les files d'attente au moteur (via
+  le contrat — le storage ne porte pas la mécanique) ;
+  l'enregistrement = un type structuré propre à Syncytium,
+  multi-storage — le storage convertit, jamais ne définit. **LE
+  CONTRAT STORAGE EST CLOS.** connectors.md mis au niveau.
+- **2026-08-16 (suite 49)** — **Le lot au contrat (D688)** :
+  create/update/delete portent une liste d'enregistrements — le
+  traitement par lot, spécifique à la classe. connectors.md mis au
+  niveau.
+- **2026-08-16 (suite 50)** — **Le curseur en lecture (D689)** :
+  read() retourne un curseur — le lazy loading, la masse au suivi de
+  progression ; la ligne convertie en enregistrement au fil du
+  parcours. L'écriture en lots, la lecture au curseur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

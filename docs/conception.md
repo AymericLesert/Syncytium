@@ -787,6 +787,8 @@ documentation) :
 | D665 | **L'ordre alphabétique dans le pattern** (précise D662/D664) : le préfixe numérique (001, 002, 003…) des fichiers de mapping décrit les étapes de la migration — l'ordre visible au nommage. | Voir §3.2c. |
 | D666 | **Le module migration** (solde la vue de couverture) : l'état de la couverture stocké dans un module `migration` défini par Syncytium — la vue exploite les éléments déjà décrits (listes, widgets, dashboards sur les entités du module) ; le taux = une donnée du modèle. | Le socle premier client (D408/D416). Voir §3.2c. |
 | D667 | **migrate, la 18e opération du socle** (complète D574 ; solde le déclenchement) : `migrate` exécute une migration déclarée et se déclenche comme toute opération (bouton, when:, every:, API) ; la relance = la ré-exécution (le rejeu par la clé D654) ; le dry-run absolu = le preview suspendu avant commit (D594). | Voir §3.2c. |
+| D668 | **Le module migration historisé** (complète D666) : les entités portent history: — le suivi de la migration et l'évolution de la qualité de la couverture dans le temps (D168–D174). | Voir §3.2c. |
+| D669 | **Le mode de la migration** (étend D649) : l'option de la migration déclarée — `absolute` (la bascule), `partial` (l'entrepôt — « partiel » succède à « relatif »), `partial+reset` (le contenu des tables cibles effacé avant l'import — le périmètre de la migration seul). | Voir §3.2c. |
 
 ---
 
@@ -5793,6 +5795,31 @@ doublon par la clé fonctionnelle — D654) ; le hook d'opération
 (execute/confirm/commit/rollback — D595) et la transaction tenue
 ouverte (D594) s'appliquent — le dry-run absolu (D649) n'est que le
 preview de `migrate` suspendu avant commit.
+
+**Le module migration historisé (D668 — complète D666).** **« Les
+entités sont historisées pour permettre de gérer un suivi de la
+migration et une évolution de la qualité de la couverture. »** — les
+entités du module `migration` portent `history:` (D168) : chaque
+passage laisse son instantané — **la qualité de la couverture se lit
+dans le temps** (le taux qui monte au fil des ajustements de règles,
+la courbe en chart du catalogue), le suivi de la migration est une
+donnée temporelle comme une autre (l'API « à une date », les champs
+calculés sur instantanés — D168–D174).
+
+**Le mode de la migration — absolu, partiel, partiel+reset (D669 —
+étend D649).** **« Une migration porte aussi une option pour
+indiquer le mode absolu, partiel ou partiel+reset (reset efface le
+contenu des tables avant l'import). »** — le mode devient **une
+option de la migration déclarée** (D662) :
+
+- **`absolute`** — le tout-ou-rien de la bascule (D649) ;
+- **`partial`** — l'entrepôt : les conformes portés, les erreurs
+  isolées au rapport *(le mot « partiel » succède au « relatif » de
+  D649 — la même sémantique)* ;
+- **`partial+reset`** — **le reset efface le contenu des tables
+  cibles avant l'import** : la reconstruction à neuf du périmètre de
+  la migration (les tables qu'elle alimente — jamais au-delà), le
+  patron de l'exploration répétée.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13647,6 +13674,13 @@ avant la synthèse Q16).
   opération, le dry-run absolu = le preview avant commit. Les
   questions 3 et 4 (déclenchement) soldées ; mapping.md mis au
   niveau.
+- **2026-08-16 (suite 36)** — **L'historisation et les modes
+  (D668–D669)** : le module migration historisé (la qualité de la
+  couverture dans le temps) ; le mode = une option de la migration
+  déclarée — absolute / partial (ex-relatif) / partial+reset (les
+  tables cibles effacées avant l'import). La question du
+  versionnement de source/mapping posée par l'auteur — en
+  discussion. mapping.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -269,6 +269,16 @@ postures de D180 incarnées.
 - **le `filter:`** (D663, confirmé) : les enregistrements hors
   filtre ne sont ni des rejets ni de la couverture — le périmètre
   déclaré.
+- **le module historisé** (D668) : les entités du module `migration`
+  portent `history:` (D168) — le suivi de la migration et
+  **l'évolution de la qualité de la couverture dans le temps** (le
+  taux qui monte au fil des ajustements, la courbe du catalogue) ;
+- **le mode de la migration** (D669 — une option de la migration
+  déclarée) : **`absolute`** (le tout-ou-rien de la bascule),
+  **`partial`** (l'entrepôt — succède au « relatif » de D649),
+  **`partial+reset`** (**le contenu des tables cibles effacé avant
+  l'import** — le périmètre de la migration seul, le patron de
+  l'exploration répétée).
 
 ## Les points ouverts
 

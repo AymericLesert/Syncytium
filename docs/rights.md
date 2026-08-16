@@ -71,9 +71,14 @@ allow:
   delete: false
 ```
 
-L'absence = tout permis ; **les opérations passent outre** (D422 —
-l'acte déclaré porte sa propre légitimité) ; `read` absent = l'état
-masque.
+L'absence = tout permis ; `read` absent = l'état masque. **Les
+droits d'action couvrent les opérations du socle et les opérations
+déclarées** (D691) : le droit d'exécuter se déclare et se contrôle
+comme les autres droits d'action. La réconciliation avec le
+passe-outre (D422) : l'opération autorisée **passe outre les `allow`
+d'état** (l'acte porte sa légitimité — le promote écrit ce que
+l'état fige), mais **le droit de la déclencher** relève des droits
+d'action — on contrôle qui appuie, pas ce que l'acte écrit.
 
 ## L'audience et l'anti-IDOR (D70–D77, D144, D153)
 
@@ -129,13 +134,10 @@ est l'historisation elle-même (D429).
    durée, le renouvellement), les API (le jeton — le compte
    technique D77), le mécanisme concret de la garde webhook (D642 —
    la clé, le jeton, la signature ?) ;
-2. **le droit de déclencher** — D196 couvre les actions d'entité ;
-   le droit d'exécuter une opération déclarée (les 18 du socle, les
-   hooks) est-il entièrement couvert, ou manque-t-il un grain ?
-3. **le RGPD** — les données personnelles marquées au modèle ? le
+2. **le RGPD** — les données personnelles marquées au modèle ? le
    droit à l'effacement face à l'historisation (D168) et à la
    provenance persistante (D178) ; la rétention ;
-4. **l'audit** — la trace des écritures existe ; l'audit des
+3. **l'audit** — la trace des écritures existe ; l'audit des
    **lectures** (qui a consulté quoi), celui des actes
    d'administration, la surface qui le consulte ;
-5. **le chiffrement** — au repos (le storage), en transit.
+4. **le chiffrement** — au repos (le storage), en transit.

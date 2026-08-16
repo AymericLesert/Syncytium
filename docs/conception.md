@@ -811,6 +811,7 @@ documentation) :
 | D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
 | D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
 | D690 | **`rights.md` créé** : le huitième artefact préparatoire (Q58) — la sécurité et les droits consolidés (la doctrine P8, la confidentialité D25/D364, les droits d'action D196/D422–D423, l'audience anti-IDOR D70–D77, les groupes/modules, les connecteurs, la provenance) + les cinq points du chantier du sujet 2 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des connecteurs. |
+| D691 | **Les droits d'action couvrent les opérations** (referme le point 2 du chantier) : le socle (les 18) et les déclarées — le droit d'exécuter se déclare comme les autres droits d'action (D196) ; la réconciliation avec D422 : l'opération passe outre les allow d'état, le droit de la déclencher se contrôle. | Voir §3.2c. |
 
 ---
 
@@ -6132,6 +6133,20 @@ type structuré D687) reflétant la description des champs de l'entité
 mémoire : le lazy loading des listes (D227), le traitement en masse
 au suivi de progression (la migration D667 et son module de suivi
 D666–D668, le composant progression).
+
+**Les droits d'action couvrent les opérations (D691 — referme le
+point 2 du chantier sécurité).** **« Les droits d'action couvrent
+les opérations du socle et les opérations déclarées. »** — le modèle
+de D196 (les droits d'action par entité au modèle de
+confidentialité) s'étend explicitement **aux dix-huit opérations du
+socle et aux opérations déclarées** : le droit d'exécuter se déclare
+et se contrôle comme les autres droits d'action. **La
+réconciliation avec D422** (« les opérations passent outre ») : deux
+choses distinctes — l'opération autorisée **passe outre les `allow`
+d'état de l'entité** (le promote écrit un enregistrement que l'état
+fige — l'acte porte sa légitimité), mais **le droit de déclencher
+l'opération** relève des droits d'action (D196/D691) : on contrôle
+qui appuie, pas ce que l'acte a le droit d'écrire.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14070,6 +14085,11 @@ avant la synthèse Q16).
   les cinq points ouverts du chantier (l'authentification, le droit
   de déclencher, le RGPD, l'audit, le chiffrement). Le §1.2 mis au
   niveau.
+- **2026-08-16 (suite 53)** — **Les droits d'action étendus aux
+  opérations (D691)** : « les droits d'action couvrent les
+  opérations du socle et les opérations déclarées » — le point 2 du
+  chantier (le droit de déclencher) refermé ; la réconciliation avec
+  le passe-outre de D422 consignée. rights.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

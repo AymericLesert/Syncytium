@@ -91,7 +91,10 @@ migrations:
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est
-libre, la déclaration fait foi. Le câblage `from:` (D610) se relit
+libre, la déclaration fait foi. **L'ordre au sein d'un pattern est
+alphabétique** (D665) — le préfixe numérique décrit les étapes de la
+migration : `001_referentiels.yml`, `002_customers.yml`,
+`003_orders.yml`. Le câblage `from:` (D610) se relit
 comme le raccourci du cas à une seule migration.
 
 ### Les deux maisons (D652–D653)

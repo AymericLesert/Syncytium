@@ -784,6 +784,7 @@ documentation) :
 | D662 | **Les migrations déclarées** (étend D610) : la convergence de plusieurs sources — le setting lie { connecteur storage · descriptions sources · mapping } par migration ; l'ordre d'exécution = l'ordre de définition des migrations, l'ordre de parcours = l'ordre de définition des entités sources. | L'écriture migrations: en proposition ; from: relu comme le raccourci à une migration. Voir §3.2c. |
 | D663 | **Le filter: de la source** : la sélection des enregistrements parcourus par la migration (les 10 dernières années, l'instance — le multi-instances d'une entité) — le périmètre déclaré, hors taux de couverture. | Voir §3.2c. |
 | D664 | **La déclaration aux patterns** (amende D662) : la migration référence ses fichiers — `source:` liste de patterns (un fichier par entité), `mapping:` liste (un fichier par règle) — le patron D320–D321 ; l'organisation des dossiers libre, pas de dossiers réservés. | Voir §3.2c. |
+| D665 | **L'ordre alphabétique dans le pattern** (précise D662/D664) : le préfixe numérique (001, 002, 003…) des fichiers de mapping décrit les étapes de la migration — l'ordre visible au nommage. | Voir §3.2c. |
 
 ---
 
@@ -5748,6 +5749,15 @@ migration**) ; l'organisation des dossiers est **libre** (ici sous
 `legacy_db/`) — pas de dossiers réservés à la racine, la déclaration
 fait foi. L'ordre (D662) se lit sur la liste ; le grain est affiné :
 un fichier par entité source, un fichier par règle.
+
+**L'ordre alphabétique — le préfixe numérique fait les étapes (D665
+— précise D662/D664).** **« Je prends la première, car le nom du
+mapping peut être préfixé par 001, 002, 003… et cela décrit les
+étapes de migration. »** — au sein d'un pattern, **l'ordre
+alphabétique des fichiers** ; le préfixe numérique
+(`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`)
+décrit **les étapes de la migration** — l'ordre est visible dans
+l'explorateur de fichiers, sans déclaration supplémentaire.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13591,6 +13601,9 @@ avant la synthèse Q16).
   (D664)** : source:/mapping: en listes de patterns de fichiers (un
   fichier par entité, un par règle — D320–D321), l'organisation
   libre, pas de dossiers réservés. mapping.md repris.
+- **2026-08-16 (suite 34)** — **L'ordre alphabétique (D665)** : le
+  préfixe numérique 001/002/003 des fichiers décrit les étapes de
+  migration — l'ordre au nommage, visible.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

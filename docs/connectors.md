@@ -304,11 +304,23 @@ operations:
 - **le mapping automatique de la migration à chaud** (D632) : entre
   deux versions du méta-schéma, la translation déclarative dérive les
   correspondances — le technicien n'écrit rien ;
-- **le chantier ouvert** (D610) : « le from décrit la procédure de
-  migration/transformation — une configuration basée sur les éléments
-  déjà vus, que nous allons étendre » (la reprise D175–D179, l'import
-  D234–D238, la transaction tenue ouverte D594) — **le mapping manuel
-  vers les systèmes étrangers**.
+- **l'écriture unifiée (D647–D649)** : **l'usage 1 est implicite**
+  (le `from:` = la version précédente, porté par Syncytium ; ne
+  s'écrivent que le renommage — l'ancien nom gardé —, la
+  **dépréciation inscrite** sur champs/entités/modules, et le
+  changement de type par **les conversions que chaque type porte**
+  D579/D584 ; les règles de création/suppression D11–D13
+  persistent) ; **l'usage 2 parle le même langage** : le `from:`
+  tire le storage d'origine (`get_schema`), **l'exhaustivité** des
+  tables, colonnes, dépendances et contraintes — tout est couvert ou
+  **déclaré ignoré** (D176 étendu), la traduction par les fonctions
+  et conversions du langage unique ;
+- **le dry-run du `from:` à deux modes (D649)** : **absolu** —
+  tout-ou-rien, la bascule d'un système A vers une application
+  Syncytium ; **relatif** — l'entrepôt : les conformes portés, les
+  erreurs isolées et le rapport à l'administrateur, **la vue sur le
+  taux de couverture** par rapport à la source d'origine (la reprise
+  D175–D179 = ce mode ; les deux postures D180 incarnées).
 
 ## Les points ouverts
 

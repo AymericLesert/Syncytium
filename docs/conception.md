@@ -749,6 +749,9 @@ migration et les versions.
 | D644 | **Le dossier hooks/ et hooks.yml** (complète le domaine 1) : `hooks/` à la racine de la version, un sous-dossier par type de hooks ; `hooks.yml` à la racine les liste (le parallèle de modules.yml D415) ; les hooks du socle dans l'arborescence de Syncytium. | Voir §3.2c. |
 | D645 | **describe partout, la documentation technique dynamique** (généralise D630) : tous les hooks portent `describe` ; la doc technique de l'application = celle de Syncytium + les hooks ajoutés automatiquement — construite dynamiquement, version par version. | Le nom describe confirmé. Voir §3.2c. |
 | D646 | **Les deux fonctions du mapping** (ouvre le chantier D610) : la migration entre 2 versions (à chaud + la mécanique de la compatibilité ascendante/descendante — le pilier P3) et la migration entre 2 schémas storage (le système existant vers le nouveau — les interfaces de Syncytium en vue sur les données migrées et validées). | Voir §3.2c. |
+| D647 | **L'unification — l'usage 1 implicite** : entre versions, rien à écrire (le from: implicite = la version précédente, porté par Syncytium) sauf le renommage (garder l'ancien nom), la dépréciation inscrite (champs/entités/modules), les règles de création/suppression persistantes (D11–D13), le changement de type par les conversions du type (D579/D584). | Voir §3.2c. |
+| D648 | **L'usage 2 — le même langage, l'exhaustivité du schéma** : le from: tire le storage d'origine (get_schema D629) ; l'exhaustivité des tables/colonnes/dépendances/contraintes — couvert ou déclaré ignoré (D176 étendu) ; la traduction par les fonctions et conversions du langage unique. | Voir §3.2c. |
+| D649 | **Le dry-run du from: à deux modes** : absolu (tout-ou-rien — la bascule vers Syncytium) ; relatif (l'entrepôt — les conformes portés, les erreurs isolées + rapport à l'administrateur, la vue sur le taux de couverture vs la source). | Les deux postures D180 incarnées ; la reprise D175–D179 = le mode relatif. Voir §3.2c. |
 
 ---
 
@@ -5273,6 +5276,82 @@ mapping, deux visages :
    l'IHM générée comme poste de contrôle de la migration (l'écho de
    la reprise D175–D179 : la couverture mesurée, l'acceptation
    stricte — et de la posture entrepôt D180 : consulter et corriger).
+
+**L'écriture du mapping — l'unification et l'usage 1 implicite
+(D647 — arbitre la question posée).** **« Les 2 usages sont
+unifiés : le 1er usage est "implicite" sauf sur un renommage de
+champ (besoin de garder l'ancien nom par rapport à la version
+précédente), un mécanisme de dépréciation sur les champs, les
+entités et les modules doit être inscrit. Les règles que nous avons
+vues concernant la compatibilité suite à la création et la
+suppression d'un champ doivent persister. Le changement de types
+doit respecter des règles de compatibilité ou de transcodage.
+Chaque type porte sa/ses règles de conversion. Le from: porte la
+version précédente de façon implicite (Syncytium le porte en raison
+de l'évolution). »** — un seul mapping, et **l'usage 1 n'écrit
+rien** : entre deux versions, le mapping se dérive (D632) — le
+`from:` implicite est la version précédente, Syncytium le porte.
+Les seules écritures de l'usage 1 :
+
+- **le renommage** — garder l'ancien nom par rapport à la version
+  précédente (la primitive de renommage D4–D9, et la descendante qui
+  continue de servir l'ancien nom — P3) ;
+- **la dépréciation inscrite** — un mécanisme de dépréciation sur
+  les champs, les entités **et les modules** (le cycle de vie des
+  éléments du méta-schéma, l'écho du « masquer, jamais détruire ») ;
+- **la création et la suppression de champ** — les règles de
+  compatibilité déjà actées persistent (D11–D13 : la valeur de
+  substitution vers l'ancien, le défaut vers le neuf) ;
+- **le changement de type** — la compatibilité ou le transcodage :
+  **chaque type porte sa ou ses règles de conversion** — la grande
+  unification (D579/D584 : les conversions au nom du type) sert la
+  migration comme elle sert le calcul.
+
+**L'usage 2 — le même langage, l'exhaustivité du schéma (D648).**
+**« Le langage utilisé pour cette partie est exploitable pour le
+2ème point. Le from: tire le storage d'origine. Des règles
+complémentaires portent sur le schéma en plus : l'exhaustivité des
+tables, des colonnes, des dépendances et des contraintes. La
+transcription doit assurer cette exhaustivité. Si un élément doit
+être ignoré, il doit être déclaré comme ignoré. Les fonctions et les
+conversions sont alors pleinement exploitables pour faire la
+traduction. »** — le `from:` **tire** le storage d'origine
+(`get_schema` — D629 : les tables, les colonnes, les contraintes,
+les dépendances) ; la transcription se juge à **l'exhaustivité** :
+tout élément du schéma source est couvert ou **déclaré ignoré** —
+la règle de la reprise (D176 : « on peut ignorer, jamais oublier »,
+la couverture mesurée) étendue du champ à la table, à la dépendance
+et à la contrainte. La traduction s'écrit avec **les fonctions et
+les conversions du langage unique** (D579–D587) — rien de nouveau à
+apprendre, le mapping est une expression.
+
+**Le dry-run du from: à deux modes (D649 — les deux postures de
+D180 incarnées).** **« Le dry-run dispose de 2 modes : absolu
+(valide uniquement si toutes les règles et transcriptions se
+déroulent sans erreur), relatif (seuls les enregistrements des
+entités respectant les règles sont portés. Les erreurs sont isolées
+et un rapport est émis à destination de l'administrateur). Le
+premier mode est un mode de bascule d'un système A vers une
+application Syncytium. Le deuxième mode est un mode de type entrepôt
+de données. Seules les données de qualité et parfaitement
+exploitables pour les utilisateurs via un système autre que
+Syncytium sont mises à disposition, tout en ayant une vue sur le
+taux de couverture des données par rapport à la source d'origine. »**
+
+- **absolu** — le tout-ou-rien : la bascule d'un système A vers une
+  application Syncytium (l'esprit de l'import D234 — rien ne passe
+  tant qu'une erreur demeure) ;
+- **relatif** — l'entrepôt : seuls les enregistrements conformes
+  sont portés, **les erreurs isolées, le rapport à
+  l'administrateur** (D108–D110/D179), et **la vue sur le taux de
+  couverture par rapport à la source d'origine** (D176/D646 — la
+  source, venue d'un système autre que Syncytium, reste vivante ;
+  Syncytium n'expose que la donnée de qualité).
+
+*(La lecture consignée : l'unification `from:`/reprise est tranchée
+par ce trio — la reprise D175–D179 est le mode relatif du `from:`,
+ses règles persistent ; le mode absolu en est le durcissement pour
+la bascule définitive.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13038,6 +13117,15 @@ avant la synthèse Q16).
   ascendante/descendante — P3) et entre schémas storage (le système
   existant vers le nouveau, l'IHM en vue sur les données migrées et
   validées). Le chantier de D610 est ouvert.
+- **2026-08-16 (suite 19)** — **L'écriture du mapping (D647–D649)** :
+  les deux usages unifiés — l'usage 1 implicite (renommage,
+  dépréciation inscrite, règles de création/suppression, conversions
+  du type ; le from: implicite = la version précédente), l'usage 2
+  au même langage (le from: tire le storage, l'exhaustivité
+  tables/colonnes/dépendances/contraintes couverte ou déclarée
+  ignorée), le dry-run à deux modes absolu (bascule) / relatif
+  (entrepôt — erreurs isolées, rapport, taux de couverture).
+  L'unification from:/reprise tranchée. connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -130,7 +130,7 @@ lecture, le file, le webhook.)*
 | `connect` / `disconnect` | à l'appel du connecteur (D621) |
 | `ping()` | la santé — **le statut** : `error`, `initialized`, `disconnected`, `connected`, `closed`… ; `every:` en précise la fréquence (D621) |
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
-| `describe()` *(nom en proposition)* | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) |
+| `describe()` | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
 **Les propriétés du socle** : `connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme

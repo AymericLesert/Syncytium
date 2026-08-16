@@ -746,6 +746,8 @@ migration et les versions.
 | D641 | **La liste d'entrées et l'abonnement** : un webhook = plusieurs points d'entrée ; `when: <connecteur>[.<entrée>]` = **l'abonnement posé à l'initialisation** — l'appel entrant déclenche l'opération déclarée (D609). | L'écriture au point en proposition. Voir §3.2c. |
 | D642 | **L'authentification obligatoire du webhook** (complète D640) : « le déclenchement du webhook doit passer par une authentification obligatoire » — aucune entrée anonyme, la garde d'office sur la route ; le mécanisme au chantier sécurité (D418/D633). | Voir §3.2c. |
 | D643 | **Les domaines en première partie** (prolonge D602) : « ils font partie des bases de l'approche et des éléments à couvrir — cela complète mon approche (décrire, clarifier et spécifier avant de coder) » — le nouveau §1.2 : la démarche (D314), la carte des huit domaines et leur état, les quatre sujets transversaux de la passe. | Voir §1.2 et §3.2c. |
+| D644 | **Le dossier hooks/ et hooks.yml** (complète le domaine 1) : `hooks/` à la racine de la version, un sous-dossier par type de hooks ; `hooks.yml` à la racine les liste (le parallèle de modules.yml D415) ; les hooks du socle dans l'arborescence de Syncytium. | Voir §3.2c. |
+| D645 | **describe partout, la documentation technique dynamique** (généralise D630) : tous les hooks portent `describe` ; la doc technique de l'application = celle de Syncytium + les hooks ajoutés automatiquement — construite dynamiquement, version par version. | Le nom describe confirmé. Voir §3.2c. |
 
 ---
 
@@ -5229,6 +5231,34 @@ démarche (D314) en une ligne, la carte des huit domaines avec leur
 état, et les quatre sujets transversaux de la passe de complétude —
 la première partie dit désormais le *quoi couvrir* autant que le
 *pourquoi construire*.
+
+**Le dossier hooks/ et hooks.yml (D644 — complète le domaine 1).**
+**« Dans l'arborescence d'un projet, j'ajoute un dossier `hooks` qui
+contiendra un sous-dossier par type de hooks qui enrichira
+l'application. Syncytium portera ses hooks dans son arborescence. Le
+sous-dossier est à la racine. Et, un fichier `hooks.yml` à la racine
+permettra de les lister. »** — les hooks de l'application ont leur
+maison : **`hooks/` à la racine de la version**, un sous-dossier par
+type de hooks (les cinq familles — types, composants, opérations,
+fonctions, connecteurs) ; **`hooks.yml` les liste** — la liste
+explicite, le parallèle exact de `modules.yml` (D415 : ce qui existe
+se déclare, jamais ne se déduit du disque). **Les hooks du socle
+vivent dans l'arborescence de Syncytium** — le moteur ses hooks,
+l'application les siens : la même porte (D52), deux maisons.
+
+**describe partout — la documentation technique dynamique (D645 —
+généralise D630).** **« Dans le principe de l'auto-documentation,
+tous les hooks devront contenir une méthode `describe` capable
+d'écrire la documentation à diffuser sur son fonctionnement. La
+documentation technique d'une application portera la documentation
+technique de Syncytium et les hooks seront ajoutés automatiquement à
+la documentation. La documentation technique étant construite
+dynamiquement, version par version. »** — le `describe()` proposé
+pour les connecteurs (D630) **devient la règle de tous les hooks**
+(le nom est confirmé) ; la documentation technique (D333) s'assemble
+**dynamiquement, version par version** : le socle de Syncytium + les
+hooks de la version, chacun s'auto-décrivant — la version documentée
+est exactement la version servie, rien à rédiger, rien à oublier.
 
 **La documentation au socle commun (D630).** **« Un connecteur doit
 disposer d'une méthode pour générer de la documentation en
@@ -12965,6 +12995,13 @@ avant la synthèse Q16).
   « La passe de complétude : les connecteurs et les échanges
   (D610–D642) », 37 commits sur develop ; la branche recréée porte
   D643.
+- **2026-08-16 (suite 16)** — **hooks/ et hooks.yml (D644),
+  describe partout (D645)** : le dossier à la racine de la version
+  (un sous-dossier par type, hooks.yml en liste explicite — le
+  parallèle de modules.yml), les hooks du socle chez Syncytium ; tous
+  les hooks portent describe — la documentation technique assemblée
+  dynamiquement, version par version (D630 généralisé, le nom
+  confirmé). hooks.md et connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

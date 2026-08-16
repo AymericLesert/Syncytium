@@ -32,6 +32,28 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
   langage exploité par Syncytium** (D570) — le langage et la sandbox
   relèvent du domaine 7 (l'architecture technique — D602).
 
+## La maison des hooks — `hooks/` et `hooks.yml` (D644)
+
+Les hooks de l'application vivent **à la racine de la version** : le
+dossier `hooks/`, **un sous-dossier par type de hooks** ; le fichier
+**`hooks.yml`** les liste — la liste explicite, le parallèle de
+`modules.yml` (D415 : ce qui existe se déclare). Les hooks du socle
+vivent dans l'arborescence de Syncytium — la même porte (D52), deux
+maisons.
+
+```text
+versions/<statut>/<version>/
+├── settings.yml · groups.yml · modules.yml
+├── hooks.yml                  # la liste explicite (D644)
+├── hooks/
+│   ├── types/                 # un sous-dossier par type de hooks
+│   ├── components/
+│   ├── operations/
+│   ├── functions/
+│   └── connectors/
+└── <modules>/
+```
+
 ## Les familles
 
 ### 1. Le hook de type (D408, D459, D579–D584)
@@ -308,3 +330,9 @@ connectors:
 3. **La signature d'abord** : chaque famille déclare ce que le typage
    statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
    passe jamais l'ingestion.
+4. **describe partout** (D645 — généralise D630) : **tout hook porte
+   une méthode `describe`** qui écrit la documentation de son
+   fonctionnement — la documentation technique de l'application
+   (celle de Syncytium + les hooks ajoutés automatiquement) se
+   construit **dynamiquement, version par version** : la version
+   documentée est exactement la version servie.

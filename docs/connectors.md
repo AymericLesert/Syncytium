@@ -345,7 +345,10 @@ order_lines:
     line_no:    integer
     item_code:  text[8]
     qty:        integer
-    updated_by: text[..30]    # ignoré au mapping
+    updated_by: ignored       # le champ ignoré, comme un type (D657)
+
+# source/audit_log.yml — l'entité attendue mais non développée (D657)
+audit_log: ignored
 
 # mapping/order_lines.yml — la règle, de la source vers la cible (D655)
 order_lines:
@@ -355,7 +358,6 @@ order_lines:
   fields:
     item:     item_code       # les expressions du langage unique
     quantity: qty
-ignored: [order_lines.updated_by]   # déclarés ignorés (D648)
 ```
 
 - **le dry-run du `from:` à deux modes (D649)** : **absolu** —

@@ -776,6 +776,7 @@ documentation) :
 | D654 | **La construction de l'enregistrement** : le mapping construit l'enregistrement avant sa validation (D177) ; l'identification par la clé fonctionnelle (D142/D398) — le rapprochement au rejeu, et la construction des agrégats (compositions/associations) par la clé. | Voir §3.2c. |
 | D655 | **Le sens de la règle** (précise D653) : « lecture de la table source vers la table cible » — l'unité = la table source ; les origines multiples se rejoignent par la clé fonctionnelle (la jointure n'est pas une syntaxe, c'est la clé) ; l'exhaustivité se lit dans le sens naturel. | Voir §3.2c. |
 | D656 | **La forme de la règle validée** : la règle au nom de la table source — `to:` (la cible, entité ou agrégat), `key:` (la clé fonctionnelle, simple ou composée), `parent:` (la clé du possesseur — la composition), `fields:` (les expressions du langage unique), `ignored:` (les colonnes/tables déclarées ignorées). | « La forme me convient. » Voir §3.2c. |
+| D657 | **ignored dans la source, comme un type** (amende D656) : le marqueur vit dans source/ — l'entité attendue mais non développée (`audit_log: ignored`), le champ ignoré comme un type (`ref_ext: ignored`) ; l'exhaustivité (D648) se joue entièrement dans source/, le mapping ne porte que les correspondances. | Voir §3.2c. |
 
 ---
 
@@ -5507,7 +5508,10 @@ customers:
     code:     text[8]
     name:     text[..60]
     bal_cts:  integer                 # le solde en centimes
-    fax:      text[..20]              # ignoré au mapping (D648)
+    fax:      ignored                 # attendue, non développée (D657)
+
+# source/audit_log.yml — l'entité attendue mais ignorée (D657)
+audit_log: ignored
 
 # source/customer_notes.yml
 customer_notes:
@@ -5523,7 +5527,7 @@ order_lines:
     line_no:    integer
     item_code:  text[8]
     qty:        integer
-    updated_by: text[..30]            # ignoré au mapping
+    updated_by: ignored               # comme un type (D657)
 
 # ------- mapping/ — les règles, de la source vers la cible (D655) -------
 
@@ -5551,7 +5555,6 @@ order_lines:
   fields:
     item:     item_code
     quantity: qty
-ignored: [customers.fax, order_lines.updated_by]   # déclarés ignorés (D648)
 ```
 
 *(La lecture de l'exemple : `source/` parle strictement la grammaire
@@ -5560,6 +5563,28 @@ la contrainte d'unicité, le raccourci référence (D396) pour la
 dépendance ; la complétude de cette description est vérifiée contre
 `get_schema` (D653). Le mapping n'invente rien : les noms de
 `source/` à gauche du langage, les champs de la cible à droite.)*
+
+**ignored dans la source — comme un type (D657 — amende la place de
+D656).** **« Cette propriété est plutôt dans la description de la
+source. Sur une entité, cela signifie que nous attendons l'entité
+dans la source mais que nous l'ignorons (la description n'est pas
+développée). ignored peut porter sur un champ (comme un type) —
+`ref_ext: ignored` sur une entité line. »** — le marqueur quitte le
+mapping pour vivre **dans `source/`**, aux deux grains :
+
+- **l'entité ignorée** — `audit_log: ignored` : la table est
+  **attendue** dans la source (la complétude D653 la reconnaît) mais
+  sa description n'est pas développée ;
+- **le champ ignoré** — **comme un type** : `ref_ext: ignored` — la
+  colonne existe, elle est attendue, elle ne sera ni décrite plus
+  avant ni mappée.
+
+La lecture consignée : **l'exhaustivité (D648) se joue entièrement
+dans `source/`** — chaque table et chaque colonne du schéma réel y
+est décrite ou marquée `ignored` ; le mapping ne porte plus que les
+correspondances ; une colonne décrite mais qu'aucune règle ne
+consomme entre au **taux de couverture** (D649) — visible, jamais
+silencieuse.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13371,6 +13396,10 @@ avant la synthèse Q16).
   deux maisons côte à côte ; source/ parle la grammaire du
   méta-modèle (fields:, types aux crochets, identity:, le raccourci
   référence D396 pour la dépendance).
+- **2026-08-16 (suite 27)** — **ignored dans la source (D657)** :
+  l'entité attendue mais non développée, le champ ignoré comme un
+  type — l'exhaustivité entière dans source/, le mapping n'a plus
+  d'ignored ; les exemples repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

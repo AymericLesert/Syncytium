@@ -91,11 +91,28 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
-**La passe de complétude** (ouverte le 15/08) balaie quatre sujets
-transversaux avant d'ouvrir les domaines 5–8 : les connecteurs et
-les échanges (quasi soldé — D603–D642, reste le mapping du `from:`),
-la sécurité et les droits, l'administration et l'exploitation, la
-migration et les versions.
+**La passe de complétude** (ouverte le 15/08) balaie **quatre sujets
+transversaux** avant d'ouvrir les domaines 5–6 (les cas d'usage, la
+documentation) :
+
+1. **les connecteurs et les échanges** — quasi soldé (D603–D651 : les
+   sept contrats, l'écriture du mapping D646–D651) ; **les questions
+   gardées pour la prochaine séance** : la maison du mapping de
+   l'usage 2 (dans la version ?), la grammaire concrète de la
+   correspondance (table→entité, champ par champ, les ignorés), la
+   vue du taux de couverture (quelle surface ?), le pilotage (le
+   déclenchement du `from:`, la relance, la détection des deltas en
+   différentiel) ;
+2. **la sécurité et les droits** — à ouvrir ; les flags accumulés :
+   la passerelle d'authentification (D418), l'authentification du
+   `directory` (D633), le mécanisme de la garde du webhook (D642) ;
+   le RGPD (dont la tension avec l'historisation D168), l'audit ;
+3. **l'administration et l'exploitation** — à ouvrir ; le module
+   d'administration jamais décrit, la télémétrie (Q12–Q13) ;
+4. **la migration et les versions** — largement dégrossie par le
+   mapping (D646–D651) ; restent la jonction journal↔gestes storage,
+   le retour arrière après `switch_schema`, le registre des versions
+   essayées face à l'échec à chaud.
 
 ---
 
@@ -13179,6 +13196,13 @@ avant la synthèse Q16).
   (D650–D651)** : l'intention / l'acte / la suppression, la
   documentation obligatoire (remplacement ou abandon) ; old_name aux
   trois grains (champ, entité, module). connectors.md mis au niveau.
+- **2026-08-16 (suite 21 — clôture de séance)** — À la demande de
+  l'auteur, les questions ouvertes sont gardées pour la prochaine
+  séance et consignées au §1.2 : les quatre questions du mapping
+  (la maison, la grammaire, la vue de couverture, le pilotage/
+  différentiel) et l'ordre de marche — compléter les quatre sujets
+  transversaux (connecteur/migration à finir, sécurité, administration)
+  **avant** les cas d'usage (Q59) et la documentation (Q58).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

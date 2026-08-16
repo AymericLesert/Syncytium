@@ -807,6 +807,7 @@ documentation) :
 | D685 | **La borne du retour** (nuance D684) : read_instance ne construit que les items de stockage — les entités, les champs stockés, les contraintes, les dépendances ; jamais les surfaces, les champs calculés, les opérations. | Le storage décrit ce qu'il sait. Voir §3.2c. |
 | D686 | **L'orchestration par Syncytium** (solde les deux questions) : la bascule composée par le moteur sur les primitives du contrat ; les files d'attente au moteur — « l'accès aux données est géré et piloté par Syncytium et non le storage directement ». | Voir §3.2c. |
 | D687 | **L'enregistrement, un type structuré du moteur** : propre à Syncytium et **multi-storage** — le storage se charge de sa conversion en stockage (les fonctions de valeur D683) ; le storage convertit, jamais ne définit. | Voir §3.2c. |
+| D688 | **Le lot au contrat d'enregistrement** (complète D680) : create/update/delete portent une liste d'enregistrements — le traitement par lot, spécifique à l'implémentation du storage (le bulk natif) ; le contrat n'impose que la forme. | Voir §3.2c. |
 
 ---
 
@@ -6103,6 +6104,17 @@ tout moteur de stockage — et **multi-storage** : le même
 enregistrement peut se convertir vers plusieurs storages (l'export
 csv, la réplication passive, la migration — chacun par ses fonctions
 de valeur D683). Le storage convertit, jamais ne définit.
+
+**Le lot au contrat d'enregistrement (D688 — complète D680).**
+**« Le contrat de création, de mise à jour ou de suppression porte
+une liste d'enregistrements. Le but est de gérer les traitements par
+lot (traitement spécifique à l'implémentation du storage). »** —
+`create`, `update` et `delete` reçoivent **une liste** : la classe
+exploite le geste natif de son moteur (le bulk insert, le batch,
+le multi-valeurs) — l'optimisation appartient à l'implémentation,
+le contrat n'impose que la forme. L'unité reste un lot de un ; la
+migration (D667), l'import (D234) et la réplication y trouvent leur
+débit — l'écho des lots de transactions (D101).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14023,6 +14035,10 @@ avant la synthèse Q16).
   l'enregistrement = un type structuré propre à Syncytium,
   multi-storage — le storage convertit, jamais ne définit. **LE
   CONTRAT STORAGE EST CLOS.** connectors.md mis au niveau.
+- **2026-08-16 (suite 49)** — **Le lot au contrat (D688)** :
+  create/update/delete portent une liste d'enregistrements — le
+  traitement par lot, spécifique à la classe. connectors.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

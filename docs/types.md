@@ -34,10 +34,13 @@ composants.md.
   (`valeur.select(cas: …, "...": défaut)`), **les fonctions dédiées** ;
 - **le typage statique à l'ingestion** (D581) — l'inférence de la
   feuille à la racine, jamais une erreur de type à l'exécution ;
-- **la conversion vers le stockage** (D681 — le patron visiteur) :
-  le contrat d'un type inclut ses règles de conversion vers un
-  storage — la classe storage visite le type, le type se décrit, la
-  classe rend la forme native ; le hook de type les fournit ;
+- **la conversion vers le stockage** (D681–D682 — le patron
+  visiteur) : le contrat d'un type inclut ses règles de conversion
+  vers un storage — la classe storage visite le type, le type se
+  décrit, la classe rend la forme native ; le contrat couvre **les
+  trois gestes du champ** : la création, la modification
+  (l'altération + le transcodage), la suppression ; le hook de type
+  les fournit ;
 - **le type personnalisé** (D359) : déclaré au `settings` (l'instance,
   le module ou l'entité) — un nom, un type de base, des facettes
   figées ; **le chaînage possible** ; les types custom ne portent pas

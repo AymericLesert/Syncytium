@@ -80,12 +80,14 @@ graphe de conversion).
   le masque — le kit des facettes ;
 - **la représentation obligatoire** (D459) : « aucun type sans
   visage » — le composant d'écran et/ou le rendu de document ;
-- **les règles de conversion vers un storage** (D681 — le patron
-  visiteur) : « le contrat d'un type doit inclure les règles de
-  conversion vers un storage » — la classe storage visite le type,
-  le type se décrit, la classe rend la forme native ; un type-hook
-  sans ses règles de conversion ne se stocke pas — l'ingestion le
-  refuse.
+- **les règles de conversion vers un storage** (D681–D682 — le
+  patron visiteur) : « le contrat d'un type doit inclure les règles
+  de conversion vers un storage » — la classe storage visite le
+  type, le type se décrit, la classe rend la forme native ; le
+  contrat couvre **les trois gestes du champ** (D682) : la création
+  (les colonnes natives), la modification (l'altération + le
+  transcodage — D647/D673), la suppression ; un type-hook sans ses
+  règles de conversion ne se stocke pas — l'ingestion le refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses

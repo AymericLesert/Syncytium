@@ -167,11 +167,15 @@ storage — définie, construite et maintenue par Syncytium, la version
 en paramètre système — lue et écrite par le `read`/`update`
 standard.
 
-**La conversion au type** (D681 — le patron visiteur) : le contrat
-d'un type inclut ses règles de conversion vers un storage — la
-classe visite le type, le type se décrit, la classe rend la forme
-native (`amount` en DECIMAL ici, en deux colonnes là) ; un storage
-nouveau visite tous les types sans qu'aucun ne change.
+**La conversion au type** (D681–D682 — le patron visiteur) : le
+contrat d'un type inclut ses règles de conversion vers un storage —
+la classe visite le type, le type se décrit, la classe rend la forme
+native (`amount` en DECIMAL ici, en deux colonnes là) ; le contrat
+couvre **les trois gestes du champ** (la création, la modification —
+l'altération + le transcodage —, la suppression), et les méthodes
+d'entité (`create/update/delete_entity`) **se composent des gestes
+des types** ; un storage nouveau visite tous les types sans qu'aucun
+ne change.
 
 **La migration à chaud** (D631/D674) : `duplicate_instance` → les
 transformations dérivées des différences (D632 — le mapping

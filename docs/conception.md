@@ -801,6 +801,7 @@ documentation) :
 | D679 | **Les lectures en attente durant le renommage** (précise D676) : continues pendant la phase, mises en attente le temps du renommage — « normalement, cela est très court ». | Voir §3.2c. |
 | D680 | **Le contrat storage réécrit** (amende D629) : le vocabulaire du méta-modèle — l'instance (`create/read/duplicate/rename/delete_instance`, read_instance remplace get_schema), les entités (`create/update/delete_entity`), les enregistrements ; la version = une entité système maintenue par Syncytium (pas de méthode) ; la mission de la classe = la conversion vers le stockage. | Voir §3.2c. |
 | D681 | **La conversion au type — le visiteur** (prolonge D579) : le contrat d'un type inclut ses règles de conversion vers un storage — le patron visiteur ; le hook de type les fournit, un storage nouveau visite tous les types. | Voir §3.2c. |
+| D682 | **Les trois gestes du champ** (précise D681) : le type porte les règles storage du cycle de vie — la création (les colonnes natives), la modification (l'altération + le transcodage D647), la suppression ; les méthodes d'entité (D680) se composent des gestes des types. | Voir §3.2c. |
 
 ---
 
@@ -6002,6 +6003,25 @@ forme native — `amount` en DECIMAL ici, en deux colonnes là ;
 `geolocation` en point PostGIS ou en deux réels). Le hook de type
 (D408) doit donc les fournir — et un storage nouveau visite tous les
 types sans qu'aucun ne change.
+
+**Les trois gestes du champ (D682 — précise D681).** **« Le type
+porte les règles liées au storage : la création d'un champ, la
+modification d'un champ, la suppression d'un champ. »** — le contrat
+de conversion du type couvre **le cycle de vie du champ au
+stockage**, pas la seule valeur :
+
+- **la création** — la ou les colonnes natives qu'un champ de ce
+  type engendre (l'amount et sa devise, la geolocation et ses deux
+  réels) ;
+- **la modification** — le geste de transformation quand le type ou
+  le défaut change (D673) : l'altération native et **le transcodage**
+  (D647 — chaque type porte sa règle de conversion) ;
+- **la suppression** — le retrait propre de ses colonnes.
+
+Les méthodes d'entité du contrat storage (D680 —
+`create_entity`/`update_entity`/`delete_entity`) **se composent des
+gestes des types** : l'entité est la somme de ses champs, chaque
+champ sait naître, muter et disparaître dans le storage visité.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13902,6 +13922,10 @@ avant la synthèse Q16).
   de conversion porté par le type (le patron visiteur). connectors.md,
   types.md, mapping.md et hooks.md (la signature du hook de type
   enrichie — relevé par l'auteur) mis au niveau.
+- **2026-08-16 (suite 44)** — **Les trois gestes du champ (D682)** :
+  le type porte la création, la modification et la suppression d'un
+  champ au storage — les méthodes d'entité se composent des gestes
+  des types. Les artefacts mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

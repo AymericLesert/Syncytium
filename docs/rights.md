@@ -223,27 +223,60 @@ degré** (`degree:` dans groups.yml — en proposition, défaut
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
+**L'inventaire des dix-neuf planchers** (D701 — validé) :
+
+| le degré | les opérations |
+|---|---|
+| `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
+| `manager` | `import` · `report` |
+| `administrator` | `restore` · `migrate` · `anonymize` |
+
+**L'exemple détaillé** — les degrés, les deux formes d'`allow` et la
+composition :
+
 ```yaml
 # groups.yml — le degré porté par le groupe (D699)
 groups:
-  sales_team: { }                      # degree: user (le défaut)
-  managers:   { degree: manager, groups: [sales_team] }
+  sales_team: { }                          # degree: user (le défaut)
+  accounting: { }
+  managers:   { degree: manager, groups: [sales_team, accounting] }
   admins:     { degree: administrator }
 
-# l'entité — allow: l'expression OU les groupes (D423/D700)
-allow:
-  update: locked = false
-  delete: [admins]
+# sales/entities/order.yml — LE CYCLE : allow par état (D422)
+name: order
+fields:
+  status:
+    type: enum
+    values:
+      draft:     { allow: [create, read, update, delete] }
+      confirmed: { allow: [read] }
+      archived:  { allow: [read] }
 operations:
   archive:
-    allow: [managers, admins]          # le droit de déclencher (D691)
+    allow: [managers, admins]              # le droit de déclencher (D691/D700)
+    commit: confirm
+  purge_customer:
+    operations: [ anonymize ]              # la 19e (D697) — plancher administrator
+    # un allow: [managers] serait sans effet : le plancher l'emporte (D700)
+
+# sales/entities/customer.yml — LA FORME LIBRE (D423), exclusive du cycle
+name: customer
+allow:
+  update: locked = false                   # l'expression (D90)
+  delete: [admins]                         # les groupes (D700)
 ```
 
-Le plancher et l'`allow:` se composent — **le plus exigeant
-l'emporte**. *(L'inventaire des dix-neuf planchers — en
-proposition : `user` pour le quotidien, `manager` pour
-`import`/`report`, `administrator` pour
-`restore`/`migrate`/`anonymize` — reste à valider.)*
+**Qui peut quoi** — la composition (le plus exigeant l'emporte) :
+
+| l'acteur (son meilleur groupe) | `archive` une commande | `purge_customer` | `delete` un client |
+|---|---|---|---|
+| un membre de `sales_team` (user) | non — hors de l'`allow` | non — le plancher `administrator` | non — l'`allow` exige `admins` |
+| un membre de `managers` (manager) | **oui** — dans l'`allow`, le plancher `user` de l'opération déclarée est couvert | non — le plancher `administrator` l'emporte sur tout `allow` | non — l'`allow` exige `admins` |
+| un membre de `admins` (administrator) | **oui** | **oui** — le plancher atteint | **oui** — et l'expression `update: locked = false` continue de gouverner la modification |
+
+— et dans tous les cas, un compte **sans groupe n'entre pas** (D699,
+le fail-closed jusqu'à la porte) ; la vérification joue **au début**
+de l'opération, servie par le cache de droits (D694).
 
 ## Les points ouverts — le chantier du sujet 2
 

@@ -821,6 +821,7 @@ documentation) :
 | D698 | **La rétention et le registre** (pièce 4 — boucle le volet) : la rétention échue s'anonymise d'office (D411/D696) ; le registre des traitements auto-documenté (D333/D645). | Voir §3.2c. |
 | D699 | **Le degré intrinsèque au contrat, porté par le groupe** (solde D697) : le contrat des opérations le déclare ; user \| manager \| administrator ; le groupe d'utilisateurs porte le degré (`degree:` en proposition, défaut user) ; **l'appartenance à un groupe est obligatoire pour utiliser l'application**. | Voir §3.2c. |
 | D700 | **allow: aux groupes** (complète D423/D691) : le verbe ou l'opération accepte la liste des groupes autorisés, en plus de l'expression ; le degré intrinsèque reste le plancher — le plus exigeant l'emporte. | Voir §3.2c. |
+| D701 | **L'inventaire des dix-neuf planchers validé** : user (le quotidien — 14 opérations), manager (import, report), administrator (restore, migrate, anonymize). | « Je valide l'inventaire. » L'exemple détaillé dans rights.md. Voir §3.2c. |
 
 ---
 
@@ -6315,6 +6316,20 @@ operations:
 Le degré intrinsèque reste le plancher : un `allow:` généreux
 n'abaisse jamais le degré exigé par le contrat — les deux se
 composent, le plus exigeant l'emporte.
+
+**L'inventaire des dix-neuf planchers (D701 — « je valide
+l'inventaire »).** La table gravée :
+
+| le degré | les opérations |
+|---|---|
+| `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
+| `manager` | `import` · `report` |
+| `administrator` | `restore` · `migrate` · `anonymize` |
+
+— le quotidien aux droits déclarés ; l'import déjà réservé (D211/
+D238) ; la restauration (D174), la migration (D667) et
+l'anonymisation (D697) à l'administration. L'exemple détaillé porté
+dans rights.md (demande de l'auteur).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14286,6 +14301,10 @@ avant la synthèse Q16).
   l'emporte. L'inventaire des 19 planchers reste à valider.
   rights.md, hooks.md et glossaire.md mis au niveau. **La 700e
   décision.**
+- **2026-08-16 (suite 58)** — **L'inventaire des planchers validé
+  (D701)** : user/manager/administrator répartis sur les 19 ;
+  l'exemple détaillé porté dans rights.md (qui peut quoi — la
+  composition plancher × allow). L'audit des lectures s'ouvre.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

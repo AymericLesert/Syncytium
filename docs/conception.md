@@ -781,6 +781,8 @@ documentation) :
 | D659 | **Les composés par la fonction du type** : plusieurs champs source vers un champ cible — la fonction de construction portée par le type (`geolocation(lat, lng)`, `amount(montant, devise)` — D579/D584) ; rien de neuf dans la grammaire ; **l'écriture validée**. | Voir §3.2c. |
 | D660 | **La normalisation par champ calculé sur la source** (précise D658) : source/ parle toute la grammaire, champs calculés compris — la normalisation s'écrit sur la description de la source (`formula:`), le mapping consomme le champ calculé comme une colonne. | Voir §3.2c. |
 | D661 | **`mapping.md` créé** : le sixième artefact préparatoire (Q58) — la description de la source et le mapping (D646–D660) : les deux usages, source/ et mapping/, la grammaire des règles, le dry-run, les exemples ; aucun contenu nouveau. | À la demande de l'auteur. |
+| D662 | **Les migrations déclarées** (étend D610) : la convergence de plusieurs sources — le setting lie { connecteur storage · descriptions sources · mapping } par migration ; l'ordre d'exécution = l'ordre de définition des migrations, l'ordre de parcours = l'ordre de définition des entités sources. | L'écriture migrations: en proposition ; from: relu comme le raccourci à une migration. Voir §3.2c. |
+| D663 | **Le filter: de la source** : la sélection des enregistrements parcourus par la migration (les 10 dernières années, l'instance — le multi-instances d'une entité) — le périmètre déclaré, hors taux de couverture. | Voir §3.2c. |
 
 ---
 
@@ -5665,6 +5667,62 @@ customers:
   distinct: [city]
   key: city
 ```
+
+**Les migrations déclarées — la convergence de plusieurs sources
+(D662 — étend D610).** **« Une migration peut faire converger
+plusieurs sources vers une seule destination. Le `from:` seul ne
+suffit pas. Par conséquent, le setting peut décrire une migration en
+faisant le lien entre le connecteur storage, la description des
+entités sources et du mapping pour cette migration. L'ordre des
+migrations se déduit de l'ordre de définition, et l'ordre de
+définition des entités sources décrit l'ordre de parcours des
+entités. »** — la migration devient **un objet déclaré** : le lien
+{ connecteur storage source · les descriptions de `source/` · le
+mapping } — et plusieurs migrations convergent vers la même
+instance. **L'ordre est celui de la définition, aux deux étages** :
+les migrations s'exécutent dans l'ordre où elles sont déclarées, et
+les entités sources se parcourent dans l'ordre où elles sont
+définies (le technicien maîtrise les dépendances — le référentiel
+avant l'entité qui le référence, le possesseur avant ses lignes).
+*(L'écriture en proposition :*
+
+```yaml
+# settings.yml — les migrations déclarées (D662)
+migrations:
+  legacy_erp:                        # l'ordre de définition = l'ordre d'exécution
+    connector: legacy_db             # le connecteur storage source
+    source:  [customers, customer_notes, order_lines]  # l'ordre de parcours
+  old_crm:
+    connector: crm_db
+    source:  [contacts]
+```
+
+*— les dossiers se déclinent par migration : `source/legacy_erp/`,
+`mapping/legacy_erp/` ; le câblage `from:` (D610) se relit comme le
+raccourci du cas à une seule migration.)*
+
+**Le filter: de la source (D663).** **« Dans une source, nous
+ajoutons la propriété `filter:` qui permet de sélectionner les
+enregistrements parcourus par la migration. Cette propriété peut
+exclure les enregistrements des données antérieures aux 10 dernières
+années, ou prendre en compte les données d'une instance — surtout si
+une entité recoupe des données de plusieurs instances. »** — la
+sélection à la source, dans le langage unique :
+
+```yaml
+# source/legacy_erp/orders.yml
+orders:
+  filter: order_date >= now() - 10y   # les 10 dernières années (D663)
+  fields: …
+
+# le multi-instances : l'entité recoupe plusieurs instances
+customers:
+  filter: company_code = "PARIS"      # les données de l'instance
+  fields: …
+```
+
+Les enregistrements exclus par le `filter:` ne comptent pas au taux
+de couverture — la sélection est un périmètre déclaré, pas un rejet.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13498,6 +13556,12 @@ avant la synthèse Q16).
   (D646–D660), les exemples complets, les points ouverts (la vue de
   couverture, le pilotage, la jonction versions). §1.2 et
   connectors.md mis au niveau.
+- **2026-08-16 (suite 32)** — **Les migrations déclarées et le
+  filter: (D662–D663)** : la convergence de plusieurs sources — le
+  setting lie connecteur/sources/mapping par migration, l'ordre aux
+  deux étages (migrations puis entités) ; filter: sélectionne les
+  enregistrements parcourus (les 10 ans, l'instance) — le périmètre
+  déclaré, hors couverture. mapping.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

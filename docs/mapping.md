@@ -62,6 +62,32 @@ unit_price:
 
 ## L'usage 2 — la migration d'un système existant
 
+### Les migrations déclarées (D662)
+
+« Une migration peut faire converger plusieurs sources vers une
+seule destination — le `from:` seul ne suffit pas. » **Le setting
+décrit chaque migration** : le lien { connecteur storage source ·
+descriptions des entités sources · mapping }. **L'ordre est celui de
+la définition, aux deux étages** : les migrations s'exécutent dans
+l'ordre déclaré, les entités sources se parcourent dans l'ordre
+défini (le référentiel avant l'entité qui le référence, le
+possesseur avant ses lignes).
+
+```yaml
+# settings.yml — les migrations déclarées (D662, écriture en proposition)
+migrations:
+  legacy_erp:                        # l'ordre de définition = l'ordre d'exécution
+    connector: legacy_db             # le connecteur storage source
+    source:  [customers, customer_notes, order_lines]  # l'ordre de parcours
+  old_crm:
+    connector: crm_db
+    source:  [contacts]
+```
+
+Les dossiers se déclinent par migration (`source/legacy_erp/`,
+`mapping/legacy_erp/`) ; le câblage `from:` (D610) se relit comme le
+raccourci du cas à une seule migration.
+
 ### Les deux maisons (D652–D653)
 
 « La destination est décrite par le méta-modèle. La source doit être
@@ -93,6 +119,11 @@ propres :
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une
   colonne.
+- **le `filter:`** (D663) — la sélection des enregistrements
+  parcourus par la migration (`filter: order_date >= now() - 10y`,
+  `filter: company_code = "PARIS"` — le multi-instances d'une entité
+  recoupant plusieurs instances) ; **le périmètre déclaré, hors taux
+  de couverture** — l'exclu du filtre n'est pas un rejet.
 
 ```yaml
 # source/customers.yml — le modèle d'origine, la même grammaire (D652)
@@ -220,3 +251,5 @@ postures de D180 incarnées.
 - **la jonction avec les versions** (sujet 4 de la passe) — le lien
   journal de migrations ↔ gestes storage, le retour arrière après
   `switch_schema`.
+- **l'écriture `migrations:`** (D662) — la forme du setting en
+  proposition.

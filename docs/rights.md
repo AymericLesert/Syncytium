@@ -304,6 +304,23 @@ fields:
   api_key:    { type: password, trace: limited } # jamais tracé — nulle part
 ```
 
+## Le chiffrement (D705–D706)
+
+- **en transit** (D705) : ce que Syncytium **sert** (l'IHM, les API,
+  les routes webhook) est **HTTPS sans dérogation** ; ce qu'il
+  **appelle** (les huit familles) est chiffré **par défaut** —
+  l'exception déclarée au connecteur (`unencrypted:` en
+  proposition), signalée par l'ingestion, visible au `describe()` ;
+- **au repos** (D706) : le chiffrement du storage (TDE, disque)
+  **n'est pas de la responsabilité de Syncytium** — l'infrastructure
+  et la classe ; et le chiffrement d'une valeur est **un pouvoir de
+  type** (comme `password` — D463) : pas de facette `encrypted:` —
+  le type qui a le pouvoir chiffre par ses fonctions de valeur
+  (D683) et déclare ce qu'il sait encore faire (la recherche
+  stricte au mieux, le tri perdu — la signature du type D579/D582).
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **le chiffrement** — au repos (le storage), en transit.
+1. **les clés du chiffrement de type** (D706) — la dérivation (le
+   patron des secrets D603 ?) et la rotation (un acte
+   d'administration ?) — en discussion.

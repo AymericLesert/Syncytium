@@ -825,6 +825,8 @@ documentation) :
 | D702 | **Le grain de l'audit des lectures** : une ligne par lecture en masse de l'entité parente ou par transaction — le nombre d'éléments concernés, jamais une ligne par enregistrement ; la volumétrie à l'échelle de l'acte. | Voir §3.2c. |
 | D703 | **La propriété trace:** : le défaut automatique (rgpd: sensitive audité d'office) + `trace: audit` (l'opt-in) + **`trace: limited`** (l'exclusion — le mot de passe, la clé jamais tracés, D463/D603). | Voir §3.2c. |
 | D704 | **L'audit au module d'administration** : une entité du module d'administration (porté par Syncytium — D666) ; les surfaces standard, le degré administrator, la rétention déclarée (D411). | Le module admin prend corps (sessions D693, audit D704). Voir §3.2c. |
+| D705 | **Le chiffrement en transit** : ce que Syncytium sert = HTTPS sans dérogation ; ce qu'il appelle = chiffré par défaut, l'exception déclarée au connecteur (`unencrypted:` en proposition — signalée, visible au describe). | « Je valide ce point. » Voir §3.2c. |
+| D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
 
 ---
 
@@ -6366,6 +6368,34 @@ l'audit se déclare comme toute historisation (D411). Le module
 d'administration prend corps pièce à pièce : la révocation des
 sessions (D693), l'audit (D704) — sa description complète attend le
 sujet 3.
+
+**Le chiffrement en transit (D705 — « je valide ce point »).** Tout
+ce que Syncytium **sert** (l'IHM, les API, les routes webhook D640)
+est HTTPS — obligatoire, sans dérogation. Tout ce que Syncytium
+**appelle** (les huit familles) exige le transport chiffré **par
+défaut** ; l'exception se déclare au connecteur *(l'écriture en
+proposition :* `unencrypted: true` *)* — signalée par l'ingestion,
+visible au `describe()` : expliciter plutôt que subir en silence.
+
+**Le chiffrement au repos — l'affaire du type (D706 — amende ma
+proposition).** **« Le chiffrement du storage n'est pas de la
+responsabilité de Syncytium. Une valeur encrypted serait plutôt un
+type (comme password). C'est le type qui gère le chiffrement — pas
+tous les types, juste ceux qui ont le pouvoir de le faire. »** —
+deux arbitrages :
+
+- **le storage hors responsabilité** : le TDE, le disque chiffré —
+  l'infrastructure et la classe, jamais le moteur (la recommandation
+  d'exploitation, rien de plus) ;
+- **pas de facette `encrypted:` — un type** : le chiffrement est
+  **un pouvoir de type** (le `password` D463 montre la voie) —
+  certains types chiffrent, les autres non ; les fonctions de valeur
+  du visiteur (D683) portent le chiffre à l'écriture et le déchiffre
+  à la lecture, et **le type déclare ce qu'il sait encore faire**
+  (la recherche stricte au mieux, le tri perdu — la signature du
+  type dit ses capacités, D579/D582, rien à documenter à part). Le
+  technicien qui veut un texte chiffré prend le type chiffrant —
+  le choix est un type, pas une option.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14348,6 +14378,12 @@ avant la synthèse Q16).
   complément du défaut automatique rgpd: sensitive ; l'entité
   d'audit au module d'administration. rights.md et types.md mis au
   niveau.
+- **2026-08-16 (suite 60)** — **Le chiffrement (D705–D706)** : le
+  transit validé (servi = HTTPS sans dérogation ; appelé = chiffré
+  par défaut, l'exception déclarée) ; le repos — le storage hors
+  responsabilité, le chiffrement = un pouvoir de type (comme
+  password, les fonctions de valeur D683). rights.md mis au niveau.
+  Reste le point 3 (les clés) — D603 rappelé à l'auteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

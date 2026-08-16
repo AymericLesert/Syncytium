@@ -14443,6 +14443,13 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 63)** — **LE SUJET 2 (LA SÉCURITÉ ET LES
   DROITS) EST SOLDÉ** (D690–D708) — le §1.2 mis au niveau. Reste le
   sujet 3 : l'administration et l'exploitation.
+- **2026-08-17** — **La PR #32 fusionnée (vérifiée)** : « La
+  sécurité et les droits — le sujet 2 soldé (D690–D708) », 13
+  commits sur develop. Pause — la prochaine séance ouvrira le sujet
+  3 (l'administration et l'exploitation) : le module
+  d'administration (les sessions D693, l'audit D704, la vue de
+  migration D666, la rotation des clés D707), la télémétrie
+  (Q12–Q13), les settings dynamiques (D588).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

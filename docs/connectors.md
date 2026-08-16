@@ -148,22 +148,37 @@ démarrage.
 
 ## Les contrats par famille
 
-### `storage` (D629, D631–D632)
+### `storage` (D629, D631–D632, D680–D681)
+
+**Le contrat parle le langage du méta-modèle** (D680) — l'instance,
+l'entité, le champ ; jamais le vocabulaire du moteur (le schema
+SQLServer, la database MySQL) : **la mission de la classe est la
+conversion vers le stockage**.
 
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'introspection | `get_schema` — le schéma, les tables, les colonnes, les contraintes, les dépendances |
-| les migrations | `create_table` · `update_table` · `delete_table` |
-| le schéma | `create_schema` · `delete_schema` · **`switch_schema`** — « créer l'instance automatiquement ou faire migrer silencieusement », la bascule atomique (D631) |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — les entités, les champs, les contraintes, les dépendances) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` |
 
-**La migration à chaud en quatre gestes** : `create_schema` → la
-migration → `switch_schema` → `delete_schema` — et **le mapping est
-automatique** (D632) : la translation déclarative dérive les
-correspondances des deux méta-schémas, le technicien n'écrit rien
-(le mapping manuel demeure l'affaire du `from:` — les systèmes
-étrangers).
+**La version n'a pas de méthode** (D680) : une **entité système** du
+storage — définie, construite et maintenue par Syncytium, la version
+en paramètre système — lue et écrite par le `read`/`update`
+standard.
+
+**La conversion au type** (D681 — le patron visiteur) : le contrat
+d'un type inclut ses règles de conversion vers un storage — la
+classe visite le type, le type se décrit, la classe rend la forme
+native (`amount` en DECIMAL ici, en deux colonnes là) ; un storage
+nouveau visite tous les types sans qu'aucun ne change.
+
+**La migration à chaud** (D631/D674) : `duplicate_instance` → les
+transformations dérivées des différences (D632 — le mapping
+automatique, le technicien n'écrit rien) → la bascule par
+`rename_instance` sur validation → `delete_instance` (ou la grâce —
+D675/D678). Le mapping manuel demeure l'affaire des migrations
+déclarées (voir [mapping.md](mapping.md)).
 
 **Les storages de format (D636)** : « les storages "csv", "xml"… sont
 définis pour les exports et exploitables pour les imports » — les
@@ -314,7 +329,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   changement de type par **les conversions que chaque type porte**
   D579/D584 ; les règles de création/suppression D11–D13
   persistent) ; **l'usage 2 parle le même langage** : le `from:`
-  tire le storage d'origine (`get_schema`), **l'exhaustivité** des
+  tire le storage d'origine (`read_instance` — D680), **l'exhaustivité** des
   tables, colonnes, dépendances et contraintes — tout est couvert ou
   **déclaré ignoré** (D176 étendu), la traduction par les fonctions
   et conversions du langage unique ;
@@ -326,7 +341,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
 - **les deux maisons (D652–D653)** : **`source/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude
-  du modèle contre `get_schema`) ; **`mapping/`** — les règles de
+  du modèle contre `read_instance`) ; **`mapping/`** — les règles de
   conversion table par table, aux origines multiples possibles ;
 - **la construction et la clé fonctionnelle (D654)** : le mapping
   construit l'enregistrement avant sa validation (D177) ; la clé

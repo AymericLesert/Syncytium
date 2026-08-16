@@ -799,6 +799,8 @@ documentation) :
 | D677 | **Le rejeu par la compatibilité ascendante** (boucle D674) : les écritures en attente, formulées dans l'ancienne version, sont rejouées par la chaîne ascendante (P3, D11–D13) — comme un appel d'API antérieur ; aucune mécanique dédiée. | Voir §3.2c. |
 | D678 | **La restauration par renommage, la version en table système** (précise D675/D174) : le défaut = la suppression ; sous grâce, l'ancien = le schéma sauvegardé et `restore` = le geste inverse de la bascule (le courant renommé, le sauvegardé repositionné) ; **chaque schéma porte sa version dans une table système**. | Voir §3.2c. |
 | D679 | **Les lectures en attente durant le renommage** (précise D676) : continues pendant la phase, mises en attente le temps du renommage — « normalement, cela est très court ». | Voir §3.2c. |
+| D680 | **Le contrat storage réécrit** (amende D629) : le vocabulaire du méta-modèle — l'instance (`create/read/duplicate/rename/delete_instance`, read_instance remplace get_schema), les entités (`create/update/delete_entity`), les enregistrements ; la version = une entité système maintenue par Syncytium (pas de méthode) ; la mission de la classe = la conversion vers le stockage. | Voir §3.2c. |
+| D681 | **La conversion au type — le visiteur** (prolonge D579) : le contrat d'un type inclut ses règles de conversion vers un storage — le patron visiteur ; le hook de type les fournit, un storage nouveau visite tous les types. | Voir §3.2c. |
 
 ---
 
@@ -5958,6 +5960,48 @@ les lectures continuent pendant toute la phase (D676) **sauf durant
 le renommage** — l'instant de la bascule — où elles rejoignent la
 file d'attente ; « normalement, cela est très court » (un renommage
 de schéma, pas une copie).
+
+**Le contrat storage réécrit — le vocabulaire du modèle (D680 —
+amende D629).** **« get_version n'est pas porté par storage : il est
+porté dans une entité du storage (entité définie, construite et
+maintenue par Syncytium) — la version est un paramètre système.
+"table" à renommer en "entité" pour coller au langage du modèle de
+données. "schema" à renommer en "instance" (schema est une
+déclinaison d'une instance sous SQLServer ou sous MySQL…) :
+create_instance, read_instance, duplicate_instance, rename_instance,
+delete_instance. read_instance = get_instance, en lieu et place de
+get_schema. Le contrat manipule donc des structures comme celles
+gérées par le moteur — le storage ayant pour mission d'assurer la
+conversion vers le stockage. »** Le contrat arrêté :
+
+| le groupe | les méthodes |
+|---|---|
+| la transaction | `begin` · `commit` · `rollback` |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — en lieu et place de get_schema) · **`duplicate_instance`** (le temps 1 de D674) · **`rename_instance`** (la bascule, la restauration — D674/D678) · `delete_instance` |
+| les entités | `create_entity` · `update_entity` · `delete_entity` |
+| les enregistrements | `create` · `read` · `update` · `delete` |
+
+**Le principe fondateur** : le contrat parle **le langage du
+méta-modèle** (l'instance, l'entité, le champ) — jamais celui du
+moteur (le schema SQLServer, la database MySQL) ; **la mission de la
+classe storage est la conversion vers le stockage**. La version n'a
+pas de méthode : **une entité système** du storage (définie,
+construite et maintenue par Syncytium — la version en paramètre
+système), lue et écrite par le `read`/`update` standard.
+
+**Le contrat de conversion au type — le patron visiteur (D681 —
+prolonge D579).** **« Le contrat de conversion est à porter par le
+type. Par conséquent, le contrat d'un type doit inclure les règles
+de conversion vers un storage. Je pousse le concept du design
+pattern "visiteur". »** — la grande unification atteint la
+persistance : le type emmenait ses fonctions (D579), **il emmène
+aussi sa conversion vers le stockage** — le contrat d'un type inclut
+les règles de conversion vers un storage (le patron visiteur : la
+classe storage visite le type, le type se décrit, la classe rend la
+forme native — `amount` en DECIMAL ici, en deux colonnes là ;
+`geolocation` en point PostGIS ou en deux réels). Le hook de type
+(D408) doit donc les fournir — et un storage nouveau visite tous les
+types sans qu'aucun ne change.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -13851,6 +13895,12 @@ avant la synthèse Q16).
   en table système ; les lectures en attente le seul temps du
   renommage. Le contrat storage à détailler — ouvert à la demande de
   l'auteur.
+- **2026-08-16 (suite 43)** — **Le contrat storage réécrit, le
+  visiteur (D680–D681)** : le vocabulaire du méta-modèle (instance/
+  entité — read_instance, duplicate_instance, rename_instance…), la
+  version en entité système, la mission = la conversion ; le contrat
+  de conversion porté par le type (le patron visiteur). connectors.md,
+  types.md et mapping.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

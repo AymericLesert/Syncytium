@@ -126,14 +126,35 @@ persiste après la mort du connecteur (D178) ; l'import
 d'exploitation porte l'opérateur (D238) ; la trace des opérations
 est l'historisation elle-même (D429).
 
+## L'authentification (D692)
+
+**La famille de connecteur `authentication`** — la huitième : le
+contrat **`challenge()`/`verify(preuve)`**, la session et
+l'orchestration au moteur (D686), le rapprochement du compte par la
+clé d'unicité (D82). **Les quatre volets à porter** :
+
+1. **`local`** — le compte géré par Syncytium : le mot de passe
+   haché vérifié par le moteur ; le premier visage des comptes
+   clients (D77) ;
+2. **`azure_ad`** — l'annuaire : le bind vers l'AD Azure, le bearer
+   Entra — le pendant authentifiant du connecteur `directory`
+   (D633, la synchronisation restant à lui) ;
+3. **`sso`** — la délégation : la redirection OIDC, le ticket au
+   retour, la signature du jeton validée — l'utilisateur ne confie
+   jamais son secret à Syncytium ;
+4. **l'API** — la preuve au porteur : la clé d'API ou le bearer dans
+   chaque requête (le 401 en défi), le compte technique (D77), pas
+   de session ; **la garde du webhook (D642) appelle le même
+   `verify`**.
+
+La passerelle (D418) a son visage ; le multi-connecteurs sert
+l'étanchéité par canal (D77). Voir le contrat détaillé dans
+[connectors.md](connectors.md).
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **L'authentification** — les trois flags accumulés : la
-   passerelle (D418 — le lien utilisateur↔annuaire), les modes (le
-   compte local, l'AD via `directory`, le SSO ?), la session (la
-   durée, le renouvellement), les API (le jeton — le compte
-   technique D77), le mécanisme concret de la garde webhook (D642 —
-   la clé, le jeton, la signature ?) ;
+1. **la session** — les réglages fins (la durée, le renouvellement,
+   la déconnexion — des settings ?) ;
 2. **le RGPD** — les données personnelles marquées au modèle ? le
    droit à l'effacement face à l'historisation (D168) et à la
    provenance persistante (D178) ; la rétention ;

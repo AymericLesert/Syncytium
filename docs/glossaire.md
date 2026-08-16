@@ -59,9 +59,9 @@ entrants et ses sortants — la lecture et l'écriture selon les
 spécificités de sa famille. Il est **global** (aucune déclinaison par
 module ni entité) et **déclaré à l'environnement** : chaque
 environnement les siens, la complétude vérifiée à l'ingestion. **Son
-type est sa famille — et son contrat** : sept familles closes
+type est sa famille — et son contrat** : huit familles closes
 (`storage`, `smtp`, `file`, `directory`, `location`, `webhook`,
-`siren`) dont chacune contraint les méthodes ; sa **classe**
+`siren`, `authentication`) dont chacune contraint les méthodes ; sa **classe**
 (`postgresql`, `ban`, `smtp_std`…) remplit le contrat. Toute classe
 implémente le socle commun : `initialize`/`release`,
 `connect`/`disconnect`, `ping()` (le statut, la fréquence à

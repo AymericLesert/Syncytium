@@ -812,6 +812,7 @@ documentation) :
 | D689 | **Le curseur en lecture** (complète D688) : read() retourne un curseur, pas une liste évaluée — le lazy loading, le traitement en masse au suivi de progression ; le curseur convertit chaque ligne en un enregistrement reflétant la description des champs de l'entité (D683/D687), au fil du parcours. | L'écriture en lots, la lecture au curseur. Voir §3.2c. |
 | D690 | **`rights.md` créé** : le huitième artefact préparatoire (Q58) — la sécurité et les droits consolidés (la doctrine P8, la confidentialité D25/D364, les droits d'action D196/D422–D423, l'audience anti-IDOR D70–D77, les groupes/modules, les connecteurs, la provenance) + les cinq points du chantier du sujet 2 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des connecteurs. |
 | D691 | **Les droits d'action couvrent les opérations** (referme le point 2 du chantier) : le socle (les 18) et les déclarées — le droit d'exécuter se déclare comme les autres droits d'action (D196) ; la réconciliation avec D422 : l'opération passe outre les allow d'état, le droit de la déclencher se contrôle. | Voir §3.2c. |
+| D692 | **La famille authentication** (la 8e — referme D418/D642) : le contrat `challenge()`/`verify(preuve)` aux deux visages (l'utilisateur → la session ; l'API → la preuve au porteur) ; les classes `local`/`azure_ad`/`sso` ; la session, le rapprochement (D82) et l'orchestration au moteur (D686) ; la garde du webhook appelle le même verify. | Validé. Voir §3.2c. |
 
 ---
 
@@ -6147,6 +6148,37 @@ d'état de l'entité** (le promote écrit un enregistrement que l'état
 fige — l'acte porte sa légitimité), mais **le droit de déclencher
 l'opération** relève des droits d'action (D196/D691) : on contrôle
 qui appuie, pas ce que l'acte a le droit d'écrire.
+
+**La famille authentication (D692 — ouvre le point 1 du chantier et
+referme D418/D642).** Validé (« je valide ») — **la huitième famille
+de connecteur**, créée par le moteur (l'extension du jeu = l'affaire
+de Syncytium, D619/D623) :
+
+- **le contrat en deux gestes** : **`challenge()`** — comment
+  demander l'identité (le formulaire login/mdp, la redirection SSO,
+  le schéma du 401 pour l'API) — et **`verify(preuve)`** — juger la
+  preuve reçue (le couple saisi, le ticket au retour de redirection,
+  **le jeton porté par la requête**) : tous les chemins finissent en
+  une identité vérifiée ;
+- **les deux visages** : l'utilisateur (le défi interactif → la
+  session) et **l'API** (la preuve au porteur — chaque requête la
+  porte, pas de session) — le 401/Authorization de HTTP est
+  lui-même un défi/preuve ;
+- **les trois classes** : `local` (le haché vérifié par Syncytium,
+  les clés d'API des comptes techniques), `azure_ad` (le bind vers
+  l'annuaire, le bearer Entra), `sso` (la redirection OIDC, la
+  signature du jeton) — chaque classe déclare ce qu'elle sait
+  vérifier ;
+- **l'orchestration au moteur** (D686) : la session (la durée, le
+  renouvellement), l'écran de connexion, le rapprochement du compte
+  (D82 — la clé d'unicité par connecteur), la typologie des comptes
+  (D77) ; **la garde du webhook (D642) appelle ce même `verify`** —
+  le flag refermé, rien de dédié ;
+- **le socle commun hérité** : le `ping()` (la santé de l'IdP),
+  l'`onerror` (la maintenance si le SSO tombe), les secrets (le
+  client secret), le `describe` ; **le multi-connecteurs** : l'AD
+  pour les internes, le local pour les clients (D77 — l'étanchéité
+  par canal) ; la passerelle de D418 a son visage.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14090,6 +14122,12 @@ avant la synthèse Q16).
   opérations du socle et les opérations déclarées » — le point 2 du
   chantier (le droit de déclencher) refermé ; la réconciliation avec
   le passe-outre de D422 consignée. rights.md mis au niveau.
+- **2026-08-16 (suite 54)** — **La famille authentication (D692)** :
+  la 8e famille — challenge()/verify(preuve), les deux visages
+  (utilisateur/API), les classes local/azure_ad/sso, la session au
+  moteur, la garde du webhook branchée (D642 refermé), la passerelle
+  D418 incarnée. hooks.md, connectors.md, glossaire.md et rights.md
+  mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -270,13 +270,17 @@ fields:
 
 Ajoute **une classe de connecteur** — la passerelle globale, déclarée
 à l'environnement (`environments/<env>.yml` — D603/D617, aucune
-déclinaison). **Les sept familles sont closes** (D619/D623) :
+déclinaison). **Les huit familles sont closes** (D619/D623/D692) :
 `storage` (les bases — et les formats csv/xml/json des exports et
 imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
 Azure), `location` (le géocodage), `webhook` (les entrées servies),
-`siren` — « il n'existe pas de hook de famille : le hook porte sur
-l'implémentation d'une famille » (une classe, jamais un contrat
-neuf ; `route` attend une version ultérieure du moteur).
+`siren`, **`authentication`** (D692 — le contrat
+`challenge()`/`verify(preuve)` aux deux visages, l'utilisateur et
+l'API ; les classes `local`/`azure_ad`/`sso` ; la session et le
+rapprochement du compte au moteur — D82/D686) — « il n'existe pas de
+hook de famille : le hook porte sur l'implémentation d'une famille »
+(une classe, jamais un contrat neuf ; `route` attend une version
+ultérieure du moteur).
 
 **Le contrat par famille (D605/D620)** : « chaque famille a ses
 propres méthodes et fonctions » — la famille contraint le contrat, la

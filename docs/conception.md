@@ -815,6 +815,10 @@ documentation) :
 | D692 | **La famille authentication** (la 8e — referme D418/D642) : le contrat `challenge()`/`verify(preuve)` aux deux visages (l'utilisateur → la session ; l'API → la preuve au porteur) ; les classes `local`/`azure_ad`/`sso` ; la session, le rapprochement (D82) et l'orchestration au moteur (D686) ; la garde du webhook appelle le même verify. | Validé. Voir §3.2c. |
 | D693 | **La session** : duration (l'inactivité au glissement, défaut 8h) et limit (l'absolu, défaut 7d) en settings dynamiques ; la borne SSO de l'IdP prime ; les sessions simultanées libres, la révocation administrateur ; l'API hors session ; la session ne fige jamais des droits. | « Je valide la session. » Voir §3.2c. |
 | D694 | **La vérification au début, le cache de droits** (précise D693) : la vérification au début d'une opération ou d'une sollicitation (l'acte entamé s'achève sous ses droits de départ) ; la latence minimisée par un cache invalidé à chaque modification de droits par les interfaces administrateur. | Voir §3.2c. |
+| D695 | **Le marquage rgpd:** (le volet RGPD, pièce 1) : `rgpd: personal \| sensitive \| consent` — l'article 9 porté (sensitive), le consentement tracé ; le modèle sait ce qui est personnel. | Voir §3.2c. |
+| D696 | **L'anonymisation par algorithme** (pièce 2) : la valeur construite à règle aléatoire, jamais dérivée de l'origine (l'exception : la longueur) — ni blanc ni haché ; les enregistrements ET les historiques modifiés. | Voir §3.2c. |
+| D697 | **anonymize, la 19e opération — le degré intrinsèque** (pièce 3) : l'usage limité à l'administration ; le principe posé — chaque opération du socle porte un degré intrinsèque d'autorisation (le plancher) ; l'inventaire des degrés flagué. | Voir §3.2c. |
+| D698 | **La rétention et le registre** (pièce 4 — boucle le volet) : la rétention échue s'anonymise d'office (D411/D696) ; le registre des traitements auto-documenté (D333/D645). | Voir §3.2c. |
 
 ---
 
@@ -6218,6 +6222,59 @@ la latence se paie par **un cache de droits** tenu par le moteur,
 administrateur** (l'affectation D341, les groupes, les modules) — le
 chemin d'écriture des droits étant exclusivement administratif, le
 cache n'a pas d'autre source d'invalidation à surveiller.
+
+**Le marquage rgpd: (D695 — le volet RGPD, pièce 1).** **« Porte
+l'article 9 du RGPD — `rgpd: personal | sensitive | consent`. »** —
+la facette du champ se nomme **`rgpd:`**, aux trois valeurs :
+**`personal`** (la donnée personnelle), **`sensitive`** (la donnée
+sensible — l'article 9 : la santé, les opinions, le régime
+renforcé), **`consent`** (le traitement assis sur le consentement).
+Le modèle sait qui voit (la confidentialité D25/D364) et désormais
+**ce qui est personnel** :
+
+```yaml
+fields:
+  name:       { type: text, rgpd: personal }
+  email:      { type: text, rgpd: personal }
+  blood_type: { type: text, rgpd: sensitive, confidentiality: private }
+  newsletter: { type: boolean, rgpd: consent }
+```
+
+**L'anonymisation — l'algorithme, jamais l'effacement simple (D696 —
+pièce 2).** **« L'anonymisation n'est pas un effacement simple. Il
+vise à construire une valeur répondant à un algorithme incluant une
+règle aléatoire non basée sur la valeur d'origine (peut-être à
+l'exception de la longueur de la chaîne). L'anonymisation consiste à
+modifier les valeurs de ces champs dans les enregistrements et dans
+les historiques. »** — la valeur de remplacement est **construite** :
+un algorithme à règle aléatoire, **jamais dérivée de la valeur
+d'origine** (l'exception admise : la longueur de la chaîne — la
+silhouette sans la personne) — ni un blanc (la trahison du vide), ni
+un haché (la ré-identification possible). La modification porte
+**les enregistrements et les historiques** (D168 — les instantanés
+compris) ; l'enregistrement demeure, ses agrégats et ses
+statistiques aussi.
+
+**anonymize, la dix-neuvième opération — et le degré intrinsèque
+d'autorisation (D697 — pièce 3).** **« L'opération anonymize peut
+être ajoutée avec une règle limitant son usage à l'administration.
+Cela signifie que les opérations définies dans le socle portent un
+degré intrinsèque d'autorisation (nous ne l'avons pas abordé
+encore). »** — `anonymize` entre au socle (le catalogue D574 passe à
+**dix-neuf**), l'usage limité à l'administration ; et le principe
+nouveau est posé : **chaque opération du socle porte un degré
+intrinsèque d'autorisation** — le plancher que la déclaration ne
+peut abaisser (anonymize = l'administration, restore = ? , migrate =
+?) — **l'inventaire des degrés est flagué** (le module
+d'administration, sujet 3, ou la fiche des opérations).
+
+**La rétention et le registre (D698 — pièce 4, « cela boucle le
+volet RGPD élégamment »).** La rétention rejoint l'historisation
+(D411) : la donnée marquée dont la rétention échoit **s'anonymise
+d'office** (l'algorithme D696) ; et **le registre des traitements
+s'auto-documente** (D333/D645) — les champs `rgpd:`, leur
+confidentialité, leur rétention, leurs connecteurs sortants : le
+document que la TPE peine à tenir, Syncytium le génère.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14173,6 +14230,14 @@ avant la synthèse Q16).
   administrateur, l'API hors session ; la vérification au début
   d'opération/sollicitation, le cache invalidé aux modifications
   administratives. rights.md mis au niveau.
+- **2026-08-16 (suite 56)** — **LE VOLET RGPD BOUCLÉ (D695–D698)** :
+  le marquage rgpd: personal|sensitive|consent (l'article 9),
+  l'anonymisation par algorithme aléatoire (enregistrements +
+  historiques), anonymize la 19e opération à l'usage administratif —
+  le degré intrinsèque d'autorisation des opérations posé (inventaire
+  flagué), la rétention qui anonymise d'office, le registre des
+  traitements auto-documenté. rights.md, hooks.md et types.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

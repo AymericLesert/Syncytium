@@ -180,11 +180,42 @@ settings:
   cache de droits**, invalidé à chaque modification de droits par
   les interfaces administrateur (D341).
 
+## Le RGPD (D695–D698)
+
+- **le marquage** (D695) : la facette **`rgpd:`** aux trois valeurs —
+  `personal` (la donnée personnelle), `sensitive` (l'article 9 — le
+  régime renforcé), `consent` (le traitement au consentement) :
+
+```yaml
+fields:
+  name:       { type: text, rgpd: personal }
+  blood_type: { type: text, rgpd: sensitive, confidentiality: private }
+  newsletter: { type: boolean, rgpd: consent }
+```
+
+- **l'effacement = l'anonymisation** (D696) : la valeur de
+  remplacement est **construite par un algorithme à règle
+  aléatoire, jamais dérivée de l'origine** (l'exception admise : la
+  longueur de la chaîne) — ni un blanc, ni un haché ; la
+  modification porte **les enregistrements et les historiques**
+  (D168) — l'enregistrement demeure, la personne disparaît ; la
+  provenance (D178), technique, survit ;
+- **`anonymize`, la dix-neuvième opération du socle** (D697) :
+  l'usage limité à l'administration — et le principe posé : **chaque
+  opération du socle porte un degré intrinsèque d'autorisation** (le
+  plancher que la déclaration ne peut abaisser) ; l'inventaire des
+  degrés est flagué ;
+- **la rétention** (D698) : la donnée marquée dont la rétention
+  échoit (l'écriture de l'historisation — D411) **s'anonymise
+  d'office** ;
+- **le registre des traitements auto-documenté** (D698 —
+  D333/D645) : les champs `rgpd:`, leur confidentialité, leur
+  rétention, leurs connecteurs sortants — généré, jamais rédigé.
+
 ## Les points ouverts — le chantier du sujet 2
 
-1. **le RGPD** — les données personnelles marquées au modèle ? le
-   droit à l'effacement face à l'historisation (D168) et à la
-   provenance persistante (D178) ; la rétention ;
+1. **le degré intrinsèque d'autorisation** (D697) — l'inventaire
+   des planchers des dix-neuf opérations du socle ;
 2. **l'audit** — la trace des écritures existe ; l'audit des
    **lectures** (qui a consulté quoi), celui des actes
    d'administration, la surface qui le consulte ;

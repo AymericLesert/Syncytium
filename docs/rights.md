@@ -278,9 +278,32 @@ allow:
 le fail-closed jusqu'à la porte) ; la vérification joue **au début**
 de l'opération, servie par le cache de droits (D694).
 
+## L'audit des lectures (D702–D704)
+
+- **le grain : l'acte, jamais l'enregistrement** (D702) — une ligne
+  d'audit **par lecture en masse de l'entité parente ou par
+  transaction** : qui, quand, quoi (l'entité, le périmètre), par où
+  (l'écran, l'export, l'impression, l'API, le connecteur), et **le
+  nombre d'éléments concernés** — la volumétrie limitée ;
+- **le défaut automatique** (D703) : ce qui est `rgpd: sensitive`
+  (D695) s'audite d'office — rien à écrire ;
+- **la propriété `trace:`** (D703) — les deux compléments :
+  `trace: audit` (l'opt-in — le champ tracé au-delà du défaut) et
+  **`trace: limited`** (l'exclusion — le champ écarté de **toute**
+  trace : « un mot de passe ou une clé ne doivent pas être tracés »,
+  l'écho de D463/D603) ;
+- **la maison** (D704) : une entité du **module d'administration**
+  (porté par Syncytium — le patron D666) ; les surfaces standard la
+  consultent (le degré `administrator`), la rétention de l'audit se
+  déclare comme toute historisation (D411).
+
+```yaml
+fields:
+  blood_type: { type: text, rgpd: sensitive }   # audité d'office (D703)
+  notes:      { type: text, trace: audit }      # l'opt-in
+  api_key:    { type: password, trace: limited } # jamais tracé — nulle part
+```
+
 ## Les points ouverts — le chantier du sujet 2
 
-2. **l'audit** — la trace des écritures existe ; l'audit des
-   **lectures** (qui a consulté quoi), celui des actes
-   d'administration, la surface qui le consulte ;
-3. **le chiffrement** — au repos (le storage), en transit.
+1. **le chiffrement** — au repos (le storage), en transit.

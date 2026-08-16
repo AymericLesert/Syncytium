@@ -822,6 +822,9 @@ documentation) :
 | D699 | **Le degré intrinsèque au contrat, porté par le groupe** (solde D697) : le contrat des opérations le déclare ; user \| manager \| administrator ; le groupe d'utilisateurs porte le degré (`degree:` en proposition, défaut user) ; **l'appartenance à un groupe est obligatoire pour utiliser l'application**. | Voir §3.2c. |
 | D700 | **allow: aux groupes** (complète D423/D691) : le verbe ou l'opération accepte la liste des groupes autorisés, en plus de l'expression ; le degré intrinsèque reste le plancher — le plus exigeant l'emporte. | Voir §3.2c. |
 | D701 | **L'inventaire des dix-neuf planchers validé** : user (le quotidien — 14 opérations), manager (import, report), administrator (restore, migrate, anonymize). | « Je valide l'inventaire. » L'exemple détaillé dans rights.md. Voir §3.2c. |
+| D702 | **Le grain de l'audit des lectures** : une ligne par lecture en masse de l'entité parente ou par transaction — le nombre d'éléments concernés, jamais une ligne par enregistrement ; la volumétrie à l'échelle de l'acte. | Voir §3.2c. |
+| D703 | **La propriété trace:** : le défaut automatique (rgpd: sensitive audité d'office) + `trace: audit` (l'opt-in) + **`trace: limited`** (l'exclusion — le mot de passe, la clé jamais tracés, D463/D603). | Voir §3.2c. |
+| D704 | **L'audit au module d'administration** : une entité du module d'administration (porté par Syncytium — D666) ; les surfaces standard, le degré administrator, la rétention déclarée (D411). | Le module admin prend corps (sessions D693, audit D704). Voir §3.2c. |
 
 ---
 
@@ -6330,6 +6333,39 @@ l'inventaire »).** La table gravée :
 D238) ; la restauration (D174), la migration (D667) et
 l'anonymisation (D697) à l'administration. L'exemple détaillé porté
 dans rights.md (demande de l'auteur).
+
+**L'audit des lectures — le grain de la trace (D702).** **« Tout
+tracer n'est pas envisageable. La trace à la lecture en masse de
+l'entité parente, ou à la transaction, avec des informations portant
+sur le nombre d'éléments concernés. Cela limitera la volumétrie. »**
+— le grain est arrêté : **une ligne d'audit par lecture en masse de
+l'entité parente ou par transaction** — qui, quand, quoi (l'entité,
+le périmètre), par où, et **le nombre d'éléments concernés** —
+jamais une ligne par enregistrement : la volumétrie reste à
+l'échelle de l'acte, pas de la donnée.
+
+**La propriété trace: — audit et limited (D703).** Le défaut
+automatique validé (« une belle mécanique ») — **ce qui est `rgpd:
+sensitive` s'audite d'office** — et la propriété **`trace:`** le
+complète aux deux sens :
+
+- **`trace: audit`** — l'opt-in : le champ tracé au-delà du défaut
+  automatique ;
+- **`trace: limited`** — l'exclusion : le champ **écarté de toute
+  trace** pour des raisons de confidentialité — « un mot de passe ou
+  une clé ne doivent pas être tracés » (l'écho des garanties du
+  `password` D463 et des secrets D603 : la valeur sensible
+  n'apparaît dans aucun journal, aucun rapport, aucun audit).
+
+**L'audit au module d'administration (D704).** **« L'audit est porté
+dans une entité du module d'administration. »** — pas un module
+dédié : **le module d'administration** (porté par Syncytium — le
+patron D666) accueille l'entité d'audit ; les surfaces standard la
+consultent (le degré `administrator` — D699/D701), la rétention de
+l'audit se déclare comme toute historisation (D411). Le module
+d'administration prend corps pièce à pièce : la révocation des
+sessions (D693), l'audit (D704) — sa description complète attend le
+sujet 3.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14305,6 +14341,13 @@ avant la synthèse Q16).
   (D701)** : user/manager/administrator répartis sur les 19 ;
   l'exemple détaillé porté dans rights.md (qui peut quoi — la
   composition plancher × allow). L'audit des lectures s'ouvre.
+- **2026-08-16 (suite 59)** — **L'audit des lectures soldé
+  (D702–D704)** : le grain à l'acte (la masse ou la transaction, le
+  nombre d'éléments — jamais l'enregistrement) ; trace: audit
+  (l'opt-in) et trace: limited (l'exclusion — mot de passe, clé) en
+  complément du défaut automatique rgpd: sensitive ; l'entité
+  d'audit au module d'administration. rights.md et types.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

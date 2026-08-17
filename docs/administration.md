@@ -324,7 +324,10 @@ files d'attente (D686), les sessions actives, les connecteurs** (le
 `ping()` D621 — le feu tricolore) — disponible **en dashboard et en
 API** (la supervision externe interroge l'API) ; **l'état de santé
 du passif intégré** quand la réplication est active (le retard, le
-dernier passage, l'alerte au seuil — D626).
+dernier passage, l'alerte au seuil — D626). **L'état est en temps
+réel** (D732) : pas de période de rafraîchissement — l'état pousse
+(`refresh: live` — D249/D555) ; l'`every:` du `ping()` rythme la
+mesure, jamais l'affichage.
 
 ### Les journaux (D343)
 

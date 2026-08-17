@@ -857,6 +857,7 @@ documentation) :
 | D729 | **Les bibliothèques d'applications** : la sauvegarde en gabarit distribuable — le wizard d'initialisation (les paramètres clés, l'assistant des secrets enchaîné) **ou le storage sqlite natif** (l'application démarre seule) ; complète l'assistance d'installation. | Voir §3.2c. |
 | D730 | **La rotation des clés** : à chaque restauration (la naturalisation — la clé environnement+machine) et par la commande `syncytium rotate` (le patron de migrate, la progression suivie). | Voir §3.2c. |
 | D731 | **La santé** : les statuts, les files, les sessions, les connecteurs (ping) — en dashboard **et en API** (la supervision externe) ; l'état du passif intégré quand la réplication est active. | Voir §3.2c. |
+| D732 | **La santé en temps réel** (précise D731) : pas de période de rafraîchissement — l'état pousse (refresh: live D249/D555) ; l'every: du ping rythme la mesure, jamais l'affichage. | Voir §3.2c. |
 
 ---
 
@@ -6832,6 +6833,14 @@ sessions actives, **les connecteurs** (le `ping()` D621) — servie
 TPE interroge l'API) ; **l'état de santé du passif intégré** quand
 la réplication est active (D724) — le retard, le dernier passage,
 l'alerte au seuil.
+
+**Le temps réel (D732 — précise D731).** **« L'état de l'application
+est un état en temps réel (pas de période de rafraîchissement). »**
+— la santé n'est jamais une photo périodique : **l'état pousse** (le
+mode temps réel de D249/D555 — `refresh: live`), le changement de
+statut paraît à l'instant au dashboard comme à l'API ; l'`every:` du
+`ping()` (D621) rythme la *mesure* côté connecteur, jamais
+l'*affichage* — la vue reflète le dernier état connu, en continu.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14915,6 +14924,9 @@ avant la synthèse Q16).
   rotation des clés (à chaque restauration + la commande), la santé
   (dashboard et API, le passif intégré). administration.md mis au
   niveau.
+- **2026-08-17 (suite 13)** — **La santé en temps réel (D732)** :
+  pas de période de rafraîchissement — l'état pousse ; l'every: du
+  ping rythme la mesure, jamais l'affichage.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

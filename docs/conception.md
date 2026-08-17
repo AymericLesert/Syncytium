@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -107,8 +107,11 @@ documentation) :
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
    (D705–D708) ;
-3. **l'administration et l'exploitation** — à ouvrir ; le module
-   d'administration jamais décrit, la télémétrie (Q12–Q13) ;
+3. **l'administration et l'exploitation** — **ouvert**
+   (administration.md — D709) : l'acquis consolidé ; les quatre
+   points au chantier — le module d'administration, les comptes au
+   quotidien, l'exploitation courante (la rotation des clés,
+   l'automatisation d'encrypt), la télémétrie (Q12–Q13) ;
 4. **la migration et les versions** — largement soldée : le mapping
    entier (D646–D672), la jonction journal↔gestes storage (D673–D674
    — le critère structurel, la procédure en quatre temps), le retour
@@ -831,6 +834,7 @@ documentation) :
 | D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
 | D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
 | D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
+| D709 | **`administration.md` créé** : le neuvième artefact préparatoire (Q58) — les actes d'administration et l'exploitation consolidés (les comptes/affectations, les sessions, les settings dynamiques, l'audit, le suivi des migrations, les opérations aux planchers, les environnements/journaux/supervision/secrets/versions, l'acquis télémétrie P9) + les quatre points du chantier du sujet 3 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des artefacts. |
 
 ---
 
@@ -14450,6 +14454,17 @@ avant la synthèse Q16).
   d'administration (les sessions D693, l'audit D704, la vue de
   migration D666, la rotation des clés D707), la télémétrie
   (Q12–Q13), les settings dynamiques (D588).
+- **2026-08-17 (suite 2)** — **Le sujet 3 ouvert —
+  administration.md créé (D709)** : le neuvième artefact — l'acquis
+  épars consolidé (les actes d'administration en base D341, le degré
+  administrator, les comptes D77/D82, les sessions D693, les
+  settings dynamiques D588, l'audit D704, le suivi des migrations
+  D666–D668, les opérations aux planchers D701, les environnements
+  D339–D343, la supervision D621/D625–D627, les secrets D707–D708,
+  les versions D332/D338–D340, la télémétrie P9) et les quatre
+  points du chantier (le module d'administration, les comptes au
+  quotidien, l'exploitation courante, la télémétrie Q12–Q13). Le
+  §1.2 mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

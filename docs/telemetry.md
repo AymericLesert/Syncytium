@@ -79,15 +79,19 @@ périodique (D738) et dans le dashboard « telemetry » (D736) — la
 décision du technicien reste **un geste hors application** : la
 description se change au dépôt, jamais depuis l'écran.
 
-## Les seuils et la calibration (D47–D51, D97)
+## Les seuils et la calibration (D47–D51, D97, D740)
 
-Les seuils de sécurité **déclarés dans la description** (D50 — les
-endpoints, les entités, les fonctions d'IHM) ; le filet global par
-défaut + la surcharge par élément (D51 — une alerte de sécurité ne
-peut se taire) ; la calibration par défaut (D97) : la fenêtre
-glissante 30 jours, l'échelle linéaire (log sur demande), le pic =
-z-score ≥ 3 + le plancher 100 appels/jour, le crawl > 50 % d'une
-table > 1000 lignes, le R² ≥ 0,5.
+**La cascade** (D740) : **le global en paramètres dynamiques**
+(D588 — l'administrateur ajuste sans republier), **la surcharge à
+l'instance, au module, à l'entité et au champ par la configuration
+statique** (versionnée — la déclaration par élément de D50) ; le
+plus proche l'emporte. Le filet demeure (D51 — une alerte de
+sécurité ne peut se taire : le seuil absent = le défaut global
+s'applique). La calibration par défaut (D97) : la fenêtre glissante
+30 jours, l'échelle linéaire (log sur demande), le pic = z-score ≥ 3
++ le plancher 100 appels/jour, le crawl > 50 % d'une table > 1000
+lignes, le R² ≥ 0,5 — le patron uniforme *forme × poids*, chaque
+seuil explicable en une phrase.
 
 ## La jonction avec le socle récent (D734)
 
@@ -107,9 +111,9 @@ raccords validés :
    lectures** (D702–D704) et les échecs d'authentification tracés
    (D720) — les refus que D43 demandait de journaliser ont leur
    mécanique ;
-4. **la calibration** (D97) prend sa forme moderne : **des settings
-   dynamiques** (D588), surchargés au module d'administration sans
-   republier ;
+4. **la calibration** (D97/D740) : le global en settings dynamiques
+   (D588), la surcharge locale (instance/module/entité/champ) par la
+   configuration statique — le plus proche l'emporte ;
 5. **la rétention et l'anonymisation des traces** (D41b) rejoignent
    **le patron RGPD** (D695–D698 — la rétention qui anonymise
    d'office) et le `trace: limited` (D703) ;

@@ -866,6 +866,7 @@ documentation) :
 | D737 | **Le sixième canal — le journal** (complète D44) : centralise tout, aux six niveaux verbose/debug/info/warning/error/exception — la configuration en dur (log.yml, par environnement D342–D343), jamais dynamique ; consultable par le technicien seul, en cas de besoin — hors IHM. | Le substrat des cinq autres canaux. Voir §3.2c. |
 | D738 | **Les push au patron D733** (solde le point 2) : la synthèse périodique et l'alerte d'échéance — le template surchargeable, l'every: à convenance, le smtp ; **les destinataires limités au degré administrator**. | Voir §3.2c. |
 | D739 | **Le volet conseil relu** (le point 3) : conforme — les propositions de services paraissent dans la synthèse (D738) et le dashboard telemetry (D736), la décision du technicien hors application ; le calibrage à Q59 (D319). | « Le point 3 valide mon point de vue. » Voir §3.2c. |
+| D740 | **La calibration** (le point 4) : le global en paramètres dynamiques (D588) ; la surcharge à l'instance, au module, à l'entité et au champ **par la configuration statique** (D50 relu — versionnée) ; le plus proche l'emporte. | Voir §3.2c. |
 
 ---
 
@@ -6943,6 +6944,22 @@ gain (D317), **la décision du technicien reste un geste hors
 application** (la description se change au dépôt, jamais depuis
 l'écran) ; le calibrage des seuils sur données réelles demeure
 renvoyé à Q59 (D319).
+
+**La calibration — le global dynamique, la surcharge statique (D740
+— le point 4 de la relecture, amende ma proposition).** **« La
+configuration des seuils de calibration est définie globalement à
+l'aide de paramètres dynamiques et surchargée à l'instance, au
+module, à l'entité et au champ (via la configuration statique). »**
+— la cascade complète :
+
+- **le global** : les seuils de calibration (D97) en **paramètres
+  dynamiques** (D588) — l'administrateur ajuste sans republier ;
+- **la surcharge locale** : à **l'instance, au module, à l'entité et
+  au champ** — **par la configuration statique** (versionnée : la
+  déclaration par élément de D50 est cette surcharge — elle fait
+  partie du modèle, elle se change par une version) ;
+- la préséance : le local statique prime le global dynamique — le
+  plus proche l'emporte (l'esprit D359/D461).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15062,6 +15079,9 @@ avant la synthèse Q16).
 - **2026-08-17 (suite 20)** — **Le point 3 validé (D739)** : le
   volet conseil et SEQUITUR conformes — les propositions dans la
   synthèse et le dashboard telemetry, la décision hors application.
+- **2026-08-17 (suite 21)** — **La calibration arbitrée (D740)** :
+  le global en dynamique, la surcharge instance/module/entité/champ
+  en statique — le plus proche l'emporte. Le point 4 est soldé.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

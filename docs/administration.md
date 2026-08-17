@@ -44,6 +44,9 @@ construit et maintenu dans Syncytium** :
 - **les migrations** (D666/D711) — **l'entrée conditionnelle** :
   disponible seulement si `migrations:` est défini dans la
   configuration (D662) ;
+- **la télémétrie** — le dashboard « telemetry » (D736) : les
+  usages, la collecte par champ à la demande (voir
+  [telemetry.md](telemetry.md)) ;
 - … (la liste reste ouverte — elle s'enrichit avec le socle).
 
 **Le module exploite les différentes facettes de Syncytium** — le

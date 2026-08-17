@@ -862,6 +862,7 @@ documentation) :
 | D733 | **Le mail des faits marquants** (complète D731–D732) : le résumé d'exploitation au technicien — les utilisateurs connectés, les erreurs/warnings, les changements d'état de santé (liste ouverte) — au rythme choisi (l'every: calendaire) ; le template mail du socle surchargeable, l'évolution lue dans l'historique de l'état. | Voir §3.2c. |
 | D734 | **La jonction télémétrie** (solde le point du sujet 3) : Q12–Q13 closes depuis juin (vérifié) — les six raccords validés : la maison au module d'administration, la synthèse au patron D733, la sécurité sur l'audit D702–D704, la calibration en settings dynamiques, la rétention au patron RGPD, les degrés (usages=manager, sécurité=administrator). | Voir §3.2c. |
 | D735 | **`telemetry.md` créé** : le dixième artefact préparatoire (Q58) — les trois finalités, la collecte, les cinq canaux, le conseil/SEQUITUR, les seuils/calibration, la jonction ; aucun contenu nouveau. | Le calibrage SEQUITUR attend Q59 (D319). |
+| D736 | **Le dashboard telemetry** (précise D38/D734) : la collecte par champ déclenchable à la demande depuis le dashboard d'administration nommé « telemetry » — l'entrée télémétrie du module d'administration nommée ; l'évaluation à la volée, rien ne se stocke. | La relecture point par point de la télémétrie — point 1 arbitré. Voir §3.2c. |
 
 ---
 
@@ -6889,6 +6890,16 @@ validée (« à consigner dans telemetry.md ») :
 (Q13), le volet conseil et SEQUITUR, les seuils et la calibration,
 la jonction ; le seul point en attente — le calibrage des seuils
 SEQUITUR sur données réelles (Q59, comme prévu par D319).
+
+**Le dashboard telemetry — la collecte par champ à la demande (D736
+— précise D38/D734, la relecture point par point).** **« La collecte
+par champ est déclenchable sur la demande depuis le dashboard
+d'administration nommé "telemetry". »** — le point 1 (la collecte)
+relu et précisé : l'évaluation à la volée de D38 (aucun stockage) se
+**déclenche à la demande** — l'administrateur lance la mesure depuis
+**le dashboard « telemetry »**, l'entrée télémétrie du module
+d'administration (le raccord 1 de D734 reçoit son nom) ; le résultat
+s'affiche, rien ne se stocke — la cohérence de D38 préservée.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14992,6 +15003,11 @@ avant la synthèse Q16).
   télémétrie est soldé — la clôture du sujet 3 et de la passe de
   complétude attend la relecture de l'auteur.** Le §1.2 mis au
   niveau.
+- **2026-08-17 (suite 17)** — **La relecture point par point de la
+  télémétrie ouverte** (demande de l'auteur) — **point 1 (la
+  collecte) arbitré (D736)** : la collecte par champ déclenchable à
+  la demande depuis le dashboard « telemetry » du module
+  d'administration. telemetry.md et administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

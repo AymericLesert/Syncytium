@@ -21,11 +21,14 @@ socle récent** (D734).
 
 ## La collecte (Q12 — D38–D41, D46)
 
-- **par champ** (D38) : **évaluée à la volée, aucun stockage** — la
-  diversité des valeurs (D46 : le ratio de cardinalité `valeurs
-  distinctes non nulles / lignes` ; ≈ 0 = le champ constant, le
-  candidat au retrait), pondérée par l'âge du champ (le journal de
-  migrations) et la fréquence de mise à jour ;
+- **par champ** (D38/D736) : **évaluée à la volée, aucun
+  stockage** — la diversité des valeurs (D46 : le ratio de
+  cardinalité `valeurs distinctes non nulles / lignes` ; ≈ 0 = le
+  champ constant, le candidat au retrait), pondérée par l'âge du
+  champ (le journal de migrations) et la fréquence de mise à jour ;
+  **déclenchable à la demande depuis le dashboard « telemetry »**
+  du module d'administration (D736) — le résultat s'affiche, rien ne
+  se stocke ;
 - **par entité** (D39) : **stockée** — les compteurs d'usage
   lecture/écriture, l'historique d'évolution du schéma (le journal
   de migrations, jamais dupliqué) ;
@@ -88,8 +91,8 @@ raccords validés :
 
 1. **la maison** : la télémétrie stockée (D39/D41a) vit dans **des
    entités du module d'administration** (le patron D666/D704) ; le
-   tableau de bord des usages est une entrée de son menu, aux côtés
-   de la santé (D731) ;
+   tableau de bord des usages est une entrée de son menu — **le
+   dashboard « telemetry »** (D736) — aux côtés de la santé (D731) ;
 2. **la synthèse périodique** rejoint **le patron du mail des faits
    marquants** (D733) : le template surchargeable (D723), l'`every:`
    calendaire, le smtp — deux mails frères ;

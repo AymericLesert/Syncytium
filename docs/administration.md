@@ -329,6 +329,14 @@ réel** (D732) : pas de période de rafraîchissement — l'état pousse
 (`refresh: live` — D249/D555) ; l'`every:` du `ping()` rythme la
 mesure, jamais l'affichage.
 
+**Le mail des faits marquants** (D733) : le technicien reçoit, **une
+fois par jour ou à sa convenance** (l'`every:` calendaire D434), le
+résumé de la période — **les utilisateurs connectés, les
+erreurs/warnings (D343), les changements d'état de santé** (la
+liste ouverte) — fondé sur le statut de santé et **son évolution au
+cours de la journée** ; le template mail du socle (D723),
+surchargeable en configuration, l'envoi par le smtp (D628).
+
 ### Les journaux (D343)
 
 Par environnement : le staging en **debug/verbose**, la production

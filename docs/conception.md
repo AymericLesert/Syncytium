@@ -871,6 +871,13 @@ Q58) :
 | D742 | **La dépréciation portée par la version** (amende D13/D44/D340 — écarte sunset_warning) : jamais une date ni un calendrier — le déploiement d'une version déclenche la dépréciation ou l'intention de dépréciation (les trois temps D650 aux versions) ; l'alerte du canal 4 signale l'appel persistant d'une version dépréciée (l'état, pas l'échéance). | Voir §3.2c. |
 | D743 | **Les écritures validées — la passe soldée** : log.yml, mails:, les six paramètres de calibration validés ; la télémétrie soldée, le sujet 3 soldé, **la passe de complétude entière soldée (D603–D743)** — les domaines 5–6 s'ouvrent (Q59, Q58). | « Je valide. » Voir §3.2c et §1.2. |
 | D744 | **Le synchronous est une translation** (précise D724/D606/D112–D114 — dissout la tension des piliers) : la sérialisation des enregistrements (D687) expédiée au passif = la réplication, le 4e usage préservé ; les fichiers répliqués de même ; le rejeu sur la sérialisation ; **l'invariant : actif et passif aux mêmes versions et configurations**. | Voir §3.2c. |
+| D745 | **Le mode safe exempté, le diagnostic de non-démarrage** : le safe désactive toutes les conditions indispensables (D626 relu) ; le refus de démarrer s'explique toujours (configuration corrompue, connecteur indisponible, réseau…). | Voir §3.2c. |
+| D746 | **Le compte technique aux groupes** : l'appartenance obligatoire (D699) vaut pour tous les types de comptes — l'inviolabilité (D599). | Voir §3.2c. |
+| D747 | **Le groupe absent = désactivé** : réversible (la réapparition réactive) ; la purge = une opération d'administration, jamais automatique. | Masquer, jamais détruire — jusqu'aux groupes. Voir §3.2c. |
+| D748 | **Les faits marquants aux administrateurs** (corrige D733) : le degré aligné (D738) ; le profil gère les notifications et les déclenchements — chacun son rythme. | Voir §3.2c. |
+| D749 | **La délégation détaillée** (précise D715) : le même degré (jamais d'élévation), le don jamais la prise (le délégant ou l'administrateur), l'exception administrateur (s'octroyer les droits de quiconque) — la traçabilité toujours. | Voir §3.2c. |
+| D750 | **logs.yml harmonisé** (corrige D737) : le nom de D342 prime — `logs.yml` partout. | Voir §3.2c. |
+| D751 | **La santé et le backup au menu** (huit entrées) ; **la restauration = une commande interne** (le geste vit hors de l'application). | Voir §3.2c. |
 
 ---
 
@@ -7047,6 +7054,68 @@ de schéma avec les mêmes configurations. »** — les précisions :
   les mêmes versions de schéma, aux mêmes configurations** — la
   réplication ne traduit pas entre versions (la montée de version
   s'expédie comme une action, les deux migrent — D724).
+
+**Les sept failles tranchées (D745–D751 — la vérification finale).**
+
+**Le mode safe et le diagnostic de non-démarrage (D745).** **« Le
+mode safe désactive toutes les conditions indispensables. L'envoi
+des mails n'est plus un critère de démarrage. En cas d'impossibilité
+de démarrer, Syncytium doit fournir la raison du non-démarrage
+(configuration corrompue, connecteur indisponible, perte du
+réseau…). »** — la porte de secours démarre toujours (le seul mode
+exempté — D626 relu) ; et **le refus de démarrer s'explique
+toujours** : la raison fournie, jamais un silence.
+
+**Le compte technique aux groupes (D746).** **« Oui, un compte
+technique fait obligatoirement partie d'un groupe d'utilisateurs
+pour assurer l'inviolabilité des informations. »** — l'appartenance
+obligatoire (D699) vaut pour tous les types de comptes (D77) : les
+droits de l'API passent par les groupes comme les autres (D599).
+
+**Le groupe absent = désactivé (D747).** **« Un groupe
+d'utilisateurs absent de la configuration rend le groupe
+"désactivé". Il se réactive si le groupe réapparaît dans la
+configuration. La purge des groupes est une opération
+d'administration — en raison des critères qui portent sur un groupe,
+cela ne doit en aucun cas être automatique. »** — masquer, jamais
+détruire, jusqu'aux groupes : la désactivation réversible, la purge
+un acte humain tracé.
+
+**Les faits marquants aux administrateurs (D748 — corrige D733).**
+**« Les faits marquants sont envoyés aux administrateurs. Si
+présence de plusieurs administrateurs, l'administrateur peut gérer
+les notifications et les déclenchements via son profil. »** — le
+destinataire aligné sur le degré (D738) ; **le profil gère les
+notifications** — chacun son rythme, ses abonnements.
+
+**La délégation détaillée (D749 — précise D715).** **« Un
+utilisateur peut déléguer son rôle à un autre utilisateur de même
+degré. Via le mécanisme de délégation, un utilisateur peut hériter
+des droits d'un autre utilisateur — le cas de l'absence prolongée.
+La délégation peut être définie par l'utilisateur qui veut déléguer
+ou par un administrateur. L'utilisateur destinataire ne peut pas
+prendre la délégation d'une personne. Seul un administrateur peut
+s'octroyer les droits d'un utilisateur quelconque — mais la
+traçabilité doit être assurée. »** — les règles : **le même degré**
+(jamais une élévation par délégation), **le don, jamais la prise**
+(le délégant ou l'administrateur définissent — le destinataire ne se
+sert pas), **l'exception administrateur** (s'octroyer les droits de
+quiconque — la traçabilité D715 toujours : les deux comptes à chaque
+trace).
+
+**logs.yml harmonisé (D750 — corrige D737).** **« logs.yml me va
+bien et il est à harmoniser. »** — le nom de D342 prime : le fichier
+est **`logs.yml`** partout (le `log.yml` de D737 se relit).
+
+**La santé et le backup au menu — la restauration en commande
+(D751).** **« La santé et le backup sont à ajouter au menu de
+l'administration. La restauration est assurée par une commande
+interne de Syncytium. »** — le menu du module compte huit entrées
+(les settings, les comptes, les sessions, l'audit, les migrations,
+la télémétrie, **la santé**, **le backup**) ; **la restauration
+n'est pas un écran** : une commande interne (la famille
+d'encrypt/decrypt/rotate — l'application restaurée est peut-être
+morte, le geste vit hors d'elle).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15201,6 +15270,15 @@ avant la synthèse Q16).
   l'invariant des versions identiques) ; **la table des piliers
   (§1.1) rafraîchie des références de la passe** ; les failles
   résiduelles relevées soumises à l'auteur.
+- **2026-08-17 (suite 27)** — **Les sept failles tranchées
+  (D745–D751)** : le safe exempté + le diagnostic de non-démarrage,
+  le compte technique aux groupes, le groupe absent = désactivé (la
+  purge humaine), les faits marquants aux administrateurs (le profil
+  gère), la délégation détaillée (même degré, le don jamais la
+  prise, l'exception admin tracée), logs.yml harmonisé, la santé et
+  le backup au menu + la restauration en commande. **La
+  vérification des piliers et des concepts est complète.**
+  administration.md, rights.md et telemetry.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -47,6 +47,11 @@ construit et maintenu dans Syncytium** :
 - **la télémétrie** — le dashboard « telemetry » (D736) : les
   usages, la collecte par champ à la demande (voir
   [telemetry.md](telemetry.md)) ;
+- **la santé** (D731/D751) — le dashboard temps réel ;
+- **le backup** (D727/D751) — les archives, le déclenchement ; **la
+  restauration n'est pas un écran** : une commande interne de
+  Syncytium (D751 — l'application restaurée est peut-être morte, le
+  geste vit hors d'elle) ;
 - … (la liste reste ouverte — elle s'enrichit avec le socle).
 
 **Le module exploite les différentes facettes de Syncytium** — le
@@ -90,7 +95,12 @@ donnée métier servie), l'accès par **le compte administrateur
 principal** et **le mot de passe fixé à l'installation** (le patron
 des secrets D707 — hors annuaire, hors configuration versionnée) ;
 le mode safe est **tracé** (l'audit D704) — la porte de secours
-n'est jamais une porte dérobée.
+n'est jamais une porte dérobée. **Le mode safe désactive toutes les
+conditions indispensables** (D745 — l'envoi de mails n'est plus un
+critère de démarrage : le seul mode exempté de D626) ; et **le refus
+de démarrer s'explique toujours** : Syncytium fournit la raison du
+non-démarrage (la configuration corrompue, le connecteur
+indisponible, la perte du réseau…).
 
 ### Le détail de l'utilisateur et du groupe (D719)
 
@@ -176,10 +186,15 @@ settings:
   passe : le lien de réinitialisation, jamais la valeur ;
 - **`ban`** — le bannissement **sans suppression** (masquer, jamais
   détruire) ; la liste des opérations reste ouverte ;
-- **la délégation** (D715) : agir **à la place** d'un utilisateur —
-  les droits joués sont ceux de l'emprunté, et **chaque trace porte
-  les deux comptes** (le compte de l'utilisateur et le compte de
-  délégation — l'audit ne perd jamais l'acteur réel).
+- **la délégation** (D715/D749) : agir **à la place** d'un
+  utilisateur — les droits joués sont ceux de l'emprunté, **chaque
+  trace porte les deux comptes**. Les règles (D749) : **le même
+  degré** (jamais une élévation par délégation), **le don, jamais la
+  prise** (le délégant ou un administrateur définissent — le
+  destinataire ne se sert pas), l'usage type : l'absence prolongée ;
+  **l'exception** : seul un administrateur peut s'octroyer les
+  droits d'un utilisateur quelconque — la traçabilité toujours
+  assurée.
 
 ### Les comptes et les affectations
 
@@ -199,6 +214,13 @@ settings:
   `directory` D633) ;
 - **les jetons des comptes techniques** (D692) : créés et révoqués
   par l'administration — la classe `local` les vérifie.
+- **le compte technique aux groupes** (D746) : l'appartenance
+  obligatoire (D699) vaut pour tous les types de comptes —
+  l'inviolabilité des informations (D599) ;
+- **le groupe absent = désactivé** (D747) : un groupe retiré de la
+  configuration se désactive (réversible — la réapparition
+  réactive) ; **la purge est une opération d'administration, jamais
+  automatique**.
 
 ### Les sessions (D693)
 
@@ -335,8 +357,11 @@ réel** (D732) : pas de période de rafraîchissement — l'état pousse
 (`refresh: live` — D249/D555) ; l'`every:` du `ping()` rythme la
 mesure, jamais l'affichage.
 
-**Le mail des faits marquants** (D733) : le technicien reçoit, **une
-fois par jour ou à sa convenance** (l'`every:` calendaire D434), le
+**Le mail des faits marquants** (D733/D748) : **les administrateurs
+reçoivent**, **une
+fois par jour ou à leur convenance** (l'`every:` calendaire D434 —
+**chaque administrateur gère ses notifications et ses déclenchements
+via son profil**, D748), le
 résumé de la période — **les utilisateurs connectés, les
 erreurs/warnings (D343), les changements d'état de santé** (la
 liste ouverte) — fondé sur le statut de santé et **son évolution au
@@ -351,8 +376,9 @@ active en **info + puits de logs éventuel**, la passive en
 journaux en anglais (D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
-configuration en dur (`log.yml`), la consultation par **le
-technicien seul**, en cas de besoin — hors IHM.
+configuration en dur (**`logs.yml`** — le nom harmonisé D750), la
+consultation par **le technicien seul**, en cas de besoin — hors
+IHM.
 
 ### La supervision (D621, D625–D627)
 

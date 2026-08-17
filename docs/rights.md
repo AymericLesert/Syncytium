@@ -105,8 +105,14 @@ d'action — on contrôle qui appuie, pas ce que l'acte écrit.
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle ; **l'accès administrateur à double entrée** : le groupe
   **et** la désignation individuelle de l'utilisateur ;
-- **la délégation** (D715) : agir à la place d'un utilisateur — les
-  droits de l'emprunté, la trace aux deux comptes ;
+- **la délégation** (D715/D749) : agir à la place d'un utilisateur —
+  les droits de l'emprunté, la trace aux deux comptes ; **le même
+  degré** (jamais d'élévation), **le don jamais la prise** (le
+  délégant ou un administrateur), l'exception administrateur tracée ;
+- **le compte technique aux groupes** (D746) : l'appartenance
+  obligatoire vaut pour tous les types de comptes ;
+- **le groupe absent = désactivé** (D747) : réversible, la purge
+  humaine — jamais automatique ;
 - **le mode safe** (D718) : le lancement dédié — le module
   administration seul, le compte administrateur principal au mot de
   passe d'installation ; tracé, jamais une porte dérobée ;

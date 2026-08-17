@@ -115,7 +115,7 @@ d'une classe vérifiée au chargement :
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
-| `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso | D418/D692 |
+| `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716) | D418/D692/D716 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -261,8 +261,9 @@ l'API ne porte pas de session — chaque requête porte sa preuve (le
 compte technique D77). **La garde du webhook (D642) appelle ce même
 `verify`** — rien de dédié. Les classes : `local` (le haché, les
 clés d'API), `azure_ad` (le bind, le bearer Entra), `sso` (l'OIDC,
-la signature du jeton) — chaque classe déclare ce qu'elle sait
-vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
+la signature du jeton), `keycloak` (D716 — l'IdP OIDC open source,
+le visage concret du volet SSO) — chaque classe déclare ce qu'elle
+sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
 l'AD pour les internes, le local pour les clients).
 
 ### `siren` (D639)

@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -107,8 +107,11 @@ documentation) :
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
    (D705–D708) ;
-3. **l'administration et l'exploitation** — à ouvrir ; le module
-   d'administration jamais décrit, la télémétrie (Q12–Q13) ;
+3. **l'administration et l'exploitation** — **ouvert**
+   (administration.md — D709) : l'acquis consolidé ; les quatre
+   points au chantier — le module d'administration, les comptes au
+   quotidien, l'exploitation courante (la rotation des clés,
+   l'automatisation d'encrypt), la télémétrie (Q12–Q13) ;
 4. **la migration et les versions** — largement soldée : le mapping
    entier (D646–D672), la jonction journal↔gestes storage (D673–D674
    — le critère structurel, la procédure en quatre temps), le retour
@@ -831,6 +834,31 @@ documentation) :
 | D706 | **Le chiffrement au repos — l'affaire du type** : le storage hors responsabilité de Syncytium (l'infrastructure) ; pas de facette — **un type chiffrant** (comme password) : le type qui a le pouvoir chiffre par ses fonctions de valeur (D683) et déclare ses capacités restantes. | Voir §3.2c. |
 | D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
 | D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
+| D709 | **`administration.md` créé** : le neuvième artefact préparatoire (Q58) — les actes d'administration et l'exploitation consolidés (les comptes/affectations, les sessions, les settings dynamiques, l'audit, le suivi des migrations, les opérations aux planchers, les environnements/journaux/supervision/secrets/versions, l'acquis télémétrie P9) + les quatre points du chantier du sujet 3 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des artefacts. |
+| D710 | **Le module d'administration** (le point 1 du sujet 3) : un seul module au **degré minimal administrator** (la double garde — l'affectation + le degré) ; les entrées (settings, comptes, sessions, audit, …) = un menu construit et maintenu dans Syncytium ; le module exploite les facettes de Syncytium (module, entités, menus, composants). | Le module migration (D666) demeure distinct (lecture notée). Voir §3.2c. |
+| D711 | **La migration au menu, les settings aux deux modes** (amende D710/D666) : l'entrée « migrations » au module d'administration — conditionnelle (disponible si `migrations:` défini, D662) ; les settings couvrent les statiques et les dynamiques (la consultation des deux, la surcharge des seuls dynamiques). | Voir §3.2c. |
+| D712 | **Le groupe administrator par défaut, l'accès à double entrée** (précise D699/D710) : le socle fournit le groupe d'office ; l'accès administrateur = le groupe ET la désignation individuelle de l'utilisateur. | Voir §3.2c. |
+| D713 | **La synchronisation selon le mode** : local = manuel par l'administrateur ; azure_ad = le groupe Syncytium associé à des groupes AD (la classe d'authentification récupère par le contrat directory D633), les comptes synchronisés en lecture seule ; sso = idem sans la gestion du mot de passe. | Les familles authentication et directory coopèrent. Voir §3.2c. |
+| D714 | **Les opérations dédiées du module** : `renew` (le changement forcé du mot de passe), `ban` (le bannissement sans suppression) — la liste ouverte. | Voir §3.2c. |
+| D715 | **La délégation** : agir à la place d'un utilisateur — les droits joués sont ceux de l'emprunté, **chaque trace porte les deux comptes** (l'utilisateur et le délégant). | Voir §3.2c. |
+| D716 | **Keycloak** (enrichit D692) : une classe de la famille authentication aux côtés de local/azure_ad/sso — le visage concret du volet SSO (l'IdP OIDC open source) ; le contrat en deux gestes le couvre sans changement. | La lecture famille→classe (D613/D619). Voir §3.2c. |
+| D717 | **Le groupe administrator associable au directory** (complète D712/D713) : la synchronisation vaut pour le groupe d'office — la double entrée demeure (la désignation individuelle reste l'acte local). | Voir §3.2c. |
+| D718 | **Le mode safe** : un mode d'exécution au lancement — le module administration seul, le compte administrateur principal et le mot de passe fixé à l'installation ; le filet quand l'annuaire/SSO/les droits sont morts ; tracé (jamais une porte dérobée). | Voir §3.2c. |
+| D719 | **Le détail user/group validé** : l'entité système user (login/email/… en rgpd: personal, account_type D77, origin, status active\|banned\|locked, admin — la double entrée, password local seul, les associations groups/modules) ; le groupe en configuration (degree, la composition, `directory:` — l'association AD) ; la fiche synchronisée en lecture seule sauf admin/modules/status ; historisée + audit. | « Je valide l'esquisse. » Voir §3.2c. |
+| D720 | **L'invitation, l'oubli, le verrouillage** (points 1–3) : validés — l'oubli et le renew indisponibles en SSO (le mot de passe hors application), le verrouillage local seul ; les settings lockout/cooldown/invitation dynamiques. | Voir §3.2c. |
+| D721 | **Le changement de mail** : l'UUID survit ; deux chemins — l'administrateur sans vérification (tracé), le profil à double validation (le clic depuis l'ancienne adresse puis la validation depuis la nouvelle). | Voir §3.2c. |
+| D722 | **La fusion** : l'opération de l'administrateur — le survivant désigné, l'autre désactivé (jamais supprimé) ; **la perte éventuelle des historiques du compte désactivé est assumée** — pas de re-parentage rétroactif. | Solde les comptes au quotidien. Voir §3.2c. |
+| D723 | **Les mails du socle** (complète D720–D721) : l'invitation, la réinitialisation, la validation — des templates mail du socle (D562/D564, smtp D628, la langue de l'utilisateur) ; Syncytium les fournit par défaut, la configuration de l'application peut les redéfinir. | Voir §3.2c. |
+| D724 | **Le lien actif/passif** (précise D112–D114/D606) : le passif dormant ; trois modes — `brut` (la copie entière à intervalle, pas de failback), `differentiel` (la base au natif du moteur/de l'infra, Syncytium synchronise les fichiers — pas de failback), `synchronous` (les actions historisées, transmises, confirmées — le failback traité) ; la montée de version couverte par les trois. | L'écriture replication: en proposition. Voir §3.2c. |
+| D725 | **Le mode disabled** (complète D724) : le quatrième mode, le défaut — pas de passif, pas de synchronisation ; `replication: disabled \| brut \| differential \| synchronous`. | Voir §3.2c. |
+| D726 | **La réplication en configuration** : la déclaration dans environments/passive.yml — la forme courte (disabled) et la forme riche (mode: + every: ; synchronous sans every — le flux continu) ; les exemples gravés. | Voir §3.2c. |
+| D727 | **La sauvegarde** : duplicate_instance + les fichiers + la configuration, vers une destination précisée (un zip ou un espace de stockage) ; la rétention en jours — l'archive échue supprimée ; backup: en proposition. | Voir §3.2c. |
+| D728 | **La restauration — une image à sa propre vie** : l'adresse du point d'entrée fournie au geste, l'application restaurée devient une application comme les autres — le clonage assumé. | Voir §3.2c. |
+| D729 | **Les bibliothèques d'applications** : la sauvegarde en gabarit distribuable — le wizard d'initialisation (les paramètres clés, l'assistant des secrets enchaîné) **ou le storage sqlite natif** (l'application démarre seule) ; complète l'assistance d'installation. | Voir §3.2c. |
+| D730 | **La rotation des clés** : à chaque restauration (la naturalisation — la clé environnement+machine) et par la commande `syncytium rotate` (le patron de migrate, la progression suivie). | Voir §3.2c. |
+| D731 | **La santé** : les statuts, les files, les sessions, les connecteurs (ping) — en dashboard **et en API** (la supervision externe) ; l'état du passif intégré quand la réplication est active. | Voir §3.2c. |
+| D732 | **La santé en temps réel** (précise D731) : pas de période de rafraîchissement — l'état pousse (refresh: live D249/D555) ; l'every: du ping rythme la mesure, jamais l'affichage. | Voir §3.2c. |
+| D733 | **Le mail des faits marquants** (complète D731–D732) : le résumé d'exploitation au technicien — les utilisateurs connectés, les erreurs/warnings, les changements d'état de santé (liste ouverte) — au rythme choisi (l'every: calendaire) ; le template mail du socle surchargeable, l'évolution lue dans l'historique de l'état. | Voir §3.2c. |
 
 ---
 
@@ -6441,6 +6469,394 @@ prennent forme :
 clé dérivée environnement + machine (D603) fait que le `.env` copié
 ailleurs reste muet ; le decrypt n'est utile qu'à qui a déjà la
 machine.)* **« Ces 2 commandes complètent la partie sécurité. »**
+
+**Le module d'administration — un seul module au degré administrator
+(D710 — ouvre le point 1 du sujet 3).** **« Le module
+d'administration est un seul module dont le degré minimal est
+administrator : les settings, la gestion des comptes, les sessions,
+l'audit, … Ces entrées sont des entrées d'un menu construit et
+maintenu dans Syncytium. Le module administration exploite les
+différentes facettes de Syncytium (le module, les entités, les
+menus, les composants graphiques, …). »** — les arbitrages :
+
+- **un seul module** — pas une constellation : les settings, la
+  gestion des comptes, les sessions, l'audit… sous un même toit (la
+  liste reste ouverte — le « … » de l'auteur) ; *(la lecture notée :
+  le module `migration` D666 demeure distinct — il n'entre pas dans
+  l'énumération)* ;
+- **le degré minimal `administrator`** — le premier module à
+  plancher : l'affectation ne suffit pas, le degré du groupe est
+  exigé (D699) — la double garde ;
+- **le menu construit et maintenu dans Syncytium** — les entrées
+  vivent avec le moteur (l'évolution du socle enrichit le menu sans
+  toucher aux applications) ;
+- **le dogfooding complet** : le module exploite les facettes de
+  Syncytium — le module (D416), les entités, les menus (D193/D440),
+  les composants graphiques (D437–D569) — le patron D666 confirmé et
+  généralisé : l'administration n'a rien de spécial, elle est une
+  application Syncytium.
+
+**La migration au menu, les settings aux deux modes (D711 — amende
+D710 et D666).** **« La migration est à inclure dans l'énumération.
+Cette partie est disponible si `migrations` est bien défini dans la
+configuration. Les settings couvrent les paramètres statiques et
+dynamiques. »** — deux amendements :
+
+- **la migration entre au module d'administration** : le « module
+  migration » de D666 se relit — ses entités (la couverture, les
+  rejets, le suivi historisé D668) vivent au module
+  d'administration, l'entrée « migrations » de son menu ; **l'entrée
+  est conditionnelle** : disponible seulement si `migrations:` est
+  défini dans la configuration (D662) — le menu du socle s'adapte à
+  la déclaration ;
+- **les settings aux deux modes** : l'entrée couvre **les
+  paramètres statiques et dynamiques** (D588) — la consultation des
+  deux, la surcharge des seuls dynamiques (le statique se change par
+  une version, jamais par l'écran — la lecture consignée).
+
+**Le groupe administrateur par défaut — l'accès à double entrée
+(D712 — précise D699/D710).** **« La liste des groupes
+d'utilisateurs est définie dans la configuration (groups.yml). Un
+groupe "administrateur" est inclus, par défaut. Pour un utilisateur,
+les groupes d'appartenance permettent de gérer les droits. Pour
+l'administrateur, l'accès doit être à double entrée : par le groupe
+et par l'utilisateur. »** — le socle fournit **le groupe
+`administrator` d'office** (le catalogue = les hooks embarqués,
+D408 : groups.yml peut ne pas le déclarer, il existe) ; et **l'accès
+administrateur est à double entrée** : l'appartenance au groupe ne
+suffit pas — **l'utilisateur doit être individuellement désigné**
+(l'affectation nominative, l'acte d'administration D341) — le degré
+le plus haut ne se hérite jamais d'un seul geste.
+
+**La synchronisation des comptes selon le mode (D713 — finalise la
+création).** **« La liste des utilisateurs et sa synchronisation
+dépendent du mode d'authentification : pour une gestion locale, la
+création des comptes et l'affectation à un groupe sont manuelles et
+gérées par l'administrateur. Pour une gestion via un directory, un
+groupe d'utilisateurs est associé à un ou plusieurs groupes AD —
+Syncytium, via le connecteur d'authentification, récupère la liste
+des groupes associés aux groupes d'utilisateurs, puis la liste des
+utilisateurs associés à ces groupes ; les comptes utilisateurs (hors
+ceux créés par l'administrateur) sont accessibles en lecture seule,
+à l'exception de propriétés comme le mot de passe. Pour une gestion
+via sso, ça devrait couvrir la même chose qu'un directory sans la
+gestion du mot de passe. »** — les trois régimes :
+
+| le mode | la source des comptes | l'édition dans Syncytium |
+|---|---|---|
+| `local` | la création et l'affectation **manuelles** par l'administrateur | pleine |
+| `azure_ad` | **le groupe Syncytium associé à un ou plusieurs groupes AD** — la classe d'authentification récupère les groupes puis leurs utilisateurs (le contrat directory D633 : get_groups, get_users_from_group) | **lecture seule** (l'annuaire est maître) — sauf les propriétés hors annuaire |
+| `sso` | comme le directory | lecture seule — **sans la gestion du mot de passe** (le secret n'existe pas chez Syncytium) |
+
+*(La lecture consignée : le connecteur d'authentification s'appuie
+sur le contrat de la famille directory (D633) — les classes des deux
+familles coopèrent, comme file et storage en D636.)*
+
+**Les opérations dédiées du module — renew, ban… (D714).** **« Dans
+le module d'administration, nous pouvons voir les utilisateurs, les
+groupes d'utilisateurs, et nous pourrions avoir des opérations
+dédiées : `renew` (change ou force le changement de mot de passe),
+`ban` (pour bannir un utilisateur sans le supprimer)… »** — les
+surfaces standard (les utilisateurs, les groupes) et **les
+opérations propres au module** : `renew` (le changement forcé du mot
+de passe — le lien de réinitialisation, jamais la valeur), `ban`
+(le bannissement **sans suppression** — masquer, jamais détruire) —
+la liste ouverte (le « … »).
+
+**La délégation (D715).** **« Nous pouvons introduire une notion de
+délégation (prendre l'utilisation de l'application à la place d'un
+autre utilisateur). Toutes les actions seront tracées en précisant
+le compte de l'utilisateur et le compte de délégation. »** —
+l'emprunt d'identité maîtrisé : l'administrateur (ou le délégué
+autorisé) agit **à la place** d'un utilisateur — les droits joués
+sont ceux de l'utilisateur emprunté, et **chaque trace porte les
+deux comptes** (le compte de l'utilisateur et le compte de
+délégation — l'audit D62/D704 ne perd jamais l'acteur réel).
+
+**Keycloak (D716 — enrichit D692).** **« Nous pourrions ajouter une
+famille de connecteurs keycloak (qui joue le jeu du SSO). »** — la
+lecture consignée dans notre vocabulaire (D613/D619 — le type est la
+famille, la classe le remplit) : **`keycloak` entre comme une classe
+de la famille `authentication`**, aux côtés de `local`, `azure_ad`
+et `sso` — le visage concret du volet SSO (Keycloak, l'IdP OIDC open
+source — l'affinité AGPL naturelle) ; le contrat en deux gestes
+(D692) le couvre sans changement.
+
+**Le groupe administrator associable au directory (D717 — complète
+D712/D713).** **« Le groupe administrator peut être associé à un
+groupe de directory. »** — l'association de D713 vaut aussi pour le
+groupe fourni d'office : les administrateurs peuvent se synchroniser
+depuis l'annuaire — **la double entrée demeure** (D712) : le groupe
+synchronisé apporte l'appartenance, la désignation individuelle
+reste l'acte local.
+
+**Le mode safe — la porte de secours (D718).** **« Nous devons
+garder une porte d'accès par un compte administrateur safe,
+accessible sous condition comme un lancement de l'application en
+mode safe. Le mode safe est un mode d'exécution permettant l'accès à
+l'application uniquement au module administration, avec le compte
+administrateur principal et le mot de passe que nous avons fixé à
+l'installation de l'application. »** — le filet quand tout le reste
+est mort (l'annuaire injoignable, le SSO cassé, les droits
+verrouillés par erreur) :
+
+- **un mode d'exécution** — le lancement de l'application en mode
+  safe (jamais un état atteignable depuis l'application vivante) ;
+- **le périmètre : le module administration seul** — aucune donnée
+  métier servie ;
+- **l'accès : le compte administrateur principal** et **le mot de
+  passe fixé à l'installation** de l'application (le patron des
+  secrets D707 — hors annuaire, hors configuration versionnée) ;
+- *(la lecture notée : le mode safe est tracé — l'audit D704
+  enregistre le lancement et les actes, la porte de secours n'est
+  jamais une porte dérobée).*
+
+**Le détail de l'utilisateur et du groupe (D719 — « je valide
+l'esquisse »).** Les deux entités arrêtées :
+
+```yaml
+# l'entité système user — définie, construite et maintenue par
+# Syncytium (D666/D704), jamais déclarée par le technicien
+user:
+  label: "{first_name} {last_name}"
+  fields:
+    login:        { type: text, rgpd: personal }      # la clé d'unicité (D82)
+    email:        { type: email, rgpd: personal }
+    first_name:   { type: text, rgpd: personal }
+    last_name:    { type: text, rgpd: personal }
+    language:     reference                            # la langue → le fuseau (D217–D225)
+    account_type: enum [technical, internal, customer] # la typologie (D77)
+    origin:       reference                            # le connecteur d'authentification (D713)
+    status:       enum [active, banned, locked]        # ban (D714), le verrouillage
+    admin:        boolean                              # la désignation individuelle (D712)
+    password:     password                             # le local seul — jamais relu (D463)
+    groups:       association with group               # l'affectation en base (D341)
+    modules:      association with module              # l'affectation en base (D416)
+
+# groups.yml — la configuration (le déclaré)
+groups:
+  managers:
+    degree: manager                    # D699
+    groups: [sales_team, accounting]   # la composition acyclique (D414)
+    directory: ["GRP-AD-Managers"]     # l'association aux groupes AD (D713/D717)
+```
+
+Les régimes consignés avec l'esquisse : **la fiche synchronisée en
+lecture seule** (D713 — sauf les propriétés hors annuaire : `admin`,
+`modules`, `status`) ; l'UUID interne hors déclaration (D142) ;
+l'entité **historisée** (qui a donné quel droit, quand) et ses
+lectures à l'audit ; **la ligne de partage** — la configuration
+déclare la structure (les groupes, les degrés, les associations
+d'annuaire par `directory:`), la base porte les appartenances ;
+l'écran du groupe montre les deux faces (le déclaré en lecture, les
+membres vivants).
+
+**L'invitation, l'oubli, le verrouillage (D720 — les points 1 à 3
+arbitrés).** Les trois validés, avec deux précisions :
+
+- **l'invitation** (« ok ») : le compte local ne naît jamais avec un
+  mot de passe posé par l'administrateur — le lien à durée limitée,
+  l'utilisateur définit son secret, le compte n'entre pas tant que
+  l'invitation n'est pas honorée ;
+- **le mot de passe oublié** (« ok ») — **« fonction indisponible
+  dans le cas du SSO, car le mot de passe n'est pas géré par
+  l'application »** : l'oubli et le `renew` (D714) n'existent que là
+  où Syncytium gère le secret — le volet local ; l'annuaire et
+  l'IdP portent leur propre politique ;
+- **le verrouillage** (« c'est valable que pour le local ») : les
+  settings `lockout`/`cooldown`/`invitation` en dynamique, les
+  échecs tracés (D704).
+
+**Le changement de mail — les deux chemins (D721 — amende le point
+4).** **« Chaque utilisateur a un uuid qui survit. Un utilisateur
+qui change de mail ne change pas d'uuid. Le changement de mail est
+une opération de l'administrateur (il change l'adresse sans
+vérification) ou une opération autorisée sur le profil de
+l'utilisateur (sous condition) : le changement depuis le profil
+n'est validé que sur l'envoi d'un mail suivi d'une validation en
+cliquant dessus par l'utilisateur d'origine (ancien email), puis
+validation depuis la nouvelle adresse. »** — l'UUID survit toujours
+(D82) ; **deux chemins** :
+
+1. **l'administrateur** — le changement direct, sans vérification
+   (l'acte tracé) ;
+2. **le profil** — la double validation en chaîne : le clic depuis
+   **l'ancienne** adresse (la preuve de possession), puis la
+   validation depuis **la nouvelle** (la preuve de réception) — le
+   détournement de compte impossible par un seul maillon.
+
+**La fusion — l'acte assumé (D722 — solde le point 4).** **« La
+fusion de 2 comptes est une opération de l'administrateur et elle
+s'accompagne de la désactivation d'un des 2 comptes — Syncytium
+assume éventuellement la perte des historiques liés au compte
+désactivé. »** — le survivant désigné, l'autre **désactivé** (jamais
+supprimé — D137) ; **la perte éventuelle des historiques du compte
+désactivé est assumée** — pas de re-parentage rétroactif des traces
+(l'histoire reste vraie : les actes anciens portent le compte qui
+les a faits) ; l'acte au degré administrator, audité.
+
+**Les mails du socle, surchargeables (D723 — complète D720–D721).**
+**« La construction des mails utilise bien sûr le socle de Syncytium
+et ils peuvent être définis dans la configuration de l'application.
+Par défaut, Syncytium fournit ses mails. »** — l'invitation, la
+réinitialisation, la validation de changement d'adresse : **des
+templates `mail` du socle** (D562/D564 — le mustache + markdown
+rendu en HTML, l'envoi par le connecteur smtp D628, la déclinaison
+par langue D559 — le mail part dans la langue de l'utilisateur
+D217–D225) ; **Syncytium fournit ses mails par défaut** (le
+catalogue = les hooks embarqués — D408), **la configuration de
+l'application peut les redéfinir** (le patron du défaut remplacé par
+la déclaration — D186/D437).
+
+**Le lien actif/passif — le dormant et les trois modes (D724 —
+précise D112–D114/D606).** Le passif dormant confirmé (« je confirme
+que le passif est dormant ») — ni lecture ni service pendant la vie
+normale. **Et les trois modes de gestion** :
+
+- **`brut`** — **« la synchronisation est effectuée à intervalle
+  régulier via une copie de l'instance (fichiers des entités,
+  fichiers de configuration et base de données) — pas de
+  failback »** : la copie entière, simple et lourde, au rythme
+  d'`every:` ;
+- **`differentiel`** — **« cela dépend du moteur de base de données
+  ou de l'infrastructure : Syncytium ne gère pas la base mais
+  synchronise les fichiers des entités et les fichiers de
+  configuration — pas de failback »** : la réplication de la base
+  déléguée au natif (le streaming du moteur, l'infra), Syncytium ne
+  porte que les fichiers (les pièces jointes D384, la
+  configuration) ;
+- **`synchronous`** — **« les actions faites sur l'instance active
+  sont historisées, transmises à l'instance passive, et l'exécution
+  confirmée supprime l'action en attente (traite ainsi le
+  failback) »** : le journal d'actions expédié et confirmé (le
+  patron de la file d'attente D686) — **le seul mode qui traite le
+  failback** : les actions du passif pendant l'incident reprennent
+  le même chemin au retour.
+
+**« Une montée de version est couverte par les trois modes »** — la
+version voyage avec la synchronisation : la copie l'emporte (brut),
+les fichiers de configuration la portent (differentiel), l'action de
+migration s'expédie comme les autres (synchronous). *(L'écriture en
+proposition :* `replication: brut | differential | synchronous` *+
+le rythme à* `every:` *dans* `environments/passive.yml`*.)*
+
+**Le mode disabled (D725 — complète D724).** **« Il y a un mode
+`disabled` pour ne pas activer le mode actif/passif, bien sûr. »** —
+le quatrième mode, **le défaut** : pas de passif, pas de
+synchronisation — la TPE qui s'en remet à ses sauvegardes (la
+proposition en cours) n'active rien ; l'écriture se complète :
+`replication: disabled | brut | differential | synchronous` (défaut
+`disabled`).
+
+**La réplication en configuration — les exemples par mode (D726).**
+**« Le mode de réplication se décline en configuration. »** — la
+déclaration dans `environments/passive.yml`, la forme courte pour le
+défaut, la forme riche au rythme :
+
+```yaml
+# environments/passive.yml — un mode par environnement passif
+replication: disabled                  # le défaut (D725) — pas de passif
+
+replication:
+  mode: brut                           # la copie entière (D724)
+  every: daily[02:00]                  # l'intervalle régulier (D434)
+
+replication:
+  mode: differential                   # la base au natif du moteur/de l'infra
+  every: 15min                         # les fichiers des entités + la configuration
+
+replication:
+  mode: synchronous                    # le journal d'actions au fil de l'eau
+                                       # (pas d'every: — le flux continu)
+```
+
+**La sauvegarde (D727 — arbitre la pièce 1).** **« La sauvegarde
+exploite la méthode duplicate_instance, recopie les fichiers et la
+configuration vers une destination précisée, dans un zip ou dans un
+espace de stockage. Nous conservons un historique sur un nombre de
+jours donné — au-delà de ce délai, les archives sont supprimées. »**
+— les trois matières (l'instance par `duplicate_instance` D680, les
+fichiers des entités, la configuration), **la destination
+précisée** — un zip ou un espace de stockage — et **la rétention en
+jours** (l'archive échue supprimée). *(L'écriture en proposition :*
+
+```yaml
+backup:
+  destination: zip:/backups/           # ou un connecteur de stockage
+  every: daily[01:00]
+  retention: 30d
+```
+
+*)*
+
+**La restauration — une image à sa propre vie (D728).** **« La
+restauration construira une image avec sa propre vie. Lors de la
+restauration, l'adresse du point d'entrée de l'application devra
+être fournie et l'application deviendra une application comme les
+autres. »** — la restauration ne remplace pas : elle **fait naître**
+— l'image restaurée vit sa propre vie (la nouvelle instance),
+**l'adresse du point d'entrée fournie au geste**, et l'application
+devient une application comme les autres — le clonage assumé (le
+staging depuis la production, la répétition d'une opération
+délicate, l'archive consultable).
+
+**Les bibliothèques d'applications (D729 — complète l'assistance
+d'installation).** **« La sauvegarde et la restauration peuvent être
+utilisées pour créer des bibliothèques d'applications, sous
+condition d'intégrer un wizard d'initialisation pour renseigner les
+paramètres clés de l'application (storage, …) ou de proposer un
+storage sqlite natif à l'application. Cela complète l'assistance
+d'installation sur la base des secrets. »** — la sauvegarde comme
+**gabarit distribuable** (le « Hello world ! » de D337 industrialisé,
+l'écosystème AGPL D68) : à la restauration d'une application de
+bibliothèque, **le wizard d'initialisation** demande les paramètres
+clés (le storage, les connecteurs — l'assistant des secrets D707/
+D708 enchaîné) — **ou le storage sqlite natif** épargne toute
+question : l'application démarre seule, la base embarquée.
+
+**La rotation des clés (D730 — arbitre la pièce 2).** **« La
+rotation des clés est déclenchée à chaque restauration ou via une
+commande comme tu le proposes. »** — les deux déclencheurs :
+**chaque restauration rote** (l'image nouvelle, la machine peut-être
+autre — la clé dérivée environnement + machine D603 l'impose de
+toute façon : la rotation est la naturalisation), et **la commande**
+`syncytium rotate` (le re-chiffrement du `.env` et des champs des
+types chiffrants — le patron de migrate, la progression suivie).
+
+**La santé — le dashboard et l'API (D731 — arbitre la pièce 4).**
+**« La santé intègre les statuts, les files, les sessions, … et les
+connecteurs. La santé est disponible sous un dashboard ou sur une
+API. Si présence d'un passif/actif, le dashboard intègre également
+l'état de santé du passif. »** — la vue d'office du module
+d'administration : les statuts, les files d'attente (D686), les
+sessions actives, **les connecteurs** (le `ping()` D621) — servie
+**en dashboard et en API** (la supervision externe — le Zabbix de la
+TPE interroge l'API) ; **l'état de santé du passif intégré** quand
+la réplication est active (D724) — le retard, le dernier passage,
+l'alerte au seuil.
+
+**Le temps réel (D732 — précise D731).** **« L'état de l'application
+est un état en temps réel (pas de période de rafraîchissement). »**
+— la santé n'est jamais une photo périodique : **l'état pousse** (le
+mode temps réel de D249/D555 — `refresh: live`), le changement de
+statut paraît à l'instant au dashboard comme à l'API ; l'`every:` du
+`ping()` (D621) rythme la *mesure* côté connecteur, jamais
+l'*affichage* — la vue reflète le dernier état connu, en continu.
+
+**Le mail des faits marquants (D733 — complète D731–D732).** **« Le
+technicien doit pouvoir recevoir un mail, une fois par jour ou selon
+sa convenance, sur les faits marquants (liste des utilisateurs
+connectés, liste des erreurs/warnings, liste des changements d'état
+de santé, …) — un mail basé sur le statut de la santé vue
+précédemment et son évolution au cours de la journée. »** — le
+résumé d'exploitation : **la santé temps réel laisse une trace, le
+mail la résume** — les faits marquants de la période (les
+utilisateurs connectés, les erreurs et warnings des journaux D343,
+les changements d'état de santé D731, la liste ouverte), **au rythme
+choisi** (une fois par jour ou à convenance — l'`every:` calendaire
+D434). La mécanique n'invente rien : le template mail du socle
+(D723/D562 — surchargeable en configuration), l'envoi par le smtp
+(D628), l'évolution lue dans l'historique de l'état.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14443,6 +14859,95 @@ avant la synthèse Q16).
 - **2026-08-16 (suite 63)** — **LE SUJET 2 (LA SÉCURITÉ ET LES
   DROITS) EST SOLDÉ** (D690–D708) — le §1.2 mis au niveau. Reste le
   sujet 3 : l'administration et l'exploitation.
+- **2026-08-17** — **La PR #32 fusionnée (vérifiée)** : « La
+  sécurité et les droits — le sujet 2 soldé (D690–D708) », 13
+  commits sur develop. Pause — la prochaine séance ouvrira le sujet
+  3 (l'administration et l'exploitation) : le module
+  d'administration (les sessions D693, l'audit D704, la vue de
+  migration D666, la rotation des clés D707), la télémétrie
+  (Q12–Q13), les settings dynamiques (D588).
+- **2026-08-17 (suite 2)** — **Le sujet 3 ouvert —
+  administration.md créé (D709)** : le neuvième artefact — l'acquis
+  épars consolidé (les actes d'administration en base D341, le degré
+  administrator, les comptes D77/D82, les sessions D693, les
+  settings dynamiques D588, l'audit D704, le suivi des migrations
+  D666–D668, les opérations aux planchers D701, les environnements
+  D339–D343, la supervision D621/D625–D627, les secrets D707–D708,
+  les versions D332/D338–D340, la télémétrie P9) et les quatre
+  points du chantier (le module d'administration, les comptes au
+  quotidien, l'exploitation courante, la télémétrie Q12–Q13). Le
+  §1.2 mis au niveau.
+- **2026-08-17 (suite 3)** — **Le module d'administration (D710)** :
+  un seul module au degré minimal administrator, les entrées en menu
+  construit et maintenu dans Syncytium (settings, comptes, sessions,
+  audit, …), le dogfooding complet des facettes ; le module
+  migration demeure distinct (lecture notée). administration.md mis
+  au niveau.
+- **2026-08-17 (suite 4)** — **La migration au menu, les settings
+  aux deux modes (D711)** : l'entrée migrations au module
+  d'administration (conditionnelle — si migrations: défini) — la
+  lecture « module distinct » corrigée ; les settings couvrent
+  statiques et dynamiques. administration.md mis au niveau.
+- **2026-08-17 (suite 5)** — **Les comptes au quotidien (D712–D715)**
+  : le groupe administrator par défaut + l'accès à double entrée ;
+  la synchronisation selon le mode (local manuel / azure_ad par
+  association de groupes en lecture seule / sso sans mot de passe) ;
+  les opérations renew/ban ; la délégation tracée aux deux comptes.
+  administration.md et rights.md mis au niveau. La remarque sur le
+  contrat directory vérifiée : D633 le porte (connectors.md) — pas
+  de décision « hook de directory » distincte, les classes des
+  familles sont les hooks (D619) ; la coopération
+  authentication↔directory désormais consignée (D713).
+- **2026-08-17 (suite 6)** — **Keycloak, l'administrateur au
+  directory, le mode safe (D716–D718)** : keycloak en classe
+  d'authentification (la lecture famille→classe) ; le groupe
+  administrator synchronisable (la double entrée demeure) ; le mode
+  safe — le lancement dédié, le module administration seul, le
+  compte principal au mot de passe d'installation, tracé.
+  administration.md, rights.md et connectors.md mis au niveau.
+- **2026-08-17 (suite 7)** — **Le détail user/group validé (D719)** :
+  les deux esquisses gravées (l'entité système user, le groupe en
+  configuration avec directory:), les régimes (lecture seule
+  synchronisée sauf admin/modules/status, l'historisation, l'audit),
+  la ligne de partage configuration/base. administration.md mis au
+  niveau.
+- **2026-08-17 (suite 8)** — **Les comptes au quotidien soldés
+  (D720–D722)** : l'invitation/l'oubli/le verrouillage validés
+  (l'oubli indisponible en SSO, le verrouillage local seul) ; le
+  changement de mail aux deux chemins (l'admin sans vérification, le
+  profil à double validation ancien→nouveau) ; la fusion —
+  désactivation d'un des deux, la perte des historiques assumée.
+  administration.md mis au niveau.
+- **2026-08-17 (suite 9)** — **Les mails du socle (D723)** : les
+  mails de compte = des templates mail du socle, fournis par défaut,
+  redéfinissables dans la configuration de l'application ; la langue
+  de l'utilisateur. administration.md mis au niveau.
+- **2026-08-17 (suite 10)** — **Le lien actif/passif (D724)** : le
+  passif dormant confirmé ; les trois modes brut / differentiel
+  (la base au natif, Syncytium porte les fichiers) / synchronous
+  (les actions historisées-transmises-confirmées — le seul failback)
+  ; la montée de version couverte par les trois. administration.md
+  mis au niveau.
+- **2026-08-17 (suite 11)** — **Le mode disabled (D725)** : le
+  quatrième mode, le défaut — pas de passif ; l'écriture complétée.
+- **2026-08-17 (suite 12)** — **L'exploitation courante soldée
+  (D726–D731)** : la réplication en configuration (les exemples par
+  mode), la sauvegarde (duplicate_instance + fichiers +
+  configuration, zip ou espace de stockage, la rétention en jours),
+  la restauration en image à sa propre vie (l'adresse du point
+  d'entrée, une application comme les autres), les bibliothèques
+  d'applications (le wizard d'initialisation ou le sqlite natif), la
+  rotation des clés (à chaque restauration + la commande), la santé
+  (dashboard et API, le passif intégré). administration.md mis au
+  niveau.
+- **2026-08-17 (suite 13)** — **La santé en temps réel (D732)** :
+  pas de période de rafraîchissement — l'état pousse ; l'every: du
+  ping rythme la mesure, jamais l'affichage.
+- **2026-08-17 (suite 14)** — **Le mail des faits marquants
+  (D733)** : le résumé d'exploitation au technicien, au rythme
+  choisi — la santé et son évolution dans la journée, les
+  utilisateurs connectés, les erreurs/warnings ; le template du
+  socle. administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

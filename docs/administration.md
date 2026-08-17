@@ -373,21 +373,32 @@ Le statut = l'emplacement (`beta/`, `production/`, `deprecated/`,
 des versions essayées (le retry par bump du build) ; le délai de
 grâce du schéma remplacé (D675/D678).
 
-## La télémétrie — le chantier (P9, Q12–Q13 ouvertes)
+## La télémétrie (P9 — Q12–Q13 closes depuis juin)
 
-L'acquis du pilier P9 (D38–D51, D97) : **les trois finalités** — les
-usages (la diversité des valeurs par champ D38, les compteurs
-d'entité D39), le risque de migration, la sécurité (les seuils
-déclarés aux endpoints/entités/fonctions d'IHM — D50 ; la
-calibration ajustable à l'initialisation — D97 : fenêtre 30 jours,
-z-score ≥ 3, planchers) ; la détection des séquences répétées
-(SEQUITUR — D315–D319 : les optimisations et **les services
-proposés** au technicien, avec fréquence et gain) ; la restitution
-en tableaux de bord et synthèses, le volet conseil. **Q12–Q13
-restent à clore** — le sujet 3 les portera.
+**Q12 est résolue** (D38–D41) : les usages agrégés sur le schéma (le
+champ à la volée D38/D46, l'entité stockée D39), les acteurs
+identifiés **sur les seuls comptes techniques** (D40 — la gestion
+d'intégrations, jamais la surveillance des salariés), les deux
+supports (la base + les traces de journal à rétention paramétrable
+et option d'anonymisation — D41), le client responsable de
+traitement. **Q13 est résolue** (D43–D44) : **les cinq canaux de
+restitution** en solution intégrée bâtie sur le méta-modèle — le
+tableau de bord des usages (pull), le rapport de dry-run (contextuel
+à la migration), la synthèse périodique (push — avec **le volet
+conseil** D45 : le cache, la lecture par lot, l'endpoint composite),
+l'alerte d'échéance (rare — le Sunset d'API), l'analyse de sécurité
+(D43 — les refus journalisés, les seuils D50–D51, la calibration
+D97). La détection SEQUITUR (D315–D319) nourrit le conseil.
+
+**Le travail du sujet 3 : la jonction** avec l'acquis récent — voir
+les points ouverts.
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
-   (des entités du module d'administration ?), qui la voit, le lien
-   au volet conseil (P9).
+1. **la jonction télémétrie** — raccorder l'acquis de juin
+   (D38–D51) au socle récent : la maison (les entités du module
+   d'administration ? l'entrée au menu ?), la synthèse périodique et
+   le patron du mail des faits marquants (D733), l'analyse de
+   sécurité et l'audit (D702–D704), la calibration en settings
+   dynamiques (D97→D588), la rétention des traces au patron RGPD
+   (D695–D698), le degré qui voit (D699).

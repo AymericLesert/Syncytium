@@ -845,6 +845,9 @@ documentation) :
 | D717 | **Le groupe administrator associable au directory** (complète D712/D713) : la synchronisation vaut pour le groupe d'office — la double entrée demeure (la désignation individuelle reste l'acte local). | Voir §3.2c. |
 | D718 | **Le mode safe** : un mode d'exécution au lancement — le module administration seul, le compte administrateur principal et le mot de passe fixé à l'installation ; le filet quand l'annuaire/SSO/les droits sont morts ; tracé (jamais une porte dérobée). | Voir §3.2c. |
 | D719 | **Le détail user/group validé** : l'entité système user (login/email/… en rgpd: personal, account_type D77, origin, status active\|banned\|locked, admin — la double entrée, password local seul, les associations groups/modules) ; le groupe en configuration (degree, la composition, `directory:` — l'association AD) ; la fiche synchronisée en lecture seule sauf admin/modules/status ; historisée + audit. | « Je valide l'esquisse. » Voir §3.2c. |
+| D720 | **L'invitation, l'oubli, le verrouillage** (points 1–3) : validés — l'oubli et le renew indisponibles en SSO (le mot de passe hors application), le verrouillage local seul ; les settings lockout/cooldown/invitation dynamiques. | Voir §3.2c. |
+| D721 | **Le changement de mail** : l'UUID survit ; deux chemins — l'administrateur sans vérification (tracé), le profil à double validation (le clic depuis l'ancienne adresse puis la validation depuis la nouvelle). | Voir §3.2c. |
+| D722 | **La fusion** : l'opération de l'administrateur — le survivant désigné, l'autre désactivé (jamais supprimé) ; **la perte éventuelle des historiques du compte désactivé est assumée** — pas de re-parentage rétroactif. | Solde les comptes au quotidien. Voir §3.2c. |
 
 ---
 
@@ -6636,6 +6639,50 @@ déclare la structure (les groupes, les degrés, les associations
 d'annuaire par `directory:`), la base porte les appartenances ;
 l'écran du groupe montre les deux faces (le déclaré en lecture, les
 membres vivants).
+
+**L'invitation, l'oubli, le verrouillage (D720 — les points 1 à 3
+arbitrés).** Les trois validés, avec deux précisions :
+
+- **l'invitation** (« ok ») : le compte local ne naît jamais avec un
+  mot de passe posé par l'administrateur — le lien à durée limitée,
+  l'utilisateur définit son secret, le compte n'entre pas tant que
+  l'invitation n'est pas honorée ;
+- **le mot de passe oublié** (« ok ») — **« fonction indisponible
+  dans le cas du SSO, car le mot de passe n'est pas géré par
+  l'application »** : l'oubli et le `renew` (D714) n'existent que là
+  où Syncytium gère le secret — le volet local ; l'annuaire et
+  l'IdP portent leur propre politique ;
+- **le verrouillage** (« c'est valable que pour le local ») : les
+  settings `lockout`/`cooldown`/`invitation` en dynamique, les
+  échecs tracés (D704).
+
+**Le changement de mail — les deux chemins (D721 — amende le point
+4).** **« Chaque utilisateur a un uuid qui survit. Un utilisateur
+qui change de mail ne change pas d'uuid. Le changement de mail est
+une opération de l'administrateur (il change l'adresse sans
+vérification) ou une opération autorisée sur le profil de
+l'utilisateur (sous condition) : le changement depuis le profil
+n'est validé que sur l'envoi d'un mail suivi d'une validation en
+cliquant dessus par l'utilisateur d'origine (ancien email), puis
+validation depuis la nouvelle adresse. »** — l'UUID survit toujours
+(D82) ; **deux chemins** :
+
+1. **l'administrateur** — le changement direct, sans vérification
+   (l'acte tracé) ;
+2. **le profil** — la double validation en chaîne : le clic depuis
+   **l'ancienne** adresse (la preuve de possession), puis la
+   validation depuis **la nouvelle** (la preuve de réception) — le
+   détournement de compte impossible par un seul maillon.
+
+**La fusion — l'acte assumé (D722 — solde le point 4).** **« La
+fusion de 2 comptes est une opération de l'administrateur et elle
+s'accompagne de la désactivation d'un des 2 comptes — Syncytium
+assume éventuellement la perte des historiques liés au compte
+désactivé. »** — le survivant désigné, l'autre **désactivé** (jamais
+supprimé — D137) ; **la perte éventuelle des historiques du compte
+désactivé est assumée** — pas de re-parentage rétroactif des traces
+(l'histoire reste vraie : les actes anciens portent le compte qui
+les a faits) ; l'acte au degré administrator, audité.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14690,6 +14737,13 @@ avant la synthèse Q16).
   synchronisée sauf admin/modules/status, l'historisation, l'audit),
   la ligne de partage configuration/base. administration.md mis au
   niveau.
+- **2026-08-17 (suite 8)** — **Les comptes au quotidien soldés
+  (D720–D722)** : l'invitation/l'oubli/le verrouillage validés
+  (l'oubli indisponible en SSO, le verrouillage local seul) ; le
+  changement de mail aux deux chemins (l'admin sans vérification, le
+  profil à double validation ancien→nouveau) ; la fusion —
+  désactivation d'un des deux, la perte des historiques assumée.
+  administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

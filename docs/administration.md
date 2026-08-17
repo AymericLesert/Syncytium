@@ -126,6 +126,39 @@ de partage** : la configuration déclare la structure (les groupes,
 les degrés, `directory:`), la base porte les appartenances —
 l'écran du groupe montre les deux faces.
 
+### Le quotidien du compte local (D720–D722)
+
+- **l'invitation** (D720) : le compte naît sans mot de passe — le
+  lien à durée limitée, l'utilisateur définit son secret,
+  l'administrateur ne le connaît jamais (D463/D703) ; le compte
+  n'entre pas tant que l'invitation n'est pas honorée ;
+- **le mot de passe oublié** : le lien de réinitialisation à durée
+  limitée ; le `renew` (D714) en est le pendant administratif —
+  toujours le lien, jamais une valeur ; **indisponible en SSO** (le
+  mot de passe n'est pas géré par l'application) ;
+- **le verrouillage** — **le volet local seul** : N échecs
+  verrouillent (`status: locked`), le déverrouillage par l'attente
+  ou l'administrateur ; les échecs tracés (D704) :
+
+```yaml
+settings:
+  application:
+    account:
+      lockout:    { mode: dynamic, type: integer,  value: 5 }     # les échecs
+      cooldown:   { mode: dynamic, type: duration, value: 15min } # l'attente
+      invitation: { mode: dynamic, type: duration, value: 48h }   # la validité des liens
+```
+
+- **le changement de mail** (D721) — l'UUID survit (D82) ; deux
+  chemins : **l'administrateur** (le changement direct, sans
+  vérification — tracé) ou **le profil** (la double validation en
+  chaîne : le clic depuis l'ancienne adresse, puis la validation
+  depuis la nouvelle) ;
+- **la fusion** (D722) — l'opération de l'administrateur : le
+  survivant désigné, l'autre **désactivé** (jamais supprimé) ; **la
+  perte éventuelle des historiques du compte désactivé est
+  assumée** — pas de re-parentage rétroactif des traces.
+
 ### Les opérations dédiées et la délégation (D714–D715)
 
 - les surfaces : **les utilisateurs** et **les groupes** en listes
@@ -254,14 +287,10 @@ restent à clore** — le sujet 3 les portera.
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **les comptes au quotidien — le reste** : l'invitation et le
-   premier secret, le mot de passe oublié, le verrouillage (les
-   settings lockout/cooldown), la re-liaison et la fusion (D82) en
-   pratique — les propositions posées, à arbitrer ;
-2. **l'exploitation courante** — la sauvegarde (au-delà de la
+1. **l'exploitation courante** — la sauvegarde (au-delà de la
    restauration D174), **la rotation des clés** (le flag D707),
    l'automatisation d'`encrypt` (le flag D708), la santé de
    l'instance en une vue ;
-3. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
+2. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
    (des entités du module d'administration ?), qui la voit, le lien
    au volet conseil (P9).

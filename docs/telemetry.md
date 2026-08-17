@@ -59,7 +59,7 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **le tableau de bord** (D38) | *pull*, l'exploration | les usages — la diversité, les compteurs, les tendances |
 | **le rapport de dry-run** | contextuel, à la migration | le risque — injecté là où la décision se prend, pas de tableau propre |
 | **la synthèse périodique** | *push*, basse fréquence — le patron du mail des faits marquants (D733/D738) | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) ; les destinataires au degré `administrator` |
-| **l'alerte d'échéance** | *push*, événementiel, **rare** — le même patron (D738) | la version d'API dépréciée encore appelée près du `Sunset` (D12/D40) ; le degré `administrator` |
+| **l'alerte de dépréciation** | *push*, événementiel, **rare** — le même patron (D738) | **l'appel persistant d'une version dépréciée** (D742 — l'état, jamais une date : le déploiement déclenche la dépréciation ou son intention) ; jamais d'alerte sur le non-usage ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
 | **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`log.yml` par environnement — D342/D343), hors IHM |
 
@@ -87,9 +87,9 @@ settings:
     mails:
       highlights: { every: daily[07:00] }              # les faits marquants (D733)
       telemetry:  { every: monthly[1 at 07:00] }       # la synthèse périodique (D738)
-      # l'alerte d'échéance n'a pas de rythme : elle part à l'approche
-      # du Sunset (la fenêtre en proposition ci-dessous)
-      sunset_warning: { mode: dynamic, type: duration, value: 30d }
+      # l'alerte de dépréciation n'a pas de rythme ni de fenêtre (D742) :
+      # elle part sur l'appel persistant d'une version dépréciée —
+      # le déploiement déclenche la dépréciation, jamais un calendrier
 ```
 
 ## Le volet conseil (D45, D315–D319)

@@ -868,6 +868,7 @@ documentation) :
 | D739 | **Le volet conseil relu** (le point 3) : conforme — les propositions de services paraissent dans la synthèse (D738) et le dashboard telemetry (D736), la décision du technicien hors application ; le calibrage à Q59 (D319). | « Le point 3 valide mon point de vue. » Voir §3.2c. |
 | D740 | **La calibration** (le point 4) : le global en paramètres dynamiques (D588) ; la surcharge à l'instance, au module, à l'entité et au champ **par la configuration statique** (D50 relu — versionnée) ; le plus proche l'emporte. | Voir §3.2c. |
 | D741 | **La jonction relue, le raccord 6 corrigé** (solde la relecture) : les raccords 3 et 5 confirmés ; la télémétrie entière au degré `administrator` (l'incohérence manager/module admin levée). | « Je valide le point 5. » Voir §3.2c. |
+| D742 | **La dépréciation portée par la version** (amende D13/D44/D340 — écarte sunset_warning) : jamais une date ni un calendrier — le déploiement d'une version déclenche la dépréciation ou l'intention de dépréciation (les trois temps D650 aux versions) ; l'alerte du canal 4 signale l'appel persistant d'une version dépréciée (l'état, pas l'échéance). | Voir §3.2c. |
 
 ---
 
@@ -6961,6 +6962,31 @@ module, à l'entité et au champ (via la configuration statique). »**
   partie du modèle, elle se change par une version) ;
 - la préséance : le local statique prime le global dynamique — le
   plus proche l'emporte (l'esprit D359/D461).
+
+**La dépréciation portée par la version — le calendrier écarté
+(D742 — amende D13/D44/D340).** La proposition `sunset_warning` est
+**écartée**, et la raison emporte plus que le paramètre : **« c'est
+la version qui porte la dépréciation, pas une date. La mise à
+disposition d'une version ne peut être soumise à un calendrier. Par
+contre, le déploiement d'une version déclenchera la dépréciation ou
+l'intention de dépréciation. »** — le modèle événementiel remplace
+le calendaire :
+
+- **la dépréciation est un état de la version** (le dossier
+  `deprecated/` — D340), jamais une date ; le vocabulaire
+  « Sunset/calendrier annoncé » de D13 se relit : le contrat se
+  dégrade en douceur **au rythme des déploiements**, pas d'une
+  horloge ;
+- **le déploiement déclenche** : la mise en production d'une version
+  déprécie (ou marque **l'intention de dépréciation**) des versions
+  antérieures — les trois temps de D650 (l'intention, l'acte, la
+  suppression) valent pour les versions comme pour les champs, et le
+  déclencheur est **le geste de déploiement** (les transitions de
+  fichier de D340) ;
+- **l'alerte d'échéance (le canal 4) se relit** : elle ne guette
+  plus l'approche d'une date — elle signale **l'appel persistant
+  d'une version dépréciée** (l'état, pas l'échéance) ; jamais
+  d'alerte sur le non-usage (D44 inchangé).
 
 **La jonction relue — le raccord 6 corrigé (D741 — « je valide le
 point 5 », solde la relecture).** Les raccords 3 et 5 confirmés
@@ -15107,6 +15133,11 @@ avant la synthèse Q16).
   cascade de calibration (le global dynamique, les surcharges
   statiques entité/champ) — les écritures nouvelles marquées en
   proposition.
+- **2026-08-17 (suite 24)** — **La dépréciation portée par la
+  version (D742)** : sunset_warning écarté — jamais une date, le
+  déploiement déclenche (l'intention ou l'acte, les trois temps D650
+  aux versions) ; l'alerte du canal 4 relue (l'appel persistant
+  d'une version dépréciée). telemetry.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -14948,6 +14948,11 @@ avant la synthèse Q16).
   choisi — la santé et son évolution dans la journée, les
   utilisateurs connectés, les erreurs/warnings ; le template du
   socle. administration.md mis au niveau.
+- **2026-08-17 (suite 15)** — **La PR #33 fusionnée (vérifiée)** :
+  « L'administration et l'exploitation — le sujet 3 en grande partie
+  soldé (D709–D733) », 14 commits sur develop (créée par la relance
+  automatique pendant la panne GitHub). Reste la télémétrie
+  (Q12–Q13) — le dernier point de la passe de complétude.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

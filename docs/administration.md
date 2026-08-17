@@ -89,6 +89,43 @@ des secrets D707 — hors annuaire, hors configuration versionnée) ;
 le mode safe est **tracé** (l'audit D704) — la porte de secours
 n'est jamais une porte dérobée.
 
+### Le détail de l'utilisateur et du groupe (D719)
+
+```yaml
+# l'entité système user — définie, construite et maintenue par
+# Syncytium, jamais déclarée par le technicien
+user:
+  label: "{first_name} {last_name}"
+  fields:
+    login:        { type: text, rgpd: personal }      # la clé d'unicité (D82)
+    email:        { type: email, rgpd: personal }
+    first_name:   { type: text, rgpd: personal }
+    last_name:    { type: text, rgpd: personal }
+    language:     reference                            # la langue → le fuseau (D217–D225)
+    account_type: enum [technical, internal, customer] # la typologie (D77)
+    origin:       reference                            # le connecteur d'authentification (D713)
+    status:       enum [active, banned, locked]        # ban (D714), le verrouillage
+    admin:        boolean                              # la désignation individuelle (D712)
+    password:     password                             # le local seul — jamais relu (D463)
+    groups:       association with group               # l'affectation en base (D341)
+    modules:      association with module              # l'affectation en base (D416)
+
+# groups.yml — la configuration (le déclaré)
+groups:
+  managers:
+    degree: manager                    # D699
+    groups: [sales_team, accounting]   # la composition acyclique (D414)
+    directory: ["GRP-AD-Managers"]     # l'association aux groupes AD (D713/D717)
+```
+
+**Les régimes** : la fiche synchronisée en **lecture seule** (D713 —
+sauf `admin`, `modules`, `status` : les propriétés hors annuaire) ;
+l'UUID interne hors déclaration (D142) ; l'entité **historisée**
+(qui a donné quel droit, quand), ses lectures à l'audit. **La ligne
+de partage** : la configuration déclare la structure (les groupes,
+les degrés, `directory:`), la base porte les appartenances —
+l'écran du groupe montre les deux faces.
+
 ### Les opérations dédiées et la délégation (D714–D715)
 
 - les surfaces : **les utilisateurs** et **les groupes** en listes

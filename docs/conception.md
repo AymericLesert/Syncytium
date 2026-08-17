@@ -844,6 +844,7 @@ documentation) :
 | D716 | **Keycloak** (enrichit D692) : une classe de la famille authentication aux côtés de local/azure_ad/sso — le visage concret du volet SSO (l'IdP OIDC open source) ; le contrat en deux gestes le couvre sans changement. | La lecture famille→classe (D613/D619). Voir §3.2c. |
 | D717 | **Le groupe administrator associable au directory** (complète D712/D713) : la synchronisation vaut pour le groupe d'office — la double entrée demeure (la désignation individuelle reste l'acte local). | Voir §3.2c. |
 | D718 | **Le mode safe** : un mode d'exécution au lancement — le module administration seul, le compte administrateur principal et le mot de passe fixé à l'installation ; le filet quand l'annuaire/SSO/les droits sont morts ; tracé (jamais une porte dérobée). | Voir §3.2c. |
+| D719 | **Le détail user/group validé** : l'entité système user (login/email/… en rgpd: personal, account_type D77, origin, status active\|banned\|locked, admin — la double entrée, password local seul, les associations groups/modules) ; le groupe en configuration (degree, la composition, `directory:` — l'association AD) ; la fiche synchronisée en lecture seule sauf admin/modules/status ; historisée + audit. | « Je valide l'esquisse. » Voir §3.2c. |
 
 ---
 
@@ -6595,6 +6596,46 @@ verrouillés par erreur) :
 - *(la lecture notée : le mode safe est tracé — l'audit D704
   enregistre le lancement et les actes, la porte de secours n'est
   jamais une porte dérobée).*
+
+**Le détail de l'utilisateur et du groupe (D719 — « je valide
+l'esquisse »).** Les deux entités arrêtées :
+
+```yaml
+# l'entité système user — définie, construite et maintenue par
+# Syncytium (D666/D704), jamais déclarée par le technicien
+user:
+  label: "{first_name} {last_name}"
+  fields:
+    login:        { type: text, rgpd: personal }      # la clé d'unicité (D82)
+    email:        { type: email, rgpd: personal }
+    first_name:   { type: text, rgpd: personal }
+    last_name:    { type: text, rgpd: personal }
+    language:     reference                            # la langue → le fuseau (D217–D225)
+    account_type: enum [technical, internal, customer] # la typologie (D77)
+    origin:       reference                            # le connecteur d'authentification (D713)
+    status:       enum [active, banned, locked]        # ban (D714), le verrouillage
+    admin:        boolean                              # la désignation individuelle (D712)
+    password:     password                             # le local seul — jamais relu (D463)
+    groups:       association with group               # l'affectation en base (D341)
+    modules:      association with module              # l'affectation en base (D416)
+
+# groups.yml — la configuration (le déclaré)
+groups:
+  managers:
+    degree: manager                    # D699
+    groups: [sales_team, accounting]   # la composition acyclique (D414)
+    directory: ["GRP-AD-Managers"]     # l'association aux groupes AD (D713/D717)
+```
+
+Les régimes consignés avec l'esquisse : **la fiche synchronisée en
+lecture seule** (D713 — sauf les propriétés hors annuaire : `admin`,
+`modules`, `status`) ; l'UUID interne hors déclaration (D142) ;
+l'entité **historisée** (qui a donné quel droit, quand) et ses
+lectures à l'audit ; **la ligne de partage** — la configuration
+déclare la structure (les groupes, les degrés, les associations
+d'annuaire par `directory:`), la base porte les appartenances ;
+l'écran du groupe montre les deux faces (le déclaré en lecture, les
+membres vivants).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14643,6 +14684,12 @@ avant la synthèse Q16).
   safe — le lancement dédié, le module administration seul, le
   compte principal au mot de passe d'installation, tracé.
   administration.md, rights.md et connectors.md mis au niveau.
+- **2026-08-17 (suite 7)** — **Le détail user/group validé (D719)** :
+  les deux esquisses gravées (l'entité système user, le groupe en
+  configuration avec directory:), les régimes (lecture seule
+  synchronisée sauf admin/modules/status, l'historisation, l'audit),
+  la ligne de partage configuration/base. administration.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

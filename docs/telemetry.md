@@ -74,6 +74,11 @@ la coercition :
   moteur propose avec la fréquence et le gain, le technicien
   décide** (D317).
 
+**Où paraissent les propositions** (D739) : dans la synthèse
+périodique (D738) et dans le dashboard « telemetry » (D736) — la
+décision du technicien reste **un geste hors application** : la
+description se change au dépôt, jamais depuis l'écran.
+
 ## Les seuils et la calibration (D47–D51, D97)
 
 Les seuils de sécurité **déclarés dans la description** (D50 — les

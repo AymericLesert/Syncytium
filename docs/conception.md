@@ -865,6 +865,7 @@ documentation) :
 | D736 | **Le dashboard telemetry** (précise D38/D734) : la collecte par champ déclenchable à la demande depuis le dashboard d'administration nommé « telemetry » — l'entrée télémétrie du module d'administration nommée ; l'évaluation à la volée, rien ne se stocke. | La relecture point par point de la télémétrie — point 1 arbitré. Voir §3.2c. |
 | D737 | **Le sixième canal — le journal** (complète D44) : centralise tout, aux six niveaux verbose/debug/info/warning/error/exception — la configuration en dur (log.yml, par environnement D342–D343), jamais dynamique ; consultable par le technicien seul, en cas de besoin — hors IHM. | Le substrat des cinq autres canaux. Voir §3.2c. |
 | D738 | **Les push au patron D733** (solde le point 2) : la synthèse périodique et l'alerte d'échéance — le template surchargeable, l'every: à convenance, le smtp ; **les destinataires limités au degré administrator**. | Voir §3.2c. |
+| D739 | **Le volet conseil relu** (le point 3) : conforme — les propositions de services paraissent dans la synthèse (D738) et le dashboard telemetry (D736), la décision du technicien hors application ; le calibrage à Q59 (D319). | « Le point 3 valide mon point de vue. » Voir §3.2c. |
 
 ---
 
@@ -6932,6 +6933,16 @@ de D733 : le template du socle surchargeable (D723), l'`every:` à
 convenance, l'envoi par le smtp (D628) — et **les destinataires sont
 limités au degré `administrator`** (D699) : les usages, le conseil
 et les échéances parlent à qui administre, jamais plus bas.
+
+**Le volet conseil relu (D739 — le point 3 de la relecture, « le
+point 3 valide mon point de vue »).** L'acquis D45/D315–D319 relu
+conforme — et la jonction validée : **les propositions de services
+paraissent dans la synthèse périodique (D738) et dans le dashboard
+« telemetry » (D736)** — le moteur propose avec la fréquence et le
+gain (D317), **la décision du technicien reste un geste hors
+application** (la description se change au dépôt, jamais depuis
+l'écran) ; le calibrage des seuils sur données réelles demeure
+renvoyé à Q59 (D319).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15048,6 +15059,9 @@ avant la synthèse Q16).
   la synthèse et l'alerte d'échéance au patron du mail des faits
   marquants, les destinataires au degré administrator. Le point 2
   (les canaux) est soldé — six canaux.
+- **2026-08-17 (suite 20)** — **Le point 3 validé (D739)** : le
+  volet conseil et SEQUITUR conformes — les propositions dans la
+  synthèse et le dashboard telemetry, la décision hors application.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

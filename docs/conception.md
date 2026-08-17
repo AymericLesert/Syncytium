@@ -15279,6 +15279,10 @@ avant la synthèse Q16).
   le backup au menu + la restauration en commande. **La
   vérification des piliers et des concepts est complète.**
   administration.md, rights.md et telemetry.md mis au niveau.
+- **2026-08-17 (suite 28)** — **La PR #34 fusionnée (vérifiée)** :
+  « la passe de complétude soldée (D734–D751) », 14 commits sur
+  develop. **La deuxième publication develop→main demandée** (la
+  première : la PR #27).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

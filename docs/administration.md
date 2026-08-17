@@ -158,6 +158,12 @@ settings:
   survivant désigné, l'autre **désactivé** (jamais supprimé) ; **la
   perte éventuelle des historiques du compte désactivé est
   assumée** — pas de re-parentage rétroactif des traces.
+- **les mails du socle** (D723) : l'invitation, la réinitialisation
+  et la validation de changement d'adresse sont **des templates
+  `mail` du socle** (D562/D564 — le mustache + markdown, l'envoi par
+  le smtp D628, la langue de l'utilisateur D217–D225) ; **Syncytium
+  les fournit par défaut, la configuration de l'application peut les
+  redéfinir** (D186).
 
 ### Les opérations dédiées et la délégation (D714–D715)
 

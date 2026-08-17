@@ -848,6 +848,7 @@ documentation) :
 | D720 | **L'invitation, l'oubli, le verrouillage** (points 1–3) : validés — l'oubli et le renew indisponibles en SSO (le mot de passe hors application), le verrouillage local seul ; les settings lockout/cooldown/invitation dynamiques. | Voir §3.2c. |
 | D721 | **Le changement de mail** : l'UUID survit ; deux chemins — l'administrateur sans vérification (tracé), le profil à double validation (le clic depuis l'ancienne adresse puis la validation depuis la nouvelle). | Voir §3.2c. |
 | D722 | **La fusion** : l'opération de l'administrateur — le survivant désigné, l'autre désactivé (jamais supprimé) ; **la perte éventuelle des historiques du compte désactivé est assumée** — pas de re-parentage rétroactif. | Solde les comptes au quotidien. Voir §3.2c. |
+| D723 | **Les mails du socle** (complète D720–D721) : l'invitation, la réinitialisation, la validation — des templates mail du socle (D562/D564, smtp D628, la langue de l'utilisateur) ; Syncytium les fournit par défaut, la configuration de l'application peut les redéfinir. | Voir §3.2c. |
 
 ---
 
@@ -6683,6 +6684,19 @@ supprimé — D137) ; **la perte éventuelle des historiques du compte
 désactivé est assumée** — pas de re-parentage rétroactif des traces
 (l'histoire reste vraie : les actes anciens portent le compte qui
 les a faits) ; l'acte au degré administrator, audité.
+
+**Les mails du socle, surchargeables (D723 — complète D720–D721).**
+**« La construction des mails utilise bien sûr le socle de Syncytium
+et ils peuvent être définis dans la configuration de l'application.
+Par défaut, Syncytium fournit ses mails. »** — l'invitation, la
+réinitialisation, la validation de changement d'adresse : **des
+templates `mail` du socle** (D562/D564 — le mustache + markdown
+rendu en HTML, l'envoi par le connecteur smtp D628, la déclinaison
+par langue D559 — le mail part dans la langue de l'utilisateur
+D217–D225) ; **Syncytium fournit ses mails par défaut** (le
+catalogue = les hooks embarqués — D408), **la configuration de
+l'application peut les redéfinir** (le patron du défaut remplacé par
+la déclaration — D186/D437).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14744,6 +14758,10 @@ avant la synthèse Q16).
   profil à double validation ancien→nouveau) ; la fusion —
   désactivation d'un des deux, la perte des historiques assumée.
   administration.md mis au niveau.
+- **2026-08-17 (suite 9)** — **Les mails du socle (D723)** : les
+  mails de compte = des templates mail du socle, fournis par défaut,
+  redéfinissables dans la configuration de l'application ; la langue
+  de l'utilisateur. administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

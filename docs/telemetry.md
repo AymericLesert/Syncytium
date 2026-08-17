@@ -63,8 +63,7 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
 | **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`log.yml` par environnement — D342/D343), hors IHM |
 
-L'exemple du journal *(l'écriture en proposition — le nom `log.yml`
-est de D737, les propriétés restent à valider)* :
+L'exemple du journal (les écritures validées — D743) :
 
 ```yaml
 # environments/production/log.yml — la configuration en dur (D737)
@@ -79,7 +78,7 @@ log:
   level: debug
 ```
 
-L'exemple des push *(en proposition — le patron D733/D738)* :
+L'exemple des push (les écritures validées — D743) :
 
 ```yaml
 settings:
@@ -128,8 +127,8 @@ s'applique). La calibration par défaut (D97) : la fenêtre glissante
 lignes, le R² ≥ 0,5 — le patron uniforme *forme × poids*, chaque
 seuil explicable en une phrase.
 
-L'exemple de la cascade *(les noms des paramètres en proposition —
-les valeurs sont les défauts de D97)* :
+L'exemple de la cascade (les écritures validées — D743 ; les
+valeurs sont les défauts de D97) :
 
 ```yaml
 # settings.yml — le global, en paramètres dynamiques (D740)
@@ -190,5 +189,6 @@ raccords validés :
 
 ## Les points ouverts
 
-Aucun point consigné — le calibrage des seuils SEQUITUR sur données
-réelles attend les cas d'usage (Q59, comme prévu par D319).
+**La télémétrie est soldée** (D743) — le seul reste : le calibrage
+des seuils SEQUITUR sur données réelles, aux cas d'usage (Q59, comme
+prévu par D319).

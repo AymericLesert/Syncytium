@@ -91,9 +91,10 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
-**La passe de complétude** (ouverte le 15/08) balaie **quatre sujets
-transversaux** avant d'ouvrir les domaines 5–6 (les cas d'usage, la
-documentation) :
+**La passe de complétude est SOLDÉE** (ouverte le 15/08, close le
+17/08 — D603–D743) : les quatre sujets transversaux sont clos, **les
+domaines 5–6 s'ouvrent** (les cas d'usage Q59, la documentation
+Q58) :
 
 1. **les connecteurs et les échanges** — **soldé** (D603–D672 : les
    sept contrats, le mapping entier — les deux maisons source/ et
@@ -107,12 +108,11 @@ documentation) :
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
    (D705–D708) ;
-3. **l'administration et l'exploitation** — les quatre points
-   couverts (administration.md D709, telemetry.md D735) : le module
-   d'administration (D710–D711), les comptes au quotidien
-   (D712–D723), l'exploitation courante (D724–D733), la jonction
-   télémétrie (D734 — Q12–Q13 closes depuis juin) ; **la clôture du
-   sujet attend la relecture de l'auteur** ;
+3. **l'administration et l'exploitation** — **soldé** (D709–D743 :
+   administration.md et telemetry.md) : le module d'administration
+   (D710–D711), les comptes au quotidien (D712–D723), l'exploitation
+   courante (D724–D733), la télémétrie relue point par point
+   (D734–D742) ;
 4. **la migration et les versions** — largement soldée : le mapping
    entier (D646–D672), la jonction journal↔gestes storage (D673–D674
    — le critère structurel, la procédure en quatre temps), le retour
@@ -869,6 +869,7 @@ documentation) :
 | D740 | **La calibration** (le point 4) : le global en paramètres dynamiques (D588) ; la surcharge à l'instance, au module, à l'entité et au champ **par la configuration statique** (D50 relu — versionnée) ; le plus proche l'emporte. | Voir §3.2c. |
 | D741 | **La jonction relue, le raccord 6 corrigé** (solde la relecture) : les raccords 3 et 5 confirmés ; la télémétrie entière au degré `administrator` (l'incohérence manager/module admin levée). | « Je valide le point 5. » Voir §3.2c. |
 | D742 | **La dépréciation portée par la version** (amende D13/D44/D340 — écarte sunset_warning) : jamais une date ni un calendrier — le déploiement d'une version déclenche la dépréciation ou l'intention de dépréciation (les trois temps D650 aux versions) ; l'alerte du canal 4 signale l'appel persistant d'une version dépréciée (l'état, pas l'échéance). | Voir §3.2c. |
+| D743 | **Les écritures validées — la passe soldée** : log.yml, mails:, les six paramètres de calibration validés ; la télémétrie soldée, le sujet 3 soldé, **la passe de complétude entière soldée (D603–D743)** — les domaines 5–6 s'ouvrent (Q59, Q58). | « Je valide. » Voir §3.2c et §1.2. |
 
 ---
 
@@ -6999,6 +7000,26 @@ levée par l'alignement : **la télémétrie entière est au degré
 `administrator`** — le manager voit les données métier par ses
 listes et widgets, jamais la télémétrie. **La relecture point par
 point est complète (les cinq points arbitrés — D736–D741).**
+
+**Les écritures validées — la télémétrie, le sujet 3 et la passe de
+complétude soldés (D743 — « je valide »).** Les écritures des
+exemples validées (le `log.yml` — le niveau, la sortie, la
+rétention, l'anonymisation ; les `mails:` — `highlights`,
+`telemetry` ; les six paramètres de calibration — `window`,
+`peak_zscore`, `peak_floor`, `crawl_ratio`, `crawl_floor`,
+`trend_r2`) — et les trois cercles se ferment :
+
+1. **la télémétrie est soldée** (D734–D742 — le seul reste : le
+   calibrage SEQUITUR sur données réelles, à Q59 comme prévu par
+   D319) ;
+2. **le sujet 3 (l'administration et l'exploitation) est soldé**
+   (D709–D743) ;
+3. **LA PASSE DE COMPLÉTUDE ENTIÈRE EST SOLDÉE** (D603–D743, ouverte
+   le 15/08) : les connecteurs et le mapping (sujet 1), la sécurité
+   et les droits (sujet 2), l'administration et l'exploitation
+   (sujet 3), la migration et les versions (sujet 4) — **les
+   domaines 5 et 6 s'ouvrent : les cas d'usage (Q59) et la
+   documentation (Q58).**
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15138,6 +15159,13 @@ avant la synthèse Q16).
   déploiement déclenche (l'intention ou l'acte, les trois temps D650
   aux versions) ; l'alerte du canal 4 relue (l'appel persistant
   d'une version dépréciée). telemetry.md mis au niveau.
+- **2026-08-17 (suite 25)** — **LA PASSE DE COMPLÉTUDE EST SOLDÉE
+  (D743)** : les écritures validées (log.yml, mails:, la
+  calibration), la télémétrie et le sujet 3 soldés — les quatre
+  sujets transversaux sont clos (D603–D743, 141 décisions en trois
+  jours de passe). Les domaines 5 et 6 s'ouvrent : les cas d'usage
+  (Q59) et la documentation (Q58). Le §1.2, telemetry.md et
+  administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

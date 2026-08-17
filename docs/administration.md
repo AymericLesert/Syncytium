@@ -401,7 +401,8 @@ D97). La détection SEQUITUR (D315–D319) nourrit le conseil.
 et les six raccords vivent dans **[telemetry.md](telemetry.md)**
 (D735, le dixième artefact).
 
-## Les points ouverts — le chantier du sujet 3
+## Les points ouverts
 
-Aucun point consigné — la clôture du sujet 3 (et de la passe de
-complétude) attend la relecture de l'auteur.
+**Le sujet 3 est soldé** (D743) — et avec lui la passe de complétude
+entière (D603–D743) : les domaines 5 et 6 s'ouvrent (les cas d'usage
+Q59, la documentation Q58).

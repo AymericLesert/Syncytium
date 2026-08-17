@@ -851,6 +851,12 @@ documentation) :
 | D723 | **Les mails du socle** (complète D720–D721) : l'invitation, la réinitialisation, la validation — des templates mail du socle (D562/D564, smtp D628, la langue de l'utilisateur) ; Syncytium les fournit par défaut, la configuration de l'application peut les redéfinir. | Voir §3.2c. |
 | D724 | **Le lien actif/passif** (précise D112–D114/D606) : le passif dormant ; trois modes — `brut` (la copie entière à intervalle, pas de failback), `differentiel` (la base au natif du moteur/de l'infra, Syncytium synchronise les fichiers — pas de failback), `synchronous` (les actions historisées, transmises, confirmées — le failback traité) ; la montée de version couverte par les trois. | L'écriture replication: en proposition. Voir §3.2c. |
 | D725 | **Le mode disabled** (complète D724) : le quatrième mode, le défaut — pas de passif, pas de synchronisation ; `replication: disabled \| brut \| differential \| synchronous`. | Voir §3.2c. |
+| D726 | **La réplication en configuration** : la déclaration dans environments/passive.yml — la forme courte (disabled) et la forme riche (mode: + every: ; synchronous sans every — le flux continu) ; les exemples gravés. | Voir §3.2c. |
+| D727 | **La sauvegarde** : duplicate_instance + les fichiers + la configuration, vers une destination précisée (un zip ou un espace de stockage) ; la rétention en jours — l'archive échue supprimée ; backup: en proposition. | Voir §3.2c. |
+| D728 | **La restauration — une image à sa propre vie** : l'adresse du point d'entrée fournie au geste, l'application restaurée devient une application comme les autres — le clonage assumé. | Voir §3.2c. |
+| D729 | **Les bibliothèques d'applications** : la sauvegarde en gabarit distribuable — le wizard d'initialisation (les paramètres clés, l'assistant des secrets enchaîné) **ou le storage sqlite natif** (l'application démarre seule) ; complète l'assistance d'installation. | Voir §3.2c. |
+| D730 | **La rotation des clés** : à chaque restauration (la naturalisation — la clé environnement+machine) et par la commande `syncytium rotate` (le patron de migrate, la progression suivie). | Voir §3.2c. |
+| D731 | **La santé** : les statuts, les files, les sessions, les connecteurs (ping) — en dashboard **et en API** (la supervision externe) ; l'état du passif intégré quand la réplication est active. | Voir §3.2c. |
 
 ---
 
@@ -6739,6 +6745,93 @@ synchronisation — la TPE qui s'en remet à ses sauvegardes (la
 proposition en cours) n'active rien ; l'écriture se complète :
 `replication: disabled | brut | differential | synchronous` (défaut
 `disabled`).
+
+**La réplication en configuration — les exemples par mode (D726).**
+**« Le mode de réplication se décline en configuration. »** — la
+déclaration dans `environments/passive.yml`, la forme courte pour le
+défaut, la forme riche au rythme :
+
+```yaml
+# environments/passive.yml — un mode par environnement passif
+replication: disabled                  # le défaut (D725) — pas de passif
+
+replication:
+  mode: brut                           # la copie entière (D724)
+  every: daily[02:00]                  # l'intervalle régulier (D434)
+
+replication:
+  mode: differential                   # la base au natif du moteur/de l'infra
+  every: 15min                         # les fichiers des entités + la configuration
+
+replication:
+  mode: synchronous                    # le journal d'actions au fil de l'eau
+                                       # (pas d'every: — le flux continu)
+```
+
+**La sauvegarde (D727 — arbitre la pièce 1).** **« La sauvegarde
+exploite la méthode duplicate_instance, recopie les fichiers et la
+configuration vers une destination précisée, dans un zip ou dans un
+espace de stockage. Nous conservons un historique sur un nombre de
+jours donné — au-delà de ce délai, les archives sont supprimées. »**
+— les trois matières (l'instance par `duplicate_instance` D680, les
+fichiers des entités, la configuration), **la destination
+précisée** — un zip ou un espace de stockage — et **la rétention en
+jours** (l'archive échue supprimée). *(L'écriture en proposition :*
+
+```yaml
+backup:
+  destination: zip:/backups/           # ou un connecteur de stockage
+  every: daily[01:00]
+  retention: 30d
+```
+
+*)*
+
+**La restauration — une image à sa propre vie (D728).** **« La
+restauration construira une image avec sa propre vie. Lors de la
+restauration, l'adresse du point d'entrée de l'application devra
+être fournie et l'application deviendra une application comme les
+autres. »** — la restauration ne remplace pas : elle **fait naître**
+— l'image restaurée vit sa propre vie (la nouvelle instance),
+**l'adresse du point d'entrée fournie au geste**, et l'application
+devient une application comme les autres — le clonage assumé (le
+staging depuis la production, la répétition d'une opération
+délicate, l'archive consultable).
+
+**Les bibliothèques d'applications (D729 — complète l'assistance
+d'installation).** **« La sauvegarde et la restauration peuvent être
+utilisées pour créer des bibliothèques d'applications, sous
+condition d'intégrer un wizard d'initialisation pour renseigner les
+paramètres clés de l'application (storage, …) ou de proposer un
+storage sqlite natif à l'application. Cela complète l'assistance
+d'installation sur la base des secrets. »** — la sauvegarde comme
+**gabarit distribuable** (le « Hello world ! » de D337 industrialisé,
+l'écosystème AGPL D68) : à la restauration d'une application de
+bibliothèque, **le wizard d'initialisation** demande les paramètres
+clés (le storage, les connecteurs — l'assistant des secrets D707/
+D708 enchaîné) — **ou le storage sqlite natif** épargne toute
+question : l'application démarre seule, la base embarquée.
+
+**La rotation des clés (D730 — arbitre la pièce 2).** **« La
+rotation des clés est déclenchée à chaque restauration ou via une
+commande comme tu le proposes. »** — les deux déclencheurs :
+**chaque restauration rote** (l'image nouvelle, la machine peut-être
+autre — la clé dérivée environnement + machine D603 l'impose de
+toute façon : la rotation est la naturalisation), et **la commande**
+`syncytium rotate` (le re-chiffrement du `.env` et des champs des
+types chiffrants — le patron de migrate, la progression suivie).
+
+**La santé — le dashboard et l'API (D731 — arbitre la pièce 4).**
+**« La santé intègre les statuts, les files, les sessions, … et les
+connecteurs. La santé est disponible sous un dashboard ou sur une
+API. Si présence d'un passif/actif, le dashboard intègre également
+l'état de santé du passif. »** — la vue d'office du module
+d'administration : les statuts, les files d'attente (D686), les
+sessions actives, **les connecteurs** (le `ping()` D621) — servie
+**en dashboard et en API** (la supervision externe — le Zabbix de la
+TPE interroge l'API) ; **l'état de santé du passif intégré** quand
+la réplication est active (D724) — le retard, le dernier passage,
+l'alerte au seuil.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14812,6 +14905,16 @@ avant la synthèse Q16).
   mis au niveau.
 - **2026-08-17 (suite 11)** — **Le mode disabled (D725)** : le
   quatrième mode, le défaut — pas de passif ; l'écriture complétée.
+- **2026-08-17 (suite 12)** — **L'exploitation courante soldée
+  (D726–D731)** : la réplication en configuration (les exemples par
+  mode), la sauvegarde (duplicate_instance + fichiers +
+  configuration, zip ou espace de stockage, la rétention en jours),
+  la restauration en image à sa propre vie (l'adresse du point
+  d'entrée, une application comme les autres), les bibliothèques
+  d'applications (le wizard d'initialisation ou le sqlite natif), la
+  rotation des clés (à chaque restauration + la commande), la santé
+  (dashboard et API, le passif intégré). administration.md mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -261,6 +261,71 @@ copie l'emporte (brut), les fichiers de configuration la portent
 (synchronous). La bascule reste un acte d'exploitation ; le retard
 de synchronisation se surveille (l'alerte D626 au-delà d'un seuil).
 
+**La déclaration** (D726) — dans `environments/passive.yml` :
+
+```yaml
+replication: disabled                  # le défaut (D725) — pas de passif
+
+replication:
+  mode: brut                           # la copie entière (D724)
+  every: daily[02:00]
+
+replication:
+  mode: differential                   # la base au natif ; les fichiers par Syncytium
+  every: 15min
+
+replication:
+  mode: synchronous                    # le journal d'actions — le flux continu
+```
+
+### La sauvegarde et la restauration (D727–D729)
+
+- **la sauvegarde** (D727) : `duplicate_instance` (D680) + les
+  fichiers des entités + la configuration, **vers une destination
+  précisée** — un zip ou un espace de stockage ; **la rétention en
+  jours** (l'archive échue supprimée) :
+
+```yaml
+backup:
+  destination: zip:/backups/           # ou un connecteur de stockage
+  every: daily[01:00]
+  retention: 30d
+```
+
+- **la restauration** (D728) : **une image à sa propre vie** —
+  l'adresse du point d'entrée fournie au geste, l'application
+  restaurée devient une application comme les autres (le clonage
+  assumé : le staging depuis la production, l'archive consultable) ;
+- **les bibliothèques d'applications** (D729) : la sauvegarde en
+  **gabarit distribuable** (le « Hello world ! » D337 industrialisé,
+  l'écosystème AGPL) — à la restauration, **le wizard
+  d'initialisation** demande les paramètres clés (le storage, les
+  connecteurs — l'assistant des secrets D707/D708 enchaîné), **ou le
+  storage sqlite natif** épargne toute question : l'application
+  démarre seule.
+
+### La rotation des clés (D730)
+
+Deux déclencheurs : **chaque restauration** (l'image nouvelle, la
+machine peut-être autre — la clé environnement + machine D603 impose
+la naturalisation) et **la commande** :
+
+```bash
+syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
+```
+
+— le re-chiffrement en masse au patron de `migrate` (la transaction,
+la progression suivie), l'acte tracé.
+
+### La santé (D731)
+
+La vue d'office du module d'administration : **les statuts, les
+files d'attente (D686), les sessions actives, les connecteurs** (le
+`ping()` D621 — le feu tricolore) — disponible **en dashboard et en
+API** (la supervision externe interroge l'API) ; **l'état de santé
+du passif intégré** quand la réplication est active (le retard, le
+dernier passage, l'alerte au seuil — D626).
+
 ### Les journaux (D343)
 
 Par environnement : le staging en **debug/verbose**, la production
@@ -312,10 +377,6 @@ restent à clore** — le sujet 3 les portera.
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **l'exploitation courante** — la sauvegarde (au-delà de la
-   restauration D174), **la rotation des clés** (le flag D707),
-   l'automatisation d'`encrypt` (le flag D708), la santé de
-   l'instance en une vue ;
-2. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
+1. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
    (des entités du module d'administration ?), qui la voit, le lien
    au volet conseil (P9).

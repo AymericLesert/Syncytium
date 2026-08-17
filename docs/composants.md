@@ -1834,7 +1834,8 @@ forms:
    d'état du graphe (D425–D427, l'opération du catalogue par défaut —
    D433) ;
 4. **Contexte consommé** — l'opération : sa garde (`if` — D430), ses
-   droits (D196), son `validate:` (D431) ; **la pile des contextes**
+   droits (D196), son `commit:` (D431/D596) ; **la pile des
+   contextes**
    (D553) — « l'ensemble des contextes qui se sont empilés jusqu'à
    l'usage de l'opération » : le périmètre de la liste,
    l'enregistrement du formulaire, le transitoire du wizard —
@@ -1844,11 +1845,11 @@ forms:
    chiffrées ;
 5. **Propriétés** — la surcharge de la présentation : `label:`,
    `icon:`, `style:` (le verbe du catalogue en défaut) ;
-   **`validate:`** — `true` (défaut — la relecture D431) ou **le
-   message au gabarit nourri de la pré-exécution** (D511 — *écriture
-   en proposition :* `validate: { message: { fr: "{invoices}
-   factures seront créées" } }`, les variables = les résultats nommés
-   de la pré-exécution) ;
+   **`commit:`** — `confirm` (défaut — la relecture D431/D596) ou
+   `auto` (la validation automatique) ; **le message au gabarit
+   nourri de la transaction active** (D511/D594 — *la forme riche en
+   proposition :* `commit: { mode: confirm, message: { fr:
+   "{invoices} factures seront créées" } }`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **l'habitat fait le visage** : le
    formulaire → **le bouton** ; la colonne de liste → **l'icône à
@@ -1872,8 +1873,9 @@ forms:
 # sales/entities/order.yml
 operations:
   invoice:
-    validate:
-      message: { fr: "{invoices} factures seront créées" }  # le gabarit — la pré-exécution nourrit (D511)
+    commit:
+      mode: confirm
+      message: { fr: "{invoices} factures seront créées" }  # le gabarit — la transaction nourrit (D511/D596)
     effects:
       - function: create_invoices
 
@@ -2440,7 +2442,7 @@ lists:
    **la première déclarée est le formulaire par défaut** (D438) ;
    adressé par le menu (`[+form]` — D439), appelé par la liste
    (`add:`/`update:`/`delete:` — D530), par une opération (la
-   relecture `validate:` — D431/D511) ;
+   relecture `commit: confirm` — D431/D596) ;
 2. **Rôle** — l'enregistrement en face à face : **le formulaire
    unique aux cinq usages** — la création, la modification, la
    suppression, la consultation, la visualisation d'un historique
@@ -2705,7 +2707,7 @@ wizards:
       - step:
           title: { fr: Lignes }
           items: [ field[lines] ]
-    validate: true                 # la relecture, puis la transaction finale (D232/D431)
+    commit: confirm                # la relecture, puis la transaction scellée (D232/D596)
 
 # catering/entities/menu.yml — l'impression guidée (D546)
 wizards:

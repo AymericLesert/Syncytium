@@ -52,7 +52,33 @@ le même numéro, jamais de trou. Il peut être réinitialisé sous condition. M
 donnée : `public` (partout), `protected` (l'interface et les tâches),
 `private` (les tâches seulement) — resserrable par groupes. *(D25)*
 
-**Connecteur** — Une passerelle entre Syncytium et un système tiers. Le connecteur peut être utilisé dans les 2 sens : en lecture/écriture selon les spécificités techniques implémentées. *(D79)*
+**Connecteur** (`environments/<env>.yml`) — Une passerelle entre
+Syncytium et un système tiers : une base de données, un annuaire, des
+fichiers, un géocodeur, un serveur de mail… Le connecteur décrit ses
+entrants et ses sortants — la lecture et l'écriture selon les
+spécificités de sa famille. Il est **global** (aucune déclinaison par
+module ni entité) et **déclaré à l'environnement** : chaque
+environnement les siens, la complétude vérifiée à l'ingestion. **Son
+type est sa famille — et son contrat** : huit familles closes
+(`storage`, `smtp`, `file`, `directory`, `location`, `webhook`,
+`siren`, `authentication`) dont chacune contraint les méthodes ; sa **classe**
+(`postgresql`, `ban`, `smtp_std`…) remplit le contrat. Toute classe
+implémente le socle commun : `initialize`/`release`,
+`connect`/`disconnect`, `ping()` (le statut, la fréquence à
+`every:`), `onerror` (le mock ou la page de maintenance),
+`describe()` (la documentation de l'instance). Ses propriétés le
+paramètrent (pas de contexte — il naît au démarrage du projet) ; ses
+secrets référencent des variables d'environnement (chiffrables) ; le
+câblage `connector: { storage: main_db, from: legacy_db }` nomme les
+rôles à la racine (optionnel au simple : le nom = le type) ; `when:
+<connecteur>[.<entrée>]` abonne une opération à ses événements.
+L'application ne démarre que si le mail à l'administrateur est
+possible — le canal d'alerte avant tout. Le stockage des entités est
+lui-même un connecteur — et Syncytium sait convertir ou transférer
+d'un connecteur à l'autre. *(D79, D603–D642)*
+
+Exemple : `location: { class: ban, parameters: { url: … },
+secrets: [api_key] }`.
 
 **Crochet** (`type[paramètre]`) — La convention d'écriture qui glisse
 un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
@@ -99,7 +125,10 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
-*Ex. : `managers: { groups: [accounting, sales_team] }`.* *(D26/D414)*
+Le groupe porte **le degré d'autorisation** (`degree:` — `user`,
+`manager` ou `administrator`, D699) ; l'appartenance à un groupe est
+**obligatoire** pour utiliser l'application.
+*Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 
 **Historisation** (`history`) — La mémoire d'une entité : chaque
 modification photographie l'agrégat entier. On en règle la profondeur :

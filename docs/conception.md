@@ -850,6 +850,7 @@ documentation) :
 | D722 | **La fusion** : l'opération de l'administrateur — le survivant désigné, l'autre désactivé (jamais supprimé) ; **la perte éventuelle des historiques du compte désactivé est assumée** — pas de re-parentage rétroactif. | Solde les comptes au quotidien. Voir §3.2c. |
 | D723 | **Les mails du socle** (complète D720–D721) : l'invitation, la réinitialisation, la validation — des templates mail du socle (D562/D564, smtp D628, la langue de l'utilisateur) ; Syncytium les fournit par défaut, la configuration de l'application peut les redéfinir. | Voir §3.2c. |
 | D724 | **Le lien actif/passif** (précise D112–D114/D606) : le passif dormant ; trois modes — `brut` (la copie entière à intervalle, pas de failback), `differentiel` (la base au natif du moteur/de l'infra, Syncytium synchronise les fichiers — pas de failback), `synchronous` (les actions historisées, transmises, confirmées — le failback traité) ; la montée de version couverte par les trois. | L'écriture replication: en proposition. Voir §3.2c. |
+| D725 | **Le mode disabled** (complète D724) : le quatrième mode, le défaut — pas de passif, pas de synchronisation ; `replication: disabled \| brut \| differential \| synchronous`. | Voir §3.2c. |
 
 ---
 
@@ -6730,6 +6731,14 @@ les fichiers de configuration la portent (differentiel), l'action de
 migration s'expédie comme les autres (synchronous). *(L'écriture en
 proposition :* `replication: brut | differential | synchronous` *+
 le rythme à* `every:` *dans* `environments/passive.yml`*.)*
+
+**Le mode disabled (D725 — complète D724).** **« Il y a un mode
+`disabled` pour ne pas activer le mode actif/passif, bien sûr. »** —
+le quatrième mode, **le défaut** : pas de passif, pas de
+synchronisation — la TPE qui s'en remet à ses sauvegardes (la
+proposition en cours) n'active rien ; l'écriture se complète :
+`replication: disabled | brut | differential | synchronous` (défaut
+`disabled`).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14801,6 +14810,8 @@ avant la synthèse Q16).
   (les actions historisées-transmises-confirmées — le seul failback)
   ; la montée de version couverte par les trois. administration.md
   mis au niveau.
+- **2026-08-17 (suite 11)** — **Le mode disabled (D725)** : le
+  quatrième mode, le défaut — pas de passif ; l'écriture complétée.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

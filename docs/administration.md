@@ -250,6 +250,7 @@ en proposition, dans `environments/passive.yml`) :
 
 | le mode | la mécanique | le failback |
 |---|---|---|
+| `disabled` | **le défaut** — pas de passif, pas de synchronisation (D725) | — |
 | `brut` | **la copie de l'instance à intervalle régulier** — les fichiers des entités, les fichiers de configuration et la base | non |
 | `differentiel` | **la base au natif du moteur ou de l'infrastructure** (Syncytium ne gère pas la base) ; Syncytium synchronise **les fichiers des entités et de configuration** | non |
 | `synchronous` | **les actions historisées, transmises au passif, l'exécution confirmée supprime l'action en attente** (le patron de la file — D686) | **oui** — les actions du passif pendant l'incident reprennent le même chemin |

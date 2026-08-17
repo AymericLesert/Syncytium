@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -107,11 +107,12 @@ documentation) :
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
    (D705–D708) ;
-3. **l'administration et l'exploitation** — **ouvert**
-   (administration.md — D709) : l'acquis consolidé ; les quatre
-   points au chantier — le module d'administration, les comptes au
-   quotidien, l'exploitation courante (la rotation des clés,
-   l'automatisation d'encrypt), la télémétrie (Q12–Q13) ;
+3. **l'administration et l'exploitation** — les quatre points
+   couverts (administration.md D709, telemetry.md D735) : le module
+   d'administration (D710–D711), les comptes au quotidien
+   (D712–D723), l'exploitation courante (D724–D733), la jonction
+   télémétrie (D734 — Q12–Q13 closes depuis juin) ; **la clôture du
+   sujet attend la relecture de l'auteur** ;
 4. **la migration et les versions** — largement soldée : le mapping
    entier (D646–D672), la jonction journal↔gestes storage (D673–D674
    — le critère structurel, la procédure en quatre temps), le retour
@@ -859,6 +860,8 @@ documentation) :
 | D731 | **La santé** : les statuts, les files, les sessions, les connecteurs (ping) — en dashboard **et en API** (la supervision externe) ; l'état du passif intégré quand la réplication est active. | Voir §3.2c. |
 | D732 | **La santé en temps réel** (précise D731) : pas de période de rafraîchissement — l'état pousse (refresh: live D249/D555) ; l'every: du ping rythme la mesure, jamais l'affichage. | Voir §3.2c. |
 | D733 | **Le mail des faits marquants** (complète D731–D732) : le résumé d'exploitation au technicien — les utilisateurs connectés, les erreurs/warnings, les changements d'état de santé (liste ouverte) — au rythme choisi (l'every: calendaire) ; le template mail du socle surchargeable, l'évolution lue dans l'historique de l'état. | Voir §3.2c. |
+| D734 | **La jonction télémétrie** (solde le point du sujet 3) : Q12–Q13 closes depuis juin (vérifié) — les six raccords validés : la maison au module d'administration, la synthèse au patron D733, la sécurité sur l'audit D702–D704, la calibration en settings dynamiques, la rétention au patron RGPD, les degrés (usages=manager, sécurité=administrator). | Voir §3.2c. |
+| D735 | **`telemetry.md` créé** : le dixième artefact préparatoire (Q58) — les trois finalités, la collecte, les cinq canaux, le conseil/SEQUITUR, les seuils/calibration, la jonction ; aucun contenu nouveau. | Le calibrage SEQUITUR attend Q59 (D319). |
 
 ---
 
@@ -6857,6 +6860,35 @@ choisi** (une fois par jour ou à convenance — l'`every:` calendaire
 D434). La mécanique n'invente rien : le template mail du socle
 (D723/D562 — surchargeable en configuration), l'envoi par le smtp
 (D628), l'évolution lue dans l'historique de l'état.
+
+**La jonction télémétrie — les six raccords (D734 — solde le point
+du sujet 3).** Le croisement du registre a montré que **Q12–Q13 sont
+closes depuis juin** (Q12 par D38–D41, Q13 par D43–D44 — les cinq
+canaux) ; le travail restant était la jonction avec le socle récent,
+validée (« à consigner dans telemetry.md ») :
+
+1. **la maison** — la télémétrie stockée (D39/D41a) vit dans des
+   entités du module d'administration (D666/D704) ; le tableau de
+   bord des usages (D38) est une entrée de son menu, aux côtés de la
+   santé (D731) ;
+2. **la synthèse périodique** rejoint le patron du mail des faits
+   marquants (D733) — le template surchargeable, l'every:
+   calendaire, le smtp ;
+3. **l'analyse de sécurité** s'assoit aussi sur l'audit des lectures
+   (D702–D704) et les échecs d'authentification tracés (D720) — les
+   refus que D43 demandait de journaliser ont leur mécanique ;
+4. **la calibration** (D97) en settings dynamiques (D588),
+   surchargés au module d'administration ;
+5. **la rétention et l'anonymisation des traces** (D41b) au patron
+   RGPD (D695–D698) et au trace: limited (D703) ;
+6. **qui voit** — les usages au degré manager, la sécurité et les
+   traces au degré administrator (D699/D701).
+
+**telemetry.md créé (D735)** — le dixième artefact préparatoire
+(Q58) : les trois finalités, la collecte (Q12), les cinq canaux
+(Q13), le volet conseil et SEQUITUR, les seuils et la calibration,
+la jonction ; le seul point en attente — le calibrage des seuils
+SEQUITUR sur données réelles (Q59, comme prévu par D319).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14953,6 +14985,13 @@ avant la synthèse Q16).
   soldé (D709–D733) », 14 commits sur develop (créée par la relance
   automatique pendant la panne GitHub). Reste la télémétrie
   (Q12–Q13) — le dernier point de la passe de complétude.
+- **2026-08-17 (suite 16)** — **La jonction télémétrie et
+  telemetry.md (D734–D735)** : Q12–Q13 vérifiées closes depuis juin
+  (le report de tête corrigé dans administration.md) ; les six
+  raccords validés et consignés au dixième artefact. **Le point
+  télémétrie est soldé — la clôture du sujet 3 et de la passe de
+  complétude attend la relecture de l'auteur.** Le §1.2 mis au
+  niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

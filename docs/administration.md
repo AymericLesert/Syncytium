@@ -390,15 +390,11 @@ l'alerte d'échéance (rare — le Sunset d'API), l'analyse de sécurité
 (D43 — les refus journalisés, les seuils D50–D51, la calibration
 D97). La détection SEQUITUR (D315–D319) nourrit le conseil.
 
-**Le travail du sujet 3 : la jonction** avec l'acquis récent — voir
-les points ouverts.
+**La jonction avec l'acquis récent est validée** (D734) — le détail
+et les six raccords vivent dans **[telemetry.md](telemetry.md)**
+(D735, le dixième artefact).
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **la jonction télémétrie** — raccorder l'acquis de juin
-   (D38–D51) au socle récent : la maison (les entités du module
-   d'administration ? l'entrée au menu ?), la synthèse périodique et
-   le patron du mail des faits marquants (D733), l'analyse de
-   sécurité et l'audit (D702–D704), la calibration en settings
-   dynamiques (D97→D588), la rétention des traces au patron RGPD
-   (D695–D698), le degré qui voit (D699).
+Aucun point consigné — la clôture du sujet 3 (et de la passe de
+complétude) attend la relecture de l'auteur.

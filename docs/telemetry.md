@@ -52,8 +52,8 @@ La forme suit la finalité ; les canaux sont complémentaires :
 |---|---|---|
 | **le tableau de bord** (D38) | *pull*, l'exploration | les usages — la diversité, les compteurs, les tendances |
 | **le rapport de dry-run** | contextuel, à la migration | le risque — injecté là où la décision se prend, pas de tableau propre |
-| **la synthèse périodique** | *push*, basse fréquence | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) |
-| **l'alerte d'échéance** | *push*, événementiel, **rare** | la version d'API dépréciée encore appelée près du `Sunset` (D12/D40) |
+| **la synthèse périodique** | *push*, basse fréquence — le patron du mail des faits marquants (D733/D738) | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) ; les destinataires au degré `administrator` |
+| **l'alerte d'échéance** | *push*, événementiel, **rare** — le même patron (D738) | la version d'API dépréciée encore appelée près du `Sunset` (D12/D40) ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
 | **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`log.yml` par environnement — D342/D343), hors IHM |
 
@@ -94,9 +94,10 @@ raccords validés :
    entités du module d'administration** (le patron D666/D704) ; le
    tableau de bord des usages est une entrée de son menu — **le
    dashboard « telemetry »** (D736) — aux côtés de la santé (D731) ;
-2. **la synthèse périodique** rejoint **le patron du mail des faits
-   marquants** (D733) : le template surchargeable (D723), l'`every:`
-   calendaire, le smtp — deux mails frères ;
+2. **la synthèse périodique et l'alerte d'échéance** rejoignent **le
+   patron du mail des faits marquants** (D733/D738) : le template
+   surchargeable (D723), l'`every:` à convenance, le smtp — **les
+   destinataires limités au degré `administrator`** ;
 3. **l'analyse de sécurité** s'assoit aussi sur **l'audit des
    lectures** (D702–D704) et les échecs d'authentification tracés
    (D720) — les refus que D43 demandait de journaliser ont leur

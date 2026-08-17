@@ -864,6 +864,7 @@ documentation) :
 | D735 | **`telemetry.md` créé** : le dixième artefact préparatoire (Q58) — les trois finalités, la collecte, les cinq canaux, le conseil/SEQUITUR, les seuils/calibration, la jonction ; aucun contenu nouveau. | Le calibrage SEQUITUR attend Q59 (D319). |
 | D736 | **Le dashboard telemetry** (précise D38/D734) : la collecte par champ déclenchable à la demande depuis le dashboard d'administration nommé « telemetry » — l'entrée télémétrie du module d'administration nommée ; l'évaluation à la volée, rien ne se stocke. | La relecture point par point de la télémétrie — point 1 arbitré. Voir §3.2c. |
 | D737 | **Le sixième canal — le journal** (complète D44) : centralise tout, aux six niveaux verbose/debug/info/warning/error/exception — la configuration en dur (log.yml, par environnement D342–D343), jamais dynamique ; consultable par le technicien seul, en cas de besoin — hors IHM. | Le substrat des cinq autres canaux. Voir §3.2c. |
+| D738 | **Les push au patron D733** (solde le point 2) : la synthèse périodique et l'alerte d'échéance — le template surchargeable, l'every: à convenance, le smtp ; **les destinataires limités au degré administrator**. | Voir §3.2c. |
 
 ---
 
@@ -6922,6 +6923,15 @@ d'en-dessous, celui qui porte les cinq autres :
 - **la consultation : le technicien seul, en cas de besoin** — pas
   une surface du module d'administration : le journal se lit au
   fichier ou au puits (D343), hors IHM.
+
+**Les push au patron du mail des faits marquants (D738 — solde le
+point 2).** **« La synthèse périodique et l'alerte suivent le patron
+du mail des faits marquants (mais limité au degré
+administrator). »** — les deux canaux push empruntent la mécanique
+de D733 : le template du socle surchargeable (D723), l'`every:` à
+convenance, l'envoi par le smtp (D628) — et **les destinataires sont
+limités au degré `administrator`** (D699) : les usages, le conseil
+et les échéances parlent à qui administre, jamais plus bas.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15034,6 +15044,10 @@ avant la synthèse Q16).
   (D737)** : centralise tout aux six niveaux (verbose→exception), la
   configuration en dur (log.yml), le technicien seul — hors IHM ; le
   substrat des cinq autres canaux. telemetry.md mis au niveau.
+- **2026-08-17 (suite 19)** — **Les push au patron D733 (D738)** :
+  la synthèse et l'alerte d'échéance au patron du mail des faits
+  marquants, les destinataires au degré administrator. Le point 2
+  (les canaux) est soldé — six canaux.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -28,6 +28,25 @@ de complétude).
   alertes et les rapports naissent du modèle — rien ne s'ajoute
   après coup.
 
+## Le module d'administration (D710)
+
+**Un seul module, au degré minimal `administrator`** — le premier
+module à plancher : l'affectation ne suffit pas, le degré du groupe
+(D699) est exigé — la double garde. **Les entrées sont un menu
+construit et maintenu dans Syncytium** :
+
+- les settings (la surcharge des dynamiques — D588) ;
+- la gestion des comptes (D77/D82/D341) ;
+- les sessions (D693) ;
+- l'audit (D704) ;
+- … (la liste reste ouverte — elle s'enrichit avec le socle).
+
+**Le module exploite les différentes facettes de Syncytium** — le
+module (D416), les entités, les menus (D193/D440), les composants
+graphiques (D437–D569) : l'administration n'a rien de spécial, elle
+est une application Syncytium (le patron D666 généralisé). *(Le
+module `migration` — D666 — demeure distinct.)*
+
 ## Les actes d'administration consignés
 
 ### Les comptes et les affectations
@@ -144,17 +163,13 @@ restent à clore** — le sujet 3 les portera.
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **la nature et le périmètre du module d'administration** — un
-   module porté par Syncytium : l'inventaire de ses entités et de
-   ses surfaces, sa place dans les menus, son rapport au module
-   `migration` (D666) ;
-2. **les comptes au quotidien** — la création du compte local, le
+1. **les comptes au quotidien** — la création du compte local, le
    cycle de vie (l'invitation ? le mot de passe oublié ? le
    verrouillage ?), la re-liaison D82 en pratique ;
-3. **l'exploitation courante** — la sauvegarde (au-delà de la
+2. **l'exploitation courante** — la sauvegarde (au-delà de la
    restauration D174), **la rotation des clés** (le flag D707),
    l'automatisation d'`encrypt` (le flag D708), la santé de
    l'instance en une vue ;
-4. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
+3. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
    (des entités du module d'administration ?), qui la voit, le lien
    au volet conseil (P9).

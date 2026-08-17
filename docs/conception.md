@@ -835,6 +835,7 @@ documentation) :
 | D707 | **Les clés obligatoirement chiffrées** (durcit D603 — solde le chiffrement) : les variables d'environnement (.env) jamais versionnées ; les commandes Syncytium chiffrent avant l'enregistrement (l'automatisation flaguée) ; le déchiffrement à l'usage ; le périmètre — les clés d'API, les mots de passe de connecteurs, les clés des types chiffrants (D706). | Voir §3.2c. |
 | D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
 | D709 | **`administration.md` créé** : le neuvième artefact préparatoire (Q58) — les actes d'administration et l'exploitation consolidés (les comptes/affectations, les sessions, les settings dynamiques, l'audit, le suivi des migrations, les opérations aux planchers, les environnements/journaux/supervision/secrets/versions, l'acquis télémétrie P9) + les quatre points du chantier du sujet 3 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des artefacts. |
+| D710 | **Le module d'administration** (le point 1 du sujet 3) : un seul module au **degré minimal administrator** (la double garde — l'affectation + le degré) ; les entrées (settings, comptes, sessions, audit, …) = un menu construit et maintenu dans Syncytium ; le module exploite les facettes de Syncytium (module, entités, menus, composants). | Le module migration (D666) demeure distinct (lecture notée). Voir §3.2c. |
 
 ---
 
@@ -6445,6 +6446,32 @@ prennent forme :
 clé dérivée environnement + machine (D603) fait que le `.env` copié
 ailleurs reste muet ; le decrypt n'est utile qu'à qui a déjà la
 machine.)* **« Ces 2 commandes complètent la partie sécurité. »**
+
+**Le module d'administration — un seul module au degré administrator
+(D710 — ouvre le point 1 du sujet 3).** **« Le module
+d'administration est un seul module dont le degré minimal est
+administrator : les settings, la gestion des comptes, les sessions,
+l'audit, … Ces entrées sont des entrées d'un menu construit et
+maintenu dans Syncytium. Le module administration exploite les
+différentes facettes de Syncytium (le module, les entités, les
+menus, les composants graphiques, …). »** — les arbitrages :
+
+- **un seul module** — pas une constellation : les settings, la
+  gestion des comptes, les sessions, l'audit… sous un même toit (la
+  liste reste ouverte — le « … » de l'auteur) ; *(la lecture notée :
+  le module `migration` D666 demeure distinct — il n'entre pas dans
+  l'énumération)* ;
+- **le degré minimal `administrator`** — le premier module à
+  plancher : l'affectation ne suffit pas, le degré du groupe est
+  exigé (D699) — la double garde ;
+- **le menu construit et maintenu dans Syncytium** — les entrées
+  vivent avec le moteur (l'évolution du socle enrichit le menu sans
+  toucher aux applications) ;
+- **le dogfooding complet** : le module exploite les facettes de
+  Syncytium — le module (D416), les entités, les menus (D193/D440),
+  les composants graphiques (D437–D569) — le patron D666 confirmé et
+  généralisé : l'administration n'a rien de spécial, elle est une
+  application Syncytium.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14465,6 +14492,12 @@ avant la synthèse Q16).
   points du chantier (le module d'administration, les comptes au
   quotidien, l'exploitation courante, la télémétrie Q12–Q13). Le
   §1.2 mis au niveau.
+- **2026-08-17 (suite 3)** — **Le module d'administration (D710)** :
+  un seul module au degré minimal administrator, les entrées en menu
+  construit et maintenu dans Syncytium (settings, comptes, sessions,
+  audit, …), le dogfooding complet des facettes ; le module
+  migration demeure distinct (lecture notée). administration.md mis
+  au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

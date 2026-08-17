@@ -71,6 +71,23 @@ est une application Syncytium (le patron D666 généralisé).
 Les familles `authentication` (D692) et `directory` (D633)
 **coopèrent** — comme `file` et `storage` (D636) : l'une authentifie,
 l'autre fournit la lecture des groupes et des utilisateurs.
+**Keycloak** entre comme une classe de la famille `authentication`
+(D716 — le visage concret du volet SSO) ; **le groupe
+`administrator` peut être associé à un groupe du directory** (D717 —
+la double entrée demeure : la désignation individuelle reste l'acte
+local).
+
+### Le mode safe (D718)
+
+**La porte de secours** — quand l'annuaire est injoignable, le SSO
+cassé ou les droits verrouillés par erreur : **un mode d'exécution
+au lancement** de l'application (jamais atteignable depuis
+l'application vivante) — **le module administration seul** (aucune
+donnée métier servie), l'accès par **le compte administrateur
+principal** et **le mot de passe fixé à l'installation** (le patron
+des secrets D707 — hors annuaire, hors configuration versionnée) ;
+le mode safe est **tracé** (l'audit D704) — la porte de secours
+n'est jamais une porte dérobée.
 
 ### Les opérations dédiées et la délégation (D714–D715)
 

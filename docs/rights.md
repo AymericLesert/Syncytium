@@ -107,6 +107,9 @@ d'action — on contrôle qui appuie, pas ce que l'acte écrit.
   **et** la désignation individuelle de l'utilisateur ;
 - **la délégation** (D715) : agir à la place d'un utilisateur — les
   droits de l'emprunté, la trace aux deux comptes ;
+- **le mode safe** (D718) : le lancement dédié — le module
+  administration seul, le compte administrateur principal au mot de
+  passe d'installation ; tracé, jamais une porte dérobée ;
 - **le module restreint** (D190/D416) : l'affectation
   utilisateur↔module ouvre une surface — elle n'étend jamais un
   droit.
@@ -147,6 +150,8 @@ clé d'unicité (D82). **Les quatre volets à porter** :
 3. **`sso`** — la délégation : la redirection OIDC, le ticket au
    retour, la signature du jeton validée — l'utilisateur ne confie
    jamais son secret à Syncytium ;
+   *(`keycloak` — D716 — en est le visage concret : l'IdP OIDC open
+   source, une classe aux côtés de `sso`.)*
 4. **l'API** — la preuve au porteur : la clé d'API ou le bearer dans
    chaque requête (le 401 en défi), le compte technique (D77), pas
    de session ; **la garde du webhook (D642) appelle le même

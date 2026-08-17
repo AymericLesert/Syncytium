@@ -841,6 +841,9 @@ documentation) :
 | D713 | **La synchronisation selon le mode** : local = manuel par l'administrateur ; azure_ad = le groupe Syncytium associé à des groupes AD (la classe d'authentification récupère par le contrat directory D633), les comptes synchronisés en lecture seule ; sso = idem sans la gestion du mot de passe. | Les familles authentication et directory coopèrent. Voir §3.2c. |
 | D714 | **Les opérations dédiées du module** : `renew` (le changement forcé du mot de passe), `ban` (le bannissement sans suppression) — la liste ouverte. | Voir §3.2c. |
 | D715 | **La délégation** : agir à la place d'un utilisateur — les droits joués sont ceux de l'emprunté, **chaque trace porte les deux comptes** (l'utilisateur et le délégant). | Voir §3.2c. |
+| D716 | **Keycloak** (enrichit D692) : une classe de la famille authentication aux côtés de local/azure_ad/sso — le visage concret du volet SSO (l'IdP OIDC open source) ; le contrat en deux gestes le couvre sans changement. | La lecture famille→classe (D613/D619). Voir §3.2c. |
+| D717 | **Le groupe administrator associable au directory** (complète D712/D713) : la synchronisation vaut pour le groupe d'office — la double entrée demeure (la désignation individuelle reste l'acte local). | Voir §3.2c. |
+| D718 | **Le mode safe** : un mode d'exécution au lancement — le module administration seul, le compte administrateur principal et le mot de passe fixé à l'installation ; le filet quand l'annuaire/SSO/les droits sont morts ; tracé (jamais une porte dérobée). | Voir §3.2c. |
 
 ---
 
@@ -6554,6 +6557,44 @@ autorisé) agit **à la place** d'un utilisateur — les droits joués
 sont ceux de l'utilisateur emprunté, et **chaque trace porte les
 deux comptes** (le compte de l'utilisateur et le compte de
 délégation — l'audit D62/D704 ne perd jamais l'acteur réel).
+
+**Keycloak (D716 — enrichit D692).** **« Nous pourrions ajouter une
+famille de connecteurs keycloak (qui joue le jeu du SSO). »** — la
+lecture consignée dans notre vocabulaire (D613/D619 — le type est la
+famille, la classe le remplit) : **`keycloak` entre comme une classe
+de la famille `authentication`**, aux côtés de `local`, `azure_ad`
+et `sso` — le visage concret du volet SSO (Keycloak, l'IdP OIDC open
+source — l'affinité AGPL naturelle) ; le contrat en deux gestes
+(D692) le couvre sans changement.
+
+**Le groupe administrator associable au directory (D717 — complète
+D712/D713).** **« Le groupe administrator peut être associé à un
+groupe de directory. »** — l'association de D713 vaut aussi pour le
+groupe fourni d'office : les administrateurs peuvent se synchroniser
+depuis l'annuaire — **la double entrée demeure** (D712) : le groupe
+synchronisé apporte l'appartenance, la désignation individuelle
+reste l'acte local.
+
+**Le mode safe — la porte de secours (D718).** **« Nous devons
+garder une porte d'accès par un compte administrateur safe,
+accessible sous condition comme un lancement de l'application en
+mode safe. Le mode safe est un mode d'exécution permettant l'accès à
+l'application uniquement au module administration, avec le compte
+administrateur principal et le mot de passe que nous avons fixé à
+l'installation de l'application. »** — le filet quand tout le reste
+est mort (l'annuaire injoignable, le SSO cassé, les droits
+verrouillés par erreur) :
+
+- **un mode d'exécution** — le lancement de l'application en mode
+  safe (jamais un état atteignable depuis l'application vivante) ;
+- **le périmètre : le module administration seul** — aucune donnée
+  métier servie ;
+- **l'accès : le compte administrateur principal** et **le mot de
+  passe fixé à l'installation** de l'application (le patron des
+  secrets D707 — hors annuaire, hors configuration versionnée) ;
+- *(la lecture notée : le mode safe est tracé — l'audit D704
+  enregistre le lancement et les actes, la porte de secours n'est
+  jamais une porte dérobée).*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14595,6 +14636,13 @@ avant la synthèse Q16).
   de décision « hook de directory » distincte, les classes des
   familles sont les hooks (D619) ; la coopération
   authentication↔directory désormais consignée (D713).
+- **2026-08-17 (suite 6)** — **Keycloak, l'administrateur au
+  directory, le mode safe (D716–D718)** : keycloak en classe
+  d'authentification (la lecture famille→classe) ; le groupe
+  administrator synchronisable (la double entrée demeure) ; le mode
+  safe — le lancement dédié, le module administration seul, le
+  compte principal au mot de passe d'installation, tracé.
+  administration.md, rights.md et connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

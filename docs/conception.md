@@ -15100,6 +15100,13 @@ avant la synthèse Q16).
   entière au degré administrator. **LA RELECTURE POINT PAR POINT DE
   LA TÉLÉMÉTRIE EST COMPLÈTE (D736–D741)** — la clôture attend le
   mot de l'auteur.
+- **2026-08-17 (suite 23)** — **Les exemples ajoutés à telemetry.md**
+  (« as-tu complété la documentation avec des exemples ? » — la
+  règle des artefacts honorée) : le log.yml aux six niveaux et à la
+  rétention, les push (highlights/telemetry/sunset_warning), la
+  cascade de calibration (le global dynamique, les surcharges
+  statiques entité/champ) — les écritures nouvelles marquées en
+  proposition.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

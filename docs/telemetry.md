@@ -45,6 +45,11 @@ socle récent** (D734) et **la relecture point par point**
   description cassée ; la restitution est générée par la même
   machinerie que tout le reste (elle hérite des groupes et des API).
 
+L'exemple — la collecte ne se déclare pas (la couche moteur), seuls
+ses réglages s'écrivent (voir le journal et la calibration
+ci-dessous) ; le déclenchement par champ est **un geste** du
+dashboard « telemetry » (D736), pas une configuration.
+
 ## Les six canaux de restitution (Q13 — D43–D44, D737)
 
 La forme suit la finalité ; les canaux sont complémentaires :
@@ -57,6 +62,35 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **l'alerte d'échéance** | *push*, événementiel, **rare** — le même patron (D738) | la version d'API dépréciée encore appelée près du `Sunset` (D12/D40) ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
 | **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`log.yml` par environnement — D342/D343), hors IHM |
+
+L'exemple du journal *(l'écriture en proposition — le nom `log.yml`
+est de D737, les propriétés restent à valider)* :
+
+```yaml
+# environments/production/log.yml — la configuration en dur (D737)
+log:
+  level: info            # verbose | debug | info | warning | error | exception
+  output: file:/var/log/syncytium   # ou le puits de logs (D343)
+  retention: 90d         # la rétention des traces (D41b)
+  anonymize: true        # l'option d'anonymisation (D41b)
+
+# environments/staging/log.yml — le staging bavard (D343)
+log:
+  level: debug
+```
+
+L'exemple des push *(en proposition — le patron D733/D738)* :
+
+```yaml
+settings:
+  application:
+    mails:
+      highlights: { every: daily[07:00] }              # les faits marquants (D733)
+      telemetry:  { every: monthly[1 at 07:00] }       # la synthèse périodique (D738)
+      # l'alerte d'échéance n'a pas de rythme : elle part à l'approche
+      # du Sunset (la fenêtre en proposition ci-dessous)
+      sunset_warning: { mode: dynamic, type: duration, value: 30d }
+```
 
 ## Le volet conseil (D45, D315–D319)
 
@@ -93,6 +127,36 @@ s'applique). La calibration par défaut (D97) : la fenêtre glissante
 + le plancher 100 appels/jour, le crawl > 50 % d'une table > 1000
 lignes, le R² ≥ 0,5 — le patron uniforme *forme × poids*, chaque
 seuil explicable en une phrase.
+
+L'exemple de la cascade *(les noms des paramètres en proposition —
+les valeurs sont les défauts de D97)* :
+
+```yaml
+# settings.yml — le global, en paramètres dynamiques (D740)
+settings:
+  application:
+    telemetry:
+      window:      { mode: dynamic, type: duration,   value: 30d }  # la fenêtre glissante
+      peak_zscore: { mode: dynamic, type: decimal,    value: 3 }    # le pic (forme)
+      peak_floor:  { mode: dynamic, type: integer,    value: 100 }  # le plancher appels/jour (poids)
+      crawl_ratio: { mode: dynamic, type: percentage, value: 50% }  # le crawl (forme)
+      crawl_floor: { mode: dynamic, type: integer,    value: 1000 } # les lignes (poids)
+      trend_r2:    { mode: dynamic, type: decimal,    value: 0.5 }  # la pente validée
+
+# la surcharge statique — l'entité (D50/D740, versionnée)
+name: order
+telemetry:
+  peak_floor: 1000               # l'entité très sollicitée — le seuil relevé
+
+# la surcharge statique — le champ
+fields:
+  iban:
+    type: iban
+    telemetry: { peak_floor: 10 }  # le champ sensible — le seuil resserré
+```
+
+Le filet demeure (D51) : le seuil absent = le défaut global
+s'applique — une alerte de sécurité ne peut se taire.
 
 ## La jonction avec le socle récent (D734)
 

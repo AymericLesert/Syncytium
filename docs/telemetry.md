@@ -44,7 +44,7 @@ socle récent** (D734).
   description cassée ; la restitution est générée par la même
   machinerie que tout le reste (elle hérite des groupes et des API).
 
-## Les cinq canaux de restitution (Q13 — D43–D44)
+## Les six canaux de restitution (Q13 — D43–D44, D737)
 
 La forme suit la finalité ; les canaux sont complémentaires :
 
@@ -55,6 +55,7 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **la synthèse périodique** | *push*, basse fréquence | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) |
 | **l'alerte d'échéance** | *push*, événementiel, **rare** | la version d'API dépréciée encore appelée près du `Sunset` (D12/D40) |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
+| **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`log.yml` par environnement — D342/D343), hors IHM |
 
 ## Le volet conseil (D45, D315–D319)
 

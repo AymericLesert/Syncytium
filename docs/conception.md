@@ -863,6 +863,7 @@ documentation) :
 | D734 | **La jonction télémétrie** (solde le point du sujet 3) : Q12–Q13 closes depuis juin (vérifié) — les six raccords validés : la maison au module d'administration, la synthèse au patron D733, la sécurité sur l'audit D702–D704, la calibration en settings dynamiques, la rétention au patron RGPD, les degrés (usages=manager, sécurité=administrator). | Voir §3.2c. |
 | D735 | **`telemetry.md` créé** : le dixième artefact préparatoire (Q58) — les trois finalités, la collecte, les cinq canaux, le conseil/SEQUITUR, les seuils/calibration, la jonction ; aucun contenu nouveau. | Le calibrage SEQUITUR attend Q59 (D319). |
 | D736 | **Le dashboard telemetry** (précise D38/D734) : la collecte par champ déclenchable à la demande depuis le dashboard d'administration nommé « telemetry » — l'entrée télémétrie du module d'administration nommée ; l'évaluation à la volée, rien ne se stocke. | La relecture point par point de la télémétrie — point 1 arbitré. Voir §3.2c. |
+| D737 | **Le sixième canal — le journal** (complète D44) : centralise tout, aux six niveaux verbose/debug/info/warning/error/exception — la configuration en dur (log.yml, par environnement D342–D343), jamais dynamique ; consultable par le technicien seul, en cas de besoin — hors IHM. | Le substrat des cinq autres canaux. Voir §3.2c. |
 
 ---
 
@@ -6900,6 +6901,27 @@ relu et précisé : l'évaluation à la volée de D38 (aucun stockage) se
 **le dashboard « telemetry »**, l'entrée télémétrie du module
 d'administration (le raccord 1 de D734 reçoit son nom) ; le résultat
 s'affiche, rien ne se stocke — la cohérence de D38 préservée.
+
+**Le sixième canal — le journal (D737 — complète D44, le point 2 de
+la relecture).** **« Il existe un 6ème canal : le journal. Il
+centralise tout ce qu'il se passe avec un niveau de précision
+paramétrable (verbose, debug, info, warning, error, exception) dans
+la configuration en dur (log.yml). Le journal est consultable
+uniquement par le technicien en cas de besoin. »** — le canal
+d'en-dessous, celui qui porte les cinq autres :
+
+- **il centralise tout** — le substrat brut (D41b : les traces à
+  rétention paramétrable) dont les canaux dérivent leurs vues
+  (l'analyse de sécurité D43, le mail des faits marquants D733 y
+  puisent) ;
+- **les six niveaux** : `verbose`, `debug`, `info`, `warning`,
+  `error`, `exception` — **dans la configuration en dur**
+  (`log.yml` par environnement — D342/D343 : le staging bavard, la
+  production sobre) : jamais un setting dynamique, le niveau se
+  change par la configuration, pas par l'écran ;
+- **la consultation : le technicien seul, en cas de besoin** — pas
+  une surface du module d'administration : le journal se lit au
+  fichier ou au puits (D343), hors IHM.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15008,6 +15030,10 @@ avant la synthèse Q16).
   collecte) arbitré (D736)** : la collecte par champ déclenchable à
   la demande depuis le dashboard « telemetry » du module
   d'administration. telemetry.md et administration.md mis au niveau.
+- **2026-08-17 (suite 18)** — **Le sixième canal — le journal
+  (D737)** : centralise tout aux six niveaux (verbose→exception), la
+  configuration en dur (log.yml), le technicien seul — hors IHM ; le
+  substrat des cinq autres canaux. telemetry.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

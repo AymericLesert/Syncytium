@@ -345,7 +345,11 @@ surchargeable en configuration, l'envoi par le smtp (D628).
 Par environnement : le staging en **debug/verbose**, la production
 active en **info + puits de logs éventuel**, la passive en
 **warning** — les formats et les emplacements différents ; les
-journaux en anglais (D217–D225).
+journaux en anglais (D217–D225). **Le journal est le sixième canal
+de la télémétrie** (D737) : les six niveaux
+(`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
+configuration en dur (`log.yml`), la consultation par **le
+technicien seul**, en cas de besoin — hors IHM.
 
 ### La supervision (D621, D625–D627)
 

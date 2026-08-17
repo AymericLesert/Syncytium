@@ -50,16 +50,16 @@ sa section de référence.
 
 | # | Pilier | En une phrase | Références |
 |---|--------|---------------|------------|
-| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131 ; §3 ; synthèse méta-schéma à venir (Q16) |
-| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9 ; §4 |
-| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103 ; §5 |
-| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300 ; §8.3, §8.6–§8.8 |
-| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184 ; §3.11 |
-| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174 ; §3.11 |
-| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312 ; §3.3 |
-| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196 ; §5.5–§5.7 |
-| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97 ; §6 |
-| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19 ; §7.2, §9.2, §9.5 |
+| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131, D320–D416 (le méta-schéma), D643–D644, D652, D680–D684 ; §3, §3.2c |
+| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9, D631–D632, D673–D679 (la procédure complète) ; §4 |
+| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103, D646–D651, D677, D742 (l'événementiel) ; §5 |
+| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300, D437–D569 (le catalogue entier), D710 (l'administration dogfoodée) ; §8.3, §8.6–§8.8 |
+| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184, D646–D672 (le mapping — absolute/relative) ; §3.11 |
+| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174, D411–D413, D668, D672, D719 (les exceptions assumées : D696, D722) ; §3.11 |
+| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312, D570–D601 (Q60), D648–D660, D681–D684 (le type-visiteur) ; §3.3 |
+| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196, D421–D427, D690–D708, D712–D722 (le sujet 2 entier) ; §5.5–§5.7, rights.md |
+| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97, D315–D319, D731–D743 (la santé, les six canaux) ; §6, telemetry.md |
+| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19, D716 (Keycloak), D729 (les bibliothèques d'applications) ; §7.2, §9.2, §9.5 |
 
 Le tout repose sur des **principes transverses** consignés au fil des
 décisions — « expliciter plutôt que subir en silence », « le moteur fournit
@@ -87,13 +87,14 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
-**La passe de complétude** (ouverte le 15/08) balaie **quatre sujets
-transversaux** avant d'ouvrir les domaines 5–6 (les cas d'usage, la
-documentation) :
+**La passe de complétude est SOLDÉE** (ouverte le 15/08, close le
+17/08 — D603–D743) : les quatre sujets transversaux sont clos, **les
+domaines 5–6 s'ouvrent** (les cas d'usage Q59, la documentation
+Q58) :
 
 1. **les connecteurs et les échanges** — **soldé** (D603–D672 : les
    sept contrats, le mapping entier — les deux maisons source/ et
@@ -107,11 +108,11 @@ documentation) :
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
    (D705–D708) ;
-3. **l'administration et l'exploitation** — **ouvert**
-   (administration.md — D709) : l'acquis consolidé ; les quatre
-   points au chantier — le module d'administration, les comptes au
-   quotidien, l'exploitation courante (la rotation des clés,
-   l'automatisation d'encrypt), la télémétrie (Q12–Q13) ;
+3. **l'administration et l'exploitation** — **soldé** (D709–D743 :
+   administration.md et telemetry.md) : le module d'administration
+   (D710–D711), les comptes au quotidien (D712–D723), l'exploitation
+   courante (D724–D733), la télémétrie relue point par point
+   (D734–D742) ;
 4. **la migration et les versions** — largement soldée : le mapping
    entier (D646–D672), la jonction journal↔gestes storage (D673–D674
    — le critère structurel, la procédure en quatre temps), le retour
@@ -859,6 +860,24 @@ documentation) :
 | D731 | **La santé** : les statuts, les files, les sessions, les connecteurs (ping) — en dashboard **et en API** (la supervision externe) ; l'état du passif intégré quand la réplication est active. | Voir §3.2c. |
 | D732 | **La santé en temps réel** (précise D731) : pas de période de rafraîchissement — l'état pousse (refresh: live D249/D555) ; l'every: du ping rythme la mesure, jamais l'affichage. | Voir §3.2c. |
 | D733 | **Le mail des faits marquants** (complète D731–D732) : le résumé d'exploitation au technicien — les utilisateurs connectés, les erreurs/warnings, les changements d'état de santé (liste ouverte) — au rythme choisi (l'every: calendaire) ; le template mail du socle surchargeable, l'évolution lue dans l'historique de l'état. | Voir §3.2c. |
+| D734 | **La jonction télémétrie** (solde le point du sujet 3) : Q12–Q13 closes depuis juin (vérifié) — les six raccords validés : la maison au module d'administration, la synthèse au patron D733, la sécurité sur l'audit D702–D704, la calibration en settings dynamiques, la rétention au patron RGPD, les degrés (usages=manager, sécurité=administrator). | Voir §3.2c. |
+| D735 | **`telemetry.md` créé** : le dixième artefact préparatoire (Q58) — les trois finalités, la collecte, les cinq canaux, le conseil/SEQUITUR, les seuils/calibration, la jonction ; aucun contenu nouveau. | Le calibrage SEQUITUR attend Q59 (D319). |
+| D736 | **Le dashboard telemetry** (précise D38/D734) : la collecte par champ déclenchable à la demande depuis le dashboard d'administration nommé « telemetry » — l'entrée télémétrie du module d'administration nommée ; l'évaluation à la volée, rien ne se stocke. | La relecture point par point de la télémétrie — point 1 arbitré. Voir §3.2c. |
+| D737 | **Le sixième canal — le journal** (complète D44) : centralise tout, aux six niveaux verbose/debug/info/warning/error/exception — la configuration en dur (log.yml, par environnement D342–D343), jamais dynamique ; consultable par le technicien seul, en cas de besoin — hors IHM. | Le substrat des cinq autres canaux. Voir §3.2c. |
+| D738 | **Les push au patron D733** (solde le point 2) : la synthèse périodique et l'alerte d'échéance — le template surchargeable, l'every: à convenance, le smtp ; **les destinataires limités au degré administrator**. | Voir §3.2c. |
+| D739 | **Le volet conseil relu** (le point 3) : conforme — les propositions de services paraissent dans la synthèse (D738) et le dashboard telemetry (D736), la décision du technicien hors application ; le calibrage à Q59 (D319). | « Le point 3 valide mon point de vue. » Voir §3.2c. |
+| D740 | **La calibration** (le point 4) : le global en paramètres dynamiques (D588) ; la surcharge à l'instance, au module, à l'entité et au champ **par la configuration statique** (D50 relu — versionnée) ; le plus proche l'emporte. | Voir §3.2c. |
+| D741 | **La jonction relue, le raccord 6 corrigé** (solde la relecture) : les raccords 3 et 5 confirmés ; la télémétrie entière au degré `administrator` (l'incohérence manager/module admin levée). | « Je valide le point 5. » Voir §3.2c. |
+| D742 | **La dépréciation portée par la version** (amende D13/D44/D340 — écarte sunset_warning) : jamais une date ni un calendrier — le déploiement d'une version déclenche la dépréciation ou l'intention de dépréciation (les trois temps D650 aux versions) ; l'alerte du canal 4 signale l'appel persistant d'une version dépréciée (l'état, pas l'échéance). | Voir §3.2c. |
+| D743 | **Les écritures validées — la passe soldée** : log.yml, mails:, les six paramètres de calibration validés ; la télémétrie soldée, le sujet 3 soldé, **la passe de complétude entière soldée (D603–D743)** — les domaines 5–6 s'ouvrent (Q59, Q58). | « Je valide. » Voir §3.2c et §1.2. |
+| D744 | **Le synchronous est une translation** (précise D724/D606/D112–D114 — dissout la tension des piliers) : la sérialisation des enregistrements (D687) expédiée au passif = la réplication, le 4e usage préservé ; les fichiers répliqués de même ; le rejeu sur la sérialisation ; **l'invariant : actif et passif aux mêmes versions et configurations**. | Voir §3.2c. |
+| D745 | **Le mode safe exempté, le diagnostic de non-démarrage** : le safe désactive toutes les conditions indispensables (D626 relu) ; le refus de démarrer s'explique toujours (configuration corrompue, connecteur indisponible, réseau…). | Voir §3.2c. |
+| D746 | **Le compte technique aux groupes** : l'appartenance obligatoire (D699) vaut pour tous les types de comptes — l'inviolabilité (D599). | Voir §3.2c. |
+| D747 | **Le groupe absent = désactivé** : réversible (la réapparition réactive) ; la purge = une opération d'administration, jamais automatique. | Masquer, jamais détruire — jusqu'aux groupes. Voir §3.2c. |
+| D748 | **Les faits marquants aux administrateurs** (corrige D733) : le degré aligné (D738) ; le profil gère les notifications et les déclenchements — chacun son rythme. | Voir §3.2c. |
+| D749 | **La délégation détaillée** (précise D715) : le même degré (jamais d'élévation), le don jamais la prise (le délégant ou l'administrateur), l'exception administrateur (s'octroyer les droits de quiconque) — la traçabilité toujours. | Voir §3.2c. |
+| D750 | **logs.yml harmonisé** (corrige D737) : le nom de D342 prime — `logs.yml` partout. | Voir §3.2c. |
+| D751 | **La santé et le backup au menu** (huit entrées) ; **la restauration = une commande interne** (le geste vit hors de l'application). | Voir §3.2c. |
 
 ---
 
@@ -6857,6 +6876,246 @@ choisi** (une fois par jour ou à convenance — l'`every:` calendaire
 D434). La mécanique n'invente rien : le template mail du socle
 (D723/D562 — surchargeable en configuration), l'envoi par le smtp
 (D628), l'évolution lue dans l'historique de l'état.
+
+**La jonction télémétrie — les six raccords (D734 — solde le point
+du sujet 3).** Le croisement du registre a montré que **Q12–Q13 sont
+closes depuis juin** (Q12 par D38–D41, Q13 par D43–D44 — les cinq
+canaux) ; le travail restant était la jonction avec le socle récent,
+validée (« à consigner dans telemetry.md ») :
+
+1. **la maison** — la télémétrie stockée (D39/D41a) vit dans des
+   entités du module d'administration (D666/D704) ; le tableau de
+   bord des usages (D38) est une entrée de son menu, aux côtés de la
+   santé (D731) ;
+2. **la synthèse périodique** rejoint le patron du mail des faits
+   marquants (D733) — le template surchargeable, l'every:
+   calendaire, le smtp ;
+3. **l'analyse de sécurité** s'assoit aussi sur l'audit des lectures
+   (D702–D704) et les échecs d'authentification tracés (D720) — les
+   refus que D43 demandait de journaliser ont leur mécanique ;
+4. **la calibration** (D97) en settings dynamiques (D588),
+   surchargés au module d'administration ;
+5. **la rétention et l'anonymisation des traces** (D41b) au patron
+   RGPD (D695–D698) et au trace: limited (D703) ;
+6. **qui voit** — les usages au degré manager, la sécurité et les
+   traces au degré administrator (D699/D701).
+
+**telemetry.md créé (D735)** — le dixième artefact préparatoire
+(Q58) : les trois finalités, la collecte (Q12), les cinq canaux
+(Q13), le volet conseil et SEQUITUR, les seuils et la calibration,
+la jonction ; le seul point en attente — le calibrage des seuils
+SEQUITUR sur données réelles (Q59, comme prévu par D319).
+
+**Le dashboard telemetry — la collecte par champ à la demande (D736
+— précise D38/D734, la relecture point par point).** **« La collecte
+par champ est déclenchable sur la demande depuis le dashboard
+d'administration nommé "telemetry". »** — le point 1 (la collecte)
+relu et précisé : l'évaluation à la volée de D38 (aucun stockage) se
+**déclenche à la demande** — l'administrateur lance la mesure depuis
+**le dashboard « telemetry »**, l'entrée télémétrie du module
+d'administration (le raccord 1 de D734 reçoit son nom) ; le résultat
+s'affiche, rien ne se stocke — la cohérence de D38 préservée.
+
+**Le sixième canal — le journal (D737 — complète D44, le point 2 de
+la relecture).** **« Il existe un 6ème canal : le journal. Il
+centralise tout ce qu'il se passe avec un niveau de précision
+paramétrable (verbose, debug, info, warning, error, exception) dans
+la configuration en dur (log.yml). Le journal est consultable
+uniquement par le technicien en cas de besoin. »** — le canal
+d'en-dessous, celui qui porte les cinq autres :
+
+- **il centralise tout** — le substrat brut (D41b : les traces à
+  rétention paramétrable) dont les canaux dérivent leurs vues
+  (l'analyse de sécurité D43, le mail des faits marquants D733 y
+  puisent) ;
+- **les six niveaux** : `verbose`, `debug`, `info`, `warning`,
+  `error`, `exception` — **dans la configuration en dur**
+  (`log.yml` par environnement — D342/D343 : le staging bavard, la
+  production sobre) : jamais un setting dynamique, le niveau se
+  change par la configuration, pas par l'écran ;
+- **la consultation : le technicien seul, en cas de besoin** — pas
+  une surface du module d'administration : le journal se lit au
+  fichier ou au puits (D343), hors IHM.
+
+**Les push au patron du mail des faits marquants (D738 — solde le
+point 2).** **« La synthèse périodique et l'alerte suivent le patron
+du mail des faits marquants (mais limité au degré
+administrator). »** — les deux canaux push empruntent la mécanique
+de D733 : le template du socle surchargeable (D723), l'`every:` à
+convenance, l'envoi par le smtp (D628) — et **les destinataires sont
+limités au degré `administrator`** (D699) : les usages, le conseil
+et les échéances parlent à qui administre, jamais plus bas.
+
+**Le volet conseil relu (D739 — le point 3 de la relecture, « le
+point 3 valide mon point de vue »).** L'acquis D45/D315–D319 relu
+conforme — et la jonction validée : **les propositions de services
+paraissent dans la synthèse périodique (D738) et dans le dashboard
+« telemetry » (D736)** — le moteur propose avec la fréquence et le
+gain (D317), **la décision du technicien reste un geste hors
+application** (la description se change au dépôt, jamais depuis
+l'écran) ; le calibrage des seuils sur données réelles demeure
+renvoyé à Q59 (D319).
+
+**La calibration — le global dynamique, la surcharge statique (D740
+— le point 4 de la relecture, amende ma proposition).** **« La
+configuration des seuils de calibration est définie globalement à
+l'aide de paramètres dynamiques et surchargée à l'instance, au
+module, à l'entité et au champ (via la configuration statique). »**
+— la cascade complète :
+
+- **le global** : les seuils de calibration (D97) en **paramètres
+  dynamiques** (D588) — l'administrateur ajuste sans republier ;
+- **la surcharge locale** : à **l'instance, au module, à l'entité et
+  au champ** — **par la configuration statique** (versionnée : la
+  déclaration par élément de D50 est cette surcharge — elle fait
+  partie du modèle, elle se change par une version) ;
+- la préséance : le local statique prime le global dynamique — le
+  plus proche l'emporte (l'esprit D359/D461).
+
+**La dépréciation portée par la version — le calendrier écarté
+(D742 — amende D13/D44/D340).** La proposition `sunset_warning` est
+**écartée**, et la raison emporte plus que le paramètre : **« c'est
+la version qui porte la dépréciation, pas une date. La mise à
+disposition d'une version ne peut être soumise à un calendrier. Par
+contre, le déploiement d'une version déclenchera la dépréciation ou
+l'intention de dépréciation. »** — le modèle événementiel remplace
+le calendaire :
+
+- **la dépréciation est un état de la version** (le dossier
+  `deprecated/` — D340), jamais une date ; le vocabulaire
+  « Sunset/calendrier annoncé » de D13 se relit : le contrat se
+  dégrade en douceur **au rythme des déploiements**, pas d'une
+  horloge ;
+- **le déploiement déclenche** : la mise en production d'une version
+  déprécie (ou marque **l'intention de dépréciation**) des versions
+  antérieures — les trois temps de D650 (l'intention, l'acte, la
+  suppression) valent pour les versions comme pour les champs, et le
+  déclencheur est **le geste de déploiement** (les transitions de
+  fichier de D340) ;
+- **l'alerte d'échéance (le canal 4) se relit** : elle ne guette
+  plus l'approche d'une date — elle signale **l'appel persistant
+  d'une version dépréciée** (l'état, pas l'échéance) ; jamais
+  d'alerte sur le non-usage (D44 inchangé).
+
+**La jonction relue — le raccord 6 corrigé (D741 — « je valide le
+point 5 », solde la relecture).** Les raccords 3 et 5 confirmés
+(l'analyse de sécurité sur l'audit D702–D704 et les échecs tracés
+D720 ; la rétention des traces au patron RGPD D695–D698 et au
+trace: limited D703) — et **le raccord 6 corrigé** : l'incohérence
+relevée (les usages au degré manager contre le module
+d'administration au degré minimal administrator — D710/D736) est
+levée par l'alignement : **la télémétrie entière est au degré
+`administrator`** — le manager voit les données métier par ses
+listes et widgets, jamais la télémétrie. **La relecture point par
+point est complète (les cinq points arbitrés — D736–D741).**
+
+**Les écritures validées — la télémétrie, le sujet 3 et la passe de
+complétude soldés (D743 — « je valide »).** Les écritures des
+exemples validées (le `log.yml` — le niveau, la sortie, la
+rétention, l'anonymisation ; les `mails:` — `highlights`,
+`telemetry` ; les six paramètres de calibration — `window`,
+`peak_zscore`, `peak_floor`, `crawl_ratio`, `crawl_floor`,
+`trend_r2`) — et les trois cercles se ferment :
+
+1. **la télémétrie est soldée** (D734–D742 — le seul reste : le
+   calibrage SEQUITUR sur données réelles, à Q59 comme prévu par
+   D319) ;
+2. **le sujet 3 (l'administration et l'exploitation) est soldé**
+   (D709–D743) ;
+3. **LA PASSE DE COMPLÉTUDE ENTIÈRE EST SOLDÉE** (D603–D743, ouverte
+   le 15/08) : les connecteurs et le mapping (sujet 1), la sécurité
+   et les droits (sujet 2), l'administration et l'exploitation
+   (sujet 3), la migration et les versions (sujet 4) — **les
+   domaines 5 et 6 s'ouvrent : les cas d'usage (Q59) et la
+   documentation (Q58).**
+
+**Le synchronous est une translation — la tension dissoute (D744 —
+précise D724/D606/D112–D114).** La vérification des piliers relevait
+une tension sur « le primitif aux quatre usages » (la réplication
+déplacée par D724) — l'auteur la dissout : **« D724 précise ce qui
+avait été abordé en D606/D112–D114. Le mode synchronous est une
+forme de translation passant par la sérialisation des
+enregistrements et l'envoi vers l'instance passive. C'est donc une
+réplication des données. Le traitement des fichiers doit suivre la
+même approche (un fichier uploadé est uploadé aussi sur l'instance
+passive). Ainsi, le rejeu s'appuie sur la sérialisation réalisée.
+Les 2 instances actives/passives sont forcément les mêmes versions
+de schéma avec les mêmes configurations. »** — les précisions :
+
+- **le synchronous est le quatrième usage** : la sérialisation des
+  enregistrements (le type structuré du moteur — D687, multi-storage
+  par nature) expédiée au passif — la translation déclarative sert
+  bien la réplication ; le primitif garde ses quatre usages ;
+- **les fichiers suivent** : l'upload répliqué vers le passif — la
+  même approche que les enregistrements ;
+- **le rejeu s'appuie sur la sérialisation réalisée** — rien de
+  recalculé, le journal d'actions est la matière ;
+- **l'invariant** : les deux instances actif/passif sont **forcément
+  les mêmes versions de schéma, aux mêmes configurations** — la
+  réplication ne traduit pas entre versions (la montée de version
+  s'expédie comme une action, les deux migrent — D724).
+
+**Les sept failles tranchées (D745–D751 — la vérification finale).**
+
+**Le mode safe et le diagnostic de non-démarrage (D745).** **« Le
+mode safe désactive toutes les conditions indispensables. L'envoi
+des mails n'est plus un critère de démarrage. En cas d'impossibilité
+de démarrer, Syncytium doit fournir la raison du non-démarrage
+(configuration corrompue, connecteur indisponible, perte du
+réseau…). »** — la porte de secours démarre toujours (le seul mode
+exempté — D626 relu) ; et **le refus de démarrer s'explique
+toujours** : la raison fournie, jamais un silence.
+
+**Le compte technique aux groupes (D746).** **« Oui, un compte
+technique fait obligatoirement partie d'un groupe d'utilisateurs
+pour assurer l'inviolabilité des informations. »** — l'appartenance
+obligatoire (D699) vaut pour tous les types de comptes (D77) : les
+droits de l'API passent par les groupes comme les autres (D599).
+
+**Le groupe absent = désactivé (D747).** **« Un groupe
+d'utilisateurs absent de la configuration rend le groupe
+"désactivé". Il se réactive si le groupe réapparaît dans la
+configuration. La purge des groupes est une opération
+d'administration — en raison des critères qui portent sur un groupe,
+cela ne doit en aucun cas être automatique. »** — masquer, jamais
+détruire, jusqu'aux groupes : la désactivation réversible, la purge
+un acte humain tracé.
+
+**Les faits marquants aux administrateurs (D748 — corrige D733).**
+**« Les faits marquants sont envoyés aux administrateurs. Si
+présence de plusieurs administrateurs, l'administrateur peut gérer
+les notifications et les déclenchements via son profil. »** — le
+destinataire aligné sur le degré (D738) ; **le profil gère les
+notifications** — chacun son rythme, ses abonnements.
+
+**La délégation détaillée (D749 — précise D715).** **« Un
+utilisateur peut déléguer son rôle à un autre utilisateur de même
+degré. Via le mécanisme de délégation, un utilisateur peut hériter
+des droits d'un autre utilisateur — le cas de l'absence prolongée.
+La délégation peut être définie par l'utilisateur qui veut déléguer
+ou par un administrateur. L'utilisateur destinataire ne peut pas
+prendre la délégation d'une personne. Seul un administrateur peut
+s'octroyer les droits d'un utilisateur quelconque — mais la
+traçabilité doit être assurée. »** — les règles : **le même degré**
+(jamais une élévation par délégation), **le don, jamais la prise**
+(le délégant ou l'administrateur définissent — le destinataire ne se
+sert pas), **l'exception administrateur** (s'octroyer les droits de
+quiconque — la traçabilité D715 toujours : les deux comptes à chaque
+trace).
+
+**logs.yml harmonisé (D750 — corrige D737).** **« logs.yml me va
+bien et il est à harmoniser. »** — le nom de D342 prime : le fichier
+est **`logs.yml`** partout (le `log.yml` de D737 se relit).
+
+**La santé et le backup au menu — la restauration en commande
+(D751).** **« La santé et le backup sont à ajouter au menu de
+l'administration. La restauration est assurée par une commande
+interne de Syncytium. »** — le menu du module compte huit entrées
+(les settings, les comptes, les sessions, l'audit, les migrations,
+la télémétrie, **la santé**, **le backup**) ; **la restauration
+n'est pas un écran** : une commande interne (la famille
+d'encrypt/decrypt/rotate — l'application restaurée est peut-être
+morte, le geste vit hors d'elle).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14948,6 +15207,78 @@ avant la synthèse Q16).
   choisi — la santé et son évolution dans la journée, les
   utilisateurs connectés, les erreurs/warnings ; le template du
   socle. administration.md mis au niveau.
+- **2026-08-17 (suite 15)** — **La PR #33 fusionnée (vérifiée)** :
+  « L'administration et l'exploitation — le sujet 3 en grande partie
+  soldé (D709–D733) », 14 commits sur develop (créée par la relance
+  automatique pendant la panne GitHub). Reste la télémétrie
+  (Q12–Q13) — le dernier point de la passe de complétude.
+- **2026-08-17 (suite 16)** — **La jonction télémétrie et
+  telemetry.md (D734–D735)** : Q12–Q13 vérifiées closes depuis juin
+  (le report de tête corrigé dans administration.md) ; les six
+  raccords validés et consignés au dixième artefact. **Le point
+  télémétrie est soldé — la clôture du sujet 3 et de la passe de
+  complétude attend la relecture de l'auteur.** Le §1.2 mis au
+  niveau.
+- **2026-08-17 (suite 17)** — **La relecture point par point de la
+  télémétrie ouverte** (demande de l'auteur) — **point 1 (la
+  collecte) arbitré (D736)** : la collecte par champ déclenchable à
+  la demande depuis le dashboard « telemetry » du module
+  d'administration. telemetry.md et administration.md mis au niveau.
+- **2026-08-17 (suite 18)** — **Le sixième canal — le journal
+  (D737)** : centralise tout aux six niveaux (verbose→exception), la
+  configuration en dur (log.yml), le technicien seul — hors IHM ; le
+  substrat des cinq autres canaux. telemetry.md mis au niveau.
+- **2026-08-17 (suite 19)** — **Les push au patron D733 (D738)** :
+  la synthèse et l'alerte d'échéance au patron du mail des faits
+  marquants, les destinataires au degré administrator. Le point 2
+  (les canaux) est soldé — six canaux.
+- **2026-08-17 (suite 20)** — **Le point 3 validé (D739)** : le
+  volet conseil et SEQUITUR conformes — les propositions dans la
+  synthèse et le dashboard telemetry, la décision hors application.
+- **2026-08-17 (suite 21)** — **La calibration arbitrée (D740)** :
+  le global en dynamique, la surcharge instance/module/entité/champ
+  en statique — le plus proche l'emporte. Le point 4 est soldé.
+- **2026-08-17 (suite 22)** — **Le point 5 validé (D741)** : les
+  raccords 3 et 5 confirmés, le raccord 6 corrigé — la télémétrie
+  entière au degré administrator. **LA RELECTURE POINT PAR POINT DE
+  LA TÉLÉMÉTRIE EST COMPLÈTE (D736–D741)** — la clôture attend le
+  mot de l'auteur.
+- **2026-08-17 (suite 23)** — **Les exemples ajoutés à telemetry.md**
+  (« as-tu complété la documentation avec des exemples ? » — la
+  règle des artefacts honorée) : le log.yml aux six niveaux et à la
+  rétention, les push (highlights/telemetry/sunset_warning), la
+  cascade de calibration (le global dynamique, les surcharges
+  statiques entité/champ) — les écritures nouvelles marquées en
+  proposition.
+- **2026-08-17 (suite 24)** — **La dépréciation portée par la
+  version (D742)** : sunset_warning écarté — jamais une date, le
+  déploiement déclenche (l'intention ou l'acte, les trois temps D650
+  aux versions) ; l'alerte du canal 4 relue (l'appel persistant
+  d'une version dépréciée). telemetry.md mis au niveau.
+- **2026-08-17 (suite 25)** — **LA PASSE DE COMPLÉTUDE EST SOLDÉE
+  (D743)** : les écritures validées (log.yml, mails:, la
+  calibration), la télémétrie et le sujet 3 soldés — les quatre
+  sujets transversaux sont clos (D603–D743, 141 décisions en trois
+  jours de passe). Les domaines 5 et 6 s'ouvrent : les cas d'usage
+  (Q59) et la documentation (Q58). Le §1.2, telemetry.md et
+  administration.md mis au niveau.
+- **2026-08-17 (suite 26)** — **La vérification des piliers** (à la
+  demande de l'auteur) : les dix piliers couverts, les principes
+  respectés (les exceptions assumées consignées — D696/D722) ; la
+  tension « quatre usages » dissoute par **D744** (le synchronous =
+  la translation par sérialisation, les fichiers répliqués,
+  l'invariant des versions identiques) ; **la table des piliers
+  (§1.1) rafraîchie des références de la passe** ; les failles
+  résiduelles relevées soumises à l'auteur.
+- **2026-08-17 (suite 27)** — **Les sept failles tranchées
+  (D745–D751)** : le safe exempté + le diagnostic de non-démarrage,
+  le compte technique aux groupes, le groupe absent = désactivé (la
+  purge humaine), les faits marquants aux administrateurs (le profil
+  gère), la délégation détaillée (même degré, le don jamais la
+  prise, l'exception admin tracée), logs.yml harmonisé, la santé et
+  le backup au menu + la restauration en commande. **La
+  vérification des piliers et des concepts est complète.**
+  administration.md, rights.md et telemetry.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

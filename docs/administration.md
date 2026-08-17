@@ -44,6 +44,14 @@ construit et maintenu dans Syncytium** :
 - **les migrations** (D666/D711) — **l'entrée conditionnelle** :
   disponible seulement si `migrations:` est défini dans la
   configuration (D662) ;
+- **la télémétrie** — le dashboard « telemetry » (D736) : les
+  usages, la collecte par champ à la demande (voir
+  [telemetry.md](telemetry.md)) ;
+- **la santé** (D731/D751) — le dashboard temps réel ;
+- **le backup** (D727/D751) — les archives, le déclenchement ; **la
+  restauration n'est pas un écran** : une commande interne de
+  Syncytium (D751 — l'application restaurée est peut-être morte, le
+  geste vit hors d'elle) ;
 - … (la liste reste ouverte — elle s'enrichit avec le socle).
 
 **Le module exploite les différentes facettes de Syncytium** — le
@@ -87,7 +95,12 @@ donnée métier servie), l'accès par **le compte administrateur
 principal** et **le mot de passe fixé à l'installation** (le patron
 des secrets D707 — hors annuaire, hors configuration versionnée) ;
 le mode safe est **tracé** (l'audit D704) — la porte de secours
-n'est jamais une porte dérobée.
+n'est jamais une porte dérobée. **Le mode safe désactive toutes les
+conditions indispensables** (D745 — l'envoi de mails n'est plus un
+critère de démarrage : le seul mode exempté de D626) ; et **le refus
+de démarrer s'explique toujours** : Syncytium fournit la raison du
+non-démarrage (la configuration corrompue, le connecteur
+indisponible, la perte du réseau…).
 
 ### Le détail de l'utilisateur et du groupe (D719)
 
@@ -173,10 +186,15 @@ settings:
   passe : le lien de réinitialisation, jamais la valeur ;
 - **`ban`** — le bannissement **sans suppression** (masquer, jamais
   détruire) ; la liste des opérations reste ouverte ;
-- **la délégation** (D715) : agir **à la place** d'un utilisateur —
-  les droits joués sont ceux de l'emprunté, et **chaque trace porte
-  les deux comptes** (le compte de l'utilisateur et le compte de
-  délégation — l'audit ne perd jamais l'acteur réel).
+- **la délégation** (D715/D749) : agir **à la place** d'un
+  utilisateur — les droits joués sont ceux de l'emprunté, **chaque
+  trace porte les deux comptes**. Les règles (D749) : **le même
+  degré** (jamais une élévation par délégation), **le don, jamais la
+  prise** (le délégant ou un administrateur définissent — le
+  destinataire ne se sert pas), l'usage type : l'absence prolongée ;
+  **l'exception** : seul un administrateur peut s'octroyer les
+  droits d'un utilisateur quelconque — la traçabilité toujours
+  assurée.
 
 ### Les comptes et les affectations
 
@@ -196,6 +214,13 @@ settings:
   `directory` D633) ;
 - **les jetons des comptes techniques** (D692) : créés et révoqués
   par l'administration — la classe `local` les vérifie.
+- **le compte technique aux groupes** (D746) : l'appartenance
+  obligatoire (D699) vaut pour tous les types de comptes —
+  l'inviolabilité des informations (D599) ;
+- **le groupe absent = désactivé** (D747) : un groupe retiré de la
+  configuration se désactive (réversible — la réapparition
+  réactive) ; **la purge est une opération d'administration, jamais
+  automatique**.
 
 ### Les sessions (D693)
 
@@ -253,12 +278,15 @@ en proposition, dans `environments/passive.yml`) :
 | `disabled` | **le défaut** — pas de passif, pas de synchronisation (D725) | — |
 | `brut` | **la copie de l'instance à intervalle régulier** — les fichiers des entités, les fichiers de configuration et la base | non |
 | `differentiel` | **la base au natif du moteur ou de l'infrastructure** (Syncytium ne gère pas la base) ; Syncytium synchronise **les fichiers des entités et de configuration** | non |
-| `synchronous` | **les actions historisées, transmises au passif, l'exécution confirmée supprime l'action en attente** (le patron de la file — D686) | **oui** — les actions du passif pendant l'incident reprennent le même chemin |
+| `synchronous` | **les actions historisées, transmises au passif, l'exécution confirmée supprime l'action en attente** (le patron de la file — D686) ; **une translation** (D744) : la sérialisation des enregistrements (D687) expédiée, **les fichiers répliqués de même** (l'upload suivi) | **oui** — le rejeu s'appuie sur la sérialisation réalisée |
 
 **Une montée de version est couverte par les trois modes** : la
 copie l'emporte (brut), les fichiers de configuration la portent
 (differentiel), l'action de migration s'expédie comme les autres
-(synchronous). La bascule reste un acte d'exploitation ; le retard
+(synchronous). **L'invariant** (D744) : les deux instances
+actif/passif sont **forcément les mêmes versions de schéma, aux
+mêmes configurations** — la réplication ne traduit jamais entre
+versions. La bascule reste un acte d'exploitation ; le retard
 de synchronisation se surveille (l'alerte D626 au-delà d'un seuil).
 
 **La déclaration** (D726) — dans `environments/passive.yml` :
@@ -329,8 +357,11 @@ réel** (D732) : pas de période de rafraîchissement — l'état pousse
 (`refresh: live` — D249/D555) ; l'`every:` du `ping()` rythme la
 mesure, jamais l'affichage.
 
-**Le mail des faits marquants** (D733) : le technicien reçoit, **une
-fois par jour ou à sa convenance** (l'`every:` calendaire D434), le
+**Le mail des faits marquants** (D733/D748) : **les administrateurs
+reçoivent**, **une
+fois par jour ou à leur convenance** (l'`every:` calendaire D434 —
+**chaque administrateur gère ses notifications et ses déclenchements
+via son profil**, D748), le
 résumé de la période — **les utilisateurs connectés, les
 erreurs/warnings (D343), les changements d'état de santé** (la
 liste ouverte) — fondé sur le statut de santé et **son évolution au
@@ -342,7 +373,12 @@ surchargeable en configuration, l'envoi par le smtp (D628).
 Par environnement : le staging en **debug/verbose**, la production
 active en **info + puits de logs éventuel**, la passive en
 **warning** — les formats et les emplacements différents ; les
-journaux en anglais (D217–D225).
+journaux en anglais (D217–D225). **Le journal est le sixième canal
+de la télémétrie** (D737) : les six niveaux
+(`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
+configuration en dur (**`logs.yml`** — le nom harmonisé D750), la
+consultation par **le technicien seul**, en cas de besoin — hors
+IHM.
 
 ### La supervision (D621, D625–D627)
 
@@ -373,21 +409,29 @@ Le statut = l'emplacement (`beta/`, `production/`, `deprecated/`,
 des versions essayées (le retry par bump du build) ; le délai de
 grâce du schéma remplacé (D675/D678).
 
-## La télémétrie — le chantier (P9, Q12–Q13 ouvertes)
+## La télémétrie (P9 — Q12–Q13 closes depuis juin)
 
-L'acquis du pilier P9 (D38–D51, D97) : **les trois finalités** — les
-usages (la diversité des valeurs par champ D38, les compteurs
-d'entité D39), le risque de migration, la sécurité (les seuils
-déclarés aux endpoints/entités/fonctions d'IHM — D50 ; la
-calibration ajustable à l'initialisation — D97 : fenêtre 30 jours,
-z-score ≥ 3, planchers) ; la détection des séquences répétées
-(SEQUITUR — D315–D319 : les optimisations et **les services
-proposés** au technicien, avec fréquence et gain) ; la restitution
-en tableaux de bord et synthèses, le volet conseil. **Q12–Q13
-restent à clore** — le sujet 3 les portera.
+**Q12 est résolue** (D38–D41) : les usages agrégés sur le schéma (le
+champ à la volée D38/D46, l'entité stockée D39), les acteurs
+identifiés **sur les seuls comptes techniques** (D40 — la gestion
+d'intégrations, jamais la surveillance des salariés), les deux
+supports (la base + les traces de journal à rétention paramétrable
+et option d'anonymisation — D41), le client responsable de
+traitement. **Q13 est résolue** (D43–D44) : **les cinq canaux de
+restitution** en solution intégrée bâtie sur le méta-modèle — le
+tableau de bord des usages (pull), le rapport de dry-run (contextuel
+à la migration), la synthèse périodique (push — avec **le volet
+conseil** D45 : le cache, la lecture par lot, l'endpoint composite),
+l'alerte d'échéance (rare — le Sunset d'API), l'analyse de sécurité
+(D43 — les refus journalisés, les seuils D50–D51, la calibration
+D97). La détection SEQUITUR (D315–D319) nourrit le conseil.
 
-## Les points ouverts — le chantier du sujet 3
+**La jonction avec l'acquis récent est validée** (D734) — le détail
+et les six raccords vivent dans **[telemetry.md](telemetry.md)**
+(D735, le dixième artefact).
 
-1. **la télémétrie** (Q12–Q13) — ce qu'elle collecte, où elle vit
-   (des entités du module d'administration ?), qui la voit, le lien
-   au volet conseil (P9).
+## Les points ouverts
+
+**Le sujet 3 est soldé** (D743) — et avec lui la passe de complétude
+entière (D603–D743) : les domaines 5 et 6 s'ouvrent (les cas d'usage
+Q59, la documentation Q58).

@@ -8,8 +8,9 @@ domaine 6 — D602), après le [glossaire](glossaire.md), les
 [mapping](mapping.md), les [droits](rights.md) et
 l'[administration](administration.md). Les décisions citées
 renvoient à la [conception](conception.md). Il consolide l'acquis du
-pilier P9 (Q12–Q13, résolues en juin 2026) et **la jonction avec le
-socle récent** (D734).
+pilier P9 (Q12–Q13, résolues en juin 2026), **la jonction avec le
+socle récent** (D734) et **la relecture point par point**
+(D736–D741).
 
 ## Les trois finalités (P9)
 
@@ -117,9 +118,11 @@ raccords validés :
 5. **la rétention et l'anonymisation des traces** (D41b) rejoignent
    **le patron RGPD** (D695–D698 — la rétention qui anonymise
    d'office) et le `trace: limited` (D703) ;
-6. **qui voit** : le tableau de bord des usages au degré `manager`
-   (le responsable métier lit les usages) ; la sécurité et les
-   traces au degré `administrator` (D699/D701).
+6. **qui voit** (corrigé par D741) : **la télémétrie entière est au
+   degré `administrator`** — le dashboard « telemetry » vit au
+   module d'administration (D710/D736), les push partent au même
+   degré (D738) ; le manager voit les données métier par ses listes
+   et ses widgets, jamais la télémétrie.
 
 ## Les points ouverts
 

@@ -867,6 +867,7 @@ documentation) :
 | D738 | **Les push au patron D733** (solde le point 2) : la synthèse périodique et l'alerte d'échéance — le template surchargeable, l'every: à convenance, le smtp ; **les destinataires limités au degré administrator**. | Voir §3.2c. |
 | D739 | **Le volet conseil relu** (le point 3) : conforme — les propositions de services paraissent dans la synthèse (D738) et le dashboard telemetry (D736), la décision du technicien hors application ; le calibrage à Q59 (D319). | « Le point 3 valide mon point de vue. » Voir §3.2c. |
 | D740 | **La calibration** (le point 4) : le global en paramètres dynamiques (D588) ; la surcharge à l'instance, au module, à l'entité et au champ **par la configuration statique** (D50 relu — versionnée) ; le plus proche l'emporte. | Voir §3.2c. |
+| D741 | **La jonction relue, le raccord 6 corrigé** (solde la relecture) : les raccords 3 et 5 confirmés ; la télémétrie entière au degré `administrator` (l'incohérence manager/module admin levée). | « Je valide le point 5. » Voir §3.2c. |
 
 ---
 
@@ -6960,6 +6961,18 @@ module, à l'entité et au champ (via la configuration statique). »**
   partie du modèle, elle se change par une version) ;
 - la préséance : le local statique prime le global dynamique — le
   plus proche l'emporte (l'esprit D359/D461).
+
+**La jonction relue — le raccord 6 corrigé (D741 — « je valide le
+point 5 », solde la relecture).** Les raccords 3 et 5 confirmés
+(l'analyse de sécurité sur l'audit D702–D704 et les échecs tracés
+D720 ; la rétention des traces au patron RGPD D695–D698 et au
+trace: limited D703) — et **le raccord 6 corrigé** : l'incohérence
+relevée (les usages au degré manager contre le module
+d'administration au degré minimal administrator — D710/D736) est
+levée par l'alignement : **la télémétrie entière est au degré
+`administrator`** — le manager voit les données métier par ses
+listes et widgets, jamais la télémétrie. **La relecture point par
+point est complète (les cinq points arbitrés — D736–D741).**
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15082,6 +15095,11 @@ avant la synthèse Q16).
 - **2026-08-17 (suite 21)** — **La calibration arbitrée (D740)** :
   le global en dynamique, la surcharge instance/module/entité/champ
   en statique — le plus proche l'emporte. Le point 4 est soldé.
+- **2026-08-17 (suite 22)** — **Le point 5 validé (D741)** : les
+  raccords 3 et 5 confirmés, le raccord 6 corrigé — la télémétrie
+  entière au degré administrator. **LA RELECTURE POINT PAR POINT DE
+  LA TÉLÉMÉTRIE EST COMPLÈTE (D736–D741)** — la clôture attend le
+  mot de l'auteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -15283,6 +15283,10 @@ avant la synthèse Q16).
   « la passe de complétude soldée (D734–D751) », 14 commits sur
   develop. **La deuxième publication develop→main demandée** (la
   première : la PR #27).
+- **2026-08-18** — **La PR #35 fusionnée (vérifiée) : la deuxième
+  publication develop→main** (168 commits — les domaines 1–4, Q60,
+  la passe de complétude jusqu'à D751). main est au niveau de
+  develop.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -50,16 +50,16 @@ sa section de référence.
 
 | # | Pilier | En une phrase | Références |
 |---|--------|---------------|------------|
-| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131 ; §3 ; synthèse méta-schéma à venir (Q16) |
-| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9 ; §4 |
-| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103 ; §5 |
-| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300 ; §8.3, §8.6–§8.8 |
-| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184 ; §3.11 |
-| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174 ; §3.11 |
-| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312 ; §3.3 |
-| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196 ; §5.5–§5.7 |
-| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97 ; §6 |
-| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19 ; §7.2, §9.2, §9.5 |
+| **P1** | **La description déclarative unique** | Une seule source de vérité, rédigée par le technicien, engendre le modèle de données, l'IHM et les API — « le schéma suffit, la déclaration ajuste ». | D1–D3, D44, D115–D131, D320–D416 (le méta-schéma), D643–D644, D652, D680–D684 ; §3, §3.2c |
+| **P2** | **Les migrations à chaud déclaratives** | Des règles de transformation (renommage, éclatement regex, fusion gabarit) exécutées sans interruption : validation → dry-run sur données réelles → fenêtre d'affluence → exécution transactionnelle. | D4–D9, D631–D632, D673–D679 (la procédure complète) ; §4 |
+| **P3** | **La compatibilité d'API bidirectionnelle auto-générée** | Le journal de migrations engendre la chaîne de translation à la Stripe — ascendante et descendante, persistante, avec cycle de vie des versions et épinglage par compte. **Le différenciateur sans équivalent identifié (§9.5).** | D11–D13, D94, D98–D99, D103, D646–D651, D677, D742 (l'événementiel) ; §5 |
+| **P4** | **L'IHM générée complète** | Une application utilisable sans une ligne de déclaration d'IHM : modules fonctionnels, surfaces nommées (listes, formulaires, widgets), wizard, tableaux de bord, catalogue de composants (7 types × 3 modes × 2 orientations). | D63–D69, D100, D185–D300, D437–D569 (le catalogue entier), D710 (l'administration dogfoodée) ; §8.3, §8.6–§8.8 |
+| **P5** | **Le double périmètre entrepôt + applications** | La reprise de données est un ETL déclaratif — couverture mesurée, acceptation stricte, provenance persistante, stock de rejets à statuts — faisant du moteur un entrepôt opérationnel autant qu'un socle applicatif. | D175–D184, D646–D672 (le mapping — absolute/relative) ; §3.11 |
+| **P6** | **La temporalité native** | Historisation par instantanés d'agrégats complets, API temporelle (« à une date »), champs calculés évalués sur les instantanés, insertion antidatée maîtrisée. | D168–D174, D411–D413, D668, D672, D719 (les exceptions assumées : D696, D722) ; §3.11 |
+| **P7** | **Le langage d'expression unique multi-valué** | Un seul langage — gabarits, regex à groupes, transcodage, agrégats filtrés — sert les calculs, les migrations, la translation d'API, les connecteurs, les validations, les wizards et les gabarits de documents. | D90–D92, D104, D301–D312, D570–D601 (Q60), D648–D660, D681–D684 (le type-visiteur) ; §3.3 |
+| **P8** | **La sécurité et la confidentialité par construction** | Niveaux de confidentialité emboîtés, audience au niveau ligne à identifiants opaques (anti-IDOR), droits d'action au modèle, visibilité par niveau d'héritage — et l'anti-oracle appliqué jusqu'à la navigation. | D25–D27, D70–D77, D144, D153, D196, D421–D427, D690–D708, D712–D722 (le sujet 2 entier) ; §5.5–§5.7, rights.md |
+| **P9** | **L'observabilité intégrée** | Une télémétrie à trois finalités — usages, risque de migration, sécurité — déclarée dans le modèle, restituée en tableaux de bord et synthèses, prolongée d'un volet conseil. | D38–D51, D97, D315–D319, D731–D743 (la santé, les six canaux) ; §6, telemetry.md |
+| **P10** | **L'engagement open source (AGPL)** | La licence AGPL et la non-commercialisation sont constitutives du projet : moteur public, dépendances compatibles AGPL, une instance par TPE — un positionnement que le paysage 2026 renforce (Directus sorti de l'open source, Redis revenu à l'AGPL). | D16–D19, D716 (Keycloak), D729 (les bibliothèques d'applications) ; §7.2, §9.2, §9.5 |
 
 Le tout repose sur des **principes transverses** consignés au fil des
 décisions — « expliciter plutôt que subir en silence », « le moteur fournit
@@ -870,6 +870,7 @@ Q58) :
 | D741 | **La jonction relue, le raccord 6 corrigé** (solde la relecture) : les raccords 3 et 5 confirmés ; la télémétrie entière au degré `administrator` (l'incohérence manager/module admin levée). | « Je valide le point 5. » Voir §3.2c. |
 | D742 | **La dépréciation portée par la version** (amende D13/D44/D340 — écarte sunset_warning) : jamais une date ni un calendrier — le déploiement d'une version déclenche la dépréciation ou l'intention de dépréciation (les trois temps D650 aux versions) ; l'alerte du canal 4 signale l'appel persistant d'une version dépréciée (l'état, pas l'échéance). | Voir §3.2c. |
 | D743 | **Les écritures validées — la passe soldée** : log.yml, mails:, les six paramètres de calibration validés ; la télémétrie soldée, le sujet 3 soldé, **la passe de complétude entière soldée (D603–D743)** — les domaines 5–6 s'ouvrent (Q59, Q58). | « Je valide. » Voir §3.2c et §1.2. |
+| D744 | **Le synchronous est une translation** (précise D724/D606/D112–D114 — dissout la tension des piliers) : la sérialisation des enregistrements (D687) expédiée au passif = la réplication, le 4e usage préservé ; les fichiers répliqués de même ; le rejeu sur la sérialisation ; **l'invariant : actif et passif aux mêmes versions et configurations**. | Voir §3.2c. |
 
 ---
 
@@ -7020,6 +7021,32 @@ rétention, l'anonymisation ; les `mails:` — `highlights`,
    (sujet 3), la migration et les versions (sujet 4) — **les
    domaines 5 et 6 s'ouvrent : les cas d'usage (Q59) et la
    documentation (Q58).**
+
+**Le synchronous est une translation — la tension dissoute (D744 —
+précise D724/D606/D112–D114).** La vérification des piliers relevait
+une tension sur « le primitif aux quatre usages » (la réplication
+déplacée par D724) — l'auteur la dissout : **« D724 précise ce qui
+avait été abordé en D606/D112–D114. Le mode synchronous est une
+forme de translation passant par la sérialisation des
+enregistrements et l'envoi vers l'instance passive. C'est donc une
+réplication des données. Le traitement des fichiers doit suivre la
+même approche (un fichier uploadé est uploadé aussi sur l'instance
+passive). Ainsi, le rejeu s'appuie sur la sérialisation réalisée.
+Les 2 instances actives/passives sont forcément les mêmes versions
+de schéma avec les mêmes configurations. »** — les précisions :
+
+- **le synchronous est le quatrième usage** : la sérialisation des
+  enregistrements (le type structuré du moteur — D687, multi-storage
+  par nature) expédiée au passif — la translation déclarative sert
+  bien la réplication ; le primitif garde ses quatre usages ;
+- **les fichiers suivent** : l'upload répliqué vers le passif — la
+  même approche que les enregistrements ;
+- **le rejeu s'appuie sur la sérialisation réalisée** — rien de
+  recalculé, le journal d'actions est la matière ;
+- **l'invariant** : les deux instances actif/passif sont **forcément
+  les mêmes versions de schéma, aux mêmes configurations** — la
+  réplication ne traduit pas entre versions (la montée de version
+  s'expédie comme une action, les deux migrent — D724).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15166,6 +15193,14 @@ avant la synthèse Q16).
   jours de passe). Les domaines 5 et 6 s'ouvrent : les cas d'usage
   (Q59) et la documentation (Q58). Le §1.2, telemetry.md et
   administration.md mis au niveau.
+- **2026-08-17 (suite 26)** — **La vérification des piliers** (à la
+  demande de l'auteur) : les dix piliers couverts, les principes
+  respectés (les exceptions assumées consignées — D696/D722) ; la
+  tension « quatre usages » dissoute par **D744** (le synchronous =
+  la translation par sérialisation, les fichiers répliqués,
+  l'invariant des versions identiques) ; **la table des piliers
+  (§1.1) rafraîchie des références de la passe** ; les failles
+  résiduelles relevées soumises à l'auteur.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

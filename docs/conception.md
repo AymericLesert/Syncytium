@@ -837,6 +837,10 @@ documentation) :
 | D709 | **`administration.md` créé** : le neuvième artefact préparatoire (Q58) — les actes d'administration et l'exploitation consolidés (les comptes/affectations, les sessions, les settings dynamiques, l'audit, le suivi des migrations, les opérations aux planchers, les environnements/journaux/supervision/secrets/versions, l'acquis télémétrie P9) + les quatre points du chantier du sujet 3 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des artefacts. |
 | D710 | **Le module d'administration** (le point 1 du sujet 3) : un seul module au **degré minimal administrator** (la double garde — l'affectation + le degré) ; les entrées (settings, comptes, sessions, audit, …) = un menu construit et maintenu dans Syncytium ; le module exploite les facettes de Syncytium (module, entités, menus, composants). | Le module migration (D666) demeure distinct (lecture notée). Voir §3.2c. |
 | D711 | **La migration au menu, les settings aux deux modes** (amende D710/D666) : l'entrée « migrations » au module d'administration — conditionnelle (disponible si `migrations:` défini, D662) ; les settings couvrent les statiques et les dynamiques (la consultation des deux, la surcharge des seuls dynamiques). | Voir §3.2c. |
+| D712 | **Le groupe administrator par défaut, l'accès à double entrée** (précise D699/D710) : le socle fournit le groupe d'office ; l'accès administrateur = le groupe ET la désignation individuelle de l'utilisateur. | Voir §3.2c. |
+| D713 | **La synchronisation selon le mode** : local = manuel par l'administrateur ; azure_ad = le groupe Syncytium associé à des groupes AD (la classe d'authentification récupère par le contrat directory D633), les comptes synchronisés en lecture seule ; sso = idem sans la gestion du mot de passe. | Les familles authentication et directory coopèrent. Voir §3.2c. |
+| D714 | **Les opérations dédiées du module** : `renew` (le changement forcé du mot de passe), `ban` (le bannissement sans suppression) — la liste ouverte. | Voir §3.2c. |
+| D715 | **La délégation** : agir à la place d'un utilisateur — les droits joués sont ceux de l'emprunté, **chaque trace porte les deux comptes** (l'utilisateur et le délégant). | Voir §3.2c. |
 
 ---
 
@@ -6491,6 +6495,65 @@ dynamiques. »** — deux amendements :
   paramètres statiques et dynamiques** (D588) — la consultation des
   deux, la surcharge des seuls dynamiques (le statique se change par
   une version, jamais par l'écran — la lecture consignée).
+
+**Le groupe administrateur par défaut — l'accès à double entrée
+(D712 — précise D699/D710).** **« La liste des groupes
+d'utilisateurs est définie dans la configuration (groups.yml). Un
+groupe "administrateur" est inclus, par défaut. Pour un utilisateur,
+les groupes d'appartenance permettent de gérer les droits. Pour
+l'administrateur, l'accès doit être à double entrée : par le groupe
+et par l'utilisateur. »** — le socle fournit **le groupe
+`administrator` d'office** (le catalogue = les hooks embarqués,
+D408 : groups.yml peut ne pas le déclarer, il existe) ; et **l'accès
+administrateur est à double entrée** : l'appartenance au groupe ne
+suffit pas — **l'utilisateur doit être individuellement désigné**
+(l'affectation nominative, l'acte d'administration D341) — le degré
+le plus haut ne se hérite jamais d'un seul geste.
+
+**La synchronisation des comptes selon le mode (D713 — finalise la
+création).** **« La liste des utilisateurs et sa synchronisation
+dépendent du mode d'authentification : pour une gestion locale, la
+création des comptes et l'affectation à un groupe sont manuelles et
+gérées par l'administrateur. Pour une gestion via un directory, un
+groupe d'utilisateurs est associé à un ou plusieurs groupes AD —
+Syncytium, via le connecteur d'authentification, récupère la liste
+des groupes associés aux groupes d'utilisateurs, puis la liste des
+utilisateurs associés à ces groupes ; les comptes utilisateurs (hors
+ceux créés par l'administrateur) sont accessibles en lecture seule,
+à l'exception de propriétés comme le mot de passe. Pour une gestion
+via sso, ça devrait couvrir la même chose qu'un directory sans la
+gestion du mot de passe. »** — les trois régimes :
+
+| le mode | la source des comptes | l'édition dans Syncytium |
+|---|---|---|
+| `local` | la création et l'affectation **manuelles** par l'administrateur | pleine |
+| `azure_ad` | **le groupe Syncytium associé à un ou plusieurs groupes AD** — la classe d'authentification récupère les groupes puis leurs utilisateurs (le contrat directory D633 : get_groups, get_users_from_group) | **lecture seule** (l'annuaire est maître) — sauf les propriétés hors annuaire |
+| `sso` | comme le directory | lecture seule — **sans la gestion du mot de passe** (le secret n'existe pas chez Syncytium) |
+
+*(La lecture consignée : le connecteur d'authentification s'appuie
+sur le contrat de la famille directory (D633) — les classes des deux
+familles coopèrent, comme file et storage en D636.)*
+
+**Les opérations dédiées du module — renew, ban… (D714).** **« Dans
+le module d'administration, nous pouvons voir les utilisateurs, les
+groupes d'utilisateurs, et nous pourrions avoir des opérations
+dédiées : `renew` (change ou force le changement de mot de passe),
+`ban` (pour bannir un utilisateur sans le supprimer)… »** — les
+surfaces standard (les utilisateurs, les groupes) et **les
+opérations propres au module** : `renew` (le changement forcé du mot
+de passe — le lien de réinitialisation, jamais la valeur), `ban`
+(le bannissement **sans suppression** — masquer, jamais détruire) —
+la liste ouverte (le « … »).
+
+**La délégation (D715).** **« Nous pouvons introduire une notion de
+délégation (prendre l'utilisation de l'application à la place d'un
+autre utilisateur). Toutes les actions seront tracées en précisant
+le compte de l'utilisateur et le compte de délégation. »** —
+l'emprunt d'identité maîtrisé : l'administrateur (ou le délégué
+autorisé) agit **à la place** d'un utilisateur — les droits joués
+sont ceux de l'utilisateur emprunté, et **chaque trace porte les
+deux comptes** (le compte de l'utilisateur et le compte de
+délégation — l'audit D62/D704 ne perd jamais l'acteur réel).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14522,6 +14585,16 @@ avant la synthèse Q16).
   d'administration (conditionnelle — si migrations: défini) — la
   lecture « module distinct » corrigée ; les settings couvrent
   statiques et dynamiques. administration.md mis au niveau.
+- **2026-08-17 (suite 5)** — **Les comptes au quotidien (D712–D715)**
+  : le groupe administrator par défaut + l'accès à double entrée ;
+  la synchronisation selon le mode (local manuel / azure_ad par
+  association de groupes en lecture seule / sso sans mot de passe) ;
+  les opérations renew/ban ; la délégation tracée aux deux comptes.
+  administration.md et rights.md mis au niveau. La remarque sur le
+  contrat directory vérifiée : D633 le porte (connectors.md) — pas
+  de décision « hook de directory » distincte, les classes des
+  familles sont les hooks (D619) ; la coopération
+  authentication↔directory désormais consignée (D713).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

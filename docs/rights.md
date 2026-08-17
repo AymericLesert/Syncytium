@@ -102,6 +102,11 @@ d'action — on contrôle qui appuie, pas ce que l'acte écrit.
   acyclique, la multi-appartenance naturelle (D414) ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ;
+- **le groupe `administrator` par défaut** (D712) — fourni par le
+  socle ; **l'accès administrateur à double entrée** : le groupe
+  **et** la désignation individuelle de l'utilisateur ;
+- **la délégation** (D715) : agir à la place d'un utilisateur — les
+  droits de l'emprunté, la trace aux deux comptes ;
 - **le module restreint** (D190/D416) : l'affectation
   utilisateur↔module ouvre une surface — elle n'étend jamais un
   droit.

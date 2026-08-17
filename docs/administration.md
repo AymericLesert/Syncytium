@@ -53,6 +53,38 @@ est une application Syncytium (le patron D666 généralisé).
 
 ## Les actes d'administration consignés
 
+### L'organisation des comptes (D712–D713)
+
+- **le groupe `administrator` par défaut** (D712) : le socle le
+  fournit d'office (groups.yml n'a pas à le déclarer) ; **l'accès
+  administrateur est à double entrée** — l'appartenance au groupe
+  **et** la désignation individuelle de l'utilisateur (l'affectation
+  nominative D341) ;
+- **la synchronisation selon le mode d'authentification** (D713) :
+
+| le mode | la source des comptes | l'édition dans Syncytium |
+|---|---|---|
+| `local` | la création et l'affectation **manuelles** par l'administrateur | pleine |
+| `azure_ad` | **le groupe Syncytium associé à un ou plusieurs groupes AD** — la classe d'authentification récupère les groupes puis leurs utilisateurs (le contrat `directory` D633 : `get_groups`, `get_users_from_group`) | **lecture seule** (l'annuaire est maître) — sauf les propriétés hors annuaire |
+| `sso` | comme le directory | lecture seule — **sans la gestion du mot de passe** |
+
+Les familles `authentication` (D692) et `directory` (D633)
+**coopèrent** — comme `file` et `storage` (D636) : l'une authentifie,
+l'autre fournit la lecture des groupes et des utilisateurs.
+
+### Les opérations dédiées et la délégation (D714–D715)
+
+- les surfaces : **les utilisateurs** et **les groupes** en listes
+  standard ;
+- **`renew`** — le changement (ou le changement forcé) du mot de
+  passe : le lien de réinitialisation, jamais la valeur ;
+- **`ban`** — le bannissement **sans suppression** (masquer, jamais
+  détruire) ; la liste des opérations reste ouverte ;
+- **la délégation** (D715) : agir **à la place** d'un utilisateur —
+  les droits joués sont ceux de l'emprunté, et **chaque trace porte
+  les deux comptes** (le compte de l'utilisateur et le compte de
+  délégation — l'audit ne perd jamais l'acteur réel).
+
 ### Les comptes et les affectations
 
 - **la typologie des comptes** (D77) : technique (l'API),
@@ -168,9 +200,10 @@ restent à clore** — le sujet 3 les portera.
 
 ## Les points ouverts — le chantier du sujet 3
 
-1. **les comptes au quotidien** — la création du compte local, le
-   cycle de vie (l'invitation ? le mot de passe oublié ? le
-   verrouillage ?), la re-liaison D82 en pratique ;
+1. **les comptes au quotidien — le reste** : l'invitation et le
+   premier secret, le mot de passe oublié, le verrouillage (les
+   settings lockout/cooldown), la re-liaison et la fusion (D82) en
+   pratique — les propositions posées, à arbitrer ;
 2. **l'exploitation courante** — la sauvegarde (au-delà de la
    restauration D174), **la rotation des clés** (le flag D707),
    l'automatisation d'`encrypt` (le flag D708), la santé de

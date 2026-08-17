@@ -836,6 +836,7 @@ documentation) :
 | D708 | **Les commandes encrypt/decrypt** (incarne D707) : `encrypt <variable> <clé>` chiffre et enregistre au .env (ou autre fichier) ; `decrypt <variable>` retourne la valeur (le débogage, la vérification d'un service). « Ces 2 commandes complètent la partie sécurité. » | Voir §3.2c. |
 | D709 | **`administration.md` créé** : le neuvième artefact préparatoire (Q58) — les actes d'administration et l'exploitation consolidés (les comptes/affectations, les sessions, les settings dynamiques, l'audit, le suivi des migrations, les opérations aux planchers, les environnements/journaux/supervision/secrets/versions, l'acquis télémétrie P9) + les quatre points du chantier du sujet 3 ; aucun contenu nouveau. | À la demande de l'auteur — la méthode des artefacts. |
 | D710 | **Le module d'administration** (le point 1 du sujet 3) : un seul module au **degré minimal administrator** (la double garde — l'affectation + le degré) ; les entrées (settings, comptes, sessions, audit, …) = un menu construit et maintenu dans Syncytium ; le module exploite les facettes de Syncytium (module, entités, menus, composants). | Le module migration (D666) demeure distinct (lecture notée). Voir §3.2c. |
+| D711 | **La migration au menu, les settings aux deux modes** (amende D710/D666) : l'entrée « migrations » au module d'administration — conditionnelle (disponible si `migrations:` défini, D662) ; les settings couvrent les statiques et les dynamiques (la consultation des deux, la surcharge des seuls dynamiques). | Voir §3.2c. |
 
 ---
 
@@ -6472,6 +6473,24 @@ menus, les composants graphiques, …). »** — les arbitrages :
   les composants graphiques (D437–D569) — le patron D666 confirmé et
   généralisé : l'administration n'a rien de spécial, elle est une
   application Syncytium.
+
+**La migration au menu, les settings aux deux modes (D711 — amende
+D710 et D666).** **« La migration est à inclure dans l'énumération.
+Cette partie est disponible si `migrations` est bien défini dans la
+configuration. Les settings couvrent les paramètres statiques et
+dynamiques. »** — deux amendements :
+
+- **la migration entre au module d'administration** : le « module
+  migration » de D666 se relit — ses entités (la couverture, les
+  rejets, le suivi historisé D668) vivent au module
+  d'administration, l'entrée « migrations » de son menu ; **l'entrée
+  est conditionnelle** : disponible seulement si `migrations:` est
+  défini dans la configuration (D662) — le menu du socle s'adapte à
+  la déclaration ;
+- **les settings aux deux modes** : l'entrée couvre **les
+  paramètres statiques et dynamiques** (D588) — la consultation des
+  deux, la surcharge des seuls dynamiques (le statique se change par
+  une version, jamais par l'écran — la lecture consignée).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14498,6 +14517,11 @@ avant la synthèse Q16).
   audit, …), le dogfooding complet des facettes ; le module
   migration demeure distinct (lecture notée). administration.md mis
   au niveau.
+- **2026-08-17 (suite 4)** — **La migration au menu, les settings
+  aux deux modes (D711)** : l'entrée migrations au module
+  d'administration (conditionnelle — si migrations: défini) — la
+  lecture « module distinct » corrigée ; les settings couvrent
+  statiques et dynamiques. administration.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

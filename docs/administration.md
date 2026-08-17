@@ -35,17 +35,21 @@ module à plancher : l'affectation ne suffit pas, le degré du groupe
 (D699) est exigé — la double garde. **Les entrées sont un menu
 construit et maintenu dans Syncytium** :
 
-- les settings (la surcharge des dynamiques — D588) ;
-- la gestion des comptes (D77/D82/D341) ;
-- les sessions (D693) ;
-- l'audit (D704) ;
+- **les settings** — les paramètres **statiques et dynamiques**
+  (D588/D711) : la consultation des deux, la surcharge des seuls
+  dynamiques (le statique se change par une version) ;
+- **la gestion des comptes** (D77/D82/D341) ;
+- **les sessions** (D693) ;
+- **l'audit** (D704) ;
+- **les migrations** (D666/D711) — **l'entrée conditionnelle** :
+  disponible seulement si `migrations:` est défini dans la
+  configuration (D662) ;
 - … (la liste reste ouverte — elle s'enrichit avec le socle).
 
 **Le module exploite les différentes facettes de Syncytium** — le
 module (D416), les entités, les menus (D193/D440), les composants
 graphiques (D437–D569) : l'administration n'a rien de spécial, elle
-est une application Syncytium (le patron D666 généralisé). *(Le
-module `migration` — D666 — demeure distinct.)*
+est une application Syncytium (le patron D666 généralisé).
 
 ## Les actes d'administration consignés
 
@@ -88,12 +92,13 @@ le défaut automatique (`rgpd: sensitive`), `trace: audit`/`limited` ;
 les surfaces standard la consultent (le degré `administrator`), la
 rétention déclarée (D411).
 
-### Le suivi des migrations (D666–D668)
+### Le suivi des migrations (D666–D668, D711)
 
-Le module `migration` (porté par Syncytium) : les entités du suivi —
-la couverture par migration/entité/règle, les rejets et leurs
-causes — **historisées** (l'évolution de la qualité dans le temps) ;
-la vue par les surfaces standard.
+**L'entrée « migrations » du module d'administration** (D711 —
+conditionnelle : `migrations:` défini) : les entités du suivi — la
+couverture par migration/entité/règle, les rejets et leurs causes —
+**historisées** (l'évolution de la qualité dans le temps) ; la vue
+par les surfaces standard.
 
 ### Les opérations d'administration du socle (D701)
 

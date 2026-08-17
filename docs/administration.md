@@ -242,6 +242,24 @@ journaux + les settings + la documentation, **spécifiques à
 chacun** ; l'actif/passif du PCA-PRA (D112–D114) — la réplication
 différentielle (le mode `relative` de la migration, D649/D671).
 
+### Le lien actif/passif (D724)
+
+**Le passif est dormant** — ni lecture ni service pendant la vie
+normale. **Les trois modes de gestion** (l'écriture `replication:`
+en proposition, dans `environments/passive.yml`) :
+
+| le mode | la mécanique | le failback |
+|---|---|---|
+| `brut` | **la copie de l'instance à intervalle régulier** — les fichiers des entités, les fichiers de configuration et la base | non |
+| `differentiel` | **la base au natif du moteur ou de l'infrastructure** (Syncytium ne gère pas la base) ; Syncytium synchronise **les fichiers des entités et de configuration** | non |
+| `synchronous` | **les actions historisées, transmises au passif, l'exécution confirmée supprime l'action en attente** (le patron de la file — D686) | **oui** — les actions du passif pendant l'incident reprennent le même chemin |
+
+**Une montée de version est couverte par les trois modes** : la
+copie l'emporte (brut), les fichiers de configuration la portent
+(differentiel), l'action de migration s'expédie comme les autres
+(synchronous). La bascule reste un acte d'exploitation ; le retard
+de synchronisation se surveille (l'alerte D626 au-delà d'un seuil).
+
 ### Les journaux (D343)
 
 Par environnement : le staging en **debug/verbose**, la production

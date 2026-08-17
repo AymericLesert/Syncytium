@@ -849,6 +849,7 @@ documentation) :
 | D721 | **Le changement de mail** : l'UUID survit ; deux chemins — l'administrateur sans vérification (tracé), le profil à double validation (le clic depuis l'ancienne adresse puis la validation depuis la nouvelle). | Voir §3.2c. |
 | D722 | **La fusion** : l'opération de l'administrateur — le survivant désigné, l'autre désactivé (jamais supprimé) ; **la perte éventuelle des historiques du compte désactivé est assumée** — pas de re-parentage rétroactif. | Solde les comptes au quotidien. Voir §3.2c. |
 | D723 | **Les mails du socle** (complète D720–D721) : l'invitation, la réinitialisation, la validation — des templates mail du socle (D562/D564, smtp D628, la langue de l'utilisateur) ; Syncytium les fournit par défaut, la configuration de l'application peut les redéfinir. | Voir §3.2c. |
+| D724 | **Le lien actif/passif** (précise D112–D114/D606) : le passif dormant ; trois modes — `brut` (la copie entière à intervalle, pas de failback), `differentiel` (la base au natif du moteur/de l'infra, Syncytium synchronise les fichiers — pas de failback), `synchronous` (les actions historisées, transmises, confirmées — le failback traité) ; la montée de version couverte par les trois. | L'écriture replication: en proposition. Voir §3.2c. |
 
 ---
 
@@ -6697,6 +6698,38 @@ D217–D225) ; **Syncytium fournit ses mails par défaut** (le
 catalogue = les hooks embarqués — D408), **la configuration de
 l'application peut les redéfinir** (le patron du défaut remplacé par
 la déclaration — D186/D437).
+
+**Le lien actif/passif — le dormant et les trois modes (D724 —
+précise D112–D114/D606).** Le passif dormant confirmé (« je confirme
+que le passif est dormant ») — ni lecture ni service pendant la vie
+normale. **Et les trois modes de gestion** :
+
+- **`brut`** — **« la synchronisation est effectuée à intervalle
+  régulier via une copie de l'instance (fichiers des entités,
+  fichiers de configuration et base de données) — pas de
+  failback »** : la copie entière, simple et lourde, au rythme
+  d'`every:` ;
+- **`differentiel`** — **« cela dépend du moteur de base de données
+  ou de l'infrastructure : Syncytium ne gère pas la base mais
+  synchronise les fichiers des entités et les fichiers de
+  configuration — pas de failback »** : la réplication de la base
+  déléguée au natif (le streaming du moteur, l'infra), Syncytium ne
+  porte que les fichiers (les pièces jointes D384, la
+  configuration) ;
+- **`synchronous`** — **« les actions faites sur l'instance active
+  sont historisées, transmises à l'instance passive, et l'exécution
+  confirmée supprime l'action en attente (traite ainsi le
+  failback) »** : le journal d'actions expédié et confirmé (le
+  patron de la file d'attente D686) — **le seul mode qui traite le
+  failback** : les actions du passif pendant l'incident reprennent
+  le même chemin au retour.
+
+**« Une montée de version est couverte par les trois modes »** — la
+version voyage avec la synchronisation : la copie l'emporte (brut),
+les fichiers de configuration la portent (differentiel), l'action de
+migration s'expédie comme les autres (synchronous). *(L'écriture en
+proposition :* `replication: brut | differential | synchronous` *+
+le rythme à* `every:` *dans* `environments/passive.yml`*.)*
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -14762,6 +14795,12 @@ avant la synthèse Q16).
   mails de compte = des templates mail du socle, fournis par défaut,
   redéfinissables dans la configuration de l'application ; la langue
   de l'utilisateur. administration.md mis au niveau.
+- **2026-08-17 (suite 10)** — **Le lien actif/passif (D724)** : le
+  passif dormant confirmé ; les trois modes brut / differentiel
+  (la base au natif, Syncytium porte les fichiers) / synchronous
+  (les actions historisées-transmises-confirmées — le seul failback)
+  ; la montée de version couverte par les trois. administration.md
+  mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

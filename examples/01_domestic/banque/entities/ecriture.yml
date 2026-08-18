@@ -7,13 +7,10 @@ fields:
   comptable: date                    # la date comptable — renseignée au pointage
   libelle:   text[..60]
   budget:    banque.budget           # le référentiel dynamique (D355)
-  montant:   { type: decimal, required: true }   # signé
-  devise:                            # la devise vit à l'opération (D769)
-    type: enum
-    default: E
-    values:
-      E: { label: { fr: Euro } }
-      F: { label: { fr: Franc } }    # l'historique antérieur au passage
+  montant:                           # signé — la devise vit dans la valeur (D771)
+    type: amount
+    currencies: [EUR, FRF]           # FRF : l'historique antérieur au passage
+    required: true
   mode:
     type: enum
     values:
@@ -25,7 +22,17 @@ fields:
   liee:      banque.ecriture         # l'écriture miroir du virement (D758)
   lieu:      banque.lieu             # la ville — dynamique (D355)
   imprimee:  date                    # le marqueur du relevé (Date_Impression)
-  # les montants convertis (D770) — le taux fixe du passage franc→euro
-  montant_euro:  { formula: devise.select(E: montant, F: montant / 6.55957) }
-  montant_franc: { formula: devise.select(F: montant, E: montant * 6.55957) }
-  solde:     { formula: owner.ecritures.sum(montant_euro if date <= me.date) }   # D760/D770 — continu
+  # les montants convertis (D770/D771) — des amount à devise unique,
+  # le taux fixe du passage franc→euro ; currency : la fonction du type
+  montant_euro:
+    type: amount
+    currencies: [EUR]
+    formula: montant.currency.select(EUR: montant, FRF: montant / 6.55957)
+  montant_franc:
+    type: amount
+    currencies: [FRF]
+    formula: montant.currency.select(FRF: montant, EUR: montant * 6.55957)
+  solde:
+    type: amount
+    currencies: [EUR]
+    formula: owner.ecritures.sum(montant_euro if date <= me.date)   # D760/D770 — continu

@@ -897,6 +897,7 @@ Q58) :
 | D768 | **Les chemins relatifs au fichier courant** (précise D767) : sans racine explicite, le dossier courant = celui du fichier en cours de lecture — chaque fichier lisible seul, déplaçable avec son sous-arbre. | Voir §3.2c. |
 | D769 | **La devise à l'opération** (corrige D758) : le compte perd devise, l'écriture la gagne — les valeurs `E`/`F` comme la source, le défaut E ; les données confirment (des comptes aux deux devises — le passage franc→euro). | La question du solde à devises mêlées posée. Voir §3.2c. |
 | D770 | **Les montants convertis en calculés** (répond au solde mêlé) : montant_euro et montant_franc au `select` de la devise (le taux fixe 6,55957) — le solde cumule montant_euro, continu à travers le passage ; l'ancienne sommait brut. | Rien d'inventé — D584/D580/D760. Voir §3.2c. |
+| D771 | **Le montant en amount** (amende D769/D770) : `amount, currencies: [EUR, FRF]` — la devise vit dans la valeur, le champ devise disparaît ; les calculés = des amount à devise unique ; la fonction `currency` du type amount en proposition ; E/F transcodés au mapping. | Voir §3.2c. |
 
 ---
 
@@ -7451,6 +7452,20 @@ briques existantes** : deux calculés au `select` du type énuméré
 
 — **le solde cumule `montant_euro`** : continu à travers le passage
 franc→euro, sans rien inventer au socle.
+
+**Le montant en amount (D771 — amende D769/D770).** **« Le montant
+de l'opération peut être un type `amount` avec les devises
+(FRF/EUR). Les champs calculés montant_euro et montant_franc sont
+des `amount` à une seule devise. »** — le composé fait le travail
+(D391) : **le couple montant+devise redevient un champ** —
+`montant: { type: amount, currencies: [EUR, FRF] }` — la devise vit
+*dans* la valeur ; les calculés sont **des amount à devise unique**
+(`currencies: [EUR]`), la conversion au taux fixe. *(Les lectures
+notées : le type amount expose sa devise à l'expression — la
+fonction dédiée `currency`, l'écriture en proposition :*
+`montant.currency.select(EUR: montant, FRF: montant / 6.55957)` *;
+et les E/F de la source se transcodent en EUR/FRF au mapping de la
+reprise.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15737,6 +15752,10 @@ avant la synthèse Q16).
 - **2026-08-19** — **Les montants convertis (D770)** : montant_euro/
   montant_franc calculés au select de la devise, le solde continu
   sur montant_euro ; ecriture.yml repris.
+- **2026-08-19 (suite 2)** — **Le montant en amount (D771)** : le
+  couple montant+devise redevient un champ (le composé D391), les
+  calculés en amount à devise unique, la fonction currency du type
+  amount proposée ; ecriture.yml repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

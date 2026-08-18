@@ -890,6 +890,7 @@ Q58) :
 | D761 | **owner validé, l'association nommée au champ** (arbitre D760, amende D401) : owner = la composition seule (un possesseur unique) ; `association with` précise le champ de destination qui référence le parent — **le défaut : le champ au nom de l'entité**, l'explicite (`via <champ>` en proposition) à l'ambiguïté ; l'accès montant de l'association = le champ de référence lui-même. | L'ingestion refuse l'ambiguïté non levée. Voir §3.2c. |
 | D762 | **L'écriture au point** (arrête D761) : `association with <entité>.<champ>` — le point de l'adressage logique (D363) désigne le champ de destination, aucun mot-clé nouveau ; le défaut demeure (le champ au nom de l'entité). | Remplace la proposition via. Voir §3.2c. |
 | D763 | **Le smtp none** (le cas 1 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
+| D764 | **Les noms du modèle en français** (précise D335/D361) : la grammaire au moteur (les mots-clés, les propriétés, les types — anglais), les identifiants au technicien (les modules, les entités, les champs — la langue du client, sans accents ni espaces). | Voir §3.2c. |
 
 ---
 
@@ -7352,6 +7353,19 @@ existe, il est muet, le domestique l'assume (l'écho du mock D627 —
 ici en classe permanente, pas en dégradation) ; les alertes et les
 mails de compte (D723) deviennent silencieux — le choix est déclaré,
 jamais subi.
+
+**Les noms du modèle en français (D764 — précise D335/D361).**
+**« Les noms des champs, des entités et des modules peuvent être
+écrits en français. »** — la ligne de partage se précise : **la
+grammaire appartient au moteur, les noms appartiennent au
+technicien**. Les mots-clés, les propriétés, les types et les
+valeurs du catalogue restent anglais (D335/D358/D361 — le dépôt du
+moteur, les fichiers du socle) ; **les identifiants du modèle** (les
+modules, les entités, les champs — et leurs fichiers) s'écrivent
+dans la langue du client : `banque`, `compte`, `libelle`,
+`cloture` — l'application parle la langue de celui qui la décrit.
+*(La lecture notée : les identifiants sans accents ni espaces —
+l'adressage par points D363 reste net.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15605,6 +15619,10 @@ avant la synthèse Q16).
   environments/home.yml (l'environnement unique, le sqlite,
   l'authentification none, le smtp none). **La grammaire s'écrit
   pour de vrai pour la première fois.**
+- **2026-08-18 (suite 15)** — **Les noms du modèle en français
+  (D764)** : la grammaire au moteur, les identifiants au technicien
+  — le morceau 2 du cas 1 se réécrit en français (banque, compte,
+  ecriture, libelle…).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

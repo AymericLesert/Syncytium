@@ -887,6 +887,7 @@ Q58) :
 | D758 | **Le cadrage du cas 1** : le compte bancaire du foyer — sans authentification (« pas de secrets dans la famille »), la genèse 1987, les comptes (devise FRF\|EUR, la règle d'ouverture), les opérations (le compteur masqué, les dates opération/comptable au pointage, le budget et le lieu dynamiques, le montant signé, le mode figé), le solde au fil du tri, le relevé PDF aux trois clés ; les données réelles 1992→2026 analysées. | Le contexte et les dix questions dans usecases/01_domestic.md. Voir le journal. |
 | D759 | **L'authentification none** (le cas 1 — complète D692/D716) : la cinquième classe — aucun défi, aucun secret ; les invariants par les défauts implicites (l'utilisateur et le groupe par défaut, le degré administrator) — l'appartenance D699 pré-remplie, jamais contournée. | Le mono-poste domestique. Voir §3.2c. |
 | D760 | **Le mot-clé du possesseur** (le cas 1 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
+| D761 | **owner validé, l'association nommée au champ** (arbitre D760, amende D401) : owner = la composition seule (un possesseur unique) ; `association with` précise le champ de destination qui référence le parent — **le défaut : le champ au nom de l'entité**, l'explicite (`via <champ>` en proposition) à l'ambiguïté ; l'accès montant de l'association = le champ de référence lui-même. | L'ingestion refuse l'ambiguïté non levée. Voir §3.2c. |
 
 ---
 
@@ -7284,6 +7285,47 @@ mot-clé montant — de l'enfant vers son possesseur — manquait**.
 `balance: { formula: owner.operations.sum(amount if date <= me.date) }`
 *— l'agrégat de la collection D580 fait le cumul, `me.` désigne
 l'enregistrement courant dans le filtre.)*
+
+**owner validé — l'association nommée au champ (D761 — arbitre D760,
+amende D401).** **« owner me convient pour une composition, car un
+enregistrement ne peut avoir qu'un seul owner. Mais, dans le cas
+d'une association, un enregistrement peut être associé à plusieurs
+autres associations — il doit pouvoir accéder à l'une ou l'autre
+comme pour une composition. La définition d'un champ de type
+association with doit être associée à un champ de la table de
+destination. Peut-être faut-il faire évoluer association with ou
+list of pour préciser le champ de l'entité de destination faisant
+référence à l'entité parente ? Avec, par défaut, un nom de champ =
+nom de l'entité. »** — les arbitrages :
+
+- **`owner` est validé pour la composition** — un enregistrement n'a
+  qu'un seul possesseur (D399) ;
+- **l'association nomme son champ de destination** : la déclaration
+  `association with` précise **le champ de l'entité de destination
+  qui référence l'entité parente** — **le défaut : le champ qui
+  porte le nom de l'entité** (l'écho D396 : le raccourci type = nom
+  d'entité) ; l'explicite n'est requis qu'à l'ambiguïté (deux
+  références vers la même entité) ;
+- **l'accès montant de l'association** : l'enregistrement accède à
+  chacun de ses associés **par son champ de référence** — le champ
+  est l'accès (rien de neuf) ; `owner` reste réservé à la
+  composition.
+
+*(L'écriture en proposition : **`via <champ>`** —*
+
+```yaml
+# sales/entities/order.yml — la destination porte la référence (D394)
+fields:
+  customer: sales.customer          # le champ nommé comme l'entité — le défaut
+  billing:  sales.customer          # la seconde référence — l'ambiguïté
+
+# sales/entities/customer.yml — les associations
+fields:
+  orders:   association with order                 # via customer (le défaut)
+  invoiced: association with order via billing     # l'explicite à l'ambiguïté
+```
+
+*— l'ingestion refuse l'ambiguïté non levée, l'esprit D344.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15521,6 +15563,11 @@ avant la synthèse Q16).
   montant des opérations suivantes, l'ancien format disparu — la
   reprise sur les deux fichiers au format unique). connectors.md,
   rights.md et administration.md mis au niveau (la classe none).
+- **2026-08-18 (suite 11)** — **owner validé, via proposé (D761)** :
+  la composition seule a un owner ; l'association nomme son champ de
+  destination (le défaut = le nom de l'entité, via <champ> à
+  l'ambiguïté) ; l'accès montant = le champ de référence. types.md
+  mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

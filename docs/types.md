@@ -101,9 +101,10 @@ facettes propres (D391). Le nul de chaque composé se trie en premier.
 |---|---|---|
 | la référence — `<module>.<entité>` | « si le type est le nom d'une entité, c'est une référence » (le `to` inutile) ; **l'origine se lit par `me.`** dans le filtre ; `check: selection` (défaut) \| `immutable` ; l'accès retour automatique (la liste nommée) | D394–D398, D216 |
 | la composition — `list of <entité>` | le lien de possession : le parent déclare, l'enfant ne déclare rien ; **l'agrégat = le grain d'écriture** (indivisible) | D399–D400, D420 |
-| l'association — `association with <entité>` | plusieurs, libres, inter-modules — sans cascade ; reprend les propriétés de la référence (filter/me./check, l'affichage au visage) | D400–D401 |
+| l'association — `association with <entité> [via <champ>]` | plusieurs, libres, inter-modules — sans cascade ; reprend les propriétés de la référence (filter/me./check, l'affichage au visage) ; **le champ de destination nommé** (D761 — le défaut : le champ au nom de l'entité, `via` à l'ambiguïté) | D400–D401, D761 |
 | le lien n-aire — `list of [a, b]` / `association with [a, b]` | **chaque élément = une combinaison des entités nommées**, des propriétés par entité nommée | D402 |
 | l'association dérivée — `association with <entité> if …` | la vue navigable, jamais stockée, en lecture — la vérité reste la référence | D405 |
+| l'accès montant | **`owner`** — le possesseur d'une composition (unique — D760/D761) ; l'associé s'atteint **par son champ de référence** | D760–D761 |
 
 ## Les générés et le contexte
 

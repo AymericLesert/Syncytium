@@ -891,6 +891,7 @@ Q58) :
 | D762 | **L'écriture au point** (arrête D761) : `association with <entité>.<champ>` — le point de l'adressage logique (D363) désigne le champ de destination, aucun mot-clé nouveau ; le défaut demeure (le champ au nom de l'entité). | Remplace la proposition via. Voir §3.2c. |
 | D763 | **Le smtp none** (le cas 1 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
 | D764 | **Les noms du modèle en français** (précise D335/D361) : la grammaire au moteur (les mots-clés, les propriétés, les types — anglais), les identifiants au technicien (les modules, les entités, les champs — la langue du client, sans accents ni espaces). | Voir §3.2c. |
+| D765 | **Le module déclare ses entités** (précise D347/D415) : module.yml porte `entities: [ <les fichiers> ]` — la liste explicite jusqu'au module (le patron D415/D644/D664), rien ne se déduit du disque. | Voir §3.2c. |
 
 ---
 
@@ -7366,6 +7367,15 @@ dans la langue du client : `banque`, `compte`, `libelle`,
 `cloture` — l'application parle la langue de celui qui la décrit.
 *(La lecture notée : les identifiants sans accents ni espaces —
 l'adressage par points D363 reste net.)*
+
+**Le module déclare ses entités (D765 — précise D347/D415).** **« Le
+fichier `banque/module.yml` doit contenir une section
+`entities: [ banque/entities/compte.yml, banque/entities/ecriture.yml ]`
+pour faire le lien. »** — la liste explicite jusqu'au module : comme
+`modules.yml` liste les modules (D415), comme `hooks.yml` liste les
+hooks (D644), comme la migration référence ses fichiers (D664),
+**le module référence les fichiers de ses entités** — rien ne se
+déduit du disque, la déclaration fait foi.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15623,6 +15633,9 @@ avant la synthèse Q16).
   (D764)** : la grammaire au moteur, les identifiants au technicien
   — le morceau 2 du cas 1 se réécrit en français (banque, compte,
   ecriture, libelle…).
+- **2026-08-18 (suite 16)** — **Le module déclare ses entités
+  (D765)** : module.yml porte entities: [les fichiers] — la liste
+  explicite jusqu'au module.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

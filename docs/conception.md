@@ -888,6 +888,7 @@ Q58) :
 | D759 | **L'authentification none** (le cas 1 — complète D692/D716) : la cinquième classe — aucun défi, aucun secret ; les invariants par les défauts implicites (l'utilisateur et le groupe par défaut, le degré administrator) — l'appartenance D699 pré-remplie, jamais contournée. | Le mono-poste domestique. Voir §3.2c. |
 | D760 | **Le mot-clé du possesseur** (le cas 1 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
 | D761 | **owner validé, l'association nommée au champ** (arbitre D760, amende D401) : owner = la composition seule (un possesseur unique) ; `association with` précise le champ de destination qui référence le parent — **le défaut : le champ au nom de l'entité**, l'explicite (`via <champ>` en proposition) à l'ambiguïté ; l'accès montant de l'association = le champ de référence lui-même. | L'ingestion refuse l'ambiguïté non levée. Voir §3.2c. |
+| D762 | **L'écriture au point** (arrête D761) : `association with <entité>.<champ>` — le point de l'adressage logique (D363) désigne le champ de destination, aucun mot-clé nouveau ; le défaut demeure (le champ au nom de l'entité). | Remplace la proposition via. Voir §3.2c. |
 
 ---
 
@@ -7326,6 +7327,19 @@ fields:
 ```
 
 *— l'ingestion refuse l'ambiguïté non levée, l'esprit D344.)*
+
+**L'écriture au point (D762 — arrête D761).** **« `invoiced:
+association with order.billing` (au lieu de via). »** — pas de
+mot-clé nouveau : **le point de l'adressage logique (D363) désigne
+le champ de destination** — `association with <entité>.<champ>` ;
+le défaut demeure (`association with order` = le champ au nom de
+l'entité) :
+
+```yaml
+fields:
+  orders:   association with order            # order.customer — le défaut
+  invoiced: association with order.billing    # le champ nommé au point
+```
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15568,6 +15582,9 @@ avant la synthèse Q16).
   destination (le défaut = le nom de l'entité, via <champ> à
   l'ambiguïté) ; l'accès montant = le champ de référence. types.md
   mis au niveau.
+- **2026-08-18 (suite 12)** — **L'écriture au point (D762)** :
+  association with <entité>.<champ> remplace via — l'adressage
+  logique D363, aucun mot-clé nouveau. types.md repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

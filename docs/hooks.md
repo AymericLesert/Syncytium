@@ -75,6 +75,11 @@ graphe de conversion).
 - **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
   géolocalisation : « un type emmène avec lui des fonctions
   dédiées » ;
+- **les accès aux sous-items** (D772–D773) — un type composé expose
+  **ses parties nommées via des fonctions** : `value`/`currency`
+  (amount), les coordonnées/l'adresse (geolocation), les bornes
+  (period)… — la signature les déclare, un composé sans ses accès
+  est incomplet ;
 - **le composant par défaut au nom du type** (D458) — le type-hook
   nomme son composant comme le socle nomme les siens ; le contexte
   départage les espaces de noms ;

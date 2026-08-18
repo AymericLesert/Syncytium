@@ -145,7 +145,14 @@ définition, la composition `ecritures`), `ecriture` (le compteur
 masqué, les dates opération/comptable, le `decimal` signé, le mode
 aux quatre valeurs, `liee:` — le miroir du virement, `imprimee`, le
 `solde` par `owner` — D760), `budget` et `lieu` (les référentiels à
-création directe D355).
+création directe D355). **Le modèle est arrêté** (D773) — les
+raffinements de la relecture : le montant en `amount` aux devises
+EUR/FRF (D771 — la devise vit dans la valeur), les calculés
+`montant_euro`/`montant_franc` en amount à devise unique et le
+solde continu (D770–D772 — `montant.value`/`montant.currency`, le
+constructeur D659), le fichier d'entrée aux liens (D767), les
+chemins relatifs (D768), la chaîne modules.yml → module.yml →
+entités (D765–D766).
 
 ## Les manques relevés
 

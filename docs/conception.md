@@ -899,6 +899,7 @@ Q58) :
 | D770 | **Les montants convertis en calculés** (répond au solde mêlé) : montant_euro et montant_franc au `select` de la devise (le taux fixe 6,55957) — le solde cumule montant_euro, continu à travers le passage ; l'ancienne sommait brut. | Rien d'inventé — D584/D580/D760. Voir §3.2c. |
 | D771 | **Le montant en amount** (amende D769/D770) : `amount, currencies: [EUR, FRF]` — la devise vit dans la valeur, le champ devise disparaît ; les calculés = des amount à devise unique ; la fonction `currency` du type amount en proposition ; E/F transcodés au mapping. | Voir §3.2c. |
 | D772 | **Les parties du composé au point** (complète D771) : `montant.value` comme `montant.currency` — le composé expose ses parties ; la conversion au constructeur (D659) : `amount(montant.value / 6.55957, EUR)` ; la généralisation aux composés en lecture notée. | Voir §3.2c. |
+| D773 | **Le modèle du cas 1 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
 
 ---
 
@@ -7479,6 +7480,16 @@ patron vaut pour tous les composés — leurs parties nommées
 accessibles au point : la geolocation et ses coordonnées/adresse
 D638, la period et ses bornes… — la généralisation à valider aux
 fiches des types.)*
+
+**Le modèle validé — les sous-items généralisés (D773 — valide le
+modèle du cas 1 et la lecture de D772).** L'auteur valide le modèle
+du cas 1 (compte, ecriture en amount, les référentiels, le solde
+continu) — et **la généralisation est actée** : **tout type composé
+expose ses sous-items par le point, via des fonctions du type**
+(D579 — le type emmène ses fonctions ; `amount.value`/
+`amount.currency`, la geolocation et ses coordonnées/adresse D638,
+la period et ses bornes…) ; **la signature du hook de type les
+déclare** — un composé sans ses accès de sous-items est incomplet.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15772,6 +15783,11 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 3)** — **Les parties au point (D772)** :
   montant.value comme montant.currency ; la conversion au
   constructeur ; ecriture.yml et types.md mis au niveau.
+- **2026-08-19 (suite 4)** — **Le modèle validé, les sous-items
+  généralisés (D773)** : les accès aux sous-items = des fonctions du
+  type, déclarées à la signature du hook ; types.md (le socle
+  commun) et hooks.md (la signature) mis au niveau ; le modèle du
+  cas 1 arrêté.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

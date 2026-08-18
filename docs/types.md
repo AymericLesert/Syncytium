@@ -75,6 +75,12 @@ composants.md.
 
 Ils héritent du kit de la base + la validation intégrée + leurs
 facettes propres (D391). Le nul de chaque composé se trie en premier.
+**Les sous-items au point** (D772–D773) : chaque composé expose ses
+parties nommées **via des fonctions du type** — `montant.value`,
+`montant.currency` (amount), les coordonnées et l'adresse
+(geolocation — D638), les bornes (period)… ; la conversion se
+compose avec le constructeur (D659) :
+`amount(montant.value / 6.55957, EUR)`.
 
 | le type | la nature et les facettes propres | D |
 |---|---|---|

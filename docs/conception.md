@@ -884,6 +884,7 @@ Q58) :
 | D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
 | D756 | **Les cinq cas d'usage** (ouvre Q59) : 1. le domestique (compte bancaire, véhicule…) · 2. la collecte/standardisation des commandes commerciales · 3. la conversion Cegid PMI → l'entrepôt + les règles métiers · 4. la gestion de projets · 5. l'ERP de livraison de repas — du plus simple au plus compliqué ; pour chacun, **la forme et les manques** ; les autres cas se cadrent à l'un des cinq. | Le sommaire du domaine 5. Voir §3.2c. |
 | D757 | **La maison des cas d'usage** : un fichier md par cas, dans `usecases/` au même niveau que docs/ — les cinq squelettes créés (01_domestic … 05_meal_delivery, le préfixe numérique D665, l'anglais D335). | Voir §3.2c. |
+| D758 | **Le cadrage du cas 1** : le compte bancaire du foyer — sans authentification (« pas de secrets dans la famille »), la genèse 1987, les comptes (devise FRF\|EUR, la règle d'ouverture), les opérations (le compteur masqué, les dates opération/comptable au pointage, le budget et le lieu dynamiques, le montant signé, le mode figé), le solde au fil du tri, le relevé PDF aux trois clés ; les données réelles 1992→2026 analysées. | Le contexte et les dix questions dans usecases/01_domestic.md. Voir le journal. |
 
 ---
 
@@ -15469,6 +15470,15 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 8)** — **La maison des cas d'usage (D757)** :
   le dossier usecases/ à la racine (un fichier par cas), les cinq
   squelettes créés.
+- **2026-08-18 (suite 9)** — **Le cadrage du cas 1 (D758)** : le
+  compte bancaire du foyer — sans authentification, la genèse 1987
+  (Turbo Pascal puis Java), les comptes/opérations/budgets
+  dynamiques/pointage/relevé PDF, le solde au fil du tri, le souhait
+  de l'évolution des budgets depuis 1992 ; les données réelles
+  fournies et analysées (~23 400 lignes, 1992→2026, le CSV
+  Windows-1252, Débit/Crédit, la Nature mixte, Date_Impression) —
+  usecases/01_domestic.md porte le contexte, le format et les dix
+  questions ouvertes.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

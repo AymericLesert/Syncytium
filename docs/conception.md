@@ -15788,6 +15788,14 @@ avant la synthèse Q16).
   type, déclarées à la signature du hook ; types.md (le socle
   commun) et hooks.md (la signature) mis au niveau ; le modèle du
   cas 1 arrêté.
+- **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
+  modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
+  usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix
+  décisions de socle nées du cas). **La reprise : le morceau 3 (les
+  opérations) — les deux frottements en attente : le `input:`
+  d'opération (la saisie avant execute) et la série de la
+  propagation.** La PR de consolidation sur demande (~20 commits
+  depuis la #36).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

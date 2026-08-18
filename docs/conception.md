@@ -896,6 +896,7 @@ Q58) :
 | D767 | **Le fichier d'entrée porte les liens, l'inline ou la référence** (généralise D352) : syncytium.yml référence les fichiers de configuration — rien ne se déduit de l'arborescence ; toute propriété porte le contenu ou la référence de fichier (le fichier unique possible, l'éclatement libre). | Corrige le morceau 1 du cas 1. Voir §3.2c. |
 | D768 | **Les chemins relatifs au fichier courant** (précise D767) : sans racine explicite, le dossier courant = celui du fichier en cours de lecture — chaque fichier lisible seul, déplaçable avec son sous-arbre. | Voir §3.2c. |
 | D769 | **La devise à l'opération** (corrige D758) : le compte perd devise, l'écriture la gagne — les valeurs `E`/`F` comme la source, le défaut E ; les données confirment (des comptes aux deux devises — le passage franc→euro). | La question du solde à devises mêlées posée. Voir §3.2c. |
+| D770 | **Les montants convertis en calculés** (répond au solde mêlé) : montant_euro et montant_franc au `select` de la devise (le taux fixe 6,55957) — le solde cumule montant_euro, continu à travers le passage ; l'ancienne sommait brut. | Rien d'inventé — D584/D580/D760. Voir §3.2c. |
 
 ---
 
@@ -7432,6 +7433,24 @@ question soulevée au passage : le `solde` cumule des montants aux
 devises mêlées sur un compte à cheval — l'ancienne application
 convertissait-elle, ou le solde changeait-il d'unité au passage ? —
 posée à l'auteur.)*
+
+**Les montants convertis en calculés (D770 — répond à la question).**
+**« Il changeait d'unité au fil des lignes. Ici, nous pouvons avoir
+sur une opération deux champs calculés montants supplémentaires
+(MontantFranc, MontantEuro) qui se calculent en fonction de la
+devise. »** — l'ancienne application sommait brut (le solde changeait
+d'unité — l'utilisateur savait lire) ; le neuf fait mieux **avec les
+briques existantes** : deux calculés au `select` du type énuméré
+(D584), le taux fixe du passage (6,55957) —
+
+```yaml
+  montant_euro:  { formula: devise.select(E: montant, F: montant / 6.55957) }
+  montant_franc: { formula: devise.select(F: montant, E: montant * 6.55957) }
+  solde: { formula: owner.ecritures.sum(montant_euro if date <= me.date) }
+```
+
+— **le solde cumule `montant_euro`** : continu à travers le passage
+franc→euro, sans rien inventer au socle.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15715,6 +15734,9 @@ avant la synthèse Q16).
   la correction du cadrage — les valeurs E/F de la source, le compte
   sans devise ; la question du solde à devises mêlées posée. Les
   fichiers du cas repris.
+- **2026-08-19** — **Les montants convertis (D770)** : montant_euro/
+  montant_franc calculés au select de la devise, le solde continu
+  sur montant_euro ; ecriture.yml repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

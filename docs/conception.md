@@ -15412,6 +15412,12 @@ avant la synthèse Q16).
   surcharge) ; le hook de style = la sixième famille (le thème = une
   combinaison de styles, la structure non généralisable, le
   complément du hook d'affichage). hooks.md mis au niveau.
+- **2026-08-18 (suite 5)** — **Le tour des artefacts pour le thème**
+  (« as-tu mis à jour tous les items ? ») : glossaire.md (les
+  entrées Style et Thème créées), composants.md (le style: raccordé
+  au thème choisi — D536 relu), rights.md (le thème aux droits) —
+  hooks.md et administration.md l'étaient déjà. Le chantier du thème
+  est couvert dans les six documents concernés.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

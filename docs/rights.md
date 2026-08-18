@@ -46,7 +46,8 @@ fields:
 
 La confidentialité irrigue tout : les menus filtrés (D193), l'export
 aux colonnes visibles (D196), les widgets hérités surchargeables
-(Q53), la communication (D393).
+(Q53), la communication (D393) — et jusqu'aux **thèmes** (D753 : un
+objet comme les autres, le choix du profil n'offre que le visible).
 
 ## Les droits d'action (D196, D421–D427)
 

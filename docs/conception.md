@@ -15648,6 +15648,13 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 17)** — **modules.yml aux fichiers (D766)** :
   modules: [banque/module.yml] — la chaîne uniforme du sommet à la
   feuille.
+- **2026-08-18 (suite 18)** — **Le morceau 2 du cas 1 validé et
+  écrit** (« je valide le morceau 2 ») : les six fichiers dans
+  examples/01_domestic/ — modules.yml, banque/module.yml, les
+  entités compte (identité numero, ouvert calculé, la composition),
+  ecriture (le compteur masqué, les deux dates, le decimal signé, le
+  mode, liee:, le solde par owner), budget et lieu (la création
+  directe).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

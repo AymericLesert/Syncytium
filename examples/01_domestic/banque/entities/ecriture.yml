@@ -1,0 +1,22 @@
+# L'écriture bancaire (D758)
+name: ecriture
+label: "{libelle}"
+fields:
+  numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
+  date:      { type: date, required: true }   # la date d'opération
+  comptable: date                    # la date comptable — renseignée au pointage
+  libelle:   text[..60]
+  budget:    banque.budget           # le référentiel dynamique (D355)
+  montant:   { type: decimal, required: true }   # signé — la devise vit au compte
+  mode:
+    type: enum
+    values:
+      cb:          { label: { fr: CB } }
+      prelevement: { label: { fr: Prélèvement } }
+      virement:    { label: { fr: Virement } }
+      autre:       { label: { fr: Autre } }
+  cheque:    text[..10]              # le n° de chèque (le mode autre)
+  liee:      banque.ecriture         # l'écriture miroir du virement (D758)
+  lieu:      banque.lieu             # la ville — dynamique (D355)
+  imprimee:  date                    # le marqueur du relevé (Date_Impression)
+  solde:     { formula: owner.ecritures.sum(montant if date <= me.date) }   # D760

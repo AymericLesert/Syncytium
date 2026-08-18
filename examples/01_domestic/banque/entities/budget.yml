@@ -1,0 +1,5 @@
+# Le référentiel des budgets — la création directe au picker (D355)
+name: budget
+label: "{libelle}"
+identity: [libelle]
+fields: { libelle: text[..30] }

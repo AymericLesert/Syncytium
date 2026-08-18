@@ -137,6 +137,16 @@ l'environnement unique du poste du foyer : le storage `sqlite`
 (D729), l'authentification `none` (D759), le smtp `none` (D763) ;
 la réplication `disabled` par défaut (D725), rien à écrire.
 
+**Le morceau 2 — le module et les entités** (validé) :
+`modules.yml` → `banque/module.yml` (la chaîne par fichiers —
+D765/D766) → les quatre entités **en français** (D764) : `compte`
+(l'identité `numero`, `ouvert` calculé — « la règle » devenue
+définition, la composition `ecritures`), `ecriture` (le compteur
+masqué, les dates opération/comptable, le `decimal` signé, le mode
+aux quatre valeurs, `liee:` — le miroir du virement, `imprimee`, le
+`solde` par `owner` — D760), `budget` et `lieu` (les référentiels à
+création directe D355).
+
 ## Les manques relevés
 
 *(chaque frottement = une décision consignée)*

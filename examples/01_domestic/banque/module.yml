@@ -1,0 +1,7 @@
+# Le module déclare ses entités (D765) — la chaîne par fichiers
+name: banque
+entities:
+  - banque/entities/compte.yml
+  - banque/entities/ecriture.yml
+  - banque/entities/budget.yml
+  - banque/entities/lieu.yml

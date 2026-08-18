@@ -883,6 +883,7 @@ Q58) :
 | D754 | **Le contenu d'un style** (l'écriture D753 validée) : le cadre technique porté par le langage de Syncytium (comme les hooks de code) ; le Web = la représentation HTML des types (le hook d'affichage) complétée par un CSS3 (le style) — le découpage net par type ; le thème surcharge l'implémentation. | Voir §3.2c. |
 | D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
 | D756 | **Les cinq cas d'usage** (ouvre Q59) : 1. le domestique (compte bancaire, véhicule…) · 2. la collecte/standardisation des commandes commerciales · 3. la conversion Cegid PMI → l'entrepôt + les règles métiers · 4. la gestion de projets · 5. l'ERP de livraison de repas — du plus simple au plus compliqué ; pour chacun, **la forme et les manques** ; les autres cas se cadrent à l'un des cinq. | Le sommaire du domaine 5. Voir §3.2c. |
+| D757 | **La maison des cas d'usage** : un fichier md par cas, dans `usecases/` au même niveau que docs/ — les cinq squelettes créés (01_domestic … 05_meal_delivery, le préfixe numérique D665, l'anglais D335). | Voir §3.2c. |
 
 ---
 
@@ -7251,6 +7252,16 @@ de Syncytium pour atteindre l'objectif. »** — l'échelle des cinq :
 **La méthode confirmée** : pour chacun, **la forme** (le dépôt écrit
 pour de vrai) **et les manques** (chaque frottement = une décision) ;
 les autres cas connus de l'auteur se cadrent à l'un des cinq.
+
+**La maison des cas d'usage (D757 — amende ma proposition).** **« Le
+cadre des cas d'usage est à consigner dans des fichiers md distincts
+et stockés dans un dossier `usecases/` au même niveau que
+`docs/`. »** — un fichier par cas, dans **`usecases/`** à la racine
+du dépôt (le nommage anglais D335, l'ordre au préfixe numérique —
+l'écho D665) : `01_domestic.md`, `02_sales_collection.md`,
+`03_cegid_conversion.md`, `04_project_management.md`,
+`05_meal_delivery.md` — les cinq squelettes créés (le contexte à
+cadrer, la forme à écrire, les manques à relever).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15455,6 +15466,9 @@ avant la synthèse Q16).
   commandes, la conversion Cegid PMI, la gestion de projets, l'ERP
   de livraison de repas ; pour chacun, la forme et les manques. Le
   domaine 5 a son sommaire.
+- **2026-08-18 (suite 8)** — **La maison des cas d'usage (D757)** :
+  le dossier usecases/ à la racine (un fichier par cas), les cinq
+  squelettes créés.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

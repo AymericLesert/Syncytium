@@ -892,6 +892,7 @@ Q58) :
 | D763 | **Le smtp none** (le cas 1 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
 | D764 | **Les noms du modèle en français** (précise D335/D361) : la grammaire au moteur (les mots-clés, les propriétés, les types — anglais), les identifiants au technicien (les modules, les entités, les champs — la langue du client, sans accents ni espaces). | Voir §3.2c. |
 | D765 | **Le module déclare ses entités** (précise D347/D415) : module.yml porte `entities: [ <les fichiers> ]` — la liste explicite jusqu'au module (le patron D415/D644/D664), rien ne se déduit du disque. | Voir §3.2c. |
+| D766 | **modules.yml référence les fichiers** (l'étage au-dessus de D765) : `modules: [banque/module.yml]` — la chaîne de références par fichiers complète, du sommet à la feuille. | Voir §3.2c. |
 
 ---
 
@@ -7376,6 +7377,14 @@ pour faire le lien. »** — la liste explicite jusqu'au module : comme
 hooks (D644), comme la migration référence ses fichiers (D664),
 **le module référence les fichiers de ses entités** — rien ne se
 déduit du disque, la déclaration fait foi.
+
+**modules.yml référence les fichiers (D766 — même geste, l'étage
+au-dessus).** **« Dans modules.yml : `modules:
+[banque/module.yml]`. »** — la chaîne est uniforme de bout en bout :
+`modules.yml` référence **les fichiers** des modules, chaque
+`module.yml` référence les fichiers de ses entités (D765) — **la
+chaîne de références par fichiers** est complète, du sommet de la
+version à la feuille (l'écho du patron des migrations D664).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15636,6 +15645,9 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 16)** — **Le module déclare ses entités
   (D765)** : module.yml porte entities: [les fichiers] — la liste
   explicite jusqu'au module.
+- **2026-08-18 (suite 17)** — **modules.yml aux fichiers (D766)** :
+  modules: [banque/module.yml] — la chaîne uniforme du sommet à la
+  feuille.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

@@ -1,4 +1,9 @@
 # Le cas d'usage 1 — le compte bancaire du foyer (Q59/D758)
-# L'entrée de la version (D322)
+# L'entrée de la version (D322) — elle porte les liens (D767) :
+# rien ne se déduit de l'arborescence, la déclaration fait foi.
 name: budget
 version: 1.0.0.0
+modules: modules.yml                     # → banque/module.yml → les entités
+environments: [environments/home.yml]    # l'unique environnement du foyer
+# (le cas simple tiendrait dans ce seul fichier — l'inline ou la
+#  référence, D767 ; l'éclatement par fichier sert l'exemple)

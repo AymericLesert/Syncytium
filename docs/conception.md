@@ -882,6 +882,7 @@ Q58) :
 | D753 | **Le multi-thèmes** (amende la proposition) : plusieurs thèmes par application, **le choix au profil de l'utilisateur** (comme la langue) ; le dossier `themes/` + la déclaration explicite dans la définition de la version (D415/D644) ; **le thème = un objet comme les autres, avec les droits** (la confidentialité — le choix n'offre que le visible). | themes.yml et l'écriture du thème en proposition ; le premier déclaré = le défaut. Voir §3.2c. |
 | D754 | **Le contenu d'un style** (l'écriture D753 validée) : le cadre technique porté par le langage de Syncytium (comme les hooks de code) ; le Web = la représentation HTML des types (le hook d'affichage) complétée par un CSS3 (le style) — le découpage net par type ; le thème surcharge l'implémentation. | Voir §3.2c. |
 | D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
+| D756 | **Les cinq cas d'usage** (ouvre Q59) : 1. le domestique (compte bancaire, véhicule…) · 2. la collecte/standardisation des commandes commerciales · 3. la conversion Cegid PMI → l'entrepôt + les règles métiers · 4. la gestion de projets · 5. l'ERP de livraison de repas — du plus simple au plus compliqué ; pour chacun, **la forme et les manques** ; les autres cas se cadrent à l'un des cinq. | Le sommaire du domaine 5. Voir §3.2c. |
 
 ---
 
@@ -7224,6 +7225,32 @@ l'affichage. »** — les arbitrages :
 - **la complémentarité** : le hook de style complète l'affichage,
   **aux côtés du hook d'affichage** (le composant rend la structure,
   le style rend la présentation).
+
+**Les cinq cas d'usage — le sommaire du domaine 5 (D756 — ouvre
+Q59).** **« Je vais commencer par lister des cas d'usage du plus
+simple au plus compliqué : une gestion de compte bancaire, une
+gestion d'un véhicule… des applications dédiées à un usage
+domestique ; la collecte et la standardisation de données de
+commandes commerciales en vue de la simplification du processus de
+production et des tâches administratives ; un outil de conversion de
+données (le passage de Cegid PMI à un entrepôt de données) et la
+vérification de règles métiers ; une gestion de projets ; un ERP
+dédié à la livraison de repas à domicile. J'ai également d'autres
+cas d'usage mais cela se cadre souvent à l'un ou l'autre des cas
+cités. Pour chacun, nous pourrons travailler la forme et les manques
+de Syncytium pour atteindre l'objectif. »** — l'échelle des cinq :
+
+| # | le cas | ce qu'il éprouve en premier |
+|---|---|---|
+| 1 | **le domestique** — le compte bancaire, le véhicule… | la simplicité radicale : le sqlite natif (D729), les défauts (D186), l'application d'une personne |
+| 2 | **la collecte et la standardisation des commandes commerciales** | les imports (D234), la normalisation (D660), les exports — l'allègement du processus de production et de l'administratif |
+| 3 | **la conversion Cegid PMI → l'entrepôt** + les règles métiers | le mapping entier (D646–D672) en situation réelle, la posture entrepôt (D180), la validation (D307) |
+| 4 | **la gestion de projets** | l'application métier collaborative : les cycles de vie (D421+), les groupes, les surfaces |
+| 5 | **l'ERP de livraison de repas à domicile** | le plus riche : le multi-modules, la géolocalisation (D294), les connecteurs, les acteurs multiples |
+
+**La méthode confirmée** : pour chacun, **la forme** (le dépôt écrit
+pour de vrai) **et les manques** (chaque frottement = une décision) ;
+les autres cas connus de l'auteur se cadrent à l'un des cinq.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15423,6 +15450,11 @@ avant la synthèse Q16).
   DOMAINE 5 S'OUVRE : LES CAS D'USAGE (Q59)** — les mises en
   situation sur des exemples concrets (D314), le calibrage SEQUITUR
   sur données réelles (D319).
+- **2026-08-18 (suite 7)** — **Les cinq cas d'usage listés (D756)** :
+  du plus simple au plus compliqué — le domestique, la collecte de
+  commandes, la conversion Cegid PMI, la gestion de projets, l'ERP
+  de livraison de repas ; pour chacun, la forme et les manques. Le
+  domaine 5 a son sommaire.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

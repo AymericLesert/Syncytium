@@ -115,6 +115,7 @@ user:
     first_name:   { type: text, rgpd: personal }
     last_name:    { type: text, rgpd: personal }
     language:     reference                            # la langue → le fuseau (D217–D225)
+    theme:        reference                            # le thème choisi (D753 — parmi les visibles)
     account_type: enum [technical, internal, customer] # la typologie (D77)
     origin:       reference                            # le connecteur d'authentification (D713)
     status:       enum [active, banned, locked]        # ban (D714), le verrouillage

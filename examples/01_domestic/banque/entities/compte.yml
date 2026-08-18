@@ -7,11 +7,5 @@ fields:
   libelle:   text[..40]
   ouverture: { type: date, required: true }
   cloture:   date                    # optionnelle — « un compte est ouvert sans date de fermeture »
-  devise:
-    type: enum
-    default: EUR
-    values:
-      EUR: { label: { fr: Euro } }
-      FRF: { label: { fr: Franc } }  # l'historique antérieur à 1999
   ouvert:    { formula: cloture = null }
   ecritures: list of ecriture        # la composition (D399)

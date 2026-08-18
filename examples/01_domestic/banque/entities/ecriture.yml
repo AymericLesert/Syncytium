@@ -7,7 +7,13 @@ fields:
   comptable: date                    # la date comptable — renseignée au pointage
   libelle:   text[..60]
   budget:    banque.budget           # le référentiel dynamique (D355)
-  montant:   { type: decimal, required: true }   # signé — la devise vit au compte
+  montant:   { type: decimal, required: true }   # signé
+  devise:                            # la devise vit à l'opération (D769)
+    type: enum
+    default: E
+    values:
+      E: { label: { fr: Euro } }
+      F: { label: { fr: Franc } }    # l'historique antérieur au passage
   mode:
     type: enum
     values:

@@ -895,6 +895,7 @@ Q58) :
 | D766 | **modules.yml référence les fichiers** (l'étage au-dessus de D765) : `modules: [banque/module.yml]` — la chaîne de références par fichiers complète, du sommet à la feuille. | Voir §3.2c. |
 | D767 | **Le fichier d'entrée porte les liens, l'inline ou la référence** (généralise D352) : syncytium.yml référence les fichiers de configuration — rien ne se déduit de l'arborescence ; toute propriété porte le contenu ou la référence de fichier (le fichier unique possible, l'éclatement libre). | Corrige le morceau 1 du cas 1. Voir §3.2c. |
 | D768 | **Les chemins relatifs au fichier courant** (précise D767) : sans racine explicite, le dossier courant = celui du fichier en cours de lecture — chaque fichier lisible seul, déplaçable avec son sous-arbre. | Voir §3.2c. |
+| D769 | **La devise à l'opération** (corrige D758) : le compte perd devise, l'écriture la gagne — les valeurs `E`/`F` comme la source, le défaut E ; les données confirment (des comptes aux deux devises — le passage franc→euro). | La question du solde à devises mêlées posée. Voir §3.2c. |
 
 ---
 
@@ -7418,6 +7419,19 @@ porte** — `banque/module.yml` écrit `entities/compte.yml` (depuis
 `banque/`), l'entrée écrit `modules.yml` (depuis la racine de la
 version) ; chaque fichier reste lisible seul, et déplaçable avec son
 sous-arbre.
+
+**La devise à l'opération (D769 — corrige le cadrage D758).** **« J'ai
+commis une erreur dans la définition du cas d'usage : la devise est
+portée non sur le compte mais sur l'opération. »** — et les données
+le confirment : plusieurs comptes réels portent les deux devises (le
+passage franc→euro vécu sur le même compte, vers 1999–2002). Le
+modèle se corrige : `compte` perd `devise`, `ecriture` la gagne —
+**les valeurs `E` (Euro) et `F` (Franc)**, comme la source (« dans
+les fichiers d'exemple, tu as E ou F »), le défaut `E`. *(La
+question soulevée au passage : le `solde` cumule des montants aux
+devises mêlées sur un compte à cheval — l'ancienne application
+convertissait-elle, ou le solde changeait-il d'unité au passage ? —
+posée à l'auteur.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15697,6 +15711,10 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 20)** — **Les chemins relatifs (D768)** : le
   dossier courant = celui du fichier en cours de lecture ;
   banque/module.yml repris (entities/compte.yml…).
+- **2026-08-18 (suite 21)** — **La devise à l'opération (D769)** :
+  la correction du cadrage — les valeurs E/F de la source, le compte
+  sans devise ; la question du solde à devises mêlées posée. Les
+  fichiers du cas repris.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

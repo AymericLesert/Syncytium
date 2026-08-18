@@ -889,6 +889,7 @@ Q58) :
 | D760 | **Le mot-clé du possesseur** (le cas 1 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
 | D761 | **owner validé, l'association nommée au champ** (arbitre D760, amende D401) : owner = la composition seule (un possesseur unique) ; `association with` précise le champ de destination qui référence le parent — **le défaut : le champ au nom de l'entité**, l'explicite (`via <champ>` en proposition) à l'ambiguïté ; l'accès montant de l'association = le champ de référence lui-même. | L'ingestion refuse l'ambiguïté non levée. Voir §3.2c. |
 | D762 | **L'écriture au point** (arrête D761) : `association with <entité>.<champ>` — le point de l'adressage logique (D363) désigne le champ de destination, aucun mot-clé nouveau ; le défaut demeure (le champ au nom de l'entité). | Remplace la proposition via. Voir §3.2c. |
+| D763 | **Le smtp none** (le cas 1 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
 
 ---
 
@@ -7340,6 +7341,17 @@ fields:
   orders:   association with order            # order.customer — le défaut
   invoiced: association with order.billing    # le champ nommé au point
 ```
+
+**Le smtp none (D763 — le troisième fruit du cas 1, complète
+D628/D626).** **« smtp: peut porter la valeur "none" — l'envoi d'un
+mail et le fonctionnement est un mock qui retourne toujours vrai et
+qui n'envoie aucun mail. »** — la classe `none` de la famille
+`smtp` : le `send` réussit toujours, rien ne part — **la condition
+indispensable (D626) est satisfaite sans exemption** : le canal
+existe, il est muet, le domestique l'assume (l'écho du mock D627 —
+ici en classe permanente, pas en dégradation) ; les alertes et les
+mails de compte (D723) deviennent silencieux — le choix est déclaré,
+jamais subi.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15585,6 +15597,9 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 12)** — **L'écriture au point (D762)** :
   association with <entité>.<champ> remplace via — l'adressage
   logique D363, aucun mot-clé nouveau. types.md repris.
+- **2026-08-18 (suite 13)** — **Le smtp none (D763)** : le mock qui
+  retourne toujours vrai — la condition indispensable satisfaite
+  sans exemption, le silence déclaré. connectors.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

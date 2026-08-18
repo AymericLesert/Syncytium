@@ -19,7 +19,8 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
   premier client du mécanisme ;
 - **Le mot « hook » n'apparaît jamais dans la configuration**
   (D408) : un hook ajoute **un nom** au catalogue concerné (un type,
-  un composant, une opération, une fonction, un connecteur) — et ce
+  un composant, une opération, une fonction, un connecteur, un
+  style — D755) — et ce
   nom s'emploie comme un nom du socle ; le doublon de nom = une
   erreur d'ingestion (D344/D396) ;
 - **La première classe** (D65/D68) : un élément ajouté a les mêmes

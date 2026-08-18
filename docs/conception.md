@@ -878,6 +878,7 @@ Q58) :
 | D749 | **La délégation détaillée** (précise D715) : le même degré (jamais d'élévation), le don jamais la prise (le délégant ou l'administrateur), l'exception administrateur (s'octroyer les droits de quiconque) — la traçabilité toujours. | Voir §3.2c. |
 | D750 | **logs.yml harmonisé** (corrige D737) : le nom de D342 prime — `logs.yml` partout. | Voir §3.2c. |
 | D751 | **La santé et le backup au menu** (huit entrées) ; **la restauration = une commande interne** (le geste vit hors de l'application). | Voir §3.2c. |
+| D752 | **Le catalogue de styles** (ouvre le chantier du thème) : « au même titre que les composants graphiques, Syncytium propose un ou plusieurs styles » — les styles embarqués du socle (D408), le choix + la personnalisation par la couche thème (D63 : les couleurs, les fontes, le logo, la marque) ; la vérification : le registre ne portait que des touches éparses (D63/D191/D346/D443/D536). | La forme de la déclaration à arbitrer. Voir §3.2c. |
 
 ---
 
@@ -7116,6 +7117,23 @@ la télémétrie, **la santé**, **le backup**) ; **la restauration
 n'est pas un écran** : une commande interne (la famille
 d'encrypt/decrypt/rotate — l'application restaurée est peut-être
 morte, le geste vit hors d'elle).
+
+**Le catalogue de styles (D752 — ouvre le chantier du thème).** La
+vérification demandée (« as-tu notifié ces points ? ») : **le
+registre ne porte que des touches éparses** — la couche thème (D63 :
+les couleurs, les polices, les styles personnalisables — « la couche
+de marque »), le logo à l'accueil (D191/D193), `resources/` (D346 —
+les logos, les icônes, les images partagés entre versions), le
+`style:` au nœud (D443/D536) avec « le style global de
+l'application » et « le thème d'instance » invoqués comme défauts
+**sans jamais être décrits**. L'arbitrage nouveau : **« au même
+titre que les composants graphiques, Syncytium propose un ou
+plusieurs styles. »** — le socle fournit **un catalogue de styles**
+(le patron D408 : les styles embarqués sont les premiers clients du
+mécanisme) ; la description en choisit un et la couche thème (D63)
+le personnalise — les couleurs, les fontes, le logo, la marque. Le
+chantier du thème est ouvert : la forme de la déclaration, le
+contenu d'un style et son extension restent à arbitrer.
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15287,6 +15305,11 @@ avant la synthèse Q16).
   publication develop→main** (168 commits — les domaines 1–4, Q60,
   la passe de complétude jusqu'à D751). main est au niveau de
   develop.
+- **2026-08-18 (suite 2)** — **Le catalogue de styles (D752)** : la
+  vérification du thème (les touches éparses D63/D191/D346/D443/D536
+  — jamais un chapitre) ; l'arbitrage : Syncytium propose un ou
+  plusieurs styles, au même titre que les composants. Le chantier du
+  thème est ouvert (la déclaration, le contenu, l'extension).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

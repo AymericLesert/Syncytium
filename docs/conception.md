@@ -878,6 +878,10 @@ Q58) :
 | D749 | **La délégation détaillée** (précise D715) : le même degré (jamais d'élévation), le don jamais la prise (le délégant ou l'administrateur), l'exception administrateur (s'octroyer les droits de quiconque) — la traçabilité toujours. | Voir §3.2c. |
 | D750 | **logs.yml harmonisé** (corrige D737) : le nom de D342 prime — `logs.yml` partout. | Voir §3.2c. |
 | D751 | **La santé et le backup au menu** (huit entrées) ; **la restauration = une commande interne** (le geste vit hors de l'application). | Voir §3.2c. |
+| D752 | **Le catalogue de styles** (ouvre le chantier du thème) : « au même titre que les composants graphiques, Syncytium propose un ou plusieurs styles » — les styles embarqués du socle (D408), le choix + la personnalisation par la couche thème (D63 : les couleurs, les fontes, le logo, la marque) ; la vérification : le registre ne portait que des touches éparses (D63/D191/D346/D443/D536). | La forme de la déclaration à arbitrer. Voir §3.2c. |
+| D753 | **Le multi-thèmes** (amende la proposition) : plusieurs thèmes par application, **le choix au profil de l'utilisateur** (comme la langue) ; le dossier `themes/` + la déclaration explicite dans la définition de la version (D415/D644) ; **le thème = un objet comme les autres, avec les droits** (la confidentialité — le choix n'offre que le visible). | themes.yml et l'écriture du thème en proposition ; le premier déclaré = le défaut. Voir §3.2c. |
+| D754 | **Le contenu d'un style** (l'écriture D753 validée) : le cadre technique porté par le langage de Syncytium (comme les hooks de code) ; le Web = la représentation HTML des types (le hook d'affichage) complétée par un CSS3 (le style) — le découpage net par type ; le thème surcharge l'implémentation. | Voir §3.2c. |
+| D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
 
 ---
 
@@ -7116,6 +7120,110 @@ la télémétrie, **la santé**, **le backup**) ; **la restauration
 n'est pas un écran** : une commande interne (la famille
 d'encrypt/decrypt/rotate — l'application restaurée est peut-être
 morte, le geste vit hors d'elle).
+
+**Le catalogue de styles (D752 — ouvre le chantier du thème).** La
+vérification demandée (« as-tu notifié ces points ? ») : **le
+registre ne porte que des touches éparses** — la couche thème (D63 :
+les couleurs, les polices, les styles personnalisables — « la couche
+de marque »), le logo à l'accueil (D191/D193), `resources/` (D346 —
+les logos, les icônes, les images partagés entre versions), le
+`style:` au nœud (D443/D536) avec « le style global de
+l'application » et « le thème d'instance » invoqués comme défauts
+**sans jamais être décrits**. L'arbitrage nouveau : **« au même
+titre que les composants graphiques, Syncytium propose un ou
+plusieurs styles. »** — le socle fournit **un catalogue de styles**
+(le patron D408 : les styles embarqués sont les premiers clients du
+mécanisme) ; la description en choisit un et la couche thème (D63)
+le personnalise — les couleurs, les fontes, le logo, la marque. Le
+chantier du thème est ouvert : la forme de la déclaration, le
+contenu d'un style et son extension restent à arbitrer.
+
+**Le multi-thèmes — le dossier themes/, le choix au profil, les
+droits (D753 — amende ma proposition de theme.yml unique).** **« Une
+application peut proposer plusieurs thèmes et les utilisateurs
+peuvent choisir via leur profil le thème de leur choix. Les thèmes
+sont stockés dans un dossier `themes/` avec une déclaration des
+thèmes dans la définition de la version. Un thème est donc un objet
+comme les autres, avec les droits. »** — les quatre arbitrages :
+
+- **le pluriel** : l'application propose plusieurs thèmes —
+  jamais un thème unique imposé ;
+- **le choix au profil** : l'utilisateur choisit son thème comme sa
+  langue (D217–D225) — l'entité user gagne le champ (la lecture
+  notée : `theme: reference`, aux côtés de `language:`) ;
+- **la maison** : le dossier **`themes/`** à la racine de la
+  version, **la déclaration explicite dans la définition de la
+  version** (le patron D415/D644 — ce qui existe se déclare) ;
+- **un objet comme les autres, avec les droits** : le thème porte la
+  confidentialité (D25/D26 — un thème réservé à un groupe se
+  resserre comme le reste) ; le choix du profil n'offre que les
+  thèmes visibles.
+
+*(L'écriture en proposition :*
+
+```yaml
+# themes.yml — la déclaration explicite (le patron D415/D644)
+themes: [classic, dark, durand]
+
+# themes/durand.yml — un thème (la marque du client)
+name: durand
+style: classic                    # le style du socle en assise (D752)
+brand:
+  name: "Durand & Fils"           # la société (D191)
+  logo: resources/logo.svg        # les assets dans resources/ (D346)
+colors:
+  primary: "#1F4E79"
+  accent:  orange
+fonts:
+  default: { font: Inter, size: 14 }
+confidentiality: protected        # les droits — un objet comme les autres
+```
+
+*— le premier thème déclaré = le défaut, l'esprit D437.)*
+
+**Le contenu d'un style — le cadre technique, HTML/CSS3 (D754 —
+l'écriture de D753 validée, le point 2 arbitré).** **« Le contenu
+d'un style va décrire du cadre technique sélectionné. Comme pour les
+hooks de code, j'envisage qu'un style soit porté par le langage de
+Syncytium. Pour une représentation Web, un CSS3 viendrait compléter
+la définition des types en HTML. Un thème viendrait surcharger cette
+implémentation. Pour un type, nous découperions la représentation
+HTML et son affichage via le CSS3. »** — l'architecture du rendu se
+précise :
+
+- **le style décrit le cadre technique** — porté par **le langage de
+  Syncytium** (comme les hooks de code — le langage et la sandbox du
+  domaine 7, D570) ;
+- **la séparation structure/présentation** : pour le Web, **la
+  représentation HTML des types** (le hook d'affichage — D566.7)
+  est complétée par **un CSS3** (le style) — pour un type, le
+  découpage est net : la représentation HTML d'un côté, son
+  affichage CSS3 de l'autre ;
+- **le thème surcharge cette implémentation** (D753 — la
+  personnalisation par-dessus le style).
+
+**Le hook de style — le thème est une combinaison de styles (D755 —
+le point 3 arbitré).** **« Un hook de thème se comporte comme un
+hook déjà apporté mais en reprenant une partie du style. Un thème
+est donc une combinaison de styles. Nous pourrions définir un
+fichier de configuration de style comportant les éléments clés…
+mais la structure des styles ne peut pas forcément se généraliser.
+Le hook de style (en complément du hook d'affichage) vient compléter
+l'affichage. »** — les arbitrages :
+
+- **la sixième famille de hooks : le hook de style** — il se
+  comporte comme les autres (D52/D408 : le catalogue, la première
+  classe, le repli D68) et **reprend une partie du style** ;
+- **un thème = une combinaison de styles** — le fichier de thème
+  (D753) assemble et surcharge des styles, il n'en invente pas la
+  mécanique ;
+- **la prudence consignée** : un fichier de configuration de style
+  aux éléments clés est envisagé, **mais la structure des styles ne
+  se généralise pas forcément** — pas de schéma unique imposé à
+  tous les styles ;
+- **la complémentarité** : le hook de style complète l'affichage,
+  **aux côtés du hook d'affichage** (le composant rend la structure,
+  le style rend la présentation).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15279,6 +15387,37 @@ avant la synthèse Q16).
   le backup au menu + la restauration en commande. **La
   vérification des piliers et des concepts est complète.**
   administration.md, rights.md et telemetry.md mis au niveau.
+- **2026-08-17 (suite 28)** — **La PR #34 fusionnée (vérifiée)** :
+  « la passe de complétude soldée (D734–D751) », 14 commits sur
+  develop. **La deuxième publication develop→main demandée** (la
+  première : la PR #27).
+- **2026-08-18** — **La PR #35 fusionnée (vérifiée) : la deuxième
+  publication develop→main** (168 commits — les domaines 1–4, Q60,
+  la passe de complétude jusqu'à D751). main est au niveau de
+  develop.
+- **2026-08-18 (suite 2)** — **Le catalogue de styles (D752)** : la
+  vérification du thème (les touches éparses D63/D191/D346/D443/D536
+  — jamais un chapitre) ; l'arbitrage : Syncytium propose un ou
+  plusieurs styles, au même titre que les composants. Le chantier du
+  thème est ouvert (la déclaration, le contenu, l'extension).
+- **2026-08-18 (suite 3)** — **Le multi-thèmes (D753)** : le dossier
+  themes/ + la déclaration explicite à la version, le choix au
+  profil (comme la langue), le thème = un objet aux droits ;
+  l'écriture en proposition (themes.yml, style: en assise, brand:,
+  colors:, fonts:, confidentiality:). administration.md mis au
+  niveau (l'entité user gagne theme:).
+- **2026-08-18 (suite 4)** — **Le style et son hook (D754–D755)** :
+  l'écriture de D753 validée ; le style = le cadre technique porté
+  par le langage (HTML des types + CSS3, le découpage net, le thème
+  surcharge) ; le hook de style = la sixième famille (le thème = une
+  combinaison de styles, la structure non généralisable, le
+  complément du hook d'affichage). hooks.md mis au niveau.
+- **2026-08-18 (suite 5)** — **Le tour des artefacts pour le thème**
+  (« as-tu mis à jour tous les items ? ») : glossaire.md (les
+  entrées Style et Thème créées), composants.md (le style: raccordé
+  au thème choisi — D536 relu), rights.md (le thème aux droits) —
+  hooks.md et administration.md l'étaient déjà. Le chantier du thème
+  est couvert dans les six documents concernés.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

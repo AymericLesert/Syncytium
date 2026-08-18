@@ -19,7 +19,8 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
   premier client du mécanisme ;
 - **Le mot « hook » n'apparaît jamais dans la configuration**
   (D408) : un hook ajoute **un nom** au catalogue concerné (un type,
-  un composant, une opération, une fonction, un connecteur) — et ce
+  un composant, une opération, une fonction, un connecteur, un
+  style — D755) — et ce
   nom s'emploie comme un nom du socle ; le doublon de nom = une
   erreur d'ingestion (D344/D396) ;
 - **La première classe** (D65/D68) : un élément ajouté a les mêmes
@@ -50,7 +51,8 @@ versions/<statut>/<version>/
 │   ├── components/
 │   ├── operations/
 │   ├── functions/
-│   └── connectors/
+│   ├── connectors/
+│   └── styles/                # la sixième famille (D755)
 └── <modules>/
 ```
 
@@ -330,6 +332,27 @@ connectors:
     parameters: { path: /exchange/in, format: csv }
     every: 5min                    # le guetteur — détecté, relu (D604)
 ```
+
+### 6. Le hook de style (D752–D755)
+
+Ajoute **un style** au catalogue — « au même titre que les
+composants graphiques, Syncytium propose un ou plusieurs styles »
+(D752) : le socle fournit les siens, le hook en apporte d'autres
+(le comportement des hooks — D52/D408, le repli D68).
+
+**Le contrat (D754–D755)** : le style décrit **le cadre technique**,
+porté par le langage de Syncytium (comme les hooks de code — D570) ;
+pour le Web, **la représentation HTML des types (le hook
+d'affichage — D566.7) est complétée par un CSS3 (le style)** — le
+découpage net par type : la structure d'un côté, la présentation de
+l'autre. **Le hook de style complète l'affichage aux côtés du hook
+d'affichage** ; la structure des styles **ne se généralise pas
+forcément** — pas de schéma unique imposé.
+
+**Le thème n'est pas un hook** : c'est **une combinaison de styles**
+(D755) — déclaré dans `themes/` (D753), il assemble et surcharge ;
+l'utilisateur le choisit à son profil, les droits s'y appliquent
+(un objet comme les autres).
 
 ### Les autres points d'extension consignés
 

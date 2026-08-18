@@ -75,6 +75,7 @@ est une application Syncytium (le patron D666 généralisé).
 | `local` | la création et l'affectation **manuelles** par l'administrateur | pleine |
 | `azure_ad` | **le groupe Syncytium associé à un ou plusieurs groupes AD** — la classe d'authentification récupère les groupes puis leurs utilisateurs (le contrat `directory` D633 : `get_groups`, `get_users_from_group`) | **lecture seule** (l'annuaire est maître) — sauf les propriétés hors annuaire |
 | `sso` | comme le directory | lecture seule — **sans la gestion du mot de passe** |
+| `none` (D759) | **l'utilisateur par défaut** — implicite, au groupe par défaut, le degré `administrator` (le domestique) | n/a — aucun compte à gérer |
 
 Les familles `authentication` (D692) et `directory` (D633)
 **coopèrent** — comme `file` et `storage` (D636) : l'une authentifie,

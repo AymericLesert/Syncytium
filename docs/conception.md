@@ -885,6 +885,8 @@ Q58) :
 | D756 | **Les cinq cas d'usage** (ouvre Q59) : 1. le domestique (compte bancaire, véhicule…) · 2. la collecte/standardisation des commandes commerciales · 3. la conversion Cegid PMI → l'entrepôt + les règles métiers · 4. la gestion de projets · 5. l'ERP de livraison de repas — du plus simple au plus compliqué ; pour chacun, **la forme et les manques** ; les autres cas se cadrent à l'un des cinq. | Le sommaire du domaine 5. Voir §3.2c. |
 | D757 | **La maison des cas d'usage** : un fichier md par cas, dans `usecases/` au même niveau que docs/ — les cinq squelettes créés (01_domestic … 05_meal_delivery, le préfixe numérique D665, l'anglais D335). | Voir §3.2c. |
 | D758 | **Le cadrage du cas 1** : le compte bancaire du foyer — sans authentification (« pas de secrets dans la famille »), la genèse 1987, les comptes (devise FRF\|EUR, la règle d'ouverture), les opérations (le compteur masqué, les dates opération/comptable au pointage, le budget et le lieu dynamiques, le montant signé, le mode figé), le solde au fil du tri, le relevé PDF aux trois clés ; les données réelles 1992→2026 analysées. | Le contexte et les dix questions dans usecases/01_domestic.md. Voir le journal. |
+| D759 | **L'authentification none** (le cas 1 — complète D692/D716) : la cinquième classe — aucun défi, aucun secret ; les invariants par les défauts implicites (l'utilisateur et le groupe par défaut, le degré administrator) — l'appartenance D699 pré-remplie, jamais contournée. | Le mono-poste domestique. Voir §3.2c. |
+| D760 | **Le mot-clé du possesseur** (le cas 1 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
 
 ---
 
@@ -7253,6 +7255,35 @@ de Syncytium pour atteindre l'objectif. »** — l'échelle des cinq :
 **La méthode confirmée** : pour chacun, **la forme** (le dépôt écrit
 pour de vrai) **et les manques** (chaque frottement = une décision) ;
 les autres cas connus de l'auteur se cadrent à l'un des cinq.
+
+**L'authentification none (D759 — le premier fruit du cas 1,
+complète D692/D716).** **« Ajoutons une authentification "none".
+Pour des usages domestiques, cela présente un intérêt. Par défaut,
+cela considère l'affectation d'un groupe d'utilisateurs et d'un
+utilisateur par défaut avec le degré administrateur. »** — la
+cinquième classe de la famille `authentication` : **`none`** — aucun
+défi, aucun secret (« pas de secrets dans la famille ») ; **les
+invariants tiennent par les défauts implicites** : un utilisateur
+par défaut, affecté à un groupe par défaut **au degré
+`administrator`** — l'appartenance obligatoire (D699) et le modèle
+des droits restent vrais, ils sont simplement pré-remplis ; le
+mono-poste domestique assumé (le premier frottement du cas 1
+résolu sans exception au modèle).
+
+**L'accès au possesseur — le mot-clé owner (D760 — le deuxième
+fruit du cas 1, complète D396/D399).** Le solde en ligne du cas 1
+n'est pas un manque : **« un enregistrement peut accéder à son
+parent (le compte bancaire) et, par conséquent, à la liste des
+opérations (dont l'opération courante) — c'est l'utilisation d'un
+mécanisme que nous avons déjà décrit. Il reste peut-être la
+définition du mot-clé pour faire référence au compte parent (le
+compte bancaire d'appartenance). »** — la composition (D399) donne
+le chemin descendant, `me.` donne l'origine du filtre (D396) ; **le
+mot-clé montant — de l'enfant vers son possesseur — manquait**.
+*(La proposition : **`owner`** — le possesseur de D399 ;*
+`balance: { formula: owner.operations.sum(amount if date <= me.date) }`
+*— l'agrégat de la collection D580 fait le cumul, `me.` désigne
+l'enregistrement courant dans le filtre.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15479,6 +15510,17 @@ avant la synthèse Q16).
   Windows-1252, Débit/Crédit, la Nature mixte, Date_Impression) —
   usecases/01_domestic.md porte le contexte, le format et les dix
   questions ouvertes.
+- **2026-08-18 (suite 10)** — **Les huit réponses du cadrage
+  (D759–D760)** : l'authentification none (la 5e classe — les
+  défauts implicites au degré administrator) ; le mot-clé du
+  possesseur (owner en proposition — le solde = l'agrégat D580) ;
+  les arbitrages du cas consignés dans 01_domestic.md (le virement =
+  2 écritures liées par VIREMENT-<réf>, Guichet→virement,
+  l'espèce non suivie, les FRF gardés tels quels dans l'historique,
+  la duplication entre 2 dates, « propager » = le libellé et le
+  montant des opérations suivantes, l'ancien format disparu — la
+  reprise sur les deux fichiers au format unique). connectors.md,
+  rights.md et administration.md mis au niveau (la classe none).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

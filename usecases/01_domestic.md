@@ -99,25 +99,30 @@ Les observations sur le réel (la matière du mapping — D646+) :
 - **81 budgets distincts** ; les devises `F`/`E` ;
 - la première ligne d'un compte est l'`OUVERTURE`.
 
-## Les questions ouvertes (posées à l'auteur)
+## Les arbitrages du cadrage (D759–D760 et les réponses de l'auteur)
 
-1. le sans-authentification face à D692/D699 — le frottement
-   fondateur du cas ;
-2. le montant signé (la cible) contre Débit/Crédit (la source) — la
-   conversion au mapping, à confirmer ;
-3. la `Nature` mixte → le mode figé + le numéro de chèque, et le
-   sort de `Guichet`/`Espèce`/`OUVERTURE` ;
-4. le virement vers un autre compte : une écriture référençant la
-   cible, ou deux écritures liées (le miroir) ?
-5. le solde dépendant du tri — le cumul de fenêtre : un manque
-   potentiel du catalogue des calculés ;
-6. FRF/EUR : la conversion des synthèses historiques ;
-7. `Date_Impression` : reprise telle quelle ou dérivée du relevé ;
-8. « Propager les modifications » (le dialogue existant) : la
-   portée ;
-9. la duplication : le geste (jusqu'à une date de fin ? le nombre) ;
-10. l'ancien format (1992–2011) : les fichiers trouvés partagent un
-    format unique — l'ancien format distinct existe-t-il encore ?
+1. **le sans-authentification** → **la classe `none`** (D759) :
+   l'utilisateur et le groupe par défaut au degré `administrator` —
+   les invariants pré-remplis, jamais contournés ;
+2. **le solde en ligne** → **pas un manque** (D760) : l'enfant
+   accède à son possesseur — le mot-clé **`owner`** (en
+   proposition) + l'agrégat de la collection (D580) :
+   `owner.operations.sum(amount if date <= me.date)` ;
+3. **le virement** = **deux écritures liées** par la référence
+   `VIREMENT-<référence>` ;
+4. **`Guichet`** → le virement ; **l'espèce n'est pas suivie** dans
+   l'application (le retrait est une dépense, le cash vit sa vie) ;
+   le reste de la `Nature` mixte → le mode figé + le numéro de
+   chèque ;
+5. **les FRF demeurent tels quels** dans l'historique (antérieurs à
+   1999) — la devise vit au compte, pas de conversion ;
+6. **la duplication est générée entre deux dates** (au pas choisi :
+   jour, semaine, mois, trimestre) ;
+7. **« Propager les modifications »** : modifie **les opérations
+   suivantes** — le libellé et le montant ;
+8. **l'ancien format n'existe plus** (la vieille application seule
+   le lisait) — la reprise porte sur les deux fichiers au format
+   unique. *(La nostalgie de l'auteur est consignée ;-))*
 
 ## La forme — le dépôt
 

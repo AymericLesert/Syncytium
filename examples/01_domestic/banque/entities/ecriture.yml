@@ -27,11 +27,11 @@ fields:
   montant_euro:
     type: amount
     currencies: [EUR]
-    formula: montant.currency.select(EUR: montant, FRF: montant / 6.55957)
+    formula: montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))
   montant_franc:
     type: amount
     currencies: [FRF]
-    formula: montant.currency.select(FRF: montant, EUR: montant * 6.55957)
+    formula: montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))
   solde:
     type: amount
     currencies: [EUR]

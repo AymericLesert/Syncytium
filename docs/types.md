@@ -78,7 +78,7 @@ facettes propres (D391). Le nul de chaque composé se trie en premier.
 
 | le type | la nature et les facettes propres | D |
 |---|---|---|
-| `amount` | les devises paramétrables (`currencies` — défaut : tout l'ISO) ; `amount + amount` à devise compatible, `amount * decimal` (D581) | D391 |
+| `amount` | les devises paramétrables (`currencies` — défaut : tout l'ISO) ; `amount + amount` à devise compatible, `amount * decimal` (D581) ; **les parties au point** : `montant.value`, `montant.currency` (D771–D772) — la conversion au constructeur `amount(v, EUR)` (D659) | D391, D771–D772 |
 | `percentage` | les bornes — défaut 0..100 ; hors cadre, **la représentation varie** (la jauge vaut pour le cadre) | D273–D274, D391 |
 | `measure` | les unités : **statiques** (`units: [kg, g, t]`), **la table de référence** (`units: stock.unit`), ou **libres** (défaut) | D391 |
 | `phone` | le national (défaut) ou l'international | D391 |

@@ -15418,6 +15418,11 @@ avant la synthèse Q16).
   au thème choisi — D536 relu), rights.md (le thème aux droits) —
   hooks.md et administration.md l'étaient déjà. Le chantier du thème
   est couvert dans les six documents concernés.
+- **2026-08-18 (suite 6)** — **La PR #36 fusionnée (vérifiée)** :
+  « le chantier du thème (D752–D755) », 7 commits sur develop. **LE
+  DOMAINE 5 S'OUVRE : LES CAS D'USAGE (Q59)** — les mises en
+  situation sur des exemples concrets (D314), le calibrage SEQUITUR
+  sur données réelles (D319).
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

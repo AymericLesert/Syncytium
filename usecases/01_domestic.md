@@ -126,7 +126,16 @@ Les observations sur le réel (la matière du mapping — D646+) :
 
 ## La forme — le dépôt
 
-*(à écrire morceau par morceau — le protocole D457/D756)*
+Le dépôt vit dans
+[`examples/01_domestic/`](../examples/01_domestic/) — écrit morceau
+par morceau (le protocole D457/D756), chaque morceau validé par
+l'auteur.
+
+**Le morceau 1 — la racine et l'environnement** (validé) :
+`syncytium.yml` (l'entrée D322) et `environments/home.yml` —
+l'environnement unique du poste du foyer : le storage `sqlite`
+(D729), l'authentification `none` (D759), le smtp `none` (D763) ;
+la réplication `disabled` par défaut (D725), rien à écrire.
 
 ## Les manques relevés
 

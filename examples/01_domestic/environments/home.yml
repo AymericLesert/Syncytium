@@ -1,0 +1,6 @@
+# L'unique environnement — le poste du foyer (D758)
+# replication: disabled — le défaut (D725), rien à écrire
+connectors:
+  main_db: { type: storage, class: sqlite }   # le natif du domestique (D729)
+  authentication: { class: none }             # « pas de secrets dans la famille » (D759)
+  smtp: { class: none }                       # le mail muet, assumé (D763)

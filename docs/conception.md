@@ -15600,6 +15600,11 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 13)** — **Le smtp none (D763)** : le mock qui
   retourne toujours vrai — la condition indispensable satisfaite
   sans exemption, le silence déclaré. connectors.md mis au niveau.
+- **2026-08-18 (suite 14)** — **Le premier morceau du dépôt validé**
+  (« je valide ») : examples/01_domestic/ créé — syncytium.yml et
+  environments/home.yml (l'environnement unique, le sqlite,
+  l'authentification none, le smtp none). **La grammaire s'écrit
+  pour de vrai pour la première fois.**
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

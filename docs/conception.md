@@ -880,6 +880,8 @@ Q58) :
 | D751 | **La santé et le backup au menu** (huit entrées) ; **la restauration = une commande interne** (le geste vit hors de l'application). | Voir §3.2c. |
 | D752 | **Le catalogue de styles** (ouvre le chantier du thème) : « au même titre que les composants graphiques, Syncytium propose un ou plusieurs styles » — les styles embarqués du socle (D408), le choix + la personnalisation par la couche thème (D63 : les couleurs, les fontes, le logo, la marque) ; la vérification : le registre ne portait que des touches éparses (D63/D191/D346/D443/D536). | La forme de la déclaration à arbitrer. Voir §3.2c. |
 | D753 | **Le multi-thèmes** (amende la proposition) : plusieurs thèmes par application, **le choix au profil de l'utilisateur** (comme la langue) ; le dossier `themes/` + la déclaration explicite dans la définition de la version (D415/D644) ; **le thème = un objet comme les autres, avec les droits** (la confidentialité — le choix n'offre que le visible). | themes.yml et l'écriture du thème en proposition ; le premier déclaré = le défaut. Voir §3.2c. |
+| D754 | **Le contenu d'un style** (l'écriture D753 validée) : le cadre technique porté par le langage de Syncytium (comme les hooks de code) ; le Web = la représentation HTML des types (le hook d'affichage) complétée par un CSS3 (le style) — le découpage net par type ; le thème surcharge l'implémentation. | Voir §3.2c. |
+| D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
 
 ---
 
@@ -7178,6 +7180,50 @@ confidentiality: protected        # les droits — un objet comme les autres
 ```
 
 *— le premier thème déclaré = le défaut, l'esprit D437.)*
+
+**Le contenu d'un style — le cadre technique, HTML/CSS3 (D754 —
+l'écriture de D753 validée, le point 2 arbitré).** **« Le contenu
+d'un style va décrire du cadre technique sélectionné. Comme pour les
+hooks de code, j'envisage qu'un style soit porté par le langage de
+Syncytium. Pour une représentation Web, un CSS3 viendrait compléter
+la définition des types en HTML. Un thème viendrait surcharger cette
+implémentation. Pour un type, nous découperions la représentation
+HTML et son affichage via le CSS3. »** — l'architecture du rendu se
+précise :
+
+- **le style décrit le cadre technique** — porté par **le langage de
+  Syncytium** (comme les hooks de code — le langage et la sandbox du
+  domaine 7, D570) ;
+- **la séparation structure/présentation** : pour le Web, **la
+  représentation HTML des types** (le hook d'affichage — D566.7)
+  est complétée par **un CSS3** (le style) — pour un type, le
+  découpage est net : la représentation HTML d'un côté, son
+  affichage CSS3 de l'autre ;
+- **le thème surcharge cette implémentation** (D753 — la
+  personnalisation par-dessus le style).
+
+**Le hook de style — le thème est une combinaison de styles (D755 —
+le point 3 arbitré).** **« Un hook de thème se comporte comme un
+hook déjà apporté mais en reprenant une partie du style. Un thème
+est donc une combinaison de styles. Nous pourrions définir un
+fichier de configuration de style comportant les éléments clés…
+mais la structure des styles ne peut pas forcément se généraliser.
+Le hook de style (en complément du hook d'affichage) vient compléter
+l'affichage. »** — les arbitrages :
+
+- **la sixième famille de hooks : le hook de style** — il se
+  comporte comme les autres (D52/D408 : le catalogue, la première
+  classe, le repli D68) et **reprend une partie du style** ;
+- **un thème = une combinaison de styles** — le fichier de thème
+  (D753) assemble et surcharge des styles, il n'en invente pas la
+  mécanique ;
+- **la prudence consignée** : un fichier de configuration de style
+  aux éléments clés est envisagé, **mais la structure des styles ne
+  se généralise pas forcément** — pas de schéma unique imposé à
+  tous les styles ;
+- **la complémentarité** : le hook de style complète l'affichage,
+  **aux côtés du hook d'affichage** (le composant rend la structure,
+  le style rend la présentation).
 
 **describe partout — la documentation technique dynamique (D645 —
 généralise D630).** **« Dans le principe de l'auto-documentation,
@@ -15360,6 +15406,12 @@ avant la synthèse Q16).
   l'écriture en proposition (themes.yml, style: en assise, brand:,
   colors:, fonts:, confidentiality:). administration.md mis au
   niveau (l'entité user gagne theme:).
+- **2026-08-18 (suite 4)** — **Le style et son hook (D754–D755)** :
+  l'écriture de D753 validée ; le style = le cadre technique porté
+  par le langage (HTML des types + CSS3, le découpage net, le thème
+  surcharge) ; le hook de style = la sixième famille (le thème = une
+  combinaison de styles, la structure non généralisable, le
+  complément du hook d'affichage). hooks.md mis au niveau.
 - **2026-08-14 (suite 75)** — **`paragraph` et `template` validées**
   (« je valide paragraph et template ») — **LA PASSE DES SURFACES EST
   SOLDÉE** : les sept fiches (list, form, summary, widget, wizard,

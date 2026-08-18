@@ -1,7 +1,8 @@
-# Le module déclare ses entités (D765) — la chaîne par fichiers
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768) : depuis banque/
 name: banque
 entities:
-  - banque/entities/compte.yml
-  - banque/entities/ecriture.yml
-  - banque/entities/budget.yml
-  - banque/entities/lieu.yml
+  - entities/compte.yml
+  - entities/ecriture.yml
+  - entities/budget.yml
+  - entities/lieu.yml

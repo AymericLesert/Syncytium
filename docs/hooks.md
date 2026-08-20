@@ -36,24 +36,35 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 ## La maison des hooks — `hooks/` et `hooks.yml` (D644)
 
 Les hooks de l'application vivent **à la racine de la version** : le
-dossier `hooks/`, **un sous-dossier par type de hooks** ; le fichier
-**`hooks.yml`** les liste — la liste explicite, le parallèle de
-`modules.yml` (D415 : ce qui existe se déclare). Les hooks du socle
-vivent dans l'arborescence de Syncytium — la même porte (D52), deux
-maisons.
+dossier `hooks/`, **un sous-dossier par type de hooks** ; **la
+chaîne à deux étages** (D644/D777 — le patron des modules
+D765/D766) : `hooks.yml` référence **les fichiers de famille**,
+chaque fichier de famille **liste ses hooks** — les chemins relatifs
+au fichier courant (D768). Les hooks du socle vivent dans
+l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
 ```text
 versions/<statut>/<version>/
 ├── settings.yml · groups.yml · modules.yml
-├── hooks.yml                  # la liste explicite (D644)
+├── hooks.yml                  # → les fichiers de famille (D777)
 ├── hooks/
-│   ├── types/                 # un sous-dossier par type de hooks
-│   ├── components/
-│   ├── operations/
-│   ├── functions/
-│   ├── connectors/
+│   ├── operations.yml         # → la liste des opérations
+│   ├── operations/            # un sous-dossier par type de hooks
+│   ├── types.yml · types/
+│   ├── components/ · functions/ · connectors/
 │   └── styles/                # la sixième famille (D755)
 └── <modules>/
+```
+
+```yaml
+# hooks.yml — l'étage des familles (D777)
+hooks:
+  operations: hooks/operations.yml
+
+# hooks/operations.yml — la liste des opérations (les chemins depuis hooks/)
+operations:
+  - operations/clone
+  - operations/propagation
 ```
 
 ## Les familles

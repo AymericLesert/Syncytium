@@ -903,6 +903,7 @@ Q58) :
 | D774 | **La propagation clarifiée** (le frottement 2) : sans lien — les similaires par les valeurs d'avant (libellé + montant, la date ≥) ; le déroulé liste→sélection→masse validée (D446/D594) ; l'opération de duplication nommée **clone**, l'enchaînement clone → modification avant validation. | Le lien de série écarté. Voir §3.2c. |
 | D775 | **Le formulaire d'appel** (le frottement 1 — écarte input:) : l'opération déclarée porte `form:` — un formulaire comme les autres, ses champs = les paramètres du hook ; **la validation du formulaire est l'opération** (le geste déclenche execute) ; la symétrie avec le confirm (D600) — le formulaire aux deux bouts. | Voir §3.2c. |
 | D776 | **Le clone et la propagation en hooks** (complète D774/D775) : les deux gestes spécifiques = des hooks d'opération de l'application — la maison du dépôt (hooks.yml + hooks/operations/, D644) étrennée ; le code au langage du domaine 7. | Voir §3.2c. |
+| D777 | **La chaîne des hooks à deux étages** (ajuste D644) : hooks.yml référence les fichiers de famille (hooks/operations.yml…), chaque fichier de famille liste ses hooks — le patron D765/D766 appliqué, les chemins relatifs (D768). | Voir §3.2c. |
 
 ---
 
@@ -7547,6 +7548,16 @@ confirmation de l'auteur : « nous n'allons pas créer d'opérations
 complémentaires dans Syncytium — ce seront des opérations portées
 par le projet banque » — le socle reste à dix-neuf, la frontière
 nette.)*
+
+**La chaîne des hooks à deux étages (D777 — ajuste D644).** **« Dans
+la configuration, j'ajoute un niveau : `hooks.yml` fait référence
+aux hooks des opérations ; `hooks/operations.yml` fait référence à
+la liste des opérations. »** — le patron des modules (D765/D766)
+appliqué aux hooks : **`hooks.yml` référence les fichiers de
+famille** (`hooks/operations.yml`, demain `hooks/types.yml`,
+`hooks/styles.yml`…), **chaque fichier de famille liste ses hooks**
+— les chemins relatifs au fichier courant (D768), la chaîne uniforme
+à chaque étage.
 
 ```yaml
 operations:
@@ -15868,6 +15879,10 @@ avant la synthèse Q16).
   hooks.yml et hooks/operations/ entrent au dépôt du cas 1.
   La confirmation : aucune opération complémentaire dans Syncytium —
   le socle reste à 19, les opérations sont au projet banque.
+- **2026-08-19 (suite 9)** — **La chaîne des hooks à deux étages
+  (D777)** : hooks.yml → hooks/operations.yml → les opérations — le
+  patron des modules appliqué ; le dépôt du cas 1 et hooks.md
+  repris.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

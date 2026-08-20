@@ -1,0 +1,6 @@
+# La liste des opérations du projet banque (D776/D777)
+# Les chemins relatifs au fichier courant (D768) — le code au langage du domaine 7 (D570)
+operations:
+  - operations/clone         # la duplication entre deux dates (D774)
+  - operations/propagation   # les similaires — liste, sélection, masse (D774)
+  - operations/virement      # les deux écritures liées (D758)

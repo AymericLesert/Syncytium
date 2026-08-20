@@ -1,8 +1,3 @@
-# La liste explicite des hooks de l'application (D644/D776)
-# Le code des hooks s'écrira au langage du moteur (le domaine 7 — D570) ;
-# la déclaration d'usage vit dans l'entité (D609).
+# L'étage des familles (D644/D777) — hooks.yml référence les fichiers de famille
 hooks:
-  operations:
-    - hooks/operations/clone         # la duplication entre deux dates (D774)
-    - hooks/operations/propagation   # les similaires — liste, sélection, masse (D774)
-    - hooks/operations/virement      # les deux écritures liées (D758)
+  operations: hooks/operations.yml

@@ -3,8 +3,8 @@ name: ecriture
 label: "{libelle}"
 fields:
   numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
-  date:      { type: date, required: true }   # la date d'opération
-  comptable: date                    # la date comptable — renseignée au pointage
+  date_operation: { type: date, required: true }
+  date_comptable: date               # renseignée au pointage
   libelle:   { type: text[..60], searchable: mutualizable[recherche] }   # D780
   budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
   montant:                           # signé — la devise vit dans la valeur (D771)
@@ -35,7 +35,7 @@ fields:
   solde:
     type: amount
     currencies: [EUR]
-    formula: owner.ecritures.sum(montant_euro if date <= me.date)   # D760/D770 — continu
+    formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)   # D760/D770 — continu
 
 # les opérations du projet (D776 — les hooks) et leur usage (D609)
 operations:
@@ -51,5 +51,5 @@ operations:
     label: { fr: Virer }
     form: virement             # le compte cible, le montant
     commit: confirm
-# le pointage : sans opération — l'édition en ligne de `comptable`
+# le pointage : sans opération — l'édition en ligne de `date_comptable`
 # dans la liste « sans date comptable » (D205/D446)

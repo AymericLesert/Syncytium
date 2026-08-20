@@ -15960,6 +15960,9 @@ avant la synthèse Q16).
   entier (D780)** : mutualizable[recherche] au modèle, les trois
   listes décrites chacune (le releve sur par_comptable seule). Le
   modèle repris (les searchable).
+- **2026-08-19 (suite 14)** — Le renommage des champs du cas (la
+  demande de l'auteur) : `date` → `date_operation`, `comptable` →
+  `date_comptable` — ecriture.yml et la formule du solde repris.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

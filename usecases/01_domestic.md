@@ -176,6 +176,15 @@ le bloc `operations:` d'`ecriture.yml` déclare l'usage (D609) —
 `clone`/`propager`/`virer` au `form:` d'appel (D775) et au
 `commit: confirm`.
 
+**Le morceau 4 — les surfaces** (en cours) : **la liste des
+écritures soldée** (D779–D783) — les trois listes en entier (la
+partition `!= null`/`= null`, le relevé sur la seule par_comptable),
+la zone de recherche déclarée (le compte mono obligatoire, la plage
+`input: range`, la `recherche` mutualisée au modèle D780), les
+calculés d'affichage débit/crédit, le montant modifié par la ligne,
+les boutons [add]/[trash]/[copy]/[PDF] et les touches Entrée/Suppr.
+Restent : les formulaires, le relevé (template), le graphique.
+
 ## Les manques relevés
 
 - **le formulaire d'appel d'une opération** — le frottement révélé

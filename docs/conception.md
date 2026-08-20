@@ -909,6 +909,7 @@ Q58) :
 | D780 | **Le mutualizable au modèle, les trois listes en entier** (précise D779) : `searchable: mutualizable[recherche]` sur libellé/budget/lieu — le champ unique naît du modèle (D367), la liste le consomme ; chaque liste décrite en entier — le [releve] sur la seule par_comptable. | Voir §3.2c. |
 | D781 | **Le montant à la ligne, le filter existant** (solde les questions de la liste) : le montant par la modification de la ligne (jamais l'écriture inverse des calculés) ; la zone filters: écartée — le filter: d'expression + les filtres de colonnes du socle (D258/D290/D441), le compte en colonne fantôme filtrable (D447). | Voir §3.2c. |
 | D782 | **La zone de recherche déclarée** (amende D781, enrichit D441) : `searchable:` = la liste de critères aux propriétés — `compte { select: mono, required: true }` (un seul compte, obligatoire) et `recherche` (le mutualisé) ; la colonne fantôme écartée, les dates aux filtres de colonnes. | Voir §3.2c. |
+| D783 | **Les trois zones arrêtées** (arrête D782) : le critère de date à `input: range` dans la zone de recherche ; `filter: date_comptable != null` sur la liste par comptable, `= null` sur le pointage — la partition propre. | Le morceau liste soldé. Voir §3.2c. |
 
 ---
 
@@ -7645,6 +7646,16 @@ seul compte, **obligatoire** : pas de compte choisi, pas de liste —
 l'écho de l'écran legacy mono-compte) et **`recherche`** (le champ
 mutualisé D780). Ma colonne fantôme est écartée ; les plages de
 dates restent aux filtres de colonnes (D781/D441).
+
+**Les trois zones arrêtées — input: range, les filter:
+complémentaires (D783 — arrête D782).** La forme finale dictée par
+l'auteur : **la plage de dates entre dans la zone de recherche** —
+le critère porte **`input: range`** (`date_operation: { input:
+range }` sur la liste par opération, `date_comptable` sur la liste
+par comptable) ; et **les deux listes datées se complètent** : la
+liste par date comptable porte **`filter: date_comptable != null`**
+(les pointées seules), la liste du pointage `filter: date_comptable
+= null` — les deux faces d'une partition propre.
 
 ```yaml
 operations:
@@ -15996,6 +16007,10 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 16)** — **La zone de recherche déclarée
   (D782)** : searchable = les critères aux propriétés (compte en
   mono obligatoire, recherche) — la colonne fantôme écartée.
+- **2026-08-19 (suite 17)** — **Les trois zones arrêtées (D783)** :
+  input: range au critère de date, les filter: != null / = null en
+  partition ; le bloc gui écrit dans ecriture.yml avec les calculés
+  debit/credit — **le morceau liste est soldé**.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

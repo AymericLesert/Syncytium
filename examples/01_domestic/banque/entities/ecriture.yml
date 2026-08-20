@@ -36,6 +36,9 @@ fields:
     type: amount
     currencies: [EUR]
     formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)   # D760/D770 — continu
+  # les calculés d'affichage (D779) — le montant signé en deux colonnes
+  debit:  { type: amount, currencies: [EUR, FRF], formula: iif(montant.value < 0, -montant, null) }
+  credit: { type: amount, currencies: [EUR, FRF], formula: iif(montant.value > 0, montant, null) }
 
 # les opérations du projet (D776 — les hooks) et leur usage (D609)
 operations:
@@ -53,3 +56,47 @@ operations:
     commit: confirm
 # le pointage : sans opération — l'édition en ligne de `date_comptable`
 # dans la liste « sans date comptable » (D205/D446)
+
+# les surfaces (le morceau 4 — D779–D783)
+gui:
+  lists:
+    par_operation:                    # la première déclarée = le défaut (D437)
+      title: { fr: "Par date d'opération" }
+      searchable:                     # la zone de recherche (D782/D783)
+        - compte: { select: mono, required: true }
+        - date_operation: { input: range }
+        - recherche                   # le champ mutualisé (D780)
+      columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+      sort: [date_operation, numero]
+      selection: multiple
+      actions: [copy]                 # le duplicate du socle (D574)
+
+    par_comptable:
+      title: { fr: "Par date comptable" }
+      filter: date_comptable != null  # les pointées seules (D783)
+      searchable:
+        - compte: { select: mono, required: true }
+        - date_comptable: { input: range }
+        - recherche
+      columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+      sort: [date_comptable, numero]
+      selection: multiple
+      actions: [copy]
+      exports: [releve]               # le [PDF] — ici seulement (D780)
+
+    pointage:
+      title: { fr: "Sans date comptable" }
+      filter: date_comptable = null   # la partition avec par_comptable (D783)
+      searchable:
+        - compte: { select: mono, required: true }
+        - recherche
+      columns:
+        - date_operation: { editable: true }
+        - date_comptable: { editable: true }   # le pointage en ligne (D205)
+        - libelle: { editable: true }
+        - budget: { editable: true }
+        - debit
+        - credit
+        - solde
+      sort: [date_operation, numero]
+      selection: multiple

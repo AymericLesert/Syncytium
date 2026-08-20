@@ -901,6 +901,7 @@ Q58) :
 | D772 | **Les parties du composé au point** (complète D771) : `montant.value` comme `montant.currency` — le composé expose ses parties ; la conversion au constructeur (D659) : `amount(montant.value / 6.55957, EUR)` ; la généralisation aux composés en lecture notée. | Voir §3.2c. |
 | D773 | **Le modèle du cas 1 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
 | D774 | **La propagation clarifiée** (le frottement 2) : sans lien — les similaires par les valeurs d'avant (libellé + montant, la date ≥) ; le déroulé liste→sélection→masse validée (D446/D594) ; l'opération de duplication nommée **clone**, l'enchaînement clone → modification avant validation. | Le lien de série écarté. Voir §3.2c. |
+| D775 | **Le formulaire d'appel** (le frottement 1 — écarte input:) : l'opération déclarée porte `form:` — un formulaire comme les autres, ses champs = les paramètres du hook ; **la validation du formulaire est l'opération** (le geste déclenche execute) ; la symétrie avec le confirm (D600) — le formulaire aux deux bouts. | Voir §3.2c. |
 
 ---
 
@@ -7519,6 +7520,26 @@ arbitrages :
   avant validation** — la duplication remplit la transaction, la
   modification s'y ajoute, le commit scelle le tout (D594–D601, rien
   d'inventé).
+
+**Le formulaire d'appel — form:, la validation est une opération
+(D775 — tranche le frottement 1, écarte input:).** **« input: peut
+facilement être remplacé par form: et la validation est une
+opération. »** — pas de propriété nouvelle : **l'opération déclarée
+porte `form:`** — un formulaire comme les autres (le kit entier des
+champs, les champs libres devenant les paramètres du hook), et **la
+validation du formulaire est l'opération** — le geste de valider
+déclenche `execute`. La symétrie est complète : `form:` à l'appel
+(les paramètres avant l'exécution), `commit: confirm` à la relecture
+(le formulaire nourri par la transaction — D600) — le même objet
+formulaire aux deux bouts de l'opération.
+
+```yaml
+operations:
+  clone:
+    label: { fr: Cloner }
+    form: clonage            # le formulaire d'appel — sa validation EST l'opération
+    commit: confirm          # la relecture : nb_creations (D598)
+```
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15822,6 +15843,11 @@ avant la synthèse Q16).
   écartée), le déroulé en trois temps, l'opération clone et
   l'enchaînement clone → modification avant validation.
   01_domestic.md mis au niveau. Reste le frottement 1 (input:).
+- **2026-08-19 (suite 7)** — **Le formulaire d'appel (D775)** :
+  form: remplace input: — la validation du formulaire est
+  l'opération ; la symétrie avec le confirm (D600). hooks.md et
+  01_domestic.md mis au niveau. **Le morceau 3 n'a plus de
+  frottement ouvert.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

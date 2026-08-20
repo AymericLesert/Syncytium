@@ -170,8 +170,10 @@ entités (D765–D766).
 
 ## Les manques relevés
 
-- **le `input:` d'opération** (proposé, à arbitrer) — la saisie des
-  paramètres avant `execute` : le pas et les deux dates du clone, le
-  compte cible du virement — le formulaire d'appel généré du kit des
-  champs ;
+- **le formulaire d'appel d'une opération** — le frottement révélé
+  par le clone (le pas, les deux dates) et le virement (le compte
+  cible) : la saisie avant `execute` manquait au socle → **résolu
+  par D775** : l'opération porte `form:`, **la validation du
+  formulaire est l'opération** — la symétrie avec le confirm
+  (D600) ;
 - *(chaque frottement suivant = une décision consignée)*

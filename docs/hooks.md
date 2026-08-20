@@ -191,8 +191,11 @@ appeler une fonction — jamais l'inverse (D571).
 
 **Le pont hook/déclaration (D609)** : le hook **est** l'opération ;
 la déclaration (`operations:` — D432) en décrit **l'usage** — le nom,
-les paramètres, le `commit:`, la garde `if` (D430), et **le mode de
-déclenchement quand il n'est pas lié à l'IHM** : `when:
+les paramètres, le `commit:`, la garde `if` (D430), **le formulaire
+d'appel** (`form:` — D775 : les champs du formulaire sont les
+paramètres du hook, **la validation du formulaire est l'opération** ;
+la symétrie avec le confirm D600 — le formulaire aux deux bouts), et
+**le mode de déclenchement quand il n'est pas lié à l'IHM** : `when:
 <expression>` (D428), `every: continuous` (D435 — sur une mise à
 jour), le calendaire (D434), **l'événement de connecteur** (les
 webhooks, l'import automatique à la réception d'un fichier —

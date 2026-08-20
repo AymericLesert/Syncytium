@@ -1,6 +1,13 @@
-# La liste des opérations du projet banque (D776/D777)
-# Les chemins relatifs au fichier courant (D768) — le code au langage du domaine 7 (D570)
+# Les opérations du projet banque (D776/D777/D778)
+# Le mapping nommé : code (le langage du domaine 7 — D570) + properties ;
+# le fonctionnement décrit dans le md voisin (la doc auto-générée D645).
 operations:
-  - operations/clone         # la duplication entre deux dates (D774)
-  - operations/propagation   # les similaires — liste, sélection, masse (D774)
-  - operations/virement      # les deux écritures liées (D758)
+  clone:
+    code: operations/clone
+    properties: { }
+  propagation:
+    code: operations/propagation
+    properties: { }
+  virement:
+    code: operations/virement
+    properties: { }

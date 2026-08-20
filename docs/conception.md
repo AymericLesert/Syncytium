@@ -904,6 +904,7 @@ Q58) :
 | D775 | **Le formulaire d'appel** (le frottement 1 — écarte input:) : l'opération déclarée porte `form:` — un formulaire comme les autres, ses champs = les paramètres du hook ; **la validation du formulaire est l'opération** (le geste déclenche execute) ; la symétrie avec le confirm (D600) — le formulaire aux deux bouts. | Voir §3.2c. |
 | D776 | **Le clone et la propagation en hooks** (complète D774/D775) : les deux gestes spécifiques = des hooks d'opération de l'application — la maison du dépôt (hooks.yml + hooks/operations/, D644) étrennée ; le code au langage du domaine 7. | Voir §3.2c. |
 | D777 | **La chaîne des hooks à deux étages** (ajuste D644) : hooks.yml référence les fichiers de famille (hooks/operations.yml…), chaque fichier de famille liste ses hooks — le patron D765/D766 appliqué, les chemins relatifs (D768). | Voir §3.2c. |
+| D778 | **Le hook en mapping — code, properties, le md** (précise D777) : le fichier de famille = un mapping nommé (`clone: { code:, properties: }`) ; chaque hook s'accompagne d'un fichier md décrivant son fonctionnement — la brique humaine de la documentation auto-générée (D645). | La convention <code>.md en proposition. Voir §3.2c. |
 
 ---
 
@@ -7558,6 +7559,20 @@ famille** (`hooks/operations.yml`, demain `hooks/types.yml`,
 `hooks/styles.yml`…), **chaque fichier de famille liste ses hooks**
 — les chemins relatifs au fichier courant (D768), la chaîne uniforme
 à chaque étage.
+
+**Le hook déclaré en mapping — le code, les propriétés, le md (D778
+— précise D777).** **« Dans hooks/operations.yml, je propose :
+`clone: { code: operations/clone, properties: … }` — puis un fichier
+md (comme README.md) pour décrire le fonctionnement de l'opération,
+très utile pour la documentation auto-générée. »** — le fichier de
+famille passe de la liste au **mapping nommé** : chaque hook déclare
+**`code:`** (le fichier au langage du domaine 7) et **`properties:`**
+(ses propriétés) ; et **chaque hook s'accompagne d'un fichier md**
+décrivant son fonctionnement — la brique humaine de la documentation
+auto-générée (D645 : le describe technique + le md du technicien,
+assemblés version par version). *(La convention en proposition : le
+md au même chemin que le code —* `operations/clone.md` *à côté
+d'*`operations/clone`*.)*
 
 ```yaml
 operations:
@@ -15883,6 +15898,9 @@ avant la synthèse Q16).
   (D777)** : hooks.yml → hooks/operations.yml → les opérations — le
   patron des modules appliqué ; le dépôt du cas 1 et hooks.md
   repris.
+- **2026-08-19 (suite 10)** — **Le hook en mapping + le md (D778)** :
+  code:/properties: par hook nommé, le fichier md du fonctionnement
+  pour la documentation auto-générée ; le dépôt et hooks.md repris.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -61,11 +61,18 @@ versions/<statut>/<version>/
 hooks:
   operations: hooks/operations.yml
 
-# hooks/operations.yml — la liste des opérations (les chemins depuis hooks/)
+# hooks/operations.yml — le mapping nommé (D778, les chemins depuis hooks/)
 operations:
-  - operations/clone
-  - operations/propagation
+  clone:
+    code: operations/clone           # le code — le langage du domaine 7 (D570)
+    properties: { }                  # les propriétés du hook
+  propagation:
+    code: operations/propagation
 ```
+
+**Chaque hook s'accompagne d'un fichier md** (D778 — la convention :
+`operations/clone.md` à côté du code) décrivant son fonctionnement —
+la brique humaine de la documentation auto-générée (D645).
 
 ## Les familles
 

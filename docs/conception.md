@@ -7542,7 +7542,11 @@ l'opération se construit toujours par un hook de code ; D609 — le
 hook est l'opération, la déclaration en décrit l'usage) ; ils vivent
 dans **la maison des hooks du dépôt** (D644 : `hooks.yml` +
 `hooks/operations/`) — le cas 1 étrenne la maison pour de vrai ; le
-code lui-même attend le langage du domaine 7 (D570).
+code lui-même attend le langage du domaine 7 (D570). *(La
+confirmation de l'auteur : « nous n'allons pas créer d'opérations
+complémentaires dans Syncytium — ce seront des opérations portées
+par le projet banque » — le socle reste à dix-neuf, la frontière
+nette.)*
 
 ```yaml
 operations:
@@ -15862,6 +15866,8 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 8)** — **Le clone et la propagation en hooks
   (D776)** : les gestes spécifiques du cas = des hooks d'opération —
   hooks.yml et hooks/operations/ entrent au dépôt du cas 1.
+  La confirmation : aucune opération complémentaire dans Syncytium —
+  le socle reste à 19, les opérations sont au projet banque.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

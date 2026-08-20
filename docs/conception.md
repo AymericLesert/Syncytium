@@ -908,6 +908,7 @@ Q58) :
 | D779 | **La liste des écritures** (le morceau 4 s'ouvre) : les colonnes de l'écran legacy (débit/crédit en calculés d'affichage — proposition), les filtres (le compte + la recherche mutualisée + deux dates), **le tri = trois listes** aux mêmes filtres, l'édition en ligne ou au formulaire, [add]/[trash]/[copy]/[PDF], le double-clic **et les touches Entrée/Suppr**. | Le copy = le duplicate du socle ; le clavier entre au contrat des listes. Voir §3.2c. |
 | D780 | **Le mutualizable au modèle, les trois listes en entier** (précise D779) : `searchable: mutualizable[recherche]` sur libellé/budget/lieu — le champ unique naît du modèle (D367), la liste le consomme ; chaque liste décrite en entier — le [releve] sur la seule par_comptable. | Voir §3.2c. |
 | D781 | **Le montant à la ligne, le filter existant** (solde les questions de la liste) : le montant par la modification de la ligne (jamais l'écriture inverse des calculés) ; la zone filters: écartée — le filter: d'expression + les filtres de colonnes du socle (D258/D290/D441), le compte en colonne fantôme filtrable (D447). | Voir §3.2c. |
+| D782 | **La zone de recherche déclarée** (amende D781, enrichit D441) : `searchable:` = la liste de critères aux propriétés — `compte { select: mono, required: true }` (un seul compte, obligatoire) et `recherche` (le mutualisé) ; la colonne fantôme écartée, les dates aux filtres de colonnes. | Voir §3.2c. |
 
 ---
 
@@ -7634,6 +7635,16 @@ pointage), et **les filtres de colonnes** pour l'interactif (D258/
 D290/D441 — chaque colonne filtrable selon son type : la plage pour
 les dates, la liste pour le compte) ; le compte non affiché = la
 colonne fantôme filtrable (D447).
+
+**La zone de recherche déclarée (D782 — amende D781, enrichit
+D441).** **« searchable : compte { select: mono, required: true } ·
+recherche. »** — le `searchable:` de la liste devient **la zone de
+recherche déclarée** : la liste de critères, chacun aux propriétés —
+**`compte { select: mono, required: true }`** (la sélection d'un
+seul compte, **obligatoire** : pas de compte choisi, pas de liste —
+l'écho de l'écran legacy mono-compte) et **`recherche`** (le champ
+mutualisé D780). Ma colonne fantôme est écartée ; les plages de
+dates restent aux filtres de colonnes (D781/D441).
 
 ```yaml
 operations:
@@ -15982,6 +15993,9 @@ avant la synthèse Q16).
   existant (D781)** : les deux questions soldées — le socle couvrait
   déjà les filtres (ma zone filters: écartée), le montant au
   formulaire de ligne.
+- **2026-08-19 (suite 16)** — **La zone de recherche déclarée
+  (D782)** : searchable = les critères aux propriétés (compte en
+  mono obligatoire, recherche) — la colonne fantôme écartée.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

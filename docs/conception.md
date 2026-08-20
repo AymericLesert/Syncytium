@@ -7655,7 +7655,11 @@ range }` sur la liste par opération, `date_comptable` sur la liste
 par comptable) ; et **les deux listes datées se complètent** : la
 liste par date comptable porte **`filter: date_comptable != null`**
 (les pointées seules), la liste du pointage `filter: date_comptable
-= null` — les deux faces d'une partition propre.
+= null` — les deux faces d'une partition propre. *(Le rappel de
+l'auteur consigné : la saisie de la plage de dates est déjà décrite
+aux types et à leurs facettes — le `range of <type>` (D497–D498) et
+la recherche `range` (D441) : `input: range` n'invente rien, il
+invoque la facette existante du type.)*
 
 ```yaml
 operations:
@@ -16011,6 +16015,10 @@ avant la synthèse Q16).
   input: range au critère de date, les filter: != null / = null en
   partition ; le bloc gui écrit dans ecriture.yml avec les calculés
   debit/credit — **le morceau liste est soldé**.
+- **2026-08-19 (suite 18)** — Le rappel consigné : la saisie de
+  plage = l'acquis des types (range of D497–D498, la recherche range
+  D441) — input: range invoque la facette existante, rien
+  d'inventé.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

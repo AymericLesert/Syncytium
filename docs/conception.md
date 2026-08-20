@@ -906,6 +906,7 @@ Q58) :
 | D777 | **La chaîne des hooks à deux étages** (ajuste D644) : hooks.yml référence les fichiers de famille (hooks/operations.yml…), chaque fichier de famille liste ses hooks — le patron D765/D766 appliqué, les chemins relatifs (D768). | Voir §3.2c. |
 | D778 | **Le hook en mapping — code, properties, le md** (précise D777) : le fichier de famille = un mapping nommé (`clone: { code:, properties: }`) ; chaque hook s'accompagne d'un fichier md décrivant son fonctionnement — la brique humaine de la documentation auto-générée (D645). | La convention <code>.md en proposition. Voir §3.2c. |
 | D779 | **La liste des écritures** (le morceau 4 s'ouvre) : les colonnes de l'écran legacy (débit/crédit en calculés d'affichage — proposition), les filtres (le compte + la recherche mutualisée + deux dates), **le tri = trois listes** aux mêmes filtres, l'édition en ligne ou au formulaire, [add]/[trash]/[copy]/[PDF], le double-clic **et les touches Entrée/Suppr**. | Le copy = le duplicate du socle ; le clavier entre au contrat des listes. Voir §3.2c. |
+| D780 | **Le mutualizable au modèle, les trois listes en entier** (précise D779) : `searchable: mutualizable[recherche]` sur libellé/budget/lieu — le champ unique naît du modèle (D367), la liste le consomme ; chaque liste décrite en entier — le [releve] sur la seule par_comptable. | Voir §3.2c. |
 
 ---
 
@@ -7603,6 +7604,21 @@ cas 1 s'ouvre).** Les arbitrages de l'auteur :
    du socle D574 — distinct du hook `clone`)* ;
 9. **l'export PDF** : le bouton [PDF] — le relevé (le template, au
    morceau suivant).
+
+**Le mutualizable au modèle, les trois listes en entier (D780 —
+précise D779).** Deux arbitrages : **« dans la déclaration du
+modèle, l'utilisation de mutualizable doit être appliquée — le nom
+du mutualizable est un seul champ de recherche pour les trois champs
+(plus intéressant ici que searchable). »** — la recherche mutualisée
+se déclare **au modèle** (D367) : `searchable:
+mutualizable[recherche]` sur le libellé, le budget et le lieu — le
+champ unique `recherche` naît de la déclaration, la liste le
+consomme ; **« la définition des trois listes doit être décrite ici,
+car par exemple [releve] est disponible uniquement sur
+[par_comptable]. »** — chaque liste s'écrit **en entier** (pas de
+factorisation implicite) : les différences comptent — le relevé
+s'exporte de la seule liste par date comptable (le tri du relevé —
+D758).
 
 ```yaml
 operations:
@@ -15940,6 +15956,10 @@ avant la synthèse Q16).
   les neuf points arbitrés — les colonnes de l'écran, les trois
   listes au tri, les filtres, les boutons et les touches clavier.
   L'écriture YAML proposée à la validation.
+- **2026-08-19 (suite 13)** — **Le mutualizable et les listes en
+  entier (D780)** : mutualizable[recherche] au modèle, les trois
+  listes décrites chacune (le releve sur par_comptable seule). Le
+  modèle repris (les searchable).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

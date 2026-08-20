@@ -5,8 +5,8 @@ fields:
   numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
   date:      { type: date, required: true }   # la date d'opération
   comptable: date                    # la date comptable — renseignée au pointage
-  libelle:   text[..60]
-  budget:    banque.budget           # le référentiel dynamique (D355)
+  libelle:   { type: text[..60], searchable: mutualizable[recherche] }   # D780
+  budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
   montant:                           # signé — la devise vit dans la valeur (D771)
     type: amount
     currencies: [EUR, FRF]           # FRF : l'historique antérieur au passage
@@ -20,7 +20,7 @@ fields:
       autre:       { label: { fr: Autre } }
   cheque:    text[..10]              # le n° de chèque (le mode autre)
   liee:      banque.ecriture         # l'écriture miroir du virement (D758)
-  lieu:      banque.lieu             # la ville — dynamique (D355)
+  lieu:      { type: banque.lieu, searchable: mutualizable[recherche] }   # la ville — dynamique (D355)
   imprimee:  date                    # le marqueur du relevé (Date_Impression)
   # les montants convertis (D770/D771) — des amount à devise unique,
   # le taux fixe du passage franc→euro ; currency : la fonction du type

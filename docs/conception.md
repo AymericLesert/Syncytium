@@ -907,6 +907,7 @@ Q58) :
 | D778 | **Le hook en mapping — code, properties, le md** (précise D777) : le fichier de famille = un mapping nommé (`clone: { code:, properties: }`) ; chaque hook s'accompagne d'un fichier md décrivant son fonctionnement — la brique humaine de la documentation auto-générée (D645). | La convention <code>.md en proposition. Voir §3.2c. |
 | D779 | **La liste des écritures** (le morceau 4 s'ouvre) : les colonnes de l'écran legacy (débit/crédit en calculés d'affichage — proposition), les filtres (le compte + la recherche mutualisée + deux dates), **le tri = trois listes** aux mêmes filtres, l'édition en ligne ou au formulaire, [add]/[trash]/[copy]/[PDF], le double-clic **et les touches Entrée/Suppr**. | Le copy = le duplicate du socle ; le clavier entre au contrat des listes. Voir §3.2c. |
 | D780 | **Le mutualizable au modèle, les trois listes en entier** (précise D779) : `searchable: mutualizable[recherche]` sur libellé/budget/lieu — le champ unique naît du modèle (D367), la liste le consomme ; chaque liste décrite en entier — le [releve] sur la seule par_comptable. | Voir §3.2c. |
+| D781 | **Le montant à la ligne, le filter existant** (solde les questions de la liste) : le montant par la modification de la ligne (jamais l'écriture inverse des calculés) ; la zone filters: écartée — le filter: d'expression + les filtres de colonnes du socle (D258/D290/D441), le compte en colonne fantôme filtrable (D447). | Voir §3.2c. |
 
 ---
 
@@ -7619,6 +7620,20 @@ car par exemple [releve] est disponible uniquement sur
 factorisation implicite) : les différences comptent — le relevé
 s'exporte de la seule liste par date comptable (le tri du relevé —
 D758).
+
+**Le montant à la ligne, le filter existant (D781 — solde les deux
+questions de la liste).** **« Pour l'édition du montant, nous
+passons par la modification de la ligne et du montant. »** — pas
+d'écriture inverse des calculés débit/crédit : le montant se modifie
+**par la modification de la ligne** (le formulaire — le double-clic,
+la touche Entrée) ; **« pour les listes, nous avons une propriété
+filter — pourquoi ne l'utilises-tu pas ? »** — la leçon reçue : ma
+zone `filters:` était une invention inutile — **le socle couvre
+tout** : le `filter:` d'expression pour le figé (la liste du
+pointage), et **les filtres de colonnes** pour l'interactif (D258/
+D290/D441 — chaque colonne filtrable selon son type : la plage pour
+les dates, la liste pour le compte) ; le compte non affiché = la
+colonne fantôme filtrable (D447).
 
 ```yaml
 operations:
@@ -15963,6 +15978,10 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 14)** — Le renommage des champs du cas (la
   demande de l'auteur) : `date` → `date_operation`, `comptable` →
   `date_comptable` — ecriture.yml et la formule du solde repris.
+- **2026-08-19 (suite 15)** — **Le montant à la ligne, le filter
+  existant (D781)** : les deux questions soldées — le socle couvrait
+  déjà les filtres (ma zone filters: écartée), le montant au
+  formulaire de ligne.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -154,6 +154,24 @@ constructeur D659), le fichier d'entrée aux liens (D767), les
 chemins relatifs (D768), la chaîne modules.yml → module.yml →
 entités (D765–D766).
 
+**Le morceau 3 — les opérations** (en cours) :
+
+- **le pointage** — la liste « sans date comptable » + l'édition en
+  ligne (D205), l'opération de masse « pointer » (D446) ;
+- **le virement** — le hook crée les deux écritures liées (`liee:`)
+  dans la même transaction (D594) ;
+- **`clone`** (D774) — la duplication entre deux dates au pas choisi
+  (l'ex-« dupliquer ») ;
+- **la propagation** (D774) — **sans lien** : les similaires par les
+  valeurs d'avant (le même libellé ET le même montant, la date ≥
+  celle de la modifiée), le déroulé liste → sélection → masse
+  validée ; l'enchaînement fondateur : le clone suivi de la
+  modification avant validation (la transaction tenue ouverte).
+
 ## Les manques relevés
 
-*(chaque frottement = une décision consignée)*
+- **le `input:` d'opération** (proposé, à arbitrer) — la saisie des
+  paramètres avant `execute` : le pas et les deux dates du clone, le
+  compte cible du virement — le formulaire d'appel généré du kit des
+  champs ;
+- *(chaque frottement suivant = une décision consignée)*

@@ -900,6 +900,7 @@ Q58) :
 | D771 | **Le montant en amount** (amende D769/D770) : `amount, currencies: [EUR, FRF]` — la devise vit dans la valeur, le champ devise disparaît ; les calculés = des amount à devise unique ; la fonction `currency` du type amount en proposition ; E/F transcodés au mapping. | Voir §3.2c. |
 | D772 | **Les parties du composé au point** (complète D771) : `montant.value` comme `montant.currency` — le composé expose ses parties ; la conversion au constructeur (D659) : `amount(montant.value / 6.55957, EUR)` ; la généralisation aux composés en lecture notée. | Voir §3.2c. |
 | D773 | **Le modèle du cas 1 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
+| D774 | **La propagation clarifiée** (le frottement 2) : sans lien — les similaires par les valeurs d'avant (libellé + montant, la date ≥) ; le déroulé liste→sélection→masse validée (D446/D594) ; l'opération de duplication nommée **clone**, l'enchaînement clone → modification avant validation. | Le lien de série écarté. Voir §3.2c. |
 
 ---
 
@@ -7490,6 +7491,34 @@ expose ses sous-items par le point, via des fonctions du type**
 `amount.currency`, la geolocation et ses coordonnées/adresse D638,
 la period et ses bornes…) ; **la signature du hook de type les
 déclare** — un composé sans ses accès de sous-items est incomplet.
+
+**La propagation clarifiée — les similaires sans lien, le clone
+(D774 — tranche le frottement 2 du morceau 3).** **« La propagation
+consiste à modifier le libellé et le montant pour toutes les
+opérations similaires (même libellé qu'avant la modification et
+même montant qu'avant la modification). Il n'est pas nécessaire
+d'avoir un lien. Ceci peut consister à : 1. afficher la liste des
+opérations répondant aux critères (même libellé, même montant et
+date d'opération >= date de l'opération modifiée) ; 2. sélectionner
+les opérations à modifier ; 3. en validant, apporter la modification
+en masse sur toutes les opérations sélectionnées. Cela implique
+d'avoir une opération de duplication (que nous appellerons "clone")
+suivie d'une opération de modification avant validation. »** — les
+arbitrages :
+
+- **sans lien** — mon lien de série est écarté : les similaires se
+  rapprochent **par les valeurs d'avant** (le même libellé ET le
+  même montant que l'écriture avant sa modification), à la date
+  d'opération ≥ celle de la modifiée ;
+- **le déroulé en trois temps** : la liste des similaires → la
+  sélection → la modification en masse validée — le patron existant
+  (l'opération de masse D446, la transaction tenue ouverte D594 :
+  la relecture avant le scellé) ;
+- **l'opération de duplication du cas se nomme `clone`** — et
+  l'enchaînement fondateur : **le clone suivi de la modification
+  avant validation** — la duplication remplit la transaction, la
+  modification s'y ajoute, le commit scelle le tout (D594–D601, rien
+  d'inventé).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -15788,6 +15817,11 @@ avant la synthèse Q16).
   type, déclarées à la signature du hook ; types.md (le socle
   commun) et hooks.md (la signature) mis au niveau ; le modèle du
   cas 1 arrêté.
+- **2026-08-19 (suite 6)** — **La propagation clarifiée (D774)** :
+  les similaires par les valeurs d'avant (sans lien — la série
+  écartée), le déroulé en trois temps, l'opération clone et
+  l'enchaînement clone → modification avant validation.
+  01_domestic.md mis au niveau. Reste le frottement 1 (input:).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

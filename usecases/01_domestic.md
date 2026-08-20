@@ -154,7 +154,7 @@ constructeur D659), le fichier d'entrée aux liens (D767), les
 chemins relatifs (D768), la chaîne modules.yml → module.yml →
 entités (D765–D766).
 
-**Le morceau 3 — les opérations** (en cours) :
+**Le morceau 3 — les opérations** (validé) :
 
 - **le pointage** — la liste « sans date comptable » + l'édition en
   ligne (D205), l'opération de masse « pointer » (D446) ;
@@ -167,6 +167,14 @@ entités (D765–D766).
   celle de la modifiée), le déroulé liste → sélection → masse
   validée ; l'enchaînement fondateur : le clone suivi de la
   modification avant validation (la transaction tenue ouverte).
+
+Les hooks du projet (D776 — le socle reste à 19) vivent dans la
+maison à deux étages (D777–D778) : `hooks.yml` →
+`hooks/operations.yml` (le mapping `code:`/`properties:`) → le code
+et **le md du fonctionnement par hook** (la doc auto-générée D645) ;
+le bloc `operations:` d'`ecriture.yml` déclare l'usage (D609) —
+`clone`/`propager`/`virer` au `form:` d'appel (D775) et au
+`commit: confirm`.
 
 ## Les manques relevés
 

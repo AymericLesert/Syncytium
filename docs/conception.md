@@ -15901,6 +15901,11 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 10)** — **Le hook en mapping + le md (D778)** :
   code:/properties: par hook nommé, le fichier md du fonctionnement
   pour la documentation auto-générée ; le dépôt et hooks.md repris.
+- **2026-08-19 (suite 11)** — **Le morceau 3 validé** (« je valide
+  le bloc operations ») : ecriture.yml porte les trois déclarations
+  d'usage (clone/propager/virer — form: + commit: confirm), le
+  pointage sans opération. **Le morceau 3 est soldé** — au suivant :
+  les surfaces.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

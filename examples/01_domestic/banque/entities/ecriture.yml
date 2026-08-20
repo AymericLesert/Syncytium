@@ -36,3 +36,20 @@ fields:
     type: amount
     currencies: [EUR]
     formula: owner.ecritures.sum(montant_euro if date <= me.date)   # D760/D770 — continu
+
+# les opérations du projet (D776 — les hooks) et leur usage (D609)
+operations:
+  clone:                       # la duplication entre deux dates (D774)
+    label: { fr: Cloner }
+    form: clonage              # le pas + du/au (D775 — la validation est l'opération)
+    commit: confirm            # la relecture : nb_creations (D598)
+  propager:                    # les similaires (D774)
+    label: { fr: Propager }
+    form: propagation          # le nouveau libellé/montant → liste → sélection → masse
+    commit: confirm
+  virer:                       # les deux écritures liées
+    label: { fr: Virer }
+    form: virement             # le compte cible, le montant
+    commit: confirm
+# le pointage : sans opération — l'édition en ligne de `comptable`
+# dans la liste « sans date comptable » (D205/D446)

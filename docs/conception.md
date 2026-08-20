@@ -16019,6 +16019,15 @@ avant la synthèse Q16).
   plage = l'acquis des types (range of D497–D498, la recherche range
   D441) — input: range invoque la facette existante, rien
   d'inventé.
+- **2026-08-19 (suite 19 — pause)** — La séance s'arrête après le
+  morceau liste soldé (D779–D783). **La reprise : les formulaires du
+  cas 1** — la saisie de l'écriture (la proposition posée, deux
+  questions ouvertes : le bouton [*] du legacy — la copie de la date
+  d'opération ? — et les [-]/[+] des dates) puis les trois
+  formulaires d'appel (clonage, propagation, virement — D775) ;
+  ensuite le relevé (template) et le graphique de l'évolution des
+  budgets. La PR de consolidation sur demande (~35 commits depuis la
+  #36).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

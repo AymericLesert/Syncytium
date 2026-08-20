@@ -902,6 +902,7 @@ Q58) :
 | D773 | **Le modèle du cas 1 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
 | D774 | **La propagation clarifiée** (le frottement 2) : sans lien — les similaires par les valeurs d'avant (libellé + montant, la date ≥) ; le déroulé liste→sélection→masse validée (D446/D594) ; l'opération de duplication nommée **clone**, l'enchaînement clone → modification avant validation. | Le lien de série écarté. Voir §3.2c. |
 | D775 | **Le formulaire d'appel** (le frottement 1 — écarte input:) : l'opération déclarée porte `form:` — un formulaire comme les autres, ses champs = les paramètres du hook ; **la validation du formulaire est l'opération** (le geste déclenche execute) ; la symétrie avec le confirm (D600) — le formulaire aux deux bouts. | Voir §3.2c. |
+| D776 | **Le clone et la propagation en hooks** (complète D774/D775) : les deux gestes spécifiques = des hooks d'opération de l'application — la maison du dépôt (hooks.yml + hooks/operations/, D644) étrennée ; le code au langage du domaine 7. | Voir §3.2c. |
 
 ---
 
@@ -7532,6 +7533,16 @@ déclenche `execute`. La symétrie est complète : `form:` à l'appel
 (les paramètres avant l'exécution), `commit: confirm` à la relecture
 (le formulaire nourri par la transaction — D600) — le même objet
 formulaire aux deux bouts de l'opération.
+
+**Le clone et la propagation en hooks (D776 — complète D774/D775).**
+**« Pour aller plus loin, la propagation et la duplication sont
+spécifiques et font l'objet d'un hook. »** — les deux gestes sont
+propres au cas : **des hooks d'opération de l'application** (D570 —
+l'opération se construit toujours par un hook de code ; D609 — le
+hook est l'opération, la déclaration en décrit l'usage) ; ils vivent
+dans **la maison des hooks du dépôt** (D644 : `hooks.yml` +
+`hooks/operations/`) — le cas 1 étrenne la maison pour de vrai ; le
+code lui-même attend le langage du domaine 7 (D570).
 
 ```yaml
 operations:
@@ -15848,6 +15859,9 @@ avant la synthèse Q16).
   l'opération ; la symétrie avec le confirm (D600). hooks.md et
   01_domestic.md mis au niveau. **Le morceau 3 n'a plus de
   frottement ouvert.**
+- **2026-08-19 (suite 8)** — **Le clone et la propagation en hooks
+  (D776)** : les gestes spécifiques du cas = des hooks d'opération —
+  hooks.yml et hooks/operations/ entrent au dépôt du cas 1.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

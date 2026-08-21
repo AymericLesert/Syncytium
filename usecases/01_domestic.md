@@ -189,7 +189,12 @@ cinq usages (D199/D788) — les titres au gabarit par mode d'ouverture
 chèque, les pickers à création directe ; le `post:`/[*] écarté
 (D787 — la simplicité prime) ; **les trois formulaires d'appel**
 (clonage, propagation, virement — D775) aux items en champs libres.
-Restent : le relevé (template) et le graphique.
+**Le relevé sans template à écrire** (D791–D792) : le bouton [PDF]
+= `generate(me, PDF)` — l'opération du socle sur le contexte
+courant ; **toute liste porte son template de base** (l'A4 portrait :
+le titre, le tableau aux entêtes répétés et au pied comptant les
+lignes, le pied de page n°/total) — le cas 1 ne surcharge pas.
+Reste : le graphique (l'évolution des budgets depuis 1992).
 
 ## Les manques relevés
 

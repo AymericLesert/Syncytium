@@ -918,6 +918,7 @@ Q58) :
 | D789 | **Le titre au mode d'ouverture** (complète D449/D788) : un titre par usage — le mapping create/read/update/delete (le contexte d'appel D455 porte le mode), la forme simple demeure, le gabarit permis dans chaque valeur. | L'écriture en proposition. Voir §3.2c. |
 | D790 | **Les titres au gabarit** (arrête D789) : « Création d'une écriture », « Modification de l'écriture '{libelle}' du {date_operation} »… — le gabarit nécessaire à la personnalisation ; record (D788) et le mapping (D789) confirmés par l'usage. | Voir §3.2c. |
 | D791 | **L'export = l'appel à generate** (corrige D780/D783) : `exports: [ generate(me, PDF) ]` — l'opération du socle (D570/D574), me = le contexte courant, PDF = la destination (D564) ; le mot-clé releve effacé ; le template employé nommé au morceau du template. | Voir §3.2c. |
+| D792 | **Le template de base des listes** (complète D186/D559) : toute liste porte son template A4 portrait — le titre, le tableau aux entêtes répétés + le pied au nombre de lignes, le pied de page n°/total ; la grammaire existante le décrit, la surcharge possible — le cas 1 ne surcharge pas. | generate(me, PDF) emploie le défaut. Voir §3.2c. |
 
 ---
 
@@ -7765,6 +7766,22 @@ destination (D564 — PDF, CSV, Excel, Word…) ; mon mot-clé `releve`
 s'efface — rien d'inventé, l'opération du socle et ses arguments.
 *(La question fine notée : le template employé par generate — le
 relevé — sera nommé au morceau du template.)*
+
+**Le template de base des listes (D792 — répond à la question,
+complète D186/D559).** **« Les listes portent un template de base en
+A4 (portrait) avec un titre (le titre de la liste), la liste (avec
+les entêtes répétés à chaque nouvelle page, et un pied de tableau
+avec le nombre de lignes) et le pied de page (numéro de la page /
+nombre de pages). Nous disposons d'une grammaire pour définir un
+fichier PDF — la liste est un composant de la grammaire. Le template
+pourra être surchargé, si besoin. Le cas 1 ne vise pas à surcharger
+le template. »** — le patron des défauts (D186) atteint les
+templates : **toute liste porte son template de base** — l'A4
+portrait, le titre de la liste, le tableau aux entêtes répétés et au
+pied comptant les lignes, le pied de page n°/total ; la grammaire
+existante le décrit (D559–D565 — la liste est un composant), la
+surcharge reste possible — **le cas 1 ne surcharge pas** :
+`generate(me, PDF)` emploie le défaut, rien à écrire.
 
 ```yaml
 operations:
@@ -16154,7 +16171,13 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 26)** — **L'export = generate (D791)** : le
   bouton [PDF] = l'appel generate(me, PDF) — l'opération du socle,
   rien d'inventé ; ecriture.yml repris.
-- **2026-08-19 (suite 27 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 27)** — **Le template de base des listes
+  (D792)** : l'A4 portrait au titre/tableau/pied — le défaut du
+  socle (D186), le cas 1 ne surcharge pas — le morceau template
+  soldé sans une ligne. Deux questions fines posées : le tri du
+  relevé (les trois clés D758 face au tri de la liste) et la pose
+  du marqueur imprimee.
+- **2026-08-19 (suite 28 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

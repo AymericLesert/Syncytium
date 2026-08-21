@@ -919,6 +919,8 @@ Q58) :
 | D790 | **Les titres au gabarit** (arrête D789) : « Création d'une écriture », « Modification de l'écriture '{libelle}' du {date_operation} »… — le gabarit nécessaire à la personnalisation ; record (D788) et le mapping (D789) confirmés par l'usage. | Voir §3.2c. |
 | D791 | **L'export = l'appel à generate** (corrige D780/D783) : `exports: [ generate(me, PDF) ]` — l'opération du socle (D570/D574), me = le contexte courant, PDF = la destination (D564) ; le mot-clé releve effacé ; le template employé nommé au morceau du template. | Voir §3.2c. |
 | D792 | **Le template de base des listes** (complète D186/D559) : toute liste porte son template A4 portrait — le titre, le tableau aux entêtes répétés + le pied au nombre de lignes, le pied de page n°/total ; la grammaire existante le décrit, la surcharge possible — le cas 1 ne surcharge pas. | generate(me, PDF) emploie le défaut. Voir §3.2c. |
+| D793 | **Le tri partagé, le sens au crochet** : la liste et le relevé partagent les clés — par_comptable trie `[date_comptable, montant[-], numero]` ; le crochet porte la direction. | La lecture du [-] face à « dépense→ressource » (D758) à trancher. Voir §3.2c. |
+| D794 | **La tâche d'impression — creer_releve** : déclenchée par l'impression, le contexte = les écritures imprimées ; le hook creer_releve (le 4e du projet) pose imprimee — le relevé devient un acte tracé. | Voir §3.2c. |
 
 ---
 
@@ -7782,6 +7784,27 @@ pied comptant les lignes, le pied de page n°/total ; la grammaire
 existante le décrit (D559–D565 — la liste est un composant), la
 surcharge reste possible — **le cas 1 ne surcharge pas** :
 `generate(me, PDF)` emploie le défaut, rien à écrire.
+
+**Le tri partagé — le sens au crochet (D793).** **« Même tri entre
+la liste et le relevé. La liste par_comptable trie [date_comptable,
+montant[-], numero]. »** — une seule vérité de tri : la liste et son
+relevé partagent les clés ; et **l'écriture nouvelle : le sens au
+crochet** — `montant[-]` (le crochet porte la direction, l'écho des
+crochets partout — D366/D381). *(La question fine posée : avec le
+montant signé, « de la plus grosse dépense à la ressource » (D758)
+est l'ordre croissant — le `[-]` se lit-il « décroissant » (la
+ressource d'abord) ou autrement ? — à trancher.)*
+
+**La tâche d'impression — creer_releve (D794).** **« Une tâche qui
+se déclenche sur l'impression répond au besoin. Cette tâche aura
+dans son contexte la liste des écritures imprimées et une opération
+creer_releve (hook) sera déclenchée. »** — le marqueur `imprimee`
+trouve son poseur : **une tâche déclenchée par l'impression** (le
+générateur émet l'événement — l'écho du `when:` hors-IHM D609), dont
+le contexte porte **la liste des écritures imprimées** ; **le hook
+`creer_releve`** (le quatrième du projet banque) pose la date
+d'impression — et le relevé devient un acte tracé, pas un simple
+export.
 
 ```yaml
 operations:
@@ -16177,7 +16200,12 @@ avant la synthèse Q16).
   soldé sans une ligne. Deux questions fines posées : le tri du
   relevé (les trois clés D758 face au tri de la liste) et la pose
   du marqueur imprimee.
-- **2026-08-19 (suite 28 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 28)** — **Le tri partagé et la tâche
+  d'impression (D793–D794)** : [date_comptable, montant[-], numero]
+  sur par_comptable (le sens au crochet — la lecture du [-] à
+  trancher) ; le hook creer_releve déclenché par l'impression, le
+  contexte aux écritures imprimées, imprimee posé. Le dépôt repris.
+- **2026-08-19 (suite 29 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

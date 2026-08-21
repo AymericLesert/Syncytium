@@ -11,3 +11,6 @@ operations:
   virement:
     code: operations/virement
     properties: { }
+  creer_releve:
+    code: operations/creer_releve
+    properties: { }

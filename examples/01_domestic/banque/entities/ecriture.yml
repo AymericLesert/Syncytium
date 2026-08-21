@@ -120,7 +120,7 @@ gui:
         - date_comptable                # la plage — le champ porte sa facette (D784)
         - recherche
       columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
-      sort: [date_comptable, numero]
+      sort: [date_comptable, montant[-], numero]   # le tri partagé liste/relevé (D793)
       selection: multiple
       actions: [copy]
       exports: [ generate(me, PDF) ]  # le [PDF] — l'opération du socle (D791), ici seulement (D780)

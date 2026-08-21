@@ -914,6 +914,7 @@ Q58) :
 | D785 | **Les [-]/[+] au composant date** : les steppers du jour d'avant/d'après — au même rang que le picker (l'écho du stepper du nombre D270) ; le catalogue enrichi. | Voir §3.2c. |
 | D786 | **Le [*] — le report de champ** : le bouton de post-zone (D265) qui copie la valeur d'un autre champ (la date d'opération → la comptable) ; l'écriture `post: { copy: }` en proposition. | Voir §3.2c. |
 | D787 | **Le post: écarté** (retire D786) : le [*] ne se transpose pas — la date comptable se saisit au pointage, le formulaire reste nu ; la simplicité prime sur la fidélité au legacy. | Voir §3.2c. |
+| D788 | **Le nom du formulaire unique** (précise D199) : « saisie » inadapté aux cinq usages — `record` recommandé entre les deux noms proposés (le rôle — l'enregistrement — plutôt que le contenant box) ; à confirmer. | Voir §3.2c. |
 
 ---
 
@@ -7700,6 +7701,17 @@ transpose pas — la date comptable se saisit au pointage (l'édition
 en ligne de la liste dédiée), le formulaire reste nu ; **la
 simplicité prime sur la fidélité au legacy** — la leçon du cas
 domestique.
+
+**Le nom du formulaire unique — record (D788 — précise D199).** **«
+Le formulaire va servir pour créer une écriture, lire une écriture,
+mettre à jour une écriture ou visualiser l'écriture avant la
+suppression. Le nom "saisie" n'est pas adapté. Peut-on utiliser
+"box" ou "record" ? »** — les cinq usages du formulaire unique
+(D199) rappelés par le cas ; entre les deux noms proposés, **ma
+recommandation : `record`** — le formulaire de *l'enregistrement*
+(le rôle), quand `box` décrit le contenant ; et l'écho du dialogue
+legacy lui-même (« Modification d'un enregistrement »). *(À
+confirmer par l'auteur.)*
 
 ```yaml
 operations:
@@ -16070,7 +16082,10 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 21)** — **Le post: écarté (D787)** : la
   proposition retirée — la simplicité prime sur la fidélité au
   legacy ; composants.md repris (la note du calendar allégée).
-- **2026-08-19 (suite 22 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 22)** — **Le nom du formulaire — record
+  (D788)** : les cinq usages rappelés (D199), record recommandé
+  contre box (le rôle, pas le contenant) — à confirmer.
+- **2026-08-19 (suite 23 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

@@ -661,6 +661,12 @@ gui:
 
 ## `calendar`
 
+*(D785 — le champ date porte aussi **les steppers [-]/[+]** : le
+jour d'avant, le jour d'après — au même rang que le picker, l'écho
+du stepper du nombre D270 ; et la post-zone peut porter **le report
+de champ** — D786, `post: { copy: <champ> }` en proposition : le
+[*] du legacy copiant la date d'opération vers la comptable.)*
+
 1. **Nom et famille** — `calendar`, une feuille ;
 2. **Rôle** — le calendrier : la saisie et l'affichage d'une date — la
    vue année, mois ou semaine, et les raccourcis du quotidien ;

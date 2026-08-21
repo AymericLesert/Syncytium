@@ -911,6 +911,8 @@ Q58) :
 | D782 | **La zone de recherche déclarée** (amende D781, enrichit D441) : `searchable:` = la liste de critères aux propriétés — `compte { select: mono, required: true }` (un seul compte, obligatoire) et `recherche` (le mutualisé) ; la colonne fantôme écartée, les dates aux filtres de colonnes. | Voir §3.2c. |
 | D783 | **Les trois zones arrêtées** (arrête D782) : le critère de date à `input: range` dans la zone de recherche ; `filter: date_comptable != null` sur la liste par comptable, `= null` sur le pointage — la partition propre. | Le morceau liste soldé. Voir §3.2c. |
 | D784 | **La facette au modèle** (arrête le rappel — le patron D780) : `searchable: range` sur date_operation/date_comptable ; la liste nomme ses critères, le champ apporte son comportement — `input:` disparaît. | Voir §3.2c. |
+| D785 | **Les [-]/[+] au composant date** : les steppers du jour d'avant/d'après — au même rang que le picker (l'écho du stepper du nombre D270) ; le catalogue enrichi. | Voir §3.2c. |
+| D786 | **Le [*] — le report de champ** : le bouton de post-zone (D265) qui copie la valeur d'un autre champ (la date d'opération → la comptable) ; l'écriture `post: { copy: }` en proposition. | Voir §3.2c. |
 
 ---
 
@@ -7672,6 +7674,22 @@ recherche vit au modèle** (comme le mutualizable D780) —
 `searchable: range` sur les deux dates ; **la liste ne fait que
 nommer ses critères**, le champ apporte son comportement (la plage,
 le mutualisé, la sélection) — `input:` disparaît.
+
+**Les [-]/[+] au composant date (D785 — enrichit le catalogue, la
+reprise des formulaires).** **« Les boutons [-]/[+] sont utilisés
+pour indiquer le jour d'avant ou le jour d'après. Ces boutons font
+partie du champ date au même titre que le picker.date. »** — le
+composant date du socle gagne **ses steppers** : le jour d'avant, le
+jour d'après — au même rang que le picker (l'écho exact du stepper
+du nombre, D270) ; le catalogue s'enrichit, aucun hook.
+
+**Le [*] — le report de champ (D786).** **« Quant à [*], il reporte
+la date de l'opération sur la date comptable. »** — un bouton de
+**post-zone** (l'anatomie D265) déclaré au formulaire : il copie la
+valeur d'un autre champ dans celui-ci. *(L'écriture en proposition :*
+`date_comptable: { post: { copy: date_operation, icon: star } }`
+*— la post-zone porte l'action de report ; à valider au morceau des
+formulaires.)*
 
 ```yaml
 operations:
@@ -16035,7 +16053,11 @@ avant la synthèse Q16).
   searchable: range sur les deux dates de l'écriture — input:
   disparaît des listes, le champ porte son comportement (le patron
   D780). ecriture.yml repris.
-- **2026-08-19 (suite 20 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 20)** — **Les [-]/[+] et le [*] (D785–D786)** :
+  les steppers du composant date (le socle), le report de champ en
+  post-zone (copy: en proposition). composants.md mis au niveau —
+  les formulaires reprennent.
+- **2026-08-19 (suite 21 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

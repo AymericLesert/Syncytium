@@ -910,6 +910,7 @@ Q58) :
 | D781 | **Le montant à la ligne, le filter existant** (solde les questions de la liste) : le montant par la modification de la ligne (jamais l'écriture inverse des calculés) ; la zone filters: écartée — le filter: d'expression + les filtres de colonnes du socle (D258/D290/D441), le compte en colonne fantôme filtrable (D447). | Voir §3.2c. |
 | D782 | **La zone de recherche déclarée** (amende D781, enrichit D441) : `searchable:` = la liste de critères aux propriétés — `compte { select: mono, required: true }` (un seul compte, obligatoire) et `recherche` (le mutualisé) ; la colonne fantôme écartée, les dates aux filtres de colonnes. | Voir §3.2c. |
 | D783 | **Les trois zones arrêtées** (arrête D782) : le critère de date à `input: range` dans la zone de recherche ; `filter: date_comptable != null` sur la liste par comptable, `= null` sur le pointage — la partition propre. | Le morceau liste soldé. Voir §3.2c. |
+| D784 | **La facette au modèle** (arrête le rappel — le patron D780) : `searchable: range` sur date_operation/date_comptable ; la liste nomme ses critères, le champ apporte son comportement — `input:` disparaît. | Voir §3.2c. |
 
 ---
 
@@ -7660,6 +7661,17 @@ l'auteur consigné : la saisie de la plage de dates est déjà décrite
 aux types et à leurs facettes — le `range of <type>` (D497–D498) et
 la recherche `range` (D441) : `input: range` n'invente rien, il
 invoque la facette existante du type.)*
+
+**La facette au modèle — input: disparaît (D784 — arrête le rappel,
+le patron D780 appliqué).** **« Dans la définition de l'entité
+écriture, date_operation et date_comptable peuvent avoir une
+propriété searchable avec la valeur range. En faisant cet
+ajustement, dans les listes, pas besoin de la propriété input car le
+champ le porte. »** — la cohérence complète : **la facette de
+recherche vit au modèle** (comme le mutualizable D780) —
+`searchable: range` sur les deux dates ; **la liste ne fait que
+nommer ses critères**, le champ apporte son comportement (la plage,
+le mutualisé, la sélection) — `input:` disparaît.
 
 ```yaml
 operations:
@@ -16019,7 +16031,11 @@ avant la synthèse Q16).
   plage = l'acquis des types (range of D497–D498, la recherche range
   D441) — input: range invoque la facette existante, rien
   d'inventé.
-- **2026-08-19 (suite 19 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 19)** — **La facette au modèle (D784)** :
+  searchable: range sur les deux dates de l'écriture — input:
+  disparaît des listes, le champ porte son comportement (le patron
+  D780). ecriture.yml repris.
+- **2026-08-19 (suite 20 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

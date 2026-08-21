@@ -3,8 +3,8 @@ name: ecriture
 label: "{libelle}"
 fields:
   numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
-  date_operation: { type: date, required: true }
-  date_comptable: date               # renseignée au pointage
+  date_operation: { type: date, required: true, searchable: range }   # D784
+  date_comptable: { type: date, searchable: range }   # renseignée au pointage
   libelle:   { type: text[..60], searchable: mutualizable[recherche] }   # D780
   budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
   montant:                           # signé — la devise vit dans la valeur (D771)
@@ -62,10 +62,10 @@ gui:
   lists:
     par_operation:                    # la première déclarée = le défaut (D437)
       title: { fr: "Par date d'opération" }
-      searchable:                     # la zone de recherche (D782/D783)
+      searchable:                     # la zone de recherche (D782–D784)
         - compte: { select: mono, required: true }
-        - date_operation: { input: range }
-        - recherche                   # le champ mutualisé (D780)
+        - date_operation                # la plage — le champ porte sa facette (D784)
+        - recherche                     # le champ mutualisé (D780)
       columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
       sort: [date_operation, numero]
       selection: multiple
@@ -76,7 +76,7 @@ gui:
       filter: date_comptable != null  # les pointées seules (D783)
       searchable:
         - compte: { select: mono, required: true }
-        - date_comptable: { input: range }
+        - date_comptable                # la plage — le champ porte sa facette (D784)
         - recherche
       columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
       sort: [date_comptable, numero]

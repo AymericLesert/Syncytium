@@ -913,6 +913,7 @@ Q58) :
 | D784 | **La facette au modèle** (arrête le rappel — le patron D780) : `searchable: range` sur date_operation/date_comptable ; la liste nomme ses critères, le champ apporte son comportement — `input:` disparaît. | Voir §3.2c. |
 | D785 | **Les [-]/[+] au composant date** : les steppers du jour d'avant/d'après — au même rang que le picker (l'écho du stepper du nombre D270) ; le catalogue enrichi. | Voir §3.2c. |
 | D786 | **Le [*] — le report de champ** : le bouton de post-zone (D265) qui copie la valeur d'un autre champ (la date d'opération → la comptable) ; l'écriture `post: { copy: }` en proposition. | Voir §3.2c. |
+| D787 | **Le post: écarté** (retire D786) : le [*] ne se transpose pas — la date comptable se saisit au pointage, le formulaire reste nu ; la simplicité prime sur la fidélité au legacy. | Voir §3.2c. |
 
 ---
 
@@ -7690,6 +7691,15 @@ valeur d'un autre champ dans celui-ci. *(L'écriture en proposition :*
 `date_comptable: { post: { copy: date_operation, icon: star } }`
 *— la post-zone porte l'action de report ; à valider au morceau des
 formulaires.)*
+
+**Le post: écarté (D787 — retire D786).** **« Pour l'exemple du
+cas 1, oublions post et l'usage de [*]. Cette configuration ne me
+convient pas et ne reflète pas mon besoin de simplicité. »** — la
+proposition `post: { copy: }` est retirée : le `[*]` du legacy ne se
+transpose pas — la date comptable se saisit au pointage (l'édition
+en ligne de la liste dédiée), le formulaire reste nu ; **la
+simplicité prime sur la fidélité au legacy** — la leçon du cas
+domestique.
 
 ```yaml
 operations:
@@ -16057,7 +16067,10 @@ avant la synthèse Q16).
   les steppers du composant date (le socle), le report de champ en
   post-zone (copy: en proposition). composants.md mis au niveau —
   les formulaires reprennent.
-- **2026-08-19 (suite 21 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 21)** — **Le post: écarté (D787)** : la
+  proposition retirée — la simplicité prime sur la fidélité au
+  legacy ; composants.md repris (la note du calendar allégée).
+- **2026-08-19 (suite 22 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

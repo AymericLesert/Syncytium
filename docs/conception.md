@@ -924,6 +924,7 @@ Q58) :
 | D795 | **Le [-] écarté** (corrige D793) : la direction du tri existait — D442/D529 (`+`/`-`, croissant par défaut) ; le montant croissant = « dépense→ressource » — `sort: [date_comptable, montant, numero]`. | Voir §3.2c. |
 | D796 | **L'événement generated** (corrige D794, généralise D609) : émis à toute génération (l'issue de generate), disponible au `when:` — creer_releve s'y déclenche (`when: generated`) ; le champ imprimee du modèle demeure, posé par le hook. | Voir §3.2c. |
 | D797 | **L'opération est un verbe — le même nom des deux côtés** (corrige D774/D776) : dupliquer/propager/virer/creer_releve dans la déclaration ET le hook (le lien par le nom — D609) ; le formulaire d'appel reste un nom de chose (duplication, propagation, virement). | Le clone de D774 se relit dupliquer. Voir §3.2c. |
+| D798 | **Le graphique du budget** (la dernière pièce du morceau 4) : le chart.line — X au mois (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`), les deux filtres au patron des listes (budget + la plage — D782/D784). | L'écriture en proposition. Voir §3.2c. |
 
 ---
 
@@ -7852,6 +7853,28 @@ convention consignée :
 
 *(Le « clone » de D774 se relit : l'opération se nomme `dupliquer` —
 le mot du geste.)*
+
+**Le graphique du budget (D798 — la dernière pièce du morceau 4).**
+**« Pour le budget, un graphique en ligne avec en X le mois et en Y
+le montant cumulé, généré via deux filtres : le budget et la date
+d'opération. »** — le `chart.line` du catalogue (D512+) : l'axe X au
+mois (le découpage temporel — D516), l'axe Y au montant cumulé
+(l'agrégat — D517), et **les deux filtres au patron des listes**
+(D782/D784) : le budget et la plage de dates — la facette du champ
+fait la saisie. *(L'écriture en proposition :*
+
+```yaml
+  charts:
+    evolution_budget:
+      title: { fr: "L'évolution des dépenses par budget" }
+      searchable:
+        - budget                       # le filtre (D782)
+        - date_operation               # la plage — la facette range (D784)
+      x: date_operation[month]         # le mois — le découpage temporel (D516)
+      y: sum(montant_euro)             # le montant cumulé du mois
+```
+
+*— le crochet `[month]` au découpage, l'agrégat au Y.)*
 
 ```yaml
 operations:
@@ -16261,7 +16284,10 @@ avant la synthèse Q16).
   dupliquer/propager/virer/creer_releve des deux côtés (le lien par
   le nom) ; les formulaires restent des noms (duplication,
   propagation, virement) — le dépôt renommé en entier.
-- **2026-08-19 (suite 31 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 31)** — **Le graphique du budget (D798)** : le
+  chart.line aux deux filtres (le patron des listes), X au mois, Y
+  au montant cumulé — l'écriture proposée.
+- **2026-08-19 (suite 32 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

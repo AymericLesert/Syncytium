@@ -916,6 +916,7 @@ Q58) :
 | D787 | **Le post: écarté** (retire D786) : le [*] ne se transpose pas — la date comptable se saisit au pointage, le formulaire reste nu ; la simplicité prime sur la fidélité au legacy. | Voir §3.2c. |
 | D788 | **Le nom du formulaire unique** (précise D199) : « saisie » inadapté aux cinq usages — `record` recommandé entre les deux noms proposés (le rôle — l'enregistrement — plutôt que le contenant box) ; à confirmer. | Voir §3.2c. |
 | D789 | **Le titre au mode d'ouverture** (complète D449/D788) : un titre par usage — le mapping create/read/update/delete (le contexte d'appel D455 porte le mode), la forme simple demeure, le gabarit permis dans chaque valeur. | L'écriture en proposition. Voir §3.2c. |
+| D790 | **Les titres au gabarit** (arrête D789) : « Création d'une écriture », « Modification de l'écriture '{libelle}' du {date_operation} »… — le gabarit nécessaire à la personnalisation ; record (D788) et le mapping (D789) confirmés par l'usage. | Voir §3.2c. |
 
 ---
 
@@ -7731,6 +7732,25 @@ en proposition — le mapping par usage, la forme simple demeurant :*
 
 *— le gabarit reste permis dans chaque valeur (D449) :*
 `update: { fr: "Modification de {libelle}" }`*.)*
+
+**Les titres au gabarit — les valeurs arrêtées (D790 — arrête
+D789).** **« "Écriture" est impersonnel. "Création d'une écriture"
+est plus adapté, ou "Modification de l'écriture '{libelle}' du
+{date_operation}". L'usage du gabarit est nécessaire pour rendre
+l'affichage plus personnalisé. »** — les titres du formulaire
+`record` du cas 1 :
+
+```yaml
+      title:
+        create: { fr: "Création d'une écriture" }
+        read:   { fr: "Écriture '{libelle}' du {date_operation}" }
+        update: { fr: "Modification de l'écriture '{libelle}' du {date_operation}" }
+        delete: { fr: "Suppression de l'écriture '{libelle}' du {date_operation}" }
+```
+
+— le gabarit n'est pas un luxe : **il est nécessaire à la
+personnalisation** ; le mapping (D789) et le nom `record` (D788)
+sont confirmés par l'usage.
 
 ```yaml
 operations:
@@ -16107,7 +16127,11 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 23)** — **Le titre au mode (D789)** : le
   mapping par usage (create/read/update/delete) en proposition — le
   contexte d'appel porte le mode, le gabarit permis.
-- **2026-08-19 (suite 24 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 24)** — **Les titres au gabarit (D790)** :
+  les valeurs arrêtées (la personnalisation nécessaire) ; record et
+  le mapping confirmés — le formulaire record écrit dans
+  ecriture.yml.
+- **2026-08-19 (suite 25 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

@@ -915,6 +915,7 @@ Q58) :
 | D786 | **Le [*] — le report de champ** : le bouton de post-zone (D265) qui copie la valeur d'un autre champ (la date d'opération → la comptable) ; l'écriture `post: { copy: }` en proposition. | Voir §3.2c. |
 | D787 | **Le post: écarté** (retire D786) : le [*] ne se transpose pas — la date comptable se saisit au pointage, le formulaire reste nu ; la simplicité prime sur la fidélité au legacy. | Voir §3.2c. |
 | D788 | **Le nom du formulaire unique** (précise D199) : « saisie » inadapté aux cinq usages — `record` recommandé entre les deux noms proposés (le rôle — l'enregistrement — plutôt que le contenant box) ; à confirmer. | Voir §3.2c. |
+| D789 | **Le titre au mode d'ouverture** (complète D449/D788) : un titre par usage — le mapping create/read/update/delete (le contexte d'appel D455 porte le mode), la forme simple demeure, le gabarit permis dans chaque valeur. | L'écriture en proposition. Voir §3.2c. |
 
 ---
 
@@ -7712,6 +7713,24 @@ recommandation : `record`** — le formulaire de *l'enregistrement*
 (le rôle), quand `box` décrit le contenant ; et l'écho du dialogue
 legacy lui-même (« Modification d'un enregistrement »). *(À
 confirmer par l'auteur.)*
+
+**Le titre au mode d'ouverture (D789 — complète D449/D788).** **« Le
+titre de cet écran doit changer en fonction du mode d'ouverture. »**
+— le formulaire unique aux cinq usages porte **un titre par mode** :
+le contexte d'appel (D455 — l'enregistrement, l'origine,
+l'utilisateur) sait déjà pourquoi le formulaire s'ouvre. *(L'écriture
+en proposition — le mapping par usage, la forme simple demeurant :*
+
+```yaml
+      title:
+        create: { fr: "Nouvelle écriture" }
+        read:   { fr: "Écriture" }
+        update: { fr: "Modification d'une écriture" }
+        delete: { fr: "Suppression d'une écriture" }
+```
+
+*— le gabarit reste permis dans chaque valeur (D449) :*
+`update: { fr: "Modification de {libelle}" }`*.)*
 
 ```yaml
 operations:
@@ -16085,7 +16104,10 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 22)** — **Le nom du formulaire — record
   (D788)** : les cinq usages rappelés (D199), record recommandé
   contre box (le rôle, pas le contenant) — à confirmer.
-- **2026-08-19 (suite 23 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 23)** — **Le titre au mode (D789)** : le
+  mapping par usage (create/read/update/delete) en proposition — le
+  contexte d'appel porte le mode, le gabarit permis.
+- **2026-08-19 (suite 24 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

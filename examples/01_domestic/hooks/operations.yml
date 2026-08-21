@@ -2,14 +2,14 @@
 # Le mapping nommé : code (le langage du domaine 7 — D570) + properties ;
 # le fonctionnement décrit dans le md voisin (la doc auto-générée D645).
 operations:
-  clone:
-    code: operations/clone
+  dupliquer:                   # le verbe — le même nom que la déclaration (D797)
+    code: operations/dupliquer
     properties: { }
-  propagation:
-    code: operations/propagation
+  propager:
+    code: operations/propager
     properties: { }
-  virement:
-    code: operations/virement
+  virer:
+    code: operations/virer
     properties: { }
   creer_releve:
     code: operations/creer_releve

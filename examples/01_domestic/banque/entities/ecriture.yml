@@ -42,9 +42,9 @@ fields:
 
 # les opérations du projet (D776 — les hooks) et leur usage (D609)
 operations:
-  clone:                       # la duplication entre deux dates (D774)
-    label: { fr: Cloner }
-    form: clonage              # le pas + du/au (D775 — la validation est l'opération)
+  dupliquer:                   # la duplication entre deux dates (D774/D797)
+    label: { fr: Dupliquer }
+    form: duplication          # le pas + du/au (D775 — la validation est l'opération)
     commit: confirm            # la relecture : nb_creations (D598)
   propager:                    # les similaires (D774)
     label: { fr: Propager }
@@ -81,8 +81,8 @@ gui:
 
     # les formulaires d'appel (D775) — leur validation EST l'opération ;
     # les items déclarent des champs libres : les paramètres du hook
-    clonage:                           # l'appel de clone (D774)
-      title: { fr: "Cloner l'écriture '{libelle}'" }
+    duplication:                       # l'appel de dupliquer (D774/D797)
+      title: { fr: "Dupliquer l'écriture '{libelle}'" }
       items:
         - pas: { type: enum, required: true, values:
                  { jour: { label: { fr: Jour } }, semaine: { label: { fr: Semaine } },

@@ -923,6 +923,7 @@ Q58) :
 | D794 | **La tâche d'impression — creer_releve** : déclenchée par l'impression, le contexte = les écritures imprimées ; le hook creer_releve (le 4e du projet) pose imprimee — le relevé devient un acte tracé. | Voir §3.2c. |
 | D795 | **Le [-] écarté** (corrige D793) : la direction du tri existait — D442/D529 (`+`/`-`, croissant par défaut) ; le montant croissant = « dépense→ressource » — `sort: [date_comptable, montant, numero]`. | Voir §3.2c. |
 | D796 | **L'événement generated** (corrige D794, généralise D609) : émis à toute génération (l'issue de generate), disponible au `when:` — creer_releve s'y déclenche (`when: generated`) ; le champ imprimee du modèle demeure, posé par le hook. | Voir §3.2c. |
+| D797 | **L'opération est un verbe — le même nom des deux côtés** (corrige D774/D776) : dupliquer/propager/virer/creer_releve dans la déclaration ET le hook (le lien par le nom — D609) ; le formulaire d'appel reste un nom de chose (duplication, propagation, virement). | Le clone de D774 se relit dupliquer. Voir §3.2c. |
 
 ---
 
@@ -7827,6 +7828,30 @@ gagne l'événement d'opération, après le connecteur) ; le hook
 `creer_releve` s'y déclenche — `when: generated` — le contexte
 portant les écritures générées ; le champ `imprimee` du modèle
 demeure (le métier du cas), posé par le hook.
+
+**L'opération est un verbe — le même nom des deux côtés (D797 —
+corrige D774/D776, la relecture des déclarations).** **« Renomme
+clone en dupliquer. Une opération est un verbe d'action (dupliquer,
+propager, virer ou creer_releve). Dans ecriture.yml, les opérations
+sont déclarées et le lien est fait avec un formulaire saisissant les
+paramètres d'appel. Dans operations.yml, les noms utilisés sont
+clone, propagation, virement ou creer_releve — ici, propagation et
+virement ne sont pas utilisés avec les bons termes. »** — la
+convention consignée :
+
+- **l'opération est un verbe d'action** : `dupliquer`, `propager`,
+  `virer`, `creer_releve` ;
+- **le même nom des deux côtés** — la déclaration (ecriture.yml) et
+  le hook (operations.yml) portent le verbe : **le lien se fait par
+  le nom** (D609 — le hook est l'opération) ; mes noms
+  `clone`/`propagation`/`virement` au fichier des hooks étaient
+  fautifs ;
+- **le formulaire d'appel reste un nom de chose** (`duplication`,
+  `propagation`, `virement`) — le formulaire est un objet, l'opération
+  un geste.
+
+*(Le « clone » de D774 se relit : l'opération se nomme `dupliquer` —
+le mot du geste.)*
 
 ```yaml
 operations:
@@ -16232,7 +16257,11 @@ avant la synthèse Q16).
   défaut suffit) ; l'événement generated (générique — toute
   génération, le when: des opérations) — creer_releve en when:
   generated. Le dépôt repris.
-- **2026-08-19 (suite 30 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 30)** — **L'opération est un verbe (D797)** :
+  dupliquer/propager/virer/creer_releve des deux côtés (le lien par
+  le nom) ; les formulaires restent des noms (duplication,
+  propagation, virement) — le dépôt renommé en entier.
+- **2026-08-19 (suite 31 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

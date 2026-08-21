@@ -16131,7 +16131,13 @@ avant la synthèse Q16).
   les valeurs arrêtées (la personnalisation nécessaire) ; record et
   le mapping confirmés — le formulaire record écrit dans
   ecriture.yml.
-- **2026-08-19 (suite 25 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 25)** — **Les trois formulaires d'appel
+  validés** (« je valide les trois formulaires ») : clonage,
+  propagation, virement écrits dans ecriture.yml — les items en
+  champs libres (les paramètres du hook, D775), le kit entier des
+  types. **Le morceau des formulaires est soldé** — restent le
+  relevé (template) et le graphique.
+- **2026-08-19 (suite 26 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

@@ -183,7 +183,13 @@ la zone de recherche déclarée (le compte mono obligatoire, la plage
 `input: range`, la `recherche` mutualisée au modèle D780), les
 calculés d'affichage débit/crédit, le montant modifié par la ligne,
 les boutons [add]/[trash]/[copy]/[PDF] et les touches Entrée/Suppr.
-Restent : les formulaires, le relevé (template), le graphique.
+**Les formulaires soldés** (D785–D790) : le formulaire `record` aux
+cinq usages (D199/D788) — les titres au gabarit par mode d'ouverture
+(D789–D790), les steppers du date (D785), le `visible:` vivant du
+chèque, les pickers à création directe ; le `post:`/[*] écarté
+(D787 — la simplicité prime) ; **les trois formulaires d'appel**
+(clonage, propagation, virement — D775) aux items en champs libres.
+Restent : le relevé (template) et le graphique.
 
 ## Les manques relevés
 

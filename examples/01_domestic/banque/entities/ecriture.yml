@@ -76,6 +76,30 @@ gui:
         - field[cheque]: { visible: mode = autre }   # le visible: vivant (D567)
         - field[lieu]                  # le picker à création directe
 
+    # les formulaires d'appel (D775) — leur validation EST l'opération ;
+    # les items déclarent des champs libres : les paramètres du hook
+    clonage:                           # l'appel de clone (D774)
+      title: { fr: "Cloner l'écriture '{libelle}'" }
+      items:
+        - pas: { type: enum, required: true, values:
+                 { jour: { label: { fr: Jour } }, semaine: { label: { fr: Semaine } },
+                   mois: { label: { fr: Mois } }, trimestre: { label: { fr: Trimestre } } } }
+        - du:  { type: date, required: true }
+        - au:  { type: date, required: true }
+
+    propagation:                       # l'appel de propager (D774)
+      title: { fr: "Propager depuis '{libelle}'" }
+      items:
+        - libelle_nouveau: { type: text[..60], required: true }
+        - montant_nouveau: { type: amount, currencies: [EUR], required: true }
+        # le déroulé du hook : la liste des similaires → la sélection → la masse
+
+    virement:                          # l'appel de virer
+      title: { fr: "Virement" }
+      items:
+        - vers:    { type: banque.compte, required: true }   # le compte cible
+        - montant: { type: amount, currencies: [EUR], required: true }
+
   lists:
     par_operation:                    # la première déclarée = le défaut (D437)
       title: { fr: "Par date d'opération" }

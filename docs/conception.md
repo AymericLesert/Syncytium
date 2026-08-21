@@ -917,6 +917,7 @@ Q58) :
 | D788 | **Le nom du formulaire unique** (précise D199) : « saisie » inadapté aux cinq usages — `record` recommandé entre les deux noms proposés (le rôle — l'enregistrement — plutôt que le contenant box) ; à confirmer. | Voir §3.2c. |
 | D789 | **Le titre au mode d'ouverture** (complète D449/D788) : un titre par usage — le mapping create/read/update/delete (le contexte d'appel D455 porte le mode), la forme simple demeure, le gabarit permis dans chaque valeur. | L'écriture en proposition. Voir §3.2c. |
 | D790 | **Les titres au gabarit** (arrête D789) : « Création d'une écriture », « Modification de l'écriture '{libelle}' du {date_operation} »… — le gabarit nécessaire à la personnalisation ; record (D788) et le mapping (D789) confirmés par l'usage. | Voir §3.2c. |
+| D791 | **L'export = l'appel à generate** (corrige D780/D783) : `exports: [ generate(me, PDF) ]` — l'opération du socle (D570/D574), me = le contexte courant, PDF = la destination (D564) ; le mot-clé releve effacé ; le template employé nommé au morceau du template. | Voir §3.2c. |
 
 ---
 
@@ -7751,6 +7752,19 @@ l'affichage plus personnalisé. »** — les titres du formulaire
 — le gabarit n'est pas un luxe : **il est nécessaire à la
 personnalisation** ; le mapping (D789) et le nom `record` (D788)
 sont confirmés par l'usage.
+
+**L'export = l'appel à generate (D791 — corrige l'écriture de
+D780/D783).** **« Dans gui: lists: par_comptable:, exports:
+[ generate(me, PDF) ] — il me semble que nous avions abordé
+l'opération generate pour créer un PDF, un CSV, un Excel… »** — le
+rappel est juste (vérifié : `generate` est au socle depuis D570,
+l'effet `document` s'y résout — D432/D574) : **le bouton d'export
+est un appel d'opération** — `exports: [ generate(me, PDF) ]` :
+`me` = le contexte courant (la liste filtrée), `PDF` = la
+destination (D564 — PDF, CSV, Excel, Word…) ; mon mot-clé `releve`
+s'efface — rien d'inventé, l'opération du socle et ses arguments.
+*(La question fine notée : le template employé par generate — le
+relevé — sera nommé au morceau du template.)*
 
 ```yaml
 operations:
@@ -16137,7 +16151,10 @@ avant la synthèse Q16).
   champs libres (les paramètres du hook, D775), le kit entier des
   types. **Le morceau des formulaires est soldé** — restent le
   relevé (template) et le graphique.
-- **2026-08-19 (suite 26 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 26)** — **L'export = generate (D791)** : le
+  bouton [PDF] = l'appel generate(me, PDF) — l'opération du socle,
+  rien d'inventé ; ecriture.yml repris.
+- **2026-08-19 (suite 27 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

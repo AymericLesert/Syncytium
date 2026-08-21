@@ -123,7 +123,7 @@ gui:
       sort: [date_comptable, numero]
       selection: multiple
       actions: [copy]
-      exports: [releve]               # le [PDF] — ici seulement (D780)
+      exports: [ generate(me, PDF) ]  # le [PDF] — l'opération du socle (D791), ici seulement (D780)
 
     pointage:
       title: { fr: "Sans date comptable" }

@@ -194,7 +194,18 @@ chèque, les pickers à création directe ; le `post:`/[*] écarté
 courant ; **toute liste porte son template de base** (l'A4 portrait :
 le titre, le tableau aux entêtes répétés et au pied comptant les
 lignes, le pied de page n°/total) — le cas 1 ne surcharge pas.
-Reste : le graphique (l'évolution des budgets depuis 1992).
+**Le graphique écrit** (D798) : le `chart.line` — X au mois
+(`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`),
+les deux filtres au patron des listes (le budget, la plage de
+dates). **Le morceau 4 (les surfaces) est soldé** — avec la
+relecture des opérations (D797 : l'opération est un verbe, le même
+nom des deux côtés, le formulaire reste un nom de chose ; l'événement
+`generated` D796 ; le tri partagé liste/relevé D793/D795).
+
+**Reste : la reprise des données réelles** — les deux CSV
+(1992→2026) par le mapping en situation (source/, mapping/, la
+migration déclarée, les transcodages E/F → EUR/FRF, Débit/Crédit →
+le montant signé, la Nature mixte → le mode + le chèque).
 
 ## Les manques relevés
 

@@ -16287,7 +16287,12 @@ avant la synthèse Q16).
 - **2026-08-19 (suite 31)** — **Le graphique du budget (D798)** : le
   chart.line aux deux filtres (le patron des listes), X au mois, Y
   au montant cumulé — l'écriture proposée.
-- **2026-08-19 (suite 32 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 32)** — **Le graphique validé et écrit** («
+  je valide l'écriture ») : le chart evolution_budget dans
+  ecriture.yml — **LE MORCEAU 4 (LES SURFACES) EST SOLDÉ**. Le cas 1
+  n'a plus qu'une étape : la reprise des données réelles (le mapping
+  en situation).
+- **2026-08-19 (suite 33 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

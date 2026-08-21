@@ -921,6 +921,8 @@ Q58) :
 | D792 | **Le template de base des listes** (complète D186/D559) : toute liste porte son template A4 portrait — le titre, le tableau aux entêtes répétés + le pied au nombre de lignes, le pied de page n°/total ; la grammaire existante le décrit, la surcharge possible — le cas 1 ne surcharge pas. | generate(me, PDF) emploie le défaut. Voir §3.2c. |
 | D793 | **Le tri partagé, le sens au crochet** : la liste et le relevé partagent les clés — par_comptable trie `[date_comptable, montant[-], numero]` ; le crochet porte la direction. | La lecture du [-] face à « dépense→ressource » (D758) à trancher. Voir §3.2c. |
 | D794 | **La tâche d'impression — creer_releve** : déclenchée par l'impression, le contexte = les écritures imprimées ; le hook creer_releve (le 4e du projet) pose imprimee — le relevé devient un acte tracé. | Voir §3.2c. |
+| D795 | **Le [-] écarté** (corrige D793) : la direction du tri existait — D442/D529 (`+`/`-`, croissant par défaut) ; le montant croissant = « dépense→ressource » — `sort: [date_comptable, montant, numero]`. | Voir §3.2c. |
+| D796 | **L'événement generated** (corrige D794, généralise D609) : émis à toute génération (l'issue de generate), disponible au `when:` — creer_releve s'y déclenche (`when: generated`) ; le champ imprimee du modèle demeure, posé par le hook. | Voir §3.2c. |
 
 ---
 
@@ -7805,6 +7807,26 @@ le contexte porte **la liste des écritures imprimées** ; **le hook
 `creer_releve`** (le quatrième du projet banque) pose la date
 d'impression — et le relevé devient un acte tracé, pas un simple
 export.
+
+**Le [-] écarté — l'acquis du tri (D795 — corrige D793).** **« Tu as
+raison, j'ai été un peu vite : [-] ne sert pas. Nous avions abordé
+le tri croissant et décroissant lors d'une précédente
+discussion. »** — vérifié : **D442/D529** portent déjà la direction
+(`+`/`-`, le croissant par défaut — `sort: { seller: -value }`) ; le
+crochet s'efface, et le montant **croissant** (le défaut) donne
+exactement « de la plus grosse dépense à la ressource » (D758) —
+`sort: [date_comptable, montant, numero]`.
+
+**L'événement generated (D796 — corrige D794, généralise D609).**
+**« "imprimee" n'est pas assez générique. "generated" — un événement
+disponible pour se déclencher sur toute génération. »** — le
+déclencheur se généralise : **`generated`**, l'événement du socle
+émis **à toute génération** (le PDF, le CSV, l'Excel — l'issue de
+`generate`), disponible au `when:` des opérations déclarées (D609
+gagne l'événement d'opération, après le connecteur) ; le hook
+`creer_releve` s'y déclenche — `when: generated` — le contexte
+portant les écritures générées ; le champ `imprimee` du modèle
+demeure (le métier du cas), posé par le hook.
 
 ```yaml
 operations:
@@ -16205,7 +16227,12 @@ avant la synthèse Q16).
   sur par_comptable (le sens au crochet — la lecture du [-] à
   trancher) ; le hook creer_releve déclenché par l'impression, le
   contexte aux écritures imprimées, imprimee posé. Le dépôt repris.
-- **2026-08-19 (suite 29 — pause)** — La séance s'arrête après le
+- **2026-08-19 (suite 29)** — **Les deux corrections (D795–D796)** :
+  le [-] écarté (D442/D529 portaient la direction — le croissant par
+  défaut suffit) ; l'événement generated (générique — toute
+  génération, le when: des opérations) — creer_releve en when:
+  generated. Le dépôt repris.
+- **2026-08-19 (suite 30 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
   cas 1** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date

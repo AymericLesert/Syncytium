@@ -54,6 +54,9 @@ operations:
     label: { fr: Virer }
     form: virement             # le compte cible, le montant
     commit: confirm
+  creer_releve:                # la tâche de génération (D794/D796)
+    when: generated            # l'événement du socle — toute génération
+    commit: auto               # pose imprimee sur les écritures générées
 # le pointage : sans opération — l'édition en ligne de `date_comptable`
 # dans la liste « sans date comptable » (D205/D446)
 
@@ -120,7 +123,7 @@ gui:
         - date_comptable                # la plage — le champ porte sa facette (D784)
         - recherche
       columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
-      sort: [date_comptable, montant[-], numero]   # le tri partagé liste/relevé (D793)
+      sort: [date_comptable, montant, numero]   # le tri partagé liste/relevé (D793/D795) — croissant : dépense→ressource
       selection: multiple
       actions: [copy]
       exports: [ generate(me, PDF) ]  # le [PDF] — l'opération du socle (D791), ici seulement (D780)

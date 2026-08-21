@@ -16301,6 +16301,15 @@ avant la synthèse Q16).
   ensuite le relevé (template) et le graphique de l'évolution des
   budgets. La PR de consolidation sur demande (~35 commits depuis la
   #36).
+- **2026-08-22 — LA REPRISE DES DONNÉES OUVERTE, puis la pause.** Le
+  morceau R1 proposé (le connecteur legacy — le storage csv sur le
+  dossier, chaque fichier = une entité source ; la migration
+  déclarée en mode absolute + reset) avec trois questions posées :
+  la clôture des comptes clos (absente du legacy), la liaison des
+  virements à la reprise (les paires VIREMENT-<réf>), l'écriture du
+  montant (amount(credit - debit, …) au select de la devise). **La
+  prochaine séance : l'organisation du dossier rediscutée, puis le
+  mapping.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -933,6 +933,7 @@ Q58) :
 | D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 1 : beta + production). | Voir §3.2c. |
 | D805 | **Pas de déclaration orpheline** (explicite D340) : le fichier de statut porte `environment:` — l'association statut→environnement déclarée ; tout lien de configuration s'écrit (l'écho D765/D767). | Voir §3.2c. |
 | D806 | **Le pattern regex = une déclaration** (harmonise D664, précise D765) : le regex retenu partout (les globs D664 se relisent) ; le pattern = le standard d'organisation/nommage que le technicien se fixe — partout où une liste de fichiers se déclare, il peut remplacer l'énumération. | Voir §3.2c. |
+| D807 | **Le nommage et l'organisation libres** (précise D765–D768) : le technicien maître — le fichier éponyme du dossier = une convention d'exemple, pas une règle ; tout fichier remplaçable ou intégrable inline ; le regroupement libre (referentiel/ porte deux entités). | Voir §3.2c. |
 
 ---
 
@@ -8043,6 +8044,22 @@ d'organisation et de nommage que le technicien se fixe. **Partout où
 une liste de fichiers se déclare, le pattern peut remplacer
 l'énumération** — les versions d'un statut, les opérations des
 hooks, les sources et les règles d'une migration (D664).
+
+**Le technicien maître du nommage et de l'organisation (D807 —
+précise D765–D768).** Le fichier éponyme du dossier
+(`banque/banque.yml`, `home/home.yml`, `dupliquer/dupliquer.yml`)
+n'est **pas une règle** : **« module.yml aurait pu être conservé
+mais je souhaite montrer que le technicien est maître de sa
+configuration et de son nommage. Ici, dans la documentation,
+"module.yml" peut donc être remplacé par n'importe quel fichier ou
+intégré directement dans un fichier de configuration. »** Pour les
+index : **« La déclaration fait foi. Mais le nom du fichier est de
+la responsabilité du technicien. »** Et l'organisation suit :
+**« L'organisation doit rester libre. »** — le regroupement permis
+(`referentiel/` porte budget et lieu, deux entités basiques dans un
+même dossier, « pour des raisons de clarté et de simplicité »).
+**L'éponyme demeure la convention d'exemple du cas 1** — une
+convention, jamais une contrainte.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16501,6 +16518,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 8)** — **Le pattern regex = une déclaration
   (D806)** : le regex partout, le standard que le technicien se
   fixe ; mapping.md mis au niveau (les globs relus).
+- **2026-08-24 (suite 9)** — **Le nommage et l'organisation libres
+  (D807)** : l'éponyme = une convention d'exemple ; le regroupement
+  libre (referentiel/).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

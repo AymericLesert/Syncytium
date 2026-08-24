@@ -16577,6 +16577,15 @@ avant la synthèse Q16).
   auto-générée. **La relecture de l'auteur est soldée (D799–D810)** ;
   usecases/01_domestic.md mis au niveau. La suite : le morceau R1 de
   la reprise (le connecteur legacy, les trois questions posées).
+- **2026-08-24 (pause)** — La séance s'arrête sur la relecture de
+  l'auteur soldée (D799–D810, 810 décisions). **La reprise : la
+  reprise des données** — le morceau R1 (le connecteur legacy en
+  storage csv sur le dossier, la migration `mode: absolute` +
+  `reset: true`) et les trois questions posées : la clôture des
+  comptes clos (absente du legacy), la liaison des virements
+  VIREMENT-<réf> à la reprise, le montant `amount(credit - debit,
+  …)` au select de la devise. La PR de consolidation sur demande
+  (~73 commits depuis la #36).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -931,6 +931,7 @@ Q58) :
 | D802 | **Le visage à l'interpolation** (complète D397/D321) : `label: "${name}"` — `${…}` = l'interpolation de configuration (D321), `{…}` = le gabarit des champs (D397/D790) ; les deux sources cohabitent au visage. | Voir §3.2c. |
 | D803 | **resources/ versionné, le crédit déclaré** (amende D346) : le dossier vit dans la version (icônes, templates suivent la version d'exécution), déclaré par version.yml ; la fiche name/description/file/credit — le crédit des tiers par courtoisie (les propriétés d'exemple, amendables). | Voir §3.2c. |
 | D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 1 : beta + production). | Voir §3.2c. |
+| D805 | **Pas de déclaration orpheline** (explicite D340) : le fichier de statut porte `environment:` — l'association statut→environnement déclarée ; tout lien de configuration s'écrit (l'écho D765/D767). | Voir §3.2c. |
 
 ---
 
@@ -8011,6 +8012,16 @@ transitions (D340/D344–D345) sont définis par le socle** ; le projet
 **déclare dans versions.yml ceux qu'il utilise** — l'absence de
 déclaration = le statut non utilisé par ce projet. Le cas 1 en
 déclare deux (`beta`, `production`).
+
+**Pas de déclaration orpheline — le statut porte son environnement
+(D805 — explicite D340).** Le fichier de statut du cas 1 porte
+`environment: home`. L'arbitrage : **« Pas de déclaration orpheline.
+Les liens doivent être décrits dans la configuration. »** —
+l'association statut → environnement, implicite dans D340
+(« beta/ → staging »), **devient une déclaration** : chaque statut
+nomme l'environnement qui le sert. Plus largement, **tout lien entre
+éléments de la configuration s'écrit** — rien ne se déduit, rien
+n'est orphelin (l'écho D765/D767).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16463,6 +16474,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 6)** — **Les statuts implicites du socle
   (D804)** : les quatre au socle, versions.yml déclare ceux du
   projet — l'absence = le statut non utilisé.
+- **2026-08-24 (suite 7)** — **Pas de déclaration orpheline
+  (D805)** : le statut porte `environment:` — tout lien de
+  configuration s'écrit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

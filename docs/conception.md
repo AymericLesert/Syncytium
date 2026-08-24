@@ -935,6 +935,7 @@ Q58) :
 | D806 | **Le pattern regex = une déclaration** (harmonise D664, précise D765) : le regex retenu partout (les globs D664 se relisent) ; le pattern = le standard d'organisation/nommage que le technicien se fixe — partout où une liste de fichiers se déclare, il peut remplacer l'énumération. | Voir §3.2c. |
 | D807 | **Le nommage et l'organisation libres** (précise D765–D768) : le technicien maître — le fichier éponyme du dossier = une convention d'exemple, pas une règle ; tout fichier remplaçable ou intégrable inline ; le regroupement libre (referentiel/ porte deux entités). | Voir §3.2c. |
 | D808 | **release-notes: par version** (comble un oubli) : le cadre des évolutions de la version ; l'historique complet par concaténation jusqu'à la version courante — pas de fichier unique à maintenir (l'écho D645). | Voir §3.2c. |
+| D809 | **La fiche du hook** (amende D778) : name/description/code/properties — description → le md du fonctionnement (la doc auto D645), code → le fichier source ; un dossier par hook ou un seul fichier — l'éclatement libre (D767/D807). | Voir §3.2c. |
 
 ---
 
@@ -8074,6 +8075,25 @@ version courante (sans avoir besoin de maintenir un fichier unique
 release-notes des versions antérieures jusqu'à la courante — rien à
 maintenir à la main (l'écho de la documentation dynamique D645 : la
 version documentée est exactement la version servie).
+
+**La fiche du hook — name, description, code, properties (D809 —
+amende D778).** La maison des hooks se raffine : `hooks.yml` (les
+familles — D777) → `operations/operations.yml` (la liste des fiches
+— l'énumération ou le pattern D806) → **une fiche par hook** :
+
+```yaml
+# hooks/operations/dupliquer/dupliquer.yml — le cas 1
+name: dupliquer
+description: documentation.md   # → le md du fonctionnement (D645/D778)
+code: source.txt                # → le fichier source (le langage du domaine 7 — D570)
+properties: { }
+```
+
+Le mapping unique de D778 n'est plus la seule forme : **« j'ai
+proposé un fichier par hook mais nous pourrions les définir dans un
+seul fichier. »** — l'éclatement libre (D767/D807) : un dossier par
+hook (le cas 1 — la fiche, le md, le source) ou tout dans un même
+fichier.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16538,6 +16558,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 10)** — **release-notes: (D808)** : le cadre
   des évolutions par version, l'historique par concaténation ; le
   glossaire mis au niveau.
+- **2026-08-24 (suite 11)** — **La fiche du hook (D809)** :
+  name/description/code/properties, l'éclatement libre ; hooks.md
+  mis au niveau (les noms d'avant D797 relus au passage).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

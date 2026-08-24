@@ -39,40 +39,47 @@ Les hooks de l'application vivent **à la racine de la version** : le
 dossier `hooks/`, **un sous-dossier par type de hooks** ; **la
 chaîne à deux étages** (D644/D777 — le patron des modules
 D765/D766) : `hooks.yml` référence **les fichiers de famille**,
-chaque fichier de famille **liste ses hooks** — les chemins relatifs
-au fichier courant (D768). Les hooks du socle vivent dans
+chaque fichier de famille **liste ses fiches** (l'énumération ou le
+pattern regex — D806), **la fiche du hook** (D809) portant `name`,
+`description`, `code` et `properties` — les chemins relatifs au
+fichier courant (D768). Les hooks du socle vivent dans
 l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
 ```text
 versions/<statut>/<version>/
-├── settings.yml · groups.yml · modules.yml
-├── hooks.yml                  # → les fichiers de famille (D777)
+├── version.yml                     # déclare hooks: — le lien (D805)
 ├── hooks/
-│   ├── operations.yml         # → la liste des opérations
-│   ├── operations/            # un sous-dossier par type de hooks
-│   ├── types.yml · types/
-│   ├── components/ · functions/ · connectors/
-│   └── styles/                # la sixième famille (D755)
+│   ├── hooks.yml                   # → les fichiers de famille (D777)
+│   ├── operations/operations.yml   # → les fiches (le pattern — D806)
+│   │   └── <verbe>/                #   la fiche, le md, le source (D809)
+│   ├── types/ · components/ · functions/ · connectors/
+│   └── styles/                     # la sixième famille (D755)
 └── <modules>/
 ```
 
-```yaml
-# hooks.yml — l'étage des familles (D777)
-hooks:
-  operations: hooks/operations.yml
+*(Le nommage et l'organisation restent libres — D807 : l'arbre
+ci-dessus est la convention du cas 1.)*
 
-# hooks/operations.yml — le mapping nommé (D778, les chemins depuis hooks/)
+```yaml
+# hooks/hooks.yml — l'étage des familles (D777)
+operations: operations/operations.yml
+
+# hooks/operations/operations.yml — la liste des fiches (le pattern D806)
 operations:
-  clone:
-    code: operations/clone           # le code — le langage du domaine 7 (D570)
-    properties: { }                  # les propriétés du hook
-  propagation:
-    code: operations/propagation
+  - .*/.*\.yml
+
+# hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
+name: dupliquer
+description: documentation.md        # → le md du fonctionnement (D645/D778)
+code: source.txt                     # → le code — le langage du domaine 7 (D570)
+properties: { }                      # les propriétés du hook
 ```
 
-**Chaque hook s'accompagne d'un fichier md** (D778 — la convention :
-`operations/clone.md` à côté du code) décrivant son fonctionnement —
-la brique humaine de la documentation auto-générée (D645).
+**Chaque hook s'accompagne d'un fichier md** (D778 — la fiche le
+référence par `description:`, D809) décrivant son fonctionnement —
+la brique humaine de la documentation auto-générée (D645). Un
+dossier par hook ou tout dans un même fichier : l'éclatement est
+libre (D767/D807/D809).
 
 ## Les familles
 

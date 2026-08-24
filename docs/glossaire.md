@@ -227,6 +227,12 @@ Le parent déclare le lien vers l'enregistrement d'une autre entité pour marque
 Dans Syncytium, la navigation entre le parent et l'enfant est conservée et permet depuis l'enfant d'accéder à son ou ses parents sans déclaration complémentaire.
 *Ex. : `advisor: hr.employee`.* *(D394/D396)*
 
+**Release-notes** (`release-notes:`) — Le cadre des évolutions
+apportées par une version, porté par `version.yml`. L'historique
+complet s'assemble par concaténation des release-notes des versions
+antérieures jusqu'à la courante — pas de fichier unique à maintenir.
+*(D808)*
+
 **Ressources** (`resources/`) — Le dossier des images de la
 description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).
 Le dossier est **versionné** — il vit dans la version, déclaré par

@@ -934,6 +934,7 @@ Q58) :
 | D805 | **Pas de déclaration orpheline** (explicite D340) : le fichier de statut porte `environment:` — l'association statut→environnement déclarée ; tout lien de configuration s'écrit (l'écho D765/D767). | Voir §3.2c. |
 | D806 | **Le pattern regex = une déclaration** (harmonise D664, précise D765) : le regex retenu partout (les globs D664 se relisent) ; le pattern = le standard d'organisation/nommage que le technicien se fixe — partout où une liste de fichiers se déclare, il peut remplacer l'énumération. | Voir §3.2c. |
 | D807 | **Le nommage et l'organisation libres** (précise D765–D768) : le technicien maître — le fichier éponyme du dossier = une convention d'exemple, pas une règle ; tout fichier remplaçable ou intégrable inline ; le regroupement libre (referentiel/ porte deux entités). | Voir §3.2c. |
+| D808 | **release-notes: par version** (comble un oubli) : le cadre des évolutions de la version ; l'historique complet par concaténation jusqu'à la version courante — pas de fichier unique à maintenir (l'écho D645). | Voir §3.2c. |
 
 ---
 
@@ -8060,6 +8061,19 @@ la responsabilité du technicien. »** Et l'organisation suit :
 même dossier, « pour des raisons de clarté et de simplicité »).
 **L'éponyme demeure la convention d'exemple du cas 1** — une
 convention, jamais une contrainte.
+
+**release-notes: — l'historique par concaténation (D808 — comble un
+oubli).** `version.yml` porte `release-notes:`. **« release-notes a
+été oublié dans nos échanges. Il pose le cadre des évolutions
+apportées par une version. Ainsi, la construction par concaténation
+des release-notes permet de fournir un historique des différentes
+évolutions et corrections sur les versions antérieures, jusqu'à la
+version courante (sans avoir besoin de maintenir un fichier unique
+"release-notes"). »** — chaque version décrit **ses** évolutions ;
+**l'historique complet s'assemble par concaténation** des
+release-notes des versions antérieures jusqu'à la courante — rien à
+maintenir à la main (l'écho de la documentation dynamique D645 : la
+version documentée est exactement la version servie).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16521,6 +16535,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 9)** — **Le nommage et l'organisation libres
   (D807)** : l'éponyme = une convention d'exemple ; le regroupement
   libre (referentiel/).
+- **2026-08-24 (suite 10)** — **release-notes: (D808)** : le cadre
+  des évolutions par version, l'historique par concaténation ; le
+  glossaire mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

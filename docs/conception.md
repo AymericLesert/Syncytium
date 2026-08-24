@@ -932,6 +932,7 @@ Q58) :
 | D803 | **resources/ versionné, le crédit déclaré** (amende D346) : le dossier vit dans la version (icônes, templates suivent la version d'exécution), déclaré par version.yml ; la fiche name/description/file/credit — le crédit des tiers par courtoisie (les propriétés d'exemple, amendables). | Voir §3.2c. |
 | D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 1 : beta + production). | Voir §3.2c. |
 | D805 | **Pas de déclaration orpheline** (explicite D340) : le fichier de statut porte `environment:` — l'association statut→environnement déclarée ; tout lien de configuration s'écrit (l'écho D765/D767). | Voir §3.2c. |
+| D806 | **Le pattern regex = une déclaration** (harmonise D664, précise D765) : le regex retenu partout (les globs D664 se relisent) ; le pattern = le standard d'organisation/nommage que le technicien se fixe — partout où une liste de fichiers se déclare, il peut remplacer l'énumération. | Voir §3.2c. |
 
 ---
 
@@ -8022,6 +8023,26 @@ l'association statut → environnement, implicite dans D340
 nomme l'environnement qui le sert. Plus largement, **tout lien entre
 éléments de la configuration s'écrit** — rien ne se déduit, rien
 n'est orphelin (l'écho D765/D767).
+
+**Le pattern regex — une déclaration, pas une déduction (D806 —
+harmonise D664, précise D765).** L'audit relevait deux syntaxes de
+patterns (le glob des exemples D664, le regex des fichiers
+retouchés) et une tension avec « rien ne se déduit du disque »
+(D765). Les deux arbitrages : **« Le regex est un point qui me plaît
+beaucoup car cela offre plus de personnalisation et de
+contrôle. »** — **le regex retenu partout** (les exemples glob de
+D664 se relisent ; les points s'échappent :
+`v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml`). Et la tension se
+dissout : **« C'est une déclaration implicite qui dépend du pattern
+de découverte. Je ne contredis pas mes décisions, j'apporte l'usage
+d'une déclaration explicite issue d'une organisation et d'un nom de
+fichier. Le pattern aide éventuellement à ne pas renseigner
+systématiquement les éléments si tous respectent le standard que je
+me fixe. »** — **le pattern EST une déclaration** : le standard
+d'organisation et de nommage que le technicien se fixe. **Partout où
+une liste de fichiers se déclare, le pattern peut remplacer
+l'énumération** — les versions d'un statut, les opérations des
+hooks, les sources et les règles d'une migration (D664).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16477,6 +16498,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 7)** — **Pas de déclaration orpheline
   (D805)** : le statut porte `environment:` — tout lien de
   configuration s'écrit.
+- **2026-08-24 (suite 8)** — **Le pattern regex = une déclaration
+  (D806)** : le regex partout, le standard que le technicien se
+  fixe ; mapping.md mis au niveau (les globs relus).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

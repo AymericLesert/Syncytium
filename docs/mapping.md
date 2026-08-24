@@ -117,19 +117,23 @@ migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
     connector: legacy_db            # le connecteur storage source
     source:
-      - legacy_db/source/*.yml      # un fichier par entité
+      - legacy_db/source/.*\.yml    # un fichier par entité — le regex (D806)
     mapping:
-      - legacy_db/mapping/*.yml     # un fichier par règle de migration
+      - legacy_db/mapping/.*\.yml   # un fichier par règle de migration
   old_crm:
     connector: crm_db
-    source:  [old_crm/source/*.yml]
-    mapping: [old_crm/mapping/*.yml]
+    source:  [old_crm/source/.*\.yml]
+    mapping: [old_crm/mapping/.*\.yml]
 ```
 
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est
-libre, la déclaration fait foi. **Le versionnement est plein**
+libre, la déclaration fait foi. **Les patterns sont des regex**
+(D806 — « plus de personnalisation et de contrôle ») ; le pattern
+est une déclaration : le standard d'organisation et de nommage que
+le technicien se fixe — partout où une liste de fichiers se déclare,
+il peut remplacer l'énumération. **Le versionnement est plein**
 (D670) : `source/` et `mapping/` sont versionnés comme tout le
 reste — l'itération d'exploration passe par le bump du build (D323),
 le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la

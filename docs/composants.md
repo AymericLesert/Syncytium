@@ -2090,7 +2090,9 @@ charts:
    numériques **nus** (sans agrégat), là où courbe et barres
    agrègent (D522) ;
 4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
-   D247, les droits) ; **le visage de l'enregistrement** (D386) ;
+   D247, les droits) ; **le visage de l'enregistrement** (D386 —
+   le gabarit `{champ}` des valeurs ; l'interpolation `${…}` de
+   configuration possible aussi, D802) ;
 5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
    compris) ; **les écarts propres** (D522–D523) :
    **`threshold:`** dans la forme riche de l'axe — « l'axe définit

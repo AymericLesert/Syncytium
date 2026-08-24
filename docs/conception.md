@@ -928,6 +928,7 @@ Q58) :
 | D799 | **L'arborescence du cas 1 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
 | D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 1 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
 | D801 | **La relecture à chaud + la mise à niveau au chargement** (précise D322) : la montée de version sans redémarrage — le point crucial ; au chargement, la version courante rejoint la plus élevée du statut du mode d'exécution (beta \| production) — D673–D679 le bras ; la version en tête de version.yml, pas du fichier d'entrée. | Voir §3.2c. |
+| D802 | **Le visage à l'interpolation** (complète D397/D321) : `label: "${name}"` — `${…}` = l'interpolation de configuration (D321), `{…}` = le gabarit des champs (D397/D790) ; les deux sources cohabitent au visage. | Voir §3.2c. |
 
 ---
 
@@ -7953,6 +7954,23 @@ l'application. »** — consigné :
   (D673–D679) est le bras du geste ;
 - **sans redémarrage** — la configuration se relit à chaud : le
   point crucial du projet.
+
+**Le visage à l'interpolation — ${…} et {…} distingués (D802 —
+complète D397/D321).** L'audit pointait le `label: "{name}"`
+d'ecriture.yml (l'entité n'a pas de champ `name`). L'arbitrage :
+**« J'ai remplacé "{name}" par "${name}" qui est plus conforme à mon
+attente. Je fais référence à la propriété "name" du fichier de
+configuration. »** — les deux syntaxes cohabitent et se distinguent :
+
+- **`${…}` = l'interpolation de configuration** (D321) — la
+  propriété du fichier, la navigation remontante, les mots-clés, les
+  variables d'environnement : `label: "${name}"` affiche le nom
+  déclaré de l'entité ;
+- **`{…}` = le gabarit des champs** (D397/D790) — la valeur de
+  l'enregistrement : `label: "{libelle}"` au compte, les titres
+  `"Modification de l'écriture '{libelle}' du {date_operation}"`.
+
+Le visage peut puiser aux deux sources.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16396,6 +16414,9 @@ avant la synthèse Q16).
   montée de version sans redémarrage ; au chargement, la mise à
   niveau vers la version la plus élevée du statut du mode
   d'exécution ; la version en tête de version.yml (D322 précisé).
+- **2026-08-24 (suite 4)** — **Le visage à l'interpolation (D802)** :
+  `${…}` la configuration, `{…}` le gabarit des champs — les deux
+  sources du label ; composants.md mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

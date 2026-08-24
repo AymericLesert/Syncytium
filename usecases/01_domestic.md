@@ -202,6 +202,21 @@ relecture des opérations (D797 : l'opération est un verbe, le même
 nom des deux côtés, le formulaire reste un nom de chose ; l'événement
 `generated` D796 ; le tri partagé liste/relevé D793/D795).
 
+**La relecture de l'auteur (24/08 — D799–D810)** : le dépôt
+restructuré de sa main, l'audit rendu, les arbitrages consignés —
+**l'arborescence pleine actée** (D799 : syncytium.yml →
+environments/ + versions/ → le statut → la version, l'application
+entière dans la version), la journalisation cadrée (D800 —
+l'exemple Python non acté), la mise à niveau au chargement sans
+redémarrage (D801), le visage à l'interpolation `${name}` (D802),
+resources/ versionné au crédit déclaré (D803), les statuts
+implicites déclarés à l'usage (D804), pas de déclaration orpheline
+(D805 — le statut porte `environment:`), le pattern regex = une
+déclaration (D806), le nommage et l'organisation libres (D807 —
+l'éponyme = une convention), `release-notes:` à l'historique par
+concaténation (D808), la fiche du hook (D809 —
+name/description/code/properties), `description:` partout (D810).
+
 **Reste : la reprise des données réelles** — les deux CSV
 (1992→2026) par le mapping en situation (source/, mapping/, la
 migration déclarée, les transcodages E/F → EUR/FRF, Débit/Crédit →

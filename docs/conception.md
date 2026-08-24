@@ -936,6 +936,7 @@ Q58) :
 | D807 | **Le nommage et l'organisation libres** (précise D765–D768) : le technicien maître — le fichier éponyme du dossier = une convention d'exemple, pas une règle ; tout fichier remplaçable ou intégrable inline ; le regroupement libre (referentiel/ porte deux entités). | Voir §3.2c. |
 | D808 | **release-notes: par version** (comble un oubli) : le cadre des évolutions de la version ; l'historique complet par concaténation jusqu'à la version courante — pas de fichier unique à maintenir (l'écho D645). | Voir §3.2c. |
 | D809 | **La fiche du hook** (amende D778) : name/description/code/properties — description → le md du fonctionnement (la doc auto D645), code → le fichier source ; un dossier par hook ou un seul fichier — l'éclatement libre (D767/D807). | Voir §3.2c. |
+| D810 | **description: partout** (généralise D645) : tout élément de configuration porte sa description (inline ou fichier — D767) — le carburant de la documentation auto-générée, version par version. | Voir §3.2c. |
 
 ---
 
@@ -8094,6 +8095,16 @@ proposé un fichier par hook mais nous pourrions les définir dans un
 seul fichier. »** — l'éclatement libre (D767/D807) : un dossier par
 hook (le cas 1 — la fiche, le md, le source) ou tout dans un même
 fichier.
+
+**description: partout — le carburant de la documentation (D810 —
+généralise D645).** Le projet, l'environnement, le module, la
+ressource, le hook : le dépôt retouché porte `description:` sur tous
+les éléments, inline ou en référence de fichier (D767).
+**« La description et l'autogénération de la documentation sont un
+des piliers du projet. Nous devons toujours avoir la possibilité
+d'apporter des précisions, une documentation… »** — **tout élément
+de configuration peut porter sa description** ; la documentation
+générée (D333/D645) s'en nourrit, version par version.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16561,6 +16572,11 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 11)** — **La fiche du hook (D809)** :
   name/description/code/properties, l'éclatement libre ; hooks.md
   mis au niveau (les noms d'avant D797 relus au passage).
+- **2026-08-24 (suite 12)** — **description: partout (D810)** : tout
+  élément de configuration la porte — le carburant de la doc
+  auto-générée. **La relecture de l'auteur est soldée (D799–D810)** ;
+  usecases/01_domestic.md mis au niveau. La suite : le morceau R1 de
+  la reprise (le connecteur legacy, les trois questions posées).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

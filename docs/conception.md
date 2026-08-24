@@ -929,6 +929,7 @@ Q58) :
 | D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 1 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
 | D801 | **La relecture à chaud + la mise à niveau au chargement** (précise D322) : la montée de version sans redémarrage — le point crucial ; au chargement, la version courante rejoint la plus élevée du statut du mode d'exécution (beta \| production) — D673–D679 le bras ; la version en tête de version.yml, pas du fichier d'entrée. | Voir §3.2c. |
 | D802 | **Le visage à l'interpolation** (complète D397/D321) : `label: "${name}"` — `${…}` = l'interpolation de configuration (D321), `{…}` = le gabarit des champs (D397/D790) ; les deux sources cohabitent au visage. | Voir §3.2c. |
+| D803 | **resources/ versionné, le crédit déclaré** (amende D346) : le dossier vit dans la version (icônes, templates suivent la version d'exécution), déclaré par version.yml ; la fiche name/description/file/credit — le crédit des tiers par courtoisie (les propriétés d'exemple, amendables). | Voir §3.2c. |
 
 ---
 
@@ -7971,6 +7972,33 @@ configuration. »** — les deux syntaxes cohabitent et se distinguent :
   `"Modification de l'écriture '{libelle}' du {date_operation}"`.
 
 Le visage peut puiser aux deux sources.
+
+**resources/ versionné — le crédit déclaré (D803 — amende D346).**
+**« En construisant la configuration, je pense qu'il est préférable
+de versionner le dossier resources/ comme les autres items
+versionnés. Ainsi, un jeu d'icônes, des templates de fichiers…
+dépendent de la version d'exécution. »** — D346 (la racine, le
+partage entre toutes les versions) s'amende : **le dossier vit dans
+la version**, déclaré par `version.yml` (`resources:`). La fiche
+d'une ressource — `name`, `description`, `file` et **`credit:`**
+(url/title/label) : **« lorsqu'une application exploite des éléments
+tiers (même open source), par courtoisie, il est préférable de
+présenter son propriétaire »** ; les propriétés sont d'exemple,
+**« cela pourra être revu, corrigé et amendé en fonction des
+différentes expériences qui nous traverseront »**.
+
+```yaml
+# resources/resources.yml — le cas 1
+icones:
+  banque:
+    name: banque
+    description: Icône représentant la gestion du compte bancaire
+    file: icones/sac-dargent.png
+    credit:
+      url: https://www.flaticon.com/fr/icones-gratuites/euro
+      title: euro icônes
+      label: Euro icônes créées par Smashicons - Flaticon
+```
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16417,6 +16445,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 4)** — **Le visage à l'interpolation (D802)** :
   `${…}` la configuration, `{…}` le gabarit des champs — les deux
   sources du label ; composants.md mis au niveau.
+- **2026-08-24 (suite 5)** — **resources/ versionné (D803)** : le
+  dossier dans la version (amende D346), la fiche au crédit des
+  tiers ; le glossaire mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

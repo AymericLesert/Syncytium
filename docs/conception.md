@@ -927,6 +927,7 @@ Q58) :
 | D798 | **Le graphique du budget** (la dernière pièce du morceau 4) : le chart.line — X au mois (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`), les deux filtres au patron des listes (budget + la plage — D782/D784). | L'écriture en proposition. Voir §3.2c. |
 | D799 | **L'arborescence du cas 1 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
 | D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 1 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
+| D801 | **La relecture à chaud + la mise à niveau au chargement** (précise D322) : la montée de version sans redémarrage — le point crucial ; au chargement, la version courante rejoint la plus élevée du statut du mode d'exécution (beta \| production) — D673–D679 le bras ; la version en tête de version.yml, pas du fichier d'entrée. | Voir §3.2c. |
 
 ---
 
@@ -7927,6 +7928,31 @@ tenir compte de cette configuration. Syncytium ne lit pas ces
 éléments si cela ne fait pas partie de la configuration d'un
 projet. »** — **les clés hors grammaire sont ignorées** : le
 renommage met un bloc en sommeil.
+
+**La relecture à chaud — la montée de version sans redémarrage
+(D801 — précise D322, généralise le chargement à chaud du modèle).**
+Deux arbitrages se rejoignent. D'abord : **« La relecture à chaud de
+la configuration a été vue en filigrane de nos échanges (à travers
+le chargement à chaud du modèle de données). Ceci représente un
+point crucial du projet : être en mesure de monter de version sans
+avoir besoin de redémarrer l'application. »** Ensuite, la version en
+tête se relit : **« la version est en tête de la déclaration du
+méta-model (présent dans le fichier version.yml du dossier
+v1.0.0.0). Syncytium contient une liste de versions et la dernière
+version en production ou beta (selon le mode d'exécution du projet).
+L'application au chargement procède à la mise à niveau de la version
+courante à la version la plus élevée du mode d'exécution de
+l'application. »** — consigné :
+
+- **la version en tête de version.yml** — pas dans le fichier
+  d'entrée (la lecture de D322 précisée : chaque version porte la
+  sienne en tête de sa déclaration) ;
+- **la mise à niveau au chargement** : l'application rejoint **la
+  version la plus élevée du statut de son mode d'exécution**
+  (beta | production) — la procédure de migration de schéma
+  (D673–D679) est le bras du geste ;
+- **sans redémarrage** — la configuration se relit à chaud : le
+  point crucial du projet.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16366,6 +16392,10 @@ avant la synthèse Q16).
   le fichier texte, la maîtrise niveau/dimensions/rétention ;
   l'exemple Python non acté (logs.yml demeure le contrat) ; les clés
   hors grammaire ignorées.
+- **2026-08-24 (suite 3)** — **La relecture à chaud (D801)** : la
+  montée de version sans redémarrage ; au chargement, la mise à
+  niveau vers la version la plus élevée du statut du mode
+  d'exécution ; la version en tête de version.yml (D322 précisé).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -930,6 +930,7 @@ Q58) :
 | D801 | **La relecture à chaud + la mise à niveau au chargement** (précise D322) : la montée de version sans redémarrage — le point crucial ; au chargement, la version courante rejoint la plus élevée du statut du mode d'exécution (beta \| production) — D673–D679 le bras ; la version en tête de version.yml, pas du fichier d'entrée. | Voir §3.2c. |
 | D802 | **Le visage à l'interpolation** (complète D397/D321) : `label: "${name}"` — `${…}` = l'interpolation de configuration (D321), `{…}` = le gabarit des champs (D397/D790) ; les deux sources cohabitent au visage. | Voir §3.2c. |
 | D803 | **resources/ versionné, le crédit déclaré** (amende D346) : le dossier vit dans la version (icônes, templates suivent la version d'exécution), déclaré par version.yml ; la fiche name/description/file/credit — le crédit des tiers par courtoisie (les propriétés d'exemple, amendables). | Voir §3.2c. |
+| D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 1 : beta + production). | Voir §3.2c. |
 
 ---
 
@@ -7999,6 +8000,17 @@ icones:
       title: euro icônes
       label: Euro icônes créées par Smashicons - Flaticon
 ```
+
+**Les statuts implicites du socle — déclarés à l'usage (D804 —
+précise D340/D344).** L'audit demandait la place des deux statuts
+absents de versions.yml (deprecated, forbidden — D340 en connaît
+quatre). L'arbitrage : **« nous pourrions considérer que l'absence
+de déclaration signifie que nous n'avons pas ces statuts. Ils sont
+donc implicites du socle. »** — **les quatre statuts et leurs
+transitions (D340/D344–D345) sont définis par le socle** ; le projet
+**déclare dans versions.yml ceux qu'il utilise** — l'absence de
+déclaration = le statut non utilisé par ce projet. Le cas 1 en
+déclare deux (`beta`, `production`).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16448,6 +16460,9 @@ avant la synthèse Q16).
 - **2026-08-24 (suite 5)** — **resources/ versionné (D803)** : le
   dossier dans la version (amende D346), la fiche au crédit des
   tiers ; le glossaire mis au niveau.
+- **2026-08-24 (suite 6)** — **Les statuts implicites du socle
+  (D804)** : les quatre au socle, versions.yml déclare ceux du
+  projet — l'absence = le statut non utilisé.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -926,6 +926,7 @@ Q58) :
 | D797 | **L'opération est un verbe — le même nom des deux côtés** (corrige D774/D776) : dupliquer/propager/virer/creer_releve dans la déclaration ET le hook (le lien par le nom — D609) ; le formulaire d'appel reste un nom de chose (duplication, propagation, virement). | Le clone de D774 se relit dupliquer. Voir §3.2c. |
 | D798 | **Le graphique du budget** (la dernière pièce du morceau 4) : le chart.line — X au mois (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`), les deux filtres au patron des listes (budget + la plage — D782/D784). | L'écriture en proposition. Voir §3.2c. |
 | D799 | **L'arborescence du cas 1 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
+| D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 1 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
 
 ---
 
@@ -7906,6 +7907,26 @@ fichier peut représenter une section d'un autre fichier de
 configuration »** (`fields: fields.yml`, `operations:
 operations.yml`, `gui: gui.yml` dans ecriture.yml — D767 appliqué à
 l'intérieur d'une entité).
+
+**La journalisation cadrée — l'exemple Python non acté (D800 —
+précise D737/D743/D750).** L'audit relevait l'écart du `logging.yml`
+du cas 1 (la configuration du composant logging de Python).
+L'arbitrage : **« Concernant les logs, nous n'avions pas abordé dans
+le détail ce point ! Ici, j'expose une configuration Python mais
+cela n'est pas encore acté. Ce qui est important ici, c'est la
+disponibilité d'un fichier texte pour la journalisation et une
+maîtrise sur les dimensions, sur le niveau de trace et sur la
+rétention. »** — le contrat consigné demeure (`logs.yml` : le niveau
+aux six valeurs, l'output, la rétention — D737/D743/D750) et
+**s'enrichit d'une exigence : la maîtrise des dimensions** (la
+taille des fichiers, la rotation) — la syntaxe s'écrira quand le
+domaine s'ouvrira ; le fichier du cas 1 reste une illustration
+d'implémentation, pas une grammaire. Au passage : **« les suffixes
+"-disable" n'ont pas d'intérêt ici. C'est juste une façon de ne pas
+tenir compte de cette configuration. Syncytium ne lit pas ces
+éléments si cela ne fait pas partie de la configuration d'un
+projet. »** — **les clés hors grammaire sont ignorées** : le
+renommage met un bloc en sommeil.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16341,6 +16362,10 @@ avant la synthèse Q16).
   entière dans la version, l'éclatement en sections-fichiers ; un
   reliquat yaml orphelin (clone/clonage — contredisait D797) purgé
   du registre.
+- **2026-08-24 (suite 2)** — **La journalisation cadrée (D800)** :
+  le fichier texte, la maîtrise niveau/dimensions/rétention ;
+  l'exemple Python non acté (logs.yml demeure le contrat) ; les clés
+  hors grammaire ignorées.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

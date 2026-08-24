@@ -1,4 +1,4 @@
-# virement — les deux écritures liées (D758)
+# virer — les deux écritures liées (D758)
 
 Crée les deux écritures d'un virement entre comptes : la sortie sur
 le compte courant, l'entrée sur le compte cible — liées par `liee:`

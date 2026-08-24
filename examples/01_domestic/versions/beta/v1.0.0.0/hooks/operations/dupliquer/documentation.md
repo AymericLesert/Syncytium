@@ -1,4 +1,4 @@
-# clone — la duplication entre deux dates (D774)
+# dupliquer — la duplication entre deux dates (D774)
 
 Duplique l'écriture courante entre deux dates, au pas choisi
 (jour, semaine, mois ou trimestre). Les paramètres viennent du

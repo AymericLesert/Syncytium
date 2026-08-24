@@ -1,4 +1,4 @@
-# propagation — la modification des similaires (D774)
+# propager — la modification des similaires (D774)
 
 Modifie le libellé et le montant de toutes les écritures
 « similaires » : le même libellé ET le même montant qu'avant la

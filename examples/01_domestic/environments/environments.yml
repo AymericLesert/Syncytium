@@ -1,0 +1,4 @@
+# Déclaration des environnements d'exécution
+# Pour le premier, nous n'avons qu'un seul environnement que nous appellerons "home"
+
+home: home/home.yml

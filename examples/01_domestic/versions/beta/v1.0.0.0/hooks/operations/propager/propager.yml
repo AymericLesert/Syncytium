@@ -1,0 +1,7 @@
+# Déclaration les opérations du projet
+
+name: propager
+description: documentation.md
+
+code: source.txt
+properties: { }

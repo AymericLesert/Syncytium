@@ -1,10 +1,16 @@
 # Le cas d'usage 1 — le compte bancaire du foyer (Q59/D758)
 # L'entrée de la version (D322) — elle porte les liens (D767) :
 # rien ne se déduit de l'arborescence, la déclaration fait foi.
+
+# Identification et description du projet
+
 name: budget
-version: 1.0.0.0
-modules: modules.yml                     # → banque/module.yml → les entités
-environments: [environments/home.yml]    # l'unique environnement du foyer
-hooks: hooks.yml                         # → les hooks d'opération du cas (D776)
-# (le cas simple tiendrait dans ce seul fichier — l'inline ou la
-#  référence, D767 ; l'éclatement par fichier sert l'exemple)
+description: Gestion des comptes bancaires domestiques
+
+# Liste des environnements d'exécution
+
+environments: environments/environments.yml
+
+# Liste des versions de l'application
+
+versions: versions/versions.yml

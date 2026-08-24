@@ -1,0 +1,13 @@
+# L'écriture bancaire (D758)
+# L'identification et sa description
+name: ecriture
+label: "${name}"
+
+# La liste des champs de l'entité
+fields: fields.yml
+
+# Les opérations associées à l'entité
+operations: operations.yml
+
+# La déclaration de la présentation graphique
+gui: gui.yml

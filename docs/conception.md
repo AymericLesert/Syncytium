@@ -925,6 +925,7 @@ Q58) :
 | D796 | **L'événement generated** (corrige D794, généralise D609) : émis à toute génération (l'issue de generate), disponible au `when:` — creer_releve s'y déclenche (`when: generated`) ; le champ imprimee du modèle demeure, posé par le hook. | Voir §3.2c. |
 | D797 | **L'opération est un verbe — le même nom des deux côtés** (corrige D774/D776) : dupliquer/propager/virer/creer_releve dans la déclaration ET le hook (le lien par le nom — D609) ; le formulaire d'appel reste un nom de chose (duplication, propagation, virement). | Le clone de D774 se relit dupliquer. Voir §3.2c. |
 | D798 | **Le graphique du budget** (la dernière pièce du morceau 4) : le chart.line — X au mois (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`), les deux filtres au patron des listes (budget + la plage — D782/D784). | L'écriture en proposition. Voir §3.2c. |
+| D799 | **L'arborescence du cas 1 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
 
 ---
 
@@ -7876,13 +7877,35 @@ fait la saisie. *(L'écriture en proposition :*
 
 *— le crochet `[month]` au découpage, l'agrégat au Y.)*
 
-```yaml
-operations:
-  clone:
-    label: { fr: Cloner }
-    form: clonage            # le formulaire d'appel — sa validation EST l'opération
-    commit: confirm          # la relecture : nb_creations (D598)
+**Le dépôt du cas 1 retouché — l'arborescence actée (D799 — la
+relecture de l'auteur ; matérialise D322/D336–D346/D644, D767 à
+l'œuvre).** L'auteur a restructuré `examples/01_domestic/` de sa
+main — **« Cela représente mon attente… et les fichiers que tu avais
+générés présentaient des manques que j'ai comblés. »** L'arborescence
+pleine :
+
+```text
+syncytium.yml                          # l'entrée (D767) : name, description,
+│                                      #   environments:, versions:
+├── environments/environments.yml      # l'index déclaratif des environnements
+│   └── home/home.yml                  #   → connectors, logs, settings,
+│                                      #     documentation (D342)
+└── versions/versions.yml              # l'index déclaratif des statuts (D804)
+    └── beta/beta.yml                  #   environment: (D805) + le pattern
+        └── v1.0.0.0/version.yml       #     des versions (D806)
+            ├── banque/banque.yml      # le module et ses entités (D765)
+            ├── hooks/hooks.yml        # la maison des hooks (D644/D809)
+            └── resources/             # les ressources versionnées (D803)
 ```
+
+**L'application entière vit dans la version** — les modules, les
+hooks (D644 respecté : `hooks/` à la racine de la version), les
+ressources ; et **l'éclatement en sections-fichiers** est illustré :
+**« la configuration peut être éclatée en petits fichiers dont un
+fichier peut représenter une section d'un autre fichier de
+configuration »** (`fields: fields.yml`, `operations:
+operations.yml`, `gui: gui.yml` dans ecriture.yml — D767 appliqué à
+l'intérieur d'une entité).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16310,6 +16333,14 @@ avant la synthèse Q16).
   montant (amount(credit - debit, …) au select de la devise). **La
   prochaine séance : l'organisation du dossier rediscutée, puis le
   mapping.**
+- **2026-08-24 — L'AUDIT DU DÉPÔT RETOUCHÉ, les arbitrages, la
+  consignation D799–D810.** L'auteur a restructuré
+  examples/01_domestic/ de sa main ; l'audit rendu en deux volets
+  (les écarts au registre, les attentes nouvelles) ; tous les
+  arbitrages tombés. **L'arborescence actée (D799)** : l'application
+  entière dans la version, l'éclatement en sections-fichiers ; un
+  reliquat yaml orphelin (clone/clonage — contredisait D797) purgé
+  du registre.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

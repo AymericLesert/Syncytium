@@ -1,0 +1,37 @@
+numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
+date_operation: { type: date, required: true, searchable: range }   # D784
+date_comptable: { type: date, searchable: range }   # renseignée au pointage
+libelle:   { type: text[..60], searchable: mutualizable[recherche] }   # D780
+budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
+montant:                           # signé — la devise vit dans la valeur (D771)
+  type: amount
+  currencies: [EUR, FRF]           # FRF : l'historique antérieur au passage
+  required: true
+mode:
+  type: enum
+  values:
+    cb:          { label: { fr: CB } }
+    prelevement: { label: { fr: Prélèvement } }
+    virement:    { label: { fr: Virement } }
+    autre:       { label: { fr: Autre } }
+cheque:    text[..10]              # le n° de chèque (le mode autre)
+liee:      banque.ecriture         # l'écriture miroir du virement (D758)
+lieu:      { type: banque.lieu, searchable: mutualizable[recherche] }   # la ville — dynamique (D355)
+imprimee:  date                    # le marqueur du relevé (Date_Impression)
+# les montants convertis (D770/D771) — des amount à devise unique,
+# le taux fixe du passage franc→euro ; currency : la fonction du type
+montant_euro:
+  type: amount
+  currencies: [EUR]
+  formula: montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))
+montant_franc:
+  type: amount
+  currencies: [FRF]
+  formula: montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))
+solde:
+  type: amount
+  currencies: [EUR]
+  formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)   # D760/D770 — continu
+# les calculés d'affichage (D779) — le montant signé en deux colonnes
+debit:  { type: amount, currencies: [EUR, FRF], formula: iif(montant.value < 0, -montant, null) }
+credit: { type: amount, currencies: [EUR, FRF], formula: iif(montant.value > 0, montant, null) }

@@ -1,0 +1,91 @@
+forms:
+  record:                            # les cinq usages (D199/D788)
+    title:                           # le titre au mode d'ouverture (D789–D790)
+      create: { fr: "Création d'une écriture" }
+      read:   { fr: "Écriture '{libelle}' du {date_operation}" }
+      update: { fr: "Modification de l'écriture '{libelle}' du {date_operation}" }
+      delete: { fr: "Suppression de l'écriture '{libelle}' du {date_operation}" }
+    items:
+      - field[date_operation]        # le calendar + les steppers [-]/[+] (D785)
+      - field[date_comptable]
+      - field[libelle]
+      - field[budget]                # le picker à création directe (D355)
+      - field[montant]
+      - field[mode]                  # les radios
+      - field[cheque]: { visible: mode = autre }   # le visible: vivant (D567)
+      - field[lieu]                  # le picker à création directe
+
+  # les formulaires d'appel (D775) — leur validation EST l'opération ;
+  # les items déclarent des champs libres : les paramètres du hook
+  duplication:                       # l'appel de dupliquer (D774/D797)
+    title: { fr: "Dupliquer l'écriture '{libelle}'" }
+    items:
+      - pas: { type: enum, required: true, values:
+               { jour: { label: { fr: Jour } }, semaine: { label: { fr: Semaine } },
+                 mois: { label: { fr: Mois } }, trimestre: { label: { fr: Trimestre } } } }
+      - du:  { type: date, required: true }
+      - au:  { type: date, required: true }
+
+  propagation:                       # l'appel de propager (D774)
+    title: { fr: "Propager depuis '{libelle}'" }
+    items:
+      - libelle_nouveau: { type: text[..60], required: true }
+      - montant_nouveau: { type: amount, currencies: [EUR], required: true }
+      # le déroulé du hook : la liste des similaires → la sélection → la masse
+
+  virement:                          # l'appel de virer
+    title: { fr: "Virement" }
+    items:
+      - vers:    { type: banque.compte, required: true }   # le compte cible
+      - montant: { type: amount, currencies: [EUR], required: true }
+
+lists:
+  par_operation:                    # la première déclarée = le défaut (D437)
+    title: { fr: "Par date d'opération" }
+    searchable:                     # la zone de recherche (D782–D784)
+      - compte: { select: mono, required: true }
+      - date_operation                # la plage — le champ porte sa facette (D784)
+      - recherche                     # le champ mutualisé (D780)
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    sort: [date_operation, numero]
+    selection: multiple
+    actions: [copy]                 # le duplicate du socle (D574)
+
+  par_comptable:
+    title: { fr: "Par date comptable" }
+    filter: date_comptable != null  # les pointées seules (D783)
+    searchable:
+      - compte: { select: mono, required: true }
+      - date_comptable                # la plage — le champ porte sa facette (D784)
+      - recherche
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    sort: [date_comptable, montant, numero]   # le tri partagé liste/relevé (D793/D795) — croissant : dépense→ressource
+    selection: multiple
+    actions: [copy]
+    exports: [ generate(me, PDF) ]  # le [PDF] — l'opération du socle (D791), ici seulement (D780)
+
+  pointage:
+    title: { fr: "Sans date comptable" }
+    filter: date_comptable = null   # la partition avec par_comptable (D783)
+    searchable:
+      - compte: { select: mono, required: true }
+      - recherche
+    columns:
+      - date_operation: { editable: true }
+      - date_comptable: { editable: true }   # le pointage en ligne (D205)
+      - libelle: { editable: true }
+      - budget: { editable: true }
+      - debit
+      - credit
+      - solde
+    sort: [date_operation, numero]
+    selection: multiple
+
+charts:
+  evolution_budget:                  # le souhait du cadrage (D758/D798)
+    title: { fr: "L'évolution des dépenses par budget" }
+    searchable:                      # les deux filtres — le patron des listes (D782/D784)
+      - budget
+      - date_operation               # la plage — la facette range (D784)
+    x: date_operation[month]         # le mois — le découpage temporel (D516)
+    y: sum(montant_euro)             # le montant cumulé du mois (D517/D770)

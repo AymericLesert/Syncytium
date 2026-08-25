@@ -250,25 +250,17 @@ order_lines:
 
 ### Au-delà du 1-1 (D658–D660)
 
-- **le référentiel par valeurs distinctes** (D658, validé). **Les
-  champs d'une règle `distinct:` peuvent s'écrire par des
-  expressions d'agrégat sur les lignes du groupe** (D811 — le cas 1 :
-  l'ouverture, la clôture et le libellé du compte lus sur les
-  lignes-marqueurs du groupe ; l'écriture en proposition), et **la
-  règle peut faire naître un enregistrement inactif** (D811 —
-  « exclus de la liste à sélectionner » : la sélection = les actifs
-  seuls, D137/D398) : la
+- **le référentiel par valeurs distinctes** (D658, validé) : la
   destination prend les valeurs distinctes d'un champ ou d'une liste
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
-  plusieurs règles. **Les
-  champs d'une règle `distinct:` peuvent s'écrire par des
-  expressions d'agrégat sur les lignes du groupe** (D811 — le cas 1 :
-  l'ouverture, la clôture et le libellé du compte lus sur les
-  lignes-marqueurs du groupe ; l'écriture en proposition), et **la
-  règle peut faire naître un enregistrement inactif** (D811 —
-  « exclus de la liste à sélectionner » : la sélection = les actifs
-  seuls, D137/D398) :
+  plusieurs règles. **Les champs d'une règle `distinct:` peuvent
+  s'écrire par des expressions d'agrégat sur les lignes du groupe**
+  (D811 — le cas 1 : l'ouverture, la clôture et le libellé du compte
+  lus sur les lignes-marqueurs du groupe ; l'écriture en
+  proposition), et **la règle peut faire naître un enregistrement
+  inactif** (D811 — « exclus de la liste à sélectionner » : la
+  sélection = les actifs seuls, D137/D398) :
 
 ```yaml
 # mapping/cities.yml — le référentiel des valeurs distinctes (D658)
@@ -286,6 +278,13 @@ customers:
   fields:
     city: city                   # la référence résolue par la clé (D654)
 ```
+
+- **le rapprochement interne à la migration** (D812 — le cas 1 : les
+  paires de virements) : un champ de référence se résout **par une
+  clé de rapprochement** entre enregistrements de la migration — la
+  jointure n'est pas une syntaxe, c'est la clé (D655) ; l'absence de
+  miroir est un fait (le champ reste vide), pas une non-conformité
+  (l'écriture en proposition) ;
 
 - **les composés par la fonction du type** (D659, validé) : plusieurs
   colonnes source vers un champ cible — la fonction de construction

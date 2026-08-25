@@ -938,6 +938,7 @@ Q58) :
 | D809 | **La fiche du hook** (amende D778) : name/description/code/properties — description → le md du fonctionnement (la doc auto D645), code → le fichier source ; un dossier par hook ou un seul fichier — l'éclatement libre (D767/D807). | Voir §3.2c. |
 | D810 | **description: partout** (généralise D645) : tout élément de configuration porte sa description (inline ou fichier — D767) — le carburant de la documentation auto-générée, version par version. | Voir §3.2c. |
 | D811 | **Les marqueurs OUVERTURE/FERMETURE** (tranche la question 1 de R1) : l'ouverture, la clôture et le libellé du compte portés par les lignes-marqueurs du legacy — le marqueur fait foi, pas le fichier ; les marqueurs migrent en écritures (des montants réels) ; les deux budgets naissent inactifs (la sélection = les actifs seuls, D137/D398) ; le compte par distinct: aux agrégats de groupe (l'écriture en proposition). | Voir §3.2c. |
+| D812 | **La liaison des virements** (tranche la question 2 de R1) : l'identifiant extrait de VIREMENT-<réf> (le calculé de la source D660) ; liee: par la clé de rapprochement (D655) ; l'orphelin = un fait (le miroir hors du legacy), pas une non-conformité — le réel : 402 paires parfaites, 1 249 orphelines, aucun triplet. | Voir §3.2c. |
 
 ---
 
@@ -8136,6 +8137,21 @@ Vérifié sur le réel (21 comptes, ~23 400 lignes) :
   l'ouverture, la clôture et le libellé lus sur les lignes-marqueurs
   *(le raffinement de la règle distinct:, en proposition au morceau
   R1)*.
+
+**La liaison des virements — l'identifiant fait le lien (D812 —
+tranche la question 2 de R1).** **« La référence permet de lier 2
+écritures. […] La valeur 01443 est un identifiant permettant de
+faire le lien. »** — l'exemple donné : les deux lignes
+`VIREMENT-01443` du 19/08/2021, 1 000,0 au crédit d'un compte et au
+débit de l'autre. Vérifié sur le réel : **2 053 lignes
+`VIREMENT-<réf>` — 402 paires parfaites** (la même date, les
+montants miroirs, deux comptes distincts, aucun triplet) et
+**1 249 orphelines** — le miroir hors du legacy : **l'orphelin est
+un fait** (le mode virement sans lien), pas une non-conformité. La
+mécanique : le calculé de la source extrait l'identifiant (D660),
+et `liee:` se résout **par la clé de rapprochement** — la jointure
+n'est pas une syntaxe, c'est la clé (D655). *(L'écriture de la
+règle en proposition au morceau R1.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16623,6 +16639,10 @@ avant la synthèse Q16).
   réel (21/21 OUVERTURE, 17 FERMETURE dont deux dans budget.txt,
   douze marqueurs à montant réel) ; les deux budgets naissent
   inactifs ; le distinct: aux agrégats de groupe en proposition.
+- **2026-08-25 (suite 2)** — **La liaison des virements (D812)** :
+  l'identifiant extrait fait la clé de rapprochement ; 402 paires
+  parfaites, 1 249 orphelines assumées (le miroir hors du legacy),
+  aucun triplet ; mapping.md mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

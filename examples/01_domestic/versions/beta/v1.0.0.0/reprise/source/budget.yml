@@ -41,5 +41,5 @@ fields:
     formula: iif(Nature matches "^[0-9]+$", Nature, null)
 
   reference_virement:              # l'identifiant du miroir (D812) — null hors virement référencé
-    formula: extract(Nature, "^VIREMENT-(.*)$")   # l'extraction via les regex = l'acquis (D578) ;
-                                                  # le NOM extract reste à fixer (le groupe nommé D90/D593 en alternative)
+    formula: extract(Nature, "^VIREMENT-(.*)$")   # extract actée (D578/D817) — la capture unique ;
+                                                  # les groupes nommés décomposent plusieurs noms au point

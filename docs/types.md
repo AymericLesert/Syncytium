@@ -33,7 +33,11 @@ composants.md.
   la promotion implicite sans perte seulement — D581), **la table des
   opérateurs** (les combinaisons admises, le type du résultat), **les
   comparateurs** (l'ordre des règles de tri), **le `select`**
-  (`valeur.select(cas: …, "...": défaut)`), **les fonctions dédiées** ;
+  (`valeur.select(cas: …, "...": défaut)`), **les fonctions dédiées**
+  (`distance` de la géolocalisation — D579 ; **`extract` du texte** :
+  l'extraction par la regex, la capture unique ou **plusieurs noms
+  simultanément par les groupes nommés**, les valeurs au point —
+  D817) ;
 - **le typage statique à l'ingestion** (D581) — l'inférence de la
   feuille à la racine, jamais une erreur de type à l'exécution ;
 - **la conversion vers le stockage** (D681–D682 — le patron

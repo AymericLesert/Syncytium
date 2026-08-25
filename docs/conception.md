@@ -943,6 +943,7 @@ Q58) :
 | D814 | **L'importation en trois phases** (organise R1, amende D811) : la phase = la règle filtrée (D663), l'ordre = le préfixe (D665) — 1. OUVERTURE crée les comptes + l'écriture du dépôt ; 2. les référentiels et les écritures hors marqueurs (OUVERTURE/FERMETURE n'entrent pas au référentiel) ; 3. FERMETURE clôt par la clé fonctionnelle (D654) + l'écriture du solde ; les agrégats de groupe et l'inactif de D811 dissous. | Voir §3.2c. |
 | D815 | **Le solde avant la clôture, le libellé conventionnel** (ordonne D814) : 006_soldes puis 007_clotures — l'écriture du solde se pose sur le compte encore ouvert, la clôture en dernier geste ; les écritures des marqueurs au libellé conventionnel « Dépôt initial » / « Solde de clôture ». | Voir §3.2c. |
 | D816 | **Une entité source, plusieurs fichiers** (simplifie R1) : le storage csv porte une entité sur un ou plusieurs fichiers du même format — l'union des lignes ; file: en liste ou en pattern (D806) ; un seul mapping — les règles dédoublées repliées. | Voir §3.2c. |
+| D817 | **extract actée** (nomme la fonction de D578) : l'extraction du texte par la regex — la capture unique retournée, **plusieurs noms simultanément par les groupes nommés** (D90/D593), les valeurs au point (D772–D773). | Voir §3.2c. |
 
 ---
 
@@ -8237,6 +8238,22 @@ connector. »** — consigné :
 L'écho D811 se renforce : les deux fichiers ne sont qu'un même jeu
 de données — le marqueur fait foi, le fichier n'est qu'un
 rangement.
+
+**extract actée — les groupes de la regex, les noms simultanés
+(D817 — nomme la fonction de D578, tranche la proposition R1).**
+**« extract peut décomposer plusieurs noms simultanément. Nous
+pouvons utiliser les groupes dans les expressions régulières. »** —
+la fonction d'extraction du type texte se nomme **`extract`** :
+
+- `extract(Nature, "^VIREMENT-(.*)$")` — la capture unique
+  retournée ;
+- **plusieurs noms simultanément par les groupes nommés** :
+  `extract(raw, "(?<cp>[0-9]{5})\s+(?<ville>.+)").ville` — les
+  valeurs nommées (D593) accessibles **au point** (D772–D773), un
+  seul appel décompose ;
+- rien de neuf au fond : la famille était acquise (D578 —
+  « l'extraction via les regex »), l'idiome aussi (D90 — la regex à
+  groupes nommés) ; le nom et la forme sont désormais fixés.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16759,6 +16776,12 @@ avant la synthèse Q16).
   entité, un seul mapping — les règles dédoublées repliées, la
   section fields.yml sans objet ; file: en liste (ou pattern
   D806).
+- **2026-08-25 (suite 8)** — **extract actée (D817)** : le nom de
+  la fonction d'extraction de D578 fixé — la capture unique, les
+  groupes nommés pour décomposer plusieurs noms d'un seul appel
+  (les valeurs au point D593/D772) ; types.md et hooks.md mis au
+  niveau. *(La vérification préalable : matches = l'acquis D90/D364
+  — mon étiquette « en proposition » corrigée.)*
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

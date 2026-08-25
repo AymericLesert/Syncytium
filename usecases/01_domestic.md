@@ -245,10 +245,7 @@ compte encore ouvert, la clôture en dernier geste (D815) ; les
 « Solde de clôture » (D815). **Le libellé de
 la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
 au-delà de 60). Les écritures en proposition à arbitrer : `file:`
-de l'entité source, `format:` des dates, le nom `extract` pour la
-fonction d'extraction du texte (la famille = l'acquis D578, l'idiome
-du groupe nommé = D90/D593 ; `matches`, lui, est au catalogue depuis
-D90/D364 — pas une proposition), le `filter:` de règle (l'écho
+de l'entité source, `format:` des dates, le `filter:` de règle (l'écho
 D663), le `match`/`other` du miroir, les écritures de dépôt/solde
 au mode `autre` et au budget vide (le libellé conventionnel acté —
 D815), la règle des écritures sans clé

@@ -99,7 +99,8 @@ graphe de conversion).
   de l'équivalence ; le `select` (D584) ;
 - **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
   géolocalisation : « un type emmène avec lui des fonctions
-  dédiées » ;
+  dédiées » ; `extract` pour le texte (D817 — la regex, les groupes
+  nommés au point) ;
 - **les accès aux sous-items** (D772–D773) — un type composé expose
   **ses parties nommées via des fonctions** : `value`/`currency`
   (amount), les coordonnées/l'adresse (geolocation), les bornes

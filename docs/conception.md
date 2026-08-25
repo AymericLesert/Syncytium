@@ -939,6 +939,7 @@ Q58) :
 | D810 | **description: partout** (généralise D645) : tout élément de configuration porte sa description (inline ou fichier — D767) — le carburant de la documentation auto-générée, version par version. | Voir §3.2c. |
 | D811 | **Les marqueurs OUVERTURE/FERMETURE** (tranche la question 1 de R1) : l'ouverture, la clôture et le libellé du compte portés par les lignes-marqueurs du legacy — le marqueur fait foi, pas le fichier ; les marqueurs migrent en écritures (des montants réels) ; les deux budgets naissent inactifs (la sélection = les actifs seuls, D137/D398) ; le compte par distinct: aux agrégats de groupe (l'écriture en proposition). | Voir §3.2c. |
 | D812 | **La liaison des virements** (tranche la question 2 de R1) : l'identifiant extrait de VIREMENT-<réf> (le calculé de la source D660) ; liee: par la clé de rapprochement (D655) ; l'orphelin = un fait (le miroir hors du legacy), pas une non-conformité — le réel : 402 paires parfaites, 1 249 orphelines, aucun triplet. | Voir §3.2c. |
+| D813 | **Le montant validé** (tranche la question 3 de R1) : la normalisation par calculés sur la source (montant_signe, devise_iso — D660) + le constructeur amount (D659) ; le typage enum {E, F} de la source en garde ; l'arrondi à deux décimales au calculé (les poussières flottantes du legacy). | Voir §3.2c. |
 
 ---
 
@@ -8152,6 +8153,18 @@ mécanique : le calculé de la source extrait l'identifiant (D660),
 et `liee:` se résout **par la clé de rapprochement** — la jointure
 n'est pas une syntaxe, c'est la clé (D655). *(L'écriture de la
 règle en proposition au morceau R1.)*
+
+**Le montant validé — la normalisation et le constructeur (D813 —
+tranche la question 3 de R1).** **« l'option proposée me
+convient. »** — les calculés de normalisation sur la source
+(`montant_signe`, `devise_iso` — D660), le constructeur
+`amount(montant_signe, devise_iso)` (D659), et le typage
+`enum { E, F }` de la source en garde (D652 — la valeur inattendue
+devient une non-conformité ; le réel : 20 964 E, 2 408 F, rien
+d'autre). La relecture du réel ajoute un raffinement : **l'arrondi
+à deux décimales au calculé** — le legacy porte des poussières
+flottantes (`7.629395E-5`, `0.009691715` sur des lignes FERMETURE)
+et la notation scientifique se lit ; `round(…, 2)` les éteint.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16643,6 +16656,11 @@ avant la synthèse Q16).
   l'identifiant extrait fait la clé de rapprochement ; 402 paires
   parfaites, 1 249 orphelines assumées (le miroir hors du legacy),
   aucun triplet ; mapping.md mis au niveau.
+- **2026-08-25 (suite 3)** — **Le montant validé (D813)** : la
+  normalisation + le constructeur tels que proposés ; le typage
+  enum {E, F} en garde ; round(…, 2) contre les poussières
+  flottantes du legacy. **Les trois questions de R1 sont soldées —
+  l'écriture du morceau R1 dans le dépôt.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

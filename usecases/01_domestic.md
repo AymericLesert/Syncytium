@@ -236,15 +236,19 @@ phases** (D814 — la phase = la règle filtrée, l'ordre = le préfixe,
 sept règles `001`–`007`) : la phase 1 crée les comptes par le
 marqueur OUVERTURE et pose l'écriture du dépôt ; la phase 2 porte
 les référentiels et les écritures **hors marqueurs** —
-OUVERTURE/FERMETURE n'entrent pas au référentiel ; la phase 3 clôt
-les comptes par FERMETURE en **mise à jour par la clé
-fonctionnelle** (D654) et pose l'écriture du solde. **Le libellé de
+OUVERTURE/FERMETURE n'entrent pas au référentiel ; la phase 3 pose
+l'écriture du solde **puis** clôt les comptes par FERMETURE en
+**mise à jour par la clé fonctionnelle** (D654) — le solde sur le
+compte encore ouvert, la clôture en dernier geste (D815) ; les
+écritures des marqueurs au libellé conventionnel « Dépôt initial » /
+« Solde de clôture » (D815). **Le libellé de
 la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
 au-delà de 60). Les écritures en proposition à arbitrer : `file:`
 de l'entité source, `format:` des dates, `matches`/`extract` (la
 regex du langage — l'écho D806), le `filter:` de règle (l'écho
 D663), le `match`/`other` du miroir, les écritures de dépôt/solde
-au mode `autre` et au budget vide, la règle des écritures sans clé
+au mode `autre` et au budget vide (le libellé conventionnel acté —
+D815), la règle des écritures sans clé
 (le reset la rend sans objet).
 
 ## Les manques relevés

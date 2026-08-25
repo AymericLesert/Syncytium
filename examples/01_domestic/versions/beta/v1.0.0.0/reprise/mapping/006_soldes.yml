@@ -1,5 +1,6 @@
-# La phase 3, suite (D814) — le montant du solde = la dernière écriture du compte
-# (les poussières flottantes du legacy s'éteignent au round — D813)
+# La phase 3 (D814/D815) — le montant du solde = la dernière écriture du compte,
+# posée AVANT la clôture : le solde s'enregistre sur le compte encore ouvert (D815).
+# (Les poussières flottantes du legacy s'éteignent au round — D813.)
 
 budget:
   to: banque.ecriture
@@ -8,7 +9,7 @@ budget:
   fields:
     date_operation: Date_Operation
     date_comptable: Date_Comptable
-    libelle:  Designation
+    libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
     montant:  amount(montant_signe, devise_iso)
     mode:     "autre"
 
@@ -19,6 +20,6 @@ budget_clos:
   fields:
     date_operation: Date_Operation
     date_comptable: Date_Comptable
-    libelle:  Designation
+    libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
     montant:  amount(montant_signe, devise_iso)
     mode:     "autre"

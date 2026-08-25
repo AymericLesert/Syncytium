@@ -941,6 +941,7 @@ Q58) :
 | D812 | **La liaison des virements** (tranche la question 2 de R1) : l'identifiant extrait de VIREMENT-<réf> (le calculé de la source D660) ; liee: par la clé de rapprochement (D655) ; l'orphelin = un fait (le miroir hors du legacy), pas une non-conformité — le réel : 402 paires parfaites, 1 249 orphelines, aucun triplet. | Voir §3.2c. |
 | D813 | **Le montant validé** (tranche la question 3 de R1) : la normalisation par calculés sur la source (montant_signe, devise_iso — D660) + le constructeur amount (D659) ; le typage enum {E, F} de la source en garde ; l'arrondi à deux décimales au calculé (les poussières flottantes du legacy). | Voir §3.2c. |
 | D814 | **L'importation en trois phases** (organise R1, amende D811) : la phase = la règle filtrée (D663), l'ordre = le préfixe (D665) — 1. OUVERTURE crée les comptes + l'écriture du dépôt ; 2. les référentiels et les écritures hors marqueurs (OUVERTURE/FERMETURE n'entrent pas au référentiel) ; 3. FERMETURE clôt par la clé fonctionnelle (D654) + l'écriture du solde ; les agrégats de groupe et l'inactif de D811 dissous. | Voir §3.2c. |
+| D815 | **Le solde avant la clôture, le libellé conventionnel** (ordonne D814) : 006_soldes puis 007_clotures — l'écriture du solde se pose sur le compte encore ouvert, la clôture en dernier geste ; les écritures des marqueurs au libellé conventionnel « Dépôt initial » / « Solde de clôture ». | Voir §3.2c. |
 
 ---
 
@@ -8201,6 +8202,20 @@ existante, rien de neuf :
 *(Les écritures de dépôt et de solde : le budget vide — le champ
 est optionnel —, le mode `autre`, le libellé du marqueur ; en
 proposition.)*
+
+**Le solde avant la clôture — le libellé conventionnel (D815 —
+ordonne la phase 3 de D814).** **« Sur la fermeture, il faut
+intervertir 6 et 7 car il faut enregistrer une opération de solde
+avant de faire la fermeture du compte. Un libellé conventionnel est
+nécessaire. »** — deux retouches :
+
+- **l'écriture du solde précède la clôture** : `006_soldes` puis
+  `007_clotures` — le solde se pose sur le compte encore ouvert, la
+  clôture vient en dernier geste ;
+- **le libellé conventionnel** des écritures nées des marqueurs :
+  **« Dépôt initial »** (la phase 1) et **« Solde de clôture »**
+  (la phase 3) — la Désignation du marqueur (le libellé du compte)
+  ne fait pas un libellé d'écriture.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16713,6 +16728,11 @@ avant la synthèse Q16).
   référentiel — l'« inactif » de D811 se relit), la phase 3 clôt
   par la clé + l'écriture du solde ; le mapping réécrit en sept
   règles 001–007 ; first(x if …) et inactive: dissous.
+- **2026-08-25 (suite 6)** — **Le solde avant la clôture (D815)** :
+  006 et 007 intervertis — le solde sur le compte encore ouvert, la
+  clôture en dernier geste ; les libellés conventionnels « Dépôt
+  initial » / « Solde de clôture » posés aux écritures des
+  marqueurs.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

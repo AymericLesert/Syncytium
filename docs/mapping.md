@@ -258,8 +258,10 @@ order_lines:
   (l'écho D663) — son périmètre : le cas 1 importe en **trois
   phases** (D814 — la phase = la règle filtrée, l'ordre = le
   préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
-  référentiels et les écritures hors marqueurs, la clôture par
-  FERMETURE en **mise à jour par la clé fonctionnelle** D654) ; les
+  référentiels et les écritures hors marqueurs, l'écriture du
+  solde puis la clôture par FERMETURE en **mise à jour par la clé
+  fonctionnelle** D654 — le solde sur le compte encore ouvert,
+  D815) ; les
   valeurs marqueurs s'excluent du périmètre du référentiel (D814
   relit la piste « inactifs » de D811) :
 

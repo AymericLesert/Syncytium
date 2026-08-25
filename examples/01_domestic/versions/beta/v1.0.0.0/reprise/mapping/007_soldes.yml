@@ -1,0 +1,24 @@
+# La phase 3, suite (D814) — le montant du solde = la dernière écriture du compte
+# (les poussières flottantes du legacy s'éteignent au round — D813)
+
+budget:
+  to: banque.ecriture
+  filter: Budget = "FERMETURE" and montant_signe != 0
+  parent: { compte: Numero_Compte }
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  Designation
+    montant:  amount(montant_signe, devise_iso)
+    mode:     "autre"
+
+budget_clos:
+  to: banque.ecriture
+  filter: Budget = "FERMETURE" and montant_signe != 0
+  parent: { compte: Numero_Compte }
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  Designation
+    montant:  amount(montant_signe, devise_iso)
+    mode:     "autre"

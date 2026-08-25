@@ -231,16 +231,21 @@ porte la reprise : le connecteur `legacy` (storage csv,
 Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
 (`migrations:`) — la migration `mode: absolute` + `reset: true`,
 `source/` aux deux entités (la section `fields.yml` partagée, les
-cinq calculés de normalisation D660), `mapping/` aux quatre règles
-`001_budgets`/`002_lieux`/`003_comptes`/`004_ecritures`
-(les référentiels par `distinct:`, les comptes aux agrégats de
-groupe, les écritures au `parent:`). **Le libellé de la cible
-élargi à 100** (le réel monte à 93 caractères — 163 lignes au-delà
-de 60). Les écritures en proposition à arbitrer : `file:` de
-l'entité source, `format:` des dates, `matches`/`extract` (la
-regex du langage — l'écho D806), `first(x if …)` (l'agrégat de
-groupe), `inactive:`, le `match`/`other` du miroir, la migration
-sans clé fonctionnelle (le reset la rend sans objet).
+cinq calculés de normalisation D660), `mapping/` en **trois
+phases** (D814 — la phase = la règle filtrée, l'ordre = le préfixe,
+sept règles `001`–`007`) : la phase 1 crée les comptes par le
+marqueur OUVERTURE et pose l'écriture du dépôt ; la phase 2 porte
+les référentiels et les écritures **hors marqueurs** —
+OUVERTURE/FERMETURE n'entrent pas au référentiel ; la phase 3 clôt
+les comptes par FERMETURE en **mise à jour par la clé
+fonctionnelle** (D654) et pose l'écriture du solde. **Le libellé de
+la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
+au-delà de 60). Les écritures en proposition à arbitrer : `file:`
+de l'entité source, `format:` des dates, `matches`/`extract` (la
+regex du langage — l'écho D806), le `filter:` de règle (l'écho
+D663), le `match`/`other` du miroir, les écritures de dépôt/solde
+au mode `autre` et au budget vide, la règle des écritures sans clé
+(le reset la rend sans objet).
 
 ## Les manques relevés
 

@@ -1,0 +1,20 @@
+# La phase 1 (D814) — le filtre OUVERTURE crée les comptes (D811)
+# La ligne-marqueur porte le numéro, le libellé (la Désignation) et l'ouverture.
+
+budget:
+  to: banque.compte
+  filter: Budget = "OUVERTURE"
+  key: Numero_Compte              # la clé fonctionnelle — la phase 3 la retrouve (D654)
+  fields:
+    numero:    Numero_Compte
+    libelle:   Designation
+    ouverture: Date_Operation
+
+budget_clos:
+  to: banque.compte
+  filter: Budget = "OUVERTURE"
+  key: Numero_Compte
+  fields:
+    numero:    Numero_Compte
+    libelle:   Designation
+    ouverture: Date_Operation

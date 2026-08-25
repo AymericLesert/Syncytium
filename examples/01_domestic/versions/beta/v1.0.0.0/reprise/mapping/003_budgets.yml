@@ -1,0 +1,18 @@
+# La phase 2, le préalable (D814) — le référentiel des budgets (D658)
+# Les marqueurs n'entrent pas au référentiel : l'exclusion pleine (D814 relit D811)
+
+budget:
+  to: banque.budget
+  distinct: [Budget]
+  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
+  key: Budget
+  fields:
+    libelle: Budget
+
+budget_clos:
+  to: banque.budget
+  distinct: [Budget]
+  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
+  key: Budget
+  fields:
+    libelle: Budget

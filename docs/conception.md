@@ -937,6 +937,7 @@ Q58) :
 | D808 | **release-notes: par version** (comble un oubli) : le cadre des évolutions de la version ; l'historique complet par concaténation jusqu'à la version courante — pas de fichier unique à maintenir (l'écho D645). | Voir §3.2c. |
 | D809 | **La fiche du hook** (amende D778) : name/description/code/properties — description → le md du fonctionnement (la doc auto D645), code → le fichier source ; un dossier par hook ou un seul fichier — l'éclatement libre (D767/D807). | Voir §3.2c. |
 | D810 | **description: partout** (généralise D645) : tout élément de configuration porte sa description (inline ou fichier — D767) — le carburant de la documentation auto-générée, version par version. | Voir §3.2c. |
+| D811 | **Les marqueurs OUVERTURE/FERMETURE** (tranche la question 1 de R1) : l'ouverture, la clôture et le libellé du compte portés par les lignes-marqueurs du legacy — le marqueur fait foi, pas le fichier ; les marqueurs migrent en écritures (des montants réels) ; les deux budgets naissent inactifs (la sélection = les actifs seuls, D137/D398) ; le compte par distinct: aux agrégats de groupe (l'écriture en proposition). | Voir §3.2c. |
 
 ---
 
@@ -8105,6 +8106,36 @@ des piliers du projet. Nous devons toujours avoir la possibilité
 d'apporter des précisions, une documentation… »** — **tout élément
 de configuration peut porter sa description** ; la documentation
 générée (D333/D645) s'en nourrit, version par version.
+
+**Les marqueurs OUVERTURE/FERMETURE — l'ouverture, la clôture et le
+libellé portés par le legacy (D811 — tranche la question 1 de R1,
+corrige mon audit).** **« Un compte dispose d'une date d'ouverture
+et d'une date de clôture. Un compte est clos si la date de clôture
+est renseignée. Dans le fichier CSV, tu as le budget "OUVERTURE"
+pour indiquer que le compte est ouvert et "FERMETURE" pour indiquer
+que le compte est clos. Ces 2 budgets sont exclus de la liste des
+budgets à sélectionner. »** — rien à déduire : le legacy porte tout.
+Vérifié sur le réel (21 comptes, ~23 400 lignes) :
+
+- **chaque compte a sa ligne OUVERTURE** (21/21) ; 17 lignes
+  FERMETURE — **le marqueur fait foi, pas le fichier** (budget.txt
+  porte aussi deux FERMETURE : des comptes clos non archivés) ;
+- **la Désignation de la ligne-marqueur porte le libellé du compte**
+  (« PERP », « Crédit Mutuel Perso »…) — le libellé que je croyais
+  absent du legacy est retrouvé ;
+- **les marqueurs migrent en écritures** : douze portent un montant
+  réel (les dépôts d'ouverture, les soldes de fermeture) — les
+  soldes en dépendent ;
+- **« exclus de la liste à sélectionner »** : les deux budgets
+  naissent au référentiel **inactifs** — la sélection = les actifs
+  seuls (D137/D398), la référence vers l'inactif reste valide ; rien
+  de neuf dans la grammaire *(l'écriture retenue — à amender si
+  l'intention diffère)* ;
+- le compte naît par `distinct:` sur le numéro (D658), **ses champs
+  par des expressions d'agrégat sur les lignes du groupe** —
+  l'ouverture, la clôture et le libellé lus sur les lignes-marqueurs
+  *(le raffinement de la règle distinct:, en proposition au morceau
+  R1)*.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16586,6 +16617,12 @@ avant la synthèse Q16).
   VIREMENT-<réf> à la reprise, le montant `amount(credit - debit,
   …)` au select de la devise. La PR de consolidation sur demande
   (~73 commits depuis la #36).
+- **2026-08-25 — LES TROIS QUESTIONS DE R1 TRANCHÉES (D811–D813).**
+  **Les marqueurs OUVERTURE/FERMETURE (D811)** : le legacy porte
+  l'ouverture, la clôture ET le libellé du compte — vérifié sur le
+  réel (21/21 OUVERTURE, 17 FERMETURE dont deux dans budget.txt,
+  douze marqueurs à montant réel) ; les deux budgets naissent
+  inactifs ; le distinct: aux agrégats de groupe en proposition.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

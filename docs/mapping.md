@@ -250,11 +250,25 @@ order_lines:
 
 ### Au-delà du 1-1 (D658–D660)
 
-- **le référentiel par valeurs distinctes** (D658, validé) : la
+- **le référentiel par valeurs distinctes** (D658, validé). **Les
+  champs d'une règle `distinct:` peuvent s'écrire par des
+  expressions d'agrégat sur les lignes du groupe** (D811 — le cas 1 :
+  l'ouverture, la clôture et le libellé du compte lus sur les
+  lignes-marqueurs du groupe ; l'écriture en proposition), et **la
+  règle peut faire naître un enregistrement inactif** (D811 —
+  « exclus de la liste à sélectionner » : la sélection = les actifs
+  seuls, D137/D398) : la
   destination prend les valeurs distinctes d'un champ ou d'une liste
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
-  plusieurs règles :
+  plusieurs règles. **Les
+  champs d'une règle `distinct:` peuvent s'écrire par des
+  expressions d'agrégat sur les lignes du groupe** (D811 — le cas 1 :
+  l'ouverture, la clôture et le libellé du compte lus sur les
+  lignes-marqueurs du groupe ; l'écriture en proposition), et **la
+  règle peut faire naître un enregistrement inactif** (D811 —
+  « exclus de la liste à sélectionner » : la sélection = les actifs
+  seuls, D137/D398) :
 
 ```yaml
 # mapping/cities.yml — le référentiel des valeurs distinctes (D658)

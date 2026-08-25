@@ -254,13 +254,14 @@ order_lines:
   destination prend les valeurs distinctes d'un champ ou d'une liste
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
-  plusieurs règles. **Les champs d'une règle `distinct:` peuvent
-  s'écrire par des expressions d'agrégat sur les lignes du groupe**
-  (D811 — le cas 1 : l'ouverture, la clôture et le libellé du compte
-  lus sur les lignes-marqueurs du groupe ; l'écriture en
-  proposition), et **la règle peut faire naître un enregistrement
-  inactif** (D811 — « exclus de la liste à sélectionner » : la
-  sélection = les actifs seuls, D137/D398) :
+  plusieurs règles. **La règle porte un `filter:`**
+  (l'écho D663) — son périmètre : le cas 1 importe en **trois
+  phases** (D814 — la phase = la règle filtrée, l'ordre = le
+  préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
+  référentiels et les écritures hors marqueurs, la clôture par
+  FERMETURE en **mise à jour par la clé fonctionnelle** D654) ; les
+  valeurs marqueurs s'excluent du périmètre du référentiel (D814
+  relit la piste « inactifs » de D811) :
 
 ```yaml
 # mapping/cities.yml — le référentiel des valeurs distinctes (D658)

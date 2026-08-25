@@ -940,6 +940,7 @@ Q58) :
 | D811 | **Les marqueurs OUVERTURE/FERMETURE** (tranche la question 1 de R1) : l'ouverture, la clôture et le libellé du compte portés par les lignes-marqueurs du legacy — le marqueur fait foi, pas le fichier ; les marqueurs migrent en écritures (des montants réels) ; les deux budgets naissent inactifs (la sélection = les actifs seuls, D137/D398) ; le compte par distinct: aux agrégats de groupe (l'écriture en proposition). | Voir §3.2c. |
 | D812 | **La liaison des virements** (tranche la question 2 de R1) : l'identifiant extrait de VIREMENT-<réf> (le calculé de la source D660) ; liee: par la clé de rapprochement (D655) ; l'orphelin = un fait (le miroir hors du legacy), pas une non-conformité — le réel : 402 paires parfaites, 1 249 orphelines, aucun triplet. | Voir §3.2c. |
 | D813 | **Le montant validé** (tranche la question 3 de R1) : la normalisation par calculés sur la source (montant_signe, devise_iso — D660) + le constructeur amount (D659) ; le typage enum {E, F} de la source en garde ; l'arrondi à deux décimales au calculé (les poussières flottantes du legacy). | Voir §3.2c. |
+| D814 | **L'importation en trois phases** (organise R1, amende D811) : la phase = la règle filtrée (D663), l'ordre = le préfixe (D665) — 1. OUVERTURE crée les comptes + l'écriture du dépôt ; 2. les référentiels et les écritures hors marqueurs (OUVERTURE/FERMETURE n'entrent pas au référentiel) ; 3. FERMETURE clôt par la clé fonctionnelle (D654) + l'écriture du solde ; les agrégats de groupe et l'inactif de D811 dissous. | Voir §3.2c. |
 
 ---
 
@@ -8165,6 +8166,41 @@ d'autre). La relecture du réel ajoute un raffinement : **l'arrondi
 à deux décimales au calculé** — le legacy porte des poussières
 flottantes (`7.629395E-5`, `0.009691715` sur des lignes FERMETURE)
 et la notation scientifique se lit ; `round(…, 2)` les éteint.
+
+**L'importation en trois phases (D814 — organise R1, amende la
+mécanique de D811).** **« L'importation des fichiers CSV va se
+dérouler en 3 phases : 1. Lecture du fichier CSV avec un filtre sur
+"OUVERTURE" pour créer les comptes + libellé + montant du dépôt ;
+2. Lecture des écritures comptables en excluant les budgets
+"OUVERTURE" et "FERMETURE" ; 3. Lecture du fichier CSV avec un
+filtre sur "FERMETURE" pour clore les comptes + libellé (non utile)
++ montant du solde. »** — les phases s'écrivent avec la grammaire
+existante, rien de neuf :
+
+- **la phase = la règle filtrée, l'ordre = le préfixe**
+  (D663/D665) : chaque phase est une règle au `filter:`, l'ordre
+  alphabétique des fichiers déroule les phases ;
+- **la phase 1 crée le compte par sa ligne-marqueur** (le filtre
+  `Budget = "OUVERTURE"`) — le numéro, le libellé (la Désignation),
+  l'ouverture ; **le montant du dépôt devient la première écriture
+  du compte** (quand il n'est pas nul — douze au réel) ;
+- **la phase 2 porte les référentiels et les écritures courantes** —
+  le périmètre exclut les deux marqueurs : **les budgets OUVERTURE
+  et FERMETURE n'entrent pas au référentiel** (l'exclusion pleine —
+  la lecture « inactifs » de D811 se relit : rien à désactiver, ils
+  n'existent pas) ;
+- **la phase 3 met à jour le compte existant** — le rapprochement
+  par la clé fonctionnelle (D654) : la clôture posée, le libellé
+  ignoré (« non utile »), **le montant du solde devient la dernière
+  écriture** ;
+- mes agrégats de groupe (`first(x if …)` — la proposition de D811)
+  **se dissolvent** : le filtre suffit, une ligne-marqueur par
+  compte (le réel : 21/21 OUVERTURE, une FERMETURE par compte
+  clos).
+
+*(Les écritures de dépôt et de solde : le budget vide — le champ
+est optionnel —, le mode `autre`, le libellé du marqueur ; en
+proposition.)*
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16670,6 +16706,13 @@ avant la synthèse Q16).
   écritures en proposition : file:, format:, matches/extract,
   first(x if …), inactive:, le match/other du miroir, la migration
   sans clé au reset. **La validation du morceau à l'auteur.**
+- **2026-08-25 (suite 5)** — **L'importation en trois phases
+  (D814)** : la phase = la règle filtrée, l'ordre = le préfixe ;
+  la phase 1 crée les comptes + l'écriture du dépôt, la phase 2
+  exclut les marqueurs (OUVERTURE/FERMETURE n'entrent pas au
+  référentiel — l'« inactif » de D811 se relit), la phase 3 clôt
+  par la clé + l'écriture du solde ; le mapping réécrit en sept
+  règles 001–007 ; first(x if …) et inactive: dissous.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

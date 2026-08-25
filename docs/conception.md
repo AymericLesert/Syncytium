@@ -942,6 +942,7 @@ Q58) :
 | D813 | **Le montant validé** (tranche la question 3 de R1) : la normalisation par calculés sur la source (montant_signe, devise_iso — D660) + le constructeur amount (D659) ; le typage enum {E, F} de la source en garde ; l'arrondi à deux décimales au calculé (les poussières flottantes du legacy). | Voir §3.2c. |
 | D814 | **L'importation en trois phases** (organise R1, amende D811) : la phase = la règle filtrée (D663), l'ordre = le préfixe (D665) — 1. OUVERTURE crée les comptes + l'écriture du dépôt ; 2. les référentiels et les écritures hors marqueurs (OUVERTURE/FERMETURE n'entrent pas au référentiel) ; 3. FERMETURE clôt par la clé fonctionnelle (D654) + l'écriture du solde ; les agrégats de groupe et l'inactif de D811 dissous. | Voir §3.2c. |
 | D815 | **Le solde avant la clôture, le libellé conventionnel** (ordonne D814) : 006_soldes puis 007_clotures — l'écriture du solde se pose sur le compte encore ouvert, la clôture en dernier geste ; les écritures des marqueurs au libellé conventionnel « Dépôt initial » / « Solde de clôture ». | Voir §3.2c. |
+| D816 | **Une entité source, plusieurs fichiers** (simplifie R1) : le storage csv porte une entité sur un ou plusieurs fichiers du même format — l'union des lignes ; file: en liste ou en pattern (D806) ; un seul mapping — les règles dédoublées repliées. | Voir §3.2c. |
 
 ---
 
@@ -8216,6 +8217,26 @@ nécessaire. »** — deux retouches :
   **« Dépôt initial »** (la phase 1) et **« Solde de clôture »**
   (la phase 3) — la Désignation du marqueur (le libellé du compte)
   ne fait pas un libellé d'écriture.
+
+**Une entité source, plusieurs fichiers (D816 — simplifie R1,
+précise le storage csv).** **« Les fichiers budget.txt et
+budget-clos.txt sont 2 fichiers avec les mêmes formats. Les 2
+mappings peuvent se simplifier en un seul mapping. Le fichier csv
+s'appuie sur un seul fichier ou sur 2 fichiers pour le même
+connector. »** — consigné :
+
+- **le storage csv porte une entité sur un ou plusieurs fichiers**
+  du même format — l'union des lignes ;
+- **la déclaration `file:` accepte la liste** — ou le pattern
+  (D806 : partout où une liste de fichiers se déclare) ;
+- **le mapping se replie** : une seule entité source `budget`, une
+  seule règle par fichier de mapping — les règles dédoublées
+  budget/budget_clos disparaissent, la section partagée fields.yml
+  n'a plus d'objet (les colonnes reviennent dans l'entité).
+
+L'écho D811 se renforce : les deux fichiers ne sont qu'un même jeu
+de données — le marqueur fait foi, le fichier n'est qu'un
+rangement.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16733,6 +16754,11 @@ avant la synthèse Q16).
   clôture en dernier geste ; les libellés conventionnels « Dépôt
   initial » / « Solde de clôture » posés aux écritures des
   marqueurs.
+- **2026-08-25 (suite 7)** — **Une entité source, plusieurs
+  fichiers (D816)** : les deux fichiers au même format = une seule
+  entité, un seul mapping — les règles dédoublées repliées, la
+  section fields.yml sans objet ; file: en liste (ou pattern
+  D806).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

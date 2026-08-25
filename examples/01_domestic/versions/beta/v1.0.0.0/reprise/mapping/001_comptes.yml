@@ -9,12 +9,3 @@ budget:
     numero:    Numero_Compte
     libelle:   Designation
     ouverture: Date_Operation
-
-budget_clos:
-  to: banque.compte
-  filter: Budget = "OUVERTURE"
-  key: Numero_Compte
-  fields:
-    numero:    Numero_Compte
-    libelle:   Designation
-    ouverture: Date_Operation

@@ -13,14 +13,3 @@ budget:
     libelle:  "Dépôt initial"          # le libellé conventionnel (D815)
     montant:  amount(montant_signe, devise_iso)   # le constructeur (D659/D813)
     mode:     "autre"
-
-budget_clos:
-  to: banque.ecriture
-  filter: Budget = "OUVERTURE" and montant_signe != 0
-  parent: { compte: Numero_Compte }
-  fields:
-    date_operation: Date_Operation
-    date_comptable: Date_Comptable
-    libelle:  "Dépôt initial"          # le libellé conventionnel (D815)
-    montant:  amount(montant_signe, devise_iso)
-    mode:     "autre"

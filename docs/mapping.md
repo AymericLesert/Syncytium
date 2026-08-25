@@ -289,6 +289,11 @@ customers:
   miroir est un fait (le champ reste vide), pas une non-conformité
   (l'écriture en proposition) ;
 
+- **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
+  fichiers au même format = une seule entité (l'union des lignes) —
+  `file:` en liste ou en pattern (D806) sur le storage csv ; un seul
+  mapping ;
+
 - **les composés par la fonction du type** (D659, validé) : plusieurs
   colonnes source vers un champ cible — la fonction de construction
   portée par le type (D579/D584), rien de neuf dans la grammaire :

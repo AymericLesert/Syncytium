@@ -20,19 +20,3 @@ budget:
     # le miroir du virement (D812) — la clé de rapprochement (l'écriture en proposition) :
     # la même référence extraite, sur un autre compte ; l'absence de miroir laisse vide
     liee:     { match: reference_virement, other: Numero_Compte }
-
-budget_clos:
-  to: banque.ecriture
-  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
-  parent: { compte: Numero_Compte }
-  fields:
-    date_operation: Date_Operation
-    date_comptable: Date_Comptable
-    libelle:  Designation
-    budget:   Budget
-    lieu:     Lieu
-    montant:  amount(montant_signe, devise_iso)
-    mode:     mode_norme
-    cheque:   cheque_norme
-    imprimee: Date_Impression
-    liee:     { match: reference_virement, other: Numero_Compte }

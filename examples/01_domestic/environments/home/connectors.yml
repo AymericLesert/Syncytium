@@ -12,7 +12,7 @@ smtp:
   class: none
 
 # le legacy de la reprise (le morceau R1) — le storage csv sur le dossier :
-# chaque fichier = une entité source
+# une entité sur un ou plusieurs fichiers du même format (D816)
 legacy:
   type: storage
   class: csv

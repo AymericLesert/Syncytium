@@ -8,11 +8,3 @@ budget:
   key: Budget
   fields:
     libelle: Budget
-
-budget_clos:
-  to: banque.budget
-  distinct: [Budget]
-  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
-  key: Budget
-  fields:
-    libelle: Budget

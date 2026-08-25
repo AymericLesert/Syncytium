@@ -9,10 +9,3 @@ budget:
   key: Numero_Compte
   fields:
     cloture: Date_Operation
-
-budget_clos:
-  to: banque.compte
-  filter: Budget = "FERMETURE"
-  key: Numero_Compte
-  fields:
-    cloture: Date_Operation

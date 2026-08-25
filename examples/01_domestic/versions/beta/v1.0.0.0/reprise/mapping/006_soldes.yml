@@ -12,14 +12,3 @@ budget:
     libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
     montant:  amount(montant_signe, devise_iso)
     mode:     "autre"
-
-budget_clos:
-  to: banque.ecriture
-  filter: Budget = "FERMETURE" and montant_signe != 0
-  parent: { compte: Numero_Compte }
-  fields:
-    date_operation: Date_Operation
-    date_comptable: Date_Comptable
-    libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
-    montant:  amount(montant_signe, devise_iso)
-    mode:     "autre"

@@ -7,11 +7,3 @@ budget:
   key: Lieu
   fields:
     libelle: Lieu
-
-budget_clos:
-  to: banque.lieu
-  distinct: [Lieu]
-  filter: Lieu != null
-  key: Lieu
-  fields:
-    libelle: Lieu

@@ -230,8 +230,9 @@ normalisé + le constructeur** (D813 — `enum { E, F }` en garde,
 porte la reprise : le connecteur `legacy` (storage csv,
 Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
 (`migrations:`) — la migration `mode: absolute` + `reset: true`,
-`source/` aux deux entités (la section `fields.yml` partagée, les
-cinq calculés de normalisation D660), `mapping/` en **trois
+`source/` à l'entité unique `budget` — les deux fichiers au même
+format portés par le même connecteur, `file:` en liste (D816), les
+cinq calculés de normalisation (D660) —, `mapping/` en **trois
 phases** (D814 — la phase = la règle filtrée, l'ordre = le préfixe,
 sept règles `001`–`007`) : la phase 1 crée les comptes par le
 marqueur OUVERTURE et pose l'écriture du dépôt ; la phase 2 porte

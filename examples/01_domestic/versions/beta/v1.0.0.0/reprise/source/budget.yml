@@ -1,10 +1,44 @@
-# L'entité source des comptes non archivés — le fichier budget.txt (D652/D653)
-# Le marqueur fait foi, pas le fichier : budget.txt porte aussi des comptes clos (D811)
+# L'entité source des écritures du legacy (D652/D653)
+# Deux fichiers, le même format : une seule entité — l'union des lignes (D816).
+# Le marqueur fait foi, pas le fichier : budget.txt porte aussi des comptes clos (D811).
+# Le CSV : point-virgule, Windows-1252, les dates jj/mm/aaaa, le point décimal.
 
 name: budget
-description: Les écritures des comptes non archivés du legacy
-file: budget.txt                 # l'item du storage csv (l'écriture en proposition)
+description: Les écritures des comptes du legacy — les fichiers actifs et archivés
+file: [budget.txt, budget-clos.txt]   # un ou plusieurs fichiers (D816) — la liste ou le pattern (D806)
 
-# Les colonnes partagées avec budget_clos — la section en fichier (D767/D799)
+# L'exhaustivité : toute colonne couverte ou déclarée ignorée (D648/D657) — ici, tout sert.
 
-fields: fields.yml
+fields:
+  Numero_Compte:   text[..23]
+  Date_Operation:  { type: date, format: "dd/MM/yyyy" }   # le format du legacy (l'écriture en proposition)
+  Date_Comptable:  { type: date, format: "dd/MM/yyyy" }
+  Designation:     text[..100]     # le réel monte à 93 caractères
+  Budget:          text[..30]      # dont les marqueurs OUVERTURE / FERMETURE (D811)
+  Debit:           decimal         # la notation scientifique du legacy se lit (7.629395E-5)
+  Credit:          decimal
+  Nature:          text[..40]      # mixte : CB, PRELEVEMENT, VIREMENT[-<réf>], chèques, espèces…
+  Devise:          enum { E, F }   # le typage en garde (D813) — toute autre valeur = non-conformité
+  Lieu:            text[..30]      # vide sur 3 634 lignes
+  Date_Impression: { type: date, format: "dd/MM/yyyy" }
+
+  # Les calculés de normalisation (D660) — le mapping les consomme comme des colonnes
+
+  montant_signe:                   # le montant signé, arrondi (D813 — les poussières flottantes)
+    formula: round(iif(Credit != null, Credit, 0) - iif(Debit != null, Debit, 0), 2)
+
+  devise_iso:                      # E/F → les devises du type amount (D771/D813)
+    formula: iif(Devise = "E", "EUR", "FRF")
+
+  mode_norme:                      # la Nature mixte → le mode figé (le cadrage, la réponse 4)
+    formula: >
+      iif(Nature = "CB", "cb",
+      iif(Nature = "PRELEVEMENT", "prelevement",
+      iif(Nature = "VIREMENT" or Nature matches "^VIREMENT-.*" or Nature = "Guichet", "virement",
+      "autre")))                   # chèques, espèces, liquide, vide… → autre ; matches en proposition (D806)
+
+  cheque_norme:                    # le numéro de chèque nu porté par la Nature
+    formula: iif(Nature matches "^[0-9]+$", Nature, null)
+
+  reference_virement:              # l'identifiant du miroir (D812) — null hors virement référencé
+    formula: extract(Nature, "^VIREMENT-(.*)$")   # la capture regex (l'écriture en proposition)

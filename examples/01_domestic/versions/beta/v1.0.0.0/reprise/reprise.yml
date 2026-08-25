@@ -1,0 +1,12 @@
+# La reprise des données historiques — le morceau R1 (D811–D813)
+# La migration déclarée (D662/D664) : l'ordre de définition = l'ordre d'exécution
+
+legacy:                          # le nom de la migration
+  connector: legacy              # le connecteur storage source (environments/home/connectors.yml)
+  mode: absolute                 # le tout-ou-rien (D649)
+  reset: true                    # chaque passage repart de zéro
+  source:                        # l'énumération explicite — fields.yml est une section, pas une entité
+    - source/budget.yml
+    - source/budget_clos.yml
+  mapping:
+    - mapping/[0-9]+_.*\.yml     # le pattern regex (D806) — l'ordre alphabétique fait les étapes (D665)

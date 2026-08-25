@@ -1,0 +1,22 @@
+# Les comptes — les valeurs distinctes du numéro (D658),
+# les champs par les agrégats sur les lignes du groupe (D811 — l'écriture en proposition)
+
+budget:
+  to: banque.compte
+  distinct: [Numero_Compte]
+  key: Numero_Compte
+  fields:
+    numero:    Numero_Compte
+    libelle:   first(Designation if Budget = "OUVERTURE")     # la Désignation du marqueur (D811)
+    ouverture: first(Date_Operation if Budget = "OUVERTURE")  # 21/21 dans le réel
+    cloture:   first(Date_Operation if Budget = "FERMETURE")  # absente = compte ouvert
+
+budget_clos:
+  to: banque.compte
+  distinct: [Numero_Compte]
+  key: Numero_Compte
+  fields:
+    numero:    Numero_Compte
+    libelle:   first(Designation if Budget = "OUVERTURE")
+    ouverture: first(Date_Operation if Budget = "OUVERTURE")
+    cloture:   first(Date_Operation if Budget = "FERMETURE")  # 15/15 dans le réel

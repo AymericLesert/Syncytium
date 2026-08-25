@@ -10,3 +10,14 @@ authentication:
 # le mail muet, assumé (D763)
 smtp:
   class: none
+
+# le legacy de la reprise (le morceau R1) — le storage csv sur le dossier :
+# chaque fichier = une entité source
+legacy:
+  type: storage
+  class: csv
+  parameters:
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}   # le chemin hors dépôt (D321)
+    encoding: windows-1252
+    separator: ";"
+

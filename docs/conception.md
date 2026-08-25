@@ -16661,6 +16661,15 @@ avant la synthèse Q16).
   enum {E, F} en garde ; round(…, 2) contre les poussières
   flottantes du legacy. **Les trois questions de R1 sont soldées —
   l'écriture du morceau R1 dans le dépôt.**
+- **2026-08-25 (suite 4)** — **Le morceau R1 écrit dans le dépôt** :
+  le connecteur legacy (storage csv), reprise/ déclaré par
+  version.yml (migrations:), source/ aux deux entités + la section
+  fields.yml partagée (cinq calculés de normalisation), mapping/
+  aux quatre règles 001–004 ; le libellé de la cible élargi à 100
+  (le réel : 93 caractères, 163 lignes au-delà de 60). Les
+  écritures en proposition : file:, format:, matches/extract,
+  first(x if …), inactive:, le match/other du miroir, la migration
+  sans clé au reset. **La validation du morceau à l'auteur.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

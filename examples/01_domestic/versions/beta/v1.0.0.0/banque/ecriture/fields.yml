@@ -1,7 +1,7 @@
 numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
 date_operation: { type: date, required: true, searchable: range }   # D784
 date_comptable: { type: date, searchable: range }   # renseignée au pointage
-libelle:   { type: text[..60], searchable: mutualizable[recherche] }   # D780
+libelle:   { type: text[..100], searchable: mutualizable[recherche] }  # D780 — élargi : le legacy monte à 93 caractères (R1)
 budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
 montant:                           # signé — la devise vit dans la valeur (D771)
   type: amount

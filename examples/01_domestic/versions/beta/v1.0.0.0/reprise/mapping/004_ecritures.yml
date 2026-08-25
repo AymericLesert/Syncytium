@@ -1,0 +1,37 @@
+# Les écritures — la composition par le possesseur (D654/D656)
+# Les marqueurs OUVERTURE/FERMETURE migrent aussi : leurs montants comptent (D811).
+# Pas de clé fonctionnelle naturelle : le mode absolute + reset repart de zéro à
+# chaque passage — le rapprochement au rejeu (D654) est sans objet.
+# Le numéro d'écriture (counter D409) naît au fil de la création : l'ordre du fichier.
+
+budget:
+  to: banque.ecriture
+  parent: { compte: Numero_Compte }   # le possesseur par sa clé fonctionnelle (D654)
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  Designation
+    budget:   Budget                  # la référence par la clé (D398) — l'inactif reste valide (D811)
+    lieu:     Lieu
+    montant:  amount(montant_signe, devise_iso)   # le constructeur (D659/D813)
+    mode:     mode_norme
+    cheque:   cheque_norme
+    imprimee: Date_Impression
+    # le miroir du virement (D812) — la clé de rapprochement (l'écriture en proposition) :
+    # la même référence extraite, sur un autre compte ; l'absence de miroir laisse vide
+    liee:     { match: reference_virement, other: Numero_Compte }
+
+budget_clos:
+  to: banque.ecriture
+  parent: { compte: Numero_Compte }
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  Designation
+    budget:   Budget
+    lieu:     Lieu
+    montant:  amount(montant_signe, devise_iso)
+    mode:     mode_norme
+    cheque:   cheque_norme
+    imprimee: Date_Impression
+    liee:     { match: reference_virement, other: Numero_Compte }

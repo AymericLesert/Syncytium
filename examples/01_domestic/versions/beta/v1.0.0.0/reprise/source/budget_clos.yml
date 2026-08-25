@@ -1,0 +1,9 @@
+# L'entité source des comptes archivés — le fichier budget-clos.txt (D652/D653)
+
+name: budget_clos
+description: Les écritures des comptes clos archivés du legacy
+file: budget-clos.txt            # l'item du storage csv (l'écriture en proposition)
+
+# Le même format que budget.txt — la section partagée (D767/D799)
+
+fields: fields.yml

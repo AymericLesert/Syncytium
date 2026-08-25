@@ -217,10 +217,30 @@ l'éponyme = une convention), `release-notes:` à l'historique par
 concaténation (D808), la fiche du hook (D809 —
 name/description/code/properties), `description:` partout (D810).
 
-**Reste : la reprise des données réelles** — les deux CSV
-(1992→2026) par le mapping en situation (source/, mapping/, la
-migration déclarée, les transcodages E/F → EUR/FRF, Débit/Crédit →
-le montant signé, la Nature mixte → le mode + le chèque).
+**Le morceau R1 — la reprise écrite (D811–D813, en validation)** :
+les trois questions tranchées sur le réel — **les marqueurs
+OUVERTURE/FERMETURE** portent l'ouverture, la clôture ET le libellé
+du compte (D811 — le marqueur fait foi, pas le fichier ; douze
+marqueurs à montant réel migrent en écritures ; les deux budgets
+naissent inactifs, la sélection = les actifs seuls) ; **la liaison
+des virements** par l'identifiant extrait (D812 — 402 paires
+parfaites, 1 249 orphelines assumées, aucun triplet) ; **le montant
+normalisé + le constructeur** (D813 — `enum { E, F }` en garde,
+`round(…, 2)` contre les poussières flottantes du legacy). Le dépôt
+porte la reprise : le connecteur `legacy` (storage csv,
+Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
+(`migrations:`) — la migration `mode: absolute` + `reset: true`,
+`source/` aux deux entités (la section `fields.yml` partagée, les
+cinq calculés de normalisation D660), `mapping/` aux quatre règles
+`001_budgets`/`002_lieux`/`003_comptes`/`004_ecritures`
+(les référentiels par `distinct:`, les comptes aux agrégats de
+groupe, les écritures au `parent:`). **Le libellé de la cible
+élargi à 100** (le réel monte à 93 caractères — 163 lignes au-delà
+de 60). Les écritures en proposition à arbitrer : `file:` de
+l'entité source, `format:` des dates, `matches`/`extract` (la
+regex du langage — l'écho D806), `first(x if …)` (l'agrégat de
+groupe), `inactive:`, le `match`/`other` du miroir, la migration
+sans clé fonctionnelle (le reset la rend sans objet).
 
 ## Les manques relevés
 

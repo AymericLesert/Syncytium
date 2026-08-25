@@ -18,6 +18,10 @@ resources: resources/resources.yml
 
 hooks: hooks/hooks.yml
 
+# Déclaration de la reprise des données historiques (le morceau R1)
+
+migrations: reprise/reprise.yml
+
 # Déclaration des modules
 # Pour l'exemple, nous n'avons qu'un seul module
 

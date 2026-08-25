@@ -1,0 +1,10 @@
+# L'entité source des comptes non archivés — le fichier budget.txt (D652/D653)
+# Le marqueur fait foi, pas le fichier : budget.txt porte aussi des comptes clos (D811)
+
+name: budget
+description: Les écritures des comptes non archivés du legacy
+file: budget.txt                 # l'item du storage csv (l'écriture en proposition)
+
+# Les colonnes partagées avec budget_clos — la section en fichier (D767/D799)
+
+fields: fields.yml

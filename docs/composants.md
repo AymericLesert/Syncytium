@@ -661,6 +661,11 @@ gui:
 
 ## `calendar`
 
+*(D785 — le champ date porte aussi **les steppers [-]/[+]** : le
+jour d'avant, le jour d'après — au même rang que le picker, l'écho
+du stepper du nombre D270. Le report de champ en post-zone fut
+proposé puis **écarté** — D786/D787 : la simplicité prime.)*
+
 1. **Nom et famille** — `calendar`, une feuille ;
 2. **Rôle** — le calendrier : la saisie et l'affichage d'une date — la
    vue année, mois ou semaine, et les raccourcis du quotidien ;
@@ -2085,7 +2090,9 @@ charts:
    numériques **nus** (sans agrégat), là où courbe et barres
    agrègent (D522) ;
 4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
-   D247, les droits) ; **le visage de l'enregistrement** (D386) ;
+   D247, les droits) ; **le visage de l'enregistrement** (D386 —
+   le gabarit `{champ}` des valeurs ; l'interpolation `${…}` de
+   configuration possible aussi, D802) ;
 5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
    compris) ; **les écarts propres** (D522–D523) :
    **`threshold:`** dans la forme riche de l'axe — « l'axe définit

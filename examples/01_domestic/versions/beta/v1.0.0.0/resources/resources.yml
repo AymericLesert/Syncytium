@@ -1,0 +1,12 @@
+# Liste des ressources disponibles pour le projet
+# En dehors des ressources fournies par Syncytium
+
+icones:
+  banque:
+    name: banque
+    description: Icone représentation la gestion du compte bancaire
+    file: icones/sac-dargent.png
+    credit:
+      url: https://www.flaticon.com/fr/icones-gratuites/euro
+      title: euro icônes
+      label: Euro icônes créées par Smashicons - Flaticon

@@ -164,6 +164,11 @@ clé d'unicité (D82). **Les quatre volets à porter** :
    de session ; **la garde du webhook (D642) appelle le même
    `verify`**.
 
+*(Le cinquième volet, né du cas d'usage domestique — **`none`**
+(D759) : aucun défi, aucun secret ; l'utilisateur et le groupe par
+défaut au degré `administrator` — les invariants D699/D712
+pré-remplis, jamais contournés.)*
+
 La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans
 [connectors.md](connectors.md).

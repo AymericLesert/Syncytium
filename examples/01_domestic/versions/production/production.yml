@@ -1,0 +1,8 @@
+# Ce fichier déclare les versions éligibles au mode production
+
+environment: home
+
+# Liste des versions disponibles de l'application
+# Ici, utilisation d'un pattern pour lister tous les dossiers (cela va éviter de tout déclarer)
+versions:
+  - v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml

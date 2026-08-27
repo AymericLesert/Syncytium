@@ -1,0 +1,11 @@
+# Le compte bancaire (D758) — les noms en français (D764)
+name: compte
+label: "{libelle}"                   # le visage (D397)
+identity: [numero]                   # la clé fonctionnelle (D357)
+fields:
+  numero:    text[..23]
+  libelle:   text[..40]
+  ouverture: { type: date, required: true }
+  cloture:   date                    # optionnelle — « un compte est ouvert sans date de fermeture »
+  ouvert:    { formula: cloture = null }
+  ecritures: list of ecriture        # la composition (D399)

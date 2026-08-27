@@ -1,0 +1,23 @@
+# La phase 2 (D814) — les écritures courantes, hors marqueurs
+# La règle sans clé (D825) — création seule : aucune clé naturelle au legacy
+# (54 doublons du quintuple compte+date+libellé+montant) ; admise car la
+# migration est en absolute + reset — la garde de l'ingestion le vérifie.
+# Le numéro d'écriture (counter D409) naît au fil de la création : l'ordre du fichier.
+# La règle empile les virements référencés au cache (D821) — la phase 1 du rapprochement.
+
+budget:
+  to: banque.ecriture
+  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
+  parent: { compte: Numero_Compte }   # le possesseur par sa clé fonctionnelle (D654)
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  Designation
+    budget:   Budget                  # la référence par la clé (D398)
+    lieu:     Lieu
+    montant:  amount(montant_signe, devise_iso)   # le constructeur (D659/D813)
+    mode:     mode_norme
+    cheque:   cheque_norme
+    imprimee: Date_Impression
+  operations:
+    cache.push("virement", reference_virement, me) if reference_virement != null

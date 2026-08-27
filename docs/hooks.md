@@ -36,25 +36,50 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 ## La maison des hooks — `hooks/` et `hooks.yml` (D644)
 
 Les hooks de l'application vivent **à la racine de la version** : le
-dossier `hooks/`, **un sous-dossier par type de hooks** ; le fichier
-**`hooks.yml`** les liste — la liste explicite, le parallèle de
-`modules.yml` (D415 : ce qui existe se déclare). Les hooks du socle
-vivent dans l'arborescence de Syncytium — la même porte (D52), deux
-maisons.
+dossier `hooks/`, **un sous-dossier par type de hooks** ; **la
+chaîne à deux étages** (D644/D777 — le patron des modules
+D765/D766) : `hooks.yml` référence **les fichiers de famille**,
+chaque fichier de famille **liste ses fiches** (l'énumération ou le
+pattern regex — D806), **la fiche du hook** (D809) portant `name`,
+`description`, `code` et `properties` — les chemins relatifs au
+fichier courant (D768). Les hooks du socle vivent dans
+l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
 ```text
 versions/<statut>/<version>/
-├── settings.yml · groups.yml · modules.yml
-├── hooks.yml                  # la liste explicite (D644)
+├── version.yml                     # déclare hooks: — le lien (D805)
 ├── hooks/
-│   ├── types/                 # un sous-dossier par type de hooks
-│   ├── components/
-│   ├── operations/
-│   ├── functions/
-│   ├── connectors/
-│   └── styles/                # la sixième famille (D755)
+│   ├── hooks.yml                   # → les fichiers de famille (D777)
+│   ├── operations/operations.yml   # → les fiches (le pattern — D806)
+│   │   └── <verbe>/                #   la fiche, le md, le source (D809)
+│   ├── types/ · components/ · functions/ · connectors/
+│   └── styles/                     # la sixième famille (D755)
 └── <modules>/
 ```
+
+*(Le nommage et l'organisation restent libres — D807 : l'arbre
+ci-dessus est la convention du cas 1.)*
+
+```yaml
+# hooks/hooks.yml — l'étage des familles (D777)
+operations: operations/operations.yml
+
+# hooks/operations/operations.yml — la liste des fiches (le pattern D806)
+operations:
+  - .*/.*\.yml
+
+# hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
+name: dupliquer
+description: documentation.md        # → le md du fonctionnement (D645/D778)
+code: source.txt                     # → le code — le langage du domaine 7 (D570)
+properties: { }                      # les propriétés du hook
+```
+
+**Chaque hook s'accompagne d'un fichier md** (D778 — la fiche le
+référence par `description:`, D809) décrivant son fonctionnement —
+la brique humaine de la documentation auto-générée (D645). Un
+dossier par hook ou tout dans un même fichier : l'éclatement est
+libre (D767/D807/D809).
 
 ## Les familles
 
@@ -74,7 +99,13 @@ graphe de conversion).
   de l'équivalence ; le `select` (D584) ;
 - **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
   géolocalisation : « un type emmène avec lui des fonctions
-  dédiées » ;
+  dédiées » ; `extract` pour le texte (D817 — la regex, les groupes
+  nommés au point) ;
+- **les accès aux sous-items** (D772–D773) — un type composé expose
+  **ses parties nommées via des fonctions** : `value`/`currency`
+  (amount), les coordonnées/l'adresse (geolocation), les bornes
+  (period)… — la signature les déclare, un composé sans ses accès
+  est incomplet ;
 - **le composant par défaut au nom du type** (D458) — le type-hook
   nomme son composant comme le socle nomme les siens ; le contexte
   départage les espaces de noms ;
@@ -186,8 +217,11 @@ appeler une fonction — jamais l'inverse (D571).
 
 **Le pont hook/déclaration (D609)** : le hook **est** l'opération ;
 la déclaration (`operations:` — D432) en décrit **l'usage** — le nom,
-les paramètres, le `commit:`, la garde `if` (D430), et **le mode de
-déclenchement quand il n'est pas lié à l'IHM** : `when:
+les paramètres, le `commit:`, la garde `if` (D430), **le formulaire
+d'appel** (`form:` — D775 : les champs du formulaire sont les
+paramètres du hook, **la validation du formulaire est l'opération** ;
+la symétrie avec le confirm D600 — le formulaire aux deux bouts), et
+**le mode de déclenchement quand il n'est pas lié à l'IHM** : `when:
 <expression>` (D428), `every: continuous` (D435 — sur une mise à
 jour), le calendaire (D434), **l'événement de connecteur** (les
 webhooks, l'import automatique à la réception d'un fichier —

@@ -1,0 +1,10 @@
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768) : depuis banque/
+name: banque
+description: Module de gestion bancaire
+
+entities:
+  - compte/compte.yml
+  - ecriture/ecriture.yml
+  - referentiel/budget.yml
+  - referentiel/lieu.yml

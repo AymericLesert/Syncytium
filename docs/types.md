@@ -33,7 +33,11 @@ composants.md.
   la promotion implicite sans perte seulement — D581), **la table des
   opérateurs** (les combinaisons admises, le type du résultat), **les
   comparateurs** (l'ordre des règles de tri), **le `select`**
-  (`valeur.select(cas: …, "...": défaut)`), **les fonctions dédiées** ;
+  (`valeur.select(cas: …, "...": défaut)`), **les fonctions dédiées**
+  (`distance` de la géolocalisation — D579 ; **`extract` du texte** :
+  l'extraction par la regex, la capture unique ou **plusieurs noms
+  simultanément par les groupes nommés**, les valeurs au point —
+  D817) ;
 - **le typage statique à l'ingestion** (D581) — l'inférence de la
   feuille à la racine, jamais une erreur de type à l'exécution ;
 - **la conversion vers le stockage** (D681–D682 — le patron
@@ -61,7 +65,7 @@ composants.md.
 | `integer` | les bornes au nom (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **les octets jamais déclarés** — dimensionnés selon les bornes ou les valeurs (« le mode auto ») ; le masque (`000000`, `00 00 00`) ; la recherche `range` | le nul = 0 | D371–D372 |
 | `decimal` | les décimales (le setting ou 2) ; **le stockage exact ou réel** (`storage:` — l'entier aux décimales converties) | le nul = 0 | D376–D378 |
 | `duration` | le masque — **la virgule : l'heure ou la minute en centièmes, l'heure en dix-millièmes** ; les unités `s`/`min`/`h`/`d`/`w`/`m`/`y` (D476) | le nul = 0 | D380, D476 |
-| `date` | **la nature au crochet** : `date[yyyy-mm]`, `date[yyyy-mm-dd]`, `date[yyyy-ww]`… — la plus fine par défaut ; le masque de la langue ; les bornes en littéraux ISO ; `date - date → duration` (D581) | le nul en tête | D381–D383 |
+| `date` | **la nature au crochet** : `date[yyyy-mm]`, `date[yyyy-mm-dd]`, `date[yyyy-ww]`… — la plus fine par défaut ; le masque de la langue (le `mask` déclaré pilote aussi **la lecture des sources** — D820) ; les bornes en littéraux ISO ; `date - date → duration` (D581) | le nul en tête | D381–D383, D820 |
 | `time` | la précision au crochet (`time[hh:mm]`) | le nul en tête | D381 |
 | `datetime` | la nature au crochet : `datetime[raw]` (défaut) \| `datetime[timestamp]` ; la précision en second paramètre | le nul en tête | D381 |
 | `file` | les `extensions` (`[pdf, docx]` ou la forme à libellés `{ pdf: { fr: facture } }` — elle guide le dépôt) ; le `quota` contrôlé à la volée | — | D160–D165, D292, D384 |
@@ -75,10 +79,16 @@ composants.md.
 
 Ils héritent du kit de la base + la validation intégrée + leurs
 facettes propres (D391). Le nul de chaque composé se trie en premier.
+**Les sous-items au point** (D772–D773) : chaque composé expose ses
+parties nommées **via des fonctions du type** — `montant.value`,
+`montant.currency` (amount), les coordonnées et l'adresse
+(geolocation — D638), les bornes (period)… ; la conversion se
+compose avec le constructeur (D659) :
+`amount(montant.value / 6.55957, EUR)`.
 
 | le type | la nature et les facettes propres | D |
 |---|---|---|
-| `amount` | les devises paramétrables (`currencies` — défaut : tout l'ISO) ; `amount + amount` à devise compatible, `amount * decimal` (D581) | D391 |
+| `amount` | les devises paramétrables (`currencies` — défaut : tout l'ISO) ; `amount + amount` à devise compatible, `amount * decimal` (D581) ; **les parties au point** : `montant.value`, `montant.currency` (D771–D772) — la conversion au constructeur `amount(v, EUR)` (D659) | D391, D771–D772 |
 | `percentage` | les bornes — défaut 0..100 ; hors cadre, **la représentation varie** (la jauge vaut pour le cadre) | D273–D274, D391 |
 | `measure` | les unités : **statiques** (`units: [kg, g, t]`), **la table de référence** (`units: stock.unit`), ou **libres** (défaut) | D391 |
 | `phone` | le national (défaut) ou l'international | D391 |
@@ -101,9 +111,10 @@ facettes propres (D391). Le nul de chaque composé se trie en premier.
 |---|---|---|
 | la référence — `<module>.<entité>` | « si le type est le nom d'une entité, c'est une référence » (le `to` inutile) ; **l'origine se lit par `me.`** dans le filtre ; `check: selection` (défaut) \| `immutable` ; l'accès retour automatique (la liste nommée) | D394–D398, D216 |
 | la composition — `list of <entité>` | le lien de possession : le parent déclare, l'enfant ne déclare rien ; **l'agrégat = le grain d'écriture** (indivisible) | D399–D400, D420 |
-| l'association — `association with <entité>` | plusieurs, libres, inter-modules — sans cascade ; reprend les propriétés de la référence (filter/me./check, l'affichage au visage) | D400–D401 |
+| l'association — `association with <entité>[.<champ>]` | plusieurs, libres, inter-modules — sans cascade ; reprend les propriétés de la référence (filter/me./check, l'affichage au visage) ; **le champ de destination au point** (D761–D762 — le défaut : le champ au nom de l'entité ; `association with order.billing` à l'ambiguïté) | D400–D401, D761–D762 |
 | le lien n-aire — `list of [a, b]` / `association with [a, b]` | **chaque élément = une combinaison des entités nommées**, des propriétés par entité nommée | D402 |
 | l'association dérivée — `association with <entité> if …` | la vue navigable, jamais stockée, en lecture — la vérité reste la référence | D405 |
+| l'accès montant | **`owner`** — le possesseur d'une composition (unique — D760/D761) ; l'associé s'atteint **par son champ de référence** | D760–D761 |
 
 ## Les générés et le contexte
 

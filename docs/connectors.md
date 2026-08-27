@@ -109,13 +109,13 @@ d'une classe vérifiée au chargement :
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
 | `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** | D604/D606/D613/D636 |
-| `smtp` | le mail sortant | smtp_std | D564/D574 |
+| `smtp` | le mail sortant | smtp_std, **none** (D763 — le mock : send toujours vrai, aucun envoi — la condition indispensable D626 satisfaite, le silence assumé du domestique) | D564/D574/D763 |
 | `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
-| `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716) | D418/D692/D716 |
+| `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -262,8 +262,10 @@ compte technique D77). **La garde du webhook (D642) appelle ce même
 `verify`** — rien de dédié. Les classes : `local` (le haché, les
 clés d'API), `azure_ad` (le bind, le bearer Entra), `sso` (l'OIDC,
 la signature du jeton), `keycloak` (D716 — l'IdP OIDC open source,
-le visage concret du volet SSO) — chaque classe déclare ce qu'elle
-sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
+le visage concret du volet SSO), **`none`** (D759 — aucun défi :
+l'utilisateur et le groupe par défaut au degré administrator, le
+mono-poste domestique — les invariants D699 pré-remplis) — chaque
+classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
 l'AD pour les internes, le local pour les clients).
 
 ### `siren` (D639)

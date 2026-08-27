@@ -1,0 +1,5 @@
+# Ce fichier déclare les statuts des versions
+
+beta: beta/beta.yml
+
+production: production/production.yml

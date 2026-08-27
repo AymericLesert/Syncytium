@@ -117,19 +117,23 @@ migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
     connector: legacy_db            # le connecteur storage source
     source:
-      - legacy_db/source/*.yml      # un fichier par entité
+      - legacy_db/source/.*\.yml    # un fichier par entité — le regex (D806)
     mapping:
-      - legacy_db/mapping/*.yml     # un fichier par règle de migration
+      - legacy_db/mapping/.*\.yml   # un fichier par règle de migration
   old_crm:
     connector: crm_db
-    source:  [old_crm/source/*.yml]
-    mapping: [old_crm/mapping/*.yml]
+    source:  [old_crm/source/.*\.yml]
+    mapping: [old_crm/mapping/.*\.yml]
 ```
 
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est
-libre, la déclaration fait foi. **Le versionnement est plein**
+libre, la déclaration fait foi. **Les patterns sont des regex**
+(D806 — « plus de personnalisation et de contrôle ») ; le pattern
+est une déclaration : le standard d'organisation et de nommage que
+le technicien se fixe — partout où une liste de fichiers se déclare,
+il peut remplacer l'énumération. **Le versionnement est plein**
 (D670) : `source/` et `mapping/` sont versionnés comme tout le
 reste — l'itération d'exploration passe par le bump du build (D323),
 le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
@@ -250,7 +254,19 @@ order_lines:
   destination prend les valeurs distinctes d'un champ ou d'une liste
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
-  plusieurs règles :
+  plusieurs règles. **La règle porte un `filter:`**
+  (l'écho D663) — son périmètre : le cas 1 importe en **trois
+  phases** (D814 — la phase = la règle filtrée, l'ordre = le
+  préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
+  référentiels et les écritures hors marqueurs, l'écriture du
+  solde puis la clôture par FERMETURE en **mise à jour par la clé
+  fonctionnelle** D654 — le solde sur le compte encore ouvert,
+  D815) ; les
+  valeurs marqueurs entrent au référentiel, portées par les
+  écritures de dépôt/solde — **le contrôle d'usage à la validation
+  de l'entité** garde leur emploi (D824 — la date d'opération doit
+  être l'ouverture ou la clôture du compte, l'évaluation au scellé
+  D594) :
 
 ```yaml
 # mapping/cities.yml — le référentiel des valeurs distinctes (D658)
@@ -268,6 +284,39 @@ customers:
   fields:
     city: city                   # la référence résolue par la clé (D654)
 ```
+
+- **le rapprochement interne à la migration** (D812/D821 — le cas
+  1 : les paires de virements) : **en deux phases par le cache nommé
+  de la migration** — la règle d'enregistrement empile
+  (`operations: cache.push(nom, clé, me)`), une **règle de
+  complément** re-parcourt la même source et associe
+  (`liee: cache.pop(nom, clé) if cache.size(nom, clé) > 1` — D822) ;
+  **une pile par clé (FILO)** : la première ligne relue dépile la
+  seconde empilée — son miroir, jamais elle-même ; **la garde
+  `size > 1` écarte l'orphelin** (il ne dépile pas, le champ reste
+  vide — un fait, pas une non-conformité) ; **le miroir reçoit sa
+  référence en retour par l'affectation au chemin** (D823 —
+  `me.liee.liee : me` : le membre gauche navigue et écrit dans
+  l'enregistrement pointé ; l'ordre des affectations compte, le
+  chemin sur le vide est sans effet). Le bloc `operations:` d'une règle = des énoncés du
+  langage exécutés par enregistrement (le `if` postfixe — D364) ; la
+  correspondance ligne → enregistrement de la règle de complément
+  est tenue par la migration (D666/D668) ;
+
+- **la règle sans clé** (D825 — le cas 1 : les écritures, sans
+  identifiant de ligne ni clé composite fiable) : `key:` est
+  optionnelle — **sans elle, la règle est création seule** (jamais
+  de rapprochement, un rejeu dupliquerait) ; **la garde à
+  l'ingestion** : `mode: relative` ou un rejeu sans `reset: true`
+  exigent la clé sur toutes les règles — la règle sans clé n'est
+  admise qu'au tout-ou-rien remis à zéro ;
+
+- **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
+  fichiers au même format = une seule entité (l'union des lignes) ;
+  **la liste des fichiers vit au connecteur** (D819 — le périmètre
+  physique à l'environnement : le dossier, les fichiers, l'encodage,
+  le séparateur ; la liste ou le pattern D806), l'entité source
+  reste purement logique (D652) ; un seul mapping ;
 
 - **les composés par la fonction du type** (D659, validé) : plusieurs
   colonnes source vers un champ cible — la fonction de construction

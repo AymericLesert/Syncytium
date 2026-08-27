@@ -61,7 +61,7 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **la synthèse périodique** | *push*, basse fréquence — le patron du mail des faits marquants (D733/D738) | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) ; les destinataires au degré `administrator` |
 | **l'alerte de dépréciation** | *push*, événementiel, **rare** — le même patron (D738) | **l'appel persistant d'une version dépréciée** (D742 — l'état, jamais une date : le déploiement déclenche la dépréciation ou son intention) ; jamais d'alerte sur le non-usage ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
-| **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logs.yml` par environnement — D342/D343), hors IHM |
+| **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logs.yml` par environnement — D342/D343), hors IHM — **la maîtrise du niveau, des dimensions (taille/rotation — D800) et de la rétention** |
 
 L'exemple du journal (les écritures validées — D743) :
 
@@ -77,6 +77,12 @@ log:
 log:
   level: debug
 ```
+
+*(La maîtrise du journal (D800) : le niveau, **les dimensions** — la
+taille et la rotation des fichiers, la syntaxe à écrire quand le
+domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
+ignorées : renommer un bloc — le suffixe `-disable` du cas 1 — le
+met en sommeil.)*
 
 L'exemple des push (les écritures validées — D743) :
 

@@ -1,0 +1,15 @@
+# La phase 3 (D814/D815) — le montant du solde = la dernière écriture du compte,
+# posée AVANT la clôture : le solde s'enregistre sur le compte encore ouvert (D815).
+# (Les poussières flottantes du legacy s'éteignent au round — D813.)
+
+budget:
+  to: banque.ecriture
+  filter: Budget = "FERMETURE" and montant_signe != 0
+  parent: { compte: Numero_Compte }
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
+    budget:   Budget                    # FERMETURE — le marqueur conservé (D824)
+    montant:  amount(montant_signe, devise_iso)
+    mode:     "autre"

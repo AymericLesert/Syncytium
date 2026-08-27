@@ -944,6 +944,7 @@ Q58) :
 | D815 | **Le solde avant la clôture, le libellé conventionnel** (ordonne D814) : 006_soldes puis 007_clotures — l'écriture du solde se pose sur le compte encore ouvert, la clôture en dernier geste ; les écritures des marqueurs au libellé conventionnel « Dépôt initial » / « Solde de clôture ». | Voir §3.2c. |
 | D816 | **Une entité source, plusieurs fichiers** (simplifie R1) : le storage csv porte une entité sur un ou plusieurs fichiers du même format — l'union des lignes ; file: en liste ou en pattern (D806) ; un seul mapping — les règles dédoublées repliées. | Voir §3.2c. |
 | D817 | **extract actée** (nomme la fonction de D578) : l'extraction du texte par la regex — la capture unique retournée, **plusieurs noms simultanément par les groupes nommés** (D90/D593), les valeurs au point (D772–D773). | Voir §3.2c. |
+| D818 | **like** (renomme le matches de D90/D364) : la comparaison à l'expression régulière s'écrit `like` — `Nature like "^VIREMENT-.*"` ; le fond inchangé, seul le terme change. | Voir §3.2c. |
 
 ---
 
@@ -8254,6 +8255,15 @@ la fonction d'extraction du type texte se nomme **`extract`** :
 - rien de neuf au fond : la famille était acquise (D578 —
   « l'extraction via les regex »), l'idiome aussi (D90 — la regex à
   groupes nommés) ; le nom et la forme sont désormais fixés.
+
+**like — le terme de la comparaison régulière (D818 — renomme le
+matches de D90/D364).** **« Pour une comparaison incluant une
+expression régulière, j'utilise le terme "like" au lieu de
+"matches". »** — l'opérateur du catalogue se nomme **`like`** :
+`Nature like "^VIREMENT-.*"`, et l'exemple de D364 se relit
+`zip_code like "^[0-9]{5}$" if country = "FR"`. Le fond de D90/D364
+est inchangé — la comparaison au pattern regex, conditionnable par
+`if` ; seul le terme change. Les formules du cas 1 sont relues.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16782,6 +16792,9 @@ avant la synthèse Q16).
   (les valeurs au point D593/D772) ; types.md et hooks.md mis au
   niveau. *(La vérification préalable : matches = l'acquis D90/D364
   — mon étiquette « en proposition » corrigée.)*
+- **2026-08-25 (suite 9)** — **like (D818)** : le terme de la
+  comparaison régulière — le matches de D90/D364 se relit ; les
+  formules du cas 1 relues (mode_norme, cheque_norme).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

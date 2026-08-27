@@ -34,11 +34,11 @@ fields:
     formula: >
       iif(Nature = "CB", "cb",
       iif(Nature = "PRELEVEMENT", "prelevement",
-      iif(Nature = "VIREMENT" or Nature matches "^VIREMENT-.*" or Nature = "Guichet", "virement",
-      "autre")))                   # chèques, espèces, liquide, vide… → autre ; matches = l'acquis (D90/D364)
+      iif(Nature = "VIREMENT" or Nature like "^VIREMENT-.*" or Nature = "Guichet", "virement",
+      "autre")))                   # chèques, espèces, liquide, vide… → autre ; like = la comparaison régulière (D818)
 
   cheque_norme:                    # le numéro de chèque nu porté par la Nature
-    formula: iif(Nature matches "^[0-9]+$", Nature, null)
+    formula: iif(Nature like "^[0-9]+$", Nature, null)
 
   reference_virement:              # l'identifiant du miroir (D812) — null hors virement référencé
     formula: extract(Nature, "^VIREMENT-(.*)$")   # extract actée (D578/D817) — la capture unique ;

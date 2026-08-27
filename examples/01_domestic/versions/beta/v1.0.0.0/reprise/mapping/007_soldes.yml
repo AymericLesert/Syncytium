@@ -10,5 +10,6 @@ budget:
     date_operation: Date_Operation
     date_comptable: Date_Comptable
     libelle:  "Solde de clôture"        # le libellé conventionnel (D815)
+    budget:   Budget                    # FERMETURE — le marqueur conservé (D824)
     montant:  amount(montant_signe, devise_iso)
     mode:     "autre"

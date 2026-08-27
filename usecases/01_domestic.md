@@ -255,9 +255,13 @@ empilée), la garde `size > 1` écarte l'orphelin ; **le miroir
 reçoit sa référence en retour par l'affectation au chemin**
 (`me.liee.liee : me` — D823, les deux côtés portés comme au hook
 virer) ; la maison à huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
-Restent en proposition : les écritures de dépôt/solde au mode
-`autre` et au budget vide, la règle des écritures sans clé (le
-reset la rend sans objet).
+Les deux dernières miettes sont soldées (D824) : le mode `autre`
+acté, et **les écritures de dépôt/solde portent les budgets
+marqueurs** — OUVERTURE/FERMETURE entrent au référentiel, leur
+usage gardé par **la validation de l'entité** (la date d'opération
+doit être l'ouverture ou la clôture du compte — l'évaluation au
+scellé D594, l'écriture en proposition). Reste la règle des
+écritures sans clé (le reset la rend sans objet).
 
 ## Les manques relevés
 

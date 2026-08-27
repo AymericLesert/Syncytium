@@ -950,6 +950,7 @@ Q58) :
 | D821 | **Le rapprochement par le cache** (la remise à plat de l'auteur — remplace le match/other de D812) : deux phases — la règle empile (`operations: cache.push(nom, clé, me)`), la règle de complément associe (`liee: cache.pop(nom, clé, me)`) ; une pile par clé (FILO) — chacune dépile son miroir, jamais elle-même ; l'orphelin dépile à vide ; le bloc operations: = des énoncés par enregistrement (le if postfixe D364) ; huit règles 001–008. | Voir §3.2c. |
 | D822 | **La signature du pop corrigée** (corrige D821) : `cache.pop(nom, clé)` — deux paramètres ; la garde de l'orphelin par `cache.size(nom, clé) > 1` (la troisième primitive) ; un seul côté porte la référence — le miroir par la navigation retour (D394/D396). | Voir §3.2c. |
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
+| D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 
 ---
 
@@ -8399,6 +8400,38 @@ pertinente. Et, j'ai proposé un ajustement dans
 - **le chemin sur le vide est sans effet** : la garde `size > 1`
   a laissé `liee` vide (l'orpheline) → `me.liee.liee` ne mène nulle
   part, rien ne s'écrit — l'orpheline reste intacte.
+
+**Les budgets marqueurs conservés — le contrôle à la validation
+(D824 — amende D814, solde les deux miettes de R1).** **« Pour le
+mode "autre", ta proposition me convient. Pour les écritures
+dépôt/solde, nous pouvons conserver "OUVERTURE" et "FERMETURE" mais
+il faut ajouter un contrôle pour éviter d'utiliser ces budgets en
+dehors de la création ou de la fermeture d'un compte. »** —
+consigné :
+
+- **le mode `autre`** des écritures de dépôt et de solde : acté ;
+- **les écritures des marqueurs portent leurs budgets** — OUVERTURE
+  et FERMETURE **entrent au référentiel** (l'exclusion du
+  référentiel de D814 tombe ; l'exclusion du périmètre des écritures
+  courantes demeure — les phases ne bougent pas) ; le « exclus de
+  la liste à sélectionner » de D811 se relit : **le contrôle d'usage
+  remplace l'exclusion** ;
+- **le contrôle = la validation de l'entité** (l'acquis D364, le
+  `if` postfixe) — l'écriture en proposition :
+
+```yaml
+# banque/ecriture/ecriture.yml
+validation:
+  - date_operation = owner.ouverture if budget = "OUVERTURE"
+  - date_operation = owner.cloture   if budget = "FERMETURE"
+```
+
+  — un budget marqueur n'est admis que sur l'écriture datée de
+  l'ouverture (resp. de la clôture) du compte ; la comparaison de
+  la référence à sa clé fonctionnelle (D398) ; **l'évaluation au
+  scellé de la transaction** (D594) rend l'ordre des phases
+  cohérent — la clôture (008) est posée quand le solde (007) se
+  valide.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16957,6 +16990,12 @@ avant la synthèse Q16).
   miroir reçoit la sienne en retour (les deux côtés, l'uniformité
   avec virer) ; l'évaluation séquentielle du bloc fields:, le
   chemin sur le vide sans effet.
+- **2026-08-25 (suite 15)** — **Les budgets marqueurs conservés
+  (D824)** : le mode autre acté ; OUVERTURE/FERMETURE au
+  référentiel, portés par les écritures de dépôt/solde ; le
+  contrôle à la validation de l'entité (la date = l'ouverture ou
+  la clôture du compte, l'évaluation au scellé). **Les deux miettes
+  de R1 sont soldées — reste la règle sans clé (mineure).**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

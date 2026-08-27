@@ -11,3 +11,9 @@ operations: operations.yml
 
 # La déclaration de la présentation graphique
 gui: gui.yml
+
+# Le contrôle des budgets marqueurs (D824) — réservés à la création et à la
+# fermeture du compte ; l'évaluation au scellé de la transaction (D594)
+validation:
+  - date_operation = owner.ouverture if budget = "OUVERTURE"
+  - date_operation = owner.cloture   if budget = "FERMETURE"

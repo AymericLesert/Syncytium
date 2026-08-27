@@ -1,7 +1,8 @@
 # La phase 1, suite (D814) — le montant du dépôt = la première écriture du compte
 # (douze marqueurs à montant réel dans le legacy — les soldes en dépendent)
-# Le budget reste vide (le champ est optionnel — hors des budgets à sélectionner, D811/D814),
-# le libellé conventionnel (D815), le mode autre en proposition.
+# L'écriture porte le budget du marqueur — OUVERTURE au référentiel, l'usage
+# gardé par la validation de l'entité (D824) ; le libellé conventionnel (D815),
+# le mode autre (D824).
 
 budget:
   to: banque.ecriture
@@ -11,5 +12,6 @@ budget:
     date_operation: Date_Operation
     date_comptable: Date_Comptable
     libelle:  "Dépôt initial"          # le libellé conventionnel (D815)
+    budget:   Budget                   # OUVERTURE — le marqueur conservé (D824)
     montant:  amount(montant_signe, devise_iso)   # le constructeur (D659/D813)
     mode:     "autre"

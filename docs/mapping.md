@@ -262,8 +262,11 @@ order_lines:
   solde puis la clôture par FERMETURE en **mise à jour par la clé
   fonctionnelle** D654 — le solde sur le compte encore ouvert,
   D815) ; les
-  valeurs marqueurs s'excluent du périmètre du référentiel (D814
-  relit la piste « inactifs » de D811) :
+  valeurs marqueurs entrent au référentiel, portées par les
+  écritures de dépôt/solde — **le contrôle d'usage à la validation
+  de l'entité** garde leur emploi (D824 — la date d'opération doit
+  être l'ouverture ou la clôture du compte, l'évaluation au scellé
+  D594) :
 
 ```yaml
 # mapping/cities.yml — le référentiel des valeurs distinctes (D658)

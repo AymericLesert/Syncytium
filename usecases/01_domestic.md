@@ -251,9 +251,10 @@ par le cache nommé de la migration : la règle empile
 (`operations: cache.push`), la règle de complément associe
 (`liee: cache.pop(nom, clé) if cache.size(nom, clé) > 1` — D822),
 **le FILO croise les miroirs** (la première relue dépile la seconde
-empilée), la garde `size > 1` écarte l'orphelin ; **un seul côté
-porte la référence** — le miroir par la navigation retour
-(D394/D396) ; la maison à huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
+empilée), la garde `size > 1` écarte l'orphelin ; **le miroir
+reçoit sa référence en retour par l'affectation au chemin**
+(`me.liee.liee : me` — D823, les deux côtés portés comme au hook
+virer) ; la maison à huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
 Restent en proposition : les écritures de dépôt/solde au mode
 `autre` et au budget vide, la règle des écritures sans clé (le
 reset la rend sans objet).

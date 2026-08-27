@@ -949,6 +949,7 @@ Q58) :
 | D820 | **Le mask à la lecture des sources** (étend D383) : la colonne source déclare son masque (`mask: "dd/mm/yyyy"` — les lettres du crochet D382), la valeur hors masque = une non-conformité ; le format: de R1 dissous ; les formats exotiques par D119 (vers_stockage/depuis_stockage). | Voir §3.2c. |
 | D821 | **Le rapprochement par le cache** (la remise à plat de l'auteur — remplace le match/other de D812) : deux phases — la règle empile (`operations: cache.push(nom, clé, me)`), la règle de complément associe (`liee: cache.pop(nom, clé, me)`) ; une pile par clé (FILO) — chacune dépile son miroir, jamais elle-même ; l'orphelin dépile à vide ; le bloc operations: = des énoncés par enregistrement (le if postfixe D364) ; huit règles 001–008. | Voir §3.2c. |
 | D822 | **La signature du pop corrigée** (corrige D821) : `cache.pop(nom, clé)` — deux paramètres ; la garde de l'orphelin par `cache.size(nom, clé) > 1` (la troisième primitive) ; un seul côté porte la référence — le miroir par la navigation retour (D394/D396). | Voir §3.2c. |
+| D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 
 ---
 
@@ -8372,6 +8373,32 @@ liee: cache.pop("virement", reference_virement) if cache.size("virement", refere
   rien déclarer » (D394/D396) ;
 - le triplet (aucun au réel) resterait à écarter en amont — la
   non-conformité de D812 demeure.
+
+**L'affectation au chemin — le miroir reçoit sa référence en retour
+(D823 — amende la conséquence de D822).** Ma remarque sur
+l'asymétrie (les virements repris n'auraient porté `liee` que d'un
+côté, là où `virer` pose les deux) : **« Ta remarque est
+pertinente. Et, j'ai proposé un ajustement dans
+006_ecritures_liees.yml. »** — l'ajustement de l'auteur :
+
+```yaml
+  fields:
+    liee: cache.pop("virement", reference_virement) if cache.size("virement", reference_virement) > 1
+    me.liee.liee : me
+```
+
+— consigné :
+
+- **le membre gauche d'une affectation peut être un chemin** :
+  `me.liee.liee : me` — la règle navigue à travers la référence
+  qu'elle vient de poser et **écrit dans l'enregistrement pointé** ;
+  le miroir reçoit sa référence en retour, **les deux côtés
+  portés** — l'uniformité avec le hook virer rétablie ;
+- **l'ordre des affectations du bloc `fields:` compte** : `liee`
+  d'abord, le chemin ensuite — l'évaluation séquentielle ;
+- **le chemin sur le vide est sans effet** : la garde `size > 1`
+  a laissé `liee` vide (l'orpheline) → `me.liee.liee` ne mène nulle
+  part, rien ne s'écrit — l'orpheline reste intacte.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16925,6 +16952,11 @@ avant la synthèse Q16).
   (D822)** : deux paramètres, la garde par cache.size > 1 ; un seul
   côté porte liee — le miroir par la navigation retour (D394/D396) ;
   la lecture du me retirée.
+- **2026-08-25 (suite 14)** — **L'affectation au chemin (D823)** :
+  me.liee.liee : me — la règle écrit à travers la référence, le
+  miroir reçoit la sienne en retour (les deux côtés, l'uniformité
+  avec virer) ; l'évaluation séquentielle du bloc fields:, le
+  chemin sur le vide sans effet.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

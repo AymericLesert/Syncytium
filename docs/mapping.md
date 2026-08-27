@@ -291,9 +291,11 @@ customers:
   **une pile par clé (FILO)** : la première ligne relue dépile la
   seconde empilée — son miroir, jamais elle-même ; **la garde
   `size > 1` écarte l'orphelin** (il ne dépile pas, le champ reste
-  vide — un fait, pas une non-conformité) ; **un seul côté porte la
-  référence**, le miroir se retrouve par la navigation retour
-  (D394/D396). Le bloc `operations:` d'une règle = des énoncés du
+  vide — un fait, pas une non-conformité) ; **le miroir reçoit sa
+  référence en retour par l'affectation au chemin** (D823 —
+  `me.liee.liee : me` : le membre gauche navigue et écrit dans
+  l'enregistrement pointé ; l'ordre des affectations compte, le
+  chemin sur le vide est sans effet). Le bloc `operations:` d'une règle = des énoncés du
   langage exécutés par enregistrement (le `if` postfixe — D364) ; la
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;

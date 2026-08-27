@@ -3,8 +3,10 @@
 # écritures nées de 005 (la correspondance ligne→enregistrement tenue par la
 # migration — D666/D668). Le FILO croise : la première ligne relue dépile la
 # seconde empilée — son miroir, jamais elle-même ; la garde cache.size > 1
-# écarte l'orphelin (il ne dépile pas — liee reste vide). Un seul côté porte
-# la référence : le miroir se retrouve par la navigation retour (D394/D396, D822).
+# écarte l'orphelin (il ne dépile pas — liee reste vide). L'affectation au
+# chemin repose la référence sur le miroir (me.liee.liee : me — D823) : les
+# deux côtés portés, l'uniformité avec virer ; le chemin sur le vide est sans
+# effet (l'orpheline reste intacte).
 
 budget:
   to: banque.ecriture
@@ -12,3 +14,4 @@ budget:
   parent: { compte: Numero_Compte }   # le possesseur par sa clé fonctionnelle (D654)
   fields:
     liee: cache.pop("virement", reference_virement) if cache.size("virement", reference_virement) > 1
+    me.liee.liee : me

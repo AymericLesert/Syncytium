@@ -946,6 +946,7 @@ Q58) :
 | D817 | **extract actée** (nomme la fonction de D578) : l'extraction du texte par la regex — la capture unique retournée, **plusieurs noms simultanément par les groupes nommés** (D90/D593), les valeurs au point (D772–D773). | Voir §3.2c. |
 | D818 | **like** (renomme le matches de D90/D364) : la comparaison à l'expression régulière s'écrit `like` — `Nature like "^VIREMENT-.*"` ; le fond inchangé, seul le terme change. | Voir §3.2c. |
 | D819 | **Le périmètre physique au connecteur** (amende l'écriture R1 de D816) : la liste des fichiers (ou le pattern) vit dans les parameters du connecteur — le dossier, les fichiers, l'encodage, le séparateur à l'environnement (l'écho D342) ; l'entité source reste purement logique (D652). | Voir §3.2c. |
+| D820 | **Le mask à la lecture des sources** (étend D383) : la colonne source déclare son masque (`mask: "dd/mm/yyyy"` — les lettres du crochet D382), la valeur hors masque = une non-conformité ; le format: de R1 dissous ; les formats exotiques par D119 (vers_stockage/depuis_stockage). | Voir §3.2c. |
 
 ---
 
@@ -8291,6 +8292,16 @@ D816 demeure — une entité sur un ou plusieurs fichiers, l'union des
 lignes ; seule la maison du `file:` change, et elle est la bonne :
 le physique est propre à l'environnement (l'écho D342), la
 description logique voyage avec la version.
+
+**Le mask à la lecture des sources (D820 — étend D383, dissout le
+format: de R1).** **« Pour 2. et 3., c'est mieux. »** — la facette
+`mask` du type date (D383 : possible, le masque de la langue en
+défaut) **pilote aussi la lecture** : la colonne source déclare son
+masque (`mask: "dd/mm/yyyy"` — les lettres du crochet des natures,
+D382), la valeur hors masque = une non-conformité. Ma facette
+`format:` disparaît — l'acquis suffisait. Les formats exotiques
+restent couverts par D119 (la paire vers_stockage/depuis_stockage —
+l'exemple consigné : la date Cegid AAAAMMJJ, le futur cas 3).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16829,6 +16840,9 @@ avant la synthèse Q16).
   attente de sa proposition.** Pour le format des dates : la
   réponse du registre présentée (le mask de D383, le format: en
   proposition se dissout) — l'arbitrage en cours.
+- **2026-08-25 (suite 11)** — **Le mask à la lecture (D820)** :
+  validé (« c'est mieux ») — mask: remplace format: dans la source
+  du cas 1, les lettres du crochet ; types.md mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

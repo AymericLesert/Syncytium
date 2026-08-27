@@ -65,7 +65,7 @@ composants.md.
 | `integer` | les bornes au nom (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **les octets jamais déclarés** — dimensionnés selon les bornes ou les valeurs (« le mode auto ») ; le masque (`000000`, `00 00 00`) ; la recherche `range` | le nul = 0 | D371–D372 |
 | `decimal` | les décimales (le setting ou 2) ; **le stockage exact ou réel** (`storage:` — l'entier aux décimales converties) | le nul = 0 | D376–D378 |
 | `duration` | le masque — **la virgule : l'heure ou la minute en centièmes, l'heure en dix-millièmes** ; les unités `s`/`min`/`h`/`d`/`w`/`m`/`y` (D476) | le nul = 0 | D380, D476 |
-| `date` | **la nature au crochet** : `date[yyyy-mm]`, `date[yyyy-mm-dd]`, `date[yyyy-ww]`… — la plus fine par défaut ; le masque de la langue ; les bornes en littéraux ISO ; `date - date → duration` (D581) | le nul en tête | D381–D383 |
+| `date` | **la nature au crochet** : `date[yyyy-mm]`, `date[yyyy-mm-dd]`, `date[yyyy-ww]`… — la plus fine par défaut ; le masque de la langue (le `mask` déclaré pilote aussi **la lecture des sources** — D820) ; les bornes en littéraux ISO ; `date - date → duration` (D581) | le nul en tête | D381–D383, D820 |
 | `time` | la précision au crochet (`time[hh:mm]`) | le nul en tête | D381 |
 | `datetime` | la nature au crochet : `datetime[raw]` (défaut) \| `datetime[timestamp]` ; la précision en second paramètre | le nul en tête | D381 |
 | `file` | les `extensions` (`[pdf, docx]` ou la forme à libellés `{ pdf: { fr: facture } }` — elle guide le dépôt) ; le `quota` contrôlé à la volée | — | D160–D165, D292, D384 |

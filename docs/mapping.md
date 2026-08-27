@@ -282,12 +282,19 @@ customers:
     city: city                   # la référence résolue par la clé (D654)
 ```
 
-- **le rapprochement interne à la migration** (D812 — le cas 1 : les
-  paires de virements) : un champ de référence se résout **par une
-  clé de rapprochement** entre enregistrements de la migration — la
-  jointure n'est pas une syntaxe, c'est la clé (D655) ; l'absence de
-  miroir est un fait (le champ reste vide), pas une non-conformité
-  (l'écriture en proposition) ;
+- **le rapprochement interne à la migration** (D812/D821 — le cas
+  1 : les paires de virements) : **en deux phases par le cache nommé
+  de la migration** — la règle d'enregistrement empile
+  (`operations: cache.push(nom, clé, me)`), une **règle de
+  complément** re-parcourt la même source et associe
+  (`liee: cache.pop(nom, clé, me)`) ; **une pile par clé (FILO)** :
+  la première ligne relue dépile la seconde empilée — chacune
+  récupère son miroir, jamais elle-même ; l'absence de miroir est un
+  fait (le pop à vide, le champ reste vide), pas une
+  non-conformité. Le bloc `operations:` d'une règle = des énoncés du
+  langage exécutés par enregistrement (le `if` postfixe — D364) ; la
+  correspondance ligne → enregistrement de la règle de complément
+  est tenue par la migration (D666/D668) ;
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;

@@ -1,0 +1,13 @@
+# La phase 2 du rapprochement (D821) — rechercher et associer :
+# la règle de complément re-parcourt les mêmes lignes et pose liee sur les
+# écritures nées de 005 (la correspondance ligne→enregistrement tenue par la
+# migration — D666/D668). Le FILO croise : la première ligne relue dépile la
+# seconde empilée — chacune récupère son miroir, jamais elle-même ; le me du
+# pop garde l'orphelin (le pop à vide laisse liee vide).
+
+budget:
+  to: banque.ecriture
+  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
+  parent: { compte: Numero_Compte }   # le possesseur par sa clé fonctionnelle (D654)
+  fields:
+    liee: cache.pop("virement", reference_virement, me) if reference_virement != null

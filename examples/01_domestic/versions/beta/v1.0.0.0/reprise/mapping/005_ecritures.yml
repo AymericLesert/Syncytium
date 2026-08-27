@@ -2,6 +2,7 @@
 # Pas de clé fonctionnelle naturelle : le mode absolute + reset repart de zéro à
 # chaque passage — le rapprochement au rejeu (D654) est sans objet.
 # Le numéro d'écriture (counter D409) naît au fil de la création : l'ordre du fichier.
+# La règle empile les virements référencés au cache (D821) — la phase 1 du rapprochement.
 
 budget:
   to: banque.ecriture
@@ -17,6 +18,5 @@ budget:
     mode:     mode_norme
     cheque:   cheque_norme
     imprimee: Date_Impression
-    # le miroir du virement (D812) — l'écriture ci-dessous est SUSPENDUE :
-    # la remise à plat annoncée par l'auteur, sa proposition attendue
-    liee:     { match: reference_virement, other: Numero_Compte }
+  operations:
+    cache.push("virement", reference_virement, me) if reference_virement != null

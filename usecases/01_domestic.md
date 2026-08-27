@@ -234,7 +234,7 @@ Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
 format portés par le même connecteur, `file:` en liste (D816), les
 cinq calculés de normalisation (D660) —, `mapping/` en **trois
 phases** (D814 — la phase = la règle filtrée, l'ordre = le préfixe,
-sept règles `001`–`007`) : la phase 1 crée les comptes par le
+huit règles `001`–`008` depuis D821) : la phase 1 crée les comptes par le
 marqueur OUVERTURE et pose l'écriture du dépôt ; la phase 2 porte
 les référentiels et les écritures **hors marqueurs** —
 OUVERTURE/FERMETURE n'entrent pas au référentiel ; la phase 3 pose
@@ -244,14 +244,17 @@ compte encore ouvert, la clôture en dernier geste (D815) ; les
 écritures des marqueurs au libellé conventionnel « Dépôt initial » /
 « Solde de clôture » (D815). **Le libellé de
 la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
-au-delà de 60). Les points encore ouverts : le masque de lecture
-des dates (le `mask` de D383 proposé en place de mon `format:`), le
-`filter:` de règle (l'écho D663), **le rapprochement du miroir —
-remis à plat par l'auteur (sa proposition attendue)**, les écritures
-de dépôt/solde au mode `autre` et au budget vide (le libellé
-conventionnel acté — D815), la règle des écritures sans clé (le
-reset la rend sans objet) ; le `file:` est soldé (D819 — la liste
-des fichiers au connecteur).
+au-delà de 60). **Le morceau R1 est soldé pièce à pièce** : le `file:` au
+connecteur (D819), le `mask` à la lecture (D820), et **le
+rapprochement remis à plat par l'auteur (D821)** — les deux phases
+par le cache nommé de la migration : la règle empile
+(`operations: cache.push`), la règle de complément associe
+(`liee: cache.pop`), **le FILO croise les miroirs** (chacune dépile
+l'autre, jamais elle-même), l'orphelin dépile à vide ; la maison à
+huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
+Restent en proposition : les écritures de dépôt/solde au mode
+`autre` et au budget vide, la règle des écritures sans clé (le
+reset la rend sans objet).
 
 ## Les manques relevés
 

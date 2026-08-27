@@ -947,6 +947,7 @@ Q58) :
 | D818 | **like** (renomme le matches de D90/D364) : la comparaison à l'expression régulière s'écrit `like` — `Nature like "^VIREMENT-.*"` ; le fond inchangé, seul le terme change. | Voir §3.2c. |
 | D819 | **Le périmètre physique au connecteur** (amende l'écriture R1 de D816) : la liste des fichiers (ou le pattern) vit dans les parameters du connecteur — le dossier, les fichiers, l'encodage, le séparateur à l'environnement (l'écho D342) ; l'entité source reste purement logique (D652). | Voir §3.2c. |
 | D820 | **Le mask à la lecture des sources** (étend D383) : la colonne source déclare son masque (`mask: "dd/mm/yyyy"` — les lettres du crochet D382), la valeur hors masque = une non-conformité ; le format: de R1 dissous ; les formats exotiques par D119 (vers_stockage/depuis_stockage). | Voir §3.2c. |
+| D821 | **Le rapprochement par le cache** (la remise à plat de l'auteur — remplace le match/other de D812) : deux phases — la règle empile (`operations: cache.push(nom, clé, me)`), la règle de complément associe (`liee: cache.pop(nom, clé, me)`) ; une pile par clé (FILO) — chacune dépile son miroir, jamais elle-même ; l'orphelin dépile à vide ; le bloc operations: = des énoncés par enregistrement (le if postfixe D364) ; huit règles 001–008. | Voir §3.2c. |
 
 ---
 
@@ -8302,6 +8303,48 @@ D382), la valeur hors masque = une non-conformité. Ma facette
 `format:` disparaît — l'acquis suffisait. Les formats exotiques
 restent couverts par D119 (la paire vers_stockage/depuis_stockage —
 l'exemple consigné : la date Cegid AAAAMMJJ, le futur cas 3).
+
+**Le rapprochement par le cache — les deux phases (D821 — la remise
+à plat de l'auteur, remplace le match/other proposé sous D812).**
+**« Le rapprochement va s'effectuer en 2 phases : 1. Lire toutes
+les écritures et les enregistrer ; 2. Rechercher toutes les
+écritures correspondantes et les associer. »** — et sur la lecture :
+**« j'empile dans un cache l'enregistrement avec la même clé
+(référence du virement). Si une référence de virement existe, la
+première écriture s'enregistre dans un cache, la deuxième écriture
+s'enregistre dans le cache (comme un FILO). »** La proposition
+écrite par l'auteur dans le dépôt :
+
+```yaml
+# 005_ecritures.yml — la phase 1 : enregistrer et empiler
+  operations:
+    cache.push("virement", reference_virement, me) if reference_virement != null
+
+# 006_ecritures_liees.yml — la phase 2 : rechercher et associer
+  fields:
+    liee: cache.pop("virement", reference_virement, me) if reference_virement != null
+```
+
+La lecture consignée :
+
+- **le bloc `operations:` de la règle** — des énoncés du langage
+  exécutés par enregistrement construit (le `if` postfixe = l'acquis
+  D364) ;
+- **le cache nommé de la migration** : `cache.push(nom, clé,
+  valeur)` empile, `cache.pop(nom, clé, me)` dépile — **une pile
+  par clé**, la durée de vie = la migration ;
+- **le FILO fait le miroir** : pour une paire, la première ligne
+  relue dépile la seconde empilée, la seconde dépile la première —
+  **chacune récupère l'autre, jamais elle-même** ; le `me` du pop
+  garde l'orphelin : la pile ne rend pas l'enregistrement lui-même,
+  le pop à vide laisse `liee` vide *(ma lecture du troisième
+  argument — à confirmer)* ;
+- **la règle de complément** : 006 re-parcourt la même source et
+  complète les enregistrements nés de 005 — la correspondance
+  ligne → enregistrement est tenue par la migration (la couverture
+  par enregistrement, D666/D668) ;
+- la maison renumérotée : `006_ecritures_liees`, `007_soldes`,
+  `008_clotures` — huit règles.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16843,6 +16886,14 @@ avant la synthèse Q16).
 - **2026-08-25 (suite 11)** — **Le mask à la lecture (D820)** :
   validé (« c'est mieux ») — mask: remplace format: dans la source
   du cas 1, les lettres du crochet ; types.md mis au niveau.
+- **2026-08-25 (suite 12)** — **Le rapprochement par le cache
+  (D821)** : la remise à plat de l'auteur consignée — les deux
+  phases (empiler à l'enregistrement, dépiler à l'association), le
+  cache nommé à pile par clé, le FILO qui croise les miroirs, la
+  règle de complément ; la maison à huit règles ; mapping.md mis au
+  niveau. Le morceau R1 est complet — restent le mode autre/budget
+  vide des écritures de marqueurs et la règle sans clé (les
+  propositions résiduelles).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

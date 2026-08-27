@@ -17063,6 +17063,15 @@ avant la synthèse Q16).
   consignés, la maison usecases/01_vehicule.md créée. **La suite :
   le morceau 1 du dépôt examples/01_vehicule/ (la racine et
   l'environnement), puis le modèle.**
+- **2026-08-27 (pause)** — La séance s'arrête sur le morceau 1 du
+  projet véhicule écrit (onze fichiers — l'arborescence pleine sur
+  les acquis D799–D810, logs.yml au contrat consigné, smtp none
+  conservé), **en validation**. **La reprise : la validation du
+  morceau 1, puis le morceau 2 — le modèle** (vehicule à la photo
+  et au type, ravitaillement à la quantité en valeur seule,
+  entretien = le journal de vie, le financement aux formules
+  reportées, l'échéancier des révisions à notification). La PR de
+  consolidation sur demande (~5 commits depuis la #37).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -303,6 +303,14 @@ customers:
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;
 
+- **la règle sans clé** (D825 — le cas 1 : les écritures, sans
+  identifiant de ligne ni clé composite fiable) : `key:` est
+  optionnelle — **sans elle, la règle est création seule** (jamais
+  de rapprochement, un rejeu dupliquerait) ; **la garde à
+  l'ingestion** : `mode: relative` ou un rejeu sans `reset: true`
+  exigent la clé sur toutes les règles — la règle sans clé n'est
+  admise qu'au tout-ou-rien remis à zéro ;
+
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;
   **la liste des fichiers vit au connecteur** (D819 — le périmètre

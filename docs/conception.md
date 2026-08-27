@@ -951,6 +951,7 @@ Q58) :
 | D822 | **La signature du pop corrigée** (corrige D821) : `cache.pop(nom, clé)` — deux paramètres ; la garde de l'orphelin par `cache.size(nom, clé) > 1` (la troisième primitive) ; un seul côté porte la référence — le miroir par la navigation retour (D394/D396). | Voir §3.2c. |
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
+| D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
 
 ---
 
@@ -8432,6 +8433,26 @@ validation:
   scellé de la transaction** (D594) rend l'ordre des phases
   cohérent — la clôture (008) est posée quand le solde (007) se
   valide.
+
+**La règle sans clé — création seule, le mode contraint (D825 —
+précise D654/D656, clôt le morceau R1).** **« Je valide, consigne
+la proposition. »** — le constat du réel d'abord : le legacy n'a
+aucun identifiant de ligne, et le quintuple compte + date +
+libellé + débit + crédit n'est pas une clé (**54 doublons, certains
+vus trois fois** — trois « Retrait liquidité » de 20 € le même jour
+sur le même compte). Consigné :
+
+- **`key:` est optionnelle** dans la règle (D656 se précise) ;
+- **sans clé, la règle est « création seule »** : elle sait créer,
+  jamais rapprocher — un rejeu dupliquerait ;
+- **la garde à l'ingestion** : une migration en `mode: relative`,
+  ou un rejeu sans `reset: true`, **exige la clé sur toutes ses
+  règles** — la règle sans clé n'est admise qu'au tout-ou-rien
+  remis à zéro (le cas 1 : `absolute` + `reset: true`) ; le moteur
+  vérifie la combinaison au lieu de la supposer ;
+- **la règle de complément reste valide sans clé** (006) : elle ne
+  crée ni ne rapproche — la correspondance ligne → enregistrement
+  est tenue par la migration (D666/D668).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16996,6 +17017,12 @@ avant la synthèse Q16).
   contrôle à la validation de l'entité (la date = l'ouverture ou
   la clôture du compte, l'évaluation au scellé). **Les deux miettes
   de R1 sont soldées — reste la règle sans clé (mineure).**
+- **2026-08-25 (suite 16)** — **La règle sans clé (D825)** :
+  key: optionnelle, la règle création seule, la garde à
+  l'ingestion (relative/rejeu sans reset exigent la clé) ; le
+  constat du réel : 54 doublons du quintuple, aucune clé naturelle.
+  **LE MORCEAU R1 EST CLOS — quinze décisions (D811–D825), la
+  reprise des données écrite de bout en bout.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

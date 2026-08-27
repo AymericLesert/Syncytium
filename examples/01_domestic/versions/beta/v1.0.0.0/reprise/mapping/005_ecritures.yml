@@ -1,6 +1,7 @@
 # La phase 2 (D814) — les écritures courantes, hors marqueurs
-# Pas de clé fonctionnelle naturelle : le mode absolute + reset repart de zéro à
-# chaque passage — le rapprochement au rejeu (D654) est sans objet.
+# La règle sans clé (D825) — création seule : aucune clé naturelle au legacy
+# (54 doublons du quintuple compte+date+libellé+montant) ; admise car la
+# migration est en absolute + reset — la garde de l'ingestion le vérifie.
 # Le numéro d'écriture (counter D409) naît au fil de la création : l'ordre du fichier.
 # La règle empile les virements référencés au cache (D821) — la phase 1 du rapprochement.
 

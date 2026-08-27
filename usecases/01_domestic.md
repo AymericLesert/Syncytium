@@ -260,8 +260,12 @@ acté, et **les écritures de dépôt/solde portent les budgets
 marqueurs** — OUVERTURE/FERMETURE entrent au référentiel, leur
 usage gardé par **la validation de l'entité** (la date d'opération
 doit être l'ouverture ou la clôture du compte — l'évaluation au
-scellé D594, l'écriture en proposition). Reste la règle des
-écritures sans clé (le reset la rend sans objet).
+scellé D594, l'écriture en proposition). Et la dernière pièce est actée (D825) : **la règle
+sans clé** — `key:` optionnelle, la règle création seule (le réel :
+54 doublons du quintuple, aucune clé naturelle), la garde à
+l'ingestion (`mode: relative` ou le rejeu sans `reset` exigent la
+clé). **Le morceau R1 est clos — quinze décisions (D811–D825), la
+reprise écrite de bout en bout.**
 
 ## Les manques relevés
 

@@ -952,6 +952,7 @@ Q58) :
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
+| D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
 
 ---
 
@@ -8453,6 +8454,35 @@ sur le même compte). Consigné :
 - **la règle de complément reste valide sans clé** (006) : elle ne
   crée ni ne rapproche — la correspondance ligne → enregistrement
   est tenue par la migration (D666/D668).
+
+**Le second projet du cas 1 — la maintenance d'un véhicule, le
+cadrage (D826 — Q59, l'écho D756 : « le domestique : compte
+bancaire, véhicule… »).** L'auteur ouvre **« un projet plus
+simple : la maintenance d'un véhicule »**, sur deux classeurs
+réels — un thermique (le Partner 2015 : 407 pleins, ~300 000 km,
+vendu en 2026) et un électrique (la Zoe 2023 : LOA, 173 charges) —
+**la même maison à six feuilles** (IDENTIFICATION, CONSOMMATION,
+GRAPHIQUE, ENTRETIEN, CREDIT | LOA, BILAN) ; le dossier réel en
+compte dix, de 1992 à 2026. Les neuf arbitrages du cadrage :
+
+1. **multi-véhicules** — « une application multi-véhicule avec dans
+   l'identification une photo et le type de véhicule (thermique ou
+   électrique) » ;
+2. **la quantité en valeur seule** — « l'unité est portée par la
+   colonne (le type de véhicule) et pas par la valeur » : le
+   contre-patron assumé du amount (D771) — deux patrons légitimes ;
+3. **l'entretien = le journal de vie conservé** — les événements
+   sans montant licites, la vente en recette négative ;
+4. **le financement = le tableau d'amortissement aux formules
+   reportées** de la feuille Excel — des calculés déclarés ;
+5. **les révisions = un échéancier déclarant une notification, sur
+   un km ou sur un délai** ;
+6. **le contrôle technique non porté** ;
+7. **le « km prév. » défini par rapport au km total de la LOA** ;
+8. **la reprise par un storage de type xlsx** — « les paramétrages
+   sont à définir » ;
+9. **la maison à part** — usecases/01_vehicule.md et
+   examples/01_vehicule/ (le préfixe 01 : la famille domestique).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -17023,6 +17053,16 @@ avant la synthèse Q16).
   constat du réel : 54 doublons du quintuple, aucune clé naturelle.
   **LE MORCEAU R1 EST CLOS — quinze décisions (D811–D825), la
   reprise des données écrite de bout en bout.**
+- **2026-08-27 — LES PUBLICATIONS FUSIONNÉES, LE PROJET VÉHICULE
+  OUVERT (D826).** La PR #37 (feature/meta-schema → develop, 82
+  commits) et la publication #38 (develop → main, 91 commits — la
+  troisième) créées et fusionnées, les ancêtres vérifiés. Puis le
+  second projet du cas 1 ouvert : **la maintenance d'un véhicule**
+  (D826) — les deux classeurs réels lus (le thermique, l'électrique
+  — la même maison à six feuilles), les neuf arbitrages du cadrage
+  consignés, la maison usecases/01_vehicule.md créée. **La suite :
+  le morceau 1 du dépôt examples/01_vehicule/ (la racine et
+  l'environnement), puis le modèle.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

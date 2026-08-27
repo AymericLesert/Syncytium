@@ -5,6 +5,10 @@ contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
+*Le cas 1 (le domestique) compte un second projet : **la
+maintenance d'un véhicule** — la maison à part
+[01_vehicule.md](01_vehicule.md) (D826).*
+
 ## Le contexte (D758)
 
 - **le foyer** accède au compte bancaire — l'application tourne

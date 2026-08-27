@@ -948,6 +948,7 @@ Q58) :
 | D819 | **Le périmètre physique au connecteur** (amende l'écriture R1 de D816) : la liste des fichiers (ou le pattern) vit dans les parameters du connecteur — le dossier, les fichiers, l'encodage, le séparateur à l'environnement (l'écho D342) ; l'entité source reste purement logique (D652). | Voir §3.2c. |
 | D820 | **Le mask à la lecture des sources** (étend D383) : la colonne source déclare son masque (`mask: "dd/mm/yyyy"` — les lettres du crochet D382), la valeur hors masque = une non-conformité ; le format: de R1 dissous ; les formats exotiques par D119 (vers_stockage/depuis_stockage). | Voir §3.2c. |
 | D821 | **Le rapprochement par le cache** (la remise à plat de l'auteur — remplace le match/other de D812) : deux phases — la règle empile (`operations: cache.push(nom, clé, me)`), la règle de complément associe (`liee: cache.pop(nom, clé, me)`) ; une pile par clé (FILO) — chacune dépile son miroir, jamais elle-même ; l'orphelin dépile à vide ; le bloc operations: = des énoncés par enregistrement (le if postfixe D364) ; huit règles 001–008. | Voir §3.2c. |
+| D822 | **La signature du pop corrigée** (corrige D821) : `cache.pop(nom, clé)` — deux paramètres ; la garde de l'orphelin par `cache.size(nom, clé) > 1` (la troisième primitive) ; un seul côté porte la référence — le miroir par la navigation retour (D394/D396). | Voir §3.2c. |
 
 ---
 
@@ -8345,6 +8346,32 @@ La lecture consignée :
   par enregistrement, D666/D668) ;
 - la maison renumérotée : `006_ecritures_liees`, `007_soldes`,
   `008_clotures` — huit règles.
+
+**La signature du pop corrigée — la garde par size (D822 — corrige
+D821).** **« Pardon, une erreur de type sur cache.pop… il y a 2
+paramètres seulement (nom, clé) — me ne sert pas. »** La
+modification apportée par l'auteur dans le dépôt :
+
+```yaml
+liee: cache.pop("virement", reference_virement) if cache.size("virement", reference_virement) > 1
+```
+
+— consigné :
+
+- **`cache.pop(nom, clé)`** — deux paramètres ; **`cache.size(nom,
+  clé)`** rejoint push et pop — la troisième primitive du cache ;
+- **la garde de l'orphelin par la taille** : `size > 1` — la
+  référence vue une seule fois ne dépile pas, `liee` reste vide
+  (ma lecture du `me` se corrige : c'est la taille de la pile qui
+  garde) ;
+- **un seul côté porte la référence — et c'est suffisant** : la
+  première ligne relue dépile son miroir (le FILO), la seconde ne
+  dépile plus (la taille est retombée à 1 après le pop) ; le miroir
+  se retrouve dans l'autre sens **par la navigation retour de la
+  référence** — « celui qui est pointé y accède en retour, sans
+  rien déclarer » (D394/D396) ;
+- le triplet (aucun au réel) resterait à écarter en amont — la
+  non-conformité de D812 demeure.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16894,6 +16921,10 @@ avant la synthèse Q16).
   niveau. Le morceau R1 est complet — restent le mode autre/budget
   vide des écritures de marqueurs et la règle sans clé (les
   propositions résiduelles).
+- **2026-08-25 (suite 13)** — **La signature du pop corrigée
+  (D822)** : deux paramètres, la garde par cache.size > 1 ; un seul
+  côté porte liee — le miroir par la navigation retour (D394/D396) ;
+  la lecture du me retirée.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

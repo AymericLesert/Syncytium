@@ -287,11 +287,13 @@ customers:
   de la migration** — la règle d'enregistrement empile
   (`operations: cache.push(nom, clé, me)`), une **règle de
   complément** re-parcourt la même source et associe
-  (`liee: cache.pop(nom, clé, me)`) ; **une pile par clé (FILO)** :
-  la première ligne relue dépile la seconde empilée — chacune
-  récupère son miroir, jamais elle-même ; l'absence de miroir est un
-  fait (le pop à vide, le champ reste vide), pas une
-  non-conformité. Le bloc `operations:` d'une règle = des énoncés du
+  (`liee: cache.pop(nom, clé) if cache.size(nom, clé) > 1` — D822) ;
+  **une pile par clé (FILO)** : la première ligne relue dépile la
+  seconde empilée — son miroir, jamais elle-même ; **la garde
+  `size > 1` écarte l'orphelin** (il ne dépile pas, le champ reste
+  vide — un fait, pas une non-conformité) ; **un seul côté porte la
+  référence**, le miroir se retrouve par la navigation retour
+  (D394/D396). Le bloc `operations:` d'une règle = des énoncés du
   langage exécutés par enregistrement (le `if` postfixe — D364) ; la
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;

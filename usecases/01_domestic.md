@@ -249,9 +249,11 @@ connecteur (D819), le `mask` à la lecture (D820), et **le
 rapprochement remis à plat par l'auteur (D821)** — les deux phases
 par le cache nommé de la migration : la règle empile
 (`operations: cache.push`), la règle de complément associe
-(`liee: cache.pop`), **le FILO croise les miroirs** (chacune dépile
-l'autre, jamais elle-même), l'orphelin dépile à vide ; la maison à
-huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
+(`liee: cache.pop(nom, clé) if cache.size(nom, clé) > 1` — D822),
+**le FILO croise les miroirs** (la première relue dépile la seconde
+empilée), la garde `size > 1` écarte l'orphelin ; **un seul côté
+porte la référence** — le miroir par la navigation retour
+(D394/D396) ; la maison à huit règles (`006_ecritures_liees`, `007_soldes`, `008_clotures`).
 Restent en proposition : les écritures de dépôt/solde au mode
 `autre` et au budget vide, la règle des écritures sans clé (le
 reset la rend sans objet).

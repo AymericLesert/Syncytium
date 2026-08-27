@@ -1,0 +1,44 @@
+# L'entité source des écritures du legacy (D652/D653)
+# Deux fichiers, le même format : une seule entité — l'union des lignes (D816).
+# Le marqueur fait foi, pas le fichier : budget.txt porte aussi des comptes clos (D811).
+# Le CSV : point-virgule, Windows-1252, les dates jj/mm/aaaa, le point décimal.
+
+name: budget
+description: Les écritures des comptes du legacy — les fichiers actifs et archivés
+
+# L'exhaustivité : toute colonne couverte ou déclarée ignorée (D648/D657) — ici, tout sert.
+
+fields:
+  Numero_Compte:   text[..23]
+  Date_Operation:  { type: date, mask: "dd/mm/yyyy" }   # le mask (D383/D820) — les lettres du crochet
+  Date_Comptable:  { type: date, mask: "dd/mm/yyyy" }
+  Designation:     text[..100]     # le réel monte à 93 caractères
+  Budget:          text[..30]      # dont les marqueurs OUVERTURE / FERMETURE (D811)
+  Debit:           decimal         # la notation scientifique du legacy se lit (7.629395E-5)
+  Credit:          decimal
+  Nature:          text[..40]      # mixte : CB, PRELEVEMENT, VIREMENT[-<réf>], chèques, espèces…
+  Devise:          enum { E, F }   # le typage en garde (D813) — toute autre valeur = non-conformité
+  Lieu:            text[..30]      # vide sur 3 634 lignes
+  Date_Impression: { type: date, mask: "dd/mm/yyyy" }
+
+  # Les calculés de normalisation (D660) — le mapping les consomme comme des colonnes
+
+  montant_signe:                   # le montant signé, arrondi (D813 — les poussières flottantes)
+    formula: round(iif(Credit != null, Credit, 0) - iif(Debit != null, Debit, 0), 2)
+
+  devise_iso:                      # E/F → les devises du type amount (D771/D813)
+    formula: iif(Devise = "E", "EUR", "FRF")
+
+  mode_norme:                      # la Nature mixte → le mode figé (le cadrage, la réponse 4)
+    formula: >
+      iif(Nature = "CB", "cb",
+      iif(Nature = "PRELEVEMENT", "prelevement",
+      iif(Nature = "VIREMENT" or Nature like "^VIREMENT-.*" or Nature = "Guichet", "virement",
+      "autre")))                   # chèques, espèces, liquide, vide… → autre ; like = la comparaison régulière (D818)
+
+  cheque_norme:                    # le numéro de chèque nu porté par la Nature
+    formula: iif(Nature like "^[0-9]+$", Nature, null)
+
+  reference_virement:              # l'identifiant du miroir (D812) — null hors virement référencé
+    formula: extract(Nature, "^VIREMENT-(.*)$")   # extract actée (D578/D817) — la capture unique ;
+                                                  # les groupes nommés décomposent plusieurs noms au point

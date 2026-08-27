@@ -75,6 +75,7 @@ est une application Syncytium (le patron D666 généralisé).
 | `local` | la création et l'affectation **manuelles** par l'administrateur | pleine |
 | `azure_ad` | **le groupe Syncytium associé à un ou plusieurs groupes AD** — la classe d'authentification récupère les groupes puis leurs utilisateurs (le contrat `directory` D633 : `get_groups`, `get_users_from_group`) | **lecture seule** (l'annuaire est maître) — sauf les propriétés hors annuaire |
 | `sso` | comme le directory | lecture seule — **sans la gestion du mot de passe** |
+| `none` (D759) | **l'utilisateur par défaut** — implicite, au groupe par défaut, le degré `administrator` (le domestique) | n/a — aucun compte à gérer |
 
 Les familles `authentication` (D692) et `directory` (D633)
 **coopèrent** — comme `file` et `storage` (D636) : l'une authentifie,
@@ -115,6 +116,7 @@ user:
     first_name:   { type: text, rgpd: personal }
     last_name:    { type: text, rgpd: personal }
     language:     reference                            # la langue → le fuseau (D217–D225)
+    theme:        reference                            # le thème choisi (D753 — parmi les visibles)
     account_type: enum [technical, internal, customer] # la typologie (D77)
     origin:       reference                            # le connecteur d'authentification (D713)
     status:       enum [active, banned, locked]        # ban (D714), le verrouillage
@@ -288,6 +290,14 @@ actif/passif sont **forcément les mêmes versions de schéma, aux
 mêmes configurations** — la réplication ne traduit jamais entre
 versions. La bascule reste un acte d'exploitation ; le retard
 de synchronisation se surveille (l'alerte D626 au-delà d'un seuil).
+
+**La mise à niveau au chargement (D801)** : au démarrage — et sans
+redémarrage ensuite, la configuration se relisant à chaud —
+l'application rejoint **la version la plus élevée du statut de son
+mode d'exécution** (beta | production) ; la procédure de migration
+de schéma (D673–D679) est le bras du geste. « Être en mesure de
+monter de version sans avoir besoin de redémarrer l'application »
+est un point crucial du projet.
 
 **La déclaration** (D726) — dans `environments/passive.yml` :
 

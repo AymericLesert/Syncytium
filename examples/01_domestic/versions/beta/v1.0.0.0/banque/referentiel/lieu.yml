@@ -1,0 +1,5 @@
+# Le référentiel des lieux (les villes) — la création directe (D355)
+name: lieu
+label: "{libelle}"
+identity: [libelle]
+fields: { libelle: text[..30] }

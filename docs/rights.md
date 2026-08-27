@@ -46,7 +46,8 @@ fields:
 
 La confidentialité irrigue tout : les menus filtrés (D193), l'export
 aux colonnes visibles (D196), les widgets hérités surchargeables
-(Q53), la communication (D393).
+(Q53), la communication (D393) — et jusqu'aux **thèmes** (D753 : un
+objet comme les autres, le choix du profil n'offre que le visible).
 
 ## Les droits d'action (D196, D421–D427)
 
@@ -162,6 +163,11 @@ clé d'unicité (D82). **Les quatre volets à porter** :
    chaque requête (le 401 en défi), le compte technique (D77), pas
    de session ; **la garde du webhook (D642) appelle le même
    `verify`**.
+
+*(Le cinquième volet, né du cas d'usage domestique — **`none`**
+(D759) : aucun défi, aucun secret ; l'utilisateur et le groupe par
+défaut au degré `administrator` — les invariants D699/D712
+pré-remplis, jamais contournés.)*
 
 La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans

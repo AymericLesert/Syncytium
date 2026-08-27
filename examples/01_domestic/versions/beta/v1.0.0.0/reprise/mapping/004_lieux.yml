@@ -1,0 +1,9 @@
+# La phase 2, le préalable (D814) — le référentiel des lieux (D658)
+
+budget:
+  to: banque.lieu
+  distinct: [Lieu]
+  filter: Lieu != null           # la valeur vide ne fait pas un lieu — 3 634 lignes sans lieu
+  key: Lieu
+  fields:
+    libelle: Lieu

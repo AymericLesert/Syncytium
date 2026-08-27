@@ -227,9 +227,29 @@ Le parent déclare le lien vers l'enregistrement d'une autre entité pour marque
 Dans Syncytium, la navigation entre le parent et l'enfant est conservée et permet depuis l'enfant d'accéder à son ou ses parents sans déclaration complémentaire.
 *Ex. : `advisor: hr.employee`.* *(D394/D396)*
 
+**Release-notes** (`release-notes:`) — Le cadre des évolutions
+apportées par une version, porté par `version.yml`. L'historique
+complet s'assemble par concaténation des release-notes des versions
+antérieures jusqu'à la courante — pas de fichier unique à maintenir.
+*(D808)*
+
 **Ressources** (`resources/`) — Le dossier des images de la
-description : logos, icônes, fonds — partagés par toutes les versions. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...)
-*(D346)*
+description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).
+Le dossier est **versionné** — il vit dans la version, déclaré par
+`version.yml` (« un jeu d'icônes, des templates de fichiers…
+dépendent de la version d'exécution »). La fiche d'une ressource :
+`name`, `description`, `file`, `credit:` — le crédit des éléments
+tiers, par courtoisie.
+*(D346, amendé par D803)*
+
+**Style** — Le cadre technique du rendu, fourni par Syncytium (« au
+même titre que les composants graphiques, Syncytium propose un ou
+plusieurs styles ») ou apporté par un hook de style — la sixième
+famille. Porté par le langage de Syncytium ; pour le Web, la
+représentation HTML des types (le hook d'affichage) est complétée
+par un CSS3 — la structure d'un côté, la présentation de l'autre.
+La structure des styles ne se généralise pas forcément.
+*(D752, D754–D755)*
 
 **Surface** ou Facette d'une entité ou composant graphique élaboré pour une entité — Un écran généré et nommé : la liste, le formulaire, le
 widget de résumé, le widget de synthèse. *(Q48)*
@@ -242,6 +262,15 @@ métier : une à plusieurs personnes le portent. Le technicien est celui qui por
 **Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
 chronologique — réglable là où plusieurs ordres se défendent.
 *Ex. : `sort: natural` — item2 avant item10.* *(D125/D380)*
+
+**Thème** (`themes/`, `themes.yml`) — Une combinaison de styles,
+assemblée et surchargée : la marque (la société, le logo —
+`resources/`), les couleurs, les fontes. L'application en propose
+plusieurs ; **l'utilisateur choisit le sien via son profil** (comme
+sa langue) ; le thème est **un objet comme les autres, avec les
+droits** (la confidentialité — le choix n'offre que le visible). Le
+premier déclaré est le défaut.
+*Ex. : `themes: [classic, dark, durand]`.* *(D63, D752–D755)*
 
 **Type** (`type`) — Le contrat d'un champ : ce qu'il accepte, comment
 il se stocke, s'affiche et se cherche. Le nom suffit — un type du

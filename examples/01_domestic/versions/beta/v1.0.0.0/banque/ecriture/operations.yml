@@ -1,0 +1,15 @@
+dupliquer:                   # la duplication entre deux dates (D774/D797)
+  label: { fr: Dupliquer }
+  form: duplication          # le pas + du/au (D775 — la validation est l'opération)
+  commit: confirm            # la relecture : nb_creations (D598)
+propager:                    # les similaires (D774)
+  label: { fr: Propager }
+  form: propagation          # le nouveau libellé/montant → liste → sélection → masse
+  commit: confirm
+virer:                       # les deux écritures liées
+  label: { fr: Virer }
+  form: virement             # le compte cible, le montant
+  commit: confirm
+creer_releve:                # la tâche de génération (D794/D796)
+  when: generated            # l'événement du socle — toute génération
+  commit: auto               # pose imprimee sur les écritures générées

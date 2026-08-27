@@ -5,7 +5,6 @@
 
 name: budget
 description: Les écritures des comptes du legacy — les fichiers actifs et archivés
-file: [budget.txt, budget-clos.txt]   # un ou plusieurs fichiers (D816) — la liste ou le pattern (D806)
 
 # L'exhaustivité : toute colonne couverte ou déclarée ignorée (D648/D657) — ici, tout sert.
 

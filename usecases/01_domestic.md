@@ -244,12 +244,14 @@ compte encore ouvert, la clôture en dernier geste (D815) ; les
 écritures des marqueurs au libellé conventionnel « Dépôt initial » /
 « Solde de clôture » (D815). **Le libellé de
 la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
-au-delà de 60). Les écritures en proposition à arbitrer : `file:`
-de l'entité source, `format:` des dates, le `filter:` de règle (l'écho
-D663), le `match`/`other` du miroir, les écritures de dépôt/solde
-au mode `autre` et au budget vide (le libellé conventionnel acté —
-D815), la règle des écritures sans clé
-(le reset la rend sans objet).
+au-delà de 60). Les points encore ouverts : le masque de lecture
+des dates (le `mask` de D383 proposé en place de mon `format:`), le
+`filter:` de règle (l'écho D663), **le rapprochement du miroir —
+remis à plat par l'auteur (sa proposition attendue)**, les écritures
+de dépôt/solde au mode `autre` et au budget vide (le libellé
+conventionnel acté — D815), la règle des écritures sans clé (le
+reset la rend sans objet) ; le `file:` est soldé (D819 — la liste
+des fichiers au connecteur).
 
 ## Les manques relevés
 

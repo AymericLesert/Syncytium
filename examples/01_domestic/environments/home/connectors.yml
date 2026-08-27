@@ -20,4 +20,4 @@ legacy:
     directory: ${SYNCYTIUM_LEGACY_DIRECTORY}   # le chemin hors dépôt (D321)
     encoding: windows-1252
     separator: ";"
-
+    file: [budget.txt, budget-clos.txt]   # un ou plusieurs fichiers (D816) — la liste ou le pattern (D806)

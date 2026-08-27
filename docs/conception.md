@@ -945,6 +945,7 @@ Q58) :
 | D816 | **Une entité source, plusieurs fichiers** (simplifie R1) : le storage csv porte une entité sur un ou plusieurs fichiers du même format — l'union des lignes ; file: en liste ou en pattern (D806) ; un seul mapping — les règles dédoublées repliées. | Voir §3.2c. |
 | D817 | **extract actée** (nomme la fonction de D578) : l'extraction du texte par la regex — la capture unique retournée, **plusieurs noms simultanément par les groupes nommés** (D90/D593), les valeurs au point (D772–D773). | Voir §3.2c. |
 | D818 | **like** (renomme le matches de D90/D364) : la comparaison à l'expression régulière s'écrit `like` — `Nature like "^VIREMENT-.*"` ; le fond inchangé, seul le terme change. | Voir §3.2c. |
+| D819 | **Le périmètre physique au connecteur** (amende l'écriture R1 de D816) : la liste des fichiers (ou le pattern) vit dans les parameters du connecteur — le dossier, les fichiers, l'encodage, le séparateur à l'environnement (l'écho D342) ; l'entité source reste purement logique (D652). | Voir §3.2c. |
 
 ---
 
@@ -8264,6 +8265,32 @@ expression régulière, j'utilise le terme "like" au lieu de
 `zip_code like "^[0-9]{5}$" if country = "FR"`. Le fond de D90/D364
 est inchangé — la comparaison au pattern regex, conditionnable par
 `if` ; seul le terme change. Les formules du cas 1 sont relues.
+
+**Le périmètre physique au connecteur — file: déplacé (D819 —
+amende l'écriture R1 de D816).** **« La propriété "file:" n'est pas
+au bon endroit. J'ai décalé la liste des fichiers dans la
+déclaration du connecteur legacy. »** — la retouche faite par
+l'auteur dans le dépôt :
+
+```yaml
+# environments/home/connectors.yml
+legacy:
+  type: storage
+  class: csv
+  parameters:
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+    file: [budget.txt, budget-clos.txt]   # la liste — ou le pattern (D806)
+```
+
+— **le connecteur porte tout le périmètre physique** (le dossier,
+les fichiers, l'encodage, le séparateur) ; **l'entité source reste
+purement logique** (name, description, fields — D652). Le fond de
+D816 demeure — une entité sur un ou plusieurs fichiers, l'union des
+lignes ; seule la maison du `file:` change, et elle est la bonne :
+le physique est propre à l'environnement (l'écho D342), la
+description logique voyage avec la version.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -16795,6 +16822,13 @@ avant la synthèse Q16).
 - **2026-08-25 (suite 9)** — **like (D818)** : le terme de la
   comparaison régulière — le matches de D90/D364 se relit ; les
   formules du cas 1 relues (mode_norme, cheque_norme).
+- **2026-08-25 (suite 10)** — **file: au connecteur (D819)** : le
+  périmètre physique à l'environnement, l'entité source purement
+  logique — la retouche de l'auteur consignée. **Le rapprochement
+  du miroir (D812) : la remise à plat annoncée par l'auteur — en
+  attente de sa proposition.** Pour le format des dates : la
+  réponse du registre présentée (le mask de D383, le format: en
+  proposition se dissout) — l'arbitrage en cours.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

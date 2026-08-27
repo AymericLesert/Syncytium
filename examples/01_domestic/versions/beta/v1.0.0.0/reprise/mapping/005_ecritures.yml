@@ -17,6 +17,6 @@ budget:
     mode:     mode_norme
     cheque:   cheque_norme
     imprimee: Date_Impression
-    # le miroir du virement (D812) — la clé de rapprochement (l'écriture en proposition) :
-    # la même référence extraite, sur un autre compte ; l'absence de miroir laisse vide
+    # le miroir du virement (D812) — l'écriture ci-dessous est SUSPENDUE :
+    # la remise à plat annoncée par l'auteur, sa proposition attendue
     liee:     { match: reference_virement, other: Numero_Compte }

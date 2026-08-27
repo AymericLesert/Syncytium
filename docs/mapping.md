@@ -290,9 +290,11 @@ customers:
   (l'écriture en proposition) ;
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
-  fichiers au même format = une seule entité (l'union des lignes) —
-  `file:` en liste ou en pattern (D806) sur le storage csv ; un seul
-  mapping ;
+  fichiers au même format = une seule entité (l'union des lignes) ;
+  **la liste des fichiers vit au connecteur** (D819 — le périmètre
+  physique à l'environnement : le dossier, les fichiers, l'encodage,
+  le séparateur ; la liste ou le pattern D806), l'entité source
+  reste purement logique (D652) ; un seul mapping ;
 
 - **les composés par la fonction du type** (D659, validé) : plusieurs
   colonnes source vers un champ cible — la fonction de construction

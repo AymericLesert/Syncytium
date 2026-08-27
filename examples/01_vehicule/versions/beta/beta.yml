@@ -1,0 +1,7 @@
+# Les versions éligibles au mode beta
+
+environment: home              # pas de déclaration orpheline (D805)
+
+# Le pattern regex des versions (D806) — le standard que le projet se fixe
+versions:
+  - v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml

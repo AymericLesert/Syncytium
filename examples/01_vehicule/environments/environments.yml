@@ -1,0 +1,4 @@
+# Déclaration des environnements d'exécution
+# Un seul environnement : le poste du foyer (le patron du cas 1 — D799)
+
+home: home/home.yml

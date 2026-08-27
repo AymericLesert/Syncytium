@@ -1,0 +1,15 @@
+# Le cas 1 bis — la maintenance des véhicules du foyer (Q59/D826)
+# L'entrée du projet (D767) : la déclaration fait foi, rien ne se déduit de l'arborescence.
+
+# Identification et description du projet
+
+name: vehicule
+description: Suivi et maintenance des véhicules du foyer
+
+# Liste des environnements d'exécution
+
+environments: environments/environments.yml
+
+# Liste des versions de l'application
+
+versions: versions/versions.yml

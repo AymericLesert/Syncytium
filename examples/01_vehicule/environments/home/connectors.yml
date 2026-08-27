@@ -1,0 +1,16 @@
+# le natif du domestique (D729)
+database:
+  type: storage
+  class: sqlite
+
+# « pas de secrets dans la famille » (D759)
+authentication:
+  class: none
+
+# le mail muet, assumé (D763) — les notifications de l'échéancier (D826)
+# restent dans l'application ; à revoir si le mail devient utile
+smtp:
+  class: none
+
+# le legacy de la reprise viendra ici : le storage de type xlsx (D826 —
+# les paramétrages à définir au morceau de la reprise)

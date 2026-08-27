@@ -1,0 +1,8 @@
+# La journalisation — le contrat consigné (D737/D743/D750/D800)
+# Le fichier texte, la maîtrise du niveau et de la rétention ;
+# les dimensions (taille/rotation) : la syntaxe à écrire quand le domaine s'ouvrira.
+
+log:
+  level: info              # verbose | debug | info | warning | error | exception
+  output: file:${SYNCYTIUM_LOG_DIRECTORY}
+  retention: 90d

@@ -131,7 +131,7 @@ Les observations sur le réel (la matière du mapping — D646+) :
 ## La forme — le dépôt
 
 Le dépôt vit dans
-[`examples/01_domestic/`](../examples/01_domestic/) — écrit morceau
+[`examples/02_banque/`](../examples/02_banque/) — écrit morceau
 par morceau (le protocole D457/D756), chaque morceau validé par
 l'auteur.
 

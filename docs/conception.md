@@ -17072,6 +17072,15 @@ avant la synthèse Q16).
   entretien = le journal de vie, le financement aux formules
   reportées, l'échéancier des révisions à notification). La PR de
   consolidation sur demande (~5 commits depuis la #37).
+- **2026-08-29** — **examples/01_domestic renommé examples/02_banque**
+  (le geste de l'auteur) : les exemples se numérotent **par projet,
+  du plus simple au plus riche** (01_vehicule, 02_banque) — une
+  numérotation propre aux exemples, distincte de celle des cas
+  d'usage (usecases/01_domestic.md couvre les deux projets
+  domestiques ; 02_sales_collection reste le cas 2 de D756). Le
+  nommage libre (D807) — le geste sans décision nouvelle ; le lien
+  d'usecases mis à jour, les mentions du journal restent
+  historiques.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

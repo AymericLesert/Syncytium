@@ -326,7 +326,11 @@ ultérieure du moteur).
 **Le contrat par famille (D605/D620)** : « chaque famille a ses
 propres méthodes et fonctions » — la famille contraint le contrat, la
 conformité de la classe se vérifie au chargement. **Et le socle
-commun d'abord** (D621–D630) : toute classe implémente
+commun d'abord** (D621–D630) : toute classe reçoit **sa déclaration
+entière à l'initialisation** — les `parameters:`, les `secrets:` et,
+pour les storages sources, **la carte `entities:`** (D828/D829 — le
+mapping entités ↔ fichiers ; optionnelle, les familles sans fichiers
+l'ignorent) ; toute classe implémente
 `initialize`/`release`, `connect`/`disconnect`, `ping()` (le statut
 error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et

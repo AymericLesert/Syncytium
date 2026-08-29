@@ -955,6 +955,7 @@ Q58) :
 | D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
 | D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
 | D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
+| D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
 
 ---
 
@@ -8538,6 +8539,24 @@ legacy:
 - **la réciprocité vérifiable à l'ingestion** : une entité déclarée
   au connecteur sans description dans source/, ou l'inverse, est
   une déclaration orpheline (l'esprit D805).
+
+**La carte au contrat du hook de connecteur (D829 — complète D828,
+précise D621/D685).** **« Le hook de connecteur doit être adapté
+pour avoir l'information entities qui correspond aux mappings entre
+les entités et les fichiers. »** — consigné :
+
+- **la classe reçoit sa déclaration entière à l'initialisation** :
+  les `parameters:`, les `secrets:` — et désormais **la carte
+  `entities:`** (D828) pour les classes qui portent des sources
+  (csv, xlsx…) ; la carte est optionnelle au contrat — les familles
+  qui ne lisent pas de fichiers l'ignorent ;
+- **`read_instance` s'appuie sur la carte** (D685 se précise) : les
+  items de stockage retournés = **les entités déclarées** — le
+  fichier n'est jamais un item, il n'est que le rangement (l'écho
+  D816) ;
+- **la lecture d'une entité parcourt l'union de ses fichiers**, dans
+  l'ordre de la liste — le curseur (D689) enchaîne les fichiers de
+  façon transparente.
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -17147,6 +17166,10 @@ avant la synthèse Q16).
   l'option A validée à la variante près — entities: au même niveau
   que parameters: ; le connecteur de la banque relu, mapping.md,
   connectors.md et usecases au niveau.
+- **2026-08-29 (suite 4)** — **La carte au contrat du hook (D829)** :
+  la classe reçoit entities: à l'initialisation, read_instance
+  retourne les entités déclarées, le curseur enchaîne l'union des
+  fichiers ; hooks.md et connectors.md mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

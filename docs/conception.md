@@ -953,6 +953,7 @@ Q58) :
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
 | D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
+| D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
 
 ---
 
@@ -8483,6 +8484,26 @@ compte dix, de 1992 à 2026. Les neuf arbitrages du cadrage :
    sont à définir » ;
 9. **la maison à part** — usecases/01_vehicule.md et
    examples/01_vehicule/ (le préfixe 01 : la famille domestique).
+
+**Un cas d'usage = un exemple — l'alignement des maisons (D827 —
+amende la numérotation de D756/D757).** **« Il faut adapter aussi
+les usecases pour être aligné : 1 usecase = 1 exemple. »** — et
+l'ordre est celui de la simplicité : **« La gestion des véhicules
+est plus simple que la gestion du compte en banque. »** Les maisons
+s'alignent par le préfixe, des deux côtés :
+
+- `01_vehicule` (usecases + examples) — le plus simple ;
+- `02_banque` (usecases + examples — l'ex-01_domestic) ;
+- `03_sales_collection`, `04_cegid_conversion`,
+  `05_project_management`, `06_meal_delivery` — les suivants
+  décalés d'un cran, leurs exemples à venir porteront les mêmes
+  préfixes.
+
+L'échelle de D756 (cinq cas du simple au complexe) devient **six
+maisons** : le domestique se dédouble en deux projets ; le fond de
+D756 est inchangé, les titres des cas se relisent (le cas 1 = le
+véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
+initiale).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -17081,6 +17102,13 @@ avant la synthèse Q16).
   nommage libre (D807) — le geste sans décision nouvelle ; le lien
   d'usecases mis à jour, les mentions du journal restent
   historiques.
+- **2026-08-29 (suite 2)** — **Un cas d'usage = un exemple
+  (D827)** : les usecases renommés et renumérotés (01_vehicule,
+  02_banque — l'ex-01_domestic, 03_sales_collection,
+  04_cegid_conversion, 05_project_management, 06_meal_delivery),
+  les titres relus — six maisons alignées sur les exemples, l'ordre
+  de la simplicité confirmé (« la gestion des véhicules est plus
+  simple que la gestion du compte en banque »).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

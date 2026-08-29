@@ -1,7 +1,8 @@
-# Le cas 1 bis — les applications domestiques : la maintenance d'un véhicule
+# Le cas 1 — les applications domestiques : la maintenance d'un véhicule
 
-*Le second projet du domestique (D756 : « compte bancaire,
-véhicule… ») — la maison à part (D826). Le cadre du cas : le
+*Le premier projet du domestique (D756 : « compte bancaire,
+véhicule… ») — le plus simple de l'échelle, la maison alignée un
+cas = un exemple (D826/D827). Le cadre du cas : le
 contexte, les données réelles, les arbitrages, **la forme** (le
 dépôt `examples/01_vehicule/` écrit pour de vrai) et **les manques**
 (chaque frottement devient une décision). Les décisions citées

@@ -75,10 +75,68 @@ Les deux classeurs partagent la structure, aux unités près :
 
 ## La forme — le dépôt
 
-*(à écrire morceau par morceau — le protocole D457/D756, comme le
+*(écrit morceau par morceau — le protocole D457/D756, comme le
 compte bancaire : la racine et l'environnement, le modèle, les
 opérations, les surfaces, la reprise)*
+
+- **le morceau 1 — la racine et l'environnement** (validé) : onze
+  fichiers sur les acquis D799–D810, `logging.yml` (D830),
+  `authentication: none` (D759), `smtp: none` (D763) ;
+- **le morceau 2 — le modèle** (en validation) : le module
+  **`garage`** (le nommage libre D807 — il évite le triple
+  `vehicule/vehicule/vehicule.yml` de l'éponymie) aux cinq
+  entités, les formules reportées du classeur colonne par colonne :
+  - **`vehicule`** — l'IDENTIFICATION (nom, immatriculation, photo
+    `image` = le visage D386, le type thermique|électrique qui
+    porte l'unité, `km_initial` = le compteur au retrait), le
+    financement à plat (comptant|credit|loa, capital, taux,
+    assurance, mensualité, durée, première échéance, `km_annuel`
+    de la LOA), les quatre compositions, et **le BILAN tout
+    calculé** (compteurs, totaux, prix de revient — 0,249 €/km) ;
+  - **`ravitaillement`** — la CONSOMMATION : date, `total_km`
+    saisi, la quantité en **valeur seule** (D826), et les calculés
+    du classeur : `nb_jours`/`km` par différence avec **le
+    précédent** (le plus grand compteur inférieur au mien —
+    l'argmax s'évite : les kilomètres croissent), `prix_total =
+    quantité × prix unitaire`, la consommation aux 100 km, le
+    `km_prevu` de la LOA (le cumul du douzième du forfait annuel
+    par ligne — l'approximation du classeur reportée) ;
+  - **`entretien`** — le journal de vie : montant optionnel,
+    l'achat en première ligne, la vente en négatif (−2 477) ;
+  - **`revision`** — la règle de l'échéancier seule (pas en km OU
+    en délai) : les révisions faites restent des lignes du journal,
+    la notification = le hook du morceau 3 ;
+  - **`echeance`** — la ligne CREDIT|LOA : **engendrée par
+    l'opération du morceau 3** (le patron `creer_releve`), les
+    formules riches (mensualité constante, intérêt = reste × taux
+    périodique) dans le hook générateur — la seule saisie de la
+    vie courante : la coche « Payé » ; le reste dû calculé selon
+    le mode.
 
 ## Les manques relevés
 
 *(chaque frottement deviendra une décision)*
+
+1. **le `.select` des énumérés** — `type.select(thermique:
+   "litres", electrique: "kWh")`, `financement.select(credit: …,
+   loa: …, comptant: …)` : la généralisation aux `enum` du
+   `.select` né de `amount.currency` (D771–D773) — à trancher ;
+2. **le précédent sans précédent** — le premier ravitaillement
+   oblige `iif(exists(…), …, total_km - owner.km_initial)` : la
+   valeur de l'agrégat sur le vide (ou un `coalesce`) rendrait la
+   formule douce — à trancher ;
+3. **le max scalaire** — `km_courant = max(ravitaillements.max,
+   entretiens.max)` s'écrit en `iif` : suffisant, noté ;
+4. **la division d'`amount`** — les prix de revient divisent un
+   montant par un entier ou des jours (`cout_total / km_total`,
+   `/ nb_jours.days`) : D581 donne `amount * decimal`, la division
+   à confirmer ; les sous-items du `duration` (`nb_jours.days`)
+   s'appuient sur D772–D773 ;
+5. **l'engendrement de l'échéancier** — les lignes calculées d'un
+   paramétrage : l'opération-hook (le patron banque, retenu ici)
+   plutôt qu'une « collection calculée » en grammaire — à valider ;
+6. **le libellé dynamique de la colonne quantité** (litres | kWh
+   selon le véhicule) — le champ `unite` est prêt, la surface le
+   consommera au morceau 4 ;
+7. **la notification des révisions** (D826) — la déclaration vécue
+   au morceau 3 : le hook au fil des ravitaillements et du temps.

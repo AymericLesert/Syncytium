@@ -1,0 +1,11 @@
+# Le véhicule — la feuille IDENTIFICATION + le BILAN (tout calculé, D826)
+name: vehicule
+label: "{nom}"                       # le visage texte ; la photo = le visage image (D386)
+identity: [nom]                      # le classeur = le nom (« Partner Outdoor », « Renault ZOE »)
+
+# La liste des champs de l'entité — l'éclatement libre (D767)
+fields: fields.yml
+
+# Une vente ne précède pas l'achat
+validation:
+  - date_vente >= date_achat if date_vente != null

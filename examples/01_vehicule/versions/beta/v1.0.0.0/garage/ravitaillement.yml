@@ -1,0 +1,30 @@
+# Le ravitaillement — la feuille CONSOMMATION (le plein ou la charge)
+# Les calculés reportent les formules du classeur, colonne par colonne.
+name: ravitaillement
+label: "${name}"
+fields:
+  numero: counter                    # le compteur auto (D409) — masqué aux surfaces
+  date:     { type: date, required: true, searchable: range }
+  total_km: { type: integer[0..], required: true }      # le compteur du tableau de bord (saisi)
+  quantite: { type: decimal, required: true }           # la valeur seule (D826) — litres ou kWh selon owner.unite
+  prix_unitaire: { type: amount, currencies: [EUR, FRF] }
+  # H = F × G — le total calculé du classeur
+  prix_total: { type: amount, currencies: [EUR, FRF], formula: quantite * prix_unitaire }
+  prix_total_euro:
+    type: amount
+    currencies: [EUR]
+    formula: prix_total.currency.select(EUR: prix_total, FRF: amount(prix_total.value / 6.55957, EUR))
+  # les colonnes au précédent — le précédent = le plus grand compteur inférieur au mien
+  # (les kilomètres croissent, l'argmax s'évite : max(date si total_km < me.total_km) EST sa date)
+  nb_jours: { type: duration, formula: date - owner.ravitaillements.max(date if total_km < me.total_km) }   # A = B(n) − B(n−1)
+  km:                                                   # E = D(n) − D(n−1) ; le premier part du compteur au retrait
+    type: integer
+    formula: iif(owner.ravitaillements.exists(total_km < me.total_km), total_km - owner.ravitaillements.max(total_km if total_km < me.total_km), total_km - owner.km_initial)
+  consommation: { type: decimal, formula: 100 * quantite / km }   # I = 100 × F / E — aux 100 km
+  # C = C4/12 + C(n−1) — le « km prév. » : le cumul du douzième du forfait annuel,
+  # une ligne = un mois (l'approximation du classeur, reportée telle quelle) ;
+  # km_annuel nul (thermique, comptant) → la colonne reste nulle
+  km_prevu: { type: decimal, formula: owner.ravitaillements.count(total_km <= me.total_km) * owner.km_annuel / 12 }
+validation:
+  - date >= owner.date_achat
+  - total_km >= owner.km_initial

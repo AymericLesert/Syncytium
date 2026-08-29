@@ -12,6 +12,7 @@ release-notes: >
   # Description de la reprise des classeurs historiques
 
 # Déclaration des modules
-# Le module viendra au morceau 2 (le modèle)
+# Pour l'exemple, nous n'avons qu'un seul module
 
-modules: []
+modules:
+  - garage/garage.yml

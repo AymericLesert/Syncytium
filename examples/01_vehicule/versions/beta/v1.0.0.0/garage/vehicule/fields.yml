@@ -1,0 +1,55 @@
+# --- l'identification (la feuille IDENTIFICATION) ---
+nom:             text[..40]
+immatriculation: text[..12]          # AA-999-AA et les formats anciens — pas de masque unique
+photo:           image[512x512]      # le visage porté par l'image (D386), la vignette automatique
+type:                                # l'unité vit ici, pas dans la valeur (D826)
+  type: enum
+  required: true
+  values:
+    thermique:  { label: { fr: Thermique } }
+    electrique: { label: { fr: Électrique } }
+# l'unité de la quantité, dérivée du type — le .select des énumérés (cf. les manques)
+unite:      { type: text, formula: type.select(thermique: "litres", electrique: "kWh") }
+mode_achat: text[..40]               # « Acheté concessionnaire », « Acheté en LOA »
+lieu_achat: text[..60]
+date_achat: { type: date, required: true }
+date_vente: date                     # optionnelle — la vente ou la restitution
+actif:      { formula: date_vente = null }
+km_initial: { type: integer[0..], required: true }   # le compteur au retrait (4, 39)
+
+# --- le financement (la feuille CREDIT | LOA) ---
+financement:
+  type: enum
+  values:
+    comptant: { label: { fr: Comptant } }
+    credit:   { label: { fr: Crédit } }
+    loa:      { label: { fr: LOA } }
+capital:             { type: amount, currencies: [EUR, FRF] }   # crédit — 24 500
+taux_annuel:         percentage                                 # crédit — 6,187
+assurance_mensuelle: { type: amount, currencies: [EUR, FRF] }   # crédit — 34,40
+mensualite:          { type: amount, currencies: [EUR, FRF] }   # LOA — 434,48 ; crédit : reportée aux échéances
+duree_echeances:     integer[0..]                               # 60, 36
+premiere_echeance:   date
+km_annuel:           integer[0..]                               # LOA — 23 000 km/an (le « km prév. »)
+
+# --- les compositions (D399) — le grain d'écriture ---
+ravitaillements: list of ravitaillement
+entretiens:      list of entretien
+revisions:       list of revision       # l'échéancier des règles (D826)
+echeances:       list of echeance       # engendrées par l'opération (le morceau 3)
+
+# --- le bilan (la feuille BILAN) — tout calculé, les formules du réel ---
+km_courant:       { type: integer, formula: iif(entretiens.max(km) > ravitaillements.max(total_km), entretiens.max(km), ravitaillements.max(total_km)) }
+nb_jours:         { type: duration, formula: ravitaillements.sum(nb_jours) }          # 3 789 jours
+km_total:         { type: integer, formula: ravitaillements.sum(km) }                 # 300 460 km
+quantite_totale:  { type: decimal, formula: ravitaillements.sum(quantite) }           # 17 755,77 litres
+conso_moyenne:    { type: decimal, formula: 100 * quantite_totale / km_total }        # 5,91 aux 100 km
+duree_moyenne:    { type: decimal, formula: nb_jours.days / ravitaillements.count() } # 9,3 jours/plein
+total_entretien:  { type: amount, currencies: [EUR], formula: entretiens.sum(montant_euro) }        # l'achat et la vente sont des lignes du journal
+total_energie:    { type: amount, currencies: [EUR], formula: ravitaillements.sum(prix_total_euro) }
+# le coût du financement : les intérêts du crédit, les loyers payés de la LOA
+cout_financement: { type: amount, currencies: [EUR], formula: financement.select(credit: echeances.sum(interet_euro if paye), loa: echeances.sum(mensualite_euro if paye), comptant: amount(0, EUR)) }
+cout_total:       { type: amount, currencies: [EUR], formula: total_entretien + total_energie + cout_financement }
+prix_energie_km:  { type: amount, currencies: [EUR], formula: total_energie / km_total }   # 0,088 €/km
+prix_km:          { type: amount, currencies: [EUR], formula: cout_total / km_total }      # 0,249 €/km
+prix_jour:        { type: amount, currencies: [EUR], formula: cout_total / nb_jours.days } # 19,71 €/jour

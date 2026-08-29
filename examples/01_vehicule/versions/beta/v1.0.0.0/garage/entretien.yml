@@ -1,0 +1,17 @@
+# L'entretien — le journal de vie (D826) : des frais, des événements
+# sans montant (« Choc avec une biche », « Fuite de gasoil »), l'achat
+# en première ligne et la vente en recette négative (−2 477).
+name: entretien
+label: "${name}"
+fields:
+  numero: counter
+  date:        { type: date, required: true, searchable: range }
+  designation: { type: text[..200], required: true, searchable: mutualizable[recherche] }   # multi-ligne déduit de la taille (D366)
+  montant:     { type: amount, currencies: [EUR, FRF] }   # optionnel — l'événement sans montant est licite
+  km:          integer[0..]
+  montant_euro:
+    type: amount
+    currencies: [EUR]
+    formula: montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))
+validation:
+  - date >= owner.date_achat

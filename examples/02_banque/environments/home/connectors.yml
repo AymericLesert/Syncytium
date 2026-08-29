@@ -16,8 +16,9 @@ smtp:
 legacy:
   type: storage
   class: csv
-  parameters:
+  parameters:                                  # le paramétrage technique de la classe
     directory: ${SYNCYTIUM_LEGACY_DIRECTORY}   # le chemin hors dépôt (D321)
     encoding: windows-1252
     separator: ";"
-    file: [budget.txt, budget-clos.txt]   # un ou plusieurs fichiers (D816) — la liste ou le pattern (D806)
+  entities:                                    # la carte entités → fichiers (D828)
+    budget: [budget.txt, budget-clos.txt]      # une entité, plusieurs fichiers — l'union (D816)

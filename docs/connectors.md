@@ -54,6 +54,12 @@ connectors:
   incoming_orders:
     type: file
     class: file_std
+  legacy:
+    type: storage
+    class: csv
+    parameters: { directory: ${LEGACY_DIR}, encoding: windows-1252, separator: ";" }
+    entities:                         # la carte entités → fichiers (D828) — au même
+      budget: [budget.*\.txt]        #   niveau que parameters ; liste ou pattern (D806)
     parameters: { path: /exchange/in, format: csv }
     every: 5min                                # le guetteur (D603–D604)
 ```

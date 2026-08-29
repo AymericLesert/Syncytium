@@ -236,7 +236,8 @@ porte la reprise : le connecteur `legacy` (storage csv,
 Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
 (`migrations:`) — la migration `mode: absolute` + `reset: true`,
 `source/` à l'entité unique `budget` — les deux fichiers au même
-format portés par le même connecteur, `file:` en liste (D816), les
+format portés par le même connecteur — la carte `entities:` au
+niveau du connecteur (D816/D828), les
 cinq calculés de normalisation (D660) —, `mapping/` en **trois
 phases** (D814 — la phase = la règle filtrée, l'ordre = le préfixe,
 huit règles `001`–`008` depuis D821) : la phase 1 crée les comptes par le
@@ -249,8 +250,9 @@ compte encore ouvert, la clôture en dernier geste (D815) ; les
 écritures des marqueurs au libellé conventionnel « Dépôt initial » /
 « Solde de clôture » (D815). **Le libellé de
 la cible élargi à 100** (le réel monte à 93 caractères — 163 lignes
-au-delà de 60). **Le morceau R1 est soldé pièce à pièce** : le `file:` au
-connecteur (D819), le `mask` à la lecture (D820), et **le
+au-delà de 60). **Le morceau R1 est soldé pièce à pièce** : la carte
+entités → fichiers au connecteur (D819/D828), le `mask` à la
+lecture (D820), et **le
 rapprochement remis à plat par l'auteur (D821)** — les deux phases
 par le cache nommé de la migration : la règle empile
 (`operations: cache.push`), la règle de complément associe

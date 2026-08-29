@@ -954,6 +954,7 @@ Q58) :
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
 | D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
 | D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
+| D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
 
 ---
 
@@ -8504,6 +8505,39 @@ maisons** : le domestique se dédouble en deux projets ; le fond de
 D756 est inchangé, les titres des cas se relisent (le cas 1 = le
 véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
 initiale).
+
+**La carte entités → fichiers au connecteur (D828 — valide l'option
+A, amende l'écriture de D819).** **« Je valide l'option A avec une
+variante. La liste des entités est à définir au même niveau que
+"parameters". »** — la déclaration du connecteur source gagne une
+section :
+
+```yaml
+legacy:
+  type: storage
+  class: csv
+  parameters:                     # le paramétrage technique de la classe
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+  entities:                       # la carte structurelle — au même niveau (D828)
+    budget: [budget.txt, budget-clos.txt]
+```
+
+— consigné :
+
+- **`entities:` est une section du connecteur**, au même niveau que
+  `parameters:` — le paramétrage technique d'un côté, la carte
+  structurelle de l'autre ;
+- **chaque entité déclare ses fichiers** — la liste ou le pattern
+  (D806) ; plusieurs fichiers = l'union des lignes (D816) ; **le cas
+  rare** (un même fichier pour plusieurs entités) = le fichier
+  répété sous chaque entité ;
+- le `file:` des parameters disparaît (l'écriture de D819 se
+  précise — le périmètre physique reste au connecteur) ;
+- **la réciprocité vérifiable à l'ingestion** : une entité déclarée
+  au connecteur sans description dans source/, ou l'inverse, est
+  une déclaration orpheline (l'esprit D805).
 
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
@@ -17109,6 +17143,10 @@ avant la synthèse Q16).
   les titres relus — six maisons alignées sur les exemples, l'ordre
   de la simplicité confirmé (« la gestion des véhicules est plus
   simple que la gestion du compte en banque »).
+- **2026-08-29 (suite 3)** — **La carte entités → fichiers (D828)** :
+  l'option A validée à la variante près — entities: au même niveau
+  que parameters: ; le connecteur de la banque relu, mapping.md,
+  connectors.md et usecases au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

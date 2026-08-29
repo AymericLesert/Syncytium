@@ -386,7 +386,7 @@ active en **info + puits de logs éventuel**, la passive en
 journaux en anglais (D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
-configuration en dur (**`logs.yml`** — le nom harmonisé D750), la
+configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
 consultation par **le technicien seul**, en cas de besoin — hors
 IHM.
 

@@ -3,7 +3,7 @@ description: Environnement d'exécution du poste du foyer
 
 # Configuration de la journalisation
 
-logs: logs.yml
+logging: logging.yml
 
 # Configuration de la génération de la documentation
 

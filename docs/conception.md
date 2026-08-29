@@ -956,6 +956,7 @@ Q58) :
 | D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
 | D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
 | D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
+| D830 | **logging.yml remplace logs.yml** (amende D750) : la journalisation nommée par son composant — `logging.yml` partout, la propriété `logging:` à l'environnement ; le geste du dépôt (02_banque le portait déjà). | Voir §3.2c. |
 
 ---
 
@@ -8825,19 +8826,19 @@ environments/                  # un dossier PAR environnement (D342)
     environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
     connectors/                #     identité (un actif, D80), données (D79),
                                #     notifications (D108), géocodage (D294), reprise (D175)
-    logs.yml                   #     debug / verbose (D343)
+    logging.yml                #     debug / verbose (D343)
     settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
     documentation.yml          #     génération de la documentation (D333)
   production/                  #   la production active
     environment.yml
     connectors/
-    logs.yml                   #     info + puits de logs éventuel (D343)
+    logging.yml                #     info + puits de logs éventuel (D343)
     settings.yml
     documentation.yml
   passive/                     #   la production passive (PCA/PRA, D113–D114)
     environment.yml
     connectors/
-    logs.yml                   #     warning (D343)
+    logging.yml                #     warning (D343)
     settings.yml
     documentation.yml
 versions/                      # (D324, D338, D340)
@@ -17170,6 +17171,11 @@ avant la synthèse Q16).
   la classe reçoit entities: à l'initialisation, read_instance
   retourne les entités déclarées, le curseur enchaîne l'union des
   fichiers ; hooks.md et connectors.md mis au niveau.
+- **2026-08-29 (suite 5)** — **logging.yml remplace logs.yml
+  (D830)** : le point relevé à la reprise du véhicule — le 02_banque
+  portait déjà logging.yml et la propriété logging: ; l'arborescence
+  §3.2c, administration.md, telemetry.md et l'exemple véhicule
+  alignés (les mentions du journal restent historiques).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

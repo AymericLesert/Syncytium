@@ -5,7 +5,6 @@
 name: credit_parametres
 description: Le paramétrage du crédit — le capital, le taux, l'assurance, la durée
 
-sheet: CREDIT
 
 fields:
   capital:

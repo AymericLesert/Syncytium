@@ -230,7 +230,9 @@ opérations, les surfaces, la reprise)*
   (D828) : les **huit entités source** lisent les mêmes classeurs
   (le pattern `.*\.xlsx?` — dix classeurs, 1992-2026) ; la
   migration `classeurs` (absolute + reset, le patron R1) ; **la
-  feuille et la forme de lecture vivent à la source** :
+  carte porte les options de lecture** (D845 — la transposition
+  xlsx : `sheet:`, `skiprows:`, `range:` par entité ; le défaut
+  demeure : l'entête existante nomme les colonnes) :
   - les feuilles-formulaires en **cellules adressées** —
     `identification` (B1/E1/H1/H2, les K de la Zoe),
     `titre_consommation` (A1 → le type), `regle_revision` (I1 →
@@ -312,11 +314,12 @@ opérations, les surfaces, la reprise)*
     d'une version nouvelle ;
 ### Les manques de la reprise (le morceau 5)
 
-R1. **la forme de lecture à la source** — le storage xlsx exige de
-    dire la feuille et la forme : `sheet:`, `headers: <ligne>`,
-    `range: <colonnes>`, et **la facette `cell:`** des
-    feuilles-formulaires (un item par classeur) — la grammaire
-    nouvelle à trancher ;
+R1. **la forme de lecture du xlsx** — partiellement tranché par
+    D845 (les options à la carte) : la transposition proposée —
+    `sheet:`, `skiprows:` (les lignes avant l'entête), `range:`
+    (la plage) **à la carte du connecteur**, et **la facette
+    `cell:`** aux champs des feuilles-formulaires (un item par
+    classeur) — à valider ;
 R2. **les colonnes système** — `fichier` (la provenance de l'item)
     et `ligne` (le rang parmi les données) exposées par le storage
     tabulaire — à trancher ;

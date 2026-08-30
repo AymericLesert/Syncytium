@@ -21,15 +21,44 @@ legacy:
   parameters:
     # le chemin hors dépôt (D321)
     directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
-  # la carte entités → fichiers (D828) — toutes les entités source lisent
-  # les mêmes classeurs (le pattern D806) ; la feuille et la forme de
-  # lecture vivent à la déclaration source (reprise/source/*.yml)
+  # la carte entités → fichiers (D828/D845) — toutes les entités source
+  # lisent les mêmes classeurs (le pattern D806) ; LA CARTE PORTE LES
+  # OPTIONS DE LECTURE (D845, la transposition xlsx — le manque R1) :
+  # la feuille, les lignes sautées avant l'entête (skiprows:), la plage
+  # (range:) ; le défaut demeure — l'entête existante nomme les colonnes ;
+  # les cellules adressées restent aux champs des sources (cell:)
   entities:
-    identification:      [ ".*\.xlsx?" ]
-    titre_consommation:  [ ".*\.xlsx?" ]
-    consommation:        [ ".*\.xlsx?" ]
-    entretien:           [ ".*\.xlsx?" ]
-    regle_revision:      [ ".*\.xlsx?" ]
-    credit_parametres:   [ ".*\.xlsx?" ]
-    credit_echeance:     [ ".*\.xlsx?" ]
-    loa_echeance:        [ ".*\.xlsx?" ]
+    identification:
+      files: [ ".*\.xlsx?" ]
+      sheet: IDENTIFICATION
+    titre_consommation:
+      files: [ ".*\.xlsx?" ]
+      sheet: CONSOMMATION
+    consommation:
+      files: [ ".*\.xlsx?" ]
+      sheet: CONSOMMATION
+      # le titre et la ligne vide — l'entête existante suit (la ligne 3)
+      skiprows: 2
+    entretien:
+      files: [ ".*\.xlsx?" ]
+      sheet: ENTRETIEN
+      skiprows: 2
+      # le bloc droit aux entêtes homonymes écarté (le manque R4)
+      range: A..H
+    regle_revision:
+      files: [ ".*\.xlsx?" ]
+      sheet: ENTRETIEN
+    credit_parametres:
+      files: [ ".*\.xlsx?" ]
+      sheet: CREDIT
+    credit_echeance:
+      files: [ ".*\.xlsx?" ]
+      sheet: CREDIT
+      # les paramètres d'en-tête — l'entête du tableau à la ligne 8
+      skiprows: 7
+      range: A..G
+    loa_echeance:
+      files: [ ".*\.xlsx?" ]
+      sheet: LOA
+      skiprows: 2
+      range: A..G

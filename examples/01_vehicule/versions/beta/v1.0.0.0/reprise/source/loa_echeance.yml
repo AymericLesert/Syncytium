@@ -5,9 +5,6 @@
 name: loa_echeance
 description: Les loyers de la LOA — la ligne du tableau
 
-sheet: LOA
-headers: 3
-range: A..G
 
 fields:
   date:

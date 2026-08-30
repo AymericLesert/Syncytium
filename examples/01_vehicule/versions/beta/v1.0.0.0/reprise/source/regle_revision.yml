@@ -4,7 +4,6 @@
 name: regle_revision
 description: La règle de révision du classeur — le pas en kilomètres
 
-sheet: ENTRETIEN
 
 fields:
   titre:

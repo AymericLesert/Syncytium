@@ -7,7 +7,6 @@
 name: identification
 description: La carte d'identité du classeur — le nom, la plaque, l'achat
 
-sheet: IDENTIFICATION
 
 fields:
   nom:

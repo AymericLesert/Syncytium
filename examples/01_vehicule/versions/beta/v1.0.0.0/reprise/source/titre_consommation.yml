@@ -5,7 +5,6 @@
 name: titre_consommation
 description: Le titre de la feuille de consommation — thermique ou électrique
 
-sheet: CONSOMMATION
 
 fields:
   titre:

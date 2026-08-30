@@ -6,9 +6,6 @@
 name: credit_echeance
 description: Les échéances du crédit — la ligne du tableau d'amortissement
 
-sheet: CREDIT
-headers: 8
-range: A..G
 
 fields:
   date:

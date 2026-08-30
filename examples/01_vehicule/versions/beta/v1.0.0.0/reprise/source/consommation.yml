@@ -1,6 +1,6 @@
-# La feuille CONSOMMATION — le tableau : les entêtes à la ligne 3, les
-# données ensuite (la ligne système `ligne` = le rang parmi les données —
-# cf. le manque R2). Les entêtes diffèrent entre le thermique et
+# La feuille CONSOMMATION (la carte du connecteur porte la lecture —
+# D845 : sheet, skiprows ; la ligne système `ligne` = le rang parmi les
+# données, cf. le manque R2). Les entêtes diffèrent entre le thermique et
 # l'électrique : chaque champ porte son entête en label (D236), les
 # colonnes absentes d'un classeur restent nulles ; les colonnes
 # calculées du classeur (Km, Nb Litres/100, Prix Total…) sont IGNORÉES —
@@ -9,8 +9,6 @@
 name: consommation
 description: Les lignes de ravitaillement — le plein du thermique, la charge de l'électrique
 
-sheet: CONSOMMATION
-headers: 3
 
 fields:
   date:

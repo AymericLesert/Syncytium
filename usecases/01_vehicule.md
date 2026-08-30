@@ -119,6 +119,31 @@ opérations, les surfaces, la reprise)*
     dès que la date du jour dépasse l'échéance ; le reste dû
     calculé selon le mode.
 
+- **le morceau 3 — les opérations** (en validation) : la maison
+  des hooks au patron de la banque (D777/D778 — `hooks.yml` →
+  `operations/operations.yml` au pattern, la fiche + un MD par
+  hook), et le cycle de vie de l'échéancier sur l'entité
+  `vehicule` (`operations.yml`, le patron `creer_releve` D796 —
+  l'événement au `when:`, le `commit: auto`) :
+  - **`creer_echeancier`** — `when: [created, updated] if
+    financement = credit or financement = loa` : engendre les
+    échéances 1..durée (la date au `jour_echeance` du mois, la
+    mensualité déclarée LOA ou l'annuité du crédit, intérêt /
+    amortissement / assurance reportés) — les formules du classeur
+    vivent dans le hook ; idempotent — le paramétrage modifié ne
+    régénère que les non payées ;
+  - **`clore_echeancier`** — `when: updated if date_vente !=
+    null` : la vente supprime les échéances non payées (la coche
+    calculée ne « paiera » pas un véhicule vendu) ;
+  - **la notification des révisions, déclarative** — pas de hook :
+    la ligne d'entretien qui solde une règle la nomme
+    (`entretien.revision`, le picker borné au véhicule), la règle
+    en déduit `derniere_km`/`derniere_date` (l'accès retour D398),
+    `prochaine_km`/`prochaine_date` (depuis la dernière faite,
+    sinon l'origine), et **`echue`** — sur le km OU le délai, tant
+    que le véhicule vit ; la surface du morceau 4 mettra les
+    échues en avant (le mail reste muet — smtp none, D763).
+
 ## Les manques relevés
 
 *(chaque frottement deviendra une décision)*
@@ -133,12 +158,24 @@ opérations, les surfaces, la reprise)*
 4. **la division d'`amount`** — éteinte par **la devise visuelle**
    (D832) : les montants nus sont des `decimal`, la division va de
    soi ; `nb_jours.days` s'appuie sur les sous-items D772–D773 ;
-5. **l'engendrement de l'échéancier** — tranché : **à la
-   validation du financement** (D831, `creer_echeancier`), la
-   clôture à la vente (`clore_echeancier`) — les hooks du
-   morceau 3 ;
+5. **l'engendrement de l'échéancier** — tranché (D831) et écrit
+   au morceau 3 : `creer_echeancier` à la validation du
+   financement, `clore_echeancier` à la vente ;
 6. **le libellé dynamique de la colonne quantité** (litres | kWh
    selon le véhicule) — le champ `unite` est prêt, la surface le
    consommera au morceau 4 ;
-7. **la notification des révisions** (D826) — la déclaration vécue
-   au morceau 3 : le hook au fil des consommations et du temps.
+7. **la notification des révisions** (D826) — résolue au
+   morceau 3 **sans hook** : le calculé `echue` se recalcule de
+   lui-même (D255/D298), la surface la portera — en validation ;
+8. **les événements du socle** — le `when:` du morceau 3 suppose
+   `created`/`updated`, les participes des opérations aux côtés
+   du `generated` de D796 — le vocabulaire à confirmer ;
+9. **la condition à l'événement** — `when: updated if date_vente
+   != null` : le `if` suffixé (le patron des validations) étendu
+   au `when:` — à trancher ;
+10. **l'accès retour nommé** — `revision` lit les entretiens qui
+    la citent par `entretiens.max(km)` : le nom de la liste
+    automatique (D398) à confirmer ;
+11. **`date + duration → date`** — `prochaine_date =
+    derniere_date + pas_duree` : le miroir de `date − date →
+    duration` (D581) à confirmer.

@@ -6,6 +6,9 @@ identity: [nom]                      # le classeur = le nom (« Partner Outdoor 
 # La liste des champs de l'entité — l'éclatement libre (D767)
 fields: fields.yml
 
+# Les opérations associées à l'entité — le cycle de vie de l'échéancier (D831)
+operations: operations.yml
+
 # Une vente ne précède pas l'achat
 validation:
   - date_vente >= date_achat if date_vente != null

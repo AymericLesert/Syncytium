@@ -11,6 +11,10 @@ release-notes: >
   ## L'échéancier des révisions
   # Description de la reprise des classeurs historiques
 
+# Déclaration des hooks
+
+hooks: hooks/hooks.yml
+
 # Déclaration des modules
 # Pour l'exemple, nous n'avons qu'un seul module
 

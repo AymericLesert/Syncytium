@@ -1,0 +1,10 @@
+# Les opérations du véhicule — le cycle de vie de l'échéancier (D831),
+# le patron de creer_releve (D796) : l'événement au when:, le commit auto.
+# Les événements = les participes des opérations du socle (generated,
+# created, updated…) ; la condition à l'événement par le if suffixé.
+creer_echeancier:                # engendré à la validation du financement
+  when: [created, updated] if financement = credit or financement = loa
+  commit: auto
+clore_echeancier:                # la vente clôt l'échéancier — les non payées supprimées
+  when: updated if date_vente != null
+  commit: auto

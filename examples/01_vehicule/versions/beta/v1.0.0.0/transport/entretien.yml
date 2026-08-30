@@ -9,5 +9,8 @@ fields:
   designation: { type: text[..200], required: true, searchable: mutualizable[recherche] }   # multi-ligne déduit de la taille (D366)
   montant:     decimal                 # optionnel — l'événement sans montant est licite ; la devise est visuelle (D832)
   km:          integer[0..]
+  # la ligne qui solde une règle de révision la nomme (D831 — les
+  # révisions faites sont des lignes du journal) ; le picker borné au véhicule
+  revision:    { type: transport.revision, filter: owner = me.owner }
 validation:
   - date >= owner.date_achat

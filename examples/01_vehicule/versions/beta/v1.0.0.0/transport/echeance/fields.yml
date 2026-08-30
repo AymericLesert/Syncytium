@@ -3,14 +3,16 @@ numero:
   required: true
   label:
     fr: N°
-  description: Le rang de l'échéance — de 1 à la durée du financement.
+  comment:
+    fr: Le rang de l'échéance — de 1 à la durée du financement.
 
 date:
   type: date
   required: true
   label:
     fr: Date
-  description: Au jour d'échéance du mois, depuis le premier mois du financement.
+  comment:
+    fr: Au jour d'échéance du mois, depuis le premier mois du financement.
 
 interet:
   # crédit — reporté par le générateur
@@ -44,7 +46,8 @@ paye:
   formula: context.now >= date
   label:
     fr: Payé
-  description: Payée dès que la date du jour dépasse l'échéance.
+  comment:
+    fr: Payée dès que la date du jour dépasse l'échéance.
 
 reste_du:
   # B(n) = B(n−1) − F(n−1) du classeur
@@ -52,4 +55,5 @@ reste_du:
   formula: owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero), loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
   label:
     fr: Reste dû
-  description: En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA).
+  comment:
+    fr: En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA).

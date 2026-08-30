@@ -10,14 +10,16 @@ pas_km:
   type: integer[0..]
   label:
     fr: Tous les (km)
-  description: Le pas en kilomètres — « Révisions tous les 25 000 km ».
+  comment:
+    fr: Le pas en kilomètres — « Révisions tous les 25 000 km ».
 
 pas_duree:
   # les unités du duration (D476) — 1y, 6m
   type: duration
   label:
     fr: Tous les (délai)
-  description: Le pas en délai — l'autre voie de l'échéancier.
+  comment:
+    fr: Le pas en délai — l'autre voie de l'échéancier.
 
 # ------ Champs calculés ------
 
@@ -52,4 +54,5 @@ echue:
   formula: owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date))
   label:
     fr: Échue ?
-  description: La règle est à échéance — la notification part, la surface met en avant.
+  comment:
+    fr: La règle est à échéance — la notification part, la surface met en avant.

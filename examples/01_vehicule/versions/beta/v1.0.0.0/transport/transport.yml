@@ -8,7 +8,7 @@ description: Suivi et maintenance des moyens de locomotion du foyer
 
 entities:
   - vehicule/vehicule.yml
-  - consommation.yml
-  - entretien.yml
-  - revision.yml
-  - echeance.yml
+  - consommation/consommation.yml
+  - entretien/entretien.yml
+  - revision/revision.yml
+  - echeance/echeance.yml

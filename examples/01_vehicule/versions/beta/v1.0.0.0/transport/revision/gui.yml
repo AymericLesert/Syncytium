@@ -1,0 +1,26 @@
+# La déclaration de la présentation graphique — le morceau 4
+forms:
+  record:
+    title:
+      create: { fr: "Nouvelle règle de révision" }
+      read:   { fr: "{designation}" }
+      update: { fr: "Modification de la règle '{designation}'" }
+      delete: { fr: "Suppression de la règle '{designation}'" }
+    items:
+      - field[designation]
+      - field[pas_km]              # « sur un km »…
+      - field[pas_duree]           # … « ou sur un délai »
+lists:
+  toutes:                          # la première déclarée = le défaut (D437)
+    title: { fr: "Les révisions" }
+    searchable:
+      - vehicule: { select: mono, required: true }
+    columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
+    sort: [designation]
+    selection: 1
+  echues:                          # l'écho (D826) — la partition par le filtre (D783)
+    title: { fr: "Les révisions échues" }
+    filter: echue = true
+    columns: [vehicule, designation, derniere_km, prochaine_km, prochaine_date]
+    sort: [designation]
+    selection: 1

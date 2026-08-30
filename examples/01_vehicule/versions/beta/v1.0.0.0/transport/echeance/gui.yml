@@ -1,0 +1,12 @@
+# La déclaration de la présentation graphique — le morceau 4.
+# Pas de formulaire : les lignes naissent de creer_echeancier, se
+# reprennent par ajuster_echeancier, la coche Payé est calculée —
+# rien à saisir à la ligne.
+lists:
+  echeancier:                      # le tableau CREDIT | LOA du classeur
+    title: { fr: "L'échéancier" }
+    searchable:
+      - vehicule: { select: mono, required: true }
+    columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
+    sort: [numero]
+    selection: 1

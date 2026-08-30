@@ -1,0 +1,18 @@
+# La consommation — la feuille CONSOMMATION : le suivi de la
+# consommation du véhicule (D831), une ligne par plein ou par charge.
+# Les calculés reportent les formules du classeur, colonne par colonne.
+# Chaque ligne porte son numéro de 1 à n (D831) : la première ligne se
+# déduit (numero = 1 part du km_initial du véhicule), le précédent
+# s'atteint au rang (numero - 1).
+name: consommation
+label: "${name}"
+
+# La liste des champs de l'entité
+fields: fields.yml
+
+validation:
+  - date >= owner.date_achat
+  - total_km >= owner.km_initial
+
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml

@@ -1,0 +1,12 @@
+numero:        { type: integer[1..], required: true }   # le rang (1..durée)
+date:          { type: date, required: true }           # au jour d'échéance du mois, depuis le premier mois
+interet:       decimal                                  # crédit — reporté par le générateur
+amortissement: decimal                                  # crédit
+assurance:     decimal                                  # crédit — 34,40
+mensualite:    { type: decimal, required: true }        # 473,86 / 434,48
+paye:          { formula: context.now >= date }         # la coche automatique (D831)
+# le reste dû en début de période : crédit — le capital moins l'amorti,
+# LOA — les loyers restants (B(n) = B(n−1) − F(n−1) du classeur)
+reste_du:
+  type: decimal
+  formula: owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero), loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)

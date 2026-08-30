@@ -1,0 +1,31 @@
+# La révision — la règle de l'échéancier (D826) : « Révisions tous
+# les 25 000 km » (thermique), « tous les 20 000 km » (électrique).
+# La règle porte un pas en kilomètres OU en délai. Les révisions
+# faites restent des lignes du journal de vie (D831) — la ligne
+# marquée révision (le booléen d'entretien), la règle en déduit la
+# prochaine échéance (le booléen ne distingue pas les règles — le
+# réel n'en a qu'une par véhicule).
+# LA NOTIFICATION = L'OPÉRATION AUTOMATIQUE + notify (D436 — « couvre
+# tout ») : echue se recalcule d'elle-même (D255/D298), l'opération
+# notifier se déclenche à l'échéance (le cliquet D354) et porte
+# l'information aux utilisateurs (notify, 15e opération du socle —
+# D574) — in-app pour tous (D836) ; le relais mail = un setting de
+# l'application, défaut néant (D836) — et smtp: none ici de toute
+# façon (D763) ; la surface du morceau 4 fera écho.
+name: revision
+label: "{designation}"
+
+# La liste des champs de l'entité
+fields: fields.yml
+
+operations:
+  notifier:                        # l'automatisme (D428) — à l'échéance
+    when: echue
+    commit: auto
+    effects:
+      - notify                     # la référence au hook du socle (D432/D609)
+validation:
+  - pas_km != null or pas_duree != null   # une règle sans pas ne dit rien
+
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml

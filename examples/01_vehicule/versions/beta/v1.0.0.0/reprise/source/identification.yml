@@ -1,5 +1,5 @@
 # La feuille IDENTIFICATION — une feuille-formulaire, pas un tableau :
-# LES CELLULES ADRESSÉES (cf. le manque R1 — la facette cell: proposée).
+# LES CELLULES ADRESSÉES (cf. le manque R1 — la facette reference: proposée).
 # Un item par classeur. Le Partner n'a pas les cellules K : elles restent
 # nulles (les dates viendront de la première ligne de consommation et de
 # la ligne de vente du journal).
@@ -11,23 +11,23 @@ description: La carte d'identité du classeur — le nom, la plaque, l'achat
 fields:
   nom:
     type: text[..40]
-    cell: IDENTIFICATION!B1
+    reference: IDENTIFICATION!B1
   immatriculation:
     type: text[..12]
-    cell: IDENTIFICATION!E1
+    reference: IDENTIFICATION!E1
   mode_achat:
     type: text[..40]
-    cell: IDENTIFICATION!H1
+    reference: IDENTIFICATION!H1
   lieu_achat:
     type: text[..60]
-    cell: IDENTIFICATION!H2
+    reference: IDENTIFICATION!H2
   # la Zoe seule les porte (l'achat, la restitution prévue)
   date_debut:
     type: date
-    cell: IDENTIFICATION!K1
+    reference: IDENTIFICATION!K1
   date_fin:
     type: date
-    cell: IDENTIFICATION!K2
+    reference: IDENTIFICATION!K2
   # la photo du véhicule — l'image présente sur la feuille (l'arbitrage
   # R8) : l'ancre varie d'un classeur à l'autre, la référence désigne
   # la feuille, pas la cellule

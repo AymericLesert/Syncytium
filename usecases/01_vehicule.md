@@ -321,14 +321,15 @@ opérations, les surfaces, la reprise)*
     d'une version nouvelle ;
 ### Les manques de la reprise (le morceau 5)
 
-R1. **la forme de lecture du xlsx** — tranché par D846 : **la
-    plage au nommage Excel** (la zone de nom, ou
-    `FEUILLE!A3:H100`) à la carte, l'entête au régime du CSV ;
-    restent deux queues — **la facette `cell:`** aux champs des
-    feuilles-formulaires (le même nommage, `IDENTIFICATION!B1` —
-    un item par classeur), et **la borne haute des plages** (le
-    plafond ; la lecture s'arrête à la première ligne vide) — à
-    valider ;
+R1. **la forme de lecture du xlsx** — clos (D846–D848) : la plage
+    au nommage Excel à la carte, l'entête au régime du CSV, **la
+    facette `reference:`** (la cellule, la feuille de l'image, la
+    plage — un seul mot), **`single:`** à la carte (un
+    enregistrement par fichier — le mixte plage + cellules
+    d'autres onglets levé), **la borne aux trois formes** :
+    explicite, `...` (l'arrêt à la ligne vide toutes colonnes),
+    ouverte (`A3:H` — la fin de la feuille, les vides sautés) —
+    le réel arbitre par plage ;
 R2. **les colonnes système** — `fichier` (la provenance de l'item)
     et `ligne` (le rang parmi **les lignes vivantes** — au moins un
     champ déclaré servi : la ligne blanche du Partner et la ligne

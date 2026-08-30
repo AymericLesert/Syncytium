@@ -7,6 +7,8 @@ echeance:
   to: transport.echeance
   parent:
     vehicule: fichier
+  # la ligne des totaux de la LOA (les sommes sans date) s'écarte
+  filter: date != null
   fields:
     numero:        ligne
     date:          date

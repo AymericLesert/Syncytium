@@ -6,5 +6,7 @@
 echeance:
   to: transport.vehicule
   key: fichier
+  # les totaux sans date écartés — la dernière ligne datée gagne
+  filter: date != null
   fields:
     duree_echeances: ligne

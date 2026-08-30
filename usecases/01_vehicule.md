@@ -330,11 +330,13 @@ R1. **la forme de lecture du xlsx** — clos (D846–D848) : la plage
     explicite, `...` (l'arrêt à la ligne vide toutes colonnes),
     ouverte (`A3:H` — la fin de la feuille, les vides sautés) —
     le réel arbitre par plage ;
-R2. **les colonnes système** — `fichier` (la provenance de l'item)
-    et `ligne` (le rang parmi **les lignes vivantes** — au moins un
-    champ déclaré servi : la ligne blanche du Partner et la ligne
-    du paramètre C4 de la Zoe se sautent, l'origine est bien la
-    ligne 1 = CONSOMMATION!B5/D5) — à trancher ;
+R2. **les informations système** — clos (D849) : le préfixe
+    **`connector.`** — `connector.filename`, `connector.path`,
+    `connector.line` (l'identifiant **par rapport à la zone**,
+    jamais la ligne réelle — la ligne vivante : au moins un champ
+    déclaré servi, la blanche du Partner et la ligne-paramètre de
+    la Zoe se sautent, l'origine = la ligne 1 = B5/D5), la liste
+    extensible, portées par le contrat du hook de connecteur ;
 R3. **la jointure par le fichier** — le classeur = le véhicule :
     `key: fichier` à la règle-mère, `parent: { vehicule: fichier }`
     aux filles — le parent se résout par **la clé de reprise** de

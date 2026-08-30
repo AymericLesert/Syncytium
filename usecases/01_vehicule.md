@@ -238,7 +238,8 @@ opérations, les surfaces, la reprise)*
     `identification` (B1 la marque et le modèle ensemble — le réel
     ne les sépare pas —, E1 **la plaque, devenue l'`identity:` du
     véhicule**, H1/H2 l'achat, les K de la Zoe, **la photo
-    embarquée** — l'unique image de la feuille, ancrée en B6),
+    embarquée** — `reference: IDENTIFICATION`, l'image de la
+    feuille, l'ancre libre),
     `titre_consommation` (A1 → le type), `regle_revision` (I1 →
     le pas, l'astuce ×1000 du point de milliers),
     `credit_parametres` (C3/C4/C5/G4) ;
@@ -351,11 +352,11 @@ R6. **la durée par écrasement** — nulle part en cellule fiable :
     l'astuce à valider ;
 R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
     `date[yyyy-mm]` : le type tronque au mois — à confirmer ;
-R8. **l'image embarquée** — la photo vit dans le classeur
-    (`xl/media/image1.jpg`, l'ancre B6 vérifiée au réel) : la
-    facette `cell:` désigne l'image par sa cellule d'ancrage
-    (`photo: { type: image, cell: IDENTIFICATION!B6 }`) — l'unique
-    image de la feuille ; l'écriture à confirmer.
+R8. **l'image embarquée** — tranché : la photo se désigne **par la
+    feuille**, pas par l'ancre (`photo: { type: image, reference:
+    IDENTIFICATION }`) — « toutes les photos ne sont pas forcément
+    ancrées sur la même cellule » ; l'image présente sur la
+    feuille.
 
 13. **le possesseur en colonne** — dissous par l'arbitrage : la
     liste `echues` n'a plus de colonnes — le widget-texte porte le

@@ -28,9 +28,9 @@ fields:
   date_fin:
     type: date
     cell: IDENTIFICATION!K2
-  # la photo du véhicule — l'unique image de la feuille, ancrée en B6
-  # (vérifié au réel : xl/media/image1.jpg, l'ancre B6) ; l'image
-  # embarquée à la cellule d'ancrage — cf. le manque R8
+  # la photo du véhicule — l'image présente sur la feuille (l'arbitrage
+  # R8) : l'ancre varie d'un classeur à l'autre, la référence désigne
+  # la feuille, pas la cellule
   photo:
     type: image
-    cell: IDENTIFICATION!B6
+    reference: IDENTIFICATION

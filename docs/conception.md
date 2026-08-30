@@ -980,6 +980,7 @@ Q58) :
 | D851 | **La continuation en anomalie** (clôt R5) : les lignes sans date de l'ENTRETIEN (la désignation étalée de la Zoe) **ne se filtrent pas** — elles échouent à la cible (`date` requise) et **la migration les signale en anomalie** ; **l'utilisateur ajuste la source** (la fusion au classeur) et rejoue — jamais de perte silencieuse (l'esprit D183 : le système constate, l'humain décide). | Voir §3.2c. |
 | D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
 | D853 | **La durée du contrat et la finalisation d'après-migration** (solde la note de D852) : **`duree_contrat`** — la saisie du paramétrage (l'intention contractuelle, le générateur l'engendre), distincte de `duree_echeances` (le calculé — le réel compté) ; **`finaliser_vehicule`** — l'opération exécutée **après la migration** (`when: migrated` — l'issue de `migrate`, le patron `generated` D796 généralisé) : elle complète ce que la reprise ne porte pas (les repris gagnent leur `duree_contrat` du compte des échéances), idempotente — elle ne complète que l'absent ; en général, l'occasion d'« engendrer des lignes ou faire des compléments après la migration ». | Voir §3.2c. |
+| D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
 
 ---
 
@@ -17389,6 +17390,12 @@ avant la synthèse Q16).
   duree_contrat du compte, l'idempotence (ne complète que
   l'absent) ; « générer des lignes ou faire des compléments après
   la migration » a désormais sa place.
+- **2026-08-30 (reprise 2, suite 9)** — **La troncature naturelle
+  (D854 — R7 clos, le morceau 5 complet).** L'affectation vers un
+  date plus grossier tronque à sa nature ; la formule explicite
+  reste utilisable. **Les huit manques R1–R8 sont tous clos**
+  (D845–D854) — le morceau 5 entier en validation, le cas véhicule
+  avec lui.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

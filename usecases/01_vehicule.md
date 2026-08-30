@@ -361,8 +361,11 @@ R6. **la durée** — clos (D852) : **le champ calculé** —
     l'opération d'après-migration qui complète l'absent (les
     repris gagnent leur `duree_contrat` du compte) et, en général,
     engendre ou complète après la reprise ;
-R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
-    `date[yyyy-mm]` : le type tronque au mois — à confirmer ;
+R7. **le premier mois tronqué** — clos (D854) : **la troncature
+    naturelle** — l'affectation vers un `date` plus grossier
+    tronque à sa nature (le type-cible fait autorité, la cohérence
+    du `mask` D820) ; la formule explicite reste utilisable, au
+    choix ;
 R8. **l'image embarquée** — tranché : la photo se désigne **par la
     feuille**, pas par l'ancre (`photo: { type: image, reference:
     IDENTIFICATION }`) — « toutes les photos ne sont pas forcément

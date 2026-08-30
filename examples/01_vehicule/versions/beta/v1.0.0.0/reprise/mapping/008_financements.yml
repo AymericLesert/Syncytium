@@ -10,7 +10,7 @@ echeance:
   fields:
     financement:   "loa"
     mensualite:    mensualite
-    premier_mois:  date            # date[yyyy-mm] — le type tronque au mois (R7)
+    premier_mois:  date            # date[yyyy-mm] — la troncature naturelle du type (D854)
     jour_echeance: date.day
 
 credit_parametres:

@@ -355,8 +355,12 @@ R5. **les lignes de continuation** — clos (D851) : **l'anomalie,
 R6. **la durée** — clos (D852) : **le champ calculé** —
     `duree_echeances: formula: echeances.count()` ; la phase
     d'écrasement supprimée, rien à reprendre ; la question
-    rouverte : l'entrée de la durée d'un financement **neuf** (le
-    générateur la lisait) — à préciser ;
+    close (D853) : **`duree_contrat`** saisi — l'intention
+    contractuelle que le générateur engendre —, et
+    **`finaliser_vehicule`** (`when: migrated` — le 4e hook) :
+    l'opération d'après-migration qui complète l'absent (les
+    repris gagnent leur `duree_contrat` du compte) et, en général,
+    engendre ou complète après la reprise ;
 R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
     `date[yyyy-mm]` : le type tronque au mois — à confirmer ;
 R8. **l'image embarquée** — tranché : la photo se désigne **par la

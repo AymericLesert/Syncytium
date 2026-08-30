@@ -185,6 +185,15 @@ mensualite:
   hint:
     fr: La mensualité de la LOA — celle du crédit se calcule à l'échéancier.
 
+# l'intention contractuelle (D853) — le générateur l'engendre ;
+# duree_echeances (calculé) dit le réel compté
+duree_contrat:
+  type: integer[0..]
+  label:
+    fr: Durée du contrat
+  hint:
+    fr: Le nombre d'échéances du contrat — 60 mensualités, 36 loyers.
+
 premier_mois:
   type: date[yyyy-mm]
   label:

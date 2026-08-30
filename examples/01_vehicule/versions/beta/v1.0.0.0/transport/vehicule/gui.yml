@@ -56,6 +56,8 @@ forms:
                       visible: financement = credit
                   - field[mensualite]:
                       visible: financement = loa
+                  - field[duree_contrat]:
+                      visible: financement = credit or financement = loa
                   - field[duree_echeances]:
                       visible: financement = credit or financement = loa
                   - field[premier_mois]:

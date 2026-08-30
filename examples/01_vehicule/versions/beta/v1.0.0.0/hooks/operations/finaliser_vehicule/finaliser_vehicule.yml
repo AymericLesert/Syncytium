@@ -1,0 +1,7 @@
+# La fiche du hook (D778)
+
+name: finaliser_vehicule
+description: documentation.md
+
+code: source.txt
+properties: { }

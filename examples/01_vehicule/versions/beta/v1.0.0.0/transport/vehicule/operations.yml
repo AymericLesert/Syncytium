@@ -19,3 +19,8 @@ ajuster_echeancier:
 clore_echeancier:
   when: statut = cloture
   commit: auto
+# le complément d'après-reprise (D853) — l'issue de migrate au when:
+# (le patron generated D796 généralisé)
+finaliser_vehicule:
+  when: migrated
+  commit: auto

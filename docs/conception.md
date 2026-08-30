@@ -979,6 +979,7 @@ Q58) :
 | D850 | **La jointure par la plaque** (rend R3 sans objet) : chaque source porte un champ `immatriculation` référençant la cellule de l'autre onglet (`reference: IDENTIFICATION!E1` — le mixte de D848, la valeur répétée sur chaque item) ; **la clé et les parents joignent par l'identité réelle** (`key:`/`parent:` = immatriculation — le patron banque intact) ; la dissociation clé de reprise / `identity:` n'a plus d'objet ici, `connector.filename` reste disponible sans emploi. | Voir §3.2c. |
 | D851 | **La continuation en anomalie** (clôt R5) : les lignes sans date de l'ENTRETIEN (la désignation étalée de la Zoe) **ne se filtrent pas** — elles échouent à la cible (`date` requise) et **la migration les signale en anomalie** ; **l'utilisateur ajuste la source** (la fusion au classeur) et rejoue — jamais de perte silencieuse (l'esprit D183 : le système constate, l'humain décide). | Voir §3.2c. |
 | D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
+| D853 | **La durée du contrat et la finalisation d'après-migration** (solde la note de D852) : **`duree_contrat`** — la saisie du paramétrage (l'intention contractuelle, le générateur l'engendre), distincte de `duree_echeances` (le calculé — le réel compté) ; **`finaliser_vehicule`** — l'opération exécutée **après la migration** (`when: migrated` — l'issue de `migrate`, le patron `generated` D796 généralisé) : elle complète ce que la reprise ne porte pas (les repris gagnent leur `duree_contrat` du compte des échéances), idempotente — elle ne complète que l'absent ; en général, l'occasion d'« engendrer des lignes ou faire des compléments après la migration ». | Voir §3.2c. |
 
 ---
 
@@ -17378,6 +17379,16 @@ avant la synthèse Q16).
   phase 11 d'écrasement supprimée, le doc du générateur neutralisé ;
   la question rouverte (l'entrée de la durée d'un financement neuf —
   le générateur la lisait) signalée à l'auteur.
+- **2026-08-30 (reprise 2, suite 8)** — **duree_contrat et
+  finaliser_vehicule (D853).** Le (a) privilégié : duree_contrat
+  saisi (l'intention contractuelle — le générateur l'engendre),
+  duree_echeances calculé (le réel) ; et l'idée neuve de l'auteur —
+  **l'opération d'après-migration** : finaliser_vehicule (when:
+  migrated — l'issue de migrate, le patron generated D796
+  généralisé), le 4e hook du projet — les repris gagnent leur
+  duree_contrat du compte, l'idempotence (ne complète que
+  l'absent) ; « générer des lignes ou faire des compléments après
+  la migration » a désormais sa place.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

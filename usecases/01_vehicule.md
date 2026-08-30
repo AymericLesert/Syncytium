@@ -260,7 +260,7 @@ opérations, les surfaces, la reprise)*
     fusionnée `echeance` au repli de plages — D847 : l'intérêt
     vide = la LOA ; le crédit aux cellules, l'ancrage `.day`),
     les échéanciers **en données** (Payé et reste dû se
-    recalculent), la durée par écrasement — tous régimes.
+    recalculent), la durée en calculé (`echeances.count()` — D852).
 
 ## Les manques relevés
 
@@ -352,10 +352,11 @@ R5. **les lignes de continuation** — clos (D851) : **l'anomalie,
     cible (`date` requise) et la migration la signale ;
     l'utilisateur ajuste le classeur et rejoue (l'esprit D183 :
     le système constate, l'humain décide) ;
-R6. **la durée par écrasement** — nulle part en cellule fiable :
-    chaque échéance écrase `duree_echeances`, la dernière gagne —
-    généralisée aux deux régimes par la source fusionnée (D847),
-    l'astuce à valider ;
+R6. **la durée** — clos (D852) : **le champ calculé** —
+    `duree_echeances: formula: echeances.count()` ; la phase
+    d'écrasement supprimée, rien à reprendre ; la question
+    rouverte : l'entrée de la durée d'un financement **neuf** (le
+    générateur la lisait) — à préciser ;
 R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
     `date[yyyy-mm]` : le type tronque au mois — à confirmer ;
 R8. **l'image embarquée** — tranché : la photo se désigne **par la

@@ -185,13 +185,6 @@ mensualite:
   hint:
     fr: La mensualité de la LOA — celle du crédit se calcule à l'échéancier.
 
-duree_echeances:
-  type: integer[0..]
-  label:
-    fr: Nombre d'échéances
-  hint:
-    fr: 60 mensualités du crédit, 36 loyers de la LOA.
-
 premier_mois:
   type: date[yyyy-mm]
   label:
@@ -240,6 +233,15 @@ echeances:
     fr: Échéances
 
 # ------ Champs calculés ------
+
+# la durée du financement = le nombre de lignes de l'échéancier (D852)
+duree_echeances:
+  type: integer
+  formula: echeances.count()
+  label:
+    fr: Nombre d'échéances
+  hint:
+    fr: 60 mensualités du crédit, 34 loyers de la LOA — le compte des échéances.
 
 unite:
   # dérivée du type — le .select des énumérés (D833)

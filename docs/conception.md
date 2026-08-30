@@ -978,6 +978,7 @@ Q58) :
 | D849 | **Les informations système au préfixe `connector.`** (clôt R2) : le connecteur courant les expose aux sources et au mapping — `connector.filename` (le fichier), `connector.path` (le chemin), **`connector.line`** (l'identifiant de la ligne **par rapport à la zone**, jamais la ligne réelle du fichier — la ligne vivante : au moins un champ déclaré servi, les mortes se sautent), la liste extensible ; **portées par le connecteur** — le contrat du hook les fournit (D680–D689 complétés). | Voir §3.2c. |
 | D850 | **La jointure par la plaque** (rend R3 sans objet) : chaque source porte un champ `immatriculation` référençant la cellule de l'autre onglet (`reference: IDENTIFICATION!E1` — le mixte de D848, la valeur répétée sur chaque item) ; **la clé et les parents joignent par l'identité réelle** (`key:`/`parent:` = immatriculation — le patron banque intact) ; la dissociation clé de reprise / `identity:` n'a plus d'objet ici, `connector.filename` reste disponible sans emploi. | Voir §3.2c. |
 | D851 | **La continuation en anomalie** (clôt R5) : les lignes sans date de l'ENTRETIEN (la désignation étalée de la Zoe) **ne se filtrent pas** — elles échouent à la cible (`date` requise) et **la migration les signale en anomalie** ; **l'utilisateur ajuste la source** (la fusion au classeur) et rejoue — jamais de perte silencieuse (l'esprit D183 : le système constate, l'humain décide). | Voir §3.2c. |
+| D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
 
 ---
 
@@ -17371,6 +17372,12 @@ avant la synthèse Q16).
   l'utilisateur ajuste la source — le filtre date != null retiré de
   la phase 5, la ligne sans date échoue à la cible (date requise)
   et tombe en anomalie ; jamais de perte silencieuse.
+- **2026-08-30 (reprise 2, suite 7)** — **La durée en champ calculé
+  (D852 — R6 clos).** « Le plus propre » : duree_echeances =
+  echeances.count() — le champ passe aux calculés du véhicule, la
+  phase 11 d'écrasement supprimée, le doc du générateur neutralisé ;
+  la question rouverte (l'entrée de la durée d'un financement neuf —
+  le générateur la lisait) signalée à l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

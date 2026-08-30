@@ -1,7 +1,7 @@
 # creer_echeancier — l'échéancier engendré à la validation du financement (D831)
 
 À la validation d'un véhicule financé (crédit ou LOA), le hook
-engendre les échéances de 1 à `duree_echeances` : la date au
+engendre les échéances du contrat, de 1 à sa durée : la date au
 `jour_echeance` de chaque mois depuis `premier_mois`, la mensualité
 — celle déclarée pour la LOA, l'annuité constante du crédit
 (capital, taux périodique actuariel, durée) — et, pour le crédit,

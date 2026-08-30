@@ -16,12 +16,9 @@ widgets:
 lists:
   toutes:                          # la première déclarée = le défaut (D437)
     title: { fr: "Les révisions" }
-    searchable:
-      - vehicule: { select: mono, required: true }
     columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
     editable: [designation, pas_km, pas_duree]   # la règle ; les échéances se déduisent (D255)
     sort: [designation]
-    selection: 1
   echues:                          # l'écho (D826) — TOUS les véhicules, la partition par le filtre (D783)
     title: { fr: "Les révisions échues" }
     filter: echue = true

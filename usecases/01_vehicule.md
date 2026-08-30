@@ -189,7 +189,12 @@ opérations, les surfaces, la reprise)*
     D554/D557/D439) empile **l'écho des révisions échues AVANT la
     liste des véhicules** — chaque liste dans sa section,
     l'empilement au défaut (D489/D490), l'adresse universelle
-    `list[<entité>.<nom>]` (D566) ; `echues` devient une liste de widgets
+    `list[<entité>.<nom>]` (D566) ; la retouche finale :
+    **`selection` et `searchable` retirés partout** — le défaut de
+    `selection` est la déduction (D470/D474, le `multiple` de la
+    consommation était un réflexe du patron banque sans opération
+    de masse ici), et « pas de véritables besoins » de recherche
+    (deux véhicules) ; `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la
     révision : deux `paragraph` au gabarit mustache (les chemins
     D71 — `{{owner.nom}}`), l'alinéa au `if:` (la règle au km ou

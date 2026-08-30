@@ -85,4 +85,3 @@ lists:
     title: { fr: "Les véhicules du foyer" }
     widget: carte                  # la liste de widgets (D492) — l'affichage moderne
     sort: [date_achat]             # de l'Austin Metro à la 4L
-    selection: 1

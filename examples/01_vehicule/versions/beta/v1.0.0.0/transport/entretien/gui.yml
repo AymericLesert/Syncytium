@@ -4,11 +4,6 @@
 lists:
   journal:                         # la feuille ENTRETIEN — le journal de vie
     title: { fr: "Le journal de vie" }
-    searchable:
-      - vehicule: { select: mono, required: true }
-      - date                       # la plage (D784)
-      - recherche                  # le champ mutualisé (D780) — la désignation
     columns: [date, designation, montant, km, revision]
     editable: [date, designation, montant, km, revision]
     sort: [date, numero]
-    selection: multiple

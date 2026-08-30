@@ -5,18 +5,11 @@
 lists:
   par_date:                        # la feuille CONSOMMATION, colonne à colonne
     title: { fr: "La consommation" }
-    searchable:
-      - vehicule: { select: mono, required: true }   # le possesseur (le patron banque)
-      - date                       # la plage — le champ porte sa facette (D784)
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
     editable: [numero, date, total_km, quantite, prix_unitaire]   # les saisies — les calculés se refont (D255)
     sort: [date, numero]
-    selection: multiple
 charts:
   evolution_consommation:          # la feuille GRAPHIQUE (D826)
     title: { fr: "L'évolution de la consommation" }
-    searchable:                    # le patron des listes (D782/D784/D798)
-      - vehicule: { select: mono, required: true }
-      - date                       # la plage — la facette range (D784)
     x: date[month]                 # le mois — le découpage temporel (D516)
     y: avg(conso_100)              # la moyenne du mois (D517/D580)

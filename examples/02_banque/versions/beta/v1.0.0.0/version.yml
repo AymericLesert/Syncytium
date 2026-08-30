@@ -1,0 +1,37 @@
+# Identification et description de la version
+
+version: 1.0.0.0
+release-notes: >
+  La première version de la gestion des comptes bancaires du
+  foyer — trente-quatre ans d'écritures repris.
+  # Le modèle
+  ## Le compte et ses écritures — la devise dans la valeur (euro
+  et franc), le solde continu, les calculés débit/crédit
+  ## Les référentiels des budgets et des lieux — la création
+  directe au picker
+  # Les opérations
+  ## dupliquer (entre deux dates), propager (les similaires),
+  virer (les deux écritures liées), creer_releve (le PDF pose la
+  date d'impression)
+  # La reprise
+  ## L'historique 1992-2026 (~23 400 écritures) — trois phases,
+  les comptes aux marqueurs, le rapprochement des virements par
+  le cache
+
+# Déclaration des ressources
+
+resources: resources/resources.yml
+
+# Déclaration des hooks
+
+hooks: hooks/hooks.yml
+
+# Déclaration de la reprise des données historiques (le morceau R1)
+
+migrations: reprise/reprise.yml
+
+# Déclaration des modules
+# Pour l'exemple, nous n'avons qu'un seul module
+
+modules:
+  - banque/banque.yml

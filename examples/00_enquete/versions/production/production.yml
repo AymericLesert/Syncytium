@@ -1,0 +1,7 @@
+# Les versions éligibles au mode production
+
+# pas de déclaration orpheline (D805)
+environment: home
+
+versions:
+  - v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml

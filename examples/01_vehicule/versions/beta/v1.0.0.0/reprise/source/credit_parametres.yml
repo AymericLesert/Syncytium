@@ -1,0 +1,25 @@
+# La feuille CREDIT — l'en-tête du tableau d'amortissement : les
+# paramètres en cellules (le Partner ; la feuille absente d'un classeur
+# LOA ne donne aucun item). Un item par classeur à feuille CREDIT.
+
+name: credit_parametres
+description: Le paramétrage du crédit — le capital, le taux, l'assurance, la durée
+
+
+fields:
+  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
+  # chaque item (le mixte D848) : la jointure du mapping (D850)
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
+  capital:
+    type: decimal
+    reference: CREDIT!C3
+  taux_annuel:
+    type: decimal
+    reference: CREDIT!C4
+  assurance:
+    type: decimal
+    reference: CREDIT!C5
+  # la durée (G4) ne se lit plus : le nombre d'échéances la donne
+  # pour tous les régimes (la phase 11 — D847)

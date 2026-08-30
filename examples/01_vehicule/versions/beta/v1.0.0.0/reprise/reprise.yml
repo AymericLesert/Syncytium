@@ -1,0 +1,18 @@
+# La reprise des classeurs historiques — le morceau 5 (le patron R1 de
+# la banque, D811–D825) : la migration déclarée, l'ordre de définition =
+# l'ordre d'exécution (D662/D665).
+
+classeurs:                       # le nom de la migration
+  connector: legacy              # le storage xlsx (environments/home/connectors.yml)
+  mode: absolute                 # le tout-ou-rien (D649)
+  reset: true                    # chaque passage repart de zéro
+  source:
+    - source/identification.yml
+    - source/titre_consommation.yml
+    - source/consommation.yml
+    - source/entretien.yml
+    - source/regle_revision.yml
+    - source/credit_parametres.yml
+    - source/echeance.yml
+  mapping:
+    - mapping/[0-9]+_.*\.yml    # le pattern regex (D806) — l'alphabétique fait les étapes (D665)

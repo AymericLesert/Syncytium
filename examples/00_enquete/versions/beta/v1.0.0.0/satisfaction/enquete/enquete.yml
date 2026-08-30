@@ -1,0 +1,10 @@
+# L'enquête — la campagne et ses réponses. AUCUNE surface déclarée :
+# le gui est entièrement généré (la promesse fondatrice — D64, les
+# défauts D438/D486), les labels et hints font parler le généré.
+name: enquete
+description: Une enquête de satisfaction — la campagne et ses réponses
+label: "{titre}"
+identity: [titre]
+
+# La liste des champs de l'entité
+fields: fields.yml

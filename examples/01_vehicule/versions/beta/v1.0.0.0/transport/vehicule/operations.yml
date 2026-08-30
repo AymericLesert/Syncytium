@@ -1,0 +1,26 @@
+# Les opérations du véhicule — le cycle de vie de l'échéancier (D831) :
+# deux automatismes et un bouton. L'opération automatique : le when:
+# est SON déclencheur (D428), une expression évaluée à chaque mise à
+# jour de l'entité (D435 — every: continuous est le défaut), déclenchée
+# à la première vraie (le cliquet D354). Le hook EST l'opération (D609).
+# à la validation du financement — la validation est l'opération (D775)
+creer_echeancier:
+  when: financement = credit or financement = loa
+  commit: auto
+# le bouton (sans when — D428) : le paramétrage modifié se reprend
+ajuster_echeancier:
+  label:
+    fr: Ajuster l'échéancier
+  # la garde (D430) — le bouton se grise
+  if: (financement = credit or financement = loa) and statut != cloture
+  # la relecture : conservées / supprimées / recréées (D596/D598)
+  commit: confirm
+# la clôture purge les non payées — le cliquet joue une fois
+clore_echeancier:
+  when: statut = cloture
+  commit: auto
+# le complément d'après-reprise (D853) — l'issue de migrate au when:
+# (le patron generated D796 généralisé)
+finaliser_vehicule:
+  when: migrated
+  commit: auto

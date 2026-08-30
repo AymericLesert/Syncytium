@@ -952,6 +952,37 @@ Q58) :
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
+| D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
+| D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
+| D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
+| D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
+| D830 | **logging.yml remplace logs.yml** (amende D750) : la journalisation nommée par son composant — `logging.yml` partout, la propriété `logging:` à l'environnement ; le geste du dépôt (02_banque le portait déjà). | Voir §3.2c. |
+| D831 | **Le modèle du véhicule arrêté** (précise D826) : le module `transport` (le moyen de locomotion), l'entité `consommation` (le suivi de la consommation remplace ravitaillement) ; **le numéro de ligne 1..n porté par la consommation** — le précédent s'atteint au rang (numero − 1), la première ligne se déduit du `km_initial` du véhicule, `km_prevu = numero × km_annuel / 12` ; **l'échéancier vit par deux hooks** : engendré à la validation du financement (`creer_echeancier`), clos à la vente — les échéances non payées supprimées (`clore_echeancier`) ; **la coche Payé calculée** — payée dès que la date du jour dépasse l'échéance, le jour d'échéance du mois au financement à plat. | Voir §3.2c. |
+| D832 | **La devise visuelle** (le troisième patron de l'unité — après D771 la devise dans la valeur et D826 l'unité au type) : quand la devise ne porte pas de sens métier, **le montant reste nu (`decimal`) et la devise devient une propriété d'affichage** — `devise` au véhicule ; les conversions `_euro` disparaissent du modèle. | Voir §3.2c. |
+| D833 | **Le `.select` des énumérés** (généralise D771–D773) : la fonction `select` née de `amount.currency` vaut pour tout `enum` — `type.select(thermique: "litres", electrique: "kWh")`, `financement.select(credit: …, loa: …, comptant: 0)` ; les branches nommées par les valeurs, la totalité souhaitable. | Voir §3.2c. |
+| D834 | **Le km prévu au temps, pas au rang** (corrige la formule de D831) : le numéro de ligne n'est pas le numéro du mois — `km_prevu` = les mois écoulés depuis l'achat du véhicule, **bornés à la date de vente**, × `km_annuel / 12` ; le cumul par ligne du classeur n'était que l'approximation d'une ligne par mois ; le calcul s'appuie sur les sous-items du `duration` (`.months`, comme `.days` — D772–D773). | Voir §3.2c. |
+| D835 | **Le passe-droit du statut** (complète D425/D354) : hors graphe = refus — sauf **le degré `administrator`** : le passe-droit, **toujours tracé** ; la raison d'être — « des cas très particuliers et urgents » : débloquer une crispation à moindre coût qu'un déploiement (l'erreur de saisie ou de clic) ; la voie déclarée demeure (le `demote` activé par une version nouvelle). | Voir §3.2c. |
+| D836 | **La notification in-app, le mail en setting** (précise D436/D108–D110) : le mécanisme de notification du socle est accessible à **tous les utilisateurs**, dans l'application ; **son relais vers le smtp = un setting de l'application** (la cascade D588–D591) — **défaut : aucun envoi**. `notify` vit sans mail (le domestique `smtp: none` D763 reste entier). | Voir §3.2c. |
+| D837 | **L'arithmétique et les sous-items du temps** (complète D581, généralise D772–D773) : `date + duration → date` acté (le miroir du `date − date → duration`) ; **les sous-items du `date` par les fonctions du type** — `.day`, `.month`, `.year`, `.week`, `.day_name`… — comme `.days`/`.months` du `duration`. | Voir §3.2c. |
+| D838 | **D837 sans objet** (l'arbitrage de l'auteur — les définitions antérieures suffisent) : les opérateurs sont **des fonctions de type** (D581 — la table à la signature du type) : le `+` du `date` reçoit le second membre, l'additionne et retourne une date — rien à acter en grammaire ; les sous-items (`.day`, `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months`…) relèvent du même régime — **le catalogue de fonctions des types `date`/`duration`** (D772–D773), fourni par le hook de type (D681). | Voir §3.2c. |
+| D839 | **Le morceau 3 du véhicule arrêté** (précise D831) : **le cycle de vie au statut** — `states: statut`, Création → Actif → Clôture (la naissance au `default`, l'activation libre D426, la clôture au cliquet D354/D427 dès `date_vente`, les `allow` par état D422 — l'archive en lecture seule, `date_vente` comprise ; le retour d'un champ figé = le `demote` d'une version nouvelle, l'urgence = le passe-droit D835) ; **le trio de l'échéancier** — `creer_echeancier` (l'automatisme : `when: financement = credit or financement = loa`), `ajuster_echeancier` (**le bouton**, la garde D430 — les non payées remplacées, les payées intactes), `clore_echeancier` (`when: statut = cloture`) ; **la notification des révisions** = l'opération `notifier` (`when: echue`) + l'effet `notify` (D436/D836) ; **la révision au booléen** — `entretien.revision: boolean` (une révision ou une intervention hors révision — la référence sans intérêt, l'association dérivée sans emploi). | Voir §3.2c. |
+| D840 | **La description courte se nomme `hint`** (raffine D258) : `comment` disait l'annotation et collisionnait avec le commentaire YAML — `hint` dit l'aide, sur les trois écrans ; `tooltip` écarté — le nom-par-mécanisme mentirait sur mobile (D262 : l'infobulle au PC, le petit logo à la tablette, rien au smartphone) ; la réserve au glossaire — le *hint* d'Android/Flutter est notre `placeholder`. | Voir §3.2c. |
+| D841 | **L'accès par la clé fonctionnelle** (la proposition de l'auteur — « pourquoi max ? un peu lourd ») : `collection[<expression>]` retourne l'enregistrement dont l'`identity:` vaut l'expression — `owner.consommations[me.numero - 1].total_km` remplace l'agrégat-singleton `max(total_km if numero = me.numero - 1)` ; le crochet de l'adresse (D566) transposé au langage d'expression ; **exige l'`identity:` déclarée** — `consommation` porte `identity: [numero]`, la clé au sein du possesseur pour une composition ; la clé absente = nul (la première ligne reste au `iif`). | Voir §3.2c. |
+| D842 | **La clé composée et la portée de l'accès** (précise D841) : l'`identity:` à plusieurs champs s'accède **une valeur par identifiant, séparées par des virgules** — `collection[v1, v2]` ; **la composition borne d'elle-même** — `owner.consommations[…]` ne voit que les éléments du possesseur, jamais les autres véhicules ; **l'étendue globale passe par l'entité** — `transport.consommation[…]` (le nom déclaré — pas de pluriel implicite, la ligne D394/D405), et **la clé du ou des parents s'ajoute en tête** de l'accès. | Voir §3.2c. |
+| D843 | **`entity.md` créé** : le onzième artefact préparatoire (Q58) — l'organisation d'une entité (l'en-tête : name, hint/description, label, identity, states, validation), les champs et leurs propriétés (la paire hint/description D258/D840, l'accès par la clé D841–D842, la convention de lisibilité), les opérations et la présentation en renvois ; aucun contenu nouveau — la vue vivante du registre. | La méthode des artefacts (D709/D735) — le manque signalé par l'auteur. |
+| D844 | **Le morceau 4 du véhicule arrêté — les surfaces** (précise D839) : **l'écran principal** = le dashboard `accueil` du module — l'écho des révisions échues (la liste en widgets au texte unique : deux `paragraph` mustache à l'alinéa `if:`, **une pure alerte sans lien**) avant la liste des véhicules en widgets (la carte `voiture`), chaque liste dans sa section empilée (D489/D490, `list[<entité>.<nom>]` — l'adresse universelle D566) ; **le formulaire du véhicule à six onglets** — Véhicule, Financement (le `visible:` vivant, le bouton `ajuster_echeancier`, l'échéancier embarqué D486), Consommation, Entretien, Révision, Bilan (le dashboard de sections + `chart[consommation.evolution_consommation]` — l'adresse qualifiée) ; **l'édition en ligne** aux quatre listes (`editable:` — les calculés se refont), **aucun formulaire déclaré aux entités filles** (le défaut du socle suffit), `selection`/`searchable` retirés (les défauts D470/D474, pas de besoin) ; les listes à l'éponymie (consommations, entretiens, revisions, echues, echeancier) ; **la convention de lisibilité** — les fichiers aérés, les accolades dépliées, les saisis en tête et les calculés en pied (le séparateur), le commentaire devant le champ ; **l'auto-documentation davantage** — `label`/`hint`/`description`/`placeholder` aux champs, la `description:` aux entités — le `#` au seul lecteur du fichier. | Voir §3.2c. |
+| D845 | **Les options de lecture à la carte du connecteur** (complète D828/D829) : **le défaut — la première ligne du CSV = les entêtes existantes**, elles nomment les colonnes (l'hypothèse du cas 2 érigée en défaut, la liste nue suffit) ; l'entrée passe à **l'objet** pour les écarts — `files:` (la liste ou le pattern D806), **`headers: [..]`** (l'entête de substitution, **dans l'ordre des colonnes du fichier** — elle prime), **`skipheader:`** (la présence de la ligne d'entête — défaut vrai ; `false` = le fichier commence aux données, les noms viennent de la substitution) ; la transposition au xlsx (la feuille, les lignes sautées, la plage) reste au morceau 5, en validation. | Voir §3.2c. |
+| D846 | **La lecture Excel : la plage au nommage Excel** (referme la transposition de D845 — « ma description du CSV était une parenthèse ») : une source Excel décrit **un fichier et une plage** — **la zone de nom**, ou **la plage** `FEUILLE!A3:H100` ; **l'entête au régime du CSV** (D845 — le défaut : la première ligne de la plage porte les entêtes existantes ; la substitution `headers:` sinon) ; la plage borne d'elle-même (le bloc droit homonyme de l'ENTRETIEN écarté sans autre mot) ; le trio sheet/skiprows/range du brouillon s'efface ; les feuilles-formulaires s'adressent **aux champs** — `cell: IDENTIFICATION!B1`, le même nommage (la proposition R1 réalignée, en validation). | Voir §3.2c. |
+| D847 | **La plage en liste — le repli** (complète D846) : `range:` accepte **une liste de plages** — la première existante sert, la feuille absente passe à la suivante ; le crédit et la LOA, au même format, **fusionnent en une source `echeance`** — le réel discrimine les régimes (**l'intérêt vide = la LOA**) ; la durée par écrasement vaut dès lors pour tous les financements (le G4 du crédit superflu). | Voir §3.2c. |
+| D848 | **La lecture Excel achevée — R1 clos** (précise D846/D847) : **la facette `reference:`** porte tout le nommage Excel — la cellule (`IDENTIFICATION!B1`), la feuille pour l'image embarquée (l'ancre varie — l'arbitrage R8), la plage à la carte ; **`single:` à la carte** — un seul enregistrement par fichier (les feuilles-formulaires ; une source-plage peut mixer des références de cellules d'autres onglets, répétées par ligne — le drapeau lève l'ambiguïté) ; **la borne aux trois formes** — explicite (`A3:H100`), `...` (l'arrêt à la première ligne vide sur toutes les colonnes du fichier), **ouverte** (`A3:H` — la fin de la feuille, les lignes vides sautées) ; le réel arbitre par plage — l'ouverte à CONSOMMATION/ENTRETIEN (la ligne vide d'après l'entête interdit le `...`), le `...` au CREDIT/LOA. | Voir §3.2c. |
+| D849 | **Les informations système au préfixe `connector.`** (clôt R2) : le connecteur courant les expose aux sources et au mapping — `connector.filename` (le fichier), `connector.path` (le chemin), **`connector.line`** (l'identifiant de la ligne **par rapport à la zone**, jamais la ligne réelle du fichier — la ligne vivante : au moins un champ déclaré servi, les mortes se sautent), la liste extensible ; **portées par le connecteur** — le contrat du hook les fournit (D680–D689 complétés). | Voir §3.2c. |
+| D850 | **La jointure par la plaque** (rend R3 sans objet) : chaque source porte un champ `immatriculation` référençant la cellule de l'autre onglet (`reference: IDENTIFICATION!E1` — le mixte de D848, la valeur répétée sur chaque item) ; **la clé et les parents joignent par l'identité réelle** (`key:`/`parent:` = immatriculation — le patron banque intact) ; la dissociation clé de reprise / `identity:` n'a plus d'objet ici, `connector.filename` reste disponible sans emploi. | Voir §3.2c. |
+| D851 | **La continuation en anomalie** (clôt R5) : les lignes sans date de l'ENTRETIEN (la désignation étalée de la Zoe) **ne se filtrent pas** — elles échouent à la cible (`date` requise) et **la migration les signale en anomalie** ; **l'utilisateur ajuste la source** (la fusion au classeur) et rejoue — jamais de perte silencieuse (l'esprit D183 : le système constate, l'humain décide). | Voir §3.2c. |
+| D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
+| D853 | **La durée du contrat et la finalisation d'après-migration** (solde la note de D852) : **`duree_contrat`** — la saisie du paramétrage (l'intention contractuelle, le générateur l'engendre), distincte de `duree_echeances` (le calculé — le réel compté) ; **`finaliser_vehicule`** — l'opération exécutée **après la migration** (`when: migrated` — l'issue de `migrate`, le patron `generated` D796 généralisé) : elle complète ce que la reprise ne porte pas (les repris gagnent leur `duree_contrat` du compte des échéances), idempotente — elle ne complète que l'absent ; en général, l'occasion d'« engendrer des lignes ou faire des compléments après la migration ». | Voir §3.2c. |
+| D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
+| D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
+| D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
 
 ---
 
@@ -8454,6 +8485,106 @@ sur le même compte). Consigné :
   crée ni ne rapproche — la correspondance ligne → enregistrement
   est tenue par la migration (D666/D668).
 
+**Le second projet du cas 1 — la maintenance d'un véhicule, le
+cadrage (D826 — Q59, l'écho D756 : « le domestique : compte
+bancaire, véhicule… »).** L'auteur ouvre **« un projet plus
+simple : la maintenance d'un véhicule »**, sur deux classeurs
+réels — un thermique (le Partner 2015 : 407 pleins, ~300 000 km,
+vendu en 2026) et un électrique (la Zoe 2023 : LOA, 173 charges) —
+**la même maison à six feuilles** (IDENTIFICATION, CONSOMMATION,
+GRAPHIQUE, ENTRETIEN, CREDIT | LOA, BILAN) ; le dossier réel en
+compte dix, de 1992 à 2026. Les neuf arbitrages du cadrage :
+
+1. **multi-véhicules** — « une application multi-véhicule avec dans
+   l'identification une photo et le type de véhicule (thermique ou
+   électrique) » ;
+2. **la quantité en valeur seule** — « l'unité est portée par la
+   colonne (le type de véhicule) et pas par la valeur » : le
+   contre-patron assumé du amount (D771) — deux patrons légitimes ;
+3. **l'entretien = le journal de vie conservé** — les événements
+   sans montant licites, la vente en recette négative ;
+4. **le financement = le tableau d'amortissement aux formules
+   reportées** de la feuille Excel — des calculés déclarés ;
+5. **les révisions = un échéancier déclarant une notification, sur
+   un km ou sur un délai** ;
+6. **le contrôle technique non porté** ;
+7. **le « km prév. » défini par rapport au km total de la LOA** ;
+8. **la reprise par un storage de type xlsx** — « les paramétrages
+   sont à définir » ;
+9. **la maison à part** — usecases/01_vehicule.md et
+   examples/01_vehicule/ (le préfixe 01 : la famille domestique).
+
+**Un cas d'usage = un exemple — l'alignement des maisons (D827 —
+amende la numérotation de D756/D757).** **« Il faut adapter aussi
+les usecases pour être aligné : 1 usecase = 1 exemple. »** — et
+l'ordre est celui de la simplicité : **« La gestion des véhicules
+est plus simple que la gestion du compte en banque. »** Les maisons
+s'alignent par le préfixe, des deux côtés :
+
+- `01_vehicule` (usecases + examples) — le plus simple ;
+- `02_banque` (usecases + examples — l'ex-01_domestic) ;
+- `03_sales_collection`, `04_cegid_conversion`,
+  `05_project_management`, `06_meal_delivery` — les suivants
+  décalés d'un cran, leurs exemples à venir porteront les mêmes
+  préfixes.
+
+L'échelle de D756 (cinq cas du simple au complexe) devient **six
+maisons** : le domestique se dédouble en deux projets ; le fond de
+D756 est inchangé, les titres des cas se relisent (le cas 1 = le
+véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
+initiale).
+
+**La carte entités → fichiers au connecteur (D828 — valide l'option
+A, amende l'écriture de D819).** **« Je valide l'option A avec une
+variante. La liste des entités est à définir au même niveau que
+"parameters". »** — la déclaration du connecteur source gagne une
+section :
+
+```yaml
+legacy:
+  type: storage
+  class: csv
+  parameters:                     # le paramétrage technique de la classe
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+  entities:                       # la carte structurelle — au même niveau (D828)
+    budget: [budget.txt, budget-clos.txt]
+```
+
+— consigné :
+
+- **`entities:` est une section du connecteur**, au même niveau que
+  `parameters:` — le paramétrage technique d'un côté, la carte
+  structurelle de l'autre ;
+- **chaque entité déclare ses fichiers** — la liste ou le pattern
+  (D806) ; plusieurs fichiers = l'union des lignes (D816) ; **le cas
+  rare** (un même fichier pour plusieurs entités) = le fichier
+  répété sous chaque entité ;
+- le `file:` des parameters disparaît (l'écriture de D819 se
+  précise — le périmètre physique reste au connecteur) ;
+- **la réciprocité vérifiable à l'ingestion** : une entité déclarée
+  au connecteur sans description dans source/, ou l'inverse, est
+  une déclaration orpheline (l'esprit D805).
+
+**La carte au contrat du hook de connecteur (D829 — complète D828,
+précise D621/D685).** **« Le hook de connecteur doit être adapté
+pour avoir l'information entities qui correspond aux mappings entre
+les entités et les fichiers. »** — consigné :
+
+- **la classe reçoit sa déclaration entière à l'initialisation** :
+  les `parameters:`, les `secrets:` — et désormais **la carte
+  `entities:`** (D828) pour les classes qui portent des sources
+  (csv, xlsx…) ; la carte est optionnelle au contrat — les familles
+  qui ne lisent pas de fichiers l'ignorent ;
+- **`read_instance` s'appuie sur la carte** (D685 se précise) : les
+  items de stockage retournés = **les entités déclarées** — le
+  fichier n'est jamais un item, il n'est que le rangement (l'écho
+  D816) ;
+- **la lecture d'une entité parcourt l'union de ses fichiers**, dans
+  l'ordre de la liste — le curseur (D689) enchaîne les fichiers de
+  façon transparente.
+
 **La maison des cas d'usage (D757 — amende ma proposition).** **« Le
 cadre des cas d'usage est à consigner dans des fichiers md distincts
 et stockés dans un dossier `usecases/` au même niveau que
@@ -8721,19 +8852,19 @@ environments/                  # un dossier PAR environnement (D342)
     environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
     connectors/                #     identité (un actif, D80), données (D79),
                                #     notifications (D108), géocodage (D294), reprise (D175)
-    logs.yml                   #     debug / verbose (D343)
+    logging.yml                #     debug / verbose (D343)
     settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
     documentation.yml          #     génération de la documentation (D333)
   production/                  #   la production active
     environment.yml
     connectors/
-    logs.yml                   #     info + puits de logs éventuel (D343)
+    logging.yml                #     info + puits de logs éventuel (D343)
     settings.yml
     documentation.yml
   passive/                     #   la production passive (PCA/PRA, D113–D114)
     environment.yml
     connectors/
-    logs.yml                   #     warning (D343)
+    logging.yml                #     warning (D343)
     settings.yml
     documentation.yml
 versions/                      # (D324, D338, D340)
@@ -17023,6 +17154,280 @@ avant la synthèse Q16).
   constat du réel : 54 doublons du quintuple, aucune clé naturelle.
   **LE MORCEAU R1 EST CLOS — quinze décisions (D811–D825), la
   reprise des données écrite de bout en bout.**
+- **2026-08-27 — LES PUBLICATIONS FUSIONNÉES, LE PROJET VÉHICULE
+  OUVERT (D826).** La PR #37 (feature/meta-schema → develop, 82
+  commits) et la publication #38 (develop → main, 91 commits — la
+  troisième) créées et fusionnées, les ancêtres vérifiés. Puis le
+  second projet du cas 1 ouvert : **la maintenance d'un véhicule**
+  (D826) — les deux classeurs réels lus (le thermique, l'électrique
+  — la même maison à six feuilles), les neuf arbitrages du cadrage
+  consignés, la maison usecases/01_vehicule.md créée. **La suite :
+  le morceau 1 du dépôt examples/01_vehicule/ (la racine et
+  l'environnement), puis le modèle.**
+- **2026-08-27 (pause)** — La séance s'arrête sur le morceau 1 du
+  projet véhicule écrit (onze fichiers — l'arborescence pleine sur
+  les acquis D799–D810, logs.yml au contrat consigné, smtp none
+  conservé), **en validation**. **La reprise : la validation du
+  morceau 1, puis le morceau 2 — le modèle** (vehicule à la photo
+  et au type, ravitaillement à la quantité en valeur seule,
+  entretien = le journal de vie, le financement aux formules
+  reportées, l'échéancier des révisions à notification). La PR de
+  consolidation sur demande (~5 commits depuis la #37).
+- **2026-08-29** — **examples/01_domestic renommé examples/02_banque**
+  (le geste de l'auteur) : les exemples se numérotent **par projet,
+  du plus simple au plus riche** (01_vehicule, 02_banque) — une
+  numérotation propre aux exemples, distincte de celle des cas
+  d'usage (usecases/01_domestic.md couvre les deux projets
+  domestiques ; 02_sales_collection reste le cas 2 de D756). Le
+  nommage libre (D807) — le geste sans décision nouvelle ; le lien
+  d'usecases mis à jour, les mentions du journal restent
+  historiques.
+- **2026-08-29 (suite 2)** — **Un cas d'usage = un exemple
+  (D827)** : les usecases renommés et renumérotés (01_vehicule,
+  02_banque — l'ex-01_domestic, 03_sales_collection,
+  04_cegid_conversion, 05_project_management, 06_meal_delivery),
+  les titres relus — six maisons alignées sur les exemples, l'ordre
+  de la simplicité confirmé (« la gestion des véhicules est plus
+  simple que la gestion du compte en banque »).
+- **2026-08-29 (suite 3)** — **La carte entités → fichiers (D828)** :
+  l'option A validée à la variante près — entities: au même niveau
+  que parameters: ; le connecteur de la banque relu, mapping.md,
+  connectors.md et usecases au niveau.
+- **2026-08-29 (suite 4)** — **La carte au contrat du hook (D829)** :
+  la classe reçoit entities: à l'initialisation, read_instance
+  retourne les entités déclarées, le curseur enchaîne l'union des
+  fichiers ; hooks.md et connectors.md mis au niveau.
+- **2026-08-29 (suite 5)** — **logging.yml remplace logs.yml
+  (D830)** : le point relevé à la reprise du véhicule — le 02_banque
+  portait déjà logging.yml et la propriété logging: ; l'arborescence
+  §3.2c, administration.md, telemetry.md et l'exemple véhicule
+  alignés (les mentions du journal restent historiques).
+- **2026-08-30 — LE MORCEAU 2 DU VÉHICULE ARRÊTÉ (D831–D833).** Le
+  morceau 1 validé (onze fichiers), le modèle écrit sur les formules
+  réelles des deux classeurs (lues cellule par cellule) puis arrêté
+  par les huit retours de l'auteur : **transport** et
+  **consommation** (les noms), le numéro de ligne 1..n (le précédent
+  au rang, la première ligne au km_initial, km_prevu = numero ×
+  km_annuel/12), **l'échéancier aux deux hooks** — engendré à la
+  validation du financement (creer_echeancier), clos à la vente avec
+  la purge des non payées (clore_echeancier) —, la coche Payé
+  calculée (le jour d'échéance du mois au financement à plat, la
+  purge de la vente referme l'angle du temps qui passe), l'unité
+  calculée validée, **la devise visuelle** (D832 — les montants nus,
+  la devise au véhicule, les conversions _euro purgées, le
+  frottement de la division d'amount éteint), **le .select des
+  énumérés** acté (D833). Les cinq entités : vehicule
+  (identification, financement à plat, bilan tout calculé),
+  consommation, entretien (journal de vie), revision (la règle
+  seule), echeance. **La suite : le morceau 3 — les opérations**
+  (creer_echeancier, clore_echeancier, la notification des
+  révisions).
+- **2026-08-30 (suite)** — **Le km prévu au temps (D834 — corrige
+  la formule de D831).** « Le numéro de ligne n'est pas le numéro
+  du mois » : km_prevu = les mois écoulés depuis l'achat, bornés à
+  la date de vente, × km_annuel/12 — le cumul par ligne du
+  classeur n'était que l'approximation d'une ligne par mois ; les
+  sous-items du duration (.months, comme .days) portent le calcul.
+- **2026-08-30 (suite 2)** — **Le morceau 3 s'arbitre (D835–D837),
+  le registre corrige l'exemple.** La relecture demandée par
+  l'auteur (« il me semble que nous avions déjà abordé ce
+  point ») : le when et les opérations étaient entièrement
+  tranchés (D354/D427/D428/D430/D435/D609/D641/D796) — les
+  participes created/updated/promoted inventés au morceau 3
+  disparaissent, l'expression porte tout, le if au when existait
+  (D430). Les trois hooks arrêtés : creer_echeancier
+  (automatisme), **ajuster_echeancier** (le bouton — le
+  re-paramétrage sous le cliquet, les non payées remplacées, les
+  payées intactes), clore_echeancier (automatisme). Puis les
+  arbitrages : **le passe-droit du statut** (D835 — administrator
+  seul, toujours tracé, « moins onéreux que de déployer une
+  nouvelle version pour une erreur de saisie ou de clic » ; le
+  souvenir de l'auteur vérifié : le registre ne le portait pas,
+  D183 n'en avait que l'esprit côté stock) ; **la notification
+  in-app, le mail en setting défaut néant** (D836) ; **date +
+  duration → date et les sous-items du temps** (D837). Et
+  l'accès retour élucidé PAR le registre : D394 (jamais déclaré,
+  le moteur le possède), D405 (le nommer = l'association
+  dérivée) — le pluriel implicite de revision.entretiens était
+  une invention, la déclaration actée s'écrit
+  `entretiens: association with entretien if entretien.revision
+  = me`. Le morceau 3 n'a plus de question ouverte.
+- **2026-08-30 (suite 3)** — **D837 sans objet (D838).** L'auteur
+  rappelle la définition antérieure : **les opérateurs sont des
+  fonctions de type** (D581 — la table à la signature) — le + du
+  date reçoit le second membre et retourne une date ; l'arithmétique
+  n'avait rien à acter, les sous-items non plus (le catalogue de
+  fonctions des types date/duration — D772–D773, le hook de type
+  D681). Et l'entretien simplifié : **revision devient un booléen**
+  (la référence à la règle n'avait pas d'intérêt — une révision ou
+  une intervention hors révision) ; l'association dérivée, sans
+  source, disparaît — owner.entretiens.max(km if revision) suffit
+  (la leçon D394/D405 demeure au usecase). types.md réaligné.
+- **2026-08-30 (pause)** — **LE MORCEAU 3 VALIDÉ (D839, 839
+  décisions).** Le lot véhicule consigné : le cycle de vie au
+  statut, le trio de l'échéancier (l'automatisme, le bouton gardé,
+  le cliquet de la clôture), la notification notifier + notify, la
+  révision au booléen. La leçon de la séance : trois écritures
+  inventées (les participes d'événements, le if au when déjà connu,
+  le pluriel de l'accès retour) — toutes corrigées PAR le registre
+  (D354/D427/D428/D430/D435, D394/D405) : relire avant d'écrire.
+  **La reprise : le morceau 4 — les surfaces** (les listes, le
+  formulaire du véhicule, le chart de consommation, l'écho des
+  révisions échues), **puis le morceau 5 — la reprise** (le storage
+  xlsx, la carte entities: D828). PR sur demande.
+- **2026-08-30 (reprise — le morceau 4 en cours)** — **La
+  description courte se nomme hint (D840).** Le morceau 4 écrit et
+  repris au fil des arbitrages de l'auteur (l'écran principal aux
+  sections empilées, le formulaire à six onglets, l'édition en
+  ligne, la convention de lisibilité, l'auto-documentation
+  label/hint/description/placeholder, l'artefact entity.md créé —
+  la consignation du lot à la validation du morceau). En chemin, le
+  vocabulaire : comment collisionnait avec le commentaire YAML —
+  hint dit l'aide ; tooltip écarté (le nom-par-mécanisme, D262 :
+  trois rendus, un seul sens) ; la réserve Android/Flutter au
+  glossaire (leur hint = notre placeholder). Glossaire, composants,
+  types, entity et les cinq fields.yml du véhicule renommés.
+- **2026-08-30 (reprise, suite)** — **L'accès par la clé
+  fonctionnelle (D841).** « Pourquoi la fonction max ? je trouve
+  cela un peu lourd » — la proposition de l'auteur :
+  owner.consommations[me.numero - 1].total_km, le crochet de
+  l'adresse (D566) transposé au langage d'expression, l'identity:
+  [numero] déclarée à la consommation (la clé au sein du
+  possesseur) ; les deux formules du précédent allégées,
+  l'agrégat-singleton s'efface ; entity.md au niveau.
+- **2026-08-30 (reprise, suite 2)** — **La clé composée et la
+  portée (D842 — précise D841).** Les précisions de l'auteur :
+  l'identity à plusieurs champs s'accède une valeur par
+  identifiant, virgules ; la composition borne d'elle-même
+  (owner.consommations = les éléments du possesseur seuls) ;
+  l'étendue globale par l'entité — transport.consommation[…], la
+  clé du/des parents en tête. Le nom déclaré sans pluriel
+  implicite (la ligne D394/D405) — la vigilance signalée à
+  l'auteur.
+- **2026-08-30 (pause — le morceau 4)** — **LE MORCEAU 4 VALIDÉ
+  (D843–D844, 844 décisions).** Les surfaces arrêtées au fil des
+  arbitrages de l'auteur : l'écran principal (l'alerte des échues
+  puis les cartes des véhicules), les six onglets, l'édition en
+  ligne partout, les formulaires par défaut, la convention de
+  lisibilité, l'auto-documentation (hint D840, l'accès par la clé
+  D841–D842 en chemin), entity.md créé et consigné (D843). **La
+  reprise : le morceau 5 — la reprise des classeurs** (le storage
+  xlsx, la carte entities: D828, les dix classeurs 1992-2026) — le
+  dernier morceau du cas. PR sur demande.
+- **2026-08-30 (reprise 2 — le morceau 5 en cours)** — **Le
+  morceau 5 écrit, les options de lecture à la carte (D845).** La
+  reprise des classeurs posée sur le réel (le connecteur legacy
+  xlsx, huit entités source, dix phases — la jointure par fichier,
+  l'origine à la ligne 1, les ventes du journal, les échéanciers en
+  données) avec sept manques R1–R7. Puis l'auteur revient au
+  connecteur CSV du cas 2 : **la carte porte les options de
+  lecture** (D845) — le défaut : les entêtes existantes du fichier
+  (la liste nue suffit, l'hypothèse du cas 2 érigée en défaut) ;
+  les écarts à l'objet — files:, headers: (la substitution dans
+  l'ordre des colonnes), skipheader: false (le fichier sans
+  entête) ; la banque au défaut, la transposition xlsx
+  (sheet/skiprows/range) réalignée en validation.
+- **2026-08-30 (reprise 2, suite)** — **La plage au nommage Excel
+  (D846).** La parenthèse CSV refermée, l'arbitrage : une source
+  Excel = un fichier + une plage (la zone de nom, ou
+  FEUILLE!cellules), l'entête au régime du CSV (les entêtes
+  existantes de la première ligne de la plage, la substitution
+  sinon). Le trio sheet/skiprows/range du brouillon s'efface — la
+  plage borne d'elle-même (le bloc droit homonyme écarté sans
+  autre mot) ; les feuilles-formulaires aux champs (cell:
+  IDENTIFICATION!B1 — le même nommage, R1 réaligné). La carte du
+  véhicule et les quatre sources cellulaires au niveau ; la borne
+  haute des plages = un plafond, la lecture s'arrête à la ligne
+  vide (à confirmer, R1).
+- **2026-08-30 (reprise 2, suite 2)** — **La plage en liste, la
+  source fusionnée (D847).** « credit_echeance et loa_echeance ont
+  le même format » : range: en liste de repli (la première plage
+  existante sert), une seule source echeance — l'intérêt vide
+  discrimine la LOA ; les phases refaites (008 le financement aux
+  deux régimes, 009 l'ancrage du crédit, 010 l'échéancier, 011 la
+  durée par écrasement généralisée — le G4 superflu).
+- **2026-08-30 (reprise 2, suite 3)** — **R1 et R8 clos (D848).**
+  La feuille IDENTIFICATION complétée (la plaque = l'identity du
+  véhicule, nom = la marque et le modèle ensemble, lieu_vente
+  extrait de la désignation de vente, la photo par la feuille —
+  reference: IDENTIFICATION, l'ancre libre) ; puis R1 : la facette
+  reference: remplace cell: (le nommage Excel unifié), single: à
+  la carte (un enregistrement par fichier — le mixte plage +
+  cellules d'autres onglets levé), la borne aux trois formes
+  (explicite, «...», ouverte) — le réel arbitre par plage ; les
+  totaux de la LOA écartés au filtre (date != null, phases
+  010/011).
+- **2026-08-30 (reprise 2, suite 4)** — **connector.* (D849 — R2
+  clos).** Les informations système au préfixe connector. :
+  filename, path, line (l'identifiant relatif à la zone, la ligne
+  vivante), la liste extensible, portées par le contrat du hook de
+  connecteur ; les onze phases renommées (fichier →
+  connector.filename, ligne → connector.line), hooks.md au niveau.
+- **2026-08-30 (reprise 2, suite 5)** — **La jointure par la
+  plaque (D850 — R3 sans objet).** L'arbitrage : le parent est
+  l'immatriculation, accessible par un champ transverse
+  référençant la cellule de l'autre onglet (le mixte de D848 en
+  action — la valeur répétée sur chaque item) ; pas besoin du
+  lien par le fichier. Les six sources gagnent le champ, les onze
+  phases joignent par l'identité (le patron banque restauré) ; la
+  plaque vit en E1 (B1 porte le nom — le réel vérifié).
+- **2026-08-30 (reprise 2, suite 6)** — **La continuation en
+  anomalie (D851 — R5 clos).** L'arbitrage : la migration signale,
+  l'utilisateur ajuste la source — le filtre date != null retiré de
+  la phase 5, la ligne sans date échoue à la cible (date requise)
+  et tombe en anomalie ; jamais de perte silencieuse.
+- **2026-08-30 (reprise 2, suite 7)** — **La durée en champ calculé
+  (D852 — R6 clos).** « Le plus propre » : duree_echeances =
+  echeances.count() — le champ passe aux calculés du véhicule, la
+  phase 11 d'écrasement supprimée, le doc du générateur neutralisé ;
+  la question rouverte (l'entrée de la durée d'un financement neuf —
+  le générateur la lisait) signalée à l'auteur.
+- **2026-08-30 (reprise 2, suite 8)** — **duree_contrat et
+  finaliser_vehicule (D853).** Le (a) privilégié : duree_contrat
+  saisi (l'intention contractuelle — le générateur l'engendre),
+  duree_echeances calculé (le réel) ; et l'idée neuve de l'auteur —
+  **l'opération d'après-migration** : finaliser_vehicule (when:
+  migrated — l'issue de migrate, le patron generated D796
+  généralisé), le 4e hook du projet — les repris gagnent leur
+  duree_contrat du compte, l'idempotence (ne complète que
+  l'absent) ; « générer des lignes ou faire des compléments après
+  la migration » a désormais sa place.
+- **2026-08-30 (reprise 2, suite 9)** — **La troncature naturelle
+  (D854 — R7 clos, le morceau 5 complet).** L'affectation vers un
+  date plus grossier tronque à sa nature ; la formule explicite
+  reste utilisable. **Les huit manques R1–R8 sont tous clos**
+  (D845–D854) — le morceau 5 entier en validation, le cas véhicule
+  avec lui.
+- **2026-08-30 (clôture) — LE CAS VÉHICULE CLOS (D855, 855
+  décisions).** Le morceau 5 validé — les cinq morceaux du second
+  projet domestique livrés (l'assise, le modèle, les opérations,
+  les surfaces, la reprise), 26 décisions du cas (D830–D855), les
+  huit manques de la reprise soldés en séance. La PR de
+  consolidation feature/meta-schema → develop préparée (~55
+  commits depuis la #38). **La suite : les cas 3–6 de l'échelle
+  (D756), ou la documentation (Q58) — au choix de l'auteur.**
+- **2026-08-30 (fusion) — LA PR #39 FUSIONNÉE.** develop porte le
+  cas véhicule entier (D830–D855, 53 commits — la fusion par
+  l'auteur, l'ancêtre vérifié : develop contient la branche
+  entière). La publication develop → main (la 4e) sur demande.
+- **2026-08-31 — LE CAS 0 OUVERT ET LIVRÉ (D856).** Le « hello
+  world » de l'auteur : l'enquête de satisfaction — un module
+  (satisfaction), une table (enquete) et une composition
+  (reponse), sans migration, le gui entièrement généré ; l'usage :
+  récolter rapidement des informations. Le cas tient en un
+  morceau — seize fichiers, zéro surface, deux calculés
+  vivants ; l'échelle gagne son degré zéro (sept maisons). **En
+  validation.**
+- **2026-08-31 (suite)** — **La configuration du cas 0 validée ;
+  les release-notes personnalisés.** La remarque de l'auteur :
+  le squelette copié s'interdit — chaque version.yml raconte son
+  cas ; les trois maisons reprises (l'enquête — le généré qui
+  suffit ; le véhicule — les cinq morceaux en résumé ; la banque —
+  trente-quatre ans repris).
+- **2026-08-31 (suite 2) — LE CAS 0 VALIDÉ.** L'échelle tient ses
+  sept maisons — le degré zéro livré en une séance (D856, seize
+  fichiers, zéro surface). La PR de consolidation préparée
+  (feature/meta-schema → develop, ~5 commits depuis la #39).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

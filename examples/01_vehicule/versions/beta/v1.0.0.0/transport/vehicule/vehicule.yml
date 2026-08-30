@@ -1,0 +1,23 @@
+# Le véhicule — la feuille IDENTIFICATION + le BILAN (tout calculé, D826)
+name: vehicule
+description: Un véhicule du foyer — l'identification, le financement, la vie et le bilan
+# le visage texte ; la photo = le visage image (D386)
+label: "{nom}"
+# la plaque = l'identification du véhicule (l'arbitrage de la reprise) ;
+# le classeur garde son nom (« Partner Outdoor », « Renault ZOE »)
+identity: [immatriculation]
+# le champ énuméré porteur du cycle de vie (D424)
+states: statut
+
+# La liste des champs de l'entité — l'éclatement libre (D767)
+fields: fields.yml
+
+# Les opérations associées à l'entité — le cycle de vie de l'échéancier (D831)
+operations: operations.yml
+
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml
+
+# Une vente ne précède pas l'achat
+validation:
+  - date_vente >= date_achat if date_vente != null

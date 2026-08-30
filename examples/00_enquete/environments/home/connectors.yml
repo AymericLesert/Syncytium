@@ -1,0 +1,12 @@
+# le natif du domestique (D729)
+database:
+  type: storage
+  class: sqlite
+
+# « pas de secrets dans la famille » (D759)
+authentication:
+  class: none
+
+# le mail muet, assumé (D763)
+smtp:
+  class: none

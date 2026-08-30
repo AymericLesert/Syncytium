@@ -1,0 +1,21 @@
+# L'échéance — la ligne du tableau CREDIT | LOA.
+# Le cycle de vie tient en deux hooks (D831, le morceau 3) :
+# - creer_echeancier — les lignes sont ENGENDRÉES à la validation du
+#   financement du véhicule ; les formules du classeur (la mensualité
+#   constante, intérêt = reste × taux périodique, amortissement =
+#   mensualité − intérêt) vivent dans le générateur, pas dans la
+#   grammaire (D826 : « des calculés déclarés, pas une saisie ») ;
+# - clore_echeancier — à la vente du véhicule, l'échéancier est clos :
+#   toutes les échéances non payées sont supprimées.
+# La coche « Payé » du classeur devient un calculé : l'échéance est
+# payée dès que la date du jour dépasse sa date (le jour d'échéance
+# du mois porté par le financement — D831).
+name: echeance
+description: Une échéance du financement — la ligne du tableau CREDIT | LOA
+label: "${name}"
+
+# La liste des champs de l'entité
+fields: fields.yml
+
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml

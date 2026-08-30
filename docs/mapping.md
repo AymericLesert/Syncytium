@@ -313,10 +313,16 @@ customers:
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;
-  **la liste des fichiers vit au connecteur** (D819 — le périmètre
-  physique à l'environnement : le dossier, les fichiers, l'encodage,
-  le séparateur ; la liste ou le pattern D806), l'entité source
-  reste purement logique (D652) ; un seul mapping ;
+  **la carte entités → fichiers vit au connecteur** (D819/D828 —
+  la section `entities:` au même niveau que `parameters:` : chaque
+  entité déclare ses fichiers, la liste ou le pattern D806, le
+  fichier répété pour le cas rare d'un fichier partagé), l'entité
+  source reste purement logique (D652) ; un seul mapping ;
+  **le défaut : la première ligne = les entêtes existantes** (D845 —
+  la liste nue suffit) ; **l'entrée en objet pour les écarts** —
+  `files:`, `headers: [..]` (la substitution, dans l'ordre des
+  colonnes du fichier — elle prime), `skipheader: false` (le
+  fichier sans entête — les noms viennent de la substitution) ;
 
 - **les composés par la fonction du type** (D659, validé) : plusieurs
   colonnes source vers un champ cible — la fonction de construction

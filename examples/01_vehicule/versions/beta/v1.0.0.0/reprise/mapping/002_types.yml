@@ -1,0 +1,9 @@
+# La phase 2 — le type par le titre de la feuille CONSOMMATION
+# (« D'ESSENCE » / « D'ELECTRICITE ») ; la devise viendra de l'origine
+# (la phase 3 — l'année de l'achat).
+
+titre_consommation:
+  to: transport.vehicule
+  key: immatriculation                     # la règle à clé = la mise à jour (D825)
+  fields:
+    type: type_vehicule

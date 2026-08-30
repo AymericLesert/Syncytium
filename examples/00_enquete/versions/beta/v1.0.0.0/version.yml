@@ -1,0 +1,20 @@
+# Identification et description de la version — la version en tête (D801)
+
+version: 1.0.0.0
+release-notes: >
+  La première version de l'enquête de satisfaction — le « hello
+  world » de Syncytium : un module, une table et une composition,
+  aucune surface déclarée.
+  # Le modèle
+  ## L'enquête — le titre, la date, les réponses ; le nombre de
+  réponses et la note moyenne se calculent seuls
+  ## La réponse — le répondant, la note de 1 à 5, le commentaire
+  # Le généré
+  ## Les formulaires et les listes naissent des défauts du socle :
+  la collecte peut commencer dès le chargement
+
+# Déclaration des modules
+# Pour l'exemple, nous n'avons qu'un seul module
+
+modules:
+  - satisfaction/satisfaction.yml

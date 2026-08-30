@@ -969,6 +969,8 @@ Q58) :
 | D840 | **La description courte se nomme `hint`** (raffine D258) : `comment` disait l'annotation et collisionnait avec le commentaire YAML — `hint` dit l'aide, sur les trois écrans ; `tooltip` écarté — le nom-par-mécanisme mentirait sur mobile (D262 : l'infobulle au PC, le petit logo à la tablette, rien au smartphone) ; la réserve au glossaire — le *hint* d'Android/Flutter est notre `placeholder`. | Voir §3.2c. |
 | D841 | **L'accès par la clé fonctionnelle** (la proposition de l'auteur — « pourquoi max ? un peu lourd ») : `collection[<expression>]` retourne l'enregistrement dont l'`identity:` vaut l'expression — `owner.consommations[me.numero - 1].total_km` remplace l'agrégat-singleton `max(total_km if numero = me.numero - 1)` ; le crochet de l'adresse (D566) transposé au langage d'expression ; **exige l'`identity:` déclarée** — `consommation` porte `identity: [numero]`, la clé au sein du possesseur pour une composition ; la clé absente = nul (la première ligne reste au `iif`). | Voir §3.2c. |
 | D842 | **La clé composée et la portée de l'accès** (précise D841) : l'`identity:` à plusieurs champs s'accède **une valeur par identifiant, séparées par des virgules** — `collection[v1, v2]` ; **la composition borne d'elle-même** — `owner.consommations[…]` ne voit que les éléments du possesseur, jamais les autres véhicules ; **l'étendue globale passe par l'entité** — `transport.consommation[…]` (le nom déclaré — pas de pluriel implicite, la ligne D394/D405), et **la clé du ou des parents s'ajoute en tête** de l'accès. | Voir §3.2c. |
+| D843 | **`entity.md` créé** : le onzième artefact préparatoire (Q58) — l'organisation d'une entité (l'en-tête : name, hint/description, label, identity, states, validation), les champs et leurs propriétés (la paire hint/description D258/D840, l'accès par la clé D841–D842, la convention de lisibilité), les opérations et la présentation en renvois ; aucun contenu nouveau — la vue vivante du registre. | La méthode des artefacts (D709/D735) — le manque signalé par l'auteur. |
+| D844 | **Le morceau 4 du véhicule arrêté — les surfaces** (précise D839) : **l'écran principal** = le dashboard `accueil` du module — l'écho des révisions échues (la liste en widgets au texte unique : deux `paragraph` mustache à l'alinéa `if:`, **une pure alerte sans lien**) avant la liste des véhicules en widgets (la carte `voiture`), chaque liste dans sa section empilée (D489/D490, `list[<entité>.<nom>]` — l'adresse universelle D566) ; **le formulaire du véhicule à six onglets** — Véhicule, Financement (le `visible:` vivant, le bouton `ajuster_echeancier`, l'échéancier embarqué D486), Consommation, Entretien, Révision, Bilan (le dashboard de sections + `chart[consommation.evolution_consommation]` — l'adresse qualifiée) ; **l'édition en ligne** aux quatre listes (`editable:` — les calculés se refont), **aucun formulaire déclaré aux entités filles** (le défaut du socle suffit), `selection`/`searchable` retirés (les défauts D470/D474, pas de besoin) ; les listes à l'éponymie (consommations, entretiens, revisions, echues, echeancier) ; **la convention de lisibilité** — les fichiers aérés, les accolades dépliées, les saisis en tête et les calculés en pied (le séparateur), le commentaire devant le champ ; **l'auto-documentation davantage** — `label`/`hint`/`description`/`placeholder` aux champs, la `description:` aux entités — le `#` au seul lecteur du fichier. | Voir §3.2c. |
 
 ---
 
@@ -17290,6 +17292,16 @@ avant la synthèse Q16).
   clé du/des parents en tête. Le nom déclaré sans pluriel
   implicite (la ligne D394/D405) — la vigilance signalée à
   l'auteur.
+- **2026-08-30 (pause — le morceau 4)** — **LE MORCEAU 4 VALIDÉ
+  (D843–D844, 844 décisions).** Les surfaces arrêtées au fil des
+  arbitrages de l'auteur : l'écran principal (l'alerte des échues
+  puis les cartes des véhicules), les six onglets, l'édition en
+  ligne partout, les formulaires par défaut, la convention de
+  lisibilité, l'auto-documentation (hint D840, l'accès par la clé
+  D841–D842 en chemin), entity.md créé et consigné (D843). **La
+  reprise : le morceau 5 — la reprise des classeurs** (le storage
+  xlsx, la carte entities: D828, les dix classeurs 1992-2026) — le
+  dernier morceau du cas. PR sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

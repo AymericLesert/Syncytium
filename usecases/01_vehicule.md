@@ -161,7 +161,7 @@ opérations, les surfaces, la reprise)*
     l'information ; la surface du morceau 4 fera écho (le mail
     reste muet — smtp none, D763).
 
-- **le morceau 4 — les surfaces** (en validation, la 2e passe —
+- **le morceau 4 — les surfaces** (validé le 30/08, D843–D844 —
   l'architecture de l'auteur) : **l'entrée principale = la liste
   des véhicules en widgets** (D492 — le visage `carte` : photo,
   identité, `km_courant`/`prix_km` en sections D489), **puis le

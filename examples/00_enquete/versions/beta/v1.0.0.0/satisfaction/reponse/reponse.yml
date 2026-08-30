@@ -1,0 +1,8 @@
+# La réponse — un répondant, une note, un mot. Le formulaire et la
+# liste par défaut suffisent (aucun gui déclaré).
+name: reponse
+description: Une réponse à l'enquête — le répondant, la note, le commentaire
+label: "${name}"
+
+# La liste des champs de l'entité
+fields: fields.yml

@@ -1,0 +1,10 @@
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768). « satisfaction » : le nommage libre (D807)
+# évite l'éponymie triple enquete/enquete/enquete.yml (la leçon
+# transport — D831) et donne des références lisibles.
+name: satisfaction
+description: La collecte des enquêtes de satisfaction
+
+entities:
+  - enquete/enquete.yml
+  - reponse/reponse.yml

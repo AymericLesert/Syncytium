@@ -148,10 +148,11 @@ opérations, les surfaces, la reprise)*
     les échéances non payées supprimées (la coche calculée ne
     « paiera » pas un véhicule vendu) ;
   - **la notification des révisions — l'opération automatique +
-    `notify` (D436)** : la ligne d'entretien qui solde une règle la
-    nomme (`entretien.revision`, le picker borné au véhicule), la
-    règle en déduit `derniere_km`/`derniere_date` (l'association
-    dérivée D394/D405), `prochaine_km`/`prochaine_date` (depuis la dernière
+    `notify` (D436)** : la ligne d'entretien **marquée révision**
+    (`revision: boolean` — la référence à la règle n'avait pas
+    d'intérêt), la règle en déduit `derniere_km`/`derniere_date`
+    (`owner.entretiens.max(km if revision)`),
+    `prochaine_km`/`prochaine_date` (depuis la dernière
     faite, sinon l'origine), **`echue`** — sur le km OU le délai,
     tant que le véhicule est actif —, et l'opération `notifier`
     (`when: echue`, l'effet `notify` du socle — D432/D574) porte
@@ -197,12 +198,13 @@ opérations, les surfaces, la reprise)*
    troisième hook **`ajuster_echeancier`**, un bouton de
    l'utilisateur (le cliquet de `creer_echeancier` reste intact) —
    les non payées remplacées, les payées intactes ;
-10. **l'accès retour nommé** — résolu par le registre : l'accès
-    retour n'est **jamais déclaré**, le moteur le possède (D394) ;
-    **le nommer = l'association dérivée** (D405) — le pluriel
-    implicite était une invention, la forme actée est déclarée :
-    `entretiens: association with entretien if entretien.revision
-    = me` ;
+10. **l'accès retour nommé** — résolu par le registre, puis rendu
+    sans emploi : l'accès retour n'est **jamais déclaré**, le
+    moteur le possède (D394) ; **le nommer = l'association
+    dérivée** (D405 — la leçon demeure) ; l'arbitrage final a
+    remplacé la référence `entretien.revision` par **un booléen**
+    (une révision, ou une intervention hors révision) — plus rien
+    à dériver, `owner.entretiens.max(km if revision)` suffit ;
 11. **`date + duration → date`** — tranché : **D837** (le miroir
     de D581), avec **les sous-items du temps** — `.day`, `.month`,
     `.year`, `.week`, `.day_name`… au `date`, `.days`/`.months` au

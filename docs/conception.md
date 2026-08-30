@@ -971,6 +971,7 @@ Q58) :
 | D842 | **La clé composée et la portée de l'accès** (précise D841) : l'`identity:` à plusieurs champs s'accède **une valeur par identifiant, séparées par des virgules** — `collection[v1, v2]` ; **la composition borne d'elle-même** — `owner.consommations[…]` ne voit que les éléments du possesseur, jamais les autres véhicules ; **l'étendue globale passe par l'entité** — `transport.consommation[…]` (le nom déclaré — pas de pluriel implicite, la ligne D394/D405), et **la clé du ou des parents s'ajoute en tête** de l'accès. | Voir §3.2c. |
 | D843 | **`entity.md` créé** : le onzième artefact préparatoire (Q58) — l'organisation d'une entité (l'en-tête : name, hint/description, label, identity, states, validation), les champs et leurs propriétés (la paire hint/description D258/D840, l'accès par la clé D841–D842, la convention de lisibilité), les opérations et la présentation en renvois ; aucun contenu nouveau — la vue vivante du registre. | La méthode des artefacts (D709/D735) — le manque signalé par l'auteur. |
 | D844 | **Le morceau 4 du véhicule arrêté — les surfaces** (précise D839) : **l'écran principal** = le dashboard `accueil` du module — l'écho des révisions échues (la liste en widgets au texte unique : deux `paragraph` mustache à l'alinéa `if:`, **une pure alerte sans lien**) avant la liste des véhicules en widgets (la carte `voiture`), chaque liste dans sa section empilée (D489/D490, `list[<entité>.<nom>]` — l'adresse universelle D566) ; **le formulaire du véhicule à six onglets** — Véhicule, Financement (le `visible:` vivant, le bouton `ajuster_echeancier`, l'échéancier embarqué D486), Consommation, Entretien, Révision, Bilan (le dashboard de sections + `chart[consommation.evolution_consommation]` — l'adresse qualifiée) ; **l'édition en ligne** aux quatre listes (`editable:` — les calculés se refont), **aucun formulaire déclaré aux entités filles** (le défaut du socle suffit), `selection`/`searchable` retirés (les défauts D470/D474, pas de besoin) ; les listes à l'éponymie (consommations, entretiens, revisions, echues, echeancier) ; **la convention de lisibilité** — les fichiers aérés, les accolades dépliées, les saisis en tête et les calculés en pied (le séparateur), le commentaire devant le champ ; **l'auto-documentation davantage** — `label`/`hint`/`description`/`placeholder` aux champs, la `description:` aux entités — le `#` au seul lecteur du fichier. | Voir §3.2c. |
+| D845 | **Les options de lecture à la carte du connecteur** (complète D828/D829) : **le défaut — la première ligne du CSV = les entêtes existantes**, elles nomment les colonnes (l'hypothèse du cas 2 érigée en défaut, la liste nue suffit) ; l'entrée passe à **l'objet** pour les écarts — `files:` (la liste ou le pattern D806), **`headers: [..]`** (l'entête de substitution, **dans l'ordre des colonnes du fichier** — elle prime), **`skipheader:`** (la présence de la ligne d'entête — défaut vrai ; `false` = le fichier commence aux données, les noms viennent de la substitution) ; la transposition au xlsx (la feuille, les lignes sautées, la plage) reste au morceau 5, en validation. | Voir §3.2c. |
 
 ---
 
@@ -17302,6 +17303,19 @@ avant la synthèse Q16).
   reprise : le morceau 5 — la reprise des classeurs** (le storage
   xlsx, la carte entities: D828, les dix classeurs 1992-2026) — le
   dernier morceau du cas. PR sur demande.
+- **2026-08-30 (reprise 2 — le morceau 5 en cours)** — **Le
+  morceau 5 écrit, les options de lecture à la carte (D845).** La
+  reprise des classeurs posée sur le réel (le connecteur legacy
+  xlsx, huit entités source, dix phases — la jointure par fichier,
+  l'origine à la ligne 1, les ventes du journal, les échéanciers en
+  données) avec sept manques R1–R7. Puis l'auteur revient au
+  connecteur CSV du cas 2 : **la carte porte les options de
+  lecture** (D845) — le défaut : les entêtes existantes du fichier
+  (la liste nue suffit, l'hypothèse du cas 2 érigée en défaut) ;
+  les écarts à l'objet — files:, headers: (la substitution dans
+  l'ordre des colonnes), skipheader: false (le fichier sans
+  entête) ; la banque au défaut, la transposition xlsx
+  (sheet/skiprows/range) réalignée en validation.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

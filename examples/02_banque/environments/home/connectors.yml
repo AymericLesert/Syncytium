@@ -20,5 +20,9 @@ legacy:
     directory: ${SYNCYTIUM_LEGACY_DIRECTORY}   # le chemin hors dépôt (D321)
     encoding: windows-1252
     separator: ";"
-  entities:                                    # la carte entités → fichiers (D828)
+  entities:                                    # la carte entités → fichiers (D828/D845)
+    # le défaut (D845) : la première ligne du CSV = les entêtes existantes —
+    # elles nomment les colonnes (ici, les noms de la source budget) ; les
+    # écarts se déclarent à l'objet : files: + headers: [..] (l'entête de
+    # substitution, l'ordre des colonnes) + skipheader: false (sans entête)
     budget: [budget.txt, budget-clos.txt]      # une entité, plusieurs fichiers — l'union (D816)

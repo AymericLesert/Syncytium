@@ -4,9 +4,12 @@
 # classeur ne marque pas ses révisions (les lignes « Entretien
 # 300.000 km » restent des lignes) ; le marquage viendra de l'usage.
 
+# Les lignes de continuation de la Zoe (la désignation étalée, sans
+# date) NE SE FILTRENT PAS : elles échouent à la cible (date requise)
+# et la migration les signale en anomalie — l'utilisateur ajuste le
+# classeur et rejoue (D851, l'esprit D183 : jamais de perte silencieuse).
 entretien:
   to: transport.entretien
-  filter: date != null             # les lignes de continuation écartées (le manque R5)
   parent:
     vehicule: immatriculation
   fields:

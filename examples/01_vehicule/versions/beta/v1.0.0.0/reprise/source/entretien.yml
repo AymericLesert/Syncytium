@@ -1,7 +1,8 @@
 # La feuille ENTRETIEN (la lecture à la carte — D845 : le bloc droit
 # aux entêtes homonymes écarté par range: A..H, cf. le manque R4).
 # Les lignes de continuation de la Zoe (la désignation sur plusieurs
-# lignes, sans date) : la perte assumée — cf. le manque R5.
+# lignes, sans date) : l'anomalie signalée à la migration — l'utilisateur
+# ajuste la source et rejoue (D851).
 
 name: entretien
 description: Le journal de vie du classeur — les frais, les événements, l'achat, la vente

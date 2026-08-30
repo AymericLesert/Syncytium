@@ -3,7 +3,7 @@
 # suffit (l'arbitrage — basique, sans description) ; la saisie vit
 # dans la liste (l'édition en ligne, D205/D445).
 lists:
-  par_date:                        # la feuille CONSOMMATION, colonne à colonne
+  consommations:                   # la feuille CONSOMMATION, colonne à colonne
     title: { fr: "La consommation" }
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
     editable: [numero, date, total_km, quantite, prix_unitaire]   # les saisies — les calculés se refont (D255)

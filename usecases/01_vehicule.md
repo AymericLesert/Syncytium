@@ -180,9 +180,11 @@ opérations, les surfaces, la reprise)*
     refont D255) ; **aucun formulaire déclaré** aux quatre entités
     filles — le défaut du socle suffit (« basiques, sans
     description ») ;
-  - les listes nommées demeurent (par_date, journal, toutes +
-    echues, echeancier) — la feuille du classeur colonne à
-    colonne, le chart GRAPHIQUE (x: date[month], y:
+  - les listes nommées à l'éponymie (l'arbitrage) : consommations,
+    entretiens (« Entretiens et interventions »), revisions +
+    echues, echeancier — la feuille du classeur colonne à
+    colonne, le chart GRAPHIQUE ; le widget du véhicule nommé
+    voiture (x: date[month], y:
     avg(conso_100)) ;
   - **l'écran principal** (la 3e passe — l'arbitrage) : le tableau
     de bord du module (`transport.yml`, `dashboards: accueil` —

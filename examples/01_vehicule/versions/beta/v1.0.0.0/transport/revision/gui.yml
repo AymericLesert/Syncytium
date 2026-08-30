@@ -14,7 +14,7 @@ widgets:
           label: { fr: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km" }
 
 lists:
-  toutes:                          # la première déclarée = le défaut (D437)
+  revisions:                       # la première déclarée = le défaut (D437)
     title: { fr: "Les révisions" }
     columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
     editable: [designation, pas_km, pas_duree]   # la règle ; les échéances se déduisent (D255)

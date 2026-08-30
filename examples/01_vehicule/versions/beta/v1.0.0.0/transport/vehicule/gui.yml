@@ -44,7 +44,7 @@ forms:
             - tab:
                 title: { fr: Consommation }
                 items:
-                  - field[consommations]        # la liste par_date embarquée, éditable en ligne
+                  - field[consommations]        # la liste consommations embarquée, éditable en ligne
             - tab:
                 title: { fr: Entretien }
                 items:
@@ -71,7 +71,7 @@ forms:
                   - chart[consommation.evolution_consommation]   # la courbe (D540) — l'adresse qualifiée entité.nom (le patron widget[order.monthly])
 
 widgets:                           # le bloc des widgets de l'entité (la fiche widget — D492/D202)
-  carte:                           # la carte du véhicule (D492) — le widget de la liste
+  voiture:                         # la carte du véhicule (D492) — le widget de la liste
     items:
       - sections:
           layout: row
@@ -83,5 +83,5 @@ widgets:                           # le bloc des widgets de l'entité (la fiche 
 lists:
   vehicules:                       # l'entrée principale — la première déclarée = le défaut (D437)
     title: { fr: "Les véhicules du foyer" }
-    widget: carte                  # la liste de widgets (D492) — l'affichage moderne
+    widget: voiture                # la liste de widgets (D492) — l'affichage moderne
     sort: [date_achat]             # de l'Austin Metro à la 4L

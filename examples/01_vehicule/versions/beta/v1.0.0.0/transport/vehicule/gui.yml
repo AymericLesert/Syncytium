@@ -10,7 +10,7 @@ forms:
       read:   { fr: "{nom}" }
       update: { fr: "Modification de {nom}" }
       delete: { fr: "Suppression de {nom}" }
-    page:
+    items:
       - tabs:
           items:
             - tab:
@@ -71,7 +71,7 @@ forms:
                   - chart[evolution_consommation]   # la courbe (D540) — le chart de consommation (cf. manque 14)
 
   carte:                           # la carte du véhicule (D492) — le widget de la liste
-    page:
+    items:
       - sections:
           layout: row
           items:

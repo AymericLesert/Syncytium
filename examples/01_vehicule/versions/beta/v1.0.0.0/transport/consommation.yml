@@ -19,9 +19,13 @@ fields:
   # E = D(n) − D(n−1) — la première part du compteur au retrait (D831)
   km: { type: integer, formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations.max(total_km if numero = me.numero - 1)) }
   conso_100: { type: decimal, formula: 100 * quantite / km }   # I = 100 × F / E — aux 100 km
-  # C = C4/12 + C(n−1) — le « km prév. » de la LOA : le rang rend le cumul exact,
-  # km_prevu = numero × km_annuel / 12 ; km_annuel nul (thermique, comptant) → nul
-  km_prevu: { type: decimal, formula: numero * owner.km_annuel / 12 }
+  # C = C4/12 + C(n−1) au classeur — une ligne ≈ un mois : l'approximation.
+  # L'intention (D834) : le « km prév. » suit le temps — les mois écoulés
+  # depuis l'achat, bornés à la date de vente, × le douzième du forfait ;
+  # km_annuel nul (thermique, comptant) → la colonne reste nulle
+  km_prevu:
+    type: decimal
+    formula: (iif(owner.date_vente != null and owner.date_vente < date, owner.date_vente, date) - owner.date_achat).months * owner.km_annuel / 12
 validation:
   - date >= owner.date_achat
   - total_km >= owner.km_initial

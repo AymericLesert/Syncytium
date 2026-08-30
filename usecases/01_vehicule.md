@@ -103,7 +103,8 @@ opérations, les surfaces, la reprise)*
     **valeur seule** (D826), et les calculés du classeur :
     `nb_jours`/`km` par différence avec le précédent, `prix_total
     = quantité × prix unitaire`, `conso_100`, le `km_prevu` de la
-    LOA rendu exact par le rang (`numero × km_annuel / 12`) ;
+    LOA **au temps** (D834 — les mois écoulés depuis l'achat,
+    bornés à la vente, × `km_annuel / 12`) ;
   - **`entretien`** — le journal de vie : montant optionnel et nu
     (D832), l'achat en première ligne, la vente en négatif
     (−2 477) ;

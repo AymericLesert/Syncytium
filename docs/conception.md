@@ -960,6 +960,7 @@ Q58) :
 | D831 | **Le modèle du véhicule arrêté** (précise D826) : le module `transport` (le moyen de locomotion), l'entité `consommation` (le suivi de la consommation remplace ravitaillement) ; **le numéro de ligne 1..n porté par la consommation** — le précédent s'atteint au rang (numero − 1), la première ligne se déduit du `km_initial` du véhicule, `km_prevu = numero × km_annuel / 12` ; **l'échéancier vit par deux hooks** : engendré à la validation du financement (`creer_echeancier`), clos à la vente — les échéances non payées supprimées (`clore_echeancier`) ; **la coche Payé calculée** — payée dès que la date du jour dépasse l'échéance, le jour d'échéance du mois au financement à plat. | Voir §3.2c. |
 | D832 | **La devise visuelle** (le troisième patron de l'unité — après D771 la devise dans la valeur et D826 l'unité au type) : quand la devise ne porte pas de sens métier, **le montant reste nu (`decimal`) et la devise devient une propriété d'affichage** — `devise` au véhicule ; les conversions `_euro` disparaissent du modèle. | Voir §3.2c. |
 | D833 | **Le `.select` des énumérés** (généralise D771–D773) : la fonction `select` née de `amount.currency` vaut pour tout `enum` — `type.select(thermique: "litres", electrique: "kWh")`, `financement.select(credit: …, loa: …, comptant: 0)` ; les branches nommées par les valeurs, la totalité souhaitable. | Voir §3.2c. |
+| D834 | **Le km prévu au temps, pas au rang** (corrige la formule de D831) : le numéro de ligne n'est pas le numéro du mois — `km_prevu` = les mois écoulés depuis l'achat du véhicule, **bornés à la date de vente**, × `km_annuel / 12` ; le cumul par ligne du classeur n'était que l'approximation d'une ligne par mois ; le calcul s'appuie sur les sous-items du `duration` (`.months`, comme `.days` — D772–D773). | Voir §3.2c. |
 
 ---
 
@@ -17199,6 +17200,12 @@ avant la synthèse Q16).
   seule), echeance. **La suite : le morceau 3 — les opérations**
   (creer_echeancier, clore_echeancier, la notification des
   révisions).
+- **2026-08-30 (suite)** — **Le km prévu au temps (D834 — corrige
+  la formule de D831).** « Le numéro de ligne n'est pas le numéro
+  du mois » : km_prevu = les mois écoulés depuis l'achat, bornés à
+  la date de vente, × km_annuel/12 — le cumul par ligne du
+  classeur n'était que l'approximation d'une ligne par mois ; les
+  sous-items du duration (.months, comme .days) portent le calcul.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

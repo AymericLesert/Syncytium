@@ -9,13 +9,13 @@ description: Le paramétrage du crédit — le capital, le taux, l'assurance, la
 fields:
   capital:
     type: decimal
-    cell: C3
+    cell: CREDIT!C3
   taux_annuel:
     type: decimal
-    cell: C4
+    cell: CREDIT!C4
   assurance:
     type: decimal
-    cell: C5
+    cell: CREDIT!C5
   duree:
     type: integer
-    cell: G4
+    cell: CREDIT!G4

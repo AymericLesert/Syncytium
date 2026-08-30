@@ -230,9 +230,10 @@ opérations, les surfaces, la reprise)*
   (D828) : les **huit entités source** lisent les mêmes classeurs
   (le pattern `.*\.xlsx?` — dix classeurs, 1992-2026) ; la
   migration `classeurs` (absolute + reset, le patron R1) ; **la
-  carte porte les options de lecture** (D845 — la transposition
-  xlsx : `sheet:`, `skiprows:`, `range:` par entité ; le défaut
-  demeure : l'entête existante nomme les colonnes) :
+  carte porte les options de lecture** (D845/D846 — **la plage au
+  nommage Excel** : la zone de nom ou `FEUILLE!A3:H100`, l'entête
+  au régime du CSV — la première ligne de la plage, ou la
+  substitution) :
   - les feuilles-formulaires en **cellules adressées** —
     `identification` (B1/E1/H1/H2, les K de la Zoe),
     `titre_consommation` (A1 → le type), `regle_revision` (I1 →
@@ -314,12 +315,14 @@ opérations, les surfaces, la reprise)*
     d'une version nouvelle ;
 ### Les manques de la reprise (le morceau 5)
 
-R1. **la forme de lecture du xlsx** — partiellement tranché par
-    D845 (les options à la carte) : la transposition proposée —
-    `sheet:`, `skiprows:` (les lignes avant l'entête), `range:`
-    (la plage) **à la carte du connecteur**, et **la facette
-    `cell:`** aux champs des feuilles-formulaires (un item par
-    classeur) — à valider ;
+R1. **la forme de lecture du xlsx** — tranché par D846 : **la
+    plage au nommage Excel** (la zone de nom, ou
+    `FEUILLE!A3:H100`) à la carte, l'entête au régime du CSV ;
+    restent deux queues — **la facette `cell:`** aux champs des
+    feuilles-formulaires (le même nommage, `IDENTIFICATION!B1` —
+    un item par classeur), et **la borne haute des plages** (le
+    plafond ; la lecture s'arrête à la première ligne vide) — à
+    valider ;
 R2. **les colonnes système** — `fichier` (la provenance de l'item)
     et `ligne` (le rang parmi les données) exposées par le storage
     tabulaire — à trancher ;
@@ -328,9 +331,9 @@ R3. **la jointure par le fichier** — le classeur = le véhicule :
     aux filles — le parent se résout par **la clé de reprise** de
     la règle-mère (D654 à préciser : la clé de reprise n'est pas
     l'`identity:` du modèle) ;
-R4. **les entêtes homonymes** — le bloc droit d'ENTRETIEN répète
-    Date/Designation : la lecture bornée (`range: A..H`) suffit —
-    à confirmer ;
+R4. **les entêtes homonymes** — dissous par D846 : la plage
+    `ENTRETIEN!A3:H100` borne d'elle-même, le bloc droit n'existe
+    pas pour la source ;
 R5. **les lignes de continuation** — la Zoe étale une désignation
     sur plusieurs lignes sans date : `filter: date != null` les
     écarte — **la perte assumée** (trois lignes au réel), sauf

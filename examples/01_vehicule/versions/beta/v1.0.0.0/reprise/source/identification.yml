@@ -11,20 +11,20 @@ description: La carte d'identité du classeur — le nom, la plaque, l'achat
 fields:
   nom:
     type: text[..40]
-    cell: B1
+    cell: IDENTIFICATION!B1
   immatriculation:
     type: text[..12]
-    cell: E1
+    cell: IDENTIFICATION!E1
   mode_achat:
     type: text[..40]
-    cell: H1
+    cell: IDENTIFICATION!H1
   lieu_achat:
     type: text[..60]
-    cell: H2
+    cell: IDENTIFICATION!H2
   # la Zoe seule les porte (l'achat, la restitution prévue)
   date_debut:
     type: date
-    cell: K1
+    cell: IDENTIFICATION!K1
   date_fin:
     type: date
-    cell: K2
+    cell: IDENTIFICATION!K2

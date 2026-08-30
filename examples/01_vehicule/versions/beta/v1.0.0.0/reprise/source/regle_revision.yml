@@ -8,7 +8,7 @@ description: La règle de révision du classeur — le pas en kilomètres
 fields:
   titre:
     type: text[..60]
-    cell: I1
+    cell: ENTRETIEN!I1
 
   # « 25.000 » se lit 25.0 (le point de milliers pris pour la décimale) —
   # le ×1000 le redresse ; le réel ne porte que 25.000 et 20.000

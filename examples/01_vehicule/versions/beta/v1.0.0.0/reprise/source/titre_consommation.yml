@@ -9,7 +9,7 @@ description: Le titre de la feuille de consommation — thermique ou électrique
 fields:
   titre:
     type: text[..60]
-    cell: A1
+    cell: CONSOMMATION!A1
 
   # le calculé de normalisation (D660)
   type_vehicule:

@@ -972,6 +972,7 @@ Q58) :
 | D843 | **`entity.md` créé** : le onzième artefact préparatoire (Q58) — l'organisation d'une entité (l'en-tête : name, hint/description, label, identity, states, validation), les champs et leurs propriétés (la paire hint/description D258/D840, l'accès par la clé D841–D842, la convention de lisibilité), les opérations et la présentation en renvois ; aucun contenu nouveau — la vue vivante du registre. | La méthode des artefacts (D709/D735) — le manque signalé par l'auteur. |
 | D844 | **Le morceau 4 du véhicule arrêté — les surfaces** (précise D839) : **l'écran principal** = le dashboard `accueil` du module — l'écho des révisions échues (la liste en widgets au texte unique : deux `paragraph` mustache à l'alinéa `if:`, **une pure alerte sans lien**) avant la liste des véhicules en widgets (la carte `voiture`), chaque liste dans sa section empilée (D489/D490, `list[<entité>.<nom>]` — l'adresse universelle D566) ; **le formulaire du véhicule à six onglets** — Véhicule, Financement (le `visible:` vivant, le bouton `ajuster_echeancier`, l'échéancier embarqué D486), Consommation, Entretien, Révision, Bilan (le dashboard de sections + `chart[consommation.evolution_consommation]` — l'adresse qualifiée) ; **l'édition en ligne** aux quatre listes (`editable:` — les calculés se refont), **aucun formulaire déclaré aux entités filles** (le défaut du socle suffit), `selection`/`searchable` retirés (les défauts D470/D474, pas de besoin) ; les listes à l'éponymie (consommations, entretiens, revisions, echues, echeancier) ; **la convention de lisibilité** — les fichiers aérés, les accolades dépliées, les saisis en tête et les calculés en pied (le séparateur), le commentaire devant le champ ; **l'auto-documentation davantage** — `label`/`hint`/`description`/`placeholder` aux champs, la `description:` aux entités — le `#` au seul lecteur du fichier. | Voir §3.2c. |
 | D845 | **Les options de lecture à la carte du connecteur** (complète D828/D829) : **le défaut — la première ligne du CSV = les entêtes existantes**, elles nomment les colonnes (l'hypothèse du cas 2 érigée en défaut, la liste nue suffit) ; l'entrée passe à **l'objet** pour les écarts — `files:` (la liste ou le pattern D806), **`headers: [..]`** (l'entête de substitution, **dans l'ordre des colonnes du fichier** — elle prime), **`skipheader:`** (la présence de la ligne d'entête — défaut vrai ; `false` = le fichier commence aux données, les noms viennent de la substitution) ; la transposition au xlsx (la feuille, les lignes sautées, la plage) reste au morceau 5, en validation. | Voir §3.2c. |
+| D846 | **La lecture Excel : la plage au nommage Excel** (referme la transposition de D845 — « ma description du CSV était une parenthèse ») : une source Excel décrit **un fichier et une plage** — **la zone de nom**, ou **la plage** `FEUILLE!A3:H100` ; **l'entête au régime du CSV** (D845 — le défaut : la première ligne de la plage porte les entêtes existantes ; la substitution `headers:` sinon) ; la plage borne d'elle-même (le bloc droit homonyme de l'ENTRETIEN écarté sans autre mot) ; le trio sheet/skiprows/range du brouillon s'efface ; les feuilles-formulaires s'adressent **aux champs** — `cell: IDENTIFICATION!B1`, le même nommage (la proposition R1 réalignée, en validation). | Voir §3.2c. |
 
 ---
 
@@ -17316,6 +17317,18 @@ avant la synthèse Q16).
   l'ordre des colonnes), skipheader: false (le fichier sans
   entête) ; la banque au défaut, la transposition xlsx
   (sheet/skiprows/range) réalignée en validation.
+- **2026-08-30 (reprise 2, suite)** — **La plage au nommage Excel
+  (D846).** La parenthèse CSV refermée, l'arbitrage : une source
+  Excel = un fichier + une plage (la zone de nom, ou
+  FEUILLE!cellules), l'entête au régime du CSV (les entêtes
+  existantes de la première ligne de la plage, la substitution
+  sinon). Le trio sheet/skiprows/range du brouillon s'efface — la
+  plage borne d'elle-même (le bloc droit homonyme écarté sans
+  autre mot) ; les feuilles-formulaires aux champs (cell:
+  IDENTIFICATION!B1 — le même nommage, R1 réaligné). La carte du
+  véhicule et les quatre sources cellulaires au niveau ; la borne
+  haute des plages = un plafond, la lecture s'arrête à la ligne
+  vide (à confirmer, R1).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

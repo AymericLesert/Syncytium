@@ -1,0 +1,27 @@
+# La phase 9 — l'échéancier : les lignes des feuilles CREDIT et LOA,
+# EN DONNÉES (les valeurs figées du classeur — le générateur
+# creer_echeancier ne rejoue pas l'histoire ; la coche Payé et le
+# reste dû se recalculent d'eux-mêmes). Le rang = la ligne. La durée
+# de la LOA vit à la phase 10 (une clé YAML ne se répète pas — une
+# règle par source et par fichier, le patron banque).
+
+credit_echeance:
+  to: transport.echeance
+  parent:
+    vehicule: fichier
+  fields:
+    numero:        ligne
+    date:          date
+    interet:       interet
+    amortissement: amortissement
+    assurance:     assurance
+    mensualite:    mensualite
+
+loa_echeance:
+  to: transport.echeance
+  parent:
+    vehicule: fichier
+  fields:
+    numero:     ligne
+    date:       date
+    mensualite: mensualite

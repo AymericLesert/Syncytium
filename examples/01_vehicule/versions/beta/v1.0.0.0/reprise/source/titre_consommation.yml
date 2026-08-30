@@ -1,0 +1,17 @@
+# Le titre de la feuille CONSOMMATION — le discriminant du type :
+# « CONSOMMATION D'ESSENCE » (thermique) / « CONSOMMATION D'ELECTRICITE »
+# (électrique). Un item par classeur.
+
+name: titre_consommation
+description: Le titre de la feuille de consommation — thermique ou électrique
+
+sheet: CONSOMMATION
+
+fields:
+  titre:
+    type: text[..60]
+    cell: A1
+
+  # le calculé de normalisation (D660)
+  type_vehicule:
+    formula: iif(titre like ".*ELECTRIC.*", "electrique", "thermique")

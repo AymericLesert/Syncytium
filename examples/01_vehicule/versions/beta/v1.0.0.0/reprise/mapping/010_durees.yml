@@ -1,0 +1,9 @@
+# La phase 10 — la durée de la LOA : le classeur ne la donne nulle
+# part en cellule, elle EST le nombre de loyers. Chaque ligne écrase
+# la valeur — la dernière gagne (le manque R6, l'astuce assumée).
+
+loa_echeance:
+  to: transport.vehicule
+  key: fichier
+  fields:
+    duree_echeances: ligne

@@ -1,0 +1,16 @@
+# La phase 4 — les ravitaillements : toutes les lignes SAUF l'origine
+# (la ligne 1, devenue le km_initial). Le numéro = le rang moins
+# l'origine (D831/D841 — la clé au sein du véhicule). Les colonnes
+# calculées du classeur ne s'importent pas : le modèle les refait.
+
+consommation:
+  to: transport.consommation
+  filter: ligne > 1
+  parent:
+    vehicule: fichier              # le possesseur par la clé de reprise (le manque R3)
+  fields:
+    numero:        ligne - 1
+    date:          date
+    total_km:      total_km
+    quantite:      quantite_n
+    prix_unitaire: prix_unitaire_n

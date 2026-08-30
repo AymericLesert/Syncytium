@@ -1,0 +1,18 @@
+# La phase 1 — un classeur = un véhicule (D826).
+# LA JOINTURE PAR LE FICHIER (le manque R3) : la colonne système
+# `fichier` porte la provenance de chaque item ; elle est la clé de
+# reprise du véhicule — les règles filles la retrouvent en parent.
+# Le statut : les véhicules repris vivent (actif) ; la restitution
+# déjà datée (la Zoe, K2) clôt d'entrée.
+
+identification:
+  to: transport.vehicule
+  key: fichier
+  fields:
+    nom:        nom
+    immatriculation: immatriculation
+    mode_achat: mode_achat
+    lieu_achat: lieu_achat
+    date_achat: date_debut          # la Zoe ; le Partner : la phase 3 (l'origine)
+    date_vente: date_fin
+    statut:     iif(date_fin != null, "cloture", "actif")

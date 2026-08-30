@@ -1,0 +1,17 @@
+# Le bloc droit de la feuille ENTRETIEN ne porte que sa règle, dans le
+# titre : « Révisions tous les 25.000 km » (I1). Un item par classeur.
+
+name: regle_revision
+description: La règle de révision du classeur — le pas en kilomètres
+
+sheet: ENTRETIEN
+
+fields:
+  titre:
+    type: text[..60]
+    cell: I1
+
+  # « 25.000 » se lit 25.0 (le point de milliers pris pour la décimale) —
+  # le ×1000 le redresse ; le réel ne porte que 25.000 et 20.000
+  pas_km_n:
+    formula: round(extract(titre, "tous les ([0-9.]+) km") * 1000)

@@ -224,6 +224,34 @@ opérations, les surfaces, la reprise)*
     véhicules ») ; la `carte` du véhicule rejoint le bloc
     `widgets:` (la fiche widget).
 
+- **le morceau 5 — la reprise des classeurs** (en validation, le
+  dernier du cas) : le connecteur `legacy` **storage xlsx** sur le
+  dossier (`${SYNCYTIUM_LEGACY_DIRECTORY}`) — la carte `entities:`
+  (D828) : les **huit entités source** lisent les mêmes classeurs
+  (le pattern `.*\.xlsx?` — dix classeurs, 1992-2026) ; la
+  migration `classeurs` (absolute + reset, le patron R1) ; **la
+  feuille et la forme de lecture vivent à la source** :
+  - les feuilles-formulaires en **cellules adressées** —
+    `identification` (B1/E1/H1/H2, les K de la Zoe),
+    `titre_consommation` (A1 → le type), `regle_revision` (I1 →
+    le pas, l'astuce ×1000 du point de milliers),
+    `credit_parametres` (C3/C4/C5/G4) ;
+  - les tableaux à **entêtes nommées** (`headers: 3`, les labels =
+    les entêtes D236 — les colonnes du thermique et de
+    l'électrique en un seul jeu, les absentes nulles, les
+    calculées du classeur ignorées D648/D657), bornés au besoin
+    (`range: A..H` — le bloc droit homonyme) ;
+  - **dix phases** : les véhicules (la jointure par `fichier`, le
+    statut d'entrée), les types, **les origines** (la ligne 1 =
+    date_achat + km_initial + la devise par `.year` — pas une
+    consommation), les consommations (`numero: ligne - 1`), le
+    journal (sans clé — création seule D825), **les ventes du
+    journal** (« Vente de la voiture… » → date_vente + clôture),
+    les règles de révision, les financements (le crédit aux
+    cellules, la LOA à la première ligne — `.day`), les
+    échéanciers **en données** (Payé et reste dû se recalculent),
+    la durée LOA par écrasement.
+
 ## Les manques relevés
 
 *(chaque frottement deviendra une décision)*
@@ -282,6 +310,34 @@ opérations, les surfaces, la reprise)*
     particuliers et urgents » — moins onéreux qu'une version pour
     une erreur de saisie) ; la voie déclarée demeure le `demote`
     d'une version nouvelle ;
+### Les manques de la reprise (le morceau 5)
+
+R1. **la forme de lecture à la source** — le storage xlsx exige de
+    dire la feuille et la forme : `sheet:`, `headers: <ligne>`,
+    `range: <colonnes>`, et **la facette `cell:`** des
+    feuilles-formulaires (un item par classeur) — la grammaire
+    nouvelle à trancher ;
+R2. **les colonnes système** — `fichier` (la provenance de l'item)
+    et `ligne` (le rang parmi les données) exposées par le storage
+    tabulaire — à trancher ;
+R3. **la jointure par le fichier** — le classeur = le véhicule :
+    `key: fichier` à la règle-mère, `parent: { vehicule: fichier }`
+    aux filles — le parent se résout par **la clé de reprise** de
+    la règle-mère (D654 à préciser : la clé de reprise n'est pas
+    l'`identity:` du modèle) ;
+R4. **les entêtes homonymes** — le bloc droit d'ENTRETIEN répète
+    Date/Designation : la lecture bornée (`range: A..H`) suffit —
+    à confirmer ;
+R5. **les lignes de continuation** — la Zoe étale une désignation
+    sur plusieurs lignes sans date : `filter: date != null` les
+    écarte — **la perte assumée** (trois lignes au réel), sauf
+    arbitrage contraire ;
+R6. **la durée de la LOA** — nulle part en cellule : chaque loyer
+    écrase `duree_echeances` (la dernière ligne gagne) — l'astuce
+    à valider ;
+R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
+    `date[yyyy-mm]` : le type tronque au mois — à confirmer.
+
 13. **le possesseur en colonne** — dissous par l'arbitrage : la
     liste `echues` n'a plus de colonnes — le widget-texte porte le
     véhicule dans son gabarit (`{{owner.nom}}`) ;

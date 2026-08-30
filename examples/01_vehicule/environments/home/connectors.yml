@@ -12,5 +12,24 @@ authentication:
 smtp:
   class: none
 
-# le legacy de la reprise viendra ici : le storage de type xlsx (D826 —
-# les paramétrages à définir au morceau de la reprise)
+# le legacy de la reprise (le morceau 5) — le storage xlsx sur le dossier :
+# un classeur = un véhicule, les feuilles = les entités source (D826/D828)
+legacy:
+  type: storage
+  class: xlsx
+  # le paramétrage technique de la classe
+  parameters:
+    # le chemin hors dépôt (D321)
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+  # la carte entités → fichiers (D828) — toutes les entités source lisent
+  # les mêmes classeurs (le pattern D806) ; la feuille et la forme de
+  # lecture vivent à la déclaration source (reprise/source/*.yml)
+  entities:
+    identification:      [ ".*\.xlsx?" ]
+    titre_consommation:  [ ".*\.xlsx?" ]
+    consommation:        [ ".*\.xlsx?" ]
+    entretien:           [ ".*\.xlsx?" ]
+    regle_revision:      [ ".*\.xlsx?" ]
+    credit_parametres:   [ ".*\.xlsx?" ]
+    credit_echeance:     [ ".*\.xlsx?" ]
+    loa_echeance:        [ ".*\.xlsx?" ]

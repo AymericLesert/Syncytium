@@ -1,0 +1,33 @@
+# La feuille CREDIT — les lignes du tableau d'amortissement (les
+# entêtes à la ligne 8, les valeurs lues — les formules du classeur
+# sont figées à la lecture). La coche « Payé » est IGNORÉE : le modèle
+# la calcule (D831).
+
+name: credit_echeance
+description: Les échéances du crédit — la ligne du tableau d'amortissement
+
+sheet: CREDIT
+headers: 8
+range: A..G
+
+fields:
+  date:
+    type: date
+    label:
+      fr: Date
+  interet:
+    type: decimal
+    label:
+      fr: Intérêt
+  amortissement:
+    type: decimal
+    label:
+      fr: Amortissement
+  assurance:
+    type: decimal
+    label:
+      fr: Assurance
+  mensualite:
+    type: decimal
+    label:
+      fr: Mensualité

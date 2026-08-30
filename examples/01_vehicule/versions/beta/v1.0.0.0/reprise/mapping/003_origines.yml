@@ -1,0 +1,16 @@
+# La phase 3 — la première ligne de consommation = l'origine du
+# véhicule : le retrait (la date, le compteur initial). Elle ne devient
+# PAS une consommation (la phase 4 l'écarte). Le Partner y prend sa
+# date d'achat (pas de K1) — la Zoe garde la sienne (l'écrasement est
+# sans perte : la même valeur au jour du retrait près, l'approximation
+# assumée). La devise par l'année : les classeurs d'avant 2002 vivent
+# en francs (.year — les sous-items du date, D838).
+
+consommation:
+  to: transport.vehicule
+  key: fichier
+  filter: ligne = 1
+  fields:
+    date_achat: date
+    km_initial: total_km
+    devise:     iif(date.year < 2002, "franc", "euro")

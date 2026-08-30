@@ -1,0 +1,16 @@
+# La phase 5 — le journal de vie, tel quel (les montants optionnels,
+# la vente en négatif). La règle sans clé = la création seule (D825 —
+# admise : absolute + reset). Le booléen revision naît faux — le
+# classeur ne marque pas ses révisions (les lignes « Entretien
+# 300.000 km » restent des lignes) ; le marquage viendra de l'usage.
+
+entretien:
+  to: transport.entretien
+  filter: date != null             # les lignes de continuation écartées (le manque R5)
+  parent:
+    vehicule: fichier
+  fields:
+    date:        date
+    designation: designation
+    montant:     montant
+    km:          km

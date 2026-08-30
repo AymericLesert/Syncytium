@@ -1,0 +1,30 @@
+# La feuille ENTRETIEN — le tableau borné aux colonnes A..H (le bloc
+# droit « Révisions » porte des entêtes homonymes Date/Designation et
+# reste vide au réel — cf. le manque R4). Les entêtes à la ligne 3.
+# Les lignes de continuation de la Zoe (la désignation sur plusieurs
+# lignes, sans date) : la perte assumée — cf. le manque R5.
+
+name: entretien
+description: Le journal de vie du classeur — les frais, les événements, l'achat, la vente
+
+sheet: ENTRETIEN
+headers: 3
+range: A..H
+
+fields:
+  date:
+    type: date
+    label:
+      fr: Date
+  designation:
+    type: text[..200]
+    label:
+      fr: Désignation
+  montant:
+    type: decimal
+    label:
+      fr: Montant
+  km:
+    type: integer
+    label:
+      fr: KM

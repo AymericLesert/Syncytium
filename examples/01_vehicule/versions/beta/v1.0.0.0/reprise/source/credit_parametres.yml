@@ -1,0 +1,22 @@
+# La feuille CREDIT — l'en-tête du tableau d'amortissement : les
+# paramètres en cellules (le Partner ; la feuille absente d'un classeur
+# LOA ne donne aucun item). Un item par classeur à feuille CREDIT.
+
+name: credit_parametres
+description: Le paramétrage du crédit — le capital, le taux, l'assurance, la durée
+
+sheet: CREDIT
+
+fields:
+  capital:
+    type: decimal
+    cell: C3
+  taux_annuel:
+    type: decimal
+    cell: C4
+  assurance:
+    type: decimal
+    cell: C5
+  duree:
+    type: integer
+    cell: G4

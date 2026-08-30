@@ -15,6 +15,10 @@ release-notes: >
 
 hooks: hooks/hooks.yml
 
+# Déclaration de la reprise des classeurs historiques (le morceau 5)
+
+migrations: reprise/reprise.yml
+
 # Déclaration des modules
 # Pour l'exemple, nous n'avons qu'un seul module
 

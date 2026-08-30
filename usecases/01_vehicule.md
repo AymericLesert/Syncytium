@@ -130,25 +130,29 @@ opérations, les surfaces, la reprise)*
   hook), et le cycle de vie de l'échéancier sur l'entité
   `vehicule` (`operations.yml`, le patron `creer_releve` D796 —
   l'événement au `when:`, le `commit: auto`) :
-  - **`creer_echeancier`** — `when: [created, updated] if
-    financement = credit or financement = loa` : engendre les
+  - **`creer_echeancier`** — `when: financement = credit or
+    financement = loa` (l'opération automatique D428, le cliquet
+    D354 — la validation du formulaire est l'opération D775) :
+    engendre les
     échéances 1..durée (la date au `jour_echeance` du mois, la
     mensualité déclarée LOA ou l'annuité du crédit, intérêt /
     amortissement / assurance reportés) — les formules du classeur
     vivent dans le hook ; idempotent — le paramétrage modifié ne
     régénère que les non payées ;
-  - **`clore_echeancier`** — `when: promoted if statut =
-    cloture` : la vente bascule le statut (le cliquet), la
-    transition porte l'acte — les échéances non payées supprimées
-    (la coche calculée ne « paiera » pas un véhicule vendu) ;
-  - **la notification des révisions, déclarative** — pas de hook :
-    la ligne d'entretien qui solde une règle la nomme
-    (`entretien.revision`, le picker borné au véhicule), la règle
-    en déduit `derniere_km`/`derniere_date` (l'accès retour D398),
-    `prochaine_km`/`prochaine_date` (depuis la dernière faite,
-    sinon l'origine), et **`echue`** — sur le km OU le délai, tant
-    que le véhicule vit ; la surface du morceau 4 mettra les
-    échues en avant (le mail reste muet — smtp none, D763).
+  - **`clore_echeancier`** — `when: statut = cloture` : la vente
+    bascule le statut, le cliquet déclenche l'opération une fois —
+    les échéances non payées supprimées (la coche calculée ne
+    « paiera » pas un véhicule vendu) ;
+  - **la notification des révisions — l'opération automatique +
+    `notify` (D436)** : la ligne d'entretien qui solde une règle la
+    nomme (`entretien.revision`, le picker borné au véhicule), la
+    règle en déduit `derniere_km`/`derniere_date` (l'accès retour
+    D398), `prochaine_km`/`prochaine_date` (depuis la dernière
+    faite, sinon l'origine), **`echue`** — sur le km OU le délai,
+    tant que le véhicule est actif —, et l'opération `notifier`
+    (`when: echue`, l'effet `notify` du socle — D432/D574) porte
+    l'information ; la surface du morceau 4 fera écho (le mail
+    reste muet — smtp none, D763).
 
 ## Les manques relevés
 
@@ -173,12 +177,22 @@ opérations, les surfaces, la reprise)*
 7. **la notification des révisions** (D826) — résolue au
    morceau 3 **sans hook** : le calculé `echue` se recalcule de
    lui-même (D255/D298), la surface la portera — en validation ;
-8. **les événements du socle** — le `when:` du morceau 3 suppose
-   `created`/`updated`/`promoted`, les participes des opérations
-   aux côtés du `generated` de D796 — le vocabulaire à confirmer ;
-9. **la condition à l'événement** — `when: updated if date_vente
-   != null` : le `if` suffixé (le patron des validations) étendu
-   au `when:` — à trancher ;
+8. **les événements du socle** — résolu par le registre : le
+   `when:` accepte l'opération, l'expression, l'abonnement
+   connecteur (D641) et l'événement `generated` (D796) ; les
+   participes `created`/`updated` étaient inutiles — l'expression
+   est évaluée à chaque mise à jour (`every: continuous`, le
+   défaut — D435), le cliquet déclenche à la première vraie
+   (D354/D428) ;
+9. **la condition à l'événement** — résolu : le `if` au `when:`
+   existait (D430 — la garde du bouton, `when: confirm if
+   count(lines) > 0`) ; nos automatismes n'en ont pas besoin,
+   l'expression porte tout ;
+9 bis. **le re-paramétrage du financement** — le cliquet déclenche
+   à la première vraie : l'expression restée vraie ne re-déclenche
+   pas `creer_echeancier` — la régénération des non payées au
+   paramétrage modifié reste à trancher (un bouton explicite ? un
+   arbitrage du cliquet ?) ;
 10. **l'accès retour nommé** — `revision` lit les entretiens qui
     la citent par `entretiens.max(km)` : le nom de la liste
     automatique (D398) à confirmer ;

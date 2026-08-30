@@ -4,9 +4,12 @@
 # faites restent des lignes du journal de vie (D831) — la ligne qui
 # solde une règle la nomme (entretien.revision), la règle en déduit
 # la prochaine échéance.
-# LA NOTIFICATION EST DÉCLARATIVE : echue se recalcule d'elle-même
-# (D255/D298) — la surface (le morceau 4) met les règles échues en
-# avant ; le mail reste muet (smtp none, D763), rien de plus à faire.
+# LA NOTIFICATION = L'OPÉRATION AUTOMATIQUE + notify (D436 — « couvre
+# tout ») : echue se recalcule d'elle-même (D255/D298), l'opération
+# notifier se déclenche à l'échéance (le cliquet D354) et porte
+# l'information aux utilisateurs (notify, 15e opération du socle —
+# D574) ; le mail reste muet (smtp none, D763), la surface du
+# morceau 4 fera écho.
 name: revision
 label: "{designation}"
 fields:
@@ -21,5 +24,11 @@ fields:
   prochaine_date: { type: date, formula: iif(pas_duree = null, null, iif(derniere_date != null, derniere_date, owner.date_achat) + pas_duree) }
   # la notification (D826) — échue sur le km OU sur le délai, tant que le véhicule est actif
   echue: { formula: owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date)) }
+operations:
+  notifier:                        # l'automatisme (D428) — à l'échéance
+    when: echue
+    commit: auto
+    effects:
+      - notify                     # la référence au hook du socle (D432/D609)
 validation:
   - pas_km != null or pas_duree != null   # une règle sans pas ne dit rien

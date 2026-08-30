@@ -8,7 +8,7 @@ entretien:
   to: transport.entretien
   filter: date != null             # les lignes de continuation écartées (le manque R5)
   parent:
-    vehicule: fichier
+    vehicule: connector.filename
   fields:
     date:        date
     designation: designation

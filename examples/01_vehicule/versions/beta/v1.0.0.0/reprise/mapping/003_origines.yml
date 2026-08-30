@@ -11,8 +11,8 @@
 
 consommation:
   to: transport.vehicule
-  key: fichier
-  filter: ligne = 1
+  key: connector.filename
+  filter: connector.line = 1
   fields:
     date_achat: date
     km_initial: total_km

@@ -5,8 +5,8 @@
 
 echeance:
   to: transport.vehicule
-  key: fichier
-  filter: ligne = 1 and interet = null
+  key: connector.filename
+  filter: connector.line = 1 and interet = null
   fields:
     financement:   "loa"
     mensualite:    mensualite
@@ -15,7 +15,7 @@ echeance:
 
 credit_parametres:
   to: transport.vehicule
-  key: fichier
+  key: connector.filename
   fields:
     financement:         "credit"
     capital:             capital

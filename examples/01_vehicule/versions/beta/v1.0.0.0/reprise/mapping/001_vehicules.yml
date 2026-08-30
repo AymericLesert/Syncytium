@@ -1,13 +1,14 @@
 # La phase 1 — un classeur = un véhicule (D826).
-# LA JOINTURE PAR LE FICHIER (le manque R3) : la colonne système
-# `fichier` porte la provenance de chaque item ; elle est la clé de
-# reprise du véhicule — les règles filles la retrouvent en parent.
+# LA JOINTURE PAR LE FICHIER (le manque R3) : l'information système
+# `connector.filename` (D849) porte la provenance de chaque item ;
+# elle est la clé de reprise du véhicule — les filles la retrouvent
+# en parent.
 # Le statut : les véhicules repris vivent (actif) ; la restitution
 # déjà datée (la Zoe, K2) clôt d'entrée.
 
 identification:
   to: transport.vehicule
-  key: fichier
+  key: connector.filename
   fields:
     nom:        nom                 # la marque et le modèle, ensemble (B1)
     immatriculation: immatriculation

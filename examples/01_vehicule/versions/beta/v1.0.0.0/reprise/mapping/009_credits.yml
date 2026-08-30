@@ -4,8 +4,8 @@
 
 echeance:
   to: transport.vehicule
-  key: fichier
-  filter: ligne = 1 and interet != null
+  key: connector.filename
+  filter: connector.line = 1 and interet != null
   fields:
     premier_mois:  date
     jour_echeance: date.day

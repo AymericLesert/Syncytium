@@ -6,11 +6,11 @@
 echeance:
   to: transport.echeance
   parent:
-    vehicule: fichier
+    vehicule: connector.filename
   # la ligne des totaux de la LOA (les sommes sans date) s'écarte
   filter: date != null
   fields:
-    numero:        ligne
+    numero:        connector.line
     date:          date
     interet:       interet
     amortissement: amortissement

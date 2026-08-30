@@ -1,6 +1,6 @@
-# La feuille CONSOMMATION (la carte du connecteur porte la lecture —
-# D845 : sheet, skiprows ; la ligne système `ligne` = le rang parmi les
-# données, cf. le manque R2). Les entêtes diffèrent entre le thermique et
+# La feuille CONSOMMATION (la lecture à la carte — D845/D848 ;
+# `connector.line` = l'identifiant de la ligne par rapport à la zone,
+# la ligne vivante — D849). Les entêtes diffèrent entre le thermique et
 # l'électrique : chaque champ porte son entête en label (D236), les
 # colonnes absentes d'un classeur restent nulles ; les colonnes
 # calculées du classeur (Km, Nb Litres/100, Prix Total…) sont IGNORÉES —

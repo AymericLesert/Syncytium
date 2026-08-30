@@ -6,7 +6,7 @@
 
 entretien:
   to: transport.vehicule
-  key: fichier
+  key: connector.filename
   filter: designation like "^Vente de la voiture.*"
   fields:
     date_vente: date

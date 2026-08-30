@@ -5,11 +5,11 @@
 
 consommation:
   to: transport.consommation
-  filter: ligne > 1
+  filter: connector.line > 1
   parent:
-    vehicule: fichier              # le possesseur par la clé de reprise (le manque R3)
+    vehicule: connector.filename              # le possesseur par la clé de reprise (le manque R3)
   fields:
-    numero:        ligne - 1
+    numero:        connector.line - 1
     date:          date
     total_km:      total_km
     quantite:      quantite_n

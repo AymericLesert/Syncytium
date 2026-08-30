@@ -159,33 +159,31 @@ opérations, les surfaces, la reprise)*
     l'information ; la surface du morceau 4 fera écho (le mail
     reste muet — smtp none, D763).
 
-- **le morceau 4 — les surfaces** (en validation) : le patron du
-  `gui.yml` de la banque, rien d'inventé (la leçon du morceau 3) —
-  une seule extension, flaggée au manque 13 :
-  - **`vehicule`** — le record aux cinq usages (D788–D790) en
-    trois temps : l'identification, le financement au `visible:`
-    vivant (D567 — les champs du crédit, de la LOA), **le BILAN
-    entier en calculés lecture seule** (D255 — la feuille
-    retrouvée) ; la liste `vehicules` (photo, nom, type, statut,
-    `km_courant`, `prix_km` — le tri `date_achat` : de l'Austin
-    Metro à la 4L) ;
-  - **`consommation`** — le record aux saisies seules (numero,
-    date, total_km, quantite, prix_unitaire — les calculés
-    naissent d'eux-mêmes), la liste `par_date` **colonne à colonne
-    de la feuille** (nb_jours, date, km_prevu, total_km, km,
-    quantite, prix_unitaire, prix_total, conso_100), le chart
-    `evolution_consommation` (la feuille GRAPHIQUE — `x:
-    date[month]`, `y: avg(conso_100)`, les filtres au patron des
-    listes D798) ;
-  - **`entretien`** — le journal de vie : la recherche mutualisée
-    (D780), la plage de dates, la coche `revision` en colonne ;
-  - **`echeance`** — l'échéancier en lecture seule, **sans
-    formulaire** : les lignes naissent de `creer_echeancier`, se
-    reprennent par `ajuster_echeancier`, la coche est calculée —
-    rien à saisir ;
-  - **`revision`** — le record des règles, la liste `toutes`
-    (avec `echue` en colonne) et **l'écho `echues`** (la partition
-    par le filtre D783 : `filter: echue = true`).
+- **le morceau 4 — les surfaces** (en validation, la 2e passe —
+  l'architecture de l'auteur) : **l'entrée principale = la liste
+  des véhicules en widgets** (D492 — le visage `carte` : photo,
+  identité, `km_courant`/`prix_km` en sections D489), **puis le
+  formulaire du véhicule à six onglets** (tabs — D450/D504) :
+  - **Véhicule** — l'identification (photo = le visage D386, le
+    statut en liste navigatrice D426, les steppers D785) ;
+  - **Financement** — le paramétrage au `visible:` vivant (D567),
+    **le bouton `operation[ajuster_echeancier]`** (D511, la garde
+    D430) et **l'échéancier embarqué** (`field[echeances]` — la
+    composition déployée D486) ;
+  - **Consommation / Entretien / Révision** — les compositions
+    embarquées (`field[consommations]`…), chacune sur sa liste ;
+  - **Bilan** — le dashboard : trois sections en ligne (les
+    compteurs, les totaux, les prix de revient — D489) + la courbe
+    `chart[evolution_consommation]` (D540) ;
+  - **l'édition en ligne partout** (l'arbitrage) : `editable:
+    […]` sur les quatre listes (les saisies — les calculés se
+    refont D255) ; **aucun formulaire déclaré** aux quatre entités
+    filles — le défaut du socle suffit (« basiques, sans
+    description ») ;
+  - les listes nommées demeurent (par_date, journal, toutes +
+    echues, echeancier) — la feuille du classeur colonne à
+    colonne, le chart GRAPHIQUE (x: date[month], y:
+    avg(conso_100)).
 
 ## Les manques relevés
 
@@ -249,4 +247,9 @@ opérations, les surfaces, la reprise)*
     véhicules et affiche `vehicule` en colonne : le nom d'entité
     désigne le possesseur, comme la facette de recherche du patron
     banque (`compte:`/`vehicule:` au `searchable:`) — l'extension
-    aux `columns:` à confirmer.
+    aux `columns:` à confirmer ;
+14. **le chart d'une autre entité** — l'onglet Bilan du véhicule
+    référence `chart[evolution_consommation]`, déclaré sur
+    l'entité `consommation` (ses données) : la portée de l'adresse
+    `chart[<nom>]` hors de l'entité du formulaire — à confirmer
+    (une qualification `consommation.evolution_consommation` ?).

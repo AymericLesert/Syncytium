@@ -1,17 +1,7 @@
-# La déclaration de la présentation graphique — le morceau 4
-forms:
-  record:                          # la saisie du plein / de la charge — les saisies seules
-    title:
-      create: { fr: "Nouveau ravitaillement" }
-      read:   { fr: "Ravitaillement du {date}" }
-      update: { fr: "Modification du ravitaillement du {date}" }
-      delete: { fr: "Suppression du ravitaillement du {date}" }
-    items:
-      - field[numero]
-      - field[date]                # le calendar + les steppers (D785)
-      - field[total_km]
-      - field[quantite]            # la valeur seule — litres ou kWh selon le véhicule
-      - field[prix_unitaire]
+# La déclaration de la présentation graphique — le morceau 4.
+# Pas de formulaire déclaré : le formulaire par défaut du socle
+# suffit (l'arbitrage — basique, sans description) ; la saisie vit
+# dans la liste (l'édition en ligne, D205/D445).
 lists:
   par_date:                        # la feuille CONSOMMATION, colonne à colonne
     title: { fr: "La consommation" }
@@ -19,6 +9,7 @@ lists:
       - vehicule: { select: mono, required: true }   # le possesseur (le patron banque)
       - date                       # la plage — le champ porte sa facette (D784)
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
+    editable: [numero, date, total_km, quantite, prix_unitaire]   # les saisies — les calculés se refont (D255)
     sort: [date, numero]
     selection: multiple
 charts:

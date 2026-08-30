@@ -1,55 +1,87 @@
 # Les surfaces du véhicule — le morceau 4.
-# Le record aux cinq usages (D199/D788), les titres au gabarit par
-# mode (D789–D790), le visible: vivant (D567) pour le financement,
-# le BILAN de la feuille en calculés lecture seule (D255).
+# L'entrée principale : la liste des véhicules EN WIDGETS (D492 — la
+# carte, l'affichage moderne), puis le formulaire du véhicule À
+# ONGLETS (tabs D450/D504) : chaque composante dans son onglet, le
+# BILAN en dashboard de sections (D489) + le chart.
 forms:
   record:
-    title:
+    title:                         # les titres au gabarit par mode (D789–D790)
       create: { fr: "Création d'un véhicule" }
       read:   { fr: "{nom}" }
       update: { fr: "Modification de {nom}" }
       delete: { fr: "Suppression de {nom}" }
-    items:
-      # --- l'identification (la feuille IDENTIFICATION) ---
-      - field[nom]
-      - field[immatriculation]
-      - field[photo]                 # le visage (D386)
-      - field[type]                  # thermique | électrique — l'unité en découle
-      - field[devise]                # la devise visuelle (D832)
-      - field[statut]                # la liste navigatrice du graphe (D426/D500)
-      - field[mode_achat]
-      - field[lieu_achat]
-      - field[date_achat]            # le calendar + les steppers [-]/[+] (D785)
-      - field[date_vente]
-      - field[km_initial]
-      # --- le financement (la feuille CREDIT | LOA) — le visible: vivant (D567) ---
-      - field[financement]
-      - field[capital]:             { visible: financement = credit }
-      - field[taux_annuel]:         { visible: financement = credit }
-      - field[assurance_mensuelle]: { visible: financement = credit }
-      - field[mensualite]:          { visible: financement = loa }
-      - field[duree_echeances]:     { visible: financement = credit or financement = loa }
-      - field[premier_mois]:        { visible: financement = credit or financement = loa }
-      - field[jour_echeance]:       { visible: financement = credit or financement = loa }
-      - field[km_annuel]:           { visible: financement = loa }
-      # --- le bilan (la feuille BILAN) — les calculés, lecture seule (D255) ---
-      - field[nb_jours]
-      - field[km_courant]
-      - field[km_total]
-      - field[quantite_totale]
-      - field[conso_moyenne]
-      - field[duree_moyenne]
-      - field[total_entretien]
-      - field[total_energie]
-      - field[cout_financement]
-      - field[cout_total]
-      - field[prix_energie_km]
-      - field[prix_km]
-      - field[prix_jour]
+    page:
+      - tabs:
+          items:
+            - tab:
+                title: { fr: Véhicule }          # l'identification
+                items:
+                  - field[nom]
+                  - field[immatriculation]
+                  - field[photo]                 # le visage (D386)
+                  - field[type]                  # thermique | électrique
+                  - field[devise]                # la devise visuelle (D832)
+                  - field[statut]                # la liste navigatrice du graphe (D426/D500)
+                  - field[mode_achat]
+                  - field[lieu_achat]
+                  - field[date_achat]            # le calendar + les steppers (D785)
+                  - field[date_vente]
+                  - field[km_initial]
+            - tab:
+                title: { fr: Financement }       # le paramétrage + l'échéancier
+                items:
+                  - field[financement]
+                  - field[capital]:             { visible: financement = credit }
+                  - field[taux_annuel]:         { visible: financement = credit }
+                  - field[assurance_mensuelle]: { visible: financement = credit }
+                  - field[mensualite]:          { visible: financement = loa }
+                  - field[duree_echeances]:     { visible: financement = credit or financement = loa }
+                  - field[premier_mois]:        { visible: financement = credit or financement = loa }
+                  - field[jour_echeance]:       { visible: financement = credit or financement = loa }
+                  - field[km_annuel]:           { visible: financement = loa }
+                  - operation[ajuster_echeancier]   # le bouton (D511) — la garde D430 le grise
+                  - field[echeances]            # la composition déployée (D486) — la liste echeancier
+            - tab:
+                title: { fr: Consommation }
+                items:
+                  - field[consommations]        # la liste par_date embarquée, éditable en ligne
+            - tab:
+                title: { fr: Entretien }
+                items:
+                  - field[entretiens]           # le journal de vie embarqué
+            - tab:
+                title: { fr: Révision }
+                items:
+                  - field[revisions]            # les règles, éditables en ligne
+            - tab:
+                title: { fr: Bilan }             # le dashboard des informations clés
+                items:
+                  - sections:
+                      layout: row                # l'organisateur (D489)
+                      items:
+                        - section:
+                            title: { fr: Les compteurs }
+                            items: [ field[nb_jours], field[km_courant], field[km_total], field[quantite_totale], field[duree_moyenne] ]
+                        - section:
+                            title: { fr: Les totaux }
+                            items: [ field[total_entretien], field[total_energie], field[cout_financement], field[cout_total] ]
+                        - section:
+                            title: { fr: Les prix de revient }
+                            items: [ field[conso_moyenne], field[prix_energie_km], field[prix_km], field[prix_jour] ]
+                  - chart[evolution_consommation]   # la courbe (D540) — le chart de consommation (cf. manque 14)
+
+  carte:                           # la carte du véhicule (D492) — le widget de la liste
+    page:
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ field[photo] ] }
+            - section: { items: [ field[nom], field[immatriculation], field[type], field[statut] ] }
+            - section: { items: [ field[km_courant], field[prix_km] ] }
 
 lists:
-  vehicules:                         # la première déclarée = le défaut (D437)
+  vehicules:                       # l'entrée principale — la première déclarée = le défaut (D437)
     title: { fr: "Les véhicules du foyer" }
-    columns: [photo, nom, immatriculation, type, statut, date_achat, km_courant, prix_km]
-    sort: [date_achat]               # l'ordre du garage — de l'Austin Metro à la 4L
+    widget: carte                  # la liste de widgets (D492) — l'affichage moderne
+    sort: [date_achat]             # de l'Austin Metro à la 4L
     selection: 1

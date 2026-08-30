@@ -16,6 +16,5 @@ fields:
   assurance:
     type: decimal
     cell: CREDIT!C5
-  duree:
-    type: integer
-    cell: CREDIT!G4
+  # la durée (G4) ne se lit plus : le nombre d'échéances la donne
+  # pour tous les régimes (la phase 11 — D847)

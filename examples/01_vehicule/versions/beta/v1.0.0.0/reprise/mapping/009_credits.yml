@@ -1,0 +1,11 @@
+# La phase 9 — l'ancrage du crédit : le premier mois et le jour du
+# prélèvement à la première échéance (l'intérêt rempli = le crédit,
+# D847). Une règle par fichier — la clé YAML ne se répète pas.
+
+echeance:
+  to: transport.vehicule
+  key: fichier
+  filter: ligne = 1 and interet != null
+  fields:
+    premier_mois:  date
+    jour_echeance: date.day

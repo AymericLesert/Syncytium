@@ -13,7 +13,6 @@ classeurs:                       # le nom de la migration
     - source/entretien.yml
     - source/regle_revision.yml
     - source/credit_parametres.yml
-    - source/credit_echeance.yml
-    - source/loa_echeance.yml
+    - source/echeance.yml
   mapping:
     - mapping/[0-9]+_.*\.yml    # le pattern regex (D806) — l'alphabétique fait les étapes (D665)

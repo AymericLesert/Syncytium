@@ -1,8 +1,17 @@
-# La phase 8 — le financement à plat (D831) : le crédit par ses
-# cellules d'en-tête, la LOA par sa première ligne (la mensualité
-# constante, le premier mois, le jour du prélèvement — .month/.day,
-# les sous-items du date D838). Le mode comptant reste le défaut des
-# classeurs sans feuille.
+# La phase 8 — le financement à plat (D831). La source fusionnée
+# echeance discrimine les régimes par le réel (D847) : l'intérêt vide
+# = la LOA. Le crédit se paramètre à ses cellules (la phase suivante
+# pose son premier mois) ; la durée vaut pour tous à la phase 11.
+
+echeance:
+  to: transport.vehicule
+  key: fichier
+  filter: ligne = 1 and interet = null
+  fields:
+    financement:   "loa"
+    mensualite:    mensualite
+    premier_mois:  date            # date[yyyy-mm] — le type tronque au mois (R7)
+    jour_echeance: date.day
 
 credit_parametres:
   to: transport.vehicule
@@ -12,22 +21,3 @@ credit_parametres:
     capital:             capital
     taux_annuel:         taux_annuel
     assurance_mensuelle: assurance
-    duree_echeances:     duree
-
-loa_echeance:
-  to: transport.vehicule
-  key: fichier
-  filter: ligne = 1
-  fields:
-    financement:   "loa"
-    mensualite:    mensualite
-    premier_mois:  date            # date[yyyy-mm] — le type tronque au mois
-    jour_echeance: date.day
-
-credit_echeance:
-  to: transport.vehicule
-  key: fichier
-  filter: ligne = 1
-  fields:
-    premier_mois:  date
-    jour_echeance: date.day

@@ -46,9 +46,10 @@ legacy:
       files: [ ".*\.xlsx?" ]
     credit_parametres:
       files: [ ".*\.xlsx?" ]
-    credit_echeance:
+    echeance:
       files: [ ".*\.xlsx?" ]
-      range: CREDIT!A8:G100
-    loa_echeance:
-      files: [ ".*\.xlsx?" ]
-      range: LOA!A3:G100
+      # le même format aux deux feuilles — la liste de plages (D847) :
+      # la première plage existante sert, la feuille absente passe
+      range:
+        - CREDIT!A8:G100
+        - LOA!A3:G100

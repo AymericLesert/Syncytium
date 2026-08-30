@@ -1,0 +1,16 @@
+# La phase 10 — l'échéancier EN DONNÉES : les valeurs figées des
+# tableaux CREDIT ou LOA (la source fusionnée D847) ; la coche Payé
+# et le reste dû se recalculent d'eux-mêmes (D831). Le rang = la
+# ligne de la plage.
+
+echeance:
+  to: transport.echeance
+  parent:
+    vehicule: fichier
+  fields:
+    numero:        ligne
+    date:          date
+    interet:       interet
+    amortissement: amortissement
+    assurance:     assurance
+    mensualite:    mensualite

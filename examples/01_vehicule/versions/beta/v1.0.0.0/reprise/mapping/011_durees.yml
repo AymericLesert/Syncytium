@@ -1,0 +1,10 @@
+# La phase 11 — la durée du financement : le nombre d'échéances,
+# nulle part en cellule fiable — chaque ligne écrase la valeur, la
+# dernière gagne (le manque R6, généralisé aux deux régimes par la
+# source fusionnée D847 ; le G4 du crédit devient superflu).
+
+echeance:
+  to: transport.vehicule
+  key: fichier
+  fields:
+    duree_echeances: ligne

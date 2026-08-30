@@ -250,10 +250,11 @@ opérations, les surfaces, la reprise)*
     consommation), les consommations (`numero: ligne - 1`), le
     journal (sans clé — création seule D825), **les ventes du
     journal** (« Vente de la voiture… » → date_vente + clôture),
-    les règles de révision, les financements (le crédit aux
-    cellules, la LOA à la première ligne — `.day`), les
-    échéanciers **en données** (Payé et reste dû se recalculent),
-    la durée LOA par écrasement.
+    les règles de révision, les financements (la source
+    fusionnée `echeance` au repli de plages — D847 : l'intérêt
+    vide = la LOA ; le crédit aux cellules, l'ancrage `.day`),
+    les échéanciers **en données** (Payé et reste dû se
+    recalculent), la durée par écrasement — tous régimes.
 
 ## Les manques relevés
 
@@ -338,9 +339,10 @@ R5. **les lignes de continuation** — la Zoe étale une désignation
     sur plusieurs lignes sans date : `filter: date != null` les
     écarte — **la perte assumée** (trois lignes au réel), sauf
     arbitrage contraire ;
-R6. **la durée de la LOA** — nulle part en cellule : chaque loyer
-    écrase `duree_echeances` (la dernière ligne gagne) — l'astuce
-    à valider ;
+R6. **la durée par écrasement** — nulle part en cellule fiable :
+    chaque échéance écrase `duree_echeances`, la dernière gagne —
+    généralisée aux deux régimes par la source fusionnée (D847),
+    l'astuce à valider ;
 R7. **le premier mois tronqué** — `premier_mois: date` sur un champ
     `date[yyyy-mm]` : le type tronque au mois — à confirmer.
 

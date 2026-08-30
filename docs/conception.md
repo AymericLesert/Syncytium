@@ -973,6 +973,7 @@ Q58) :
 | D844 | **Le morceau 4 du véhicule arrêté — les surfaces** (précise D839) : **l'écran principal** = le dashboard `accueil` du module — l'écho des révisions échues (la liste en widgets au texte unique : deux `paragraph` mustache à l'alinéa `if:`, **une pure alerte sans lien**) avant la liste des véhicules en widgets (la carte `voiture`), chaque liste dans sa section empilée (D489/D490, `list[<entité>.<nom>]` — l'adresse universelle D566) ; **le formulaire du véhicule à six onglets** — Véhicule, Financement (le `visible:` vivant, le bouton `ajuster_echeancier`, l'échéancier embarqué D486), Consommation, Entretien, Révision, Bilan (le dashboard de sections + `chart[consommation.evolution_consommation]` — l'adresse qualifiée) ; **l'édition en ligne** aux quatre listes (`editable:` — les calculés se refont), **aucun formulaire déclaré aux entités filles** (le défaut du socle suffit), `selection`/`searchable` retirés (les défauts D470/D474, pas de besoin) ; les listes à l'éponymie (consommations, entretiens, revisions, echues, echeancier) ; **la convention de lisibilité** — les fichiers aérés, les accolades dépliées, les saisis en tête et les calculés en pied (le séparateur), le commentaire devant le champ ; **l'auto-documentation davantage** — `label`/`hint`/`description`/`placeholder` aux champs, la `description:` aux entités — le `#` au seul lecteur du fichier. | Voir §3.2c. |
 | D845 | **Les options de lecture à la carte du connecteur** (complète D828/D829) : **le défaut — la première ligne du CSV = les entêtes existantes**, elles nomment les colonnes (l'hypothèse du cas 2 érigée en défaut, la liste nue suffit) ; l'entrée passe à **l'objet** pour les écarts — `files:` (la liste ou le pattern D806), **`headers: [..]`** (l'entête de substitution, **dans l'ordre des colonnes du fichier** — elle prime), **`skipheader:`** (la présence de la ligne d'entête — défaut vrai ; `false` = le fichier commence aux données, les noms viennent de la substitution) ; la transposition au xlsx (la feuille, les lignes sautées, la plage) reste au morceau 5, en validation. | Voir §3.2c. |
 | D846 | **La lecture Excel : la plage au nommage Excel** (referme la transposition de D845 — « ma description du CSV était une parenthèse ») : une source Excel décrit **un fichier et une plage** — **la zone de nom**, ou **la plage** `FEUILLE!A3:H100` ; **l'entête au régime du CSV** (D845 — le défaut : la première ligne de la plage porte les entêtes existantes ; la substitution `headers:` sinon) ; la plage borne d'elle-même (le bloc droit homonyme de l'ENTRETIEN écarté sans autre mot) ; le trio sheet/skiprows/range du brouillon s'efface ; les feuilles-formulaires s'adressent **aux champs** — `cell: IDENTIFICATION!B1`, le même nommage (la proposition R1 réalignée, en validation). | Voir §3.2c. |
+| D847 | **La plage en liste — le repli** (complète D846) : `range:` accepte **une liste de plages** — la première existante sert, la feuille absente passe à la suivante ; le crédit et la LOA, au même format, **fusionnent en une source `echeance`** — le réel discrimine les régimes (**l'intérêt vide = la LOA**) ; la durée par écrasement vaut dès lors pour tous les financements (le G4 du crédit superflu). | Voir §3.2c. |
 
 ---
 
@@ -17329,6 +17330,13 @@ avant la synthèse Q16).
   véhicule et les quatre sources cellulaires au niveau ; la borne
   haute des plages = un plafond, la lecture s'arrête à la ligne
   vide (à confirmer, R1).
+- **2026-08-30 (reprise 2, suite 2)** — **La plage en liste, la
+  source fusionnée (D847).** « credit_echeance et loa_echeance ont
+  le même format » : range: en liste de repli (la première plage
+  existante sert), une seule source echeance — l'intérêt vide
+  discrimine la LOA ; les phases refaites (008 le financement aux
+  deux régimes, 009 l'ancrage du crédit, 010 l'échéancier, 011 la
+  durée par écrasement généralisée — le G4 superflu).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

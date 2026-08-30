@@ -2,14 +2,24 @@
 
 version: 1.0.0.0
 release-notes: >
-  Cette version initialise le projet :
-  # Description de la structure de données
-  ## Un véhicule (thermique ou électrique)
-  ## Une consommation (plein ou charge)
-  ## Une ligne d'entretien (le journal de vie)
-  ## Le financement (crédit ou LOA)
-  ## L'échéancier des révisions
-  # Description de la reprise des classeurs historiques
+  La première version de la maintenance des véhicules du foyer —
+  du classeur Excel à l'application.
+  # Le modèle
+  ## Le véhicule — l'identification (la plaque), le financement à
+  plat (comptant, crédit, LOA), le cycle Création → Actif →
+  Clôture, le bilan tout calculé (0,249 €/km)
+  ## La consommation (les pleins et les charges au rang), le
+  journal de vie, les règles de révision, l'échéancier
+  # Les opérations
+  ## creer_echeancier à la validation du financement,
+  ajuster_echeancier au bouton, clore_echeancier à la vente,
+  finaliser_vehicule après la migration
+  # Les surfaces
+  ## L'accueil — les révisions échues puis les véhicules en
+  cartes ; le formulaire aux six onglets, l'édition en ligne
+  # La reprise
+  ## Les dix classeurs 1992-2026 — huit sources, dix phases, la
+  jointure par la plaque
 
 # Déclaration des hooks
 

@@ -2,13 +2,21 @@
 
 version: 1.0.0.0
 release-notes: >
-  Cette version initialise le projet :
-  # Description de la structure de données
-  ## Un compte bancaire
-  ## Une écriture
-  ## Les lieux
-  ## Les budgets
-  # Description de la récupération de données historiques
+  La première version de la gestion des comptes bancaires du
+  foyer — trente-quatre ans d'écritures repris.
+  # Le modèle
+  ## Le compte et ses écritures — la devise dans la valeur (euro
+  et franc), le solde continu, les calculés débit/crédit
+  ## Les référentiels des budgets et des lieux — la création
+  directe au picker
+  # Les opérations
+  ## dupliquer (entre deux dates), propager (les similaires),
+  virer (les deux écritures liées), creer_releve (le PDF pose la
+  date d'impression)
+  # La reprise
+  ## L'historique 1992-2026 (~23 400 écritures) — trois phases,
+  les comptes aux marqueurs, le rapprochement des virements par
+  le cache
 
 # Déclaration des ressources
 

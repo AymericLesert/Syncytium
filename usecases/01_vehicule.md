@@ -252,7 +252,8 @@ opérations, les surfaces, la reprise)*
     D850, le statut d'entrée), les types, **les origines** (la ligne 1 =
     date_achat + km_initial + la devise par `.year` — pas une
     consommation), les consommations (`numero: ligne - 1`), le
-    journal (sans clé — création seule D825), **les ventes du
+    journal (sans clé — création seule D825, les continuations en
+    anomalie D851), **les ventes du
     journal** (« Vente de la voiture… » → date_vente + **le lieu
     extrait de la désignation** + clôture),
     les règles de révision, les financements (la source
@@ -346,10 +347,11 @@ R3. **la jointure** — sans objet (D850) : chaque source porte un
 R4. **les entêtes homonymes** — dissous par D846 : la plage
     `ENTRETIEN!A3:H100` borne d'elle-même, le bloc droit n'existe
     pas pour la source ;
-R5. **les lignes de continuation** — la Zoe étale une désignation
-    sur plusieurs lignes sans date : `filter: date != null` les
-    écarte — **la perte assumée** (trois lignes au réel), sauf
-    arbitrage contraire ;
+R5. **les lignes de continuation** — clos (D851) : **l'anomalie,
+    pas la perte** — sans filtre, la ligne sans date échoue à la
+    cible (`date` requise) et la migration la signale ;
+    l'utilisateur ajuste le classeur et rejoue (l'esprit D183 :
+    le système constate, l'humain décide) ;
 R6. **la durée par écrasement** — nulle part en cellule fiable :
     chaque échéance écrase `duree_echeances`, la dernière gagne —
     généralisée aux deux régimes par la source fusionnée (D847),

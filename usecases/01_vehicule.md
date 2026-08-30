@@ -205,10 +205,13 @@ opérations, les surfaces, la reprise)*
     remplacé la référence `entretien.revision` par **un booléen**
     (une révision, ou une intervention hors révision) — plus rien
     à dériver, `owner.entretiens.max(km if revision)` suffit ;
-11. **`date + duration → date`** — tranché : **D837** (le miroir
-    de D581), avec **les sous-items du temps** — `.day`, `.month`,
-    `.year`, `.week`, `.day_name`… au `date`, `.days`/`.months` au
-    `duration` ;
+11. **`date + duration → date`** — sans objet en grammaire
+    (**D838** retire D837) : les opérateurs sont des fonctions de
+    type (D581 — la table à la signature) — le `+` du `date` reçoit
+    la duration et retourne une date ; les sous-items `.day`,
+    `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months` =
+    le catalogue de fonctions des types `date`/`duration`
+    (D772–D773, le hook de type D681) ;
 12. **le passe-droit du statut** — tranché : **D835** — le degré
     `administrator` seul, toujours tracé (« des cas très
     particuliers et urgents » — moins onéreux qu'une version pour

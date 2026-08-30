@@ -964,6 +964,7 @@ Q58) :
 | D835 | **Le passe-droit du statut** (complète D425/D354) : hors graphe = refus — sauf **le degré `administrator`** : le passe-droit, **toujours tracé** ; la raison d'être — « des cas très particuliers et urgents » : débloquer une crispation à moindre coût qu'un déploiement (l'erreur de saisie ou de clic) ; la voie déclarée demeure (le `demote` activé par une version nouvelle). | Voir §3.2c. |
 | D836 | **La notification in-app, le mail en setting** (précise D436/D108–D110) : le mécanisme de notification du socle est accessible à **tous les utilisateurs**, dans l'application ; **son relais vers le smtp = un setting de l'application** (la cascade D588–D591) — **défaut : aucun envoi**. `notify` vit sans mail (le domestique `smtp: none` D763 reste entier). | Voir §3.2c. |
 | D837 | **L'arithmétique et les sous-items du temps** (complète D581, généralise D772–D773) : `date + duration → date` acté (le miroir du `date − date → duration`) ; **les sous-items du `date` par les fonctions du type** — `.day`, `.month`, `.year`, `.week`, `.day_name`… — comme `.days`/`.months` du `duration`. | Voir §3.2c. |
+| D838 | **D837 sans objet** (l'arbitrage de l'auteur — les définitions antérieures suffisent) : les opérateurs sont **des fonctions de type** (D581 — la table à la signature du type) : le `+` du `date` reçoit le second membre, l'additionne et retourne une date — rien à acter en grammaire ; les sous-items (`.day`, `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months`…) relèvent du même régime — **le catalogue de fonctions des types `date`/`duration`** (D772–D773), fourni par le hook de type (D681). | Voir §3.2c. |
 
 ---
 
@@ -17233,6 +17234,17 @@ avant la synthèse Q16).
   une invention, la déclaration actée s'écrit
   `entretiens: association with entretien if entretien.revision
   = me`. Le morceau 3 n'a plus de question ouverte.
+- **2026-08-30 (suite 3)** — **D837 sans objet (D838).** L'auteur
+  rappelle la définition antérieure : **les opérateurs sont des
+  fonctions de type** (D581 — la table à la signature) — le + du
+  date reçoit le second membre et retourne une date ; l'arithmétique
+  n'avait rien à acter, les sous-items non plus (le catalogue de
+  fonctions des types date/duration — D772–D773, le hook de type
+  D681). Et l'entretien simplifié : **revision devient un booléen**
+  (la référence à la règle n'avait pas d'intérêt — une révision ou
+  une intervention hors révision) ; l'association dérivée, sans
+  source, disparaît — owner.entretiens.max(km if revision) suffit
+  (la leçon D394/D405 demeure au usecase). types.md réaligné.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

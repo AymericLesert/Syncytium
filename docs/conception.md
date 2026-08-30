@@ -981,6 +981,7 @@ Q58) :
 | D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
 | D853 | **La durée du contrat et la finalisation d'après-migration** (solde la note de D852) : **`duree_contrat`** — la saisie du paramétrage (l'intention contractuelle, le générateur l'engendre), distincte de `duree_echeances` (le calculé — le réel compté) ; **`finaliser_vehicule`** — l'opération exécutée **après la migration** (`when: migrated` — l'issue de `migrate`, le patron `generated` D796 généralisé) : elle complète ce que la reprise ne porte pas (les repris gagnent leur `duree_contrat` du compte des échéances), idempotente — elle ne complète que l'absent ; en général, l'occasion d'« engendrer des lignes ou faire des compléments après la migration ». | Voir §3.2c. |
 | D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
+| D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
 
 ---
 
@@ -17396,6 +17397,14 @@ avant la synthèse Q16).
   reste utilisable. **Les huit manques R1–R8 sont tous clos**
   (D845–D854) — le morceau 5 entier en validation, le cas véhicule
   avec lui.
+- **2026-08-30 (clôture) — LE CAS VÉHICULE CLOS (D855, 855
+  décisions).** Le morceau 5 validé — les cinq morceaux du second
+  projet domestique livrés (l'assise, le modèle, les opérations,
+  les surfaces, la reprise), 26 décisions du cas (D830–D855), les
+  huit manques de la reprise soldés en séance. La PR de
+  consolidation feature/meta-schema → develop préparée (~55
+  commits depuis la #38). **La suite : les cas 3–6 de l'échelle
+  (D756), ou la documentation (Q58) — au choix de l'auteur.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

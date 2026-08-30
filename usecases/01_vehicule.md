@@ -224,8 +224,8 @@ opérations, les surfaces, la reprise)*
     véhicules ») ; la `carte` du véhicule rejoint le bloc
     `widgets:` (la fiche widget).
 
-- **le morceau 5 — la reprise des classeurs** (en validation, le
-  dernier du cas) : le connecteur `legacy` **storage xlsx** sur le
+- **le morceau 5 — la reprise des classeurs** (validé le 30/08,
+  D855 — **le cas est clos**) : le connecteur `legacy` **storage xlsx** sur le
   dossier (`${SYNCYTIUM_LEGACY_DIRECTORY}`) — la carte `entities:`
   (D828) : les **huit entités source** lisent les mêmes classeurs
   (le pattern `.*\.xlsx?` — dix classeurs, 1992-2026) ; la

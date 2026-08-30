@@ -17428,6 +17428,11 @@ avant la synthèse Q16).
   sept maisons — le degré zéro livré en une séance (D856, seize
   fichiers, zéro surface). La PR de consolidation préparée
   (feature/meta-schema → develop, ~5 commits depuis la #39).
+- **2026-08-31 (suite 3) — LA PR #40 FUSIONNÉE, LA 4e PUBLICATION
+  PRÉPARÉE.** develop porte le cas 0 (l'ancêtre vérifié) ; la
+  publication develop → main (la 4e — 60 commits : le cas véhicule
+  entier D830–D855, le cas 0 D856, les release-notes
+  personnalisés) créée sur demande de l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

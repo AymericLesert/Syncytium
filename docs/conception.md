@@ -965,6 +965,7 @@ Q58) :
 | D836 | **La notification in-app, le mail en setting** (précise D436/D108–D110) : le mécanisme de notification du socle est accessible à **tous les utilisateurs**, dans l'application ; **son relais vers le smtp = un setting de l'application** (la cascade D588–D591) — **défaut : aucun envoi**. `notify` vit sans mail (le domestique `smtp: none` D763 reste entier). | Voir §3.2c. |
 | D837 | **L'arithmétique et les sous-items du temps** (complète D581, généralise D772–D773) : `date + duration → date` acté (le miroir du `date − date → duration`) ; **les sous-items du `date` par les fonctions du type** — `.day`, `.month`, `.year`, `.week`, `.day_name`… — comme `.days`/`.months` du `duration`. | Voir §3.2c. |
 | D838 | **D837 sans objet** (l'arbitrage de l'auteur — les définitions antérieures suffisent) : les opérateurs sont **des fonctions de type** (D581 — la table à la signature du type) : le `+` du `date` reçoit le second membre, l'additionne et retourne une date — rien à acter en grammaire ; les sous-items (`.day`, `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months`…) relèvent du même régime — **le catalogue de fonctions des types `date`/`duration`** (D772–D773), fourni par le hook de type (D681). | Voir §3.2c. |
+| D839 | **Le morceau 3 du véhicule arrêté** (précise D831) : **le cycle de vie au statut** — `states: statut`, Création → Actif → Clôture (la naissance au `default`, l'activation libre D426, la clôture au cliquet D354/D427 dès `date_vente`, les `allow` par état D422 — l'archive en lecture seule, `date_vente` comprise ; le retour d'un champ figé = le `demote` d'une version nouvelle, l'urgence = le passe-droit D835) ; **le trio de l'échéancier** — `creer_echeancier` (l'automatisme : `when: financement = credit or financement = loa`), `ajuster_echeancier` (**le bouton**, la garde D430 — les non payées remplacées, les payées intactes), `clore_echeancier` (`when: statut = cloture`) ; **la notification des révisions** = l'opération `notifier` (`when: echue`) + l'effet `notify` (D436/D836) ; **la révision au booléen** — `entretien.revision: boolean` (une révision ou une intervention hors révision — la référence sans intérêt, l'association dérivée sans emploi). | Voir §3.2c. |
 
 ---
 
@@ -17245,6 +17246,18 @@ avant la synthèse Q16).
   une intervention hors révision) ; l'association dérivée, sans
   source, disparaît — owner.entretiens.max(km if revision) suffit
   (la leçon D394/D405 demeure au usecase). types.md réaligné.
+- **2026-08-30 (pause)** — **LE MORCEAU 3 VALIDÉ (D839, 839
+  décisions).** Le lot véhicule consigné : le cycle de vie au
+  statut, le trio de l'échéancier (l'automatisme, le bouton gardé,
+  le cliquet de la clôture), la notification notifier + notify, la
+  révision au booléen. La leçon de la séance : trois écritures
+  inventées (les participes d'événements, le if au when déjà connu,
+  le pluriel de l'accès retour) — toutes corrigées PAR le registre
+  (D354/D427/D428/D430/D435, D394/D405) : relire avant d'écrire.
+  **La reprise : le morceau 4 — les surfaces** (les listes, le
+  formulaire du véhicule, le chart de consommation, l'écho des
+  révisions échues), **puis le morceau 5 — la reprise** (le storage
+  xlsx, la carte entities: D828). PR sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

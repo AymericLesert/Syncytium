@@ -124,7 +124,7 @@ opérations, les surfaces, la reprise)*
     dès que la date du jour dépasse l'échéance ; le reste dû
     calculé selon le mode.
 
-- **le morceau 3 — les opérations** (en validation) : la maison
+- **le morceau 3 — les opérations** (validé le 30/08, D839) : la maison
   des hooks au patron de la banque (D777/D778 — `hooks.yml` →
   `operations/operations.yml` au pattern, la fiche + un MD par
   hook), et le cycle de vie de l'échéancier sur l'entité

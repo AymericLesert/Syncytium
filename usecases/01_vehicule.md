@@ -187,7 +187,9 @@ opérations, les surfaces, la reprise)*
   - **l'écran principal** (la 3e passe — l'arbitrage) : le tableau
     de bord du module (`transport.yml`, `dashboards: accueil` —
     D554/D557/D439) empile **l'écho des révisions échues AVANT la
-    liste des véhicules** ; `echues` devient une liste de widgets
+    liste des véhicules** — chaque liste dans sa section,
+    l'empilement au défaut (D489/D490), l'adresse universelle
+    `list[<entité>.<nom>]` (D566) ; `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la
     révision : deux `paragraph` au gabarit mustache (les chemins
     D71 — `{{owner.nom}}`), l'alinéa au `if:` (la règle au km ou
@@ -261,10 +263,11 @@ opérations, les surfaces, la reprise)*
     `widget[<entité>.<nom>]` (`widget[order.monthly]`) — la même
     forme vaut pour le chart :
     `chart[consommation.evolution_consommation]` à l'onglet Bilan ;
-15. **les listes au squelette du dashboard** — l'écran principal
-    empile deux listes ; la fiche dashboard ne connaît que
-    `widget[…]`, `chart[…]`, les sections et `_` : l'adresse
-    **`list[<entité>.<nom>]`** est proposée (l'écho exact de
-    `widget[<entité>.<nom>]` ; le tableau de valeurs D244 — « une
-    liste nommée, un tri imposé, un nombre limité » — en est le
-    germe) — à trancher.
+15. **les listes au squelette du dashboard** — tranché par
+    l'auteur : « chaque liste est mise dans une section différente,
+    une section au-dessus de l'autre — nous avons déjà les
+    éléments » : les sections empilées (`column`, le défaut —
+    D489/D490), l'adresse universelle `<type>[<nom>]` (D566) qui
+    couvre `list[<entité>.<nom>]`, la liberté compositionnelle
+    (D455 — « qui utilise les listes ») ; rien de neuf en
+    grammaire.

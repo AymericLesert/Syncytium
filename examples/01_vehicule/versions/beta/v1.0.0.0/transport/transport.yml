@@ -21,7 +21,11 @@ gui:
     accueil:
       title: { fr: "Le garage du foyer" }
       items:
-        - list[revision.echues]      # l'écho des révisions échues — AVANT les véhicules (l'arbitrage)
-        - list[vehicule.vehicules]   # l'entrée principale — la liste en widgets (D492)
-        # list[<entité>.<nom>] : l'adresse de surface au squelette — l'écho
-        # de widget[<entité>.<nom>] (la fiche dashboard) ; cf. manque 15
+        - sections:                  # column, le défaut (D490) — l'une au-dessus de l'autre
+            items:
+              - section:
+                  items: [ list[revision.echues] ]      # l'écho des révisions échues — d'abord
+              - section:
+                  items: [ list[vehicule.vehicules] ]   # l'entrée principale — la liste en widgets (D492)
+        # l'adresse universelle <type>[<nom>] (D566) couvre list[…] ; les
+        # surfaces s'emboîtent librement (D455 — « qui utilise les listes »)

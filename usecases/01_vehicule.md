@@ -104,7 +104,8 @@ opérations, les surfaces, la reprise)*
   - **`consommation`** — le suivi de la consommation (D831) :
     **le numéro de ligne 1..n** — la première ligne se déduit
     (`numero = 1` part du `km_initial`), le précédent s'atteint au
-    rang (`numero − 1`) ; date, `total_km` saisi, la quantité en
+    rang — l'accès par la clé `owner.consommations[me.numero - 1]`
+    (D841, `identity: [numero]` déclarée) ; date, `total_km` saisi, la quantité en
     **valeur seule** (D826), et les calculés du classeur :
     `nb_jours`/`km` par différence avec le précédent, `prix_total
     = quantité × prix unitaire`, `conso_100`, le `km_prevu` de la

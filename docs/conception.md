@@ -967,6 +967,7 @@ Q58) :
 | D838 | **D837 sans objet** (l'arbitrage de l'auteur — les définitions antérieures suffisent) : les opérateurs sont **des fonctions de type** (D581 — la table à la signature du type) : le `+` du `date` reçoit le second membre, l'additionne et retourne une date — rien à acter en grammaire ; les sous-items (`.day`, `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months`…) relèvent du même régime — **le catalogue de fonctions des types `date`/`duration`** (D772–D773), fourni par le hook de type (D681). | Voir §3.2c. |
 | D839 | **Le morceau 3 du véhicule arrêté** (précise D831) : **le cycle de vie au statut** — `states: statut`, Création → Actif → Clôture (la naissance au `default`, l'activation libre D426, la clôture au cliquet D354/D427 dès `date_vente`, les `allow` par état D422 — l'archive en lecture seule, `date_vente` comprise ; le retour d'un champ figé = le `demote` d'une version nouvelle, l'urgence = le passe-droit D835) ; **le trio de l'échéancier** — `creer_echeancier` (l'automatisme : `when: financement = credit or financement = loa`), `ajuster_echeancier` (**le bouton**, la garde D430 — les non payées remplacées, les payées intactes), `clore_echeancier` (`when: statut = cloture`) ; **la notification des révisions** = l'opération `notifier` (`when: echue`) + l'effet `notify` (D436/D836) ; **la révision au booléen** — `entretien.revision: boolean` (une révision ou une intervention hors révision — la référence sans intérêt, l'association dérivée sans emploi). | Voir §3.2c. |
 | D840 | **La description courte se nomme `hint`** (raffine D258) : `comment` disait l'annotation et collisionnait avec le commentaire YAML — `hint` dit l'aide, sur les trois écrans ; `tooltip` écarté — le nom-par-mécanisme mentirait sur mobile (D262 : l'infobulle au PC, le petit logo à la tablette, rien au smartphone) ; la réserve au glossaire — le *hint* d'Android/Flutter est notre `placeholder`. | Voir §3.2c. |
+| D841 | **L'accès par la clé fonctionnelle** (la proposition de l'auteur — « pourquoi max ? un peu lourd ») : `collection[<expression>]` retourne l'enregistrement dont l'`identity:` vaut l'expression — `owner.consommations[me.numero - 1].total_km` remplace l'agrégat-singleton `max(total_km if numero = me.numero - 1)` ; le crochet de l'adresse (D566) transposé au langage d'expression ; **exige l'`identity:` déclarée** — `consommation` porte `identity: [numero]`, la clé au sein du possesseur pour une composition ; la clé absente = nul (la première ligne reste au `iif`). | Voir §3.2c. |
 
 ---
 
@@ -17271,6 +17272,14 @@ avant la synthèse Q16).
   trois rendus, un seul sens) ; la réserve Android/Flutter au
   glossaire (leur hint = notre placeholder). Glossaire, composants,
   types, entity et les cinq fields.yml du véhicule renommés.
+- **2026-08-30 (reprise, suite)** — **L'accès par la clé
+  fonctionnelle (D841).** « Pourquoi la fonction max ? je trouve
+  cela un peu lourd » — la proposition de l'auteur :
+  owner.consommations[me.numero - 1].total_km, le crochet de
+  l'adresse (D566) transposé au langage d'expression, l'identity:
+  [numero] déclarée à la consommation (la clé au sein du
+  possesseur) ; les deux formules du précédent allégées,
+  l'agrégat-singleton s'efface ; entity.md au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

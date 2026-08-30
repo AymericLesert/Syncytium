@@ -7,6 +7,9 @@
 name: consommation
 description: Une ligne du suivi de consommation — le plein ou la charge
 label: "${name}"
+# la clé fonctionnelle au sein du véhicule (la composition) — elle ouvre
+# l'accès par la clé : owner.consommations[me.numero - 1] (D841)
+identity: [numero]
 
 # La liste des champs de l'entité
 fields: fields.yml

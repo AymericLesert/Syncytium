@@ -47,18 +47,20 @@ prix_total:
     fr: Prix total
 
 nb_jours:
-  # A = B(n) − B(n−1) — la première ligne reste nulle (le classeur la laisse vide)
+  # A = B(n) − B(n−1) — la première ligne reste nulle (le classeur la
+  # laisse vide) ; le précédent par la clé (D841)
   type: duration
-  formula: iif(numero = 1, null, date - owner.consommations.max(date if numero = me.numero - 1))
+  formula: iif(numero = 1, null, date - owner.consommations[me.numero - 1].date)
   label:
     fr: Nb de jours
   hint:
     fr: Depuis le ravitaillement précédent.
 
 km:
-  # E = D(n) − D(n−1) — la première part du compteur au retrait (D831)
+  # E = D(n) − D(n−1) — la première part du compteur au retrait (D831) ;
+  # le précédent par la clé (D841)
   type: integer
-  formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations.max(total_km if numero = me.numero - 1))
+  formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations[me.numero - 1].total_km)
   label:
     fr: Km parcourus
   hint:

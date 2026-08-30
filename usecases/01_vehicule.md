@@ -139,6 +139,10 @@ opérations, les surfaces, la reprise)*
     amortissement / assurance reportés) — les formules du classeur
     vivent dans le hook ; idempotent — le paramétrage modifié ne
     régénère que les non payées ;
+  - **`ajuster_echeancier`** — le bouton (sans `when` — D428, la
+    garde `if` D430) : le paramétrage modifié se reprend — les non
+    payées remplacées, les payées intactes, la relecture au
+    `commit: confirm` (D596/D598) ;
   - **`clore_echeancier`** — `when: statut = cloture` : la vente
     bascule le statut, le cliquet déclenche l'opération une fois —
     les échéances non payées supprimées (la coche calculée ne
@@ -188,11 +192,10 @@ opérations, les surfaces, la reprise)*
    existait (D430 — la garde du bouton, `when: confirm if
    count(lines) > 0`) ; nos automatismes n'en ont pas besoin,
    l'expression porte tout ;
-9 bis. **le re-paramétrage du financement** — le cliquet déclenche
-   à la première vraie : l'expression restée vraie ne re-déclenche
-   pas `creer_echeancier` — la régénération des non payées au
-   paramétrage modifié reste à trancher (un bouton explicite ? un
-   arbitrage du cliquet ?) ;
+9 bis. **le re-paramétrage du financement** — tranché : le
+   troisième hook **`ajuster_echeancier`**, un bouton de
+   l'utilisateur (le cliquet de `creer_echeancier` reste intact) —
+   les non payées remplacées, les payées intactes ;
 10. **l'accès retour nommé** — `revision` lit les entretiens qui
     la citent par `entretiens.max(km)` : le nom de la liste
     automatique (D398) à confirmer ;

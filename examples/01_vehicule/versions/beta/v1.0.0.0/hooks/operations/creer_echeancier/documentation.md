@@ -10,6 +10,6 @@ l'intérêt (reste dû × taux périodique), l'amortissement
 formules du classeur vivent ici, pas dans la grammaire (D826,
 D831).
 
-Le hook est idempotent : l'échéancier absent s'engendre ; le
-paramétrage modifié régénère les échéances **non payées** — les
-payées restent, l'histoire ne se réécrit pas.
+Le cliquet (D354) déclenche à la première vraie : le hook engendre
+l'échéancier une fois. Le paramétrage modifié ensuite se reprend
+par le bouton `ajuster_echeancier`.

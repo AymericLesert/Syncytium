@@ -42,7 +42,7 @@ de vrai) et **les manques**. Les décisions citées renvoient à
 Un seul morceau — le cas tient entier : l'assise du domestique
 (l'arborescence pleine D799–D810, `logging.yml` D830,
 `authentication: none` D759, `smtp: none` D763) et le module aux
-deux entités. **Dix-huit fichiers en tout, zéro surface.**
+deux entités. **Seize fichiers en tout, zéro surface.**
 
 ## Les manques relevés
 

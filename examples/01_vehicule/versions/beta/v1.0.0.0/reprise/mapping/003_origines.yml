@@ -1,5 +1,8 @@
-# La phase 3 — la première ligne de consommation = l'origine du
-# véhicule : le retrait (la date, le compteur initial). Elle ne devient
+# La phase 3 — la première ligne VIVANTE de consommation = l'origine
+# du véhicule : le retrait (la date, le compteur initial) — au réel,
+# CONSOMMATION!B5 et D5 (la ligne vivante = au moins un champ déclaré
+# servi ; la ligne du paramètre C4 de la Zoe et la ligne blanche du
+# Partner se sautent — cf. le manque R2). Elle ne devient
 # PAS une consommation (la phase 4 l'écarte). Le Partner y prend sa
 # date d'achat (pas de K1) — la Zoe garde la sienne (l'écrasement est
 # sans perte : la même valeur au jour du retrait près, l'approximation

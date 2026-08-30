@@ -6,11 +6,15 @@ nom:
     fr: Nom
   placeholder:
     fr: Partner Outdoor
+  # le réel ne sépare pas la marque du modèle (« Renault ZOE »,
+  # « Partner Outdoor » sans marque) — le nom les porte ensemble
   hint:
-    fr: Le nom du véhicule — un classeur, un véhicule, un nom.
+    fr: La marque et le modèle — un classeur, un véhicule, un nom.
 
+# la plaque = l'identification du véhicule (l'identity de l'entité)
 immatriculation:
   type: text[..12]
+  required: true
   label:
     fr: Immatriculation
   placeholder:
@@ -120,6 +124,13 @@ date_vente:
     fr: Date de vente
   hint:
     fr: La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule.
+
+# la vente porte aussi son lieu (« Vendezvotrevoiture.fr », la reprise
+# du concessionnaire…) — nul tant que le véhicule vit
+lieu_vente:
+  type: text[..60]
+  label:
+    fr: Lieu de vente
 
 km_initial:
   type: integer[0..]

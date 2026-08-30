@@ -10,4 +10,5 @@ entretien:
   filter: designation like "^Vente de la voiture.*"
   fields:
     date_vente: date
+    lieu_vente: extract(designation, "^Vente de la voiture - (.*)$")   # « Vendezvotrevoiture.fr »
     statut:     "cloture"

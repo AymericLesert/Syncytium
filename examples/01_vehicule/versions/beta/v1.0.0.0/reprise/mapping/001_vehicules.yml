@@ -9,8 +9,9 @@ identification:
   to: transport.vehicule
   key: fichier
   fields:
-    nom:        nom
+    nom:        nom                 # la marque et le modèle, ensemble (B1)
     immatriculation: immatriculation
+    photo:      photo               # l'image embarquée de la feuille (R8)
     mode_achat: mode_achat
     lieu_achat: lieu_achat
     date_achat: date_debut          # la Zoe ; le Partner : la phase 3 (l'origine)

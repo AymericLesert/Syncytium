@@ -3,8 +3,9 @@ name: vehicule
 description: Un véhicule du foyer — l'identification, le financement, la vie et le bilan
 # le visage texte ; la photo = le visage image (D386)
 label: "{nom}"
-# le classeur = le nom (« Partner Outdoor », « Renault ZOE »)
-identity: [nom]
+# la plaque = l'identification du véhicule (l'arbitrage de la reprise) ;
+# le classeur garde son nom (« Partner Outdoor », « Renault ZOE »)
+identity: [immatriculation]
 # le champ énuméré porteur du cycle de vie (D424)
 states: statut
 

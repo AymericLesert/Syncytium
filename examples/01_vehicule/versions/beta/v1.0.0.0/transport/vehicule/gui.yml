@@ -39,6 +39,7 @@ forms:
                   # le calendar + les steppers (D785)
                   - field[date_achat]
                   - field[date_vente]
+                  - field[lieu_vente]
                   - field[km_initial]
 
             # le paramétrage + l'échéancier

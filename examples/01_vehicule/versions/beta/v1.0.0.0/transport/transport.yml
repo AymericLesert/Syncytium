@@ -1,0 +1,35 @@
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768) : depuis transport/
+# « transport » : le moyen de locomotion du foyer (D831) — le
+# nommage libre (D807) évite le triple vehicule/vehicule/vehicule.yml
+# et donne des références lisibles (transport.revision).
+name: transport
+description: Suivi et maintenance des moyens de locomotion du foyer
+
+entities:
+  - vehicule/vehicule.yml
+  - consommation/consommation.yml
+  - entretien/entretien.yml
+  - revision/revision.yml
+  - echeance/echeance.yml
+
+# Le tableau de bord du module (D554/D555) — l'écran principal :
+# l'accueil au module actif (D557/D558), le menu l'adresse
+# transport[accueil] (D439), la première déclarée = le défaut (D438).
+gui:
+  dashboards:
+    accueil:
+      title:
+        fr: "Le garage du foyer"
+      items:
+        # column, le défaut (D490) — l'une au-dessus de l'autre
+        - sections:
+            items:
+              - section:
+                  # l'écho des révisions échues — d'abord
+                  items: [ list[revision.echues] ]
+              - section:
+                  # l'entrée principale — la liste en widgets (D492)
+                  items: [ list[vehicule.vehicules] ]
+        # l'adresse universelle <type>[<nom>] (D566) couvre list[…] ; les
+        # surfaces s'emboîtent librement (D455 — « qui utilise les listes »)

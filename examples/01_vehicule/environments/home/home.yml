@@ -1,0 +1,18 @@
+name: home
+description: Environnement d'exécution du poste du foyer
+
+# Configuration de la journalisation
+
+logging: logging.yml
+
+# Configuration de la génération de la documentation
+
+documentation: documentation.yml
+
+# Configuration des connecteurs de l'application
+
+connectors: connectors.yml
+
+# Configuration générale transcendant les versions et propre à un environnement d'exécution
+
+settings: settings.yml

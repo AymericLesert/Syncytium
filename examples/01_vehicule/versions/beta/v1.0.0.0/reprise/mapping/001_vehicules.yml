@@ -1,0 +1,20 @@
+# La phase 1 — un classeur = un véhicule (D826).
+# LA JOINTURE PAR LA PLAQUE (D850 — R3 sans objet) : chaque source
+# porte un champ immatriculation référençant IDENTIFICATION!E1 (la
+# cellule d'un autre onglet, répétée — le mixte D848) ; la clé et
+# les parents joignent par l'identité réelle, le patron banque.
+# Le statut : les véhicules repris vivent (actif) ; la restitution
+# déjà datée (la Zoe, K2) clôt d'entrée.
+
+identification:
+  to: transport.vehicule
+  key: immatriculation
+  fields:
+    nom:        nom                 # la marque et le modèle, ensemble (B1)
+    immatriculation: immatriculation
+    photo:      photo               # l'image embarquée de la feuille (R8)
+    mode_achat: mode_achat
+    lieu_achat: lieu_achat
+    date_achat: date_debut          # la Zoe ; le Partner : la phase 3 (l'origine)
+    date_vente: date_fin
+    statut:     iif(date_fin != null, "cloture", "actif")

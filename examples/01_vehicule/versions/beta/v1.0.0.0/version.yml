@@ -1,0 +1,26 @@
+# Identification et description de la version — la version en tête (D801)
+
+version: 1.0.0.0
+release-notes: >
+  Cette version initialise le projet :
+  # Description de la structure de données
+  ## Un véhicule (thermique ou électrique)
+  ## Une consommation (plein ou charge)
+  ## Une ligne d'entretien (le journal de vie)
+  ## Le financement (crédit ou LOA)
+  ## L'échéancier des révisions
+  # Description de la reprise des classeurs historiques
+
+# Déclaration des hooks
+
+hooks: hooks/hooks.yml
+
+# Déclaration de la reprise des classeurs historiques (le morceau 5)
+
+migrations: reprise/reprise.yml
+
+# Déclaration des modules
+# Pour l'exemple, nous n'avons qu'un seul module
+
+modules:
+  - transport/transport.yml

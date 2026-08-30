@@ -1,4 +1,4 @@
-# Le cas 3 — la conversion Cegid PMI vers l'entrepôt
+# Le cas 4 — la conversion Cegid PMI vers l'entrepôt
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)

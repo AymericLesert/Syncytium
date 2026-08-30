@@ -1,0 +1,12 @@
+# La déclaration de la présentation graphique — le morceau 4.
+# Pas de formulaire déclaré : le défaut du socle suffit — la saisie
+# vit dans la liste (l'édition en ligne, D205/D445).
+lists:
+
+  # la feuille ENTRETIEN — le journal de vie
+  entretiens:
+    title:
+      fr: "Entretiens et interventions"
+    columns: [date, designation, montant, km, revision]
+    editable: [date, designation, montant, km, revision]
+    sort: [date, numero]

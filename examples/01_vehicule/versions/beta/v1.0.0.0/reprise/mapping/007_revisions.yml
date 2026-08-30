@@ -1,0 +1,12 @@
+# La phase 7 — la règle de révision du classeur (le titre du bloc
+# droit) : une règle par véhicule, au pas en kilomètres. Le délai
+# n'existe pas au legacy.
+
+regle_revision:
+  to: transport.revision
+  parent:
+    vehicule: immatriculation
+  filter: pas_km_n != null
+  fields:
+    designation: "Révision constructeur"
+    pas_km:      pas_km_n

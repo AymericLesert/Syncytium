@@ -96,9 +96,10 @@ vérifie, puis la fait vivre. *(D336)*
 La configuration peut se décomposé par étage (la version, le module, l'entité) et diffusés en cascade à ce qu'il
 contient : le plus proche l'emporte. *(D348/D360)*
 
-**Description** ((`comment`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte pour comprendre la nature de l'information, une description détaillée pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
-*Ex. : `comment: { fr: Le code se génère à la création }`.*
-*(D364)*
+**Description** (`hint`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte (`hint` — D840) pour comprendre la nature de l'information, une description détaillée (`description`) pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
+*Ex. : `hint: { fr: Le code se génère à la création }`.*
+*Réserve de vocabulaire : le « hint » d'Android/Flutter désigne le texte fantôme du champ vide — chez Syncytium, c'est le `placeholder`.*
+*(D364/D840)*
 
 **Valeur de démonstration** (`placeholder`) — Description visuelle permet de capter l'attention d'un utilisateur sur la validité de la donnée. L'exemple affiché dans un champ vide ; pour une image, l'icône de fond. *(D364/D390)*
 

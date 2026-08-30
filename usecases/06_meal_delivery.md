@@ -1,4 +1,4 @@
-# Le cas 5 — l'ERP de livraison de repas à domicile
+# Le cas 6 — l'ERP de livraison de repas à domicile
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)

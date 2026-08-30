@@ -54,6 +54,15 @@ connectors:
   incoming_orders:
     type: file
     class: file_std
+  legacy:
+    type: storage
+    class: csv
+    parameters: { directory: ${LEGACY_DIR}, encoding: windows-1252, separator: ";" }
+    entities:                         # la carte entités → fichiers (D828/D845) — au même
+      budget: [budget.*\.txt]        #   niveau que parameters ; liste ou pattern (D806) ;
+      # le défaut : la 1re ligne = les entêtes existantes (D845) ; les écarts
+      # à l'objet — files: + headers: [..] (la substitution, l'ordre des
+      # colonnes) + skipheader: false (le fichier sans entête)
     parameters: { path: /exchange/in, format: csv }
     every: 5min                                # le guetteur (D603–D604)
 ```
@@ -159,7 +168,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` — **l'écriture en lots** (D688 : create/update/delete portent une liste — le bulk natif de la classe), **la lecture au curseur** (D689 : read() rend un curseur qui convertit chaque ligne en enregistrement au fil du parcours — le lazy loading, la masse au suivi de progression) |
 

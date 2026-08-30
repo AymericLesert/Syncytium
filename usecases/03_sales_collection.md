@@ -1,4 +1,4 @@
-# Le cas 4 — la gestion de projets
+# Le cas 3 — la collecte des commandes commerciales
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -10,15 +10,18 @@ décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 *(à cadrer avec l'auteur — qui utilise, ce que l'application montre,
 ce qu'elle ne fait pas)*
 
-**« Une gestion de projets. »** (D756)
+**« La collecte et la standardisation de données de commandes
+commerciales en vue de la simplification du processus de production
+et des tâches administratives. »** (D756)
 
 ## Ce que le cas éprouve
 
-- l'application métier collaborative : les groupes, les droits, la
-  confidentialité ;
-- les cycles de vie (D421–D427) : les états d'un projet, d'une
-  tâche — les transitions, les cliquets ;
-- les surfaces riches : les listes, les tableaux de bord, le suivi.
+- les imports (D234–D238) et les exports — les échanges au
+  quotidien ;
+- la normalisation (D660) et la standardisation des données venues
+  de sources hétérogènes ;
+- l'allègement du processus : les opérations déclarées, les
+  notifications, les rapports.
 
 ## La forme — le dépôt
 

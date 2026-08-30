@@ -1,0 +1,363 @@
+# --- l'identification (la feuille IDENTIFICATION) ---
+
+nom:
+  type: text[..40]
+  label:
+    fr: Nom
+  placeholder:
+    fr: Partner Outdoor
+  # le réel ne sépare pas la marque du modèle (« Renault ZOE »,
+  # « Partner Outdoor » sans marque) — le nom les porte ensemble
+  hint:
+    fr: La marque et le modèle — un classeur, un véhicule, un nom.
+
+# la plaque = l'identification du véhicule (l'identity de l'entité)
+immatriculation:
+  type: text[..12]
+  required: true
+  label:
+    fr: Immatriculation
+  placeholder:
+    fr: AA-999-AA
+  # les formats anciens (1992) interdisent un masque unique
+  hint:
+    fr: La plaque du véhicule, au format du moment.
+
+photo:
+  # le visage porté par l'image (D386), la vignette automatique
+  type: image[512x512]
+  label:
+    fr: Photo
+  hint:
+    fr: Le visage du véhicule — la vignette des listes et de la carte.
+
+type:
+  # l'unité vit dans le type, pas dans la valeur (D826)
+  type: enum
+  required: true
+  label:
+    fr: Type de véhicule
+  hint:
+    fr: Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique.
+  values:
+    thermique:
+      label:
+        fr: Thermique
+    electrique:
+      label:
+        fr: Électrique
+
+devise:
+  # la devise est visuelle (D832) : les montants restent nus
+  type: enum
+  required: true
+  label:
+    fr: Devise
+  hint:
+    fr: Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue.
+  values:
+    euro:
+      label:
+        fr: "€"
+    # les classeurs antérieurs au passage (1992-2001)
+    franc:
+      label:
+        fr: "F"
+
+statut:
+  # le cycle de vie (D424–D427) : la naissance au default, l'activation
+  # libre (D426), la clôture au cliquet (D354/D427) dès la vente posée
+  type: enum
+  required: true
+  default: creation
+  label:
+    fr: Statut
+  hint:
+    fr: La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour.
+  values:
+    creation:
+      label:
+        fr: Création
+      allow: [create, read, update, delete]
+      promote:
+        - to: actif
+    actif:
+      label:
+        fr: Actif
+      # le journal s'écrit (D422 — create = le sous-composant)
+      allow: [create, read, update]
+      promote:
+        - to: cloture
+          when: date_vente != null
+    cloture:
+      label:
+        fr: Clôture
+      # l'archive — la vie ne se réécrit pas
+      allow: [read]
+
+mode_achat:
+  type: text[..40]
+  label:
+    fr: Mode d'achat
+  placeholder:
+    fr: Acheté concessionnaire
+
+lieu_achat:
+  type: text[..60]
+  label:
+    fr: Lieu d'achat
+  placeholder:
+    fr: Garage Peugeot à Dôle
+
+date_achat:
+  type: date
+  required: true
+  label:
+    fr: Date d'achat
+
+date_vente:
+  # elle bascule le statut (le cliquet) et clôt l'échéancier ; APRÈS LA
+  # CLÔTURE, ELLE NE SE MODIFIE PLUS : l'état ne porte que read (D422),
+  # sans demote (D425) — et aucune opération n'y touche
+  type: date
+  label:
+    fr: Date de vente
+  hint:
+    fr: La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule.
+
+# la vente porte aussi son lieu (« Vendezvotrevoiture.fr », la reprise
+# du concessionnaire…) — nul tant que le véhicule vit
+lieu_vente:
+  type: text[..60]
+  label:
+    fr: Lieu de vente
+
+km_initial:
+  type: integer[0..]
+  required: true
+  label:
+    fr: Kilométrage initial
+  hint:
+    fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
+
+# --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---
+
+financement:
+  type: enum
+  label:
+    fr: Financement
+  values:
+    comptant:
+      label:
+        fr: Comptant
+    credit:
+      label:
+        fr: Crédit
+    loa:
+      label:
+        fr: LOA
+
+capital:
+  type: decimal
+  label:
+    fr: Capital emprunté
+  hint:
+    fr: Le crédit seulement — 24 500.
+
+taux_annuel:
+  type: percentage
+  label:
+    fr: Taux annuel
+  hint:
+    fr: Le taux nominal du crédit — 6,187.
+
+assurance_mensuelle:
+  type: decimal
+  label:
+    fr: Assurance mensuelle
+  hint:
+    fr: Le crédit seulement — 34,40 par mois, en sus de la mensualité.
+
+mensualite:
+  type: decimal
+  label:
+    fr: Mensualité
+  hint:
+    fr: La mensualité de la LOA — celle du crédit se calcule à l'échéancier.
+
+# l'intention contractuelle (D853) — le générateur l'engendre ;
+# duree_echeances (calculé) dit le réel compté
+duree_contrat:
+  type: integer[0..]
+  label:
+    fr: Durée du contrat
+  hint:
+    fr: Le nombre d'échéances du contrat — 60 mensualités, 36 loyers.
+
+premier_mois:
+  type: date[yyyy-mm]
+  label:
+    fr: Premier mois
+  hint:
+    fr: Le premier mois du financement — 2016-02, 2023-10.
+
+jour_echeance:
+  type: integer[1..31]
+  label:
+    fr: Jour d'échéance
+  # la coche Payé s'en déduit (D831)
+  hint:
+    fr: Le jour du mois du prélèvement — le 10, le 5.
+
+km_annuel:
+  type: integer[0..]
+  label:
+    fr: Kilométrage annuel
+  hint:
+    fr: Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ».
+
+# --- les compositions (D399) — le grain d'écriture ---
+
+consommations:
+  type: list of consommation
+  label:
+    fr: Consommations
+
+entretiens:
+  type: list of entretien
+  label:
+    fr: Entretiens
+
+revisions:
+  # l'échéancier des règles (D826)
+  type: list of revision
+  label:
+    fr: Révisions
+
+echeances:
+  # engendrées à la validation du financement (creer_echeancier), closes
+  # à la vente — les non payées supprimées (clore_echeancier) — D831
+  type: list of echeance
+  label:
+    fr: Échéances
+
+# ------ Champs calculés ------
+
+# la durée du financement = le nombre de lignes de l'échéancier (D852)
+duree_echeances:
+  type: integer
+  formula: echeances.count()
+  label:
+    fr: Nombre d'échéances
+  hint:
+    fr: 60 mensualités du crédit, 34 loyers de la LOA — le compte des échéances.
+
+unite:
+  # dérivée du type — le .select des énumérés (D833)
+  type: text
+  formula: type.select(thermique: "litres", electrique: "kWh")
+  label:
+    fr: Unité
+  hint:
+    fr: L'unité de la quantité — litres ou kWh, dérivée du type de véhicule.
+
+# --- le bilan (la feuille BILAN) — tout calculé, les formules du réel ---
+
+km_courant:
+  type: integer
+  formula: iif(entretiens.max(km) > consommations.max(total_km), entretiens.max(km), consommations.max(total_km))
+  label:
+    fr: Kilométrage courant
+  hint:
+    fr: Le plus grand compteur vu — consommations et entretiens confondus.
+
+nb_jours:
+  # 3 789 jours
+  type: duration
+  formula: consommations.sum(nb_jours)
+  label:
+    fr: Nombre de jours
+  hint:
+    fr: La durée de vie suivie — la somme des intervalles entre ravitaillements.
+
+km_total:
+  # 300 460 km
+  type: integer
+  formula: consommations.sum(km)
+  label:
+    fr: Kilomètres parcourus
+
+quantite_totale:
+  # 17 755,77 litres
+  type: decimal
+  formula: consommations.sum(quantite)
+  label:
+    fr: Quantité totale
+  hint:
+    fr: Les litres ou kWh consommés sur la vie du véhicule.
+
+conso_moyenne:
+  # 5,91 aux 100 km
+  type: decimal
+  formula: 100 * quantite_totale / km_total
+  label:
+    fr: Consommation moyenne
+  hint:
+    fr: Aux 100 km — litres ou kWh selon le type.
+
+duree_moyenne:
+  # 9,3 jours/plein
+  type: decimal
+  formula: nb_jours.days / consommations.count()
+  label:
+    fr: Durée moyenne d'un plein
+  hint:
+    fr: En jours — l'intervalle moyen entre deux ravitaillements.
+
+total_entretien:
+  # l'achat et la vente sont des lignes du journal
+  type: decimal
+  formula: entretiens.sum(montant)
+  label:
+    fr: Total achat et entretien
+
+total_energie:
+  type: decimal
+  formula: consommations.sum(prix_total)
+  label:
+    fr: Total énergie
+
+cout_financement:
+  type: decimal
+  formula: financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0)
+  label:
+    fr: Coût du financement
+  hint:
+    fr: Les intérêts payés du crédit, ou les loyers payés de la LOA.
+
+cout_total:
+  type: decimal
+  formula: total_entretien + total_energie + cout_financement
+  label:
+    fr: Coût total
+
+prix_energie_km:
+  # 0,088 €/km
+  type: decimal
+  formula: total_energie / km_total
+  label:
+    fr: Prix de l'énergie au km
+
+prix_km:
+  # 0,249 €/km
+  type: decimal
+  formula: cout_total / km_total
+  label:
+    fr: Prix de revient au km
+
+prix_jour:
+  # 19,71 €/jour
+  type: decimal
+  formula: cout_total / nb_jours.days
+  label:
+    fr: Prix de revient journalier

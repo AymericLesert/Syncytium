@@ -1,0 +1,15 @@
+# La déclaration de la présentation graphique — le morceau 4.
+# Pas de formulaire déclaré : le défaut du socle suffit — l'échéance
+# se reprend dans la liste (l'édition en ligne, l'arbitrage de
+# l'auteur) ; les lignes naissent de creer_echeancier, se remettent
+# au paramétrage par ajuster_echeancier, la coche Payé est calculée.
+lists:
+
+  # le tableau CREDIT | LOA du classeur
+  echeancier:
+    title:
+      fr: "L'échéancier"
+    columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
+    # les données ; paye et reste_du se calculent
+    editable: [numero, date, interet, amortissement, assurance, mensualite]
+    sort: [numero]

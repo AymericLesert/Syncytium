@@ -1,0 +1,15 @@
+# L'entretien — le journal de vie (D826) : des frais, des événements
+# sans montant (« Choc avec une biche », « Fuite de gasoil »), l'achat
+# en première ligne et la vente en recette négative (−2 477).
+name: entretien
+description: Une ligne du journal de vie — un frais, un événement, l'achat, la vente
+label: "${name}"
+
+# La liste des champs de l'entité
+fields: fields.yml
+
+validation:
+  - date >= owner.date_achat
+
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml

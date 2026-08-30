@@ -68,8 +68,9 @@ forms:
                         - section:
                             title: { fr: Les prix de revient }
                             items: [ field[conso_moyenne], field[prix_energie_km], field[prix_km], field[prix_jour] ]
-                  - chart[evolution_consommation]   # la courbe (D540) — le chart de consommation (cf. manque 14)
+                  - chart[consommation.evolution_consommation]   # la courbe (D540) — l'adresse qualifiée entité.nom (le patron widget[order.monthly])
 
+widgets:                           # le bloc des widgets de l'entité (la fiche widget — D492/D202)
   carte:                           # la carte du véhicule (D492) — le widget de la liste
     items:
       - sections:

@@ -12,3 +12,16 @@ entities:
   - entretien/entretien.yml
   - revision/revision.yml
   - echeance/echeance.yml
+
+# Le tableau de bord du module (D554/D555) — l'écran principal :
+# l'accueil au module actif (D557/D558), le menu l'adresse
+# transport[accueil] (D439), la première déclarée = le défaut (D438).
+gui:
+  dashboards:
+    accueil:
+      title: { fr: "Le garage du foyer" }
+      items:
+        - list[revision.echues]      # l'écho des révisions échues — AVANT les véhicules (l'arbitrage)
+        - list[vehicule.vehicules]   # l'entrée principale — la liste en widgets (D492)
+        # list[<entité>.<nom>] : l'adresse de surface au squelette — l'écho
+        # de widget[<entité>.<nom>] (la fiche dashboard) ; cf. manque 15

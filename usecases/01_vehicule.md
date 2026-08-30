@@ -183,7 +183,17 @@ opérations, les surfaces, la reprise)*
   - les listes nommées demeurent (par_date, journal, toutes +
     echues, echeancier) — la feuille du classeur colonne à
     colonne, le chart GRAPHIQUE (x: date[month], y:
-    avg(conso_100)).
+    avg(conso_100)) ;
+  - **l'écran principal** (la 3e passe — l'arbitrage) : le tableau
+    de bord du module (`transport.yml`, `dashboards: accueil` —
+    D554/D557/D439) empile **l'écho des révisions échues AVANT la
+    liste des véhicules** ; `echues` devient une liste de widgets
+    (D492) au **texte unique** — le widget `annonce` de la
+    révision : deux `paragraph` au gabarit mustache (les chemins
+    D71 — `{{owner.nom}}`), l'alinéa au `if:` (la règle au km ou
+    au délai) — **une pure alerte**, sans lien (« pas plus de 2
+    véhicules ») ; la `carte` du véhicule rejoint le bloc
+    `widgets:` (la fiche widget).
 
 ## Les manques relevés
 
@@ -243,13 +253,18 @@ opérations, les surfaces, la reprise)*
     particuliers et urgents » — moins onéreux qu'une version pour
     une erreur de saisie) ; la voie déclarée demeure le `demote`
     d'une version nouvelle ;
-13. **le possesseur en colonne** — la liste `echues` traverse les
-    véhicules et affiche `vehicule` en colonne : le nom d'entité
-    désigne le possesseur, comme la facette de recherche du patron
-    banque (`compte:`/`vehicule:` au `searchable:`) — l'extension
-    aux `columns:` à confirmer ;
-14. **le chart d'une autre entité** — l'onglet Bilan du véhicule
-    référence `chart[evolution_consommation]`, déclaré sur
-    l'entité `consommation` (ses données) : la portée de l'adresse
-    `chart[<nom>]` hors de l'entité du formulaire — à confirmer
-    (une qualification `consommation.evolution_consommation` ?).
+13. **le possesseur en colonne** — dissous par l'arbitrage : la
+    liste `echues` n'a plus de colonnes — le widget-texte porte le
+    véhicule dans son gabarit (`{{owner.nom}}`) ;
+14. **le chart d'une autre entité** — résolu par le registre : la
+    fiche dashboard adresse les widgets **qualifiés**
+    `widget[<entité>.<nom>]` (`widget[order.monthly]`) — la même
+    forme vaut pour le chart :
+    `chart[consommation.evolution_consommation]` à l'onglet Bilan ;
+15. **les listes au squelette du dashboard** — l'écran principal
+    empile deux listes ; la fiche dashboard ne connaît que
+    `widget[…]`, `chart[…]`, les sections et `_` : l'adresse
+    **`list[<entité>.<nom>]`** est proposée (l'écho exact de
+    `widget[<entité>.<nom>]` ; le tableau de valeurs D244 — « une
+    liste nommée, un tri imposé, un nombre limité » — en est le
+    germe) — à trancher.

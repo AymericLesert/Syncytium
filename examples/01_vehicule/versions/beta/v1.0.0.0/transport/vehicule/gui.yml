@@ -1,0 +1,55 @@
+# Les surfaces du véhicule — le morceau 4.
+# Le record aux cinq usages (D199/D788), les titres au gabarit par
+# mode (D789–D790), le visible: vivant (D567) pour le financement,
+# le BILAN de la feuille en calculés lecture seule (D255).
+forms:
+  record:
+    title:
+      create: { fr: "Création d'un véhicule" }
+      read:   { fr: "{nom}" }
+      update: { fr: "Modification de {nom}" }
+      delete: { fr: "Suppression de {nom}" }
+    items:
+      # --- l'identification (la feuille IDENTIFICATION) ---
+      - field[nom]
+      - field[immatriculation]
+      - field[photo]                 # le visage (D386)
+      - field[type]                  # thermique | électrique — l'unité en découle
+      - field[devise]                # la devise visuelle (D832)
+      - field[statut]                # la liste navigatrice du graphe (D426/D500)
+      - field[mode_achat]
+      - field[lieu_achat]
+      - field[date_achat]            # le calendar + les steppers [-]/[+] (D785)
+      - field[date_vente]
+      - field[km_initial]
+      # --- le financement (la feuille CREDIT | LOA) — le visible: vivant (D567) ---
+      - field[financement]
+      - field[capital]:             { visible: financement = credit }
+      - field[taux_annuel]:         { visible: financement = credit }
+      - field[assurance_mensuelle]: { visible: financement = credit }
+      - field[mensualite]:          { visible: financement = loa }
+      - field[duree_echeances]:     { visible: financement = credit or financement = loa }
+      - field[premier_mois]:        { visible: financement = credit or financement = loa }
+      - field[jour_echeance]:       { visible: financement = credit or financement = loa }
+      - field[km_annuel]:           { visible: financement = loa }
+      # --- le bilan (la feuille BILAN) — les calculés, lecture seule (D255) ---
+      - field[nb_jours]
+      - field[km_courant]
+      - field[km_total]
+      - field[quantite_totale]
+      - field[conso_moyenne]
+      - field[duree_moyenne]
+      - field[total_entretien]
+      - field[total_energie]
+      - field[cout_financement]
+      - field[cout_total]
+      - field[prix_energie_km]
+      - field[prix_km]
+      - field[prix_jour]
+
+lists:
+  vehicules:                         # la première déclarée = le défaut (D437)
+    title: { fr: "Les véhicules du foyer" }
+    columns: [photo, nom, immatriculation, type, statut, date_achat, km_courant, prix_km]
+    sort: [date_achat]               # l'ordre du garage — de l'Austin Metro à la 4L
+    selection: 1

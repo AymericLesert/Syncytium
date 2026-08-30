@@ -10,6 +10,9 @@ fields: fields.yml
 # Les opérations associées à l'entité — le cycle de vie de l'échéancier (D831)
 operations: operations.yml
 
+# La déclaration de la présentation graphique — le morceau 4
+gui: gui.yml
+
 # Une vente ne précède pas l'achat
 validation:
   - date_vente >= date_achat if date_vente != null

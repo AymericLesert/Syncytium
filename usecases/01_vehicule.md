@@ -159,6 +159,34 @@ opérations, les surfaces, la reprise)*
     l'information ; la surface du morceau 4 fera écho (le mail
     reste muet — smtp none, D763).
 
+- **le morceau 4 — les surfaces** (en validation) : le patron du
+  `gui.yml` de la banque, rien d'inventé (la leçon du morceau 3) —
+  une seule extension, flaggée au manque 13 :
+  - **`vehicule`** — le record aux cinq usages (D788–D790) en
+    trois temps : l'identification, le financement au `visible:`
+    vivant (D567 — les champs du crédit, de la LOA), **le BILAN
+    entier en calculés lecture seule** (D255 — la feuille
+    retrouvée) ; la liste `vehicules` (photo, nom, type, statut,
+    `km_courant`, `prix_km` — le tri `date_achat` : de l'Austin
+    Metro à la 4L) ;
+  - **`consommation`** — le record aux saisies seules (numero,
+    date, total_km, quantite, prix_unitaire — les calculés
+    naissent d'eux-mêmes), la liste `par_date` **colonne à colonne
+    de la feuille** (nb_jours, date, km_prevu, total_km, km,
+    quantite, prix_unitaire, prix_total, conso_100), le chart
+    `evolution_consommation` (la feuille GRAPHIQUE — `x:
+    date[month]`, `y: avg(conso_100)`, les filtres au patron des
+    listes D798) ;
+  - **`entretien`** — le journal de vie : la recherche mutualisée
+    (D780), la plage de dates, la coche `revision` en colonne ;
+  - **`echeance`** — l'échéancier en lecture seule, **sans
+    formulaire** : les lignes naissent de `creer_echeancier`, se
+    reprennent par `ajuster_echeancier`, la coche est calculée —
+    rien à saisir ;
+  - **`revision`** — le record des règles, la liste `toutes`
+    (avec `echue` en colonne) et **l'écho `echues`** (la partition
+    par le filtre D783 : `filter: echue = true`).
+
 ## Les manques relevés
 
 *(chaque frottement deviendra une décision)*
@@ -216,4 +244,9 @@ opérations, les surfaces, la reprise)*
     `administrator` seul, toujours tracé (« des cas très
     particuliers et urgents » — moins onéreux qu'une version pour
     une erreur de saisie) ; la voie déclarée demeure le `demote`
-    d'une version nouvelle.
+    d'une version nouvelle ;
+13. **le possesseur en colonne** — la liste `echues` traverse les
+    véhicules et affiche `vehicule` en colonne : le nom d'entité
+    désigne le possesseur, comme la facette de recherche du patron
+    banque (`compte:`/`vehicule:` au `searchable:`) — l'extension
+    aux `columns:` à confirmer.

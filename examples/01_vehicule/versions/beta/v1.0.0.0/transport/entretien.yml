@@ -15,3 +15,29 @@ fields:
   revision:    boolean
 validation:
   - date >= owner.date_achat
+
+# La présentation graphique — inline (l'éclatement libre D767)
+gui:
+  forms:
+    record:
+      title:
+        create: { fr: "Nouvelle ligne d'entretien" }
+        read:   { fr: "{designation}" }
+        update: { fr: "Modification de la ligne du {date}" }
+        delete: { fr: "Suppression de la ligne du {date}" }
+      items:
+        - field[date]
+        - field[designation]         # le multi-ligne déduit (D366)
+        - field[montant]             # optionnel — l'événement sans montant
+        - field[km]
+        - field[revision]            # la coche : une révision, ou non
+  lists:
+    journal:                         # la feuille ENTRETIEN — le journal de vie
+      title: { fr: "Le journal de vie" }
+      searchable:
+        - vehicule: { select: mono, required: true }
+        - date                       # la plage (D784)
+        - recherche                  # le champ mutualisé (D780) — la désignation
+      columns: [date, designation, montant, km, revision]
+      sort: [date, numero]
+      selection: multiple

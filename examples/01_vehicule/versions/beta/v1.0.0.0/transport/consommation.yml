@@ -29,3 +29,36 @@ fields:
 validation:
   - date >= owner.date_achat
   - total_km >= owner.km_initial
+
+# La présentation graphique — inline (l'éclatement libre D767)
+gui:
+  forms:
+    record:                          # la saisie du plein / de la charge — les saisies seules
+      title:
+        create: { fr: "Nouveau ravitaillement" }
+        read:   { fr: "Ravitaillement du {date}" }
+        update: { fr: "Modification du ravitaillement du {date}" }
+        delete: { fr: "Suppression du ravitaillement du {date}" }
+      items:
+        - field[numero]
+        - field[date]                # le calendar + les steppers (D785)
+        - field[total_km]
+        - field[quantite]            # la valeur seule — litres ou kWh selon le véhicule
+        - field[prix_unitaire]
+  lists:
+    par_date:                        # la feuille CONSOMMATION, colonne à colonne
+      title: { fr: "La consommation" }
+      searchable:
+        - vehicule: { select: mono, required: true }   # le possesseur (le patron banque)
+        - date                       # la plage — le champ porte sa facette (D784)
+      columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
+      sort: [date, numero]
+      selection: multiple
+  charts:
+    evolution_consommation:          # la feuille GRAPHIQUE (D826)
+      title: { fr: "L'évolution de la consommation" }
+      searchable:                    # le patron des listes (D782/D784/D798)
+        - vehicule: { select: mono, required: true }
+        - date                       # la plage — la facette range (D784)
+      x: date[month]                 # le mois — le découpage temporel (D516)
+      y: avg(conso_100)              # la moyenne du mois (D517/D580)

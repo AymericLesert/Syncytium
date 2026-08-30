@@ -25,3 +25,17 @@ fields:
   reste_du:
     type: decimal
     formula: owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero), loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
+
+# La présentation graphique — inline (l'éclatement libre D767).
+# Pas de formulaire : les lignes naissent de creer_echeancier, se
+# reprennent par ajuster_echeancier, la coche Payé est calculée —
+# rien à saisir à la ligne.
+gui:
+  lists:
+    echeancier:                      # le tableau CREDIT | LOA du classeur
+      title: { fr: "L'échéancier" }
+      searchable:
+        - vehicule: { select: mono, required: true }
+      columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
+      sort: [numero]
+      selection: 1

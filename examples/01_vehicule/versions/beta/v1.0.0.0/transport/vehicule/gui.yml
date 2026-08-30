@@ -6,82 +6,114 @@
 forms:
   record:
     title:                         # les titres au gabarit par mode (D789–D790)
-      create: { fr: "Création d'un véhicule" }
-      read:   { fr: "{nom}" }
-      update: { fr: "Modification de {nom}" }
-      delete: { fr: "Suppression de {nom}" }
+      create:
+        fr: "Création d'un véhicule"
+      read:
+        fr: "{nom}"
+      update:
+        fr: "Modification de {nom}"
+      delete:
+        fr: "Suppression de {nom}"
     items:
       - tabs:
           items:
-            - tab:
-                title: { fr: Véhicule }          # l'identification
+
+            - tab:                           # l'identification
+                title:
+                  fr: Véhicule
                 items:
                   - field[nom]
                   - field[immatriculation]
-                  - field[photo]                 # le visage (D386)
-                  - field[type]                  # thermique | électrique
-                  - field[devise]                # la devise visuelle (D832)
-                  - field[statut]                # la liste navigatrice du graphe (D426/D500)
+                  - field[photo]             # le visage (D386)
+                  - field[type]              # thermique | électrique
+                  - field[devise]            # la devise visuelle (D832)
+                  - field[statut]            # la liste navigatrice du graphe (D426/D500)
                   - field[mode_achat]
                   - field[lieu_achat]
-                  - field[date_achat]            # le calendar + les steppers (D785)
+                  - field[date_achat]        # le calendar + les steppers (D785)
                   - field[date_vente]
                   - field[km_initial]
-            - tab:
-                title: { fr: Financement }       # le paramétrage + l'échéancier
+
+            - tab:                           # le paramétrage + l'échéancier
+                title:
+                  fr: Financement
                 items:
                   - field[financement]
-                  - field[capital]:             { visible: financement = credit }
-                  - field[taux_annuel]:         { visible: financement = credit }
-                  - field[assurance_mensuelle]: { visible: financement = credit }
-                  - field[mensualite]:          { visible: financement = loa }
-                  - field[duree_echeances]:     { visible: financement = credit or financement = loa }
-                  - field[premier_mois]:        { visible: financement = credit or financement = loa }
-                  - field[jour_echeance]:       { visible: financement = credit or financement = loa }
-                  - field[km_annuel]:           { visible: financement = loa }
+                  - field[capital]:
+                      visible: financement = credit
+                  - field[taux_annuel]:
+                      visible: financement = credit
+                  - field[assurance_mensuelle]:
+                      visible: financement = credit
+                  - field[mensualite]:
+                      visible: financement = loa
+                  - field[duree_echeances]:
+                      visible: financement = credit or financement = loa
+                  - field[premier_mois]:
+                      visible: financement = credit or financement = loa
+                  - field[jour_echeance]:
+                      visible: financement = credit or financement = loa
+                  - field[km_annuel]:
+                      visible: financement = loa
                   - operation[ajuster_echeancier]   # le bouton (D511) — la garde D430 le grise
-                  - field[echeances]            # la composition déployée (D486) — la liste echeancier
+                  - field[echeances]         # la composition déployée (D486) — la liste echeancier
             - tab:
-                title: { fr: Consommation }
+                title:
+                  fr: Consommation
                 items:
-                  - field[consommations]        # la liste consommations embarquée, éditable en ligne
+                  - field[consommations]     # la liste consommations embarquée, éditable en ligne
+
             - tab:
-                title: { fr: Entretien }
+                title:
+                  fr: Entretien
                 items:
-                  - field[entretiens]           # le journal de vie embarqué
+                  - field[entretiens]        # le journal de vie embarqué
+
             - tab:
-                title: { fr: Révision }
+                title:
+                  fr: Révision
                 items:
-                  - field[revisions]            # les règles, éditables en ligne
-            - tab:
-                title: { fr: Bilan }             # le dashboard des informations clés
+                  - field[revisions]         # les règles, éditables en ligne
+
+            - tab:                           # le dashboard des informations clés
+                title:
+                  fr: Bilan
                 items:
                   - sections:
-                      layout: row                # l'organisateur (D489)
+                      layout: row            # l'organisateur (D489)
                       items:
                         - section:
-                            title: { fr: Les compteurs }
+                            title:
+                              fr: Les compteurs
                             items: [ field[nb_jours], field[km_courant], field[km_total], field[quantite_totale], field[duree_moyenne] ]
                         - section:
-                            title: { fr: Les totaux }
+                            title:
+                              fr: Les totaux
                             items: [ field[total_entretien], field[total_energie], field[cout_financement], field[cout_total] ]
                         - section:
-                            title: { fr: Les prix de revient }
+                            title:
+                              fr: Les prix de revient
                             items: [ field[conso_moyenne], field[prix_energie_km], field[prix_km], field[prix_jour] ]
-                  - chart[consommation.evolution_consommation]   # la courbe (D540) — l'adresse qualifiée entité.nom (le patron widget[order.monthly])
+                  - chart[consommation.evolution_consommation]   # la courbe (D540) — l'adresse qualifiée entité.nom
 
 widgets:                           # le bloc des widgets de l'entité (la fiche widget — D492/D202)
+
   voiture:                         # la carte du véhicule (D492) — le widget de la liste
     items:
       - sections:
           layout: row
           items:
-            - section: { items: [ field[photo] ] }
-            - section: { items: [ field[nom], field[immatriculation], field[type], field[statut] ] }
-            - section: { items: [ field[km_courant], field[prix_km] ] }
+            - section:
+                items: [ field[photo] ]
+            - section:
+                items: [ field[nom], field[immatriculation], field[type], field[statut] ]
+            - section:
+                items: [ field[km_courant], field[prix_km] ]
 
 lists:
+
   vehicules:                       # l'entrée principale — la première déclarée = le défaut (D437)
-    title: { fr: "Les véhicules du foyer" }
+    title:
+      fr: "Les véhicules du foyer"
     widget: voiture                # la liste de widgets (D492) — l'affichage moderne
     sort: [date_achat]             # de l'Austin Metro à la 4L

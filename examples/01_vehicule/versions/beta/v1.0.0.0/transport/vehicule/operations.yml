@@ -7,7 +7,8 @@ creer_echeancier:                # à la validation du financement — la valida
   when: financement = credit or financement = loa
   commit: auto
 ajuster_echeancier:              # le bouton (sans when — D428) : le paramétrage modifié se reprend
-  label: { fr: Ajuster l'échéancier }
+  label:
+    fr: Ajuster l'échéancier
   if: (financement = credit or financement = loa) and statut != cloture   # la garde (D430) — le bouton se grise
   commit: confirm                # la relecture : conservées / supprimées / recréées (D596/D598)
 clore_echeancier:                # la clôture purge les non payées — le cliquet joue une fois

@@ -19,7 +19,8 @@ entities:
 gui:
   dashboards:
     accueil:
-      title: { fr: "Le garage du foyer" }
+      title:
+        fr: "Le garage du foyer"
       items:
         - sections:                  # column, le défaut (D490) — l'une au-dessus de l'autre
             items:

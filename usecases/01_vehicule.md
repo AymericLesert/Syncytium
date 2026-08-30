@@ -196,7 +196,13 @@ opérations, les surfaces, la reprise)*
     `selection` est la déduction (D470/D474, le `multiple` de la
     consommation était un réflexe du patron banque sans opération
     de masse ici), et « pas de véritables besoins » de recherche
-    (deux véhicules) ; `echues` devient une liste de widgets
+    (deux véhicules — les facettes `searchable:` du modèle retirées
+    avec) ;
+  - **la convention de lisibilité** (l'arbitrage, « de façon
+    générale ») : les fichiers **aérés** — les accolades `{ }`
+    dépliées en bloc, une ligne vide entre deux champs, et dans
+    chaque `fields.yml` **les champs saisis en tête, les calculés
+    en pied** sous le séparateur `# ------ Champs calculés ------`. `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la
     révision : deux `paragraph` au gabarit mustache (les chemins
     D71 — `{{owner.nom}}`), l'alinéa au `if:` (la règle au km ou

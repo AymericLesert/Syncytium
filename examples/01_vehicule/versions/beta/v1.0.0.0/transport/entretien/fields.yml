@@ -1,9 +1,18 @@
-numero: counter
-date:        { type: date, required: true, searchable: range }
-designation: { type: text[..200], required: true, searchable: mutualizable[recherche] }   # multi-ligne déduit de la taille (D366)
-montant:     decimal                 # optionnel — l'événement sans montant est licite ; la devise est visuelle (D832)
-km:          integer[0..]
+numero: counter                    # le compteur auto (D409) — masqué aux surfaces
+
+date:
+  type: date
+  required: true
+
+designation:
+  type: text[..200]
+  required: true                   # multi-ligne déduit de la taille (D366)
+
+montant: decimal                   # optionnel — l'événement sans montant est licite ; la devise est visuelle (D832)
+
+km: integer[0..]
+
 # la ligne est une révision — sinon : une intervention hors révision
 # (l'arbitrage : la référence à la règle n'avait pas d'intérêt, le
 # booléen suffit ; les révisions faites restent des lignes du journal D831)
-revision:    boolean
+revision: boolean

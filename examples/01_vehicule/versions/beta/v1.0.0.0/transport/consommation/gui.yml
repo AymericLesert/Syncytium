@@ -3,13 +3,18 @@
 # suffit (l'arbitrage — basique, sans description) ; la saisie vit
 # dans la liste (l'édition en ligne, D205/D445).
 lists:
+
   consommations:                   # la feuille CONSOMMATION, colonne à colonne
-    title: { fr: "La consommation" }
+    title:
+      fr: "La consommation"
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
     editable: [numero, date, total_km, quantite, prix_unitaire]   # les saisies — les calculés se refont (D255)
     sort: [date, numero]
+
 charts:
+
   evolution_consommation:          # la feuille GRAPHIQUE (D826)
-    title: { fr: "L'évolution de la consommation" }
+    title:
+      fr: "L'évolution de la consommation"
     x: date[month]                 # le mois — le découpage temporel (D516)
     y: avg(conso_100)              # la moyenne du mois (D517/D580)

@@ -1,9 +1,10 @@
 # La révision — la règle de l'échéancier (D826) : « Révisions tous
 # les 25 000 km » (thermique), « tous les 20 000 km » (électrique).
 # La règle porte un pas en kilomètres OU en délai. Les révisions
-# faites restent des lignes du journal de vie (D831) — la ligne qui
-# solde une règle la nomme (entretien.revision), la règle en déduit
-# la prochaine échéance.
+# faites restent des lignes du journal de vie (D831) — la ligne
+# marquée révision (le booléen d'entretien), la règle en déduit la
+# prochaine échéance (le booléen ne distingue pas les règles — le
+# réel n'en a qu'une par véhicule).
 # LA NOTIFICATION = L'OPÉRATION AUTOMATIQUE + notify (D436 — « couvre
 # tout ») : echue se recalcule d'elle-même (D255/D298), l'opération
 # notifier se déclenche à l'échéance (le cliquet D354) et porte
@@ -17,12 +18,9 @@ fields:
   designation: { type: text[..60], required: true }
   pas_km:      integer[0..]          # « sur un km » — 25 000, 20 000
   pas_duree:   duration              # « ou sur un délai » — 1y, 6m (D476)
-  # les révisions faites — l'accès retour possédé par le moteur (D394),
-  # NOMMÉ par l'association dérivée (D405 : la vue navigable, jamais
-  # stockée, en lecture — la vérité reste entretien.revision)
-  entretiens:    association with entretien if entretien.revision = me
-  derniere_km:   { type: integer, formula: entretiens.max(km) }
-  derniere_date: { type: date, formula: entretiens.max(date) }
+  # les révisions faites — les lignes du journal marquées révision
+  derniere_km:   { type: integer, formula: owner.entretiens.max(km if revision) }
+  derniere_date: { type: date, formula: owner.entretiens.max(date if revision) }
   # la prochaine échéance : depuis la dernière révision faite, sinon depuis l'origine du véhicule
   prochaine_km:   { type: integer, formula: iif(pas_km = null, null, iif(derniere_km != null, derniere_km, owner.km_initial) + pas_km) }
   prochaine_date: { type: date, formula: iif(pas_duree = null, null, iif(derniere_date != null, derniere_date, owner.date_achat) + pas_duree) }

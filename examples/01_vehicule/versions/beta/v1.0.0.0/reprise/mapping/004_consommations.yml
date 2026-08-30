@@ -7,7 +7,7 @@ consommation:
   to: transport.consommation
   filter: connector.line > 1
   parent:
-    vehicule: connector.filename              # le possesseur par la clé de reprise (le manque R3)
+    vehicule: immatriculation              # le possesseur par son identité (D850)
   fields:
     numero:        connector.line - 1
     date:          date

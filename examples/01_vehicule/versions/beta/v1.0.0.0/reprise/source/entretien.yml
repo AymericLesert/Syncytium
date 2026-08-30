@@ -8,6 +8,11 @@ description: Le journal de vie du classeur — les frais, les événements, l'ac
 
 
 fields:
+  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
+  # chaque item (le mixte D848) : la jointure du mapping (D850)
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
   date:
     type: date
     label:

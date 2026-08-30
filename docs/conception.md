@@ -976,6 +976,7 @@ Q58) :
 | D847 | **La plage en liste — le repli** (complète D846) : `range:` accepte **une liste de plages** — la première existante sert, la feuille absente passe à la suivante ; le crédit et la LOA, au même format, **fusionnent en une source `echeance`** — le réel discrimine les régimes (**l'intérêt vide = la LOA**) ; la durée par écrasement vaut dès lors pour tous les financements (le G4 du crédit superflu). | Voir §3.2c. |
 | D848 | **La lecture Excel achevée — R1 clos** (précise D846/D847) : **la facette `reference:`** porte tout le nommage Excel — la cellule (`IDENTIFICATION!B1`), la feuille pour l'image embarquée (l'ancre varie — l'arbitrage R8), la plage à la carte ; **`single:` à la carte** — un seul enregistrement par fichier (les feuilles-formulaires ; une source-plage peut mixer des références de cellules d'autres onglets, répétées par ligne — le drapeau lève l'ambiguïté) ; **la borne aux trois formes** — explicite (`A3:H100`), `...` (l'arrêt à la première ligne vide sur toutes les colonnes du fichier), **ouverte** (`A3:H` — la fin de la feuille, les lignes vides sautées) ; le réel arbitre par plage — l'ouverte à CONSOMMATION/ENTRETIEN (la ligne vide d'après l'entête interdit le `...`), le `...` au CREDIT/LOA. | Voir §3.2c. |
 | D849 | **Les informations système au préfixe `connector.`** (clôt R2) : le connecteur courant les expose aux sources et au mapping — `connector.filename` (le fichier), `connector.path` (le chemin), **`connector.line`** (l'identifiant de la ligne **par rapport à la zone**, jamais la ligne réelle du fichier — la ligne vivante : au moins un champ déclaré servi, les mortes se sautent), la liste extensible ; **portées par le connecteur** — le contrat du hook les fournit (D680–D689 complétés). | Voir §3.2c. |
+| D850 | **La jointure par la plaque** (rend R3 sans objet) : chaque source porte un champ `immatriculation` référençant la cellule de l'autre onglet (`reference: IDENTIFICATION!E1` — le mixte de D848, la valeur répétée sur chaque item) ; **la clé et les parents joignent par l'identité réelle** (`key:`/`parent:` = immatriculation — le patron banque intact) ; la dissociation clé de reprise / `identity:` n'a plus d'objet ici, `connector.filename` reste disponible sans emploi. | Voir §3.2c. |
 
 ---
 
@@ -17356,6 +17357,14 @@ avant la synthèse Q16).
   vivante), la liste extensible, portées par le contrat du hook de
   connecteur ; les onze phases renommées (fichier →
   connector.filename, ligne → connector.line), hooks.md au niveau.
+- **2026-08-30 (reprise 2, suite 5)** — **La jointure par la
+  plaque (D850 — R3 sans objet).** L'arbitrage : le parent est
+  l'immatriculation, accessible par un champ transverse
+  référençant la cellule de l'autre onglet (le mixte de D848 en
+  action — la valeur répétée sur chaque item) ; pas besoin du
+  lien par le fichier. Les six sources gagnent le champ, les onze
+  phases joignent par l'identité (le patron banque restauré) ; la
+  plaque vit en E1 (B1 porte le nom — le réel vérifié).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

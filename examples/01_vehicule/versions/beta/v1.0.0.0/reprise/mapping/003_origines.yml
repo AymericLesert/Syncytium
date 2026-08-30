@@ -11,7 +11,7 @@
 
 consommation:
   to: transport.vehicule
-  key: connector.filename
+  key: immatriculation
   filter: connector.line = 1
   fields:
     date_achat: date

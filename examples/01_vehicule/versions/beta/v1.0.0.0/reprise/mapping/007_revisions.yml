@@ -5,7 +5,7 @@
 regle_revision:
   to: transport.revision
   parent:
-    vehicule: connector.filename
+    vehicule: immatriculation
   filter: pas_km_n != null
   fields:
     designation: "Révision constructeur"

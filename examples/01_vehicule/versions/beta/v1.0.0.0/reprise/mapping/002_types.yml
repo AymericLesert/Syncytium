@@ -4,6 +4,6 @@
 
 titre_consommation:
   to: transport.vehicule
-  key: connector.filename                     # la règle à clé = la mise à jour (D825)
+  key: immatriculation                     # la règle à clé = la mise à jour (D825)
   fields:
     type: type_vehicule

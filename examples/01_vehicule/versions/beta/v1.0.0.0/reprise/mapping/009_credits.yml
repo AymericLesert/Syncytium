@@ -4,7 +4,7 @@
 
 echeance:
   to: transport.vehicule
-  key: connector.filename
+  key: immatriculation
   filter: connector.line = 1 and interet != null
   fields:
     premier_mois:  date

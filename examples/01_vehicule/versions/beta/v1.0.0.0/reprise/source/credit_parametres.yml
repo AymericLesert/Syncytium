@@ -7,6 +7,11 @@ description: Le paramétrage du crédit — le capital, le taux, l'assurance, la
 
 
 fields:
+  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
+  # chaque item (le mixte D848) : la jointure du mapping (D850)
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
   capital:
     type: decimal
     reference: CREDIT!C3

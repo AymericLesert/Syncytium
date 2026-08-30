@@ -7,6 +7,11 @@ description: Le titre de la feuille de consommation — thermique ou électrique
 
 
 fields:
+  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
+  # chaque item (le mixte D848) : la jointure du mapping (D850)
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
   titre:
     type: text[..60]
     reference: CONSOMMATION!A1

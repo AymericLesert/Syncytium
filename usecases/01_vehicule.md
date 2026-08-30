@@ -248,8 +248,8 @@ opérations, les surfaces, la reprise)*
     l'électrique en un seul jeu, les absentes nulles, les
     calculées du classeur ignorées D648/D657), bornés au besoin
     (`range: A..H` — le bloc droit homonyme) ;
-  - **dix phases** : les véhicules (la jointure par `fichier`, le
-    statut d'entrée), les types, **les origines** (la ligne 1 =
+  - **onze phases** : les véhicules (la jointure par la plaque —
+    D850, le statut d'entrée), les types, **les origines** (la ligne 1 =
     date_achat + km_initial + la devise par `.year` — pas une
     consommation), les consommations (`numero: ligne - 1`), le
     journal (sans clé — création seule D825), **les ventes du
@@ -337,11 +337,12 @@ R2. **les informations système** — clos (D849) : le préfixe
     déclaré servi, la blanche du Partner et la ligne-paramètre de
     la Zoe se sautent, l'origine = la ligne 1 = B5/D5), la liste
     extensible, portées par le contrat du hook de connecteur ;
-R3. **la jointure par le fichier** — le classeur = le véhicule :
-    `key: fichier` à la règle-mère, `parent: { vehicule: fichier }`
-    aux filles — le parent se résout par **la clé de reprise** de
-    la règle-mère (D654 à préciser : la clé de reprise n'est pas
-    l'`identity:` du modèle) ;
+R3. **la jointure** — sans objet (D850) : chaque source porte un
+    champ `immatriculation` référençant `IDENTIFICATION!E1` (le
+    mixte de D848 — la cellule d'un autre onglet répétée sur
+    chaque item) ; la clé et les parents joignent **par l'identité
+    réelle** — le patron banque intact, le lien par le fichier
+    inutile ;
 R4. **les entêtes homonymes** — dissous par D846 : la plage
     `ENTRETIEN!A3:H100` borne d'elle-même, le bloc droit n'existe
     pas pour la source ;

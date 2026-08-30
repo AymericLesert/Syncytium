@@ -5,7 +5,7 @@
 
 echeance:
   to: transport.vehicule
-  key: connector.filename
+  key: immatriculation
   # les totaux sans date écartés — la dernière ligne datée gagne
   filter: date != null
   fields:

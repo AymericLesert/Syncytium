@@ -5,6 +5,7 @@
 # déduit (numero = 1 part du km_initial du véhicule), le précédent
 # s'atteint au rang (numero - 1).
 name: consommation
+description: Une ligne du suivi de consommation — le plein ou la charge
 label: "${name}"
 
 # La liste des champs de l'entité

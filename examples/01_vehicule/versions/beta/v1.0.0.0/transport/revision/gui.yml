@@ -3,11 +3,13 @@
 # s'écrit dans la liste (l'édition en ligne, D205/D445).
 widgets:
 
-  annonce:                         # le widget de l'échue — un seul texte : UNE ALERTE,
+  # le widget de l'échue — un seul texte : UNE ALERTE,
+  annonce:
                                    # rien de plus (pas de lien vers le véhicule ou la
                                    # règle — « nous n'avons pas plus de 2 véhicules »)
     items:
-      - paragraph:                 # le gabarit mustache, les chemins D71, l'alinéa au if:
+      # le gabarit mustache, les chemins D71, l'alinéa au if:
+      - paragraph:
           if: prochaine_date != null
           label:
             fr: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
@@ -18,16 +20,21 @@ widgets:
 
 lists:
 
-  revisions:                       # la première déclarée = le défaut (D437)
+  # la première déclarée = le défaut (D437)
+  revisions:
     title:
       fr: "Les révisions"
     columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
-    editable: [designation, pas_km, pas_duree]   # la règle ; les échéances se déduisent (D255)
+    # la règle ; les échéances se déduisent (D255)
+    editable: [designation, pas_km, pas_duree]
     sort: [designation]
 
-  echues:                          # l'écho (D826) — TOUS les véhicules, la partition par le filtre (D783)
+  # l'écho (D826) — TOUS les véhicules, la partition par le filtre (D783)
+  echues:
     title:
       fr: "Les révisions échues"
     filter: echue = true
-    widget: annonce                # la liste de widgets (D492) — le texte unique par échue
-    sort: [prochaine_date]         # le nul en tête (D381) — les règles au km d'abord
+    # la liste de widgets (D492) — le texte unique par échue
+    widget: annonce
+    # le nul en tête (D381) — les règles au km d'abord
+    sort: [prochaine_date]

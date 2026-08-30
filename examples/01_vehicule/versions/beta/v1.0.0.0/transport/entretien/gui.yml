@@ -3,7 +3,8 @@
 # vit dans la liste (l'édition en ligne, D205/D445).
 lists:
 
-  entretiens:                      # la feuille ENTRETIEN — le journal de vie
+  # la feuille ENTRETIEN — le journal de vie
+  entretiens:
     title:
       fr: "Entretiens et interventions"
     columns: [date, designation, montant, km, revision]

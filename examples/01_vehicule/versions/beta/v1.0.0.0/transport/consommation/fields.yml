@@ -1,47 +1,77 @@
 numero:
   type: integer[1..]
-  required: true                   # le rang dans la vie du véhicule
+  required: true
+  label:
+    fr: N°
+  description: Le rang dans la vie du véhicule — la première ligne part du kilométrage initial.
 
 date:
   type: date
   required: true
+  label:
+    fr: Date
 
 total_km:
   type: integer[0..]
-  required: true                   # le compteur du tableau de bord (saisi)
+  required: true
+  label:
+    fr: Kilométrage compteur
+  description: Le compteur du tableau de bord au moment du ravitaillement.
 
 quantite:
   type: decimal
-  required: true                   # la valeur seule (D826) — litres ou kWh selon owner.unite
+  required: true
+  label:
+    fr: Quantité
+  # la valeur seule (D826) — l'unité au type du véhicule
+  description: Les litres ou les kWh du ravitaillement, selon le véhicule.
 
-prix_unitaire: decimal             # la devise est visuelle (D832) — owner.devise
+prix_unitaire:
+  # la devise est visuelle (D832) — owner.devise
+  type: decimal
+  label:
+    fr: Prix unitaire
+  description: Le prix du litre ou du kWh.
 
 # ------ Champs calculés ------
 
-# H = F × G — le total calculé du classeur
 prix_total:
+  # H = F × G — le total calculé du classeur
   type: decimal
   formula: quantite * prix_unitaire
+  label:
+    fr: Prix total
 
-# A = B(n) − B(n−1) — la première ligne reste nulle (le classeur la laisse vide)
 nb_jours:
+  # A = B(n) − B(n−1) — la première ligne reste nulle (le classeur la laisse vide)
   type: duration
   formula: iif(numero = 1, null, date - owner.consommations.max(date if numero = me.numero - 1))
+  label:
+    fr: Nb de jours
+  description: Depuis le ravitaillement précédent.
 
-# E = D(n) − D(n−1) — la première part du compteur au retrait (D831)
 km:
+  # E = D(n) − D(n−1) — la première part du compteur au retrait (D831)
   type: integer
   formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations.max(total_km if numero = me.numero - 1))
+  label:
+    fr: Km parcourus
+  description: Depuis le ravitaillement précédent.
 
-# I = 100 × F / E — aux 100 km
 conso_100:
+  # I = 100 × F / E
   type: decimal
   formula: 100 * quantite / km
+  label:
+    fr: Aux 100 km
+  description: La consommation de l'intervalle — litres ou kWh aux 100 km.
 
-# C = C4/12 + C(n−1) au classeur — une ligne ≈ un mois : l'approximation.
-# L'intention (D834) : le « km prév. » suit le temps — les mois écoulés
-# depuis l'achat, bornés à la date de vente, × le douzième du forfait ;
-# km_annuel nul (thermique, comptant) → la colonne reste nulle
 km_prevu:
+  # C = C4/12 + C(n−1) au classeur — une ligne ≈ un mois : l'approximation.
+  # L'intention (D834) : les mois écoulés depuis l'achat, bornés à la
+  # vente, × le douzième du forfait ; km_annuel nul → la colonne reste nulle
   type: decimal
   formula: (iif(owner.date_vente != null and owner.date_vente < date, owner.date_vente, date) - owner.date_achat).months * owner.km_annuel / 12
+  label:
+    fr: Km prévu
+  description: Le prorata du forfait annuel de la LOA depuis l'achat.

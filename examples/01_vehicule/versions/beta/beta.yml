@@ -1,6 +1,7 @@
 # Les versions éligibles au mode beta
 
-environment: home              # pas de déclaration orpheline (D805)
+# pas de déclaration orpheline (D805)
+environment: home
 
 # Le pattern regex des versions (D806) — le standard que le projet se fixe
 versions:

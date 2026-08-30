@@ -1,31 +1,55 @@
 designation:
   type: text[..60]
   required: true
+  label:
+    fr: Désignation
+  placeholder:
+    fr: Révision constructeur
 
-pas_km: integer[0..]               # « sur un km » — 25 000, 20 000
+pas_km:
+  type: integer[0..]
+  label:
+    fr: Tous les (km)
+  description: Le pas en kilomètres — « Révisions tous les 25 000 km ».
 
-pas_duree: duration                # « ou sur un délai » — 1y, 6m (D476)
+pas_duree:
+  # les unités du duration (D476) — 1y, 6m
+  type: duration
+  label:
+    fr: Tous les (délai)
+  description: Le pas en délai — l'autre voie de l'échéancier.
 
 # ------ Champs calculés ------
 
-# les révisions faites — les lignes du journal marquées révision
 derniere_km:
+  # les révisions faites — les lignes du journal marquées révision
   type: integer
   formula: owner.entretiens.max(km if revision)
+  label:
+    fr: Dernière (km)
 
 derniere_date:
   type: date
   formula: owner.entretiens.max(date if revision)
+  label:
+    fr: Dernière (date)
 
-# la prochaine échéance : depuis la dernière révision faite, sinon depuis l'origine du véhicule
 prochaine_km:
+  # depuis la dernière révision faite, sinon depuis l'origine du véhicule
   type: integer
   formula: iif(pas_km = null, null, iif(derniere_km != null, derniere_km, owner.km_initial) + pas_km)
+  label:
+    fr: Prochaine (km)
 
 prochaine_date:
   type: date
   formula: iif(pas_duree = null, null, iif(derniere_date != null, derniere_date, owner.date_achat) + pas_duree)
+  label:
+    fr: Prochaine (date)
 
-# la notification (D826) — échue sur le km OU sur le délai, tant que le véhicule est actif
 echue:
+  # la notification (D826) — sur le km OU le délai, tant que le véhicule est actif
   formula: owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date))
+  label:
+    fr: Échue ?
+  description: La règle est à échéance — la notification part, la surface met en avant.

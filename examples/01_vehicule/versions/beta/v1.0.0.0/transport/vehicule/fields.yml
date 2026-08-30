@@ -1,15 +1,36 @@
 # --- l'identification (la feuille IDENTIFICATION) ---
 
-nom: text[..40]
+nom:
+  type: text[..40]
+  label:
+    fr: Nom
+  placeholder:
+    fr: Partner Outdoor
+  description: Le nom du véhicule — un classeur, un véhicule, un nom.
 
-immatriculation: text[..12]        # AA-999-AA et les formats anciens — pas de masque unique
+immatriculation:
+  type: text[..12]
+  label:
+    fr: Immatriculation
+  placeholder:
+    fr: AA-999-AA
+  # les formats anciens (1992) interdisent un masque unique
+  description: La plaque du véhicule, au format du moment.
 
-photo: image[512x512]              # le visage porté par l'image (D386), la vignette automatique
+photo:
+  # le visage porté par l'image (D386), la vignette automatique
+  type: image[512x512]
+  label:
+    fr: Photo
+  description: Le visage du véhicule — la vignette des listes et de la carte.
 
-# l'unité vit dans le type, pas dans la valeur (D826)
 type:
+  # l'unité vit dans le type, pas dans la valeur (D826)
   type: enum
   required: true
+  label:
+    fr: Type de véhicule
+  description: Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique.
   values:
     thermique:
       label:
@@ -18,27 +39,31 @@ type:
       label:
         fr: Électrique
 
-# la devise est visuelle (D832) : les montants restent nus, la devise
-# habille l'affichage — le véhicule vit dans une seule devise
 devise:
+  # la devise est visuelle (D832) : les montants restent nus
   type: enum
   required: true
+  label:
+    fr: Devise
+  description: Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue.
   values:
     euro:
       label:
         fr: "€"
+    # les classeurs antérieurs au passage (1992-2001)
     franc:
       label:
-        fr: "F"                    # les classeurs antérieurs au passage (1992-2001)
+        fr: "F"
 
-# --- le cycle de vie (D424–D427) : Création → Actif → Clôture ---
-# la naissance au default (D424) ; l'activation libre — la liste
-# navigatrice (D426) ; la clôture = l'automatisme du cliquet
-# (D354/D427) — la vente posée bascule d'elle-même, sans retour
 statut:
+  # le cycle de vie (D424–D427) : la naissance au default, l'activation
+  # libre (D426), la clôture au cliquet (D354/D427) dès la vente posée
   type: enum
   required: true
   default: creation
+  label:
+    fr: Statut
+  description: La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour.
   values:
     creation:
       label:
@@ -49,36 +74,59 @@ statut:
     actif:
       label:
         fr: Actif
-      allow: [create, read, update]      # le journal s'écrit (D422 — create = le sous-composant)
+      # le journal s'écrit (D422 — create = le sous-composant)
+      allow: [create, read, update]
       promote:
         - to: cloture
           when: date_vente != null
     cloture:
       label:
         fr: Clôture
-      allow: [read]                      # l'archive — la vie ne se réécrit pas
+      # l'archive — la vie ne se réécrit pas
+      allow: [read]
 
-mode_achat: text[..40]             # « Acheté concessionnaire », « Acheté en LOA »
+mode_achat:
+  type: text[..40]
+  label:
+    fr: Mode d'achat
+  placeholder:
+    fr: Acheté concessionnaire
 
-lieu_achat: text[..60]
+lieu_achat:
+  type: text[..60]
+  label:
+    fr: Lieu d'achat
+  placeholder:
+    fr: Garage Peugeot à Dôle
 
 date_achat:
   type: date
   required: true
+  label:
+    fr: Date d'achat
 
-# la vente ou la restitution — elle bascule le statut (le cliquet) et
-# clôt l'échéancier ; APRÈS LA CLÔTURE, ELLE NE SE MODIFIE PLUS : l'état
-# ne porte que read (D422), sans demote (D425) — et aucune opération n'y touche
-date_vente: date
+date_vente:
+  # elle bascule le statut (le cliquet) et clôt l'échéancier ; APRÈS LA
+  # CLÔTURE, ELLE NE SE MODIFIE PLUS : l'état ne porte que read (D422),
+  # sans demote (D425) — et aucune opération n'y touche
+  type: date
+  label:
+    fr: Date de vente
+  description: La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule.
 
 km_initial:
   type: integer[0..]
-  required: true                   # le compteur au retrait (4, 39)
+  required: true
+  label:
+    fr: Kilométrage initial
+  description: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 
 # --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---
 
 financement:
   type: enum
+  label:
+    fr: Financement
   values:
     comptant:
       label:
@@ -90,92 +138,181 @@ financement:
       label:
         fr: LOA
 
-capital: decimal                   # crédit — 24 500
+capital:
+  type: decimal
+  label:
+    fr: Capital emprunté
+  description: Le crédit seulement — 24 500.
 
-taux_annuel: percentage            # crédit — 6,187
+taux_annuel:
+  type: percentage
+  label:
+    fr: Taux annuel
+  description: Le taux nominal du crédit — 6,187.
 
-assurance_mensuelle: decimal       # crédit — 34,40
+assurance_mensuelle:
+  type: decimal
+  label:
+    fr: Assurance mensuelle
+  description: Le crédit seulement — 34,40 par mois, en sus de la mensualité.
 
-mensualite: decimal                # LOA — 434,48 ; crédit : reportée aux échéances
+mensualite:
+  type: decimal
+  label:
+    fr: Mensualité
+  description: La mensualité de la LOA — celle du crédit se calcule à l'échéancier.
 
-duree_echeances: integer[0..]      # 60, 36
+duree_echeances:
+  type: integer[0..]
+  label:
+    fr: Nombre d'échéances
+  description: 60 mensualités du crédit, 36 loyers de la LOA.
 
-premier_mois: date[yyyy-mm]        # le premier mois du financement — 2016-02, 2023-10
+premier_mois:
+  type: date[yyyy-mm]
+  label:
+    fr: Premier mois
+  description: Le premier mois du financement — 2016-02, 2023-10.
 
-jour_echeance: integer[1..31]      # le jour d'échéance du mois (D831) — le 10, le 5 ; la coche Payé s'en déduit
+jour_echeance:
+  type: integer[1..31]
+  label:
+    fr: Jour d'échéance
+  # la coche Payé s'en déduit (D831)
+  description: Le jour du mois du prélèvement — le 10, le 5.
 
-km_annuel: integer[0..]            # LOA — 23 000 km/an (le « km prév. »)
+km_annuel:
+  type: integer[0..]
+  label:
+    fr: Kilométrage annuel
+  description: Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ».
 
 # --- les compositions (D399) — le grain d'écriture ---
 
-consommations: list of consommation
+consommations:
+  type: list of consommation
+  label:
+    fr: Consommations
 
-entretiens: list of entretien
+entretiens:
+  type: list of entretien
+  label:
+    fr: Entretiens
 
-revisions: list of revision        # l'échéancier des règles (D826)
+revisions:
+  # l'échéancier des règles (D826)
+  type: list of revision
+  label:
+    fr: Révisions
 
-# engendrées à la validation du financement (creer_echeancier), closes
-# à la vente — les non payées supprimées (clore_echeancier) — D831
-echeances: list of echeance
+echeances:
+  # engendrées à la validation du financement (creer_echeancier), closes
+  # à la vente — les non payées supprimées (clore_echeancier) — D831
+  type: list of echeance
+  label:
+    fr: Échéances
 
 # ------ Champs calculés ------
 
-# l'unité de la quantité, dérivée du type — le .select des énumérés (D833)
 unite:
+  # dérivée du type — le .select des énumérés (D833)
   type: text
   formula: type.select(thermique: "litres", electrique: "kWh")
+  label:
+    fr: Unité
+  description: L'unité de la quantité — litres ou kWh, dérivée du type de véhicule.
 
 # --- le bilan (la feuille BILAN) — tout calculé, les formules du réel ---
 
 km_courant:
   type: integer
   formula: iif(entretiens.max(km) > consommations.max(total_km), entretiens.max(km), consommations.max(total_km))
+  label:
+    fr: Kilométrage courant
+  description: Le plus grand compteur vu — consommations et entretiens confondus.
 
-nb_jours:                          # 3 789 jours
+nb_jours:
+  # 3 789 jours
   type: duration
   formula: consommations.sum(nb_jours)
+  label:
+    fr: Nombre de jours
+  description: La durée de vie suivie — la somme des intervalles entre ravitaillements.
 
-km_total:                          # 300 460 km
+km_total:
+  # 300 460 km
   type: integer
   formula: consommations.sum(km)
+  label:
+    fr: Kilomètres parcourus
 
-quantite_totale:                   # 17 755,77 litres
+quantite_totale:
+  # 17 755,77 litres
   type: decimal
   formula: consommations.sum(quantite)
+  label:
+    fr: Quantité totale
+  description: Les litres ou kWh consommés sur la vie du véhicule.
 
-conso_moyenne:                     # 5,91 aux 100 km
+conso_moyenne:
+  # 5,91 aux 100 km
   type: decimal
   formula: 100 * quantite_totale / km_total
+  label:
+    fr: Consommation moyenne
+  description: Aux 100 km — litres ou kWh selon le type.
 
-duree_moyenne:                     # 9,3 jours/plein
+duree_moyenne:
+  # 9,3 jours/plein
   type: decimal
   formula: nb_jours.days / consommations.count()
+  label:
+    fr: Durée moyenne d'un plein
+  description: En jours — l'intervalle moyen entre deux ravitaillements.
 
-total_entretien:                   # l'achat et la vente sont des lignes du journal
+total_entretien:
+  # l'achat et la vente sont des lignes du journal
   type: decimal
   formula: entretiens.sum(montant)
+  label:
+    fr: Total achat et entretien
 
 total_energie:
   type: decimal
   formula: consommations.sum(prix_total)
+  label:
+    fr: Total énergie
 
-# le coût du financement : les intérêts du crédit, les loyers payés de la LOA
 cout_financement:
   type: decimal
   formula: financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0)
+  label:
+    fr: Coût du financement
+  description: Les intérêts payés du crédit, ou les loyers payés de la LOA.
 
 cout_total:
   type: decimal
   formula: total_entretien + total_energie + cout_financement
+  label:
+    fr: Coût total
 
-prix_energie_km:                   # 0,088 €/km
+prix_energie_km:
+  # 0,088 €/km
   type: decimal
   formula: total_energie / km_total
+  label:
+    fr: Prix de l'énergie au km
 
-prix_km:                           # 0,249 €/km
+prix_km:
+  # 0,249 €/km
   type: decimal
   formula: cout_total / km_total
+  label:
+    fr: Prix de revient au km
 
-prix_jour:                         # 19,71 €/jour
+prix_jour:
+  # 19,71 €/jour
   type: decimal
   formula: cout_total / nb_jours.days
+  label:
+    fr: Prix de revient journalier

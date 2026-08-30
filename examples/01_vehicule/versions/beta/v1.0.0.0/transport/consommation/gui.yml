@@ -4,17 +4,22 @@
 # dans la liste (l'édition en ligne, D205/D445).
 lists:
 
-  consommations:                   # la feuille CONSOMMATION, colonne à colonne
+  # la feuille CONSOMMATION, colonne à colonne
+  consommations:
     title:
       fr: "La consommation"
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
-    editable: [numero, date, total_km, quantite, prix_unitaire]   # les saisies — les calculés se refont (D255)
+    # les saisies — les calculés se refont (D255)
+    editable: [numero, date, total_km, quantite, prix_unitaire]
     sort: [date, numero]
 
 charts:
 
-  evolution_consommation:          # la feuille GRAPHIQUE (D826)
+  # la feuille GRAPHIQUE (D826)
+  evolution_consommation:
     title:
       fr: "L'évolution de la consommation"
-    x: date[month]                 # le mois — le découpage temporel (D516)
-    y: avg(conso_100)              # la moyenne du mois (D517/D580)
+    # le mois — le découpage temporel (D516)
+    x: date[month]
+    # la moyenne du mois (D517/D580)
+    y: avg(conso_100)

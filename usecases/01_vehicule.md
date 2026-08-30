@@ -200,9 +200,20 @@ opérations, les surfaces, la reprise)*
     avec) ;
   - **la convention de lisibilité** (l'arbitrage, « de façon
     générale ») : les fichiers **aérés** — les accolades `{ }`
-    dépliées en bloc, une ligne vide entre deux champs, et dans
+    dépliées en bloc, une ligne vide entre deux champs, dans
     chaque `fields.yml` **les champs saisis en tête, les calculés
-    en pied** sous le séparateur `# ------ Champs calculés ------`. `echues` devient une liste de widgets
+    en pied** sous le séparateur `# ------ Champs calculés ------`,
+    et **le commentaire d'un champ devant le champ**, jamais à sa
+    droite ;
+  - **l'auto-documentation** (le pilier rappelé par l'auteur) :
+    `label:`/`description:`/`placeholder:` **utilisés davantage** —
+    chaque champ porte son libellé français, sa phrase d'aide, son
+    exemple de saisie ; chaque entité sa `description:` ; le
+    commentaire YAML garde les références de décisions et les
+    formules du réel — ce qui parle à l'utilisateur est une
+    `description:`, pas un commentaire ; **l'artefact
+    [entity.md](../docs/entity.md) créé** (le onzième —
+    l'organisation d'une entité, ses champs, ses composants). `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la
     révision : deux `paragraph` au gabarit mustache (les chemins
     D71 — `{{owner.nom}}`), l'alinéa au `if:` (la règle au km ou

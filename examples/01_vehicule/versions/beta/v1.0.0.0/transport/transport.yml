@@ -22,11 +22,14 @@ gui:
       title:
         fr: "Le garage du foyer"
       items:
-        - sections:                  # column, le défaut (D490) — l'une au-dessus de l'autre
+        # column, le défaut (D490) — l'une au-dessus de l'autre
+        - sections:
             items:
               - section:
-                  items: [ list[revision.echues] ]      # l'écho des révisions échues — d'abord
+                  # l'écho des révisions échues — d'abord
+                  items: [ list[revision.echues] ]
               - section:
-                  items: [ list[vehicule.vehicules] ]   # l'entrée principale — la liste en widgets (D492)
+                  # l'entrée principale — la liste en widgets (D492)
+                  items: [ list[vehicule.vehicules] ]
         # l'adresse universelle <type>[<nom>] (D566) couvre list[…] ; les
         # surfaces s'emboîtent librement (D455 — « qui utilise les listes »)

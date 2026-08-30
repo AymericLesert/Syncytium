@@ -3,6 +3,7 @@
 # les dimensions (taille/rotation) : la syntaxe à écrire quand le domaine s'ouvrira.
 
 log:
-  level: info              # verbose | debug | info | warning | error | exception
+  # verbose | debug | info | warning | error | exception
+  level: info
   output: file:${SYNCYTIUM_LOG_DIRECTORY}
   retention: 90d

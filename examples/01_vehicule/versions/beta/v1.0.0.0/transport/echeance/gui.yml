@@ -5,9 +5,11 @@
 # au paramétrage par ajuster_echeancier, la coche Payé est calculée.
 lists:
 
-  echeancier:                      # le tableau CREDIT | LOA du classeur
+  # le tableau CREDIT | LOA du classeur
+  echeancier:
     title:
       fr: "L'échéancier"
     columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
-    editable: [numero, date, interet, amortissement, assurance, mensualite]   # les données ; paye et reste_du se calculent
+    # les données ; paye et reste_du se calculent
+    editable: [numero, date, interet, amortissement, assurance, mensualite]
     sort: [numero]

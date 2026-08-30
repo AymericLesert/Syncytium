@@ -1,18 +1,39 @@
-numero: counter                    # le compteur auto (D409) — masqué aux surfaces
+numero:
+  # le compteur auto (D409) — masqué aux surfaces
+  type: counter
 
 date:
   type: date
   required: true
+  label:
+    fr: Date
 
 designation:
+  # le multi-ligne déduit de la taille (D366)
   type: text[..200]
-  required: true                   # multi-ligne déduit de la taille (D366)
+  required: true
+  label:
+    fr: Désignation
+  placeholder:
+    fr: Changement du pneu avant droit
+  description: Le fait marquant — un frais, un événement, l'achat, la vente.
 
-montant: decimal                   # optionnel — l'événement sans montant est licite ; la devise est visuelle (D832)
+montant:
+  # la devise est visuelle (D832)
+  type: decimal
+  label:
+    fr: Montant
+  description: Optionnel — l'événement sans montant est licite, la vente en recette négative.
 
-km: integer[0..]
+km:
+  type: integer[0..]
+  label:
+    fr: Kilométrage
 
-# la ligne est une révision — sinon : une intervention hors révision
-# (l'arbitrage : la référence à la règle n'avait pas d'intérêt, le
-# booléen suffit ; les révisions faites restent des lignes du journal D831)
-revision: boolean
+revision:
+  # l'arbitrage : la référence à la règle n'avait pas d'intérêt, le
+  # booléen suffit ; les révisions faites restent des lignes du journal (D831)
+  type: boolean
+  label:
+    fr: Révision ?
+  description: La ligne est une révision — sinon, une intervention hors révision.

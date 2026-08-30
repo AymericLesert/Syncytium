@@ -5,7 +5,8 @@
 # BILAN en dashboard de sections (D489) + le chart.
 forms:
   record:
-    title:                         # les titres au gabarit par mode (D789–D790)
+    # les titres au gabarit par mode (D789–D790)
+    title:
       create:
         fr: "Création d'un véhicule"
       read:
@@ -18,23 +19,30 @@ forms:
       - tabs:
           items:
 
-            - tab:                           # l'identification
+            # l'identification
+            - tab:
                 title:
                   fr: Véhicule
                 items:
                   - field[nom]
                   - field[immatriculation]
-                  - field[photo]             # le visage (D386)
-                  - field[type]              # thermique | électrique
-                  - field[devise]            # la devise visuelle (D832)
-                  - field[statut]            # la liste navigatrice du graphe (D426/D500)
+                  # le visage (D386)
+                  - field[photo]
+                  # thermique | électrique
+                  - field[type]
+                  # la devise visuelle (D832)
+                  - field[devise]
+                  # la liste navigatrice du graphe (D426/D500)
+                  - field[statut]
                   - field[mode_achat]
                   - field[lieu_achat]
-                  - field[date_achat]        # le calendar + les steppers (D785)
+                  # le calendar + les steppers (D785)
+                  - field[date_achat]
                   - field[date_vente]
                   - field[km_initial]
 
-            - tab:                           # le paramétrage + l'échéancier
+            # le paramétrage + l'échéancier
+            - tab:
                 title:
                   fr: Financement
                 items:
@@ -55,32 +63,39 @@ forms:
                       visible: financement = credit or financement = loa
                   - field[km_annuel]:
                       visible: financement = loa
-                  - operation[ajuster_echeancier]   # le bouton (D511) — la garde D430 le grise
-                  - field[echeances]         # la composition déployée (D486) — la liste echeancier
+                  # le bouton (D511) — la garde D430 le grise
+                  - operation[ajuster_echeancier]
+                  # la composition déployée (D486) — la liste echeancier
+                  - field[echeances]
             - tab:
                 title:
                   fr: Consommation
                 items:
-                  - field[consommations]     # la liste consommations embarquée, éditable en ligne
+                  # la liste consommations embarquée, éditable en ligne
+                  - field[consommations]
 
             - tab:
                 title:
                   fr: Entretien
                 items:
-                  - field[entretiens]        # le journal de vie embarqué
+                  # le journal de vie embarqué
+                  - field[entretiens]
 
             - tab:
                 title:
                   fr: Révision
                 items:
-                  - field[revisions]         # les règles, éditables en ligne
+                  # les règles, éditables en ligne
+                  - field[revisions]
 
-            - tab:                           # le dashboard des informations clés
+            # le dashboard des informations clés
+            - tab:
                 title:
                   fr: Bilan
                 items:
                   - sections:
-                      layout: row            # l'organisateur (D489)
+                      # l'organisateur (D489)
+                      layout: row
                       items:
                         - section:
                             title:
@@ -94,11 +109,14 @@ forms:
                             title:
                               fr: Les prix de revient
                             items: [ field[conso_moyenne], field[prix_energie_km], field[prix_km], field[prix_jour] ]
-                  - chart[consommation.evolution_consommation]   # la courbe (D540) — l'adresse qualifiée entité.nom
+                  # la courbe (D540) — l'adresse qualifiée entité.nom
+                  - chart[consommation.evolution_consommation]
 
-widgets:                           # le bloc des widgets de l'entité (la fiche widget — D492/D202)
+# le bloc des widgets de l'entité (la fiche widget — D492/D202)
+widgets:
 
-  voiture:                         # la carte du véhicule (D492) — le widget de la liste
+  # la carte du véhicule (D492) — le widget de la liste
+  voiture:
     items:
       - sections:
           layout: row
@@ -112,8 +130,11 @@ widgets:                           # le bloc des widgets de l'entité (la fiche 
 
 lists:
 
-  vehicules:                       # l'entrée principale — la première déclarée = le défaut (D437)
+  # l'entrée principale — la première déclarée = le défaut (D437)
+  vehicules:
     title:
       fr: "Les véhicules du foyer"
-    widget: voiture                # la liste de widgets (D492) — l'affichage moderne
-    sort: [date_achat]             # de l'Austin Metro à la 4L
+    # la liste de widgets (D492) — l'affichage moderne
+    widget: voiture
+    # de l'Austin Metro à la 4L
+    sort: [date_achat]

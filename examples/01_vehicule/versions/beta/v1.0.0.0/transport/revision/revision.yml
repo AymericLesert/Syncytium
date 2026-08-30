@@ -13,19 +13,23 @@
 # l'application, défaut néant (D836) — et smtp: none ici de toute
 # façon (D763) ; la surface du morceau 4 fera écho.
 name: revision
+description: Une règle de révision — le pas en kilomètres ou en délai, la notification à l'échéance
 label: "{designation}"
 
 # La liste des champs de l'entité
 fields: fields.yml
 
 operations:
-  notifier:                        # l'automatisme (D428) — à l'échéance
+  # l'automatisme (D428) — à l'échéance
+  notifier:
     when: echue
     commit: auto
     effects:
-      - notify                     # la référence au hook du socle (D432/D609)
+      # la référence au hook du socle (D432/D609)
+      - notify
 validation:
-  - pas_km != null or pas_duree != null   # une règle sans pas ne dit rien
+  # une règle sans pas ne dit rien
+  - pas_km != null or pas_duree != null
 
 # La déclaration de la présentation graphique — le morceau 4
 gui: gui.yml

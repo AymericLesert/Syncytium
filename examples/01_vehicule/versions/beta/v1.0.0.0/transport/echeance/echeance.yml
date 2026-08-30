@@ -11,6 +11,7 @@
 # payée dès que la date du jour dépasse sa date (le jour d'échéance
 # du mois porté par le financement — D831).
 name: echeance
+description: Une échéance du financement — la ligne du tableau CREDIT | LOA
 label: "${name}"
 
 # La liste des champs de l'entité

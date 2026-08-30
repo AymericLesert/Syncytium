@@ -2,6 +2,7 @@
 name: vehicule
 label: "{nom}"                       # le visage texte ; la photo = le visage image (D386)
 identity: [nom]                      # le classeur = le nom (« Partner Outdoor », « Renault ZOE »)
+states: statut                       # le champ énuméré porteur du cycle de vie (D424)
 
 # La liste des champs de l'entité — l'éclatement libre (D767)
 fields: fields.yml

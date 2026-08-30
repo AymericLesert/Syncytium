@@ -90,7 +90,11 @@ opérations, les surfaces, la reprise)*
     `image` = le visage D386, le type thermique|électrique qui
     porte l'unité — le calculé `unite` par le `.select` des
     énumérés D833, la **devise visuelle** D832, `km_initial` = le
-    compteur au retrait), le financement à plat
+    compteur au retrait), **le cycle de vie** (`states: statut` —
+    Création → Actif → Clôture : l'activation libre D426, la
+    clôture au cliquet D354/D427 dès `date_vente` posée, les
+    `allow` par état D422 — l'archive en lecture seule), le
+    financement à plat
     (comptant|credit|loa, capital, taux, assurance, mensualité,
     durée, le premier mois + **le jour d'échéance du mois** D831,
     `km_annuel` de la LOA), les quatre compositions, et **le BILAN
@@ -132,9 +136,10 @@ opérations, les surfaces, la reprise)*
     amortissement / assurance reportés) — les formules du classeur
     vivent dans le hook ; idempotent — le paramétrage modifié ne
     régénère que les non payées ;
-  - **`clore_echeancier`** — `when: updated if date_vente !=
-    null` : la vente supprime les échéances non payées (la coche
-    calculée ne « paiera » pas un véhicule vendu) ;
+  - **`clore_echeancier`** — `when: promoted if statut =
+    cloture` : la vente bascule le statut (le cliquet), la
+    transition porte l'acte — les échéances non payées supprimées
+    (la coche calculée ne « paiera » pas un véhicule vendu) ;
   - **la notification des révisions, déclarative** — pas de hook :
     la ligne d'entretien qui solde une règle la nomme
     (`entretien.revision`, le picker borné au véhicule), la règle
@@ -168,8 +173,8 @@ opérations, les surfaces, la reprise)*
    morceau 3 **sans hook** : le calculé `echue` se recalcule de
    lui-même (D255/D298), la surface la portera — en validation ;
 8. **les événements du socle** — le `when:` du morceau 3 suppose
-   `created`/`updated`, les participes des opérations aux côtés
-   du `generated` de D796 — le vocabulaire à confirmer ;
+   `created`/`updated`/`promoted`, les participes des opérations
+   aux côtés du `generated` de D796 — le vocabulaire à confirmer ;
 9. **la condition à l'événement** — `when: updated if date_vente
    != null` : le `if` suffixé (le patron des validations) étendu
    au `when:` — à trancher ;

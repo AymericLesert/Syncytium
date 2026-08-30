@@ -18,11 +18,33 @@ devise:
   values:
     euro:  { label: { fr: "€" } }
     franc: { label: { fr: "F" } }    # les classeurs antérieurs au passage (1992-2001)
+# --- le cycle de vie (D424–D427) : Création → Actif → Clôture ---
+# la naissance au default (D424) ; l'activation libre — la liste
+# navigatrice (D426) ; la clôture = l'automatisme du cliquet
+# (D354/D427) — la vente posée bascule d'elle-même, sans retour
+statut:
+  type: enum
+  required: true
+  values:
+    creation:
+      label: { fr: Création }
+      allow: [create, read, update, delete]
+      promote:
+        - { to: actif }
+    actif:
+      label: { fr: Actif }
+      allow: [create, read, update]          # le journal s'écrit (D422 — create = le sous-composant)
+      promote:
+        - { to: cloture, when: date_vente != null }
+    cloture:
+      label: { fr: Clôture }
+      allow: [read]                          # l'archive — la vie ne se réécrit pas
+  default: creation
+
 mode_achat: text[..40]               # « Acheté concessionnaire », « Acheté en LOA »
 lieu_achat: text[..60]
 date_achat: { type: date, required: true }
-date_vente: date                     # la vente ou la restitution — elle clôt l'échéancier (clore_echeancier, D831)
-actif:      { formula: date_vente = null }
+date_vente: date                     # la vente ou la restitution — elle bascule le statut (le cliquet) et clôt l'échéancier
 km_initial: { type: integer[0..], required: true }   # le compteur au retrait (4, 39)
 
 # --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---

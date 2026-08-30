@@ -19,7 +19,7 @@ fields:
   # la prochaine échéance : depuis la dernière révision faite, sinon depuis l'origine du véhicule
   prochaine_km:   { type: integer, formula: iif(pas_km = null, null, iif(derniere_km != null, derniere_km, owner.km_initial) + pas_km) }
   prochaine_date: { type: date, formula: iif(pas_duree = null, null, iif(derniere_date != null, derniere_date, owner.date_achat) + pas_duree) }
-  # la notification (D826) — échue sur le km OU sur le délai, tant que le véhicule vit
-  echue: { formula: owner.actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date)) }
+  # la notification (D826) — échue sur le km OU sur le délai, tant que le véhicule est actif
+  echue: { formula: owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date)) }
 validation:
   - pas_km != null or pas_duree != null   # une règle sans pas ne dit rien

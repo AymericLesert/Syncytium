@@ -5,6 +5,6 @@
 creer_echeancier:                # engendré à la validation du financement
   when: [created, updated] if financement = credit or financement = loa
   commit: auto
-clore_echeancier:                # la vente clôt l'échéancier — les non payées supprimées
-  when: updated if date_vente != null
+clore_echeancier:                # la clôture purge les échéances non payées
+  when: promoted if statut = cloture     # la vente bascule le statut (le cliquet D354), la transition porte l'acte
   commit: auto

@@ -17424,6 +17424,10 @@ avant la synthèse Q16).
   cas ; les trois maisons reprises (l'enquête — le généré qui
   suffit ; le véhicule — les cinq morceaux en résumé ; la banque —
   trente-quatre ans repris).
+- **2026-08-31 (suite 2) — LE CAS 0 VALIDÉ.** L'échelle tient ses
+  sept maisons — le degré zéro livré en une séance (D856, seize
+  fichiers, zéro surface). La PR de consolidation préparée
+  (feature/meta-schema → develop, ~5 commits depuis la #39).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

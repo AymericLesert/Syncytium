@@ -2,7 +2,7 @@
 # les 25 000 km » (thermique), « tous les 20 000 km » (électrique).
 # La règle porte un pas en kilomètres OU en délai ; la notification
 # qui en découle = le hook du morceau 3 (déclenché au fil des
-# ravitaillements et du temps). Les révisions faites restent des
+# consommations et du temps). Les révisions faites restent des
 # lignes du journal de vie (« Entretien 300.000 km »).
 name: revision
 label: "{designation}"

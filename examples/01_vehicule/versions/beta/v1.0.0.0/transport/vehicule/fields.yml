@@ -1,0 +1,66 @@
+# --- l'identification (la feuille IDENTIFICATION) ---
+nom:             text[..40]
+immatriculation: text[..12]          # AA-999-AA et les formats anciens — pas de masque unique
+photo:           image[512x512]      # le visage porté par l'image (D386), la vignette automatique
+type:                                # l'unité vit ici, pas dans la valeur (D826)
+  type: enum
+  required: true
+  values:
+    thermique:  { label: { fr: Thermique } }
+    electrique: { label: { fr: Électrique } }
+# l'unité de la quantité, dérivée du type — le .select des énumérés (D833)
+unite: { type: text, formula: type.select(thermique: "litres", electrique: "kWh") }
+# la devise est visuelle (D832) : les montants restent nus, la devise
+# habille l'affichage — le véhicule vit dans une seule devise
+devise:
+  type: enum
+  required: true
+  values:
+    euro:  { label: { fr: "€" } }
+    franc: { label: { fr: "F" } }    # les classeurs antérieurs au passage (1992-2001)
+mode_achat: text[..40]               # « Acheté concessionnaire », « Acheté en LOA »
+lieu_achat: text[..60]
+date_achat: { type: date, required: true }
+date_vente: date                     # la vente ou la restitution — elle clôt l'échéancier (clore_echeancier, D831)
+actif:      { formula: date_vente = null }
+km_initial: { type: integer[0..], required: true }   # le compteur au retrait (4, 39)
+
+# --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---
+financement:
+  type: enum
+  values:
+    comptant: { label: { fr: Comptant } }
+    credit:   { label: { fr: Crédit } }
+    loa:      { label: { fr: LOA } }
+capital:             decimal                    # crédit — 24 500
+taux_annuel:         percentage                 # crédit — 6,187
+assurance_mensuelle: decimal                    # crédit — 34,40
+mensualite:          decimal                    # LOA — 434,48 ; crédit : reportée aux échéances
+duree_echeances:     integer[0..]               # 60, 36
+premier_mois:        date[yyyy-mm]              # le premier mois du financement — 2016-02, 2023-10
+jour_echeance:       integer[1..31]             # le jour d'échéance du mois (D831) — le 10, le 5 ; la coche Payé s'en déduit
+km_annuel:           integer[0..]               # LOA — 23 000 km/an (le « km prév. »)
+
+# --- les compositions (D399) — le grain d'écriture ---
+consommations: list of consommation
+entretiens:    list of entretien
+revisions:     list of revision       # l'échéancier des règles (D826)
+# engendrées à la validation du financement (creer_echeancier), closes
+# à la vente — les non payées supprimées (clore_echeancier) — D831
+echeances:     list of echeance
+
+# --- le bilan (la feuille BILAN) — tout calculé, les formules du réel ---
+km_courant:       { type: integer, formula: iif(entretiens.max(km) > consommations.max(total_km), entretiens.max(km), consommations.max(total_km)) }
+nb_jours:         { type: duration, formula: consommations.sum(nb_jours) }          # 3 789 jours
+km_total:         { type: integer, formula: consommations.sum(km) }                 # 300 460 km
+quantite_totale:  { type: decimal, formula: consommations.sum(quantite) }           # 17 755,77 litres
+conso_moyenne:    { type: decimal, formula: 100 * quantite_totale / km_total }      # 5,91 aux 100 km
+duree_moyenne:    { type: decimal, formula: nb_jours.days / consommations.count() } # 9,3 jours/plein
+total_entretien:  { type: decimal, formula: entretiens.sum(montant) }               # l'achat et la vente sont des lignes du journal
+total_energie:    { type: decimal, formula: consommations.sum(prix_total) }
+# le coût du financement : les intérêts du crédit, les loyers payés de la LOA
+cout_financement: { type: decimal, formula: financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0) }
+cout_total:       { type: decimal, formula: total_entretien + total_energie + cout_financement }
+prix_energie_km:  { type: decimal, formula: total_energie / km_total }              # 0,088 €/km
+prix_km:          { type: decimal, formula: cout_total / km_total }                 # 0,249 €/km
+prix_jour:        { type: decimal, formula: cout_total / nb_jours.days }            # 19,71 €/jour

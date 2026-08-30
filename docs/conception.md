@@ -957,6 +957,9 @@ Q58) :
 | D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
 | D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
 | D830 | **logging.yml remplace logs.yml** (amende D750) : la journalisation nommée par son composant — `logging.yml` partout, la propriété `logging:` à l'environnement ; le geste du dépôt (02_banque le portait déjà). | Voir §3.2c. |
+| D831 | **Le modèle du véhicule arrêté** (précise D826) : le module `transport` (le moyen de locomotion), l'entité `consommation` (le suivi de la consommation remplace ravitaillement) ; **le numéro de ligne 1..n porté par la consommation** — le précédent s'atteint au rang (numero − 1), la première ligne se déduit du `km_initial` du véhicule, `km_prevu = numero × km_annuel / 12` ; **l'échéancier vit par deux hooks** : engendré à la validation du financement (`creer_echeancier`), clos à la vente — les échéances non payées supprimées (`clore_echeancier`) ; **la coche Payé calculée** — payée dès que la date du jour dépasse l'échéance, le jour d'échéance du mois au financement à plat. | Voir §3.2c. |
+| D832 | **La devise visuelle** (le troisième patron de l'unité — après D771 la devise dans la valeur et D826 l'unité au type) : quand la devise ne porte pas de sens métier, **le montant reste nu (`decimal`) et la devise devient une propriété d'affichage** — `devise` au véhicule ; les conversions `_euro` disparaissent du modèle. | Voir §3.2c. |
+| D833 | **Le `.select` des énumérés** (généralise D771–D773) : la fonction `select` née de `amount.currency` vaut pour tout `enum` — `type.select(thermique: "litres", electrique: "kWh")`, `financement.select(credit: …, loa: …, comptant: 0)` ; les branches nommées par les valeurs, la totalité souhaitable. | Voir §3.2c. |
 
 ---
 
@@ -17176,6 +17179,26 @@ avant la synthèse Q16).
   portait déjà logging.yml et la propriété logging: ; l'arborescence
   §3.2c, administration.md, telemetry.md et l'exemple véhicule
   alignés (les mentions du journal restent historiques).
+- **2026-08-30 — LE MORCEAU 2 DU VÉHICULE ARRÊTÉ (D831–D833).** Le
+  morceau 1 validé (onze fichiers), le modèle écrit sur les formules
+  réelles des deux classeurs (lues cellule par cellule) puis arrêté
+  par les huit retours de l'auteur : **transport** et
+  **consommation** (les noms), le numéro de ligne 1..n (le précédent
+  au rang, la première ligne au km_initial, km_prevu = numero ×
+  km_annuel/12), **l'échéancier aux deux hooks** — engendré à la
+  validation du financement (creer_echeancier), clos à la vente avec
+  la purge des non payées (clore_echeancier) —, la coche Payé
+  calculée (le jour d'échéance du mois au financement à plat, la
+  purge de la vente referme l'angle du temps qui passe), l'unité
+  calculée validée, **la devise visuelle** (D832 — les montants nus,
+  la devise au véhicule, les conversions _euro purgées, le
+  frottement de la division d'amount éteint), **le .select des
+  énumérés** acté (D833). Les cinq entités : vehicule
+  (identification, financement à plat, bilan tout calculé),
+  consommation, entretien (journal de vie), revision (la règle
+  seule), echeance. **La suite : le morceau 3 — les opérations**
+  (creer_echeancier, clore_echeancier, la notification des
+  révisions).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

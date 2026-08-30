@@ -7,11 +7,7 @@ fields:
   numero: counter
   date:        { type: date, required: true, searchable: range }
   designation: { type: text[..200], required: true, searchable: mutualizable[recherche] }   # multi-ligne déduit de la taille (D366)
-  montant:     { type: amount, currencies: [EUR, FRF] }   # optionnel — l'événement sans montant est licite
+  montant:     decimal                 # optionnel — l'événement sans montant est licite ; la devise est visuelle (D832)
   km:          integer[0..]
-  montant_euro:
-    type: amount
-    currencies: [EUR]
-    formula: montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))
 validation:
   - date >= owner.date_achat

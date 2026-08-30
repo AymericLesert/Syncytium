@@ -44,7 +44,10 @@ statut:
 mode_achat: text[..40]               # « Acheté concessionnaire », « Acheté en LOA »
 lieu_achat: text[..60]
 date_achat: { type: date, required: true }
-date_vente: date                     # la vente ou la restitution — elle bascule le statut (le cliquet) et clôt l'échéancier
+# la vente ou la restitution — elle bascule le statut (le cliquet) et
+# clôt l'échéancier ; APRÈS LA CLÔTURE, ELLE NE SE MODIFIE PLUS : l'état
+# ne porte que read (D422), sans demote (D425) — et aucune opération n'y touche
+date_vente: date
 km_initial: { type: integer[0..], required: true }   # le compteur au retrait (4, 39)
 
 # --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---

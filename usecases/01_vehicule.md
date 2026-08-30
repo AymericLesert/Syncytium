@@ -93,7 +93,8 @@ opérations, les surfaces, la reprise)*
     compteur au retrait), **le cycle de vie** (`states: statut` —
     Création → Actif → Clôture : l'activation libre D426, la
     clôture au cliquet D354/D427 dès `date_vente` posée, les
-    `allow` par état D422 — l'archive en lecture seule), le
+    `allow` par état D422 — l'archive en lecture seule,
+    `date_vente` comprise : sans demote, la clôture est terminale), le
     financement à plat
     (comptant|credit|loa, capital, taux, assurance, mensualité,
     durée, le premier mois + **le jour d'échéance du mois** D831,

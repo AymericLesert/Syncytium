@@ -968,6 +968,7 @@ Q58) :
 | D839 | **Le morceau 3 du véhicule arrêté** (précise D831) : **le cycle de vie au statut** — `states: statut`, Création → Actif → Clôture (la naissance au `default`, l'activation libre D426, la clôture au cliquet D354/D427 dès `date_vente`, les `allow` par état D422 — l'archive en lecture seule, `date_vente` comprise ; le retour d'un champ figé = le `demote` d'une version nouvelle, l'urgence = le passe-droit D835) ; **le trio de l'échéancier** — `creer_echeancier` (l'automatisme : `when: financement = credit or financement = loa`), `ajuster_echeancier` (**le bouton**, la garde D430 — les non payées remplacées, les payées intactes), `clore_echeancier` (`when: statut = cloture`) ; **la notification des révisions** = l'opération `notifier` (`when: echue`) + l'effet `notify` (D436/D836) ; **la révision au booléen** — `entretien.revision: boolean` (une révision ou une intervention hors révision — la référence sans intérêt, l'association dérivée sans emploi). | Voir §3.2c. |
 | D840 | **La description courte se nomme `hint`** (raffine D258) : `comment` disait l'annotation et collisionnait avec le commentaire YAML — `hint` dit l'aide, sur les trois écrans ; `tooltip` écarté — le nom-par-mécanisme mentirait sur mobile (D262 : l'infobulle au PC, le petit logo à la tablette, rien au smartphone) ; la réserve au glossaire — le *hint* d'Android/Flutter est notre `placeholder`. | Voir §3.2c. |
 | D841 | **L'accès par la clé fonctionnelle** (la proposition de l'auteur — « pourquoi max ? un peu lourd ») : `collection[<expression>]` retourne l'enregistrement dont l'`identity:` vaut l'expression — `owner.consommations[me.numero - 1].total_km` remplace l'agrégat-singleton `max(total_km if numero = me.numero - 1)` ; le crochet de l'adresse (D566) transposé au langage d'expression ; **exige l'`identity:` déclarée** — `consommation` porte `identity: [numero]`, la clé au sein du possesseur pour une composition ; la clé absente = nul (la première ligne reste au `iif`). | Voir §3.2c. |
+| D842 | **La clé composée et la portée de l'accès** (précise D841) : l'`identity:` à plusieurs champs s'accède **une valeur par identifiant, séparées par des virgules** — `collection[v1, v2]` ; **la composition borne d'elle-même** — `owner.consommations[…]` ne voit que les éléments du possesseur, jamais les autres véhicules ; **l'étendue globale passe par l'entité** — `transport.consommation[…]` (le nom déclaré — pas de pluriel implicite, la ligne D394/D405), et **la clé du ou des parents s'ajoute en tête** de l'accès. | Voir §3.2c. |
 
 ---
 
@@ -17280,6 +17281,15 @@ avant la synthèse Q16).
   [numero] déclarée à la consommation (la clé au sein du
   possesseur) ; les deux formules du précédent allégées,
   l'agrégat-singleton s'efface ; entity.md au niveau.
+- **2026-08-30 (reprise, suite 2)** — **La clé composée et la
+  portée (D842 — précise D841).** Les précisions de l'auteur :
+  l'identity à plusieurs champs s'accède une valeur par
+  identifiant, virgules ; la composition borne d'elle-même
+  (owner.consommations = les éléments du possesseur seuls) ;
+  l'étendue globale par l'entité — transport.consommation[…], la
+  clé du/des parents en tête. Le nom déclaré sans pluriel
+  implicite (la ligne D394/D405) — la vigilance signalée à
+  l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

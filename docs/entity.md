@@ -39,7 +39,7 @@ droits à [rights.md](rights.md).*
 | `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |
-| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) | D141–D142, D357, D841 |
+| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) | D141–D142, D357, D841–D842 |
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |

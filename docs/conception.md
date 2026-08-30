@@ -17405,6 +17405,10 @@ avant la synthèse Q16).
   consolidation feature/meta-schema → develop préparée (~55
   commits depuis la #38). **La suite : les cas 3–6 de l'échelle
   (D756), ou la documentation (Q58) — au choix de l'auteur.**
+- **2026-08-30 (fusion) — LA PR #39 FUSIONNÉE.** develop porte le
+  cas véhicule entier (D830–D855, 53 commits — la fusion par
+  l'auteur, l'ancêtre vérifié : develop contient la branche
+  entière). La publication develop → main (la 4e) sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

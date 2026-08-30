@@ -81,6 +81,12 @@ d'état** (l'acte porte sa légitimité — le promote écrit ce que
 l'état fige), mais **le droit de la déclencher** relève des droits
 d'action — on contrôle qui appuie, pas ce que l'acte écrit.
 
+**Le passe-droit du statut (D835)** : hors graphe = refus (D425) —
+sauf le degré `administrator` : le changement d'état hors graphe,
+**toujours tracé**, pour « des cas très particuliers et urgents »
+(l'erreur de saisie ou de clic — débloquer sans déployer une
+version) ; la voie déclarée demeure le `demote` d'une version.
+
 ## L'audience et l'anti-IDOR (D70–D77, D144, D153)
 
 - **Les deux audiences** (D70) : l'interne (les collaborateurs — les

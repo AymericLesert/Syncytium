@@ -961,6 +961,9 @@ Q58) :
 | D832 | **La devise visuelle** (le troisième patron de l'unité — après D771 la devise dans la valeur et D826 l'unité au type) : quand la devise ne porte pas de sens métier, **le montant reste nu (`decimal`) et la devise devient une propriété d'affichage** — `devise` au véhicule ; les conversions `_euro` disparaissent du modèle. | Voir §3.2c. |
 | D833 | **Le `.select` des énumérés** (généralise D771–D773) : la fonction `select` née de `amount.currency` vaut pour tout `enum` — `type.select(thermique: "litres", electrique: "kWh")`, `financement.select(credit: …, loa: …, comptant: 0)` ; les branches nommées par les valeurs, la totalité souhaitable. | Voir §3.2c. |
 | D834 | **Le km prévu au temps, pas au rang** (corrige la formule de D831) : le numéro de ligne n'est pas le numéro du mois — `km_prevu` = les mois écoulés depuis l'achat du véhicule, **bornés à la date de vente**, × `km_annuel / 12` ; le cumul par ligne du classeur n'était que l'approximation d'une ligne par mois ; le calcul s'appuie sur les sous-items du `duration` (`.months`, comme `.days` — D772–D773). | Voir §3.2c. |
+| D835 | **Le passe-droit du statut** (complète D425/D354) : hors graphe = refus — sauf **le degré `administrator`** : le passe-droit, **toujours tracé** ; la raison d'être — « des cas très particuliers et urgents » : débloquer une crispation à moindre coût qu'un déploiement (l'erreur de saisie ou de clic) ; la voie déclarée demeure (le `demote` activé par une version nouvelle). | Voir §3.2c. |
+| D836 | **La notification in-app, le mail en setting** (précise D436/D108–D110) : le mécanisme de notification du socle est accessible à **tous les utilisateurs**, dans l'application ; **son relais vers le smtp = un setting de l'application** (la cascade D588–D591) — **défaut : aucun envoi**. `notify` vit sans mail (le domestique `smtp: none` D763 reste entier). | Voir §3.2c. |
+| D837 | **L'arithmétique et les sous-items du temps** (complète D581, généralise D772–D773) : `date + duration → date` acté (le miroir du `date − date → duration`) ; **les sous-items du `date` par les fonctions du type** — `.day`, `.month`, `.year`, `.week`, `.day_name`… — comme `.days`/`.months` du `duration`. | Voir §3.2c. |
 
 ---
 
@@ -17206,6 +17209,30 @@ avant la synthèse Q16).
   la date de vente, × km_annuel/12 — le cumul par ligne du
   classeur n'était que l'approximation d'une ligne par mois ; les
   sous-items du duration (.months, comme .days) portent le calcul.
+- **2026-08-30 (suite 2)** — **Le morceau 3 s'arbitre (D835–D837),
+  le registre corrige l'exemple.** La relecture demandée par
+  l'auteur (« il me semble que nous avions déjà abordé ce
+  point ») : le when et les opérations étaient entièrement
+  tranchés (D354/D427/D428/D430/D435/D609/D641/D796) — les
+  participes created/updated/promoted inventés au morceau 3
+  disparaissent, l'expression porte tout, le if au when existait
+  (D430). Les trois hooks arrêtés : creer_echeancier
+  (automatisme), **ajuster_echeancier** (le bouton — le
+  re-paramétrage sous le cliquet, les non payées remplacées, les
+  payées intactes), clore_echeancier (automatisme). Puis les
+  arbitrages : **le passe-droit du statut** (D835 — administrator
+  seul, toujours tracé, « moins onéreux que de déployer une
+  nouvelle version pour une erreur de saisie ou de clic » ; le
+  souvenir de l'auteur vérifié : le registre ne le portait pas,
+  D183 n'en avait que l'esprit côté stock) ; **la notification
+  in-app, le mail en setting défaut néant** (D836) ; **date +
+  duration → date et les sous-items du temps** (D837). Et
+  l'accès retour élucidé PAR le registre : D394 (jamais déclaré,
+  le moteur le possède), D405 (le nommer = l'association
+  dérivée) — le pluriel implicite de revision.entretiens était
+  une invention, la déclaration actée s'écrit
+  `entretiens: association with entretien if entretien.revision
+  = me`. Le morceau 3 n'a plus de question ouverte.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -150,8 +150,8 @@ opérations, les surfaces, la reprise)*
   - **la notification des révisions — l'opération automatique +
     `notify` (D436)** : la ligne d'entretien qui solde une règle la
     nomme (`entretien.revision`, le picker borné au véhicule), la
-    règle en déduit `derniere_km`/`derniere_date` (l'accès retour
-    D398), `prochaine_km`/`prochaine_date` (depuis la dernière
+    règle en déduit `derniere_km`/`derniere_date` (l'association
+    dérivée D394/D405), `prochaine_km`/`prochaine_date` (depuis la dernière
     faite, sinon l'origine), **`echue`** — sur le km OU le délai,
     tant que le véhicule est actif —, et l'opération `notifier`
     (`when: echue`, l'effet `notify` du socle — D432/D574) porte
@@ -179,8 +179,9 @@ opérations, les surfaces, la reprise)*
    selon le véhicule) — le champ `unite` est prêt, la surface le
    consommera au morceau 4 ;
 7. **la notification des révisions** (D826) — résolue au
-   morceau 3 **sans hook** : le calculé `echue` se recalcule de
-   lui-même (D255/D298), la surface la portera — en validation ;
+   morceau 3 : l'opération automatique `notifier` + l'effet
+   `notify` (D436) — in-app pour tous, **le relais mail = un
+   setting de l'application, défaut néant (D836)** ;
 8. **les événements du socle** — résolu par le registre : le
    `when:` accepte l'opération, l'expression, l'abonnement
    connecteur (D641) et l'événement `generated` (D796) ; les
@@ -196,9 +197,18 @@ opérations, les surfaces, la reprise)*
    troisième hook **`ajuster_echeancier`**, un bouton de
    l'utilisateur (le cliquet de `creer_echeancier` reste intact) —
    les non payées remplacées, les payées intactes ;
-10. **l'accès retour nommé** — `revision` lit les entretiens qui
-    la citent par `entretiens.max(km)` : le nom de la liste
-    automatique (D398) à confirmer ;
-11. **`date + duration → date`** — `prochaine_date =
-    derniere_date + pas_duree` : le miroir de `date − date →
-    duration` (D581) à confirmer.
+10. **l'accès retour nommé** — résolu par le registre : l'accès
+    retour n'est **jamais déclaré**, le moteur le possède (D394) ;
+    **le nommer = l'association dérivée** (D405) — le pluriel
+    implicite était une invention, la forme actée est déclarée :
+    `entretiens: association with entretien if entretien.revision
+    = me` ;
+11. **`date + duration → date`** — tranché : **D837** (le miroir
+    de D581), avec **les sous-items du temps** — `.day`, `.month`,
+    `.year`, `.week`, `.day_name`… au `date`, `.days`/`.months` au
+    `duration` ;
+12. **le passe-droit du statut** — tranché : **D835** — le degré
+    `administrator` seul, toujours tracé (« des cas très
+    particuliers et urgents » — moins onéreux qu'une version pour
+    une erreur de saisie) ; la voie déclarée demeure le `demote`
+    d'une version nouvelle.

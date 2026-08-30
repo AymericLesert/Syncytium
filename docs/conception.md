@@ -17433,6 +17433,13 @@ avant la synthèse Q16).
   publication develop → main (la 4e — 60 commits : le cas véhicule
   entier D830–D855, le cas 0 D856, les release-notes
   personnalisés) créée sur demande de l'auteur.
+- **2026-08-31 (pause) — LA 4e PUBLICATION FUSIONNÉE (#41).** main
+  porte l'échelle à ses deux bouts (l'ancêtre vérifié — les cas 0,
+  1 et 2 publiés, 856 décisions). La séance s'arrête là. **La
+  reprise : le cas d'usage suivant, dans une nouvelle session —
+  l'échelle offre 03_sales_collection, 04_cegid_conversion,
+  05_project_management, 06_meal_delivery (D756/D827) ; la
+  documentation (Q58) reste l'autre porte.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

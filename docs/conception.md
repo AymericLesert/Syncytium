@@ -966,6 +966,7 @@ Q58) :
 | D837 | **L'arithmétique et les sous-items du temps** (complète D581, généralise D772–D773) : `date + duration → date` acté (le miroir du `date − date → duration`) ; **les sous-items du `date` par les fonctions du type** — `.day`, `.month`, `.year`, `.week`, `.day_name`… — comme `.days`/`.months` du `duration`. | Voir §3.2c. |
 | D838 | **D837 sans objet** (l'arbitrage de l'auteur — les définitions antérieures suffisent) : les opérateurs sont **des fonctions de type** (D581 — la table à la signature du type) : le `+` du `date` reçoit le second membre, l'additionne et retourne une date — rien à acter en grammaire ; les sous-items (`.day`, `.month`, `.year`, `.week`, `.day_name`, `.days`, `.months`…) relèvent du même régime — **le catalogue de fonctions des types `date`/`duration`** (D772–D773), fourni par le hook de type (D681). | Voir §3.2c. |
 | D839 | **Le morceau 3 du véhicule arrêté** (précise D831) : **le cycle de vie au statut** — `states: statut`, Création → Actif → Clôture (la naissance au `default`, l'activation libre D426, la clôture au cliquet D354/D427 dès `date_vente`, les `allow` par état D422 — l'archive en lecture seule, `date_vente` comprise ; le retour d'un champ figé = le `demote` d'une version nouvelle, l'urgence = le passe-droit D835) ; **le trio de l'échéancier** — `creer_echeancier` (l'automatisme : `when: financement = credit or financement = loa`), `ajuster_echeancier` (**le bouton**, la garde D430 — les non payées remplacées, les payées intactes), `clore_echeancier` (`when: statut = cloture`) ; **la notification des révisions** = l'opération `notifier` (`when: echue`) + l'effet `notify` (D436/D836) ; **la révision au booléen** — `entretien.revision: boolean` (une révision ou une intervention hors révision — la référence sans intérêt, l'association dérivée sans emploi). | Voir §3.2c. |
+| D840 | **La description courte se nomme `hint`** (raffine D258) : `comment` disait l'annotation et collisionnait avec le commentaire YAML — `hint` dit l'aide, sur les trois écrans ; `tooltip` écarté — le nom-par-mécanisme mentirait sur mobile (D262 : l'infobulle au PC, le petit logo à la tablette, rien au smartphone) ; la réserve au glossaire — le *hint* d'Android/Flutter est notre `placeholder`. | Voir §3.2c. |
 
 ---
 
@@ -17258,6 +17259,18 @@ avant la synthèse Q16).
   formulaire du véhicule, le chart de consommation, l'écho des
   révisions échues), **puis le morceau 5 — la reprise** (le storage
   xlsx, la carte entities: D828). PR sur demande.
+- **2026-08-30 (reprise — le morceau 4 en cours)** — **La
+  description courte se nomme hint (D840).** Le morceau 4 écrit et
+  repris au fil des arbitrages de l'auteur (l'écran principal aux
+  sections empilées, le formulaire à six onglets, l'édition en
+  ligne, la convention de lisibilité, l'auto-documentation
+  label/hint/description/placeholder, l'artefact entity.md créé —
+  la consignation du lot à la validation du morceau). En chemin, le
+  vocabulaire : comment collisionnait avec le commentaire YAML —
+  hint dit l'aide ; tooltip écarté (le nom-par-mécanisme, D262 :
+  trois rendus, un seul sens) ; la réserve Android/Flutter au
+  glossaire (leur hint = notre placeholder). Glossaire, composants,
+  types, entity et les cinq fields.yml du véhicule renommés.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

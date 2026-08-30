@@ -206,12 +206,13 @@ opérations, les surfaces, la reprise)*
     et **le commentaire d'un champ devant le champ**, jamais à sa
     droite ;
   - **l'auto-documentation** (le pilier rappelé par l'auteur) :
-    `label:`/`description:`/`placeholder:` **utilisés davantage** —
+    `label:`/`hint:`/`description:`/`placeholder:` **utilisés
+    davantage** (la courte se nomme `hint` — D840) —
     chaque champ porte son libellé français, sa phrase d'aide, son
     exemple de saisie ; chaque entité sa `description:` ; le
     commentaire YAML garde les références de décisions et les
-    formules du réel — ce qui parle à l'utilisateur est une
-    `description:`, pas un commentaire ; **l'artefact
+    formules du réel — ce qui parle à l'utilisateur est un `hint:`
+    ou une `description:`, pas un commentaire ; **l'artefact
     [entity.md](../docs/entity.md) créé** (le onzième —
     l'organisation d'une entité, ses champs, ses composants). `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la

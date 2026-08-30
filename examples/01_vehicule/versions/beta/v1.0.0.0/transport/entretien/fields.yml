@@ -16,7 +16,7 @@ designation:
     fr: Désignation
   placeholder:
     fr: Changement du pneu avant droit
-  comment:
+  hint:
     fr: Le fait marquant — un frais, un événement, l'achat, la vente.
 
 montant:
@@ -24,7 +24,7 @@ montant:
   type: decimal
   label:
     fr: Montant
-  comment:
+  hint:
     fr: Optionnel — l'événement sans montant est licite, la vente en recette négative.
 
 km:
@@ -38,5 +38,5 @@ revision:
   type: boolean
   label:
     fr: Révision ?
-  comment:
+  hint:
     fr: La ligne est une révision — sinon, une intervention hors révision.

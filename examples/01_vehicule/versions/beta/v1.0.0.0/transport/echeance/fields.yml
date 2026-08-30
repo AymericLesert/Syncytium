@@ -3,7 +3,7 @@ numero:
   required: true
   label:
     fr: N°
-  comment:
+  hint:
     fr: Le rang de l'échéance — de 1 à la durée du financement.
 
 date:
@@ -11,7 +11,7 @@ date:
   required: true
   label:
     fr: Date
-  comment:
+  hint:
     fr: Au jour d'échéance du mois, depuis le premier mois du financement.
 
 interet:
@@ -46,7 +46,7 @@ paye:
   formula: context.now >= date
   label:
     fr: Payé
-  comment:
+  hint:
     fr: Payée dès que la date du jour dépasse l'échéance.
 
 reste_du:
@@ -55,5 +55,5 @@ reste_du:
   formula: owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero), loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
   label:
     fr: Reste dû
-  comment:
+  hint:
     fr: En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA).

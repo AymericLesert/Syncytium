@@ -22,8 +22,8 @@ droits à [rights.md](rights.md).*
 - **le nommage est libre** (D807) — l'éponymie (le fichier au nom de
   l'entité) est une convention, pas une règle ;
 - **l'entité se documente elle-même** — un des piliers : `name`,
-  `description`, les `label:` par langue, les `comment:` (la
-  description courte — la précision au « (?) » du champ) et
+  `description`, les `label:` par langue, les `hint:` (la
+  description courte — la précision au « (?) » du champ, D840) et
   `description:` (la longue — la matière du tutoriel) et les
   `placeholder:` nourrissent **la documentation générée** (Q58 —
   le document fonctionnel et technique, **la description claire
@@ -36,7 +36,7 @@ droits à [rights.md](rights.md).*
 | la propriété | la nature | D |
 |---|---|---|
 | `name:` | le nom de l'entité — la référence `<module>.<entité>` en découle | D394, D765 |
-| `comment:` | **la description courte** — la précision d'un mot (l'alignement terminologique D258) | D124, D258 |
+| `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |
 | `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; l'identité interne reste l'UUID (D142), hors déclaration | D141–D142, D357 |
@@ -76,7 +76,7 @@ km_initial:
   required: true
   label:
     fr: Kilométrage initial
-  comment:
+  hint:
     fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 ```
 
@@ -90,7 +90,7 @@ km_initial:
 | `formula:` | **le champ calculé** — l'expression (D90), lecture seule, recalculé dès qu'une dépendance change ; les agrégats des collections (`sum`, `max`, `count`… — l'élément en contexte implicite, le `if` conditionnel), les fonctions de type au point (`montant.currency.select(…)`, `nb_jours.days`), `owner`, `me`, `context` | D255, D298, D580, D588–D593, D772–D773 |
 | `values:` | les valeurs d'un `enum` — chacune porte son `label:` par langue ; sur le champ-statut : les `allow` par état (le CRUD — D422) et le graphe `promote:`/`demote:` (`to:`/`when:` — libre, l'acte, l'automatisme D426–D427) | D422–D427 |
 | `label:` | le libellé par langue (`fr:`) — les colonnes, les formulaires, les exports ; sans lui, le nom nu | D124, D127, D465 |
-| `comment:` | **la description courte** — la précision au « (?) » du champ : l'infobulle (la tablette la replie en petit logo près du libellé, le smartphone l'omet — D262) ; par langue | D124, D258, D262 |
+| `hint:` | **la description courte** — la précision au « (?) » du champ : l'infobulle (la tablette la replie en petit logo près du libellé, le smartphone l'omet — D262) ; par langue ; le nom `hint` (D840 — la réserve Android au glossaire) | D124, D258, D262, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication (D209 — la première consultation ou la sollicitation), **la matière du tutoriel** ; par langue | D209, D258 |
 | `placeholder:` | la valeur de démonstration dans la zone vide (`AA-999-AA`) — par langue (D128/D258) ; l'image a le sien (l'icône de fond — D390) | D128, D258, D390 |
 | `mask:` | le masque de saisie (`_`, `9`, les littéraux) — il pilote aussi la lecture des sources (D820) | D259–D265, D820 |
@@ -106,8 +106,8 @@ km_initial:
   `# ------ Champs calculés ------` ;
 - **le commentaire d'un champ se place devant le champ**, jamais à
   sa droite — et ce qui parle à l'utilisateur n'est pas un
-  commentaire YAML : c'est un `comment:` (la précision courte) ou
-  une `description:` (l'aide longue) — D258.
+  commentaire YAML : c'est un `hint:` (la précision courte) ou
+  une `description:` (l'aide longue) — D258/D840.
 
 ## Les opérations — le renvoi
 

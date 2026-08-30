@@ -6,7 +6,7 @@ nom:
     fr: Nom
   placeholder:
     fr: Partner Outdoor
-  comment:
+  hint:
     fr: Le nom du véhicule — un classeur, un véhicule, un nom.
 
 immatriculation:
@@ -16,7 +16,7 @@ immatriculation:
   placeholder:
     fr: AA-999-AA
   # les formats anciens (1992) interdisent un masque unique
-  comment:
+  hint:
     fr: La plaque du véhicule, au format du moment.
 
 photo:
@@ -24,7 +24,7 @@ photo:
   type: image[512x512]
   label:
     fr: Photo
-  comment:
+  hint:
     fr: Le visage du véhicule — la vignette des listes et de la carte.
 
 type:
@@ -33,7 +33,7 @@ type:
   required: true
   label:
     fr: Type de véhicule
-  comment:
+  hint:
     fr: Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique.
   values:
     thermique:
@@ -49,7 +49,7 @@ devise:
   required: true
   label:
     fr: Devise
-  comment:
+  hint:
     fr: Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue.
   values:
     euro:
@@ -68,7 +68,7 @@ statut:
   default: creation
   label:
     fr: Statut
-  comment:
+  hint:
     fr: La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour.
   values:
     creation:
@@ -118,7 +118,7 @@ date_vente:
   type: date
   label:
     fr: Date de vente
-  comment:
+  hint:
     fr: La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule.
 
 km_initial:
@@ -126,7 +126,7 @@ km_initial:
   required: true
   label:
     fr: Kilométrage initial
-  comment:
+  hint:
     fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 
 # --- le financement (la feuille CREDIT | LOA) — à plat (D831) ---
@@ -150,42 +150,42 @@ capital:
   type: decimal
   label:
     fr: Capital emprunté
-  comment:
+  hint:
     fr: Le crédit seulement — 24 500.
 
 taux_annuel:
   type: percentage
   label:
     fr: Taux annuel
-  comment:
+  hint:
     fr: Le taux nominal du crédit — 6,187.
 
 assurance_mensuelle:
   type: decimal
   label:
     fr: Assurance mensuelle
-  comment:
+  hint:
     fr: Le crédit seulement — 34,40 par mois, en sus de la mensualité.
 
 mensualite:
   type: decimal
   label:
     fr: Mensualité
-  comment:
+  hint:
     fr: La mensualité de la LOA — celle du crédit se calcule à l'échéancier.
 
 duree_echeances:
   type: integer[0..]
   label:
     fr: Nombre d'échéances
-  comment:
+  hint:
     fr: 60 mensualités du crédit, 36 loyers de la LOA.
 
 premier_mois:
   type: date[yyyy-mm]
   label:
     fr: Premier mois
-  comment:
+  hint:
     fr: Le premier mois du financement — 2016-02, 2023-10.
 
 jour_echeance:
@@ -193,14 +193,14 @@ jour_echeance:
   label:
     fr: Jour d'échéance
   # la coche Payé s'en déduit (D831)
-  comment:
+  hint:
     fr: Le jour du mois du prélèvement — le 10, le 5.
 
 km_annuel:
   type: integer[0..]
   label:
     fr: Kilométrage annuel
-  comment:
+  hint:
     fr: Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ».
 
 # --- les compositions (D399) — le grain d'écriture ---
@@ -236,7 +236,7 @@ unite:
   formula: type.select(thermique: "litres", electrique: "kWh")
   label:
     fr: Unité
-  comment:
+  hint:
     fr: L'unité de la quantité — litres ou kWh, dérivée du type de véhicule.
 
 # --- le bilan (la feuille BILAN) — tout calculé, les formules du réel ---
@@ -246,7 +246,7 @@ km_courant:
   formula: iif(entretiens.max(km) > consommations.max(total_km), entretiens.max(km), consommations.max(total_km))
   label:
     fr: Kilométrage courant
-  comment:
+  hint:
     fr: Le plus grand compteur vu — consommations et entretiens confondus.
 
 nb_jours:
@@ -255,7 +255,7 @@ nb_jours:
   formula: consommations.sum(nb_jours)
   label:
     fr: Nombre de jours
-  comment:
+  hint:
     fr: La durée de vie suivie — la somme des intervalles entre ravitaillements.
 
 km_total:
@@ -271,7 +271,7 @@ quantite_totale:
   formula: consommations.sum(quantite)
   label:
     fr: Quantité totale
-  comment:
+  hint:
     fr: Les litres ou kWh consommés sur la vie du véhicule.
 
 conso_moyenne:
@@ -280,7 +280,7 @@ conso_moyenne:
   formula: 100 * quantite_totale / km_total
   label:
     fr: Consommation moyenne
-  comment:
+  hint:
     fr: Aux 100 km — litres ou kWh selon le type.
 
 duree_moyenne:
@@ -289,7 +289,7 @@ duree_moyenne:
   formula: nb_jours.days / consommations.count()
   label:
     fr: Durée moyenne d'un plein
-  comment:
+  hint:
     fr: En jours — l'intervalle moyen entre deux ravitaillements.
 
 total_entretien:
@@ -310,7 +310,7 @@ cout_financement:
   formula: financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0)
   label:
     fr: Coût du financement
-  comment:
+  hint:
     fr: Les intérêts payés du crédit, ou les loyers payés de la LOA.
 
 cout_total:

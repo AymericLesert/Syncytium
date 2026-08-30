@@ -10,7 +10,7 @@ pas_km:
   type: integer[0..]
   label:
     fr: Tous les (km)
-  comment:
+  hint:
     fr: Le pas en kilomètres — « Révisions tous les 25 000 km ».
 
 pas_duree:
@@ -18,7 +18,7 @@ pas_duree:
   type: duration
   label:
     fr: Tous les (délai)
-  comment:
+  hint:
     fr: Le pas en délai — l'autre voie de l'échéancier.
 
 # ------ Champs calculés ------
@@ -54,5 +54,5 @@ echue:
   formula: owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km) or (prochaine_date != null and context.now >= prochaine_date))
   label:
     fr: Échue ?
-  comment:
+  hint:
     fr: La règle est à échéance — la notification part, la surface met en avant.

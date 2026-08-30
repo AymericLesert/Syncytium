@@ -15,7 +15,7 @@ composants.md.
   le raccourci de référence), les types-hooks ; le doublon = une
   erreur d'ingestion ;
 - **le kit des facettes** (commun à tous — D391) : `label` (les
-  libellés par langue — D465), `description`/`comment` (l'aide,
+  libellés par langue — D465), `description`/`hint` (l'aide,
   l'infobulle — D209/D258), `validation` (les règles, expression D90
   booléenne + message), `values` (l'énuméré — la clé stockée, les
   libellés, la description, l'icône ; l'attention aux migrations à

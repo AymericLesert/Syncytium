@@ -3,7 +3,7 @@ numero:
   required: true
   label:
     fr: N°
-  comment:
+  hint:
     fr: Le rang dans la vie du véhicule — la première ligne part du kilométrage initial.
 
 date:
@@ -17,7 +17,7 @@ total_km:
   required: true
   label:
     fr: Kilométrage compteur
-  comment:
+  hint:
     fr: Le compteur du tableau de bord au moment du ravitaillement.
 
 quantite:
@@ -26,7 +26,7 @@ quantite:
   label:
     fr: Quantité
   # la valeur seule (D826) — l'unité au type du véhicule
-  comment:
+  hint:
     fr: Les litres ou les kWh du ravitaillement, selon le véhicule.
 
 prix_unitaire:
@@ -34,7 +34,7 @@ prix_unitaire:
   type: decimal
   label:
     fr: Prix unitaire
-  comment:
+  hint:
     fr: Le prix du litre ou du kWh.
 
 # ------ Champs calculés ------
@@ -52,7 +52,7 @@ nb_jours:
   formula: iif(numero = 1, null, date - owner.consommations.max(date if numero = me.numero - 1))
   label:
     fr: Nb de jours
-  comment:
+  hint:
     fr: Depuis le ravitaillement précédent.
 
 km:
@@ -61,7 +61,7 @@ km:
   formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations.max(total_km if numero = me.numero - 1))
   label:
     fr: Km parcourus
-  comment:
+  hint:
     fr: Depuis le ravitaillement précédent.
 
 conso_100:
@@ -70,7 +70,7 @@ conso_100:
   formula: 100 * quantite / km
   label:
     fr: Aux 100 km
-  comment:
+  hint:
     fr: La consommation de l'intervalle — litres ou kWh aux 100 km.
 
 km_prevu:
@@ -81,5 +81,5 @@ km_prevu:
   formula: (iif(owner.date_vente != null and owner.date_vente < date, owner.date_vente, date) - owner.date_achat).months * owner.km_annuel / 12
   label:
     fr: Km prévu
-  comment:
+  hint:
     fr: Le prorata du forfait annuel de la LOA depuis l'achat.

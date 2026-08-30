@@ -201,7 +201,7 @@ fields:
       false: { label: { fr: Inactif } }
   audited:
     type: boolean                # optionnel — la checkbox TRI-ÉTAT (D374)
-    comment: { fr: Audit réalisé ? }
+    hint: { fr: Audit réalisé ? }
 
 gui:
   lists:

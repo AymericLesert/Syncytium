@@ -17893,6 +17893,25 @@ avant la synthèse Q16).
   du module migration, immutable: sur l'entité source (l'écart =
   une anomalie rapportée D406), les surfaces et le drill-down vers
   l'historique D168. **Quatre pièces attendent l'arbitrage.**
+- **2026-09-04 (pause) — LA SÉANCE S'ARRÊTE SUR LE CADRAGE DU CAS 3
+  (864 décisions).** Le mot `immutable` relu à la demande de
+  l'auteur : déjà pris une fois, sur la référence (`check:
+  selection | immutable`, D395–D396 — la condition du filtre qui
+  ne se relâche jamais) ; ailleurs descriptif seulement (les
+  messages « immuables (append-only) », la trace D153) ;
+  **`append_only: true` proposé** pour l'entité source (le mot que
+  le registre emploie déjà, sans homonymie — D461/D840). **La
+  reprise, au prochain point : (1) l'arbitrage des quatre pièces de
+  D864** — l'empreinte dans la provenance, le pré-contrôle par
+  partition, le mot (`append_only` ou `immutable`), les écarts
+  comme entités du module migration — **; (2) les questions
+  restantes du cadrage** : 4 le schéma réel de la 16.17 et un
+  échantillon (la clé), 6 le modèle cible existant ou à concevoir,
+  7 les exemples de règles, 8 l'enrichissement, 9 la fréquence, 10
+  l'entreprise (l'authentification, le smtp, les environnements),
+  11 le hook de type de la date ; **(3) puis le morceau 1**
+  (l'assise). Neuf commits depuis la #40 sur feature/meta-schema —
+  la PR de consolidation sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

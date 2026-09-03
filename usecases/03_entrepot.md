@@ -137,12 +137,15 @@ La lecture au registre :
   chaque `migrate`** (le schéma peut bouger sous la description :
   une mise à jour de Cegid), le rapport de non-couverture au
   technicien (D179) ;
-- **l'état de la couverture du schéma** — le taux s'appuie sur la
-  description de la configuration : par table et par champ, trois
-  états — **décrit et migré**, **déclaré ignoré**, **absent de la
-  description** (l'anomalie) ; *la place des ignorés dans le taux
-  reste à confirmer — proposé : le taux = les migrés sur le total
-  réel, les ignorés affichés à part comme l'exclusion assumée* ;
+- **l'état du schéma** — le taux s'appuie sur la description de la
+  configuration : par table et par champ, trois états — **décrit et
+  migré**, **déclaré ignoré**, **absent de la description**
+  (l'anomalie) — et **deux taux scindés (D862)** : **la complétude
+  du schéma** (les décrits et les ignorés rapportés au schéma réel
+  — cent pour cent quand tout est déclaré, l'écart = les
+  anomalies) et **la couverture du schéma** (les migrés rapportés
+  au schéma réel — les ignorés affichés à part, l'exclusion
+  assumée) ;
 - **l'état de la couverture des données** — le taux s'appuie sur le
   nombre de lignes de chaque table : les lignes intégrées
   rapportées aux lignes de la table source, les rejets creusent
@@ -210,10 +213,10 @@ cadrage :
 - **les droits de consultation sur les entités et les champs**
   (D859 — P8/D25–D27, D196, rights.md) : le premier exemple de
   l'échelle aux droits réels, de l'opérateur aux dirigeants ;
-- **la couverture à deux étages** (D861) : le schéma entier décrit
-  ou ignoré, l'anomalie de l'absent, les deux taux — le schéma par
-  la description, les données par les lignes — au module
-  `migration` ;
+- **la couverture à deux étages** (D861–D862) : le schéma entier
+  décrit ou ignoré, l'anomalie de l'absent, **les trois taux** — la
+  complétude du schéma, la couverture du schéma, la couverture des
+  données par les lignes — au module `migration` ;
 - **l'historique des changements de valeur** (D859 — `history:`
   D411–D413 nourri par le différentiel D672) sur certaines
   entités ;
@@ -356,8 +359,9 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    (D178), le différentiel (D672) ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
-   deux taux de couverture, le schéma et les données (D861), les
-   rejets et leurs causes, D666/D668), le rapport
+   trois taux — la complétude du schéma, la couverture du schéma,
+   la couverture des données (D861–D862) —, les rejets et leurs
+   causes, D666/D668), le rapport
    au destinataire (D406), et **la restitution décisionnelle**
    (D858) : **le tableau de bord des indicateurs de pilotage**
    (D859 — la vue globale du fonctionnement de l'entreprise,

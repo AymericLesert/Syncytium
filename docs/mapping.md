@@ -348,7 +348,7 @@ La reprise (D175–D179) est le mode relatif du `from:` ; le mode
 absolu en est le durcissement pour la bascule définitive — les deux
 postures de D180 incarnées.
 
-## La couverture et le pilotage (D666–D667)
+## La couverture et le pilotage (D666–D667, D861–D862)
 
 - **le module `migration`** (D666) — défini par Syncytium (le socle
   premier client — D408/D416) : ses entités stockent l'état de la
@@ -357,6 +357,20 @@ postures de D180 incarnées.
   décrits** : les listes, les widgets, les kpi, les tableaux de bord
   du catalogue sur ces entités ; le taux de couverture est une
   donnée du modèle — consultable, filtrable, exportable ;
+- **les trois taux** (D861–D862 — le cas 3, l'entrepôt) : **la
+  complétude du schéma** — les éléments décrits ou déclarés
+  `ignored` rapportés au schéma réel (cent pour cent quand tout est
+  déclaré ; l'écart = **les anomalies** : la table ou le champ
+  présent dans le schéma et absent de `source/`, remonté au
+  technicien D179 — la complétude confrontée au schéma réel D653 à
+  l'ingestion et à chaque `migrate`) ; **la couverture du schéma**
+  — les éléments migrés rapportés au schéma réel (les ignorés =
+  l'exclusion assumée, affichée à part, jamais comptée comme
+  couverte) ; **la couverture des données** — les lignes intégrées
+  rapportées aux lignes de chaque table source (les rejets creusent
+  l'écart, le `filter:` D663 hors taux) ; deux grains au module
+  `migration` : l'entité et le champ pour le schéma, la ligne pour
+  les données ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton

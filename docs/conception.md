@@ -987,7 +987,8 @@ Q58) :
 | D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
 | D859 | **Le cadrage du cas 3 — le contexte** (la réponse de l'auteur, complète D857–D858) : « la capacité de Syncytium à assurer la migration de données d'un connecteur à un autre en appliquant un mapping, des règles de conversion et des règles de vérification » — la conversion Cegid → l'entrepôt **standardise** (« mapper la bonne information dans le bon module et la bonne entité » — le `to:` D655), **harmonise** (« convertir les données pour extraire les informations utiles » — D659/D660/D817, le hook de type D119) et **fiabilise** (« les informations disponibles sont justes et sont accessibles à la bonne personne » — les règles de vérification D404/D177 **et** les droits de consultation sur les entités et les champs, P8/D196/D699) les données exploitées **de l'opérateur aux dirigeants** ; les données hors règles **font l'objet d'un état sur la qualité et sur l'avancement de l'intégration** (le module `migration` D666/D668 ; les non conformes non portées D177) **à destination d'un destinataire capable de corriger les données d'origine** (D179/D406) ; **un historique des changements de valeur** pour certaines entités (`history:` D411–D413, le différentiel D672 — l'alimentation continue) ; **un tableau de bord d'indicateurs de pilotage** dès que les données sont disponibles — la vue globale du fonctionnement de l'entreprise (D554–D558/D527) ; **le périmètre** : les données techniques (articles, gammes & nomenclatures, tarifs), les clients et les fournisseurs, les commandes de vente et d'achat, les stocks et les mouvements. | Les questions 1, 5, 7 (la posture) et 9 (la continuité) du cadrage répondues. Voir §3.2c. |
 | D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
-| D861 | **La couverture à deux étages** (le cadrage du cas 3 — précise D176/D648/D653/D666) : « l'objectif est de couvrir toutes les tables et tous les champs de la source » — `source/` décrit **le schéma SQL Server entier**, le hors-périmètre (D859) déclaré `ignored` (D657) ; **l'anomalie** : « si une table ou un champ présent dans un schéma de la base de données SQL Server ne sont pas décrits dans la source de la configuration, une anomalie doit être remontée » — la complétude confrontée au schéma réel (D653) à l'ingestion et à chaque `migrate`, le rapport de non-couverture au technicien (D179) ; **l'état de la couverture du schéma** « s'appuie sur la description décrite en base via la configuration » — par table et par champ : décrit et migré, déclaré ignoré, absent (l'anomalie) ; **l'état de la couverture des données** « s'appuie sur le nombre de lignes de chaque table » — les lignes intégrées rapportées aux lignes de la table source, le `filter:` (D663) hors taux ; les deux états = des données du module `migration` (D666/D668, deux grains), leur vue = ses surfaces ; **la version : Cegid PMI 16.17**. | La place des ignorés dans le taux du schéma à confirmer (proposé : les migrés sur le total réel, les ignorés à part). Voir §3.2c. |
+| D861 | **La couverture à deux étages** (le cadrage du cas 3 — précise D176/D648/D653/D666) : « l'objectif est de couvrir toutes les tables et tous les champs de la source » — `source/` décrit **le schéma SQL Server entier**, le hors-périmètre (D859) déclaré `ignored` (D657) ; **l'anomalie** : « si une table ou un champ présent dans un schéma de la base de données SQL Server ne sont pas décrits dans la source de la configuration, une anomalie doit être remontée » — la complétude confrontée au schéma réel (D653) à l'ingestion et à chaque `migrate`, le rapport de non-couverture au technicien (D179) ; **l'état de la couverture du schéma** « s'appuie sur la description décrite en base via la configuration » — par table et par champ : décrit et migré, déclaré ignoré, absent (l'anomalie) ; **l'état de la couverture des données** « s'appuie sur le nombre de lignes de chaque table » — les lignes intégrées rapportées aux lignes de la table source, le `filter:` (D663) hors taux ; les deux états = des données du module `migration` (D666/D668, deux grains), leur vue = ses surfaces ; **la version : Cegid PMI 16.17**. | La place des ignorés dans le taux du schéma tranchée par D862 (les deux taux scindés). Voir §3.2c. |
+| D862 | **La complétude et la couverture scindées** (précise D861 — « Ta proposition de scinder le taux de couverture et le taux de complétude me convient et me paraît intéressante ») : sur le schéma, **deux taux** — **la complétude du schéma** : les éléments décrits ou déclarés `ignored` rapportés au schéma réel (cent pour cent quand tout est déclaré ; l'écart = les anomalies — la table ou le champ absent de `source/`, D861) ; **la couverture du schéma** : les éléments migrés rapportés au schéma réel (les ignorés = l'exclusion assumée, affichée à part) ; avec **la couverture des données** (D861 — les lignes intégrées sur les lignes de chaque table), **trois taux** au module `migration` (D666/D668). | Un taux qui compterait les ignorés comme couverts dirait la complétude de la description, pas la couverture — les deux mesures répondent à deux questions. Voir §3.2c. |
 
 ---
 
@@ -8708,9 +8709,8 @@ la version : **« nous allons partir de la version de Cegid PMI
 - **l'état de la couverture du schéma** — le taux s'appuie sur la
   description de la configuration : par table et par champ, trois
   états — **décrit et migré**, **déclaré ignoré**, **absent de la
-  description** (l'anomalie) ; *la place des ignorés dans le taux
-  reste à confirmer — proposé : le taux = les migrés sur le total
-  réel, les ignorés affichés à part comme l'exclusion assumée* ;
+  description** (l'anomalie) ; la place des ignorés dans le taux
+  est tranchée par D862 (les deux taux scindés — ci-dessous) ;
 - **l'état de la couverture des données** — le taux s'appuie sur le
   nombre de lignes de chaque table : les lignes intégrées
   rapportées aux lignes de la table source, les rejets creusent
@@ -8723,6 +8723,27 @@ la version : **« nous allons partir de la version de Cegid PMI
   l'historisation (l'évolution de la qualité dans le temps) ;
 - **la version : Cegid PMI 16.17** — le schéma réel à fournir est
   celui-là.
+
+**La complétude et la couverture scindées (D862 — précise D861).**
+**« Ta proposition de scinder le taux de couverture et le taux de
+complétude me convient et me paraît intéressante. »** — sur le
+schéma, deux mesures pour deux questions :
+
+- **la complétude du schéma** — *la description est-elle
+  entière ?* — les éléments décrits ou déclarés `ignored` rapportés
+  au schéma réel : cent pour cent quand tout est déclaré ; l'écart
+  = les anomalies (la table ou le champ absent de `source/` —
+  D861), le rapport au technicien (D179) ;
+- **la couverture du schéma** — *que prend l'entrepôt ?* — les
+  éléments migrés rapportés au schéma réel ; les ignorés sont
+  l'exclusion assumée, affichée à part, jamais comptée comme
+  couverte ;
+- avec **la couverture des données** (D861 — les lignes intégrées
+  rapportées aux lignes de chaque table source), **trois taux** au
+  module `migration` (D666/D668), consultables, filtrables,
+  historisés. Un taux unique qui compterait les ignorés comme
+  couverts aurait dit la complétude de la description, pas la
+  couverture — la confusion est levée.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17737,6 +17758,15 @@ avant la synthèse Q16).
   états = des données du module migration (D666/D668). La version
   fixée : Cegid PMI 16.17. Le usecase au niveau (le contexte, les
   morceaux 3 et 5).
+- **2026-09-03 (suite 7) — LA COMPLÉTUDE ET LA COUVERTURE SCINDÉES
+  (D862, 862 décisions).** « Ta proposition de scinder le taux de
+  couverture et le taux de complétude me convient et me paraît
+  intéressante » — sur le schéma, deux taux : la complétude (les
+  décrits et les ignorés sur le réel — l'écart = les anomalies) et
+  la couverture (les migrés sur le réel — les ignorés à part) ;
+  avec la couverture des données (D861), trois taux au module
+  migration. mapping.md au niveau (la section couverture et
+  pilotage), le usecase aussi.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -989,7 +989,8 @@ Q58) :
 | D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
 | D861 | **La couverture à deux étages** (le cadrage du cas 3 — précise D176/D648/D653/D666) : « l'objectif est de couvrir toutes les tables et tous les champs de la source » — `source/` décrit **le schéma SQL Server entier**, le hors-périmètre (D859) déclaré `ignored` (D657) ; **l'anomalie** : « si une table ou un champ présent dans un schéma de la base de données SQL Server ne sont pas décrits dans la source de la configuration, une anomalie doit être remontée » — la complétude confrontée au schéma réel (D653) à l'ingestion et à chaque `migrate`, le rapport de non-couverture au technicien (D179) ; **l'état de la couverture du schéma** « s'appuie sur la description décrite en base via la configuration » — par table et par champ : décrit et migré, déclaré ignoré, absent (l'anomalie) ; **l'état de la couverture des données** « s'appuie sur le nombre de lignes de chaque table » — les lignes intégrées rapportées aux lignes de la table source, le `filter:` (D663) hors taux ; les deux états = des données du module `migration` (D666/D668, deux grains), leur vue = ses surfaces ; **la version : Cegid PMI 16.17**. | La place des ignorés dans le taux du schéma tranchée par D862 (les deux taux scindés). Voir §3.2c. |
 | D862 | **La complétude et la couverture scindées** (précise D861 — « Ta proposition de scinder le taux de couverture et le taux de complétude me convient et me paraît intéressante ») : sur le schéma, **deux taux** — **la complétude du schéma** : les éléments décrits ou déclarés `ignored` rapportés au schéma réel (cent pour cent quand tout est déclaré ; l'écart = les anomalies — la table ou le champ absent de `source/`, D861) ; **la couverture du schéma** : les éléments migrés rapportés au schéma réel (les ignorés = l'exclusion assumée, affichée à part) ; avec **la couverture des données** (D861 — les lignes intégrées sur les lignes de chaque table), **trois taux** au module `migration` (D666/D668). | Un taux qui compterait les ignorés comme couverts dirait la complétude de la description, pas la couverture — les deux mesures répondent à deux questions. Voir §3.2c. |
-| D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Voir §3.2c. |
+| D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Tranché par D864 : la fenêtre glissante écartée. Voir §3.2c. |
+| D864 | **Les écarts des mouvements de stocks** (le cadrage du cas 3 — précise D863, ouvre un manque du socle) : « Dans le principe, les mouvements de stocks sont immuables, une correction passe par un contre-mouvement. Malheureusement, dans certains cas, des outils "maisons" apportent des ajustements sur la donnée directement pour corriger des défauts de saisie. L'idée est de consulter les écarts. Cela peut représenter une charge de travail pour le serveur conséquent. L'analyse des écarts est un sujet qui doit être couvert par Syncytium. » — **la fenêtre glissante est écartée** (aveugle aux ajustements directs sur les lignes anciennes) : la détection doit être **exhaustive et légère** ; **l'analyse des écarts = un sujet du socle** — deux manques ouverts, **en proposition** : M1 la détection à l'échelle (l'empreinte de la ligne source portée par la provenance D178, la comparaison clé + empreinte avant tout mapping — les nouveaux, les modifiés, les disparus —, la relecture des seuls changés, le pré-contrôle par partition `partition:` sur l'entité source), M2 la consultation et l'analyse (les écarts = des données du module `migration` D666, `immutable:` sur l'entité source — l'écart = une anomalie rapportée D406 —, les surfaces du module et le drill-down vers l'historique D168). | L'arbitrage attendu sur les quatre pièces : l'empreinte, la partition, `immutable:`, les écarts au module. Voir §3.2c. |
 
 ---
 
@@ -8774,6 +8775,68 @@ lecture au registre :
   les corrections de Cegid passent-elles par un contre-mouvement
   ou par une modification ? — à arbitrer au morceau du mapping, sur
   le réel.
+
+**Les écarts des mouvements de stocks (D864 — précise D863, ouvre un
+manque du socle).** **« Dans le principe, les mouvements de stocks
+sont immuables, une correction passe par un contre-mouvement.
+Malheureusement, dans certains cas, des outils "maisons" apportent
+des ajustements sur la donnée directement pour corriger des défauts
+de saisie. L'idée est de consulter les écarts. Cela peut
+représenter une charge de travail pour le serveur conséquent.
+L'analyse des écarts est un sujet qui doit être couvert par
+Syncytium. »** — trois conséquences :
+
+- **la fenêtre glissante est écartée** : elle serait aveugle aux
+  ajustements directs portés sur des lignes anciennes ; la
+  détection doit être **exhaustive** (toute ligne, toute nuit) **et
+  légère** (la charge du serveur de production — D863) ;
+- **consulter les écarts** : ce que les outils maison ont changé
+  après coup — et ce qu'ils ont supprimé — se voit, se rapporte,
+  s'analyse ;
+- **l'analyse des écarts est un sujet du socle**, pas du seul cas.
+
+**La proposition — deux manques, en attente d'arbitrage (le détail
+dans usecases/03_entrepot.md).** **M1, la détection des écarts à
+l'échelle** : le différentiel de D672 suppose la relecture entière
+de la source ; la proposition la remplace par **l'empreinte de la
+ligne source portée par la provenance** (D178 étendue — le
+connecteur, la date, la clé, et le condensé des colonnes lues), et
+la détection **au niveau clé + empreinte avant tout mapping** :
+(1) la classe storage rend le couple (clé, empreinte) de chaque
+ligne, **l'empreinte calculée en natif** (le patron visiteur
+D681–D684 — `HASHBYTES` côté SQL Server, `md5` côté PostgreSQL, le
+code côté csv/xlsx), triée par la clé, au curseur (D689) ; (2) la
+comparaison en flot avec la provenance triée par la même clé — les
+nouveaux, les modifiés, **les disparus** (la suppression directe,
+un écart aussi) ; (3) la relecture entière des seuls nouveaux et
+modifiés, qui passent le mapping, les règles et le différentiel
+champ par champ (D672 demeure — la seconde comparaison, sur ce qui
+a bougé ; l'historisation D168 garde l'ancienne valeur) ; (4) **le
+pré-contrôle par partition** pour les grandes tables — un agrégat
+par partition (le nombre de lignes, le condensé agrégé, par mois de
+la date du mouvement : une requête groupée, une ligne par mois)
+comparé aux agrégats mémorisés, seules les partitions qui bougent
+passent à l'étape 1. La grammaire : l'empreinte est un fait tenu
+par le moteur ; `partition: date_mouvement[month]` (la nature au
+crochet D382) se déclare sur l'entité source, aux côtés d'`ignored`
+(D657) et de `filter:` (D663). **M2, la consultation et l'analyse
+des écarts** : l'écart comme objet n'existe nulle part —
+l'historisation garde l'évolution des valeurs, le module
+`migration` tient la couverture et les rejets ; la proposition :
+**les écarts détectés = des données du module `migration`** (par
+passage, entité source, clé — le genre nouveau/modifié/disparu, les
+champs changés avec l'ancienne et la nouvelle valeur, la date) ;
+**`immutable: true` sur l'entité source** qualifie : l'écart sur
+une entité immuable (les mouvements) = **une anomalie rapportée**
+au destinataire (`report:` D406, la cascade D407), l'écart sur une
+entité vivante (les articles, les tarifs) = la vie normale, gardée
+par l'historisation seule ; la consultation = les surfaces du
+module (la liste filtrée par entité/genre/période, le kpi des
+écarts par nuit, le drill-down vers l'historique de
+l'enregistrement D168–D174). **Les quatre pièces à arbitrer** :
+l'empreinte dans la provenance, le pré-contrôle par partition,
+`immutable:` sur l'entité source, les écarts comme entités du
+module `migration`.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17810,6 +17873,26 @@ avant la synthèse Q16).
   la fenêtre glissante du filter: D663 si les mouvements sont
   immuables, à arbitrer sur le réel. Restent les questions 4 (le
   schéma 16.17 + l'échantillon), 6, 7, 8, 9, 10, 11.
+- **2026-09-03 (suite 9) — LES ÉCARTS DES MOUVEMENTS (D864, 864
+  décisions — un manque du socle ouvert).** « Dans le principe,
+  les mouvements de stocks sont immuables, une correction passe
+  par un contre-mouvement. Malheureusement, dans certains cas, des
+  outils "maisons" apportent des ajustements sur la donnée
+  directement... L'idée est de consulter les écarts... L'analyse
+  des écarts est un sujet qui doit être couvert par Syncytium. » —
+  la fenêtre glissante écartée (aveugle aux ajustements directs),
+  la détection exhaustive et légère, l'analyse des écarts = un
+  sujet du socle. **Deux manques en proposition** (le détail au
+  usecase) : M1 la détection à l'échelle — l'empreinte de la ligne
+  source dans la provenance (D178 étendue), la comparaison clé +
+  empreinte avant tout mapping (nouveaux/modifiés/disparus),
+  l'empreinte calculée en natif par la classe (D681–D684), la
+  relecture des seuls changés (D672 demeure en seconde
+  comparaison), le pré-contrôle par partition (partition: sur
+  l'entité source) ; M2 la consultation — les écarts = des données
+  du module migration, immutable: sur l'entité source (l'écart =
+  une anomalie rapportée D406), les surfaces et le drill-down vers
+  l'historique D168. **Quatre pièces attendent l'arbitrage.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -183,6 +183,28 @@ lecture au registre :
   arbitrer au morceau du mapping (les corrections de Cegid
   passent-elles par un contre-mouvement ou par une modification ?).
 
+**Les écarts des mouvements de stocks (D864)** — la réponse, mot
+pour mot : **« Dans le principe, les mouvements de stocks sont
+immuables, une correction passe par un contre-mouvement.
+Malheureusement, dans certains cas, des outils "maisons" apportent
+des ajustements sur la donnée directement pour corriger des défauts
+de saisie. L'idée est de consulter les écarts. Cela peut
+représenter une charge de travail pour le serveur conséquent.
+L'analyse des écarts est un sujet qui doit être couvert par
+Syncytium. »** La lecture :
+
+- **la fenêtre glissante est écartée** : elle serait aveugle aux
+  ajustements directs portés sur des lignes anciennes — la
+  détection doit être **exhaustive** (toute ligne, toute nuit) **et
+  légère** (la charge du serveur de production) ;
+- **consulter les écarts** : ce que les outils maison ont changé
+  après coup — et ce qu'ils ont supprimé — se voit dans l'entrepôt,
+  se rapporte, s'analyse ;
+- **l'analyse des écarts est un sujet du socle**, pas du seul cas —
+  deux manques ouverts, en proposition dans « Les manques
+  relevés » : **M1 la détection des écarts à l'échelle**, **M2 la
+  consultation et l'analyse des écarts**.
+
 **Ce que le registre porte déjà du cas** — la lecture avant le
 cadrage :
 
@@ -390,8 +412,9 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
-   (D178), le différentiel (D672) — **et la fenêtre glissante du
-   `filter:` sur les mouvements** (D863 — le volume, à arbitrer) ;
+   (D178), le différentiel (D672) — **et la détection des écarts à
+   l'échelle** (D863/D864 — la fenêtre glissante écartée, les
+   manques M1/M2 en proposition) ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -414,3 +437,74 @@ cas = un exemple (D827/D857).
 ## Les manques relevés
 
 *(chaque frottement = une décision consignée)*
+
+### M1 — la détection des écarts à l'échelle (D864, en proposition)
+
+**Le frottement.** Le différentiel du registre (D672) compare
+l'enregistrement reconstruit à la cible, champ par champ, après le
+mapping : il suppose la relecture entière de la source à chaque
+passage. Sur des millions de mouvements chaque nuit, la relecture
+coûte — sur le serveur de production (D863) comme dans le moteur
+(le mapping de millions de lignes pour quelques écarts). La fenêtre
+glissante est écartée (D864 — aveugle aux ajustements directs).
+
+**La proposition — l'empreinte dans la provenance.** La provenance
+(D178) porte déjà, par enregistrement, le connecteur d'origine, la
+date de reprise et la clé existante ; **elle porte aussi l'empreinte
+de la ligne source** (le condensé des colonnes lues). La détection
+se joue alors **au niveau clé + empreinte, avant tout mapping** :
+
+1. **la lecture légère** — la classe storage rend, pour l'entité
+   source, le couple (clé, empreinte) de chaque ligne : **l'empreinte
+   est calculée en natif par la classe** (le patron visiteur
+   D681–D684 — `HASHBYTES` côté SQL Server, `md5` côté PostgreSQL,
+   le code côté csv/xlsx), triée par la clé ; le curseur (D689)
+   enchaîne ; rien de la ligne ne voyage sinon la clé et le
+   condensé ;
+2. **la comparaison en flot** avec la provenance, triée par la même
+   clé : **les nouveaux** (la clé inconnue), **les modifiés**
+   (l'empreinte changée), **les disparus** (la clé absente de la
+   source — la suppression directe, un écart aussi) ;
+3. **la relecture entière des seuls nouveaux et modifiés**, qui
+   passent le mapping, les règles et le différentiel champ par champ
+   (D672 — l'historisation D168 garde l'ancienne valeur) ;
+4. **le pré-contrôle par partition** (l'option pour les grandes
+   tables) : avant le couple par ligne, **un agrégat par partition**
+   (le nombre de lignes et le condensé agrégé, par mois de la date
+   du mouvement — une requête groupée, une ligne par mois) comparé
+   aux agrégats mémorisés ; seules les partitions qui bougent
+   passent à l'étape 1 — la nuit ordinaire relit quelques mois, pas
+   des années.
+
+**La grammaire — presque rien.** L'empreinte est un fait de la
+provenance, le moteur la tient ; la partition se déclare sur
+l'entité source : `partition: date_mouvement[month]` (la nature au
+crochet, D382) — une propriété de `source/` (aux côtés d'`ignored`
+D657 et de `filter:` D663). Le différentiel de D672 demeure : il
+est la seconde comparaison, sur les lignes qui ont bougé.
+
+### M2 — la consultation et l'analyse des écarts (D864, en proposition)
+
+**Le frottement.** L'historisation (D168) garde l'évolution des
+valeurs de la cible ; le module `migration` (D666) tient la
+couverture et les rejets — mais **l'écart comme objet** (« cette
+ligne a changé après coup, voilà quoi ») n'existe nulle part.
+
+**La proposition.** Les écarts détectés (M1) deviennent **des
+données du module `migration`** : par passage, par entité source,
+par clé — le genre (nouveau, modifié, disparu), les champs changés
+avec l'ancienne et la nouvelle valeur (le fruit de D672), la date.
+Puis **la qualification par la source** : l'entité source déclare
+`immutable: true` quand ses lignes ne sont pas censées changer
+(les mouvements) — **l'écart sur une entité immuable est une
+anomalie** rapportée au destinataire (`report:` D406, la cascade
+D407), l'écart sur une entité vivante (les articles, les tarifs)
+est la vie normale, gardée par l'historisation seule. La
+consultation = les surfaces du module : la liste des écarts filtrée
+par entité/genre/période, le kpi des écarts par nuit, le
+drill-down vers l'historique de l'enregistrement cible (D168–D174).
+
+**Les quatre pièces à arbitrer** : l'empreinte dans la provenance
+(D178 étendue) ; le pré-contrôle par partition (`partition:` sur
+l'entité source) ; `immutable:` sur l'entité source ; les écarts
+comme entités du module `migration`.

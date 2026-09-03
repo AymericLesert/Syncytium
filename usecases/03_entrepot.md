@@ -14,14 +14,90 @@ glisse au quatrième). Le cas suivant sera « la gestion des commandes
 industrielles » (le cas 4, `04_sales_collection`, relu à son
 ouverture).*
 
-## Le contexte
-
-*(à cadrer avec l'auteur — qui utilise, ce que l'application montre,
-ce qu'elle ne fait pas : les questions du cadrage ci-dessous)*
+## Le contexte (D859)
 
 **« Un outil de conversion de données (le passage de Cegid PMI à un
 entrepôt de données) et la vérification de règles métiers. »**
-(D756)
+(D756) — le sommaire ; **le contexte posé par l'auteur le
+03/09/2026 (D859), mot pour mot :**
+
+> Cet exemple présente la capacité de Syncytium à assurer la
+> migration de données d'un connecteur à un autre en appliquant un
+> mapping, des règles de conversion et des règles de vérification.
+> Le cas d'usage porte sur une conversion de données issue de l'ERP
+> Cegid vers un entrepôt de données. Cette conversion vise à
+> standardiser, à harmoniser et à fiabiliser les données exploitées
+> par les différentes strates de l'entreprise (de l'opérateur aux
+> dirigeants). Elle met également en avant les règles de droit sur
+> la consultation des entités et des champs.
+>
+> La standardisation consiste à mapper la bonne information dans le
+> bon module et la bonne entité. L'harmonisation vise à convertir
+> les données pour extraire les informations utiles. La
+> fiabilisation garantit que les informations disponibles sont
+> justes et sont accessibles à la bonne personne. Par conséquent,
+> les données ne respectant pas les règles de conversion et de
+> vérification font l'objet d'un état sur la qualité des données et
+> sur l'avancement de l'intégration dans l'entrepôt. Le non respect
+> des règles fait l'objet d'état à destination d'un destinataire
+> capable de traiter la correction des données d'origine.
+>
+> L'utilisation de cet exemple construit pour certaines entités un
+> historique des changements de valeur.
+>
+> Dès que les données sont disponibles, un tableau de bord
+> affichant des indicateurs de pilotage offre une vue globale du
+> fonctionnement de l'entreprise.
+>
+> Un ERP est vaste aussi pour cet exemple, nous allons limiter le
+> périmètre à :
+>
+> - les données techniques (articles, gammes & nomenclatures,
+>   tarifs) ;
+> - les clients et les fournisseurs ;
+> - les commandes de vente et d'achat ;
+> - la gestion des stocks et les mouvements.
+
+**La lecture au registre** — chaque visée a son acquis :
+
+- **la capacité montrée** : la migration d'un connecteur à un autre
+  — le `from:` (D610), les migrations déclarées (D662), le mapping
+  (D646–D672) — **avec un mapping, des règles de conversion et des
+  règles de vérification** ;
+- **standardiser** = le `to:` du mapping (D655–D656 : la bonne
+  entité du bon module, la clé fonctionnelle D654) ;
+- **harmoniser** = les conversions : la normalisation par champ
+  calculé (D660), les constructeurs de composés (D659), `extract`
+  (D817), le hook de type de la date `AAAAMMJJ` (D119/D820) ;
+- **fiabiliser** = deux garanties : **la justesse** — les règles de
+  vérification (la validation au champ et à l'entité D364/D404,
+  l'acceptation « converti ET cohérent » D177) — et **l'accès à la
+  bonne personne** — les droits de consultation sur les entités et
+  les champs (la confidentialité P8/D25–D27, les droits d'action
+  D196, le degré des groupes D699) : **de l'opérateur aux
+  dirigeants**, le premier exemple de l'échelle aux droits réels ;
+- **l'état de la qualité et de l'avancement** = le module
+  `migration` (D666/D668 : la couverture, les rejets et leurs
+  causes, l'historique de la qualité) — les non conformes ne sont
+  pas portées (D177), le rapport va **au destinataire capable de
+  corriger l'origine** (D179 : la correction à la source ; D406 :
+  `report: { to: }`, le destinataire déclaré) ;
+- **l'historique des changements de valeur** pour certaines
+  entités = `history:` déclaré (D411–D413), nourri par le
+  différentiel du rejeu (D672 : seuls les écarts s'écrivent) — la
+  continuité de l'alimentation en découle (le mode `relative`,
+  l'`every:` de `migrate` D667) ;
+- **le tableau de bord des indicateurs de pilotage** = le dashboard
+  du catalogue (D554–D558, les kpi D527) ; « dès que les données
+  sont disponibles » : le rafraîchissement (D249/D555) ou l'issue
+  de `migrate` (le patron D853) — à arbitrer au morceau du
+  pilotage ;
+- **le périmètre** : quatre domaines — les données techniques
+  (articles, gammes & nomenclatures, tarifs), les clients et les
+  fournisseurs, les commandes de vente et d'achat, les stocks et
+  les mouvements — les modules de l'entrepôt en germe (le nommage
+  au morceau 2 ; la nomenclature et la gamme = la composition
+  auto-référencée D135).
 
 **La première réponse du cadrage (D858)** — **« La connotation
 décisionnelle sera portée par cet exemple pour mettre en avant la
@@ -79,6 +155,12 @@ cadrage :
   de vrai (D653/D829), la lecture au curseur (D689) ;
 - **la vérification de règles métiers** (D404) sur les données
   converties, le rapport aux responsables (D406) ;
+- **les droits de consultation sur les entités et les champs**
+  (D859 — P8/D25–D27, D196, rights.md) : le premier exemple de
+  l'échelle aux droits réels, de l'opérateur aux dirigeants ;
+- **l'historique des changements de valeur** (D859 — `history:`
+  D411–D413 nourri par le différentiel D672) sur certaines
+  entités ;
 - **la restitution décisionnelle** (D858) : les tableaux de bord,
   les documents générés et les listes du catalogue (le domaine 4)
   sur les données converties — la connotation décisionnelle assumée
@@ -103,10 +185,13 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    (l'API versionnée de l'entrepôt — D11) ? Ce que l'application
    montre (les vues de l'entrepôt, les vues de couverture), ce
    qu'elle ne fait pas (aucune écriture vers Cegid, pas d'OLAP, pas
-   un remplacement de l'ERP — à confirmer). *Première réponse
-   (D858) : l'application montre la restitution décisionnelle — les
-   tableaux de bord, les documents générés, les listes ; les usagers
-   et le reste à préciser.*
+   un remplacement de l'ERP — à confirmer). *Répondue (D858/D859) :
+   les usagers = les strates de l'entreprise, de l'opérateur aux
+   dirigeants, sous les droits de consultation ; l'application
+   montre la restitution décisionnelle — le tableau de bord des
+   indicateurs de pilotage, les documents générés, les listes — et
+   l'état de la qualité et de l'avancement ; le « ne fait pas »
+   reste à confirmer.*
 2. **Le lien avec le cas suivant** — « la gestion des commandes
    industrielles » : l'entrepôt l'alimente-t-il (les commandes lues
    dans l'entrepôt, pas dans Cegid) ? Le périmètre du cas 4 en
@@ -129,7 +214,11 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    nomenclatures, les gammes — la composition auto-référencée D135),
    les tiers, les commandes clients, les ordres de fabrication, les
    stocks et les mouvements, les achats, la facturation ? Lesquels
-   en premier, lesquels `ignored` ?
+   en premier, lesquels `ignored` ? *Répondue (D859) : quatre
+   domaines — les données techniques (articles, gammes &
+   nomenclatures, tarifs), les clients et les fournisseurs, les
+   commandes de vente et d'achat, les stocks et les mouvements ; le
+   reste de l'ERP hors périmètre.*
 
 **C. La cible**
 
@@ -144,7 +233,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    porté, le rapport D179, la correction dans Cegid) ou
    l'enregistrement **porté et signalé** (l'anomalie visible dans
    l'entrepôt) ? Le registre dit le rejet ; l'entrepôt de D180 dit
-   « consultation et correction » — à trancher.
+   « consultation et correction » — à trancher. *Répondue en partie
+   (D859) : les non conformes font l'objet d'un état, vers un
+   destinataire capable de corriger l'origine — la posture du rejet
+   (D177/D179) ; les exemples de règles restent à donner.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -156,7 +248,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
 9. **Le rythme** : la conversion unique (`absolute`) ou
    l'alimentation continue (`relative`, l'`every:` nocturne, le
    différentiel D672, `reset: false` et la clé sur chaque règle —
-   D825) ? Le cadre du cas dit `relative`.
+   D825) ? Le cadre du cas dit `relative`. *Répondue en partie
+   (D859) : l'historique des changements de valeur implique
+   l'alimentation continue — `relative` et le différentiel ; la
+   fréquence reste à fixer.*
 10. **L'entreprise** : l'authentification (`azure_ad`, `local` ?),
     le smtp réel pour les rapports, les groupes (qui reçoit le
     rapport des rejets, qui lance `migrate` — le degré
@@ -177,10 +272,15 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    production ?), les connecteurs : `entrepot` (le storage cible),
    `cegid` (le storage `sqlserver` en lecture — D175 — et sa carte
    `entities:` D828, les tables lues), l'authentification, le smtp,
-   `logging.yml` (D830) ;
-2. **le modèle cible** — le ou les modules de l'entrepôt (en
-   français), `history:` (D168 — la temporalité de D180), **les
-   validations = les règles métiers** (D404), le `report:` (D406) ;
+   `logging.yml` (D830), **les groupes** (`groups.yml` D414 — les
+   strates, de l'opérateur aux dirigeants, le degré D699) ;
+2. **le modèle cible** — les modules de l'entrepôt sur les quatre
+   domaines du périmètre (D859, en français), **les droits de
+   consultation sur les entités et les champs** (D859 — la
+   confidentialité, les `allow:`), `history:` sur les entités qui
+   gardent leurs changements de valeur (D859/D411–D413), **les
+   validations = les règles métiers** (D404), le `report:` au
+   destinataire capable de corriger l'origine (D406/D859) ;
 3. **la source** — `source/` : les tables Cegid décrites dans la
    grammaire (l'ossature `read_instance` D653, `ignored` D657, les
    normalisations D660, le `filter:` D663), **le hook de type de la
@@ -189,11 +289,15 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) ;
-5. **le pilotage et la restitution** — les surfaces du module
-   `migration` (la couverture, les rejets — D666), le rapport aux
-   responsables (D406), et **la restitution décisionnelle** (D858) :
-   les tableaux de bord (D554–D558), les documents générés
-   (D559–D565), les listes (D441–D447) sur l'entrepôt.
+5. **le pilotage et la restitution** — **l'état de la qualité et de
+   l'avancement** (D859 — les surfaces du module `migration` : la
+   couverture, les rejets et leurs causes, D666/D668), le rapport
+   au destinataire (D406), et **la restitution décisionnelle**
+   (D858) : **le tableau de bord des indicateurs de pilotage**
+   (D859 — la vue globale du fonctionnement de l'entreprise,
+   D554–D558/D527, rafraîchi dès que les données sont disponibles),
+   les documents générés (D559–D565), les listes (D441–D447) sur
+   l'entrepôt.
 
 ## La forme — le dépôt
 

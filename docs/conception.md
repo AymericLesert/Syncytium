@@ -985,6 +985,7 @@ Q58) :
 | D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
 | D857 | **Le cas 3 = l'entrepôt de données — `03_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/03_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_entrepot/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
 | D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
+| D859 | **Le cadrage du cas 3 — le contexte** (la réponse de l'auteur, complète D857–D858) : « la capacité de Syncytium à assurer la migration de données d'un connecteur à un autre en appliquant un mapping, des règles de conversion et des règles de vérification » — la conversion Cegid → l'entrepôt **standardise** (« mapper la bonne information dans le bon module et la bonne entité » — le `to:` D655), **harmonise** (« convertir les données pour extraire les informations utiles » — D659/D660/D817, le hook de type D119) et **fiabilise** (« les informations disponibles sont justes et sont accessibles à la bonne personne » — les règles de vérification D404/D177 **et** les droits de consultation sur les entités et les champs, P8/D196/D699) les données exploitées **de l'opérateur aux dirigeants** ; les données hors règles **font l'objet d'un état sur la qualité et sur l'avancement de l'intégration** (le module `migration` D666/D668 ; les non conformes non portées D177) **à destination d'un destinataire capable de corriger les données d'origine** (D179/D406) ; **un historique des changements de valeur** pour certaines entités (`history:` D411–D413, le différentiel D672 — l'alimentation continue) ; **un tableau de bord d'indicateurs de pilotage** dès que les données sont disponibles — la vue globale du fonctionnement de l'entreprise (D554–D558/D527) ; **le périmètre** : les données techniques (articles, gammes & nomenclatures, tarifs), les clients et les fournisseurs, les commandes de vente et d'achat, les stocks et les mouvements. | Les questions 1, 5, 7 (la posture) et 9 (la continuité) du cadrage répondues. Voir §3.2c. |
 
 ---
 
@@ -8570,6 +8571,80 @@ pilotage et la restitution »** : la couverture et les rejets du
 module `migration` (D666), le rapport aux responsables (D406), et la
 restitution décisionnelle. Les dix autres questions du cadrage
 restent posées.
+
+**Le cadrage du cas 3 — le contexte (D859 — la réponse de l'auteur,
+complète D857–D858).** **« Cet exemple présente la capacité de
+Syncytium à assurer la migration de données d'un connecteur à un
+autre en appliquant un mapping, des règles de conversion et des
+règles de vérification. Le cas d'usage porte sur une conversion de
+données issue de l'ERP Cegid vers un entrepôt de données. Cette
+conversion vise à standardiser, à harmoniser et à fiabiliser les
+données exploitées par les différentes strates de l'entreprise (de
+l'opérateur aux dirigeants). Elle met également en avant les règles
+de droit sur la consultation des entités et des champs. »** — les
+trois visées définies : **« La standardisation consiste à mapper la
+bonne information dans le bon module et la bonne entité.
+L'harmonisation vise à convertir les données pour extraire les
+informations utiles. La fiabilisation garantit que les informations
+disponibles sont justes et sont accessibles à la bonne personne. »**
+La conséquence : **« les données ne respectant pas les règles de
+conversion et de vérification font l'objet d'un état sur la qualité
+des données et sur l'avancement de l'intégration dans l'entrepôt.
+Le non respect des règles fait l'objet d'état à destination d'un
+destinataire capable de traiter la correction des données
+d'origine. »** Puis : **« L'utilisation de cet exemple construit
+pour certaines entités un historique des changements de valeur.
+Dès que les données sont disponibles, un tableau de bord affichant
+des indicateurs de pilotage offre une vue globale du fonctionnement
+de l'entreprise. »** Le périmètre, borné (« un ERP est vaste ») :
+**« les données techniques (articles, gammes & nomenclatures,
+tarifs) · les clients et les fournisseurs · les commandes de vente
+et d'achat · la gestion des stocks et les mouvements »**.
+
+La lecture au registre — chaque visée a son acquis :
+
+- **la capacité montrée** : la migration d'un connecteur à un autre
+  — le `from:` (D610), les migrations déclarées (D662), le mapping
+  entier (D646–D672) ;
+- **standardiser** = le `to:` du mapping (D655–D656 : la bonne
+  entité du bon module, la clé fonctionnelle D654) ;
+- **harmoniser** = les conversions : la normalisation par champ
+  calculé (D660), les constructeurs de composés (D659), `extract`
+  (D817), le hook de type de la date `AAAAMMJJ` (D119/D820) ;
+- **fiabiliser** = deux garanties — **la justesse** (les règles de
+  vérification : la validation au champ et à l'entité D364/D404,
+  l'acceptation « converti ET cohérent » D177) et **l'accès à la
+  bonne personne** (les droits de consultation sur les entités et
+  les champs : la confidentialité P8/D25–D27, les droits d'action
+  D196, le degré des groupes D699 — de l'opérateur aux dirigeants,
+  **le premier exemple de l'échelle aux droits réels**) ;
+- **l'état de la qualité et de l'avancement** = le module
+  `migration` (D666/D668 : la couverture, les rejets et leurs
+  causes, l'historique de la qualité) — les non conformes ne sont
+  pas portées (D177), le rapport va **au destinataire capable de
+  corriger l'origine** (D179 : la correction à la source ; D406 :
+  `report: { to: }`, le destinataire déclaré) ;
+- **l'historique des changements de valeur** pour certaines
+  entités = `history:` déclaré (D411–D413), nourri par le
+  différentiel du rejeu (D672 : seuls les écarts s'écrivent) — la
+  continuité de l'alimentation en découle (le mode `relative`,
+  l'`every:` de `migrate` D667) ;
+- **le tableau de bord des indicateurs de pilotage** = le dashboard
+  du catalogue (D554–D558, les kpi D527) ; « dès que les données
+  sont disponibles » : le rafraîchissement (D249/D555) ou l'issue
+  de `migrate` (le patron D853) — à arbitrer au morceau du
+  pilotage ;
+- **le périmètre** : quatre domaines — les modules de l'entrepôt en
+  germe (le nommage au morceau 2 ; la nomenclature et la gamme = la
+  composition auto-référencée D135).
+
+Les questions 1, 5, 7 (la posture du rejet) et 9 (la continuité)
+du cadrage trouvent leur réponse ; les morceaux proposés s'en
+nourrissent (les groupes à l'assise, les droits et `history:` au
+modèle, le tableau de bord de pilotage à la restitution). Restent :
+l'instance et le réel (3–4), le modèle existant ou à concevoir (6),
+les exemples de règles (7), l'enrichissement (8), la fréquence (9),
+l'entreprise (10), le chemin du hook de type (11).
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17535,6 +17610,28 @@ avant la synthèse Q16).
   listes D441–D447) ; le cinquième morceau proposé devient « le
   pilotage et la restitution ». Les dix autres questions restent
   posées.
+- **2026-09-03 (suite 4) — LE CONTEXTE DU CAS 3 (D859, 859
+  décisions).** « Commençons par le contexte » — la capacité
+  montrée (la migration d'un connecteur à un autre avec un
+  mapping, des règles de conversion et des règles de
+  vérification), les trois visées définies par l'auteur
+  (standardiser = le bon module et la bonne entité ; harmoniser =
+  convertir pour extraire l'utile ; fiabiliser = juste ET
+  accessible à la bonne personne — les droits de consultation sur
+  les entités et les champs, de l'opérateur aux dirigeants), l'état
+  de la qualité et de l'avancement vers le destinataire capable de
+  corriger l'origine (D177/D179/D406/D666), l'historique des
+  changements de valeur sur certaines entités (D411–D413/D672), le
+  tableau de bord des indicateurs de pilotage dès que les données
+  sont disponibles, **le périmètre borné à quatre domaines** (les
+  données techniques — articles, gammes & nomenclatures, tarifs ;
+  les clients et les fournisseurs ; les commandes de vente et
+  d'achat ; les stocks et les mouvements). Le texte mot pour mot
+  dans usecases/03_entrepot.md, la lecture au registre visée par
+  visée ; les questions 1, 5, 7 (la posture) et 9 (la continuité)
+  répondues, les morceaux proposés nourris (les groupes, les
+  droits, history:, le tableau de bord). Restent les questions 3–4
+  (le réel), 6, 7 (les exemples), 8, 9 (la fréquence), 10, 11.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

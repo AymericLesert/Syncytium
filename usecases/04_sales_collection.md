@@ -1,9 +1,14 @@
-# Le cas 3 — la collecte des commandes commerciales
+# Le cas 4 — la collecte des commandes commerciales
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
+
+*Le quatrième rang depuis le 03/09/2026 (D857 — la reprise Cegid
+prend le troisième, [03_reprise.md](03_reprise.md)) ; le titre se
+relira « la gestion des commandes industrielles » à l'ouverture du
+cas, annoncée par l'auteur.*
 
 ## Le contexte
 

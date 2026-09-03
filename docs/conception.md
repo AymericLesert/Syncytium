@@ -983,6 +983,7 @@ Q58) :
 | D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
 | D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
 | D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
+| D857 | **Le cas 3 = la reprise** (amende l'échelle D827/D856) : « renomme-le 03_reprise » — la conversion Cegid PMI prend le troisième rang, la maison `usecases/03_reprise.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_reprise/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 reprise · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
 
 ---
 
@@ -8533,6 +8534,19 @@ maisons** : le domestique se dédouble en deux projets ; le fond de
 D756 est inchangé, les titres des cas se relisent (le cas 1 = le
 véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
 initiale).
+
+**Le cas 3 = la reprise (D857 — amende l'échelle D827/D856).**
+**« renomme-le 03_reprise »** — à l'ouverture du cas Cegid (le
+03/09/2026, avant la collecte des commandes), l'auteur le fixe au
+troisième rang : la maison `usecases/04_cegid_conversion.md` devient
+**`usecases/03_reprise.md`**, le dépôt à venir
+`examples/03_reprise/` ; la collecte des commandes glisse au
+quatrième rang (`04_sales_collection.md` — le titre relu « la
+gestion des commandes industrielles » à son ouverture, annoncée
+pour la suite). L'échelle à sept maisons se relit : 0 l'enquête ·
+1 le véhicule · 2 la banque · **3 la reprise** · 4 les commandes ·
+5 les projets · 6 les repas — l'ordre de traitement et l'échelle
+coïncident à nouveau.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17442,11 +17456,12 @@ avant la synthèse Q16).
   documentation (Q58) reste l'autre porte.**
 - **2026-09-03 — LE CAS 4 OUVERT : LA CONVERSION CEGID PMI.** La
   nouvelle session annoncée : l'auteur ouvre **la reprise de
-  données Cegid** avant le cas 3 — l'ordre de traitement est libre,
-  l'échelle garde ses numéros (D827) ; le cas suivant sera « la
-  gestion des commandes industrielles » (le cas 3 relu à son
-  ouverture, sauf avis contraire). **Le cadrage posé en questions**
-  dans usecases/04_cegid_conversion.md : la lecture du registre (la
+  données Cegid** avant la collecte des commandes — l'échelle
+  renumérotée dans la foulée (D857, ci-dessous) ; le cas suivant
+  sera « la gestion des commandes industrielles » (relu à son
+  ouverture). **Le cadrage posé en questions** dans
+  usecases/04_cegid_conversion.md (devenu 03_reprise.md — D857) : la
+  lecture du registre (la
   date AAAAMMJJ D119/D820 — le premier hook de type d'un exemple ;
   la posture entrepôt D180 ; la reprise D175–D179 ; le mapping
   D646–D672 ; le module migration D666/D668 ; les règles
@@ -17464,6 +17479,16 @@ avant la synthèse Q16).
   proposés** (l'assise, le modèle cible, la source, le mapping, le
   pilotage). **En attente des réponses de l'auteur — aucune
   décision consignée.**
+- **2026-09-03 (suite) — LE CAS 3 = LA REPRISE (D857, 857
+  décisions).** « renomme-le 03_reprise » — la maison du cas Cegid
+  passe de usecases/04_cegid_conversion.md à
+  **usecases/03_reprise.md** (git mv), la collecte des commandes
+  glisse au quatrième rang (04_sales_collection.md — le titre relu
+  « la gestion des commandes industrielles » à son ouverture) ;
+  l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2
+  banque · 3 reprise · 4 commandes · 5 projets · 6 repas ; le dépôt
+  à venir : examples/03_reprise/. Les onze questions du cadrage
+  restent posées.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -1,15 +1,16 @@
-# Le cas 4 — la conversion Cegid PMI vers l'entrepôt
+# Le cas 3 — la reprise : la conversion Cegid PMI vers l'entrepôt
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
-*Le cas est ouvert le 03/09/2026 — traité **avant** le cas 3 :
-l'ordre de traitement est libre, l'échelle garde ses numéros (D827 —
-l'ordre de simplicité). Le cas suivant sera « la gestion des
-commandes industrielles » (le cas 3, `03_sales_collection`, relu à
-son ouverture — sauf avis contraire de l'auteur).*
+*Le cas est ouvert le 03/09/2026 — la maison **`03_reprise`** (D857 :
+« renomme-le 03_reprise » — la conversion Cegid PMI prend le
+troisième rang de l'échelle, la collecte des commandes glisse au
+quatrième). Le cas suivant sera « la gestion des commandes
+industrielles » (le cas 4, `04_sales_collection`, relu à son
+ouverture).*
 
 ## Le contexte
 
@@ -179,8 +180,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 
 *(à écrire morceau par morceau — le protocole D457/D756)*
 
-Le dépôt vivra dans `examples/04_cegid_conversion/` (le préfixe
-D827 ; le nom reste libre — D807 — à confirmer par l'auteur).
+Le dépôt vivra dans `examples/03_reprise/` — la maison alignée un cas
+= un exemple (D827/D857).
 
 ## Les manques relevés
 

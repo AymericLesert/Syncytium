@@ -17440,6 +17440,30 @@ avant la synthèse Q16).
   l'échelle offre 03_sales_collection, 04_cegid_conversion,
   05_project_management, 06_meal_delivery (D756/D827) ; la
   documentation (Q58) reste l'autre porte.**
+- **2026-09-03 — LE CAS 4 OUVERT : LA CONVERSION CEGID PMI.** La
+  nouvelle session annoncée : l'auteur ouvre **la reprise de
+  données Cegid** avant le cas 3 — l'ordre de traitement est libre,
+  l'échelle garde ses numéros (D827) ; le cas suivant sera « la
+  gestion des commandes industrielles » (le cas 3 relu à son
+  ouverture, sauf avis contraire). **Le cadrage posé en questions**
+  dans usecases/04_cegid_conversion.md : la lecture du registre (la
+  date AAAAMMJJ D119/D820 — le premier hook de type d'un exemple ;
+  la posture entrepôt D180 ; la reprise D175–D179 ; le mapping
+  D646–D672 ; le module migration D666/D668 ; les règles
+  D404/D406), ce que le cas éprouve (le premier storage lu par
+  connexion — sqlserver, read_instance pour de vrai ; la première
+  application d'entreprise de l'échelle — l'authentification, les
+  groupes, le smtp réel, deux environnements possibles), **onze
+  questions** (A. le contexte et le lien au cas suivant ; B. la
+  source réelle — l'instance, l'accès, le schéma et l'échantillon
+  à fournir, le périmètre ; C. la cible — le modèle, les règles et
+  la posture face à la violation (le rejet D177 ou le porté et
+  signalé), les champs possédés par l'entrepôt face au différentiel
+  D672 ; D. l'exploitation — le rythme, l'entreprise, les
+  environnements, le chemin du hook de type) et **cinq morceaux
+  proposés** (l'assise, le modèle cible, la source, le mapping, le
+  pilotage). **En attente des réponses de l'auteur — aucune
+  décision consignée.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

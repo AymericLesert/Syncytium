@@ -107,6 +107,53 @@ données converties — les tableaux de bord (D554–D558), les documents
 générés (D212/D559–D565), les listes (D441–D447) — le volet
 « restitution » de D180 joué pour de vrai.
 
+**La couverture à deux étages (D861)** — le second temps du
+cadrage, mot pour mot :
+
+> Pour commencer, l'objectif est de couvrir toutes les tables et
+> tous les champs de la source. Si une table ou un champ présent
+> dans un schéma de la base de données SQL Server ne sont pas
+> décrits dans la source de la configuration, une anomalie doit
+> être remontée. L'état de la couverture du schéma ou un indicateur
+> de taux de couverture du schéma s'appuie sur la description
+> décrite en base via la configuration. L'état de la couverture des
+> données ou un indicateur du taux de couverture de la données
+> s'appuie sur le nombre de lignes de chaque table.
+>
+> Pour notre exemple, nous allons partir de la version de Cegid
+> PMI 16.17.
+
+La lecture au registre :
+
+- **l'exhaustivité** : `source/` décrit **le schéma SQL Server
+  entier**, table par table et champ par champ (D176/D648) — le
+  hors-périmètre (D859) déclaré `ignored` (D657 : « on peut
+  ignorer, jamais oublier ») ; l'ossature engendrée par
+  `read_instance` (D653) rend la chose tenable sur des centaines de
+  tables ;
+- **l'anomalie** : toute table ou tout champ du schéma réel absent
+  de la description = une anomalie remontée — la complétude
+  confrontée au schéma (D653) **à l'ingestion de la version et à
+  chaque `migrate`** (le schéma peut bouger sous la description :
+  une mise à jour de Cegid), le rapport de non-couverture au
+  technicien (D179) ;
+- **l'état de la couverture du schéma** — le taux s'appuie sur la
+  description de la configuration : par table et par champ, trois
+  états — **décrit et migré**, **déclaré ignoré**, **absent de la
+  description** (l'anomalie) ; *la place des ignorés dans le taux
+  reste à confirmer — proposé : le taux = les migrés sur le total
+  réel, les ignorés affichés à part comme l'exclusion assumée* ;
+- **l'état de la couverture des données** — le taux s'appuie sur le
+  nombre de lignes de chaque table : les lignes intégrées
+  rapportées aux lignes de la table source, les rejets creusent
+  l'écart (le `filter:` D663 hors taux — le périmètre déclaré) ;
+- **les deux états = des données du module `migration`**
+  (D666/D668 — deux grains : l'entité et le champ pour le schéma,
+  la ligne pour les données), leur vue = les surfaces du module,
+  leur histoire = l'historisation (l'évolution de la qualité) ;
+- **la version : Cegid PMI 16.17** — le schéma réel à fournir est
+  celui-là (la question 4).
+
 **Ce que le registre porte déjà du cas** — la lecture avant le
 cadrage :
 
@@ -163,6 +210,10 @@ cadrage :
 - **les droits de consultation sur les entités et les champs**
   (D859 — P8/D25–D27, D196, rights.md) : le premier exemple de
   l'échelle aux droits réels, de l'opérateur aux dirigeants ;
+- **la couverture à deux étages** (D861) : le schéma entier décrit
+  ou ignoré, l'anomalie de l'absent, les deux taux — le schéma par
+  la description, les données par les lignes — au module
+  `migration` ;
 - **l'historique des changements de valeur** (D859 — `history:`
   D411–D413 nourri par le différentiel D672) sur certaines
   entités ;
@@ -213,8 +264,8 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    le connecteur `cegid` = `storage` de classe `sqlserver` en
    lecture seule sur un schéma de l'instance, le connecteur
    `entrepot` = `storage` de classe `postgresql`, l'entrepôt = un
-   schéma ; restent la version, l'accès (la production ou une
-   copie), le volume.*
+   schéma ; la version — Cegid PMI 16.17 (D861) ; restent l'accès
+   (la production ou une copie) et le volume.*
 4. **Le réel à fournir** — comme les CSV de la banque et les
    classeurs des véhicules : **une extraction du schéma** (le DDL ou
    la liste tables/colonnes, anonymisée) et **un échantillon de
@@ -295,17 +346,18 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    gardent leurs changements de valeur (D859/D411–D413), **les
    validations = les règles métiers** (D404), le `report:` au
    destinataire capable de corriger l'origine (D406/D859) ;
-3. **la source** — `source/` : les tables Cegid décrites dans la
-   grammaire (l'ossature `read_instance` D653, `ignored` D657, les
-   normalisations D660, le `filter:` D663), **le hook de type de la
-   date `AAAAMMJJ`** ;
+3. **la source** — `source/` : **le schéma Cegid PMI 16.17 entier**
+   décrit dans la grammaire (D861 — l'ossature `read_instance`
+   D653, le hors-périmètre `ignored` D657, les normalisations D660,
+   le `filter:` D663), **le hook de type de la date `AAAAMMJJ`** ;
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
-   l'avancement** (D859 — les surfaces du module `migration` : la
-   couverture, les rejets et leurs causes, D666/D668), le rapport
+   l'avancement** (D859 — les surfaces du module `migration` : les
+   deux taux de couverture, le schéma et les données (D861), les
+   rejets et leurs causes, D666/D668), le rapport
    au destinataire (D406), et **la restitution décisionnelle**
    (D858) : **le tableau de bord des indicateurs de pilotage**
    (D859 — la vue globale du fonctionnement de l'entreprise,

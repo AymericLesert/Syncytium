@@ -157,6 +157,32 @@ La lecture au registre :
 - **la version : Cegid PMI 16.17** — le schéma réel à fournir est
   celui-là (la question 4).
 
+**L'accès et le volume (D863)** — le troisième temps du cadrage,
+mot pour mot : **« L'accès se fait en lecture directe sur la base
+de production. Le volume concerne quelques dizaines de milliers de
+lignes d'articles, quelques centaines de clients et de fournisseurs
+et quelques millions de lignes de mouvements de stocks. »** La
+lecture au registre :
+
+- **la production, en direct** : le connecteur `cegid` lit la base
+  vivante — la lecture seule (D175) devient une garde, pas une
+  convention : rien ne s'écrit chez Cegid ; la fenêtre du `every:`
+  aux heures creuses (l'esprit D7), `timeout:` et `retry:` (D625),
+  la classe `sqlserver` responsable de lire sans gêner
+  l'exploitation ;
+- **le volume** — les articles ~10⁴, les tiers ~10², les mouvements
+  de stocks ~10⁶ : **le premier exemple au-delà de l'échelle
+  domestique** — la lecture au curseur (D689) et l'écriture en lots
+  (D688) pour de vrai ;
+- **le point que le volume pose** : le différentiel par
+  comparaison (D672) relit et compare chaque enregistrement à
+  chaque passage — sur des millions de mouvements chaque nuit, le
+  coût est réel ; **le `filter:` en fenêtre glissante** (D663 —
+  `filter: date >= now() - …`) borne la relecture aux mouvements
+  récents, **si les mouvements sont immuables une fois écrits** — à
+  arbitrer au morceau du mapping (les corrections de Cegid
+  passent-elles par un contre-mouvement ou par une modification ?).
+
 **Ce que le registre porte déjà du cas** — la lecture avant le
 cadrage :
 
@@ -208,6 +234,10 @@ cadrage :
   portait le sqlite natif D729) : l'entrepôt = un schéma, l'instance
   du contrat (D680), la duplication et la bascule par schéma (D674)
   sous leur forme native ;
+- **le volume** (D863 — des millions de mouvements de stocks, la
+  production lue en direct) : le curseur (D689), les lots (D688) et
+  le différentiel (D672) à l'épreuve — la fenêtre glissante du
+  `filter:` (D663) à arbitrer ;
 - **la vérification de règles métiers** (D404) sur les données
   converties, le rapport aux responsables (D406) ;
 - **les droits de consultation sur les entités et les champs**
@@ -267,8 +297,11 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    le connecteur `cegid` = `storage` de classe `sqlserver` en
    lecture seule sur un schéma de l'instance, le connecteur
    `entrepot` = `storage` de classe `postgresql`, l'entrepôt = un
-   schéma ; la version — Cegid PMI 16.17 (D861) ; restent l'accès
-   (la production ou une copie) et le volume.*
+   schéma ; la version — Cegid PMI 16.17 (D861). Soldée par D863 :
+   « L'accès se fait en lecture directe sur la base de production.
+   Le volume concerne quelques dizaines de milliers de lignes
+   d'articles, quelques centaines de clients et de fournisseurs et
+   quelques millions de lignes de mouvements de stocks. »*
 4. **Le réel à fournir** — comme les CSV de la banque et les
    classeurs des véhicules : **une extraction du schéma** (le DDL ou
    la liste tables/colonnes, anonymisée) et **un échantillon de
@@ -337,8 +370,9 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 1. **l'assise** — la racine et les environnements (staging /
    production ?), les connecteurs : `entrepot` (le storage
    `postgresql` — un schéma, D860), `cegid` (le storage `sqlserver`
-   en lecture seule — D175/D860 — un schéma de l'instance, et sa
-   carte `entities:` D828, les tables du périmètre D859),
+   en lecture seule — D175/D860 — **la production lue en direct**
+   D863, un schéma de l'instance, et sa carte `entities:` D828, les
+   tables du périmètre D859),
    l'authentification, le smtp,
    `logging.yml` (D830), **les groupes** (`groups.yml` D414 — les
    strates, de l'opérateur aux dirigeants, le degré D699) ;
@@ -356,7 +390,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
-   (D178), le différentiel (D672) ;
+   (D178), le différentiel (D672) — **et la fenêtre glissante du
+   `filter:` sur les mouvements** (D863 — le volume, à arbitrer) ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,

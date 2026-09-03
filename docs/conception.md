@@ -989,6 +989,7 @@ Q58) :
 | D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
 | D861 | **La couverture à deux étages** (le cadrage du cas 3 — précise D176/D648/D653/D666) : « l'objectif est de couvrir toutes les tables et tous les champs de la source » — `source/` décrit **le schéma SQL Server entier**, le hors-périmètre (D859) déclaré `ignored` (D657) ; **l'anomalie** : « si une table ou un champ présent dans un schéma de la base de données SQL Server ne sont pas décrits dans la source de la configuration, une anomalie doit être remontée » — la complétude confrontée au schéma réel (D653) à l'ingestion et à chaque `migrate`, le rapport de non-couverture au technicien (D179) ; **l'état de la couverture du schéma** « s'appuie sur la description décrite en base via la configuration » — par table et par champ : décrit et migré, déclaré ignoré, absent (l'anomalie) ; **l'état de la couverture des données** « s'appuie sur le nombre de lignes de chaque table » — les lignes intégrées rapportées aux lignes de la table source, le `filter:` (D663) hors taux ; les deux états = des données du module `migration` (D666/D668, deux grains), leur vue = ses surfaces ; **la version : Cegid PMI 16.17**. | La place des ignorés dans le taux du schéma tranchée par D862 (les deux taux scindés). Voir §3.2c. |
 | D862 | **La complétude et la couverture scindées** (précise D861 — « Ta proposition de scinder le taux de couverture et le taux de complétude me convient et me paraît intéressante ») : sur le schéma, **deux taux** — **la complétude du schéma** : les éléments décrits ou déclarés `ignored` rapportés au schéma réel (cent pour cent quand tout est déclaré ; l'écart = les anomalies — la table ou le champ absent de `source/`, D861) ; **la couverture du schéma** : les éléments migrés rapportés au schéma réel (les ignorés = l'exclusion assumée, affichée à part) ; avec **la couverture des données** (D861 — les lignes intégrées sur les lignes de chaque table), **trois taux** au module `migration` (D666/D668). | Un taux qui compterait les ignorés comme couverts dirait la complétude de la description, pas la couverture — les deux mesures répondent à deux questions. Voir §3.2c. |
+| D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Voir §3.2c. |
 
 ---
 
@@ -8744,6 +8745,35 @@ schéma, deux mesures pour deux questions :
   historisés. Un taux unique qui compterait les ignorés comme
   couverts aurait dit la complétude de la description, pas la
   couverture — la confusion est levée.
+
+**L'accès et le volume du cas 3 (D863 — le cadrage, solde la
+question 3).** **« L'accès se fait en lecture directe sur la base
+de production. Le volume concerne quelques dizaines de milliers de
+lignes d'articles, quelques centaines de clients et de fournisseurs
+et quelques millions de lignes de mouvements de stocks. »** La
+lecture au registre :
+
+- **la production, en direct** : le connecteur `cegid` lit la base
+  vivante — la lecture seule (D175) n'est plus une convention mais
+  une garde : rien ne s'écrit chez Cegid ; la fenêtre du `every:`
+  aux heures creuses (l'esprit D7), `timeout:` et `retry:` (D625) ;
+  la classe `sqlserver` a la charge de lire sans gêner
+  l'exploitation ;
+- **le volume** — les articles ~10⁴, les tiers ~10², les mouvements
+  de stocks ~10⁶ : **le premier exemple au-delà de l'échelle
+  domestique** (les ~23 400 écritures de la banque, les ~400
+  pleins du véhicule) — la lecture au curseur (D689) et l'écriture
+  en lots (D688) cessent d'être des principes, elles portent la
+  nuit ;
+- **le point que le volume pose** : le différentiel par
+  comparaison (D672) relit et compare chaque enregistrement à
+  chaque passage — sur des millions de mouvements chaque nuit, le
+  coût est réel ; **le `filter:` en fenêtre glissante** (D663 —
+  `filter: date >= now() - …`) borne la relecture aux mouvements
+  récents, **si les mouvements sont immuables une fois écrits** :
+  les corrections de Cegid passent-elles par un contre-mouvement
+  ou par une modification ? — à arbitrer au morceau du mapping, sur
+  le réel.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17767,6 +17797,19 @@ avant la synthèse Q16).
   avec la couverture des données (D861), trois taux au module
   migration. mapping.md au niveau (la section couverture et
   pilotage), le usecase aussi.
+- **2026-09-03 (suite 8) — L'ACCÈS ET LE VOLUME (D863, 863
+  décisions — la question 3 soldée).** « L'accès se fait en
+  lecture directe sur la base de production. Le volume concerne
+  quelques dizaines de milliers de lignes d'articles, quelques
+  centaines de clients et de fournisseurs et quelques millions de
+  lignes de mouvements de stocks. » — la production lue en direct
+  (la lecture seule D175 en garde, la fenêtre aux heures creuses,
+  timeout/retry D625), le premier exemple au-delà de l'échelle
+  domestique (le curseur D689, les lots D688), le point posé au
+  mapping : le différentiel D672 sur des millions de mouvements —
+  la fenêtre glissante du filter: D663 si les mouvements sont
+  immuables, à arbitrer sur le réel. Restent les questions 4 (le
+  schéma 16.17 + l'échantillon), 6, 7, 8, 9, 10, 11.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -151,8 +151,13 @@ cadrage :
 - **le premier hook de type d'un exemple** (D119/D820 — la maison
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
-  classe `sqlserver` consignée (D613/D619) : `read_instance` pour
-  de vrai (D653/D829), la lecture au curseur (D689) ;
+  classe `sqlserver` consignée (D613/D619), un schéma d'une
+  instance SQL Server (D860) : `read_instance` pour de vrai
+  (D653/D829), la lecture au curseur (D689) ;
+- **le premier storage cible `postgresql`** (D860 — le domestique
+  portait le sqlite natif D729) : l'entrepôt = un schéma, l'instance
+  du contrat (D680), la duplication et la bascule par schéma (D674)
+  sous leur forme native ;
 - **la vérification de règles métiers** (D404) sur les données
   converties, le rapport aux responsables (D406) ;
 - **les droits de consultation sur les entités et les champs**
@@ -202,7 +207,14 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
 3. **L'instance Cegid PMI** : le moteur (SQL Server ?), la version,
    **l'accès** (la connexion directe en lecture sur la base de
    production, une copie nocturne, des exports ?), le volume (le
-   nombre de tables, d'enregistrements).
+   nombre de tables, d'enregistrements). *Répondue en partie
+   (D860) : « L'instance Cegid est le schéma d'une instance
+   SQLServer. L'entrepôt de données est un schéma PostgreSQL. » —
+   le connecteur `cegid` = `storage` de classe `sqlserver` en
+   lecture seule sur un schéma de l'instance, le connecteur
+   `entrepot` = `storage` de classe `postgresql`, l'entrepôt = un
+   schéma ; restent la version, l'accès (la production ou une
+   copie), le volume.*
 4. **Le réel à fournir** — comme les CSV de la banque et les
    classeurs des véhicules : **une extraction du schéma** (le DDL ou
    la liste tables/colonnes, anonymisée) et **un échantillon de
@@ -269,9 +281,11 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
 avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 
 1. **l'assise** — la racine et les environnements (staging /
-   production ?), les connecteurs : `entrepot` (le storage cible),
-   `cegid` (le storage `sqlserver` en lecture — D175 — et sa carte
-   `entities:` D828, les tables lues), l'authentification, le smtp,
+   production ?), les connecteurs : `entrepot` (le storage
+   `postgresql` — un schéma, D860), `cegid` (le storage `sqlserver`
+   en lecture seule — D175/D860 — un schéma de l'instance, et sa
+   carte `entities:` D828, les tables du périmètre D859),
+   l'authentification, le smtp,
    `logging.yml` (D830), **les groupes** (`groups.yml` D414 — les
    strates, de l'opérateur aux dirigeants, le degré D699) ;
 2. **le modèle cible** — les modules de l'entrepôt sur les quatre

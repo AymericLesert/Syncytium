@@ -986,6 +986,7 @@ Q58) :
 | D857 | **Le cas 3 = l'entrepôt de données — `03_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/03_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_entrepot/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
 | D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
 | D859 | **Le cadrage du cas 3 — le contexte** (la réponse de l'auteur, complète D857–D858) : « la capacité de Syncytium à assurer la migration de données d'un connecteur à un autre en appliquant un mapping, des règles de conversion et des règles de vérification » — la conversion Cegid → l'entrepôt **standardise** (« mapper la bonne information dans le bon module et la bonne entité » — le `to:` D655), **harmonise** (« convertir les données pour extraire les informations utiles » — D659/D660/D817, le hook de type D119) et **fiabilise** (« les informations disponibles sont justes et sont accessibles à la bonne personne » — les règles de vérification D404/D177 **et** les droits de consultation sur les entités et les champs, P8/D196/D699) les données exploitées **de l'opérateur aux dirigeants** ; les données hors règles **font l'objet d'un état sur la qualité et sur l'avancement de l'intégration** (le module `migration` D666/D668 ; les non conformes non portées D177) **à destination d'un destinataire capable de corriger les données d'origine** (D179/D406) ; **un historique des changements de valeur** pour certaines entités (`history:` D411–D413, le différentiel D672 — l'alimentation continue) ; **un tableau de bord d'indicateurs de pilotage** dès que les données sont disponibles — la vue globale du fonctionnement de l'entreprise (D554–D558/D527) ; **le périmètre** : les données techniques (articles, gammes & nomenclatures, tarifs), les clients et les fournisseurs, les commandes de vente et d'achat, les stocks et les mouvements. | Les questions 1, 5, 7 (la posture) et 9 (la continuité) du cadrage répondues. Voir §3.2c. |
+| D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
 
 ---
 
@@ -8645,6 +8646,37 @@ modèle, le tableau de bord de pilotage à la restitution). Restent :
 l'instance et le réel (3–4), le modèle existant ou à concevoir (6),
 les exemples de règles (7), l'enrichissement (8), la fréquence (9),
 l'entreprise (10), le chemin du hook de type (11).
+
+**Les deux storages du cas 3 (D860 — le cadrage, la question 3 en
+partie).** **« L'instance Cegid est le schéma d'une instance
+SQLServer. L'entrepôt de données est un schéma PostgreSQL. »** —
+l'assise du cas se précise aux deux bouts de la conversion :
+
+- **le connecteur `cegid`** — `type: storage`, `class: sqlserver`,
+  **en lecture seule** (D175 : le connecteur de reprise est un
+  storage ordinaire qui ne fait que lire, à durée de vie
+  administrée) ; son périmètre est **un schéma de l'instance** :
+  les tables du périmètre (D859) déclarées à la carte `entities:`
+  (D828), `read_instance` borné à cette carte (D829), l'ossature de
+  `source/` engendrée depuis le schéma réel puis raffinée (D653) ;
+- **le connecteur `entrepot`** — `type: storage`,
+  `class: postgresql`, **l'entrepôt = un schéma** : l'instance du
+  contrat (D680 — la classe parle schéma, le contrat parle
+  instance) ; la duplication et la bascule par schéma de la
+  migration à chaud (D674 — `duplicate_instance`,
+  `rename_instance`) trouvent leur forme native ;
+- **les deux classes** consignées au catalogue (D613/D619) sont
+  exercées pour la première fois par un exemple — le domestique
+  portait le sqlite natif (D729) ; le morceau 1 (l'assise)
+  s'écrira sur ces deux connecteurs, les secrets par référence
+  (`secrets:` — connectors.md), le smtp vérifié au démarrage
+  (D626).
+
+Restent de la question 3 : la version de Cegid, l'accès (la base
+de production ou une copie), le volume ; et la question 4 — le
+schéma réel du périmètre (le DDL ou la sortie de
+`INFORMATION_SCHEMA.COLUMNS` sur le schéma Cegid) et un échantillon
+de données.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17632,6 +17664,19 @@ avant la synthèse Q16).
   répondues, les morceaux proposés nourris (les groupes, les
   droits, history:, le tableau de bord). Restent les questions 3–4
   (le réel), 6, 7 (les exemples), 8, 9 (la fréquence), 10, 11.
+- **2026-09-03 (suite 5) — LES DEUX STORAGES DU CAS 3 (D860, 860
+  décisions).** « L'instance Cegid est le schéma d'une instance
+  SQLServer. L'entrepôt de données est un schéma PostgreSQL. » —
+  le connecteur cegid (storage sqlserver en lecture seule D175, un
+  schéma de l'instance, les tables du périmètre à la carte
+  entities: D828/D829, l'ossature de source/ du réel D653) et le
+  connecteur entrepot (storage postgresql, l'entrepôt = un schéma —
+  l'instance du contrat D680, la bascule par schéma D674) ; les
+  deux classes consignées (D613/D619) exercées pour la première
+  fois par un exemple (le domestique portait sqlite D729). La
+  question 3 répondue en partie (restent la version, l'accès, le
+  volume) ; la question 4 (le schéma réel + l'échantillon) demeure
+  la clé.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

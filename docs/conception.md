@@ -983,7 +983,8 @@ Q58) :
 | D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
 | D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
 | D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
-| D857 | **Le cas 3 = la reprise** (amende l'échelle D827/D856) : « renomme-le 03_reprise » — la conversion Cegid PMI prend le troisième rang, la maison `usecases/03_reprise.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_reprise/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 reprise · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
+| D857 | **Le cas 3 = l'entrepôt de données — `03_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/03_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_entrepot/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
+| D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
 
 ---
 
@@ -8535,18 +8536,40 @@ D756 est inchangé, les titres des cas se relisent (le cas 1 = le
 véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
 initiale).
 
-**Le cas 3 = la reprise (D857 — amende l'échelle D827/D856).**
-**« renomme-le 03_reprise »** — à l'ouverture du cas Cegid (le
-03/09/2026, avant la collecte des commandes), l'auteur le fixe au
-troisième rang : la maison `usecases/04_cegid_conversion.md` devient
-**`usecases/03_reprise.md`**, le dépôt à venir
-`examples/03_reprise/` ; la collecte des commandes glisse au
+**Le cas 3 = l'entrepôt de données — `03_entrepot` (D857 — amende
+l'échelle D827/D856).** **« renomme-le 03_reprise »**, **« Renomme
+plutôt 03_reprise en 03_dwh »**, puis **« tu as raison : "entrepot"
+est approprié »** — à l'ouverture du cas Cegid (le 03/09/2026,
+avant la collecte des commandes), l'auteur le fixe au troisième
+rang **sous le nom de l'entrepôt qu'il alimente** — le mot de D180
+et de D756, français et sans accent comme `vehicule` et `banque` ;
+le sigle dwh écarté : il porte la connotation décisionnelle que
+D180 tient à distance de l'OLAP, connotation que l'exemple assume
+autrement (D858). La maison `usecases/04_cegid_conversion.md`
+devient **`usecases/03_entrepot.md`**, le dépôt à venir
+`examples/03_entrepot/` ; la collecte des commandes glisse au
 quatrième rang (`04_sales_collection.md` — le titre relu « la
 gestion des commandes industrielles » à son ouverture, annoncée
 pour la suite). L'échelle à sept maisons se relit : 0 l'enquête ·
-1 le véhicule · 2 la banque · **3 la reprise** · 4 les commandes ·
+1 le véhicule · 2 la banque · **3 l'entrepôt** · 4 les commandes ·
 5 les projets · 6 les repas — l'ordre de traitement et l'échelle
 coïncident à nouveau.
+
+**Le cas 3 porte la restitution décisionnelle (D858 — la première
+réponse du cadrage, complète D180).** **« La connotation
+décisionnelle sera portée par cet exemple pour mettre en avant la
+construction de dashboard, de génération de documents, de
+listes… »** — l'entrepôt de D180 avait sa restitution en un mot ;
+le cas 3 la joue pour de vrai : **les surfaces du catalogue (le
+domaine 4) sur les données converties** — les tableaux de bord
+(D554–D558 : le squelette aux widgets, le rafraîchissement), les
+documents générés (D212, D559–D565 : le template, les quatre
+destinations), les listes (D441–D447 : le tri, les filtres,
+l'export). Le cinquième morceau proposé du cas devient **« le
+pilotage et la restitution »** : la couverture et les rejets du
+module `migration` (D666), le rapport aux responsables (D406), et la
+restitution décisionnelle. Les dix autres questions du cadrage
+restent posées.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17460,7 +17483,7 @@ avant la synthèse Q16).
   renumérotée dans la foulée (D857, ci-dessous) ; le cas suivant
   sera « la gestion des commandes industrielles » (relu à son
   ouverture). **Le cadrage posé en questions** dans
-  usecases/04_cegid_conversion.md (devenu 03_reprise.md — D857) : la
+  usecases/04_cegid_conversion.md (devenu 03_entrepot.md — D857) : la
   lecture du registre (la
   date AAAAMMJJ D119/D820 — le premier hook de type d'un exemple ;
   la posture entrepôt D180 ; la reprise D175–D179 ; le mapping
@@ -17489,6 +17512,29 @@ avant la synthèse Q16).
   banque · 3 reprise · 4 commandes · 5 projets · 6 repas ; le dépôt
   à venir : examples/03_reprise/. Les onze questions du cadrage
   restent posées.
+- **2026-09-03 (suite 2) — 03_reprise devient 03_dwh (D857 amendée
+  en place).** « Renomme plutôt 03_reprise en 03_dwh » — la maison
+  prend le nom de l'entrepôt (dwh — data warehouse, la posture 1 de
+  D180), pas celui du geste de conversion qui l'alimente :
+  usecases/03_dwh.md (git mv), le dépôt à venir examples/03_dwh/ ;
+  l'échelle se relit 0 enquête · 1 véhicule · 2 banque · 3 dwh · 4
+  commandes · 5 projets · 6 repas. Le titre du cas relu « l'entrepôt
+  de données : la conversion Cegid PMI ».
+- **2026-09-03 (suite 3) — LE MOT DU CAS : ENTREPOT (D857 amendée
+  en place, D858 — 858 décisions).** « tu as raison : "entrepot"
+  est approprié » — la maison finale **usecases/03_entrepot.md**
+  (git mv depuis 03_dwh, jamais commité ; le mot de D180/D756,
+  français sans accent comme vehicule/banque), le dépôt à venir
+  examples/03_entrepot/ ; l'échelle 0 enquête · 1 véhicule · 2
+  banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas. **Et la
+  première réponse du cadrage (D858)** : « La connotation
+  décisionnelle sera portée par cet exemple pour mettre en avant
+  la construction de dashboard, de génération de documents, de
+  listes… » — la restitution sur les données converties (les
+  tableaux de bord D554–D558, les documents D212/D559–D565, les
+  listes D441–D447) ; le cinquième morceau proposé devient « le
+  pilotage et la restitution ». Les dix autres questions restent
+  posées.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

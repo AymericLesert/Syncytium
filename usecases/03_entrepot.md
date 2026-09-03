@@ -1,14 +1,16 @@
-# Le cas 3 — la reprise : la conversion Cegid PMI vers l'entrepôt
+# Le cas 3 — l'entrepôt de données : la conversion Cegid PMI
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
-*Le cas est ouvert le 03/09/2026 — la maison **`03_reprise`** (D857 :
-« renomme-le 03_reprise » — la conversion Cegid PMI prend le
-troisième rang de l'échelle, la collecte des commandes glisse au
-quatrième). Le cas suivant sera « la gestion des commandes
+*Le cas est ouvert le 03/09/2026 — la maison **`03_entrepot`**
+(D857 : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en
+03_dwh », puis « "entrepot" est approprié » — la conversion Cegid
+PMI prend le troisième rang de l'échelle sous le nom de l'entrepôt
+qu'elle alimente, le mot de D180/D756 ; la collecte des commandes
+glisse au quatrième). Le cas suivant sera « la gestion des commandes
 industrielles » (le cas 4, `04_sales_collection`, relu à son
 ouverture).*
 
@@ -20,6 +22,14 @@ ce qu'elle ne fait pas : les questions du cadrage ci-dessous)*
 **« Un outil de conversion de données (le passage de Cegid PMI à un
 entrepôt de données) et la vérification de règles métiers. »**
 (D756)
+
+**La première réponse du cadrage (D858)** — **« La connotation
+décisionnelle sera portée par cet exemple pour mettre en avant la
+construction de dashboard, de génération de documents, de
+listes… »** : l'exemple met en avant **la restitution** sur les
+données converties — les tableaux de bord (D554–D558), les documents
+générés (D212/D559–D565), les listes (D441–D447) — le volet
+« restitution » de D180 joué pour de vrai.
 
 **Ce que le registre porte déjà du cas** — la lecture avant le
 cadrage :
@@ -69,6 +79,10 @@ cadrage :
   de vrai (D653/D829), la lecture au curseur (D689) ;
 - **la vérification de règles métiers** (D404) sur les données
   converties, le rapport aux responsables (D406) ;
+- **la restitution décisionnelle** (D858) : les tableaux de bord,
+  les documents générés et les listes du catalogue (le domaine 4)
+  sur les données converties — la connotation décisionnelle assumée
+  par l'exemple ;
 - **la première application d'entreprise de l'échelle** :
   l'authentification autre que `none` (D692), les groupes et les
   degrés (D699–D701 — `migrate` au degré `administrator`), le smtp
@@ -89,7 +103,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    (l'API versionnée de l'entrepôt — D11) ? Ce que l'application
    montre (les vues de l'entrepôt, les vues de couverture), ce
    qu'elle ne fait pas (aucune écriture vers Cegid, pas d'OLAP, pas
-   un remplacement de l'ERP — à confirmer).
+   un remplacement de l'ERP — à confirmer). *Première réponse
+   (D858) : l'application montre la restitution décisionnelle — les
+   tableaux de bord, les documents générés, les listes ; les usagers
+   et le reste à préciser.*
 2. **Le lien avec le cas suivant** — « la gestion des commandes
    industrielles » : l'entrepôt l'alimente-t-il (les commandes lues
    dans l'entrepôt, pas dans Cegid) ? Le périmètre du cas 4 en
@@ -172,16 +189,18 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) ;
-5. **le pilotage** — les surfaces du module `migration` (la
-   couverture, les rejets — D666), les vues de l'entrepôt (la
-   consultation, D180), le rapport aux responsables (D406).
+5. **le pilotage et la restitution** — les surfaces du module
+   `migration` (la couverture, les rejets — D666), le rapport aux
+   responsables (D406), et **la restitution décisionnelle** (D858) :
+   les tableaux de bord (D554–D558), les documents générés
+   (D559–D565), les listes (D441–D447) sur l'entrepôt.
 
 ## La forme — le dépôt
 
 *(à écrire morceau par morceau — le protocole D457/D756)*
 
-Le dépôt vivra dans `examples/03_reprise/` — la maison alignée un cas
-= un exemple (D827/D857).
+Le dépôt vivra dans `examples/03_entrepot/` — la maison alignée un
+cas = un exemple (D827/D857).
 
 ## Les manques relevés
 

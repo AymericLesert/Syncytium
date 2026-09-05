@@ -433,6 +433,40 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   lignes de colonnes) — à confirmer par l'auteur, qui connaît le
   statut de ce schéma.
 
+**Les réponses du 05/09 (D867) — R4, R5, R6 :**
+
+- **R4 — le périmètre resserré « pour l'exemple »** : « uniquement
+  les clients et les fournisseurs, pas les commandes, les offres…
+  Ce n'est que pour l'exemple. Si nous prenons en compte tous les
+  cas, cela pourrait être long et fastidieux. Je souhaite juste
+  montrer l'utilisation du module migration pour alimenter un
+  entrepôt de données et disposer de la mécanique pour accéder aux
+  données de l'entrepôt et pour disposer de quelques écrans de
+  consultation. » — **aucun document** (ni commandes, ni offres, ni
+  expéditions, ni réceptions) : les paires `E*`/`L*` décrites (R3)
+  mais sans règle ; **l'ambition du cas** : le module `migration`
+  qui alimente l'entrepôt, la mécanique d'accès aux données (l'IHM
+  et l'API), quelques écrans de consultation — le périmètre de D859
+  s'amende ; *à clarifier : les données techniques (`ARTICLE`,
+  `NOMENC`, `TARIF`) et les stocks (`MVTSTO`, `STDEPLOT`) restent-ils
+  au mapping — l'extraction les porte, et les mouvements portent le
+  sujet des écarts (D863–D864) — ou le mapping se réduit-il aux
+  tiers (`CLIENT`, `FOURNIS`, avec `ADRESSE` et `CONTACT` ?)* ;
+- **R5 — la date au masque** : « une date au masque simplifie la
+  conversion des données et cela peut éviter un hook » — confirmé
+  (D820/D866) ;
+- **R6 — le rognage des blancs = un réglage** : « disposer d'une
+  option dans les settings pour indiquer que les blancs sont
+  rognés et une option sur les champs pour éventuellement
+  surcharger cette option » — **un réglage de la cascade des
+  settings** (D359/D588 : l'application → le module → l'entité) et
+  **une facette du champ** qui le surcharge ; le nom proposé :
+  **`trim`** (`trim: true | false`) — le défaut du socle `false`
+  (rien ne s'altère en silence — l'esprit D311), le cas le pose à
+  `true` aux settings de la version, le champ qui garde ses blancs
+  déclare `trim: false` ; la classe storage l'applique à la lecture
+  (D683) et l'entrée (l'IHM, l'API, l'import) à l'écriture.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -491,7 +525,9 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    domaines — les données techniques (articles, gammes &
    nomenclatures, tarifs), les clients et les fournisseurs, les
    commandes de vente et d'achat, les stocks et les mouvements ; le
-   reste de l'ERP hors périmètre.*
+   reste de l'ERP hors périmètre. Amendée (D867) : aucun document —
+   « uniquement les clients et les fournisseurs » ; les données
+   techniques et les stocks à clarifier.*
 
 **C. La cible**
 

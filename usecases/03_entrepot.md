@@ -283,6 +283,111 @@ cadrage :
   environnements (D342/D617 — le staging sur une copie, la
   production sur la base réelle).
 
+## Les données réelles (D865)
+
+Deux classeurs fournis le 05/09/2026, **hors du dépôt**
+(`Workspace/`, à côté du dépôt — jamais dedans) :
+
+- **le schéma** — `PMI-schema.xlsx` : deux feuilles, *Tables* (330
+  objets : le schéma SQL, le nom, table ou vue, le nombre de
+  colonnes) et *Colonnes* (13 512 colonnes : la position, le type
+  SQL, la longueur, la précision, l'échelle, la nullabilité, le
+  défaut) — **sans les contraintes** (ni clés primaires, ni index,
+  ni clés étrangères) ;
+- **l'extraction anonymisée** — `PMI-extraction-anonymisee.xlsx` :
+  cinq tables (`ARTICLE`, `NOMENC`, `MVTSTO`, `CLIENT`, `FOURNIS`)
+  à cent lignes chacune, la société `100` seule, et la feuille
+  *Anonymisation* (la règle par colonne : les libellés remplacés,
+  les utilisateurs en `USR`, les adresses génériques, les noms en
+  pseudonymes stables, SIRET/TVA/banque masqués, les textes libres
+  vidés). **Ces données sont confidentielles : elles n'entrent
+  jamais dans les commits** — le cas cite la structure, jamais une
+  valeur, même anonymisée ; les analyses de travail vivent dans le
+  scratchpad de session, hors dépôt.
+
+**La lecture du schéma :**
+
+- **la carte des schémas SQL** : `dbo` porte l'ERP historique (246
+  tables, 12 vues, 10 346 colonnes) ; les schémas typés de la
+  16.17 (`Production`, `Stock`, `Project`, `Crm`, `Common`, `adt`
+  l'audit, `Cache`, `idt`) portent les tables neuves aux noms
+  anglais, aux `datetime` vrais, à l'`Id` et au `RowVersion` ;
+  `OData` = 43 vues (2 798 colonnes), la façade de l'API ;
+- **la convention de nommage de `dbo`** — `<XX><K|C|I><T|N|J|S><nom>` :
+  `XX` le préfixe de la table (`AR` article, `CL` client **et**
+  fournisseur — la même structure à 167 colonnes, `NO`
+  nomenclature, `MV` mouvement, `EC`/`LC` entête/ligne de document,
+  `TA` tarif, `RM` remises, `DP` stock par dépôt-lot, `AD` adresse,
+  `CT` contact) ; la troisième lettre : **`K` = colonne de clé**,
+  `C` = colonne, `I` = identifiant hors clé (l'origine du
+  mouvement, le code concaténé) ; la quatrième : **`T` = texte**
+  (`nchar` à largeur fixe — 8 645 colonnes sur 13 512, le
+  remplissage à blancs), **`N` = nombre** (`decimal` 2 900, `int`),
+  **`J` = jour** — `nchar(8)` `AAAAMMJJ`, 552 colonnes : **la date
+  est une chaîne en 16.17, pas un entier** —, **`S` = heure**
+  (`nchar(6)` `HHMMSS`) ;
+- **la société** : la première colonne de clé partout (`ARKTSOC`,
+  `CLKTSOC`, `MVITSOC`… `nchar(3)`) — le multi-sociétés ;
+  l'extraction filtre la société `100` : le `filter:` de D663 sur
+  chaque entité source ;
+- **les dates** : `date` au `mask: "yyyymmdd"` (D820) et `time` au
+  masque `hhmmss` suffisent — **le hook de type de D119 n'est pas
+  nécessaire pour la 16.17** (la question 11 répondue par le réel ;
+  le hook reste l'outil des autres legacies) ; le couple jour +
+  heure (`MVCJMVT` + `MVCSMVT`) se recompose par le constructeur
+  du type (D659) ; les dates vides sont absentes (`None` dans
+  l'échantillon) ;
+- **les clés naturelles** portées par les colonnes `K` :
+  `ARTICLE` (société, code `nchar(18)`, complément `nchar(6)`),
+  `CLIENT`/`FOURNIS` (société, code `nchar(6)`), `NOMENC` (société,
+  produit fini, complément, ligne), `TARIF` (sept colonnes dont la
+  date d'application), `STDEPLOT` (sept colonnes : article, lot,
+  emplacement, dépôt…), `ECOMCLI` (société, numéro, **indice** —
+  la révision de la commande), `LCOMCLI` (+ ligne, `PSF`) ;
+  **`MVTSTO` n'a aucune colonne `K`** : ses cinq colonnes `I`
+  (société, numéro, ligne, indice, composant — l'origine) donnent
+  70 valeurs distinctes sur 100 lignes — **pas de clé naturelle
+  visible** ; les tables `ARTICLE`, `CLIENT`, `FOURNIS`, `TARIF`,
+  `ADRESSE`, `CONTACT` portent un compteur `ROWVER` ;
+- **les familles** : treize genres de documents en paires `E*`/`L*`
+  (91 et 124 colonnes — commandes clients/fournisseurs/internes,
+  demandes, expéditions, offres, réceptions…) ; les tables
+  d'extension `U*` (`UARTICLE`, `UCLIENT`, `UFOURNIS`, `UECOM*`,
+  `ULCOM*` — les champs propres au site) ; **les vues de
+  compatibilité** de `dbo` sur les tables neuves (`NOMENC` ↔
+  `Production.BomRange`, `BATCH` ↔ `Stock.Batch`, `POSTES` ↔
+  `Production.WorkstationMachine`, `CONTROLE` ↔
+  `Production.IdCONTROLE`) — les gammes et les nomenclatures vivent
+  ensemble dans `BomRange` (la nature du composant : matière ou
+  opération).
+
+**Les questions que le réel pose (R1–R6) :**
+
+1. **R1 — la clé de `MVTSTO`.** Le classeur ne porte pas les
+   contraintes : existe-t-il un index unique sur les mouvements ?
+   Sans clé, le mode `relative` est interdit à la règle (la garde
+   D825) — l'identité par l'empreinte (la ligne est son contenu,
+   les doublons comptés) ou une clé composée déclarée sont les
+   deux issues. **Une feuille *Contraintes* (clés primaires, index
+   uniques, clés étrangères) ajoutée au classeur du schéma servirait
+   aussi les dépendances de D648.**
+2. **R2 — la vue ou la table.** Pour `NOMENC`, `BATCH`, `POSTES`,
+   `CONTROLE` : décrire la table neuve (l'`Id`, les `datetime`, le
+   `RowVersion`) et déclarer la vue `ignored`, ou l'inverse (les
+   noms que les outils du site connaissent) ?
+3. **R3 — les vues `OData` et les schémas techniques** (`adt`,
+   `Cache`, `Common`, `Crm`, `idt`, `Project`) : `ignored` en bloc ?
+4. **R4 — les genres de documents** : `ECOMCLI`/`LCOMCLI` et
+   `ECOMFOU`/`LCOMFOU` seuls, ou aussi les offres (`EOFFCLI`), les
+   expéditions (`EEXPCLI`), les réceptions (`ERECFOU`), les
+   commandes internes (`ECOMINT`) ? Et les tables d'extension `U*` ?
+5. **R5 — la date au masque** plutôt qu'au hook de type : la
+   question 11 se referme ainsi, à confirmer.
+6. **R6 — le `nchar`** : le rognage des blancs de fin est un geste
+   de la classe `sqlserver` à la lecture (D683 — la fonction de
+   valeur `read`), pas une règle de mapping à répéter 8 645 fois —
+   à confirmer.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -330,7 +435,9 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    données**. Sans le réel, aucun nom de table Cegid ne s'écrira
    ici : je ne les connais pas de façon fiable, et le cas se
    construit sur le vrai. L'alternative : l'auteur nomme de mémoire
-   un petit périmètre.
+   un petit périmètre. *Soldée (D865) : le schéma entier et cinq
+   tables anonymisées reçus le 05/09 — voir « Les données
+   réelles » ; les contraintes manquent encore (R1).*
 5. **Le périmètre fonctionnel de départ** : les articles (les
    nomenclatures, les gammes — la composition auto-référencée D135),
    les tiers, les commandes clients, les ordres de fabrication, les
@@ -382,7 +489,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
 11. **La date `AAAAMMJJ`** : le hook de type (D119/D820 —
     `hooks/types/`, le premier écrit dans un exemple) est le chemin
     supposé — plutôt qu'un `mask` à la lecture d'une colonne
-    entière (D820 lit du texte). À confirmer.
+    entière (D820 lit du texte). À confirmer. *Répondue par le réel
+    (D865) : en 16.17 la date est une chaîne `nchar(8)` — le
+    `mask: "yyyymmdd"` de D820 suffit, le hook est sans objet
+    ici (R5, à confirmer).*
 
 ## Les morceaux proposés
 

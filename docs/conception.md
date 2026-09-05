@@ -991,6 +991,7 @@ Q58) :
 | D862 | **La complétude et la couverture scindées** (précise D861 — « Ta proposition de scinder le taux de couverture et le taux de complétude me convient et me paraît intéressante ») : sur le schéma, **deux taux** — **la complétude du schéma** : les éléments décrits ou déclarés `ignored` rapportés au schéma réel (cent pour cent quand tout est déclaré ; l'écart = les anomalies — la table ou le champ absent de `source/`, D861) ; **la couverture du schéma** : les éléments migrés rapportés au schéma réel (les ignorés = l'exclusion assumée, affichée à part) ; avec **la couverture des données** (D861 — les lignes intégrées sur les lignes de chaque table), **trois taux** au module `migration` (D666/D668). | Un taux qui compterait les ignorés comme couverts dirait la complétude de la description, pas la couverture — les deux mesures répondent à deux questions. Voir §3.2c. |
 | D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Tranché par D864 : la fenêtre glissante écartée. Voir §3.2c. |
 | D864 | **Les écarts des mouvements de stocks** (le cadrage du cas 3 — précise D863, ouvre un manque du socle) : « Dans le principe, les mouvements de stocks sont immuables, une correction passe par un contre-mouvement. Malheureusement, dans certains cas, des outils "maisons" apportent des ajustements sur la donnée directement pour corriger des défauts de saisie. L'idée est de consulter les écarts. Cela peut représenter une charge de travail pour le serveur conséquent. L'analyse des écarts est un sujet qui doit être couvert par Syncytium. » — **la fenêtre glissante est écartée** (aveugle aux ajustements directs sur les lignes anciennes) : la détection doit être **exhaustive et légère** ; **l'analyse des écarts = un sujet du socle** — deux manques ouverts, **en proposition** : M1 la détection à l'échelle (l'empreinte de la ligne source portée par la provenance D178, la comparaison clé + empreinte avant tout mapping — les nouveaux, les modifiés, les disparus —, la relecture des seuls changés, le pré-contrôle par partition `partition:` sur l'entité source), M2 la consultation et l'analyse (les écarts = des données du module `migration` D666, `immutable:` sur l'entité source — l'écart = une anomalie rapportée D406 —, les surfaces du module et le drill-down vers l'historique D168). | L'arbitrage attendu sur les quatre pièces : l'empreinte, la partition, `immutable:`, les écarts au module. Voir §3.2c. |
+| D865 | **Le réel du cas 3 reçu** (solde la question 4 du cadrage) : deux classeurs **hors du dépôt** — le schéma Cegid PMI 16.17 (`PMI-schema.xlsx` : 330 objets, 13 512 colonnes typées, sans les contraintes) et l'extraction anonymisée (`PMI-extraction-anonymisee.xlsx` : ARTICLE, NOMENC, MVTSTO, CLIENT, FOURNIS × 100 lignes, la société 100, les règles d'anonymisation en feuille) ; **la règle : les données n'entrent jamais dans les commits** (« ces données ne doivent pas être présentes dans les commits... elles sont confidentielles ») — le cas cite la structure, jamais une valeur, les analyses au scratchpad ; **la lecture** : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` (K = clé, T = nchar à blancs, N = decimal/int, **J = jour `nchar(8)` AAAAMMJJ — une chaîne, pas un entier : le `mask` D820 suffit, le hook D119 sans objet ici**, S = heure `nchar(6)`), la société en première colonne de clé (le `filter:` D663), les clés naturelles aux colonnes K (ARTICLE société+code+complément, CLIENT/FOURNIS société+code — la même structure à 167 colonnes, NOMENC, TARIF à la date d'application, STDEPLOT, ECOMCLI à l'indice de révision, LCOMCLI) — **MVTSTO sans colonne K, sans clé naturelle visible**, les familles E*/L* (13 genres de documents), U* (l'extension du site), les vues de compatibilité de `dbo` sur les tables neuves des schémas typés (`NOMENC` ↔ `Production.BomRange`…), OData (43 vues). | Six questions du réel R1–R6 posées (la clé de MVTSTO et une feuille Contraintes, la vue ou la table, OData/techniques ignorés, les genres de documents et les U*, la date au masque, le rognage nchar par la classe). Voir §3.2c. |
 
 ---
 
@@ -8837,6 +8838,69 @@ l'enregistrement D168–D174). **Les quatre pièces à arbitrer** :
 l'empreinte dans la provenance, le pré-contrôle par partition,
 `immutable:` sur l'entité source, les écarts comme entités du
 module `migration`.
+
+**Le réel du cas 3 reçu (D865 — solde la question 4 du cadrage).**
+Le 05/09/2026, deux classeurs déposés **à côté du dépôt, jamais
+dedans** : **le schéma** Cegid PMI 16.17 (`PMI-schema.xlsx` — 330
+objets, 13 512 colonnes avec le type SQL, la longueur, la précision,
+l'échelle, la nullabilité et le défaut ; **sans les contraintes**)
+et **l'extraction anonymisée** (`PMI-extraction-anonymisee.xlsx` —
+`ARTICLE`, `NOMENC`, `MVTSTO`, `CLIENT`, `FOURNIS` à cent lignes,
+la société 100 seule, la feuille *Anonymisation* : les libellés
+remplacés, les utilisateurs en `USR`, les adresses génériques, les
+noms en pseudonymes stables, SIRET/TVA/banque masqués, les textes
+libres vidés). **La règle de l'auteur : « ces données ne doivent
+pas être présentes dans les commits... elles sont
+confidentielles »** — le cas cite la structure, jamais une valeur,
+même anonymisée ; les analyses de travail vivent au scratchpad de
+session. La lecture du réel (le détail dans
+usecases/03_entrepot.md, « Les données réelles ») :
+
+- **la carte des schémas SQL** : `dbo` = l'ERP historique (246
+  tables, 12 vues, 10 346 colonnes) ; les schémas typés de la
+  16.17 (`Production`, `Stock`, `Project`, `Crm`, `Common`, `adt`,
+  `Cache`, `idt`) = les tables neuves aux noms anglais, aux
+  `datetime` vrais, à l'`Id` et au `RowVersion`, avec **des vues de
+  compatibilité dans `dbo`** (`NOMENC` ↔ `Production.BomRange`,
+  `BATCH` ↔ `Stock.Batch`, `POSTES`, `CONTROLE`) ; `OData` = 43 vues,
+  la façade de l'API ;
+- **la convention de nommage** `<XX><K|C|I><T|N|J|S><nom>` : le
+  préfixe de table, **K = colonne de clé** / C = colonne / I =
+  identifiant hors clé, **T = texte `nchar` à largeur fixe** (8 645
+  colonnes — le remplissage à blancs), **N = nombre**, **J = jour
+  en `nchar(8)` `AAAAMMJJ`** (552 colonnes), **S = heure en
+  `nchar(6)`** — **la date de la 16.17 est une chaîne, pas
+  l'entier de D119** : le `mask: "yyyymmdd"` de D820 la lit, le
+  hook de type est sans objet ici (la question 11 se referme par
+  le réel — le hook reste l'outil d'autres legacies) ;
+- **la société** en première colonne de clé partout (`nchar(3)`) —
+  le multi-sociétés, le `filter:` de D663 sur chaque entité
+  source ;
+- **les clés naturelles aux colonnes K** : `ARTICLE` (société,
+  code, complément), `CLIENT`/`FOURNIS` (société, code — la même
+  structure à 167 colonnes), `NOMENC`, `TARIF` (à la date
+  d'application), `STDEPLOT`, `ECOMCLI` (société, numéro,
+  **indice** de révision), `LCOMCLI` ; **`MVTSTO` n'a aucune
+  colonne K** — ses cinq colonnes I (l'origine du mouvement) ne
+  distinguent que 70 lignes sur 100 : **pas de clé naturelle
+  visible** sur la table des millions de lignes ;
+- **les familles** : treize genres de documents en paires `E*`/`L*`,
+  les tables d'extension `U*` du site, les compteurs `ROWVER` sur
+  les référentiels.
+
+**Six questions du réel (R1–R6)** : **R1** la clé de `MVTSTO` — un
+index unique existe-t-il ? sans clé, le mode `relative` est
+interdit à la règle (la garde D825) : l'identité par l'empreinte
+ou une clé composée déclarée ; **une feuille *Contraintes* au
+classeur du schéma** (clés primaires, index uniques, clés
+étrangères) servirait aussi les dépendances de D648 ; **R2** la
+vue ou la table neuve pour `NOMENC`/`BATCH`/`POSTES`/`CONTROLE` ;
+**R3** OData et les schémas techniques `ignored` en bloc ; **R4**
+les genres de documents du périmètre (`ECOMCLI`/`LCOMCLI`,
+`ECOMFOU`/`LCOMFOU` — et les offres, les expéditions, les
+réceptions, les internes ?) et les `U*` ; **R5** la date au masque
+plutôt qu'au hook ; **R6** le rognage des blancs du `nchar` par la
+classe `sqlserver` à la lecture (D683), pas par 8 645 règles.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17912,6 +17976,25 @@ avant la synthèse Q16).
   11 le hook de type de la date ; **(3) puis le morceau 1**
   (l'assise). Neuf commits depuis la #40 sur feature/meta-schema —
   la PR de consolidation sur demande.
+- **2026-09-05 (reprise) — LE RÉEL DU CAS 3 REÇU (D865, 865
+  décisions — la question 4 soldée).** « Voici un fichier EXCEL
+  décrivant la structure de la base de données » puis « un fichier
+  avec des données anonymisées (ces données ne doivent pas être
+  présentes dans les commits... elles sont confidentielles) » —
+  deux classeurs à côté du dépôt, jamais dedans : le schéma 16.17
+  (330 objets, 13 512 colonnes, sans contraintes) et cinq tables
+  anonymisées à cent lignes (ARTICLE, NOMENC, MVTSTO, CLIENT,
+  FOURNIS — la société 100). La lecture : la convention
+  <XX><K|C|I><T|N|J|S>, la date en nchar(8) AAAAMMJJ (le mask D820
+  suffit — le hook D119 sans objet ici), la société en première
+  clé (le filter: D663), les clés aux colonnes K, MVTSTO SANS clé
+  naturelle visible, les familles E*/L* et U*, les vues de
+  compatibilité de dbo sur les schémas typés, OData. Six questions
+  du réel R1–R6 posées (la clé de MVTSTO + une feuille
+  Contraintes, la vue ou la table, OData/techniques ignorés, les
+  genres de documents et les U*, la date au masque, le rognage
+  nchar par la classe). Les quatre pièces de D864 et le mot
+  restent à arbitrer ; les questions 6–10 demeurent.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

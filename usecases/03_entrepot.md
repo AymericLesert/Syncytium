@@ -467,6 +467,56 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   déclare `trim: false` ; la classe storage l'applique à la lecture
   (D683) et l'entrée (l'IHM, l'API, l'import) à l'écriture.
 
+**Les points de précision (D868) — l'analyse itérative**, mot pour
+mot :
+
+> - Le schéma de la source est décrit dans la configuration.
+> - Syncytium compare la structure réelle à la description et note
+>   les écarts au technicien.
+> - Il serait plus facile de laisser Syncytium construire le modèle
+>   à partir d'une analyse du schéma fournie par le connecteur.
+>   Mais, dans le cadre d'une migration, chaque table et chaque
+>   colonne doivent être comprises et analysées par un technicien.
+> - Les écarts ne doivent pas être vus comme des écarts ou des
+>   négligences mais comme des points à creuser… Les écarts sont
+>   présents pour permettre au technicien de savoir où il en est
+>   de son analyse.
+> - La migration est une procédure itérative qui permet d'exploiter
+>   les données justes au fur et à mesure de l'analyse.
+
+La lecture — ce qui se corrige et ce qui se précise :
+
+- **la description est un acte du technicien, jamais une
+  génération** : `read_instance` (D653) sert la comparaison, pas
+  l'écriture — l'ossature engendrée que je proposais (D866) est
+  retirée ; chaque table et chaque colonne décrite l'est parce
+  qu'elle a été comprise ;
+- **le non-décrit = un point à creuser**, pas une anomalie ni une
+  négligence : le mot « anomalie » de D861 se relit — la
+  confrontation au schéma réel (D653) rend au technicien **la liste
+  de ce qui reste à analyser**, son marque-page ; et le mot
+  « écart » se réserve aux données qui bougent après coup (D864 —
+  les mouvements retouchés), pour ne pas confondre les deux ;
+- **la complétude du schéma (D862) = l'avancement de l'analyse** :
+  décrit sur réel, qui monte au fil des itérations (l'historisation
+  du module `migration` D668 en fait la courbe) ; **la couverture**
+  = ce que l'entrepôt prend ;
+- **R3 relue** : « toutes les tables citées en entier » = **chaque
+  table décrite l'est avec toutes ses colonnes**, sans pattern et
+  sans ignorance en bloc — la description **grandit** table par
+  table, elle n'est pas complète au premier jour ; *`ignored`
+  proposé comme la conclusion d'une analyse — « compris et écarté »
+  — qui avance la complétude sans avancer la couverture, distinct
+  du point à creuser ; à confirmer* ;
+- **la migration itérative** : à chaque itération, ce qui est
+  analysé et mappé entre dans l'entrepôt et s'exploite — le
+  versionnement plein de `source/` et `mapping/` (D670 : le bump du
+  build, le statut `beta/`), la couverture historisée (D668) ;
+- **l'exemple montre un état de l'analyse** : les tiers décrits et
+  migrés, le reste du schéma en points à creuser — la question du
+  schéma entier dans le dépôt public se dissout : seules les tables
+  analysées y figurent.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -597,13 +647,13 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    gardent leurs changements de valeur (D859/D411–D413), **les
    validations = les règles métiers** (D404), le `report:` au
    destinataire capable de corriger l'origine (D406/D859) ;
-3. **la source** — `source/` : **le schéma Cegid PMI 16.17 entier,
-   objet par objet, toutes colonnes typées** (D861/D866 —
-   l'ossature engendrée du réel D653, aucun pattern, les
-   dépendances déclarées faute de clés étrangères, les clés aux
-   colonnes K, les normalisations D660, le `filter:` D663 sur la
-   société), **la date au masque** (D820/D866), `MVTSTO` à
-   l'empreinte (en proposition) ;
+3. **la source** — `source/` : **les tables analysées, chacune avec
+   toutes ses colonnes typées** (D861/D866/D868 — l'acte du
+   technicien, aucun pattern, aucune génération ; les dépendances
+   déclarées faute de clés étrangères, les clés aux colonnes K, les
+   normalisations D660, le `filter:` D663 sur la société), **la date
+   au masque** (D820/D867), le reste du schéma **en points à
+   creuser** (D868) ;
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance

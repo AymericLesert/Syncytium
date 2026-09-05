@@ -994,6 +994,7 @@ Q58) :
 | D865 | **Le réel du cas 3 reçu** (solde la question 4 du cadrage) : deux classeurs **hors du dépôt** — le schéma Cegid PMI 16.17 (`PMI-schema.xlsx` : 330 objets, 13 512 colonnes typées, sans les contraintes) et l'extraction anonymisée (`PMI-extraction-anonymisee.xlsx` : ARTICLE, NOMENC, MVTSTO, CLIENT, FOURNIS × 100 lignes, la société 100, les règles d'anonymisation en feuille) ; **la règle : les données n'entrent jamais dans les commits** (« ces données ne doivent pas être présentes dans les commits... elles sont confidentielles ») — le cas cite la structure, jamais une valeur, les analyses au scratchpad ; **la lecture** : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` (K = clé, T = nchar à blancs, N = decimal/int, **J = jour `nchar(8)` AAAAMMJJ — une chaîne, pas un entier : le `mask` D820 suffit, le hook D119 sans objet ici**, S = heure `nchar(6)`), la société en première colonne de clé (le `filter:` D663), les clés naturelles aux colonnes K (ARTICLE société+code+complément, CLIENT/FOURNIS société+code — la même structure à 167 colonnes, NOMENC, TARIF à la date d'application, STDEPLOT, ECOMCLI à l'indice de révision, LCOMCLI) — **MVTSTO sans colonne K, sans clé naturelle visible**, les familles E*/L* (13 genres de documents), U* (l'extension du site), les vues de compatibilité de `dbo` sur les tables neuves des schémas typés (`NOMENC` ↔ `Production.BomRange`…), OData (43 vues). | Six questions du réel R1–R6 posées (la clé de MVTSTO et une feuille Contraintes, la vue ou la table, OData/techniques ignorés, les genres de documents et les U*, la date au masque, le rognage nchar par la classe). Voir §3.2c. |
 | D866 | **Les réponses du réel — R1, R2, R3 et la date** (précise D865, amende la lecture de D119) : **la date** — « j'avais indiqué un entier. Une chaîne de caractères composée uniquement de numérique peut également être vue comme un entier » : la chaîne de chiffres et l'entier sont la même chose vue du masque, `mask: "yyyymmdd"` (D820) lit l'une comme l'autre, le hook de type reste l'outil des formats que le masque ne dit pas (R5 refermée) ; **R1** — « les clés d'une table dans PMI contiennent un "K" en 3ème position. Et la base de données ne contient aucune clé étrangère » : les colonnes K = l'`identity:` de l'entité source (D357), **les dépendances se déclarent dans `source/`** (D396/D648/D654 — le schéma ne les porte pas), **`MVTSTO` sans clé → l'identité par l'empreinte en proposition** (`key: connector.fingerprint` — l'information système D849, le condensé natif de la pièce 1 de D864 ; la garde D825 satisfaite, le modifié = un disparu + un nouveau) ; **R2** — « la vue NOMENC doit être vue comme une table » ; **R3** — « pas d'ignorance en bloc. Toutes les tables doivent être citées en entier (pas d'utilisation de patterns) » : les 330 objets décrits avec toutes leurs colonnes typées, `reprise.yml` sans regex (D806 licite ailleurs, refusé ici), l'ossature engendrée du réel (D653) ; la couverture se relit — la complétude = décrit / absent, la couverture = migré / décrit sans règle. | À trancher : l'état « ignoré » conservé pour l'exclusion explicite ou l'exclusion lue dans l'absence de règle ; le schéma entier (330 fichiers engendrés) dans le dépôt public ; `MVTSTO` à l'empreinte. Voir §3.2c. |
 | D867 | **Les réponses du réel — R4, R5, R6** (amende le périmètre de D859, confirme D820, ouvre un réglage du socle) : **R4** — « uniquement les clients et les fournisseurs, pas les commandes, les offres… Ce n'est que pour l'exemple. Si nous prenons en compte tous les cas, cela pourrait être long et fastidieux. Je souhaite juste montrer l'utilisation du module migration pour alimenter un entrepôt de données et disposer de la mécanique pour accéder aux données de l'entrepôt et pour disposer de quelques écrans de consultation » — **aucun document au mapping** (les paires E*/L* décrites, sans règle), l'ambition du cas resserrée : le module `migration` qui alimente, la mécanique d'accès (l'IHM, l'API), quelques écrans de consultation ; **R5** — « une date au masque simplifie la conversion des données et cela peut éviter un hook » (D820 confirmé) ; **R6** — « disposer d'une option dans les settings pour indiquer que les blancs sont rognés et une option sur les champs pour éventuellement surcharger cette option » : **un réglage de la cascade des settings (D359/D588) + une facette du champ** — le nom proposé `trim: true \| false`, le défaut du socle `false` (rien en silence, D311), le cas à `true`, appliqué par la classe storage à la lecture (D683) et par l'entrée à l'écriture. | À clarifier : les données techniques (ARTICLE, NOMENC, TARIF) et les stocks (MVTSTO, STDEPLOT) restent-ils au mapping, ou les tiers seuls (CLIENT, FOURNIS — ADRESSE, CONTACT ?). Voir §3.2c. |
+| D868 | **L'analyse itérative — la description de la source est un acte du technicien** (précise D653/D861–D862/D866, retire l'ossature engendrée) : « Le schéma de la source est décrit dans la configuration. Syncytium compare la structure réelle à la description et note les écarts au technicien. Il serait plus facile de laisser Syncytium construire le modèle à partir d'une analyse du schéma fournie par le connecteur. Mais, dans le cadre d'une migration, chaque table et chaque colonne doivent être comprises et analysées par un technicien. Les écarts ne doivent pas être vus comme des écarts ou des négligences mais comme des points à creuser… Les écarts sont présents pour permettre au technicien de savoir où il en est de son analyse. La migration est une procédure itérative qui permet d'exploiter les données justes au fur et à mesure de l'analyse. » — **`read_instance` sert la comparaison, jamais l'écriture** ; **le non-décrit = un point à creuser** (ni anomalie — D861 relu — ni écart — le mot réservé aux données retouchées, D864) : la liste rendue au technicien est son marque-page ; **la complétude (D862) = l'avancement de l'analyse**, la couverture = ce que l'entrepôt prend ; **R3 relue** : chaque table décrite l'est en entier, sans pattern ni ignorance en bloc — la description grandit table par table ; **la migration itérative** : l'analysé et mappé s'exploite à chaque itération (D670, D668) ; l'exemple montre un état de l'analyse (les tiers décrits, le reste à creuser) — la question du schéma entier au dépôt public se dissout. | En proposition : `ignored` = la conclusion d'une analyse (« compris et écarté »), qui avance la complétude sans la couverture, distinct du point à creuser. Voir §3.2c. |
 
 ---
 
@@ -8979,6 +8980,53 @@ de D311), le cas le pose à `true` aux settings de la version, le
 champ qui garde ses blancs déclare `trim: false` ; la classe storage
 l'applique à la lecture (la fonction de valeur `read` — D683),
 l'entrée (l'IHM, l'API, l'import) à l'écriture.
+
+**L'analyse itérative — la description de la source est un acte du
+technicien (D868 — précise D653, D861–D862 et D866 ; retire
+l'ossature engendrée).** Les points de précision de l'auteur : **« Le
+schéma de la source est décrit dans la configuration. Syncytium
+compare la structure réelle à la description et note les écarts au
+technicien. Il serait plus facile de laisser Syncytium construire le
+modèle à partir d'une analyse du schéma fournie par le connecteur.
+Mais, dans le cadre d'une migration, chaque table et chaque colonne
+doivent être comprises et analysées par un technicien. Les écarts ne
+doivent pas être vus comme des écarts ou des négligences mais comme
+des points à creuser… Les écarts sont présents pour permettre au
+technicien de savoir où il en est de son analyse. La migration est
+une procédure itérative qui permet d'exploiter les données justes
+au fur et à mesure de l'analyse. »** — ce qui se corrige et ce qui
+se précise :
+
+- **la description est un acte du technicien, jamais une
+  génération** : `read_instance` (D653) sert la comparaison, pas
+  l'écriture — l'ossature engendrée proposée sous D866 est
+  retirée ; une table décrite est une table comprise ;
+- **le non-décrit = un point à creuser** : ni une anomalie (le mot
+  de D861 se relit) ni une négligence ; la confrontation au schéma
+  réel rend au technicien **la liste de ce qui reste à analyser** —
+  son marque-page ; le mot « écart » se réserve aux données qui
+  bougent après coup (D864), pour ne pas confondre l'avancement de
+  l'analyse et la vie des données ;
+- **la complétude du schéma (D862) = l'avancement de l'analyse**
+  (décrit sur réel, qui monte au fil des itérations — la courbe de
+  l'historisation D668) ; **la couverture** = ce que l'entrepôt
+  prend ;
+- **R3 relue** : « toutes les tables citées en entier » = chaque
+  table décrite l'est avec toutes ses colonnes, sans pattern et
+  sans ignorance en bloc — **la description grandit table par
+  table**, elle n'est pas complète au premier jour ; **en
+  proposition : `ignored` = la conclusion d'une analyse** (« compris
+  et écarté » — D176 : « on peut ignorer, jamais oublier »), qui
+  avance la complétude sans avancer la couverture, distinct du
+  point à creuser (l'absent) ;
+- **la migration itérative** : à chaque itération, l'analysé et
+  mappé entre dans l'entrepôt et s'exploite — le versionnement
+  plein de `source/` et `mapping/` (D670 : le bump du build, le
+  statut `beta/`), la couverture historisée (D668) ;
+- **l'exemple montre un état de l'analyse** : les tiers décrits et
+  migrés, le reste du schéma en points à creuser — la question du
+  schéma entier dans le dépôt public se dissout, seules les tables
+  analysées y figurent.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18102,6 +18150,22 @@ avant la synthèse Q16).
   l'état ignoré, le schéma entier dans le dépôt public, MVTSTO à
   l'empreinte, le nom trim, les quatre pièces de D864 et le mot,
   les questions 6–10.
+- **2026-09-05 (suite 3) — L'ANALYSE ITÉRATIVE (D868, 868
+  décisions).** Les points de précision de l'auteur : la source
+  décrite dans la configuration, Syncytium compare le réel à la
+  description et note les écarts au technicien, **jamais de
+  génération** (« chaque table et chaque colonne doivent être
+  comprises et analysées par un technicien » — l'ossature engendrée
+  de D866 retirée), **les non-décrits = des points à creuser** (le
+  marque-page du technicien — ni anomalie D861 ni écart D864), la
+  migration itérative (l'analysé et mappé s'exploite au fur et à
+  mesure). La complétude = l'avancement de l'analyse ; R3 relue
+  (chaque table décrite en entier, la description grandit) ;
+  l'exemple = un état de l'analyse (les tiers décrits, le reste à
+  creuser) — la question du schéma entier au dépôt dissoute.
+  Proposé : ignored = « compris et écarté ». Restent : le périmètre
+  exact, MVTSTO à l'empreinte, le nom trim, les quatre pièces de
+  D864 et le mot, les questions 6–10.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -995,6 +995,8 @@ Q58) :
 | D866 | **Les réponses du réel — R1, R2, R3 et la date** (précise D865, amende la lecture de D119) : **la date** — « j'avais indiqué un entier. Une chaîne de caractères composée uniquement de numérique peut également être vue comme un entier » : la chaîne de chiffres et l'entier sont la même chose vue du masque, `mask: "yyyymmdd"` (D820) lit l'une comme l'autre, le hook de type reste l'outil des formats que le masque ne dit pas (R5 refermée) ; **R1** — « les clés d'une table dans PMI contiennent un "K" en 3ème position. Et la base de données ne contient aucune clé étrangère » : les colonnes K = l'`identity:` de l'entité source (D357), **les dépendances se déclarent dans `source/`** (D396/D648/D654 — le schéma ne les porte pas), **`MVTSTO` sans clé → l'identité par l'empreinte en proposition** (`key: connector.fingerprint` — l'information système D849, le condensé natif de la pièce 1 de D864 ; la garde D825 satisfaite, le modifié = un disparu + un nouveau) ; **R2** — « la vue NOMENC doit être vue comme une table » ; **R3** — « pas d'ignorance en bloc. Toutes les tables doivent être citées en entier (pas d'utilisation de patterns) » : les 330 objets décrits avec toutes leurs colonnes typées, `reprise.yml` sans regex (D806 licite ailleurs, refusé ici), l'ossature engendrée du réel (D653) ; la couverture se relit — la complétude = décrit / absent, la couverture = migré / décrit sans règle. | À trancher : l'état « ignoré » conservé pour l'exclusion explicite ou l'exclusion lue dans l'absence de règle ; le schéma entier (330 fichiers engendrés) dans le dépôt public ; `MVTSTO` à l'empreinte. Voir §3.2c. |
 | D867 | **Les réponses du réel — R4, R5, R6** (amende le périmètre de D859, confirme D820, ouvre un réglage du socle) : **R4** — « uniquement les clients et les fournisseurs, pas les commandes, les offres… Ce n'est que pour l'exemple. Si nous prenons en compte tous les cas, cela pourrait être long et fastidieux. Je souhaite juste montrer l'utilisation du module migration pour alimenter un entrepôt de données et disposer de la mécanique pour accéder aux données de l'entrepôt et pour disposer de quelques écrans de consultation » — **aucun document au mapping** (les paires E*/L* décrites, sans règle), l'ambition du cas resserrée : le module `migration` qui alimente, la mécanique d'accès (l'IHM, l'API), quelques écrans de consultation ; **R5** — « une date au masque simplifie la conversion des données et cela peut éviter un hook » (D820 confirmé) ; **R6** — « disposer d'une option dans les settings pour indiquer que les blancs sont rognés et une option sur les champs pour éventuellement surcharger cette option » : **un réglage de la cascade des settings (D359/D588) + une facette du champ** — le nom proposé `trim: true \| false`, le défaut du socle `false` (rien en silence, D311), le cas à `true`, appliqué par la classe storage à la lecture (D683) et par l'entrée à l'écriture. | À clarifier : les données techniques (ARTICLE, NOMENC, TARIF) et les stocks (MVTSTO, STDEPLOT) restent-ils au mapping, ou les tiers seuls (CLIENT, FOURNIS — ADRESSE, CONTACT ?). Voir §3.2c. |
 | D868 | **L'analyse itérative — la description de la source est un acte du technicien** (précise D653/D861–D862/D866, retire l'ossature engendrée) : « Le schéma de la source est décrit dans la configuration. Syncytium compare la structure réelle à la description et note les écarts au technicien. Il serait plus facile de laisser Syncytium construire le modèle à partir d'une analyse du schéma fournie par le connecteur. Mais, dans le cadre d'une migration, chaque table et chaque colonne doivent être comprises et analysées par un technicien. Les écarts ne doivent pas être vus comme des écarts ou des négligences mais comme des points à creuser… Les écarts sont présents pour permettre au technicien de savoir où il en est de son analyse. La migration est une procédure itérative qui permet d'exploiter les données justes au fur et à mesure de l'analyse. » — **`read_instance` sert la comparaison, jamais l'écriture** ; **le non-décrit = un point à creuser** (ni anomalie — D861 relu — ni écart — le mot réservé aux données retouchées, D864) : la liste rendue au technicien est son marque-page ; **la complétude (D862) = l'avancement de l'analyse**, la couverture = ce que l'entrepôt prend ; **R3 relue** : chaque table décrite l'est en entier, sans pattern ni ignorance en bloc — la description grandit table par table ; **la migration itérative** : l'analysé et mappé s'exploite à chaque itération (D670, D668) ; l'exemple montre un état de l'analyse (les tiers décrits, le reste à creuser) — la question du schéma entier au dépôt public se dissout. | En proposition : `ignored` = la conclusion d'une analyse (« compris et écarté »), qui avance la complétude sans la couverture, distinct du point à creuser. Voir §3.2c. |
+| D869 | **La source décrite porte ses clés et ses références ; les trois états ; le périmètre ; le jeu de données** (revoit R1, précise D861–D862/D868, confirme D859/D867) : « comme nous devons décrire le schéma d'origine, nous décrivons les champs, les clés et les références externes (sous forme de liste ou d'association). Donc, peu importe la codification ou la description des contraintes du schéma. La table MVTSTO dispose bien de clés (avec un I à la place de K) » — `identity:` (D357), le raccourci de référence (D396), `list of`/`association with` (D399–D401) **déclarés par le technicien dans `source/`**, le schéma réel n'a pas à les porter (la feuille Contraintes sans objet), **l'empreinte de MVTSTO retirée** (sa clé = ses colonnes I ; l'`identity:` exacte à l'analyse — l'échantillon : 70/100 sur les cinq I, 100 avec l'article, la date, l'heure) ; **les trois états migré / ignoré / non défini** aux deux grains : « la migration va référencer les tables migrées et quelques tables à ignorer, pour l'exemple. Les autres tables apparaîtront en "non défini". Toutes les colonnes ne seront pas non plus décrites pour les faire apparaître comme "non défini" » — `ignored` = compris et écarté, non défini = le point à creuser ; **le périmètre** : « le périmètre comprend bien les tables que j'avais initialement définies » — les données techniques, les tiers, les stocks et les mouvements (les commandes sous la réserve de R4, à confirmer) ; **le jeu de données** : « les données ne sont pas présentes dans l'extraction, c'est volontaire. Par contre, pour les besoins de l'exemple, nous construirons le jeu de données que nous pourrions publier sans risque » — l'exemple portera un jeu construit, publiable ; l'extraction reste hors dépôt. | Les pièces de D864 en réflexion ; la cible (la question 6) pas encore abordée. Voir §3.2c. |
+| D870 | **`normalize:` — la normalisation à la frontière par une fonction** (remplace le `trim` proposé sous D867, un réglage du socle) : « la propriété "trim" sur les chaînes de caractères répond à un besoin unique. Je verrai plutôt une option "normalize" qui fasse référence à une fonction de transformation qui, elle, peut être définie comme un hook. Dans notre cas, "trim" sera une fonction fournie par Syncytium (normalize: trim) » — `normalize: <fonction>` dans la cascade des settings (D359/D588 : l'application → le module → l'entité) et en facette du champ qui la surcharge ; la fonction du catalogue (D570–D601 — `trim`, celle de D660) ou d'un hook de fonction (D432/D592) ; appliquée par la classe storage à la lecture (D683) et par l'entrée à l'écriture ; le cas : `normalize: trim` aux settings de la version. | Le voisin de vocabulaire : `searchable: normalized` (D367) est un mode de recherche, `normalize:` une transformation. Voir §3.2c. |
 
 ---
 
@@ -9027,6 +9029,68 @@ se précise :
   migrés, le reste du schéma en points à creuser — la question du
   schéma entier dans le dépôt public se dissout, seules les tables
   analysées y figurent.
+
+**La source décrite porte ses clés et ses références — les trois
+états, le périmètre, le jeu de données (D869 — revoit R1, précise
+D861–D862 et D868, confirme D859 et D867).** **« Pour en revenir au
+R1, comme nous devons décrire le schéma d'origine, nous décrivons
+les champs, les clés et les références externes (sous forme de
+liste ou d'association). Donc, peu importe la codification ou la
+description des contraintes du schéma. La table MVTSTO dispose
+bien de clés (avec un I à la place de K). Dans cet exemple, nous
+voyons que les clés n'ont pas un nommage unique ;-) »** — `source/`
+parle la grammaire du modèle (D652) jusqu'au bout : `identity:`
+(D357) pour la clé, le raccourci de référence (D396), `list of` et
+`association with` (D399–D401) pour les dépendances — **le
+technicien les déclare, le schéma réel n'a pas à les porter** ; les
+contraintes SQL et la feuille *Contraintes* que je demandais sont
+sans objet ; **`MVTSTO` a sa clé, ses colonnes `I`** — l'empreinte
+proposée sous D866 est retirée (l'échantillon donne 70 valeurs
+distinctes sur 100 pour les cinq `I` seules, 100 avec l'article, la
+date et l'heure : l'`identity:` exacte se fixera à l'analyse de la
+table). **Les trois états** : **« La migration va référencer les
+tables migrées et quelques tables à ignorer, pour l'exemple. Les
+autres tables apparaîtront en "non défini". Toutes les colonnes ne
+seront pas non plus décrites pour les faire apparaître comme "non
+défini". »** — **migré / ignoré / non défini**, aux deux grains (la
+table, la colonne) ; `ignored` = « compris et écarté » (la
+proposition de D868 reçue par l'usage), **« non défini » = le point
+à creuser** ; l'exemple montre les trois, et des colonnes non
+définies dans des tables décrites. **Le périmètre** : **« Le
+périmètre comprend bien les tables que j'avais initialement
+définies. »** — les données techniques (`ARTICLE`, `NOMENC`,
+`TARIF`), les tiers (`CLIENT`, `FOURNIS`), les stocks et les
+mouvements (`MVTSTO`, `STDEPLOT`) ; les commandes de D859 restent
+sous la réserve de R4 (« pas les commandes ») — à confirmer d'un
+mot. **Le jeu de données** : **« Les données ne sont pas présentes
+dans l'extraction, c'est volontaire. Par contre, pour les besoins
+de l'exemple, nous construirons le jeu de données que nous
+pourrions publier sans risque. »** — l'extraction anonymisée reste
+hors dépôt ; l'exemple portera **un jeu de données construit,
+publiable**, composé au morceau de la source sur la structure
+réelle. En attente : les quatre pièces de D864 (« j'ai besoin d'un
+peu plus de réflexion ») ; la cible : « nous ne l'avons pas encore
+abordée » — la question 6 s'ouvre ensuite.
+
+**`normalize:` — la normalisation à la frontière par une fonction
+(D870 — remplace le `trim` proposé sous D867).** **« La propriété
+"trim" sur les chaînes de caractères répond à un besoin unique. Je
+verrai plutôt une option "normalize" qui fasse référence à une
+fonction de transformation qui, elle, peut être définie comme un
+hook. Dans notre cas, "trim" sera une fonction fournie par
+Syncytium (normalize: trim). »** — le réglage du socle prend sa
+forme générale : **`normalize: <fonction>`** dans la cascade des
+settings (D359/D588 : l'application → le module → l'entité) et **en
+facette du champ** qui la surcharge ; la fonction vient **du
+catalogue** (D570–D601 — `trim` en fait partie, D660 l'employait
+déjà dans `upper(trim(city_raw))`) **ou d'un hook de fonction**
+(D432/D592 — la fonction pure, le graphe acyclique) ; la classe
+storage l'applique à la lecture (la fonction de valeur `read`,
+D683), l'entrée (l'IHM, l'API, l'import) à l'écriture ; le cas pose
+`normalize: trim` aux settings de la version. Le voisin de
+vocabulaire est noté : `searchable: normalized` (D367) est un mode
+de recherche, `normalize:` une transformation — deux étages, deux
+sens distincts.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18166,6 +18230,24 @@ avant la synthèse Q16).
   Proposé : ignored = « compris et écarté ». Restent : le périmètre
   exact, MVTSTO à l'empreinte, le nom trim, les quatre pièces de
   D864 et le mot, les questions 6–10.
+- **2026-09-05 (suite 4) — R1 REVUE, LES TROIS ÉTATS, NORMALIZE, LE
+  PÉRIMÈTRE, LE JEU DE DONNÉES (D869–D870, 870 décisions).** « Nous
+  décrivons les champs, les clés et les références externes (sous
+  forme de liste ou d'association). Donc, peu importe la
+  codification ou la description des contraintes du schéma. La
+  table MVTSTO dispose bien de clés (avec un I à la place de K) » —
+  identity:, le raccourci de référence, list of/association with
+  déclarés par le technicien dans source/ ; l'empreinte de MVTSTO
+  retirée, la feuille Contraintes sans objet. Les trois états
+  **migré / ignoré / non défini** aux deux grains (« quelques tables
+  à ignorer, pour l'exemple ; les autres en "non défini" ; des
+  colonnes non décrites aussi »). **normalize: <fonction>** (D870)
+  remplace trim — la cascade des settings + la facette du champ,
+  la fonction du catalogue ou d'un hook, `normalize: trim` ici. Le
+  périmètre confirmé (les données techniques, les tiers, les
+  stocks — les commandes sous la réserve de R4, à confirmer) ; le
+  jeu de données de l'exemple sera construit, publiable. Les
+  pièces de D864 en réflexion ; la cible pas encore abordée.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

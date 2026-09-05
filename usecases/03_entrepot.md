@@ -517,6 +517,65 @@ La lecture — ce qui se corrige et ce qui se précise :
   schéma entier dans le dépôt public se dissout : seules les tables
   analysées y figurent.
 
+**Les arbitrages du 05/09 (D869–D870) — R1 revue, les trois états,
+`normalize`, le périmètre, le jeu de données :**
+
+- **R1 revue — la description porte les clés et les références**
+  (D869) : « comme nous devons décrire le schéma d'origine, nous
+  décrivons les champs, les clés et les références externes (sous
+  forme de liste ou d'association). Donc, peu importe la
+  codification ou la description des contraintes du schéma. La
+  table MVTSTO dispose bien de clés (avec un I à la place de K).
+  Dans cet exemple, nous voyons que les clés n'ont pas un nommage
+  unique ;-) » — `source/` parle la grammaire du modèle (D652) :
+  `identity:` (D357) pour la clé, le raccourci de référence (D396),
+  `list of` et `association with` (D399–D401) pour les dépendances
+  — **le technicien les déclare, le schéma réel n'a pas à les
+  porter** (les contraintes SQL et la feuille *Contraintes*
+  deviennent sans objet) ; **`MVTSTO` a sa clé : ses colonnes `I`**
+  — l'empreinte proposée sous D866 est retirée ; *l'échantillon
+  donne 70 valeurs distinctes sur 100 pour les cinq `I` seules, 100
+  avec l'article, la date et l'heure : l'`identity:` exacte se
+  fixera à l'analyse de la table* ;
+- **les trois états** (D869) : « la migration va référencer les
+  tables migrées et quelques tables à ignorer, pour l'exemple. Les
+  autres tables apparaîtront en "non défini". Toutes les colonnes
+  ne seront pas non plus décrites pour les faire apparaître comme
+  "non défini" » — **migré / ignoré / non défini**, aux deux grains
+  (la table, la colonne) ; `ignored` = « compris et écarté » (la
+  proposition D868 reçue par l'usage), **« non défini » = le point à
+  creuser** ; l'exemple montre les trois, et des colonnes non
+  définies dans des tables décrites ;
+- **`normalize:` remplace `trim`** (D870) : « la propriété "trim"
+  sur les chaînes de caractères répond à un besoin unique. Je
+  verrai plutôt une option "normalize" qui fasse référence à une
+  fonction de transformation qui, elle, peut être définie comme un
+  hook. Dans notre cas, "trim" sera une fonction fournie par
+  Syncytium (normalize: trim) » — **la normalisation à la frontière
+  par une fonction** : `normalize: <fonction>` dans la cascade des
+  settings (D359/D588) et en facette du champ qui la surcharge ; la
+  fonction vient du catalogue (D570–D601 — `trim` en fait partie,
+  D660 l'employait) ou d'un hook de fonction (D432/D592) ; le cas :
+  `normalize: trim` aux settings de la version ; le voisin de
+  vocabulaire noté : `searchable: normalized` (D367) est un mode de
+  recherche, `normalize:` une transformation ;
+- **le périmètre confirmé** (D869) : « le périmètre comprend bien
+  les tables que j'avais initialement définies » — les données
+  techniques (`ARTICLE`, `NOMENC`, `TARIF`), les tiers (`CLIENT`,
+  `FOURNIS`), les stocks et les mouvements (`MVTSTO`, `STDEPLOT`) ;
+  *les commandes de D859 sous la réserve de R4 (« pas les
+  commandes ») — à confirmer d'un mot* ;
+- **le jeu de données construit** (D869) : « les données ne sont
+  pas présentes dans l'extraction, c'est volontaire. Par contre,
+  pour les besoins de l'exemple, nous construirons le jeu de
+  données que nous pourrions publier sans risque » — l'extraction
+  anonymisée reste hors dépôt ; **l'exemple portera un jeu de
+  données construit, publiable** (à composer au morceau de la
+  source, sur la structure réelle) ;
+- **en attente** : les quatre pièces de D864 (« j'ai besoin d'un peu
+  plus de réflexion ») ; **la cible** : « nous ne l'avons pas encore
+  abordée » — la question 6 s'ouvre ensuite.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -576,8 +635,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    nomenclatures, tarifs), les clients et les fournisseurs, les
    commandes de vente et d'achat, les stocks et les mouvements ; le
    reste de l'ERP hors périmètre. Amendée (D867) : aucun document —
-   « uniquement les clients et les fournisseurs » ; les données
-   techniques et les stocks à clarifier.*
+   « uniquement les clients et les fournisseurs » ; confirmée
+   (D869) : les données techniques et les stocks restent, « le
+   périmètre comprend bien les tables initialement définies » — les
+   commandes sous la réserve de R4, à confirmer.*
 
 **C. La cible**
 

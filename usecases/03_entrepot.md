@@ -388,6 +388,51 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
    valeur `read`), pas une règle de mapping à répéter 8 645 fois —
    à confirmer.
 
+**Les réponses du 05/09 (D866) — R1, R2, R3 et la date de D119 :**
+
+- **la date de D119 tient** : « j'avais indiqué un entier. Une
+  chaîne de caractères composée uniquement de numérique peut
+  également être vue comme un entier » — l'exemple fondateur n'est
+  pas démenti par la 16.17 : la chaîne de chiffres et l'entier sont
+  la même chose vue du masque ; **le `mask: "yyyymmdd"` (D820) lit
+  l'une comme l'autre** (l'entier au masque — D370), le hook de
+  type reste l'outil des formats que le masque ne dit pas (**R5
+  refermée**) ;
+- **R1 — les clés** : « les clés d'une table dans PMI contiennent
+  un "K" en 3ème position. Et la base de données ne contient
+  aucune clé étrangère » — la convention fait foi : **les colonnes
+  K = la clé** (`identity:` de l'entité source, D357) ; **aucune
+  clé étrangère** : les dépendances de D648 ne se lisent pas dans
+  le schéma, **elles se déclarent dans `source/`** (le raccourci
+  de référence `code_article: article.code` — D396, la jointure par
+  la clé D654) ; **`MVTSTO` n'a pas de clé** — la conséquence, en
+  proposition : **l'identité par l'empreinte** — `key:
+  connector.fingerprint` sur la règle (l'information système du
+  connecteur, le patron D849 : la ligne est son contenu, le
+  condensé calculé en natif par la classe — la pièce 1 de D864) ;
+  la garde D825 est satisfaite, le mode `relative` admis ; une
+  ligne modifiée par un outil maison = une disparue + une nouvelle,
+  l'écart d'une entité en ajout seul (M2) ; les doublons stricts
+  comptés par la migration ;
+- **R2 — la vue `NOMENC`** : « doit être vue comme une table » —
+  l'entité source `NOMENC` décrite et migrée comme une table ;
+  `Production.BomRange`, comme tout le reste, décrite en entier ;
+- **R3 — pas d'ignorance en bloc** : « toutes les tables doivent
+  être citées en entier (pas d'utilisation de patterns) » — chaque
+  objet du schéma (les 330, vues `OData` et schémas techniques
+  compris) décrit **avec toutes ses colonnes typées** ;
+  `reprise.yml` liste ses fichiers **un par un**, sans regex (le
+  pattern D806 reste licite ailleurs, l'auteur le refuse ici) ;
+  l'ossature engendrée depuis le schéma réel (D653 — le rôle de
+  `read_instance`), le technicien la raffine ; **la taxonomie de la
+  couverture s'ajuste** (D861–D862) : la complétude = décrit /
+  absent, la couverture = migré / décrit sans règle — *l'état
+  « ignoré » : conservé pour une exclusion explicite, ou l'exclusion
+  se lit-elle dans l'absence de règle ? à trancher* ; **le schéma
+  entier dans le dépôt public** (330 fichiers engendrés, 13 512
+  lignes de colonnes) — à confirmer par l'auteur, qui connaît le
+  statut de ce schéma.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -492,7 +537,8 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
     entière (D820 lit du texte). À confirmer. *Répondue par le réel
     (D865) : en 16.17 la date est une chaîne `nchar(8)` — le
     `mask: "yyyymmdd"` de D820 suffit, le hook est sans objet
-    ici (R5, à confirmer).*
+    ici (R5). Refermée (D866) : la chaîne de chiffres et l'entier
+    de D119 sont la même chose vue du masque.*
 
 ## Les morceaux proposés
 
@@ -515,10 +561,13 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    gardent leurs changements de valeur (D859/D411–D413), **les
    validations = les règles métiers** (D404), le `report:` au
    destinataire capable de corriger l'origine (D406/D859) ;
-3. **la source** — `source/` : **le schéma Cegid PMI 16.17 entier**
-   décrit dans la grammaire (D861 — l'ossature `read_instance`
-   D653, le hors-périmètre `ignored` D657, les normalisations D660,
-   le `filter:` D663), **le hook de type de la date `AAAAMMJJ`** ;
+3. **la source** — `source/` : **le schéma Cegid PMI 16.17 entier,
+   objet par objet, toutes colonnes typées** (D861/D866 —
+   l'ossature engendrée du réel D653, aucun pattern, les
+   dépendances déclarées faute de clés étrangères, les clés aux
+   colonnes K, les normalisations D660, le `filter:` D663 sur la
+   société), **la date au masque** (D820/D866), `MVTSTO` à
+   l'empreinte (en proposition) ;
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance

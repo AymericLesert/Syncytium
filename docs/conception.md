@@ -992,6 +992,7 @@ Q58) :
 | D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Tranché par D864 : la fenêtre glissante écartée. Voir §3.2c. |
 | D864 | **Les écarts des mouvements de stocks** (le cadrage du cas 3 — précise D863, ouvre un manque du socle) : « Dans le principe, les mouvements de stocks sont immuables, une correction passe par un contre-mouvement. Malheureusement, dans certains cas, des outils "maisons" apportent des ajustements sur la donnée directement pour corriger des défauts de saisie. L'idée est de consulter les écarts. Cela peut représenter une charge de travail pour le serveur conséquent. L'analyse des écarts est un sujet qui doit être couvert par Syncytium. » — **la fenêtre glissante est écartée** (aveugle aux ajustements directs sur les lignes anciennes) : la détection doit être **exhaustive et légère** ; **l'analyse des écarts = un sujet du socle** — deux manques ouverts, **en proposition** : M1 la détection à l'échelle (l'empreinte de la ligne source portée par la provenance D178, la comparaison clé + empreinte avant tout mapping — les nouveaux, les modifiés, les disparus —, la relecture des seuls changés, le pré-contrôle par partition `partition:` sur l'entité source), M2 la consultation et l'analyse (les écarts = des données du module `migration` D666, `immutable:` sur l'entité source — l'écart = une anomalie rapportée D406 —, les surfaces du module et le drill-down vers l'historique D168). | L'arbitrage attendu sur les quatre pièces : l'empreinte, la partition, `immutable:`, les écarts au module. Voir §3.2c. |
 | D865 | **Le réel du cas 3 reçu** (solde la question 4 du cadrage) : deux classeurs **hors du dépôt** — le schéma Cegid PMI 16.17 (`PMI-schema.xlsx` : 330 objets, 13 512 colonnes typées, sans les contraintes) et l'extraction anonymisée (`PMI-extraction-anonymisee.xlsx` : ARTICLE, NOMENC, MVTSTO, CLIENT, FOURNIS × 100 lignes, la société 100, les règles d'anonymisation en feuille) ; **la règle : les données n'entrent jamais dans les commits** (« ces données ne doivent pas être présentes dans les commits... elles sont confidentielles ») — le cas cite la structure, jamais une valeur, les analyses au scratchpad ; **la lecture** : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` (K = clé, T = nchar à blancs, N = decimal/int, **J = jour `nchar(8)` AAAAMMJJ — une chaîne, pas un entier : le `mask` D820 suffit, le hook D119 sans objet ici**, S = heure `nchar(6)`), la société en première colonne de clé (le `filter:` D663), les clés naturelles aux colonnes K (ARTICLE société+code+complément, CLIENT/FOURNIS société+code — la même structure à 167 colonnes, NOMENC, TARIF à la date d'application, STDEPLOT, ECOMCLI à l'indice de révision, LCOMCLI) — **MVTSTO sans colonne K, sans clé naturelle visible**, les familles E*/L* (13 genres de documents), U* (l'extension du site), les vues de compatibilité de `dbo` sur les tables neuves des schémas typés (`NOMENC` ↔ `Production.BomRange`…), OData (43 vues). | Six questions du réel R1–R6 posées (la clé de MVTSTO et une feuille Contraintes, la vue ou la table, OData/techniques ignorés, les genres de documents et les U*, la date au masque, le rognage nchar par la classe). Voir §3.2c. |
+| D866 | **Les réponses du réel — R1, R2, R3 et la date** (précise D865, amende la lecture de D119) : **la date** — « j'avais indiqué un entier. Une chaîne de caractères composée uniquement de numérique peut également être vue comme un entier » : la chaîne de chiffres et l'entier sont la même chose vue du masque, `mask: "yyyymmdd"` (D820) lit l'une comme l'autre, le hook de type reste l'outil des formats que le masque ne dit pas (R5 refermée) ; **R1** — « les clés d'une table dans PMI contiennent un "K" en 3ème position. Et la base de données ne contient aucune clé étrangère » : les colonnes K = l'`identity:` de l'entité source (D357), **les dépendances se déclarent dans `source/`** (D396/D648/D654 — le schéma ne les porte pas), **`MVTSTO` sans clé → l'identité par l'empreinte en proposition** (`key: connector.fingerprint` — l'information système D849, le condensé natif de la pièce 1 de D864 ; la garde D825 satisfaite, le modifié = un disparu + un nouveau) ; **R2** — « la vue NOMENC doit être vue comme une table » ; **R3** — « pas d'ignorance en bloc. Toutes les tables doivent être citées en entier (pas d'utilisation de patterns) » : les 330 objets décrits avec toutes leurs colonnes typées, `reprise.yml` sans regex (D806 licite ailleurs, refusé ici), l'ossature engendrée du réel (D653) ; la couverture se relit — la complétude = décrit / absent, la couverture = migré / décrit sans règle. | À trancher : l'état « ignoré » conservé pour l'exclusion explicite ou l'exclusion lue dans l'absence de règle ; le schéma entier (330 fichiers engendrés) dans le dépôt public ; `MVTSTO` à l'empreinte. Voir §3.2c. |
 
 ---
 
@@ -8901,6 +8902,50 @@ les genres de documents du périmètre (`ECOMCLI`/`LCOMCLI`,
 réceptions, les internes ?) et les `U*` ; **R5** la date au masque
 plutôt qu'au hook ; **R6** le rognage des blancs du `nchar` par la
 classe `sqlserver` à la lecture (D683), pas par 8 645 règles.
+
+**Les réponses du réel (D866 — R1, R2, R3 et la date de D119).**
+**La date** : **« Pour le D119, j'avais indiqué un entier. Une
+chaîne de caractères composée uniquement de numérique peut
+également être vue comme un entier. »** — l'exemple fondateur des
+quatre facettes n'est pas démenti par la 16.17 : la chaîne de
+chiffres et l'entier sont la même chose vue du masque ; le
+`mask: "yyyymmdd"` de D820 lit l'une comme l'autre (l'entier au
+masque — D370), et le hook de type reste l'outil des formats que
+le masque ne sait pas dire (R5 refermée). **R1** : **« Les clés
+d'une table dans PMI contiennent un "K" en 3ème position. Et, la
+base de données ne contient aucune clé étrangère. »** — la
+convention fait foi : les colonnes K forment l'`identity:` de
+l'entité source (D357) ; **aucune clé étrangère** : les dépendances
+de D648 ne se lisent pas dans le schéma, **elles se déclarent dans
+`source/`** — le raccourci de référence (`code_article:
+article.code`, D396), la jointure par la clé (D654) ; **`MVTSTO`
+n'a pas de clé** — la conséquence, en proposition : **l'identité
+par l'empreinte**, `key: connector.fingerprint` sur la règle —
+l'information système du connecteur (le patron D849 :
+`connector.line` identifiait la ligne d'un fichier, l'empreinte
+identifie la ligne par son contenu), le condensé calculé en natif
+par la classe (la pièce 1 de D864) ; la garde D825 est satisfaite
+et le mode `relative` admis ; une ligne modifiée par un outil
+maison se voit comme une disparue et une nouvelle — l'écart d'une
+entité en ajout seul (M2) ; les doublons stricts sont comptés par
+la migration. **R2** : **« La vue NOMENC doit être vue comme une
+table. »** — l'entité source `NOMENC` décrite et migrée comme une
+table ; `Production.BomRange` décrite en entier comme tout le
+reste. **R3** : **« Pas d'ignorance en bloc. Toutes les tables
+doivent être citées en entier (pas d'utilisation de patterns). »**
+— les 330 objets du schéma (les vues `OData` et les schémas
+techniques compris) décrits **avec toutes leurs colonnes typées** ;
+`reprise.yml` liste ses fichiers un par un, sans regex — le
+pattern de D806 reste licite ailleurs, l'auteur le refuse ici ;
+l'ossature est engendrée depuis le schéma réel (D653 — le rôle de
+`read_instance`), le technicien la raffine ; **la taxonomie de la
+couverture s'ajuste** (D861–D862) : la complétude = décrit /
+absent, la couverture = migré / décrit sans règle. Trois points à
+trancher : l'état « ignoré » — conservé pour l'exclusion explicite
+(D657/D176 : « on peut ignorer, jamais oublier ») ou l'exclusion
+lue dans l'absence de règle ; **le schéma entier dans le dépôt
+public** — 330 fichiers engendrés, 13 512 lignes de colonnes,
+l'auteur connaît le statut de ce schéma ; `MVTSTO` à l'empreinte.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -17995,6 +18040,20 @@ avant la synthèse Q16).
   genres de documents et les U*, la date au masque, le rognage
   nchar par la classe). Les quatre pièces de D864 et le mot
   restent à arbitrer ; les questions 6–10 demeurent.
+- **2026-09-05 (suite) — R1, R2, R3 ET LA DATE (D866, 866
+  décisions).** La date de D119 tient (« une chaîne de caractères
+  composée uniquement de numérique peut également être vue comme
+  un entier » — le masque lit l'une comme l'autre, R5 refermée) ;
+  R1 : les colonnes K = la clé, aucune clé étrangère (les
+  dépendances déclarées dans source/), MVTSTO sans clé →
+  l'identité par l'empreinte en proposition (key:
+  connector.fingerprint, le patron D849) ; R2 : la vue NOMENC
+  décrite comme une table ; R3 : pas d'ignorance en bloc — les 330
+  objets décrits en entier, toutes colonnes typées, sans pattern ;
+  la couverture relue (complétude = décrit/absent, couverture =
+  migré/décrit sans règle). À trancher : l'état ignoré, le schéma
+  entier dans le dépôt public, MVTSTO à l'empreinte. Restent R4,
+  R6, les quatre pièces de D864 et le mot, les questions 6–10.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

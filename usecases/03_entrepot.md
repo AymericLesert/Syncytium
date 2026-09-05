@@ -576,6 +576,44 @@ La lecture — ce qui se corrige et ce qui se précise :
   plus de réflexion ») ; **la cible** : « nous ne l'avons pas encore
   abordée » — la question 6 s'ouvre ensuite.
 
+**Les arbitrages du 05/09 (D871–D873) — l'identité contrôlée,
+`normalize` paramétré, les commandes de retour :**
+
+- **le contrôle de l'identité avant la migration** (D871) : « la
+  migration doit garantir aussi que la définition de l'identité
+  sur une entité est bien une clé avant de lancer la procédure de
+  migration. Ce contrôle s'appuie uniquement sur les données
+  consultables après l'application du filtre des données à lire »
+  — avant de lire, `migrate` vérifie sur le réel que l'`identity:`
+  déclarée de chaque entité source **est une clé** (aucun doublon)
+  **dans le périmètre du `filter:`** (D663 — la société 100) ; le
+  manquement arrête la procédure et se rapporte au technicien (la
+  garde de D825 gagne son pendant sur les données) ; la question de
+  `MVTSTO` se règle ainsi : le technicien déclare, le contrôle
+  tranche ; le décompte des clés distinctes après filtre est un
+  geste ensembliste de la classe storage, jamais une relecture
+  ligne à ligne ;
+- **`normalize:` paramétré — une expression sur la valeur** (D872,
+  amende D870) : « je pense qu'il peut être utile d'utiliser des
+  paramètres : `normalize: trim(me)`, `normalize: right("0000" +
+  me, 4)`… » — `normalize:` porte **une expression du langage**
+  (D90–D92) où **`me` désigne la valeur à normaliser** ; le
+  catalogue (D570–D601) et les hooks de fonction (D592) y sont
+  disponibles ; le cas : `normalize: trim(me)` aux settings de la
+  version, la surcharge au champ avec ses propres paramètres (le
+  code sur quatre positions : `right("0000" + me, 4)`) ; `me` à
+  l'étage du champ = sa valeur, comme `me` à l'étage de la règle =
+  l'enregistrement (D822–D823) ;
+- **les commandes restent au mapping** (D873, lève la réserve de
+  R4) : « les commandes de vente et d'achat restent au mapping. Ces
+  éléments sont utiles pour montrer un lien complet entre les
+  articles, les clients et les fournisseurs » — le périmètre de
+  D859 vaut en entier : les données techniques, les tiers, **les
+  commandes de vente (`ECOMCLI`/`LCOMCLI`) et d'achat
+  (`ECOMFOU`/`LCOMFOU`)**, les stocks et les mouvements ; les autres
+  genres de documents (les offres, les expéditions, les réceptions,
+  les internes) hors mapping — décrits ou non définis.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les
@@ -637,8 +675,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    reste de l'ERP hors périmètre. Amendée (D867) : aucun document —
    « uniquement les clients et les fournisseurs » ; confirmée
    (D869) : les données techniques et les stocks restent, « le
-   périmètre comprend bien les tables initialement définies » — les
-   commandes sous la réserve de R4, à confirmer.*
+   périmètre comprend bien les tables initialement définies » ;
+   les commandes de vente et d'achat de retour (D873) — le
+   périmètre de D859 en entier, les autres genres de documents hors
+   mapping.*
 
 **C. La cible**
 

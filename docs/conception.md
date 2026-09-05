@@ -997,6 +997,9 @@ Q58) :
 | D868 | **L'analyse itérative — la description de la source est un acte du technicien** (précise D653/D861–D862/D866, retire l'ossature engendrée) : « Le schéma de la source est décrit dans la configuration. Syncytium compare la structure réelle à la description et note les écarts au technicien. Il serait plus facile de laisser Syncytium construire le modèle à partir d'une analyse du schéma fournie par le connecteur. Mais, dans le cadre d'une migration, chaque table et chaque colonne doivent être comprises et analysées par un technicien. Les écarts ne doivent pas être vus comme des écarts ou des négligences mais comme des points à creuser… Les écarts sont présents pour permettre au technicien de savoir où il en est de son analyse. La migration est une procédure itérative qui permet d'exploiter les données justes au fur et à mesure de l'analyse. » — **`read_instance` sert la comparaison, jamais l'écriture** ; **le non-décrit = un point à creuser** (ni anomalie — D861 relu — ni écart — le mot réservé aux données retouchées, D864) : la liste rendue au technicien est son marque-page ; **la complétude (D862) = l'avancement de l'analyse**, la couverture = ce que l'entrepôt prend ; **R3 relue** : chaque table décrite l'est en entier, sans pattern ni ignorance en bloc — la description grandit table par table ; **la migration itérative** : l'analysé et mappé s'exploite à chaque itération (D670, D668) ; l'exemple montre un état de l'analyse (les tiers décrits, le reste à creuser) — la question du schéma entier au dépôt public se dissout. | En proposition : `ignored` = la conclusion d'une analyse (« compris et écarté »), qui avance la complétude sans la couverture, distinct du point à creuser. Voir §3.2c. |
 | D869 | **La source décrite porte ses clés et ses références ; les trois états ; le périmètre ; le jeu de données** (revoit R1, précise D861–D862/D868, confirme D859/D867) : « comme nous devons décrire le schéma d'origine, nous décrivons les champs, les clés et les références externes (sous forme de liste ou d'association). Donc, peu importe la codification ou la description des contraintes du schéma. La table MVTSTO dispose bien de clés (avec un I à la place de K) » — `identity:` (D357), le raccourci de référence (D396), `list of`/`association with` (D399–D401) **déclarés par le technicien dans `source/`**, le schéma réel n'a pas à les porter (la feuille Contraintes sans objet), **l'empreinte de MVTSTO retirée** (sa clé = ses colonnes I ; l'`identity:` exacte à l'analyse — l'échantillon : 70/100 sur les cinq I, 100 avec l'article, la date, l'heure) ; **les trois états migré / ignoré / non défini** aux deux grains : « la migration va référencer les tables migrées et quelques tables à ignorer, pour l'exemple. Les autres tables apparaîtront en "non défini". Toutes les colonnes ne seront pas non plus décrites pour les faire apparaître comme "non défini" » — `ignored` = compris et écarté, non défini = le point à creuser ; **le périmètre** : « le périmètre comprend bien les tables que j'avais initialement définies » — les données techniques, les tiers, les stocks et les mouvements (les commandes sous la réserve de R4, à confirmer) ; **le jeu de données** : « les données ne sont pas présentes dans l'extraction, c'est volontaire. Par contre, pour les besoins de l'exemple, nous construirons le jeu de données que nous pourrions publier sans risque » — l'exemple portera un jeu construit, publiable ; l'extraction reste hors dépôt. | Les pièces de D864 en réflexion ; la cible (la question 6) pas encore abordée. Voir §3.2c. |
 | D870 | **`normalize:` — la normalisation à la frontière par une fonction** (remplace le `trim` proposé sous D867, un réglage du socle) : « la propriété "trim" sur les chaînes de caractères répond à un besoin unique. Je verrai plutôt une option "normalize" qui fasse référence à une fonction de transformation qui, elle, peut être définie comme un hook. Dans notre cas, "trim" sera une fonction fournie par Syncytium (normalize: trim) » — `normalize: <fonction>` dans la cascade des settings (D359/D588 : l'application → le module → l'entité) et en facette du champ qui la surcharge ; la fonction du catalogue (D570–D601 — `trim`, celle de D660) ou d'un hook de fonction (D432/D592) ; appliquée par la classe storage à la lecture (D683) et par l'entrée à l'écriture ; le cas : `normalize: trim` aux settings de la version. | Le voisin de vocabulaire : `searchable: normalized` (D367) est un mode de recherche, `normalize:` une transformation. Voir §3.2c. |
+| D871 | **L'identité contrôlée avant la migration** (complète D654/D825, précise D667) : « la migration doit garantir aussi que la définition de l'identité sur une entité est bien une clé avant de lancer la procédure de migration. Ce contrôle s'appuie uniquement sur les données consultables après l'application du filtre des données à lire » — avant de lire, `migrate` vérifie sur le réel que l'`identity:` déclarée de chaque entité source est une clé (aucun doublon) **dans le périmètre du `filter:`** (D663) ; le manquement arrête la procédure et se rapporte au technicien — la garde de D825 (la clé exigée en `relative`) gagne son pendant sur les données ; le décompte des clés distinctes après filtre = un geste ensembliste de la classe storage. | Le cas : `MVTSTO` déclarée par le technicien, le contrôle tranche sur la société 100. Voir §3.2c. |
+| D872 | **`normalize:` paramétré — une expression sur la valeur** (amende D870) : « je pense qu'il peut être utile d'utiliser des paramètres : `normalize: trim(me)`, `normalize: right("0000" + me, 4)`… » — `normalize:` porte une expression du langage (D90–D92) où **`me` désigne la valeur à normaliser** ; le catalogue (D570–D601) et les hooks de fonction (D592) y sont disponibles ; la cascade des settings et la surcharge au champ demeurent (D870) ; le cas : `normalize: trim(me)` aux settings, le code sur quatre positions au champ. | `me` à l'étage du champ = sa valeur, à l'étage de la règle = l'enregistrement (D822–D823), à l'origine d'une référence = l'enregistrement d'origine (D396) — le même mot, la chose à portée. Voir §3.2c. |
+| D873 | **Les commandes de vente et d'achat restent au mapping** (lève la réserve de R4 sous D867, confirme D859 en entier) : « ces éléments sont utiles pour montrer un lien complet entre les articles, les clients et les fournisseurs » — le périmètre : les données techniques, les tiers, `ECOMCLI`/`LCOMCLI` et `ECOMFOU`/`LCOMFOU`, les stocks et les mouvements ; les autres genres de documents (les offres, les expéditions, les réceptions, les internes) hors mapping. | Voir §3.2c. |
 
 ---
 
@@ -9091,6 +9094,49 @@ D683), l'entrée (l'IHM, l'API, l'import) à l'écriture ; le cas pose
 vocabulaire est noté : `searchable: normalized` (D367) est un mode
 de recherche, `normalize:` une transformation — deux étages, deux
 sens distincts.
+
+**L'identité contrôlée avant la migration (D871 — complète D654 et
+D825, précise D667).** **« La migration doit garantir aussi que la
+définition de l'identité sur une entité est bien une clé avant de
+lancer la procédure de migration. Ce contrôle s'appuie uniquement
+sur les données consultables après l'application du filtre des
+données à lire. »** — avant de lire la première ligne, `migrate`
+vérifie sur le réel que l'`identity:` déclarée de chaque entité
+source **est une clé** : aucun doublon **dans le périmètre du
+`filter:`** (D663 — la société 100 du cas, pas la base entière) ; le
+manquement **arrête la procédure** et se rapporte au technicien —
+la garde de D825 exigeait la clé sur chaque règle en `relative`,
+elle gagne son pendant sur les données ; le décompte des clés
+distinctes après filtre est un geste ensembliste de la classe
+storage, jamais une relecture ligne à ligne. La question de
+`MVTSTO` se règle ainsi : le technicien déclare l'`identity:` (les
+colonnes `I`, ou davantage), le contrôle tranche sur les données.
+
+**`normalize:` paramétré — une expression sur la valeur (D872 —
+amende D870).** **« Je reviens sur "normalize". Je pense qu'il peut
+être utile d'utiliser des paramètres : `normalize: trim(me)`,
+`normalize: right("0000" + me, 4)`… »** — `normalize:` ne nomme plus
+une fonction, il porte **une expression du langage** (D90–D92) où
+**`me` désigne la valeur à normaliser** ; le catalogue (D570–D601)
+et les hooks de fonction (D592) y sont disponibles ; la cascade des
+settings et la surcharge au champ demeurent (D870) — le cas pose
+`normalize: trim(me)` aux settings de la version et, au champ qui
+le demande, le code sur quatre positions. Le mot `me` reste un : à
+l'étage du champ, sa valeur ; à l'étage de la règle,
+l'enregistrement (D822–D823) ; à l'origine d'une référence,
+l'enregistrement d'origine (D396) — la chose à portée.
+
+**Les commandes de vente et d'achat restent au mapping (D873 — lève
+la réserve de R4 sous D867, confirme D859 en entier).** **« Les
+commandes de vente et d'achat restent au mapping. Ces éléments sont
+utiles pour montrer un lien complet entre les articles, les clients
+et les fournisseurs. »** — le périmètre : les données techniques
+(`ARTICLE`, `NOMENC`, `TARIF`), les tiers (`CLIENT`, `FOURNIS`), les
+commandes de vente (`ECOMCLI`/`LCOMCLI`) et d'achat
+(`ECOMFOU`/`LCOMFOU`), les stocks et les mouvements (`MVTSTO`,
+`STDEPLOT`) ; les autres genres de documents — les offres, les
+expéditions, les réceptions, les internes — hors mapping, décrits
+ou non définis.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18248,6 +18294,20 @@ avant la synthèse Q16).
   stocks — les commandes sous la réserve de R4, à confirmer) ; le
   jeu de données de l'exemple sera construit, publiable. Les
   pièces de D864 en réflexion ; la cible pas encore abordée.
+- **2026-09-05 (suite 5) — L'IDENTITÉ CONTRÔLÉE, NORMALIZE
+  PARAMÉTRÉ, LES COMMANDES DE RETOUR (D871–D873, 873 décisions).**
+  D871 : « la migration doit garantir que la définition de
+  l'identité sur une entité est bien une clé avant de lancer la
+  procédure... uniquement sur les données consultables après
+  l'application du filtre » — le contrôle avant lecture, le
+  manquement arrête et se rapporte, le pendant de D825 sur les
+  données (MVTSTO : le technicien déclare, le contrôle tranche).
+  D872 : normalize: porte une expression sur la valeur — `trim(me)`,
+  `right("0000" + me, 4)` — me = la valeur à l'étage du champ.
+  D873 : « les commandes de vente et d'achat restent au mapping...
+  un lien complet entre les articles, les clients et les
+  fournisseurs » — D859 en entier, R4 levée. Restent : les pièces
+  de D864 (en réflexion), la cible (question 6), 7–10.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

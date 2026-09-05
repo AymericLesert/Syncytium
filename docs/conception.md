@@ -1000,7 +1000,9 @@ Q58) :
 | D871 | **L'identité contrôlée avant la migration** (complète D654/D825, précise D667) : « la migration doit garantir aussi que la définition de l'identité sur une entité est bien une clé avant de lancer la procédure de migration. Ce contrôle s'appuie uniquement sur les données consultables après l'application du filtre des données à lire » — avant de lire, `migrate` vérifie sur le réel que l'`identity:` déclarée de chaque entité source est une clé (aucun doublon) **dans le périmètre du `filter:`** (D663) ; le manquement arrête la procédure et se rapporte au technicien — la garde de D825 (la clé exigée en `relative`) gagne son pendant sur les données ; le décompte des clés distinctes après filtre = un geste ensembliste de la classe storage. | Le cas : `MVTSTO` déclarée par le technicien, le contrôle tranche sur la société 100. Voir §3.2c. |
 | D872 | **`normalize:` paramétré — une expression sur la valeur** (amende D870) : « je pense qu'il peut être utile d'utiliser des paramètres : `normalize: trim(me)`, `normalize: right("0000" + me, 4)`… » — `normalize:` porte une expression du langage (D90–D92) où **`me` désigne la valeur à normaliser** ; le catalogue (D570–D601) et les hooks de fonction (D592) y sont disponibles ; la cascade des settings et la surcharge au champ demeurent (D870) ; le cas : `normalize: trim(me)` aux settings, le code sur quatre positions au champ. | `me` à l'étage du champ = sa valeur, à l'étage de la règle = l'enregistrement (D822–D823), à l'origine d'une référence = l'enregistrement d'origine (D396) — le même mot, la chose à portée. Voir §3.2c. |
 | D873 | **Les commandes de vente et d'achat restent au mapping** (lève la réserve de R4 sous D867, confirme D859 en entier) : « ces éléments sont utiles pour montrer un lien complet entre les articles, les clients et les fournisseurs » — le périmètre : les données techniques, les tiers, `ECOMCLI`/`LCOMCLI` et `ECOMFOU`/`LCOMFOU`, les stocks et les mouvements ; les autres genres de documents (les offres, les expéditions, les réceptions, les internes) hors mapping. | Voir §3.2c. |
-| D874 | **Le contrôle des compositions et des associations avant la migration** (complète D871) : « au même titre que le contrôle de l'identité, Syncytium doit inclure le contrôle sur les compositions et les associations » — avant de lancer, sur les données du `filter:` (D663), chaque lien déclaré dans `source/` (D869 : `list of`, `association with`, le raccourci de référence) est vérifié : tout enfant a son possesseur, toute association et toute référence ont leur cible — l'intégrité référentielle que le schéma ne porte pas (D866) se prouve sur le réel ; le manquement se rapporte au technicien avant la procédure. | À préciser : l'arrêt comme pour l'identité, ou l'orphelin laissé au mode `relative` qui l'isole (D177/D179) ; la jointure déclarée sur un schéma étranger (l'enfant porte la clé du possesseur sous ses propres noms) — au morceau de la source. Voir §3.2c. |
+| D874 | **Le contrôle des compositions et des associations avant la migration** (complète D871) : « au même titre que le contrôle de l'identité, Syncytium doit inclure le contrôle sur les compositions et les associations » — avant de lancer, sur les données du `filter:` (D663), chaque lien déclaré dans `source/` (D869 : `list of`, `association with`, le raccourci de référence) est vérifié : tout enfant a son possesseur, toute association et toute référence ont leur cible — l'intégrité référentielle que le schéma ne porte pas (D866) se prouve sur le réel ; le manquement se rapporte au technicien avant la procédure. | Précisé par D875 (l'orphelin isolé) et D876 (la jointure par la facette du connecteur). Voir §3.2c. |
+| D875 | **L'orphelin isolé** (précise D874, l'effet du contrôle des liens) : « l'orphelin est laissé au mode relative qui l'isole. L'enregistrement contenant un orphelin ne sera pas enregistré dans la cible. Une anomalie sera remontée au technicien » — le pré-contrôle rapporte, la procédure part ; l'enregistrement à l'orphelin n'entre pas dans la cible (D177 : converti ET cohérent) et l'anomalie va au technicien ; seule l'identité brisée arrête la procédure (D871). | Voir §3.2c. |
+| D876 | **Le connecteur porte la facette des types** (précise D119/D681–D684 pour la lecture d'un schéma étranger, tient D399) : « la description d'un modèle fait référence à différents types dont le connecteur porte la facette. Par exemple : pour une composition, le lien entre le parent et le fils se fait sur les noms de colonnes identités identiques. Pour une association, le lien pourra se faire par une convention de nommage des colonnes. Pour un type composé, les colonnes qui feront référence à un objet dépendra de la convention de nommage » — la description de `source/` reste logique (`list of`, la référence, le composé), **le connecteur résout les colonnes par sa convention** : la composition par les colonnes d'identité aux noms identiques, l'association par une convention de nommage, le composé par la convention qui désigne ses colonnes — l'enfant ne déclare rien (D399), la facette trouve le lien ; le cas : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` de PMI (le nom logique sans le préfixe de table, K/I = l'identité, la lettre de type) portée par le connecteur `cegid`. | La forme — un paramètre de convention de la classe `sqlserver` ou une classe dédiée — à arbitrer à l'assise. Voir §3.2c. |
 
 ---
 
@@ -9158,6 +9160,42 @@ description est juste) ; **la forme de la jointure sur un schéma
 étranger**, au morceau de la source — l'enfant y porte la clé du
 possesseur sous ses propres noms (`LCKTNUMERO` pour `ECKTNUMERO`,
 sans l'indice), là où D399 ne fait rien déclarer à l'enfant.
+
+**L'orphelin isolé (D875 — précise D874).** **« L'orphelin est laissé
+au mode relative qui l'isole. L'enregistrement contenant un orphelin
+ne sera pas enregistré dans la cible. Une anomalie sera remontée au
+technicien. »** — le pré-contrôle des liens rapporte, mais la
+procédure part : l'enregistrement qui porte un orphelin n'entre pas
+dans la cible (D177 — converti ET cohérent, l'écriture refusée) et
+l'anomalie va au technicien ; seule l'identité brisée arrête la
+procédure (D871) — la description fausse d'un côté, la donnée sale
+de l'autre.
+
+**Le connecteur porte la facette des types (D876 — précise D119 et
+D681–D684 pour la lecture d'un schéma étranger, tient D399).** **« La
+description d'un modèle fait référence à différents types dont le
+connecteur porte la facette. Par exemple : pour une composition, le
+lien entre le parent et le fils se fait sur les noms de colonnes
+identités identiques. Pour une association, le lien pourra se faire
+par une convention de nommage des colonnes. Pour un type composé,
+les colonnes qui feront référence à un objet dépendra de la
+convention de nommage. »** — la description de `source/` reste
+**logique** : `lignes: list of LCOMCLI`, `client: CLIENT`, un
+composé au nom de son type ; **le connecteur résout les colonnes
+par sa convention** — la facette de stockage des types (D119), le
+visiteur (D681–D684 : la classe rend la forme native) tourné vers
+la lecture : la composition par les colonnes d'identité aux noms
+identiques, l'association par une convention de nommage des
+colonnes, le composé par la convention qui désigne ses colonnes ;
+**D399 tient** — l'enfant ne déclare rien, la facette trouve le
+lien. Le cas : la convention `<XX><K|C|I><T|N|J|S><nom>` de PMI est
+cette facette — le nom logique sans le préfixe de table (`SOC`,
+`NUMERO` identiques d'`ECOMCLI` à `LCOMCLI`), K ou I = l'identité,
+la lettre de type = le type — portée par le connecteur `cegid` ; la
+forme (un paramètre de convention de la classe `sqlserver`, ou une
+classe dédiée) s'arbitre à l'assise. L'indice de révision absent
+des lignes (`ECKTINDICE`) est une question d'analyse des commandes
+que le contrôle des liens (D874) mettra au jour.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18340,6 +18378,20 @@ avant la synthèse Q16).
   (comme l'identité) ou l'isolement par le mode relative ; la
   jointure déclarée sur un schéma étranger — au morceau de la
   source.
+- **2026-09-06 — L'ORPHELIN ISOLÉ, LE CONNECTEUR PORTE LA FACETTE
+  DES TYPES (D875–D876, 876 décisions).** D875 : « l'orphelin est
+  laissé au mode relative qui l'isole. L'enregistrement contenant
+  un orphelin ne sera pas enregistré dans la cible. Une anomalie
+  sera remontée au technicien » — la procédure part, l'orphelin
+  refusé (D177), seule l'identité brisée arrête (D871). D876 : « la
+  description d'un modèle fait référence à différents types dont le
+  connecteur porte la facette » — la composition par les colonnes
+  d'identité aux noms identiques, l'association par une convention
+  de nommage, le composé par la convention qui désigne ses
+  colonnes ; source/ reste logique, D399 tient, le connecteur cegid
+  porte la convention <XX><K|C|I><T|N|J|S><nom> (le nom logique
+  sans préfixe) — la forme à l'assise. Restent : les pièces de D864
+  (en réflexion), la cible (question 6), 7–10.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

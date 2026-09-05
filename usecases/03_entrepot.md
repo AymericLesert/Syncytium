@@ -628,7 +628,39 @@ La lecture — ce qui se corrige et ce qui se précise :
   qui l'isole (D177/D179) ; et, au morceau de la source, la forme
   de la jointure sur un schéma étranger — l'enfant porte la clé du
   possesseur sous ses propres noms (`LCKTNUMERO` pour
-  `ECKTNUMERO`), là où D399 ne fait rien déclarer à l'enfant.*
+  `ECKTNUMERO`), là où D399 ne fait rien déclarer à l'enfant* —
+  **les deux points tranchés le 06/09 (D875–D876)** :
+  - **l'orphelin isolé** (D875) : « l'orphelin est laissé au mode
+    relative qui l'isole. L'enregistrement contenant un orphelin ne
+    sera pas enregistré dans la cible. Une anomalie sera remontée
+    au technicien » — le pré-contrôle rapporte, la procédure part ;
+    l'enregistrement à l'orphelin n'entre pas dans la cible (D177)
+    et l'anomalie va au technicien ; seule l'identité brisée arrête
+    (D871) ;
+  - **le connecteur porte la facette des types** (D876) : « la
+    description d'un modèle fait référence à différents types dont
+    le connecteur porte la facette. Par exemple : pour une
+    composition, le lien entre le parent et le fils se fait sur les
+    noms de colonnes identités identiques. Pour une association, le
+    lien pourra se faire par une convention de nommage des
+    colonnes. Pour un type composé, les colonnes qui feront
+    référence à un objet dépendra de la convention de nommage » —
+    la description de `source/` reste **logique** (`lignes: list of
+    LCOMCLI`, `client: CLIENT`, un composé), et **le connecteur
+    résout les colonnes par sa convention** (la facette de stockage
+    des types, D119/D681–D684, tournée vers la lecture d'un schéma
+    étranger) : la composition par les colonnes d'identité aux noms
+    identiques, l'association par une convention de nommage, le
+    composé par la convention qui désigne ses colonnes ; D399 tient
+    — l'enfant ne déclare rien, la facette trouve le lien ; **le
+    cas** : la convention `<XX><K|C|I><T|N|J|S><nom>` — le nom
+    logique sans le préfixe de table (`SOC`, `NUMERO` identiques
+    d'`ECOMCLI` à `LCOMCLI`), K ou I = l'identité, la lettre de type
+    = le type — portée par le connecteur `cegid` : un paramètre de
+    convention de la classe `sqlserver`, ou une classe dédiée — à
+    arbitrer à l'assise ; *l'indice de révision absent des lignes
+    (`ECKTINDICE`) : une question d'analyse des commandes, que le
+    contrôle des liens (D874) mettra au jour*.
 
 ## Les questions du cadrage
 

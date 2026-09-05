@@ -1003,6 +1003,7 @@ Q58) :
 | D874 | **Le contrôle des compositions et des associations avant la migration** (complète D871) : « au même titre que le contrôle de l'identité, Syncytium doit inclure le contrôle sur les compositions et les associations » — avant de lancer, sur les données du `filter:` (D663), chaque lien déclaré dans `source/` (D869 : `list of`, `association with`, le raccourci de référence) est vérifié : tout enfant a son possesseur, toute association et toute référence ont leur cible — l'intégrité référentielle que le schéma ne porte pas (D866) se prouve sur le réel ; le manquement se rapporte au technicien avant la procédure. | Précisé par D875 (l'orphelin isolé) et D876 (la jointure par la facette du connecteur). Voir §3.2c. |
 | D875 | **L'orphelin isolé** (précise D874, l'effet du contrôle des liens) : « l'orphelin est laissé au mode relative qui l'isole. L'enregistrement contenant un orphelin ne sera pas enregistré dans la cible. Une anomalie sera remontée au technicien » — le pré-contrôle rapporte, la procédure part ; l'enregistrement à l'orphelin n'entre pas dans la cible (D177 : converti ET cohérent) et l'anomalie va au technicien ; seule l'identité brisée arrête la procédure (D871). | Voir §3.2c. |
 | D876 | **Le connecteur porte la facette des types** (précise D119/D681–D684 pour la lecture d'un schéma étranger, tient D399) : « la description d'un modèle fait référence à différents types dont le connecteur porte la facette. Par exemple : pour une composition, le lien entre le parent et le fils se fait sur les noms de colonnes identités identiques. Pour une association, le lien pourra se faire par une convention de nommage des colonnes. Pour un type composé, les colonnes qui feront référence à un objet dépendra de la convention de nommage » — la description de `source/` reste logique (`list of`, la référence, le composé), **le connecteur résout les colonnes par sa convention** : la composition par les colonnes d'identité aux noms identiques, l'association par une convention de nommage, le composé par la convention qui désigne ses colonnes — l'enfant ne déclare rien (D399), la facette trouve le lien ; le cas : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` de PMI (le nom logique sans le préfixe de table, K/I = l'identité, la lettre de type) portée par le connecteur `cegid`. | La forme — un paramètre de convention de la classe `sqlserver` ou une classe dédiée — à arbitrer à l'assise. Voir §3.2c. |
+| D877 | **La convention surchargeable** (complète D876) : « si la convention n'est pas possible ou ne convient pas au technicien, la convention pourra être surchargée et cela rendra possible ce point sur des modèles de données autres que ceux portés par Syncytium » — la convention de la classe est **un défaut** ; le technicien la surcharge au connecteur (une autre convention déclarée), à l'entité ou au champ (les colonnes nommées explicitement — le lien d'une composition, la colonne d'une association, les colonnes d'un composé), **le plus proche l'emporte** (D359) ; `source/` décrit ainsi tout modèle de données, pas seulement ceux que Syncytium porte ou dont il connaît la convention. | La forme des surcharges s'écrit au morceau de la source, sur les tables. Voir §3.2c. |
 
 ---
 
@@ -9196,6 +9197,23 @@ forme (un paramètre de convention de la classe `sqlserver`, ou une
 classe dédiée) s'arbitre à l'assise. L'indice de révision absent
 des lignes (`ECKTINDICE`) est une question d'analyse des commandes
 que le contrôle des liens (D874) mettra au jour.
+
+**La convention surchargeable (D877 — complète D876).** **« Pour
+compléter mes propos, si la convention n'est pas possible ou ne
+convient pas au technicien, la convention pourra être surchargée et
+cela rendra possible ce point sur des modèles de données autres que
+ceux portés par Syncytium. »** — la convention de la classe est **un
+défaut**, jamais une obligation : le technicien la surcharge **au
+connecteur** (une autre convention déclarée — le modèle étranger a
+la sienne), **à l'entité ou au champ** (les colonnes nommées
+explicitement : le lien d'une composition, la colonne d'une
+association, les colonnes d'un composé) — **le plus proche
+l'emporte**, l'esprit de la cascade de D359. La portée : `source/`
+décrit **tout modèle de données**, pas seulement ceux que Syncytium
+porte (son propre stockage) ou dont il connaît la convention (PMI
+par sa classe) ; le legacy sans convention se décrit colonne par
+colonne. La forme des surcharges s'écrira au morceau de la source,
+sur les tables.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18392,6 +18410,15 @@ avant la synthèse Q16).
   porte la convention <XX><K|C|I><T|N|J|S><nom> (le nom logique
   sans préfixe) — la forme à l'assise. Restent : les pièces de D864
   (en réflexion), la cible (question 6), 7–10.
+- **2026-09-06 (suite) — LA CONVENTION SURCHARGEABLE (D877, 877
+  décisions).** « Si la convention n'est pas possible ou ne
+  convient pas au technicien, la convention pourra être surchargée
+  et cela rendra possible ce point sur des modèles de données
+  autres que ceux portés par Syncytium » — la convention de la
+  classe = un défaut, surchargée au connecteur, à l'entité ou au
+  champ (les colonnes nommées explicitement), le plus proche
+  l'emporte ; source/ décrit tout modèle de données. La forme au
+  morceau de la source.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

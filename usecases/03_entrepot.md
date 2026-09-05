@@ -660,7 +660,20 @@ La lecture — ce qui se corrige et ce qui se précise :
     convention de la classe `sqlserver`, ou une classe dédiée — à
     arbitrer à l'assise ; *l'indice de révision absent des lignes
     (`ECKTINDICE`) : une question d'analyse des commandes, que le
-    contrôle des liens (D874) mettra au jour*.
+    contrôle des liens (D874) mettra au jour* ;
+  - **la convention surchargeable** (D877, complète D876) : « si la
+    convention n'est pas possible ou ne convient pas au technicien,
+    la convention pourra être surchargée et cela rendra possible ce
+    point sur des modèles de données autres que ceux portés par
+    Syncytium » — la convention de la classe est **un défaut** ; le
+    technicien la surcharge au connecteur (une autre convention
+    déclarée), à l'entité ou au champ (les colonnes nommées
+    explicitement — le lien d'une composition, la colonne d'une
+    association, les colonnes d'un composé), **le plus proche
+    l'emporte** (l'esprit D359) ; ainsi `source/` décrit **tout
+    modèle de données**, pas seulement ceux que Syncytium porte ou
+    dont il connaît la convention ; la forme des surcharges
+    s'écrira au morceau de la source, sur les tables.
 
 ## Les questions du cadrage
 

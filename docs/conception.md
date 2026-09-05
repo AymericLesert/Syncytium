@@ -18419,6 +18419,24 @@ avant la synthèse Q16).
   champ (les colonnes nommées explicitement), le plus proche
   l'emporte ; source/ décrit tout modèle de données. La forme au
   morceau de la source.
+- **2026-09-06 (pause) — LA SÉANCE S'ARRÊTE SUR LE CADRAGE DU CAS 3
+  (877 décisions).** Le réel reçu et lu (D865), la source cadrée de
+  bout en bout (D866–D877 : les clés et les références déclarées
+  par le technicien, les trois états migré/ignoré/non défini,
+  l'analyse itérative et les points à creuser, normalize: en
+  expression, le périmètre de D859 en entier, l'identité et les
+  liens contrôlés avant la migration, l'orphelin isolé, la facette
+  des types portée par le connecteur et sa convention
+  surchargeable). **La reprise, au prochain point : (1) les quatre
+  pièces de D864 et le mot (`append_only`) — à la réflexion de
+  l'auteur ; (2) la cible (la question 6) — le modèle existant ou
+  conçu ici, les modules et leurs noms, le degré de
+  standardisation, l'historique et les strates de droits ; (3) les
+  questions 7–10 (les exemples de règles, l'enrichissement, la
+  fréquence, l'entreprise) ; (4) puis le morceau 1 (l'assise) —
+  dont la forme de la convention PMI au connecteur (D876).** Vingt
+  commits depuis la #40 sur feature/meta-schema — la PR de
+  consolidation sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

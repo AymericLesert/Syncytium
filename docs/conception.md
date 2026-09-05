@@ -1000,6 +1000,7 @@ Q58) :
 | D871 | **L'identité contrôlée avant la migration** (complète D654/D825, précise D667) : « la migration doit garantir aussi que la définition de l'identité sur une entité est bien une clé avant de lancer la procédure de migration. Ce contrôle s'appuie uniquement sur les données consultables après l'application du filtre des données à lire » — avant de lire, `migrate` vérifie sur le réel que l'`identity:` déclarée de chaque entité source est une clé (aucun doublon) **dans le périmètre du `filter:`** (D663) ; le manquement arrête la procédure et se rapporte au technicien — la garde de D825 (la clé exigée en `relative`) gagne son pendant sur les données ; le décompte des clés distinctes après filtre = un geste ensembliste de la classe storage. | Le cas : `MVTSTO` déclarée par le technicien, le contrôle tranche sur la société 100. Voir §3.2c. |
 | D872 | **`normalize:` paramétré — une expression sur la valeur** (amende D870) : « je pense qu'il peut être utile d'utiliser des paramètres : `normalize: trim(me)`, `normalize: right("0000" + me, 4)`… » — `normalize:` porte une expression du langage (D90–D92) où **`me` désigne la valeur à normaliser** ; le catalogue (D570–D601) et les hooks de fonction (D592) y sont disponibles ; la cascade des settings et la surcharge au champ demeurent (D870) ; le cas : `normalize: trim(me)` aux settings, le code sur quatre positions au champ. | `me` à l'étage du champ = sa valeur, à l'étage de la règle = l'enregistrement (D822–D823), à l'origine d'une référence = l'enregistrement d'origine (D396) — le même mot, la chose à portée. Voir §3.2c. |
 | D873 | **Les commandes de vente et d'achat restent au mapping** (lève la réserve de R4 sous D867, confirme D859 en entier) : « ces éléments sont utiles pour montrer un lien complet entre les articles, les clients et les fournisseurs » — le périmètre : les données techniques, les tiers, `ECOMCLI`/`LCOMCLI` et `ECOMFOU`/`LCOMFOU`, les stocks et les mouvements ; les autres genres de documents (les offres, les expéditions, les réceptions, les internes) hors mapping. | Voir §3.2c. |
+| D874 | **Le contrôle des compositions et des associations avant la migration** (complète D871) : « au même titre que le contrôle de l'identité, Syncytium doit inclure le contrôle sur les compositions et les associations » — avant de lancer, sur les données du `filter:` (D663), chaque lien déclaré dans `source/` (D869 : `list of`, `association with`, le raccourci de référence) est vérifié : tout enfant a son possesseur, toute association et toute référence ont leur cible — l'intégrité référentielle que le schéma ne porte pas (D866) se prouve sur le réel ; le manquement se rapporte au technicien avant la procédure. | À préciser : l'arrêt comme pour l'identité, ou l'orphelin laissé au mode `relative` qui l'isole (D177/D179) ; la jointure déclarée sur un schéma étranger (l'enfant porte la clé du possesseur sous ses propres noms) — au morceau de la source. Voir §3.2c. |
 
 ---
 
@@ -9137,6 +9138,26 @@ commandes de vente (`ECOMCLI`/`LCOMCLI`) et d'achat
 `STDEPLOT`) ; les autres genres de documents — les offres, les
 expéditions, les réceptions, les internes — hors mapping, décrits
 ou non définis.
+
+**Le contrôle des compositions et des associations avant la
+migration (D874 — complète D871).** **« Au même titre que le contrôle
+de l'identité, Syncytium doit inclure le contrôle sur les
+compositions et les associations. »** — le pré-contrôle de `migrate`
+s'étend aux liens : avant de lancer, sur les données du `filter:`
+(D663), **chaque lien déclaré dans `source/`** (D869 : la
+composition `list of`, l'association `association with`, le
+raccourci de référence D396) **est vérifié sur le réel** — tout
+enfant a son possesseur, toute association et toute référence ont
+leur cible ; l'intégrité référentielle que le schéma ne porte pas
+(D866 : aucune clé étrangère) se prouve avant la première lecture ;
+le manquement se rapporte au technicien. Deux points à préciser :
+**l'effet** — l'arrêt de la procédure comme pour l'identité (la
+description est fausse), ou l'orphelin laissé au mode `relative`
+qui l'isole et le rapporte (D177/D179 — la donnée est sale, la
+description est juste) ; **la forme de la jointure sur un schéma
+étranger**, au morceau de la source — l'enfant y porte la clé du
+possesseur sous ses propres noms (`LCKTNUMERO` pour `ECKTNUMERO`,
+sans l'indice), là où D399 ne fait rien déclarer à l'enfant.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18308,6 +18329,17 @@ avant la synthèse Q16).
   un lien complet entre les articles, les clients et les
   fournisseurs » — D859 en entier, R4 levée. Restent : les pièces
   de D864 (en réflexion), la cible (question 6), 7–10.
+- **2026-09-05 (suite 6) — LE CONTRÔLE DES LIENS (D874, 874
+  décisions).** « Au même titre que le contrôle de l'identité,
+  Syncytium doit inclure le contrôle sur les compositions et les
+  associations » — avant de lancer, sur les données filtrées,
+  chaque lien déclaré dans source/ vérifié sur le réel (tout enfant
+  a son possesseur, toute association et toute référence ont leur
+  cible — l'intégrité référentielle que le schéma ne porte pas),
+  le manquement rapporté au technicien. À préciser : l'arrêt
+  (comme l'identité) ou l'isolement par le mode relative ; la
+  jointure déclarée sur un schéma étranger — au morceau de la
+  source.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

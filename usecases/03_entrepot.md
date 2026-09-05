@@ -612,7 +612,23 @@ La lecture — ce qui se corrige et ce qui se précise :
   commandes de vente (`ECOMCLI`/`LCOMCLI`) et d'achat
   (`ECOMFOU`/`LCOMFOU`)**, les stocks et les mouvements ; les autres
   genres de documents (les offres, les expéditions, les réceptions,
-  les internes) hors mapping — décrits ou non définis.
+  les internes) hors mapping — décrits ou non définis ;
+- **le contrôle des compositions et des associations** (D874,
+  complète D871) : « au même titre que le contrôle de l'identité,
+  Syncytium doit inclure le contrôle sur les compositions et les
+  associations » — avant de lancer, sur les données du `filter:`,
+  chaque lien déclaré dans `source/` (D869 : `list of`,
+  `association with`, le raccourci de référence) est vérifié :
+  **tout enfant a son possesseur, toute association et toute
+  référence ont leur cible** — l'intégrité référentielle que le
+  schéma ne porte pas (D866 : aucune clé étrangère) se prouve sur
+  le réel ; le manquement se rapporte au technicien avant la
+  procédure ; *à préciser : l'arrêt comme pour l'identité — la
+  procédure ne part pas — ou l'orphelin laissé au mode `relative`
+  qui l'isole (D177/D179) ; et, au morceau de la source, la forme
+  de la jointure sur un schéma étranger — l'enfant porte la clé du
+  possesseur sous ses propres noms (`LCKTNUMERO` pour
+  `ECKTNUMERO`), là où D399 ne fait rien déclarer à l'enfant.*
 
 ## Les questions du cadrage
 

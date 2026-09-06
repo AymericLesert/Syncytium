@@ -25,9 +25,7 @@ fields:
   taux_representant:
     # CLCNTXREP1 — la commission, en pourcentage (D391)
     type: percentage
-    confidentiality:
-      level: protected
-      groups: [direction]
+    confidentiality: ${settings.confidentiality.direction}
     label:
       fr: Commission
     hint:
@@ -36,9 +34,7 @@ fields:
   encours_maximum:
     # CLCNDECOU1 — le découvert autorisé ; la devise du tiers
     type: amount
-    confidentiality:
-      level: protected
-      groups: [commercial, direction]
+    confidentiality: ${settings.confidentiality.commercial}
     label:
       fr: Encours maximum
     hint:

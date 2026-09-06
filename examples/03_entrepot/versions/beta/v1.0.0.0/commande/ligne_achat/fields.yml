@@ -57,9 +57,7 @@ quantite_recue:
 prix_brut:
   # LCCNPUBRUT + LCCTDEVISE
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix unitaire brut
 
@@ -67,9 +65,7 @@ prix_net:
   # LCCNPUNET + LCCTDEVISE
   type: amount
   required: true
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix unitaire net
 
@@ -126,9 +122,7 @@ devise:
 montant:
   type: amount
   formula: prix_net * quantite
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Montant
 

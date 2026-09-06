@@ -1,0 +1,28 @@
+# Les réglages de la version — l'étage instance de la cascade des
+# settings (D359/D588 : l'application → le module → l'entité, le plus
+# proche l'emporte). Le fichier est référencé par version.yml (le
+# morceau 1).
+
+# La normalisation à la frontière (D870/D872) : les blancs de fin des
+# nchar de PMI rognés à la lecture — me désigne la valeur ; un champ
+# surcharge avec sa propre expression (normalize: right("0000" + me, 4)).
+normalize: trim(me)
+
+# Les profils de confidentialité (D885) — le niveau (D25) et les groupes
+# (D26) nommés une fois, référencés au champ par l'interpolation de la
+# configuration : confidentiality: ${settings.confidentiality.financier}
+# (D321/D802 — « on exploite une capacité de la configuration »).
+confidentiality:
+  # les prix de revient, les prix d'achat, les valeurs de stock, le
+  # bancaire — les achats et la direction
+  financier:
+    level: protected
+    groups: [achats, direction]
+  # les marges, les commissions — la direction seule
+  direction:
+    level: protected
+    groups: [direction]
+  # les conditions commerciales — le commercial et la direction
+  commercial:
+    level: protected
+    groups: [commercial, direction]

@@ -39,8 +39,6 @@ fields:
     # restreinte (D859)
     type: amount
     formula: niveaux.sum(valeur)
-    confidentiality:
-      level: protected
-      groups: [achats, direction]
+    confidentiality: ${settings.confidentiality.financier}
     label:
       fr: Valeur du stock

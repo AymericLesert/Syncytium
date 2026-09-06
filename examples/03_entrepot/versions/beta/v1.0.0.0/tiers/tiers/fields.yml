@@ -87,18 +87,14 @@ tva:
 iban:
   # CLCTIBAN — le bancaire : réservé aux achats et à la direction
   type: iban
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: IBAN
 
 bic:
   # CLCTSWIFT
   type: bic
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: BIC
 

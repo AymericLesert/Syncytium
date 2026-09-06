@@ -71,9 +71,7 @@ stock_minimum:
 prix_unitaire:
   # DPCNPULOT — le prix du lot ; la devise de l'entreprise (le setting)
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix unitaire du lot
 
@@ -116,9 +114,7 @@ valeur:
   # la valeur du niveau — restreinte comme le prix
   type: amount
   formula: prix_unitaire * quantite if prix_unitaire != null
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Valeur
 

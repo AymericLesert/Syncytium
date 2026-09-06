@@ -1172,6 +1172,13 @@ nomme `niveau` ; les références (`tiers.tiers` au n-aire des
 tarifs, `stock.niveau` aux dépôts, `inheritance: tiers`) et les
 libellés renommés, les trente fichiers revalidés.
 
+**Le fichier `settings.yml`** (D885, l'étage instance de la cascade
+D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar) et
+les trois profils de confidentialité — `financier` (les achats et
+la direction), `direction`, `commercial` — que les champs
+référencent par `${settings.confidentiality.<profil>}` ; le lien
+depuis `version.yml` viendra avec le morceau 1.
+
 **Les choix d'écriture, à valider avec le morceau** : l'entrepôt en
 lecture seule par le bloc `allow: { create: false, update: false,
 delete: false }` sur chaque entité (D423) ; `history: true` entité
@@ -1188,13 +1195,17 @@ successives de PMI vivent dans l'historique de l'article.
 
 ### Les frottements du morceau 2 (M3–M9, en proposition)
 
-- **M3 — la confidentialité resserrée par groupes au champ.** D25
-  donne le niveau (`confidentiality: protected`), D26 dit la
-  restriction par compte ou par groupe — mais aucune forme écrite ne
-  les compose. Le modèle écrit **`confidentiality: { level:
-  protected, groups: [achats, direction] }`** sur les prix, les
-  marges, l'IBAN — les deux axes de D26, le niveau × le qui — en
-  proposition.
+- **M3 — la confidentialité resserrée par groupes au champ** —
+  **tranché par D885**. D25 donne le niveau, D26 la restriction par
+  groupe, aucune forme ne les composait. L'auteur : « la
+  confidentialité peut faire référence à un paramétrage dans
+  settings. On exploite une capacité de la configuration » — **les
+  profils nommés dans `settings.yml`** (`confidentiality: {
+  financier: { level: protected, groups: [achats, direction] } }`,
+  puis `direction`, `commercial`) et **la référence au champ par
+  l'interpolation** `confidentiality: ${settings.confidentiality.
+  financier}` (D321/D802) : dix-neuf blocs répétés du modèle
+  remplacés par leur référence, le niveau et le qui écrits une fois.
 - **M4 — l'entrepôt en lecture seule, entité par entité.** Le bloc
   `allow:` libre (D423) se répète seize fois ; un `allow:` d'étage
   supérieur (le module, ou la version) qui vaudrait par défaut pour

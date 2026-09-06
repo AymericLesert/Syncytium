@@ -131,9 +131,7 @@ quantite:
 prix_unitaire:
   # MVCNPUNIT — la valorisation du mouvement : restreinte (D859)
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix unitaire
 
@@ -156,9 +154,7 @@ valeur:
   # MVCNVAL chez PMI ; recalculée ici — restreinte comme le prix
   type: amount
   formula: prix_unitaire * quantite if prix_unitaire != null
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Valeur
 

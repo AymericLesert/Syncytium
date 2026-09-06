@@ -50,8 +50,6 @@ fields:
     # achats et à la direction
     type: amount
     formula: commandes.sum(total if statut = "en_cours")
-    confidentiality:
-      level: protected
-      groups: [achats, direction]
+    confidentiality: ${settings.confidentiality.financier}
     label:
       fr: Engagé

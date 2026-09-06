@@ -1010,6 +1010,7 @@ Q58) :
 | D881 | **`reset_coverage` — l'opération qui force la relecture** (complète D878, ajoute au socle) : « je propose de définir une opération `reset_coverage(nom du module, nom de l'entité)` qui peut être exécutée régulièrement. En réinitialisant le coverage, cela forcera Syncytium à tout relire. Par exemple, nous pouvons du lundi au vendredi faire un delta, et le dimanche une relecture complète en planifiant un reset_coverage dans la nuit de samedi à dimanche » — l'opération efface l'état de couverture d'une entité (la dernière valeur parcourue, les empreintes par partition) : le `migrate` suivant relit la totalité ; planifiable par `every:` (D434), déclenchable comme toute opération (D428) ; le rythme : le delta en semaine, la relecture complète le dimanche — elle rattrape les retouches hors de la plage (D864) ; **la vingtième opération du socle** (après `migrate` D667, `anonymize` D697). | Le degré `administrator` (D701) en proposition. Voir §3.2c. |
 | D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color — relu par D883. Voir §3.2c. |
 | D884 | **Le mot juste prime l'éponymie** (le morceau 2 du cas 3 — la nuance de D831/D807) : « je préfère TIERS au lieu de PARTENAIRE. Pour Position, je préfère Niveau » — le parent des clients et des fournisseurs se nomme `tiers` dans le module `tiers` (`tiers/tiers/tiers.yml` : l'éponymie triple que D831 évitait est assumée quand le mot est le bon), le niveau de stock se nomme `niveau` (`stock.niveau`, STDEPLOT). | Le nommage reste libre (D807) : l'éponymie est une convention, ni imposée ni interdite. Voir §3.2c. |
+| D885 | **La confidentialité nommée dans les settings, référencée par interpolation** (solde le manque M3 du cas 3 — compose D25 et D26, exploite D321/D802) : « la confidentialité peut faire référence à un paramétrage dans settings. On exploite une capacité de la configuration » — **les profils nommés à l'étage des settings** (`confidentiality: { financier: { level: protected, groups: [achats, direction] } }` — le niveau D25 × le qui D26, écrits une fois) **et la référence au champ par l'interpolation de la configuration** : `confidentiality: ${settings.confidentiality.financier}` ; la forme riche `{ level:, groups: }` vaut aussi en ligne ; la cascade des settings (D359/D588) porte les profils à l'application, au module ou à l'entité. | Le cas : `settings.yml` de la version — financier, direction, commercial ; dix-neuf blocs remplacés. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9469,6 +9470,34 @@ nomme `niveau` (`stock.niveau`). La leçon de D831 se relit : le
 renommage du module y donnait un mot meilleur (`transport`), il ne
 faisait pas une règle ; le nommage reste libre (D807), l'éponymie
 une convention — ni imposée ni interdite.
+
+**La confidentialité nommée dans les settings, référencée par
+interpolation (D885 — solde le manque M3 du cas 3).** Le modèle du
+cas 3 répétait dix-neuf fois `confidentiality: { level: protected,
+groups: [achats, direction] }` sur ses champs financiers — les deux
+axes de D26, le niveau × le qui, sans forme écrite jusque-là.
+**« La confidentialité peut faire référence à un paramétrage dans
+settings. On exploite une capacité de la configuration. »** — deux
+gestes : **les profils nommés à l'étage des settings** —
+
+```yaml
+# settings.yml — l'étage instance de la cascade (D359/D588)
+confidentiality:
+  financier:  { level: protected, groups: [achats, direction] }
+  direction:  { level: protected, groups: [direction] }
+  commercial: { level: protected, groups: [commercial, direction] }
+```
+
+— **et la référence au champ par l'interpolation de la
+configuration** (D321/D802 — `${…}` interpole la configuration,
+`{champ}` reste le gabarit) : `confidentiality:
+${settings.confidentiality.financier}`. Le niveau et le qui
+s'écrivent une fois, le champ dit le profil ; la forme riche
+`{ level:, groups: }` vaut aussi en ligne pour le cas isolé ; la
+cascade porte les profils à l'application, au module ou à l'entité,
+le plus proche l'emporte. Le cas 3 : `settings.yml` de la version
+(avec `normalize: trim(me)` — D872), dix-neuf blocs remplacés, les
+trente et un fichiers revalidés.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18812,6 +18841,16 @@ avant la synthèse Q16).
   nuance de D831), le niveau de stock renommé niveau ; les dossiers
   déplacés (git mv), les références et les libellés renommés, les
   trente fichiers revalidés. Le morceau 2 reste en validation.
+- **2026-09-06 (reprise, suite 9) — LA CONFIDENTIALITÉ NOMMÉE
+  (D885, 885 décisions — M3 soldé).** « La confidentialité peut
+  faire référence à un paramétrage dans settings. On exploite une
+  capacité de la configuration » — les profils nommés dans
+  settings.yml (financier, direction, commercial : le niveau × les
+  groupes), la référence au champ par ${settings.confidentiality.
+  financier} (D321/D802) ; settings.yml de la version créé (avec
+  normalize: trim(me) — D872), dix-neuf blocs remplacés, trente et
+  un fichiers valides. Le morceau 2 reste en validation (les choix
+  d'écriture, M4–M9).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

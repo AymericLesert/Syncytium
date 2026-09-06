@@ -78,9 +78,7 @@ prix_net:
 prix_revient:
   # LCCNPUREVI — le prix de revient de la ligne : restreint (D859)
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix de revient
 
@@ -154,9 +152,7 @@ marge:
   # à devise compatible (D581)
   type: amount
   formula: prix_net - prix_revient if prix_revient != null
-  confidentiality:
-    level: protected
-    groups: [direction]
+  confidentiality: ${settings.confidentiality.direction}
   label:
     fr: Marge unitaire
 

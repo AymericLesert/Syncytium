@@ -233,14 +233,13 @@ quantite_economique:
 # --- les prix — les montants en amount à devise dans la valeur (D771/
 # D882) ; les champs financiers restreints aux achats et à la direction
 # (D859 — la confidentialité au champ D25/D364, resserrée par groupes
-# D26 : la forme riche en proposition, le manque M3) ---
+# D26) : le profil nommé des settings, référencé par l'interpolation
+# de la configuration (D885 — settings.yml : financier) ---
 
 prix_revient:
   # ARCNPRS — le prix de revient standard
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix de revient
   hint:
@@ -249,9 +248,7 @@ prix_revient:
 prix_moyen_pondere:
   # ARCNPMP
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix moyen pondéré
   hint:
@@ -260,9 +257,7 @@ prix_moyen_pondere:
 prix_achat:
   # ARCNPUACH1 — le prix d'achat du premier fournisseur
   type: amount
-  confidentiality:
-    level: protected
-    groups: [achats, direction]
+  confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Prix d'achat
   hint:

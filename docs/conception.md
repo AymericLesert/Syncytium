@@ -1004,7 +1004,8 @@ Q58) :
 | D875 | **L'orphelin isolé** (précise D874, l'effet du contrôle des liens) : « l'orphelin est laissé au mode relative qui l'isole. L'enregistrement contenant un orphelin ne sera pas enregistré dans la cible. Une anomalie sera remontée au technicien » — le pré-contrôle rapporte, la procédure part ; l'enregistrement à l'orphelin n'entre pas dans la cible (D177 : converti ET cohérent) et l'anomalie va au technicien ; seule l'identité brisée arrête la procédure (D871). | Voir §3.2c. |
 | D876 | **Le connecteur porte la facette des types** (précise D119/D681–D684 pour la lecture d'un schéma étranger, tient D399) : « la description d'un modèle fait référence à différents types dont le connecteur porte la facette. Par exemple : pour une composition, le lien entre le parent et le fils se fait sur les noms de colonnes identités identiques. Pour une association, le lien pourra se faire par une convention de nommage des colonnes. Pour un type composé, les colonnes qui feront référence à un objet dépendra de la convention de nommage » — la description de `source/` reste logique (`list of`, la référence, le composé), **le connecteur résout les colonnes par sa convention** : la composition par les colonnes d'identité aux noms identiques, l'association par une convention de nommage, le composé par la convention qui désigne ses colonnes — l'enfant ne déclare rien (D399), la facette trouve le lien ; le cas : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` de PMI (le nom logique sans le préfixe de table, K/I = l'identité, la lettre de type) portée par le connecteur `cegid`. | La forme — un paramètre de convention de la classe `sqlserver` ou une classe dédiée — à arbitrer à l'assise. Voir §3.2c. |
 | D877 | **La convention surchargeable** (complète D876) : « si la convention n'est pas possible ou ne convient pas au technicien, la convention pourra être surchargée et cela rendra possible ce point sur des modèles de données autres que ceux portés par Syncytium » — la convention de la classe est **un défaut** ; le technicien la surcharge au connecteur (une autre convention déclarée), à l'entité ou au champ (les colonnes nommées explicitement — le lien d'une composition, la colonne d'une association, les colonnes d'un composé), **le plus proche l'emporte** (D359) ; `source/` décrit ainsi tout modèle de données, pas seulement ceux que Syncytium porte ou dont il connaît la convention. | La forme des surcharges s'écrit au morceau de la source, sur les tables. Voir §3.2c. |
-| D878 | **La comparaison par blocs et `coverage:` — la remise à plat de l'auteur** (solde les quatre pièces et le mot de D864, précise D672/D666, écarte `append_only`) : « la migration consiste à comparer le contenu des entités d'origine converties et prêtes à être intégrées dans les entités destinations » — **la comparaison sur le converti, par partition, en cinq blocs** : anomalies (les lignes d'origine non converties), création (les clés nouvelles), modification (les clés existantes à un champ différent), inchangé, suppression (les clés de la destination absentes de l'origine) ; **la synthèse** : par bloc et par clé, le nombre d'enregistrements par entité = l'avancement de la migration (le module `migration`) ; **la lecture de l'origine** : trois modes — les nouveaux depuis la dernière lecture, la relecture par plage (de dates ou de valeurs), la totalité (**le défaut**) ; « append_only est trop restrictif » ; **`coverage:` sur l'entité source** précise **la clé de la partition** (distincte de l'`identity:` possible — Syncytium garde **une empreinte par clé** qui identifie une différence, et **la dernière valeur parcourue** pour reprendre depuis la dernière lecture) et **une plage de valeurs de clé** (une période sur une date — les 3 derniers mois, la dernière année, la dernière semaine ; un nombre de valeurs ou d'enregistrements sur un numéro — les 15 dernières valeurs, les 10 000 derniers) ; **le traitement selon la destination** : `history:` présent, les écarts complètent les valeurs existantes et sont stockés dans l'historique ; absent, ils les remplacent. | L'empreinte par ligne dans la provenance, `partition:`, le mot de qualification et les écarts en entités propres s'effacent — l'analyse des écarts = l'historique de la cible + la synthèse des blocs. `filter:` = le périmètre jamais lu, `coverage:` = la stratégie de lecture ; le `coverage:` de la lecture ≠ le taux de couverture de D862. La forme en proposition (`key:`/`range:`) au morceau de la source. Voir §3.2c. |
+| D878 | **La comparaison par blocs et `coverage:` — la remise à plat de l'auteur** (solde les quatre pièces et le mot de D864, précise D672/D666, écarte `append_only`) : « la migration consiste à comparer le contenu des entités d'origine converties et prêtes à être intégrées dans les entités destinations » — **la comparaison sur le converti, par partition, en cinq blocs** : anomalies (les lignes d'origine non converties), création (les clés nouvelles), modification (les clés existantes à un champ différent), inchangé, suppression (les clés de la destination absentes de l'origine) ; **la synthèse** : par bloc et par clé, le nombre d'enregistrements par entité = l'avancement de la migration (le module `migration`) ; **la lecture de l'origine** : trois modes — les nouveaux depuis la dernière lecture, la relecture par plage (de dates ou de valeurs), la totalité (**le défaut**) ; « append_only est trop restrictif » ; **`coverage:` sur l'entité source** précise **la clé de la partition** (distincte de l'`identity:` possible — Syncytium garde **une empreinte par clé** qui identifie une différence, et **la dernière valeur parcourue** pour reprendre depuis la dernière lecture) et **une plage de valeurs de clé** (une période sur une date — les 3 derniers mois, la dernière année, la dernière semaine ; un nombre de valeurs ou d'enregistrements sur un numéro — les 15 dernières valeurs, les 10 000 derniers) ; **le traitement selon la destination** : `history:` présent, les écarts complètent les valeurs existantes et sont stockés dans l'historique ; absent, ils les remplacent. | L'empreinte par ligne dans la provenance, `partition:`, le mot de qualification et les écarts en entités propres s'effacent — l'analyse des écarts = l'historique de la cible + la synthèse des blocs. `filter:` = le périmètre jamais lu, `coverage:` = la stratégie de lecture ; le `coverage:` de la lecture ≠ le taux de couverture de D862. La forme arrêtée par D879. Voir §3.2c. |
+| D879 | **La forme de `coverage:` — la carte des champs de partition** (précise D878) : « pour coverage, ne pas oublier que key peut faire référence à plusieurs champs. Et, range se reporte sur chaque champ » — `coverage:` est un mapping **champ → { value:, range: }** : `value:` la nature de la partition (`month` — les natures du crochet D382 ; absente, la valeur brute), `range:` la plage relue pour ce champ (une durée D476 sur une date : `3m` ; un nombre sur un numéro : `10000`) ; plusieurs champs = une clé de partition composée, chacun sa plage ; le cas : `MVCJMVT: { value: month, range: 3m }` sur les mouvements, `ECKTNUMERO: { range: 10000 }` sur les commandes. | Le croquis `key:`/`range:` de D878 s'efface. La nuance valeurs / enregistrements d'un numéro à préciser sur la table. Voir §3.2c. |
 
 ---
 
@@ -9293,9 +9294,38 @@ La lecture — ce que D878 fait aux quatre pièces et au mot :
 - **la forme, en proposition** pour le morceau de la source (les
   durées de D476, la nature au crochet D382) : `coverage: { key:
   MVCJMVT[month], range: 3m }` pour les mouvements, `coverage: {
-  key: ECKTNUMERO, range: 10000 records }` pour les commandes.
+  key: ECKTNUMERO, range: 10000 records }` pour les commandes —
+  **le croquis effacé par D879**.
 
 Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos.
+
+**La forme de `coverage:` — la carte des champs de partition (D879
+— précise D878).** **« Pour coverage, ne pas oublier que key peut
+faire référence à plusieurs champs. Et, range se reporte sur chaque
+champ. »** — `coverage:` n'est pas un couple `key:`/`range:` mais
+**une carte des champs de partition**, chaque champ portant
+**`value:`** — la nature de la partition (`month` ; les natures du
+crochet de D382 : la semaine, le mois, l'année ; absente, la valeur
+brute) — et **`range:`** — la plage relue pour ce champ (une durée
+de D476 sur une date, un nombre sur un numéro) ; plusieurs champs
+forment une clé de partition composée, chacun avec sa plage :
+
+```yaml
+coverage:
+  MVCJMVT:
+    value: month              # la partition au mois du mouvement
+    range: 3m                 # les trois derniers mois relus
+
+coverage:
+  ECKTNUMERO:
+    range: 10000              # les dix mille derniers
+```
+
+La nuance de D878 sur un numéro — les dernières valeurs de la clé
+ou les derniers enregistrements — se précisera sur la table (une
+commande est une valeur, ses lignes sont plusieurs enregistrements).
+
+**La carte entités → fichiers au connecteur (D828 — valide l'option
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18536,6 +18566,13 @@ avant la synthèse Q16).
   M2 clos ; la forme key:/range: en proposition au morceau de la
   source ; mapping.md au niveau. Restent : la cible (question 6),
   7–10, puis le morceau 1.
+- **2026-09-06 (reprise, suite) — LA FORME DE COVERAGE (D879, 879
+  décisions).** « Pour coverage, ne pas oublier que key peut faire
+  référence à plusieurs champs. Et, range se reporte sur chaque
+  champ » — la carte des champs de partition, chacun avec value:
+  (la nature — month) et range: (la plage — 3m, 10000) ; le
+  croquis key:/range: effacé ; la nuance valeurs / enregistrements
+  d'un numéro à préciser sur la table. mapping.md au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

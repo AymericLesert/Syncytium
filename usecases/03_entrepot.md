@@ -1014,20 +1014,32 @@ mot pour mot :
   jamais lu ; `coverage:` = la stratégie de lecture dans le
   périmètre ; et le `coverage:` de la lecture n'est pas le taux de
   couverture de D862 (la même famille, deux objets — noté) ;
-- **la forme, en proposition** pour le morceau de la source (les
-  durées de D476, la nature au crochet D382) :
+- **la forme, arrêtée par l'auteur (D879)** : « pour coverage, ne
+  pas oublier que key peut faire référence à plusieurs champs. Et,
+  range se reporte sur chaque champ » — **`coverage:` est une carte
+  des champs de partition**, chaque champ avec **`value:`** (la
+  nature de la partition — `month`, les natures du crochet de
+  D382 ; absente, la valeur brute) et **`range:`** (la plage relue —
+  une durée de D476 sur une date, un nombre sur un numéro) ; la
+  clé de partition composée = plusieurs champs, chacun sa plage :
 
 ```yaml
-# source/MVTSTO.yml — la lecture par partition
+# source/MVTSTO.yml — la lecture par partition : le mois du mouvement
 coverage:
-  key: MVCJMVT[month]         # la clé de la partition : le mois du mouvement
-  range: 3m                   # la plage relue : les trois derniers mois
+  MVCJMVT:
+    value: month              # la partition au mois
+    range: 3m                 # les trois derniers mois relus
 
 # source/ECOMCLI.yml — la lecture par plage de numéros
 coverage:
-  key: ECKTNUMERO             # la clé de la partition : le numéro de commande
-  range: 10000 records        # les dix mille derniers enregistrements
+  ECKTNUMERO:
+    range: 10000              # les dix mille derniers
 ```
 
+  *la nuance de D878 sur un numéro — les dernières valeurs de la
+  clé ou les derniers enregistrements — à préciser sur la table
+  (une commande, une valeur ; ses lignes, plusieurs
+  enregistrements).*
+
 Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos par
-D878.
+D878, la forme par D879.

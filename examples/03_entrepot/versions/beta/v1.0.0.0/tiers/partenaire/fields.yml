@@ -1,0 +1,211 @@
+# --- l'identité (CLKTCODE) ---
+
+code:
+  # CLKTCODE nchar(6) — l'identité se déclare chez l'enfant (client,
+  # fournisseur), le champ vit ici
+  type: text[..6]
+  required: true
+  label:
+    fr: Code
+  placeholder:
+    fr: C00042
+
+nom:
+  # CLCTNOM — la raison sociale
+  type: text[..40]
+  required: true
+  searchable: mutualizable[qui]
+  label:
+    fr: Raison sociale
+
+abrege:
+  # CLCTABRE
+  type: text[..10]
+  label:
+    fr: Abrégé
+  hint:
+    fr: Le nom court, celui des listes.
+
+# --- l'adresse principale — la géolocalisation (D638) : l'adresse
+# normalisée et les coordonnées GPS de PMI (CLCNGPSX, CLCNGPSY) par le
+# constructeur au mapping (D659) ; les lignes d'adresse (CLCTRUE1,
+# CLCTRUE2, CLCTRUE3, CLCTCP, CLCTVILLE, CLCTPAYS) y entrent ---
+
+adresse:
+  type: geolocation
+  label:
+    fr: Adresse
+  hint:
+    fr: L'adresse du siège, géolocalisée — le tri par la distance.
+
+pays:
+  # CLCTCPAYS nchar(3) — le code pays ISO
+  type: text[3]
+  label:
+    fr: Pays
+
+# --- les coordonnées — les composés à validation intégrée (D391) ---
+
+telephone:
+  # CLCTTELEP1
+  type: phone
+  label:
+    fr: Téléphone
+
+fax:
+  # CLCTFAX1
+  type: phone
+  label:
+    fr: Fax
+
+email:
+  # CLCTEMAIL
+  type: email
+  label:
+    fr: Courriel
+
+site:
+  # CLCTSITE — le lien en lecture (D563)
+  type: url
+  label:
+    fr: Site web
+
+# --- les identifiants légaux et bancaires — validés par leur type ---
+
+siret:
+  # CLCTSIRET
+  type: siret
+  label:
+    fr: SIRET
+
+tva:
+  # CLCTNOTVA
+  type: vat_number
+  label:
+    fr: N° de TVA
+
+iban:
+  # CLCTIBAN — le bancaire : réservé aux achats et à la direction
+  type: iban
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: IBAN
+
+bic:
+  # CLCTSWIFT
+  type: bic
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: BIC
+
+# --- les conditions ---
+
+devise:
+  # CLCTDEVISE nchar(3) — la devise du partenaire (ISO)
+  type: text[3]
+  label:
+    fr: Devise
+  placeholder:
+    fr: EUR
+
+langue:
+  # CLCTLANGUE
+  type: text[..3]
+  label:
+    fr: Langue
+
+mode_reglement:
+  # CLCTMREG — la liste close de PMI en énuméré (D883)
+  type: enum
+  label:
+    fr: Mode de règlement
+  values:
+    virement:
+      label:
+        fr: Virement
+    cheque:
+      label:
+        fr: Chèque
+    prelevement:
+      label:
+        fr: Prélèvement
+    traite:
+      label:
+        fr: Traite
+    carte:
+      label:
+        fr: Carte
+
+echeance:
+  # CLCTCECHEA + CLCTBECHEA — le code et la base d'échéance de PMI ; la
+  # standardisation retient le délai en jours
+  type: integer[0..]
+  label:
+    fr: Échéance
+  hint:
+    fr: Le délai de règlement, en jours.
+
+# --- la vie du partenaire ---
+
+actif:
+  # CLCTACTIF
+  type: boolean
+  required: true
+  default: true
+  label:
+    fr: Actif
+
+bloque:
+  # CLCTBLOCAG
+  type: boolean
+  required: true
+  default: false
+  label:
+    fr: Bloqué
+  hint:
+    fr: Vrai quand PMI bloque le partenaire — plus de commande.
+
+date_creation:
+  # CLCJCRE — AAAAMMJJ au masque (D820)
+  type: date
+  label:
+    fr: Créé le
+
+date_modification:
+  # CLCJMOU
+  type: date
+  label:
+    fr: Modifié le
+
+# --- les compositions (D399) ---
+
+adresses:
+  # ADRESSE — les adresses complémentaires (livraison, facturation…)
+  type: list of adresse
+  label:
+    fr: Adresses complémentaires
+
+contacts:
+  # CONTACT — les personnes ; le RGPD (D695) sur leurs champs
+  type: list of contact
+  label:
+    fr: Contacts
+
+# ------ Champs calculés ------
+
+siren:
+  # les neuf premiers chiffres du SIRET — le type siren valide
+  type: siren
+  formula: left(siret, 9) if siret != null
+  label:
+    fr: SIREN
+
+nombre_contacts:
+  type: integer
+  formula: contacts.count()
+  label:
+    fr: Contacts

@@ -1,0 +1,21 @@
+# Le partenaire — le parent des clients et des fournisseurs : la
+# structure commune de CLIENT et FOURNIS chez PMI (167 colonnes
+# identiques, le préfixe CL pour les deux), décrite une fois (D353 —
+# « le parent décrit, l'enfant pointe »). Les enfants ne redisent rien
+# de ce qui est ici ; l'identité (le code) se déclare chez l'enfant,
+# où elle vaut : un code client et un code fournisseur peuvent
+# coïncider chez PMI sans désigner la même société.
+name: partenaire
+description: Un partenaire de l'entreprise — l'identité, l'adresse, les coordonnées, les conditions ; le parent des clients et des fournisseurs
+label: "{code} — {nom}"
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields: fields.yml
+
+validation:
+  - date_modification >= date_creation if date_modification != null

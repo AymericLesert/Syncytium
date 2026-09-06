@@ -1,0 +1,49 @@
+# La tranche de quantité — la table TRANCHES de PMI : un numéro de
+# tranche (TCKTNUMERO) porte jusqu'à trente-cinq seuils (TCCNSEU_01 …
+# TCCNSEU_35). Ici : les seuils en liste (D362), et la plage d'une
+# tranche entre deux seuils consécutifs — le range (D497) calculé.
+# La tranche conditionne le prix unitaire du tarif (D882 — le n-aire
+# de l'article).
+name: tranche
+description: Une grille de tranches de quantité — les seuils qui conditionnent les tarifs
+label: "Tranche {numero}"
+identity: [numero]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  numero:
+    # TCKTNUMERO nchar(2)
+    type: text[..2]
+    required: true
+    label:
+      fr: Numéro
+
+  seuils:
+    # TCCNSEU_01 … TCCNSEU_35 — trente-cinq colonnes, une liste
+    type: list of decimal
+    label:
+      fr: Seuils
+    hint:
+      fr: Les quantités qui bornent les tranches, en ordre croissant.
+
+  # ------ Champs calculés ------
+
+  nombre_tranches:
+    type: integer
+    formula: seuils.count()
+    label:
+      fr: Tranches
+
+  # la plage de la première tranche — le range of (D497) : de zéro au
+  # premier seuil ; la forme d'accès aux plages suivantes (seuils[n],
+  # seuils[n + 1]) se précisera sur la table à l'analyse
+  premiere_tranche:
+    type: range of decimal
+    formula: range(0, seuils.first())
+    label:
+      fr: Première tranche

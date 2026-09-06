@@ -1,0 +1,123 @@
+# --- l'identité (ECKTNUMERO, ECKTINDICE) ---
+
+numero:
+  # ECKTNUMERO — le counter surchargé par la migration (D883)
+  type: counter
+  format: "{counter:000000}"
+  label:
+    fr: Numéro
+
+indice:
+  # ECKTINDICE — la révision
+  type: text[..3]
+  required: true
+  default: "000"
+  label:
+    fr: Indice
+
+# --- le fournisseur et les références ---
+
+fournisseur:
+  # ECCTCODE — la référence au fournisseur (D396)
+  type: tiers.fournisseur
+  required: true
+  label:
+    fr: Fournisseur
+
+reference_fournisseur:
+  # ECCTREFCDE — l'accusé de réception du fournisseur
+  type: text[..20]
+  label:
+    fr: Référence fournisseur
+
+# --- les dates ---
+
+date:
+  # ECCJCRE
+  type: date
+  required: true
+  label:
+    fr: Date
+
+date_echeance:
+  # ECCJECHFOR
+  type: date
+  label:
+    fr: Échéance
+
+derniere_reception:
+  # ECCJDERBL — chez le fournisseur, le dernier bon est une réception
+  type: date
+  label:
+    fr: Dernière réception
+
+derniere_facture:
+  # ECCJDERFA
+  type: date
+  label:
+    fr: Dernière facture
+
+# --- les conditions ---
+
+devise:
+  # ECCTDEVISE
+  type: text[3]
+  required: true
+  label:
+    fr: Devise
+
+taux_change:
+  # ECCNTXDEVI
+  type: decimal
+  decimals: 6
+  label:
+    fr: Taux de change
+
+statut:
+  # ECCTSTATUT — la liste close en énuméré (D883)
+  type: enum
+  required: true
+  label:
+    fr: Statut
+  values:
+    en_cours:
+      label:
+        fr: En cours
+    soldee:
+      label:
+        fr: Soldée
+    annulee:
+      label:
+        fr: Annulée
+
+# --- la composition (D399) ---
+
+lignes:
+  # LCOMFOU
+  type: list of ligne_achat
+  label:
+    fr: Lignes
+
+# ------ Champs calculés ------
+
+total:
+  # les montants d'achat sont restreints (D859)
+  type: amount
+  formula: lignes.sum(montant)
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Total
+
+nombre_lignes:
+  type: integer
+  formula: lignes.count()
+  label:
+    fr: Lignes
+
+reste_a_recevoir:
+  type: decimal
+  formula: lignes.sum(quantite - quantite_recue)
+  label:
+    fr: Reste à recevoir

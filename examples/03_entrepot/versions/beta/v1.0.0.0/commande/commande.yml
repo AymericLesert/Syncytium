@@ -1,0 +1,15 @@
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768) : depuis commande/
+# « commande » : les commandes de vente et d'achat (D859/D873 — « le
+# lien complet entre les articles, les clients et les fournisseurs »),
+# le troisième module de l'entrepôt. Sans héritage (D882) : les deux
+# commandes sont séparées, chacune ses lignes — la structure se répète,
+# c'est le prix du choix.
+name: commande
+description: Les commandes — de vente aux clients, d'achat aux fournisseurs — et leurs lignes
+
+entities:
+  - commande_vente/commande_vente.yml
+  - ligne_vente/ligne_vente.yml
+  - commande_achat/commande_achat.yml
+  - ligne_achat/ligne_achat.yml

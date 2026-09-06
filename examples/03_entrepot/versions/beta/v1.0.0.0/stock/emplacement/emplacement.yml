@@ -1,0 +1,30 @@
+# L'emplacement — le référentiel des emplacements de PMI (DPKTCODMPL,
+# MVCTCODMPL) : les valeurs distinctes de la source (D658).
+name: emplacement
+description: Un emplacement de stockage dans un dépôt
+label: "{code}"
+identity: [code]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  code:
+    type: text[..10]
+    required: true
+    label:
+      fr: Code
+
+  depot:
+    # l'emplacement appartient à un dépôt — la référence (D396)
+    type: stock.depot
+    label:
+      fr: Dépôt
+
+  libelle:
+    type: text[..40]
+    label:
+      fr: Libellé

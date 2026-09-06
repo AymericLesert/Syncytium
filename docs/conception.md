@@ -18764,6 +18764,31 @@ avant la synthèse Q16).
   d'article, le code de gestion, la famille, la sous-famille en
   enum (pas en distinct:). La couverture des types corrigée au
   usecase : counter et file remontent au tableau.
+- **2026-09-06 (reprise, suite 7) — LE MORCEAU 2 ÉCRIT : LE MODÈLE
+  CHAMP PAR CHAMP (en validation).** « Passons au morceau 2 » —
+  examples/03_entrepot/versions/beta/v1.0.0.0/ : groups.yml (les
+  cinq strates, direction contenant les trois métiers,
+  administration au degré administrator) et les quatre modules,
+  seize entités, cent soixante-huit champs commentés de leur
+  colonne PMI — technique (article, ligne_nomenclature, tranche),
+  tiers (partenaire le parent, client et fournisseur par
+  inheritance: — le premier emploi de D353 —, adresse, contact en
+  rgpd: personal), commande (commande_vente/commande_achat séparées
+  au counter surchargé, ligne_vente/ligne_achat), stock (position,
+  mouvement sans historique, depot, emplacement). Le tarif en
+  n-aire D402, les associations dérivées D405, les composés
+  (geolocation, period, measure, duration, phone, email, url, siret,
+  vat_number, iban, bic, siren calculé), les prix restreints. Deux
+  renommages contre l'éponymie triple (partenaire, position — la
+  leçon D831). **Sept frottements M3–M9 en proposition** (la
+  confidentialité par groupes au champ, l'allow d'étage supérieur,
+  le count conditionnel, l'appartenance à une collection, les
+  sous-items de period, l'entité comme collection, **la grammaire
+  face à YAML** : le modèle passé à PyYAML — deux lignes à
+  guillemets ; **neuf fichiers des exemples validés 01_vehicule et
+  02_banque échouent** au même analyseur, trois causes — le crochet
+  dans une collection en flux, le « : » du .select dans un scalaire
+  nu, le « \. » entre guillemets doubles — à arbitrer).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

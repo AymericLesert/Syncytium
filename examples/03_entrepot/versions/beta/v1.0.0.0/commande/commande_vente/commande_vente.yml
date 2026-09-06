@@ -1,0 +1,22 @@
+# La commande de vente — la table ECOMCLI de PMI (l'entête, 91
+# colonnes) et sa composition LCOMCLI (les lignes). L'identité : le
+# numéro et l'indice de révision (ECKTNUMERO, ECKTINDICE — D865) ; le
+# numéro est un counter (D883) dont la migration surcharge la valeur.
+# Pas de machine à états (D882) : l'entrepôt consulte, le statut est
+# un énuméré venu de PMI.
+name: commande_vente
+description: Une commande de vente — l'entête, le client, les conditions et ses lignes
+label: "{numero}-{indice} — {client}"
+identity: [numero, indice]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields: fields.yml
+
+validation:
+  - date_echeance >= date if date_echeance != null
+  - lignes.count() > 0 if statut != "annulee"

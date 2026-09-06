@@ -1,0 +1,42 @@
+# Les groupes d'utilisateurs — les strates de l'entreprise (D859 : « de
+# l'opérateur aux dirigeants »), à la racine de la version (D414). Le
+# nom = la clé, cité partout (la confidentialité des champs, les allow).
+# Le degré intrinsèque porté par le groupe (D699) : user par défaut ;
+# administration seule au degré administrator — migrate (D667) et
+# reset_coverage (D881) lui reviennent (D701).
+# « Un groupe est constitué d'autres groupes » (D414) : direction
+# contient les strates métier — ses membres voient tout ce qu'elles voient.
+
+production:
+  label:
+    fr: Production
+  description:
+    fr: Les opérateurs et la préparation — les données techniques et les stocks.
+
+commercial:
+  label:
+    fr: Commercial
+  description:
+    fr: L'administration des ventes — les clients et les commandes de vente.
+
+achats:
+  label:
+    fr: Achats
+  description:
+    fr: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
+
+direction:
+  label:
+    fr: Direction
+  description:
+    fr: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
+  # la composition des groupes (D414) — le membre d'un constituant est
+  # membre du contenant : la direction voit ce que voient les strates
+  groups: [production, commercial, achats]
+
+administration:
+  label:
+    fr: Administration
+  description:
+    fr: Le pilotage de l'entrepôt — la migration, la couverture, les rejets.
+  degree: administrator

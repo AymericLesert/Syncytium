@@ -1,0 +1,57 @@
+# Le fournisseur — la table FOURNIS de PMI (la même structure que
+# CLIENT, le même préfixe CL) : l'enfant du partenaire (D353), il ne
+# porte que ce qui lui est propre — ses commandes d'achat, les articles
+# qu'il fournit.
+name: fournisseur
+description: Un fournisseur — le partenaire qui vend à l'entreprise
+label: "{code} — {nom}"
+inheritance: partenaire
+identity: [code]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  delai_livraison:
+    # CLCTJOURFO — le délai habituel de livraison, en jours
+    type: integer[0..]
+    label:
+      fr: Délai de livraison
+    hint:
+      fr: Le délai habituel, en jours.
+
+  commandes:
+    # « un fournisseur a une liste de commandes d'achat » — l'association
+    # dérivée (D405/D882)
+    type: association with commande.commande_achat if fournisseur = me
+    label:
+      fr: Commandes d'achat
+
+  articles:
+    # les articles dont il est fournisseur habituel — l'accès retour de
+    # l'association stockée de l'article (D394), nommé en vue dérivée
+    type: association with technique.article if fournisseurs contains me
+    label:
+      fr: Articles fournis
+
+  # ------ Champs calculés ------
+
+  nombre_commandes:
+    type: integer
+    formula: commandes.count()
+    label:
+      fr: Commandes
+
+  engage:
+    # le montant engagé en commandes d'achat non soldées — réservé aux
+    # achats et à la direction
+    type: amount
+    formula: commandes.sum(total if statut = "en_cours")
+    confidentiality:
+      level: protected
+      groups: [achats, direction]
+    label:
+      fr: Engagé

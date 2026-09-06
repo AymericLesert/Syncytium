@@ -1,0 +1,135 @@
+numero:
+  # NOKNLIGNOM int — le rang de la ligne
+  type: integer[1..]
+  required: true
+  label:
+    fr: Ligne
+
+nature:
+  # NOCTNATCPT — la nature : matière (composant) ou opération (D882 —
+  # « la nature du composant : matière ou opération »)
+  type: enum
+  required: true
+  label:
+    fr: Nature
+  hint:
+    fr: Un composant consommé, ou une opération de la gamme.
+  values:
+    composant:
+      label:
+        fr: Composant
+    operation:
+      label:
+        fr: Opération
+
+designation:
+  # NOCTCOMCPT — le commentaire du composant, sinon le libellé du
+  # composant ou de l'opération (le calcul au mapping)
+  type: text[..40]
+  label:
+    fr: Désignation
+
+# --- le composant (nature = composant) ---
+
+composant:
+  # NOCTCODECP + NOCTCOMCPT — la référence à l'article (D396) : la
+  # composition auto-référencée (D135)
+  type: technique.article
+  label:
+    fr: Composant
+  hint:
+    fr: L'article consommé — un article de l'entrepôt.
+
+quantite:
+  # NOCNQTEUNI — la quantité par unité de produit fini
+  type: decimal
+  label:
+    fr: Quantité
+  hint:
+    fr: La quantité consommée pour une unité du produit fini.
+
+unite:
+  # NOCTUNITE
+  type: text[..2]
+  label:
+    fr: Unité
+
+rendement:
+  # NOCNRENDT — le rendement de la ligne, en pourcentage (D391)
+  type: percentage
+  label:
+    fr: Rendement
+  hint:
+    fr: La part utile — les rebuts se déduisent.
+
+# --- l'opération (nature = operation) ---
+
+operation:
+  # NOCTCODOPE — le code de l'opération (le poste chez PMI)
+  type: text[..6]
+  label:
+    fr: Opération
+  placeholder:
+    fr: TOUR01
+
+jalon:
+  # NOCNJALON — le jalon de l'opération dans la gamme
+  type: integer[0..]
+  label:
+    fr: Jalon
+
+temps_preparation:
+  # NOCNTPSPRE — les temps de PMI en notation décimale industrielle
+  # (D378 — le masque 0.00 h) ; l'unité réelle à confirmer à l'analyse
+  type: duration
+  mask: "0.00 h"
+  label:
+    fr: Temps de préparation
+  hint:
+    fr: Le réglage avant la série.
+
+temps_ouverture:
+  # NOCNTPSOUV — le temps d'ouverture du poste
+  type: duration
+  mask: "0.00 h"
+  label:
+    fr: Temps d'ouverture
+  hint:
+    fr: Le temps machine pour une unité.
+
+temps_attente:
+  # NOCNTPSATT
+  type: duration
+  mask: "0.00 h"
+  label:
+    fr: Temps d'attente
+
+nombre_ouvriers:
+  # NOCNBREOUV
+  type: decimal
+  label:
+    fr: Ouvriers
+  hint:
+    fr: Le nombre d'opérateurs sur l'opération.
+
+# --- la validité de la ligne ---
+
+validite:
+  # NOCJDEBVAL + NOCJFINVAL — la période (D391), les bornes lues au
+  # masque AAAAMMJJ ; le constructeur au mapping (D659)
+  type: period
+  label:
+    fr: Validité
+  hint:
+    fr: La période pendant laquelle la ligne s'applique — vide, elle vaut toujours.
+
+# ------ Champs calculés ------
+
+quantite_nette:
+  # la quantité corrigée du rendement
+  type: decimal
+  formula: quantite / (rendement / 100) if rendement != null and rendement > 0
+  label:
+    fr: Quantité nette
+  hint:
+    fr: La quantité à engager, rendement compris.

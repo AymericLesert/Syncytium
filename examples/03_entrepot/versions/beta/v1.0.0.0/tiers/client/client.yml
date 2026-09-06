@@ -1,0 +1,76 @@
+# Le client — la table CLIENT de PMI : l'enfant du partenaire (D353),
+# il ne porte que ce qui lui est propre — la commission du
+# représentant, le plafond d'encours, ses commandes de vente.
+name: client
+description: Un client — le partenaire qui achète à l'entreprise
+label: "{code} — {nom}"
+# l'enfant pointe son parent (D353) — la seule référence
+inheritance: partenaire
+# la clé fonctionnelle (D357) — le code vaut parmi les clients
+identity: [code]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  representant:
+    # CLCTREP1 — le code du représentant
+    type: text[..3]
+    label:
+      fr: Représentant
+
+  taux_representant:
+    # CLCNTXREP1 — la commission, en pourcentage (D391)
+    type: percentage
+    confidentiality:
+      level: protected
+      groups: [direction]
+    label:
+      fr: Commission
+    hint:
+      fr: Le taux de commission du représentant — réservé à la direction.
+
+  encours_maximum:
+    # CLCNDECOU1 — le découvert autorisé ; la devise du partenaire
+    type: amount
+    confidentiality:
+      level: protected
+      groups: [commercial, direction]
+    label:
+      fr: Encours maximum
+    hint:
+      fr: Le plafond d'encours accordé au client.
+
+  code_tarif:
+    # CLCTTARIF — le code tarif du client chez PMI
+    type: text[..6]
+    label:
+      fr: Code tarif
+
+  commandes:
+    # « un client a une liste de commandes de vente » — pas une
+    # composition du tiers : l'association dérivée (D405/D882), la
+    # vérité reste la référence portée par la commande
+    type: association with commande.commande_vente if client = me
+    label:
+      fr: Commandes de vente
+
+  # ------ Champs calculés ------
+
+  nombre_commandes:
+    type: integer
+    formula: commandes.count()
+    label:
+      fr: Commandes
+
+  carnet:
+    # le carnet de commandes en cours — le tableau de bord (D859)
+    type: amount
+    formula: commandes.sum(total if statut = "en_cours")
+    label:
+      fr: Carnet en cours
+    hint:
+      fr: Le total des commandes non soldées.

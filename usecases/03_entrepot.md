@@ -1109,12 +1109,121 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 
 *(à écrire morceau par morceau — le protocole D457/D756)*
 
-Le dépôt vivra dans `examples/03_entrepot/` — la maison alignée un
+Le dépôt vit dans `examples/03_entrepot/` — la maison alignée un
 cas = un exemple (D827/D857).
+
+**Le morceau 2 — le modèle champ par champ** (écrit le 06/09/2026,
+**en validation**) : `versions/beta/v1.0.0.0/` porte `groups.yml`
+(les cinq strates de D859/D882 — production, commercial, achats,
+direction qui les contient, administration au degré
+`administrator`) et **les quatre modules, seize entités, cent
+soixante-huit champs**, chaque champ commenté de sa colonne PMI :
+
+- **`technique/`** — `article` (l'identité code + complément, la
+  classification en énumérés D883, les unités et les mesures, les
+  prix restreints, `matieres: list of text` des neuf colonnes, `plans:
+  list of file` par le connecteur file D883, `fournisseurs:
+  association with tiers.fournisseur` stockée, `nomenclature: list of
+  ligne_nomenclature`, **`tarifs` en n-aire** `list of
+  [tiers.partenaire, tranche] { prix, date_application, valide }`,
+  les associations dérivées vers les lignes de commande, les calculés
+  du tableau de bord — `dormant`, `temps_gamme`) ;
+  `ligne_nomenclature` (la nature composant | opération, le composant
+  = `technique.article` — l'auto-référence D135, les temps en
+  `duration` au masque industriel, le rendement en `percentage`, la
+  `validite: period`) ; `tranche` (les trente-cinq seuils en `list of
+  decimal`, la première tranche en `range of decimal`) ;
+- **`tiers/`** — **`partenaire`, le parent** (la structure commune de
+  CLIENT et FOURNIS : l'adresse en `geolocation`, `phone`, `email`,
+  `url`, `siret`, `vat_number`, `iban`, `bic`, les conditions, les
+  compositions `adresses` et `contacts`, le `siren` calculé) ;
+  **`client` et `fournisseur` par `inheritance: partenaire`** (D353 —
+  chacun son `identity: [code]`, ses champs propres, `commandes` en
+  association dérivée D405) ; `adresse` (l'usage en énuméré, la
+  `geolocation`) ; `contact` (**`rgpd: personal`** sur le nom, le
+  prénom, les coordonnées, la date de naissance — D695) ;
+- **`commande/`** — `commande_vente` et `commande_achat`, séparées
+  sans héritage (D882 — la structure se répète, le prix du choix) :
+  **`numero: counter`** surchargé par la migration (D883), l'indice de
+  révision en identité, la référence au client ou au fournisseur, la
+  devise et le taux de change, le statut en énuméré sans machine à
+  états, la composition `lignes`, les totaux calculés ; `ligne_vente`
+  et `ligne_achat` (l'article en référence, les quantités, les prix en
+  `amount` à devise D771, les délais en `datetime` recomposés D659,
+  la `marge` calculée réservée à la direction, `en_retard` par
+  `context.now`) ;
+- **`stock/`** — **`position`** (STDEPLOT — l'entité ne se nomme pas
+  « stock » : l'éponymie triple stock/stock/stock.yml, la leçon
+  D831 ; la clé à cinq champs, les quantités, la valeur restreinte,
+  l'inventaire en `datetime`, `history: true` pour le stock à date
+  D412) ; **`mouvement`** (la clé aux colonnes I complétées de
+  l'article, de la date et de l'heure — D869/D871 tranchera ; la
+  date et l'heure séparées — le `time` seul ; le type et le sens en
+  énumérés ; **`history: false`**, le seul opt-out D882) ; `depot` et
+  `emplacement` (les référentiels par valeurs distinctes D658).
+
+**Les choix d'écriture, à valider avec le morceau** : l'entrepôt en
+lecture seule par le bloc `allow: { create: false, update: false,
+delete: false }` sur chaque entité (D423) ; `history: true` entité
+par entité (D411) ; les clés d'énumérés sont **le vocabulaire de
+l'entrepôt** (fabrique, achete, en_cours…), les codes PMI s'y
+traduisent au mapping — la standardisation même ; les montants en
+`amount` sans `currencies:` (toutes les devises ISO, D391) ; le
+tarif n-aire porte le tarif applicable, les dates d'application
+successives de PMI vivent dans l'historique de l'article.
 
 ## Les manques relevés
 
 *(chaque frottement = une décision consignée)*
+
+### Les frottements du morceau 2 (M3–M9, en proposition)
+
+- **M3 — la confidentialité resserrée par groupes au champ.** D25
+  donne le niveau (`confidentiality: protected`), D26 dit la
+  restriction par compte ou par groupe — mais aucune forme écrite ne
+  les compose. Le modèle écrit **`confidentiality: { level:
+  protected, groups: [achats, direction] }`** sur les prix, les
+  marges, l'IBAN — les deux axes de D26, le niveau × le qui — en
+  proposition.
+- **M4 — l'entrepôt en lecture seule, entité par entité.** Le bloc
+  `allow:` libre (D423) se répète seize fois ; un `allow:` d'étage
+  supérieur (le module, ou la version) qui vaudrait par défaut pour
+  ses entités manque — la cascade des settings (D359) le suggère.
+- **M5 — le décompte conditionnel.** `nomenclature.count(nature =
+  "composant")` : `count()` est sans paramètre au catalogue (D580) et
+  la forme `sum(x if …)` porte la condition sur la valeur ; la
+  condition seule dans `count(…)` est à admettre — ou s'écrit
+  `count(1 if nature = "composant")`.
+- **M6 — l'accès retour d'une association stockée.** `fournisseur.
+  articles: association with technique.article if fournisseurs
+  contains me` — l'opérateur d'appartenance à une collection
+  (`contains`, ou `fournisseurs.exists(me)`) n'est pas au catalogue
+  ; D394 promet l'accès retour, D405 le nomme — la forme reste à
+  écrire pour une association.
+- **M7 — les sous-items de la période.** `validite.start`,
+  `validite.end` : D772 dit « les bornes » sans les nommer.
+- **M8 — l'entité comme collection dans une formule.**
+  `stock.mouvement.max(date if article = me and sens = "sortie")` —
+  l'étendue globale d'une entité (D842) employée comme collection
+  aux agrégats (D580) : à confirmer.
+- **M9 — la grammaire face à YAML.** Le modèle a été passé à un
+  analyseur YAML (PyYAML) : deux lignes ont dû prendre des
+  guillemets — le `.select(entree: quantite, …)` de D833 et la
+  cellule du n-aire `{ prix: amount, … }` de D403, dont le `: `
+  rompt un scalaire nu. **Les exemples déjà validés ont été passés
+  au même analyseur : neuf fichiers de `01_vehicule` et `02_banque`
+  échouent** — trois causes : (1) **le crochet dans une collection
+  en flux** — `{ type: text[..100] }`, `items: [ list[revision.echues]
+  ]`, `field[nb_jours]` entre crochets : le `[` ouvre une séquence
+  YAML (six fichiers) ; (2) **le `: ` dans un scalaire nu** — le
+  `.select(credit: …, loa: …)` des échéances et du véhicule (deux
+  fichiers) ; (3) **le `\.` dans une chaîne à guillemets doubles** —
+  `".*\.xlsx?"` du connecteur xlsx, l'échappement inconnu de YAML (un
+  fichier ; les guillemets simples suffisent). D320 a choisi « YAML
+  sans format personnalisé » : la règle d'écriture est à fixer —
+  les guillemets dès qu'un crochet vit dans une collection en flux
+  ou qu'un `: ` vit dans une expression, ou la forme en bloc ; et
+  les neuf fichiers à corriger sur arbitrage.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

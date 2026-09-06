@@ -1,0 +1,28 @@
+# La ligne de nomenclature — la table NOMENC de PMI (la vue, décrite
+# comme une table — D866), qui réunit la nomenclature et la gamme : la
+# nature de la ligne dit le composant (une matière, un article) ou
+# l'opération (un poste, des temps). La composition de l'article
+# (D399) ; le composant référence un article — la composition
+# auto-référencée (D135), l'acyclicité validée par le moteur.
+# L'indice de révision des commandes ne couvre pas la nomenclature :
+# l'historique la porte (D882).
+name: ligne_nomenclature
+description: Une ligne de la nomenclature ou de la gamme d'un article — un composant ou une opération
+label: "{numero} — {designation}"
+# la clé fonctionnelle au sein de l'article (NOKNLIGNOM) — l'accès par
+# la clé owner.nomenclature[n] (D841)
+identity: [numero]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields: fields.yml
+
+# La cohérence d'une ligne (D404)
+validation:
+  - composant != null if nature = "composant"
+  - operation != null if nature = "operation"
+  - validite.end >= validite.start if validite != null

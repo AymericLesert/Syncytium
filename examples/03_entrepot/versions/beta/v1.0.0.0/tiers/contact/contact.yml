@@ -1,0 +1,95 @@
+# Le contact — la table CONTACT de PMI (CTKTSOC, CTKNID) : les
+# personnes chez le partenaire. La composition du partenaire (D399) ;
+# les champs nominatifs portent le marquage RGPD (D695 — personal) :
+# l'anonymisation (D696) et la rétention (D698) savent où frapper —
+# le premier exemple au RGPD.
+name: contact
+description: Une personne chez un partenaire — son rôle et ses coordonnées
+label: "{prenom} {nom}"
+identity: [identifiant]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  identifiant:
+    # CTKNID int — l'identifiant de PMI
+    type: integer[1..]
+    required: true
+    label:
+      fr: Identifiant
+
+  civilite:
+    type: enum
+    label:
+      fr: Civilité
+    values:
+      madame:
+        label:
+          fr: Madame
+      monsieur:
+        label:
+          fr: Monsieur
+
+  nom:
+    type: text[..40]
+    required: true
+    rgpd: personal
+    searchable: mutualizable[qui]
+    label:
+      fr: Nom
+
+  prenom:
+    type: text[..40]
+    rgpd: personal
+    label:
+      fr: Prénom
+
+  fonction:
+    type: text[..40]
+    label:
+      fr: Fonction
+    placeholder:
+      fr: Responsable des achats
+
+  telephone:
+    type: phone
+    rgpd: personal
+    label:
+      fr: Téléphone
+
+  portable:
+    type: phone
+    rgpd: personal
+    label:
+      fr: Portable
+
+  email:
+    type: email
+    rgpd: personal
+    label:
+      fr: Courriel
+
+  anniversaire:
+    # CTCJANNIV — AAAAMMJJ au masque ; une date de naissance est
+    # personnelle (D695)
+    type: date
+    rgpd: personal
+    label:
+      fr: Date de naissance
+
+  actif:
+    type: boolean
+    required: true
+    default: true
+    label:
+      fr: Actif
+
+  date_creation:
+    # CTCJCRE
+    type: date
+    label:
+      fr: Créé le

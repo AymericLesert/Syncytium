@@ -1,0 +1,46 @@
+# Le dépôt — le référentiel des dépôts de PMI (DPKTDEPOT, MVCTDEPOT) :
+# les valeurs distinctes de la source (D658), le libellé enrichi à
+# l'analyse. Une liste courte, mais une entité : le dépôt se référence
+# (D396) et porte ses positions.
+name: depot
+description: Un dépôt de stockage
+label: "{code} — {libelle}"
+identity: [code]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  code:
+    type: text[..6]
+    required: true
+    label:
+      fr: Code
+
+  libelle:
+    type: text[..40]
+    label:
+      fr: Libellé
+
+  positions:
+    # l'accès retour aux positions du dépôt (D394), nommé en vue dérivée
+    # (D405)
+    type: association with stock.position if depot = me
+    label:
+      fr: Positions
+
+  # ------ Champs calculés ------
+
+  valeur:
+    # la valeur du stock du dépôt — le tableau de bord (D859) ;
+    # restreinte (D859)
+    type: amount
+    formula: positions.sum(valeur)
+    confidentiality:
+      level: protected
+      groups: [achats, direction]
+    label:
+      fr: Valeur du stock

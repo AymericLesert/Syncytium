@@ -1,0 +1,27 @@
+# Le mouvement de stock — la table MVTSTO de PMI (34 colonnes, des
+# millions de lignes — D863). Sans colonne K : sa clé est portée par ses
+# colonnes I (D869 — l'origine du mouvement : le document, la ligne,
+# l'indice, le composant), complétée de l'article, de la date et de
+# l'heure — le contrôle de l'identité avant la migration tranchera sur
+# le réel (D871 ; l'échantillon : 70 valeurs distinctes sur 100 pour
+# les cinq I seules, 100 avec l'article, la date et l'heure).
+# La seule entité du cas sans historique (D882) : les retouches des
+# outils maison (D864) remplacent (D878) ; la lecture par partition
+# (D878–D880) s'écrira à la source : coverage: date[month - 3].
+name: mouvement
+description: Un mouvement de stock — l'entrée ou la sortie d'un article, à une date, sur un dépôt
+label: "{date} {heure} — {article} {quantite}"
+identity: [document, ligne, indice, composant, article, date, heure]
+# l'opt-out (D168/D411) — le mouvement ne s'historise pas (D882)
+history: false
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields: fields.yml
+
+validation:
+  - quantite != 0
+  - date_saisie >= date if date_saisie != null

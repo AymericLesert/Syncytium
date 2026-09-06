@@ -1,0 +1,170 @@
+# --- l'origine du mouvement — les colonnes I de PMI (D869) ---
+
+document:
+  # MVITNUMERO nchar(6) — le document d'origine (la commande, l'ordre de
+  # fabrication…)
+  type: text[..6]
+  label:
+    fr: Document
+
+ligne:
+  # MVITLIGNE
+  type: text[..3]
+  label:
+    fr: Ligne
+
+indice:
+  # MVITINDLIG
+  type: text[..3]
+  label:
+    fr: Indice
+
+composant:
+  # MVITCOMPOS
+  type: text[..5]
+  label:
+    fr: Composant
+
+# --- l'article et le lieu ---
+
+article:
+  # MVCTCODART + MVCTCOMART — la référence (D396)
+  type: technique.article
+  required: true
+  label:
+    fr: Article
+
+depot:
+  # MVCTDEPOT
+  type: stock.depot
+  label:
+    fr: Dépôt
+
+emplacement:
+  # MVCTCODMPL
+  type: stock.emplacement
+  label:
+    fr: Emplacement
+
+lot:
+  # MVCTNUMLOT
+  type: text[..18]
+  label:
+    fr: Lot
+
+# --- le moment — la date et l'heure gardées séparées : le time seul
+# (D881 — la couverture des types), la partition au mois de la date
+# (D880) ---
+
+date:
+  # MVCJMVT — AAAAMMJJ au masque (D820)
+  type: date
+  required: true
+  label:
+    fr: Date
+
+heure:
+  # MVCSMVT — HHMMSS au masque
+  type: time[hh:mm:ss]
+  required: true
+  label:
+    fr: Heure
+
+date_saisie:
+  # MVCJSAI
+  type: date
+  label:
+    fr: Saisi le
+
+# --- le mouvement ---
+
+type:
+  # MVCTTYPE nchar(1) — la liste close de PMI en énuméré (D883)
+  type: enum
+  required: true
+  label:
+    fr: Type
+  values:
+    reception:
+      label:
+        fr: Réception
+    expedition:
+      label:
+        fr: Expédition
+    fabrication:
+      label:
+        fr: Fabrication
+    consommation:
+      label:
+        fr: Consommation
+    inventaire:
+      label:
+        fr: Inventaire
+    transfert:
+      label:
+        fr: Transfert
+    correction:
+      label:
+        fr: Correction
+
+sens:
+  # MVCTGENRE — l'entrée ou la sortie
+  type: enum
+  required: true
+  label:
+    fr: Sens
+  values:
+    entree:
+      label:
+        fr: Entrée
+    sortie:
+      label:
+        fr: Sortie
+
+quantite:
+  # MVCNQTE — signée chez PMI ; l'entrepôt garde la quantité et le sens
+  type: decimal
+  required: true
+  label:
+    fr: Quantité
+
+prix_unitaire:
+  # MVCNPUNIT — la valorisation du mouvement : restreinte (D859)
+  type: amount
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Prix unitaire
+
+utilisateur:
+  # MVCTNOMUTI — l'opérateur qui a saisi ; un nom de personne (D695)
+  type: text[..20]
+  rgpd: personal
+  label:
+    fr: Saisi par
+
+stock_avant:
+  # MVCNAVQTST — la quantité en stock avant le mouvement
+  type: decimal
+  label:
+    fr: Stock avant
+
+# ------ Champs calculés ------
+
+valeur:
+  # MVCNVAL chez PMI ; recalculée ici — restreinte comme le prix
+  type: amount
+  formula: prix_unitaire * quantite if prix_unitaire != null
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Valeur
+
+stock_apres:
+  type: decimal
+  # le « : » du .select (D833) oblige les guillemets YAML — le manque M9
+  formula: 'stock_avant + sens.select(entree: quantite, sortie: -quantite)'
+  label:
+    fr: Stock après

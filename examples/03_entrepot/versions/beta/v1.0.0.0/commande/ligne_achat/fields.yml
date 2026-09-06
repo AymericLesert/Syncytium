@@ -1,0 +1,145 @@
+# --- l'identité (LCKTLIGNE, LCKTPSF) ---
+
+numero:
+  # LCKTLIGNE
+  type: integer[1..]
+  required: true
+  label:
+    fr: Ligne
+
+sous_numero:
+  # LCKTPSF
+  type: text[..3]
+  required: true
+  default: "000"
+  label:
+    fr: Sous-numéro
+
+# --- l'article ---
+
+article:
+  # LCCTCODART + LCCTCOMART — la référence (D396)
+  type: technique.article
+  required: true
+  label:
+    fr: Article
+
+designation:
+  type: text[..40]
+  label:
+    fr: Désignation
+
+# --- les quantités ---
+
+quantite:
+  # LCCNQTECDE
+  type: decimal
+  required: true
+  label:
+    fr: Quantité commandée
+
+unite:
+  # LCCTUNICDE
+  type: text[..2]
+  label:
+    fr: Unité
+
+quantite_recue:
+  # LCCNQTEEXP — chez le fournisseur, l'expédié de PMI est le reçu
+  type: decimal
+  required: true
+  default: 0
+  label:
+    fr: Quantité reçue
+
+# --- les prix — restreints aux achats et à la direction (D859) ---
+
+prix_brut:
+  # LCCNPUBRUT + LCCTDEVISE
+  type: amount
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Prix unitaire brut
+
+prix_net:
+  # LCCNPUNET + LCCTDEVISE
+  type: amount
+  required: true
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Prix unitaire net
+
+# --- les délais (le couple jour + heure recomposé — D659) ---
+
+delai_demande:
+  # LCCJDELDDE
+  type: date
+  label:
+    fr: Délai demandé
+
+delai_accuse:
+  # LCCJDELARR + LCCSDELARR
+  type: datetime
+  label:
+    fr: Délai accusé
+
+delai_reception:
+  # LCCJDELEXP + LCCSDELEXP — la réception prévue
+  type: datetime
+  label:
+    fr: Réception prévue
+
+# --- l'état ---
+
+statut:
+  # LCCTSTATUT
+  type: enum
+  required: true
+  label:
+    fr: Statut
+  values:
+    en_cours:
+      label:
+        fr: En cours
+    partielle:
+      label:
+        fr: Partiellement reçue
+    soldee:
+      label:
+        fr: Soldée
+    annulee:
+      label:
+        fr: Annulée
+
+# ------ Champs calculés ------
+
+devise:
+  type: text[3]
+  formula: owner.devise
+  label:
+    fr: Devise
+
+montant:
+  type: amount
+  formula: prix_net * quantite
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Montant
+
+reste_a_recevoir:
+  type: decimal
+  formula: quantite - quantite_recue
+  label:
+    fr: Reste à recevoir
+
+en_retard:
+  type: boolean
+  formula: delai_reception < context.now and statut = "en_cours"
+  label:
+    fr: En retard

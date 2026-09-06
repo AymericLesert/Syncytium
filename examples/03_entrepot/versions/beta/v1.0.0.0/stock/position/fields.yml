@@ -1,0 +1,136 @@
+# --- l'identité ---
+
+article:
+  # DPKTCODART + DPKTCOMART — la référence (D396)
+  type: technique.article
+  required: true
+  label:
+    fr: Article
+
+lot:
+  # DPKTNUMLOT nchar(18) — le numéro de lot ; Stock.Batch le décrit
+  # chez PMI, l'entrepôt le garde en texte (l'analyse dira)
+  type: text[..18]
+  required: true
+  label:
+    fr: Lot
+
+emplacement:
+  # DPKTCODMPL — la référence à l'emplacement
+  type: stock.emplacement
+  required: true
+  label:
+    fr: Emplacement
+
+depot:
+  # DPKTDEPOT — la référence au dépôt
+  type: stock.depot
+  required: true
+  label:
+    fr: Dépôt
+
+enregistrement:
+  # DPKTCODENR nchar(1) — le code d'enregistrement de PMI, part de la clé
+  type: text[1]
+  required: true
+  label:
+    fr: Code d'enregistrement
+
+# --- les quantités (l'unité de stock de l'article) ---
+
+quantite:
+  # DPCNSTOPHY — le stock physique
+  type: decimal
+  required: true
+  label:
+    fr: Quantité physique
+
+quantite_reservee:
+  # DPCNRESFER — réservée ferme
+  type: decimal
+  required: true
+  default: 0
+  label:
+    fr: Réservée
+
+quantite_en_cours:
+  # DPCNENCOUR — en cours d'entrée
+  type: decimal
+  label:
+    fr: En cours
+
+stock_minimum:
+  # DPCNSTOMIN — le minimum de la position (celui de l'article vaut par
+  # défaut)
+  type: decimal
+  label:
+    fr: Stock minimum
+
+# --- la valeur — restreinte (D859) ---
+
+prix_unitaire:
+  # DPCNPULOT — le prix du lot ; la devise de l'entreprise (le setting)
+  type: amount
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Prix unitaire du lot
+
+# --- les dates (AAAAMMJJ au masque) ---
+
+dernier_mouvement:
+  # DPCJMOU
+  type: date
+  label:
+    fr: Dernier mouvement
+
+peremption:
+  # DPCJPEREMP
+  type: date
+  label:
+    fr: Péremption
+
+inventaire:
+  # DPCJJINV + DPCSSINV — la date et l'heure du dernier inventaire, en
+  # datetime (D659)
+  type: datetime
+  label:
+    fr: Dernier inventaire
+
+quantite_inventaire:
+  # DPCNQTINV
+  type: decimal
+  label:
+    fr: Quantité inventoriée
+
+# ------ Champs calculés ------
+
+disponible:
+  type: decimal
+  formula: quantite - quantite_reservee
+  label:
+    fr: Disponible
+
+valeur:
+  # la valeur de la position — restreinte comme le prix
+  type: amount
+  formula: prix_unitaire * quantite if prix_unitaire != null
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Valeur
+
+sous_minimum:
+  # le tableau de bord (D859)
+  type: boolean
+  formula: quantite < stock_minimum if stock_minimum != null
+  label:
+    fr: Sous le minimum
+
+perime:
+  type: boolean
+  formula: peremption < context.now if peremption != null
+  label:
+    fr: Périmé

@@ -1,0 +1,175 @@
+# --- l'identité (LCKTLIGNE, LCKTPSF) ---
+
+numero:
+  # LCKTLIGNE nchar(3)
+  type: integer[1..]
+  required: true
+  label:
+    fr: Ligne
+
+sous_numero:
+  # LCKTPSF nchar(3) — le sous-numéro de PMI (« 000 » le plus souvent)
+  type: text[..3]
+  required: true
+  default: "000"
+  label:
+    fr: Sous-numéro
+
+# --- l'article ---
+
+article:
+  # LCCTCODART + LCCTCOMART — la référence (D396), résolue par la clé au
+  # mapping (D654)
+  type: technique.article
+  required: true
+  label:
+    fr: Article
+
+designation:
+  # le libellé de la ligne chez PMI, sinon celui de l'article
+  type: text[..40]
+  label:
+    fr: Désignation
+
+# --- les quantités ---
+
+quantite:
+  # LCCNQTECDE
+  type: decimal
+  required: true
+  label:
+    fr: Quantité commandée
+
+unite:
+  # LCCTUNICDE
+  type: text[..2]
+  label:
+    fr: Unité
+
+quantite_expediee:
+  # LCCNQTEEXP
+  type: decimal
+  required: true
+  default: 0
+  label:
+    fr: Quantité expédiée
+
+quantite_lancee:
+  # LCCNQTELAN — lancée en fabrication
+  type: decimal
+  label:
+    fr: Quantité lancée
+
+# --- les prix — amount à la devise de la ligne (LCCTDEVISE — D771) ---
+
+prix_brut:
+  # LCCNPUBRUT + LCCTDEVISE
+  type: amount
+  label:
+    fr: Prix unitaire brut
+
+prix_net:
+  # LCCNPUNET + LCCTDEVISE — le prix après remises
+  type: amount
+  required: true
+  label:
+    fr: Prix unitaire net
+
+prix_revient:
+  # LCCNPUREVI — le prix de revient de la ligne : restreint (D859)
+  type: amount
+  confidentiality:
+    level: protected
+    groups: [achats, direction]
+  label:
+    fr: Prix de revient
+
+# --- les délais — le couple jour + heure de PMI recomposé en datetime
+# (LCCJDELEXP + LCCSDELEXP — le constructeur D659) ---
+
+delai_demande:
+  # LCCJDELDDE — la date demandée par le client
+  type: date
+  label:
+    fr: Délai demandé
+
+delai_accuse:
+  # LCCJDELARR + LCCSDELARR — le délai accusé
+  type: datetime
+  label:
+    fr: Délai accusé
+
+delai_expedition:
+  # LCCJDELEXP + LCCSDELEXP — l'expédition prévue
+  type: datetime
+  label:
+    fr: Expédition prévue
+
+delai_fabrication:
+  # LCCJDELFAB + LCCSDELFAB
+  type: datetime
+  label:
+    fr: Fin de fabrication prévue
+
+# --- l'état ---
+
+statut:
+  # LCCTSTATUT nchar(2) / LCCTETACDE — la liste close en énuméré (D883)
+  type: enum
+  required: true
+  label:
+    fr: Statut
+  values:
+    en_cours:
+      label:
+        fr: En cours
+    partielle:
+      label:
+        fr: Partiellement livrée
+    soldee:
+      label:
+        fr: Soldée
+    annulee:
+      label:
+        fr: Annulée
+
+# ------ Champs calculés ------
+
+devise:
+  # la devise de la commande, par l'accès montant (D760)
+  type: text[3]
+  formula: owner.devise
+  label:
+    fr: Devise
+
+montant:
+  # la valeur de la ligne — amount * decimal (D581)
+  type: amount
+  formula: prix_net * quantite
+  label:
+    fr: Montant
+
+marge:
+  # la marge unitaire — réservée à la direction (D859) ; amount - amount
+  # à devise compatible (D581)
+  type: amount
+  formula: prix_net - prix_revient if prix_revient != null
+  confidentiality:
+    level: protected
+    groups: [direction]
+  label:
+    fr: Marge unitaire
+
+reste_a_livrer:
+  type: decimal
+  formula: quantite - quantite_expediee
+  label:
+    fr: Reste à livrer
+
+en_retard:
+  # le tableau de bord (D859) — l'expédition prévue dépassée, la ligne
+  # non soldée
+  type: boolean
+  formula: delai_expedition < context.now and statut = "en_cours"
+  label:
+    fr: En retard

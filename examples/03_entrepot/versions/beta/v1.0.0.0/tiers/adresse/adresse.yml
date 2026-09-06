@@ -1,0 +1,65 @@
+# L'adresse complémentaire — la table ADRESSE de PMI (ADKTTYPCPT le
+# type de compte, ADKTCOMPTE le code, ADKNNUMERO le numéro) : les
+# adresses de livraison et de facturation d'un partenaire. La
+# composition du partenaire (D399) ; le numéro l'identifie au sein du
+# possesseur (D841).
+name: adresse
+description: Une adresse complémentaire d'un partenaire — livraison ou facturation
+label: "{usage} — {nom}"
+identity: [numero]
+history: true
+
+allow:
+  create: false
+  update: false
+  delete: false
+
+fields:
+  numero:
+    # ADKNNUMERO int
+    type: integer[1..]
+    required: true
+    label:
+      fr: Numéro
+
+  usage:
+    # la liste close de PMI en énuméré (D883) — la colonne à relever à
+    # l'analyse d'ADRESSE
+    type: enum
+    required: true
+    label:
+      fr: Usage
+    values:
+      livraison:
+        label:
+          fr: Livraison
+      facturation:
+        label:
+          fr: Facturation
+      autre:
+        label:
+          fr: Autre
+
+  nom:
+    # le nom de l'adresse (l'établissement, le site)
+    type: text[..40]
+    label:
+      fr: Nom
+
+  adresse:
+    # les lignes, le code postal, la ville, le pays — en géolocalisation
+    # (D638), le constructeur au mapping (D659)
+    type: geolocation
+    label:
+      fr: Adresse
+
+  telephone:
+    type: phone
+    label:
+      fr: Téléphone
+
+  date_creation:
+    # ADCJCREA — AAAAMMJJ au masque
+    type: date
+    label:
+      fr: Créée le

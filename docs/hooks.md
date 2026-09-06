@@ -189,11 +189,13 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 19 opérations de socle (D574, `migrate` D667,
-`anonymize` D697) sont les hooks embarqués : `create`, `read`,
-`update`, `delete`, `duplicate`, `promote`, `demote`, `generate`,
-`download`, `print`, `send`, `export`, `import`, `report`,
-`restore`, `notify`, `refresh`, `migrate`, `anonymize`. **Chaque
+code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
+`anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :
+`create`, `read`, `update`, `delete`, `duplicate`, `promote`,
+`demote`, `generate`, `download`, `print`, `send`, `export`,
+`import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
+`anonymize`, `reset_coverage` (l'état de couverture d'une entité
+effacé — le `migrate` suivant relit la totalité). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `user` | `manager` | `administrator`, le
 plancher que la déclaration ne peut abaisser ; le groupe

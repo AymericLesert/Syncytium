@@ -1053,5 +1053,24 @@ coverage:
   demeure la forme riche, équivalente — le patron courte/riche du
   registre (D356/D441).
 
+- **`reset_coverage`, l'opération qui force la relecture** (D881) :
+  « je propose de définir une opération
+  `reset_coverage(nom du module, nom de l'entité)` qui peut être
+  exécutée régulièrement. En réinitialisant le coverage, cela
+  forcera Syncytium à tout relire. Par exemple, nous pouvons du
+  lundi au vendredi faire un delta, et le dimanche une relecture
+  complète en planifiant un reset_coverage dans la nuit de samedi à
+  dimanche » — l'opération du socle efface l'état de couverture
+  d'une entité (la dernière valeur parcourue, les empreintes par
+  partition) : le `migrate` suivant relit la totalité (le défaut de
+  D878) ; planifiable par `every:` (D434 — `weekly[saturday at
+  23:00]`), déclenchable comme toute opération (D428/D667) ; **le
+  rythme du cas** : le delta du lundi au vendredi, la relecture
+  complète le dimanche — c'est elle qui rattrape les retouches
+  anciennes des outils maison (D864) hors de la plage ; la
+  vingtième opération du socle (après `migrate` D667 et
+  `anonymize` D697), au degré `administrator` (D701 — en
+  proposition).
+
 Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos par
-D878, la forme par D879–D880.
+D878, la forme par D879–D880, le rythme par D881.

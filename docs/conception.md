@@ -1007,6 +1007,7 @@ Q58) :
 | D878 | **La comparaison par blocs et `coverage:` — la remise à plat de l'auteur** (solde les quatre pièces et le mot de D864, précise D672/D666, écarte `append_only`) : « la migration consiste à comparer le contenu des entités d'origine converties et prêtes à être intégrées dans les entités destinations » — **la comparaison sur le converti, par partition, en cinq blocs** : anomalies (les lignes d'origine non converties), création (les clés nouvelles), modification (les clés existantes à un champ différent), inchangé, suppression (les clés de la destination absentes de l'origine) ; **la synthèse** : par bloc et par clé, le nombre d'enregistrements par entité = l'avancement de la migration (le module `migration`) ; **la lecture de l'origine** : trois modes — les nouveaux depuis la dernière lecture, la relecture par plage (de dates ou de valeurs), la totalité (**le défaut**) ; « append_only est trop restrictif » ; **`coverage:` sur l'entité source** précise **la clé de la partition** (distincte de l'`identity:` possible — Syncytium garde **une empreinte par clé** qui identifie une différence, et **la dernière valeur parcourue** pour reprendre depuis la dernière lecture) et **une plage de valeurs de clé** (une période sur une date — les 3 derniers mois, la dernière année, la dernière semaine ; un nombre de valeurs ou d'enregistrements sur un numéro — les 15 dernières valeurs, les 10 000 derniers) ; **le traitement selon la destination** : `history:` présent, les écarts complètent les valeurs existantes et sont stockés dans l'historique ; absent, ils les remplacent. | L'empreinte par ligne dans la provenance, `partition:`, le mot de qualification et les écarts en entités propres s'effacent — l'analyse des écarts = l'historique de la cible + la synthèse des blocs. `filter:` = le périmètre jamais lu, `coverage:` = la stratégie de lecture ; le `coverage:` de la lecture ≠ le taux de couverture de D862. La forme arrêtée par D879. Voir §3.2c. |
 | D879 | **La forme de `coverage:` — la carte des champs de partition** (précise D878) : « pour coverage, ne pas oublier que key peut faire référence à plusieurs champs. Et, range se reporte sur chaque champ » — `coverage:` est un mapping **champ → { value:, range: }** : `value:` la nature de la partition (`month` — les natures du crochet D382 ; absente, la valeur brute), `range:` la plage relue pour ce champ (une durée D476 sur une date : `3m` ; un nombre sur un numéro : `10000`) ; plusieurs champs = une clé de partition composée, chacun sa plage ; le cas : `MVCJMVT: { value: month, range: 3m }` sur les mouvements, `ECKTNUMERO: { range: 10000 }` sur les commandes. | Le croquis `key:`/`range:` de D878 s'efface. La nuance valeurs / enregistrements d'un numéro à préciser sur la table. La forme courte par D880. Voir §3.2c. |
 | D880 | **La forme courte de `coverage:` au crochet** (complète D879 — la forme riche) : « je propose une forme simplifiée, peut-être plus lisible : `coverage: MVCJMVT[month - 3]`, `coverage: ECKTNUMERO[10000]` » — le crochet, paramètre en ligne du format (D372/D381/D382), porte **la nature puis la plage en retrait** (`month - 3` = les trois derniers mois, `week - 1`, `year - 1`) ou **la plage seule** sur un numéro (`[10000]` = les dix mille derniers) ; plusieurs champs = la liste ; la carte `value:`/`range:` de D879 demeure la forme riche équivalente — le patron courte/riche (D356/D441). | Voir §3.2c. |
+| D881 | **`reset_coverage` — l'opération qui force la relecture** (complète D878, ajoute au socle) : « je propose de définir une opération `reset_coverage(nom du module, nom de l'entité)` qui peut être exécutée régulièrement. En réinitialisant le coverage, cela forcera Syncytium à tout relire. Par exemple, nous pouvons du lundi au vendredi faire un delta, et le dimanche une relecture complète en planifiant un reset_coverage dans la nuit de samedi à dimanche » — l'opération efface l'état de couverture d'une entité (la dernière valeur parcourue, les empreintes par partition) : le `migrate` suivant relit la totalité ; planifiable par `every:` (D434), déclenchable comme toute opération (D428) ; le rythme : le delta en semaine, la relecture complète le dimanche — elle rattrape les retouches hors de la plage (D864) ; **la vingtième opération du socle** (après `migrate` D667, `anonymize` D697). | Le degré `administrator` (D701) en proposition. Voir §3.2c. |
 
 ---
 
@@ -9341,6 +9342,27 @@ mille derniers » ; plusieurs champs de partition forment une liste
 le patron courte/riche du registre (D356 la forme courte du champ,
 D441 les colonnes) : la courte pour le cas ordinaire, la riche
 quand la lisibilité y gagne.
+
+**`reset_coverage` — l'opération qui force la relecture (D881 —
+complète D878, ajoute au socle).** **« Pour coverage, je propose de
+définir une opération "reset_coverage(nom du module, nom de
+l'entité)" qui peut être exécutée régulièrement. En réinitialisant
+le coverage, cela forcera Syncytium à tout relire. Par exemple, nous
+pouvons du lundi au vendredi faire un delta, et le dimanche une
+relecture complète en planifiant un reset_coverage dans la nuit de
+samedi à dimanche. »** — l'opération du socle **efface l'état de
+couverture** d'une entité — la dernière valeur parcourue, les
+empreintes par partition (D878) — et le `migrate` suivant relit la
+totalité, le défaut ; elle se planifie par `every:` (D434 :
+`weekly[saturday at 23:00]`) et se déclenche comme toute opération
+(D428 — le bouton d'administration, l'API, le `when:`). **Le rythme
+du cas** : le delta du lundi au vendredi, la relecture complète le
+dimanche — et c'est elle qui rattrape les retouches anciennes des
+outils maison hors de la plage (D864), sans empreinte par ligne ni
+relecture nocturne des années. **La vingtième opération du socle**,
+après `migrate` (D667, la dix-huitième) et `anonymize` (D697, la
+dix-neuvième) ; le degré `administrator` (D701 — l'inventaire
+validé : restore/migrate/anonymize) en proposition.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18597,6 +18619,15 @@ avant la synthèse Q16).
   puis la plage en retrait, ou la plage seule), la liste pour
   plusieurs champs ; la carte de D879 = la forme riche équivalente.
   mapping.md au niveau.
+- **2026-09-06 (reprise, suite 3) — RESET_COVERAGE (D881, 881
+  décisions).** « Je propose de définir une opération
+  reset_coverage(nom du module, nom de l'entité) qui peut être
+  exécutée régulièrement... du lundi au vendredi un delta, et le
+  dimanche une relecture complète » — l'état de couverture effacé,
+  le migrate suivant relit tout ; planifiable par every: ; la
+  vingtième opération du socle (degré administrator en
+  proposition) ; la relecture du dimanche rattrape les retouches
+  hors de la plage (D864). mapping.md et rights.md au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

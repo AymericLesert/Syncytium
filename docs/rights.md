@@ -251,13 +251,15 @@ degré** (`degree:` dans groups.yml — en proposition, défaut
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
-**L'inventaire des dix-neuf planchers** (D701 — validé) :
+**L'inventaire des dix-neuf planchers** (D701 — validé), plus la
+vingtième opération (D881 — `reset_coverage`, le degré en
+proposition) :
 
 | le degré | les opérations |
 |---|---|
 | `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
 | `manager` | `import` · `report` |
-| `administrator` | `restore` · `migrate` · `anonymize` |
+| `administrator` | `restore` · `migrate` · `anonymize` · `reset_coverage` *(D881 — en proposition)* |
 
 **L'exemple détaillé** — les degrés, les deux formes d'`allow` et la
 composition :

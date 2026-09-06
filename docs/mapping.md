@@ -411,6 +411,14 @@ coverage:
     range: 3m
 ```
 
+- **`reset_coverage`** (D881) — l'opération du socle qui efface
+  l'état de couverture d'une entité (la dernière valeur parcourue,
+  les empreintes par partition) : le `migrate` suivant relit la
+  totalité ; planifiable par `every:` (D434), déclenchable comme
+  toute opération (D428) ; le rythme type : le delta en semaine, la
+  relecture complète le dimanche par un `reset_coverage` planifié
+  dans la nuit de samedi — la vingtième opération du socle, au
+  degré `administrator` (en proposition) ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton

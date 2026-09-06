@@ -18628,6 +18628,20 @@ avant la synthèse Q16).
   vingtième opération du socle (degré administrator en
   proposition) ; la relecture du dimanche rattrape les retouches
   hors de la plage (D864). mapping.md et rights.md au niveau.
+- **2026-09-06 (reprise, suite 4) — LA CIBLE OUVERTE (la question
+  6).** « Passons à la cible » — la proposition posée dans
+  usecases/03_entrepot.md (« La cible — la proposition ») : le
+  principe (pas une copie de PMI — les champs de l'analyse, en
+  français, la société non portée, l'entrepôt en lecture, migrate
+  seul écrit), quatre modules technique/tiers/commande/stock,
+  l'héritage inheritance: (D353, jamais employé) proposé pour
+  client/fournisseur et commande_client/commande_fournisseur, la
+  nomenclature en composition auto-référencée (D135) aux temps en
+  duration, l'adresse en geolocation, les contacts en rgpd:
+  personal, history: sur stock/mouvement/article/tiers, les groupes
+  production/commercial/achats/direction/administration aux champs
+  financiers restreints ; huit choix à arbitrer. **En attente —
+  aucune décision consignée.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

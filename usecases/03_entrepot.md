@@ -678,6 +678,122 @@ La lecture — ce qui se corrige et ce qui se précise :
     dont il connaît la convention ; la forme des surcharges
     s'écrira au morceau de la source, sur les tables.
 
+## La cible — la proposition (question 6, ouverte le 06/09/2026)
+
+*(en attente d'arbitrage — le modèle détaillé, champ par champ,
+s'écrira au morceau 2 une fois les choix tranchés)*
+
+**Le principe** (D859) : standardiser = « mapper la bonne
+information dans le bon module et la bonne entité » — l'entrepôt
+**n'est pas une copie de PMI** : pas les 181 colonnes de l'article,
+mais les champs que l'analyse retient (D868), nommés en français
+(le précédent domestique, D764), typés par le catalogue (`amount`,
+`date`, `enum`, `duration`…), à l'identité = la clé fonctionnelle
+(D357) ; la société est filtrée à la source (D663 — une seule
+société) et **ne serait pas portée** par l'entrepôt ; l'entrepôt
+est **en lecture pour ses usagers** — les écritures viennent de
+`migrate` (le privilège porté par l'écriture identifiée reprise,
+D175), les entités en `allow: [read]` pour les groupes (D422–D423).
+
+**Quatre modules, les quatre domaines** (D859/D873 — le module
+structure la donnée et l'expérience, D416 : le menu et les droits
+d'un domaine vont ensemble) :
+
+1. **`technique`** — `article` (le code et le complément en
+   identité, les libellés, la famille et la sous-famille en
+   référentiels par `distinct:` D658, les unités, poids et
+   dimensions, les prix de revient, le statut) ; **`nomenclature`**
+   = la composition de l'article, `article.nomenclature: list of
+   ligne_nomenclature` — la ligne porte la nature (composant ou
+   opération — l'énuméré de PMI), **le composant en référence à
+   `article`** (la composition auto-référencée D135, l'acyclicité
+   validée), la quantité et l'unité, **les temps de gamme en
+   `duration`** (D378 — la notation industrielle), le jalon ;
+   **`tarif`** = la composition de l'article, `article.tarifs: list
+   of tarif` — le genre (client ou fournisseur), le code, le numéro
+   de tarif, la date d'application, le prix : la validité dans le
+   temps vient de la source, sans `history:` ;
+2. **`tiers`** — **le choix ouvert** : PMI porte `CLIENT` et
+   `FOURNIS` sur la même structure (167 colonnes identiques) ;
+   **la proposition : un parent `tiers` décrit une fois, deux
+   enfants `client` et `fournisseur` par `inheritance:`** (D353 —
+   la première mise en œuvre de l'héritage dans un exemple ; le
+   code en identité chez l'enfant) ; les alternatives : une seule
+   entité à `role:` (client, fournisseur, les deux), ou deux entités
+   indépendantes ; les compositions **`adresses`** (les adresses
+   complémentaires d'`ADRESSE`) et **`contacts`** (`CONTACT` — les
+   personnes : `rgpd: personal` D695, le premier exemple au RGPD) ;
+   l'adresse principale en **`geolocation`** (D638 — l'adresse
+   normalisée et les coordonnées `CLCNGPSX`/`CLCNGPSY` par le
+   constructeur D659) ; les référentiels par `distinct:` (le pays,
+   la devise, le mode et les conditions de règlement, le
+   représentant) ; le SIRET et la TVA en texte validé ;
+3. **`commande`** — le même choix : `ECOMCLI`/`ECOMFOU` et
+   `LCOMCLI`/`LCOMFOU` partagent leurs structures ; **la
+   proposition : un parent `commande` décrit une fois (l'entête et
+   la composition `lignes: list of ligne`), deux enfants
+   `commande_client` (+ `client: tiers.client`) et
+   `commande_fournisseur` (+ `fournisseur: tiers.fournisseur`)** ;
+   l'identité = le numéro **et l'indice** de révision ; la ligne :
+   `article: technique.article`, la quantité, le prix, les délais
+   (les couples jour + heure de PMI recomposés en `datetime` —
+   D659), le statut ; **pas de machine à états** — l'entrepôt
+   consulte, le statut est un énuméré venu de PMI ; c'est « le lien
+   complet entre les articles, les clients et les fournisseurs »
+   (D873) ;
+4. **`stock`** — **`mouvement`** (l'identité aux colonnes `I`, à
+   fixer à l'analyse — D869/D871 ; l'article, le dépôt,
+   l'emplacement, le lot, **la date et l'heure en un `datetime`**,
+   la quantité, le prix unitaire, la valeur, le type et le genre en
+   énumérés, le stock et le PMP d'avant) — **`history: true`** : les
+   retouches des outils maison (D864) se consultent dans
+   l'historique (D878 — les écarts complètent) ; **`stock`**
+   (`STDEPLOT` — l'article, le lot, l'emplacement, le dépôt, les
+   quantités, les dates) — **`history: true`** : le stock à une
+   date (D412 — la lecture à date) ; les référentiels `depot`,
+   `emplacement`, `lot` par `distinct:` (ou `Stock.Batch` pour le
+   lot — l'analyse dira).
+
+**L'historique** (D859 — « pour certaines entités ») — la liste
+proposée : `stock` et `mouvement` (ci-dessus), `article` (les prix
+et le statut qui changent), `tiers` (les adresses et les
+conditions) ; sans : `nomenclature`, `commande` (l'indice est déjà
+la révision), `tarif` (la date d'application est déjà la validité).
+
+**Les droits** (D859 — « de l'opérateur aux dirigeants », les
+strates) — `groups.yml` (D414/D699), en proposition : `production`
+(technique + stock), `commercial` (les clients, les commandes de
+vente), `achats` (les fournisseurs, les commandes d'achat),
+`direction` (tout — et seuls avec `achats` à voir **les champs
+financiers** : les prix de revient, les prix d'achat, les marges —
+la confidentialité au champ, P8/D25–D27/D70–D77), `administration`
+(le degré `administrator` : `migrate`, `reset_coverage`) ; les
+modules portent les menus de chaque strate (D416).
+
+**La restitution** (D858/D859) — au morceau 5 : les listes de
+chaque entité, **le tableau de bord de pilotage** (la valeur du
+stock, les commandes en cours, le carnet par client, les articles
+sans mouvement…), des documents (un état de stock, une fiche
+article).
+
+**Les choix à arbitrer :**
+
+1. le modèle **conçu ici** depuis le périmètre — ou existe-t-il
+   déjà chez l'auteur ?
+2. **quatre modules** `technique` / `tiers` / `commande` / `stock`,
+   en français ;
+3. la standardisation : les champs retenus par l'analyse, la
+   société non portée, **les montants** — `amount` en EUR ou le
+   `decimal` à devise visuelle (D832) ?
+4. **`client`/`fournisseur` par `inheritance:`** sur un parent
+   `tiers` — ou une entité à `role:`, ou deux entités ;
+5. **`commande` par `inheritance:`** de même — ou deux entités ;
+6. **`history:`** sur `stock`, `mouvement`, `article`, `tiers` ;
+7. **les groupes** production / commercial / achats / direction /
+   administration, les champs financiers restreints ;
+8. **l'entrepôt en lecture** pour ses usagers, `migrate` seul
+   écrit.
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les

@@ -371,6 +371,26 @@ postures de D180 incarnées.
   l'écart, le `filter:` D663 hors taux) ; deux grains au module
   `migration` : l'entité et le champ pour le schéma, la ligne pour
   les données ;
+- **la comparaison par blocs et `coverage:`** (D878 — le cas 3) :
+  la migration compare **le converti** (D672 — l'enregistrement
+  reconstruit, la clé fonctionnelle) à la destination, **par
+  partition, en cinq blocs** — **anomalies** (les lignes d'origine
+  non converties — les rejets D177), **création** (les clés
+  nouvelles), **modification** (les clés existantes à un champ
+  différent), **inchangé**, **suppression** (les clés de la
+  destination absentes de l'origine) ; **la synthèse** — par bloc,
+  par clé de partition, le nombre d'enregistrements par entité —
+  est la visibilité sur l'avancement ; **la lecture de l'origine**
+  se règle par `coverage:` sur l'entité source — **la clé de la
+  partition** (distincte de l'`identity:` si besoin : Syncytium
+  garde une empreinte par valeur de clé, qui signale une
+  différence, et la dernière valeur parcourue, pour reprendre
+  depuis la dernière lecture) et **la plage de valeurs** (une
+  période sur une date, un nombre de valeurs ou d'enregistrements
+  sur un numéro) ; **sans `coverage:`, la totalité est relue** ;
+  `filter:` reste le périmètre jamais lu ; **le traitement des
+  écarts se lit sur la destination** — `history:` présent, ils
+  complètent et l'historique les garde ; absent, ils remplacent ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton

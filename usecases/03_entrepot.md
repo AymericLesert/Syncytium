@@ -203,7 +203,10 @@ Syncytium. »** La lecture :
 - **l'analyse des écarts est un sujet du socle**, pas du seul cas —
   deux manques ouverts, en proposition dans « Les manques
   relevés » : **M1 la détection des écarts à l'échelle**, **M2 la
-  consultation et l'analyse des écarts**.
+  consultation et l'analyse des écarts** — **soldés par la remise à
+  plat de l'auteur (D878)** : la comparaison par partition en cinq
+  blocs, `coverage:` sur l'entité source, l'écart traité par
+  l'`history:` de la destination.
 
 **Ce que le registre porte déjà du cas** — la lecture avant le
 cadrage :
@@ -819,9 +822,10 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
-   (D178), le différentiel (D672) — **et la détection des écarts à
-   l'échelle** (D863/D864 — la fenêtre glissante écartée, les
-   manques M1/M2 en proposition) ;
+   (D178), le différentiel (D672) — **et la lecture par partition**
+   (`coverage:` — D878 : la clé, la plage, l'empreinte par
+   partition, la reprise depuis la dernière valeur ; la comparaison
+   en cinq blocs) ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -845,7 +849,7 @@ cas = un exemple (D827/D857).
 
 *(chaque frottement = une décision consignée)*
 
-### M1 — la détection des écarts à l'échelle (D864, en proposition)
+### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 
 **Le frottement.** Le différentiel du registre (D672) compare
 l'enregistrement reconstruit à la cible, champ par champ, après le
@@ -890,7 +894,7 @@ crochet, D382) — une propriété de `source/` (aux côtés d'`ignored`
 D657 et de `filter:` D663). Le différentiel de D672 demeure : il
 est la seconde comparaison, sur les lignes qui ont bougé.
 
-### M2 — la consultation et l'analyse des écarts (D864, en proposition)
+### M2 — la consultation et l'analyse des écarts (D864, en proposition — tranchée par D878)
 
 **Le frottement.** L'historisation (D168) garde l'évolution des
 valeurs de la cible ; le module `migration` (D666) tient la
@@ -914,4 +918,116 @@ drill-down vers l'historique de l'enregistrement cible (D168–D174).
 **Les quatre pièces à arbitrer** : l'empreinte dans la provenance
 (D178 étendue) ; le pré-contrôle par partition (`partition:` sur
 l'entité source) ; `immutable:` sur l'entité source ; les écarts
-comme entités du module `migration`.
+comme entités du module `migration`. *(Le mot `immutable` étant
+déjà pris par la référence — D395 —, `append_only` fut recommandé
+à sa place.)*
+
+### La remise à plat de l'auteur — la comparaison par blocs et `coverage:` (D878)
+
+Le 06/09/2026, les quatre pièces et le mot sont soldés d'un coup,
+mot pour mot :
+
+> La migration consiste à comparer le contenu des entités d'origine
+> converties et prêtes à être intégrées dans les entités
+> destinations.
+>
+> Pour des questions de performance, nous pouvons fournir des
+> informations sur la manière dont la lecture des données d'origine
+> est assurée :
+>
+> - uniquement les enregistrements nouveaux depuis la dernière
+>   lecture ;
+> - relecture des enregistrements selon une plage de dates (en
+>   général) ou de valeurs (cas de numéros de facture, …) ;
+> - relecture de la totalité des enregistrements.
+>
+> append_only est trop restrictif. Syncytium procède à la relecture
+> de la totalité. Le paramètre "Coverage" précise :
+>
+> - la clé de la partition (peut être différente de identity) :
+>   - selon la clé de la partition, Syncytium va garder une
+>     empreinte par clé — cette empreinte peut être utilisée pour
+>     identifier une différence ;
+>   - Syncytium va conserver la dernière valeur parcourue pour être
+>     en mesure de reprendre depuis la dernière lecture ;
+> - une plage de valeurs de clé :
+>   - par exemple, si une date décrit la couverture, une période
+>     pourra être indiquée (les 3 derniers mois, la dernière année
+>     ou la dernière semaine) ;
+>   - par exemple, si un numéro de documents, de factures ou de
+>     commande sont précisés, une plage de valeur pourra être
+>     indiquée (reprendre les 15 dernières valeurs, les 10.000
+>     derniers enregistrements, …).
+>
+> Cette comparaison est faite par partition et décompose l'analyse
+> en blocs :
+>
+> - un bloc d'anomalies — identification des lignes d'origine
+>   n'ayant pas pu être converties ;
+> - un bloc de création — identification des clés nouvelles ;
+> - un bloc de modification — identification des clés existantes
+>   avec le contenu d'un des champs différent ;
+> - un bloc de données inchangées — rien à faire ;
+> - un bloc de suppression — identification des clés existantes
+>   dans la destination et n'existant pas dans l'origine.
+>
+> Pour chaque bloc et pour chaque clé, le nombre d'enregistrements
+> par entité en synthèse apporte une visibilité sur l'avancement de
+> la migration.
+>
+> Le traitement de cette comparaison va dépendre de la
+> configuration des entités de destination :
+>
+> - la présence d'un historique indique que les écarts de valeurs
+>   viennent compléter les valeurs existantes et sont stockés dans
+>   l'historique ;
+> - l'absence d'un historique indique que les écarts de valeurs
+>   viennent remplacer les valeurs existantes.
+
+**La lecture — ce que D878 fait aux quatre pièces et au mot :**
+
+- **la comparaison se fait sur le converti** (D672 tient : la clé
+  fonctionnelle, l'enregistrement reconstruit contre la cible),
+  **par partition et en cinq blocs** — anomalies, création,
+  modification, inchangé, suppression ; le bloc de suppression est
+  mon « disparu », le bloc d'anomalies rejoint les rejets (D177) ;
+- **`append_only` est écarté** — trop restrictif — et avec lui
+  toute qualification de l'entité source (la pièce 3 et le mot) :
+  **le traitement des écarts se lit sur la destination** —
+  `history:` présent, les écarts complètent (l'historique les
+  garde, D168–D174) ; absent, ils remplacent ; **l'analyse des
+  écarts = l'historique de l'entité cible + la synthèse des blocs**
+  — la pièce 4 prend cette forme : les décomptes par bloc, par
+  clé de partition, par entité, en données du module `migration`
+  (D666/D668) ;
+- **`coverage:` sur l'entité source remplace la pièce 1 et la
+  pièce 2** : la clé de partition (distincte de l'`identity:`
+  possible) porte **une empreinte par valeur de clé** — le condensé
+  agrégé de la partition qui signale une différence — et **la
+  dernière valeur parcourue** — la reprise depuis la dernière
+  lecture, le mode « nouveaux seulement » ; **la plage** dit ce qui
+  se relit systématiquement — une période sur une date, un nombre
+  de valeurs ou d'enregistrements sur un numéro ; **le défaut, sans
+  `coverage:` : la relecture de la totalité** ; l'empreinte par
+  ligne dans la provenance (D178) n'est plus nécessaire ;
+- **les mots voisins** : `filter:` (D663) = le périmètre déclaré,
+  jamais lu ; `coverage:` = la stratégie de lecture dans le
+  périmètre ; et le `coverage:` de la lecture n'est pas le taux de
+  couverture de D862 (la même famille, deux objets — noté) ;
+- **la forme, en proposition** pour le morceau de la source (les
+  durées de D476, la nature au crochet D382) :
+
+```yaml
+# source/MVTSTO.yml — la lecture par partition
+coverage:
+  key: MVCJMVT[month]         # la clé de la partition : le mois du mouvement
+  range: 3m                   # la plage relue : les trois derniers mois
+
+# source/ECOMCLI.yml — la lecture par plage de numéros
+coverage:
+  key: ECKTNUMERO             # la clé de la partition : le numéro de commande
+  range: 10000 records        # les dix mille derniers enregistrements
+```
+
+Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos par
+D878.

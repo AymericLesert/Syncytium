@@ -1004,6 +1004,7 @@ Q58) :
 | D875 | **L'orphelin isolé** (précise D874, l'effet du contrôle des liens) : « l'orphelin est laissé au mode relative qui l'isole. L'enregistrement contenant un orphelin ne sera pas enregistré dans la cible. Une anomalie sera remontée au technicien » — le pré-contrôle rapporte, la procédure part ; l'enregistrement à l'orphelin n'entre pas dans la cible (D177 : converti ET cohérent) et l'anomalie va au technicien ; seule l'identité brisée arrête la procédure (D871). | Voir §3.2c. |
 | D876 | **Le connecteur porte la facette des types** (précise D119/D681–D684 pour la lecture d'un schéma étranger, tient D399) : « la description d'un modèle fait référence à différents types dont le connecteur porte la facette. Par exemple : pour une composition, le lien entre le parent et le fils se fait sur les noms de colonnes identités identiques. Pour une association, le lien pourra se faire par une convention de nommage des colonnes. Pour un type composé, les colonnes qui feront référence à un objet dépendra de la convention de nommage » — la description de `source/` reste logique (`list of`, la référence, le composé), **le connecteur résout les colonnes par sa convention** : la composition par les colonnes d'identité aux noms identiques, l'association par une convention de nommage, le composé par la convention qui désigne ses colonnes — l'enfant ne déclare rien (D399), la facette trouve le lien ; le cas : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` de PMI (le nom logique sans le préfixe de table, K/I = l'identité, la lettre de type) portée par le connecteur `cegid`. | La forme — un paramètre de convention de la classe `sqlserver` ou une classe dédiée — à arbitrer à l'assise. Voir §3.2c. |
 | D877 | **La convention surchargeable** (complète D876) : « si la convention n'est pas possible ou ne convient pas au technicien, la convention pourra être surchargée et cela rendra possible ce point sur des modèles de données autres que ceux portés par Syncytium » — la convention de la classe est **un défaut** ; le technicien la surcharge au connecteur (une autre convention déclarée), à l'entité ou au champ (les colonnes nommées explicitement — le lien d'une composition, la colonne d'une association, les colonnes d'un composé), **le plus proche l'emporte** (D359) ; `source/` décrit ainsi tout modèle de données, pas seulement ceux que Syncytium porte ou dont il connaît la convention. | La forme des surcharges s'écrit au morceau de la source, sur les tables. Voir §3.2c. |
+| D878 | **La comparaison par blocs et `coverage:` — la remise à plat de l'auteur** (solde les quatre pièces et le mot de D864, précise D672/D666, écarte `append_only`) : « la migration consiste à comparer le contenu des entités d'origine converties et prêtes à être intégrées dans les entités destinations » — **la comparaison sur le converti, par partition, en cinq blocs** : anomalies (les lignes d'origine non converties), création (les clés nouvelles), modification (les clés existantes à un champ différent), inchangé, suppression (les clés de la destination absentes de l'origine) ; **la synthèse** : par bloc et par clé, le nombre d'enregistrements par entité = l'avancement de la migration (le module `migration`) ; **la lecture de l'origine** : trois modes — les nouveaux depuis la dernière lecture, la relecture par plage (de dates ou de valeurs), la totalité (**le défaut**) ; « append_only est trop restrictif » ; **`coverage:` sur l'entité source** précise **la clé de la partition** (distincte de l'`identity:` possible — Syncytium garde **une empreinte par clé** qui identifie une différence, et **la dernière valeur parcourue** pour reprendre depuis la dernière lecture) et **une plage de valeurs de clé** (une période sur une date — les 3 derniers mois, la dernière année, la dernière semaine ; un nombre de valeurs ou d'enregistrements sur un numéro — les 15 dernières valeurs, les 10 000 derniers) ; **le traitement selon la destination** : `history:` présent, les écarts complètent les valeurs existantes et sont stockés dans l'historique ; absent, ils les remplacent. | L'empreinte par ligne dans la provenance, `partition:`, le mot de qualification et les écarts en entités propres s'effacent — l'analyse des écarts = l'historique de la cible + la synthèse des blocs. `filter:` = le périmètre jamais lu, `coverage:` = la stratégie de lecture ; le `coverage:` de la lecture ≠ le taux de couverture de D862. La forme en proposition (`key:`/`range:`) au morceau de la source. Voir §3.2c. |
 
 ---
 
@@ -9214,6 +9215,87 @@ porte (son propre stockage) ou dont il connaît la convention (PMI
 par sa classe) ; le legacy sans convention se décrit colonne par
 colonne. La forme des surcharges s'écrira au morceau de la source,
 sur les tables.
+
+**La comparaison par blocs et `coverage:` — la remise à plat de
+l'auteur (D878 — solde les quatre pièces et le mot de D864, précise
+D672 et D666, écarte `append_only`).** Le 06/09/2026, à la reprise
+sur D864 : **« La migration consiste à comparer le contenu des
+entités d'origine converties et prêtes à être intégrées dans les
+entités destinations. Pour des questions de performance, nous
+pouvons fournir des informations sur la manière dont la lecture des
+données d'origine est assurée : uniquement les enregistrements
+nouveaux depuis la dernière lecture ; relecture des enregistrements
+selon une plage de dates (en général) ou de valeurs (cas de numéros
+de facture, …) ; relecture de la totalité des enregistrements.
+append_only est trop restrictif. Syncytium procède à la relecture
+de la totalité. Le paramètre "Coverage" précise : la clé de la
+partition (peut être différente de identity) — selon la clé de la
+partition, Syncytium va garder une empreinte par clé, cette
+empreinte peut être utilisée pour identifier une différence ;
+Syncytium va conserver la dernière valeur parcourue pour être en
+mesure de reprendre depuis la dernière lecture — ; une plage de
+valeurs de clé — si une date décrit la couverture, une période
+pourra être indiquée (les 3 derniers mois, la dernière année ou la
+dernière semaine) ; si un numéro de documents, de factures ou de
+commande sont précisés, une plage de valeur pourra être indiquée
+(reprendre les 15 dernières valeurs, les 10.000 derniers
+enregistrements, …). Cette comparaison est faite par partition et
+décompose l'analyse en blocs : un bloc d'anomalies — identification
+des lignes d'origine n'ayant pas pu être converties ; un bloc de
+création — identification des clés nouvelles ; un bloc de
+modification — identification des clés existantes avec le contenu
+d'un des champs différent ; un bloc de données inchangées — rien à
+faire ; un bloc de suppression — identification des clés existantes
+dans la destination et n'existant pas dans l'origine. Pour chaque
+bloc et pour chaque clé, le nombre d'enregistrements par entité en
+synthèse apporte une visibilité sur l'avancement de la migration.
+Le traitement de cette comparaison va dépendre de la configuration
+des entités de destination : la présence d'un historique indique
+que les écarts de valeurs viennent compléter les valeurs existantes
+et sont stockés dans l'historique ; l'absence d'un historique
+indique que les écarts de valeurs viennent remplacer les valeurs
+existantes. »**
+
+La lecture — ce que D878 fait aux quatre pièces et au mot :
+
+- **la comparaison se fait sur le converti** — D672 tient (la clé
+  fonctionnelle, l'enregistrement reconstruit contre la cible) et
+  se précise : **par partition, en cinq blocs** — anomalies,
+  création, modification, inchangé, suppression ; le bloc de
+  suppression est le « disparu » de la proposition, le bloc
+  d'anomalies rejoint les rejets de D177 ; **la synthèse** — par
+  bloc, par clé de partition, le nombre d'enregistrements par
+  entité — est la visibilité sur l'avancement, en données du module
+  `migration` (D666/D668) ;
+- **`append_only` est écarté** — « trop restrictif » — et avec lui
+  toute qualification de l'entité source (la pièce 3 et le mot) :
+  **le traitement des écarts se lit sur la destination** —
+  `history:` présent, les écarts complètent et l'historique les
+  garde (D168–D174 : l'analyse des écarts est la lecture de
+  l'historique) ; absent, ils remplacent ; les écarts n'ont pas
+  besoin d'entités propres (la pièce 4 devient la synthèse des
+  blocs) ;
+- **`coverage:` sur l'entité source** remplace l'empreinte par ligne
+  dans la provenance (la pièce 1) et `partition:` (la pièce 2) :
+  **la clé de la partition** — distincte de l'`identity:` si
+  besoin — porte **une empreinte par valeur de clé** (le condensé
+  agrégé de la partition, qui signale une différence) et **la
+  dernière valeur parcourue** (la reprise depuis la dernière
+  lecture — le mode « nouveaux seulement ») ; **la plage** dit ce
+  qui se relit systématiquement — une période sur une date, un
+  nombre de valeurs ou d'enregistrements sur un numéro ; **le
+  défaut, sans `coverage:`, est la relecture de la totalité** ;
+- **les mots voisins** : `filter:` (D663) = le périmètre déclaré,
+  jamais lu ; `coverage:` = la stratégie de lecture à l'intérieur du
+  périmètre ; et le `coverage:` de la lecture n'est pas le taux de
+  couverture de D862 — la même famille de sens, deux objets, noté
+  sans être combattu ;
+- **la forme, en proposition** pour le morceau de la source (les
+  durées de D476, la nature au crochet D382) : `coverage: { key:
+  MVCJMVT[month], range: 3m }` pour les mouvements, `coverage: {
+  key: ECKTNUMERO, range: 10000 records }` pour les commandes.
+
+Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -18437,6 +18519,23 @@ avant la synthèse Q16).
   dont la forme de la convention PMI au connecteur (D876).** Vingt
   commits depuis la #40 sur feature/meta-schema — la PR de
   consolidation sur demande.
+- **2026-09-06 (reprise) — LA COMPARAISON PAR BLOCS ET COVERAGE
+  (D878, 878 décisions — D864 soldée).** « Reprenons le D864 » : le
+  rappel des quatre pièces et du mot rendu, puis la remise à plat
+  de l'auteur — la migration compare le converti à la destination,
+  par partition, en cinq blocs (anomalies, création, modification,
+  inchangé, suppression), la synthèse par bloc et par clé = la
+  visibilité sur l'avancement ; trois modes de lecture de
+  l'origine (les nouveaux depuis la dernière lecture, la plage de
+  dates ou de valeurs, la totalité — le défaut) ; « append_only est
+  trop restrictif » ; coverage: sur l'entité source (la clé de
+  partition — une empreinte par clé, la dernière valeur parcourue
+  —, la plage de valeurs) ; le traitement selon la destination
+  (history: → les écarts complètent, stockés dans l'historique ;
+  sans → ils remplacent). Les quatre pièces et le mot soldés, M1 et
+  M2 clos ; la forme key:/range: en proposition au morceau de la
+  source ; mapping.md au niveau. Restent : la cible (question 6),
+  7–10, puis le morceau 1.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

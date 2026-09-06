@@ -1011,6 +1011,7 @@ Q58) :
 | D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color — relu par D883. Voir §3.2c. |
 | D884 | **Le mot juste prime l'éponymie** (le morceau 2 du cas 3 — la nuance de D831/D807) : « je préfère TIERS au lieu de PARTENAIRE. Pour Position, je préfère Niveau » — le parent des clients et des fournisseurs se nomme `tiers` dans le module `tiers` (`tiers/tiers/tiers.yml` : l'éponymie triple que D831 évitait est assumée quand le mot est le bon), le niveau de stock se nomme `niveau` (`stock.niveau`, STDEPLOT). | Le nommage reste libre (D807) : l'éponymie est une convention, ni imposée ni interdite. Voir §3.2c. |
 | D885 | **La confidentialité nommée dans les settings, référencée par interpolation** (solde le manque M3 du cas 3 — compose D25 et D26, exploite D321/D802) : « la confidentialité peut faire référence à un paramétrage dans settings. On exploite une capacité de la configuration » — **les profils nommés à l'étage des settings** (`confidentiality: { financier: { level: protected, groups: [achats, direction] } }` — le niveau D25 × le qui D26, écrits une fois) **et la référence au champ par l'interpolation de la configuration** : `confidentiality: ${settings.confidentiality.financier}` ; la forme riche `{ level:, groups: }` vaut aussi en ligne ; la cascade des settings (D359/D588) porte les profils à l'application, au module ou à l'entité. | Le cas : `settings.yml` de la version — financier, direction, commercial ; dix-neuf blocs remplacés. Voir §3.2c. |
+| D886 | **La cascade de l'allow** (solde le manque M4 du cas 3 — étend D421–D423) : « un allow au niveau du module me convient. Le allow peut porter sur l'application, le module, une entité ou un champ » — **le bloc `allow:` se déclare à quatre étages** : l'application, le module, l'entité, le champ ; **le plus proche l'emporte** (l'esprit de la cascade D359) ; à l'entité, les deux foyers de D422–D423 demeurent (par état ou en bloc libre) ; au champ, les droits d'action du champ (`update: false` = le champ en lecture seule). | Le cas : les seize blocs d'entité retirés, les quatre modules portent `allow: { create: false, update: false, delete: false }` — l'entrepôt en lecture seule (D882) en quatre lignes. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9498,6 +9499,23 @@ cascade porte les profils à l'application, au module ou à l'entité,
 le plus proche l'emporte. Le cas 3 : `settings.yml` de la version
 (avec `normalize: trim(me)` — D872), dix-neuf blocs remplacés, les
 trente et un fichiers revalidés.
+
+**La cascade de l'allow (D886 — solde le manque M4 du cas 3, étend
+D421–D423).** L'entrepôt en lecture seule (D882) s'écrivait seize
+fois — le bloc `allow: { create: false, update: false, delete:
+false }` sur chaque entité. **« Pour M4, un allow au niveau du
+module me convient. Le allow peut porter sur l'application, le
+module, une entité ou un champ. »** — **le bloc `allow:` se déclare
+à quatre étages** — l'application, le module, l'entité, le champ —
+et **le plus proche l'emporte**, l'esprit de la cascade des settings
+(D359) : le module dit la règle de ses entités, l'entité la
+précise si elle diffère, le champ porte ses propres droits d'action
+(`update: false` = le champ en lecture seule — la forme au champ
+naît ici). À l'entité, les deux foyers de D422–D423 demeurent : par
+état, ou en bloc libre — jamais les deux. Le cas 3 : les seize
+blocs retirés, chacun des quatre modules porte le bloc en quatre
+lignes ; `migrate` écrit par le privilège de la reprise (D175)
+quel que soit l'étage.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18851,6 +18869,13 @@ avant la synthèse Q16).
   normalize: trim(me) — D872), dix-neuf blocs remplacés, trente et
   un fichiers valides. Le morceau 2 reste en validation (les choix
   d'écriture, M4–M9).
+- **2026-09-06 (reprise, suite 10) — LA CASCADE DE L'ALLOW (D886,
+  886 décisions — M4 soldé).** « Un allow au niveau du module me
+  convient. Le allow peut porter sur l'application, le module, une
+  entité ou un champ » — quatre étages, le plus proche l'emporte ;
+  les seize blocs d'entité retirés, les quatre modules portent
+  l'allow en lecture seule ; rights.md au niveau. Restent en
+  validation : les clés d'énumérés, le tarif applicable, M5–M9.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

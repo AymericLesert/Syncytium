@@ -9,11 +9,6 @@ label: "{article} — {depot}/{emplacement} — lot {lot}"
 identity: [article, lot, emplacement, depot, enregistrement]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields: fields.yml
 
 validation:

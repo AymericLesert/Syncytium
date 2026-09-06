@@ -7,11 +7,6 @@ label: "{numero} — {article}"
 identity: [numero, sous_numero]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields: fields.yml
 
 validation:

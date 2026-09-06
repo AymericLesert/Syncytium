@@ -10,11 +10,6 @@ inheritance: tiers
 identity: [code]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields:
   representant:
     # CLCTREP1 — le code du représentant

@@ -8,6 +8,15 @@
 name: commande
 description: Les commandes — de vente aux clients, d'achat aux fournisseurs — et leurs lignes
 
+# L'entrepôt est en lecture seule pour ses usagers (D882) — l'allow à
+# l'étage du module (D886 : l'application, le module, l'entité ou le
+# champ, le plus proche l'emporte) ; migrate écrit par le privilège de
+# la reprise (D175).
+allow:
+  create: false
+  update: false
+  delete: false
+
 entities:
   - commande_vente/commande_vente.yml
   - ligne_vente/ligne_vente.yml

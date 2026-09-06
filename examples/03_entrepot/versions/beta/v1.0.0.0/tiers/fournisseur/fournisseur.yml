@@ -9,11 +9,6 @@ inheritance: tiers
 identity: [code]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields:
   delai_livraison:
     # CLCTJOURFO — le délai habituel de livraison, en jours

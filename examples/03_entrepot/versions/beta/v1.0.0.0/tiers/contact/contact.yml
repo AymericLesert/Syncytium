@@ -9,11 +9,6 @@ label: "{prenom} {nom}"
 identity: [identifiant]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields:
   identifiant:
     # CTKNID int — l'identifiant de PMI

@@ -10,11 +10,6 @@ label: "Tranche {numero}"
 identity: [numero]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields:
   numero:
     # TCKTNUMERO nchar(2)

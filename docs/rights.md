@@ -72,7 +72,14 @@ allow:
   delete: false
 ```
 
-L'absence = tout permis ; `read` absent = l'état masque. **Les
+L'absence = tout permis ; `read` absent = l'état masque. **La
+cascade de l'allow** (D886 — le cas 3) : le bloc libre se déclare
+**à quatre étages** — l'application, le module, l'entité, le champ
+— et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
+règle de ses entités (l'entrepôt en lecture seule : `allow: {
+create: false, update: false, delete: false }` sur chaque module),
+l'entité la précise si elle diffère, le champ porte ses propres
+droits d'action (`update: false` = le champ en lecture seule). **Les
 droits d'action couvrent les opérations du socle et les opérations
 déclarées** (D691) : le droit d'exécuter se déclare et se contrôle
 comme les autres droits d'action. La réconciliation avec le

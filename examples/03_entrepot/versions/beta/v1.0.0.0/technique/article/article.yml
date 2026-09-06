@@ -14,14 +14,6 @@ identity: [code, complement]
 # statut, la famille bougent au fil des ans
 history: true
 
-# L'entrepôt est en lecture seule pour ses usagers (D882) — la forme
-# libre du bloc allow (D423) ; migrate écrit par le privilège de la
-# reprise (D175)
-allow:
-  create: false
-  update: false
-  delete: false
-
 # La liste des champs de l'entité — l'éclatement libre (D767)
 fields: fields.yml
 

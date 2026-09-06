@@ -1181,7 +1181,8 @@ depuis `version.yml` viendra avec le morceau 1.
 
 **Les choix d'écriture, à valider avec le morceau** : l'entrepôt en
 lecture seule par le bloc `allow: { create: false, update: false,
-delete: false }` sur chaque entité (D423) ; `history: true` entité
+delete: false }` **à l'étage de chaque module** (D886 — la cascade
+application / module / entité / champ) ; `history: true` entité
 par entité (D411) ; les clés d'énumérés sont **le vocabulaire de
 l'entrepôt** (fabrique, achete, en_cours…), les codes PMI s'y
 traduisent au mapping — la standardisation même ; les montants en
@@ -1206,10 +1207,14 @@ successives de PMI vivent dans l'historique de l'article.
   l'interpolation** `confidentiality: ${settings.confidentiality.
   financier}` (D321/D802) : dix-neuf blocs répétés du modèle
   remplacés par leur référence, le niveau et le qui écrits une fois.
-- **M4 — l'entrepôt en lecture seule, entité par entité.** Le bloc
-  `allow:` libre (D423) se répète seize fois ; un `allow:` d'étage
-  supérieur (le module, ou la version) qui vaudrait par défaut pour
-  ses entités manque — la cascade des settings (D359) le suggère.
+- **M4 — l'entrepôt en lecture seule, entité par entité** —
+  **tranché par D886**. Le bloc `allow:` libre (D423) se répétait
+  seize fois. L'auteur : « un allow au niveau du module me convient.
+  Le allow peut porter sur l'application, le module, une entité ou
+  un champ » — **la cascade de l'allow** aux quatre étages, le plus
+  proche l'emporte (l'esprit D359) : les seize blocs retirés, les
+  quatre modules portent `allow: { create: false, update: false,
+  delete: false }`.
 - **M5 — le décompte conditionnel.** `nomenclature.count(nature =
   "composant")` : `count()` est sans paramètre au catalogue (D580) et
   la forme `sum(x if …)` porte la condition sur la valeur ; la

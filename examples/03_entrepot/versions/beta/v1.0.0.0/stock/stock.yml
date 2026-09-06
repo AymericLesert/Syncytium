@@ -10,6 +10,15 @@
 name: stock
 description: Les stocks — les niveaux par dépôt, emplacement et lot, et les mouvements
 
+# L'entrepôt est en lecture seule pour ses usagers (D882) — l'allow à
+# l'étage du module (D886 : l'application, le module, l'entité ou le
+# champ, le plus proche l'emporte) ; migrate écrit par le privilège de
+# la reprise (D175).
+allow:
+  create: false
+  update: false
+  delete: false
+
 entities:
   - niveau/niveau.yml
   - mouvement/mouvement.yml

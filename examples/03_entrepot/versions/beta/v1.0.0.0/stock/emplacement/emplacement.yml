@@ -6,11 +6,6 @@ label: "{code}"
 identity: [code]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields:
   code:
     type: text[..10]

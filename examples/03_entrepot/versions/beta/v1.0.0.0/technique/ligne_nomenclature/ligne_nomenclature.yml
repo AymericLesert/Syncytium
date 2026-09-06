@@ -14,11 +14,6 @@ label: "{numero} — {designation}"
 identity: [numero]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields: fields.yml
 
 # La cohérence d'une ligne (D404)

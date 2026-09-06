@@ -7,11 +7,6 @@ label: "{numero}-{indice} — {fournisseur}"
 identity: [numero, indice]
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields: fields.yml
 
 validation:

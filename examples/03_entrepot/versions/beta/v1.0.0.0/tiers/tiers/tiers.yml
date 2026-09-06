@@ -10,11 +10,6 @@ description: Un tiers de l'entreprise — l'identité, l'adresse, les coordonné
 label: "{code} — {nom}"
 history: true
 
-allow:
-  create: false
-  update: false
-  delete: false
-
 fields: fields.yml
 
 validation:

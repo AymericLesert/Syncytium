@@ -391,23 +391,24 @@ postures de D180 incarnées.
   `filter:` reste le périmètre jamais lu ; **le traitement des
   écarts se lit sur la destination** — `history:` présent, ils
   complètent et l'historique les garde ; absent, ils remplacent ;
-  **la forme** (D879) : une carte des champs de partition, chacun
-  avec `value:` (la nature — `month`, les natures du crochet D382)
-  et `range:` (la plage relue — une durée D476 sur une date, un
-  nombre sur un numéro) ; plusieurs champs = une clé composée,
-  chacun sa plage :
+  **la forme courte, au crochet** (D880) — la nature puis la plage
+  en retrait, ou la plage seule ; la liste pour plusieurs champs
+  de partition ; **la forme riche** (D879) — la carte des champs,
+  chacun avec `value:` (la nature) et `range:` (la plage) —
+  équivalente :
 
 ```yaml
-# source/MVTSTO.yml
-coverage:
-  MVCJMVT:
-    value: month              # la partition au mois
-    range: 3m                 # les trois derniers mois relus
+# source/MVTSTO.yml — la forme courte (D880)
+coverage: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
 
 # source/ECOMCLI.yml
+coverage: ECKTNUMERO[10000]           # les dix mille derniers
+
+# la forme riche (D879), équivalente
 coverage:
-  ECKTNUMERO:
-    range: 10000              # les dix mille derniers
+  MVCJMVT:
+    value: month
+    range: 3m
 ```
 
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète

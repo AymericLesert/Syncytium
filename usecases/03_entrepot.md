@@ -1041,5 +1041,17 @@ coverage:
   (une commande, une valeur ; ses lignes, plusieurs
   enregistrements).*
 
+- **la forme courte, au crochet** (D880 — « je propose une forme
+  simplifiée, peut-être plus lisible ») : **`coverage:
+  MVCJMVT[month - 3]`**, **`coverage: ECKTNUMERO[10000]`** — le
+  crochet est le paramètre en ligne (D372/D381 : `text[3..10]`,
+  `date[yyyy-mm]`) : la nature puis la plage en retrait (`month -
+  3` = les trois derniers mois, `week - 1` = la dernière semaine),
+  ou la plage seule sur un numéro (`[10000]` = les dix mille
+  derniers) ; plusieurs champs = la liste (`coverage: [MVITSOC,
+  MVCJMVT[month - 3]]`) ; la carte de D879 (`value:`/`range:`)
+  demeure la forme riche, équivalente — le patron courte/riche du
+  registre (D356/D441).
+
 Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos par
-D878, la forme par D879.
+D878, la forme par D879–D880.

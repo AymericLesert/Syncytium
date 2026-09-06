@@ -1008,6 +1008,7 @@ Q58) :
 | D879 | **La forme de `coverage:` — la carte des champs de partition** (précise D878) : « pour coverage, ne pas oublier que key peut faire référence à plusieurs champs. Et, range se reporte sur chaque champ » — `coverage:` est un mapping **champ → { value:, range: }** : `value:` la nature de la partition (`month` — les natures du crochet D382 ; absente, la valeur brute), `range:` la plage relue pour ce champ (une durée D476 sur une date : `3m` ; un nombre sur un numéro : `10000`) ; plusieurs champs = une clé de partition composée, chacun sa plage ; le cas : `MVCJMVT: { value: month, range: 3m }` sur les mouvements, `ECKTNUMERO: { range: 10000 }` sur les commandes. | Le croquis `key:`/`range:` de D878 s'efface. La nuance valeurs / enregistrements d'un numéro à préciser sur la table. La forme courte par D880. Voir §3.2c. |
 | D880 | **La forme courte de `coverage:` au crochet** (complète D879 — la forme riche) : « je propose une forme simplifiée, peut-être plus lisible : `coverage: MVCJMVT[month - 3]`, `coverage: ECKTNUMERO[10000]` » — le crochet, paramètre en ligne du format (D372/D381/D382), porte **la nature puis la plage en retrait** (`month - 3` = les trois derniers mois, `week - 1`, `year - 1`) ou **la plage seule** sur un numéro (`[10000]` = les dix mille derniers) ; plusieurs champs = la liste ; la carte `value:`/`range:` de D879 demeure la forme riche équivalente — le patron courte/riche (D356/D441). | Voir §3.2c. |
 | D881 | **`reset_coverage` — l'opération qui force la relecture** (complète D878, ajoute au socle) : « je propose de définir une opération `reset_coverage(nom du module, nom de l'entité)` qui peut être exécutée régulièrement. En réinitialisant le coverage, cela forcera Syncytium à tout relire. Par exemple, nous pouvons du lundi au vendredi faire un delta, et le dimanche une relecture complète en planifiant un reset_coverage dans la nuit de samedi à dimanche » — l'opération efface l'état de couverture d'une entité (la dernière valeur parcourue, les empreintes par partition) : le `migrate` suivant relit la totalité ; planifiable par `every:` (D434), déclenchable comme toute opération (D428) ; le rythme : le delta en semaine, la relecture complète le dimanche — elle rattrape les retouches hors de la plage (D864) ; **la vingtième opération du socle** (après `migrate` D667, `anonymize` D697). | Le degré `administrator` (D701) en proposition. Voir §3.2c. |
+| D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color. Voir §3.2c. |
 
 ---
 
@@ -9363,6 +9364,68 @@ relecture nocturne des années. **La vingtième opération du socle**,
 après `migrate` (D667, la dix-huitième) et `anonymize` (D697, la
 dix-neuvième) ; le degré `administrator` (D701 — l'inventaire
 validé : restore/migrate/anonymize) en proposition.
+
+**La cible arbitrée (D882 — la question 6 du cadrage, précise
+D859).** Les huit choix de la proposition (usecases/03_entrepot.md,
+« La cible ») tranchés le 06/09/2026 : **« Pour ce cas d'usage, je
+n'ai pas de modèle. Je te laisse faire une proposition qui
+convertit un ensemble de champs tel que nous conservons la
+cohérence des données sans être exhaustif. La décomposition en 4
+modules me convient. La standardisation reporte ce que nous avons
+déjà vu dans les exemples précédents. L'héritage du tiers en
+fournisseur et client met en lumière cette fonctionnalité. Pour
+les commandes, nous n'appliquerons pas d'héritage. Nous allons
+séparer les commandes d'achat et les commandes de vente. Les
+champs restreints conviennent car cela montre le fonctionnement
+des droits en consultation. L'entrepôt est en lecture seule. »** —
+et en préambule : **« Dans les données, nous avons aussi des
+montants avec des devises différentes (sur les tarifs, les prix
+unitaires, …). Pour l'historique des modifications, toutes les
+tables citées ci-dessus sont concernées, sauf les mouvements de
+stock. L'indice n'est pas lié à la nomenclature, malheureusement.
+Par conséquent, l'historique porte aussi sur la nomenclature. »**
+La lecture : le modèle se conçoit ici, cohérent sans être
+exhaustif (l'analyse D868) ; quatre modules ; les patrons des cas
+précédents ; **les montants en `amount` à devise dans la valeur**
+(D771 — pas la devise visuelle de D832 : les devises varient) ;
+**`tiers` parent et `client`/`fournisseur` enfants par
+`inheritance:`** (D353 — le premier emploi de l'héritage dans un
+exemple) ; **`commande_vente` et `commande_achat` séparées**,
+chacune ses lignes ; **`history:` partout sauf `mouvement`** — les
+retouches des mouvements (D864) remplacent (D878) et se comptent au
+bloc de modification ; les champs financiers restreints, l'entrepôt
+en lecture seule.
+
+**Les trois figures du lien que le cas présente** — l'auteur :
+**« la composition (à l'image des cas précédents) — la nomenclature
+est une composition de l'article, une ligne de commande est une
+composition d'une commande… La suppression d'un article supprime la
+nomenclature… mais ne touche pas les commandes (rappelons que nous
+implémentons du soft delete) ; l'association — un client a une
+liste de commandes de vente, un fournisseur a une liste de
+commandes d'achat. Ces 2 listes ne sont pas des compositions du
+tiers. Elles sont des associations. Même approche pour les
+articles ; les listes avec des compositions sont représentées par
+les tarifs — le prix unitaire est conditionné par l'article, le
+client/fournisseur, une tranche. »** — la composition et sa cascade
+au soft delete du socle (« masquer, ne jamais détruire ») ; les
+commandes d'un tiers ou d'un article = **l'association dérivée**
+(D405 — `commandes: association with commande.commande_vente if
+client = me`, la vérité reste la référence portée par la commande) ;
+**le tarif = le lien n-aire** (D402–D403 — `tarifs: list of [tiers,
+tranche]` à la cellule `{ prix: amount, date_application: date }`,
+l'unicité par la combinaison — le premier emploi du n-aire). **« Cet
+exemple permet de mettre en lumière tous les types possibles du
+modèle. Peux-tu vérifier que les types apparaissent au moins une
+fois ? »** — la vérification rendue type par type dans le usecase
+(« La couverture des types par le modèle ») : **tous les types
+qu'un entrepôt en lecture porte par nature sont là** ; les absents :
+**par nature** — `counter` (rien à numéroter), `states:` (l'entrepôt
+consulte), `communication`, `password`, le type-hook (la date au
+masque l'a évité) ; **à arbitrer** — `file` (`ARCTFICPLA` est un
+chemin : le plan par un connecteur `file` D634) ; **artificiels** —
+`image`, `thumbnail`, `uuid`, `color`. Relevé au passage : l'énuméré
+n'a pas de ligne au tableau des simples de types.md — corrigé.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18642,6 +18705,24 @@ avant la synthèse Q16).
   production/commercial/achats/direction/administration aux champs
   financiers restreints ; huit choix à arbitrer. **En attente —
   aucune décision consignée.**
+- **2026-09-06 (reprise, suite 5) — LA CIBLE ARBITRÉE (D882, 882
+  décisions).** Les huit choix tranchés : le modèle conçu ici
+  (cohérent, non exhaustif), quatre modules, la standardisation
+  des cas précédents avec les montants en amount à devise dans la
+  valeur (« des devises différentes »), tiers parent et
+  client/fournisseur par inheritance: (« met en lumière cette
+  fonctionnalité »), les commandes séparées sans héritage,
+  history: partout sauf les mouvements (la nomenclature comprise),
+  les champs financiers restreints, l'entrepôt en lecture seule ;
+  les trois figures du lien (la composition au soft delete,
+  l'association dérivée des commandes d'un tiers/article, le tarif
+  en n-aire D402). **La vérification demandée rendue** : la
+  couverture des types type par type (usecase) — les absents par
+  nature (counter, states:, communication, password, type-hook),
+  à arbitrer (file — le plan par le connecteur file), artificiels
+  (image, thumbnail, uuid, color) ; l'énuméré ajouté au tableau
+  des simples de types.md. La suite : le morceau 2 (le modèle
+  champ par champ) — ou les questions 7–10 d'abord.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -61,6 +61,7 @@ composants.md.
 | le type | la nature et les facettes propres | le tri, le nul | D |
 |---|---|---|---|
 | `boolean` | les trois états (faux → vrai → nul) ; `required` retire le nul (la recherche strict filtre alors vrai & faux par la case « null ») | null < faux < vrai | D373–D375 |
+| `enum` | les valeurs `values:` — la clé → les libellés, la description, l'icône ; **l'ordre de déclaration = la présentation et le tri** ; **le stockage numérique** (la clé chaîne → un code interne stable — attention à l'ajout intercalé en migration) ; la recherche par le composant multi-sélection ; l'entrée `null:` pour libeller le vide *(la ligne manquait au tableau — relevée par le cas 3, D882)* | le nul en tête | D387–D388 |
 | `text` | la taille `auto` ou `text[30]` (les bornes au nom — D366) ; le masque (`_`, `9`, les littéraux, les classes — il pilote les lignes) ; mono/multi-ligne **déduit de la taille** face au seuil d'instance ; la recherche complète (strict/normalized/similarity/mutualizable) | le nul = la chaîne vide | D259–D265, D366–D370 |
 | `integer` | les bornes au nom (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **les octets jamais déclarés** — dimensionnés selon les bornes ou les valeurs (« le mode auto ») ; le masque (`000000`, `00 00 00`) ; la recherche `range` | le nul = 0 | D371–D372 |
 | `decimal` | les décimales (le setting ou 2) ; **le stockage exact ou réel** (`storage:` — l'entier aux décimales converties) | le nul = 0 | D376–D378 |

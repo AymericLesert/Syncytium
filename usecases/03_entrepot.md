@@ -794,6 +794,160 @@ article).
 8. **l'entrepôt en lecture** pour ses usagers, `migrate` seul
    écrit.
 
+### Les arbitrages de la cible (D882, le 06/09/2026)
+
+Les huit choix tranchés, mot pour mot :
+
+> Dans les données, nous avons aussi des montants avec des devises
+> différentes (sur les tarifs, les prix unitaires, …). Pour
+> l'historique des modifications, toutes les tables citées
+> ci-dessus sont concernées, sauf les mouvements de stock. L'indice
+> n'est pas lié à la nomenclature, malheureusement. Par conséquent,
+> l'historique porte aussi sur la nomenclature.
+>
+> 1. Pour ce cas d'usage, je n'ai pas de modèle. Je te laisse faire
+>    une proposition qui convertit un ensemble de champs tel que
+>    nous conservons la cohérence des données sans être exhaustif.
+> 2. La décomposition en 4 modules me convient.
+> 3. La standardisation reporte ce que nous avons déjà vu dans les
+>    exemples précédents.
+> 4. L'héritage du tiers en fournisseur et client met en lumière
+>    cette fonctionnalité.
+> 5. Pour les commandes, nous n'appliquerons pas d'héritage. Nous
+>    allons séparer les commandes d'achat et les commandes de
+>    vente.
+> 6. Vu ci-dessus.
+> 7. Les champs restreints conviennent car cela montre le
+>    fonctionnement des droits en consultation.
+> 8. L'entrepôt est en lecture seule.
+>
+> Ce cas d'usage présente :
+>
+> - la composition (à l'image de ce que nous avons déjà décrit dans
+>   les cas d'usage précédents) — la nomenclature est une
+>   composition de l'article, une ligne de commande est une
+>   composition d'une commande, … La suppression d'un article
+>   supprime la nomenclature… mais ne touche pas les commandes
+>   (rappelons que nous implémentons du soft delete) ;
+> - l'association — un client a une liste de commandes de vente, un
+>   fournisseur a une liste de commandes d'achat. Ces 2 listes ne
+>   sont pas des compositions du tiers. Elles sont des
+>   associations. Même approche pour les articles. Un article a une
+>   liste de commandes sous forme d'association ;
+> - les listes avec des compositions sont représentées par les
+>   tarifs — le prix unitaire est conditionné par l'article, le
+>   client/fournisseur, une tranche.
+>
+> Cet exemple permet de mettre en lumière tous les types possibles
+> du modèle.
+
+**La lecture :**
+
+- **le modèle se conçoit ici** — un ensemble de champs cohérent,
+  non exhaustif (l'analyse, D868) ; **la standardisation = les
+  patrons des cas précédents** (les noms français D764, l'auto-doc
+  D840/D844, la convention de lisibilité) ; **les montants en
+  `amount` à devise dans la valeur** (D771 — les devises
+  différentes des tarifs et des prix unitaires : `TACTDEVISE`,
+  `LCCTDEVISE`), pas la devise visuelle de D832 ;
+- **quatre modules** `technique` / `tiers` / `commande` / `stock` ;
+- **`tiers` parent, `client` et `fournisseur` enfants par
+  `inheritance:`** (D353 — la fonctionnalité mise en lumière) ;
+  **les commandes sans héritage** : `commande_vente` et
+  `commande_achat` séparées, chacune ses lignes ;
+- **`history:` sur toutes les entités sauf `mouvement`** — la
+  nomenclature comprise (l'indice de révision des commandes ne la
+  couvre pas) ; les retouches des mouvements (D864) remplacent
+  (D878 sans historique) et se comptent au bloc de modification ;
+- **les champs financiers restreints** — les droits en
+  consultation montrés ; **l'entrepôt en lecture seule** ;
+- **les trois figures du lien** : la composition avec sa cascade
+  (l'article supprimé emporte sa nomenclature — le soft delete du
+  socle, « masquer, ne jamais détruire » — et ne touche pas les
+  commandes qui le référencent) ; **l'association** — les commandes
+  d'un client, d'un fournisseur, d'un article ne sont pas des
+  compositions : **l'association dérivée** de D405 (`commandes:
+  association with commande.commande_vente if client = me` — la
+  vérité reste la référence portée par la commande) ; **le tarif =
+  le lien n-aire** (D402–D403 — « le prix unitaire est conditionné
+  par l'article, le client/fournisseur, une tranche » :
+  `tarifs: list of [tiers, tranche]` à la cellule `{ prix: amount,
+  date_application: date }`, l'unicité par la combinaison — le
+  premier emploi du n-aire).
+
+### La couverture des types par le modèle (la vérification demandée)
+
+*Le catalogue de [types.md](../docs/types.md), type par type, avec
+le champ qui le porte et la colonne réelle de PMI ; les absents en
+fin.*
+
+| le type | le champ proposé (la colonne PMI) |
+|---|---|
+| `boolean` | `tiers.actif` (`CLCTACTIF`), `tarif.valide` (`TACTVALID`), les tops de l'article (`ARCTTOP01`…) |
+| `text` | `article.libelle` (`ARCTLIB01`), `tiers.nom` (`CLCTNOM`), les codes |
+| `integer` | `ligne_nomenclature.numero` (`NOKNLIGNOM` — l'identité), `tranche.numero` (`TACNTRANCH`) |
+| `decimal` | `ligne_vente.quantite` (`LCCNQTECDE`), `stock.quantite` (`DPCNSTOPHY`), `commande.taux_change` (`ECCNTXDEVI`) |
+| `duration` | `ligne_nomenclature.temps_ouverture` (`NOCNTPSOUV`), `temps_attente`, `temps_preparation` — la notation industrielle D378 |
+| `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
+| `time` | `mouvement.heure` (`MVCSMVT`) — gardée seule, aux côtés de la date |
+| `datetime` | `ligne_vente.delai_expedition` (`LCCJDELEXP` + `LCCSDELEXP` — le constructeur D659) |
+| `enum` | `article.type` (`ARCTTYPART`), `ligne_nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
+| `amount` | `tarif.prix` (`TACNPU` + `TACTDEVISE`), `ligne_vente.prix_net` (`LCCNPUNET` + `LCCTDEVISE`), `article.prix_revient` (`ARCNPRS`) |
+| `percentage` | `tiers.taux_representant` (`CLCNTXREP1`), `ligne_nomenclature.rendement` (`NOCNRENDT`) |
+| `measure` | `article.poids` (`ARCNPDSUNI` — kg), `longueur`/`largeur`/`epaisseur` (`ARCNLONGUE`… — mm), `volume` (`ARCNVOLUNI`) |
+| `phone` | `tiers.telephone` (`CLCTTELEP1`), `fax` |
+| `geolocation` | `tiers.adresse` (`CLCTRUE1`/`CLCTCP`/`CLCTVILLE`/`CLCTPAYS` + `CLCNGPSX`/`CLCNGPSY` — le constructeur, D638) |
+| `period` | `ligne_nomenclature.validite` (`NOCJDEBVAL` + `NOCJFINVAL`) |
+| `email`, `url` | `tiers.email` (`CLCTEMAIL`), `tiers.site` (`CLCTSITE`) |
+| `vat_number`, `siret`, `siren` | `tiers.tva` (`CLCTNOTVA`), `tiers.siret` (`CLCTSIRET`), `tiers.siren` — le calculé `left(siret, 9)` |
+| `iban`, `bic` | `tiers.iban` (`CLCTIBAN`), `tiers.bic` (`CLCTSWIFT`) |
+| `label` | les `title:` des entités (D465 — `"{code} — {libelle}"`) |
+| `list of <simple>` | `article.matieres: list of text` (`ARCTCODMA1`…`ARCTCODMA9` — neuf colonnes, une liste) ; `tranche.seuils: list of decimal` (`TCCNSEU_01`…`TCCNSEU_35` — trente-cinq seuils, une liste) |
+| `range of <type>` | la tranche *n* = `range of decimal` entre deux seuils consécutifs de `TRANCHES` — la forme exacte à l'analyse de la table (le calculé sur la liste, ou l'entité `tranche` à deux bornes) |
+| la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
+| la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
+| l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
+| le n-aire | `article.tarifs: list of [tiers, tranche]` + la cellule (D402) |
+| l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
+| `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
+| le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
+| `context` | `article.dormant: context.now - derniere_sortie > 180d` (le tableau de bord) |
+| `inheritance:` | `client`/`fournisseur` ← `tiers` (D353) |
+| `history:` | toutes les entités sauf `mouvement` (D882) |
+
+**Les types absents du modèle** — et ce qu'ils appellent :
+
+- **`file`, `image`, `thumbnail`** — PMI ne porte pas de fichier
+  dans ses tables ; `ARCTFICPLA` (le nom du fichier plan, 250
+  caractères) est un chemin, pas un contenu : `article.plan: file`
+  se remplirait par un connecteur `file` (D634) lisant le
+  répertoire des plans — à arbitrer ; la photo de l'article
+  (`image`) n'existe pas chez PMI — l'enrichissement d'un entrepôt
+  en lecture seule est fermé (D882) ;
+- **`uuid`** — aucun identifiant externe au format UUID dans le
+  périmètre (les `Id` des schémas typés sont des entiers) ;
+- **`color`** — aucune couleur dans les données ; une couleur par
+  famille d'article servirait les graphiques (`colors:` D467) —
+  artificielle ;
+- **`counter`** — sans objet : l'entrepôt ne numérote rien, les
+  numéros viennent de PMI ;
+- **`states:`** — écarté par choix : l'entrepôt consulte, le statut
+  d'une commande est un énuméré venu de PMI, pas une machine à
+  états ;
+- **`communication`** — sans objet : pas de fil d'échanges dans un
+  entrepôt en lecture ;
+- **`password`** — sans objet : les comptes sont ceux du socle ;
+- **le type-hook** — aucun format que le catalogue ne dise pas (la
+  date au masque a évité le hook, R5) ;
+- *(relevé au passage : `enum` manque au tableau des simples de
+  types.md — D387–D388 le portent ; à ajouter à l'artefact)*.
+
+Les types portés par nature dans un entrepôt en lecture sont tous
+là ; les absents sont soit sans objet par nature (`counter`,
+`states:`, `communication`, `password`, le type-hook), soit à
+arbitrer (`file` par le connecteur des plans), soit artificiels
+(`image`, `thumbnail`, `uuid`, `color`).
+
 ## Les questions du cadrage
 
 *(posées le 03/09/2026 — les réponses de l'auteur feront les

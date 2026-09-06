@@ -18876,6 +18876,26 @@ avant la synthèse Q16).
   les seize blocs d'entité retirés, les quatre modules portent
   l'allow en lecture seule ; rights.md au niveau. Restent en
   validation : les clés d'énumérés, le tarif applicable, M5–M9.
+- **2026-09-07 (pause) — LA SÉANCE S'ARRÊTE SUR LE MORCEAU 2 DU CAS
+  3 EN VALIDATION (886 décisions).** D864 soldée (D878–D881 : la
+  comparaison par blocs, coverage: aux deux formes, reset_coverage),
+  la cible arbitrée (D882–D883), le modèle écrit (trente et un
+  fichiers valides — groups.yml, settings.yml, quatre modules, seize
+  entités, cent soixante-huit champs), les premiers retours
+  consignés (D884 tiers et niveau, D885 la confidentialité nommée,
+  D886 la cascade de l'allow). **La reprise, demain : (1) la suite
+  de la validation du morceau 2** — les clés d'énumérés comme
+  vocabulaire de l'entrepôt, le tarif applicable aux dates dans
+  l'historique, les frottements M5 (le count conditionnel), M6
+  (l'appartenance à une collection), M7 (les sous-items de period),
+  M8 (l'entité comme collection), **M9 (la grammaire face à YAML —
+  les neuf fichiers des exemples validés à corriger sur
+  arbitrage)** ; **(2) les questions 7–10** (les règles,
+  l'enrichissement, la fréquence, l'entreprise) ; **(3) le morceau 1
+  (l'assise)** — dont la convention PMI au connecteur (D876/D877),
+  le lien de settings.yml et de groups.yml depuis version.yml ; puis
+  le morceau 3 (la source). Trente-huit commits depuis la #40 sur
+  feature/meta-schema — la PR de consolidation sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

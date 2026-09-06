@@ -700,9 +700,9 @@ structure la donnée et l'expérience, D416 : le menu et les droits
 d'un domaine vont ensemble) :
 
 1. **`technique`** — `article` (le code et le complément en
-   identité, les libellés, la famille et la sous-famille en
-   référentiels par `distinct:` D658, les unités, poids et
-   dimensions, les prix de revient, le statut) ; **`nomenclature`**
+   identité, les libellés, **la famille et la sous-famille en
+   énumérés** — D883, les listes closes de PMI —, les unités, poids
+   et dimensions, les prix de revient, le statut) ; **`nomenclature`**
    = la composition de l'article, `article.nomenclature: list of
    ligne_nomenclature` — la ligne porte la nature (composant ou
    opération — l'énuméré de PMI), **le composant en référence à
@@ -891,7 +891,9 @@ fin.*
 | `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
 | `time` | `mouvement.heure` (`MVCSMVT`) — gardée seule, aux côtés de la date |
 | `datetime` | `ligne_vente.delai_expedition` (`LCCJDELEXP` + `LCCSDELEXP` — le constructeur D659) |
-| `enum` | `article.type` (`ARCTTYPART`), `ligne_nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
+| `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `ligne_nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
+| `counter` | `commande_vente.numero` (`ECKTNUMERO`) — « une commande est un counter » : le type déclaré, **la valeur surchargée par la migration** (D883 — le privilège de l'écriture identifiée reprise, D175/D173) |
+| `file` | `article.plans: list of file` — « une liste de pièces jointes » remplie **via un connecteur `file`** (D634) en complément du connecteur de source, le nom du fichier venant d'`ARCTFICPLA` (D883 — la forme au morceau de la source) |
 | `amount` | `tarif.prix` (`TACNPU` + `TACTDEVISE`), `ligne_vente.prix_net` (`LCCNPUNET` + `LCCTDEVISE`), `article.prix_revient` (`ARCNPRS`) |
 | `percentage` | `tiers.taux_representant` (`CLCNTXREP1`), `ligne_nomenclature.rendement` (`NOCNRENDT`) |
 | `measure` | `article.poids` (`ARCNPDSUNI` — kg), `longueur`/`largeur`/`epaisseur` (`ARCNLONGUE`… — mm), `volume` (`ARCNVOLUNI`) |
@@ -915,38 +917,33 @@ fin.*
 | `inheritance:` | `client`/`fournisseur` ← `tiers` (D353) |
 | `history:` | toutes les entités sauf `mouvement` (D882) |
 
-**Les types absents du modèle** — et ce qu'ils appellent :
+**Les types absents du modèle** — et ce qu'ils appellent (relu par
+D883) :
 
-- **`file`, `image`, `thumbnail`** — PMI ne porte pas de fichier
-  dans ses tables ; `ARCTFICPLA` (le nom du fichier plan, 250
-  caractères) est un chemin, pas un contenu : `article.plan: file`
-  se remplirait par un connecteur `file` (D634) lisant le
-  répertoire des plans — à arbitrer ; la photo de l'article
-  (`image`) n'existe pas chez PMI — l'enrichissement d'un entrepôt
-  en lecture seule est fermé (D882) ;
+- **`image`, `thumbnail`** — la photo de l'article n'existe pas
+  chez PMI, l'enrichissement d'un entrepôt en lecture seule est
+  fermé (D882) — artificiels ;
 - **`uuid`** — aucun identifiant externe au format UUID dans le
-  périmètre (les `Id` des schémas typés sont des entiers) ;
-- **`color`** — aucune couleur dans les données ; une couleur par
-  famille d'article servirait les graphiques (`colors:` D467) —
-  artificielle ;
-- **`counter`** — sans objet : l'entrepôt ne numérote rien, les
-  numéros viennent de PMI ;
+  périmètre (les `Id` des schémas typés sont des entiers) —
+  artificiel ;
+- **`color`** — aucune couleur dans les données — artificiel ;
 - **`states:`** — écarté par choix : l'entrepôt consulte, le statut
   d'une commande est un énuméré venu de PMI, pas une machine à
-  états ;
-- **`communication`** — sans objet : pas de fil d'échanges dans un
-  entrepôt en lecture ;
-- **`password`** — sans objet : les comptes sont ceux du socle ;
+  états — sans objet (confirmé D883) ;
+- **`communication`** — pas de fil d'échanges dans un entrepôt en
+  lecture — sans objet (confirmé D883) ;
+- **`password`** — les comptes sont ceux du socle — sans objet
+  (confirmé D883) ;
 - **le type-hook** — aucun format que le catalogue ne dise pas (la
-  date au masque a évité le hook, R5) ;
-- *(relevé au passage : `enum` manque au tableau des simples de
-  types.md — D387–D388 le portent ; à ajouter à l'artefact)*.
+  date au masque a évité le hook, R5) — sans objet (confirmé
+  D883) ;
+- *(`counter` et `file` sont remontés au tableau par D883 ; `enum`
+  manquait au tableau des simples de types.md — ajouté)*.
 
-Les types portés par nature dans un entrepôt en lecture sont tous
-là ; les absents sont soit sans objet par nature (`counter`,
-`states:`, `communication`, `password`, le type-hook), soit à
-arbitrer (`file` par le connecteur des plans), soit artificiels
-(`image`, `thumbnail`, `uuid`, `color`).
+Tous les types qu'un entrepôt en lecture porte sont là, `counter`
+et `file` compris ; restent hors du modèle les sans-objet par
+nature (`states:`, `communication`, `password`, le type-hook) et
+les artificiels (`image`, `thumbnail`, `uuid`, `color`).
 
 ## Les questions du cadrage
 

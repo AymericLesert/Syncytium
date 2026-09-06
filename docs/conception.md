@@ -1008,7 +1008,8 @@ Q58) :
 | D879 | **La forme de `coverage:` — la carte des champs de partition** (précise D878) : « pour coverage, ne pas oublier que key peut faire référence à plusieurs champs. Et, range se reporte sur chaque champ » — `coverage:` est un mapping **champ → { value:, range: }** : `value:` la nature de la partition (`month` — les natures du crochet D382 ; absente, la valeur brute), `range:` la plage relue pour ce champ (une durée D476 sur une date : `3m` ; un nombre sur un numéro : `10000`) ; plusieurs champs = une clé de partition composée, chacun sa plage ; le cas : `MVCJMVT: { value: month, range: 3m }` sur les mouvements, `ECKTNUMERO: { range: 10000 }` sur les commandes. | Le croquis `key:`/`range:` de D878 s'efface. La nuance valeurs / enregistrements d'un numéro à préciser sur la table. La forme courte par D880. Voir §3.2c. |
 | D880 | **La forme courte de `coverage:` au crochet** (complète D879 — la forme riche) : « je propose une forme simplifiée, peut-être plus lisible : `coverage: MVCJMVT[month - 3]`, `coverage: ECKTNUMERO[10000]` » — le crochet, paramètre en ligne du format (D372/D381/D382), porte **la nature puis la plage en retrait** (`month - 3` = les trois derniers mois, `week - 1`, `year - 1`) ou **la plage seule** sur un numéro (`[10000]` = les dix mille derniers) ; plusieurs champs = la liste ; la carte `value:`/`range:` de D879 demeure la forme riche équivalente — le patron courte/riche (D356/D441). | Voir §3.2c. |
 | D881 | **`reset_coverage` — l'opération qui force la relecture** (complète D878, ajoute au socle) : « je propose de définir une opération `reset_coverage(nom du module, nom de l'entité)` qui peut être exécutée régulièrement. En réinitialisant le coverage, cela forcera Syncytium à tout relire. Par exemple, nous pouvons du lundi au vendredi faire un delta, et le dimanche une relecture complète en planifiant un reset_coverage dans la nuit de samedi à dimanche » — l'opération efface l'état de couverture d'une entité (la dernière valeur parcourue, les empreintes par partition) : le `migrate` suivant relit la totalité ; planifiable par `every:` (D434), déclenchable comme toute opération (D428) ; le rythme : le delta en semaine, la relecture complète le dimanche — elle rattrape les retouches hors de la plage (D864) ; **la vingtième opération du socle** (après `migrate` D667, `anonymize` D697). | Le degré `administrator` (D701) en proposition. Voir §3.2c. |
-| D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color. Voir §3.2c. |
+| D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color — relu par D883. Voir §3.2c. |
+| D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
 
@@ -9426,6 +9427,33 @@ masque l'a évité) ; **à arbitrer** — `file` (`ARCTFICPLA` est un
 chemin : le plan par un connecteur `file` D634) ; **artificiels** —
 `image`, `thumbnail`, `uuid`, `color`. Relevé au passage : l'énuméré
 n'a pas de ligne au tableau des simples de types.md — corrigé.
+
+**Le counter surchargé, le file par son connecteur, l'énuméré des
+listes closes (D883 — précise D882).** **« Pour sans objet, je
+confirme. Même si une commande est un counter… mais ici, lors de la
+migration, le counter est surchargé. Le type file peut remplir un
+champ (liste de pièces jointes) via un connecteur file (en
+complément du connecteur de source). L'énuméré est bien présent
+dans les données PMI ⇒ le type d'article, le code de gestion, la
+famille, la sous-famille… les valeurs sont parties d'une liste de
+valeurs qui sont facilement identifiables dans une liste
+énumérée. »** — deux types remontent au tableau : **`counter`** —
+`commande_vente.numero: counter`, le type dit la nature du numéro
+(D409), **la migration surcharge la valeur** — l'écriture identifiée
+reprise lève le contrôle de la lecture seule (D175/D173), le
+compteur n'attribuerait que pour un enregistrement né dans
+l'entrepôt, qui n'existe pas ; **`file`** — `article.plans: list of
+file`, « une liste de pièces jointes » remplie **par un connecteur
+`file`** (D634 — `get_file`) **en complément du storage source**, le
+nom venant d'`ARCTFICPLA` ; la forme du second connecteur au sein
+d'une migration (D662 n'en nomme qu'un) s'écrira au morceau de la
+source. Et **l'énuméré** : les listes closes de PMI — le type
+d'article, le code de gestion, la famille, la sous-famille — se
+déclarent en `enum` à `values:` (D387), non en référentiels par
+`distinct:` (D658 — réservé aux listes ouvertes, les budgets et
+les lieux de la banque) ; la famille de l'article proposée en
+référentiel se corrige. Les sans-objet sont confirmés : `states:`,
+`communication`, `password`, le type-hook.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18723,6 +18751,19 @@ avant la synthèse Q16).
   (image, thumbnail, uuid, color) ; l'énuméré ajouté au tableau
   des simples de types.md. La suite : le morceau 2 (le modèle
   champ par champ) — ou les questions 7–10 d'abord.
+- **2026-09-06 (reprise, suite 6) — LE COUNTER SURCHARGÉ, LE FILE
+  PAR SON CONNECTEUR, L'ÉNUMÉRÉ DES LISTES CLOSES (D883, 883
+  décisions).** Les sans-objet confirmés ; « même si une commande
+  est un counter… lors de la migration, le counter est surchargé »
+  (commande_vente.numero: counter, la valeur écrite par la reprise
+  D175/D173) ; « le type file peut remplir un champ (liste de
+  pièces jointes) via un connecteur file (en complément du
+  connecteur de source) » (article.plans: list of file, D634 — la
+  forme du second connecteur au morceau de la source) ;
+  « l'énuméré est bien présent dans les données PMI » — le type
+  d'article, le code de gestion, la famille, la sous-famille en
+  enum (pas en distinct:). La couverture des types corrigée au
+  usecase : counter et file remontent au tableau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

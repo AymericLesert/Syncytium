@@ -1,10 +1,10 @@
 # L'adresse complémentaire — la table ADRESSE de PMI (ADKTTYPCPT le
 # type de compte, ADKTCOMPTE le code, ADKNNUMERO le numéro) : les
-# adresses de livraison et de facturation d'un partenaire. La
-# composition du partenaire (D399) ; le numéro l'identifie au sein du
+# adresses de livraison et de facturation d'un tiers. La
+# composition du tiers (D399) ; le numéro l'identifie au sein du
 # possesseur (D841).
 name: adresse
-description: Une adresse complémentaire d'un partenaire — livraison ou facturation
+description: Une adresse complémentaire d'un tiers — livraison ou facturation
 label: "{usage} — {nom}"
 identity: [numero]
 history: true

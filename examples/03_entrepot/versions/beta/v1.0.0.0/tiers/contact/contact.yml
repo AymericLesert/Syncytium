@@ -1,10 +1,10 @@
 # Le contact — la table CONTACT de PMI (CTKTSOC, CTKNID) : les
-# personnes chez le partenaire. La composition du partenaire (D399) ;
+# personnes chez le tiers. La composition du tiers (D399) ;
 # les champs nominatifs portent le marquage RGPD (D695 — personal) :
 # l'anonymisation (D696) et la rétention (D698) savent où frapper —
 # le premier exemple au RGPD.
 name: contact
-description: Une personne chez un partenaire — son rôle et ses coordonnées
+description: Une personne chez un tiers — son rôle et ses coordonnées
 label: "{prenom} {nom}"
 identity: [identifiant]
 history: true

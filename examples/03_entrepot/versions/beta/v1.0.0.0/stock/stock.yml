@@ -2,16 +2,16 @@
 # fichier courant (D768) : depuis stock/
 # « stock » : la gestion des stocks et les mouvements (D859), le
 # quatrième module de l'entrepôt. L'entité du niveau de stock se nomme
-# « position » (la position de stock : article × lot × emplacement ×
-# dépôt — STDEPLOT) pour épargner l'éponymie triple stock/stock/stock.yml
-# (la leçon D831). Le mouvement est la seule entité du cas sans
-# historique (D882) : les retouches des outils maison (D864)
-# remplacent la valeur (D878) et se comptent au bloc de modification.
+# « niveau » (le niveau de stock : article × lot × emplacement × dépôt
+# — STDEPLOT ; l'arbitrage de l'auteur au morceau 2, D884). Le
+# mouvement est la seule entité du cas sans historique (D882) : les
+# retouches des outils maison (D864) remplacent la valeur (D878) et se
+# comptent au bloc de modification.
 name: stock
-description: Les stocks — les positions par dépôt, emplacement et lot, et les mouvements
+description: Les stocks — les niveaux par dépôt, emplacement et lot, et les mouvements
 
 entities:
-  - position/position.yml
+  - niveau/niveau.yml
   - mouvement/mouvement.yml
   - depot/depot.yml
   - emplacement/emplacement.yml

@@ -1,11 +1,11 @@
 # Le fournisseur — la table FOURNIS de PMI (la même structure que
-# CLIENT, le même préfixe CL) : l'enfant du partenaire (D353), il ne
+# CLIENT, le même préfixe CL) : l'enfant du tiers (D353), il ne
 # porte que ce qui lui est propre — ses commandes d'achat, les articles
 # qu'il fournit.
 name: fournisseur
-description: Un fournisseur — le partenaire qui vend à l'entreprise
+description: Un fournisseur — le tiers qui vend à l'entreprise
 label: "{code} — {nom}"
-inheritance: partenaire
+inheritance: tiers
 identity: [code]
 history: true
 

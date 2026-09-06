@@ -324,13 +324,13 @@ nomenclature:
 tarifs:
   # le lien n-aire (D402–D403/D882) : « le prix unitaire est conditionné
   # par l'article, le client/fournisseur, une tranche » — une cellule par
-  # combinaison (partenaire, tranche) : le tarif applicable ; les dates
+  # combinaison (tiers, tranche) : le tarif applicable ; les dates
   # d'application successives de PMI (TAKJAPLI) vivent dans l'historique
-  # de l'article. Le partenaire = le parent des clients et des
+  # de l'article. Le tiers = le parent des clients et des
   # fournisseurs (l'héritage D353) — TAKTGENRE dit lequel chez PMI.
   # la cellule en ligne (D403) porte des « : » — les guillemets YAML
   # s'imposent (le manque M9) ; la forme éclatée en bloc équivaut
-  type: 'list of [tiers.partenaire, tranche] { prix: amount, date_application: date, valide: boolean }'
+  type: 'list of [tiers.tiers, tranche] { prix: amount, date_application: date, valide: boolean }'
   label:
     fr: Tarifs
 

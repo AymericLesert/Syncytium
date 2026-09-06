@@ -1,11 +1,11 @@
-# Le client — la table CLIENT de PMI : l'enfant du partenaire (D353),
+# Le client — la table CLIENT de PMI : l'enfant du tiers (D353),
 # il ne porte que ce qui lui est propre — la commission du
 # représentant, le plafond d'encours, ses commandes de vente.
 name: client
-description: Un client — le partenaire qui achète à l'entreprise
+description: Un client — le tiers qui achète à l'entreprise
 label: "{code} — {nom}"
 # l'enfant pointe son parent (D353) — la seule référence
-inheritance: partenaire
+inheritance: tiers
 # la clé fonctionnelle (D357) — le code vaut parmi les clients
 identity: [code]
 history: true
@@ -34,7 +34,7 @@ fields:
       fr: Le taux de commission du représentant — réservé à la direction.
 
   encours_maximum:
-    # CLCNDECOU1 — le découvert autorisé ; la devise du partenaire
+    # CLCNDECOU1 — le découvert autorisé ; la devise du tiers
     type: amount
     confidentiality:
       level: protected

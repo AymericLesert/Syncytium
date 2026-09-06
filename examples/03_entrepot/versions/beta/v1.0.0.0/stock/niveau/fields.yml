@@ -60,7 +60,7 @@ quantite_en_cours:
     fr: En cours
 
 stock_minimum:
-  # DPCNSTOMIN — le minimum de la position (celui de l'article vaut par
+  # DPCNSTOMIN — le minimum du niveau (celui de l'article vaut par
   # défaut)
   type: decimal
   label:
@@ -113,7 +113,7 @@ disponible:
     fr: Disponible
 
 valeur:
-  # la valeur de la position — restreinte comme le prix
+  # la valeur du niveau — restreinte comme le prix
   type: amount
   formula: prix_unitaire * quantite if prix_unitaire != null
   confidentiality:

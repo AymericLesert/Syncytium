@@ -105,7 +105,7 @@ bic:
 # --- les conditions ---
 
 devise:
-  # CLCTDEVISE nchar(3) — la devise du partenaire (ISO)
+  # CLCTDEVISE nchar(3) — la devise du tiers (ISO)
   type: text[3]
   label:
     fr: Devise
@@ -149,7 +149,7 @@ echeance:
   hint:
     fr: Le délai de règlement, en jours.
 
-# --- la vie du partenaire ---
+# --- la vie du tiers ---
 
 actif:
   # CLCTACTIF
@@ -167,7 +167,7 @@ bloque:
   label:
     fr: Bloqué
   hint:
-    fr: Vrai quand PMI bloque le partenaire — plus de commande.
+    fr: Vrai quand PMI bloque le tiers — plus de commande.
 
 date_creation:
   # CLCJCRE — AAAAMMJJ au masque (D820)

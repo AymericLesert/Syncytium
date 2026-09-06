@@ -1133,15 +1133,17 @@ soixante-huit champs**, chaque champ commenté de sa colonne PMI :
   `duration` au masque industriel, le rendement en `percentage`, la
   `validite: period`) ; `tranche` (les trente-cinq seuils en `list of
   decimal`, la première tranche en `range of decimal`) ;
-- **`tiers/`** — **`partenaire`, le parent** (la structure commune de
+- **`tiers/`** — **`tiers`, le parent** (la structure commune de
   CLIENT et FOURNIS : l'adresse en `geolocation`, `phone`, `email`,
   `url`, `siret`, `vat_number`, `iban`, `bic`, les conditions, les
-  compositions `adresses` et `contacts`, le `siren` calculé) ;
-  **`client` et `fournisseur` par `inheritance: partenaire`** (D353 —
-  chacun son `identity: [code]`, ses champs propres, `commandes` en
-  association dérivée D405) ; `adresse` (l'usage en énuméré, la
-  `geolocation`) ; `contact` (**`rgpd: personal`** sur le nom, le
-  prénom, les coordonnées, la date de naissance — D695) ;
+  compositions `adresses` et `contacts`, le `siren` calculé — **le
+  mot de l'auteur, l'éponymie triple `tiers/tiers/tiers.yml`
+  assumée**, D884) ; **`client` et `fournisseur` par `inheritance:
+  tiers`** (D353 — chacun son `identity: [code]`, ses champs
+  propres, `commandes` en association dérivée D405) ; `adresse`
+  (l'usage en énuméré, la `geolocation`) ; `contact` (**`rgpd:
+  personal`** sur le nom, le prénom, les coordonnées, la date de
+  naissance — D695) ;
 - **`commande/`** — `commande_vente` et `commande_achat`, séparées
   sans héritage (D882 — la structure se répète, le prix du choix) :
   **`numero: counter`** surchargé par la migration (D883), l'indice de
@@ -1152,15 +1154,23 @@ soixante-huit champs**, chaque champ commenté de sa colonne PMI :
   `amount` à devise D771, les délais en `datetime` recomposés D659,
   la `marge` calculée réservée à la direction, `en_retard` par
   `context.now`) ;
-- **`stock/`** — **`position`** (STDEPLOT — l'entité ne se nomme pas
-  « stock » : l'éponymie triple stock/stock/stock.yml, la leçon
-  D831 ; la clé à cinq champs, les quantités, la valeur restreinte,
-  l'inventaire en `datetime`, `history: true` pour le stock à date
-  D412) ; **`mouvement`** (la clé aux colonnes I complétées de
+- **`stock/`** — **`niveau`** (STDEPLOT — le niveau de stock, le mot
+  de l'auteur, D884 ; la clé à cinq champs, les quantités, la
+  valeur restreinte, l'inventaire en `datetime`, `history: true`
+  pour le stock à date D412) ; **`mouvement`** (la clé aux colonnes I complétées de
   l'article, de la date et de l'heure — D869/D871 tranchera ; la
   date et l'heure séparées — le `time` seul ; le type et le sens en
   énumérés ; **`history: false`**, le seul opt-out D882) ; `depot` et
   `emplacement` (les référentiels par valeurs distinctes D658).
+
+**Les retours de l'auteur (D884)** : « je préfère TIERS au lieu de
+PARTENAIRE. Pour Position, je préfère Niveau » — le parent des
+tiers se nomme `tiers` (module `tiers`, entité `tiers`, fichier
+`tiers/tiers/tiers.yml` : l'éponymie triple assumée — le mot juste
+prime la convention, la nuance de D831), le niveau de stock se
+nomme `niveau` ; les références (`tiers.tiers` au n-aire des
+tarifs, `stock.niveau` aux dépôts, `inheritance: tiers`) et les
+libellés renommés, les trente fichiers revalidés.
 
 **Les choix d'écriture, à valider avec le morceau** : l'entrepôt en
 lecture seule par le bloc `allow: { create: false, update: false,

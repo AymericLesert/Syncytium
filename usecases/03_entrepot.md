@@ -1185,7 +1185,13 @@ delete: false }` **à l'étage de chaque module** (D886 — la cascade
 application / module / entité / champ) ; `history: true` entité
 par entité (D411) ; les clés d'énumérés sont **le vocabulaire de
 l'entrepôt** (fabrique, achete, en_cours…), les codes PMI s'y
-traduisent au mapping — la standardisation même ; les montants en
+traduisent au mapping — la standardisation même — **validé
+(D893)** : « les clés d'énumérés sont le vocabulaire de l'entrepôt.
+Pour une manipulation claire, la valeur qui a du sens est à
+utiliser. Par contre, si la source n'est pas évidente, un mapping
+sera apporté lors de l'import » — la valeur porteuse de sens dans
+le modèle, la traduction des codes opaques par la règle du mapping
+(`ARCTTYPART.select(F: "fabrique", …)`) ; les montants en
 `amount` sans `currencies:` (toutes les devises ISO, D391) ; le
 tarif n-aire porte le tarif applicable, les dates d'application
 successives de PMI vivent dans l'historique de l'article.

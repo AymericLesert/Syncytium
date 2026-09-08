@@ -1018,6 +1018,7 @@ Q58) :
 | D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
 | D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
 | D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
+| D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9653,6 +9654,26 @@ accolade d'ecriture/fields.yml et d'ecriture/gui.yml, les `fields`
 de budget.yml et lieu.yml) ; **la pratique** : chaque exemple passe
 un analyseur YAML avant validation — cent trente-cinq fichiers des
 quatre exemples, zéro erreur. La grammaire tient telle quelle.
+
+**Les clés d'énumérés sont le vocabulaire de l'entrepôt (D893 — le
+morceau 2 du cas 3, précise D387 et D883, la standardisation de
+D859).** Le modèle écrivait ses énumérés avec des clés porteuses de
+sens — `fabrique`, `achete`, `sous_traite` pour le type d'article,
+`en_cours`, `soldee`, `annulee` pour le statut d'une commande — là
+où PMI parle en codes d'un caractère. L'exemple posé : la source
+déclare la liste close relevée (`ARCTTYPART: enum` à valeurs F, A,
+S et leurs libellés), la règle du mapping traduit
+(`ARCTTYPART.select(F: "fabrique", A: "achete", S:
+"sous_traite")`), l'entrepôt ne connaît que son vocabulaire. **« Les
+clés d'énumérés sont le vocabulaire de l'entrepôt. Pour une
+manipulation claire, la valeur qui a du sens est à utiliser. Par
+contre, si la source n'est pas évidente, un mapping sera apporté
+lors de l'import. »** — la valeur qui a du sens dans le modèle ; la
+traduction à la règle quand la source parle en codes, le passage
+tel quel quand elle est explicite ; l'entrepôt se lit sans
+connaître PMI, et un code nouveau chez PMI se déclare à la source
+et se traduit à la règle sans toucher au modèle — la
+standardisation de D859 au grain de la valeur.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19081,6 +19102,14 @@ avant la synthèse Q16).
   trente-cinq fichiers des quatre exemples valides. entity.md au
   niveau. Restent en validation : les clés d'énumérés, le tarif
   applicable.
+- **2026-09-08 (suite 6) — LES CLÉS D'ÉNUMÉRÉS (D893, 893
+  décisions).** Deux exemples rendus pour décider (le type
+  d'article traduit à la règle ; le tarif applicable contre la
+  composition à la date) ; « les clés d'énumérés sont le
+  vocabulaire de l'entrepôt. Pour une manipulation claire, la
+  valeur qui a du sens est à utiliser. Par contre, si la source
+  n'est pas évidente, un mapping sera apporté lors de l'import » —
+  validé. Reste : le tarif applicable ou toutes les dates.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

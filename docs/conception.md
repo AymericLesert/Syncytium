@@ -19292,6 +19292,24 @@ avant la synthèse Q16).
   exemple, tu peux enlever planifie et en_vigueur. Valide suffit »
   — la forme éclatée de D403 nommée ; la cellule du cas allégée
   (prix, forfait, numéro, valide, commentaire) ; types.md au niveau.
+- **2026-09-08 (pause) — LA SÉANCE S'ARRÊTE SUR LE MORCEAU 2 VALIDÉ
+  (898 décisions).** La journée : l'index de mémoire ramené à une
+  ligne, M5–M9 soldés (D887–D892 — le count conditionnel,
+  l'opérateur in et la projection, min/max/gap, l'agrégat sur une
+  collection déclarée, l'écriture face à YAML et les neuf fichiers
+  corrigés), les clés d'énumérés (D893), la grille tarifaire en
+  hypercube après le détour relationnel (D894 retirée, D895–D898 :
+  la leçon, la doctrine des deux plans, le temps en dimension du
+  tuple, la cellule sous fields:). **La reprise : (1) les questions
+  7–10 du cadrage** — les exemples de règles de vérification,
+  l'enrichissement, la fréquence, l'entreprise (l'authentification,
+  le smtp, les environnements) ; **(2) le morceau 1 (l'assise)** —
+  syncytium.yml, les environnements, versions/, version.yml liant
+  settings.yml et groups.yml, le connecteur cegid (sqlserver, la
+  convention PMI D876/D877, coverage:), le connecteur entrepot
+  (postgresql), le connecteur file des plans (D883) ; **(3) le
+  morceau 3 (la source)**. Cinquante commits depuis la #40 sur
+  feature/meta-schema — la PR de consolidation sur demande.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

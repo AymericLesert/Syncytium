@@ -103,15 +103,28 @@ forms:
                         - section:
                             title:
                               fr: Les compteurs
-                            items: [ field[nb_jours], field[km_courant], field[km_total], field[quantite_totale], field[duree_moyenne] ]
+                            items:
+                              - field[nb_jours]
+                              - field[km_courant]
+                              - field[km_total]
+                              - field[quantite_totale]
+                              - field[duree_moyenne]
                         - section:
                             title:
                               fr: Les totaux
-                            items: [ field[total_entretien], field[total_energie], field[cout_financement], field[cout_total] ]
+                            items:
+                              - field[total_entretien]
+                              - field[total_energie]
+                              - field[cout_financement]
+                              - field[cout_total]
                         - section:
                             title:
                               fr: Les prix de revient
-                            items: [ field[conso_moyenne], field[prix_energie_km], field[prix_km], field[prix_jour] ]
+                            items:
+                              - field[conso_moyenne]
+                              - field[prix_energie_km]
+                              - field[prix_km]
+                              - field[prix_jour]
                   # la courbe (D540) — l'adresse qualifiée entité.nom
                   - chart[consommation.evolution_consommation]
 
@@ -125,12 +138,18 @@ widgets:
           layout: row
           items:
             - section:
-                items: [ field[photo] ]
+                items:
+                  - field[photo]
             - section:
-                items: [ field[nom], field[immatriculation], field[type], field[statut] ]
+                items:
+                  - field[nom]
+                  - field[immatriculation]
+                  - field[type]
+                  - field[statut]
             - section:
-                items: [ field[km_courant], field[prix_km] ]
-
+                items:
+                  - field[km_courant]
+                  - field[prix_km]
 lists:
 
   # l'entrée principale — la première déclarée = le défaut (D437)

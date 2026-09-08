@@ -1017,6 +1017,7 @@ Q58) :
 | D889 | **La déclinaison de `in` — la projection d'une collection sur un champ** (précise D888, complète D580) : « ma proposition permet de décliner : `if me.code in fournisseurs.code` » — **`<collection>.<champ>` est la collection des valeurs de ce champ** (la projection — le `commandes.montant` d'avant D580, légitime comme collection ; l'agrégat garde la forme `commandes.sum(montant)`) ; `in` s'applique à la projection comme à la collection d'enregistrements : l'appartenance d'une valeur (`me.code in fournisseurs.code`) ou d'un enregistrement (`me in fournisseurs`). | La projection sert aussi les agrégats de valeurs et les listes : `lignes.article` = les articles d'une commande. Voir §3.2c. |
 | D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
 | D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
+| D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9620,6 +9621,38 @@ dans la grammaire, un lien utile en lui-même (les mouvements d'un
 article, consultables comme toute association dérivée), la formule
 locale à l'enregistrement ; l'étendue globale reste à l'accès par la
 clé, son seul usage.
+
+**L'écriture face à YAML — deux règles (D892 — solde le manque M9
+du cas 3, précise D320–D321).** Le modèle du cas 3 passé à un
+analyseur YAML avait demandé deux paires de guillemets ; les
+exemples déjà validés, passés au même analyseur, échouaient dans
+neuf fichiers, pour trois causes — **le crochet dans une collection
+en flux** (`{ type: text[..100] }`, `items: [ list[revision.echues]
+]` : le crochet ouvre une séquence YAML), **le `: ` dans un scalaire
+nu** (le `.select(thermique: "litres", …)` de D833, la cellule du
+n-aire de D403), **l'échappement entre guillemets doubles**
+(`".*\.xlsx?"` — YAML ne connaît pas `\.`). Quatre règles pesées :
+les guillemets quand YAML l'exige, la forme bloc, changer la
+grammaire (D833/D403 à amender), un pré-traitement (un format
+personnalisé, contre D320). Un avant-après sur les neuf cas, chaque
+forme « après » vérifiée à l'analyseur ; **« Je valide les règles 1
+et 2, corrige les neuf fichiers. »** — **la règle 1** : les
+guillemets ne s'imposent que dans trois situations — un crochet à
+l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à
+l'intérieur d'une expression, une regex (aux guillemets simples,
+qui prennent tout tel quel) ; **la règle 2** : quand la forme en
+flux imposerait les guillemets, la forme bloc est préférable —
+`fields:` en bloc, `items:` en liste à tirets, la longue formule en
+scalaire bloc `>-` (la banque l'employait déjà avec `>`) ; en
+contexte bloc, une valeur par ligne, la grammaire s'écrit nue :
+`libelle: text[..30]`, `- field[nb_jours]`. Les neuf fichiers
+corrigés sans toucher au sens (la regex du connecteur xlsx, les
+`items` de transport.yml et de vehicule/gui.yml, les quatre
+`.select` du véhicule et de la banque, les champs à crochet en
+accolade d'ecriture/fields.yml et d'ecriture/gui.yml, les `fields`
+de budget.yml et lieu.yml) ; **la pratique** : chaque exemple passe
+un analyseur YAML avant validation — cent trente-cinq fichiers des
+quatre exemples, zéro erreur. La grammaire tient telle quelle.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19037,6 +19070,17 @@ avant la synthèse Q16).
   formule, l'étendue globale reste à l'accès par la clé (D842) ; le
   modèle relu. Restent : les clés d'énumérés, le tarif applicable,
   M9.
+- **2026-09-08 (suite 5) — L'ÉCRITURE FACE À YAML (D892, 892
+  décisions — M9 soldé).** Le contexte rendu (trois causes, quatre
+  règles), l'avant-après des neuf cas vérifié à l'analyseur ; « je
+  valide les règles 1 et 2, corrige les neuf fichiers » — les
+  guillemets quand YAML l'exige, la forme bloc préférée ; les neuf
+  fichiers de 01_vehicule et 02_banque corrigés sans toucher au
+  sens (la regex, les items, les quatre .select, les champs à
+  crochet en accolade, les fields des référentiels) ; cent
+  trente-cinq fichiers des quatre exemples valides. entity.md au
+  niveau. Restent en validation : les clés d'énumérés, le tarif
+  applicable.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

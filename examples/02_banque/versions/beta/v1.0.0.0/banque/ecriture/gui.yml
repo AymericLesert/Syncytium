@@ -29,7 +29,9 @@ forms:
   propagation:                       # l'appel de propager (D774)
     title: { fr: "Propager depuis '{libelle}'" }
     items:
-      - libelle_nouveau: { type: text[..60], required: true }
+      - libelle_nouveau:                 # la forme bloc — le crochet (la règle 2, D892)
+          type: text[..60]
+          required: true
       - montant_nouveau: { type: amount, currencies: [EUR], required: true }
       # le déroulé du hook : la liste des similaires → la sélection → la masse
 

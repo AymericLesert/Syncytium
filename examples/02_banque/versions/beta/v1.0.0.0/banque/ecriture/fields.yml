@@ -1,8 +1,15 @@
 numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
 date_operation: { type: date, required: true, searchable: range }   # D784
 date_comptable: { type: date, searchable: range }   # renseignée au pointage
-libelle:   { type: text[..100], searchable: mutualizable[recherche] }  # D780 — élargi : le legacy monte à 93 caractères (R1)
-budget:    { type: banque.budget, searchable: mutualizable[recherche] }   # le référentiel dynamique (D355)
+# D780 — élargi : le legacy monte à 93 caractères (R1) ; la forme bloc, le
+# crochet ne vit pas dans une accolade YAML (la règle 2, D892)
+libelle:
+  type: text[..100]
+  searchable: mutualizable[recherche]
+# le référentiel dynamique (D355)
+budget:
+  type: banque.budget
+  searchable: mutualizable[recherche]
 montant:                           # signé — la devise vit dans la valeur (D771)
   type: amount
   currencies: [EUR, FRF]           # FRF : l'historique antérieur au passage
@@ -16,18 +23,21 @@ mode:
     autre:       { label: { fr: Autre } }
 cheque:    text[..10]              # le n° de chèque (le mode autre)
 liee:      banque.ecriture         # l'écriture miroir du virement (D758)
-lieu:      { type: banque.lieu, searchable: mutualizable[recherche] }   # la ville — dynamique (D355)
+# la ville — dynamique (D355) ; la forme bloc (la règle 2, D892)
+lieu:
+  type: banque.lieu
+  searchable: mutualizable[recherche]
 imprimee:  date                    # le marqueur du relevé (Date_Impression)
 # les montants convertis (D770/D771) — des amount à devise unique,
 # le taux fixe du passage franc→euro ; currency : la fonction du type
 montant_euro:
   type: amount
   currencies: [EUR]
-  formula: montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))
+  formula: 'montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))'
 montant_franc:
   type: amount
   currencies: [FRF]
-  formula: montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))
+  formula: 'montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))'
 solde:
   type: amount
   currencies: [EUR]

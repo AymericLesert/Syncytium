@@ -2,4 +2,5 @@
 name: budget
 label: "{libelle}"
 identity: [libelle]
-fields: { libelle: text[..30] }
+fields:
+  libelle: text[..30]              # la forme bloc — le crochet (la règle 2, D892)

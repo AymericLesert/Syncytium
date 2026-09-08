@@ -255,7 +255,7 @@ duree_echeances:
 unite:
   # dérivée du type — le .select des énumérés (D833)
   type: text
-  formula: type.select(thermique: "litres", electrique: "kWh")
+  formula: 'type.select(thermique: "litres", electrique: "kWh")'   # les guillemets : le « : » du .select (la règle 1, D892)
   label:
     fr: Unité
   hint:
@@ -329,7 +329,7 @@ total_energie:
 
 cout_financement:
   type: decimal
-  formula: financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0)
+  formula: 'financement.select(credit: echeances.sum(interet if paye), loa: echeances.sum(mensualite if paye), comptant: 0)'
   label:
     fr: Coût du financement
   hint:

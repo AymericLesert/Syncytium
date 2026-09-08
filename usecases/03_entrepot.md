@@ -1259,24 +1259,25 @@ successives de PMI vivent dans l'historique de l'article.
   stock.mouvement if article = me` sur l'article (D394/D405), puis
   `mouvements.max(date if sens = "sortie")` ; l'étendue globale
   reste à l'accès par la clé (D842).
-- **M9 — la grammaire face à YAML.** Le modèle a été passé à un
-  analyseur YAML (PyYAML) : deux lignes ont dû prendre des
-  guillemets — le `.select(entree: quantite, …)` de D833 et la
-  cellule du n-aire `{ prix: amount, … }` de D403, dont le `: `
-  rompt un scalaire nu. **Les exemples déjà validés ont été passés
-  au même analyseur : neuf fichiers de `01_vehicule` et `02_banque`
-  échouent** — trois causes : (1) **le crochet dans une collection
-  en flux** — `{ type: text[..100] }`, `items: [ list[revision.echues]
-  ]`, `field[nb_jours]` entre crochets : le `[` ouvre une séquence
-  YAML (six fichiers) ; (2) **le `: ` dans un scalaire nu** — le
-  `.select(credit: …, loa: …)` des échéances et du véhicule (deux
-  fichiers) ; (3) **le `\.` dans une chaîne à guillemets doubles** —
-  `".*\.xlsx?"` du connecteur xlsx, l'échappement inconnu de YAML (un
-  fichier ; les guillemets simples suffisent). D320 a choisi « YAML
-  sans format personnalisé » : la règle d'écriture est à fixer —
-  les guillemets dès qu'un crochet vit dans une collection en flux
-  ou qu'un `: ` vit dans une expression, ou la forme en bloc ; et
-  les neuf fichiers à corriger sur arbitrage.
+- **M9 — la grammaire face à YAML** — **tranché par D892**. Le
+  modèle passé à un analyseur YAML (PyYAML) avait demandé deux
+  paires de guillemets — le `.select(entree: quantite, …)` de D833
+  et la cellule du n-aire de D403 ; les exemples déjà validés,
+  passés au même analyseur, échouaient dans neuf fichiers de
+  `01_vehicule` et `02_banque`, pour trois causes : le crochet dans
+  une collection en flux (`{ type: text[..100] }`, `items: [
+  list[revision.echues] ]` — le `[` ouvre une séquence YAML), le
+  `: ` dans un scalaire nu (les `.select`), le `\.` entre guillemets
+  doubles (`".*\.xlsx?"`). Quatre règles pesées, un avant-après
+  vérifié à l'analyseur ; l'auteur : « je valide les règles 1 et 2,
+  corrige les neuf fichiers » — **la règle 1, les guillemets quand
+  YAML l'exige** (le crochet dans une accolade ou un crochet YAML,
+  le `: ` dans une expression, la regex aux guillemets simples) ;
+  **la règle 2, la forme bloc préférée** quand le flux imposerait
+  les guillemets ; en bloc, la grammaire s'écrit nue. **Les neuf
+  fichiers corrigés** sans toucher au sens, **cent trente-cinq
+  fichiers des quatre exemples valides** ; chaque exemple passe
+  désormais l'analyseur avant validation.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

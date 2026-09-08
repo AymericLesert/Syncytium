@@ -20,7 +20,20 @@ droits à [rights.md](rights.md).*
   `gui.yml` (la présentation), et `operations.yml` quand les
   opérations le méritent ;
 - **le nommage est libre** (D807) — l'éponymie (le fichier au nom de
-  l'entité) est une convention, pas une règle ;
+  l'entité) est une convention, pas une règle ; **le mot juste
+  prime l'éponymie** (D884 — `tiers/tiers/tiers.yml` assumé quand
+  le mot est le bon) ;
+- **l'écriture face à YAML** (D892 — le fichier est du YAML sans
+  format personnalisé, D320) : en contexte bloc, une valeur par
+  ligne, la grammaire s'écrit nue (`libelle: text[..30]`, `- field[nb_jours]`) ;
+  **les guillemets ne s'imposent que dans trois situations** — un
+  crochet de la grammaire à l'intérieur d'une accolade ou d'un
+  crochet YAML, un `: ` à l'intérieur d'une expression (le
+  `.select`, la cellule du n-aire), une regex, aux guillemets
+  simples ; **la forme bloc est préférée** quand la forme en flux
+  imposerait les guillemets (`fields:` en bloc, `items:` à tirets,
+  la longue formule en scalaire `>-`) ; chaque exemple passe un
+  analyseur YAML avant validation ;
 - **l'entité se documente elle-même** — un des piliers : `name`,
   `description`, les `label:` par langue, les `hint:` (la
   description courte — la précision au « (?) » du champ, D840) et

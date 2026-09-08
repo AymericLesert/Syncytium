@@ -32,27 +32,27 @@ legacy:
   # références de cellules d'autres onglets, répétées par ligne.
   entities:
     identification:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       single: true
     titre_consommation:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       single: true
     consommation:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       # la plage ouverte — la ligne vide d'après l'entête interdit «...»
       range: CONSOMMATION!A3:H
     entretien:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       # idem — et la plage borne d'elle-même le bloc droit homonyme
       range: ENTRETIEN!A3:H
     regle_revision:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       single: true
     credit_parametres:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       single: true
     echeance:
-      files: [ ".*\.xlsx?" ]
+      files: [ '.*\.xlsx?' ]
       # le même format aux deux feuilles — la liste de plages (D847) :
       # la première plage existante sert ; le «...» s'arrête à la
       # première ligne vide (D848)

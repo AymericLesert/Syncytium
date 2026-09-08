@@ -1235,7 +1235,10 @@ successives de PMI vivent dans l'historique de l'article.
   pour plus de visibilité est : `me in fournisseurs` » — **l'opérateur
   `in`**, l'élément à gauche, la collection à droite, porté par le
   type collection (D581) ; le modèle relu : `association with
-  technique.article if me in fournisseurs`.
+  technique.article if me in fournisseurs` ; **la déclinaison**
+  (D889) : le point après une collection projette — `me.code in
+  fournisseurs.code`, l'appartenance d'une valeur à la collection
+  des valeurs d'un champ.
 - **M7 — les sous-items de la période.** `validite.start`,
   `validite.end` : D772 dit « les bornes » sans les nommer.
 - **M8 — l'entité comme collection dans une formule.**

@@ -1012,6 +1012,7 @@ Q58) :
 | D884 | **Le mot juste prime l'éponymie** (le morceau 2 du cas 3 — la nuance de D831/D807) : « je préfère TIERS au lieu de PARTENAIRE. Pour Position, je préfère Niveau » — le parent des clients et des fournisseurs se nomme `tiers` dans le module `tiers` (`tiers/tiers/tiers.yml` : l'éponymie triple que D831 évitait est assumée quand le mot est le bon), le niveau de stock se nomme `niveau` (`stock.niveau`, STDEPLOT). | Le nommage reste libre (D807) : l'éponymie est une convention, ni imposée ni interdite. Voir §3.2c. |
 | D885 | **La confidentialité nommée dans les settings, référencée par interpolation** (solde le manque M3 du cas 3 — compose D25 et D26, exploite D321/D802) : « la confidentialité peut faire référence à un paramétrage dans settings. On exploite une capacité de la configuration » — **les profils nommés à l'étage des settings** (`confidentiality: { financier: { level: protected, groups: [achats, direction] } }` — le niveau D25 × le qui D26, écrits une fois) **et la référence au champ par l'interpolation de la configuration** : `confidentiality: ${settings.confidentiality.financier}` ; la forme riche `{ level:, groups: }` vaut aussi en ligne ; la cascade des settings (D359/D588) porte les profils à l'application, au module ou à l'entité. | Le cas : `settings.yml` de la version — financier, direction, commercial ; dix-neuf blocs remplacés. Voir §3.2c. |
 | D886 | **La cascade de l'allow** (solde le manque M4 du cas 3 — étend D421–D423) : « un allow au niveau du module me convient. Le allow peut porter sur l'application, le module, une entité ou un champ » — **le bloc `allow:` se déclare à quatre étages** : l'application, le module, l'entité, le champ ; **le plus proche l'emporte** (l'esprit de la cascade D359) ; à l'entité, les deux foyers de D422–D423 demeurent (par état ou en bloc libre) ; au champ, les droits d'action du champ (`update: false` = le champ en lecture seule). | Le cas : les seize blocs d'entité retirés, les quatre modules portent `allow: { create: false, update: false, delete: false }` — l'entrepôt en lecture seule (D882) en quatre lignes. Voir §3.2c. |
+| D887 | **Le décompte conditionnel — la condition seule en argument** (solde le manque M5 du cas 3, précise D580) : « je valide le 1 » — `nomenclature.count(nature = "composant")` ; **la doctrine des agrégats** : l'agrégat qui porte une valeur (`sum`, `avg`, `min`, `max`, `first`, `last`) se lit **« valeur if condition »** (le `if` suffixé de D580, l'élément en contexte implicite) ; l'agrégat qui n'en porte pas (**`count`, `any`, `exists`**) reçoit **la condition seule** — `count()` nu demeure le tout. Les formes écartées : `count(if …)`, la valeur factice `count(1 if …)`, le filtre `where(…)` (une seconde façon de filtrer, contre l'esprit de D580). | `any` et `exists` gagnent leur forme écrite par la même occasion. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9516,6 +9517,25 @@ naît ici). À l'entité, les deux foyers de D422–D423 demeurent : par
 blocs retirés, chacun des quatre modules porte le bloc en quatre
 lignes ; `migrate` écrit par le privilège de la reprise (D175)
 quel que soit l'étage.
+
+**Le décompte conditionnel — la condition seule en argument (D887 —
+solde le manque M5 du cas 3, précise D580).** D580 avait poussé les
+agrégats dans la collection avec le filtre par le `if` suffixé sur
+la valeur (`echeances.sum(mensualite if paye)`,
+`entretiens.max(km if revision)`) et laissé `count()` nu. Compter
+un sous-ensemble — l'agrégat le plus courant d'un tableau de bord —
+n'avait pas de forme. Quatre formes pesées : la condition en
+argument, le `if` seul (`count(if …)`), la valeur factice
+(`count(1 if …)`, qui compte des 1), le filtre `where(…).count()`
+(une seconde façon de filtrer, contre l'esprit de D580). **« Je
+valide le 1. »** — `nomenclature.count(nature = "composant")`, et
+**la doctrine des agrégats** en une phrase : **l'agrégat qui porte
+une valeur** (`sum`, `avg`, `min`, `max`, `first`, `last`) **se lit
+« valeur if condition »** ; **l'agrégat qui n'en porte pas**
+(`count`, `any`, `exists`) **reçoit la condition seule** ; `count()`
+nu demeure le tout. `any` et `exists` gagnent leur forme écrite par
+la même occasion ; les deux calculés de l'article du cas 3 sont
+justes tels quels.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18896,6 +18916,14 @@ avant la synthèse Q16).
   le lien de settings.yml et de groups.yml depuis version.yml ; puis
   le morceau 3 (la source). Trente-huit commits depuis la #40 sur
   feature/meta-schema — la PR de consolidation sur demande.
+- **2026-09-08 (reprise) — LE DÉCOMPTE CONDITIONNEL (D887, 887
+  décisions — M5 soldé).** « Reprenons » : l'index de mémoire
+  ramené à une ligne (hors dépôt) ; le contexte de M5 rendu sur le
+  registre (D580 : le if suffixé sur la valeur, count() nu) et
+  quatre formes pesées ; « je valide le 1 » — la condition seule en
+  argument de count, any, exists ; la doctrine des agrégats
+  consignée. types.md au niveau. Restent en validation : les clés
+  d'énumérés, le tarif applicable, M6–M9.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

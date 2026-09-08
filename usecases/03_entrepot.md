@@ -1215,11 +1215,16 @@ successives de PMI vivent dans l'historique de l'article.
   proche l'emporte (l'esprit D359) : les seize blocs retirés, les
   quatre modules portent `allow: { create: false, update: false,
   delete: false }`.
-- **M5 — le décompte conditionnel.** `nomenclature.count(nature =
-  "composant")` : `count()` est sans paramètre au catalogue (D580) et
-  la forme `sum(x if …)` porte la condition sur la valeur ; la
-  condition seule dans `count(…)` est à admettre — ou s'écrit
-  `count(1 if nature = "composant")`.
+- **M5 — le décompte conditionnel** — **tranché par D887**.
+  `nomenclature.count(nature = "composant")` : `count()` était nu au
+  catalogue (D580) et la forme `sum(x if …)` porte la condition sur
+  la valeur. Quatre formes pesées (la condition en argument, le `if`
+  seul, la valeur factice `count(1 if …)`, le filtre `where(…)`) ;
+  l'auteur valide la première — **la doctrine** : l'agrégat qui
+  porte une valeur (`sum`, `avg`, `min`, `max`, `first`, `last`) se
+  lit « valeur if condition », celui qui n'en porte pas (`count`,
+  `any`, `exists`) reçoit la condition seule. Les deux calculés de
+  l'article sont justes tels quels.
 - **M6 — l'accès retour d'une association stockée.** `fournisseur.
   articles: association with technique.article if fournisseurs
   contains me` — l'opérateur d'appartenance à une collection

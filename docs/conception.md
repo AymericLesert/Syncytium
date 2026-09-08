@@ -1019,7 +1019,8 @@ Q58) :
 | D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
 | D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
 | D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
-| D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. Voir §3.2c. |
+| D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. **Retirée par D895** : la grille est un composé de l'article, le n-aire demeure. Voir §3.2c. |
+| D895 | **La grille tarifaire est un composé de l'article — le n-aire demeure** (retire D894, rappelle D134/D402–D403) : « pourquoi m'enlèves-tu le n-aire ? une grille tarifaire est un composé de l'article… ton approche est juste dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas le cas » — **la leçon** : la grille est une matrice (D134 — les formes de composition : liste, matrice, hypercube, les enfants indexés par dimensions, une cellule par combinaison ; D402 — le n-aire les porte), non une table de lignes datées liées par des clés ; **le tarif = le n-aire de l'article**, tiers × tranche, et **la dimension du temps** — les tarifs planifiés visibles avant leur date — se place **dans la grille** : trois formes en proposition — le temps en troisième dimension du tuple (`list of [tiers, tranche, date_application: date]` — les clés typées de D134, une extension de D402), la liste datée dans la cellule (`{ prix: list of prix_tarif }` — D403, toute la puissance des champs), la grille datée contenant la matrice (`grilles: list of grille` à date d'application, la matrice dedans). | Le réflexe relationnel consigné pour ne pas y retomber : l'agrégat est le grain (D400), la matrice une forme de composition (D134), jamais des lignes à clés. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9702,6 +9703,49 @@ cas ; un candidat pour le rendre visible : le niveau de stock par
 (dépôt, emplacement, lot) — `list of [depot, emplacement, lot]` à la
 cellule des quantités — si le lot devient une entité (`Stock.Batch`
 existe chez PMI) ; à arbitrer, rien n'y oblige.
+
+**La grille tarifaire est un composé de l'article — le n-aire
+demeure (D895 — retire D894, rappelle D134 et D402–D403).** **« Pourquoi
+m'enlèves-tu le n-aire ? Une grille tarifaire est un composé de
+l'article… ton approche est juste dans le cadre d'un modèle
+relationnel classique. Ici, ce n'est pas le cas. »** — la
+correction est nette, et le registre la portait depuis le domaine 2
+: **D134** fait de la matrice (taille × couleur) et de l'hypercube
+des **formes de composition**, les enfants **indexés par
+dimensions**, une cellule par combinaison ; **D402** rapporte les
+matrices et hypercubes au lien n-aire ; **D403** donne à la cellule
+toute la puissance des champs et laisse au moteur la modélisation
+de l'objet, « jamais une entité à écrire à la main ». Une grille
+tarifaire est cette matrice, tiers × tranche, possédée par
+l'article. D894 l'avait aplatie en lignes datées à clé composée —
+la table relationnelle sous une composition — pour rendre visibles
+les tarifs planifiés : **le réflexe relationnel, consigné pour ne
+pas y retomber** — l'agrégat est le grain (D400), la matrice une
+forme de composition, jamais des lignes à clés. **Le n-aire demeure
+et la dimension du temps entre dans la grille** ; trois formes en
+proposition, l'auteur choisit :
+
+1. **le temps en troisième dimension du tuple** — `list of
+   [tiers.tiers, technique.tranche, date_application: date] { prix:
+   amount, valide: boolean }` : l'hypercube de D134 (« les enfants
+   indexés par dimensions — clés typées »), une dimension de valeur
+   à côté des entités nommées — une extension de D402, qui ne
+   nommait que des entités ;
+2. **la liste datée dans la cellule** — `list of [tiers.tiers,
+   technique.tranche] { prix: list of prix_tarif }` : la matrice de
+   D403 telle quelle, la cellule portant les prix successifs par une
+   composition (`prix_tarif` : la date d'application en identité, le
+   prix, la validité) ; fidèle à PMI, où chaque ligne de `TARIF` a sa
+   date ;
+3. **la grille datée qui contient la matrice** — `grilles: list of
+   grille` (le numéro de tarif et la date d'application en identité)
+   et, dans la grille, `prix: list of [tiers.tiers, technique.tranche]
+   { prix: amount }` : la phrase de l'auteur au pied de la lettre —
+   « une grille se définit à l'avance » —, mais PMI date chaque
+   cellule, non la grille.
+
+Dans les trois, le tarif en vigueur est un calculé et le planifié
+se voit.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19151,6 +19195,16 @@ avant la synthèse Q16).
   (D885), l'allow en cascade (D886), M5–M9 (D887–D892), les clés
   d'énumérés (D893), le tarif (D894). La suite : les questions
   7–10, puis le morceau 1 (l'assise).
+- **2026-09-08 (suite 8) — LE N-AIRE DEMEURE (D895, 895 décisions
+  — D894 retirée).** « Pourquoi m'enlèves-tu le n-aire ? une grille
+  tarifaire est un composé de l'article… ton approche est juste
+  dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas
+  le cas » — le réflexe relationnel consigné (D134 : la matrice est
+  une forme de composition ; D402–D403 : le n-aire et sa cellule) ;
+  la grille = le n-aire de l'article, tiers × tranche ; la dimension
+  du temps à placer dans la grille — trois formes proposées (le
+  temps en dimension du tuple, la liste datée dans la cellule, la
+  grille datée) ; le modèle se relit sur le choix de l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -909,7 +909,7 @@ fin.*
 | la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
 | la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
 | l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
-| le n-aire | *absent depuis D894* — le tarif est devenu une composition à la date en identité ; un porteur candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer |
+| le n-aire | `article.tarifs`, la grille tarifaire tiers × tranche — **le n-aire demeure** (D895 retire D894 : « une grille tarifaire est un composé de l'article ») ; la dimension du temps dans la grille, la forme au choix de l'auteur |
 | l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |

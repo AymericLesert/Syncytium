@@ -329,8 +329,8 @@ tarifs:
   # relationnelle de D894 (une entité tarif à clé composée) est retirée
   # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
   # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
-  # cellule en bloc (la forme éclatée de D403 — la clé fields: en
-  # proposition).
+  # cellule en bloc sous fields: (la forme éclatée de D403, validée par
+  # D898) — sans calculés ici : valide suffit à l'exemple.
   type: 'list of [tiers.tiers, technique.tranche, date_application: date]'
   fields:
     prix:
@@ -361,26 +361,6 @@ tarifs:
       type: text[..20]
       label:
         fr: Commentaire
-    # ------ Champs calculés de la cellule (D403 — toute la puissance
-    # des champs) ------
-    planifie:
-      # la cellule à venir — visible avant sa date
-      type: boolean
-      formula: date_application > context.now
-      label:
-        fr: Planifié
-    en_vigueur:
-      # la cellule applicable aujourd'hui pour son tiers et sa tranche :
-      # sa date est passée et aucune cellule sœur de même tiers et même
-      # tranche à date plus récente ne l'est — any à condition seule
-      # (D887), les sœurs par owner (D760), les dimensions par leur nom
-      type: boolean
-      formula: >-
-        valide and date_application <= context.now
-        and not owner.tarifs.any(tiers = me.tiers and tranche = me.tranche
-        and date_application > me.date_application and date_application <= context.now)
-      label:
-        fr: En vigueur
   label:
     fr: Grille tarifaire
 

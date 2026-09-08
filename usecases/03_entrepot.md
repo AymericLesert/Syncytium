@@ -909,7 +909,7 @@ fin.*
 | la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
 | la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
 | l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
-| le n-aire | `article.tarifs`, **la grille tarifaire en hypercube** tiers × tranche × date — `list of [tiers.tiers, technique.tranche, date_application: date]` (D895–D897 : le temps en dimension du tuple, la cellule à ses calculés `planifie` et `en_vigueur`) |
+| le n-aire | `article.tarifs`, **la grille tarifaire en hypercube** tiers × tranche × date — `list of [tiers.tiers, technique.tranche, date_application: date]` (D895–D898 : le temps en dimension du tuple, la cellule en bloc sous `fields:` — prix, forfait, numéro, `valide`, commentaire) |
 | l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
@@ -1126,10 +1126,10 @@ soixante-huit champs**, chaque champ commenté de sa colonne PMI :
   association with tiers.fournisseur` stockée, `nomenclature: list of
   ligne_nomenclature`, **`tarifs` en hypercube** `list of
   [tiers.tiers, technique.tranche, date_application: date]` (D897 —
-  le temps en dimension du tuple, la cellule prix/forfait/numéro/
-  validité et ses calculés `planifie` et `en_vigueur`), les
-  associations dérivées vers les lignes de commande et les
-  mouvements, les calculés du tableau de bord — `dormant`,
+  le temps en dimension du tuple ; D898 — la cellule en bloc sous
+  `fields:` : prix, forfait, numéro, `valide`, commentaire, sans
+  calculés), les associations dérivées vers les lignes de commande
+  et les mouvements, les calculés du tableau de bord — `dormant`,
   `temps_gamme`) ;
   `ligne_nomenclature` (la nature composant | opération, le composant
   = `technique.article` — l'auto-référence D135, les temps en
@@ -1208,10 +1208,11 @@ stockage — la forme de la source ne dicte jamais le modèle) ;
 **D897 choisit l'hypercube** — « visualiser les évolutions de la
 grille tarifaire dans le temps » : `list of [tiers.tiers,
 technique.tranche, date_application: date]`, le temps en dimension
-du tuple (D134 étend D402), la cellule à ses calculés `planifie` et
-`en_vigueur` ; deux formes en proposition nées de l'écriture — la
-cellule en bloc sous `fields:` (D403 promettait la forme éclatée),
-le tuple sous guillemets (D892).
+du tuple (D134 étend D402) ; **D898 valide la cellule en bloc sous
+`fields:`** (« je valide pour fields sous une liste ») et allège
+l'exemple : « tu peux enlever planifie et en_vigueur. Valide
+suffit » — la cellule porte le prix, le forfait, le numéro, `valide`
+et le commentaire ; le tuple reste sous guillemets (D892).
 
 ## Les manques relevés
 

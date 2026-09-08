@@ -317,15 +317,14 @@ nomenclature:
     fr: Nomenclature et gamme
 
 tarifs:
-  # le lien n-aire (D402–D403/D882) : « le prix unitaire est conditionné
-  # par l'article, le client/fournisseur, une tranche » — une cellule par
-  # combinaison (tiers, tranche) : le tarif applicable ; les dates
-  # d'application successives de PMI (TAKJAPLI) vivent dans l'historique
-  # de l'article. Le tiers = le parent des clients et des
-  # fournisseurs (l'héritage D353) — TAKTGENRE dit lequel chez PMI.
-  # la cellule en ligne (D403) porte des « : » — les guillemets YAML
-  # s'imposent (le manque M9) ; la forme éclatée en bloc équivaut
-  type: 'list of [tiers.tiers, tranche] { prix: amount, date_application: date, valide: boolean }'
+  # la composition (D399/D894) : « le prix unitaire est conditionné par
+  # l'article, le client/fournisseur, une tranche » — et une date
+  # d'application ; toutes les dates de PMI (TAKJAPLI) vivent à plat,
+  # le tarif planifié compris : « une grille tarifaire se définit à
+  # l'avance et donne de la visibilité aux commandes futures ». Le
+  # n-aire écrit d'abord (une cellule par (tiers, tranche) — le tarif
+  # applicable seul) cédait le planifié à l'historique ; il s'efface.
+  type: list of tarif
   label:
     fr: Tarifs
 

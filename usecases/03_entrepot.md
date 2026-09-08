@@ -909,7 +909,7 @@ fin.*
 | la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
 | la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
 | l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
-| le n-aire | `article.tarifs: list of [tiers, tranche]` + la cellule (D402) |
+| le n-aire | *absent depuis D894* — le tarif est devenu une composition à la date en identité ; un porteur candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer |
 | l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
@@ -1124,10 +1124,12 @@ soixante-huit champs**, chaque champ commenté de sa colonne PMI :
   prix restreints, `matieres: list of text` des neuf colonnes, `plans:
   list of file` par le connecteur file D883, `fournisseurs:
   association with tiers.fournisseur` stockée, `nomenclature: list of
-  ligne_nomenclature`, **`tarifs` en n-aire** `list of
-  [tiers.partenaire, tranche] { prix, date_application, valide }`,
-  les associations dérivées vers les lignes de commande, les calculés
-  du tableau de bord — `dormant`, `temps_gamme`) ;
+  ligne_nomenclature`, **`tarifs: list of tarif`** (D894 — l'entité
+  `tarif` à l'identité tiers, tranche, date d'application, toutes
+  les dates à plat, `en_vigueur` et `planifie` calculés), les
+  associations dérivées vers les lignes de commande et les
+  mouvements, les calculés du tableau de bord — `dormant`,
+  `temps_gamme`) ;
   `ligne_nomenclature` (la nature composant | opération, le composant
   = `technique.article` — l'auto-référence D135, les temps en
   `duration` au masque industriel, le rendement en `percentage`, la
@@ -1192,9 +1194,15 @@ utiliser. Par contre, si la source n'est pas évidente, un mapping
 sera apporté lors de l'import » — la valeur porteuse de sens dans
 le modèle, la traduction des codes opaques par la règle du mapping
 (`ARCTTYPART.select(F: "fabrique", …)`) ; les montants en
-`amount` sans `currencies:` (toutes les devises ISO, D391) ; le
-tarif n-aire porte le tarif applicable, les dates d'application
-successives de PMI vivent dans l'historique de l'article.
+`amount` sans `currencies:` (toutes les devises ISO, D391) ; **le
+tarif — tranché par D894** : « l'entrepôt montre les tarifs
+planifiés avant leur date… une grille tarifaire se définit à
+l'avance et donne de la visibilité aux commandes futures » — le
+n-aire au tarif applicable seul cédait le planifié à l'historique ;
+**la composition `tarifs: list of tarif`**, l'entité `tarif` à
+l'identité [tiers, tranche, date_application], toutes les dates à
+plat, `en_vigueur` et `planifie` en calculés (le premier par
+`any(condition)` de D887 sur les frères par `owner`).
 
 ## Les manques relevés
 

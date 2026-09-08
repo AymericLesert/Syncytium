@@ -1019,6 +1019,7 @@ Q58) :
 | D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
 | D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
 | D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
+| D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9674,6 +9675,33 @@ tel quel quand elle est explicite ; l'entrepôt se lit sans
 connaître PMI, et un code nouveau chez PMI se déclare à la source
 et se traduit à la règle sans toucher au modèle — la
 standardisation de D859 au grain de la valeur.
+
+**Le tarif en composition à la date — les tarifs planifiés visibles
+(D894 — le morceau 2 du cas 3, amende le n-aire de D882).** D882
+avait fait du tarif le lien n-aire (« le prix unitaire est
+conditionné par l'article, le client/fournisseur, une tranche ») et
+le modèle l'écrivait `list of [tiers.tiers, tranche] { prix,
+date_application, valide }` — une cellule par combinaison, le tarif
+applicable seul, les dates d'application successives de PMI
+reléguées à l'historique de l'article. L'exemple posé pour décider
+— trois tarifs successifs dont un à venir — a montré le prix de
+cette forme : le tarif planifié n'entre dans l'entrepôt qu'à sa
+date. **« L'entrepôt montre les tarifs planifiés avant leur date…
+une grille tarifaire se définit à l'avance et donne de la
+visibilité aux commandes futures. »** — **la composition
+`article.tarifs: list of tarif`** : l'entité `tarif` à l'identité
+`[tiers, tranche, date_application]` (le tiers = le parent des
+clients et des fournisseurs, D353 ; la tranche en référence ; la
+date au masque D820), toutes les dates de PMI à plat, le planifié
+compris ; **le tarif en vigueur devient un calculé** — `en_vigueur`
+: valide, la date passée, et aucun tarif frère du même tiers et de
+la même tranche à date plus récente déjà passée (`owner.tarifs.any(…
+)` — la condition seule de D887, les frères par `owner` D760) ;
+`planifie` : la date à venir. Le n-aire perd son porteur dans le
+cas ; un candidat pour le rendre visible : le niveau de stock par
+(dépôt, emplacement, lot) — `list of [depot, emplacement, lot]` à la
+cellule des quantités — si le lot devient une entité (`Stock.Batch`
+existe chez PMI) ; à arbitrer, rien n'y oblige.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19110,6 +19138,19 @@ avant la synthèse Q16).
   valeur qui a du sens est à utiliser. Par contre, si la source
   n'est pas évidente, un mapping sera apporté lors de l'import » —
   validé. Reste : le tarif applicable ou toutes les dates.
+- **2026-09-08 (suite 7) — LE TARIF EN COMPOSITION À LA DATE (D894,
+  894 décisions).** « L'entrepôt montre les tarifs planifiés avant
+  leur date… une grille tarifaire se définit à l'avance et donne de
+  la visibilité aux commandes futures » — le n-aire s'efface,
+  l'entité tarif (identité tiers, tranche, date_application) en
+  composition de l'article, en_vigueur et planifie calculés ;
+  trente-deux fichiers valides. Le n-aire perd son porteur (un
+  candidat : le niveau par dépôt/emplacement/lot, à arbitrer).
+  **Le morceau 2 est validé de bout en bout** : les huit choix
+  (D882–D883), tiers et niveau (D884), la confidentialité nommée
+  (D885), l'allow en cascade (D886), M5–M9 (D887–D892), les clés
+  d'énumérés (D893), le tarif (D894). La suite : les questions
+  7–10, puis le morceau 1 (l'assise).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -317,16 +317,72 @@ nomenclature:
     fr: Nomenclature et gamme
 
 tarifs:
-  # la composition (D399/D894) : « le prix unitaire est conditionné par
-  # l'article, le client/fournisseur, une tranche » — et une date
-  # d'application ; toutes les dates de PMI (TAKJAPLI) vivent à plat,
-  # le tarif planifié compris : « une grille tarifaire se définit à
-  # l'avance et donne de la visibilité aux commandes futures ». Le
-  # n-aire écrit d'abord (une cellule par (tiers, tranche) — le tarif
-  # applicable seul) cédait le planifié à l'historique ; il s'efface.
-  type: list of tarif
+  # LA GRILLE TARIFAIRE — l'hypercube (D134/D402, la forme 1 de D895
+  # validée par D897) : « le prix unitaire est conditionné par
+  # l'article, le client/fournisseur, une tranche » ET une date
+  # d'application — trois dimensions, tiers × tranche × date, une
+  # cellule par combinaison (D403) ; le temps est une dimension du
+  # tuple (les clés typées de D134 — l'extension de D402 : une
+  # dimension de valeur à côté des entités nommées). La grille se lit
+  # à toute date, le planifié se voit, et « les évolutions de la grille
+  # tarifaire dans le temps » se visualisent (le morceau 5). La forme
+  # relationnelle de D894 (une entité tarif à clé composée) est retirée
+  # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
+  # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
+  # cellule en bloc (la forme éclatée de D403 — la clé fields: en
+  # proposition).
+  type: 'list of [tiers.tiers, technique.tranche, date_application: date]'
+  fields:
+    prix:
+      # TACNPU + TACTDEVISE — à devise dans la valeur (D771)
+      type: amount
+      required: true
+      label:
+        fr: Prix unitaire
+    forfait:
+      # TACNFORFAI
+      type: amount
+      label:
+        fr: Forfait
+    numero:
+      # TAKTTARIF nchar(1) — le numéro de tarif de PMI
+      type: text[1]
+      label:
+        fr: Numéro de tarif
+    valide:
+      # TACTVALID
+      type: boolean
+      required: true
+      default: true
+      label:
+        fr: Valide
+    commentaire:
+      # TACTCOMMEN
+      type: text[..20]
+      label:
+        fr: Commentaire
+    # ------ Champs calculés de la cellule (D403 — toute la puissance
+    # des champs) ------
+    planifie:
+      # la cellule à venir — visible avant sa date
+      type: boolean
+      formula: date_application > context.now
+      label:
+        fr: Planifié
+    en_vigueur:
+      # la cellule applicable aujourd'hui pour son tiers et sa tranche :
+      # sa date est passée et aucune cellule sœur de même tiers et même
+      # tranche à date plus récente ne l'est — any à condition seule
+      # (D887), les sœurs par owner (D760), les dimensions par leur nom
+      type: boolean
+      formula: >-
+        valide and date_application <= context.now
+        and not owner.tarifs.any(tiers = me.tiers and tranche = me.tranche
+        and date_application > me.date_application and date_application <= context.now)
+      label:
+        fr: En vigueur
   label:
-    fr: Tarifs
+    fr: Grille tarifaire
 
 commandes_vente:
   # l'association dérivée (D405/D882) — les lignes de commande de vente

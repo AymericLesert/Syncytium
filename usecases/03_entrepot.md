@@ -909,7 +909,7 @@ fin.*
 | la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
 | la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
 | l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
-| le n-aire | `article.tarifs`, la grille tarifaire tiers × tranche — **le n-aire demeure** (D895 retire D894 : « une grille tarifaire est un composé de l'article ») ; la dimension du temps dans la grille, la forme au choix de l'auteur |
+| le n-aire | `article.tarifs`, **la grille tarifaire en hypercube** tiers × tranche × date — `list of [tiers.tiers, technique.tranche, date_application: date]` (D895–D897 : le temps en dimension du tuple, la cellule à ses calculés `planifie` et `en_vigueur`) |
 | l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
@@ -1124,9 +1124,10 @@ soixante-huit champs**, chaque champ commenté de sa colonne PMI :
   prix restreints, `matieres: list of text` des neuf colonnes, `plans:
   list of file` par le connecteur file D883, `fournisseurs:
   association with tiers.fournisseur` stockée, `nomenclature: list of
-  ligne_nomenclature`, **`tarifs: list of tarif`** (D894 — l'entité
-  `tarif` à l'identité tiers, tranche, date d'application, toutes
-  les dates à plat, `en_vigueur` et `planifie` calculés), les
+  ligne_nomenclature`, **`tarifs` en hypercube** `list of
+  [tiers.tiers, technique.tranche, date_application: date]` (D897 —
+  le temps en dimension du tuple, la cellule prix/forfait/numéro/
+  validité et ses calculés `planifie` et `en_vigueur`), les
   associations dérivées vers les lignes de commande et les
   mouvements, les calculés du tableau de bord — `dormant`,
   `temps_gamme`) ;
@@ -1195,14 +1196,22 @@ sera apporté lors de l'import » — la valeur porteuse de sens dans
 le modèle, la traduction des codes opaques par la règle du mapping
 (`ARCTTYPART.select(F: "fabrique", …)`) ; les montants en
 `amount` sans `currencies:` (toutes les devises ISO, D391) ; **le
-tarif — tranché par D894** : « l'entrepôt montre les tarifs
-planifiés avant leur date… une grille tarifaire se définit à
-l'avance et donne de la visibilité aux commandes futures » — le
-n-aire au tarif applicable seul cédait le planifié à l'historique ;
-**la composition `tarifs: list of tarif`**, l'entité `tarif` à
-l'identité [tiers, tranche, date_application], toutes les dates à
-plat, `en_vigueur` et `planifie` en calculés (le premier par
-`any(condition)` de D887 sur les frères par `owner`).
+tarif — tranché en trois temps** : D894 l'avait aplati en une
+composition à la date en identité pour montrer les tarifs
+planifiés ; **D895 la retire** — « une grille tarifaire est un
+composé de l'article… ton approche est juste dans le cadre d'un
+modèle relationnel classique. Ici, ce n'est pas le cas » (le
+réflexe relationnel consigné, D134 : la matrice est une forme de
+composition) ; **D896** pose la doctrine des deux plans (l'objet
+naturel au modèle, la traduction en table et clé étrangère au
+stockage — la forme de la source ne dicte jamais le modèle) ;
+**D897 choisit l'hypercube** — « visualiser les évolutions de la
+grille tarifaire dans le temps » : `list of [tiers.tiers,
+technique.tranche, date_application: date]`, le temps en dimension
+du tuple (D134 étend D402), la cellule à ses calculés `planifie` et
+`en_vigueur` ; deux formes en proposition nées de l'écriture — la
+cellule en bloc sous `fields:` (D403 promettait la forme éclatée),
+le tuple sous guillemets (D892).
 
 ## Les manques relevés
 

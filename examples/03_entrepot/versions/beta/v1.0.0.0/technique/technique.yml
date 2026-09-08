@@ -19,5 +19,4 @@ allow:
 entities:
   - article/article.yml
   - ligne_nomenclature/ligne_nomenclature.yml
-  - tarif/tarif.yml
   - tranche/tranche.yml

@@ -1013,6 +1013,7 @@ Q58) :
 | D885 | **La confidentialité nommée dans les settings, référencée par interpolation** (solde le manque M3 du cas 3 — compose D25 et D26, exploite D321/D802) : « la confidentialité peut faire référence à un paramétrage dans settings. On exploite une capacité de la configuration » — **les profils nommés à l'étage des settings** (`confidentiality: { financier: { level: protected, groups: [achats, direction] } }` — le niveau D25 × le qui D26, écrits une fois) **et la référence au champ par l'interpolation de la configuration** : `confidentiality: ${settings.confidentiality.financier}` ; la forme riche `{ level:, groups: }` vaut aussi en ligne ; la cascade des settings (D359/D588) porte les profils à l'application, au module ou à l'entité. | Le cas : `settings.yml` de la version — financier, direction, commercial ; dix-neuf blocs remplacés. Voir §3.2c. |
 | D886 | **La cascade de l'allow** (solde le manque M4 du cas 3 — étend D421–D423) : « un allow au niveau du module me convient. Le allow peut porter sur l'application, le module, une entité ou un champ » — **le bloc `allow:` se déclare à quatre étages** : l'application, le module, l'entité, le champ ; **le plus proche l'emporte** (l'esprit de la cascade D359) ; à l'entité, les deux foyers de D422–D423 demeurent (par état ou en bloc libre) ; au champ, les droits d'action du champ (`update: false` = le champ en lecture seule). | Le cas : les seize blocs d'entité retirés, les quatre modules portent `allow: { create: false, update: false, delete: false }` — l'entrepôt en lecture seule (D882) en quatre lignes. Voir §3.2c. |
 | D887 | **Le décompte conditionnel — la condition seule en argument** (solde le manque M5 du cas 3, précise D580) : « je valide le 1 » — `nomenclature.count(nature = "composant")` ; **la doctrine des agrégats** : l'agrégat qui porte une valeur (`sum`, `avg`, `min`, `max`, `first`, `last`) se lit **« valeur if condition »** (le `if` suffixé de D580, l'élément en contexte implicite) ; l'agrégat qui n'en porte pas (**`count`, `any`, `exists`**) reçoit **la condition seule** — `count()` nu demeure le tout. Les formes écartées : `count(if …)`, la valeur factice `count(1 if …)`, le filtre `where(…)` (une seconde façon de filtrer, contre l'esprit de D580). | `any` et `exists` gagnent leur forme écrite par la même occasion. Voir §3.2c. |
+| D888 | **L'appartenance à une collection — l'opérateur `in`** (solde le manque M6 du cas 3, complète D580/D581) : « ma recommandation pour plus de visibilité est : `me in fournisseurs` » — **`<élément> in <collection>`**, l'élément à gauche, la collection à droite, un opérateur de la table du type collection (D581) ; le cas : `articles: association with technique.article if me in fournisseurs` (l'accès retour d'une association stockée, nommé en vue dérivée D405, l'origine par `me` D396) ; les formes écartées : `contains` (la collection à gauche), `exists(code = me.code)` (la clé exposée), un mot pour l'élément. | Le même `in` vaudra devant une liste littérale (`statut in ["en_cours", "partielle"]`) — la lecture naturelle, à confirmer à l'usage. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9536,6 +9537,27 @@ une valeur** (`sum`, `avg`, `min`, `max`, `first`, `last`) **se lit
 nu demeure le tout. `any` et `exists` gagnent leur forme écrite par
 la même occasion ; les deux calculés de l'article du cas 3 sont
 justes tels quels.
+
+**L'appartenance à une collection — l'opérateur `in` (D888 — solde
+le manque M6 du cas 3, complète D580/D581).** L'accès retour d'une
+association stockée — `fournisseur.articles`, le miroir
+d'`article.fournisseurs` — se nomme en association dérivée (D405),
+évaluée depuis la destination : sur chaque article, « la collection
+`fournisseurs` de cet article contient le fournisseur d'origine »,
+`me` désignant l'origine (D396). Aucun opérateur ne l'écrivait ;
+trois formes pesées — `fournisseurs contains me`, `fournisseurs.
+exists(code = me.code)` (la clé exposée, lourd en clé composée), un
+mot pour l'élément dans la parenthèse (`it`, contre l'élément sans
+alias de D580). **« Ma recommandation pour plus de visibilité est :
+`me in fournisseurs`. »** — **l'opérateur `in`**, l'élément à gauche
+et la collection à droite, une ligne de plus dans la table des
+opérateurs du type collection (D581 — chaque type porte ses
+opérateurs, la collection est un type D580) ; il dit l'intention
+sans exposer la clé et servira ailleurs — un code dans les codes
+matière, un groupe dans les groupes d'un utilisateur ; devant une
+liste littérale (`statut in ["en_cours", "partielle"]`), la même
+lecture s'impose, à confirmer à l'usage. Le modèle relu :
+`association with technique.article if me in fournisseurs`.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18924,6 +18946,13 @@ avant la synthèse Q16).
   argument de count, any, exists ; la doctrine des agrégats
   consignée. types.md au niveau. Restent en validation : les clés
   d'énumérés, le tarif applicable, M6–M9.
+- **2026-09-08 (suite) — L'OPÉRATEUR IN (D888, 888 décisions — M6
+  soldé).** « Ma recommandation pour plus de visibilité est : me in
+  fournisseurs » — l'appartenance à une collection par l'opérateur
+  in (l'élément à gauche), porté par le type collection (D581) ;
+  contains, exists(code = me.code) et l'alias de l'élément écartés ;
+  le modèle relu (fournisseur.articles), types.md au niveau.
+  Restent : les clés d'énumérés, le tarif applicable, M7–M9.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

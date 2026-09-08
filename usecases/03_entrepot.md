@@ -1225,12 +1225,17 @@ successives de PMI vivent dans l'historique de l'article.
   lit « valeur if condition », celui qui n'en porte pas (`count`,
   `any`, `exists`) reçoit la condition seule. Les deux calculés de
   l'article sont justes tels quels.
-- **M6 — l'accès retour d'une association stockée.** `fournisseur.
-  articles: association with technique.article if fournisseurs
-  contains me` — l'opérateur d'appartenance à une collection
-  (`contains`, ou `fournisseurs.exists(me)`) n'est pas au catalogue
-  ; D394 promet l'accès retour, D405 le nomme — la forme reste à
-  écrire pour une association.
+- **M6 — l'accès retour d'une association stockée** — **tranché
+  par D888**. `fournisseur.articles`, l'accès retour de
+  `article.fournisseurs` (D394), nommé en association dérivée
+  (D405) : la condition doit dire l'appartenance du fournisseur
+  d'origine à la collection de l'article — aucun opérateur ne
+  l'écrivait. Trois formes pesées (`contains`, `exists(code =
+  me.code)`, un mot pour l'élément) ; l'auteur : « ma recommandation
+  pour plus de visibilité est : `me in fournisseurs` » — **l'opérateur
+  `in`**, l'élément à gauche, la collection à droite, porté par le
+  type collection (D581) ; le modèle relu : `association with
+  technique.article if me in fournisseurs`.
 - **M7 — les sous-items de la période.** `validite.start`,
   `validite.end` : D772 dit « les bornes » sans les nommer.
 - **M8 — l'entité comme collection dans une formule.**

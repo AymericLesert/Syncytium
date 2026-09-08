@@ -28,7 +28,8 @@ fields:
   articles:
     # les articles dont il est fournisseur habituel — l'accès retour de
     # l'association stockée de l'article (D394), nommé en vue dérivée
-    type: association with technique.article if fournisseurs contains me
+    # (D405) ; l'appartenance à la collection par l'opérateur in (D888)
+    type: association with technique.article if me in fournisseurs
     label:
       fr: Articles fournis
 

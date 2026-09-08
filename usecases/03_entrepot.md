@@ -1249,10 +1249,16 @@ successives de PMI vivent dans l'historique de l'article.
   (date − date → duration, D838) ; le constructeur `period(min,
   max)` ; la ligne de validation redondante de la nomenclature
   retirée (début ≤ fin est intégré, D391).
-- **M8 — l'entité comme collection dans une formule.**
-  `stock.mouvement.max(date if article = me and sens = "sortie")` —
-  l'étendue globale d'une entité (D842) employée comme collection
-  aux agrégats (D580) : à confirmer.
+- **M8 — l'entité comme collection dans une formule** — **tranché
+  par D891**. `stock.mouvement.max(date if article = me and sens =
+  "sortie")` employait l'étendue globale d'une entité (D842) comme
+  collection aux agrégats (D580). Trois formes pesées (l'entité en
+  collection, l'accès retour déclaré en vue dérivée, l'accès retour
+  implicite) ; l'auteur : « je valide la 2 » — **l'agrégat s'applique
+  à une collection déclarée** : `mouvements: association with
+  stock.mouvement if article = me` sur l'article (D394/D405), puis
+  `mouvements.max(date if sens = "sortie")` ; l'étendue globale
+  reste à l'accès par la clé (D842).
 - **M9 — la grammaire face à YAML.** Le modèle a été passé à un
   analyseur YAML (PyYAML) : deux lignes ont dû prendre des
   guillemets — le `.select(entree: quantite, …)` de D833 et la

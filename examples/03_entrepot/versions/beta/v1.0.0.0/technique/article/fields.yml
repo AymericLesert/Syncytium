@@ -341,6 +341,14 @@ commandes_achat:
   label:
     fr: Lignes de commande d'achat
 
+mouvements:
+  # l'accès retour aux mouvements de l'article (D394), nommé en vue
+  # dérivée (D405) — l'agrégat d'une formule s'applique à une
+  # collection déclarée, jamais à l'entité entière (D891)
+  type: association with stock.mouvement if article = me
+  label:
+    fr: Mouvements de stock
+
 # ------ Champs calculés ------
 
 nombre_composants:
@@ -379,9 +387,9 @@ dormant:
     fr: Aucune sortie de stock depuis six mois.
 
 derniere_sortie:
-  # la date du dernier mouvement de sortie — l'accès retour (D394) aux
-  # mouvements par leur référence à l'article
+  # la date du dernier mouvement de sortie — sur l'association dérivée
+  # mouvements (D891), le if suffixé sur la valeur (D580)
   type: date
-  formula: stock.mouvement.max(date if article = me and sens = "sortie")
+  formula: mouvements.max(date if sens = "sortie")
   label:
     fr: Dernière sortie

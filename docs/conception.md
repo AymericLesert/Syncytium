@@ -1016,6 +1016,7 @@ Q58) :
 | D888 | **L'appartenance à une collection — l'opérateur `in`** (solde le manque M6 du cas 3, complète D580/D581) : « ma recommandation pour plus de visibilité est : `me in fournisseurs` » — **`<élément> in <collection>`**, l'élément à gauche, la collection à droite, un opérateur de la table du type collection (D581) ; le cas : `articles: association with technique.article if me in fournisseurs` (l'accès retour d'une association stockée, nommé en vue dérivée D405, l'origine par `me` D396) ; les formes écartées : `contains` (la collection à gauche), `exists(code = me.code)` (la clé exposée), un mot pour l'élément. | Le même `in` vaudra devant une liste littérale (`statut in ["en_cours", "partielle"]`) — la lecture naturelle, à confirmer à l'usage. Voir §3.2c. |
 | D889 | **La déclinaison de `in` — la projection d'une collection sur un champ** (précise D888, complète D580) : « ma proposition permet de décliner : `if me.code in fournisseurs.code` » — **`<collection>.<champ>` est la collection des valeurs de ce champ** (la projection — le `commandes.montant` d'avant D580, légitime comme collection ; l'agrégat garde la forme `commandes.sum(montant)`) ; `in` s'applique à la projection comme à la collection d'enregistrements : l'appartenance d'une valeur (`me.code in fournisseurs.code`) ou d'un enregistrement (`me in fournisseurs`). | La projection sert aussi les agrégats de valeurs et les listes : `lignes.article` = les articles d'une commande. Voir §3.2c. |
 | D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
+| D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9598,6 +9599,27 @@ la plage ouverte (D498 — min et/ou max indéfinis) : la période sans
 `NOCJFINVAL` sont nullables séparément. Dans le modèle, la ligne de
 validation `validite.end >= validite.start` de la nomenclature est
 retirée : début ≤ fin est intégré au type.
+
+**L'agrégat s'applique à une collection déclarée, jamais à
+l'entité entière (D891 — solde le manque M8 du cas 3, borne D580 et
+D842).** `article.derniere_sortie` s'écrivait
+`stock.mouvement.max(date if article = me and sens = "sortie")` —
+l'entité entière, sa population, employée comme collection aux
+agrégats de D580, ce que le registre ne prévoyait pas : D842
+n'emploie l'étendue globale que pour l'accès par la clé, et D394
+promet l'accès retour d'une référence sans jamais le déclarer.
+Trois formes pesées : l'entité en collection (une capacité nouvelle,
+une requête sur des millions de mouvements par article), l'accès
+retour déclaré en vue dérivée (D405), l'accès retour implicite sous
+un nom du moteur (le pluriel implicite, refusé par D841–D842).
+**« Je valide la 2. »** — **l'agrégat s'applique à une collection
+déclarée** : l'article nomme son accès retour, `mouvements:
+association with stock.mouvement if article = me`, et le calculé
+s'écrit `mouvements.max(date if sens = "sortie")` — rien de neuf
+dans la grammaire, un lien utile en lui-même (les mouvements d'un
+article, consultables comme toute association dérivée), la formule
+locale à l'enregistrement ; l'étendue globale reste à l'accès par la
+clé, son seul usage.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19007,6 +19029,14 @@ avant la synthèse Q16).
   range, gap = la durée entre les bornes ; la validation redondante
   de la nomenclature retirée ; types.md au niveau. Restent : les
   clés d'énumérés, le tarif applicable, M8–M9.
+- **2026-09-08 (suite 4) — L'AGRÉGAT SUR UNE COLLECTION DÉCLARÉE
+  (D891, 891 décisions — M8 soldé).** « Je valide la 2 » — l'accès
+  retour nommé en association dérivée (article.mouvements, D405),
+  l'agrégat s'y applique (mouvements.max(date if sens =
+  "sortie")) ; l'entité entière n'est pas une collection dans une
+  formule, l'étendue globale reste à l'accès par la clé (D842) ; le
+  modèle relu. Restent : les clés d'énumérés, le tarif applicable,
+  M9.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

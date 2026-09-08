@@ -1021,6 +1021,7 @@ Q58) :
 | D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
 | D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. **Retirée par D895** : la grille est un composé de l'article, le n-aire demeure. Voir §3.2c. |
 | D895 | **La grille tarifaire est un composé de l'article — le n-aire demeure** (retire D894, rappelle D134/D402–D403) : « pourquoi m'enlèves-tu le n-aire ? une grille tarifaire est un composé de l'article… ton approche est juste dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas le cas » — **la leçon** : la grille est une matrice (D134 — les formes de composition : liste, matrice, hypercube, les enfants indexés par dimensions, une cellule par combinaison ; D402 — le n-aire les porte), non une table de lignes datées liées par des clés ; **le tarif = le n-aire de l'article**, tiers × tranche, et **la dimension du temps** — les tarifs planifiés visibles avant leur date — se place **dans la grille** : trois formes en proposition — le temps en troisième dimension du tuple (`list of [tiers, tranche, date_application: date]` — les clés typées de D134, une extension de D402), la liste datée dans la cellule (`{ prix: list of prix_tarif }` — D403, toute la puissance des champs), la grille datée contenant la matrice (`grilles: list of grille` à date d'application, la matrice dedans). | Le réflexe relationnel consigné pour ne pas y retomber : l'agrégat est le grain (D400), la matrice une forme de composition (D134), jamais des lignes à clés. Voir §3.2c. |
+| D896 | **La composition, naturelle au modèle, traduite au stockage** (la doctrine — précise D119/D681–D684 et D399–D403) : « dans une base de données relationnelle, la traduction du modèle convertira une composition par une table et une clé étrangère. Mais, dans la manipulation du modèle par Syncytium, cela doit être un élément naturel » — **deux plans** : au plan du modèle (le langage, l'IHM, l'API), la composition, la matrice, la cellule sont des objets naturels, manipulés comme tels (l'agrégat D400, l'accès par les dimensions D134/D841) ; au plan du stockage, **la classe traduit** — une composition devient une table et une clé étrangère, la matrice une table de cellules — le visiteur de D681–D684 ; **la forme de stockage de la source ne dicte jamais le modèle** : le mapping recompose l'objet naturel depuis les lignes de la source. | L'argument « fidèle à PMI, où chaque ligne a sa date » tombe : c'est un fait de stockage. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9746,6 +9747,25 @@ proposition, l'auteur choisit :
 
 Dans les trois, le tarif en vigueur est un calculé et le planifié
 se voit.
+
+**La composition, naturelle au modèle, traduite au stockage (D896 —
+la doctrine, précise D119/D681–D684 et D399–D403).** **« Dans une
+base de données relationnelle, la traduction du modèle convertira
+une composition par une table et une clé étrangère. Mais, dans la
+manipulation du modèle par Syncytium, cela doit être un élément
+naturel. »** — deux plans, à ne jamais confondre : **au plan du
+modèle** — le langage, l'IHM, l'API — la composition, la matrice,
+la cellule sont des objets naturels, manipulés comme tels :
+l'agrégat est le grain (D400), l'accès se fait par les dimensions
+(D134) ou par la clé (D841) ; **au plan du stockage**, la classe
+traduit — une composition devient une table et une clé étrangère,
+une matrice une table de cellules — c'est le visiteur de D681–D684,
+et la quatrième facette du type (D119). La conséquence pour le cas
+3 : **la forme de stockage de la source ne dicte jamais le
+modèle** — que PMI date chaque ligne de `TARIF` est un fait de
+stockage, le mapping recompose l'objet naturel depuis ces lignes ;
+l'argument « fidèle à PMI » qui portait la forme 2 tombe. Reste à
+choisir l'objet naturel de la grille tarifaire.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19205,6 +19225,14 @@ avant la synthèse Q16).
   du temps à placer dans la grille — trois formes proposées (le
   temps en dimension du tuple, la liste datée dans la cellule, la
   grille datée) ; le modèle se relit sur le choix de l'auteur.
+- **2026-09-08 (suite 9) — LA COMPOSITION, NATURELLE AU MODÈLE,
+  TRADUITE AU STOCKAGE (D896, 896 décisions).** « Dans une base de
+  données relationnelle, la traduction du modèle convertira une
+  composition par une table et une clé étrangère. Mais, dans la
+  manipulation du modèle par Syncytium, cela doit être un élément
+  naturel » — les deux plans ; la forme de stockage de la source ne
+  dicte jamais le modèle (l'argument « fidèle à PMI » tombe) ; le
+  choix de l'objet naturel de la grille tarifaire reste à l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -16,8 +16,9 @@ history: true
 
 fields: fields.yml
 
-# La cohérence d'une ligne (D404)
+# La cohérence d'une ligne (D404) — l'ordre des bornes de la période
+# n'a pas à s'écrire : début ≤ fin est intégré au type (D391 ; les
+# sous-items min, max, gap — D890)
 validation:
   - composant != null if nature = "composant"
   - operation != null if nature = "operation"
-  - validite.end >= validite.start if validite != null

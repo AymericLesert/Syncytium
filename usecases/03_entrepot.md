@@ -1239,8 +1239,16 @@ successives de PMI vivent dans l'historique de l'article.
   (D889) : le point après une collection projette — `me.code in
   fournisseurs.code`, l'appartenance d'une valeur à la collection
   des valeurs d'un champ.
-- **M7 — les sous-items de la période.** `validite.start`,
-  `validite.end` : D772 dit « les bornes » sans les nommer.
+- **M7 — les sous-items de la période** — **tranché par D890**.
+  D772 disait « les bornes » sans les nommer, et les noms comptent
+  aux formules, au constructeur, à l'API (les clés JSON du composé),
+  à l'export en deux colonnes, à la recherche par plage. Trois
+  formes pesées (`start`/`end`, `min`/`max`, `from`/`to`) ; l'auteur :
+  « je valide min, max et gap » — **`min` et `max`**, alignés sur
+  range (D498), et **`gap`**, la durée dérivée entre les bornes
+  (date − date → duration, D838) ; le constructeur `period(min,
+  max)` ; la ligne de validation redondante de la nomenclature
+  retirée (début ≤ fin est intégré, D391).
 - **M8 — l'entité comme collection dans une formule.**
   `stock.mouvement.max(date if article = me and sens = "sortie")` —
   l'étendue globale d'une entité (D842) employée comme collection

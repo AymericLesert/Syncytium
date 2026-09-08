@@ -1015,6 +1015,7 @@ Q58) :
 | D887 | **Le décompte conditionnel — la condition seule en argument** (solde le manque M5 du cas 3, précise D580) : « je valide le 1 » — `nomenclature.count(nature = "composant")` ; **la doctrine des agrégats** : l'agrégat qui porte une valeur (`sum`, `avg`, `min`, `max`, `first`, `last`) se lit **« valeur if condition »** (le `if` suffixé de D580, l'élément en contexte implicite) ; l'agrégat qui n'en porte pas (**`count`, `any`, `exists`**) reçoit **la condition seule** — `count()` nu demeure le tout. Les formes écartées : `count(if …)`, la valeur factice `count(1 if …)`, le filtre `where(…)` (une seconde façon de filtrer, contre l'esprit de D580). | `any` et `exists` gagnent leur forme écrite par la même occasion. Voir §3.2c. |
 | D888 | **L'appartenance à une collection — l'opérateur `in`** (solde le manque M6 du cas 3, complète D580/D581) : « ma recommandation pour plus de visibilité est : `me in fournisseurs` » — **`<élément> in <collection>`**, l'élément à gauche, la collection à droite, un opérateur de la table du type collection (D581) ; le cas : `articles: association with technique.article if me in fournisseurs` (l'accès retour d'une association stockée, nommé en vue dérivée D405, l'origine par `me` D396) ; les formes écartées : `contains` (la collection à gauche), `exists(code = me.code)` (la clé exposée), un mot pour l'élément. | Le même `in` vaudra devant une liste littérale (`statut in ["en_cours", "partielle"]`) — la lecture naturelle, à confirmer à l'usage. Voir §3.2c. |
 | D889 | **La déclinaison de `in` — la projection d'une collection sur un champ** (précise D888, complète D580) : « ma proposition permet de décliner : `if me.code in fournisseurs.code` » — **`<collection>.<champ>` est la collection des valeurs de ce champ** (la projection — le `commandes.montant` d'avant D580, légitime comme collection ; l'agrégat garde la forme `commandes.sum(montant)`) ; `in` s'applique à la projection comme à la collection d'enregistrements : l'appartenance d'une valeur (`me.code in fournisseurs.code`) ou d'un enregistrement (`me in fournisseurs`). | La projection sert aussi les agrégats de valeurs et les listes : `lignes.article` = les articles d'une commande. Voir §3.2c. |
+| D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9574,6 +9575,29 @@ d'enregistrements : **l'appartenance d'un enregistrement**
 fournisseurs.code`) — la seconde sert quand la comparaison porte sur
 un champ plutôt que sur l'identité entière, et devant une liste
 littérale (`statut in ["en_cours", "partielle"]`).
+
+**Les sous-items de la période — `min`, `max`, `gap` (D890 — solde
+le manque M7 du cas 3, nomme les bornes de D772/D391).** La période
+(D122/D299/D391 — deux dates liées, début ≤ fin intégré, le format au
+crochet, la recherche par plage) exposait « les bornes » sans les
+nommer (D772) ; or les noms comptent aux formules
+(`validite.max < context.now`), au constructeur du mapping (D659),
+à l'API (les clés JSON du composé — la quatrième facette D119), à
+l'export en deux colonnes natives (D299) et à la recherche par
+plage. Trois formes pesées — `start`/`end` (le vocabulaire du
+temps, celui de D299 et D391 en français), `min`/`max` (alignés sur
+`range`, D498), `from`/`to` (`to` pris par le mapping D656). **« Je
+valide min, max et gap. »** — **`min` et `max`**, les deux bornes,
+le même vocabulaire que les trois éléments de `range` (min, value,
+max) : la période se lit comme une plage de dates à l'API comme à
+l'export ; **`gap`**, la durée dérivée entre les bornes (date − date
+→ duration, D838), nulle si la période est ouverte ; le constructeur
+`period(min, max)`. L'alignement sur `range` emporte la lecture de
+la plage ouverte (D498 — min et/ou max indéfinis) : la période sans
+`max` se lit « valable depuis » — chez PMI, `NOCJDEBVAL` et
+`NOCJFINVAL` sont nullables séparément. Dans le modèle, la ligne de
+validation `validite.end >= validite.start` de la nomenclature est
+retirée : début ≤ fin est intégré au type.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -18975,6 +18999,14 @@ avant la synthèse Q16).
   (fournisseurs.code = la collection des codes), in s'applique à la
   projection comme aux enregistrements ; types.md au niveau. M7 en
   attente (start/end proposés).
+- **2026-09-08 (suite 3) — LES SOUS-ITEMS DE LA PÉRIODE (D890, 890
+  décisions — M7 soldé).** Le sujet détaillé sur le registre (D299,
+  D391, D497–D498, D772 ; les cinq lieux où les noms comptent —
+  formules, constructeur, API, export, recherche ; la plage ouverte,
+  la durée dérivée) ; « je valide min, max et gap » — alignés sur
+  range, gap = la durée entre les bornes ; la validation redondante
+  de la nomenclature retirée ; types.md au niveau. Restent : les
+  clés d'énumérés, le tarif applicable, M8–M9.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

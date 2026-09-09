@@ -1113,7 +1113,9 @@ Le dépôt vit dans `examples/03_entrepot/` — la maison alignée un
 cas = un exemple (D827/D857).
 
 **Le morceau 2 — le modèle champ par champ** (écrit le 06/09/2026,
-**validé le 08/09 — D882 à D898 —, lié le 09/09**) :
+validé le 08/09 — D882 à D898 —, lié le 09/09, **clos par D899** :
+« la validation définitive se fera après la relecture complète des
+fichiers de configuration ») :
 `versions/beta/v1.0.0.0/` porte `groups.yml` (les cinq strates de
 D859/D882 — production, commercial, achats, direction qui les
 contient, administration au degré `administrator`), `settings.yml`

@@ -1024,6 +1024,7 @@ Q58) :
 | D896 | **La composition, naturelle au modèle, traduite au stockage** (la doctrine — précise D119/D681–D684 et D399–D403) : « dans une base de données relationnelle, la traduction du modèle convertira une composition par une table et une clé étrangère. Mais, dans la manipulation du modèle par Syncytium, cela doit être un élément naturel » — **deux plans** : au plan du modèle (le langage, l'IHM, l'API), la composition, la matrice, la cellule sont des objets naturels, manipulés comme tels (l'agrégat D400, l'accès par les dimensions D134/D841) ; au plan du stockage, **la classe traduit** — une composition devient une table et une clé étrangère, la matrice une table de cellules — le visiteur de D681–D684 ; **la forme de stockage de la source ne dicte jamais le modèle** : le mapping recompose l'objet naturel depuis les lignes de la source. | L'argument « fidèle à PMI, où chaque ligne a sa date » tombe : c'est un fait de stockage. Voir §3.2c. |
 | D897 | **La grille tarifaire en hypercube — le temps en dimension du tuple** (tranche D895, étend D402 par D134) : « la forme 1 décrit le lien hypercube que je souhaite mettre en avant. Car, au-delà de savoir quel prix appliqué quand à qui, je souhaitais visualiser les évolutions de la grille tarifaire dans le temps » — `tarifs: list of [tiers.tiers, technique.tranche, date_application: date]`, trois dimensions, une cellule par combinaison (D403) ; **une dimension de valeur** (la date, typée) **à côté des entités nommées** — les clés typées de D134, l'extension de D402 ; la cellule porte le prix, le forfait, le numéro de tarif, la validité, et ses calculés `planifie` et `en_vigueur` (les sœurs par `owner`, les dimensions par leur nom, `any` à condition seule D887) ; la forme 3 (la grille datée) écartée : « élégante pour répondre rapidement à la question de quel tarif appliqué », mais elle « nécessite de recouper toutes les modifications avant de la restituer… en sachant que nous avons perdu des informations sur la construction et son évolution ». | L'entité `tarif` de D894 retirée ; la forme éclatée de la cellule en bloc — la clé `fields:` sous le champ — validée par D898. Voir §3.2c. |
 | D898 | **La cellule du n-aire en bloc sous `fields:`** (nomme la forme éclatée de D403, précise D897) : « je valide pour fields sous une liste » — sous un champ `list of [a, b, …]`, **la clé `fields:` porte les champs de la cellule** en bloc, l'équivalent de l'accolade en ligne, chaque champ avec tout son kit (type, facettes, calculés) ; et l'exemple s'allège : « tu peux enlever planifie et en_vigueur. Valide suffit » — la cellule du cas 3 porte le prix, le forfait, le numéro de tarif, `valide`, le commentaire, sans calculé. | La règle 2 de D892 s'applique d'elle-même : la cellule riche s'écrit en bloc, l'accolade reste au cas court. Voir §3.2c. |
+| D899 | **Le morceau 2 du cas 3 clos** (le modèle champ par champ — D882 à D898, lié le 09/09) : « je valide, consigne la clôture du morceau 2. La validation définitive se fera après la relecture complète des fichiers de configuration » — quarante-deux fichiers valides (la chaîne des déclarations depuis `syncytium.yml`, les quatre modules, seize entités, deux cent vingt-cinq champs, `groups.yml`, `settings.yml`), cinq renvois à l'analyse de la source, trois formes en proposition (`settings:`/`groups:` dans `version.yml`, le bloc `convention:` du connecteur cegid, pas d'`entities:` pour un storage base de données), l'authentification et le smtp à la question 10 ; **la clôture est celle du morceau, la validation définitive viendra de la relecture complète des fichiers de configuration par l'auteur** — le patron des cas précédents. | La suite : les questions 7–10 du cadrage, puis le morceau 3 (la source). Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9811,6 +9812,27 @@ Et l'exemple s'allège : la grille du cas 3 porte le prix, le
 forfait, le numéro de tarif, `valide` et le commentaire — les
 calculés `planifie` et `en_vigueur` retirés, la lecture du tarif
 applicable et de l'évolution revenant aux surfaces du morceau 5.
+
+**Le morceau 2 du cas 3 clos (D899).** Le modèle champ par champ,
+écrit le 06/09, arbitré du 06 au 08/09 (D882 à D898 : les huit choix
+de la cible, tiers et niveau, la confidentialité nommée, l'allow en
+cascade, les cinq frottements de grammaire, les clés d'énumérés, la
+grille tarifaire en hypercube après le détour relationnel), lié le
+09/09 par la chaîne des déclarations depuis `syncytium.yml` —
+quarante-deux fichiers valides, quatre modules, seize entités, deux
+cent vingt-cinq champs, `groups.yml` et `settings.yml`, les trois
+connecteurs décidés. **« Je valide, consigne la clôture du morceau
+2. La validation définitive se fera après la relecture complète des
+fichiers de configuration. »** — la clôture est celle du morceau ;
+la validation définitive viendra de la relecture complète des
+fichiers par l'auteur, le patron des cas précédents (la relecture
+de D799–D810 avait restructuré le dépôt de la banque). Restent
+ouverts, nommés : les cinq renvois à l'analyse de la source
+(`niveau.lot`, les valeurs de famille et sous-famille, l'unité des
+temps de gamme, la n-ième tranche, l'usage d'ADRESSE), les trois
+formes en proposition de l'assise, l'authentification et le smtp de
+la question 10. La suite : les questions 7–10 du cadrage, puis le
+morceau 3 (la source).
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
@@ -19330,6 +19352,12 @@ avant la synthèse Q16).
   identity:, types: — la forme que D876 renvoyait à l'assise),
   l'absence d'entities: pour un storage base de données.
   L'authentification et le smtp attendent la question 10.
+- **2026-09-09 (suite) — LE MORCEAU 2 CLOS (D899, 899 décisions).**
+  « Je valide, consigne la clôture du morceau 2. La validation
+  définitive se fera après la relecture complète des fichiers de
+  configuration » — la clôture du morceau (D882–D898, lié), la
+  validation définitive à la relecture de l'auteur. La suite : les
+  questions 7–10 du cadrage, puis le morceau 3 (la source).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

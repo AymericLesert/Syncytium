@@ -1,0 +1,5 @@
+# Les statuts des versions — déclarés à l'usage (D804)
+
+beta: beta/beta.yml
+
+production: production/production.yml

@@ -19310,6 +19310,26 @@ avant la synthèse Q16).
   (postgresql), le connecteur file des plans (D883) ; **(3) le
   morceau 3 (la source)**. Cinquante commits depuis la #40 sur
   feature/meta-schema — la PR de consolidation sur demande.
+- **2026-09-09 — LE LIEN : LA CHAÎNE DES DÉCLARATIONS ÉCRITE.**
+  « Finalisons le 2 avant les questions 7 à 10 » — la passe finale
+  (trente et un fichiers valides, seize entités, deux cent
+  vingt-cinq champs — le compte relu —, cinq renvois à l'analyse
+  de la source) ; puis « entre ta description et l'assise, je ne
+  vois pas le lien » — juste : les modules étaient orphelins (D767).
+  La chaîne écrite sur le patron du véhicule : syncytium.yml →
+  environments/production (logging D830, documentation, settings,
+  connectors) → versions (beta, production, le regex D806) →
+  version.yml (1.0.0.0, les release-notes du cas, settings:,
+  groups:, les quatre modules) ; suivie par script — quarante-deux
+  fichiers, toutes les références résolues, le statut production
+  encore vide (la version est en beta). Les connecteurs décidés
+  (entrepot postgresql D860, cegid sqlserver en direct D863 sans
+  carte entities:, plans file D883) ; **trois formes en
+  proposition** : les clés settings:/groups: de version.yml, le
+  bloc convention: du connecteur cegid (le motif à groupes nommés,
+  identity:, types: — la forme que D876 renvoyait à l'assise),
+  l'absence d'entities: pour un storage base de données.
+  L'authentification et le smtp attendent la question 10.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

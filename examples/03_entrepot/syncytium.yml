@@ -1,0 +1,17 @@
+# Le cas 3 — l'entrepôt de données : la conversion Cegid PMI (Q59/D857–D859)
+# L'entrée du projet (D767) : la déclaration fait foi, rien ne se déduit
+# de l'arborescence — c'est ici que les modules du morceau 2 prennent
+# leur lien, par la chaîne environnements → versions → version.yml.
+
+# Identification et description du projet
+
+name: entrepot
+description: L'entrepôt de données de l'entreprise — les données de Cegid PMI standardisées, harmonisées et fiabilisées
+
+# Liste des environnements d'exécution
+
+environments: environments/environments.yml
+
+# Liste des versions de l'application
+
+versions: versions/versions.yml

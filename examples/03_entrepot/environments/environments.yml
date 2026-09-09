@@ -1,0 +1,6 @@
+# Déclaration des environnements d'exécution
+# Un environnement pour commencer : la production — la base PMI lue en
+# direct (D863). Un staging sur une copie de la base (D342/D617) se
+# déclarera ici si la question 10 du cadrage le demande.
+
+production: production/production.yml

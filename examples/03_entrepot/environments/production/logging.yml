@@ -1,0 +1,52 @@
+# La journalisation de la production (D830 — logging.yml, la clé logging:
+# à l'environnement ; D343 : l'actif en info + puits de logs ; D800 : la
+# maîtrise des dimensions, de la taille et de la rotation)
+
+# Verbose ou non
+
+verbose: False
+
+# Configuration du rafraîchissement du fichier de configuration
+
+syncytium:
+    reload-disable:
+        # time laps between 2 checks of evolution configuration (if {date} appears into an item)
+        interval: 60
+
+    cleanup-disable:
+        # time laps between 2 checks of cleaning up log directory (remove older file)
+        interval: 86400
+        directory: ${SYNCYTIUM_LOG_DIRECTORY}
+        # Fait référence à la propriété "name" du fichier syncytium.yml
+        pattern: "^${....name}-.*\\.log$"
+
+        # Durée de rétention des fichiers de journalisation
+        nbdays: 30
+
+# Configuration du composant Logging de Python
+
+version: 1
+
+formatters:
+    standard:
+        format: "%(asctime)s [%(levelname)-5s] (%(process)d:%(processName)s) %(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: standard
+        stream: ext://sys.stdout
+
+    file:
+        class: logging.handlers.RotatingFileHandler
+        level: INFO
+        formatter: standard
+        filename: ${SYNCYTIUM_LOG_DIRECTORY}\${....name}-${date:%Y-%m-%d}.log
+        maxBytes: 134217728 # 128Mb
+        backupCount: 10
+        encoding: utf8
+
+root:
+    level: INFO
+    handlers: [console, file]

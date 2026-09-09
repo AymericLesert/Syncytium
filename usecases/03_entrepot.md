@@ -1113,11 +1113,13 @@ Le dépôt vit dans `examples/03_entrepot/` — la maison alignée un
 cas = un exemple (D827/D857).
 
 **Le morceau 2 — le modèle champ par champ** (écrit le 06/09/2026,
-**en validation**) : `versions/beta/v1.0.0.0/` porte `groups.yml`
-(les cinq strates de D859/D882 — production, commercial, achats,
-direction qui les contient, administration au degré
-`administrator`) et **les quatre modules, seize entités, cent
-soixante-huit champs**, chaque champ commenté de sa colonne PMI :
+**validé le 08/09 — D882 à D898 —, lié le 09/09**) :
+`versions/beta/v1.0.0.0/` porte `groups.yml` (les cinq strates de
+D859/D882 — production, commercial, achats, direction qui les
+contient, administration au degré `administrator`), `settings.yml`
+(D885) et **les quatre modules, seize entités, deux cent vingt-cinq
+champs** (le compte relu le 09/09 — les cellules et les fichiers en
+ligne compris), chaque champ commenté de sa colonne PMI :
 
 - **`technique/`** — `article` (l'identité code + complément, la
   classification en énumérés D883, les unités et les mesures, les
@@ -1174,6 +1176,49 @@ prime la convention, la nuance de D831), le niveau de stock se
 nomme `niveau` ; les références (`tiers.tiers` au n-aire des
 tarifs, `stock.niveau` aux dépôts, `inheritance: tiers`) et les
 libellés renommés, les trente fichiers revalidés.
+
+**Le lien — la chaîne des déclarations (écrite le 09/09/2026, à la
+remarque de l'auteur : « entre ta description et l'assise, je ne
+vois pas le lien »).** D767 le dit, rien ne se déduit de
+l'arborescence : les modules étaient orphelins tant que
+`version.yml` ne les citait pas. La chaîne est posée, sur le patron
+du véhicule : `syncytium.yml` (le projet `entrepot`) →
+`environments/environments.yml` → `environments/production/` (la
+production seule pour l'instant — D863, un staging sur une copie se
+déclarera si la question 10 le demande ; `production.yml`,
+`logging.yml` D830 en info, `documentation.yml`, `settings.yml`,
+**`connectors.yml`**) ; `versions/versions.yml` → `beta.yml` et
+`production.yml` (l'environnement `production`, le regex des
+versions D806) → **`version.yml`** (1.0.0.0, les release-notes du
+cas, **`settings: settings.yml`**, **`groups: groups.yml`**, les
+quatre modules ; la migration à venir au morceau 3). La chaîne est
+suivie par script : quarante-deux fichiers, toutes les références
+résolues, aucun fichier hors chaîne — le statut `production` ne
+liste encore aucune version, la 1.0.0.0 est en beta (D340 : la
+transition sera un geste de fichier). **Les connecteurs** décidés y
+sont : `entrepot` (postgresql, le schéma — D860), `cegid`
+(sqlserver, la base de production lue en direct — D860/D863, sans
+carte `entities:` : la base se décrit elle-même et la comparaison
+du schéma doit voir les tables non définies — D829/D861), `plans`
+(le connecteur file des plans — D883). **Trois formes en
+proposition, nées de l'écriture** : les clés `settings:` et
+`groups:` de `version.yml` (D767 — la référence de fichier, D359 et
+D414 disaient l'emplacement sans la clé) ; **le bloc `convention:`
+du connecteur cegid** (D876 renvoyait la forme à l'assise) — le
+motif à groupes nommés qui découpe la colonne
+(`<prefix><kind><type><name>`, D817), `identity: [K, I]`, `types:
+{ T: text, N: decimal, J: date[yyyymmdd], S: time[hhmmss] }` ;
+l'absence de carte `entities:` pour un storage base de données.
+**Reste à l'assise** : l'authentification et le smtp (la question
+10), dits en commentaire dans `connectors.yml`, jamais en `none`.
+
+**Les cinq renvois à l'analyse de la source** (le morceau 3) laissés
+dans le modèle, aucun ne le bloque : `niveau.lot` en texte (une
+entité lot si `Stock.Batch` le justifie) ; les valeurs de
+`article.famille` et `sous_famille` (la liste close à relever,
+D893) ; l'unité des temps de gamme (`NOCNTPSOUV` — heures ou
+centièmes) ; la forme de la n-ième tranche entre deux seuils
+(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage.
 
 **Le fichier `settings.yml`** (D885, l'étage instance de la cascade
 D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar) et

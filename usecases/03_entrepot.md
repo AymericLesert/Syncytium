@@ -81,7 +81,8 @@ entrepôt de données) et la vérification de règles métiers. »**
   causes, l'historique de la qualité) — les non conformes ne sont
   pas portées (D177), le rapport va **au destinataire capable de
   corriger l'origine** (D179 : la correction à la source ; D406 :
-  `report: { to: }`, le destinataire déclaré) ;
+  `report: { to: }`, le destinataire déclaré — porté par chaque règle
+  de migration, D929) ;
 - **l'historique des changements de valeur** pour certaines
   entités = `history:` déclaré (D411–D413), nourri par le
   différentiel du rejeu (D672 : seuls les écarts s'écrivent) — la
@@ -237,7 +238,8 @@ cadrage :
   le différentiel par comparaison au rejeu (D672) ;
 - **les règles métiers** : la validation au champ et à l'entité
   (D364/D404), le rapport des non-conformes affectable à un
-  utilisateur ou un groupe, par mail ou notification (D406–D407).
+  utilisateur ou un groupe, par mail ou notification (D406–D407),
+  porté par chaque règle de migration (D929).
 
 ## Ce que le cas éprouve
 
@@ -264,7 +266,8 @@ cadrage :
   le différentiel (D672) à l'épreuve — la fenêtre glissante du
   `filter:` (D663) à arbitrer ;
 - **la vérification de règles métiers** (D404) sur les données
-  converties, le rapport aux responsables (D406) ;
+  converties, le rapport aux responsables (D406 — par la règle,
+  D929) ;
 - **les droits de consultation sur les entités et les champs**
   (D859 — P8/D25–D27, D196, rights.md) : le premier exemple de
   l'échelle aux droits réels, de l'opérateur aux dirigeants ;
@@ -1027,7 +1030,15 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    « consultation et correction » — à trancher. *Répondue en partie
    (D859) : les non conformes font l'objet d'un état, vers un
    destinataire capable de corriger l'origine — la posture du rejet
-   (D177/D179) ; les exemples de règles restent à donner.*
+   (D177/D179) ; les exemples de règles restent à donner.* *Le
+   13/09 : les exemples donnés sur le fil ARTICLE → NOMENC — la
+   vérification est le contrat du modèle cible (D177/D156 : les
+   `required`, les types, les `validation:`) et les pré-contrôles de
+   la source (D871/D874) ; le mapping convertit (le masque D820, le
+   typage en garde D813, le `select` D893) ; aucun mécanisme nouveau.
+   Deux remarques de l'auteur : le rapport est porté par chaque règle
+   de migration, pas un rapport général (D929) ; la clé `key:` de la
+   règle fait doublon avec l'identité de la cible — en analyse.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1078,7 +1089,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    confidentialité, les `allow:`), `history:` sur les entités qui
    gardent leurs changements de valeur (D859/D411–D413), **les
    validations = les règles métiers** (D404), le `report:` au
-   destinataire capable de corriger l'origine (D406/D859) ;
+   destinataire capable de corriger l'origine (D406/D859 — porté par
+   chaque règle de migration, D929) ;
 3. **la source** — `source/` : **les tables analysées, chacune avec
    toutes ses colonnes typées** (D861/D866/D868 — l'acte du
    technicien, aucun pattern, aucune génération ; les dépendances
@@ -1098,7 +1110,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    trois taux — la complétude du schéma, la couverture du schéma,
    la couverture des données (D861–D862) —, les rejets et leurs
    causes, D666/D668), le rapport
-   au destinataire (D406), et **la restitution décisionnelle**
+   au destinataire (D406 — par la règle, D929), et **la restitution
+   décisionnelle**
    (D858) : **le tableau de bord des indicateurs de pilotage**
    (D859 — la vue globale du fonctionnement de l'entreprise,
    D554–D558/D527, rafraîchi dès que les données sont disponibles),

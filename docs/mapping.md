@@ -210,7 +210,8 @@ audit_log: ignored
 table source déclare où vont ses colonnes. **La forme de la règle**
 (D656) : la règle au nom de la table source — `to:` la cible (entité
 ou agrégat), `key:` la clé fonctionnelle, `parent:` la clé du
-possesseur, `fields:` les expressions du langage unique.
+possesseur, `fields:` les expressions du langage unique, `report:`
+le rapport de ses rejets (D929).
 
 **La construction et la clé fonctionnelle** (D654) : le mapping
 construit l'enregistrement avant sa validation (D177 — converti ET
@@ -246,6 +247,35 @@ order_lines:
   fields:
     item:     item_code
     quantity: qty
+```
+
+**Le rapport des rejets porté par la règle (D929).** « Chaque règle
+de migration a un report. Pas un report général. » La règle sait sa
+source, sa cible et qui corrige l'origine : elle déclare `report:`
+sous la forme validée de D406 (`when:` les rythmes, `to:` le groupe
+ou l'utilisateur, `by:` les canaux) pour les enregistrements qu'elle
+construit et que la cible refuse (D177 — la conversion échouée, le
+contrat de la cible, la référence non résolue). Sans `report:`, le
+défaut de D407 tient : à la demande, vers l'administrateur, par les
+surfaces du module `migration` (D666). Aucun rapport général — ni à
+la migration déclarée (D662), ni au module ; la cascade de D407 reste
+celle du modèle (les non-conformes des références, D395). Les
+anomalies de la source — le schéma non décrit (D868), l'identité qui
+n'est pas une clé (D871), l'orphelin isolé (D875) — ne sont pas des
+rejets de règle : elles vont au technicien par le module `migration`
+et le rapport de non-couverture (D176/D179).
+
+```yaml
+# mapping/001_articles.yml — le rapport porté par la règle (D929)
+ARTICLE:
+  to: technique.article
+  fields:
+    code: ARKTCODART
+    libelle: ARCTLIB01
+  report:
+    when: [migration]              # après chaque passage de la règle (D406/D407)
+    to: [production]               # le destinataire qui corrige l'origine (D859)
+    by: [notification, mail]
 ```
 
 ### Au-delà du 1-1 (D658–D660)
@@ -340,8 +370,9 @@ customers:
   règles et transcriptions se déroulent sans erreur — **la bascule**
   d'un système A vers une application Syncytium ;
 - **relatif** — **l'entrepôt** : seuls les enregistrements conformes
-  sont portés, les erreurs isolées, le rapport à l'administrateur
-  (D108–D110/D179), et **la vue sur le taux de couverture** par
+  sont portés, les erreurs isolées, le rapport porté par chaque
+  règle vers son destinataire (D929 — à défaut l'administrateur,
+  D108–D110/D179), et **la vue sur le taux de couverture** par
   rapport à la source d'origine.
 
 La reprise (D175–D179) est le mode relatif du `from:` ; le mode

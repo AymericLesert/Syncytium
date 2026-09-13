@@ -6,14 +6,17 @@ numero:
     fr: Ligne
 
 nature:
-  # NOCTNATCPT — la nature : matière (composant) ou opération (D882 —
-  # « la nature du composant : matière ou opération »)
+  # la nature se déduit du type de l'article référencé (D937 : la nature
+  # numérique NOCTNATCPT est ignorée ; « le type du composant d'une
+  # nomenclature est le type de l'article référencé par le composant ») —
+  # la main d'œuvre et la sous-traitance font l'opération, le reste le
+  # composant (la règle est mienne)
   type: enum
-  required: true
+  formula: 'composant.type.select(main_oeuvre: "operation", sous_traitance: "operation", "...": "composant")'
   label:
     fr: Nature
   hint:
-    fr: Un composant consommé, ou une opération de la gamme.
+    fr: Un composant consommé, ou une opération de la gamme — déduit du type de l'article référencé.
   values:
     composant:
       label:
@@ -33,8 +36,11 @@ designation:
 
 composant:
   # NOCTCODECP + NOCTCOMCPT — la référence à l'article (D396) : la
-  # composition auto-référencée (D135)
+  # composition auto-référencée (D135) ; toujours renseignée (l'échantillon :
+  # 100/100) — le type du composant est celui de l'article référencé
+  # (D937), NOCTYPECPT n'entre pas dans l'entrepôt
   type: technique.article
+  required: true
   label:
     fr: Composant
   hint:
@@ -65,7 +71,8 @@ rendement:
 # --- l'opération (nature = operation) ---
 
 operation:
-  # NOCTCODOPE — le code de l'opération (le poste chez PMI)
+  # NOCTCODOPE — le code de l'opération (le poste chez PMI) ; vide sur
+  # tout l'échantillon, gardé pour l'analyse du morceau 3
   type: text[..6]
   label:
     fr: Opération

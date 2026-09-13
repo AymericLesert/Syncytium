@@ -1069,6 +1069,7 @@ Q58) :
 | D934 | **Les fonctions du texte au catalogue** (complète D579/D584 — types.md ; la question 7 du cas 3) : « trim, upper, right, mid, … doivent figurer au catalogue de types.md sur un champ texte » — le type `text` emmène ses fonctions : `trim`, `upper`, `lower`, `left`, `right`, `mid`, `length`, `extract` (D817), la comparaison `like` (D818), la concaténation `+` ; employées jusqu'ici (`upper` D656, `trim`/`right` D870, `extract` D817) sans être inscrites ; le texte trop long pour sa cible = une conversion avec perte, refusée à l'ingestion (D581), le technicien écrit `left(…)`. | `lower`, `left` et `length` sont mes ajouts, les pendants naturels. Voir §3.2c. |
 | D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 quittent le type d'article (D936 : elles sont de PMI, sur le code de gestion ARCTFATN). | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
 | D936 | **Le code de gestion est ARCTFATN — fabriqué, acheté, sous-traité, fantôme y vivent ; le type d'article ARCTTYPART porte le vocabulaire de D935** (corrige D935 et le modèle du morceau 2 — la question 7 du cas 3) : « fabriqué, acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — le modèle avait posé ces quatre valeurs sur `article.type` (ARCTTYPART) et un code de gestion inventé (sur stock / à la commande / sans stock) sur ARCTGSAV : `article.type` prend le vocabulaire de D935 (accessoire, consommable, libellé, outillage, produit fini, plaque, semi-fini — PR à relever), `article.gestion` passe sur ARCTFATN avec les quatre valeurs ; ARCTGSAV (nchar(1), « N » seul dans l'échantillon) retourne à l'analyse. | Les dix codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17, 32, 33) se traduisent à la règle du mapping (D893) : la table à relever. Ma note de D935 « tirées d'un ERP imaginé » était fausse. Voir §3.2c. |
+| D937 | **PR hors de l'exemple, la nature numérique ignorée, le type du composant est celui de l'article référencé** (précise D935/D936, corrige la ligne de nomenclature du morceau 2 — la question 7 du cas 3) : « le code PR n'est pas pris en compte ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique de la nomenclature est un champ ignoré. Le type du composant d'une nomenclature est le type de l'article référencé par le composant de la nomenclature » — la garde d'ARCTTYPART ne liste pas PR, les articles PR sont des non-conformités rapportées ; NOCTNATCPT : `ignored` (D657) ; NOCTYPECPT redonde le type de l'article référencé — la ligne de l'entrepôt n'a pas de type propre, elle le lit par `composant.type` ; sa `nature` se déduit (la main d'œuvre et la sous-traitance font l'opération, le reste le composant — mien), ses deux validations inventées tombent, le composant devient obligatoire ; `article.type` s'élargit à main d'œuvre et sous-traitance, que les composants référencent. | Reste la table des codes ARCTFATN (D936). NOCTYPECPT à la source : `ignored`, ou la vérification de sa redondance par un `validation:` de la source (D932) — mon choix : ignorée. Voir §3.2c. |
 
 ---
 
@@ -10780,6 +10781,36 @@ codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17,
 valeur est à relever, comme PR. *(La leçon, la même que D934 : rien
 de PMI ne s'écrit de mémoire — ni un code, ni une colonne, ni un
 vocabulaire ; l'échantillon et l'auteur tranchent.)*
+
+**PR hors de l'exemple, la nature ignorée, le type du composant est
+celui de l'article (D937 — précise D935/D936, corrige la ligne de
+nomenclature).** Aux trois tables que je demandais, l'auteur répond
+en trois phrases : **« le code PR n'est pas pris en compte ici pour
+l'exemple. Ces lignes sont des erreurs. La nature numérique de la
+nomenclature est un champ ignoré. Le type du composant d'une
+nomenclature est le type de l'article référencé par le composant de
+la nomenclature. »** PR ne sera pas dans la garde d'ARCTTYPART : les
+huit articles PR de l'échantillon sont des non-conformités, rapportées
+par la règle (D935 — hors de l'énuméré, une erreur) ; la liste de
+`article.type` est donc complète. NOCTNATCPT est `ignored` (D657) —
+la colonne attendue, décrite, non développée. NOCTYPECPT redonde le
+type de l'article que la ligne référence : l'entrepôt ne le stocke
+pas, il le lit par `composant.type` ; à la source, la colonne est
+ignorée, ou vérifiée redondante par un `validation:` de la source
+(D932) — mon choix : ignorée. La ligne de nomenclature du morceau 2
+se redresse : sa `nature` venait de NOCTNATCPT, elle se déduit
+désormais du type de l'article référencé — la main d'œuvre et la
+sous-traitance font l'opération, le reste le composant (la règle est
+mienne, un `select` sur `composant.type` avec le défaut) ; le
+composant devient obligatoire (100/100 dans l'échantillon) ; les deux
+validations que j'avais inventées tombent — l'une, « une opération a
+un code d'opération », aurait rejeté les 49 lignes de main d'œuvre de
+l'échantillon, NOCTCODOPE y étant vide. Et `article.type` s'élargit à
+main d'œuvre et sous-traitance : les composants de l'échantillon
+référencent des articles de ces types (MO ×49, ST ×1, LI ×6) — une
+déduction de la troisième phrase, à confirmer. Les articles
+« libellé » (MI/LI) restent des articles : les lignes les
+référencent.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20549,6 +20580,19 @@ avant la synthèse Q16).
   article.type au vocabulaire de D935 (PR à relever), article.gestion
   sur ARCTFATN (dix codes dans l'échantillon, la table à relever),
   ARCTGSAV à l'analyse ; 146 fichiers valides.
+- **2026-09-14 — LA NOMENCLATURE REDRESSÉE (D937, 937 décisions).**
+  Trois arbitrages après minuit : « le code PR n'est pas pris en compte
+  ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique
+  de la nomenclature est un champ ignoré. Le type du composant d'une
+  nomenclature est le type de l'article référencé par le composant de
+  la nomenclature. » La ligne de nomenclature du morceau 2 corrigée :
+  la nature calculée depuis `composant.type` (mienne), le composant
+  obligatoire, les deux validations inventées retirées (l'une aurait
+  rejeté les 49 lignes de main d'œuvre de l'échantillon, NOCTCODOPE y
+  étant vide) ; `article.type` élargi à main d'œuvre et sous-traitance,
+  déduit des types de composants de l'échantillon — à confirmer ; 146
+  fichiers valides. Reste à la question 7 : la table des codes
+  ARCTFATN.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

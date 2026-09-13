@@ -46,14 +46,15 @@ libelle_secondaire:
 
 type:
   # ARCTTYPART nchar(2) — le type d'article : le vocabulaire donné par
-  # l'auteur (D935), les codes PMI (AC, CO, MI, OU, PF, PL, SF) traduits
-  # à la règle du mapping (D893) ; le code PR reste à relever (D936)
+  # l'auteur (D935), les codes PMI (AC, CO, MI/LI, MO, OU, PF, PL, SF,
+  # ST) traduits à la règle du mapping (D893) ; le code PR n'est pas
+  # pris en compte pour l'exemple : ces lignes sont des erreurs (D937)
   type: enum
   required: true
   label:
     fr: Type d'article
   hint:
-    fr: Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un semi-fini.
+    fr: Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un semi-fini, de la main d'œuvre, de la sous-traitance.
   values:
     accessoire:
       label:
@@ -78,6 +79,14 @@ type:
     semi_fini:
       label:
         fr: Produit semi-fini
+    # les composants de nomenclature référencent des articles de ces deux
+    # types (l'échantillon NOMENC : MO ×49, ST ×1 — D937)
+    main_oeuvre:
+      label:
+        fr: Main d'œuvre
+    sous_traitance:
+      label:
+        fr: Sous-traitance
 
 famille:
   # ARCTCODFAM nchar(4) — la liste close se relève à l'analyse (D883)

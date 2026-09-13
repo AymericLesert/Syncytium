@@ -80,7 +80,8 @@ type:
       label:
         fr: Produit semi-fini
     # les composants de nomenclature référencent des articles de ces deux
-    # types (l'échantillon NOMENC : MO ×49, ST ×1 — D937)
+    # types — « la main d'œuvre, la sous-traitance et les libellés sont
+    # bien des articles de PMI » (D937, confirmé le 14/09)
     main_oeuvre:
       label:
         fr: Main d'œuvre

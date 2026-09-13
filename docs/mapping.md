@@ -366,6 +366,25 @@ validation:
   - composant != null if nature = "composant"
 ```
 
+**L'échec dans une composition (D933).** « Si un échec est vu sur le
+parent, tous les composants sont en échec. Si un composant est en
+erreur et pas sur le parent, le parent est créé sans le composant en
+erreur. Par contre, la règle de validation sur un enregistrement du
+parent vérifie le fonctionnement de son enregistrement et de ses
+enfants. Et, là, c'est l'enregistrement du parent et de tous ses
+enfants qui sont en échec. » Trois cas : l'échec propre du parent (sa
+conversion, sa `validation:`, sa référence) entraîne ses composants ;
+l'échec propre d'un composant (sa conversion, sa `validation:` à la
+règle ou à l'entité, sa référence — l'orphelin D875) ne rejette que
+lui, le parent entre sans lui ; la `validation:` du parent qui lit
+ses enfants (`lignes.count() > 0`, une somme) s'évalue sur le parent
+et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
+grain d'écriture (D420) : ce qui s'écrit est le parent avec ses
+composants conformes. Au cas 3 : l'article entre sans la cellule
+tarifaire fautive, ses mouvements le trouvent ; la commande sans
+ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
+la ligne (mien).
+
 ### Au-delà du 1-1 (D658–D660)
 
 - **le référentiel par valeurs distinctes** (D658, validé) : la
@@ -465,7 +484,9 @@ customers:
   règles et transcriptions se déroulent sans erreur — **la bascule**
   d'un système A vers une application Syncytium ;
 - **relatif** — **l'entrepôt** : seuls les enregistrements conformes
-  sont portés, les erreurs isolées, le rapport porté par chaque
+  sont portés, les erreurs isolées — dans une composition, l'échec du
+  parent entraîne ses composants, l'échec d'un composant ne rejette
+  que lui (D933) —, le rapport porté par chaque
   règle vers son destinataire (D929 — à défaut l'administrateur,
   D108–D110/D179), et **la vue sur le taux de couverture** par
   rapport à la source d'origine.
@@ -564,7 +585,7 @@ coverage:
   relative, reset: true | false }` — deux propriétés orthogonales :
   `absolute` (le tout-ou-rien de la bascule) / `relative`
   (l'entrepôt — les conformes portés, les erreurs isolées au
-  rapport) ; `reset: true` **efface le contenu des tables cibles
+  rapport, la composition selon D933) ; `reset: true` **efface le contenu des tables cibles
   avant l'import** (le périmètre de la migration seul — le patron de
   l'exploration répétée) ;
 - **le différentiel par comparaison** (D672) : évalué **après la

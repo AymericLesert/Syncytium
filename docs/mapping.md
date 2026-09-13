@@ -221,7 +221,8 @@ audit_log: ignored
 table source déclare où vont ses colonnes. **La forme de la règle**
 (D656) : la règle au nom de la table source — `to:` la cible (entité
 ou agrégat), `parent:` le possesseur par ses champs mappés (D931),
-`fields:` les expressions du langage unique, `report:` le rapport de
+`fields:` les expressions du langage unique, `validation:` les
+contrôles de chaque ligne importée (D932), `report:` le rapport de
 ses rejets (D929). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
 retirée) : c'est l'identité de la cible, alimentée par `fields:`.
 
@@ -266,8 +267,9 @@ de migration a un report. Pas un report général. » La règle sait sa
 source, sa cible et qui corrige l'origine : elle déclare `report:`
 sous la forme validée de D406 (`when:` les rythmes, `to:` le groupe
 ou l'utilisateur, `by:` les canaux) pour les enregistrements qu'elle
-construit et que la cible refuse (D177 — la conversion échouée, le
-contrat de la cible, la référence non résolue). Sans `report:`, le
+construit et que la cible refuse (D177 — la conversion échouée, sa
+propre `validation:` D932, le contrat de la cible, la référence non
+résolue). Sans `report:`, le
 défaut de D407 tient : à la demande, vers l'administrateur, par les
 surfaces du module `migration` (D666). Aucun rapport général — ni à
 la migration déclarée (D662), ni au module ; la cascade de D407 reste
@@ -328,6 +330,40 @@ NOMENC:
       code:       NOCTCODECP
       complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
     quantite:  NOCNQTEUNI
+```
+
+**`validation:` à trois niveaux (D932).** « validation: porte à la
+source avant l'import, porte à la destination après l'import et à la
+règle du mapping porte sur chaque ligne de l'import. » La même
+grammaire (D404) à trois places : sur l'entité source, la règle
+s'évalue sur la ligne lue, avant la conversion — la non-conformité de
+la source, comme la garde D813 ; sur la règle de migration, elle
+s'évalue sur chaque ligne importée, après la construction par
+`fields:` et avant l'écriture — les colonnes source à nu,
+l'enregistrement construit par `me` ; sur l'entité cible, elle
+s'évalue à l'écriture, au scellé (D594), sur l'enregistrement et ses
+enfants (D933). L'échec, à chaque étage, rejette la ligne et va au
+rapport de la règle (D929).
+
+```yaml
+# reprise/source/NOMENC.yml — avant l'import : la ligne lue, avant la conversion
+NOMENC:
+  validation:
+    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
+
+# reprise/mapping/002_nomenclatures.yml — sur chaque ligne importée : la source à nu, le construit par me
+NOMENC:
+  to: technique.ligne_nomenclature
+  fields:
+    nature:   nature_n                                 # le calculé de normalisation à la source (D660)
+    quantite: NOCNQTEUNI
+  validation:
+    - me.quantite > 0 if me.nature = "composant"       # le construit
+    - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
+
+# technique/ligne_nomenclature/ligne_nomenclature.yml — après l'import : l'enregistrement écrit
+validation:
+  - composant != null if nature = "composant"
 ```
 
 ### Au-delà du 1-1 (D658–D660)

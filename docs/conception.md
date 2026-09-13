@@ -1064,6 +1064,7 @@ Q58) :
 | D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 3) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
 | D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; une règle est rapprochable si l'enregistrement qu'elle construit détermine l'identité de sa cible (par ses expressions ou par les défauts des champs) — sinon, entité sans `identity:` ou champ d'identité sans valeur, elle est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle soit rapprochable, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Le critère d'abord écrit « la règle qui n'alimente pas l'identité entière est création seule », remplacé à la demande de l'auteur (« je ne comprends pas » — « je valide, remplace la phrase »). Voir §3.2c. |
 | D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 3) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 1–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
+| D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 3) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
 
 ---
 
@@ -10636,6 +10637,48 @@ NOMENC:
   fields:
     NOCTCODECP: ARTICLE.ARKTCODART                       # la référence composée, colonne par colonne (D648)
     NOCTCOMCPT: ARTICLE.ARKTCOMART
+```
+
+**`validation:` à trois niveaux (D932 — précise D404/D656, retire ma
+lecture).** Sur le premier des quatre points de la question 7, je
+proposais « le mapping ne porte aucune règle de vérification propre,
+les deux contrats vérifient ». L'auteur : **« validation: porte à la
+source avant l'import, porte à la destination après l'import et à la
+règle du mapping porte sur chaque ligne de l'import. »** La même
+grammaire (D404 — la liste d'expressions booléennes, le `if`
+suffixé) à trois places, trois moments : **à la source**, sur la
+ligne lue, avant la conversion — la non-conformité de la source,
+comme la garde de D813 ; **à la règle de migration**, sur chaque
+ligne importée, après la construction par `fields:` et avant
+l'écriture — le contrôle que ni la source ni la cible ne peuvent
+dire seules, celui qui mêle une colonne source et un champ
+construit ; **à la destination**, sur l'enregistrement écrit, au
+scellé (D594), avec ses enfants (D933). L'échec, à chaque étage,
+rejette la ligne et va au rapport de la règle (D929). *(La forme à
+la règle est mienne : les colonnes source à nu, l'enregistrement
+construit par `me` — le `me` des `operations:` de D821.)* La triade
+de D859 se lit : le mapping et sa règle, la conversion, la
+vérification aux trois étages.
+
+```yaml
+# reprise/source/NOMENC.yml — avant l'import : la ligne lue, avant la conversion
+NOMENC:
+  validation:
+    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
+
+# reprise/mapping/002_nomenclatures.yml — sur chaque ligne importée : la source à nu, le construit par me
+NOMENC:
+  to: technique.ligne_nomenclature
+  fields:
+    nature:   nature_n                                 # le calculé de normalisation à la source (D660)
+    quantite: NOCNQTEUNI
+  validation:
+    - me.quantite > 0 if me.nature = "composant"       # le construit
+    - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
+
+# technique/ligne_nomenclature/ligne_nomenclature.yml — après l'import : l'enregistrement écrit
+validation:
+  - composant != null if nature = "composant"
 ```
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option

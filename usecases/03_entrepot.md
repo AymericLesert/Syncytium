@@ -1036,7 +1036,9 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    vérification est le contrat du modèle cible (D177/D156 : les
    `required`, les types, les `validation:`) et les pré-contrôles de
    la source (D871/D874) ; le mapping convertit (le masque D820, le
-   typage en garde D813, le `select` D893) ; aucun mécanisme nouveau.
+   typage en garde D813, le `select` D893) et sa règle contrôle chaque
+   ligne importée par son propre `validation:` (D932 — trois niveaux :
+   la source avant, la règle pendant, la cible après).
    Deux remarques de l'auteur : le rapport est porté par chaque règle
    de migration, pas un rapport général (D929) ; la clé `key:` de la
    règle fait doublon avec l'identité de la cible — retirée (D930) ;

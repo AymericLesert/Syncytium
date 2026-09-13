@@ -643,3 +643,9 @@ la rétention du résultat à l'administration (D906).
 reste à Q7 est le moyen — les algorithmes, les en-têtes du cookie
 et de la politique de contenu, l'en-tête du proxy, la forme de
 l'auto-signé, le langage du code des hooks —, jamais le principe.
+
+**Le volet sécurité est clos le 13/09/2026** (D900–D928, 928
+décisions) : « dans cette session, je clos le point sécurité.
+Peut-être ajouterons-nous d'autres points, si nécessaire. » Ce
+document reste la vue vivante : toute décision nouvelle qui touche
+la sécurité s'y reporte, comme au §1.2 de la conception.

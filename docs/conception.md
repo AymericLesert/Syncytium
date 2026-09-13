@@ -112,7 +112,8 @@ Q58) :
    (D900–D928 ; les huit principes du domaine 7 tranchés D907–D926
    — la sandbox, la rotation, le navigateur, HTTPS, le dépôt, les
    fichiers, les dépendances, les journaux ; à Q7 le moyen, jamais
-   le principe) ;
+   le principe) — **le volet sécurité clos le 13/09/2026** (« peut-être
+   ajouterons-nous d'autres points, si nécessaire ») ;
 3. **l'administration et l'exploitation** — **soldé** (D709–D743 :
    administration.md et telemetry.md) : le module d'administration
    (D710–D711), les comptes au quotidien (D712–D723), l'exploitation
@@ -20141,16 +20142,19 @@ avant la synthèse Q16).
   décisions)** — ma lecture de D910 écartée : « from: doit être
   supprimé après promotion. Erreur à déclencher avant l'ingestion…
   le lien est cassé et une erreur est à déclencher » — ni ignoré,
-  ni résolu : deux erreurs. **Ce qui restait « en
-  attente : le
-  dernier
-  principes restants du domaine 7** (la sandbox
-  des hooks, le hachage à algorithme porté, le navigateur — cookie,
-  preuve au porteur, `cors:`, l'échappement —, HTTPS vérifié au
-  démarrage sauf la boucle locale, l'identité de la version au
-  registre, les fichiers servis par le moteur seul, les dépendances
-  épinglées, les événements de sécurité au journal). rights.md,
-  administration.md, security.md mis au niveau.
+  ni résolu : deux erreurs. Les huit principes proposés au matin
+  (la sandbox des hooks, le hachage à algorithme porté, le
+  navigateur, HTTPS, l'identité de la version, les fichiers, les
+  dépendances, les journaux) ont tous trouvé leur décision — trois
+  d'entre eux sous une forme que l'auteur a redressée (la sandbox
+  comme statut, la rotation seule, HTTPS sans exemption). rights.md,
+  hooks.md, administration.md, security.md mis au niveau. **La PR #42
+  préparée** (le cas 3 D857–D899 et la sécurité D900–D928, 51
+  commits). **« Dans cette session, je clos le point sécurité.
+  Peut-être ajouterons-nous d'autres points, si nécessaire. » — LE
+  VOLET SÉCURITÉ EST CLOS (928 décisions).** La reprise : les
+  questions 7–10 du cadrage du cas 3, puis le morceau 1 (l'assise),
+  puis le morceau 3 (la source).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -140,10 +140,14 @@ gestion:
   # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07
   # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 procédure ;
   # 03, 09 et 12 existent et se traduisent, mais leur libellé n'existe
-  # pas encore : la valeur par défaut nommée par le code, CG03, CG09,
-  # CG12 (D939) — à nommer à l'analyse ; sous-traité et fantôme, le
-  # vocabulaire de PMI hors échantillon (D936) ; la traduction des codes
-  # à la règle du mapping (D893)
+  # pas encore : la valeur par défaut nommée par le code (D939) — à
+  # nommer à l'analyse ; avec « un peu de liberté » (D940), 09 = le
+  # semi-fini et 12 = le fantôme sont les hypothèses de l'exemple, tirées
+  # de l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 ;
+  # 03 reste CG03 ; le sous-traité, le vocabulaire de PMI hors
+  # échantillon (D936) ; la traduction des codes à la règle du mapping
+  # (D893). Le code de gestion assure l'héritage (D940) : fabrique (01),
+  # semi_fini (09) et fantome (12) sont les dérivés de l'article
   type: enum
   label:
     fr: Code de gestion
@@ -163,7 +167,12 @@ gestion:
       label:
         fr: Fantôme
       description:
-        fr: Un niveau de nomenclature sans existence en stock.
+        fr: Un niveau de nomenclature sans existence en stock — le code 12 de PMI, l'hypothèse de l'exemple (D940).
+    semi_fini:
+      label:
+        fr: Produit semi-fini
+      description:
+        fr: Un produit fabriqué pour entrer dans d'autres produits — le code 09 de PMI, l'hypothèse de l'exemple (D940).
     libelle:
       label:
         fr: Libellé
@@ -186,16 +195,6 @@ gestion:
         fr: CG03
       description:
         fr: Le code de gestion 03 de PMI — le libellé n'existe pas encore.
-    cg09:
-      label:
-        fr: CG09
-      description:
-        fr: Le code de gestion 09 de PMI — le libellé n'existe pas encore.
-    cg12:
-      label:
-        fr: CG12
-      description:
-        fr: Le code de gestion 12 de PMI — le libellé n'existe pas encore.
 
 matieres:
   # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)
@@ -372,14 +371,9 @@ fournisseurs:
   label:
     fr: Fournisseurs habituels
 
-nomenclature:
-  # la composition (D399) — la nomenclature et la gamme réunies, comme
-  # chez PMI (NOMENC : la nature de la ligne dit le composant ou
-  # l'opération) ; la composition auto-référencée (D135) : le composant
-  # est un article
-  type: list of ligne_nomenclature
-  label:
-    fr: Nomenclature et gamme
+# la nomenclature n'est plus ici : elle est portée par les trois dérivés
+# de l'article qui en ont besoin — fabrique, semi_fini, fantome (D940 :
+# « la nomenclature n'apparaît pas dans les autres types d'articles »)
 
 tarifs:
   # LA GRILLE TARIFAIRE — l'hypercube (D134/D402, la forme 1 de D895
@@ -451,30 +445,8 @@ mouvements:
 
 # ------ Champs calculés ------
 
-nombre_composants:
-  type: integer
-  formula: nomenclature.count(nature = "composant")
-  label:
-    fr: Composants
-  hint:
-    fr: Le nombre de composants de la nomenclature.
-
-nombre_operations:
-  type: integer
-  formula: nomenclature.count(nature = "operation")
-  label:
-    fr: Opérations
-  hint:
-    fr: Le nombre d'opérations de la gamme.
-
-temps_gamme:
-  # la somme des temps d'ouverture des opérations — une durée (D378)
-  type: duration
-  formula: nomenclature.sum(temps_ouverture if nature = "operation")
-  label:
-    fr: Temps de gamme
-  hint:
-    fr: Le temps total des opérations de la gamme.
+# les calculés de la nomenclature (composants, opérations, temps de
+# gamme) vivent avec elle, chez les trois dérivés (D940)
 
 dormant:
   # le tableau de bord (D858/D859) — l'article sans mouvement depuis six

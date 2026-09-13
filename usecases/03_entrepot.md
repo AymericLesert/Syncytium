@@ -918,7 +918,7 @@ fin.*
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
 | `context` | `article.dormant: context.now - derniere_sortie > 180d` (le tableau de bord) |
-| `inheritance:` | `client`/`fournisseur` ← `tiers` (D353) |
+| `inheritance:` | `client`/`fournisseur` ← `tiers` (D353) ; `fabrique`/`semi_fini`/`fantome` ← `article`, par le code de gestion (D940) |
 | `history:` | toutes les entités sauf `mouvement` (D882) |
 
 **Les types absents du modèle** — et ce qu'ils appellent (relu par
@@ -1060,7 +1060,10 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    du composant celui de l'article référencé — la ligne de nomenclature
    corrigée (D937) ; la table des codes ARCTFATN donnée avec ses trous
    (D938) ; les codes sans libellé entrent sous une valeur nommée par
-   le code, CG03, CG09, CG12, le libellé viendra (D939). Close.*
+   le code, CG03, CG09, CG12, le libellé viendra (D939). Close.* *Puis
+   l'article en hiérarchie (D940) : le parent instanciable et trois
+   dérivés par le code de gestion, fabriqué, semi-fini, fantôme, qui
+   portent la nomenclature ; la grille tarifaire au parent.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1257,7 +1260,8 @@ entité lot si `Stock.Batch` le justifie) ; les valeurs de
 D893) ; l'unité des temps de gamme (`NOCNTPSOUV` — heures ou
 centièmes) ; la forme de la n-ième tranche entre deux seuils
 (`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage ; les libellés des codes de
-gestion 03, 09 et 12 (D939 — entrés sous CG03, CG09, CG12) — PR, la
+gestion 03, 09 et 12 (D939 — entrés sous CG03, CG09, CG12 ; puis 09 =
+semi-fini et 12 = fantôme, mes hypothèses de D940 à vérifier) — PR, la
 nature numérique et le type du composant tranchés par D937, les
 articles « libellé » gardés, les lignes les référencent.
 

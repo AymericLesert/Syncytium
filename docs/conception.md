@@ -1072,6 +1072,7 @@ Q58) :
 | D937 | **PR hors de l'exemple, la nature numérique ignorée, le type du composant est celui de l'article référencé** (précise D935/D936, corrige la ligne de nomenclature du morceau 2 — la question 7 du cas 3) : « le code PR n'est pas pris en compte ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique de la nomenclature est un champ ignoré. Le type du composant d'une nomenclature est le type de l'article référencé par le composant de la nomenclature » — la garde d'ARCTTYPART ne liste pas PR, les articles PR sont des non-conformités rapportées ; NOCTNATCPT : `ignored` (D657) ; NOCTYPECPT redonde le type de l'article référencé — la ligne de l'entrepôt n'a pas de type propre, elle le lit par `composant.type` ; sa `nature` se déduit (la main d'œuvre et la sous-traitance font l'opération, le reste le composant — mien), ses deux validations inventées tombent, le composant devient obligatoire ; `article.type` s'élargit à main d'œuvre et sous-traitance, que les composants référencent — confirmé le 14/09 : « la main d'œuvre, la sous-traitance et les libellés sont bien des articles de PMI ». | Reste la table des codes ARCTFATN (D936). NOCTYPECPT à la source : `ignored`, ou la vérification de sa redondance par un `validation:` de la source (D932) — mon choix : ignorée. Voir §3.2c. |
 | D938 | **Le code de gestion décodé, avec ses trous** (précise D936 — la question 7 du cas 3) : « 01 : produit fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 : proc » — la table de l'auteur entre au modèle : `gestion` = fabriqué, acheté, sous-traité, fantôme (D936), libellé, quantité supérieure, inactif, résultant ; 33 « proc » à préciser ; 03, 09 et 12 sans signification connue — des points à creuser (D868) : non traduits par la règle, leurs articles sont des erreurs rapportées (D935) jusqu'à l'analyse — 38 des 100 articles de l'échantillon (03 ×30, 09 ×7, 12 ×1). | La garde de la source liste les dix codes observés (décrits, D866) ; c'est la traduction qui manque, pas la description — l'itération de D868 en acte. Voir §3.2c. |
 | D939 | **Le code sans libellé entre avec une valeur par défaut nommée par le code** (précise D938 et D893 — clôt le code de gestion, la question 7 du cas 3) : « pour clore les codes de gestion, les codes existent, sont dans le mapping mais le libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à positionner » — l'énuméré de l'entrepôt reçoit une valeur par code non encore nommé (`cg03`, `cg09`, `cg12`, le libellé = le code, la description le dit), la règle du mapping les traduit, les articles entrent ; le libellé viendra de l'analyse, son changement est une évolution de l'énuméré (D387) ; ma conséquence de D938 (38 articles en erreur) écartée. | Le code 33 entre en `procedure` (« Proc - pour Procédure »). La valeur qui a du sens (D893) reste la règle ; le code lui-même en tient lieu tant que le sens manque. Voir §3.2c. |
+| D940 | **L'article en hiérarchie par le code de gestion — trois dérivés portent la nomenclature, la grille tarifaire reste au parent** (amende D882 pour l'article, applique D143/D353 — la question 7 du cas 3, en clôture) : « dans le modèle de migration, nous pouvons définir un article et des dérivés (un par type d'article) » ; « le code de gestion assurera l'héritage » ; « un article de type produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La nomenclature n'apparaît pas dans les autres types d'articles » ; « les dérivés sont limités à ceux cités » ; « la nomenclature déclarée sur chacun des trois dérivés » ; « la grille tarifaire reste au parent » — `article` le parent instanciable (D143), `fabrique`, `semi_fini`, `fantome` par `inheritance: article`, chacun avec sa composition `nomenclature` et ses calculés ; la règle de migration route par un filtre sur ARCTFATN ; mon niveau intermédiaire écarté. | « Tu peux prendre un peu de liberté » sur les codes : 01 = fabriqué (donné), 09 = semi-fini et 12 = fantôme sont mes hypothèses d'après l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 — cg09 et cg12 de D939 deviennent semi_fini et fantome. Voir §3.2c. |
 
 ---
 
@@ -10857,6 +10858,38 @@ se rapporte ; le libellé viendra de l'analyse, et son changement sera
 une évolution de l'énuméré (D387 — la clé demeure, le libellé bouge).
 D893 tient — la valeur qui a du sens — et le code en tient lieu tant
 que le sens manque. Le code 33 entre en `procedure` — « Proc - pour Procédure ».
+
+**L'article en hiérarchie par le code de gestion (D940 — amende D882,
+applique D143/D353).** En clôture de la question 7, l'auteur ouvre le
+modèle : **« dans le modèle de migration, nous pouvons définir un
+article et des dérivés (un par type d'article) »**, puis **« le code
+de gestion assurera l'héritage »**, et le pourquoi : **« un article de
+type produit fabriqué, semi-fini ou fantôme a besoin d'une
+nomenclature. La nomenclature n'apparaît pas dans les autres types
+d'articles. »** La hiérarchie du tiers (client, fournisseur) trouve
+sa seconde mise en œuvre, autrement : le tiers se dérivait par la
+table source, l'article se dérive par la valeur d'un champ — le code
+de gestion est le discriminant, la règle de migration route par un
+filtre sur ARCTFATN (D663), une règle par dérivé, le reste des codes
+vers le parent, instanciable (D143 — pas d'abstrait). Mes trois
+questions arbitrées : **« les dérivés sont limités à ceux cités »** —
+`fabrique`, `semi_fini`, `fantome`, ni acheté ni sous-traité, dont
+les fournisseurs et les prix restent au parent ; **« la nomenclature
+déclarée sur chacun des trois dérivés »** — mon niveau intermédiaire
+`produit` écarté, la composition et ses calculés (composants,
+opérations, temps de gamme) écrits trois fois, chez chacun ; **« la
+grille tarifaire reste au parent »**. Sur les codes, **« tu peux
+prendre un peu de liberté. Je n'ai pas les éléments sous les yeux
+pour répondre »** : 01 = fabriqué est donné (D938) ; 09 = semi-fini
+et 12 = fantôme sont mes hypothèses, tirées de l'échantillon — les
+articles SF portent 09 sept fois, un PF porte 12 — à vérifier au
+morceau 3 ; les valeurs cg09 et cg12 de D939 deviennent `semi_fini`
+et `fantome`, cg03 demeure. La ligne de nomenclature ne change pas :
+son composant référence `technique.article`, de tout type (D937), sa
+nature se déduit du type référencé ; seul son possesseur change, l'un
+des trois dérivés. Le stockage reste une table unique (D144), chaque
+champ à son niveau : la nomenclature d'un fantôme, les mouvements
+d'un fabriqué, la grille de tous.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20657,6 +20690,19 @@ avant la synthèse Q16).
   libellé viendra. Le modèle : gestion en douze valeurs (procedure et
   cg03/cg09/cg12 ajoutés) ; 146 fichiers valides. La question 7 est
   close ; la question 8 suit.
+- **2026-09-14 (suite 3) — L'ARTICLE EN HIÉRARCHIE (D940, 940
+  décisions).** En clôture de la question 7, l'auteur ouvre le modèle en
+  trois messages : « un article et des dérivés (un par type d'article)
+  », « le code de gestion assurera l'héritage », « un article de type
+  produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La
+  nomenclature n'apparaît pas dans les autres types d'articles ». Mes
+  trois questions arbitrées : les dérivés limités aux trois cités, la
+  nomenclature déclarée sur chacun (mon niveau intermédiaire écarté),
+  la grille tarifaire au parent ; « un peu de liberté » sur les codes —
+  09 = semi-fini et 12 = fantôme, mes hypothèses d'après l'échantillon.
+  Le modèle : technique/{fabrique,semi_fini,fantome}, l'article allégé
+  de sa nomenclature et de ses calculés ; 149 fichiers valides. La
+  question 7 est close ; la question 8, l'enrichissement, attend.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

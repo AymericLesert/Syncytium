@@ -1053,9 +1053,11 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    codes des listes closes : ceux de PMI, publiables, leur vocabulaire
    donné par l'auteur — accessoire, consommable, libellé, outillage,
    produit fini, plaque, main d'œuvre, sous-traitance, semi-fini —,
-   hors de l'énuméré une erreur (D935) ; mes quatre valeurs du type
-   d'article tombent, le modèle se corrige dès la liste complète (le
-   code PR, les natures numériques de NOCTNATCPT).*
+   hors de l'énuméré une erreur (D935) ; mes quatre valeurs, fabriqué,
+   acheté, sous-traité, fantôme, sont celles du code de gestion
+   ARCTFATN et non du type d'article : le modèle corrigé (D936), le
+   code PR, les natures numériques de NOCTNATCPT et la table des codes
+   ARCTFATN à relever.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ

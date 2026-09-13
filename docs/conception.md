@@ -1067,7 +1067,8 @@ Q58) :
 | D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 3) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
 | D933 | **L'échec dans une composition à la migration** (précise D101/D177/D420 et D875 pour la migration — la question 7 du cas 3) : « si un échec est vu sur le parent, tous les composants sont en échec. Si un composant est en erreur et pas sur le parent, le parent est créé sans le composant en erreur. Par contre, la règle de validation sur un enregistrement du parent vérifie le fonctionnement de son enregistrement et de ses enfants. Et, là, c'est l'enregistrement du parent et de tous ses enfants qui sont en échec » — l'échec propre du parent entraîne ses composants ; l'échec propre d'un composant (sa conversion, sa `validation:`, sa référence — l'orphelin D875) ne rejette que lui, le parent entre sans lui ; la `validation:` du parent qui lit ses enfants (le compte, la somme) s'évalue sur le parent et tous ses enfants, et son échec rejette le tout. | Ma conséquence « une cellule fautive retient son article entier » écartée : l'article entre sans la cellule, aucune cascade sur les mouvements ; la commande dont `lignes.count() > 0` échoue tombe entière. Le rapport nomme la cause (mien). Voir §3.2c. |
 | D934 | **Les fonctions du texte au catalogue** (complète D579/D584 — types.md ; la question 7 du cas 3) : « trim, upper, right, mid, … doivent figurer au catalogue de types.md sur un champ texte » — le type `text` emmène ses fonctions : `trim`, `upper`, `lower`, `left`, `right`, `mid`, `length`, `extract` (D817), la comparaison `like` (D818), la concaténation `+` ; employées jusqu'ici (`upper` D656, `trim`/`right` D870, `extract` D817) sans être inscrites ; le texte trop long pour sa cible = une conversion avec perte, refusée à l'ingestion (D581), le technicien écrit `left(…)`. | `lower`, `left` et `length` sont mes ajouts, les pendants naturels. Voir §3.2c. |
-| D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 étaient inventées, à remplacer. | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
+| D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 quittent le type d'article (D936 : elles sont de PMI, sur le code de gestion ARCTFATN). | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
+| D936 | **Le code de gestion est ARCTFATN — fabriqué, acheté, sous-traité, fantôme y vivent ; le type d'article ARCTTYPART porte le vocabulaire de D935** (corrige D935 et le modèle du morceau 2 — la question 7 du cas 3) : « fabriqué, acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — le modèle avait posé ces quatre valeurs sur `article.type` (ARCTTYPART) et un code de gestion inventé (sur stock / à la commande / sans stock) sur ARCTGSAV : `article.type` prend le vocabulaire de D935 (accessoire, consommable, libellé, outillage, produit fini, plaque, semi-fini — PR à relever), `article.gestion` passe sur ARCTFATN avec les quatre valeurs ; ARCTGSAV (nchar(1), « N » seul dans l'échantillon) retourne à l'analyse. | Les dix codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17, 32, 33) se traduisent à la règle du mapping (D893) : la table à relever. Ma note de D935 « tirées d'un ERP imaginé » était fausse. Voir §3.2c. |
 
 ---
 
@@ -10745,8 +10746,10 @@ traduction est une erreur, pas un nul ; à la cible, la valeur hors
 qui a du sens) : `accessoire`, `consommable`, `libelle`, `outillage`,
 `produit_fini`, `plaque`, `semi_fini`, `main_oeuvre`,
 `sous_traitance` — et mes quatre valeurs du morceau 2, `fabrique` /
-`achete` / `sous_traite` / `fantome`, tirées d'un ERP imaginé et non
-de PMI, tombent : le modèle se corrige dès que la liste est complète.
+`achete` / `sous_traite` / `fantome`, quittent le type d'article : le
+modèle se corrige dès que la liste est complète *(D936 : elles sont
+bien de PMI — sur le code de gestion ARCTFATN, pas sur le type ; ma
+note « tirées d'un ERP imaginé » était fausse)*.
 *(Restent à relever : le code PR d'ARTICLE — huit articles de
 l'échantillon —, les natures numériques de NOCTNATCPT (1, 2, 3, 4,
 6, 8) ; à arbitrer : la place du type du composant (NOCTYPECPT) à la
@@ -10755,6 +10758,28 @@ proposition — et le sort des articles « libellé » (MI), des lignes
 de texte sans stock : gardés dans l'entrepôt sous leur type plutôt
 que filtrés, ma recommandation, puisque les lignes LI les
 référencent.)*
+
+**Le code de gestion est ARCTFATN (D936 — corrige D935 et le
+modèle).** Je venais d'écrire que mes quatre valeurs du type
+d'article — fabriqué, acheté, sous-traité, fantôme — étaient tirées
+d'un ERP imaginé. L'auteur : **« fabriqué, acheté, sous-traité ou
+fantôme sont bien un vocabulaire de PMI sur le champ du code de
+gestion (ARCTFATN). »** Les valeurs étaient justes, la colonne
+fausse : le modèle du morceau 2 les avait posées sur `article.type`
+(ARCTTYPART, dont le vocabulaire est celui de D935), et avait mis
+sous `gestion` une colonne (ARCTGSAV, nchar(1), « N » seul dans
+l'échantillon) et trois valeurs (sur stock, à la commande, sans
+stock) qui ne sont à personne — une invention de plus, corrigée. Le
+modèle se redresse : `type` prend accessoire, consommable, libellé,
+outillage, produit fini, plaque, semi-fini (PR à relever) ; `gestion`
+passe sur ARCTFATN avec fabriqué, acheté, sous-traité, fantôme — le
+fantôme, ce niveau de nomenclature sans existence en stock, y
+retrouve sa description ; ARCTGSAV retourne à l'analyse. Les dix
+codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17,
+32, 33) se traduisent à la règle du mapping (D893) : la table code →
+valeur est à relever, comme PR. *(La leçon, la même que D934 : rien
+de PMI ne s'écrit de mémoire — ni un code, ni une colonne, ni un
+vocabulaire ; l'échantillon et l'auteur tranchent.)*
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20512,9 +20537,18 @@ avant la synthèse Q16).
   réels sont publiables, les libellés sont les siens ; et la garde
   confirmée à tous les étages : « si une valeur sort du type énuméré,
   c'est une erreur ». Mes quatre valeurs du type d'article
-  (fabrique/achete/sous_traite/fantome), écrites au morceau 2 d'après
-  un ERP imaginé, tombent : le modèle se corrige dès la liste complète
-  — PR et les natures numériques demandés.
+  (fabrique/achete/sous_traite/fantome) quittent le type : le modèle
+  se corrige dès la liste complète — PR et les natures numériques
+  demandés (la suite 5 : elles sont de PMI, sur ARCTFATN).
+- **2026-09-13 (suite 5) — LE CODE DE GESTION (D936, 936
+  décisions).** « fabriqué, acheté, sous-traité ou fantôme sont bien un
+  vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — ma
+  note de D935 (« tirées d'un ERP imaginé ») corrigée : les valeurs
+  étaient de PMI, la colonne fausse ; et le code de gestion du modèle
+  (ARCTGSAV, trois valeurs) était une invention. Le modèle redressé :
+  article.type au vocabulaire de D935 (PR à relever), article.gestion
+  sur ARCTFATN (dix codes dans l'échantillon, la table à relever),
+  ARCTGSAV à l'analyse ; 146 fichiers valides.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

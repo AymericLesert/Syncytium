@@ -45,28 +45,39 @@ libelle_secondaire:
 # mapping (le morceau 4) ---
 
 type:
-  # ARCTTYPART — le type d'article
+  # ARCTTYPART nchar(2) — le type d'article : le vocabulaire donné par
+  # l'auteur (D935), les codes PMI (AC, CO, MI, OU, PF, PL, SF) traduits
+  # à la règle du mapping (D893) ; le code PR reste à relever (D936)
   type: enum
   required: true
   label:
     fr: Type d'article
   hint:
-    fr: Ce que l'article est pour l'entreprise — fabriqué, acheté, sous-traité ou fantôme.
+    fr: Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un semi-fini.
   values:
-    fabrique:
+    accessoire:
       label:
-        fr: Fabriqué
-    achete:
+        fr: Accessoire
+    consommable:
       label:
-        fr: Acheté
-    sous_traite:
+        fr: Consommable
+    libelle:
       label:
-        fr: Sous-traité
-    fantome:
-      label:
-        fr: Fantôme
+        fr: Libellé
       description:
-        fr: Un niveau de nomenclature sans existence en stock.
+        fr: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
+    outillage:
+      label:
+        fr: Outillage
+    produit_fini:
+      label:
+        fr: Produit fini
+    plaque:
+      label:
+        fr: Plaque
+    semi_fini:
+      label:
+        fr: Produit semi-fini
 
 famille:
   # ARCTCODFAM nchar(4) — la liste close se relève à l'analyse (D883)
@@ -115,22 +126,31 @@ sous_famille:
         fr: Autre
 
 gestion:
-  # ARCTGSAV — le code de gestion (D883)
+  # ARCTFATN nchar(2) — le code de gestion (D883/D936) : « fabriqué,
+  # acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le
+  # champ du code de gestion » ; les codes (01, 02, 03, 07, 09, 12, 14,
+  # 17, 32, 33 dans l'échantillon) se traduisent à la règle du mapping
+  # (D893), la table reste à relever
   type: enum
   label:
     fr: Code de gestion
   hint:
-    fr: La façon dont l'article est géré — sur stock, à la commande, sans stock.
+    fr: La façon dont l'article existe — fabriqué, acheté, sous-traité, ou fantôme.
   values:
-    stock:
+    fabrique:
       label:
-        fr: Sur stock
-    commande:
+        fr: Fabriqué
+    achete:
       label:
-        fr: À la commande
-    sans_stock:
+        fr: Acheté
+    sous_traite:
       label:
-        fr: Sans stock
+        fr: Sous-traité
+    fantome:
+      label:
+        fr: Fantôme
+      description:
+        fr: Un niveau de nomenclature sans existence en stock.
 
 matieres:
   # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)

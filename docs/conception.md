@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -107,7 +107,12 @@ Q58) :
    D693–D694), les droits étendus aux opérations (D691), le degré
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
-   (D705–D708) ;
+   (D705–D708) ; **security.md** (13/09/2026) — la vue transversale
+   de la sécurité depuis D25, ses points ouverts tranchés un à un
+   (D900–D928 ; les huit principes du domaine 7 tranchés D907–D926
+   — la sandbox, la rotation, le navigateur, HTTPS, le dépôt, les
+   fichiers, les dépendances, les journaux ; à Q7 le moyen, jamais
+   le principe) ;
 3. **l'administration et l'exploitation** — **soldé** (D709–D743 :
    administration.md et telemetry.md) : le module d'administration
    (D710–D711), les comptes au quotidien (D712–D723), l'exploitation
@@ -1025,6 +1030,35 @@ Q58) :
 | D897 | **La grille tarifaire en hypercube — le temps en dimension du tuple** (tranche D895, étend D402 par D134) : « la forme 1 décrit le lien hypercube que je souhaite mettre en avant. Car, au-delà de savoir quel prix appliqué quand à qui, je souhaitais visualiser les évolutions de la grille tarifaire dans le temps » — `tarifs: list of [tiers.tiers, technique.tranche, date_application: date]`, trois dimensions, une cellule par combinaison (D403) ; **une dimension de valeur** (la date, typée) **à côté des entités nommées** — les clés typées de D134, l'extension de D402 ; la cellule porte le prix, le forfait, le numéro de tarif, la validité, et ses calculés `planifie` et `en_vigueur` (les sœurs par `owner`, les dimensions par leur nom, `any` à condition seule D887) ; la forme 3 (la grille datée) écartée : « élégante pour répondre rapidement à la question de quel tarif appliqué », mais elle « nécessite de recouper toutes les modifications avant de la restituer… en sachant que nous avons perdu des informations sur la construction et son évolution ». | L'entité `tarif` de D894 retirée ; la forme éclatée de la cellule en bloc — la clé `fields:` sous le champ — validée par D898. Voir §3.2c. |
 | D898 | **La cellule du n-aire en bloc sous `fields:`** (nomme la forme éclatée de D403, précise D897) : « je valide pour fields sous une liste » — sous un champ `list of [a, b, …]`, **la clé `fields:` porte les champs de la cellule** en bloc, l'équivalent de l'accolade en ligne, chaque champ avec tout son kit (type, facettes, calculés) ; et l'exemple s'allège : « tu peux enlever planifie et en_vigueur. Valide suffit » — la cellule du cas 3 porte le prix, le forfait, le numéro de tarif, `valide`, le commentaire, sans calculé. | La règle 2 de D892 s'applique d'elle-même : la cellule riche s'écrit en bloc, l'accolade reste au cas court. Voir §3.2c. |
 | D899 | **Le morceau 2 du cas 3 clos** (le modèle champ par champ — D882 à D898, lié le 09/09) : « je valide, consigne la clôture du morceau 2. La validation définitive se fera après la relecture complète des fichiers de configuration » — quarante-deux fichiers valides (la chaîne des déclarations depuis `syncytium.yml`, les quatre modules, seize entités, deux cent vingt-cinq champs, `groups.yml`, `settings.yml`), cinq renvois à l'analyse de la source, trois formes en proposition (`settings:`/`groups:` dans `version.yml`, le bloc `convention:` du connecteur cegid, pas d'`entities:` pour un storage base de données), l'authentification et le smtp à la question 10 ; **la clôture est celle du morceau, la validation définitive viendra de la relecture complète des fichiers de configuration par l'auteur** — le patron des cas précédents. | La suite : les questions 7–10 du cadrage, puis le morceau 3 (la source). Voir §3.2c. |
+| D900 | **`degree:` confirmé, `reset_coverage` au plancher `administrator`** (solde les propositions de D699 et D881 — le premier point ouvert de security.md, la vue transversale de la sécurité créée le 13/09) : « je valide » — `degree:` dans `groups.yml`, défaut `user` ; `reset_coverage`, la vingtième opération du socle, au plancher `administrator` — la relecture complète de la source est un acte d'administration. | L'inventaire des planchers passe à vingt (D701 étendu). Voir §3.2c. |
+| D901 | **`unencrypted:` visible chaque jour** (solde la proposition de D705) : « je valide » — le nom retenu ; le connecteur appelé en clair paraît **dans le dashboard de santé** (D731) et **dans le mail des faits marquants** (D733) — la dérogation ne dort jamais dans un fichier d'environnement, elle se relit tous les matins. | Voir §3.2c. |
+| D902 | **Le chiffrement automatisé, le clair refusé au démarrage** (solde le flag de D707, précise D729/D745) : « je valide » — **le wizard d'initialisation demande les secrets et les chiffre lui-même** ; **au démarrage, une valeur en clair dans le `.env` pour une variable déclarée en `secrets:` vaut refus de démarrer**, la raison donnée avec la commande à exécuter (`syncytium encrypt`). | Le fail-closed jusqu'au fichier de secrets. Voir §3.2c. |
+| D903 | **La réactivation d'un enregistrement désactivé — l'acte exceptionnel de l'administrateur** (solde la sous-question de D137/Q35 ; écarte la proposition d'une opération `reactivate` au plancher `manager`) : « la réactivation d'un enregistrement désactivé doit être une opération exceptionnelle. Je ne souhaite pas la mettre à disposition d'un utilisateur ou d'un manager. Cela reste de l'action d'un administrateur. Je ne souhaite pas le faire apparaître comme une fonction exploitable par la configuration (pas de hook). Cela sera une des fonctionnalités couvertes par les écrans d'administration de Syncytium » — **pas une opération du socle** : ni déclarable, ni un hook, hors du catalogue des planchers ; **une fonctionnalité des écrans d'administration** (le module D710, le degré `administrator`) ; la garde de D141 (refus si un enregistrement actif porte la même clé fonctionnelle), l'identité conservée (D142 — réactiver = la même), tracée par l'historisation (D429). | Le pendant de `ban`/`renew` (D714) côté enregistrements : l'exception vit à l'administration, jamais au modèle. Voir §3.2c. |
+| D904 | **Le déterminisme au hook, le cooldown à l'administration** (solde le reliquat de Q31 — D58–D60 transposés dans la grammaire des opérations D595/D609 ; corrige l'omission de hooks.md) : « c'était le hook qui portait ces informations en natif. Cela n'a pas été retranscrit dans le hook. Ce ne sont pas des paramètres qui peuvent varier avec la configuration. Une opération est déterministe ou pas. Elle ne peut pas changer sans faire changer son code. L'exécution et l'utilisation d'un cache sont portées par l'opération elle-même (comme un garde-fou). La configuration ne peut pas surcharger cet aspect. La durée du déterminisme est également portée par l'opération elle-même car cela dépendra éventuellement de la façon dont elle sera implémentée. A contrario, le cooldown est un paramètre d'administration et il peut être configurable » — **le déterminisme et sa fenêtre sont des propriétés intrinsèques du hook d'opération**, déclarées à son contrat comme le degré (D697/D699 — `deterministic: <durée>`, absent = non déterministe ; visibles au `describe` D645), **jamais surchargeables par la configuration** ; le doublon (même opération, mêmes paramètres) dans la fenêtre reçoit le résultat mémorisé sans effet répété (D59), l'invalidation reste l'acte de l'administrateur (D60 — le module D710, les trois grains) ; **le cooldown (D58) est un paramètre d'administration** : le défaut en setting dynamique de l'application (`operation.cooldown`, défaut `1min` — D588), la surcharge à la déclaration `operations:` (`cooldown:`), **l'API seule** (D58), la période mesurée de la fin de l'exécution au début de l'appel suivant, le rappel refusé = **un refus journalisé** (D43). | Ma lecture « les clés de juin tombent » **corrigée par D905** : elles ne tombent pas, elles vivent au contrat du hook. Voir §3.2c. |
+| D905 | **Les propriétés de juin au contrat du hook** (corrige D904 — « les clés de juin ne tombent pas ») : « les clés de juin ne tombent pas. Elles sont intrinsèques à l'opération. Une opération s'exécute et elle possède aussi des propriétés que je souhaite exploiter. Seulement, les paramètres ne sont pas exposables dans la configuration mais dans le contrat du hook » — **l'opération possède des propriétés d'exécution**, portées par **le contrat du hook** (le code), jamais par la configuration : `execution: once` (D57 — l'exécution unique, la relance manuelle), `deterministic: true \| false` (D59) et `deterministic_duration: <durée>` (la fenêtre de mémoïsation — **deux clés distinctes**, la fusion de D904 défaite), aux côtés de `degree:` (D699) ; visibles au `describe` (D645) ; **la liste reste ouverte** (« des propriétés que je souhaite exploiter ») ; **et le moteur les exploite** : « ces paramètres doivent être exploités par Syncytium pour mieux gérer le déterminisme avec un cache ou pas (par exemple) » — le hook déclare, **Syncytium lit le contrat et applique** : le cache de mémoïsation tenu pour le déterministe et vidé à la fenêtre, aucun cache pour le non-déterministe, l'exécution unique sans rejeu ; le cooldown seul demeure à l'administration (D904). | La graphie anglaise du catalogue (Q47/D301) — les noms de juin (`deterministe`, `determinisme_duree`) traduits, la sémantique intacte. Voir §3.2c. |
+| D906 | **La rétention du résultat, un paramètre d'administration** (complète D904–D905 — la cinquième clé de juin, D55) : « retention_resultat est un paramètre d'administration, je valide » — la durée pendant laquelle le résultat d'une opération reste consultable (D55) tient au stockage, non au code : le défaut en setting dynamique de l'application (`operation.retention`, défaut `90d` — la valeur de l'exemple de juin, D588), la surcharge `retention:` à la déclaration `operations:` ; le résultat échu est purgé. | Le partage est complet : quatre propriétés au contrat (`degree`, `execution`, `deterministic`, `deterministic_duration`), deux paramètres à l'administration (`cooldown`, `retention`). Voir §3.2c. |
+| D907 | **L'environnement `sandbox`** (le premier principe du domaine 7 — la sandbox des hooks jamais finalisée ; dans la lignée de D112/D339/D342 et D680/D728) : « nous n'avions pas finalisé le fonctionnement de la sandbox. Pour ne rien casser et être dans la lignée des environnements déjà explorés, je propose d'avoir un environnement de type "sandbox" qui porte un fonctionnement permettant de tester et d'évaluer la description en cours dans un environnement fermé et sécurisé (tant sur la base de données que sur les hooks en cours). Dans le cas d'un environnement "sandbox", il faut préciser le nom d'un environnement de référence. Ainsi, à l'initialisation, une duplication de cet environnement est réalisée, puis une migration est appliquée pour atteindre la version sandbox » — **un type d'environnement** (`type: sandbox`, l'écriture en proposition) déclaré dans `environments/`, **avec un environnement de référence** (`reference: production`) ; **à l'initialisation** : la duplication de la référence (`duplicate_instance` D680 — la base, les fichiers des entités D164, la configuration), puis **la migration** (D673–D679) vers la version que le sandbox cible ; **fermé et sécurisé** : sa propre base (la copie — la référence jamais touchée), ses propres connecteurs (D617), les hooks en cours n'agissent que sur lui. | Le staging de D112 (« copie prod → migration vers la bêta ») trouve sa déclaration. À préciser : la version cible (la plus élevée du statut `beta` — D801 ?), les connecteurs sortants du sandbox (le mock D627 ?), l'éphémérité et l'accès restreint (§7.3 — les données réelles), le sort de `staging.yml` (D339) ; la déclaration `uses:` au contrat du hook reste en attente. **L'écriture `type:`/`reference:` remplacée par D908** : la sandbox est un statut de `versions/`. Voir §3.2c. |
+| D908 | **La sandbox, un statut de versions — `from:` et la transitivité** (précise D907, étend D340/D804–D805/D801) : « le type d'environnement "sandbox" se traite comme "production" ou "beta" dans la section "versions". Dans la section "sandbox", nous ajouterons un paramètre "from:" qui précise l'environnement et la version à utiliser (ex : beta/v1.0.0.0). Une sandbox peut faire référence à une autre sandbox et les migrations seront assurées par transitivité » — **`sandbox` est un statut** : le dossier `versions/sandbox/` et son fichier `sandbox.yml`, déclaré dans `versions.yml` à l'usage (D804), lié à son environnement par `environment:` (D805 — l'environnement de type sandbox n'est que cela : celui que le statut désigne, `type:` et `reference:` de D907 tombent), les versions au regex (D806) ; **`from: <statut>/<version>`** (`from: beta/v1.0.0.0`) nomme l'origine dupliquée à l'initialisation puis migrée ; **une sandbox peut naître d'une sandbox** (`from: sandbox/v1.0.0.1`) — **les migrations s'enchaînent par transitivité**, d'origine en origine, jusqu'à la version de la sandbox ; le mode d'exécution de D801 s'étend : `beta \| production \| sandbox`. | Le cinquième dossier de D340 ; `staging.yml` (D339) demeure l'environnement du statut `beta`. À préciser : `from:` porté par le fichier de statut (une origine pour toutes ses versions) ou par chaque `version.yml` ; la place de la sandbox dans les transitions D344 (sandbox → beta ?) ; les connecteurs sortants et l'éphémérité (D907). **Précisé par D909–D911.** Voir §3.2c. |
+| D909 | **`from:` porté par chaque `version.yml`** (solde le point 1 de D908) : « le from: est porté par chaque version.yml » — **une origine par version de sandbox**, écrite en tête à côté de `version:` (D801) ; le fichier de statut `sandbox.yml` ne porte que `environment:` (D805) et le regex (D806), comme `beta.yml`. | Deux sandboxes d'origines différentes vivent sous le même statut ; la chaîne de transitivité (D908) se lit de version.yml en version.yml. Voir §3.2c. |
+| D910 | **De la sandbox vers `beta` ou `production`, par un geste de fichier** (solde le point 2 de D908 — étend D344/D345) : « de sandbox vers beta ou production par un geste de fichier » — la sandbox **entre dans le cycle de vie matérialisé par l'emplacement** (D340) : `sandbox → beta \| production`, le déplacement du dossier de version ; l'ordre incrémental de D345 s'impose à l'arrivée ; une même version dans deux statuts = l'erreur de D344. | Ma lecture (« signalé, jamais bloquant ») **écartée par D928** : `from:` doit être supprimé à la promotion — une erreur avant l'ingestion ; l'origine promue casse le lien des sandboxes qui la citaient. Voir §3.2c. |
+| D911 | **Les connecteurs de la sandbox sont ceux de son environnement** (solde le point 3 de D908 — confirme D617 pour D907) : « les connecteurs sont portés par l'environnement et non la version. Par conséquent, les connecteurs sont à la main du technicien qui met en place les connecteurs dont il a besoin. Le mock y trouve sa place comme pour les versions "beta" » — **rien de nouveau** : l'environnement que le statut `sandbox` désigne déclare ses connecteurs (D617) — le storage de la copie, le smtp de test, le mock (D627) ; **aucune coupure automatique** des sortants par le moteur, la fermeture est l'œuvre du technicien. | Le sandbox est « fermé » parce que son environnement l'est, non par un régime spécial. Voir §3.2c. |
+| D912 | **L'éphémérité de la sandbox — l'instance survit à l'arrêt, la suppression est un geste** (solde le point 4 de D908, « le fonctionnement de docker ») : l'hésitation de l'auteur — « suppression de l'instance à l'arrêt ou la conservation tant que l'administrateur n'exécute pas une commande pour supprimer l'instance… une sandbox doit pouvoir être montée rapidement, testée, retestée et supprimée… notamment sur des phases de mises au point » — tranchée : « je valide la seconde option » — **l'instance survit à l'arrêt** (la relancer ne redéclenche ni duplication ni migration — le coût d'initialisation payé une fois) ; **la suppression est explicite** : la commande de l'administrateur, ou **la rétention d'inactivité** en setting dynamique (`sandbox.retention`, défaut `7d` — l'instance non relancée depuis ce délai supprimée d'office, annoncée la veille dans le mail des faits marquants D733) ; **le registre des instances** : Syncytium connaît toutes les sandboxes créées — l'origine, la taille, le dernier usage — listées à la vue de santé (D731) ; **quatre gestes en commande** (le patron D708/D730) : lister, supprimer, purger les inactives, **réinitialiser** (re-dupliquer depuis l'origine sans toucher la déclaration). | L'image et le conteneur de docker transposés : l'origine (`from:`) est l'image, l'instance le conteneur. Le défaut `7d` est le mien. Voir §3.2c. |
+| D913 | **`connectors:` au contrat du hook, `uses:` à la déclaration** (solde le point 5 — la sixième clé de juin, `connecteurs: [stockage_documents]` du §8.4, replacée comme les cinq autres D904–D906) : « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution). La déclaration fait le lien entre le paramètre qui peut donc être un connecteur et le connecteur déclaré dans la description. "uses:" peut être approprié pour faire le matching entre le nom du connecteur attendu en entrée de l'opération et le nom du connecteur défini dans la description. La clé "connecteurs" à renommer en "connectors" est intrinsèque à l'opération qui fournit la liste des connecteurs attendus pour l'exécution » — **`connectors:` au contrat** (intrinsèque, avec `degree`/`execution`/`deterministic`) : les connecteurs attendus, **nommés et typés par leur famille** (`documents: file`, `mailer: smtp`) — des paramètres d'exécution ; **`uses:` à la déclaration `operations:`** : le lien nom attendu → connecteur déclaré (`documents: archive`, le connecteur de l'environnement D617) ; **l'ingestion vérifie** : chaque attendu lié, la famille conforme (D613), chaque environnement le fournit (la complétude D617 étendue) ; tout accès à un connecteur non attendu est refusé (D599). | Le paramètre-connecteur rejoint les paramètres de l'opération (D609) ; la liaison implicite **écartée par D914**. Voir §3.2c. |
+| D914 | **Aucune liaison implicite — `uses:` s'écrit toujours** (solde la réserve de D913 ; confirme D805 « tout lien de configuration s'écrit », D415/D765/D767) : la liaison implicite quand l'environnement n'offre qu'un connecteur de la famille — « facilitateur pour l'intégration mais cela semble être en contradiction avec un des concepts du projet » — **écartée** : « je valide la première option » — **chaque connecteur attendu (D913) est lié explicitement par `uses:`** ; le facilitateur passe dans **le message d'erreur d'ingestion**, qui nomme l'attendu, sa famille et le candidat unique (« le connecteur attendu `documents` (famille `file`) n'est pas lié ; un seul candidat dans l'environnement : `archive` ») ; une ligne à écrire, une fois. | Le second connecteur de la même famille ajouté plus tard ne rend rien ambigu : le lien était écrit. La seconde option (la liaison tolérée, signalée par un warning D589) consignée comme écartée. Voir §3.2c. |
+| D915 | **La duplication d'une sandbox déclenche `rotate`** (conséquence de D603/D730 sur D907–D912) : « la clé dérive bien de l'environnement + machine. sandbox est un environnement. Par conséquent, lors de la recopie des données de l'environnement, un rotate est à appliquer sur les clés existantes » — **la sandbox a sa propre clé** (son environnement + la machine, D603) ; **à l'initialisation** (la duplication de l'origine, D907/D909), **les valeurs chiffrées copiées sont re-chiffrées sous la clé de la sandbox** — les champs des types chiffrants (D706) et les secrets repris (D707) — le `rotate` de D730 enchaîné au geste, comme à chaque restauration ; **`reset`** (D912 — la re-duplication) le rejoue ; les secrets propres à la sandbox (ses connecteurs, D911/D617) naissent chiffrés sous sa clé (D902). | Le troisième déclencheur de `rotate` après la restauration et la commande (D730). Ma lecture, à confirmer : le re-chiffrement suppose la clé de l'origine dérivable — la même machine ; une sandbox montée ailleurs relève du chemin de la restauration (D728/D730). Voir §3.2c. |
+| D916 | **L'empreinte porte son algorithme ; le rehachage par `rotate` seul** (le second principe du domaine 7 — B2 ; précise D33/D463/D603/D707/D730) : « je valide rotate seul » — **toute empreinte stockée porte l'identifiant de son algorithme** (le mot de passe D463, la clé dérivée D603, les valeurs des types chiffrants D706) : changer d'algorithme ne casse aucun compte existant, le moteur vérifie avec celui que l'empreinte annonce ; **le rehachage et le re-chiffrement sous l'algorithme courant ne se font que par `rotate`** (D730 — en masse, transactionnel, tracé), **jamais silencieusement à la vérification** ; `rotate` est ainsi **le geste unique** pour tout ce qui re-chiffre ou rehache — la restauration, la duplication d'une sandbox (D915), la commande, et désormais le changement d'algorithme ; l'exigence transmise à Q7 : **des standards publiés, jamais un algorithme maison** — le choix (le hachage des mots de passe, la dérivation de clé, le chiffrement des valeurs) relève de l'architecture technique. | Le rehachage silencieux à la vérification écarté : un geste privilégié sans trace, contraire à la doctrine (security.md — « aucun acte privilégié sans trace »). Voir §3.2c. |
+| D917 | **La session de l'IHM en cookie, l'API au porteur seul** (le troisième principe du domaine 7 — B3, les règles 1 et 2 ; précise D686/D692–D693, reprend l'étude d'architecture de juin) : « 1. je valide, 2. je valide » — **la session interactive voyage dans un cookie inaccessible au script, sécurisé, restreint au site** (jamais un jeton dans le stockage du navigateur — l'exposition au script tiers fermée) ; **l'API n'accepte que la preuve au porteur** (la clé d'API, le bearer — D692/D107), **jamais le cookie** : une page tierce ne peut faire porter la session de l'utilisateur à une requête d'API — la falsification de requête inter-sites fermée par construction, sans jeton anti-CSRF à gérer ; les attributs du cookie et l'en-tête de la preuve relèvent de Q7. | Les règles 3 (les origines autorisées) et 4 (l'échappement, le hook d'interface) consignées par D918. Voir §3.2c. |
+| D918 | **Les origines autorisées à l'environnement ; les valeurs toujours en texte, les templates échappés, le hook d'interface seul code tiers** (B3, les règles 3 et 4 — solde le troisième principe du domaine 7 ; précise D617/D562/D261/D397/D209/D66/D645) : « 3. je valide, 4. je valide, consigne D918 » — **`cors:` à l'environnement** (D617 — le déploiement, non la version) : la liste explicite des origines tierces dont une page peut appeler l'API depuis un navigateur ; **absent = aucune** (seule l'IHM de Syncytium, de même origine, parle à son API) ; **le joker `*` refusé à l'ingestion** (D805 — la liste nommée) ; les consommateurs serveur (connecteurs, webhooks, scripts) hors de portée de CORS ; la redirection SSO (D692) est une navigation, non un appel ; **une origine autorisée ne dispense de rien — la preuve au porteur demeure** (D917) ; **la règle 4 en trois lignes** : (a) **les valeurs saisies sont toujours rendues comme du texte** (D562/D261 — « le champ texte utilisateur reste nu »), le composant échappe, jamais une balise ; (b) **les templates du technicien** (mustache + markdown D562, les labels à gabarit D397, les masques d'explication D209) **échappent leurs variables et n'acceptent pas de HTML brut** — le technicien écrit du markdown, jamais du HTML ; (c) **le hook d'interface** (D66, §8.2) **est le seul code tiers au navigateur** — jamais `private`, sous la responsabilité du technicien, **listé par la documentation générée** (`describe` D645) pour que l'administrateur sache quel code tourne chez ses utilisateurs ; **et la page n'autorise que les scripts qu'elle connaît** — ceux de Syncytium et les hooks d'interface enregistrés, aucun script en ligne venu d'une donnée, aucune origine étrangère : le filet derrière l'échappement (la politique de contenu, l'en-tête exact à Q7). | B3 soldé (D917–D918). Voir §3.2c. |
+| D919 | **HTTPS vérifié au démarrage, un certificat partout — l'auto-signé fourni par Syncytium** (le quatrième principe du domaine 7 — B4 ; précise D705/D706/D745/D759) : « même pour la boucle locale, nous fournirons un certificat. Syncytium pourra fournir un certificat auto-signé » — **aucune exemption** : ce que Syncytium sert est en HTTPS, la boucle locale et le poste domestique (D759) compris ; **le certificat relève de l'infrastructure** (le pendant de D706 pour le transit — ni émission ni renouvellement par le moteur) et **se déclare à l'environnement** (l'écriture en proposition : le couple de fichiers fourni, ou le proxy qui termine le HTTPS et le signale par l'en-tête convenu) ; **à défaut, Syncytium fournit un certificat auto-signé** — engendré à l'initialisation (le wizard D729), rangé avec les secrets (D707), le navigateur averti comme il se doit ; **la vérification au démarrage** : servi en HTTPS ou refus de démarrer, la raison donnée (D745). | La boucle locale n'échappe pas à la règle : la doctrine « HTTPS sans dérogation » (D705) tient mot pour mot. Voir §3.2c. |
+| D920 | **Le dépôt du client, un dossier ; l'identité d'une version = l'empreinte environnement + numéro** (le cinquième principe du domaine 7 — B5 ; précise D336/D324/D326) : « le dépôt de configuration du client est un dossier contenant toute la description du projet. Ce dossier peut se synchroniser via git ou via un autre dispositif. Le dispositif est en dehors de Syncytium… S'appuyer sur le commit de git est trop restrictif. Je préfère une empreinte liée à l'environnement + numéro de version, qui généralise » — **le dépôt est un dossier** (D336), **sa synchronisation et ses droits sont hors Syncytium** (git ou autre — qui pousse relève du dispositif du client) ; **l'ingestion calcule l'empreinte du dossier de la version ingérée** et la consigne **au registre des versions** (D326) **sous la clé environnement + numéro de version** — indépendante de tout outil ; le déploiement (l'ingestion) est un acte tracé du technicien ; la signature d'une version différée. | Ma lecture du refus **écartée par D927** : la configuration changée sous le même numéro n'est pas relue, l'empreinte trace et réclame le bump ; la sandbox se recharge. Voir §3.2c. |
+| D921 | **L'ingestion d'une sandbox est un acte d'administration** (précise D920 pour le statut `sandbox` — D907–D912) : « dans le cas de sandbox, l'ingestion est un acte d'administration » — pour `beta` et `production`, déposer la version suffit, le moteur la découvre et l'ingère au chargement (D324/D801) ; **pour une sandbox, le dépôt du dossier ne suffit pas** : l'ingestion — la duplication de l'origine (`from:`), la migration, la rotation des clés (D915) — **est déclenchée par l'administrateur** (le degré `administrator`, le module D710 ou la commande `syncytium sandbox` D912), **tracée** (D704) et consignée au registre (D920 — l'empreinte sous environnement + version). | Le sandbox naît d'un geste, jamais d'un fichier posé : la copie de données réelles (§7.3) et le coût d'initialisation (D912) sont sous la main d'un administrateur. Voir §3.2c. |
+| D922 | **La recharge — une ingestion limitée à la sandbox** (nomme le quatrième geste de D912, précise D921) : « la recharge est une ingestion limitée à l'usage de la sandbox » — **la recharge** (`reload` — le `reset` de D912 renommé) **rejoue l'ingestion** d'une sandbox : la duplication de l'origine (`from:`), la migration, la rotation des clés (D915), la déclaration intacte — **une ingestion** (donc un acte d'administration, D921, tracé) **réservée au statut `sandbox`** : `beta` et `production` ne se rechargent pas, une version y est ingérée une fois (D324/D326). | Les quatre gestes de D912 : `list`, `remove`, `prune`, `reload`. Voir §3.2c. |
+| D923 | **Les fichiers hors base — servis par le moteur seul** (le sixième principe du domaine 7 — B6 ; précise D160–D161/D164/Q39, le pendant de D706/D919 pour les fichiers) : « je valide » — **le dossier des fichiers appartient au moteur et n'est jamais servi directement** par le serveur web (aucune adresse ne mène à un fichier sans passer par Syncytium) ; **tout accès passe par le moteur**, sous la confidentialité du champ (D25) et l'appartenance de la ligne (D71) — voir le fichier, c'est voir le champ qui le porte ; **les noms sur disque sont opaques** (le nommage Syncytium de D161 — sans rapport avec le nom d'origine ni avec la donnée ; le nom d'origine en métadonnée du type fichier D160) ; **les droits du dossier relèvent de l'infrastructure**. | La synchronisation (D164) et la sauvegarde (D727) portent le dossier avec la base ; l'anonymisation d'un fichier = la suppression physique du contenu (Q39) — l'exception assumée à « masquer, jamais détruire ». Voir §3.2c. |
+| D924 | **Les dépendances affichées par la documentation générée ; les failles identifiées hors du moteur** (le septième principe du domaine 7 — B7 ; précise D19, D333/D645) : « les dépendances seront à afficher dans la documentation auto-générée. Les failles seront identifiées par le dépôt ou par une action extérieure » — **la documentation générée de l'instance** (`describe`, D630/D645 — la doc technique de l'application) **liste les dépendances du moteur et leurs versions** : l'administrateur sait de quoi son instance est faite ; **la veille des vulnérabilités n'est pas l'affaire du moteur** — le dépôt public (son outillage) ou une action extérieure l'assurent ; les dépendances compatibles AGPL (D19), épinglées au dépôt (ma proposition, non contredite — le domaine 8). | Le même patron que le certificat (D919) ou le chiffrement au repos (D706) : le moteur rend visible, l'infrastructure agit. Voir §3.2c. |
+| D925 | **Le journal d'accès au proxy ; le journal du moteur porte les événements de sécurité** (le huitième principe du domaine 7 — B8 ; précise D343/D737/D43/D720/D703) : « 1. je valide, 2. le journal d'accès reste au proxy » — **le journal d'accès complet** (une ligne par requête HTTP) **est l'affaire du proxy** (D919 — celui qui voit chaque requête en premier) : le moteur ne le duplique pas, même en `verbose` ; **le journal du moteur** (D343/D737 — le fichier, le technicien seul) **porte les événements de sécurité avec leur sens** : `info` — l'authentification réussie, la déconnexion, la révocation, la rotation des clés (D730/D916), l'ingestion et la recharge (D920/D922) ; `warning` — l'échec d'authentification et le verrouillage (D720), le refus d'autorisation (D43), le refus de cooldown (D904) et le 429 (D105), l'activation du secours (D81), le mode safe (D718), le passe-droit (D835), la délégation (D715) ; `error` — l'erreur d'un connecteur, la page de maintenance (D627) ; chaque ligne porte le compte, l'origine, la ressource ou l'opération, la règle ou le motif — **jamais un secret, un mot de passe même erroné, une valeur `trace: limited` (D703) ou `private`** ; l'audit (D702–D704 — l'entité en base, l'administrateur) et le journal (le fichier, le technicien) coexistent — un même événement peut aller aux deux ; les refus journalisés nourrissent D43. | Le domaine 7 en huit principes, tous soldés (D907–D926). Voir §3.2c. |
+| D926 | **Le throttling des traces de sécurité** (complète D925 — contre la saturation des journaux) : « pour éviter une attaque qui viendrait à saturer les journaux… un throttling des traces sera à positionner sur chaque événement de sécurité (événement, date de début, date de fin et nombre de fois) avec une première trace sur le premier événement avant le déclenchement du throttling » — **sur chaque événement de sécurité** : **la première occurrence est tracée en entier**, aussitôt ; **les suivantes, dans la fenêtre, sont comptées** et donnent **une seule ligne agrégée** — l'événement, la date de début, la date de fin, le nombre de fois ; l'attaque qui répète mille fois le même échec produit deux lignes, pas mille ; **le compte agrégé nourrit la détection** (D43 — la pente des refus). | En proposition : la clé d'agrégation = l'événement + le compte ou l'origine ; la fenêtre en setting dynamique (`logging.throttle`, `1min` — D588), la ligne agrégée émise à la fin de la fenêtre ou quand le flot cesse ; la même agrégation vaut pour l'entité d'audit (D704 — le grain de l'acte et le comptage, D702). Voir §3.2c. |
+| D927 | **L'identité d'une version = environnement + numéro ; la configuration changée n'est pas relue, l'empreinte trace** (précise D920 — écarte ma lecture du refus ; D324/D326/D801, D922) : « l'empreinte ne tient pas compte de la configuration pour les environnements autres que sandbox. Uniquement le libellé "environnement" + "version". Si la configuration change pour le même numéro de version et le même environnement, elle ne sera pas relue, sauf pour sandbox qui nécessitera une réinitialisation. L'empreinte sera calculée. Si l'empreinte n'est plus conforme, une trace sera ajoutée. Cela informera le technicien qu'il faut changer de numéro de version » — **la clé du registre** (D326) **est le couple environnement + numéro de version**, jamais le contenu ; **une version ingérée l'est une fois** : la configuration modifiée sous le même numéro dans le même environnement **n'est pas relue** — la version en service reste celle de l'ingestion, ni refus ni relecture ; **l'empreinte du dossier est calculée à chaque chargement et comparée à celle consignée** — l'écart produit **une trace** (le journal, `warning` D925 — et le patron de D43 : l'écart persistant se voit) qui **informe le technicien qu'il faut changer de numéro** ; **la sandbox est l'exception** : la modification sous le même numéro s'y prend par **la réinitialisation** — la recharge (D922), l'ingestion rejouée. | Le numéro de version reste une promesse (D98 — un contenu par numéro) sans que le moteur bloque : la relecture attend le bump, la trace le réclame. Voir §3.2c. |
+| D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
 | D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
 
 ---
@@ -9834,6 +9868,628 @@ formes en proposition de l'assise, l'authentification et le smtp de
 la question 10. La suite : les questions 7–10 du cadrage, puis le
 morceau 3 (la source).
 
+**security.md — la vue transversale de la sécurité (13/09/2026).**
+« En relisant la documentation, un volet sécurité n'est pas
+clairement mis à jour. Ajoute un fichier security.md qui reprenne
+tous les éléments vus depuis le début du projet » — le onzième
+artefact préparatoire (Q58) : non le détail des droits (rights.md le
+porte), mais **la relecture transversale** depuis D25 — la doctrine
+en six principes (la sécurité par construction, le fail-closed,
+l'anti-oracle, restreindre jamais étendre, masquer jamais détruire,
+la librairie inviolable), la carte en quinze domaines (l'identité,
+l'authentification, la session et l'API, la confidentialité,
+l'audience, les droits d'action, les degrés, les groupes et les
+modules, les frontières d'extension, l'intégrité, la traçabilité,
+l'audit et la détection, le RGPD, les secrets et le chiffrement, la
+disponibilité), **quinze invariants** à prouver à l'implémentation,
+et **les points ouverts** en deux listes — les propositions jamais
+confirmées, et les sujets jamais abordés qui relèvent du domaine 7
+(la sandbox des hooks, le hachage, le navigateur, les certificats,
+le dépôt du client, les fichiers hors base, les dépendances, les
+journaux d'accès). « Les éléments que j'attendais y sont. Les
+points à compléter, complétons-les. »
+
+**Les propositions tranchées (D900–D903).** « A1, je valide » —
+`degree:` sort de la proposition, `reset_coverage` au plancher
+`administrator` (D900 — l'inventaire à vingt). « A2, je valide » —
+`unencrypted:` retenu, et la dérogation **visible chaque jour** : le
+dashboard de santé et le mail des faits marquants la portent (D901).
+« A3, je valide » — le wizard d'initialisation chiffre les secrets
+lui-même, et **une valeur en clair dans le `.env` vaut refus de
+démarrer**, la raison et la commande données (D902 — le fail-closed
+jusqu'au fichier de secrets). **La réactivation d'un enregistrement
+désactivé (D903)** — la proposition d'une opération `reactivate` au
+plancher `manager` écartée : **« la réactivation d'un enregistrement
+désactivé doit être une opération exceptionnelle. Je ne souhaite pas
+la mettre à disposition d'un utilisateur ou d'un manager. Cela reste
+de l'action d'un administrateur. Je ne souhaite pas le faire
+apparaître comme une fonction exploitable par la configuration (pas
+de hook). Cela sera une des fonctionnalités couvertes par les écrans
+d'administration de Syncytium »** — pas une opération du socle, pas
+un hook, hors du catalogue des planchers ; une fonctionnalité des
+écrans d'administration, au degré `administrator`, sous la garde de
+D141 (l'unicité sur les actifs), l'identité conservée (D142), tracée
+(D429). La question 10 du cas 3 (l'authentification de l'entreprise)
+reste au cas : « nous verrons sur le cas 3 en cours de description ».
+Restent en attente : les durées de cooldown et de déterminisme
+(A5 — soldée ci-dessous par D904), et les huit principes proposés
+pour le domaine 7.
+
+**Le déterminisme au hook, le cooldown à l'administration (D904 —
+solde le reliquat de Q31).** Le contexte relu : D58–D60 sont nés en
+juin au §8.4, quand l'opération s'appelait « tâche » — l'anti-abus
+API (une exécution par période, mesurée fin → début, le rappel
+refusé), le déterminisme (le doublon dans la fenêtre reçoit le
+résultat mémorisé), la soupape (l'administrateur invalide le cache).
+Q31 avait tranché le grain (l'opération + ses paramètres) et laissé
+« la valeur des durées — réglage » ; les clés de juin
+(`deterministe`, `determinisme_duree`, `cooldown_api`) n'avaient
+jamais été transposées dans la grammaire des opérations (D595/D609)
+— hooks.md les ignorait. Ma proposition les portait toutes en
+settings dynamiques surchargeables à la déclaration ; l'auteur
+resitue : **« c'était le hook qui portait ces informations en natif.
+Cela n'a pas été retranscrit dans le hook. Ce ne sont pas des
+paramètres qui peuvent varier avec la configuration. Une opération
+est déterministe ou pas. Elle ne peut pas changer sans faire changer
+son code. L'exécution et l'utilisation d'un cache sont portées par
+l'opération elle-même (comme un garde-fou). La configuration ne peut
+pas surcharger cet aspect. La durée du déterminisme est également
+portée par l'opération elle-même car cela dépendra éventuellement de
+la façon dont elle sera implémentée. A contrario, le cooldown est un
+paramètre d'administration et il peut être configurable comme tu le
+proposes. »** — la ligne de partage est celle du degré (D697/D699) :
+ce qui tient au code vit au contrat du hook, ce qui tient à
+l'exploitation vit à l'administration. **Le déterminisme et sa
+fenêtre au contrat** : `deterministic: <durée>` déclaré par le hook
+(absent = non déterministe), visible au `describe`, jamais
+surchargeable ; l'invalidation (D60) à l'administration. **Le
+cooldown à l'administration** : `operation.cooldown` en setting
+dynamique (défaut `1min`), la surcharge `cooldown:` à la déclaration,
+l'API seule, le refus journalisé (D43). J'écrivais « les clés de
+juin tombent » — **corrigé aussitôt par D905**.
+
+**Les propriétés de juin au contrat du hook (D905 — corrige D904).**
+**« Argh… les clés de juin ne tombent pas. Elles sont intrinsèques à
+l'opération. Une opération s'exécute et elle possède aussi des
+propriétés que je souhaite exploiter. Seulement, les paramètres ne
+sont pas exposables dans la configuration mais dans le contrat du
+hook. »** — la correction est nette : l'opération **possède des
+propriétés d'exécution**, elles ne disparaissent pas, elles changent
+de maison — du fichier de configuration de juin au **contrat du
+hook**, avec le degré. Trois propriétés reprises telles quelles, en
+graphie anglaise (Q47/D301) : `execution: once` (D57 — l'exécution
+unique, la relance manuelle), `deterministic: true | false` (D59 —
+l'assertion), `deterministic_duration: <durée>` (la fenêtre de
+mémoïsation — deux clés distinctes, la fusion de D904 défaite) ; la
+liste reste ouverte. Et l'auteur ajoute aussitôt le sens de ces
+propriétés : **« ces paramètres doivent être exploités par Syncytium
+pour mieux gérer le déterminisme avec un cache ou pas (par
+exemple) »** — le hook déclare, **le moteur exploite** : il lit le
+contrat et en tire sa conduite — le cache de mémoïsation tenu pour
+l'opération déterministe et vidé à l'échéance de la fenêtre, aucun
+cache pour la non-déterministe, l'exécution unique sans rejeu ; le
+patron de D609 (« le moteur lit et déclenche ») appliqué aux
+propriétés d'exécution. Le cooldown seul demeure à l'administration.
+
+```yaml
+# le hook invoice (le code) — ce qu'il déclare à son contrat (D595/D699/D905)
+degree: user
+execution: once                  # D57 — l'exécution unique, la relance manuelle
+deterministic: true              # D59 — l'assertion, du code
+deterministic_duration: 1h       # la fenêtre de mémoïsation — jamais surchargée
+
+# settings.yml — l'exploitation (D588)
+settings:
+  application:
+    operation:
+      cooldown:  { mode: dynamic, type: duration, value: 1min }  # le défaut, l'API seule (D904)
+      retention: { mode: dynamic, type: duration, value: 90d }   # le résultat consultable (D906)
+
+# sales/entities/order.yml — la surcharge à la déclaration
+operations:
+  invoice:
+    scope: selection
+    cooldown: 10s                # la période fin → début (D58)
+    retention: 30d               # le résultat purgé au-delà (D55/D906)
+```
+
+**La rétention du résultat à l'administration (D906 — la cinquième
+clé de juin).** « retention_resultat est un paramètre
+d'administration, je valide » — la durée pendant laquelle le
+résultat reste consultable (D55) tient au stockage, non au code :
+`operation.retention` en setting dynamique (défaut `90d`, la valeur
+de l'exemple de juin), la surcharge `retention:` à la déclaration,
+le résultat échu purgé. Le partage de juin est complet : quatre
+propriétés au contrat, deux paramètres à l'administration.
+
+**L'environnement `sandbox` (D907 — le premier principe du domaine
+7).** Ma proposition (le hook déclare à son contrat les familles de
+connecteurs qu'il consomme, `uses:`, tout accès non déclaré refusé)
+visait l'isolation du code ; l'auteur déplace la question **à
+l'environnement** — le lieu déjà exploré (D112, D339, D342) : **« nous
+n'avions pas finalisé le fonctionnement de la sandbox. Pour ne rien
+casser et être dans la lignée des environnements déjà explorés, je
+propose d'avoir un environnement de type "sandbox" qui porte un
+fonctionnement permettant de tester et d'évaluer la description en
+cours dans un environnement fermé et sécurisé (tant sur la base de
+données que sur les hooks en cours). Dans le cas d'un environnement
+"sandbox", il faut préciser le nom d'un environnement de référence.
+Ainsi, à l'initialisation, une duplication de cet environnement est
+réalisée, puis une migration est appliquée pour atteindre la version
+sandbox. »** — la sandbox n'est pas une cage autour du hook, c'est
+**un environnement à part entière** : sa base est une copie, ses
+connecteurs sont les siens, la description en cours et ses hooks s'y
+exercent sans toucher la référence. Le geste d'initialisation
+enchaîne deux primitives acquises — `duplicate_instance` (D680 — la
+base, les fichiers des entités D164, la configuration) puis la
+migration (D673–D679) — exactement le staging de D112 (« copie prod
+→ migration vers la bêta ») qui trouve enfin sa déclaration.
+
+```yaml
+# environments/environments.yml
+production: production/production.yml
+sandbox:    sandbox/sandbox.yml
+
+# environments/sandbox/sandbox.yml — l'écriture en proposition (D907)
+name: sandbox
+description: L'évaluation de la description en cours, sur une copie de la production
+type: sandbox                  # le type d'environnement
+reference: production          # dupliqué à l'initialisation (D680), puis migré (D673–D679)
+logging: logging.yml
+documentation: documentation.yml
+connectors: connectors.yml     # les siens (D617) — jamais ceux de la référence
+settings: settings.yml
+```
+
+Restent à préciser, nommés : **la version cible** (la plus élevée du
+statut `beta` du mode d'exécution — D801 ?), **les connecteurs
+sortants** du sandbox (le smtp, les webhooks — le mock de D627, ou
+les instances de test déclarées par le technicien ?),
+**l'éphémérité et l'accès restreint** (§7.3 — la copie porte des
+données réelles), **le sort de `staging.yml`** (D339 — le staging
+devient-il un sandbox parmi d'autres ?) ; et la déclaration `uses:`
+au contrat du hook, ni validée ni écartée.
+
+**La sandbox, un statut de versions — `from:` et la transitivité
+(D908 — précise D907).** L'auteur replace la déclaration là où
+vivent déjà `beta` et `production` : **« le type d'environnement
+"sandbox" se traite comme "production" ou "beta" dans la section
+"versions". Dans la section "sandbox", nous ajouterons un paramètre
+"from:" qui précise l'environnement et la version à utiliser (ex :
+beta/v1.0.0.0). Une sandbox peut faire référence à une autre sandbox
+et les migrations seront assurées par transitivité. »** — la sandbox
+n'est pas un attribut de l'environnement, c'est **un statut** : le
+cinquième dossier de `versions/` (D340), déclaré à l'usage dans
+`versions.yml` (D804), lié à son environnement par `environment:`
+(D805) — l'environnement « de type sandbox » n'est rien d'autre que
+celui que le statut désigne ; `type:` et `reference:` de D907
+tombent. **`from:`** nomme l'origine, `<statut>/<version>` : à
+l'initialisation, l'instance de l'origine est dupliquée (D680) puis
+migrée jusqu'à la version de la sandbox ; **et l'origine peut être
+une sandbox** — la chaîne se remonte d'origine en origine, les
+migrations s'enchaînent par transitivité. Le mode d'exécution de
+D801 s'étend à `sandbox` ; `staging.yml` (D339) reste l'environnement
+du statut `beta`.
+
+```yaml
+# versions/versions.yml — les statuts déclarés à l'usage (D804)
+beta:       beta/beta.yml
+production: production/production.yml
+sandbox:    sandbox/sandbox.yml
+
+# versions/sandbox/sandbox.yml — le statut sandbox (D908), comme beta.yml
+environment: sandbox                 # l'environnement du statut (D805)
+versions:
+  - v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml   # le regex (D806)
+
+# versions/sandbox/v1.0.0.1/version.yml — l'origine par version (D909)
+version: 1.0.0.1
+from: beta/v1.0.0.0                  # dupliquée à l'initialisation, puis migrée
+
+# versions/sandbox/v1.0.0.2/version.yml — une sandbox née d'une sandbox (D908)
+version: 1.0.0.2
+from: sandbox/v1.0.0.1               # beta/v1.0.0.0 → sandbox/v1.0.0.1 → celle-ci : la transitivité
+```
+
+**Les trois points levés (D909–D911).** « Le from: est porté par
+chaque version.yml » (D909 — une origine par version, le fichier de
+statut nu comme `beta.yml`, l'écriture ci-dessus corrigée en
+conséquence) ; « de sandbox vers beta ou production par un geste de
+fichier » (D910 — la sandbox entre dans le cycle matérialisé par
+l'emplacement, D340/D344, l'ordre de D345 à l'arrivée ; ma lecture à
+confirmer : `from:` sans objet hors du statut, signalé, jamais
+bloquant) ; « les connecteurs sont portés par l'environnement et non
+la version. Par conséquent, les connecteurs sont à la main du
+technicien qui met en place les connecteurs dont il a besoin. Le
+mock y trouve sa place comme pour les versions "beta" » (D911 —
+rien de nouveau, D617 suffit : la sandbox est fermée parce que son
+environnement l'est). Reste **l'éphémérité de la copie** : l'auteur
+hésite entre la suppression à l'arrêt et la conservation jusqu'à une
+commande de l'administrateur (« le fonctionnement de docker ») — la
+première lui plaît, mais « une sandbox doit pouvoir être montée
+rapidement, testée, retestée et supprimée… notamment sur des phases
+de mises au point », et l'initialisation d'un projet conséquent
+peut coûter ; la proposition en cours.
+
+**L'éphémérité tranchée — l'image et le conteneur (D912).** Ma
+proposition transposait le modèle docker que l'auteur invoquait :
+**l'instance survit à l'arrêt** (relancer ne coûte rien — ni
+duplication ni migration), **la suppression est un geste** — la
+commande de l'administrateur ou **la rétention d'inactivité**
+(`sandbox.retention`, `7d` en setting dynamique, l'instance dormante
+supprimée d'office, annoncée la veille aux faits marquants D733),
+**le registre des instances** (l'origine, la taille, le dernier
+usage — à la vue de santé D731) et **quatre gestes en commande** :
+lister, supprimer, purger les inactives, réinitialiser (re-dupliquer
+depuis l'origine). **« Je valide la seconde option, consigne
+D912. »** Le coût d'initialisation ne se paie qu'une fois ; la
+rétention et le registre gardent les zones de stockage.
+
+```bash
+syncytium sandbox list                 # les instances — l'origine, la taille, le dernier usage
+syncytium sandbox remove v1.0.0.2      # la suppression explicite
+syncytium sandbox prune                # les inactives au-delà de sandbox.retention
+syncytium sandbox reload v1.0.0.2      # la recharge (D922) — l'ingestion rejouée depuis from:, la déclaration intacte
+```
+
+**`connectors:` au contrat, `uses:` à la déclaration (D913 — la
+sixième clé de juin).** « D'où sort le paramètre uses: ? » — de ma
+proposition B1, dérivée de `sources:` (D36) et de la clé
+`connecteurs: [stockage_documents]` que l'exemple de juin portait
+sur la même tâche que `execution` et `deterministe` — la seule des
+six clés que D904–D906 n'avaient pas replacée. L'auteur la replace
+et sépare les deux rôles : **« le hook décrit les types de
+connecteurs utilisés (comme des paramètres d'exécution). La
+déclaration fait le lien entre le paramètre qui peut donc être un
+connecteur et le connecteur déclaré dans la description. "uses:"
+peut être approprié pour faire le matching entre le nom du
+connecteur attendu en entrée de l'opération et le nom du connecteur
+défini dans la description. La clé "connecteurs" à renommer en
+"connectors" est intrinsèque à l'opération qui fournit la liste des
+connecteurs attendus pour l'exécution. »** — au contrat,
+`connectors:` nomme et type par la famille les connecteurs attendus
+(des paramètres d'exécution) ; à la déclaration, `uses:` lie chaque
+attendu au connecteur de l'environnement (D617) ; l'ingestion
+vérifie la liaison, la famille (D613) et la complétude par
+environnement ; tout connecteur non attendu est hors de portée du
+hook (D599). Le partage de juin est complet : cinq propriétés au
+contrat, deux paramètres à l'administration, une liaison à la
+déclaration.
+
+```yaml
+# le hook invoice (le code) — le contrat (D595/D699/D905/D913)
+degree: user
+execution: once
+deterministic: true
+deterministic_duration: 1h
+connectors:
+  documents: file                # le paramètre `documents` attend un connecteur file
+  mailer: smtp                   # le paramètre `mailer` attend un connecteur smtp
+
+# sales/entities/order.yml — la déclaration lie (D609/D913)
+operations:
+  invoice:
+    scope: selection
+    cooldown: 10s
+    retention: 30d
+    uses:
+      documents: archive         # le connecteur `archive` de l'environnement (D617)
+      mailer: company_smtp
+```
+
+**Aucune liaison implicite (D914).** Ma réserve de D913 — la liaison
+implicite quand l'environnement n'offre qu'un connecteur de la
+famille — pesée par l'auteur : « la liaison implicite est autorisée
+uniquement si un seul connecteur. Cela est facilitateur pour
+l'intégration mais cela semble être en contradiction avec un des
+concepts du projet ». Le concept : **« tout lien de configuration
+s'écrit »** (D805 — et D415, D765, D767 : rien ne se déduit du
+disque) ; le coût caché : le second connecteur de la même famille,
+ajouté plus tard, rend d'un coup ambiguës toutes les opérations qui
+reposaient sur le silence. Deux issues proposées — aucune liaison
+implicite (`uses:` toujours écrit, le facilitateur passé dans le
+message d'erreur d'ingestion qui nomme l'attendu, sa famille et le
+candidat unique), ou la liaison tolérée mais signalée (le warning
+D589) — **« je valide la première option, consigne D914 »**. Une
+ligne à écrire, une fois ; la déclaration reste complète.
+
+**La duplication d'une sandbox déclenche `rotate` (D915).** En
+ouvrant B2 (le hachage et la dérivation de clé), l'auteur tire la
+conséquence de D603 sur la sandbox : **« la clé dérive bien de
+l'environnement + machine. sandbox est un environnement. Par
+conséquent, lors de la recopie des données de l'environnement, un
+rotate est à appliquer sur les clés existantes. »** — la sandbox a
+sa propre clé ; la copie de l'origine porte des valeurs chiffrées
+sous la clé de l'origine (les champs des types chiffrants D706, les
+secrets repris D707) : **le `rotate` de D730 s'enchaîne à la
+duplication**, comme il s'enchaîne à chaque restauration — le
+troisième déclencheur, après la restauration et la commande ; le
+`reset` de D912 le rejoue ; les secrets propres à la sandbox (ses
+connecteurs, D911) naissent chiffrés sous sa clé (D902). Ma lecture,
+à confirmer : le re-chiffrement suppose la clé de l'origine
+dérivable, donc la même machine ; une sandbox montée sur une autre
+machine emprunte le chemin de la restauration (D728/D730).
+
+**L'empreinte porte son algorithme, le rehachage par `rotate` seul
+(D916 — B2).** La proposition en deux points : **toute empreinte
+stockée porte l'identifiant de son algorithme** — le mot de passe
+(D463), la clé dérivée (D603), les valeurs des types chiffrants
+(D706) — pour que changer d'algorithme ne casse jamais un compte
+existant ; et le rehachage, soit silencieux à la vérification
+suivante, soit par `rotate` seul. À la lumière de D915, où `rotate`
+est déjà le geste qui re-chiffre, la seconde voie s'impose : **« je
+valide rotate seul, consigne D916 »** — le rehachage et le
+re-chiffrement sous l'algorithme courant **ne se font que par
+`rotate`**, en masse, transactionnel, tracé (D730) ; jamais en
+silence à la vérification, qui serait un acte privilégié sans
+trace. `rotate` devient **le geste unique** de tout ce qui re-chiffre
+ou rehache : la restauration, la duplication d'une sandbox (D915),
+la commande, le changement d'algorithme. L'exigence transmise à Q7 :
+des standards publiés — le hachage des mots de passe, la dérivation
+de clé, le chiffrement des valeurs —, jamais un algorithme maison.
+
+**Le navigateur — la session en cookie, l'API au porteur seul (D917
+— B3, les règles 1 et 2).** Quatre règles proposées pour ce que le
+moteur sert au navigateur ; les deux premières validées d'un mot :
+**la session de l'IHM en cookie inaccessible au script, sécurisé,
+restreint au site** — jamais un jeton dans le stockage du navigateur
+(la recommandation de l'étude d'architecture de juin : un script
+tiers qui s'exécuterait dans la page ne peut pas lire le cookie, il
+pourrait lire un stockage) ; **l'API n'accepte que la preuve au
+porteur, jamais le cookie** (D692) — une page tierce ouverte dans le
+même navigateur ne peut donc pas faire porter la session de
+l'utilisateur à une requête d'API à son insu : la falsification de
+requête inter-sites est fermée par la séparation des deux canaux,
+sans jeton anti-CSRF à gérer. Les règles 3 (les origines autorisées)
+et 4 (l'échappement, le hook d'interface) demandées en détail — la
+suite ci-dessous.
+
+**Les origines autorisées et l'échappement (D918 — B3, les règles 3
+et 4).** « Décris-moi les origines autorisées (cors) », « tu as dû
+faire un raccourci… détaille-moi ce dont tu parles » — le détail
+donné, puis **« 3. je valide, 4. je valide, consigne D918 »**.
+
+*Les origines (règle 3).* Le navigateur refuse de livrer à un script
+la réponse d'une autre origine, sauf si le serveur appelé l'accepte
+— CORS protège l'utilisateur, non le serveur. Trois cas : **l'IHM
+générée**, servie par Syncytium sur la même origine que son API —
+rien à déclarer ; **les consommateurs serveur** (connecteurs,
+webhooks, scripts) — hors de portée ; **une page tierce** (le portail
+du client sur son domaine, l'application d'un partenaire) qui appelle
+l'API depuis un navigateur — le seul cas à déclarer. La déclaration
+vit **à l'environnement** (le déploiement, non la version — le
+patron D617) ; **absent = aucune origine tierce** ; **le joker `*`
+refusé à l'ingestion** (la liste nommée, D805) ; la redirection SSO
+est une navigation, non un appel ; **une origine autorisée ne
+dispense de rien** — la preuve au porteur demeure (D917) : CORS dit
+au navigateur ce qu'il peut lire, l'authentification dit au serveur
+qui demande. Et comme l'API ne lit jamais le cookie, la variante
+« avec identifiants », la plus délicate, n'existe pas.
+
+```yaml
+# environments/production/production.yml — les origines tierces (D918)
+cors:
+  - https://portail.entreprise.fr
+  - https://app.partenaire.com
+```
+
+*L'échappement (règle 4).* Le risque : un client nommé `Dupont
+<script>…</script>` inséré comme du HTML dans la liste — le script
+s'exécute chez chaque opérateur, avec sa session. Trois sources de
+HTML, trois régimes : **(a) les valeurs saisies** — toujours rendues
+comme du texte (« le champ texte utilisateur reste nu », D562/D261),
+le composant échappe, jamais une balise ; **(b) les templates du
+technicien** — mustache + markdown (D562), les labels à gabarit
+(D397), les masques d'explication (D209) : de la configuration, mais
+qui incorpore des valeurs — la variable échappée par défaut, la
+conversion markdown sans HTML brut ni script, le technicien écrit du
+markdown, jamais du HTML ; **(c) le hook d'interface** (D66, §8.2) —
+le seul code tiers qui tourne dans le navigateur, que rien ne peut
+contraindre depuis le serveur : jamais `private` (acquis), **sous la
+responsabilité du technicien**, et **listé par la documentation
+générée** (`describe`, D645) pour que l'administrateur sache quel
+code tourne chez ses utilisateurs. **Le filet** : la page n'autorise
+que les scripts qu'elle connaît — ceux de Syncytium et les hooks
+d'interface enregistrés, aucun script en ligne venu d'une donnée,
+aucune origine étrangère ; même une injection qui passerait ne
+s'exécuterait pas (la politique de contenu — le principe ici,
+l'en-tête exact à Q7). **B3 est soldé (D917–D918).**
+
+**HTTPS vérifié au démarrage, un certificat partout (D919 — B4).**
+La proposition : le certificat à l'infrastructure (le pendant de
+D706 pour le transit), la vérification au démarrage (le certificat
+déclaré à l'environnement, ou le proxy qui termine et le signale),
+et une seule exemption — la boucle locale, le cas domestique de
+D759. L'auteur retire l'exemption : **« même pour la boucle locale,
+nous fournirons un certificat. Syncytium pourra fournir un
+certificat auto-signé. »** — « HTTPS sans dérogation » (D705) tient
+mot pour mot : le poste domestique est servi en HTTPS comme les
+autres ; quand l'infrastructure n'apporte rien, **le moteur engendre
+un certificat auto-signé** à l'initialisation (le wizard D729), rangé
+avec les secrets (D707) — le navigateur avertit, l'utilisateur du
+foyer accepte une fois. À l'environnement, l'écriture en
+proposition ; à défaut de déclaration et de proxy, l'auto-signé ; en
+clair, le refus de démarrer, la raison donnée (D745).
+
+```yaml
+# environments/production/production.yml — le transit (D919, en proposition)
+tls:
+  certificate: ${TLS_CERT}           # le couple fourni par l'infrastructure (les chemins)
+  key: ${TLS_KEY}                    #   — ou —
+tls: proxy                           # le proxy termine le HTTPS et le signale par l'en-tête convenu
+
+# environments/home/home.yml — le foyer (D759)
+tls: self-signed                     # engendré à l'initialisation, rangé avec les secrets (D707)
+```
+
+**Le dépôt du client, un dossier ; l'empreinte environnement +
+numéro (D920 — B5).** La proposition : qui pousse une version relève
+du dépôt du client ; l'ingestion consigne l'identité de la version au
+registre (D326) — l'empreinte du commit quand le dépôt est git. Le
+commit écarté : **« le dépôt de configuration du client est un
+dossier contenant toute la description du projet. Ce dossier peut se
+synchroniser via git ou via un autre dispositif. Le dispositif est en
+dehors de Syncytium, comme tu le relèves. S'appuyer sur le commit de
+git est trop restrictif. Je préfère une empreinte liée à
+l'environnement + numéro de version, qui généralise. »** — le dépôt
+n'est qu'un dossier (D336) ; git, un partage, une copie : le
+dispositif est le sien ; **Syncytium calcule lui-même l'empreinte du
+dossier de la version ingérée** et la consigne au registre sous la
+clé **environnement + numéro de version** — on sait toujours quelle
+description tourne, sans dépendre d'un outil. Le déploiement reste
+l'acte tracé du technicien, la signature différée. Ma lecture, à
+confirmer : un même numéro ré-ingéré dans le même environnement avec
+une autre empreinte est une modification sans incrément — refusée,
+le message renvoie au bump du build (D324/D326 : « le retry est un
+acte explicite »).
+
+**L'ingestion d'une sandbox, un acte d'administration (D921).**
+**« Dans le cas de sandbox, l'ingestion est un acte
+d'administration. »** — la nuance sur D920 : pour `beta` et
+`production`, déposer la version suffit, le moteur la découvre et
+l'ingère au chargement (D324, D801) ; pour une sandbox, le dossier
+posé ne fait rien de lui-même — l'ingestion (la duplication de
+l'origine, la migration, la rotation des clés D915) **se déclenche
+par l'administrateur**, au module d'administration (D710) ou par la
+commande `syncytium sandbox` (D912), tracée (D704), l'empreinte
+consignée au registre (D920). La sandbox naît d'un geste, jamais
+d'un fichier posé : la copie de données réelles (§7.3) et le coût
+d'initialisation (D912) restent sous la main d'un administrateur.
+**Et la recharge (D922)** : **« la recharge est une ingestion limitée
+à l'usage de la sandbox »** — le quatrième geste de D912 (« réinitialiser
+— re-dupliquer depuis l'origine sans toucher la déclaration ») prend
+son nom : `reload` ; c'est **l'ingestion rejouée** (la duplication,
+la migration, la rotation D915), donc un acte d'administration
+(D921), **réservée au statut `sandbox`** — `beta` et `production` ne
+se rechargent pas, une version y est ingérée une fois (D324/D326).
+
+**Les fichiers hors base, servis par le moteur seul (D923 — B6).**
+L'acquis : le stockage dual (D161 — les binaires hors base, dans un
+dossier dédié au nommage Syncytium), le type fichier à empreinte et
+mots-clés (D160), les statuts et le contrôle d'intégrité (Q39), la
+synchronisation qui porte la base et le dossier (D164). Quatre
+règles, validées d'un mot — **« je valide, consigne D923 »** : **le
+dossier appartient au moteur et n'est jamais servi directement** par
+le serveur web — aucune adresse ne mène à un fichier sans passer par
+Syncytium ; **tout accès passe par le moteur**, sous la
+confidentialité du champ (D25) et l'appartenance de la ligne (D71) :
+voir le fichier, c'est voir le champ qui le porte ; **les noms sur
+disque sont opaques** — le nommage Syncytium, sans rapport avec le
+nom d'origine ni avec la donnée, le nom d'origine en métadonnée ;
+**les droits du dossier relèvent de l'infrastructure** — le pendant
+de D706 (le repos) et de D919 (le transit) pour les fichiers.
+
+**Les dépendances à la documentation générée (D924 — B7).** La
+proposition : épinglées, le fichier de verrouillage versionné, la
+veille par l'outillage du dépôt public au domaine 8. L'auteur y
+ajoute la visibilité et fixe la frontière : **« les dépendances
+seront à afficher dans la documentation auto-générée. Les failles
+seront identifiées par le dépôt ou par une action extérieure. »** —
+la documentation technique de l'instance (`describe`, D630/D645)
+**liste les dépendances du moteur et leurs versions**, pour que
+l'administrateur sache de quoi son instance est faite ; la veille
+n'est pas l'affaire du moteur — le dépôt public ou une action
+extérieure. Le patron est celui du certificat et du chiffrement au
+repos : le moteur rend visible, l'infrastructure agit. L'épinglage
+reste ma proposition, non contredite, pour le domaine 8.
+
+**Le journal d'accès au proxy, le journal du moteur aux événements
+de sécurité (D925 — B8).** « Développe ? » — le journal d'accès (une
+ligne par requête HTTP : l'heure, le client, l'adresse, le code, la
+durée) est le métier du proxy qui, depuis D919, voit chaque requête
+en premier ; le proxy ne sait pas *pourquoi* le moteur a refusé —
+c'est ce que le journal du moteur doit porter. Deux instruments
+coexistent : **l'audit** (D702–D704 — l'entité en base, lue par
+l'administrateur : qui a fait quoi) et **le journal** (D343/D737 —
+le fichier, lu par le technicien : ce qui s'est passé dans le
+moteur) ; un événement de sécurité peut aller aux deux. La table des
+événements et de leurs niveaux validée — **« 1. je valide, 2. le
+journal d'accès reste au proxy, consigne D925 »** : le moteur
+n'écrit jamais chaque requête, même en `verbose`.
+
+| l'événement | le niveau | ce que la ligne porte |
+|---|---|---|
+| l'authentification réussie, la déconnexion, la révocation | `info` | le compte, le canal, le connecteur d'authentification |
+| l'échec d'authentification, le verrouillage (D720) | `warning` | le login tenté, l'origine, le compteur d'échecs |
+| le refus d'autorisation (D43) | `warning` | le compte, l'entité ou l'opération, la règle qui a refusé |
+| le refus de cooldown (D904), le 429 (D105) | `warning` | le compte, l'opération, le délai restant |
+| le secours (D81), le mode safe (D718), le passe-droit (D835), la délégation (D715) | `warning` | le compte, le motif |
+| la rotation des clés (D730/D916), l'ingestion, la recharge (D922) | `info` | l'environnement, la version, l'empreinte (D920) |
+| l'erreur d'un connecteur, la page de maintenance (D627) | `error` | le connecteur, le statut |
+
+Jamais un secret, un mot de passe même erroné, une valeur
+`trace: limited` (D703) ou `private` : le journal dit qu'un login a
+échoué, jamais ce qui a été tapé. Les refus journalisés sont le
+carburant de D43.
+
+**Le throttling des traces (D926).** L'auteur ajoute la parade à la
+saturation : **« pour éviter une attaque qui viendrait à saturer les
+journaux… un throttling des traces sera à positionner sur chaque
+événement de sécurité (événement, date de début, date de fin et
+nombre de fois) avec une première trace sur le premier événement
+avant le déclenchement du throttling. »** — la première occurrence
+tracée en entier, aussitôt ; les suivantes, dans la fenêtre,
+comptées et rendues en **une ligne agrégée** : l'événement, le début,
+la fin, le nombre. Mille échecs de login identiques donnent deux
+lignes, pas mille ; et le nombre nourrit la détection (D43 — la
+pente des refus). En proposition : la clé d'agrégation = l'événement
++ le compte ou l'origine ; la fenêtre en setting dynamique
+(`logging.throttle`, `1min`) ; la ligne agrégée émise à la fin de la
+fenêtre ou quand le flot cesse ; la même agrégation pour l'entité
+d'audit (D704 — déjà au grain de l'acte et au comptage, D702).
+
+**Le domaine 7 est couvert en huit principes (D907–D926)** : la
+sandbox, le hachage et la rotation, le navigateur, HTTPS, le dépôt
+du client, les fichiers, les dépendances, les journaux — ce qui
+reste à Q7 est le moyen (les algorithmes, les en-têtes, la forme de
+l'auto-signé), jamais le principe.
+
+**L'identité d'une version, le couple environnement + numéro ; la
+configuration changée n'est pas relue, l'empreinte trace (D927 —
+précise D920).** Ma lecture de D920 — le même numéro ré-ingéré avec
+une autre empreinte refusé, le message renvoyant au bump — détaillée
+sur le cas concret (un libellé corrigé dans le dossier de la
+1.0.0.0 déjà en production ; trois issues : refuser, ingérer en
+consignant la nouvelle empreinte, ingérer avec avertissement) ;
+l'auteur trace une quatrième voie, la sienne : **« l'empreinte ne
+tient pas compte de la configuration pour les environnements autres
+que sandbox. Uniquement le libellé "environnement" + "version". Si
+la configuration change pour le même numéro de version et le même
+environnement, elle ne sera pas relue, sauf pour sandbox qui
+nécessitera une réinitialisation. L'empreinte sera calculée. Si
+l'empreinte n'est plus conforme, une trace sera ajoutée. Cela
+informera le technicien qu'il faut changer de numéro de version. »**
+— **la clé du registre est le couple environnement + numéro** ; **une
+version ingérée l'est une fois** — la configuration modifiée sous le
+même numéro **n'est pas relue** (ni refus, ni relecture : la version
+en service reste celle de l'ingestion) ; **l'empreinte est calculée
+à chaque chargement** et comparée à celle du registre — l'écart
+**trace** (le journal, `warning` — D925), et la trace dit au
+technicien de changer de numéro ; **la sandbox fait exception** : la
+modification sous le même numéro s'y prend par la réinitialisation —
+la recharge (D922). Le numéro reste une promesse (D98 — un contenu
+par numéro) sans que le moteur bloque jamais : la relecture attend
+le bump, la trace le réclame.
+
+**`from:` supprimé à la promotion, l'origine promue casse le lien
+(D928 — précise D910).** Ma lecture de D910 détaillée sur le cas
+concret : une sandbox née de `from: beta/v1.0.0.0`, promue en `beta`
+par le déplacement de son dossier, dont le `version.yml` porte
+encore la ligne — trois issues (l'ignorer, la signaler sans
+bloquer, la refuser) ; et une sandbox 1.0.0.3 pointant
+`from: sandbox/v1.0.0.2` quand la 1.0.0.2 vient d'être promue — la
+résolution vers le nouvel emplacement, ou le lien cassé. Mes
+recommandations (l'avertissement, la résolution) écartées toutes
+deux : **« 1. from: doit être supprimé après promotion. Erreur à
+déclencher avant l'ingestion. 2. le lien est cassé et une erreur est
+à déclencher. »** — la promotion est un déplacement **et** le retrait
+de la ligne ; `from:` sous `beta` ou `production` est une erreur du
+contrôle du dossier des versions (D344), avant toute ingestion ;
+l'origine qui a quitté le statut `sandbox` casse le lien, sans
+résolution : le technicien réécrit `from:`. La ligne de D805 et de
+D914 jusqu'au bout — tout lien s'écrit, aucun ne se devine, ni ignoré
+ni résolu en silence.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
@@ -12286,6 +12942,19 @@ taches:
     cooldown_api:    "<période, fin→début>"   # si non déterministe
     retention_resultat: 90j
 ```
+
+*(Transposé par D904/D905 dans la grammaire des opérations :
+`execution`, `deterministe` et `determinisme_duree` sont **des
+propriétés intrinsèques de l'opération, portées par le contrat du
+hook** — `execution: once`, `deterministic:`,
+`deterministic_duration:` —, jamais par la configuration ;
+`cooldown_api` devient `cooldown:` à la déclaration, le défaut en
+setting dynamique `operation.cooldown`, l'API seule ;
+`retention_resultat` devient `retention:`, le défaut en setting
+`operation.retention` — D906 ; `connecteurs:` devient
+`connectors:` **au contrat du hook** — les connecteurs attendus,
+nommés et typés par la famille —, la déclaration les liant par
+`uses:` — D913.)*
 
 **Droits (D53).** `declenche_par` ⊆ `resultat_lu_par` **par construction** : qui
 déclenche peut lire. `resultat_lu_par` ne déclare que les lecteurs *additionnels*.
@@ -19358,6 +20027,130 @@ avant la synthèse Q16).
   configuration » — la clôture du morceau (D882–D898, lié), la
   validation définitive à la relecture de l'auteur. La suite : les
   questions 7–10 du cadrage, puis le morceau 3 (la source).
+- **2026-09-13 — SECURITY.MD, LA VUE TRANSVERSALE DE LA SÉCURITÉ
+  (D900–D903, 903 décisions).** « Un volet sécurité n'est pas
+  clairement mis à jour. Ajoute un fichier security.md qui reprenne
+  tous les éléments vus depuis le début du projet » — le onzième
+  artefact (Q58) : la doctrine en six principes, la carte en quinze
+  domaines depuis D25, quinze invariants, les points ouverts en deux
+  listes (les propositions non confirmées, le domaine 7 jamais
+  abordé). « Les éléments que j'attendais y sont. Les points à
+  compléter, complétons-les. » Tranchés : `degree:` et
+  `reset_coverage` (D900), `unencrypted:` visible chaque jour
+  (D901), le chiffrement automatisé et le clair refusé au démarrage
+  (D902), la réactivation d'un enregistrement = l'acte exceptionnel
+  de l'administrateur, hors socle et hors hook (D903). La question
+  10 renvoyée au cas 3. **A5 resitué par l'auteur (D904, 904
+  décisions)** : le déterminisme et sa fenêtre sont des propriétés
+  du hook (le code — « une opération est déterministe ou pas, elle
+  ne peut pas changer sans faire changer son code »), jamais
+  surchargeables ; le cooldown est un paramètre d'administration
+  (setting dynamique `operation.cooldown`, surcharge à la
+  déclaration, l'API seule) ; hooks.md corrigé — les clés de juin
+  n'y avaient jamais été transposées. **« Argh… les clés de juin ne
+  tombent pas » (D905, 905 décisions)** : elles sont intrinsèques à
+  l'opération — `execution: once`, `deterministic:`,
+  `deterministic_duration:` au contrat du hook, jamais dans la
+  configuration ; la fusion de D904 défaite ; « ces paramètres
+  doivent être exploités par Syncytium pour mieux gérer le
+  déterminisme avec un cache ou pas » — le hook déclare, le moteur
+  exploite. **La rétention du résultat (D906, 906 décisions)** : « un
+  paramètre d'administration, je valide » — `operation.retention`
+  en setting dynamique (90d), la surcharge à la déclaration ; le
+  partage de juin complet. **Le domaine 7 ouvert — B1 : l'environnement
+  `sandbox` (D907, 907 décisions)** : « un environnement de type
+  sandbox… fermé et sécurisé… le nom d'un environnement de
+  référence… une duplication… puis une migration » — le staging de
+  D112 trouve sa déclaration ; **précisé aussitôt par D908 (908
+  décisions)** : la sandbox est **un statut de `versions/`** (le
+  cinquième dossier, `sandbox.yml` à `environment:` D805), **`from:
+  <statut>/<version>`** nomme l'origine dupliquée puis migrée, une
+  sandbox peut naître d'une sandbox — les migrations par
+  transitivité ; `type:`/`reference:` tombent ; à préciser : `from:`
+  au statut ou à la version, la sandbox dans les transitions D344,
+  les connecteurs sortants, l'éphémérité. **Levés (D909–D911, 911
+  décisions)** : `from:` dans chaque version.yml ; `sandbox → beta |
+  production` par un geste de fichier ; les connecteurs à
+  l'environnement, le mock comme pour beta. **Reste l'éphémérité**
+  (la suppression à l'arrêt ou la conservation jusqu'à la commande
+  — « le fonctionnement de docker » —, la proposition en cours) et
+  l'origine de `uses:` demandée. **Soldés (D912–D913, 913
+  décisions)** : « je valide la seconde option » — l'instance survit
+  à l'arrêt, la suppression par commande ou rétention d'inactivité
+  (`sandbox.retention` 7d), le registre des instances à la santé,
+  quatre gestes (list/remove/prune/reset) ; la sixième clé de juin
+  replacée — `connectors:` au contrat du hook (les connecteurs
+  attendus, nommés et typés par la famille), `uses:` à la
+  déclaration (le lien vers le connecteur de l'environnement),
+  l'ingestion vérifie. **Aucune liaison implicite (D914, 914
+  décisions)** : « facilitateur… mais en contradiction avec un des
+  concepts du projet » — D805, tout lien s'écrit ; `uses:` toujours
+  écrit, le candidat unique nommé par l'erreur d'ingestion. **B1
+  soldé (D907–D914).** **B2 ouvert — D915 (915 décisions)** : « la
+  clé dérive bien de l'environnement + machine. sandbox est un
+  environnement… un rotate est à appliquer sur les clés existantes »
+  — la duplication d'une sandbox re-chiffre sous sa clé, le
+  troisième déclencheur de rotate (D730). **B2 soldé — D916 (916
+  décisions)** : « je valide rotate seul » — l'empreinte porte son
+  algorithme, le rehachage et le re-chiffrement par `rotate` seul,
+  jamais en silence à la vérification ; les standards publiés à Q7.
+  **B3 ouvert — D917 (917 décisions)** : « 1. je valide, 2. je
+  valide » — la session de l'IHM en cookie inaccessible au script,
+  l'API au porteur seul, jamais le cookie ; **B3 soldé — D918 (918
+  décisions)** : « 3. je valide, 4. je valide » — `cors:` à
+  l'environnement (absent = aucune, `*` refusé, la preuve demeure) ;
+  les valeurs toujours en texte, les templates échappés sans HTML
+  brut, le hook d'interface seul code tiers, listé au describe, la
+  page n'autorise que les scripts connus. **B4 soldé — D919 (919
+  décisions)** : « même pour la boucle locale, nous fournirons un
+  certificat. Syncytium pourra fournir un certificat auto-signé » —
+  aucune exemption, HTTPS vérifié au démarrage, le certificat à
+  l'environnement (fourni, proxy, ou auto-signé engendré à
+  l'initialisation). **B5 soldé — D920 (920 décisions)** : « le
+  dépôt… est un dossier… git ou un autre dispositif… en dehors de
+  Syncytium… le commit de git est trop restrictif… une empreinte
+  liée à l'environnement + numéro de version » — l'empreinte du
+  dossier ingéré au registre D326, sous la clé environnement +
+  version ; ma lecture à confirmer : même numéro, autre empreinte =
+  refus, bump. **D921 (921 décisions)** : « dans le cas de sandbox,
+  l'ingestion est un acte d'administration » — le dossier posé ne
+  fait rien, l'administrateur déclenche, tracé. **D922 (922
+  décisions)** : « la recharge est une ingestion limitée à l'usage
+  de la sandbox » — le `reset` de D912 devient `reload`, l'ingestion
+  rejouée, réservée au statut sandbox. **B6 soldé — D923 (923
+  décisions)** : « je valide » — le dossier des fichiers au moteur,
+  jamais servi directement ; tout accès sous la confidentialité du
+  champ et l'appartenance de la ligne ; les noms opaques ; les
+  droits du dossier à l'infrastructure. **B7 soldé — D924 (924
+  décisions)** : « les dépendances seront à afficher dans la
+  documentation auto-générée. Les failles seront identifiées par le
+  dépôt ou par une action extérieure ». **B8 soldé — D925–D926 (926
+  décisions)** : « le journal d'accès reste au proxy » — le journal
+  du moteur porte les événements de sécurité à leur niveau (la table
+  validée), jamais un secret ; **le throttling des traces** (D926) :
+  la première occurrence tracée, les suivantes agrégées (événement,
+  début, fin, nombre) — contre la saturation des journaux. **LE
+  DOMAINE 7 EST COUVERT EN HUIT PRINCIPES (D907–D926)** ; la séance
+  du 13/09 : security.md créé, D900–D926. **D927 (927 décisions)** —
+  ma lecture de D920 (le refus) écartée : « l'empreinte ne tient pas
+  compte de la configuration… uniquement le libellé environnement +
+  version… la configuration [changée] ne sera pas relue, sauf pour
+  sandbox qui nécessitera une réinitialisation… si l'empreinte n'est
+  plus conforme, une trace sera ajoutée » — ni refus ni relecture, la
+  trace réclame le bump, la sandbox se recharge. **D928 (928
+  décisions)** — ma lecture de D910 écartée : « from: doit être
+  supprimé après promotion. Erreur à déclencher avant l'ingestion…
+  le lien est cassé et une erreur est à déclencher » — ni ignoré,
+  ni résolu : deux erreurs. **Ce qui restait « en
+  attente : le
+  dernier
+  principes restants du domaine 7** (la sandbox
+  des hooks, le hachage à algorithme porté, le navigateur — cookie,
+  preuve au porteur, `cors:`, l'échappement —, HTTPS vérifié au
+  démarrage sauf la boucle locale, l'identité de la version au
+  registre, les fichiers servis par le moteur seul, les dépendances
+  épinglées, les événements de sécurité au journal). rights.md,
+  administration.md, security.md mis au niveau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

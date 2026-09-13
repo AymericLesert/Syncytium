@@ -1063,6 +1063,7 @@ Q58) :
 | D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
 | D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 3) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
 | D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; la règle qui n'alimente pas l'identité entière de sa cible est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle alimente l'identité de sa cible, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Voir §3.2c. |
+| D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 3) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 1–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
 
 ---
 
@@ -10555,6 +10556,78 @@ identité, la correspondance tenue par la migration (D666/D668).
 la règle (D656) devient `to:`, `parent:`, `fields:`, `report:`
 (D929), avec `filter:`, `distinct:`, `operations:`, `ignored:`. « Je
 valide. »
+
+**`parent:` par les champs mappés (D931 — précise D654/D656 ; la
+surcharge D877 prend sa forme).** Sur l'exemple de la question 7,
+l'auteur d'abord : **« dans l'exemple 2, pourquoi proposes-tu un
+formalisme différent que le cas 2 parent ? »** — mon `produit_fini`
+à facette `columns:` sur la source, réutilisé par `parent:
+produit_fini`, et mon `to:` en chemin d'agrégat s'écartaient sans
+raison de la carte des cas 1 et 2 (`parent: { compte: Numero_Compte
+}`, `parent: { vehicule: immatriculation }`, la cible en entité
+fille) ; retirés. Puis, sur ma liste de colonnes source `parent:
+[NOKTCODPF, NOKTCOMPF]`, fausse deux fois — par les colonnes et par
+l'ordre implicite : **« pour parent: du mapping, les champs clés sont
+les champs mappés et non les champs sources… car un champ mappé peut
+être converti ou transformé avant de vérifier la clé. »** La clé du
+possesseur se vérifie sur les valeurs construites : **`parent:` nomme
+les champs de l'identité du possesseur, chacun avec l'expression qui
+produit, depuis la ligne fille, la valeur telle que la règle du
+possesseur l'a construite** — le complément d'article vide devenu nul
+dans la règle 001 doit le devenir aussi dans le `parent:` de la
+nomenclature, sinon la clé ne se retrouve pas. L'identité à un champ
+garde le raccourci : l'expression seule, le champ implicite. **La
+référence par clé composée dans `fields:` porte la même carte.** **À
+la source, la même carte sur les colonnes** : il n'y a pas de champs
+mappés, le pré-contrôle (D874) compare des valeurs brutes ; `parent:`
+— le troisième mot propre à `source/`, après `ignored` (D657) et la
+formule de normalisation (D660) — nomme les colonnes du lien du
+possesseur quand la convention des noms identiques (D876) ne tient
+pas ; quand elle tient, il s'omet ; la composition reste déclarée chez
+le possesseur (`nomenclature: list of NOMENC`, D399/D869). La
+référence composée de la source se déclare colonne par colonne
+(`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance D648) — *mon
+appariement : les colonnes qui dépendent des champs d'identité d'une
+même entité forment une référence, dans l'ordre de cette identité ;
+le possesseur, désigné par `parent:`, n'entre pas dans
+l'appariement.* *(Une remarque, pas une décision : la conversion
+écrite deux fois — chez le possesseur et dans chaque `parent:` — est
+un risque d'entretien ; la normalisation à la source (D660/D872) fait
+lire aux deux règles des colonnes déjà converties, et `parent:` ne
+porte alors que des colonnes nues.)* « Je valide. »
+
+```yaml
+# reprise/mapping/001_articles.yml — le possesseur construit son identité
+ARTICLE:
+  to: technique.article
+  fields:
+    code:       ARKTCODART
+    complement: iif(ARKTCOMART = "", null, ARKTCOMART)   # le vide devient nul
+    libelle:    ARCTLIB01
+
+# reprise/mapping/002_nomenclatures.yml — la fille présente la même conversion (D931)
+NOMENC:
+  to: technique.ligne_nomenclature                       # l'entité fille, comme banque.ecriture
+  parent:
+    article:                                             # le possesseur, par ses champs mappés
+      code:       NOKTCODPF
+      complement: iif(NOKTCOMPF = "", null, NOKTCOMPF)   # sinon la clé ne se retrouve pas
+  fields:
+    numero:    NOKNLIGNOM
+    composant:                                           # la référence par la clé composée : la même carte
+      code:       NOCTCODECP
+      complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
+    quantite:  NOCNQTEUNI
+
+# reprise/source/NOMENC.yml — la même carte sur les colonnes (la surcharge D877)
+NOMENC:
+  identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
+  parent:
+    ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF }
+  fields:
+    NOCTCODECP: ARTICLE.ARKTCODART                       # la référence composée, colonne par colonne (D648)
+    NOCTCOMCPT: ARTICLE.ARKTCOMART
+```
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20251,6 +20324,28 @@ avant la synthèse Q16).
   3), ARCTLIB01 est un nchar(30) face au `text[..40]` du modèle. Au
   passage : la ligne D883 de la table rangée à sa place (après D882),
   une ligne de titre dupliquée du narratif (D828) retirée.
+- **2026-09-13 (suite 2) — LA FORME DE LA RÈGLE REVUE (D930–D931,
+  931 décisions).** Sur l'exemple de la question 7, trois remarques
+  de l'auteur en chaîne. **D930 (930 décisions)** — « quel est
+  l'intérêt du paramètre key ? il fait doublon avec l'identity » :
+  l'analyse des onze règles à clé des cas 1 et 2 (la clé toujours
+  déduite des champs qui alimentent l'identité de la cible ; les deux
+  règles de mise à jour alimentent l'identité) ; `key:` retirée, D825
+  réécrit (la règle qui n'alimente pas l'identité entière = création
+  seule ; relative et rejeu sans reset exigent l'identité alimentée).
+  **« Dans l'exemple 2, pourquoi proposes-tu un formalisme différent
+  que le cas 2 parent ? »** — mon `produit_fini` à facette `columns:`
+  et mon `to:` en chemin d'agrégat retirés au profit de la carte des
+  cas 1–2. **D931 (931 décisions)** — « pour parent: du mapping, les
+  champs clés sont les champs mappés et non les champs sources… car un
+  champ mappé peut être converti ou transformé avant de vérifier la
+  clé » : la carte par les champs d'identité du possesseur et leurs
+  expressions, le raccourci à un champ conservé, la même carte pour la
+  référence composée et, sur les colonnes, pour le lien à la source
+  (`parent:` le troisième mot propre à source/, la forme de D877).
+  « Je valide. » Réécrits : mapping.md (la forme, les cinq exemples,
+  la règle sans identité, les mots propres), les onze règles des cas
+  1 et 2 (146 fichiers d'exemples valides à PyYAML), le cas 3.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -1039,7 +1039,9 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    typage en garde D813, le `select` D893) ; aucun mécanisme nouveau.
    Deux remarques de l'auteur : le rapport est porté par chaque règle
    de migration, pas un rapport général (D929) ; la clé `key:` de la
-   règle fait doublon avec l'identité de la cible — retirée (D930).*
+   règle fait doublon avec l'identité de la cible — retirée (D930) ;
+   `parent:` se lit par les champs mappés du possesseur, la même carte
+   pour la référence composée et pour le lien à la source (D931).*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1100,7 +1102,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    au masque** (D820/D867), le reste du schéma **en points à
    creuser** (D868) ;
 4. **le mapping** — `mapping/` (l'identité alimentée par chaque
-   règle — D825/D930,
+   règle — D825/D930, `parent:` par les champs mappés — D931,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) — **et la lecture par partition**

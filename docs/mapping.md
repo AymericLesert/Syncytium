@@ -164,7 +164,7 @@ langage.
 
 ### La description de la source (`source/`)
 
-`source/` parle **toute** la grammaire (D652), avec deux mots
+`source/` parle **toute** la grammaire (D652), avec trois mots
 propres :
 
 - **`ignored`** (D657) — l'élément **attendu** dans la source mais
@@ -175,7 +175,18 @@ propres :
 - **la normalisation par champ calculé** (D660) — le nettoyage, la
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une
-  colonne.
+  colonne ;
+- **le `parent:` du fils** (D931 — la forme de la surcharge D877) :
+  quand la convention du connecteur (D876 — les colonnes d'identité
+  aux noms identiques) ne trouve pas le lien d'une composition, le
+  fils nomme les colonnes du possesseur, la même carte que la règle
+  (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART:
+  NOKTCOMPF } }`) ; quand elle tient, il s'omet ; la composition reste
+  déclarée chez le possesseur (`list of`, D399/D869) ; le pré-contrôle
+  (D874) compare les valeurs brutes. La référence composée se déclare
+  colonne par colonne (`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance
+  D648) — les colonnes qui dépendent des champs d'identité d'une même
+  entité forment une référence, dans l'ordre de cette identité.
 - **le `filter:`** (D663) — la sélection des enregistrements
   parcourus par la migration (`filter: order_date >= now() - 10y`,
   `filter: company_code = "PARIS"` — le multi-instances d'une entité
@@ -209,9 +220,9 @@ audit_log: ignored
 **Le sens : de la table source vers la table cible** (D655) — chaque
 table source déclare où vont ses colonnes. **La forme de la règle**
 (D656) : la règle au nom de la table source — `to:` la cible (entité
-ou agrégat), `parent:` la clé du possesseur, `fields:` les
-expressions du langage unique, `report:` le rapport de ses rejets
-(D929). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
+ou agrégat), `parent:` le possesseur par ses champs mappés (D931),
+`fields:` les expressions du langage unique, `report:` le rapport de
+ses rejets (D929). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
 retirée) : c'est l'identité de la cible, alimentée par `fields:`.
 
 **La construction et la clé fonctionnelle** (D654) : le mapping
@@ -243,7 +254,7 @@ customer_notes:
 # mapping/order_lines.yml — la composition par la clé
 order_lines:
   to: sales.order.lines               # l'agrégat : la ligne rejoint sa commande
-  parent: order_no                    # la clé fonctionnelle du possesseur
+  parent: { order: order_no }         # le possesseur par ses champs mappés (D931) — à un champ, le raccourci
   fields:
     number:   line_no                 # l'identité de la ligne au sein du possesseur (D841)
     item:     item_code
@@ -277,6 +288,46 @@ ARTICLE:
     when: [migration]              # après chaque passage de la règle (D406/D407)
     to: [production]               # le destinataire qui corrige l'origine (D859)
     by: [notification, mail]
+```
+
+**`parent:` par les champs mappés du possesseur (D931).** « Les
+champs clés sont les champs mappés et non les champs sources… car un
+champ mappé peut être converti ou transformé avant de vérifier la
+clé. » La clé du possesseur se vérifie sur les valeurs construites :
+`parent:` nomme les champs de l'identité du possesseur, chacun avec
+l'expression qui produit, depuis la ligne fille, la valeur telle que
+la règle du possesseur l'a construite — `parent: { <possesseur>: {
+<champ d'identité>: <expression> } }`. L'identité à un champ garde le
+raccourci (`parent: { compte: Numero_Compte }`) : l'expression seule,
+le champ implicite. **La référence par clé composée dans `fields:`
+porte la même carte.** La conversion écrite deux fois — chez le
+possesseur et dans chaque `parent:` — est un risque d'entretien : la
+normalisation à la source (D660/D872) fait lire aux deux règles des
+colonnes déjà converties, et `parent:` ne porte alors que des colonnes
+nues.
+
+```yaml
+# reprise/mapping/001_articles.yml — le possesseur construit son identité
+ARTICLE:
+  to: technique.article
+  fields:
+    code:       ARKTCODART
+    complement: iif(ARKTCOMART = "", null, ARKTCOMART)   # le vide devient nul
+    libelle:    ARCTLIB01
+
+# reprise/mapping/002_nomenclatures.yml — la fille présente la même conversion (D931)
+NOMENC:
+  to: technique.ligne_nomenclature                       # l'entité fille, comme banque.ecriture
+  parent:
+    article:                                             # le possesseur, par ses champs mappés
+      code:       NOKTCODPF
+      complement: iif(NOKTCOMPF = "", null, NOKTCOMPF)   # sinon la clé ne se retrouve pas
+  fields:
+    numero:    NOKNLIGNOM
+    composant:                                           # la référence par la clé composée : la même carte
+      code:       NOCTCODECP
+      complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
+    quantite:  NOCNQTEUNI
 ```
 
 ### Au-delà du 1-1 (D658–D660)

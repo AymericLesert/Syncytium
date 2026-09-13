@@ -135,23 +135,26 @@ sous_famille:
         fr: Autre
 
 gestion:
-  # ARCTFATN nchar(2) — le code de gestion (D883/D936) : « fabriqué,
-  # acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le
-  # champ du code de gestion » ; les codes (01, 02, 03, 07, 09, 12, 14,
-  # 17, 32, 33 dans l'échantillon) se traduisent à la règle du mapping
-  # (D893), la table reste à relever
+  # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938) : la table
+  # de l'auteur — 01 produit fabriqué, 02 produit acheté, 07 libellé, 14
+  # quantité supérieure, 17 inactif, 32 résultant ; 33 « proc » à
+  # préciser ; 03, 09 et 12 sans signification connue, des points à
+  # creuser (D868) : non traduits par la règle, leurs articles sont des
+  # erreurs rapportées (D935) jusqu'à l'analyse ; sous-traité et fantôme,
+  # le vocabulaire de PMI hors échantillon (D936) ; la traduction des
+  # codes à la règle du mapping (D893)
   type: enum
   label:
     fr: Code de gestion
   hint:
-    fr: La façon dont l'article existe — fabriqué, acheté, sous-traité, ou fantôme.
+    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant.
   values:
     fabrique:
       label:
-        fr: Fabriqué
+        fr: Produit fabriqué
     achete:
       label:
-        fr: Acheté
+        fr: Produit acheté
     sous_traite:
       label:
         fr: Sous-traité
@@ -160,6 +163,18 @@ gestion:
         fr: Fantôme
       description:
         fr: Un niveau de nomenclature sans existence en stock.
+    libelle:
+      label:
+        fr: Libellé
+    quantite_superieure:
+      label:
+        fr: Quantité supérieure
+    inactif:
+      label:
+        fr: Inactif
+    resultant:
+      label:
+        fr: Résultant
 
 matieres:
   # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)

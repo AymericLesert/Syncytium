@@ -1058,7 +1058,9 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    ARCTFATN et non du type d'article : le modèle corrigé (D936) ; PR
    est une erreur pour l'exemple, la nature numérique ignorée, le type
    du composant celui de l'article référencé — la ligne de nomenclature
-   corrigée (D937) ; reste la table des codes ARCTFATN.*
+   corrigée (D937) ; la table des codes ARCTFATN donnée avec ses trous
+   (D938) : 03, 09 et 12 à creuser, leurs articles en erreur jusqu'à
+   l'analyse, 33 « proc » à préciser.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1254,10 +1256,10 @@ entité lot si `Stock.Batch` le justifie) ; les valeurs de
 `article.famille` et `sous_famille` (la liste close à relever,
 D893) ; l'unité des temps de gamme (`NOCNTPSOUV` — heures ou
 centièmes) ; la forme de la n-ième tranche entre deux seuils
-(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage ; la table des codes du code
-de gestion ARCTFATN (D936) — PR, la nature numérique et le type du
-composant tranchés par D937, les articles « libellé » gardés, les
-lignes les référencent.
+(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage ; les codes 03, 09, 12 et 33
+du code de gestion ARCTFATN (D938) — PR, la nature numérique et le
+type du composant tranchés par D937, les articles « libellé » gardés,
+les lignes les référencent.
 
 **Le fichier `settings.yml`** (D885, l'étage instance de la cascade
 D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar) et

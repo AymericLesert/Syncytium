@@ -1070,6 +1070,7 @@ Q58) :
 | D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 quittent le type d'article (D936 : elles sont de PMI, sur le code de gestion ARCTFATN). | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
 | D936 | **Le code de gestion est ARCTFATN — fabriqué, acheté, sous-traité, fantôme y vivent ; le type d'article ARCTTYPART porte le vocabulaire de D935** (corrige D935 et le modèle du morceau 2 — la question 7 du cas 3) : « fabriqué, acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — le modèle avait posé ces quatre valeurs sur `article.type` (ARCTTYPART) et un code de gestion inventé (sur stock / à la commande / sans stock) sur ARCTGSAV : `article.type` prend le vocabulaire de D935 (accessoire, consommable, libellé, outillage, produit fini, plaque, semi-fini — PR à relever), `article.gestion` passe sur ARCTFATN avec les quatre valeurs ; ARCTGSAV (nchar(1), « N » seul dans l'échantillon) retourne à l'analyse. | Les dix codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17, 32, 33) se traduisent à la règle du mapping (D893) : la table à relever. Ma note de D935 « tirées d'un ERP imaginé » était fausse. Voir §3.2c. |
 | D937 | **PR hors de l'exemple, la nature numérique ignorée, le type du composant est celui de l'article référencé** (précise D935/D936, corrige la ligne de nomenclature du morceau 2 — la question 7 du cas 3) : « le code PR n'est pas pris en compte ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique de la nomenclature est un champ ignoré. Le type du composant d'une nomenclature est le type de l'article référencé par le composant de la nomenclature » — la garde d'ARCTTYPART ne liste pas PR, les articles PR sont des non-conformités rapportées ; NOCTNATCPT : `ignored` (D657) ; NOCTYPECPT redonde le type de l'article référencé — la ligne de l'entrepôt n'a pas de type propre, elle le lit par `composant.type` ; sa `nature` se déduit (la main d'œuvre et la sous-traitance font l'opération, le reste le composant — mien), ses deux validations inventées tombent, le composant devient obligatoire ; `article.type` s'élargit à main d'œuvre et sous-traitance, que les composants référencent. | Reste la table des codes ARCTFATN (D936). NOCTYPECPT à la source : `ignored`, ou la vérification de sa redondance par un `validation:` de la source (D932) — mon choix : ignorée. Voir §3.2c. |
+| D938 | **Le code de gestion décodé, avec ses trous** (précise D936 — la question 7 du cas 3) : « 01 : produit fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 : proc » — la table de l'auteur entre au modèle : `gestion` = fabriqué, acheté, sous-traité, fantôme (D936), libellé, quantité supérieure, inactif, résultant ; 33 « proc » à préciser ; 03, 09 et 12 sans signification connue — des points à creuser (D868) : non traduits par la règle, leurs articles sont des erreurs rapportées (D935) jusqu'à l'analyse — 38 des 100 articles de l'échantillon (03 ×30, 09 ×7, 12 ×1). | La garde de la source liste les dix codes observés (décrits, D866) ; c'est la traduction qui manque, pas la description — l'itération de D868 en acte. Voir §3.2c. |
 
 ---
 
@@ -10811,6 +10812,29 @@ référencent des articles de ces types (MO ×49, ST ×1, LI ×6) — une
 déduction de la troisième phrase, à confirmer. Les articles
 « libellé » (MI/LI) restent des articles : les lignes les
 référencent.
+
+**Le code de gestion décodé, avec ses trous (D938 — précise D936).**
+Au dernier renvoi de la question 7, l'auteur donne la table telle
+qu'il la connaît : **« 01 : produit fabriqué, 02 : produit acheté,
+03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure,
+17 : inactif, 32 : résultant, 33 : proc »**. Elle entre au modèle
+telle quelle : `gestion` porte fabriqué, acheté, sous-traité et
+fantôme (D936 — le vocabulaire de PMI, les deux derniers hors de
+l'échantillon), libellé, quantité supérieure, inactif, résultant ;
+« proc » attend son mot. Les trous ne se bouchent pas : 03, 09 et 12
+sont des points à creuser (D868), et le registre en tire la
+conséquence sans adoucir — la garde de la source liste les dix codes
+observés (la colonne est décrite en entier, D866), la règle du
+mapping ne traduit que les codes connus, et un code sans traduction
+est une erreur (D935) : les articles en 03, 09 et 12 — 38 des 100
+articles de l'échantillon, 03 ×30, 09 ×7, 12 ×1 — sont rapportés
+jusqu'à ce que l'analyse leur donne un sens. C'est l'itération de
+D868 en acte : la migration exploite les données justes au fur et à
+mesure, et l'état de la qualité (D859) montre au destinataire ce qui
+attend. *(Le levier reste celui de D933 : si l'entreprise préfère que
+ces articles entrent sans code de gestion, le champ devient
+facultatif et la règle laisse nul — un choix du modèle, pas de la
+migration.)*
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20593,6 +20617,15 @@ avant la synthèse Q16).
   déduit des types de composants de l'échantillon — à confirmer ; 146
   fichiers valides. Reste à la question 7 : la table des codes
   ARCTFATN.
+- **2026-09-14 (suite) — LE CODE DE GESTION DÉCODÉ (D938, 938
+  décisions).** La table de l'auteur, avec ses trous : « 01 : produit
+  fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 :
+  ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 :
+  proc ». Le modèle prend les valeurs connues ; 03, 09 et 12 restent
+  des points à creuser — leurs 38 articles de l'échantillon seront des
+  erreurs rapportées jusqu'à l'analyse (D935/D868) ; « proc » à
+  préciser. La question 7 n'a plus de renvoi ouvert : la question 8,
+  l'enrichissement, suit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

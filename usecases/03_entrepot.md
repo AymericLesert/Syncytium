@@ -250,7 +250,8 @@ cadrage :
 - **la posture entrepôt (D180)** : le taux de couverture, les
   rejets, la vue de migration (D666) — et **l'alimentation
   continue** : l'`every:` de `migrate` (D667), le différentiel
-  (D672), les clés sur toutes les règles (la garde D825) ;
+  (D672), l'identité alimentée par toutes les règles (la garde D825,
+  réécrite par D930) ;
 - **le premier hook de type d'un exemple** (D119/D820 — la maison
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
@@ -1038,7 +1039,7 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    typage en garde D813, le `select` D893) ; aucun mécanisme nouveau.
    Deux remarques de l'auteur : le rapport est porté par chaque règle
    de migration, pas un rapport général (D929) ; la clé `key:` de la
-   règle fait doublon avec l'identité de la cible — en analyse.*
+   règle fait doublon avec l'identité de la cible — retirée (D930).*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1098,7 +1099,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    normalisations D660, le `filter:` D663 sur la société), **la date
    au masque** (D820/D867), le reste du schéma **en points à
    creuser** (D868) ;
-4. **le mapping** — `mapping/` (la clé sur chaque règle D825,
+4. **le mapping** — `mapping/` (l'identité alimentée par chaque
+   règle — D825/D930,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) — **et la lecture par partition**

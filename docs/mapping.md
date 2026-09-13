@@ -209,14 +209,16 @@ audit_log: ignored
 **Le sens : de la table source vers la table cible** (D655) — chaque
 table source déclare où vont ses colonnes. **La forme de la règle**
 (D656) : la règle au nom de la table source — `to:` la cible (entité
-ou agrégat), `key:` la clé fonctionnelle, `parent:` la clé du
-possesseur, `fields:` les expressions du langage unique, `report:`
-le rapport de ses rejets (D929).
+ou agrégat), `parent:` la clé du possesseur, `fields:` les
+expressions du langage unique, `report:` le rapport de ses rejets
+(D929). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
+retirée) : c'est l'identité de la cible, alimentée par `fields:`.
 
 **La construction et la clé fonctionnelle** (D654) : le mapping
 construit l'enregistrement avant sa validation (D177 — converti ET
 cohérent, l'écriture par le chemin standard D175) ; **la clé
-fonctionnelle** (D142/D398) l'identifie — le rejeu sans doublon, et
+fonctionnelle** (D142/D398 — l'`identity:` de la cible, que la règle
+alimente par `fields:`, D930) l'identifie — le rejeu sans doublon, et
 **les origines multiples se rejoignent par la clé** : la jointure
 n'est pas une syntaxe, c'est la clé (D655). Elle lie aussi **les
 agrégats** : la ligne retrouve sa commande, l'association son
@@ -226,25 +228,24 @@ vis-à-vis.
 # mapping/customers.yml — une règle par table source (D655–D656)
 customers:
   to: sales.customer                  # la cible
-  key: code                           # la clé fonctionnelle (D654)
   fields:
-    code:    code
+    code:    code                     # l'identité alimentée = la clé du rejeu (D654/D930)
     name:    upper(name)
     balance: amount(bal_cts / 100)
 
 # mapping/customer_notes.yml — la seconde origine, même cible
 customer_notes:
   to: sales.customer
-  key: customer_code                  # la même clé — les contributions se rejoignent
   fields:
+    code:  customer_code              # la même identité — les contributions se rejoignent
     notes: text
 
 # mapping/order_lines.yml — la composition par la clé
 order_lines:
   to: sales.order.lines               # l'agrégat : la ligne rejoint sa commande
-  key: [order_no, line_no]
   parent: order_no                    # la clé fonctionnelle du possesseur
   fields:
+    number:   line_no                 # l'identité de la ligne au sein du possesseur (D841)
     item:     item_code
     quantity: qty
 ```
@@ -303,15 +304,14 @@ ARTICLE:
 customers:
   to: sales.city
   distinct: [city]               # sur la valeur normalisée (D660)
-  key: city
   fields:
-    label: city
+    label: city                  # la valeur devient l'identité (D658/D930)
 
 # mapping/customers.yml — l'entité qui référence, par la clé
 customers:
   to: sales.customer
-  key: code
   fields:
+    code: code
     city: city                   # la référence résolue par la clé (D654)
 ```
 
@@ -333,13 +333,16 @@ customers:
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;
 
-- **la règle sans clé** (D825 — le cas 1 : les écritures, sans
-  identifiant de ligne ni clé composite fiable) : `key:` est
-  optionnelle — **sans elle, la règle est création seule** (jamais
-  de rapprochement, un rejeu dupliquerait) ; **la garde à
-  l'ingestion** : `mode: relative` ou un rejeu sans `reset: true`
-  exigent la clé sur toutes les règles — la règle sans clé n'est
-  admise qu'au tout-ou-rien remis à zéro ;
+- **la règle qui n'alimente pas l'identité** (D825, réécrit par
+  D930 — le cas 1 : les écritures, sans identifiant de ligne ni clé
+  composite fiable) : `key:` n'existe plus — **la règle dont
+  `fields:` n'alimente pas l'identité entière de sa cible est
+  création seule** (jamais de rapprochement, un rejeu dupliquerait) ;
+  **la garde à l'ingestion** : `mode: relative` ou un rejeu sans
+  `reset: true` exigent que chaque règle alimente l'identité de sa
+  cible — la règle sans identité n'est admise qu'au tout-ou-rien
+  remis à zéro ; la règle de mise à jour alimente l'identité
+  elle-même, une valeur inchangée que le différentiel ignore ;
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;

@@ -1062,6 +1062,7 @@ Q58) :
 | D927 | **L'identité d'une version = environnement + numéro ; la configuration changée n'est pas relue, l'empreinte trace** (précise D920 — écarte ma lecture du refus ; D324/D326/D801, D922) : « l'empreinte ne tient pas compte de la configuration pour les environnements autres que sandbox. Uniquement le libellé "environnement" + "version". Si la configuration change pour le même numéro de version et le même environnement, elle ne sera pas relue, sauf pour sandbox qui nécessitera une réinitialisation. L'empreinte sera calculée. Si l'empreinte n'est plus conforme, une trace sera ajoutée. Cela informera le technicien qu'il faut changer de numéro de version » — **la clé du registre** (D326) **est le couple environnement + numéro de version**, jamais le contenu ; **une version ingérée l'est une fois** : la configuration modifiée sous le même numéro dans le même environnement **n'est pas relue** — la version en service reste celle de l'ingestion, ni refus ni relecture ; **l'empreinte du dossier est calculée à chaque chargement et comparée à celle consignée** — l'écart produit **une trace** (le journal, `warning` D925 — et le patron de D43 : l'écart persistant se voit) qui **informe le technicien qu'il faut changer de numéro** ; **la sandbox est l'exception** : la modification sous le même numéro s'y prend par **la réinitialisation** — la recharge (D922), l'ingestion rejouée. | Le numéro de version reste une promesse (D98 — un contenu par numéro) sans que le moteur bloque : la relecture attend le bump, la trace le réclame. Voir §3.2c. |
 | D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
 | D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 3) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
+| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; la règle qui n'alimente pas l'identité entière de sa cible est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle alimente l'identité de sa cible, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Voir §3.2c. |
 
 ---
 
@@ -10526,6 +10527,35 @@ ARTICLE:
     to: [production]               # le destinataire qui corrige l'origine (D859)
     by: [notification, mail]
 ```
+**`key:` retirée de la règle : l'identité de la cible est la clé (D930 —
+amende D656, précise D654, réécrit D825).** **« Quel est l'intérêt du
+paramètre key ? il fait doublon avec l'identity de technique.article
+ou avec l'identité de ARTICLE, non ? »** L'analyse sur les onze règles
+à clé des cas 1 et 2 : dans chacune, `key:` répétait les colonnes qui
+alimentent, dans `fields:`, les champs de l'`identity:` de la cible —
+la création (`numero: Numero_Compte`), la composition (l'identité de
+la ligne au sein du possesseur, D841, jointe au `parent:`), le
+référentiel par valeurs distinctes (la valeur devient l'identité,
+D658), la cellule n-aire (le tuple, D402/D897). Seules les règles de
+mise à jour (le type du véhicule, la clôture du compte) nommaient par
+`key:` une colonne absente de `fields:` : elles alimentent désormais
+l'identité elle-même — une valeur inchangée, que le différentiel
+ignore (D672). L'ancre est l'identité de la cible, pas celle de la
+source : une table nourrit plusieurs cibles (D658), plusieurs sources
+une cible (D655) ; l'identité de la source garde son rôle propre — la
+clé vérifiée avant de partir (D871), la partition de la couverture
+(D878). D825 se réécrit sans perte : **la règle qui n'alimente pas
+l'identité entière de sa cible est création seule** (jamais de
+rapprochement — les écritures de la banque, dont le numéro naît à la
+création) ; **le mode relative et le rejeu sans `reset: true` exigent
+que chaque règle alimente l'identité de sa cible**, ce que l'ingestion
+vérifie statiquement (D581) ; la règle de complément (D822) reste sans
+identité, la correspondance tenue par la migration (D666/D668).
+`parent:` demeure : rien d'autre ne porte le possesseur. La forme de
+la règle (D656) devient `to:`, `parent:`, `fields:`, `report:`
+(D929), avec `filter:`, `distinct:`, `operations:`, `ignored:`. « Je
+valide. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que

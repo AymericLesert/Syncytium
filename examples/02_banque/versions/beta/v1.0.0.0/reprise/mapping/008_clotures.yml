@@ -6,6 +6,6 @@
 budget:
   to: banque.compte
   filter: Budget = "FERMETURE"
-  key: Numero_Compte
   fields:
+    numero:  Numero_Compte         # l'identité alimentée retrouve le compte — la mise à jour (D654/D930)
     cloture: Date_Operation

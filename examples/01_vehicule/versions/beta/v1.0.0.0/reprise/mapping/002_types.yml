@@ -4,6 +4,6 @@
 
 titre_consommation:
   to: transport.vehicule
-  key: immatriculation                     # la règle à clé = la mise à jour (D825)
   fields:
+    immatriculation: immatriculation       # l'identité alimentée retrouve le véhicule — la mise à jour (D825/D930)
     type: type_vehicule

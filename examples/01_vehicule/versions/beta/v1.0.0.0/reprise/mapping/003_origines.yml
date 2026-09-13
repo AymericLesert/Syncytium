@@ -11,9 +11,9 @@
 
 consommation:
   to: transport.vehicule
-  key: immatriculation
   filter: connector.line = 1
   fields:
+    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
     date_achat: date
     km_initial: total_km
     devise:     iif(date.year < 2002, "franc", "euro")

@@ -20703,6 +20703,19 @@ avant la synthèse Q16).
   Le modèle : technique/{fabrique,semi_fini,fantome}, l'article allégé
   de sa nomenclature et de ses calculés ; 149 fichiers valides. La
   question 7 est close ; la question 8, l'enrichissement, attend.
+- **2026-09-14 (pause)** — La séance s'arrête sur la question 7 du
+  cas 3 close (D929–D940 : le rapport par la règle, `key:` retirée,
+  `parent:` par les champs mappés, les trois `validation:`, l'échec en
+  composition, les fonctions du texte, les listes closes et leur
+  vocabulaire, le code de gestion clos, la nomenclature redressée,
+  l'article en hiérarchie). **La reprise : la question 8
+  (l'enrichissement — ma proposition en attente : les champs non
+  alimentés intacts, `note_interne` sur le tiers), puis 9 (le rythme)
+  et 10 (l'entreprise), puis le morceau 3, la source.** À vérifier au
+  morceau 3 : 09 = semi-fini et 12 = fantôme (mes hypothèses de
+  D940). La relecture complète des fichiers de configuration par
+  l'auteur reste la validation définitive du morceau 2 (D899) — 45
+  fichiers dans examples/03_entrepot.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

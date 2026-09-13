@@ -1044,6 +1044,14 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    règle fait doublon avec l'identité de la cible — retirée (D930) ;
    `parent:` se lit par les champs mappés du possesseur, la même carte
    pour la référence composée et pour le lien à la source (D931).*
+   *Les quatre points restants (13/09) : D932 les trois `validation:` ;
+   D933 l'échec dans une composition — le parent entraîne ses
+   composants, le composant fautif tombe seul, la validation du parent
+   qui lit ses enfants rejette le tout — ma conséquence « la cellule
+   retient l'article » écartée ; le texte trop long refusé à
+   l'ingestion (D581) ; D934 les fonctions du texte au catalogue ; les
+   codes des listes closes cités dans l'exemple publié : l'exemple
+   donné sur les codes relevés, la décision de l'auteur attendue.*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1260,7 +1268,9 @@ Pour une manipulation claire, la valeur qui a du sens est à
 utiliser. Par contre, si la source n'est pas évidente, un mapping
 sera apporté lors de l'import » — la valeur porteuse de sens dans
 le modèle, la traduction des codes opaques par la règle du mapping
-(`ARCTTYPART.select(F: "fabrique", …)`) ; les montants en
+(`ARCTTYPART.select(<code>: "fabrique", …)` — les codes relevés à
+l'analyse ; les lettres de ma première rédaction étaient inventées,
+D934) ; les montants en
 `amount` sans `currencies:` (toutes les devises ISO, D391) ; **le
 tarif — tranché en trois temps** : D894 l'avait aplati en une
 composition à la date en identité pour montrer les tarifs

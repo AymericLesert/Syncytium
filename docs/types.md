@@ -76,6 +76,27 @@ composants.md.
 | `password` | la saisie masquée aux garanties structurelles — jamais relue | — | D463 |
 | `color` | **le stockage : un entier** (le RGB(A) assemblé) ; **l'affichage en hexadécimal** (`#RRGGBB`, l'alpha en option) ; **la base des couleurs nommées** → RGB (`red`, `orange`, `green` — celles de `colors:` D467) | le tri sur l'entier, le nul en premier | D496 |
 
+**Les fonctions du texte (D934).** « trim, upper, right, mid, …
+doivent figurer au catalogue sur un champ texte » — le type `text`
+emmène ses fonctions (D579), employées par les règles du mapping, les
+calculés et les normalisations :
+
+| la fonction | le geste | D |
+|---|---|---|
+| `trim(t)` | les blancs de tête et de fin retirés — la normalisation des `nchar` (`normalize: trim(me)`) | D870/D872 |
+| `upper(t)` / `lower(t)` | la casse | D656 |
+| `left(t, n)` / `right(t, n)` | les n premiers / derniers caractères (`right("0000" + me, 4)`) | D870 |
+| `mid(t, début, longueur)` | la sous-chaîne | D934 |
+| `length(t)` | la longueur | D934 |
+| `t1 + t2` | la concaténation | D870 |
+| `t like "regex"` | la comparaison régulière | D818 |
+| `extract(t, "regex")` | l'extraction par la regex — la capture unique, ou plusieurs noms par les groupes nommés | D817 |
+
+*(`lower`, `left`, `length` : mes ajouts, les pendants naturels. La
+troncature d'un texte trop long pour sa cible passe par `left` —
+la conversion avec perte est refusée à l'ingestion, D581, jamais
+implicite.)*
+
 ## Les composés
 
 Ils héritent du kit de la base + la validation intégrée + leurs

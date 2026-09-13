@@ -385,6 +385,12 @@ tarifaire fautive, ses mouvements le trouvent ; la commande sans
 ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
 la ligne (mien).
 
+**Le texte trop long (D581).** Un `text[30]` de la source vers un
+`text[..20]` de la cible est une conversion avec perte : le typage
+statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet
+à l'exécution ; le technicien l'écrit s'il la veut, `left(ARCTLIB01,
+20)` (les fonctions du texte, D934).
+
 ### Au-delà du 1-1 (D658–D660)
 
 - **le référentiel par valeurs distinctes** (D658, validé) : la

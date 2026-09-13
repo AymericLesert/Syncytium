@@ -1066,6 +1066,7 @@ Q58) :
 | D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 3) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 1–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
 | D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 3) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
 | D933 | **L'échec dans une composition à la migration** (précise D101/D177/D420 et D875 pour la migration — la question 7 du cas 3) : « si un échec est vu sur le parent, tous les composants sont en échec. Si un composant est en erreur et pas sur le parent, le parent est créé sans le composant en erreur. Par contre, la règle de validation sur un enregistrement du parent vérifie le fonctionnement de son enregistrement et de ses enfants. Et, là, c'est l'enregistrement du parent et de tous ses enfants qui sont en échec » — l'échec propre du parent entraîne ses composants ; l'échec propre d'un composant (sa conversion, sa `validation:`, sa référence — l'orphelin D875) ne rejette que lui, le parent entre sans lui ; la `validation:` du parent qui lit ses enfants (le compte, la somme) s'évalue sur le parent et tous ses enfants, et son échec rejette le tout. | Ma conséquence « une cellule fautive retient son article entier » écartée : l'article entre sans la cellule, aucune cascade sur les mouvements ; la commande dont `lignes.count() > 0` échoue tombe entière. Le rapport nomme la cause (mien). Voir §3.2c. |
+| D934 | **Les fonctions du texte au catalogue** (complète D579/D584 — types.md ; la question 7 du cas 3) : « trim, upper, right, mid, … doivent figurer au catalogue de types.md sur un champ texte » — le type `text` emmène ses fonctions : `trim`, `upper`, `lower`, `left`, `right`, `mid`, `length`, `extract` (D817), la comparaison `like` (D818), la concaténation `+` ; employées jusqu'ici (`upper` D656, `trim`/`right` D870, `extract` D817) sans être inscrites ; le texte trop long pour sa cible = une conversion avec perte, refusée à l'ingestion (D581), le technicien écrit `left(…)`. | `lower`, `left` et `length` sont mes ajouts, les pendants naturels. Voir §3.2c. |
 
 ---
 
@@ -9707,10 +9708,13 @@ D859).** Le modèle écrivait ses énumérés avec des clés porteuses de
 sens — `fabrique`, `achete`, `sous_traite` pour le type d'article,
 `en_cours`, `soldee`, `annulee` pour le statut d'une commande — là
 où PMI parle en codes d'un caractère. L'exemple posé : la source
-déclare la liste close relevée (`ARCTTYPART: enum` à valeurs F, A,
-S et leurs libellés), la règle du mapping traduit
-(`ARCTTYPART.select(F: "fabrique", A: "achete", S:
-"sous_traite")`), l'entrepôt ne connaît que son vocabulaire. **« Les
+déclare la liste close relevée (`ARCTTYPART: enum` aux codes de PMI
+et leurs libellés), la règle du mapping traduit
+(`ARCTTYPART.select(<code>: "fabrique", <code>: "achete", <code>:
+"sous_traite")`), l'entrepôt ne connaît que son vocabulaire *(les
+lettres F/A/S de ma première rédaction étaient inventées —
+l'échantillon montre des codes à deux lettres ; corrigé le 13/09,
+D934)*. **« Les
 clés d'énumérés sont le vocabulaire de l'entrepôt. Pour une
 manipulation claire, la valeur qui a du sens est à utiliser. Par
 contre, si la source n'est pas évidente, un mapping sera apporté
@@ -10708,6 +10712,21 @@ la cellule fautive, ses mouvements le trouvent, aucune cascade ; la
 commande dont aucune ligne ne passe tombe entière par sa validation.
 *(Le rapport nomme la cause — le parent, ou la ligne — et les
 composants entraînés à sa suite : mien.)*
+
+**Les fonctions du texte au catalogue (D934 — complète D579/D584).**
+Le troisième point relevait une lacune : `trim`, `upper`, `right`
+servent depuis D656 et D870 sans figurer à types.md, qui n'inscrit
+que `extract`. **« trim, upper, right, mid, … doivent figurer au
+catalogue de types.md sur un champ texte. »** Le type `text` emmène
+ses fonctions (D579 — « un type emmène avec lui des fonctions
+dédiées ») : `trim`, `upper`, `lower`, `left`, `right`, `mid`,
+`length`, `extract` (D817), la comparaison `like` (D818), la
+concaténation `+` — la table est écrite à types.md. `lower`, `left`
+et `length` sont mes ajouts, les pendants naturels. Et le texte trop
+long trouve son geste : la conversion avec perte est refusée à
+l'ingestion (D581 — jamais une troncature silencieuse, jamais un
+rejet à l'exécution), le technicien écrit `left(ARCTLIB01, 20)` s'il
+la veut.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20429,6 +20448,34 @@ avant la synthèse Q16).
   « Je valide. » Réécrits : mapping.md (la forme, les cinq exemples,
   la règle sans identité, les mots propres), les onze règles des cas
   1 et 2 (146 fichiers d'exemples valides à PyYAML), le cas 3.
+- **2026-09-13 (suite 3) — LES QUATRE POINTS DE LA QUESTION 7
+  (D932–D934, 934 décisions).** Mes quatre propositions présentées (le
+  mapping sans vérification propre, l'agrégat comme grain, le texte
+  trop long refusé à l'ingestion, la garde à la source) ; l'auteur en
+  redresse deux et en tranche une. **D932 (932 décisions)** —
+  « validation: porte à la source avant l'import, porte à la
+  destination après l'import et à la règle du mapping porte sur chaque
+  ligne de l'import » : la règle a son `validation:`, ma lecture
+  retirée ; la forme sur la règle (les colonnes à nu, `me` le
+  construit) mienne. **D933 (933 décisions)** — l'échec dans une
+  composition : « si un échec est vu sur le parent, tous les
+  composants sont en échec. Si un composant est en erreur et pas sur
+  le parent, le parent est créé sans le composant en erreur. Par
+  contre, la règle de validation sur un enregistrement du parent
+  vérifie le fonctionnement de son enregistrement et de ses enfants.
+  Et, là, c'est l'enregistrement du parent et de tous ses enfants qui
+  sont en échec » — ma conséquence « une cellule fautive retient son
+  article entier » écartée. Le texte trop long : D581 suffit, une
+  précision de mapping.md. **D934 (934 décisions)** — « trim, upper,
+  right, mid, … doivent figurer au catalogue de types.md sur un champ
+  texte » : la table des fonctions du texte écrite (lower, left,
+  length mes ajouts). Le quatrième point, les codes des listes
+  closes : l'exemple donné en séance sur les codes relevés dans
+  l'extraction (le type d'article en deux lettres, la nature de
+  nomenclature en chiffres) — et la découverte que les lettres F/A/S
+  de l'illustration de D893 étaient inventées : corrigées en `<code>`
+  au narratif et au cas 3 ; la décision sur les codes cités dans
+  l'exemple publié attend l'auteur.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

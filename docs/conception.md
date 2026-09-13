@@ -1067,6 +1067,7 @@ Q58) :
 | D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 3) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
 | D933 | **L'échec dans une composition à la migration** (précise D101/D177/D420 et D875 pour la migration — la question 7 du cas 3) : « si un échec est vu sur le parent, tous les composants sont en échec. Si un composant est en erreur et pas sur le parent, le parent est créé sans le composant en erreur. Par contre, la règle de validation sur un enregistrement du parent vérifie le fonctionnement de son enregistrement et de ses enfants. Et, là, c'est l'enregistrement du parent et de tous ses enfants qui sont en échec » — l'échec propre du parent entraîne ses composants ; l'échec propre d'un composant (sa conversion, sa `validation:`, sa référence — l'orphelin D875) ne rejette que lui, le parent entre sans lui ; la `validation:` du parent qui lit ses enfants (le compte, la somme) s'évalue sur le parent et tous ses enfants, et son échec rejette le tout. | Ma conséquence « une cellule fautive retient son article entier » écartée : l'article entre sans la cellule, aucune cascade sur les mouvements ; la commande dont `lignes.count() > 0` échoue tombe entière. Le rapport nomme la cause (mien). Voir §3.2c. |
 | D934 | **Les fonctions du texte au catalogue** (complète D579/D584 — types.md ; la question 7 du cas 3) : « trim, upper, right, mid, … doivent figurer au catalogue de types.md sur un champ texte » — le type `text` emmène ses fonctions : `trim`, `upper`, `lower`, `left`, `right`, `mid`, `length`, `extract` (D817), la comparaison `like` (D818), la concaténation `+` ; employées jusqu'ici (`upper` D656, `trim`/`right` D870, `extract` D817) sans être inscrites ; le texte trop long pour sa cible = une conversion avec perte, refusée à l'ingestion (D581), le technicien écrit `left(…)`. | `lower`, `left` et `length` sont mes ajouts, les pendants naturels. Voir §3.2c. |
+| D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 étaient inventées, à remplacer. | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
 
 ---
 
@@ -10727,6 +10728,33 @@ long trouve son geste : la conversion avec perte est refusée à
 l'ingestion (D581 — jamais une troncature silencieuse, jamais un
 rejet à l'exécution), le technicien écrit `left(ARCTLIB01, 20)` s'il
 la veut.
+
+**Les listes closes citées par leurs codes réels, le vocabulaire
+donné (D935 — précise D813/D893, corrige le morceau 2).** À ma
+question — les codes cités dans l'exemple publié sont-ils ceux de PMI
+ou ceux du jeu construit, et d'où viennent les libellés — l'auteur
+répond par la table même : **« AC : Accessoire · CO : Consommable ·
+MI/LI : Libellé · OU : Outillage · PF : Produit fini · PL : Plaque ·
+MO : Main d'œuvre · ST : Sous-traitance · SF : Produit semi fini »**.
+Les codes sont donc ceux du produit, publiables ; les libellés sont
+les siens. Et la garde, à tous les étages : **« si une valeur sort du
+type énuméré, c'est une erreur »** — à la source, le code hors liste
+(D813) ; à la règle, le `select` n'a pas de défaut, le code sans
+traduction est une erreur, pas un nul ; à la cible, la valeur hors
+`values:`. Le vocabulaire de l'entrepôt en découle (D893 — la valeur
+qui a du sens) : `accessoire`, `consommable`, `libelle`, `outillage`,
+`produit_fini`, `plaque`, `semi_fini`, `main_oeuvre`,
+`sous_traitance` — et mes quatre valeurs du morceau 2, `fabrique` /
+`achete` / `sous_traite` / `fantome`, tirées d'un ERP imaginé et non
+de PMI, tombent : le modèle se corrige dès que la liste est complète.
+*(Restent à relever : le code PR d'ARTICLE — huit articles de
+l'échantillon —, les natures numériques de NOCTNATCPT (1, 2, 3, 4,
+6, 8) ; à arbitrer : la place du type du composant (NOCTYPECPT) à la
+ligne de nomenclature — un champ `type` à côté de `nature`, ma
+proposition — et le sort des articles « libellé » (MI), des lignes
+de texte sans stock : gardés dans l'entrepôt sous leur type plutôt
+que filtrés, ma recommandation, puisque les lignes LI les
+référencent.)*
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20476,6 +20504,17 @@ avant la synthèse Q16).
   de l'illustration de D893 étaient inventées : corrigées en `<code>`
   au narratif et au cas 3 ; la décision sur les codes cités dans
   l'exemple publié attend l'auteur.
+- **2026-09-13 (suite 4) — LE VOCABULAIRE DES LISTES CLOSES (D935,
+  935 décisions).** À l'exemple du quatrième point, l'auteur répond
+  par la table des codes : « AC : Accessoire, CO : Consommable, MI/LI :
+  Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main
+  d'œuvre, ST : Sous-traitance, SF : Produit semi fini » — les codes
+  réels sont publiables, les libellés sont les siens ; et la garde
+  confirmée à tous les étages : « si une valeur sort du type énuméré,
+  c'est une erreur ». Mes quatre valeurs du type d'article
+  (fabrique/achete/sous_traite/fantome), écrites au morceau 2 d'après
+  un ERP imaginé, tombent : le modèle se corrige dès la liste complète
+  — PR et les natures numériques demandés.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

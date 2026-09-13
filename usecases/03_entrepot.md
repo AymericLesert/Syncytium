@@ -1050,8 +1050,12 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    qui lit ses enfants rejette le tout — ma conséquence « la cellule
    retient l'article » écartée ; le texte trop long refusé à
    l'ingestion (D581) ; D934 les fonctions du texte au catalogue ; les
-   codes des listes closes cités dans l'exemple publié : l'exemple
-   donné sur les codes relevés, la décision de l'auteur attendue.*
+   codes des listes closes : ceux de PMI, publiables, leur vocabulaire
+   donné par l'auteur — accessoire, consommable, libellé, outillage,
+   produit fini, plaque, main d'œuvre, sous-traitance, semi-fini —,
+   hors de l'énuméré une erreur (D935) ; mes quatre valeurs du type
+   d'article tombent, le modèle se corrige dès la liste complète (le
+   code PR, les natures numériques de NOCTNATCPT).*
 8. **L'enrichissement** : l'entrepôt porte-t-il des champs qui ne
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
@@ -1247,7 +1251,10 @@ entité lot si `Stock.Batch` le justifie) ; les valeurs de
 `article.famille` et `sous_famille` (la liste close à relever,
 D893) ; l'unité des temps de gamme (`NOCNTPSOUV` — heures ou
 centièmes) ; la forme de la n-ième tranche entre deux seuils
-(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage.
+(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage ; le code PR du type
+d'article et les natures numériques de NOCTNATCPT, la place du type
+du composant à la ligne de nomenclature, le sort des articles
+« libellé » (D935).
 
 **Le fichier `settings.yml`** (D885, l'étage instance de la cascade
 D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar) et

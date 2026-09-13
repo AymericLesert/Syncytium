@@ -250,8 +250,8 @@ cadrage :
 - **la posture entrepôt (D180)** : le taux de couverture, les
   rejets, la vue de migration (D666) — et **l'alimentation
   continue** : l'`every:` de `migrate` (D667), le différentiel
-  (D672), l'identité alimentée par toutes les règles (la garde D825,
-  réécrite par D930) ;
+  (D672), toutes les règles rapprochables (la garde D825, réécrite
+  par D930) ;
 - **le premier hook de type d'un exemple** (D119/D820 — la maison
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
@@ -1101,7 +1101,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    normalisations D660, le `filter:` D663 sur la société), **la date
    au masque** (D820/D867), le reste du schéma **en points à
    creuser** (D868) ;
-4. **le mapping** — `mapping/` (l'identité alimentée par chaque
+4. **le mapping** — `mapping/` (l'identité déterminée par chaque
    règle — D825/D930, `parent:` par les champs mappés — D931,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +
    `reset: false` + l'`every:` nocturne (D667), la provenance

@@ -384,15 +384,20 @@ customers:
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;
 
-- **la règle qui n'alimente pas l'identité** (D825, réécrit par
-  D930 — le cas 1 : les écritures, sans identifiant de ligne ni clé
-  composite fiable) : `key:` n'existe plus — **la règle dont
-  `fields:` n'alimente pas l'identité entière de sa cible est
-  création seule** (jamais de rapprochement, un rejeu dupliquerait) ;
-  **la garde à l'ingestion** : `mode: relative` ou un rejeu sans
-  `reset: true` exigent que chaque règle alimente l'identité de sa
-  cible — la règle sans identité n'est admise qu'au tout-ou-rien
-  remis à zéro ; la règle de mise à jour alimente l'identité
+- **la règle rapprochable, la règle création seule** (D825, réécrit
+  par D930 — le cas 1 : les écritures, sans identifiant de ligne ni
+  clé composite fiable) : `key:` n'existe plus — **une règle est
+  rapprochable si l'enregistrement qu'elle construit détermine
+  l'identité de sa cible**, par ses expressions ou par les défauts des
+  champs ; sinon — l'entité sans `identity:`, un champ d'identité
+  sans valeur — **elle est création seule** (jamais de rapprochement,
+  un rejeu dupliquerait) ; **la garde à l'ingestion** : `mode:
+  relative` ou un rejeu sans `reset: true` exigent que chaque règle
+  soit rapprochable — la règle création seule n'est admise qu'au
+  tout-ou-rien remis à zéro ; la règle de complément (D821) ne crée
+  pas : elle re-parcourt les mêmes lignes dans le même passage, la
+  correspondance ligne → enregistrement tenue par la migration
+  (D666/D668) ; la règle de mise à jour alimente l'identité
   elle-même, une valeur inchangée que le différentiel ignore ;
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux

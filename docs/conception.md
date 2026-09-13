@@ -1062,7 +1062,7 @@ Q58) :
 | D927 | **L'identité d'une version = environnement + numéro ; la configuration changée n'est pas relue, l'empreinte trace** (précise D920 — écarte ma lecture du refus ; D324/D326/D801, D922) : « l'empreinte ne tient pas compte de la configuration pour les environnements autres que sandbox. Uniquement le libellé "environnement" + "version". Si la configuration change pour le même numéro de version et le même environnement, elle ne sera pas relue, sauf pour sandbox qui nécessitera une réinitialisation. L'empreinte sera calculée. Si l'empreinte n'est plus conforme, une trace sera ajoutée. Cela informera le technicien qu'il faut changer de numéro de version » — **la clé du registre** (D326) **est le couple environnement + numéro de version**, jamais le contenu ; **une version ingérée l'est une fois** : la configuration modifiée sous le même numéro dans le même environnement **n'est pas relue** — la version en service reste celle de l'ingestion, ni refus ni relecture ; **l'empreinte du dossier est calculée à chaque chargement et comparée à celle consignée** — l'écart produit **une trace** (le journal, `warning` D925 — et le patron de D43 : l'écart persistant se voit) qui **informe le technicien qu'il faut changer de numéro** ; **la sandbox est l'exception** : la modification sous le même numéro s'y prend par **la réinitialisation** — la recharge (D922), l'ingestion rejouée. | Le numéro de version reste une promesse (D98 — un contenu par numéro) sans que le moteur bloque : la relecture attend le bump, la trace le réclame. Voir §3.2c. |
 | D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
 | D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 3) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
-| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; la règle qui n'alimente pas l'identité entière de sa cible est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle alimente l'identité de sa cible, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Voir §3.2c. |
+| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; une règle est rapprochable si l'enregistrement qu'elle construit détermine l'identité de sa cible (par ses expressions ou par les défauts des champs) — sinon, entité sans `identity:` ou champ d'identité sans valeur, elle est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle soit rapprochable, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Le critère d'abord écrit « la règle qui n'alimente pas l'identité entière est création seule », remplacé à la demande de l'auteur (« je ne comprends pas » — « je valide, remplace la phrase »). Voir §3.2c. |
 | D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 3) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 1–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
 
 ---
@@ -10545,17 +10545,26 @@ ignore (D672). L'ancre est l'identité de la cible, pas celle de la
 source : une table nourrit plusieurs cibles (D658), plusieurs sources
 une cible (D655) ; l'identité de la source garde son rôle propre — la
 clé vérifiée avant de partir (D871), la partition de la couverture
-(D878). D825 se réécrit sans perte : **la règle qui n'alimente pas
-l'identité entière de sa cible est création seule** (jamais de
-rapprochement — les écritures de la banque, dont le numéro naît à la
-création) ; **le mode relative et le rejeu sans `reset: true` exigent
-que chaque règle alimente l'identité de sa cible**, ce que l'ingestion
-vérifie statiquement (D581) ; la règle de complément (D822) reste sans
+(D878). D825 se réécrit sans perte : **une règle est rapprochable si
+l'enregistrement qu'elle construit détermine l'identité de sa cible**,
+par ses expressions ou par les défauts des champs ; sinon — l'entité
+sans `identity:`, un champ d'identité sans valeur — **elle est création
+seule** (jamais de rapprochement — les écritures de la banque, sans
+`identity:`, dont le numéro naît à la création) ; **le mode relative et
+le rejeu sans `reset: true` exigent que chaque règle soit
+rapprochable**, ce que l'ingestion vérifie statiquement (D581) ; la règle de complément (D822) reste sans
 identité, la correspondance tenue par la migration (D666/D668).
 `parent:` demeure : rien d'autre ne porte le possesseur. La forme de
 la règle (D656) devient `to:`, `parent:`, `fields:`, `report:`
 (D929), avec `filter:`, `distinct:`, `operations:`, `ignored:`. « Je
-valide. »
+valide. » *(Ma première rédaction du critère — « la règle qui
+n'alimente pas l'identité entière est création seule » — remplacée à
+la demande de l'auteur, « je ne comprends pas » : le champ d'identité
+que la règle n'alimente pas prend son défaut, l'identité est
+déterminée quand même ; le critère est l'identité déterminée, les trois
+cas réels l'éclairent — l'article rapproché par son identité, l'écriture
+sans `identity:` créée toujours, la règle de complément qui retrouve
+l'enregistrement du même passage par la correspondance de la migration.)*
 
 **`parent:` par les champs mappés (D931 — précise D654/D656 ; la
 surcharge D877 prend sa forme).** Sur l'exemple de la question 7,
@@ -20331,8 +20340,11 @@ avant la synthèse Q16).
   l'analyse des onze règles à clé des cas 1 et 2 (la clé toujours
   déduite des champs qui alimentent l'identité de la cible ; les deux
   règles de mise à jour alimentent l'identité) ; `key:` retirée, D825
-  réécrit (la règle qui n'alimente pas l'identité entière = création
-  seule ; relative et rejeu sans reset exigent l'identité alimentée).
+  réécrit (la règle est rapprochable si l'enregistrement construit
+  détermine l'identité de sa cible, sinon création seule ; relative et
+  rejeu sans reset exigent des règles rapprochables — la phrase
+  d'abord écrite, « n'alimente pas l'identité entière », remplacée sur
+  « je ne comprends pas »).
   **« Dans l'exemple 2, pourquoi proposes-tu un formalisme différent
   que le cas 2 parent ? »** — mon `produit_fini` à facette `columns:`
   et mon `to:` en chemin d'agrégat retirés au profit de la carte des

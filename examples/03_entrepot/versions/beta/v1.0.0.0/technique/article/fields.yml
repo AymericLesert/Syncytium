@@ -137,7 +137,7 @@ sous_famille:
 gestion:
   # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938/D939) : la
   # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07
-  # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 proc ;
+  # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 procédure ;
   # 03, 09 et 12 existent et se traduisent, mais leur libellé n'existe
   # pas encore : la valeur par défaut nommée par le code, CG03, CG09,
   # CG12 (D939) — à nommer à l'analyse ; sous-traité et fantôme, le
@@ -147,7 +147,7 @@ gestion:
   label:
     fr: Code de gestion
   hint:
-    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, proc, et trois codes en attente de libellé.
+    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, procédure, et trois codes en attente de libellé.
   values:
     fabrique:
       label:
@@ -175,9 +175,9 @@ gestion:
     resultant:
       label:
         fr: Résultant
-    proc:
+    procedure:
       label:
-        fr: Proc
+        fr: Procédure
     # les codes dont le libellé n'existe pas encore (D939) : la valeur par
     # défaut porte le code — à nommer à l'analyse
     cg03:

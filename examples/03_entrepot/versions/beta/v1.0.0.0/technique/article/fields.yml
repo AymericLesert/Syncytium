@@ -135,19 +135,19 @@ sous_famille:
         fr: Autre
 
 gestion:
-  # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938) : la table
-  # de l'auteur — 01 produit fabriqué, 02 produit acheté, 07 libellé, 14
-  # quantité supérieure, 17 inactif, 32 résultant ; 33 « proc » à
-  # préciser ; 03, 09 et 12 sans signification connue, des points à
-  # creuser (D868) : non traduits par la règle, leurs articles sont des
-  # erreurs rapportées (D935) jusqu'à l'analyse ; sous-traité et fantôme,
-  # le vocabulaire de PMI hors échantillon (D936) ; la traduction des
-  # codes à la règle du mapping (D893)
+  # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938/D939) : la
+  # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07
+  # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 proc ;
+  # 03, 09 et 12 existent et se traduisent, mais leur libellé n'existe
+  # pas encore : la valeur par défaut nommée par le code, CG03, CG09,
+  # CG12 (D939) — à nommer à l'analyse ; sous-traité et fantôme, le
+  # vocabulaire de PMI hors échantillon (D936) ; la traduction des codes
+  # à la règle du mapping (D893)
   type: enum
   label:
     fr: Code de gestion
   hint:
-    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant.
+    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, proc, et trois codes en attente de libellé.
   values:
     fabrique:
       label:
@@ -175,6 +175,26 @@ gestion:
     resultant:
       label:
         fr: Résultant
+    proc:
+      label:
+        fr: Proc
+    # les codes dont le libellé n'existe pas encore (D939) : la valeur par
+    # défaut porte le code — à nommer à l'analyse
+    cg03:
+      label:
+        fr: CG03
+      description:
+        fr: Le code de gestion 03 de PMI — le libellé n'existe pas encore.
+    cg09:
+      label:
+        fr: CG09
+      description:
+        fr: Le code de gestion 09 de PMI — le libellé n'existe pas encore.
+    cg12:
+      label:
+        fr: CG12
+      description:
+        fr: Le code de gestion 12 de PMI — le libellé n'existe pas encore.
 
 matieres:
   # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)

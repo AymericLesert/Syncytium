@@ -1071,6 +1071,7 @@ Q58) :
 | D936 | **Le code de gestion est ARCTFATN — fabriqué, acheté, sous-traité, fantôme y vivent ; le type d'article ARCTTYPART porte le vocabulaire de D935** (corrige D935 et le modèle du morceau 2 — la question 7 du cas 3) : « fabriqué, acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — le modèle avait posé ces quatre valeurs sur `article.type` (ARCTTYPART) et un code de gestion inventé (sur stock / à la commande / sans stock) sur ARCTGSAV : `article.type` prend le vocabulaire de D935 (accessoire, consommable, libellé, outillage, produit fini, plaque, semi-fini — PR à relever), `article.gestion` passe sur ARCTFATN avec les quatre valeurs ; ARCTGSAV (nchar(1), « N » seul dans l'échantillon) retourne à l'analyse. | Les dix codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17, 32, 33) se traduisent à la règle du mapping (D893) : la table à relever. Ma note de D935 « tirées d'un ERP imaginé » était fausse. Voir §3.2c. |
 | D937 | **PR hors de l'exemple, la nature numérique ignorée, le type du composant est celui de l'article référencé** (précise D935/D936, corrige la ligne de nomenclature du morceau 2 — la question 7 du cas 3) : « le code PR n'est pas pris en compte ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique de la nomenclature est un champ ignoré. Le type du composant d'une nomenclature est le type de l'article référencé par le composant de la nomenclature » — la garde d'ARCTTYPART ne liste pas PR, les articles PR sont des non-conformités rapportées ; NOCTNATCPT : `ignored` (D657) ; NOCTYPECPT redonde le type de l'article référencé — la ligne de l'entrepôt n'a pas de type propre, elle le lit par `composant.type` ; sa `nature` se déduit (la main d'œuvre et la sous-traitance font l'opération, le reste le composant — mien), ses deux validations inventées tombent, le composant devient obligatoire ; `article.type` s'élargit à main d'œuvre et sous-traitance, que les composants référencent. | Reste la table des codes ARCTFATN (D936). NOCTYPECPT à la source : `ignored`, ou la vérification de sa redondance par un `validation:` de la source (D932) — mon choix : ignorée. Voir §3.2c. |
 | D938 | **Le code de gestion décodé, avec ses trous** (précise D936 — la question 7 du cas 3) : « 01 : produit fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 : proc » — la table de l'auteur entre au modèle : `gestion` = fabriqué, acheté, sous-traité, fantôme (D936), libellé, quantité supérieure, inactif, résultant ; 33 « proc » à préciser ; 03, 09 et 12 sans signification connue — des points à creuser (D868) : non traduits par la règle, leurs articles sont des erreurs rapportées (D935) jusqu'à l'analyse — 38 des 100 articles de l'échantillon (03 ×30, 09 ×7, 12 ×1). | La garde de la source liste les dix codes observés (décrits, D866) ; c'est la traduction qui manque, pas la description — l'itération de D868 en acte. Voir §3.2c. |
+| D939 | **Le code sans libellé entre avec une valeur par défaut nommée par le code** (précise D938 et D893 — clôt le code de gestion, la question 7 du cas 3) : « pour clore les codes de gestion, les codes existent, sont dans le mapping mais le libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à positionner » — l'énuméré de l'entrepôt reçoit une valeur par code non encore nommé (`cg03`, `cg09`, `cg12`, le libellé = le code, la description le dit), la règle du mapping les traduit, les articles entrent ; le libellé viendra de l'analyse, son changement est une évolution de l'énuméré (D387) ; ma conséquence de D938 (38 articles en erreur) écartée. | Le code 33 entre en `proc`. La valeur qui a du sens (D893) reste la règle ; le code lui-même en tient lieu tant que le sens manque. Voir §3.2c. |
 
 ---
 
@@ -10835,6 +10836,23 @@ attend. *(Le levier reste celui de D933 : si l'entreprise préfère que
 ces articles entrent sans code de gestion, le champ devient
 facultatif et la règle laisse nul — un choix du modèle, pas de la
 migration.)*
+
+**Le code sans libellé entre avec une valeur par défaut nommée par
+le code (D939 — précise D938/D893).** Je tirais de D935 et D868 la
+conséquence stricte : les codes 03, 09 et 12, sans signification
+connue, ne se traduisent pas, leurs 38 articles sont des erreurs
+jusqu'à l'analyse. L'auteur clôt autrement : **« pour clore les codes
+de gestion, les codes existent, sont dans le mapping mais le libellé
+n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à
+positionner. »** La distinction est juste : ce qui manque n'est pas
+le code — il existe, la garde le liste, la règle le traduit — mais
+son libellé. L'énuméré de l'entrepôt reçoit donc une valeur par code
+non encore nommé, `cg03`, `cg09`, `cg12`, dont le libellé est le code
+même et la description dit l'attente ; les articles entrent, rien ne
+se rapporte ; le libellé viendra de l'analyse, et son changement sera
+une évolution de l'énuméré (D387 — la clé demeure, le libellé bouge).
+D893 tient — la valeur qui a du sens — et le code en tient lieu tant
+que le sens manque. Le code 33 entre en `proc`, le mot de l'auteur.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20626,6 +20644,14 @@ avant la synthèse Q16).
   erreurs rapportées jusqu'à l'analyse (D935/D868) ; « proc » à
   préciser. La question 7 n'a plus de renvoi ouvert : la question 8,
   l'enrichissement, suit.
+- **2026-09-14 (suite 2) — LE CODE DE GESTION CLOS (D939, 939
+  décisions).** « Les codes existent, sont dans le mapping mais le
+  libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12
+  sont à positionner » — ma conséquence stricte de D938 écartée : les
+  codes sans libellé entrent sous une valeur nommée par le code, le
+  libellé viendra. Le modèle : gestion en douze valeurs (proc et
+  cg03/cg09/cg12 ajoutés) ; 146 fichiers valides. La question 7 est
+  close ; la question 8 suit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

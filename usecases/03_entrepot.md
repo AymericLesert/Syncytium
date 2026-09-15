@@ -1068,7 +1068,15 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    viennent pas de Cegid (une classification, un commentaire, un
    responsable) ? Le différentiel (D672) compare champ par champ
    les champs alimentés ; les champs possédés par l'entrepôt
-   doivent lui rester — un frottement possible.
+   doivent lui rester — un frottement possible. *Répondue (15/09,
+   D941–D942) : la doctrine est bonne — les champs qu'aucune règle
+   n'alimente restent intacts, `reset: false` la garde ; le champ
+   obligatoire naît à son `default:` ; le champ qu'un écran de saisie
+   remplit se protège par `unchanged: true` (la propriété nouvelle de
+   l'auteur — née au défaut, la valeur gardée ensuite) ; l'exemple :
+   `note_interne` sur le tiers, aucune colonne PMI, ouvert au commercial
+   et aux achats par l'allow au champ — l'allow s'applique partout,
+   l'administrateur, qui porte la migration, passe outre (D942).*
 
 **D. L'exploitation**
 

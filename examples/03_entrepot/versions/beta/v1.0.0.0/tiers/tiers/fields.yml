@@ -191,6 +191,24 @@ contacts:
   label:
     fr: Contacts
 
+# --- l'enrichissement : le champ que l'entrepôt possède (D941) ---
+
+note_interne:
+  # aucune colonne PMI — la note des acheteurs et du commercial sur le
+  # tiers ; l'entrepôt la possède : la migration ne l'alimente pas et ne
+  # la touche pas (D672/D941), le champ naît à son défaut et garde sa
+  # valeur (unchanged) ; la saisie est ouverte aux groupes que l'allow au
+  # champ nomme (D886/D942), le module restant en lecture seule
+  type: text[..200]
+  default: ""
+  unchanged: true
+  allow:
+    update: [commercial, achats]
+  label:
+    fr: Note interne
+  hint:
+    fr: Ce que l'entreprise sait du tiers et que PMI ne porte pas — libre au commercial et aux achats.
+
 # ------ Champs calculés ------
 
 siren:

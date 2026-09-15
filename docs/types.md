@@ -21,7 +21,11 @@ composants.md.
   libellés, la description, l'icône ; l'attention aux migrations à
   valeur intercalée), `searchable` (strict / normalized /
   similarity[0.8] / range / mutualizable[nom] — selon le type),
-  `mask`, `report:` (`no` par défaut — D406), la confidentialité
+  `default` (la valeur de naissance — D424), **`unchanged`** (D941 —
+  `true` : le champ possédé par la cible, que la migration n'écrit
+  pas ; il naît à son `default` et garde sa valeur, la saisie restant
+  libre ; `false` par défaut), `mask`, `report:` (`no` par défaut —
+  D406), la confidentialité
   (D25/D364), **`rgpd:`** (`personal` / `sensitive` / `consent` —
   D695, l'anonymisation D696), **`trace:`** (`audit` / `limited` —
   D703 ; le sensitive audité d'office), `component`/`style`/`size`

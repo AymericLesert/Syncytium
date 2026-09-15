@@ -391,6 +391,21 @@ statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet
 à l'exécution ; le technicien l'écrit s'il la veut, `left(ARCTLIB01,
 20)` (les fonctions du texte, D934).
 
+**L'enrichissement — le champ possédé par la cible (D941).** Le
+différentiel ne compare que l'enregistrement construit, donc les
+seuls champs que les règles alimentent : un champ qu'aucune règle
+n'alimente reste tel quel — « la doctrine est bonne » ; `reset:
+false` la garde. Le champ obligatoire naît à sa valeur : « le
+default: répond à ce besoin ». Et le champ qu'un écran de saisie
+remplit se protège par la propriété **`unchanged: true`** (`false`
+par défaut) : « pour un nouvel enregistrement, la valeur est la
+valeur par défaut. Si l'enregistrement existe, la valeur du champ
+reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
+libre (la différence avec `mode: write-once`, immuable pour tous).
+Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
+`""`, ouverte au commercial et aux achats par l'allow au champ
+(D886/D942) — la note de l'acheteur survit à chaque nuit.
+
 ### Au-delà du 1-1 (D658–D660)
 
 - **le référentiel par valeurs distinctes** (D658, validé) : la
@@ -599,7 +614,9 @@ coverage:
   par la clé fonctionnelle (D654), **champ par champ** ; seuls les
   écarts s'écrivent, et l'entité cible historisée assure l'évolution
   de la valeur (D168) — le différentiel est la conséquence du rejeu
-  par la clé, pas un mode de plus.
+  par la clé, pas un mode de plus ; **les champs qu'aucune règle
+  n'alimente restent intacts** (D941 — l'enrichissement : le champ
+  possédé par la cible, `unchanged: true`, né à son `default:`).
 
 ## Les points ouverts
 

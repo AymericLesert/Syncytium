@@ -20943,7 +20943,7 @@ avant la synthèse Q16).
   chaque matin). **La reprise : le morceau 3, la source**
   (`reprise/source/`, puis `reprise/reprise.yml`), puis le mapping,
   puis le pilotage. Deux hypothèses à vérifier sur le réel : 09 =
-  semi-fini, 12 = fantôme (D940). La relecture complète des 54
+  semi-fini, 12 = fantôme (D940). La relecture complète des 50
   fichiers de examples/03_entrepot par l'auteur reste la validation
   définitive du morceau 2 (D899).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le

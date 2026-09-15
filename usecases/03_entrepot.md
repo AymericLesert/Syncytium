@@ -286,9 +286,9 @@ cadrage :
 - **la première application d'entreprise de l'échelle** :
   l'authentification autre que `none` (D692), les groupes et les
   degrés (D699–D701 — `migrate` au degré `administrator`), le smtp
-  réel (la condition indispensable D626), peut-être deux
-  environnements (D342/D617 — le staging sur une copie, la
-  production sur la base réelle).
+  réel (la condition indispensable D626), deux environnements
+  (D342/D617/D945 — le staging sur une copie, la production sur la
+  base réelle).
 
 ## Les données réelles (D865)
 
@@ -1097,7 +1097,13 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
     rapport des rejets, qui lance `migrate` — le degré
     `administrator` D701), **un ou deux environnements** (le staging
     sur une copie de la base, la production sur la base réelle —
-    D342/D617) ?
+    D342/D617) ? *Répondue (15/09, D945) : « 1. azure_ad 2. smtp_std
+    confirmé 3. la production et un staging 4. chaque matin » —
+    l'authentification par Microsoft 365, le relais de l'entreprise,
+    deux environnements (le staging sur une copie de PMI, où vivent
+    les versions beta — D805), le rapport de chaque règle `when:
+    [migration]` (D929) ; les paramètres des deux classes sont miens ;
+    le connecteur directory (D633) écarté (R4). Le cadrage est soldé.*
 11. **La date `AAAAMMJJ`** : le hook de type (D119/D820 —
     `hooks/types/`, le premier écrit dans un exemple) est le chemin
     supposé — plutôt qu'un `mask` à la lecture d'une colonne
@@ -1237,13 +1243,13 @@ vois pas le lien »).** D767 le dit, rien ne se déduit de
 l'arborescence : les modules étaient orphelins tant que
 `version.yml` ne les citait pas. La chaîne est posée, sur le patron
 du véhicule : `syncytium.yml` (le projet `entrepot`) →
-`environments/environments.yml` → `environments/production/` (la
-production seule pour l'instant — D863, un staging sur une copie se
-déclarera si la question 10 le demande ; `production.yml`,
+`environments/environments.yml` → `environments/production/` et
+`environments/staging/` (la base PMI lue en direct — D863 — et sa
+copie pour les essais, D945 ; `production.yml`,
 `logging.yml` D830 en info, `documentation.yml`, `settings.yml`,
 **`connectors.yml`**) ; `versions/versions.yml` → `beta.yml` et
-`production.yml` (l'environnement `production`, le regex des
-versions D806) → **`version.yml`** (1.0.0.0, les release-notes du
+`production.yml` (le beta sur le staging, la production sur la
+production — D805/D945, le regex des versions D806) → **`version.yml`** (1.0.0.0, les release-notes du
 cas, **`settings: settings.yml`**, **`groups: groups.yml`**, les
 quatre modules ; la migration à venir au morceau 3). La chaîne est
 suivie par script : quarante-deux fichiers, toutes les références

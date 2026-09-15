@@ -1,11 +1,11 @@
-# Les connecteurs de l'environnement de production (D617 — chaque
+# Les connecteurs de l'environnement de staging (D617/D945 — chaque
 # environnement les siens ; les secrets = les paramètres marqués *
 # (D944), par variable d'environnement chiffrée, jamais dans le dépôt
 # — D321/D902).
 
-# L'entrepôt — le storage cible : un schéma PostgreSQL (D860). L'instance
-# du contrat (D680) est ce schéma ; la duplication et la bascule de la
-# migration à chaud (D674) y prennent leur forme native.
+# L'entrepôt d'essai — le storage cible : un schéma PostgreSQL (D860)
+# distinct de la production ; le .env du staging nomme son serveur et sa
+# base (les mêmes noms de variables, un .env par environnement — D902).
 entrepot:
   type: storage
   class: postgresql
@@ -16,10 +16,9 @@ entrepot:
     user: ${ENTREPOT_USER}
     password*: ${ENTREPOT_PASSWORD}   # la marque * : confidentiel, la variable chiffrée
 
-# Cegid PMI — le storage source : le schéma d'une instance SQL Server
-# (D860), lu EN DIRECT sur la base de production (D863), en lecture
-# seule (D175 : le connecteur de reprise est un storage ordinaire qui ne
-# fait que lire — la classe n'écrit jamais chez PMI). Pas de carte
+# Cegid PMI — le storage source : LA COPIE de la base PMI (D945 — jamais
+# la production depuis le staging), le schéma d'une instance SQL Server
+# (D860), en lecture seule (D175). Pas de carte
 # entities: (D829 — optionnelle, la base se décrit elle-même) : la
 # comparaison du schéma réel à la description (D861/D868) doit voir
 # toutes les tables, les non définies comprises.
@@ -48,7 +47,7 @@ cegid:
       S: time[hhmmss]
 
 # Les plans des articles — le connecteur file en complément du storage
-# source (D883) : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le
+# source (D883), le répertoire d'essai du staging : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le
 # contenu du répertoire des plans (D634 — get_file).
 plans:
   type: file
@@ -56,11 +55,9 @@ plans:
   parameters:
     directory: ${PLANS_DIRECTORY}
 
-# L'authentification — Microsoft 365 (D692 : la classe azure_ad ; la
-# question 10 du cadrage, D945) : les utilisateurs se connectent avec
-# leur compte de l'entreprise ; l'affectation aux groupes reste un acte
-# d'administration (D341). Les paramètres de la classe sont ceux de
-# l'exemple (en proposition) ; le secret est un paramètre marqué * (D944).
+# L'authentification — le même locataire Microsoft 365 (D692/D945), une
+# inscription d'application propre au staging par son .env ; le secret
+# est un paramètre marqué * (D944).
 authentication:
   class: azure_ad
   parameters:
@@ -68,9 +65,9 @@ authentication:
     client_id: ${AZURE_CLIENT_ID}
     client_secret*: ${AZURE_CLIENT_SECRET}
 
-# Le mail sortant — le relais de l'entreprise (D628 : smtp_std, la
-# condition indispensable D626 vérifiée au démarrage ; D945) : les
-# rapports des règles (D929) et les alertes partent par lui.
+# Le mail sortant — le relais de l'entreprise (D628/D626/D945), l'expéditeur
+# et la boîte du staging par son .env : les rapports d'essai n'atteignent
+# pas les utilisateurs de la production.
 smtp:
   class: smtp_std
   parameters:

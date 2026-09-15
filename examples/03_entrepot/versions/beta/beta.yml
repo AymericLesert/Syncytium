@@ -1,7 +1,8 @@
 # Les versions éligibles au mode beta
 
-# pas de déclaration orpheline (D805)
-environment: production
+# pas de déclaration orpheline (D805) — les versions beta s'essaient sur
+# le staging, la copie de PMI (D945)
+environment: staging
 
 # Le pattern regex des versions (D806) — le standard que le projet se fixe
 versions:

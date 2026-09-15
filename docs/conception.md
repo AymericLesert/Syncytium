@@ -1077,6 +1077,7 @@ Q58) :
 | D942 | **`allow:` s'applique partout ; l'administrateur passe outre** (précise D175/D699/D886 — la question 8 du cas 3) : « sur allow : il n'y a pas de restrictions… une migration est portée par "administrateur". Les interfaces IHM ou API sont utilisées via un compte utilisateur ou administrateur. "allow" s'applique donc comme pour le reste. Un administrateur bypasse les droits existants » — un seul mécanisme sur tous les canaux ; le degré administrator passe outre les `allow` (l'acte tracé, comme le passe-droit du statut D835) ; la migration, opération de ce degré (D701), écrit dans un module en lecture seule sans que les `allow` l'arrêtent ; l'allow au champ (D886) ouvre à la saisie le champ possédé, pour les utilisateurs. | Ma phrase « allow n'intervient pas dans cette phase » corrigée : il s'applique, l'administrateur le passe. Voir §3.2c. |
 | D943 | **Le rythme de la migration = des opérations périodiques, pas une clé de la migration déclarée** (précise D667/D881, applique D428/D434/D609 — la question 9 du cas 3) : « every: peut, à mon avis, être couvert par une opération périodique telle que nous l'avons déjà » — ma clé `every:` (et `reset_coverage:`) sur la migration déclarée retirée ; le delta nocturne et la relecture complète sont deux opérations automatiques au calendaire (D434), dont les effets sont les hooks du socle `migrate` et `reset_coverage` (D609 — la composition déclarative) ; la forme : un bloc `operations:` porté par la migration déclarée, `migrate` sans paramètre (la migration porteuse), `reset_coverage(<entité>)` par entité partitionnée — mienne. | Les heures restent à fixer (la fenêtre des traitements nocturnes de PMI et de la sauvegarde). Voir §3.2c. |
 | D944 | **La marque `*` : la clé confidentielle, illisible dans les journaux** (précise D603/D902 — la question 10 du cas 3) : « dans ma proposition de configuration (du début de nos échanges) les clés secrètes sont décrites par : secrets*: ${AZURE_CLIENT_SECRET}… le "*" après le nom de la clé signifie que la clé de la configuration porte une information confidentielle dont la lisibilité n'est pas autorisée dans les logs » — la convention de l'auteur, absente du registre jusqu'ici, y entre : toute clé de la configuration suffixée `*` porte une valeur confidentielle, jamais écrite en clair dans un journal (D925–D926), et sa valeur `${VAR}` relève du patron des secrets (D902 — la variable chiffrée, le clair refusé). | « Forme 2 est validée » (15/09) : chaque paramètre confidentiel marqué — `password*: ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le contrat de la classe, le nom de la variable celui du déploiement ; la liste `secrets:` de D603 s'efface ; D902 se lit « une valeur en clair dans le .env pour une variable référencée par une clé marquée * vaut refus de démarrer ». Voir §3.2c. |
+| D945 | **L'entreprise : azure_ad, smtp_std, la production et un staging, le rapport chaque matin** (la question 10 du cas 3 — le cadrage soldé) : « 1. azure_ad 2. smtp_std confirmé 3. la production et un staging 4. chaque matin » — l'authentification par Microsoft 365 (D692), le mail par le relais de l'entreprise (D626/D628), deux environnements (D342/D617 : le staging sur une copie de PMI, chacun ses connecteurs et son .env ; les versions beta sur le staging — D805), le rapport de chaque règle `when: [migration]` (D929/D406) ; le connecteur directory (D633) écarté (R4). | Les paramètres des classes azure_ad (tenant, client_id, client_secret*) et smtp_std (host, port, from, password*) sont miens — connectors.md les note en proposition ; le beta sur le staging et le staging plus verbeux — miens. Voir §3.2c. |
 
 ---
 
@@ -11033,6 +11034,29 @@ security.md, administration.md et l'exemple réécrits —, et D902 se
 lit « une valeur en clair dans le `.env` pour une variable référencée
 par une clé marquée `*` vaut refus de démarrer ».
 
+**L'entreprise — la question 10, le cadrage soldé (D945).** Les
+quatre choix détaillés à l'auteur (« je ne comprends pas ce qu'il y
+a à trancher ») reçoivent leur réponse d'un trait : **« 1. azure_ad
+2. smtp_std confirmé 3. la production et un staging 4. chaque
+matin. »** L'authentification par Microsoft 365 — la classe
+`azure_ad` (D692), les utilisateurs avec leur compte de l'entreprise,
+l'affectation aux groupes restant un acte d'administration (D341) ;
+le mail par le relais de l'entreprise — `smtp_std` (D628), la
+condition indispensable vérifiée au démarrage (D626), les rapports
+des règles (D929) et les alertes par lui ; **deux environnements**
+(D342/D617) — la production, la base PMI lue en direct (D863), et le
+staging, une copie de PMI et un entrepôt d'essai, chacun ses
+connecteurs et son `.env` (D902), les versions beta s'essayant sur
+le staging (D805) ; le rapport de chaque règle `when: [migration]` —
+chaque matin, le destinataire reçoit les rejets de la nuit, la
+boucle de correction dans PMI est courte. Le connecteur `directory`
+(D633), la synchronisation des groupes depuis Entra, est écarté
+(R4 — le minimum). *(Miens : les paramètres des deux classes —
+`tenant`, `client_id`, `client_secret*` ; `host`, `port`, `from`,
+`password*` —, que connectors.md note en proposition ; le beta sur
+le staging ; le staging plus verbeux.)* **Le cadrage du cas 3 est
+soldé** : les onze questions répondues (D857–D881, puis D929–D945).
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -20897,6 +20921,20 @@ avant la synthèse Q16).
   confidentiel marqué (`password*: ${VAR}`) ; connectors.md, hooks.md,
   rights.md, security.md, administration.md et l'exemple réécrits, la
   liste secrets: effacée.
+- **2026-09-15 (suite 3) — LE CADRAGE DU CAS 3 SOLDÉ (D945, 945
+  décisions).** La question 10 répondue d'un trait : « 1. azure_ad 2.
+  smtp_std confirmé 3. la production et un staging 4. chaque matin »
+  — **D945** ; l'exemple gagne son environnement `staging`
+  (environments/staging/, la copie de PMI, les versions beta y
+  vivent) et ses connecteurs authentication (azure_ad) et smtp
+  (smtp_std) dans les deux environnements, les secrets marqués *
+  (D944) ; 154 fichiers valides. **Le cadrage du cas 3 est soldé**
+  (les onze questions). **La reprise : le morceau 3, la source**
+  (reprise/source/ — les tables décrites en entier D866/D868, les
+  liens D869/D931, filter: société 100, la garde des listes closes
+  D935, coverage: D880, les trois états ; reprise/reprise.yml avec ses
+  opérations D943), puis le mapping (les règles par dérivé D940, les
+  report: D929), puis le pilotage.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

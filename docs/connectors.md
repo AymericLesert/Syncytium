@@ -228,7 +228,9 @@ vers un storage de format, l'import (D234–D238) en lit.
 HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
 en HTML fait le corps), **les pièces jointes : une liste de fichiers,
 quel que soit le format** ; **l'expéditeur est configuré dans les
-propriétés du connecteur**.
+propriétés du connecteur**. *(Les paramètres de `smtp_std` écrits au
+cas 3 — `host`, `port`, `from`, `password*` — sont en proposition,
+D945.)*
 
 ### `directory` (D633)
 
@@ -284,7 +286,9 @@ le visage concret du volet SSO), **`none`** (D759 — aucun défi :
 l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique — les invariants D699 pré-remplis) — chaque
 classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
-l'AD pour les internes, le local pour les clients).
+l'AD pour les internes, le local pour les clients). *(Les paramètres
+d'`azure_ad` écrits au cas 3 — `tenant`, `client_id`, `client_secret*`
+— sont en proposition, D945.)*
 
 ### `siren` (D639)
 

@@ -24,7 +24,8 @@ composants.md.
   `default` (la valeur de naissance — D424), **`unchanged`** (D941 —
   `true` : le champ possédé par la cible, que la migration n'écrit
   pas ; il naît à son `default` et garde sa valeur, la saisie restant
-  libre ; `false` par défaut), `mask`, `report:` (`no` par défaut —
+  libre ; une règle de migration qui l'alimente = une erreur
+  d'ingestion ; `false` par défaut), `mask`, `report:` (`no` par défaut —
   D406), la confidentialité
   (D25/D364), **`rgpd:`** (`personal` / `sensitive` / `consent` —
   D695, l'anonymisation D696), **`trace:`** (`audit` / `limited` —

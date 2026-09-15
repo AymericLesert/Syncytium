@@ -401,7 +401,9 @@ remplit se protège par la propriété **`unchanged: true`** (`false`
 par défaut) : « pour un nouvel enregistrement, la valeur est la
 valeur par défaut. Si l'enregistrement existe, la valeur du champ
 reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
-libre (la différence avec `mode: write-once`, immuable pour tous).
+libre (la différence avec `mode: write-once`, immuable pour tous) ;
+« unchanged est lié à la migration et aux règles de migration. Une
+règle qui alimente l'un de ces champs serait une erreur d'ingestion ».
 Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
 `""`, ouverte au commercial et aux achats par l'allow au champ
 (D886/D942) — la note de l'acheteur survit à chaque nuit.

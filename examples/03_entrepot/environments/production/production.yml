@@ -1,0 +1,18 @@
+name: production
+description: L'environnement de production — l'entrepôt alimenté chaque nuit depuis la base PMI de production
+
+# Configuration de la journalisation (D830)
+
+logging: logging.yml
+
+# Configuration de la génération de la documentation
+
+documentation: documentation.yml
+
+# Configuration des connecteurs de l'application (D617 — propres à l'environnement)
+
+connectors: connectors.yml
+
+# Configuration générale transcendant les versions et propre à un environnement d'exécution
+
+settings: settings.yml

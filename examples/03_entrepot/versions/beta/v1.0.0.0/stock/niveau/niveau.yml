@@ -1,0 +1,16 @@
+# Le niveau de stock — la table STDEPLOT de PMI : la quantité d'un
+# article, dans un lot, à un emplacement d'un dépôt (DPKTCODART +
+# DPKTCOMART, DPKTNUMLOT, DPKTCODMPL, DPKTDEPOT, DPKTCODENR — D865).
+# L'historique (D882) donne le stock à une date — la lecture à date
+# (D412), l'évolution des niveaux.
+name: niveau
+description: Un niveau de stock — un article, un lot, un emplacement, un dépôt, et les quantités qui s'y tiennent
+label: "{article} — {depot}/{emplacement} — lot {lot}"
+identity: [article, lot, emplacement, depot, enregistrement]
+history: true
+
+fields: fields.yml
+
+validation:
+  - quantite >= 0
+  - quantite_reservee <= quantite

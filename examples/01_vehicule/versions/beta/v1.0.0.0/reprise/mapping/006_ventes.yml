@@ -6,9 +6,9 @@
 
 entretien:
   to: transport.vehicule
-  key: immatriculation
   filter: designation like "^Vente de la voiture.*"
   fields:
+    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
     date_vente: date
     lieu_vente: extract(designation, "^Vente de la voiture - (.*)$")   # « Vendezvotrevoiture.fr »
     statut:     "cloture"

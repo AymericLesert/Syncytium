@@ -6,6 +6,5 @@
 budget:
   to: banque.budget
   distinct: [Budget]
-  key: Budget
   fields:
-    libelle: Budget
+    libelle: Budget                # la valeur devient l'identité (D658/D930)

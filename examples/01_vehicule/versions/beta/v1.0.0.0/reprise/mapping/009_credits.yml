@@ -4,8 +4,8 @@
 
 echeance:
   to: transport.vehicule
-  key: immatriculation
   filter: connector.line = 1 and interet != null
   fields:
+    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
     premier_mois:  date
     jour_echeance: date.day

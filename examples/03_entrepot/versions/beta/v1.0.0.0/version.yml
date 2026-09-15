@@ -1,0 +1,42 @@
+# Identification et description de la version — la version en tête (D801)
+
+version: 1.0.0.0
+release-notes: >
+  La première version de l'entrepôt de données — les données de Cegid
+  PMI standardisées, harmonisées et fiabilisées, de l'opérateur aux
+  dirigeants.
+  # Le modèle
+  ## Quatre modules sur le périmètre — technique (l'article, sa
+  nomenclature et sa gamme, sa grille tarifaire en hypercube), tiers
+  (le tiers, parent hérité par le client et le fournisseur, ses
+  adresses et ses contacts), commande (les ventes et les achats,
+  séparées), stock (les niveaux et les mouvements)
+  ## L'entrepôt en lecture seule, l'historique partout sauf les
+  mouvements, les champs financiers réservés aux achats et à la
+  direction
+  # La reprise
+  ## La base PMI lue en direct chaque nuit, la comparaison par blocs,
+  la relecture complète le dimanche (le morceau 3)
+  # La restitution
+  ## Le tableau de bord de pilotage, les listes, les documents (le
+  morceau 5)
+
+# Les réglages de la version (D359 — l'étage instance de la cascade) :
+# la normalisation et les profils de confidentialité (D872/D885)
+
+settings: settings.yml
+
+# Les groupes d'utilisateurs — les strates de l'entreprise (D414/D859)
+
+groups: groups.yml
+
+# Déclaration de la reprise des données de PMI (le morceau 3 — la source,
+# puis le mapping) : migrations: reprise/reprise.yml, à venir
+
+# Déclaration des modules — les quatre domaines de l'entrepôt (D882)
+
+modules:
+  - technique/technique.yml
+  - tiers/tiers.yml
+  - commande/commande.yml
+  - stock/stock.yml

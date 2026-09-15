@@ -5,9 +5,9 @@
 
 echeance:
   to: transport.vehicule
-  key: immatriculation
   filter: connector.line = 1 and interet = null
   fields:
+    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
     financement:   "loa"
     mensualite:    mensualite
     premier_mois:  date            # date[yyyy-mm] — la troncature naturelle du type (D854)
@@ -15,8 +15,8 @@ echeance:
 
 credit_parametres:
   to: transport.vehicule
-  key: immatriculation
   fields:
+    immatriculation:     immatriculation   # l'identité alimentée — la mise à jour (D930)
     financement:         "credit"
     capital:             capital
     taux_annuel:         taux_annuel

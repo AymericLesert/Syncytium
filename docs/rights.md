@@ -72,7 +72,21 @@ allow:
   delete: false
 ```
 
-L'absence = tout permis ; `read` absent = l'état masque. **Les
+L'absence = tout permis ; `read` absent = l'état masque. **La
+cascade de l'allow** (D886 — le cas 3) : le bloc libre se déclare
+**à quatre étages** — l'application, le module, l'entité, le champ
+— et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
+règle de ses entités (l'entrepôt en lecture seule : `allow: {
+create: false, update: false, delete: false }` sur chaque module),
+l'entité la précise si elle diffère, le champ porte ses propres
+droits d'action (`update: false` = le champ en lecture seule ;
+`update: [commercial, achats]` = le champ ouvert à ces groupes quand
+le module est en lecture seule — D941/D942). **`allow:` s'applique à
+tous les canaux (D942)** : l'IHM et l'API passent par un compte,
+utilisateur ou administrateur, et **le degré `administrator` passe
+outre les `allow`** — la migration, opération de ce degré (D701),
+écrit dans un module en lecture seule sans que les `allow` l'arrêtent,
+non parce qu'elle y échappe mais parce que son degré les passe. **Les
 droits d'action couvrent les opérations du socle et les opérations
 déclarées** (D691) : le droit d'exécuter se déclare et se contrôle
 comme les autres droits d'action. La réconciliation avec le
@@ -245,19 +259,30 @@ fields:
 **Le contrat de chaque opération déclare son degré** — le plancher
 que la déclaration ne peut abaisser. **Les trois valeurs** : `user`
 · `manager` · `administrator`. **Le groupe d'utilisateurs porte le
-degré** (`degree:` dans groups.yml — en proposition, défaut
+degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
 (D414) ; **l'appartenance à un groupe est obligatoire** — le compte
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
-**L'inventaire des dix-neuf planchers** (D701 — validé) :
+**L'inventaire des vingt planchers** (D701 — validé ; la vingtième,
+`reset_coverage` D881, au plancher `administrator` par D900) :
 
 | le degré | les opérations |
 |---|---|
 | `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
 | `manager` | `import` · `report` |
-| `administrator` | `restore` · `migrate` · `anonymize` |
+| `administrator` | `restore` · `migrate` · `anonymize` · `reset_coverage` |
+
+**Hors catalogue — la réactivation d'un enregistrement désactivé**
+(D903) : « une opération exceptionnelle… l'action d'un
+administrateur… pas une fonction exploitable par la configuration
+(pas de hook) » — ni une opération du socle, ni déclarable : **une
+fonctionnalité des écrans d'administration** (le module D710, le
+degré `administrator`), sous la garde de l'unicité sur les actifs
+(D141 — refus si un enregistrement actif porte la même clé
+fonctionnelle), l'identité conservée (D142), tracée par
+l'historisation (D429).
 
 **L'exemple détaillé** — les degrés, les deux formes d'`allow` et la
 composition :
@@ -337,8 +362,10 @@ fields:
 - **en transit** (D705) : ce que Syncytium **sert** (l'IHM, les API,
   les routes webhook) est **HTTPS sans dérogation** ; ce qu'il
   **appelle** (les huit familles) est chiffré **par défaut** —
-  l'exception déclarée au connecteur (`unencrypted:` en
-  proposition), signalée par l'ingestion, visible au `describe()` ;
+  l'exception déclarée au connecteur (`unencrypted:` — validé
+  D901), signalée par l'ingestion, visible au `describe()`, **et
+  rappelée chaque jour** : le dashboard de santé (D731) et le mail
+  des faits marquants (D733) portent la dérogation ;
 - **au repos** (D706) : le chiffrement du storage (TDE, disque)
   **n'est pas de la responsabilité de Syncytium** — l'infrastructure
   et la classe ; et le chiffrement d'une valeur est **un pouvoir de

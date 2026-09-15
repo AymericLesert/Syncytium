@@ -1,5 +1,5 @@
 # La phase 2 (D814) — les écritures courantes, hors marqueurs
-# La règle sans clé (D825) — création seule : aucune clé naturelle au legacy
+# La règle sans identité (D825/D930) — création seule : aucune clé naturelle au legacy
 # (54 doublons du quintuple compte+date+libellé+montant) ; admise car la
 # migration est en absolute + reset — la garde de l'ingestion le vérifie.
 # Le numéro d'écriture (counter D409) naît au fil de la création : l'ordre du fichier.

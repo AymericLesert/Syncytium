@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -107,7 +107,13 @@ Q58) :
    D693–D694), les droits étendus aux opérations (D691), le degré
    intrinsèque à l'inventaire validé (D697/D699–D701), le RGPD
    (D695–D698), l'audit des lectures (D702–D704), le chiffrement
-   (D705–D708) ;
+   (D705–D708) ; **security.md** (13/09/2026) — la vue transversale
+   de la sécurité depuis D25, ses points ouverts tranchés un à un
+   (D900–D928 ; les huit principes du domaine 7 tranchés D907–D926
+   — la sandbox, la rotation, le navigateur, HTTPS, le dépôt, les
+   fichiers, les dépendances, les journaux ; à Q7 le moyen, jamais
+   le principe) — **le volet sécurité clos le 13/09/2026** (« peut-être
+   ajouterons-nous d'autres points, si nécessaire ») ;
 3. **l'administration et l'exploitation** — **soldé** (D709–D743 :
    administration.md et telemetry.md) : le module d'administration
    (D710–D711), les comptes au quotidien (D712–D723), l'exploitation
@@ -983,6 +989,93 @@ Q58) :
 | D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
 | D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
 | D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
+| D857 | **Le cas 3 = l'entrepôt de données — `03_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/03_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_entrepot/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
+| D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
+| D859 | **Le cadrage du cas 3 — le contexte** (la réponse de l'auteur, complète D857–D858) : « la capacité de Syncytium à assurer la migration de données d'un connecteur à un autre en appliquant un mapping, des règles de conversion et des règles de vérification » — la conversion Cegid → l'entrepôt **standardise** (« mapper la bonne information dans le bon module et la bonne entité » — le `to:` D655), **harmonise** (« convertir les données pour extraire les informations utiles » — D659/D660/D817, le hook de type D119) et **fiabilise** (« les informations disponibles sont justes et sont accessibles à la bonne personne » — les règles de vérification D404/D177 **et** les droits de consultation sur les entités et les champs, P8/D196/D699) les données exploitées **de l'opérateur aux dirigeants** ; les données hors règles **font l'objet d'un état sur la qualité et sur l'avancement de l'intégration** (le module `migration` D666/D668 ; les non conformes non portées D177) **à destination d'un destinataire capable de corriger les données d'origine** (D179/D406) ; **un historique des changements de valeur** pour certaines entités (`history:` D411–D413, le différentiel D672 — l'alimentation continue) ; **un tableau de bord d'indicateurs de pilotage** dès que les données sont disponibles — la vue globale du fonctionnement de l'entreprise (D554–D558/D527) ; **le périmètre** : les données techniques (articles, gammes & nomenclatures, tarifs), les clients et les fournisseurs, les commandes de vente et d'achat, les stocks et les mouvements. | Les questions 1, 5, 7 (la posture) et 9 (la continuité) du cadrage répondues. Voir §3.2c. |
+| D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
+| D861 | **La couverture à deux étages** (le cadrage du cas 3 — précise D176/D648/D653/D666) : « l'objectif est de couvrir toutes les tables et tous les champs de la source » — `source/` décrit **le schéma SQL Server entier**, le hors-périmètre (D859) déclaré `ignored` (D657) ; **l'anomalie** : « si une table ou un champ présent dans un schéma de la base de données SQL Server ne sont pas décrits dans la source de la configuration, une anomalie doit être remontée » — la complétude confrontée au schéma réel (D653) à l'ingestion et à chaque `migrate`, le rapport de non-couverture au technicien (D179) ; **l'état de la couverture du schéma** « s'appuie sur la description décrite en base via la configuration » — par table et par champ : décrit et migré, déclaré ignoré, absent (l'anomalie) ; **l'état de la couverture des données** « s'appuie sur le nombre de lignes de chaque table » — les lignes intégrées rapportées aux lignes de la table source, le `filter:` (D663) hors taux ; les deux états = des données du module `migration` (D666/D668, deux grains), leur vue = ses surfaces ; **la version : Cegid PMI 16.17**. | La place des ignorés dans le taux du schéma tranchée par D862 (les deux taux scindés). Voir §3.2c. |
+| D862 | **La complétude et la couverture scindées** (précise D861 — « Ta proposition de scinder le taux de couverture et le taux de complétude me convient et me paraît intéressante ») : sur le schéma, **deux taux** — **la complétude du schéma** : les éléments décrits ou déclarés `ignored` rapportés au schéma réel (cent pour cent quand tout est déclaré ; l'écart = les anomalies — la table ou le champ absent de `source/`, D861) ; **la couverture du schéma** : les éléments migrés rapportés au schéma réel (les ignorés = l'exclusion assumée, affichée à part) ; avec **la couverture des données** (D861 — les lignes intégrées sur les lignes de chaque table), **trois taux** au module `migration` (D666/D668). | Un taux qui compterait les ignorés comme couverts dirait la complétude de la description, pas la couverture — les deux mesures répondent à deux questions. Voir §3.2c. |
+| D863 | **L'accès et le volume du cas 3** (le cadrage — solde la question 3) : « L'accès se fait en lecture directe sur la base de production. Le volume concerne quelques dizaines de milliers de lignes d'articles, quelques centaines de clients et de fournisseurs et quelques millions de lignes de mouvements de stocks. » — le connecteur `cegid` lit **la production, en direct** : la lecture seule (D175) devient une garde (rien ne s'écrit chez Cegid), la fenêtre du `every:` aux heures creuses (l'esprit D7), `timeout:`/`retry:` (D625) ; **le volume** — les articles ~10⁴, les tiers ~10², les mouvements ~10⁶ : le premier exemple au-delà de l'échelle domestique — la lecture au curseur (D689) et l'écriture en lots (D688) pour de vrai ; **le point posé au mapping** : le différentiel par comparaison (D672) sur des millions de mouvements chaque nuit — le `filter:` en fenêtre glissante (D663) si les mouvements sont immuables une fois écrits, à arbitrer. | Tranché par D864 : la fenêtre glissante écartée. Voir §3.2c. |
+| D864 | **Les écarts des mouvements de stocks** (le cadrage du cas 3 — précise D863, ouvre un manque du socle) : « Dans le principe, les mouvements de stocks sont immuables, une correction passe par un contre-mouvement. Malheureusement, dans certains cas, des outils "maisons" apportent des ajustements sur la donnée directement pour corriger des défauts de saisie. L'idée est de consulter les écarts. Cela peut représenter une charge de travail pour le serveur conséquent. L'analyse des écarts est un sujet qui doit être couvert par Syncytium. » — **la fenêtre glissante est écartée** (aveugle aux ajustements directs sur les lignes anciennes) : la détection doit être **exhaustive et légère** ; **l'analyse des écarts = un sujet du socle** — deux manques ouverts, **en proposition** : M1 la détection à l'échelle (l'empreinte de la ligne source portée par la provenance D178, la comparaison clé + empreinte avant tout mapping — les nouveaux, les modifiés, les disparus —, la relecture des seuls changés, le pré-contrôle par partition `partition:` sur l'entité source), M2 la consultation et l'analyse (les écarts = des données du module `migration` D666, `immutable:` sur l'entité source — l'écart = une anomalie rapportée D406 —, les surfaces du module et le drill-down vers l'historique D168). | L'arbitrage attendu sur les quatre pièces : l'empreinte, la partition, `immutable:`, les écarts au module. Voir §3.2c. |
+| D865 | **Le réel du cas 3 reçu** (solde la question 4 du cadrage) : deux classeurs **hors du dépôt** — le schéma Cegid PMI 16.17 (`PMI-schema.xlsx` : 330 objets, 13 512 colonnes typées, sans les contraintes) et l'extraction anonymisée (`PMI-extraction-anonymisee.xlsx` : ARTICLE, NOMENC, MVTSTO, CLIENT, FOURNIS × 100 lignes, la société 100, les règles d'anonymisation en feuille) ; **la règle : les données n'entrent jamais dans les commits** (« ces données ne doivent pas être présentes dans les commits... elles sont confidentielles ») — le cas cite la structure, jamais une valeur, les analyses au scratchpad ; **la lecture** : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` (K = clé, T = nchar à blancs, N = decimal/int, **J = jour `nchar(8)` AAAAMMJJ — une chaîne, pas un entier : le `mask` D820 suffit, le hook D119 sans objet ici**, S = heure `nchar(6)`), la société en première colonne de clé (le `filter:` D663), les clés naturelles aux colonnes K (ARTICLE société+code+complément, CLIENT/FOURNIS société+code — la même structure à 167 colonnes, NOMENC, TARIF à la date d'application, STDEPLOT, ECOMCLI à l'indice de révision, LCOMCLI) — **MVTSTO sans colonne K, sans clé naturelle visible**, les familles E*/L* (13 genres de documents), U* (l'extension du site), les vues de compatibilité de `dbo` sur les tables neuves des schémas typés (`NOMENC` ↔ `Production.BomRange`…), OData (43 vues). | Six questions du réel R1–R6 posées (la clé de MVTSTO et une feuille Contraintes, la vue ou la table, OData/techniques ignorés, les genres de documents et les U*, la date au masque, le rognage nchar par la classe). Voir §3.2c. |
+| D866 | **Les réponses du réel — R1, R2, R3 et la date** (précise D865, amende la lecture de D119) : **la date** — « j'avais indiqué un entier. Une chaîne de caractères composée uniquement de numérique peut également être vue comme un entier » : la chaîne de chiffres et l'entier sont la même chose vue du masque, `mask: "yyyymmdd"` (D820) lit l'une comme l'autre, le hook de type reste l'outil des formats que le masque ne dit pas (R5 refermée) ; **R1** — « les clés d'une table dans PMI contiennent un "K" en 3ème position. Et la base de données ne contient aucune clé étrangère » : les colonnes K = l'`identity:` de l'entité source (D357), **les dépendances se déclarent dans `source/`** (D396/D648/D654 — le schéma ne les porte pas), **`MVTSTO` sans clé → l'identité par l'empreinte en proposition** (`key: connector.fingerprint` — l'information système D849, le condensé natif de la pièce 1 de D864 ; la garde D825 satisfaite, le modifié = un disparu + un nouveau) ; **R2** — « la vue NOMENC doit être vue comme une table » ; **R3** — « pas d'ignorance en bloc. Toutes les tables doivent être citées en entier (pas d'utilisation de patterns) » : les 330 objets décrits avec toutes leurs colonnes typées, `reprise.yml` sans regex (D806 licite ailleurs, refusé ici), l'ossature engendrée du réel (D653) ; la couverture se relit — la complétude = décrit / absent, la couverture = migré / décrit sans règle. | À trancher : l'état « ignoré » conservé pour l'exclusion explicite ou l'exclusion lue dans l'absence de règle ; le schéma entier (330 fichiers engendrés) dans le dépôt public ; `MVTSTO` à l'empreinte. Voir §3.2c. |
+| D867 | **Les réponses du réel — R4, R5, R6** (amende le périmètre de D859, confirme D820, ouvre un réglage du socle) : **R4** — « uniquement les clients et les fournisseurs, pas les commandes, les offres… Ce n'est que pour l'exemple. Si nous prenons en compte tous les cas, cela pourrait être long et fastidieux. Je souhaite juste montrer l'utilisation du module migration pour alimenter un entrepôt de données et disposer de la mécanique pour accéder aux données de l'entrepôt et pour disposer de quelques écrans de consultation » — **aucun document au mapping** (les paires E*/L* décrites, sans règle), l'ambition du cas resserrée : le module `migration` qui alimente, la mécanique d'accès (l'IHM, l'API), quelques écrans de consultation ; **R5** — « une date au masque simplifie la conversion des données et cela peut éviter un hook » (D820 confirmé) ; **R6** — « disposer d'une option dans les settings pour indiquer que les blancs sont rognés et une option sur les champs pour éventuellement surcharger cette option » : **un réglage de la cascade des settings (D359/D588) + une facette du champ** — le nom proposé `trim: true \| false`, le défaut du socle `false` (rien en silence, D311), le cas à `true`, appliqué par la classe storage à la lecture (D683) et par l'entrée à l'écriture. | À clarifier : les données techniques (ARTICLE, NOMENC, TARIF) et les stocks (MVTSTO, STDEPLOT) restent-ils au mapping, ou les tiers seuls (CLIENT, FOURNIS — ADRESSE, CONTACT ?). Voir §3.2c. |
+| D868 | **L'analyse itérative — la description de la source est un acte du technicien** (précise D653/D861–D862/D866, retire l'ossature engendrée) : « Le schéma de la source est décrit dans la configuration. Syncytium compare la structure réelle à la description et note les écarts au technicien. Il serait plus facile de laisser Syncytium construire le modèle à partir d'une analyse du schéma fournie par le connecteur. Mais, dans le cadre d'une migration, chaque table et chaque colonne doivent être comprises et analysées par un technicien. Les écarts ne doivent pas être vus comme des écarts ou des négligences mais comme des points à creuser… Les écarts sont présents pour permettre au technicien de savoir où il en est de son analyse. La migration est une procédure itérative qui permet d'exploiter les données justes au fur et à mesure de l'analyse. » — **`read_instance` sert la comparaison, jamais l'écriture** ; **le non-décrit = un point à creuser** (ni anomalie — D861 relu — ni écart — le mot réservé aux données retouchées, D864) : la liste rendue au technicien est son marque-page ; **la complétude (D862) = l'avancement de l'analyse**, la couverture = ce que l'entrepôt prend ; **R3 relue** : chaque table décrite l'est en entier, sans pattern ni ignorance en bloc — la description grandit table par table ; **la migration itérative** : l'analysé et mappé s'exploite à chaque itération (D670, D668) ; l'exemple montre un état de l'analyse (les tiers décrits, le reste à creuser) — la question du schéma entier au dépôt public se dissout. | En proposition : `ignored` = la conclusion d'une analyse (« compris et écarté »), qui avance la complétude sans la couverture, distinct du point à creuser. Voir §3.2c. |
+| D869 | **La source décrite porte ses clés et ses références ; les trois états ; le périmètre ; le jeu de données** (revoit R1, précise D861–D862/D868, confirme D859/D867) : « comme nous devons décrire le schéma d'origine, nous décrivons les champs, les clés et les références externes (sous forme de liste ou d'association). Donc, peu importe la codification ou la description des contraintes du schéma. La table MVTSTO dispose bien de clés (avec un I à la place de K) » — `identity:` (D357), le raccourci de référence (D396), `list of`/`association with` (D399–D401) **déclarés par le technicien dans `source/`**, le schéma réel n'a pas à les porter (la feuille Contraintes sans objet), **l'empreinte de MVTSTO retirée** (sa clé = ses colonnes I ; l'`identity:` exacte à l'analyse — l'échantillon : 70/100 sur les cinq I, 100 avec l'article, la date, l'heure) ; **les trois états migré / ignoré / non défini** aux deux grains : « la migration va référencer les tables migrées et quelques tables à ignorer, pour l'exemple. Les autres tables apparaîtront en "non défini". Toutes les colonnes ne seront pas non plus décrites pour les faire apparaître comme "non défini" » — `ignored` = compris et écarté, non défini = le point à creuser ; **le périmètre** : « le périmètre comprend bien les tables que j'avais initialement définies » — les données techniques, les tiers, les stocks et les mouvements (les commandes sous la réserve de R4, à confirmer) ; **le jeu de données** : « les données ne sont pas présentes dans l'extraction, c'est volontaire. Par contre, pour les besoins de l'exemple, nous construirons le jeu de données que nous pourrions publier sans risque » — l'exemple portera un jeu construit, publiable ; l'extraction reste hors dépôt. | Les pièces de D864 en réflexion ; la cible (la question 6) pas encore abordée. Voir §3.2c. |
+| D870 | **`normalize:` — la normalisation à la frontière par une fonction** (remplace le `trim` proposé sous D867, un réglage du socle) : « la propriété "trim" sur les chaînes de caractères répond à un besoin unique. Je verrai plutôt une option "normalize" qui fasse référence à une fonction de transformation qui, elle, peut être définie comme un hook. Dans notre cas, "trim" sera une fonction fournie par Syncytium (normalize: trim) » — `normalize: <fonction>` dans la cascade des settings (D359/D588 : l'application → le module → l'entité) et en facette du champ qui la surcharge ; la fonction du catalogue (D570–D601 — `trim`, celle de D660) ou d'un hook de fonction (D432/D592) ; appliquée par la classe storage à la lecture (D683) et par l'entrée à l'écriture ; le cas : `normalize: trim` aux settings de la version. | Le voisin de vocabulaire : `searchable: normalized` (D367) est un mode de recherche, `normalize:` une transformation. Voir §3.2c. |
+| D871 | **L'identité contrôlée avant la migration** (complète D654/D825, précise D667) : « la migration doit garantir aussi que la définition de l'identité sur une entité est bien une clé avant de lancer la procédure de migration. Ce contrôle s'appuie uniquement sur les données consultables après l'application du filtre des données à lire » — avant de lire, `migrate` vérifie sur le réel que l'`identity:` déclarée de chaque entité source est une clé (aucun doublon) **dans le périmètre du `filter:`** (D663) ; le manquement arrête la procédure et se rapporte au technicien — la garde de D825 (la clé exigée en `relative`) gagne son pendant sur les données ; le décompte des clés distinctes après filtre = un geste ensembliste de la classe storage. | Le cas : `MVTSTO` déclarée par le technicien, le contrôle tranche sur la société 100. Voir §3.2c. |
+| D872 | **`normalize:` paramétré — une expression sur la valeur** (amende D870) : « je pense qu'il peut être utile d'utiliser des paramètres : `normalize: trim(me)`, `normalize: right("0000" + me, 4)`… » — `normalize:` porte une expression du langage (D90–D92) où **`me` désigne la valeur à normaliser** ; le catalogue (D570–D601) et les hooks de fonction (D592) y sont disponibles ; la cascade des settings et la surcharge au champ demeurent (D870) ; le cas : `normalize: trim(me)` aux settings, le code sur quatre positions au champ. | `me` à l'étage du champ = sa valeur, à l'étage de la règle = l'enregistrement (D822–D823), à l'origine d'une référence = l'enregistrement d'origine (D396) — le même mot, la chose à portée. Voir §3.2c. |
+| D873 | **Les commandes de vente et d'achat restent au mapping** (lève la réserve de R4 sous D867, confirme D859 en entier) : « ces éléments sont utiles pour montrer un lien complet entre les articles, les clients et les fournisseurs » — le périmètre : les données techniques, les tiers, `ECOMCLI`/`LCOMCLI` et `ECOMFOU`/`LCOMFOU`, les stocks et les mouvements ; les autres genres de documents (les offres, les expéditions, les réceptions, les internes) hors mapping. | Voir §3.2c. |
+| D874 | **Le contrôle des compositions et des associations avant la migration** (complète D871) : « au même titre que le contrôle de l'identité, Syncytium doit inclure le contrôle sur les compositions et les associations » — avant de lancer, sur les données du `filter:` (D663), chaque lien déclaré dans `source/` (D869 : `list of`, `association with`, le raccourci de référence) est vérifié : tout enfant a son possesseur, toute association et toute référence ont leur cible — l'intégrité référentielle que le schéma ne porte pas (D866) se prouve sur le réel ; le manquement se rapporte au technicien avant la procédure. | Précisé par D875 (l'orphelin isolé) et D876 (la jointure par la facette du connecteur). Voir §3.2c. |
+| D875 | **L'orphelin isolé** (précise D874, l'effet du contrôle des liens) : « l'orphelin est laissé au mode relative qui l'isole. L'enregistrement contenant un orphelin ne sera pas enregistré dans la cible. Une anomalie sera remontée au technicien » — le pré-contrôle rapporte, la procédure part ; l'enregistrement à l'orphelin n'entre pas dans la cible (D177 : converti ET cohérent) et l'anomalie va au technicien ; seule l'identité brisée arrête la procédure (D871). | Voir §3.2c. |
+| D876 | **Le connecteur porte la facette des types** (précise D119/D681–D684 pour la lecture d'un schéma étranger, tient D399) : « la description d'un modèle fait référence à différents types dont le connecteur porte la facette. Par exemple : pour une composition, le lien entre le parent et le fils se fait sur les noms de colonnes identités identiques. Pour une association, le lien pourra se faire par une convention de nommage des colonnes. Pour un type composé, les colonnes qui feront référence à un objet dépendra de la convention de nommage » — la description de `source/` reste logique (`list of`, la référence, le composé), **le connecteur résout les colonnes par sa convention** : la composition par les colonnes d'identité aux noms identiques, l'association par une convention de nommage, le composé par la convention qui désigne ses colonnes — l'enfant ne déclare rien (D399), la facette trouve le lien ; le cas : la convention `<XX><K\|C\|I><T\|N\|J\|S><nom>` de PMI (le nom logique sans le préfixe de table, K/I = l'identité, la lettre de type) portée par le connecteur `cegid`. | La forme — un paramètre de convention de la classe `sqlserver` ou une classe dédiée — à arbitrer à l'assise. Voir §3.2c. |
+| D877 | **La convention surchargeable** (complète D876) : « si la convention n'est pas possible ou ne convient pas au technicien, la convention pourra être surchargée et cela rendra possible ce point sur des modèles de données autres que ceux portés par Syncytium » — la convention de la classe est **un défaut** ; le technicien la surcharge au connecteur (une autre convention déclarée), à l'entité ou au champ (les colonnes nommées explicitement — le lien d'une composition, la colonne d'une association, les colonnes d'un composé), **le plus proche l'emporte** (D359) ; `source/` décrit ainsi tout modèle de données, pas seulement ceux que Syncytium porte ou dont il connaît la convention. | La forme des surcharges s'écrit au morceau de la source, sur les tables. Voir §3.2c. |
+| D878 | **La comparaison par blocs et `coverage:` — la remise à plat de l'auteur** (solde les quatre pièces et le mot de D864, précise D672/D666, écarte `append_only`) : « la migration consiste à comparer le contenu des entités d'origine converties et prêtes à être intégrées dans les entités destinations » — **la comparaison sur le converti, par partition, en cinq blocs** : anomalies (les lignes d'origine non converties), création (les clés nouvelles), modification (les clés existantes à un champ différent), inchangé, suppression (les clés de la destination absentes de l'origine) ; **la synthèse** : par bloc et par clé, le nombre d'enregistrements par entité = l'avancement de la migration (le module `migration`) ; **la lecture de l'origine** : trois modes — les nouveaux depuis la dernière lecture, la relecture par plage (de dates ou de valeurs), la totalité (**le défaut**) ; « append_only est trop restrictif » ; **`coverage:` sur l'entité source** précise **la clé de la partition** (distincte de l'`identity:` possible — Syncytium garde **une empreinte par clé** qui identifie une différence, et **la dernière valeur parcourue** pour reprendre depuis la dernière lecture) et **une plage de valeurs de clé** (une période sur une date — les 3 derniers mois, la dernière année, la dernière semaine ; un nombre de valeurs ou d'enregistrements sur un numéro — les 15 dernières valeurs, les 10 000 derniers) ; **le traitement selon la destination** : `history:` présent, les écarts complètent les valeurs existantes et sont stockés dans l'historique ; absent, ils les remplacent. | L'empreinte par ligne dans la provenance, `partition:`, le mot de qualification et les écarts en entités propres s'effacent — l'analyse des écarts = l'historique de la cible + la synthèse des blocs. `filter:` = le périmètre jamais lu, `coverage:` = la stratégie de lecture ; le `coverage:` de la lecture ≠ le taux de couverture de D862. La forme arrêtée par D879. Voir §3.2c. |
+| D879 | **La forme de `coverage:` — la carte des champs de partition** (précise D878) : « pour coverage, ne pas oublier que key peut faire référence à plusieurs champs. Et, range se reporte sur chaque champ » — `coverage:` est un mapping **champ → { value:, range: }** : `value:` la nature de la partition (`month` — les natures du crochet D382 ; absente, la valeur brute), `range:` la plage relue pour ce champ (une durée D476 sur une date : `3m` ; un nombre sur un numéro : `10000`) ; plusieurs champs = une clé de partition composée, chacun sa plage ; le cas : `MVCJMVT: { value: month, range: 3m }` sur les mouvements, `ECKTNUMERO: { range: 10000 }` sur les commandes. | Le croquis `key:`/`range:` de D878 s'efface. La nuance valeurs / enregistrements d'un numéro à préciser sur la table. La forme courte par D880. Voir §3.2c. |
+| D880 | **La forme courte de `coverage:` au crochet** (complète D879 — la forme riche) : « je propose une forme simplifiée, peut-être plus lisible : `coverage: MVCJMVT[month - 3]`, `coverage: ECKTNUMERO[10000]` » — le crochet, paramètre en ligne du format (D372/D381/D382), porte **la nature puis la plage en retrait** (`month - 3` = les trois derniers mois, `week - 1`, `year - 1`) ou **la plage seule** sur un numéro (`[10000]` = les dix mille derniers) ; plusieurs champs = la liste ; la carte `value:`/`range:` de D879 demeure la forme riche équivalente — le patron courte/riche (D356/D441). | Voir §3.2c. |
+| D881 | **`reset_coverage` — l'opération qui force la relecture** (complète D878, ajoute au socle) : « je propose de définir une opération `reset_coverage(nom du module, nom de l'entité)` qui peut être exécutée régulièrement. En réinitialisant le coverage, cela forcera Syncytium à tout relire. Par exemple, nous pouvons du lundi au vendredi faire un delta, et le dimanche une relecture complète en planifiant un reset_coverage dans la nuit de samedi à dimanche » — l'opération efface l'état de couverture d'une entité (la dernière valeur parcourue, les empreintes par partition) : le `migrate` suivant relit la totalité ; planifiable par `every:` (D434), déclenchable comme toute opération (D428) ; le rythme : le delta en semaine, la relecture complète le dimanche — elle rattrape les retouches hors de la plage (D864) ; **la vingtième opération du socle** (après `migrate` D667, `anonymize` D697). | Le degré `administrator` (D701) en proposition. Voir §3.2c. |
+| D882 | **La cible arbitrée** (la question 6 du cadrage — les huit choix, précise D859) : le modèle **conçu ici** (« je n'ai pas de modèle... une proposition qui convertit un ensemble de champs tel que nous conservons la cohérence des données sans être exhaustif ») ; **quatre modules** technique/tiers/commande/stock ; la standardisation = les patrons des cas précédents (D764, D840/D844) — **les montants en `amount` à devise dans la valeur** (D771 : « des montants avec des devises différentes sur les tarifs, les prix unitaires ») ; **`tiers` parent, `client` et `fournisseur` enfants par `inheritance:`** (D353 — « met en lumière cette fonctionnalité ») ; **les commandes sans héritage** — `commande_vente` et `commande_achat` séparées ; **`history:` sur toutes les entités sauf les mouvements de stock**, la nomenclature comprise (« l'indice n'est pas lié à la nomenclature ») ; les champs financiers restreints (« cela montre le fonctionnement des droits en consultation ») ; **l'entrepôt en lecture seule** ; **les trois figures du lien** : la composition et sa cascade au soft delete (l'article supprimé emporte sa nomenclature, ne touche pas les commandes), **l'association** pour les commandes d'un client, d'un fournisseur, d'un article (l'association dérivée D405 — la vérité reste la référence), **le tarif en n-aire** (D402 — « le prix unitaire est conditionné par l'article, le client/fournisseur, une tranche ») ; « cet exemple permet de mettre en lumière tous les types possibles du modèle » — la couverture vérifiée type par type (le usecase). | Absents par nature : counter, states:, communication, password, le type-hook ; à arbitrer : file (le plan par le connecteur file) ; artificiels : image, thumbnail, uuid, color — relu par D883. Voir §3.2c. |
+| D883 | **Le counter surchargé, le file par son connecteur, l'énuméré des listes closes** (précise D882, la couverture des types) : « pour sans objet, je confirme. Même si une commande est un counter… mais ici, lors de la migration, le counter est surchargé » — **`commande_vente.numero: counter`** déclaré, **la valeur surchargée par la migration** (le privilège de l'écriture identifiée reprise, D175/D173) ; « le type file peut remplir un champ (liste de pièces jointes) via un connecteur file (en complément du connecteur de source) » — **`article.plans: list of file`** rempli par un connecteur `file` (D634) aux côtés du storage source, le nom du fichier venant d'`ARCTFICPLA` ; « l'énuméré est bien présent dans les données PMI ⇒ le type d'article, le code de gestion, la famille, la sous-famille… les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » — **les listes closes de PMI en `enum`** à `values:` (pas en référentiels par `distinct:` D658, réservé aux listes ouvertes) ; les sans-objet confirmés : `states:`, `communication`, `password`, le type-hook. | La forme du second connecteur dans la migration (D662 n'en nomme qu'un) au morceau de la source. Voir §3.2c. |
+| D884 | **Le mot juste prime l'éponymie** (le morceau 2 du cas 3 — la nuance de D831/D807) : « je préfère TIERS au lieu de PARTENAIRE. Pour Position, je préfère Niveau » — le parent des clients et des fournisseurs se nomme `tiers` dans le module `tiers` (`tiers/tiers/tiers.yml` : l'éponymie triple que D831 évitait est assumée quand le mot est le bon), le niveau de stock se nomme `niveau` (`stock.niveau`, STDEPLOT). | Le nommage reste libre (D807) : l'éponymie est une convention, ni imposée ni interdite. Voir §3.2c. |
+| D885 | **La confidentialité nommée dans les settings, référencée par interpolation** (solde le manque M3 du cas 3 — compose D25 et D26, exploite D321/D802) : « la confidentialité peut faire référence à un paramétrage dans settings. On exploite une capacité de la configuration » — **les profils nommés à l'étage des settings** (`confidentiality: { financier: { level: protected, groups: [achats, direction] } }` — le niveau D25 × le qui D26, écrits une fois) **et la référence au champ par l'interpolation de la configuration** : `confidentiality: ${settings.confidentiality.financier}` ; la forme riche `{ level:, groups: }` vaut aussi en ligne ; la cascade des settings (D359/D588) porte les profils à l'application, au module ou à l'entité. | Le cas : `settings.yml` de la version — financier, direction, commercial ; dix-neuf blocs remplacés. Voir §3.2c. |
+| D886 | **La cascade de l'allow** (solde le manque M4 du cas 3 — étend D421–D423) : « un allow au niveau du module me convient. Le allow peut porter sur l'application, le module, une entité ou un champ » — **le bloc `allow:` se déclare à quatre étages** : l'application, le module, l'entité, le champ ; **le plus proche l'emporte** (l'esprit de la cascade D359) ; à l'entité, les deux foyers de D422–D423 demeurent (par état ou en bloc libre) ; au champ, les droits d'action du champ (`update: false` = le champ en lecture seule). | Le cas : les seize blocs d'entité retirés, les quatre modules portent `allow: { create: false, update: false, delete: false }` — l'entrepôt en lecture seule (D882) en quatre lignes. Voir §3.2c. |
+| D887 | **Le décompte conditionnel — la condition seule en argument** (solde le manque M5 du cas 3, précise D580) : « je valide le 1 » — `nomenclature.count(nature = "composant")` ; **la doctrine des agrégats** : l'agrégat qui porte une valeur (`sum`, `avg`, `min`, `max`, `first`, `last`) se lit **« valeur if condition »** (le `if` suffixé de D580, l'élément en contexte implicite) ; l'agrégat qui n'en porte pas (**`count`, `any`, `exists`**) reçoit **la condition seule** — `count()` nu demeure le tout. Les formes écartées : `count(if …)`, la valeur factice `count(1 if …)`, le filtre `where(…)` (une seconde façon de filtrer, contre l'esprit de D580). | `any` et `exists` gagnent leur forme écrite par la même occasion. Voir §3.2c. |
+| D888 | **L'appartenance à une collection — l'opérateur `in`** (solde le manque M6 du cas 3, complète D580/D581) : « ma recommandation pour plus de visibilité est : `me in fournisseurs` » — **`<élément> in <collection>`**, l'élément à gauche, la collection à droite, un opérateur de la table du type collection (D581) ; le cas : `articles: association with technique.article if me in fournisseurs` (l'accès retour d'une association stockée, nommé en vue dérivée D405, l'origine par `me` D396) ; les formes écartées : `contains` (la collection à gauche), `exists(code = me.code)` (la clé exposée), un mot pour l'élément. | Le même `in` vaudra devant une liste littérale (`statut in ["en_cours", "partielle"]`) — la lecture naturelle, à confirmer à l'usage. Voir §3.2c. |
+| D889 | **La déclinaison de `in` — la projection d'une collection sur un champ** (précise D888, complète D580) : « ma proposition permet de décliner : `if me.code in fournisseurs.code` » — **`<collection>.<champ>` est la collection des valeurs de ce champ** (la projection — le `commandes.montant` d'avant D580, légitime comme collection ; l'agrégat garde la forme `commandes.sum(montant)`) ; `in` s'applique à la projection comme à la collection d'enregistrements : l'appartenance d'une valeur (`me.code in fournisseurs.code`) ou d'un enregistrement (`me in fournisseurs`). | La projection sert aussi les agrégats de valeurs et les listes : `lignes.article` = les articles d'une commande. Voir §3.2c. |
+| D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
+| D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
+| D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
+| D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
+| D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. **Retirée par D895** : la grille est un composé de l'article, le n-aire demeure. Voir §3.2c. |
+| D895 | **La grille tarifaire est un composé de l'article — le n-aire demeure** (retire D894, rappelle D134/D402–D403) : « pourquoi m'enlèves-tu le n-aire ? une grille tarifaire est un composé de l'article… ton approche est juste dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas le cas » — **la leçon** : la grille est une matrice (D134 — les formes de composition : liste, matrice, hypercube, les enfants indexés par dimensions, une cellule par combinaison ; D402 — le n-aire les porte), non une table de lignes datées liées par des clés ; **le tarif = le n-aire de l'article**, tiers × tranche, et **la dimension du temps** — les tarifs planifiés visibles avant leur date — se place **dans la grille** : trois formes en proposition — le temps en troisième dimension du tuple (`list of [tiers, tranche, date_application: date]` — les clés typées de D134, une extension de D402), la liste datée dans la cellule (`{ prix: list of prix_tarif }` — D403, toute la puissance des champs), la grille datée contenant la matrice (`grilles: list of grille` à date d'application, la matrice dedans). | Le réflexe relationnel consigné pour ne pas y retomber : l'agrégat est le grain (D400), la matrice une forme de composition (D134), jamais des lignes à clés. Voir §3.2c. |
+| D896 | **La composition, naturelle au modèle, traduite au stockage** (la doctrine — précise D119/D681–D684 et D399–D403) : « dans une base de données relationnelle, la traduction du modèle convertira une composition par une table et une clé étrangère. Mais, dans la manipulation du modèle par Syncytium, cela doit être un élément naturel » — **deux plans** : au plan du modèle (le langage, l'IHM, l'API), la composition, la matrice, la cellule sont des objets naturels, manipulés comme tels (l'agrégat D400, l'accès par les dimensions D134/D841) ; au plan du stockage, **la classe traduit** — une composition devient une table et une clé étrangère, la matrice une table de cellules — le visiteur de D681–D684 ; **la forme de stockage de la source ne dicte jamais le modèle** : le mapping recompose l'objet naturel depuis les lignes de la source. | L'argument « fidèle à PMI, où chaque ligne a sa date » tombe : c'est un fait de stockage. Voir §3.2c. |
+| D897 | **La grille tarifaire en hypercube — le temps en dimension du tuple** (tranche D895, étend D402 par D134) : « la forme 1 décrit le lien hypercube que je souhaite mettre en avant. Car, au-delà de savoir quel prix appliqué quand à qui, je souhaitais visualiser les évolutions de la grille tarifaire dans le temps » — `tarifs: list of [tiers.tiers, technique.tranche, date_application: date]`, trois dimensions, une cellule par combinaison (D403) ; **une dimension de valeur** (la date, typée) **à côté des entités nommées** — les clés typées de D134, l'extension de D402 ; la cellule porte le prix, le forfait, le numéro de tarif, la validité, et ses calculés `planifie` et `en_vigueur` (les sœurs par `owner`, les dimensions par leur nom, `any` à condition seule D887) ; la forme 3 (la grille datée) écartée : « élégante pour répondre rapidement à la question de quel tarif appliqué », mais elle « nécessite de recouper toutes les modifications avant de la restituer… en sachant que nous avons perdu des informations sur la construction et son évolution ». | L'entité `tarif` de D894 retirée ; la forme éclatée de la cellule en bloc — la clé `fields:` sous le champ — validée par D898. Voir §3.2c. |
+| D898 | **La cellule du n-aire en bloc sous `fields:`** (nomme la forme éclatée de D403, précise D897) : « je valide pour fields sous une liste » — sous un champ `list of [a, b, …]`, **la clé `fields:` porte les champs de la cellule** en bloc, l'équivalent de l'accolade en ligne, chaque champ avec tout son kit (type, facettes, calculés) ; et l'exemple s'allège : « tu peux enlever planifie et en_vigueur. Valide suffit » — la cellule du cas 3 porte le prix, le forfait, le numéro de tarif, `valide`, le commentaire, sans calculé. | La règle 2 de D892 s'applique d'elle-même : la cellule riche s'écrit en bloc, l'accolade reste au cas court. Voir §3.2c. |
+| D899 | **Le morceau 2 du cas 3 clos** (le modèle champ par champ — D882 à D898, lié le 09/09) : « je valide, consigne la clôture du morceau 2. La validation définitive se fera après la relecture complète des fichiers de configuration » — quarante-deux fichiers valides (la chaîne des déclarations depuis `syncytium.yml`, les quatre modules, seize entités, deux cent vingt-cinq champs, `groups.yml`, `settings.yml`), cinq renvois à l'analyse de la source, trois formes en proposition (`settings:`/`groups:` dans `version.yml`, le bloc `convention:` du connecteur cegid, pas d'`entities:` pour un storage base de données), l'authentification et le smtp à la question 10 ; **la clôture est celle du morceau, la validation définitive viendra de la relecture complète des fichiers de configuration par l'auteur** — le patron des cas précédents. | La suite : les questions 7–10 du cadrage, puis le morceau 3 (la source). Voir §3.2c. |
+| D900 | **`degree:` confirmé, `reset_coverage` au plancher `administrator`** (solde les propositions de D699 et D881 — le premier point ouvert de security.md, la vue transversale de la sécurité créée le 13/09) : « je valide » — `degree:` dans `groups.yml`, défaut `user` ; `reset_coverage`, la vingtième opération du socle, au plancher `administrator` — la relecture complète de la source est un acte d'administration. | L'inventaire des planchers passe à vingt (D701 étendu). Voir §3.2c. |
+| D901 | **`unencrypted:` visible chaque jour** (solde la proposition de D705) : « je valide » — le nom retenu ; le connecteur appelé en clair paraît **dans le dashboard de santé** (D731) et **dans le mail des faits marquants** (D733) — la dérogation ne dort jamais dans un fichier d'environnement, elle se relit tous les matins. | Voir §3.2c. |
+| D902 | **Le chiffrement automatisé, le clair refusé au démarrage** (solde le flag de D707, précise D729/D745) : « je valide » — **le wizard d'initialisation demande les secrets et les chiffre lui-même** ; **au démarrage, une valeur en clair dans le `.env` pour une variable déclarée en `secrets:` vaut refus de démarrer**, la raison donnée avec la commande à exécuter (`syncytium encrypt`). | Le fail-closed jusqu'au fichier de secrets. Voir §3.2c. |
+| D903 | **La réactivation d'un enregistrement désactivé — l'acte exceptionnel de l'administrateur** (solde la sous-question de D137/Q35 ; écarte la proposition d'une opération `reactivate` au plancher `manager`) : « la réactivation d'un enregistrement désactivé doit être une opération exceptionnelle. Je ne souhaite pas la mettre à disposition d'un utilisateur ou d'un manager. Cela reste de l'action d'un administrateur. Je ne souhaite pas le faire apparaître comme une fonction exploitable par la configuration (pas de hook). Cela sera une des fonctionnalités couvertes par les écrans d'administration de Syncytium » — **pas une opération du socle** : ni déclarable, ni un hook, hors du catalogue des planchers ; **une fonctionnalité des écrans d'administration** (le module D710, le degré `administrator`) ; la garde de D141 (refus si un enregistrement actif porte la même clé fonctionnelle), l'identité conservée (D142 — réactiver = la même), tracée par l'historisation (D429). | Le pendant de `ban`/`renew` (D714) côté enregistrements : l'exception vit à l'administration, jamais au modèle. Voir §3.2c. |
+| D904 | **Le déterminisme au hook, le cooldown à l'administration** (solde le reliquat de Q31 — D58–D60 transposés dans la grammaire des opérations D595/D609 ; corrige l'omission de hooks.md) : « c'était le hook qui portait ces informations en natif. Cela n'a pas été retranscrit dans le hook. Ce ne sont pas des paramètres qui peuvent varier avec la configuration. Une opération est déterministe ou pas. Elle ne peut pas changer sans faire changer son code. L'exécution et l'utilisation d'un cache sont portées par l'opération elle-même (comme un garde-fou). La configuration ne peut pas surcharger cet aspect. La durée du déterminisme est également portée par l'opération elle-même car cela dépendra éventuellement de la façon dont elle sera implémentée. A contrario, le cooldown est un paramètre d'administration et il peut être configurable » — **le déterminisme et sa fenêtre sont des propriétés intrinsèques du hook d'opération**, déclarées à son contrat comme le degré (D697/D699 — `deterministic: <durée>`, absent = non déterministe ; visibles au `describe` D645), **jamais surchargeables par la configuration** ; le doublon (même opération, mêmes paramètres) dans la fenêtre reçoit le résultat mémorisé sans effet répété (D59), l'invalidation reste l'acte de l'administrateur (D60 — le module D710, les trois grains) ; **le cooldown (D58) est un paramètre d'administration** : le défaut en setting dynamique de l'application (`operation.cooldown`, défaut `1min` — D588), la surcharge à la déclaration `operations:` (`cooldown:`), **l'API seule** (D58), la période mesurée de la fin de l'exécution au début de l'appel suivant, le rappel refusé = **un refus journalisé** (D43). | Ma lecture « les clés de juin tombent » **corrigée par D905** : elles ne tombent pas, elles vivent au contrat du hook. Voir §3.2c. |
+| D905 | **Les propriétés de juin au contrat du hook** (corrige D904 — « les clés de juin ne tombent pas ») : « les clés de juin ne tombent pas. Elles sont intrinsèques à l'opération. Une opération s'exécute et elle possède aussi des propriétés que je souhaite exploiter. Seulement, les paramètres ne sont pas exposables dans la configuration mais dans le contrat du hook » — **l'opération possède des propriétés d'exécution**, portées par **le contrat du hook** (le code), jamais par la configuration : `execution: once` (D57 — l'exécution unique, la relance manuelle), `deterministic: true \| false` (D59) et `deterministic_duration: <durée>` (la fenêtre de mémoïsation — **deux clés distinctes**, la fusion de D904 défaite), aux côtés de `degree:` (D699) ; visibles au `describe` (D645) ; **la liste reste ouverte** (« des propriétés que je souhaite exploiter ») ; **et le moteur les exploite** : « ces paramètres doivent être exploités par Syncytium pour mieux gérer le déterminisme avec un cache ou pas (par exemple) » — le hook déclare, **Syncytium lit le contrat et applique** : le cache de mémoïsation tenu pour le déterministe et vidé à la fenêtre, aucun cache pour le non-déterministe, l'exécution unique sans rejeu ; le cooldown seul demeure à l'administration (D904). | La graphie anglaise du catalogue (Q47/D301) — les noms de juin (`deterministe`, `determinisme_duree`) traduits, la sémantique intacte. Voir §3.2c. |
+| D906 | **La rétention du résultat, un paramètre d'administration** (complète D904–D905 — la cinquième clé de juin, D55) : « retention_resultat est un paramètre d'administration, je valide » — la durée pendant laquelle le résultat d'une opération reste consultable (D55) tient au stockage, non au code : le défaut en setting dynamique de l'application (`operation.retention`, défaut `90d` — la valeur de l'exemple de juin, D588), la surcharge `retention:` à la déclaration `operations:` ; le résultat échu est purgé. | Le partage est complet : quatre propriétés au contrat (`degree`, `execution`, `deterministic`, `deterministic_duration`), deux paramètres à l'administration (`cooldown`, `retention`). Voir §3.2c. |
+| D907 | **L'environnement `sandbox`** (le premier principe du domaine 7 — la sandbox des hooks jamais finalisée ; dans la lignée de D112/D339/D342 et D680/D728) : « nous n'avions pas finalisé le fonctionnement de la sandbox. Pour ne rien casser et être dans la lignée des environnements déjà explorés, je propose d'avoir un environnement de type "sandbox" qui porte un fonctionnement permettant de tester et d'évaluer la description en cours dans un environnement fermé et sécurisé (tant sur la base de données que sur les hooks en cours). Dans le cas d'un environnement "sandbox", il faut préciser le nom d'un environnement de référence. Ainsi, à l'initialisation, une duplication de cet environnement est réalisée, puis une migration est appliquée pour atteindre la version sandbox » — **un type d'environnement** (`type: sandbox`, l'écriture en proposition) déclaré dans `environments/`, **avec un environnement de référence** (`reference: production`) ; **à l'initialisation** : la duplication de la référence (`duplicate_instance` D680 — la base, les fichiers des entités D164, la configuration), puis **la migration** (D673–D679) vers la version que le sandbox cible ; **fermé et sécurisé** : sa propre base (la copie — la référence jamais touchée), ses propres connecteurs (D617), les hooks en cours n'agissent que sur lui. | Le staging de D112 (« copie prod → migration vers la bêta ») trouve sa déclaration. À préciser : la version cible (la plus élevée du statut `beta` — D801 ?), les connecteurs sortants du sandbox (le mock D627 ?), l'éphémérité et l'accès restreint (§7.3 — les données réelles), le sort de `staging.yml` (D339) ; la déclaration `uses:` au contrat du hook reste en attente. **L'écriture `type:`/`reference:` remplacée par D908** : la sandbox est un statut de `versions/`. Voir §3.2c. |
+| D908 | **La sandbox, un statut de versions — `from:` et la transitivité** (précise D907, étend D340/D804–D805/D801) : « le type d'environnement "sandbox" se traite comme "production" ou "beta" dans la section "versions". Dans la section "sandbox", nous ajouterons un paramètre "from:" qui précise l'environnement et la version à utiliser (ex : beta/v1.0.0.0). Une sandbox peut faire référence à une autre sandbox et les migrations seront assurées par transitivité » — **`sandbox` est un statut** : le dossier `versions/sandbox/` et son fichier `sandbox.yml`, déclaré dans `versions.yml` à l'usage (D804), lié à son environnement par `environment:` (D805 — l'environnement de type sandbox n'est que cela : celui que le statut désigne, `type:` et `reference:` de D907 tombent), les versions au regex (D806) ; **`from: <statut>/<version>`** (`from: beta/v1.0.0.0`) nomme l'origine dupliquée à l'initialisation puis migrée ; **une sandbox peut naître d'une sandbox** (`from: sandbox/v1.0.0.1`) — **les migrations s'enchaînent par transitivité**, d'origine en origine, jusqu'à la version de la sandbox ; le mode d'exécution de D801 s'étend : `beta \| production \| sandbox`. | Le cinquième dossier de D340 ; `staging.yml` (D339) demeure l'environnement du statut `beta`. À préciser : `from:` porté par le fichier de statut (une origine pour toutes ses versions) ou par chaque `version.yml` ; la place de la sandbox dans les transitions D344 (sandbox → beta ?) ; les connecteurs sortants et l'éphémérité (D907). **Précisé par D909–D911.** Voir §3.2c. |
+| D909 | **`from:` porté par chaque `version.yml`** (solde le point 1 de D908) : « le from: est porté par chaque version.yml » — **une origine par version de sandbox**, écrite en tête à côté de `version:` (D801) ; le fichier de statut `sandbox.yml` ne porte que `environment:` (D805) et le regex (D806), comme `beta.yml`. | Deux sandboxes d'origines différentes vivent sous le même statut ; la chaîne de transitivité (D908) se lit de version.yml en version.yml. Voir §3.2c. |
+| D910 | **De la sandbox vers `beta` ou `production`, par un geste de fichier** (solde le point 2 de D908 — étend D344/D345) : « de sandbox vers beta ou production par un geste de fichier » — la sandbox **entre dans le cycle de vie matérialisé par l'emplacement** (D340) : `sandbox → beta \| production`, le déplacement du dossier de version ; l'ordre incrémental de D345 s'impose à l'arrivée ; une même version dans deux statuts = l'erreur de D344. | Ma lecture (« signalé, jamais bloquant ») **écartée par D928** : `from:` doit être supprimé à la promotion — une erreur avant l'ingestion ; l'origine promue casse le lien des sandboxes qui la citaient. Voir §3.2c. |
+| D911 | **Les connecteurs de la sandbox sont ceux de son environnement** (solde le point 3 de D908 — confirme D617 pour D907) : « les connecteurs sont portés par l'environnement et non la version. Par conséquent, les connecteurs sont à la main du technicien qui met en place les connecteurs dont il a besoin. Le mock y trouve sa place comme pour les versions "beta" » — **rien de nouveau** : l'environnement que le statut `sandbox` désigne déclare ses connecteurs (D617) — le storage de la copie, le smtp de test, le mock (D627) ; **aucune coupure automatique** des sortants par le moteur, la fermeture est l'œuvre du technicien. | Le sandbox est « fermé » parce que son environnement l'est, non par un régime spécial. Voir §3.2c. |
+| D912 | **L'éphémérité de la sandbox — l'instance survit à l'arrêt, la suppression est un geste** (solde le point 4 de D908, « le fonctionnement de docker ») : l'hésitation de l'auteur — « suppression de l'instance à l'arrêt ou la conservation tant que l'administrateur n'exécute pas une commande pour supprimer l'instance… une sandbox doit pouvoir être montée rapidement, testée, retestée et supprimée… notamment sur des phases de mises au point » — tranchée : « je valide la seconde option » — **l'instance survit à l'arrêt** (la relancer ne redéclenche ni duplication ni migration — le coût d'initialisation payé une fois) ; **la suppression est explicite** : la commande de l'administrateur, ou **la rétention d'inactivité** en setting dynamique (`sandbox.retention`, défaut `7d` — l'instance non relancée depuis ce délai supprimée d'office, annoncée la veille dans le mail des faits marquants D733) ; **le registre des instances** : Syncytium connaît toutes les sandboxes créées — l'origine, la taille, le dernier usage — listées à la vue de santé (D731) ; **quatre gestes en commande** (le patron D708/D730) : lister, supprimer, purger les inactives, **réinitialiser** (re-dupliquer depuis l'origine sans toucher la déclaration). | L'image et le conteneur de docker transposés : l'origine (`from:`) est l'image, l'instance le conteneur. Le défaut `7d` est le mien. Voir §3.2c. |
+| D913 | **`connectors:` au contrat du hook, `uses:` à la déclaration** (solde le point 5 — la sixième clé de juin, `connecteurs: [stockage_documents]` du §8.4, replacée comme les cinq autres D904–D906) : « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution). La déclaration fait le lien entre le paramètre qui peut donc être un connecteur et le connecteur déclaré dans la description. "uses:" peut être approprié pour faire le matching entre le nom du connecteur attendu en entrée de l'opération et le nom du connecteur défini dans la description. La clé "connecteurs" à renommer en "connectors" est intrinsèque à l'opération qui fournit la liste des connecteurs attendus pour l'exécution » — **`connectors:` au contrat** (intrinsèque, avec `degree`/`execution`/`deterministic`) : les connecteurs attendus, **nommés et typés par leur famille** (`documents: file`, `mailer: smtp`) — des paramètres d'exécution ; **`uses:` à la déclaration `operations:`** : le lien nom attendu → connecteur déclaré (`documents: archive`, le connecteur de l'environnement D617) ; **l'ingestion vérifie** : chaque attendu lié, la famille conforme (D613), chaque environnement le fournit (la complétude D617 étendue) ; tout accès à un connecteur non attendu est refusé (D599). | Le paramètre-connecteur rejoint les paramètres de l'opération (D609) ; la liaison implicite **écartée par D914**. Voir §3.2c. |
+| D914 | **Aucune liaison implicite — `uses:` s'écrit toujours** (solde la réserve de D913 ; confirme D805 « tout lien de configuration s'écrit », D415/D765/D767) : la liaison implicite quand l'environnement n'offre qu'un connecteur de la famille — « facilitateur pour l'intégration mais cela semble être en contradiction avec un des concepts du projet » — **écartée** : « je valide la première option » — **chaque connecteur attendu (D913) est lié explicitement par `uses:`** ; le facilitateur passe dans **le message d'erreur d'ingestion**, qui nomme l'attendu, sa famille et le candidat unique (« le connecteur attendu `documents` (famille `file`) n'est pas lié ; un seul candidat dans l'environnement : `archive` ») ; une ligne à écrire, une fois. | Le second connecteur de la même famille ajouté plus tard ne rend rien ambigu : le lien était écrit. La seconde option (la liaison tolérée, signalée par un warning D589) consignée comme écartée. Voir §3.2c. |
+| D915 | **La duplication d'une sandbox déclenche `rotate`** (conséquence de D603/D730 sur D907–D912) : « la clé dérive bien de l'environnement + machine. sandbox est un environnement. Par conséquent, lors de la recopie des données de l'environnement, un rotate est à appliquer sur les clés existantes » — **la sandbox a sa propre clé** (son environnement + la machine, D603) ; **à l'initialisation** (la duplication de l'origine, D907/D909), **les valeurs chiffrées copiées sont re-chiffrées sous la clé de la sandbox** — les champs des types chiffrants (D706) et les secrets repris (D707) — le `rotate` de D730 enchaîné au geste, comme à chaque restauration ; **`reset`** (D912 — la re-duplication) le rejoue ; les secrets propres à la sandbox (ses connecteurs, D911/D617) naissent chiffrés sous sa clé (D902). | Le troisième déclencheur de `rotate` après la restauration et la commande (D730). Ma lecture, à confirmer : le re-chiffrement suppose la clé de l'origine dérivable — la même machine ; une sandbox montée ailleurs relève du chemin de la restauration (D728/D730). Voir §3.2c. |
+| D916 | **L'empreinte porte son algorithme ; le rehachage par `rotate` seul** (le second principe du domaine 7 — B2 ; précise D33/D463/D603/D707/D730) : « je valide rotate seul » — **toute empreinte stockée porte l'identifiant de son algorithme** (le mot de passe D463, la clé dérivée D603, les valeurs des types chiffrants D706) : changer d'algorithme ne casse aucun compte existant, le moteur vérifie avec celui que l'empreinte annonce ; **le rehachage et le re-chiffrement sous l'algorithme courant ne se font que par `rotate`** (D730 — en masse, transactionnel, tracé), **jamais silencieusement à la vérification** ; `rotate` est ainsi **le geste unique** pour tout ce qui re-chiffre ou rehache — la restauration, la duplication d'une sandbox (D915), la commande, et désormais le changement d'algorithme ; l'exigence transmise à Q7 : **des standards publiés, jamais un algorithme maison** — le choix (le hachage des mots de passe, la dérivation de clé, le chiffrement des valeurs) relève de l'architecture technique. | Le rehachage silencieux à la vérification écarté : un geste privilégié sans trace, contraire à la doctrine (security.md — « aucun acte privilégié sans trace »). Voir §3.2c. |
+| D917 | **La session de l'IHM en cookie, l'API au porteur seul** (le troisième principe du domaine 7 — B3, les règles 1 et 2 ; précise D686/D692–D693, reprend l'étude d'architecture de juin) : « 1. je valide, 2. je valide » — **la session interactive voyage dans un cookie inaccessible au script, sécurisé, restreint au site** (jamais un jeton dans le stockage du navigateur — l'exposition au script tiers fermée) ; **l'API n'accepte que la preuve au porteur** (la clé d'API, le bearer — D692/D107), **jamais le cookie** : une page tierce ne peut faire porter la session de l'utilisateur à une requête d'API — la falsification de requête inter-sites fermée par construction, sans jeton anti-CSRF à gérer ; les attributs du cookie et l'en-tête de la preuve relèvent de Q7. | Les règles 3 (les origines autorisées) et 4 (l'échappement, le hook d'interface) consignées par D918. Voir §3.2c. |
+| D918 | **Les origines autorisées à l'environnement ; les valeurs toujours en texte, les templates échappés, le hook d'interface seul code tiers** (B3, les règles 3 et 4 — solde le troisième principe du domaine 7 ; précise D617/D562/D261/D397/D209/D66/D645) : « 3. je valide, 4. je valide, consigne D918 » — **`cors:` à l'environnement** (D617 — le déploiement, non la version) : la liste explicite des origines tierces dont une page peut appeler l'API depuis un navigateur ; **absent = aucune** (seule l'IHM de Syncytium, de même origine, parle à son API) ; **le joker `*` refusé à l'ingestion** (D805 — la liste nommée) ; les consommateurs serveur (connecteurs, webhooks, scripts) hors de portée de CORS ; la redirection SSO (D692) est une navigation, non un appel ; **une origine autorisée ne dispense de rien — la preuve au porteur demeure** (D917) ; **la règle 4 en trois lignes** : (a) **les valeurs saisies sont toujours rendues comme du texte** (D562/D261 — « le champ texte utilisateur reste nu »), le composant échappe, jamais une balise ; (b) **les templates du technicien** (mustache + markdown D562, les labels à gabarit D397, les masques d'explication D209) **échappent leurs variables et n'acceptent pas de HTML brut** — le technicien écrit du markdown, jamais du HTML ; (c) **le hook d'interface** (D66, §8.2) **est le seul code tiers au navigateur** — jamais `private`, sous la responsabilité du technicien, **listé par la documentation générée** (`describe` D645) pour que l'administrateur sache quel code tourne chez ses utilisateurs ; **et la page n'autorise que les scripts qu'elle connaît** — ceux de Syncytium et les hooks d'interface enregistrés, aucun script en ligne venu d'une donnée, aucune origine étrangère : le filet derrière l'échappement (la politique de contenu, l'en-tête exact à Q7). | B3 soldé (D917–D918). Voir §3.2c. |
+| D919 | **HTTPS vérifié au démarrage, un certificat partout — l'auto-signé fourni par Syncytium** (le quatrième principe du domaine 7 — B4 ; précise D705/D706/D745/D759) : « même pour la boucle locale, nous fournirons un certificat. Syncytium pourra fournir un certificat auto-signé » — **aucune exemption** : ce que Syncytium sert est en HTTPS, la boucle locale et le poste domestique (D759) compris ; **le certificat relève de l'infrastructure** (le pendant de D706 pour le transit — ni émission ni renouvellement par le moteur) et **se déclare à l'environnement** (l'écriture en proposition : le couple de fichiers fourni, ou le proxy qui termine le HTTPS et le signale par l'en-tête convenu) ; **à défaut, Syncytium fournit un certificat auto-signé** — engendré à l'initialisation (le wizard D729), rangé avec les secrets (D707), le navigateur averti comme il se doit ; **la vérification au démarrage** : servi en HTTPS ou refus de démarrer, la raison donnée (D745). | La boucle locale n'échappe pas à la règle : la doctrine « HTTPS sans dérogation » (D705) tient mot pour mot. Voir §3.2c. |
+| D920 | **Le dépôt du client, un dossier ; l'identité d'une version = l'empreinte environnement + numéro** (le cinquième principe du domaine 7 — B5 ; précise D336/D324/D326) : « le dépôt de configuration du client est un dossier contenant toute la description du projet. Ce dossier peut se synchroniser via git ou via un autre dispositif. Le dispositif est en dehors de Syncytium… S'appuyer sur le commit de git est trop restrictif. Je préfère une empreinte liée à l'environnement + numéro de version, qui généralise » — **le dépôt est un dossier** (D336), **sa synchronisation et ses droits sont hors Syncytium** (git ou autre — qui pousse relève du dispositif du client) ; **l'ingestion calcule l'empreinte du dossier de la version ingérée** et la consigne **au registre des versions** (D326) **sous la clé environnement + numéro de version** — indépendante de tout outil ; le déploiement (l'ingestion) est un acte tracé du technicien ; la signature d'une version différée. | Ma lecture du refus **écartée par D927** : la configuration changée sous le même numéro n'est pas relue, l'empreinte trace et réclame le bump ; la sandbox se recharge. Voir §3.2c. |
+| D921 | **L'ingestion d'une sandbox est un acte d'administration** (précise D920 pour le statut `sandbox` — D907–D912) : « dans le cas de sandbox, l'ingestion est un acte d'administration » — pour `beta` et `production`, déposer la version suffit, le moteur la découvre et l'ingère au chargement (D324/D801) ; **pour une sandbox, le dépôt du dossier ne suffit pas** : l'ingestion — la duplication de l'origine (`from:`), la migration, la rotation des clés (D915) — **est déclenchée par l'administrateur** (le degré `administrator`, le module D710 ou la commande `syncytium sandbox` D912), **tracée** (D704) et consignée au registre (D920 — l'empreinte sous environnement + version). | Le sandbox naît d'un geste, jamais d'un fichier posé : la copie de données réelles (§7.3) et le coût d'initialisation (D912) sont sous la main d'un administrateur. Voir §3.2c. |
+| D922 | **La recharge — une ingestion limitée à la sandbox** (nomme le quatrième geste de D912, précise D921) : « la recharge est une ingestion limitée à l'usage de la sandbox » — **la recharge** (`reload` — le `reset` de D912 renommé) **rejoue l'ingestion** d'une sandbox : la duplication de l'origine (`from:`), la migration, la rotation des clés (D915), la déclaration intacte — **une ingestion** (donc un acte d'administration, D921, tracé) **réservée au statut `sandbox`** : `beta` et `production` ne se rechargent pas, une version y est ingérée une fois (D324/D326). | Les quatre gestes de D912 : `list`, `remove`, `prune`, `reload`. Voir §3.2c. |
+| D923 | **Les fichiers hors base — servis par le moteur seul** (le sixième principe du domaine 7 — B6 ; précise D160–D161/D164/Q39, le pendant de D706/D919 pour les fichiers) : « je valide » — **le dossier des fichiers appartient au moteur et n'est jamais servi directement** par le serveur web (aucune adresse ne mène à un fichier sans passer par Syncytium) ; **tout accès passe par le moteur**, sous la confidentialité du champ (D25) et l'appartenance de la ligne (D71) — voir le fichier, c'est voir le champ qui le porte ; **les noms sur disque sont opaques** (le nommage Syncytium de D161 — sans rapport avec le nom d'origine ni avec la donnée ; le nom d'origine en métadonnée du type fichier D160) ; **les droits du dossier relèvent de l'infrastructure**. | La synchronisation (D164) et la sauvegarde (D727) portent le dossier avec la base ; l'anonymisation d'un fichier = la suppression physique du contenu (Q39) — l'exception assumée à « masquer, jamais détruire ». Voir §3.2c. |
+| D924 | **Les dépendances affichées par la documentation générée ; les failles identifiées hors du moteur** (le septième principe du domaine 7 — B7 ; précise D19, D333/D645) : « les dépendances seront à afficher dans la documentation auto-générée. Les failles seront identifiées par le dépôt ou par une action extérieure » — **la documentation générée de l'instance** (`describe`, D630/D645 — la doc technique de l'application) **liste les dépendances du moteur et leurs versions** : l'administrateur sait de quoi son instance est faite ; **la veille des vulnérabilités n'est pas l'affaire du moteur** — le dépôt public (son outillage) ou une action extérieure l'assurent ; les dépendances compatibles AGPL (D19), épinglées au dépôt (ma proposition, non contredite — le domaine 8). | Le même patron que le certificat (D919) ou le chiffrement au repos (D706) : le moteur rend visible, l'infrastructure agit. Voir §3.2c. |
+| D925 | **Le journal d'accès au proxy ; le journal du moteur porte les événements de sécurité** (le huitième principe du domaine 7 — B8 ; précise D343/D737/D43/D720/D703) : « 1. je valide, 2. le journal d'accès reste au proxy » — **le journal d'accès complet** (une ligne par requête HTTP) **est l'affaire du proxy** (D919 — celui qui voit chaque requête en premier) : le moteur ne le duplique pas, même en `verbose` ; **le journal du moteur** (D343/D737 — le fichier, le technicien seul) **porte les événements de sécurité avec leur sens** : `info` — l'authentification réussie, la déconnexion, la révocation, la rotation des clés (D730/D916), l'ingestion et la recharge (D920/D922) ; `warning` — l'échec d'authentification et le verrouillage (D720), le refus d'autorisation (D43), le refus de cooldown (D904) et le 429 (D105), l'activation du secours (D81), le mode safe (D718), le passe-droit (D835), la délégation (D715) ; `error` — l'erreur d'un connecteur, la page de maintenance (D627) ; chaque ligne porte le compte, l'origine, la ressource ou l'opération, la règle ou le motif — **jamais un secret, un mot de passe même erroné, une valeur `trace: limited` (D703) ou `private`** ; l'audit (D702–D704 — l'entité en base, l'administrateur) et le journal (le fichier, le technicien) coexistent — un même événement peut aller aux deux ; les refus journalisés nourrissent D43. | Le domaine 7 en huit principes, tous soldés (D907–D926). Voir §3.2c. |
+| D926 | **Le throttling des traces de sécurité** (complète D925 — contre la saturation des journaux) : « pour éviter une attaque qui viendrait à saturer les journaux… un throttling des traces sera à positionner sur chaque événement de sécurité (événement, date de début, date de fin et nombre de fois) avec une première trace sur le premier événement avant le déclenchement du throttling » — **sur chaque événement de sécurité** : **la première occurrence est tracée en entier**, aussitôt ; **les suivantes, dans la fenêtre, sont comptées** et donnent **une seule ligne agrégée** — l'événement, la date de début, la date de fin, le nombre de fois ; l'attaque qui répète mille fois le même échec produit deux lignes, pas mille ; **le compte agrégé nourrit la détection** (D43 — la pente des refus). | En proposition : la clé d'agrégation = l'événement + le compte ou l'origine ; la fenêtre en setting dynamique (`logging.throttle`, `1min` — D588), la ligne agrégée émise à la fin de la fenêtre ou quand le flot cesse ; la même agrégation vaut pour l'entité d'audit (D704 — le grain de l'acte et le comptage, D702). Voir §3.2c. |
+| D927 | **L'identité d'une version = environnement + numéro ; la configuration changée n'est pas relue, l'empreinte trace** (précise D920 — écarte ma lecture du refus ; D324/D326/D801, D922) : « l'empreinte ne tient pas compte de la configuration pour les environnements autres que sandbox. Uniquement le libellé "environnement" + "version". Si la configuration change pour le même numéro de version et le même environnement, elle ne sera pas relue, sauf pour sandbox qui nécessitera une réinitialisation. L'empreinte sera calculée. Si l'empreinte n'est plus conforme, une trace sera ajoutée. Cela informera le technicien qu'il faut changer de numéro de version » — **la clé du registre** (D326) **est le couple environnement + numéro de version**, jamais le contenu ; **une version ingérée l'est une fois** : la configuration modifiée sous le même numéro dans le même environnement **n'est pas relue** — la version en service reste celle de l'ingestion, ni refus ni relecture ; **l'empreinte du dossier est calculée à chaque chargement et comparée à celle consignée** — l'écart produit **une trace** (le journal, `warning` D925 — et le patron de D43 : l'écart persistant se voit) qui **informe le technicien qu'il faut changer de numéro** ; **la sandbox est l'exception** : la modification sous le même numéro s'y prend par **la réinitialisation** — la recharge (D922), l'ingestion rejouée. | Le numéro de version reste une promesse (D98 — un contenu par numéro) sans que le moteur bloque : la relecture attend le bump, la trace le réclame. Voir §3.2c. |
+| D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
+| D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 3) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
+| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 3) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 1 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; une règle est rapprochable si l'enregistrement qu'elle construit détermine l'identité de sa cible (par ses expressions ou par les défauts des champs) — sinon, entité sans `identity:` ou champ d'identité sans valeur, elle est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle soit rapprochable, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 1–2 et mapping.md réécrits. Le critère d'abord écrit « la règle qui n'alimente pas l'identité entière est création seule », remplacé à la demande de l'auteur (« je ne comprends pas » — « je valide, remplace la phrase »). Voir §3.2c. |
+| D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 3) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 1–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
+| D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 3) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
+| D933 | **L'échec dans une composition à la migration** (précise D101/D177/D420 et D875 pour la migration — la question 7 du cas 3) : « si un échec est vu sur le parent, tous les composants sont en échec. Si un composant est en erreur et pas sur le parent, le parent est créé sans le composant en erreur. Par contre, la règle de validation sur un enregistrement du parent vérifie le fonctionnement de son enregistrement et de ses enfants. Et, là, c'est l'enregistrement du parent et de tous ses enfants qui sont en échec » — l'échec propre du parent entraîne ses composants ; l'échec propre d'un composant (sa conversion, sa `validation:`, sa référence — l'orphelin D875) ne rejette que lui, le parent entre sans lui ; la `validation:` du parent qui lit ses enfants (le compte, la somme) s'évalue sur le parent et tous ses enfants, et son échec rejette le tout. | Ma conséquence « une cellule fautive retient son article entier » écartée : l'article entre sans la cellule, aucune cascade sur les mouvements ; la commande dont `lignes.count() > 0` échoue tombe entière. Le rapport nomme la cause (mien). Voir §3.2c. |
+| D934 | **Les fonctions du texte au catalogue** (complète D579/D584 — types.md ; la question 7 du cas 3) : « trim, upper, right, mid, … doivent figurer au catalogue de types.md sur un champ texte » — le type `text` emmène ses fonctions : `trim`, `upper`, `lower`, `left`, `right`, `mid`, `length`, `extract` (D817), la comparaison `like` (D818), la concaténation `+` ; employées jusqu'ici (`upper` D656, `trim`/`right` D870, `extract` D817) sans être inscrites ; le texte trop long pour sa cible = une conversion avec perte, refusée à l'ingestion (D581), le technicien écrit `left(…)`. | `lower`, `left` et `length` sont mes ajouts, les pendants naturels. Voir §3.2c. |
+| D935 | **Les listes closes de PMI citées par leurs codes réels, leur vocabulaire donné par l'auteur ; hors de l'énuméré, une erreur** (précise D813/D893, corrige mon vocabulaire du morceau 2 — la question 7 du cas 3) : les codes d'ARCTTYPART et de NOCTYPECPT relevés dans l'extraction sont ceux du produit, publiables dans l'exemple ; leurs libellés : « AC : Accessoire, CO : Consommable, MI/LI : Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main d'œuvre, ST : Sous-traitance, SF : Produit semi fini » ; **« si une valeur sort du type énuméré, c'est une erreur »** — à la source (la garde D813), à la règle (le `select` sans défaut : le code sans traduction est une erreur), à la cible (la valeur hors `values:`) ; le vocabulaire de l'entrepôt en découle (D893) : mes quatre valeurs `fabrique`/`achete`/`sous_traite`/`fantome` du morceau 2 quittent le type d'article (D936 : elles sont de PMI, sur le code de gestion ARCTFATN). | En attente : le code PR d'ARTICLE, les natures numériques de NOCTNATCPT, la place du type du composant à la ligne de nomenclature, le sort des articles « libellé ». Voir §3.2c. |
+| D936 | **Le code de gestion est ARCTFATN — fabriqué, acheté, sous-traité, fantôme y vivent ; le type d'article ARCTTYPART porte le vocabulaire de D935** (corrige D935 et le modèle du morceau 2 — la question 7 du cas 3) : « fabriqué, acheté, sous-traité ou fantôme sont bien un vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — le modèle avait posé ces quatre valeurs sur `article.type` (ARCTTYPART) et un code de gestion inventé (sur stock / à la commande / sans stock) sur ARCTGSAV : `article.type` prend le vocabulaire de D935 (accessoire, consommable, libellé, outillage, produit fini, plaque, semi-fini — PR à relever), `article.gestion` passe sur ARCTFATN avec les quatre valeurs ; ARCTGSAV (nchar(1), « N » seul dans l'échantillon) retourne à l'analyse. | Les dix codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17, 32, 33) se traduisent à la règle du mapping (D893) : la table à relever. Ma note de D935 « tirées d'un ERP imaginé » était fausse. Voir §3.2c. |
+| D937 | **PR hors de l'exemple, la nature numérique ignorée, le type du composant est celui de l'article référencé** (précise D935/D936, corrige la ligne de nomenclature du morceau 2 — la question 7 du cas 3) : « le code PR n'est pas pris en compte ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique de la nomenclature est un champ ignoré. Le type du composant d'une nomenclature est le type de l'article référencé par le composant de la nomenclature » — la garde d'ARCTTYPART ne liste pas PR, les articles PR sont des non-conformités rapportées ; NOCTNATCPT : `ignored` (D657) ; NOCTYPECPT redonde le type de l'article référencé — la ligne de l'entrepôt n'a pas de type propre, elle le lit par `composant.type` ; sa `nature` se déduit (la main d'œuvre et la sous-traitance font l'opération, le reste le composant — mien), ses deux validations inventées tombent, le composant devient obligatoire ; `article.type` s'élargit à main d'œuvre et sous-traitance, que les composants référencent — confirmé le 14/09 : « la main d'œuvre, la sous-traitance et les libellés sont bien des articles de PMI ». | Reste la table des codes ARCTFATN (D936). NOCTYPECPT à la source : `ignored`, ou la vérification de sa redondance par un `validation:` de la source (D932) — mon choix : ignorée. Voir §3.2c. |
+| D938 | **Le code de gestion décodé, avec ses trous** (précise D936 — la question 7 du cas 3) : « 01 : produit fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 : proc » — la table de l'auteur entre au modèle : `gestion` = fabriqué, acheté, sous-traité, fantôme (D936), libellé, quantité supérieure, inactif, résultant ; 33 « proc » à préciser ; 03, 09 et 12 sans signification connue — des points à creuser (D868) : non traduits par la règle, leurs articles sont des erreurs rapportées (D935) jusqu'à l'analyse — 38 des 100 articles de l'échantillon (03 ×30, 09 ×7, 12 ×1). | La garde de la source liste les dix codes observés (décrits, D866) ; c'est la traduction qui manque, pas la description — l'itération de D868 en acte. Voir §3.2c. |
+| D939 | **Le code sans libellé entre avec une valeur par défaut nommée par le code** (précise D938 et D893 — clôt le code de gestion, la question 7 du cas 3) : « pour clore les codes de gestion, les codes existent, sont dans le mapping mais le libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à positionner » — l'énuméré de l'entrepôt reçoit une valeur par code non encore nommé (`cg03`, `cg09`, `cg12`, le libellé = le code, la description le dit), la règle du mapping les traduit, les articles entrent ; le libellé viendra de l'analyse, son changement est une évolution de l'énuméré (D387) ; ma conséquence de D938 (38 articles en erreur) écartée. | Le code 33 entre en `procedure` (« Proc - pour Procédure »). La valeur qui a du sens (D893) reste la règle ; le code lui-même en tient lieu tant que le sens manque. Voir §3.2c. |
+| D940 | **L'article en hiérarchie par le code de gestion — trois dérivés portent la nomenclature, la grille tarifaire reste au parent** (amende D882 pour l'article, applique D143/D353 — la question 7 du cas 3, en clôture) : « dans le modèle de migration, nous pouvons définir un article et des dérivés (un par type d'article) » ; « le code de gestion assurera l'héritage » ; « un article de type produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La nomenclature n'apparaît pas dans les autres types d'articles » ; « les dérivés sont limités à ceux cités » ; « la nomenclature déclarée sur chacun des trois dérivés » ; « la grille tarifaire reste au parent » — `article` le parent instanciable (D143), `fabrique`, `semi_fini`, `fantome` par `inheritance: article`, chacun avec sa composition `nomenclature` et ses calculés ; la règle de migration route par un filtre sur ARCTFATN ; mon niveau intermédiaire écarté. | « Tu peux prendre un peu de liberté » sur les codes : 01 = fabriqué (donné), 09 = semi-fini et 12 = fantôme sont mes hypothèses d'après l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 — cg09 et cg12 de D939 deviennent semi_fini et fantome. Voir §3.2c. |
+| D941 | **L'enrichissement — le champ possédé par l'entrepôt : intact au différentiel, né à son `default:`, protégé par `unchanged:`** (précise D672, ajoute une propriété au socle du champ D364 — la question 8 du cas 3) : « la doctrine est bonne » — le différentiel ne compare que les champs que les règles alimentent, un champ qu'aucune règle n'alimente reste tel quel, `reset: false` la garde ; « le default: répond à ce besoin » — le champ obligatoire naît à sa valeur par défaut ; « si le champ fait partie d'un écran de saisie, la valeur ne doit pas être modifiée… je préconise l'utilisation d'une nouvelle propriété. unchanged: true/false (avec false par défaut). Si l'information est true pour un nouvel enregistrement, la valeur est la valeur par défaut. Si l'enregistrement existe, la valeur du champ reste sa valeur » — la propriété entre au socle du champ, à côté de `default` ; la migration n'écrit jamais un champ `unchanged`, la saisie reste libre (la différence avec `mode: write-once`). | Confirmé le 15/09 : « unchanged est lié à la migration et aux règles de migration. Une règle qui alimente l'un de ces champs serait une erreur d'ingestion. » L'exemple : `note_interne` sur le tiers (D942 pour ses droits). Voir §3.2c. |
+| D942 | **`allow:` s'applique partout ; l'administrateur passe outre** (précise D175/D699/D886 — la question 8 du cas 3) : « sur allow : il n'y a pas de restrictions… une migration est portée par "administrateur". Les interfaces IHM ou API sont utilisées via un compte utilisateur ou administrateur. "allow" s'applique donc comme pour le reste. Un administrateur bypasse les droits existants » — un seul mécanisme sur tous les canaux ; le degré administrator passe outre les `allow` (l'acte tracé, comme le passe-droit du statut D835) ; la migration, opération de ce degré (D701), écrit dans un module en lecture seule sans que les `allow` l'arrêtent ; l'allow au champ (D886) ouvre à la saisie le champ possédé, pour les utilisateurs. | Ma phrase « allow n'intervient pas dans cette phase » corrigée : il s'applique, l'administrateur le passe. Voir §3.2c. |
+| D943 | **Le rythme de la migration = des opérations périodiques, pas une clé de la migration déclarée** (précise D667/D881, applique D428/D434/D609 — la question 9 du cas 3) : « every: peut, à mon avis, être couvert par une opération périodique telle que nous l'avons déjà » — ma clé `every:` (et `reset_coverage:`) sur la migration déclarée retirée ; le delta nocturne et la relecture complète sont deux opérations automatiques au calendaire (D434), dont les effets sont les hooks du socle `migrate` et `reset_coverage` (D609 — la composition déclarative) ; la forme : un bloc `operations:` porté par la migration déclarée, `migrate` sans paramètre (la migration porteuse), `reset_coverage(<entité>)` par entité partitionnée — mienne. | Les heures restent à fixer (la fenêtre des traitements nocturnes de PMI et de la sauvegarde). Voir §3.2c. |
 
 ---
 
@@ -8534,6 +8627,2361 @@ D756 est inchangé, les titres des cas se relisent (le cas 1 = le
 véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
 initiale).
 
+**Le cas 3 = l'entrepôt de données — `03_entrepot` (D857 — amende
+l'échelle D827/D856).** **« renomme-le 03_reprise »**, **« Renomme
+plutôt 03_reprise en 03_dwh »**, puis **« tu as raison : "entrepot"
+est approprié »** — à l'ouverture du cas Cegid (le 03/09/2026,
+avant la collecte des commandes), l'auteur le fixe au troisième
+rang **sous le nom de l'entrepôt qu'il alimente** — le mot de D180
+et de D756, français et sans accent comme `vehicule` et `banque` ;
+le sigle dwh écarté : il porte la connotation décisionnelle que
+D180 tient à distance de l'OLAP, connotation que l'exemple assume
+autrement (D858). La maison `usecases/04_cegid_conversion.md`
+devient **`usecases/03_entrepot.md`**, le dépôt à venir
+`examples/03_entrepot/` ; la collecte des commandes glisse au
+quatrième rang (`04_sales_collection.md` — le titre relu « la
+gestion des commandes industrielles » à son ouverture, annoncée
+pour la suite). L'échelle à sept maisons se relit : 0 l'enquête ·
+1 le véhicule · 2 la banque · **3 l'entrepôt** · 4 les commandes ·
+5 les projets · 6 les repas — l'ordre de traitement et l'échelle
+coïncident à nouveau.
+
+**Le cas 3 porte la restitution décisionnelle (D858 — la première
+réponse du cadrage, complète D180).** **« La connotation
+décisionnelle sera portée par cet exemple pour mettre en avant la
+construction de dashboard, de génération de documents, de
+listes… »** — l'entrepôt de D180 avait sa restitution en un mot ;
+le cas 3 la joue pour de vrai : **les surfaces du catalogue (le
+domaine 4) sur les données converties** — les tableaux de bord
+(D554–D558 : le squelette aux widgets, le rafraîchissement), les
+documents générés (D212, D559–D565 : le template, les quatre
+destinations), les listes (D441–D447 : le tri, les filtres,
+l'export). Le cinquième morceau proposé du cas devient **« le
+pilotage et la restitution »** : la couverture et les rejets du
+module `migration` (D666), le rapport aux responsables (D406), et la
+restitution décisionnelle. Les dix autres questions du cadrage
+restent posées.
+
+**Le cadrage du cas 3 — le contexte (D859 — la réponse de l'auteur,
+complète D857–D858).** **« Cet exemple présente la capacité de
+Syncytium à assurer la migration de données d'un connecteur à un
+autre en appliquant un mapping, des règles de conversion et des
+règles de vérification. Le cas d'usage porte sur une conversion de
+données issue de l'ERP Cegid vers un entrepôt de données. Cette
+conversion vise à standardiser, à harmoniser et à fiabiliser les
+données exploitées par les différentes strates de l'entreprise (de
+l'opérateur aux dirigeants). Elle met également en avant les règles
+de droit sur la consultation des entités et des champs. »** — les
+trois visées définies : **« La standardisation consiste à mapper la
+bonne information dans le bon module et la bonne entité.
+L'harmonisation vise à convertir les données pour extraire les
+informations utiles. La fiabilisation garantit que les informations
+disponibles sont justes et sont accessibles à la bonne personne. »**
+La conséquence : **« les données ne respectant pas les règles de
+conversion et de vérification font l'objet d'un état sur la qualité
+des données et sur l'avancement de l'intégration dans l'entrepôt.
+Le non respect des règles fait l'objet d'état à destination d'un
+destinataire capable de traiter la correction des données
+d'origine. »** Puis : **« L'utilisation de cet exemple construit
+pour certaines entités un historique des changements de valeur.
+Dès que les données sont disponibles, un tableau de bord affichant
+des indicateurs de pilotage offre une vue globale du fonctionnement
+de l'entreprise. »** Le périmètre, borné (« un ERP est vaste ») :
+**« les données techniques (articles, gammes & nomenclatures,
+tarifs) · les clients et les fournisseurs · les commandes de vente
+et d'achat · la gestion des stocks et les mouvements »**.
+
+La lecture au registre — chaque visée a son acquis :
+
+- **la capacité montrée** : la migration d'un connecteur à un autre
+  — le `from:` (D610), les migrations déclarées (D662), le mapping
+  entier (D646–D672) ;
+- **standardiser** = le `to:` du mapping (D655–D656 : la bonne
+  entité du bon module, la clé fonctionnelle D654) ;
+- **harmoniser** = les conversions : la normalisation par champ
+  calculé (D660), les constructeurs de composés (D659), `extract`
+  (D817), le hook de type de la date `AAAAMMJJ` (D119/D820) ;
+- **fiabiliser** = deux garanties — **la justesse** (les règles de
+  vérification : la validation au champ et à l'entité D364/D404,
+  l'acceptation « converti ET cohérent » D177) et **l'accès à la
+  bonne personne** (les droits de consultation sur les entités et
+  les champs : la confidentialité P8/D25–D27, les droits d'action
+  D196, le degré des groupes D699 — de l'opérateur aux dirigeants,
+  **le premier exemple de l'échelle aux droits réels**) ;
+- **l'état de la qualité et de l'avancement** = le module
+  `migration` (D666/D668 : la couverture, les rejets et leurs
+  causes, l'historique de la qualité) — les non conformes ne sont
+  pas portées (D177), le rapport va **au destinataire capable de
+  corriger l'origine** (D179 : la correction à la source ; D406 :
+  `report: { to: }`, le destinataire déclaré) ;
+- **l'historique des changements de valeur** pour certaines
+  entités = `history:` déclaré (D411–D413), nourri par le
+  différentiel du rejeu (D672 : seuls les écarts s'écrivent) — la
+  continuité de l'alimentation en découle (le mode `relative`,
+  l'`every:` de `migrate` D667) ;
+- **le tableau de bord des indicateurs de pilotage** = le dashboard
+  du catalogue (D554–D558, les kpi D527) ; « dès que les données
+  sont disponibles » : le rafraîchissement (D249/D555) ou l'issue
+  de `migrate` (le patron D853) — à arbitrer au morceau du
+  pilotage ;
+- **le périmètre** : quatre domaines — les modules de l'entrepôt en
+  germe (le nommage au morceau 2 ; la nomenclature et la gamme = la
+  composition auto-référencée D135).
+
+Les questions 1, 5, 7 (la posture du rejet) et 9 (la continuité)
+du cadrage trouvent leur réponse ; les morceaux proposés s'en
+nourrissent (les groupes à l'assise, les droits et `history:` au
+modèle, le tableau de bord de pilotage à la restitution). Restent :
+l'instance et le réel (3–4), le modèle existant ou à concevoir (6),
+les exemples de règles (7), l'enrichissement (8), la fréquence (9),
+l'entreprise (10), le chemin du hook de type (11).
+
+**Les deux storages du cas 3 (D860 — le cadrage, la question 3 en
+partie).** **« L'instance Cegid est le schéma d'une instance
+SQLServer. L'entrepôt de données est un schéma PostgreSQL. »** —
+l'assise du cas se précise aux deux bouts de la conversion :
+
+- **le connecteur `cegid`** — `type: storage`, `class: sqlserver`,
+  **en lecture seule** (D175 : le connecteur de reprise est un
+  storage ordinaire qui ne fait que lire, à durée de vie
+  administrée) ; son périmètre est **un schéma de l'instance** :
+  les tables du périmètre (D859) déclarées à la carte `entities:`
+  (D828), `read_instance` borné à cette carte (D829), l'ossature de
+  `source/` engendrée depuis le schéma réel puis raffinée (D653) ;
+- **le connecteur `entrepot`** — `type: storage`,
+  `class: postgresql`, **l'entrepôt = un schéma** : l'instance du
+  contrat (D680 — la classe parle schéma, le contrat parle
+  instance) ; la duplication et la bascule par schéma de la
+  migration à chaud (D674 — `duplicate_instance`,
+  `rename_instance`) trouvent leur forme native ;
+- **les deux classes** consignées au catalogue (D613/D619) sont
+  exercées pour la première fois par un exemple — le domestique
+  portait le sqlite natif (D729) ; le morceau 1 (l'assise)
+  s'écrira sur ces deux connecteurs, les secrets par référence
+  (`secrets:` — connectors.md), le smtp vérifié au démarrage
+  (D626).
+
+Restent de la question 3 : la version de Cegid, l'accès (la base
+de production ou une copie), le volume ; et la question 4 — le
+schéma réel du périmètre (le DDL ou la sortie de
+`INFORMATION_SCHEMA.COLUMNS` sur le schéma Cegid) et un échantillon
+de données.
+
+**La couverture à deux étages (D861 — le cadrage du cas 3, précise
+D176/D648/D653/D666).** **« Pour commencer, l'objectif est de
+couvrir toutes les tables et tous les champs de la source. Si une
+table ou un champ présent dans un schéma de la base de données SQL
+Server ne sont pas décrits dans la source de la configuration, une
+anomalie doit être remontée. L'état de la couverture du schéma ou
+un indicateur de taux de couverture du schéma s'appuie sur la
+description décrite en base via la configuration. L'état de la
+couverture des données ou un indicateur du taux de couverture de la
+données s'appuie sur le nombre de lignes de chaque table. »** — et
+la version : **« nous allons partir de la version de Cegid PMI
+16.17 »**. La lecture au registre :
+
+- **l'exhaustivité** : `source/` décrit **le schéma SQL Server
+  entier**, table par table et champ par champ (D176/D648) ; le
+  hors-périmètre (D859 — les quatre domaines) se déclare `ignored`
+  (D657 : « on peut ignorer, jamais oublier ») ; l'ossature
+  engendrée par `read_instance` (D653) rend la chose tenable sur
+  des centaines de tables — le technicien marque, il ne recopie
+  pas ;
+- **l'anomalie** : toute table ou tout champ du schéma réel absent
+  de la description = une anomalie remontée — la complétude
+  confrontée au schéma (D653) **à l'ingestion de la version et à
+  chaque `migrate`** (le schéma peut bouger sous la description :
+  une mise à jour de Cegid ajoute une colonne), le rapport de
+  non-couverture au technicien (D179) ;
+- **l'état de la couverture du schéma** — le taux s'appuie sur la
+  description de la configuration : par table et par champ, trois
+  états — **décrit et migré**, **déclaré ignoré**, **absent de la
+  description** (l'anomalie) ; la place des ignorés dans le taux
+  est tranchée par D862 (les deux taux scindés — ci-dessous) ;
+- **l'état de la couverture des données** — le taux s'appuie sur le
+  nombre de lignes de chaque table : les lignes intégrées
+  rapportées aux lignes de la table source, les rejets creusent
+  l'écart ; le `filter:` (D663) reste hors taux — le périmètre
+  déclaré n'est ni un rejet ni une couverture ;
+- **les deux états = des données du module `migration`**
+  (D666/D668 — deux grains : l'entité et le champ pour le schéma,
+  la ligne pour les données), leur vue = les surfaces du module
+  (les listes, les kpi, le tableau de bord), leur histoire =
+  l'historisation (l'évolution de la qualité dans le temps) ;
+- **la version : Cegid PMI 16.17** — le schéma réel à fournir est
+  celui-là.
+
+**La complétude et la couverture scindées (D862 — précise D861).**
+**« Ta proposition de scinder le taux de couverture et le taux de
+complétude me convient et me paraît intéressante. »** — sur le
+schéma, deux mesures pour deux questions :
+
+- **la complétude du schéma** — *la description est-elle
+  entière ?* — les éléments décrits ou déclarés `ignored` rapportés
+  au schéma réel : cent pour cent quand tout est déclaré ; l'écart
+  = les anomalies (la table ou le champ absent de `source/` —
+  D861), le rapport au technicien (D179) ;
+- **la couverture du schéma** — *que prend l'entrepôt ?* — les
+  éléments migrés rapportés au schéma réel ; les ignorés sont
+  l'exclusion assumée, affichée à part, jamais comptée comme
+  couverte ;
+- avec **la couverture des données** (D861 — les lignes intégrées
+  rapportées aux lignes de chaque table source), **trois taux** au
+  module `migration` (D666/D668), consultables, filtrables,
+  historisés. Un taux unique qui compterait les ignorés comme
+  couverts aurait dit la complétude de la description, pas la
+  couverture — la confusion est levée.
+
+**L'accès et le volume du cas 3 (D863 — le cadrage, solde la
+question 3).** **« L'accès se fait en lecture directe sur la base
+de production. Le volume concerne quelques dizaines de milliers de
+lignes d'articles, quelques centaines de clients et de fournisseurs
+et quelques millions de lignes de mouvements de stocks. »** La
+lecture au registre :
+
+- **la production, en direct** : le connecteur `cegid` lit la base
+  vivante — la lecture seule (D175) n'est plus une convention mais
+  une garde : rien ne s'écrit chez Cegid ; la fenêtre du `every:`
+  aux heures creuses (l'esprit D7), `timeout:` et `retry:` (D625) ;
+  la classe `sqlserver` a la charge de lire sans gêner
+  l'exploitation ;
+- **le volume** — les articles ~10⁴, les tiers ~10², les mouvements
+  de stocks ~10⁶ : **le premier exemple au-delà de l'échelle
+  domestique** (les ~23 400 écritures de la banque, les ~400
+  pleins du véhicule) — la lecture au curseur (D689) et l'écriture
+  en lots (D688) cessent d'être des principes, elles portent la
+  nuit ;
+- **le point que le volume pose** : le différentiel par
+  comparaison (D672) relit et compare chaque enregistrement à
+  chaque passage — sur des millions de mouvements chaque nuit, le
+  coût est réel ; **le `filter:` en fenêtre glissante** (D663 —
+  `filter: date >= now() - …`) borne la relecture aux mouvements
+  récents, **si les mouvements sont immuables une fois écrits** :
+  les corrections de Cegid passent-elles par un contre-mouvement
+  ou par une modification ? — à arbitrer au morceau du mapping, sur
+  le réel.
+
+**Les écarts des mouvements de stocks (D864 — précise D863, ouvre un
+manque du socle).** **« Dans le principe, les mouvements de stocks
+sont immuables, une correction passe par un contre-mouvement.
+Malheureusement, dans certains cas, des outils "maisons" apportent
+des ajustements sur la donnée directement pour corriger des défauts
+de saisie. L'idée est de consulter les écarts. Cela peut
+représenter une charge de travail pour le serveur conséquent.
+L'analyse des écarts est un sujet qui doit être couvert par
+Syncytium. »** — trois conséquences :
+
+- **la fenêtre glissante est écartée** : elle serait aveugle aux
+  ajustements directs portés sur des lignes anciennes ; la
+  détection doit être **exhaustive** (toute ligne, toute nuit) **et
+  légère** (la charge du serveur de production — D863) ;
+- **consulter les écarts** : ce que les outils maison ont changé
+  après coup — et ce qu'ils ont supprimé — se voit, se rapporte,
+  s'analyse ;
+- **l'analyse des écarts est un sujet du socle**, pas du seul cas.
+
+**La proposition — deux manques, en attente d'arbitrage (le détail
+dans usecases/03_entrepot.md).** **M1, la détection des écarts à
+l'échelle** : le différentiel de D672 suppose la relecture entière
+de la source ; la proposition la remplace par **l'empreinte de la
+ligne source portée par la provenance** (D178 étendue — le
+connecteur, la date, la clé, et le condensé des colonnes lues), et
+la détection **au niveau clé + empreinte avant tout mapping** :
+(1) la classe storage rend le couple (clé, empreinte) de chaque
+ligne, **l'empreinte calculée en natif** (le patron visiteur
+D681–D684 — `HASHBYTES` côté SQL Server, `md5` côté PostgreSQL, le
+code côté csv/xlsx), triée par la clé, au curseur (D689) ; (2) la
+comparaison en flot avec la provenance triée par la même clé — les
+nouveaux, les modifiés, **les disparus** (la suppression directe,
+un écart aussi) ; (3) la relecture entière des seuls nouveaux et
+modifiés, qui passent le mapping, les règles et le différentiel
+champ par champ (D672 demeure — la seconde comparaison, sur ce qui
+a bougé ; l'historisation D168 garde l'ancienne valeur) ; (4) **le
+pré-contrôle par partition** pour les grandes tables — un agrégat
+par partition (le nombre de lignes, le condensé agrégé, par mois de
+la date du mouvement : une requête groupée, une ligne par mois)
+comparé aux agrégats mémorisés, seules les partitions qui bougent
+passent à l'étape 1. La grammaire : l'empreinte est un fait tenu
+par le moteur ; `partition: date_mouvement[month]` (la nature au
+crochet D382) se déclare sur l'entité source, aux côtés d'`ignored`
+(D657) et de `filter:` (D663). **M2, la consultation et l'analyse
+des écarts** : l'écart comme objet n'existe nulle part —
+l'historisation garde l'évolution des valeurs, le module
+`migration` tient la couverture et les rejets ; la proposition :
+**les écarts détectés = des données du module `migration`** (par
+passage, entité source, clé — le genre nouveau/modifié/disparu, les
+champs changés avec l'ancienne et la nouvelle valeur, la date) ;
+**`immutable: true` sur l'entité source** qualifie : l'écart sur
+une entité immuable (les mouvements) = **une anomalie rapportée**
+au destinataire (`report:` D406, la cascade D407), l'écart sur une
+entité vivante (les articles, les tarifs) = la vie normale, gardée
+par l'historisation seule ; la consultation = les surfaces du
+module (la liste filtrée par entité/genre/période, le kpi des
+écarts par nuit, le drill-down vers l'historique de
+l'enregistrement D168–D174). **Les quatre pièces à arbitrer** :
+l'empreinte dans la provenance, le pré-contrôle par partition,
+`immutable:` sur l'entité source, les écarts comme entités du
+module `migration`.
+
+**Le réel du cas 3 reçu (D865 — solde la question 4 du cadrage).**
+Le 05/09/2026, deux classeurs déposés **à côté du dépôt, jamais
+dedans** : **le schéma** Cegid PMI 16.17 (`PMI-schema.xlsx` — 330
+objets, 13 512 colonnes avec le type SQL, la longueur, la précision,
+l'échelle, la nullabilité et le défaut ; **sans les contraintes**)
+et **l'extraction anonymisée** (`PMI-extraction-anonymisee.xlsx` —
+`ARTICLE`, `NOMENC`, `MVTSTO`, `CLIENT`, `FOURNIS` à cent lignes,
+la société 100 seule, la feuille *Anonymisation* : les libellés
+remplacés, les utilisateurs en `USR`, les adresses génériques, les
+noms en pseudonymes stables, SIRET/TVA/banque masqués, les textes
+libres vidés). **La règle de l'auteur : « ces données ne doivent
+pas être présentes dans les commits... elles sont
+confidentielles »** — le cas cite la structure, jamais une valeur,
+même anonymisée ; les analyses de travail vivent au scratchpad de
+session. La lecture du réel (le détail dans
+usecases/03_entrepot.md, « Les données réelles ») :
+
+- **la carte des schémas SQL** : `dbo` = l'ERP historique (246
+  tables, 12 vues, 10 346 colonnes) ; les schémas typés de la
+  16.17 (`Production`, `Stock`, `Project`, `Crm`, `Common`, `adt`,
+  `Cache`, `idt`) = les tables neuves aux noms anglais, aux
+  `datetime` vrais, à l'`Id` et au `RowVersion`, avec **des vues de
+  compatibilité dans `dbo`** (`NOMENC` ↔ `Production.BomRange`,
+  `BATCH` ↔ `Stock.Batch`, `POSTES`, `CONTROLE`) ; `OData` = 43 vues,
+  la façade de l'API ;
+- **la convention de nommage** `<XX><K|C|I><T|N|J|S><nom>` : le
+  préfixe de table, **K = colonne de clé** / C = colonne / I =
+  identifiant hors clé, **T = texte `nchar` à largeur fixe** (8 645
+  colonnes — le remplissage à blancs), **N = nombre**, **J = jour
+  en `nchar(8)` `AAAAMMJJ`** (552 colonnes), **S = heure en
+  `nchar(6)`** — **la date de la 16.17 est une chaîne, pas
+  l'entier de D119** : le `mask: "yyyymmdd"` de D820 la lit, le
+  hook de type est sans objet ici (la question 11 se referme par
+  le réel — le hook reste l'outil d'autres legacies) ;
+- **la société** en première colonne de clé partout (`nchar(3)`) —
+  le multi-sociétés, le `filter:` de D663 sur chaque entité
+  source ;
+- **les clés naturelles aux colonnes K** : `ARTICLE` (société,
+  code, complément), `CLIENT`/`FOURNIS` (société, code — la même
+  structure à 167 colonnes), `NOMENC`, `TARIF` (à la date
+  d'application), `STDEPLOT`, `ECOMCLI` (société, numéro,
+  **indice** de révision), `LCOMCLI` ; **`MVTSTO` n'a aucune
+  colonne K** — ses cinq colonnes I (l'origine du mouvement) ne
+  distinguent que 70 lignes sur 100 : **pas de clé naturelle
+  visible** sur la table des millions de lignes ;
+- **les familles** : treize genres de documents en paires `E*`/`L*`,
+  les tables d'extension `U*` du site, les compteurs `ROWVER` sur
+  les référentiels.
+
+**Six questions du réel (R1–R6)** : **R1** la clé de `MVTSTO` — un
+index unique existe-t-il ? sans clé, le mode `relative` est
+interdit à la règle (la garde D825) : l'identité par l'empreinte
+ou une clé composée déclarée ; **une feuille *Contraintes* au
+classeur du schéma** (clés primaires, index uniques, clés
+étrangères) servirait aussi les dépendances de D648 ; **R2** la
+vue ou la table neuve pour `NOMENC`/`BATCH`/`POSTES`/`CONTROLE` ;
+**R3** OData et les schémas techniques `ignored` en bloc ; **R4**
+les genres de documents du périmètre (`ECOMCLI`/`LCOMCLI`,
+`ECOMFOU`/`LCOMFOU` — et les offres, les expéditions, les
+réceptions, les internes ?) et les `U*` ; **R5** la date au masque
+plutôt qu'au hook ; **R6** le rognage des blancs du `nchar` par la
+classe `sqlserver` à la lecture (D683), pas par 8 645 règles.
+
+**Les réponses du réel (D866 — R1, R2, R3 et la date de D119).**
+**La date** : **« Pour le D119, j'avais indiqué un entier. Une
+chaîne de caractères composée uniquement de numérique peut
+également être vue comme un entier. »** — l'exemple fondateur des
+quatre facettes n'est pas démenti par la 16.17 : la chaîne de
+chiffres et l'entier sont la même chose vue du masque ; le
+`mask: "yyyymmdd"` de D820 lit l'une comme l'autre (l'entier au
+masque — D370), et le hook de type reste l'outil des formats que
+le masque ne sait pas dire (R5 refermée). **R1** : **« Les clés
+d'une table dans PMI contiennent un "K" en 3ème position. Et, la
+base de données ne contient aucune clé étrangère. »** — la
+convention fait foi : les colonnes K forment l'`identity:` de
+l'entité source (D357) ; **aucune clé étrangère** : les dépendances
+de D648 ne se lisent pas dans le schéma, **elles se déclarent dans
+`source/`** — le raccourci de référence (`code_article:
+article.code`, D396), la jointure par la clé (D654) ; **`MVTSTO`
+n'a pas de clé** — la conséquence, en proposition : **l'identité
+par l'empreinte**, `key: connector.fingerprint` sur la règle —
+l'information système du connecteur (le patron D849 :
+`connector.line` identifiait la ligne d'un fichier, l'empreinte
+identifie la ligne par son contenu), le condensé calculé en natif
+par la classe (la pièce 1 de D864) ; la garde D825 est satisfaite
+et le mode `relative` admis ; une ligne modifiée par un outil
+maison se voit comme une disparue et une nouvelle — l'écart d'une
+entité en ajout seul (M2) ; les doublons stricts sont comptés par
+la migration. **R2** : **« La vue NOMENC doit être vue comme une
+table. »** — l'entité source `NOMENC` décrite et migrée comme une
+table ; `Production.BomRange` décrite en entier comme tout le
+reste. **R3** : **« Pas d'ignorance en bloc. Toutes les tables
+doivent être citées en entier (pas d'utilisation de patterns). »**
+— les 330 objets du schéma (les vues `OData` et les schémas
+techniques compris) décrits **avec toutes leurs colonnes typées** ;
+`reprise.yml` liste ses fichiers un par un, sans regex — le
+pattern de D806 reste licite ailleurs, l'auteur le refuse ici ;
+l'ossature est engendrée depuis le schéma réel (D653 — le rôle de
+`read_instance`), le technicien la raffine ; **la taxonomie de la
+couverture s'ajuste** (D861–D862) : la complétude = décrit /
+absent, la couverture = migré / décrit sans règle. Trois points à
+trancher : l'état « ignoré » — conservé pour l'exclusion explicite
+(D657/D176 : « on peut ignorer, jamais oublier ») ou l'exclusion
+lue dans l'absence de règle ; **le schéma entier dans le dépôt
+public** — 330 fichiers engendrés, 13 512 lignes de colonnes,
+l'auteur connaît le statut de ce schéma ; `MVTSTO` à l'empreinte.
+
+**Les réponses du réel (D867 — R4, R5, R6).** **R4, le périmètre
+resserré « pour l'exemple »** : **« Uniquement les clients et les
+fournisseurs, pas les commandes, les offres… Ce n'est que pour
+l'exemple. Si nous prenons en compte tous les cas, cela pourrait
+être long et fastidieux. Je souhaite juste montrer l'utilisation du
+module migration pour alimenter un entrepôt de données et disposer
+de la mécanique pour accéder aux données de l'entrepôt et pour
+disposer de quelques écrans de consultation. »** — aucun document
+au mapping : les treize paires `E*`/`L*` sont décrites (R3) mais
+sans règle ; le périmètre de D859 s'amende, et l'ambition du cas se
+dit en trois mots — **le module `migration` qui alimente
+l'entrepôt, la mécanique d'accès aux données (l'IHM, l'API),
+quelques écrans de consultation** ; à clarifier : les données
+techniques (`ARTICLE`, `NOMENC`, `TARIF`) et les stocks (`MVTSTO`,
+`STDEPLOT`) restent-ils au mapping — l'extraction les porte, et les
+mouvements portent le sujet des écarts (D863–D864) — ou le mapping
+se réduit-il aux tiers (`CLIENT`, `FOURNIS`, avec `ADRESSE` et
+`CONTACT` ?). **R5, la date au masque** : **« Une date au masque
+simplifie la conversion des données et cela peut éviter un
+hook. »** — D820 confirmé, le hook de type hors jeu ici. **R6, le
+rognage des blancs devient un réglage du socle** : **« Disposer
+d'une option dans les settings pour indiquer que les blancs sont
+rognés et une option sur les champs pour éventuellement surcharger
+cette option. »** — un réglage de la cascade des settings
+(D359/D588 : l'application → le module → l'entité) et une facette
+du champ qui le surcharge ; le nom proposé **`trim: true | false`**
+— le défaut du socle `false` (rien ne s'altère en silence, l'esprit
+de D311), le cas le pose à `true` aux settings de la version, le
+champ qui garde ses blancs déclare `trim: false` ; la classe storage
+l'applique à la lecture (la fonction de valeur `read` — D683),
+l'entrée (l'IHM, l'API, l'import) à l'écriture.
+
+**L'analyse itérative — la description de la source est un acte du
+technicien (D868 — précise D653, D861–D862 et D866 ; retire
+l'ossature engendrée).** Les points de précision de l'auteur : **« Le
+schéma de la source est décrit dans la configuration. Syncytium
+compare la structure réelle à la description et note les écarts au
+technicien. Il serait plus facile de laisser Syncytium construire le
+modèle à partir d'une analyse du schéma fournie par le connecteur.
+Mais, dans le cadre d'une migration, chaque table et chaque colonne
+doivent être comprises et analysées par un technicien. Les écarts ne
+doivent pas être vus comme des écarts ou des négligences mais comme
+des points à creuser… Les écarts sont présents pour permettre au
+technicien de savoir où il en est de son analyse. La migration est
+une procédure itérative qui permet d'exploiter les données justes
+au fur et à mesure de l'analyse. »** — ce qui se corrige et ce qui
+se précise :
+
+- **la description est un acte du technicien, jamais une
+  génération** : `read_instance` (D653) sert la comparaison, pas
+  l'écriture — l'ossature engendrée proposée sous D866 est
+  retirée ; une table décrite est une table comprise ;
+- **le non-décrit = un point à creuser** : ni une anomalie (le mot
+  de D861 se relit) ni une négligence ; la confrontation au schéma
+  réel rend au technicien **la liste de ce qui reste à analyser** —
+  son marque-page ; le mot « écart » se réserve aux données qui
+  bougent après coup (D864), pour ne pas confondre l'avancement de
+  l'analyse et la vie des données ;
+- **la complétude du schéma (D862) = l'avancement de l'analyse**
+  (décrit sur réel, qui monte au fil des itérations — la courbe de
+  l'historisation D668) ; **la couverture** = ce que l'entrepôt
+  prend ;
+- **R3 relue** : « toutes les tables citées en entier » = chaque
+  table décrite l'est avec toutes ses colonnes, sans pattern et
+  sans ignorance en bloc — **la description grandit table par
+  table**, elle n'est pas complète au premier jour ; **en
+  proposition : `ignored` = la conclusion d'une analyse** (« compris
+  et écarté » — D176 : « on peut ignorer, jamais oublier »), qui
+  avance la complétude sans avancer la couverture, distinct du
+  point à creuser (l'absent) ;
+- **la migration itérative** : à chaque itération, l'analysé et
+  mappé entre dans l'entrepôt et s'exploite — le versionnement
+  plein de `source/` et `mapping/` (D670 : le bump du build, le
+  statut `beta/`), la couverture historisée (D668) ;
+- **l'exemple montre un état de l'analyse** : les tiers décrits et
+  migrés, le reste du schéma en points à creuser — la question du
+  schéma entier dans le dépôt public se dissout, seules les tables
+  analysées y figurent.
+
+**La source décrite porte ses clés et ses références — les trois
+états, le périmètre, le jeu de données (D869 — revoit R1, précise
+D861–D862 et D868, confirme D859 et D867).** **« Pour en revenir au
+R1, comme nous devons décrire le schéma d'origine, nous décrivons
+les champs, les clés et les références externes (sous forme de
+liste ou d'association). Donc, peu importe la codification ou la
+description des contraintes du schéma. La table MVTSTO dispose
+bien de clés (avec un I à la place de K). Dans cet exemple, nous
+voyons que les clés n'ont pas un nommage unique ;-) »** — `source/`
+parle la grammaire du modèle (D652) jusqu'au bout : `identity:`
+(D357) pour la clé, le raccourci de référence (D396), `list of` et
+`association with` (D399–D401) pour les dépendances — **le
+technicien les déclare, le schéma réel n'a pas à les porter** ; les
+contraintes SQL et la feuille *Contraintes* que je demandais sont
+sans objet ; **`MVTSTO` a sa clé, ses colonnes `I`** — l'empreinte
+proposée sous D866 est retirée (l'échantillon donne 70 valeurs
+distinctes sur 100 pour les cinq `I` seules, 100 avec l'article, la
+date et l'heure : l'`identity:` exacte se fixera à l'analyse de la
+table). **Les trois états** : **« La migration va référencer les
+tables migrées et quelques tables à ignorer, pour l'exemple. Les
+autres tables apparaîtront en "non défini". Toutes les colonnes ne
+seront pas non plus décrites pour les faire apparaître comme "non
+défini". »** — **migré / ignoré / non défini**, aux deux grains (la
+table, la colonne) ; `ignored` = « compris et écarté » (la
+proposition de D868 reçue par l'usage), **« non défini » = le point
+à creuser** ; l'exemple montre les trois, et des colonnes non
+définies dans des tables décrites. **Le périmètre** : **« Le
+périmètre comprend bien les tables que j'avais initialement
+définies. »** — les données techniques (`ARTICLE`, `NOMENC`,
+`TARIF`), les tiers (`CLIENT`, `FOURNIS`), les stocks et les
+mouvements (`MVTSTO`, `STDEPLOT`) ; les commandes de D859 restent
+sous la réserve de R4 (« pas les commandes ») — à confirmer d'un
+mot. **Le jeu de données** : **« Les données ne sont pas présentes
+dans l'extraction, c'est volontaire. Par contre, pour les besoins
+de l'exemple, nous construirons le jeu de données que nous
+pourrions publier sans risque. »** — l'extraction anonymisée reste
+hors dépôt ; l'exemple portera **un jeu de données construit,
+publiable**, composé au morceau de la source sur la structure
+réelle. En attente : les quatre pièces de D864 (« j'ai besoin d'un
+peu plus de réflexion ») ; la cible : « nous ne l'avons pas encore
+abordée » — la question 6 s'ouvre ensuite.
+
+**`normalize:` — la normalisation à la frontière par une fonction
+(D870 — remplace le `trim` proposé sous D867).** **« La propriété
+"trim" sur les chaînes de caractères répond à un besoin unique. Je
+verrai plutôt une option "normalize" qui fasse référence à une
+fonction de transformation qui, elle, peut être définie comme un
+hook. Dans notre cas, "trim" sera une fonction fournie par
+Syncytium (normalize: trim). »** — le réglage du socle prend sa
+forme générale : **`normalize: <fonction>`** dans la cascade des
+settings (D359/D588 : l'application → le module → l'entité) et **en
+facette du champ** qui la surcharge ; la fonction vient **du
+catalogue** (D570–D601 — `trim` en fait partie, D660 l'employait
+déjà dans `upper(trim(city_raw))`) **ou d'un hook de fonction**
+(D432/D592 — la fonction pure, le graphe acyclique) ; la classe
+storage l'applique à la lecture (la fonction de valeur `read`,
+D683), l'entrée (l'IHM, l'API, l'import) à l'écriture ; le cas pose
+`normalize: trim` aux settings de la version. Le voisin de
+vocabulaire est noté : `searchable: normalized` (D367) est un mode
+de recherche, `normalize:` une transformation — deux étages, deux
+sens distincts.
+
+**L'identité contrôlée avant la migration (D871 — complète D654 et
+D825, précise D667).** **« La migration doit garantir aussi que la
+définition de l'identité sur une entité est bien une clé avant de
+lancer la procédure de migration. Ce contrôle s'appuie uniquement
+sur les données consultables après l'application du filtre des
+données à lire. »** — avant de lire la première ligne, `migrate`
+vérifie sur le réel que l'`identity:` déclarée de chaque entité
+source **est une clé** : aucun doublon **dans le périmètre du
+`filter:`** (D663 — la société 100 du cas, pas la base entière) ; le
+manquement **arrête la procédure** et se rapporte au technicien —
+la garde de D825 exigeait la clé sur chaque règle en `relative`,
+elle gagne son pendant sur les données ; le décompte des clés
+distinctes après filtre est un geste ensembliste de la classe
+storage, jamais une relecture ligne à ligne. La question de
+`MVTSTO` se règle ainsi : le technicien déclare l'`identity:` (les
+colonnes `I`, ou davantage), le contrôle tranche sur les données.
+
+**`normalize:` paramétré — une expression sur la valeur (D872 —
+amende D870).** **« Je reviens sur "normalize". Je pense qu'il peut
+être utile d'utiliser des paramètres : `normalize: trim(me)`,
+`normalize: right("0000" + me, 4)`… »** — `normalize:` ne nomme plus
+une fonction, il porte **une expression du langage** (D90–D92) où
+**`me` désigne la valeur à normaliser** ; le catalogue (D570–D601)
+et les hooks de fonction (D592) y sont disponibles ; la cascade des
+settings et la surcharge au champ demeurent (D870) — le cas pose
+`normalize: trim(me)` aux settings de la version et, au champ qui
+le demande, le code sur quatre positions. Le mot `me` reste un : à
+l'étage du champ, sa valeur ; à l'étage de la règle,
+l'enregistrement (D822–D823) ; à l'origine d'une référence,
+l'enregistrement d'origine (D396) — la chose à portée.
+
+**Les commandes de vente et d'achat restent au mapping (D873 — lève
+la réserve de R4 sous D867, confirme D859 en entier).** **« Les
+commandes de vente et d'achat restent au mapping. Ces éléments sont
+utiles pour montrer un lien complet entre les articles, les clients
+et les fournisseurs. »** — le périmètre : les données techniques
+(`ARTICLE`, `NOMENC`, `TARIF`), les tiers (`CLIENT`, `FOURNIS`), les
+commandes de vente (`ECOMCLI`/`LCOMCLI`) et d'achat
+(`ECOMFOU`/`LCOMFOU`), les stocks et les mouvements (`MVTSTO`,
+`STDEPLOT`) ; les autres genres de documents — les offres, les
+expéditions, les réceptions, les internes — hors mapping, décrits
+ou non définis.
+
+**Le contrôle des compositions et des associations avant la
+migration (D874 — complète D871).** **« Au même titre que le contrôle
+de l'identité, Syncytium doit inclure le contrôle sur les
+compositions et les associations. »** — le pré-contrôle de `migrate`
+s'étend aux liens : avant de lancer, sur les données du `filter:`
+(D663), **chaque lien déclaré dans `source/`** (D869 : la
+composition `list of`, l'association `association with`, le
+raccourci de référence D396) **est vérifié sur le réel** — tout
+enfant a son possesseur, toute association et toute référence ont
+leur cible ; l'intégrité référentielle que le schéma ne porte pas
+(D866 : aucune clé étrangère) se prouve avant la première lecture ;
+le manquement se rapporte au technicien. Deux points à préciser :
+**l'effet** — l'arrêt de la procédure comme pour l'identité (la
+description est fausse), ou l'orphelin laissé au mode `relative`
+qui l'isole et le rapporte (D177/D179 — la donnée est sale, la
+description est juste) ; **la forme de la jointure sur un schéma
+étranger**, au morceau de la source — l'enfant y porte la clé du
+possesseur sous ses propres noms (`LCKTNUMERO` pour `ECKTNUMERO`,
+sans l'indice), là où D399 ne fait rien déclarer à l'enfant.
+
+**L'orphelin isolé (D875 — précise D874).** **« L'orphelin est laissé
+au mode relative qui l'isole. L'enregistrement contenant un orphelin
+ne sera pas enregistré dans la cible. Une anomalie sera remontée au
+technicien. »** — le pré-contrôle des liens rapporte, mais la
+procédure part : l'enregistrement qui porte un orphelin n'entre pas
+dans la cible (D177 — converti ET cohérent, l'écriture refusée) et
+l'anomalie va au technicien ; seule l'identité brisée arrête la
+procédure (D871) — la description fausse d'un côté, la donnée sale
+de l'autre.
+
+**Le connecteur porte la facette des types (D876 — précise D119 et
+D681–D684 pour la lecture d'un schéma étranger, tient D399).** **« La
+description d'un modèle fait référence à différents types dont le
+connecteur porte la facette. Par exemple : pour une composition, le
+lien entre le parent et le fils se fait sur les noms de colonnes
+identités identiques. Pour une association, le lien pourra se faire
+par une convention de nommage des colonnes. Pour un type composé,
+les colonnes qui feront référence à un objet dépendra de la
+convention de nommage. »** — la description de `source/` reste
+**logique** : `lignes: list of LCOMCLI`, `client: CLIENT`, un
+composé au nom de son type ; **le connecteur résout les colonnes
+par sa convention** — la facette de stockage des types (D119), le
+visiteur (D681–D684 : la classe rend la forme native) tourné vers
+la lecture : la composition par les colonnes d'identité aux noms
+identiques, l'association par une convention de nommage des
+colonnes, le composé par la convention qui désigne ses colonnes ;
+**D399 tient** — l'enfant ne déclare rien, la facette trouve le
+lien. Le cas : la convention `<XX><K|C|I><T|N|J|S><nom>` de PMI est
+cette facette — le nom logique sans le préfixe de table (`SOC`,
+`NUMERO` identiques d'`ECOMCLI` à `LCOMCLI`), K ou I = l'identité,
+la lettre de type = le type — portée par le connecteur `cegid` ; la
+forme (un paramètre de convention de la classe `sqlserver`, ou une
+classe dédiée) s'arbitre à l'assise. L'indice de révision absent
+des lignes (`ECKTINDICE`) est une question d'analyse des commandes
+que le contrôle des liens (D874) mettra au jour.
+
+**La convention surchargeable (D877 — complète D876).** **« Pour
+compléter mes propos, si la convention n'est pas possible ou ne
+convient pas au technicien, la convention pourra être surchargée et
+cela rendra possible ce point sur des modèles de données autres que
+ceux portés par Syncytium. »** — la convention de la classe est **un
+défaut**, jamais une obligation : le technicien la surcharge **au
+connecteur** (une autre convention déclarée — le modèle étranger a
+la sienne), **à l'entité ou au champ** (les colonnes nommées
+explicitement : le lien d'une composition, la colonne d'une
+association, les colonnes d'un composé) — **le plus proche
+l'emporte**, l'esprit de la cascade de D359. La portée : `source/`
+décrit **tout modèle de données**, pas seulement ceux que Syncytium
+porte (son propre stockage) ou dont il connaît la convention (PMI
+par sa classe) ; le legacy sans convention se décrit colonne par
+colonne. La forme des surcharges s'écrira au morceau de la source,
+sur les tables.
+
+**La comparaison par blocs et `coverage:` — la remise à plat de
+l'auteur (D878 — solde les quatre pièces et le mot de D864, précise
+D672 et D666, écarte `append_only`).** Le 06/09/2026, à la reprise
+sur D864 : **« La migration consiste à comparer le contenu des
+entités d'origine converties et prêtes à être intégrées dans les
+entités destinations. Pour des questions de performance, nous
+pouvons fournir des informations sur la manière dont la lecture des
+données d'origine est assurée : uniquement les enregistrements
+nouveaux depuis la dernière lecture ; relecture des enregistrements
+selon une plage de dates (en général) ou de valeurs (cas de numéros
+de facture, …) ; relecture de la totalité des enregistrements.
+append_only est trop restrictif. Syncytium procède à la relecture
+de la totalité. Le paramètre "Coverage" précise : la clé de la
+partition (peut être différente de identity) — selon la clé de la
+partition, Syncytium va garder une empreinte par clé, cette
+empreinte peut être utilisée pour identifier une différence ;
+Syncytium va conserver la dernière valeur parcourue pour être en
+mesure de reprendre depuis la dernière lecture — ; une plage de
+valeurs de clé — si une date décrit la couverture, une période
+pourra être indiquée (les 3 derniers mois, la dernière année ou la
+dernière semaine) ; si un numéro de documents, de factures ou de
+commande sont précisés, une plage de valeur pourra être indiquée
+(reprendre les 15 dernières valeurs, les 10.000 derniers
+enregistrements, …). Cette comparaison est faite par partition et
+décompose l'analyse en blocs : un bloc d'anomalies — identification
+des lignes d'origine n'ayant pas pu être converties ; un bloc de
+création — identification des clés nouvelles ; un bloc de
+modification — identification des clés existantes avec le contenu
+d'un des champs différent ; un bloc de données inchangées — rien à
+faire ; un bloc de suppression — identification des clés existantes
+dans la destination et n'existant pas dans l'origine. Pour chaque
+bloc et pour chaque clé, le nombre d'enregistrements par entité en
+synthèse apporte une visibilité sur l'avancement de la migration.
+Le traitement de cette comparaison va dépendre de la configuration
+des entités de destination : la présence d'un historique indique
+que les écarts de valeurs viennent compléter les valeurs existantes
+et sont stockés dans l'historique ; l'absence d'un historique
+indique que les écarts de valeurs viennent remplacer les valeurs
+existantes. »**
+
+La lecture — ce que D878 fait aux quatre pièces et au mot :
+
+- **la comparaison se fait sur le converti** — D672 tient (la clé
+  fonctionnelle, l'enregistrement reconstruit contre la cible) et
+  se précise : **par partition, en cinq blocs** — anomalies,
+  création, modification, inchangé, suppression ; le bloc de
+  suppression est le « disparu » de la proposition, le bloc
+  d'anomalies rejoint les rejets de D177 ; **la synthèse** — par
+  bloc, par clé de partition, le nombre d'enregistrements par
+  entité — est la visibilité sur l'avancement, en données du module
+  `migration` (D666/D668) ;
+- **`append_only` est écarté** — « trop restrictif » — et avec lui
+  toute qualification de l'entité source (la pièce 3 et le mot) :
+  **le traitement des écarts se lit sur la destination** —
+  `history:` présent, les écarts complètent et l'historique les
+  garde (D168–D174 : l'analyse des écarts est la lecture de
+  l'historique) ; absent, ils remplacent ; les écarts n'ont pas
+  besoin d'entités propres (la pièce 4 devient la synthèse des
+  blocs) ;
+- **`coverage:` sur l'entité source** remplace l'empreinte par ligne
+  dans la provenance (la pièce 1) et `partition:` (la pièce 2) :
+  **la clé de la partition** — distincte de l'`identity:` si
+  besoin — porte **une empreinte par valeur de clé** (le condensé
+  agrégé de la partition, qui signale une différence) et **la
+  dernière valeur parcourue** (la reprise depuis la dernière
+  lecture — le mode « nouveaux seulement ») ; **la plage** dit ce
+  qui se relit systématiquement — une période sur une date, un
+  nombre de valeurs ou d'enregistrements sur un numéro ; **le
+  défaut, sans `coverage:`, est la relecture de la totalité** ;
+- **les mots voisins** : `filter:` (D663) = le périmètre déclaré,
+  jamais lu ; `coverage:` = la stratégie de lecture à l'intérieur du
+  périmètre ; et le `coverage:` de la lecture n'est pas le taux de
+  couverture de D862 — la même famille de sens, deux objets, noté
+  sans être combattu ;
+- **la forme, en proposition** pour le morceau de la source (les
+  durées de D476, la nature au crochet D382) : `coverage: { key:
+  MVCJMVT[month], range: 3m }` pour les mouvements, `coverage: {
+  key: ECKTNUMERO, range: 10000 records }` pour les commandes —
+  **le croquis effacé par D879**.
+
+Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos.
+
+**La forme de `coverage:` — la carte des champs de partition (D879
+— précise D878).** **« Pour coverage, ne pas oublier que key peut
+faire référence à plusieurs champs. Et, range se reporte sur chaque
+champ. »** — `coverage:` n'est pas un couple `key:`/`range:` mais
+**une carte des champs de partition**, chaque champ portant
+**`value:`** — la nature de la partition (`month` ; les natures du
+crochet de D382 : la semaine, le mois, l'année ; absente, la valeur
+brute) — et **`range:`** — la plage relue pour ce champ (une durée
+de D476 sur une date, un nombre sur un numéro) ; plusieurs champs
+forment une clé de partition composée, chacun avec sa plage :
+
+```yaml
+coverage:
+  MVCJMVT:
+    value: month              # la partition au mois du mouvement
+    range: 3m                 # les trois derniers mois relus
+
+coverage:
+  ECKTNUMERO:
+    range: 10000              # les dix mille derniers
+```
+
+La nuance de D878 sur un numéro — les dernières valeurs de la clé
+ou les derniers enregistrements — se précisera sur la table (une
+commande est une valeur, ses lignes sont plusieurs enregistrements).
+
+**La forme courte de `coverage:` au crochet (D880 — complète
+D879).** **« Je propose une forme simplifiée, peut-être plus
+lisible : `coverage: MVCJMVT[month - 3]`, `coverage:
+ECKTNUMERO[10000]`. »** — le crochet est le paramètre en ligne du
+format, comme partout au registre (D372/D381/D382 : `text[3..10]`,
+`date[yyyy-mm]`, `image[1920x1080]`) : il porte **la nature puis la
+plage en retrait** — `month - 3` se lit « les trois derniers mois »,
+`week - 1` « la dernière semaine », `year - 1` « la dernière
+année » — ou **la plage seule** sur un numéro — `[10000]` « les dix
+mille derniers » ; plusieurs champs de partition forment une liste
+(`coverage: [MVITSOC, MVCJMVT[month - 3]]`). La carte
+`value:`/`range:` de D879 demeure **la forme riche**, équivalente —
+le patron courte/riche du registre (D356 la forme courte du champ,
+D441 les colonnes) : la courte pour le cas ordinaire, la riche
+quand la lisibilité y gagne.
+
+**`reset_coverage` — l'opération qui force la relecture (D881 —
+complète D878, ajoute au socle).** **« Pour coverage, je propose de
+définir une opération "reset_coverage(nom du module, nom de
+l'entité)" qui peut être exécutée régulièrement. En réinitialisant
+le coverage, cela forcera Syncytium à tout relire. Par exemple, nous
+pouvons du lundi au vendredi faire un delta, et le dimanche une
+relecture complète en planifiant un reset_coverage dans la nuit de
+samedi à dimanche. »** — l'opération du socle **efface l'état de
+couverture** d'une entité — la dernière valeur parcourue, les
+empreintes par partition (D878) — et le `migrate` suivant relit la
+totalité, le défaut ; elle se planifie par `every:` (D434 :
+`weekly[saturday at 23:00]`) et se déclenche comme toute opération
+(D428 — le bouton d'administration, l'API, le `when:`). **Le rythme
+du cas** : le delta du lundi au vendredi, la relecture complète le
+dimanche — et c'est elle qui rattrape les retouches anciennes des
+outils maison hors de la plage (D864), sans empreinte par ligne ni
+relecture nocturne des années. **La vingtième opération du socle**,
+après `migrate` (D667, la dix-huitième) et `anonymize` (D697, la
+dix-neuvième) ; le degré `administrator` (D701 — l'inventaire
+validé : restore/migrate/anonymize) en proposition.
+
+**La cible arbitrée (D882 — la question 6 du cadrage, précise
+D859).** Les huit choix de la proposition (usecases/03_entrepot.md,
+« La cible ») tranchés le 06/09/2026 : **« Pour ce cas d'usage, je
+n'ai pas de modèle. Je te laisse faire une proposition qui
+convertit un ensemble de champs tel que nous conservons la
+cohérence des données sans être exhaustif. La décomposition en 4
+modules me convient. La standardisation reporte ce que nous avons
+déjà vu dans les exemples précédents. L'héritage du tiers en
+fournisseur et client met en lumière cette fonctionnalité. Pour
+les commandes, nous n'appliquerons pas d'héritage. Nous allons
+séparer les commandes d'achat et les commandes de vente. Les
+champs restreints conviennent car cela montre le fonctionnement
+des droits en consultation. L'entrepôt est en lecture seule. »** —
+et en préambule : **« Dans les données, nous avons aussi des
+montants avec des devises différentes (sur les tarifs, les prix
+unitaires, …). Pour l'historique des modifications, toutes les
+tables citées ci-dessus sont concernées, sauf les mouvements de
+stock. L'indice n'est pas lié à la nomenclature, malheureusement.
+Par conséquent, l'historique porte aussi sur la nomenclature. »**
+La lecture : le modèle se conçoit ici, cohérent sans être
+exhaustif (l'analyse D868) ; quatre modules ; les patrons des cas
+précédents ; **les montants en `amount` à devise dans la valeur**
+(D771 — pas la devise visuelle de D832 : les devises varient) ;
+**`tiers` parent et `client`/`fournisseur` enfants par
+`inheritance:`** (D353 — le premier emploi de l'héritage dans un
+exemple) ; **`commande_vente` et `commande_achat` séparées**,
+chacune ses lignes ; **`history:` partout sauf `mouvement`** — les
+retouches des mouvements (D864) remplacent (D878) et se comptent au
+bloc de modification ; les champs financiers restreints, l'entrepôt
+en lecture seule.
+
+**Les trois figures du lien que le cas présente** — l'auteur :
+**« la composition (à l'image des cas précédents) — la nomenclature
+est une composition de l'article, une ligne de commande est une
+composition d'une commande… La suppression d'un article supprime la
+nomenclature… mais ne touche pas les commandes (rappelons que nous
+implémentons du soft delete) ; l'association — un client a une
+liste de commandes de vente, un fournisseur a une liste de
+commandes d'achat. Ces 2 listes ne sont pas des compositions du
+tiers. Elles sont des associations. Même approche pour les
+articles ; les listes avec des compositions sont représentées par
+les tarifs — le prix unitaire est conditionné par l'article, le
+client/fournisseur, une tranche. »** — la composition et sa cascade
+au soft delete du socle (« masquer, ne jamais détruire ») ; les
+commandes d'un tiers ou d'un article = **l'association dérivée**
+(D405 — `commandes: association with commande.commande_vente if
+client = me`, la vérité reste la référence portée par la commande) ;
+**le tarif = le lien n-aire** (D402–D403 — `tarifs: list of [tiers,
+tranche]` à la cellule `{ prix: amount, date_application: date }`,
+l'unicité par la combinaison — le premier emploi du n-aire). **« Cet
+exemple permet de mettre en lumière tous les types possibles du
+modèle. Peux-tu vérifier que les types apparaissent au moins une
+fois ? »** — la vérification rendue type par type dans le usecase
+(« La couverture des types par le modèle ») : **tous les types
+qu'un entrepôt en lecture porte par nature sont là** ; les absents :
+**par nature** — `counter` (rien à numéroter), `states:` (l'entrepôt
+consulte), `communication`, `password`, le type-hook (la date au
+masque l'a évité) ; **à arbitrer** — `file` (`ARCTFICPLA` est un
+chemin : le plan par un connecteur `file` D634) ; **artificiels** —
+`image`, `thumbnail`, `uuid`, `color`. Relevé au passage : l'énuméré
+n'a pas de ligne au tableau des simples de types.md — corrigé.
+
+**Le counter surchargé, le file par son connecteur, l'énuméré des
+listes closes (D883 — précise D882).** **« Pour sans objet, je
+confirme. Même si une commande est un counter… mais ici, lors de la
+migration, le counter est surchargé. Le type file peut remplir un
+champ (liste de pièces jointes) via un connecteur file (en
+complément du connecteur de source). L'énuméré est bien présent
+dans les données PMI ⇒ le type d'article, le code de gestion, la
+famille, la sous-famille… les valeurs sont parties d'une liste de
+valeurs qui sont facilement identifiables dans une liste
+énumérée. »** — deux types remontent au tableau : **`counter`** —
+`commande_vente.numero: counter`, le type dit la nature du numéro
+(D409), **la migration surcharge la valeur** — l'écriture identifiée
+reprise lève le contrôle de la lecture seule (D175/D173), le
+compteur n'attribuerait que pour un enregistrement né dans
+l'entrepôt, qui n'existe pas ; **`file`** — `article.plans: list of
+file`, « une liste de pièces jointes » remplie **par un connecteur
+`file`** (D634 — `get_file`) **en complément du storage source**, le
+nom venant d'`ARCTFICPLA` ; la forme du second connecteur au sein
+d'une migration (D662 n'en nomme qu'un) s'écrira au morceau de la
+source. Et **l'énuméré** : les listes closes de PMI — le type
+d'article, le code de gestion, la famille, la sous-famille — se
+déclarent en `enum` à `values:` (D387), non en référentiels par
+`distinct:` (D658 — réservé aux listes ouvertes, les budgets et
+les lieux de la banque) ; la famille de l'article proposée en
+référentiel se corrige. Les sans-objet sont confirmés : `states:`,
+`communication`, `password`, le type-hook.
+
+**Le mot juste prime l'éponymie (D884 — le morceau 2 du cas 3, la
+nuance de D831/D807).** Le modèle écrit avait nommé `partenaire` le
+parent des clients et des fournisseurs, et `position` le niveau de
+stock, pour épargner l'éponymie triple (`tiers/tiers/tiers.yml`,
+`stock/stock/stock.yml`) que D831 avait fuie avec `transport`.
+**« Je préfère TIERS au lieu de PARTENAIRE. Pour Position, je
+préfère Niveau. »** — le parent se nomme `tiers` dans le module
+`tiers` : le fichier `tiers/tiers/tiers.yml` existe, l'éponymie
+triple est assumée quand le mot est le bon ; le niveau de stock se
+nomme `niveau` (`stock.niveau`). La leçon de D831 se relit : le
+renommage du module y donnait un mot meilleur (`transport`), il ne
+faisait pas une règle ; le nommage reste libre (D807), l'éponymie
+une convention — ni imposée ni interdite.
+
+**La confidentialité nommée dans les settings, référencée par
+interpolation (D885 — solde le manque M3 du cas 3).** Le modèle du
+cas 3 répétait dix-neuf fois `confidentiality: { level: protected,
+groups: [achats, direction] }` sur ses champs financiers — les deux
+axes de D26, le niveau × le qui, sans forme écrite jusque-là.
+**« La confidentialité peut faire référence à un paramétrage dans
+settings. On exploite une capacité de la configuration. »** — deux
+gestes : **les profils nommés à l'étage des settings** —
+
+```yaml
+# settings.yml — l'étage instance de la cascade (D359/D588)
+confidentiality:
+  financier:  { level: protected, groups: [achats, direction] }
+  direction:  { level: protected, groups: [direction] }
+  commercial: { level: protected, groups: [commercial, direction] }
+```
+
+— **et la référence au champ par l'interpolation de la
+configuration** (D321/D802 — `${…}` interpole la configuration,
+`{champ}` reste le gabarit) : `confidentiality:
+${settings.confidentiality.financier}`. Le niveau et le qui
+s'écrivent une fois, le champ dit le profil ; la forme riche
+`{ level:, groups: }` vaut aussi en ligne pour le cas isolé ; la
+cascade porte les profils à l'application, au module ou à l'entité,
+le plus proche l'emporte. Le cas 3 : `settings.yml` de la version
+(avec `normalize: trim(me)` — D872), dix-neuf blocs remplacés, les
+trente et un fichiers revalidés.
+
+**La cascade de l'allow (D886 — solde le manque M4 du cas 3, étend
+D421–D423).** L'entrepôt en lecture seule (D882) s'écrivait seize
+fois — le bloc `allow: { create: false, update: false, delete:
+false }` sur chaque entité. **« Pour M4, un allow au niveau du
+module me convient. Le allow peut porter sur l'application, le
+module, une entité ou un champ. »** — **le bloc `allow:` se déclare
+à quatre étages** — l'application, le module, l'entité, le champ —
+et **le plus proche l'emporte**, l'esprit de la cascade des settings
+(D359) : le module dit la règle de ses entités, l'entité la
+précise si elle diffère, le champ porte ses propres droits d'action
+(`update: false` = le champ en lecture seule — la forme au champ
+naît ici). À l'entité, les deux foyers de D422–D423 demeurent : par
+état, ou en bloc libre — jamais les deux. Le cas 3 : les seize
+blocs retirés, chacun des quatre modules porte le bloc en quatre
+lignes ; `migrate` écrit par le privilège de la reprise (D175)
+quel que soit l'étage.
+
+**Le décompte conditionnel — la condition seule en argument (D887 —
+solde le manque M5 du cas 3, précise D580).** D580 avait poussé les
+agrégats dans la collection avec le filtre par le `if` suffixé sur
+la valeur (`echeances.sum(mensualite if paye)`,
+`entretiens.max(km if revision)`) et laissé `count()` nu. Compter
+un sous-ensemble — l'agrégat le plus courant d'un tableau de bord —
+n'avait pas de forme. Quatre formes pesées : la condition en
+argument, le `if` seul (`count(if …)`), la valeur factice
+(`count(1 if …)`, qui compte des 1), le filtre `where(…).count()`
+(une seconde façon de filtrer, contre l'esprit de D580). **« Je
+valide le 1. »** — `nomenclature.count(nature = "composant")`, et
+**la doctrine des agrégats** en une phrase : **l'agrégat qui porte
+une valeur** (`sum`, `avg`, `min`, `max`, `first`, `last`) **se lit
+« valeur if condition »** ; **l'agrégat qui n'en porte pas**
+(`count`, `any`, `exists`) **reçoit la condition seule** ; `count()`
+nu demeure le tout. `any` et `exists` gagnent leur forme écrite par
+la même occasion ; les deux calculés de l'article du cas 3 sont
+justes tels quels.
+
+**L'appartenance à une collection — l'opérateur `in` (D888 — solde
+le manque M6 du cas 3, complète D580/D581).** L'accès retour d'une
+association stockée — `fournisseur.articles`, le miroir
+d'`article.fournisseurs` — se nomme en association dérivée (D405),
+évaluée depuis la destination : sur chaque article, « la collection
+`fournisseurs` de cet article contient le fournisseur d'origine »,
+`me` désignant l'origine (D396). Aucun opérateur ne l'écrivait ;
+trois formes pesées — `fournisseurs contains me`, `fournisseurs.
+exists(code = me.code)` (la clé exposée, lourd en clé composée), un
+mot pour l'élément dans la parenthèse (`it`, contre l'élément sans
+alias de D580). **« Ma recommandation pour plus de visibilité est :
+`me in fournisseurs`. »** — **l'opérateur `in`**, l'élément à gauche
+et la collection à droite, une ligne de plus dans la table des
+opérateurs du type collection (D581 — chaque type porte ses
+opérateurs, la collection est un type D580) ; il dit l'intention
+sans exposer la clé et servira ailleurs — un code dans les codes
+matière, un groupe dans les groupes d'un utilisateur ; devant une
+liste littérale (`statut in ["en_cours", "partielle"]`), la même
+lecture s'impose, à confirmer à l'usage. Le modèle relu :
+`association with technique.article if me in fournisseurs`.
+
+**La déclinaison de `in` — la projection d'une collection sur un
+champ (D889 — précise D888, complète D580).** **« Ma proposition
+permet de décliner : `if me.code in fournisseurs.code`. »** — le
+point après une collection **projette** : `fournisseurs.code` est
+la collection des codes des fournisseurs, `lignes.article` les
+articles d'une commande — la forme `commandes.montant` d'avant D580,
+légitime comme collection de valeurs (l'agrégat, lui, garde
+`commandes.sum(montant)` avec l'élément en contexte implicite). `in`
+s'applique alors à la projection comme à la collection
+d'enregistrements : **l'appartenance d'un enregistrement**
+(`me in fournisseurs`) **ou d'une valeur** (`me.code in
+fournisseurs.code`) — la seconde sert quand la comparaison porte sur
+un champ plutôt que sur l'identité entière, et devant une liste
+littérale (`statut in ["en_cours", "partielle"]`).
+
+**Les sous-items de la période — `min`, `max`, `gap` (D890 — solde
+le manque M7 du cas 3, nomme les bornes de D772/D391).** La période
+(D122/D299/D391 — deux dates liées, début ≤ fin intégré, le format au
+crochet, la recherche par plage) exposait « les bornes » sans les
+nommer (D772) ; or les noms comptent aux formules
+(`validite.max < context.now`), au constructeur du mapping (D659),
+à l'API (les clés JSON du composé — la quatrième facette D119), à
+l'export en deux colonnes natives (D299) et à la recherche par
+plage. Trois formes pesées — `start`/`end` (le vocabulaire du
+temps, celui de D299 et D391 en français), `min`/`max` (alignés sur
+`range`, D498), `from`/`to` (`to` pris par le mapping D656). **« Je
+valide min, max et gap. »** — **`min` et `max`**, les deux bornes,
+le même vocabulaire que les trois éléments de `range` (min, value,
+max) : la période se lit comme une plage de dates à l'API comme à
+l'export ; **`gap`**, la durée dérivée entre les bornes (date − date
+→ duration, D838), nulle si la période est ouverte ; le constructeur
+`period(min, max)`. L'alignement sur `range` emporte la lecture de
+la plage ouverte (D498 — min et/ou max indéfinis) : la période sans
+`max` se lit « valable depuis » — chez PMI, `NOCJDEBVAL` et
+`NOCJFINVAL` sont nullables séparément. Dans le modèle, la ligne de
+validation `validite.end >= validite.start` de la nomenclature est
+retirée : début ≤ fin est intégré au type.
+
+**L'agrégat s'applique à une collection déclarée, jamais à
+l'entité entière (D891 — solde le manque M8 du cas 3, borne D580 et
+D842).** `article.derniere_sortie` s'écrivait
+`stock.mouvement.max(date if article = me and sens = "sortie")` —
+l'entité entière, sa population, employée comme collection aux
+agrégats de D580, ce que le registre ne prévoyait pas : D842
+n'emploie l'étendue globale que pour l'accès par la clé, et D394
+promet l'accès retour d'une référence sans jamais le déclarer.
+Trois formes pesées : l'entité en collection (une capacité nouvelle,
+une requête sur des millions de mouvements par article), l'accès
+retour déclaré en vue dérivée (D405), l'accès retour implicite sous
+un nom du moteur (le pluriel implicite, refusé par D841–D842).
+**« Je valide la 2. »** — **l'agrégat s'applique à une collection
+déclarée** : l'article nomme son accès retour, `mouvements:
+association with stock.mouvement if article = me`, et le calculé
+s'écrit `mouvements.max(date if sens = "sortie")` — rien de neuf
+dans la grammaire, un lien utile en lui-même (les mouvements d'un
+article, consultables comme toute association dérivée), la formule
+locale à l'enregistrement ; l'étendue globale reste à l'accès par la
+clé, son seul usage.
+
+**L'écriture face à YAML — deux règles (D892 — solde le manque M9
+du cas 3, précise D320–D321).** Le modèle du cas 3 passé à un
+analyseur YAML avait demandé deux paires de guillemets ; les
+exemples déjà validés, passés au même analyseur, échouaient dans
+neuf fichiers, pour trois causes — **le crochet dans une collection
+en flux** (`{ type: text[..100] }`, `items: [ list[revision.echues]
+]` : le crochet ouvre une séquence YAML), **le `: ` dans un scalaire
+nu** (le `.select(thermique: "litres", …)` de D833, la cellule du
+n-aire de D403), **l'échappement entre guillemets doubles**
+(`".*\.xlsx?"` — YAML ne connaît pas `\.`). Quatre règles pesées :
+les guillemets quand YAML l'exige, la forme bloc, changer la
+grammaire (D833/D403 à amender), un pré-traitement (un format
+personnalisé, contre D320). Un avant-après sur les neuf cas, chaque
+forme « après » vérifiée à l'analyseur ; **« Je valide les règles 1
+et 2, corrige les neuf fichiers. »** — **la règle 1** : les
+guillemets ne s'imposent que dans trois situations — un crochet à
+l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à
+l'intérieur d'une expression, une regex (aux guillemets simples,
+qui prennent tout tel quel) ; **la règle 2** : quand la forme en
+flux imposerait les guillemets, la forme bloc est préférable —
+`fields:` en bloc, `items:` en liste à tirets, la longue formule en
+scalaire bloc `>-` (la banque l'employait déjà avec `>`) ; en
+contexte bloc, une valeur par ligne, la grammaire s'écrit nue :
+`libelle: text[..30]`, `- field[nb_jours]`. Les neuf fichiers
+corrigés sans toucher au sens (la regex du connecteur xlsx, les
+`items` de transport.yml et de vehicule/gui.yml, les quatre
+`.select` du véhicule et de la banque, les champs à crochet en
+accolade d'ecriture/fields.yml et d'ecriture/gui.yml, les `fields`
+de budget.yml et lieu.yml) ; **la pratique** : chaque exemple passe
+un analyseur YAML avant validation — cent trente-cinq fichiers des
+quatre exemples, zéro erreur. La grammaire tient telle quelle.
+
+**Les clés d'énumérés sont le vocabulaire de l'entrepôt (D893 — le
+morceau 2 du cas 3, précise D387 et D883, la standardisation de
+D859).** Le modèle écrivait ses énumérés avec des clés porteuses de
+sens — `fabrique`, `achete`, `sous_traite` pour le type d'article,
+`en_cours`, `soldee`, `annulee` pour le statut d'une commande — là
+où PMI parle en codes d'un caractère. L'exemple posé : la source
+déclare la liste close relevée (`ARCTTYPART: enum` aux codes de PMI
+et leurs libellés), la règle du mapping traduit
+(`ARCTTYPART.select(<code>: "fabrique", <code>: "achete", <code>:
+"sous_traite")`), l'entrepôt ne connaît que son vocabulaire *(les
+lettres F/A/S de ma première rédaction étaient inventées —
+l'échantillon montre des codes à deux lettres ; corrigé le 13/09,
+D934)*. **« Les
+clés d'énumérés sont le vocabulaire de l'entrepôt. Pour une
+manipulation claire, la valeur qui a du sens est à utiliser. Par
+contre, si la source n'est pas évidente, un mapping sera apporté
+lors de l'import. »** — la valeur qui a du sens dans le modèle ; la
+traduction à la règle quand la source parle en codes, le passage
+tel quel quand elle est explicite ; l'entrepôt se lit sans
+connaître PMI, et un code nouveau chez PMI se déclare à la source
+et se traduit à la règle sans toucher au modèle — la
+standardisation de D859 au grain de la valeur.
+
+**Le tarif en composition à la date — les tarifs planifiés visibles
+(D894 — le morceau 2 du cas 3, amende le n-aire de D882).** D882
+avait fait du tarif le lien n-aire (« le prix unitaire est
+conditionné par l'article, le client/fournisseur, une tranche ») et
+le modèle l'écrivait `list of [tiers.tiers, tranche] { prix,
+date_application, valide }` — une cellule par combinaison, le tarif
+applicable seul, les dates d'application successives de PMI
+reléguées à l'historique de l'article. L'exemple posé pour décider
+— trois tarifs successifs dont un à venir — a montré le prix de
+cette forme : le tarif planifié n'entre dans l'entrepôt qu'à sa
+date. **« L'entrepôt montre les tarifs planifiés avant leur date…
+une grille tarifaire se définit à l'avance et donne de la
+visibilité aux commandes futures. »** — **la composition
+`article.tarifs: list of tarif`** : l'entité `tarif` à l'identité
+`[tiers, tranche, date_application]` (le tiers = le parent des
+clients et des fournisseurs, D353 ; la tranche en référence ; la
+date au masque D820), toutes les dates de PMI à plat, le planifié
+compris ; **le tarif en vigueur devient un calculé** — `en_vigueur`
+: valide, la date passée, et aucun tarif frère du même tiers et de
+la même tranche à date plus récente déjà passée (`owner.tarifs.any(…
+)` — la condition seule de D887, les frères par `owner` D760) ;
+`planifie` : la date à venir. Le n-aire perd son porteur dans le
+cas ; un candidat pour le rendre visible : le niveau de stock par
+(dépôt, emplacement, lot) — `list of [depot, emplacement, lot]` à la
+cellule des quantités — si le lot devient une entité (`Stock.Batch`
+existe chez PMI) ; à arbitrer, rien n'y oblige.
+
+**La grille tarifaire est un composé de l'article — le n-aire
+demeure (D895 — retire D894, rappelle D134 et D402–D403).** **« Pourquoi
+m'enlèves-tu le n-aire ? Une grille tarifaire est un composé de
+l'article… ton approche est juste dans le cadre d'un modèle
+relationnel classique. Ici, ce n'est pas le cas. »** — la
+correction est nette, et le registre la portait depuis le domaine 2
+: **D134** fait de la matrice (taille × couleur) et de l'hypercube
+des **formes de composition**, les enfants **indexés par
+dimensions**, une cellule par combinaison ; **D402** rapporte les
+matrices et hypercubes au lien n-aire ; **D403** donne à la cellule
+toute la puissance des champs et laisse au moteur la modélisation
+de l'objet, « jamais une entité à écrire à la main ». Une grille
+tarifaire est cette matrice, tiers × tranche, possédée par
+l'article. D894 l'avait aplatie en lignes datées à clé composée —
+la table relationnelle sous une composition — pour rendre visibles
+les tarifs planifiés : **le réflexe relationnel, consigné pour ne
+pas y retomber** — l'agrégat est le grain (D400), la matrice une
+forme de composition, jamais des lignes à clés. **Le n-aire demeure
+et la dimension du temps entre dans la grille** ; trois formes en
+proposition, l'auteur choisit :
+
+1. **le temps en troisième dimension du tuple** — `list of
+   [tiers.tiers, technique.tranche, date_application: date] { prix:
+   amount, valide: boolean }` : l'hypercube de D134 (« les enfants
+   indexés par dimensions — clés typées »), une dimension de valeur
+   à côté des entités nommées — une extension de D402, qui ne
+   nommait que des entités ;
+2. **la liste datée dans la cellule** — `list of [tiers.tiers,
+   technique.tranche] { prix: list of prix_tarif }` : la matrice de
+   D403 telle quelle, la cellule portant les prix successifs par une
+   composition (`prix_tarif` : la date d'application en identité, le
+   prix, la validité) ; fidèle à PMI, où chaque ligne de `TARIF` a sa
+   date ;
+3. **la grille datée qui contient la matrice** — `grilles: list of
+   grille` (le numéro de tarif et la date d'application en identité)
+   et, dans la grille, `prix: list of [tiers.tiers, technique.tranche]
+   { prix: amount }` : la phrase de l'auteur au pied de la lettre —
+   « une grille se définit à l'avance » —, mais PMI date chaque
+   cellule, non la grille.
+
+Dans les trois, le tarif en vigueur est un calculé et le planifié
+se voit.
+
+**La composition, naturelle au modèle, traduite au stockage (D896 —
+la doctrine, précise D119/D681–D684 et D399–D403).** **« Dans une
+base de données relationnelle, la traduction du modèle convertira
+une composition par une table et une clé étrangère. Mais, dans la
+manipulation du modèle par Syncytium, cela doit être un élément
+naturel. »** — deux plans, à ne jamais confondre : **au plan du
+modèle** — le langage, l'IHM, l'API — la composition, la matrice,
+la cellule sont des objets naturels, manipulés comme tels :
+l'agrégat est le grain (D400), l'accès se fait par les dimensions
+(D134) ou par la clé (D841) ; **au plan du stockage**, la classe
+traduit — une composition devient une table et une clé étrangère,
+une matrice une table de cellules — c'est le visiteur de D681–D684,
+et la quatrième facette du type (D119). La conséquence pour le cas
+3 : **la forme de stockage de la source ne dicte jamais le
+modèle** — que PMI date chaque ligne de `TARIF` est un fait de
+stockage, le mapping recompose l'objet naturel depuis ces lignes ;
+l'argument « fidèle à PMI » qui portait la forme 2 tombe. Reste à
+choisir l'objet naturel de la grille tarifaire.
+
+**La grille tarifaire en hypercube — le temps en dimension du tuple
+(D897 — tranche D895, étend D402 par D134).** **« La forme 1 décrit
+le lien hypercube que je souhaite mettre en avant. Car, au-delà de
+savoir quel prix appliqué quand à qui, je souhaitais visualiser les
+évolutions de la grille tarifaire dans le temps. La forme 3 est
+élégante pour répondre rapidement à la question de quel tarif
+appliqué. La grille tarifaire définie à une date donnée nécessite de
+recouper toutes les modifications avant de la restituer… en sachant
+que nous avons perdu des informations sur la construction et son
+évolution de la grille tarifaire. »** — l'hypercube de D134 : **trois
+dimensions**, tiers × tranche × date, une cellule par combinaison
+(D403) — `tarifs: list of [tiers.tiers, technique.tranche,
+date_application: date]` ; **le temps est une dimension du tuple**,
+une valeur typée à côté des entités nommées — les « clés typées »
+de D134, l'extension de D402 qui ne nommait que des entités. La
+cellule porte le prix (à devise, D771), le forfait, le numéro de
+tarif, la validité, le commentaire — et **ses calculés** (D403,
+toute la puissance des champs) : `planifie` (la date à venir),
+`en_vigueur` (la date passée et aucune cellule sœur de même tiers
+et même tranche à date plus récente déjà passée — les sœurs par
+`owner` D760, les dimensions par leur nom, `any` à condition seule
+D887). Ce que la forme donne : le prix à toute date par l'accès aux
+dimensions, le planifié visible, et **l'évolution de la grille dans
+le temps** lisible telle qu'elle s'est construite — un graphique du
+morceau 5 ; la forme 3 aurait perdu cette construction. L'entité
+`tarif` de D894 est retirée du modèle. Deux points de forme en
+proposition, nés de l'écriture : la cellule en bloc sous la clé
+`fields:` du champ (D403 promettait la forme éclatée sans la nommer)
+; le tuple à `: ` sous guillemets (la règle 1 de D892).
+
+**La cellule du n-aire en bloc sous `fields:` (D898 — nomme la forme
+éclatée de D403, précise D897).** **« Je valide pour fields sous une
+liste. Dans cet exemple, tu peux enlever planifie et en_vigueur.
+Valide suffit. »** — sous un champ `list of [a, b, …]`, la clé
+`fields:` porte les champs de la cellule en bloc, l'équivalent exact
+de l'accolade en ligne (D403), chaque champ avec tout son kit ; la
+règle 2 de D892 s'applique d'elle-même : la cellule riche s'écrit
+en bloc, l'accolade reste au cas court (`{ quantity: integer[0..] }`).
+Et l'exemple s'allège : la grille du cas 3 porte le prix, le
+forfait, le numéro de tarif, `valide` et le commentaire — les
+calculés `planifie` et `en_vigueur` retirés, la lecture du tarif
+applicable et de l'évolution revenant aux surfaces du morceau 5.
+
+**Le morceau 2 du cas 3 clos (D899).** Le modèle champ par champ,
+écrit le 06/09, arbitré du 06 au 08/09 (D882 à D898 : les huit choix
+de la cible, tiers et niveau, la confidentialité nommée, l'allow en
+cascade, les cinq frottements de grammaire, les clés d'énumérés, la
+grille tarifaire en hypercube après le détour relationnel), lié le
+09/09 par la chaîne des déclarations depuis `syncytium.yml` —
+quarante-deux fichiers valides, quatre modules, seize entités, deux
+cent vingt-cinq champs, `groups.yml` et `settings.yml`, les trois
+connecteurs décidés. **« Je valide, consigne la clôture du morceau
+2. La validation définitive se fera après la relecture complète des
+fichiers de configuration. »** — la clôture est celle du morceau ;
+la validation définitive viendra de la relecture complète des
+fichiers par l'auteur, le patron des cas précédents (la relecture
+de D799–D810 avait restructuré le dépôt de la banque). Restent
+ouverts, nommés : les cinq renvois à l'analyse de la source
+(`niveau.lot`, les valeurs de famille et sous-famille, l'unité des
+temps de gamme, la n-ième tranche, l'usage d'ADRESSE), les trois
+formes en proposition de l'assise, l'authentification et le smtp de
+la question 10. La suite : les questions 7–10 du cadrage, puis le
+morceau 3 (la source).
+
+**security.md — la vue transversale de la sécurité (13/09/2026).**
+« En relisant la documentation, un volet sécurité n'est pas
+clairement mis à jour. Ajoute un fichier security.md qui reprenne
+tous les éléments vus depuis le début du projet » — le onzième
+artefact préparatoire (Q58) : non le détail des droits (rights.md le
+porte), mais **la relecture transversale** depuis D25 — la doctrine
+en six principes (la sécurité par construction, le fail-closed,
+l'anti-oracle, restreindre jamais étendre, masquer jamais détruire,
+la librairie inviolable), la carte en quinze domaines (l'identité,
+l'authentification, la session et l'API, la confidentialité,
+l'audience, les droits d'action, les degrés, les groupes et les
+modules, les frontières d'extension, l'intégrité, la traçabilité,
+l'audit et la détection, le RGPD, les secrets et le chiffrement, la
+disponibilité), **quinze invariants** à prouver à l'implémentation,
+et **les points ouverts** en deux listes — les propositions jamais
+confirmées, et les sujets jamais abordés qui relèvent du domaine 7
+(la sandbox des hooks, le hachage, le navigateur, les certificats,
+le dépôt du client, les fichiers hors base, les dépendances, les
+journaux d'accès). « Les éléments que j'attendais y sont. Les
+points à compléter, complétons-les. »
+
+**Les propositions tranchées (D900–D903).** « A1, je valide » —
+`degree:` sort de la proposition, `reset_coverage` au plancher
+`administrator` (D900 — l'inventaire à vingt). « A2, je valide » —
+`unencrypted:` retenu, et la dérogation **visible chaque jour** : le
+dashboard de santé et le mail des faits marquants la portent (D901).
+« A3, je valide » — le wizard d'initialisation chiffre les secrets
+lui-même, et **une valeur en clair dans le `.env` vaut refus de
+démarrer**, la raison et la commande données (D902 — le fail-closed
+jusqu'au fichier de secrets). **La réactivation d'un enregistrement
+désactivé (D903)** — la proposition d'une opération `reactivate` au
+plancher `manager` écartée : **« la réactivation d'un enregistrement
+désactivé doit être une opération exceptionnelle. Je ne souhaite pas
+la mettre à disposition d'un utilisateur ou d'un manager. Cela reste
+de l'action d'un administrateur. Je ne souhaite pas le faire
+apparaître comme une fonction exploitable par la configuration (pas
+de hook). Cela sera une des fonctionnalités couvertes par les écrans
+d'administration de Syncytium »** — pas une opération du socle, pas
+un hook, hors du catalogue des planchers ; une fonctionnalité des
+écrans d'administration, au degré `administrator`, sous la garde de
+D141 (l'unicité sur les actifs), l'identité conservée (D142), tracée
+(D429). La question 10 du cas 3 (l'authentification de l'entreprise)
+reste au cas : « nous verrons sur le cas 3 en cours de description ».
+Restent en attente : les durées de cooldown et de déterminisme
+(A5 — soldée ci-dessous par D904), et les huit principes proposés
+pour le domaine 7.
+
+**Le déterminisme au hook, le cooldown à l'administration (D904 —
+solde le reliquat de Q31).** Le contexte relu : D58–D60 sont nés en
+juin au §8.4, quand l'opération s'appelait « tâche » — l'anti-abus
+API (une exécution par période, mesurée fin → début, le rappel
+refusé), le déterminisme (le doublon dans la fenêtre reçoit le
+résultat mémorisé), la soupape (l'administrateur invalide le cache).
+Q31 avait tranché le grain (l'opération + ses paramètres) et laissé
+« la valeur des durées — réglage » ; les clés de juin
+(`deterministe`, `determinisme_duree`, `cooldown_api`) n'avaient
+jamais été transposées dans la grammaire des opérations (D595/D609)
+— hooks.md les ignorait. Ma proposition les portait toutes en
+settings dynamiques surchargeables à la déclaration ; l'auteur
+resitue : **« c'était le hook qui portait ces informations en natif.
+Cela n'a pas été retranscrit dans le hook. Ce ne sont pas des
+paramètres qui peuvent varier avec la configuration. Une opération
+est déterministe ou pas. Elle ne peut pas changer sans faire changer
+son code. L'exécution et l'utilisation d'un cache sont portées par
+l'opération elle-même (comme un garde-fou). La configuration ne peut
+pas surcharger cet aspect. La durée du déterminisme est également
+portée par l'opération elle-même car cela dépendra éventuellement de
+la façon dont elle sera implémentée. A contrario, le cooldown est un
+paramètre d'administration et il peut être configurable comme tu le
+proposes. »** — la ligne de partage est celle du degré (D697/D699) :
+ce qui tient au code vit au contrat du hook, ce qui tient à
+l'exploitation vit à l'administration. **Le déterminisme et sa
+fenêtre au contrat** : `deterministic: <durée>` déclaré par le hook
+(absent = non déterministe), visible au `describe`, jamais
+surchargeable ; l'invalidation (D60) à l'administration. **Le
+cooldown à l'administration** : `operation.cooldown` en setting
+dynamique (défaut `1min`), la surcharge `cooldown:` à la déclaration,
+l'API seule, le refus journalisé (D43). J'écrivais « les clés de
+juin tombent » — **corrigé aussitôt par D905**.
+
+**Les propriétés de juin au contrat du hook (D905 — corrige D904).**
+**« Argh… les clés de juin ne tombent pas. Elles sont intrinsèques à
+l'opération. Une opération s'exécute et elle possède aussi des
+propriétés que je souhaite exploiter. Seulement, les paramètres ne
+sont pas exposables dans la configuration mais dans le contrat du
+hook. »** — la correction est nette : l'opération **possède des
+propriétés d'exécution**, elles ne disparaissent pas, elles changent
+de maison — du fichier de configuration de juin au **contrat du
+hook**, avec le degré. Trois propriétés reprises telles quelles, en
+graphie anglaise (Q47/D301) : `execution: once` (D57 — l'exécution
+unique, la relance manuelle), `deterministic: true | false` (D59 —
+l'assertion), `deterministic_duration: <durée>` (la fenêtre de
+mémoïsation — deux clés distinctes, la fusion de D904 défaite) ; la
+liste reste ouverte. Et l'auteur ajoute aussitôt le sens de ces
+propriétés : **« ces paramètres doivent être exploités par Syncytium
+pour mieux gérer le déterminisme avec un cache ou pas (par
+exemple) »** — le hook déclare, **le moteur exploite** : il lit le
+contrat et en tire sa conduite — le cache de mémoïsation tenu pour
+l'opération déterministe et vidé à l'échéance de la fenêtre, aucun
+cache pour la non-déterministe, l'exécution unique sans rejeu ; le
+patron de D609 (« le moteur lit et déclenche ») appliqué aux
+propriétés d'exécution. Le cooldown seul demeure à l'administration.
+
+```yaml
+# le hook invoice (le code) — ce qu'il déclare à son contrat (D595/D699/D905)
+degree: user
+execution: once                  # D57 — l'exécution unique, la relance manuelle
+deterministic: true              # D59 — l'assertion, du code
+deterministic_duration: 1h       # la fenêtre de mémoïsation — jamais surchargée
+
+# settings.yml — l'exploitation (D588)
+settings:
+  application:
+    operation:
+      cooldown:  { mode: dynamic, type: duration, value: 1min }  # le défaut, l'API seule (D904)
+      retention: { mode: dynamic, type: duration, value: 90d }   # le résultat consultable (D906)
+
+# sales/entities/order.yml — la surcharge à la déclaration
+operations:
+  invoice:
+    scope: selection
+    cooldown: 10s                # la période fin → début (D58)
+    retention: 30d               # le résultat purgé au-delà (D55/D906)
+```
+
+**La rétention du résultat à l'administration (D906 — la cinquième
+clé de juin).** « retention_resultat est un paramètre
+d'administration, je valide » — la durée pendant laquelle le
+résultat reste consultable (D55) tient au stockage, non au code :
+`operation.retention` en setting dynamique (défaut `90d`, la valeur
+de l'exemple de juin), la surcharge `retention:` à la déclaration,
+le résultat échu purgé. Le partage de juin est complet : quatre
+propriétés au contrat, deux paramètres à l'administration.
+
+**L'environnement `sandbox` (D907 — le premier principe du domaine
+7).** Ma proposition (le hook déclare à son contrat les familles de
+connecteurs qu'il consomme, `uses:`, tout accès non déclaré refusé)
+visait l'isolation du code ; l'auteur déplace la question **à
+l'environnement** — le lieu déjà exploré (D112, D339, D342) : **« nous
+n'avions pas finalisé le fonctionnement de la sandbox. Pour ne rien
+casser et être dans la lignée des environnements déjà explorés, je
+propose d'avoir un environnement de type "sandbox" qui porte un
+fonctionnement permettant de tester et d'évaluer la description en
+cours dans un environnement fermé et sécurisé (tant sur la base de
+données que sur les hooks en cours). Dans le cas d'un environnement
+"sandbox", il faut préciser le nom d'un environnement de référence.
+Ainsi, à l'initialisation, une duplication de cet environnement est
+réalisée, puis une migration est appliquée pour atteindre la version
+sandbox. »** — la sandbox n'est pas une cage autour du hook, c'est
+**un environnement à part entière** : sa base est une copie, ses
+connecteurs sont les siens, la description en cours et ses hooks s'y
+exercent sans toucher la référence. Le geste d'initialisation
+enchaîne deux primitives acquises — `duplicate_instance` (D680 — la
+base, les fichiers des entités D164, la configuration) puis la
+migration (D673–D679) — exactement le staging de D112 (« copie prod
+→ migration vers la bêta ») qui trouve enfin sa déclaration.
+
+```yaml
+# environments/environments.yml
+production: production/production.yml
+sandbox:    sandbox/sandbox.yml
+
+# environments/sandbox/sandbox.yml — l'écriture en proposition (D907)
+name: sandbox
+description: L'évaluation de la description en cours, sur une copie de la production
+type: sandbox                  # le type d'environnement
+reference: production          # dupliqué à l'initialisation (D680), puis migré (D673–D679)
+logging: logging.yml
+documentation: documentation.yml
+connectors: connectors.yml     # les siens (D617) — jamais ceux de la référence
+settings: settings.yml
+```
+
+Restent à préciser, nommés : **la version cible** (la plus élevée du
+statut `beta` du mode d'exécution — D801 ?), **les connecteurs
+sortants** du sandbox (le smtp, les webhooks — le mock de D627, ou
+les instances de test déclarées par le technicien ?),
+**l'éphémérité et l'accès restreint** (§7.3 — la copie porte des
+données réelles), **le sort de `staging.yml`** (D339 — le staging
+devient-il un sandbox parmi d'autres ?) ; et la déclaration `uses:`
+au contrat du hook, ni validée ni écartée.
+
+**La sandbox, un statut de versions — `from:` et la transitivité
+(D908 — précise D907).** L'auteur replace la déclaration là où
+vivent déjà `beta` et `production` : **« le type d'environnement
+"sandbox" se traite comme "production" ou "beta" dans la section
+"versions". Dans la section "sandbox", nous ajouterons un paramètre
+"from:" qui précise l'environnement et la version à utiliser (ex :
+beta/v1.0.0.0). Une sandbox peut faire référence à une autre sandbox
+et les migrations seront assurées par transitivité. »** — la sandbox
+n'est pas un attribut de l'environnement, c'est **un statut** : le
+cinquième dossier de `versions/` (D340), déclaré à l'usage dans
+`versions.yml` (D804), lié à son environnement par `environment:`
+(D805) — l'environnement « de type sandbox » n'est rien d'autre que
+celui que le statut désigne ; `type:` et `reference:` de D907
+tombent. **`from:`** nomme l'origine, `<statut>/<version>` : à
+l'initialisation, l'instance de l'origine est dupliquée (D680) puis
+migrée jusqu'à la version de la sandbox ; **et l'origine peut être
+une sandbox** — la chaîne se remonte d'origine en origine, les
+migrations s'enchaînent par transitivité. Le mode d'exécution de
+D801 s'étend à `sandbox` ; `staging.yml` (D339) reste l'environnement
+du statut `beta`.
+
+```yaml
+# versions/versions.yml — les statuts déclarés à l'usage (D804)
+beta:       beta/beta.yml
+production: production/production.yml
+sandbox:    sandbox/sandbox.yml
+
+# versions/sandbox/sandbox.yml — le statut sandbox (D908), comme beta.yml
+environment: sandbox                 # l'environnement du statut (D805)
+versions:
+  - v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml   # le regex (D806)
+
+# versions/sandbox/v1.0.0.1/version.yml — l'origine par version (D909)
+version: 1.0.0.1
+from: beta/v1.0.0.0                  # dupliquée à l'initialisation, puis migrée
+
+# versions/sandbox/v1.0.0.2/version.yml — une sandbox née d'une sandbox (D908)
+version: 1.0.0.2
+from: sandbox/v1.0.0.1               # beta/v1.0.0.0 → sandbox/v1.0.0.1 → celle-ci : la transitivité
+```
+
+**Les trois points levés (D909–D911).** « Le from: est porté par
+chaque version.yml » (D909 — une origine par version, le fichier de
+statut nu comme `beta.yml`, l'écriture ci-dessus corrigée en
+conséquence) ; « de sandbox vers beta ou production par un geste de
+fichier » (D910 — la sandbox entre dans le cycle matérialisé par
+l'emplacement, D340/D344, l'ordre de D345 à l'arrivée ; ma lecture à
+confirmer : `from:` sans objet hors du statut, signalé, jamais
+bloquant) ; « les connecteurs sont portés par l'environnement et non
+la version. Par conséquent, les connecteurs sont à la main du
+technicien qui met en place les connecteurs dont il a besoin. Le
+mock y trouve sa place comme pour les versions "beta" » (D911 —
+rien de nouveau, D617 suffit : la sandbox est fermée parce que son
+environnement l'est). Reste **l'éphémérité de la copie** : l'auteur
+hésite entre la suppression à l'arrêt et la conservation jusqu'à une
+commande de l'administrateur (« le fonctionnement de docker ») — la
+première lui plaît, mais « une sandbox doit pouvoir être montée
+rapidement, testée, retestée et supprimée… notamment sur des phases
+de mises au point », et l'initialisation d'un projet conséquent
+peut coûter ; la proposition en cours.
+
+**L'éphémérité tranchée — l'image et le conteneur (D912).** Ma
+proposition transposait le modèle docker que l'auteur invoquait :
+**l'instance survit à l'arrêt** (relancer ne coûte rien — ni
+duplication ni migration), **la suppression est un geste** — la
+commande de l'administrateur ou **la rétention d'inactivité**
+(`sandbox.retention`, `7d` en setting dynamique, l'instance dormante
+supprimée d'office, annoncée la veille aux faits marquants D733),
+**le registre des instances** (l'origine, la taille, le dernier
+usage — à la vue de santé D731) et **quatre gestes en commande** :
+lister, supprimer, purger les inactives, réinitialiser (re-dupliquer
+depuis l'origine). **« Je valide la seconde option, consigne
+D912. »** Le coût d'initialisation ne se paie qu'une fois ; la
+rétention et le registre gardent les zones de stockage.
+
+```bash
+syncytium sandbox list                 # les instances — l'origine, la taille, le dernier usage
+syncytium sandbox remove v1.0.0.2      # la suppression explicite
+syncytium sandbox prune                # les inactives au-delà de sandbox.retention
+syncytium sandbox reload v1.0.0.2      # la recharge (D922) — l'ingestion rejouée depuis from:, la déclaration intacte
+```
+
+**`connectors:` au contrat, `uses:` à la déclaration (D913 — la
+sixième clé de juin).** « D'où sort le paramètre uses: ? » — de ma
+proposition B1, dérivée de `sources:` (D36) et de la clé
+`connecteurs: [stockage_documents]` que l'exemple de juin portait
+sur la même tâche que `execution` et `deterministe` — la seule des
+six clés que D904–D906 n'avaient pas replacée. L'auteur la replace
+et sépare les deux rôles : **« le hook décrit les types de
+connecteurs utilisés (comme des paramètres d'exécution). La
+déclaration fait le lien entre le paramètre qui peut donc être un
+connecteur et le connecteur déclaré dans la description. "uses:"
+peut être approprié pour faire le matching entre le nom du
+connecteur attendu en entrée de l'opération et le nom du connecteur
+défini dans la description. La clé "connecteurs" à renommer en
+"connectors" est intrinsèque à l'opération qui fournit la liste des
+connecteurs attendus pour l'exécution. »** — au contrat,
+`connectors:` nomme et type par la famille les connecteurs attendus
+(des paramètres d'exécution) ; à la déclaration, `uses:` lie chaque
+attendu au connecteur de l'environnement (D617) ; l'ingestion
+vérifie la liaison, la famille (D613) et la complétude par
+environnement ; tout connecteur non attendu est hors de portée du
+hook (D599). Le partage de juin est complet : cinq propriétés au
+contrat, deux paramètres à l'administration, une liaison à la
+déclaration.
+
+```yaml
+# le hook invoice (le code) — le contrat (D595/D699/D905/D913)
+degree: user
+execution: once
+deterministic: true
+deterministic_duration: 1h
+connectors:
+  documents: file                # le paramètre `documents` attend un connecteur file
+  mailer: smtp                   # le paramètre `mailer` attend un connecteur smtp
+
+# sales/entities/order.yml — la déclaration lie (D609/D913)
+operations:
+  invoice:
+    scope: selection
+    cooldown: 10s
+    retention: 30d
+    uses:
+      documents: archive         # le connecteur `archive` de l'environnement (D617)
+      mailer: company_smtp
+```
+
+**Aucune liaison implicite (D914).** Ma réserve de D913 — la liaison
+implicite quand l'environnement n'offre qu'un connecteur de la
+famille — pesée par l'auteur : « la liaison implicite est autorisée
+uniquement si un seul connecteur. Cela est facilitateur pour
+l'intégration mais cela semble être en contradiction avec un des
+concepts du projet ». Le concept : **« tout lien de configuration
+s'écrit »** (D805 — et D415, D765, D767 : rien ne se déduit du
+disque) ; le coût caché : le second connecteur de la même famille,
+ajouté plus tard, rend d'un coup ambiguës toutes les opérations qui
+reposaient sur le silence. Deux issues proposées — aucune liaison
+implicite (`uses:` toujours écrit, le facilitateur passé dans le
+message d'erreur d'ingestion qui nomme l'attendu, sa famille et le
+candidat unique), ou la liaison tolérée mais signalée (le warning
+D589) — **« je valide la première option, consigne D914 »**. Une
+ligne à écrire, une fois ; la déclaration reste complète.
+
+**La duplication d'une sandbox déclenche `rotate` (D915).** En
+ouvrant B2 (le hachage et la dérivation de clé), l'auteur tire la
+conséquence de D603 sur la sandbox : **« la clé dérive bien de
+l'environnement + machine. sandbox est un environnement. Par
+conséquent, lors de la recopie des données de l'environnement, un
+rotate est à appliquer sur les clés existantes. »** — la sandbox a
+sa propre clé ; la copie de l'origine porte des valeurs chiffrées
+sous la clé de l'origine (les champs des types chiffrants D706, les
+secrets repris D707) : **le `rotate` de D730 s'enchaîne à la
+duplication**, comme il s'enchaîne à chaque restauration — le
+troisième déclencheur, après la restauration et la commande ; le
+`reset` de D912 le rejoue ; les secrets propres à la sandbox (ses
+connecteurs, D911) naissent chiffrés sous sa clé (D902). Ma lecture,
+à confirmer : le re-chiffrement suppose la clé de l'origine
+dérivable, donc la même machine ; une sandbox montée sur une autre
+machine emprunte le chemin de la restauration (D728/D730).
+
+**L'empreinte porte son algorithme, le rehachage par `rotate` seul
+(D916 — B2).** La proposition en deux points : **toute empreinte
+stockée porte l'identifiant de son algorithme** — le mot de passe
+(D463), la clé dérivée (D603), les valeurs des types chiffrants
+(D706) — pour que changer d'algorithme ne casse jamais un compte
+existant ; et le rehachage, soit silencieux à la vérification
+suivante, soit par `rotate` seul. À la lumière de D915, où `rotate`
+est déjà le geste qui re-chiffre, la seconde voie s'impose : **« je
+valide rotate seul, consigne D916 »** — le rehachage et le
+re-chiffrement sous l'algorithme courant **ne se font que par
+`rotate`**, en masse, transactionnel, tracé (D730) ; jamais en
+silence à la vérification, qui serait un acte privilégié sans
+trace. `rotate` devient **le geste unique** de tout ce qui re-chiffre
+ou rehache : la restauration, la duplication d'une sandbox (D915),
+la commande, le changement d'algorithme. L'exigence transmise à Q7 :
+des standards publiés — le hachage des mots de passe, la dérivation
+de clé, le chiffrement des valeurs —, jamais un algorithme maison.
+
+**Le navigateur — la session en cookie, l'API au porteur seul (D917
+— B3, les règles 1 et 2).** Quatre règles proposées pour ce que le
+moteur sert au navigateur ; les deux premières validées d'un mot :
+**la session de l'IHM en cookie inaccessible au script, sécurisé,
+restreint au site** — jamais un jeton dans le stockage du navigateur
+(la recommandation de l'étude d'architecture de juin : un script
+tiers qui s'exécuterait dans la page ne peut pas lire le cookie, il
+pourrait lire un stockage) ; **l'API n'accepte que la preuve au
+porteur, jamais le cookie** (D692) — une page tierce ouverte dans le
+même navigateur ne peut donc pas faire porter la session de
+l'utilisateur à une requête d'API à son insu : la falsification de
+requête inter-sites est fermée par la séparation des deux canaux,
+sans jeton anti-CSRF à gérer. Les règles 3 (les origines autorisées)
+et 4 (l'échappement, le hook d'interface) demandées en détail — la
+suite ci-dessous.
+
+**Les origines autorisées et l'échappement (D918 — B3, les règles 3
+et 4).** « Décris-moi les origines autorisées (cors) », « tu as dû
+faire un raccourci… détaille-moi ce dont tu parles » — le détail
+donné, puis **« 3. je valide, 4. je valide, consigne D918 »**.
+
+*Les origines (règle 3).* Le navigateur refuse de livrer à un script
+la réponse d'une autre origine, sauf si le serveur appelé l'accepte
+— CORS protège l'utilisateur, non le serveur. Trois cas : **l'IHM
+générée**, servie par Syncytium sur la même origine que son API —
+rien à déclarer ; **les consommateurs serveur** (connecteurs,
+webhooks, scripts) — hors de portée ; **une page tierce** (le portail
+du client sur son domaine, l'application d'un partenaire) qui appelle
+l'API depuis un navigateur — le seul cas à déclarer. La déclaration
+vit **à l'environnement** (le déploiement, non la version — le
+patron D617) ; **absent = aucune origine tierce** ; **le joker `*`
+refusé à l'ingestion** (la liste nommée, D805) ; la redirection SSO
+est une navigation, non un appel ; **une origine autorisée ne
+dispense de rien** — la preuve au porteur demeure (D917) : CORS dit
+au navigateur ce qu'il peut lire, l'authentification dit au serveur
+qui demande. Et comme l'API ne lit jamais le cookie, la variante
+« avec identifiants », la plus délicate, n'existe pas.
+
+```yaml
+# environments/production/production.yml — les origines tierces (D918)
+cors:
+  - https://portail.entreprise.fr
+  - https://app.partenaire.com
+```
+
+*L'échappement (règle 4).* Le risque : un client nommé `Dupont
+<script>…</script>` inséré comme du HTML dans la liste — le script
+s'exécute chez chaque opérateur, avec sa session. Trois sources de
+HTML, trois régimes : **(a) les valeurs saisies** — toujours rendues
+comme du texte (« le champ texte utilisateur reste nu », D562/D261),
+le composant échappe, jamais une balise ; **(b) les templates du
+technicien** — mustache + markdown (D562), les labels à gabarit
+(D397), les masques d'explication (D209) : de la configuration, mais
+qui incorpore des valeurs — la variable échappée par défaut, la
+conversion markdown sans HTML brut ni script, le technicien écrit du
+markdown, jamais du HTML ; **(c) le hook d'interface** (D66, §8.2) —
+le seul code tiers qui tourne dans le navigateur, que rien ne peut
+contraindre depuis le serveur : jamais `private` (acquis), **sous la
+responsabilité du technicien**, et **listé par la documentation
+générée** (`describe`, D645) pour que l'administrateur sache quel
+code tourne chez ses utilisateurs. **Le filet** : la page n'autorise
+que les scripts qu'elle connaît — ceux de Syncytium et les hooks
+d'interface enregistrés, aucun script en ligne venu d'une donnée,
+aucune origine étrangère ; même une injection qui passerait ne
+s'exécuterait pas (la politique de contenu — le principe ici,
+l'en-tête exact à Q7). **B3 est soldé (D917–D918).**
+
+**HTTPS vérifié au démarrage, un certificat partout (D919 — B4).**
+La proposition : le certificat à l'infrastructure (le pendant de
+D706 pour le transit), la vérification au démarrage (le certificat
+déclaré à l'environnement, ou le proxy qui termine et le signale),
+et une seule exemption — la boucle locale, le cas domestique de
+D759. L'auteur retire l'exemption : **« même pour la boucle locale,
+nous fournirons un certificat. Syncytium pourra fournir un
+certificat auto-signé. »** — « HTTPS sans dérogation » (D705) tient
+mot pour mot : le poste domestique est servi en HTTPS comme les
+autres ; quand l'infrastructure n'apporte rien, **le moteur engendre
+un certificat auto-signé** à l'initialisation (le wizard D729), rangé
+avec les secrets (D707) — le navigateur avertit, l'utilisateur du
+foyer accepte une fois. À l'environnement, l'écriture en
+proposition ; à défaut de déclaration et de proxy, l'auto-signé ; en
+clair, le refus de démarrer, la raison donnée (D745).
+
+```yaml
+# environments/production/production.yml — le transit (D919, en proposition)
+tls:
+  certificate: ${TLS_CERT}           # le couple fourni par l'infrastructure (les chemins)
+  key: ${TLS_KEY}                    #   — ou —
+tls: proxy                           # le proxy termine le HTTPS et le signale par l'en-tête convenu
+
+# environments/home/home.yml — le foyer (D759)
+tls: self-signed                     # engendré à l'initialisation, rangé avec les secrets (D707)
+```
+
+**Le dépôt du client, un dossier ; l'empreinte environnement +
+numéro (D920 — B5).** La proposition : qui pousse une version relève
+du dépôt du client ; l'ingestion consigne l'identité de la version au
+registre (D326) — l'empreinte du commit quand le dépôt est git. Le
+commit écarté : **« le dépôt de configuration du client est un
+dossier contenant toute la description du projet. Ce dossier peut se
+synchroniser via git ou via un autre dispositif. Le dispositif est en
+dehors de Syncytium, comme tu le relèves. S'appuyer sur le commit de
+git est trop restrictif. Je préfère une empreinte liée à
+l'environnement + numéro de version, qui généralise. »** — le dépôt
+n'est qu'un dossier (D336) ; git, un partage, une copie : le
+dispositif est le sien ; **Syncytium calcule lui-même l'empreinte du
+dossier de la version ingérée** et la consigne au registre sous la
+clé **environnement + numéro de version** — on sait toujours quelle
+description tourne, sans dépendre d'un outil. Le déploiement reste
+l'acte tracé du technicien, la signature différée. Ma lecture, à
+confirmer : un même numéro ré-ingéré dans le même environnement avec
+une autre empreinte est une modification sans incrément — refusée,
+le message renvoie au bump du build (D324/D326 : « le retry est un
+acte explicite »).
+
+**L'ingestion d'une sandbox, un acte d'administration (D921).**
+**« Dans le cas de sandbox, l'ingestion est un acte
+d'administration. »** — la nuance sur D920 : pour `beta` et
+`production`, déposer la version suffit, le moteur la découvre et
+l'ingère au chargement (D324, D801) ; pour une sandbox, le dossier
+posé ne fait rien de lui-même — l'ingestion (la duplication de
+l'origine, la migration, la rotation des clés D915) **se déclenche
+par l'administrateur**, au module d'administration (D710) ou par la
+commande `syncytium sandbox` (D912), tracée (D704), l'empreinte
+consignée au registre (D920). La sandbox naît d'un geste, jamais
+d'un fichier posé : la copie de données réelles (§7.3) et le coût
+d'initialisation (D912) restent sous la main d'un administrateur.
+**Et la recharge (D922)** : **« la recharge est une ingestion limitée
+à l'usage de la sandbox »** — le quatrième geste de D912 (« réinitialiser
+— re-dupliquer depuis l'origine sans toucher la déclaration ») prend
+son nom : `reload` ; c'est **l'ingestion rejouée** (la duplication,
+la migration, la rotation D915), donc un acte d'administration
+(D921), **réservée au statut `sandbox`** — `beta` et `production` ne
+se rechargent pas, une version y est ingérée une fois (D324/D326).
+
+**Les fichiers hors base, servis par le moteur seul (D923 — B6).**
+L'acquis : le stockage dual (D161 — les binaires hors base, dans un
+dossier dédié au nommage Syncytium), le type fichier à empreinte et
+mots-clés (D160), les statuts et le contrôle d'intégrité (Q39), la
+synchronisation qui porte la base et le dossier (D164). Quatre
+règles, validées d'un mot — **« je valide, consigne D923 »** : **le
+dossier appartient au moteur et n'est jamais servi directement** par
+le serveur web — aucune adresse ne mène à un fichier sans passer par
+Syncytium ; **tout accès passe par le moteur**, sous la
+confidentialité du champ (D25) et l'appartenance de la ligne (D71) :
+voir le fichier, c'est voir le champ qui le porte ; **les noms sur
+disque sont opaques** — le nommage Syncytium, sans rapport avec le
+nom d'origine ni avec la donnée, le nom d'origine en métadonnée ;
+**les droits du dossier relèvent de l'infrastructure** — le pendant
+de D706 (le repos) et de D919 (le transit) pour les fichiers.
+
+**Les dépendances à la documentation générée (D924 — B7).** La
+proposition : épinglées, le fichier de verrouillage versionné, la
+veille par l'outillage du dépôt public au domaine 8. L'auteur y
+ajoute la visibilité et fixe la frontière : **« les dépendances
+seront à afficher dans la documentation auto-générée. Les failles
+seront identifiées par le dépôt ou par une action extérieure. »** —
+la documentation technique de l'instance (`describe`, D630/D645)
+**liste les dépendances du moteur et leurs versions**, pour que
+l'administrateur sache de quoi son instance est faite ; la veille
+n'est pas l'affaire du moteur — le dépôt public ou une action
+extérieure. Le patron est celui du certificat et du chiffrement au
+repos : le moteur rend visible, l'infrastructure agit. L'épinglage
+reste ma proposition, non contredite, pour le domaine 8.
+
+**Le journal d'accès au proxy, le journal du moteur aux événements
+de sécurité (D925 — B8).** « Développe ? » — le journal d'accès (une
+ligne par requête HTTP : l'heure, le client, l'adresse, le code, la
+durée) est le métier du proxy qui, depuis D919, voit chaque requête
+en premier ; le proxy ne sait pas *pourquoi* le moteur a refusé —
+c'est ce que le journal du moteur doit porter. Deux instruments
+coexistent : **l'audit** (D702–D704 — l'entité en base, lue par
+l'administrateur : qui a fait quoi) et **le journal** (D343/D737 —
+le fichier, lu par le technicien : ce qui s'est passé dans le
+moteur) ; un événement de sécurité peut aller aux deux. La table des
+événements et de leurs niveaux validée — **« 1. je valide, 2. le
+journal d'accès reste au proxy, consigne D925 »** : le moteur
+n'écrit jamais chaque requête, même en `verbose`.
+
+| l'événement | le niveau | ce que la ligne porte |
+|---|---|---|
+| l'authentification réussie, la déconnexion, la révocation | `info` | le compte, le canal, le connecteur d'authentification |
+| l'échec d'authentification, le verrouillage (D720) | `warning` | le login tenté, l'origine, le compteur d'échecs |
+| le refus d'autorisation (D43) | `warning` | le compte, l'entité ou l'opération, la règle qui a refusé |
+| le refus de cooldown (D904), le 429 (D105) | `warning` | le compte, l'opération, le délai restant |
+| le secours (D81), le mode safe (D718), le passe-droit (D835), la délégation (D715) | `warning` | le compte, le motif |
+| la rotation des clés (D730/D916), l'ingestion, la recharge (D922) | `info` | l'environnement, la version, l'empreinte (D920) |
+| l'erreur d'un connecteur, la page de maintenance (D627) | `error` | le connecteur, le statut |
+
+Jamais un secret, un mot de passe même erroné, une valeur
+`trace: limited` (D703) ou `private` : le journal dit qu'un login a
+échoué, jamais ce qui a été tapé. Les refus journalisés sont le
+carburant de D43.
+
+**Le throttling des traces (D926).** L'auteur ajoute la parade à la
+saturation : **« pour éviter une attaque qui viendrait à saturer les
+journaux… un throttling des traces sera à positionner sur chaque
+événement de sécurité (événement, date de début, date de fin et
+nombre de fois) avec une première trace sur le premier événement
+avant le déclenchement du throttling. »** — la première occurrence
+tracée en entier, aussitôt ; les suivantes, dans la fenêtre,
+comptées et rendues en **une ligne agrégée** : l'événement, le début,
+la fin, le nombre. Mille échecs de login identiques donnent deux
+lignes, pas mille ; et le nombre nourrit la détection (D43 — la
+pente des refus). En proposition : la clé d'agrégation = l'événement
++ le compte ou l'origine ; la fenêtre en setting dynamique
+(`logging.throttle`, `1min`) ; la ligne agrégée émise à la fin de la
+fenêtre ou quand le flot cesse ; la même agrégation pour l'entité
+d'audit (D704 — déjà au grain de l'acte et au comptage, D702).
+
+**Le domaine 7 est couvert en huit principes (D907–D926)** : la
+sandbox, le hachage et la rotation, le navigateur, HTTPS, le dépôt
+du client, les fichiers, les dépendances, les journaux — ce qui
+reste à Q7 est le moyen (les algorithmes, les en-têtes, la forme de
+l'auto-signé), jamais le principe.
+
+**L'identité d'une version, le couple environnement + numéro ; la
+configuration changée n'est pas relue, l'empreinte trace (D927 —
+précise D920).** Ma lecture de D920 — le même numéro ré-ingéré avec
+une autre empreinte refusé, le message renvoyant au bump — détaillée
+sur le cas concret (un libellé corrigé dans le dossier de la
+1.0.0.0 déjà en production ; trois issues : refuser, ingérer en
+consignant la nouvelle empreinte, ingérer avec avertissement) ;
+l'auteur trace une quatrième voie, la sienne : **« l'empreinte ne
+tient pas compte de la configuration pour les environnements autres
+que sandbox. Uniquement le libellé "environnement" + "version". Si
+la configuration change pour le même numéro de version et le même
+environnement, elle ne sera pas relue, sauf pour sandbox qui
+nécessitera une réinitialisation. L'empreinte sera calculée. Si
+l'empreinte n'est plus conforme, une trace sera ajoutée. Cela
+informera le technicien qu'il faut changer de numéro de version. »**
+— **la clé du registre est le couple environnement + numéro** ; **une
+version ingérée l'est une fois** — la configuration modifiée sous le
+même numéro **n'est pas relue** (ni refus, ni relecture : la version
+en service reste celle de l'ingestion) ; **l'empreinte est calculée
+à chaque chargement** et comparée à celle du registre — l'écart
+**trace** (le journal, `warning` — D925), et la trace dit au
+technicien de changer de numéro ; **la sandbox fait exception** : la
+modification sous le même numéro s'y prend par la réinitialisation —
+la recharge (D922). Le numéro reste une promesse (D98 — un contenu
+par numéro) sans que le moteur bloque jamais : la relecture attend
+le bump, la trace le réclame.
+
+**`from:` supprimé à la promotion, l'origine promue casse le lien
+(D928 — précise D910).** Ma lecture de D910 détaillée sur le cas
+concret : une sandbox née de `from: beta/v1.0.0.0`, promue en `beta`
+par le déplacement de son dossier, dont le `version.yml` porte
+encore la ligne — trois issues (l'ignorer, la signaler sans
+bloquer, la refuser) ; et une sandbox 1.0.0.3 pointant
+`from: sandbox/v1.0.0.2` quand la 1.0.0.2 vient d'être promue — la
+résolution vers le nouvel emplacement, ou le lien cassé. Mes
+recommandations (l'avertissement, la résolution) écartées toutes
+deux : **« 1. from: doit être supprimé après promotion. Erreur à
+déclencher avant l'ingestion. 2. le lien est cassé et une erreur est
+à déclencher. »** — la promotion est un déplacement **et** le retrait
+de la ligne ; `from:` sous `beta` ou `production` est une erreur du
+contrôle du dossier des versions (D344), avant toute ingestion ;
+l'origine qui a quitté le statut `sandbox` casse le lien, sans
+résolution : le technicien réécrit `from:`. La ligne de D805 et de
+D914 jusqu'au bout — tout lien s'écrit, aucun ne se devine, ni ignoré
+ni résolu en silence.
+
+**Le rapport des rejets porté par la règle (D929 — précise D179 et
+D406–D407 pour la migration).** À la question 7 du cas 3, mon exemple
+posait le `report:` au module `technique`, par la cascade de D407 ;
+l'auteur redresse : **« chaque règle de migration a un report. Pas un
+report général. »** La règle sait ce que personne d'autre ne sait — sa
+table source, sa cible, et qui corrige l'origine : ARTICLE vers la
+production, CLIENT vers le commercial, FOURNIS vers les achats. Elle
+porte donc son `report:` sous la forme validée de D406 (`when:` les
+rythmes, `to:` le groupe ou l'utilisateur, `by:` les canaux), pour les
+enregistrements qu'elle construit et que la cible refuse (D177 : la
+conversion échouée, le contrat de la cible, la référence non résolue) ;
+sans `report:`, le défaut de D407 tient — à la demande, vers
+l'administrateur, par les surfaces du module `migration` (D666). Aucun
+rapport général : ni à la migration déclarée (D662), ni au module ; la
+cascade de D407 (instance / module / entité / champ) reste celle du
+modèle — les non-conformes des références (D395), la vie de
+l'application. Les anomalies de la source ne sont pas des rejets de
+règle : le schéma non décrit (D868), l'identité qui n'est pas une clé
+(D871), l'orphelin isolé (D875) vont au technicien par le module
+`migration` et le rapport de non-couverture (D176/D179). *(La forme sur
+la règle — le réemploi de D406 — est mienne.)*
+
+```yaml
+# mapping/001_articles.yml — le rapport porté par la règle (D929)
+ARTICLE:
+  to: technique.article
+  fields:
+    code: ARKTCODART
+    libelle: ARCTLIB01
+  report:
+    when: [migration]              # après chaque passage de la règle (D406/D407)
+    to: [production]               # le destinataire qui corrige l'origine (D859)
+    by: [notification, mail]
+```
+**`key:` retirée de la règle : l'identité de la cible est la clé (D930 —
+amende D656, précise D654, réécrit D825).** **« Quel est l'intérêt du
+paramètre key ? il fait doublon avec l'identity de technique.article
+ou avec l'identité de ARTICLE, non ? »** L'analyse sur les onze règles
+à clé des cas 1 et 2 : dans chacune, `key:` répétait les colonnes qui
+alimentent, dans `fields:`, les champs de l'`identity:` de la cible —
+la création (`numero: Numero_Compte`), la composition (l'identité de
+la ligne au sein du possesseur, D841, jointe au `parent:`), le
+référentiel par valeurs distinctes (la valeur devient l'identité,
+D658), la cellule n-aire (le tuple, D402/D897). Seules les règles de
+mise à jour (le type du véhicule, la clôture du compte) nommaient par
+`key:` une colonne absente de `fields:` : elles alimentent désormais
+l'identité elle-même — une valeur inchangée, que le différentiel
+ignore (D672). L'ancre est l'identité de la cible, pas celle de la
+source : une table nourrit plusieurs cibles (D658), plusieurs sources
+une cible (D655) ; l'identité de la source garde son rôle propre — la
+clé vérifiée avant de partir (D871), la partition de la couverture
+(D878). D825 se réécrit sans perte : **une règle est rapprochable si
+l'enregistrement qu'elle construit détermine l'identité de sa cible**,
+par ses expressions ou par les défauts des champs ; sinon — l'entité
+sans `identity:`, un champ d'identité sans valeur — **elle est création
+seule** (jamais de rapprochement — les écritures de la banque, sans
+`identity:`, dont le numéro naît à la création) ; **le mode relative et
+le rejeu sans `reset: true` exigent que chaque règle soit
+rapprochable**, ce que l'ingestion vérifie statiquement (D581) ; la règle de complément (D822) reste sans
+identité, la correspondance tenue par la migration (D666/D668).
+`parent:` demeure : rien d'autre ne porte le possesseur. La forme de
+la règle (D656) devient `to:`, `parent:`, `fields:`, `report:`
+(D929), avec `filter:`, `distinct:`, `operations:`, `ignored:`. « Je
+valide. » *(Ma première rédaction du critère — « la règle qui
+n'alimente pas l'identité entière est création seule » — remplacée à
+la demande de l'auteur, « je ne comprends pas » : le champ d'identité
+que la règle n'alimente pas prend son défaut, l'identité est
+déterminée quand même ; le critère est l'identité déterminée, les trois
+cas réels l'éclairent — l'article rapproché par son identité, l'écriture
+sans `identity:` créée toujours, la règle de complément qui retrouve
+l'enregistrement du même passage par la correspondance de la migration.)*
+
+**`parent:` par les champs mappés (D931 — précise D654/D656 ; la
+surcharge D877 prend sa forme).** Sur l'exemple de la question 7,
+l'auteur d'abord : **« dans l'exemple 2, pourquoi proposes-tu un
+formalisme différent que le cas 2 parent ? »** — mon `produit_fini`
+à facette `columns:` sur la source, réutilisé par `parent:
+produit_fini`, et mon `to:` en chemin d'agrégat s'écartaient sans
+raison de la carte des cas 1 et 2 (`parent: { compte: Numero_Compte
+}`, `parent: { vehicule: immatriculation }`, la cible en entité
+fille) ; retirés. Puis, sur ma liste de colonnes source `parent:
+[NOKTCODPF, NOKTCOMPF]`, fausse deux fois — par les colonnes et par
+l'ordre implicite : **« pour parent: du mapping, les champs clés sont
+les champs mappés et non les champs sources… car un champ mappé peut
+être converti ou transformé avant de vérifier la clé. »** La clé du
+possesseur se vérifie sur les valeurs construites : **`parent:` nomme
+les champs de l'identité du possesseur, chacun avec l'expression qui
+produit, depuis la ligne fille, la valeur telle que la règle du
+possesseur l'a construite** — le complément d'article vide devenu nul
+dans la règle 001 doit le devenir aussi dans le `parent:` de la
+nomenclature, sinon la clé ne se retrouve pas. L'identité à un champ
+garde le raccourci : l'expression seule, le champ implicite. **La
+référence par clé composée dans `fields:` porte la même carte.** **À
+la source, la même carte sur les colonnes** : il n'y a pas de champs
+mappés, le pré-contrôle (D874) compare des valeurs brutes ; `parent:`
+— le troisième mot propre à `source/`, après `ignored` (D657) et la
+formule de normalisation (D660) — nomme les colonnes du lien du
+possesseur quand la convention des noms identiques (D876) ne tient
+pas ; quand elle tient, il s'omet ; la composition reste déclarée chez
+le possesseur (`nomenclature: list of NOMENC`, D399/D869). La
+référence composée de la source se déclare colonne par colonne
+(`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance D648) — *mon
+appariement : les colonnes qui dépendent des champs d'identité d'une
+même entité forment une référence, dans l'ordre de cette identité ;
+le possesseur, désigné par `parent:`, n'entre pas dans
+l'appariement.* *(Une remarque, pas une décision : la conversion
+écrite deux fois — chez le possesseur et dans chaque `parent:` — est
+un risque d'entretien ; la normalisation à la source (D660/D872) fait
+lire aux deux règles des colonnes déjà converties, et `parent:` ne
+porte alors que des colonnes nues.)* « Je valide. »
+
+```yaml
+# reprise/mapping/001_articles.yml — le possesseur construit son identité
+ARTICLE:
+  to: technique.article
+  fields:
+    code:       ARKTCODART
+    complement: iif(ARKTCOMART = "", null, ARKTCOMART)   # le vide devient nul
+    libelle:    ARCTLIB01
+
+# reprise/mapping/002_nomenclatures.yml — la fille présente la même conversion (D931)
+NOMENC:
+  to: technique.ligne_nomenclature                       # l'entité fille, comme banque.ecriture
+  parent:
+    article:                                             # le possesseur, par ses champs mappés
+      code:       NOKTCODPF
+      complement: iif(NOKTCOMPF = "", null, NOKTCOMPF)   # sinon la clé ne se retrouve pas
+  fields:
+    numero:    NOKNLIGNOM
+    composant:                                           # la référence par la clé composée : la même carte
+      code:       NOCTCODECP
+      complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
+    quantite:  NOCNQTEUNI
+
+# reprise/source/NOMENC.yml — la même carte sur les colonnes (la surcharge D877)
+NOMENC:
+  identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
+  parent:
+    ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF }
+  fields:
+    NOCTCODECP: ARTICLE.ARKTCODART                       # la référence composée, colonne par colonne (D648)
+    NOCTCOMCPT: ARTICLE.ARKTCOMART
+```
+
+**`validation:` à trois niveaux (D932 — précise D404/D656, retire ma
+lecture).** Sur le premier des quatre points de la question 7, je
+proposais « le mapping ne porte aucune règle de vérification propre,
+les deux contrats vérifient ». L'auteur : **« validation: porte à la
+source avant l'import, porte à la destination après l'import et à la
+règle du mapping porte sur chaque ligne de l'import. »** La même
+grammaire (D404 — la liste d'expressions booléennes, le `if`
+suffixé) à trois places, trois moments : **à la source**, sur la
+ligne lue, avant la conversion — la non-conformité de la source,
+comme la garde de D813 ; **à la règle de migration**, sur chaque
+ligne importée, après la construction par `fields:` et avant
+l'écriture — le contrôle que ni la source ni la cible ne peuvent
+dire seules, celui qui mêle une colonne source et un champ
+construit ; **à la destination**, sur l'enregistrement écrit, au
+scellé (D594), avec ses enfants (D933). L'échec, à chaque étage,
+rejette la ligne et va au rapport de la règle (D929). *(La forme à
+la règle est mienne : les colonnes source à nu, l'enregistrement
+construit par `me` — le `me` des `operations:` de D821.)* La triade
+de D859 se lit : le mapping et sa règle, la conversion, la
+vérification aux trois étages.
+
+```yaml
+# reprise/source/NOMENC.yml — avant l'import : la ligne lue, avant la conversion
+NOMENC:
+  validation:
+    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
+
+# reprise/mapping/002_nomenclatures.yml — sur chaque ligne importée : la source à nu, le construit par me
+NOMENC:
+  to: technique.ligne_nomenclature
+  fields:
+    nature:   nature_n                                 # le calculé de normalisation à la source (D660)
+    quantite: NOCNQTEUNI
+  validation:
+    - me.quantite > 0 if me.nature = "composant"       # le construit
+    - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
+
+# technique/ligne_nomenclature/ligne_nomenclature.yml — après l'import : l'enregistrement écrit
+validation:
+  - composant != null if nature = "composant"
+```
+
+**L'échec dans une composition à la migration (D933 — précise
+D101/D177/D420, D875).** Je tirais de D101 et D420 — l'agrégat, grain
+d'écriture, une transaction par agrégat — la conséquence qu'une
+cellule tarifaire sans prix retient son article entier, avec la
+cascade sur les mouvements. L'auteur redresse : **« dans une
+composition, si un échec est vu sur le parent, tous les composants
+sont en échec. Si un composant est en erreur et pas sur le parent, le
+parent est créé sans le composant en erreur. Par contre, la règle de
+validation sur un enregistrement du parent vérifie le fonctionnement
+de son enregistrement et de ses enfants. Et, là, c'est
+l'enregistrement du parent et de tous ses enfants qui sont en
+échec. »** Trois cas, donc : l'échec propre du parent — sa
+conversion, sa `validation:`, sa référence — entraîne tous ses
+composants ; l'échec propre d'un composant — sa conversion, sa
+`validation:` à la règle ou à l'entité, sa référence, l'orphelin de
+D875 — ne rejette que lui, le parent entre sans lui ; la
+`validation:` du parent qui lit ses enfants (`lignes.count() > 0`,
+une somme, un `any`) s'évalue sur le parent et tous ses enfants, et
+son échec rejette le tout. L'agrégat reste le grain d'écriture
+(D420) : ce qui s'écrit est le parent avec ses composants conformes ;
+D177 tient — rien de faux n'entre — et « l'enregistrement contenant
+un orphelin » de D875 est la ligne. Au cas 3 : l'article entre sans
+la cellule fautive, ses mouvements le trouvent, aucune cascade ; la
+commande dont aucune ligne ne passe tombe entière par sa validation.
+*(Le rapport nomme la cause — le parent, ou la ligne — et les
+composants entraînés à sa suite : mien.)*
+
+**Les fonctions du texte au catalogue (D934 — complète D579/D584).**
+Le troisième point relevait une lacune : `trim`, `upper`, `right`
+servent depuis D656 et D870 sans figurer à types.md, qui n'inscrit
+que `extract`. **« trim, upper, right, mid, … doivent figurer au
+catalogue de types.md sur un champ texte. »** Le type `text` emmène
+ses fonctions (D579 — « un type emmène avec lui des fonctions
+dédiées ») : `trim`, `upper`, `lower`, `left`, `right`, `mid`,
+`length`, `extract` (D817), la comparaison `like` (D818), la
+concaténation `+` — la table est écrite à types.md. `lower`, `left`
+et `length` sont mes ajouts, les pendants naturels. Et le texte trop
+long trouve son geste : la conversion avec perte est refusée à
+l'ingestion (D581 — jamais une troncature silencieuse, jamais un
+rejet à l'exécution), le technicien écrit `left(ARCTLIB01, 20)` s'il
+la veut.
+
+**Les listes closes citées par leurs codes réels, le vocabulaire
+donné (D935 — précise D813/D893, corrige le morceau 2).** À ma
+question — les codes cités dans l'exemple publié sont-ils ceux de PMI
+ou ceux du jeu construit, et d'où viennent les libellés — l'auteur
+répond par la table même : **« AC : Accessoire · CO : Consommable ·
+MI/LI : Libellé · OU : Outillage · PF : Produit fini · PL : Plaque ·
+MO : Main d'œuvre · ST : Sous-traitance · SF : Produit semi fini »**.
+Les codes sont donc ceux du produit, publiables ; les libellés sont
+les siens. Et la garde, à tous les étages : **« si une valeur sort du
+type énuméré, c'est une erreur »** — à la source, le code hors liste
+(D813) ; à la règle, le `select` n'a pas de défaut, le code sans
+traduction est une erreur, pas un nul ; à la cible, la valeur hors
+`values:`. Le vocabulaire de l'entrepôt en découle (D893 — la valeur
+qui a du sens) : `accessoire`, `consommable`, `libelle`, `outillage`,
+`produit_fini`, `plaque`, `semi_fini`, `main_oeuvre`,
+`sous_traitance` — et mes quatre valeurs du morceau 2, `fabrique` /
+`achete` / `sous_traite` / `fantome`, quittent le type d'article : le
+modèle se corrige dès que la liste est complète *(D936 : elles sont
+bien de PMI — sur le code de gestion ARCTFATN, pas sur le type ; ma
+note « tirées d'un ERP imaginé » était fausse)*.
+*(Restent à relever : le code PR d'ARTICLE — huit articles de
+l'échantillon —, les natures numériques de NOCTNATCPT (1, 2, 3, 4,
+6, 8) ; à arbitrer : la place du type du composant (NOCTYPECPT) à la
+ligne de nomenclature — un champ `type` à côté de `nature`, ma
+proposition — et le sort des articles « libellé » (MI), des lignes
+de texte sans stock : gardés dans l'entrepôt sous leur type plutôt
+que filtrés, ma recommandation, puisque les lignes LI les
+référencent.)*
+
+**Le code de gestion est ARCTFATN (D936 — corrige D935 et le
+modèle).** Je venais d'écrire que mes quatre valeurs du type
+d'article — fabriqué, acheté, sous-traité, fantôme — étaient tirées
+d'un ERP imaginé. L'auteur : **« fabriqué, acheté, sous-traité ou
+fantôme sont bien un vocabulaire de PMI sur le champ du code de
+gestion (ARCTFATN). »** Les valeurs étaient justes, la colonne
+fausse : le modèle du morceau 2 les avait posées sur `article.type`
+(ARCTTYPART, dont le vocabulaire est celui de D935), et avait mis
+sous `gestion` une colonne (ARCTGSAV, nchar(1), « N » seul dans
+l'échantillon) et trois valeurs (sur stock, à la commande, sans
+stock) qui ne sont à personne — une invention de plus, corrigée. Le
+modèle se redresse : `type` prend accessoire, consommable, libellé,
+outillage, produit fini, plaque, semi-fini (PR à relever) ; `gestion`
+passe sur ARCTFATN avec fabriqué, acheté, sous-traité, fantôme — le
+fantôme, ce niveau de nomenclature sans existence en stock, y
+retrouve sa description ; ARCTGSAV retourne à l'analyse. Les dix
+codes d'ARCTFATN de l'échantillon (01, 02, 03, 07, 09, 12, 14, 17,
+32, 33) se traduisent à la règle du mapping (D893) : la table code →
+valeur est à relever, comme PR. *(La leçon, la même que D934 : rien
+de PMI ne s'écrit de mémoire — ni un code, ni une colonne, ni un
+vocabulaire ; l'échantillon et l'auteur tranchent.)*
+
+**PR hors de l'exemple, la nature ignorée, le type du composant est
+celui de l'article (D937 — précise D935/D936, corrige la ligne de
+nomenclature).** Aux trois tables que je demandais, l'auteur répond
+en trois phrases : **« le code PR n'est pas pris en compte ici pour
+l'exemple. Ces lignes sont des erreurs. La nature numérique de la
+nomenclature est un champ ignoré. Le type du composant d'une
+nomenclature est le type de l'article référencé par le composant de
+la nomenclature. »** PR ne sera pas dans la garde d'ARCTTYPART : les
+huit articles PR de l'échantillon sont des non-conformités, rapportées
+par la règle (D935 — hors de l'énuméré, une erreur) ; la liste de
+`article.type` est donc complète. NOCTNATCPT est `ignored` (D657) —
+la colonne attendue, décrite, non développée. NOCTYPECPT redonde le
+type de l'article que la ligne référence : l'entrepôt ne le stocke
+pas, il le lit par `composant.type` ; à la source, la colonne est
+ignorée, ou vérifiée redondante par un `validation:` de la source
+(D932) — mon choix : ignorée. La ligne de nomenclature du morceau 2
+se redresse : sa `nature` venait de NOCTNATCPT, elle se déduit
+désormais du type de l'article référencé — la main d'œuvre et la
+sous-traitance font l'opération, le reste le composant (la règle est
+mienne, un `select` sur `composant.type` avec le défaut) ; le
+composant devient obligatoire (100/100 dans l'échantillon) ; les deux
+validations que j'avais inventées tombent — l'une, « une opération a
+un code d'opération », aurait rejeté les 49 lignes de main d'œuvre de
+l'échantillon, NOCTCODOPE y étant vide. Et `article.type` s'élargit à
+main d'œuvre et sous-traitance : les composants de l'échantillon
+référencent des articles de ces types (MO ×49, ST ×1, LI ×6) — une
+déduction de la troisième phrase, que l'échantillon ne pouvait pas
+vérifier (les deux extraits ne se recoupent pas : aucun composant ni
+parent des cent lignes n'est parmi les cent articles) et que l'auteur
+confirme le 14/09 : **« la main d'œuvre, la sous-traitance et les
+libellés sont bien des articles de PMI. »** Les articles
+« libellé » (MI/LI) restent des articles : les lignes les
+référencent.
+
+**Le code de gestion décodé, avec ses trous (D938 — précise D936).**
+Au dernier renvoi de la question 7, l'auteur donne la table telle
+qu'il la connaît : **« 01 : produit fabriqué, 02 : produit acheté,
+03 : ???, 07 : libellé, 09 : , 12 : ???, 14 : quantité supérieure,
+17 : inactif, 32 : résultant, 33 : proc »**. Elle entre au modèle
+telle quelle : `gestion` porte fabriqué, acheté, sous-traité et
+fantôme (D936 — le vocabulaire de PMI, les deux derniers hors de
+l'échantillon), libellé, quantité supérieure, inactif, résultant ;
+« proc » attend son mot. Les trous ne se bouchent pas : 03, 09 et 12
+sont des points à creuser (D868), et le registre en tire la
+conséquence sans adoucir — la garde de la source liste les dix codes
+observés (la colonne est décrite en entier, D866), la règle du
+mapping ne traduit que les codes connus, et un code sans traduction
+est une erreur (D935) : les articles en 03, 09 et 12 — 38 des 100
+articles de l'échantillon, 03 ×30, 09 ×7, 12 ×1 — sont rapportés
+jusqu'à ce que l'analyse leur donne un sens. C'est l'itération de
+D868 en acte : la migration exploite les données justes au fur et à
+mesure, et l'état de la qualité (D859) montre au destinataire ce qui
+attend. *(Le levier reste celui de D933 : si l'entreprise préfère que
+ces articles entrent sans code de gestion, le champ devient
+facultatif et la règle laisse nul — un choix du modèle, pas de la
+migration.)*
+
+**Le code sans libellé entre avec une valeur par défaut nommée par
+le code (D939 — précise D938/D893).** Je tirais de D935 et D868 la
+conséquence stricte : les codes 03, 09 et 12, sans signification
+connue, ne se traduisent pas, leurs 38 articles sont des erreurs
+jusqu'à l'analyse. L'auteur clôt autrement : **« pour clore les codes
+de gestion, les codes existent, sont dans le mapping mais le libellé
+n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à
+positionner. »** La distinction est juste : ce qui manque n'est pas
+le code — il existe, la garde le liste, la règle le traduit — mais
+son libellé. L'énuméré de l'entrepôt reçoit donc une valeur par code
+non encore nommé, `cg03`, `cg09`, `cg12`, dont le libellé est le code
+même et la description dit l'attente ; les articles entrent, rien ne
+se rapporte ; le libellé viendra de l'analyse, et son changement sera
+une évolution de l'énuméré (D387 — la clé demeure, le libellé bouge).
+D893 tient — la valeur qui a du sens — et le code en tient lieu tant
+que le sens manque. Le code 33 entre en `procedure` — « Proc - pour Procédure ».
+
+**L'article en hiérarchie par le code de gestion (D940 — amende D882,
+applique D143/D353).** En clôture de la question 7, l'auteur ouvre le
+modèle : **« dans le modèle de migration, nous pouvons définir un
+article et des dérivés (un par type d'article) »**, puis **« le code
+de gestion assurera l'héritage »**, et le pourquoi : **« un article de
+type produit fabriqué, semi-fini ou fantôme a besoin d'une
+nomenclature. La nomenclature n'apparaît pas dans les autres types
+d'articles. »** La hiérarchie du tiers (client, fournisseur) trouve
+sa seconde mise en œuvre, autrement : le tiers se dérivait par la
+table source, l'article se dérive par la valeur d'un champ — le code
+de gestion est le discriminant, la règle de migration route par un
+filtre sur ARCTFATN (D663), une règle par dérivé, le reste des codes
+vers le parent, instanciable (D143 — pas d'abstrait). Mes trois
+questions arbitrées : **« les dérivés sont limités à ceux cités »** —
+`fabrique`, `semi_fini`, `fantome`, ni acheté ni sous-traité, dont
+les fournisseurs et les prix restent au parent ; **« la nomenclature
+déclarée sur chacun des trois dérivés »** — mon niveau intermédiaire
+`produit` écarté, la composition et ses calculés (composants,
+opérations, temps de gamme) écrits trois fois, chez chacun ; **« la
+grille tarifaire reste au parent »**. Sur les codes, **« tu peux
+prendre un peu de liberté. Je n'ai pas les éléments sous les yeux
+pour répondre »** : 01 = fabriqué est donné (D938) ; 09 = semi-fini
+et 12 = fantôme sont mes hypothèses, tirées de l'échantillon — les
+articles SF portent 09 sept fois, un PF porte 12 — à vérifier au
+morceau 3 ; les valeurs cg09 et cg12 de D939 deviennent `semi_fini`
+et `fantome`, cg03 demeure. La ligne de nomenclature ne change pas :
+son composant référence `technique.article`, de tout type (D937), sa
+nature se déduit du type référencé ; seul son possesseur change, l'un
+des trois dérivés. Le stockage reste une table unique (D144), chaque
+champ à son niveau : la nomenclature d'un fantôme, les mouvements
+d'un fabriqué, la grille de tous.
+
+**L'enrichissement — le champ possédé par l'entrepôt (D941 —
+précise D672, ajoute `unchanged` au socle du champ D364).** La
+question 8 du cadrage demandait si l'entrepôt porte des champs qui
+ne viennent pas de Cegid, et ce qu'en fait le différentiel. Ma
+lecture de D672 — le différentiel ne compare que l'enregistrement
+construit, donc les seuls champs que les règles alimentent ; un champ
+qu'aucune règle n'alimente reste tel quel ; `reset: false` la garde
+— est validée : **« la doctrine est bonne. »** Le champ obligatoire
+naît à sa valeur : **« le default: répond à ce besoin. »** Et
+l'auteur ajoute ce que le défaut ne dit pas : **« si le champ fait
+partie d'un écran de saisie, la valeur ne doit pas être modifiée… je
+préconise l'utilisation d'une nouvelle propriété. unchanged :
+true/false (avec false par défaut). Si l'information est "true" pour
+un nouvel enregistrement, la valeur est la valeur par défaut. Si
+l'enregistrement existe, la valeur du champ reste sa valeur. »** La
+propriété entre au socle du champ, à côté de `default` :
+`unchanged: true` déclare le champ possédé par la cible — la
+migration ne l'écrit jamais, il naît à son `default:` et garde
+ensuite sa valeur, celle que l'écran de saisie lui donne ; `false`,
+le défaut, laisse le champ aux règles. Elle se distingue de `mode:
+write-once` (posé à la création, immuable pour tous) : ici la saisie
+reste libre, c'est l'écriture automatique qui s'abstient. Ma
+lecture, confirmée par l'auteur : **« unchanged est lié à la
+migration et aux règles de migration. Une règle qui alimente l'un de
+ces champs serait une erreur d'ingestion. »** L'exemple l'exerce :
+`note_interne` sur le tiers — aucune colonne PMI, `default: ""`,
+`unchanged: true`, ouvert au commercial et aux achats (D942) — la
+note de l'acheteur survit à chaque nuit.
+
+**`allow:` s'applique partout, l'administrateur passe outre (D942 —
+précise D175/D699/D886).** J'avais écrit que l'allow n'intervenait
+pas dans la phase de migration. L'auteur redresse : **« sur allow :
+il n'y a pas de restrictions… une migration est portée par
+"administrateur". Les interfaces IHM ou API sont utilisées via un
+compte utilisateur ou administrateur. "allow" s'applique donc comme
+pour le reste. Un administrateur bypasse les droits existants. »**
+Un seul mécanisme, sur tous les canaux : les droits d'action se
+déclarent et se contrôlent de même pour l'IHM, l'API et les
+opérations ; le degré `administrator` passe outre les `allow` —
+l'acte tracé, comme le passe-droit du statut (D835) ; la migration,
+opération de ce degré (D701), écrit dans un module déclaré en
+lecture seule sans que les `allow` l'arrêtent, non parce qu'elle y
+échappe mais parce que son degré les passe. L'allow au champ (D886)
+garde son sens pour l'autre phase : `note_interne` s'ouvre au
+commercial et aux achats, le reste du tiers restant en lecture seule.
+
+**Le rythme de la migration : des opérations périodiques (D943 —
+précise D667/D881, applique D428/D434/D609).** À la question 9, je
+proposais deux clés sur la migration déclarée, `every: daily[02:00]`
+et `reset_coverage: weekly[saturday at 23:00]`. L'auteur : **« every:
+peut, à mon avis, être couvert par une opération périodique telle que
+nous l'avons déjà il y a qq semaines. »** Rien de neuf n'est
+nécessaire : l'opération automatique existe (D428 — avec `when` ou
+`every`, l'opération se déclenche seule), le calendaire riche existe
+(D434 — `daily[02:00]`, `weekly[saturday at 23:00]`), et l'opération
+compose les hooks du socle (D609 — « une opération peut être une
+liste d'opérations disponibles dans le socle »), dont `migrate`
+(D667) et `reset_coverage` (D881) sont. Le delta nocturne et la
+relecture complète du dimanche sont donc deux opérations
+périodiques, non deux propriétés de la migration. *(La forme est
+mienne : le bloc `operations:` porté par la migration déclarée, comme
+l'entité porte le sien (D432) ; `migrate` sans paramètre, la
+migration porteuse étant sa cible ; `reset_coverage(<entité>)` par
+entité partitionnée — les mouvements par mois, les commandes par
+plage de numéros ; les référentiels, relus en totalité chaque nuit,
+n'ont rien à réinitialiser.)* Les heures restent à fixer avec
+l'entreprise : le delta après les traitements nocturnes de PMI et la
+sauvegarde.
+
+```yaml
+# reprise/reprise.yml — la migration déclarée (D662) et ses opérations (D943)
+cegid:
+  connector: cegid
+  mode: relative                        # les conformes portés, les erreurs au rapport (D671)
+  reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent
+  source:
+    - source/.*\.yml
+  mapping:
+    - mapping/[0-9]+_.*\.yml
+  operations:                           # les opérations périodiques de la migration (D428/D609)
+    delta_nocturne:
+      every: daily[02:00]               # le calendaire (D434) — l'heure est à fixer
+      operations: [ migrate ]           # le hook du socle (D667), sur cette migration
+    relecture_complete:
+      every: weekly[saturday at 23:00]  # la nuit de samedi (D881) : le migrate du dimanche relit tout
+      operations: [ reset_coverage(MVTSTO), reset_coverage(ECOMCLI), reset_coverage(ECOMFOU) ]
+```
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -10984,6 +13432,19 @@ taches:
     cooldown_api:    "<période, fin→début>"   # si non déterministe
     retention_resultat: 90j
 ```
+
+*(Transposé par D904/D905 dans la grammaire des opérations :
+`execution`, `deterministe` et `determinisme_duree` sont **des
+propriétés intrinsèques de l'opération, portées par le contrat du
+hook** — `execution: once`, `deterministic:`,
+`deterministic_duration:` —, jamais par la configuration ;
+`cooldown_api` devient `cooldown:` à la déclaration, le défaut en
+setting dynamique `operation.cooldown`, l'API seule ;
+`retention_resultat` devient `retention:`, le défaut en setting
+`operation.retention` — D906 ; `connecteurs:` devient
+`connectors:` **au contrat du hook** — les connecteurs attendus,
+nommés et typés par la famille —, la déclaration les liant par
+`uses:` — D913.)*
 
 **Droits (D53).** `declenche_par` ⊆ `resultat_lu_par` **par construction** : qui
 déclenche peut lire. `resultat_lu_par` ne déclare que les lecteurs *additionnels*.
@@ -17428,6 +19889,949 @@ avant la synthèse Q16).
   sept maisons — le degré zéro livré en une séance (D856, seize
   fichiers, zéro surface). La PR de consolidation préparée
   (feature/meta-schema → develop, ~5 commits depuis la #39).
+- **2026-08-31 (suite 3) — LA PR #40 FUSIONNÉE, LA 4e PUBLICATION
+  PRÉPARÉE.** develop porte le cas 0 (l'ancêtre vérifié) ; la
+  publication develop → main (la 4e — 60 commits : le cas véhicule
+  entier D830–D855, le cas 0 D856, les release-notes
+  personnalisés) créée sur demande de l'auteur.
+- **2026-08-31 (pause) — LA 4e PUBLICATION FUSIONNÉE (#41).** main
+  porte l'échelle à ses deux bouts (l'ancêtre vérifié — les cas 0,
+  1 et 2 publiés, 856 décisions). La séance s'arrête là. **La
+  reprise : le cas d'usage suivant, dans une nouvelle session —
+  l'échelle offre 03_sales_collection, 04_cegid_conversion,
+  05_project_management, 06_meal_delivery (D756/D827) ; la
+  documentation (Q58) reste l'autre porte.**
+- **2026-09-03 — LE CAS 4 OUVERT : LA CONVERSION CEGID PMI.** La
+  nouvelle session annoncée : l'auteur ouvre **la reprise de
+  données Cegid** avant la collecte des commandes — l'échelle
+  renumérotée dans la foulée (D857, ci-dessous) ; le cas suivant
+  sera « la gestion des commandes industrielles » (relu à son
+  ouverture). **Le cadrage posé en questions** dans
+  usecases/04_cegid_conversion.md (devenu 03_entrepot.md — D857) : la
+  lecture du registre (la
+  date AAAAMMJJ D119/D820 — le premier hook de type d'un exemple ;
+  la posture entrepôt D180 ; la reprise D175–D179 ; le mapping
+  D646–D672 ; le module migration D666/D668 ; les règles
+  D404/D406), ce que le cas éprouve (le premier storage lu par
+  connexion — sqlserver, read_instance pour de vrai ; la première
+  application d'entreprise de l'échelle — l'authentification, les
+  groupes, le smtp réel, deux environnements possibles), **onze
+  questions** (A. le contexte et le lien au cas suivant ; B. la
+  source réelle — l'instance, l'accès, le schéma et l'échantillon
+  à fournir, le périmètre ; C. la cible — le modèle, les règles et
+  la posture face à la violation (le rejet D177 ou le porté et
+  signalé), les champs possédés par l'entrepôt face au différentiel
+  D672 ; D. l'exploitation — le rythme, l'entreprise, les
+  environnements, le chemin du hook de type) et **cinq morceaux
+  proposés** (l'assise, le modèle cible, la source, le mapping, le
+  pilotage). **En attente des réponses de l'auteur — aucune
+  décision consignée.**
+- **2026-09-03 (suite) — LE CAS 3 = LA REPRISE (D857, 857
+  décisions).** « renomme-le 03_reprise » — la maison du cas Cegid
+  passe de usecases/04_cegid_conversion.md à
+  **usecases/03_reprise.md** (git mv), la collecte des commandes
+  glisse au quatrième rang (04_sales_collection.md — le titre relu
+  « la gestion des commandes industrielles » à son ouverture) ;
+  l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2
+  banque · 3 reprise · 4 commandes · 5 projets · 6 repas ; le dépôt
+  à venir : examples/03_reprise/. Les onze questions du cadrage
+  restent posées.
+- **2026-09-03 (suite 2) — 03_reprise devient 03_dwh (D857 amendée
+  en place).** « Renomme plutôt 03_reprise en 03_dwh » — la maison
+  prend le nom de l'entrepôt (dwh — data warehouse, la posture 1 de
+  D180), pas celui du geste de conversion qui l'alimente :
+  usecases/03_dwh.md (git mv), le dépôt à venir examples/03_dwh/ ;
+  l'échelle se relit 0 enquête · 1 véhicule · 2 banque · 3 dwh · 4
+  commandes · 5 projets · 6 repas. Le titre du cas relu « l'entrepôt
+  de données : la conversion Cegid PMI ».
+- **2026-09-03 (suite 3) — LE MOT DU CAS : ENTREPOT (D857 amendée
+  en place, D858 — 858 décisions).** « tu as raison : "entrepot"
+  est approprié » — la maison finale **usecases/03_entrepot.md**
+  (git mv depuis 03_dwh, jamais commité ; le mot de D180/D756,
+  français sans accent comme vehicule/banque), le dépôt à venir
+  examples/03_entrepot/ ; l'échelle 0 enquête · 1 véhicule · 2
+  banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas. **Et la
+  première réponse du cadrage (D858)** : « La connotation
+  décisionnelle sera portée par cet exemple pour mettre en avant
+  la construction de dashboard, de génération de documents, de
+  listes… » — la restitution sur les données converties (les
+  tableaux de bord D554–D558, les documents D212/D559–D565, les
+  listes D441–D447) ; le cinquième morceau proposé devient « le
+  pilotage et la restitution ». Les dix autres questions restent
+  posées.
+- **2026-09-03 (suite 4) — LE CONTEXTE DU CAS 3 (D859, 859
+  décisions).** « Commençons par le contexte » — la capacité
+  montrée (la migration d'un connecteur à un autre avec un
+  mapping, des règles de conversion et des règles de
+  vérification), les trois visées définies par l'auteur
+  (standardiser = le bon module et la bonne entité ; harmoniser =
+  convertir pour extraire l'utile ; fiabiliser = juste ET
+  accessible à la bonne personne — les droits de consultation sur
+  les entités et les champs, de l'opérateur aux dirigeants), l'état
+  de la qualité et de l'avancement vers le destinataire capable de
+  corriger l'origine (D177/D179/D406/D666), l'historique des
+  changements de valeur sur certaines entités (D411–D413/D672), le
+  tableau de bord des indicateurs de pilotage dès que les données
+  sont disponibles, **le périmètre borné à quatre domaines** (les
+  données techniques — articles, gammes & nomenclatures, tarifs ;
+  les clients et les fournisseurs ; les commandes de vente et
+  d'achat ; les stocks et les mouvements). Le texte mot pour mot
+  dans usecases/03_entrepot.md, la lecture au registre visée par
+  visée ; les questions 1, 5, 7 (la posture) et 9 (la continuité)
+  répondues, les morceaux proposés nourris (les groupes, les
+  droits, history:, le tableau de bord). Restent les questions 3–4
+  (le réel), 6, 7 (les exemples), 8, 9 (la fréquence), 10, 11.
+- **2026-09-03 (suite 5) — LES DEUX STORAGES DU CAS 3 (D860, 860
+  décisions).** « L'instance Cegid est le schéma d'une instance
+  SQLServer. L'entrepôt de données est un schéma PostgreSQL. » —
+  le connecteur cegid (storage sqlserver en lecture seule D175, un
+  schéma de l'instance, les tables du périmètre à la carte
+  entities: D828/D829, l'ossature de source/ du réel D653) et le
+  connecteur entrepot (storage postgresql, l'entrepôt = un schéma —
+  l'instance du contrat D680, la bascule par schéma D674) ; les
+  deux classes consignées (D613/D619) exercées pour la première
+  fois par un exemple (le domestique portait sqlite D729). La
+  question 3 répondue en partie (restent la version, l'accès, le
+  volume) ; la question 4 (le schéma réel + l'échantillon) demeure
+  la clé.
+- **2026-09-03 (suite 6) — LA COUVERTURE À DEUX ÉTAGES (D861, 861
+  décisions).** « Pour commencer, l'objectif est de couvrir toutes
+  les tables et tous les champs de la source » — source/ décrit
+  le schéma SQL Server entier, le hors-périmètre ignored (D657) ;
+  l'anomalie remontée pour toute table ou tout champ du schéma
+  réel absent de la description (D653, à l'ingestion et à chaque
+  migrate ; le rapport au technicien D179) ; l'état de la
+  couverture du schéma sur la description (décrit et migré /
+  ignoré / absent — la place des ignorés dans le taux à
+  confirmer), l'état de la couverture des données sur le nombre de
+  lignes de chaque table (le filter: D663 hors taux) ; les deux
+  états = des données du module migration (D666/D668). La version
+  fixée : Cegid PMI 16.17. Le usecase au niveau (le contexte, les
+  morceaux 3 et 5).
+- **2026-09-03 (suite 7) — LA COMPLÉTUDE ET LA COUVERTURE SCINDÉES
+  (D862, 862 décisions).** « Ta proposition de scinder le taux de
+  couverture et le taux de complétude me convient et me paraît
+  intéressante » — sur le schéma, deux taux : la complétude (les
+  décrits et les ignorés sur le réel — l'écart = les anomalies) et
+  la couverture (les migrés sur le réel — les ignorés à part) ;
+  avec la couverture des données (D861), trois taux au module
+  migration. mapping.md au niveau (la section couverture et
+  pilotage), le usecase aussi.
+- **2026-09-03 (suite 8) — L'ACCÈS ET LE VOLUME (D863, 863
+  décisions — la question 3 soldée).** « L'accès se fait en
+  lecture directe sur la base de production. Le volume concerne
+  quelques dizaines de milliers de lignes d'articles, quelques
+  centaines de clients et de fournisseurs et quelques millions de
+  lignes de mouvements de stocks. » — la production lue en direct
+  (la lecture seule D175 en garde, la fenêtre aux heures creuses,
+  timeout/retry D625), le premier exemple au-delà de l'échelle
+  domestique (le curseur D689, les lots D688), le point posé au
+  mapping : le différentiel D672 sur des millions de mouvements —
+  la fenêtre glissante du filter: D663 si les mouvements sont
+  immuables, à arbitrer sur le réel. Restent les questions 4 (le
+  schéma 16.17 + l'échantillon), 6, 7, 8, 9, 10, 11.
+- **2026-09-03 (suite 9) — LES ÉCARTS DES MOUVEMENTS (D864, 864
+  décisions — un manque du socle ouvert).** « Dans le principe,
+  les mouvements de stocks sont immuables, une correction passe
+  par un contre-mouvement. Malheureusement, dans certains cas, des
+  outils "maisons" apportent des ajustements sur la donnée
+  directement... L'idée est de consulter les écarts... L'analyse
+  des écarts est un sujet qui doit être couvert par Syncytium. » —
+  la fenêtre glissante écartée (aveugle aux ajustements directs),
+  la détection exhaustive et légère, l'analyse des écarts = un
+  sujet du socle. **Deux manques en proposition** (le détail au
+  usecase) : M1 la détection à l'échelle — l'empreinte de la ligne
+  source dans la provenance (D178 étendue), la comparaison clé +
+  empreinte avant tout mapping (nouveaux/modifiés/disparus),
+  l'empreinte calculée en natif par la classe (D681–D684), la
+  relecture des seuls changés (D672 demeure en seconde
+  comparaison), le pré-contrôle par partition (partition: sur
+  l'entité source) ; M2 la consultation — les écarts = des données
+  du module migration, immutable: sur l'entité source (l'écart =
+  une anomalie rapportée D406), les surfaces et le drill-down vers
+  l'historique D168. **Quatre pièces attendent l'arbitrage.**
+- **2026-09-04 (pause) — LA SÉANCE S'ARRÊTE SUR LE CADRAGE DU CAS 3
+  (864 décisions).** Le mot `immutable` relu à la demande de
+  l'auteur : déjà pris une fois, sur la référence (`check:
+  selection | immutable`, D395–D396 — la condition du filtre qui
+  ne se relâche jamais) ; ailleurs descriptif seulement (les
+  messages « immuables (append-only) », la trace D153) ;
+  **`append_only: true` proposé** pour l'entité source (le mot que
+  le registre emploie déjà, sans homonymie — D461/D840). **La
+  reprise, au prochain point : (1) l'arbitrage des quatre pièces de
+  D864** — l'empreinte dans la provenance, le pré-contrôle par
+  partition, le mot (`append_only` ou `immutable`), les écarts
+  comme entités du module migration — **; (2) les questions
+  restantes du cadrage** : 4 le schéma réel de la 16.17 et un
+  échantillon (la clé), 6 le modèle cible existant ou à concevoir,
+  7 les exemples de règles, 8 l'enrichissement, 9 la fréquence, 10
+  l'entreprise (l'authentification, le smtp, les environnements),
+  11 le hook de type de la date ; **(3) puis le morceau 1**
+  (l'assise). Neuf commits depuis la #40 sur feature/meta-schema —
+  la PR de consolidation sur demande.
+- **2026-09-05 (reprise) — LE RÉEL DU CAS 3 REÇU (D865, 865
+  décisions — la question 4 soldée).** « Voici un fichier EXCEL
+  décrivant la structure de la base de données » puis « un fichier
+  avec des données anonymisées (ces données ne doivent pas être
+  présentes dans les commits... elles sont confidentielles) » —
+  deux classeurs à côté du dépôt, jamais dedans : le schéma 16.17
+  (330 objets, 13 512 colonnes, sans contraintes) et cinq tables
+  anonymisées à cent lignes (ARTICLE, NOMENC, MVTSTO, CLIENT,
+  FOURNIS — la société 100). La lecture : la convention
+  <XX><K|C|I><T|N|J|S>, la date en nchar(8) AAAAMMJJ (le mask D820
+  suffit — le hook D119 sans objet ici), la société en première
+  clé (le filter: D663), les clés aux colonnes K, MVTSTO SANS clé
+  naturelle visible, les familles E*/L* et U*, les vues de
+  compatibilité de dbo sur les schémas typés, OData. Six questions
+  du réel R1–R6 posées (la clé de MVTSTO + une feuille
+  Contraintes, la vue ou la table, OData/techniques ignorés, les
+  genres de documents et les U*, la date au masque, le rognage
+  nchar par la classe). Les quatre pièces de D864 et le mot
+  restent à arbitrer ; les questions 6–10 demeurent.
+- **2026-09-05 (suite) — R1, R2, R3 ET LA DATE (D866, 866
+  décisions).** La date de D119 tient (« une chaîne de caractères
+  composée uniquement de numérique peut également être vue comme
+  un entier » — le masque lit l'une comme l'autre, R5 refermée) ;
+  R1 : les colonnes K = la clé, aucune clé étrangère (les
+  dépendances déclarées dans source/), MVTSTO sans clé →
+  l'identité par l'empreinte en proposition (key:
+  connector.fingerprint, le patron D849) ; R2 : la vue NOMENC
+  décrite comme une table ; R3 : pas d'ignorance en bloc — les 330
+  objets décrits en entier, toutes colonnes typées, sans pattern ;
+  la couverture relue (complétude = décrit/absent, couverture =
+  migré/décrit sans règle). À trancher : l'état ignoré, le schéma
+  entier dans le dépôt public, MVTSTO à l'empreinte. Restent R4,
+  R6, les quatre pièces de D864 et le mot, les questions 6–10.
+- **2026-09-05 (suite 2) — R4, R5, R6 (D867, 867 décisions).** R4
+  : le périmètre resserré « pour l'exemple » — « uniquement les
+  clients et les fournisseurs, pas les commandes, les offres… je
+  souhaite juste montrer l'utilisation du module migration pour
+  alimenter un entrepôt de données et disposer de la mécanique
+  pour accéder aux données de l'entrepôt et pour disposer de
+  quelques écrans de consultation » (aucun document au mapping, les
+  E*/L* décrites sans règle ; les données techniques et les stocks
+  à clarifier) ; R5 : la date au masque confirmée (« cela peut
+  éviter un hook ») ; R6 : le rognage des blancs = un réglage de
+  la cascade des settings + une facette du champ — trim: true |
+  false proposé, défaut false, le cas à true. Restent à trancher :
+  l'état ignoré, le schéma entier dans le dépôt public, MVTSTO à
+  l'empreinte, le nom trim, les quatre pièces de D864 et le mot,
+  les questions 6–10.
+- **2026-09-05 (suite 3) — L'ANALYSE ITÉRATIVE (D868, 868
+  décisions).** Les points de précision de l'auteur : la source
+  décrite dans la configuration, Syncytium compare le réel à la
+  description et note les écarts au technicien, **jamais de
+  génération** (« chaque table et chaque colonne doivent être
+  comprises et analysées par un technicien » — l'ossature engendrée
+  de D866 retirée), **les non-décrits = des points à creuser** (le
+  marque-page du technicien — ni anomalie D861 ni écart D864), la
+  migration itérative (l'analysé et mappé s'exploite au fur et à
+  mesure). La complétude = l'avancement de l'analyse ; R3 relue
+  (chaque table décrite en entier, la description grandit) ;
+  l'exemple = un état de l'analyse (les tiers décrits, le reste à
+  creuser) — la question du schéma entier au dépôt dissoute.
+  Proposé : ignored = « compris et écarté ». Restent : le périmètre
+  exact, MVTSTO à l'empreinte, le nom trim, les quatre pièces de
+  D864 et le mot, les questions 6–10.
+- **2026-09-05 (suite 4) — R1 REVUE, LES TROIS ÉTATS, NORMALIZE, LE
+  PÉRIMÈTRE, LE JEU DE DONNÉES (D869–D870, 870 décisions).** « Nous
+  décrivons les champs, les clés et les références externes (sous
+  forme de liste ou d'association). Donc, peu importe la
+  codification ou la description des contraintes du schéma. La
+  table MVTSTO dispose bien de clés (avec un I à la place de K) » —
+  identity:, le raccourci de référence, list of/association with
+  déclarés par le technicien dans source/ ; l'empreinte de MVTSTO
+  retirée, la feuille Contraintes sans objet. Les trois états
+  **migré / ignoré / non défini** aux deux grains (« quelques tables
+  à ignorer, pour l'exemple ; les autres en "non défini" ; des
+  colonnes non décrites aussi »). **normalize: <fonction>** (D870)
+  remplace trim — la cascade des settings + la facette du champ,
+  la fonction du catalogue ou d'un hook, `normalize: trim` ici. Le
+  périmètre confirmé (les données techniques, les tiers, les
+  stocks — les commandes sous la réserve de R4, à confirmer) ; le
+  jeu de données de l'exemple sera construit, publiable. Les
+  pièces de D864 en réflexion ; la cible pas encore abordée.
+- **2026-09-05 (suite 5) — L'IDENTITÉ CONTRÔLÉE, NORMALIZE
+  PARAMÉTRÉ, LES COMMANDES DE RETOUR (D871–D873, 873 décisions).**
+  D871 : « la migration doit garantir que la définition de
+  l'identité sur une entité est bien une clé avant de lancer la
+  procédure... uniquement sur les données consultables après
+  l'application du filtre » — le contrôle avant lecture, le
+  manquement arrête et se rapporte, le pendant de D825 sur les
+  données (MVTSTO : le technicien déclare, le contrôle tranche).
+  D872 : normalize: porte une expression sur la valeur — `trim(me)`,
+  `right("0000" + me, 4)` — me = la valeur à l'étage du champ.
+  D873 : « les commandes de vente et d'achat restent au mapping...
+  un lien complet entre les articles, les clients et les
+  fournisseurs » — D859 en entier, R4 levée. Restent : les pièces
+  de D864 (en réflexion), la cible (question 6), 7–10.
+- **2026-09-05 (suite 6) — LE CONTRÔLE DES LIENS (D874, 874
+  décisions).** « Au même titre que le contrôle de l'identité,
+  Syncytium doit inclure le contrôle sur les compositions et les
+  associations » — avant de lancer, sur les données filtrées,
+  chaque lien déclaré dans source/ vérifié sur le réel (tout enfant
+  a son possesseur, toute association et toute référence ont leur
+  cible — l'intégrité référentielle que le schéma ne porte pas),
+  le manquement rapporté au technicien. À préciser : l'arrêt
+  (comme l'identité) ou l'isolement par le mode relative ; la
+  jointure déclarée sur un schéma étranger — au morceau de la
+  source.
+- **2026-09-06 — L'ORPHELIN ISOLÉ, LE CONNECTEUR PORTE LA FACETTE
+  DES TYPES (D875–D876, 876 décisions).** D875 : « l'orphelin est
+  laissé au mode relative qui l'isole. L'enregistrement contenant
+  un orphelin ne sera pas enregistré dans la cible. Une anomalie
+  sera remontée au technicien » — la procédure part, l'orphelin
+  refusé (D177), seule l'identité brisée arrête (D871). D876 : « la
+  description d'un modèle fait référence à différents types dont le
+  connecteur porte la facette » — la composition par les colonnes
+  d'identité aux noms identiques, l'association par une convention
+  de nommage, le composé par la convention qui désigne ses
+  colonnes ; source/ reste logique, D399 tient, le connecteur cegid
+  porte la convention <XX><K|C|I><T|N|J|S><nom> (le nom logique
+  sans préfixe) — la forme à l'assise. Restent : les pièces de D864
+  (en réflexion), la cible (question 6), 7–10.
+- **2026-09-06 (suite) — LA CONVENTION SURCHARGEABLE (D877, 877
+  décisions).** « Si la convention n'est pas possible ou ne
+  convient pas au technicien, la convention pourra être surchargée
+  et cela rendra possible ce point sur des modèles de données
+  autres que ceux portés par Syncytium » — la convention de la
+  classe = un défaut, surchargée au connecteur, à l'entité ou au
+  champ (les colonnes nommées explicitement), le plus proche
+  l'emporte ; source/ décrit tout modèle de données. La forme au
+  morceau de la source.
+- **2026-09-06 (pause) — LA SÉANCE S'ARRÊTE SUR LE CADRAGE DU CAS 3
+  (877 décisions).** Le réel reçu et lu (D865), la source cadrée de
+  bout en bout (D866–D877 : les clés et les références déclarées
+  par le technicien, les trois états migré/ignoré/non défini,
+  l'analyse itérative et les points à creuser, normalize: en
+  expression, le périmètre de D859 en entier, l'identité et les
+  liens contrôlés avant la migration, l'orphelin isolé, la facette
+  des types portée par le connecteur et sa convention
+  surchargeable). **La reprise, au prochain point : (1) les quatre
+  pièces de D864 et le mot (`append_only`) — à la réflexion de
+  l'auteur ; (2) la cible (la question 6) — le modèle existant ou
+  conçu ici, les modules et leurs noms, le degré de
+  standardisation, l'historique et les strates de droits ; (3) les
+  questions 7–10 (les exemples de règles, l'enrichissement, la
+  fréquence, l'entreprise) ; (4) puis le morceau 1 (l'assise) —
+  dont la forme de la convention PMI au connecteur (D876).** Vingt
+  commits depuis la #40 sur feature/meta-schema — la PR de
+  consolidation sur demande.
+- **2026-09-06 (reprise) — LA COMPARAISON PAR BLOCS ET COVERAGE
+  (D878, 878 décisions — D864 soldée).** « Reprenons le D864 » : le
+  rappel des quatre pièces et du mot rendu, puis la remise à plat
+  de l'auteur — la migration compare le converti à la destination,
+  par partition, en cinq blocs (anomalies, création, modification,
+  inchangé, suppression), la synthèse par bloc et par clé = la
+  visibilité sur l'avancement ; trois modes de lecture de
+  l'origine (les nouveaux depuis la dernière lecture, la plage de
+  dates ou de valeurs, la totalité — le défaut) ; « append_only est
+  trop restrictif » ; coverage: sur l'entité source (la clé de
+  partition — une empreinte par clé, la dernière valeur parcourue
+  —, la plage de valeurs) ; le traitement selon la destination
+  (history: → les écarts complètent, stockés dans l'historique ;
+  sans → ils remplacent). Les quatre pièces et le mot soldés, M1 et
+  M2 clos ; la forme key:/range: en proposition au morceau de la
+  source ; mapping.md au niveau. Restent : la cible (question 6),
+  7–10, puis le morceau 1.
+- **2026-09-06 (reprise, suite) — LA FORME DE COVERAGE (D879, 879
+  décisions).** « Pour coverage, ne pas oublier que key peut faire
+  référence à plusieurs champs. Et, range se reporte sur chaque
+  champ » — la carte des champs de partition, chacun avec value:
+  (la nature — month) et range: (la plage — 3m, 10000) ; le
+  croquis key:/range: effacé ; la nuance valeurs / enregistrements
+  d'un numéro à préciser sur la table. mapping.md au niveau.
+- **2026-09-06 (reprise, suite 2) — LA FORME COURTE AU CROCHET
+  (D880, 880 décisions).** « Je propose une forme simplifiée,
+  peut-être plus lisible : coverage: MVCJMVT[month - 3], coverage:
+  ECKTNUMERO[10000] » — le crochet paramètre en ligne (la nature
+  puis la plage en retrait, ou la plage seule), la liste pour
+  plusieurs champs ; la carte de D879 = la forme riche équivalente.
+  mapping.md au niveau.
+- **2026-09-06 (reprise, suite 3) — RESET_COVERAGE (D881, 881
+  décisions).** « Je propose de définir une opération
+  reset_coverage(nom du module, nom de l'entité) qui peut être
+  exécutée régulièrement... du lundi au vendredi un delta, et le
+  dimanche une relecture complète » — l'état de couverture effacé,
+  le migrate suivant relit tout ; planifiable par every: ; la
+  vingtième opération du socle (degré administrator en
+  proposition) ; la relecture du dimanche rattrape les retouches
+  hors de la plage (D864). mapping.md et rights.md au niveau.
+- **2026-09-06 (reprise, suite 4) — LA CIBLE OUVERTE (la question
+  6).** « Passons à la cible » — la proposition posée dans
+  usecases/03_entrepot.md (« La cible — la proposition ») : le
+  principe (pas une copie de PMI — les champs de l'analyse, en
+  français, la société non portée, l'entrepôt en lecture, migrate
+  seul écrit), quatre modules technique/tiers/commande/stock,
+  l'héritage inheritance: (D353, jamais employé) proposé pour
+  client/fournisseur et commande_client/commande_fournisseur, la
+  nomenclature en composition auto-référencée (D135) aux temps en
+  duration, l'adresse en geolocation, les contacts en rgpd:
+  personal, history: sur stock/mouvement/article/tiers, les groupes
+  production/commercial/achats/direction/administration aux champs
+  financiers restreints ; huit choix à arbitrer. **En attente —
+  aucune décision consignée.**
+- **2026-09-06 (reprise, suite 5) — LA CIBLE ARBITRÉE (D882, 882
+  décisions).** Les huit choix tranchés : le modèle conçu ici
+  (cohérent, non exhaustif), quatre modules, la standardisation
+  des cas précédents avec les montants en amount à devise dans la
+  valeur (« des devises différentes »), tiers parent et
+  client/fournisseur par inheritance: (« met en lumière cette
+  fonctionnalité »), les commandes séparées sans héritage,
+  history: partout sauf les mouvements (la nomenclature comprise),
+  les champs financiers restreints, l'entrepôt en lecture seule ;
+  les trois figures du lien (la composition au soft delete,
+  l'association dérivée des commandes d'un tiers/article, le tarif
+  en n-aire D402). **La vérification demandée rendue** : la
+  couverture des types type par type (usecase) — les absents par
+  nature (counter, states:, communication, password, type-hook),
+  à arbitrer (file — le plan par le connecteur file), artificiels
+  (image, thumbnail, uuid, color) ; l'énuméré ajouté au tableau
+  des simples de types.md. La suite : le morceau 2 (le modèle
+  champ par champ) — ou les questions 7–10 d'abord.
+- **2026-09-06 (reprise, suite 6) — LE COUNTER SURCHARGÉ, LE FILE
+  PAR SON CONNECTEUR, L'ÉNUMÉRÉ DES LISTES CLOSES (D883, 883
+  décisions).** Les sans-objet confirmés ; « même si une commande
+  est un counter… lors de la migration, le counter est surchargé »
+  (commande_vente.numero: counter, la valeur écrite par la reprise
+  D175/D173) ; « le type file peut remplir un champ (liste de
+  pièces jointes) via un connecteur file (en complément du
+  connecteur de source) » (article.plans: list of file, D634 — la
+  forme du second connecteur au morceau de la source) ;
+  « l'énuméré est bien présent dans les données PMI » — le type
+  d'article, le code de gestion, la famille, la sous-famille en
+  enum (pas en distinct:). La couverture des types corrigée au
+  usecase : counter et file remontent au tableau.
+- **2026-09-06 (reprise, suite 7) — LE MORCEAU 2 ÉCRIT : LE MODÈLE
+  CHAMP PAR CHAMP (en validation).** « Passons au morceau 2 » —
+  examples/03_entrepot/versions/beta/v1.0.0.0/ : groups.yml (les
+  cinq strates, direction contenant les trois métiers,
+  administration au degré administrator) et les quatre modules,
+  seize entités, cent soixante-huit champs commentés de leur
+  colonne PMI — technique (article, ligne_nomenclature, tranche),
+  tiers (partenaire le parent, client et fournisseur par
+  inheritance: — le premier emploi de D353 —, adresse, contact en
+  rgpd: personal), commande (commande_vente/commande_achat séparées
+  au counter surchargé, ligne_vente/ligne_achat), stock (position,
+  mouvement sans historique, depot, emplacement). Le tarif en
+  n-aire D402, les associations dérivées D405, les composés
+  (geolocation, period, measure, duration, phone, email, url, siret,
+  vat_number, iban, bic, siren calculé), les prix restreints. Deux
+  renommages contre l'éponymie triple (partenaire, position — la
+  leçon D831). **Sept frottements M3–M9 en proposition** (la
+  confidentialité par groupes au champ, l'allow d'étage supérieur,
+  le count conditionnel, l'appartenance à une collection, les
+  sous-items de period, l'entité comme collection, **la grammaire
+  face à YAML** : le modèle passé à PyYAML — deux lignes à
+  guillemets ; **neuf fichiers des exemples validés 01_vehicule et
+  02_banque échouent** au même analyseur, trois causes — le crochet
+  dans une collection en flux, le « : » du .select dans un scalaire
+  nu, le « \. » entre guillemets doubles — à arbitrer).
+- **2026-09-06 (reprise, suite 8) — TIERS ET NIVEAU (D884, 884
+  décisions).** Les premiers retours du morceau 2 : « je préfère
+  TIERS au lieu de PARTENAIRE. Pour Position, je préfère Niveau » —
+  le parent des tiers renommé tiers (tiers/tiers/tiers.yml,
+  l'éponymie triple assumée : le mot juste prime la convention, la
+  nuance de D831), le niveau de stock renommé niveau ; les dossiers
+  déplacés (git mv), les références et les libellés renommés, les
+  trente fichiers revalidés. Le morceau 2 reste en validation.
+- **2026-09-06 (reprise, suite 9) — LA CONFIDENTIALITÉ NOMMÉE
+  (D885, 885 décisions — M3 soldé).** « La confidentialité peut
+  faire référence à un paramétrage dans settings. On exploite une
+  capacité de la configuration » — les profils nommés dans
+  settings.yml (financier, direction, commercial : le niveau × les
+  groupes), la référence au champ par ${settings.confidentiality.
+  financier} (D321/D802) ; settings.yml de la version créé (avec
+  normalize: trim(me) — D872), dix-neuf blocs remplacés, trente et
+  un fichiers valides. Le morceau 2 reste en validation (les choix
+  d'écriture, M4–M9).
+- **2026-09-06 (reprise, suite 10) — LA CASCADE DE L'ALLOW (D886,
+  886 décisions — M4 soldé).** « Un allow au niveau du module me
+  convient. Le allow peut porter sur l'application, le module, une
+  entité ou un champ » — quatre étages, le plus proche l'emporte ;
+  les seize blocs d'entité retirés, les quatre modules portent
+  l'allow en lecture seule ; rights.md au niveau. Restent en
+  validation : les clés d'énumérés, le tarif applicable, M5–M9.
+- **2026-09-07 (pause) — LA SÉANCE S'ARRÊTE SUR LE MORCEAU 2 DU CAS
+  3 EN VALIDATION (886 décisions).** D864 soldée (D878–D881 : la
+  comparaison par blocs, coverage: aux deux formes, reset_coverage),
+  la cible arbitrée (D882–D883), le modèle écrit (trente et un
+  fichiers valides — groups.yml, settings.yml, quatre modules, seize
+  entités, cent soixante-huit champs), les premiers retours
+  consignés (D884 tiers et niveau, D885 la confidentialité nommée,
+  D886 la cascade de l'allow). **La reprise, demain : (1) la suite
+  de la validation du morceau 2** — les clés d'énumérés comme
+  vocabulaire de l'entrepôt, le tarif applicable aux dates dans
+  l'historique, les frottements M5 (le count conditionnel), M6
+  (l'appartenance à une collection), M7 (les sous-items de period),
+  M8 (l'entité comme collection), **M9 (la grammaire face à YAML —
+  les neuf fichiers des exemples validés à corriger sur
+  arbitrage)** ; **(2) les questions 7–10** (les règles,
+  l'enrichissement, la fréquence, l'entreprise) ; **(3) le morceau 1
+  (l'assise)** — dont la convention PMI au connecteur (D876/D877),
+  le lien de settings.yml et de groups.yml depuis version.yml ; puis
+  le morceau 3 (la source). Trente-huit commits depuis la #40 sur
+  feature/meta-schema — la PR de consolidation sur demande.
+- **2026-09-08 (reprise) — LE DÉCOMPTE CONDITIONNEL (D887, 887
+  décisions — M5 soldé).** « Reprenons » : l'index de mémoire
+  ramené à une ligne (hors dépôt) ; le contexte de M5 rendu sur le
+  registre (D580 : le if suffixé sur la valeur, count() nu) et
+  quatre formes pesées ; « je valide le 1 » — la condition seule en
+  argument de count, any, exists ; la doctrine des agrégats
+  consignée. types.md au niveau. Restent en validation : les clés
+  d'énumérés, le tarif applicable, M6–M9.
+- **2026-09-08 (suite) — L'OPÉRATEUR IN (D888, 888 décisions — M6
+  soldé).** « Ma recommandation pour plus de visibilité est : me in
+  fournisseurs » — l'appartenance à une collection par l'opérateur
+  in (l'élément à gauche), porté par le type collection (D581) ;
+  contains, exists(code = me.code) et l'alias de l'élément écartés ;
+  le modèle relu (fournisseur.articles), types.md au niveau.
+  Restent : les clés d'énumérés, le tarif applicable, M7–M9.
+- **2026-09-08 (suite 2) — LA PROJECTION (D889, 889 décisions).**
+  « Ma proposition permet de décliner : if me.code in
+  fournisseurs.code » — le point après une collection projette
+  (fournisseurs.code = la collection des codes), in s'applique à la
+  projection comme aux enregistrements ; types.md au niveau. M7 en
+  attente (start/end proposés).
+- **2026-09-08 (suite 3) — LES SOUS-ITEMS DE LA PÉRIODE (D890, 890
+  décisions — M7 soldé).** Le sujet détaillé sur le registre (D299,
+  D391, D497–D498, D772 ; les cinq lieux où les noms comptent —
+  formules, constructeur, API, export, recherche ; la plage ouverte,
+  la durée dérivée) ; « je valide min, max et gap » — alignés sur
+  range, gap = la durée entre les bornes ; la validation redondante
+  de la nomenclature retirée ; types.md au niveau. Restent : les
+  clés d'énumérés, le tarif applicable, M8–M9.
+- **2026-09-08 (suite 4) — L'AGRÉGAT SUR UNE COLLECTION DÉCLARÉE
+  (D891, 891 décisions — M8 soldé).** « Je valide la 2 » — l'accès
+  retour nommé en association dérivée (article.mouvements, D405),
+  l'agrégat s'y applique (mouvements.max(date if sens =
+  "sortie")) ; l'entité entière n'est pas une collection dans une
+  formule, l'étendue globale reste à l'accès par la clé (D842) ; le
+  modèle relu. Restent : les clés d'énumérés, le tarif applicable,
+  M9.
+- **2026-09-08 (suite 5) — L'ÉCRITURE FACE À YAML (D892, 892
+  décisions — M9 soldé).** Le contexte rendu (trois causes, quatre
+  règles), l'avant-après des neuf cas vérifié à l'analyseur ; « je
+  valide les règles 1 et 2, corrige les neuf fichiers » — les
+  guillemets quand YAML l'exige, la forme bloc préférée ; les neuf
+  fichiers de 01_vehicule et 02_banque corrigés sans toucher au
+  sens (la regex, les items, les quatre .select, les champs à
+  crochet en accolade, les fields des référentiels) ; cent
+  trente-cinq fichiers des quatre exemples valides. entity.md au
+  niveau. Restent en validation : les clés d'énumérés, le tarif
+  applicable.
+- **2026-09-08 (suite 6) — LES CLÉS D'ÉNUMÉRÉS (D893, 893
+  décisions).** Deux exemples rendus pour décider (le type
+  d'article traduit à la règle ; le tarif applicable contre la
+  composition à la date) ; « les clés d'énumérés sont le
+  vocabulaire de l'entrepôt. Pour une manipulation claire, la
+  valeur qui a du sens est à utiliser. Par contre, si la source
+  n'est pas évidente, un mapping sera apporté lors de l'import » —
+  validé. Reste : le tarif applicable ou toutes les dates.
+- **2026-09-08 (suite 7) — LE TARIF EN COMPOSITION À LA DATE (D894,
+  894 décisions).** « L'entrepôt montre les tarifs planifiés avant
+  leur date… une grille tarifaire se définit à l'avance et donne de
+  la visibilité aux commandes futures » — le n-aire s'efface,
+  l'entité tarif (identité tiers, tranche, date_application) en
+  composition de l'article, en_vigueur et planifie calculés ;
+  trente-deux fichiers valides. Le n-aire perd son porteur (un
+  candidat : le niveau par dépôt/emplacement/lot, à arbitrer).
+  **Le morceau 2 est validé de bout en bout** : les huit choix
+  (D882–D883), tiers et niveau (D884), la confidentialité nommée
+  (D885), l'allow en cascade (D886), M5–M9 (D887–D892), les clés
+  d'énumérés (D893), le tarif (D894). La suite : les questions
+  7–10, puis le morceau 1 (l'assise).
+- **2026-09-08 (suite 8) — LE N-AIRE DEMEURE (D895, 895 décisions
+  — D894 retirée).** « Pourquoi m'enlèves-tu le n-aire ? une grille
+  tarifaire est un composé de l'article… ton approche est juste
+  dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas
+  le cas » — le réflexe relationnel consigné (D134 : la matrice est
+  une forme de composition ; D402–D403 : le n-aire et sa cellule) ;
+  la grille = le n-aire de l'article, tiers × tranche ; la dimension
+  du temps à placer dans la grille — trois formes proposées (le
+  temps en dimension du tuple, la liste datée dans la cellule, la
+  grille datée) ; le modèle se relit sur le choix de l'auteur.
+- **2026-09-08 (suite 9) — LA COMPOSITION, NATURELLE AU MODÈLE,
+  TRADUITE AU STOCKAGE (D896, 896 décisions).** « Dans une base de
+  données relationnelle, la traduction du modèle convertira une
+  composition par une table et une clé étrangère. Mais, dans la
+  manipulation du modèle par Syncytium, cela doit être un élément
+  naturel » — les deux plans ; la forme de stockage de la source ne
+  dicte jamais le modèle (l'argument « fidèle à PMI » tombe) ; le
+  choix de l'objet naturel de la grille tarifaire reste à l'auteur.
+- **2026-09-08 (suite 10) — LA GRILLE TARIFAIRE EN HYPERCUBE (D897,
+  897 décisions).** « La forme 1 décrit le lien hypercube que je
+  souhaite mettre en avant… je souhaitais visualiser les évolutions
+  de la grille tarifaire dans le temps » — tarifs: list of
+  [tiers.tiers, technique.tranche, date_application: date], le
+  temps en dimension du tuple (D134 étend D402), la cellule à ses
+  calculés planifie/en_vigueur ; l'entité tarif de D894 retirée ;
+  trente et un fichiers valides ; types.md au niveau. **Le morceau 2
+  est validé** — la suite : les questions 7–10, puis le morceau 1.
+- **2026-09-08 (suite 11) — LA CELLULE EN BLOC SOUS FIELDS (D898,
+  898 décisions).** « Je valide pour fields sous une liste. Dans cet
+  exemple, tu peux enlever planifie et en_vigueur. Valide suffit »
+  — la forme éclatée de D403 nommée ; la cellule du cas allégée
+  (prix, forfait, numéro, valide, commentaire) ; types.md au niveau.
+- **2026-09-08 (pause) — LA SÉANCE S'ARRÊTE SUR LE MORCEAU 2 VALIDÉ
+  (898 décisions).** La journée : l'index de mémoire ramené à une
+  ligne, M5–M9 soldés (D887–D892 — le count conditionnel,
+  l'opérateur in et la projection, min/max/gap, l'agrégat sur une
+  collection déclarée, l'écriture face à YAML et les neuf fichiers
+  corrigés), les clés d'énumérés (D893), la grille tarifaire en
+  hypercube après le détour relationnel (D894 retirée, D895–D898 :
+  la leçon, la doctrine des deux plans, le temps en dimension du
+  tuple, la cellule sous fields:). **La reprise : (1) les questions
+  7–10 du cadrage** — les exemples de règles de vérification,
+  l'enrichissement, la fréquence, l'entreprise (l'authentification,
+  le smtp, les environnements) ; **(2) le morceau 1 (l'assise)** —
+  syncytium.yml, les environnements, versions/, version.yml liant
+  settings.yml et groups.yml, le connecteur cegid (sqlserver, la
+  convention PMI D876/D877, coverage:), le connecteur entrepot
+  (postgresql), le connecteur file des plans (D883) ; **(3) le
+  morceau 3 (la source)**. Cinquante commits depuis la #40 sur
+  feature/meta-schema — la PR de consolidation sur demande.
+- **2026-09-09 — LE LIEN : LA CHAÎNE DES DÉCLARATIONS ÉCRITE.**
+  « Finalisons le 2 avant les questions 7 à 10 » — la passe finale
+  (trente et un fichiers valides, seize entités, deux cent
+  vingt-cinq champs — le compte relu —, cinq renvois à l'analyse
+  de la source) ; puis « entre ta description et l'assise, je ne
+  vois pas le lien » — juste : les modules étaient orphelins (D767).
+  La chaîne écrite sur le patron du véhicule : syncytium.yml →
+  environments/production (logging D830, documentation, settings,
+  connectors) → versions (beta, production, le regex D806) →
+  version.yml (1.0.0.0, les release-notes du cas, settings:,
+  groups:, les quatre modules) ; suivie par script — quarante-deux
+  fichiers, toutes les références résolues, le statut production
+  encore vide (la version est en beta). Les connecteurs décidés
+  (entrepot postgresql D860, cegid sqlserver en direct D863 sans
+  carte entities:, plans file D883) ; **trois formes en
+  proposition** : les clés settings:/groups: de version.yml, le
+  bloc convention: du connecteur cegid (le motif à groupes nommés,
+  identity:, types: — la forme que D876 renvoyait à l'assise),
+  l'absence d'entities: pour un storage base de données.
+  L'authentification et le smtp attendent la question 10.
+- **2026-09-09 (suite) — LE MORCEAU 2 CLOS (D899, 899 décisions).**
+  « Je valide, consigne la clôture du morceau 2. La validation
+  définitive se fera après la relecture complète des fichiers de
+  configuration » — la clôture du morceau (D882–D898, lié), la
+  validation définitive à la relecture de l'auteur. La suite : les
+  questions 7–10 du cadrage, puis le morceau 3 (la source).
+- **2026-09-13 — SECURITY.MD, LA VUE TRANSVERSALE DE LA SÉCURITÉ
+  (D900–D903, 903 décisions).** « Un volet sécurité n'est pas
+  clairement mis à jour. Ajoute un fichier security.md qui reprenne
+  tous les éléments vus depuis le début du projet » — le onzième
+  artefact (Q58) : la doctrine en six principes, la carte en quinze
+  domaines depuis D25, quinze invariants, les points ouverts en deux
+  listes (les propositions non confirmées, le domaine 7 jamais
+  abordé). « Les éléments que j'attendais y sont. Les points à
+  compléter, complétons-les. » Tranchés : `degree:` et
+  `reset_coverage` (D900), `unencrypted:` visible chaque jour
+  (D901), le chiffrement automatisé et le clair refusé au démarrage
+  (D902), la réactivation d'un enregistrement = l'acte exceptionnel
+  de l'administrateur, hors socle et hors hook (D903). La question
+  10 renvoyée au cas 3. **A5 resitué par l'auteur (D904, 904
+  décisions)** : le déterminisme et sa fenêtre sont des propriétés
+  du hook (le code — « une opération est déterministe ou pas, elle
+  ne peut pas changer sans faire changer son code »), jamais
+  surchargeables ; le cooldown est un paramètre d'administration
+  (setting dynamique `operation.cooldown`, surcharge à la
+  déclaration, l'API seule) ; hooks.md corrigé — les clés de juin
+  n'y avaient jamais été transposées. **« Argh… les clés de juin ne
+  tombent pas » (D905, 905 décisions)** : elles sont intrinsèques à
+  l'opération — `execution: once`, `deterministic:`,
+  `deterministic_duration:` au contrat du hook, jamais dans la
+  configuration ; la fusion de D904 défaite ; « ces paramètres
+  doivent être exploités par Syncytium pour mieux gérer le
+  déterminisme avec un cache ou pas » — le hook déclare, le moteur
+  exploite. **La rétention du résultat (D906, 906 décisions)** : « un
+  paramètre d'administration, je valide » — `operation.retention`
+  en setting dynamique (90d), la surcharge à la déclaration ; le
+  partage de juin complet. **Le domaine 7 ouvert — B1 : l'environnement
+  `sandbox` (D907, 907 décisions)** : « un environnement de type
+  sandbox… fermé et sécurisé… le nom d'un environnement de
+  référence… une duplication… puis une migration » — le staging de
+  D112 trouve sa déclaration ; **précisé aussitôt par D908 (908
+  décisions)** : la sandbox est **un statut de `versions/`** (le
+  cinquième dossier, `sandbox.yml` à `environment:` D805), **`from:
+  <statut>/<version>`** nomme l'origine dupliquée puis migrée, une
+  sandbox peut naître d'une sandbox — les migrations par
+  transitivité ; `type:`/`reference:` tombent ; à préciser : `from:`
+  au statut ou à la version, la sandbox dans les transitions D344,
+  les connecteurs sortants, l'éphémérité. **Levés (D909–D911, 911
+  décisions)** : `from:` dans chaque version.yml ; `sandbox → beta |
+  production` par un geste de fichier ; les connecteurs à
+  l'environnement, le mock comme pour beta. **Reste l'éphémérité**
+  (la suppression à l'arrêt ou la conservation jusqu'à la commande
+  — « le fonctionnement de docker » —, la proposition en cours) et
+  l'origine de `uses:` demandée. **Soldés (D912–D913, 913
+  décisions)** : « je valide la seconde option » — l'instance survit
+  à l'arrêt, la suppression par commande ou rétention d'inactivité
+  (`sandbox.retention` 7d), le registre des instances à la santé,
+  quatre gestes (list/remove/prune/reset) ; la sixième clé de juin
+  replacée — `connectors:` au contrat du hook (les connecteurs
+  attendus, nommés et typés par la famille), `uses:` à la
+  déclaration (le lien vers le connecteur de l'environnement),
+  l'ingestion vérifie. **Aucune liaison implicite (D914, 914
+  décisions)** : « facilitateur… mais en contradiction avec un des
+  concepts du projet » — D805, tout lien s'écrit ; `uses:` toujours
+  écrit, le candidat unique nommé par l'erreur d'ingestion. **B1
+  soldé (D907–D914).** **B2 ouvert — D915 (915 décisions)** : « la
+  clé dérive bien de l'environnement + machine. sandbox est un
+  environnement… un rotate est à appliquer sur les clés existantes »
+  — la duplication d'une sandbox re-chiffre sous sa clé, le
+  troisième déclencheur de rotate (D730). **B2 soldé — D916 (916
+  décisions)** : « je valide rotate seul » — l'empreinte porte son
+  algorithme, le rehachage et le re-chiffrement par `rotate` seul,
+  jamais en silence à la vérification ; les standards publiés à Q7.
+  **B3 ouvert — D917 (917 décisions)** : « 1. je valide, 2. je
+  valide » — la session de l'IHM en cookie inaccessible au script,
+  l'API au porteur seul, jamais le cookie ; **B3 soldé — D918 (918
+  décisions)** : « 3. je valide, 4. je valide » — `cors:` à
+  l'environnement (absent = aucune, `*` refusé, la preuve demeure) ;
+  les valeurs toujours en texte, les templates échappés sans HTML
+  brut, le hook d'interface seul code tiers, listé au describe, la
+  page n'autorise que les scripts connus. **B4 soldé — D919 (919
+  décisions)** : « même pour la boucle locale, nous fournirons un
+  certificat. Syncytium pourra fournir un certificat auto-signé » —
+  aucune exemption, HTTPS vérifié au démarrage, le certificat à
+  l'environnement (fourni, proxy, ou auto-signé engendré à
+  l'initialisation). **B5 soldé — D920 (920 décisions)** : « le
+  dépôt… est un dossier… git ou un autre dispositif… en dehors de
+  Syncytium… le commit de git est trop restrictif… une empreinte
+  liée à l'environnement + numéro de version » — l'empreinte du
+  dossier ingéré au registre D326, sous la clé environnement +
+  version ; ma lecture à confirmer : même numéro, autre empreinte =
+  refus, bump. **D921 (921 décisions)** : « dans le cas de sandbox,
+  l'ingestion est un acte d'administration » — le dossier posé ne
+  fait rien, l'administrateur déclenche, tracé. **D922 (922
+  décisions)** : « la recharge est une ingestion limitée à l'usage
+  de la sandbox » — le `reset` de D912 devient `reload`, l'ingestion
+  rejouée, réservée au statut sandbox. **B6 soldé — D923 (923
+  décisions)** : « je valide » — le dossier des fichiers au moteur,
+  jamais servi directement ; tout accès sous la confidentialité du
+  champ et l'appartenance de la ligne ; les noms opaques ; les
+  droits du dossier à l'infrastructure. **B7 soldé — D924 (924
+  décisions)** : « les dépendances seront à afficher dans la
+  documentation auto-générée. Les failles seront identifiées par le
+  dépôt ou par une action extérieure ». **B8 soldé — D925–D926 (926
+  décisions)** : « le journal d'accès reste au proxy » — le journal
+  du moteur porte les événements de sécurité à leur niveau (la table
+  validée), jamais un secret ; **le throttling des traces** (D926) :
+  la première occurrence tracée, les suivantes agrégées (événement,
+  début, fin, nombre) — contre la saturation des journaux. **LE
+  DOMAINE 7 EST COUVERT EN HUIT PRINCIPES (D907–D926)** ; la séance
+  du 13/09 : security.md créé, D900–D926. **D927 (927 décisions)** —
+  ma lecture de D920 (le refus) écartée : « l'empreinte ne tient pas
+  compte de la configuration… uniquement le libellé environnement +
+  version… la configuration [changée] ne sera pas relue, sauf pour
+  sandbox qui nécessitera une réinitialisation… si l'empreinte n'est
+  plus conforme, une trace sera ajoutée » — ni refus ni relecture, la
+  trace réclame le bump, la sandbox se recharge. **D928 (928
+  décisions)** — ma lecture de D910 écartée : « from: doit être
+  supprimé après promotion. Erreur à déclencher avant l'ingestion…
+  le lien est cassé et une erreur est à déclencher » — ni ignoré,
+  ni résolu : deux erreurs. Les huit principes proposés au matin
+  (la sandbox des hooks, le hachage à algorithme porté, le
+  navigateur, HTTPS, l'identité de la version, les fichiers, les
+  dépendances, les journaux) ont tous trouvé leur décision — trois
+  d'entre eux sous une forme que l'auteur a redressée (la sandbox
+  comme statut, la rotation seule, HTTPS sans exemption). rights.md,
+  hooks.md, administration.md, security.md mis au niveau. **La PR #42
+  préparée** (le cas 3 D857–D899 et la sécurité D900–D928, 51
+  commits). **« Dans cette session, je clos le point sécurité.
+  Peut-être ajouterons-nous d'autres points, si nécessaire. » — LE
+  VOLET SÉCURITÉ EST CLOS (928 décisions).** La reprise : les
+  questions 7–10 du cadrage du cas 3, puis le morceau 1 (l'assise),
+  puis le morceau 3 (la source).
+- **2026-09-13 (suite) — LA REPRISE DU CAS 3 : LES QUESTIONS 7 À 10
+  (D929, 929 décisions).** La mémoire compactée à la demande de
+  l'auteur (le fichier du projet ramené de 131 Ko à 18 Ko, l'index à
+  une ligne par sujet). Les quatre questions restantes du cadrage
+  présentées avec une proposition chacune : la vérification = le
+  contrat du modèle cible (D177/D156) et les deux pré-contrôles de la
+  source (D871/D874), sans mécanisme nouveau ; l'enrichissement = les
+  champs qu'aucune règle n'alimente restent intacts (D672 relu), un
+  champ `note_interne` proposé sur `tiers`, ouvert par l'allow au
+  champ (D886) ; le rythme = `every: daily[02:00]` et
+  `reset_coverage: weekly[saturday at 23:00]` à la migration
+  déclarée (D881 — les heures et la clé miennes) ; l'entreprise =
+  `azure_ad` + `smtp_std`, un seul environnement, le rapport par la
+  cascade au module. Sur la question 7, l'auteur demande un exemple :
+  le fil ARTICLE → NOMENC écrit (la source avec `filter:`,
+  `identity:`, le typage en garde D813, les liens déclarés par
+  `columns:` — la première forme de la surcharge D877 —, les règles,
+  la cible déjà écrite). Deux remarques de l'auteur : **« chaque règle
+  de migration a un report. Pas un report général »** — **D929 (929
+  décisions)**, le rapport porté par la règle, ma cascade au module
+  écartée ; et **« quel est l'intérêt du paramètre key ? il fait
+  doublon avec l'identity de technique.article ou avec l'identité de
+  ARTICLE, non ? »** — l'analyse : sur les onze règles à clé des cas 1
+  et 2 comme sur celles du cas 3, `key:` se déduit toujours de
+  l'identité de la cible alimentée par `fields:` ; la proposition de
+  le retirer (D656/D825 à amender, `parent:` demeure) attend
+  l'arbitrage. L'échantillon anonymisé relu en comptes : les dates
+  vides sont des NULL, les identités d'ARTICLE et de NOMENC sont des
+  clés (100/100), NOMENC porte six natures distinctes dont une vide,
+  NOCNQTEUNI vaut zéro sur tout l'échantillon (à creuser au morceau
+  3), ARCTLIB01 est un nchar(30) face au `text[..40]` du modèle. Au
+  passage : la ligne D883 de la table rangée à sa place (après D882),
+  une ligne de titre dupliquée du narratif (D828) retirée.
+- **2026-09-13 (suite 2) — LA FORME DE LA RÈGLE REVUE (D930–D931,
+  931 décisions).** Sur l'exemple de la question 7, trois remarques
+  de l'auteur en chaîne. **D930 (930 décisions)** — « quel est
+  l'intérêt du paramètre key ? il fait doublon avec l'identity » :
+  l'analyse des onze règles à clé des cas 1 et 2 (la clé toujours
+  déduite des champs qui alimentent l'identité de la cible ; les deux
+  règles de mise à jour alimentent l'identité) ; `key:` retirée, D825
+  réécrit (la règle est rapprochable si l'enregistrement construit
+  détermine l'identité de sa cible, sinon création seule ; relative et
+  rejeu sans reset exigent des règles rapprochables — la phrase
+  d'abord écrite, « n'alimente pas l'identité entière », remplacée sur
+  « je ne comprends pas »).
+  **« Dans l'exemple 2, pourquoi proposes-tu un formalisme différent
+  que le cas 2 parent ? »** — mon `produit_fini` à facette `columns:`
+  et mon `to:` en chemin d'agrégat retirés au profit de la carte des
+  cas 1–2. **D931 (931 décisions)** — « pour parent: du mapping, les
+  champs clés sont les champs mappés et non les champs sources… car un
+  champ mappé peut être converti ou transformé avant de vérifier la
+  clé » : la carte par les champs d'identité du possesseur et leurs
+  expressions, le raccourci à un champ conservé, la même carte pour la
+  référence composée et, sur les colonnes, pour le lien à la source
+  (`parent:` le troisième mot propre à source/, la forme de D877).
+  « Je valide. » Réécrits : mapping.md (la forme, les cinq exemples,
+  la règle sans identité, les mots propres), les onze règles des cas
+  1 et 2 (146 fichiers d'exemples valides à PyYAML), le cas 3.
+- **2026-09-13 (suite 3) — LES QUATRE POINTS DE LA QUESTION 7
+  (D932–D934, 934 décisions).** Mes quatre propositions présentées (le
+  mapping sans vérification propre, l'agrégat comme grain, le texte
+  trop long refusé à l'ingestion, la garde à la source) ; l'auteur en
+  redresse deux et en tranche une. **D932 (932 décisions)** —
+  « validation: porte à la source avant l'import, porte à la
+  destination après l'import et à la règle du mapping porte sur chaque
+  ligne de l'import » : la règle a son `validation:`, ma lecture
+  retirée ; la forme sur la règle (les colonnes à nu, `me` le
+  construit) mienne. **D933 (933 décisions)** — l'échec dans une
+  composition : « si un échec est vu sur le parent, tous les
+  composants sont en échec. Si un composant est en erreur et pas sur
+  le parent, le parent est créé sans le composant en erreur. Par
+  contre, la règle de validation sur un enregistrement du parent
+  vérifie le fonctionnement de son enregistrement et de ses enfants.
+  Et, là, c'est l'enregistrement du parent et de tous ses enfants qui
+  sont en échec » — ma conséquence « une cellule fautive retient son
+  article entier » écartée. Le texte trop long : D581 suffit, une
+  précision de mapping.md. **D934 (934 décisions)** — « trim, upper,
+  right, mid, … doivent figurer au catalogue de types.md sur un champ
+  texte » : la table des fonctions du texte écrite (lower, left,
+  length mes ajouts). Le quatrième point, les codes des listes
+  closes : l'exemple donné en séance sur les codes relevés dans
+  l'extraction (le type d'article en deux lettres, la nature de
+  nomenclature en chiffres) — et la découverte que les lettres F/A/S
+  de l'illustration de D893 étaient inventées : corrigées en `<code>`
+  au narratif et au cas 3 ; la décision sur les codes cités dans
+  l'exemple publié attend l'auteur.
+- **2026-09-13 (suite 4) — LE VOCABULAIRE DES LISTES CLOSES (D935,
+  935 décisions).** À l'exemple du quatrième point, l'auteur répond
+  par la table des codes : « AC : Accessoire, CO : Consommable, MI/LI :
+  Libellé, OU : Outillage, PF : Produit fini, PL : Plaque, MO : Main
+  d'œuvre, ST : Sous-traitance, SF : Produit semi fini » — les codes
+  réels sont publiables, les libellés sont les siens ; et la garde
+  confirmée à tous les étages : « si une valeur sort du type énuméré,
+  c'est une erreur ». Mes quatre valeurs du type d'article
+  (fabrique/achete/sous_traite/fantome) quittent le type : le modèle
+  se corrige dès la liste complète — PR et les natures numériques
+  demandés (la suite 5 : elles sont de PMI, sur ARCTFATN).
+- **2026-09-13 (suite 5) — LE CODE DE GESTION (D936, 936
+  décisions).** « fabriqué, acheté, sous-traité ou fantôme sont bien un
+  vocabulaire de PMI sur le champ du code de gestion (ARCTFATN) » — ma
+  note de D935 (« tirées d'un ERP imaginé ») corrigée : les valeurs
+  étaient de PMI, la colonne fausse ; et le code de gestion du modèle
+  (ARCTGSAV, trois valeurs) était une invention. Le modèle redressé :
+  article.type au vocabulaire de D935 (PR à relever), article.gestion
+  sur ARCTFATN (dix codes dans l'échantillon, la table à relever),
+  ARCTGSAV à l'analyse ; 146 fichiers valides.
+- **2026-09-14 — LA NOMENCLATURE REDRESSÉE (D937, 937 décisions).**
+  Trois arbitrages après minuit : « le code PR n'est pas pris en compte
+  ici pour l'exemple. Ces lignes sont des erreurs. La nature numérique
+  de la nomenclature est un champ ignoré. Le type du composant d'une
+  nomenclature est le type de l'article référencé par le composant de
+  la nomenclature. » La ligne de nomenclature du morceau 2 corrigée :
+  la nature calculée depuis `composant.type` (mienne), le composant
+  obligatoire, les deux validations inventées retirées (l'une aurait
+  rejeté les 49 lignes de main d'œuvre de l'échantillon, NOCTCODOPE y
+  étant vide) ; `article.type` élargi à main d'œuvre et sous-traitance,
+  déduit des types de composants de l'échantillon, puis confirmé (« la
+  main d'œuvre, la sous-traitance et les libellés sont bien des
+  articles de PMI ») ; 146 fichiers valides. Reste à la question 7 : la table des codes
+  ARCTFATN.
+- **2026-09-14 (suite) — LE CODE DE GESTION DÉCODÉ (D938, 938
+  décisions).** La table de l'auteur, avec ses trous : « 01 : produit
+  fabriqué, 02 : produit acheté, 03 : ???, 07 : libellé, 09 : , 12 :
+  ???, 14 : quantité supérieure, 17 : inactif, 32 : résultant, 33 :
+  proc ». Le modèle prend les valeurs connues ; 03, 09 et 12 restent
+  des points à creuser — leurs 38 articles de l'échantillon seront des
+  erreurs rapportées jusqu'à l'analyse (D935/D868) ; « proc » à
+  préciser. La question 7 n'a plus de renvoi ouvert : la question 8,
+  l'enrichissement, suit.
+- **2026-09-14 (suite 2) — LE CODE DE GESTION CLOS (D939, 939
+  décisions).** « Les codes existent, sont dans le mapping mais le
+  libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12
+  sont à positionner » — ma conséquence stricte de D938 écartée : les
+  codes sans libellé entrent sous une valeur nommée par le code, le
+  libellé viendra. Le modèle : gestion en douze valeurs (procedure et
+  cg03/cg09/cg12 ajoutés) ; 146 fichiers valides. La question 7 est
+  close ; la question 8 suit.
+- **2026-09-14 (suite 3) — L'ARTICLE EN HIÉRARCHIE (D940, 940
+  décisions).** En clôture de la question 7, l'auteur ouvre le modèle en
+  trois messages : « un article et des dérivés (un par type d'article)
+  », « le code de gestion assurera l'héritage », « un article de type
+  produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La
+  nomenclature n'apparaît pas dans les autres types d'articles ». Mes
+  trois questions arbitrées : les dérivés limités aux trois cités, la
+  nomenclature déclarée sur chacun (mon niveau intermédiaire écarté),
+  la grille tarifaire au parent ; « un peu de liberté » sur les codes —
+  09 = semi-fini et 12 = fantôme, mes hypothèses d'après l'échantillon.
+  Le modèle : technique/{fabrique,semi_fini,fantome}, l'article allégé
+  de sa nomenclature et de ses calculés ; 149 fichiers valides. La
+  question 7 est close ; la question 8, l'enrichissement, attend.
+- **2026-09-14 (pause)** — La séance s'arrête sur la question 7 du
+  cas 3 close (D929–D940 : le rapport par la règle, `key:` retirée,
+  `parent:` par les champs mappés, les trois `validation:`, l'échec en
+  composition, les fonctions du texte, les listes closes et leur
+  vocabulaire, le code de gestion clos, la nomenclature redressée,
+  l'article en hiérarchie). **La reprise : la question 8
+  (l'enrichissement — ma proposition en attente : les champs non
+  alimentés intacts, `note_interne` sur le tiers), puis 9 (le rythme)
+  et 10 (l'entreprise), puis le morceau 3, la source.** À vérifier au
+  morceau 3 : 09 = semi-fini et 12 = fantôme (mes hypothèses de
+  D940). La relecture complète des fichiers de configuration par
+  l'auteur reste la validation définitive du morceau 2 (D899) — 45
+  fichiers dans examples/03_entrepot.
+- **2026-09-15 — LA QUESTION 8, L'ENRICHISSEMENT (D941–D942, 942
+  décisions).** La reprise sur ma proposition : « la doctrine est
+  bonne » (les champs qu'aucune règle n'alimente restent intacts,
+  D672), « le default: répond à ce besoin », et la propriété nouvelle
+  de l'auteur, `unchanged: true/false` — « pour un nouvel
+  enregistrement, la valeur est la valeur par défaut. Si
+  l'enregistrement existe, la valeur du champ reste sa valeur » —
+  **D941**, au socle du champ (types.md, entity.md), l'exemple
+  `note_interne` sur le tiers. Sur l'allow, ma phrase « n'intervient
+  pas dans cette phase » corrigée : « allow s'applique donc comme pour
+  le reste. Un administrateur bypasse les droits existants » —
+  **D942**, rights.md. « Je ne comprends pas ton exemple » : l'exemple
+  reformulé par le scénario de l'acheteur qui annote un fournisseur et
+  dont la note survit à la nuit. 149 fichiers valides. La suite : la
+  question 9, le rythme.
+- **2026-09-15 (suite) — LE RYTHME, DES OPÉRATIONS PÉRIODIQUES
+  (D943, 943 décisions).** « every: peut, à mon avis, être couvert par
+  une opération périodique telle que nous l'avons déjà il y a qq
+  semaines » — mes deux clés sur la migration déclarée retirées ; le
+  delta nocturne et la relecture complète sont deux opérations
+  automatiques au calendaire (D428/D434) composant les hooks du socle
+  (D609) ; la forme (le bloc operations: de la migration, migrate sans
+  paramètre, reset_coverage par entité partitionnée) mienne ; les
+  heures à fixer avec l'entreprise. La question 9 est répondue ; la
+  question 10 suit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

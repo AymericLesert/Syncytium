@@ -8,10 +8,9 @@
 
 identification:
   to: transport.vehicule
-  key: immatriculation
   fields:
     nom:        nom                 # la marque et le modèle, ensemble (B1)
-    immatriculation: immatriculation
+    immatriculation: immatriculation   # l'identité alimentée = la clé du rejeu (D654/D930)
     photo:      photo               # l'image embarquée de la feuille (R8)
     mode_achat: mode_achat
     lieu_achat: lieu_achat

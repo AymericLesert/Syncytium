@@ -1,0 +1,467 @@
+# --- l'identité (ARKTCODART, ARKTCOMART) ---
+
+code:
+  # ARKTCODART nchar(18)
+  type: text[..18]
+  required: true
+  label:
+    fr: Code article
+  placeholder:
+    fr: PIE-00123
+  hint:
+    fr: Le code de l'article chez PMI — avec son complément, il l'identifie.
+
+complement:
+  # ARKTCOMART nchar(6) — souvent vide ; l'identité le comprend
+  type: text[..6]
+  label:
+    fr: Complément
+  hint:
+    fr: Le complément du code — vide pour la plupart des articles.
+
+# --- la désignation (ARCTLIB01, ARCTLIB02) ---
+
+libelle:
+  # ARCTLIB01
+  type: text[..40]
+  required: true
+  label:
+    fr: Libellé
+  placeholder:
+    fr: Bride acier 40 mm
+  hint:
+    fr: La désignation principale.
+
+libelle_secondaire:
+  # ARCTLIB02
+  type: text[..40]
+  label:
+    fr: Libellé secondaire
+  hint:
+    fr: La seconde ligne de désignation, souvent une précision technique.
+
+# --- la classification — les listes closes de PMI en énumérés (D883) ;
+# les clés sont celles de l'entrepôt, les codes PMI s'y traduisent au
+# mapping (le morceau 4) ---
+
+type:
+  # ARCTTYPART nchar(2) — le type d'article : le vocabulaire donné par
+  # l'auteur (D935), les codes PMI (AC, CO, MI/LI, MO, OU, PF, PL, SF,
+  # ST) traduits à la règle du mapping (D893) ; le code PR n'est pas
+  # pris en compte pour l'exemple : ces lignes sont des erreurs (D937)
+  type: enum
+  required: true
+  label:
+    fr: Type d'article
+  hint:
+    fr: Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un semi-fini, de la main d'œuvre, de la sous-traitance.
+  values:
+    accessoire:
+      label:
+        fr: Accessoire
+    consommable:
+      label:
+        fr: Consommable
+    libelle:
+      label:
+        fr: Libellé
+      description:
+        fr: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
+    outillage:
+      label:
+        fr: Outillage
+    produit_fini:
+      label:
+        fr: Produit fini
+    plaque:
+      label:
+        fr: Plaque
+    semi_fini:
+      label:
+        fr: Produit semi-fini
+    # les composants de nomenclature référencent des articles de ces deux
+    # types — « la main d'œuvre, la sous-traitance et les libellés sont
+    # bien des articles de PMI » (D937, confirmé le 14/09)
+    main_oeuvre:
+      label:
+        fr: Main d'œuvre
+    sous_traitance:
+      label:
+        fr: Sous-traitance
+
+famille:
+  # ARCTCODFAM nchar(4) — la liste close se relève à l'analyse (D883)
+  type: enum
+  required: true
+  label:
+    fr: Famille
+  hint:
+    fr: La famille de l'article — les valeurs de la liste close de PMI.
+  values:
+    matiere:
+      label:
+        fr: Matière première
+    composant:
+      label:
+        fr: Composant
+    produit_fini:
+      label:
+        fr: Produit fini
+    consommable:
+      label:
+        fr: Consommable
+
+sous_famille:
+  # ARCTCOSFAM nchar(4)
+  type: enum
+  label:
+    fr: Sous-famille
+  hint:
+    fr: Le second niveau de classification.
+  values:
+    acier:
+      label:
+        fr: Acier
+    aluminium:
+      label:
+        fr: Aluminium
+    plastique:
+      label:
+        fr: Plastique
+    visserie:
+      label:
+        fr: Visserie
+    autre:
+      label:
+        fr: Autre
+
+gestion:
+  # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938/D939) : la
+  # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07
+  # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 procédure ;
+  # 03, 09 et 12 existent et se traduisent, mais leur libellé n'existe
+  # pas encore : la valeur par défaut nommée par le code (D939) — à
+  # nommer à l'analyse ; avec « un peu de liberté » (D940), 09 = le
+  # semi-fini et 12 = le fantôme sont les hypothèses de l'exemple, tirées
+  # de l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 ;
+  # 03 reste CG03 ; le sous-traité, le vocabulaire de PMI hors
+  # échantillon (D936) ; la traduction des codes à la règle du mapping
+  # (D893). Le code de gestion assure l'héritage (D940) : fabrique (01),
+  # semi_fini (09) et fantome (12) sont les dérivés de l'article
+  type: enum
+  label:
+    fr: Code de gestion
+  hint:
+    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, procédure, et trois codes en attente de libellé.
+  values:
+    fabrique:
+      label:
+        fr: Produit fabriqué
+    achete:
+      label:
+        fr: Produit acheté
+    sous_traite:
+      label:
+        fr: Sous-traité
+    fantome:
+      label:
+        fr: Fantôme
+      description:
+        fr: Un niveau de nomenclature sans existence en stock — le code 12 de PMI, l'hypothèse de l'exemple (D940).
+    semi_fini:
+      label:
+        fr: Produit semi-fini
+      description:
+        fr: Un produit fabriqué pour entrer dans d'autres produits — le code 09 de PMI, l'hypothèse de l'exemple (D940).
+    libelle:
+      label:
+        fr: Libellé
+    quantite_superieure:
+      label:
+        fr: Quantité supérieure
+    inactif:
+      label:
+        fr: Inactif
+    resultant:
+      label:
+        fr: Résultant
+    procedure:
+      label:
+        fr: Procédure
+    # les codes dont le libellé n'existe pas encore (D939) : la valeur par
+    # défaut porte le code — à nommer à l'analyse
+    cg03:
+      label:
+        fr: CG03
+      description:
+        fr: Le code de gestion 03 de PMI — le libellé n'existe pas encore.
+
+matieres:
+  # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)
+  type: list of text[..6]
+  label:
+    fr: Codes matière
+  hint:
+    fr: Les matières de l'article — jusqu'à neuf chez PMI.
+
+# --- les unités et les dimensions ---
+
+unite_stock:
+  # ARCTUNISTO nchar(2)
+  type: text[..2]
+  required: true
+  label:
+    fr: Unité de stock
+  placeholder:
+    fr: PC
+  hint:
+    fr: L'unité dans laquelle l'article est tenu en stock.
+
+unite_commande:
+  # ARCTUNICDE
+  type: text[..2]
+  label:
+    fr: Unité de commande
+
+poids:
+  # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391)
+  type: measure
+  units: [kg, g]
+  label:
+    fr: Poids unitaire
+  hint:
+    fr: Le poids d'une unité — en kilogrammes.
+
+longueur:
+  # ARCNLONGUE
+  type: measure
+  units: [mm]
+  label:
+    fr: Longueur
+
+largeur:
+  # ARCNLARGEU
+  type: measure
+  units: [mm]
+  label:
+    fr: Largeur
+
+epaisseur:
+  # ARCNEPAISS
+  type: measure
+  units: [mm]
+  label:
+    fr: Épaisseur
+
+volume:
+  # ARCNVOLUNI
+  type: measure
+  units: [dm3, m3]
+  label:
+    fr: Volume unitaire
+
+# --- les codes-barres — la sortie code-barres (D300) se construit sur
+# ces valeurs ---
+
+ean13:
+  # ARCTEAN13
+  type: text[13]
+  mask: "9999999999999"
+  label:
+    fr: EAN 13
+
+# --- le stock de référence ---
+
+stock_minimum:
+  # ARCNSTOMIN
+  type: decimal
+  label:
+    fr: Stock minimum
+  hint:
+    fr: Le seuil de réapprovisionnement.
+
+stock_maximum:
+  # ARCNSTOMAX
+  type: decimal
+  label:
+    fr: Stock maximum
+
+quantite_economique:
+  # ARCNQTECO
+  type: decimal
+  label:
+    fr: Quantité économique
+  hint:
+    fr: La quantité de commande ou de lancement qui minimise le coût.
+
+# --- les prix — les montants en amount à devise dans la valeur (D771/
+# D882) ; les champs financiers restreints aux achats et à la direction
+# (D859 — la confidentialité au champ D25/D364, resserrée par groupes
+# D26) : le profil nommé des settings, référencé par l'interpolation
+# de la configuration (D885 — settings.yml : financier) ---
+
+prix_revient:
+  # ARCNPRS — le prix de revient standard
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label:
+    fr: Prix de revient
+  hint:
+    fr: Le prix de revient standard — réservé aux achats et à la direction.
+
+prix_moyen_pondere:
+  # ARCNPMP
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label:
+    fr: Prix moyen pondéré
+  hint:
+    fr: Le PMP du stock — réservé aux achats et à la direction.
+
+prix_achat:
+  # ARCNPUACH1 — le prix d'achat du premier fournisseur
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label:
+    fr: Prix d'achat
+  hint:
+    fr: Le dernier prix d'achat connu — réservé aux achats et à la direction.
+
+# --- la vie de l'article ---
+
+actif:
+  # ARCTBLOCAG — vide = actif, sinon le motif de blocage
+  type: boolean
+  required: true
+  default: true
+  label:
+    fr: Actif
+  hint:
+    fr: Faux quand PMI bloque l'article.
+
+date_creation:
+  # ARCJCRE — nchar(8) AAAAMMJJ, lue au masque (D820/D866)
+  type: date
+  label:
+    fr: Créé le
+
+date_modification:
+  # ARCJMOD
+  type: date
+  label:
+    fr: Modifié le
+
+plans:
+  # ARCTFICPLA — le nom du fichier plan ; la liste de pièces jointes
+  # remplie par un connecteur file en complément du storage source
+  # (D883 — la forme au morceau de la source)
+  type: list of file
+  extensions: [pdf, dwg, dxf, step]
+  label:
+    fr: Plans
+  hint:
+    fr: Les plans de l'article, lus dans le répertoire des plans.
+
+# --- les liens (D399–D405) ---
+
+fournisseurs:
+  # ARCTNOFOU1, ARCTNOFOU2 — les fournisseurs habituels : l'association
+  # stockée (D400), libre et inter-modules
+  type: association with tiers.fournisseur
+  label:
+    fr: Fournisseurs habituels
+
+# la nomenclature n'est plus ici : elle est portée par les trois dérivés
+# de l'article qui en ont besoin — fabrique, semi_fini, fantome (D940 :
+# « la nomenclature n'apparaît pas dans les autres types d'articles »)
+
+tarifs:
+  # LA GRILLE TARIFAIRE — l'hypercube (D134/D402, la forme 1 de D895
+  # validée par D897) : « le prix unitaire est conditionné par
+  # l'article, le client/fournisseur, une tranche » ET une date
+  # d'application — trois dimensions, tiers × tranche × date, une
+  # cellule par combinaison (D403) ; le temps est une dimension du
+  # tuple (les clés typées de D134 — l'extension de D402 : une
+  # dimension de valeur à côté des entités nommées). La grille se lit
+  # à toute date, le planifié se voit, et « les évolutions de la grille
+  # tarifaire dans le temps » se visualisent (le morceau 5). La forme
+  # relationnelle de D894 (une entité tarif à clé composée) est retirée
+  # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
+  # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
+  # cellule en bloc sous fields: (la forme éclatée de D403, validée par
+  # D898) — sans calculés ici : valide suffit à l'exemple.
+  type: 'list of [tiers.tiers, technique.tranche, date_application: date]'
+  fields:
+    prix:
+      # TACNPU + TACTDEVISE — à devise dans la valeur (D771)
+      type: amount
+      required: true
+      label:
+        fr: Prix unitaire
+    forfait:
+      # TACNFORFAI
+      type: amount
+      label:
+        fr: Forfait
+    numero:
+      # TAKTTARIF nchar(1) — le numéro de tarif de PMI
+      type: text[1]
+      label:
+        fr: Numéro de tarif
+    valide:
+      # TACTVALID
+      type: boolean
+      required: true
+      default: true
+      label:
+        fr: Valide
+    commentaire:
+      # TACTCOMMEN
+      type: text[..20]
+      label:
+        fr: Commentaire
+  label:
+    fr: Grille tarifaire
+
+commandes_vente:
+  # l'association dérivée (D405/D882) — les lignes de commande de vente
+  # qui portent l'article ; la vérité reste la référence de la ligne
+  type: association with commande.ligne_vente if article = me
+  label:
+    fr: Lignes de commande de vente
+
+commandes_achat:
+  type: association with commande.ligne_achat if article = me
+  label:
+    fr: Lignes de commande d'achat
+
+mouvements:
+  # l'accès retour aux mouvements de l'article (D394), nommé en vue
+  # dérivée (D405) — l'agrégat d'une formule s'applique à une
+  # collection déclarée, jamais à l'entité entière (D891)
+  type: association with stock.mouvement if article = me
+  label:
+    fr: Mouvements de stock
+
+# ------ Champs calculés ------
+
+# les calculés de la nomenclature (composants, opérations, temps de
+# gamme) vivent avec elle, chez les trois dérivés (D940)
+
+dormant:
+  # le tableau de bord (D858/D859) — l'article sans mouvement depuis six
+  # mois ; le contexte courant (D588) donne la date du jour
+  type: boolean
+  formula: context.now - derniere_sortie > 180d if derniere_sortie != null
+  label:
+    fr: Dormant
+  hint:
+    fr: Aucune sortie de stock depuis six mois.
+
+derniere_sortie:
+  # la date du dernier mouvement de sortie — sur l'association dérivée
+  # mouvements (D891), le if suffixé sur la valeur (D580)
+  type: date
+  formula: mouvements.max(date if sens = "sortie")
+  label:
+    fr: Dernière sortie

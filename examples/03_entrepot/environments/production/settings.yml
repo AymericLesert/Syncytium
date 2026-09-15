@@ -1,0 +1,4 @@
+# Les éléments de configuration non versionnés de l'application, propres
+# à l'environnement de production. Rien pour le moment : les réglages de
+# la version (la normalisation, les profils de confidentialité) vivent
+# dans versions/beta/v1.0.0.0/settings.yml (D885).

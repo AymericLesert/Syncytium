@@ -4,8 +4,7 @@
 budget:
   to: banque.compte
   filter: Budget = "OUVERTURE"
-  key: Numero_Compte              # la clé fonctionnelle — la phase 3 la retrouve (D654)
   fields:
-    numero:    Numero_Compte
+    numero:    Numero_Compte        # l'identité alimentée — la phase 3 la retrouve (D654/D930)
     libelle:   Designation
     ouverture: Date_Operation

@@ -189,11 +189,13 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 19 opérations de socle (D574, `migrate` D667,
-`anonymize` D697) sont les hooks embarqués : `create`, `read`,
-`update`, `delete`, `duplicate`, `promote`, `demote`, `generate`,
-`download`, `print`, `send`, `export`, `import`, `report`,
-`restore`, `notify`, `refresh`, `migrate`, `anonymize`. **Chaque
+code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
+`anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :
+`create`, `read`, `update`, `delete`, `duplicate`, `promote`,
+`demote`, `generate`, `download`, `print`, `send`, `export`,
+`import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
+`anonymize`, `reset_coverage` (l'état de couverture d'une entité
+effacé — le `migrate` suivant relit la totalité). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `user` | `manager` | `administrator`, le
 plancher que la déclaration ne peut abaisser ; le groupe
@@ -209,6 +211,41 @@ exigeant l'emporte).
 | `confirm` | la relecture — le message-label (D597) aux valeurs nommées (`nb_creations`, `nb_updates`, `nb_deletes`… — D598), ou un formulaire nourri par la transaction (D600–D601) |
 | `commit` | scelle — et **retourne l'issue** (l'écran, le téléchargement, l'impression, le message, rien — D570/D597) : le moteur lit et déclenche |
 | `rollback` | défait proprement |
+
+**Les propriétés intrinsèques du contrat** — « une opération
+s'exécute et elle possède aussi des propriétés » : ce qui tient au
+code, « pas exposable dans la configuration mais dans le contrat du
+hook » (D699, D904–D905) ; la liste reste ouverte :
+
+| la propriété | le sens |
+|---|---|
+| `degree: user \| manager \| administrator` | le plancher d'autorisation (D697/D699) |
+| `execution: once` | **l'exécution unique** (D57) — pas de rollback des effets, pas de rejeu automatique ; la relance est manuelle, depuis la supervision |
+| `deterministic: true \| false` | **l'opération est déterministe ou pas — « elle ne peut pas changer sans faire changer son code »** (D59/D904) : l'assertion du code — un doublon (même opération, mêmes paramètres) dans la fenêtre reçoit **le résultat mémorisé**, sans ré-exécution ni effet répété |
+| `deterministic_duration: <durée>` | **la fenêtre de mémoïsation** (D59) — « cela dépendra éventuellement de la façon dont elle sera implémentée » : le hook la porte, la configuration ne la surcharge jamais |
+| `connectors: { <nom>: <famille> }` | **les connecteurs attendus pour l'exécution** (D913) — « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution) » : nommés et typés par leur famille (`documents: file`, `mailer: smtp`) ; **la déclaration les lie par `uses:`** au connecteur de l'environnement (D617) ; l'ingestion vérifie la liaison, la famille (D613) et la complétude par environnement ; tout connecteur non attendu est hors de portée (D599) ; **aucune liaison implicite** (D914 — `uses:` s'écrit toujours, D805 ; l'erreur d'ingestion nomme le candidat unique) |
+
+Toutes paraissent au `describe` (D645) ; les noms de juin
+(`deterministe`, `determinisme_duree`) prennent la graphie anglaise
+du catalogue, la sémantique intacte (D905). **Le hook déclare, le
+moteur exploite** (D905) : « ces paramètres doivent être exploités
+par Syncytium pour mieux gérer le déterminisme avec un cache ou
+pas » — Syncytium lit le contrat et en tire sa conduite : le cache
+de mémoïsation tenu pour l'opération déterministe et vidé à
+l'échéance de la fenêtre, aucun cache pour la non-déterministe,
+l'exécution unique sans rejeu. L'invalidation du cache
+est l'acte de l'administrateur (D60 — trois grains : l'opération +
+ses paramètres, l'opération, tout). **Le cooldown, lui, est un
+paramètre d'administration** (D58/D904) : le défaut en setting
+dynamique de l'application (`operation.cooldown`, `1min` — D588),
+la surcharge `cooldown:` à la déclaration ; **l'API seule** — une
+exécution par période, mesurée de la fin de l'exécution au début de
+l'appel suivant, le rappel refusé et journalisé (D43). **La
+rétention du résultat** de même (D55/D906 — « un paramètre
+d'administration, je valide ») : `operation.retention` en setting
+dynamique (`90d`), la surcharge `retention:` à la déclaration, le
+résultat échu purgé. Le partage de juin est complet : quatre
+propriétés au contrat, deux paramètres à l'administration.
 
 Les cinq portées (D570) : l'enregistrement, la liste, la sélection,
 le module, l'application. `commit: auto | confirm` à la déclaration
@@ -244,14 +281,20 @@ s'exécute **dans la même transaction tenue ouverte** (D594).
 operations:
   invoice:
     scope: selection               # les cinq portées (D570)
+    cooldown: 10s                  # l'API seule — fin → début (D58/D904) ; défaut : le setting
+    retention: 30d                 # le résultat consultable (D55/D906) ; défaut : le setting
+    uses:                          # le lien attendu → déclaré (D913)
+      documents: archive           #   le connecteur `archive` de l'environnement (D617)
+      mailer: company_smtp
     commit:
       mode: confirm                # auto | confirm (D596)
       form: default                # la relecture au formulaire (D600)
       message: { fr: "{nb_creations} factures créées" }   # les valeurs nommées (D598)
 ```
 
-Le hook `invoice` (le code) : `execute` crée les factures **dans la
-transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
+Le hook `invoice` (le code) déclare à son contrat `connectors: {
+documents: file, mailer: smtp }` (D913) ; `execute` crée les factures
+**dans la transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
 formulaire et le message ; `commit` scelle et retourne l'issue
 (`download` du PDF, par exemple) ; `rollback` défait si l'utilisateur
 annule.
@@ -409,6 +452,13 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 
 ## Les règles transversales
 
+0. **Le hook d'interface, seul code tiers au navigateur** (D918 —
+   D66/§8.2) : il ne reçoit jamais `private`, il relève de l'UX et
+   jamais de la sécurité (le serveur arbitre), il est **sous la
+   responsabilité du technicien** et **listé par la documentation
+   générée** (`describe`, D645) pour que l'administrateur sache quel
+   code tourne chez ses utilisateurs ; la page n'autorise que les
+   scripts qu'elle connaît.
 1. **La librairie d'exploration** (D572/D599) : le hook lit le modèle
    « de façon transparente » (les noms logiques, jamais le stockage)
    et écrit dans la transaction — **« la librairie mise en place

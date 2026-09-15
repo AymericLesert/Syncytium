@@ -20,7 +20,20 @@ droits à [rights.md](rights.md).*
   `gui.yml` (la présentation), et `operations.yml` quand les
   opérations le méritent ;
 - **le nommage est libre** (D807) — l'éponymie (le fichier au nom de
-  l'entité) est une convention, pas une règle ;
+  l'entité) est une convention, pas une règle ; **le mot juste
+  prime l'éponymie** (D884 — `tiers/tiers/tiers.yml` assumé quand
+  le mot est le bon) ;
+- **l'écriture face à YAML** (D892 — le fichier est du YAML sans
+  format personnalisé, D320) : en contexte bloc, une valeur par
+  ligne, la grammaire s'écrit nue (`libelle: text[..30]`, `- field[nb_jours]`) ;
+  **les guillemets ne s'imposent que dans trois situations** — un
+  crochet de la grammaire à l'intérieur d'une accolade ou d'un
+  crochet YAML, un `: ` à l'intérieur d'une expression (le
+  `.select`, la cellule du n-aire), une regex, aux guillemets
+  simples ; **la forme bloc est préférée** quand la forme en flux
+  imposerait les guillemets (`fields:` en bloc, `items:` à tirets,
+  la longue formule en scalaire `>-`) ; chaque exemple passe un
+  analyseur YAML avant validation ;
 - **l'entité se documente elle-même** — un des piliers : `name`,
   `description`, les `label:` par langue, les `hint:` (la
   description courte — la précision au « (?) » du champ, D840) et
@@ -87,6 +100,7 @@ km_initial:
 | `type:` | le type du catalogue ([types.md](types.md)) — les bornes au nom (`text[..40]`, `integer[0..]`, `date[yyyy-mm]`) ; **la référence** = le nom d'une entité (`transport.revision`) ; **la composition** = `list of <entité>` (le parent déclare, l'enfant ne déclare rien — l'accès montant `owner`) ; **l'association** = `association with <entité>[.<champ>]` | D362, D366, D394–D402, D760–D762 |
 | `required:` | le champ obligatoire — le nul retiré | D373 |
 | `default:` | la valeur de naissance (le statut naît à son `default:` — D424) | D424 |
+| `unchanged:` | `true` : le champ possédé par la cible — la migration ne l'écrit pas, il naît à son `default:` et garde sa valeur, l'écran de saisie reste libre ; une règle de migration qui l'alimente = une erreur d'ingestion ; `false` par défaut | D941 |
 | `formula:` | **le champ calculé** — l'expression (D90), lecture seule, recalculé dès qu'une dépendance change ; les agrégats des collections (`sum`, `max`, `count`… — l'élément en contexte implicite, le `if` conditionnel), les fonctions de type au point (`montant.currency.select(…)`, `nb_jours.days`), **l'accès par la clé** (`owner.consommations[me.numero - 1].date` — l'`identity:` requise, D841), `owner`, `me`, `context` | D255, D298, D580, D588–D593, D772–D773, D841 |
 | `values:` | les valeurs d'un `enum` — chacune porte son `label:` par langue ; sur le champ-statut : les `allow` par état (le CRUD — D422) et le graphe `promote:`/`demote:` (`to:`/`when:` — libre, l'acte, l'automatisme D426–D427) | D422–D427 |
 | `label:` | le libellé par langue (`fr:`) — les colonnes, les formulaires, les exports ; sans lui, le nom nu | D124, D127, D465 |

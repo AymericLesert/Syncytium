@@ -1,0 +1,61 @@
+# Les connecteurs de l'environnement de production (D617 — chaque
+# environnement les siens ; les secrets par variable d'environnement,
+# jamais dans le dépôt — D321).
+
+# L'entrepôt — le storage cible : un schéma PostgreSQL (D860). L'instance
+# du contrat (D680) est ce schéma ; la duplication et la bascule de la
+# migration à chaud (D674) y prennent leur forme native.
+entrepot:
+  type: storage
+  class: postgresql
+  parameters:
+    host: ${ENTREPOT_HOST}
+    database: ${ENTREPOT_DATABASE}
+    schema: entrepot
+    user: ${ENTREPOT_USER}
+  secrets: [ENTREPOT_PASSWORD]
+
+# Cegid PMI — le storage source : le schéma d'une instance SQL Server
+# (D860), lu EN DIRECT sur la base de production (D863), en lecture
+# seule (D175 : le connecteur de reprise est un storage ordinaire qui ne
+# fait que lire — la classe n'écrit jamais chez PMI). Pas de carte
+# entities: (D829 — optionnelle, la base se décrit elle-même) : la
+# comparaison du schéma réel à la description (D861/D868) doit voir
+# toutes les tables, les non définies comprises.
+cegid:
+  type: storage
+  class: sqlserver
+  parameters:
+    server: ${CEGID_SERVER}
+    database: ${CEGID_DATABASE}
+    schema: dbo
+    user: ${CEGID_USER}
+  secrets: [CEGID_PASSWORD]
+  # La facette des types portée par le connecteur (D876) — la convention
+  # de nommage de PMI, <XX><K|C|I><T|N|J|S><nom> (D865), surchargeable à
+  # l'entité ou au champ (D877). LA FORME EST EN PROPOSITION (D876 la
+  # renvoyait à l'assise) : le motif à groupes nommés (D817) découpe la
+  # colonne ; identity: dit les lettres de la clé ; types: la lettre du
+  # type — le type SQL tranche entre entier et décimal pour N.
+  convention:
+    columns: '^(?<prefix>[A-Z]{2})(?<kind>[KCI])(?<type>[TNJS])(?<name>[A-Z0-9]+)$'
+    identity: [K, I]
+    types:
+      T: text
+      N: decimal
+      J: date[yyyymmdd]
+      S: time[hhmmss]
+
+# Les plans des articles — le connecteur file en complément du storage
+# source (D883) : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le
+# contenu du répertoire des plans (D634 — get_file).
+plans:
+  type: file
+  class: file_std
+  parameters:
+    directory: ${PLANS_DIRECTORY}
+
+# L'authentification (D692 — azure_ad, local ?) et le smtp (D626 — la
+# condition indispensable, le relais des rapports) : LA QUESTION 10 DU
+# CADRAGE, à déclarer ici sur la réponse de l'auteur ; la première
+# application d'entreprise de l'échelle ne portera pas none.

@@ -588,7 +588,13 @@ coverage:
   toute opération (D428) ; le rythme type : le delta en semaine, la
   relecture complète le dimanche par un `reset_coverage` planifié
   dans la nuit de samedi — la vingtième opération du socle, au
-  degré `administrator` (en proposition) ;
+  degré `administrator` ; **le rythme se déclare par des opérations
+  périodiques** (D943 — pas une clé de la migration) : le bloc
+  `operations:` de la migration déclarée porte le delta nocturne
+  (`every: daily[02:00]`, `operations: [ migrate ]`) et la relecture
+  complète (`every: weekly[saturday at 23:00]`, `operations: [
+  reset_coverage(MVTSTO), … ]` — par entité partitionnée), le
+  calendaire D434 et la composition des hooks du socle D609 ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton

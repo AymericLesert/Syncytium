@@ -1075,6 +1075,7 @@ Q58) :
 | D940 | **L'article en hiérarchie par le code de gestion — trois dérivés portent la nomenclature, la grille tarifaire reste au parent** (amende D882 pour l'article, applique D143/D353 — la question 7 du cas 3, en clôture) : « dans le modèle de migration, nous pouvons définir un article et des dérivés (un par type d'article) » ; « le code de gestion assurera l'héritage » ; « un article de type produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La nomenclature n'apparaît pas dans les autres types d'articles » ; « les dérivés sont limités à ceux cités » ; « la nomenclature déclarée sur chacun des trois dérivés » ; « la grille tarifaire reste au parent » — `article` le parent instanciable (D143), `fabrique`, `semi_fini`, `fantome` par `inheritance: article`, chacun avec sa composition `nomenclature` et ses calculés ; la règle de migration route par un filtre sur ARCTFATN ; mon niveau intermédiaire écarté. | « Tu peux prendre un peu de liberté » sur les codes : 01 = fabriqué (donné), 09 = semi-fini et 12 = fantôme sont mes hypothèses d'après l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 — cg09 et cg12 de D939 deviennent semi_fini et fantome. Voir §3.2c. |
 | D941 | **L'enrichissement — le champ possédé par l'entrepôt : intact au différentiel, né à son `default:`, protégé par `unchanged:`** (précise D672, ajoute une propriété au socle du champ D364 — la question 8 du cas 3) : « la doctrine est bonne » — le différentiel ne compare que les champs que les règles alimentent, un champ qu'aucune règle n'alimente reste tel quel, `reset: false` la garde ; « le default: répond à ce besoin » — le champ obligatoire naît à sa valeur par défaut ; « si le champ fait partie d'un écran de saisie, la valeur ne doit pas être modifiée… je préconise l'utilisation d'une nouvelle propriété. unchanged: true/false (avec false par défaut). Si l'information est true pour un nouvel enregistrement, la valeur est la valeur par défaut. Si l'enregistrement existe, la valeur du champ reste sa valeur » — la propriété entre au socle du champ, à côté de `default` ; la migration n'écrit jamais un champ `unchanged`, la saisie reste libre (la différence avec `mode: write-once`). | Confirmé le 15/09 : « unchanged est lié à la migration et aux règles de migration. Une règle qui alimente l'un de ces champs serait une erreur d'ingestion. » L'exemple : `note_interne` sur le tiers (D942 pour ses droits). Voir §3.2c. |
 | D942 | **`allow:` s'applique partout ; l'administrateur passe outre** (précise D175/D699/D886 — la question 8 du cas 3) : « sur allow : il n'y a pas de restrictions… une migration est portée par "administrateur". Les interfaces IHM ou API sont utilisées via un compte utilisateur ou administrateur. "allow" s'applique donc comme pour le reste. Un administrateur bypasse les droits existants » — un seul mécanisme sur tous les canaux ; le degré administrator passe outre les `allow` (l'acte tracé, comme le passe-droit du statut D835) ; la migration, opération de ce degré (D701), écrit dans un module en lecture seule sans que les `allow` l'arrêtent ; l'allow au champ (D886) ouvre à la saisie le champ possédé, pour les utilisateurs. | Ma phrase « allow n'intervient pas dans cette phase » corrigée : il s'applique, l'administrateur le passe. Voir §3.2c. |
+| D943 | **Le rythme de la migration = des opérations périodiques, pas une clé de la migration déclarée** (précise D667/D881, applique D428/D434/D609 — la question 9 du cas 3) : « every: peut, à mon avis, être couvert par une opération périodique telle que nous l'avons déjà » — ma clé `every:` (et `reset_coverage:`) sur la migration déclarée retirée ; le delta nocturne et la relecture complète sont deux opérations automatiques au calendaire (D434), dont les effets sont les hooks du socle `migrate` et `reset_coverage` (D609 — la composition déclarative) ; la forme : un bloc `operations:` porté par la migration déclarée, `migrate` sans paramètre (la migration porteuse), `reset_coverage(<entité>)` par entité partitionnée — mienne. | Les heures restent à fixer (la fenêtre des traitements nocturnes de PMI et de la sauvegarde). Voir §3.2c. |
 
 ---
 
@@ -10939,6 +10940,48 @@ lecture seule sans que les `allow` l'arrêtent, non parce qu'elle y
 garde son sens pour l'autre phase : `note_interne` s'ouvre au
 commercial et aux achats, le reste du tiers restant en lecture seule.
 
+**Le rythme de la migration : des opérations périodiques (D943 —
+précise D667/D881, applique D428/D434/D609).** À la question 9, je
+proposais deux clés sur la migration déclarée, `every: daily[02:00]`
+et `reset_coverage: weekly[saturday at 23:00]`. L'auteur : **« every:
+peut, à mon avis, être couvert par une opération périodique telle que
+nous l'avons déjà il y a qq semaines. »** Rien de neuf n'est
+nécessaire : l'opération automatique existe (D428 — avec `when` ou
+`every`, l'opération se déclenche seule), le calendaire riche existe
+(D434 — `daily[02:00]`, `weekly[saturday at 23:00]`), et l'opération
+compose les hooks du socle (D609 — « une opération peut être une
+liste d'opérations disponibles dans le socle »), dont `migrate`
+(D667) et `reset_coverage` (D881) sont. Le delta nocturne et la
+relecture complète du dimanche sont donc deux opérations
+périodiques, non deux propriétés de la migration. *(La forme est
+mienne : le bloc `operations:` porté par la migration déclarée, comme
+l'entité porte le sien (D432) ; `migrate` sans paramètre, la
+migration porteuse étant sa cible ; `reset_coverage(<entité>)` par
+entité partitionnée — les mouvements par mois, les commandes par
+plage de numéros ; les référentiels, relus en totalité chaque nuit,
+n'ont rien à réinitialiser.)* Les heures restent à fixer avec
+l'entreprise : le delta après les traitements nocturnes de PMI et la
+sauvegarde.
+
+```yaml
+# reprise/reprise.yml — la migration déclarée (D662) et ses opérations (D943)
+cegid:
+  connector: cegid
+  mode: relative                        # les conformes portés, les erreurs au rapport (D671)
+  reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent
+  source:
+    - source/.*\.yml
+  mapping:
+    - mapping/[0-9]+_.*\.yml
+  operations:                           # les opérations périodiques de la migration (D428/D609)
+    delta_nocturne:
+      every: daily[02:00]               # le calendaire (D434) — l'heure est à fixer
+      operations: [ migrate ]           # le hook du socle (D667), sur cette migration
+    relecture_complete:
+      every: weekly[saturday at 23:00]  # la nuit de samedi (D881) : le migrate du dimanche relit tout
+      operations: [ reset_coverage(MVTSTO), reset_coverage(ECOMCLI), reset_coverage(ECOMFOU) ]
+```
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -20779,6 +20822,16 @@ avant la synthèse Q16).
   reformulé par le scénario de l'acheteur qui annote un fournisseur et
   dont la note survit à la nuit. 149 fichiers valides. La suite : la
   question 9, le rythme.
+- **2026-09-15 (suite) — LE RYTHME, DES OPÉRATIONS PÉRIODIQUES
+  (D943, 943 décisions).** « every: peut, à mon avis, être couvert par
+  une opération périodique telle que nous l'avons déjà il y a qq
+  semaines » — mes deux clés sur la migration déclarée retirées ; le
+  delta nocturne et la relecture complète sont deux opérations
+  automatiques au calendaire (D428/D434) composant les hooks du socle
+  (D609) ; la forme (le bloc operations: de la migration, migrate sans
+  paramètre, reset_coverage par entité partitionnée) mienne ; les
+  heures à fixer avec l'entreprise. La question 9 est répondue ; la
+  question 10 suit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

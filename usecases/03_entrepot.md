@@ -1086,7 +1086,12 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    D825) ? Le cadre du cas dit `relative`. *Répondue en partie
    (D859) : l'historique des changements de valeur implique
    l'alimentation continue — `relative` et le différentiel ; la
-   fréquence reste à fixer.*
+   fréquence reste à fixer.* *Répondue (15/09, D943) : le delta
+   chaque nuit et la relecture complète du dimanche (D881) sont deux
+   opérations périodiques de la migration déclarée — `every:
+   daily[02:00]` avec `migrate`, `every: weekly[saturday at 23:00]`
+   avec `reset_coverage` par entité partitionnée —, pas des clés de la
+   migration ; les heures à fixer avec l'entreprise.*
 10. **L'entreprise** : l'authentification (`azure_ad`, `local` ?),
     le smtp réel pour les rapports, les groupes (qui reçoit le
     rapport des rejets, qui lance `migrate` — le degré

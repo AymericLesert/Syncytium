@@ -20935,6 +20935,17 @@ avant la synthèse Q16).
   D935, coverage: D880, les trois états ; reprise/reprise.yml avec ses
   opérations D943), puis le mapping (les règles par dérivé D940, les
   report: D929), puis le pilotage.
+- **2026-09-15 (pause)** — « Pour le moment, ça me convient. » La
+  séance s'arrête sur le cadrage du cas 3 soldé (D929–D945 :
+  l'enrichissement et `unchanged:`, l'allow partout, le rythme par des
+  opérations périodiques, la marque `*` et la forme des secrets,
+  l'entreprise — azure_ad, smtp_std, production et staging, le rapport
+  chaque matin). **La reprise : le morceau 3, la source**
+  (`reprise/source/`, puis `reprise/reprise.yml`), puis le mapping,
+  puis le pilotage. Deux hypothèses à vérifier sur le réel : 09 =
+  semi-fini, 12 = fantôme (D940). La relecture complète des 54
+  fichiers de examples/03_entrepot par l'auteur reste la validation
+  définitive du morceau 2 (D899).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

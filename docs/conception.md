@@ -1074,6 +1074,7 @@ Q58) :
 | D939 | **Le code sans libellé entre avec une valeur par défaut nommée par le code** (précise D938 et D893 — clôt le code de gestion, la question 7 du cas 3) : « pour clore les codes de gestion, les codes existent, sont dans le mapping mais le libellé n'existe pas encore. Une valeur par défaut CG03, CG09 et CG12 sont à positionner » — l'énuméré de l'entrepôt reçoit une valeur par code non encore nommé (`cg03`, `cg09`, `cg12`, le libellé = le code, la description le dit), la règle du mapping les traduit, les articles entrent ; le libellé viendra de l'analyse, son changement est une évolution de l'énuméré (D387) ; ma conséquence de D938 (38 articles en erreur) écartée. | Le code 33 entre en `procedure` (« Proc - pour Procédure »). La valeur qui a du sens (D893) reste la règle ; le code lui-même en tient lieu tant que le sens manque. Voir §3.2c. |
 | D940 | **L'article en hiérarchie par le code de gestion — trois dérivés portent la nomenclature, la grille tarifaire reste au parent** (amende D882 pour l'article, applique D143/D353 — la question 7 du cas 3, en clôture) : « dans le modèle de migration, nous pouvons définir un article et des dérivés (un par type d'article) » ; « le code de gestion assurera l'héritage » ; « un article de type produit fabriqué, semi-fini ou fantôme a besoin d'une nomenclature. La nomenclature n'apparaît pas dans les autres types d'articles » ; « les dérivés sont limités à ceux cités » ; « la nomenclature déclarée sur chacun des trois dérivés » ; « la grille tarifaire reste au parent » — `article` le parent instanciable (D143), `fabrique`, `semi_fini`, `fantome` par `inheritance: article`, chacun avec sa composition `nomenclature` et ses calculés ; la règle de migration route par un filtre sur ARCTFATN ; mon niveau intermédiaire écarté. | « Tu peux prendre un peu de liberté » sur les codes : 01 = fabriqué (donné), 09 = semi-fini et 12 = fantôme sont mes hypothèses d'après l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 — cg09 et cg12 de D939 deviennent semi_fini et fantome. Voir §3.2c. |
 | D941 | **L'enrichissement — le champ possédé par l'entrepôt : intact au différentiel, né à son `default:`, protégé par `unchanged:`** (précise D672, ajoute une propriété au socle du champ D364 — la question 8 du cas 3) : « la doctrine est bonne » — le différentiel ne compare que les champs que les règles alimentent, un champ qu'aucune règle n'alimente reste tel quel, `reset: false` la garde ; « le default: répond à ce besoin » — le champ obligatoire naît à sa valeur par défaut ; « si le champ fait partie d'un écran de saisie, la valeur ne doit pas être modifiée… je préconise l'utilisation d'une nouvelle propriété. unchanged: true/false (avec false par défaut). Si l'information est true pour un nouvel enregistrement, la valeur est la valeur par défaut. Si l'enregistrement existe, la valeur du champ reste sa valeur » — la propriété entre au socle du champ, à côté de `default` ; la migration n'écrit jamais un champ `unchanged`, la saisie reste libre (la différence avec `mode: write-once`). | Ma lecture : `unchanged` lie la migration et les règles, non l'utilisateur ; une règle qui alimenterait un tel champ serait une erreur d'ingestion — à confirmer. L'exemple : `note_interne` sur le tiers (D942 pour ses droits). Voir §3.2c. |
+| D942 | **`allow:` s'applique partout ; l'administrateur passe outre** (précise D175/D699/D886 — la question 8 du cas 3) : « sur allow : il n'y a pas de restrictions… une migration est portée par "administrateur". Les interfaces IHM ou API sont utilisées via un compte utilisateur ou administrateur. "allow" s'applique donc comme pour le reste. Un administrateur bypasse les droits existants » — un seul mécanisme sur tous les canaux ; le degré administrator passe outre les `allow` (l'acte tracé, comme le passe-droit du statut D835) ; la migration, opération de ce degré (D701), écrit dans un module en lecture seule sans que les `allow` l'arrêtent ; l'allow au champ (D886) ouvre à la saisie le champ possédé, pour les utilisateurs. | Ma phrase « allow n'intervient pas dans cette phase » corrigée : il s'applique, l'administrateur le passe. Voir §3.2c. |
 
 ---
 
@@ -10921,6 +10922,23 @@ serait une erreur d'ingestion — à confirmer.)* L'exemple l'exerce :
 `unchanged: true`, ouvert au commercial et aux achats (D942) — la
 note de l'acheteur survit à chaque nuit.
 
+**`allow:` s'applique partout, l'administrateur passe outre (D942 —
+précise D175/D699/D886).** J'avais écrit que l'allow n'intervenait
+pas dans la phase de migration. L'auteur redresse : **« sur allow :
+il n'y a pas de restrictions… une migration est portée par
+"administrateur". Les interfaces IHM ou API sont utilisées via un
+compte utilisateur ou administrateur. "allow" s'applique donc comme
+pour le reste. Un administrateur bypasse les droits existants. »**
+Un seul mécanisme, sur tous les canaux : les droits d'action se
+déclarent et se contrôlent de même pour l'IHM, l'API et les
+opérations ; le degré `administrator` passe outre les `allow` —
+l'acte tracé, comme le passe-droit du statut (D835) ; la migration,
+opération de ce degré (D701), écrit dans un module déclaré en
+lecture seule sans que les `allow` l'arrêtent, non parce qu'elle y
+échappe mais parce que son degré les passe. L'allow au champ (D886)
+garde son sens pour l'autre phase : `note_interne` s'ouvre au
+commercial et aux achats, le reste du tiers restant en lecture seule.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -20746,6 +20764,21 @@ avant la synthèse Q16).
   D940). La relecture complète des fichiers de configuration par
   l'auteur reste la validation définitive du morceau 2 (D899) — 45
   fichiers dans examples/03_entrepot.
+- **2026-09-15 — LA QUESTION 8, L'ENRICHISSEMENT (D941–D942, 942
+  décisions).** La reprise sur ma proposition : « la doctrine est
+  bonne » (les champs qu'aucune règle n'alimente restent intacts,
+  D672), « le default: répond à ce besoin », et la propriété nouvelle
+  de l'auteur, `unchanged: true/false` — « pour un nouvel
+  enregistrement, la valeur est la valeur par défaut. Si
+  l'enregistrement existe, la valeur du champ reste sa valeur » —
+  **D941**, au socle du champ (types.md, entity.md), l'exemple
+  `note_interne` sur le tiers. Sur l'allow, ma phrase « n'intervient
+  pas dans cette phase » corrigée : « allow s'applique donc comme pour
+  le reste. Un administrateur bypasse les droits existants » —
+  **D942**, rights.md. « Je ne comprends pas ton exemple » : l'exemple
+  reformulé par le scénario de l'acheteur qui annote un fournisseur et
+  dont la note survit à la nuit. 149 fichiers valides. La suite : la
+  question 9, le rythme.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

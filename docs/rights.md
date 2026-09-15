@@ -79,7 +79,14 @@ cascade de l'allow** (D886 — le cas 3) : le bloc libre se déclare
 règle de ses entités (l'entrepôt en lecture seule : `allow: {
 create: false, update: false, delete: false }` sur chaque module),
 l'entité la précise si elle diffère, le champ porte ses propres
-droits d'action (`update: false` = le champ en lecture seule). **Les
+droits d'action (`update: false` = le champ en lecture seule ;
+`update: [commercial, achats]` = le champ ouvert à ces groupes quand
+le module est en lecture seule — D941/D942). **`allow:` s'applique à
+tous les canaux (D942)** : l'IHM et l'API passent par un compte,
+utilisateur ou administrateur, et **le degré `administrator` passe
+outre les `allow`** — la migration, opération de ce degré (D701),
+écrit dans un module en lecture seule sans que les `allow` l'arrêtent,
+non parce qu'elle y échappe mais parce que son degré les passe. **Les
 droits d'action couvrent les opérations du socle et les opérations
 déclarées** (D691) : le droit d'exécuter se déclare et se contrôle
 comme les autres droits d'action. La réconciliation avec le

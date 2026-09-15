@@ -370,7 +370,8 @@ ultérieure du moteur).
 propres méthodes et fonctions » — la famille contraint le contrat, la
 conformité de la classe se vérifie au chargement. **Et le socle
 commun d'abord** (D621–D630) : toute classe reçoit **sa déclaration
-entière à l'initialisation** — les `parameters:`, les `secrets:` et,
+entière à l'initialisation** — les `parameters:` (les secrets y sont
+les paramètres marqués `*`, D944) et,
 pour les storages sources, **la carte `entities:`** (D828/D829 — le
 mapping entités ↔ fichiers, les options de lecture D845–D848 ;
 optionnelle, les familles sans fichiers l'ignorent) ; **le
@@ -392,7 +393,8 @@ migration à chaud orchestrée par le moteur), smtp (`send`), file
 location (`geocode`/`reverse`), webhook (les entrées, l'abonnement,
 l'authentification obligatoire), siren (`verify`) — sont dans
 [connectors.md](connectors.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
-**les secrets par variable d'environnement chiffrable** (D603), les
+**les secrets par paramètre marqué `*` et variable d'environnement
+chiffrée** (D603/D944), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
 un connecteur** (D606) : les bases du catalogue portent l'instance,
 pas seulement l'échange. **La migration inter-connecteurs** (D606) :
@@ -409,9 +411,10 @@ réplication passive du PCA-PRA (D112–D114).
 connectors:
   location:                        # le nom = le type (D612–D613)
     class: ban            # l'implémentation compatible (D294/D604/D613)
-    parameters: { url: https://api-adresse.data.gouv.fr }
-    secrets: [api_key]             # la référence — la valeur en variable
-                                   # d'environnement, chiffrable (D603)
+    parameters:
+      url: https://api-adresse.data.gouv.fr
+      api_key*: ${BAN_API_KEY}     # la marque * (D944) — la référence seule,
+                                   # la variable chiffrée (D603/D902)
   incoming_orders:
     type: file                     # le type — le contrat de famille (D605/D613)
     class: file_std

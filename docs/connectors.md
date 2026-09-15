@@ -45,12 +45,17 @@ l'ingestion) :
 ```yaml
 # environments/staging.yml
 connectors:
-  main_db: { type: storage, class: postgresql, secrets: [db_password] }
+  main_db:
+    type: storage
+    class: postgresql
+    parameters:
+      password*: ${DB_PASSWORD}       # la marque * (D944) — la variable chiffrée (D902)
   smtp:    { class: smtp_std }        # le simple : le nom = le type (D612)
   location:
     class: ban                        # le géocodage (D294/D604)
-    parameters: { url: https://api-adresse.data.gouv.fr }
-    secrets: [api_key]
+    parameters:
+      url: https://api-adresse.data.gouv.fr
+      api_key*: ${BAN_API_KEY}        # la marque * (D944)
   incoming_orders:
     type: file
     class: file_std
@@ -72,11 +77,15 @@ connectors:
 - **`class:`** — la classe qui remplit le contrat (D613/D615) ; le
   mot `hook` ne paraît pas dans la configuration (D408) ;
 - **`parameters:`** — les propriétés (la forme des settings — D588) ;
-- **`secrets:`** — **la référence seule** : « les secrets peuvent
-  faire référence à une variable d'environnement, et la variable peut
-  être cryptée via une clé construite en fonction de l'environnement
-  et de la machine d'exécution » (D603) — le dépôt versionné (D336)
-  ne porte jamais une valeur en clair ;
+- **les secrets : le paramètre marqué `*`** (D944 — la forme
+  validée, la liste `secrets:` de D603 effacée) : `password*:
+  ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le
+  contrat de la classe, la marque dit la confidentialité (jamais en
+  clair dans un journal), la valeur est **la référence seule** : « les
+  secrets peuvent faire référence à une variable d'environnement, et
+  la variable peut être cryptée via une clé construite en fonction de
+  l'environnement et de la machine d'exécution » (D603) — le dépôt
+  versionné (D336) ne porte jamais une valeur en clair ;
 - **`every:`** — la grammaire D434/D476, « pour les connecteurs qui
   ont besoin d'être régulièrement rafraîchis **ou testés** — par
   exemple un file watcher : la détection de présence d'un fichier, le

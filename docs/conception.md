@@ -1076,7 +1076,7 @@ Q58) :
 | D941 | **L'enrichissement — le champ possédé par l'entrepôt : intact au différentiel, né à son `default:`, protégé par `unchanged:`** (précise D672, ajoute une propriété au socle du champ D364 — la question 8 du cas 3) : « la doctrine est bonne » — le différentiel ne compare que les champs que les règles alimentent, un champ qu'aucune règle n'alimente reste tel quel, `reset: false` la garde ; « le default: répond à ce besoin » — le champ obligatoire naît à sa valeur par défaut ; « si le champ fait partie d'un écran de saisie, la valeur ne doit pas être modifiée… je préconise l'utilisation d'une nouvelle propriété. unchanged: true/false (avec false par défaut). Si l'information est true pour un nouvel enregistrement, la valeur est la valeur par défaut. Si l'enregistrement existe, la valeur du champ reste sa valeur » — la propriété entre au socle du champ, à côté de `default` ; la migration n'écrit jamais un champ `unchanged`, la saisie reste libre (la différence avec `mode: write-once`). | Confirmé le 15/09 : « unchanged est lié à la migration et aux règles de migration. Une règle qui alimente l'un de ces champs serait une erreur d'ingestion. » L'exemple : `note_interne` sur le tiers (D942 pour ses droits). Voir §3.2c. |
 | D942 | **`allow:` s'applique partout ; l'administrateur passe outre** (précise D175/D699/D886 — la question 8 du cas 3) : « sur allow : il n'y a pas de restrictions… une migration est portée par "administrateur". Les interfaces IHM ou API sont utilisées via un compte utilisateur ou administrateur. "allow" s'applique donc comme pour le reste. Un administrateur bypasse les droits existants » — un seul mécanisme sur tous les canaux ; le degré administrator passe outre les `allow` (l'acte tracé, comme le passe-droit du statut D835) ; la migration, opération de ce degré (D701), écrit dans un module en lecture seule sans que les `allow` l'arrêtent ; l'allow au champ (D886) ouvre à la saisie le champ possédé, pour les utilisateurs. | Ma phrase « allow n'intervient pas dans cette phase » corrigée : il s'applique, l'administrateur le passe. Voir §3.2c. |
 | D943 | **Le rythme de la migration = des opérations périodiques, pas une clé de la migration déclarée** (précise D667/D881, applique D428/D434/D609 — la question 9 du cas 3) : « every: peut, à mon avis, être couvert par une opération périodique telle que nous l'avons déjà » — ma clé `every:` (et `reset_coverage:`) sur la migration déclarée retirée ; le delta nocturne et la relecture complète sont deux opérations automatiques au calendaire (D434), dont les effets sont les hooks du socle `migrate` et `reset_coverage` (D609 — la composition déclarative) ; la forme : un bloc `operations:` porté par la migration déclarée, `migrate` sans paramètre (la migration porteuse), `reset_coverage(<entité>)` par entité partitionnée — mienne. | Les heures restent à fixer (la fenêtre des traitements nocturnes de PMI et de la sauvegarde). Voir §3.2c. |
-| D944 | **La marque `*` : la clé confidentielle, illisible dans les journaux** (précise D603/D902 — la question 10 du cas 3) : « dans ma proposition de configuration (du début de nos échanges) les clés secrètes sont décrites par : secrets*: ${AZURE_CLIENT_SECRET}… le "*" après le nom de la clé signifie que la clé de la configuration porte une information confidentielle dont la lisibilité n'est pas autorisée dans les logs » — la convention de l'auteur, absente du registre jusqu'ici, y entre : toute clé de la configuration suffixée `*` porte une valeur confidentielle, jamais écrite en clair dans un journal (D925–D926), et sa valeur `${VAR}` relève du patron des secrets (D902 — la variable chiffrée, le clair refusé). | La forme des secrets de connecteur à arbitrer : la clé `secrets*:` (la forme littérale de l'auteur) ou chaque paramètre confidentiel marqué (`password*: ${CEGID_PASSWORD}`, ma recommandation — le nom du paramètre est le contrat de la classe, le nom de la variable celui du déploiement) ; la liste `secrets:` de D603 s'efface alors. Voir §3.2c. |
+| D944 | **La marque `*` : la clé confidentielle, illisible dans les journaux** (précise D603/D902 — la question 10 du cas 3) : « dans ma proposition de configuration (du début de nos échanges) les clés secrètes sont décrites par : secrets*: ${AZURE_CLIENT_SECRET}… le "*" après le nom de la clé signifie que la clé de la configuration porte une information confidentielle dont la lisibilité n'est pas autorisée dans les logs » — la convention de l'auteur, absente du registre jusqu'ici, y entre : toute clé de la configuration suffixée `*` porte une valeur confidentielle, jamais écrite en clair dans un journal (D925–D926), et sa valeur `${VAR}` relève du patron des secrets (D902 — la variable chiffrée, le clair refusé). | « Forme 2 est validée » (15/09) : chaque paramètre confidentiel marqué — `password*: ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le contrat de la classe, le nom de la variable celui du déploiement ; la liste `secrets:` de D603 s'efface ; D902 se lit « une valeur en clair dans le .env pour une variable référencée par une clé marquée * vaut refus de démarrer ». Voir §3.2c. |
 
 ---
 
@@ -10999,8 +10999,8 @@ jamais écrite en clair dans un journal (le journal moteur et les
 événements de sécurité, D925–D926 ; les traces D703), masquée aux
 surfaces d'administration —, et sa valeur `${VAR}` relève du patron
 des secrets : la variable chiffrée, le clair refusé au démarrage
-(D902). Reste la forme des secrets de connecteur, à arbitrer entre
-la lettre de l'auteur et sa généralisation :
+(D902). La forme des secrets de connecteur, entre la lettre de
+l'auteur et sa généralisation :
 
 ```yaml
 # la forme 1 — la clé secrets*, littérale (l'auteur)
@@ -11025,12 +11025,13 @@ cegid:
                                      # la marque = confidentiel ; la variable = chiffrée (D902)
 ```
 
-*(Ma recommandation : la forme 2 — le nom du paramètre est le
-contrat de la classe (`password`, `client_secret`, `api_key`), le
-nom de la variable celui du déploiement, la marque dit le reste ; la
-liste `secrets:` s'efface, et D902 se lit « une valeur en clair dans
-le `.env` pour une variable référencée par une clé marquée `*` vaut
-refus de démarrer ».)*
+**« Forme 2 est validée. »** Le nom du paramètre est le contrat de
+la classe (`password`, `client_secret`, `api_key`), le nom de la
+variable celui du déploiement, la marque dit le reste ; la liste
+`secrets:` s'efface — connectors.md, hooks.md, rights.md,
+security.md, administration.md et l'exemple réécrits —, et D902 se
+lit « une valeur en clair dans le `.env` pour une variable référencée
+par une clé marquée `*` vaut refus de démarrer ».
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -20892,9 +20893,10 @@ avant la synthèse Q16).
   confidentielle dont la lisibilité n'est pas autorisée dans les
   logs » — jamais consignée jusqu'ici. **D944** : la marque entre au
   registre, pour toute clé de la configuration ; la forme des secrets
-  de connecteur (secrets*: littéral, ou chaque paramètre marqué —
-  ma recommandation) attend l'arbitrage, puis connectors.md,
-  security.md, rights.md et l'exemple suivront.
+  de connecteur : « forme 2 est validée » — chaque paramètre
+  confidentiel marqué (`password*: ${VAR}`) ; connectors.md, hooks.md,
+  rights.md, security.md, administration.md et l'exemple réécrits, la
+  liste secrets: effacée.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

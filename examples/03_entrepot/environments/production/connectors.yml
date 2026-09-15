@@ -1,6 +1,7 @@
 # Les connecteurs de l'environnement de production (D617 — chaque
-# environnement les siens ; les secrets par variable d'environnement,
-# jamais dans le dépôt — D321).
+# environnement les siens ; les secrets = les paramètres marqués *
+# (D944), par variable d'environnement chiffrée, jamais dans le dépôt
+# — D321/D902).
 
 # L'entrepôt — le storage cible : un schéma PostgreSQL (D860). L'instance
 # du contrat (D680) est ce schéma ; la duplication et la bascule de la
@@ -13,7 +14,7 @@ entrepot:
     database: ${ENTREPOT_DATABASE}
     schema: entrepot
     user: ${ENTREPOT_USER}
-  secrets: [ENTREPOT_PASSWORD]
+    password*: ${ENTREPOT_PASSWORD}   # la marque * : confidentiel, la variable chiffrée
 
 # Cegid PMI — le storage source : le schéma d'une instance SQL Server
 # (D860), lu EN DIRECT sur la base de production (D863), en lecture
@@ -30,7 +31,7 @@ cegid:
     database: ${CEGID_DATABASE}
     schema: dbo
     user: ${CEGID_USER}
-  secrets: [CEGID_PASSWORD]
+    password*: ${CEGID_PASSWORD}
   # La facette des types portée par le connecteur (D876) — la convention
   # de nommage de PMI, <XX><K|C|I><T|N|J|S><nom> (D865), surchargeable à
   # l'entité ou au champ (D877). LA FORME EST EN PROPOSITION (D876 la

@@ -66,7 +66,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 | **La traçabilité** | l'historisation = la trace, la provenance persistante, le motif d'audit, les deux comptes | D62, D169, D178, D182, D238, D411–D413, D429 | §3.11 |
 | **L'audit et la détection** | l'audit des lectures, les refus journalisés, le modèle de risque et ses seuils | D41–D43, D47, D50–D51, D97, D702–D704, D740–D741, D925–D926 | [telemetry.md](telemetry.md), §6.4 |
 | **Le RGPD** | le client responsable, le marquage `rgpd:`, l'anonymisation, la rétention, le registre | D16, D137, D139, D695–D698, D703 | [rights.md](rights.md), §6.6 |
-| **Les secrets et le chiffrement** | l'empreinte jamais le clair, le `.env` chiffré, HTTPS sans dérogation, le type chiffrant | D33, D463, D603, D705–D708, D730, D901–D902, D915–D916, D919 | [rights.md](rights.md) |
+| **Les secrets et le chiffrement** | la marque `*` (D944), l'empreinte jamais le clair, le `.env` chiffré, HTTPS sans dérogation, le type chiffrant | D33, D463, D603, D705–D708, D730, D901–D902, D915–D916, D919 | [rights.md](rights.md) |
 | **La disponibilité** | les fusibles (timeout, rate limiting, cooldown), la condition indispensable, le passif, la sauvegarde | D58, D104–D105, D112–D114, D164, D626–D627, D724–D729, D745, D907–D912, D915, D921–D922, D928 | [administration.md](administration.md), §7.3 |
 
 ## L'identité et les comptes
@@ -325,8 +325,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   (D913 — `connectors:` nommés et typés par la famille, liés par
   `uses:` à la déclaration, vérifiés à l'ingestion : le hook ne
   touche que ce qu'il a annoncé).
-- **Les connecteurs** : les secrets par référence à une variable
-  d'environnement (D603 — jamais de valeur en clair au dépôt), les
+- **Les connecteurs** : les secrets par paramètre marqué `*` (D944)
+  et référence à une variable d'environnement (D603 — jamais de valeur
+  en clair au dépôt ni au journal), les
   valeurs à l'environnement (D617), **la condition indispensable**
   (D626 — l'application ne démarre que si le mail à l'administrateur
   est possible), `onerror` gradué (D627 — le mock ou la page de
@@ -458,7 +459,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   write-only (« défini / non défini » en lecture), la saisie masquée
   et double, jamais en liste, recherche, export ni conversion,
   l'empreinte seule aux instantanés, la force par `validation`.
-- **Le patron unique des secrets** (D603, D707–D708) : les variables
+- **Le patron unique des secrets** (D603, D707–D708, D944) : la clé
+  de configuration marquée `*` porte la valeur confidentielle (jamais
+  en clair dans un journal) et référence la variable ; les variables
   d'environnement (`.env`) **jamais versionnées** (D336 — le dépôt
   du client est distinct), **obligatoirement chiffrées** par la clé
   dérivée **environnement + machine** ; `syncytium encrypt <VAR>
@@ -467,8 +470,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   mémoire, le temps de l'appel. Le périmètre : les clés d'API, les
   mots de passe de connecteurs, les clés des types chiffrants.
   **Le wizard d'initialisation chiffre lui-même** les secrets qu'il
-  demande, et **une valeur en clair dans le `.env` vaut refus de
-  démarrer**, la raison et la commande données (D902).
+  demande, et **une valeur en clair dans le `.env`, pour une variable
+  référencée par une clé marquée `*`, vaut refus de démarrer**, la
+  raison et la commande données (D902/D944).
 - **La rotation** (D730) : `syncytium rotate` re-chiffre le `.env`
   et les champs des types chiffrants — au patron de `migrate`,
   tracé ; **déclenchée à chaque restauration** (la machine change, la

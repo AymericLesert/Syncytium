@@ -411,7 +411,8 @@ backup:
 **Le wizard d'initialisation** (D729) demande les secrets et **les
 chiffre lui-même** — l'automatisation que D707 flaguait ; et **au
 démarrage, une valeur en clair dans le `.env`** pour une variable
-déclarée en `secrets:` (D603) **vaut refus de démarrer** : la raison
+référencée par une clé marquée `*` (D944 — l'ex-liste `secrets:` de
+D603) **vaut refus de démarrer** : la raison
 est donnée avec la commande à exécuter (`syncytium encrypt` — le
 patron du diagnostic D745). Le fail-closed jusqu'au fichier de
 secrets. **Et le transit** (D919) : au démarrage, Syncytium vérifie

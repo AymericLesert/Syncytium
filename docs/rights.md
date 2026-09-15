@@ -143,9 +143,10 @@ version) ; la voie déclarée demeure le `demote` d'une version.
 
 ## Les connecteurs et la sécurité (D603, D626, D633, D642)
 
-- **les secrets** : la référence à une variable d'environnement,
-  chiffrable par une clé environnement+machine (D603) — le dépôt ne
-  porte jamais une valeur en clair ;
+- **les secrets** : le paramètre marqué `*` (D944 — `password*:
+  ${VAR}`), la référence à une variable d'environnement chiffrable
+  par une clé environnement+machine (D603) — le dépôt ne porte jamais
+  une valeur en clair, le journal non plus ;
 - **la condition indispensable** (D626) : l'application ne démarre
   que si le mail à l'administrateur est possible — le canal d'alerte
   avant tout ;

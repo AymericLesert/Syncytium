@@ -52,7 +52,10 @@ paye:
 reste_du:
   # B(n) = B(n−1) − F(n−1) du classeur
   type: decimal
-  formula: owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero), loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
+  # le « : » du .select (D833) — le scalaire bloc (la règle 2, D892)
+  formula: >-
+    owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero),
+    loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
   label:
     fr: Reste dû
   hint:

@@ -1,0 +1,149 @@
+# --- l'identité (ECKTNUMERO, ECKTINDICE) ---
+
+numero:
+  # ECKTNUMERO nchar(6) — « une commande est un counter » : le type
+  # déclaré, la valeur écrite par la migration (D883 — le privilège de
+  # la reprise D175)
+  type: counter
+  format: "{counter:000000}"
+  label:
+    fr: Numéro
+
+indice:
+  # ECKTINDICE nchar(3) — la révision de la commande ; les lignes de
+  # PMI ne le portent pas : le point d'analyse relevé (D876)
+  type: text[..3]
+  required: true
+  default: "000"
+  label:
+    fr: Indice
+  hint:
+    fr: La révision de la commande — 000 à l'origine.
+
+# --- le client et les références ---
+
+client:
+  # ECCTCODE nchar(6) — la référence au client (D396) : la jointure par
+  # la clé au mapping (D654)
+  type: tiers.client
+  required: true
+  label:
+    fr: Client
+
+reference_client:
+  # ECCTREFCDE
+  type: text[..20]
+  label:
+    fr: Référence client
+  hint:
+    fr: Le numéro de commande chez le client.
+
+# --- les dates — AAAAMMJJ au masque (D820) ---
+
+date:
+  # ECCJCRE — la date de la commande
+  type: date
+  required: true
+  label:
+    fr: Date
+
+date_echeance:
+  # ECCJECHFOR — l'échéance forcée
+  type: date
+  label:
+    fr: Échéance
+
+derniere_livraison:
+  # ECCJDERBL — la date du dernier bon de livraison
+  type: date
+  label:
+    fr: Dernière livraison
+
+derniere_facture:
+  # ECCJDERFA
+  type: date
+  label:
+    fr: Dernière facture
+
+# --- les conditions ---
+
+devise:
+  # ECCTDEVISE nchar(3) — la devise de la commande ; les lignes la
+  # lisent par owner (D760)
+  type: text[3]
+  required: true
+  label:
+    fr: Devise
+  placeholder:
+    fr: EUR
+
+taux_change:
+  # ECCNTXDEVI — le taux de change de la commande
+  type: decimal
+  decimals: 6
+  label:
+    fr: Taux de change
+
+statut:
+  # ECCTSTATUT nchar(2) — la liste close de PMI en énuméré (D883) ; pas
+  # une machine à états (D882)
+  type: enum
+  required: true
+  label:
+    fr: Statut
+  values:
+    en_cours:
+      label:
+        fr: En cours
+    soldee:
+      label:
+        fr: Soldée
+    annulee:
+      label:
+        fr: Annulée
+
+# --- la livraison (ECCTNOMLIV, ECCTCPLIV, ECCTVILLIV) ---
+
+livraison_nom:
+  type: text[..40]
+  label:
+    fr: Livré à
+
+livraison_adresse:
+  # les lignes de livraison en géolocalisation (D638)
+  type: geolocation
+  label:
+    fr: Adresse de livraison
+
+# --- la composition (D399) ---
+
+lignes:
+  # LCOMCLI — les lignes de la commande ; la suppression de la commande
+  # les emporte, la suppression d'un article ne les touche pas (D882)
+  type: list of ligne_vente
+  label:
+    fr: Lignes
+
+# ------ Champs calculés ------
+
+total:
+  # la somme des montants des lignes — un amount à la devise de la
+  # commande (D771)
+  type: amount
+  formula: lignes.sum(montant)
+  label:
+    fr: Total
+
+nombre_lignes:
+  type: integer
+  formula: lignes.count()
+  label:
+    fr: Lignes
+
+reste_a_livrer:
+  type: decimal
+  formula: lignes.sum(quantite - quantite_expediee)
+  label:
+    fr: Reste à livrer
+  hint:
+    fr: Les quantités commandées non encore expédiées, toutes lignes confondues.

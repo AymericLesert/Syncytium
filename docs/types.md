@@ -21,7 +21,12 @@ composants.md.
   libellés, la description, l'icône ; l'attention aux migrations à
   valeur intercalée), `searchable` (strict / normalized /
   similarity[0.8] / range / mutualizable[nom] — selon le type),
-  `mask`, `report:` (`no` par défaut — D406), la confidentialité
+  `default` (la valeur de naissance — D424), **`unchanged`** (D941 —
+  `true` : le champ possédé par la cible, que la migration n'écrit
+  pas ; il naît à son `default` et garde sa valeur, la saisie restant
+  libre ; une règle de migration qui l'alimente = une erreur
+  d'ingestion ; `false` par défaut), `mask`, `report:` (`no` par défaut —
+  D406), la confidentialité
   (D25/D364), **`rgpd:`** (`personal` / `sensitive` / `consent` —
   D695, l'anonymisation D696), **`trace:`** (`audit` / `limited` —
   D703 ; le sensitive audité d'office), `component`/`style`/`size`
@@ -61,6 +66,7 @@ composants.md.
 | le type | la nature et les facettes propres | le tri, le nul | D |
 |---|---|---|---|
 | `boolean` | les trois états (faux → vrai → nul) ; `required` retire le nul (la recherche strict filtre alors vrai & faux par la case « null ») | null < faux < vrai | D373–D375 |
+| `enum` | les valeurs `values:` — la clé → les libellés, la description, l'icône ; **l'ordre de déclaration = la présentation et le tri** ; **le stockage numérique** (la clé chaîne → un code interne stable — attention à l'ajout intercalé en migration) ; la recherche par le composant multi-sélection ; l'entrée `null:` pour libeller le vide *(la ligne manquait au tableau — relevée par le cas 3, D882)* | le nul en tête | D387–D388 |
 | `text` | la taille `auto` ou `text[30]` (les bornes au nom — D366) ; le masque (`_`, `9`, les littéraux, les classes — il pilote les lignes) ; mono/multi-ligne **déduit de la taille** face au seuil d'instance ; la recherche complète (strict/normalized/similarity/mutualizable) | le nul = la chaîne vide | D259–D265, D366–D370 |
 | `integer` | les bornes au nom (`integer[100]`, `integer[0..100]`, `integer[0..]`) ou `min`/`max` ; **les octets jamais déclarés** — dimensionnés selon les bornes ou les valeurs (« le mode auto ») ; le masque (`000000`, `00 00 00`) ; la recherche `range` | le nul = 0 | D371–D372 |
 | `decimal` | les décimales (le setting ou 2) ; **le stockage exact ou réel** (`storage:` — l'entier aux décimales converties) | le nul = 0 | D376–D378 |
@@ -74,6 +80,27 @@ composants.md.
 | `uuid` | les identifiants externes (les systèmes tiers, les clés de reprise) ; la validation intégrée, le stockage compact ; **la saisie et la lecture en texte formaté** (D499) — l'UUID interne reste hors déclaration (D142) | — | D419, D499 |
 | `password` | la saisie masquée aux garanties structurelles — jamais relue | — | D463 |
 | `color` | **le stockage : un entier** (le RGB(A) assemblé) ; **l'affichage en hexadécimal** (`#RRGGBB`, l'alpha en option) ; **la base des couleurs nommées** → RGB (`red`, `orange`, `green` — celles de `colors:` D467) | le tri sur l'entier, le nul en premier | D496 |
+
+**Les fonctions du texte (D934).** « trim, upper, right, mid, …
+doivent figurer au catalogue sur un champ texte » — le type `text`
+emmène ses fonctions (D579), employées par les règles du mapping, les
+calculés et les normalisations :
+
+| la fonction | le geste | D |
+|---|---|---|
+| `trim(t)` | les blancs de tête et de fin retirés — la normalisation des `nchar` (`normalize: trim(me)`) | D870/D872 |
+| `upper(t)` / `lower(t)` | la casse | D656 |
+| `left(t, n)` / `right(t, n)` | les n premiers / derniers caractères (`right("0000" + me, 4)`) | D870 |
+| `mid(t, début, longueur)` | la sous-chaîne | D934 |
+| `length(t)` | la longueur | D934 |
+| `t1 + t2` | la concaténation | D870 |
+| `t like "regex"` | la comparaison régulière | D818 |
+| `extract(t, "regex")` | l'extraction par la regex — la capture unique, ou plusieurs noms par les groupes nommés | D817 |
+
+*(`lower`, `left`, `length` : mes ajouts, les pendants naturels. La
+troncature d'un texte trop long pour sa cible passe par `left` —
+la conversion avec perte est refusée à l'ingestion, D581, jamais
+implicite.)*
 
 ## Les composés
 
@@ -93,7 +120,7 @@ compose avec le constructeur (D659) :
 | `measure` | les unités : **statiques** (`units: [kg, g, t]`), **la table de référence** (`units: stock.unit`), ou **libres** (défaut) | D391 |
 | `phone` | le national (défaut) ou l'international | D391 |
 | `geolocation` | **les coordonnées longitude/latitude et/ou l'adresse postale normalisée** (D638 — la saisie, le GPS ou le géocodage D294/D637 qui réunit les deux) + **le texte associé** (D392 — l'adresse normalisée en premier visage) ; **le tri = la distance à vol d'oiseau à une focale** (`focus:` au champ ou au setting — défaut : la localisation courante) ; la conversion en texte = le texte associé, sinon les coordonnées standardisées ; `distance`/`euclide` (D579) | D291, D294, D391–D392, D637–D638 |
-| `period` | hérite du format date/heure — le crochet (`period[yyyy-mm]`…) ; **début ≤ fin intégré** ; la recherche `range` en usage roi | D391 |
+| `period` | hérite du format date/heure — le crochet (`period[yyyy-mm]`…) ; **début ≤ fin intégré** ; la recherche `range` en usage roi ; **les sous-items `min`, `max`, `gap`** (D890 — les bornes alignées sur `range`, `gap` la durée dérivée entre elles, nulle si la période est ouverte) ; le constructeur `period(min, max)` | D391, D890 |
 | `email`, `url`, `vat_number`, `siren`, `siret`, `iban`, `bic` | la règle générale — la validation intégrée suffit ; `url` : **le lien en lecture** (le nouvel onglet, l'icône post-zone, l'ellipse en cellule — D563) | D391, D563 |
 | `communication` | le fil (un canal = un champ, non listable — D166) ; `attachments: false` (défaut) ou le type d'attaché à plat ; la visibilité par la confidentialité ; la recherche sur le contenu des messages | D295, D393 |
 | `label` | l'accès au catalogue des labels (D440) ; **le gabarit nommé paramétrable** — `label(mon_nom, { prenom: … })` ou l'enregistrement en paramètre (`label(mon_nom, customer)`) ; l'ordre des mots par langue | D585–D586 |
@@ -102,7 +129,7 @@ compose avec le constructeur (D659) :
 
 | le type | la nature | D |
 |---|---|---|
-| `list of <type simple>` | « la phrase se lit » ; **les facettes du champ s'appliquent à chaque élément** ; les énumérés (`values:`) → la multi-sélection ; **la collection est un type — elle porte les agrégats en méthodes** (`sum`, `count()`, `avg`, `min`/`max`, `first`, `last`, `any`, `exists` — l'élément en contexte implicite) | D296, D362, D580 |
+| `list of <type simple>` | « la phrase se lit » ; **les facettes du champ s'appliquent à chaque élément** ; les énumérés (`values:`) → la multi-sélection ; **la collection est un type — elle porte les agrégats en méthodes** (`sum`, `count()`, `avg`, `min`/`max`, `first`, `last`, `any`, `exists` — l'élément en contexte implicite) ; **la doctrine des agrégats** (D887) : l'agrégat qui porte une valeur se lit « valeur if condition » (`sum(montant if statut = "en_cours")`), celui qui n'en porte pas reçoit la condition seule (`count(nature = "composant")`, `any(…)`, `exists(…)`), `count()` nu = le tout ; **l'appartenance par l'opérateur `in`** (D888) : `<élément> in <collection>` — `me in fournisseurs` ; **la projection** (D889) : `<collection>.<champ>` = la collection des valeurs de ce champ — `me.code in fournisseurs.code`, `lignes.article` | D296, D362, D580, D887–D889 |
 | `range of <type>` | « la déclinaison de `list of` avec 2 contraintes en nombre et en ordre » — deux valeurs, la première ≤ la seconde (la contrainte intégrée) ; **min et/ou max indéfinissables** (la plage ouverte) ; les libellés sur trois éléments (min, value, max) ; **la jauge = un cas particulier d'un range** | D497–D498 |
 
 ## Les liens
@@ -112,7 +139,7 @@ compose avec le constructeur (D659) :
 | la référence — `<module>.<entité>` | « si le type est le nom d'une entité, c'est une référence » (le `to` inutile) ; **l'origine se lit par `me.`** dans le filtre ; `check: selection` (défaut) \| `immutable` ; l'accès retour automatique (la liste nommée) | D394–D398, D216 |
 | la composition — `list of <entité>` | le lien de possession : le parent déclare, l'enfant ne déclare rien ; **l'agrégat = le grain d'écriture** (indivisible) | D399–D400, D420 |
 | l'association — `association with <entité>[.<champ>]` | plusieurs, libres, inter-modules — sans cascade ; reprend les propriétés de la référence (filter/me./check, l'affichage au visage) ; **le champ de destination au point** (D761–D762 — le défaut : le champ au nom de l'entité ; `association with order.billing` à l'ambiguïté) | D400–D401, D761–D762 |
-| le lien n-aire — `list of [a, b]` / `association with [a, b]` | **chaque élément = une combinaison des entités nommées**, des propriétés par entité nommée | D402 |
+| le lien n-aire — `list of [a, b]` / `association with [a, b]` | **chaque élément = une combinaison des entités nommées**, des propriétés par entité nommée ; **une dimension de valeur typée** à côté des entités (D897 — `list of [tiers.tiers, technique.tranche, date_application: date]` : l'hypercube de D134, le temps en dimension) ; la cellule `{ … }` porte ses champs, calculés compris (D403) — **en bloc sous `fields:`** quand elle s'enrichit (D898), l'accolade au cas court | D402, D897–D898 |
 | l'association dérivée — `association with <entité> if …` | la vue navigable, jamais stockée, en lecture — la vérité reste la référence | D405 |
 | l'accès montant | **`owner`** — le possesseur d'une composition (unique — D760/D761) ; l'associé s'atteint **par son champ de référence** | D760–D761 |
 

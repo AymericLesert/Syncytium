@@ -47,7 +47,9 @@ construit et maintenu dans Syncytium** :
 - **la télémétrie** — le dashboard « telemetry » (D736) : les
   usages, la collecte par champ à la demande (voir
   [telemetry.md](telemetry.md)) ;
-- **la santé** (D731/D751) — le dashboard temps réel ;
+- **la santé** (D731/D751) — le dashboard temps réel, **les
+  connecteurs appelés en clair (`unencrypted:`) en évidence**
+  (D901) ;
 - **le backup** (D727/D751) — les archives, le déclenchement ; **la
   restauration n'est pas un écran** : une commande interne de
   Syncytium (D751 — l'application restaurée est peut-être morte, le
@@ -188,6 +190,14 @@ settings:
   passe : le lien de réinitialisation, jamais la valeur ;
 - **`ban`** — le bannissement **sans suppression** (masquer, jamais
   détruire) ; la liste des opérations reste ouverte ;
+- **la réactivation d'un enregistrement désactivé** (D903) — « une
+  opération exceptionnelle… l'action d'un administrateur… pas une
+  fonction exploitable par la configuration (pas de hook) » : **ni
+  une opération du socle, ni un hook** — une fonctionnalité des
+  écrans d'administration, au degré `administrator` ; la garde de
+  l'unicité sur les actifs (D141 — refus si un enregistrement actif
+  porte la même clé fonctionnelle), l'identité conservée (D142),
+  l'acte tracé par l'historisation (D429) ;
 - **la délégation** (D715/D749) : agir **à la place** d'un
   utilisateur — les droits joués sont ceux de l'emprunté, **chaque
   trace porte les deux comptes**. Les règles (D749) : **le même
@@ -236,6 +246,17 @@ settings dynamiques, ajustables sans republier.
 **surchargée via le module d'administration** ; la cascade
 application → module → entité.
 
+**Le cooldown des opérations** (D58/D904) en fait partie —
+`operation.cooldown` (défaut `1min`), l'API seule : « le cooldown
+est un paramètre d'administration et il peut être configurable » ;
+la surcharge `cooldown:` à la déclaration de l'opération ; **la
+rétention du résultat** de même (D55/D906 — `operation.retention`,
+défaut `90d`, la surcharge `retention:`, le résultat échu purgé).
+**Le déterminisme, lui, n'est pas un paramètre** : il vit au contrat du
+hook avec `execution: once` et la fenêtre (D904–D905) ;
+l'administration en porte seulement **l'invalidation
+du cache** (D60 — l'opération + ses paramètres, l'opération, tout).
+
 ### L'audit (D702–D704)
 
 L'entité d'audit **vit au module d'administration** : le grain à
@@ -268,6 +289,49 @@ active, passive) : `environment.yml` + les connecteurs (D617) + les
 journaux + les settings + la documentation, **spécifiques à
 chacun** ; l'actif/passif du PCA-PRA (D112–D114) — la réplication
 différentielle (le mode `relative` de la migration, D649/D671).
+
+**La sandbox** (D907–D908) : « tester et évaluer la description en
+cours dans un environnement fermé et sécurisé (tant sur la base de
+données que sur les hooks en cours) » — **un statut de `versions/`**
+(`sandbox/sandbox.yml`, déclaré à l'usage D804, lié à son
+environnement par `environment:` D805) ; **`from: <statut>/<version>`
+dans chaque `version.yml`** (D909) nomme l'origine (`beta/v1.0.0.0`,
+ou une autre sandbox — les migrations par transitivité) ; à
+l'initialisation, **la duplication** de l'origine
+(`duplicate_instance` D680 — la base, les fichiers, la
+configuration) puis **la migration** jusqu'à la version de la
+sandbox ; **les connecteurs de son environnement** (D911 — à la main
+du technicien, le mock comme pour beta), l'origine jamais touchée ;
+**la promotion vers `beta` ou `production` par un geste de fichier**
+(D910) — **`from:` retiré à la promotion** (sinon une erreur avant
+l'ingestion), **l'origine promue casse le lien** des sandboxes qui
+la citaient (une erreur — D928) — le staging de D112 qui trouve sa
+déclaration. **L'éphémérité
+(D912 — « le fonctionnement de docker », la seconde option validée)** :
+**l'instance survit à l'arrêt** (relancer ne redéclenche ni
+duplication ni migration), **la suppression est un geste** — la
+commande de l'administrateur ou **la rétention d'inactivité**
+(`sandbox.retention`, `7d` en setting dynamique, l'instance dormante
+supprimée d'office, annoncée la veille aux faits marquants D733) ;
+**le registre des instances** (l'origine, la taille, le dernier
+usage) à la vue de santé (D731). **L'ingestion d'une sandbox est un
+acte d'administration** (D921) : le dossier de la version posé ne
+fait rien de lui-même — la duplication, la migration et la rotation
+des clés (D915) se déclenchent par l'administrateur, au module ou
+par la commande, tracées ; quatre gestes en commande :
+
+```bash
+syncytium sandbox list                 # les instances — l'origine, la taille, le dernier usage
+syncytium sandbox remove v1.0.0.2      # la suppression explicite
+syncytium sandbox prune                # les inactives au-delà de sandbox.retention
+syncytium sandbox reload v1.0.0.2      # la recharge (D922) — l'ingestion rejouée depuis from:, la déclaration intacte
+```
+
+**La recharge** (D922) — « une ingestion limitée à l'usage de la
+sandbox » : la duplication, la migration et la rotation (D915)
+rejouées, la déclaration intacte ; un acte d'administration (D921),
+**réservé au statut `sandbox`** — `beta` et `production` ne se
+rechargent pas.
 
 ### Le lien actif/passif (D724)
 
@@ -342,18 +406,39 @@ backup:
   storage sqlite natif** épargne toute question : l'application
   démarre seule.
 
+### Les secrets au démarrage (D902)
+
+**Le wizard d'initialisation** (D729) demande les secrets et **les
+chiffre lui-même** — l'automatisation que D707 flaguait ; et **au
+démarrage, une valeur en clair dans le `.env`** pour une variable
+référencée par une clé marquée `*` (D944 — l'ex-liste `secrets:` de
+D603) **vaut refus de démarrer** : la raison
+est donnée avec la commande à exécuter (`syncytium encrypt` — le
+patron du diagnostic D745). Le fail-closed jusqu'au fichier de
+secrets. **Et le transit** (D919) : au démarrage, Syncytium vérifie
+qu'il est servi en HTTPS — le certificat déclaré à l'environnement
+(fourni par l'infrastructure, ou le proxy qui termine), **à défaut
+l'auto-signé engendré par le wizard** et rangé avec les secrets ;
+aucune exemption, la boucle locale comprise ; en clair, le refus de
+démarrer expliqué.
+
 ### La rotation des clés (D730)
 
-Deux déclencheurs : **chaque restauration** (l'image nouvelle, la
+Trois déclencheurs : **chaque restauration** (l'image nouvelle, la
 machine peut-être autre — la clé environnement + machine D603 impose
-la naturalisation) et **la commande** :
+la naturalisation), **la duplication d'une sandbox** (D915 — « sandbox
+est un environnement » : la copie de l'origine est re-chiffrée sous
+la clé de la sandbox, la recharge D922 le rejoue) et **la commande** :
 
 ```bash
 syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 ```
 
 — le re-chiffrement en masse au patron de `migrate` (la transaction,
-la progression suivie), l'acte tracé.
+la progression suivie), l'acte tracé. **Et le seul geste qui rehache**
+(D916) : toute empreinte porte l'identifiant de son algorithme, le
+passage à l'algorithme courant ne se fait que par `rotate` — jamais
+en silence à la vérification d'un mot de passe.
 
 ### La santé (D731)
 
@@ -388,7 +473,15 @@ de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
 consultation par **le technicien seul**, en cas de besoin — hors
-IHM.
+IHM. **Le journal d'accès reste au proxy** (D925) ; le journal du
+moteur porte **les événements de sécurité** à leur niveau — `info`
+(l'authentification, la rotation, l'ingestion, la recharge),
+`warning` (les échecs, les refus, le secours, le mode safe, le
+passe-droit, la délégation), `error` (les connecteurs) — jamais un
+secret ; **le throttling des traces** (D926) : la première
+occurrence tracée, les suivantes agrégées dans la fenêtre
+(`logging.throttle`, `1min` en proposition) — l'événement, le début,
+la fin, le nombre.
 
 ### La supervision (D621, D625–D627)
 

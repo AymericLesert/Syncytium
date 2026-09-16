@@ -1,0 +1,48 @@
+# Le produit semi-fini — l'article dont le code de gestion vaut 09 chez PMI
+# (ARCTFATN, D936/D940 — l'hypothèse de l'exemple, à vérifier) : un dérivé de l'article
+# (D143/D353 — « le code de gestion assurera l'héritage »). Le parent
+# décrit le commun, l'enfant ne porte que ce qui lui est propre : la
+# nomenclature et la gamme, déclarées sur chacun des trois dérivés qui
+# en ont besoin — le fabriqué, le semi-fini, le fantôme (D940 : « la
+# nomenclature n'apparaît pas dans les autres types d'articles »).
+name: semi_fini
+description: Un produit semi-fini — fabriqué pour entrer dans d'autres produits, avec sa nomenclature et sa gamme
+label: "{code} — {libelle}"
+inheritance: article
+history: true
+
+fields:
+  nomenclature:
+    # la composition (D399) — la nomenclature et la gamme réunies, comme
+    # chez PMI (NOMENC) ; la composition auto-référencée (D135) : le
+    # composant est un article, de tout type (D937)
+    type: list of ligne_nomenclature
+    label:
+      fr: Nomenclature et gamme
+
+  # ------ Champs calculés ------
+
+  nombre_composants:
+    type: integer
+    formula: nomenclature.count(nature = "composant")
+    label:
+      fr: Composants
+    hint:
+      fr: Le nombre de composants de la nomenclature.
+
+  nombre_operations:
+    type: integer
+    formula: nomenclature.count(nature = "operation")
+    label:
+      fr: Opérations
+    hint:
+      fr: Le nombre d'opérations de la gamme.
+
+  temps_gamme:
+    # la somme des temps d'ouverture des opérations — une durée (D378)
+    type: duration
+    formula: nomenclature.sum(temps_ouverture if nature = "operation")
+    label:
+      fr: Temps de gamme
+    hint:
+      fr: Le temps total des opérations de la gamme.

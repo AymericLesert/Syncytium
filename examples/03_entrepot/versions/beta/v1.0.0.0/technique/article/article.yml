@@ -1,0 +1,26 @@
+# L'article — la table ARTICLE de PMI (181 colonnes), standardisée :
+# les champs que l'analyse retient, cohérents sans être exhaustifs
+# (D882). L'article est le parent d'une hiérarchie (D940 — D143/D353 :
+# le parent décrit le commun, il est instanciable) : le code de gestion
+# assure l'héritage — le produit fabriqué, le semi-fini et le fantôme,
+# ses trois dérivés, portent la nomenclature ; la grille tarifaire reste
+# ici (les compositions D399) ; la suppression les emporte — le soft
+# delete du socle — et ne touche pas les commandes qui le référencent.
+name: article
+description: Un article de l'entreprise — son identité, sa famille, ses unités, ses prix de revient et ses tarifs ; le parent des produits fabriqués, semi-finis et fantômes
+# le visage texte (D397) — le code et le libellé
+label: "{code} — {libelle}"
+# la clé fonctionnelle (D357) : le code et son complément (ARKTCODART +
+# ARKTCOMART chez PMI — le complément est souvent vide)
+identity: [code, complement]
+# l'historique des changements de valeur (D411/D882) — les prix, le
+# statut, la famille bougent au fil des ans
+history: true
+
+# La liste des champs de l'entité — l'éclatement libre (D767)
+fields: fields.yml
+
+# La cohérence des données converties (D404/D859 — la vérification)
+validation:
+  - stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null
+  - date_modification >= date_creation if date_modification != null

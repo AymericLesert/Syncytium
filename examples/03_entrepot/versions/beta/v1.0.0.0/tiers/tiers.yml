@@ -1,0 +1,27 @@
+# Le module déclare ses entités (D765) — les chemins relatifs au
+# fichier courant (D768) : depuis tiers/
+# « tiers » : les clients et les fournisseurs (D859), le second module
+# de l'entrepôt (D882). PMI porte CLIENT et FOURNIS sur la même
+# structure : le parent « tiers » la décrit une fois, client et
+# fournisseur en héritent (inheritance: — D353, le premier emploi de
+# l'héritage dans un exemple). L'éponymie triple tiers/tiers/tiers.yml
+# est assumée : le mot juste prime la convention (l'arbitrage de
+# l'auteur au morceau 2 — D884, la nuance de D831).
+name: tiers
+description: Les tiers de l'entreprise — les clients et les fournisseurs, leurs adresses et leurs contacts
+
+# L'entrepôt est en lecture seule pour ses usagers (D882) — l'allow à
+# l'étage du module (D886 : l'application, le module, l'entité ou le
+# champ, le plus proche l'emporte) ; migrate écrit par le privilège de
+# la reprise (D175).
+allow:
+  create: false
+  update: false
+  delete: false
+
+entities:
+  - tiers/tiers.yml
+  - client/client.yml
+  - fournisseur/fournisseur.yml
+  - adresse/adresse.yml
+  - contact/contact.yml

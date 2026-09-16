@@ -45,12 +45,17 @@ l'ingestion) :
 ```yaml
 # environments/staging.yml
 connectors:
-  main_db: { type: storage, class: postgresql, secrets: [db_password] }
+  main_db:
+    type: storage
+    class: postgresql
+    parameters:
+      password*: ${DB_PASSWORD}       # la marque * (D944) — la variable chiffrée (D902)
   smtp:    { class: smtp_std }        # le simple : le nom = le type (D612)
   location:
     class: ban                        # le géocodage (D294/D604)
-    parameters: { url: https://api-adresse.data.gouv.fr }
-    secrets: [api_key]
+    parameters:
+      url: https://api-adresse.data.gouv.fr
+      api_key*: ${BAN_API_KEY}        # la marque * (D944)
   incoming_orders:
     type: file
     class: file_std
@@ -72,11 +77,15 @@ connectors:
 - **`class:`** — la classe qui remplit le contrat (D613/D615) ; le
   mot `hook` ne paraît pas dans la configuration (D408) ;
 - **`parameters:`** — les propriétés (la forme des settings — D588) ;
-- **`secrets:`** — **la référence seule** : « les secrets peuvent
-  faire référence à une variable d'environnement, et la variable peut
-  être cryptée via une clé construite en fonction de l'environnement
-  et de la machine d'exécution » (D603) — le dépôt versionné (D336)
-  ne porte jamais une valeur en clair ;
+- **les secrets : le paramètre marqué `*`** (D944 — la forme
+  validée, la liste `secrets:` de D603 effacée) : `password*:
+  ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le
+  contrat de la classe, la marque dit la confidentialité (jamais en
+  clair dans un journal), la valeur est **la référence seule** : « les
+  secrets peuvent faire référence à une variable d'environnement, et
+  la variable peut être cryptée via une clé construite en fonction de
+  l'environnement et de la machine d'exécution » (D603) — le dépôt
+  versionné (D336) ne porte jamais une valeur en clair ;
 - **`every:`** — la grammaire D434/D476, « pour les connecteurs qui
   ont besoin d'être régulièrement rafraîchis **ou testés** — par
   exemple un file watcher : la détection de présence d'un fichier, le
@@ -219,7 +228,9 @@ vers un storage de format, l'import (D234–D238) en lit.
 HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
 en HTML fait le corps), **les pièces jointes : une liste de fichiers,
 quel que soit le format** ; **l'expéditeur est configuré dans les
-propriétés du connecteur**.
+propriétés du connecteur**. *(Les paramètres de `smtp_std` écrits au
+cas 3 — `host`, `port`, `from`, `password*` — sont en proposition,
+D945.)*
 
 ### `directory` (D633)
 
@@ -275,7 +286,9 @@ le visage concret du volet SSO), **`none`** (D759 — aucun défi :
 l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique — les invariants D699 pré-remplis) — chaque
 classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
-l'AD pour les internes, le local pour les clients).
+l'AD pour les internes, le local pour les clients). *(Les paramètres
+d'`azure_ad` écrits au cas 3 — `tenant`, `client_id`, `client_secret*`
+— sont en proposition, D945.)*
 
 ### `siren` (D639)
 

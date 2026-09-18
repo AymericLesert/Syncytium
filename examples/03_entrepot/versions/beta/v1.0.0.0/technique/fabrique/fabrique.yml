@@ -16,7 +16,7 @@ fields:
     # la composition (D399) — la nomenclature et la gamme réunies, comme
     # chez PMI (NOMENC) ; la composition auto-référencée (D135) : le
     # composant est un article, de tout type (D937)
-    type: list of ligne_nomenclature
+    type: list of nomenclature
     label:
       fr: Nomenclature et gamme
 

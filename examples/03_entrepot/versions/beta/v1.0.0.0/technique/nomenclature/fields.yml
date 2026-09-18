@@ -47,7 +47,8 @@ composant:
     fr: L'article consommé — un article de l'entrepôt.
 
 quantite:
-  # NOCNQTEUNI — la quantité par unité de produit fini
+  # NOCNQTECOM — « la quantité de nomenclature est NOCNQTECOM » (D946) ;
+  # NOCNQTEUNI, nulle sur tout l'échantillon, est écartée à la source
   type: decimal
   label:
     fr: Quantité

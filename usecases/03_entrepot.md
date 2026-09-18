@@ -708,7 +708,7 @@ d'un domaine vont ensemble) :
    énumérés** — D883, les listes closes de PMI —, les unités, poids
    et dimensions, les prix de revient, le statut) ; **`nomenclature`**
    = la composition de l'article, `article.nomenclature: list of
-   ligne_nomenclature` — la ligne porte la nature (composant ou
+   nomenclature` — la ligne porte la nature (composant ou
    opération — l'énuméré de PMI), **le composant en référence à
    `article`** (la composition auto-référencée D135, l'acyclicité
    validée), la quantité et l'unité, **les temps de gamme en
@@ -889,21 +889,21 @@ fin.*
 |---|---|
 | `boolean` | `tiers.actif` (`CLCTACTIF`), `tarif.valide` (`TACTVALID`), les tops de l'article (`ARCTTOP01`…) |
 | `text` | `article.libelle` (`ARCTLIB01`), `tiers.nom` (`CLCTNOM`), les codes |
-| `integer` | `ligne_nomenclature.numero` (`NOKNLIGNOM` — l'identité), `tranche.numero` (`TACNTRANCH`) |
+| `integer` | `nomenclature.numero` (`NOKNLIGNOM` — l'identité), `tranche.numero` (`TACNTRANCH`) |
 | `decimal` | `ligne_vente.quantite` (`LCCNQTECDE`), `stock.quantite` (`DPCNSTOPHY`), `commande.taux_change` (`ECCNTXDEVI`) |
-| `duration` | `ligne_nomenclature.temps_ouverture` (`NOCNTPSOUV`), `temps_attente`, `temps_preparation` — la notation industrielle D378 |
+| `duration` | `nomenclature.temps_ouverture` (`NOCNTPSOUV`), `temps_attente`, `temps_preparation` — la notation industrielle D378 |
 | `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
 | `time` | `mouvement.heure` (`MVCSMVT`) — gardée seule, aux côtés de la date |
 | `datetime` | `ligne_vente.delai_expedition` (`LCCJDELEXP` + `LCCSDELEXP` — le constructeur D659) |
-| `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `ligne_nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
+| `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
 | `counter` | `commande_vente.numero` (`ECKTNUMERO`) — « une commande est un counter » : le type déclaré, **la valeur surchargée par la migration** (D883 — le privilège de l'écriture identifiée reprise, D175/D173) |
 | `file` | `article.plans: list of file` — « une liste de pièces jointes » remplie **via un connecteur `file`** (D634) en complément du connecteur de source, le nom du fichier venant d'`ARCTFICPLA` (D883 — la forme au morceau de la source) |
 | `amount` | `tarif.prix` (`TACNPU` + `TACTDEVISE`), `ligne_vente.prix_net` (`LCCNPUNET` + `LCCTDEVISE`), `article.prix_revient` (`ARCNPRS`) |
-| `percentage` | `tiers.taux_representant` (`CLCNTXREP1`), `ligne_nomenclature.rendement` (`NOCNRENDT`) |
+| `percentage` | `tiers.taux_representant` (`CLCNTXREP1`), `nomenclature.rendement` (`NOCNRENDT`) |
 | `measure` | `article.poids` (`ARCNPDSUNI` — kg), `longueur`/`largeur`/`epaisseur` (`ARCNLONGUE`… — mm), `volume` (`ARCNVOLUNI`) |
 | `phone` | `tiers.telephone` (`CLCTTELEP1`), `fax` |
 | `geolocation` | `tiers.adresse` (`CLCTRUE1`/`CLCTCP`/`CLCTVILLE`/`CLCTPAYS` + `CLCNGPSX`/`CLCNGPSY` — le constructeur, D638) |
-| `period` | `ligne_nomenclature.validite` (`NOCJDEBVAL` + `NOCJFINVAL`) |
+| `period` | `nomenclature.validite` (`NOCJDEBVAL` + `NOCJFINVAL`) |
 | `email`, `url` | `tiers.email` (`CLCTEMAIL`), `tiers.site` (`CLCTSITE`) |
 | `vat_number`, `siret`, `siren` | `tiers.tva` (`CLCTNOTVA`), `tiers.siret` (`CLCTSIRET`), `tiers.siren` — le calculé `left(siret, 9)` |
 | `iban`, `bic` | `tiers.iban` (`CLCTIBAN`), `tiers.bic` (`CLCTSWIFT`) |
@@ -1186,14 +1186,14 @@ ligne compris), chaque champ commenté de sa colonne PMI :
   prix restreints, `matieres: list of text` des neuf colonnes, `plans:
   list of file` par le connecteur file D883, `fournisseurs:
   association with tiers.fournisseur` stockée, `nomenclature: list of
-  ligne_nomenclature`, **`tarifs` en hypercube** `list of
+  nomenclature`, **`tarifs` en hypercube** `list of
   [tiers.tiers, technique.tranche, date_application: date]` (D897 —
   le temps en dimension du tuple ; D898 — la cellule en bloc sous
   `fields:` : prix, forfait, numéro, `valide`, commentaire, sans
   calculés), les associations dérivées vers les lignes de commande
   et les mouvements, les calculés du tableau de bord — `dormant`,
   `temps_gamme`) ;
-  `ligne_nomenclature` (la nature composant | opération, le composant
+  `nomenclature` (la nature composant | opération, le composant
   = `technique.article` — l'auto-référence D135, les temps en
   `duration` au masque industriel, le rendement en `percentage`, la
   `validite: period`) ; `tranche` (les trente-cinq seuils en `list of

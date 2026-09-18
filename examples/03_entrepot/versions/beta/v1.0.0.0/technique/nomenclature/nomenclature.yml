@@ -1,5 +1,6 @@
-# La ligne de nomenclature — la table NOMENC de PMI (la vue, décrite
-# comme une table — D866), qui réunit la nomenclature et la gamme : la
+# La nomenclature — la ligne de la vue NOMENC de PMI (décrite comme une
+# table — D866 ; « à renommer ligne_nomenclature par nomenclature »,
+# D946), qui réunit la nomenclature et la gamme : la
 # nature de la ligne se déduit du type de l'article référencé (D937) —
 # la main d'œuvre et la sous-traitance font l'opération (les temps), le
 # reste le composant (une matière, un article). La composition du
@@ -9,7 +10,7 @@
 # (D135), l'acyclicité validée par le moteur.
 # L'indice de révision des commandes ne couvre pas la nomenclature :
 # l'historique la porte (D882).
-name: ligne_nomenclature
+name: nomenclature
 description: Une ligne de la nomenclature ou de la gamme d'un article — un composant ou une opération
 label: "{numero} — {designation}"
 # la clé fonctionnelle au sein de l'article (NOKNLIGNOM) — l'accès par
@@ -22,5 +23,4 @@ fields: fields.yml
 # Aucune règle inter-champs (D404) : le composant est obligatoire, la
 # nature se déduit (D937) ; l'ordre des bornes de la période n'a pas à
 # s'écrire, début ≤ fin est intégré au type (D391 ; les sous-items min,
-# max, gap — D890). La quantité (NOCNQTEUNI, nulle sur tout
-# l'échantillon) reste à creuser au morceau 3.
+# max, gap — D890). La quantité est NOCNQTECOM (D946).

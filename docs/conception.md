@@ -1078,6 +1078,7 @@ Q58) :
 | D943 | **Le rythme de la migration = des opérations périodiques, pas une clé de la migration déclarée** (précise D667/D881, applique D428/D434/D609 — la question 9 du cas 3) : « every: peut, à mon avis, être couvert par une opération périodique telle que nous l'avons déjà » — ma clé `every:` (et `reset_coverage:`) sur la migration déclarée retirée ; le delta nocturne et la relecture complète sont deux opérations automatiques au calendaire (D434), dont les effets sont les hooks du socle `migrate` et `reset_coverage` (D609 — la composition déclarative) ; la forme : un bloc `operations:` porté par la migration déclarée, `migrate` sans paramètre (la migration porteuse), `reset_coverage(<entité>)` par entité partitionnée — mienne. | Les heures restent à fixer (la fenêtre des traitements nocturnes de PMI et de la sauvegarde). Voir §3.2c. |
 | D944 | **La marque `*` : la clé confidentielle, illisible dans les journaux** (précise D603/D902 — la question 10 du cas 3) : « dans ma proposition de configuration (du début de nos échanges) les clés secrètes sont décrites par : secrets*: ${AZURE_CLIENT_SECRET}… le "*" après le nom de la clé signifie que la clé de la configuration porte une information confidentielle dont la lisibilité n'est pas autorisée dans les logs » — la convention de l'auteur, absente du registre jusqu'ici, y entre : toute clé de la configuration suffixée `*` porte une valeur confidentielle, jamais écrite en clair dans un journal (D925–D926), et sa valeur `${VAR}` relève du patron des secrets (D902 — la variable chiffrée, le clair refusé). | « Forme 2 est validée » (15/09) : chaque paramètre confidentiel marqué — `password*: ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le contrat de la classe, le nom de la variable celui du déploiement ; la liste `secrets:` de D603 s'efface ; D902 se lit « une valeur en clair dans le .env pour une variable référencée par une clé marquée * vaut refus de démarrer ». Voir §3.2c. |
 | D945 | **L'entreprise : azure_ad, smtp_std, la production et un staging, le rapport chaque matin** (la question 10 du cas 3 — le cadrage soldé) : « 1. azure_ad 2. smtp_std confirmé 3. la production et un staging 4. chaque matin » — l'authentification par Microsoft 365 (D692), le mail par le relais de l'entreprise (D626/D628), deux environnements (D342/D617 : le staging sur une copie de PMI, chacun ses connecteurs et son .env ; les versions beta sur le staging — D805), le rapport de chaque règle `when: [migration]` (D929/D406) ; le connecteur directory (D633) écarté (R4). | Les paramètres des classes azure_ad (tenant, client_id, client_secret*) et smtp_std (host, port, from, password*) sont miens — connectors.md les note en proposition ; le beta sur le staging et le staging plus verbeux — miens. Voir §3.2c. |
+| D946 | **Le modèle corrigé par le premier retour de l'analyse de la source** (la première itération de D868, à l'ouverture du morceau 3 du cas 3) : « à renommer ligne_nomenclature par nomenclature » — l'entité `technique.nomenclature` ; « la quantité de nomenclature est NOCNQTECOM » — la quantité lue en NOCNQTECOM, NOCNQTEUNI (nulle sur tout l'échantillon) écartée ; « pour le besoin de l'exemple, les valeurs inventées suffisent » — la famille et la sous-famille gardent leurs énumérés, le jeu de données publié sera construit (D869) ; « il y a plus d'unités mais pour le besoin d'import et l'exemple, nous nous limiterons à PL et U » — la garde des unités sur ces deux codes. | Le morceau 2 bouge au fil de l'analyse : la migration est itérative (D868). Voir §3.2c. |
 
 ---
 
@@ -11056,6 +11057,26 @@ boucle de correction dans PMI est courte. Le connecteur `directory`
 `password*` —, que connectors.md note en proposition ; le beta sur
 le staging ; le staging plus verbeux.)* **Le cadrage du cas 3 est
 soldé** : les onze questions répondues (D857–D881, puis D929–D945).
+
+**Le modèle corrigé par le premier retour de l'analyse (D946 — la
+première itération de D868).** Les deux premiers brouillons de
+`source/` — ARTICLE et NOMENC, produits hors dépôt par un outil de
+technicien qui lit le schéma et la carte des colonnes citées par le
+modèle, sans inventer un lien, un filtre ni une garde — font remonter
+trois questions ; l'auteur les tranche, et corrige le modèle en
+passant : **« à renommer ligne_nomenclature par nomenclature »** —
+l'entité devient `technique.nomenclature`, la composition des trois
+dérivés s'écrit `list of nomenclature` ; **« la quantité de
+nomenclature est NOCNQTECOM »** — la colonne que le modèle lisait,
+NOCNQTEUNI, nulle sur tout l'échantillon, s'écarte, NOCNQTECOM (36
+lignes sur 100 non nulles) prend sa place ; **« pour le besoin de
+l'exemple, les valeurs inventées suffisent »** — la famille et la
+sous-famille gardent leurs énumérés, le jeu de données publié sera
+construit (D869) et parlera ce vocabulaire ; **« il y a plus d'unités
+mais pour le besoin d'import et l'exemple, nous nous limiterons à PL
+et U »** — la garde des unités sur les deux codes de l'échantillon.
+C'est l'analyse itérative de D868 en acte : la source relue corrige
+le modèle, et le modèle guide la source.
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une

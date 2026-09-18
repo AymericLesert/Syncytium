@@ -90,7 +90,9 @@ type:
         fr: Sous-traitance
 
 famille:
-  # ARCTCODFAM nchar(4) — la liste close se relève à l'analyse (D883)
+  # ARCTCODFAM nchar(4) — pour l'exemple, les valeurs inventées suffisent
+  # (D946 : le jeu de données publié sera construit, D869) ; la traduction
+  # des codes à la règle du mapping (D893)
   type: enum
   required: true
   label:

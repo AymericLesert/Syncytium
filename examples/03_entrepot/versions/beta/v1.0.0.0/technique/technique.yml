@@ -23,5 +23,5 @@ entities:
   - fabrique/fabrique.yml
   - semi_fini/semi_fini.yml
   - fantome/fantome.yml
-  - ligne_nomenclature/ligne_nomenclature.yml
+  - nomenclature/nomenclature.yml
   - tranche/tranche.yml

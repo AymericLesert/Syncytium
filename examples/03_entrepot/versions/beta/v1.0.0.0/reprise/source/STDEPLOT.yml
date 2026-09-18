@@ -1,0 +1,30 @@
+# La table STDEPLOT de PMI — 36 colonnes : le niveau de stock d'un article,
+# dans un lot, à un emplacement d'un dépôt, sous un code d'enregistrement
+# — les six colonnes K après la société (D865/D869). La source de
+# stock.niveau ; les dépôts et les emplacements, des référentiels par
+# valeurs distinctes au mapping (D658). Les colonnes lues typées et
+# renvoyées, les autres non lues (D947).
+name: STDEPLOT
+description: Les niveaux de stock de PMI — la source de stock.niveau, et des référentiels depot et emplacement
+
+filter: DPKTSOC = "100"
+identity: [DPKTCODART, DPKTCOMART, DPKTNUMLOT, DPKTCODENR, DPKTCODMPL, DPKTDEPOT]
+
+fields:
+  DPKTSOC:     text[3]                                        # la société — le filtre (D663)
+  DPKTCODART:  ARTICLE.ARKTCODART                             # → niveau.article — la référence par la clé composée (D648/D931) ; l'identité
+  DPKTCOMART:  ARTICLE.ARKTCOMART                             # → niveau.article ; l'identité
+  DPKTNUMLOT:  text[18]                                       # → niveau.lot — le numéro de lot, gardé en texte (D882) ; l'identité
+  DPKTCODENR:  text[1]                                        # → niveau.enregistrement — le code d'enregistrement de PMI, part de la clé ; l'identité
+  DPKTCODMPL:  text[10]                                       # → niveau.emplacement — le référentiel par valeurs distinctes (D658) ; l'identité
+  DPKTDEPOT:   text[6]                                        # → niveau.depot — le référentiel par valeurs distinctes (D658) ; l'identité
+  DPCNSTOPHY:  decimal                                        # → niveau.quantite
+  DPCNRESFER:  decimal                                        # → niveau.quantite_reservee
+  DPCNENCOUR:  decimal                                        # → niveau.quantite_en_cours
+  DPCJMOU:     { type: date, mask: "yyyymmdd" }               # → niveau.dernier_mouvement
+  DPCJPEREMP:  { type: date, mask: "yyyymmdd" }               # → niveau.peremption
+  DPCNPULOT:   decimal                                        # → niveau.prix_unitaire
+  DPCNQTINV:   decimal                                        # → niveau.quantite_inventaire
+  DPCJJINV:    { type: date, mask: "yyyymmdd" }               # → niveau.inventaire
+  DPCSSINV:    { type: time, mask: "hhmmss" }                 # → niveau.inventaire
+  DPCNSTOMIN:  decimal                                        # → niveau.stock_minimum

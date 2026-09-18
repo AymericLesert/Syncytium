@@ -1,0 +1,39 @@
+# La table MVTSTO de PMI — 34 colonnes, des millions de lignes (D863) :
+# les mouvements de stock. Sans colonne K : la clé est portée par les
+# colonnes I — le document, la ligne, l'indice, le composant —, complétée
+# de l'article, de la date et de l'heure (D869 ; l'échantillon : 70
+# valeurs distinctes sur 100 pour les cinq I, 100 avec le complément) ;
+# le contrôle de l'identité tranchera sur le réel (D871). La lecture par
+# partition : le mois du mouvement, trois mois relus (D880). La source de
+# stock.mouvement, sans historique (D882). Le type E/S est le sens, le
+# genre le type du mouvement (D952 — la lecture de l'échantillon).
+name: MVTSTO
+description: Les mouvements de stock de PMI — la source de stock.mouvement
+
+filter: MVITSOC = "100"
+identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART, MVCJMVT, MVCSMVT]
+coverage: MVCJMVT[month - 3]
+# la partition par le mois du mouvement, les trois derniers mois relus
+# chaque nuit, la totalité le dimanche par reset_coverage (D880/D881/D943)
+
+fields:
+  MVITSOC:     text[3]                                        # la société — le filtre (D663)
+  MVITNUMERO:  text[6]                                        # → mouvement.document — l'identité (D871)
+  MVITLIGNE:   text[3]                                        # → mouvement.ligne — l'identité (D871)
+  MVITINDLIG:  text[3]                                        # → mouvement.indice — l'identité (D871)
+  MVITCOMPOS:  text[5]                                        # → mouvement.composant — l'identité (D871)
+  MVCTCODART:  ARTICLE.ARKTCODART                             # → mouvement.article — la référence par la clé composée (D648/D931) ; l'identité
+  MVCTCOMART:  ARTICLE.ARKTCOMART                             # → mouvement.article ; l'identité
+  MVCTDEPOT:   text[6]                                        # → mouvement.depot — le référentiel par valeurs distinctes (D658)
+  MVCTCODMPL:  text[10]                                       # → mouvement.emplacement — idem
+  MVCTNUMLOT:  text[18]                                       # → mouvement.lot
+  MVCJMVT:     { type: date, mask: "yyyymmdd" }               # → mouvement.date — l'identité, la clé de partition (D880)
+  MVCSMVT:     { type: time, mask: "hhmmss" }                 # → mouvement.heure — l'identité
+  MVCJSAI:     { type: date, mask: "yyyymmdd" }               # → mouvement.date_saisie
+  MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
+  MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
+  MVCNVAL:     decimal                                        # → mouvement.valeur
+  MVCTTYPE:    enum { E, S }                                  # → mouvement.sens — E l'entrée, S la sortie (D952 : la lecture de l'échantillon, à confirmer)
+  MVCTGENRE:   enum { C, D, E, F, I, R }                      # → mouvement.type — le genre du mouvement, six codes relevés, à nommer (D952)
+  MVCTNOMUTI:  text[35]                                       # → mouvement.utilisateur
+  MVCNAVQTST:  decimal                                        # → mouvement.stock_avant

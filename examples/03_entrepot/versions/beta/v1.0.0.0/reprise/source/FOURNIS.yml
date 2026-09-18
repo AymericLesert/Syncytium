@@ -40,7 +40,7 @@ fields:
   CLCTJOURFO:  text[1]                                        # → fournisseur.delai_livraison
   CLCTSWIFT:   text[11]                                       # → tiers.bic
   CLCTIBAN:    text[35]                                       # → tiers.iban
-  CLCTACTIF:   enum { O, N }                                  # → tiers.actif — O actif, N inactif ; nul sur une part de l'échantillon : à trancher
+  CLCTACTIF:   enum { O, N }                                  # → tiers.actif — O actif, N inactif ; « le vide vaut actif » (D950)
   CLCTRUE3:    text[40]                                       # → tiers.adresse
   CLCNGPSX:    decimal                                        # → tiers.adresse
   CLCNGPSY:    decimal                                        # → tiers.adresse

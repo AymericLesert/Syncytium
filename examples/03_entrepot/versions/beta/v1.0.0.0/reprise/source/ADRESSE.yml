@@ -1,0 +1,40 @@
+# La table ADRESSE de PMI — 26 colonnes : les adresses complémentaires
+# d'un tiers, rejointes par le type de compte et le code (D950). La
+# source de la composition adresses du tiers (D399). Les colonnes lues
+# typées et renvoyées, les autres non lues (D947).
+name: ADRESSE
+description: Les adresses complémentaires de PMI — la source de tiers.adresse
+
+filter: ADKTSOC = "100" and ADKTTYPCPT in ["C", "F"]
+identity: [ADKTTYPCPT, ADKTCOMPTE, ADKNNUMERO]
+# le filtre garde les clients et les fournisseurs (D950) ; l'identité
+# au sein du tiers est le numéro (D841), la clé de la table le complète
+
+fields:
+  ADKTSOC:     text[3]                                        # la société — le filtre (D663)
+  ADKTTYPCPT:  text[1]                                        # l'identité — le type de compte : C le client, F le fournisseur (D950)
+  ADKTCOMPTE:  text[6]                                        # l'identité — le code du tiers, selon le type : les calculés ci-dessous
+  ADKNNUMERO:  integer                                        # → adresse.numero — l'identité (D871)
+  ADCTTYPE:    text[20]                                       # → adresse.usage — l'usage, traduit au mapping vers livraison, facturation, autre (D950)
+  ADCTNOM:     text[40]                                       # → adresse.nom
+  ADCTRUE1:    text[40]                                       # → adresse.adresse
+  ADCTRUE2:    text[40]                                       # → adresse.adresse
+  ADCTCP:      text[16]                                       # → adresse.adresse
+  ADCTVILLE:   text[40]                                       # → adresse.adresse
+  ADCTCPAYS:   text[3]                                        # → adresse.adresse
+  ADCTPAYS:    text[20]                                       # → adresse.adresse
+  ADCJCREA:    { type: date, mask: "yyyymmdd" }               # → adresse.date_creation
+  ADCTRUE3:    text[40]                                       # → adresse.adresse
+  ADCNGPSX:    decimal                                        # → adresse.adresse
+  ADCNGPSY:    decimal                                        # → adresse.adresse
+
+  # --- le tiers, selon le type de compte (D950 : « C ou F ») : deux
+  # calculés typés référence (D660/D648), résolus avant de partir (D874) ;
+  # le possesseur est l'un des deux — parent: ne sait pas choisir, le
+  # mapping route par le type, une règle par tiers (D931/D933) ---
+  client:
+    type: CLIENT.CLKTCODE
+    formula: ADKTCOMPTE if ADKTTYPCPT = "C"
+  fournisseur:
+    type: FOURNIS.CLKTCODE
+    formula: ADKTCOMPTE if ADKTTYPCPT = "F"

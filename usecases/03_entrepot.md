@@ -889,7 +889,7 @@ fin.*
 |---|---|
 | `boolean` | `tiers.actif` (`CLCTACTIF`), `tarif.valide` (`TACTVALID`), les tops de l'article (`ARCTTOP01`…) |
 | `text` | `article.libelle` (`ARCTLIB01`), `tiers.nom` (`CLCTNOM`), les codes |
-| `integer` | `nomenclature.numero` (`NOKNLIGNOM` — l'identité), `tranche.numero` (`TACNTRANCH`) |
+| `integer` | `nomenclature.numero` (`NOKNLIGNOM` — l'identité) |
 | `decimal` | `ligne_vente.quantite` (`LCCNQTECDE`), `stock.quantite` (`DPCNSTOPHY`), `commande.taux_change` (`ECCNTXDEVI`) |
 | `duration` | `nomenclature.temps_ouverture` (`NOCNTPSOUV`), `temps_attente`, `temps_preparation` — la notation industrielle D378 |
 | `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
@@ -908,12 +908,12 @@ fin.*
 | `vat_number`, `siret`, `siren` | `tiers.tva` (`CLCTNOTVA`), `tiers.siret` (`CLCTSIRET`), `tiers.siren` — le calculé `left(siret, 9)` |
 | `iban`, `bic` | `tiers.iban` (`CLCTIBAN`), `tiers.bic` (`CLCTSWIFT`) |
 | `label` | les `title:` des entités (D465 — `"{code} — {libelle}"`) |
-| `list of <simple>` | `article.matieres: list of text` (`ARCTCODMA1`…`ARCTCODMA9` — neuf colonnes, une liste) ; `tranche.seuils: list of decimal` (`TCCNSEU_01`…`TCCNSEU_35` — trente-cinq seuils, une liste) |
-| `range of <type>` | la tranche *n* = `range of decimal` entre deux seuils consécutifs de `TRANCHES` — la forme exacte à l'analyse de la table (le calculé sur la liste, ou l'entité `tranche` à deux bornes) |
+| `list of <simple>` | `article.matieres: list of text` (`ARCTCODMA1`…`ARCTCODMA9` — neuf colonnes, une liste) |
+| `range of <type>` | `article.tarifs.plage: range of decimal` — du seuil de la tranche (`TACNTRANCH`) au seuil de la tranche suivante, la dernière ouverte (D949) |
 | la référence | `ligne_vente.article: technique.article`, `commande_vente.client: tiers.client` |
 | la composition | `article.nomenclature`, `article.tarifs`, `commande_vente.lignes`, `tiers.adresses`, `tiers.contacts` |
 | l'association | `article.fournisseurs: association with tiers.fournisseur` (`ARCTNOFOU1`/`ARCTNOFOU2`) |
-| le n-aire | `article.tarifs`, **la grille tarifaire en hypercube** tiers × tranche × date — `list of [tiers.tiers, technique.tranche, date_application: date]` (D895–D898 : le temps en dimension du tuple, la cellule en bloc sous `fields:` — prix, forfait, numéro, `valide`, commentaire) |
+| le n-aire | `article.tarifs`, **la grille tarifaire en hypercube** tiers × tranche × date — `list of [tiers.tiers, tranche: text[1], date_application: date]` (D895–D898 : le temps en dimension du tuple, la cellule en bloc sous `fields:` — prix, forfait, numéro, `valide`, commentaire) |
 | l'association dérivée | `client.commandes: association with commande.commande_vente if client = me` (D405) |
 | `owner` | `ligne_vente.devise: owner.devise` (la devise de la commande) |
 | le calculé | `commande_vente.total: lignes.sum(montant)`, `tiers.siren` |
@@ -1193,7 +1193,7 @@ ligne compris), chaque champ commenté de sa colonne PMI :
   list of file` par le connecteur file D883, `fournisseurs:
   association with tiers.fournisseur` stockée, `nomenclature: list of
   nomenclature`, **`tarifs` en hypercube** `list of
-  [tiers.tiers, technique.tranche, date_application: date]` (D897 —
+  [tiers.tiers, tranche: text[1], date_application: date]` (D897 —
   le temps en dimension du tuple ; D898 — la cellule en bloc sous
   `fields:` : prix, forfait, numéro, `valide`, commentaire, sans
   calculés), les associations dérivées vers les lignes de commande
@@ -1324,7 +1324,7 @@ naturel au modèle, la traduction en table et clé étrangère au
 stockage — la forme de la source ne dicte jamais le modèle) ;
 **D897 choisit l'hypercube** — « visualiser les évolutions de la
 grille tarifaire dans le temps » : `list of [tiers.tiers,
-technique.tranche, date_application: date]`, le temps en dimension
+tranche: text[1], date_application: date]`, le temps en dimension
 du tuple (D134 étend D402) ; **D898 valide la cellule en bloc sous
 `fields:`** (« je valide pour fields sous une liste ») et allège
 l'exemple : « tu peux enlever planifie et en_vigueur. Valide

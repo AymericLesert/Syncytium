@@ -391,9 +391,34 @@ tarifs:
   # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
   # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
   # cellule en bloc sous fields: (la forme éclatée de D403, validée par
-  # D898) — sans calculés ici : valide suffit à l'exemple.
-  type: 'list of [tiers.tiers, technique.tranche, date_application: date]'
+  # D898). La tranche est la lettre de tarif de PMI, TAKTTARIF, dans la
+  # clé de TARIF (D948/D949) — une dimension de valeur, comme la date ;
+  # son seuil de quantité est une valeur de la cellule, et sa plage se
+  # calcule jusqu'au seuil de la tranche suivante (« le type range of est
+  # à conserver », D949).
+  type: 'list of [tiers.tiers, tranche: text[1], date_application: date]'
   fields:
+    seuil:
+      # TACNTRANCH — « la valeur numérique à partir de la valeur qui
+      # fournit le prix unitaire » (D948)
+      type: decimal
+      required: true
+      label:
+        fr: Seuil
+      hint:
+        fr: La quantité à partir de laquelle le prix vaut.
+    plage:
+      # la plage de quantités de la tranche (D949 — « le début de la
+      # tranche est la valeur de TACNTRANCH et la valeur supérieure est
+      # renseignée pour la quantité de la tranche supérieure ») : du seuil
+      # au seuil de la tranche suivante, pour le même tiers et la même
+      # date ; la dernière tranche est ouverte (D497 — max indéfini) ;
+      # owner.tarifs = la grille de l'article (D841), l'agrégat sur la
+      # collection déclarée (D891), le if suffixé (D887)
+      type: range of decimal
+      formula: 'range(seuil, owner.tarifs.min(seuil if tiers = me.tiers and date_application = me.date_application and seuil > me.seuil))'
+      label:
+        fr: Plage de quantités
     prix:
       # TACNPU + TACTDEVISE — à devise dans la valeur (D771)
       type: amount
@@ -405,13 +430,8 @@ tarifs:
       type: amount
       label:
         fr: Forfait
-    numero:
-      # TAKTTARIF nchar(1) — le numéro de tarif de PMI
-      type: text[1]
-      label:
-        fr: Numéro de tarif
     valide:
-      # TACTVALID
+      # TACTVALID — « O » valide, « N » l'archive (D948)
       type: boolean
       required: true
       default: true

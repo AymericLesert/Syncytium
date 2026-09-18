@@ -1081,6 +1081,7 @@ Q58) :
 | D946 | **Le modèle corrigé par le premier retour de l'analyse de la source** (la première itération de D868, à l'ouverture du morceau 3 du cas 3) : « à renommer ligne_nomenclature par nomenclature » — l'entité `technique.nomenclature` ; « la quantité de nomenclature est NOCNQTECOM » — la quantité lue en NOCNQTECOM, NOCNQTEUNI (nulle sur tout l'échantillon) écartée ; « pour le besoin de l'exemple, les valeurs inventées suffisent » — la famille et la sous-famille gardent leurs énumérés, le jeu de données publié sera construit (D869) ; « il y a plus d'unités mais pour le besoin d'import et l'exemple, nous nous limiterons à PL et U » — la garde des unités sur ces deux codes. | Le morceau 2 bouge au fil de l'analyse : la migration est itérative (D868). Voir §3.2c. |
 | D947 | **La description de la source : lue, ignorée, non lue — un fichier par table au nom de la table ; le premier lot** (précise D657/D861/D866/D868–D869 — le morceau 3 du cas 3 ouvert) : « ignored correspond aux colonnes qui ne sont pas lues "volontairement". Pour l'exemple, nous pouvons prendre quelques colonnes en "ignored" et les autres colonnes sans précisions. Syncytium doit relever les colonnes non lues dans son rapport de migration » ; « pour la reprise, un fichier par entité d'origine avec le même nom que la table est suffisamment claire » — trois états pour une colonne comme pour une table (D869) : lue (typée, renvoyée à son champ), ignorée (`ignored`, l'écart volontaire), non lue (absente de la description, relevée au rapport — le point à creuser D868) ; la complétude du schéma (D861) se mesure au réel, la description n'a pas à citer chaque colonne ; `source/<TABLE>.yml`, `name: <TABLE>` ; les gardes de l'exemple sur les codes de l'échantillon ; les tables ignorées : les offres et DEVIS ; l'ordre par lots — ARTICLE et NOMENC écrits, `reprise/reprise.yml` déclaré avec ses opérations (D943). | Amende ma lecture « chaque colonne typée » ; le point 3 (les gardes) répondu par la limite aux unités PL et U (D946). Voir §3.2c. |
 | D948 | **TARIF lue : le genre du tiers, la lettre de tarif, le seuil, la validité** (l'analyse de la source — le lot 2 du morceau 3 ; corrige ma lecture de TRANCHES) : « TAKTGENRE correspond à un numérique compris entre 0 et 9 qui dans la pratique signifie client, fournisseur, tiers, central… mais je n'ai pas les codes associés — tu peux inventer les correspondances. TAKTCODE correspond à un code tiers qui dépend de TAKTGENRE » ; « TAKTTARIF est un caractère de A à Z ou de a à z. TACNTRANCH est la valeur numérique à partir de la valeur qui fournit le prix unitaire » ; « TACTVALID est "O" ou "N" — "N" indique que ce tarif est une archive » — la tranche du tarif n'est pas la grille TRANCHES : c'est la lettre TAKTTARIF, dans la clé, dont TACNTRANCH donne le seuil de quantité ; le tiers se résout selon le genre ; l'archive = valide faux. | Les correspondances du genre inventées pour l'exemple : 1 = client, 2 = fournisseur, les autres hors périmètre (filter:). La conséquence sur le modèle — le tuple `[tiers.tiers, tranche: text[1], date_application: date]`, la cellule avec son seuil, l'entité `technique.tranche` retirée, TRANCHES ignorée — en proposition. Voir §3.2c. |
+| D949 | **La grille tarifaire corrigée : la tranche est la lettre, la cellule porte le seuil et sa plage ; l'entité tranche retirée, TRANCHES ignorée** (applique D948 ; amende D897 sur la dimension, garde D497 — le lot 2 du morceau 3) : « le type range of est à conserver. Le début de la tranche est valeur de TACNTRANCH et la valeur supérieure est renseignée pour la quantité de la tranche supérieure » — `tarifs: list of [tiers.tiers, tranche: text[1], date_application: date]`, la cellule : `seuil` (TACNTRANCH), `plage: range of decimal` calculée du seuil au seuil de la tranche suivante pour le même tiers et la même date (la dernière ouverte — D497), `prix`, `forfait`, `valide` (O/N), `commentaire` ; `technique.tranche` retirée du modèle, `source/TRANCHES.yml` = `TRANCHES: ignored` (D657) ; `source/TARIF.yml` écrit — le tiers par deux calculés typés référence selon le genre, la lettre gardée par `matches`. | Ma `plage_stock` écartée : le range vit dans la cellule. La formule de la plage (`owner.tarifs.min(seuil if … and seuil > me.seuil)`) est mienne. Voir §3.2c. |
 
 ---
 
@@ -11144,6 +11145,35 @@ source, le tiers se résout par deux calculés typés référence — `client:
 `fournisseur:` de même vers FOURNIS — et la lettre se garde par
 `matches: "^[A-Za-z]$"` (D364).)*
 
+**La grille tarifaire corrigée : la tranche est la lettre, la cellule
+porte le seuil et sa plage (D949 — applique D948, amende D897 sur la
+dimension).** Je proposais le tuple à lettre, la cellule au seuil,
+l'entité `technique.tranche` retirée, TRANCHES ignorée — et le type
+`range of`, que la tranche portait, déplacé sur l'article. L'auteur
+valide l'essentiel et redresse le dernier point : **« le type range of
+est à conserver. Le début de la tranche est valeur de TACNTRANCH et la
+valeur supérieure est renseignée pour la quantité de la tranche
+supérieure. »** La plage vit donc dans la cellule : `plage: range of
+decimal`, calculée du seuil de la cellule au seuil de la tranche
+suivante — le plus petit seuil supérieur au sien, pour le même tiers
+et la même date d'application —, la dernière tranche ouverte (D497 —
+max indéfini). La formule est mienne, sur la grille du possesseur
+(`owner.tarifs`, D841), l'agrégat sur la collection déclarée (D891),
+le `if` suffixé (D887) : `range(seuil, owner.tarifs.min(seuil if tiers
+= me.tiers and date_application = me.date_application and seuil >
+me.seuil))`. Le tuple devient `list of [tiers.tiers, tranche:
+text[1], date_application: date]` — la lettre en dimension de valeur,
+comme la date (D134/D897) ; la cellule gagne `seuil` et `plage`, perd
+`numero` ; `valide` lit O/N. L'entité `technique.tranche` quitte le
+modèle, et TRANCHES entre parmi les tables ignorées de l'exemple,
+`TRANCHES: ignored` (D657) — l'écart volontaire, compté dans la
+complétude du schéma (D861), pas dans la couverture. Le lot 2 est
+écrit : `source/TARIF.yml` (la clé à six colonnes, le possesseur
+ARTICLE, le filtre sur les genres 1 et 2 — inventés —, la lettre
+gardée par `matches: "^[A-Za-z]$"`, le tiers par deux calculés typés
+référence, `client` vers CLIENT et `fournisseur` vers FOURNIS selon le
+genre, résolus avant de partir) et `source/TRANCHES.yml`.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21058,6 +21088,16 @@ avant la synthèse Q16).
   technique.tranche tombe, la conséquence sur le modèle (le tuple à
   lettre, la cellule au seuil, TRANCHES ignorée, range of à l'article)
   est proposée à l'auteur avant l'écriture de TARIF.yml.
+- **2026-09-18 (suite 2) — LE LOT 2 : TARIF ET TRANCHES (D949, 949
+  décisions).** « Le type range of est à conserver. Le début de la
+  tranche est valeur de TACNTRANCH et la valeur supérieure est
+  renseignée pour la quantité de la tranche supérieure » — la plage en
+  cellule calculée jusqu'à la tranche suivante ; le tuple à lettre, la
+  cellule au seuil, technique.tranche retirée, TRANCHES ignorée ;
+  TARIF.yml (10 colonnes lues, 5 non lues, deux calculés typés
+  référence pour le tiers) et TRANCHES.yml (ignored) au dépôt ; 158
+  fichiers valides. La suite : les tiers — CLIENT, FOURNIS, ADRESSE,
+  CONTACT.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

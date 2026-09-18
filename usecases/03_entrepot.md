@@ -1145,9 +1145,11 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    table au nom de la table ; les colonnes lues typées et renvoyées à
    leur champ, quelques colonnes ignorées avec leur motif, les autres
    non lues — relevées au rapport ; le premier lot, ARTICLE et NOMENC,
-   et `reprise/reprise.yml` avec ses opérations (D943) ; la suite par
-   lots — TARIF et TRANCHES, les tiers, les commandes, les stocks, les
-   offres et DEVIS ignorées* ;
+   et `reprise/reprise.yml` avec ses opérations (D943) ; puis les lots
+   — TARIF et TRANCHES (D948–D949), les tiers (D950), les commandes
+   (D951), les stocks et les tables ignorées (D952) : le morceau 3 est
+   écrit en entier le 19/09, 14 tables décrites, 8 ignorées, la
+   validation de l'auteur attendue* ;
 4. **le mapping** — `mapping/` (l'identité déterminée par chaque
    règle — D825/D930, `parent:` par les champs mappés — D931,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +

@@ -1084,6 +1084,7 @@ Q58) :
 | D949 | **La grille tarifaire corrigée : la tranche est la lettre, la cellule porte le seuil et sa plage ; l'entité tranche retirée, TRANCHES ignorée** (applique D948 ; amende D897 sur la dimension, garde D497 — le lot 2 du morceau 3) : « le type range of est à conserver. Le début de la tranche est valeur de TACNTRANCH et la valeur supérieure est renseignée pour la quantité de la tranche supérieure » — `tarifs: list of [tiers.tiers, tranche: text[1], date_application: date]`, la cellule : `seuil` (TACNTRANCH), `plage: range of decimal` calculée du seuil au seuil de la tranche suivante pour le même tiers et la même date (la dernière ouverte — D497), `prix`, `forfait`, `valide` (O/N), `commentaire` ; `technique.tranche` retirée du modèle, `source/TRANCHES.yml` = `TRANCHES: ignored` (D657) ; `source/TARIF.yml` écrit — le tiers par deux calculés typés référence selon le genre, la lettre gardée par `matches`. | Ma `plage_stock` écartée : le range vit dans la cellule. La formule de la plage (`owner.tarifs.min(seuil if … and seuil > me.seuil)`) est mienne. Voir §3.2c. |
 | D950 | **Les tiers lus : le type de compte C ou F, l'usage en ADCTTYPE, les deux premières paires de téléphone, le vide vaut actif** (l'analyse de la source — le lot 3 du morceau 3 ; corrige le morceau 2 en passant) : « 1. C ou F 2. ok 3. ok 4. le vide vaut actif » — ADRESSE et CONTACT rejoignent leur tiers par le type de compte (C le client, F le fournisseur) et le code ; l'usage de l'adresse est ADCTTYPE, traduit au mapping vers livraison, facturation, autre ; le téléphone du contact est la première paire type/numéro, le portable la seconde ; CLCTACTIF vide = actif. | Le possesseur conditionnel : `parent:` ne sait pas choisir entre CLIENT et FOURNIS — deux calculés typés référence à la source, deux règles au mapping (mien). `adresse.telephone` retiré (aucune colonne). CTCTGDPRCO, un consentement RGPD chez PMI — un point à creuser pour le marquage `consent` (D695). Voir §3.2c. |
 | D951 | **LCKTPSF est l'indice de la commande** (l'analyse de la source — le lot 4 du morceau 3 ; corrige le morceau 2 et ma lecture du schéma) : « la ligne doit contenir une colonne LCKTINDPSF (indice) » — absente du classeur 16.17, où un indice PSF vit aux tables de production (BEKTINDPSF, PRKTINDPSF) ; puis « LCKTPSF est l'indice de la commande » — la quatrième colonne de clé de LCOMCLI et LCOMFOU, que le morceau 2 lisait comme un sous-numéro, est la révision : l'identité de la ligne au sein de la commande = le numéro de ligne ; le possesseur = (numéro, indice), `parent: { ECOMCLI: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF } }` ; `sous_numero` retiré des deux lignes ; l'entête garde [numero, indice] — une ligne d'entête par révision, ses lignes avec elle. | Le statut de la ligne : LCCTSTATUT lu, LCCTETACDE non lue (mien). La couverture des lignes par LCKTNUMERO[10000], l'écho de D880 (mien). Voir §3.2c. |
+| D952 | **Les stocks lus : le type E/S est le sens, le genre le type du mouvement ; la clé de STDEPLOT aux six K ; les tables ignorées** (l'analyse de la source — les lots 5 et 6 du morceau 3 ; corrige le morceau 2, en proposition sur les codes) : l'échantillon de MVTSTO — MVCTTYPE vaut E (25) ou S (75), MVCTGENRE six codes (C 53, D 29, E 4, F 9, I 3, R 2), le croisement (C→S, F→E, R→E, E→S, I→S, D→E et S) — le morceau 2 avait inversé : `mouvement.sens` lit MVCTTYPE (E l'entrée, S la sortie), `mouvement.type` lit MVCTGENRE, dont les six codes restent à nommer ; STDEPLOT : l'identité aux six colonnes K après la société (article, lot, code d'enregistrement, emplacement, dépôt), le lot en texte, les référentiels dépôt et emplacement par valeurs distinctes (D658) ; MVTSTO : l'identité aux I complétée de l'article, de la date et de l'heure (D869), `coverage: MVCJMVT[month - 3]` (D880), sans historique ; les lignes de commande ajoutées au reset_coverage du dimanche (D943) ; les sept tables ignorées écrites (les offres, DEVIS). | La lecture E/S et les hypothèses des genres (C consommation, F fabrication, R réception, E expédition, I inventaire, D divers) sont miennes, à confirmer. Le morceau 3 est écrit en entier : 14 tables décrites, 8 ignorées. Voir §3.2c. |
 
 ---
 
@@ -11224,6 +11225,32 @@ l'écho de D880.)* Le lot 4 est au dépôt : ECOMCLI, ECOMFOU, LCOMCLI,
 LCOMFOU — les deux paires identiques, la vente vers CLIENT, l'achat
 vers FOURNIS.
 
+**Les stocks lus, et les tables ignorées (D952 — les lots 5 et 6 ;
+corrige le morceau 2).** L'échantillon des mouvements parle avant
+l'auteur : MVCTTYPE ne vaut que E ou S — vingt-cinq et soixante-quinze
+sur cent —, et MVCTGENRE porte six codes, C, D, E, F, I, R, qui se
+croisent avec le type comme un genre avec un sens : C ne va qu'en S,
+F et R qu'en E, D dans les deux. Le morceau 2 avait inversé les deux
+colonnes : `mouvement.sens` — l'entrée ou la sortie — lit MVCTTYPE,
+`mouvement.type` lit MVCTGENRE, dont les six codes restent à nommer
+(mes hypothèses : C la consommation, F la fabrication, R la réception,
+E l'expédition, I l'inventaire, D le divers — à confirmer). STDEPLOT
+s'écrit sans question : l'identité aux six colonnes K après la
+société — l'article, le lot (gardé en texte, D882), le code
+d'enregistrement, l'emplacement, le dépôt —, les dépôts et les
+emplacements en référentiels par valeurs distinctes au mapping
+(D658). MVTSTO s'écrit sur D869 et D880 : l'identité aux colonnes I
+complétée de l'article, de la date et de l'heure, `coverage:
+MVCJMVT[month - 3]`, la partition par mois, trois mois relus chaque
+nuit, la totalité le dimanche — et les lignes de commande rejoignent
+le `reset_coverage` du dimanche, partitionnées comme leur entête
+(D951). Les sept tables ignorées de l'exemple sont écrites — les
+offres, EOFFCLI, LOFFCLI, EOFFINT, LOFFINT, EOFFREP, LOFFREP, et DEVIS
+— sur la forme de D657. **Le morceau 3 est écrit en entier** :
+quatorze tables décrites, huit ignorées avec TRANCHES, les deux
+cent quarante-trois autres tables de `dbo` non définies — les points
+à creuser que le rapport de migration relèvera (D868).
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21165,6 +21192,17 @@ avant la synthèse Q16).
   quatre fichiers écrits (ECOMCLI/ECOMFOU 91 colonnes, LCOMCLI/LCOMFOU
   124), la couverture par plage de numéros ; 166 fichiers valides. La
   suite : les stocks — STDEPLOT, MVTSTO — puis les tables ignorées.
+- **2026-09-19 (suite) — LES LOTS 5 ET 6 : LES STOCKS, LES TABLES
+  IGNORÉES (D952, 952 décisions).** L'échantillon des mouvements
+  renverse deux colonnes du morceau 2 (MVCTTYPE E/S = le sens,
+  MVCTGENRE = le genre, six codes à nommer — mes hypothèses en
+  attente) ; STDEPLOT et MVTSTO écrits (la clé aux six K ; l'identité
+  aux I + article, date, heure ; coverage MVCJMVT[month - 3]) ; les sept
+  tables ignorées ; les lignes de commande au reset_coverage du
+  dimanche. **Le morceau 3 est écrit en entier** — 14 tables décrites,
+  8 ignorées ; 175 fichiers valides. La suite : la validation du
+  morceau 3 par l'auteur (les genres à nommer, la relecture), puis le
+  morceau 4, le mapping.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -79,7 +79,9 @@ date_saisie:
 # --- le mouvement ---
 
 type:
-  # MVCTTYPE nchar(1) — la liste close de PMI en énuméré (D883)
+  # MVCTGENRE nchar(1) — le genre du mouvement, la liste close de PMI en
+  # énuméré (D883/D952) : six codes relevés (C, D, E, F, I, R), à nommer,
+  # traduits au mapping (D893) ; le morceau 2 les lisait en MVCTTYPE
   type: enum
   required: true
   label:
@@ -108,7 +110,8 @@ type:
         fr: Correction
 
 sens:
-  # MVCTGENRE — l'entrée ou la sortie
+  # MVCTTYPE — E l'entrée, S la sortie (D952 : la lecture de l'échantillon,
+  # 25 E et 75 S, à confirmer) ; le morceau 2 le lisait en MVCTGENRE
   type: enum
   required: true
   label:

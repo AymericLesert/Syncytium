@@ -18,4 +18,4 @@ cegid:
       operations: [ migrate ]           # le hook du socle (D667), sur cette migration
     relecture_complete:
       every: weekly[saturday at 23:00]  # la nuit de samedi (D881) : le migrate du dimanche relit tout
-      operations: [ reset_coverage(MVTSTO), reset_coverage(ECOMCLI), reset_coverage(ECOMFOU) ]
+      operations: [ reset_coverage(MVTSTO), reset_coverage(ECOMCLI), reset_coverage(LCOMCLI), reset_coverage(ECOMFOU), reset_coverage(LCOMFOU) ]

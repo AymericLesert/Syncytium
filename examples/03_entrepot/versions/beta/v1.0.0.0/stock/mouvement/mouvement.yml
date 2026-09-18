@@ -7,7 +7,7 @@
 # les cinq I seules, 100 avec l'article, la date et l'heure).
 # La seule entité du cas sans historique (D882) : les retouches des
 # outils maison (D864) remplacent (D878) ; la lecture par partition
-# (D878–D880) s'écrira à la source : coverage: date[month - 3].
+# (D878–D880) s'écrit à la source : coverage: MVCJMVT[month - 3].
 name: mouvement
 description: Un mouvement de stock — l'entrée ou la sortie d'un article, à une date, sur un dépôt
 label: "{date} {heure} — {article} {quantite}"

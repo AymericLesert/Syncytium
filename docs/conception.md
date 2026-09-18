@@ -21094,7 +21094,7 @@ avant la synthèse Q16).
   renseignée pour la quantité de la tranche supérieure » — la plage en
   cellule calculée jusqu'à la tranche suivante ; le tuple à lettre, la
   cellule au seuil, technique.tranche retirée, TRANCHES ignorée ;
-  TARIF.yml (10 colonnes lues, 5 non lues, deux calculés typés
+  TARIF.yml (13 colonnes lues, 2 non lues, deux calculés typés
   référence pour le tiers) et TRANCHES.yml (ignored) au dépôt ; 158
   fichiers valides. La suite : les tiers — CLIENT, FOURNIS, ADRESSE,
   CONTACT.

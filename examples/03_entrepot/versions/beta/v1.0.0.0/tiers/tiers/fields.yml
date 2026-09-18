@@ -148,7 +148,7 @@ echeance:
 # --- la vie du tiers ---
 
 actif:
-  # CLCTACTIF
+  # CLCTACTIF — O actif, N inactif ; « le vide vaut actif » (D950)
   type: boolean
   required: true
   default: true

@@ -1284,7 +1284,7 @@ entité lot si `Stock.Batch` le justifie) ; les valeurs de
 `article.famille` et `sous_famille` (la liste close à relever,
 D893) ; l'unité des temps de gamme (`NOCNTPSOUV` — heures ou
 centièmes) ; la forme de la n-ième tranche entre deux seuils
-(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage ; les libellés des codes de
+(`TRANCHES`) ; la colonne d'ADRESSE qui porte l'usage (ADCTTYPE — D950) ; les libellés des codes de
 gestion 03, 09 et 12 (D939 — entrés sous CG03, CG09, CG12 ; puis 09 =
 semi-fini et 12 = fantôme, mes hypothèses de D940 à vérifier) — PR, la
 nature numérique et le type du composant tranchés par D937, les

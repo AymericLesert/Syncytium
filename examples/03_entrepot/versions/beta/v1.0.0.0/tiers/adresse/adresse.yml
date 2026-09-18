@@ -1,6 +1,7 @@
 # L'adresse complémentaire — la table ADRESSE de PMI (ADKTTYPCPT le
-# type de compte, ADKTCOMPTE le code, ADKNNUMERO le numéro) : les
-# adresses de livraison et de facturation d'un tiers. La
+# type de compte — C le client, F le fournisseur (D950) —, ADKTCOMPTE
+# le code, ADKNNUMERO le numéro) : les adresses de livraison et de
+# facturation d'un tiers. La
 # composition du tiers (D399) ; le numéro l'identifie au sein du
 # possesseur (D841).
 name: adresse
@@ -18,8 +19,8 @@ fields:
       fr: Numéro
 
   usage:
-    # la liste close de PMI en énuméré (D883) — la colonne à relever à
-    # l'analyse d'ADRESSE
+    # ADCTTYPE nchar(20) — l'usage de l'adresse chez PMI, traduit au
+    # mapping vers les trois valeurs de l'exemple (D893/D950)
     type: enum
     required: true
     label:
@@ -36,22 +37,19 @@ fields:
           fr: Autre
 
   nom:
-    # le nom de l'adresse (l'établissement, le site)
+    # ADCTNOM — le nom de l'adresse (l'établissement, le site)
     type: text[..40]
     label:
       fr: Nom
 
   adresse:
-    # les lignes, le code postal, la ville, le pays — en géolocalisation
-    # (D638), le constructeur au mapping (D659)
+    # ADCTRUE1, ADCTRUE2, ADCTRUE3, ADCTCP, ADCTVILLE, ADCTCPAYS,
+    # ADCTPAYS, ADCNGPSX, ADCNGPSY — en géolocalisation (D638), le
+    # constructeur au mapping (D659) ; le téléphone du morceau 2 est
+    # retiré : ADRESSE n'en porte pas (D950)
     type: geolocation
     label:
       fr: Adresse
-
-  telephone:
-    type: phone
-    label:
-      fr: Téléphone
 
   date_creation:
     # ADCJCREA — AAAAMMJJ au masque

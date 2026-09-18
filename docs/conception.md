@@ -1082,6 +1082,7 @@ Q58) :
 | D947 | **La description de la source : lue, ignorée, non lue — un fichier par table au nom de la table ; le premier lot** (précise D657/D861/D866/D868–D869 — le morceau 3 du cas 3 ouvert) : « ignored correspond aux colonnes qui ne sont pas lues "volontairement". Pour l'exemple, nous pouvons prendre quelques colonnes en "ignored" et les autres colonnes sans précisions. Syncytium doit relever les colonnes non lues dans son rapport de migration » ; « pour la reprise, un fichier par entité d'origine avec le même nom que la table est suffisamment claire » — trois états pour une colonne comme pour une table (D869) : lue (typée, renvoyée à son champ), ignorée (`ignored`, l'écart volontaire), non lue (absente de la description, relevée au rapport — le point à creuser D868) ; la complétude du schéma (D861) se mesure au réel, la description n'a pas à citer chaque colonne ; `source/<TABLE>.yml`, `name: <TABLE>` ; les gardes de l'exemple sur les codes de l'échantillon ; les tables ignorées : les offres et DEVIS ; l'ordre par lots — ARTICLE et NOMENC écrits, `reprise/reprise.yml` déclaré avec ses opérations (D943). | Amende ma lecture « chaque colonne typée » ; le point 3 (les gardes) répondu par la limite aux unités PL et U (D946). Voir §3.2c. |
 | D948 | **TARIF lue : le genre du tiers, la lettre de tarif, le seuil, la validité** (l'analyse de la source — le lot 2 du morceau 3 ; corrige ma lecture de TRANCHES) : « TAKTGENRE correspond à un numérique compris entre 0 et 9 qui dans la pratique signifie client, fournisseur, tiers, central… mais je n'ai pas les codes associés — tu peux inventer les correspondances. TAKTCODE correspond à un code tiers qui dépend de TAKTGENRE » ; « TAKTTARIF est un caractère de A à Z ou de a à z. TACNTRANCH est la valeur numérique à partir de la valeur qui fournit le prix unitaire » ; « TACTVALID est "O" ou "N" — "N" indique que ce tarif est une archive » — la tranche du tarif n'est pas la grille TRANCHES : c'est la lettre TAKTTARIF, dans la clé, dont TACNTRANCH donne le seuil de quantité ; le tiers se résout selon le genre ; l'archive = valide faux. | Les correspondances du genre inventées pour l'exemple : 1 = client, 2 = fournisseur, les autres hors périmètre (filter:). La conséquence sur le modèle — le tuple `[tiers.tiers, tranche: text[1], date_application: date]`, la cellule avec son seuil, l'entité `technique.tranche` retirée, TRANCHES ignorée — en proposition. Voir §3.2c. |
 | D949 | **La grille tarifaire corrigée : la tranche est la lettre, la cellule porte le seuil et sa plage ; l'entité tranche retirée, TRANCHES ignorée** (applique D948 ; amende D897 sur la dimension, garde D497 — le lot 2 du morceau 3) : « le type range of est à conserver. Le début de la tranche est valeur de TACNTRANCH et la valeur supérieure est renseignée pour la quantité de la tranche supérieure » — `tarifs: list of [tiers.tiers, tranche: text[1], date_application: date]`, la cellule : `seuil` (TACNTRANCH), `plage: range of decimal` calculée du seuil au seuil de la tranche suivante pour le même tiers et la même date (la dernière ouverte — D497), `prix`, `forfait`, `valide` (O/N), `commentaire` ; `technique.tranche` retirée du modèle, `source/TRANCHES.yml` = `TRANCHES: ignored` (D657) ; `source/TARIF.yml` écrit — le tiers par deux calculés typés référence selon le genre, la lettre gardée par `matches`. | Ma `plage_stock` écartée : le range vit dans la cellule. La formule de la plage (`owner.tarifs.min(seuil if … and seuil > me.seuil)`) est mienne. Voir §3.2c. |
+| D950 | **Les tiers lus : le type de compte C ou F, l'usage en ADCTTYPE, les deux premières paires de téléphone, le vide vaut actif** (l'analyse de la source — le lot 3 du morceau 3 ; corrige le morceau 2 en passant) : « 1. C ou F 2. ok 3. ok 4. le vide vaut actif » — ADRESSE et CONTACT rejoignent leur tiers par le type de compte (C le client, F le fournisseur) et le code ; l'usage de l'adresse est ADCTTYPE, traduit au mapping vers livraison, facturation, autre ; le téléphone du contact est la première paire type/numéro, le portable la seconde ; CLCTACTIF vide = actif. | Le possesseur conditionnel : `parent:` ne sait pas choisir entre CLIENT et FOURNIS — deux calculés typés référence à la source, deux règles au mapping (mien). `adresse.telephone` retiré (aucune colonne). CTCTGDPRCO, un consentement RGPD chez PMI — un point à creuser pour le marquage `consent` (D695). Voir §3.2c. |
 
 ---
 
@@ -11174,6 +11175,30 @@ gardée par `matches: "^[A-Za-z]$"`, le tiers par deux calculés typés
 référence, `client` vers CLIENT et `fournisseur` vers FOURNIS selon le
 genre, résolus avant de partir) et `source/TRANCHES.yml`.
 
+**Les tiers lus (D950 — l'analyse de la source, le lot 3).** Quatre
+questions sur ADRESSE et CONTACT, hors de l'échantillon, et sur
+l'actif du tiers ; quatre réponses d'un trait : **« 1. C ou F 2. ok
+3. ok 4. le vide vaut actif. »** Les adresses complémentaires et les
+contacts rejoignent leur tiers par un type de compte — C le client, F
+le fournisseur — et un code ; l'usage de l'adresse est ADCTTYPE,
+vingt caractères, traduit au mapping vers les trois valeurs de
+l'exemple (D893) ; parmi les six paires type/numéro du contact, la
+première va au téléphone, la seconde au portable, leurs types ne se
+lisent pas ; et le vide de CLCTACTIF, douze clients et vingt
+fournisseurs sur cent, vaut actif — la règle du mapping écrira
+`actif: CLCTACTIF != "N"`. Le morceau 2 se corrige en passant :
+`adresse.telephone` tombe, ADRESSE n'a pas de téléphone ; les champs
+d'adresse et de contact reçoivent leurs colonnes. *(Le possesseur
+conditionnel — mien : `parent:` nomme un possesseur et ses colonnes,
+il ne sait pas choisir entre CLIENT et FOURNIS ; à la source, deux
+calculés typés référence, `client` et `fournisseur`, selon le type de
+compte, que le pré-contrôle résout (D874) ; au mapping, deux règles,
+l'une filtrée sur C vers `parent: { client: … }`, l'autre sur F vers
+`parent: { fournisseur: … }`. Et CONTACT porte un consentement RGPD,
+CTCTGDPRCO — non lu pour l'exemple, un point à creuser pour le
+marquage `consent` de D695.)* Le lot 3 est au dépôt : CLIENT et
+FOURNIS, ADRESSE et CONTACT.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21098,6 +21123,15 @@ avant la synthèse Q16).
   référence pour le tiers) et TRANCHES.yml (ignored) au dépôt ; 158
   fichiers valides. La suite : les tiers — CLIENT, FOURNIS, ADRESSE,
   CONTACT.
+- **2026-09-18 (suite 3) — LE LOT 3 : LES TIERS (D950, 950 décisions).**
+  CLIENT et FOURNIS écrits sur l'échantillon (33 et 30 colonnes lues,
+  les gardes de la base d'échéance, la langue, le blocage, l'actif) ;
+  quatre questions sur ADRESSE, CONTACT et l'actif — « 1. C ou F 2. ok
+  3. ok 4. le vide vaut actif » — **D950** ; ADRESSE et CONTACT écrits
+  (le possesseur conditionnel par deux calculés typés référence),
+  adresse.telephone retiré du modèle, les colonnes posées sur adresse
+  et contact ; 162 fichiers valides. La suite : les commandes — ECOMCLI,
+  LCOMCLI, ECOMFOU, LCOMFOU.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

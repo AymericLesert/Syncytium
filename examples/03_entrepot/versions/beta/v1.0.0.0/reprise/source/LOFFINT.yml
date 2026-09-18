@@ -1,0 +1,4 @@
+# La table LOFFINT de PMI — 124 colonnes : les offres, hors du périmètre (R4 — « pas les commandes, les offres… », D866).
+# Analysée et écartée pour l'exemple (D657/D947) : l'écart volontaire,
+# compté dans la complétude du schéma (D861), pas dans la couverture.
+LOFFINT: ignored

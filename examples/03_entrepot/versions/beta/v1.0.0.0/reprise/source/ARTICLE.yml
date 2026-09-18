@@ -1,0 +1,60 @@
+# La table ARTICLE de PMI — 181 colonnes. La description cite ce qu'elle
+# lit et ce qu'elle écarte (D947) : les colonnes lues, typées par la
+# convention PMI (D865/D876 — T texte, N nombre, J date AAAAMMJJ au
+# masque D820, S heure) et renvoyées à leur champ ; quelques colonnes
+# ignorées, l'écart volontaire (D657) ; les autres ne sont pas citées —
+# non lues, Syncytium les relève au rapport de migration (D868/D947).
+# La source de technique.article et de ses trois dérivés par le code de
+# gestion (D940).
+name: ARTICLE
+description: Les articles de PMI — la source de technique.article, fabrique, semi_fini et fantome
+
+filter: ARKTSOC = "100"
+identity: [ARKTCODART, ARKTCOMART]
+# la clé est vérifiée sur les données filtrées avant de partir (D871) ;
+# ARITNATURE et ARITCONART, des index (I), n'entrent pas dans l'identité
+
+fields:
+  ARKTSOC:     text[3]                                        # la société — le filtre (D663)
+  ARKTCODART:  text[18]                                       # → article.code — l'identité (D871)
+  ARKTCOMART:  text[6]                                        # → article.complement — l'identité (D871)
+  ARCTTYPART:  enum { AC, CO, LI, MI, MO, OU, PF, PL, SF, ST }# → article.type — la garde (D813/D935) ; PR = une erreur (D937)
+  ARITNATURE:  ignored                                        # un index, pas une clé — écarté (D947)
+  ARITCONART:  ignored                                        # un index — écarté
+  ARCTLIB01:   text[30]                                       # → article.libelle
+  ARCTLIB02:   text[30]                                       # → article.libelle_secondaire
+  ARCTUNICDE:  enum { PL, U }                                 # → article.unite_commande — nul possible
+  ARCTUNISTO:  enum { PL, U }                                 # → article.unite_stock — la garde limitée à l'exemple (D946)
+  ARCTUNIFAC:  ignored                                        # l'unité de facturation — hors périmètre (R4)
+  ARCTUNICON:  ignored                                        # l'unité de conditionnement — hors périmètre (R4)
+  ARCNPDSUNI:  decimal                                        # → article.poids
+  ARCNQTECO:   decimal                                        # → article.quantite_economique
+  ARCNPUACH1:  decimal                                        # → article.prix_achat
+  ARCTNOFOU1:  FOURNIS.CLKTCODE                               # → article.fournisseurs — la référence (D648), le premier fournisseur
+  ARCTNOFOU2:  FOURNIS.CLKTCODE                               # → article.fournisseurs — le second
+  ARCTFATN:    enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }# → article.gestion — les codes relevés (D938/D939) ; le code de gestion assure l'héritage (D940)
+  ARCNPMP:     decimal                                        # → article.prix_moyen_pondere
+  ARCNPRS:     decimal                                        # → article.prix_revient
+  ARCJCRE:     { type: date, mask: "yyyymmdd" }               # → article.date_creation
+  ARCJMOD:     { type: date, mask: "yyyymmdd" }               # → article.date_modification
+  ARCTCODFAM:  text[4]                                        # → article.famille — les valeurs de l'exemple au mapping (D893/D946)
+  ARCTCOSFAM:  text[4]                                        # → article.sous_famille — idem
+  ARCNSTOMAX:  decimal                                        # → article.stock_maximum
+  ARCNSTOMIN:  decimal                                        # → article.stock_minimum
+  ARCTCODMA1:  text[3]                                        # → article.matieres
+  ARCTCODMA2:  text[3]                                        # → article.matieres
+  ARCTCODMA3:  text[3]                                        # → article.matieres
+  ARCTCODMA4:  text[3]                                        # → article.matieres
+  ARCTCODMA5:  text[3]                                        # → article.matieres
+  ARCTCODMA6:  text[3]                                        # → article.matieres
+  ARCTCODMA7:  text[3]                                        # → article.matieres
+  ARCTCODMA8:  text[3]                                        # → article.matieres
+  ARCTCODMA9:  text[3]                                        # → article.matieres
+  ARCNLONGUE:  decimal                                        # → article.longueur
+  ARCNLARGEU:  decimal                                        # → article.largeur
+  ARCNEPAISS:  decimal                                        # → article.epaisseur
+  ARCNVOLUNI:  decimal                                        # → article.volume
+  ARCTEAN13:   text[20]                                       # → article.ean13
+  ARCTGSAV:    ignored                                        # « N » sur tout l'échantillon — écarté, ce n'est pas le code de gestion (D936)
+  ARCTFICPLA:  text[250]                                      # → article.plans — le nom du fichier, le contenu par le connecteur plans (D883)
+  ARCTBLOCAG:  text[20]                                       # → article.actif — vide = actif

@@ -1141,7 +1141,13 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    déclarées faute de clés étrangères, les clés aux colonnes K, les
    normalisations D660, le `filter:` D663 sur la société), **la date
    au masque** (D820/D867), le reste du schéma **en points à
-   creuser** (D868) ;
+   creuser** (D868) ; *ouvert le 18/09 (D946–D947) : un fichier par
+   table au nom de la table ; les colonnes lues typées et renvoyées à
+   leur champ, quelques colonnes ignorées avec leur motif, les autres
+   non lues — relevées au rapport ; le premier lot, ARTICLE et NOMENC,
+   et `reprise/reprise.yml` avec ses opérations (D943) ; la suite par
+   lots — TARIF et TRANCHES, les tiers, les commandes, les stocks, les
+   offres et DEVIS ignorées* ;
 4. **le mapping** — `mapping/` (l'identité déterminée par chaque
    règle — D825/D930, `parent:` par les champs mappés — D931,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +

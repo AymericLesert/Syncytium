@@ -1,0 +1,37 @@
+# La vue NOMENC de PMI, décrite comme une table (R2/D866) — 52 colonnes :
+# la nomenclature et la gamme réunies, une ligne par composant ou
+# opération ; la source de technique.nomenclature, la composition des
+# trois dérivés de l'article (D940/D946). Les colonnes lues typées et
+# renvoyées, quelques colonnes ignorées, les autres non lues (D947).
+name: NOMENC
+description: Les lignes de nomenclature de PMI — la source de technique.nomenclature
+
+filter: NOKTSOC = "100"
+identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
+parent:
+  ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF }
+# le possesseur par ses colonnes de clé (D931 — la surcharge D877 : les
+# noms diffèrent de l'identité d'ARTICLE) ; le lien est résolu sur les
+# données filtrées avant de partir, l'orphelin isolé (D874/D875)
+
+fields:
+  NOKTSOC:     text[..3]                                      # la société — le filtre (D663)
+  NOKTCODPF:   text[..18]                                     # l'identité (D871)
+  NOKTCOMPF:   text[..6]                                      # l'identité (D871)
+  NOKNLIGNOM:  integer                                        # → nomenclature.numero — l'identité (D871)
+  NOCTNATCPT:  ignored                                        # la nature numérique — ignorée (D937)
+  NOCTYPECPT:  ignored                                        # le type du composant = celui de l'article référencé — redondant (D937)
+  NOCTCODECP:  ARTICLE.ARKTCODART                             # → nomenclature.composant — la référence par la clé composée, colonne par colonne (D648/D931)
+  NOCTCOMCPT:  ARTICLE.ARKTCOMART                             # → nomenclature.composant
+  NOCTCODOPE:  text[6]                                        # → nomenclature.operation
+  NOCNJALON:   decimal                                        # → nomenclature.jalon — l'entier à la règle (D581 : la conversion explicite)
+  NOCNTPSATT:  decimal                                        # → nomenclature.temps_attente
+  NOCNBREOUV:  integer                                        # → nomenclature.nombre_ouvriers
+  NOCNTPSOUV:  decimal                                        # → nomenclature.temps_ouverture — l'unité des temps à confirmer, la durée à la règle
+  NOCNQTEUNI:  ignored                                        # nulle sur tout l'échantillon — la quantité est NOCNQTECOM (D946)
+  NOCTUNITE:   text[2]                                        # → nomenclature.unite
+  NOCNTPSPRE:  decimal                                        # → nomenclature.temps_preparation
+  NOCNRENDT:   decimal                                        # → nomenclature.rendement
+  NOCNQTECOM:  decimal                                        # → nomenclature.quantite
+  NOCJDEBVAL:  { type: date, mask: "yyyymmdd" }               # → nomenclature.validite
+  NOCJFINVAL:  { type: date, mask: "yyyymmdd" }               # → nomenclature.validite

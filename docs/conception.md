@@ -1079,6 +1079,7 @@ Q58) :
 | D944 | **La marque `*` : la clé confidentielle, illisible dans les journaux** (précise D603/D902 — la question 10 du cas 3) : « dans ma proposition de configuration (du début de nos échanges) les clés secrètes sont décrites par : secrets*: ${AZURE_CLIENT_SECRET}… le "*" après le nom de la clé signifie que la clé de la configuration porte une information confidentielle dont la lisibilité n'est pas autorisée dans les logs » — la convention de l'auteur, absente du registre jusqu'ici, y entre : toute clé de la configuration suffixée `*` porte une valeur confidentielle, jamais écrite en clair dans un journal (D925–D926), et sa valeur `${VAR}` relève du patron des secrets (D902 — la variable chiffrée, le clair refusé). | « Forme 2 est validée » (15/09) : chaque paramètre confidentiel marqué — `password*: ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le contrat de la classe, le nom de la variable celui du déploiement ; la liste `secrets:` de D603 s'efface ; D902 se lit « une valeur en clair dans le .env pour une variable référencée par une clé marquée * vaut refus de démarrer ». Voir §3.2c. |
 | D945 | **L'entreprise : azure_ad, smtp_std, la production et un staging, le rapport chaque matin** (la question 10 du cas 3 — le cadrage soldé) : « 1. azure_ad 2. smtp_std confirmé 3. la production et un staging 4. chaque matin » — l'authentification par Microsoft 365 (D692), le mail par le relais de l'entreprise (D626/D628), deux environnements (D342/D617 : le staging sur une copie de PMI, chacun ses connecteurs et son .env ; les versions beta sur le staging — D805), le rapport de chaque règle `when: [migration]` (D929/D406) ; le connecteur directory (D633) écarté (R4). | Les paramètres des classes azure_ad (tenant, client_id, client_secret*) et smtp_std (host, port, from, password*) sont miens — connectors.md les note en proposition ; le beta sur le staging et le staging plus verbeux — miens. Voir §3.2c. |
 | D946 | **Le modèle corrigé par le premier retour de l'analyse de la source** (la première itération de D868, à l'ouverture du morceau 3 du cas 3) : « à renommer ligne_nomenclature par nomenclature » — l'entité `technique.nomenclature` ; « la quantité de nomenclature est NOCNQTECOM » — la quantité lue en NOCNQTECOM, NOCNQTEUNI (nulle sur tout l'échantillon) écartée ; « pour le besoin de l'exemple, les valeurs inventées suffisent » — la famille et la sous-famille gardent leurs énumérés, le jeu de données publié sera construit (D869) ; « il y a plus d'unités mais pour le besoin d'import et l'exemple, nous nous limiterons à PL et U » — la garde des unités sur ces deux codes. | Le morceau 2 bouge au fil de l'analyse : la migration est itérative (D868). Voir §3.2c. |
+| D947 | **La description de la source : lue, ignorée, non lue — un fichier par table au nom de la table ; le premier lot** (précise D657/D861/D866/D868–D869 — le morceau 3 du cas 3 ouvert) : « ignored correspond aux colonnes qui ne sont pas lues "volontairement". Pour l'exemple, nous pouvons prendre quelques colonnes en "ignored" et les autres colonnes sans précisions. Syncytium doit relever les colonnes non lues dans son rapport de migration » ; « pour la reprise, un fichier par entité d'origine avec le même nom que la table est suffisamment claire » — trois états pour une colonne comme pour une table (D869) : lue (typée, renvoyée à son champ), ignorée (`ignored`, l'écart volontaire), non lue (absente de la description, relevée au rapport — le point à creuser D868) ; la complétude du schéma (D861) se mesure au réel, la description n'a pas à citer chaque colonne ; `source/<TABLE>.yml`, `name: <TABLE>` ; les gardes de l'exemple sur les codes de l'échantillon ; les tables ignorées : les offres et DEVIS ; l'ordre par lots — ARTICLE et NOMENC écrits, `reprise/reprise.yml` déclaré avec ses opérations (D943). | Amende ma lecture « chaque colonne typée » ; le point 3 (les gardes) répondu par la limite aux unités PL et U (D946). Voir §3.2c. |
 
 ---
 
@@ -11078,6 +11079,38 @@ et U »** — la garde des unités sur les deux codes de l'échantillon.
 C'est l'analyse itérative de D868 en acte : la source relue corrige
 le modèle, et le modèle guide la source.
 
+**La description de la source : lue, ignorée, non lue (D947 —
+précise D657/D861/D866/D868–D869 ; le morceau 3 ouvert).** Sur les
+deux brouillons, je demandais si toute colonne non lue devait
+s'écrire `ignored`, une par ligne — ma lecture de « chaque table en
+entier ». L'auteur : **« ignored correspond aux colonnes qui ne sont
+pas lues "volontairement". Pour l'exemple, nous pouvons prendre
+quelques colonnes en "ignored" et les autres colonnes sans
+précisions. Syncytium doit relever les colonnes non lues dans son
+rapport de migration. »** Les trois états des tables (D869)
+descendent donc aux colonnes : **lue** — typée par la convention,
+renvoyée à son champ ; **ignorée** — citée `ignored`, l'écart
+volontaire du technicien, avec son motif ; **non lue** — absente de
+la description, que Syncytium relève au rapport de migration : le
+point à creuser de D868, mesuré au schéma réel (la complétude D861).
+La description cite ce qu'elle lit et ce qu'elle écarte, le rapport
+dit le reste. **« Pour la reprise, un fichier par entité d'origine
+avec le même nom que la table est suffisamment claire »** —
+`source/ARTICLE.yml`, `name: ARTICLE`, la table telle que PMI
+l'écrit. Les gardes de l'exemple listent les codes de l'échantillon
+(le point 3, que l'auteur n'a pas compris tel que posé, se règle par
+sa réponse sur les unités — D946) ; les tables ignorées pour
+l'exemple sont les offres (EOFFCLI, LOFFCLI et leurs variantes) et
+DEVIS ; l'écriture va par lots validés. Le premier lot entre au dépôt
+: ARTICLE (38 colonnes lues, 5 ignorées, 138 non lues) et NOMENC (17
+lues, 3 ignorées, 32 non lues), avec `reprise/reprise.yml` — la
+migration déclarée (D662), ses patterns (D806), ses deux opérations
+périodiques (D943) — et le lien `migrations:` de `version.yml`.
+*(Les fichiers sont produits par un outil de technicien, hors dépôt :
+il lit le schéma et la carte des colonnes que le modèle cite, et
+n'écrit ni lien, ni filtre, ni garde de lui-même — ceux-là sont
+l'analyse, table par table.)*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -20967,6 +21000,22 @@ avant la synthèse Q16).
   semi-fini, 12 = fantôme (D940). La relecture complète des 50
   fichiers de examples/03_entrepot par l'auteur reste la validation
   définitive du morceau 2 (D899).
+- **2026-09-18 — LE MORCEAU 3 OUVERT : LA SOURCE, LE PREMIER LOT
+  (D946–D947, 947 décisions).** La PR #42 fusionnée le 16/09 en squash
+  (c5cdcf8), la branche distante supprimée par GitHub : la branche
+  recréée depuis develop (le reset et le push par l'auteur, le garde-fou
+  m'interdisant le destructif ; le push ordinaire après la suppression).
+  Le périmètre : 14 tables de dbo, 1 264 colonnes, 234 citées par le
+  modèle. Deux brouillons (ARTICLE, NOMENC) produits hors dépôt par un
+  outil de technicien et envoyés à l'auteur ; ses arbitrages : **D946**
+  (le modèle corrigé — `nomenclature` renommée, la quantité NOCNQTECOM,
+  les familles inventées suffisent, les unités PL et U) ; **D947** (les
+  trois états d'une colonne — lue, ignorée, non lue relevée au rapport
+  —, un fichier par table au nom de la table, les gardes de l'exemple,
+  les offres et DEVIS ignorées, les lots). Le premier lot au dépôt :
+  reprise/reprise.yml, source/ARTICLE.yml, source/NOMENC.yml ; 157
+  fichiers valides. La suite : TARIF et TRANCHES, puis les tiers, les
+  commandes, les stocks, les tables ignorées.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

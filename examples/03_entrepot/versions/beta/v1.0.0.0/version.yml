@@ -30,8 +30,10 @@ settings: settings.yml
 
 groups: groups.yml
 
-# Déclaration de la reprise des données de PMI (le morceau 3 — la source,
-# puis le mapping) : migrations: reprise/reprise.yml, à venir
+# Déclaration de la reprise des données de PMI (D662/D943 — le morceau 3,
+# la source, puis le morceau 4, le mapping)
+
+migrations: reprise/reprise.yml
 
 # Déclaration des modules — les quatre domaines de l'entrepôt (D882)
 

@@ -169,9 +169,15 @@ propres :
 
 - **`ignored`** (D657) — l'élément **attendu** dans la source mais
   non développé : sur une entité (`audit_log: ignored`) ou sur un
-  champ, **comme un type** (`ref_ext: ignored`). L'exhaustivité
-  (D648) se joue entièrement ici : chaque table et chaque colonne du
-  schéma réel est décrite ou marquée `ignored` ;
+  champ, **comme un type** (`ref_ext: ignored`) — l'écart
+  **volontaire**. **Trois états pour une colonne comme pour une
+  table** (D869/D947) : lue (typée, renvoyée à son champ), ignorée
+  (citée `ignored`, avec son motif), **non lue** (absente de la
+  description — Syncytium la relève au rapport de migration, le point
+  à creuser D868) ; la complétude (D861) se mesure au schéma réel, la
+  description n'a pas à citer chaque colonne. **Un fichier par entité
+  d'origine, au nom de la table** (`source/ARTICLE.yml`, `name:
+  ARTICLE` — D947) ;
 - **la normalisation par champ calculé** (D660) — le nettoyage, la
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une

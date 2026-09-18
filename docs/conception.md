@@ -21203,6 +21203,19 @@ avant la synthèse Q16).
   8 ignorées ; 175 fichiers valides. La suite : la validation du
   morceau 3 par l'auteur (les genres à nommer, la relecture), puis le
   morceau 4, le mapping.
+- **2026-09-19 (pause)** — La séance s'arrête sur le morceau 3 écrit en
+  entier (D946–D952 : la branche recréée après la fusion de la PR #42,
+  les trois états d'une colonne, le générateur de technicien hors
+  dépôt, les six lots — articles, tarifs, tiers, commandes, stocks, les
+  tables ignorées —, le morceau 2 corrigé cinq fois au contact de la
+  source). **En attente de l'auteur : les six genres de mouvement à
+  nommer (C, D, E, F, I, R — mes hypothèses consignées à D952) et sa
+  relecture des 21 fichiers de reprise/source/, qui vaut validation du
+  morceau 3.** La reprise : le morceau 4, le mapping — une règle par
+  dérivé de l'article filtrée sur ARCTFATN (D940), deux règles par
+  table à possesseur conditionnel (D950), `parent:` par les champs
+  mappés (D931), `report:` par règle (D929), les `select` des listes
+  closes (D893), les référentiels par valeurs distinctes (D658).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

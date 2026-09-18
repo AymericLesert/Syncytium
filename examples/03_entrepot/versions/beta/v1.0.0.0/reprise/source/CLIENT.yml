@@ -1,0 +1,49 @@
+# La table CLIENT de PMI — 167 colonnes, les mêmes que FOURNIS (le
+# préfixe CL pour les deux — D884) : la source du tiers (le parent, D353)
+# et de son dérivé client (D882). Les colonnes lues typées et renvoyées,
+# quelques colonnes ignorées, les autres non lues (D947). Les gardes sur
+# les codes de l'échantillon (D946).
+name: CLIENT
+description: Les clients de PMI — la source de tiers.tiers et de tiers.client
+
+filter: CLKTSOC = "100"
+identity: [CLKTCODE]
+# la clé vaut parmi les clients (D884 — un code client et un code
+# fournisseur peuvent coïncider chez PMI) ; l'identité du tiers se déclare
+# chez l'enfant (D353)
+
+fields:
+  CLKTSOC:     text[3]                                        # la société — le filtre (D663)
+  CLKTCODE:    text[6]                                        # → tiers.code — l'identité (D871)
+  CLCTABRE:    text[10]                                       # → tiers.abrege
+  CLCTNOM:     text[40]                                       # → tiers.nom
+  CLCTRUE1:    text[40]                                       # → tiers.adresse
+  CLCTRUE2:    text[40]                                       # → tiers.adresse
+  CLCTCP:      text[16]                                       # → tiers.adresse
+  CLCTVILLE:   text[40]                                       # → tiers.adresse
+  CLCTPAYS:    text[20]                                       # → tiers.adresse
+  CLCTCPAYS:   text[3]                                        # → tiers.pays — le code pays, sans garde (le réel déborde l'ISO : CSR, SL, TU)
+  CLCTSIRET:   text[20]                                       # → tiers.siret
+  CLCTNOTVA:   text[20]                                       # → tiers.tva
+  CLCTTELEP1:  text[20]                                       # → tiers.telephone
+  CLCTFAX1:    text[20]                                       # → tiers.fax
+  CLCTCECHEA:  text[3]                                        # → tiers.echeance — les jours d'échéance (000, 030, 045…), l'entier à la règle
+  CLCTBECHEA:  enum { 1, 3, 6 }                               # → tiers.echeance — la base d'échéance, la garde sur l'échantillon
+  CLCTMREG:    ignored                                        # le mode de règlement — anonymisé dans l'échantillon ; les valeurs de l'exemple au mapping (D946)
+  CLCTTARIF:   text[2]                                        # → client.code_tarif
+  CLCTLANGUE:  enum { 01, 03, 05, 07 }                        # → tiers.langue — la garde sur l'échantillon
+  CLCTREP1:    text[2]                                        # → client.representant
+  CLCNTXREP1:  decimal                                        # → client.taux_representant
+  CLCTDEVISE:  text[3]                                        # → tiers.devise — la devise des montants (D771)
+  CLCNDECOU1:  decimal                                        # → client.encours_maximum
+  CLCTBLOCAG:  enum { E, C }                                  # → tiers.bloque — nul = non bloqué, sinon le motif
+  CLCJCRE:     { type: date, mask: "yyyymmdd" }               # → tiers.date_creation
+  CLCJMOU:     { type: date, mask: "yyyymmdd" }               # → tiers.date_modification
+  CLCTEMAIL:   text[60]                                       # → tiers.email
+  CLCTSITE:    text[40]                                       # → tiers.site
+  CLCTSWIFT:   text[11]                                       # → tiers.bic
+  CLCTIBAN:    text[35]                                       # → tiers.iban
+  CLCTACTIF:   enum { O, N }                                  # → tiers.actif — O actif, N inactif ; nul sur une part de l'échantillon : à trancher
+  CLCTRUE3:    text[40]                                       # → tiers.adresse
+  CLCNGPSX:    decimal                                        # → tiers.adresse
+  CLCNGPSY:    decimal                                        # → tiers.adresse

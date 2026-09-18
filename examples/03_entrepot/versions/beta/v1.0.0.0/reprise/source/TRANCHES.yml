@@ -1,0 +1,8 @@
+# La table TRANCHES de PMI — 108 colonnes : un numéro de grille et, pour
+# chaque rang de 1 à 35, un seuil, un libellé et un type. Analysée et
+# écartée (D657/D948) : la grille ne conditionne pas le tarif, dont la
+# tranche est la lettre TAKTTARIF et le seuil TACNTRANCH ; l'entité
+# tranche du morceau 2, bâtie sur cette lecture, est retirée (D949).
+# L'écart volontaire : Syncytium la compte dans la complétude du schéma
+# (D861), pas dans la couverture.
+TRANCHES: ignored

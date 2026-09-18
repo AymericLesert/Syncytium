@@ -1,0 +1,42 @@
+# La table TARIF de PMI — 15 colonnes : une ligne par article, tiers,
+# lettre de tarif et date d'application (la clé), le seuil de quantité en
+# valeur (D948 : « TACNTRANCH est la valeur numérique à partir de la
+# valeur qui fournit le prix unitaire »). La source de la grille tarifaire
+# de l'article, l'hypercube tiers × tranche × date (D897/D949). Les
+# colonnes lues typées et renvoyées, les autres non lues (D947).
+name: TARIF
+description: Les tarifs de PMI — la source de article.tarifs, la grille tarifaire en hypercube
+
+filter: TAKTSOC = "100" and TAKTGENRE in ["1", "2"]
+identity: [TAKTGENRE, TAKTCODE, TAKTCODART, TAKTCOMART, TAKTTARIF, TAKJAPLI]
+parent:
+  ARTICLE: { ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART }
+# le filtre garde les genres du périmètre — 1 le client, 2 le fournisseur,
+# des correspondances inventées pour l'exemple (D948 : « tu peux inventer
+# les correspondances ») ; le possesseur est l'article (D931)
+
+fields:
+  TAKTSOC:     text[3]                                        # la société — le filtre (D663)
+  TAKTGENRE:   text[1]                                        # l'identité — le genre du tiers, un chiffre de 0 à 9 (D948)
+  TAKTCODE:    text[6]                                        # l'identité — le code du tiers, qui dépend du genre : les calculés client et fournisseur ci-dessous
+  TAKTCODART:  text[18]                                       # l'identité (D871)
+  TAKTCOMART:  text[6]                                        # l'identité (D871)
+  TAKTTARIF:   { type: 'text[1]', matches: "^[A-Za-z]$" }     # → article.tarifs (la dimension tranche) — la lettre de tarif, gardée par matches (D364/D948) ; le crochet en collection de flux se cite (D892)
+  TAKJAPLI:    { type: date, mask: "yyyymmdd" }               # → article.tarifs (la dimension date_application) — l'identité
+  TACNPU:      decimal                                        # → article.tarifs.prix — avec la devise
+  TACNTRANCH:  integer                                        # → article.tarifs.seuil — la quantité à partir de laquelle le prix vaut (D948)
+  TACTCOMMEN:  text[20]                                       # → article.tarifs.commentaire
+  TACTDEVISE:  text[3]                                        # → article.tarifs.prix — la devise de la valeur (D771)
+  TACTVALID:   enum { O, N }                                  # → article.tarifs.valide — O valide, N l'archive (D948)
+  TACNFORFAI:  decimal                                        # → article.tarifs.forfait
+
+  # --- le tiers, selon le genre (D948) : deux calculés typés référence
+  # (D660/D648), résolus sur les données filtrées avant de partir (D874) ;
+  # la règle du mapping alimente la dimension tiers.tiers avec celui des
+  # deux qui est renseigné ---
+  client:
+    type: CLIENT.CLKTCODE
+    formula: TAKTCODE if TAKTGENRE = "1"
+  fournisseur:
+    type: FOURNIS.CLKTCODE
+    formula: TAKTCODE if TAKTGENRE = "2"

@@ -1080,6 +1080,7 @@ Q58) :
 | D945 | **L'entreprise : azure_ad, smtp_std, la production et un staging, le rapport chaque matin** (la question 10 du cas 3 — le cadrage soldé) : « 1. azure_ad 2. smtp_std confirmé 3. la production et un staging 4. chaque matin » — l'authentification par Microsoft 365 (D692), le mail par le relais de l'entreprise (D626/D628), deux environnements (D342/D617 : le staging sur une copie de PMI, chacun ses connecteurs et son .env ; les versions beta sur le staging — D805), le rapport de chaque règle `when: [migration]` (D929/D406) ; le connecteur directory (D633) écarté (R4). | Les paramètres des classes azure_ad (tenant, client_id, client_secret*) et smtp_std (host, port, from, password*) sont miens — connectors.md les note en proposition ; le beta sur le staging et le staging plus verbeux — miens. Voir §3.2c. |
 | D946 | **Le modèle corrigé par le premier retour de l'analyse de la source** (la première itération de D868, à l'ouverture du morceau 3 du cas 3) : « à renommer ligne_nomenclature par nomenclature » — l'entité `technique.nomenclature` ; « la quantité de nomenclature est NOCNQTECOM » — la quantité lue en NOCNQTECOM, NOCNQTEUNI (nulle sur tout l'échantillon) écartée ; « pour le besoin de l'exemple, les valeurs inventées suffisent » — la famille et la sous-famille gardent leurs énumérés, le jeu de données publié sera construit (D869) ; « il y a plus d'unités mais pour le besoin d'import et l'exemple, nous nous limiterons à PL et U » — la garde des unités sur ces deux codes. | Le morceau 2 bouge au fil de l'analyse : la migration est itérative (D868). Voir §3.2c. |
 | D947 | **La description de la source : lue, ignorée, non lue — un fichier par table au nom de la table ; le premier lot** (précise D657/D861/D866/D868–D869 — le morceau 3 du cas 3 ouvert) : « ignored correspond aux colonnes qui ne sont pas lues "volontairement". Pour l'exemple, nous pouvons prendre quelques colonnes en "ignored" et les autres colonnes sans précisions. Syncytium doit relever les colonnes non lues dans son rapport de migration » ; « pour la reprise, un fichier par entité d'origine avec le même nom que la table est suffisamment claire » — trois états pour une colonne comme pour une table (D869) : lue (typée, renvoyée à son champ), ignorée (`ignored`, l'écart volontaire), non lue (absente de la description, relevée au rapport — le point à creuser D868) ; la complétude du schéma (D861) se mesure au réel, la description n'a pas à citer chaque colonne ; `source/<TABLE>.yml`, `name: <TABLE>` ; les gardes de l'exemple sur les codes de l'échantillon ; les tables ignorées : les offres et DEVIS ; l'ordre par lots — ARTICLE et NOMENC écrits, `reprise/reprise.yml` déclaré avec ses opérations (D943). | Amende ma lecture « chaque colonne typée » ; le point 3 (les gardes) répondu par la limite aux unités PL et U (D946). Voir §3.2c. |
+| D948 | **TARIF lue : le genre du tiers, la lettre de tarif, le seuil, la validité** (l'analyse de la source — le lot 2 du morceau 3 ; corrige ma lecture de TRANCHES) : « TAKTGENRE correspond à un numérique compris entre 0 et 9 qui dans la pratique signifie client, fournisseur, tiers, central… mais je n'ai pas les codes associés — tu peux inventer les correspondances. TAKTCODE correspond à un code tiers qui dépend de TAKTGENRE » ; « TAKTTARIF est un caractère de A à Z ou de a à z. TACNTRANCH est la valeur numérique à partir de la valeur qui fournit le prix unitaire » ; « TACTVALID est "O" ou "N" — "N" indique que ce tarif est une archive » — la tranche du tarif n'est pas la grille TRANCHES : c'est la lettre TAKTTARIF, dans la clé, dont TACNTRANCH donne le seuil de quantité ; le tiers se résout selon le genre ; l'archive = valide faux. | Les correspondances du genre inventées pour l'exemple : 1 = client, 2 = fournisseur, les autres hors périmètre (filter:). La conséquence sur le modèle — le tuple `[tiers.tiers, tranche: text[1], date_application: date]`, la cellule avec son seuil, l'entité `technique.tranche` retirée, TRANCHES ignorée — en proposition. Voir §3.2c. |
 
 ---
 
@@ -11111,6 +11112,38 @@ il lit le schéma et la carte des colonnes que le modèle cite, et
 n'écrit ni lien, ni filtre, ni garde de lui-même — ceux-là sont
 l'analyse, table par table.)*
 
+**TARIF lue (D948 — l'analyse de la source, le lot 2 ; corrige ma
+lecture de TRANCHES).** Trois questions posées sur TARIF, que
+l'extraction ne contient pas ; trois réponses : **« TAKTGENRE
+correspond à un numérique compris entre 0 et 9 qui dans la pratique
+signifie client, fournisseur, tiers, central… mais je n'ai pas les
+codes associés — tu peux inventer les correspondances. TAKTCODE
+correspond à un code tiers qui dépend de TAKTGENRE » ; « TAKTTARIF
+est un caractère de A à Z ou de a à z. TACNTRANCH est la valeur
+numérique à partir de la valeur qui fournit le prix unitaire » ;
+« TACTVALID est "O" ou "N" — "N" indique que ce tarif est une
+archive. »** La clé de TARIF (société, genre, code tiers, article,
+lettre de tarif, date d'application) le confirme : **la tranche du
+tarif est la lettre TAKTTARIF**, et son seuil de quantité, TACNTRANCH,
+une valeur de la cellule — le prix vaut à partir de cette quantité ;
+la grille TRANCHES, ses trente-cinq seuils, libellés et types par
+numéro, ne conditionne pas le tarif : mon entité `technique.tranche`
+du morceau 2, bâtie sur cette lecture, tombe. Les correspondances du
+genre sont inventées pour l'exemple, comme l'auteur le permet : 1 =
+client, 2 = fournisseur, les autres genres hors du périmètre par le
+`filter:`. *(En proposition, la conséquence sur le modèle : le tuple
+de la grille devient `list of [tiers.tiers, tranche: text[1],
+date_application: date]` — la lettre en dimension de valeur, comme la
+date (D134/D897) —, la cellule gagne `seuil: decimal` et perd
+`numero`, `valide` lit TACTVALID = "O" ; l'entité `technique.tranche`
+et sa table sont retirées, TRANCHES entre parmi les tables ignorées
+de l'exemple ; le type `range of`, que la tranche portait, passe à
+l'article — `plage_stock: range(stock_minimum, stock_maximum)` ; à la
+source, le tiers se résout par deux calculés typés référence — `client:
+{ type: CLIENT.CLKTCODE, formula: TAKTCODE if TAKTGENRE = "1" }`,
+`fournisseur:` de même vers FOURNIS — et la lettre se garde par
+`matches: "^[A-Za-z]$"` (D364).)*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21016,6 +21049,15 @@ avant la synthèse Q16).
   reprise/reprise.yml, source/ARTICLE.yml, source/NOMENC.yml ; 157
   fichiers valides. La suite : TARIF et TRANCHES, puis les tiers, les
   commandes, les stocks, les tables ignorées.
+- **2026-09-18 (suite) — TARIF LUE (D948, 948 décisions).** Les trois
+  questions du lot 2 répondues : le genre du tiers (0–9, les
+  correspondances à inventer — 1 client, 2 fournisseur pour l'exemple),
+  la lettre de tarif TAKTTARIF et le seuil TACNTRANCH (« la valeur
+  numérique à partir de la valeur qui fournit le prix unitaire »), la
+  validité O/N. La tranche du tarif n'est pas TRANCHES : mon entité
+  technique.tranche tombe, la conséquence sur le modèle (le tuple à
+  lettre, la cellule au seuil, TRANCHES ignorée, range of à l'article)
+  est proposée à l'auteur avant l'écriture de TARIF.yml.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

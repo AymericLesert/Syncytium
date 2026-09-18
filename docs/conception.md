@@ -1083,6 +1083,7 @@ Q58) :
 | D948 | **TARIF lue : le genre du tiers, la lettre de tarif, le seuil, la validité** (l'analyse de la source — le lot 2 du morceau 3 ; corrige ma lecture de TRANCHES) : « TAKTGENRE correspond à un numérique compris entre 0 et 9 qui dans la pratique signifie client, fournisseur, tiers, central… mais je n'ai pas les codes associés — tu peux inventer les correspondances. TAKTCODE correspond à un code tiers qui dépend de TAKTGENRE » ; « TAKTTARIF est un caractère de A à Z ou de a à z. TACNTRANCH est la valeur numérique à partir de la valeur qui fournit le prix unitaire » ; « TACTVALID est "O" ou "N" — "N" indique que ce tarif est une archive » — la tranche du tarif n'est pas la grille TRANCHES : c'est la lettre TAKTTARIF, dans la clé, dont TACNTRANCH donne le seuil de quantité ; le tiers se résout selon le genre ; l'archive = valide faux. | Les correspondances du genre inventées pour l'exemple : 1 = client, 2 = fournisseur, les autres hors périmètre (filter:). La conséquence sur le modèle — le tuple `[tiers.tiers, tranche: text[1], date_application: date]`, la cellule avec son seuil, l'entité `technique.tranche` retirée, TRANCHES ignorée — en proposition. Voir §3.2c. |
 | D949 | **La grille tarifaire corrigée : la tranche est la lettre, la cellule porte le seuil et sa plage ; l'entité tranche retirée, TRANCHES ignorée** (applique D948 ; amende D897 sur la dimension, garde D497 — le lot 2 du morceau 3) : « le type range of est à conserver. Le début de la tranche est valeur de TACNTRANCH et la valeur supérieure est renseignée pour la quantité de la tranche supérieure » — `tarifs: list of [tiers.tiers, tranche: text[1], date_application: date]`, la cellule : `seuil` (TACNTRANCH), `plage: range of decimal` calculée du seuil au seuil de la tranche suivante pour le même tiers et la même date (la dernière ouverte — D497), `prix`, `forfait`, `valide` (O/N), `commentaire` ; `technique.tranche` retirée du modèle, `source/TRANCHES.yml` = `TRANCHES: ignored` (D657) ; `source/TARIF.yml` écrit — le tiers par deux calculés typés référence selon le genre, la lettre gardée par `matches`. | Ma `plage_stock` écartée : le range vit dans la cellule. La formule de la plage (`owner.tarifs.min(seuil if … and seuil > me.seuil)`) est mienne. Voir §3.2c. |
 | D950 | **Les tiers lus : le type de compte C ou F, l'usage en ADCTTYPE, les deux premières paires de téléphone, le vide vaut actif** (l'analyse de la source — le lot 3 du morceau 3 ; corrige le morceau 2 en passant) : « 1. C ou F 2. ok 3. ok 4. le vide vaut actif » — ADRESSE et CONTACT rejoignent leur tiers par le type de compte (C le client, F le fournisseur) et le code ; l'usage de l'adresse est ADCTTYPE, traduit au mapping vers livraison, facturation, autre ; le téléphone du contact est la première paire type/numéro, le portable la seconde ; CLCTACTIF vide = actif. | Le possesseur conditionnel : `parent:` ne sait pas choisir entre CLIENT et FOURNIS — deux calculés typés référence à la source, deux règles au mapping (mien). `adresse.telephone` retiré (aucune colonne). CTCTGDPRCO, un consentement RGPD chez PMI — un point à creuser pour le marquage `consent` (D695). Voir §3.2c. |
+| D951 | **LCKTPSF est l'indice de la commande** (l'analyse de la source — le lot 4 du morceau 3 ; corrige le morceau 2 et ma lecture du schéma) : « la ligne doit contenir une colonne LCKTINDPSF (indice) » — absente du classeur 16.17, où un indice PSF vit aux tables de production (BEKTINDPSF, PRKTINDPSF) ; puis « LCKTPSF est l'indice de la commande » — la quatrième colonne de clé de LCOMCLI et LCOMFOU, que le morceau 2 lisait comme un sous-numéro, est la révision : l'identité de la ligne au sein de la commande = le numéro de ligne ; le possesseur = (numéro, indice), `parent: { ECOMCLI: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF } }` ; `sous_numero` retiré des deux lignes ; l'entête garde [numero, indice] — une ligne d'entête par révision, ses lignes avec elle. | Le statut de la ligne : LCCTSTATUT lu, LCCTETACDE non lue (mien). La couverture des lignes par LCKTNUMERO[10000], l'écho de D880 (mien). Voir §3.2c. |
 
 ---
 
@@ -11199,6 +11200,30 @@ CTCTGDPRCO — non lu pour l'exemple, un point à creuser pour le
 marquage `consent` de D695.)* Le lot 3 est au dépôt : CLIENT et
 FOURNIS, ADRESSE et CONTACT.
 
+**LCKTPSF est l'indice de la commande (D951 — l'analyse de la
+source, le lot 4 ; corrige le morceau 2).** À ma question sur la
+révision — la clé de l'entête porte le numéro et l'indice, celle de la
+ligne le numéro, la ligne et un « PSF » —, l'auteur répond d'abord :
+**« la ligne doit contenir une colonne LCKTINDPSF (indice). »** Le
+classeur 16.17 ne la porte pas : la clé de LCOMCLI tient en quatre
+colonnes, et l'indice PSF que le schéma connaît vit aux tables de
+production — BEKTINDPSF dans BESOIN, CONSOM, TEMPAS, TRAVAUX,
+PRKTINDPSF dans PRODUCT. L'écart rapporté, l'auteur tranche : **« LCKTPSF
+est l'indice de la commande. »** La quatrième colonne de clé, que le
+morceau 2 lisait comme un sous-numéro « 000 le plus souvent », est la
+révision sous un autre nom que l'entête. La ligne rejoint donc sa
+révision : le possesseur est (numéro, indice), `parent: { ECOMCLI: {
+ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF } }` (D931) ; l'identité
+de la ligne au sein de la commande est le numéro de ligne seul ;
+`sous_numero` quitte `ligne_vente` et `ligne_achat` ; l'entête garde
+son identité [numero, indice] — une ligne d'entête par révision, ses
+lignes avec elle. *(Miens : le statut de la ligne lu en LCCTSTATUT,
+deux caractères comme l'entête, LCCTETACDE non lue ; la couverture
+des lignes par LCKTNUMERO[10000], la même partition que l'entête,
+l'écho de D880.)* Le lot 4 est au dépôt : ECOMCLI, ECOMFOU, LCOMCLI,
+LCOMFOU — les deux paires identiques, la vente vers CLIENT, l'achat
+vers FOURNIS.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21132,6 +21157,14 @@ avant la synthèse Q16).
   adresse.telephone retiré du modèle, les colonnes posées sur adresse
   et contact ; 162 fichiers valides. La suite : les commandes — ECOMCLI,
   LCOMCLI, ECOMFOU, LCOMFOU.
+- **2026-09-19 — LE LOT 4 : LES COMMANDES (D951, 951 décisions).** La
+  révision des commandes : « la ligne doit contenir une colonne
+  LCKTINDPSF » — absente du classeur, l'écart rapporté avec les tables
+  qui la portent ; « LCKTPSF est l'indice de la commande » — **D951**,
+  sous_numero retiré des lignes, le possesseur (numéro, indice). Les
+  quatre fichiers écrits (ECOMCLI/ECOMFOU 91 colonnes, LCOMCLI/LCOMFOU
+  124), la couverture par plage de numéros ; 166 fichiers valides. La
+  suite : les stocks — STDEPLOT, MVTSTO — puis les tables ignorées.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

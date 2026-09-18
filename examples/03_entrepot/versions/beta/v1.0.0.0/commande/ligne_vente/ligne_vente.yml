@@ -1,12 +1,13 @@
 # La ligne de commande de vente — la table LCOMCLI de PMI (124
 # colonnes) : la composition de la commande (D399). L'identité au sein
-# de la commande : le numéro de ligne et le sous-numéro PSF (LCKTLIGNE,
-# LCKTPSF — D865). La ligne référence l'article — la référence (D396),
+# de la commande : le numéro de ligne (LCKTLIGNE) ; LCKTPSF est l'indice
+# de la commande, la clé du possesseur, que le morceau 2 lisait comme un
+# sous-numéro (D951). La ligne référence l'article — la référence (D396),
 # jamais une composition : l'article supprimé ne la touche pas (D882).
 name: ligne_vente
 description: Une ligne de commande de vente — l'article, les quantités, le prix, les délais
 label: "{numero} — {article}"
-identity: [numero, sous_numero]
+identity: [numero]
 history: true
 
 fields: fields.yml

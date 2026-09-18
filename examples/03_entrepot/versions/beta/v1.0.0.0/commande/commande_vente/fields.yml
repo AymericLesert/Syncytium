@@ -10,8 +10,8 @@ numero:
     fr: Numéro
 
 indice:
-  # ECKTINDICE nchar(3) — la révision de la commande ; les lignes de
-  # PMI ne le portent pas : le point d'analyse relevé (D876)
+  # ECKTINDICE nchar(3) — la révision de la commande ; les lignes la
+  # portent sous LCKTPSF (D951 : « LCKTPSF est l'indice de la commande »)
   type: text[..3]
   required: true
   default: "000"

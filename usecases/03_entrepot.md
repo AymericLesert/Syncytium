@@ -350,7 +350,8 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   produit fini, complément, ligne), `TARIF` (sept colonnes dont la
   date d'application), `STDEPLOT` (sept colonnes : article, lot,
   emplacement, dépôt…), `ECOMCLI` (société, numéro, **indice** —
-  la révision de la commande), `LCOMCLI` (+ ligne, `PSF`) ;
+  la révision de la commande), `LCOMCLI` (+ ligne ; `PSF` est l'indice
+  — D951) ;
   **`MVTSTO` n'a aucune colonne `K`** : ses cinq colonnes `I`
   (société, numéro, ligne, indice, composant — l'origine) donnent
   70 valeurs distinctes sur 100 lignes — **pas de clé naturelle
@@ -665,9 +666,8 @@ La lecture — ce qui se corrige et ce qui se précise :
     d'`ECOMCLI` à `LCOMCLI`), K ou I = l'identité, la lettre de type
     = le type — portée par le connecteur `cegid` : un paramètre de
     convention de la classe `sqlserver`, ou une classe dédiée — à
-    arbitrer à l'assise ; *l'indice de révision absent des lignes
-    (`ECKTINDICE`) : une question d'analyse des commandes, que le
-    contrôle des liens (D874) mettra au jour* ;
+    arbitrer à l'assise ; *l'indice de révision des lignes : `LCKTPSF`, sous un autre nom que
+    l'entête (D951)* ;
   - **la convention surchargeable** (D877, complète D876) : « si la
     convention n'est pas possible ou ne convient pas au technicien,
     la convention pourra être surchargée et cela rendra possible ce

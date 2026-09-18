@@ -4,7 +4,7 @@
 name: ligne_achat
 description: Une ligne de commande d'achat — l'article, les quantités, le prix, les délais
 label: "{numero} — {article}"
-identity: [numero, sous_numero]
+identity: [numero]              # LCKTPSF est l'indice de la commande, pas un sous-numéro (D951)
 history: true
 
 fields: fields.yml

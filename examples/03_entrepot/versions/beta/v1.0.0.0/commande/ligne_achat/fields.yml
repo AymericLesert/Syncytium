@@ -7,14 +7,6 @@ numero:
   label:
     fr: Ligne
 
-sous_numero:
-  # LCKTPSF
-  type: text[..3]
-  required: true
-  default: "000"
-  label:
-    fr: Sous-numéro
-
 # --- l'article ---
 
 article:

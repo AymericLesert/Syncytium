@@ -1110,6 +1110,7 @@ Q58) :
 | D975 | **`measure` et `duration` combinent une valeur et une unité — le constructeur ; le type porte ses règles de conversion, aux paramètres complémentaires quand il le faut** (précise D391/D476/D579/D659 — le frottement 6 du lot 2 du cas 3) : les colonnes de PMI sont des décimaux sans unité (ARCNPDSUNI, ARCNLONGUE…, NOCNTPSOUV…) — `measure(ARCNPDSUNI, kg)`, `duration(NOCNTPSOUV, h)` ; l'unité prise dans les `units:` du champ ou parmi celles de `duration` (D476), hors liste = une erreur d'ingestion (D581) ; **« pour measure ou duration, ça combine une valeur et une unité. Elles portent également des règles de conversion qui peuvent nécessiter des paramètres complémentaires »** — la conversion d'une unité à l'autre est une fonction du type (D579/D584 : chaque type porte ses conversions), et quand elle dépend d'autre chose que d'un facteur fixe — la masse volumique d'un volume vers un poids, la base d'un temps industriel en centièmes vers les heures-minutes (D380) — elle prend ses paramètres. | Les unités réelles de PMI inconnues : celles de l'exemple — kg, mm, dm3, les heures décimales — inventées et marquées (D963) ; la forme de la conversion (`.to(<unité>, <paramètres>)`) mienne, en proposition dans types.md. Voir §3.2c. |
 | D976 | **Les conversions sont des matrices — les unités en lignes et en colonnes, le coefficient à l'intersection ; les matrices standard des mesures et des temps fournies ; les unités extensibles ; le coefficient propre à un contexte** (précise D975/D391/D476) : « les conversions portent sur des matrices de conversion. Les colonnes et les lignes d'une matrice de conversion portent un coefficient de conversion à l'intersection. Il y a des conversions standard sur les unités de mesure et sur les unités de temps. Les unités peuvent être étendues pour inclure, par exemple, PL (plaque) pour une mesure — F pour Frappe (20 F/H ⇒ 3 min…), … La conversion d'une plaque en masse s'effectue via un coefficient propre à chaque matière première. Ce coefficient est déductible de la dimension de la plaque, de son épaisseur et de sa densité… Il existe d'autres approches » — Syncytium fournit les matrices standard (kg/g/t, mm/cm/m, s/min/h/d…) ; le technicien étend les unités et remplit les intersections ; **le coefficient est une constante (F → h : 1/20) ou une expression**, quand la conversion dépend du contexte — la plaque vers la masse, par la matière (les paramètres complémentaires de D975) ; le cas 3 le rencontrera : PL est l'unité de stock de PMI (D946), la plaque d'acier a une masse. | La forme de la déclaration est mienne, en proposition dans types.md : un bloc `conversions:` aux settings (la cascade D359 — l'instance, le module, l'entité), `<type>: { <unité>: { <unité>: <coefficient ou expression> } }` ; où l'expression prend son contexte (l'enregistrement converti) et « les autres approches » restent à voir. Voir §3.2c. |
 | D977 | **La matrice de conversion de l'article — les deux couples de PMI, le coefficient stocké** (l'autre approche de D976, l'écho de D895/D949) : « dans PMI, sur un article, nous avons les champs suivants pour représenter la conversion : ARCTCONV1A, ARCTCONV1B, ARCNCONC01, ARCTCONV2A, ARCTCONV2B, ARCNCONC02 » — deux couples (l'unité source nchar(2), l'unité cible nchar(2), le coefficient décimal), contigus aux quatre unités de l'article ; le coefficient propre à chaque article n'est pas calculé mais **stocké** : le modèle le porte tel quel — `article.conversions: list of [source: text[2], cible: text[2]]`, la cellule `coefficient` (l'hypercube, D895 — l'objet naturel au modèle) ; deux règles (020, 021), une par couple (D658), le possesseur retrouvé quelle que soit sa classe (D969), la ligne sans couple hors filtre. | Mienne, à confirmer : le sens du coefficient (une unité source vaut ce nombre d'unités cible) ; le moteur consulte la matrice de l'article avant celles des settings (D976), la cascade D359 étendue à l'enregistrement. L'outil de technicien lit désormais les sous-champs des hypercubes (tarifs, conversions). Voir §3.2c. |
+| D978 | **Le champ `measure` ou `duration` porte sa propre matrice de conversion, non mutualisable ; ses valeurs peuvent apporter des unités nouvelles, chacune avec son coefficient vers une unité connue du champ** (amende D976 sur la forme, précise D975/D977) : mon exemple déclarait les unités en dur (`units: [kg, g]`) et la matrice étendue aux settings — « ton exemple répond en partie à ma description. Les unités de ton exemple sont définies en dur. Or, un article porte des règles de conversion en paramétrage. **Je souhaite proposer une approche plus large que ce que peut faire PMI. Un champ "measure" ou "duration" porte une matrice propre au champ et non mutualisable. Ces champs peuvent contenir des unités supplémentaires. Mais chaque déclaration doit fournir un coefficient de conversion entre cette nouvelle unité et une unité connue du champ** » — les unités connues d'un champ : les standards du type (kg/g/t, s/min/h…) et celles de sa déclaration ; les unités supplémentaires arrivent **par les données**, dans la valeur du champ, chacune déclarée avec son coefficient vers une unité connue (PL → kg : 12,5 — le paramétrage de PMI, D977) ; la matrice est celle du champ, sur cet enregistrement — pas de matrice partagée à l'instance : la forme `conversions:` aux settings (D976) est retirée ; les matrices standard restent au type. | La valeur d'un `measure` porte donc la valeur, l'unité et ses unités étendues ; le constructeur gagne un troisième argument (la carte des unités étendues, `{ PL: { kg: 12.5 } }`) — mien, en proposition ; D977 (l'hypercube `conversions` de l'article) à revoir : les deux couples de PMI alimentent la matrice d'un champ `measure` de l'article — lequel, à trancher. Voir §3.2c. |
 
 ---
 
@@ -11775,6 +11776,32 @@ quelle que soit sa classe (D969). *Miens : le sens du coefficient —
 une unité source vaut ce nombre d'unités cible — et l'ordre de
 consultation, la matrice de l'article avant celles des settings.*
 
+**La matrice propre au champ, les unités apportées par les données
+(D978 — amende D976 sur la forme).** Mon exemple pour `measure` et
+`duration` déclarait les unités en dur et la matrice étendue aux
+settings de l'instance. **« Ton exemple répond en partie à ma
+description. Les unités de ton exemple sont définies en dur. Or, un
+article porte des règles de conversion en paramétrage. Je souhaite
+proposer une approche plus large que ce que peut faire PMI. Un champ
+"measure" ou "duration" porte une matrice propre au champ et non
+mutualisable. Ces champs peuvent contenir des unités supplémentaires.
+Mais chaque déclaration doit fournir un coefficient de conversion
+entre cette nouvelle unité et une unité connue du champ. »** Trois
+choses se déplacent : la matrice n'est plus à l'instance mais **au
+champ**, et sur chaque enregistrement — celle du poids de tel article
+n'est pas celle d'un autre ; les unités ne sont plus une liste close
+de la configuration — **les données en apportent**, la plaque de tel
+article, la frappe de tel poste ; et l'apport a une règle — **une
+unité nouvelle vient avec son coefficient vers une unité que le champ
+connaît** (les standards du type, celles de sa déclaration), sinon la
+valeur ne se convertit pas. Les deux couples de PMI (D977) sont
+exactement cela : le paramétrage qui étend la matrice d'un champ de
+l'article. *Ma forme, en proposition : la valeur d'un `measure` porte
+la valeur, l'unité et ses unités étendues ; le constructeur prend la
+carte en troisième argument — `measure(v, kg, { PL: { kg: 12.5 } })`.
+L'hypercube `conversions` de D977 est à revoir : quel champ `measure`
+de l'article porte les couples de PMI ?*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21868,8 +21895,11 @@ avant la synthèse Q16).
   matière) ; la déclaration `conversions:` aux settings en proposition.
   **D977** la matrice de conversion de l'article — les deux couples de
   PMI (ARCTCONV1A/1B/ARCNCONC01, 2A/2B/02), le coefficient stocké :
-  `article.conversions` en hypercube, les règles 020/021. La suite : le
-  lot 2, les articles —
+  `article.conversions` en hypercube, les règles 020/021. **D978** la
+  matrice propre au champ, non mutualisable ; les unités apportées par
+  les données, chacune avec son coefficient vers une unité connue ; la
+  matrice aux settings (D976) retirée ; D977 à revoir — quel champ
+  porte les couples. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

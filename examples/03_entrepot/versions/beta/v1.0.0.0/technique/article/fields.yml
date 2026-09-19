@@ -137,6 +137,21 @@ sous_famille:
       label:
         fr: Autre
 
+perissable:
+  # le 4e caractère d'ARCTCODFAM — « si le 4ème caractère est égal à "1",
+  # cela signifie que la date de péremption du produit doit être
+  # renseignée » (D954) : la convention de codage de PMI se traduit à la
+  # règle du mapping (right(ARCTCODFAM, 1) = "1", D893/D934), l'entrepôt
+  # garde le sens ; la règle elle-même vit au niveau de stock, où la
+  # date de péremption est (STDEPLOT — D932 : la cible vérifie)
+  type: boolean
+  required: true
+  default: false
+  label:
+    fr: Périssable
+  hint:
+    fr: Un article dont chaque lot en stock doit porter une date de péremption.
+
 gestion:
   # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938/D939) : la
   # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07

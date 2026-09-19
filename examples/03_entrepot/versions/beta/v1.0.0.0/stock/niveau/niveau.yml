@@ -14,3 +14,6 @@ fields: fields.yml
 validation:
   - quantite >= 0
   - quantite_reservee <= quantite
+  # la règle de l'auteur (D954) : le lot d'un article périssable porte sa
+  # date de péremption — la référence navigue (D396), la cible vérifie (D932)
+  - peremption != null if article.perissable

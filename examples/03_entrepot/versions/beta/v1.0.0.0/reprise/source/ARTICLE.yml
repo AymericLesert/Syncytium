@@ -37,7 +37,7 @@ fields:
   ARCNPRS:     decimal                                        # → article.prix_revient
   ARCJCRE:     { type: date, mask: "yyyymmdd" }               # → article.date_creation
   ARCJMOD:     { type: date, mask: "yyyymmdd" }               # → article.date_modification
-  ARCTCODFAM:  text[4]                                        # → article.famille — les valeurs de l'exemple au mapping (D893/D946)
+  ARCTCODFAM:  text[4]                                        # → article.famille, article.perissable — les valeurs de l'exemple au mapping (D893/D946) ; le 4e caractère « 1 » = périssable (D954)
   ARCTCOSFAM:  text[4]                                        # → article.sous_famille — idem
   ARCNSTOMAX:  decimal                                        # → article.stock_maximum
   ARCNSTOMIN:  decimal                                        # → article.stock_minimum

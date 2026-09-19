@@ -27,6 +27,12 @@ fields:
   ARCTUNISTO:  enum { PL, U }                                 # → article.unite_stock — la garde limitée à l'exemple (D946)
   ARCTUNIFAC:  ignored                                        # l'unité de facturation — hors périmètre (R4)
   ARCTUNICON:  ignored                                        # l'unité de conditionnement — hors périmètre (R4)
+  ARCTCONV1A:  text[2]                                        # → article.conversions (la dimension source) — le premier couple de conversion de l'article (D977)
+  ARCTCONV1B:  text[2]                                        # → article.conversions (la dimension cible)
+  ARCNCONC01:  decimal                                        # → article.conversions.coefficient — le coefficient du premier couple
+  ARCTCONV2A:  text[2]                                        # → article.conversions (la dimension source) — le second couple (D977)
+  ARCTCONV2B:  text[2]                                        # → article.conversions (la dimension cible)
+  ARCNCONC02:  decimal                                        # → article.conversions.coefficient — le coefficient du second couple
   ARCNPDSUNI:  decimal                                        # → article.poids
   ARCNQTECO:   decimal                                        # → article.quantite_economique
   ARCNPUACH1:  decimal                                        # → article.prix_achat

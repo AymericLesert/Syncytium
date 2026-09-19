@@ -241,6 +241,27 @@ unite_commande:
   label:
     fr: Unité de commande
 
+conversions:
+  # ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et ARCTCONV2A, ARCTCONV2B,
+  # ARCNCONC02 — les deux couples de conversion propres à l'article chez
+  # PMI (D977) : la matrice de conversion de l'article — « l'autre
+  # approche » de D976, le coefficient stocké et non calculé — en
+  # hypercube (D895 : l'objet naturel au modèle), une cellule par couple
+  # (source, cible) ; le moteur la consulte avant les matrices des
+  # settings (mien). Le sens du coefficient — une unité source vaut ce
+  # nombre d'unités cible — est ma lecture, à confirmer.
+  type: 'list of [source: text[2], cible: text[2]]'
+  fields:
+    coefficient:
+      type: decimal
+      required: true
+      label:
+        fr: Coefficient
+      hint:
+        fr: Une unité source vaut ce nombre d'unités cible.
+  label:
+    fr: Conversions d'unités
+
 poids:
   # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391)
   type: measure

@@ -1,0 +1,25 @@
+# L'étape 20 — le premier couple de conversion de l'article : ARTICLE
+# vers article.conversions, la matrice de conversion propre à l'article
+# (D977 — « l'autre approche » de D976, le coefficient stocké chez PMI :
+# ARCTCONV1A l'unité source, ARCTCONV1B l'unité cible, ARCNCONC01 le
+# coefficient). La cible est le champ de l'article — l'hypercube (D895),
+# une cellule par couple (source, cible) —, le possesseur l'article par
+# son identité mappée, retrouvé quelle que soit sa classe (D969). Une
+# ligne d'ARTICLE porte jusqu'à deux couples : une règle par couple (D658
+# — la même table source porte plusieurs règles), la ligne sans couple
+# hors filtre. Les deux dimensions alimentées font l'identité de la
+# cellule (D930).
+
+ARTICLE:
+  to: technique.article.conversions
+  filter: ARCTCONV1A != null and ARCTCONV1B != null
+  parent:
+    article: { code: ARKTCODART, complement: ARKTCOMART }
+  fields:
+    source:      ARCTCONV1A               # la dimension — l'unité de départ
+    cible:       ARCTCONV1B               # la dimension — l'unité d'arrivée
+    coefficient: ARCNCONC01               # une unité source vaut ce nombre d'unités cible (ma lecture, D977)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

@@ -1,0 +1,12 @@
+# L'étape 15 — les semi-finis : ARTICLE vers technique.semi_fini, le
+# dérivé au code de gestion 09 — l'hypothèse de l'exemple (D940 ; le code
+# est « en dur » chez PMI, hors PARAM). Le bloc fields: commun, inclus (D967).
+
+ARTICLE:
+  to: technique.semi_fini
+  filter: ARCTFATN = "09"
+  fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
+  report:
+    when: [migration]
+    to: [production]                              # les données techniques, c'est la production qui corrige (D945)
+    by: [notification, mail]

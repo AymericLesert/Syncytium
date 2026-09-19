@@ -1,0 +1,16 @@
+# L'étape 13 — les articles : ARTICLE vers technique.article, le parent de
+# la hiérarchie (D940 — instanciable, D353) : tous les codes de gestion
+# sauf ceux qui font un dérivé — 01 le fabriqué, 09 le semi-fini, 12 le
+# fantôme (les trois hypothèses de l'exemple pour 09 et 12, « en dur »
+# chez PMI). Une règle par dérivé, filtrée sur ARCTFATN (D940) ; les
+# quatre règles partagent le même bloc fields: par la référence de fichier
+# (D956/D967) — articles/fields.yml, inclus, hors du pattern des règles. Les fournisseurs (007) précèdent.
+
+ARTICLE:
+  to: technique.article
+  filter: ARCTFATN not in ["01", "09", "12"]
+  fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
+  report:
+    when: [migration]
+    to: [production]                              # les données techniques, c'est la production qui corrige (D945)
+    by: [notification, mail]

@@ -1,0 +1,12 @@
+# L'étape 14 — les produits fabriqués : ARTICLE vers technique.fabrique,
+# le dérivé de l'article au code de gestion 01 (D936/D940), qui porte la
+# nomenclature (l'étape 17). Le bloc fields: commun, inclus (D967).
+
+ARTICLE:
+  to: technique.fabrique
+  filter: ARCTFATN = "01"
+  fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
+  report:
+    when: [migration]
+    to: [production]                              # les données techniques, c'est la production qui corrige (D945)
+    by: [notification, mail]

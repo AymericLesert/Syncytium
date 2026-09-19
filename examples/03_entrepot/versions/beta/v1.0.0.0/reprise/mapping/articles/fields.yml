@@ -1,0 +1,66 @@
+# Le bloc de champs commun aux quatre règles de l'article — 013 articles,
+# 014 fabriqués, 015 semi-finis, 016 fantômes (D940 : une règle par dérivé,
+# filtrée sur ARCTFATN) : mutualisé par la référence de fichier (D956/D967
+# — « prendre en compte ~{<fichier>} pour capitaliser et mutualiser les
+# champs »), chaque règle l'inclut par `fields: ~{articles/fields.yml}`.
+# Hors du pattern des règles (mapping/[0-9]+_.*\.yml, D806) : ce fichier
+# n'est pas une règle, il est inclus. Le chemin est relatif au fichier qui
+# l'inclut (D768).
+
+# --- l'identité (D930) : le code et son complément — le texte nul est la
+# chaîne vide (types.md), le complément vide passe tel quel ---
+code:       ARKTCODART
+complement: ARKTCOMART
+# --- la désignation ---
+libelle:            ARCTLIB01
+libelle_secondaire: ARCTLIB02
+# --- la classification — les codes de PMI traduits vers le vocabulaire
+# de l'entrepôt (D893) : le type au vocabulaire donné (D935 ; PR = une
+# erreur à la source, D937), le code de gestion décodé (D938/D939 — 03
+# sous le nom du code ; 09 et 12 les hypothèses D940, « en dur » chez
+# PMI, hors PARAM), la famille et la sous-famille aux codes inventés
+# (D946/D963 — la famille sur les trois premiers caractères, le 4e étant
+# le drapeau des périssables, D954) ---
+type:         'ARCTTYPART.select(AC: "accessoire", CO: "consommable", LI: "libelle", MI: "libelle", MO: "main_oeuvre", OU: "outillage", PF: "produit_fini", PL: "plaque", SF: "semi_fini", ST: "sous_traitance")'
+gestion:      'ARCTFATN.select(01: "fabrique", 02: "achete", 03: "cg03", 07: "libelle", 09: "semi_fini", 12: "fantome", 14: "quantite_superieure", 17: "inactif", 32: "resultant", 33: "procedure")'
+famille:      'left(ARCTCODFAM, 3).select(MAT: "matiere", COM: "composant", PRF: "produit_fini", CON: "consommable")'   # inventé (D963)
+sous_famille: 'ARCTCOSFAM.select(ACI: "acier", ALU: "aluminium", PLA: "plastique", VIS: "visserie", "...": "autre")'   # inventé (D963)
+perissable:   mid(ARCTCODFAM, 4, 1) = "1"      # la règle de l'auteur (D954) — mid, non right
+matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8, ARCTCODMA9)   # neuf colonnes → une liste, les vides ignorés (le constructeur — à trancher)
+# --- les unités et les dimensions — les mesures par le constructeur du
+# type (D659), l'unité de PMI supposée (à trancher) ---
+unite_stock:    ARCTUNISTO
+unite_commande: ARCTUNICDE
+poids:     measure(ARCNPDSUNI, kg)
+longueur:  measure(ARCNLONGUE, mm)
+largeur:   measure(ARCNLARGEU, mm)
+epaisseur: measure(ARCNEPAISS, mm)
+volume:    measure(ARCNVOLUNI, dm3)
+ean13:     left(ARCTEAN13, 13)                 # nchar(20) vers text[13] : la troncature explicite (D581/D934)
+# --- le stock de référence ---
+stock_minimum:       ARCNSTOMIN
+stock_maximum:       ARCNSTOMAX
+quantite_economique: ARCNQTECO
+# --- les prix — amount à devise (D771) : PMI ne porte pas de devise sur
+# l'article, celle de l'entreprise vient des settings (à trancher) ---
+prix_revient:       amount(ARCNPRS, context.settings.currency)
+prix_moyen_pondere: amount(ARCNPMP, context.settings.currency)
+prix_achat:         amount(ARCNPUACH1, context.settings.currency)
+# --- la vie de l'article ---
+actif:             ARCTBLOCAG = ""             # vide = actif, sinon le motif de blocage
+date_creation:     ARCJCRE
+date_modification: ARCJMOD
+plans:             list(file(plans, ARCTFICPLA))   # le fichier par le connecteur plans (D883 — la forme à trancher)
+# --- le stockage (D962/D964) : le drapeau, les quatre lieux — l'emplacement
+# par sa clé composée (dépôt, code), la même carte que parent: (D931) ---
+gere_en_stock:            ARCTGDEPOT = "O"
+depot_expedition:         ARCTCODEP
+emplacement_expedition:   { depot: ARCTCODEP, code: ARCTCODMPL }
+depot_reception:          ARCTCODEPR
+emplacement_reception:    { depot: ARCTCODEPR, code: ARCTCOEMPR }
+depot_fabrication:        ARCTCODEPF
+emplacement_fabrication:  { depot: ARCTCODEPF, code: ARCTCOEMPF }
+depot_consommation:       ARCTCODEPC
+emplacement_consommation: { depot: ARCTCODEPC, code: ARCTCOEMPC }
+# --- les liens ---
+fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)    # l'association stockée (D400) — les références par la clé, les vides ignorés

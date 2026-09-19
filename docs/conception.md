@@ -1099,6 +1099,7 @@ Q58) :
 | D964 | **Les quatre lieux de l'article nommés — réception, fabrication, consommation, expédition ; la base d'échéance en énuméré** (clôt les frottements 2 et 5 du lot 1 — précise D962/D963) : « R : Réception, F : Fabrication, C : Consommation. Le 4ème est l'Expédition » — les quatre paires de la fiche article deviennent huit champs de `technique.article` (`depot_expedition`/`emplacement_expedition` — ARCTCODEP/ARCTCODMPL, `depot_reception`/`emplacement_reception` — ARCTCODEPR/ARCTCOEMPR, `depot_fabrication`/`emplacement_fabrication` — ARCTCODEPF/ARCTCOEMPF, `depot_consommation`/`emplacement_consommation` — ARCTCODEPC/ARCTCOEMPC), et l'origine « fiches articles » des référentiels s'écrit **une règle `distinct` par paire** (D658 — la même table source porte plusieurs règles) : quatre fichiers 002, quatre fichiers 005 ; « je valide ta proposition pour l'échéance » — `tiers.base_echeance` en énuméré (facture, fin_de_mois, fin_de_mois_le_10 — les correspondances des codes 1/3/6 inventées, D963), `echeance` reste l'entier de jours. | Le lot 1 est clos : 20 règles, 001–012. Une forme d'union à la règle (un `distinct` sur plusieurs paires) serait un ajout de grammaire — non proposé sans besoin. Voir §3.2c. |
 | D965 | **À la source, l'entité décrite est une collection : un calculé lit une valeur ou une liste de valeurs dans une autre table par les agrégats `first` et `list` ; un cache des critères** (précise D660/D887/D889, borne D891 au modèle — le cas 3, PARAM) : « dans Cegid, la table PARAM conditionne le fonctionnement de l'ERP et donc des données. Dans le matching, je souhaite ajouter un champ calculé dans la description de la source avec une fonction qui permette de lire une valeur ou une liste de valeurs dans une autre table » — deux formes proposées, la fonction dédiée `lookup` ou les agrégats sur la table comme collection : **« j'opte pour le A qui reprend la grammaire et la syntaxe déjà vue »** — `PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)`, `PARAM.list(PACTEXT210 if …)` ; la doctrine D887 (« valeur if condition ») et la projection D889 tiennent ; `list` est le seul agrégat ajouté (la liste des valeurs, `list of <type de la colonne>`) ; la valeur typée par la colonne (D581), l'absence = le nul, un fait ; **« un cache est à prévoir pour rendre l'information rapide si les mêmes critères sont appelés régulièrement »** — le moteur mémorise le résultat par (table, expression, valeurs des critères) le temps d'un passage de la migration. D891 reste entier au modèle : la levée vaut à la source, lue par lots. | Mes propositions, consignées comme telles : la lecture traverse la table entière, hors du `filter:` de sa description — **écartée par D966** (la lecture utilise le filtre) ; le nom `list`. mapping.md et types.md au niveau. Voir §3.2c. |
 | D966 | **La lecture d'une entité utilise son filtre ; l'alias — plusieurs entités source sur la même table, chacune son nom et son filtre** (corrige ma proposition de D965, précise D947/D663) : « la lecture d'une entité utilise le filtre défini. J'introduis à cette occasion la notion d'alias qui permet de nommer une entité portant sur la même source avec des filtres différents » — la lecture D965 vise une entité décrite, jamais la table nue, et son `filter:` vient avec ; quand une table sert plusieurs lectures (PARAM : un paramètre par usage), chaque usage est une entité source nommée, alias de la table, avec son filtre, son identité, ses colonnes ; le fichier porte le nom de l'entité (D947 : le nom de la table sans alias) ; la règle du mapping et le calculé nomment l'entité ; la complétude du schéma (D861) se mesure sur la table, toutes entités confondues. | La forme `name: PARAM_EMPLACEMENTS` + `alias: PARAM` est mienne (la clé `alias`, le nom). Le cas 3 : `source/PARAM.yml` devient `source/PARAM_EMPLACEMENTS.yml` (le filtre 170), les règles 001/004 la nomment ; la lecture s'écrit `PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = …)` sans répéter le numéro. Voir §3.2c. |
+| D967 | **Les champs d'une règle mutualisés par la référence de fichier** (applique D956/D767 aux règles du mapping — le lot 2 du cas 3, le frottement 1) : les quatre règles de l'article (013–016, une par dérivé filtrée sur ARCTFATN — D940) portaient le même bloc de trente-huit champs — « le même bloc de 38 champs dans 4 entités… ça fait de nombreuses redondances. Comment pourrions-nous prendre en compte ~{<fichier>} pour capitaliser et mutualiser les champs ? » — comme l'entité (D767 : `fields: ~{fields.yml}`) : le bloc vit dans `mapping/articles/fields.yml`, chaque règle l'inclut par `fields: ~{articles/fields.yml}` (le chemin relatif au fichier, D768) ; le fichier inclus n'est pas une règle — hors du pattern `mapping/[0-9]+_.*\.yml` (D806), il n'a pas de préfixe numérique ; la règle ne garde que ce qui la distingue : `to:`, `filter:`, `report:`. | Toute propriété d'une règle peut porter le contenu ou la référence (D767 — rien de neuf) ; le dossier `articles/` et son nom sont miens. Voir §3.2c. |
 
 ---
 
@@ -11558,6 +11559,24 @@ sera une seconde entité. La complétude du schéma (D861) se mesure sur
 la table, toutes entités confondues. *La clé `alias:` et le nom de
 l'entité sont miens.*
 
+**Les champs d'une règle mutualisés par `~{…}` (D967 — applique
+D956/D767 aux règles ; le lot 2 du cas 3).** Les quatre règles de
+l'article — une par dérivé, filtrée sur le code de gestion (D940) —
+portaient chacune le même bloc de trente-huit champs, générés d'un
+seul texte pour rester identiques. **« Le même bloc de 38 champs dans
+4 entités… ça fait de nombreuses redondances. Comment pourrions-nous
+prendre en compte ~{<fichier>} pour capitaliser et mutualiser les
+champs ? »** Comme l'entité le fait depuis D767 (`fields:
+~{fields.yml}`) : le bloc vit une fois, dans `mapping/articles/
+fields.yml`, et chaque règle l'inclut — `fields: ~{articles/fields.yml}`,
+le chemin relatif au fichier qui l'inclut (D768). Le fichier inclus
+n'est pas une règle : sans préfixe numérique, il est hors du pattern
+des règles (`mapping/[0-9]+_.*\.yml`, D806) ; la règle ne garde que
+ce qui la distingue — la cible, le filtre, le rapport. Rien de neuf
+dans la grammaire : D767 disait déjà que toute propriété porte le
+contenu ou la référence ; D956 a rendu la référence lisible. *Le
+dossier `articles/` et son nom sont miens.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21616,8 +21635,12 @@ avant la synthèse Q16).
   `table=`). Les codes de gestion (ARCTFATN) : « des informations en
   "dur" dans Cegid PMI. Ils ne sont pas consignés dans PARAM » — les
   hypothèses D940 (09 semi-fini, 12 fantôme) restent celles de
-  l'exemple, sans vérification possible sur la source. La suite : le
-  lot 2, les articles —
+  l'exemple, sans vérification possible sur la source. **Le lot 2
+  écrit** (013–019 : les quatre règles de l'article, la nomenclature
+  par la hiérarchie, les deux règles du tarif), dix frottements
+  présentés ; **D967** le premier tranché — les trente-huit champs
+  communs mutualisés par `fields: ~{articles/fields.yml}`, comme
+  l'entité (D767). La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

@@ -1,0 +1,12 @@
+# L'étape 16 — les fantômes : ARTICLE vers technique.fantome, le dérivé au
+# code de gestion 12 — l'hypothèse de l'exemple (D940). Le même bloc
+# fields: que l'étape 13.
+
+ARTICLE:
+  to: technique.fantome
+  filter: ARCTFATN = "12"
+  fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
+  report:
+    when: [migration]
+    to: [production]                              # les données techniques, c'est la production qui corrige (D945)
+    by: [notification, mail]

@@ -314,6 +314,25 @@ order_lines:
     quantity: qty
 ```
 
+**Les champs mutualisés par la référence de fichier (D967).** Quand
+plusieurs règles portent le même bloc `fields:` — les quatre règles de
+l'article du cas 3, une par dérivé filtrée sur le code de gestion
+(D940) —, le bloc vit une fois et chaque règle l'inclut, comme
+l'entité le fait (D767/D956) : `fields: ~{articles/fields.yml}`, le
+chemin relatif au fichier (D768) ; le fichier inclus n'a pas de
+préfixe numérique, il est hors du pattern des règles (D806) — il
+n'est pas une règle, il est inclus ; la règle ne garde que ce qui la
+distingue : `to:`, `filter:`, `report:`.
+
+```yaml
+# reprise/mapping/014_fabriques.yml — la règle réduite à ce qui la distingue (D967)
+ARTICLE:
+  to: technique.fabrique
+  filter: ARCTFATN = "01"
+  fields: ~{articles/fields.yml}   # le bloc commun aux quatre règles de l'article
+  report: { when: [migration], to: [production], by: [notification, mail] }
+```
+
 **Le rapport des rejets porté par la règle (D929).** « Chaque règle
 de migration a un report. Pas un report général. » La règle sait sa
 source, sa cible et qui corrige l'origine : elle déclare `report:`

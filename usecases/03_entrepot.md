@@ -1157,7 +1157,19 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    (D178), le différentiel (D672) — **et la lecture par partition**
    (`coverage:` — D878 : la clé, la plage, l'empreinte par
    partition, la reprise depuis la dernière valeur ; la comparaison
-   en cinq blocs) ;
+   en cinq blocs) ; *ouvert le 19/09 : le plan des étapes (les
+   référentiels, les tiers, les articles et leurs dérivés, la
+   nomenclature, les tarifs, les commandes, les stocks — le préfixe
+   numérique fait l'étape, D665 ; deux règles sur une table = deux
+   fichiers), une règle par dérivé de l'article filtrée sur ARCTFATN
+   (D940), deux règles par table à possesseur conditionnel (D950), le
+   `report:` par règle (D929/D945) ; **le lot 1 — les référentiels et
+   les tiers (001–012) — clos par D961–D966**, **le lot 2 — les
+   articles, la nomenclature, les tarifs (013–019) — clos par
+   D967–D990** : vingt-cinq règles et le bloc commun
+   `articles/fields.yml` ; les frottements et leurs décisions ci-dessous
+   (« Les frottements du morceau 4 ») ; la suite : le lot 3, les
+   commandes (020–023), le lot 4, les stocks (024–025)* ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -1290,14 +1302,77 @@ centièmes) ; la forme de la n-ième tranche entre deux seuils
 gestion 03, 09 et 12 (D939 — entrés sous CG03, CG09, CG12 ; puis 09 =
 semi-fini et 12 = fantôme, mes hypothèses de D940 à vérifier) — PR, la
 nature numérique et le type du composant tranchés par D937, les
-articles « libellé » gardés, les lignes les référencent.
+articles « libellé » gardés, les lignes les référencent. *Soldés au
+morceau 4 : la famille et la sous-famille aux codes inventés, la
+famille lue sans son drapeau (D963/D986) ; l'unité des temps
+inventée — les heures décimales de l'exemple (D975) ; TRANCHES
+ignorée, la tranche est la lettre (D949) ; ADCTTYPE traduit aux codes
+inventés (D963) ; les codes de gestion « en dur » dans PMI, hors
+PARAM — les hypothèses de D940 restent celles de l'exemple.*
 
 **Le fichier `settings.yml`** (D885, l'étage instance de la cascade
-D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar) et
+D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar),
+**`currency: EUR`** (D970 — la devise de l'entreprise, que les prix de
+l'article sans colonne de devise lisent par
+`context.settings.currency`) et
 les trois profils de confidentialité — `financier` (les achats et
 la direction), `direction`, `commercial` — que les champs
 référencent par `${settings.confidentiality.<profil>}` ; le lien
 depuis `version.yml` viendra avec le morceau 1.
+
+**Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
+2 clos — D961 à D990) : `reprise/mapping/`, **vingt-cinq règles,
+001 à 019**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
+de `reprise.yml` (D806/D956) — le préfixe fait l'étape (D665), les
+référentiels avant ce qui les référence (D662), deux règles sur une
+même table = deux fichiers :
+
+- **001–006, les référentiels de stock** — `depot` et `emplacement`
+  à trois origines (D962) : les paramètres de Cegid
+  (`PARAM_EMPLACEMENTS`, l'entité alias de PARAM au filtre du
+  paramètre 170 — D966 —, le couple `Dépôt.Emplacement` découpé à la
+  source par `extract`, les actifs nommés), les fiches articles (les
+  quatre lieux — réception, fabrication, consommation, expédition,
+  D964 — une règle `distinct` par paire), les mouvements (toutes les
+  valeurs, même dépassées) ; l'emplacement identifié par le couple
+  (dépôt, code) ; le nouveau naît inactif ;
+- **007–012, les tiers** — FOURNIS et CLIENT vers les enfants du
+  tiers (D353) ; ADRESSE et CONTACT en deux règles filtrées sur le
+  type de compte (D950), le possesseur par son identité mappée
+  (D931) ; l'adresse principale par `geolocation(lat, lng, texte)`
+  (D961) ; les codes inconnus traduits par des `select` aux
+  correspondances inventées — la langue, l'usage, la civilité, la
+  fonction, la base d'échéance (D963/D964) ; le mode de règlement
+  retiré du modèle ;
+- **013–016, l'article et ses dérivés** — quatre règles filtrées sur
+  ARCTFATN (D940) qui partagent **un bloc de trente-huit champs par
+  la référence de fichier**, `fields: ~{articles/fields.yml}` (D967 —
+  hors du pattern des règles) ; dedans : les `select` du type et du
+  code de gestion, `perissable: mid(ARCTCODFAM, 4, 1) = "1"` (D954),
+  `matieres: list(…)` (D971), `plans: plans.files(ARCTFICPLA)` (D972),
+  les mesures par `measure(x, kg)` (D975), les prix
+  `amount(x, context.settings.currency)` (D970), `ean13:
+  left(ARCTEAN13, 13)` sous la facette `barcode: ean13` (D988), **une
+  unité de l'article** — `unite: measure(1, ARCTUNISTO,
+  list(measure.convert(…)))`, les deux couples de conversion de PMI
+  (D982) ;
+- **017, la nomenclature** — `parent: { article: { code, complement
+  } }`, le possesseur retrouvé parmi les dérivés par l'identité
+  partagée (D969), la désignation lue de NOCTLIBCOM (D989), les temps
+  en `duration(x, h)`, la validité en `period(…)` ;
+- **018–019, les tarifs** — deux règles sur TARIF filtrées sur le
+  genre (D948), `to: technique.article.tarifs` (la cellule de
+  l'hypercube), le tiers par le calculé de la source, `valide:
+  TACTVALID = "O"`.
+
+Ce que le lot a fixé hors du cas : la référence de fichier explicite
+et son cumul (D956/D967–D968), la lecture d'une autre entité source
+depuis un calculé et l'alias d'une table (D965–D966), le contrat de la
+famille `file` et le type `file` (D972–D974), **les mesures et les
+durées** — la valeur et l'unité, les matrices de conversion propres au
+champ, les unités apportées par les données, la transitivité,
+l'arithmétique, la performance sur les volumes (D975–D985), la facette
+`barcode` (D988), la conversion d'une clé à la lecture (D990).
 
 **Les choix d'écriture, à valider avec le morceau** : l'entrepôt en
 lecture seule par le bloc `allow: { create: false, update: false,
@@ -1421,6 +1496,110 @@ et le commentaire ; le tuple reste sous guillemets (D892).
   fichiers corrigés** sans toucher au sens, **cent trente-cinq
   fichiers des quatre exemples valides** ; chaque exemple passe
   désormais l'analyseur avant validation.
+
+### Les frottements du morceau 4 — le mapping (D961–D990)
+
+*(le lot 1, les référentiels et les tiers ; le lot 2, les articles —
+chaque frottement présenté avec ses voies, l'auteur tranche)*
+
+**Le lot 1 (001–012) :**
+
+- **la géolocalisation à trois arguments** — **D961**. La règle
+  écrivait `geolocation(CLCNGPSY, CLCNGPSX, <les lignes d'adresse>)`
+  là où D659 ne donnait que deux arguments : « une adresse contient
+  alors la latitude, la longitude, l'adresse normalisée et l'adresse
+  saisie au format brut » — quatre parties, le constructeur à trois
+  formes, la normalisée par le connecteur `location` s'il y en a un.
+- **la base d'échéance** — **D964**. CLCTCECHEA (« 030 ») et
+  CLCTBECHEA (1, 3, 6) allaient au même entier ; « je valide ta
+  proposition pour l'échéance » — `tiers.base_echeance` en énuméré,
+  les correspondances inventées.
+- **les codes inconnus** — **D963**. « Si tu ne connais pas, tu peux
+  inventer pour le cas d'usage » — la langue, l'usage d'adresse, la
+  civilité, la fonction en `select` marqués ; « le retirer du modèle »
+  pour le mode de règlement.
+- **les référentiels de stock** — **D962**, puis **D964**, **D966**.
+  L'emplacement n'était identifié que par son code, les référentiels
+  ne venaient que des niveaux de stock : « l'identité d'un emplacement
+  est un couple (dépôt, emplacement) » ; trois origines — les
+  paramètres de Cegid (PARAM 170, « PACTEXT210 correspond au couple
+  Dépôt.Emplacement », le libellé en PACTEXT140), les fiches articles
+  (quatre paires : « R : Réception, F : Fabrication, C : Consommation,
+  le 4ème est l'Expédition »), les mouvements (« toutes les valeurs y
+  compris dépassées ») ; « tout nouvel emplacement est ajouté et
+  inactif » ; et, en chemin, `article.gere_en_stock` (ARCTGDEPOT).
+- **lire une autre table depuis un calculé** — **D965**, corrigé par
+  **D966**. « PARAM conditionne le fonctionnement de l'ERP et donc des
+  données » : à la source, l'entité décrite est une collection —
+  `PARAM_EMPLACEMENTS.first(PACTEXT140 if …)`, `list` pour une liste,
+  un cache par critères ; ma lecture « hors filtre » écartée — « la
+  lecture d'une entité utilise le filtre défini », et **l'alias** :
+  plusieurs entités source sur la même table, chacune son filtre.
+
+**Le lot 2 (013–019) :**
+
+- **le bloc de trente-huit champs répété quatre fois** — **D967**,
+  **D968**. « Comment pourrions-nous prendre en compte ~{<fichier>}
+  pour capitaliser et mutualiser les champs ? » — `fields:
+  ~{articles/fields.yml}`, comme l'entité (D767) ; puis le cumul de
+  fichiers sous une carte : la liste en bloc, la fusion dans l'ordre,
+  la surcharge avec alerte, le pattern admis, l'élément fichier ou
+  carte en ligne.
+- **la nomenclature sans le code de gestion de son produit** —
+  **D969**. « Je valide A ; le fantôme garde sa nomenclature » —
+  `parent: { article: … }` résolu dans la hiérarchie, le produit sans
+  nomenclature = un rejet visible ; la nomenclature redite : « une
+  liste d'articles décrivant les composants et les tâches… cela se
+  construit récursivement ».
+- **la devise des prix de l'article** — **D970**. Aucune colonne chez
+  PMI : `currency: EUR` aux settings, `context.settings.currency`.
+- **le constructeur `list(…)`** — **D971**. « Le point 1 est valide
+  et la liste est nettoyée des doublons » — les vides tombent, l'ordre
+  des arguments, les doublons retirés.
+- **les plans par le connecteur** — **D972**, **D973**, **D974**.
+  « Je valide B. Au lieu de get_files, le résumé à files est
+  suffisant » — `plans: plans.files(ARCTFICPLA)` ; le type `file`
+  porte ses descripteurs (`.relativepath` la partie portée,
+  `.fullname`, `.filename`, `.pathname` recalculés, la taille, les
+  dates, l'empreinte si `hash: true`) et ses opérations (la lecture
+  binaire ou texte, le déplacement, la suppression, l'empreinte) ;
+  « le moteur appelle commit ; get_file devient files ».
+- **les unités des mesures et des temps** — **D975 à D985**. « Pour
+  measure ou duration, ça combine une valeur et une unité. Elles
+  portent également des règles de conversion » — les matrices
+  (lignes, colonnes, le coefficient à l'intersection ; les standards
+  fournies, les unités étendues PL, F) ; « un champ measure ou
+  duration porte une matrice propre au champ et non mutualisable. Ces
+  champs peuvent contenir des unités supplémentaires. Mais chaque
+  déclaration doit fournir un coefficient de conversion entre cette
+  nouvelle unité et une unité connue du champ » ; la transitivité
+  (« 1 PL = 1 U, toujours ») ; la matrice visible à la saisie ;
+  `duration` rejoint les composés (D981) ; **les deux couples de
+  conversion de PMI** (ARCTCONV1A/1B/ARCNCONC01, 2A/2B/02) — d'abord
+  un hypercube (D977), puis « une unité de l'article » :
+  `measure(1, ARCTUNISTO, list(measure.convert(…)))` (D982) ; la
+  comparaison des unités normalisée, `units:` qui restreint la matrice
+  standard, `[U]` = la diagonale à 1 (D983) ; l'arithmétique (D984) ;
+  la performance sur les millions de mouvements — « un point
+  important » (D985 : l'unité canonique de stockage, les agrégats au
+  storage, les calculés matérialisés, en proposition).
+- **la famille et son drapeau** — **D986**. « Je confirme, porte left
+  à la source » — `famille_code: left(ARCTCODFAM, 3)` en calculé de la
+  source ; `extract` et `like`, les fonctions à regex rappelées.
+- **le code-barres** — **D987**, retirée par **D988**. Un type
+  `barcode(ean, ARCTEAN13)` d'abord ; puis « la valeur du code-barres
+  est un texte, la facette est un barcode. Pas besoin de créer un
+  nouveau type » — `ean13: { type: text[13], barcode: ean13 }`, la
+  facette valide, `left(ARCTEAN13, 13)` à la règle.
+- **les désignations sans colonne** — **D989**. « Pour la
+  nomenclature, c'est bien NOCTLIBCOM » ; pour les lignes de commande,
+  « le commentaire… est présent dans une autre table LIBEL40… que
+  nous ne décrirons pas ici » — le champ retiré, la table ignorée.
+- **le complément vide et la conversion d'une clé** — **D990**. Le
+  nul du texte est la chaîne vide, rien à convertir ; « nous avions
+  abordé la possibilité de faire un traitement de transformation lors
+  de la lecture » — `normalize:` sur la colonne (D872), jamais dans la
+  règle ni dans `parent:` ; l'exemple de D931 aligné.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

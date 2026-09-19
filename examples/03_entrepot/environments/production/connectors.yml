@@ -45,7 +45,7 @@ cegid:
       T: text
       N: decimal
       J: date[yyyymmdd]
-      S: time[hhmmss]
+      S: time[hhmm]                 # « hhmm seulement » (D992) — le nchar(6) ne porte pas de secondes
 
 # Les plans des articles — le connecteur file en complément du storage
 # source (D883) : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le

@@ -18,9 +18,9 @@ text:
 date_pmi:                       # les dates AAAAMMJJ de PMI (D820/D866)
     type: date
     mask: "yyyymmdd"
-time_pmi:                       # les heures HHMMSS de PMI (le pendant, mien)
+time_pmi:                       # les heures de PMI — « time_pmi a un format hhmm seulement » (D992) ; la colonne est un nchar(6), les secondes n'y sont pas
     type: time
-    mask: "hhmmss"
+    mask: "hhmm"
 
 # La devise de l'entreprise (D970) — les prix de l'article n'ont pas de
 # colonne de devise chez PMI : la monnaie de l'entreprise, implicite ;

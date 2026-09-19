@@ -64,8 +64,9 @@ date:
     fr: Date
 
 heure:
-  # MVCSMVT — HHMMSS au masque
-  type: time[hh:mm:ss]
+  # MVCSMVT — HHMM au masque (« time_pmi a un format hhmm seulement »,
+  # D992 : le nchar(6) de PMI ne porte pas de secondes)
+  type: time[hh:mm]
   required: true
   label:
     fr: Heure

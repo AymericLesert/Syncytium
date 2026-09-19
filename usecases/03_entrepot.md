@@ -332,13 +332,14 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   remplissage à blancs), **`N` = nombre** (`decimal` 2 900, `int`),
   **`J` = jour** — `nchar(8)` `AAAAMMJJ`, 552 colonnes : **la date
   est une chaîne en 16.17, pas un entier** —, **`S` = heure**
-  (`nchar(6)` `HHMMSS`) ;
+  (`nchar(6)` — lue `HHMMSS` à l'analyse, **corrigée au morceau 4 :
+  « hhmm seulement »**, D992) ;
 - **la société** : la première colonne de clé partout (`ARKTSOC`,
   `CLKTSOC`, `MVITSOC`… `nchar(3)`) — le multi-sociétés ;
   l'extraction filtre la société `100` : le `filter:` de D663 sur
   chaque entité source ;
 - **les dates** : `date` au `mask: "yyyymmdd"` (D820) et `time` au
-  masque `hhmmss` suffisent — **le hook de type de D119 n'est pas
+  masque `hhmm` (D992 — pas de secondes chez PMI) suffisent — **le hook de type de D119 n'est pas
   nécessaire pour la 16.17** (la question 11 répondue par le réel ;
   le hook reste l'outil des autres legacies) ; le couple jour +
   heure (`MVCJMVT` + `MVCSMVT`) se recompose par le constructeur
@@ -1287,7 +1288,8 @@ D414 disaient l'emplacement sans la clé) ; **le bloc `convention:`
 du connecteur cegid** (D876 renvoyait la forme à l'assise) — le
 motif à groupes nommés qui découpe la colonne
 (`<prefix><kind><type><name>`, D817), `identity: [K, I]`, `types:
-{ T: text, N: decimal, J: date[yyyymmdd], S: time[hhmmss] }` ;
+{ T: text, N: decimal, J: date[yyyymmdd], S: time[hhmm] }` (`hhmm` depuis D992 —
+« time_pmi a un format hhmm seulement ») ;
 l'absence de carte `entities:` pour un storage base de données.
 **Reste à l'assise** : l'authentification et le smtp (la question
 10), dits en commentaire dans `connectors.yml`, jamais en `none`.

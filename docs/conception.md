@@ -1116,6 +1116,7 @@ Q58) :
 | D981 | **`duration` rejoint les composés** (précise D380/D476/D838, aligne sur D391 et D975–D980) : « il me semblait que measure et duration étaient des types composés… as-tu perdu cette information ? » — `measure` l'était (D391), `duration` était rangée parmi les simples depuis D380 (le masque à la virgule, les unités D476, les sous-items D838) ; depuis D975 elle a l'anatomie d'un composé — une valeur, une unité, une matrice propre au champ (D978), la transitivité (D979), le constructeur `duration(v, u)`, les parties au point, la matrice visible à la saisie (D980) : **« je valide D981 »** — la ligne passe de la table des simples à celle des composés dans types.md, la synthèse de composants.md suit ; D380/D476/D838 restent ses fondations. | Aucun exemple ne change. Voir §3.2c. |
 | D982 | **Une unité de l'article — le champ `unite: measure` porte les couples de PMI ; le constructeur à trois paramètres, les conversions par `measure.convert(source, cible, coefficient)` ; la pièce `u` au socle des standards** (applique D978–D979 au cas 3, revoit D977) : les deux couples de PMI trouvent leur maison — l'hypercube `article.conversions` (D977) et ses règles 020/021 retirés au profit d'un champ `measure` de l'article, *une unité de l'article* : `measure(1, ARCTUNISTO, …)` — (1) la valeur, `1` ; (2) l'unité, l'unité de stock ; (3) la liste des conversions apportées, chacune par la fonction du type — **« conversion à remplacer par measure.convert »** — `measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01)`, `list` faisant tomber le couple vide (D971) ; les quantités du niveau de stock et des lignes, en décimal dans l'unité de l'article, l'empruntent par la référence : `(article.unite * quantite).to(kg)` ; les codes de PMI passent en minuscules (D893). | Miens, consignés comme tels : **`u`, la pièce, l'unité de compte, au socle des standards de `measure`** — sans elle, tout article en pièces sans couple violerait D979 ; l'emprunt de la matrice « non mutualisable » par la référence (la matrice reste celle du champ de l'article, les autres la lisent) ; `lower()` à la règle plutôt qu'une garde à la source. Voir §3.2c. |
 | D983 | **La comparaison des unités est normalisée ; `units:` restreint la matrice standard du champ ; l'unité seule — la diagonale à 1 ; les blocs de la matrice standard ne se convertissent pas entre eux sans coefficient** (précise D978–D979/D982, retire ma pièce `u` au socle et le `lower()` de la règle) : « pour les unités, la comparaison doit s'appuyer sur une comparaison normalisée (par conséquent KG = kg, T = t, …). Pour les "U", cela oblige le technicien de bien définir une règle sur une autre unité disponible. Sur measure, nous avons des mesures de dimension ou de poids, dont les liens ne sont pas forcément convertibles. Par contre, la limitation des unités à une liste de valeurs apporte une restriction sur la matrice standard. Dans le cas du U, la liste des unités est "U" (sans les unités standard), le coefficient est forcément 1 sur la diagonale de la matrice » — (1) `KG` et `kg` sont la même unité : la normalisation est au type, la règle écrit les colonnes nues ; (2) les `units:` du champ **restreignent** la matrice standard à ce qu'ils nomment — `units: [U]` : la matrice est la seule diagonale, U → U = 1, aucune standard, aucun chemin exigé au-delà ; l'invariant D979 se lit : toute unité présente atteint une unité **connue du champ** ; (3) la matrice standard est en blocs — les poids (kg/g/t), les dimensions (mm/cm/m), les volumes… — non convertibles entre eux sans un coefficient apporté, à paramètres s'il le faut (D975) ; (4) une unité de compte n'est pas au socle : le technicien la déclare, et relie ce qui doit l'être. | `article.unite` : `units: [U, kg]` (les unités de l'exemple, D946 — PL arrive par les couples) ; la règle sans `lower()` ; types.md au niveau. Voir §3.2c. |
+| D984 | **L'arithmétique de `measure` et de `duration` — la table d'opérateurs du type, les sommes et les agrégats** (complète D581/D838 pour les deux composés, s'appuie sur D978–D983) : « pour measure et duration, il faut également inscrire l'arithmétique pour faciliter les sommes et tous les types de calcul » — chaque type porte sa table d'opérateurs (D581 : `amount + amount` à devise compatible, `amount * decimal` ; D838 : `date - date → duration`, `date + duration → date`) ; les deux composés reçoivent la leur, **la conversion faisant le travail** : deux mesures s'additionnent, se soustraient et se comparent si leurs unités se relient (la matrice du champ, la transitivité D979 — le résultat dans l'unité de l'opérande gauche ; non reliées = une erreur de typage à l'ingestion, D581), une mesure se multiplie et se divise par un nombre (`article.unite * quantite`, D982), deux mesures reliées se divisent en un nombre (le rapport) ; **les agrégats des collections** (D887) — `sum`, `avg`, `min`, `max` — valent sur les mesures et les durées reliées, le résultat dans l'unité du champ ; la durée de même, plus ses liens au temps (D838). | La table est mienne, en proposition dans types.md ; hors table, non proposé : `measure × measure` (les surfaces, les volumes — l'analyse dimensionnelle) ; `temps_gamme: nomenclature.sum(temps_ouverture if …)` du cas 3 en est déjà l'usage. Voir §3.2c. |
 
 ---
 
@@ -11891,6 +11892,23 @@ volumes — qui ne se convertissent pas entre eux sans un coefficient
 apporté, à paramètres s'il le faut (D975). `article.unite` déclare
 `units: [U, kg]`, les unités de l'exemple ; PL arrive par les couples.
 
+**L'arithmétique de la mesure et de la durée (D984 — complète
+D581/D838).** **« Pour measure et duration, il faut également
+inscrire l'arithmétique pour faciliter les sommes et tous les types
+de calcul. »** Chaque type porte sa table d'opérateurs — `amount +
+amount` à devise compatible, `date - date → duration` ; les deux
+composés reçoivent la leur, et **c'est la conversion qui fait le
+travail** : deux mesures s'additionnent, se soustraient, se comparent
+si leurs unités se relient par la matrice du champ et la transitivité
+— le résultat dans l'unité de l'opérande gauche, l'erreur de typage
+sinon ; une mesure se multiplie et se divise par un nombre — `article.
+unite * quantite`, la forme de D982 ; deux mesures reliées se divisent
+en un rapport ; les agrégats des collections (`sum`, `avg`, `min`,
+`max` — D887) valent sur les mesures et les durées reliées, dans
+l'unité du champ — `temps_gamme: nomenclature.sum(temps_ouverture if
+…)` le faisait déjà. *La table est mienne ; `measure × measure` — les
+surfaces, les volumes — n'y est pas.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22000,8 +22018,10 @@ avant la synthèse Q16).
   **D983** la comparaison des unités normalisée (KG = kg — `lower()`
   retiré), `units:` restreint la matrice standard, `[U]` = la diagonale
   à 1 (ma pièce `u` au socle retirée), les blocs de la matrice standard
-  non convertibles entre eux sans coefficient. La suite : le lot 2, les
-  articles —
+  non convertibles entre eux sans coefficient. **D984** l'arithmétique
+  de `measure` et `duration` — la table d'opérateurs du type, les
+  sommes et agrégats par la conversion (types.md, en proposition). La
+  suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

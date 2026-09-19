@@ -22,20 +22,22 @@ fields:
   LCKTPSF:     text[3]                                        # l'identité — l'indice de la commande (D951), la clé du possesseur
   LCCTCODART:  ARTICLE.ARKTCODART                             # → ligne_vente.article — la référence par la clé composée, colonne par colonne (D648/D931)
   LCCTCOMART:  ARTICLE.ARKTCOMART                             # → ligne_vente.article
+  LCCTLIB01:   text[30]                                       # → ligne_vente.article
   LCCNQTECDE:  decimal                                        # → ligne_vente.quantite
   LCCTUNICDE:  text[2]                                        # → ligne_vente.unite
   LCCNPUBRUT:  decimal                                        # → ligne_vente.prix_brut
   LCCNPUNET:   decimal                                        # → ligne_vente.prix_net
   LCCNQTEEXP:  decimal                                        # → ligne_vente.quantite_expediee
-  LCCSDELEXP:  { type: time, mask: "hhmmss" }                 # → ligne_vente.delai_expedition, ligne_vente.prix_revient
-  LCCJDELEXP:  { type: date, mask: "yyyymmdd" }               # → ligne_vente.delai_expedition, ligne_vente.prix_revient
-  LCCSDELFAB:  { type: time, mask: "hhmmss" }                 # → ligne_vente.delai_fabrication
-  LCCJDELFAB:  { type: date, mask: "yyyymmdd" }               # → ligne_vente.delai_fabrication
+  LCCSDELEXP:  time_pmi                                       # → ligne_vente.delai_expedition, ligne_vente.prix_revient
+  LCCJDELEXP:  date_pmi                                       # → ligne_vente.delai_expedition, ligne_vente.prix_revient
+  LCCSDELFAB:  time_pmi                                       # → ligne_vente.delai_fabrication
+  LCCJDELFAB:  date_pmi                                       # → ligne_vente.delai_fabrication
   LCCNPUREVI:  decimal                                        # → ligne_vente.prix_revient
   LCCTETACDE:  text[1]                                        # → ligne_vente.statut
   LCCTDEVISE:  text[3]                                        # → ligne_vente.prix_brut, prix_net — la devise des prix (D771)
-  LCCJDELDDE:  { type: date, mask: "yyyymmdd" }               # → ligne_vente.delai_demande
-  LCCJDELARR:  { type: date, mask: "yyyymmdd" }               # → ligne_vente.delai_accuse
-  LCCSDELARR:  { type: time, mask: "hhmmss" }                 # → ligne_vente.delai_accuse
+  LCCTLIB02:   text[30]                                       # → ligne_vente.article
+  LCCJDELDDE:  date_pmi                                       # → ligne_vente.delai_demande
+  LCCJDELARR:  date_pmi                                       # → ligne_vente.delai_accuse
+  LCCSDELARR:  time_pmi                                       # → ligne_vente.delai_accuse
   LCCTSTATUT:  text[2]                                        # → ligne_vente.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
   LCCNQTELAN:  decimal                                        # → ligne_vente.quantite_lancee

@@ -33,8 +33,8 @@ fields:
   CLCTLANGUE:  enum { 01, 03, 05, 07 }                        # → tiers.langue — la garde sur l'échantillon
   CLCTDEVISE:  text[3]                                        # → tiers.devise — la devise des montants (D771)
   CLCTBLOCAG:  enum { E, C }                                  # → tiers.bloque — nul = non bloqué, sinon le motif
-  CLCJCRE:     { type: date, mask: "yyyymmdd" }               # → tiers.date_creation
-  CLCJMOU:     { type: date, mask: "yyyymmdd" }               # → tiers.date_modification
+  CLCJCRE:     date_pmi                                       # → tiers.date_creation
+  CLCJMOU:     date_pmi                                       # → tiers.date_modification
   CLCTEMAIL:   text[60]                                       # → tiers.email
   CLCTSITE:    text[40]                                       # → tiers.site
   CLCTJOURFO:  text[1]                                        # → fournisseur.delai_livraison

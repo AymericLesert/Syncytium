@@ -42,8 +42,8 @@ fields:
   ARCNPMP:     decimal                                        # → article.prix_moyen_pondere
   ARCNPRS:     decimal                                        # → article.prix_revient
   ARCTGDEPOT:  enum { O, N }                                  # → article.gere_en_stock — « O pour indiquer que l'article est géré en stock » (D962)
-  ARCJCRE:     { type: date, mask: "yyyymmdd" }               # → article.date_creation
-  ARCJMOD:     { type: date, mask: "yyyymmdd" }               # → article.date_modification
+  ARCJCRE:     date_pmi                                       # → article.date_creation
+  ARCJMOD:     date_pmi                                       # → article.date_modification
   ARCTCODFAM:  text[4]                                        # → article.famille, article.perissable — le code sans son drapeau par le calculé famille_code ci-dessous (D986), les valeurs de l'exemple au mapping (D893/D946) ; le 4e caractère « 1 » = périssable (D954)
   ARCTCOSFAM:  text[4]                                        # → article.sous_famille — idem
   ARCTCODMPL:  text[10]                                       # → article.emplacement_expedition — idem, des emplacements

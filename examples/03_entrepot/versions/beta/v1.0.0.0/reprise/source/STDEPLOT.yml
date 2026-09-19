@@ -21,10 +21,10 @@ fields:
   DPCNSTOPHY:  decimal                                        # → niveau.quantite
   DPCNRESFER:  decimal                                        # → niveau.quantite_reservee
   DPCNENCOUR:  decimal                                        # → niveau.quantite_en_cours
-  DPCJMOU:     { type: date, mask: "yyyymmdd" }               # → niveau.dernier_mouvement
-  DPCJPEREMP:  { type: date, mask: "yyyymmdd" }               # → niveau.peremption
+  DPCJMOU:     date_pmi                                       # → niveau.dernier_mouvement
+  DPCJPEREMP:  date_pmi                                       # → niveau.peremption
   DPCNPULOT:   decimal                                        # → niveau.prix_unitaire
   DPCNQTINV:   decimal                                        # → niveau.quantite_inventaire
-  DPCJJINV:    { type: date, mask: "yyyymmdd" }               # → niveau.inventaire
-  DPCSSINV:    { type: time, mask: "hhmmss" }                 # → niveau.inventaire
+  DPCJJINV:    date_pmi                                       # → niveau.inventaire
+  DPCSSINV:    time_pmi                                       # → niveau.inventaire
   DPCNSTOMIN:  decimal                                        # → niveau.stock_minimum

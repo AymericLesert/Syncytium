@@ -23,7 +23,7 @@ fields:
   ADCTVILLE:   text[40]                                       # → adresse.adresse
   ADCTCPAYS:   text[3]                                        # → adresse.adresse
   ADCTPAYS:    text[20]                                       # → adresse.adresse
-  ADCJCREA:    { type: date, mask: "yyyymmdd" }               # → adresse.date_creation
+  ADCJCREA:    date_pmi                                       # → adresse.date_creation
   ADCTRUE3:    text[40]                                       # → adresse.adresse
   ADCNGPSX:    decimal                                        # → adresse.adresse
   ADCNGPSY:    decimal                                        # → adresse.adresse

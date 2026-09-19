@@ -12,6 +12,16 @@
 text:
     normalize: trim(me)
 
+# Les types dérivés (D992/D359) : la même forme qu'un type du catalogue —
+# la clé est le nom, type: la base, le reste ses défauts, surchargeables
+# au champ ; les colonnes de PMI les emploient par la forme courte (D356)
+date_pmi:                       # les dates AAAAMMJJ de PMI (D820/D866)
+    type: date
+    mask: "yyyymmdd"
+time_pmi:                       # les heures HHMMSS de PMI (le pendant, mien)
+    type: time
+    mask: "hhmmss"
+
 # La devise de l'entreprise (D970) — les prix de l'article n'ont pas de
 # colonne de devise chez PMI : la monnaie de l'entreprise, implicite ;
 # les règles la lisent par context.settings.currency (D588), les tiers,

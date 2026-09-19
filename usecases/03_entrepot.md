@@ -1315,7 +1315,12 @@ D359/D588) : **les paramètres par défaut d'un type sous le nom du
 type** — `text: { normalize: trim(me) }` (D991, corrigé par l'auteur :
 « dans settings, normalize n'est pas au bon endroit. Dans settings, les
 paramètres par défaut des types ou la définition de nouveaux types
-peuvent être présents » ; D872 — les blancs des nchar),
+peuvent être présents » ; D872 — les blancs des nchar), **les types
+dérivés** `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi`
+(D992 — « les types ou ses dérivés doivent être présentés simplement et
+sont définissables avec des paramètres par défaut » : la clé est le
+nom, `type:` la base, le reste ses défauts ; les trente-quatre colonnes
+J et S des sources s'écrivent `ARCJCRE: date_pmi`, la forme courte),
 **`currency: EUR`** (D970 — la devise de l'entreprise, que les prix de
 l'article sans colonne de devise lisent par
 `context.settings.currency`) et

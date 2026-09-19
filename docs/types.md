@@ -58,7 +58,19 @@ composants.md.
 - **le type personnalisé** (D359) : déclaré au `settings` (l'instance,
   le module ou l'entité) — un nom, un type de base, des facettes
   figées ; **le chaînage possible** ; les types custom ne portent pas
-  le graphe de conversion ;
+  le graphe de conversion ; **la forme, une seule pour les types et
+  leurs dérivés** (D991–D992 — « les types ou ses dérivés doivent être
+  présentés simplement et sont définissables avec des paramètres par
+  défaut ») : aux settings, **la clé est le nom** ; sans `type:`, elle
+  règle les défauts d'un type du catalogue — `text: { normalize:
+  trim(me) }` ; avec `type:`, elle définit un dérivé qui hérite de sa
+  base et surcharge ce qu'il nomme — `date_pmi: { type: date, mask:
+  "yyyymmdd" }`, `progression: { type: integer[0..100], component:
+  fuel }` ; le dérivé d'un dérivé se résout à l'ingestion (le cycle =
+  une erreur) ; le champ garde le dernier mot (`ARCJCRE: { type:
+  date_pmi, mask: "yyyymm" }`) ; un dérivé ne redéfinit jamais un type
+  du catalogue (D408) ; l'usage par la forme courte (D356) — `ARCJCRE:
+  date_pmi` ;
 - **le composant par défaut porte le nom du type** (D458).
 
 ## Les types simples

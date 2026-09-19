@@ -37,8 +37,8 @@ fields:
   CLCTDEVISE:  text[3]                                        # → tiers.devise — la devise des montants (D771)
   CLCNDECOU1:  decimal                                        # → client.encours_maximum
   CLCTBLOCAG:  enum { E, C }                                  # → tiers.bloque — nul = non bloqué, sinon le motif
-  CLCJCRE:     { type: date, mask: "yyyymmdd" }               # → tiers.date_creation
-  CLCJMOU:     { type: date, mask: "yyyymmdd" }               # → tiers.date_modification
+  CLCJCRE:     date_pmi                                       # → tiers.date_creation
+  CLCJMOU:     date_pmi                                       # → tiers.date_modification
   CLCTEMAIL:   text[60]                                       # → tiers.email
   CLCTSITE:    text[40]                                       # → tiers.site
   CLCTSWIFT:   text[11]                                       # → tiers.bic

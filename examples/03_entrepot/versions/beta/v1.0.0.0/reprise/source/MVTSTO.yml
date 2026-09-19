@@ -27,9 +27,9 @@ fields:
   MVCTDEPOT:   text[6]                                        # → mouvement.depot — le référentiel par valeurs distinctes (D658)
   MVCTCODMPL:  text[10]                                       # → mouvement.emplacement — idem
   MVCTNUMLOT:  text[18]                                       # → mouvement.lot
-  MVCJMVT:     { type: date, mask: "yyyymmdd" }               # → mouvement.date — l'identité, la clé de partition (D880)
-  MVCSMVT:     { type: time, mask: "hhmmss" }                 # → mouvement.heure — l'identité
-  MVCJSAI:     { type: date, mask: "yyyymmdd" }               # → mouvement.date_saisie
+  MVCJMVT:     date_pmi                                       # → mouvement.date — l'identité, la clé de partition (D880)
+  MVCSMVT:     time_pmi                                       # → mouvement.heure — l'identité
+  MVCJSAI:     date_pmi                                       # → mouvement.date_saisie
   MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
   MVCNVAL:     decimal                                        # → mouvement.valeur

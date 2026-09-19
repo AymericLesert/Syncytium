@@ -21,13 +21,13 @@ fields:
   CTCTPRENOM:  text[20]                                       # → contact.prenom
   CTCTFONCTI:  text[3]                                        # → contact.fonction — le code de fonction de PMI, le libellé au mapping
   CTCTACTIF:   text[1]                                        # → contact.actif — O actif ; le vide vaut actif (D950)
-  CTCJANNIV:   { type: date, mask: "yyyymmdd" }               # → contact.anniversaire — personnelle (D695)
+  CTCJANNIV:   date_pmi                                       # → contact.anniversaire — personnelle (D695)
   CTCTTYTEL1:  ignored                                        # le type de la première paire — la place décide (D950)
   CTCTNOTEL1:  text[30]                                       # → contact.telephone
   CTCTTYTEL2:  ignored                                        # le type de la seconde paire — idem
   CTCTNOTEL2:  text[30]                                       # → contact.portable
   CTCTMAIL1:   text[60]                                       # → contact.email
-  CTCJCRE:     { type: date, mask: "yyyymmdd" }               # → contact.date_creation
+  CTCJCRE:     date_pmi                                       # → contact.date_creation
 
   # --- le tiers, selon le type de compte (D950 : « C ou F ») : deux
   # calculés typés référence (D660/D648), résolus avant de partir (D874) ;

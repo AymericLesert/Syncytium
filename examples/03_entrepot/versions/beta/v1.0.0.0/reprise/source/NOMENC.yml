@@ -34,5 +34,5 @@ fields:
   NOCNTPSPRE:  decimal                                        # → nomenclature.temps_preparation
   NOCNRENDT:   decimal                                        # → nomenclature.rendement
   NOCNQTECOM:  decimal                                        # → nomenclature.quantite
-  NOCJDEBVAL:  { type: date, mask: "yyyymmdd" }               # → nomenclature.validite
-  NOCJFINVAL:  { type: date, mask: "yyyymmdd" }               # → nomenclature.validite
+  NOCJDEBVAL:  date_pmi                                       # → nomenclature.validite
+  NOCJFINVAL:  date_pmi                                       # → nomenclature.validite

@@ -17,12 +17,12 @@ fields:
   ECKTSOC:     text[3]                                        # la société — le filtre (D663)
   ECKTNUMERO:  text[6]                                        # → commande_achat.numero — l'identité (D871)
   ECKTINDICE:  text[3]                                        # → commande_achat.indice — l'identité (D871)
-  ECCJCRE:     { type: date, mask: "yyyymmdd" }               # → commande_achat.date
+  ECCJCRE:     date_pmi                                       # → commande_achat.date
   ECCTCODE:    FOURNIS.CLKTCODE                               # → commande_achat.fournisseur — la référence (D648)
   ECCTREFCDE:  text[20]                                       # → commande_achat.reference_fournisseur
-  ECCJECHFOR:  { type: date, mask: "yyyymmdd" }               # → commande_achat.date_echeance
-  ECCJDERBL:   { type: date, mask: "yyyymmdd" }               # → commande_achat.derniere_reception
-  ECCJDERFA:   { type: date, mask: "yyyymmdd" }               # → commande_achat.derniere_facture
+  ECCJECHFOR:  date_pmi                                       # → commande_achat.date_echeance
+  ECCJDERBL:   date_pmi                                       # → commande_achat.derniere_reception
+  ECCJDERFA:   date_pmi                                       # → commande_achat.derniere_facture
   ECCTDEVISE:  text[3]                                        # → commande_achat.devise — la devise des montants (D771)
   ECCNTXDEVI:  decimal                                        # → commande_achat.taux_change
   ECCTSTATUT:  text[2]                                        # → commande_achat.statut — les valeurs de l'exemple au mapping (D946)

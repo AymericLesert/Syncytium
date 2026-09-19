@@ -22,7 +22,7 @@ fields:
   TAKTCODART:  text[18]                                       # l'identité (D871)
   TAKTCOMART:  text[6]                                        # l'identité (D871)
   TAKTTARIF:   { type: 'text[1]', matches: "^[A-Za-z]$" }     # → article.tarifs (la dimension tranche) — la lettre de tarif, gardée par matches (D364/D948) ; le crochet en collection de flux se cite (D892)
-  TAKJAPLI:    { type: date, mask: "yyyymmdd" }               # → article.tarifs (la dimension date_application) — l'identité
+  TAKJAPLI:    date_pmi                                       # → article.tarifs (la dimension date_application) — l'identité
   TACNPU:      decimal                                        # → article.tarifs.prix — avec la devise
   TACNTRANCH:  integer                                        # → article.tarifs.seuil — la quantité à partir de laquelle le prix vaut (D948)
   TACTCOMMEN:  text[20]                                       # → article.tarifs.commentaire

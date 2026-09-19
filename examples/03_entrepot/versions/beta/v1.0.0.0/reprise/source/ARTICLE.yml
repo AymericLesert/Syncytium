@@ -40,8 +40,8 @@ fields:
   ARCJMOD:     { type: date, mask: "yyyymmdd" }               # → article.date_modification
   ARCTCODFAM:  text[4]                                        # → article.famille, article.perissable — les valeurs de l'exemple au mapping (D893/D946) ; le 4e caractère « 1 » = périssable (D954)
   ARCTCOSFAM:  text[4]                                        # → article.sous_famille — idem
-  ARCTCODMPL:  text[10]                                       # → article.emplacement — l'emplacement de l'article ; une origine du référentiel des emplacements (D962)
-  ARCTCODEP:   text[6]                                        # → article.depot — le dépôt de l'article (ma lecture du nom, à confirmer) ; une origine du référentiel des dépôts (D962)
+  ARCTCODMPL:  text[10]                                       # → article.emplacement_expedition — idem, des emplacements
+  ARCTCODEP:   text[6]                                        # → article.depot_expedition — le 4e lieu, l'expédition (D964) ; une origine du référentiel des dépôts (D962)
   ARCNSTOMAX:  decimal                                        # → article.stock_maximum
   ARCNSTOMIN:  decimal                                        # → article.stock_minimum
   ARCTCODMA1:  text[3]                                        # → article.matieres
@@ -60,4 +60,10 @@ fields:
   ARCTEAN13:   text[20]                                       # → article.ean13
   ARCTGSAV:    ignored                                        # « N » sur tout l'échantillon — écarté, ce n'est pas le code de gestion (D936)
   ARCTFICPLA:  text[250]                                      # → article.plans — le nom du fichier, le contenu par le connecteur plans (D883)
+  ARCTCODEPR:  text[6]                                        # → article.depot_reception — « R : Réception » (D964)
+  ARCTCOEMPR:  text[10]                                       # → article.emplacement_reception
+  ARCTCODEPF:  text[6]                                        # → article.depot_fabrication — « F : Fabrication » (D964)
+  ARCTCOEMPF:  text[10]                                       # → article.emplacement_fabrication
+  ARCTCODEPC:  text[6]                                        # → article.depot_consommation — « C : Consommation » (D964)
+  ARCTCOEMPC:  text[10]                                       # → article.emplacement_consommation
   ARCTBLOCAG:  text[20]                                       # → article.actif — vide = actif

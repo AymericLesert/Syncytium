@@ -29,6 +29,7 @@ CLIENT:
     devise:    CLCTDEVISE
     langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'   # les correspondances inventées (D963)
     echeance:  integer(CLCTCECHEA)
+    base_echeance: 'CLCTBECHEA.select(1: "facture", 3: "fin_de_mois", 6: "fin_de_mois_le_10")'   # les correspondances inventées (D964)
     # --- le propre du client ---
     representant:      CLCTREP1
     taux_representant: CLCNTXREP1   # le décimal vers le pourcentage (la promotion D581)

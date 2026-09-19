@@ -391,21 +391,59 @@ gere_en_stock:
   label:
     fr: Géré en stock
 
-depot:
-  # ARCTCODEP nchar(6) — le dépôt de l'article (ma lecture du nom de la
-  # colonne, à confirmer) ; la référence (D396) ; une des trois origines du
-  # référentiel des dépôts (D962)
+# les quatre lieux de l'article (D964) — quatre paires dépôt + emplacement
+# chez PMI : « R : Réception, F : Fabrication, C : Consommation, le
+# 4ème est l'Expédition » ; le dépôt en référence (D396), l'emplacement
+# en référence à l'identité composée (dépôt, emplacement) (D962) ; une
+# des trois origines des référentiels de stock
+
+depot_expedition:
+  # ARCTCODEP nchar(6)
   type: stock.depot
   label:
-    fr: Dépôt
+    fr: Dépôt d'expédition
 
-emplacement:
-  # ARCTCODMPL nchar(10) — l'emplacement de l'article dans son dépôt ; la
-  # référence à l'identité composée (dépôt, emplacement) (D962) ; une des
-  # trois origines du référentiel des emplacements
+emplacement_expedition:
+  # ARCTCODMPL nchar(10)
   type: stock.emplacement
   label:
-    fr: Emplacement
+    fr: Emplacement d'expédition
+
+depot_reception:
+  # ARCTCODEPR nchar(6)
+  type: stock.depot
+  label:
+    fr: Dépôt de réception
+
+emplacement_reception:
+  # ARCTCOEMPR nchar(10)
+  type: stock.emplacement
+  label:
+    fr: Emplacement de réception
+
+depot_fabrication:
+  # ARCTCODEPF nchar(6)
+  type: stock.depot
+  label:
+    fr: Dépôt de fabrication
+
+emplacement_fabrication:
+  # ARCTCOEMPF nchar(10)
+  type: stock.emplacement
+  label:
+    fr: Emplacement de fabrication
+
+depot_consommation:
+  # ARCTCODEPC nchar(6)
+  type: stock.depot
+  label:
+    fr: Dépôt de consommation
+
+emplacement_consommation:
+  # ARCTCOEMPC nchar(10)
+  type: stock.emplacement
+  label:
+    fr: Emplacement de consommation
 
 # --- les liens (D399–D405) ---
 

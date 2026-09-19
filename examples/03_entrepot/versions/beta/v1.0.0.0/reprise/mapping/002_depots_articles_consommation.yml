@@ -1,0 +1,21 @@
+# L'étape 2 — les dépôts trouvés dans les fiches articles, le lieu de
+# la consommation — « C : Consommation » (D962/D964) : la deuxième des trois origines du
+# référentiel — les paramètres de Cegid à l'étape 1, les mouvements à
+# l'étape 3 ; la fiche porte quatre paires dépôt + emplacement, une règle
+# par paire (D658 — la même table source porte plusieurs règles). Les
+# valeurs distinctes de ARCTCODEPC, le code en identité (D930). Le dépôt né
+# ici naît inactif et sans libellé (les défauts du modèle, D941) : « tout
+# nouvel emplacement est ajouté et inactif » ; s'il est aussi dans les
+# paramètres, l'étape 1 l'a déjà créé actif et nommé — le rejeu par la
+# clé ne touche pas ce que cette règle n'alimente pas (D941).
+
+ARTICLE:
+  to: stock.depot
+  distinct: [ARCTCODEPC]
+  filter: ARCTCODEPC != null # la fiche sans dépôt ne fait pas un dépôt
+  fields:
+    code: ARCTCODEPC          # la valeur devient l'identité (D658/D930)
+  report:
+    when: [migration]                 # après chaque passage (D929)
+    to: [production]                  # le stock, c'est la production qui corrige (D859/D945)
+    by: [notification, mail]

@@ -1096,6 +1096,7 @@ Q58) :
 | D961 | **La géolocalisation à quatre parties — la latitude, la longitude, l'adresse normalisée, l'adresse brute ; le constructeur à trois formes** (précise D638/D392/D659 — le frottement 1 du lot 1 du mapping du cas 3) : la règle du mapping écrivait `geolocation(CLCNGPSY, CLCNGPSX, <les lignes d'adresse concaténées>)` là où D659 ne donnait que `geolocation(lat, lng)` — « la proposition sur la géolocalisation me convient. **Une adresse contient alors la latitude, la longitude, l'adresse normalisée et l'adresse saisie au format brut** » — le type porte les quatre ; le constructeur : `geolocation(lat, lng)`, `geolocation(texte)`, `geolocation(lat, lng, texte)`, le texte étant l'adresse brute ; l'adresse normalisée vient du connecteur `location` (D637) quand l'environnement en déclare un, sinon reste vide ; les parties au point (D772) `.latitude`, `.longitude`, `.address`, `.raw` — les noms miens. | types.md aligné ; les règles 003–006 du cas 3 tiennent telles quelles (l'ordre lat = CLCNGPSY, lng = CLCNGPSX reste mon hypothèse). Voir §3.2c. |
 | D962 | **Les référentiels de stock à trois origines — les paramètres (actifs, nommés), les fiches articles, les mouvements ; l'identité de l'emplacement = le couple (dépôt, emplacement) ; le nouveau naît inactif ; l'article géré en stock** (précise D658/D882/D941 — les frottements 4, 5 et 6 du lot 1 du mapping du cas 3) : « l'identité d'un emplacement est un couple (dépôt, emplacement) » ; « les dépôts et emplacements sont construits en fonction de différents critères : 1. les dépôts / emplacements dans les paramètres de Cegid ; 2. les dépôts / emplacements trouvés dans MVTSTO — le distinct permet de référencer toutes les valeurs y compris dépassées ; 3. les dépôts / emplacements trouvés dans la définition des fiches articles ; 4. les paramètres sont les emplacements actifs. Les mouvements font référence aux emplacements actifs et tout nouvel emplacement est ajouté et inactif » ; « le libellé des emplacements est dans les paramètres. Dans les autres cas, il n'est pas connu » ; les paramètres : « PARAM, PAKTNOPAR = 170, PACTEXT140 est le libellé, PACTEXT210 correspond au couple Dépôt.Emplacement » ; et « ARCTGDEPOT contient "O" ou "N" — "O" pour indiquer que l'article est géré en stock » ; les colonnes de dépôt/emplacement de la fiche article — quatre paires (6 + 10 caractères) : ARCTCODEP/ARCTCODMPL, ARCTCODEPR/ARCTCOEMPR, ARCTCODEPF/ARCTCOEMPF, ARCTCODEPC/ARCTCOEMPC (« oublie ARCTCODPLA — c'est une erreur »). | Le modèle : `emplacement` en `identity: [depot, code]`, `actif: boolean` (défaut faux) sur le dépôt et l'emplacement, `libelle` alimenté par les paramètres seuls ; `article.gere_en_stock`, `article.depot` (ARCTCODEP), `article.emplacement` (ARCTCODMPL) — le sens des trois paires R/F/C à nommer par l'auteur avant d'écrire leurs champs et leurs règles ; `source/PARAM.yml` (le filtre 170, le couple découpé par `extract` D817 en deux calculés D660) ; les règles 001/004 (PARAM — `actif: true`, le libellé), 002/005 (ARTICLE), 003/006 (MVTSTO) — le nouveau naît au défaut (D941) ; un dépôt cité par un mouvement et absent des paramètres entre inactif, jamais une référence non résolue. Voir §3.2c. |
 | D963 | **Les codes inconnus inventés pour l'exemple ; le mode de règlement retiré du modèle** (les frottements 3 et 7 du lot 1 — l'écho de D946/D948) : « si tu ne connais pas, tu peux inventer pour le cas d'usage » — les `select` des règles portent des correspondances inventées, marquées (D963) : la langue CLCTLANGUE (01 fr, 03 en, 05 de, 07 es), l'usage d'adresse ADCTTYPE (LIVRAISON, FACTURATION, sinon autre), la civilité CTCTCIVILI (M, MME), la fonction CTCTFONCTI (DIR, ACH, COM, TEC, sinon le code) ; « le retirer du modèle » — `tiers.mode_reglement` retiré, CLCTMREG reste ignorée à la source. | Le jeu de données publié sera construit sur ces codes (D869/D946). Voir §3.2c. |
+| D964 | **Les quatre lieux de l'article nommés — réception, fabrication, consommation, expédition ; la base d'échéance en énuméré** (clôt les frottements 2 et 5 du lot 1 — précise D962/D963) : « R : Réception, F : Fabrication, C : Consommation. Le 4ème est l'Expédition » — les quatre paires de la fiche article deviennent huit champs de `technique.article` (`depot_expedition`/`emplacement_expedition` — ARCTCODEP/ARCTCODMPL, `depot_reception`/`emplacement_reception` — ARCTCODEPR/ARCTCOEMPR, `depot_fabrication`/`emplacement_fabrication` — ARCTCODEPF/ARCTCOEMPF, `depot_consommation`/`emplacement_consommation` — ARCTCODEPC/ARCTCOEMPC), et l'origine « fiches articles » des référentiels s'écrit **une règle `distinct` par paire** (D658 — la même table source porte plusieurs règles) : quatre fichiers 002, quatre fichiers 005 ; « je valide ta proposition pour l'échéance » — `tiers.base_echeance` en énuméré (facture, fin_de_mois, fin_de_mois_le_10 — les correspondances des codes 1/3/6 inventées, D963), `echeance` reste l'entier de jours. | Le lot 1 est clos : 20 règles, 001–012. Une forme d'union à la règle (un `distinct` sur plusieurs paires) serait un ajout de grammaire — non proposé sans besoin. Voir §3.2c. |
 
 ---
 
@@ -11499,6 +11500,20 @@ données publié suivra (D869). Le mode de règlement, anonymisé dans
 l'échantillon et sans colonne lue : **« le retirer du modèle »** —
 `tiers.mode_reglement` disparaît, CLCTMREG reste ignorée à la source.
 
+**Les quatre lieux de l'article, la base d'échéance (D964 — clôt le
+lot 1).** Les quatre paires dépôt + emplacement de la fiche article,
+nommées d'un mot chacune : **« R : Réception, F : Fabrication, C :
+Consommation. Le 4ème est l'Expédition »** — huit champs de l'article
+(`depot_reception`, `emplacement_reception`, et ainsi de suite), et
+l'origine « fiches articles » des référentiels s'écrit une règle par
+paire, quatre fichiers 002 et quatre fichiers 005 (D658 — la même
+table porte plusieurs règles ; une forme d'union à la règle serait
+un ajout de grammaire, non proposé sans besoin). La base d'échéance :
+**« je valide ta proposition pour l'échéance »** — `tiers.base_echeance`
+en énuméré, le point de départ du délai, les correspondances des codes
+1/3/6 inventées comme les autres (D963) ; `echeance` reste l'entier de
+jours. **Le lot 1 du mapping est clos** : vingt règles, 001–012.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21543,9 +21558,11 @@ avant la synthèse Q16).
   `article.gere_en_stock` (ARCTGDEPOT) ; source/PARAM.yml, le modèle
   corrigé, les règles renumérotées 001–012. **D963** les codes inconnus
   inventés (langue, usage, civilité, fonction), `mode_reglement`
-  retiré. Le lot 1 commis. Restent : la base d'échéance CLCTBECHEA (le
-  frottement 2 — « l'échéance est vue dans quelle partie du modèle ? » :
-  tiers.echeance, un entier de jours), les règles des paires R/F/C.
+  retiré. Le lot 1 commis. **D964** les quatre lieux nommés (réception,
+  fabrication, consommation, expédition — huit champs de l'article, une
+  règle par paire), `tiers.base_echeance` en énuméré : **le lot 1 est
+  clos**, vingt règles. La suite : le lot 2, les articles — quatre règles
+  filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -35,7 +35,8 @@ FOURNIS:
     # --- les conditions ---
     devise:    CLCTDEVISE
     langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'   # les correspondances inventées (D963)
-    echeance:  integer(CLCTCECHEA)  # « 030 » → 30 jours, la conversion explicite (D581) ; la base CLCTBECHEA en attente
+    echeance:  integer(CLCTCECHEA)  # « 030 » → 30 jours, la conversion explicite (D581)
+    base_echeance: 'CLCTBECHEA.select(1: "facture", 3: "fin_de_mois", 6: "fin_de_mois_le_10")'   # les correspondances inventées (D964)
     delai_livraison: integer(CLCTJOURFO)
     # --- la vie du tiers — les booléens depuis les codes (D893) ---
     actif:     CLCTACTIF != "N"     # « le vide vaut actif » (D950)

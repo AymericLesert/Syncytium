@@ -1,0 +1,19 @@
+# L'étape 5 — les emplacements trouvés dans les fiches articles, le lieu
+# de la réception — « R : Réception » (D962/D964) : la deuxième origine — les
+# paramètres à l'étape 4, les mouvements à l'étape 6 ; une règle par paire
+# (D658). Les couples distincts dépôt + emplacement, l'identité de
+# l'emplacement étant le couple (dépôt, emplacement) (D962) ; le dépôt,
+# créé aux étapes 1–3, se résout par la clé (D654). Né ici, l'emplacement
+# naît inactif et sans libellé (D941/D962).
+
+ARTICLE:
+  to: stock.emplacement
+  distinct: [ARCTCODEPR, ARCTCOEMPR]
+  filter: ARCTCODEPR != null and ARCTCOEMPR != null
+  fields:
+    depot: ARCTCODEPR         # la référence par la clé (D654) — part de l'identité
+    code:  ARCTCOEMPR         # l'identité (D930)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

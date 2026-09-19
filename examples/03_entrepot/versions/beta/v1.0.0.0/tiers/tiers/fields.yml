@@ -118,13 +118,34 @@ langue:
 # l'échantillon, rien ne le remplit — retiré du modèle (D963)
 
 echeance:
-  # CLCTCECHEA + CLCTBECHEA — le code et la base d'échéance de PMI ; la
-  # standardisation retient le délai en jours
+  # CLCTCECHEA — le délai d'échéance de PMI (« 030 »), l'entier de jours
+  # à la règle (D581)
   type: integer[0..]
   label:
     fr: Échéance
   hint:
     fr: Le délai de règlement, en jours.
+
+base_echeance:
+  # CLCTBECHEA — la base d'échéance de PMI (1, 3, 6 sur l'échantillon), le
+  # point de départ du délai ; l'énuméré aux correspondances inventées
+  # pour l'exemple (D963/D964 — « je valide ta proposition pour
+  # l'échéance »), la traduction à la règle (D893)
+  type: enum
+  label:
+    fr: Base d'échéance
+  hint:
+    fr: D'où part le délai de règlement.
+  values:
+    facture:
+      label:
+        fr: Date de facture
+    fin_de_mois:
+      label:
+        fr: Fin de mois
+    fin_de_mois_le_10:
+      label:
+        fr: Fin de mois, le 10
 
 # --- la vie du tiers ---
 

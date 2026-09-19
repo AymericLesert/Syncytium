@@ -1100,6 +1100,7 @@ Q58) :
 | D965 | **À la source, l'entité décrite est une collection : un calculé lit une valeur ou une liste de valeurs dans une autre table par les agrégats `first` et `list` ; un cache des critères** (précise D660/D887/D889, borne D891 au modèle — le cas 3, PARAM) : « dans Cegid, la table PARAM conditionne le fonctionnement de l'ERP et donc des données. Dans le matching, je souhaite ajouter un champ calculé dans la description de la source avec une fonction qui permette de lire une valeur ou une liste de valeurs dans une autre table » — deux formes proposées, la fonction dédiée `lookup` ou les agrégats sur la table comme collection : **« j'opte pour le A qui reprend la grammaire et la syntaxe déjà vue »** — `PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)`, `PARAM.list(PACTEXT210 if …)` ; la doctrine D887 (« valeur if condition ») et la projection D889 tiennent ; `list` est le seul agrégat ajouté (la liste des valeurs, `list of <type de la colonne>`) ; la valeur typée par la colonne (D581), l'absence = le nul, un fait ; **« un cache est à prévoir pour rendre l'information rapide si les mêmes critères sont appelés régulièrement »** — le moteur mémorise le résultat par (table, expression, valeurs des critères) le temps d'un passage de la migration. D891 reste entier au modèle : la levée vaut à la source, lue par lots. | Mes propositions, consignées comme telles : la lecture traverse la table entière, hors du `filter:` de sa description — **écartée par D966** (la lecture utilise le filtre) ; le nom `list`. mapping.md et types.md au niveau. Voir §3.2c. |
 | D966 | **La lecture d'une entité utilise son filtre ; l'alias — plusieurs entités source sur la même table, chacune son nom et son filtre** (corrige ma proposition de D965, précise D947/D663) : « la lecture d'une entité utilise le filtre défini. J'introduis à cette occasion la notion d'alias qui permet de nommer une entité portant sur la même source avec des filtres différents » — la lecture D965 vise une entité décrite, jamais la table nue, et son `filter:` vient avec ; quand une table sert plusieurs lectures (PARAM : un paramètre par usage), chaque usage est une entité source nommée, alias de la table, avec son filtre, son identité, ses colonnes ; le fichier porte le nom de l'entité (D947 : le nom de la table sans alias) ; la règle du mapping et le calculé nomment l'entité ; la complétude du schéma (D861) se mesure sur la table, toutes entités confondues. | La forme `name: PARAM_EMPLACEMENTS` + `alias: PARAM` est mienne (la clé `alias`, le nom). Le cas 3 : `source/PARAM.yml` devient `source/PARAM_EMPLACEMENTS.yml` (le filtre 170), les règles 001/004 la nomment ; la lecture s'écrit `PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = …)` sans répéter le numéro. Voir §3.2c. |
 | D967 | **Les champs d'une règle mutualisés par la référence de fichier** (applique D956/D767 aux règles du mapping — le lot 2 du cas 3, le frottement 1) : les quatre règles de l'article (013–016, une par dérivé filtrée sur ARCTFATN — D940) portaient le même bloc de trente-huit champs — « le même bloc de 38 champs dans 4 entités… ça fait de nombreuses redondances. Comment pourrions-nous prendre en compte ~{<fichier>} pour capitaliser et mutualiser les champs ? » — comme l'entité (D767 : `fields: ~{fields.yml}`) : le bloc vit dans `mapping/articles/fields.yml`, chaque règle l'inclut par `fields: ~{articles/fields.yml}` (le chemin relatif au fichier, D768) ; le fichier inclus n'est pas une règle — hors du pattern `mapping/[0-9]+_.*\.yml` (D806), il n'a pas de préfixe numérique ; la règle ne garde que ce qui la distingue : `to:`, `filter:`, `report:`. | Toute propriété d'une règle peut porter le contenu ou la référence (D767 — rien de neuf) ; le dossier `articles/` et son nom sont miens. Voir §3.2c. |
+| D968 | **Le cumul de fichiers sous une carte — la liste de références en bloc, la fusion dans l'ordre, la surcharge avec alerte, le pattern admis, l'élément = un fichier ou une carte en ligne** (précise D956/D767/D806 — la question de l'auteur sur D967) : « est-ce qu'avec ~{articles/fields.yml}, je peux cumuler plusieurs fichiers l'un derrière l'autre ? » — pas encore : une référence remplace la valeur, le pattern ne vaut que dans une liste ; la forme proposée, une liste en bloc sous la propriété à carte (`fields:`, `values:`, `parameters:`… — partout, la règle de D767) : (1) **la fusion dans l'ordre** — les contenus se lisent l'un derrière l'autre, la carte est l'union des clés : « ok » ; (2) **la même clé deux fois = une surcharge, le dernier l'emporte, une alerte levée à l'ingestion** — « c'est une surcharge… une alerte doit être levée » (ma proposition d'erreur écartée) ; (3) **le pattern y vaut** — `- ~{articles/.*\.yml}`, l'ordre alphabétique (D665) : « oui » ; (4) **l'élément est une référence de fichier ou une carte en ligne**, fusionnée comme un contenu de fichier — « je prends la 1ère option, je la trouve plus élégante — peut-être moins uniforme — mais plus en lien avec des approches classiques » (la liste pure, que je penchais à préférer, écartée). Jamais en flux : l'accolade y casse YAML (D956/D892). | mapping.md et entity.md au niveau ; le cas 3 n'en a pas besoin aujourd'hui (les quatre règles partagent tout), rien n'y change. Voir §3.2c. |
 
 ---
 
@@ -11577,6 +11578,34 @@ dans la grammaire : D767 disait déjà que toute propriété porte le
 contenu ou la référence ; D956 a rendu la référence lisible. *Le
 dossier `articles/` et son nom sont miens.*
 
+**Le cumul de fichiers sous une carte (D968 — précise D956/D767/D806).**
+**« Est-ce qu'avec ~{articles/fields.yml}, je peux cumuler plusieurs
+fichiers l'un derrière l'autre ? »** Pas encore : une référence
+remplace la valeur, et le pattern ne vaut que là où la valeur est
+déjà une liste. La forme posée — la liste de références **en bloc**
+sous la propriété à carte, jamais en flux (l'accolade y casse YAML) —
+et ses quatre règles, tranchées une à une : **la fusion dans l'ordre**
+(« ok »), les contenus lus l'un derrière l'autre, la carte est
+l'union des clés ; **la même clé deux fois** — je proposais l'erreur
+d'ingestion, à l'image du doublon de nom : **« c'est une surcharge…
+une alerte doit être levée »** — le dernier l'emporte, l'ingestion
+avertit ; **le pattern y vaut** (« oui ») — `- ~{articles/.*\.yml}`,
+l'ordre alphabétique ; **l'élément est une référence ou une carte en
+ligne** — deux formes dans une même liste, contre la liste pure que
+je penchais à préférer : **« je prends la 1ère option, je la trouve
+plus élégante — peut-être moins uniforme — mais plus en lien avec des
+approches classiques »**. La forme vaut partout où une propriété
+porte une carte — `fields:`, `values:`, `parameters:`… — la règle de
+D767 ; le cas 3 n'en a pas besoin aujourd'hui.
+
+```yaml
+fields:
+  - ~{articles/commun.yml}          # un fichier — son contenu
+  - ~{articles/nomenclature.yml}    # un autre, fusionné à la suite
+  - actif: ARCTBLOCAG = ""          # une carte en ligne — les champs propres à cette règle
+    date_creation: ARCJCRE
+```
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21640,7 +21669,11 @@ avant la synthèse Q16).
   par la hiérarchie, les deux règles du tarif), dix frottements
   présentés ; **D967** le premier tranché — les trente-huit champs
   communs mutualisés par `fields: ~{articles/fields.yml}`, comme
-  l'entité (D767). La suite : le lot 2, les articles —
+  l'entité (D767) ; **D968** le cumul de fichiers sous une carte — la
+  liste de références en bloc, la fusion dans l'ordre, la surcharge
+  avec alerte (mon erreur écartée), le pattern admis, l'élément = un
+  fichier ou une carte en ligne (« plus élégante… plus en lien avec
+  des approches classiques »). La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

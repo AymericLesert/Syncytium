@@ -333,6 +333,25 @@ ARTICLE:
   report: { when: [migration], to: [production], by: [notification, mail] }
 ```
 
+**Le cumul de fichiers sous une carte (D968).** Plusieurs fichiers
+l'un derrière l'autre : **la liste de références, en bloc** (jamais en
+flux — l'accolade y casse YAML, D956), sous toute propriété qui porte
+une carte (`fields:`, `values:`, `parameters:`…) ; **la fusion dans
+l'ordre** — la carte est l'union des clés ; **la même clé deux fois =
+une surcharge**, le dernier l'emporte, **une alerte levée à
+l'ingestion** ; **le pattern y vaut** (`- ~{articles/.*\.yml}`,
+l'ordre alphabétique D665) ; **l'élément est une référence de fichier
+ou une carte en ligne**, fusionnée comme un contenu de fichier — « plus
+élégante… plus en lien avec des approches classiques ».
+
+```yaml
+fields:
+  - ~{articles/commun.yml}          # un fichier — son contenu
+  - ~{articles/nomenclature.yml}    # un autre, fusionné à la suite
+  - actif: ARCTBLOCAG = ""          # une carte en ligne — les champs propres à cette règle
+    date_creation: ARCJCRE
+```
+
 **Le rapport des rejets porté par la règle (D929).** « Chaque règle
 de migration a un report. Pas un report général. » La règle sait sa
 source, sa cible et qui corrige l'origine : elle déclare `report:`

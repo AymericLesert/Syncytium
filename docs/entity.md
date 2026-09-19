@@ -77,6 +77,13 @@ validation:
   - date_vente >= date_achat if date_vente != null
 ```
 
+**Le cumul de fichiers** (D968) : une propriété à carte peut porter
+une liste de références en bloc — `fields:` suivi de `- ~{commun.yml}`,
+`- ~{propre.yml}`, ou d'une carte en ligne — fusionnées dans l'ordre ;
+la même clé deux fois est une surcharge, le dernier l'emporte, une
+alerte levée à l'ingestion ; le pattern y vaut (D806). Jamais en flux
+(D956).
+
 ## Les champs — `fields.yml`
 
 **La forme courte et la forme pleine.** Un champ sans façon s'écrit

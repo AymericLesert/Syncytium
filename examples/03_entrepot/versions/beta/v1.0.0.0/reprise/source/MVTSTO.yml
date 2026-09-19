@@ -33,7 +33,7 @@ fields:
   MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
   MVCNVAL:     decimal                                        # → mouvement.valeur
-  MVCTTYPE:    enum { E, S }                                  # → mouvement.sens — E l'entrée, S la sortie (D952 : la lecture de l'échantillon, à confirmer)
-  MVCTGENRE:   enum { C, D, E, F, I, R }                      # → mouvement.type — le genre du mouvement, six codes relevés, à nommer (D952)
+  MVCTTYPE:    enum { E, S }                                  # → mouvement.sens — E l'entrée, S la sortie (D952/D953)
+  MVCTGENRE:   enum { C, D, E, F, I, R }                      # → mouvement.type — le genre : C consommation, D déplacement, E expédition, F fabrication, I inventaire, R réception (D953)
   MVCTNOMUTI:  text[35]                                       # → mouvement.utilisateur
   MVCNAVQTST:  decimal                                        # → mouvement.stock_avant

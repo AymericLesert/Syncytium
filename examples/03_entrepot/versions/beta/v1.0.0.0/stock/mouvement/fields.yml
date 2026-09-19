@@ -80,38 +80,37 @@ date_saisie:
 
 type:
   # MVCTGENRE nchar(1) — le genre du mouvement, la liste close de PMI en
-  # énuméré (D883/D952) : six codes relevés (C, D, E, F, I, R), à nommer,
-  # traduits au mapping (D893) ; le morceau 2 les lisait en MVCTTYPE
+  # énuméré (D883/D952), les six genres nommés par l'auteur (D953) : C
+  # consommation, D déplacement, E expédition, F fabrication, I
+  # inventaire, R réception — les codes traduits au mapping (D893) ; le
+  # morceau 2 les lisait en MVCTTYPE, avec des valeurs inventées
   type: enum
   required: true
   label:
     fr: Type
   values:
-    reception:
+    consommation:
       label:
-        fr: Réception
+        fr: Consommation
+    deplacement:
+      label:
+        fr: Déplacement
     expedition:
       label:
         fr: Expédition
     fabrication:
       label:
         fr: Fabrication
-    consommation:
-      label:
-        fr: Consommation
     inventaire:
       label:
         fr: Inventaire
-    transfert:
+    reception:
       label:
-        fr: Transfert
-    correction:
-      label:
-        fr: Correction
+        fr: Réception
 
 sens:
   # MVCTTYPE — E l'entrée, S la sortie (D952 : la lecture de l'échantillon,
-  # 25 E et 75 S, à confirmer) ; le morceau 2 le lisait en MVCTGENRE
+  # 25 E et 75 S ; D953) ; le morceau 2 le lisait en MVCTGENRE
   type: enum
   required: true
   label:

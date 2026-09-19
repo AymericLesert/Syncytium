@@ -1090,6 +1090,7 @@ Q58) :
 | D955 | **La validation globale à la fin du cas** (précise D899 et D947 — le protocole du cas 3) : « je validerai globalement à la fin de ce cas d'usage. Je parcourrai tous les fichiers de configuration » — les morceaux s'écrivent et se consignent au fil des arbitrages, la relecture complète de tous les fichiers de configuration par l'auteur, à la fin du cas, vaut validation définitive des morceaux 2 et 3 (et des suivants) ; le morceau 3 est clos en l'état, le morceau 4 (le mapping) s'ouvre à la prochaine session. | Voir §3.2c. |
 | D956 | **La référence de fichier explicite — `~{<fichier ou pattern>}`** (amende la forme de D320/D767/D806, complète D892) : « dans la configuration, la référence à un fichier (qui est aujourd'hui transparente) doit devenir explicite » — le `@{…}` proposé est réservé par YAML (`@` ne peut ouvrir un scalaire nu), `${…}` est déjà l'interpolation ; les sigles testés à l'analyseur en bloc, en liste, en flux et avec une regex : seuls ceux hors des indicateurs YAML tiennent — **« je choisis ~{<nom de fichier ou pattern>} »** : toute valeur de configuration qui désigne un fichier ou un pattern de fichiers (D806) s'écrit `~{…}` (`fields: ~{fields.yml}`, `- ~{source/.*\.yml}`, `description: ~{documentation.md}`, `code: ~{source.txt}`, `file: ~{icones/x.png}`), la valeur nue est un littéral — l'ambiguïté disparaît, l'ingestion refuse le fichier non marqué ; en collection de flux (`[ … ]`) l'accolade oblige les guillemets simples — la règle 1 de D892 gagne cette situation, la règle 2 (la forme bloc) s'applique d'elle-même. **La définition, confirmée** : « ~{nom fichier} signifie que la partie de la configuration sera remplacée par le contenu du fichier correspondant. Ce fichier est chargé par la configuration » ; un nom de fichier « qui sera chargé à l'usage, pas par la configuration » (les fichiers de données d'un connecteur — `entities:` D819/D828 —, les journaux) reste nu. | Les 151 références des quatre exemples (69 fichiers) réécrites, les artefacts (entity, hooks, mapping, composants) alignés ; le critère : l'inclusion à l'ingestion marque, l'usage ne marque pas. Voir §3.2c. |
 | D957 | **Le module `chat` du socle — un LLM en connecteur, la connaissance sous les droits de l'utilisateur, l'anonymisation avant l'envoi, tout échange tracé** (ouvre un chantier ; amende D619 sur le nombre de familles, s'appuie sur D408/D416/D666, D886, D695–D696, D917–D918, D925–D926) : « je souhaite inclure un module "Chat" qui puisse intégrer un appel à une LLM pour répondre aux questions en se basant sur la somme des connaissances de l'instance de Syncytium » — (1) **la connaissance** : « les données, les descriptions, dans la limite des autorisations accordées à l'utilisateur sur la consultation des données » ; le modèle atteint l'instance **par l'API versionnée au porteur de l'utilisateur ou par la librairie interne du modèle, celle des hooks de fonctions** — « l'utilisation de l'API est une possibilité mais il peut également utiliser la librairie interne du modèle qui sera utilisée sur les hooks de fonctions » ; (2) **« le LLM sera un connecteur »** — la neuvième famille `llm` (`provider`, `model`, `api_key*: ${VAR}` — les noms miens, « ok pour tes noms ») ; (3) **le RGPD** : « l'anonymisation sera appliquée avant tout envoi » — les champs `personal` (D695) anonymisés (D696) avant que la question et son contexte quittent l'instance, **sauf ce qui revient à l'utilisateur** : « si l'utilisateur est concerné, il aura droit à ses informations ; s'il a un niveau de droits suffisants, il aura aussi accès aux informations » ; (4) **la surface : « un écran au catalogue présent au socle »** — la fiche `chat` de composants.md ; (5) **la trace** : « tous les échanges (questions, comme réponses) doivent être tracés pour historisation ou pour analyse en cas de fuite ou d'incidents » — les entités du module (`conversation`, `message` : l'utilisateur, l'horodatage, le connecteur, la question, le contexte transmis, la réponse), `history: true`, l'événement au journal de sécurité (D925). | Le socle gagne un module (migration D666, administration D710, chat) et une famille — D619 n'est pas contredit : le jeu reste fermé aux hooks, il s'ouvre par décision ; l'invariant 16 à security.md, l'entrée au glossaire. Le contrat de la famille, les entités du module et la fiche de l'écran sont miens, en proposition. Voir §3.2c. |
+| D958 | **Le chat répond et fournit les données ; la mise à jour passe par les interfaces de l'application, le chat y mène par des liens** (précise D957 — le déroulé d'une question, les points 1 à 3 confirmés) : (1) le moteur bâtit le mode d'emploi du modèle — la description de l'instance telle que l'utilisateur la voit (les modules affectés D341/D416, les entités et les champs que sa confidentialité lui ouvre D885/D886, le `describe` D44/D645), ce qui lui est fermé n'est pas décrit — « je confirme » ; (2) les outils tendus au modèle sont **la lecture seule** — les primitives de la librairie interne des hooks de fonctions (D571/D599 — lire, interroger avec un filtre du langage, naviguer, agréger), chaque appel exécuté par le moteur comme l'utilisateur, par l'API au porteur ou par la librairie : « le chat répond aux questions et fournit les données. Les mises à jour se feront via les interfaces proposées par l'application. Le chat proposera des liens vers les interfaces assurant la mise à jour qui peut être demandée » — aucune écriture, aucune opération ; la réponse porte le lien vers la surface (le formulaire, l'acte — D439/D483) où l'utilisateur fera lui-même la mise à jour ; (3) la boucle d'outils vit au moteur, le connecteur transporte — « tout à fait ». | Le chat est un lecteur qui oriente, jamais un acteur : les droits d'écriture, la validation, la concurrence restent aux surfaces (D25/D599). Restent à trancher : l'anonymisation à chaque sortie et ses deux exceptions, l'écriture de la trace, le niveau de droits suffisant, `rgpd: subject`, le pseudonyme stable, la rétention. Voir §3.2c. |
 
 ---
 
@@ -11369,6 +11370,29 @@ sécurité (D925). Le socle compte désormais trois modules — migration
 (D666), administration (D710), chat. *Le contrat de la famille, les
 entités et la fiche sont miens, en proposition.*
 
+**Le chat répond et fournit les données ; la mise à jour passe par les
+interfaces de l'application (D958 — précise D957).** Le déroulé d'une
+question posé en sept temps, les trois premiers confirmés. **Le mode
+d'emploi** (« je confirme ») : le moteur décrit l'instance au modèle
+telle que l'utilisateur la voit — ses modules, les entités et les
+champs que sa confidentialité lui ouvre, avec leurs labels, hints,
+descriptions et valeurs d'énumérés ; ce qui lui est fermé n'existe
+pas pour le modèle. **Les outils, en lecture seule** : les primitives
+de la librairie interne des hooks de fonctions (D571/D599), chaque
+appel exécuté par le moteur comme l'utilisateur — **« Le chat répond
+aux questions et fournit les données. Les mises à jour se feront via
+les interfaces proposées par l'application. Le chat proposera des
+liens vers les interfaces assurant la mise à jour qui peut être
+demandée. »** — le chat est un lecteur qui oriente : la réponse porte
+le lien vers la surface où l'utilisateur fera lui-même la mise à jour
+(le formulaire, l'acte — D439/D483), sous ses droits d'écriture, la
+validation et la concurrence des surfaces (D25/D599). **La boucle
+d'outils au moteur**, le connecteur transporte (« tout à fait »).
+Restent l'anonymisation à chaque sortie et ses deux exceptions,
+l'écriture de la trace, et les cinq points ouverts — le niveau de
+droits suffisant, `rgpd: subject`, la lecture seule confirmée par là
+même, le pseudonyme stable, la rétention.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21385,7 +21409,13 @@ avant la synthèse Q16).
   l'API ou la librairie interne des hooks, l'anonymisation avant tout
   envoi sauf le propre de l'utilisateur, un écran au catalogue, tout
   échange tracé ; connectors.md, security.md (l'invariant 16),
-  composants.md (la fiche `chat`), le glossaire.
+  composants.md (la fiche `chat`), le glossaire. D956 confirmé avec sa
+  définition — le contenu du fichier chargé par la configuration, le
+  nom chargé à l'usage reste nu. Le chat décrit sans flou (les quatre
+  objets, le déroulé en sept temps, cinq points à trancher) ; **D958**
+  les trois premiers temps confirmés — le chat répond et fournit les
+  données, la mise à jour par les interfaces de l'application, les
+  liens proposés.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -2903,7 +2903,12 @@ la fiche est mienne, en proposition.)*
    question et chaque réponse s'écrivent** dans `chat.conversation` et
    `chat.message` (historisées — D411), l'événement au journal de
    sécurité (D925) ; le connecteur injoignable = l'écran l'annonce,
-   jamais une réponse inventée (D626) ;
+   jamais une réponse inventée (D626) ; **le chat répond et fournit
+   les données, il ne met rien à jour** (D958) — « les mises à jour se
+   feront via les interfaces proposées par l'application » : la
+   réponse porte **les liens vers les surfaces de mise à jour** (le
+   formulaire, l'acte — D439/D483), où l'utilisateur agit sous ses
+   propres droits ;
 9. **Décisions fondatrices** — D295, D439, D449–D450, D465, D617,
    D626, D695–D696, D885–D886, D917–D918, D925, D957 ;
 10. **Exemple de configuration** —

@@ -372,6 +372,13 @@ seconde couche.
   transmis), historisées ; l'événement au journal de sécurité (D925)
   — « pour historisation ou pour analyse en cas de fuite ou
   d'incidents » ;
+- **la lecture seule** (D958) : les outils tendus sont les primitives
+  de lecture de la librairie interne des hooks de fonctions (D571/D599
+  — lire, interroger, naviguer, agréger) — « le chat répond aux
+  questions et fournit les données. Les mises à jour se feront via les
+  interfaces proposées par l'application. Le chat proposera des liens
+  vers les interfaces assurant la mise à jour qui peut être demandée » ;
+  la boucle d'outils vit au moteur, le connecteur transporte ;
 - **la condition indispensable** (D626) : le connecteur injoignable
   = le chat indisponible, jamais une réponse inventée.
 

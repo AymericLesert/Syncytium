@@ -22,11 +22,13 @@ time_pmi:                       # les heures de PMI — hhmm pour l'exemple (D99
     type: time
     mask: "hhmm"
 
-# La devise de l'entreprise (D970) — les prix de l'article n'ont pas de
-# colonne de devise chez PMI : la monnaie de l'entreprise, implicite ;
-# les règles la lisent par context.settings.currency (D588), les tiers,
-# les tarifs et les commandes portent la leur (D771)
-currency: EUR
+# La devise de l'entreprise — le défaut du type amount (D993, qui amende
+# D970 : « le défaut du type me convient ») : les prix de l'article n'ont
+# pas de colonne de devise chez PMI, la monnaie de l'entreprise est
+# implicite ; le constructeur à un argument la prend — amount(ARCNPRS) ;
+# les tiers, les tarifs et les commandes portent la leur (D771)
+amount:
+    currency: EUR
 
 # Les profils de confidentialité (D885) — le niveau (D25) et les groupes
 # (D26) nommés une fois, référencés au champ par l'interpolation de la

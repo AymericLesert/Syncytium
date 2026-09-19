@@ -1323,9 +1323,10 @@ dérivés** `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi`
 sont définissables avec des paramètres par défaut » : la clé est le
 nom, `type:` la base, le reste ses défauts ; les trente-quatre colonnes
 J et S des sources s'écrivent `ARCJCRE: date_pmi`, la forme courte),
-**`currency: EUR`** (D970 — la devise de l'entreprise, que les prix de
-l'article sans colonne de devise lisent par
-`context.settings.currency`) et
+**`amount: { currency: EUR }`** (D993, qui amende D970 — « le défaut du
+type me convient » : la devise de l'entreprise en défaut du type, les
+prix de l'article sans colonne de devise par le constructeur à un
+argument, `amount(ARCNPRS)`) et
 les trois profils de confidentialité — `financier` (les achats et
 la direction), `direction`, `commercial` — que les champs
 référencent par `${settings.confidentiality.<profil>}` ; le lien

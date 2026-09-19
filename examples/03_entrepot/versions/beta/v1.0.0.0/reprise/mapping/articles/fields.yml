@@ -52,10 +52,11 @@ stock_minimum:       ARCNSTOMIN
 stock_maximum:       ARCNSTOMAX
 quantite_economique: ARCNQTECO
 # --- les prix — amount à devise (D771) : PMI ne porte pas de devise sur
-# l'article, celle de l'entreprise vient des settings (à trancher) ---
-prix_revient:       amount(ARCNPRS, context.settings.currency)
-prix_moyen_pondere: amount(ARCNPMP, context.settings.currency)
-prix_achat:         amount(ARCNPUACH1, context.settings.currency)
+# l'article ; le constructeur à un argument prend le défaut du type,
+# amount: { currency: EUR } aux settings (D993) ---
+prix_revient:       amount(ARCNPRS)
+prix_moyen_pondere: amount(ARCNPMP)
+prix_achat:         amount(ARCNPUACH1)
 # --- la vie de l'article ---
 actif:             ARCTBLOCAG = ""             # vide = actif, sinon le motif de blocage
 date_creation:     ARCJCRE

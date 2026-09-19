@@ -1125,6 +1125,7 @@ Q58) :
 | D990 | **La conversion d'une clé se fait à la lecture, sur la colonne de la source (`normalize:`), jamais dans la règle ni dans `parent:` ; le complément vide n'en a pas besoin — le nul du texte est la chaîne vide** (précise D931, applique D870/D872/D660 — le frottement 10 du lot 2 du cas 3, clôt le lot) : l'exemple de D931 dans mapping.md écrivait `complement: iif(ARKTCOMART = "", null, ARKTCOMART)` chez le possesseur et le répétait dans chaque `parent:` qui vise l'article ; deux choses le rendent inutile — pour `text`, « le nul = la chaîne vide » (types.md, D366) : les deux sont la même valeur, la clé se retrouve sans conversion ; et quand une conversion est réellement nécessaire (une casse, un préfixe, un cadrage), « sur les champs, dans la description, nous avions abordé la possibilité de faire un traitement de transformation lors de la lecture » — `normalize:` sur la colonne (D872 — la fonction à la frontière, surchargeable par champ) ou le calculé de la source (D660) : la règle et les `parent:` lisent des colonnes déjà converties. Les règles du lot 2 écrivent les colonnes nues ; l'exemple de D931 aligné. | mapping.md : le `iif` retiré de l'exemple, la phrase sur « la conversion écrite deux fois » renvoyée à `normalize:`. **Le lot 2 est clos** : 013–019, les règles 018/019 (les tarifs) commises telles qu'écrites. Voir §3.2c. |
 | D991 | **Dans les settings, les paramètres par défaut d'un type se déclarent sous le nom du type ; les settings portent aussi la définition de nouveaux types** (précise D870/D872 sur la forme, rejoint D359) : `settings.yml` du cas 3 portait `normalize: trim(me)` à la racine — « dans settings, normalize n'est pas au bon endroit. Dans settings, les paramètres par défaut des types ou la définition de nouveaux types peuvent être présents. J'ai modifié le fichier settings.yml pour te montrer » — la forme corrigée par l'auteur : `text: { normalize: trim(me) }` — le défaut d'une facette du type `text`, sous sa clé ; la cascade (D359/D588 — l'application, le module, l'entité) et la surcharge au champ (D872) demeurent ; les types personnalisés de D359 y vivent au même titre (`progression: { … }`). | `currency: EUR` reste une clé de l'instance (D970/D588), pas un défaut de type — à confirmer si elle devait devenir `amount: { currency: EUR }`. types.md et le cas alignés. Voir §3.2c. |
 | D992 | **Les types et leurs dérivés se déclarent simplement aux settings, avec leurs paramètres par défaut — une seule forme : la clé est le nom, `type:` la base d'un dérivé, le reste ses défauts ; `date_pmi` et `time_pmi` dans les sources du cas 3** (précise D991/D359/D356) : « cela a aussi besoin d'être affiné car les types ou ses dérivés doivent être présentés simplement et sont définissables avec des paramètres par défaut » — la forme proposée et validée (« je valide D992 ; emploie date_pmi dans les sources ») : sans `type:`, la clé règle les défauts d'un type du catalogue (`text: { normalize: trim(me) }`) ; avec `type:`, c'est un dérivé qui hérite de toutes les propriétés de sa base et surcharge celles qu'il nomme (D359 — `progression: { type: integer[0..100], component: fuel }`) ; un dérivé peut dériver d'un dérivé, la chaîne résolue à l'ingestion, le cycle une erreur (D344) ; le champ garde le dernier mot (`ARCJCRE: { type: date_pmi, mask: "yyyymm" }`), la cascade D359 vaut ; le nom d'un dérivé ne redéfinit jamais un type du catalogue (D408 — un seul espace de noms) ; l'usage par la forme courte (D356) : `ARCJCRE: date_pmi`. | Le cas 3 : `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi: { type: time, mask: "hhmm" }` (le second mien, le pendant des colonnes S — « time_pmi a un format hhmm seulement », puis « les 2 formats sont possibles dans PMI. Pour l'exemple, cela convient et le mask pourra être surchargé au besoin » — le défaut du dérivé en `hhmm`, la colonne à secondes le surcharge au champ, `{ type: time_pmi, mask: "hhmmss" }` : la règle 3 de D992 à l'œuvre) dans `settings.yml` ; les trente-quatre colonnes J et S des quatorze sources écrites par la forme courte — plus un masque en ligne ; l'outil de technicien les émet. types.md au niveau. Voir §3.2c. |
+| D993 | **La devise de l'entreprise est le défaut du type `amount` — `amount: { currency: EUR }` aux settings, le constructeur à un argument** (amende D970, applique D991–D992) : la question laissée à D991 — `currency: EUR` en clé de l'instance ou en défaut du type : **« le défaut du type me convient »** — la clé d'instance disparaît, les settings portent `amount: { currency: EUR }` (la forme de D991 : le paramètre par défaut sous le nom du type) ; **`amount(v)` à un seul argument prend la devise du type** — celle du champ s'il en déclare une, celle des settings sinon, la cascade D359 ; `amount(v, devise)` reste pour les valeurs qui portent la leur (les tarifs, les commandes, D771) ; les prix de l'article : `prix_revient: amount(ARCNPRS)`. | La voie C de D970, écartée alors, revient par D991 : les défauts des types ont trouvé leur maison. `context.settings.currency` n'a plus d'usage. Voir §3.2c. |
 
 ---
 
@@ -12051,6 +12052,15 @@ mask pourra être surchargé au besoin »** — le dérivé porte le défaut,
 la colonne qui a des secondes le surcharge au champ : la règle même
 de D992.
 
+**La devise en défaut du type `amount` (D993 — amende D970).** D970
+avait choisi la clé d'instance contre le défaut de type, faute de
+maison pour ce dernier ; D991 la lui a donnée. **« Le défaut du type me
+convient. »** — `amount: { currency: EUR }` aux settings, et le
+constructeur à un argument : `amount(ARCNPRS)` prend la devise du
+type — celle du champ s'il en déclare une, celle des settings sinon ;
+`amount(v, devise)` reste pour ce qui porte la sienne. La clé
+`currency:` de l'instance disparaît avec `context.settings.currency`.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22187,8 +22197,11 @@ avant la synthèse Q16).
   corrigé par l'auteur) ; les types personnalisés y vivent (D359).
   **D992** les types et leurs dérivés en une seule forme (la clé, `type:`
   la base, les défauts) ; `date_pmi`/`time_pmi` aux settings, les 34
-  colonnes J/S des 14 sources en forme courte. La suite : le lot 3, les
-  commandes —
+  colonnes J/S des 14 sources en forme courte ; `time_pmi` en hhmm, la
+  colonne à secondes surcharge au champ. **D993** la devise en défaut
+  du type `amount` (« le défaut du type me convient » — D970 amendé) :
+  `amount: { currency: EUR }`, `amount(ARCNPRS)` à un argument. La
+  suite : le lot 3, les commandes —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

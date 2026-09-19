@@ -1103,6 +1103,7 @@ Q58) :
 | D968 | **Le cumul de fichiers sous une carte — la liste de références en bloc, la fusion dans l'ordre, la surcharge avec alerte, le pattern admis, l'élément = un fichier ou une carte en ligne** (précise D956/D767/D806 — la question de l'auteur sur D967) : « est-ce qu'avec ~{articles/fields.yml}, je peux cumuler plusieurs fichiers l'un derrière l'autre ? » — pas encore : une référence remplace la valeur, le pattern ne vaut que dans une liste ; la forme proposée, une liste en bloc sous la propriété à carte (`fields:`, `values:`, `parameters:`… — partout, la règle de D767) : (1) **la fusion dans l'ordre** — les contenus se lisent l'un derrière l'autre, la carte est l'union des clés : « ok » ; (2) **la même clé deux fois = une surcharge, le dernier l'emporte, une alerte levée à l'ingestion** — « c'est une surcharge… une alerte doit être levée » (ma proposition d'erreur écartée) ; (3) **le pattern y vaut** — `- ~{articles/.*\.yml}`, l'ordre alphabétique (D665) : « oui » ; (4) **l'élément est une référence de fichier ou une carte en ligne**, fusionnée comme un contenu de fichier — « je prends la 1ère option, je la trouve plus élégante — peut-être moins uniforme — mais plus en lien avec des approches classiques » (la liste pure, que je penchais à préférer, écartée). Jamais en flux : l'accolade y casse YAML (D956/D892). | mapping.md et entity.md au niveau ; le cas 3 n'en a pas besoin aujourd'hui (les quatre règles partagent tout), rien n'y change. Voir §3.2c. |
 | D969 | **`parent:` peut nommer le parent d'une hiérarchie — la résolution atteint les dérivés ; le possesseur sans la composition = un rejet ; la nomenclature récursive, le fantôme la garde** (précise D353/D931/D933/D940 — le frottement 2 du lot 2 du cas 3) : la ligne NOMENC doit rejoindre `fabrique`, `semi_fini` ou `fantome` sans porter le code de gestion de son produit — deux voies, le possesseur par le parent de la hiérarchie (`parent: { article: { code: NOKTCODPF, complement: NOKTCOMPF } }` — l'identité déclarée chez le parent et partagée, D353 ; l'enregistrement retrouvé quelle que soit sa classe, la ligne attachée à sa composition ; s'il ne la porte pas, la ligne est un rejet au rapport — l'anomalie visible, D933) ou le code lu à la source par `ARTICLE.first(ARCTFATN if …)` (D965) et trois règles filtrées (la ligne d'un produit hors 01/09/12 sortirait du périmètre en silence, D663) : **« je valide A ; le fantôme garde sa nomenclature »** ; et la nature de l'objet, redite : « une nomenclature est une liste d'articles décrivant les composants et les tâches à réaliser. Un composant est un article. Et, si un article a une nomenclature, cela se construit récursivement. Par conséquent, un article fabriqué ou semi-fabriqué a une composition de nomenclatures » — le modèle tient (D135/D937/D940). | La règle 017 telle qu'écrite ; une phrase à mapping.md sur `parent:` et la hiérarchie. Voir §3.2c. |
 | D970 | **La devise de l'entreprise en setting — `currency:` à settings.yml, lue par `context.settings.currency`** (applique D588/D771 — le frottement 3 du lot 2 du cas 3) : les prix de l'article (ARCNPRS, ARCNPMP, ARCNPUACH1) sont des `amount` sans colonne de devise chez PMI — la monnaie de l'entreprise, implicite ; trois voies posées — le setting de l'instance (`currency: EUR`, `amount(ARCNPRS, context.settings.currency)`), la devise lue chez PMI par une entité alias (D965/D966), une devise par défaut au type `amount` : **« je valide A »** — le setting, écrit une fois, lu par toute règle ; l'entrepôt d'une autre entreprise change un mot. | `settings.yml` du cas 3 gagne `currency: EUR` ; le bloc `articles/fields.yml` la lit. Voir §3.2c. |
+| D971 | **Le constructeur `list(…)` — les vides tombent, l'ordre des arguments, la liste nettoyée de ses doublons, le typage commun** (applique D579/D659 à la collection — le frottement 4 du lot 2 du cas 3) : plusieurs colonnes vers une liste — `matieres: list(ARCTCODMA1, …, ARCTCODMA9)`, `fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)` — par la fonction qui porte le nom du type, comme `amount(v, devise)` ; le même mot est l'agrégat de D965 (la valeur porte sa méthode, le type sa fonction) ; quatre règles proposées — (1) les vides tombent (la chaîne vide, le nul — une liste ne contient pas « rien »), (2) l'ordre est celui des arguments, (3) les doublons restent, la cible tranche, (4) tous les arguments du même type ou la promotion sans perte (D581), le résultat `list of <ce type>`, la référence résolue par la clé (D654) : **« le point 1 est valide et la liste est nettoyée des doublons »** — la règle 3 inversée : `list` dédoublonne d'office, le premier des égaux garde sa place. | types.md au niveau ; le bloc de l'article tel quel. Voir §3.2c. |
 
 ---
 
@@ -11643,6 +11644,21 @@ settings.yml, `amount(ARCNPRS, context.settings.currency)` dans le bloc
 commun des règles de l'article : écrit une fois, lu partout, un mot à
 changer pour une autre entreprise.
 
+**Le constructeur `list(…)` (D971 — applique D579/D659 à la
+collection ; le lot 2 du cas 3).** Neuf colonnes matière et deux
+colonnes fournisseur vers une liste : la collection est un type
+(D362), et un type construit sa valeur par la fonction qui porte son
+nom — `list(ARCTCODMA1, …, ARCTCODMA9)`, rien de neuf ; le même mot
+sert d'agrégat depuis D965, la valeur portant sa méthode et le type
+sa fonction. Quatre règles proposées : les vides tombent — chez PMI,
+huit des neuf colonnes matière sont blanches, et une liste ne
+contient pas « rien » ; l'ordre est celui des arguments ; les
+doublons restent, la cible tranche ; le typage commun (D581), la
+référence résolue par la clé. **« Le point 1 est valide et la liste
+est nettoyée des doublons. »** — la troisième règle inversée : `list`
+dédoublonne d'office, le premier des égaux garde sa place ; deux
+colonnes fournisseur égales font un seul fournisseur habituel.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21715,7 +21731,10 @@ avant la synthèse Q16).
   le produit sans nomenclature = un rejet visible ; le fantôme garde sa
   nomenclature ; la règle 017 commise. **D970** le frottement 3 — la
   devise de l'entreprise en setting (`currency: EUR`,
-  `context.settings.currency`). La suite : le lot 2, les articles —
+  `context.settings.currency`). **D971** le frottement 4 — le
+  constructeur `list(…)` : les vides tombent, l'ordre des arguments,
+  la liste nettoyée de ses doublons (ma règle inversée), le typage
+  commun. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

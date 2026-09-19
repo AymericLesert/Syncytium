@@ -26,7 +26,7 @@ gestion:      'ARCTFATN.select(01: "fabrique", 02: "achete", 03: "cg03", 07: "li
 famille:      'left(ARCTCODFAM, 3).select(MAT: "matiere", COM: "composant", PRF: "produit_fini", CON: "consommable")'   # inventé (D963)
 sous_famille: 'ARCTCOSFAM.select(ACI: "acier", ALU: "aluminium", PLA: "plastique", VIS: "visserie", "...": "autre")'   # inventé (D963)
 perissable:   mid(ARCTCODFAM, 4, 1) = "1"      # la règle de l'auteur (D954) — mid, non right
-matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8, ARCTCODMA9)   # neuf colonnes → une liste, les vides ignorés (le constructeur — à trancher)
+matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8, ARCTCODMA9)   # neuf colonnes → une liste : les vides tombent, les doublons aussi (D971)
 # --- les unités et les dimensions — les mesures par le constructeur du
 # type (D659), l'unité de PMI supposée (à trancher) ---
 unite_stock:    ARCTUNISTO
@@ -63,4 +63,4 @@ emplacement_fabrication:  { depot: ARCTCODEPF, code: ARCTCOEMPF }
 depot_consommation:       ARCTCODEPC
 emplacement_consommation: { depot: ARCTCODEPC, code: ARCTCOEMPC }
 # --- les liens ---
-fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)    # l'association stockée (D400) — les références par la clé, les vides ignorés
+fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)    # l'association stockée (D400) — les références par la clé (D654) ; les vides et les doublons tombent (D971)

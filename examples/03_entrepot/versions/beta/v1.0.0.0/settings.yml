@@ -18,7 +18,7 @@ text:
 date_pmi:                       # les dates AAAAMMJJ de PMI (D820/D866)
     type: date
     mask: "yyyymmdd"
-time_pmi:                       # les heures de PMI — « time_pmi a un format hhmm seulement » (D992) ; la colonne est un nchar(6), les secondes n'y sont pas
+time_pmi:                       # les heures de PMI — hhmm pour l'exemple (D992) ; « les 2 formats sont possibles dans PMI », la colonne à secondes surcharge au champ : { type: time_pmi, mask: "hhmmss" }
     type: time
     mask: "hhmm"
 

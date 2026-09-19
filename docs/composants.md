@@ -99,6 +99,7 @@ Quatre règles transversales l'allègent :
 | `measure` | `number` + l'unité (les trois régimes D391) ; **la matrice de conversion visible** (D980) | `calculator` |
 | `duration` | **un composé (D981)** — `number` masqué (la virgule en centièmes — D380) + l'unité ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `phone` | `text` masqué (national par défaut D391) | — |
+| `barcode` | saisie : `text` (la validation intégrée selon la nature — D987) ; lecture : le composant `barcode` / `qrcode` (D300) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
 | `url` | `text` — **le lien en lecture** : le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone, l'ellipse en cellule (D563) | — |

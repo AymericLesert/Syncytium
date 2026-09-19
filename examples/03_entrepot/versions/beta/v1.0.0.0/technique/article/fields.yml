@@ -304,9 +304,11 @@ volume:
 # ces valeurs ---
 
 ean13:
-  # ARCTEAN13
-  type: text[13]
-  mask: "9999999999999"
+  # ARCTEAN13 nchar(20) — le type barcode, la nature du code en paramètre
+  # (D987) : la validation intégrée de l'EAN (13 chiffres, la clé de
+  # contrôle), le constructeur barcode(ean, ARCTEAN13) à la règle ; une
+  # valeur présente et fausse rend l'article non conforme, au rapport
+  type: barcode[ean]
   label:
     fr: EAN 13
 

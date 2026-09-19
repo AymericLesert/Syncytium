@@ -46,7 +46,7 @@ longueur:  measure(ARCNLONGUE, mm)
 largeur:   measure(ARCNLARGEU, mm)
 epaisseur: measure(ARCNEPAISS, mm)
 volume:    measure(ARCNVOLUNI, dm3)
-ean13:     left(ARCTEAN13, 13)                 # nchar(20) vers text[13] : la troncature explicite (D581/D934)
+ean13:     barcode(ean, ARCTEAN13)             # le type barcode, la nature en paramètre (D987) — la validation à l'exécution, jamais une troncature
 # --- le stock de référence ---
 stock_minimum:       ARCNSTOMIN
 stock_maximum:       ARCNSTOMAX

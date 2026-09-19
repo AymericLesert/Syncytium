@@ -2299,8 +2299,10 @@ charts:
 2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
    valeur encodée, lisible à la machine : l'étiquette, le document,
    l'écran ;
-3. **Types servis** — les champs à valeur textuelle — le texte, le
-   compteur, l'`uuid`, la référence… : **la conversion en texte du
+3. **Types servis** — **le type `barcode`** (D987 — son défaut en
+   lecture : la nature du code vient du type, `barcode[ean]`, rien à
+   redire au composant) ; et les champs à valeur textuelle — le texte,
+   le compteur, l'`uuid`, la référence… : **la conversion en texte du
    type** (D369) fait la valeur encodée ; en surcharge
    (`component: qrcode`) ;
 4. **Contexte consommé** — le champ, sa valeur convertie (D369), les
@@ -2314,9 +2316,11 @@ charts:
    courte valant l'affichage seul) ; **`labels:`** — « la valeur de
    la référence sous le code-barres » (D545 — *en proposition :*
    `labels: true`, la valeur au format du champ — l'écho D516 ;
-   défaut `false`) ; **le format du code-barres au crochet** (*en
-   proposition :* `barcode[ean13]`, `barcode[code128]` — le défaut
-   `code128`) ;
+   défaut `false`) ; **le format du code-barres** : **du type quand le
+   champ est un `barcode`** (D987 — `barcode[ean]` au champ, le
+   composant suit) ; **au crochet pour un champ texte** rendu en
+   code-barres (*en proposition :* `component: barcode[code128]` — le
+   défaut `code128`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
    **la saisie en mode texte** — la zone du champ, son régime (la
@@ -2328,7 +2332,7 @@ charts:
 8. **États et interactions** — la lecture seule par nature ; masqué
    par la confidentialité ;
 9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
-   D516, D533, D542–D545 ;
+   D516, D533, D542–D545, D987 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2344,10 +2348,11 @@ gui:
             component: qrcode      # la valeur rendue en QR (D300)
             size: 120px            # le carré — 120 px de côté (D543)
         - field[name]
-        - field[price]:
-            component: barcode[ean13]   # le format au crochet (proposition)
+        - field[ean]:              # un champ barcode[ean] (D987) : la nature vient du type
             size: 200px 60px       # largeur × hauteur (D543)
             labels: true           # la valeur sous les barres (D545)
+        - field[sku]:
+            component: barcode[code128]   # un champ texte rendu en code-barres — le format au crochet (proposition)
 ```
 
 # Les surfaces

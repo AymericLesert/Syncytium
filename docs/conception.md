@@ -1108,6 +1108,7 @@ Q58) :
 | D973 | **Le contrat de la famille `file` à deux gestes — `files(motif)` et `commit(fichier)` ; le moteur appelle `commit`** (amende D634, précise D635/D972) : la question de l'usage de `commit` — le patron de la boîte de dépôt : le fichier consommé (une commande EDI, un relevé) est acquitté, renommé ou déplacé vers le dossier configuré pour ne pas être relu ; aucun usage au cas 3, où les plans sont consultés, pas consommés ; qui l'appelle, et le nom de la lecture : **« le moteur appelle commit ; get_file devient files »** — `commit` est la fin du geste, appelé d'office par le moteur quand l'opération déclenchée par le guetteur (D635/D609) a réussi, jamais une ligne de règle ; `get_file` disparaît : `files(motif)` rend la liste des fichiers **avec leurs descripteurs** (D972), à la garde de stabilité (« attendre qu'un fichier en cours d'écriture soit terminé »), et **le contenu se lit par la valeur `file` elle-même** — le type porte l'accès au contenu derrière les descripteurs (D160/D972), le storage de format (D636) le consomme. | Ma lecture : un seul geste de lecture, le contenu par le type — à corriger si `get_file` devait subsister sous un autre nom ; en échec de l'opération, le fichier reste en place (le dossier d'erreur, un paramètre possible — mien, non proposé). connectors.md au niveau. Voir §3.2c. |
 | D974 | **Les opérations du type `file` — la lecture binaire ou texte, le déplacement, la suppression, la lecture de l'empreinte** (précise D972–D973, applique D579 — les fonctions vivent sur le type) : « un type file a une opération de lecture, de déplacement, de suppression et de lecture du hashage. La lecture binaire ou texte est à fournir pour la partie CSV ou pour le watcher » — la valeur `file` (les descripteurs, D972) porte ses gestes comme tout type porte ses fonctions : **la lecture** du contenu, binaire ou texte — c'est elle que consomment le storage de format (D636 — csv, xml, json) et le guetteur (D635) ; **le déplacement** — celui que `commit` accomplit par le moteur (D973) ; **la suppression** ; **l'empreinte** — calculée à la demande, portée d'office si `hash: true`. Le contrat du connecteur reste à deux gestes (`files`, `commit`) : le connecteur donne les fichiers, le type fait le reste. | Les noms miens, dans la langue du catalogue (D934) : `.read()` binaire, `.read(text)` texte, `.move(destination)`, `.delete()`, `.hash()` ; types.md au niveau. Voir §3.2c. |
 | D975 | **`measure` et `duration` combinent une valeur et une unité — le constructeur ; le type porte ses règles de conversion, aux paramètres complémentaires quand il le faut** (précise D391/D476/D579/D659 — le frottement 6 du lot 2 du cas 3) : les colonnes de PMI sont des décimaux sans unité (ARCNPDSUNI, ARCNLONGUE…, NOCNTPSOUV…) — `measure(ARCNPDSUNI, kg)`, `duration(NOCNTPSOUV, h)` ; l'unité prise dans les `units:` du champ ou parmi celles de `duration` (D476), hors liste = une erreur d'ingestion (D581) ; **« pour measure ou duration, ça combine une valeur et une unité. Elles portent également des règles de conversion qui peuvent nécessiter des paramètres complémentaires »** — la conversion d'une unité à l'autre est une fonction du type (D579/D584 : chaque type porte ses conversions), et quand elle dépend d'autre chose que d'un facteur fixe — la masse volumique d'un volume vers un poids, la base d'un temps industriel en centièmes vers les heures-minutes (D380) — elle prend ses paramètres. | Les unités réelles de PMI inconnues : celles de l'exemple — kg, mm, dm3, les heures décimales — inventées et marquées (D963) ; la forme de la conversion (`.to(<unité>, <paramètres>)`) mienne, en proposition dans types.md. Voir §3.2c. |
+| D976 | **Les conversions sont des matrices — les unités en lignes et en colonnes, le coefficient à l'intersection ; les matrices standard des mesures et des temps fournies ; les unités extensibles ; le coefficient propre à un contexte** (précise D975/D391/D476) : « les conversions portent sur des matrices de conversion. Les colonnes et les lignes d'une matrice de conversion portent un coefficient de conversion à l'intersection. Il y a des conversions standard sur les unités de mesure et sur les unités de temps. Les unités peuvent être étendues pour inclure, par exemple, PL (plaque) pour une mesure — F pour Frappe (20 F/H ⇒ 3 min…), … La conversion d'une plaque en masse s'effectue via un coefficient propre à chaque matière première. Ce coefficient est déductible de la dimension de la plaque, de son épaisseur et de sa densité… Il existe d'autres approches » — Syncytium fournit les matrices standard (kg/g/t, mm/cm/m, s/min/h/d…) ; le technicien étend les unités et remplit les intersections ; **le coefficient est une constante (F → h : 1/20) ou une expression**, quand la conversion dépend du contexte — la plaque vers la masse, par la matière (les paramètres complémentaires de D975) ; le cas 3 le rencontrera : PL est l'unité de stock de PMI (D946), la plaque d'acier a une masse. | La forme de la déclaration est mienne, en proposition dans types.md : un bloc `conversions:` aux settings (la cascade D359 — l'instance, le module, l'entité), `<type>: { <unité>: { <unité>: <coefficient ou expression> } }` ; où l'expression prend son contexte (l'enregistrement converti) et « les autres approches » restent à voir. Voir §3.2c. |
 
 ---
 
@@ -11734,6 +11735,30 @@ paramètres. Les unités réelles de PMI restent inconnues : celles de
 l'exemple sont inventées et marquées (D963). *La forme `.to(<unité>,
 <paramètres>)` est mienne.*
 
+**Les matrices de conversion (D976 — précise D975).** **« Les
+conversions portent sur des matrices de conversion. Les colonnes et
+les lignes d'une matrice de conversion portent un coefficient de
+conversion à l'intersection. Il y a des conversions standard sur les
+unités de mesure et sur les unités de temps. Les unités peuvent être
+étendues pour inclure, par exemple, PL (plaque) pour une mesure — F
+pour Frappe (20 F/H ⇒ 3 min…), … La conversion d'une plaque en masse
+s'effectue via un coefficient propre à chaque matière première. Ce
+coefficient est déductible de la dimension de la plaque, de son
+épaisseur et de sa densité… Il existe d'autres approches. »** Trois
+étages, donc : les matrices standard, fournies — le kilogramme, le
+gramme, la tonne ; la seconde, la minute, l'heure ; le technicien n'y
+écrit rien ; les unités étendues — la plaque, la frappe —, ajoutées
+par lui avec leurs intersections ; et le coefficient qui n'est pas
+une constante mais une expression, parce qu'il dépend de ce qu'on
+convertit — la plaque d'acier de telles dimensions, telle épaisseur,
+telle densité, vers sa masse : les paramètres complémentaires de
+D975 sont le contexte de l'expression. Le cas 3 le rencontrera : PL
+est l'unité de stock de PMI (D946). *La déclaration — un bloc
+`conversions:` aux settings, en cascade (D359), `<type>: { <unité>: {
+<unité>: <coefficient ou expression> } }` — est mienne, en
+proposition ; le contexte de l'expression et « les autres approches »
+restent à voir.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21821,7 +21846,11 @@ avant la synthèse Q16).
   déplacement, la suppression, l'empreinte ; les noms miens. **D975**
   le frottement 6 — `measure`/`duration` : la valeur et l'unité au
   constructeur, les conversions du type à paramètres ; les unités de
-  l'exemple inventées. La suite : le lot 2, les articles —
+  l'exemple inventées. **D976** les conversions en matrices — les
+  standards fournies, les unités étendues (PL, F), le coefficient
+  constant ou expression selon le contexte (la plaque vers la masse par
+  matière) ; la déclaration `conversions:` aux settings en proposition.
+  La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

@@ -79,7 +79,6 @@ Quatre règles transversales l'allègent :
 | `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` ; `qrcode`/`barcode` (la sortie — D300/D542) |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
-| `duration` | `number` masqué (la virgule en centièmes — D380) ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `date` | `calendar` (la nature au crochet D381) | — |
 | `time` | `clock` | — |
 | `datetime` | **`calendar` + `clock`** — « la combinaison des 2 composants » (D499) | — |
@@ -98,6 +97,7 @@ Quatre règles transversales l'allègent :
 | `amount` | `number` (la devise, aligné à droite D443) | `calculator` ; R2 si borné |
 | `percentage` | `number` (le % post-libellé D273) | `gauge` (le choix naturel 0..100 — D274), `fuel`, `slider` |
 | `measure` | `number` + l'unité (les trois régimes D391) ; **la matrice de conversion visible** (D980) | `calculator` |
+| `duration` | **un composé (D981)** — `number` masqué (la virgule en centièmes — D380) + l'unité ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `phone` | `text` masqué (national par défaut D391) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |

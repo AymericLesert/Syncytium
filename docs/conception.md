@@ -1113,6 +1113,7 @@ Q58) :
 | D978 | **Le champ `measure` ou `duration` porte sa propre matrice de conversion, non mutualisable ; ses valeurs peuvent apporter des unités nouvelles, chacune avec son coefficient vers une unité connue du champ** (amende D976 sur la forme, précise D975/D977) : mon exemple déclarait les unités en dur (`units: [kg, g]`) et la matrice étendue aux settings — « ton exemple répond en partie à ma description. Les unités de ton exemple sont définies en dur. Or, un article porte des règles de conversion en paramétrage. **Je souhaite proposer une approche plus large que ce que peut faire PMI. Un champ "measure" ou "duration" porte une matrice propre au champ et non mutualisable. Ces champs peuvent contenir des unités supplémentaires. Mais chaque déclaration doit fournir un coefficient de conversion entre cette nouvelle unité et une unité connue du champ** » — les unités connues d'un champ : les standards du type (kg/g/t, s/min/h…) et celles de sa déclaration ; les unités supplémentaires arrivent **par les données**, dans la valeur du champ, chacune déclarée avec son coefficient vers une unité connue (PL → kg : 12,5 — le paramétrage de PMI, D977) ; la matrice est celle du champ, sur cet enregistrement — pas de matrice partagée à l'instance : la forme `conversions:` aux settings (D976) est retirée ; les matrices standard restent au type. | La valeur d'un `measure` porte donc la valeur, l'unité et ses unités étendues ; le constructeur gagne un troisième argument (la carte des unités étendues, `{ PL: { kg: 12.5 } }`) — mien, en proposition ; D977 (l'hypercube `conversions` de l'article) à revoir : les deux couples de PMI alimentent la matrice d'un champ `measure` de l'article — lequel, à trancher. Voir §3.2c. |
 | D979 | **La transitivité des conversions ; chaque unité doit avoir un chemin vers une unité standard, garanti par la validation du champ ; la même règle pour les durées** (précise D978) : « la conversion d'une nouvelle unité vers une unité connue permet d'assurer la conversion de cette unité vers toutes les autres unités et vice-versa par transitivité. La question de la conversion de 2 types non standard comme PL et U se pose. Mais, dans PMI, 1 PL = 1 U (toujours). 1 PL ⇒ kg rejoint la règle décrite ici. Par conséquent, cela oblige le technicien à assurer la présence de chaque conversion vers une des unités standards (à minima) dans la validation du champ. Cette approche fonctionne également pour les durées » — la matrice d'un champ est un graphe : les standards du type reliés entre eux, chaque unité apportée reliée à une connue, la conversion suit le chemin dans les deux sens ; deux unités non standard se relient l'une à l'autre (PL → U : 1) ou par une standard commune ; **l'invariant** : toute unité présente dans la valeur atteint une unité standard — sinon la valeur est non conforme, à la validation du champ (le scellé, D594 ; en migration, le rejet de la ligne au rapport, D177/D929). | Ma lecture : le contrôle est intrinsèque au type (D391 — la validation intégrée), le technicien n'écrit pas la règle, il fournit les coefficients qui la satisfont ; l'unité U (l'unité, la pièce) est elle-même non standard — le chemin PL → U → … passe par PL → kg. Voir §3.2c. |
 | D980 | **La saisie d'un `measure` ou d'une `duration` montre la matrice et les règles de conversion** (précise D978–D979, complète D391/D456 — le composant `number` à l'unité) : « la facette de saisie d'un champ de type "duration" et "measure" doit permettre de visualiser la matrice et les règles de conversion » — le composant qui sert ces deux types (`number` + l'unité, D456) expose, à la demande, la matrice du champ sur cet enregistrement : les unités connues et apportées, les coefficients à l'intersection, les chemins de transitivité (D979) — l'utilisateur voit d'où vient la conversion qu'il lit ; en saisie, il choisit l'unité parmi celles de la matrice, et une unité nouvelle se déclare avec son coefficient vers une connue (D978). | La forme est mienne, en proposition dans composants.md : un volet au composant (l'icône post-zone, l'écho de D563), la matrice en tableau, les chemins en gras ; la déclaration d'une unité nouvelle en saisie = une ligne de plus au tableau. Voir §3.2c. |
+| D981 | **`duration` rejoint les composés** (précise D380/D476/D838, aligne sur D391 et D975–D980) : « il me semblait que measure et duration étaient des types composés… as-tu perdu cette information ? » — `measure` l'était (D391), `duration` était rangée parmi les simples depuis D380 (le masque à la virgule, les unités D476, les sous-items D838) ; depuis D975 elle a l'anatomie d'un composé — une valeur, une unité, une matrice propre au champ (D978), la transitivité (D979), le constructeur `duration(v, u)`, les parties au point, la matrice visible à la saisie (D980) : **« je valide D981 »** — la ligne passe de la table des simples à celle des composés dans types.md, la synthèse de composants.md suit ; D380/D476/D838 restent ses fondations. | Aucun exemple ne change. Voir §3.2c. |
 
 ---
 
@@ -11835,6 +11836,18 @@ choisit l'unité de sa saisie parmi celles de la matrice, et déclare
 une unité nouvelle avec son coefficient vers une connue. *La forme —
 un volet au composant, la matrice en tableau — est mienne.*
 
+**`duration` rejoint les composés (D981 — aligne D380 sur D391).**
+**« Il me semblait que measure et duration étaient des types
+composés… as-tu perdu cette information ? »** — pas perdue, mais les
+artefacts la contredisaient : `measure` était un composé depuis D391,
+`duration` une simple depuis D380, à côté de l'entier et de la date.
+Depuis D975, elle a pourtant l'anatomie d'un composé — la valeur,
+l'unité, la matrice propre au champ, la transitivité, le constructeur,
+les parties au point, la matrice visible à la saisie ; ce qui la
+séparait de `measure` ne la sépare plus. **« Je valide D981. »** — la
+ligne change de table dans types.md, la synthèse de composants.md
+suit ; ses fondations restent D380, D476 et D838.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21936,7 +21949,9 @@ avant la synthèse Q16).
   chaque unité doit atteindre une unité standard, garanti à la
   validation du champ ; idem pour les durées. **D980** la saisie d'un
   `measure`/`duration` montre la matrice et les règles de conversion
-  (composants.md, `number`). La suite : le lot 2, les articles —
+  (composants.md, `number`). **D981** `duration` rejoint les composés
+  (types.md, la synthèse de composants.md). La suite : le lot 2, les
+  articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

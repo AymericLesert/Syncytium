@@ -1,0 +1,48 @@
+# L'étape 7 — les fournisseurs : FOURNIS vers tiers.fournisseur, l'enfant
+# du tiers (D353) — la règle alimente les champs du parent et ceux de
+# l'enfant, l'identité (le code) vaut parmi les fournisseurs (D884). Les
+# fournisseurs précèdent les articles, qui les référencent (D662).
+# L'adresse principale en géolocalisation à quatre parties (D961) : les
+# coordonnées de PMI et l'adresse brute par le constructeur du type
+# (D659) ; la langue traduite par un select aux correspondances inventées
+# pour l'exemple (D893/D963) ; la note interne n'est jamais alimentée
+# (unchanged, D941).
+
+FOURNIS:
+  to: tiers.fournisseur
+  fields:
+    # --- l'identité et la désignation ---
+    code:      CLKTCODE             # l'identité alimentée = la clé du rejeu (D654/D930)
+    nom:       CLCTNOM
+    abrege:    CLCTABRE
+    # --- l'adresse principale — le constructeur geolocation(lat, lng, texte)
+    # (D961) : le texte est l'adresse brute, assemblée des lignes de PMI,
+    # les blancs déjà retirés (normalize, D872) ; la normalisée viendrait
+    # d'un connecteur location (D637), absent de l'exemple
+    adresse: >-
+      geolocation(CLCNGPSY, CLCNGPSX,
+        CLCTRUE1 + " " + CLCTRUE2 + " " + CLCTRUE3 + ", " + CLCTCP + " " + CLCTVILLE + ", " + CLCTPAYS)
+    pays:      CLCTCPAYS
+    # --- les coordonnées et les identifiants — les types valident (D391) ---
+    telephone: CLCTTELEP1
+    fax:       CLCTFAX1
+    email:     CLCTEMAIL
+    site:      CLCTSITE
+    siret:     CLCTSIRET
+    tva:       CLCTNOTVA
+    iban:      CLCTIBAN
+    bic:       CLCTSWIFT
+    # --- les conditions ---
+    devise:    CLCTDEVISE
+    langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'   # les correspondances inventées (D963)
+    echeance:  integer(CLCTCECHEA)  # « 030 » → 30 jours, la conversion explicite (D581) ; la base CLCTBECHEA en attente
+    delai_livraison: integer(CLCTJOURFO)
+    # --- la vie du tiers — les booléens depuis les codes (D893) ---
+    actif:     CLCTACTIF != "N"     # « le vide vaut actif » (D950)
+    bloque:    CLCTBLOCAG != null   # E ou C = un motif de blocage
+    date_creation:     CLCJCRE
+    date_modification: CLCJMOU
+  report:
+    when: [migration]
+    to: [achats]                    # les fournisseurs, ce sont les achats qui corrigent (D945)
+    by: [notification, mail]

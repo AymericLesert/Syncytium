@@ -1,0 +1,20 @@
+# L'étape 10 — les adresses complémentaires des fournisseurs : la seconde
+# règle sur ADRESSE (D950), filtrée sur le type de compte F ; le
+# possesseur est le fournisseur. Les mêmes conversions que l'étape 9.
+
+ADRESSE:
+  to: tiers.adresse
+  filter: ADKTTYPCPT = "F"
+  parent: { fournisseur: ADKTCOMPTE }
+  fields:
+    numero: ADKNNUMERO
+    usage:  'ADCTTYPE.select(LIVRAISON: "livraison", FACTURATION: "facturation", "...": "autre")'   # inventé (D963)
+    nom:    ADCTNOM
+    adresse: >-
+      geolocation(ADCNGPSY, ADCNGPSX,
+        ADCTRUE1 + " " + ADCTRUE2 + " " + ADCTRUE3 + ", " + ADCTCP + " " + ADCTVILLE + ", " + ADCTPAYS)
+    date_creation: ADCJCREA
+  report:
+    when: [migration]
+    to: [achats]
+    by: [notification, mail]

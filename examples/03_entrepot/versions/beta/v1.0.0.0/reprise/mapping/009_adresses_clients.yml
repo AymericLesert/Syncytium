@@ -1,0 +1,28 @@
+# L'étape 9 — les adresses complémentaires des clients : ADRESSE vers
+# tiers.adresse, la composition du tiers (D399). Le possesseur est
+# conditionnel — C le client, F le fournisseur (D950) : parent: ne sait
+# pas choisir, la même table porte deux règles filtrées sur le type de
+# compte, une par tiers (D658 — la règle filtrée ; un fichier par règle,
+# D664 : la règle porte le nom de sa table). Le calculé client de la
+# source a servi le pré-contrôle du lien (D874) ; ici le possesseur se
+# retrouve par son champ mappé, le code tel quel (D931, le raccourci à
+# un champ). L'usage est ADCTTYPE, traduit vers le vocabulaire de
+# l'entrepôt (D893/D950) — les valeurs de PMI inventées pour l'exemple
+# (D963).
+
+ADRESSE:
+  to: tiers.adresse
+  filter: ADKTTYPCPT = "C"
+  parent: { client: ADKTCOMPTE }    # le possesseur par son identité mappée (D931)
+  fields:
+    numero: ADKNNUMERO              # l'identité au sein du tiers (D841/D930)
+    usage:  'ADCTTYPE.select(LIVRAISON: "livraison", FACTURATION: "facturation", "...": "autre")'   # inventé (D963)
+    nom:    ADCTNOM
+    adresse: >-
+      geolocation(ADCNGPSY, ADCNGPSX,
+        ADCTRUE1 + " " + ADCTRUE2 + " " + ADCTRUE3 + ", " + ADCTCP + " " + ADCTVILLE + ", " + ADCTPAYS)
+    date_creation: ADCJCREA
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

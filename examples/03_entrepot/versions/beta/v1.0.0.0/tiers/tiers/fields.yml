@@ -114,27 +114,8 @@ langue:
   label:
     fr: Langue
 
-mode_reglement:
-  # CLCTMREG — la liste close de PMI en énuméré (D883)
-  type: enum
-  label:
-    fr: Mode de règlement
-  values:
-    virement:
-      label:
-        fr: Virement
-    cheque:
-      label:
-        fr: Chèque
-    prelevement:
-      label:
-        fr: Prélèvement
-    traite:
-      label:
-        fr: Traite
-    carte:
-      label:
-        fr: Carte
+# le mode de règlement (CLCTMREG) n'est plus ici : anonymisé dans
+# l'échantillon, rien ne le remplit — retiré du modèle (D963)
 
 echeance:
   # CLCTCECHEA + CLCTBECHEA — le code et la base d'échéance de PMI ; la

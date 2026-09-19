@@ -29,7 +29,7 @@ fields:
   CLCTFAX1:    text[20]                                       # → tiers.fax
   CLCTCECHEA:  text[3]                                        # → tiers.echeance — les jours d'échéance (000, 030, 045…), l'entier à la règle
   CLCTBECHEA:  enum { 1, 3, 6 }                               # → tiers.echeance — la base d'échéance, la garde sur l'échantillon
-  CLCTMREG:    ignored                                        # le mode de règlement — anonymisé dans l'échantillon ; les valeurs de l'exemple au mapping (D946)
+  CLCTMREG:    ignored                                        # le mode de règlement — anonymisé dans l'échantillon ; retiré du modèle (D963)
   CLCTTARIF:   text[2]                                        # → client.code_tarif
   CLCTLANGUE:  enum { 01, 03, 05, 07 }                        # → tiers.langue — la garde sur l'échantillon
   CLCTREP1:    text[2]                                        # → client.representant

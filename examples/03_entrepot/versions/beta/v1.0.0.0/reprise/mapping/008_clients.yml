@@ -1,0 +1,45 @@
+# L'étape 8 — les clients : CLIENT vers tiers.client, l'enfant du tiers
+# (D353) — la même structure que FOURNIS (le préfixe CL, D884), les mêmes
+# conversions, plus ce qui est propre au client : le représentant et sa
+# commission, l'encours, le code tarif. L'encours est un montant à la
+# devise du tiers (D771 — le constructeur D659).
+
+CLIENT:
+  to: tiers.client
+  fields:
+    # --- l'identité et la désignation ---
+    code:      CLKTCODE             # l'identité alimentée = la clé du rejeu (D654/D930)
+    nom:       CLCTNOM
+    abrege:    CLCTABRE
+    # --- l'adresse principale (D961/D659) ---
+    adresse: >-
+      geolocation(CLCNGPSY, CLCNGPSX,
+        CLCTRUE1 + " " + CLCTRUE2 + " " + CLCTRUE3 + ", " + CLCTCP + " " + CLCTVILLE + ", " + CLCTPAYS)
+    pays:      CLCTCPAYS
+    # --- les coordonnées et les identifiants ---
+    telephone: CLCTTELEP1
+    fax:       CLCTFAX1
+    email:     CLCTEMAIL
+    site:      CLCTSITE
+    siret:     CLCTSIRET
+    tva:       CLCTNOTVA
+    iban:      CLCTIBAN
+    bic:       CLCTSWIFT
+    # --- les conditions ---
+    devise:    CLCTDEVISE
+    langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'   # les correspondances inventées (D963)
+    echeance:  integer(CLCTCECHEA)
+    # --- le propre du client ---
+    representant:      CLCTREP1
+    taux_representant: CLCNTXREP1   # le décimal vers le pourcentage (la promotion D581)
+    encours_maximum:   amount(CLCNDECOU1, CLCTDEVISE)
+    code_tarif:        CLCTTARIF
+    # --- la vie du tiers ---
+    actif:     CLCTACTIF != "N"     # « le vide vaut actif » (D950)
+    bloque:    CLCTBLOCAG != null
+    date_creation:     CLCJCRE
+    date_modification: CLCJMOU
+  report:
+    when: [migration]
+    to: [commercial]                # les clients, c'est le commercial qui corrige (D945)
+    by: [notification, mail]

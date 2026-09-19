@@ -1,0 +1,29 @@
+# L'étape 11 — les contacts des clients : CONTACT vers tiers.contact, la
+# composition du tiers (D399), le possesseur conditionnel routé par le
+# type de compte comme les adresses (D950) — deux règles, une par tiers.
+# L'identifiant de PMI fait l'identité (D930) ; la civilité et la fonction
+# se traduisent par des select aux codes inventés pour l'exemple
+# (D893/D963 — la fonction garde son code quand il n'est pas connu) ; la
+# première paire de téléphone fait le téléphone, la seconde le portable
+# (D950). Les champs nominatifs sont marqués RGPD au modèle (D695).
+
+CONTACT:
+  to: tiers.contact
+  filter: CTCTTYPCPT = "C"
+  parent: { client: CTCTCOMPTE }    # le possesseur par son identité mappée (D931)
+  fields:
+    identifiant:  CTKNID            # l'identité (D930)
+    civilite:     'CTCTCIVILI.select(M: "monsieur", MME: "madame")'   # inventé (D963)
+    nom:          CTCTNOM
+    prenom:       CTCTPRENOM
+    fonction:     'CTCTFONCTI.select(DIR: "Direction", ACH: "Acheteur", COM: "Commercial", TEC: "Technicien", "...": CTCTFONCTI)'   # inventé (D963)
+    telephone:    CTCTNOTEL1
+    portable:     CTCTNOTEL2
+    email:        CTCTMAIL1
+    anniversaire: CTCJANNIV
+    actif:        CTCTACTIF != "N"  # « le vide vaut actif » (D950)
+    date_creation: CTCJCRE
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

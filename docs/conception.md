@@ -21613,7 +21613,11 @@ avant la synthèse Q16).
   plusieurs entités source sur la même table, chacune son filtre :
   `source/PARAM_EMPLACEMENTS.yml` (`alias: PARAM`, le 170), les règles
   001/004 renommées, l'outil de technicien adapté (CONFIG par entité,
-  `table=`). La suite : le lot 2, les articles —
+  `table=`). Les codes de gestion (ARCTFATN) : « des informations en
+  "dur" dans Cegid PMI. Ils ne sont pas consignés dans PARAM » — les
+  hypothèses D940 (09 semi-fini, 12 fantôme) restent celles de
+  l'exemple, sans vérification possible sur la source. La suite : le
+  lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

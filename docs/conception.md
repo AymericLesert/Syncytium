@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security, configuration |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -1126,6 +1126,7 @@ Q58) :
 | D991 | **Dans les settings, les paramètres par défaut d'un type se déclarent sous le nom du type ; les settings portent aussi la définition de nouveaux types** (précise D870/D872 sur la forme, rejoint D359) : `settings.yml` du cas 3 portait `normalize: trim(me)` à la racine — « dans settings, normalize n'est pas au bon endroit. Dans settings, les paramètres par défaut des types ou la définition de nouveaux types peuvent être présents. J'ai modifié le fichier settings.yml pour te montrer » — la forme corrigée par l'auteur : `text: { normalize: trim(me) }` — le défaut d'une facette du type `text`, sous sa clé ; la cascade (D359/D588 — l'application, le module, l'entité) et la surcharge au champ (D872) demeurent ; les types personnalisés de D359 y vivent au même titre (`progression: { … }`). | `currency: EUR` reste une clé de l'instance (D970/D588), pas un défaut de type — à confirmer si elle devait devenir `amount: { currency: EUR }`. types.md et le cas alignés. Voir §3.2c. |
 | D992 | **Les types et leurs dérivés se déclarent simplement aux settings, avec leurs paramètres par défaut — une seule forme : la clé est le nom, `type:` la base d'un dérivé, le reste ses défauts ; `date_pmi` et `time_pmi` dans les sources du cas 3** (précise D991/D359/D356) : « cela a aussi besoin d'être affiné car les types ou ses dérivés doivent être présentés simplement et sont définissables avec des paramètres par défaut » — la forme proposée et validée (« je valide D992 ; emploie date_pmi dans les sources ») : sans `type:`, la clé règle les défauts d'un type du catalogue (`text: { normalize: trim(me) }`) ; avec `type:`, c'est un dérivé qui hérite de toutes les propriétés de sa base et surcharge celles qu'il nomme (D359 — `progression: { type: integer[0..100], component: fuel }`) ; un dérivé peut dériver d'un dérivé, la chaîne résolue à l'ingestion, le cycle une erreur (D344) ; le champ garde le dernier mot (`ARCJCRE: { type: date_pmi, mask: "yyyymm" }`), la cascade D359 vaut ; le nom d'un dérivé ne redéfinit jamais un type du catalogue (D408 — un seul espace de noms) ; l'usage par la forme courte (D356) : `ARCJCRE: date_pmi`. | Le cas 3 : `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi: { type: time, mask: "hhmm" }` (le second mien, le pendant des colonnes S — « time_pmi a un format hhmm seulement », puis « les 2 formats sont possibles dans PMI. Pour l'exemple, cela convient et le mask pourra être surchargé au besoin » — le défaut du dérivé en `hhmm`, la colonne à secondes le surcharge au champ, `{ type: time_pmi, mask: "hhmmss" }` : la règle 3 de D992 à l'œuvre) dans `settings.yml` ; les trente-quatre colonnes J et S des quatorze sources écrites par la forme courte — plus un masque en ligne ; l'outil de technicien les émet. types.md au niveau. Voir §3.2c. |
 | D993 | **La devise de l'entreprise est le défaut du type `amount` — `amount: { currency: EUR }` aux settings, le constructeur à un argument** (amende D970, applique D991–D992) : la question laissée à D991 — `currency: EUR` en clé de l'instance ou en défaut du type : **« le défaut du type me convient »** — la clé d'instance disparaît, les settings portent `amount: { currency: EUR }` (la forme de D991 : le paramètre par défaut sous le nom du type) ; **`amount(v)` à un seul argument prend la devise du type** — celle du champ s'il en déclare une, celle des settings sinon, la cascade D359 ; `amount(v, devise)` reste pour les valeurs qui portent la leur (les tarifs, les commandes, D771) ; les prix de l'article : `prix_revient: amount(ARCNPRS)`. | La voie C de D970, écartée alors, revient par D991 : les défauts des types ont trouvé leur maison. `context.settings.currency` n'a plus d'usage. Voir §3.2c. |
+| D994 | **`configuration.md` créé — le treizième artefact préparatoire : la syntaxe de la configuration** (Q58, le domaine 6 — l'écho de D661 pour le mapping) : « la syntaxe du fichier de configuration n'a pas son document. Ajoute un doc dédié à la configuration en reprenant les éléments que nous avons vu depuis le début du projet » — le document dit la forme, le sens restant aux artefacts : la nature (YAML sans format personnalisé, les petits fichiers, l'enveloppe inerte, la langue, `description:` partout, la version du format — D320–D337 ; les deux règles face à YAML — D892) ; les mécanismes transverses (la référence `~{…}` D956/D767/D768, le pattern D806/D665, le cumul D968, les variables `${…}` D321 et l'interpolation des settings D885, la marque `*` D944, l'adressage par le point D363, le langage dans les valeurs D90–D92, la forme courte D356) ; l'arbre — `syncytium.yml`, `environments/` (D325/D339/D342/D343/D907), `versions/` et le cycle de vie en dossiers (D324/D326/D338/D340/D344/D345), `version.yml` (D808/D415/D766/D662/D777/D346/D907), `settings.yml` la maison des types (D359/D360/D991–D993, D885), `groups.yml` (D414), le module (D765/D350/D351/D886), l'entité, les champs et les surfaces en renvoi, `hooks/` et `reprise/` en renvoi ; les cascades ; ce que l'ingestion refuse (D330/D344/D396/D408/D414/D592/D956/D902/D581/D979/D930) et la seule alerte (D968). | Aucun contenu nouveau ; trois points ouverts relevés : `documentation.yml` (D333), la clé de l'en-tête de version du format (D322 — le principe acquis, la clé absente des exemples), `menu.yml` et `dashboards:` sans exemple au dépôt. Voir §3.2c. |
 
 ---
 
@@ -12061,6 +12062,24 @@ type — celle du champ s'il en déclare une, celle des settings sinon ;
 `amount(v, devise)` reste pour ce qui porte la sienne. La clé
 `currency:` de l'instance disparaît avec `context.settings.currency`.
 
+**`configuration.md` — la syntaxe de la configuration (D994 — le
+treizième artefact, Q58).** **« La syntaxe du fichier de configuration
+n'a pas son document. Ajoute un doc dédié à la configuration en
+reprenant les éléments que nous avons vu depuis le début du projet. »**
+Les douze artefacts disaient chacun le sens de leur élément — l'entité,
+les types, les composants, les hooks, les connecteurs, le mapping, les
+droits, l'administration, la télémétrie, la sécurité —, aucun ne disait
+la forme entière : le format et ses règles, les mécanismes qui
+traversent tout (la référence de fichier, le pattern, le cumul, les
+variables, la marque `*`, l'adressage, le langage dans les valeurs, la
+forme courte), l'arbre des fichiers du sommet à la feuille et ce que
+chacun porte, les cascades, ce que l'ingestion refuse. Le document
+rassemble tout cela depuis D320, sans rien décider ; il renvoie aux
+artefacts pour le sens. Trois points ouverts relevés en l'écrivant : le
+contenu de `documentation.yml`, la clé qui déclare la version du
+format (D322 — acquise en principe, absente des exemples), `menu.yml`
+et `dashboards:` décidés sans exemple au dépôt.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22220,6 +22239,19 @@ avant la synthèse Q16).
   les stocks (024–025) ; puis le morceau 5, le pilotage et la
   restitution (aucune surface encore) ; la validation globale à la fin
   (D955), le jeu de données construit (D869), la PR.
+- **2026-09-20 — CONFIGURATION.MD, LE TREIZIÈME ARTEFACT (D994, 994
+  décisions).** « La syntaxe du fichier de configuration n'a pas son
+  document » — `docs/configuration.md` écrit depuis le registre et les
+  fichiers du cas 3 : la nature (D320–D337, D892), les mécanismes
+  transverses (`~{…}`, le pattern, le cumul, `${…}`, la marque `*`,
+  le point, le langage, la forme courte), l'arbre du sommet à la
+  feuille (`syncytium.yml`, `environments/`, `versions/`,
+  `version.yml`, `settings.yml`, `groups.yml`, le module, l'entité en
+  renvoi, `hooks/`, `reprise/`), les cascades, ce que l'ingestion
+  refuse. Aucun contenu nouveau ; trois points ouverts relevés
+  (`documentation.yml`, la clé de version du format, `menu.yml` et
+  `dashboards:` sans exemple). La reprise du cas 3 reste au lot 3 du
+  mapping.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

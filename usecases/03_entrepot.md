@@ -1563,8 +1563,11 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   nomenclature = un rejet visible ; la nomenclature redite : « une
   liste d'articles décrivant les composants et les tâches… cela se
   construit récursivement ».
-- **la devise des prix de l'article** — **D970**. Aucune colonne chez
-  PMI : `currency: EUR` aux settings, `context.settings.currency`.
+- **la devise des prix de l'article** — **D970**, puis **D993**. Aucune
+  colonne chez PMI : d'abord une clé de l'instance
+  (`context.settings.currency`) ; puis, les settings devenus la maison
+  des types, « le défaut du type me convient » — `amount: { currency:
+  EUR }`, `amount(ARCNPRS)` à un argument.
 - **le constructeur `list(…)`** — **D971**. « Le point 1 est valide
   et la liste est nettoyée des doublons » — les vides tombent, l'ordre
   des arguments, les doublons retirés.
@@ -1612,6 +1615,18 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   abordé la possibilité de faire un traitement de transformation lors
   de la lecture » — `normalize:` sur la colonne (D872), jamais dans la
   règle ni dans `parent:` ; l'exemple de D931 aligné.
+- **les settings, la maison des types** — **D991**, **D992**,
+  **D993**. En montrant `normalize:`, le `settings.yml` du cas le
+  portait à la racine : « dans settings, normalize n'est pas au bon
+  endroit. Dans settings, les paramètres par défaut des types ou la
+  définition de nouveaux types peuvent être présents » — `text: {
+  normalize: trim(me) }` ; puis « les types ou ses dérivés doivent être
+  présentés simplement et sont définissables avec des paramètres par
+  défaut » — une seule forme, la clé est le nom, `type:` la base d'un
+  dérivé : `date_pmi`, `time_pmi` (« hhmm seulement… les 2 formats sont
+  possibles dans PMI », le masque surchargeable au champ), les
+  trente-quatre colonnes J et S des sources en forme courte ; et la
+  devise en défaut du type `amount`.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

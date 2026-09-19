@@ -1115,6 +1115,7 @@ Q58) :
 | D980 | **La saisie d'un `measure` ou d'une `duration` montre la matrice et les règles de conversion** (précise D978–D979, complète D391/D456 — le composant `number` à l'unité) : « la facette de saisie d'un champ de type "duration" et "measure" doit permettre de visualiser la matrice et les règles de conversion » — le composant qui sert ces deux types (`number` + l'unité, D456) expose, à la demande, la matrice du champ sur cet enregistrement : les unités connues et apportées, les coefficients à l'intersection, les chemins de transitivité (D979) — l'utilisateur voit d'où vient la conversion qu'il lit ; en saisie, il choisit l'unité parmi celles de la matrice, et une unité nouvelle se déclare avec son coefficient vers une connue (D978). | La forme est mienne, en proposition dans composants.md : un volet au composant (l'icône post-zone, l'écho de D563), la matrice en tableau, les chemins en gras ; la déclaration d'une unité nouvelle en saisie = une ligne de plus au tableau. Voir §3.2c. |
 | D981 | **`duration` rejoint les composés** (précise D380/D476/D838, aligne sur D391 et D975–D980) : « il me semblait que measure et duration étaient des types composés… as-tu perdu cette information ? » — `measure` l'était (D391), `duration` était rangée parmi les simples depuis D380 (le masque à la virgule, les unités D476, les sous-items D838) ; depuis D975 elle a l'anatomie d'un composé — une valeur, une unité, une matrice propre au champ (D978), la transitivité (D979), le constructeur `duration(v, u)`, les parties au point, la matrice visible à la saisie (D980) : **« je valide D981 »** — la ligne passe de la table des simples à celle des composés dans types.md, la synthèse de composants.md suit ; D380/D476/D838 restent ses fondations. | Aucun exemple ne change. Voir §3.2c. |
 | D982 | **Une unité de l'article — le champ `unite: measure` porte les couples de PMI ; le constructeur à trois paramètres, les conversions par `measure.convert(source, cible, coefficient)` ; la pièce `u` au socle des standards** (applique D978–D979 au cas 3, revoit D977) : les deux couples de PMI trouvent leur maison — l'hypercube `article.conversions` (D977) et ses règles 020/021 retirés au profit d'un champ `measure` de l'article, *une unité de l'article* : `measure(1, ARCTUNISTO, …)` — (1) la valeur, `1` ; (2) l'unité, l'unité de stock ; (3) la liste des conversions apportées, chacune par la fonction du type — **« conversion à remplacer par measure.convert »** — `measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01)`, `list` faisant tomber le couple vide (D971) ; les quantités du niveau de stock et des lignes, en décimal dans l'unité de l'article, l'empruntent par la référence : `(article.unite * quantite).to(kg)` ; les codes de PMI passent en minuscules (D893). | Miens, consignés comme tels : **`u`, la pièce, l'unité de compte, au socle des standards de `measure`** — sans elle, tout article en pièces sans couple violerait D979 ; l'emprunt de la matrice « non mutualisable » par la référence (la matrice reste celle du champ de l'article, les autres la lisent) ; `lower()` à la règle plutôt qu'une garde à la source. Voir §3.2c. |
+| D983 | **La comparaison des unités est normalisée ; `units:` restreint la matrice standard du champ ; l'unité seule — la diagonale à 1 ; les blocs de la matrice standard ne se convertissent pas entre eux sans coefficient** (précise D978–D979/D982, retire ma pièce `u` au socle et le `lower()` de la règle) : « pour les unités, la comparaison doit s'appuyer sur une comparaison normalisée (par conséquent KG = kg, T = t, …). Pour les "U", cela oblige le technicien de bien définir une règle sur une autre unité disponible. Sur measure, nous avons des mesures de dimension ou de poids, dont les liens ne sont pas forcément convertibles. Par contre, la limitation des unités à une liste de valeurs apporte une restriction sur la matrice standard. Dans le cas du U, la liste des unités est "U" (sans les unités standard), le coefficient est forcément 1 sur la diagonale de la matrice » — (1) `KG` et `kg` sont la même unité : la normalisation est au type, la règle écrit les colonnes nues ; (2) les `units:` du champ **restreignent** la matrice standard à ce qu'ils nomment — `units: [U]` : la matrice est la seule diagonale, U → U = 1, aucune standard, aucun chemin exigé au-delà ; l'invariant D979 se lit : toute unité présente atteint une unité **connue du champ** ; (3) la matrice standard est en blocs — les poids (kg/g/t), les dimensions (mm/cm/m), les volumes… — non convertibles entre eux sans un coefficient apporté, à paramètres s'il le faut (D975) ; (4) une unité de compte n'est pas au socle : le technicien la déclare, et relie ce qui doit l'être. | `article.unite` : `units: [U, kg]` (les unités de l'exemple, D946 — PL arrive par les couples) ; la règle sans `lower()` ; types.md au niveau. Voir §3.2c. |
 
 ---
 
@@ -11869,6 +11870,27 @@ rejetterait sans une unité de compte standard ; l'emprunt de la
 matrice par la référence ; les codes de PMI en minuscules par
 `lower()`.* L'hypercube et ses règles 020/021 sont retirés.
 
+**Les unités normalisées, `units:` qui restreint, la diagonale à 1
+(D983 — précise D978–D979/D982).** Mes deux ajouts de D982 tombent
+tous deux. **« Pour les unités, la comparaison doit s'appuyer sur une
+comparaison normalisée (par conséquent KG = kg, T = t, …). »** — la
+normalisation est au type, pas à la règle : `lower()` disparaît, les
+colonnes de PMI passent nues. **« Pour les "U", cela oblige le
+technicien de bien définir une règle sur une autre unité disponible.
+Sur measure, nous avons des mesures de dimension ou de poids, dont
+les liens ne sont pas forcément convertibles. Par contre, la
+limitation des unités à une liste de valeurs apporte une restriction
+sur la matrice standard. Dans le cas du U, la liste des unités est
+"U" (sans les unités standard), le coefficient est forcément 1 sur la
+diagonale de la matrice. »** — pas de pièce au socle : `units:`
+restreint la matrice standard à ce qu'il nomme, et un champ en `[U]`
+a pour matrice la seule diagonale, valide en soi ; l'invariant de D979
+se lit « toute unité atteint une unité *connue du champ* ». Et la
+matrice standard est en blocs — les poids, les dimensions, les
+volumes — qui ne se convertissent pas entre eux sans un coefficient
+apporté, à paramètres s'il le faut (D975). `article.unite` déclare
+`units: [U, kg]`, les unités de l'exemple ; PL arrive par les couples.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21975,7 +21997,11 @@ avant la synthèse Q16).
   unité de l'article, `unite: measure(1, ARCTUNISTO, list(measure.convert(
   …)))`, les couples de PMI apportés au champ ; l'hypercube D977 et les
   règles 020/021 retirés ; `u` la pièce au socle des standards (mien).
-  La suite : le lot 2, les articles —
+  **D983** la comparaison des unités normalisée (KG = kg — `lower()`
+  retiré), `units:` restreint la matrice standard, `[U]` = la diagonale
+  à 1 (ma pièce `u` au socle retirée), les blocs de la matrice standard
+  non convertibles entre eux sans coefficient. La suite : le lot 2, les
+  articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

@@ -35,11 +35,12 @@ unite_commande: ARCTUNICDE
 # une unité de l'article (D982) : la valeur 1, l'unité de stock, les
 # conversions apportées par les deux couples de PMI — measure.convert
 # (la fonction du type, D579), list fait tomber le couple vide (D971) ;
-# les codes de PMI en minuscules, ceux du type (D893) ; U → u, la pièce
+# les codes de PMI tels quels : la comparaison des unités est normalisée,
+# KG = kg (D983)
 unite: >-
-  measure(1, lower(ARCTUNISTO),
-    list(measure.convert(lower(ARCTCONV1A), lower(ARCTCONV1B), ARCNCONC01),
-         measure.convert(lower(ARCTCONV2A), lower(ARCTCONV2B), ARCNCONC02)))
+  measure(1, ARCTUNISTO,
+    list(measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01),
+         measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02)))
 poids:     measure(ARCNPDSUNI, kg)
 longueur:  measure(ARCNLONGUE, mm)
 largeur:   measure(ARCNLARGEU, mm)

@@ -251,9 +251,12 @@ unite:
   # le reste (D979). Les quantités du niveau de stock et des lignes de
   # commande, en décimal dans l'unité de l'article, l'empruntent pour se
   # convertir : (article.unite * quantite).to(kg). Les unités connues sont
-  # les standards du type — dont u, la pièce, l'unité de compte (D982) ;
+  # celles de la liste (D983 : units: restreint la matrice standard —
+  # U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids), la
+  # comparaison normalisée (KG = kg) ; les unités de l'exemple (D946) ;
   # l'hypercube conversions de D977 est retiré au profit de ce champ.
   type: measure
+  units: [U, kg]
   required: true
   label:
     fr: Unité

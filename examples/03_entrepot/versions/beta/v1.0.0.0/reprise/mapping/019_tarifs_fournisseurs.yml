@@ -1,0 +1,22 @@
+# L'étape 19 — les tarifs fournisseurs : la seconde règle sur TARIF
+# (D948), le genre 2 = le fournisseur ; le tiers de la cellule est le
+# calculé `fournisseur` de la source. Les mêmes conversions que l'étape 18.
+
+TARIF:
+  to: technique.article.tarifs
+  filter: TAKTGENRE = "2"
+  parent:
+    article: { code: TAKTCODART, complement: TAKTCOMART }
+  fields:
+    tiers:            fournisseur
+    tranche:          TAKTTARIF
+    date_application: TAKJAPLI
+    seuil:       TACNTRANCH
+    prix:        amount(TACNPU, TACTDEVISE)
+    forfait:     amount(TACNFORFAI, TACTDEVISE)
+    valide:      TACTVALID = "O"
+    commentaire: TACTCOMMEN
+  report:
+    when: [migration]
+    to: [achats]                              # les tarifs d'achat, ce sont les achats qui corrigent (D945)
+    by: [notification, mail]

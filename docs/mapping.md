@@ -406,28 +406,37 @@ NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
 porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
-# reprise/mapping/001_articles.yml — le possesseur construit son identité
+# reprise/mapping/013_articles.yml — le possesseur construit son identité
 ARTICLE:
   to: technique.article
   fields:
     code:       ARKTCODART
-    complement: iif(ARKTCOMART = "", null, ARKTCOMART)   # le vide devient nul
+    complement: ARKTCOMART            # souvent vide — le nul du texte est la chaîne vide (D990), rien à convertir
     libelle:    ARCTLIB01
 
-# reprise/mapping/002_nomenclatures.yml — la fille présente la même conversion (D931)
+# reprise/mapping/017_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
 NOMENC:
-  to: technique.ligne_nomenclature                       # l'entité fille, comme banque.ecriture
+  to: technique.nomenclature                             # l'entité fille, comme banque.ecriture
   parent:
-    article:                                             # le possesseur, par ses champs mappés
+    article:                                             # le possesseur, par ses champs mappés — résolu dans la hiérarchie (D969)
       code:       NOKTCODPF
-      complement: iif(NOKTCOMPF = "", null, NOKTCOMPF)   # sinon la clé ne se retrouve pas
+      complement: NOKTCOMPF
   fields:
     numero:    NOKNLIGNOM
     composant:                                           # la référence par la clé composée : la même carte
       code:       NOCTCODECP
-      complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
-    quantite:  NOCNQTEUNI
+      complement: NOCTCOMCPT
+    quantite:  NOCNQTECOM
 ```
+
+**La conversion d'une clé se fait à la lecture (D990).** Quand
+l'identité du possesseur demande une vraie conversion — une casse, un
+préfixe, un cadrage —, elle ne s'écrit ni dans la règle ni dans chaque
+`parent:` : **`normalize:`** sur la colonne de la source (D872 — la
+fonction à la frontière, surchargeable par champ : `normalize:
+right("0000" + me, 4)`) ou le calculé de la source (D660) ; la règle
+et les `parent:` lisent des colonnes déjà converties, la conversion
+n'est écrite qu'une fois, là où la donnée entre.
 
 **`validation:` à trois niveaux (D932).** « validation: porte à la
 source avant l'import, porte à la destination après l'import et à la

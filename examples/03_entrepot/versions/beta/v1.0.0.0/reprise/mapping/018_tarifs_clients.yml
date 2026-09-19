@@ -1,0 +1,31 @@
+# L'étape 18 — les tarifs clients : TARIF vers la grille tarifaire de
+# l'article, article.tarifs — l'hypercube tiers × tranche × date (D897/
+# D949), une cellule par ligne de TARIF. La cible est le champ de
+# l'article (l'agrégat, comme sales.order.lines), le possesseur l'article
+# par son identité mappée (D931). Le genre du tiers route : 1 = le client
+# (D948, les correspondances inventées), le tiers de la cellule est le
+# calculé `client` de la source, typé référence (D660) — un client est un
+# tiers (D353). Les trois dimensions alimentées font l'identité de la
+# cellule (D930) ; le seuil et le prix la remplissent, la plage se calcule
+# à la cible (D949).
+
+TARIF:
+  to: technique.article.tarifs
+  filter: TAKTGENRE = "1"
+  parent:
+    article: { code: TAKTCODART, complement: TAKTCOMART }
+  fields:
+    # --- les trois dimensions du tuple = l'identité de la cellule ---
+    tiers:            client                  # le calculé de la source, la référence résolue (D874)
+    tranche:          TAKTTARIF               # la lettre de tarif (D948/D949)
+    date_application: TAKJAPLI
+    # --- la cellule (D898) ---
+    seuil:       TACNTRANCH
+    prix:        amount(TACNPU, TACTDEVISE)   # la devise dans la valeur (D771)
+    forfait:     amount(TACNFORFAI, TACTDEVISE)
+    valide:      TACTVALID = "O"              # N = l'archive (D948)
+    commentaire: TACTCOMMEN
+  report:
+    when: [migration]
+    to: [commercial]                          # les tarifs de vente, c'est le commercial qui corrige (D945)
+    by: [notification, mail]

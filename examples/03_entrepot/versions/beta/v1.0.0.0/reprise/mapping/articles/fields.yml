@@ -32,6 +32,14 @@ matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, A
 # inconnues, celles de l'exemple inventées (D963) ---
 unite_stock:    ARCTUNISTO
 unite_commande: ARCTUNICDE
+# une unité de l'article (D982) : la valeur 1, l'unité de stock, les
+# conversions apportées par les deux couples de PMI — measure.convert
+# (la fonction du type, D579), list fait tomber le couple vide (D971) ;
+# les codes de PMI en minuscules, ceux du type (D893) ; U → u, la pièce
+unite: >-
+  measure(1, lower(ARCTUNISTO),
+    list(measure.convert(lower(ARCTCONV1A), lower(ARCTCONV1B), ARCNCONC01),
+         measure.convert(lower(ARCTCONV2A), lower(ARCTCONV2B), ARCNCONC02)))
 poids:     measure(ARCNPDSUNI, kg)
 longueur:  measure(ARCNLONGUE, mm)
 largeur:   measure(ARCNLARGEU, mm)

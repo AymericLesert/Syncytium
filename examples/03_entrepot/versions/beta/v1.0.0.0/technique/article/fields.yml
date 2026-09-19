@@ -241,26 +241,24 @@ unite_commande:
   label:
     fr: Unité de commande
 
-conversions:
-  # ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et ARCTCONV2A, ARCTCONV2B,
-  # ARCNCONC02 — les deux couples de conversion propres à l'article chez
-  # PMI (D977) : la matrice de conversion de l'article — « l'autre
-  # approche » de D976, le coefficient stocké et non calculé — en
-  # hypercube (D895 : l'objet naturel au modèle), une cellule par couple
-  # (source, cible) ; le moteur la consulte avant les matrices des
-  # settings (mien). Le sens du coefficient — une unité source vaut ce
-  # nombre d'unités cible — est ma lecture, à confirmer.
-  type: 'list of [source: text[2], cible: text[2]]'
-  fields:
-    coefficient:
-      type: decimal
-      required: true
-      label:
-        fr: Coefficient
-      hint:
-        fr: Une unité source vaut ce nombre d'unités cible.
+unite:
+  # UNE unité de l'article — la mesure « 1 × l'unité de stock » (ARCTUNISTO)
+  # qui porte la matrice de conversion propre à l'article (D978/D982) :
+  # les deux couples de PMI — ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et
+  # ARCTCONV2A, ARCTCONV2B, ARCNCONC02 — apportent les unités
+  # supplémentaires (PL la plaque) avec leur coefficient vers une unité
+  # connue (1 PL = 1 u, toujours ; 1 PL = 12,5 kg), la transitivité fait
+  # le reste (D979). Les quantités du niveau de stock et des lignes de
+  # commande, en décimal dans l'unité de l'article, l'empruntent pour se
+  # convertir : (article.unite * quantite).to(kg). Les unités connues sont
+  # les standards du type — dont u, la pièce, l'unité de compte (D982) ;
+  # l'hypercube conversions de D977 est retiré au profit de ce champ.
+  type: measure
+  required: true
   label:
-    fr: Conversions d'unités
+    fr: Unité
+  hint:
+    fr: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
 
 poids:
   # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391)

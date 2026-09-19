@@ -24,15 +24,15 @@ fields:
   ARCTLIB01:   text[30]                                       # → article.libelle
   ARCTLIB02:   text[30]                                       # → article.libelle_secondaire
   ARCTUNICDE:  enum { PL, U }                                 # → article.unite_commande — nul possible
-  ARCTUNISTO:  enum { PL, U }                                 # → article.unite_stock — la garde limitée à l'exemple (D946)
+  ARCTUNISTO:  enum { PL, U }                                 # → article.unite_stock, article.unite — la garde limitée à l'exemple (D946) ; l'unité de la mesure « une unité de l'article » (D982)
   ARCTUNIFAC:  ignored                                        # l'unité de facturation — hors périmètre (R4)
   ARCTUNICON:  ignored                                        # l'unité de conditionnement — hors périmètre (R4)
-  ARCTCONV1A:  text[2]                                        # → article.conversions (la dimension source) — le premier couple de conversion de l'article (D977)
-  ARCTCONV1B:  text[2]                                        # → article.conversions (la dimension cible)
-  ARCNCONC01:  decimal                                        # → article.conversions.coefficient — le coefficient du premier couple
-  ARCTCONV2A:  text[2]                                        # → article.conversions (la dimension source) — le second couple (D977)
-  ARCTCONV2B:  text[2]                                        # → article.conversions (la dimension cible)
-  ARCNCONC02:  decimal                                        # → article.conversions.coefficient — le coefficient du second couple
+  ARCTCONV1A:  text[2]                                        # → article.unite — le premier couple de conversion (D977/D982) : l'unité source
+  ARCTCONV1B:  text[2]                                        # → article.unite — l'unité cible
+  ARCNCONC01:  decimal                                        # → article.unite — le coefficient : une unité source vaut ce nombre d'unités cible
+  ARCTCONV2A:  text[2]                                        # → article.unite — le second couple (D977/D982) : l'unité source
+  ARCTCONV2B:  text[2]                                        # → article.unite — l'unité cible
+  ARCNCONC02:  decimal                                        # → article.unite — le coefficient
   ARCNPDSUNI:  decimal                                        # → article.poids
   ARCNQTECO:   decimal                                        # → article.quantite_economique
   ARCNPUACH1:  decimal                                        # → article.prix_achat

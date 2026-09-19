@@ -1,0 +1,32 @@
+# La table PARAM de PMI — la table générique des paramètres : un numéro
+# de paramètre (PAKTNOPAR) et, par code, des textes et des nombres. Le
+# paramètre 170 porte les emplacements de stock (D962 — l'auteur, 19/09) :
+# « PACTEXT140 est le libellé, PACTEXT210 correspond au couple
+# Dépôt.Emplacement ». La première des trois origines des référentiels
+# depot et emplacement — celle des emplacements actifs, nommés. Les
+# autres paramètres restent hors du filtre (D663). Les colonnes lues
+# typées et renvoyées, les autres non lues (D947).
+name: PARAM
+description: Les paramètres de PMI — le paramètre 170, la source des emplacements actifs et de leur libellé
+
+filter: PAKTSOC = "100" and PAKTNOPAR = "170"
+identity: [PAKTSOC, PAKTETS, PAKTNOPAR, PAKTCODE]
+# la clé de la table (les quatre K) ; le couple Dépôt.Emplacement se lit
+# en PACTEXT210 et se découpe à la source (D660/D817), les règles 001 et
+# 004 consomment les deux calculés
+
+fields:
+  PAKTSOC:     text[3]                                        # la société — le filtre (D663)
+  PAKTETS:     text[2]                                        # l'identité — l'établissement
+  PAKTNOPAR:   text[3]                                        # l'identité — le numéro de paramètre : 170 = les emplacements de stock, le filtre (D663)
+  PAKTCODE:    text[24]                                       # l'identité — le code du paramètre
+  PACTEXT140:  text[255]                                      # → emplacement.libelle — « PACTEXT140 est le libellé » (D962)
+  PACTEXT210:  text[40]                                       # → emplacement.depot, emplacement.code — le couple Dépôt.Emplacement (D962), découpé par les calculés ci-dessous
+
+  # --- le couple Dépôt.Emplacement découpé (D817 — l'extraction par la
+  # regex, la capture unique) : deux calculés de la source (D660), la
+  # regex aux guillemets simples (D892) ---
+  depot:
+    formula: extract(PACTEXT210, '^([^.]+)\.')
+  emplacement:
+    formula: extract(PACTEXT210, '\.(.+)$')

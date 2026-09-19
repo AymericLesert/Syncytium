@@ -1,25 +1,42 @@
-# L'emplacement — le référentiel des emplacements de PMI (DPKTCODMPL,
-# MVCTCODMPL) : les valeurs distinctes de la source (D658).
+# L'emplacement — le référentiel des emplacements de PMI, construit à
+# trois origines comme le dépôt (D962) : les paramètres de Cegid (PARAM
+# — les emplacements actifs, avec leur libellé), les fiches articles
+# (ARCTCODEP + ARCTCODMPL) et les mouvements (MVCTDEPOT + MVCTCODMPL) ;
+# les valeurs distinctes de chaque source (D658). « L'identité d'un
+# emplacement est un couple (dépôt, emplacement) » (D962).
 name: emplacement
 description: Un emplacement de stockage dans un dépôt
-label: "{code}"
-identity: [code]
+label: "{depot} / {code}"
+identity: [depot, code]
 history: true
 
 fields:
+  depot:
+    # l'emplacement appartient à un dépôt — la référence (D396), part de
+    # l'identité (D962)
+    type: stock.depot
+    required: true
+    label:
+      fr: Dépôt
+
   code:
     type: text[..10]
     required: true
     label:
       fr: Code
 
-  depot:
-    # l'emplacement appartient à un dépôt — la référence (D396)
-    type: stock.depot
-    label:
-      fr: Dépôt
-
   libelle:
+    # connu par les paramètres seulement (D962)
     type: text[..40]
     label:
       fr: Libellé
+
+  actif:
+    # les paramètres = les emplacements actifs ; « tout nouvel emplacement
+    # est ajouté et inactif » (D962) — né des mouvements ou des fiches, il
+    # naît au défaut (D941)
+    type: boolean
+    required: true
+    default: false
+    label:
+      fr: Actif

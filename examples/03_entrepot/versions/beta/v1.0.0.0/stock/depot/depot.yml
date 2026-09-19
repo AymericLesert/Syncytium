@@ -1,7 +1,10 @@
-# Le dépôt — le référentiel des dépôts de PMI (DPKTDEPOT, MVCTDEPOT) :
-# les valeurs distinctes de la source (D658), le libellé enrichi à
-# l'analyse. Une liste courte, mais une entité : le dépôt se référence
-# (D396) et porte ses niveaux.
+# Le dépôt — le référentiel des dépôts de PMI, construit à trois origines
+# (D962) : les paramètres de Cegid (PARAM — les dépôts actifs, avec leur
+# libellé), les fiches articles (ARCTCODEP) et les mouvements (MVCTDEPOT
+# — « le distinct permet de référencer toutes les valeurs y compris
+# dépassées ») ; les valeurs distinctes de chaque source (D658). Une
+# liste courte, mais une entité : le dépôt se référence (D396) et porte
+# ses niveaux et ses emplacements.
 name: depot
 description: Un dépôt de stockage
 label: "{code} — {libelle}"
@@ -16,9 +19,22 @@ fields:
       fr: Code
 
   libelle:
+    # « le libellé des emplacements est dans les paramètres. Dans les
+    # autres cas, il n'est pas connu » (D962) — alimenté par la règle des
+    # paramètres, vide pour un dépôt né des mouvements ou des fiches
     type: text[..40]
     label:
       fr: Libellé
+
+  actif:
+    # « les paramètres sont les emplacements actifs… tout nouvel
+    # emplacement est ajouté et inactif » (D962) — la règle des paramètres
+    # le vaut vrai ; né d'une autre origine, le dépôt naît au défaut (D941)
+    type: boolean
+    required: true
+    default: false
+    label:
+      fr: Actif
 
   niveaux:
     # l'accès retour aux niveaux du dépôt (D394), nommé en vue dérivée

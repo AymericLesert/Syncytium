@@ -1,0 +1,22 @@
+# L'étape 1 — les dépôts des paramètres de Cegid (D962 : la première des
+# trois origines du référentiel — les fiches articles à l'étape 2, les
+# mouvements à l'étape 3) : le paramètre 170 de PARAM porte les
+# emplacements actifs sous la forme du couple Dépôt.Emplacement
+# (PACTEXT210) ; le dépôt est la partie gauche du couple, découpée à la
+# source (le calculé depot — D660/D817). Les valeurs distinctes (D658), le
+# code en identité (D930) ; « les paramètres sont les emplacements
+# actifs » : le dépôt qui en a est actif. Le libellé du dépôt n'est pas
+# dans le paramètre 170 (celui de l'emplacement l'est — l'étape 4).
+# Le préfixe numérique = l'étape (D665) : les référentiels avant ce qui
+# les référence (D662).
+
+PARAM:
+  to: stock.depot
+  distinct: [depot]                   # le calculé de la source (D660)
+  fields:
+    code:  depot                      # la valeur devient l'identité (D658/D930)
+    actif: true                       # les paramètres = l'actif (D962) ; les autres origines n'y touchent pas
+  report:
+    when: [migration]                 # après chaque passage (D929)
+    to: [production]                  # le stock, c'est la production qui corrige (D859/D945)
+    by: [notification, mail]

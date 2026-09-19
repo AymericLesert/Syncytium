@@ -1094,6 +1094,8 @@ Q58) :
 | D959 | **La session d'échanges adossée à un module — une session par module et par utilisateur, son historique et son contexte propres ; l'anonymisation à chaque sortie ; la trace avant l'affichage ; le connecteur indisponible = l'erreur, pas de question** (précise D957–D958 — les temps 4 à 7 du déroulé confirmés) : (4) l'anonymisation de tout ce qui part vers le modèle — la question, le mode d'emploi, chaque résultat d'outil — sauf l'utilisateur concerné et le niveau de droits suffisant : « bien compris » ; (5) la réponse au fil : « oui » ; (6) la trace écrite avant l'affichage : « oui — **le contexte peut consister à passer un ensemble de questions et de dialogues que nous modéliserons sous forme de session d'échanges. Une session sera adossée à un module.** Par conséquent, si une application dispose de 2 modules accessibles pour le même utilisateur, l'utilisateur disposera d'une session / module et un historique et un contexte dédié » — les entités du module `chat` : **`session`** (l'utilisateur, **le module**, l'ouverture, le connecteur et le modèle, `messages: list of message`) et **`message`** (le rang, le rôle utilisateur / assistant / outil, l'horodatage, le contenu, le contexte transmis) ; le contexte passé au modèle = les échanges de la session ; l'écran suit le module activé (l'écho de D557 — le changement de module change la session) ; (7) « si le connecteur LLM n'est pas disponible, un message d'erreur sera présenté et les questions ne seront pas possibles » — la saisie fermée, la lecture de l'historique reste (mien). | `conversation` devient `session` ; le mode d'emploi du temps 1 se borne au module de la session — ses entités, et celles qu'elles référencent (mien, l'écho de D116). Restent les quatre points : le niveau de droits suffisant, `rgpd: subject`, le pseudonyme stable, la rétention. Voir §3.2c. |
 | D960 | **Aucun droit propre au chat — les droits sont ceux des composantes de la description ; les données personnelles qui reviennent à l'utilisateur sont celles de son profil connecté ; l'anonymisation est D696, rien de plus ; la session sans durée de rétention, jusqu'à la réinitialisation demandée par l'utilisateur** (clôt les quatre points de D957–D959 — le chantier du chat est cadré) : (1) mon profil de confidentialité sur l'usage du chat est écarté — « les droits ne sont pas sur chat mais sur les composantes de la description du modèle » : le « niveau de droits suffisant » de D957 est la confidentialité et l'audience que l'utilisateur détient déjà sur chaque module, entité et champ (D885/D886, D25) ; (2) `rgpd: subject` écarté — « cela n'est pas nécessaire. Les données personnelles visent celles du profil. Pour les données, les droits s'appliquent au profil connecté » : ce qui revient à l'utilisateur, ce sont les données de son propre compte ; pour le reste, ses droits ; (3) « l'anonymisation respecte les règles que nous avons déjà définies précédemment. Il n'est donc pas nécessaire d'en faire plus » — D695/D696 tels quels, pas de pseudonyme stable ni de ré-identification ; (4) « la rétention des sessions n'est pas liée à une durée. Elle reste aussi longtemps que possible et jusqu'à ce que l'utilisateur demande sa réinitialisation » — D698 ne s'applique pas à la session ; la réinitialisation est un acte de l'utilisateur sur sa session. | Mes conséquences, en proposition : le champ personnel que les droits de l'utilisateur ne lui ouvrent pas part anonymisé (D696) plutôt qu'omis — l'enregistrement garde sa forme ; la réinitialisation = la suppression du socle, qui désactive (D137) : la session close reste à l'analyse (D957), une nouvelle s'ouvre. Voir §3.2c. |
 | D961 | **La géolocalisation à quatre parties — la latitude, la longitude, l'adresse normalisée, l'adresse brute ; le constructeur à trois formes** (précise D638/D392/D659 — le frottement 1 du lot 1 du mapping du cas 3) : la règle du mapping écrivait `geolocation(CLCNGPSY, CLCNGPSX, <les lignes d'adresse concaténées>)` là où D659 ne donnait que `geolocation(lat, lng)` — « la proposition sur la géolocalisation me convient. **Une adresse contient alors la latitude, la longitude, l'adresse normalisée et l'adresse saisie au format brut** » — le type porte les quatre ; le constructeur : `geolocation(lat, lng)`, `geolocation(texte)`, `geolocation(lat, lng, texte)`, le texte étant l'adresse brute ; l'adresse normalisée vient du connecteur `location` (D637) quand l'environnement en déclare un, sinon reste vide ; les parties au point (D772) `.latitude`, `.longitude`, `.address`, `.raw` — les noms miens. | types.md aligné ; les règles 003–006 du cas 3 tiennent telles quelles (l'ordre lat = CLCNGPSY, lng = CLCNGPSX reste mon hypothèse). Voir §3.2c. |
+| D962 | **Les référentiels de stock à trois origines — les paramètres (actifs, nommés), les fiches articles, les mouvements ; l'identité de l'emplacement = le couple (dépôt, emplacement) ; le nouveau naît inactif ; l'article géré en stock** (précise D658/D882/D941 — les frottements 4, 5 et 6 du lot 1 du mapping du cas 3) : « l'identité d'un emplacement est un couple (dépôt, emplacement) » ; « les dépôts et emplacements sont construits en fonction de différents critères : 1. les dépôts / emplacements dans les paramètres de Cegid ; 2. les dépôts / emplacements trouvés dans MVTSTO — le distinct permet de référencer toutes les valeurs y compris dépassées ; 3. les dépôts / emplacements trouvés dans la définition des fiches articles ; 4. les paramètres sont les emplacements actifs. Les mouvements font référence aux emplacements actifs et tout nouvel emplacement est ajouté et inactif » ; « le libellé des emplacements est dans les paramètres. Dans les autres cas, il n'est pas connu » ; les paramètres : « PARAM, PAKTNOPAR = 170, PACTEXT140 est le libellé, PACTEXT210 correspond au couple Dépôt.Emplacement » ; et « ARCTGDEPOT contient "O" ou "N" — "O" pour indiquer que l'article est géré en stock » ; les colonnes de dépôt/emplacement de la fiche article : ARCTCODEPR/ARCTCOEMPR, ARCTCODEPF/ARCTCOEMPF, ARCTCODEPC/ARCTCOEMPC, ARCTCODMPL, ARCTCODPLA, ARCTCODEP. | Le modèle : `emplacement` en `identity: [depot, code]`, `actif: boolean` (défaut faux) sur le dépôt et l'emplacement, `libelle` alimenté par les paramètres seuls ; `article.gere_en_stock`, `article.depot` (ARCTCODEP), `article.emplacement` (ARCTCODMPL) — le sens des trois paires R/F/C et d'ARCTCODPLA à nommer par l'auteur avant d'écrire leurs règles ; `source/PARAM.yml` (le filtre 170, le couple découpé par `extract` D817 en deux calculés D660) ; les règles 001/004 (PARAM — `actif: true`, le libellé), 002/005 (ARTICLE), 003/006 (MVTSTO) — le nouveau naît au défaut (D941) ; un dépôt cité par un mouvement et absent des paramètres entre inactif, jamais une référence non résolue. Voir §3.2c. |
+| D963 | **Les codes inconnus inventés pour l'exemple ; le mode de règlement retiré du modèle** (les frottements 3 et 7 du lot 1 — l'écho de D946/D948) : « si tu ne connais pas, tu peux inventer pour le cas d'usage » — les `select` des règles portent des correspondances inventées, marquées (D963) : la langue CLCTLANGUE (01 fr, 03 en, 05 de, 07 es), l'usage d'adresse ADCTTYPE (LIVRAISON, FACTURATION, sinon autre), la civilité CTCTCIVILI (M, MME), la fonction CTCTFONCTI (DIR, ACH, COM, TEC, sinon le code) ; « le retirer du modèle » — `tiers.mode_reglement` retiré, CLCTMREG reste ignorée à la source. | Le jeu de données publié sera construit sur ces codes (D869/D946). Voir §3.2c. |
 
 ---
 
@@ -11459,6 +11461,43 @@ formes — `geolocation(lat, lng)`, `geolocation(texte)`,
 au point suivent D772 : `.latitude`, `.longitude`, `.address`, `.raw`
 *(les noms miens)*. Les règles du cas 3 tiennent telles quelles.
 
+**Les référentiels de stock à trois origines (D962 — précise
+D658/D882/D941 ; les frottements 4 à 6 du lot 1).** Le lot 1 tirait
+les dépôts et les emplacements des seuls niveaux de stock (STDEPLOT),
+l'emplacement identifié par son code seul. L'auteur remet à plat :
+**« l'identité d'un emplacement est un couple (dépôt, emplacement) »**
+— et les référentiels se construisent à trois origines, chacune par
+ses valeurs distinctes (D658) : **les paramètres de Cegid** — « les
+paramètres sont les emplacements actifs », le paramètre 170 de la
+table générique PARAM, où PACTEXT210 porte le couple Dépôt.Emplacement
+et PACTEXT140 le libellé, « dans les autres cas, il n'est pas
+connu » ; **les fiches articles** — neuf colonnes de dépôt et
+d'emplacement (les trois paires R/F/C, ARCTCODEP, ARCTCODMPL,
+ARCTCODPLA — leur sens à nommer avant d'écrire leurs règles) ; **les
+mouvements** — « le distinct permet de référencer toutes les valeurs
+y compris dépassées ». La règle : **« les mouvements font référence
+aux emplacements actifs et tout nouvel emplacement est ajouté et
+inactif »** — `actif: boolean` au défaut faux sur les deux entités ;
+la règle des paramètres le vaut vrai et nomme ; les règles des fiches
+et des mouvements n'alimentent que la clé, le nouveau naît au défaut
+(D941), et un dépôt cité par un mouvement sans être paramétré entre
+inactif au lieu de laisser une référence non résolue. Le couple se
+découpe à la source, deux calculés par `extract` (D660/D817). En
+passant, **« ARCTGDEPOT contient "O" ou "N" — "O" pour indiquer que
+l'article est géré en stock »** : `article.gere_en_stock`. Les
+étapes du mapping se renumérotent : 001–003 les dépôts (paramètres,
+fiches, mouvements), 004–006 les emplacements, 007–012 les tiers.
+
+**Les codes inventés, le mode de règlement retiré (D963 — les
+frottements 3 et 7 du lot 1).** Les listes closes de PMI dont je
+n'ai pas les codes — la langue, l'usage d'adresse, la civilité, la
+fonction du contact : **« si tu ne connais pas, tu peux inventer pour
+le cas d'usage »** — l'écho de D946 et D948 ; les `select` des règles
+portent des correspondances inventées et marquées, que le jeu de
+données publié suivra (D869). Le mode de règlement, anonymisé dans
+l'échantillon et sans colonne lue : **« le retirer du modèle »** —
+`tiers.mode_reglement` disparaît, CLCTMREG reste ignorée à la source.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21491,6 +21530,21 @@ avant la synthèse Q16).
   du profil connecté, D696 tel quel, la session sans durée jusqu'à sa
   réinitialisation. **Le chantier du chat est cadré (D957–D960)** ;
   retour au lot 1 du mapping.
+- **2026-09-19 (suite) — LES SEPT FROTTEMENTS DU LOT 1 (D961–D963, 963
+  décisions).** **D961** la géolocalisation à quatre parties (latitude,
+  longitude, adresse normalisée, adresse brute), le constructeur à
+  trois formes — types.md. **D962** les référentiels de stock à trois
+  origines — les paramètres (PARAM 170, le couple Dépôt.Emplacement
+  découpé par extract, actifs et nommés), les fiches articles (neuf
+  colonnes, le sens des paires R/F/C et d'ARCTCODPLA à nommer), les
+  mouvements (toutes les valeurs, même dépassées) ; l'identité de
+  l'emplacement = (dépôt, emplacement) ; le nouveau naît inactif ;
+  `article.gere_en_stock` (ARCTGDEPOT) ; source/PARAM.yml, le modèle
+  corrigé, les règles renumérotées 001–012. **D963** les codes inconnus
+  inventés (langue, usage, civilité, fonction), `mode_reglement`
+  retiré. Le lot 1 commis. Restent : la base d'échéance CLCTBECHEA (le
+  frottement 2 — « l'échéance est vue dans quelle partie du modèle ? » :
+  tiers.echeance, un entier de jours), les règles des paires R/F/C.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

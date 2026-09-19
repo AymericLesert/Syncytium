@@ -1,0 +1,17 @@
+# L'étape 3 — les dépôts trouvés dans les mouvements (D962 : la troisième
+# origine — « le distinct permet de référencer toutes les valeurs y
+# compris dépassées ») : les valeurs distinctes de MVCTDEPOT sur les
+# lignes lues (D658 ; la partition MVCJMVT[month - 3] chaque nuit, la
+# totalité au reset_coverage du dimanche — D880/D943). Le dépôt né ici
+# naît inactif et sans libellé (D941/D962).
+
+MVTSTO:
+  to: stock.depot
+  distinct: [MVCTDEPOT]
+  filter: MVCTDEPOT != null
+  fields:
+    code: MVCTDEPOT                   # la valeur devient l'identité (D658/D930)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

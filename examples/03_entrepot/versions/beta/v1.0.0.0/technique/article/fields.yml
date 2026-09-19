@@ -380,6 +380,33 @@ plans:
   hint:
     fr: Les plans de l'article, lus dans le répertoire des plans.
 
+# --- le stockage de l'article (D962) ---
+
+gere_en_stock:
+  # ARCTGDEPOT nchar(1) — « "O" pour indiquer que l'article est géré en
+  # stock » (l'auteur, 19/09) ; le booléen depuis le code (D893)
+  type: boolean
+  required: true
+  default: true
+  label:
+    fr: Géré en stock
+
+depot:
+  # ARCTCODEP nchar(6) — le dépôt de l'article (ma lecture du nom de la
+  # colonne, à confirmer) ; la référence (D396) ; une des trois origines du
+  # référentiel des dépôts (D962)
+  type: stock.depot
+  label:
+    fr: Dépôt
+
+emplacement:
+  # ARCTCODMPL nchar(10) — l'emplacement de l'article dans son dépôt ; la
+  # référence à l'identité composée (dépôt, emplacement) (D962) ; une des
+  # trois origines du référentiel des emplacements
+  type: stock.emplacement
+  label:
+    fr: Emplacement
+
 # --- les liens (D399–D405) ---
 
 fournisseurs:

@@ -35,10 +35,13 @@ fields:
   ARCTFATN:    enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }# → article.gestion — les codes relevés (D938/D939) ; le code de gestion assure l'héritage (D940)
   ARCNPMP:     decimal                                        # → article.prix_moyen_pondere
   ARCNPRS:     decimal                                        # → article.prix_revient
+  ARCTGDEPOT:  enum { O, N }                                  # → article.gere_en_stock — « O pour indiquer que l'article est géré en stock » (D962)
   ARCJCRE:     { type: date, mask: "yyyymmdd" }               # → article.date_creation
   ARCJMOD:     { type: date, mask: "yyyymmdd" }               # → article.date_modification
   ARCTCODFAM:  text[4]                                        # → article.famille, article.perissable — les valeurs de l'exemple au mapping (D893/D946) ; le 4e caractère « 1 » = périssable (D954)
   ARCTCOSFAM:  text[4]                                        # → article.sous_famille — idem
+  ARCTCODMPL:  text[10]                                       # → article.emplacement — l'emplacement de l'article ; une origine du référentiel des emplacements (D962)
+  ARCTCODEP:   text[6]                                        # → article.depot — le dépôt de l'article (ma lecture du nom, à confirmer) ; une origine du référentiel des dépôts (D962)
   ARCNSTOMAX:  decimal                                        # → article.stock_maximum
   ARCNSTOMIN:  decimal                                        # → article.stock_minimum
   ARCTCODMA1:  text[3]                                        # → article.matieres

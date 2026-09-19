@@ -1,0 +1,17 @@
+# L'étape 6 — les emplacements trouvés dans les mouvements (D962 : la
+# troisième origine, toutes les valeurs y compris dépassées) : les
+# couples distincts dépôt + emplacement de MVCTDEPOT + MVCTCODMPL sur les
+# lignes lues (D658/D880). Né ici, l'emplacement naît inactif et sans
+# libellé (D941/D962).
+
+MVTSTO:
+  to: stock.emplacement
+  distinct: [MVCTDEPOT, MVCTCODMPL]
+  filter: MVCTDEPOT != null and MVCTCODMPL != null
+  fields:
+    depot: MVCTDEPOT                  # la référence par la clé (D654) — part de l'identité
+    code:  MVCTCODMPL                 # l'identité (D930)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

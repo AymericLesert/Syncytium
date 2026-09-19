@@ -1148,8 +1148,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    et `reprise/reprise.yml` avec ses opérations (D943) ; puis les lots
    — TARIF et TRANCHES (D948–D949), les tiers (D950), les commandes
    (D951), les stocks et les tables ignorées (D952) : le morceau 3 est
-   écrit en entier le 19/09, 14 tables décrites, 8 ignorées, la
-   validation de l'auteur attendue* ;
+   écrit en entier le 19/09, 14 tables décrites, 8 ignorées ; la
+   validation globale à la fin du cas, sur tous les fichiers (D955)* ;
 4. **le mapping** — `mapping/` (l'identité déterminée par chaque
    règle — D825/D930, `parent:` par les champs mappés — D931,
    `parent:`, `distinct:` D658), la migration déclarée `relative` +

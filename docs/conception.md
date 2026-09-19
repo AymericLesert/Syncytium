@@ -1087,6 +1087,7 @@ Q58) :
 | D952 | **Les stocks lus : le type E/S est le sens, le genre le type du mouvement ; la clé de STDEPLOT aux six K ; les tables ignorées** (l'analyse de la source — les lots 5 et 6 du morceau 3 ; corrige le morceau 2, en proposition sur les codes) : l'échantillon de MVTSTO — MVCTTYPE vaut E (25) ou S (75), MVCTGENRE six codes (C 53, D 29, E 4, F 9, I 3, R 2), le croisement (C→S, F→E, R→E, E→S, I→S, D→E et S) — le morceau 2 avait inversé : `mouvement.sens` lit MVCTTYPE (E l'entrée, S la sortie), `mouvement.type` lit MVCTGENRE, dont les six codes restent à nommer ; STDEPLOT : l'identité aux six colonnes K après la société (article, lot, code d'enregistrement, emplacement, dépôt), le lot en texte, les référentiels dépôt et emplacement par valeurs distinctes (D658) ; MVTSTO : l'identité aux I complétée de l'article, de la date et de l'heure (D869), `coverage: MVCJMVT[month - 3]` (D880), sans historique ; les lignes de commande ajoutées au reset_coverage du dimanche (D943) ; les sept tables ignorées écrites (les offres, DEVIS). | La lecture E/S et les hypothèses des genres (C consommation, F fabrication, R réception, E expédition, I inventaire, D divers) sont miennes, à confirmer. Le morceau 3 est écrit en entier : 14 tables décrites, 8 ignorées. Voir §3.2c. |
 | D953 | **Les six genres de mouvement nommés** (clôt la question de D952, la source lue) : « C : Consommation · D : Déplacement · E : Expédition · F : Fabrication · I : Inventaire · R : Réception » — l'énuméré `mouvement.type` de l'entrepôt prend ces six valeurs (D893 : le vocabulaire de l'entrepôt), les sept valeurs inventées du morceau 2 (dont transfert et correction) tombent ; la garde de MVCTGENRE à la source, les codes traduits à la règle du mapping ; le sens en MVCTTYPE (E/S) confirmé par là même. | Mon « D = divers » était faux : le déplacement, dans les deux sens de l'échantillon — un mouvement de dépôt à dépôt. Voir §3.2c. |
 | D954 | **La péremption obligatoire des articles périssables — le 4e caractère du code famille** (la première règle métier de l'auteur sur le cas 3 ; applique D932/D893/D934) : « je vais ajouter une règle sur le code famille d'un article. Si le 4ème caractère est égal à "1", cela signifie que la date de péremption du produit doit être renseignée » — ARTICLE n'a pas de date de péremption, STDEPLOT en porte une par lot (DPCJPEREMP → niveau.peremption) : la convention de codage se traduit au mapping (`perissable: mid(ARCTCODFAM, 4, 1) = "1"`, un booléen de l'article — le sens, pas le code, D893 ; « et non right car un code famille peut contenir 2 à 4 caractères »), et la règle vit à la cible, sur le niveau de stock : `validation: - peremption != null if article.perissable` (la référence navigue, D396 ; la cible vérifie, D932). | La forme en deux temps est mienne — l'auteur voulait « ajouter une règle sur le code famille ». Voir §3.2c. |
+| D955 | **La validation globale à la fin du cas** (précise D899 et D947 — le protocole du cas 3) : « je validerai globalement à la fin de ce cas d'usage. Je parcourrai tous les fichiers de configuration » — les morceaux s'écrivent et se consignent au fil des arbitrages, la relecture complète de tous les fichiers de configuration par l'auteur, à la fin du cas, vaut validation définitive des morceaux 2 et 3 (et des suivants) ; le morceau 3 est clos en l'état, le morceau 4 (le mapping) s'ouvre à la prochaine session. | Voir §3.2c. |
 
 ---
 
@@ -11289,6 +11290,17 @@ rejet rapporté par la règle de STDEPLOT (D929). *(La forme en deux
 temps est mienne ; l'auteur l'ajustera si la règle devait porter sur
 l'article même.)*
 
+**La validation globale à la fin du cas (D955 — précise D899/D947).**
+Le morceau 3 écrit en entier, je demandais la relecture des fichiers
+de la source, comme D899 réservait celle des fichiers du modèle.
+L'auteur fixe le protocole : **« je validerai globalement à la fin de
+ce cas d'usage. Je parcourrai tous les fichiers de configuration. »**
+Les morceaux s'écrivent et se consignent au fil des arbitrages ; la
+relecture complète, à la fin du cas, vaut validation définitive de
+tous — le modèle, la source, le mapping, le pilotage. Le morceau 3 est
+clos en l'état, et le morceau 4, le mapping, s'ouvre à la prochaine
+session.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21268,6 +21280,22 @@ avant la synthèse Q16).
   contenir 2 à 4 caractères », la validation sur `stock.niveau` —
   puisque seule STDEPLOT porte une date de péremption. 175 fichiers
   valides.
+- **2026-09-19 (pause)** — « Valide et marque une pause. Je reprendrai
+  sur une nouvelle session. » **D955** : la validation globale à la fin
+  du cas, sur tous les fichiers de configuration. La séance s'arrête sur
+  le morceau 3 clos en l'état (D946–D955 : la source en 21 fichiers, le
+  modèle corrigé sept fois au contact du réel, les genres nommés, la
+  règle des périssables). **La reprise, en nouvelle session : le
+  morceau 4, le mapping** — `reprise/mapping/`, une règle par table
+  source dans l'ordre des dépendances (D662/D665), une règle par dérivé
+  de l'article filtrée sur ARCTFATN (D940), deux règles par table à
+  possesseur conditionnel (D950), `parent:` par les champs mappés
+  (D931), les `select` des listes closes (D893/D935/D953), les
+  référentiels par valeurs distinctes (D658 — dépôt, emplacement), le
+  `report:` par règle (D929/D945), `perissable` par mid (D954) ; puis le
+  morceau 5, le pilotage et la restitution. L'outil de technicien
+  (gen_source.py, columns.tsv) rangé hors dépôt dans
+  Workspace/outils/.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

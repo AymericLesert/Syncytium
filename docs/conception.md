@@ -1123,6 +1123,7 @@ Q58) :
 | D988 | **Pas de type `barcode` : la valeur d'un code-barres est un texte, `barcode` est une facette du champ texte** (retire D987, précise D300/D542, D366) : « ok, je comprends mieux… la valeur du code-barres est un texte. La facette est un barcode. Pas besoin de créer un nouveau type » — le champ reste `text`, la facette **`barcode: <nature>`** (ean13, ean8, code128, qr… — la liste de D542) dit ce que le texte encode ; **la facette valide** (les 13 chiffres et la clé de contrôle pour l'EAN 13 — comme `mask` gouverne la saisie, D370) ; **le composant de sortie** (D300, la fiche D542–D545) lit la facette pour rendre les barres — plus de crochet au composant pour un champ facetté, le crochet restant pour un texte sans facette ; la règle du mapping : `ean13: left(ARCTEAN13, 13)` — la troncature explicite que D581 exige d'un `nchar(20)` vers un `text[13]` ; une valeur fausse ou trop longue échoue à la facette, l'article est rejeté au rapport — rien n'est fabriqué en silence. | `article.ean13: { type: text[13], barcode: ean13 }` ; types.md (la facette au texte, la ligne du type retirée), composants.md (la fiche, la synthèse) alignés ; `ean13` retenu comme nom de la nature (D542). Voir §3.2c. |
 | D989 | **La désignation de la nomenclature est NOCTLIBCOM ; celle des lignes de commande vit dans LIBEL40, hors de l'exemple — le champ retiré, la table ignorée** (corrige le morceau 2 — le frottement 9 du lot 2 du cas 3) : `nomenclature.designation` et `ligne_vente`/`ligne_achat.designation` n'avaient pas de colonne juste (le morceau 2 prêtait la première à NOCTCOMCPT, le complément du code) ; le schéma en a — NOCTLIBCOM `nchar(40)`, LCCTLIB01/LCCTLIB02 `nchar(30)`, LCCTTYPLIB : « dans la pratique, le commentaire d'une ligne d'une commande d'achat ou de vente est présent dans une autre table LIBEL40… que nous ne décrirons pas ici. Par conséquent, nous allons l'ignorer pour l'exemple » ; « pour la nomenclature, c'est bien NOCTLIBCOM » — `nomenclature.designation` lue de NOCTLIBCOM (la règle 017) ; `designation` retiré des deux lignes de commande, LCCTLIB01/02 et LCCTTYPLIB non lues ; `source/LIBEL40.yml` = `LIBEL40: ignored` (D657 — l'écart volontaire, compté dans la complétude, pas dans la couverture). | Le repli sur le libellé de l'article quand la désignation est vide (un calculé à la cible) — mien, non proposé pour l'exemple. Voir §3.2c. |
 | D990 | **La conversion d'une clé se fait à la lecture, sur la colonne de la source (`normalize:`), jamais dans la règle ni dans `parent:` ; le complément vide n'en a pas besoin — le nul du texte est la chaîne vide** (précise D931, applique D870/D872/D660 — le frottement 10 du lot 2 du cas 3, clôt le lot) : l'exemple de D931 dans mapping.md écrivait `complement: iif(ARKTCOMART = "", null, ARKTCOMART)` chez le possesseur et le répétait dans chaque `parent:` qui vise l'article ; deux choses le rendent inutile — pour `text`, « le nul = la chaîne vide » (types.md, D366) : les deux sont la même valeur, la clé se retrouve sans conversion ; et quand une conversion est réellement nécessaire (une casse, un préfixe, un cadrage), « sur les champs, dans la description, nous avions abordé la possibilité de faire un traitement de transformation lors de la lecture » — `normalize:` sur la colonne (D872 — la fonction à la frontière, surchargeable par champ) ou le calculé de la source (D660) : la règle et les `parent:` lisent des colonnes déjà converties. Les règles du lot 2 écrivent les colonnes nues ; l'exemple de D931 aligné. | mapping.md : le `iif` retiré de l'exemple, la phrase sur « la conversion écrite deux fois » renvoyée à `normalize:`. **Le lot 2 est clos** : 013–019, les règles 018/019 (les tarifs) commises telles qu'écrites. Voir §3.2c. |
+| D991 | **Dans les settings, les paramètres par défaut d'un type se déclarent sous le nom du type ; les settings portent aussi la définition de nouveaux types** (précise D870/D872 sur la forme, rejoint D359) : `settings.yml` du cas 3 portait `normalize: trim(me)` à la racine — « dans settings, normalize n'est pas au bon endroit. Dans settings, les paramètres par défaut des types ou la définition de nouveaux types peuvent être présents. J'ai modifié le fichier settings.yml pour te montrer » — la forme corrigée par l'auteur : `text: { normalize: trim(me) }` — le défaut d'une facette du type `text`, sous sa clé ; la cascade (D359/D588 — l'application, le module, l'entité) et la surcharge au champ (D872) demeurent ; les types personnalisés de D359 y vivent au même titre (`progression: { … }`). | `currency: EUR` reste une clé de l'instance (D970/D588), pas un défaut de type — à confirmer si elle devait devenir `amount: { currency: EUR }`. types.md et le cas alignés. Voir §3.2c. |
 
 ---
 
@@ -12009,6 +12010,20 @@ déjà converties, la conversion ne s'écrit qu'une fois, là où la
 donnée entre. Les règles du lot 2 écrivent les colonnes nues ;
 l'exemple de D931 est aligné. **Le lot 2 est clos** — 013 à 019.
 
+**Les défauts des types aux settings, sous le nom du type (D991 —
+précise D870/D872, rejoint D359).** En montrant `normalize:`, j'ai
+renvoyé au `settings.yml` du cas, où il vivait à la racine depuis le
+morceau 2. **« Dans settings, normalize n'est pas au bon endroit. Dans
+settings, les paramètres par défaut des types ou la définition de
+nouveaux types peuvent être présents. J'ai modifié le fichier
+settings.yml pour te montrer. »** — `text: { normalize: trim(me) }` :
+le défaut d'une facette se déclare sous la clé de son type, et les
+settings sont la maison des types — leurs défauts, et les types
+personnalisés de D359 (`progression`, l'entier 0..100 au composant
+fuel). La cascade et la surcharge au champ ne changent pas. *À
+confirmer : `currency: EUR` reste une clé de l'instance, ou devient le
+défaut du type `amount`.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22137,8 +22152,13 @@ avant la synthèse Q16).
   la table ignorée. **D990** le frottement 10 — la conversion d'une
   clé à la lecture (`normalize:`), jamais dans la règle ni `parent:` ;
   le complément vide = le nul du texte ; l'exemple de D931 aligné.
-  **Le lot 2 est clos** (013–019, les tarifs commis). La suite : le lot
-  3, les commandes —
+  **Le lot 2 est clos** (013–019, les tarifs commis). Le cas
+  (usecases/03_entrepot.md) rattrapé — laissé à D955 pendant le
+  morceau 4, relevé par l'auteur : la note du morceau, le mapping dans
+  la forme, les frottements D961–D990. **D991** les défauts des types
+  aux settings sous le nom du type (`text: { normalize: trim(me) }`,
+  corrigé par l'auteur) ; les types personnalisés y vivent (D359). La
+  suite : le lot 3, les commandes —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

@@ -3,10 +3,14 @@
 # proche l'emporte). Le fichier est référencé par version.yml (le
 # morceau 1).
 
-# La normalisation à la frontière (D870/D872) : les blancs de fin des
-# nchar de PMI rognés à la lecture — me désigne la valeur ; un champ
-# surcharge avec sa propre expression (normalize: right("0000" + me, 4)).
-normalize: trim(me)
+# Les paramètres par défaut d'un type se déclarent sous le nom du type
+# (D991 — les settings portent les défauts des types et la définition de
+# nouveaux types, D359) : pour text, la normalisation à la frontière
+# (D870/D872) — les blancs de fin des nchar de PMI rognés à la lecture,
+# me désigne la valeur ; un champ surcharge avec sa propre expression
+# (normalize: right("0000" + me, 4)).
+text:
+    normalize: trim(me)
 
 # La devise de l'entreprise (D970) — les prix de l'article n'ont pas de
 # colonne de devise chez PMI : la monnaie de l'entreprise, implicite ;

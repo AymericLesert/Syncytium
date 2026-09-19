@@ -1311,7 +1311,11 @@ inventés (D963) ; les codes de gestion « en dur » dans PMI, hors
 PARAM — les hypothèses de D940 restent celles de l'exemple.*
 
 **Le fichier `settings.yml`** (D885, l'étage instance de la cascade
-D359/D588) : `normalize: trim(me)` (D872 — les blancs des nchar),
+D359/D588) : **les paramètres par défaut d'un type sous le nom du
+type** — `text: { normalize: trim(me) }` (D991, corrigé par l'auteur :
+« dans settings, normalize n'est pas au bon endroit. Dans settings, les
+paramètres par défaut des types ou la définition de nouveaux types
+peuvent être présents » ; D872 — les blancs des nchar),
 **`currency: EUR`** (D970 — la devise de l'entreprise, que les prix de
 l'article sans colonne de devise lisent par
 `context.settings.currency`) et

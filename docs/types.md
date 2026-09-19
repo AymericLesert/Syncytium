@@ -87,7 +87,7 @@ calculés et les normalisations :
 
 | la fonction | le geste | D |
 |---|---|---|
-| `trim(t)` | les blancs de tête et de fin retirés — la normalisation des `nchar` (`normalize: trim(me)`) | D870/D872 |
+| `trim(t)` | les blancs de tête et de fin retirés — la normalisation des `nchar` : le défaut du type aux settings, sous le nom du type — `text: { normalize: trim(me) }` (D991 — les settings portent les paramètres par défaut des types et la définition de nouveaux types, D359) ; la surcharge au champ (D872) | D870/D872, D991 |
 | `upper(t)` / `lower(t)` | la casse | D656 |
 | `left(t, n)` / `right(t, n)` | les n premiers / derniers caractères (`right("0000" + me, 4)`) | D870 |
 | `mid(t, début, longueur)` | la sous-chaîne | D934 |

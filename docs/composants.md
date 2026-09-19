@@ -79,7 +79,7 @@ Quatre règles transversales l'allègent :
 | `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` ; `qrcode`/`barcode` (la sortie — D300/D542) |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
-| `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
+| `duration` | `number` masqué (la virgule en centièmes — D380) ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `date` | `calendar` (la nature au crochet D381) | — |
 | `time` | `clock` | — |
 | `datetime` | **`calendar` + `clock`** — « la combinaison des 2 composants » (D499) | — |
@@ -97,7 +97,7 @@ Quatre règles transversales l'allègent :
 |---|---|---|
 | `amount` | `number` (la devise, aligné à droite D443) | `calculator` ; R2 si borné |
 | `percentage` | `number` (le % post-libellé D273) | `gauge` (le choix naturel 0..100 — D274), `fuel`, `slider` |
-| `measure` | `number` + l'unité (les trois régimes D391) | `calculator` |
+| `measure` | `number` + l'unité (les trois régimes D391) ; **la matrice de conversion visible** (D980) | `calculator` |
 | `phone` | `text` masqué (national par défaut D391) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
@@ -379,8 +379,16 @@ gui:
 8. **États et interactions** — grisée si `readonly`/droits ; le refus
    des bornes et validations affiché (D307) ; en recherche : `strict` /
    **`range`** (la plage, l'usage roi du nombre) / `mutualizable` par
-   la forme affichée (D369/D371) ;
-9. **Décisions fondatrices** — D272–D273, D370–D373, D447 ;
+   la forme affichée (D369/D371) ; **pour `measure` et `duration`, la
+   matrice de conversion visible** (D980 — « la facette de saisie doit
+   permettre de visualiser la matrice et les règles de conversion ») :
+   à la demande, le volet du composant montre la matrice du champ sur
+   cet enregistrement — les unités connues et apportées (D978), les
+   coefficients, les chemins de transitivité (D979) ; l'unité de la
+   saisie se choisit parmi celles de la matrice ; une unité nouvelle se
+   déclare avec son coefficient vers une connue — *la forme du volet
+   (l'icône post-zone, l'écho de D563 ; le tableau) est en proposition* ;
+9. **Décisions fondatrices** — D272–D273, D370–D373, D447, D978–D980 ;
 10. **Exemple de configuration** —
 
 ```yaml

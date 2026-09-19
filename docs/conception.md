@@ -1104,6 +1104,7 @@ Q58) :
 | D969 | **`parent:` peut nommer le parent d'une hiérarchie — la résolution atteint les dérivés ; le possesseur sans la composition = un rejet ; la nomenclature récursive, le fantôme la garde** (précise D353/D931/D933/D940 — le frottement 2 du lot 2 du cas 3) : la ligne NOMENC doit rejoindre `fabrique`, `semi_fini` ou `fantome` sans porter le code de gestion de son produit — deux voies, le possesseur par le parent de la hiérarchie (`parent: { article: { code: NOKTCODPF, complement: NOKTCOMPF } }` — l'identité déclarée chez le parent et partagée, D353 ; l'enregistrement retrouvé quelle que soit sa classe, la ligne attachée à sa composition ; s'il ne la porte pas, la ligne est un rejet au rapport — l'anomalie visible, D933) ou le code lu à la source par `ARTICLE.first(ARCTFATN if …)` (D965) et trois règles filtrées (la ligne d'un produit hors 01/09/12 sortirait du périmètre en silence, D663) : **« je valide A ; le fantôme garde sa nomenclature »** ; et la nature de l'objet, redite : « une nomenclature est une liste d'articles décrivant les composants et les tâches à réaliser. Un composant est un article. Et, si un article a une nomenclature, cela se construit récursivement. Par conséquent, un article fabriqué ou semi-fabriqué a une composition de nomenclatures » — le modèle tient (D135/D937/D940). | La règle 017 telle qu'écrite ; une phrase à mapping.md sur `parent:` et la hiérarchie. Voir §3.2c. |
 | D970 | **La devise de l'entreprise en setting — `currency:` à settings.yml, lue par `context.settings.currency`** (applique D588/D771 — le frottement 3 du lot 2 du cas 3) : les prix de l'article (ARCNPRS, ARCNPMP, ARCNPUACH1) sont des `amount` sans colonne de devise chez PMI — la monnaie de l'entreprise, implicite ; trois voies posées — le setting de l'instance (`currency: EUR`, `amount(ARCNPRS, context.settings.currency)`), la devise lue chez PMI par une entité alias (D965/D966), une devise par défaut au type `amount` : **« je valide A »** — le setting, écrit une fois, lu par toute règle ; l'entrepôt d'une autre entreprise change un mot. | `settings.yml` du cas 3 gagne `currency: EUR` ; le bloc `articles/fields.yml` la lit. Voir §3.2c. |
 | D971 | **Le constructeur `list(…)` — les vides tombent, l'ordre des arguments, la liste nettoyée de ses doublons, le typage commun** (applique D579/D659 à la collection — le frottement 4 du lot 2 du cas 3) : plusieurs colonnes vers une liste — `matieres: list(ARCTCODMA1, …, ARCTCODMA9)`, `fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)` — par la fonction qui porte le nom du type, comme `amount(v, devise)` ; le même mot est l'agrégat de D965 (la valeur porte sa méthode, le type sa fonction) ; quatre règles proposées — (1) les vides tombent (la chaîne vide, le nul — une liste ne contient pas « rien »), (2) l'ordre est celui des arguments, (3) les doublons restent, la cible tranche, (4) tous les arguments du même type ou la promotion sans perte (D581), le résultat `list of <ce type>`, la référence résolue par la clé (D654) : **« le point 1 est valide et la liste est nettoyée des doublons »** — la règle 3 inversée : `list` dédoublonne d'office, le premier des égaux garde sa place. | types.md au niveau ; le bloc de l'article tel quel. Voir §3.2c. |
+| D972 | **Le fichier par le connecteur, dans la règle : `<rôle>.files(motif)` ; le type `file` porte ses descripteurs — le nom, la taille, les dates, l'empreinte si `hash: true` — et le différentiel les compare** (précise D634/D883/D672/D160 — le frottement 5 du lot 2 du cas 3) : `article.plans: list of file` se remplit par le connecteur `plans` (D883) ; deux formes posées — le constructeur `file(<connecteur>, <nom>)` emboîté dans `list(…)`, ou le geste du contrat appelé sur le connecteur par son rôle (D617), comme `cache.push` (D821) et `connector.line` (D845) : **« je valide B. Au lieu de get_files, le résumé à files est suffisant. Il peut rendre une liste vide »** — `plans: plans.files(ARCTFICPLA)`, le geste `files(motif)` au contrat de la famille `file` (D634 amendé : `get_files` devient `files`), la liste vide = l'article sans son plan, pas un rejet ; le connecteur injoignable arrête (D626) ; **la relecture** : « la question ne devrait pas se poser car nous avons un type de données "file" contenant le nom du fichier et ses attributs (descripteurs). Par conséquent, le type "file" contient l'information concernant le nom du fichier, sa taille, sa date de création, sa date de dernière modification, éventuellement une clé de hashage si la propriété file "hash" est "true". Ainsi, la détection d'un fichier en écart pour une potentielle relecture se devine » — la valeur `file` = les descripteurs, le contenu derrière ; le différentiel (D672) compare les descripteurs, le contenu n'est relu qu'à l'écart ; la facette **`hash: true`** au champ `file` ajoute l'empreinte aux descripteurs. | Les parties au point (D772) `.name`, `.size`, `.created`, `.modified`, `.hash` — les noms miens ; types.md et connectors.md au niveau ; ma règle de relecture « par le nom ou la date » retirée, absorbée par les descripteurs. Voir §3.2c. |
 
 ---
 
@@ -11659,6 +11660,30 @@ est nettoyée des doublons. »** — la troisième règle inversée : `list`
 dédoublonne d'office, le premier des égaux garde sa place ; deux
 colonnes fournisseur égales font un seul fournisseur habituel.
 
+**Le fichier par le connecteur, les descripteurs du type `file` (D972
+— précise D634/D883/D672 ; le lot 2 du cas 3).** Les plans de
+l'article viennent d'un connecteur `file` en complément de la source
+(D883), le nom d'`ARCTFICPLA` — restait l'écriture dans la règle. Le
+constructeur du type (`list(file(plans, ARCTFICPLA))`) ou le geste du
+contrat appelé sur le connecteur par son rôle, comme `cache.push` et
+`connector.line` : **« je valide B. Au lieu de get_files, le résumé à
+files est suffisant. Il peut rendre une liste vide. »** — `plans:
+plans.files(ARCTFICPLA)` ; le geste s'appelle `files` au contrat de la
+famille ; la liste vide n'est pas un rejet, l'article entre sans son
+plan. Je proposais une règle de relecture — le fichier relu si son
+nom ou sa date change — : **« la question ne devrait pas se poser car
+nous avons un type de données "file" contenant le nom du fichier et
+ses attributs (descripteurs). Par conséquent, le type "file" contient
+l'information concernant le nom du fichier, sa taille, sa date de
+création, sa date de dernière modification, éventuellement une clé de
+hashage si la propriété file "hash" est "true". Ainsi, la détection
+d'un fichier en écart pour une potentielle relecture se devine. »** La
+valeur d'un champ `file` est ses descripteurs, le contenu derrière ;
+le différentiel (D672) compare les descripteurs comme toute valeur,
+et ne relit le contenu qu'à l'écart ; `hash: true` au champ ajoute
+l'empreinte. Les parties au point (D772) — `.name`, `.size`,
+`.created`, `.modified`, `.hash` — sont miennes.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21734,7 +21759,11 @@ avant la synthèse Q16).
   `context.settings.currency`). **D971** le frottement 4 — le
   constructeur `list(…)` : les vides tombent, l'ordre des arguments,
   la liste nettoyée de ses doublons (ma règle inversée), le typage
-  commun. La suite : le lot 2, les articles —
+  commun. **D972** le frottement 5 — `plans: plans.files(ARCTFICPLA)`,
+  le geste `files` au contrat, la liste vide admise ; le type `file`
+  porte ses descripteurs (nom, taille, dates, l'empreinte si `hash:
+  true`), le différentiel les compare — ma règle de relecture retirée.
+  La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

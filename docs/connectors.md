@@ -247,7 +247,7 @@ passerelle D418 — flaguée pour le chantier sécurité.)*
 
 | la méthode | le rôle |
 |---|---|
-| `get_files(pattern)` | la liste des fichiers au motif |
+| `files(pattern)` | la liste des fichiers au motif — **la liste vide admise** ; le nom `files` (D972 — « le résumé à files est suffisant », `get_files` d'origine) ; **appelable dans une règle du mapping par le rôle du connecteur** (D617/D972) : `plans: plans.files(ARCTFICPLA)` — chaque fichier rendu avec ses descripteurs (le type `file`, D972) |
 | `get_file(filename)` | la lecture — **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » |
 | `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… |
 

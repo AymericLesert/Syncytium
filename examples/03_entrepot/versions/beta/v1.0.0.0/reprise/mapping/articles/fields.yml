@@ -50,7 +50,7 @@ prix_achat:         amount(ARCNPUACH1, context.settings.currency)
 actif:             ARCTBLOCAG = ""             # vide = actif, sinon le motif de blocage
 date_creation:     ARCJCRE
 date_modification: ARCJMOD
-plans:             list(file(plans, ARCTFICPLA))   # le fichier par le connecteur plans (D883 — la forme à trancher)
+plans:             plans.files(ARCTFICPLA)       # le geste du connecteur plans par son rôle (D883/D972) — la liste vide admise, le fichier avec ses descripteurs
 # --- le stockage (D962/D964) : le drapeau, les quatre lieux — l'emplacement
 # par sa clé composée (dépôt, code), la même carte que parent: (D931) ---
 gere_en_stock:            ARCTGDEPOT = "O"

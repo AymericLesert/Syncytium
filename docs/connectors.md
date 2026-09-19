@@ -362,11 +362,13 @@ seconde couche.
   module comme mode d'emploi — D44, la lecture sous le porteur) ; la
   réponse est un message ;
 - **le RGPD, avant le connecteur** : « l'anonymisation sera appliquée
-  avant tout envoi » — le moteur anonymise (D696) les champs
-  `personal` (D695) de tout ce qui part vers le modèle, **sauf ce qui
-  revient à l'utilisateur** : ses propres informations, et celles que
-  son niveau de droits lui ouvre ; le connecteur ne voit jamais le
-  clair d'autrui ;
+  avant tout envoi » — le moteur anonymise (D696, tel quel — D960) les
+  champs `personal` (D695) de tout ce qui part vers le modèle, **sauf
+  ce qui revient à l'utilisateur** : les données de son profil
+  connecté, et ce que ses droits lui ouvrent — **aucun droit propre au
+  chat** : « les droits ne sont pas sur chat mais sur les composantes
+  de la description du modèle » (D885/D886, D25) ; le champ que ses
+  droits ne lui ouvrent pas part anonymisé plutôt qu'omis (mien) ;
 - **la trace, avant l'affichage** : chaque question et chaque
   réponse s'écrit dans les entités du module `chat` — **`session`**
   (l'utilisateur, le module, l'ouverture, le connecteur et le modèle,

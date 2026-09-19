@@ -2902,8 +2902,15 @@ la fiche est mienne, en proposition.)*
    sessions, chacune son historique et son contexte (D959) ;
    **template** : sans objet ;
 8. **États et interactions** — la question part **après
-   l'anonymisation** des champs `personal` (D695/D696) de tout le
-   contexte transmis, hors ce qui revient à l'utilisateur ; **chaque
+   l'anonymisation** des champs `personal` (D695/D696, tel quel —
+   D960) de tout le contexte transmis, hors les données du profil
+   connecté et ce que les droits de l'utilisateur sur les composantes
+   de la description lui ouvrent — aucun droit propre au chat ; **la
+   session dure** — sans rétention, « aussi longtemps que possible et
+   jusqu'à ce que l'utilisateur demande sa réinitialisation » (D960) :
+   l'acte **réinitialiser** sur la session (la suppression du socle,
+   qui désactive — D137 ; la session close reste à l'analyse, une
+   nouvelle s'ouvre — mien) ; **chaque
    question et chaque réponse s'écrivent, avant l'affichage,** dans
    `chat.session` et `chat.message` (historisées — D411), l'événement
    au journal de sécurité (D925) ; **le connecteur indisponible** :

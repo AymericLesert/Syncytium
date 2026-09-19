@@ -1092,6 +1092,7 @@ Q58) :
 | D957 | **Le module `chat` du socle — un LLM en connecteur, la connaissance sous les droits de l'utilisateur, l'anonymisation avant l'envoi, tout échange tracé** (ouvre un chantier ; amende D619 sur le nombre de familles, s'appuie sur D408/D416/D666, D886, D695–D696, D917–D918, D925–D926) : « je souhaite inclure un module "Chat" qui puisse intégrer un appel à une LLM pour répondre aux questions en se basant sur la somme des connaissances de l'instance de Syncytium » — (1) **la connaissance** : « les données, les descriptions, dans la limite des autorisations accordées à l'utilisateur sur la consultation des données » ; le modèle atteint l'instance **par l'API versionnée au porteur de l'utilisateur ou par la librairie interne du modèle, celle des hooks de fonctions** — « l'utilisation de l'API est une possibilité mais il peut également utiliser la librairie interne du modèle qui sera utilisée sur les hooks de fonctions » ; (2) **« le LLM sera un connecteur »** — la neuvième famille `llm` (`provider`, `model`, `api_key*: ${VAR}` — les noms miens, « ok pour tes noms ») ; (3) **le RGPD** : « l'anonymisation sera appliquée avant tout envoi » — les champs `personal` (D695) anonymisés (D696) avant que la question et son contexte quittent l'instance, **sauf ce qui revient à l'utilisateur** : « si l'utilisateur est concerné, il aura droit à ses informations ; s'il a un niveau de droits suffisants, il aura aussi accès aux informations » ; (4) **la surface : « un écran au catalogue présent au socle »** — la fiche `chat` de composants.md ; (5) **la trace** : « tous les échanges (questions, comme réponses) doivent être tracés pour historisation ou pour analyse en cas de fuite ou d'incidents » — les entités du module (`conversation`, `message` : l'utilisateur, l'horodatage, le connecteur, la question, le contexte transmis, la réponse), `history: true`, l'événement au journal de sécurité (D925). | Le socle gagne un module (migration D666, administration D710, chat) et une famille — D619 n'est pas contredit : le jeu reste fermé aux hooks, il s'ouvre par décision ; l'invariant 16 à security.md, l'entrée au glossaire. Le contrat de la famille, les entités du module et la fiche de l'écran sont miens, en proposition. Voir §3.2c. |
 | D958 | **Le chat répond et fournit les données ; la mise à jour passe par les interfaces de l'application, le chat y mène par des liens** (précise D957 — le déroulé d'une question, les points 1 à 3 confirmés) : (1) le moteur bâtit le mode d'emploi du modèle — la description de l'instance telle que l'utilisateur la voit (les modules affectés D341/D416, les entités et les champs que sa confidentialité lui ouvre D885/D886, le `describe` D44/D645), ce qui lui est fermé n'est pas décrit — « je confirme » ; (2) les outils tendus au modèle sont **la lecture seule** — les primitives de la librairie interne des hooks de fonctions (D571/D599 — lire, interroger avec un filtre du langage, naviguer, agréger), chaque appel exécuté par le moteur comme l'utilisateur, par l'API au porteur ou par la librairie : « le chat répond aux questions et fournit les données. Les mises à jour se feront via les interfaces proposées par l'application. Le chat proposera des liens vers les interfaces assurant la mise à jour qui peut être demandée » — aucune écriture, aucune opération ; la réponse porte le lien vers la surface (le formulaire, l'acte — D439/D483) où l'utilisateur fera lui-même la mise à jour ; (3) la boucle d'outils vit au moteur, le connecteur transporte — « tout à fait ». | Le chat est un lecteur qui oriente, jamais un acteur : les droits d'écriture, la validation, la concurrence restent aux surfaces (D25/D599). Restent à trancher : l'anonymisation à chaque sortie et ses deux exceptions, l'écriture de la trace, le niveau de droits suffisant, `rgpd: subject`, le pseudonyme stable, la rétention. Voir §3.2c. |
 | D959 | **La session d'échanges adossée à un module — une session par module et par utilisateur, son historique et son contexte propres ; l'anonymisation à chaque sortie ; la trace avant l'affichage ; le connecteur indisponible = l'erreur, pas de question** (précise D957–D958 — les temps 4 à 7 du déroulé confirmés) : (4) l'anonymisation de tout ce qui part vers le modèle — la question, le mode d'emploi, chaque résultat d'outil — sauf l'utilisateur concerné et le niveau de droits suffisant : « bien compris » ; (5) la réponse au fil : « oui » ; (6) la trace écrite avant l'affichage : « oui — **le contexte peut consister à passer un ensemble de questions et de dialogues que nous modéliserons sous forme de session d'échanges. Une session sera adossée à un module.** Par conséquent, si une application dispose de 2 modules accessibles pour le même utilisateur, l'utilisateur disposera d'une session / module et un historique et un contexte dédié » — les entités du module `chat` : **`session`** (l'utilisateur, **le module**, l'ouverture, le connecteur et le modèle, `messages: list of message`) et **`message`** (le rang, le rôle utilisateur / assistant / outil, l'horodatage, le contenu, le contexte transmis) ; le contexte passé au modèle = les échanges de la session ; l'écran suit le module activé (l'écho de D557 — le changement de module change la session) ; (7) « si le connecteur LLM n'est pas disponible, un message d'erreur sera présenté et les questions ne seront pas possibles » — la saisie fermée, la lecture de l'historique reste (mien). | `conversation` devient `session` ; le mode d'emploi du temps 1 se borne au module de la session — ses entités, et celles qu'elles référencent (mien, l'écho de D116). Restent les quatre points : le niveau de droits suffisant, `rgpd: subject`, le pseudonyme stable, la rétention. Voir §3.2c. |
+| D960 | **Aucun droit propre au chat — les droits sont ceux des composantes de la description ; les données personnelles qui reviennent à l'utilisateur sont celles de son profil connecté ; l'anonymisation est D696, rien de plus ; la session sans durée de rétention, jusqu'à la réinitialisation demandée par l'utilisateur** (clôt les quatre points de D957–D959 — le chantier du chat est cadré) : (1) mon profil de confidentialité sur l'usage du chat est écarté — « les droits ne sont pas sur chat mais sur les composantes de la description du modèle » : le « niveau de droits suffisant » de D957 est la confidentialité et l'audience que l'utilisateur détient déjà sur chaque module, entité et champ (D885/D886, D25) ; (2) `rgpd: subject` écarté — « cela n'est pas nécessaire. Les données personnelles visent celles du profil. Pour les données, les droits s'appliquent au profil connecté » : ce qui revient à l'utilisateur, ce sont les données de son propre compte ; pour le reste, ses droits ; (3) « l'anonymisation respecte les règles que nous avons déjà définies précédemment. Il n'est donc pas nécessaire d'en faire plus » — D695/D696 tels quels, pas de pseudonyme stable ni de ré-identification ; (4) « la rétention des sessions n'est pas liée à une durée. Elle reste aussi longtemps que possible et jusqu'à ce que l'utilisateur demande sa réinitialisation » — D698 ne s'applique pas à la session ; la réinitialisation est un acte de l'utilisateur sur sa session. | Mes conséquences, en proposition : le champ personnel que les droits de l'utilisateur ne lui ouvrent pas part anonymisé (D696) plutôt qu'omis — l'enregistrement garde sa forme ; la réinitialisation = la suppression du socle, qui désactive (D137) : la session close reste à l'analyse (D957), une nouvelle s'ouvre. Voir §3.2c. |
 
 ---
 
@@ -11414,6 +11415,32 @@ L'écran suit le module activé, comme le tableau de bord (D557) :
 changer de module, c'est changer de session. Le connecteur
 indisponible ferme la saisie ; l'historique reste lisible (mien).
 
+**Aucun droit propre au chat ; le profil connecté ; D696 tel quel ;
+la session jusqu'à sa réinitialisation (D960 — clôt le cadrage du
+chat).** Les quatre points ouverts, quatre réponses courtes. Le
+profil de confidentialité que je proposais sur l'usage du chat :
+**« les droits ne sont pas sur chat mais sur les composantes de la
+description du modèle »** — le « niveau de droits suffisant » de
+D957 n'est rien d'autre que la confidentialité et l'audience que
+l'utilisateur détient sur chaque module, entité et champ (D885/D886,
+D25) ; le chat n'ajoute aucun étage. `rgpd: subject` : **« cela n'est
+pas nécessaire. Les données personnelles visent celles du profil.
+Pour les données, les droits s'appliquent au profil connecté. »** —
+ce qui revient à l'utilisateur, ce sont les données de son propre
+compte ; tout le reste relève de ses droits. Le pseudonyme stable :
+**« l'anonymisation respecte les règles que nous avons déjà définies
+précédemment. Il n'est donc pas nécessaire d'en faire plus. »** —
+D695 marque, D696 anonymise, le chat n'invente rien. La rétention :
+**« la rétention des sessions n'est pas liée à une durée. Elle reste
+aussi longtemps que possible et jusqu'à ce que l'utilisateur demande
+sa réinitialisation. »** — D698 ne s'applique pas à la session ; la
+réinitialisation est un acte de l'utilisateur. *Mes conséquences, en
+proposition : le champ personnel que ses droits ne lui ouvrent pas
+part anonymisé plutôt qu'omis — l'enregistrement garde sa forme ; la
+réinitialisation est la suppression du socle, qui désactive (D137) —
+la session close reste à l'analyse en cas d'incident (D957), une
+nouvelle s'ouvre.* Le chantier du chat est cadré : D957–D960.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21440,8 +21467,12 @@ avant la synthèse Q16).
   adossée à un module (une session par module et par utilisateur,
   l'historique et le contexte dédiés — `conversation` devient
   `session`), l'anonymisation à chaque sortie, la trace avant
-  l'affichage, le connecteur indisponible = l'erreur. Restent les
-  quatre points ouverts du chat, puis le lot 1 du mapping.
+  l'affichage, le connecteur indisponible = l'erreur. **D960** les
+  quatre points fermés — aucun droit propre au chat (les droits sont
+  ceux des composantes de la description), les données personnelles
+  du profil connecté, D696 tel quel, la session sans durée jusqu'à sa
+  réinitialisation. **Le chantier du chat est cadré (D957–D960)** ;
+  retour au lot 1 du mapping.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

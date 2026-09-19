@@ -63,7 +63,7 @@ fields:
   ARCNLARGEU:  decimal                                        # → article.largeur
   ARCNEPAISS:  decimal                                        # → article.epaisseur
   ARCNVOLUNI:  decimal                                        # → article.volume
-  ARCTEAN13:   text[20]                                       # → article.ean13 — le type barcode, barcode(ean, ARCTEAN13) à la règle (D987)
+  ARCTEAN13:   text[20]                                       # → article.ean13 — un texte à la facette barcode (D988), left(…, 13) à la règle (D581)
   ARCTGSAV:    ignored                                        # « N » sur tout l'échantillon — écarté, ce n'est pas le code de gestion (D936)
   ARCTFICPLA:  text[250]                                      # → article.plans — le nom du fichier, le contenu par le connecteur plans (D883)
   ARCTCODEPR:  text[6]                                        # → article.depot_reception — « R : Réception » (D964)

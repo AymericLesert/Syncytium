@@ -99,7 +99,6 @@ Quatre règles transversales l'allègent :
 | `measure` | `number` + l'unité (les trois régimes D391) ; **la matrice de conversion visible** (D980) | `calculator` |
 | `duration` | **un composé (D981)** — `number` masqué (la virgule en centièmes — D380) + l'unité ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `phone` | `text` masqué (national par défaut D391) | — |
-| `barcode` | saisie : `text` (la validation intégrée selon la nature — D987) ; lecture : le composant `barcode` / `qrcode` (D300) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
 | `url` | `text` — **le lien en lecture** : le clic ouvre dans un nouvel onglet, l'icône du lien externe en post-zone, l'ellipse en cellule (D563) | — |
@@ -2299,9 +2298,10 @@ charts:
 2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
    valeur encodée, lisible à la machine : l'étiquette, le document,
    l'écran ;
-3. **Types servis** — **le type `barcode`** (D987 — son défaut en
-   lecture : la nature du code vient du type, `barcode[ean]`, rien à
-   redire au composant) ; et les champs à valeur textuelle — le texte,
+3. **Types servis** — **le texte à la facette `barcode:`** (D988 — la
+   valeur est un texte, la facette dit ce qu'il encode et le valide ;
+   le composant en est le défaut en lecture, la nature venant de la
+   facette) ; et les champs à valeur textuelle sans facette — le texte,
    le compteur, l'`uuid`, la référence… : **la conversion en texte du
    type** (D369) fait la valeur encodée ; en surcharge
    (`component: qrcode`) ;
@@ -2316,11 +2316,11 @@ charts:
    courte valant l'affichage seul) ; **`labels:`** — « la valeur de
    la référence sous le code-barres » (D545 — *en proposition :*
    `labels: true`, la valeur au format du champ — l'écho D516 ;
-   défaut `false`) ; **le format du code-barres** : **du type quand le
-   champ est un `barcode`** (D987 — `barcode[ean]` au champ, le
-   composant suit) ; **au crochet pour un champ texte** rendu en
-   code-barres (*en proposition :* `component: barcode[code128]` — le
-   défaut `code128`) ;
+   défaut `false`) ; **le format du code-barres** : **de la facette
+   quand le champ en porte une** (D988 — `barcode: ean13` au champ, le
+   composant suit) ; **au crochet pour un champ texte sans facette**
+   rendu en code-barres (*en proposition :* `component:
+   barcode[code128]` — le défaut `code128`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
    **la saisie en mode texte** — la zone du champ, son régime (la
@@ -2332,7 +2332,7 @@ charts:
 8. **États et interactions** — la lecture seule par nature ; masqué
    par la confidentialité ;
 9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
-   D516, D533, D542–D545, D987 ;
+   D516, D533, D542–D545, D988 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2348,7 +2348,7 @@ gui:
             component: qrcode      # la valeur rendue en QR (D300)
             size: 120px            # le carré — 120 px de côté (D543)
         - field[name]
-        - field[ean]:              # un champ barcode[ean] (D987) : la nature vient du type
+        - field[ean]:              # un texte à la facette barcode: ean13 (D988) : la nature vient de la facette
             size: 200px 60px       # largeur × hauteur (D543)
             labels: true           # la valeur sous les barres (D545)
         - field[sku]:

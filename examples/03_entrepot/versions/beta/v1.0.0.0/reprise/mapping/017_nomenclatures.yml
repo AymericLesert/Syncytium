@@ -1,0 +1,39 @@
+# L'étape 17 — les nomenclatures : NOMENC vers technique.nomenclature,
+# l'entité fille (D931), la composition des trois dérivés de l'article
+# qui la portent — fabrique, semi_fini, fantome (D940). La ligne ne porte
+# pas le code de gestion de son produit : le possesseur se nomme par le
+# parent de la hiérarchie, `article`, et se résout parmi ses dérivés par
+# l'identité partagée (D969 — « je valide A » ; D353 : « le parent
+# décrit, l'enfant pointe »). Une ligne dont le produit n'est pas un
+# dérivé à nomenclature (un article acheté avec des composants) est un
+# rejet, au rapport de la production — une anomalie réelle (D933). La
+# nomenclature est une liste d'articles — les composants et les tâches —
+# et se construit récursivement : le composant fabriqué, semi-fini ou
+# fantôme porte la sienne (D135/D969). Le composant par sa clé composée (D931) ; la
+# nature se déduit du type du composant à la cible (D937) ; les temps de
+# PMI en durée par le constructeur (D659 — l'unité à confirmer, la source
+# le dit) ; la validité en période (D890).
+
+NOMENC:
+  to: technique.nomenclature
+  parent:
+    article: { code: NOKTCODPF, complement: NOKTCOMPF }   # résolu dans la hiérarchie — fabrique, semi_fini ou fantome
+  fields:
+    numero:    NOKNLIGNOM                     # l'identité au sein du produit (D841/D930)
+    composant: { code: NOCTCODECP, complement: NOCTCOMCPT }   # la référence par la clé composée — la même carte (D931)
+    quantite:  NOCNQTECOM                     # « la quantité de nomenclature est NOCNQTECOM » (D946)
+    unite:     NOCTUNITE
+    rendement: NOCNRENDT
+    # --- l'opération ---
+    operation:         NOCTCODOPE
+    jalon:             integer(NOCNJALON)     # le décimal de PMI vers l'entier (D581)
+    temps_preparation: duration(NOCNTPSPRE, h)   # l'unité supposée (à confirmer)
+    temps_ouverture:   duration(NOCNTPSOUV, h)
+    temps_attente:     duration(NOCNTPSATT, h)
+    nombre_ouvriers:   NOCNBREOUV
+    # --- la validité ---
+    validite:  period(NOCJDEBVAL, NOCJFINVAL)  # début ≤ fin intégré au type : l'inverse est un rejet
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

@@ -396,7 +396,14 @@ porte la même carte.** La conversion écrite deux fois — chez le
 possesseur et dans chaque `parent:` — est un risque d'entretien : la
 normalisation à la source (D660/D872) fait lire aux deux règles des
 colonnes déjà converties, et `parent:` ne porte alors que des colonnes
-nues.
+nues. **`parent:` peut nommer le parent d'une hiérarchie** (D969) :
+l'identité déclarée chez le parent est partagée par ses dérivés
+(D353), le moteur retrouve l'enregistrement quelle que soit sa classe
+et attache la ligne à sa composition ; si l'enregistrement retrouvé ne
+porte pas la composition visée, la ligne est un rejet au rapport
+(D933) — le cas 3 : `parent: { article: { code: NOKTCODPF, complement:
+NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
+porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
 # reprise/mapping/001_articles.yml — le possesseur construit son identité

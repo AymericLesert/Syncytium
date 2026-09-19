@@ -1101,6 +1101,7 @@ Q58) :
 | D966 | **La lecture d'une entité utilise son filtre ; l'alias — plusieurs entités source sur la même table, chacune son nom et son filtre** (corrige ma proposition de D965, précise D947/D663) : « la lecture d'une entité utilise le filtre défini. J'introduis à cette occasion la notion d'alias qui permet de nommer une entité portant sur la même source avec des filtres différents » — la lecture D965 vise une entité décrite, jamais la table nue, et son `filter:` vient avec ; quand une table sert plusieurs lectures (PARAM : un paramètre par usage), chaque usage est une entité source nommée, alias de la table, avec son filtre, son identité, ses colonnes ; le fichier porte le nom de l'entité (D947 : le nom de la table sans alias) ; la règle du mapping et le calculé nomment l'entité ; la complétude du schéma (D861) se mesure sur la table, toutes entités confondues. | La forme `name: PARAM_EMPLACEMENTS` + `alias: PARAM` est mienne (la clé `alias`, le nom). Le cas 3 : `source/PARAM.yml` devient `source/PARAM_EMPLACEMENTS.yml` (le filtre 170), les règles 001/004 la nomment ; la lecture s'écrit `PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = …)` sans répéter le numéro. Voir §3.2c. |
 | D967 | **Les champs d'une règle mutualisés par la référence de fichier** (applique D956/D767 aux règles du mapping — le lot 2 du cas 3, le frottement 1) : les quatre règles de l'article (013–016, une par dérivé filtrée sur ARCTFATN — D940) portaient le même bloc de trente-huit champs — « le même bloc de 38 champs dans 4 entités… ça fait de nombreuses redondances. Comment pourrions-nous prendre en compte ~{<fichier>} pour capitaliser et mutualiser les champs ? » — comme l'entité (D767 : `fields: ~{fields.yml}`) : le bloc vit dans `mapping/articles/fields.yml`, chaque règle l'inclut par `fields: ~{articles/fields.yml}` (le chemin relatif au fichier, D768) ; le fichier inclus n'est pas une règle — hors du pattern `mapping/[0-9]+_.*\.yml` (D806), il n'a pas de préfixe numérique ; la règle ne garde que ce qui la distingue : `to:`, `filter:`, `report:`. | Toute propriété d'une règle peut porter le contenu ou la référence (D767 — rien de neuf) ; le dossier `articles/` et son nom sont miens. Voir §3.2c. |
 | D968 | **Le cumul de fichiers sous une carte — la liste de références en bloc, la fusion dans l'ordre, la surcharge avec alerte, le pattern admis, l'élément = un fichier ou une carte en ligne** (précise D956/D767/D806 — la question de l'auteur sur D967) : « est-ce qu'avec ~{articles/fields.yml}, je peux cumuler plusieurs fichiers l'un derrière l'autre ? » — pas encore : une référence remplace la valeur, le pattern ne vaut que dans une liste ; la forme proposée, une liste en bloc sous la propriété à carte (`fields:`, `values:`, `parameters:`… — partout, la règle de D767) : (1) **la fusion dans l'ordre** — les contenus se lisent l'un derrière l'autre, la carte est l'union des clés : « ok » ; (2) **la même clé deux fois = une surcharge, le dernier l'emporte, une alerte levée à l'ingestion** — « c'est une surcharge… une alerte doit être levée » (ma proposition d'erreur écartée) ; (3) **le pattern y vaut** — `- ~{articles/.*\.yml}`, l'ordre alphabétique (D665) : « oui » ; (4) **l'élément est une référence de fichier ou une carte en ligne**, fusionnée comme un contenu de fichier — « je prends la 1ère option, je la trouve plus élégante — peut-être moins uniforme — mais plus en lien avec des approches classiques » (la liste pure, que je penchais à préférer, écartée). Jamais en flux : l'accolade y casse YAML (D956/D892). | mapping.md et entity.md au niveau ; le cas 3 n'en a pas besoin aujourd'hui (les quatre règles partagent tout), rien n'y change. Voir §3.2c. |
+| D969 | **`parent:` peut nommer le parent d'une hiérarchie — la résolution atteint les dérivés ; le possesseur sans la composition = un rejet ; la nomenclature récursive, le fantôme la garde** (précise D353/D931/D933/D940 — le frottement 2 du lot 2 du cas 3) : la ligne NOMENC doit rejoindre `fabrique`, `semi_fini` ou `fantome` sans porter le code de gestion de son produit — deux voies, le possesseur par le parent de la hiérarchie (`parent: { article: { code: NOKTCODPF, complement: NOKTCOMPF } }` — l'identité déclarée chez le parent et partagée, D353 ; l'enregistrement retrouvé quelle que soit sa classe, la ligne attachée à sa composition ; s'il ne la porte pas, la ligne est un rejet au rapport — l'anomalie visible, D933) ou le code lu à la source par `ARTICLE.first(ARCTFATN if …)` (D965) et trois règles filtrées (la ligne d'un produit hors 01/09/12 sortirait du périmètre en silence, D663) : **« je valide A ; le fantôme garde sa nomenclature »** ; et la nature de l'objet, redite : « une nomenclature est une liste d'articles décrivant les composants et les tâches à réaliser. Un composant est un article. Et, si un article a une nomenclature, cela se construit récursivement. Par conséquent, un article fabriqué ou semi-fabriqué a une composition de nomenclatures » — le modèle tient (D135/D937/D940). | La règle 017 telle qu'écrite ; une phrase à mapping.md sur `parent:` et la hiérarchie. Voir §3.2c. |
 
 ---
 
@@ -11606,6 +11607,30 @@ fields:
     date_creation: ARCJCRE
 ```
 
+**`parent:` à travers la hiérarchie (D969 — précise D353/D931/D933 ;
+le lot 2 du cas 3).** La ligne de NOMENC doit retrouver son produit
+parmi `fabrique`, `semi_fini` et `fantome` — les trois dérivés qui
+portent la nomenclature (D940) — sans connaître son code de gestion,
+que seul ARTICLE porte. Deux voies posées : le code lu à la source
+par `ARTICLE.first(ARCTFATN if …)` (D965) et trois règles filtrées —
+rien de neuf, mais trois fichiers, et la ligne d'un produit hors
+01/09/12 sortirait du périmètre en silence (D663) ; ou **le possesseur
+nommé par le parent de la hiérarchie** — `parent: { article: { code:
+NOKTCODPF, complement: NOKTCOMPF } }` : l'identité est déclarée chez
+`article` et partagée par ses dérivés (D353 — un enregistrement est
+exactement une classe), le moteur retrouve l'enregistrement quelle
+que soit sa classe et attache la ligne à sa composition ; s'il ne la
+porte pas — un acheté, un libellé avec des composants —, la ligne est
+un rejet au rapport (D933) : l'anomalie réelle de PMI se voit. Avant
+de trancher, l'auteur redit l'objet : **« une nomenclature est une
+liste d'articles décrivant les composants et les tâches à réaliser. Un
+composant est un article. Et, si un article a une nomenclature, cela
+se construit récursivement. Par conséquent, un article fabriqué ou
+semi-fabriqué a une composition de nomenclatures »** — le modèle tient
+(D135 la composition auto-référencée, D937 le composant de tout
+type, D940 les dérivés) ; puis : **« je valide A ; le fantôme garde
+sa nomenclature. »**
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21673,7 +21698,10 @@ avant la synthèse Q16).
   liste de références en bloc, la fusion dans l'ordre, la surcharge
   avec alerte (mon erreur écartée), le pattern admis, l'élément = un
   fichier ou une carte en ligne (« plus élégante… plus en lien avec
-  des approches classiques »). La suite : le lot 2, les articles —
+  des approches classiques ») ; **D969** le frottement 2 — `parent:`
+  nomme le parent de la hiérarchie, la résolution atteint les dérivés,
+  le produit sans nomenclature = un rejet visible ; le fantôme garde sa
+  nomenclature ; la règle 017 commise. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

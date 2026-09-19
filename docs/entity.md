@@ -69,9 +69,9 @@ label: "{nom}"
 identity: [nom]
 states: statut
 
-fields: fields.yml
-operations: operations.yml
-gui: gui.yml
+fields: ~{fields.yml}             # la référence de fichier explicite (D956)
+operations: ~{operations.yml}
+gui: ~{gui.yml}
 
 validation:
   - date_vente >= date_achat if date_vente != null

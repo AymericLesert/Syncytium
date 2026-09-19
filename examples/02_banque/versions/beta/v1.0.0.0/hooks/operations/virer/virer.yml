@@ -1,7 +1,7 @@
 # Déclaration les opérations du projet
 
 name: virer
-description: documentation.md
+description: ~{documentation.md}
 
-code: source.txt
+code: ~{source.txt}
 properties: { }

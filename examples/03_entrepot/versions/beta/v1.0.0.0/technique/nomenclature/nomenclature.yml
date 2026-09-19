@@ -18,7 +18,7 @@ label: "{numero} — {designation}"
 identity: [numero]
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 # Aucune règle inter-champs (D404) : le composant est obligatoire, la
 # nature se déduit (D937) ; l'ordre des bornes de la période n'a pas à

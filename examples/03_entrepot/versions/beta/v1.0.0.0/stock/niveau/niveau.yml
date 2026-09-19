@@ -9,7 +9,7 @@ label: "{article} — {depot}/{emplacement} — lot {lot}"
 identity: [article, lot, emplacement, depot, enregistrement]
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - quantite >= 0

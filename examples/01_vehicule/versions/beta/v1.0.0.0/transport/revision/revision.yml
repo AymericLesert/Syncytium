@@ -17,7 +17,7 @@ description: Une règle de révision — le pas en kilomètres ou en délai, la 
 label: "{designation}"
 
 # La liste des champs de l'entité
-fields: fields.yml
+fields: ~{fields.yml}
 
 operations:
   # l'automatisme (D428) — à l'échéance
@@ -32,4 +32,4 @@ validation:
   - pas_km != null or pas_duree != null
 
 # La déclaration de la présentation graphique — le morceau 4
-gui: gui.yml
+gui: ~{gui.yml}

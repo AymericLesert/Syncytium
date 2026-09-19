@@ -4,7 +4,7 @@ name: banque
 description: Module de gestion bancaire
 
 entities:
-  - compte/compte.yml
-  - ecriture/ecriture.yml
-  - referentiel/budget.yml
-  - referentiel/lieu.yml
+  - ~{compte/compte.yml}
+  - ~{ecriture/ecriture.yml}
+  - ~{referentiel/budget.yml}
+  - ~{referentiel/lieu.yml}

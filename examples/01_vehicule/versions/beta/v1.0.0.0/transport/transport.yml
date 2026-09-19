@@ -7,11 +7,11 @@ name: transport
 description: Suivi et maintenance des moyens de locomotion du foyer
 
 entities:
-  - vehicule/vehicule.yml
-  - consommation/consommation.yml
-  - entretien/entretien.yml
-  - revision/revision.yml
-  - echeance/echeance.yml
+  - ~{vehicule/vehicule.yml}
+  - ~{consommation/consommation.yml}
+  - ~{entretien/entretien.yml}
+  - ~{revision/revision.yml}
+  - ~{echeance/echeance.yml}
 
 # Le tableau de bord du module (D554/D555) — l'écran principal :
 # l'accueil au module actif (D557/D558), le menu l'adresse

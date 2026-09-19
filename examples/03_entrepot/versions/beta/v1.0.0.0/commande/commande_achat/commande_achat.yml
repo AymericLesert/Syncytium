@@ -7,7 +7,7 @@ label: "{numero}-{indice} — {fournisseur}"
 identity: [numero, indice]
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - date_echeance >= date if date_echeance != null

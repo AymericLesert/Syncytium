@@ -8,10 +8,10 @@ cegid:
   mode: relative                        # les conformes portés, les erreurs au rapport (D671)
   reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent (D941)
   source:
-    - source/.*\.yml                    # les tables analysées — le regex (D806) ; les tables ignorées
+    - ~{source/.*\.yml}                 # les tables analysées — le regex (D806) ; les tables ignorées
                                         # pour l'exemple s'y déclarent aussi (D657/D869)
   mapping:
-    - mapping/[0-9]+_.*\.yml            # les règles, à venir au morceau 4 — l'ordre alphabétique fait les étapes (D665)
+    - ~{mapping/[0-9]+_.*\.yml}         # les règles, à venir au morceau 4 — l'ordre alphabétique fait les étapes (D665)
   operations:                           # les opérations périodiques de la migration (D943)
     delta_nocturne:
       every: daily[02:00]               # le calendaire (D434) — l'heure à fixer avec l'entreprise

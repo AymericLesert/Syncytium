@@ -2,4 +2,4 @@
 # Réutilisation des patterns pour lister toutes les opérations (1 dossier par opération)
 
 operations:
-  - .*/.*\.yml
+  - ~{.*/.*\.yml}

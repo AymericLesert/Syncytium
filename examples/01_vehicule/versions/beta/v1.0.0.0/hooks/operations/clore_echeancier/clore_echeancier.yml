@@ -1,7 +1,7 @@
 # La fiche du hook (D778)
 
 name: clore_echeancier
-description: documentation.md
+description: ~{documentation.md}
 
-code: source.txt
+code: ~{source.txt}
 properties: { }

@@ -5,4 +5,4 @@ description: Une réponse à l'enquête — le répondant, la note, le commentai
 label: "${name}"
 
 # La liste des champs de l'entité
-fields: fields.yml
+fields: ~{fields.yml}

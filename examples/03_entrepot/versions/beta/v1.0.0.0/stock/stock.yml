@@ -20,7 +20,7 @@ allow:
   delete: false
 
 entities:
-  - niveau/niveau.yml
-  - mouvement/mouvement.yml
-  - depot/depot.yml
-  - emplacement/emplacement.yml
+  - ~{niveau/niveau.yml}
+  - ~{mouvement/mouvement.yml}
+  - ~{depot/depot.yml}
+  - ~{emplacement/emplacement.yml}

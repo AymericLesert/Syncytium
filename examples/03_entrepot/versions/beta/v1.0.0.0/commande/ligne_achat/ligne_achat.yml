@@ -7,7 +7,7 @@ label: "{numero} — {article}"
 identity: [numero]              # LCKTPSF est l'indice de la commande, pas un sous-numéro (D951)
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - quantite > 0

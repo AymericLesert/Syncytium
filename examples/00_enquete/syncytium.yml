@@ -8,8 +8,8 @@ description: L'enquête de satisfaction — récolter rapidement des information
 
 # Liste des environnements d'exécution
 
-environments: environments/environments.yml
+environments: ~{environments/environments.yml}
 
 # Liste des versions de l'application
 
-versions: versions/versions.yml
+versions: ~{versions/versions.yml}

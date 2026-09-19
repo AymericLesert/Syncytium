@@ -17,10 +17,10 @@ allow:
   delete: false
 
 entities:
-  - article/article.yml
+  - ~{article/article.yml}
   # les trois dérivés de l'article par le code de gestion (D940) — ils
   # portent la nomenclature
-  - fabrique/fabrique.yml
-  - semi_fini/semi_fini.yml
-  - fantome/fantome.yml
-  - nomenclature/nomenclature.yml
+  - ~{fabrique/fabrique.yml}
+  - ~{semi_fini/semi_fini.yml}
+  - ~{fantome/fantome.yml}
+  - ~{nomenclature/nomenclature.yml}

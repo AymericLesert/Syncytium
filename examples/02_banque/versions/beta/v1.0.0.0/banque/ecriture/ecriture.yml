@@ -4,13 +4,13 @@ name: ecriture
 label: "${name}"
 
 # La liste des champs de l'entité
-fields: fields.yml
+fields: ~{fields.yml}
 
 # Les opérations associées à l'entité
-operations: operations.yml
+operations: ~{operations.yml}
 
 # La déclaration de la présentation graphique
-gui: gui.yml
+gui: ~{gui.yml}
 
 # Le contrôle des budgets marqueurs (D824) — réservés à la création et à la
 # fermeture du compte ; l'évaluation au scellé de la transaction (D594)

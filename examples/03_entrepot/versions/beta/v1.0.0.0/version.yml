@@ -24,21 +24,21 @@ release-notes: >
 # Les réglages de la version (D359 — l'étage instance de la cascade) :
 # la normalisation et les profils de confidentialité (D872/D885)
 
-settings: settings.yml
+settings: ~{settings.yml}
 
 # Les groupes d'utilisateurs — les strates de l'entreprise (D414/D859)
 
-groups: groups.yml
+groups: ~{groups.yml}
 
 # Déclaration de la reprise des données de PMI (D662/D943 — le morceau 3,
 # la source, puis le morceau 4, le mapping)
 
-migrations: reprise/reprise.yml
+migrations: ~{reprise/reprise.yml}
 
 # Déclaration des modules — les quatre domaines de l'entrepôt (D882)
 
 modules:
-  - technique/technique.yml
-  - tiers/tiers.yml
-  - commande/commande.yml
-  - stock/stock.yml
+  - ~{technique/technique.yml}
+  - ~{tiers/tiers.yml}
+  - ~{commande/commande.yml}
+  - ~{stock/stock.yml}

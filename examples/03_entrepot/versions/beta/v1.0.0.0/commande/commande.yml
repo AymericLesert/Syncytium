@@ -18,7 +18,7 @@ allow:
   delete: false
 
 entities:
-  - commande_vente/commande_vente.yml
-  - ligne_vente/ligne_vente.yml
-  - commande_achat/commande_achat.yml
-  - ligne_achat/ligne_achat.yml
+  - ~{commande_vente/commande_vente.yml}
+  - ~{ligne_vente/ligne_vente.yml}
+  - ~{commande_achat/commande_achat.yml}
+  - ~{ligne_achat/ligne_achat.yml}

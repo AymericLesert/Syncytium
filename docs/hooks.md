@@ -62,11 +62,11 @@ ci-dessus est la convention du cas 1.)*
 
 ```yaml
 # hooks/hooks.yml — l'étage des familles (D777)
-operations: operations/operations.yml
+operations: ~{operations/operations.yml}   # la référence explicite (D956)
 
 # hooks/operations/operations.yml — la liste des fiches (le pattern D806)
 operations:
-  - .*/.*\.yml
+  - ~{.*/.*\.yml}
 
 # hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
 name: dupliquer

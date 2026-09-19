@@ -15,7 +15,7 @@ description: Une échéance du financement — la ligne du tableau CREDIT | LOA
 label: "${name}"
 
 # La liste des champs de l'entité
-fields: fields.yml
+fields: ~{fields.yml}
 
 # La déclaration de la présentation graphique — le morceau 4
-gui: gui.yml
+gui: ~{gui.yml}

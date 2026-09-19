@@ -15,7 +15,7 @@ identity: [document, ligne, indice, composant, article, date, heure]
 # l'opt-out (D168/D411) — le mouvement ne s'historise pas (D882)
 history: false
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - quantite != 0

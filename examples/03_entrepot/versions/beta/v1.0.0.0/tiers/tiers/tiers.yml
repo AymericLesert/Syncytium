@@ -10,7 +10,7 @@ description: Un tiers de l'entreprise — l'identité, l'adresse, les coordonné
 label: "{code} — {nom}"
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - date_modification >= date_creation if date_modification != null

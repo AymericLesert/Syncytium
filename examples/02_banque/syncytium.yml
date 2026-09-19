@@ -9,8 +9,8 @@ description: Gestion des comptes bancaires domestiques
 
 # Liste des environnements d'exécution
 
-environments: environments/environments.yml
+environments: ~{environments/environments.yml}
 
 # Liste des versions de l'application
 
-versions: versions/versions.yml
+versions: ~{versions/versions.yml}

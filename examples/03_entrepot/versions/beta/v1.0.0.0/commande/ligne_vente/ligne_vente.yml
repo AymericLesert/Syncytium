@@ -10,7 +10,7 @@ label: "{numero} — {article}"
 identity: [numero]
 history: true
 
-fields: fields.yml
+fields: ~{fields.yml}
 
 validation:
   - quantite > 0

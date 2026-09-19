@@ -17,4 +17,4 @@ release-notes: >
 # Pour l'exemple, nous n'avons qu'un seul module
 
 modules:
-  - satisfaction/satisfaction.yml
+  - ~{satisfaction/satisfaction.yml}

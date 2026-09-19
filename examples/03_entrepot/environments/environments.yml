@@ -4,5 +4,5 @@
 # copie de la base PMI et un entrepôt d'essai — la question 10 du cadrage
 # (D945) ; les versions beta y vivent (D805).
 
-production: production/production.yml
-staging: staging/staging.yml
+production: ~{production/production.yml}
+staging: ~{staging/staging.yml}

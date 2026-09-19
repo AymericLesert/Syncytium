@@ -6,5 +6,5 @@ name: satisfaction
 description: La collecte des enquêtes de satisfaction
 
 entities:
-  - enquete/enquete.yml
-  - reponse/reponse.yml
+  - ~{enquete/enquete.yml}
+  - ~{reponse/reponse.yml}

@@ -5,7 +5,7 @@ icones:
   banque:
     name: banque
     description: Icone représentation la gestion du compte bancaire
-    file: icones/sac-dargent.png
+    file: ~{icones/sac-dargent.png}
     credit:
       url: https://www.flaticon.com/fr/icones-gratuites/euro
       title: euro icônes

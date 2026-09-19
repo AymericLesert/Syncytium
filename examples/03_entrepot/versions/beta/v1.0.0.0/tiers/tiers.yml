@@ -20,8 +20,8 @@ allow:
   delete: false
 
 entities:
-  - tiers/tiers.yml
-  - client/client.yml
-  - fournisseur/fournisseur.yml
-  - adresse/adresse.yml
-  - contact/contact.yml
+  - ~{tiers/tiers.yml}
+  - ~{client/client.yml}
+  - ~{fournisseur/fournisseur.yml}
+  - ~{adresse/adresse.yml}
+  - ~{contact/contact.yml}

@@ -6,6 +6,6 @@ legacy:                          # le nom de la migration
   mode: absolute                 # le tout-ou-rien (D649)
   reset: true                    # chaque passage repart de zéro
   source:
-    - source/budget.yml          # l'entité unique — les deux fichiers au même format (D816)
+    - ~{source/budget.yml}       # l'entité unique — les deux fichiers au même format (D816)
   mapping:
-    - mapping/[0-9]+_.*\.yml     # le pattern regex (D806) — l'ordre alphabétique fait les étapes (D665)
+    - ~{mapping/[0-9]+_.*\.yml}  # le pattern regex (D806) — l'ordre alphabétique fait les étapes (D665)

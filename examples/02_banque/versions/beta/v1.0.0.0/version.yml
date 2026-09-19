@@ -20,18 +20,18 @@ release-notes: >
 
 # Déclaration des ressources
 
-resources: resources/resources.yml
+resources: ~{resources/resources.yml}
 
 # Déclaration des hooks
 
-hooks: hooks/hooks.yml
+hooks: ~{hooks/hooks.yml}
 
 # Déclaration de la reprise des données historiques (le morceau R1)
 
-migrations: reprise/reprise.yml
+migrations: ~{reprise/reprise.yml}
 
 # Déclaration des modules
 # Pour l'exemple, nous n'avons qu'un seul module
 
 modules:
-  - banque/banque.yml
+  - ~{banque/banque.yml}

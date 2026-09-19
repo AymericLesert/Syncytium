@@ -1088,6 +1088,8 @@ Q58) :
 | D953 | **Les six genres de mouvement nommés** (clôt la question de D952, la source lue) : « C : Consommation · D : Déplacement · E : Expédition · F : Fabrication · I : Inventaire · R : Réception » — l'énuméré `mouvement.type` de l'entrepôt prend ces six valeurs (D893 : le vocabulaire de l'entrepôt), les sept valeurs inventées du morceau 2 (dont transfert et correction) tombent ; la garde de MVCTGENRE à la source, les codes traduits à la règle du mapping ; le sens en MVCTTYPE (E/S) confirmé par là même. | Mon « D = divers » était faux : le déplacement, dans les deux sens de l'échantillon — un mouvement de dépôt à dépôt. Voir §3.2c. |
 | D954 | **La péremption obligatoire des articles périssables — le 4e caractère du code famille** (la première règle métier de l'auteur sur le cas 3 ; applique D932/D893/D934) : « je vais ajouter une règle sur le code famille d'un article. Si le 4ème caractère est égal à "1", cela signifie que la date de péremption du produit doit être renseignée » — ARTICLE n'a pas de date de péremption, STDEPLOT en porte une par lot (DPCJPEREMP → niveau.peremption) : la convention de codage se traduit au mapping (`perissable: mid(ARCTCODFAM, 4, 1) = "1"`, un booléen de l'article — le sens, pas le code, D893 ; « et non right car un code famille peut contenir 2 à 4 caractères »), et la règle vit à la cible, sur le niveau de stock : `validation: - peremption != null if article.perissable` (la référence navigue, D396 ; la cible vérifie, D932). | La forme en deux temps est mienne — l'auteur voulait « ajouter une règle sur le code famille ». Voir §3.2c. |
 | D955 | **La validation globale à la fin du cas** (précise D899 et D947 — le protocole du cas 3) : « je validerai globalement à la fin de ce cas d'usage. Je parcourrai tous les fichiers de configuration » — les morceaux s'écrivent et se consignent au fil des arbitrages, la relecture complète de tous les fichiers de configuration par l'auteur, à la fin du cas, vaut validation définitive des morceaux 2 et 3 (et des suivants) ; le morceau 3 est clos en l'état, le morceau 4 (le mapping) s'ouvre à la prochaine session. | Voir §3.2c. |
+| D956 | **La référence de fichier explicite — `~{<fichier ou pattern>}`** (amende la forme de D320/D767/D806, complète D892) : « dans la configuration, la référence à un fichier (qui est aujourd'hui transparente) doit devenir explicite » — le `@{…}` proposé est réservé par YAML (`@` ne peut ouvrir un scalaire nu), `${…}` est déjà l'interpolation ; les sigles testés à l'analyseur en bloc, en liste, en flux et avec une regex : seuls ceux hors des indicateurs YAML tiennent — **« je choisis ~{<nom de fichier ou pattern>} »** : toute valeur de configuration qui désigne un fichier ou un pattern de fichiers (D806) s'écrit `~{…}` (`fields: ~{fields.yml}`, `- ~{source/.*\.yml}`, `description: ~{documentation.md}`, `code: ~{source.txt}`, `file: ~{icones/x.png}`), la valeur nue est un littéral — l'ambiguïté disparaît, l'ingestion refuse le fichier non marqué ; en collection de flux (`[ … ]`) l'accolade oblige les guillemets simples — la règle 1 de D892 gagne cette situation, la règle 2 (la forme bloc) s'applique d'elle-même. | Les 151 références des quatre exemples (69 fichiers) réécrites, les artefacts (entity, hooks, mapping, composants) alignés ; les fichiers de données d'un connecteur (`entities:` D819/D828, les journaux de logging.yml) ne sont pas de la configuration et restent nus — ma lecture, à confirmer. Voir §3.2c. |
+| D957 | **Le module `chat` du socle — un LLM en connecteur, la connaissance sous les droits de l'utilisateur, l'anonymisation avant l'envoi, tout échange tracé** (ouvre un chantier ; amende D619 sur le nombre de familles, s'appuie sur D408/D416/D666, D886, D695–D696, D917–D918, D925–D926) : « je souhaite inclure un module "Chat" qui puisse intégrer un appel à une LLM pour répondre aux questions en se basant sur la somme des connaissances de l'instance de Syncytium » — (1) **la connaissance** : « les données, les descriptions, dans la limite des autorisations accordées à l'utilisateur sur la consultation des données » ; le modèle atteint l'instance **par l'API versionnée au porteur de l'utilisateur ou par la librairie interne du modèle, celle des hooks de fonctions** — « l'utilisation de l'API est une possibilité mais il peut également utiliser la librairie interne du modèle qui sera utilisée sur les hooks de fonctions » ; (2) **« le LLM sera un connecteur »** — la neuvième famille `llm` (`provider`, `model`, `api_key*: ${VAR}` — les noms miens, « ok pour tes noms ») ; (3) **le RGPD** : « l'anonymisation sera appliquée avant tout envoi » — les champs `personal` (D695) anonymisés (D696) avant que la question et son contexte quittent l'instance, **sauf ce qui revient à l'utilisateur** : « si l'utilisateur est concerné, il aura droit à ses informations ; s'il a un niveau de droits suffisants, il aura aussi accès aux informations » ; (4) **la surface : « un écran au catalogue présent au socle »** — la fiche `chat` de composants.md ; (5) **la trace** : « tous les échanges (questions, comme réponses) doivent être tracés pour historisation ou pour analyse en cas de fuite ou d'incidents » — les entités du module (`conversation`, `message` : l'utilisateur, l'horodatage, le connecteur, la question, le contexte transmis, la réponse), `history: true`, l'événement au journal de sécurité (D925). | Le socle gagne un module (migration D666, administration D710, chat) et une famille — D619 n'est pas contredit : le jeu reste fermé aux hooks, il s'ouvre par décision ; l'invariant 16 à security.md, l'entrée au glossaire. Le contrat de la famille, les entités du module et la fiche de l'écran sont miens, en proposition. Voir §3.2c. |
 
 ---
 
@@ -11301,6 +11303,68 @@ tous — le modèle, la source, le mapping, le pilotage. Le morceau 3 est
 clos en l'état, et le morceau 4, le mapping, s'ouvre à la prochaine
 session.
 
+**La référence de fichier explicite — `~{…}` (D956 — amende la forme
+de D320/D767/D806, complète D892).** Depuis D320, une valeur de
+configuration pouvait désigner un fichier ou un pattern de fichiers
+sans le dire : `fields: fields.yml`, `- source/.*\.yml` — seule
+l'extension distinguait le fichier du littéral. **« Dans la
+configuration, la référence à un fichier (qui est aujourd'hui
+transparente) doit devenir explicite. Je propose d'utiliser la norme
+@{<nom de fichier ou pattern>}. »** Le `@` est un indicateur réservé
+de YAML — il ne peut ouvrir un scalaire nu, l'analyseur refuse — et
+`${…}` est déjà l'interpolation des variables et des settings. Les
+candidats passés à l'analyseur, en bloc, en liste, en collection de
+flux et avec une regex : `%`, `&`, `*`, `!`, `|`, `#`, `@` échouent
+partout (les indicateurs) ; `~`, `^`, `=`, `/`, `<` tiennent ; et
+toute forme à accolade, `${…}` compris, échoue en collection de flux
+— l'accolade y ouvre une carte. **« Je choisis ~{<nom de fichier ou
+pattern>}. »** La règle : toute valeur qui désigne un fichier ou un
+pattern (D806) s'écrit `~{…}` — `fields: ~{fields.yml}`, `- ~{source/
+.*\.yml}`, `description: ~{documentation.md}`, `code: ~{source.txt}`,
+`file: ~{icones/sac-dargent.png}` — la valeur nue est un littéral,
+l'ingestion refuse un fichier non marqué ; en collection de flux
+l'accolade oblige les guillemets simples (la règle 1 de D892 gagne
+cette situation), et la forme bloc s'impose d'elle-même (la règle 2).
+Les cent cinquante et une références des quatre exemples réécrites
+(soixante-neuf fichiers), les artefacts alignés. *Ma lecture du
+périmètre, à confirmer : les fichiers de données d'un connecteur
+(`entities:` — D819/D828, les journaux de logging.yml) ne sont pas de
+la configuration et restent nus.*
+
+**Le module `chat` du socle (D957 — ouvre un chantier ; amende D619
+sur le nombre de familles).** **« Dans les fonctionnalités de base
+fournies par Syncytium, je souhaite inclure un module "Chat" qui
+puisse intégrer un appel à une LLM pour répondre aux questions en se
+basant sur la somme des connaissances de l'instance de Syncytium. »**
+Cinq axes posés, cinq réponses. **La connaissance** : « les données,
+les descriptions, dans la limite des autorisations accordées à
+l'utilisateur sur la consultation des données » — le chat ne sait
+jamais plus que celui qui lui parle (D886/D885) ; le modèle atteint
+l'instance par l'API versionnée au porteur de l'utilisateur
+(D917–D918) **ou par la librairie interne du modèle, celle des hooks
+de fonctions** — « l'utilisation de l'API est une possibilité mais il
+peut également utiliser la librairie interne du modèle qui sera
+utilisée sur les hooks de fonctions » ; les droits s'appliquent
+d'eux-mêmes, aucune seconde couche. **« Le LLM sera un connecteur »**
+— la neuvième famille, `llm` (`provider`, `model`, `api_key*: ${VAR}`
+par la marque `*` de D944 — les noms miens, « ok pour tes noms ») ;
+D619 fermait le jeu aux hooks, il s'ouvre par décision. **Le RGPD** :
+« l'anonymisation sera appliquée avant tout envoi » — les champs
+`personal` (D695) anonymisés (D696) avant que la question et son
+contexte quittent l'instance, **sauf ce qui revient à l'utilisateur** :
+« si l'utilisateur est concerné, il aura droit à ses informations ;
+s'il a un niveau de droits suffisants, il aura aussi accès aux
+informations ». **La surface** : « un écran au catalogue présent au
+socle » — la fiche `chat` de composants.md, la huitième surface. **La
+trace** : « tous les échanges (questions, comme réponses) doivent être
+tracés pour historisation ou pour analyse en cas de fuite ou
+d'incidents » — les entités du module (`conversation`, `message` :
+l'utilisateur, l'horodatage, le connecteur, la question, le contexte
+transmis, la réponse), historisées, l'événement au journal de
+sécurité (D925). Le socle compte désormais trois modules — migration
+(D666), administration (D710), chat. *Le contrat de la famille, les
+entités et la fiche sont miens, en proposition.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21296,6 +21360,28 @@ avant la synthèse Q16).
   morceau 5, le pilotage et la restitution. L'outil de technicien
   (gen_source.py, columns.tsv) rangé hors dépôt dans
   Workspace/outils/.
+- **2026-09-19 (reprise, nouvelle session) — LE MORCEAU 4 OUVERT ; DEUX
+  POINTS DE PROJET (D956–D957, 957 décisions).** Le mapping du cas 3
+  ouvert par le plan des étapes (001–021 : les référentiels, les
+  tiers, les articles et leurs dérivés, la nomenclature, les tarifs,
+  les commandes, les stocks) et **le lot 1 écrit** — 001 à 008 : les
+  dépôts et les emplacements par `distinct:` (D658), FOURNIS et CLIENT
+  vers les enfants du tiers, ADRESSE et CONTACT en deux règles filtrées
+  sur le type de compte (D950), `report:` par règle (D929/D945) — sept
+  frottements présentés (le constructeur `geolocation` à trois
+  arguments, la base d'échéance, les codes à traduire, l'identité de
+  l'emplacement, les référentiels depuis STDEPLOT seule, les libellés
+  en enrichissement, le mode de règlement), en attente d'arbitrage.
+  Puis deux points de l'auteur, hors du cas : **D956** la référence de
+  fichier explicite — `@{…}` refusé par YAML, les sigles testés à
+  l'analyseur, « je choisis ~{<nom de fichier ou pattern>} » ; les 151
+  références des exemples réécrites, les artefacts alignés ; **D957**
+  le module `chat` du socle — le LLM en connecteur (la neuvième
+  famille `llm`), la connaissance sous les droits de l'utilisateur par
+  l'API ou la librairie interne des hooks, l'anonymisation avant tout
+  envoi sauf le propre de l'utilisateur, un écran au catalogue, tout
+  échange tracé ; connectors.md, security.md (l'invariant 16),
+  composants.md (la fiche `chat`), le glossaire.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

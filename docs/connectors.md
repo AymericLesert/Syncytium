@@ -243,13 +243,12 @@ synchronisation des comptes et des groupes, les affectations restant
 des actes d'administration (D341/D210). *(L'authentification — la
 passerelle D418 — flaguée pour le chantier sécurité.)*
 
-### `file` (D634–D635)
+### `file` (D634–D635, D972–D973)
 
 | la méthode | le rôle |
 |---|---|
-| `files(pattern)` | la liste des fichiers au motif — **la liste vide admise** ; le nom `files` (D972 — « le résumé à files est suffisant », `get_files` d'origine) ; **appelable dans une règle du mapping par le rôle du connecteur** (D617/D972) : `plans: plans.files(ARCTFICPLA)` — chaque fichier rendu avec ses descripteurs (le type `file`, D972) |
-| `get_file(filename)` | la lecture — **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » |
-| `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… |
+| `files(pattern)` | la liste des fichiers au motif, **chacun avec ses descripteurs** (le type `file`, D972 — `.relativepath`, `.fullname`, `.filename`, `.pathname`, `.size`, `.created`, `.modified`, `.hash`) — **la liste vide admise** ; **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » ; le contenu se lit par la valeur `file` elle-même (D973 — `get_file` absorbé : « get_file devient files ») ; **appelable dans une règle du mapping par le rôle du connecteur** (D617/D972) : `plans: plans.files(ARCTFICPLA)` |
+| `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… ; **appelé par le moteur** (D973), d'office, quand l'opération déclenchée par le guetteur a réussi — jamais par une règle ; en échec, le fichier reste en place |
 
 **Le thread d'écoute** (D635) : « `every:` est utilisé sur `connect`
 ou `initialize` pour démarrer un thread dédié à l'écoute des

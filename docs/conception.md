@@ -1105,6 +1105,7 @@ Q58) :
 | D970 | **La devise de l'entreprise en setting — `currency:` à settings.yml, lue par `context.settings.currency`** (applique D588/D771 — le frottement 3 du lot 2 du cas 3) : les prix de l'article (ARCNPRS, ARCNPMP, ARCNPUACH1) sont des `amount` sans colonne de devise chez PMI — la monnaie de l'entreprise, implicite ; trois voies posées — le setting de l'instance (`currency: EUR`, `amount(ARCNPRS, context.settings.currency)`), la devise lue chez PMI par une entité alias (D965/D966), une devise par défaut au type `amount` : **« je valide A »** — le setting, écrit une fois, lu par toute règle ; l'entrepôt d'une autre entreprise change un mot. | `settings.yml` du cas 3 gagne `currency: EUR` ; le bloc `articles/fields.yml` la lit. Voir §3.2c. |
 | D971 | **Le constructeur `list(…)` — les vides tombent, l'ordre des arguments, la liste nettoyée de ses doublons, le typage commun** (applique D579/D659 à la collection — le frottement 4 du lot 2 du cas 3) : plusieurs colonnes vers une liste — `matieres: list(ARCTCODMA1, …, ARCTCODMA9)`, `fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)` — par la fonction qui porte le nom du type, comme `amount(v, devise)` ; le même mot est l'agrégat de D965 (la valeur porte sa méthode, le type sa fonction) ; quatre règles proposées — (1) les vides tombent (la chaîne vide, le nul — une liste ne contient pas « rien »), (2) l'ordre est celui des arguments, (3) les doublons restent, la cible tranche, (4) tous les arguments du même type ou la promotion sans perte (D581), le résultat `list of <ce type>`, la référence résolue par la clé (D654) : **« le point 1 est valide et la liste est nettoyée des doublons »** — la règle 3 inversée : `list` dédoublonne d'office, le premier des égaux garde sa place. | types.md au niveau ; le bloc de l'article tel quel. Voir §3.2c. |
 | D972 | **Le fichier par le connecteur, dans la règle : `<rôle>.files(motif)` ; le type `file` porte ses descripteurs — le nom, la taille, les dates, l'empreinte si `hash: true` — et le différentiel les compare** (précise D634/D883/D672/D160 — le frottement 5 du lot 2 du cas 3) : `article.plans: list of file` se remplit par le connecteur `plans` (D883) ; deux formes posées — le constructeur `file(<connecteur>, <nom>)` emboîté dans `list(…)`, ou le geste du contrat appelé sur le connecteur par son rôle (D617), comme `cache.push` (D821) et `connector.line` (D845) : **« je valide B. Au lieu de get_files, le résumé à files est suffisant. Il peut rendre une liste vide »** — `plans: plans.files(ARCTFICPLA)`, le geste `files(motif)` au contrat de la famille `file` (D634 amendé : `get_files` devient `files`), la liste vide = l'article sans son plan, pas un rejet ; le connecteur injoignable arrête (D626) ; **la relecture** : « la question ne devrait pas se poser car nous avons un type de données "file" contenant le nom du fichier et ses attributs (descripteurs). Par conséquent, le type "file" contient l'information concernant le nom du fichier, sa taille, sa date de création, sa date de dernière modification, éventuellement une clé de hashage si la propriété file "hash" est "true". Ainsi, la détection d'un fichier en écart pour une potentielle relecture se devine » — la valeur `file` = les descripteurs, le contenu derrière ; le différentiel (D672) compare les descripteurs, le contenu n'est relu qu'à l'écart ; la facette **`hash: true`** au champ `file` ajoute l'empreinte aux descripteurs. | Les parties au point (D772) : **`.relativepath`** — « le nom du fichier apparent ou saisi » (la valeur d'`ARCTFICPLA`, relative au répertoire du connecteur), **la partie portée** ; **`.fullname`, `.filename`, `.pathname`** — le chemin complet, le nom seul, le répertoire — **« recalculés en fonction pour rendre ces items »** (l'auteur : « .fullname, .filename, pathname pour remplacer .name », puis « ajoute .relativepath ») ; puis `.size`, `.created`, `.modified`, `.hash` (les quatre derniers miens) ; types.md et connectors.md au niveau ; ma règle de relecture « par le nom ou la date » retirée, absorbée par les descripteurs. Voir §3.2c. |
+| D973 | **Le contrat de la famille `file` à deux gestes — `files(motif)` et `commit(fichier)` ; le moteur appelle `commit`** (amende D634, précise D635/D972) : la question de l'usage de `commit` — le patron de la boîte de dépôt : le fichier consommé (une commande EDI, un relevé) est acquitté, renommé ou déplacé vers le dossier configuré pour ne pas être relu ; aucun usage au cas 3, où les plans sont consultés, pas consommés ; qui l'appelle, et le nom de la lecture : **« le moteur appelle commit ; get_file devient files »** — `commit` est la fin du geste, appelé d'office par le moteur quand l'opération déclenchée par le guetteur (D635/D609) a réussi, jamais une ligne de règle ; `get_file` disparaît : `files(motif)` rend la liste des fichiers **avec leurs descripteurs** (D972), à la garde de stabilité (« attendre qu'un fichier en cours d'écriture soit terminé »), et **le contenu se lit par la valeur `file` elle-même** — le type porte l'accès au contenu derrière les descripteurs (D160/D972), le storage de format (D636) le consomme. | Ma lecture : un seul geste de lecture, le contenu par le type — à corriger si `get_file` devait subsister sous un autre nom ; en échec de l'opération, le fichier reste en place (le dossier d'erreur, un paramètre possible — mien, non proposé). connectors.md au niveau. Voir §3.2c. |
 
 ---
 
@@ -11688,6 +11689,21 @@ relative au répertoire du connecteur, **la seule partie portée** ; et
 **`.pathname`** le répertoire — « recalculés en fonction pour rendre
 ces items » ; puis `.size`, `.created`, `.modified`, `.hash`, miens.
 
+**Le contrat `file` à deux gestes, `commit` par le moteur (D973 —
+amende D634).** « À quoi vois-tu l'usage de commit ? » — au seul
+patron de la boîte de dépôt : le fichier consommé par le guetteur
+(D635) — une commande EDI, un relevé — est acquitté, renommé ou
+déplacé vers le dossier configuré pour ne pas être relu ; le cas 3
+n'en a pas l'usage, ses plans sont consultés, pas consommés. Restait
+qui l'appelle, et le nom de la lecture : **« le moteur appelle commit
+; get_file devient files. »** L'acquittement est la fin du geste — le
+moteur l'appelle d'office quand l'opération déclenchée a réussi,
+jamais une règle ; et la lecture n'a plus de geste à part : `files`
+rend les fichiers avec leurs descripteurs, la garde de stabilité
+comprise, et le contenu se lit par la valeur `file` elle-même — le
+type porte l'accès, le storage de format le consomme (D636). *Ma
+lecture d'un geste unique ; en échec, le fichier reste en place.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21766,8 +21782,11 @@ avant la synthèse Q16).
   commun. **D972** le frottement 5 — `plans: plans.files(ARCTFICPLA)`,
   le geste `files` au contrat, la liste vide admise ; le type `file`
   porte ses descripteurs (nom, taille, dates, l'empreinte si `hash:
-  true`), le différentiel les compare — ma règle de relecture retirée.
-  La suite : le lot 2, les articles —
+  true`), le différentiel les compare — ma règle de relecture retirée ;
+  `.relativepath` la partie portée, `.fullname`/`.filename`/`.pathname`
+  recalculés. **D973** le contrat `file` à deux gestes — `files(motif)`
+  avec les descripteurs, `commit` appelé par le moteur à la fin de
+  l'opération réussie ; `get_file` absorbé. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

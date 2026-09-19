@@ -117,12 +117,13 @@ connector: { storage: main_db, from: legacy_db }
   cas de l'affichage d'une carte, nous pouvons définir plusieurs
   connecteurs et, en fonction de l'écran, utiliser l'un ou l'autre ».
 
-## Les huit familles (D623/D692) et le catalogue de base (D604)
+## Les neuf familles (D623/D692/D957) et le catalogue de base (D604)
 
-**Le jeu est clos** (D619) — huit familles, « route est un exemple
+**Le jeu est clos aux hooks** (D619) — « route est un exemple
 d'extension ultérieure » (l'extension = l'affaire du moteur, jamais
-du hook) ; **la famille contraint le contrat** (D620), la conformité
-d'une classe vérifiée au chargement :
+du hook) ; il s'ouvre par décision : la neuvième famille, `llm`, entre
+avec le module `chat` du socle (D957) ; **la famille contraint le
+contrat** (D620), la conformité d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
@@ -134,6 +135,7 @@ d'une classe vérifiée au chargement :
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
 | `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
+| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -335,6 +337,43 @@ dans une famille, jamais une famille neuve** : « Syncytium fournit un
 nombre limité de familles ; il n'existe pas de hook de famille »
 (D619) — le contrat de la famille à implémenter (D605), voir
 [hooks.md](hooks.md).
+
+### `llm` (D957)
+
+*(La famille née avec le module `chat` du socle — la forme du contrat
+est mienne, en proposition.)* **Le rôle** : répondre à la question
+d'un utilisateur « en se basant sur la somme des connaissances de
+l'instance » — les données et leur description, **dans la limite des
+autorisations accordées à l'utilisateur sur la consultation des
+données**. Le connecteur ne lit rien de lui-même : **le moteur lui
+tend les outils** — la lecture de l'instance par l'API versionnée au
+porteur de l'utilisateur (D917–D918) ou par la librairie interne du
+modèle, celle des hooks de fonctions ; les droits (D886), la
+confidentialité (D885) et l'audience s'appliquent d'eux-mêmes, aucune
+seconde couche.
+
+- **la déclaration** : `type: llm`, `parameters: { provider: …,
+  model: …, api_key*: ${VAR} }` — le secret par la marque `*` (D944) ;
+  les classes à consigner (un service en ligne, un modèle local) ;
+- **le geste** : `ask(conversation, tools) : message` — la
+  conversation (les messages précédents, la question), les outils
+  tendus par le moteur (la description de l'instance comme mode
+  d'emploi — D44, la lecture sous le porteur) ; la réponse est un
+  message ;
+- **le RGPD, avant le connecteur** : « l'anonymisation sera appliquée
+  avant tout envoi » — le moteur anonymise (D696) les champs
+  `personal` (D695) de tout ce qui part vers le modèle, **sauf ce qui
+  revient à l'utilisateur** : ses propres informations, et celles que
+  son niveau de droits lui ouvre ; le connecteur ne voit jamais le
+  clair d'autrui ;
+- **la trace, après le connecteur** : chaque question et chaque
+  réponse s'écrit dans les entités du module `chat` (`conversation`,
+  `message` — l'utilisateur, l'horodatage, le connecteur, le contexte
+  transmis), historisées ; l'événement au journal de sécurité (D925)
+  — « pour historisation ou pour analyse en cas de fuite ou
+  d'incidents » ;
+- **la condition indispensable** (D626) : le connecteur injoignable
+  = le chat indisponible, jamais une réponse inventée.
 
 ## Les déclencheurs et les échanges
 

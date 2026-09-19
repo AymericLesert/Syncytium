@@ -68,6 +68,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 | **Le RGPD** | le client responsable, le marquage `rgpd:`, l'anonymisation, la rétention, le registre | D16, D137, D139, D695–D698, D703 | [rights.md](rights.md), §6.6 |
 | **Les secrets et le chiffrement** | la marque `*` (D944), l'empreinte jamais le clair, le `.env` chiffré, HTTPS sans dérogation, le type chiffrant | D33, D463, D603, D705–D708, D730, D901–D902, D915–D916, D919 | [rights.md](rights.md) |
 | **La disponibilité** | les fusibles (timeout, rate limiting, cooldown), la condition indispensable, le passif, la sauvegarde | D58, D104–D105, D112–D114, D164, D626–D627, D724–D729, D745, D907–D912, D915, D921–D922, D928 | [administration.md](administration.md), §7.3 |
+| **Le chat** | la connaissance sous les droits du demandeur, l'anonymisation avant tout envoi sauf le propre de l'utilisateur, tout échange tracé | D957 | [connectors.md](connectors.md), [composants.md](composants.md) |
 
 ## L'identité et les comptes
 
@@ -572,7 +573,11 @@ Ce que toute implémentation devra prouver, décision par décision :
     validation, ni concurrence (D599) ;
 14. la donnée en avance sur le moteur est refusée (D93) ;
 15. une alerte de sécurité ne peut se taire — le seuil absent = le
-    défaut global (D51).
+    défaut global (D51) ;
+16. le chat ne sait jamais plus que l'utilisateur qui l'interroge ;
+    rien de personnel ne quitte l'instance sans anonymisation, hors ce
+    qui revient à l'utilisateur ; aucun échange — question ou réponse
+    — sans trace (D957).
 
 ## Les points ouverts
 

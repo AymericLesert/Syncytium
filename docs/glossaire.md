@@ -27,6 +27,14 @@ plus.* *(D118)*
 **Champ calculé** (`computed`) — Un champ dont la valeur est déduite par une opération. Par nature, cette information n'est pas modifiable par un utilisateur. Elle se rafraîchit en fonction des évolutions de valeurs de champs dont il dépend.
 *Ex. : `total_orders: { computed: count(orders) }`.* *(D90)*
 
+**Chat** (`chat`, le module du socle) — L'écran où l'utilisateur
+interroge en langue naturelle la somme des connaissances de l'instance
+— les données et leur description — par un modèle de langage déclaré
+en connecteur (`llm`). Le chat ne sait que ce que l'utilisateur peut
+consulter ; les données personnelles sont anonymisées avant tout
+envoi, hors celles qui lui reviennent ; chaque question et chaque
+réponse sont tracées. *(D957)*
+
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut
 changer un jour ; l'identité technique, elle, jamais.

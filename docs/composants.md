@@ -33,7 +33,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
 ## L'inventaire (D456)
 
 - **Les surfaces** : `form` · `summary` · `wizard` · `widget` · `list`
-  · `dashboard` · `template` ;
+  · `dashboard` · `template` · `chat` (la huitième, au socle — D957) ;
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
   saut de page) · `sections` (l'organisateur — D489) · `section` (le regroupement potentiellement nommé) ·
   `tabs`/`tab` ;
@@ -2852,7 +2852,7 @@ templates:
     header:
       height: 40mm
       items:
-        - picture: logo.png        # l'image fixe (D488)
+        - picture: ~{logo.png}     # l'image fixe (D488), la référence explicite (D956)
         - field[number]: { component: qrcode, size: 25mm }   # (D543)
     page:
       - field[customer]
@@ -2867,4 +2867,54 @@ templates:
     page:
       - field[sku]: { component: qrcode, size: 30mm }
       - field[name]
+```
+
+## `chat`
+
+*(La huitième surface — née avec le module `chat` du socle, D957 ;
+la fiche est mienne, en proposition.)*
+
+1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
+   du module `chat` fourni par Syncytium (comme `migration` D666 et
+   `administration` D710) ; le menu l'adresse — `chat[main]` (D439) ;
+2. **Rôle** — **la question en langue naturelle à la somme des
+   connaissances de l'instance** — les données et leur description —,
+   la réponse d'un modèle de langage déclaré en connecteur (`llm`) ;
+3. **Types servis** — la conversation : le fil des messages (le
+   composant `thread` — D295), la question de l'utilisateur, la
+   réponse du modèle ;
+4. **Contexte consommé** — **l'utilisateur et ses droits** (D886, la
+   confidentialité D885, l'audience) : le modèle ne lit l'instance que
+   par l'API au porteur de l'utilisateur ou par la librairie interne
+   des hooks de fonctions — « dans la limite des autorisations
+   accordées à l'utilisateur sur la consultation des données » ; le
+   connecteur `llm` de l'environnement (D617) ;
+5. **Propriétés** — `title:` (D449/D465) ; `screen:` (D450/D532) ;
+   `connector:` — le rôle nommé du connecteur `llm` (D617) ; *(en
+   proposition)* `context:` — les modules que le chat peut consulter,
+   tous par défaut ;
+6. **Items** — aucun : la surface est le fil et sa saisie ;
+7. **Modes et déclinaisons** — **PC et tablette** : le fil et la
+   saisie en bas (D295), les conversations passées en liste latérale ;
+   **smartphone** : le fil en plein écran ; **template** : sans objet ;
+8. **États et interactions** — la question part **après
+   l'anonymisation** des champs `personal` (D695/D696) de tout le
+   contexte transmis, hors ce qui revient à l'utilisateur ; **chaque
+   question et chaque réponse s'écrivent** dans `chat.conversation` et
+   `chat.message` (historisées — D411), l'événement au journal de
+   sécurité (D925) ; le connecteur injoignable = l'écran l'annonce,
+   jamais une réponse inventée (D626) ;
+9. **Décisions fondatrices** — D295, D439, D449–D450, D465, D617,
+   D626, D695–D696, D885–D886, D917–D918, D925, D957 ;
+10. **Exemple de configuration** —
+
+```yaml
+# le module chat du socle — rien à déclarer chez le client, sinon le
+# connecteur llm de l'environnement (connectors.yml — D617)
+assistant:
+  type: llm
+  parameters:
+    provider: …
+    model: …
+    api_key*: ${LLM_API_KEY}       # la marque * — le secret chiffré (D944/D902)
 ```

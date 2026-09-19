@@ -17,11 +17,10 @@ article:
   label:
     fr: Article
 
-designation:
-  # le libellé de la ligne chez PMI, sinon celui de l'article
-  type: text[..40]
-  label:
-    fr: Désignation
+# la désignation de la ligne n'est plus ici : « le commentaire d'une ligne
+# d'une commande d'achat ou de vente est présent dans une autre table
+# LIBEL40… que nous ne décrirons pas ici » (D989) — LIBEL40 ignorée,
+# LCCTLIB01/LCCTLIB02 non lues
 
 # --- les quantités ---
 

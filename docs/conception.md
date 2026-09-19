@@ -1121,6 +1121,7 @@ Q58) :
 | D986 | **La famille est le code sans son drapeau — `left(ARCTCODFAM, 3)` porté à la source en calculé ; `extract` et `like`, les fonctions du texte à regex** (précise D954/D946, applique D660/D931 — le frottement 7 du lot 2 du cas 3) : ARCTCODFAM fait 2 à 4 caractères, le 4e à « 1 » marque le périssable (D954) — la famille est-elle le code privé de ce 4e caractère (`MAT1` et `MAT` la même famille) ? **« je confirme, porte left à la source »** — le calculé `famille_code: left(ARCTCODFAM, 3)` sur `source/ARTICLE.yml` (la normalisation à la source, la règle consomme la colonne nue — D660/D931), la règle `famille: famille_code.select(MAT: "matiere", …)` aux codes inventés (D946/D963) ; « a-t-on une fonction sur une chaîne de caractères portée par une expression régulière pour trouver une sous-chaîne ? » — oui, au catalogue (D934) : `extract(t, 'regex')` rend la capture (D817 — unique, ou plusieurs par les groupes nommés ; le couple Dépôt.Emplacement de PARAM s'en sert), `t like 'regex'` compare (D818) ; `extract(ARCTCODFAM, '^(.{1,3})')` dirait la même chose que `left`, gardé pour sa simplicité. | La sous-famille (ARCTCOSFAM) reste traduite telle quelle, ses codes inventés. Voir §3.2c. |
 | D987 | **Le type `barcode`, la nature du code en paramètre — `barcode(ean, ARCTEAN13)`** (ajoute un composé à D391, s'appuie sur D300 — le frottement 8 du lot 2 du cas 3) : `ARCTEAN13` est un `nchar(20)`, `article.ean13` un `text[13]` — D581 refuse la conversion avec perte, `left(ARCTEAN13, 13)` la rendait explicite mais fabriquait un faux code sans le voir ; trois voies posées — `left`, la garde `like` dans la règle, un type à validation intégrée : **« plutôt que ean, barcode me convient avec un type de code-barres en paramètre. Exemple : barcode(ean, ARCTEAN13) »** — le composé `barcode`, de la famille de `siret`/`iban`/`bic` (« la validation intégrée suffit », D391), **la nature du code en paramètre** — ean (13 chiffres et la clé de contrôle), ean8, upc, code128, qr… — et le constructeur `barcode(<nature>, valeur)` qui valide à l'exécution, comme `amount(v, devise)` ; une valeur présente et fausse = un champ non conforme = l'enregistrement rejeté au rapport (D933) ; la sortie code-barres (D300, le composant `barcode`/`qrcode`) s'appuie sur un type qui sait ce qu'il porte. | La déclaration `type: barcode[ean]` (la nature au crochet, comme `date[yyyy-mm]`, `image[512x512]`) et la liste des natures sont miennes ; le modèle : `article.ean13: barcode[ean]` sans masque ; la règle : `ean13: barcode(ean, ARCTEAN13)`. **Le composant `barcode` existait** (D300, la fiche D542–D545 — « le format au crochet », `barcode[ean13]`, en proposition) : la fiche est alignée — la nature vient du type quand le champ est un `barcode`, le crochet ne sert plus qu'à un champ texte rendu en code-barres ; le nom de la nature, `ean` (l'auteur) ou `ean13` (la fiche), à trancher. **Retirée par D988.** Voir §3.2c. |
 | D988 | **Pas de type `barcode` : la valeur d'un code-barres est un texte, `barcode` est une facette du champ texte** (retire D987, précise D300/D542, D366) : « ok, je comprends mieux… la valeur du code-barres est un texte. La facette est un barcode. Pas besoin de créer un nouveau type » — le champ reste `text`, la facette **`barcode: <nature>`** (ean13, ean8, code128, qr… — la liste de D542) dit ce que le texte encode ; **la facette valide** (les 13 chiffres et la clé de contrôle pour l'EAN 13 — comme `mask` gouverne la saisie, D370) ; **le composant de sortie** (D300, la fiche D542–D545) lit la facette pour rendre les barres — plus de crochet au composant pour un champ facetté, le crochet restant pour un texte sans facette ; la règle du mapping : `ean13: left(ARCTEAN13, 13)` — la troncature explicite que D581 exige d'un `nchar(20)` vers un `text[13]` ; une valeur fausse ou trop longue échoue à la facette, l'article est rejeté au rapport — rien n'est fabriqué en silence. | `article.ean13: { type: text[13], barcode: ean13 }` ; types.md (la facette au texte, la ligne du type retirée), composants.md (la fiche, la synthèse) alignés ; `ean13` retenu comme nom de la nature (D542). Voir §3.2c. |
+| D989 | **La désignation de la nomenclature est NOCTLIBCOM ; celle des lignes de commande vit dans LIBEL40, hors de l'exemple — le champ retiré, la table ignorée** (corrige le morceau 2 — le frottement 9 du lot 2 du cas 3) : `nomenclature.designation` et `ligne_vente`/`ligne_achat.designation` n'avaient pas de colonne juste (le morceau 2 prêtait la première à NOCTCOMCPT, le complément du code) ; le schéma en a — NOCTLIBCOM `nchar(40)`, LCCTLIB01/LCCTLIB02 `nchar(30)`, LCCTTYPLIB : « dans la pratique, le commentaire d'une ligne d'une commande d'achat ou de vente est présent dans une autre table LIBEL40… que nous ne décrirons pas ici. Par conséquent, nous allons l'ignorer pour l'exemple » ; « pour la nomenclature, c'est bien NOCTLIBCOM » — `nomenclature.designation` lue de NOCTLIBCOM (la règle 017) ; `designation` retiré des deux lignes de commande, LCCTLIB01/02 et LCCTTYPLIB non lues ; `source/LIBEL40.yml` = `LIBEL40: ignored` (D657 — l'écart volontaire, compté dans la complétude, pas dans la couverture). | Le repli sur le libellé de l'article quand la désignation est vide (un calculé à la cible) — mien, non proposé pour l'exemple. Voir §3.2c. |
 
 ---
 
@@ -11977,6 +11978,21 @@ explicite que D581 exige — et ce qui m'inquiétait tombe : une valeur
 fausse ou trop longue échoue à la facette, l'article est rejeté au
 rapport, rien n'est fabriqué en silence.
 
+**La désignation : NOCTLIBCOM pour la nomenclature, LIBEL40 hors de
+l'exemple pour les lignes (D989 — corrige le morceau 2).** Trois
+champs `designation` sans colonne juste — le morceau 2 prêtait celui
+de la nomenclature à NOCTCOMCPT, qui est le complément du code du
+composant. Le schéma en a de vraies : NOCTLIBCOM sur NOMENC, LCCTLIB01
+et LCCTLIB02 sur les lignes de commande. **« Dans la pratique, le
+commentaire d'une ligne d'une commande d'achat ou de vente est présent
+dans une autre table LIBEL40… que nous ne décrirons pas ici. Par
+conséquent, nous allons l'ignorer pour l'exemple. »** Et : **« pour la
+nomenclature, c'est bien NOCTLIBCOM. »** La nomenclature lit donc sa
+désignation ; les deux lignes de commande perdent le champ, leurs
+colonnes de libellé restent non lues, et LIBEL40 se déclare ignorée —
+l'écart volontaire de D657, compté dans la complétude du schéma, pas
+dans la couverture.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22099,8 +22115,10 @@ avant la synthèse Q16).
   `barcode(ean, ARCTEAN13)` ; `article.ean13: barcode[ean]` ; le
   composant existant (D300/D542) aligné. **D988** retire le type : la
   valeur est un texte, `barcode: ean13` une facette du champ texte qui
-  valide ; la règle `left(ARCTEAN13, 13)`. La suite : le lot 2, les
-  articles —
+  valide ; la règle `left(ARCTEAN13, 13)`. **D989** le frottement 9 —
+  `nomenclature.designation` = NOCTLIBCOM ; la désignation des lignes
+  de commande vit dans LIBEL40, hors de l'exemple : le champ retiré,
+  la table ignorée. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

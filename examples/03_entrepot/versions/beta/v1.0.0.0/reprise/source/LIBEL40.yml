@@ -1,0 +1,4 @@
+# La table LIBEL40 de PMI — 8 colonnes : les commentaires des lignes de commande (D989 — « présents dans une autre table LIBEL40… que nous ne décrirons pas ici »).
+# Analysée et écartée pour l'exemple (D657/D947) : l'écart volontaire,
+# compté dans la complétude du schéma (D861), pas dans la couverture.
+LIBEL40: ignored

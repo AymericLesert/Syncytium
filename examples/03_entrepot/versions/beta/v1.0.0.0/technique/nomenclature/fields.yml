@@ -26,8 +26,9 @@ nature:
         fr: Opération
 
 designation:
-  # NOCTCOMCPT — le commentaire du composant, sinon le libellé du
-  # composant ou de l'opération (le calcul au mapping)
+  # NOCTLIBCOM nchar(40) — le libellé du composant sur la ligne (D989 :
+  # « pour la nomenclature, c'est bien NOCTLIBCOM » ; le morceau 2 le
+  # prêtait à NOCTCOMCPT, qui est le complément du code du composant)
   type: text[..40]
   label:
     fr: Désignation

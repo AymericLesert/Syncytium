@@ -28,6 +28,7 @@ fields:
   NOCNTPSATT:  decimal                                        # → nomenclature.temps_attente
   NOCNBREOUV:  integer                                        # → nomenclature.nombre_ouvriers
   NOCNTPSOUV:  decimal                                        # → nomenclature.temps_ouverture — l'unité des temps à confirmer, la durée à la règle
+  NOCTLIBCOM:  text[40]                                       # → nomenclature.designation — le libellé du composant sur la ligne (D989)
   NOCNQTEUNI:  ignored                                        # nulle sur tout l'échantillon — la quantité est NOCNQTECOM (D946)
   NOCTUNITE:   text[2]                                        # → nomenclature.unite
   NOCNTPSPRE:  decimal                                        # → nomenclature.temps_preparation

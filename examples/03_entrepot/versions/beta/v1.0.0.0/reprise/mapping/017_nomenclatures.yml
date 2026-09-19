@@ -19,8 +19,9 @@ NOMENC:
   parent:
     article: { code: NOKTCODPF, complement: NOKTCOMPF }   # résolu dans la hiérarchie — fabrique, semi_fini ou fantome
   fields:
-    numero:    NOKNLIGNOM                     # l'identité au sein du produit (D841/D930)
-    composant: { code: NOCTCODECP, complement: NOCTCOMCPT }   # la référence par la clé composée — la même carte (D931)
+    numero:      NOKNLIGNOM                   # l'identité au sein du produit (D841/D930)
+    composant:   { code: NOCTCODECP, complement: NOCTCOMCPT }   # la référence par la clé composée — la même carte (D931)
+    designation: NOCTLIBCOM                   # le libellé du composant sur la ligne (D989)
     quantite:  NOCNQTECOM                     # « la quantité de nomenclature est NOCNQTECOM » (D946)
     unite:     NOCTUNITE
     rendement: NOCNRENDT

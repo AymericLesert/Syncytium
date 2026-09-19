@@ -16,10 +16,8 @@ article:
   label:
     fr: Article
 
-designation:
-  type: text[..40]
-  label:
-    fr: Désignation
+# la désignation de la ligne n'est plus ici : le commentaire vit dans
+# LIBEL40, hors de l'exemple (D989)
 
 # --- les quantités ---
 

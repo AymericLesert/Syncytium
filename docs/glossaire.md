@@ -31,9 +31,12 @@ plus.* *(D118)*
 interroge en langue naturelle la somme des connaissances de l'instance
 — les données et leur description — par un modèle de langage déclaré
 en connecteur (`llm`). Le chat ne sait que ce que l'utilisateur peut
-consulter ; les données personnelles sont anonymisées avant tout
-envoi, hors celles qui lui reviennent ; chaque question et chaque
-réponse sont tracées. *(D957)*
+consulter ; il répond et fournit les données, la mise à jour passe par
+les interfaces de l'application ; les données personnelles sont
+anonymisées avant tout envoi, hors celles qui lui reviennent ; chaque
+question et chaque réponse sont tracées dans une **session
+d'échanges**, adossée à un module — une session par module et par
+utilisateur. *(D957–D959)*
 
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut

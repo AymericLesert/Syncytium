@@ -355,23 +355,26 @@ seconde couche.
 - **la déclaration** : `type: llm`, `parameters: { provider: …,
   model: …, api_key*: ${VAR} }` — le secret par la marque `*` (D944) ;
   les classes à consigner (un service en ligne, un modèle local) ;
-- **le geste** : `ask(conversation, tools) : message` — la
-  conversation (les messages précédents, la question), les outils
-  tendus par le moteur (la description de l'instance comme mode
-  d'emploi — D44, la lecture sous le porteur) ; la réponse est un
-  message ;
+- **le geste** : `ask(session, tools) : message` — **la session
+  d'échanges** (D959 : adossée à un module — les questions et les
+  réponses précédentes de l'utilisateur sur ce module, puis la
+  question), les outils tendus par le moteur (la description du
+  module comme mode d'emploi — D44, la lecture sous le porteur) ; la
+  réponse est un message ;
 - **le RGPD, avant le connecteur** : « l'anonymisation sera appliquée
   avant tout envoi » — le moteur anonymise (D696) les champs
   `personal` (D695) de tout ce qui part vers le modèle, **sauf ce qui
   revient à l'utilisateur** : ses propres informations, et celles que
   son niveau de droits lui ouvre ; le connecteur ne voit jamais le
   clair d'autrui ;
-- **la trace, après le connecteur** : chaque question et chaque
-  réponse s'écrit dans les entités du module `chat` (`conversation`,
-  `message` — l'utilisateur, l'horodatage, le connecteur, le contexte
-  transmis), historisées ; l'événement au journal de sécurité (D925)
-  — « pour historisation ou pour analyse en cas de fuite ou
-  d'incidents » ;
+- **la trace, avant l'affichage** : chaque question et chaque
+  réponse s'écrit dans les entités du module `chat` — **`session`**
+  (l'utilisateur, le module, l'ouverture, le connecteur et le modèle,
+  `messages: list of message`) et **`message`** (le rang, le rôle
+  utilisateur / assistant / outil, l'horodatage, le contenu, le
+  contexte transmis — D959), historisées ; l'événement au journal de
+  sécurité (D925) — « pour historisation ou pour analyse en cas de
+  fuite ou d'incidents » ;
 - **la lecture seule** (D958) : les outils tendus sont les primitives
   de lecture de la librairie interne des hooks de fonctions (D571/D599
   — lire, interroger, naviguer, agréger) — « le chat répond aux
@@ -379,8 +382,9 @@ seconde couche.
   interfaces proposées par l'application. Le chat proposera des liens
   vers les interfaces assurant la mise à jour qui peut être demandée » ;
   la boucle d'outils vit au moteur, le connecteur transporte ;
-- **la condition indispensable** (D626) : le connecteur injoignable
-  = le chat indisponible, jamais une réponse inventée.
+- **la condition indispensable** (D626/D959) : « si le connecteur LLM
+  n'est pas disponible, un message d'erreur sera présenté et les
+  questions ne seront pas possibles » — jamais une réponse inventée.
 
 ## Les déclencheurs et les échanges
 

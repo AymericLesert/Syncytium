@@ -2880,30 +2880,35 @@ la fiche est mienne, en proposition.)*
 2. **Rôle** — **la question en langue naturelle à la somme des
    connaissances de l'instance** — les données et leur description —,
    la réponse d'un modèle de langage déclaré en connecteur (`llm`) ;
-3. **Types servis** — la conversation : le fil des messages (le
-   composant `thread` — D295), la question de l'utilisateur, la
-   réponse du modèle ;
+3. **Types servis** — **la session d'échanges** (D959 : `chat.session`
+   — un utilisateur, **un module**, ses messages) : le fil des
+   messages (le composant `thread` — D295), la question de
+   l'utilisateur, la réponse du modèle ;
 4. **Contexte consommé** — **l'utilisateur et ses droits** (D886, la
    confidentialité D885, l'audience) : le modèle ne lit l'instance que
    par l'API au porteur de l'utilisateur ou par la librairie interne
    des hooks de fonctions — « dans la limite des autorisations
-   accordées à l'utilisateur sur la consultation des données » ; le
-   connecteur `llm` de l'environnement (D617) ;
+   accordées à l'utilisateur sur la consultation des données » ; **le
+   module activé** — la session lui est adossée, son mode d'emploi et
+   ses données bornent le contexte (D959) ; le connecteur `llm` de
+   l'environnement (D617) ;
 5. **Propriétés** — `title:` (D449/D465) ; `screen:` (D450/D532) ;
-   `connector:` — le rôle nommé du connecteur `llm` (D617) ; *(en
-   proposition)* `context:` — les modules que le chat peut consulter,
-   tous par défaut ;
+   `connector:` — le rôle nommé du connecteur `llm` (D617) ;
 6. **Items** — aucun : la surface est le fil et sa saisie ;
 7. **Modes et déclinaisons** — **PC et tablette** : le fil et la
-   saisie en bas (D295), les conversations passées en liste latérale ;
-   **smartphone** : le fil en plein écran ; **template** : sans objet ;
+   saisie en bas (D295) ; **smartphone** : le fil en plein écran ;
+   **le chat suit le module activé** (l'écho de D557 — le tableau de
+   bord change avec le module) : deux modules accessibles = deux
+   sessions, chacune son historique et son contexte (D959) ;
+   **template** : sans objet ;
 8. **États et interactions** — la question part **après
    l'anonymisation** des champs `personal` (D695/D696) de tout le
    contexte transmis, hors ce qui revient à l'utilisateur ; **chaque
-   question et chaque réponse s'écrivent** dans `chat.conversation` et
-   `chat.message` (historisées — D411), l'événement au journal de
-   sécurité (D925) ; le connecteur injoignable = l'écran l'annonce,
-   jamais une réponse inventée (D626) ; **le chat répond et fournit
+   question et chaque réponse s'écrivent, avant l'affichage,** dans
+   `chat.session` et `chat.message` (historisées — D411), l'événement
+   au journal de sécurité (D925) ; **le connecteur indisponible** :
+   « un message d'erreur sera présenté et les questions ne seront pas
+   possibles » (D626/D959) — la saisie fermée, l'historique lisible ; **le chat répond et fournit
    les données, il ne met rien à jour** (D958) — « les mises à jour se
    feront via les interfaces proposées par l'application » : la
    réponse porte **les liens vers les surfaces de mise à jour** (le

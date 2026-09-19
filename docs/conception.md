@@ -1086,7 +1086,7 @@ Q58) :
 | D951 | **LCKTPSF est l'indice de la commande** (l'analyse de la source — le lot 4 du morceau 3 ; corrige le morceau 2 et ma lecture du schéma) : « la ligne doit contenir une colonne LCKTINDPSF (indice) » — absente du classeur 16.17, où un indice PSF vit aux tables de production (BEKTINDPSF, PRKTINDPSF) ; puis « LCKTPSF est l'indice de la commande » — la quatrième colonne de clé de LCOMCLI et LCOMFOU, que le morceau 2 lisait comme un sous-numéro, est la révision : l'identité de la ligne au sein de la commande = le numéro de ligne ; le possesseur = (numéro, indice), `parent: { ECOMCLI: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF } }` ; `sous_numero` retiré des deux lignes ; l'entête garde [numero, indice] — une ligne d'entête par révision, ses lignes avec elle. | Le statut de la ligne : LCCTSTATUT lu, LCCTETACDE non lue (mien). La couverture des lignes par LCKTNUMERO[10000], l'écho de D880 (mien). Voir §3.2c. |
 | D952 | **Les stocks lus : le type E/S est le sens, le genre le type du mouvement ; la clé de STDEPLOT aux six K ; les tables ignorées** (l'analyse de la source — les lots 5 et 6 du morceau 3 ; corrige le morceau 2, en proposition sur les codes) : l'échantillon de MVTSTO — MVCTTYPE vaut E (25) ou S (75), MVCTGENRE six codes (C 53, D 29, E 4, F 9, I 3, R 2), le croisement (C→S, F→E, R→E, E→S, I→S, D→E et S) — le morceau 2 avait inversé : `mouvement.sens` lit MVCTTYPE (E l'entrée, S la sortie), `mouvement.type` lit MVCTGENRE, dont les six codes restent à nommer ; STDEPLOT : l'identité aux six colonnes K après la société (article, lot, code d'enregistrement, emplacement, dépôt), le lot en texte, les référentiels dépôt et emplacement par valeurs distinctes (D658) ; MVTSTO : l'identité aux I complétée de l'article, de la date et de l'heure (D869), `coverage: MVCJMVT[month - 3]` (D880), sans historique ; les lignes de commande ajoutées au reset_coverage du dimanche (D943) ; les sept tables ignorées écrites (les offres, DEVIS). | La lecture E/S et les hypothèses des genres (C consommation, F fabrication, R réception, E expédition, I inventaire, D divers) sont miennes, à confirmer. Le morceau 3 est écrit en entier : 14 tables décrites, 8 ignorées. Voir §3.2c. |
 | D953 | **Les six genres de mouvement nommés** (clôt la question de D952, la source lue) : « C : Consommation · D : Déplacement · E : Expédition · F : Fabrication · I : Inventaire · R : Réception » — l'énuméré `mouvement.type` de l'entrepôt prend ces six valeurs (D893 : le vocabulaire de l'entrepôt), les sept valeurs inventées du morceau 2 (dont transfert et correction) tombent ; la garde de MVCTGENRE à la source, les codes traduits à la règle du mapping ; le sens en MVCTTYPE (E/S) confirmé par là même. | Mon « D = divers » était faux : le déplacement, dans les deux sens de l'échantillon — un mouvement de dépôt à dépôt. Voir §3.2c. |
-| D954 | **La péremption obligatoire des articles périssables — le 4e caractère du code famille** (la première règle métier de l'auteur sur le cas 3 ; applique D932/D893/D934) : « je vais ajouter une règle sur le code famille d'un article. Si le 4ème caractère est égal à "1", cela signifie que la date de péremption du produit doit être renseignée » — ARTICLE n'a pas de date de péremption, STDEPLOT en porte une par lot (DPCJPEREMP → niveau.peremption) : la convention de codage se traduit au mapping (`perissable: right(ARCTCODFAM, 1) = "1"`, un booléen de l'article — le sens, pas le code, D893), et la règle vit à la cible, sur le niveau de stock : `validation: - peremption != null if article.perissable` (la référence navigue, D396 ; la cible vérifie, D932). | La forme en deux temps est mienne — l'auteur voulait « ajouter une règle sur le code famille ». Voir §3.2c. |
+| D954 | **La péremption obligatoire des articles périssables — le 4e caractère du code famille** (la première règle métier de l'auteur sur le cas 3 ; applique D932/D893/D934) : « je vais ajouter une règle sur le code famille d'un article. Si le 4ème caractère est égal à "1", cela signifie que la date de péremption du produit doit être renseignée » — ARTICLE n'a pas de date de péremption, STDEPLOT en porte une par lot (DPCJPEREMP → niveau.peremption) : la convention de codage se traduit au mapping (`perissable: mid(ARCTCODFAM, 4, 1) = "1"`, un booléen de l'article — le sens, pas le code, D893 ; « et non right car un code famille peut contenir 2 à 4 caractères »), et la règle vit à la cible, sur le niveau de stock : `validation: - peremption != null if article.perissable` (la référence navigue, D396 ; la cible vérifie, D932). | La forme en deux temps est mienne — l'auteur voulait « ajouter une règle sur le code famille ». Voir §3.2c. |
 
 ---
 
@@ -11277,7 +11277,9 @@ déjà lue en `niveau.peremption`. La règle se pose donc en deux temps,
 selon les trois étages de D932. La convention de codage de PMI — le
 quatrième caractère du code famille — est une affaire de traduction :
 la règle du mapping en fait un booléen de l'article, `perissable:
-right(ARCTCODFAM, 1) = "1"` (les fonctions du texte D934), et
+mid(ARCTCODFAM, 4, 1) = "1"` (les fonctions du texte D934 — **« et non
+right car un code famille peut contenir 2 à 4 caractères »** : un code
+court n'a pas de quatrième caractère, il n'est pas périssable), et
 l'entrepôt garde le sens, pas le code (D893). La règle métier
 elle-même est une affaire de contrat : sur le niveau de stock,
 `validation: - peremption != null if article.perissable` — la
@@ -21261,9 +21263,11 @@ avant la synthèse Q16).
 - **2026-09-19 (suite) — LA PÉREMPTION DES PÉRISSABLES (D954, 954
   décisions).** La première règle métier de l'auteur sur le cas 3 : le
   4e caractère du code famille à « 1 » impose la date de péremption ;
-  posée en deux temps — `article.perissable` traduit au mapping, la
-  validation sur `stock.niveau` — puisque seule STDEPLOT porte une date
-  de péremption. 175 fichiers valides.
+  posée en deux temps — `article.perissable` traduit au mapping par
+  mid(ARCTCODFAM, 4, 1), « et non right car un code famille peut
+  contenir 2 à 4 caractères », la validation sur `stock.niveau` —
+  puisque seule STDEPLOT porte une date de péremption. 175 fichiers
+  valides.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

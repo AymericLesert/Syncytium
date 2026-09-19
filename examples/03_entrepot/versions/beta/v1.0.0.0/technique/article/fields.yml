@@ -141,7 +141,8 @@ perissable:
   # le 4e caractère d'ARCTCODFAM — « si le 4ème caractère est égal à "1",
   # cela signifie que la date de péremption du produit doit être
   # renseignée » (D954) : la convention de codage de PMI se traduit à la
-  # règle du mapping (right(ARCTCODFAM, 1) = "1", D893/D934), l'entrepôt
+  # règle du mapping — mid(ARCTCODFAM, 4, 1) = "1", et non right : « un
+  # code famille peut contenir 2 à 4 caractères » (D893/D934) —, l'entrepôt
   # garde le sens ; la règle elle-même vit au niveau de stock, où la
   # date de péremption est (STDEPLOT — D932 : la cible vérifie)
   type: boolean

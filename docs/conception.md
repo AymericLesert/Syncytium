@@ -22203,6 +22203,23 @@ avant la synthèse Q16).
   `amount: { currency: EUR }`, `amount(ARCNPRS)` à un argument. La
   suite : le lot 3, les commandes —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
+- **2026-09-19 (pause, 993 décisions)** — « Je marque une pause. » La
+  séance du 19/09 (la reprise en nouvelle session) s'arrête sur : les
+  deux points de projet (D956 `~{…}`, D957–D960 le module chat cadré),
+  le morceau 4 du cas 3 ouvert et ses **lots 1 et 2 clos** (D961–D990 :
+  vingt-cinq règles 001–019, le bloc commun `articles/fields.yml`), les
+  settings devenus la maison des types (D991–D993 : `text: {
+  normalize }`, `date_pmi`/`time_pmi`, `amount: { currency: EUR }`), le
+  cas (usecases/03_entrepot.md) rattrapé et complété. Tout est commis
+  et poussé, la branche à jour du distant, aucune PR ouverte. **La
+  reprise : le lot 3 du mapping — les commandes (020–023 : ECOMCLI/
+  LCOMCLI, ECOMFOU/LCOMFOU)** — les statuts à inventer, le `counter`
+  surchargé (D883), les délais en `datetime(jour, heure)` (le
+  constructeur à fixer), l'adresse de livraison de l'entête non lue à la
+  source, les prix des lignes `amount(x, LCCTDEVISE)` ; puis le lot 4,
+  les stocks (024–025) ; puis le morceau 5, le pilotage et la
+  restitution (aucune surface encore) ; la validation globale à la fin
+  (D955), le jeu de données construit (D869), la PR.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

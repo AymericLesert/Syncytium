@@ -1,19 +1,24 @@
-# La table PARAM de PMI — la table générique des paramètres : un numéro
-# de paramètre (PAKTNOPAR) et, par code, des textes et des nombres. Le
-# paramètre 170 porte les emplacements de stock (D962 — l'auteur, 19/09) :
-# « PACTEXT140 est le libellé, PACTEXT210 correspond au couple
-# Dépôt.Emplacement ». La première des trois origines des référentiels
-# depot et emplacement — celle des emplacements actifs, nommés. Les
-# autres paramètres restent hors du filtre (D663). Les colonnes lues
-# typées et renvoyées, les autres non lues (D947).
-name: PARAM
-description: Les paramètres de PMI — le paramètre 170, la source des emplacements actifs et de leur libellé
+# Les emplacements de stock paramétrés — une entité nommée sur la table
+# PARAM de PMI, l'alias (D966) : PARAM est la table générique des
+# paramètres — un numéro (PAKTNOPAR) et, par code, des textes et des
+# nombres — « elle conditionne le fonctionnement de l'ERP et donc des
+# données » ; chaque paramètre qu'on lit devient une entité, au nom qu'on
+# lui donne, avec son filtre. Le paramètre 170 porte les emplacements
+# (D962 — l'auteur, 19/09) : « PACTEXT140 est le libellé, PACTEXT210
+# correspond au couple Dépôt.Emplacement ». La première des trois
+# origines des référentiels depot et emplacement — celle des
+# emplacements actifs, nommés. Les colonnes lues typées et renvoyées,
+# les autres non lues (D947).
+name: PARAM_EMPLACEMENTS
+alias: PARAM                        # l'alias — la table réelle ; la même table peut porter d'autres entités, à d'autres filtres (D966)
+description: Le paramètre 170 de PMI — la source des emplacements actifs et de leur libellé
 
 filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 identity: [PAKTSOC, PAKTETS, PAKTNOPAR, PAKTCODE]
 # la clé de la table (les quatre K) ; le couple Dépôt.Emplacement se lit
 # en PACTEXT210 et se découpe à la source (D660/D817), les règles 001 et
-# 004 consomment les deux calculés
+# 004 consomment les deux calculés ; une lecture depuis un autre calculé
+# (D965) passe par ce filtre — PARAM_EMPLACEMENTS.first(PACTEXT140 if …)
 
 fields:
   PAKTSOC:     text[3]                                        # la société — le filtre (D663)

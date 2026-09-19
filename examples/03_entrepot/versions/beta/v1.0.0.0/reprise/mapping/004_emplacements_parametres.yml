@@ -1,6 +1,7 @@
 # L'étape 4 — les emplacements des paramètres de Cegid (D962 : la
 # première des trois origines — les fiches articles à l'étape 5, les
-# mouvements à l'étape 6) : le paramètre 170 de PARAM, une ligne par
+# mouvements à l'étape 6) : PARAM_EMPLACEMENTS, l'entité nommée sur la
+# table PARAM au filtre du paramètre 170 (l'alias, D966), une ligne par
 # emplacement actif — le couple Dépôt.Emplacement (PACTEXT210) découpé à
 # la source en deux calculés (D660/D817), le libellé en PACTEXT140 :
 # « le libellé des emplacements est dans les paramètres. Dans les autres
@@ -9,7 +10,7 @@
 # la clé (D654). Les emplacements nés ici sont les actifs ; ceux des
 # étapes 5 et 6 naissent inactifs (D941).
 
-PARAM:
+PARAM_EMPLACEMENTS:
   to: stock.emplacement
   fields:
     depot:   depot                    # la référence par la clé (D654) — part de l'identité

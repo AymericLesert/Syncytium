@@ -182,7 +182,8 @@ propres :
   à creuser D868) ; la complétude (D861) se mesure au schéma réel, la
   description n'a pas à citer chaque colonne. **Un fichier par entité
   d'origine, au nom de la table** (`source/ARTICLE.yml`, `name:
-  ARTICLE` — D947) ;
+  ARTICLE` — D947) — ou au nom de l'entité quand elle est un alias de
+  la table (D966) ;
 - **la normalisation par champ calculé** (D660) — le nettoyage, la
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une
@@ -204,23 +205,38 @@ propres :
   agrégats, la doctrine D887 (« valeur if condition ») et la
   projection D889 inchangées — `first` rend la valeur, **`list`** (le
   seul agrégat ajouté) la liste ; la valeur est typée par la colonne
-  (D581), l'absence rend le nul — un fait ; la lecture traverse la
-  table entière, hors du `filter:` de sa description (mien) ; **le
-  moteur met en cache** le résultat par table, expression et valeurs
-  des critères le temps d'un passage — « un cache est à prévoir pour
+  (D581), l'absence rend le nul — un fait ; **« la lecture d'une
+  entité utilise le filtre défini »** (D966) — on lit l'entité
+  décrite, avec son `filter:`, jamais la table nue ; **le moteur met
+  en cache** le résultat par entité, expression et valeurs des
+  critères le temps d'un passage — « un cache est à prévoir pour
   rendre l'information rapide si les mêmes critères sont appelés
   régulièrement ». D891 (jamais l'entité entière) reste entier au
   modèle : la source est lue par lots, pas affichée. Le cas 3 : la
   table PARAM « conditionne le fonctionnement de l'ERP et donc des
   données » ;
+- **l'alias** (D966) — « la notion d'alias qui permet de nommer une
+  entité portant sur la même source avec des filtres différents » :
+  plusieurs entités source décrivent la même table, chacune sous son
+  nom, avec son filtre, son identité, ses colonnes lues — `name:
+  PARAM_EMPLACEMENTS`, `alias: PARAM` (*la clé est mienne*) ; le
+  fichier porte le nom de l'entité (D947 : le nom de la table quand il
+  n'y a pas d'alias) ; la règle du mapping et la lecture D965 nomment
+  l'entité, et le filtre vient avec ; la complétude du schéma (D861)
+  se mesure sur la table, toutes entités confondues ;
 
 ```yaml
-# source/ARTICLE.yml — lire PARAM depuis un calculé (D965)
+# source/PARAM_EMPLACEMENTS.yml — l'alias (D966) : le paramètre 170 de PARAM
+name: PARAM_EMPLACEMENTS
+alias: PARAM
+filter: PAKTSOC = "100" and PAKTNOPAR = "170"
+
+# source/ARTICLE.yml — lire l'entité depuis un calculé (D965) : le filtre 170 vient avec
 fields:
   libelle_emplacement_expedition:                 # une valeur — first (D887)
-    formula: PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)
+    formula: PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)
   emplacements_actifs:                            # une liste — list (D965)
-    formula: PARAM.list(PACTEXT210 if PAKTNOPAR = "170" and PACTEXT210 like "^" + ARCTCODEP + "\.")
+    formula: PARAM_EMPLACEMENTS.list(PACTEXT210 if PACTEXT210 like "^" + ARCTCODEP + "\.")
 ```
 
 - **le `filter:`** (D663) — la sélection des enregistrements

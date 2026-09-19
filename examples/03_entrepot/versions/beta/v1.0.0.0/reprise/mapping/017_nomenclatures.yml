@@ -27,7 +27,7 @@ NOMENC:
     # --- l'opération ---
     operation:         NOCTCODOPE
     jalon:             integer(NOCNJALON)     # le décimal de PMI vers l'entier (D581)
-    temps_preparation: duration(NOCNTPSPRE, h)   # l'unité supposée (à confirmer)
+    temps_preparation: duration(NOCNTPSPRE, h)   # la valeur et l'unité (D975) — les heures décimales de l'exemple, inventées (D963)
     temps_ouverture:   duration(NOCNTPSOUV, h)
     temps_attente:     duration(NOCNTPSATT, h)
     nombre_ouvriers:   NOCNBREOUV

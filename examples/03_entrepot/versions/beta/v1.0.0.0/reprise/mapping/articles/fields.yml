@@ -28,7 +28,8 @@ sous_famille: 'ARCTCOSFAM.select(ACI: "acier", ALU: "aluminium", PLA: "plastique
 perissable:   mid(ARCTCODFAM, 4, 1) = "1"      # la règle de l'auteur (D954) — mid, non right
 matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8, ARCTCODMA9)   # neuf colonnes → une liste : les vides tombent, les doublons aussi (D971)
 # --- les unités et les dimensions — les mesures par le constructeur du
-# type (D659), l'unité de PMI supposée (à trancher) ---
+# type (D659/D975 : la valeur et l'unité) ; les unités réelles de PMI
+# inconnues, celles de l'exemple inventées (D963) ---
 unite_stock:    ARCTUNISTO
 unite_commande: ARCTUNICDE
 poids:     measure(ARCNPDSUNI, kg)

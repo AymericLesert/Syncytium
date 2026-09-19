@@ -1107,6 +1107,7 @@ Q58) :
 | D972 | **Le fichier par le connecteur, dans la règle : `<rôle>.files(motif)` ; le type `file` porte ses descripteurs — le nom, la taille, les dates, l'empreinte si `hash: true` — et le différentiel les compare** (précise D634/D883/D672/D160 — le frottement 5 du lot 2 du cas 3) : `article.plans: list of file` se remplit par le connecteur `plans` (D883) ; deux formes posées — le constructeur `file(<connecteur>, <nom>)` emboîté dans `list(…)`, ou le geste du contrat appelé sur le connecteur par son rôle (D617), comme `cache.push` (D821) et `connector.line` (D845) : **« je valide B. Au lieu de get_files, le résumé à files est suffisant. Il peut rendre une liste vide »** — `plans: plans.files(ARCTFICPLA)`, le geste `files(motif)` au contrat de la famille `file` (D634 amendé : `get_files` devient `files`), la liste vide = l'article sans son plan, pas un rejet ; le connecteur injoignable arrête (D626) ; **la relecture** : « la question ne devrait pas se poser car nous avons un type de données "file" contenant le nom du fichier et ses attributs (descripteurs). Par conséquent, le type "file" contient l'information concernant le nom du fichier, sa taille, sa date de création, sa date de dernière modification, éventuellement une clé de hashage si la propriété file "hash" est "true". Ainsi, la détection d'un fichier en écart pour une potentielle relecture se devine » — la valeur `file` = les descripteurs, le contenu derrière ; le différentiel (D672) compare les descripteurs, le contenu n'est relu qu'à l'écart ; la facette **`hash: true`** au champ `file` ajoute l'empreinte aux descripteurs. | Les parties au point (D772) : **`.relativepath`** — « le nom du fichier apparent ou saisi » (la valeur d'`ARCTFICPLA`, relative au répertoire du connecteur), **la partie portée** ; **`.fullname`, `.filename`, `.pathname`** — le chemin complet, le nom seul, le répertoire — **« recalculés en fonction pour rendre ces items »** (l'auteur : « .fullname, .filename, pathname pour remplacer .name », puis « ajoute .relativepath ») ; puis `.size`, `.created`, `.modified`, `.hash` (les quatre derniers miens) ; types.md et connectors.md au niveau ; ma règle de relecture « par le nom ou la date » retirée, absorbée par les descripteurs. Voir §3.2c. |
 | D973 | **Le contrat de la famille `file` à deux gestes — `files(motif)` et `commit(fichier)` ; le moteur appelle `commit`** (amende D634, précise D635/D972) : la question de l'usage de `commit` — le patron de la boîte de dépôt : le fichier consommé (une commande EDI, un relevé) est acquitté, renommé ou déplacé vers le dossier configuré pour ne pas être relu ; aucun usage au cas 3, où les plans sont consultés, pas consommés ; qui l'appelle, et le nom de la lecture : **« le moteur appelle commit ; get_file devient files »** — `commit` est la fin du geste, appelé d'office par le moteur quand l'opération déclenchée par le guetteur (D635/D609) a réussi, jamais une ligne de règle ; `get_file` disparaît : `files(motif)` rend la liste des fichiers **avec leurs descripteurs** (D972), à la garde de stabilité (« attendre qu'un fichier en cours d'écriture soit terminé »), et **le contenu se lit par la valeur `file` elle-même** — le type porte l'accès au contenu derrière les descripteurs (D160/D972), le storage de format (D636) le consomme. | Ma lecture : un seul geste de lecture, le contenu par le type — à corriger si `get_file` devait subsister sous un autre nom ; en échec de l'opération, le fichier reste en place (le dossier d'erreur, un paramètre possible — mien, non proposé). connectors.md au niveau. Voir §3.2c. |
 | D974 | **Les opérations du type `file` — la lecture binaire ou texte, le déplacement, la suppression, la lecture de l'empreinte** (précise D972–D973, applique D579 — les fonctions vivent sur le type) : « un type file a une opération de lecture, de déplacement, de suppression et de lecture du hashage. La lecture binaire ou texte est à fournir pour la partie CSV ou pour le watcher » — la valeur `file` (les descripteurs, D972) porte ses gestes comme tout type porte ses fonctions : **la lecture** du contenu, binaire ou texte — c'est elle que consomment le storage de format (D636 — csv, xml, json) et le guetteur (D635) ; **le déplacement** — celui que `commit` accomplit par le moteur (D973) ; **la suppression** ; **l'empreinte** — calculée à la demande, portée d'office si `hash: true`. Le contrat du connecteur reste à deux gestes (`files`, `commit`) : le connecteur donne les fichiers, le type fait le reste. | Les noms miens, dans la langue du catalogue (D934) : `.read()` binaire, `.read(text)` texte, `.move(destination)`, `.delete()`, `.hash()` ; types.md au niveau. Voir §3.2c. |
+| D975 | **`measure` et `duration` combinent une valeur et une unité — le constructeur ; le type porte ses règles de conversion, aux paramètres complémentaires quand il le faut** (précise D391/D476/D579/D659 — le frottement 6 du lot 2 du cas 3) : les colonnes de PMI sont des décimaux sans unité (ARCNPDSUNI, ARCNLONGUE…, NOCNTPSOUV…) — `measure(ARCNPDSUNI, kg)`, `duration(NOCNTPSOUV, h)` ; l'unité prise dans les `units:` du champ ou parmi celles de `duration` (D476), hors liste = une erreur d'ingestion (D581) ; **« pour measure ou duration, ça combine une valeur et une unité. Elles portent également des règles de conversion qui peuvent nécessiter des paramètres complémentaires »** — la conversion d'une unité à l'autre est une fonction du type (D579/D584 : chaque type porte ses conversions), et quand elle dépend d'autre chose que d'un facteur fixe — la masse volumique d'un volume vers un poids, la base d'un temps industriel en centièmes vers les heures-minutes (D380) — elle prend ses paramètres. | Les unités réelles de PMI inconnues : celles de l'exemple — kg, mm, dm3, les heures décimales — inventées et marquées (D963) ; la forme de la conversion (`.to(<unité>, <paramètres>)`) mienne, en proposition dans types.md. Voir §3.2c. |
 
 ---
 
@@ -11717,6 +11718,22 @@ format (D636) et le guetteur (D635) consomment ; le déplacement, que
 demande et portée d'office si `hash: true`. *Les noms miens :
 `.read()`, `.read(text)`, `.move(destination)`, `.delete()`, `.hash()`.*
 
+**La mesure et la durée : la valeur, l'unité, les conversions à
+paramètres (D975 — précise D391/D476/D579 ; le lot 2 du cas 3).** Les
+poids, dimensions, volumes et temps de gamme de PMI sont des décimaux
+nus ; la règle les habille par le constructeur — `measure(ARCNPDSUNI,
+kg)`, `duration(NOCNTPSOUV, h)` —, l'unité prise dans celles du champ.
+**« Pour measure ou duration, ça combine une valeur et une unité.
+Elles portent également des règles de conversion qui peuvent
+nécessiter des paramètres complémentaires. »** La conversion est une
+fonction du type, comme D579 le veut de chaque type ; et elle n'est
+pas toujours un facteur fixe : un volume vers un poids demande la
+masse volumique, un temps industriel en centièmes vers les
+heures-minutes demande sa base (D380) — la fonction prend ses
+paramètres. Les unités réelles de PMI restent inconnues : celles de
+l'exemple sont inventées et marquées (D963). *La forme `.to(<unité>,
+<paramètres>)` est mienne.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21801,8 +21818,10 @@ avant la synthèse Q16).
   avec les descripteurs, `commit` appelé par le moteur à la fin de
   l'opération réussie ; `get_file` absorbé. **D974** les opérations du
   type `file` — la lecture binaire ou texte (le CSV, le guetteur), le
-  déplacement, la suppression, l'empreinte ; les noms miens. La suite :
-  le lot 2, les articles —
+  déplacement, la suppression, l'empreinte ; les noms miens. **D975**
+  le frottement 6 — `measure`/`duration` : la valeur et l'unité au
+  constructeur, les conversions du type à paramètres ; les unités de
+  l'exemple inventées. La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

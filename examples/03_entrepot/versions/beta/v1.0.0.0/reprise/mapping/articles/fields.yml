@@ -23,7 +23,7 @@ libelle_secondaire: ARCTLIB02
 # le drapeau des périssables, D954) ---
 type:         'ARCTTYPART.select(AC: "accessoire", CO: "consommable", LI: "libelle", MI: "libelle", MO: "main_oeuvre", OU: "outillage", PF: "produit_fini", PL: "plaque", SF: "semi_fini", ST: "sous_traitance")'
 gestion:      'ARCTFATN.select(01: "fabrique", 02: "achete", 03: "cg03", 07: "libelle", 09: "semi_fini", 12: "fantome", 14: "quantite_superieure", 17: "inactif", 32: "resultant", 33: "procedure")'
-famille:      'left(ARCTCODFAM, 3).select(MAT: "matiere", COM: "composant", PRF: "produit_fini", CON: "consommable")'   # inventé (D963)
+famille:      'famille_code.select(MAT: "matiere", COM: "composant", PRF: "produit_fini", CON: "consommable")'   # le calculé de la source — le code sans son drapeau (D986) ; les codes inventés (D963)
 sous_famille: 'ARCTCOSFAM.select(ACI: "acier", ALU: "aluminium", PLA: "plastique", VIS: "visserie", "...": "autre")'   # inventé (D963)
 perissable:   mid(ARCTCODFAM, 4, 1) = "1"      # la règle de l'auteur (D954) — mid, non right
 matieres:     list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8, ARCTCODMA9)   # neuf colonnes → une liste : les vides tombent, les doublons aussi (D971)

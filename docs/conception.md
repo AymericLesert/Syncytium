@@ -1118,6 +1118,7 @@ Q58) :
 | D983 | **La comparaison des unités est normalisée ; `units:` restreint la matrice standard du champ ; l'unité seule — la diagonale à 1 ; les blocs de la matrice standard ne se convertissent pas entre eux sans coefficient** (précise D978–D979/D982, retire ma pièce `u` au socle et le `lower()` de la règle) : « pour les unités, la comparaison doit s'appuyer sur une comparaison normalisée (par conséquent KG = kg, T = t, …). Pour les "U", cela oblige le technicien de bien définir une règle sur une autre unité disponible. Sur measure, nous avons des mesures de dimension ou de poids, dont les liens ne sont pas forcément convertibles. Par contre, la limitation des unités à une liste de valeurs apporte une restriction sur la matrice standard. Dans le cas du U, la liste des unités est "U" (sans les unités standard), le coefficient est forcément 1 sur la diagonale de la matrice » — (1) `KG` et `kg` sont la même unité : la normalisation est au type, la règle écrit les colonnes nues ; (2) les `units:` du champ **restreignent** la matrice standard à ce qu'ils nomment — `units: [U]` : la matrice est la seule diagonale, U → U = 1, aucune standard, aucun chemin exigé au-delà ; l'invariant D979 se lit : toute unité présente atteint une unité **connue du champ** ; (3) la matrice standard est en blocs — les poids (kg/g/t), les dimensions (mm/cm/m), les volumes… — non convertibles entre eux sans un coefficient apporté, à paramètres s'il le faut (D975) ; (4) une unité de compte n'est pas au socle : le technicien la déclare, et relie ce qui doit l'être. | `article.unite` : `units: [U, kg]` (les unités de l'exemple, D946 — PL arrive par les couples) ; la règle sans `lower()` ; types.md au niveau. Voir §3.2c. |
 | D984 | **L'arithmétique de `measure` et de `duration` — la table d'opérateurs du type, les sommes et les agrégats** (complète D581/D838 pour les deux composés, s'appuie sur D978–D983) : « pour measure et duration, il faut également inscrire l'arithmétique pour faciliter les sommes et tous les types de calcul » — chaque type porte sa table d'opérateurs (D581 : `amount + amount` à devise compatible, `amount * decimal` ; D838 : `date - date → duration`, `date + duration → date`) ; les deux composés reçoivent la leur, **la conversion faisant le travail** : deux mesures s'additionnent, se soustraient et se comparent si leurs unités se relient (la matrice du champ, la transitivité D979 — le résultat dans l'unité de l'opérande gauche ; non reliées = une erreur de typage à l'ingestion, D581), une mesure se multiplie et se divise par un nombre (`article.unite * quantite`, D982), deux mesures reliées se divisent en un nombre (le rapport) ; **les agrégats des collections** (D887) — `sum`, `avg`, `min`, `max` — valent sur les mesures et les durées reliées, le résultat dans l'unité du champ ; la durée de même, plus ses liens au temps (D838). | La table est mienne, en proposition dans types.md ; hors table, non proposé : `measure × measure` (les surfaces, les volumes — l'analyse dimensionnelle) ; `temps_gamme: nomenclature.sum(temps_ouverture if …)` du cas 3 en est déjà l'usage. Voir §3.2c. |
 | D985 | **La performance des conversions sur les volumes — une contrainte de conception ; l'unité canonique de stockage, les agrégats au storage, les calculés matérialisés** (complète D975–D984 ; le cas 3, les mouvements de stock) : « un champ de type "measure" et "duration" est donc riche de nombreuses informations permettant les conversions dans toutes les mesures autorisées. Ce champ de possible simplifie les synthèses. **Un point important sera à apporter sur la performance des calculs.** Dans le cas des mouvements de stock, cela peut représenter des millions de lignes… » — la richesse du champ ne doit pas se payer à chaque lecture : la conversion ne se fait pas ligne à ligne au moment de la synthèse. | Mes moyens, en proposition : (1) **l'unité canonique de stockage** — la facette `storage: <unité>` du champ (l'écho du `storage:` de D378 pour le décimal) : la valeur est stockée convertie dans l'unité canonique, à côté de la valeur et de l'unité d'origine ; (2) **les agrégats poussés au storage** — `sum`, `avg`, `min`, `max` d'une collection de mesures sont une somme de colonne canonique en SQL, jamais une conversion par ligne ; (3) **les calculés matérialisés** — un calculé se recalcule au paramètre modifié (D571/D592) et se stocke : `mouvement.masse: (article.unite * quantite).to(kg)` est calculé à l'écriture de chaque mouvement, la synthèse le somme ; le prix : un coefficient qui change sur l'article recalcule ses mouvements (le graphe D592 — à mesurer, le point à porter à Q7). Voir §3.2c. |
+| D986 | **La famille est le code sans son drapeau — `left(ARCTCODFAM, 3)` porté à la source en calculé ; `extract` et `like`, les fonctions du texte à regex** (précise D954/D946, applique D660/D931 — le frottement 7 du lot 2 du cas 3) : ARCTCODFAM fait 2 à 4 caractères, le 4e à « 1 » marque le périssable (D954) — la famille est-elle le code privé de ce 4e caractère (`MAT1` et `MAT` la même famille) ? **« je confirme, porte left à la source »** — le calculé `famille_code: left(ARCTCODFAM, 3)` sur `source/ARTICLE.yml` (la normalisation à la source, la règle consomme la colonne nue — D660/D931), la règle `famille: famille_code.select(MAT: "matiere", …)` aux codes inventés (D946/D963) ; « a-t-on une fonction sur une chaîne de caractères portée par une expression régulière pour trouver une sous-chaîne ? » — oui, au catalogue (D934) : `extract(t, 'regex')` rend la capture (D817 — unique, ou plusieurs par les groupes nommés ; le couple Dépôt.Emplacement de PARAM s'en sert), `t like 'regex'` compare (D818) ; `extract(ARCTCODFAM, '^(.{1,3})')` dirait la même chose que `left`, gardé pour sa simplicité. | La sous-famille (ARCTCOSFAM) reste traduite telle quelle, ses codes inventés. Voir §3.2c. |
 
 ---
 
@@ -11927,6 +11928,21 @@ colonne, jamais une conversion par ligne ; les calculés matérialisés —
 synthèse ; le prix, un coefficient d'article qui change recalcule ses
 mouvements — le point à mesurer, à porter au domaine 7.*
 
+**La famille sans son drapeau, `left` à la source (D986 — précise
+D954, applique D660/D931).** Le code famille de PMI porte deux choses :
+la famille, et, en quatrième caractère, le drapeau des périssables
+(D954). La règle lisait la famille sur les trois premiers caractères
+— `MAT1` et `MAT` sont la même famille, le drapeau n'est qu'un
+attribut. **« Je confirme, porte left à la source. »** — le calculé
+`famille_code: left(ARCTCODFAM, 3)` sur la description d'ARTICLE, la
+règle consommant la colonne nue : `famille: famille_code.select(…)`,
+aux codes inventés. En passant, la question des fonctions à
+expression régulière : le catalogue en a deux (D934) — `extract(t,
+'regex')`, la capture (D817 — c'est elle qui découpe le couple
+Dépôt.Emplacement de PARAM), et `t like 'regex'`, la comparaison
+(D818) ; `extract(ARCTCODFAM, '^(.{1,3})')` aurait dit la même chose
+que `left`, gardé pour sa simplicité.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -22042,7 +22058,10 @@ avant la synthèse Q16).
   **D985** la performance des conversions sur les volumes (les
   millions de mouvements) — le principe ; mes moyens en proposition :
   l'unité canonique de stockage, les agrégats au storage, les calculés
-  matérialisés. La suite : le lot 2, les articles —
+  matérialisés. **D986** le frottement 7 — la famille = le code sans
+  son drapeau, `left(ARCTCODFAM, 3)` porté à la source (famille_code) ;
+  `extract`/`like`, les fonctions à regex rappelées. La suite : le lot
+  2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

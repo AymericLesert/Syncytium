@@ -1102,6 +1102,7 @@ Q58) :
 | D967 | **Les champs d'une règle mutualisés par la référence de fichier** (applique D956/D767 aux règles du mapping — le lot 2 du cas 3, le frottement 1) : les quatre règles de l'article (013–016, une par dérivé filtrée sur ARCTFATN — D940) portaient le même bloc de trente-huit champs — « le même bloc de 38 champs dans 4 entités… ça fait de nombreuses redondances. Comment pourrions-nous prendre en compte ~{<fichier>} pour capitaliser et mutualiser les champs ? » — comme l'entité (D767 : `fields: ~{fields.yml}`) : le bloc vit dans `mapping/articles/fields.yml`, chaque règle l'inclut par `fields: ~{articles/fields.yml}` (le chemin relatif au fichier, D768) ; le fichier inclus n'est pas une règle — hors du pattern `mapping/[0-9]+_.*\.yml` (D806), il n'a pas de préfixe numérique ; la règle ne garde que ce qui la distingue : `to:`, `filter:`, `report:`. | Toute propriété d'une règle peut porter le contenu ou la référence (D767 — rien de neuf) ; le dossier `articles/` et son nom sont miens. Voir §3.2c. |
 | D968 | **Le cumul de fichiers sous une carte — la liste de références en bloc, la fusion dans l'ordre, la surcharge avec alerte, le pattern admis, l'élément = un fichier ou une carte en ligne** (précise D956/D767/D806 — la question de l'auteur sur D967) : « est-ce qu'avec ~{articles/fields.yml}, je peux cumuler plusieurs fichiers l'un derrière l'autre ? » — pas encore : une référence remplace la valeur, le pattern ne vaut que dans une liste ; la forme proposée, une liste en bloc sous la propriété à carte (`fields:`, `values:`, `parameters:`… — partout, la règle de D767) : (1) **la fusion dans l'ordre** — les contenus se lisent l'un derrière l'autre, la carte est l'union des clés : « ok » ; (2) **la même clé deux fois = une surcharge, le dernier l'emporte, une alerte levée à l'ingestion** — « c'est une surcharge… une alerte doit être levée » (ma proposition d'erreur écartée) ; (3) **le pattern y vaut** — `- ~{articles/.*\.yml}`, l'ordre alphabétique (D665) : « oui » ; (4) **l'élément est une référence de fichier ou une carte en ligne**, fusionnée comme un contenu de fichier — « je prends la 1ère option, je la trouve plus élégante — peut-être moins uniforme — mais plus en lien avec des approches classiques » (la liste pure, que je penchais à préférer, écartée). Jamais en flux : l'accolade y casse YAML (D956/D892). | mapping.md et entity.md au niveau ; le cas 3 n'en a pas besoin aujourd'hui (les quatre règles partagent tout), rien n'y change. Voir §3.2c. |
 | D969 | **`parent:` peut nommer le parent d'une hiérarchie — la résolution atteint les dérivés ; le possesseur sans la composition = un rejet ; la nomenclature récursive, le fantôme la garde** (précise D353/D931/D933/D940 — le frottement 2 du lot 2 du cas 3) : la ligne NOMENC doit rejoindre `fabrique`, `semi_fini` ou `fantome` sans porter le code de gestion de son produit — deux voies, le possesseur par le parent de la hiérarchie (`parent: { article: { code: NOKTCODPF, complement: NOKTCOMPF } }` — l'identité déclarée chez le parent et partagée, D353 ; l'enregistrement retrouvé quelle que soit sa classe, la ligne attachée à sa composition ; s'il ne la porte pas, la ligne est un rejet au rapport — l'anomalie visible, D933) ou le code lu à la source par `ARTICLE.first(ARCTFATN if …)` (D965) et trois règles filtrées (la ligne d'un produit hors 01/09/12 sortirait du périmètre en silence, D663) : **« je valide A ; le fantôme garde sa nomenclature »** ; et la nature de l'objet, redite : « une nomenclature est une liste d'articles décrivant les composants et les tâches à réaliser. Un composant est un article. Et, si un article a une nomenclature, cela se construit récursivement. Par conséquent, un article fabriqué ou semi-fabriqué a une composition de nomenclatures » — le modèle tient (D135/D937/D940). | La règle 017 telle qu'écrite ; une phrase à mapping.md sur `parent:` et la hiérarchie. Voir §3.2c. |
+| D970 | **La devise de l'entreprise en setting — `currency:` à settings.yml, lue par `context.settings.currency`** (applique D588/D771 — le frottement 3 du lot 2 du cas 3) : les prix de l'article (ARCNPRS, ARCNPMP, ARCNPUACH1) sont des `amount` sans colonne de devise chez PMI — la monnaie de l'entreprise, implicite ; trois voies posées — le setting de l'instance (`currency: EUR`, `amount(ARCNPRS, context.settings.currency)`), la devise lue chez PMI par une entité alias (D965/D966), une devise par défaut au type `amount` : **« je valide A »** — le setting, écrit une fois, lu par toute règle ; l'entrepôt d'une autre entreprise change un mot. | `settings.yml` du cas 3 gagne `currency: EUR` ; le bloc `articles/fields.yml` la lit. Voir §3.2c. |
 
 ---
 
@@ -11631,6 +11632,17 @@ semi-fabriqué a une composition de nomenclatures »** — le modèle tient
 type, D940 les dérivés) ; puis : **« je valide A ; le fantôme garde
 sa nomenclature. »**
 
+**La devise de l'entreprise en setting (D970 — applique D588/D771 ;
+le lot 2 du cas 3).** Les trois prix de l'article sont des montants à
+devise dans la valeur, mais ARTICLE n'a pas de colonne de devise : la
+monnaie de l'entreprise, implicite chez PMI. Trois voies — le setting
+de l'instance, lu par `context.settings.currency` ; la devise lue chez
+PMI si elle y vit, par une entité alias ; une devise par défaut en
+facette du type `amount`. **« Je valide A. »** — `currency: EUR` dans
+settings.yml, `amount(ARCNPRS, context.settings.currency)` dans le bloc
+commun des règles de l'article : écrit une fois, lu partout, un mot à
+changer pour une autre entreprise.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21701,7 +21713,9 @@ avant la synthèse Q16).
   des approches classiques ») ; **D969** le frottement 2 — `parent:`
   nomme le parent de la hiérarchie, la résolution atteint les dérivés,
   le produit sans nomenclature = un rejet visible ; le fantôme garde sa
-  nomenclature ; la règle 017 commise. La suite : le lot 2, les articles —
+  nomenclature ; la règle 017 commise. **D970** le frottement 3 — la
+  devise de l'entreprise en setting (`currency: EUR`,
+  `context.settings.currency`). La suite : le lot 2, les articles —
   quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

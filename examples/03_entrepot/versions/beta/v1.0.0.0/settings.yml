@@ -8,6 +8,12 @@
 # surcharge avec sa propre expression (normalize: right("0000" + me, 4)).
 normalize: trim(me)
 
+# La devise de l'entreprise (D970) — les prix de l'article n'ont pas de
+# colonne de devise chez PMI : la monnaie de l'entreprise, implicite ;
+# les règles la lisent par context.settings.currency (D588), les tiers,
+# les tarifs et les commandes portent la leur (D771)
+currency: EUR
+
 # Les profils de confidentialité (D885) — le niveau (D25) et les groupes
 # (D26) nommés une fois, référencés au champ par l'interpolation de la
 # configuration : confidentiality: ${settings.confidentiality.financier}

@@ -198,6 +198,31 @@ propres :
   colonne par colonne (`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance
   D648) — les colonnes qui dépendent des champs d'identité d'une même
   entité forment une référence, dans l'ordre de cette identité.
+- **la lecture d'une autre table par un calculé** (D965) — à la
+  source, **l'entité décrite est une collection** : un champ calculé
+  lit une valeur ou une liste de valeurs dans une autre table par les
+  agrégats, la doctrine D887 (« valeur if condition ») et la
+  projection D889 inchangées — `first` rend la valeur, **`list`** (le
+  seul agrégat ajouté) la liste ; la valeur est typée par la colonne
+  (D581), l'absence rend le nul — un fait ; la lecture traverse la
+  table entière, hors du `filter:` de sa description (mien) ; **le
+  moteur met en cache** le résultat par table, expression et valeurs
+  des critères le temps d'un passage — « un cache est à prévoir pour
+  rendre l'information rapide si les mêmes critères sont appelés
+  régulièrement ». D891 (jamais l'entité entière) reste entier au
+  modèle : la source est lue par lots, pas affichée. Le cas 3 : la
+  table PARAM « conditionne le fonctionnement de l'ERP et donc des
+  données » ;
+
+```yaml
+# source/ARTICLE.yml — lire PARAM depuis un calculé (D965)
+fields:
+  libelle_emplacement_expedition:                 # une valeur — first (D887)
+    formula: PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)
+  emplacements_actifs:                            # une liste — list (D965)
+    formula: PARAM.list(PACTEXT210 if PAKTNOPAR = "170" and PACTEXT210 like "^" + ARCTCODEP + "\.")
+```
+
 - **le `filter:`** (D663) — la sélection des enregistrements
   parcourus par la migration (`filter: order_date >= now() - 10y`,
   `filter: company_code = "PARIS"` — le multi-instances d'une entité

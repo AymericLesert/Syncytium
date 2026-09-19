@@ -1097,6 +1097,7 @@ Q58) :
 | D962 | **Les référentiels de stock à trois origines — les paramètres (actifs, nommés), les fiches articles, les mouvements ; l'identité de l'emplacement = le couple (dépôt, emplacement) ; le nouveau naît inactif ; l'article géré en stock** (précise D658/D882/D941 — les frottements 4, 5 et 6 du lot 1 du mapping du cas 3) : « l'identité d'un emplacement est un couple (dépôt, emplacement) » ; « les dépôts et emplacements sont construits en fonction de différents critères : 1. les dépôts / emplacements dans les paramètres de Cegid ; 2. les dépôts / emplacements trouvés dans MVTSTO — le distinct permet de référencer toutes les valeurs y compris dépassées ; 3. les dépôts / emplacements trouvés dans la définition des fiches articles ; 4. les paramètres sont les emplacements actifs. Les mouvements font référence aux emplacements actifs et tout nouvel emplacement est ajouté et inactif » ; « le libellé des emplacements est dans les paramètres. Dans les autres cas, il n'est pas connu » ; les paramètres : « PARAM, PAKTNOPAR = 170, PACTEXT140 est le libellé, PACTEXT210 correspond au couple Dépôt.Emplacement » ; et « ARCTGDEPOT contient "O" ou "N" — "O" pour indiquer que l'article est géré en stock » ; les colonnes de dépôt/emplacement de la fiche article — quatre paires (6 + 10 caractères) : ARCTCODEP/ARCTCODMPL, ARCTCODEPR/ARCTCOEMPR, ARCTCODEPF/ARCTCOEMPF, ARCTCODEPC/ARCTCOEMPC (« oublie ARCTCODPLA — c'est une erreur »). | Le modèle : `emplacement` en `identity: [depot, code]`, `actif: boolean` (défaut faux) sur le dépôt et l'emplacement, `libelle` alimenté par les paramètres seuls ; `article.gere_en_stock`, `article.depot` (ARCTCODEP), `article.emplacement` (ARCTCODMPL) — le sens des trois paires R/F/C à nommer par l'auteur avant d'écrire leurs champs et leurs règles ; `source/PARAM.yml` (le filtre 170, le couple découpé par `extract` D817 en deux calculés D660) ; les règles 001/004 (PARAM — `actif: true`, le libellé), 002/005 (ARTICLE), 003/006 (MVTSTO) — le nouveau naît au défaut (D941) ; un dépôt cité par un mouvement et absent des paramètres entre inactif, jamais une référence non résolue. Voir §3.2c. |
 | D963 | **Les codes inconnus inventés pour l'exemple ; le mode de règlement retiré du modèle** (les frottements 3 et 7 du lot 1 — l'écho de D946/D948) : « si tu ne connais pas, tu peux inventer pour le cas d'usage » — les `select` des règles portent des correspondances inventées, marquées (D963) : la langue CLCTLANGUE (01 fr, 03 en, 05 de, 07 es), l'usage d'adresse ADCTTYPE (LIVRAISON, FACTURATION, sinon autre), la civilité CTCTCIVILI (M, MME), la fonction CTCTFONCTI (DIR, ACH, COM, TEC, sinon le code) ; « le retirer du modèle » — `tiers.mode_reglement` retiré, CLCTMREG reste ignorée à la source. | Le jeu de données publié sera construit sur ces codes (D869/D946). Voir §3.2c. |
 | D964 | **Les quatre lieux de l'article nommés — réception, fabrication, consommation, expédition ; la base d'échéance en énuméré** (clôt les frottements 2 et 5 du lot 1 — précise D962/D963) : « R : Réception, F : Fabrication, C : Consommation. Le 4ème est l'Expédition » — les quatre paires de la fiche article deviennent huit champs de `technique.article` (`depot_expedition`/`emplacement_expedition` — ARCTCODEP/ARCTCODMPL, `depot_reception`/`emplacement_reception` — ARCTCODEPR/ARCTCOEMPR, `depot_fabrication`/`emplacement_fabrication` — ARCTCODEPF/ARCTCOEMPF, `depot_consommation`/`emplacement_consommation` — ARCTCODEPC/ARCTCOEMPC), et l'origine « fiches articles » des référentiels s'écrit **une règle `distinct` par paire** (D658 — la même table source porte plusieurs règles) : quatre fichiers 002, quatre fichiers 005 ; « je valide ta proposition pour l'échéance » — `tiers.base_echeance` en énuméré (facture, fin_de_mois, fin_de_mois_le_10 — les correspondances des codes 1/3/6 inventées, D963), `echeance` reste l'entier de jours. | Le lot 1 est clos : 20 règles, 001–012. Une forme d'union à la règle (un `distinct` sur plusieurs paires) serait un ajout de grammaire — non proposé sans besoin. Voir §3.2c. |
+| D965 | **À la source, l'entité décrite est une collection : un calculé lit une valeur ou une liste de valeurs dans une autre table par les agrégats `first` et `list` ; un cache des critères** (précise D660/D887/D889, borne D891 au modèle — le cas 3, PARAM) : « dans Cegid, la table PARAM conditionne le fonctionnement de l'ERP et donc des données. Dans le matching, je souhaite ajouter un champ calculé dans la description de la source avec une fonction qui permette de lire une valeur ou une liste de valeurs dans une autre table » — deux formes proposées, la fonction dédiée `lookup` ou les agrégats sur la table comme collection : **« j'opte pour le A qui reprend la grammaire et la syntaxe déjà vue »** — `PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)`, `PARAM.list(PACTEXT210 if …)` ; la doctrine D887 (« valeur if condition ») et la projection D889 tiennent ; `list` est le seul agrégat ajouté (la liste des valeurs, `list of <type de la colonne>`) ; la valeur typée par la colonne (D581), l'absence = le nul, un fait ; **« un cache est à prévoir pour rendre l'information rapide si les mêmes critères sont appelés régulièrement »** — le moteur mémorise le résultat par (table, expression, valeurs des critères) le temps d'un passage de la migration. D891 reste entier au modèle : la levée vaut à la source, lue par lots. | Mes propositions, consignées comme telles : la lecture traverse la table entière, hors du `filter:` de sa description (le filtre dit ce que la migration parcourt, pas ce qu'une formule consulte) ; le nom `list`. mapping.md et types.md au niveau. Voir §3.2c. |
 
 ---
 
@@ -11514,6 +11515,30 @@ en énuméré, le point de départ du délai, les correspondances des codes
 1/3/6 inventées comme les autres (D963) ; `echeance` reste l'entier de
 jours. **Le lot 1 du mapping est clos** : vingt règles, 001–012.
 
+**La source comme collection — lire une autre table depuis un calculé
+(D965 — précise D660/D887/D889, borne D891 au modèle).** **« Dans
+Cegid, la table PARAM conditionne le fonctionnement de l'ERP et donc
+des données. Dans le matching, je souhaite ajouter un champ calculé
+dans la description de la source avec une fonction qui permette de
+lire une valeur ou une liste de valeurs dans une autre table. »** Le
+frottement : D891 interdit au modèle l'agrégat sur l'entité entière
+— pour ne pas balayer une table à chaque affichage. La source n'est
+pas le modèle : la description du technicien, lue par lots. Deux
+formes posées — une fonction dédiée `lookup(TABLE.colonne,
+condition)`, ou la table décrite comme collection, lue par les
+agrégats existants : **« j'opte pour le A qui reprend la grammaire et
+la syntaxe déjà vue. Un cache est à prévoir pour rendre l'information
+rapide si les mêmes critères sont appelés régulièrement. »** Donc :
+`PARAM.first(PACTEXT140 if PAKTNOPAR = "170" and PACTEXT210 =
+ARCTCODEP + "." + ARCTCODMPL)` rend une valeur, `PARAM.list(PACTEXT210
+if …)` la liste — `list`, le seul mot ajouté aux agrégats ; la valeur
+est typée par la colonne (D581), l'absence rend le nul (un fait) ; le
+moteur mémorise le résultat par table, expression et valeurs des
+critères le temps d'un passage. D891 reste entier au modèle. *Mes
+propositions, à leur place : la lecture traverse la table entière,
+hors du `filter:` de sa description — le filtre dit ce que la
+migration parcourt, pas ce qu'une formule consulte ; le nom `list`.*
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -21561,8 +21586,11 @@ avant la synthèse Q16).
   retiré. Le lot 1 commis. **D964** les quatre lieux nommés (réception,
   fabrication, consommation, expédition — huit champs de l'article, une
   règle par paire), `tiers.base_echeance` en énuméré : **le lot 1 est
-  clos**, vingt règles. La suite : le lot 2, les articles — quatre règles
-  filtrées sur ARCTFATN (D940) et la question de NOMENC.
+  clos**, vingt règles. **D965** à la source, l'entité décrite est une
+  collection — un calculé lit une autre table par `first`/`list`
+  (PARAM conditionne les données), un cache des critères ; D891 borné
+  au modèle ; mapping.md, types.md. La suite : le lot 2, les articles —
+  quatre règles filtrées sur ARCTFATN (D940) et la question de NOMENC.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

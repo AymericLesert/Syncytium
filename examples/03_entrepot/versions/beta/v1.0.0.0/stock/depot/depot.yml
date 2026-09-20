@@ -79,5 +79,3 @@ fields:
     confidentiality: ${settings.confidentiality.financier}
     label:
       fr: Valeur du stock
-
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)

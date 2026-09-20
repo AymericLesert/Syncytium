@@ -17,7 +17,25 @@ identity: [document, ligne, indice, composant, article, horodatage]
 history: false
 
 fields: ~{fields.yml}
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 # aucune validation sur la quantité (D1009) ; « la ligne est valide si la
 # quantité est non nulle » : le calculé valide, pas un rejet
+
+# Les graphiques du mouvement — le tableau de bord du module (D1019) :
+# les entrées et les sorties par mois, la matrice de contrôle en croisé
+# (D1014 en présentation : le pivot, D246).
+gui:
+  charts:
+    par_mois:
+      component: chart.bars
+      x: date[month]                   # la temporalité (D240)
+      y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]   # deux séries (D887)
+      filter: date >= context.today - 12m   # les douze derniers mois (D838)
+      title: { fr: "Entrées et sorties par mois" }
+    controle:
+      component: pivot
+      rows: [depot, emplacement]       # la hiérarchie pliable (D246)
+      columns: [article]
+      value: 'sum(sens.select(entree: quantite, sortie: -quantite))'   # la règle de contrôle (D1014), à la cellule
+      filter: date >= context.today - 1m
+      title: { fr: "Contrôle des stocks par les mouvements (le mois)" }

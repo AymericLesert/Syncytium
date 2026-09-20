@@ -65,5 +65,3 @@ fields:
       fr: Carnet en cours
     hint:
       fr: Le total des commandes non soldées.
-
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)

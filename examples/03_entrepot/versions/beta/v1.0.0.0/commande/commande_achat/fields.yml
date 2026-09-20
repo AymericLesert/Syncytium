@@ -35,8 +35,6 @@ reference_fournisseur:
 date:
   # ECCJCRE
   type: date
-  searchable: range   # (D784)
-  searchable: range   # (D784)
   required: true
   label:
     fr: Date

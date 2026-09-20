@@ -90,8 +90,6 @@ dernier_mouvement:
 peremption:
   # DPCJPEREMP
   type: date
-  searchable: range   # (D784)
-  searchable: range   # (D784)
   label:
     fr: Péremption
 

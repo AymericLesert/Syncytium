@@ -91,8 +91,6 @@ delai_accuse:
 delai_expedition:
   # LCCJDELEXP — l'expédition prévue (LCCSDELEXP, la semaine, ignorée)
   type: date
-  searchable: range   # (D784)
-  searchable: range   # (D784)
   label:
     fr: Expédition prévue
 

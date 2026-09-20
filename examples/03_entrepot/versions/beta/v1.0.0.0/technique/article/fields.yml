@@ -3,8 +3,6 @@
 code:
   # ARKTCODART nchar(18)
   type: text[..18]
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
   required: true
   label:
     fr: Code article
@@ -26,8 +24,6 @@ complement:
 libelle:
   # ARCTLIB01
   type: text[..40]
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
   required: true
   label:
     fr: Libellé
@@ -319,8 +315,6 @@ ean13:
   # explicitement le nchar(20) (left, D581) — une valeur fausse ou trop
   # longue échoue à la facette, l'article est rejeté au rapport
   type: text[13]
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
-  searchable: mutualizable[recherche]   # le champ unique de recherche des listes (D780)
   barcode: ean13
   label:
     fr: EAN 13

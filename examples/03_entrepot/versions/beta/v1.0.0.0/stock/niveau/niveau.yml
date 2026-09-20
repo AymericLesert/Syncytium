@@ -17,7 +17,6 @@ identity: [article, lot, emplacement, depot, enregistrement]
 history: false               # les mouvements portent l'histoire (D1013)
 
 fields: ~{fields.yml}
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 validation:
   - quantite >= 0
@@ -25,3 +24,25 @@ validation:
   # la règle de l'auteur (D954) : le lot d'un article périssable porte sa
   # date de péremption — la référence navigue (D396), la cible vérifie (D932)
   - peremption != null if article.perissable
+
+# Les graphiques du niveau — les indicateurs du tableau de bord du module
+# (D1019 : « les interfaces graphiques ne sont pas essentielles » — un
+# seul tableau de bord montre que l'entrepôt sert) : des kpi (D527), la
+# valeur = un agrégat (D158), aucun axe.
+gui:
+  charts:
+    valeur_stock:
+      component: kpi
+      value: sum(valeur)               # restreint comme la valeur (D859/D247)
+      title: { fr: "Valeur du stock" }
+      labels: { fr: "{value}" }
+    sous_minimum:
+      component: kpi
+      value: count(sous_minimum = true)   # la condition seule (D887)
+      title: { fr: "Niveaux sous le minimum" }
+      colors: { 0: green, 1: orange, 20: red }   # les seuils (D467)
+    perimes:
+      component: kpi
+      value: count(perime = true and quantite > 0)
+      title: { fr: "Lots périmés en stock" }
+      colors: { 0: green, 1: red }

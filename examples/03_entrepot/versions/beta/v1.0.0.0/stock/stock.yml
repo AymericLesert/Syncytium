@@ -24,3 +24,31 @@ entities:
   - ~{mouvement/mouvement.yml}
   - ~{depot/depot.yml}
   - ~{emplacement/emplacement.yml}
+
+# Le tableau de bord du module (D554/D555) — le seul du cas (D1019 :
+# « l'intérêt du cas d'usage 3, la migration de données et son
+# enregistrement dans un entrepôt de données ; les interfaces graphiques
+# ne sont pas essentielles ») : la preuve que l'entrepôt sert une fois
+# rempli — les indicateurs du stock (D859), la matrice de contrôle
+# (D1014). Le menu l'adresse stock[pilotage] (D439), la première
+# déclarée = le défaut (D438) ; le rafraîchissement dès que les données
+# sont disponibles — chaque nuit après le migrate (D943) ; les
+# graphiques adressés par chart[<entité>.<nom>] (la famille des adresses
+# D566, la forme en proposition dans composants.md) ; l'emplacement
+# libre `_` pour le pool de l'utilisateur (D556). Le premier dashboards:
+# du dépôt (le point ouvert de D994).
+gui:
+  dashboards:
+    pilotage:
+      title: { fr: "Le pilotage des stocks" }
+      refresh: every[1h]               # static | live | every[…] (D249/D434) — la nuit suffit, l'heure rassure
+      page:
+        - sections:
+            layout: row
+            items:
+              - section: { items: [ 'chart[niveau.valeur_stock]' ] }     # le crochet cité en flux (D892)
+              - section: { items: [ 'chart[niveau.sous_minimum]' ] }
+              - section: { items: [ 'chart[niveau.perimes]' ] }
+        - chart[mouvement.par_mois]
+        - chart[mouvement.controle]
+        - _                            # l'emplacement libre (D556)

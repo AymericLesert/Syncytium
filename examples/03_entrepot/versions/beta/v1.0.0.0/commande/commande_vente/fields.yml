@@ -43,8 +43,6 @@ reference_client:
 date:
   # ECCJCRE — la date de la commande
   type: date
-  searchable: range   # la plage dans la zone de recherche (D784)
-  searchable: range   # la plage dans la zone de recherche (D784)
   required: true
   label:
     fr: Date

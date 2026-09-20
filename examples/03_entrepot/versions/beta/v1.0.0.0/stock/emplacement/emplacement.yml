@@ -61,5 +61,3 @@ fields:
     formula: 'mouvements_par_article.sum(sens.select(entree: quantite, sortie: -quantite))'
     label:
       fr: Stock par article
-
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)

@@ -23,7 +23,6 @@ history: true
 
 # La liste des champs de l'entité — l'éclatement libre (D767)
 fields: ~{fields.yml}
-gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 # La cohérence des données converties (D404/D859 — la vérification)
 validation:

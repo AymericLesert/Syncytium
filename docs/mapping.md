@@ -577,7 +577,7 @@ customers:
   référence en retour par l'affectation au chemin** (D823 —
   `me.liee.liee : me` : le membre gauche navigue et écrit dans
   l'enregistrement pointé ; l'ordre des affectations compte, le
-  chemin sur le vide est sans effet) ; **le compteur surchargé** (D883/D998) — la règle écrit la valeur reprise dans le champ `counter`, et `counter.update(clé, valeur)` dans ses `operations:` positionne le compteur courant sur la plus grande valeur (« si la valeur > au compteur courant, ça positionne le compteur courant sur la valeur la plus grande ») : `counter.update("commande_vente.numero", numero)` ; les trous de la séquence reprise relèvent du contrôle de la propriété du compteur, pas de la migration. Le bloc `operations:` d'une règle = des énoncés du
+  chemin sur le vide est sans effet) ; **le compteur surchargé** (D883/D998) — la règle écrit la valeur reprise dans le champ `counter`, et la méthode `update(valeur)` du type counter, dans ses `operations:`, positionne le compteur courant sur la plus grande valeur (« si la valeur > au compteur courant, ça positionne le compteur courant sur la valeur la plus grande ») : `commande_vente.numero.update(numero)` — le champ adressé par le point (D999, « plus parlante ») ; les trous de la séquence reprise relèvent du contrôle de la propriété du compteur, pas de la migration. Le bloc `operations:` d'une règle = des énoncés du
   langage exécutés par enregistrement (le `if` postfixe — D364) ; la
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;

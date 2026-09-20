@@ -36,7 +36,7 @@ ECOMCLI:
       geolocation(ECCTRUE1LI + " " + ECCTRUE2LI + " " + ECCTRUE3LI + ", " + ECCTCPLIV + " " + ECCTVILLIV + ", " + ECCTPAYSLI)
         if ECCTVILLIV != null
   operations:
-    counter.update("commande_vente.numero", numero)   # le compteur surchargé se positionne sur la plus grande valeur reprise (D998)
+    commande_vente.numero.update(numero)   # la méthode du type counter, le champ adressé par le point : le compteur se positionne sur la plus grande valeur reprise (D998/D999)
   report:
     when: [migration]
     to: [commercial]                      # les ventes, c'est le commercial qui corrige (D945)

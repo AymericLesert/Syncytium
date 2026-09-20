@@ -1661,9 +1661,10 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   propriété d'un compteur » ; « nous pouvons disposer de counter avec
   une méthode update(<clé>, <valeur>). Si la valeur > au compteur
   courant, ça positionne le compteur courant sur la valeur la plus
-  grande » — `operations: counter.update("commande_vente.numero",
-  numero)` sur 020 et 022 ; « l'identifiant du compteur ou un alias
-  sont actés » pour la clé ; le rejeu par l'identité, « tout à fait ».
+  grande » ; puis **D999**, « plus parlante » :
+  `operations: commande_vente.numero.update(numero)` — la méthode du
+  type counter, le champ adressé par le point, sur 020 et 022 ; le
+  rejeu par l'identité, « tout à fait ».
 - **le constructeur `datetime(jour, heure)`** — le couple J + S de
   PMI recomposé par la fonction du type (D659) : `datetime(LCCJDELEXP,
   LCCSDELEXP)` ; *ma lecture des nuls : le jour nul donne un datetime

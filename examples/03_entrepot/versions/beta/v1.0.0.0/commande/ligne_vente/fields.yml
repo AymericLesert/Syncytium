@@ -19,8 +19,8 @@ article:
 
 # la désignation de la ligne n'est plus ici : « le commentaire d'une ligne
 # d'une commande d'achat ou de vente est présent dans une autre table
-# LIBEL40… que nous ne décrirons pas ici » (D989) — LIBEL40 ignorée,
-# LCCTLIB01/LCCTLIB02 non lues
+# LIBEL40… que nous ne décrirons pas ici » (D989) — LIBEL40 ignorée, les
+# deux libellés de la ligne non lus
 
 # --- les quantités ---
 
@@ -73,8 +73,7 @@ prix_revient:
   label:
     fr: Prix de revient
 
-# --- les délais — le couple jour + heure de PMI recomposé en datetime
-# (LCCJDELEXP + LCCSDELEXP — le constructeur D659) ---
+# --- les délais — le couple jour + heure de PMI recomposé en datetime (le constructeur D659) ---
 
 delai_demande:
   # LCCJDELDDE — la date demandée par le client
@@ -130,6 +129,15 @@ devise:
   formula: owner.devise
   label:
     fr: Devise
+
+client:
+  # le client de la commande, par l'accès montant (D760) — la ligne le
+  # porte pour les listes calculées de l'article (D997 :
+  # commandes_vente.last().client)
+  type: tiers.client
+  formula: owner.client
+  label:
+    fr: Client
 
 montant:
   # la valeur de la ligne — amount * decimal (D581)

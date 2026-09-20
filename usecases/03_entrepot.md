@@ -1358,9 +1358,12 @@ même table = deux fichiers :
   fonction, la base d'échéance (D963/D964) ; le mode de règlement
   retiré du modèle ;
 - **013–016, l'article et ses dérivés** — quatre règles filtrées sur
-  ARCTFATN (D940) qui partagent **un bloc de trente-huit champs par
+  ARCTFATN (D940) qui partagent **un bloc de trente-sept champs par
   la référence de fichier**, `fields: ~{articles/fields.yml}` (D967 —
-  hors du pattern des règles) ; dedans : les `select` du type et du
+  hors du pattern des règles), et 013/014 y ajoutent leur propre par
+  le cumul en bloc (D968/D997 : `- fournisseur_defaut: ARCTNOFOU1`,
+  `- client_defaut: ARCTNOFOU1` — le compte 1 de PMI routé par le
+  dérivé) ; dedans : les `select` du type et du
   code de gestion, `perissable: mid(ARCTCODFAM, 4, 1) = "1"` (D954),
   `matieres: list(…)` (D971), `plans: plans.files(ARCTFICPLA)` (D972),
   les mesures par `measure(x, kg)` (D975), les prix
@@ -1717,11 +1720,21 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   défaut et la liste des clients sur le fabriqué, le fournisseur par
   défaut sur l'acheté — « grâce à l'héritage aux règles de
   clarification, nous pouvons redispatcher l'information au bon
-  endroit » ; `article.fournisseurs` retirée. *En attente : la
-  résolution finale par le type du champ mappé (ma lecture) ; la
-  maison de `fournisseur_defaut` — le parent (le fabriqué l'hérite)
-  ou un dérivé `achete` — et « acheté ou fabriqué » ; les formes des
-  calculés.*
+  endroit » ; `article.fournisseurs` retirée.
+- **les comptes à la cible** — **D997**. « Dans la destination, nous
+  définirons 2 champs — chacun pointant sur une entité différente. Pas
+  d'ambiguïté, pas de or » ; « client_defaut et fournisseur_defaut
+  vivent sur l'instanciation de l'article (type d'article)… absents
+  pour les inactifs… pour l'exemple, nous ne mettrons pas les 2 sur
+  l'article. Ça fait partie des éléments spécifiques » ; « dernier_
+  client: commandes_vente.last().client (le tri est porté par la liste
+  calculée) — même approche pour le fournisseur ». Le modèle :
+  `article.fournisseur_defaut`, `fabrique.client_defaut`,
+  `fabrique.clients` (dérivée des lignes de vente), les deux derniers
+  comptes en calculés ; les règles 013 et 014 ajoutent leur propre au
+  bloc commun — le premier emploi du cumul en bloc (D968) ; mes formes
+  en proposition : `order:` sur la liste calculée, `last()` sans
+  argument, `ligne.client`/`ligne.fournisseur` par `owner`.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

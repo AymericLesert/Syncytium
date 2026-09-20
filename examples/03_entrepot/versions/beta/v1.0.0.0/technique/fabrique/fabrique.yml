@@ -12,6 +12,23 @@ inheritance: article
 history: true
 
 fields:
+  client_defaut:
+    # ARCTNOFOU1 — le compte 1 de PMI : « dans le cas d'un produit
+    # fabriqué, le compte 1 fait alors référence au client de référence »
+    # (D996) ; l'élément spécifique du fabriqué (D997), le parent porte
+    # le fournisseur par défaut de l'acheté ; absent chez l'inactif
+    type: tiers.client
+    label:
+      fr: Client de référence
+
+  clients:
+    # « une liste de clients (déduites des commandes de vente passées) »
+    # (D996) — l'association dérivée (D405) : les clients des lignes de
+    # vente de l'article, la projection D889 sur la liste calculée
+    type: association with tiers.client if client in me.commandes_vente.client
+    label:
+      fr: Clients
+
   nomenclature:
     # la composition (D399) — la nomenclature et la gamme réunies, comme
     # chez PMI (NOMENC) ; la composition auto-référencée (D135) : le
@@ -21,6 +38,15 @@ fields:
       fr: Nomenclature et gamme
 
   # ------ Champs calculés ------
+
+  dernier_client:
+    # le compte 2 de PMI (ARCTNOFOU2) — « se calcule, ne se stocke pas »
+    # : « dernier_client: commandes_vente.last().client — le tri est
+    # porté par la liste calculée » (D997)
+    type: tiers.client
+    formula: commandes_vente.last().client
+    label:
+      fr: Dernier client
 
   nombre_composants:
     type: integer

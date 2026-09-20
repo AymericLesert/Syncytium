@@ -109,6 +109,13 @@ devise:
   label:
     fr: Devise
 
+fournisseur:
+  # le fournisseur de la commande, par l'accès montant (D760/D997)
+  type: tiers.fournisseur
+  formula: owner.fournisseur
+  label:
+    fr: Fournisseur
+
 montant:
   type: amount
   formula: prix_net * quantite

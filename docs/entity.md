@@ -105,6 +105,7 @@ km_initial:
 | la propriété | la nature | D |
 |---|---|---|
 | `type:` | le type du catalogue ([types.md](types.md)) — les bornes au nom (`text[..40]`, `integer[0..]`, `date[yyyy-mm]`) ; **la référence** = le nom d'une entité (`transport.revision`) ; **la composition** = `list of <entité>` (le parent déclare, l'enfant ne déclare rien — l'accès montant `owner`) ; **l'association** = `association with <entité>[.<champ>]` | D362, D366, D394–D402, D760–D762 |
+| `order:` | **le tri d'une liste calculée** — sur une association dérivée (D405), les clés de tri dans l'ordre (`order: [owner.date, owner.numero]`) ; « le tri est porté par la liste calculée » : `first()`/`last()` sans argument rendent l'élément en tête ou en queue (`commandes_vente.last().client`) — *forme en proposition* | D997 |
 | `required:` | le champ obligatoire — le nul retiré | D373 |
 | `default:` | la valeur de naissance (le statut naît à son `default:` — D424) | D424 |
 | `unchanged:` | `true` : le champ possédé par la cible — la migration ne l'écrit pas, il naît à son `default:` et garde sa valeur, l'écran de saisie reste libre ; une règle de migration qui l'alimente = une erreur d'ingestion ; `false` par défaut | D941 |

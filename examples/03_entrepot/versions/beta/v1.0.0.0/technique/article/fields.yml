@@ -474,12 +474,15 @@ emplacement_consommation:
 
 # --- les liens (D399–D405) ---
 
-fournisseurs:
-  # ARCTNOFOU1, ARCTNOFOU2 — les fournisseurs habituels : l'association
-  # stockée (D400), libre et inter-modules
-  type: association with tiers.fournisseur
+fournisseur_defaut:
+  # ARCTNOFOU1 — le compte 1 de PMI, « le compte client ou fournisseur
+  # par défaut » (D996) : chez l'article acheté, son fournisseur ; la
+  # référence (D396), un champ par entité visée — « pas d'ambiguïté, pas
+  # de or » (D997) ; absent chez l'inactif ; le fabriqué porte, lui, son
+  # client de référence (fabrique.client_defaut — l'élément spécifique)
+  type: tiers.fournisseur
   label:
-    fr: Fournisseurs habituels
+    fr: Fournisseur par défaut
 
 # la nomenclature n'est plus ici : elle est portée par les trois dérivés
 # de l'article qui en ont besoin — fabrique, semi_fini, fantome (D940 :
@@ -555,15 +558,28 @@ tarifs:
 
 commandes_vente:
   # l'association dérivée (D405/D882) — les lignes de commande de vente
-  # qui portent l'article ; la vérité reste la référence de la ligne
+  # qui portent l'article ; la vérité reste la référence de la ligne ;
+  # « le tri est porté par la liste calculée » (D997) : par la date de
+  # la commande, la plus ancienne en tête — last() rend la plus récente
   type: association with commande.ligne_vente if article = me
+  order: [owner.date, owner.numero]
   label:
     fr: Lignes de commande de vente
 
 commandes_achat:
   type: association with commande.ligne_achat if article = me
+  order: [owner.date, owner.numero]
   label:
     fr: Lignes de commande d'achat
+
+dernier_fournisseur:
+  # le compte 2 de PMI (ARCTNOFOU2) — « le dernier achat/vente réalisé…
+  # se calcule, ne se stocke pas » (D996/D997) : la dernière ligne de
+  # commande d'achat, dans l'ordre de la liste calculée
+  type: tiers.fournisseur
+  formula: commandes_achat.last().fournisseur
+  label:
+    fr: Dernier fournisseur
 
 mouvements:
   # l'accès retour aux mouvements de l'article (D394), nommé en vue

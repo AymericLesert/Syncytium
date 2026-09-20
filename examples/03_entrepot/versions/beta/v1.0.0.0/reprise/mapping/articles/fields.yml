@@ -74,4 +74,4 @@ emplacement_fabrication:  { depot: ARCTCODEPF, code: ARCTCOEMPF }
 depot_consommation:       ARCTCODEPC
 emplacement_consommation: { depot: ARCTCODEPC, code: ARCTCOEMPC }
 # --- les liens ---
-fournisseurs: list(ARCTNOFOU1, ARCTNOFOU2)    # l'association stockée (D400) — les références par la clé (D654) ; les vides et les doublons tombent (D971)
+# le compte 1 (ARCTNOFOU1) n'est pas ici : il se route par la règle du dérivé — fournisseur_defaut chez l'acheté (013), client_defaut chez le fabriqué (014) (D996/D997) ; le compte 2 se calcule à la cible

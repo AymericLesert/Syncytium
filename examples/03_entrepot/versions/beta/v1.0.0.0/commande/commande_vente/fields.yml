@@ -85,7 +85,8 @@ taux_change:
     fr: Taux de change
 
 # le statut de l'entête n'est pas repris : « ECCTSTATUT peut être ignoré »
-# (D1002) — l'état d'une commande se lit sur ses lignes
+# (D1002) — « l'état d'une commande se déduit de l'état des lignes » : le
+# calculé statut, plus bas (D1003)
 
 # --- la livraison — l'adresse propre à la commande, sans GPS chez PMI ---
 
@@ -113,6 +114,30 @@ lignes:
     fr: Lignes
 
 # ------ Champs calculés ------
+
+statut:
+  # « l'état d'une commande se déduit de l'état des lignes » (D1003) — un
+  # calculé, jamais repris (ECCTSTATUT ignorée, D1002) : non traitée tant
+  # qu'aucune ligne ne l'est, soldée quand toutes le sont (soldée ou
+  # terminée), en cours entre les deux ; les cas en chaîne par
+  # « valeur if condition else … » (forme mienne, D1003)
+  type: enum
+  formula: >-
+    "non_traite" if lignes.count(statut != "non_traite") = 0
+    else "soldee" if lignes.count(statut not in ["soldee", "terminee"]) = 0
+    else "en_cours"
+  label:
+    fr: Statut
+  values:
+    non_traite:
+      label:
+        fr: Non traitée
+    en_cours:
+      label:
+        fr: En cours
+    soldee:
+      label:
+        fr: Soldée
 
 total:
   # la somme des montants des lignes — un amount à la devise de la

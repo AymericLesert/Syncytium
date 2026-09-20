@@ -31,7 +31,7 @@ fields:
   ECCJDERFA:   date_pmi                                       # → commande_vente.derniere_facture
   ECCTDEVISE:  text[3]                                        # → commande_vente.devise — la devise des montants (D771)
   ECCNTXDEVI:  decimal                                        # → commande_vente.taux_change
-  ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — l'état d'une commande se lit sur ses lignes
+  ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — « l'état d'une commande se déduit de l'état des lignes », le calculé de la cible (D1003)
   ECCTRUE3LI:  text[40]                                       # → commande_vente.livraison_adresse
 
   # --- le numéro de commande en nombre (D990 : la conversion d'une clé se

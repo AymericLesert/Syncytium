@@ -37,7 +37,7 @@ composants.md.
   intrinsèque** (la fonction au nom du type — `text(x)`, `date(x)` ;
   la promotion implicite sans perte seulement — D581), **la table des
   opérateurs** (les combinaisons admises, le type du résultat), **les
-  comparateurs** (l'ordre des règles de tri), **le `select`**
+  comparateurs** (l'ordre des règles de tri), **le `if` suffixé et sa chaîne** (`valeur if condition`, D580 ; *`valeur if condition else valeur if condition else valeur` — les cas dans l'ordre, le dernier sans condition : en proposition, D1003*), **le `select`**
   (`valeur.select(cas: …, "...": défaut)` — **deux conduites** (D1002) : sans `"..."`, une valeur hors des cas est rejetée ; avec `"..."`, toutes les autres valeurs sont cadrées ou traitées par ce cas ; `null:` nomme le cas du nul, le vide du texte — *forme mienne*), **les fonctions dédiées**
   (`distance` de la géolocalisation — D579 ; **`extract` du texte** :
   l'extraction par la regex, la capture unique ou **plusieurs noms

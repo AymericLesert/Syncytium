@@ -3,7 +3,8 @@
 # numéro et l'indice de révision (ECKTNUMERO, ECKTINDICE — D865) ; le
 # numéro est un counter (D883) dont la migration surcharge la valeur.
 # Pas de machine à états (D882) : l'entrepôt consulte ; le statut de
-# l'entête n'est pas repris (D1002), celui des lignes l'est.
+# l'entête n'est pas repris (D1002), il se déduit de celui des lignes
+# (D1003).
 name: commande_vente
 description: Une commande de vente — l'entête, le client, les conditions et ses lignes
 label: "{numero}-{indice} — {client}"

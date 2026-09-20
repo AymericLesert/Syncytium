@@ -1710,7 +1710,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
 - **la devise du prix de revient** — LCCNPUREVI n'a pas de devise
   propre chez PMI (LCCTDEVISE est celle des prix de vente) :
   `amount(LCCNPUREVI)` à la devise de l'entreprise (D993) — *mien, à
-  confirmer* ; l'alternative `amount(LCCNPUREVI, LCCTDEVISE)`.
+  confirmer* ; l'alternative `amount(LCCNPUREVI, LCCTDEVISE)` —
+  **tranché par D1005** : « le prix de revient se déduit. Cegid PMI le
+  calcule et le stocke pour des questions de performance. Dans notre
+  cas, ce sera un champ calculé mais pour l'exemple, nous n'allons pas
+  fournir la formule » ; « nous ne traitons pas la marge pour
+  l'exemple » — les deux champs retirés, LCCNPUREVI ignorée.
 - **la validation de la règle qui redit celle de l'entité** —
   `me.quantite_expediee <= me.quantite` à la règle (D932, le deuxième
   étage) doublonne `quantite_expediee <= quantite` à l'entité : le

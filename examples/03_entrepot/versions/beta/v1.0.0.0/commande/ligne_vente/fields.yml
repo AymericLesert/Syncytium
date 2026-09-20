@@ -66,12 +66,11 @@ prix_net:
   label:
     fr: Prix unitaire net
 
-prix_revient:
-  # LCCNPUREVI — le prix de revient de la ligne : restreint (D859)
-  type: amount
-  confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix de revient
+# le prix de revient n'est pas repris : « le prix de revient se déduit.
+# Cegid PMI le calcule et le stocke pour des questions de performance.
+# Dans notre cas, ce sera un champ calculé mais pour l'exemple, nous
+# n'allons pas fournir la formule » (D1005) — LCCNPUREVI ignorée ; la
+# marge, qui en dépendait, sort de l'exemple avec lui
 
 # --- les délais — des jours : « sur les commandes, il n'y a pas d'heures », la colonne S est la semaine, déduite du jour (D1000) ---
 
@@ -152,15 +151,6 @@ montant:
   formula: prix_net * quantite
   label:
     fr: Montant
-
-marge:
-  # la marge unitaire — réservée à la direction (D859) ; amount - amount
-  # à devise compatible (D581)
-  type: amount
-  formula: prix_net - prix_revient if prix_revient != null
-  confidentiality: ${settings.confidentiality.direction}
-  label:
-    fr: Marge unitaire
 
 reste_a_livrer:
   type: decimal

@@ -6,8 +6,8 @@
 # l'indice tel quel. L'identité de la ligne au sein de la commande : le
 # numéro de ligne, le calculé ligne (D841/D930). L'article par sa clé
 # composée, la même carte que le possesseur (D931). Les prix en amount à
-# la devise de la ligne (D771) ; le prix de revient sans devise chez PMI —
-# celle de l'entreprise, le défaut du type (D993). Les délais sont des
+# la devise de la ligne (D771) ; le prix de revient n'est pas repris, il
+# se déduit — un calculé de la cible, hors exemple (D1005). Les délais sont des
 # jours : « sur les commandes, il n'y a pas d'heures », la colonne S est
 # la semaine, déduite du jour, non reprise (D1000). Le statut traduit
 # depuis les valeurs de PMI (D1002) — sans « ... », un code hors liste est
@@ -31,7 +31,6 @@ LCOMCLI:
     # --- les prix — la devise dans la valeur (D771) ---
     prix_brut:    amount(LCCNPUBRUT, LCCTDEVISE)
     prix_net:     amount(LCCNPUNET, LCCTDEVISE)
-    prix_revient: amount(LCCNPUREVI)      # la devise de l'entreprise — le défaut du type (D993)
     # --- les délais — des jours (D1000) ---
     delai_demande:     LCCJDELDDE
     delai_accuse:      LCCJDELARR

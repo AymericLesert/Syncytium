@@ -31,7 +31,7 @@ fields:
   LCCJDELEXP:  date_pmi                                       # → ligne_vente.delai_expedition
   LCCSDELFAB:  ignored                                        # la semaine de la fin de fabrication — déduite du jour (D1000)
   LCCJDELFAB:  date_pmi                                       # → ligne_vente.delai_fabrication
-  LCCNPUREVI:  decimal                                        # → ligne_vente.prix_revient
+  LCCNPUREVI:  ignored                                        # le prix de revient — « se déduit. Cegid PMI le calcule et le stocke pour des questions de performance » : un calculé de la cible, hors exemple (D1005)
   LCCTETACDE:  ignored                                        # un état de la ligne, « je ne connais pas les valeurs exactes » (D1002) — à creuser (D868)
   LCCTDEVISE:  text[3]                                        # → ligne_vente.prix_brut, prix_net — la devise des prix (D771)
   LCCJDELDDE:  date_pmi                                       # → ligne_vente.delai_demande

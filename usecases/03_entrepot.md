@@ -1174,8 +1174,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    `articles/fields.yml` ; les frottements et leurs décisions ci-dessous
    (« Les frottements du morceau 4 ») ; **le lot 3 — les commandes
    (020–023) — clos par D998–D1007** ; **le lot 4 — les stocks (024–025
-   et les origines 3 bis / 6 bis) — écrit le 20/09, ses frottements en
-   attente d'arbitrage** ; puis le morceau 5* ;
+   et les origines 3 bis / 6 bis) — clos par D1008–D1018** ; puis le
+   morceau 5* ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -1338,8 +1338,9 @@ référencent par `${settings.confidentiality.<profil>}` ; le lien
 depuis `version.yml` viendra avec le morceau 1.
 
 **Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
-2 clos — D961 à D990 ; le lot 3 clos — D998 à D1007 ; le lot 4 écrit
-le 20/09, en attente) : `reprise/mapping/`, **trente-trois règles, 001
+2 clos — D961 à D990 ; le lot 3 clos — D998 à D1007 ; le lot 4 clos —
+D1008 à D1018 ; **le morceau est écrit en entier**, sa validation
+globale à la fin du cas, D955) : `reprise/mapping/`, **trente-trois règles, 001
 à 025**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
 de `reprise.yml` (D806/D956) — le préfixe fait l'étape (D665), les
 référentiels avant ce qui les référence (D662), deux règles sur une
@@ -1401,8 +1402,8 @@ même table = deux fichiers :
   l'adresse de livraison de l'entête reprise en détail (sept champs)
   et géocodée à la cible par le connecteur `location` (D1004) ; les
   rapports au commercial (ventes) et aux achats (D945) ;
-- **024–025, les stocks** (*écrites le 20/09, en attente
-  d'arbitrage*) — STDEPLOT vers `niveau` : l'identité aux six K, l'article
+- **024–025, les stocks** (*clos par D1008–D1018*) — STDEPLOT vers
+  `niveau` : l'identité aux six K, l'article
   par sa clé composée, l'emplacement par le couple `{ depot, code }`
   (D931/D962), le prix du lot `amount(x)` (D993), l'inventaire en date
   (D1001) ; MVTSTO vers `mouvement` : l'identité aux I + l'article +
@@ -1835,7 +1836,17 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   (mien).
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
-  *un référentiel des lots n'est pas ouvert, à confirmer*.
+  *un référentiel des lots n'est pas ouvert, à confirmer* — **tranché
+  par D1018** : « pour le cas d'usage, oublions le numéro de lot. Si
+  nous devions le prendre en compte, il faudrait séparer 2 concepts :
+  la définition d'un article et l'article à proprement parler (article
+  physique)… le n° de lot et la date de péremption, le packaging… cela
+  irait trop loin par rapport au besoin du cas d'usage » ; « nous
+  allons considérer ces propriétés sur la base de chaque enregistrement
+  de mouvements » — le lot, un texte sur chaque mouvement et dans la
+  clé du niveau, sans référentiel, BATCH non décrite.
+
+**Le lot 4 est clos — D1008 à D1018.**
 
 **Le retour de l'auteur sur les sources (20/09) :**
 

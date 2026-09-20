@@ -35,7 +35,7 @@ MVTSTO:
     # --- le lieu ---
     depot:       MVCTDEPOT                                      # la référence par la clé (D654)
     emplacement: { depot: MVCTDEPOT, code: MVCTCODMPL }         # le couple (D962)
-    lot:         MVCTNUMLOT
+    lot:         MVCTNUMLOT              # une propriété de l'enregistrement, sans référentiel (D1018)
     # --- le moment ---
     date: MVCJMVT                         # « la date du mouvement à enregistrer dans le système » (D1001)
     # --- le mouvement ---

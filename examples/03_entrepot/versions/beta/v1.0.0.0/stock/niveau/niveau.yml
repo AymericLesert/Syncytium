@@ -1,5 +1,6 @@
 # Le niveau de stock — la table STDEPLOT de PMI : la quantité d'un
-# article, dans un lot, à un emplacement d'un dépôt (DPKTCODART +
+# article, à un emplacement d'un dépôt, par lot — le lot n'étant qu'une
+# part de la clé, sans concept au cas (D1018) — (DPKTCODART +
 # DPKTCOMART, DPKTNUMLOT, DPKTCODMPL, DPKTDEPOT, DPKTCODENR — D865).
 # Sans historique (D1013, qui amende D882) : « pas d'historique sur
 # STDEPLOT car les mouvements sont dans MVTSTO. Sinon, cela fera doublon

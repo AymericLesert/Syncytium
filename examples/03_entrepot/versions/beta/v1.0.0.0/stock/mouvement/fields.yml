@@ -47,7 +47,10 @@ emplacement:
     fr: Emplacement
 
 lot:
-  # MVCTNUMLOT
+  # MVCTNUMLOT — le numéro de lot, un texte : « pour le cas d'usage,
+  # oublions le numéro de lot » comme concept — pas de référentiel, pas
+  # d'article physique — « nous allons considérer ces propriétés sur la
+  # base de chaque enregistrement de mouvements » (D1018)
   type: text[..18]
   label:
     fr: Lot

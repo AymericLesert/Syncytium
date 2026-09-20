@@ -1,6 +1,6 @@
 # L'étape 24 — les niveaux de stock : STDEPLOT vers stock.niveau. L'identité
 # aux six colonnes K après la société (D865/D869) : l'article par sa clé
-# composée (D931), le lot en texte, l'emplacement par le couple (dépôt,
+# composée (D931), le lot en texte — une part de clé sans concept (D1018) —, l'emplacement par le couple (dépôt,
 # code) — la même carte que la référence composée (D931/D962) —, le dépôt
 # par sa clé, le code d'enregistrement tel quel (D930). Les référentiels
 # précèdent (D662) : les dépôts et les emplacements des étapes 1 à 6, les

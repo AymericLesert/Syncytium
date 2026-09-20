@@ -14,7 +14,7 @@ fields:
   DPKTSOC:     text[3]                                        # la société — le filtre (D663)
   DPKTCODART:  ARTICLE.ARKTCODART                             # → niveau.article — la référence par la clé composée (D648/D931) ; l'identité
   DPKTCOMART:  ARTICLE.ARKTCOMART                             # → niveau.article ; l'identité
-  DPKTNUMLOT:  text[18]                                       # → niveau.lot — le numéro de lot, gardé en texte (D882) ; l'identité
+  DPKTNUMLOT:  text[18]                                       # → niveau.lot — l'identité ; « pour le cas d'usage, oublions le numéro de lot » (D1018) : une part de clé, sans concept
   DPKTCODENR:  text[1]                                        # → niveau.enregistrement — le code d'enregistrement de PMI, part de la clé ; l'identité
   DPKTCODMPL:  text[10]                                       # → niveau.emplacement — le référentiel par valeurs distinctes (D658) ; l'identité
   DPKTDEPOT:   text[6]                                        # → niveau.depot — le référentiel par valeurs distinctes (D658) ; l'identité

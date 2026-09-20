@@ -15,6 +15,5 @@ fields: ~{fields.yml}
 # aucune validation sur les quantités (D1006) : « les quantités sont à
 # titre indicatif, puis utilisées pour vérifier la validité d'un mode
 # opératoire ou identifier les cas limites de nos processus » — une
-# expédition au-delà de la commande s'observe, elle ne se rejette pas
-validation:
-  - prix_net <= prix_brut if prix_brut != null
+# expédition au-delà de la commande s'observe, elle ne se rejette pas ;
+# ni sur les prix : « le net peut dépasser le brut, en effet »

@@ -566,13 +566,13 @@ commandes_vente:
   # « le tri est porté par la liste calculée » (D997) : par la date de
   # la commande, la plus ancienne en tête — last() rend la plus récente
   type: association with commande.ligne_vente if article = me
-  order: [owner.date, owner.numero]
+  sort: [owner.date, owner.numero]     # le tri de la liste calculée (D997, renommé sort: par D1017)
   label:
     fr: Lignes de commande de vente
 
 commandes_achat:
   type: association with commande.ligne_achat if article = me
-  order: [owner.date, owner.numero]
+  sort: [owner.date, owner.numero]     # le tri de la liste calculée (D997, renommé sort: par D1017)
   label:
     fr: Lignes de commande d'achat
 

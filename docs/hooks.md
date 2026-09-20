@@ -135,7 +135,12 @@ en contexte implicite dans la parenthèse), `count()`, `avg`,
 by » d'une liste (D1015) : une cellule par combinaison de valeurs des
 champs nommés, l'agrégat qui suit s'évalue par cellule, le résultat est
 un hypercube (D897) aux dimensions des champs —
-`mouvements.group(emplacement, article).sum(…)` ; la forme contextuelle
+`mouvements.group(emplacement, article).sum(…)` ; **`sort(champ, …)`** — le
+tri d'une liste en ligne (D1017), les clés dans l'ordre, `first()`/`last()`
+sans argument rendent l'élément en tête ou en queue
+(`commandes_vente.sort(owner.date).last().client`) ; « les méthodes group
+et sort sont à ajouter », leurs propriétés déclaratives `group:` et
+`sort:` sur l'association (D1016/D1017) ; la forme contextuelle
 sans préfixe quand la collection est le contexte (l'assise d'un chart —
 D517).
 

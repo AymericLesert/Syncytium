@@ -1829,7 +1829,10 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   accès : l'article et l'emplacement. Le group by devient une propriété
   de l'association au même titre que le sort by » — `group:` à côté
   d'`order:`, `article.mouvements_par_emplacement`,
-  `emplacement.mouvements_par_article`, les sommes par cellule.
+  `emplacement.mouvements_par_article`, les sommes par cellule ; puis
+  **D1017** : « les méthodes group et sort sont à ajouter » — les deux
+  méthodes de la collection, la propriété `order:` renommée `sort:`
+  (mien).
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
   *un référentiel des lots n'est pas ouvert, à confirmer*.
@@ -1874,8 +1877,9 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   `fabrique.clients` (dérivée des lignes de vente), les deux derniers
   comptes en calculés ; les règles 013 et 014 ajoutent leur propre au
   bloc commun — le premier emploi du cumul en bloc (D968) ; mes formes
-  en proposition : `order:` sur la liste calculée, `last()` sans
-  argument, `ligne.client`/`ligne.fournisseur` par `owner`.
+  en proposition : `order:` sur la liste calculée (renommée `sort:`,
+  D1017), `last()` sans argument, `ligne.client`/`ligne.fournisseur`
+  par `owner`.
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

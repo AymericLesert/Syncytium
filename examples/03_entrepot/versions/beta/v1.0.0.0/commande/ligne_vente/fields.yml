@@ -102,12 +102,19 @@ delai_fabrication:
 # --- l'état ---
 
 statut:
-  # LCCTSTATUT nchar(2) / LCCTETACDE — la liste close en énuméré (D883)
+  # LCCTSTATUT nchar(2) — les valeurs de PMI (D1002) : « A » acompte / en
+  # cours, « » (vide) non traité, « S » soldé, « T » terminé, « P »
+  # partiel — la liste close en énuméré (D883), les codes traduits à la
+  # règle (D893) ; LCCTETACDE porte un état aux valeurs inconnues,
+  # ignorée. Le vide de PMI est le nul du texte (D366) : non traité
   type: enum
   required: true
   label:
     fr: Statut
   values:
+    non_traite:
+      label:
+        fr: Non traitée
     en_cours:
       label:
         fr: En cours
@@ -117,9 +124,9 @@ statut:
     soldee:
       label:
         fr: Soldée
-    annulee:
+    terminee:
       label:
-        fr: Annulée
+        fr: Terminée
 
 # ------ Champs calculés ------
 
@@ -165,6 +172,6 @@ en_retard:
   # le tableau de bord (D859) — l'expédition prévue dépassée, la ligne
   # non soldée
   type: boolean
-  formula: delai_expedition < context.today and statut = "en_cours"
+  formula: delai_expedition < context.today and statut not in ["soldee", "terminee"]
   label:
     fr: En retard

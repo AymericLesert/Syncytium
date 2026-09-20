@@ -30,11 +30,12 @@ fields:
   LCCSDELEXP:  ignored                                        # la semaine du délai — « se déduit du jour », non reprise (D1000)
   LCCJDELEXP:  date_pmi                                       # → ligne_achat.delai_reception
   LCCSDELFAB:  ignored                                        # la semaine de la fin de fabrication — déduite du jour (D1000)
+  LCCTETACDE:  ignored                                        # un état de la ligne, « je ne connais pas les valeurs exactes » (D1002) — à creuser (D868)
   LCCTDEVISE:  text[3]                                        # → ligne_achat.prix_brut, prix_net — la devise des prix (D771)
   LCCJDELDDE:  date_pmi                                       # → ligne_achat.delai_demande
   LCCJDELARR:  date_pmi                                       # → ligne_achat.delai_accuse
   LCCSDELARR:  ignored                                        # la semaine du délai accusé — déduite du jour (D1000)
-  LCCTSTATUT:  text[2]                                        # → ligne_achat.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
+  LCCTSTATUT:  text[2]                                        # → ligne_achat.statut — A acompte/en cours, vide non traité, S soldé, T terminé, P partiel (D1002), traduits au mapping
 
   # --- les clés en nombre (D990 : la conversion à la lecture) : le numéro de
   # la commande possédante et le numéro de ligne — deux calculés (D660) ---

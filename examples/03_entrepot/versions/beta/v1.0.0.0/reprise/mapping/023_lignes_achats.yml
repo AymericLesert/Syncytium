@@ -27,7 +27,7 @@ LCOMFOU:
     delai_accuse:    LCCJDELARR
     delai_reception: LCCJDELEXP
     # --- l'état ---
-    statut: 'LCCTSTATUT.select(EC: "en_cours", PA: "partielle", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'   # les valeurs de PMI (D1002) ; le vide = le nul (D366) ; sans "..." : hors liste = rejet
   validation:
     - me.quantite_recue <= me.quantite    # sur la ligne importée (D932)
   report:

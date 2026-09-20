@@ -9,8 +9,9 @@
 # la devise de la ligne (D771) ; le prix de revient sans devise chez PMI —
 # celle de l'entreprise, le défaut du type (D993). Les délais sont des
 # jours : « sur les commandes, il n'y a pas d'heures », la colonne S est
-# la semaine, déduite du jour, non reprise (D1000). Le statut traduit, les codes inventés
-# (D963). L'entête fautive emporte ses lignes ; la ligne fautive tombe
+# la semaine, déduite du jour, non reprise (D1000). Le statut traduit
+# depuis les valeurs de PMI (D1002) — sans « ... », un code hors liste est
+# un rejet visible. L'entête fautive emporte ses lignes ; la ligne fautive tombe
 # seule, l'entête entre sans elle (D933).
 
 LCOMCLI:
@@ -37,7 +38,7 @@ LCOMCLI:
     delai_expedition:  LCCJDELEXP
     delai_fabrication: LCCJDELFAB
     # --- l'état ---
-    statut: 'LCCTSTATUT.select(EC: "en_cours", PA: "partielle", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'   # les valeurs de PMI (D1002) ; le vide = le nul (D366) ; sans "..." : hors liste = rejet
   validation:
     - me.quantite_expediee <= me.quantite         # sur la ligne importée, le construit par me (D932)
   report:

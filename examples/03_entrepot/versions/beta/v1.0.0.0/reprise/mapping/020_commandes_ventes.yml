@@ -6,9 +6,8 @@
 # valeur (D883, le privilège de la reprise D175) : la valeur vient du
 # calculé numero de la source, la clé convertie à la lecture (D990). Le
 # client par sa clé (D654 — le raccourci à un champ, D931). Le statut de
-# PMI traduit vers le vocabulaire de l'entrepôt (D893) — les codes de
-# l'exemple sont inventés (D963), un code hors de la liste est un rejet
-# visible (D935). L'adresse de livraison propre à la commande, sans GPS :
+# l'entête n'est pas repris — « ECCTSTATUT peut être ignoré » (D1002), les
+# lignes portent le leur. L'adresse de livraison propre à la commande, sans GPS :
 # la forme texte du constructeur (D961) ; absente quand la ville manque.
 # Les lignes viennent à l'étape 21, par parent: (D931).
 
@@ -29,7 +28,6 @@ ECOMCLI:
     # --- les conditions ---
     devise:      ECCTDEVISE               # les lignes la lisent par owner (D760)
     taux_change: ECCNTXDEVI
-    statut:      'ECCTSTATUT.select(EC: "en_cours", SO: "soldee", AN: "annulee")'   # les codes inventés (D963) ; hors liste = rejet (D935)
     # --- la livraison (D961 — la forme texte, sans GPS chez PMI) ---
     livraison_nom: ECCTNOMLIV
     livraison_adresse: >-

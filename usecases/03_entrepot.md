@@ -899,7 +899,7 @@ fin.*
 | `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
 | `time` | aucune seule : l'heure de PMI n'existe qu'avec son jour (MVCTSAI — D1001) ; `time_pmi` sert le constructeur |
 | `datetime` | `mouvement.horodatage` (`MVCJSAI` + `MVCTSAI` — le constructeur D659/D1001 ; les délais des commandes sont des jours, D1000) |
-| `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
+| `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `ligne_vente.statut` (`LCCTSTATUT` — A, vide, S, T, P, D1002 ; ECCTSTATUT ignorée) — les codes PMI en `values:` à libellés |
 | `counter` | `commande_vente.numero` (`ECKTNUMERO`) — « une commande est un counter » : le type déclaré, **la valeur surchargée par la migration** (D883 — le privilège de l'écriture identifiée reprise, D175/D173) |
 | `file` | `article.plans: list of file` — « une liste de pièces jointes » remplie **via un connecteur `file`** (D634) en complément du connecteur de source, le nom du fichier venant d'`ARCTFICPLA` (D883 — la forme au morceau de la source) |
 | `amount` | `tarif.prix` (`TACNPU` + `TACTDEVISE`), `ligne_vente.prix_net` (`LCCNPUNET` + `LCCTDEVISE`), `article.prix_revient` (`ARCNPRS`) |
@@ -1682,9 +1682,15 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   `niveau.inventaire` en date.
 - **les statuts inventés** — aucune table de l'échantillon ne porte
   ECCTSTATUT ni LCCTSTATUT : `EC` en cours, `SO` soldée, `AN`
-  annulée ; `PA` partielle pour la ligne (D963) ; le `select` sans
-  défaut — un code hors liste est un rejet visible (D935) ; LCCTETACDE
-  reste non lue (D951).
+  annulée ; `PA` partielle pour la ligne (D963) — **tranché par
+  D1002** : « LCCTSTATUT prend les valeurs A (acompte / en cours), vide
+  (non traité), S (soldé), T (terminé) et P (partiel). ECCTSTATUT peut
+  être ignoré. LCCTETACDE est utilisé pour un état mais je ne connais
+  pas les valeurs exactes » ; les deux conduites du `select` : « en
+  l'absence de "...", la valeur est rejetée ; "..." permet de préciser
+  toutes les autres valeurs » — les énumérés des lignes réécrits
+  (non_traite, en_cours, partielle, soldee, terminee), le statut retiré
+  des entêtes, `null:` pour le vide (mien).
 - **l'adresse de livraison de l'entête** — le morceau 3 ne la lisait
   pas ; six colonnes lues (ECCTNOMLIV, ECCTRUE1LI/2LI/3LI, ECCTCPLIV,
   ECCTVILLIV, ECCTPAYSLI ; ECCTCPAYLI non lue), sans GPS : la forme

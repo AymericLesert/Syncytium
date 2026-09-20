@@ -84,23 +84,8 @@ taux_change:
   label:
     fr: Taux de change
 
-statut:
-  # ECCTSTATUT nchar(2) — la liste close de PMI en énuméré (D883) ; pas
-  # une machine à états (D882)
-  type: enum
-  required: true
-  label:
-    fr: Statut
-  values:
-    en_cours:
-      label:
-        fr: En cours
-    soldee:
-      label:
-        fr: Soldée
-    annulee:
-      label:
-        fr: Annulée
+# le statut de l'entête n'est pas repris : « ECCTSTATUT peut être ignoré »
+# (D1002) — l'état d'une commande se lit sur ses lignes
 
 # --- la livraison — l'adresse propre à la commande, sans GPS chez PMI ---
 

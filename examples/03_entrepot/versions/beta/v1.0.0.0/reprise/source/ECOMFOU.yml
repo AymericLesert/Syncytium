@@ -25,7 +25,7 @@ fields:
   ECCJDERFA:   date_pmi                                       # → commande_achat.derniere_facture
   ECCTDEVISE:  text[3]                                        # → commande_achat.devise — la devise des montants (D771)
   ECCNTXDEVI:  decimal                                        # → commande_achat.taux_change
-  ECCTSTATUT:  text[2]                                        # → commande_achat.statut — les codes de l'exemple inventés, traduits au mapping (D946/D963)
+  ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — l'état d'une commande se lit sur ses lignes
 
   # --- le numéro de commande en nombre (D990 : la conversion d'une clé se
   # fait à la lecture, jamais dans la règle ni dans parent:) : le nchar(6)

@@ -11,4 +11,3 @@ fields: ~{fields.yml}
 
 validation:
   - date_echeance >= date if date_echeance != null
-  - lignes.count() > 0 if statut != "annulee"

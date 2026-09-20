@@ -4,7 +4,7 @@
 # fournisseurs (007) et les articles précèdent (D662). Le numéro par le
 # calculé numero de la source — le counter surchargé (D883), la clé
 # convertie à la lecture (D990) ; le fournisseur par sa clé (D654) ; le
-# statut traduit, les codes inventés (D963). Pas d'adresse de livraison :
+# statut de l'entête ignoré (D1002). Pas d'adresse de livraison :
 # l'achat est livré chez l'entreprise. Les lignes à l'étape 23.
 
 ECOMFOU:
@@ -24,7 +24,6 @@ ECOMFOU:
     # --- les conditions ---
     devise:      ECCTDEVISE
     taux_change: ECCNTXDEVI
-    statut:      'ECCTSTATUT.select(EC: "en_cours", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
   operations:
     commande_achat.numero.update(numero)   # le compteur repositionné (D998/D999)
   report:

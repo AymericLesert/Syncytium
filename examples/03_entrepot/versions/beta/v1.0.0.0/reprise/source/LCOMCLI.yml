@@ -32,11 +32,12 @@ fields:
   LCCSDELFAB:  ignored                                        # la semaine de la fin de fabrication — déduite du jour (D1000)
   LCCJDELFAB:  date_pmi                                       # → ligne_vente.delai_fabrication
   LCCNPUREVI:  decimal                                        # → ligne_vente.prix_revient
+  LCCTETACDE:  ignored                                        # un état de la ligne, « je ne connais pas les valeurs exactes » (D1002) — à creuser (D868)
   LCCTDEVISE:  text[3]                                        # → ligne_vente.prix_brut, prix_net — la devise des prix (D771)
   LCCJDELDDE:  date_pmi                                       # → ligne_vente.delai_demande
   LCCJDELARR:  date_pmi                                       # → ligne_vente.delai_accuse
   LCCSDELARR:  ignored                                        # la semaine du délai accusé — déduite du jour (D1000)
-  LCCTSTATUT:  text[2]                                        # → ligne_vente.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
+  LCCTSTATUT:  text[2]                                        # → ligne_vente.statut — A acompte/en cours, vide non traité, S soldé, T terminé, P partiel (D1002), traduits au mapping
   LCCNQTELAN:  decimal                                        # → ligne_vente.quantite_lancee
 
   # --- les clés en nombre (D990 : la conversion à la lecture) : le numéro de

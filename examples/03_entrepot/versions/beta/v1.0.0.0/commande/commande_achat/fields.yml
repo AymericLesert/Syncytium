@@ -73,22 +73,8 @@ taux_change:
   label:
     fr: Taux de change
 
-statut:
-  # ECCTSTATUT — la liste close en énuméré (D883)
-  type: enum
-  required: true
-  label:
-    fr: Statut
-  values:
-    en_cours:
-      label:
-        fr: En cours
-    soldee:
-      label:
-        fr: Soldée
-    annulee:
-      label:
-        fr: Annulée
+# le statut de l'entête n'est pas repris : « ECCTSTATUT peut être ignoré »
+# (D1002) — l'état d'une commande se lit sur ses lignes
 
 # --- la composition (D399) ---
 

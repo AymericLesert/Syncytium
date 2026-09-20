@@ -1480,6 +1480,29 @@ l'exemple : « tu peux enlever planifie et en_vigueur. Valide
 suffit » — la cellule porte le prix, le forfait, le numéro, `valide`
 et le commentaire ; le tuple reste sous guillemets (D892).
 
+**Le morceau 5 — le pilotage et la restitution** (ouvert le
+20/09/2026 ; **le lot 1 — les listes — écrit le 20/09, en attente
+d'arbitrage**) : les surfaces vivent dans un `gui.yml` par entité,
+rattaché par `gui: ~{gui.yml}` (D767) — onze entités en ont un :
+`article` et `fabrique` (les dérivés héritent des surfaces du parent,
+D353), `client` et `fournisseur`, `commande_vente`, `commande_achat`
+et `ligne_vente`, `niveau`, `mouvement`, `depot` et `emplacement`.
+Chaque `gui.yml` porte ses `lists:` — la première déclarée est la porte
+d'entrée de l'entité (D438), le menu l'adresse (D439) — avec la zone
+de recherche (`searchable:`, D782), les colonnes, le tri à cascades
+(D441), la multi-sélection (D446) et les exports (`csv`, `excel[…]` —
+D530) ; et un formulaire `fiche` de consultation, `mode: read-only`
+(D453) — l'entrepôt est en lecture seule (D882), aucune liste ne porte
+`add:`, `update:` ni `delete:`. Les listes de pilotage (D859) sont des
+partitions par les calculés : les articles dormants, les commandes en
+cours, les lignes en retard, les niveaux sous le minimum, les lots
+périmés, les mouvements à quantité nulle (D1009). Le modèle gagne ses
+facettes de recherche (D780/D784) : `searchable: mutualizable[recherche]`
+sur le code, le libellé et l'EAN de l'article ; `searchable: range` sur
+les dates des commandes, des lignes, des mouvements et la péremption.
+La forme YAML : les crochets de `field[…]` dans une collection en flux
+se citent, le `-` du tri se cite (D892, règle 1).
+
 ## Les manques relevés
 
 *(chaque frottement = une décision consignée)*
@@ -1868,6 +1891,39 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   clé du niveau, sans référentiel, BATCH non décrite.
 
 **Le lot 4 est clos — D1008 à D1018.**
+
+### Les frottements du morceau 5 — le pilotage et la restitution
+
+**Le lot 1 (les listes) — écrit le 20/09/2026, en attente d'arbitrage :**
+
+- **la lecture seule, deux fois dite** — le module porte `allow: {
+  create: false, update: false, delete: false }` (D886) et le
+  formulaire `fiche` porte `mode: read-only` (D453) ; les droits
+  décident de l'usage offert (D196) : le `mode:` est-il redondant, ou
+  dit-il que ce formulaire ne sait que consulter, quels que soient les
+  droits ? *Ma lecture : les deux, le mode est une intention de
+  surface, l'allow un droit.*
+- **le champ mutualisé de l'article** — `recherche` sur le code, le
+  libellé et l'EAN (D780) ; le nom est mien, le patron est celui de
+  `qui` sur le tiers.
+- **la plage obligatoire du journal** — `searchable: - date: {
+  required: true }` sur le journal des mouvements : jamais la totalité
+  (D863) ; *`required` sur un critère de plage, forme mienne (D782 le
+  donnait sur un `select: mono`)*.
+- **`owner` en colonne** — les listes de la ligne de vente montrent la
+  commande par `owner` (D760) ; *une colonne peut-elle être un accès
+  montant, ou faut-il un calculé nommé ?*
+- **l'hypercube dans un formulaire** — `field[tarifs]`,
+  `field[controle_stock]`, `field[stock_par_emplacement]` en
+  consultation : *quel composant rend une matrice (D897) — le `pivot`
+  du catalogue ? Le morceau 2 ne l'a pas dit.*
+- **les crochets cités plutôt qu'en bloc** — `columns: [ code, … ]`
+  reste en flux (des noms nus), `items: [ 'field[code]', … ]` cite les
+  crochets (D892, règle 1) ; *la règle 2 préférerait le bloc : à
+  trancher pour la lisibilité des formulaires.*
+- **les exports** — `exports: [ csv, 'excel[articles.xlsx]' ]`, la
+  forme de D530 en proposition dans le catalogue, son premier emploi
+  au dépôt.
 
 **Le retour de l'auteur sur les sources (20/09) :**
 

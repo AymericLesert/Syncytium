@@ -1,0 +1,24 @@
+# Les surfaces de la ligne de vente — la ligne a sa porte d'entrée pour
+# le pilotage : les lignes en retard (le calculé en_retard, D859), les
+# lignes d'un article. Lecture seule (D882).
+
+lists:
+  en_retard:                         # le tableau de bord en liste
+    title: { fr: "Les lignes de vente en retard" }
+    filter: en_retard = true
+    searchable:
+      - client
+      - article
+      - delai_expedition             # la plage (D784)
+    columns: [ owner, client, article, quantite, quantite_expediee, reste_a_livrer, delai_expedition, statut ]
+    sort: { delai_expedition: "+" }
+    selection: 1..
+    exports: [ csv, 'excel[lignes_en_retard.xlsx]' ]
+
+  par_article:
+    title: { fr: "Les ventes d'un article" }
+    searchable:
+      - article: { select: mono, required: true }
+      - delai_expedition
+    columns: [ owner, client, quantite, unite, prix_net, montant, delai_expedition, statut ]
+    sort: { delai_expedition: "-" }

@@ -72,3 +72,5 @@ fields:
       fr: Temps de gamme
     hint:
       fr: Le temps total des opérations de la gamme.
+
+gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)

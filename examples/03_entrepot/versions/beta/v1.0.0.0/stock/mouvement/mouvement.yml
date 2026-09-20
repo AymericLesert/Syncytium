@@ -17,6 +17,7 @@ identity: [document, ligne, indice, composant, article, horodatage]
 history: false
 
 fields: ~{fields.yml}
+gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 # aucune validation sur la quantité (D1009) ; « la ligne est valide si la
 # quantité est non nulle » : le calculé valide, pas un rejet

@@ -66,6 +66,8 @@ date:
   # (D1001), la clé de partition (D880) ; MVCSMVT, la semaine, se déduit
   # du jour (D1000)
   type: date
+  searchable: range   # la plage — le journal ne se lit jamais en entier (D784/D863)
+  searchable: range   # la plage — le journal ne se lit jamais en entier (D784/D863)
   required: true
   label:
     fr: Date

@@ -1,0 +1,47 @@
+# Les surfaces du client — le lot 1 du morceau 5. Le client est un tiers
+# (D353) : les champs du parent s'affichent chez l'enfant ; le mutualisé
+# « qui » (nom, abrégé — D780) porte la recherche. Lecture seule (D882).
+
+lists:
+  clients:                           # le menu : tiers.client
+    title: { fr: "Les clients" }
+    searchable: [ qui, pays, actif ]
+    columns: [ code, nom, abrege, pays, telephone, email, representant, code_tarif, actif, bloque ]
+    sort: [nom]
+    selection: 1..
+    exports: [ csv, 'excel[clients.xlsx]' ]
+
+  bloques:
+    title: { fr: "Les clients bloqués" }
+    filter: bloque = true
+    columns: [ code, nom, encours_maximum, representant, date_modification ]
+    sort: [nom]
+
+forms:
+  fiche:
+    title: "{code} — {nom}"
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Identité }
+                items: [ 'field[code]', 'field[nom]', 'field[abrege]', 'field[siret]', 'field[siren]', 'field[tva]', 'field[actif]', 'field[bloque]' ]
+            - section:
+                title: { fr: Coordonnées }
+                items: [ 'field[adresse]', 'field[pays]', 'field[telephone]', 'field[fax]', 'field[email]', 'field[site]' ]
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Conditions }
+                items: [ 'field[devise]', 'field[langue]', 'field[echeance]', 'field[base_echeance]', 'field[code_tarif]', 'field[representant]', 'field[taux_representant]', 'field[encours_maximum]' ]
+            - section:
+                title: { fr: Suivi }
+                items: [ 'field[note_interne]', 'field[date_creation]', 'field[date_modification]' ]   # note_interne : la saisie libre (D941)
+      - tabs:
+          items:
+            - tab: { title: { fr: Adresses }, items: [ 'field[adresses]' ] }
+            - tab: { title: { fr: Contacts }, items: [ 'field[contacts]' ] }
+            - tab: { title: { fr: Commandes }, items: [ 'field[commandes]' ] }

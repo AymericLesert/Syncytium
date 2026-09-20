@@ -1,0 +1,49 @@
+# Les surfaces du niveau de stock — le lot 1 du morceau 5 : l'état du
+# stock par article et par lieu, les niveaux sous le minimum, les
+# périmés (les calculés, D859). Sans historique (D1013), la matrice de
+# contrôle du dépôt fait le comparatif (D1014). Lecture seule.
+
+lists:
+  niveaux:                           # le menu : stock.niveau
+    title: { fr: "L'état des stocks" }
+    searchable:
+      - article
+      - depot
+      - emplacement
+      - peremption                   # la plage (D784)
+    columns: [ article, depot, emplacement, lot, quantite, quantite_reservee, disponible, stock_minimum, peremption, valeur ]
+    sort: [article, depot, emplacement]
+    selection: 1..
+    exports: [ csv, 'excel[stocks.xlsx]' ]
+
+  sous_minimum:
+    title: { fr: "Sous le minimum" }
+    filter: sous_minimum = true
+    searchable: [ article, depot ]
+    columns: [ article, depot, emplacement, quantite, stock_minimum, dernier_mouvement ]
+    sort: [article]
+
+  perimes:
+    title: { fr: "Les lots périmés" }
+    filter: perime = true and quantite > 0
+    searchable: [ article, depot ]
+    columns: [ article, depot, emplacement, lot, quantite, peremption ]
+    sort: { peremption: "+" }
+
+forms:
+  fiche:
+    title: "{article} — {depot}/{emplacement}"
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Où }
+                items: [ 'field[article]', 'field[depot]', 'field[emplacement]', 'field[lot]', 'field[enregistrement]' ]
+            - section:
+                title: { fr: Quantités }
+                items: [ 'field[quantite]', 'field[quantite_reservee]', 'field[quantite_en_cours]', 'field[disponible]', 'field[stock_minimum]' ]
+            - section:
+                title: { fr: Dates et valeur }
+                items: [ 'field[dernier_mouvement]', 'field[peremption]', 'field[inventaire]', 'field[quantite_inventaire]', 'field[prix_unitaire]', 'field[valeur]' ]

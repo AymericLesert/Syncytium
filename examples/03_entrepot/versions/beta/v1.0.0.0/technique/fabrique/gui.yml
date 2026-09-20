@@ -1,0 +1,31 @@
+# Les surfaces du produit fabriqué — les siennes, en plus de celles
+# héritées de l'article (D353/D940) : la nomenclature et la gamme, le
+# client de référence (D997). En lecture seule (D882).
+
+lists:
+  fabriques:                         # le menu : technique.fabrique
+    title: { fr: "Les produits fabriqués" }
+    searchable: [ recherche, famille, client_defaut ]
+    columns: [ code, complement, libelle, famille, client_defaut, nombre_composants, nombre_operations, temps_gamme, actif ]
+    sort: [code, complement]
+    exports: [ csv, 'excel[fabriques.xlsx]' ]
+
+forms:
+  fiche:
+    title: "{code} — {libelle}"
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Identité }
+                items: [ 'field[code]', 'field[complement]', 'field[libelle]', 'field[famille]', 'field[unite_stock]', 'field[actif]' ]
+            - section:
+                title: { fr: Clients }
+                items: [ 'field[client_defaut]', 'field[dernier_client]', 'field[clients]' ]
+      - field[nomenclature]          # la composition — la liste embarquée (D486), récursive (D969)
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ 'field[nombre_composants]', 'field[nombre_operations]', 'field[temps_gamme]' ] }

@@ -12,6 +12,7 @@ identity: [numero, indice]
 history: true
 
 fields: ~{fields.yml}
+gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 validation:
   - date_echeance >= date if date_echeance != null

@@ -1,0 +1,22 @@
+# Les surfaces de l'emplacement — le référentiel au couple (dépôt, code)
+# (D962), le stock par article déduit des mouvements (D1016). Lecture
+# seule.
+
+lists:
+  emplacements:                      # le menu : stock.emplacement
+    title: { fr: "Les emplacements" }
+    searchable: [ depot, actif ]
+    columns: [ depot, code, libelle, actif ]
+    sort: [depot, code]
+    exports: [ csv ]
+
+forms:
+  fiche:
+    title: "{depot} / {code}"
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ 'field[depot]', 'field[code]', 'field[libelle]', 'field[actif]' ] }
+      - field[stock_par_article]     # la matrice des mouvements (D1016)

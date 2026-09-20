@@ -11,6 +11,7 @@ identity: [numero]
 history: true
 
 fields: ~{fields.yml}
+gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 # aucune validation sur les quantités (D1006) : « les quantités sont à
 # titre indicatif, puis utilisées pour vérifier la validité d'un mode

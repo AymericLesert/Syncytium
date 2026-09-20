@@ -17,6 +17,7 @@ identity: [article, lot, emplacement, depot, enregistrement]
 history: false               # les mouvements portent l'histoire (D1013)
 
 fields: ~{fields.yml}
+gui: ~{gui.yml}                  # les surfaces — le morceau 5 (D767)
 
 validation:
   - quantite >= 0

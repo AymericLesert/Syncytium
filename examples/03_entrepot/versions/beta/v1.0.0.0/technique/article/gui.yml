@@ -1,0 +1,81 @@
+# Les surfaces de l'article — le lot 1 du morceau 5 : les listes, la
+# porte d'entrée de l'entité (D437–D448/D530–D533). L'entrepôt est en
+# lecture seule (D882/D886) : aucun add:, update: ni delete: — le
+# double-clic ouvre le formulaire par défaut, fiche, en consultation
+# (D196/D453) ; les exports au menu de la liste (D530). La recherche :
+# le mutualisé « recherche » né du modèle (D780 — code, libellé, EAN),
+# la famille et le type en critères (D782). Les dérivés (fabrique,
+# semi_fini, fantome — D940) héritent de ces surfaces (D353) ; le
+# fabriqué ajoute les siennes.
+
+lists:
+  articles:                          # la première déclarée = le défaut (D438) ; le menu : technique.article
+    title: { fr: "Les articles" }
+    searchable:                      # la zone de recherche (D782/D784)
+      - recherche                    # le champ mutualisé — code, libellé, EAN (D780)
+      - famille
+      - type
+      - gestion
+    columns:
+      - code
+      - complement
+      - libelle
+      - type
+      - famille
+      - gestion
+      - unite_stock
+      - prix_revient                 # restreint : la colonne se masque avec la confidentialité (D247)
+      - actif
+    sort: [code, complement]
+    selection: 1..                   # la multi-sélection pour l'export (D446)
+    exports: [ csv, 'excel[articles.xlsx]' ]   # (D530)
+
+  actifs:                            # la partition des vivants
+    title: { fr: "Les articles actifs" }
+    filter: actif = true
+    searchable: [ recherche, famille, type ]
+    columns: [ code, complement, libelle, type, famille, unite_stock, stock_minimum, actif ]
+    sort: [libelle]
+    exports: [ csv ]
+
+  dormants:                          # le tableau de bord en liste (D859) — le calculé dormant
+    title: { fr: "Les articles dormants" }
+    filter: dormant = true and actif = true
+    searchable: [ recherche, famille ]
+    columns: [ code, complement, libelle, famille, derniere_sortie, stock_minimum ]
+    sort: { derniere_sortie: "+" }
+    exports: [ csv ]
+
+  perissables:
+    title: { fr: "Les périssables" }
+    filter: perissable = true
+    searchable: [ recherche ]
+    columns: [ code, complement, libelle, famille, unite_stock, actif ]
+    sort: [code]
+
+forms:
+  fiche:                             # la première déclarée = le défaut (D438) — la consultation (D453)
+    title: "{code} — {libelle}"      # le title de l'entité (D465)
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Identité }
+                items: [ 'field[code]', 'field[complement]', 'field[libelle]', 'field[libelle_secondaire]', 'field[type]', 'field[famille]', 'field[sous_famille]', 'field[gestion]', 'field[actif]' ]
+            - section:
+                title: { fr: Unités et mesures }
+                items: [ 'field[unite_stock]', 'field[unite_commande]', 'field[unite]', 'field[poids]', 'field[longueur]', 'field[largeur]', 'field[epaisseur]', 'field[volume]', 'field[ean13]' ]
+      - sections:
+          layout: row
+          items:
+            - section:
+                title: { fr: Stock }
+                items: [ 'field[gere_en_stock]', 'field[stock_minimum]', 'field[stock_maximum]', 'field[quantite_economique]', 'field[depot_expedition]', 'field[emplacement_expedition]', 'field[depot_reception]', 'field[emplacement_reception]' ]
+            - section:
+                title: { fr: Prix }    # restreints (D859) — masqués sous la confidentialité
+                items: [ 'field[prix_revient]', 'field[prix_moyen_pondere]', 'field[prix_achat]', 'field[fournisseur_defaut]', 'field[dernier_fournisseur]' ]
+      - field[tarifs]                # la grille — l'hypercube (D897), la liste embarquée (D486)
+      - field[stock_par_emplacement] # la matrice des mouvements (D1016)
+      - field[plans]                 # les fichiers (D972)

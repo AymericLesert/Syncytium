@@ -22676,6 +22676,18 @@ avant la synthèse Q16).
   graphiques et widgets, les tableaux de bord, les documents, le menu
   et l'accueil), à valider par l'auteur avant d'écrire ; le suivi de
   la migration reste aux surfaces standard du module `migration`.
+- **2026-09-20 (suite 28) — LE LOT 1 DU MORCEAU 5 ÉCRIT : LES LISTES,
+  EN ATTENTE D'ARBITRAGE.** « Commençons par le lot 1 » — onze
+  `gui.yml` (article, fabrique, client, fournisseur, commande_vente,
+  commande_achat, ligne_vente, niveau, mouvement, depot, emplacement),
+  rattachés par `gui: ~{gui.yml}` (D767) : les listes (la porte
+  d'entrée D438, la recherche D782, les colonnes, le tri, les exports
+  D530), les partitions de pilotage par les calculés (dormants, en
+  cours, en retard, sous le minimum, périmés, à quantité nulle), le
+  formulaire `fiche` en consultation (D453) ; le modèle gagne les
+  facettes `searchable:` (D780/D784) ; la forme YAML des crochets en
+  flux (D892). Sept frottements présentés dans le cas (« Le lot 1 » du
+  morceau 5). 222 fichiers d'exemples valides.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -1,0 +1,22 @@
+# Les surfaces du dépôt — le référentiel (D962) et sa matrice de
+# contrôle (D1014). Lecture seule.
+
+lists:
+  depots:                            # le menu : stock.depot
+    title: { fr: "Les dépôts" }
+    columns: [ code, libelle, actif, valeur ]
+    sort: [code]
+
+forms:
+  fiche:
+    title: "{code} — {libelle}"
+    mode: read-only
+    page:
+      - sections:
+          layout: row
+          items:
+            - section: { items: [ 'field[code]', 'field[libelle]', 'field[actif]', 'field[valeur]' ] }
+      - tabs:
+          items:
+            - tab: { title: { fr: Niveaux }, items: [ 'field[niveaux]' ] }
+            - tab: { title: { fr: "Contrôle par les mouvements" }, items: [ 'field[controle_stock]' ] }   # la matrice (D1014)

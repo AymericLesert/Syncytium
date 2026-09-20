@@ -38,6 +38,8 @@ LCOMCLI:
     delai_fabrication: LCCJDELFAB
     # --- l'état ---
     statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'   # les valeurs de PMI (D1002) ; le vide = le nul (D366) ; sans "..." : hors liste = rejet
+  validation:
+    - me.unite in me.article.unite.units   # « pour l'exemple, l'unité peut être contrôlée lors de la migration » (D1007) — le deuxième temps (D1006) : l'unité de la ligne parmi celles que l'article connaît (D982/D983)
   report:
     when: [migration]
     to: [commercial]

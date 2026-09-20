@@ -29,7 +29,9 @@ quantite:
     fr: Quantité commandée
 
 unite:
-  # LCCTUNICDE
+  # LCCTUNICDE — un texte ; l'unité est contrôlée à la migration parmi
+  # celles que l'article connaît (D1007), pour que la quantité puisse
+  # emprunter la matrice de l'article (D982)
   type: text[..2]
   label:
     fr: Unité

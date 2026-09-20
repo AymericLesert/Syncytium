@@ -1173,8 +1173,8 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    D967–D990** : vingt-cinq règles et le bloc commun
    `articles/fields.yml` ; les frottements et leurs décisions ci-dessous
    (« Les frottements du morceau 4 ») ; **le lot 3 — les commandes
-   (020–023) — écrit le 20/09, ses frottements en attente
-   d'arbitrage** ; la suite : le lot 4, les stocks (024–025)* ;
+   (020–023) — clos par D998–D1007** ; la suite : le lot 4, les stocks
+   (024–025)* ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -1337,7 +1337,7 @@ référencent par `${settings.confidentiality.<profil>}` ; le lien
 depuis `version.yml` viendra avec le morceau 1.
 
 **Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
-2 clos — D961 à D990 ; le lot 3 écrit le 20/09, en attente) :
+2 clos — D961 à D990 ; le lot 3 clos — D998 à D1007) :
 `reprise/mapping/`, **vingt-neuf règles, 001 à 023**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
 de `reprise.yml` (D806/D956) — le préfixe fait l'étape (D665), les
 référentiels avant ce qui les référence (D662), deux règles sur une
@@ -1384,8 +1384,8 @@ même table = deux fichiers :
   genre (D948), `to: technique.article.tarifs` (la cellule de
   l'hypercube), le tiers par le calculé de la source, `valide:
   TACTVALID = "O"` ;
-- **020–023, les commandes** (*écrites le 20/09, en attente
-  d'arbitrage*) — ECOMCLI et ECOMFOU vers les deux entêtes, LCOMCLI et
+- **020–023, les commandes** (*clos par D998–D1007*) — ECOMCLI et
+  ECOMFOU vers les deux entêtes, LCOMCLI et
   LCOMFOU vers leurs lignes, séparées sans héritage (D882) : la règle
   se répète ; le numéro de commande par le calculé `numero:
   integer(ECKTNUMERO)` de la source — la clé convertie à la lecture
@@ -1734,7 +1734,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   porte sa matrice (D982) : faut-il contrôler que l'unité de la ligne
   est connue de l'article (`LCCTUNICDE in article.unite.units` — une
   validation de la cible, forme mienne) ? Sinon la conversion
-  `(article.unite * quantite).to(kg)` échouera à la lecture.
+  `(article.unite * quantite).to(kg)` échouera à la lecture — **tranché
+  par D1007** : « pour l'exemple, l'unité peut être contrôlée lors de
+  la migration » — `me.unite in me.article.unite.units` aux règles 021
+  et 023, le deuxième temps de la validation (D1006) ; `.units` mien.
+
+**Le lot 3 est clos — D998 à D1007.**
 
 **Le retour de l'auteur sur les sources (20/09) :**
 

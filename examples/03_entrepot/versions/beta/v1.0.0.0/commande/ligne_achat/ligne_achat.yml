@@ -9,6 +9,5 @@ history: true
 
 fields: ~{fields.yml}
 
-validation:
-  - quantite > 0
-  - quantite_recue <= quantite
+# aucune validation sur les quantités (D1006) — « à titre indicatif », les
+# cas limites s'observent

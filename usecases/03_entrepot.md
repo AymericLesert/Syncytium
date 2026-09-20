@@ -1721,7 +1721,14 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   étage) doublonne `quantite_expediee <= quantite` à l'entité : le
   même rejet, au même rapport ; garder l'une ou l'autre ? — *ma
   lecture : l'entité suffit, la règle porte ce qui est propre à la
-  source*.
+  source* — **tranché par D1006** : les trois temps redits (« sur la
+  source à la lecture — limite les enregistrements aux valeurs valides ;
+  sur le mapping — identifie les règles non respectées ou les données
+  incorrectes ; sur la destination — garantit que les règles des
+  données entreposées sont correctes »), et « ces règles de validation
+  ne sont pas vraiment utiles car les quantités sont à titre
+  indicatif… identifier les cas limites de nos processus » — retirées
+  des deux étages.
 - **l'unité de la ligne face à l'unité de l'article** — la ligne
   garde `quantite: decimal` + `unite: text` (LCCTUNICDE), l'article
   porte sa matrice (D982) : faut-il contrôler que l'unité de la ligne

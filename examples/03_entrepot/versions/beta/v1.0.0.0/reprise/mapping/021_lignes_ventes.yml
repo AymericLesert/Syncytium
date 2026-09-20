@@ -38,8 +38,6 @@ LCOMCLI:
     delai_fabrication: LCCJDELFAB
     # --- l'état ---
     statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'   # les valeurs de PMI (D1002) ; le vide = le nul (D366) ; sans "..." : hors liste = rejet
-  validation:
-    - me.quantite_expediee <= me.quantite         # sur la ligne importée, le construit par me (D932)
   report:
     when: [migration]
     to: [commercial]

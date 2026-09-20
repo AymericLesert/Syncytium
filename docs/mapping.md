@@ -454,7 +454,14 @@ n'est écrite qu'une fois, là où la donnée entre.
 
 **`validation:` à trois niveaux (D932).** « validation: porte à la
 source avant l'import, porte à la destination après l'import et à la
-règle du mapping porte sur chaque ligne de l'import. » La même
+règle du mapping porte sur chaque ligne de l'import. » Les trois temps,
+redits par l'auteur (D1006) : **sur la source à la lecture — limite les
+enregistrements aux valeurs valides ; sur le mapping — identifie les
+règles non respectées ou les données incorrectes ; sur la destination —
+garantit que les règles des données entreposées sont correctes.** Une
+contrainte du modèle n'a pas à être redite par la règle ; et une
+grandeur « à titre indicatif » ne se valide pas, ses cas limites
+s'observent. La même
 grammaire (D404) à trois places : sur l'entité source, la règle
 s'évalue sur la ligne lue, avant la conversion — la non-conformité de
 la source, comme la garde D813 ; sur la règle de migration, elle

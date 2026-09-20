@@ -406,7 +406,9 @@ L'en-tête de l'entité (`name`, `description`, `label`, `identity`,
 `inheritance`, `states`, `history`, `fields:`, `validation:`,
 `operations:`, `gui:`, `allow:`) est décrit dans
 [entity.md](entity.md) ; les champs et leurs facettes dans
-[types.md](types.md) ; les surfaces (`lists`, `forms`, `summary`,
+[types.md](types.md) — dont `sort:` et `group:` sur une association
+dérivée (D1016/D1017), `unit:` sur une mesure empruntée à une référence
+(D1009) ; les surfaces (`lists`, `forms`, `summary`,
 `widgets`, `wizards`, `templates` — et `dashboards` au module) dans
 [composants.md](composants.md). Les mécanismes de ce document s'y
 appliquent tels quels : `fields: ~{fields.yml}`, la forme courte, les
@@ -425,7 +427,9 @@ expressions.
   décrit chaque entité d'origine (`name`, `alias`, `filter`, `identity`,
   `coverage`, `parent`, `fields`, `validation` — D947/D966 ; une colonne
   typée `TABLE.colonne` est une référence, `TABLE[NOM].colonne` une
-  référence nommée quand l'entité est visée plusieurs fois — D995),
+  référence nommée quand l'entité est visée plusieurs fois — D995,
+  `A.colonne or B.colonne` une référence à l'une de deux entités —
+  D996 ; les calculés de la source en `formula:` — D660),
   `mapping/NNN_<nom>.yml` chaque règle (`to`, `filter`, `distinct`,
   `parent`, `fields`, `validation`, `report`, `operations` — D656) :
   [mapping.md](mapping.md).

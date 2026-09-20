@@ -684,8 +684,12 @@ postures de D180 incarnées.
   différence, et la dernière valeur parcourue, pour reprendre
   depuis la dernière lecture) et **la plage de valeurs** (une
   période sur une date, un nombre de valeurs ou d'enregistrements
-  sur un numéro) ; **sans `coverage:`, la totalité est relue** ;
-  `filter:` reste le périmètre jamais lu ; **le traitement des
+  sur un numéro) ; **sans `coverage:`, la totalité est relue** —
+  **l'état se relit en entier, le journal se partitionne** (D1013 : le
+  niveau de stock, « au plus 200 000 lignes… sans surcoût », sans
+  `coverage:` ni `history:`, les mouvements portant l'histoire ; les
+  mouvements, « plusieurs millions de lignes », `coverage:` et
+  `reset_coverage` à paramétrer) ; `filter:` reste le périmètre jamais lu ; **le traitement des
   écarts se lit sur la destination** — `history:` présent, ils
   complètent et l'historique les garde ; absent, ils remplacent ;
   **la forme courte, au crochet** (D880) — la nature puis la plage

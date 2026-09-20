@@ -12104,6 +12104,127 @@ contenu de `documentation.yml`, la clé qui déclare la version du
 format (D322 — acquise en principe, absente des exemples), `menu.yml`
 et `dashboards:` décidés sans exemple au dépôt.
 
+**La référence nommée à la source (D995).** Une colonne typée
+`ARTICLE.ARKTCODART` déclare une référence ; deux colonnes typées sur
+les champs d'identité d'une même entité forment une référence composée.
+Mais quand la même entité est visée deux fois — la nomenclature pointe
+son produit et son composant, tous deux des articles — les colonnes ne
+savent plus se grouper. **« Je propose une syntaxe complémentaire dans
+le cas des références multiples pour une même entité :
+`ARTICLE[ARTICLE_STOCKE].ARKTCODART`… un identifiant/alias de ARTICLE
+qui lie les identifiants à fournir pour retrouver la référence. »** —
+le nom entre crochets, le crochet qui paramètre déjà un type ; la
+référence unique garde la forme simple ; `parent:` peut désigner la
+référence nommée au lieu de redire la carte des colonnes.
+
+**La référence à l'une de deux entités, et les comptes de l'article
+(D996–D997).** Les deux « comptes » de la fiche article visent un
+tiers — client ou fournisseur selon le produit : **« compte 1
+correspond au compte client ou fournisseur par défaut… un produit
+fabriqué, le client de référence ; compte 2, le dernier achat/vente
+réalisé »**, qui « se calcule, ne se stocke pas ». À la source, la
+syntaxe `FOURNIS.CLKTCODE or CLIENT.CLKTCODE` — « le premier des 2 qui
+matchent fait le lien » ; à la cible, **« pas d'ambiguïté, pas de or »**
+: deux champs typés, chacun chez son type d'article — le fournisseur par
+défaut sur l'acheté, le client de référence sur le fabriqué, « ça fait
+partie des éléments spécifiques » ; le compte 2 par la liste calculée
+triée, `commandes_vente.last().client`, « le tri est porté par la liste
+calculée ». Les règles du mapping ajoutent leur propre au bloc commun par
+le cumul en bloc — le premier emploi de D968.
+
+**Le counter surchargé (D998–D999).** La migration écrit la valeur d'un
+compteur ; les trous d'une séquence reprise **« correspondent à
+contrôle sur la propriété d'un compteur »**, pas à la migration ; le
+compteur se repositionne : **« comme cache avec pop ou push, counter
+avec une méthode update(<clé>, <valeur>)… si la valeur > au compteur
+courant, ça positionne le compteur courant sur la valeur la plus
+grande »** — puis « plus parlante : `commande_vente.numero.update(numéro)`
+» : la méthode est celle du type, le champ s'adresse par le point ; le
+rejeu par l'identité, jamais une nouvelle allocation.
+
+**La lettre S est la semaine ; l'horodatage du mouvement (D1000–
+D1001).** Le constructeur `datetime(jour, heure)` proposé pour les
+délais : **« cette situation décrite n'existe pas dans PMI. Sur les
+commandes, il n'y a pas d'heures… LCCSDELEXP est la semaine du jour…
+le S en 4ème position décrit en général la semaine »** — D865 et D992
+lisaient une heure ; la convention corrigée, les délais en dates, les
+S ignorées. Le constructeur trouve pourtant son cas : **« dans la table
+MVTSTO, la date et l'heure du mouvement avec les secondes correspondent
+à la combinaison des champs MVCJSAI (jour) et MVCTSAI (heure) »** —
+l'horodatage de saisie, « un mouvement peut être enregistré a
+posteriori », dans l'identité ; `time_pmi` passe aux secondes.
+
+**Les statuts et l'état de la commande (D1002–D1003).** Les valeurs
+réelles remplacent les inventées : **« LCCTSTATUT prend les valeurs A
+(acompte / en cours), vide (non traité), S (soldé), T (terminé) et P
+(partiel). ECCTSTATUT peut être ignoré »** ; le `select` a deux
+conduites — **« en l'absence de "...", la valeur est rejetée. "..."
+permet de préciser toutes les autres valeurs »** ; et **« l'état d'une
+commande se déduit de l'état des lignes »** — le statut de l'entête en
+calculé, la chaîne `valeur if condition else …` proposée pour les cas
+en ordre.
+
+**L'adresse de livraison, le prix de revient (D1004–D1005).** **« Nous
+stockons le détail pour la reprise et nous calculons un champ
+adresse_livraison correspondant à l'appel à la géolocalisation »** — le
+connecteur `location` déclaré, `geolocation` refusant le vide sans
+`if` ; l'adresse de la commande, « une redondance… le code client est
+suffisant » ; rien chez l'achat. Le prix de revient de la ligne **« se
+déduit. Cegid PMI le calcule et le stocke pour des questions de
+performance… un champ calculé mais pour l'exemple, nous n'allons pas
+fournir la formule »** ; la marge hors exemple.
+
+**Les trois temps de la validation, l'unité contrôlée (D1006–D1007).**
+**« Sur la source à la lecture — limite les enregistrements aux valeurs
+valides ; sur le mapping — identifie les règles non respectées ou les
+données incorrectes ; sur la destination — garantit que les règles des
+données entreposées sont correctes. »** Et les quantités des commandes
+« sont à titre indicatif… identifier les cas limites de nos processus »
+: aucune validation, le net pouvant dépasser le brut. L'unité de la
+ligne, elle, « peut être contrôlée lors de la migration » — le deuxième
+temps illustré, `me.unite in me.article.unite.units`, `.units` acté sur
+la mesure et la durée.
+
+**Les stocks (D1008–D1013).** Les référentiels gagnent une quatrième
+origine, bornée : **« STDEPLOT rejoint le référentiel uniquement si la
+quantité != 0, si l'emplacement n'existe pas déjà »**. La quantité d'un
+mouvement est **« une quantité avec une unité (celle du stockage de
+l'article). Elle est signée et vient en complément du type de
+mouvement E/S. Une valeur négative est une correction »** — l'échantillon
+le montrait, `abs()` n'a plus lieu d'être, le calculé `valide` marque
+la ligne nulle. **« Le poids unitaire est à porter au niveau de
+l'article »**, celui du mouvement « n'est qu'un doublon » ; **« le prix
+unitaire varie en fonction du temps. En le dupliquant sur le mouvement,
+nous simplifions le calcul de la valorisation avec le facteur temps »**
+— le doublon se juge à sa nature. La performance : **« dans la facette
+des données en base, nous devons prévoir un mécanisme qui permette de
+précalculer des valeurs… et un mode qui permette une mise à jour en
+fonction de l'évolution d'un des paramètres »** — noté pour
+l'implémentation (D1012). Le niveau : **« pas d'historique sur STDEPLOT
+car les mouvements sont dans MVTSTO. Sinon, cela fera doublon »**, au
+plus deux cent mille lignes relues chaque nuit.
+
+**La règle de contrôle, le « group by », le tri (D1014–D1017).** **« La
+règle de contrôle s'effectue par un champ calculé d'une matrice à 2
+dimensions : emplacement × article = somme des quantités en entrée du
+mouvement − somme des quantités en sortie du mouvement »** ; puis **«
+nous pouvons introduire un "group by" dans une liste »**, et **« le
+group by devient une propriété de l'association au même titre que le
+sort by »** — `group(champ, …)` et `sort(champ, …)` en méthodes de la
+collection, `group:` et `sort:` en propriétés de l'association dérivée
+(le `order:` de D997 renommé, « ton renommage est pertinent ») ; deux
+accès aux mouvements, par l'article et par l'emplacement.
+
+**Le lot hors du cas (D1018).** **« Pour le cas d'usage, oublions le
+numéro de lot. Si nous devions le prendre en compte, il faudrait
+séparer 2 concepts : la définition d'un article et l'article à
+proprement parler (article physique)… le n° de lot et la date de
+péremption, le packaging… cela irait trop loin »** ; « nous allons
+considérer ces propriétés sur la base de chaque enregistrement de
+mouvements » — le lot, un texte sur le mouvement et dans la clé du
+niveau ; l'évolution possible notée dans les commentaires du modèle. Le
+morceau 4 du cas 3 — le mapping — est écrit en entier.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que

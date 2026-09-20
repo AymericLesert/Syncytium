@@ -134,6 +134,13 @@ explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*
 
+**Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
+liste par les valeurs d'un ou plusieurs champs : une cellule par
+combinaison, l'agrégat qui suit s'évalue par cellule et le résultat est
+un hypercube aux dimensions des champs. En méthode dans une formule, ou
+en propriété d'une association dérivée, à côté du tri (`sort:`).
+*Ex. : `mouvements.group(emplacement, article).sum(…)`.* *(D1015–D1017)*
+
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
@@ -190,6 +197,11 @@ masque de saisie. *(D209)*
 `"C-999999"`, `"00 00 00"`, `"0.00 h"`. Il guide la saisie et fixe le
 format. À ne pas confondre avec le masque d'explication. *(D260)*
 
+**Matrice calculée** — Un hypercube porté par une formule plutôt que
+par des données : la règle de contrôle du stock, emplacement × article
+= la somme des entrées moins la somme des sorties des mouvements.
+*(D1014)*
+
 **Méta-schéma** — La description complète d'un modèle de données —
 modules, entités, champs — **et la grammaire utilisée** pour les
 écrire. Chaque version porte un méta-schéma. *(D322)*
@@ -238,6 +250,13 @@ celui qui est pointé y accède en retour, sans rien déclarer (notion de parent
 Le parent déclare le lien vers l'enregistrement d'une autre entité pour marquer un lien fort.
 Dans Syncytium, la navigation entre le parent et l'enfant est conservée et permet depuis l'enfant d'accéder à son ou ses parents sans déclaration complémentaire.
 *Ex. : `advisor: hr.employee`.* *(D394/D396)*
+
+**Référence nommée** (`TABLE[NOM].colonne`) — À la source d'une
+migration, quand la même entité est référencée plusieurs fois, le nom
+entre crochets lie les colonnes d'une même référence ; la référence
+unique garde la forme `TABLE.colonne` ; `A.colonne or B.colonne` vise
+l'une de deux entités, la première qui correspond. *Ex. :
+`NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`.* *(D995–D996)*
 
 **Release-notes** (`release-notes:`) — Le cadre des évolutions
 apportées par une version, porté par `version.yml`. L'historique

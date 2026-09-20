@@ -1772,6 +1772,14 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   dans MVCTTYPE : `quantite: abs(MVCNQTE)` ; *`abs()` n'existe pas au
   catalogue des fonctions (D934 ne couvre que le texte) — à ajouter aux
   fonctions du nombre, ou le signe est-il toujours cohérent avec E/S ?*
+  — **tranché par D1009** : l'échantillon montre des sorties positives
+  et quelques-unes négatives ; « une quantité avec une unité (celle du
+  stockage de l'article). Elle est signée et vient en complément du type
+  de mouvement E/S. Une valeur négative est une correction. Pas de
+  validation sur la quantité. Par contre, la ligne est valide si la
+  quantité est non nulle » — `measure(MVCNQTE, unite_stock)`, l'unité
+  empruntée à l'article (`unit: article.unite`, mien), la ligne nulle
+  écartée à la source.
 - **la masse du mouvement** — MVTSTO porte un poids unitaire
   (MVCNPDSUNI) : `poids_unitaire: measure(MVCNPDSUNI, kg)` (l'unité
   inventée, D963) et `masse: poids_unitaire * quantite` à la cible ;

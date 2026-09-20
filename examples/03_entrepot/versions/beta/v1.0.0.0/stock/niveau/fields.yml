@@ -127,6 +127,6 @@ sous_minimum:
 
 perime:
   type: boolean
-  formula: peremption < context.now if peremption != null
+  formula: peremption < context.today if peremption != null
   label:
     fr: Périmé

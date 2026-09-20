@@ -124,8 +124,14 @@ sens:
         fr: Sortie
 
 quantite:
-  # MVCNQTE — signée chez PMI ; l'entrepôt garde la quantité et le sens
-  type: decimal
+  # MVCNQTE — « une quantité avec une unité (celle du stockage de
+  # l'article). Elle est signée et vient en complément du type de
+  # mouvement E/S. Une valeur négative est une correction » (D1009) : la
+  # mesure (D975) dans l'unité de stock de l'article, la matrice
+  # empruntée à la référence — unit: article.unite (forme mienne, D982) ;
+  # l'échantillon : les sorties positives, quelques-unes négatives
+  type: measure
+  unit: article.unite
   required: true
   label:
     fr: Quantité
@@ -145,10 +151,21 @@ utilisateur:
     fr: Saisi par
 
 stock_avant:
-  # MVCNAVQTST — la quantité en stock avant le mouvement
-  type: decimal
+  # MVCNAVQTST — la quantité en stock avant le mouvement, dans la même
+  # unité que la quantité (D1009)
+  type: measure
+  unit: article.unite
   label:
     fr: Stock avant
+
+poids_unitaire:
+  # MVCNPDSUNI — le poids unitaire porté par le mouvement chez PMI ; la
+  # mesure (D975), l'unité inventée pour l'exemple (D963) — le lot 4, à
+  # trancher : la masse par ce poids ou par la matrice de l'article (D982)
+  type: measure
+  units: [kg]
+  label:
+    fr: Poids unitaire
 
 # ------ Champs calculés ------
 
@@ -160,8 +177,24 @@ valeur:
   label:
     fr: Valeur
 
+masse:
+  # la masse du mouvement — le tableau de bord (D859) ; par le poids
+  # unitaire de PMI (le lot 4, à trancher : l'autre voie, la matrice de
+  # l'article — (article.unite * quantite).to(kg), D982) ; sur des
+  # millions de lignes, le calculé matérialisé à l'écriture (D985, en
+  # proposition)
+  type: measure
+  units: [kg]
+  formula: poids_unitaire * quantite if poids_unitaire != null
+  label:
+    fr: Masse
+
 stock_apres:
-  type: decimal
+  # la mesure ± la mesure, dans l'unité du champ (D984) ; la quantité
+  # signée fait de la sortie négative une correction qui remet en stock
+  # (D1009)
+  type: measure
+  unit: article.unite
   # le « : » du .select (D833) oblige les guillemets YAML — le manque M9
   formula: 'stock_avant + sens.select(entree: quantite, sortie: -quantite)'
   label:

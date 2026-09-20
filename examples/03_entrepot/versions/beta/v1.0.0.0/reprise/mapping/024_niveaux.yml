@@ -1,0 +1,40 @@
+# L'étape 24 — les niveaux de stock : STDEPLOT vers stock.niveau. L'identité
+# aux six colonnes K après la société (D865/D869) : l'article par sa clé
+# composée (D931), le lot en texte, l'emplacement par le couple (dépôt,
+# code) — la même carte que la référence composée (D931/D962) —, le dépôt
+# par sa clé, le code d'enregistrement tel quel (D930). Les référentiels
+# précèdent (D662) : les dépôts et les emplacements des étapes 1 à 6, les
+# articles des étapes 13 à 16 ; un niveau sur un emplacement inconnu est un
+# orphelin, isolé au pré-contrôle (D874/D875) — d'où l'origine STDEPLOT
+# ajoutée aux référentiels pour les niveaux non nuls (les étapes 3 bis et
+# 6 bis, D1008) ; un niveau à zéro sur un lieu inconnu reste un rejet. Le prix du lot
+# à la devise de l'entreprise, le défaut du type (D993). La péremption des
+# périssables se vérifie à la cible (D954). L'historique du niveau donne
+# le stock à une date (D882/D412) ; la relecture complète chaque nuit
+# (pas de coverage : la table est un état, pas un journal).
+
+STDEPLOT:
+  to: stock.niveau
+  fields:
+    # --- l'identité (D930) ---
+    article:        { code: DPKTCODART, complement: DPKTCOMART }   # la référence par la clé composée (D931)
+    lot:            DPKTNUMLOT
+    emplacement:    { depot: DPKTDEPOT, code: DPKTCODMPL }         # l'identité de l'emplacement est le couple (D962)
+    depot:          DPKTDEPOT                                      # la référence par la clé (D654)
+    enregistrement: DPKTCODENR
+    # --- les quantités, dans l'unité de stock de l'article ---
+    quantite:           DPCNSTOPHY
+    quantite_reservee:  DPCNRESFER
+    quantite_en_cours:  DPCNENCOUR
+    stock_minimum:      DPCNSTOMIN
+    # --- la valeur ---
+    prix_unitaire:  amount(DPCNPULOT)     # la devise de l'entreprise — le défaut du type (D993)
+    # --- les dates ---
+    dernier_mouvement:   DPCJMOU
+    peremption:          DPCJPEREMP
+    inventaire:          DPCJJINV         # la semaine DPCSSINV se déduit (D1000/D1001)
+    quantite_inventaire: DPCNQTINV
+  report:
+    when: [migration]
+    to: [production]                      # le stock, c'est la production qui corrige (D945)
+    by: [notification, mail]

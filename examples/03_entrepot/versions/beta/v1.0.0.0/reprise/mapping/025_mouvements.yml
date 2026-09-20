@@ -1,0 +1,49 @@
+# L'étape 25 — les mouvements de stock : MVTSTO vers stock.mouvement, la
+# dernière étape, des millions de lignes (D863). La lecture par partition
+# s'écrit à la source — coverage: MVCJMVT[month - 3], trois mois relus
+# chaque nuit, la totalité le dimanche (D880/D943) ; le mouvement n'a pas
+# d'historique, les écarts remplacent (D878/D882). L'identité : les
+# colonnes I de PMI (le document, la ligne, l'indice, le composant),
+# l'article et l'horodatage de saisie — datetime(MVCJSAI, MVCTSAI), le
+# constructeur du type à la seconde (D1001). Le sens et le type traduits
+# depuis les codes de PMI (D893/D952/D953) — sans « ... », un code hors
+# liste est un rejet (D1002). La quantité : « une quantité avec une unité
+# (celle du stockage de l'article). Elle est signée et vient en complément
+# du type de mouvement E/S. Une valeur négative est une correction »
+# (D1009) — la mesure construite dans l'unité de stock de l'article, lue à
+# la source par le calculé unite_stock (D965) ; le mouvement à zéro est
+# écarté à la lecture (la validation de la source).
+# Le dépôt et l'emplacement par leurs clés, les référentiels des étapes 3
+# et 6 les ont vus naître (D962). Le prix à la devise de l'entreprise
+# (D993) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids
+# unitaire de PMI (MVCNPDSUNI) repris en mesure, l'unité inventée (D963) :
+# la masse du mouvement se calcule à la cible (D985 — à trancher).
+
+MVTSTO:
+  to: stock.mouvement
+  fields:
+    # --- l'identité (D930) : l'origine, l'article, l'horodatage ---
+    document:   MVITNUMERO
+    ligne:      MVITLIGNE
+    indice:     MVITINDLIG
+    composant:  MVITCOMPOS
+    article:    { code: MVCTCODART, complement: MVCTCOMART }   # la référence par la clé composée (D931)
+    horodatage: datetime(MVCJSAI, MVCTSAI)                     # le constructeur du type (D659/D1001)
+    # --- le lieu ---
+    depot:       MVCTDEPOT                                      # la référence par la clé (D654)
+    emplacement: { depot: MVCTDEPOT, code: MVCTCODMPL }         # le couple (D962)
+    lot:         MVCTNUMLOT
+    # --- le moment ---
+    date: MVCJMVT                         # « la date du mouvement à enregistrer dans le système » (D1001)
+    # --- le mouvement ---
+    type: 'MVCTGENRE.select(C: "consommation", D: "deplacement", E: "expedition", F: "fabrication", I: "inventaire", R: "reception")'   # les six genres (D953)
+    sens: 'MVCTTYPE.select(E: "entree", S: "sortie")'           # E/S (D952)
+    quantite:       measure(MVCNQTE, unite_stock)   # signée, dans l'unité de stock de l'article (D1009/D975)
+    prix_unitaire:  amount(MVCNPUNIT)     # la devise de l'entreprise (D993)
+    poids_unitaire: measure(MVCNPDSUNI, kg)   # l'unité inventée (D963) — à confirmer
+    utilisateur:    MVCTNOMUTI
+    stock_avant:    measure(MVCNAVQTST, unite_stock)
+  report:
+    when: [migration]
+    to: [production]                      # le stock, c'est la production qui corrige (D945)
+    by: [notification, mail]

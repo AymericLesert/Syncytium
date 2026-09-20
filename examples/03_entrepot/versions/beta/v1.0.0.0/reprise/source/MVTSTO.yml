@@ -32,10 +32,21 @@ fields:
   MVCSMVT:     ignored                                        # la semaine du mouvement — déduite du jour (D1000) ; l'heure vraie est MVCTSAI (D1001)
   MVCJSAI:     date_pmi                                       # → mouvement.horodatage — le jour de la saisie, « un mouvement peut être enregistré a posteriori » ; l'identité (D1001)
   MVCTSAI:     time_pmi                                       # → mouvement.horodatage — l'heure à la seconde (hhmmss, D992/D1001), une colonne T ; l'identité
-  MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
+  MVCNQTE:     decimal                                        # → mouvement.quantite — signée, « une valeur négative est une correction » (D1009) ; la mesure dans l'unité de stock de l'article, le calculé unite_stock
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
-  MVCNVAL:     decimal                                        # → mouvement.valeur
+  MVCNPDSUNI:  decimal                                        # → mouvement.poids_unitaire — le poids unitaire, en mesure à la règle (D975) ; l'unité inventée (D963), le lot 4
+  MVCNVAL:     ignored                                        # la valeur du mouvement — recalculée à la cible (prix × quantité), le lot 4
   MVCTTYPE:    enum { E, S }                                  # → mouvement.sens — E l'entrée, S la sortie (D952/D953)
   MVCTGENRE:   enum { C, D, E, F, I, R }                      # → mouvement.type — le genre : C consommation, D déplacement, E expédition, F fabrication, I inventaire, R réception (D953)
   MVCTNOMUTI:  text[35]                                       # → mouvement.utilisateur
   MVCNAVQTST:  decimal                                        # → mouvement.stock_avant
+
+  # --- l'unité de stock de l'article, lue dans ARTICLE (D965/D966) : la
+  # quantité du mouvement se construit dans cette unité (D1009) ---
+  unite_stock:
+    formula: ARTICLE.first(ARCTUNISTO if ARKTCODART = MVCTCODART and ARKTCOMART = MVCTCOMART)
+
+# le premier temps de la validation (D932/D1006) — « la ligne est valide si
+# la quantité est non nulle » (D1009) : le mouvement à zéro n'est pas lu
+validation:
+  - MVCNQTE != 0

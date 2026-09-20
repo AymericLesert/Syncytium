@@ -1140,6 +1140,7 @@ Q58) :
 | D1005 | **Le prix de revient se déduit, la marge sort de l'exemple** (solde le frottement 5 du lot 3 du mapping du cas 3 ; précise D859/D882) : « le prix de revient se déduit. Cegid PMI le calcule et le stocke pour des questions de performance. Dans notre cas, ce sera un champ calculé mais pour l'exemple, nous n'allons pas fournir la formule » ; « nous ne traitons pas la marge pour l'exemple » — `ligne_vente.prix_revient` et `ligne_vente.marge` retirés du modèle (le motif en commentaire), LCCNPUREVI `ignored` à la source, la règle 021 n'écrit plus que le brut et le net à la devise de la ligne (D771). La question de la devise du coût et de la compatibilité des devises dans la marge (D581) n'a plus d'objet pour l'exemple. | Le profil de confidentialité `direction` (D885) reste aux settings, employé par la commission du client. Un calculé sans formule ne s'écrit pas : le champ attend sa formule hors de l'exemple. Voir §3.2c. |
 | D1006 | **Les trois temps de la validation redits ; les quantités des lignes de commande ne se valident pas** (solde le frottement 6 du lot 3 du mapping du cas 3 ; précise D932) : « les validations s'expriment en effet en 3 temps : sur la source à la lecture — limite les enregistrements aux valeurs valides ; sur le mapping — identifie les règles non respectées ou les données incorrectes ; sur la destination — garantit que les règles des données entreposées sont correctes » ; « ces règles de validation ne sont pas vraiment utiles car les quantités sont à titre indicatif, puis utilisées pour vérifier la validité d'un mode opératoire ou identifier les cas limites de nos processus » — les validations sur les quantités retirées des deux étages : `me.quantite_expediee <= me.quantite` et `me.quantite_recue <= me.quantite` des règles 021/023, `quantite > 0`, `quantite_expediee <= quantite`, `quantite_recue <= quantite` des entités ; une expédition au-delà de la commande est un cas limite à observer, pas une ligne à rejeter. | `prix_net <= prix_brut if prix_brut != null`, gardée d'abord en proposition, retirée aussi : « le net peut dépasser le brut, en effet ». La doctrine : une contrainte du modèle n'a pas à être redite par la règle. Voir §3.2c. |
 | D1007 | **L'unité de la ligne de commande contrôlée à la migration** (solde le frottement 7 — le dernier — du lot 3 du mapping du cas 3 ; applique D932/D1006, s'appuie sur D982/D983) : « pour l'exemple, l'unité peut être contrôlée lors de la migration » — le deuxième temps de la validation, la règle : `validation: - me.unite in me.article.unite.units` sur 021 et 023, la ligne dont l'unité n'est pas connue de l'article est rejetée au rapport ; la ligne garde `unite: text`, sa quantité emprunte la matrice de l'article (D982). C'est l'illustration réelle du deuxième temps qui manquait au lot 3. | `.units`, la liste des unités connues du champ : **« .units utile sur measure et sur duration » — acté** sur les deux types (types.md) ; la comparaison normalisée (D983 — KG = kg). **LE LOT 3 EST CLOS : D998–D1007.** Voir §3.2c. |
+| D1008 | **La quatrième origine des référentiels de stock : les niveaux non nuls** (étend D962 — le frottement 1 du lot 4 du mapping du cas 3) : « STDEPLOT rejoint le référentiel uniquement si la quantité != 0, si l'emplacement n'existe pas déjà dans le référentiel » — les dépôts et les emplacements des niveaux de stock entrent au référentiel par `distinct:` sous `filter: DPCNSTOPHY != 0` (les étapes 3 bis et 6 bis) ; un niveau à zéro ne crée pas de lieu, son orphelin reste un rejet au rapport (D875) ; le lieu déjà connu n'est pas touché — la règle n'alimente que l'identité (D672/D930) ; né ici, le lieu naît inactif et sans libellé (D941/D962). | Le cas 3 : deux règles sur STDEPLOT, les commentaires de `depot` et `emplacement` à quatre origines. Voir §3.2c. |
 
 ---
 
@@ -22429,6 +22430,25 @@ avant la synthèse Q16).
   types.md, puis acté : « .units utile sur measure et sur duration ».
   Les sept frottements du lot 3 sont tranchés (D998–D1007). La suite :
   le lot 4, les stocks (024–025).
+- **2026-09-20 (suite 15) — LE LOT 4 DU MAPPING ÉCRIT : LES STOCKS
+  (024–025), EN ATTENTE D'ARBITRAGE.** « Écris le lot 4 » — deux règles :
+  STDEPLOT → stock.niveau (l'identité aux six K, l'emplacement par le
+  couple, le prix du lot D993, l'inventaire en date D1001), MVTSTO →
+  stock.mouvement (l'identité aux I + l'article + `datetime(MVCJSAI,
+  MVCTSAI)`, le sens et le type par `select`, la quantité en valeur
+  absolue, le poids unitaire en mesure, la masse calculée) ; et deux
+  origines de plus pour les référentiels (3 bis, 6 bis sur STDEPLOT).
+  Le modèle du mouvement gagne `poids_unitaire` et `masse`, MVCNVAL
+  ignorée. Six frottements présentés dans le cas (« Le lot 4 ») : la
+  quatrième origine, `abs()`, la masse (poids de PMI ou matrice de
+  l'article, la matérialisation D985), MVCNVAL, le niveau sans
+  couverture, le lot en texte. Rien n'est commis.
+- **2026-09-20 (suite 16) — LE FROTTEMENT 1 DU LOT 4 : LA QUATRIÈME
+  ORIGINE (D1008, 1008 décisions).** « STDEPLOT rejoint le référentiel
+  uniquement si la quantité != 0, si l'emplacement n'existe pas déjà
+  dans le référentiel » — les règles 3 bis et 6 bis filtrées sur la
+  quantité, D962 étendue, les référentiels à quatre origines. Restent
+  les frottements 2 à 6 du lot 4.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

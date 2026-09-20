@@ -1173,8 +1173,9 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    D967–D990** : vingt-cinq règles et le bloc commun
    `articles/fields.yml` ; les frottements et leurs décisions ci-dessous
    (« Les frottements du morceau 4 ») ; **le lot 3 — les commandes
-   (020–023) — clos par D998–D1007** ; la suite : le lot 4, les stocks
-   (024–025)* ;
+   (020–023) — clos par D998–D1007** ; **le lot 4 — les stocks (024–025
+   et les origines 3 bis / 6 bis) — écrit le 20/09, ses frottements en
+   attente d'arbitrage** ; puis le morceau 5* ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -1337,8 +1338,9 @@ référencent par `${settings.confidentiality.<profil>}` ; le lien
 depuis `version.yml` viendra avec le morceau 1.
 
 **Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
-2 clos — D961 à D990 ; le lot 3 clos — D998 à D1007) :
-`reprise/mapping/`, **vingt-neuf règles, 001 à 023**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
+2 clos — D961 à D990 ; le lot 3 clos — D998 à D1007 ; le lot 4 écrit
+le 20/09, en attente) : `reprise/mapping/`, **trente-trois règles, 001
+à 025**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
 de `reprise.yml` (D806/D956) — le préfixe fait l'étape (D665), les
 référentiels avant ce qui les référence (D662), deux règles sur une
 même table = deux fichiers :
@@ -1398,7 +1400,19 @@ même table = deux fichiers :
   les statuts traduits par `select`, les codes inventés (D963) ;
   l'adresse de livraison de l'entête reprise en détail (sept champs)
   et géocodée à la cible par le connecteur `location` (D1004) ; les
-  rapports au commercial (ventes) et aux achats (D945).
+  rapports au commercial (ventes) et aux achats (D945) ;
+- **024–025, les stocks** (*écrites le 20/09, en attente
+  d'arbitrage*) — STDEPLOT vers `niveau` : l'identité aux six K, l'article
+  par sa clé composée, l'emplacement par le couple `{ depot, code }`
+  (D931/D962), le prix du lot `amount(x)` (D993), l'inventaire en date
+  (D1001) ; MVTSTO vers `mouvement` : l'identité aux I + l'article +
+  `datetime(MVCJSAI, MVCTSAI)` (D1001), le sens et le type par `select`
+  sur E/S et C/D/E/F/I/R (D952/D953), la quantité en valeur absolue,
+  le poids unitaire de PMI en mesure et la masse calculée (D985) ; et
+  **la quatrième origine des référentiels** (3 bis, 6 bis — D1008) :
+  les dépôts et emplacements distincts des niveaux non nuls, pour
+  qu'aucun niveau en stock ne soit orphelin (D875) ; les rapports à la
+  production.
 
 Ce que le lot a fixé hors du cas : la référence de fichier explicite
 et son cumul (D956/D967–D968), la lecture d'une autre entité source
@@ -1740,6 +1754,40 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   et 023, le deuxième temps de la validation (D1006) ; `.units` mien.
 
 **Le lot 3 est clos — D998 à D1007.**
+
+**Le lot 4 (024–025) — écrit le 20/09/2026, en attente d'arbitrage :**
+
+- **une quatrième origine des référentiels** — D962 nomme trois
+  origines (les paramètres, les fiches articles, les mouvements) ; un
+  niveau de stock (STDEPLOT) dont le dépôt ou l'emplacement n'est dans
+  aucune serait un orphelin (D875) — les mouvements ne sont relus que
+  sur trois mois. Deux règles `distinct` de plus sur STDEPLOT (3 bis,
+  6 bis), *à valider* ; l'alternative : accepter le rejet, le
+  référentiel se corrige à la main — **tranché par D1008** : « STDEPLOT
+  rejoint le référentiel uniquement si la quantité != 0, si
+  l'emplacement n'existe pas déjà dans le référentiel » — les deux
+  règles gardées, filtrées sur `DPCNSTOPHY != 0` ; le niveau à zéro sur
+  un lieu inconnu reste un rejet.
+- **la quantité signée** — MVCNQTE est signée chez PMI, le sens vit
+  dans MVCTTYPE : `quantite: abs(MVCNQTE)` ; *`abs()` n'existe pas au
+  catalogue des fonctions (D934 ne couvre que le texte) — à ajouter aux
+  fonctions du nombre, ou le signe est-il toujours cohérent avec E/S ?*
+- **la masse du mouvement** — MVTSTO porte un poids unitaire
+  (MVCNPDSUNI) : `poids_unitaire: measure(MVCNPDSUNI, kg)` (l'unité
+  inventée, D963) et `masse: poids_unitaire * quantite` à la cible ;
+  *l'autre voie, la matrice de l'article `(article.unite *
+  quantite).to(kg)` (D982) ; et la matérialisation à l'écriture sur des
+  millions de lignes (D985, en proposition)*.
+- **la valeur du mouvement** — MVCNVAL existe chez PMI ; recalculée
+  à la cible (`prix_unitaire * quantite`), la colonne ignorée — *ou la
+  reprendre, comme le prix de revient stocké « pour des questions de
+  performance » (D1005) ?*
+- **le niveau sans couverture** — STDEPLOT est un état, pas un
+  journal : relu en entier chaque nuit, l'historique de la cible donne
+  le stock à une date (D412/D882) ; *aucun `coverage:`, à confirmer*.
+- **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
+  (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
+  *un référentiel des lots n'est pas ouvert, à confirmer*.
 
 **Le retour de l'auteur sur les sources (20/09) :**
 

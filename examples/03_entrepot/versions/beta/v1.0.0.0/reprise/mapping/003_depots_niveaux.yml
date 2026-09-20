@@ -1,0 +1,19 @@
+# L'étape 3 (bis) — les dépôts trouvés dans les niveaux de stock : la
+# quatrième origine du référentiel (D1008, qui étend D962 — les
+# paramètres, les fiches articles, les mouvements). « STDEPLOT rejoint le
+# référentiel uniquement si la quantité != 0, si l'emplacement n'existe
+# pas déjà » : un niveau à zéro ne crée pas de lieu ; le lieu déjà connu
+# n'est pas touché (la règle n'alimente que l'identité — D672/D930). Les
+# valeurs distinctes de DPKTDEPOT sur les niveaux non nuls (D658) ; le
+# dépôt né ici naît inactif et sans libellé (D941/D962).
+
+STDEPLOT:
+  to: stock.depot
+  distinct: [DPKTDEPOT]
+  filter: DPCNSTOPHY != 0             # « uniquement si la quantité != 0 » (D1008)
+  fields:
+    code: DPKTDEPOT                   # la valeur devient l'identité (D658/D930)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

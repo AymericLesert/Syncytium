@@ -1,8 +1,9 @@
-# Le dépôt — le référentiel des dépôts de PMI, construit à trois origines
-# (D962) : les paramètres de Cegid (PARAM — les dépôts actifs, avec leur
-# libellé), les fiches articles (ARCTCODEP) et les mouvements (MVCTDEPOT
+# Le dépôt — le référentiel des dépôts de PMI, construit à quatre origines
+# (D962, D1008) : les paramètres de Cegid (PARAM — les dépôts actifs, avec
+# leur libellé), les fiches articles (ARCTCODEP), les mouvements (MVCTDEPOT
 # — « le distinct permet de référencer toutes les valeurs y compris
-# dépassées ») ; les valeurs distinctes de chaque source (D658). Une
+# dépassées ») et les niveaux de stock non nuls (DPKTDEPOT — « uniquement
+# si la quantité != 0 ») ; les valeurs distinctes de chaque source (D658). Une
 # liste courte, mais une entité : le dépôt se référence (D396) et porte
 # ses niveaux et ses emplacements.
 name: depot

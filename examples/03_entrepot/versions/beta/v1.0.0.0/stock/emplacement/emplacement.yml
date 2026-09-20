@@ -1,8 +1,9 @@
 # L'emplacement — le référentiel des emplacements de PMI, construit à
-# trois origines comme le dépôt (D962) : les paramètres de Cegid (PARAM
-# — les emplacements actifs, avec leur libellé), les fiches articles
-# (ARCTCODEP + ARCTCODMPL) et les mouvements (MVCTDEPOT + MVCTCODMPL) ;
-# les valeurs distinctes de chaque source (D658). « L'identité d'un
+# quatre origines comme le dépôt (D962, D1008) : les paramètres de Cegid
+# (PARAM — les emplacements actifs, avec leur libellé), les fiches articles
+# (ARCTCODEP + ARCTCODMPL), les mouvements (MVCTDEPOT + MVCTCODMPL) et les
+# niveaux de stock non nuls (DPKTDEPOT + DPKTCODMPL) ; les valeurs
+# distinctes de chaque source (D658). « L'identité d'un
 # emplacement est un couple (dépôt, emplacement) » (D962).
 name: emplacement
 description: Un emplacement de stockage dans un dépôt

@@ -1,0 +1,18 @@
+# L'étape 6 (bis) — les emplacements trouvés dans les niveaux de stock :
+# la quatrième origine (D1008, voir l'étape 3 bis) — les couples distincts
+# dépôt + emplacement de DPKTDEPOT + DPKTCODMPL sur les niveaux non nuls
+# (D658), pour que tout niveau en stock trouve son emplacement (D875) ;
+# l'emplacement déjà connu n'est pas touché. Né ici, il naît inactif et
+# sans libellé (D941/D962).
+
+STDEPLOT:
+  to: stock.emplacement
+  distinct: [DPKTDEPOT, DPKTCODMPL]
+  filter: DPCNSTOPHY != 0             # « uniquement si la quantité != 0 » (D1008)
+  fields:
+    depot: DPKTDEPOT                  # la référence par la clé (D654) — part de l'identité
+    code:  DPKTCODMPL                 # l'identité (D930)
+  report:
+    when: [migration]
+    to: [production]
+    by: [notification, mail]

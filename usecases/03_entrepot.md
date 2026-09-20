@@ -1778,8 +1778,9 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   de mouvement E/S. Une valeur négative est une correction. Pas de
   validation sur la quantité. Par contre, la ligne est valide si la
   quantité est non nulle » — `measure(MVCNQTE, unite_stock)`, l'unité
-  empruntée à l'article (`unit: article.unite`, mien), la ligne nulle
-  écartée à la source.
+  empruntée à l'article (`unit: article.unite`, mien) ; « ajoute un
+  champ calculé valide qui est vrai si la quantité est non nulle » —
+  le calculé, pas un rejet.
 - **la masse du mouvement** — MVTSTO porte un poids unitaire
   (MVCNPDSUNI) : `poids_unitaire: measure(MVCNPDSUNI, kg)` (l'unité
   inventée, D963) et `masse: poids_unitaire * quantite` à la cible ;

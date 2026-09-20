@@ -45,8 +45,3 @@ fields:
   # quantité du mouvement se construit dans cette unité (D1009) ---
   unite_stock:
     formula: ARTICLE.first(ARCTUNISTO if ARKTCODART = MVCTCODART and ARKTCOMART = MVCTCOMART)
-
-# le premier temps de la validation (D932/D1006) — « la ligne est valide si
-# la quantité est non nulle » (D1009) : le mouvement à zéro n'est pas lu
-validation:
-  - MVCNQTE != 0

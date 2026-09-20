@@ -169,6 +169,14 @@ poids_unitaire:
 
 # ------ Champs calculés ------
 
+valide:
+  # « la ligne est valide si la quantité est non nulle » — le calculé,
+  # pas une validation (D1009) : le mouvement à zéro entre et se marque
+  type: boolean
+  formula: quantite != 0
+  label:
+    fr: Valide
+
 valeur:
   # MVCNVAL chez PMI ; recalculée ici — restreinte comme le prix
   type: amount

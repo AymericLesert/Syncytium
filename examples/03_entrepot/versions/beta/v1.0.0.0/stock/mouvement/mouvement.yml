@@ -18,6 +18,5 @@ history: false
 
 fields: ~{fields.yml}
 
-# aucune validation sur la quantité à la cible (D1009) ; « la ligne est
-# valide si la quantité est non nulle » : le premier temps, à la source
-# (MVTSTO.yml — D1006)
+# aucune validation sur la quantité (D1009) ; « la ligne est valide si la
+# quantité est non nulle » : le calculé valide, pas un rejet

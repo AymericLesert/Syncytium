@@ -11,8 +11,9 @@
 # (celle du stockage de l'article). Elle est signée et vient en complément
 # du type de mouvement E/S. Une valeur négative est une correction »
 # (D1009) — la mesure construite dans l'unité de stock de l'article, lue à
-# la source par le calculé unite_stock (D965) ; le mouvement à zéro est
-# écarté à la lecture (la validation de la source).
+# la source par le calculé unite_stock (D965) ; le mouvement à zéro entre,
+# le calculé valide de la cible le marque. L'emplacement est au
+# référentiel par construction (D1008) : la règle ne se complète pas.
 # Le dépôt et l'emplacement par leurs clés, les référentiels des étapes 3
 # et 6 les ont vus naître (D962). Le prix à la devise de l'entreprise
 # (D993) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids

@@ -1706,7 +1706,22 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   colonne peut-elle porter un code client (la cible deviendrait le
   parent `tiers.tiers`, la source devrait choisir entre CLIENT et
   FOURNIS — D884, un code peut exister des deux côtés), ou la forme
-  `FOURNIS.CLKTCODE` tient-elle, nommée au besoin ?
+  `FOURNIS.CLKTCODE` tient-elle, nommée au besoin ? — **tranché par
+  D996** : « compte 1 correspond au compte client ou fournisseur par
+  défaut… un article acheté… un client s'il est vendu tel quel ou un
+  fournisseur… un produit fabriqué… le client de référence. Compte 2
+  correspond au dernier achat/vente réalisé », « se calcule, ne se
+  stocke pas » ; `ARCTNOFOU1: FOURNIS.CLKTCODE or CLIENT.CLKTCODE`
+  (« le premier des 2 qui matchent fait le lien »), ARCTNOFOU2
+  ignorée ; à la cible, la destination « plus fine » : le client par
+  défaut et la liste des clients sur le fabriqué, le fournisseur par
+  défaut sur l'acheté — « grâce à l'héritage aux règles de
+  clarification, nous pouvons redispatcher l'information au bon
+  endroit » ; `article.fournisseurs` retirée. *En attente : la
+  résolution finale par le type du champ mappé (ma lecture) ; la
+  maison de `fournisseur_defaut` — le parent (le fabriqué l'hérite)
+  ou un dérivé `achete` — et « acheté ou fabriqué » ; les formes des
+  calculés.*
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

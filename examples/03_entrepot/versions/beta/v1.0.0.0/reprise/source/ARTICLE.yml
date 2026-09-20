@@ -36,8 +36,8 @@ fields:
   ARCNPDSUNI:  decimal                                        # → article.poids
   ARCNQTECO:   decimal                                        # → article.quantite_economique
   ARCNPUACH1:  decimal                                        # → article.prix_achat
-  ARCTNOFOU1:  FOURNIS.CLKTCODE                               # → article.fournisseurs — la référence (D648), le premier fournisseur
-  ARCTNOFOU2:  FOURNIS.CLKTCODE                               # → article.fournisseurs — le second
+  ARCTNOFOU1:  FOURNIS.CLKTCODE or CLIENT.CLKTCODE            # le compte 1 — le fournisseur par défaut de l'acheté, ou son client s'il est vendu tel quel ; le client de référence du fabriqué : « le premier des 2 qui matchent fait le lien » (D996), la règle du dérivé route
+  ARCTNOFOU2:  ignored                                        # le compte 2 — le dernier achat ou la dernière vente : « se calcule, ne se stocke pas » (D996), les calculés de la cible le portent
   ARCTFATN:    enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }# → article.gestion — les codes relevés (D938/D939) ; le code de gestion assure l'héritage (D940)
   ARCNPMP:     decimal                                        # → article.prix_moyen_pondere
   ARCNPRS:     decimal                                        # → article.prix_revient

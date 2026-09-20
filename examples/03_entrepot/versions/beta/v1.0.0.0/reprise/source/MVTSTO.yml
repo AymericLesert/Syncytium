@@ -35,7 +35,7 @@ fields:
   MVCNQTE:     decimal                                        # → mouvement.quantite — signée, « une valeur négative est une correction » (D1009) ; la mesure dans l'unité de stock de l'article, le calculé unite_stock
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
   MVCNPDSUNI:  ignored                                        # le poids unitaire — « à porter au niveau de l'article… celui sur le mouvement n'est qu'un doublon » (D1010) : ARCNPDSUNI, la matrice de l'article
-  MVCNVAL:     ignored                                        # la valeur du mouvement — recalculée à la cible (prix × quantité), le lot 4
+  MVCNVAL:     ignored                                        # la valeur du mouvement — recalculée à la cible, prix × quantité (D1011) ; le prix, lui, est gardé : il « varie en fonction du temps »
   MVCTTYPE:    enum { E, S }                                  # → mouvement.sens — E l'entrée, S la sortie (D952/D953)
   MVCTGENRE:   enum { C, D, E, F, I, R }                      # → mouvement.type — le genre : C consommation, D déplacement, E expédition, F fabrication, I inventaire, R réception (D953)
   MVCTNOMUTI:  text[35]                                       # → mouvement.utilisateur

@@ -16,7 +16,8 @@
 # référentiel par construction (D1008) : la règle ne se complète pas.
 # Le dépôt et l'emplacement par leurs clés, les référentiels des étapes 3
 # et 6 les ont vus naître (D962). Le prix à la devise de l'entreprise
-# (D993) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids
+# (D993), gardé sur le mouvement parce qu'il « varie en fonction du
+# temps » (D1011) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids
 # unitaire « est à porter au niveau de l'article » (D1010) : MVCNPDSUNI
 # ignorée, la masse du mouvement est quantite.to(kg) par la matrice de
 # l'article.

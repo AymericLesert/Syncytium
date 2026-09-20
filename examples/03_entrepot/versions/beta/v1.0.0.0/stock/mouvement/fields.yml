@@ -137,7 +137,11 @@ quantite:
     fr: Quantité
 
 prix_unitaire:
-  # MVCNPUNIT — la valorisation du mouvement : restreinte (D859)
+  # MVCNPUNIT — la valorisation du mouvement : restreinte (D859). Gardé
+  # sur le mouvement, à la différence du poids (D1010) : « le prix
+  # unitaire varie en fonction du temps. En le dupliquant sur le
+  # mouvement, nous simplifions le calcul de la valorisation avec le
+  # facteur temps » (D1011)
   type: amount
   confidentiality: ${settings.confidentiality.financier}
   label:
@@ -169,9 +173,12 @@ valide:
     fr: Valide
 
 valeur:
-  # MVCNVAL chez PMI ; recalculée ici — restreinte comme le prix
+  # MVCNVAL chez PMI, ignorée ; recalculée ici (D1011) — restreinte comme
+  # le prix ; le montant fois le nombre nu de la quantité (D984 :
+  # amount × decimal), signé comme elle — .value, l'accès à la valeur
+  # d'une mesure sans son unité (forme mienne)
   type: amount
-  formula: prix_unitaire * quantite if prix_unitaire != null
+  formula: prix_unitaire * quantite.value if prix_unitaire != null
   confidentiality: ${settings.confidentiality.financier}
   label:
     fr: Valeur

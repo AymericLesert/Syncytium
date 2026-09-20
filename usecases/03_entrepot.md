@@ -1795,7 +1795,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
 - **la valeur du mouvement** — MVCNVAL existe chez PMI ; recalculée
   à la cible (`prix_unitaire * quantite`), la colonne ignorée — *ou la
   reprendre, comme le prix de revient stocké « pour des questions de
-  performance » (D1005) ?*
+  performance » (D1005) ?* — **tranché par D1011** : « le poids ne varie
+  pas pour une même référence. Par contre, le prix unitaire varie en
+  fonction du temps. En le dupliquant sur le mouvement, nous simplifions
+  le calcul de la valorisation avec le facteur temps. Nous allons
+  conserver l'approche » — le prix gardé, la valeur recalculée
+  (`quantite.value`, mien).
 - **le niveau sans couverture** — STDEPLOT est un état, pas un
   journal : relu en entier chaque nuit, l'historique de la cible donne
   le stock à une date (D412/D882) ; *aucun `coverage:`, à confirmer*.

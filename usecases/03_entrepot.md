@@ -1808,7 +1808,15 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   (`quantite.value`, mien).
 - **le niveau sans couverture** — STDEPLOT est un état, pas un
   journal : relu en entier chaque nuit, l'historique de la cible donne
-  le stock à une date (D412/D882) ; *aucun `coverage:`, à confirmer*.
+  le stock à une date (D412/D882) ; *aucun `coverage:`, à confirmer* —
+  **tranché par D1013** : « la relecture de STDEPLOT concerne au plus
+  200 000 lignes… sans surcoût ; MVTSTO, plusieurs millions de lignes,
+  coverage et reset_coverage sont à paramétrer » ; « pas d'historique
+  sur STDEPLOT car les mouvements sont dans MVTSTO. Sinon, cela fera
+  doublon (ou presque). Par contre, un comparatif entre les mouvements
+  et le stockage peut être mené par une règle de contrôle » — `history:
+  false` sur le niveau, la règle de contrôle en calculés
+  (`stock_reconstitue`, `ecart_mouvements` — miens).
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
   *un référentiel des lots n'est pas ouvert, à confirmer*.

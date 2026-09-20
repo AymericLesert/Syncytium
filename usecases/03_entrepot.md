@@ -1407,8 +1407,9 @@ même table = deux fichiers :
   (D931/D962), le prix du lot `amount(x)` (D993), l'inventaire en date
   (D1001) ; MVTSTO vers `mouvement` : l'identité aux I + l'article +
   `datetime(MVCJSAI, MVCTSAI)` (D1001), le sens et le type par `select`
-  sur E/S et C/D/E/F/I/R (D952/D953), la quantité en valeur absolue,
-  le poids unitaire de PMI en mesure et la masse calculée (D985) ; et
+  sur E/S et C/D/E/F/I/R (D952/D953), la quantité signée en mesure
+  dans l'unité de stock de l'article (D1009), la masse par la matrice
+  de l'article (D1010) ; et
   **la quatrième origine des référentiels** (3 bis, 6 bis — D1008) :
   les dépôts et emplacements distincts des niveaux non nuls, pour
   qu'aucun niveau en stock ne soit orphelin (D875) ; les rapports à la
@@ -1786,7 +1787,11 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   inventée, D963) et `masse: poids_unitaire * quantite` à la cible ;
   *l'autre voie, la matrice de l'article `(article.unite *
   quantite).to(kg)` (D982) ; et la matérialisation à l'écriture sur des
-  millions de lignes (D985, en proposition)*.
+  millions de lignes (D985, en proposition)* — **tranché par D1010** :
+  « le poids unitaire est à porter au niveau de l'article » — le champ
+  retiré du mouvement, MVCNPDSUNI ignorée, `masse: quantite.to(kg)` par
+  la matrice de l'article, où le poids entre comme conversion vers le
+  kilogramme (mien) ; la matérialisation D985 reste ouverte.
 - **la valeur du mouvement** — MVCNVAL existe chez PMI ; recalculée
   à la cible (`prix_unitaire * quantite`), la colonne ignorée — *ou la
   reprendre, comme le prix de revient stocké « pour des questions de

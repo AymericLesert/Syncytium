@@ -17,8 +17,9 @@
 # Le dépôt et l'emplacement par leurs clés, les référentiels des étapes 3
 # et 6 les ont vus naître (D962). Le prix à la devise de l'entreprise
 # (D993) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids
-# unitaire de PMI (MVCNPDSUNI) repris en mesure, l'unité inventée (D963) :
-# la masse du mouvement se calcule à la cible (D985 — à trancher).
+# unitaire « est à porter au niveau de l'article » (D1010) : MVCNPDSUNI
+# ignorée, la masse du mouvement est quantite.to(kg) par la matrice de
+# l'article.
 
 MVTSTO:
   to: stock.mouvement
@@ -41,7 +42,6 @@ MVTSTO:
     sens: 'MVCTTYPE.select(E: "entree", S: "sortie")'           # E/S (D952)
     quantite:       measure(MVCNQTE, unite_stock)   # signée, dans l'unité de stock de l'article (D1009/D975)
     prix_unitaire:  amount(MVCNPUNIT)     # la devise de l'entreprise (D993)
-    poids_unitaire: measure(MVCNPDSUNI, kg)   # l'unité inventée (D963) — à confirmer
     utilisateur:    MVCTNOMUTI
     stock_avant:    measure(MVCNAVQTST, unite_stock)
   report:

@@ -248,7 +248,9 @@ unite:
   # ARCTCONV2A, ARCTCONV2B, ARCNCONC02 — apportent les unités
   # supplémentaires (PL la plaque) avec leur coefficient vers une unité
   # connue (1 PL = 1 u, toujours ; 1 PL = 12,5 kg), la transitivité fait
-  # le reste (D979). Les quantités du niveau de stock et des lignes de
+  # le reste (D979) ; le poids unitaire (ARCNPDSUNI) y entre comme la
+  # conversion de l'unité de stock vers le kilogramme (D1010) — la masse
+  # d'un mouvement est quantite.to(kg). Les quantités du niveau de stock et des lignes de
   # commande, en décimal dans l'unité de l'article, l'empruntent pour se
   # convertir : (article.unite * quantite).to(kg). Les unités connues sont
   # celles de la liste (D983 : units: restreint la matrice standard —
@@ -264,7 +266,9 @@ unite:
     fr: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
 
 poids:
-  # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391)
+  # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391) ; « à
+  # porter au niveau de l'article » (D1010) — lisible ici, et coefficient
+  # de la matrice de unite
   type: measure
   units: [kg, g]
   label:

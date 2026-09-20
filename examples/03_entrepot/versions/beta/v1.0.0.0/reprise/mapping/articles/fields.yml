@@ -40,7 +40,8 @@ unite_commande: ARCTUNICDE
 unite: >-
   measure(1, ARCTUNISTO,
     list(measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01),
-         measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02)))
+         measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02),
+         measure.convert(ARCTUNISTO, kg, ARCNPDSUNI)))   # le poids unitaire = la conversion de l'unité de stock vers le kilogramme (D1010)
 poids:     measure(ARCNPDSUNI, kg)
 longueur:  measure(ARCNLONGUE, mm)
 largeur:   measure(ARCNLARGEU, mm)

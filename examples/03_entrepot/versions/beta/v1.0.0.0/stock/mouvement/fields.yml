@@ -158,15 +158,6 @@ stock_avant:
   label:
     fr: Stock avant
 
-poids_unitaire:
-  # MVCNPDSUNI — le poids unitaire porté par le mouvement chez PMI ; la
-  # mesure (D975), l'unité inventée pour l'exemple (D963) — le lot 4, à
-  # trancher : la masse par ce poids ou par la matrice de l'article (D982)
-  type: measure
-  units: [kg]
-  label:
-    fr: Poids unitaire
-
 # ------ Champs calculés ------
 
 valide:
@@ -186,14 +177,15 @@ valeur:
     fr: Valeur
 
 masse:
-  # la masse du mouvement — le tableau de bord (D859) ; par le poids
-  # unitaire de PMI (le lot 4, à trancher : l'autre voie, la matrice de
-  # l'article — (article.unite * quantite).to(kg), D982) ; sur des
-  # millions de lignes, le calculé matérialisé à l'écriture (D985, en
-  # proposition)
+  # la masse du mouvement — le tableau de bord (D859) : « le poids
+  # unitaire est à porter au niveau de l'article » (D1010) — la quantité,
+  # dans l'unité de stock, se convertit par la matrice de l'article, où le
+  # poids unitaire est le coefficient vers le kilogramme (D982/D1010) ;
+  # sur des millions de lignes, le calculé matérialisé à l'écriture reste
+  # en proposition (D985)
   type: measure
   units: [kg]
-  formula: poids_unitaire * quantite if poids_unitaire != null
+  formula: quantite.to(kg)
   label:
     fr: Masse
 

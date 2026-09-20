@@ -20,4 +20,4 @@ fields: ~{fields.yml}
 
 validation:
   - quantite != 0
-  - date_saisie >= date if date_saisie != null
+  - horodatage >= date                  # la saisie ne precede pas la date du mouvement (D1001) ; datetime et date se comparent (D838)

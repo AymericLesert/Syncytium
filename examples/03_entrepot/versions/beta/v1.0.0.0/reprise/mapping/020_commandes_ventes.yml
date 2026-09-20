@@ -35,6 +35,8 @@ ECOMCLI:
     livraison_adresse: >-
       geolocation(ECCTRUE1LI + " " + ECCTRUE2LI + " " + ECCTRUE3LI + ", " + ECCTCPLIV + " " + ECCTVILLIV + ", " + ECCTPAYSLI)
         if ECCTVILLIV != null
+  operations:
+    counter.update("commande_vente.numero", numero)   # le compteur surchargé se positionne sur la plus grande valeur reprise (D998)
   report:
     when: [migration]
     to: [commercial]                      # les ventes, c'est le commercial qui corrige (D945)

@@ -1656,9 +1656,15 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   `counter` (D883 — le privilège de la reprise) ; le `format:
   "{counter:000000}"` de la cible n'est qu'un affichage ; la valeur
   reprise doit-elle repositionner le compteur (le prochain numéro
-  créé à la main, si l'entrepôt écrivait un jour) ? — *ma lecture :
-  non, l'entrepôt est en lecture seule ; le compteur suit la plus
-  grande valeur reprise, en proposition*.
+  créé à la main, si l'entrepôt écrivait un jour) ? — **tranché par
+  D998** : « l'identification des trous correspond à contrôle sur la
+  propriété d'un compteur » ; « nous pouvons disposer de counter avec
+  une méthode update(<clé>, <valeur>). Si la valeur > au compteur
+  courant, ça positionne le compteur courant sur la valeur la plus
+  grande » — `operations: counter.update("commande_vente.numero",
+  numero)` sur 020 et 022, la clé d'un compteur attaché =
+  `"<entité>.<champ>"` (mienne) ; le rejeu par l'identité, « tout à
+  fait ».
 - **le constructeur `datetime(jour, heure)`** — le couple J + S de
   PMI recomposé par la fonction du type (D659) : `datetime(LCCJDELEXP,
   LCCSDELEXP)` ; *ma lecture des nuls : le jour nul donne un datetime

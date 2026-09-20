@@ -25,6 +25,8 @@ ECOMFOU:
     devise:      ECCTDEVISE
     taux_change: ECCNTXDEVI
     statut:      'ECCTSTATUT.select(EC: "en_cours", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+  operations:
+    counter.update("commande_achat.numero", numero)   # le compteur repositionné (D998)
   report:
     when: [migration]
     to: [achats]                          # les achats, c'est le service achats qui corrige (D945)

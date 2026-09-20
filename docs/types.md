@@ -159,7 +159,7 @@ compose avec le constructeur (D659) :
 
 | le type | la nature | D |
 |---|---|---|
-| `counter` | le compteur — attaché au champ ou **mutualisé** (`counter[mon_compteur]`) ; la réinitialisation sur la déclaration (`reset: never` défaut) ; lecture seule partout, « *(attribué à la validation)* » en création | D154–D155, D297, D409–D410 |
+| `counter` | le compteur — attaché au champ ou **mutualisé** (`counter[mon_compteur]`) ; la réinitialisation sur la déclaration (`reset: never` défaut) ; lecture seule partout, « *(attribué à la validation)* » en création ; **surchargé par la migration** (D883) : la valeur reprise entre telle quelle, **`counter.update(clé, valeur)`** dans les `operations:` de la règle positionne le compteur courant sur la plus grande valeur (D998) ; **l'identification des trous est le contrôle porté par la propriété du compteur** (la continuité, D154), pas une règle de la migration ; le rejeu par l'identité (D930), jamais une nouvelle allocation | D154–D155, D297, D409–D410, D883, D998 |
 | le champ calculé | `formula:` — l'expression D90 ; lecture seule, **recalculé dès qu'une dépendance change** ; son composant = celui de son type de résultat ; les valeurs nommées d'une fonction se lient au point (D593) | D255, D298 |
 | le statut — `states:` | désigne le porteur (la hiérarchie D353 ou le champ énuméré) ; le graphe promote/demote ; un seul statut par entité | D421–D427 |
 | l'entité `context` | le moteur, lecture seule — `user` (traversable), `location`, `now`, `instance`/`application`/`module`, `entity`/`field`, `file`/`page`/`pages` (au document), `settings.<nom>` (les paramètres statiques/dynamiques en cascade) ; l'entité homonyme prend le pas (le warning à l'ingestion) | D254, D588–D591 |

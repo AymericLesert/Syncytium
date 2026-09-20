@@ -423,7 +423,9 @@ expressions.
   — `reprise.yml` déclare les migrations (D662 : `connector:`, `mode:`,
   `reset:`, `source:`, `mapping:`, `operations:`), `source/<TABLE>.yml`
   décrit chaque entité d'origine (`name`, `alias`, `filter`, `identity`,
-  `coverage`, `parent`, `fields`, `validation` — D947/D966),
+  `coverage`, `parent`, `fields`, `validation` — D947/D966 ; une colonne
+  typée `TABLE.colonne` est une référence, `TABLE[NOM].colonne` une
+  référence nommée quand l'entité est visée plusieurs fois — D995),
   `mapping/NNN_<nom>.yml` chaque règle (`to`, `filter`, `distinct`,
   `parent`, `fields`, `validation`, `report`, `operations` — D656) :
   [mapping.md](mapping.md).

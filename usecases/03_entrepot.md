@@ -1169,8 +1169,9 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    articles, la nomenclature, les tarifs (013–019) — clos par
    D967–D990** : vingt-cinq règles et le bloc commun
    `articles/fields.yml` ; les frottements et leurs décisions ci-dessous
-   (« Les frottements du morceau 4 ») ; la suite : le lot 3, les
-   commandes (020–023), le lot 4, les stocks (024–025)* ;
+   (« Les frottements du morceau 4 ») ; **le lot 3 — les commandes
+   (020–023) — écrit le 20/09, ses frottements en attente
+   d'arbitrage** ; la suite : le lot 4, les stocks (024–025)* ;
 5. **le pilotage et la restitution** — **l'état de la qualité et de
    l'avancement** (D859 — les surfaces du module `migration` : les
    trois taux — la complétude du schéma, la couverture du schéma,
@@ -1333,8 +1334,8 @@ référencent par `${settings.confidentiality.<profil>}` ; le lien
 depuis `version.yml` viendra avec le morceau 1.
 
 **Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
-2 clos — D961 à D990) : `reprise/mapping/`, **vingt-cinq règles,
-001 à 019**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
+2 clos — D961 à D990 ; le lot 3 écrit le 20/09, en attente) :
+`reprise/mapping/`, **vingt-neuf règles, 001 à 023**, déclarées par le pattern `~{mapping/[0-9]+_.*\.yml}`
 de `reprise.yml` (D806/D956) — le préfixe fait l'étape (D665), les
 référentiels avant ce qui les référence (D662), deux règles sur une
 même table = deux fichiers :
@@ -1363,7 +1364,8 @@ même table = deux fichiers :
   code de gestion, `perissable: mid(ARCTCODFAM, 4, 1) = "1"` (D954),
   `matieres: list(…)` (D971), `plans: plans.files(ARCTFICPLA)` (D972),
   les mesures par `measure(x, kg)` (D975), les prix
-  `amount(x, context.settings.currency)` (D970), `ean13:
+  `amount(x)` à la devise par défaut du type (D970, amendée par D993),
+  `ean13:
   left(ARCTEAN13, 13)` sous la facette `barcode: ean13` (D988), **une
   unité de l'article** — `unite: measure(1, ARCTUNISTO,
   list(measure.convert(…)))`, les deux couples de conversion de PMI
@@ -1375,7 +1377,22 @@ même table = deux fichiers :
 - **018–019, les tarifs** — deux règles sur TARIF filtrées sur le
   genre (D948), `to: technique.article.tarifs` (la cellule de
   l'hypercube), le tiers par le calculé de la source, `valide:
-  TACTVALID = "O"`.
+  TACTVALID = "O"` ;
+- **020–023, les commandes** (*écrites le 20/09, en attente
+  d'arbitrage*) — ECOMCLI et ECOMFOU vers les deux entêtes, LCOMCLI et
+  LCOMFOU vers leurs lignes, séparées sans héritage (D882) : la règle
+  se répète ; le numéro de commande par le calculé `numero:
+  integer(ECKTNUMERO)` de la source — la clé convertie à la lecture
+  (D990), le `counter` de la cible surchargé (D883) ; le possesseur
+  des lignes `parent: { commande_vente: { numero: numero, indice:
+  LCKTPSF } }` (D931/D951) ; l'article par sa clé composée ; les prix
+  `amount(x, LCCTDEVISE)` (D771), le prix de revient `amount(x)` à la
+  devise de l'entreprise (D993) ; les délais recomposés par
+  `datetime(jour, heure)` (le constructeur D659, la forme à fixer) ;
+  les statuts traduits par `select`, les codes inventés (D963) ;
+  l'adresse de livraison de l'entête lue à la source (six colonnes
+  `…LI`/`…LIV`) et construite par la forme texte de `geolocation`
+  (D961) ; les rapports au commercial (ventes) et aux achats (D945).
 
 Ce que le lot a fixé hors du cas : la référence de fichier explicite
 et son cumul (D956/D967–D968), la lecture d'une autre entité source
@@ -1627,6 +1644,69 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   possibles dans PMI », le masque surchargeable au champ), les
   trente-quatre colonnes J et S des sources en forme courte ; et la
   devise en défaut du type `amount`.
+
+**Le lot 3 (020–023) — écrit le 20/09/2026, en attente d'arbitrage :**
+
+- **le `counter` surchargé** — la valeur du numéro vient du calculé
+  `numero: integer(ECKTNUMERO)` de la source (la clé convertie à la
+  lecture, D990), la règle écrit `numero: numero` dans un champ
+  `counter` (D883 — le privilège de la reprise) ; le `format:
+  "{counter:000000}"` de la cible n'est qu'un affichage ; la valeur
+  reprise doit-elle repositionner le compteur (le prochain numéro
+  créé à la main, si l'entrepôt écrivait un jour) ? — *ma lecture :
+  non, l'entrepôt est en lecture seule ; le compteur suit la plus
+  grande valeur reprise, en proposition*.
+- **le constructeur `datetime(jour, heure)`** — le couple J + S de
+  PMI recomposé par la fonction du type (D659) : `datetime(LCCJDELEXP,
+  LCCSDELEXP)` ; *ma lecture des nuls : le jour nul donne un datetime
+  nul, l'heure nulle donne minuit* ; la forme à fixer, types.md à
+  compléter.
+- **les statuts inventés** — aucune table de l'échantillon ne porte
+  ECCTSTATUT ni LCCTSTATUT : `EC` en cours, `SO` soldée, `AN`
+  annulée ; `PA` partielle pour la ligne (D963) ; le `select` sans
+  défaut — un code hors liste est un rejet visible (D935) ; LCCTETACDE
+  reste non lue (D951).
+- **l'adresse de livraison de l'entête** — le morceau 3 ne la lisait
+  pas ; six colonnes lues (ECCTNOMLIV, ECCTRUE1LI/2LI/3LI, ECCTCPLIV,
+  ECCTVILLIV, ECCTPAYSLI ; ECCTCPAYLI non lue), sans GPS : la forme
+  texte du constructeur (D961), *absente quand la ville manque (`if
+  ECCTVILLIV != null` — mien)* ; l'adresse de facturation de l'entête
+  (ECCTRUE1–3, ECCTCP, ECCTVILLE, ECCTPAYS) n'a pas de champ au modèle —
+  non lue, celle du client fait foi ; à confirmer.
+- **la devise du prix de revient** — LCCNPUREVI n'a pas de devise
+  propre chez PMI (LCCTDEVISE est celle des prix de vente) :
+  `amount(LCCNPUREVI)` à la devise de l'entreprise (D993) — *mien, à
+  confirmer* ; l'alternative `amount(LCCNPUREVI, LCCTDEVISE)`.
+- **la validation de la règle qui redit celle de l'entité** —
+  `me.quantite_expediee <= me.quantite` à la règle (D932, le deuxième
+  étage) doublonne `quantite_expediee <= quantite` à l'entité : le
+  même rejet, au même rapport ; garder l'une ou l'autre ? — *ma
+  lecture : l'entité suffit, la règle porte ce qui est propre à la
+  source*.
+- **l'unité de la ligne face à l'unité de l'article** — la ligne
+  garde `quantite: decimal` + `unite: text` (LCCTUNICDE), l'article
+  porte sa matrice (D982) : faut-il contrôler que l'unité de la ligne
+  est connue de l'article (`LCCTUNICDE in article.unite.units` — une
+  validation de la cible, forme mienne) ? Sinon la conversion
+  `(article.unite * quantite).to(kg)` échouera à la lecture.
+
+**Le retour de l'auteur sur les sources (20/09) :**
+
+- **la référence nommée** — **D995**. En relisant STDEPLOT et
+  NOMENC : « je propose une syntaxe complémentaire dans le cas des
+  références multiples pour une même entité :
+  `ARTICLE[ARTICLE_STOCKE].ARKTCODART`… un identifiant/alias de
+  ARTICLE qui lie les identifiants à fournir pour retrouver la
+  référence » ; « le parent et l'enfant font référence à un article
+  mais pas le même » — NOMENC porte `ARTICLE[PRODUIT]` et
+  `ARTICLE[COMPOSANT]`, `parent: ARTICLE[PRODUIT]` (ma conséquence) ;
+  la référence unique garde la forme simple.
+- **ARCTNOFOU1/2, « des codes qui font référence à un tiers (soit un
+  client, soit un fournisseur) »** — *en attente de confirmation* : la
+  colonne peut-elle porter un code client (la cible deviendrait le
+  parent `tiers.tiers`, la source devrait choisir entre CLIENT et
+  FOURNIS — D884, un code peut exister des deux côtés), ou la forme
+  `FOURNIS.CLKTCODE` tient-elle, nommée au besoin ?
 
 ### M1 — la détection des écarts à l'échelle (D864, en proposition — tranchée par D878)
 

@@ -1127,6 +1127,7 @@ Q58) :
 | D992 | **Les types et leurs dérivés se déclarent simplement aux settings, avec leurs paramètres par défaut — une seule forme : la clé est le nom, `type:` la base d'un dérivé, le reste ses défauts ; `date_pmi` et `time_pmi` dans les sources du cas 3** (précise D991/D359/D356) : « cela a aussi besoin d'être affiné car les types ou ses dérivés doivent être présentés simplement et sont définissables avec des paramètres par défaut » — la forme proposée et validée (« je valide D992 ; emploie date_pmi dans les sources ») : sans `type:`, la clé règle les défauts d'un type du catalogue (`text: { normalize: trim(me) }`) ; avec `type:`, c'est un dérivé qui hérite de toutes les propriétés de sa base et surcharge celles qu'il nomme (D359 — `progression: { type: integer[0..100], component: fuel }`) ; un dérivé peut dériver d'un dérivé, la chaîne résolue à l'ingestion, le cycle une erreur (D344) ; le champ garde le dernier mot (`ARCJCRE: { type: date_pmi, mask: "yyyymm" }`), la cascade D359 vaut ; le nom d'un dérivé ne redéfinit jamais un type du catalogue (D408 — un seul espace de noms) ; l'usage par la forme courte (D356) : `ARCJCRE: date_pmi`. | Le cas 3 : `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi: { type: time, mask: "hhmm" }` (le second mien, le pendant des colonnes S — « time_pmi a un format hhmm seulement », puis « les 2 formats sont possibles dans PMI. Pour l'exemple, cela convient et le mask pourra être surchargé au besoin » — le défaut du dérivé en `hhmm`, la colonne à secondes le surcharge au champ, `{ type: time_pmi, mask: "hhmmss" }` : la règle 3 de D992 à l'œuvre) dans `settings.yml` ; les trente-quatre colonnes J et S des quatorze sources écrites par la forme courte — plus un masque en ligne ; l'outil de technicien les émet. types.md au niveau. Voir §3.2c. |
 | D993 | **La devise de l'entreprise est le défaut du type `amount` — `amount: { currency: EUR }` aux settings, le constructeur à un argument** (amende D970, applique D991–D992) : la question laissée à D991 — `currency: EUR` en clé de l'instance ou en défaut du type : **« le défaut du type me convient »** — la clé d'instance disparaît, les settings portent `amount: { currency: EUR }` (la forme de D991 : le paramètre par défaut sous le nom du type) ; **`amount(v)` à un seul argument prend la devise du type** — celle du champ s'il en déclare une, celle des settings sinon, la cascade D359 ; `amount(v, devise)` reste pour les valeurs qui portent la leur (les tarifs, les commandes, D771) ; les prix de l'article : `prix_revient: amount(ARCNPRS)`. | La voie C de D970, écartée alors, revient par D991 : les défauts des types ont trouvé leur maison. `context.settings.currency` n'a plus d'usage. Voir §3.2c. |
 | D994 | **`configuration.md` créé — le treizième artefact préparatoire : la syntaxe de la configuration** (Q58, le domaine 6 — l'écho de D661 pour le mapping) : « la syntaxe du fichier de configuration n'a pas son document. Ajoute un doc dédié à la configuration en reprenant les éléments que nous avons vu depuis le début du projet » — le document dit la forme, le sens restant aux artefacts : la nature (YAML sans format personnalisé, les petits fichiers, l'enveloppe inerte, la langue, `description:` partout, la version du format — D320–D337 ; les deux règles face à YAML — D892) ; les mécanismes transverses (la référence `~{…}` D956/D767/D768, le pattern D806/D665, le cumul D968, les variables `${…}` D321 et l'interpolation des settings D885, la marque `*` D944, l'adressage par le point D363, le langage dans les valeurs D90–D92, la forme courte D356) ; l'arbre — `syncytium.yml`, `environments/` (D325/D339/D342/D343/D907), `versions/` et le cycle de vie en dossiers (D324/D326/D338/D340/D344/D345), `version.yml` (D808/D415/D766/D662/D777/D346/D907), `settings.yml` la maison des types (D359/D360/D991–D993, D885), `groups.yml` (D414), le module (D765/D350/D351/D886), l'entité, les champs et les surfaces en renvoi, `hooks/` et `reprise/` en renvoi ; les cascades ; ce que l'ingestion refuse (D330/D344/D396/D408/D414/D592/D956/D902/D581/D979/D930) et la seule alerte (D968). | Aucun contenu nouveau ; trois points ouverts relevés : `documentation.yml` (D333), la clé de l'en-tête de version du format (D322 — le principe acquis, la clé absente des exemples), `menu.yml` et `dashboards:` sans exemple au dépôt. Voir §3.2c. |
+| D995 | **La référence nommée à la source — `TABLE[ALIAS].colonne`** (précise D869/D648/D931 — le retour de l'auteur sur les descriptions de sources du cas 3, le 20/09) : « je propose une syntaxe complémentaire dans le cas des références multiples pour une même entité : `DPKTCODART: ARTICLE[ARTICLE_STOCKE].ARKTCODART`, `DPKTCOMART: ARTICLE[ARTICLE_STOCKE].ARKTCOMART`, où [ARTICLE_STOCKE] est un identifiant/alias de ARTICLE qui lie les identifiants à fournir pour retrouver la référence » — **la référence simple garde sa forme** (`ARTICLE.ARKTCODART` : une seule référence à l'entité, les colonnes typées sur ses champs d'identité forment la référence, dans l'ordre de cette identité) ; **quand la même entité source est référencée plusieurs fois, chaque référence se nomme entre crochets** et les colonnes qui portent le même nom forment une référence — le crochet qui paramètre déjà un type (D356/D381/D409). Le cas 3 : NOMENC — le produit `ARTICLE[PRODUIT]` (NOKTCODPF, NOKTCOMPF) et le composant `ARTICLE[COMPOSANT]` (NOCTCODECP, NOCTCOMCPT) : « cela se retrouve sur la nomenclature où la lecture pourrait être améliorée. Le parent et l'enfant font référence à un article mais pas le même » ; STDEPLOT, MVTSTO, LCOMCLI/LCOMFOU gardent la forme simple. | Mes conséquences, en proposition : `parent:` peut désigner la référence nommée (`parent: ARTICLE[PRODUIT]`) au lieu de redire la carte des colonnes — la carte D931/D877 reste pour les colonnes non typées ; le nom de l'alias est libre, en majuscules comme les entités source (PRODUIT, COMPOSANT — miens) ; le pré-contrôle D874 vérifie chaque référence nommée. ARCTNOFOU1/ARCTNOFOU2 : « des codes qui font référence à un tiers (soit un client, soit un fournisseur) » — la lecture à confirmer avant d'écrire (voir le journal). Voir §3.2c. |
 
 ---
 
@@ -22252,6 +22253,42 @@ avant la synthèse Q16).
   (`documentation.yml`, la clé de version du format, `menu.yml` et
   `dashboards:` sans exemple). La reprise du cas 3 reste au lot 3 du
   mapping.
+- **2026-09-20 (suite) — LE LOT 3 DU MAPPING ÉCRIT : LES COMMANDES
+  (020–023), EN ATTENTE D'ARBITRAGE.** Quatre règles — ECOMCLI →
+  commande_vente, LCOMCLI → ligne_vente, ECOMFOU → commande_achat,
+  LCOMFOU → ligne_achat (la structure répétée, D882) ; les sources
+  régénérées : les calculés `numero: integer(ECKTNUMERO)` et `ligne:
+  integer(LCKTLIGNE)` (D990 — la clé convertie à la lecture), les six
+  colonnes de livraison de l'entête lues, LCCTLIB01/02 et LCCTETACDE
+  retirées des lues (D989/D951). Sept frottements présentés dans le
+  cas (« Le lot 3 ») : le `counter` surchargé par la valeur reprise
+  (D883), le constructeur `datetime(jour, heure)` (D659, la forme à
+  fixer), les statuts inventés (D963/D935), l'adresse de livraison
+  sans GPS (D961) et l'adresse de facturation sans champ, la devise du
+  prix de revient (D993), la validation de règle qui redit l'entité
+  (D932), l'unité de la ligne face à la matrice de l'article (D982).
+  207 fichiers d'exemples valides. Rien n'est commis : l'auteur
+  tranche, chaque frottement devient une décision.
+- **2026-09-20 (suite 2) — LA RÉFÉRENCE NOMMÉE À LA SOURCE (D995, 995
+  décisions).** Le retour de l'auteur sur trois descriptions du
+  morceau 3 : « je propose une syntaxe complémentaire dans le cas des
+  références multiples pour une même entité : `ARTICLE[ARTICLE_STOCKE].
+  ARKTCODART` … un identifiant/alias de ARTICLE qui lie les
+  identifiants à fournir pour retrouver la référence » — consignée
+  telle quelle : la forme simple pour la référence unique, le nom entre
+  crochets quand l'entité est référencée plusieurs fois, les colonnes
+  du même nom forment la référence. NOMENC régénérée
+  (`ARTICLE[PRODUIT]`, `ARTICLE[COMPOSANT]`, `parent: ARTICLE[PRODUIT]`
+  — ma conséquence en proposition) ; mapping.md et configuration.md
+  tenus. **En attente : ARCTNOFOU1/2** — « ce sont des codes qui font
+  référence à un tiers (soit un client, soit un fournisseur) » : ma
+  lecture à confirmer — soit la colonne peut porter un code client
+  (alors `article.fournisseurs` vise le parent `tiers.tiers`, et la
+  source doit dire comment choisir entre CLIENT et FOURNIS, un même code
+  pouvant exister des deux côtés — D884), soit l'auteur rappelle la
+  nature du code (un tiers, ici le fournisseur — ARCNPUACH1/ARCJACH1
+  l'entourent) et la forme `FOURNIS.CLKTCODE` tient, au besoin nommée
+  (`FOURNIS[FOURNISSEUR_1]`, `FOURNIS[FOURNISSEUR_2]`).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

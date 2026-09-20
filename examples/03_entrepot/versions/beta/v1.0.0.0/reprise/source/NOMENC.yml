@@ -8,21 +8,20 @@ description: Les lignes de nomenclature de PMI — la source de technique.nomenc
 
 filter: NOKTSOC = "100"
 identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
-parent:
-  ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF }
-# le possesseur par ses colonnes de clé (D931 — la surcharge D877 : les
-# noms diffèrent de l'identité d'ARTICLE) ; le lien est résolu sur les
+parent: ARTICLE[PRODUIT]
+# le possesseur par la référence nommée PRODUIT (D995) — les colonnes typées
+# ARTICLE[PRODUIT].* forment la référence ; le lien est résolu sur les
 # données filtrées avant de partir, l'orphelin isolé (D874/D875)
 
 fields:
   NOKTSOC:     text[..3]                                      # la société — le filtre (D663)
-  NOKTCODPF:   text[..18]                                     # l'identité (D871)
-  NOKTCOMPF:   text[..6]                                      # l'identité (D871)
+  NOKTCODPF:   ARTICLE[PRODUIT].ARKTCODART                    # l'identité (D871) ; le produit — la référence nommée PRODUIT, que parent: désigne (D995)
+  NOKTCOMPF:   ARTICLE[PRODUIT].ARKTCOMART                    # l'identité (D871) ; le produit — la même référence
   NOKNLIGNOM:  integer                                        # → nomenclature.numero — l'identité (D871)
   NOCTNATCPT:  ignored                                        # la nature numérique — ignorée (D937)
   NOCTYPECPT:  ignored                                        # le type du composant = celui de l'article référencé — redondant (D937)
-  NOCTCODECP:  ARTICLE.ARKTCODART                             # → nomenclature.composant — la référence par la clé composée, colonne par colonne (D648/D931)
-  NOCTCOMCPT:  ARTICLE.ARKTCOMART                             # → nomenclature.composant
+  NOCTCODECP:  ARTICLE[COMPOSANT].ARKTCODART                  # → nomenclature.composant — la référence nommée COMPOSANT : « le parent et l'enfant font référence à un article mais pas le même » (D995)
+  NOCTCOMCPT:  ARTICLE[COMPOSANT].ARKTCOMART                  # → nomenclature.composant — la même référence
   NOCTCODOPE:  text[6]                                        # → nomenclature.operation
   NOCNJALON:   decimal                                        # → nomenclature.jalon — l'entier à la règle (D581 : la conversion explicite)
   NOCNTPSATT:  decimal                                        # → nomenclature.temps_attente

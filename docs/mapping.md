@@ -198,7 +198,16 @@ propres :
   (D874) compare les valeurs brutes. La référence composée se déclare
   colonne par colonne (`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance
   D648) — les colonnes qui dépendent des champs d'identité d'une même
-  entité forment une référence, dans l'ordre de cette identité.
+  entité forment une référence, dans l'ordre de cette identité ;
+  **la référence nommée** (D995) : quand la même entité est référencée
+  plusieurs fois, chaque référence porte un nom entre crochets
+  (`NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`, `NOCTCODECP:
+  ARTICLE[COMPOSANT].ARKTCODART`) et les colonnes du même nom forment
+  une référence — « un identifiant/alias de ARTICLE qui lie les
+  identifiants à fournir pour retrouver la référence » ; la référence
+  unique garde la forme simple ; `parent:` peut désigner la référence
+  nommée (`parent: ARTICLE[PRODUIT]`) au lieu de la carte des colonnes
+  (*en proposition*).
 - **la lecture d'une autre table par un calculé** (D965) — à la
   source, **l'entité décrite est une collection** : un champ calculé
   lit une valeur ou une liste de valeurs dans une autre table par les

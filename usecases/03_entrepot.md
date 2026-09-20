@@ -331,9 +331,11 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   (`nchar` à largeur fixe — 8 645 colonnes sur 13 512, le
   remplissage à blancs), **`N` = nombre** (`decimal` 2 900, `int`),
   **`J` = jour** — `nchar(8)` `AAAAMMJJ`, 552 colonnes : **la date
-  est une chaîne en 16.17, pas un entier** —, **`S` = heure**
-  (`nchar(6)` — lue `HHMMSS` à l'analyse, **corrigée au morceau 4 :
-  « hhmm seulement »**, D992) ;
+  est une chaîne en 16.17, pas un entier** —, **`S` = la semaine**
+  (`nchar(6)` — lue « heure » à l'analyse puis « hhmm » (D992),
+  **corrigée par D1000 : « le S en 4ème position décrit en général la
+  semaine »**, déduite du jour, non reprise ; l'heure, s'il y en a une,
+  se surcharge au champ) ;
 - **la société** : la première colonne de clé partout (`ARKTSOC`,
   `CLKTSOC`, `MVITSOC`… `nchar(3)`) — le multi-sociétés ;
   l'extraction filtre la société `100` : le `filter:` de D663 sur
@@ -1665,11 +1667,13 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   `operations: commande_vente.numero.update(numero)` — la méthode du
   type counter, le champ adressé par le point, sur 020 et 022 ; le
   rejeu par l'identité, « tout à fait ».
-- **le constructeur `datetime(jour, heure)`** — le couple J + S de
-  PMI recomposé par la fonction du type (D659) : `datetime(LCCJDELEXP,
-  LCCSDELEXP)` ; *ma lecture des nuls : le jour nul donne un datetime
-  nul, l'heure nulle donne minuit* ; la forme à fixer, types.md à
-  compléter.
+- **le constructeur `datetime(jour, heure)`** — proposé pour le couple
+  J + S ; **tranché par D1000** : « cette situation décrite n'existe pas
+  dans PMI. Sur les commandes, il n'y a pas d'heures… LCCSDELEXP est la
+  semaine du jour… se déduit du jour » ; « le S en 4ème position décrit
+  en général la semaine » — les délais en `date`, les S des lignes
+  ignorées, la convention corrigée ; aucun constructeur ; *en attente :
+  MVCSMVT et DPCSSINV, heures ou semaines ?*
 - **les statuts inventés** — aucune table de l'échantillon ne porte
   ECCTSTATUT ni LCCTSTATUT : `EC` en cours, `SO` soldée, `AN`
   annulée ; `PA` partielle pour la ligne (D963) ; le `select` sans

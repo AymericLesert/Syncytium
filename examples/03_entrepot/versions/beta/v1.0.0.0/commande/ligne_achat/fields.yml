@@ -59,7 +59,7 @@ prix_net:
   label:
     fr: Prix unitaire net
 
-# --- les délais (le couple jour + heure recomposé — D659) ---
+# --- les délais — des jours, la colonne S est la semaine (D1000) ---
 
 delai_demande:
   # LCCJDELDDE
@@ -68,14 +68,14 @@ delai_demande:
     fr: Délai demandé
 
 delai_accuse:
-  # LCCJDELARR + LCCSDELARR
-  type: datetime
+  # LCCJDELARR
+  type: date
   label:
     fr: Délai accusé
 
 delai_reception:
-  # LCCJDELEXP + LCCSDELEXP — la réception prévue
-  type: datetime
+  # LCCJDELEXP — la réception prévue
+  type: date
   label:
     fr: Réception prévue
 
@@ -131,6 +131,6 @@ reste_a_recevoir:
 
 en_retard:
   type: boolean
-  formula: delai_reception < context.now and statut = "en_cours"
+  formula: delai_reception < context.today and statut = "en_cours"
   label:
     fr: En retard

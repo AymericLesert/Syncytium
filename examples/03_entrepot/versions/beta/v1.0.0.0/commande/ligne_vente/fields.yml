@@ -73,7 +73,7 @@ prix_revient:
   label:
     fr: Prix de revient
 
-# --- les délais — le couple jour + heure de PMI recomposé en datetime (le constructeur D659) ---
+# --- les délais — des jours : « sur les commandes, il n'y a pas d'heures », la colonne S est la semaine, déduite du jour (D1000) ---
 
 delai_demande:
   # LCCJDELDDE — la date demandée par le client
@@ -82,20 +82,20 @@ delai_demande:
     fr: Délai demandé
 
 delai_accuse:
-  # LCCJDELARR + LCCSDELARR — le délai accusé
-  type: datetime
+  # LCCJDELARR — le délai accusé (LCCSDELARR, la semaine, ignorée)
+  type: date
   label:
     fr: Délai accusé
 
 delai_expedition:
-  # LCCJDELEXP + LCCSDELEXP — l'expédition prévue
-  type: datetime
+  # LCCJDELEXP — l'expédition prévue (LCCSDELEXP, la semaine, ignorée)
+  type: date
   label:
     fr: Expédition prévue
 
 delai_fabrication:
-  # LCCJDELFAB + LCCSDELFAB
-  type: datetime
+  # LCCJDELFAB (LCCSDELFAB, la semaine, ignorée)
+  type: date
   label:
     fr: Fin de fabrication prévue
 
@@ -165,6 +165,6 @@ en_retard:
   # le tableau de bord (D859) — l'expédition prévue dépassée, la ligne
   # non soldée
   type: boolean
-  formula: delai_expedition < context.now and statut = "en_cours"
+  formula: delai_expedition < context.today and statut = "en_cours"
   label:
     fr: En retard

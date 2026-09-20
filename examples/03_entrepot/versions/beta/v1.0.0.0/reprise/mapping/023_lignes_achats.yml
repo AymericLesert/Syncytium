@@ -4,7 +4,7 @@
 # la colonne de la source (D931/D951/D990) ; l'article par sa clé
 # composée ; les prix restreints à la cible (D859) — la règle n'en sait
 # rien, elle écrit par le privilège de la reprise (D175/D942) ; l'expédié
-# de PMI est le reçu ; les délais par datetime(jour, heure) (D659).
+# de PMI est le reçu ; les délais sont des jours (D1000).
 
 LCOMFOU:
   to: commande.ligne_achat
@@ -22,10 +22,10 @@ LCOMFOU:
     # --- les prix — la devise dans la valeur (D771) ---
     prix_brut: amount(LCCNPUBRUT, LCCTDEVISE)
     prix_net:  amount(LCCNPUNET, LCCTDEVISE)
-    # --- les délais (D659) ---
+    # --- les délais — des jours (D1000) ---
     delai_demande:   LCCJDELDDE
-    delai_accuse:    datetime(LCCJDELARR, LCCSDELARR)
-    delai_reception: datetime(LCCJDELEXP, LCCSDELEXP)
+    delai_accuse:    LCCJDELARR
+    delai_reception: LCCJDELEXP
     # --- l'état ---
     statut: 'LCCTSTATUT.select(EC: "en_cours", PA: "partielle", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
   validation:

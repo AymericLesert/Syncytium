@@ -44,7 +44,7 @@ cegid:
       T: text
       N: decimal
       J: date[yyyymmdd]
-      S: time[hhmm]                 # « hhmm seulement » (D992)
+      S: text[6]                    # la semaine, déduite du jour (D1000) ; l'heure se surcharge au champ
 
 # Les plans des articles — le connecteur file en complément du storage
 # source (D883), le répertoire d'essai du staging : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le

@@ -27,12 +27,13 @@ fields:
   LCCNPUBRUT:  decimal                                        # → ligne_achat.prix_brut
   LCCNPUNET:   decimal                                        # → ligne_achat.prix_net
   LCCNQTEEXP:  decimal                                        # → ligne_achat.quantite_recue
-  LCCSDELEXP:  time_pmi                                       # → ligne_achat.delai_reception
+  LCCSDELEXP:  ignored                                        # la semaine du délai — « se déduit du jour », non reprise (D1000)
   LCCJDELEXP:  date_pmi                                       # → ligne_achat.delai_reception
+  LCCSDELFAB:  ignored                                        # la semaine de la fin de fabrication — déduite du jour (D1000)
   LCCTDEVISE:  text[3]                                        # → ligne_achat.prix_brut, prix_net — la devise des prix (D771)
   LCCJDELDDE:  date_pmi                                       # → ligne_achat.delai_demande
   LCCJDELARR:  date_pmi                                       # → ligne_achat.delai_accuse
-  LCCSDELARR:  time_pmi                                       # → ligne_achat.delai_accuse
+  LCCSDELARR:  ignored                                        # la semaine du délai accusé — déduite du jour (D1000)
   LCCTSTATUT:  text[2]                                        # → ligne_achat.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
 
   # --- les clés en nombre (D990 : la conversion à la lecture) : le numéro de

@@ -50,7 +50,9 @@ lot:
   # MVCTNUMLOT — le numéro de lot, un texte : « pour le cas d'usage,
   # oublions le numéro de lot » comme concept — pas de référentiel, pas
   # d'article physique — « nous allons considérer ces propriétés sur la
-  # base de chaque enregistrement de mouvements » (D1018)
+  # base de chaque enregistrement de mouvements » (D1018) ; l'article
+  # physique, distinct de la définition de l'article, est une évolution
+  # possible du modèle, hors du cas
   type: text[..18]
   label:
     fr: Lot

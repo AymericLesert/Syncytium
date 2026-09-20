@@ -6,6 +6,10 @@
 # ses trois dérivés, portent la nomenclature ; la grille tarifaire reste
 # ici (les compositions D399) ; la suppression les emporte — le soft
 # delete du socle — et ne touche pas les commandes qui le référencent.
+# Une évolution possible du modèle, hors du cas (D1018) : séparer la
+# définition de l'article — ce qu'il est — de l'article physique — un
+# lot, une date de péremption, un packaging — ; le cas d'usage ne
+# l'aborde pas, ces propriétés se lisent sur chaque mouvement.
 name: article
 description: Un article de l'entreprise — son identité, sa famille, ses unités, ses prix de revient et ses tarifs ; le parent des produits fabriqués, semi-finis et fantômes
 # le visage texte (D397) — le code et le libellé

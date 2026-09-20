@@ -12,7 +12,8 @@ lot:
   # lot » (D1018) : il ne reste ici que parce que l'identité de STDEPLOT
   # le porte (D865) — une part de clé, un texte sans sens pour le cas ;
   # le concept, s'il venait, séparerait la définition de l'article de
-  # l'article physique (le lot, la péremption, le packaging)
+  # l'article physique (le lot, la péremption, le packaging) — une
+  # évolution possible du modèle, notée, hors du cas (D1018)
   type: text[..18]
   required: true
   label:

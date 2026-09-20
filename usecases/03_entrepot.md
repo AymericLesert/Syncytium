@@ -1824,7 +1824,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   article, puis la quantité par emplacement s'en déduit via des sommes.
   Nous pouvons introduire un "group by" dans une liste » —
   `mouvements.group(emplacement, article).sum(…)`, l'agrégat par
-  cellule, l'hypercube en résultat ; `article.stock_par_emplacement`.
+  cellule, l'hypercube en résultat ; `article.stock_par_emplacement` ;
+  puis **D1016** : « 2 associations basées sur les mouvements via 2
+  accès : l'article et l'emplacement. Le group by devient une propriété
+  de l'association au même titre que le sort by » — `group:` à côté
+  d'`order:`, `article.mouvements_par_emplacement`,
+  `emplacement.mouvements_par_article`, les sommes par cellule.
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
   *un référentiel des lots n'est pas ouvert, à confirmer*.

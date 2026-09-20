@@ -41,3 +41,23 @@ fields:
     default: false
     label:
       fr: Actif
+
+  mouvements_par_article:
+    # le second accès aux mouvements (D1016) — la vue dérivée (D405)
+    # groupée par article : une cellule par article passé par cet
+    # emplacement
+    type: association with stock.mouvement if emplacement = me
+    group: [article]
+    label:
+      fr: Mouvements par article
+
+  # ------ Champs calculés ------
+
+  stock_par_article:
+    # la quantité par article déduite des mouvements — la somme par
+    # cellule de l'association groupée (D1015/D1016), signée par le sens
+    # (D1009), chaque cellule dans l'unité de stock de son article
+    type: 'list of [article: technique.article]'
+    formula: 'mouvements_par_article.sum(sens.select(entree: quantite, sortie: -quantite))'
+    label:
+      fr: Stock par article

@@ -22702,6 +22702,16 @@ avant la synthèse Q16).
   libre ; le premier `dashboards:` du dépôt. D858 amendée. La suite :
   la validation globale du cas (D955), le jeu de données construit
   (D869), la PR.
+- **2026-09-21 (pause, 1019 décisions)** — « Je marque une pause. » La
+  séance s'arrête sur le cas 3 recadré (D1019) : le mapping écrit en
+  entier (001–025, D961–D1018), le morceau 5 ramené au suivi de la
+  migration et au tableau de bord `stock[pilotage]`, la documentation
+  à jour (le narratif §3.2c jusqu'à D1018 ; D1019 y reste à porter).
+  L'échelle des sept cas relue avec l'auteur : 0 à 3 écrits, 4 à 6 en
+  squelette, à cadrer. Tout est commis et poussé, aucune PR ouverte.
+  **La reprise : la validation globale du cas 3 (D955 — la relecture
+  complète des fichiers par l'auteur), le jeu de données construit
+  (D869), la PR feature/meta-schema → develop.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

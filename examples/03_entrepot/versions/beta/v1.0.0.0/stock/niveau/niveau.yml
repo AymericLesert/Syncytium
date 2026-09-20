@@ -5,7 +5,8 @@
 # STDEPLOT car les mouvements sont dans MVTSTO. Sinon, cela fera doublon
 # (ou presque) » — le stock à une date se reconstitue des mouvements ;
 # « un comparatif entre les mouvements et le stockage peut être mené par
-# une règle de contrôle » : le calculé ecart_mouvements, plus bas. La
+# une règle de contrôle » : la matrice calculée du dépôt, emplacement ×
+# article (depot.controle_stock — D1014). La
 # table est un état, au plus deux cent mille lignes : relue en entier
 # chaque nuit, sans coverage (D1013).
 name: niveau

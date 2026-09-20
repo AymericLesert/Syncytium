@@ -102,37 +102,7 @@ quantite_inventaire:
   label:
     fr: Quantité inventoriée
 
-mouvements:
-  # l'accès retour aux mouvements du niveau (D394), nommé en vue dérivée
-  # (D405) : les mouvements de l'article sur ce lot, à cet emplacement
-  type: association with stock.mouvement if article = me.article and depot = me.depot and emplacement = me.emplacement and lot = me.lot
-  label:
-    fr: Mouvements
-
 # ------ Champs calculés ------
-
-stock_reconstitue:
-  # « un comparatif entre les mouvements et le stockage peut être mené
-  # par une règle de contrôle » (D1013) — la règle de contrôle en
-  # calculé (forme mienne) : la quantité inventoriée plus les mouvements
-  # depuis le dernier inventaire, signés par le sens (D1009) ; la mesure
-  # dans l'unité de stock de l'article (D1009), la matrice empruntée
-  type: measure
-  unit: article.unite
-  formula: >-
-    measure(quantite_inventaire, article.unite_stock)
-      + mouvements.sum(sens.select(entree: quantite, sortie: -quantite) if date > inventaire)
-  label:
-    fr: Stock reconstitué
-
-ecart_mouvements:
-  # le stock lu chez PMI moins le stock reconstitué — zéro attendu ; le
-  # tableau de bord du morceau 5 le montre (D859)
-  type: measure
-  unit: article.unite
-  formula: measure(quantite, article.unite_stock) - stock_reconstitue
-  label:
-    fr: Écart mouvements
 
 disponible:
   type: decimal

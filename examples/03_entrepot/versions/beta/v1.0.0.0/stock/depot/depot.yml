@@ -44,6 +44,31 @@ fields:
     label:
       fr: Niveaux
 
+  mouvements:
+    # l'accès retour aux mouvements du dépôt (D394/D405) — la source de la
+    # matrice de contrôle
+    type: association with stock.mouvement if depot = me
+    label:
+      fr: Mouvements
+
+  # ------ La règle de contrôle (D1013/D1014) ------
+
+  controle_stock:
+    # « la règle de contrôle s'effectue par un champ calculé d'une matrice
+    # à 2 dimensions : emplacement × article = somme des quantités en
+    # entrée du mouvement − somme des quantités en sortie du mouvement »
+    # (D1014) — l'hypercube (D897) en calculé : les dimensions sont
+    # celles des mouvements agrégés, une cellule par couple présent, et
+    # la formule s'évalue par cellule sur les mouvements de ce couple
+    # (forme mienne : les dimensions portent les noms des champs des
+    # enregistrements agrégés, qui restreignent l'agrégat) ; la mesure
+    # dans l'unité de stock de l'article (D1009). Le tableau de bord du
+    # morceau 5 la compare aux niveaux (D859).
+    type: 'list of [emplacement: stock.emplacement, article: technique.article]'
+    formula: mouvements.sum(quantite if sens = "entree") - mouvements.sum(quantite if sens = "sortie")
+    label:
+      fr: Contrôle du stock par les mouvements
+
   # ------ Champs calculés ------
 
   valeur:

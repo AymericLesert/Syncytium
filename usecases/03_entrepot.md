@@ -1815,8 +1815,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   sur STDEPLOT car les mouvements sont dans MVTSTO. Sinon, cela fera
   doublon (ou presque). Par contre, un comparatif entre les mouvements
   et le stockage peut être mené par une règle de contrôle » — `history:
-  false` sur le niveau, la règle de contrôle en calculés
-  (`stock_reconstitue`, `ecart_mouvements` — miens).
+  false` sur le niveau ; puis **D1014** : « la règle de contrôle
+  s'effectue par un champ calculé d'une matrice à 2 dimensions :
+  emplacement × article = somme des quantités en entrée du mouvement −
+  somme des quantités en sortie du mouvement » — `depot.controle_stock`,
+  l'hypercube (D897) en calculé (la forme mienne : les dimensions
+  restreignent l'agrégat), mes calculés du niveau retirés.
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
   *un référentiel des lots n'est pas ouvert, à confirmer*.

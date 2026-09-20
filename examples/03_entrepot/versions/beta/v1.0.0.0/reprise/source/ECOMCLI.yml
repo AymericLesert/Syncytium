@@ -26,12 +26,11 @@ fields:
   ECCTPAYS:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
   ECCTCPAYS:   ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
   ECCTNOMLIV:  text[40]                                       # → commande_vente.livraison_nom
-  ECCTRUE1LI:  text[40]                                       # → commande_vente.livraison_nom
-  ECCTRUE2LI:  text[40]                                       # → commande_vente.livraison_nom
+  ECCTRUE1LI:  text[40]                                       # → commande_vente.livraison_rue1
+  ECCTRUE2LI:  text[40]                                       # → commande_vente.livraison_rue2
   ECCTCPLIV:   text[16]                                       # → commande_vente.livraison_code_postal
   ECCTVILLIV:  text[40]                                       # → commande_vente.livraison_ville
   ECCTPAYSLI:  text[20]                                       # → commande_vente.livraison_pays
-  ECCTCPAYLI:  text[3]                                        # → commande_vente.livraison_pays
   ECCTREFCDE:  text[20]                                       # → commande_vente.reference_client
   ECCJECHFOR:  date_pmi                                       # → commande_vente.date_echeance
   ECCJDERBL:   date_pmi                                       # → commande_vente.derniere_livraison
@@ -40,7 +39,7 @@ fields:
   ECCNTXDEVI:  decimal                                        # → commande_vente.taux_change
   ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — « l'état d'une commande se déduit de l'état des lignes », le calculé de la cible (D1003)
   ECCTRUE3:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTRUE3LI:  text[40]                                       # → commande_vente.livraison_nom
+  ECCTRUE3LI:  text[40]                                       # → commande_vente.livraison_rue3
 
   # --- le numéro de commande en nombre (D990 : la conversion d'une clé se
   # fait à la lecture, jamais dans la règle ni dans parent:) : le nchar(6)

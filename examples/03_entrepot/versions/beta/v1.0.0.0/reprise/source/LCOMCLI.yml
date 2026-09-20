@@ -17,27 +17,31 @@ parent:
 
 fields:
   LCKTSOC:     text[3]                                        # la société — le filtre (D663)
-  LCKTNUMERO:  text[6]                                        # l'identité (D871)
-  LCKTLIGNE:   text[3]                                        # → ligne_vente.numero — l'identité (D871)
+  LCKTNUMERO:  text[6]                                        # l'identité (D871), la clé du possesseur — convertie par le calculé numero (D990)
+  LCKTLIGNE:   text[3]                                        # → ligne_vente.numero — l'identité (D871), convertie par le calculé ligne (D990)
   LCKTPSF:     text[3]                                        # l'identité — l'indice de la commande (D951), la clé du possesseur
   LCCTCODART:  ARTICLE.ARKTCODART                             # → ligne_vente.article — la référence par la clé composée, colonne par colonne (D648/D931)
   LCCTCOMART:  ARTICLE.ARKTCOMART                             # → ligne_vente.article
-  LCCTLIB01:   text[30]                                       # → ligne_vente.article
   LCCNQTECDE:  decimal                                        # → ligne_vente.quantite
   LCCTUNICDE:  text[2]                                        # → ligne_vente.unite
   LCCNPUBRUT:  decimal                                        # → ligne_vente.prix_brut
   LCCNPUNET:   decimal                                        # → ligne_vente.prix_net
   LCCNQTEEXP:  decimal                                        # → ligne_vente.quantite_expediee
-  LCCSDELEXP:  time_pmi                                       # → ligne_vente.delai_expedition, ligne_vente.prix_revient
-  LCCJDELEXP:  date_pmi                                       # → ligne_vente.delai_expedition, ligne_vente.prix_revient
+  LCCSDELEXP:  time_pmi                                       # → ligne_vente.delai_expedition
+  LCCJDELEXP:  date_pmi                                       # → ligne_vente.delai_expedition
   LCCSDELFAB:  time_pmi                                       # → ligne_vente.delai_fabrication
   LCCJDELFAB:  date_pmi                                       # → ligne_vente.delai_fabrication
   LCCNPUREVI:  decimal                                        # → ligne_vente.prix_revient
-  LCCTETACDE:  text[1]                                        # → ligne_vente.statut
   LCCTDEVISE:  text[3]                                        # → ligne_vente.prix_brut, prix_net — la devise des prix (D771)
-  LCCTLIB02:   text[30]                                       # → ligne_vente.article
   LCCJDELDDE:  date_pmi                                       # → ligne_vente.delai_demande
   LCCJDELARR:  date_pmi                                       # → ligne_vente.delai_accuse
   LCCSDELARR:  time_pmi                                       # → ligne_vente.delai_accuse
   LCCTSTATUT:  text[2]                                        # → ligne_vente.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
   LCCNQTELAN:  decimal                                        # → ligne_vente.quantite_lancee
+
+  # --- les clés en nombre (D990 : la conversion à la lecture) : le numéro de
+  # la commande possédante et le numéro de ligne — deux calculés (D660) ---
+  numero:
+    formula: integer(LCKTNUMERO)
+  ligne:
+    formula: integer(LCKTLIGNE)

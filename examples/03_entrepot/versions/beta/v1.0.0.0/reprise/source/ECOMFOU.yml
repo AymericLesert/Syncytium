@@ -15,7 +15,7 @@ coverage: ECKTNUMERO[10000]
 
 fields:
   ECKTSOC:     text[3]                                        # la société — le filtre (D663)
-  ECKTNUMERO:  text[6]                                        # → commande_achat.numero — l'identité (D871)
+  ECKTNUMERO:  text[6]                                        # → commande_achat.numero — l'identité (D871) ; le counter surchargé par la migration (D883), converti par le calculé numero (D990)
   ECKTINDICE:  text[3]                                        # → commande_achat.indice — l'identité (D871)
   ECCJCRE:     date_pmi                                       # → commande_achat.date
   ECCTCODE:    FOURNIS.CLKTCODE                               # → commande_achat.fournisseur — la référence (D648)
@@ -25,4 +25,10 @@ fields:
   ECCJDERFA:   date_pmi                                       # → commande_achat.derniere_facture
   ECCTDEVISE:  text[3]                                        # → commande_achat.devise — la devise des montants (D771)
   ECCNTXDEVI:  decimal                                        # → commande_achat.taux_change
-  ECCTSTATUT:  text[2]                                        # → commande_achat.statut — les valeurs de l'exemple au mapping (D946)
+  ECCTSTATUT:  text[2]                                        # → commande_achat.statut — les codes de l'exemple inventés, traduits au mapping (D946/D963)
+
+  # --- le numéro de commande en nombre (D990 : la conversion d'une clé se
+  # fait à la lecture, jamais dans la règle ni dans parent:) : le nchar(6)
+  # de PMI vers la valeur du counter (D883) — un calculé de la source (D660) ---
+  numero:
+    formula: integer(ECKTNUMERO)

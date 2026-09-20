@@ -102,15 +102,18 @@ statut:
       label:
         fr: Annulée
 
-# --- la livraison (ECCTNOMLIV, ECCTCPLIV, ECCTVILLIV) ---
+# --- la livraison — l'adresse propre à la commande, sans GPS chez PMI ---
 
 livraison_nom:
+  # ECCTNOMLIV
   type: text[..40]
   label:
     fr: Livré à
 
 livraison_adresse:
-  # les lignes de livraison en géolocalisation (D638)
+  # ECCTRUE1LI + ECCTRUE2LI + ECCTRUE3LI, ECCTCPLIV, ECCTVILLIV, ECCTPAYSLI —
+  # la forme texte du constructeur (D961), la normalisée viendra d'un
+  # connecteur location s'il y en a un (D637)
   type: geolocation
   label:
     fr: Adresse de livraison

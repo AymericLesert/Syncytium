@@ -1,0 +1,36 @@
+# L'étape 23 — les lignes de commandes d'achat : LCOMFOU vers
+# commande.ligne_achat, la composition de l'entête (D399) — la même
+# structure que LCOMCLI. Le possesseur (numéro, indice) par le calculé et
+# la colonne de la source (D931/D951/D990) ; l'article par sa clé
+# composée ; les prix restreints à la cible (D859) — la règle n'en sait
+# rien, elle écrit par le privilège de la reprise (D175/D942) ; l'expédié
+# de PMI est le reçu ; les délais par datetime(jour, heure) (D659).
+
+LCOMFOU:
+  to: commande.ligne_achat
+  parent:
+    commande_achat: { numero: numero, indice: LCKTPSF }
+  fields:
+    # --- l'identité au sein de la commande (D930) ---
+    numero:  ligne
+    # --- l'article ---
+    article: { code: LCCTCODART, complement: LCCTCOMART }
+    # --- les quantités ---
+    quantite:       LCCNQTECDE
+    unite:          LCCTUNICDE
+    quantite_recue: LCCNQTEEXP            # « l'expédié » de PMI, reçu chez l'acheteur
+    # --- les prix — la devise dans la valeur (D771) ---
+    prix_brut: amount(LCCNPUBRUT, LCCTDEVISE)
+    prix_net:  amount(LCCNPUNET, LCCTDEVISE)
+    # --- les délais (D659) ---
+    delai_demande:   LCCJDELDDE
+    delai_accuse:    datetime(LCCJDELARR, LCCSDELARR)
+    delai_reception: datetime(LCCJDELEXP, LCCSDELEXP)
+    # --- l'état ---
+    statut: 'LCCTSTATUT.select(EC: "en_cours", PA: "partielle", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+  validation:
+    - me.quantite_recue <= me.quantite    # sur la ligne importée (D932)
+  report:
+    when: [migration]
+    to: [achats]
+    by: [notification, mail]

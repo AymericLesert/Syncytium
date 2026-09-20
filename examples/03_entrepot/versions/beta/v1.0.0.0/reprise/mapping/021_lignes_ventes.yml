@@ -1,0 +1,46 @@
+# L'étape 21 — les lignes de commandes de vente : LCOMCLI vers
+# commande.ligne_vente, la composition de l'entête (D399/D931 : to: nomme
+# l'entité fille). Le possesseur est la révision (numéro, indice) — LCKTPSF
+# est l'indice de la commande (D951) ; les deux clés converties à la
+# lecture, jamais dans parent: (D990) : le calculé numero de la source,
+# l'indice tel quel. L'identité de la ligne au sein de la commande : le
+# numéro de ligne, le calculé ligne (D841/D930). L'article par sa clé
+# composée, la même carte que le possesseur (D931). Les prix en amount à
+# la devise de la ligne (D771) ; le prix de revient sans devise chez PMI —
+# celle de l'entreprise, le défaut du type (D993). Les délais : le couple
+# jour + heure de PMI recomposé par le constructeur du type,
+# datetime(jour, heure) (D659). Le statut traduit, les codes inventés
+# (D963). L'entête fautive emporte ses lignes ; la ligne fautive tombe
+# seule, l'entête entre sans elle (D933).
+
+LCOMCLI:
+  to: commande.ligne_vente
+  parent:
+    commande_vente: { numero: numero, indice: LCKTPSF }   # les champs mappés du possesseur (D931), le calculé de la source (D990)
+  fields:
+    # --- l'identité au sein de la commande (D930) ---
+    numero:  ligne                        # le calculé de la source (D990)
+    # --- l'article ---
+    article: { code: LCCTCODART, complement: LCCTCOMART }   # la référence par la clé composée (D931)
+    # --- les quantités ---
+    quantite:          LCCNQTECDE
+    unite:             LCCTUNICDE
+    quantite_expediee: LCCNQTEEXP
+    quantite_lancee:   LCCNQTELAN
+    # --- les prix — la devise dans la valeur (D771) ---
+    prix_brut:    amount(LCCNPUBRUT, LCCTDEVISE)
+    prix_net:     amount(LCCNPUNET, LCCTDEVISE)
+    prix_revient: amount(LCCNPUREVI)      # la devise de l'entreprise — le défaut du type (D993)
+    # --- les délais — datetime(jour, heure), le constructeur du type (D659) ---
+    delai_demande:     LCCJDELDDE
+    delai_accuse:      datetime(LCCJDELARR, LCCSDELARR)
+    delai_expedition:  datetime(LCCJDELEXP, LCCSDELEXP)
+    delai_fabrication: datetime(LCCJDELFAB, LCCSDELFAB)
+    # --- l'état ---
+    statut: 'LCCTSTATUT.select(EC: "en_cours", PA: "partielle", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+  validation:
+    - me.quantite_expediee <= me.quantite         # sur la ligne importée, le construit par me (D932)
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

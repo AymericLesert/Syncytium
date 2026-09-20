@@ -17,8 +17,8 @@ parent:
 
 fields:
   LCKTSOC:     text[3]                                        # la société — le filtre (D663)
-  LCKTNUMERO:  text[6]                                        # l'identité (D871)
-  LCKTLIGNE:   text[3]                                        # → ligne_achat.numero — l'identité (D871)
+  LCKTNUMERO:  text[6]                                        # l'identité (D871), la clé du possesseur — convertie par le calculé numero (D990)
+  LCKTLIGNE:   text[3]                                        # → ligne_achat.numero — l'identité (D871), convertie par le calculé ligne (D990)
   LCKTPSF:     text[3]                                        # l'identité — l'indice de la commande (D951), la clé du possesseur
   LCCTCODART:  ARTICLE.ARKTCODART                             # → ligne_achat.article — la référence par la clé composée, colonne par colonne (D648/D931)
   LCCTCOMART:  ARTICLE.ARKTCOMART                             # → ligne_achat.article
@@ -34,3 +34,10 @@ fields:
   LCCJDELARR:  date_pmi                                       # → ligne_achat.delai_accuse
   LCCSDELARR:  time_pmi                                       # → ligne_achat.delai_accuse
   LCCTSTATUT:  text[2]                                        # → ligne_achat.statut — les valeurs de l'exemple au mapping (D946) ; LCCTETACDE non lue (D951)
+
+  # --- les clés en nombre (D990 : la conversion à la lecture) : le numéro de
+  # la commande possédante et le numéro de ligne — deux calculés (D660) ---
+  numero:
+    formula: integer(LCKTNUMERO)
+  ligne:
+    formula: integer(LCKTLIGNE)

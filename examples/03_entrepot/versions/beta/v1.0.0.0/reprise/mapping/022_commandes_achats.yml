@@ -1,0 +1,31 @@
+# L'étape 22 — les commandes d'achat : ECOMFOU vers commande.commande_achat,
+# l'entête — la même structure qu'ECOMCLI (le préfixe EC), séparée sans
+# héritage (D882) : la règle se répète, c'est le prix du choix. Les
+# fournisseurs (007) et les articles précèdent (D662). Le numéro par le
+# calculé numero de la source — le counter surchargé (D883), la clé
+# convertie à la lecture (D990) ; le fournisseur par sa clé (D654) ; le
+# statut traduit, les codes inventés (D963). Pas d'adresse de livraison :
+# l'achat est livré chez l'entreprise. Les lignes à l'étape 23.
+
+ECOMFOU:
+  to: commande.commande_achat
+  fields:
+    # --- l'identité (D930) ---
+    numero:  numero                       # le calculé de la source — le counter surchargé (D883/D990)
+    indice:  ECKTINDICE
+    # --- le fournisseur et la référence ---
+    fournisseur: ECCTCODE                 # la référence par la clé (D654/D931)
+    reference_fournisseur: ECCTREFCDE
+    # --- les dates ---
+    date:               ECCJCRE
+    date_echeance:      ECCJECHFOR
+    derniere_reception: ECCJDERBL         # chez le fournisseur, le dernier bon est une réception
+    derniere_facture:   ECCJDERFA
+    # --- les conditions ---
+    devise:      ECCTDEVISE
+    taux_change: ECCNTXDEVI
+    statut:      'ECCTSTATUT.select(EC: "en_cours", SO: "soldee", AN: "annulee")'   # les codes inventés (D963)
+  report:
+    when: [migration]
+    to: [achats]                          # les achats, c'est le service achats qui corrige (D945)
+    by: [notification, mail]

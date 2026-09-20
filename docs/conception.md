@@ -22320,6 +22320,17 @@ avant la synthèse Q16).
   et 014 en cumul D968 (le premier emploi), `article.fournisseurs`
   retirée, entity.md gagne `order:` (en proposition), ARTICLE.yml
   régénérée. Les sept frottements du lot 3 restent à trancher.
+- **2026-09-20 (pause, 997 décisions)** — « Committe l'ensemble et je
+  marque une pause. » Les agrégats (D580/D887), `in` et la projection
+  (D888/D889) confirmés acquis ; D997 n'ajoute que `last()` sans
+  argument et `order:` sur la liste calculée, en proposition. **Le lot
+  3 du mapping (020–023) est commis tel qu'écrit, ses sept frottements
+  non tranchés** (le `counter` surchargé, `datetime(jour, heure)`, les
+  statuts inventés, l'adresse de livraison, la devise du prix de
+  revient, la validation redite, l'unité de la ligne — dans le cas, «
+  Le lot 3 »). Tout est poussé, aucune PR ouverte. **La reprise : les
+  sept frottements du lot 3, puis le lot 4 (les stocks, 024–025), puis
+  le morceau 5.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

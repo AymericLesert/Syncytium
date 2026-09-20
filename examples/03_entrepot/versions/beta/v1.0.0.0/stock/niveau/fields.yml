@@ -90,9 +90,9 @@ peremption:
     fr: Péremption
 
 inventaire:
-  # DPCJJINV + DPCSSINV — la date et l'heure du dernier inventaire, en
-  # datetime (D659)
-  type: datetime
+  # DPCJJINV — la date du dernier inventaire ; DPCSSINV, la semaine,
+  # se déduit du jour (D1000/D1001)
+  type: date
   label:
     fr: Dernier inventaire
 

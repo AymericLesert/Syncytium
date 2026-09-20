@@ -57,25 +57,22 @@ lot:
 # (D880) ---
 
 date:
-  # MVCJMVT — AAAAMMJJ au masque (D820)
+  # MVCJMVT — la date du mouvement, la clé de partition (D880) ; MVCSMVT,
+  # la semaine, se déduit du jour (D1000)
   type: date
   required: true
   label:
     fr: Date
 
-heure:
-  # MVCSMVT — HHMM au masque (« time_pmi a un format hhmm seulement »,
-  # D992 : le nchar(6) de PMI ne porte pas de secondes)
-  type: time[hh:mm]
+horodatage:
+  # MVCJSAI + MVCTSAI — « la date et l'heure du mouvement avec les
+  # secondes correspondent à la combinaison des champs MVCJSAI (jour) et
+  # MVCTSAI (heure) » (D1001) : le constructeur datetime(jour, heure)
+  # (D659) ; dans l'identité
+  type: datetime
   required: true
   label:
-    fr: Heure
-
-date_saisie:
-  # MVCJSAI
-  type: date
-  label:
-    fr: Saisi le
+    fr: Horodatage
 
 # --- le mouvement ---
 

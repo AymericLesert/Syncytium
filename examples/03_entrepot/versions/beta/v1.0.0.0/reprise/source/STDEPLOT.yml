@@ -26,5 +26,5 @@ fields:
   DPCNPULOT:   decimal                                        # → niveau.prix_unitaire
   DPCNQTINV:   decimal                                        # → niveau.quantite_inventaire
   DPCJJINV:    date_pmi                                       # → niveau.inventaire
-  DPCSSINV:    time_pmi                                       # l'heure ? — la lettre S dit en général la semaine (D1000) ; à confirmer
+  DPCSSINV:    ignored                                        # la semaine du dernier inventaire — déduite du jour (D1000/D1001)
   DPCNSTOMIN:  decimal                                        # → niveau.stock_minimum

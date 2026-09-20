@@ -341,12 +341,13 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   l'extraction filtre la société `100` : le `filter:` de D663 sur
   chaque entité source ;
 - **les dates** : `date` au `mask: "yyyymmdd"` (D820) et `time` au
-  masque `hhmm` (D992 — pas de secondes chez PMI) suffisent — **le hook de type de D119 n'est pas
-  nécessaire pour la 16.17** (la question 11 répondue par le réel ;
-  le hook reste l'outil des autres legacies) ; le couple jour +
-  heure (`MVCJMVT` + `MVCSMVT`) se recompose par le constructeur
-  du type (D659) ; les dates vides sont absentes (`None` dans
-  l'échantillon) ;
+  masque `hhmmss` (D992, amendée par D1001 — la seule heure lue,
+  MVCTSAI, porte les secondes) suffisent — **le hook de type de D119
+  n'est pas nécessaire pour la 16.17** (la question 11 répondue par le
+  réel ; le hook reste l'outil des autres legacies) ; le couple jour +
+  heure (`MVCJSAI` + `MVCTSAI`, D1001 — la colonne S est la semaine,
+  D1000) se recompose par le constructeur du type (D659) ; les dates
+  vides sont absentes (`None` dans l'échantillon) ;
 - **les clés naturelles** portées par les colonnes `K` :
   `ARTICLE` (société, code `nchar(18)`, complément `nchar(6)`),
   `CLIENT`/`FOURNIS` (société, code `nchar(6)`), `NOMENC` (société,
@@ -896,8 +897,8 @@ fin.*
 | `decimal` | `ligne_vente.quantite` (`LCCNQTECDE`), `stock.quantite` (`DPCNSTOPHY`), `commande.taux_change` (`ECCNTXDEVI`) |
 | `duration` | `nomenclature.temps_ouverture` (`NOCNTPSOUV`), `temps_attente`, `temps_preparation` — la notation industrielle D378 |
 | `date` | `article.creation` (`ARCJCRE`), `tarif.date_application` (`TAKJAPLI`), `stock.peremption` (`DPCJPEREMP`) — au masque `yyyymmdd` (D820) |
-| `time` | `mouvement.heure` (`MVCSMVT`) — gardée seule, aux côtés de la date |
-| `datetime` | `ligne_vente.delai_expedition` (`LCCJDELEXP` + `LCCSDELEXP` — le constructeur D659) |
+| `time` | aucune seule : l'heure de PMI n'existe qu'avec son jour (MVCTSAI — D1001) ; `time_pmi` sert le constructeur |
+| `datetime` | `mouvement.horodatage` (`MVCJSAI` + `MVCTSAI` — le constructeur D659/D1001 ; les délais des commandes sont des jours, D1000) |
 | `enum` | `article.type` (`ARCTTYPART`), **`article.famille`/`sous_famille` (`ARCTCODFAM`/`ARCTCOSFAM`), le code de gestion** (D883 — « les valeurs sont parties d'une liste de valeurs facilement identifiables dans une liste énumérée » : l'énuméré, pas le référentiel par `distinct:`), `nomenclature.nature` (`NOCTNATCPT`), `mouvement.type`/`genre` (`MVCTTYPE`, `MVCTGENRE`), `commande.statut` (`ECCTSTATUT`) — les codes PMI en `values:` à libellés |
 | `counter` | `commande_vente.numero` (`ECKTNUMERO`) — « une commande est un counter » : le type déclaré, **la valeur surchargée par la migration** (D883 — le privilège de l'écriture identifiée reprise, D175/D173) |
 | `file` | `article.plans: list of file` — « une liste de pièces jointes » remplie **via un connecteur `file`** (D634) en complément du connecteur de source, le nom du fichier venant d'`ARCTFICPLA` (D883 — la forme au morceau de la source) |
@@ -1672,8 +1673,13 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   dans PMI. Sur les commandes, il n'y a pas d'heures… LCCSDELEXP est la
   semaine du jour… se déduit du jour » ; « le S en 4ème position décrit
   en général la semaine » — les délais en `date`, les S des lignes
-  ignorées, la convention corrigée ; aucun constructeur ; *en attente :
-  MVCSMVT et DPCSSINV, heures ou semaines ?*
+  ignorées, la convention corrigée ; puis **D1001** : « dans la table
+  MVTSTO, la date et l'heure du mouvement avec les secondes
+  correspondent à la combinaison des champs MVCJSAI (jour) et MVCTSAI
+  (heure) » — MVCSMVT et DPCSSINV sont des semaines ;
+  `mouvement.horodatage: datetime` dans l'identité, le constructeur
+  `datetime(jour, heure)` a son cas ; `time_pmi` en hhmmss ;
+  `niveau.inventaire` en date.
 - **les statuts inventés** — aucune table de l'échantillon ne porte
   ECCTSTATUT ni LCCTSTATUT : `EC` en cours, `SO` soldée, `AN`
   annulée ; `PA` partielle pour la ligne (D963) ; le `select` sans

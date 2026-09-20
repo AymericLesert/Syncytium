@@ -1,7 +1,8 @@
 # La table MVTSTO de PMI — 34 colonnes, des millions de lignes (D863) :
 # les mouvements de stock. Sans colonne K : la clé est portée par les
 # colonnes I — le document, la ligne, l'indice, le composant —, complétée
-# de l'article, de la date et de l'heure (D869 ; l'échantillon : 70
+# de l'article et de l'horodatage de saisie — le jour et l'heure à la
+# seconde, MVCJSAI + MVCTSAI (D1001) — (D869 ; l'échantillon : 70
 # valeurs distinctes sur 100 pour les cinq I, 100 avec le complément) ;
 # le contrôle de l'identité tranchera sur le réel (D871). La lecture par
 # partition : le mois du mouvement, trois mois relus (D880). La source de
@@ -11,7 +12,7 @@ name: MVTSTO
 description: Les mouvements de stock de PMI — la source de stock.mouvement
 
 filter: MVITSOC = "100"
-identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART, MVCJMVT, MVCSMVT]
+identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART, MVCJSAI, MVCTSAI]
 coverage: MVCJMVT[month - 3]
 # la partition par le mois du mouvement, les trois derniers mois relus
 # chaque nuit, la totalité le dimanche par reset_coverage (D880/D881/D943)
@@ -27,9 +28,10 @@ fields:
   MVCTDEPOT:   text[6]                                        # → mouvement.depot — le référentiel par valeurs distinctes (D658)
   MVCTCODMPL:  text[10]                                       # → mouvement.emplacement — idem
   MVCTNUMLOT:  text[18]                                       # → mouvement.lot
-  MVCJMVT:     date_pmi                                       # → mouvement.date — l'identité, la clé de partition (D880)
-  MVCSMVT:     time_pmi                                       # → mouvement.heure — l'identité
-  MVCJSAI:     date_pmi                                       # → mouvement.date_saisie
+  MVCJMVT:     date_pmi                                       # → mouvement.date — la date du mouvement, la clé de partition (D880)
+  MVCSMVT:     ignored                                        # la semaine du mouvement — déduite du jour (D1000) ; l'heure vraie est MVCTSAI (D1001)
+  MVCJSAI:     date_pmi                                       # → mouvement.horodatage — le jour de la saisie ; l'identité (D1001)
+  MVCTSAI:     time_pmi                                       # → mouvement.horodatage — l'heure à la seconde (hhmmss, D992/D1001), une colonne T ; l'identité
   MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire
   MVCNVAL:     decimal                                        # → mouvement.valeur

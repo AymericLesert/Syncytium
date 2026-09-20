@@ -18,9 +18,9 @@ text:
 date_pmi:                       # les dates AAAAMMJJ de PMI (D820/D866)
     type: date
     mask: "yyyymmdd"
-time_pmi:                       # les heures de PMI — hhmm pour l'exemple (D992) ; « les 2 formats sont possibles dans PMI », la colonne à secondes surcharge au champ : { type: time_pmi, mask: "hhmmss" }
+time_pmi:                       # les heures de PMI (D992) — hhmmss : la seule heure lue du cas, MVCTSAI, porte les secondes (D1001) ; la lettre S est la semaine, pas l'heure (D1000) ; une colonne en hhmm surchargerait le masque au champ
     type: time
-    mask: "hhmm"
+    mask: "hhmmss"
 
 # La devise de l'entreprise — le défaut du type amount (D993, qui amende
 # D970 : « le défaut du type me convient ») : les prix de l'article n'ont

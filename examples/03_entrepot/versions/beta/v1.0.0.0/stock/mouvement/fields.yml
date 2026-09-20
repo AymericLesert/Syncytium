@@ -57,8 +57,9 @@ lot:
 # (D880) ---
 
 date:
-  # MVCJMVT — la date du mouvement, la clé de partition (D880) ; MVCSMVT,
-  # la semaine, se déduit du jour (D1000)
+  # MVCJMVT — « la date du mouvement à enregistrer dans le système »
+  # (D1001), la clé de partition (D880) ; MVCSMVT, la semaine, se déduit
+  # du jour (D1000)
   type: date
   required: true
   label:
@@ -67,8 +68,9 @@ date:
 horodatage:
   # MVCJSAI + MVCTSAI — « la date et l'heure du mouvement avec les
   # secondes correspondent à la combinaison des champs MVCJSAI (jour) et
-  # MVCTSAI (heure) » (D1001) : le constructeur datetime(jour, heure)
-  # (D659) ; dans l'identité
+  # MVCTSAI (heure) » — « la date et heure de saisie du mouvement. Un
+  # mouvement peut être enregistré a posteriori » (D1001) : le
+  # constructeur datetime(jour, heure) (D659) ; dans l'identité
   type: datetime
   required: true
   label:

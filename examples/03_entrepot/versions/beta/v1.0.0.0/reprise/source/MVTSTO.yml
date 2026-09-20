@@ -28,9 +28,9 @@ fields:
   MVCTDEPOT:   text[6]                                        # → mouvement.depot — le référentiel par valeurs distinctes (D658)
   MVCTCODMPL:  text[10]                                       # → mouvement.emplacement — idem
   MVCTNUMLOT:  text[18]                                       # → mouvement.lot
-  MVCJMVT:     date_pmi                                       # → mouvement.date — la date du mouvement, la clé de partition (D880)
+  MVCJMVT:     date_pmi                                       # → mouvement.date — « la date du mouvement à enregistrer dans le système » (D1001), la clé de partition (D880)
   MVCSMVT:     ignored                                        # la semaine du mouvement — déduite du jour (D1000) ; l'heure vraie est MVCTSAI (D1001)
-  MVCJSAI:     date_pmi                                       # → mouvement.horodatage — le jour de la saisie ; l'identité (D1001)
+  MVCJSAI:     date_pmi                                       # → mouvement.horodatage — le jour de la saisie, « un mouvement peut être enregistré a posteriori » ; l'identité (D1001)
   MVCTSAI:     time_pmi                                       # → mouvement.horodatage — l'heure à la seconde (hhmmss, D992/D1001), une colonne T ; l'identité
   MVCNQTE:     decimal                                        # → mouvement.quantite — signée chez PMI, l'entrepôt garde la quantité et le sens
   MVCNPUNIT:   decimal                                        # → mouvement.prix_unitaire

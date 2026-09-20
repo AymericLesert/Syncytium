@@ -1187,7 +1187,28 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    (D859 — la vue globale du fonctionnement de l'entreprise,
    D554–D558/D527, rafraîchi dès que les données sont disponibles),
    les documents générés (D559–D565), les listes (D441–D447) sur
-   l'entrepôt.
+   l'entrepôt ; *ouvert le 20/09/2026 — le plan proposé, à valider :
+   **lot 1, les listes** — la porte de chaque entité (`gui.yml` par
+   entité : `lists:` avec `searchable:`, `columns:`, `sort:`,
+   `exports:` — l'entrepôt en lecture seule, ni `add:` ni `update:`,
+   le formulaire de consultation seul) ; **lot 2, les graphiques et
+   les widgets** — les `kpi` (la valeur du stock, les commandes en
+   retard, les niveaux sous le minimum, les périssables), les courbes
+   et barres (les mouvements par mois, le chiffre d'affaires par
+   client), les widgets de synthèse pour le pool (D204/D247) ; **lot
+   3, les tableaux de bord** — un `dashboards:` par module (le
+   pilotage des stocks avec la matrice de contrôle D1014, des ventes,
+   des achats, de la technique), l'accueil au module actif (D557) et
+   les emplacements libres `_` (D556) — le premier `dashboards:` du
+   dépôt (D994) ; **lot 4, les documents** — les `templates:` (l'état
+   des stocks par dépôt, la fiche article, l'inventaire par
+   emplacement, les commandes en retard), au PDF (D564) ; **lot 5, le
+   menu et l'accueil** — `menu.yml` (D351/D439), le premier du dépôt,
+   et la homepage (D558) ; le suivi de la migration — les trois taux,
+   les rejets — reste aux surfaces standard du module `migration`
+   (D666/D711/D861–D862), le cas les cite, ne les déclare pas ; puis
+   la validation globale (D955), le jeu de données construit (D869),
+   la PR.*
 
 ## La forme — le dépôt
 

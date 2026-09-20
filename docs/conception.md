@@ -22667,6 +22667,15 @@ avant la synthèse Q16).
   deux champs lot. Les six frottements du lot 4 sont tranchés
   (D1008–D1018). La suite : le morceau 5, le pilotage et la
   restitution — aucune surface n'existe encore.
+- **2026-09-20 (suite 27) — LA DOCUMENTATION À JOUR, LE MORCEAU 5
+  OUVERT.** « Met à jour la documentation et ouvrons le morceau 5 » —
+  le narratif §3.2c porte D995 à D1018, mapping.md l'état et le
+  journal (D1013), configuration.md les formes du jour, le glossaire
+  trois entrées. **Le morceau 5 — le pilotage et la restitution — est
+  ouvert** : le plan en cinq lots proposé dans le cas (les listes, les
+  graphiques et widgets, les tableaux de bord, les documents, le menu
+  et l'accueil), à valider par l'auteur avant d'écrire ; le suivi de
+  la migration reste aux surfaces standard du module `migration`.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

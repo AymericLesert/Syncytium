@@ -88,7 +88,12 @@ taux_change:
 # (D1002) — « l'état d'une commande se déduit de l'état des lignes » : le
 # calculé statut, plus bas (D1003)
 
-# --- la livraison — l'adresse propre à la commande, sans GPS chez PMI ---
+# --- la livraison — l'adresse propre à la commande, un instantané saisi
+# à la commande : « nous stockons le détail pour la reprise et nous
+# calculons un champ adresse_livraison correspondant à l'appel à la
+# géolocalisation » (D1004) ; l'adresse de la commande elle-même
+# (ECCTRUE1–3, ECCTCP, ECCTVILLE, ECCTPAYS) est une redondance du client,
+# ignorée — « le code client est suffisant » ---
 
 livraison_nom:
   # ECCTNOMLIV
@@ -96,13 +101,41 @@ livraison_nom:
   label:
     fr: Livré à
 
-livraison_adresse:
-  # ECCTRUE1LI + ECCTRUE2LI + ECCTRUE3LI, ECCTCPLIV, ECCTVILLIV, ECCTPAYSLI —
-  # la forme texte du constructeur (D961), la normalisée viendra d'un
-  # connecteur location s'il y en a un (D637)
-  type: geolocation
+livraison_rue1:
+  # ECCTRUE1LI
+  type: text[..40]
   label:
-    fr: Adresse de livraison
+    fr: Rue
+
+livraison_rue2:
+  # ECCTRUE2LI
+  type: text[..40]
+  label:
+    fr: Rue (suite)
+
+livraison_rue3:
+  # ECCTRUE3LI
+  type: text[..40]
+  label:
+    fr: Rue (fin)
+
+livraison_code_postal:
+  # ECCTCPLIV
+  type: text[..16]
+  label:
+    fr: Code postal
+
+livraison_ville:
+  # ECCTVILLIV
+  type: text[..40]
+  label:
+    fr: Ville
+
+livraison_pays:
+  # ECCTPAYSLI — le libellé ; le code ECCTCPAYLI non lu
+  type: text[..20]
+  label:
+    fr: Pays
 
 # --- la composition (D399) ---
 
@@ -138,6 +171,18 @@ statut:
     soldee:
       label:
         fr: Soldée
+
+adresse_livraison:
+  # le géocodage du détail par le connecteur location (D637/D1004) — la
+  # forme texte du constructeur (D961) rend les quatre parties, la
+  # normalisée et le point venant du connecteur ; sans if, geolocation
+  # refuse le texte vide (D1004) : le calculé est nul quand la ville manque
+  type: geolocation
+  formula: >-
+    geolocation(livraison_rue1 + " " + livraison_rue2 + " " + livraison_rue3 + ", " + livraison_code_postal + " " + livraison_ville + ", " + livraison_pays)
+      if livraison_ville != null
+  label:
+    fr: Adresse de livraison
 
 total:
   # la somme des montants des lignes — un amount à la devise de la

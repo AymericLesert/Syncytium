@@ -56,6 +56,17 @@ plans:
   parameters:
     directory: ${PLANS_DIRECTORY}
 
+# Le géocodage — le connecteur location (D637/D294) : l'adresse de
+# livraison des commandes de vente est reprise en détail, le calculé
+# adresse_livraison appelle le géocodage (D1004 — « nous stockons le
+# détail pour la reprise et nous calculons un champ adresse_livraison
+# correspondant à l'appel à la géolocalisation ») ; la BAN, sans clé,
+# l'URL en proposition
+location:
+  class: ban
+  parameters:
+    url: https://api-adresse.data.gouv.fr
+
 # L'authentification — Microsoft 365 (D692 : la classe azure_ad ; la
 # question 10 du cadrage, D945) : les utilisateurs se connectent avec
 # leur compte de l'entreprise ; l'affectation aux groupes reste un acte

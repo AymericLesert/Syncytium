@@ -1396,9 +1396,9 @@ même table = deux fichiers :
   devise de l'entreprise (D993) ; les délais recomposés par
   `datetime(jour, heure)` (le constructeur D659, la forme à fixer) ;
   les statuts traduits par `select`, les codes inventés (D963) ;
-  l'adresse de livraison de l'entête lue à la source (six colonnes
-  `…LI`/`…LIV`) et construite par la forme texte de `geolocation`
-  (D961) ; les rapports au commercial (ventes) et aux achats (D945).
+  l'adresse de livraison de l'entête reprise en détail (sept champs)
+  et géocodée à la cible par le connecteur `location` (D1004) ; les
+  rapports au commercial (ventes) et aux achats (D945).
 
 Ce que le lot a fixé hors du cas : la référence de fichier explicite
 et son cumul (D956/D967–D968), la lecture d'une autre entité source
@@ -1699,7 +1699,14 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   texte du constructeur (D961), *absente quand la ville manque (`if
   ECCTVILLIV != null` — mien)* ; l'adresse de facturation de l'entête
   (ECCTRUE1–3, ECCTCP, ECCTVILLE, ECCTPAYS) n'a pas de champ au modèle —
-  non lue, celle du client fait foi ; à confirmer.
+  non lue, celle du client fait foi ; à confirmer — **tranché par
+  D1004** : « nous stockons le détail pour la reprise et nous calculons
+  un champ adresse_livraison correspondant à l'appel à la
+  géolocalisation » (le connecteur `location`, classe `ban`, déclaré) ;
+  « laisser geolocation refuser un texte vide si if est absent » ;
+  l'adresse de la commande « une redondance… le code client est
+  suffisant », ignorée ; chez l'achat « nous allons ignorer ces
+  champs ».
 - **la devise du prix de revient** — LCCNPUREVI n'a pas de devise
   propre chez PMI (LCCTDEVISE est celle des prix de vente) :
   `amount(LCCNPUREVI)` à la devise de l'entreprise (D993) — *mien, à

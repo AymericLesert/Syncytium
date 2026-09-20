@@ -55,6 +55,12 @@ plans:
   parameters:
     directory: ${PLANS_DIRECTORY}
 
+# Le géocodage — la même BAN qu'en production (D1004)
+location:
+  class: ban
+  parameters:
+    url: https://api-adresse.data.gouv.fr
+
 # L'authentification — le même locataire Microsoft 365 (D692/D945), une
 # inscription d'application propre au staging par son .env ; le secret
 # est un paramètre marqué * (D944).

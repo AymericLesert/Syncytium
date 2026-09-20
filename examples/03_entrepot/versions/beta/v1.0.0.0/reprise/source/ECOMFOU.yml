@@ -19,6 +19,19 @@ fields:
   ECKTINDICE:  text[3]                                        # → commande_achat.indice — l'identité (D871)
   ECCJCRE:     date_pmi                                       # → commande_achat.date
   ECCTCODE:    FOURNIS.CLKTCODE                               # → commande_achat.fournisseur — la référence (D648)
+  ECCTRUE1:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTRUE2:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTCP:      ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTVILLE:   ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTPAYS:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTCPAYS:   ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTNOMLIV:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTRUE1LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTRUE2LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTCPLIV:   ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTVILLIV:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTPAYSLI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
+  ECCTCPAYLI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
   ECCTREFCDE:  text[20]                                       # → commande_achat.reference_fournisseur
   ECCJECHFOR:  date_pmi                                       # → commande_achat.date_echeance
   ECCJDERBL:   date_pmi                                       # → commande_achat.derniere_reception
@@ -26,6 +39,8 @@ fields:
   ECCTDEVISE:  text[3]                                        # → commande_achat.devise — la devise des montants (D771)
   ECCNTXDEVI:  decimal                                        # → commande_achat.taux_change
   ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — « l'état d'une commande se déduit de l'état des lignes », le calculé de la cible (D1003)
+  ECCTRUE3:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
+  ECCTRUE3LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
 
   # --- le numéro de commande en nombre (D990 : la conversion d'une clé se
   # fait à la lecture, jamais dans la règle ni dans parent:) : le nchar(6)

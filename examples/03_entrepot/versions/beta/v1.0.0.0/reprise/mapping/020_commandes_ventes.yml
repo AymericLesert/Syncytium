@@ -7,8 +7,9 @@
 # calculé numero de la source, la clé convertie à la lecture (D990). Le
 # client par sa clé (D654 — le raccourci à un champ, D931). Le statut de
 # l'entête n'est pas repris — « ECCTSTATUT peut être ignoré » (D1002), les
-# lignes portent le leur. L'adresse de livraison propre à la commande, sans GPS :
-# la forme texte du constructeur (D961) ; absente quand la ville manque.
+# lignes portent le leur. L'adresse de livraison : le détail repris tel
+# quel, le géocodage est un calculé de la cible (D1004) ; l'adresse de la
+# commande elle-même n'est pas lue, « le code client est suffisant ».
 # Les lignes viennent à l'étape 21, par parent: (D931).
 
 ECOMCLI:
@@ -28,11 +29,14 @@ ECOMCLI:
     # --- les conditions ---
     devise:      ECCTDEVISE               # les lignes la lisent par owner (D760)
     taux_change: ECCNTXDEVI
-    # --- la livraison (D961 — la forme texte, sans GPS chez PMI) ---
-    livraison_nom: ECCTNOMLIV
-    livraison_adresse: >-
-      geolocation(ECCTRUE1LI + " " + ECCTRUE2LI + " " + ECCTRUE3LI + ", " + ECCTCPLIV + " " + ECCTVILLIV + ", " + ECCTPAYSLI)
-        if ECCTVILLIV != null
+    # --- la livraison — le détail, l'adresse géocodée à la cible (D1004) ---
+    livraison_nom:         ECCTNOMLIV
+    livraison_rue1:        ECCTRUE1LI
+    livraison_rue2:        ECCTRUE2LI
+    livraison_rue3:        ECCTRUE3LI
+    livraison_code_postal: ECCTCPLIV
+    livraison_ville:       ECCTVILLIV
+    livraison_pays:        ECCTPAYSLI
   operations:
     commande_vente.numero.update(numero)   # la méthode du type counter, le champ adressé par le point : le compteur se positionne sur la plus grande valeur reprise (D998/D999)
   report:

@@ -131,8 +131,13 @@ fonctions de la collection (`list of`, `association with`) sont ses
 méthodes — `commandes.sum(montant if etat = "facturée")` (l'élément
 en contexte implicite dans la parenthèse), `count()`, `avg`,
 `min`/`max` (universels — tous les types sont triables, D575),
-`first`, `last`, `any`, `exists` ; la forme contextuelle sans préfixe
-quand la collection est le contexte (l'assise d'un chart — D517).
+`first`, `last`, `any`, `exists` ; **`group(champ, …)`** — le « group
+by » d'une liste (D1015) : une cellule par combinaison de valeurs des
+champs nommés, l'agrégat qui suit s'évalue par cellule, le résultat est
+un hypercube (D897) aux dimensions des champs —
+`mouvements.group(emplacement, article).sum(…)` ; la forme contextuelle
+sans préfixe quand la collection est le contexte (l'assise d'un chart —
+D517).
 
 **Le type `label`** (D585–D586) — le type-hook du socle qui montre la
 voie : l'accès au catalogue des labels (D440), les gabarits nommés

@@ -593,6 +593,16 @@ mouvements:
   label:
     fr: Mouvements de stock
 
+stock_par_emplacement:
+  # « nous pouvons calculer la liste des mouvements d'un article, puis la
+  # quantité par emplacement s'en déduit via des sommes » (D1015) — le
+  # « group by » de la liste : une cellule par emplacement, la somme
+  # signée par le sens (D1009), dans l'unité de stock de l'article
+  type: 'list of [emplacement: stock.emplacement]'
+  formula: 'mouvements.group(emplacement).sum(sens.select(entree: quantite, sortie: -quantite))'
+  label:
+    fr: Stock par emplacement
+
 # ------ Champs calculés ------
 
 # les calculés de la nomenclature (composants, opérations, temps de

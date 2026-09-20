@@ -57,15 +57,15 @@ fields:
     # « la règle de contrôle s'effectue par un champ calculé d'une matrice
     # à 2 dimensions : emplacement × article = somme des quantités en
     # entrée du mouvement − somme des quantités en sortie du mouvement »
-    # (D1014) — l'hypercube (D897) en calculé : les dimensions sont
-    # celles des mouvements agrégés, une cellule par couple présent, et
-    # la formule s'évalue par cellule sur les mouvements de ce couple
-    # (forme mienne : les dimensions portent les noms des champs des
-    # enregistrements agrégés, qui restreignent l'agrégat) ; la mesure
-    # dans l'unité de stock de l'article (D1009). Le tableau de bord du
-    # morceau 5 la compare aux niveaux (D859).
+    # (D1014) — l'hypercube (D897) en calculé par le « group by » d'une
+    # liste (D1015) : group(emplacement, article) fait une cellule par
+    # couple présent dans les mouvements, la somme s'évalue par cellule ;
+    # la quantité signée par le sens (D1009), dans l'unité de stock de
+    # l'article. Le tableau de bord du morceau 5 la compare aux niveaux
+    # (D859).
     type: 'list of [emplacement: stock.emplacement, article: technique.article]'
-    formula: mouvements.sum(quantite if sens = "entree") - mouvements.sum(quantite if sens = "sortie")
+    # le « : » du .select (D833) oblige les guillemets YAML
+    formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantite, sortie: -quantite))'
     label:
       fr: Contrôle du stock par les mouvements
 

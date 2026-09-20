@@ -1819,8 +1819,12 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   s'effectue par un champ calculé d'une matrice à 2 dimensions :
   emplacement × article = somme des quantités en entrée du mouvement −
   somme des quantités en sortie du mouvement » — `depot.controle_stock`,
-  l'hypercube (D897) en calculé (la forme mienne : les dimensions
-  restreignent l'agrégat), mes calculés du niveau retirés.
+  l'hypercube (D897) en calculé, mes calculés du niveau retirés ; puis
+  **D1015** : « nous pouvons calculer la liste des mouvements d'un
+  article, puis la quantité par emplacement s'en déduit via des sommes.
+  Nous pouvons introduire un "group by" dans une liste » —
+  `mouvements.group(emplacement, article).sum(…)`, l'agrégat par
+  cellule, l'hypercube en résultat ; `article.stock_par_emplacement`.
 - **le lot en texte** — DPKTNUMLOT et MVCTNUMLOT restent des textes
   (le morceau 2 : « Stock.Batch le décrit chez PMI, l'analyse dira ») ;
   *un référentiel des lots n'est pas ouvert, à confirmer*.

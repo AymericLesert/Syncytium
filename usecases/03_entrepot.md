@@ -1635,7 +1635,11 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   standard, `[U]` = la diagonale à 1 (D983) ; l'arithmétique (D984) ;
   la performance sur les millions de mouvements — « un point
   important » (D985 : l'unité canonique de stockage, les agrégats au
-  storage, les calculés matérialisés, en proposition).
+  storage, les calculés matérialisés, en proposition ; **D1012** la
+  note d'implémentation : « dans la facette des données en base… un
+  mécanisme qui permette de précalculer des valeurs… et un mode qui
+  permette une mise à jour en fonction de l'évolution d'un des
+  paramètres »).
 - **la famille et son drapeau** — **D986**. « Je confirme, porte left
   à la source » — `famille_code: left(ARCTCODFAM, 3)` en calculé de la
   source ; `extract` et `like`, les fonctions à regex rappelées.
@@ -1791,7 +1795,8 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   « le poids unitaire est à porter au niveau de l'article » — le champ
   retiré du mouvement, MVCNPDSUNI ignorée, `masse: quantite.to(kg)` par
   la matrice de l'article, où le poids entre comme conversion vers le
-  kilogramme (mien) ; la matérialisation D985 reste ouverte.
+  kilogramme (mien) ; la matérialisation D985 est notée pour
+  l'implémentation (D1012).
 - **la valeur du mouvement** — MVCNVAL existe chez PMI ; recalculée
   à la cible (`prix_unitaire * quantite`), la colonne ignorée — *ou la
   reprendre, comme le prix de revient stocké « pour des questions de

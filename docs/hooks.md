@@ -58,7 +58,7 @@ versions/<statut>/<version>/
 ```
 
 *(Le nommage et l'organisation restent libres — D807 : l'arbre
-ci-dessus est la convention du cas 3.)*
+ci-dessus est la convention du cas 4.)*
 
 ```yaml
 # hooks/hooks.yml — l'étage des familles (D777)

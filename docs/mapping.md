@@ -542,7 +542,7 @@ Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
   plusieurs règles. **La règle porte un `filter:`**
-  (l'écho D663) — son périmètre : le cas 3 importe en **trois
+  (l'écho D663) — son périmètre : le cas 4 importe en **trois
   phases** (D814 — la phase = la règle filtrée, l'ordre = le
   préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
   référentiels et les écritures hors marqueurs, l'écriture du
@@ -590,7 +590,7 @@ customers:
   est tenue par la migration (D666/D668) ;
 
 - **la règle rapprochable, la règle création seule** (D825, réécrit
-  par D930 — le cas 3 : les écritures, sans identifiant de ligne ni
+  par D930 — le cas 4 : les écritures, sans identifiant de ligne ni
   clé composite fiable) : `key:` n'existe plus — **une règle est
   rapprochable si l'enregistrement qu'elle construit détermine
   l'identité de sa cible**, par ses expressions ou par les défauts des
@@ -605,7 +605,7 @@ customers:
   (D666/D668) ; la règle de mise à jour alimente l'identité
   elle-même, une valeur inchangée que le différentiel ignore ;
 
-- **une entité source, plusieurs fichiers** (D816 — le cas 3) : deux
+- **une entité source, plusieurs fichiers** (D816 — le cas 4) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;
   **la carte entités → fichiers vit au connecteur** (D819/D828 —
   la section `entities:` au même niveau que `parameters:` : chaque

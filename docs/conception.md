@@ -890,22 +890,22 @@ Q58) :
 | D755 | **Le hook de style — le thème est une combinaison de styles** : la sixième famille de hooks (le comportement des autres, le repli D68), il reprend une partie du style et complète l'affichage aux côtés du hook d'affichage ; la structure des styles ne se généralise pas forcément (pas de schéma unique). | Voir §3.2c. |
 | D756 | **Les cinq cas d'usage** (ouvre Q59) : 1. le domestique (compte bancaire, véhicule…) · 2. la collecte/standardisation des commandes commerciales · 3. la conversion Cegid PMI → l'entrepôt + les règles métiers · 4. la gestion de projets · 5. l'ERP de livraison de repas — du plus simple au plus compliqué ; pour chacun, **la forme et les manques** ; les autres cas se cadrent à l'un des cinq. | Le sommaire du domaine 5. Voir §3.2c. |
 | D757 | **La maison des cas d'usage** : un fichier md par cas, dans `usecases/` au même niveau que docs/ — les cinq squelettes créés (01_domestic … 05_meal_delivery, le préfixe numérique D665, l'anglais D335). | Voir §3.2c. |
-| D758 | **Le cadrage du cas 3** : le compte bancaire du foyer — sans authentification (« pas de secrets dans la famille »), la genèse 1987, les comptes (devise FRF\|EUR, la règle d'ouverture), les opérations (le compteur masqué, les dates opération/comptable au pointage, le budget et le lieu dynamiques, le montant signé, le mode figé), le solde au fil du tri, le relevé PDF aux trois clés ; les données réelles 1992→2026 analysées. | Le contexte et les dix questions dans usecases/01_domestic.md. Voir le journal. |
-| D759 | **L'authentification none** (le cas 3 — complète D692/D716) : la cinquième classe — aucun défi, aucun secret ; les invariants par les défauts implicites (l'utilisateur et le groupe par défaut, le degré administrator) — l'appartenance D699 pré-remplie, jamais contournée. | Le mono-poste domestique. Voir §3.2c. |
-| D760 | **Le mot-clé du possesseur** (le cas 3 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
+| D758 | **Le cadrage du cas 4** : le compte bancaire du foyer — sans authentification (« pas de secrets dans la famille »), la genèse 1987, les comptes (devise FRF\|EUR, la règle d'ouverture), les opérations (le compteur masqué, les dates opération/comptable au pointage, le budget et le lieu dynamiques, le montant signé, le mode figé), le solde au fil du tri, le relevé PDF aux trois clés ; les données réelles 1992→2026 analysées. | Le contexte et les dix questions dans usecases/01_domestic.md. Voir le journal. |
+| D759 | **L'authentification none** (le cas 4 — complète D692/D716) : la cinquième classe — aucun défi, aucun secret ; les invariants par les défauts implicites (l'utilisateur et le groupe par défaut, le degré administrator) — l'appartenance D699 pré-remplie, jamais contournée. | Le mono-poste domestique. Voir §3.2c. |
+| D760 | **Le mot-clé du possesseur** (le cas 4 — complète D396/D399) : l'enfant accède à son possesseur — le solde en ligne = l'agrégat existant (D580) + ce mot-clé ; `owner` en proposition (`owner.operations.sum(amount if date <= me.date)`). | Pas un manque du catalogue — un mot qui manquait. Voir §3.2c. |
 | D761 | **owner validé, l'association nommée au champ** (arbitre D760, amende D401) : owner = la composition seule (un possesseur unique) ; `association with` précise le champ de destination qui référence le parent — **le défaut : le champ au nom de l'entité**, l'explicite (`via <champ>` en proposition) à l'ambiguïté ; l'accès montant de l'association = le champ de référence lui-même. | L'ingestion refuse l'ambiguïté non levée. Voir §3.2c. |
 | D762 | **L'écriture au point** (arrête D761) : `association with <entité>.<champ>` — le point de l'adressage logique (D363) désigne le champ de destination, aucun mot-clé nouveau ; le défaut demeure (le champ au nom de l'entité). | Remplace la proposition via. Voir §3.2c. |
-| D763 | **Le smtp none** (le cas 3 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
+| D763 | **Le smtp none** (le cas 4 — complète D628/D626) : le mock — le send retourne toujours vrai, aucun mail ne part ; la condition indispensable satisfaite sans exemption (le canal existe, muet, assumé) ; l'écho du mock D627 en classe permanente. | Voir §3.2c. |
 | D764 | **Les noms du modèle en français** (précise D335/D361) : la grammaire au moteur (les mots-clés, les propriétés, les types — anglais), les identifiants au technicien (les modules, les entités, les champs — la langue du client, sans accents ni espaces). | Voir §3.2c. |
 | D765 | **Le module déclare ses entités** (précise D347/D415) : module.yml porte `entities: [ <les fichiers> ]` — la liste explicite jusqu'au module (le patron D415/D644/D664), rien ne se déduit du disque. | Voir §3.2c. |
 | D766 | **modules.yml référence les fichiers** (l'étage au-dessus de D765) : `modules: [banque/module.yml]` — la chaîne de références par fichiers complète, du sommet à la feuille. | Voir §3.2c. |
-| D767 | **Le fichier d'entrée porte les liens, l'inline ou la référence** (généralise D352) : syncytium.yml référence les fichiers de configuration — rien ne se déduit de l'arborescence ; toute propriété porte le contenu ou la référence de fichier (le fichier unique possible, l'éclatement libre). | Corrige le morceau 1 du cas 3. Voir §3.2c. |
+| D767 | **Le fichier d'entrée porte les liens, l'inline ou la référence** (généralise D352) : syncytium.yml référence les fichiers de configuration — rien ne se déduit de l'arborescence ; toute propriété porte le contenu ou la référence de fichier (le fichier unique possible, l'éclatement libre). | Corrige le morceau 1 du cas 4. Voir §3.2c. |
 | D768 | **Les chemins relatifs au fichier courant** (précise D767) : sans racine explicite, le dossier courant = celui du fichier en cours de lecture — chaque fichier lisible seul, déplaçable avec son sous-arbre. | Voir §3.2c. |
 | D769 | **La devise à l'opération** (corrige D758) : le compte perd devise, l'écriture la gagne — les valeurs `E`/`F` comme la source, le défaut E ; les données confirment (des comptes aux deux devises — le passage franc→euro). | La question du solde à devises mêlées posée. Voir §3.2c. |
 | D770 | **Les montants convertis en calculés** (répond au solde mêlé) : montant_euro et montant_franc au `select` de la devise (le taux fixe 6,55957) — le solde cumule montant_euro, continu à travers le passage ; l'ancienne sommait brut. | Rien d'inventé — D584/D580/D760. Voir §3.2c. |
 | D771 | **Le montant en amount** (amende D769/D770) : `amount, currencies: [EUR, FRF]` — la devise vit dans la valeur, le champ devise disparaît ; les calculés = des amount à devise unique ; la fonction `currency` du type amount en proposition ; E/F transcodés au mapping. | Voir §3.2c. |
 | D772 | **Les parties du composé au point** (complète D771) : `montant.value` comme `montant.currency` — le composé expose ses parties ; la conversion au constructeur (D659) : `amount(montant.value / 6.55957, EUR)` ; la généralisation aux composés en lecture notée. | Voir §3.2c. |
-| D773 | **Le modèle du cas 3 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
+| D773 | **Le modèle du cas 4 validé — les sous-items généralisés** : tout composé expose ses sous-items par le point, **via des fonctions du type** (la signature du hook de type les déclare) ; types.md et hooks.md mis au niveau. | Voir §3.2c. |
 | D774 | **La propagation clarifiée** (le frottement 2) : sans lien — les similaires par les valeurs d'avant (libellé + montant, la date ≥) ; le déroulé liste→sélection→masse validée (D446/D594) ; l'opération de duplication nommée **clone**, l'enchaînement clone → modification avant validation. | Le lien de série écarté. Voir §3.2c. |
 | D775 | **Le formulaire d'appel** (le frottement 1 — écarte input:) : l'opération déclarée porte `form:` — un formulaire comme les autres, ses champs = les paramètres du hook ; **la validation du formulaire est l'opération** (le geste déclenche execute) ; la symétrie avec le confirm (D600) — le formulaire aux deux bouts. | Voir §3.2c. |
 | D776 | **Le clone et la propagation en hooks** (complète D774/D775) : les deux gestes spécifiques = des hooks d'opération de l'application — la maison du dépôt (hooks.yml + hooks/operations/, D644) étrennée ; le code au langage du domaine 7. | Voir §3.2c. |
@@ -924,19 +924,19 @@ Q58) :
 | D789 | **Le titre au mode d'ouverture** (complète D449/D788) : un titre par usage — le mapping create/read/update/delete (le contexte d'appel D455 porte le mode), la forme simple demeure, le gabarit permis dans chaque valeur. | L'écriture en proposition. Voir §3.2c. |
 | D790 | **Les titres au gabarit** (arrête D789) : « Création d'une écriture », « Modification de l'écriture '{libelle}' du {date_operation} »… — le gabarit nécessaire à la personnalisation ; record (D788) et le mapping (D789) confirmés par l'usage. | Voir §3.2c. |
 | D791 | **L'export = l'appel à generate** (corrige D780/D783) : `exports: [ generate(me, PDF) ]` — l'opération du socle (D570/D574), me = le contexte courant, PDF = la destination (D564) ; le mot-clé releve effacé ; le template employé nommé au morceau du template. | Voir §3.2c. |
-| D792 | **Le template de base des listes** (complète D186/D559) : toute liste porte son template A4 portrait — le titre, le tableau aux entêtes répétés + le pied au nombre de lignes, le pied de page n°/total ; la grammaire existante le décrit, la surcharge possible — le cas 3 ne surcharge pas. | generate(me, PDF) emploie le défaut. Voir §3.2c. |
+| D792 | **Le template de base des listes** (complète D186/D559) : toute liste porte son template A4 portrait — le titre, le tableau aux entêtes répétés + le pied au nombre de lignes, le pied de page n°/total ; la grammaire existante le décrit, la surcharge possible — le cas 4 ne surcharge pas. | generate(me, PDF) emploie le défaut. Voir §3.2c. |
 | D793 | **Le tri partagé, le sens au crochet** : la liste et le relevé partagent les clés — par_comptable trie `[date_comptable, montant[-], numero]` ; le crochet porte la direction. | La lecture du [-] face à « dépense→ressource » (D758) à trancher. Voir §3.2c. |
 | D794 | **La tâche d'impression — creer_releve** : déclenchée par l'impression, le contexte = les écritures imprimées ; le hook creer_releve (le 4e du projet) pose imprimee — le relevé devient un acte tracé. | Voir §3.2c. |
 | D795 | **Le [-] écarté** (corrige D793) : la direction du tri existait — D442/D529 (`+`/`-`, croissant par défaut) ; le montant croissant = « dépense→ressource » — `sort: [date_comptable, montant, numero]`. | Voir §3.2c. |
 | D796 | **L'événement generated** (corrige D794, généralise D609) : émis à toute génération (l'issue de generate), disponible au `when:` — creer_releve s'y déclenche (`when: generated`) ; le champ imprimee du modèle demeure, posé par le hook. | Voir §3.2c. |
 | D797 | **L'opération est un verbe — le même nom des deux côtés** (corrige D774/D776) : dupliquer/propager/virer/creer_releve dans la déclaration ET le hook (le lien par le nom — D609) ; le formulaire d'appel reste un nom de chose (duplication, propagation, virement). | Le clone de D774 se relit dupliquer. Voir §3.2c. |
 | D798 | **Le graphique du budget** (la dernière pièce du morceau 4) : le chart.line — X au mois (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`), les deux filtres au patron des listes (budget + la plage — D782/D784). | L'écriture en proposition. Voir §3.2c. |
-| D799 | **L'arborescence du cas 3 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
-| D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 3 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
+| D799 | **L'arborescence du cas 4 actée** (la relecture de l'auteur) : syncytium.yml → environments/ + versions/ → le statut → la version — l'application entière (modules, hooks, resources) vit dans la version ; l'éclatement en sections-fichiers (`fields: fields.yml`…) = D767 à l'intérieur d'une entité. | Matérialise D322/D336–D346/D644. Voir §3.2c. |
+| D800 | **La journalisation cadrée** (précise D737/D743/D750) : l'essentiel = le fichier texte + la maîtrise du niveau, des dimensions (taille/rotation — l'exigence nouvelle, la syntaxe à écrire) et de la rétention ; la configuration Python du cas 4 = une illustration non actée ; les clés hors grammaire ignorées (le -disable = la mise en sommeil d'un bloc). | Voir §3.2c. |
 | D801 | **La relecture à chaud + la mise à niveau au chargement** (précise D322) : la montée de version sans redémarrage — le point crucial ; au chargement, la version courante rejoint la plus élevée du statut du mode d'exécution (beta \| production) — D673–D679 le bras ; la version en tête de version.yml, pas du fichier d'entrée. | Voir §3.2c. |
 | D802 | **Le visage à l'interpolation** (complète D397/D321) : `label: "${name}"` — `${…}` = l'interpolation de configuration (D321), `{…}` = le gabarit des champs (D397/D790) ; les deux sources cohabitent au visage. | Voir §3.2c. |
 | D803 | **resources/ versionné, le crédit déclaré** (amende D346) : le dossier vit dans la version (icônes, templates suivent la version d'exécution), déclaré par version.yml ; la fiche name/description/file/credit — le crédit des tiers par courtoisie (les propriétés d'exemple, amendables). | Voir §3.2c. |
-| D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 3 : beta + production). | Voir §3.2c. |
+| D804 | **Les statuts implicites du socle** (précise D340/D344) : les quatre statuts et leurs transitions définis par le socle ; versions.yml déclare ceux que le projet utilise — l'absence = le statut non utilisé (le cas 4 : beta + production). | Voir §3.2c. |
 | D805 | **Pas de déclaration orpheline** (explicite D340) : le fichier de statut porte `environment:` — l'association statut→environnement déclarée ; tout lien de configuration s'écrit (l'écho D765/D767). | Voir §3.2c. |
 | D806 | **Le pattern regex = une déclaration** (harmonise D664, précise D765) : le regex retenu partout (les globs D664 se relisent) ; le pattern = le standard d'organisation/nommage que le technicien se fixe — partout où une liste de fichiers se déclare, il peut remplacer l'énumération. | Voir §3.2c. |
 | D807 | **Le nommage et l'organisation libres** (précise D765–D768) : le technicien maître — le fichier éponyme du dossier = une convention d'exemple, pas une règle ; tout fichier remplaçable ou intégrable inline ; le regroupement libre (referentiel/ porte deux entités). | Voir §3.2c. |
@@ -958,7 +958,7 @@ Q58) :
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
-| D826 | **Le projet véhicule cadré** (le second projet du cas 3 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/03_vehicule.md, examples/03_vehicule/). | Voir §3.2c. |
+| D826 | **Le projet véhicule cadré** (le second projet du domestique — le cas 3 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/03_vehicule.md, examples/03_vehicule/). | Voir §3.2c. |
 | D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 03_vehicule (le plus simple), 04_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
 | D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
 | D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
@@ -1062,7 +1062,7 @@ Q58) :
 | D927 | **L'identité d'une version = environnement + numéro ; la configuration changée n'est pas relue, l'empreinte trace** (précise D920 — écarte ma lecture du refus ; D324/D326/D801, D922) : « l'empreinte ne tient pas compte de la configuration pour les environnements autres que sandbox. Uniquement le libellé "environnement" + "version". Si la configuration change pour le même numéro de version et le même environnement, elle ne sera pas relue, sauf pour sandbox qui nécessitera une réinitialisation. L'empreinte sera calculée. Si l'empreinte n'est plus conforme, une trace sera ajoutée. Cela informera le technicien qu'il faut changer de numéro de version » — **la clé du registre** (D326) **est le couple environnement + numéro de version**, jamais le contenu ; **une version ingérée l'est une fois** : la configuration modifiée sous le même numéro dans le même environnement **n'est pas relue** — la version en service reste celle de l'ingestion, ni refus ni relecture ; **l'empreinte du dossier est calculée à chaque chargement et comparée à celle consignée** — l'écart produit **une trace** (le journal, `warning` D925 — et le patron de D43 : l'écart persistant se voit) qui **informe le technicien qu'il faut changer de numéro** ; **la sandbox est l'exception** : la modification sous le même numéro s'y prend par **la réinitialisation** — la recharge (D922), l'ingestion rejouée. | Le numéro de version reste une promesse (D98 — un contenu par numéro) sans que le moteur bloque : la relecture attend le bump, la trace le réclame. Voir §3.2c. |
 | D928 | **`from:` supprimé à la promotion ; l'origine promue casse le lien — deux erreurs avant l'ingestion** (précise D908–D910 — écarte ma lecture de D910 : l'avertissement, la résolution) : « 1. from: doit être supprimé après promotion. Erreur à déclencher avant l'ingestion. 2. le lien est cassé et une erreur est à déclencher » — **(1)** une version promue hors du statut `sandbox` (D910) **ne porte plus `from:`** : le technicien retire la ligne en déplaçant le dossier ; `from:` présent sous `beta` ou `production` = **une erreur avant l'ingestion** (le contrôle du dossier des versions, D344 — la version n'est pas ingérée) ; **(2)** une sandbox dont l'origine (`from: sandbox/vX`) a quitté le statut `sandbox` **a le lien cassé** : **une erreur** — aucune résolution vers le nouvel emplacement ; le technicien réécrit `from:` (vers la version promue, `beta/vX`, ou une autre origine). | La ligne D805/D914 jusqu'au bout : tout lien s'écrit, aucun ne se devine — ni ignoré, ni résolu en silence. Voir §3.2c. |
 | D929 | **Le rapport des rejets porté par la règle de migration** (précise D179 et D406–D407 pour la migration — la question 7 du cas 5) : « chaque règle de migration a un report. Pas un report général » — la règle déclare `report:` sous la forme validée de D406 (`when:`, `to:`, `by:`) pour les enregistrements qu'elle construit et que la cible refuse (D177) ; aucun rapport général, ni à la migration déclarée ni au module ; la cascade D407 reste celle du modèle (les non-conformes des références, D395) ; les anomalies de la source (le schéma D868, l'identité D871, l'orphelin D875) restent au technicien par le module `migration` (D666). | Sans `report:`, le défaut de D407 : à la demande, vers l'administrateur. La forme sur la règle — le réemploi de D406 — est mienne. Voir §3.2c. |
-| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 5) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 3 et 2, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; une règle est rapprochable si l'enregistrement qu'elle construit détermine l'identité de sa cible (par ses expressions ou par les défauts des champs) — sinon, entité sans `identity:` ou champ d'identité sans valeur, elle est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle soit rapprochable, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 3–2 et mapping.md réécrits. Le critère d'abord écrit « la règle qui n'alimente pas l'identité entière est création seule », remplacé à la demande de l'auteur (« je ne comprends pas » — « je valide, remplace la phrase »). Voir §3.2c. |
+| D930 | **`key:` retirée de la règle — la clé fonctionnelle est l'identité de la cible, alimentée par `fields:`** (amende D656, précise D654, réécrit D825 — la question 7 du cas 5) : « quel est l'intérêt du paramètre key ? il fait doublon avec l'identity de technique.article ou avec l'identité de ARTICLE, non ? » — sur les onze règles à clé des cas 3 et 4, la clé se déduisait toujours des expressions qui alimentent l'`identity:` de la cible ; une règle est rapprochable si l'enregistrement qu'elle construit détermine l'identité de sa cible (par ses expressions ou par les défauts des champs) — sinon, entité sans `identity:` ou champ d'identité sans valeur, elle est création seule ; le mode relative et le rejeu sans `reset: true` exigent que chaque règle soit rapprochable, vérifié à l'ingestion ; la règle de mise à jour alimente l'identité elle-même (une valeur inchangée, que le différentiel ignore) ; `parent:` demeure, rien d'autre ne porte le possesseur. | « Je valide. » L'ancre est l'identité de la cible, pas celle de la source (D655/D658). Les onze règles des cas 3–2 et mapping.md réécrits. Le critère d'abord écrit « la règle qui n'alimente pas l'identité entière est création seule », remplacé à la demande de l'auteur (« je ne comprends pas » — « je valide, remplace la phrase »). Voir §3.2c. |
 | D931 | **`parent:` par les champs mappés du possesseur ; la même carte pour la référence composée et, sur les colonnes, pour le lien à la source** (précise D654/D656, donne sa forme à la surcharge D877 — la question 7 du cas 5) : « pour parent: du mapping, les champs clés sont les champs mappés et non les champs sources… car un champ mappé peut être converti ou transformé avant de vérifier la clé » — `parent: { <possesseur>: { <champ d'identité>: <expression> } }`, chaque expression produisant depuis la ligne fille la valeur telle que la règle du possesseur l'a construite ; l'identité à un champ garde le raccourci des cas 3–2 (`parent: { compte: Numero_Compte }`) ; la référence par clé composée dans `fields:` porte la même carte ; à la source, `parent:` — le troisième mot propre à `source/` — nomme les colonnes du lien quand la convention ne tient pas (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF } }`), les valeurs brutes comparées par le pré-contrôle (D874). | « Je valide. » Mon `produit_fini` à facette `columns:` et le `to:` en chemin d'agrégat retirés (« pourquoi proposes-tu un formalisme différent que le cas 2 [4] parent ? »). La normalisation à la source (D660/D872) évite la conversion écrite deux fois — une recommandation. L'appariement des dépendances par colonne est ma règle. Voir §3.2c. |
 | D932 | **`validation:` à trois niveaux dans la migration** (précise D404/D656, retire ma lecture « le mapping ne porte aucune règle de vérification propre » — la question 7 du cas 5) : « validation: porte à la source avant l'import, porte à la destination après l'import et à la règle du mapping porte sur chaque ligne de l'import » — à la source, sur la ligne lue, avant la conversion (la non-conformité de la source, avec la garde D813) ; à la règle, sur chaque ligne importée, après la construction par `fields:` et avant l'écriture (les colonnes source à nu, l'enregistrement construit par `me` — la forme est mienne) ; à la destination, sur l'enregistrement écrit, au scellé (D594), avec ses enfants (D933) ; l'échec = la ligne rejetée, le rapport de la règle (D929). | Trois places pour une même grammaire (D652/D404). Voir §3.2c. |
 | D933 | **L'échec dans une composition à la migration** (précise D101/D177/D420 et D875 pour la migration — la question 7 du cas 5) : « si un échec est vu sur le parent, tous les composants sont en échec. Si un composant est en erreur et pas sur le parent, le parent est créé sans le composant en erreur. Par contre, la règle de validation sur un enregistrement du parent vérifie le fonctionnement de son enregistrement et de ses enfants. Et, là, c'est l'enregistrement du parent et de tous ses enfants qui sont en échec » — l'échec propre du parent entraîne ses composants ; l'échec propre d'un composant (sa conversion, sa `validation:`, sa référence — l'orphelin D875) ne rejette que lui, le parent entre sans lui ; la `validation:` du parent qui lit ses enfants (le compte, la somme) s'évalue sur le parent et tous ses enfants, et son échec rejette le tout. | Ma conséquence « une cellule fautive retient son article entier » écartée : l'article entre sans la cellule, aucune cascade sur les mouvements ; la commande dont `lignes.count() > 0` échoue tombe entière. Le rapport nomme la cause (mien). Voir §3.2c. |
@@ -1158,7 +1158,7 @@ Q58) :
 | D1023 | **Le cas 7 = PDCA : transcrire un vieux projet dans le nouveau cadre, moderniser l'affichage et les rapports, l'IA génère la configuration — la documentation auto-générée** (amende D756 — « une gestion de projets ») : « pour le cas 5 [7], le projet s'appelle PDCA — je te demanderai d'analyser et de transcrire un vieux projet dans le nouveau cadre et de moderniser l'affichage et les rapports. Il n'y a pas de hook mais l'idée est d'utiliser l'IA pour générer la configuration d'un projet en vue d'un refactoring. Cela va inclure la documentation auto-générée » — le cas éprouve la transcription d'un existant par l'IA (l'analyse du vieux projet, la configuration générée), les surfaces et les rapports modernisés, l'auto-documentation (D258/D840). | La maison `usecases/07_project_management.md` porte le contexte ; le projet source viendra de l'auteur. Voir §3.2c. |
 | D1024 | **Le cas 8 = la refonte d'un projet en production depuis dix ans, sur le socle Syncytium : le vrai projet de validation, avec le module de chat IA ; la mise à disposition complète dans un autre projet GitHub** (précise D756 — l'ERP de livraison de repas) : « pour le cas 6 [8], c'est le plus ambitieux. Ce projet est actuellement utilisé en production depuis une dizaine d'années. Je souhaite que Syncytium soit le socle de sa refonte. Je te transmettrai documentation et code. Ce sera l'occasion d'avoir un vrai projet de validation. Ici, cette phase va permettre de valider toutes les composantes que nous avons abordées jusqu'ici. Par contre, la mise à disposition complète fera l'objet d'un vrai projet dont les détails seront portés dans un autre projet GitHub. En plus de l'existant, tu intégreras aussi le module de chat IA » — le cas éprouve tout (l'assemblage complet) et le module `chat` (D957–D960) ; le dépôt Syncytium porte le cas et l'exemple, le projet réel vit ailleurs. | La documentation et le code viendront de l'auteur ; rien à inventer avant. Voir §3.2c. |
 | D1025 | **Après les cas : l'architecture logicielle, le cadre de conception et le cadre technique** (l'étape suivante de D313–D314 — « aucun code tant que tout n'est pas validé ») : « à l'issue de ces analyses, nous aborderons l'architecture logicielle, le cadre de conception et le cadre technique » — le chantier du moyen, jusqu'ici renvoyé (D928 : « le moyen — algorithmes, en-têtes, langage des hooks »), s'ouvrira après le cas 8 et la documentation structurée (D1021). | Le registre garde l'ordre : les cas, la documentation, puis l'architecture. Voir §3.2c. |
-| D1026 | **Le « tiny hello world ! » — la maison de la documentation : un environnement, un module, une entité, quatre champs, toutes les capacités montrées** (précise D1021, complète D856 — l'échelle des cas) : « pour la documentation, nous prévoyons un cas d'usage "tiny hello world !" : un environnement, un module, une entité et 4 champs (Nom, Prénom, Age, Fonction) pour montrer simplement les capacités de Syncytium avec des exemples d'accès API, une procédure d'export/import, la documentation, les aides, les IHM, … Cela devra tenir en quelques lignes de configuration » — le cas n'éprouve rien, il montre : la configuration minimale et tout ce qui en naît sans être écrit (la base, l'IHM par défaut D437–D438, l'API D9/D28, l'auto-documentation D258/D840, les aides), les exemples d'accès à l'API, l'export et l'import (D211/D234–D238) ; il ouvre la documentation structurée (D1021) et s'écrit avec elle. | La maison `usecases/01_tiny.md` (le nom est mien, à relire) ; le dépôt `examples/01_tiny/` viendra avec la documentation. L'échelle compte huit maisons : le tiny, l'enquête (cas 2), puis les cas 3 à 6. Voir §3.2c. |
+| D1026 | **Le « tiny hello world ! » — la maison de la documentation : un environnement, un module, une entité, quatre champs, toutes les capacités montrées** (précise D1021, complète D856 — l'échelle des cas) : « pour la documentation, nous prévoyons un cas d'usage "tiny hello world !" : un environnement, un module, une entité et 4 champs (Nom, Prénom, Age, Fonction) pour montrer simplement les capacités de Syncytium avec des exemples d'accès API, une procédure d'export/import, la documentation, les aides, les IHM, … Cela devra tenir en quelques lignes de configuration » — le cas n'éprouve rien, il montre : la configuration minimale et tout ce qui en naît sans être écrit (la base, l'IHM par défaut D437–D438, l'API D9/D28, l'auto-documentation D258/D840, les aides), les exemples d'accès à l'API, l'export et l'import (D211/D234–D238) ; il ouvre la documentation structurée (D1021) et s'écrit avec elle. | La maison `usecases/01_tiny.md` (le nom est mien, à relire) ; le dépôt `examples/01_tiny/` viendra avec la documentation. L'échelle compte huit maisons : le tiny, l'enquête (cas 2), puis les cas 3 à 8. Voir §3.2c. |
 | D1027 | **Les cas d'usage renumérotés à partir de 1** (amende D757/D827/D856/D1026 — les maisons et les exemples) : « renumérote les cas d'usage en commençant par 1 » — **1 le tiny hello world** (`01_tiny`), **2 l'enquête** (`02_enquete`, ex-cas 0), **3 le véhicule** (`03_vehicule`, ex-1), **4 la banque** (`04_banque`, ex-2), **5 l'entrepôt** (`05_entrepot`, ex-3), **6 la lecture de documents par hooks** (`06_sales_collection`, ex-4 — le nom de la maison se relira à l'ouverture, D1022), **7 PDCA** (`07_project_management`, ex-5), **8 la refonte** (`08_meal_delivery`, ex-6) ; les dossiers `examples/` et les fichiers `usecases/` renommés, les chemins réécrits partout (les docs, le registre, les cas, les exemples, l'outil gen_source), les titres des maisons au nouveau rang. | Le registre garde ses numéros historiques dans les décisions et le journal (« le cas 3 » de D857–D1020 = l'entrepôt, le cas 5 d'aujourd'hui) — la table ci-dessus fait la correspondance ; d'abord les seuls chemins réécrits, puis, sur « oui, merci », **les mots aussi** : tous les numéros du registre, des artefacts, des cas et des exemples au nouveau rang, les citations de l'auteur marquées « cas 3 [5] ». Voir §3.2c. |
 
 ---
@@ -7529,7 +7529,7 @@ de Syncytium pour atteindre l'objectif. »** — l'échelle des cinq :
 pour de vrai) **et les manques** (chaque frottement = une décision) ;
 les autres cas connus de l'auteur se cadrent à l'un des cinq.
 
-**L'authentification none (D759 — le premier fruit du cas 3,
+**L'authentification none (D759 — le premier fruit du cas 4,
 complète D692/D716).** **« Ajoutons une authentification "none".
 Pour des usages domestiques, cela présente un intérêt. Par défaut,
 cela considère l'affectation d'un groupe d'utilisateurs et d'un
@@ -7540,11 +7540,11 @@ invariants tiennent par les défauts implicites** : un utilisateur
 par défaut, affecté à un groupe par défaut **au degré
 `administrator`** — l'appartenance obligatoire (D699) et le modèle
 des droits restent vrais, ils sont simplement pré-remplis ; le
-mono-poste domestique assumé (le premier frottement du cas 3
+mono-poste domestique assumé (le premier frottement du cas 4
 résolu sans exception au modèle).
 
 **L'accès au possesseur — le mot-clé owner (D760 — le deuxième
-fruit du cas 3, complète D396/D399).** Le solde en ligne du cas 3
+fruit du cas 4, complète D396/D399).** Le solde en ligne du cas 4
 n'est pas un manque : **« un enregistrement peut accéder à son
 parent (le compte bancaire) et, par conséquent, à la liste des
 opérations (dont l'opération courante) — c'est l'utilisation d'un
@@ -7612,7 +7612,7 @@ fields:
   invoiced: association with order.billing    # le champ nommé au point
 ```
 
-**Le smtp none (D763 — le troisième fruit du cas 3, complète
+**Le smtp none (D763 — le troisième fruit du cas 4, complète
 D628/D626).** **« smtp: peut porter la valeur "none" — l'envoi d'un
 mail et le fonctionnement est un mock qui retourne toujours vrai et
 qui n'envoie aucun mail. »** — la classe `none` de la famille
@@ -7742,8 +7742,8 @@ D638, la period et ses bornes… — la généralisation à valider aux
 fiches des types.)*
 
 **Le modèle validé — les sous-items généralisés (D773 — valide le
-modèle du cas 3 et la lecture de D772).** L'auteur valide le modèle
-du cas 3 (compte, ecriture en amount, les référentiels, le solde
+modèle du cas 4 et la lecture de D772).** L'auteur valide le modèle
+du cas 4 (compte, ecriture en amount, les référentiels, le solde
 continu) — et **la généralisation est actée** : **tout type composé
 expose ses sous-items par le point, via des fonctions du type**
 (D579 — le type emmène ses fonctions ; `amount.value`/
@@ -7798,7 +7798,7 @@ propres au cas : **des hooks d'opération de l'application** (D570 —
 l'opération se construit toujours par un hook de code ; D609 — le
 hook est l'opération, la déclaration en décrit l'usage) ; ils vivent
 dans **la maison des hooks du dépôt** (D644 : `hooks.yml` +
-`hooks/operations/`) — le cas 3 étrenne la maison pour de vrai ; le
+`hooks/operations/`) — le cas 4 étrenne la maison pour de vrai ; le
 code lui-même attend le langage du domaine 7 (D570). *(La
 confirmation de l'auteur : « nous n'allons pas créer d'opérations
 complémentaires dans Syncytium — ce seront des opérations portées
@@ -7830,7 +7830,7 @@ md au même chemin que le code —* `operations/clone.md` *à côté
 d'*`operations/clone`*.)*
 
 **La liste des écritures — les neuf points (D779 — le morceau 4 du
-cas 3 s'ouvre).** Les arbitrages de l'auteur :
+cas 4 s'ouvre).** Les arbitrages de l'auteur :
 
 1. **les colonnes** — celles de la copie d'écran : la date
    d'opération, la date comptable, le libellé, le budget, **le débit,
@@ -7981,7 +7981,7 @@ D789).** **« "Écriture" est impersonnel. "Création d'une écriture"
 est plus adapté, ou "Modification de l'écriture '{libelle}' du
 {date_operation}". L'usage du gabarit est nécessaire pour rendre
 l'affichage plus personnalisé. »** — les titres du formulaire
-`record` du cas 3 :
+`record` du cas 4 :
 
 ```yaml
       title:
@@ -8021,7 +8021,7 @@ templates : **toute liste porte son template de base** — l'A4
 portrait, le titre de la liste, le tableau aux entêtes répétés et au
 pied comptant les lignes, le pied de page n°/total ; la grammaire
 existante le décrit (D559–D565 — la liste est un composant), la
-surcharge reste possible — **le cas 3 ne surcharge pas** :
+surcharge reste possible — **le cas 4 ne surcharge pas** :
 `generate(me, PDF)` emploie le défaut, rien à écrire.
 
 **Le tri partagé — le sens au crochet (D793).** **« Même tri entre
@@ -8111,7 +8111,7 @@ fait la saisie. *(L'écriture en proposition :*
 
 *— le crochet `[month]` au découpage, l'agrégat au Y.)*
 
-**Le dépôt du cas 3 retouché — l'arborescence actée (D799 — la
+**Le dépôt du cas 4 retouché — l'arborescence actée (D799 — la
 relecture de l'auteur ; matérialise D322/D336–D346/D644, D767 à
 l'œuvre).** L'auteur a restructuré `examples/01_domestic/` de sa
 main — **« Cela représente mon attente… et les fichiers que tu avais
@@ -8143,7 +8143,7 @@ l'intérieur d'une entité).
 
 **La journalisation cadrée — l'exemple Python non acté (D800 —
 précise D737/D743/D750).** L'audit relevait l'écart du `logging.yml`
-du cas 3 (la configuration du composant logging de Python).
+du cas 4 (la configuration du composant logging de Python).
 L'arbitrage : **« Concernant les logs, nous n'avions pas abordé dans
 le détail ce point ! Ici, j'expose une configuration Python mais
 cela n'est pas encore acté. Ce qui est important ici, c'est la
@@ -8153,7 +8153,7 @@ rétention. »** — le contrat consigné demeure (`logs.yml` : le niveau
 aux six valeurs, l'output, la rétention — D737/D743/D750) et
 **s'enrichit d'une exigence : la maîtrise des dimensions** (la
 taille des fichiers, la rotation) — la syntaxe s'écrira quand le
-domaine s'ouvrira ; le fichier du cas 3 reste une illustration
+domaine s'ouvrira ; le fichier du cas 4 reste une illustration
 d'implémentation, pas une grammaire. Au passage : **« les suffixes
 "-disable" n'ont pas d'intérêt ici. C'est juste une façon de ne pas
 tenir compte de cette configuration. Syncytium ne lit pas ces
@@ -8218,7 +8218,7 @@ présenter son propriétaire »** ; les propriétés sont d'exemple,
 différentes expériences qui nous traverseront »**.
 
 ```yaml
-# resources/resources.yml — le cas 3
+# resources/resources.yml — le cas 4
 icones:
   banque:
     name: banque
@@ -8238,11 +8238,11 @@ de déclaration signifie que nous n'avons pas ces statuts. Ils sont
 donc implicites du socle. »** — **les quatre statuts et leurs
 transitions (D340/D344–D345) sont définis par le socle** ; le projet
 **déclare dans versions.yml ceux qu'il utilise** — l'absence de
-déclaration = le statut non utilisé par ce projet. Le cas 3 en
+déclaration = le statut non utilisé par ce projet. Le cas 4 en
 déclare deux (`beta`, `production`).
 
 **Pas de déclaration orpheline — le statut porte son environnement
-(D805 — explicite D340).** Le fichier de statut du cas 3 porte
+(D805 — explicite D340).** Le fichier de statut du cas 4 porte
 `environment: home`. L'arbitrage : **« Pas de déclaration orpheline.
 Les liens doivent être décrits dans la configuration. »** —
 l'association statut → environnement, implicite dans D340
@@ -8284,7 +8284,7 @@ la responsabilité du technicien. »** Et l'organisation suit :
 **« L'organisation doit rester libre. »** — le regroupement permis
 (`referentiel/` porte budget et lieu, deux entités basiques dans un
 même dossier, « pour des raisons de clarté et de simplicité »).
-**L'éponyme demeure la convention d'exemple du cas 3** — une
+**L'éponyme demeure la convention d'exemple du cas 4** — une
 convention, jamais une contrainte.
 
 **release-notes: — l'historique par concaténation (D808 — comble un
@@ -8306,7 +8306,7 @@ familles — D777) → `operations/operations.yml` (la liste des fiches
 — l'énumération ou le pattern D806) → **une fiche par hook** :
 
 ```yaml
-# hooks/operations/dupliquer/dupliquer.yml — le cas 3
+# hooks/operations/dupliquer/dupliquer.yml — le cas 4
 name: dupliquer
 description: documentation.md   # → le md du fonctionnement (D645/D778)
 code: source.txt                # → le fichier source (le langage du domaine 7 — D570)
@@ -8316,7 +8316,7 @@ properties: { }
 Le mapping unique de D778 n'est plus la seule forme : **« j'ai
 proposé un fichier par hook mais nous pourrions les définir dans un
 seul fichier. »** — l'éclatement libre (D767/D807) : un dossier par
-hook (le cas 3 — la fiche, le md, le source) ou tout dans un même
+hook (le cas 4 — la fiche, le md, le source) ou tout dans un même
 fichier.
 
 **description: partout — le carburant de la documentation (D810 —
@@ -8478,7 +8478,7 @@ expression régulière, j'utilise le terme "like" au lieu de
 `Nature like "^VIREMENT-.*"`, et l'exemple de D364 se relit
 `zip_code like "^[0-9]{5}$" if country = "FR"`. Le fond de D90/D364
 est inchangé — la comparaison au pattern regex, conditionnable par
-`if` ; seul le terme change. Les formules du cas 3 sont relues.
+`if` ; seul le terme change. Les formules du cas 4 sont relues.
 
 **Le périmètre physique au connecteur — file: déplacé (D819 —
 amende l'écriture R1 de D816).** **« La propriété "file:" n'est pas
@@ -8656,13 +8656,13 @@ sur le même compte). Consigné :
 - **la garde à l'ingestion** : une migration en `mode: relative`,
   ou un rejeu sans `reset: true`, **exige la clé sur toutes ses
   règles** — la règle sans clé n'est admise qu'au tout-ou-rien
-  remis à zéro (le cas 3 : `absolute` + `reset: true`) ; le moteur
+  remis à zéro (le cas 4 : `absolute` + `reset: true`) ; le moteur
   vérifie la combinaison au lieu de la supposer ;
 - **la règle de complément reste valide sans clé** (006) : elle ne
   crée ni ne rapproche — la correspondance ligne → enregistrement
   est tenue par la migration (D666/D668).
 
-**Le second projet du cas 3 — la maintenance d'un véhicule, le
+**Le second projet du domestique — le cas 3 — la maintenance d'un véhicule, le
 cadrage (D826 — Q59, l'écho D756 : « le domestique : compte
 bancaire, véhicule… »).** L'auteur ouvre **« un projet plus
 simple : la maintenance d'un véhicule »**, sur deux classeurs
@@ -10631,7 +10631,7 @@ ARTICLE:
 amende D656, précise D654, réécrit D825).** **« Quel est l'intérêt du
 paramètre key ? il fait doublon avec l'identity de technique.article
 ou avec l'identité de ARTICLE, non ? »** L'analyse sur les onze règles
-à clé des cas 3 et 2 : dans chacune, `key:` répétait les colonnes qui
+à clé des cas 3 et 4 : dans chacune, `key:` répétait les colonnes qui
 alimentent, dans `fields:`, les champs de l'`identity:` de la cible —
 la création (`numero: Numero_Compte`), la composition (l'identité de
 la ligne au sein du possesseur, D841, jointe au `parent:`), le
@@ -10671,7 +10671,7 @@ l'auteur d'abord : **« dans l'exemple 2, pourquoi proposes-tu un
 formalisme différent que le cas 2 [4] parent ? »** — mon `produit_fini`
 à facette `columns:` sur la source, réutilisé par `parent:
 produit_fini`, et mon `to:` en chemin d'agrégat s'écartaient sans
-raison de la carte des cas 3 et 2 (`parent: { compte: Numero_Compte
+raison de la carte des cas 3 et 4 (`parent: { compte: Numero_Compte
 }`, `parent: { vehicule: immatriculation }`, la cible en entité
 fille) ; retirés. Puis, sur ma liste de colonnes source `parent:
 [NOKTCODPF, NOKTCOMPF]`, fausse deux fois — par les colonnes et par
@@ -20514,7 +20514,7 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 8)** — **La maison des cas d'usage (D757)** :
   le dossier usecases/ à la racine (un fichier par cas), les cinq
   squelettes créés.
-- **2026-08-18 (suite 9)** — **Le cadrage du cas 3 (D758)** : le
+- **2026-08-18 (suite 9)** — **Le cadrage du cas 4 (D758)** : le
   compte bancaire du foyer — sans authentification, la genèse 1987
   (Turbo Pascal puis Java), les comptes/opérations/budgets
   dynamiques/pointage/relevé PDF, le solde au fil du tri, le souhait
@@ -20552,7 +20552,7 @@ avant la synthèse Q16).
   pour de vrai pour la première fois.**
 - **2026-08-18 (suite 15)** — **Les noms du modèle en français
   (D764)** : la grammaire au moteur, les identifiants au technicien
-  — le morceau 2 du cas 3 se réécrit en français (banque, compte,
+  — le morceau 2 du cas 4 se réécrit en français (banque, compte,
   ecriture, libelle…).
 - **2026-08-18 (suite 16)** — **Le module déclare ses entités
   (D765)** : module.yml porte entities: [les fichiers] — la liste
@@ -20560,7 +20560,7 @@ avant la synthèse Q16).
 - **2026-08-18 (suite 17)** — **modules.yml aux fichiers (D766)** :
   modules: [banque/module.yml] — la chaîne uniforme du sommet à la
   feuille.
-- **2026-08-18 (suite 18)** — **Le morceau 2 du cas 3 validé et
+- **2026-08-18 (suite 18)** — **Le morceau 2 du cas 4 validé et
   écrit** (« je valide le morceau 2 ») : les six fichiers dans
   examples/01_domestic/ — modules.yml, banque/module.yml, les
   entités compte (identité numero, ouvert calculé, la composition),
@@ -20571,7 +20571,7 @@ avant la synthèse Q16).
   (D767)** : syncytium.yml référence modules.yml et les
   environnements — rien ne se déduit de l'arborescence ; l'inline ou
   la référence (D352 généralisé — le fichier unique possible, un
-  fichier par élément pour l'exemple). Les fichiers du cas 3
+  fichier par élément pour l'exemple). Les fichiers du cas 4
   corrigés.
 - **2026-08-18 (suite 20)** — **Les chemins relatifs (D768)** : le
   dossier courant = celui du fichier en cours de lecture ;
@@ -20594,7 +20594,7 @@ avant la synthèse Q16).
   généralisés (D773)** : les accès aux sous-items = des fonctions du
   type, déclarées à la signature du hook ; types.md (le socle
   commun) et hooks.md (la signature) mis au niveau ; le modèle du
-  cas 3 arrêté.
+  cas 4 arrêté.
 - **2026-08-19 (suite 6)** — **La propagation clarifiée (D774)** :
   les similaires par les valeurs d'avant (sans lien — la série
   écartée), le déroulé en trois temps, l'opération clone et
@@ -20607,12 +20607,12 @@ avant la synthèse Q16).
   frottement ouvert.**
 - **2026-08-19 (suite 8)** — **Le clone et la propagation en hooks
   (D776)** : les gestes spécifiques du cas = des hooks d'opération —
-  hooks.yml et hooks/operations/ entrent au dépôt du cas 3.
+  hooks.yml et hooks/operations/ entrent au dépôt du cas 4.
   La confirmation : aucune opération complémentaire dans Syncytium —
   le socle reste à 19, les opérations sont au projet banque.
 - **2026-08-19 (suite 9)** — **La chaîne des hooks à deux étages
   (D777)** : hooks.yml → hooks/operations.yml → les opérations — le
-  patron des modules appliqué ; le dépôt du cas 3 et hooks.md
+  patron des modules appliqué ; le dépôt du cas 4 et hooks.md
   repris.
 - **2026-08-19 (suite 10)** — **Le hook en mapping + le md (D778)** :
   code:/properties: par hook nommé, le fichier md du fonctionnement
@@ -20680,7 +20680,7 @@ avant la synthèse Q16).
   rien d'inventé ; ecriture.yml repris.
 - **2026-08-19 (suite 27)** — **Le template de base des listes
   (D792)** : l'A4 portrait au titre/tableau/pied — le défaut du
-  socle (D186), le cas 3 ne surcharge pas — le morceau template
+  socle (D186), le cas 4 ne surcharge pas — le morceau template
   soldé sans une ligne. Deux questions fines posées : le tri du
   relevé (les trois clés D758 face au tri de la liste) et la pose
   du marqueur imprimee.
@@ -20703,12 +20703,12 @@ avant la synthèse Q16).
   au montant cumulé — l'écriture proposée.
 - **2026-08-19 (suite 32)** — **Le graphique validé et écrit** («
   je valide l'écriture ») : le chart evolution_budget dans
-  ecriture.yml — **LE MORCEAU 4 (LES SURFACES) EST SOLDÉ**. Le cas 3
+  ecriture.yml — **LE MORCEAU 4 (LES SURFACES) EST SOLDÉ**. Le cas 4
   n'a plus qu'une étape : la reprise des données réelles (le mapping
   en situation).
 - **2026-08-19 (suite 33 — pause)** — La séance s'arrête après le
   morceau liste soldé (D779–D783). **La reprise : les formulaires du
-  cas 3** — la saisie de l'écriture (la proposition posée, deux
+  cas 4** — la saisie de l'écriture (la proposition posée, deux
   questions ouvertes : le bouton [*] du legacy — la copie de la date
   d'opération ? — et les [-]/[+] des dates) puis les trois
   formulaires d'appel (clonage, propagation, virement — D775) ;
@@ -20827,7 +20827,7 @@ avant la synthèse Q16).
   — mon étiquette « en proposition » corrigée.)*
 - **2026-08-25 (suite 9)** — **like (D818)** : le terme de la
   comparaison régulière — le matches de D90/D364 se relit ; les
-  formules du cas 3 relues (mode_norme, cheque_norme).
+  formules du cas 4 relues (mode_norme, cheque_norme).
 - **2026-08-25 (suite 10)** — **file: au connecteur (D819)** : le
   périmètre physique à l'environnement, l'entité source purement
   logique — la retouche de l'auteur consignée. **Le rapprochement
@@ -20837,7 +20837,7 @@ avant la synthèse Q16).
   proposition se dissout) — l'arbitrage en cours.
 - **2026-08-25 (suite 11)** — **Le mask à la lecture (D820)** :
   validé (« c'est mieux ») — mask: remplace format: dans la source
-  du cas 3, les lettres du crochet ; types.md mis au niveau.
+  du cas 4, les lettres du crochet ; types.md mis au niveau.
 - **2026-08-25 (suite 12)** — **Le rapprochement par le cache
   (D821)** : la remise à plat de l'auteur consignée — les deux
   phases (empiler à l'enregistrement, dépiler à l'association), le
@@ -20871,7 +20871,7 @@ avant la synthèse Q16).
   OUVERT (D826).** La PR #37 (feature/meta-schema → develop, 82
   commits) et la publication #38 (develop → main, 91 commits — la
   troisième) créées et fusionnées, les ancêtres vérifiés. Puis le
-  second projet du cas 3 ouvert : **la maintenance d'un véhicule**
+  second projet du domestique — le cas 3 ouvert : **la maintenance d'un véhicule**
   (D826) — les deux classeurs réels lus (le thermique, l'électrique
   — la même maison à six feuilles), les neuf arbitrages du cadrage
   consignés, la maison usecases/03_vehicule.md créée. **La suite :
@@ -21933,7 +21933,7 @@ avant la synthèse Q16).
   931 décisions).** Sur l'exemple de la question 7, trois remarques
   de l'auteur en chaîne. **D930 (930 décisions)** — « quel est
   l'intérêt du paramètre key ? il fait doublon avec l'identity » :
-  l'analyse des onze règles à clé des cas 3 et 2 (la clé toujours
+  l'analyse des onze règles à clé des cas 3 et 4 (la clé toujours
   déduite des champs qui alimentent l'identité de la cible ; les deux
   règles de mise à jour alimentent l'identité) ; `key:` retirée, D825
   réécrit (la règle est rapprochable si l'enregistrement construit
@@ -22756,7 +22756,7 @@ avant la synthèse Q16).
   aussi les décisions ? » — « oui, merci » : les mots réécrits à leur
   tour, partout, les citations marquées « cas 3 [5] ».
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
-  modèle du cas 3 arrêté (D756–D773 : les cinq cas, la maison
+  modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix
   décisions de socle nées du cas). **La reprise : le morceau 3 (les
   opérations) — les deux frottements en attente : le `input:`

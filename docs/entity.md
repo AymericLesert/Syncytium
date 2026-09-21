@@ -121,7 +121,7 @@ km_initial:
 | `filter:` / `check:` | sur une référence — le filtre des candidats (l'origine par `me.`), le contrôle `selection` (défaut) \| `immutable` | D394–D396 |
 | `currencies:`, `units:`, `decimals:`… | les facettes propres à chaque type — la fiche du type fait foi ([types.md](types.md)) | D391 |
 
-**L'ordre du fichier — la convention de lisibilité** (le cas 3) :
+**L'ordre du fichier — la convention de lisibilité** (le cas 4) :
 
 - les fichiers **aérés** — les accolades `{ }` dépliées en bloc, une
   ligne vide entre deux champs ;

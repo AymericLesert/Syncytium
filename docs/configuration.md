@@ -12,7 +12,8 @@ chaque élément vit dans son artefact** — [entity.md](entity.md),
 [types.md](types.md), [composants.md](composants.md),
 [hooks.md](hooks.md), [connectors.md](connectors.md),
 [mapping.md](mapping.md), [rights.md](rights.md),
-[administration.md](administration.md), [security.md](security.md). Les
+[administration.md](administration.md), [security.md](security.md),
+[migration.md](migration.md). Les
 décisions citées renvoyent à la [conception](conception.md).
 
 ## 1. La nature — YAML, de petits fichiers, une seule grammaire
@@ -432,7 +433,9 @@ expressions.
   D996 ; les calculés de la source en `formula:` — D660),
   `mapping/NNN_<nom>.yml` chaque règle (`to`, `filter`, `distinct`,
   `parent`, `fields`, `validation`, `report`, `operations` — D656) :
-  [mapping.md](mapping.md).
+  [mapping.md](mapping.md) ; le suivi — les passages, la couverture,
+  les rejets — est le module `migration` du socle, que l'application
+  n'expose pas : [migration.md](migration.md) (D1028).
 
 ## 4. Les cascades — le plus proche l'emporte
 

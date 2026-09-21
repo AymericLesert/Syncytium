@@ -647,8 +647,10 @@ postures de D180 incarnées.
 
 ## La couverture et le pilotage (D666–D667, D861–D862)
 
-- **le module `migration`** (D666) — défini par Syncytium (le socle
-  premier client — D408/D416) : ses entités stockent l'état de la
+- **le module `migration`** (D666 ; décrit dans
+  [migration.md](migration.md) — D1028 : présent dans Syncytium, « ce
+  n'est pas aux applications de l'exposer ») — défini par Syncytium
+  (le socle premier client — D408/D416) : ses entités stockent l'état de la
   couverture (par migration, par entité source, par règle, les
   rejets et leurs causes) — **la vue exploite les éléments déjà
   décrits** : les listes, les widgets, les kpi, les tableaux de bord

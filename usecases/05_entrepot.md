@@ -1574,7 +1574,14 @@ nuit, où cela vit, qui le lit :
 
 *Les noms des composants (passage, entité source, règle, rejet,
 anomalie) et la forme du tableau de bord sont miens ; le socle les
-fixera à la documentation structurée (D1021).*
+fixera à la documentation structurée (D1021).* **Le point 1 tranché
+par D1028** : « crée un nouveau document migration.md pour décrire le
+contenu du module migration de Syncytium. Ce module sera présent dans
+Syncytium et ce n'est pas aux applications de l'exposer » — le module
+est décrit en YAML dans [../docs/migration.md](../docs/migration.md),
+six entités (migration, passage, source, regle, rejet, anomalie), les
+trois taux, la consolidation, les surfaces ; le cas n'en montre que ce
+que PMI donne à voir.
 
 ## Les manques relevés
 

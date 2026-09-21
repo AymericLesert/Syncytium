@@ -271,7 +271,9 @@ rétention déclarée (D411).
 conditionnelle : `migrations:` défini) : les entités du suivi — la
 couverture par migration/entité/règle, les rejets et leurs causes —
 **historisées** (l'évolution de la qualité dans le temps) ; la vue
-par les surfaces standard.
+par les surfaces standard. Le module lui-même — ses six entités, ses
+trois taux, la consolidation des rapports, ses surfaces — est décrit
+dans [migration.md](migration.md) (D1028).
 
 ### Les opérations d'administration du socle (D701)
 

@@ -76,8 +76,8 @@ label: "{nom}"
 identity: [nom]                    # la clé de reprise.yml : cegid, legacy…
 history: true                      # l'évolution de la qualité dans le temps (D668)
 fields:
-  nom:         { type: text[..40], required: true }
-  connector:   { type: text[..40], required: true }       # le connecteur source (D617)
+  nom:         { type: 'text[..40]', required: true }
+  connector:   { type: 'text[..40]', required: true }       # le connecteur source (D617)
   mode:        { type: enum, values: { absolute: {}, relative: {} } }   # D669/D671
   reset:       { type: boolean }
   sources:     { type: list of source }                    # une par fichier de source/ (D947)
@@ -106,15 +106,15 @@ fields:
   etat:         { type: enum, required: true,
                   values: { en_cours: {}, reussi: {}, en_erreur: {} } }
   # --- les comptes globaux ---
-  lus:          { type: integer[0..], default: 0 }
-  integres:     { type: integer[0..], default: 0 }
-  rejetes:      { type: integer[0..], default: 0 }
+  lus:          { type: 'integer[0..]', default: 0 }
+  integres:     { type: 'integer[0..]', default: 0 }
+  rejetes:      { type: 'integer[0..]', default: 0 }
   # --- les cinq blocs de la comparaison (D878) ---
-  anomalies:     { type: integer[0..], default: 0 }
-  creations:     { type: integer[0..], default: 0 }
-  modifications: { type: integer[0..], default: 0 }
-  inchanges:     { type: integer[0..], default: 0 }
-  suppressions:  { type: integer[0..], default: 0 }
+  anomalies:     { type: 'integer[0..]', default: 0 }
+  creations:     { type: 'integer[0..]', default: 0 }
+  modifications: { type: 'integer[0..]', default: 0 }
+  inchanges:     { type: 'integer[0..]', default: 0 }
+  suppressions:  { type: 'integer[0..]', default: 0 }
   # --- ce que le passage a produit ---
   comptes:      { type: list of compte }          # les comptes par règle — la cellule ci-dessous
   rejets:       { type: list of rejet }
@@ -140,16 +140,16 @@ label: "{nom}"
 identity: [nom]                    # le name: du fichier de source/ (l'alias compris — D966)
 history: true                      # la complétude qui monte au fil de l'analyse (D868)
 fields:
-  nom:               { type: text[..40], required: true }
-  table:             { type: text[..40], required: true }   # la table réelle (alias: — D966)
-  colonnes_schema:   { type: integer[0..] }   # le schéma réel (get_schema — D629/D653)
-  colonnes_decrites: { type: integer[0..] }   # lues et typées (D947)
-  colonnes_ignorees: { type: integer[0..] }   # citées ignored, avec motif (D657/D947)
-  colonnes_non_lues: { type: integer[0..] }   # absentes de la description — relevées (D947)
-  lignes_table:      { type: integer[0..] }   # les lignes de la table, hors filter: (D663)
-  lignes_integrees:  { type: integer[0..] }
-  couverture:        { type: text[..80] }     # la déclaration coverage: (D880) — MVCJMVT[month - 3]
-  derniere_valeur:   { type: text[..40] }     # la dernière valeur parcourue (D879)
+  nom:               { type: 'text[..40]', required: true }
+  table:             { type: 'text[..40]', required: true }   # la table réelle (alias: — D966)
+  colonnes_schema:   { type: 'integer[0..]' }   # le schéma réel (get_schema — D629/D653)
+  colonnes_decrites: { type: 'integer[0..]' }   # lues et typées (D947)
+  colonnes_ignorees: { type: 'integer[0..]' }   # citées ignored, avec motif (D657/D947)
+  colonnes_non_lues: { type: 'integer[0..]' }   # absentes de la description — relevées (D947)
+  lignes_table:      { type: 'integer[0..]' }   # les lignes de la table, hors filter: (D663)
+  lignes_integrees:  { type: 'integer[0..]' }
+  couverture:        { type: 'text[..80]' }     # la déclaration coverage: (D880) — MVCJMVT[month - 3]
+  derniere_valeur:   { type: 'text[..40]' }     # la dernière valeur parcourue (D879)
   # ------ Champs calculés ------
   completude_schema:                          # D862 — les décrites ou ignorées sur le schéma réel
     type: percentage
@@ -168,10 +168,10 @@ label: "{fichier}"
 identity: [fichier]                # 020_commandes_ventes
 history: true
 fields:
-  fichier:      { type: text[..80], required: true }
+  fichier:      { type: 'text[..80]', required: true }
   source:       { type: source, required: true }         # la référence (D396)
-  cible:        { type: text[..80], required: true }     # commande.commande_vente
-  filtre:       { type: text[..200] }
+  cible:        { type: 'text[..80]', required: true }     # commande.commande_vente
+  filtre:       { type: 'text[..200]' }
   destinataires: { type: association with groupe }       # le to: du report: (D929/D945)
   canaux:       { type: 'list of text[..20]' }           # le by: — notification, mail
   # ------ Champs calculés ------
@@ -191,11 +191,11 @@ identity: [regle, identite, etage]             # au sein du passage
 history: false
 fields:
   regle:        { type: regle, required: true }
-  identite:     { type: text[..200], required: true }    # l'identité construite (D930), telle quelle
+  identite:     { type: 'text[..200]', required: true }    # l'identité construite (D930), telle quelle
   etage:        { type: enum, required: true,
                   values: { source: {}, mapping: {}, destination: {} } }   # les trois temps (D1006)
-  champ:        { type: text[..80] }                     # le champ en cause
-  message:      { type: text[..400], required: true }    # ce que la validation a dit (D307)
+  champ:        { type: 'text[..80]' }                     # le champ en cause
+  message:      { type: 'text[..400]', required: true }    # ce que la validation a dit (D307)
   bloc:         { type: enum, values: { anomalie: {}, suppression: {} } }   # jamais une création (D878)
   # ------ Champs calculés ------
   destinataire: { type: groupe, formula: regle.destinataires.first() }   # hérité de la règle (D929)
@@ -220,8 +220,8 @@ fields:
       colonne_non_decrite: { label: { fr: Colonne du schéma absente de source/ } }   # D861/D947
       identite_en_doublon: { label: { fr: Identité en doublon sur les données } }    # D871
       lien_sans_cible:     { label: { fr: Lien sans cible — l'orphelin isolé } }     # D874/D875
-  objet:   { type: text[..200], required: true }   # la table, la colonne, l'identité, le lien
-  detail:  { type: text[..400] }
+  objet:   { type: 'text[..200]', required: true }   # la table, la colonne, l'identité, le lien
+  detail:  { type: 'text[..400]' }
 ```
 
 Le lieu né inactif d'un mouvement ou d'un niveau (D962/D1008) **n'est

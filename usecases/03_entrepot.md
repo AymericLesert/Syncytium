@@ -1198,8 +1198,15 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    (D668) — par les surfaces standard du module `migration`
    (D666/D711), citées, jamais déclarées ; et **un seul tableau de
    bord**, `stock[pilotage]`, la preuve que l'entrepôt sert ; rien
-   d'autre — D858 amendée ; puis la validation globale (D955), le jeu
-   de données construit (D869), la PR.*
+   d'autre — D858 amendée ; **puis précisé par D1020** : « la dernière
+   partie est la consolidation des rapports de la mise à jour de
+   l'entrepôt de données. Ça doit décrire le module migration et ses
+   composants. Le reste des interfaces est servi (par défaut) pour
+   montrer la capacité de Syncytium » — la description du module
+   `migration` sur PMI, ci-dessous (« Le morceau 5 ») ; puis la
+   relecture complète de tous les fichiers de configuration par
+   l'auteur, le peaufinage et la documentation structurée (D1021), le
+   jeu de données construit (D869), la PR.*
 
 ## La forme — le dépôt
 
@@ -1491,6 +1498,83 @@ l'évolution — est celui des surfaces standard du module `migration`
 (D666/D711/D861–D862) : le cas les cite, ne les déclare pas. Rien
 d'autre : les entités gardent les surfaces que le socle propose sans
 déclaration (D437–D438).
+
+**Le morceau 5 — la consolidation des rapports : le module
+`migration` et ses composants** (D1020, écrit le 21/09/2026 — *en
+proposition* : le module est celui du socle, D666, « le socle premier
+client » D408 ; le cas le décrit tel qu'il donne à voir PMI, l'exemple
+ne le déclare pas). Ce que la mise à jour de l'entrepôt produit chaque
+nuit, où cela vit, qui le lit :
+
+- **la migration** — la déclaration de `reprise.yml` (D662) : le
+  connecteur `cegid`, le mode `relative`, `reset: false`, les
+  vingt-trois sources, les vingt-neuf règles, les deux opérations
+  périodiques (D943) ; l'entité racine du module, historisée (D668) ;
+- **le passage** — chaque exécution de `migrate` (D667) : le début,
+  la fin, le déclencheur (la nuit de `delta_nocturne`, le dimanche de
+  `relecture_complete`, la main), l'état (réussi, en erreur, en
+  cours), les comptes globaux — lus, intégrés, rejetés — et **les
+  cinq blocs de D878** cumulés : anomalies, créations, modifications,
+  inchangés, suppressions ; un passage par nuit, ~250 par an ;
+- **l'entité source** — une par fichier de `source/` : la table
+  réelle, le nombre de colonnes du schéma, les colonnes décrites,
+  ignorées (avec leur motif), non lues (D947), la couverture déclarée
+  (`coverage:` et sa dernière valeur parcourue, D880), les lignes de
+  la table et les lignes intégrées ; **la complétude du schéma** et
+  **la couverture du schéma** se calculent ici (D862) ;
+- **la règle** — une par fichier de `mapping/` (D665) : la source,
+  la cible, le filtre, le `report:` (D929) ; par passage, ses comptes
+  aux cinq blocs et ses rejets ; **la couverture des données** se
+  calcule ici (D861 — les lignes intégrées rapportées aux lignes de
+  la source, le `filter:` hors taux) ;
+- **le rejet** — un enregistrement que la cible refuse (D177/D932) :
+  le passage, la règle, l'identité construite, l'étage (la source, la
+  règle, la cible — les trois temps D1006), la cause (le champ, le
+  message), le bloc (l'anomalie, jamais une création) ; le
+  destinataire est celui du `report:` de la règle — la production
+  pour la technique et le stock, le commercial pour les ventes et les
+  clients, les achats pour les achats et les fournisseurs (D945) ; le
+  rejet corrigé à l'origine disparaît au passage suivant (le rejeu par
+  l'identité, D654/D930) — son histoire reste (D668) ;
+- **l'anomalie** — ce qui est au technicien, pas aux métiers (D929)
+  : la table ou la colonne du schéma absente de `source/` (D861 —
+  la complétude confrontée au schéma réel à chaque passage), les
+  identités en doublon (D871), le lien sans cible — l'orphelin isolé
+  (D874/D875), le lieu né inactif d'un mouvement ou d'un niveau
+  (D962/D1008) ;
+- **les trois taux** (D862) — des calculés du module, consultables,
+  filtrables, exportables (D666), historisés : la complétude du
+  schéma (les décrites ou ignorées sur le schéma réel — cent pour
+  cent quand tout est déclaré), la couverture du schéma (les migrées
+  sur le schéma réel, les ignorées à part), la couverture des données
+  (les intégrées sur les lignes de chaque table) ; sur PMI : les
+  vingt-trois tables décrites sur trois cent trente objets du schéma,
+  les sept ignorées en bloc (les offres, le devis, les libellés),
+  le reste non décrit — la complétude dit ce que l'analyse a couvert ;
+- **la consolidation des rapports** — les `report:` sont ceux des
+  règles (D929, « pas un report général ») : après chaque passage, le
+  module les consolide **par destinataire** — un rapport par groupe,
+  chaque matin (D945 : `when: [migration]`, `by: [notification,
+  mail]`), avec les rejets de toutes les règles qui lui sont
+  adressées, et **par passage** — le tableau du passage pour le
+  technicien ; le rapport n'est pas une entité de plus : c'est une
+  vue des rejets, groupée (D1015) par destinataire et par règle ;
+- **les surfaces** — celles du catalogue sur ces entités (D666), par
+  défaut ou déclarées par le socle : le tableau de bord du suivi
+  (`migration[suivi]` — les trois taux en kpi, la courbe des taux au
+  fil des passages D668, les rejets du dernier passage par règle en
+  barres, le dernier passage en résumé), les listes des passages, des
+  rejets (par règle, par destinataire, par cause — le drill-down
+  D242), des anomalies, des entités sources avec leurs comptes ;
+  l'entrée « migrations » du module d'administration (D711),
+  conditionnelle à `migrations:` (D662) ;
+- **ce qui reste servi par défaut** — toutes les autres entités de
+  l'entrepôt (D437–D438 : la liste, le formulaire, la composition
+  embarquée) ; et le tableau de bord `stock[pilotage]` (D1019).
+
+*Les noms des composants (passage, entité source, règle, rejet,
+anomalie) et la forme du tableau de bord sont miens ; le socle les
+fixera à la documentation structurée (D1021).*
 
 ## Les manques relevés
 

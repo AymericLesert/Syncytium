@@ -22755,6 +22755,15 @@ avant la synthèse Q16).
   D1027. Les YAML restent valides. Puis « pourquoi n'as-tu pas modifié
   aussi les décisions ? » — « oui, merci » : les mots réécrits à leur
   tour, partout, les citations marquées « cas 3 [5] ».
+- **2026-09-21 (pause, 1027 décisions)** — « Je marque une pause. » La
+  séance s'arrête sur le cap posé (D1020–D1025), le tiny hello world
+  (D1026), la renumérotation des cas à partir de 1 (D1027 — les
+  chemins, puis les mots, puis les mentions d'avant D827 remises au
+  bon rang). Tout est commis et poussé, aucune PR ouverte. **La
+  reprise : la relecture par l'auteur du morceau 5 du cas 5 (la
+  description du module `migration`, en proposition), puis la
+  relecture complète de tous les fichiers de configuration (D1021), le
+  jeu de données construit (D869), la PR.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

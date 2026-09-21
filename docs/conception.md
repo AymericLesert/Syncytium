@@ -7939,7 +7939,7 @@ valeur d'un autre champ dans celui-ci. *(L'écriture en proposition :*
 formulaires.)*
 
 **Le post: écarté (D787 — retire D786).** **« Pour l'exemple du
-cas 1 [3], oublions post et l'usage de [*]. Cette configuration ne me
+cas 1 [4], oublions post et l'usage de [*]. Cette configuration ne me
 convient pas et ne reflète pas mon besoin de simplicité. »** — la
 proposition `post: { copy: }` est retirée : le `[*]` du legacy ne se
 transpose pas — la date comptable se saisit au pointage (l'édition
@@ -8015,7 +8015,7 @@ les entêtes répétés à chaque nouvelle page, et un pied de tableau
 avec le nombre de lignes) et le pied de page (numéro de la page /
 nombre de pages). Nous disposons d'une grammaire pour définir un
 fichier PDF — la liste est un composant de la grammaire. Le template
-pourra être surchargé, si besoin. Le cas 1 [3] ne vise pas à surcharger
+pourra être surchargé, si besoin. Le cas 1 [4] ne vise pas à surcharger
 le template. »** — le patron des défauts (D186) atteint les
 templates : **toute liste porte son template de base** — l'A4
 portrait, le titre de la liste, le tableau aux entêtes répétés et au

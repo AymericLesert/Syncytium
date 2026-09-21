@@ -22783,6 +22783,16 @@ avant la synthèse Q16).
   les modules internes. Pour les modules d'application, Syncytium
   refusera l'usage de _ comme premier caractère » — `_migration`,
   `_administration`, `_chat` ; les artefacts alignés.
+- **2026-09-22 (pause, 1029 décisions)** — « Je vais marquer une
+  pause. Le morceau 5 sera à reprendre dès que le module interne
+  "_migration" sera décrit. Le morceau 5 sera une déclinaison de ce
+  module. » La séance s'arrête sur migration.md écrit en proposition
+  (D1028) et le préfixe des modules internes (D1029). Tout est commis
+  et poussé, aucune PR ouverte. **La reprise : la description du module
+  `_migration` — la relecture de migration.md par l'auteur, ses
+  arbitrages sur les six entités, les taux, la consolidation, les
+  surfaces — puis le morceau 5 du cas 5 comme déclinaison de ce module
+  sur PMI ; puis D1021.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

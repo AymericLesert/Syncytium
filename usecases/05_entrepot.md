@@ -1561,7 +1561,7 @@ nuit, où cela vit, qui le lit :
   vue des rejets, groupée (D1015) par destinataire et par règle ;
 - **les surfaces** — celles du catalogue sur ces entités (D666), par
   défaut ou déclarées par le socle : le tableau de bord du suivi
-  (`migration[suivi]` — les trois taux en kpi, la courbe des taux au
+  (`_migration[suivi]` — le préfixe des modules internes, D1029 — les trois taux en kpi, la courbe des taux au
   fil des passages D668, les rejets du dernier passage par règle en
   barres, le dernier passage en résumé), les listes des passages, des
   rejets (par règle, par destinataire, par cause — le drill-down

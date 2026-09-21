@@ -221,6 +221,11 @@ entités, son menu, sa page d'accueil — la donnée et l'expérience
 ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel) comme pour un ERP : la gestion ADV, le référentiel des produits, la gestion et la planification de la production, ...
 *(D347/D416)*
 
+**Module interne** (`_migration`, `_administration`, `_chat`) — Un
+module servi par Syncytium, jamais déclaré par l'application ; son nom
+commence par `_`, le préfixe des modules internes, et Syncytium refuse
+ce premier caractère aux modules d'application. *(D1029)*
+
 **Opération** — Une action déclarée sur une entité, au-delà du
 créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
 déclencheur possible d'un changement d'état. *(D148)*

@@ -1,12 +1,16 @@
-# Le module `migration` de Syncytium
+# Le module `_migration` de Syncytium
 
-Ce document décrit **le module `migration`**, celui que le socle porte
+Ce document décrit **le module `_migration`**, celui que le socle porte
 pour suivre la mise à jour d'un entrepôt ou la reprise d'un existant :
 ce qu'il stocke, ce qu'il calcule, ce qu'il montre, ce qu'il envoie.
 **Le module est présent dans Syncytium ; ce n'est pas aux applications
 de l'exposer** (D1028) — aucune configuration ne le déclare, il naît
 avec le moteur (D666 : « le socle premier client », D408/D416) et
-s'active dès qu'une version déclare `migrations:` (D662/D711). Il ne
+s'active dès qu'une version déclare `migrations:` (D662/D711). Son nom
+porte **le préfixe `_` des modules internes** (D1029 : « le préfixe _
+marquera les modules internes. Pour les modules d'application,
+Syncytium refusera l'usage de _ comme premier caractère ») — ses
+adresses s'écrivent `_migration.passage`, `_migration[suivi]`. Il ne
 remplace aucun artefact : [mapping.md](mapping.md) dit comment une
 migration se décrit (la source, les règles, la couverture), ce
 document dit **ce qu'il en reste après chaque passage**. Les décisions
@@ -21,7 +25,9 @@ entités et des champs sont, jusqu'à la documentation structurée
    les mêmes types, les mêmes surfaces, le même historique — Syncytium
    se sert de lui-même. Ce qui suit est sa description, pas une
    configuration à copier.
-2. **Rien à exposer** (D1028) : l'application déclare ses migrations
+2. **Rien à exposer, rien à confondre** (D1028/D1029) : le nom
+   `_migration` est du socle, comme `_administration` et `_chat` ; une
+   application ne peut pas nommer un module par `_` ; elle déclare ses migrations
    (`migrations:` dans `version.yml`, `reprise.yml` — D662) ; le module
    les observe. Ni `module.yml` à écrire, ni entité à nommer, ni
    surface à composer : tout est là, sous le menu d'administration
@@ -50,9 +56,9 @@ Six entités, un module. L'écriture est celle du méta-schéma
 citent les décisions.
 
 ```yaml
-# migration/migration.yml — le module du socle (D666/D1028) ; aucune
-# application ne l'écrit
-name: migration
+# _migration/_migration.yml — le module du socle (D666/D1028), au
+# préfixe des modules internes (D1029) ; aucune application ne l'écrit
+name: _migration
 description: Le suivi des migrations — les passages, la couverture, les rejets, les anomalies
 allow:
   create: false                    # le moteur écrit, personne d'autre (D175)
@@ -269,7 +275,7 @@ Celles du catalogue ([composants.md](composants.md)) sur ces entités
 (D666), fournies par le socle sous l'entrée « migrations » du module
 d'administration (D711) :
 
-- **le tableau de bord `migration[suivi]`** — les trois taux en `kpi`
+- **le tableau de bord `_migration[suivi]`** — les trois taux en `kpi`
   (D527, les seuils de couleur D467), la courbe des taux au fil des
   passages (`chart.line`, l'historique D668), les rejets du dernier
   passage par règle en `chart.bars`, le dernier passage en résumé ;

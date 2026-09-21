@@ -457,6 +457,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
   transition interdite (D344/D345) ;
 - un doublon de nom — entité, type, hook (D344/D396/D408) ; un cycle —
   de groupes (D414), de calculés (D592), de types dérivés (D992) ;
+- un module d'application dont le nom commence par `_` — le préfixe
+  des modules internes du socle (`_migration`, `_administration`,
+  `_chat` — D1029) ;
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;

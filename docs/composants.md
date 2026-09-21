@@ -2890,11 +2890,11 @@ la fiche est mienne, en proposition.)*
 
 1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
    du module `chat` fourni par Syncytium (comme `migration` D666 et
-   `administration` D710) ; le menu l'adresse — `chat[main]` (D439) ;
+   `_administration` D710) ; le menu l'adresse — `_chat[main]` (D439 — le préfixe des modules internes, D1029) ;
 2. **Rôle** — **la question en langue naturelle à la somme des
    connaissances de l'instance** — les données et leur description —,
    la réponse d'un modèle de langage déclaré en connecteur (`llm`) ;
-3. **Types servis** — **la session d'échanges** (D959 : `chat.session`
+3. **Types servis** — **la session d'échanges** (D959 : `_chat.session`
    — un utilisateur, **un module**, ses messages) : le fil des
    messages (le composant `thread` — D295), la question de
    l'utilisateur, la réponse du modèle ;
@@ -2926,7 +2926,7 @@ la fiche est mienne, en proposition.)*
    qui désactive — D137 ; la session close reste à l'analyse, une
    nouvelle s'ouvre — mien) ; **chaque
    question et chaque réponse s'écrivent, avant l'affichage,** dans
-   `chat.session` et `chat.message` (historisées — D411), l'événement
+   `_chat.session` et `_chat.message` (historisées — D411), l'événement
    au journal de sécurité (D925) ; **le connecteur indisponible** :
    « un message d'erreur sera présenté et les questions ne seront pas
    possibles » (D626/D959) — la saisie fermée, l'historique lisible ; **le chat répond et fournit

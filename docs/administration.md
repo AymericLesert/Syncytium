@@ -267,7 +267,8 @@ rétention déclarée (D411).
 
 ### Le suivi des migrations (D666–D668, D711)
 
-**L'entrée « migrations » du module d'administration** (D711 —
+**L'entrée « migrations » du module d'administration** (`_administration`
+— le préfixe des modules internes, D1029 ; D711 —
 conditionnelle : `migrations:` défini) : les entités du suivi — la
 couverture par migration/entité/règle, les rejets et leurs causes —
 **historisées** (l'évolution de la qualité dans le temps) ; la vue

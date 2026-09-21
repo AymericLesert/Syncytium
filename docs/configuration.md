@@ -124,7 +124,7 @@ fields:
 - **un élément est une référence de fichier ou une carte en ligne**,
   fusionnée comme un contenu de fichier.
 
-Le premier usage : les règles de migration de l'article du cas 3, qui
+Le premier usage : les règles de migration de l'article du cas 5, qui
 partagent un bloc de trente-huit champs par `fields:
 ~{articles/fields.yml}` (D967) — comme l'entité le fait depuis D767.
 
@@ -207,7 +207,7 @@ fields:
 
 La chaîne des déclarations, du sommet à la feuille — **rien ne se
 déduit de l'arborescence, chaque lien s'écrit** (D765–D767, D805 : pas
-de déclaration orpheline). L'exemple du cas 3 (`examples/05_entrepot/`) :
+de déclaration orpheline). L'exemple du cas 5 (`examples/05_entrepot/`) :
 
 ```text
 syncytium.yml                        # le projet — environments:, versions:

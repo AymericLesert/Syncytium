@@ -73,7 +73,7 @@ allow:
 ```
 
 L'absence = tout permis ; `read` absent = l'état masque. **La
-cascade de l'allow** (D886 — le cas 3) : le bloc libre se déclare
+cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
 **à quatre étages** — l'application, le module, l'entité, le champ
 — et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
 règle de ses entités (l'entrepôt en lecture seule : `allow: {

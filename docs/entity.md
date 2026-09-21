@@ -121,7 +121,7 @@ km_initial:
 | `filter:` / `check:` | sur une référence — le filtre des candidats (l'origine par `me.`), le contrôle `selection` (défaut) \| `immutable` | D394–D396 |
 | `currencies:`, `units:`, `decimals:`… | les facettes propres à chaque type — la fiche du type fait foi ([types.md](types.md)) | D391 |
 
-**L'ordre du fichier — la convention de lisibilité** (le cas 1) :
+**L'ordre du fichier — la convention de lisibilité** (le cas 3) :
 
 - les fichiers **aérés** — les accolades `{ }` dépliées en bloc, une
   ligne vide entre deux champs ;
@@ -164,7 +164,7 @@ le tout (D439). Les fiches : [composants.md](composants.md).
 
 ## L'exemple fil rouge
 
-Le cas 1 (`examples/03_vehicule/`) déroule l'entité entière :
+Le cas 3 (`examples/03_vehicule/`) déroule l'entité entière :
 `vehicule` (l'identité, le statut Création → Actif → Clôture, le
 financement à plat, le bilan calculé, le formulaire à six onglets,
 la liste en widgets), ses quatre compositions (`consommation`,

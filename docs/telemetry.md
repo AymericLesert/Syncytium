@@ -81,7 +81,7 @@ log:
 *(La maîtrise du journal (D800) : le niveau, **les dimensions** — la
 taille et la rotation des fichiers, la syntaxe à écrire quand le
 domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
-ignorées : renommer un bloc — le suffixe `-disable` du cas 1 — le
+ignorées : renommer un bloc — le suffixe `-disable` du cas 3 — le
 met en sommeil.)*
 
 L'exemple des push (les écritures validées — D743) :

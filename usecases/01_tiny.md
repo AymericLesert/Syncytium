@@ -1,4 +1,4 @@
-# Le cas 1 — le « tiny hello world ! » : une entité, quatre champs, toutes les capacités
+# Le cas 3 — le « tiny hello world ! » : une entité, quatre champs, toutes les capacités
 
 *La maison de la documentation (D1026, ouverte le 21/09/2026 ; le premier rang depuis la renumérotation D1027) — plus
 nue encore que l'enquête du cas 2 ([02_enquete.md](02_enquete.md)) :

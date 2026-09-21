@@ -1,4 +1,4 @@
-# Le cas 4 — les applications domestiques : le compte bancaire
+# Le cas 6 — les applications domestiques : le compte bancaire
 
 *Le cadre du cas — la mise en situation (Q59/D756–D758) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -198,7 +198,7 @@ chèque, les pickers à création directe ; le `post:`/[*] écarté
 = `generate(me, PDF)` — l'opération du socle sur le contexte
 courant ; **toute liste porte son template de base** (l'A4 portrait :
 le titre, le tableau aux entêtes répétés et au pied comptant les
-lignes, le pied de page n°/total) — le cas 1 ne surcharge pas.
+lignes, le pied de page n°/total) — le cas 3 ne surcharge pas.
 **Le graphique écrit** (D798) : le `chart.line` — X au mois
 (`date_operation[month]`), Y au montant cumulé (`sum(montant_euro)`),
 les deux filtres au patron des listes (le budget, la plage de

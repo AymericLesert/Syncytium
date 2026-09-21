@@ -231,7 +231,7 @@ HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
 en HTML fait le corps), **les pièces jointes : une liste de fichiers,
 quel que soit le format** ; **l'expéditeur est configuré dans les
 propriétés du connecteur**. *(Les paramètres de `smtp_std` écrits au
-cas 3 — `host`, `port`, `from`, `password*` — sont en proposition,
+cas 5 — `host`, `port`, `from`, `password*` — sont en proposition,
 D945.)*
 
 ### `directory` (D633)
@@ -288,7 +288,7 @@ l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique — les invariants D699 pré-remplis) — chaque
 classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
 l'AD pour les internes, le local pour les clients). *(Les paramètres
-d'`azure_ad` écrits au cas 3 — `tenant`, `client_id`, `client_secret*`
+d'`azure_ad` écrits au cas 5 — `tenant`, `client_id`, `client_secret*`
 — sont en proposition, D945.)*
 
 ### `siren` (D639)

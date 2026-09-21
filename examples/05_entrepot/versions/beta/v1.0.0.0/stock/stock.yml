@@ -26,7 +26,7 @@ entities:
   - ~{emplacement/emplacement.yml}
 
 # Le tableau de bord du module (D554/D555) — le seul du cas (D1019 :
-# « l'intérêt du cas d'usage 3, la migration de données et son
+# « l'intérêt du cas d'usage 3 [5], la migration de données et son
 # enregistrement dans un entrepôt de données ; les interfaces graphiques
 # ne sont pas essentielles ») : la preuve que l'entrepôt sert une fois
 # rempli — les indicateurs du stock (D859), la matrice de contrôle

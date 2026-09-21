@@ -1,4 +1,4 @@
-# Le cas 5 — l'entrepôt de données : la conversion Cegid PMI
+# Le cas 7 — l'entrepôt de données : la conversion Cegid PMI
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -215,7 +215,7 @@ cadrage :
 - **la date Cegid `AAAAMMJJ`** (D119 — l'exemple fondateur des
   quatre facettes du type : la chaîne chez PMI, l'entier 4 octets
   au stockage, `JJ/MM/AAAA` à l'écran, la date au calcul) — « le
-  futur cas 3 » annoncé par D820 : la paire de conversion portée
+  futur cas 3 [5] » annoncé par D820 : la paire de conversion portée
   par **un hook de type** (D681–D683), pas par un masque de
   lecture ;
 - **la posture entrepôt** (D180) : l'entrepôt de données fiable —
@@ -975,7 +975,7 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
    reste à confirmer.*
 2. **Le lien avec le cas suivant** — « la gestion des commandes
    industrielles » : l'entrepôt l'alimente-t-il (les commandes lues
-   dans l'entrepôt, pas dans Cegid) ? Le périmètre du cas 4 en
+   dans l'entrepôt, pas dans Cegid) ? Le périmètre du cas 6 en
    dépend.
 
 **B. La source — le réel**
@@ -1190,7 +1190,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    l'entrepôt ; *ouvert le 20/09/2026 en cinq lots (les listes, les
    graphiques et widgets, les tableaux de bord, les documents, le menu
    et l'accueil) ; **recadré par D1019 le 21/09** : « reprenons
-   l'intérêt du cas d'usage 3 — la migration de données et son
+   l'intérêt du cas d'usage 3 [5] — la migration de données et son
    enregistrement dans un entrepôt de données. Ici, les interfaces
    graphiques ne sont pas essentielles » — le lot 1 écrit puis retiré
    ; le morceau tient en deux points : **le suivi de la migration** —

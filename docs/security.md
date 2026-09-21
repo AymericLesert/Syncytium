@@ -190,7 +190,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 - **Le second axe : le qui** (D26–D27) — la restriction par groupe,
   les groupes déclarés dans la description et versionnés avec elle.
   **Les deux se composent** au champ (D364) ; **les profils nommés**
-  (D885 — le cas 3) écrivent une fois le niveau et le qui dans les
+  (D885 — le cas 5) écrivent une fois le niveau et le qui dans les
   settings et se référencent par interpolation
   (`confidentiality: ${settings.confidentiality.financier}`).
 - **Changer un niveau = une migration de contrat** (§5.5) : passer un
@@ -594,10 +594,10 @@ la rétention du résultat à l'administration (D906).
 
 **Renvoyé :**
 
-- la question 10 du cadrage du cas 3 (l'authentification de
+- la question 10 du cadrage du cas 5 (l'authentification de
   l'entreprise, les groupes et les strates « de l'opérateur aux
   dirigeants ») **reste au cas** — usecases/05_entrepot.md, « nous
-  verrons sur le cas 3 en cours de description ».
+  verrons sur le cas 3 [5] en cours de description ».
 
 **Jamais abordés — le domaine 7 (l'architecture technique, Q7) :**
 

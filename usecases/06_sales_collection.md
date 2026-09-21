@@ -1,4 +1,4 @@
-# Le cas 6 — la lecture de documents par hooks : PowerPoint, le llm, le watcher
+# Le cas 8 — la lecture de documents par hooks : PowerPoint, le llm, le watcher
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)

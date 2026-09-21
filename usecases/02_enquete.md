@@ -1,4 +1,4 @@
-# Le cas 2 — le « hello world ! » : l'enquête de satisfaction
+# Le cas 4 — le « hello world ! » : l'enquête de satisfaction
 
 *Le degré zéro de l'échelle (D756/D827, amendée par D856 ; le cas 0 devenu le cas 2 par la renumérotation D1027, derrière le tiny) — la
 promesse fondatrice montrée nue : un modèle déclaré, une application

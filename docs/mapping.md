@@ -226,7 +226,7 @@ propres :
   critères le temps d'un passage — « un cache est à prévoir pour
   rendre l'information rapide si les mêmes critères sont appelés
   régulièrement ». D891 (jamais l'entité entière) reste entier au
-  modèle : la source est lue par lots, pas affichée. Le cas 3 : la
+  modèle : la source est lue par lots, pas affichée. Le cas 5 : la
   table PARAM « conditionne le fonctionnement de l'ERP et donc des
   données » ;
 - **l'alias** (D966) — « la notion d'alias qui permet de nommer une
@@ -330,7 +330,7 @@ order_lines:
 
 **Les champs mutualisés par la référence de fichier (D967).** Quand
 plusieurs règles portent le même bloc `fields:` — les quatre règles de
-l'article du cas 3, une par dérivé filtrée sur le code de gestion
+l'article du cas 5, une par dérivé filtrée sur le code de gestion
 (D940) —, le bloc vit une fois et chaque règle l'inclut, comme
 l'entité le fait (D767/D956) : `fields: ~{articles/fields.yml}`, le
 chemin relatif au fichier (D768) ; le fichier inclus n'a pas de
@@ -415,7 +415,7 @@ l'identité déclarée chez le parent est partagée par ses dérivés
 (D353), le moteur retrouve l'enregistrement quelle que soit sa classe
 et attache la ligne à sa composition ; si l'enregistrement retrouvé ne
 porte pas la composition visée, la ligne est un rejet au rapport
-(D933) — le cas 3 : `parent: { article: { code: NOKTCODPF, complement:
+(D933) — le cas 5 : `parent: { article: { code: NOKTCODPF, complement:
 NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
 porte la nomenclature ; un acheté avec des composants se voit.
 
@@ -507,7 +507,7 @@ lui, le parent entre sans lui ; la `validation:` du parent qui lit
 ses enfants (`lignes.count() > 0`, une somme) s'évalue sur le parent
 et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
 grain d'écriture (D420) : ce qui s'écrit est le parent avec ses
-composants conformes. Au cas 3 : l'article entre sans la cellule
+composants conformes. Au cas 5 : l'article entre sans la cellule
 tarifaire fautive, ses mouvements le trouvent ; la commande sans
 ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
 la ligne (mien).
@@ -531,7 +531,7 @@ reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
 libre (la différence avec `mode: write-once`, immuable pour tous) ;
 « unchanged est lié à la migration et aux règles de migration. Une
 règle qui alimente l'un de ces champs serait une erreur d'ingestion ».
-Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
+Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
 `""`, ouverte au commercial et aux achats par l'allow au champ
 (D886/D942) — la note de l'acheteur survit à chaque nuit.
 
@@ -542,7 +542,7 @@ Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
   plusieurs règles. **La règle porte un `filter:`**
-  (l'écho D663) — son périmètre : le cas 1 importe en **trois
+  (l'écho D663) — son périmètre : le cas 3 importe en **trois
   phases** (D814 — la phase = la règle filtrée, l'ordre = le
   préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
   référentiels et les écritures hors marqueurs, l'écriture du
@@ -590,7 +590,7 @@ customers:
   est tenue par la migration (D666/D668) ;
 
 - **la règle rapprochable, la règle création seule** (D825, réécrit
-  par D930 — le cas 1 : les écritures, sans identifiant de ligne ni
+  par D930 — le cas 3 : les écritures, sans identifiant de ligne ni
   clé composite fiable) : `key:` n'existe plus — **une règle est
   rapprochable si l'enregistrement qu'elle construit détermine
   l'identité de sa cible**, par ses expressions ou par les défauts des
@@ -605,7 +605,7 @@ customers:
   (D666/D668) ; la règle de mise à jour alimente l'identité
   elle-même, une valeur inchangée que le différentiel ignore ;
 
-- **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
+- **une entité source, plusieurs fichiers** (D816 — le cas 3) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;
   **la carte entités → fichiers vit au connecteur** (D819/D828 —
   la section `entities:` au même niveau que `parameters:` : chaque
@@ -654,7 +654,7 @@ postures de D180 incarnées.
   décrits** : les listes, les widgets, les kpi, les tableaux de bord
   du catalogue sur ces entités ; le taux de couverture est une
   donnée du modèle — consultable, filtrable, exportable ;
-- **les trois taux** (D861–D862 — le cas 3, l'entrepôt) : **la
+- **les trois taux** (D861–D862 — le cas 5, l'entrepôt) : **la
   complétude du schéma** — les éléments décrits ou déclarés
   `ignored` rapportés au schéma réel (cent pour cent quand tout est
   déclaré ; l'écart = **les anomalies** : la table ou le champ
@@ -668,7 +668,7 @@ postures de D180 incarnées.
   l'écart, le `filter:` D663 hors taux) ; deux grains au module
   `migration` : l'entité et le champ pour le schéma, la ligne pour
   les données ;
-- **la comparaison par blocs et `coverage:`** (D878 — le cas 3) :
+- **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :
   la migration compare **le converti** (D672 — l'enregistrement
   reconstruit, la clé fonctionnelle) à la destination, **par
   partition, en cinq blocs** — **anomalies** (les lignes d'origine

@@ -60,7 +60,7 @@ droits à [rights.md](rights.md).*
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
 
-L'exemple — le véhicule (`examples/01_vehicule/`) :
+L'exemple — le véhicule (`examples/03_vehicule/`) :
 
 ```yaml
 name: vehicule
@@ -164,12 +164,12 @@ le tout (D439). Les fiches : [composants.md](composants.md).
 
 ## L'exemple fil rouge
 
-Le cas 1 (`examples/01_vehicule/`) déroule l'entité entière :
+Le cas 1 (`examples/03_vehicule/`) déroule l'entité entière :
 `vehicule` (l'identité, le statut Création → Actif → Clôture, le
 financement à plat, le bilan calculé, le formulaire à six onglets,
 la liste en widgets), ses quatre compositions (`consommation`,
 `entretien`, `revision`, `echeance` — l'édition en ligne, les
 formulaires par défaut), le dashboard d'accueil du module. La banque
-(`examples/02_banque/`) montre la recherche déclarée (`searchable:`),
+(`examples/04_banque/`) montre la recherche déclarée (`searchable:`),
 les opérations à formulaire d'appel et les montants à devise portée
 (`amount` — quand la devise a un sens métier, D771).

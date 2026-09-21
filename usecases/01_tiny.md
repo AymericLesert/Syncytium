@@ -1,9 +1,9 @@
-# Le « tiny hello world ! » — une entité, quatre champs, toutes les capacités
+# Le cas 1 — le « tiny hello world ! » : une entité, quatre champs, toutes les capacités
 
-*La maison de la documentation (D1026, ouverte le 21/09/2026) — plus
-nue encore que l'enquête du cas 0 ([00_enquete.md](00_enquete.md)) :
+*La maison de la documentation (D1026, ouverte le 21/09/2026 ; le premier rang depuis la renumérotation D1027) — plus
+nue encore que l'enquête du cas 2 ([02_enquete.md](02_enquete.md)) :
 le cas n'éprouve rien, il **montre** ; il ouvrira la documentation
-structurée (D1021). Le dépôt `examples/00_tiny/` s'écrira avec elle.
+structurée (D1021). Le dépôt `examples/01_tiny/` s'écrira avec elle.
 Les décisions citées renvoient à
 [../docs/conception.md](../docs/conception.md). Le nom de la maison est
 une proposition.*
@@ -36,7 +36,7 @@ illustrée sur la même entité, depuis les mêmes quelques lignes)*
 
 ## La forme — le dépôt
 
-*(`examples/00_tiny/` — à écrire avec la documentation, D1021)*
+*(`examples/01_tiny/` — à écrire avec la documentation, D1021)*
 
 ## Les manques relevés
 

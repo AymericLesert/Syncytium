@@ -1,9 +1,9 @@
-# Le cas 0 — le « hello world ! » : l'enquête de satisfaction
+# Le cas 2 — le « hello world ! » : l'enquête de satisfaction
 
-*Le degré zéro de l'échelle (D756/D827, amendée par D856) — la
+*Le degré zéro de l'échelle (D756/D827, amendée par D856 ; le cas 0 devenu le cas 2 par la renumérotation D1027, derrière le tiny) — la
 promesse fondatrice montrée nue : un modèle déclaré, une application
 qui naît, **aucune surface écrite**. Le cadre du cas : le contexte,
-le modèle, **la forme** (le dépôt `examples/00_enquete/` écrit pour
+le modèle, **la forme** (le dépôt `examples/02_enquete/` écrit pour
 de vrai) et **les manques**. Les décisions citées renvoient à
 [../docs/conception.md](../docs/conception.md).*
 

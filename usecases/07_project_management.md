@@ -1,4 +1,4 @@
-# Le cas 5 — PDCA : un vieux projet transcrit dans le nouveau cadre
+# Le cas 7 — PDCA : un vieux projet transcrit dans le nouveau cadre
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -7,7 +7,7 @@ décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
 ## Le contexte (D1023)
 
-**« Pour le cas 5, le projet s'appelle PDCA — je te demanderai
+**« Pour le cas 5 [le cas 7 depuis D1027], le projet s'appelle PDCA — je te demanderai
 d'analyser et de transcrire un vieux projet dans le nouveau cadre et
 de moderniser l'affichage et les rapports. Il n'y a pas de hook mais
 l'idée est d'utiliser l'IA pour générer la configuration d'un projet

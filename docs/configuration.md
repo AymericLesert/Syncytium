@@ -207,7 +207,7 @@ fields:
 
 La chaîne des déclarations, du sommet à la feuille — **rien ne se
 déduit de l'arborescence, chaque lien s'écrit** (D765–D767, D805 : pas
-de déclaration orpheline). L'exemple du cas 3 (`examples/03_entrepot/`) :
+de déclaration orpheline). L'exemple du cas 3 (`examples/05_entrepot/`) :
 
 ```text
 syncytium.yml                        # le projet — environments:, versions:

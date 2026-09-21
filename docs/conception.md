@@ -958,11 +958,11 @@ Q58) :
 | D823 | **L'affectation au chemin** (amende la conséquence de D822) : le membre gauche navigue — `me.liee.liee : me` écrit dans l'enregistrement pointé ; le miroir reçoit sa référence en retour (les deux côtés portés — l'uniformité avec virer) ; l'ordre des affectations compte ; le chemin sur le vide est sans effet. | Voir §3.2c. |
 | D824 | **Les budgets marqueurs conservés, le contrôle à la validation** (amende D814, solde R1) : le mode autre acté ; OUVERTURE/FERMETURE entrent au référentiel, portés par les écritures de dépôt/solde ; le contrôle = la validation de l'entité (D364) — la date d'opération doit être l'ouverture (resp. la clôture) du compte ; l'évaluation au scellé (D594). | Voir §3.2c. |
 | D825 | **La règle sans clé** (précise D654/D656, clôt R1) : `key:` optionnelle — sans elle, la règle est création seule (jamais de rapprochement) ; la garde à l'ingestion : le mode relative ou le rejeu sans reset exigent la clé sur toutes les règles ; la règle de complément valide sans clé (la correspondance tenue par la migration D666/D668). | Voir §3.2c. |
-| D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/01_vehicule.md, examples/01_vehicule/). | Voir §3.2c. |
-| D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 01_vehicule (le plus simple), 02_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
+| D826 | **Le projet véhicule cadré** (le second projet du cas 1 — D756) : multi-véhicules (photo + type thermique\|électrique), la quantité en valeur seule (l'unité au type du véhicule — le contre-patron du amount), l'entretien = journal de vie, l'amortissement aux formules reportées, les révisions = échéancier à notification (km ou délai), le contrôle technique non porté, le km prév. au prorata de la LOA, la reprise par un storage xlsx (paramétrages à définir), la maison à part (usecases/03_vehicule.md, examples/03_vehicule/). | Voir §3.2c. |
+| D827 | **Un cas d'usage = un exemple** (amende D756/D757) : les maisons alignées par le préfixe — 03_vehicule (le plus simple), 04_banque, 03–06 décalés d'un cran ; l'échelle de D756 devient six maisons (le domestique dédoublé), le fond inchangé. | Voir §3.2c. |
 | D828 | **La carte entités → fichiers au connecteur** (valide l'option A, amende l'écriture de D819) : `entities:` — une section au même niveau que `parameters:` ; chaque entité déclare ses fichiers (liste ou pattern D806, l'union D816, le fichier répété pour le cas rare) ; la réciprocité connecteur ↔ source/ vérifiable à l'ingestion (l'esprit D805). | Voir §3.2c. |
 | D829 | **La carte au contrat du hook de connecteur** (complète D828) : la classe reçoit entities: à l'initialisation (avec parameters/secrets — optionnelle, les familles sans fichiers l'ignorent) ; read_instance retourne les entités déclarées (D685 précisé — le fichier n'est jamais un item) ; le curseur (D689) enchaîne l'union des fichiers de façon transparente. | Voir §3.2c. |
-| D830 | **logging.yml remplace logs.yml** (amende D750) : la journalisation nommée par son composant — `logging.yml` partout, la propriété `logging:` à l'environnement ; le geste du dépôt (02_banque le portait déjà). | Voir §3.2c. |
+| D830 | **logging.yml remplace logs.yml** (amende D750) : la journalisation nommée par son composant — `logging.yml` partout, la propriété `logging:` à l'environnement ; le geste du dépôt (04_banque le portait déjà). | Voir §3.2c. |
 | D831 | **Le modèle du véhicule arrêté** (précise D826) : le module `transport` (le moyen de locomotion), l'entité `consommation` (le suivi de la consommation remplace ravitaillement) ; **le numéro de ligne 1..n porté par la consommation** — le précédent s'atteint au rang (numero − 1), la première ligne se déduit du `km_initial` du véhicule, `km_prevu = numero × km_annuel / 12` ; **l'échéancier vit par deux hooks** : engendré à la validation du financement (`creer_echeancier`), clos à la vente — les échéances non payées supprimées (`clore_echeancier`) ; **la coche Payé calculée** — payée dès que la date du jour dépasse l'échéance, le jour d'échéance du mois au financement à plat. | Voir §3.2c. |
 | D832 | **La devise visuelle** (le troisième patron de l'unité — après D771 la devise dans la valeur et D826 l'unité au type) : quand la devise ne porte pas de sens métier, **le montant reste nu (`decimal`) et la devise devient une propriété d'affichage** — `devise` au véhicule ; les conversions `_euro` disparaissent du modèle. | Voir §3.2c. |
 | D833 | **Le `.select` des énumérés** (généralise D771–D773) : la fonction `select` née de `amount.currency` vaut pour tout `enum` — `type.select(thermique: "litres", electrique: "kWh")`, `financement.select(credit: …, loa: …, comptant: 0)` ; les branches nommées par les valeurs, la totalité souhaitable. | Voir §3.2c. |
@@ -987,9 +987,9 @@ Q58) :
 | D852 | **La durée en champ calculé** (clôt R6) : `duree_echeances` = `formula: echeances.count()` — le nombre de lignes de l'échéancier fait la durée ; la phase d'écrasement de la reprise disparaît (le deuxième passage évité) ; « le plus propre » — la donnée dérivée ne se stocke pas. | La question rouverte : le générateur (creer_echeancier) lisait la durée saisie — l'entrée de la durée d'un financement neuf reste à préciser. Voir §3.2c. |
 | D853 | **La durée du contrat et la finalisation d'après-migration** (solde la note de D852) : **`duree_contrat`** — la saisie du paramétrage (l'intention contractuelle, le générateur l'engendre), distincte de `duree_echeances` (le calculé — le réel compté) ; **`finaliser_vehicule`** — l'opération exécutée **après la migration** (`when: migrated` — l'issue de `migrate`, le patron `generated` D796 généralisé) : elle complète ce que la reprise ne porte pas (les repris gagnent leur `duree_contrat` du compte des échéances), idempotente — elle ne complète que l'absent ; en général, l'occasion d'« engendrer des lignes ou faire des compléments après la migration ». | Voir §3.2c. |
 | D854 | **La troncature naturelle du temps** (clôt R7 — le dernier manque du morceau 5) : l'affectation vers un `date` de nature plus grossière **tronque à sa nature** (`premier_mois: date` versé dans un `date[yyyy-mm]` → le mois) — le type-cible fait autorité (la cohérence du `mask` qui pilote la lecture, D820) ; **la formule explicite reste utilisable** au mapping, au choix de l'écrivain. | Voir §3.2c. |
-| D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/01_vehicule.md = le récit complet, examples/01_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
-| D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/00_enquete.md` + `examples/00_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
-| D857 | **Le cas 3 = l'entrepôt de données — `03_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/03_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/03_entrepot/` ; la collecte des commandes glisse au quatrième (`04_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
+| D855 | **Le morceau 5 validé — le cas véhicule clos** (solde D826) : les cinq morceaux du second projet domestique livrés — la racine et l'environnement (11 fichiers), le modèle (le module transport aux 5 entités), les opérations (4 hooks), les surfaces (les six onglets, l'écran d'accueil) et la reprise (8 sources, 10 phases sur les classeurs réels 1992-2026) ; 26 décisions du cas (D830–D855) ; usecases/03_vehicule.md = le récit complet, examples/03_vehicule/ = l'application entière. | La PR de consolidation préparée. Voir §3.2c. |
+| D856 | **Le cas 0 — le « hello world »** (amende l'échelle D756/D827 : sept maisons) : l'enquête de satisfaction — **un module (`satisfaction`), une table (`enquete`) et une composition (`reponse`), sans migration, le gui entièrement généré** (les défauts D64/D438/D486 — la promesse fondatrice montrée nue) ; l'usage : « récolter rapidement des informations » ; deux calculés vivants (`reponses.count()`, `reponses.avg(note)`) ; la maison `usecases/02_enquete.md` + `examples/02_enquete/` — seize fichiers, zéro surface (le module `satisfaction` : l'éponymie triple évitée, la leçon D831). | Voir §3.2c. |
+| D857 | **Le cas 3 = l'entrepôt de données — `05_entrepot`** (amende l'échelle D827/D856) : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid PMI prend le troisième rang **sous le nom de l'entrepôt qu'elle alimente** (le mot de D180/D756, français sans accent comme vehicule/banque ; dwh écarté — le sigle porte la connotation décisionnelle, assumée autrement par D858), la maison `usecases/05_entrepot.md` (l'ex-04_cegid_conversion) et le dépôt à venir `examples/05_entrepot/` ; la collecte des commandes glisse au quatrième (`06_sales_collection`, à relire « la gestion des commandes industrielles » à son ouverture) ; l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2 banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas — l'ordre de traitement et l'échelle coïncident. | Voir §3.2c. |
 | D858 | **Le cas 3 porte la restitution décisionnelle** (la première réponse du cadrage — complète D180) : « La connotation décisionnelle sera portée par cet exemple pour mettre en avant la construction de dashboard, de génération de documents, de listes… » — l'exemple met en avant **la restitution** sur les données converties, par les surfaces du catalogue (le domaine 4) : les tableaux de bord (D554–D558), les documents générés (D212/D559–D565), les listes (D441–D447) ; le cinquième morceau proposé devient « le pilotage et la restitution ». | Voir §3.2c. |
 | D859 | **Le cadrage du cas 3 — le contexte** (la réponse de l'auteur, complète D857–D858) : « la capacité de Syncytium à assurer la migration de données d'un connecteur à un autre en appliquant un mapping, des règles de conversion et des règles de vérification » — la conversion Cegid → l'entrepôt **standardise** (« mapper la bonne information dans le bon module et la bonne entité » — le `to:` D655), **harmonise** (« convertir les données pour extraire les informations utiles » — D659/D660/D817, le hook de type D119) et **fiabilise** (« les informations disponibles sont justes et sont accessibles à la bonne personne » — les règles de vérification D404/D177 **et** les droits de consultation sur les entités et les champs, P8/D196/D699) les données exploitées **de l'opérateur aux dirigeants** ; les données hors règles **font l'objet d'un état sur la qualité et sur l'avancement de l'intégration** (le module `migration` D666/D668 ; les non conformes non portées D177) **à destination d'un destinataire capable de corriger les données d'origine** (D179/D406) ; **un historique des changements de valeur** pour certaines entités (`history:` D411–D413, le différentiel D672 — l'alimentation continue) ; **un tableau de bord d'indicateurs de pilotage** dès que les données sont disponibles — la vue globale du fonctionnement de l'entreprise (D554–D558/D527) ; **le périmètre** : les données techniques (articles, gammes & nomenclatures, tarifs), les clients et les fournisseurs, les commandes de vente et d'achat, les stocks et les mouvements. | Les questions 1, 5, 7 (la posture) et 9 (la continuité) du cadrage répondues. Voir §3.2c. |
 | D860 | **Les deux storages du cas 3** (le cadrage — la question 3 en partie) : « L'instance Cegid est le schéma d'une instance SQLServer. L'entrepôt de données est un schéma PostgreSQL. » — le connecteur source `cegid` = `storage` de classe `sqlserver` **en lecture seule** (D175), son périmètre **un schéma de l'instance** (les tables du périmètre D859 à la carte `entities:` D828, `read_instance` borné à la carte D829, l'ossature de `source/` engendrée du réel D653) ; le connecteur cible `entrepot` = `storage` de classe `postgresql`, **l'entrepôt = un schéma** — l'instance du contrat (D680 : la classe parle schéma, le contrat parle instance), la duplication et la bascule par schéma de la migration à chaud (D674) sous leur forme native ; les deux classes consignées (D613/D619) exercées pour la première fois par un exemple — le domestique portait le sqlite natif (D729). | Restent de la question 3 : la version de Cegid, l'accès (la production ou une copie), le volume. Voir §3.2c. |
@@ -1024,7 +1024,7 @@ Q58) :
 | D889 | **La déclinaison de `in` — la projection d'une collection sur un champ** (précise D888, complète D580) : « ma proposition permet de décliner : `if me.code in fournisseurs.code` » — **`<collection>.<champ>` est la collection des valeurs de ce champ** (la projection — le `commandes.montant` d'avant D580, légitime comme collection ; l'agrégat garde la forme `commandes.sum(montant)`) ; `in` s'applique à la projection comme à la collection d'enregistrements : l'appartenance d'une valeur (`me.code in fournisseurs.code`) ou d'un enregistrement (`me in fournisseurs`). | La projection sert aussi les agrégats de valeurs et les listes : `lignes.article` = les articles d'une commande. Voir §3.2c. |
 | D890 | **Les sous-items de la période — `min`, `max`, `gap`** (solde le manque M7 du cas 3, nomme les bornes de D772/D391) : « je valide min, max et gap » — **`min` et `max`**, les deux bornes, alignées sur les trois éléments de `range` (D498 : min, value, max) ; **`gap`**, la durée dérivée entre les bornes (date − date → duration, D838 — nulle si la période est ouverte) ; le constructeur `period(min, max)` (D659) ; les noms deviennent les clés JSON du composé à l'API (D119) et les entêtes des deux colonnes natives de l'export (D299) ; l'alignement sur range emporte la lecture de la plage ouverte — `min` et/ou `max` indéfinis (D498), la période sans fin = « valable depuis ». | `start`/`end` (le vocabulaire du temps) et `from`/`to` (`to` pris par le mapping D656) écartés ; la validation « début ≤ fin » n'a pas à s'écrire, elle est intégrée (D391). Voir §3.2c. |
 | D891 | **L'agrégat s'applique à une collection déclarée, jamais à l'entité entière** (solde le manque M8 du cas 3, borne D580/D842) : « je valide la 2 » — l'accès retour d'une référence (D394) se nomme en association dérivée (D405) et porte l'agrégat : `mouvements: association with stock.mouvement if article = me`, puis `derniere_sortie: mouvements.max(date if sens = "sortie")` ; l'étendue globale d'une entité (D842 — `transport.consommation[…]`) reste réservée à l'accès par la clé ; l'accès retour implicite sous un nom choisi par le moteur écarté (le pluriel implicite, D841–D842). | Le lien nommé est consultable comme toute association dérivée ; la formule reste locale à l'enregistrement. Voir §3.2c. |
-| D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 01_vehicule et 02_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
+| D892 | **L'écriture face à YAML — deux règles** (solde le manque M9 du cas 3, précise D320–D321) : « je valide les règles 1 et 2, corrige les neuf fichiers » — **la règle 1, les guillemets quand YAML l'exige** : un crochet de la grammaire à l'intérieur d'une accolade ou d'un crochet YAML, un `: ` à l'intérieur d'une expression (le `.select` D833, la cellule du n-aire D403), une regex — aux guillemets simples ; **la règle 2, la forme bloc préférée** quand la forme en flux imposerait les guillemets (`fields:` en bloc, `items:` en liste à tirets, la longue formule en scalaire `>-`) ; en contexte bloc, une valeur par ligne, la grammaire s'écrit nue ; **chaque exemple passe un analyseur YAML avant validation** — les neuf fichiers de 03_vehicule et 04_banque corrigés, les cent trente-cinq fichiers des quatre exemples valides. | Le sens des fichiers est inchangé ; la grammaire (D320 : YAML sans format personnalisé) tient — D833 et D403 ne s'amendent pas, le pré-traitement écarté. Voir §3.2c. |
 | D893 | **Les clés d'énumérés sont le vocabulaire de l'entrepôt** (le morceau 2 du cas 3 — précise D387/D883, la standardisation D859) : « pour une manipulation claire, la valeur qui a du sens est à utiliser. Par contre, si la source n'est pas évidente, un mapping sera apporté lors de l'import » — les clés du modèle portent le sens (`fabrique`, `achete`, `en_cours`), jamais les codes opaques de la source ; quand la source parle en codes (`ARCTTYPART` : F, A, S), la description de la source les déclare en énuméré à libellés et **la règle du mapping traduit** (`ARCTTYPART.select(F: "fabrique", A: "achete", …)`) ; quand la source est explicite, la valeur passe telle quelle. | L'entrepôt se lit sans connaître PMI ; un code nouveau chez PMI se déclare à la source et se traduit à la règle, le modèle ne bouge pas. Voir §3.2c. |
 | D894 | **Le tarif en composition à la date — les tarifs planifiés visibles** (le morceau 2 du cas 3 — amende le n-aire de D882) : « l'entrepôt montre les tarifs planifiés avant leur date… une grille tarifaire se définit à l'avance et donne de la visibilité aux commandes futures » — le n-aire `list of [tiers, tranche]` au tarif applicable seul cédait le planifié à l'historique ; **`article.tarifs: list of tarif`**, l'entité `tarif` à l'identité `[tiers, tranche, date_application]` — toutes les dates de PMI à plat, le tarif à venir compris ; **le tarif en vigueur est un calculé** (`en_vigueur` : la date passée et aucun tarif frère plus récent déjà passé — `owner.tarifs.any(…)`, D887/D760), `planifie` de même. | Le n-aire perd son porteur dans le cas ; un candidat : le niveau de stock par (dépôt, emplacement, lot) si le lot devient une entité — à arbitrer. **Retirée par D895** : la grille est un composé de l'article, le n-aire demeure. Voir §3.2c. |
 | D895 | **La grille tarifaire est un composé de l'article — le n-aire demeure** (retire D894, rappelle D134/D402–D403) : « pourquoi m'enlèves-tu le n-aire ? une grille tarifaire est un composé de l'article… ton approche est juste dans le cadre d'un modèle relationnel classique. Ici, ce n'est pas le cas » — **la leçon** : la grille est une matrice (D134 — les formes de composition : liste, matrice, hypercube, les enfants indexés par dimensions, une cellule par combinaison ; D402 — le n-aire les porte), non une table de lignes datées liées par des clés ; **le tarif = le n-aire de l'article**, tiers × tranche, et **la dimension du temps** — les tarifs planifiés visibles avant leur date — se place **dans la grille** : trois formes en proposition — le temps en troisième dimension du tuple (`list of [tiers, tranche, date_application: date]` — les clés typées de D134, une extension de D402), la liste datée dans la cellule (`{ prix: list of prix_tarif }` — D403, toute la puissance des champs), la grille datée contenant la matrice (`grilles: list of grille` à date d'application, la matrice dedans). | Le réflexe relationnel consigné pour ne pas y retomber : l'agrégat est le grain (D400), la matrice une forme de composition (D134), jamais des lignes à clés. Voir §3.2c. |
@@ -1154,11 +1154,11 @@ Q58) :
 | D1019 | **Le cas 3 recadré : la migration et l'entrepôt, les interfaces graphiques non essentielles — le morceau 5 ramené au suivi de la migration et à un seul tableau de bord** (amende D858, précise D859 — le recadrage de l'auteur devant le lot 1 du morceau 5) : « reprenons l'intérêt du cas d'usage 3 — la migration de données et son enregistrement dans un entrepôt de données. Ici, les interfaces graphiques ne sont pas essentielles » ; « je confirme, retire le lot 1 et écris le tableau de bord » — le lot 1 (onze `gui.yml` de listes et de formulaires, les facettes `searchable:` au modèle) retiré, l'arbre revenu à son état d'avant (le commit 7881206 reste dans l'histoire) ; **le morceau 5 = (1) le suivi de la migration** — les trois taux (D861–D862), les rejets et leurs causes, l'évolution (D668) : les surfaces standard du module `migration` (D666/D711), citées, jamais déclarées ; **(2) un seul tableau de bord**, `stock[pilotage]` — les kpi de la valeur du stock, des niveaux sous le minimum, des lots périmés (D527), les entrées et sorties par mois (`chart.bars`), la matrice de contrôle en croisé (`pivot`, D246/D1014), l'emplacement libre `_` (D556) ; le premier `dashboards:` du dépôt (le point ouvert de D994 se ferme) ; **(3) rien d'autre** — ni listes, ni formulaires, ni documents, ni menu : les entités gardent les surfaces que le socle propose sans déclaration (D437–D438). D858 s'amende : la restitution décisionnelle n'est plus la charge du cas 3, un tableau de bord suffit à la montrer. | Mes formes, en proposition : les `charts:` dans le bloc `gui:` en ligne des entités niveau et mouvement (D767) ; l'adresse `chart[<entité>.<nom>]` depuis le dashboard du module (composants.md la donnait en proposition) ; `refresh: every[1h]` ; le pivot sur les mouvements du mois comme présentation de D1014. Voir §3.2c. |
 | D1020 | **Le morceau 5 du cas 3 = la consolidation des rapports de la mise à jour de l'entrepôt : décrire le module `migration` et ses composants ; le reste des interfaces servi par défaut** (précise D1019, applique D666/D668/D711/D861–D862/D929) : « pour le cas 3, la dernière partie est la consolidation des rapports de la mise à jour de l'entrepôt de données. Ça doit décrire le module migration et ses composants. Le reste des interfaces est servi (par défaut) pour montrer la capacité de Syncytium » — le morceau 5 décrit, sur PMI, le module que le socle définit (D666) : ses entités (la migration déclarée, le passage — chaque `migrate` —, l'entité source et sa couverture, la règle et ses cinq blocs D878, le rejet et sa cause D929, l'anomalie du schéma, de l'identité et du lien D861/D871/D875), ses trois taux (D862) en calculés, son historique (D668), ses surfaces (le tableau de bord du suivi, les listes des rejets par règle et par destinataire, la courbe des taux) et la consolidation des `report:` de règle par passage ; les autres entités de l'entrepôt gardent les surfaces par défaut (D437–D438), la preuve de la capacité de Syncytium ; le tableau de bord `stock[pilotage]` de D1019 demeure. | La description est celle du socle, écrite dans le cas comme il donne à voir PMI — le module n'est pas déclaré dans l'exemple (D408 : le socle premier client). Voir §3.2c. |
 | D1021 | **Après le cas 3 : la relecture complète par l'auteur, le peaufinage, la documentation structurée « la plus proche possible d'une documentation finale »** (précise D955, D313–D314, Q58) : « à l'issue du cas 3, je pense que nous aurons abordé au moins une fois chaque item. Je relirai consciencieusement tous les fichiers de configuration pour identifier les manques, les améliorations possibles et faire un point sur sa lisibilité. Nous peaufinerons ensemble tous les éléments et nous les consignerons dans une documentation structurée qui devra ressembler le plus possible à une documentation finale » — la validation globale (D955) devient une relecture de tous les fichiers de configuration des quatre exemples ; puis le peaufinage point par point ; puis la documentation structurée, à partir des treize artefacts (Q58/D994). | Le jeu de données construit (D869) et la PR restent à leur place. Voir §3.2c. |
-| D1022 | **Le cas 4 transformé : un hook de connecteur (la lecture de PowerPoint) et un hook llm, alimentés par un watcher** (amende D756/D857 — « la collecte des commandes commerciales ») : « pour le cas 4, et vu la complexité portée par le cas 3, je vais le transformer pour aborder un hook de connecteur (lecture des données dans Powerpoint) et un hook llm pour extraire des informations et les enregistrer dans un modèle de données via l'usage d'un watcher (alimentation automatique) » — le cas éprouve les hooks de connecteur (D52/D634 — une classe de la famille `file` ou `storage` qui lit le .pptx), le hook de la famille `llm` (D957 — l'extraction d'informations vers un modèle), le watcher (D634/D974 — l'alimentation automatique à l'arrivée d'un fichier) ; le titre et la maison se reliront à l'ouverture. | La maison `usecases/04_sales_collection.md` porte le nouveau contexte en attendant son nom. Voir §3.2c. |
-| D1023 | **Le cas 5 = PDCA : transcrire un vieux projet dans le nouveau cadre, moderniser l'affichage et les rapports, l'IA génère la configuration — la documentation auto-générée** (amende D756 — « une gestion de projets ») : « pour le cas 5, le projet s'appelle PDCA — je te demanderai d'analyser et de transcrire un vieux projet dans le nouveau cadre et de moderniser l'affichage et les rapports. Il n'y a pas de hook mais l'idée est d'utiliser l'IA pour générer la configuration d'un projet en vue d'un refactoring. Cela va inclure la documentation auto-générée » — le cas éprouve la transcription d'un existant par l'IA (l'analyse du vieux projet, la configuration générée), les surfaces et les rapports modernisés, l'auto-documentation (D258/D840). | La maison `usecases/05_project_management.md` porte le contexte ; le projet source viendra de l'auteur. Voir §3.2c. |
+| D1022 | **Le cas 4 transformé : un hook de connecteur (la lecture de PowerPoint) et un hook llm, alimentés par un watcher** (amende D756/D857 — « la collecte des commandes commerciales ») : « pour le cas 4, et vu la complexité portée par le cas 3, je vais le transformer pour aborder un hook de connecteur (lecture des données dans Powerpoint) et un hook llm pour extraire des informations et les enregistrer dans un modèle de données via l'usage d'un watcher (alimentation automatique) » — le cas éprouve les hooks de connecteur (D52/D634 — une classe de la famille `file` ou `storage` qui lit le .pptx), le hook de la famille `llm` (D957 — l'extraction d'informations vers un modèle), le watcher (D634/D974 — l'alimentation automatique à l'arrivée d'un fichier) ; le titre et la maison se reliront à l'ouverture. | La maison `usecases/06_sales_collection.md` porte le nouveau contexte en attendant son nom. Voir §3.2c. |
+| D1023 | **Le cas 5 = PDCA : transcrire un vieux projet dans le nouveau cadre, moderniser l'affichage et les rapports, l'IA génère la configuration — la documentation auto-générée** (amende D756 — « une gestion de projets ») : « pour le cas 5, le projet s'appelle PDCA — je te demanderai d'analyser et de transcrire un vieux projet dans le nouveau cadre et de moderniser l'affichage et les rapports. Il n'y a pas de hook mais l'idée est d'utiliser l'IA pour générer la configuration d'un projet en vue d'un refactoring. Cela va inclure la documentation auto-générée » — le cas éprouve la transcription d'un existant par l'IA (l'analyse du vieux projet, la configuration générée), les surfaces et les rapports modernisés, l'auto-documentation (D258/D840). | La maison `usecases/07_project_management.md` porte le contexte ; le projet source viendra de l'auteur. Voir §3.2c. |
 | D1024 | **Le cas 6 = la refonte d'un projet en production depuis dix ans, sur le socle Syncytium : le vrai projet de validation, avec le module de chat IA ; la mise à disposition complète dans un autre projet GitHub** (précise D756 — l'ERP de livraison de repas) : « pour le cas 6, c'est le plus ambitieux. Ce projet est actuellement utilisé en production depuis une dizaine d'années. Je souhaite que Syncytium soit le socle de sa refonte. Je te transmettrai documentation et code. Ce sera l'occasion d'avoir un vrai projet de validation. Ici, cette phase va permettre de valider toutes les composantes que nous avons abordées jusqu'ici. Par contre, la mise à disposition complète fera l'objet d'un vrai projet dont les détails seront portés dans un autre projet GitHub. En plus de l'existant, tu intégreras aussi le module de chat IA » — le cas éprouve tout (l'assemblage complet) et le module `chat` (D957–D960) ; le dépôt Syncytium porte le cas et l'exemple, le projet réel vit ailleurs. | La documentation et le code viendront de l'auteur ; rien à inventer avant. Voir §3.2c. |
 | D1025 | **Après les cas : l'architecture logicielle, le cadre de conception et le cadre technique** (l'étape suivante de D313–D314 — « aucun code tant que tout n'est pas validé ») : « à l'issue de ces analyses, nous aborderons l'architecture logicielle, le cadre de conception et le cadre technique » — le chantier du moyen, jusqu'ici renvoyé (D928 : « le moyen — algorithmes, en-têtes, langage des hooks »), s'ouvrira après le cas 6 et la documentation structurée (D1021). | Le registre garde l'ordre : les cas, la documentation, puis l'architecture. Voir §3.2c. |
-| D1026 | **Le « tiny hello world ! » — la maison de la documentation : un environnement, un module, une entité, quatre champs, toutes les capacités montrées** (précise D1021, complète D856 — l'échelle des cas) : « pour la documentation, nous prévoyons un cas d'usage "tiny hello world !" : un environnement, un module, une entité et 4 champs (Nom, Prénom, Age, Fonction) pour montrer simplement les capacités de Syncytium avec des exemples d'accès API, une procédure d'export/import, la documentation, les aides, les IHM, … Cela devra tenir en quelques lignes de configuration » — le cas n'éprouve rien, il montre : la configuration minimale et tout ce qui en naît sans être écrit (la base, l'IHM par défaut D437–D438, l'API D9/D28, l'auto-documentation D258/D840, les aides), les exemples d'accès à l'API, l'export et l'import (D211/D234–D238) ; il ouvre la documentation structurée (D1021) et s'écrit avec elle. | La maison `usecases/00_tiny.md` (le nom est mien, à relire) ; le dépôt `examples/00_tiny/` viendra avec la documentation. L'échelle compte huit maisons : le tiny, l'enquête (cas 0), puis les cas 1 à 6. Voir §3.2c. |
+| D1026 | **Le « tiny hello world ! » — la maison de la documentation : un environnement, un module, une entité, quatre champs, toutes les capacités montrées** (précise D1021, complète D856 — l'échelle des cas) : « pour la documentation, nous prévoyons un cas d'usage "tiny hello world !" : un environnement, un module, une entité et 4 champs (Nom, Prénom, Age, Fonction) pour montrer simplement les capacités de Syncytium avec des exemples d'accès API, une procédure d'export/import, la documentation, les aides, les IHM, … Cela devra tenir en quelques lignes de configuration » — le cas n'éprouve rien, il montre : la configuration minimale et tout ce qui en naît sans être écrit (la base, l'IHM par défaut D437–D438, l'API D9/D28, l'auto-documentation D258/D840, les aides), les exemples d'accès à l'API, l'export et l'import (D211/D234–D238) ; il ouvre la documentation structurée (D1021) et s'écrit avec elle. | La maison `usecases/01_tiny.md` (le nom est mien, à relire) ; le dépôt `examples/01_tiny/` viendra avec la documentation. L'échelle compte huit maisons : le tiny, l'enquête (cas 0), puis les cas 1 à 6. Voir §3.2c. |
 
 ---
 
@@ -8687,8 +8687,8 @@ compte dix, de 1992 à 2026. Les neuf arbitrages du cadrage :
 7. **le « km prév. » défini par rapport au km total de la LOA** ;
 8. **la reprise par un storage de type xlsx** — « les paramétrages
    sont à définir » ;
-9. **la maison à part** — usecases/01_vehicule.md et
-   examples/01_vehicule/ (le préfixe 01 : la famille domestique).
+9. **la maison à part** — usecases/03_vehicule.md et
+   examples/03_vehicule/ (le préfixe 01 : la famille domestique).
 
 **Un cas d'usage = un exemple — l'alignement des maisons (D827 —
 amende la numérotation de D756/D757).** **« Il faut adapter aussi
@@ -8697,10 +8697,10 @@ l'ordre est celui de la simplicité : **« La gestion des véhicules
 est plus simple que la gestion du compte en banque. »** Les maisons
 s'alignent par le préfixe, des deux côtés :
 
-- `01_vehicule` (usecases + examples) — le plus simple ;
-- `02_banque` (usecases + examples — l'ex-01_domestic) ;
+- `03_vehicule` (usecases + examples) — le plus simple ;
+- `04_banque` (usecases + examples — l'ex-01_domestic) ;
 - `03_sales_collection`, `04_cegid_conversion`,
-  `05_project_management`, `06_meal_delivery` — les suivants
+  `07_project_management`, `08_meal_delivery` — les suivants
   décalés d'un cran, leurs exemples à venir porteront les mêmes
   préfixes.
 
@@ -8710,7 +8710,7 @@ D756 est inchangé, les titres des cas se relisent (le cas 1 = le
 véhicule, le cas 2 = la banque, les cas 3 à 6 = l'échelle
 initiale).
 
-**Le cas 3 = l'entrepôt de données — `03_entrepot` (D857 — amende
+**Le cas 3 = l'entrepôt de données — `05_entrepot` (D857 — amende
 l'échelle D827/D856).** **« renomme-le 03_reprise »**, **« Renomme
 plutôt 03_reprise en 03_dwh »**, puis **« tu as raison : "entrepot"
 est approprié »** — à l'ouverture du cas Cegid (le 03/09/2026,
@@ -8720,9 +8720,9 @@ et de D756, français et sans accent comme `vehicule` et `banque` ;
 le sigle dwh écarté : il porte la connotation décisionnelle que
 D180 tient à distance de l'OLAP, connotation que l'exemple assume
 autrement (D858). La maison `usecases/04_cegid_conversion.md`
-devient **`usecases/03_entrepot.md`**, le dépôt à venir
-`examples/03_entrepot/` ; la collecte des commandes glisse au
-quatrième rang (`04_sales_collection.md` — le titre relu « la
+devient **`usecases/05_entrepot.md`**, le dépôt à venir
+`examples/05_entrepot/` ; la collecte des commandes glisse au
+quatrième rang (`06_sales_collection.md` — le titre relu « la
 gestion des commandes industrielles » à son ouverture, annoncée
 pour la suite). L'échelle à sept maisons se relit : 0 l'enquête ·
 1 le véhicule · 2 la banque · **3 l'entrepôt** · 4 les commandes ·
@@ -8964,7 +8964,7 @@ Syncytium. »** — trois conséquences :
 - **l'analyse des écarts est un sujet du socle**, pas du seul cas.
 
 **La proposition — deux manques, en attente d'arbitrage (le détail
-dans usecases/03_entrepot.md).** **M1, la détection des écarts à
+dans usecases/05_entrepot.md).** **M1, la détection des écarts à
 l'échelle** : le différentiel de D672 suppose la relecture entière
 de la source ; la proposition la remplace par **l'empreinte de la
 ligne source portée par la provenance** (D178 étendue — le
@@ -9021,7 +9021,7 @@ pas être présentes dans les commits... elles sont
 confidentielles »** — le cas cite la structure, jamais une valeur,
 même anonymisée ; les analyses de travail vivent au scratchpad de
 session. La lecture du réel (le détail dans
-usecases/03_entrepot.md, « Les données réelles ») :
+usecases/05_entrepot.md, « Les données réelles ») :
 
 - **la carte des schémas SQL** : `dbo` = l'ERP historique (246
   tables, 12 vues, 10 346 colonnes) ; les schémas typés de la
@@ -9516,7 +9516,7 @@ dix-neuvième) ; le degré `administrator` (D701 — l'inventaire
 validé : restore/migrate/anonymize) en proposition.
 
 **La cible arbitrée (D882 — la question 6 du cadrage, précise
-D859).** Les huit choix de la proposition (usecases/03_entrepot.md,
+D859).** Les huit choix de la proposition (usecases/05_entrepot.md,
 « La cible ») tranchés le 06/09/2026 : **« Pour ce cas d'usage, je
 n'ai pas de modèle. Je te laisse faire une proposition qui
 convertit un ensemble de champs tel que nous conservons la
@@ -20873,8 +20873,8 @@ avant la synthèse Q16).
   second projet du cas 1 ouvert : **la maintenance d'un véhicule**
   (D826) — les deux classeurs réels lus (le thermique, l'électrique
   — la même maison à six feuilles), les neuf arbitrages du cadrage
-  consignés, la maison usecases/01_vehicule.md créée. **La suite :
-  le morceau 1 du dépôt examples/01_vehicule/ (la racine et
+  consignés, la maison usecases/03_vehicule.md créée. **La suite :
+  le morceau 1 du dépôt examples/03_vehicule/ (la racine et
   l'environnement), puis le modèle.**
 - **2026-08-27 (pause)** — La séance s'arrête sur le morceau 1 du
   projet véhicule écrit (onze fichiers — l'arborescence pleine sur
@@ -20885,9 +20885,9 @@ avant la synthèse Q16).
   entretien = le journal de vie, le financement aux formules
   reportées, l'échéancier des révisions à notification). La PR de
   consolidation sur demande (~5 commits depuis la #37).
-- **2026-08-29** — **examples/01_domestic renommé examples/02_banque**
+- **2026-08-29** — **examples/01_domestic renommé examples/04_banque**
   (le geste de l'auteur) : les exemples se numérotent **par projet,
-  du plus simple au plus riche** (01_vehicule, 02_banque) — une
+  du plus simple au plus riche** (03_vehicule, 04_banque) — une
   numérotation propre aux exemples, distincte de celle des cas
   d'usage (usecases/01_domestic.md couvre les deux projets
   domestiques ; 02_sales_collection reste le cas 2 de D756). Le
@@ -20895,9 +20895,9 @@ avant la synthèse Q16).
   d'usecases mis à jour, les mentions du journal restent
   historiques.
 - **2026-08-29 (suite 2)** — **Un cas d'usage = un exemple
-  (D827)** : les usecases renommés et renumérotés (01_vehicule,
-  02_banque — l'ex-01_domestic, 03_sales_collection,
-  04_cegid_conversion, 05_project_management, 06_meal_delivery),
+  (D827)** : les usecases renommés et renumérotés (03_vehicule,
+  04_banque — l'ex-01_domestic, 03_sales_collection,
+  04_cegid_conversion, 07_project_management, 08_meal_delivery),
   les titres relus — six maisons alignées sur les exemples, l'ordre
   de la simplicité confirmé (« la gestion des véhicules est plus
   simple que la gestion du compte en banque »).
@@ -20910,7 +20910,7 @@ avant la synthèse Q16).
   retourne les entités déclarées, le curseur enchaîne l'union des
   fichiers ; hooks.md et connectors.md mis au niveau.
 - **2026-08-29 (suite 5)** — **logging.yml remplace logs.yml
-  (D830)** : le point relevé à la reprise du véhicule — le 02_banque
+  (D830)** : le point relevé à la reprise du véhicule — le 04_banque
   portait déjà logging.yml et la propriété logging: ; l'arborescence
   §3.2c, administration.md, telemetry.md et l'exemple véhicule
   alignés (les mentions du journal restent historiques).
@@ -21150,7 +21150,7 @@ avant la synthèse Q16).
   1 et 2 publiés, 856 décisions). La séance s'arrête là. **La
   reprise : le cas d'usage suivant, dans une nouvelle session —
   l'échelle offre 03_sales_collection, 04_cegid_conversion,
-  05_project_management, 06_meal_delivery (D756/D827) ; la
+  07_project_management, 08_meal_delivery (D756/D827) ; la
   documentation (Q58) reste l'autre porte.**
 - **2026-09-03 — LE CAS 4 OUVERT : LA CONVERSION CEGID PMI.** La
   nouvelle session annoncée : l'auteur ouvre **la reprise de
@@ -21158,7 +21158,7 @@ avant la synthèse Q16).
   renumérotée dans la foulée (D857, ci-dessous) ; le cas suivant
   sera « la gestion des commandes industrielles » (relu à son
   ouverture). **Le cadrage posé en questions** dans
-  usecases/04_cegid_conversion.md (devenu 03_entrepot.md — D857) : la
+  usecases/04_cegid_conversion.md (devenu 05_entrepot.md — D857) : la
   lecture du registre (la
   date AAAAMMJJ D119/D820 — le premier hook de type d'un exemple ;
   la posture entrepôt D180 ; la reprise D175–D179 ; le mapping
@@ -21181,7 +21181,7 @@ avant la synthèse Q16).
   décisions).** « renomme-le 03_reprise » — la maison du cas Cegid
   passe de usecases/04_cegid_conversion.md à
   **usecases/03_reprise.md** (git mv), la collecte des commandes
-  glisse au quatrième rang (04_sales_collection.md — le titre relu
+  glisse au quatrième rang (06_sales_collection.md — le titre relu
   « la gestion des commandes industrielles » à son ouverture) ;
   l'échelle à sept maisons se relit 0 enquête · 1 véhicule · 2
   banque · 3 reprise · 4 commandes · 5 projets · 6 repas ; le dépôt
@@ -21197,10 +21197,10 @@ avant la synthèse Q16).
   de données : la conversion Cegid PMI ».
 - **2026-09-03 (suite 3) — LE MOT DU CAS : ENTREPOT (D857 amendée
   en place, D858 — 858 décisions).** « tu as raison : "entrepot"
-  est approprié » — la maison finale **usecases/03_entrepot.md**
+  est approprié » — la maison finale **usecases/05_entrepot.md**
   (git mv depuis 03_dwh, jamais commité ; le mot de D180/D756,
   français sans accent comme vehicule/banque), le dépôt à venir
-  examples/03_entrepot/ ; l'échelle 0 enquête · 1 véhicule · 2
+  examples/05_entrepot/ ; l'échelle 0 enquête · 1 véhicule · 2
   banque · 3 entrepôt · 4 commandes · 5 projets · 6 repas. **Et la
   première réponse du cadrage (D858)** : « La connotation
   décisionnelle sera portée par cet exemple pour mettre en avant
@@ -21227,7 +21227,7 @@ avant la synthèse Q16).
   données techniques — articles, gammes & nomenclatures, tarifs ;
   les clients et les fournisseurs ; les commandes de vente et
   d'achat ; les stocks et les mouvements). Le texte mot pour mot
-  dans usecases/03_entrepot.md, la lecture au registre visée par
+  dans usecases/05_entrepot.md, la lecture au registre visée par
   visée ; les questions 1, 5, 7 (la posture) et 9 (la continuité)
   répondues, les morceaux proposés nourris (les groupes, les
   droits, history:, le tableau de bord). Restent les questions 3–4
@@ -21510,7 +21510,7 @@ avant la synthèse Q16).
   hors de la plage (D864). mapping.md et rights.md au niveau.
 - **2026-09-06 (reprise, suite 4) — LA CIBLE OUVERTE (la question
   6).** « Passons à la cible » — la proposition posée dans
-  usecases/03_entrepot.md (« La cible — la proposition ») : le
+  usecases/05_entrepot.md (« La cible — la proposition ») : le
   principe (pas une copie de PMI — les champs de l'analyse, en
   français, la société non portée, l'entrepôt en lecture, migrate
   seul écrit), quatre modules technique/tiers/commande/stock,
@@ -21555,7 +21555,7 @@ avant la synthèse Q16).
   usecase : counter et file remontent au tableau.
 - **2026-09-06 (reprise, suite 7) — LE MORCEAU 2 ÉCRIT : LE MODÈLE
   CHAMP PAR CHAMP (en validation).** « Passons au morceau 2 » —
-  examples/03_entrepot/versions/beta/v1.0.0.0/ : groups.yml (les
+  examples/05_entrepot/versions/beta/v1.0.0.0/ : groups.yml (les
   cinq strates, direction contenant les trois métiers,
   administration au degré administrator) et les quatre modules,
   seize entités, cent soixante-huit champs commentés de leur
@@ -21574,8 +21574,8 @@ avant la synthèse Q16).
   le count conditionnel, l'appartenance à une collection, les
   sous-items de period, l'entité comme collection, **la grammaire
   face à YAML** : le modèle passé à PyYAML — deux lignes à
-  guillemets ; **neuf fichiers des exemples validés 01_vehicule et
-  02_banque échouent** au même analyseur, trois causes — le crochet
+  guillemets ; **neuf fichiers des exemples validés 03_vehicule et
+  04_banque échouent** au même analyseur, trois causes — le crochet
   dans une collection en flux, le « : » du .select dans un scalaire
   nu, le « \. » entre guillemets doubles — à arbitrer).
 - **2026-09-06 (reprise, suite 8) — TIERS ET NIVEAU (D884, 884
@@ -21665,7 +21665,7 @@ avant la synthèse Q16).
   règles), l'avant-après des neuf cas vérifié à l'analyseur ; « je
   valide les règles 1 et 2, corrige les neuf fichiers » — les
   guillemets quand YAML l'exige, la forme bloc préférée ; les neuf
-  fichiers de 01_vehicule et 02_banque corrigés sans toucher au
+  fichiers de 03_vehicule et 04_banque corrigés sans toucher au
   sens (la regex, les items, les quatre .select, les champs à
   crochet en accolade, les fields des référentiels) ; cent
   trente-cinq fichiers des quatre exemples valides. entity.md au
@@ -22057,7 +22057,7 @@ avant la synthèse Q16).
   morceau 3 : 09 = semi-fini et 12 = fantôme (mes hypothèses de
   D940). La relecture complète des fichiers de configuration par
   l'auteur reste la validation définitive du morceau 2 (D899) — 45
-  fichiers dans examples/03_entrepot.
+  fichiers dans examples/05_entrepot.
 - **2026-09-15 — LA QUESTION 8, L'ENRICHISSEMENT (D941–D942, 942
   décisions).** La reprise sur ma proposition : « la doctrine est
   bonne » (les champs qu'aucune règle n'alimente restent intacts,
@@ -22120,7 +22120,7 @@ avant la synthèse Q16).
   (`reprise/source/`, puis `reprise/reprise.yml`), puis le mapping,
   puis le pilotage. Deux hypothèses à vérifier sur le réel : 09 =
   semi-fini, 12 = fantôme (D940). La relecture complète des 50
-  fichiers de examples/03_entrepot par l'auteur reste la validation
+  fichiers de examples/05_entrepot par l'auteur reste la validation
   définitive du morceau 2 (D899).
 - **2026-09-18 — LE MORCEAU 3 OUVERT : LA SOURCE, LE PREMIER LOT
   (D946–D947, 947 décisions).** La PR #42 fusionnée le 16/09 en squash
@@ -22362,7 +22362,7 @@ avant la synthèse Q16).
   clé à la lecture (`normalize:`), jamais dans la règle ni `parent:` ;
   le complément vide = le nul du texte ; l'exemple de D931 aligné.
   **Le lot 2 est clos** (013–019, les tarifs commis). Le cas
-  (usecases/03_entrepot.md) rattrapé — laissé à D955 pendant le
+  (usecases/05_entrepot.md) rattrapé — laissé à D955 pendant le
   morceau 4, relevé par l'auteur : la note du morceau, le mapping dans
   la forme, les frottements D961–D990. **D991** les défauts des types
   aux settings sous le nom du type (`text: { normalize: trim(me) }`,
@@ -22382,7 +22382,7 @@ avant la synthèse Q16).
   vingt-cinq règles 001–019, le bloc commun `articles/fields.yml`), les
   settings devenus la maison des types (D991–D993 : `text: {
   normalize }`, `date_pmi`/`time_pmi`, `amount: { currency: EUR }`), le
-  cas (usecases/03_entrepot.md) rattrapé et complété. Tout est commis
+  cas (usecases/05_entrepot.md) rattrapé et complété. Tout est commis
   et poussé, la branche à jour du distant, aucune PR ouverte. **La
   reprise : le lot 3 du mapping — les commandes (020–023 : ECOMCLI/
   LCOMCLI, ECOMFOU/LCOMFOU)** — les statuts à inventer, le `counter`
@@ -22743,7 +22743,7 @@ avant la synthèse Q16).
   champs (Nom, Prénom, Age, Fonction)… des exemples d'accès API, une
   procédure d'export/import, la documentation, les aides, les IHM… Cela
   devra tenir en quelques lignes de configuration » — la maison
-  `usecases/00_tiny.md` ouverte en squelette (le nom mien) ; le dépôt
+  `usecases/01_tiny.md` ouverte en squelette (le nom mien) ; le dépôt
   s'écrira avec la documentation structurée (D1021).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 1 arrêté (D756–D773 : les cinq cas, la maison

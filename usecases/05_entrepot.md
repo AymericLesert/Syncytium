@@ -1,18 +1,18 @@
-# Le cas 3 — l'entrepôt de données : la conversion Cegid PMI
+# Le cas 5 — l'entrepôt de données : la conversion Cegid PMI
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
-*Le cas est ouvert le 03/09/2026 — la maison **`03_entrepot`**
+*Le cas est ouvert le 03/09/2026 (le cas 3 devenu le cas 5 par la
+renumérotation D1027 — le registre garde « cas 3 » dans son histoire) — la maison **`05_entrepot`**
 (D857 : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en
 03_dwh », puis « "entrepot" est approprié » — la conversion Cegid
 PMI prend le troisième rang de l'échelle sous le nom de l'entrepôt
 qu'elle alimente, le mot de D180/D756 ; la collecte des commandes
-glisse au quatrième). Le cas suivant sera « la gestion des commandes
-industrielles » (le cas 4, `04_sales_collection`, relu à son
-ouverture).*
+glisse au quatrième — au sixième depuis D1027). Le cas suivant, `06_sales_collection`, est
+devenu la lecture de documents par hooks (D1022).*
 
 ## Le contexte (D859)
 
@@ -1212,7 +1212,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
 
 *(à écrire morceau par morceau — le protocole D457/D756)*
 
-Le dépôt vit dans `examples/03_entrepot/` — la maison alignée un
+Le dépôt vit dans `examples/05_entrepot/` — la maison alignée un
 cas = un exemple (D827/D857).
 
 **Le morceau 2 — le modèle champ par champ** (écrit le 06/09/2026,
@@ -1650,7 +1650,7 @@ fixera à la documentation structurée (D1021).*
   paires de guillemets — le `.select(entree: quantite, …)` de D833
   et la cellule du n-aire de D403 ; les exemples déjà validés,
   passés au même analyseur, échouaient dans neuf fichiers de
-  `01_vehicule` et `02_banque`, pour trois causes : le crochet dans
+  `03_vehicule` et `04_banque`, pour trois causes : le crochet dans
   une collection en flux (`{ type: text[..100] }`, `items: [
   list[revision.echues] ]` — le `[` ouvre une séquence YAML), le
   `: ` dans un scalaire nu (les `.select`), le `\.` entre guillemets

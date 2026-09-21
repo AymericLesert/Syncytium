@@ -1,18 +1,18 @@
-# Le cas 4 — la lecture de documents par hooks : PowerPoint, le llm, le watcher
+# Le cas 6 — la lecture de documents par hooks : PowerPoint, le llm, le watcher
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
-*Le quatrième rang depuis le 03/09/2026 (D857) ; **transformé le
-21/09/2026 (D1022)** — le titre d'origine, « la collecte des commandes
+*Le quatrième rang depuis le 03/09/2026 (D857), le sixième depuis la
+renumérotation D1027 ; **transformé le 21/09/2026 (D1022)** — le titre d'origine, « la collecte des commandes
 commerciales » (D756), cède devant un cas plus court et plus pointu ;
 le nom de la maison se relira à l'ouverture.*
 
 ## Le contexte (D1022)
 
-**« Pour le cas 4, et vu la complexité portée par le cas 3, je vais
+**« Pour le cas 4 [le cas 6 depuis D1027], et vu la complexité portée par le cas 3 [le cas 5], je vais
 le transformer pour aborder un hook de connecteur (lecture des données
 dans PowerPoint) et un hook llm pour extraire des informations et les
 enregistrer dans un modèle de données via l'usage d'un watcher

@@ -596,7 +596,7 @@ la rétention du résultat à l'administration (D906).
 
 - la question 10 du cadrage du cas 3 (l'authentification de
   l'entreprise, les groupes et les strates « de l'opérateur aux
-  dirigeants ») **reste au cas** — usecases/03_entrepot.md, « nous
+  dirigeants ») **reste au cas** — usecases/05_entrepot.md, « nous
   verrons sur le cas 3 en cours de description ».
 
 **Jamais abordés — le domaine 7 (l'architecture technique, Q7) :**

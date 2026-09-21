@@ -1,4 +1,4 @@
-# Le cas 6 — l'ERP de livraison de repas à domicile
+# Le cas 8 — l'ERP de livraison de repas à domicile
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -13,7 +13,7 @@ ce qu'elle ne fait pas)*
 **« Un ERP dédié à la livraison de repas à domicile. »** (D756) —
 le plus riche de l'échelle.
 
-**« Pour le cas 6, c'est le plus ambitieux. Ce projet est
+**« Pour le cas 6 [le cas 8 depuis D1027], c'est le plus ambitieux. Ce projet est
 actuellement utilisé en production depuis une dizaine d'années. Je
 souhaite que Syncytium soit le socle de sa refonte. Je te transmettrai
 documentation et code. Ce sera l'occasion d'avoir un vrai projet de

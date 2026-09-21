@@ -1,4 +1,4 @@
-# Le cas 2 — les applications domestiques : le compte bancaire
+# Le cas 4 — les applications domestiques : le compte bancaire
 
 *Le cadre du cas — la mise en situation (Q59/D756–D758) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -6,8 +6,8 @@ et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
 *Le domestique compte deux maisons, alignées un cas = un exemple
-(D827) : **la maintenance des véhicules** —
-[01_vehicule.md](01_vehicule.md), le plus simple — et ce fichier,
+(D827 ; le cas 2 devenu le cas 4, D1027) : **la maintenance des véhicules** —
+[03_vehicule.md](03_vehicule.md), le plus simple — et ce fichier,
 le compte bancaire.*
 
 ## Le contexte (D758)
@@ -132,7 +132,7 @@ Les observations sur le réel (la matière du mapping — D646+) :
 ## La forme — le dépôt
 
 Le dépôt vit dans
-[`examples/02_banque/`](../examples/02_banque/) — écrit morceau
+[`examples/04_banque/`](../examples/04_banque/) — écrit morceau
 par morceau (le protocole D457/D756), chaque morceau validé par
 l'auteur.
 

@@ -1,10 +1,10 @@
-# Le cas 1 — les applications domestiques : la maintenance d'un véhicule
+# Le cas 3 — les applications domestiques : la maintenance d'un véhicule
 
 *Le premier projet du domestique (D756 : « compte bancaire,
 véhicule… ») — le plus simple de l'échelle, la maison alignée un
-cas = un exemple (D826/D827). Le cadre du cas : le
+cas = un exemple (D826/D827 ; le cas 1 devenu le cas 3, D1027). Le cadre du cas : le
 contexte, les données réelles, les arbitrages, **la forme** (le
-dépôt `examples/01_vehicule/` écrit pour de vrai) et **les manques**
+dépôt `examples/03_vehicule/` écrit pour de vrai) et **les manques**
 (chaque frottement devient une décision). Les décisions citées
 renvoient à [../docs/conception.md](../docs/conception.md).*
 
@@ -69,8 +69,8 @@ Les deux classeurs partagent la structure, aux unités près :
 7. **le « km prév. » défini par rapport au km total de la LOA** ;
 8. **la reprise par un storage de type `xlsx`** — « les
    paramétrages sont à définir » ;
-9. **la maison à part** — `usecases/01_vehicule.md` et
-   `examples/01_vehicule/` (le préfixe 01 : la famille domestique
+9. **la maison à part** — `usecases/03_vehicule.md` et
+   `examples/03_vehicule/` (le préfixe 01 : la famille domestique
    de D756).
 
 ## La forme — le dépôt

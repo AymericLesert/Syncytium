@@ -1586,7 +1586,10 @@ module est en lecture seule par construction (le moteur seul l'alimente,
 les administrateurs le consultent — l'`allow:` retiré, sans intérêt) ;
 `reset_coverage` réinitialise la couverture sans effacer les passages ni
 les rejets ; le propriétaire de la migration `cegid` est l'administrateur,
-qui enrichit les tables de l'entrepôt (D942).
+qui enrichit les tables de l'entrepôt (D942). **D1031** : migration.md
+est généraliste — « Cegid n'est qu'un exemple » — ; c'est ICI, dans le
+cas, que vivent les destinataires, les tables, les règles et les rythmes
+de PMI ; le morceau 5 en sera la déclinaison.
 
 ## Les manques relevés
 

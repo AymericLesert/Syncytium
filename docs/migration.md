@@ -10,7 +10,11 @@ s'active dès qu'une version déclare `migrations:` (D662/D711). Son nom
 porte **le préfixe `_` des modules internes** (D1029 : « le préfixe _
 marquera les modules internes. Pour les modules d'application,
 Syncytium refusera l'usage de _ comme premier caractère ») — ses
-adresses s'écrivent `_migration.passage`, `_migration[suivi]`. Il ne
+adresses s'écrivent `_migration.passage`, `_migration[suivi]`. **Il vaut pour toute
+migration** — quel que soit le connecteur de reprise, le système
+d'origine, le nombre de sources et de règles (D1031 : « Cegid n'est
+qu'un exemple ») ; ce document reste généraliste, les illustrations
+vivent dans les cas d'usage. Il ne
 remplace aucun artefact : [mapping.md](mapping.md) dit comment une
 migration se décrit (la source, les règles, la couverture), ce
 document dit **ce qu'il en reste après chaque passage**. Les décisions
@@ -45,8 +49,8 @@ entités et des champs sont, jusqu'à la documentation structurée
    des données du modèle — consultables, filtrables, exportables — et
    historisées (D668) : la qualité se lit dans le temps.
 6. **Ce qui va au technicien et ce qui va aux métiers** (D929/D945) :
-   les rejets vont aux destinataires des règles (la production, le
-   commercial, les achats du cas 5) ; les anomalies — le schéma,
+   les rejets vont aux destinataires que les règles nomment (les
+   groupes métier de l'application) ; les anomalies — le schéma,
    l'identité, les liens — vont au technicien, par le module.
 7. **La lecture seule par construction** (D1030) : « le module est en
    lecture seule par construction car c'est le moteur qui alimente. Les
@@ -85,7 +89,7 @@ entities:
 name: migration
 description: Une migration déclarée — reprise.yml (D662), telle que le moteur l'a lue
 label: "{nom}"
-identity: [nom]                    # la clé de reprise.yml : cegid, legacy…
+identity: [nom]                    # la clé de la migration dans reprise.yml
 history: true                      # l'évolution de la qualité dans le temps (D668)
 fields:
   nom:         { type: 'text[..40]', required: true }
@@ -160,7 +164,7 @@ fields:
   colonnes_non_lues: { type: 'integer[0..]' }   # absentes de la description — relevées (D947)
   lignes_table:      { type: 'integer[0..]' }   # les lignes de la table, hors filter: (D663)
   lignes_integrees:  { type: 'integer[0..]' }
-  couverture:        { type: 'text[..80]' }     # la déclaration coverage: (D880) — MVCJMVT[month - 3]
+  couverture:        { type: 'text[..80]' }     # la déclaration coverage: (D880), telle qu'écrite
   derniere_valeur:   { type: 'text[..40]' }     # la dernière valeur parcourue (D879)
   # ------ Champs calculés ------
   completude_schema:                          # D862 — les décrites ou ignorées sur le schéma réel
@@ -177,12 +181,12 @@ fields:
 name: regle
 description: Une règle de mapping (D665) — la source, la cible, le rapport, la couverture des données
 label: "{fichier}"
-identity: [fichier]                # 020_commandes_ventes
+identity: [fichier]                # le nom du fichier de mapping/, sans extension
 history: true
 fields:
   fichier:      { type: 'text[..80]', required: true }
   source:       { type: source, required: true }         # la référence (D396)
-  cible:        { type: 'text[..80]', required: true }     # commande.commande_vente
+  cible:        { type: 'text[..80]', required: true }     # l'adresse module.entité de la cible
   filtre:       { type: 'text[..200]' }
   destinataires: { type: association with groupe }       # le to: du report: (D929/D945)
   canaux:       { type: 'list of text[..20]' }           # le by: — notification, mail
@@ -261,10 +265,8 @@ groupée (D1015). Après chaque passage :
 - **par destinataire** — chaque groupe nommé par un `report: to:`
   reçoit, par les canaux déclarés (`by: [notification, mail]`), les
   rejets de toutes les règles qui lui sont adressées, groupés par
-  règle puis par cause : `rejets.group(destinataire, regle, message)` ;
-  au cas 5, chaque matin après le `migrate` de la nuit (D943/D945) —
-  la production reçoit la technique et le stock, le commercial les
-  ventes et les clients, les achats les achats et les fournisseurs ;
+  règle puis par cause : `rejets.group(destinataire, regle, message)` —
+  au rythme que les règles déclarent (D406), après le passage ;
 - **par passage** — le technicien reçoit le tableau du passage : les
   comptes, les cinq blocs, les anomalies, la variation des trois taux
   depuis le passage précédent ;
@@ -307,17 +309,13 @@ d'administration (D711) :
 - en sandbox (D921–D922), `reload` rejoue l'ingestion et les passages
   repartent de zéro.
 
-## Ce que le cas 5 donne à voir
+## Les illustrations
 
-Sur Cegid PMI ([../usecases/05_entrepot.md](../usecases/05_entrepot.md)) :
-une migration, `cegid`, en mode `relative` sans `reset` ; vingt-trois
-sources (seize lues, sept ignorées en bloc — les offres, le devis, les
-libellés) sur trois cent trente objets du schéma ; vingt-neuf règles
-en vingt-cinq étapes ; deux opérations périodiques — `delta_nocturne`
-chaque nuit, `relecture_complete` le samedi ; trois destinataires —
-la production, le commercial, les achats. La complétude du schéma dit
-ce que l'analyse a couvert ; la couverture des données, ce que
-l'entrepôt reçoit chaque matin.
+Ce document ne décrit aucune migration en particulier. Les cas d'usage
+montrent le module à l'œuvre sur une source réelle — le cas 5,
+[l'entrepôt](../usecases/05_entrepot.md), en est la première
+déclinaison : ce que ses sources, ses règles, ses destinataires et ses
+opérations périodiques donnent à voir dans `_migration`.
 
 ## Les points ouverts
 

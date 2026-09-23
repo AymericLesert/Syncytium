@@ -1581,7 +1581,12 @@ Syncytium et ce n'est pas aux applications de l'exposer » — le module
 est décrit en YAML dans [../docs/migration.md](../docs/migration.md),
 six entités (migration, passage, source, regle, rejet, anomalie), les
 trois taux, la consolidation, les surfaces ; le cas n'en montre que ce
-que PMI donne à voir.
+que PMI donne à voir. **La relecture de migration.md ouverte le 23/09 — D1030** : le
+module est en lecture seule par construction (le moteur seul l'alimente,
+les administrateurs le consultent — l'`allow:` retiré, sans intérêt) ;
+`reset_coverage` réinitialise la couverture sans effacer les passages ni
+les rejets ; le propriétaire de la migration `cegid` est l'administrateur,
+qui enrichit les tables de l'entrepôt (D942).
 
 ## Les manques relevés
 

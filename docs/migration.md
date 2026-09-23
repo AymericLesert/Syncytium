@@ -48,6 +48,14 @@ entités et des champs sont, jusqu'à la documentation structurée
    les rejets vont aux destinataires des règles (la production, le
    commercial, les achats du cas 5) ; les anomalies — le schéma,
    l'identité, les liens — vont au technicien, par le module.
+7. **La lecture seule par construction** (D1030) : « le module est en
+   lecture seule par construction car c'est le moteur qui alimente. Les
+   utilisateurs ne peuvent pas modifier le contenu traité par ce module »
+   — un `allow:` y serait possible, mais sans intérêt : l'entrée vit sous
+   le menu d'administration (D711), seuls les administrateurs y accèdent.
+   La migration, elle, **enrichit les tables de l'application**, et son
+   propriétaire est toujours l'administrateur (D942 : l'écriture par le
+   degré `administrator`, qui passe outre les `allow:` des cibles).
 
 ## Le modèle
 
@@ -60,10 +68,8 @@ citent les décisions.
 # préfixe des modules internes (D1029) ; aucune application ne l'écrit
 name: _migration
 description: Le suivi des migrations — les passages, la couverture, les rejets, les anomalies
-allow:
-  create: false                    # le moteur écrit, personne d'autre (D175)
-  update: false
-  delete: false
+# pas d'allow: — le module est en lecture seule par construction : le moteur
+# seul l'alimente, les administrateurs le consultent (D1030)
 entities:
   - ~{migration/migration.yml}
   - ~{passage/passage.yml}
@@ -293,9 +299,11 @@ d'administration (D711) :
   comme toute opération (le bouton, `when:`, `every:`, l'API) ; crée
   un passage ; la relance = la ré-exécution, le rejeu par l'identité ;
   le dry-run = le preview suspendu avant commit (D594) ;
-- **`reset_coverage(<entité>)`** (D881/D900) — efface la couverture
-  d'une entité source : le prochain passage la relit en entier ; le
-  degré `administrator` ;
+- **`reset_coverage(<entité>)`** (D881/D900/D1030) — réinitialise la
+  couverture d'une entité source (la dernière valeur parcourue repart du
+  début) : le prochain passage la relit en entier ; « réinitialise des
+  parties du module mais n'efface pas son contenu » — les passages, les
+  rejets, les taux historisés restent ; le degré `administrator` ;
 - en sandbox (D921–D922), `reload` rejoue l'ingestion et les passages
   repartent de zéro.
 

@@ -1589,7 +1589,13 @@ les rejets ; le propriétaire de la migration `cegid` est l'administrateur,
 qui enrichit les tables de l'entrepôt (D942). **D1031** : migration.md
 est généraliste — « Cegid n'est qu'un exemple » — ; c'est ICI, dans le
 cas, que vivent les destinataires, les tables, les règles et les rythmes
-de PMI ; le morceau 5 en sera la déclinaison.
+de PMI ; le morceau 5 en sera la déclinaison. **D1032–D1036** (27/09,
+les bases du module reposées par l'auteur) : quatre phases, la
+destination validée en toute fin sur un modèle temporaire ; le refusé
+non enregistré, ses motifs conservés et rejouables ; les cinq blocs ;
+l'identité partout — au cas, seules les tables `ignored` n'en ont pas,
+les dérivés de `article` l'héritent, `tiers` la laisse à `client` et
+`fournisseur` ; l'empreinte par hash.
 
 ## Les manques relevés
 

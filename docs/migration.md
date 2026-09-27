@@ -22,6 +22,37 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
+## Les bases (D1032–D1036)
+
+*Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
+sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
+
+- **Quatre phases avant l'enregistrement** (D1033) : (1) vérifier les
+  entités et les champs sources ; (2) valider les règles sur les
+  entités sources ; (3) faire le mapping ; (4) valider les règles sur
+  les entités de destination. Les validations de la destination sont
+  évaluées après la lecture de toutes les données et avant
+  l'enregistrement : Syncytium construit un modèle temporaire, puis le
+  valide en toute fin.
+- **Les enregistrements écartés** (D1032) : l'enregistrement exclu par
+  le `filter:` n'est pas conservé ; celui qui ne respecte pas toutes
+  ses règles n'est pas enregistré, mais ses motifs sont conservés, et
+  rejoués si une règle ou une donnée de l'enregistrement change. Les
+  anomalies, en entités ou en fichiers annexes, font et refont les
+  rapports et donnent les écarts d'une reprise à l'autre (refusé puis
+  accepté, accepté puis refusé).
+- **L'association des clés** : le module garde, pour chaque
+  enregistrement, la correspondance entre sa clé source et sa clé
+  destination — ni la source ni la destination ne la portent.
+- **Les cinq blocs** (D1034) : anomalies, création, modification,
+  inchangé, suppression.
+- **L'identité partout** (D1035) : toute entité porte une identité ;
+  son absence est une anomalie de description du modèle.
+- **L'empreinte** (D1036) : un hash de l'enregistrement, gardé avec
+  l'association, plutôt que la recopie des données d'origine ; la
+  modification faite dans la destination suit l'historique ou le
+  remplacement selon la configuration de l'entité destination.
+
 ## La doctrine
 
 1. **Le socle premier client** (D408/D416/D666) : le module est décrit

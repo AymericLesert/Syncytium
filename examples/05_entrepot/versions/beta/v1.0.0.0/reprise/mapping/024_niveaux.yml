@@ -36,5 +36,5 @@ STDEPLOT:
     quantite_inventaire: DPCNQTINV
   report:
     when: [migration]
-    to: [production]                      # le stock, c'est la production qui corrige (D945)
+    to: [logistique]                              # les niveaux, c'est la logistique qui corrige (D1061/D1062)
     by: [notification, mail]

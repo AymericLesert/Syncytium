@@ -19,5 +19,5 @@ PARAM_EMPLACEMENTS:
     actif:   true                     # les paramètres = les emplacements actifs (D962)
   report:
     when: [migration]
-    to: [production]
+    to: [logistique]                              # les paramètres des lieux, c'est la logistique qui corrige (D1061/D1062)
     by: [notification, mail]

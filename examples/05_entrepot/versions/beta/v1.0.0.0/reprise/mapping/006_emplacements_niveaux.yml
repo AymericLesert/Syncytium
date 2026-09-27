@@ -14,5 +14,5 @@ STDEPLOT:
     code:  DPKTCODMPL                 # l'identité (D930)
   report:
     when: [migration]
-    to: [production]
+    to: [logistique]                              # les niveaux, c'est la logistique qui corrige (D1061/D1062)
     by: [notification, mail]

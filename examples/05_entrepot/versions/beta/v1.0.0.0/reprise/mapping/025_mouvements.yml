@@ -47,5 +47,5 @@ MVTSTO:
     stock_avant:    measure(MVCNAVQTST, unite_stock)
   report:
     when: [migration]
-    to: [production]                      # le stock, c'est la production qui corrige (D945)
+    to: [logistique]                              # les mouvements, c'est la logistique qui corrige (D1061/D1062)
     by: [notification, mail]

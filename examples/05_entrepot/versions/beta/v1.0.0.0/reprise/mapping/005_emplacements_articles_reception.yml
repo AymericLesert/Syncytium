@@ -15,5 +15,5 @@ ARTICLE:
     code:  ARCTCOEMPR         # l'identité (D930)
   report:
     when: [migration]
-    to: [production]
+    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
     by: [notification, mail]

@@ -19,5 +19,5 @@ PARAM_EMPLACEMENTS:
     actif: true                       # les paramètres = l'actif (D962) ; les autres origines n'y touchent pas
   report:
     when: [migration]                 # après chaque passage (D929)
-    to: [production]                  # le stock, c'est la production qui corrige (D859/D945)
+    to: [logistique]                              # les paramètres des lieux, c'est la logistique qui corrige (D1061/D1062)
     by: [notification, mail]

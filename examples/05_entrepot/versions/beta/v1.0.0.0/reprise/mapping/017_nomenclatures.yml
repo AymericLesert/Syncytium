@@ -6,7 +6,7 @@
 # l'identité partagée (D969 — « je valide A » ; D353 : « le parent
 # décrit, l'enfant pointe »). Une ligne dont le produit n'est pas un
 # dérivé à nomenclature (un article acheté avec des composants) est un
-# rejet, au rapport de la production — une anomalie réelle (D933). La
+# rejet, au rapport du bureau d'études — une anomalie réelle (D933). La
 # nomenclature est une liste d'articles — les composants et les tâches —
 # et se construit récursivement : le composant fabriqué, semi-fini ou
 # fantôme porte la sienne (D135/D969). Le composant par sa clé composée (D931) ; la
@@ -36,5 +36,5 @@ NOMENC:
     validite:  period(NOCJDEBVAL, NOCJFINVAL)  # début ≤ fin intégré au type : l'inverse est un rejet
   report:
     when: [migration]
-    to: [production]
+    to: [bureau_etudes]                           # les nomenclatures, c'est le bureau d'études qui corrige (D1061/D1062)
     by: [notification, mail]

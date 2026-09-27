@@ -1433,7 +1433,7 @@ même table = deux fichiers :
   **la quatrième origine des référentiels** (3 bis, 6 bis — D1008) :
   les dépôts et emplacements distincts des niveaux non nuls, pour
   qu'aucun niveau en stock ne soit orphelin (D875) ; les rapports à la
-  production.
+  logistique (D1062).
 
 Ce que le lot a fixé hors du cas : la référence de fichier explicite
 et son cumul (D956/D967–D968), la lecture d'une autre entité source
@@ -1531,9 +1531,10 @@ nuit, où cela vit, qui le lit :
   le passage, la règle, l'identité construite, l'étage (la source, la
   règle, la cible — les trois temps D1006), la cause (le champ, le
   message), le bloc (l'anomalie, jamais une création) ; le
-  destinataire est celui du `report:` de la règle — la production
-  pour la technique et le stock, le commercial pour les ventes et les
-  clients, les achats pour les achats et les fournisseurs (D945) ; le
+  destinataire est celui du `report:` de la règle — celui de sa table
+  source : le bureau d'études pour les articles et les nomenclatures,
+  la logistique pour le stock, le commercial pour les ventes et les
+  clients, les achats pour les achats et les fournisseurs (D1061/D1062) ; le
   rejet corrigé à l'origine disparaît au passage suivant (le rejeu par
   l'identité, D654/D930) — son histoire reste (D668) ;
 - **l'anomalie** — ce qui est au technicien, pas aux métiers (D929)
@@ -1623,7 +1624,8 @@ d'une phase relevées (**D1057**), le `report:` propre à chaque entité source
 — les destinataires des sources de PMI : le bureau d'études (ARTICLE, NOMENC),
 la logistique (MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS), le commercial et les
 achats (**D1058/D1061**), l'anomalie en fait daté (**D1059**) ; la
-complétude du schéma sur les colonnes de la configuration (**D1060**).
+complétude du schéma sur les colonnes de la configuration (**D1060**) ; les
+règles réalignées sur la répartition des sources (**D1062**).
 
 ## Les manques relevés
 

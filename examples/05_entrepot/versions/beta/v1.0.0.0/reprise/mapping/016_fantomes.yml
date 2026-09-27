@@ -8,5 +8,5 @@ ARTICLE:
   fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
   report:
     when: [migration]
-    to: [production]                              # les données techniques, c'est la production qui corrige (D945)
+    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
     by: [notification, mail]

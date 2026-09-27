@@ -1609,7 +1609,8 @@ l'entité illisible (**D1042**) ; la base miroir (**D1044**) — `buffer: tempor
 `memory` (**D1045**) ; le doublon tombe dans le miroir, jamais au report
 (**D1046**) ; la table des associations ne garde que les clés d'origine
 (**D1047**) — au cas, une ligne d'`ARTICLE` donne l'article et ses dépôts,
-mille articles donnent un seul dépôt.
+mille articles donnent un seul dépôt ; trois jeux de compteurs dissociés —
+l'origine, la destination, la règle (**D1048**).
 
 ## Les manques relevés
 

@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1046)
+## Les bases (D1032–D1048)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -74,6 +74,12 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   plusieurs entités, plusieurs entités se fondre en une seule.
 - **Les cinq blocs** (D1034) : anomalies, création, modification,
   inchangé, suppression.
+- **Trois jeux de compteurs, dissociés** (D1048) : par entité
+  d'origine — les lignes nouvelles, supprimées, mises à jour, les clés
+  traitées sans erreur et avec erreur ; par entité de destination — les
+  lignes nouvelles, non modifiées, modifiées, supprimées ; par règle —
+  les lignes traitées et les lignes en erreur. L'erreur d'une règle ne
+  se compte ni sur l'origine ni sur la destination.
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

@@ -738,6 +738,11 @@ coverage:
   complète (`every: weekly[saturday at 23:00]`, `operations: [
   reset_coverage(MVTSTO), … ]` — par entité partitionnée), le
   calendaire D434 et la composition des hooks du socle D609 ;
+  **`on_running:`** (D1077–D1080) dit ce que fait l'opération quand un
+  passage de la migration tourne déjà : `cancel` (le défaut — elle est
+  refusée, tracée), `wait` (elle attend sa fin), `interrupt` (elle
+  l'interrompt avant de se lancer — jamais pendant la bascule vers la
+  cible) ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton

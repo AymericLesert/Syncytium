@@ -437,6 +437,16 @@ la clé de la sandbox, la recharge D922 le rejoue) et **la commande** :
 syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 ```
 
+**La copie d'un environnement** (D1078–D1080) : la base de l'environnement
+source vers celui de la cible — les données et le module `_migration` avec
+elles ; l'option `--with-storage` emporte aussi les fichiers de détail des
+migrations (D1066), re-chiffrés sous les clés de la cible :
+
+```bash
+syncytium copy production staging                  # les données et _migration
+syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
+```
+
 — le re-chiffrement en masse au patron de `migrate` (la transaction,
 la progression suivie), l'acte tracé. **Et le seul geste qui rehache**
 (D916) : toute empreinte porte l'identifiant de son algorithme, le

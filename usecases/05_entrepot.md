@@ -1638,7 +1638,8 @@ rétention par la règle `migration_cegid:` du `cleanup.yml` de
 l'environnement (**D1073–D1074**) ; un passage à la fois — un second
 `migrate` refusé, l'interruption par l'administrateur hors bascule
 (**D1077**) ; si le delta de la nuit tourne encore, la relecture du samedi
-attend sa fin ou l'interrompt, selon l'option (**D1079**) ; le staging
+attend sa fin ou l'interrompt, selon l'option — `on_running: wait` sur
+`relecture_complete`, `cancel` par défaut (**D1079–D1080**) ; le staging
 recopié de la production emporte `_migration`, les fichiers de détail
 re-chiffrés au besoin (**D1078–D1079**).
 

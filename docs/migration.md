@@ -133,12 +133,13 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   miroir vers la cible ; un redémarrage vaut interruption, la relance
   est manuelle ; l'opération qui porte `reset_coverage` (la relecture
   complète) attend la fin du passage en cours ou l'interrompt, selon
-  une option de configuration (D1079) ; le passage est en cours,
+  `on_running: cancel | wait | interrupt` (`cancel` par défaut,
+  D1080) ; le passage est en cours,
   réussi, en erreur, refusé ou interrompu.
 - **Les environnements** (D1078) : la copie de la production vers le
   staging emporte `_migration` avec les données ; les fichiers de
-  détail peuvent suivre, re-chiffrés au besoin — une option de la
-  commande de copie d'un environnement (D1079).
+  détail peuvent suivre, re-chiffrés — `syncytium copy <source>
+  <cible> --with-storage` (D1079–D1080).
 - **Le rapport de la source** (D1058) : l'entité source déclare son
   propre `report:` pour les anomalies de ses phases ; la règle garde
   le sien pour les siennes.

@@ -19,6 +19,11 @@ enregistrements, sans possession : chacun vit sa vie.
 **Audience** — Le public d'une donnée : l'interne (les collaborateurs)
 ou l'externe (les clients, par un portail). *(D70)*
 
+**Base miroir** (`buffer:`) — La base, à l'image de la destination,
+où une reprise de données se construit et se contrôle avant d'être
+reportée dans la base de l'application ; elle vit le temps de la
+migration. *(D1044/D1045)*
+
 **Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
 entité. Elle se caractérise par : un nom, un type, des propriétés.
 *Ex. : `company_name: text[80]` — la raison sociale, 80 caractères au
@@ -40,8 +45,9 @@ utilisateur. *(D957–D959)*
 
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut
-changer un jour ; l'identité technique, elle, jamais.
-*Ex. : `identity: [code]`.* *(D142/D357)*
+changer un jour ; l'identité technique, elle, jamais. Toute entité
+en porte une, la sienne ou celle qu'elle hérite de sa racine.
+*Ex. : `identity: [code]`.* *(D142/D357, D1035/D1039)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
@@ -230,9 +236,19 @@ ce premier caractère aux modules d'application. *(D1029)*
 créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
 déclencheur possible d'un changement d'état. *(D148)*
 
+**Passage** — Une exécution d'une reprise de données (`migrate`) : la
+lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa
+ligne d'exécution garde l'état, les compteurs et les indicateurs.
+*(D667, D1033, D1054)*
+
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
 *(D178)*
+
+**Rétention des fichiers** (`cleanup.yml`) — Les règles qui
+suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
+durée ou d'un nombre : le journal, les watchers, le détail des
+migrations. *(D1070–D1076)*
 
 **Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a
@@ -289,6 +305,10 @@ La structure des styles ne se généralise pas forcément.
 
 **Surface** ou Facette d'une entité ou composant graphique élaboré pour une entité — Un écran généré et nommé : la liste, le formulaire, le
 widget de résumé, le widget de synthèse. *(Q48)*
+
+**Table des clés d'origine** — Ce que le module `_migration` garde de
+chaque ligne d'une source : sa clé, sa partition, un hash, le statut
+de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 
 **Technicien** — Celui qui écrit la description. Un rôle, pas un
 métier : une à plusieurs personnes le portent. Le technicien est celui qui porte la validité de la configuration et la stabilité de l'application. *(D95)*

@@ -1501,6 +1501,11 @@ l'évolution — est celui des surfaces standard du module `migration`
 d'autre : les entités gardent les surfaces que le socle propose sans
 déclaration (D437–D438).
 
+*(Le 27/09/2026 : `docs/migration.md` est restructuré sur les bases
+D1030–D1080 — le texte qui suit, du 21/09, décrit le modèle d'avant ;
+il sera réécrit comme la déclinaison du module sur PMI, la prochaine
+étape.)*
+
 **Le morceau 5 — la consolidation des rapports : le module
 `migration` et ses composants** (D1020, écrit le 21/09/2026 — *en
 proposition* : le module est celui du socle, D666, « le socle premier

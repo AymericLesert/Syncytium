@@ -379,13 +379,15 @@ construit et que la cible refuse (D177 — la conversion échouée, sa
 propre `validation:` D932, le contrat de la cible, la référence non
 résolue). Sans `report:`, le
 défaut de D407 tient : à la demande, vers l'administrateur, par les
-surfaces du module `migration` (D666). Aucun rapport général — ni à
+surfaces du module `_migration` (D666). Aucun rapport général — ni à
 la migration déclarée (D662), ni au module ; la cascade de D407 reste
-celle du modèle (les non-conformes des références, D395). Les
-anomalies de la source — le schéma non décrit (D868), l'identité qui
-n'est pas une clé (D871), l'orphelin isolé (D875) — ne sont pas des
-rejets de règle : elles vont au technicien par le module `migration`
-et le rapport de non-couverture (D176/D179).
+celle du modèle (les non-conformes des références, D395). **Les
+anomalies du modèle** — la colonne non décrite, le type non
+convertible, la colonne décrite disparue, l'identité non respectée
+(D1042/D1053) — ne sont pas des rejets de règle : elles vont au
+technicien par le module `_migration` ; **celles des données de la
+source** — ses phases de contrôle, le type, l'identité, l'orphelin —
+vont au `report:` de l'entité source (D1058, ci-dessous).
 
 **Le rapport de l'entité source (D1058).** « L'entité source déclare son
 propre report: » — les anomalies des phases de la source (la
@@ -462,33 +464,38 @@ right("0000" + me, 4)`) ou le calculé de la source (D660) ; la règle
 et les `parent:` lisent des colonnes déjà converties, la conversion
 n'est écrite qu'une fois, là où la donnée entre.
 
-**`validation:` à trois niveaux (D932).** « validation: porte à la
-source avant l'import, porte à la destination après l'import et à la
-règle du mapping porte sur chaque ligne de l'import. » Les trois temps,
-redits par l'auteur (D1006) : **sur la source à la lecture — limite les
-enregistrements aux valeurs valides ; sur le mapping — identifie les
-règles non respectées ou les données incorrectes ; sur la destination —
-garantit que les règles des données entreposées sont correctes.** Une
-contrainte du modèle n'a pas à être redite par la règle ; et une
-grandeur « à titre indicatif » ne se valide pas, ses cas limites
-s'observent. La même
-grammaire (D404) à trois places : sur l'entité source, la règle
-s'évalue sur la ligne lue, avant la conversion — la non-conformité de
-la source, comme la garde D813 ; sur la règle de migration, elle
-s'évalue sur chaque ligne importée, après la construction par
-`fields:` et avant l'écriture — les colonnes source à nu,
-l'enregistrement construit par `me` ; sur l'entité cible, elle
-s'évalue à l'écriture, au scellé (D594), sur l'enregistrement et ses
-enfants (D933). L'échec, à chaque étage, rejette la ligne et va au
-rapport de la règle (D929).
+**`validation:` dans les cinq phases de contrôle (D932, amendé par
+D1033/D1040).** Les trois places de la même grammaire (D404) —
+l'entité source, la règle, l'entité de destination — prennent leur
+rang dans le déroulé d'un passage ([migration.md](migration.md)) :
+**(1) la validation des données sources** — après le `filter:`, les
+colonnes converties du type lu au type décrit, l'identité, les liens
+(l'orphelin) ; **(2) la vérification des règles sources** — les
+`validation:` de l'entité source, sur la ligne lue ; **(3) le
+mapping** — `fields:` construit l'enregistrement dans la base miroir
+(D1044) ; **(4) la validation des règles du mapping** — les
+`validation:` de la règle, les colonnes source à nu, l'enregistrement
+construit par `me` ; **(5) la validation des règles de destination**
+— après la lecture de toutes les données, sur la base miroir
+complète, avant l'enregistrement : les contraintes et les
+`validation:` du modèle, avec les enfants (D933). **Chaque phase
+relève toutes ses erreurs**, et l'enregistrement en erreur ne passe
+pas à la phase suivante (D1057) ; chaque erreur garde un message
+clair, pour le rapport. Les trois temps, redits par l'auteur (D1006)
+: sur la source à la lecture — limite les enregistrements aux valeurs
+valides ; sur le mapping — identifie les règles non respectées ou les
+données incorrectes ; sur la destination — garantit que les règles
+des données entreposées sont correctes. Une contrainte du modèle n'a
+pas à être redite par la règle ; et une grandeur « à titre
+indicatif » ne se valide pas, ses cas limites s'observent.
 
 ```yaml
-# reprise/source/NOMENC.yml — avant l'import : la ligne lue, avant la conversion
+# reprise/source/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
 NOMENC:
   validation:
     - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
 
-# reprise/mapping/002_nomenclatures.yml — sur chaque ligne importée : la source à nu, le construit par me
+# reprise/mapping/002_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
 NOMENC:
   to: technique.ligne_nomenclature
   fields:
@@ -498,7 +505,7 @@ NOMENC:
     - me.quantite > 0 if me.nature = "composant"       # le construit
     - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
 
-# technique/ligne_nomenclature/ligne_nomenclature.yml — après l'import : l'enregistrement écrit
+# technique/ligne_nomenclature/ligne_nomenclature.yml — la phase 5 : sur la base miroir complète
 validation:
   - composant != null if nature = "composant"
 ```
@@ -514,8 +521,8 @@ conversion, sa `validation:`, sa référence) entraîne ses composants ;
 l'échec propre d'un composant (sa conversion, sa `validation:` à la
 règle ou à l'entité, sa référence — l'orphelin D875) ne rejette que
 lui, le parent entre sans lui ; la `validation:` du parent qui lit
-ses enfants (`lignes.count() > 0`, une somme) s'évalue sur le parent
-et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
+ses enfants (`lignes.count() > 0`, une somme) s'évalue en phase 5
+(D1033), sur le parent et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
 grain d'écriture (D420) : ce qui s'écrit est le parent avec ses
 composants conformes. Au cas 5 : l'article entre sans la cellule
 tarifaire fautive, ses mouvements le trouvent ; la commande sans
@@ -599,20 +606,14 @@ customers:
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;
 
-- **la règle rapprochable, la règle création seule** (D825, réécrit
-  par D930 — le cas 4 : les écritures, sans identifiant de ligne ni
-  clé composite fiable) : `key:` n'existe plus — **une règle est
-  rapprochable si l'enregistrement qu'elle construit détermine
-  l'identité de sa cible**, par ses expressions ou par les défauts des
-  champs ; sinon — l'entité sans `identity:`, un champ d'identité
-  sans valeur — **elle est création seule** (jamais de rapprochement,
-  un rejeu dupliquerait) ; **la garde à l'ingestion** : `mode:
-  relative` ou un rejeu sans `reset: true` exigent que chaque règle
-  soit rapprochable — la règle création seule n'est admise qu'au
-  tout-ou-rien remis à zéro ; la règle de complément (D821) ne crée
-  pas : elle re-parcourt les mêmes lignes dans le même passage, la
-  correspondance ligne → enregistrement tenue par la migration
-  (D666/D668) ; la règle de mise à jour alimente l'identité
+- **l'identité partout** (D1035 — amende D825/D930) : toute entité
+  porte une identité, la sienne ou celle qu'elle hérite de sa racine
+  (D1039) ; son absence est une anomalie de description du modèle —
+  la règle « création seule » disparaît : l'enregistrement construit
+  se retrouve dans la cible par son identité, deux enregistrements de
+  même clé sont le même enregistrement (D1046) ; la règle de
+  complément (D821) ne crée pas : elle re-parcourt les mêmes lignes
+  dans le même passage ; la règle de mise à jour alimente l'identité
   elle-même, une valeur inchangée que le différentiel ignore ;
 
 - **une entité source, plusieurs fichiers** (D816 — le cas 4) : deux
@@ -647,9 +648,14 @@ customers:
   sont portés, les erreurs isolées — dans une composition, l'échec du
   parent entraîne ses composants, l'échec d'un composant ne rejette
   que lui (D933) —, le rapport porté par chaque
-  règle vers son destinataire (D929 — à défaut l'administrateur,
-  D108–D110/D179), et **la vue sur le taux de couverture** par
-  rapport à la source d'origine.
+  règle et de chaque entité source vers son destinataire (D929/D1058
+  — à défaut l'administrateur, D407), et **la vue sur les
+  indicateurs** — la complétude du schéma, la couverture des données
+  (D1056).
+
+**Le dry-run s'arrête après la comparaison** (D1044) : la reprise se
+construit dans la base miroir, se compare à la cible, et les
+différences se montrent sans être reportées.
 
 La reprise (D175–D179) est le mode relatif du `from:` ; le mode
 absolu en est le durcissement pour la bascule définitive — les deux
@@ -657,44 +663,38 @@ postures de D180 incarnées.
 
 ## La couverture et le pilotage (D666–D667, D861–D862)
 
-- **le module `migration`** (D666 ; décrit dans
+- **le module `_migration`** (D666 ; décrit dans
   [migration.md](migration.md) — D1028 : présent dans Syncytium, « ce
-  n'est pas aux applications de l'exposer ») — défini par Syncytium
-  (le socle premier client — D408/D416) : ses entités stockent l'état de la
-  couverture (par migration, par entité source, par règle, les
-  rejets et leurs causes) — **la vue exploite les éléments déjà
-  décrits** : les listes, les widgets, les kpi, les tableaux de bord
-  du catalogue sur ces entités ; le taux de couverture est une
-  donnée du modèle — consultable, filtrable, exportable ;
-- **les trois taux** (D861–D862 — le cas 5, l'entrepôt) : **la
-  complétude du schéma** — les éléments décrits ou déclarés
-  `ignored` rapportés au schéma réel (cent pour cent quand tout est
-  déclaré ; l'écart = **les anomalies** : la table ou le champ
-  présent dans le schéma et absent de `source/`, remonté au
-  technicien D179 — la complétude confrontée au schéma réel D653 à
-  l'ingestion et à chaque `migrate`) ; **la couverture du schéma**
-  — les éléments migrés rapportés au schéma réel (les ignorés =
-  l'exclusion assumée, affichée à part, jamais comptée comme
-  couverte) ; **la couverture des données** — les lignes intégrées
-  rapportées aux lignes de chaque table source (les rejets creusent
-  l'écart, le `filter:` D663 hors taux) ; deux grains au module
-  `migration` : l'entité et le champ pour le schéma, la ligne pour
-  les données ;
+  n'est pas aux applications de l'exposer ») — il pilote et supervise
+  la reprise : le déroulé d'un passage (le modèle lu, la lecture, les
+  cinq phases de contrôle, la comparaison, la bascule), la table des
+  clés d'origine, les versions du modèle lu, la ligne d'exécution et
+  ses trois jeux de compteurs, les anomalies ; **la vue exploite les
+  éléments déjà décrits** : les listes, les kpi, les tableaux de bord
+  du catalogue ;
+- **les indicateurs** (D861–D862, amendés par D1056/D1060) — sur la
+  ligne d'exécution : **la complétude du schéma**, sur les colonnes
+  décrites dans la configuration — les décrites encore présentes dans
+  le modèle lu, au type compatible, rapportées aux décrites ; la
+  colonne que la configuration ne cite pas n'y entre pas, elle reste
+  une anomalie de complétude, au technicien (D1053) ; **la couverture
+  des données**, sur les compteurs de l'origine — les lignes lues sans
+  erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
 - **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :
   la migration compare **le converti** (D672 — l'enregistrement
   reconstruit, la clé fonctionnelle) à la destination, **par
-  partition, en cinq blocs** — **anomalies** (les lignes d'origine
-  non converties — les rejets D177), **création** (les clés
-  nouvelles), **modification** (les clés existantes à un champ
-  différent), **inchangé**, **suppression** (les clés de la
-  destination absentes de l'origine) ; **la synthèse** — par bloc,
-  par clé de partition, le nombre d'enregistrements par entité —
-  est la visibilité sur l'avancement ; **la lecture de l'origine**
+  partition, en cinq blocs** (D1034) — **anomalies** (les
+  enregistrements tombés à l'une des cinq phases — D1033/D1040),
+  **création**, **modification** (un champ différent), **inchangé**,
+  **suppression** (sur la partition relue, l'enregistrement présent
+  avant et absent après — D1052) ; **la synthèse** — les trois jeux de
+  compteurs dissociés (D1048) : par entité d'origine, par entité de
+  destination, par règle ; **la lecture de l'origine**
   se règle par `coverage:` sur l'entité source — **la clé de la
   partition** (distincte de l'`identity:` si besoin : Syncytium
-  garde une empreinte par valeur de clé, qui signale une
-  différence, et la dernière valeur parcourue, pour reprendre
-  depuis la dernière lecture) et **la plage de valeurs** (une
+  garde, par clé d'origine, sa valeur de partition et un hash qui
+  compte les lignes modifiées — D1047–D1050 —, et la dernière valeur
+  parcourue, pour reprendre depuis la dernière lecture) et **la plage de valeurs** (une
   période sur une date, un nombre de valeurs ou d'enregistrements
   sur un numéro) ; **sans `coverage:`, la totalité est relue** —
   **l'état se relit en entier, le journal se partitionne** (D1013 : le
@@ -724,9 +724,9 @@ coverage:
     range: 3m
 ```
 
-- **`reset_coverage`** (D881) — l'opération du socle qui efface
-  l'état de couverture d'une entité (la dernière valeur parcourue,
-  les empreintes par partition) : le `migrate` suivant relit la
+- **`reset_coverage`** (D881, précisé par D1030/D1037) — l'opération
+  du socle qui remet au départ la dernière valeur parcourue d'une
+  entité, sans rien effacer du module : le `migrate` suivant relit la
   totalité ; planifiable par `every:` (D434), déclenchable comme
   toute opération (D428) ; le rythme type : le delta en semaine, la
   relecture complète le dimanche par un `reset_coverage` planifié
@@ -750,14 +750,19 @@ coverage:
   différentiel nocturne), l'API ; la relance = la ré-exécution, le
   rejeu sans doublon par la clé fonctionnelle (D654) ; le dry-run
   absolu (D649) = le preview de `migrate` suspendu avant commit
-  (D594–D595) ;
+  (D594–D595) — la base miroir comparée, rien de reporté (D1044) ;
+  **un passage à la fois** : l'interruption par l'administrateur, hors
+  bascule ; le redémarrage vaut interruption, la relance est manuelle
+  (D1077) ;
 - **le `filter:`** (D663, confirmé) : les enregistrements hors
   filtre ne sont ni des rejets ni de la couverture — le périmètre
   déclaré.
-- **le module historisé** (D668) : les entités du module `migration`
-  portent `history:` (D168) — le suivi de la migration et
-  **l'évolution de la qualité de la couverture dans le temps** (le
-  taux qui monte au fil des ajustements, la courbe du catalogue) ;
+- **le module historisé** (D668, précisé par D1056/D1068) : la ligne
+  d'exécution de chaque passage, ses compteurs et ses indicateurs
+  restent sans délai de rétention — **l'évolution de la qualité dans
+  le temps** (les indicateurs qui montent au fil des ajustements, la
+  courbe du catalogue) ; le détail des anomalies vit dans le fichier
+  SQLite du passage, retenu 90 jours par défaut ;
 - **les options de la migration** (D669/D671) : `{ mode: absolute |
   relative, reset: true | false }` — deux propriétés orthogonales :
   `absolute` (le tout-ou-rien de la bascule) / `relative`
@@ -776,14 +781,17 @@ coverage:
   l'environnement — `interval:`, `directory:`, `pattern:` au groupe
   `(?<date>…)`, `retention:` (90 jours par défaut) ; la ligne
   d'exécution reste sans délai ;
-- **le différentiel par comparaison** (D672) : évalué **après la
-  migration** — l'enregistrement reconstruit se compare à la cible
-  par la clé fonctionnelle (D654), **champ par champ** ; seuls les
+- **le différentiel par comparaison** (D672, précisé par D1037) :
+  évalué **dans la base miroir, avant la bascule** — l'enregistrement
+  reconstruit, ses compositions comprises, se compare à la cible par
+  son identité (D654/D1046), **champ par champ** ; seuls les
   écarts s'écrivent, et l'entité cible historisée assure l'évolution
   de la valeur (D168) — le différentiel est la conséquence du rejeu
   par la clé, pas un mode de plus ; **les champs qu'aucune règle
   n'alimente restent intacts** (D941 — l'enrichissement : le champ
-  possédé par la cible, `unchanged: true`, né à son `default:`).
+  possédé par la cible, `unchanged: true`, né à son `default:`) ;
+  **la source fait foi** (D1038) : la correction à la main d'un champ
+  migré cède au passage suivant qui relit l'enregistrement.
 
 ## Les points ouverts
 

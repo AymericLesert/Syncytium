@@ -204,8 +204,9 @@ code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
 `create`, `read`, `update`, `delete`, `duplicate`, `promote`,
 `demote`, `generate`, `download`, `print`, `send`, `export`,
 `import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
-`anonymize`, `reset_coverage` (l'état de couverture d'une entité
-effacé — le `migrate` suivant relit la totalité). **Chaque
+`anonymize`, `reset_coverage` (la dernière valeur parcourue d'une
+entité remise au départ — le `migrate` suivant relit la totalité,
+rien du module n'est effacé, D1030). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `user` | `manager` | `administrator`, le
 plancher que la déclaration ne peut abaisser ; le groupe

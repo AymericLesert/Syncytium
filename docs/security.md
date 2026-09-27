@@ -449,6 +449,12 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 - **Le registre des traitements auto-documenté** (D698) : généré du
   modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
   leurs connecteurs sortants.
+- **Le détail des migrations** (D1065) : les anomalies d'un passage
+  portent des valeurs de la source ; leur fichier est supprimé entier
+  à l'échéance de sa rétention (le `cleanup.yml` de l'environnement,
+  D1073) ; le rapport par mail anonymise les valeurs des champs
+  `rgpd:` (D696) ; les interfaces du module les montrent sous les
+  droits de chacun.
 - **Le staging porte des données réelles** (§7.3) : l'éphémérité et
   l'accès restreint sont les garde-fous, à documenter chez le
   client.
@@ -500,7 +506,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   d'une valeur est **un pouvoir de type** (comme `password`) — pas de
   facette : le type chiffre par ses fonctions de valeur et déclare
   ce qu'il sait encore faire (la recherche stricte au mieux, le tri
-  perdu).
+  perdu) ; **le fichier SQLite du détail d'une migration** est chiffré
+  — nativement si possible, sinon après sa création — et `rotate` le
+  re-chiffre avec les autres (D1067) ; `syncytium copy
+  --with-storage` le re-chiffre sous les clés de la cible (D1080).
 
 ## La disponibilité et la continuité
 

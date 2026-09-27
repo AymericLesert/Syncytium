@@ -2889,7 +2889,7 @@ templates:
 la fiche est mienne, en proposition.)*
 
 1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
-   du module `chat` fourni par Syncytium (comme `migration` D666 et
+   du module `chat` fourni par Syncytium (comme `_migration` D666 et
    `_administration` D710) ; le menu l'adresse — `_chat[main]` (D439 — le préfixe des modules internes, D1029) ;
 2. **Rôle** — **la question en langue naturelle à la somme des
    connaissances de l'instance** — les données et leur description —,

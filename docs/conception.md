@@ -12287,6 +12287,251 @@ mouvements » — le lot, un texte sur le mouvement et dans la clé du
 niveau ; l'évolution possible notée dans les commentaires du modèle. Le
 morceau 4 du cas 5 — le mapping — est écrit en entier.
 
+**Le cas 5 recadré (D1019).** **« Reprenons l'intérêt du cas
+d'usage 3 [5] — la migration de données et son enregistrement dans un
+entrepôt de données. Ici, les interfaces graphiques ne sont pas
+essentielles »** — le lot 1 du morceau 5 (onze `gui.yml` de listes et
+de formulaires) retiré ; le morceau 5 ramené au suivi de la migration,
+par les surfaces standard du module, et à un seul tableau de bord,
+`stock[pilotage]`.
+
+**Le morceau 5 = le module de migration (D1020).** **« La dernière
+partie est la consolidation des rapports de la mise à jour de
+l'entrepôt de données. Ça doit décrire le module migration et ses
+composants. Le reste des interfaces est servi (par défaut) »** — le
+morceau décrit sur PMI le module que le socle définit (D666) ; les
+autres entités gardent leurs surfaces par défaut (D437–D438).
+
+**Après le cas 5, la relecture et la documentation structurée
+(D1021).** **« Je relirai consciencieusement tous les fichiers de
+configuration… Nous peaufinerons ensemble tous les éléments et nous
+les consignerons dans une documentation structurée qui devra
+ressembler le plus possible à une documentation finale »** — la
+validation globale (D955) devient une relecture de tous les exemples,
+le peaufinage, puis la documentation.
+
+**Le cas 6 transformé (D1022).** **« Un hook de connecteur (lecture
+des données dans Powerpoint) et un hook llm pour extraire des
+informations et les enregistrer dans un modèle de données via l'usage
+d'un watcher »** — le cas éprouve les hooks de connecteur (D52/D634),
+la famille `llm` (D957) et le watcher (D634/D974).
+
+**Le cas 7, PDCA (D1023).** **« Analyser et transcrire un vieux projet
+dans le nouveau cadre et moderniser l'affichage et les rapports… utiliser
+l'IA pour générer la configuration d'un projet en vue d'un
+refactoring »** — la transcription d'un existant par l'IA, les surfaces
+modernisées, la documentation auto-générée (D258/D840).
+
+**Le cas 8, la refonte d'un projet en production (D1024).** **« Ce
+projet est actuellement utilisé en production depuis une dizaine
+d'années. Je souhaite que Syncytium soit le socle de sa refonte »** —
+le vrai projet de validation, avec le module `chat` (D957–D960) ; la
+mise à disposition complète vit dans un autre projet GitHub.
+
+**Après les cas, l'architecture (D1025).** **« À l'issue de ces
+analyses, nous aborderons l'architecture logicielle, le cadre de
+conception et le cadre technique »** — le chantier du moyen (D928)
+s'ouvre après le cas 8 et la documentation structurée.
+
+**Le tiny hello world (D1026).** **« Un environnement, un module, une
+entité et 4 champs (Nom, Prénom, Age, Fonction) pour montrer simplement
+les capacités de Syncytium… Cela devra tenir en quelques lignes de
+configuration »** — la maison `usecases/01_tiny.md` ; l'exemple
+s'écrira avec la documentation structurée.
+
+**Les cas renumérotés à partir de 1 (D1027).** **« Renumérote les cas
+d'usage en commençant par 1 »** — 1 le tiny, 2 l'enquête, 3 le
+véhicule, 4 la banque, 5 l'entrepôt, 6 la lecture de documents par
+hooks, 7 PDCA, 8 la refonte ; les chemins, puis les mots, réécrits
+partout ; les rangs historiques se lisent par la table de D1027.
+
+**`migration.md`, le quatorzième artefact (D1028).** **« Crée un
+nouveau document migration.md pour décrire le contenu du module
+migration de Syncytium. Ce module sera présent dans Syncytium et ce
+n'est pas aux applications de l'exposer »** — l'artefact du module du
+socle ; son modèle, proposé le 22/09, a été refait sur les bases du
+27/09 (D1030–D1080).
+
+**Le préfixe `_` des modules internes (D1029).** **« Le préfixe _
+marquera les modules internes. Pour les modules d'application,
+Syncytium refusera l'usage de _ comme premier caractère »** —
+`_migration`, `_administration`, `_chat` ; la racine réservée
+`syncytium` écartée (« je vais limiter les couches »).
+
+**Le module en lecture seule par construction (D1030).** **« Le
+module est en lecture seule par construction car c'est le moteur qui
+alimente… Le reset_coverage réinitialise des parties du module mais
+n'efface pas son contenu. La migration va enrichir les contenus des
+tables et le propriétaire de la migration est toujours
+administrateur »** — pas d'`allow:` au module ; `reset_coverage` remet
+au départ, n'efface rien.
+
+**`migration.md` généraliste (D1031).** **« Le module _migration est
+disponible pour toutes les migrations. Cegid n'est qu'un exemple »** —
+l'artefact vaut pour tout connecteur de reprise ; les illustrations
+vivent dans les cas.
+
+**Les bases reposées : les enregistrements écartés (D1032).** Le
+27/09, l'auteur repose les bases du module (« je vais reposer les bases
+de ce module avant d'aborder le détail ») ; sur les contradictions
+relevées avec l'écrit : **« Les enregistrements exclus du filtre ne
+sont pas conservés. Les enregistrements qui ne respectent pas toutes
+les règles dont ils sont soumis ne sont pas enregistrés mais le(s)
+motif(s) de non respects sont conservés et éventuellement rejoués »**
+— D179 amendé : la quarantaine reste écartée, les motifs sont gardés.
+
+**Les phases et le modèle temporaire (D1033).** **« Les validations de
+la destination sont évaluées uniquement après la lecture de toutes les
+données et avant l'enregistrement dans la destination. Syncytium
+construit donc un modèle temporaire »** — D932 amendé ; les phases,
+reprises par D1040.
+
+**Les cinq blocs confirmés (D1034).** **« En effet, 5 blocs me
+conviennent »** — anomalies, création, modification, inchangé,
+suppression (D878).
+
+**L'identité partout (D1035).** **« Toutes les entités doivent
+comporter une identité. L'absence d'identité relève d'une anomalie de
+description du modèle »** — la règle « création seule » (D825/D930)
+disparaît ; l'identité peut être héritée.
+
+**L'empreinte, puis son oubli (D1036–D1037).** D1036 pose un hash de
+l'enregistrement plutôt que la recopie ; puis **« avec des compositions
+dans la destination, le hash selon la source n'est pas nécessaire…
+Seul l'enregistrement complet peut être comparé. En conclusion, je
+préconise d'oublier le hash. La table des associations va permettre
+d'identifier les nouveaux enregistrements »** (D1037) — la comparaison
+champ par champ de D672 sur l'enregistrement complet ; la modification
+faite dans la destination suit l'historique ou le remplacement (D1036).
+
+**La source fait foi (D1038).** À la question de la correction faite à
+la main sur un champ migré : **« Oui, c'est bien l'effet recherché »**
+— la valeur de la source est rétablie au passage suivant ; seuls les
+champs `unchanged:` y échappent.
+
+**L'identité à la racine (D1039).** **« tiers est la racine d'une
+entité. Il a forcément une identité. Client et fournisseur sont des
+entités qui héritent et qui conservent l'identité du tiers »** —
+l'exemple corrigé ; deux tiers de même code, « la situation est
+assumée et relèvera d'une erreur ».
+
+**Les cinq phases de contrôle (D1040).** **« Phase 1. Validation des
+données sources ; Phase 2. Vérification des règles sources ; Phase 3.
+Le mapping ; Phase 4. La validation des règles du mapping ; Phase 5. La
+validation des règles de destination »** ; **« L'orphelin se détecte à
+la validation des données de la source pas au moment du mapping »** —
+la phase 1 après le filtre ; D875 amendé.
+
+**La reprise, une transaction (D1041).** **« La validation de la
+reprise fonctionne comme une transaction. Si une erreur interrompt la
+mise à jour, toutes les données retournent à la valeur avant la
+reprise »**.
+
+**L'identité fausse d'une source (D1042).** **« Si ce n'est pas le cas
+sur la source, cela signifie qu'il manque une colonne dans la clé ou
+qu'une des colonnes ne doit pas figurer dans l'identité. Les identités
+sur la destination se vérifient à l'enregistrement »** — l'entité
+illisible, la transitivité ; D871 amendé.
+
+**L'échec tracé (D1043).** **« Une transaction qui échoue doit être
+tracée quand même. Les données ne sont pas prises en compte, ni
+enregistrées »** ; les anomalies restent consultables, sans impact sur
+la base cible.
+
+**La base miroir (D1044).** **« Nous pouvons passer par une base de
+données construite à l'image de la destination, puis les différences
+sont reportées dans la base de données utilisée par l'application »**
+— la base vit le temps de la migration, ne reçoit que ce que
+`coverage:` relit, les références non relues y sont recopiées.
+
+**`buffer:` et la classe `memory` (D1045).** **« buffer représente
+d'avantage ce qui est attendu… C'est le connecteur qui porte la
+facette, pas Syncytium »** — `workspace:` écarté ; `memory`, une classe
+de la famille `storage` ; le connecteur de l'exemple, `temporaire`.
+
+**Même clé, même enregistrement (D1046).** **« Dans la base miroir, en
+effet, le second tombe et le process continue. Au report dans la base,
+par construction, le cas ne se présente pas »**.
+
+**Les clés d'origine seules (D1047).** **« Une clé de l'origine n'a pas
+son pendant sur la destination car nous pouvons exploser le contenu sur
+plusieurs entités et plusieurs entités peuvent se retrouver dans une
+seule entité… Pas les clés de destination, elles sont stockées dans la
+cible »**.
+
+**Trois jeux de compteurs (D1048).** **« Ces 2 listes de compteurs
+sont dissociés… Pour chaque règle, il faut pouvoir suivre le nombre de
+lignes traitées et le nombre de lignes en erreur »** — l'origine, la
+destination, la règle.
+
+**Le hash à l'origine, la partition, le reset (D1049–D1051).** **« Nous
+pouvons mettre un hash sur une clé d'origine juste pour compter le
+nombre de lignes modifiées et non modifiées »** (D1049) ; **« la clé de
+partition doit apparaître et entre dans le test de la couverture »**
+(D1050) ; **« reset: true ne vide pas la table des clés d'origine »**
+(D1051).
+
+**La suppression sur la partition (D1052).** **« La suppression
+intervient sur la partition quand l'enregistrement était là avant, puis
+lorsque l'enregistrement n'est plus là (anomalie de mapping ou
+suppression des données) »** — la saisie à la main comprise.
+
+**Les historiques (D1053–D1056).** **« Syncytium garde les évolutions
+du modèle lu par le connecteur »** et traite les écarts toujours de la
+même façon (D1053) ; **« c'est naturellement que nous nous tournons vers
+l'instantané »** (D1054) ; le total = filtrées + hors plage + lues
+(D1055) ; les indicateurs sur la ligne d'exécution (D1056).
+
+**Les anomalies (D1057–D1059).** **« Une entité par famille représente
+bien la situation… le contrôle lance la conversion de toutes les
+colonnes et les erreurs sont toutes référencées »** (D1057) ; **«
+L'entité source déclare son propre report: »** (D1058) ; **« La lecture
+du fait daté va permettre de consulter les différentes alternatives et
+les changements de statut »** (D1059).
+
+**La complétude sur la configuration (D1060).** La lecture (b) : les
+colonnes décrites encore présentes et compatibles, rapportées aux
+décrites — D862 amendé.
+
+**Les destinataires du cas 5 (D1061–D1064).** Le bureau d'études, la
+logistique, le commercial, les achats pour les sources (D1061) ; **«
+Réaligne les règles sur la même répartition »** (D1062) ; **« Les
+règles 2 à 5 vont à la logistique. C'est eux qui affecte les
+emplacements de stockage par défaut »** (D1063) ; **« on supprime
+"production" »** (D1064).
+
+**Le stockage du détail (D1065–D1068).** Les données personnelles :
+le fichier supprimé à l'échéance, le mail anonymise (D1065) ; **« nous
+pouvons utiliser un fichier "sqlite" pour stocker les données de
+migration »** (D1066) ; chiffré, re-chiffré à la rotation (D1067) ;
+**« Une période de rétention est paramétrable sur la migration. Par
+défaut, 90 jours par défaut »** (D1068).
+
+**`${now:…}` et la rétention générique (D1069–D1071).** **«
+L'évaluation se fait à la demande de la configuration, pas au
+chargement »** (D1069) ; **« la rétention peut être un mécanisme
+générique qui conserve les n derniers fichiers répondant à un pattern
+ou en identifiant la date dans le nom du fichier »** (D1070) ; les
+propriétés normalisées, `${now:yyyy-mm-dd}` remplace `${date:…}`
+(D1071).
+
+**`storage:` et `cleanup.yml` (D1072–D1076).** **« "storage" au lieu de
+"detail" »** (D1072) ; **« ajoutons un fichier "cleanup.yml"… la
+section "cleanup" serait une liste de règle "cleanup" et alors
+"interval" y aurait tout son intérêt »** (D1073) ; les règles nommées
+par leur clé (D1074) ; **« le niveau "cleanup" est inutile car
+redondant »** (D1075) ; **« si absence d'unité, cela fait référence aux
+n derniers fichiers »**, `1min` (D1076).
+
+**Un passage à la fois, le staging (D1077–D1080).** **« Refus tracé…
+l'administrateur peut interrompre une migration… L'interruption n'est
+pas possible lors de la bascule du tampon vers la cible »** (D1077) ;
+**« la copie de la production vers le staging emporte _migration avec
+les données »** (D1078) ; la relecture attend ou interrompt, les cinq
+états du passage (D1079) ; **« on_running : cancel | wait | interrupt…
+La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
+(D1080). **Le 27/09, `migration.md` est restructuré sur ces bases.**
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23192,6 +23437,27 @@ avant la synthèse Q16).
   décisions).** « l'option on_running : cancel | wait | interrupt ; la
   copie de l'environnement me convient. La valeur par défaut est
   "cancel". » — l'exemple, mapping.md, administration.md.
+- **2026-09-27 (suite 30) — MIGRATION.MD RESTRUCTURÉ, LA DOCUMENTATION
+  MISE À JOUR.** « non, je garde "cancel" au défaut. tu peux
+  restructurer migration.md et mettre à jour toute la documentation » —
+  migration.md réécrit sur les bases D1030–D1080 : le principe (trois
+  lecteurs), le déroulé d'un passage (le modèle lu, la lecture, les cinq
+  phases de contrôle, la comparaison, la bascule, le suivi, les
+  rapports), ce que le module garde (la table des clés d'origine, le
+  modèle lu et ses versions, la ligne d'exécution, les trois jeux de
+  compteurs, les indicateurs, les deux familles d'anomalies, le stockage
+  du détail), le modèle en YAML (neuf entités, noms miens), les
+  rapports, les surfaces, les opérations, la déclaration d'une
+  migration, les points ouverts ; la section provisoire « Les bases »
+  fondue ; mapping.md (le rapport de la source, la validation dans les
+  cinq phases, l'identité partout, le dry-run, les indicateurs, la
+  synthèse, reset_coverage, le différentiel), administration.md,
+  configuration.md (le refus à l'ingestion D1035), hooks.md,
+  composants.md, security.md (le détail des migrations au RGPD et au
+  chiffrement), glossaire.md (base miroir, passage, rétention des
+  fichiers, table des clés d'origine), entity.md ; le narratif §3.2c
+  porté de D1019 à D1080. Le morceau 5 du cas 5 reste à réécrire comme
+  la déclinaison du module.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -269,12 +269,17 @@ rétention déclarée (D411).
 
 **L'entrée « migrations » du module d'administration** (`_administration`
 — le préfixe des modules internes, D1029 ; D711 —
-conditionnelle : `migrations:` défini) : les entités du suivi — la
-couverture par migration/entité/règle, les rejets et leurs causes —
-**historisées** (l'évolution de la qualité dans le temps) ; la vue
-par les surfaces standard. Le module lui-même — ses six entités, ses
-trois taux, la consolidation des rapports, ses surfaces — est décrit
-dans [migration.md](migration.md) (D1028).
+conditionnelle : `migrations:` défini) : le module `_migration` — les
+passages et leur ligne d'exécution (l'état, les horodatages,
+l'instantané, les trois jeux de compteurs, les deux indicateurs), la
+table des clés d'origine, les versions du modèle lu, les anomalies —
+**l'évolution de la qualité dans le temps** : la ligne d'exécution
+reste sans délai, le détail des anomalies vit dans un fichier SQLite
+par passage, retenu par le `cleanup.yml` de l'environnement ; la vue
+par les surfaces standard ; l'administrateur y lance, interrompt et
+relance les passages (D1077). Le module — le déroulé d'un passage,
+ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit
+dans [migration.md](migration.md) (D1028, D1030–D1080).
 
 ### Les opérations d'administration du socle (D701)
 

@@ -448,9 +448,12 @@ expressions.
   D996 ; les calculés de la source en `formula:` — D660),
   `mapping/NNN_<nom>.yml` chaque règle (`to`, `filter`, `distinct`,
   `parent`, `fields`, `validation`, `report`, `operations` — D656) :
-  [mapping.md](mapping.md) ; le suivi — les passages, la couverture,
-  les rejets — est le module `migration` du socle, que l'application
-  n'expose pas : [migration.md](migration.md) (D1028).
+  [mapping.md](mapping.md) ; le pilotage et le suivi — les passages,
+  les clés d'origine, le modèle lu, les anomalies — sont le module
+  `_migration` du socle, que l'application n'expose pas :
+  [migration.md](migration.md) (D1028) ; la migration déclare sa base
+  miroir (`buffer:`, D1045) et le fichier de son détail (`storage:`,
+  D1072).
 
 ## 4. Les cascades — le plus proche l'emporte
 
@@ -460,7 +463,7 @@ expressions.
 | `allow:` | l'application → le module → l'entité → le champ | D886 |
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
-| le report des rejets | la règle de migration → le défaut de D407 | D929 |
+| le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
 ## 5. L'ingestion — ce qui est refusé
 
@@ -481,7 +484,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une conversion de type avec perte non écrite (D581 — le typage
   statique des expressions) ; une unité sans chemin vers une unité
   connue du champ (D979/D983) ;
-- une règle de migration création seule en mode `relative` (D930).
+- une entité sans identité — ni la sienne ni celle de sa racine
+  (D1035/D1039) : une anomalie de description du modèle.
 
 **L'alerte**, pas l'erreur : la surcharge d'une clé au cumul de
 fichiers (D968).

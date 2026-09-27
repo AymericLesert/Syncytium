@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1036)
+## Les bases (D1032–D1037)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -41,17 +41,22 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   anomalies, en entités ou en fichiers annexes, font et refont les
   rapports et donnent les écarts d'une reprise à l'autre (refusé puis
   accepté, accepté puis refusé).
-- **L'association des clés** : le module garde, pour chaque
+- **La table des associations** (D1037) : le module garde, pour chaque
   enregistrement, la correspondance entre sa clé source et sa clé
-  destination — ni la source ni la destination ne la portent.
+  destination — ni la source ni la destination ne la portent ; elle
+  identifie les nouveaux enregistrements et porte le statut du
+  traitement de chacun.
 - **Les cinq blocs** (D1034) : anomalies, création, modification,
   inchangé, suppression.
 - **L'identité partout** (D1035) : toute entité porte une identité ;
   son absence est une anomalie de description du modèle.
-- **L'empreinte** (D1036) : un hash de l'enregistrement, gardé avec
-  l'association, plutôt que la recopie des données d'origine ; la
-  modification faite dans la destination suit l'historique ou le
-  remplacement selon la configuration de l'entité destination.
+- **La comparaison de l'enregistrement complet** (D1037, D672) : pas
+  d'empreinte — chaque passage vérifie tous les champs et applique
+  toutes les règles ; l'enregistrement construit, ses compositions
+  comprises, se compare entier à la destination, seuls les écarts
+  s'écrivent ; la modification faite dans la destination suit
+  l'historique ou le remplacement selon la configuration de l'entité
+  destination (D1036).
 
 ## La doctrine
 

@@ -1169,6 +1169,7 @@ Q58) :
 | D1034 | **Les cinq blocs de D878 confirmés** (confirme D878 — A3) : « En effet, 5 blocs me conviennent » — anomalies, création, modification, inchangé, suppression : les quatre états que l'association des clés source ↔ destination détermine, plus les anomalies des quatre phases (D1033). | Ma proposition des quatre états seuls écartée. Voir §3.2c. |
 | D1035 | **Toute entité porte une identité ; son absence est une anomalie de description du modèle** (amende D825/D930 — la règle « création seule » disparaît ; précise D871 — A4) : « Toutes les entités doivent comporter une identité. L'absence d'identité relève d'une anomalie de description du modèle. » | Chaque règle est rapprochable ; la garde de D930 (le mode `relative` exige des règles rapprochables) devient sans objet. Ma lecture, à confirmer : l'identité peut être héritée (un dérivé la tient de son parent) ou laissée par un parent abstrait à ses enfants — au cas 5, `fabrique`, `semi_fini`, `fantome` héritent de `article`, `tiers` la laisse à `client` et `fournisseur` ; seules les tables `ignored` de `source/` n'en portent pas, et elles ne sont pas lues. Voir §3.2c. |
 | D1036 | **L'empreinte : un hash de l'enregistrement, pas la recopie des données d'origine ; la modification faite dans la destination suit l'historique ou le remplacement de l'entité** (précise D878 — l'empreinte par clé —, D672 — A5) : « La comparaison sans procédé à une recopie stricte des données d'origine risque de stocker un très grand nombre de valeurs ... Je propose de stocker une empreinte (sou forme d'un hash qui puisse garantir l'unicité de l'enregistrement). Si le hash est différent, l'enregistrement est différent. Par contre, si le hash est identique, cela ne signifie pas pour autant que les enregistrements sont identiques ... comment pouvons-nous le garantir ? Une modification faite dans la destination suit l'historique ou le remplacement selon la configuration de l'entité destination. » | La question de la garantie à hash identique reçoit ma réponse en proposition (le journal du 27/09) : aucune garantie absolue n'existe sans la recopie ; le risque se borne à un changement d'un même enregistrement qui retomberait sur son ancien hash — 2^-256 avec SHA-256 — pourvu que la forme sérialisée soit canonique ; la relecture complète après `reset_coverage` (D881 efface les empreintes) comparerait champ par champ. Voir §3.2c. |
+| D1037 | **Le hash oublié — la table des associations identifie les nouveaux enregistrements et porte le statut du traitement de chacun ; seul l'enregistrement complet se compare** (amende D1036 et D878 — « une empreinte par clé » retirée ; confirme D672 — la suite de A5, le 27/09) : « Le hash présente un intérêt pour les entités sans compositions ... avec des compositions dans la destination, le hash selon la source n'est pas nécessaire. Dans le détail, cela signifie que nous devons quoiqu'il en soit vérifier tous les champs, appliquer toutes les règles, ... Seul l'enregistrement complet peut être comparé. En conclusion, je préconise d'oublier le hash. La table des associations va permettre d'identifier les nouveaux enregistrements et le statut du traitement sur l'enregistrement. » — l'empreinte ne dispensait de rien : chaque passage vérifie tous les champs et applique toutes les règles, et l'enregistrement destination à compositions ne se juge qu'entier. La comparaison champ par champ de D672 demeure, sur l'enregistrement complet construit dans le modèle temporaire (D1033), ses compositions comprises. | Ma lecture, à confirmer : la clé source absente de la table = une création ; présente, la comparaison dit modification ou inchangé ; le statut = l'issue du dernier passage pour cet enregistrement (le bloc de D1034, les motifs d'un refus D1032) — le suivi refusé → accepté d'une reprise à l'autre s'y lit. La dernière valeur parcourue de `coverage:` (D878/D881) reste, elle ne tenait pas à l'empreinte. La seconde phrase de D1036 (la modification dans la destination suit l'historique ou le remplacement) demeure. Voir §3.2c. |
 
 ---
 
@@ -22852,6 +22853,21 @@ avant la synthèse Q16).
   les cinq blocs ; D1035 l'identité partout ; D1036 l'empreinte par hash
   — « comment pouvons-nous le garantir ? » : ma réponse en proposition.
   Restent B1–B20, C1–C3.
+- **2026-09-27 (suite) — LE HASH OUBLIÉ (D1037, 1037 décisions).** « Le
+  hash "a|b|c" est-il identique à "a|c|b" ? » — non, l'ordre des octets
+  compte : d'où l'ordre des champs fixé par leur nom et la valeur
+  délimitée sans ambiguïté. Puis « Le hash présente un intérêt pour les
+  entités sans compositions ... avec des compositions dans la
+  destination, le hash selon la source n'est pas nécessaire. Dans le
+  détail, cela signifie que nous devons quoiqu'il en soit vérifier tous
+  les champs, appliquer toutes les règles, ... Seul l'enregistrement
+  complet peut être comparé. En conclusion, je préconise d'oublier le
+  hash. La table des associations va permettre d'identifier les nouveaux
+  enregistrements et le statut du traitement sur l'enregistrement. » —
+  la table des associations prend la place de l'empreinte ; la
+  comparaison de D672 sur l'enregistrement complet. Restent mes deux
+  lectures de D1033 (la `validation:` de la règle en phase 4) et de
+  D1035 (l'identité héritée ou laissée aux enfants), puis B1–B20, C1–C3.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

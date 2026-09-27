@@ -1595,7 +1595,9 @@ destination validée en toute fin sur un modèle temporaire ; le refusé
 non enregistré, ses motifs conservés et rejouables ; les cinq blocs ;
 l'identité partout — au cas, seules les tables `ignored` n'en ont pas,
 les dérivés de `article` l'héritent, `tiers` la laisse à `client` et
-`fournisseur` ; l'empreinte par hash.
+`fournisseur` ; l'empreinte par hash, aussitôt oubliée (**D1037**) : la
+table des associations identifie les nouveaux enregistrements et porte
+le statut de chacun, l'enregistrement complet se compare (D672).
 
 ## Les manques relevés
 

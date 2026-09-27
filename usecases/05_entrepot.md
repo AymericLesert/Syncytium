@@ -1607,7 +1607,9 @@ même code = une erreur assumée (D1039) ; la reprise est une transaction
 (**D1041**), l'échec tracé (D1043) ; l'identité fausse d'une source rend
 l'entité illisible (**D1042**) ; la base miroir (**D1044**) — `buffer: temporaire`, la classe
 `memory` (**D1045**) ; le doublon tombe dans le miroir, jamais au report
-(**D1046**).
+(**D1046**) ; la table des associations ne garde que les clés d'origine
+(**D1047**) — au cas, une ligne d'`ARTICLE` donne l'article et ses dépôts,
+mille articles donnent un seul dépôt.
 
 ## Les manques relevés
 

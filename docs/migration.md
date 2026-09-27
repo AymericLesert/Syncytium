@@ -67,11 +67,11 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   anomalies, en entités ou en fichiers annexes, font et refont les
   rapports et donnent les écarts d'une reprise à l'autre (refusé puis
   accepté, accepté puis refusé).
-- **La table des associations** (D1037) : le module garde, pour chaque
-  enregistrement, la correspondance entre sa clé source et sa clé
-  destination — ni la source ni la destination ne la portent ; elle
-  identifie les nouveaux enregistrements et porte le statut du
-  traitement de chacun.
+- **La table des associations** (D1037/D1047) : le module garde les
+  clés d'origine, pour suivre les lignes nouvelles et les autres, et le
+  statut du traitement de chacune ; pas les clés de destination, qui
+  vivent dans la cible — une ligne d'origine peut se répartir sur
+  plusieurs entités, plusieurs entités se fondre en une seule.
 - **Les cinq blocs** (D1034) : anomalies, création, modification,
   inchangé, suppression.
 - **L'identité partout** (D1035) : toute entité porte une identité,

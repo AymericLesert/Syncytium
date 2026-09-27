@@ -121,7 +121,8 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   d'un passage vit dans un fichier SQLite propre à l'exécution, daté
   par son nom, chiffré (nativement si possible), re-chiffré à chaque
   rotation des clés ; la migration le déclare par `storage:` — le
-  dossier, le nom, et sa rétention (`retention:`, 90 jours par défaut — le mécanisme générique de rétention des
+  dossier, le nom ; sa rétention est une règle du `cleanup.yml` de
+  l'environnement (D1073 ; `retention:`, 90 jours par défaut — le mécanisme générique de rétention des
   fichiers, D1070 ; le nom daté par `${now:yyyy-mm-dd}`, D1069) — le fichier échu est supprimé, la ligne
   d'exécution et ses indicateurs restent sans délai ; le rapport par
   mail anonymise les valeurs des champs `rgpd:`, l'interface les

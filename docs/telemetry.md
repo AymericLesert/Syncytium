@@ -87,8 +87,9 @@ met en sommeil.)*
 *(**La rétention des fichiers est un mécanisme générique** (D1070) : dans
 un dossier, les fichiers qui répondent à un pattern — gardés par nombre
 (les n derniers) ou par durée, la date lue dans le nom du fichier par
-le pattern ; le `cleanup` du logging la porte, le watcher et la
-migration (ses fichiers de détail, D1066) l'emploient. Les propriétés
+le pattern ; **elle vit dans `cleanup.yml`, à l'environnement** (D1073) :
+une liste de règles — le journal (sorti de `logging.yml`), les
+watchers, les fichiers de détail des migrations (D1066). Les propriétés
 sont normalisées (D1071) : `interval:` (le délai entre deux
 nettoyages), `directory:`, `pattern:` (la date par le groupe nommé
 `(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré) ;

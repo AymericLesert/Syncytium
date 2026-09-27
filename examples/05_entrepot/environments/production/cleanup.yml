@@ -1,0 +1,24 @@
+# Le nettoyage des fichiers de l'environnement (D1073) — la section cleanup :
+# une liste de règles ; chacune supprime, dans un dossier, les fichiers d'un
+# pattern qui dépassent la rétention (D1070/D1071 : la date lue dans le nom par
+# le groupe (?<date>…), la rétention en durée). interval = le délai entre deux
+# passages de la règle. Y vivent le nettoyage du journal (sorti de
+# logging.yml), celui des watchers, celui des fichiers de migration (D1066).
+
+cleanup:
+  # le journal — les fichiers datés de logging.yml, tournés compris (.log.1…)
+  - name: journal
+    interval: 86400                       # une fois par jour
+    directory: ${SYNCYTIUM_LOG_DIRECTORY}
+    pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
+    retention: 30d
+
+  # la migration cegid — le fichier SQLite de chaque passage (D1066/D1072)
+  - name: migration_cegid
+    interval: 86400                       # après la nuit : le détail de plus de 90 jours s'efface
+    directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
+    pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-cegid\.syncytium$'
+    retention: 90d
+
+  # les watchers : le cas 5 n'en déclare pas — leurs dépôts traités se
+  # nettoieraient ici, une règle par dossier.

@@ -120,7 +120,6 @@ migrations:
     storage:                        # le fichier SQLite de chaque passage (D1066/D1072)
       directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
       filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
-      cleanup: { pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-legacy_erp\.syncytium$', retention: 90d }
     source:
       - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
@@ -766,11 +765,12 @@ coverage:
   dans un schéma donné, ou la classe `memory` ; les phases de contrôle
   et la comparaison s'y jouent, puis les différences se reportent dans
   la base de l'application ; la base vit le temps de la migration ;
-- **le stockage du détail** (D1066–D1072) : `storage:` nomme le
+- **le stockage du détail** (D1066–D1073) : `storage:` nomme le
   dossier et le fichier SQLite de chaque passage (`filename:` daté par
-  `${now:…}`) et sa rétention — le `cleanup` générique : `interval:`,
-  `pattern:` au groupe `(?<date>…)`, `retention:` (90 jours par
-  défaut) ; la ligne d'exécution reste sans délai ;
+  `${now:…}`) ; sa rétention est une règle du `cleanup.yml` de
+  l'environnement — `interval:`, `directory:`, `pattern:` au groupe
+  `(?<date>…)`, `retention:` (90 jours par défaut) ; la ligne
+  d'exécution reste sans délai ;
 - **le différentiel par comparaison** (D672) : évalué **après la
   migration** — l'enregistrement reconstruit se compare à la cible
   par la clé fonctionnelle (D654), **champ par champ** ; seuls les

@@ -220,9 +220,10 @@ resources/                           # les logos, icônes, images — partagés 
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
-│   ├── production.yml               # name, description, logging:, documentation:, connectors:, settings:
+│   ├── production.yml               # name, description, logging:, cleanup:, documentation:, connectors:, settings:
 │   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
 │   ├── logging.yml                  # la journalisation (D343/D830)
+│   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
 │   ├── documentation.yml            # la génération de la documentation (D333)
 │   └── settings.yml                 # les réglages propres à l'environnement (D342)
 └── staging/ …
@@ -272,6 +273,7 @@ staging: ~{staging/staging.yml}
 name: production
 description: L'environnement de production — …
 logging: ~{logging.yml}
+cleanup: ~{cleanup.yml}
 documentation: ~{documentation.yml}
 connectors: ~{connectors.yml}
 settings: ~{settings.yml}
@@ -282,8 +284,13 @@ settings: ~{settings.yml}
   directory, location, webhook, siren, authentication, llm), `class:`
   l'implémentation, `parameters:` (les secrets marqués `*`) ; le
   détail dans [connectors.md](connectors.md) ;
-- **`logging.yml`** (D343/D830) — le bloc `syncytium:` (le rechargement,
-  le nettoyage — les valeurs de l'exemple) et la configuration de la
+- **`cleanup.yml`** (D1073) — la section `cleanup:`, une liste de
+  règles de rétention : chacune supprime, dans un dossier (`directory:`),
+  les fichiers d'un `pattern:` qui dépassent la `retention:`, tous les
+  `interval:` ; le journal, les watchers, les fichiers de détail des
+  migrations y ont leur règle (D1070/D1071) ;
+- **`logging.yml`** (D343/D830) — le bloc `syncytium:` (le rechargement
+  — le nettoyage est parti dans `cleanup.yml`, D1073) et la configuration de la
   journalisation (`formatters`, `handlers`, `root`), les niveaux selon
   l'environnement (staging verbose, production info, passive warning) ;
 - **`documentation.yml`** — la génération de la documentation (D333) ;

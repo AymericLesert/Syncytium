@@ -770,7 +770,8 @@ la révision), `tarif` (la date d'application est déjà la validité).
 
 **Les droits** (D859 — « de l'opérateur aux dirigeants », les
 strates) — `groups.yml` (D414/D699), en proposition : `production`
-(technique + stock), `commercial` (les clients, les commandes de
+(technique + stock — remplacé par `bureau_etudes` et `logistique`,
+D1061/D1064), `commercial` (les clients, les commandes de
 vente), `achats` (les fournisseurs, les commandes d'achat),
 `direction` (tout — et seuls avec `achats` à voir **les champs
 financiers** : les prix de revient, les prix d'achat, les marges —
@@ -1221,7 +1222,8 @@ validé le 08/09 — D882 à D898 —, lié le 09/09, **clos par D899** :
 fichiers de configuration ») :
 `versions/beta/v1.0.0.0/` porte `groups.yml` (les cinq strates de
 D859/D882 — production, commercial, achats, direction qui les
-contient, administration au degré `administrator`), `settings.yml`
+contient — la production remplacée par le bureau d'études et la
+logistique, D1061/D1064 —, administration au degré `administrator`), `settings.yml`
 (D885) et **les quatre modules, seize entités, deux cent vingt-cinq
 champs** (le compte relu le 09/09 — les cellules et les fichiers en
 ligne compris), chaque champ commenté de sa colonne PMI :
@@ -1627,7 +1629,8 @@ achats (**D1058/D1061**), l'anomalie en fait daté (**D1059**) ; la
 complétude du schéma sur les colonnes de la configuration (**D1060**) ; les
 règles réalignées sur la répartition des sources (**D1062**) — les dépôts et
 les emplacements tirés des fiches articles à la logistique, qui affecte les
-emplacements par défaut (**D1063**).
+emplacements par défaut (**D1063**) ; le groupe `production` retiré
+(**D1064**).
 
 ## Les manques relevés
 

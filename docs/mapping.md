@@ -116,7 +116,7 @@ possesseur avant ses lignes).
 migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
     connector: legacy_db            # le connecteur storage source
-    buffer: memoire                 # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
+    buffer: temporaire               # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
     source:
       - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:

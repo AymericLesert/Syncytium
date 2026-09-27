@@ -50,7 +50,7 @@ cegid:
 # par buffer: ; la classe memory tient le modèle en mémoire, le temps de
 # la migration (le connecteur porte la facette). Un storage dans un schéma
 # dédié de l'entrepôt conviendrait aussi aux gros volumes.
-memoire:
+temporaire:
   type: storage
   class: memory
 

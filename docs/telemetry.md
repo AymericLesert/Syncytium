@@ -88,7 +88,11 @@ met en sommeil.)*
 un dossier, les fichiers qui répondent à un pattern — gardés par nombre
 (les n derniers) ou par durée, la date lue dans le nom du fichier par
 le pattern ; le `cleanup` du logging la porte, le watcher et la
-migration (ses fichiers de détail, D1066) l'emploient.)*
+migration (ses fichiers de détail, D1066) l'emploient. Les propriétés
+sont normalisées (D1071) : `interval:` (le délai entre deux
+nettoyages), `directory:`, `pattern:` (la date par le groupe nommé
+`(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré) ;
+le nom daté s'écrit `${now:yyyy-mm-dd}`.)*
 
 L'exemple des push (les écritures validées — D743) :
 

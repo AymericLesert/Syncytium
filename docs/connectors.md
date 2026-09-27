@@ -127,7 +127,7 @@ contrat** (D620), la conformité d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
-| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** | D604/D606/D613/D636 |
+| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:`) | D604/D606/D613/D636 |
 | `smtp` | le mail sortant | smtp_std, **none** (D763 — le mock : send toujours vrai, aucun envoi — la condition indispensable D626 satisfaite, le silence assumé du domestique) | D564/D574/D763 |
 | `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |

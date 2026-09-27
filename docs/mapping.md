@@ -116,6 +116,7 @@ possesseur avant ses lignes).
 migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
     connector: legacy_db            # le connecteur storage source
+    buffer: memoire                 # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
     source:
       - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
@@ -750,6 +751,11 @@ coverage:
   rapport, la composition selon D933) ; `reset: true` **efface le contenu des tables cibles
   avant l'import** (le périmètre de la migration seul — le patron de
   l'exploration répétée) ;
+- **la base miroir** (D1044–D1046) : `buffer:` nomme le connecteur
+  où la reprise se construit à l'image de la destination — un storage
+  dans un schéma donné, ou la classe `memory` ; les phases de contrôle
+  et la comparaison s'y jouent, puis les différences se reportent dans
+  la base de l'application ; la base vit le temps de la migration ;
 - **le différentiel par comparaison** (D672) : évalué **après la
   migration** — l'enregistrement reconstruit se compare à la cible
   par la clé fonctionnelle (D654), **champ par champ** ; seuls les

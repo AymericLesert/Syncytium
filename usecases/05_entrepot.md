@@ -1605,8 +1605,9 @@ corrigé (**D1039**) ; cinq phases de contrôle, la première après le
 règle utilise la référence (**D1040**) ; un client et un fournisseur de
 même code = une erreur assumée (D1039) ; la reprise est une transaction
 (**D1041**), l'échec tracé (D1043) ; l'identité fausse d'une source rend
-l'entité illisible (**D1042**) ; la base miroir (**D1044**) — le
-paramètre de la migration `cegid` attend son nom.
+l'entité illisible (**D1042**) ; la base miroir (**D1044**) — `buffer: memoire`, la classe
+`memory` (**D1045**) ; le doublon tombe dans le miroir, jamais au report
+(**D1046**).
 
 ## Les manques relevés
 

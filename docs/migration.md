@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1048)
+## Les bases (D1032–D1051)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -68,18 +68,24 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   rapports et donnent les écarts d'une reprise à l'autre (refusé puis
   accepté, accepté puis refusé).
 - **La table des associations** (D1037/D1047) : le module garde les
-  clés d'origine, pour suivre les lignes nouvelles et les autres, et le
-  statut du traitement de chacune ; pas les clés de destination, qui
+  clés d'origine, pour suivre les lignes nouvelles et les autres, avec
+  pour chacune sa valeur de partition, un hash et le statut de son
+  traitement (D1049–D1050) ; pas les clés de destination, qui
   vivent dans la cible — une ligne d'origine peut se répartir sur
   plusieurs entités, plusieurs entités se fondre en une seule.
 - **Les cinq blocs** (D1034) : anomalies, création, modification,
   inchangé, suppression.
 - **Trois jeux de compteurs, dissociés** (D1048) : par entité
-  d'origine — les lignes nouvelles, supprimées, mises à jour, les clés
-  traitées sans erreur et avec erreur ; par entité de destination — les
+  d'origine — les lignes nouvelles, les lignes mises à jour (une clé
+  déjà parcourue et relue ; modifiées ou non modifiées selon leur
+  hash, D1049), les lignes supprimées (une clé connue, non relue dans
+  la plage de sa partition, D1050), les clés traitées sans erreur et
+  avec erreur ; par entité de destination — les
   lignes nouvelles, non modifiées, modifiées, supprimées ; par règle —
   les lignes traitées et les lignes en erreur. L'erreur d'une règle ne
-  se compte ni sur l'origine ni sur la destination.
+  se compte ni sur l'origine ni sur la destination. `reset: true` ne
+  vide pas la table des clés d'origine : les compteurs continuent
+  (D1051).
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

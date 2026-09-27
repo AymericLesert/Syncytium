@@ -1610,7 +1610,10 @@ l'entité illisible (**D1042**) ; la base miroir (**D1044**) — `buffer: tempor
 (**D1046**) ; la table des associations ne garde que les clés d'origine
 (**D1047**) — au cas, une ligne d'`ARTICLE` donne l'article et ses dépôts,
 mille articles donnent un seul dépôt ; trois jeux de compteurs dissociés —
-l'origine, la destination, la règle (**D1048**).
+l'origine, la destination, la règle (**D1048**) ; un hash par clé d'origine
+pour les compteurs (**D1049**), la partition dans la table — au cas, le
+mois de `MVCJMVT` des mouvements (**D1050**) ; `reset: true` garde la
+table (**D1051**).
 
 ## Les manques relevés
 

@@ -1634,7 +1634,8 @@ emplacements par défaut (**D1063**) ; le groupe `production` retiré
 gardé 90 jours (**D1065–D1068**) — par la rétention générique des fichiers,
 celle du logging (**D1070–D1071**), le nom daté par `${now:…}` (**D1069**),
 le fichier déclaré par `storage:` sur la migration `cegid` (**D1072**), sa
-rétention par une règle du `cleanup.yml` de l'environnement (**D1073**).
+rétention par la règle `migration_cegid:` du `cleanup.yml` de
+l'environnement (**D1073–D1074**).
 
 ## Les manques relevés
 

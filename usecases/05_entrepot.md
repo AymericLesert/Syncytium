@@ -1632,7 +1632,8 @@ les emplacements tirés des fiches articles à la logistique, qui affecte les
 emplacements par défaut (**D1063**) ; le groupe `production` retiré
 (**D1064**) ; le détail de chaque nuit dans un fichier SQLite daté, chiffré,
 gardé 90 jours (**D1065–D1068**) — par la rétention générique des fichiers,
-celle du logging (**D1070**), le nom daté par `${now:…}` (**D1069**).
+celle du logging (**D1070–D1071**), le nom daté par `${now:…}` (**D1069**),
+le tout déclaré par `storage:` sur la migration `cegid` (**D1072**).
 
 ## Les manques relevés
 

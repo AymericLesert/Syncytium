@@ -6,7 +6,13 @@
 cegid:
   connector: cegid                      # le storage sqlserver de l'environnement (D617)
   buffer: temporaire                    # la base miroir, en mémoire (D1044/D1045) — supprimée à la fin de la migration
-  retention: 90d                        # le détail des passages gardé 90 jours (D1068) — le défaut, écrit pour l'exemple
+  storage:                              # le fichier SQLite de chaque passage (D1066/D1072)
+    directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
+    filename: ${now:yyyy-mm-dd}-cegid.syncytium   # évalué à chaque exécution (D1069)
+    cleanup:                            # la rétention générique des fichiers (D1070/D1071)
+      interval: 86400                   # gardé pour la forme commune — le nettoyage suit aussi chaque migrate
+      pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-cegid\.syncytium$'
+      retention: 90d                    # le défaut, écrit pour l'exemple (D1068)
   mode: relative                        # les conformes portés, les erreurs au rapport (D671)
   reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent (D941)
   source:

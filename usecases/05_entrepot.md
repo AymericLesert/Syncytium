@@ -1602,7 +1602,9 @@ valeur de la source rétablie sur les champs migrés (**D1038**) ;
 l'identité héritée confirmée (D1035), portée par la racine — `tiers`
 corrigé (**D1039**) ; cinq phases de contrôle, la première après le
 `filter:`, l'orphelin qui ne fait tomber que l'enregistrement dont une
-règle utilise la référence (**D1040**).
+règle utilise la référence (**D1040**) ; un client et un fournisseur de
+même code = une erreur assumée (D1039) ; la reprise est une transaction
+(**D1041**).
 
 ## Les manques relevés
 

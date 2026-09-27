@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1040)
+## Les bases (D1032–D1041)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -38,6 +38,9 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   après la lecture de toutes les données et avant l'enregistrement :
   Syncytium construit un modèle temporaire, puis le valide en toute
   fin.
+- **La transaction** (D1041) : la reprise s'applique en entier ou pas
+  du tout ; l'erreur qui interrompt la mise à jour ramène toutes les
+  données à leur valeur d'avant la reprise.
 - **Les enregistrements écartés** (D1032) : l'enregistrement exclu par
   le `filter:` n'est pas conservé ; celui qui ne respecte pas toutes
   ses règles n'est pas enregistré, mais ses motifs sont conservés, et

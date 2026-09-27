@@ -1249,8 +1249,8 @@ ligne compris), chaque champ commenté de sa colonne PMI :
   compositions `adresses` et `contacts`, le `siren` calculé — **le
   mot de l'auteur, l'éponymie triple `tiers/tiers/tiers.yml`
   assumée**, D884) ; **`client` et `fournisseur` par `inheritance:
-  tiers`** (D353 — chacun son `identity: [code]`, ses champs
-  propres, `commandes` en association dérivée D405) ; `adresse`
+  tiers`** (D353 — l'`identity: [code]` à la racine `tiers`, conservée
+  par les enfants — D1039 ; chacun ses champs propres, `commandes` en association dérivée D405) ; `adresse`
   (l'usage en énuméré, la `geolocation`) ; `contact` (**`rgpd:
   personal`** sur le nom, le prénom, les coordonnées, la date de
   naissance — D695) ;
@@ -1599,7 +1599,10 @@ les dérivés de `article` l'héritent, `tiers` la laisse à `client` et
 table des associations identifie les nouveaux enregistrements et porte
 le statut de chacun, l'enregistrement complet se compare (D672) ; la
 valeur de la source rétablie sur les champs migrés (**D1038**) ;
-l'identité héritée confirmée (D1035).
+l'identité héritée confirmée (D1035), portée par la racine — `tiers`
+corrigé (**D1039**) ; cinq phases de contrôle, la première après le
+`filter:`, l'orphelin qui ne fait tomber que l'enregistrement dont une
+règle utilise la référence (**D1040**).
 
 ## Les manques relevés
 

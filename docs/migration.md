@@ -22,18 +22,22 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1038)
+## Les bases (D1032–D1040)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
 
-- **Quatre phases avant l'enregistrement** (D1033) : (1) vérifier les
-  entités et les champs sources ; (2) valider les règles sur les
-  entités sources ; (3) faire le mapping ; (4) valider les règles sur
-  les entités de destination. Les validations de la destination sont
-  évaluées après la lecture de toutes les données et avant
-  l'enregistrement : Syncytium construit un modèle temporaire, puis le
-  valide en toute fin.
+- **Cinq phases de contrôle avant l'enregistrement** (D1033/D1040) :
+  (1) la validation des données sources — après le `filter:`, la
+  qualité des données de l'entité : l'identité est une clé, chaque
+  lien a sa cible, les valeurs sont conformes ; sans elle, l'entité
+  n'est pas lue ; l'orphelin s'y détecte, et l'enregistrement tombe
+  si une règle du mapping utilise la référence ; (2) la vérification
+  des règles sources ; (3) le mapping ; (4) la validation des règles
+  du mapping ; (5) la validation des règles de destination, évaluée
+  après la lecture de toutes les données et avant l'enregistrement :
+  Syncytium construit un modèle temporaire, puis le valide en toute
+  fin.
 - **Les enregistrements écartés** (D1032) : l'enregistrement exclu par
   le `filter:` n'est pas conservé ; celui qui ne respecte pas toutes
   ses règles n'est pas enregistré, mais ses motifs sont conservés, et

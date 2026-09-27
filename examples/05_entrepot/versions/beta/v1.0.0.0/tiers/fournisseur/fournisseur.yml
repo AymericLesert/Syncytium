@@ -6,7 +6,7 @@ name: fournisseur
 description: Un fournisseur — le tiers qui vend à l'entreprise
 label: "{code} — {nom}"
 inheritance: tiers
-identity: [code]
+# l'identité : celle du tiers, conservée (D1039)
 history: true
 
 fields:

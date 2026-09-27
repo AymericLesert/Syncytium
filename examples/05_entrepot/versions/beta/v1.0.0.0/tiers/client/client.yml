@@ -6,8 +6,7 @@ description: Un client — le tiers qui achète à l'entreprise
 label: "{code} — {nom}"
 # l'enfant pointe son parent (D353) — la seule référence
 inheritance: tiers
-# la clé fonctionnelle (D357) — le code vaut parmi les clients
-identity: [code]
+# l'identité : celle du tiers, conservée (D1039)
 history: true
 
 fields:

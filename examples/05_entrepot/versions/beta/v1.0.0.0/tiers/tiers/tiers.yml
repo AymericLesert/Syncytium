@@ -2,12 +2,13 @@
 # structure commune de CLIENT et FOURNIS chez PMI (167 colonnes
 # identiques, le préfixe CL pour les deux), décrite une fois (D353 —
 # « le parent décrit, l'enfant pointe »). Les enfants ne redisent rien
-# de ce qui est ici ; l'identité (le code) se déclare chez l'enfant,
-# où elle vaut : un code client et un code fournisseur peuvent
-# coïncider chez PMI sans désigner la même société.
+# de ce qui est ici ; la racine porte l'identité (le code), les
+# enfants la conservent (D1035/D1039).
 name: tiers
 description: Un tiers de l'entreprise — l'identité, l'adresse, les coordonnées, les conditions ; le parent des clients et des fournisseurs
 label: "{code} — {nom}"
+# la clé fonctionnelle (D357), héritée par client et fournisseur (D1039)
+identity: [code]
 history: true
 
 fields: ~{fields.yml}

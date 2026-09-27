@@ -384,6 +384,12 @@ n'est pas une clé (D871), l'orphelin isolé (D875) — ne sont pas des
 rejets de règle : elles vont au technicien par le module `migration`
 et le rapport de non-couverture (D176/D179).
 
+**Le rapport de l'entité source (D1058).** « L'entité source déclare son
+propre report: » — les anomalies des phases de la source (la
+validation de ses données, ses propres règles) vont aux destinataires
+que l'entité source déclare, sous la même forme (`when:`, `to:`, `by:`) ;
+la règle garde son `report:` pour les siennes.
+
 ```yaml
 # mapping/001_articles.yml — le rapport porté par la règle (D929)
 ARTICLE:

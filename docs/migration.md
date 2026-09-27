@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1056)
+## Les bases (D1032–D1059)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -97,16 +97,27 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   une anomalie de complétude ; la colonne au type non conforme = une
   anomalie de description ; la colonne décrite disparue = une erreur de
   description, l'entité illisible ; la valeur se convertit du type de
-  stockage (la facette du connecteur) au type de la description, et
-  l'enregistrement dont la valeur ne se convertit pas tombe.
+  stockage (le type de Syncytium que le connecteur lit) au type de la
+  description — compatibles s'ils se convertissent l'un dans l'autre —,
+  et l'enregistrement dont la valeur ne se convertit pas tombe.
 - **L'instantané du passage** (D1054) : les colonnes chargées par
   entité source, les champs mappés et les règles de validation par
   règle — le passage se relit tel qu'il s'est exécuté.
 - **Les indicateurs du passage** (D1056) : sur la ligne d'exécution ;
-  la complétude du schéma = l'écart entre la description de la
-  configuration et le modèle lu ; la complétude des données repose sur
-  les compteurs des entités — les lignes lues sans erreur et avec
-  erreur.
+  la complétude du schéma repose sur les colonnes décrites dans la
+  configuration — celle qu'elle ne cite pas n'y entre pas ; la
+  couverture des données repose sur les compteurs des entités — les
+  lignes lues sans erreur et avec erreur.
+- **Les anomalies** (D1057–D1059) : deux entités, une par famille —
+  le modèle (l'entité source, la colonne) et les enregistrements ;
+  chaque phase relève toutes ses erreurs, pas seulement la première,
+  et l'enregistrement en erreur ne passe pas à la phase suivante ;
+  chaque anomalie garde un message clair, repris par le rapport ;
+  l'anomalie est un fait daté : la suite des faits d'une clé donne
+  ses alternatives et ses changements de statut.
+- **Le rapport de la source** (D1058) : l'entité source déclare son
+  propre `report:` pour les anomalies de ses phases ; la règle garde
+  le sien pour les siennes.
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

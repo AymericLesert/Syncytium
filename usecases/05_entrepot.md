@@ -1618,7 +1618,10 @@ relue — le mouvement disparu de PMI ou tombé en anomalie, la saisie à la
 main de même (**D1052**) ; le modèle lu de PMI gardé version après version
 (**D1053**), l'instantané de chaque passage (**D1054**), le total =
 filtrées + hors plage + lues (**D1055**), les indicateurs sur la ligne
-d'exécution (**D1056**).
+d'exécution (**D1056**) ; les anomalies en deux familles, toutes les erreurs
+d'une phase relevées (**D1057**), le `report:` propre à chaque entité source
+— les destinataires des sources de PMI à fixer (**D1058**), l'anomalie en
+fait daté (**D1059**).
 
 ## Les manques relevés
 

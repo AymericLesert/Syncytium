@@ -23458,6 +23458,11 @@ avant la synthèse Q16).
   fichiers, table des clés d'origine), entity.md ; le narratif §3.2c
   porté de D1019 à D1080. Le morceau 5 du cas 5 reste à réécrire comme
   la déclinaison du module.
+- **2026-09-28 — MIGRATION.MD RELU PAR L'AUTEUR.** « J'ai relu
+  migration.md. Pour le moment, cela me convient » — le module
+  restructuré tient ; les noms des entités et des champs restent en
+  proposition jusqu'à la documentation structurée (D1021). La suite : le
+  morceau 5 du cas 5, la déclinaison du module sur PMI.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

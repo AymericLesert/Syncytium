@@ -89,7 +89,8 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
 - **La suppression à la destination** (D1052) : sur la partition
   relue, l'enregistrement présent avant et absent après est supprimé —
   sa donnée a disparu de l'origine, ou il est tombé en anomalie de
-  mapping ; hors de la plage relue, rien n'est supprimé.
+  mapping ; la saisie à la main dans la plage relue l'est de même ;
+  hors de la plage relue, rien n'est supprimé.
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

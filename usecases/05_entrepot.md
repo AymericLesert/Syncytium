@@ -1614,7 +1614,8 @@ l'origine, la destination, la règle (**D1048**) ; un hash par clé d'origine
 pour les compteurs (**D1049**), la partition dans la table — au cas, le
 mois de `MVCJMVT` des mouvements (**D1050**) ; `reset: true` garde la
 table (**D1051**) ; la suppression à la destination sur la partition
-relue — le mouvement disparu de PMI ou tombé en anomalie (**D1052**).
+relue — le mouvement disparu de PMI ou tombé en anomalie, la saisie à la
+main de même (**D1052**).
 
 ## Les manques relevés
 

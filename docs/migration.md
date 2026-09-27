@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1041)
+## Les bases (D1032–D1044)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -40,7 +40,21 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   fin.
 - **La transaction** (D1041) : la reprise s'applique en entier ou pas
   du tout ; l'erreur qui interrompt la mise à jour ramène toutes les
-  données à leur valeur d'avant la reprise.
+  données à leur valeur d'avant la reprise ; la transaction qui échoue
+  est tracée, ses données ne sont ni prises en compte ni enregistrées
+  (D1043).
+- **La base miroir** (D1044) : la reprise se construit dans une base à
+  l'image de la destination — un connecteur déclaré (un schéma donné)
+  ou défini à la volée (le modèle en mémoire) —, puis les différences
+  se reportent dans la base de l'application. Elle vit le temps de la
+  migration, le schéma est supprimé à la finalisation ; elle ne reçoit
+  que ce que `coverage:` relit, et y est recopié depuis la base de
+  l'application l'enregistrement non relu qu'une référence désigne.
+- **Les identités** (D1042) : celle de la source se vérifie dans la
+  validation de l'entité — non respectée, la description est fausse
+  (une colonne manque à la clé, ou une colonne est de trop) : l'entité
+  n'est pas lue, ce qui la référence tombe par transitivité ; celle de
+  la destination se vérifie à l'enregistrement.
 - **Les enregistrements écartés** (D1032) : l'enregistrement exclu par
   le `filter:` n'est pas conservé ; celui qui ne respecte pas toutes
   ses règles n'est pas enregistré, mais ses motifs sont conservés, et

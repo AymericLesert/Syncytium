@@ -1604,7 +1604,9 @@ corrigé (**D1039**) ; cinq phases de contrôle, la première après le
 `filter:`, l'orphelin qui ne fait tomber que l'enregistrement dont une
 règle utilise la référence (**D1040**) ; un client et un fournisseur de
 même code = une erreur assumée (D1039) ; la reprise est une transaction
-(**D1041**).
+(**D1041**), l'échec tracé (D1043) ; l'identité fausse d'une source rend
+l'entité illisible (**D1042**) ; la base miroir (**D1044**) — le
+paramètre de la migration `cegid` attend son nom.
 
 ## Les manques relevés
 

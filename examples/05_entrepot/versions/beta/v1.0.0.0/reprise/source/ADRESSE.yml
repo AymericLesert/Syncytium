@@ -7,6 +7,12 @@ description: Les adresses complémentaires de PMI — la source de tiers.adresse
 
 filter: ADKTSOC = "100" and ADKTTYPCPT in ["C", "F"]
 identity: [ADKTTYPCPT, ADKTCOMPTE, ADKNNUMERO]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [commercial, achats]
+  by: [notification, mail]
 # le filtre garde les clients et les fournisseurs (D950) ; l'identité
 # au sein du tiers est le numéro (D841), la clé de la table le complète
 

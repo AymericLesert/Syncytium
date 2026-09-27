@@ -8,6 +8,12 @@ description: Les lignes de nomenclature de PMI — la source de technique.nomenc
 
 filter: NOKTSOC = "100"
 identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [bureau_etudes]
+  by: [notification, mail]
 parent: ARTICLE[PRODUIT]
 # le possesseur par la référence nommée PRODUIT (D995) — les colonnes typées
 # ARTICLE[PRODUIT].* forment la référence ; le lien est résolu sur les

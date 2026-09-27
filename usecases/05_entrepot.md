@@ -1620,8 +1620,10 @@ main de même (**D1052**) ; le modèle lu de PMI gardé version après version
 filtrées + hors plage + lues (**D1055**), les indicateurs sur la ligne
 d'exécution (**D1056**) ; les anomalies en deux familles, toutes les erreurs
 d'une phase relevées (**D1057**), le `report:` propre à chaque entité source
-— les destinataires des sources de PMI à fixer (**D1058**), l'anomalie en
-fait daté (**D1059**).
+— les destinataires des sources de PMI : le bureau d'études (ARTICLE, NOMENC),
+la logistique (MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS), le commercial et les
+achats (**D1058/D1061**), l'anomalie en fait daté (**D1059**) ; la
+complétude du schéma sur les colonnes de la configuration (**D1060**).
 
 ## Les manques relevés
 

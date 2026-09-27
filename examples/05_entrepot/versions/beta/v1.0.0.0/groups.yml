@@ -25,6 +25,18 @@ achats:
   description:
     fr: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
 
+bureau_etudes:
+  label:
+    fr: Bureau d'études
+  description:
+    fr: La conception — les articles et les nomenclatures (D1061).
+
+logistique:
+  label:
+    fr: Logistique
+  description:
+    fr: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux (D1061).
+
 direction:
   label:
     fr: Direction
@@ -32,7 +44,7 @@ direction:
     fr: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
   # la composition des groupes (D414) — le membre d'un constituant est
   # membre du contenant : la direction voit ce que voient les strates
-  groups: [production, commercial, achats]
+  groups: [production, bureau_etudes, logistique, commercial, achats]
 
 administration:
   label:

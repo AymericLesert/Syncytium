@@ -8,6 +8,12 @@ description: Les clients de PMI — la source de tiers.tiers et de tiers.client
 
 filter: CLKTSOC = "100"
 identity: [CLKTCODE]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [commercial]
+  by: [notification, mail]
 # la clé vaut parmi les clients (D884 — un code client et un code
 # fournisseur peuvent coïncider chez PMI) ; l'identité du tiers se déclare
 # chez l'enfant (D353)

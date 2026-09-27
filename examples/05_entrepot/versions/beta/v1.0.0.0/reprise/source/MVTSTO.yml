@@ -13,6 +13,12 @@ description: Les mouvements de stock de PMI — la source de stock.mouvement
 
 filter: MVITSOC = "100"
 identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART, MVCJSAI, MVCTSAI]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
 coverage: MVCJMVT[month - 3]
 # la partition par le mois du mouvement, les trois derniers mois relus
 # chaque nuit, la totalité le dimanche par reset_coverage (D880/D881/D943)

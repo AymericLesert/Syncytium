@@ -9,6 +9,12 @@ description: Les lignes de commandes de vente de PMI — la source de commande.l
 
 filter: LCKTSOC = "100"
 identity: [LCKTNUMERO, LCKTPSF, LCKTLIGNE]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [commercial]
+  by: [notification, mail]
 coverage: LCKTNUMERO[10000]
 parent:
   ECOMCLI: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF }

@@ -9,6 +9,12 @@ description: Les tarifs de PMI — la source de article.tarifs, la grille tarifa
 
 filter: TAKTSOC = "100" and TAKTGENRE in ["1", "2"]
 identity: [TAKTGENRE, TAKTCODE, TAKTCODART, TAKTCOMART, TAKTTARIF, TAKJAPLI]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [commercial, achats]
+  by: [notification, mail]
 parent:
   ARTICLE: { ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART }
 # le filtre garde les genres du périmètre — 1 le client, 2 le fournisseur,

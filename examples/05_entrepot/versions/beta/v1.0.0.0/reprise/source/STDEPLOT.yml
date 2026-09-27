@@ -10,6 +10,12 @@ description: Les niveaux de stock de PMI — la source de stock.niveau, et des r
 filter: DPKTSOC = "100"
 identity: [DPKTCODART, DPKTCOMART, DPKTNUMLOT, DPKTCODENR, DPKTCODMPL, DPKTDEPOT]
 
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
+
 fields:
   DPKTSOC:     text[3]                                        # la société — le filtre (D663)
   DPKTCODART:  ARTICLE.ARKTCODART                             # → niveau.article — la référence par la clé composée (D648/D931) ; l'identité

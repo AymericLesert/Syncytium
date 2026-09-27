@@ -9,6 +9,12 @@ description: Les entêtes de commandes de vente de PMI — la source de commande
 
 filter: ECKTSOC = "100"
 identity: [ECKTNUMERO, ECKTINDICE]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [commercial]
+  by: [notification, mail]
 coverage: ECKTNUMERO[10000]
 # la couverture : la partition par plage de dix mille numéros, la reprise
 # depuis la dernière valeur parcourue (D878–D880)

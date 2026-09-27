@@ -15,6 +15,12 @@ description: Le paramètre 170 de PMI — la source des emplacements actifs et d
 
 filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 identity: [PAKTSOC, PAKTETS, PAKTNOPAR, PAKTCODE]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
 # la clé de la table (les quatre K) ; le couple Dépôt.Emplacement se lit
 # en PACTEXT210 et se découpe à la source (D660/D817), les règles 001 et
 # 004 consomment les deux calculés ; une lecture depuis un autre calculé

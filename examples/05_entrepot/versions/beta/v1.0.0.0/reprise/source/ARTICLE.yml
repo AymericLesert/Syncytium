@@ -11,6 +11,12 @@ description: Les articles de PMI — la source de technique.article, fabrique, s
 
 filter: ARKTSOC = "100"
 identity: [ARKTCODART, ARKTCOMART]
+
+# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+report:
+  when: [migration]
+  to: [bureau_etudes]
+  by: [notification, mail]
 # la clé est vérifiée sur les données filtrées avant de partir (D871) ;
 # ARITNATURE et ARITCONART, des index (I), n'entrent pas dans l'identité
 

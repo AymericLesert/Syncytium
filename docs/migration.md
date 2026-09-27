@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1059)
+## Les bases (D1032–D1061)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -105,7 +105,9 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   règle — le passage se relit tel qu'il s'est exécuté.
 - **Les indicateurs du passage** (D1056) : sur la ligne d'exécution ;
   la complétude du schéma repose sur les colonnes décrites dans la
-  configuration — celle qu'elle ne cite pas n'y entre pas ; la
+  configuration — les décrites encore présentes dans le modèle lu, au
+  type compatible, rapportées aux décrites ; celle qu'elle ne cite pas
+  n'y entre pas (D1060) ; la
   couverture des données repose sur les compteurs des entités — les
   lignes lues sans erreur et avec erreur.
 - **Les anomalies** (D1057–D1059) : deux entités, une par famille —

@@ -1209,6 +1209,8 @@ Q58) :
 | D1074 | **Les règles de `cleanup` nommées par leur clé ; `interval:` en durée** (amende D1073 — la liste à `name:` ; l'écho de D617, le connecteur par son rôle nommé) : « Le name peut être marqué comme une clé d'un jeu de paramètres. journal: interval: 1d directory: ... pattern: ... retention: 30d » — `cleanup:` est une carte : la clé nomme la règle (`journal:`, `migration_cegid:`), la valeur porte `interval:`, `directory:`, `pattern:`, `retention:` ; `interval: 1d` (une durée, D476) remplace `86400`. | Les trois cleanup.yml, configuration.md, telemetry.md. Ouvert, mien : l'`interval: 60` du rechargement (`reload-disable` des logging.yml) en secondes nues — l'aligner (`1m`) ? Voir §3.2c. |
 | D1075 | **`cleanup.yml` porte ses règles à la racine — la clé `cleanup:` de l'environnement nomme déjà la section** (amende D1073/D1074 ; l'esprit de D767/D967 — le fichier référencé est le contenu de la clé) : « Dans cleanup.yml, le niveau "cleanup" est inutile car redondant avec le niveau décrit dans "production.yml" » — `production.yml` déclare `cleanup: ~{cleanup.yml}`, le fichier ne redit pas `cleanup:` : `journal:`, `migration_cegid:` à la racine. | La mise en sommeil du domestique passe à la clé de l'environnement : `cleanup-disable: ~{cleanup.yml}` dans home.yml (D800). Les trois cleanup.yml, home.yml, configuration.md. Voir §3.2c. |
 | D1076 | **`retention:` sans unité = les n derniers fichiers, triés par leur dernière date de création ; `interval:` en minutes s'écrit `min`** (précise D1070–D1075 ; applique D476 — `min` la minute, `m` le mois) : à mes deux questions (`1m` pour le rechargement ; la rétention par nombre) — « 1m peut-être lu comme 1 mois. plutôt 1min. Pour rétention, si absence d'unité, cela fait référence aux n derniers fichiers (liste des fichiers triés par ordre de dernière date de création). » — `retention: 30d` garde trente jours (la date lue dans le nom), `retention: 10` les dix derniers fichiers ; le rechargement des logging.yml passe à `interval: 1min`. | Avec la rétention par nombre, le pattern n'a pas besoin du groupe `(?<date>…)`. Les trois logging.yml, telemetry.md, configuration.md. Voir §3.2c. |
+| D1077 | **Un seul passage à la fois par migration : le second `migrate` est refusé et tracé ; l'administrateur peut interrompre un passage, sauf pendant la bascule du tampon vers la cible ; le redémarrage vaut interruption, la relance est manuelle** (précise D667/D881/D1041/D1043/D1044 ; C2) : « Refus tracé pour C2 ; l'administrateur peut interrompre une migration. L'approche que nous avons vue l'autorise sans impact sur l'existant. L'interruption n'est pas possible lors de la bascule du tampon vers la cible. Pour le reset_coverage, il est mis en attente si la migration précédente ne porte pas "reset_coverage". Au redémarrage, cela s'apparente à l'interruption. L'administrateur peut alors relancer le processus manuellement. » — tant que le passage construit la base miroir, l'interrompre ne touche rien de l'existant (D1044) ; le report des différences dans la cible, une transaction (D1041), ne s'interrompt pas ; un arrêt du serveur pendant un passage le laisse interrompu, tracé, sans relance automatique ; `reset_coverage` attend la fin du passage en cours. | Mes lectures, à confirmer : « si la migration précédente ne porte pas reset_coverage » = le `reset_coverage` qui arrive pendant un passage attend sa fin — sauf si ce passage l'a déjà exécuté (le même `reset_coverage` dans ses opérations), où il n'a plus d'objet ; l'interruption = le « stopper » de D594 (la transaction annulée) ; le passage prend les états refusé et interrompu à côté de réussi et en erreur (noms miens). Voir §3.2c. |
+| D1078 | **La copie de la production vers le staging emporte `_migration` avec les données** (précise D945/D1047 ; C3) : « La copie de la production vers le staging emporte _migration avec les données. » — la table des clés d'origine, les versions du modèle lu et les lignes d'exécution suivent les données qu'elles décrivent : le passage suivant du staging repart de l'état de la production ; sans copie, chaque environnement tient sa propre histoire. | Ma lecture, à confirmer : les fichiers SQLite du détail restent dans leur environnement (le dossier et le `cleanup.yml` de chacun) — la copie de base ne les emporte pas. La liste B–C est soldée. Voir §3.2c. |
 
 ---
 
@@ -23161,6 +23163,19 @@ avant la synthèse Q16).
   fichiers (liste des fichiers triés par ordre de dernière date de
   création). » ; « voyons C2 et C3 » — le verrou et le staging
   présentés.
+- **2026-09-27 (suite 27) — LE PASSAGE UNIQUE, L'INTERRUPTION, LE
+  STAGING (D1077–D1078, 1078 décisions).** « Refus tracé pour C2 ;
+  l'administrateur peut interrompre une migration. L'approche que nous
+  avons vue l'autorise sans impact sur l'existant. L'interruption n'est
+  pas possible lors de la bascule du tampon vers la cible. Pour le
+  reset_coverage, il est mis en attente si la migration précédente ne
+  porte pas "reset_coverage". Au redémarrage, cela s'apparente à
+  l'interruption. L'administrateur peut alors relancer le processus
+  manuellement. » (D1077) ; « La copie de la production vers le staging
+  emporte _migration avec les données. » (D1078). LA LISTE A–C DES
+  MANQUES EST SOLDÉE : reste à restructurer migration.md sur les bases
+  arrêtées (D1030–D1078), puis le morceau 5 du cas 5 comme sa
+  déclinaison, puis D1021.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

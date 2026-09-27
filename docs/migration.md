@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1068)
+## Les bases (D1032–D1078)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -127,6 +127,13 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   d'exécution et ses indicateurs restent sans délai ; le rapport par
   mail anonymise les valeurs des champs `rgpd:`, l'interface les
   montre sous les droits de chacun.
+- **Un passage à la fois** (D1077) : le second `migrate` d'une
+  migration est refusé et tracé ; l'administrateur peut interrompre un
+  passage sans toucher l'existant, sauf pendant la bascule de la base
+  miroir vers la cible ; un redémarrage vaut interruption, la relance
+  est manuelle ; `reset_coverage` attend la fin du passage en cours.
+- **Les environnements** (D1078) : la copie de la production vers le
+  staging emporte `_migration` avec les données.
 - **Le rapport de la source** (D1058) : l'entité source déclare son
   propre `report:` pour les anomalies de ses phases ; la règle garde
   le sien pour les siennes.

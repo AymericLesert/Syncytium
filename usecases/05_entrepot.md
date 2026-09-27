@@ -1635,7 +1635,10 @@ gardé 90 jours (**D1065–D1068**) — par la rétention générique des fichie
 celle du logging (**D1070–D1071**), le nom daté par `${now:…}` (**D1069**),
 le fichier déclaré par `storage:` sur la migration `cegid` (**D1072**), sa
 rétention par la règle `migration_cegid:` du `cleanup.yml` de
-l'environnement (**D1073–D1074**).
+l'environnement (**D1073–D1074**) ; un passage à la fois — la relecture
+du samedi refusée si le delta de la nuit tourne encore, l'interruption
+par l'administrateur hors bascule (**D1077**) ; le staging recopié de la
+production emporte `_migration` (**D1078**).
 
 ## Les manques relevés
 

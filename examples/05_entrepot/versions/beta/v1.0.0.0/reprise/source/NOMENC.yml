@@ -14,6 +14,7 @@ report:
   when: [migration]
   to: [bureau_etudes]
   by: [notification, mail]
+
 parent: ARTICLE[PRODUIT]
 # le possesseur par la référence nommée PRODUIT (D995) — les colonnes typées
 # ARTICLE[PRODUIT].* forment la référence ; le lien est résolu sur les

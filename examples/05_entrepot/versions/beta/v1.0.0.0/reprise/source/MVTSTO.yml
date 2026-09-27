@@ -19,6 +19,7 @@ report:
   when: [migration]
   to: [logistique]
   by: [notification, mail]
+
 coverage: MVCJMVT[month - 3]
 # la partition par le mois du mouvement, les trois derniers mois relus
 # chaque nuit, la totalité le dimanche par reset_coverage (D880/D881/D943)

@@ -15,6 +15,7 @@ report:
   when: [migration]
   to: [commercial]
   by: [notification, mail]
+
 coverage: LCKTNUMERO[10000]
 parent:
   ECOMCLI: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF }

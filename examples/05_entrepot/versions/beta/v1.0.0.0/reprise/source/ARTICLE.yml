@@ -17,6 +17,7 @@ report:
   when: [migration]
   to: [bureau_etudes]
   by: [notification, mail]
+
 # la clé est vérifiée sur les données filtrées avant de partir (D871) ;
 # ARITNATURE et ARITCONART, des index (I), n'entrent pas dans l'identité
 

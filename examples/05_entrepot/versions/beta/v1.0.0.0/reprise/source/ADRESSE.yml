@@ -13,6 +13,7 @@ report:
   when: [migration]
   to: [commercial, achats]
   by: [notification, mail]
+
 # le filtre garde les clients et les fournisseurs (D950) ; l'identité
 # au sein du tiers est le numéro (D841), la clé de la table le complète
 

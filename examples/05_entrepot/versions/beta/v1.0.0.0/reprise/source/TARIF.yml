@@ -15,6 +15,7 @@ report:
   when: [migration]
   to: [commercial, achats]
   by: [notification, mail]
+
 parent:
   ARTICLE: { ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART }
 # le filtre garde les genres du périmètre — 1 le client, 2 le fournisseur,

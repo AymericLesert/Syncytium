@@ -15,6 +15,7 @@ report:
   when: [migration]
   to: [achats]
   by: [notification, mail]
+
 coverage: ECKTNUMERO[10000]
 # la couverture : la partition par plage de dix mille numéros, la reprise
 # depuis la dernière valeur parcourue (D878–D880)

@@ -15,6 +15,7 @@ report:
   when: [migration]
   to: [achats]
   by: [notification, mail]
+
 coverage: LCKTNUMERO[10000]
 parent:
   ECOMFOU: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF }

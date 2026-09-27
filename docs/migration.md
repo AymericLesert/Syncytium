@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1051)
+## Les bases (D1032–D1052)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -86,6 +86,10 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   se compte ni sur l'origine ni sur la destination. `reset: true` ne
   vide pas la table des clés d'origine : les compteurs continuent
   (D1051).
+- **La suppression à la destination** (D1052) : sur la partition
+  relue, l'enregistrement présent avant et absent après est supprimé —
+  sa donnée a disparu de l'origine, ou il est tombé en anomalie de
+  mapping ; hors de la plage relue, rien n'est supprimé.
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

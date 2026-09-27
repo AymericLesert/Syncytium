@@ -1184,6 +1184,7 @@ Q58) :
 | D1049 | **La ligne d'origine « mise à jour » = une clé déjà parcourue et relue ; un hash par clé d'origine, pour compter seulement les modifiées et les non modifiées entre deux lectures** (précise D1048 ; amende D1037 pour la seule face de l'origine) : « C'est une clé qui a déjà été parcourue et une clé qui est lue dans l'origine. En y repensant, nous pouvons mettre un hash sur une clé d'origine juste pour compter le nombre de lignes modifiées et non modifiées entre 2 lectures (modulo le risque évoqué précédemment). » — le hash revient, borné au compteur de l'origine : il ne décide d'aucune écriture, la destination se compare toujours sur l'enregistrement complet (D1037/D672) ; le risque admis : deux contenus d'une même clé au même hash, 2^-256 avec SHA-256. | Mes conditions, à confirmer : la forme canonique (les colonnes ordonnées par leur nom, chaque valeur délimitée sans ambiguïté, le nul distinct du vide) ; le hash porte sur les colonnes lues de la ligne (hors `ignored`) — la description qui change fait passer toutes les lignes en « modifiées » une fois. Voir §3.2c. |
 | D1050 | **La clé de partition figure dans la table des clés d'origine et entre dans le test de la couverture** (précise D878–D880, D1047–D1048) : « En effet, la clé de partition doit apparaître et entre dans le test de la couverture. » — chaque clé d'origine garde la valeur de sa partition (`coverage:`) ; une clé connue n'est comptée supprimée que si sa partition est dans la plage relue et qu'elle n'y est pas lue. | En relecture complète (`reset_coverage`, la totalité), la plage est toute la table. Voir §3.2c. |
 | D1051 | **`reset: true` ne vide pas la table des clés d'origine** (précise D671, D1047–D1048 ; écarte ma proposition) : « reset: true ne vide pas la table des clés d'origine. Nous continuons à suivre les compteurs. » — les tables cibles sont vidées avant l'import, la table des clés d'origine et ses compteurs continuent. | Au passage qui suit un `reset: true`, l'origine compte ses lignes relues, la destination ses lignes nouvelles : les deux jeux, dissociés (D1048), le disent chacun. Voir §3.2c. |
+| D1052 | **La suppression à la destination se joue sur la partition relue : l'enregistrement présent avant, absent après — la donnée supprimée à l'origine ou l'enregistrement tombé en anomalie** (précise D878 — le bloc suppression —, D1048, D1050 ; D1032 — l'accepté puis refusé) : « La suppression intervient sur la partition quand l'enregistrement était là avant, puis lorsque l'enregistrement n'est plus là (anomalie de mapping ou suppression des données). » — dans la plage de partition relue, l'enregistrement de la destination que la base miroir ne reconstruit plus est supprimé, que sa source ait disparu ou qu'il ne franchisse plus une règle ; hors de la plage, rien n'est supprimé. | Mes lectures, à confirmer : la suppression = l'inactivation (D137), réversible si l'enregistrement revient ; la plage se reporte sur la destination par le champ qu'alimente la colonne de partition (au cas 5, la date du mouvement) ; un enregistrement saisi à la main dans la même plage serait supprimé de même — la question posée à l'auteur. Voir §3.2c. |
 
 ---
 
@@ -22996,6 +22997,13 @@ avant la synthèse Q16).
   continuons à suivre les compteurs. » (D1051). Reste ouverte la
   suppression à la destination quand la migration n'alimente pas seule
   l'entité.
+- **2026-09-27 (suite 11) — LA SUPPRESSION SUR LA PARTITION (D1052, 1052
+  décisions).** Sur la suppression à la destination quand la migration
+  n'alimente pas seule l'entité : « La suppression intervient sur la
+  partition quand l'enregistrement était là avant, puis lorsque
+  l'enregistrement n'est plus là (anomalie de mapping ou suppression des
+  données). » — l'enregistrement tombé en anomalie quitte la destination
+  comme celui dont la source a disparu.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

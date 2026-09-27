@@ -13,7 +13,6 @@ syncytium:
         # time laps between 2 checks of evolution configuration (if {date} appears into an item)
         interval: 60
 
-
 # Configuration du composant Logging de Python
 
 version: 1

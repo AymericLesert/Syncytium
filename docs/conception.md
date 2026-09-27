@@ -23463,6 +23463,14 @@ avant la synthèse Q16).
   restructuré tient ; les noms des entités et des champs restent en
   proposition jusqu'à la documentation structurée (D1021). La suite : le
   morceau 5 du cas 5, la déclinaison du module sur PMI.
+- **2026-09-28 (pause, 1080 décisions)** — « Je marque une pause. » La
+  séance s'arrête sur migration.md restructuré et relu (D1030–D1080, le
+  narratif §3.2c à jour jusqu'à D1080). Tout est commis et poussé,
+  aucune PR ouverte. **La reprise : le morceau 5 du cas 5 — la
+  déclinaison du module `_migration` sur PMI (la section « Le morceau 5
+  » de usecases/05_entrepot.md à réécrire) ; puis D1021 (la relecture
+  complète, la documentation structurée, le tiny), le jeu de données
+  (D869), la PR.**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

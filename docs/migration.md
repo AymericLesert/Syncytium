@@ -131,9 +131,14 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   migration est refusé et tracé ; l'administrateur peut interrompre un
   passage sans toucher l'existant, sauf pendant la bascule de la base
   miroir vers la cible ; un redémarrage vaut interruption, la relance
-  est manuelle ; `reset_coverage` attend la fin du passage en cours.
+  est manuelle ; l'opération qui porte `reset_coverage` (la relecture
+  complète) attend la fin du passage en cours ou l'interrompt, selon
+  une option de configuration (D1079) ; le passage est en cours,
+  réussi, en erreur, refusé ou interrompu.
 - **Les environnements** (D1078) : la copie de la production vers le
-  staging emporte `_migration` avec les données.
+  staging emporte `_migration` avec les données ; les fichiers de
+  détail peuvent suivre, re-chiffrés au besoin — une option de la
+  commande de copie d'un environnement (D1079).
 - **Le rapport de la source** (D1058) : l'entité source déclare son
   propre `report:` pour les anomalies de ses phases ; la règle garde
   le sien pour les siennes.

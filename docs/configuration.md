@@ -284,8 +284,10 @@ settings: ~{settings.yml}
   directory, location, webhook, siren, authentication, llm), `class:`
   l'implémentation, `parameters:` (les secrets marqués `*`) ; le
   détail dans [connectors.md](connectors.md) ;
-- **`cleanup.yml`** (D1073/D1074) — la section `cleanup:`, des règles
-  de rétention nommées (la clé est le nom — `journal:`, `migration_cegid:`) :
+- **`cleanup.yml`** (D1073–D1075) — le fichier que la clé `cleanup:` de
+  l'environnement désigne : à la racine, les règles de rétention nommées
+  (la clé est le nom — `journal:`, `migration_cegid:`) — sans niveau
+  `cleanup:` redondant :
   chacune supprime, dans un dossier (`directory:`),
   les fichiers d'un `pattern:` qui dépassent la `retention:`, tous les
   `interval:` ; le journal, les watchers, les fichiers de détail des

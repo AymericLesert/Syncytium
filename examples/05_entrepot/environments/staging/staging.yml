@@ -4,7 +4,7 @@ description: L'environnement de staging — l'entrepôt d'essai alimenté depuis
 # Configuration de la journalisation (D830)
 
 logging: ~{logging.yml}
-# Le nettoyage des fichiers — la liste des règles de rétention (D1073)
+# Le nettoyage des fichiers — les règles de rétention nommées (D1073–D1075)
 cleanup: ~{cleanup.yml}
 
 # Configuration de la génération de la documentation

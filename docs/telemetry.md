@@ -84,6 +84,12 @@ domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
 ignorées : renommer un bloc — le suffixe `-disable` du cas 4 — le
 met en sommeil.)*
 
+*(**La rétention des fichiers est un mécanisme générique** (D1070) : dans
+un dossier, les fichiers qui répondent à un pattern — gardés par nombre
+(les n derniers) ou par durée, la date lue dans le nom du fichier par
+le pattern ; le `cleanup` du logging la porte, le watcher et la
+migration (ses fichiers de détail, D1066) l'emploient.)*
+
 L'exemple des push (les écritures validées — D743) :
 
 ```yaml

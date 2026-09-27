@@ -136,7 +136,11 @@ partagent un bloc de trente-huit champs par `fields:
 - **une variable d'environnement** — `${ENTREPOT_HOST}`,
   `${SYNCYTIUM_LOG_DIRECTORY}` ;
 - **un mot-clé** — `${PROJECT}`, `${VERSION}`, `${date}`,
-  `${date:%Y-%m-%d}`… (la liste extensible) ;
+  `${date:%Y-%m-%d}`… (la liste extensible) ; **`${now:yyyy-mm-dd}`**
+  (D1069) — l'instant de l'usage, évalué à la demande de la
+  configuration, jamais au chargement, le masque dans la notation des
+  types : le fichier de détail d'une migration porte la date de son
+  exécution ;
 - **un élément de la configuration, en navigation relative
   remontante** — `${name}` au même niveau, `${.name}` au niveau
   précédent, `${..name}` au parent du précédent, chaque point remonte

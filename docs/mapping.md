@@ -117,6 +117,7 @@ migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
     connector: legacy_db            # le connecteur storage source
     buffer: temporaire              # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
+    retention: 90d                  # la rétention du détail des passages (D1068) — 90 jours par défaut
     source:
       - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
@@ -762,6 +763,9 @@ coverage:
   dans un schéma donné, ou la classe `memory` ; les phases de contrôle
   et la comparaison s'y jouent, puis les différences se reportent dans
   la base de l'application ; la base vit le temps de la migration ;
+- **la rétention du détail** (D1066–D1068) : `retention:` borne la vie
+  des fichiers SQLite qui gardent le détail de chaque passage (90
+  jours par défaut) ; la ligne d'exécution reste sans délai ;
 - **le différentiel par comparaison** (D672) : évalué **après la
   migration** — l'enregistrement reconstruit se compare à la cible
   par la clé fonctionnelle (D654), **champ par champ** ; seuls les

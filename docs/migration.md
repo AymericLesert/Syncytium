@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1061)
+## Les bases (D1032–D1068)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -117,6 +117,14 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   chaque anomalie garde un message clair, repris par le rapport ;
   l'anomalie est un fait daté : la suite des faits d'une clé donne
   ses alternatives et ses changements de statut.
+- **Le stockage du détail** (D1065–D1068) : le détail des anomalies
+  d'un passage vit dans un fichier SQLite propre à l'exécution, daté
+  par son nom, chiffré (nativement si possible), re-chiffré à chaque
+  rotation des clés ; la migration déclare sa rétention (`retention:`,
+  90 jours par défaut) — le fichier échu est supprimé, la ligne
+  d'exécution et ses indicateurs restent sans délai ; le rapport par
+  mail anonymise les valeurs des champs `rgpd:`, l'interface les
+  montre sous les droits de chacun.
 - **Le rapport de la source** (D1058) : l'entité source déclare son
   propre `report:` pour les anomalies de ses phases ; la règle garde
   le sien pour les siennes.

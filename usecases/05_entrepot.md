@@ -1630,7 +1630,8 @@ complétude du schéma sur les colonnes de la configuration (**D1060**) ; les
 règles réalignées sur la répartition des sources (**D1062**) — les dépôts et
 les emplacements tirés des fiches articles à la logistique, qui affecte les
 emplacements par défaut (**D1063**) ; le groupe `production` retiré
-(**D1064**).
+(**D1064**) ; le détail de chaque nuit dans un fichier SQLite daté, chiffré,
+gardé 90 jours (**D1065–D1068**).
 
 ## Les manques relevés
 

@@ -6,6 +6,7 @@
 cegid:
   connector: cegid                      # le storage sqlserver de l'environnement (D617)
   buffer: temporaire                    # la base miroir, en mémoire (D1044/D1045) — supprimée à la fin de la migration
+  retention: 90d                        # le détail des passages gardé 90 jours (D1068) — le défaut, écrit pour l'exemple
   mode: relative                        # les conformes portés, les erreurs au rapport (D671)
   reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent (D941)
   source:

@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1052)
+## Les bases (D1032–D1056)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -80,7 +80,8 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   déjà parcourue et relue ; modifiées ou non modifiées selon leur
   hash, D1049), les lignes supprimées (une clé connue, non relue dans
   la plage de sa partition, D1050), les clés traitées sans erreur et
-  avec erreur ; par entité de destination — les
+  avec erreur ; le total de la table = les filtrées + les hors plage +
+  les lues (D1055) ; par entité de destination — les
   lignes nouvelles, non modifiées, modifiées, supprimées ; par règle —
   les lignes traitées et les lignes en erreur. L'erreur d'une règle ne
   se compte ni sur l'origine ni sur la destination. `reset: true` ne
@@ -91,6 +92,21 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   sa donnée a disparu de l'origine, ou il est tombé en anomalie de
   mapping ; la saisie à la main dans la plage relue l'est de même ;
   hors de la plage relue, rien n'est supprimé.
+- **Le modèle lu et son évolution** (D1053) : Syncytium garde les
+  versions du modèle que le connecteur lit ; la colonne non décrite =
+  une anomalie de complétude ; la colonne au type non conforme = une
+  anomalie de description ; la colonne décrite disparue = une erreur de
+  description, l'entité illisible ; la valeur se convertit du type de
+  stockage (la facette du connecteur) au type de la description, et
+  l'enregistrement dont la valeur ne se convertit pas tombe.
+- **L'instantané du passage** (D1054) : les colonnes chargées par
+  entité source, les champs mappés et les règles de validation par
+  règle — le passage se relit tel qu'il s'est exécuté.
+- **Les indicateurs du passage** (D1056) : sur la ligne d'exécution ;
+  la complétude du schéma = l'écart entre la description de la
+  configuration et le modèle lu ; la complétude des données repose sur
+  les compteurs des entités — les lignes lues sans erreur et avec
+  erreur.
 - **L'identité partout** (D1035) : toute entité porte une identité,
   la sienne ou celle qu'elle hérite ; son absence est une anomalie de
   description du modèle.

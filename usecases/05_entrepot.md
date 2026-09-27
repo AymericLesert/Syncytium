@@ -1615,7 +1615,10 @@ pour les compteurs (**D1049**), la partition dans la table — au cas, le
 mois de `MVCJMVT` des mouvements (**D1050**) ; `reset: true` garde la
 table (**D1051**) ; la suppression à la destination sur la partition
 relue — le mouvement disparu de PMI ou tombé en anomalie, la saisie à la
-main de même (**D1052**).
+main de même (**D1052**) ; le modèle lu de PMI gardé version après version
+(**D1053**), l'instantané de chaque passage (**D1054**), le total =
+filtrées + hors plage + lues (**D1055**), les indicateurs sur la ligne
+d'exécution (**D1056**).
 
 ## Les manques relevés
 

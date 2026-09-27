@@ -92,7 +92,10 @@ des règles nommées, la clé est le nom (D1074) — le journal (sorti de `loggi
 watchers, les fichiers de détail des migrations (D1066). Les propriétés
 sont normalisées (D1071) : `interval:` (le délai entre deux
 nettoyages), `directory:`, `pattern:` (la date par le groupe nommé
-`(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré) ;
+`(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré ;
+sans unité, un nombre de fichiers — `10` garde les dix derniers, triés
+par leur dernière date de création, D1076) ; `interval:` en durée
+(`1d`, `1min` — `m` est le mois, D476) ;
 le nom daté s'écrit `${now:yyyy-mm-dd}`.)*
 
 L'exemple des push (les écritures validées — D743) :

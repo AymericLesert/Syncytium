@@ -11,7 +11,7 @@ verbose: True    # le staging plus verbeux que la production (mien)
 syncytium:
     reload-disable:
         # time laps between 2 checks of evolution configuration (if {date} appears into an item)
-        interval: 60
+        interval: 1min                  # une durée (D476 — min la minute, m le mois)
 
 # Configuration du composant Logging de Python
 

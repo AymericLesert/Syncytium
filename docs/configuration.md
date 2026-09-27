@@ -289,8 +289,9 @@ settings: ~{settings.yml}
   (la clé est le nom — `journal:`, `migration_cegid:`) — sans niveau
   `cleanup:` redondant :
   chacune supprime, dans un dossier (`directory:`),
-  les fichiers d'un `pattern:` qui dépassent la `retention:`, tous les
-  `interval:` ; le journal, les watchers, les fichiers de détail des
+  les fichiers d'un `pattern:` qui dépassent la `retention:` (une durée
+  — `90d` ; sans unité, les n derniers fichiers par date de création,
+  D1076), tous les `interval:` ; le journal, les watchers, les fichiers de détail des
   migrations y ont leur règle (D1070/D1071) ;
 - **`logging.yml`** (D343/D830) — le bloc `syncytium:` (le rechargement
   — le nettoyage est parti dans `cleanup.yml`, D1073) et la configuration de la

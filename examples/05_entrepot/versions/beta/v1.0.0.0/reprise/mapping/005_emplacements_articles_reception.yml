@@ -15,5 +15,5 @@ ARTICLE:
     code:  ARCTCOEMPR         # l'identité (D930)
   report:
     when: [migration]
-    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
+    to: [logistique]                              # les emplacements par défaut, c'est la logistique qui les affecte (D1063)
     by: [notification, mail]

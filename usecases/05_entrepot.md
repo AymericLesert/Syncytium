@@ -1625,7 +1625,9 @@ d'une phase relevées (**D1057**), le `report:` propre à chaque entité source
 la logistique (MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS), le commercial et les
 achats (**D1058/D1061**), l'anomalie en fait daté (**D1059**) ; la
 complétude du schéma sur les colonnes de la configuration (**D1060**) ; les
-règles réalignées sur la répartition des sources (**D1062**).
+règles réalignées sur la répartition des sources (**D1062**) — les dépôts et
+les emplacements tirés des fiches articles à la logistique, qui affecte les
+emplacements par défaut (**D1063**).
 
 ## Les manques relevés
 

@@ -22,7 +22,7 @@ citées renvoient à la [conception](conception.md). Les noms des
 entités et des champs sont, jusqu'à la documentation structurée
 (D1021), en proposition.
 
-## Les bases (D1032–D1037)
+## Les bases (D1032–D1038)
 
 *Le 27/09/2026, l'auteur a reposé les bases du module ; elles font foi
 sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
@@ -48,15 +48,19 @@ sur le modèle ci-dessous, qui sera restructuré à partir d'elles.*
   traitement de chacun.
 - **Les cinq blocs** (D1034) : anomalies, création, modification,
   inchangé, suppression.
-- **L'identité partout** (D1035) : toute entité porte une identité ;
-  son absence est une anomalie de description du modèle.
+- **L'identité partout** (D1035) : toute entité porte une identité,
+  la sienne ou celle qu'elle hérite ; son absence est une anomalie de
+  description du modèle.
 - **La comparaison de l'enregistrement complet** (D1037, D672) : pas
   d'empreinte — chaque passage vérifie tous les champs et applique
   toutes les règles ; l'enregistrement construit, ses compositions
   comprises, se compare entier à la destination, seuls les écarts
   s'écrivent ; la modification faite dans la destination suit
   l'historique ou le remplacement selon la configuration de l'entité
-  destination (D1036).
+  destination (D1036) — **la valeur de la source est rétablie** : la
+  correction faite à la main sur un champ migré cède au passage suivant
+  qui relit l'enregistrement ; seuls les champs `unchanged:` y
+  échappent (D1038, D941).
 
 ## La doctrine
 

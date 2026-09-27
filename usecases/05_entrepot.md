@@ -1597,7 +1597,9 @@ l'identité partout — au cas, seules les tables `ignored` n'en ont pas,
 les dérivés de `article` l'héritent, `tiers` la laisse à `client` et
 `fournisseur` ; l'empreinte par hash, aussitôt oubliée (**D1037**) : la
 table des associations identifie les nouveaux enregistrements et porte
-le statut de chacun, l'enregistrement complet se compare (D672).
+le statut de chacun, l'enregistrement complet se compare (D672) ; la
+valeur de la source rétablie sur les champs migrés (**D1038**) ;
+l'identité héritée confirmée (D1035).
 
 ## Les manques relevés
 

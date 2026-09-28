@@ -21,7 +21,3 @@ cleanup: ~{cleanup.yml}
 # cet environnement ; leurs paramètres viennent des variables du .env de
 # l'environnement, les secrets y sont chiffrés.
 connectors: ~{connectors.yml}
-
-# Les réglages de l'environnement
-# Ce qui vaut pour toutes les versions exécutées dans cet environnement.
-settings: ~{settings.yml}

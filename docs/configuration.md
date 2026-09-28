@@ -244,11 +244,10 @@ resources/                           # les logos, icônes, images — partagés 
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
-│   ├── production.yml               # description, storage:, logging:, cleanup:, connectors:, settings:
+│   ├── production.yml               # description, storage:, logging:, cleanup:, connectors:
 │   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
 │   ├── logging.yml                  # la journalisation (D343/D830)
 │   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
-│   └── settings.yml                 # les réglages propres à l'environnement (D342)
 └── staging/ …
 versions/
 ├── versions.yml                     # <statut>: ~{…} — beta, production, deprecated, forbidden, sandbox
@@ -310,7 +309,6 @@ storage: entrepot                    # le connecteur qui porte le modèle (D1094
 logging: ~{logging.yml}
 cleanup: ~{cleanup.yml}
 connectors: ~{connectors.yml}
-settings: ~{settings.yml}
 ```
 
 - **`connectors.yml`** — chaque connecteur par **son rôle nommé**
@@ -340,9 +338,11 @@ settings: ~{settings.yml}
   (D333) ; le fichier ne vient que pour la personnaliser, et porte alors
   ses propriétés ; la clé `documentation:` de l'environnement le
   référence ; aucun exemple n'en a l'usage ;
-- **`settings.yml`** de l'environnement — les réglages techniques qui
-  varient d'un environnement à l'autre (D342) ; ce qui est partagé
-  passe par les variables.
+- **`settings.yml`** de l'environnement, facultatif (D1095) — les
+  réglages techniques qui varient d'un environnement à l'autre et valent
+  pour toutes ses versions (D342) ; ce qui est partagé passe par les
+  variables ; aucun des cinq premiers cas n'en a l'usage, le cas 6
+  l'introduira.
 
 ### 3.3 `versions/` — le contenu versionné, le cycle de vie en dossiers
 

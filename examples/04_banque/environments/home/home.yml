@@ -13,7 +13,3 @@ cleanup-disable: ~{cleanup.yml}
 # Configuration des connecteurs de l'application
 
 connectors: ~{connectors.yml}
-
-# Configuration générale transcendant les versions et propre à un environnement d'exécution
-
-settings: ~{settings.yml}

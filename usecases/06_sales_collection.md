@@ -1,5 +1,7 @@
 # Le cas 6 — la lecture de documents par hooks : PowerPoint, le llm, le watcher
 
+*(D1095 : ce cas portera le premier `settings.yml` d'environnement — des réglages propres à un environnement et communs à ses versions.)*
+
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les

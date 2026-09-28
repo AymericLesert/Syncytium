@@ -21,7 +21,10 @@ les trois taux, les rejets et l'empreinte qu'ils citent ont été refaits
 par les bases du module (D1030–D1080) — le module se lit dans
 [../docs/migration.md](../docs/migration.md), sa déclinaison dans « Le
 morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
-(D1021), le jeu de données construit (D869) et la PR.)*
+(D1021), le jeu de données construit (D869) et la PR. À la validation
+du modèle, la 1.0.0.0 sera promue de `beta/` à `production/` et une
+1.0.0.1 naîtra en `beta/`, avec de nouveaux champs ou des changements de
+types — la migration entre versions après la reprise (**D1081**).)*
 
 ## Le contexte (D859)
 

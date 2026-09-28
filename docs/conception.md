@@ -1213,6 +1213,7 @@ Q58) :
 | D1078 | **La copie de la production vers le staging emporte `_migration` avec les données** (précise D945/D1047 ; C3) : « La copie de la production vers le staging emporte _migration avec les données. » — la table des clés d'origine, les versions du modèle lu et les lignes d'exécution suivent les données qu'elles décrivent : le passage suivant du staging repart de l'état de la production ; sans copie, chaque environnement tient sa propre histoire. | Ma lecture, à confirmer : les fichiers SQLite du détail restent dans leur environnement (le dossier et le `cleanup.yml` de chacun) — la copie de base ne les emporte pas. La liste B–C est soldée. Voir §3.2c. |
 | D1079 | **La relecture qui porte `reset_coverage` ne se refuse pas : elle attend le passage en cours ou l'interrompt, selon une option de configuration ; les cinq états du passage ; les fichiers de détail copiables avec l'environnement, re-chiffrés par une option de la commande de copie** (corrige ma lecture de D1077, précise D1078) : sur mes trois lectures — « 1. Au cas 5 : si le delta de la nuit tourne encore, la relecture du samedi est refusée. - ce n'est pas ce que j'ai dit. La relecture du samedi est mis en pause ou interrompt le delta avant de se lancer (une option de configuration peut le gérer). 2. L'état d'un passage : en cours, réussi, en erreur, refusé ou interrompu 3. Ils peuvent être copiés à condition que les fichiers soient éventuellement rechiffrer - ceci est une option de la ligne de commande pour la copie d'un environnement. » — un `migrate` simple arrivé pendant un passage est refusé et tracé (D1077) ; une opération qui porte `reset_coverage` (la relecture complète) arrivée pendant un passage qui ne le porte pas (le delta) attend sa fin ou l'interrompt avant de se lancer — l'option le choisit ; le passage est en cours, réussi, en erreur, refusé ou interrompu ; à la copie d'un environnement, les fichiers SQLite du détail peuvent suivre, re-chiffrés au besoin — une option de la ligne de commande. | Mon « la relecture du samedi est refusée » (le cas, D1077) corrigé. Miens, en proposition : le nom de l'option sur l'opération périodique (`on_running: wait | interrupt`), le nom de la commande de copie d'un environnement (aucune n'est encore nommée — `syncytium encrypt`, `decrypt`, `rotate`, `sandbox` existent) et de son option. Voir §3.2c. |
 | D1080 | **`on_running: cancel \| wait \| interrupt`, `cancel` par défaut ; `syncytium copy <source> <cible> --with-storage`** (précise D1077/D1079 — les noms que je proposais) : « l'option on_running : cancel \| wait \| interrupt ; la copie de l'environnement me convient. La valeur par défaut est "cancel". » — l'opération qui trouve un passage de sa migration en cours est annulée (tracée, l'état refusé), attend sa fin, ou l'interrompt avant de se lancer (hors bascule) ; `cancel` par défaut : le `migrate` simple de D1077 en est l'application ; la copie d'un environnement emporte les données et `_migration`, `--with-storage` les fichiers de détail re-chiffrés. | L'exemple : `relecture_complete` porte `on_running: wait` — mon choix, puisque « la relecture du samedi est mise en pause ou interrompt » (D1079) et que le défaut l'annulerait. mapping.md, administration.md, migration.md. Voir §3.2c. |
+| D1081 | **Le cycle de vie des versions au cas 5 : à la validation du modèle, la 1.0.0.0 promue de `beta/` à `production/`, et une 1.0.0.1 en `beta/` avec de nouveaux champs ou des changements de types** (précise D338–D345 — le statut = l'emplacement, D647/D673–D674 — la migration entre versions ; D1021) : sur le pattern vide de `versions/production/production.yml` relevé par le contrôle des orphelins (aucune version en production, la 1.0.0.0 au staging) — « A la validation du modèle, nous pourrons promouvoir la version 1.0.0.0 de beta à production. Et, créer une version beta 1.0.0.1 avec de nouveaux champs ou changement de types. » — l'exemple montrera les deux environnements au travail et l'usage 1 du mapping (la migration implicite d'une version à la suivante) après l'usage 2 (la reprise de PMI). | Le moment : la fin de la relecture (D1021), quand le modèle est validé. Le contrôle des orphelins, le même jour : les 109 fichiers de `05_entrepot` atteints depuis `syncytium.yml`, aucun orphelin ; `04_banque` porte un `README.md` qu'aucune clé ne cite. Voir §3.2c. |
 
 ---
 
@@ -12532,6 +12533,8 @@ les données »** (D1078) ; la relecture attend ou interrompt, les cinq
 La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 (D1080). **Le 27/09, `migration.md` est restructuré sur ces bases.**
 
+**Le cycle de vie des versions au cas 5 (D1081).** « A la validation du modèle, nous pourrons promouvoir la version 1.0.0.0 de beta à production. Et, créer une version beta 1.0.0.1 avec de nouveaux champs ou changement de types. » — à la fin de la relecture, l'exemple montrera la promotion d'une version et la migration implicite vers la suivante.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23487,6 +23490,19 @@ avant la synthèse Q16).
   portaient deux rangs de trop : « Le cas 7 — l'entrepôt »). Restent
   D1021 (la relecture complète par l'auteur, la validation globale de
   D955), le jeu de données (D869), la PR.
+- **2026-09-28 (suite) — LA RELECTURE OUVERTE ; AUCUN ORPHELIN ; LE
+  CYCLE DES VERSIONS (D1081, 1081 décisions).** « Procédons à la
+  relecture… parcourons fichier par fichier dans l'ordre de la
+  configuration depuis Syncytium.yml » — syncytium.yml présenté (la
+  version du format absente des exemples, D322/D330 ; les commentaires
+  écrits pour le registre ; les commentaires de section ; l'identité
+  visuelle) ; « Peux-tu me valider que tous les fichiers présents dans
+  le dossier 05_entrepot sont bien reliés via les items de configuration
+  ? » — le traceur des références `~{…}` : 109 fichiers atteints, aucun
+  orphelin, le pattern de production vide ; « A la validation du modèle,
+  nous pourrons promouvoir la version 1.0.0.0 de beta à production. Et,
+  créer une version beta 1.0.0.1 avec de nouveaux champs ou changement
+  de types. » (D1081).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

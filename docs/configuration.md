@@ -164,7 +164,10 @@ partagent un bloc de trente-huit champs par `fields:
 - **un élément de la configuration, en navigation relative
   remontante** — `${name}` au même niveau, `${.name}` au niveau
   précédent, `${..name}` au parent du précédent, chaque point remonte
-  d'un niveau (`${....name}` dans `logging.yml` nomme l'environnement) ;
+  d'un niveau **de la structure YAML** — un point ne compte jamais un
+  fichier : le fichier inclus par `~{…}` prend la place de sa clé
+  (D1089) ; dans `logging.yml`, le nom du fichier journal remonte au
+  `name:` de `syncytium.yml`, le nom du projet ;
 - **l'imbrication est permise** —
   `${triggers.${environment.name}.filename}`.
 

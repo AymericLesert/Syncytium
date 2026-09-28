@@ -11,7 +11,7 @@ from: Syncytium-1.0
 # Identification et description du projet
 
 name: budget
-description: ~{README.md}           # la description par fichier (D810/D1082)
+description: ~{README.md}
 
 # Liste des environnements d'exécution
 

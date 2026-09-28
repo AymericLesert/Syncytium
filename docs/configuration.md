@@ -62,8 +62,10 @@ Chaque exemple passe un analyseur YAML avant validation.
 **Les règles d'écriture des exemples (D1084)** — un fichier aéré et
 lisible : **avant chaque clé, une courte introduction** qui dit sa
 nature dans la configuration, **puis ce que la clé apporte** — la
-seconde partie s'omet quand elle est triviale ; une ligne vide entre
-deux clés.
+seconde partie s'omet quand elle est triviale ; le commentaire collé
+à sa clé, une ligne vide entre deux clés ; **aucune référence de
+décision dans la configuration** (D1085) — les décisions disent le
+cheminement, la configuration dit la finalité et l'usage.
 
 ```yaml
 # Les environnements d'exécution
@@ -273,6 +275,12 @@ description: L'entrepôt de données de l'entreprise — …
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
+
+**`from:` — l'origine, partout** (D1086) : un seul sens pour trois
+places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
+configuration parle la langue ; **la migration** : la base d'origine,
+vers la destination qu'elle met à jour ; **la sandbox** (`version.yml`)
+— la version d'origine, avant l'essai.
 
 **La description par fichier** (D810/D1082) : `description:` prend le
 texte en ligne ou un fichier — `description: ~{README.md}` (le cas 4) ;

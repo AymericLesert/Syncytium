@@ -1217,6 +1217,8 @@ Q58) :
 | D1082 | **Le README du projet cité par `description:` — aucun fichier du projet hors des références** (précise D810 — la description par fichier, D805/D767 — pas de déclaration orpheline) : sur l'orphelin relevé dans `04_banque` — « README.md est à citer. Dans le fichier syncytium.yml, description: ~{README.md} » — le `syncytium.yml` du cas 4 porte `description: ~{README.md}` ; tout fichier d'un projet est atteint par une référence `~{…}`. | configuration.md (§3.1). Le contenu du README (« un premier cas d'usage ») et les commentaires de tête du `syncytium.yml` du cas 4 (« le cas d'usage 3 », « l'entrée de la version ») relèveront de sa relecture. Voir §3.2c. |
 | D1083 | **`from: Syncytium-1.0` — la version du format, la première clé de `syncytium.yml`** (précise D322/D330–D331 — « la version du format en tête », jamais déclarée par les exemples ; la relecture D1021, le fichier 1) : à ma proposition `format: 1.0` — « La version du format est à mettre en premier dans le fichier syncytium.yml. Plutôt que format, je propose "from: Syncytium-1.0" » — le nom et la version de la grammaire que parle le projet ; le moteur qui ne la connaît pas refuse sur cette seule ligne (D330), le format antérieur se convertit (D331). | Les quatre `syncytium.yml` des exemples la portent en tête. L'homonymie relevée : `from:` dit aussi la version d'origine d'une sandbox dans son `version.yml` (D907) et le câblage d'une migration (D610) — des fichiers et des sections distincts. configuration.md. Voir §3.2c. |
 | D1084 | **La règle d'écriture des exemples : avant chaque clé, sa nature, puis ce qu'elle apporte ; des fichiers aérés et lisibles** (précise D810 — `description:` partout ; D892 ; la relecture D1021) : sur ma proposition du principe des commentaires — « Dans la description de nos cas d'exemple, avant chaque clé, je souhaite une petite introduction pour indiquer la nature (dans la configuration), puis, une description de ce que cette clé apporte. Si la description est triviale, la deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml doit être aéré et lisible. » — une introduction courte au-dessus de chaque clé, la description de son apport si elle n'est pas triviale, une ligne vide entre deux clés ; le `syncytium.yml` du cas 5 réécrit ainsi, les autres fichiers au fil de la relecture. | Ma lecture, à confirmer : l'histoire du cas (le morceau, le lot, la question) quitte les commentaires — elle vit dans la maison du cas ; les références de décision se font rares, là où elles éclairent une règle ; les commentaires de section du projet d'origine deviennent les introductions. configuration.md (les règles d'écriture). Voir §3.2c. |
+| D1085 | **La configuration exclut les références aux décisions** (précise D1084 ; amende la pratique des exemples depuis D757) : « la configuration doit exclure les références aux décisions. Les décisions reflètent le cheminement de la pensée et des échanges. La configuration fait référence à la finalité et à son usage. » — aucun `Dxxx`, aucune question, aucun morceau dans les fichiers de configuration des exemples ; les commentaires disent la nature de la clé et son apport (D1084) ; le registre et les maisons des cas gardent le cheminement. | La mise en page de D1084 confirmée : « la mise en page me convient et il faut la reproduire ». Appliqué au fil de la relecture (D1021) ; les artefacts de docs/ gardent leurs références. configuration.md. Voir §3.2c. |
+| D1086 | **`from:` — un même sens, l'origine, à trois places : le projet, la migration, la sandbox** (précise D1083, D610/D662, D907) : sur l'homonymie que je relevais — « C'est une homonymie mais avec un même sens : from au début du projet précise le modèle Syncytium utilisé et porteur des éléments de langage de la configuration (l'origine du système) ; from d'une migration qui précise l'origine de la migration vers la destination => Non précisé dans le cas 5 - à mettre en place car cela matérialise la base d'origine avant la mise à jour de la base cible ; from d'une sandbox qui précise l'origine d'une version avant de lancer un test » — le `from:` du projet dit le modèle Syncytium qui porte la langue de la configuration ; celui d'une migration, la base d'origine d'où la destination se met à jour ; celui d'une sandbox, la version d'origine avant l'essai. | Le `from:` de la migration est à mettre en place au cas 5 — ma question à l'auteur : remplace-t-il `connector:` (la même base d'origine, un seul mot) ou s'y ajoute-t-il ? configuration.md. Voir §3.2c. |
 
 ---
 
@@ -12542,6 +12544,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le format en tête, la règle d'écriture (D1083–D1084).** « La version du format est à mettre en premier dans le fichier syncytium.yml. Plutôt que format, je propose "from: Syncytium-1.0" » ; « Dans la description de nos cas d'exemple, avant chaque clé, je souhaite une petite introduction pour indiquer la nature (dans la configuration), puis, une description de ce que cette clé apporte. Si la description est triviale, la deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml doit être aéré et lisible. » — `from: Syncytium-1.0` ouvre chaque projet ; chaque clé des exemples porte sa nature et son apport.
 
+**La configuration sans décisions, `from:` l'origine (D1085–D1086).** « la configuration doit exclure les références aux décisions. Les décisions reflètent le cheminement de la pensée et des échanges. La configuration fait référence à la finalité et à son usage. » ; « C'est une homonymie mais avec un même sens : from au début du projet précise le modèle Syncytium utilisé et porteur des éléments de langage de la configuration (l'origine du système) ; from d'une migration qui précise l'origine de la migration vers la destination => Non précisé dans le cas 5 - à mettre en place car cela matérialise la base d'origine avant la mise à jour de la base cible ; from d'une sandbox qui précise l'origine d'une version avant de lancer un test ».
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23523,6 +23527,19 @@ avant la synthèse Q16).
   deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml
   doit être aéré et lisible. » (D1084) — le syncytium.yml du cas 5
   réécrit, les trois autres reçoivent `from:`.
+- **2026-09-28 (suite 4) — SANS DÉCISIONS DANS LA CONFIGURATION, `FROM:`
+  L'ORIGINE (D1085–D1086, 1086 décisions).** « la mise en page me
+  convient et il faut la reproduire » ; « la configuration doit exclure
+  les références aux décisions. Les décisions reflètent le cheminement
+  de la pensée et des échanges. La configuration fait référence à la
+  finalité et à son usage. » (D1085) ; « C'est une homonymie mais avec
+  un même sens : from au début du projet précise le modèle Syncytium
+  utilisé et porteur des éléments de langage de la configuration
+  (l'origine du système) ; from d'une migration qui précise l'origine de
+  la migration vers la destination => Non précisé dans le cas 5 - à
+  mettre en place car cela matérialise la base d'origine avant la mise à
+  jour de la base cible ; from d'une sandbox qui précise l'origine d'une
+  version avant de lancer un test » (D1086).
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -23633,6 +23633,16 @@ avant la synthèse Q16).
   décisions).** Les statuts réécrits ; « 1. on les garde ainsi 2.
   laisse-le à configuration.md » ; version.yml : les notes en scalaire
   littéral, sans l'histoire du cas.
+- **2026-09-28 (pause, 1096 décisions)** — « Je marque une pause. » La
+  relecture (D1021) du cas 5 est ouverte : les fichiers 1 à 12 relus —
+  syncytium.yml, les environnements (environments.yml, production.yml,
+  staging.yml, logging.yml, cleanup.yml, connectors.yml), les statuts
+  des versions, version.yml — et réécrits selon la règle d'écriture
+  (D1084–D1085) ; D1081–D1096. Tout est commis et poussé, aucune PR
+  ouverte. **La reprise : le fichier 13, `settings.yml` de la version,
+  puis groups.yml, reprise.yml, les 23 sources, les 33 règles, les
+  quatre modules et leurs entités ; puis les autres exemples ; puis la
+  promotion de la 1.0.0.0 et la 1.0.0.1 (D1081).**
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

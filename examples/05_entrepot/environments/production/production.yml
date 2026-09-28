@@ -1,4 +1,3 @@
-name: production
 description: L'environnement de production — l'entrepôt alimenté chaque nuit depuis la base PMI de production
 
 # Configuration de la journalisation (D830)

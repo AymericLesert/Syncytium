@@ -1,8 +1,9 @@
-# Déclaration des environnements d'exécution (D342/D617 — chaque
-# environnement ses connecteurs et son .env)
-# La production : la base PMI lue en direct (D863). Le staging : une
-# copie de la base PMI et un entrepôt d'essai — la question 10 du cadrage
-# (D945) ; les versions beta y vivent (D805).
-
+# L'environnement de production
+# L'entrepôt alimenté chaque nuit depuis la base PMI de production, lue
+# en direct.
 production: ~{production/production.yml}
+
+# L'environnement de staging
+# L'entrepôt d'essai, alimenté depuis une copie de la base PMI ; les
+# versions beta s'y exécutent.
 staging: ~{staging/staging.yml}

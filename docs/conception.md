@@ -1220,6 +1220,7 @@ Q58) :
 | D1085 | **La configuration exclut les références aux décisions** (précise D1084 ; amende la pratique des exemples depuis D757) : « la configuration doit exclure les références aux décisions. Les décisions reflètent le cheminement de la pensée et des échanges. La configuration fait référence à la finalité et à son usage. » — aucun `Dxxx`, aucune question, aucun morceau dans les fichiers de configuration des exemples ; les commentaires disent la nature de la clé et son apport (D1084) ; le registre et les maisons des cas gardent le cheminement. | La mise en page de D1084 confirmée : « la mise en page me convient et il faut la reproduire ». Appliqué au fil de la relecture (D1021) ; les artefacts de docs/ gardent leurs références. configuration.md. Voir §3.2c. |
 | D1086 | **`from:` — un même sens, l'origine, à trois places : le projet, la migration, la sandbox** (précise D1083, D610/D662, D907) : sur l'homonymie que je relevais — « C'est une homonymie mais avec un même sens : from au début du projet précise le modèle Syncytium utilisé et porteur des éléments de langage de la configuration (l'origine du système) ; from d'une migration qui précise l'origine de la migration vers la destination => Non précisé dans le cas 5 - à mettre en place car cela matérialise la base d'origine avant la mise à jour de la base cible ; from d'une sandbox qui précise l'origine d'une version avant de lancer un test » — le `from:` du projet dit le modèle Syncytium qui porte la langue de la configuration ; celui d'une migration, la base d'origine d'où la destination se met à jour ; celui d'une sandbox, la version d'origine avant l'essai. | Le `from:` de la migration est à mettre en place au cas 5 — ma question à l'auteur : remplace-t-il `connector:` (la même base d'origine, un seul mot) ou s'y ajoute-t-il ? configuration.md. Voir §3.2c. |
 | D1087 | **`from:` remplace `connector:` sur la migration déclarée — la base d'origine, symétrique du `to:` des règles** (amende D662 — « le setting lie { connecteur storage · descriptions sources · mapping } » ; applique D1086) : à ma question (remplace-t-il `connector:` ou s'y ajoute-t-il ?) — « a) from remplace connector » — `from: cegid` nomme le connecteur de la base d'origine ; la destination reste la base de l'application. | Les trois `reprise.yml` des exemples (le véhicule, la banque, l'entrepôt), mapping.md, migration.md (le champ `from` de l'entité `migration`), configuration.md, le cas. Le câblage à la racine de D610 (`connector: { storage: main_db, from: legacy_db }`), déjà relu comme le raccourci à une migration (D662), reste tel que connectors.md le montre. Voir §3.2c. |
+| D1088 | **Le nom d'un environnement est sa clé dans `environments.yml` — le `name:` du fichier d'environnement retiré ; le `.env` s'explique là où ses variables servent** (amende la forme des `<env>.yml` ; l'esprit de D1075 — pas de niveau redondant ; la relecture D1021, le fichier 2) : sur mes deux remarques — « name est redondant en effet. Il peut être supprimé. » ; « Quant au fichier .env, son intérêt est porté en effet par les fichiers qui utilisent les variables d'environnement et surtout les clés. » — `production:`, `staging:`, `home:` nomment leur environnement, le fichier ne le redit pas ; l'introduction des clés qui emploient les variables `${…}` (les connecteurs, leurs secrets `*`) dira qu'elles viennent du `.env` de l'environnement. | Les cinq fichiers d'environnement des exemples ; `environments.yml` du cas 5 réécrit (D1084) ; configuration.md. La question posée : `${....name}` du `logging.yml` — configuration.md le dit « nomme l'environnement », le commentaire d'origine du fichier « la propriété name du fichier syncytium.yml ». Voir §3.2c. |
 
 ---
 
@@ -12549,6 +12550,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **`from:` remplace `connector:` (D1087).** « a) from remplace connector » — la migration nomme sa base d'origine par `from:`.
 
+**Le nom de l'environnement, sa clé (D1088).** « name est redondant en effet. Il peut être supprimé. » ; « Quant au fichier .env, son intérêt est porté en effet par les fichiers qui utilisent les variables d'environnement et surtout les clés. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23546,6 +23549,12 @@ avant la synthèse Q16).
 - **2026-09-28 (suite 5) — `FROM:` SUR LA MIGRATION (D1087, 1087
   décisions).** « a) from remplace connector » — les trois
   `reprise.yml`, mapping.md, migration.md, configuration.md, le cas.
+- **2026-09-28 (suite 6) — LA RELECTURE, FICHIER 2 : `ENVIRONMENTS.YML`
+  (D1088, 1088 décisions).** « name est redondant en effet. Il peut être
+  supprimé. » ; « Quant au fichier .env, son intérêt est porté en effet
+  par les fichiers qui utilisent les variables d'environnement et
+  surtout les clés. » — le `name:` des cinq fichiers d'environnement
+  retiré, `environments.yml` réécrit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

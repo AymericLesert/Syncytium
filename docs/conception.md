@@ -1226,6 +1226,7 @@ Q58) :
 | D1091 | **La journalisation des exemples dans la forme du contrat neutre, complétée : `log:` — `level:`, `output:`, `max_size:`, `backups:` ; la rétention au `cleanup.yml` ; la forme de la bibliothèque Python écartée** (confirme D737/D743, précise D800 — les dimensions, D1073 ; amende la forme des cas 4 et 5, portée depuis le projet d'origine — D830 ; la relecture D1021, le fichier 5) : à la question des deux formes (A le contrat, B `version: 1`, `formatters`, `handlers`, `logging.handlers.RotatingFileHandler`) — « la forme A, complétée comme tu le proposes » — un contrat neutre, sans choix d'implémentation avant les choix techniques (D1025). | Les cinq `logging.yml` des exemples réécrits (la production en `info`, le staging en `debug`) ; `verbose:` et le bloc `syncytium: reload-disable:` retirés (le niveau dit la verbosité ; la date du nom se réévalue à la demande, D1069) ; le nom du fichier en `${....name}` — quatre points depuis `log.output`, la structure étant moins profonde (D1089) ; l'enquête et le véhicule reçoivent leur `cleanup.yml` (la règle `journal`, 90 jours). Miens : `max_size`, `backups`, la notation `128MB` ; la sortie console de la forme B non reprise. configuration.md, telemetry.md. Voir §3.2c. |
 | D1092 | **`logging.yml` porte ses clés à la racine — la clé `logging:` de l'environnement nomme déjà la section** (amende D1091 ; l'esprit de D1075) : « Dans logging.yml, tu peux enlever le niveau log: car il est redondant avec logging: » — `level:`, `output:`, `max_size:`, `backups:` à la racine du fichier ; le nom du journal remonte en `${...name}`, trois points depuis `output` (D1089). | Les cinq `logging.yml`, configuration.md, telemetry.md. Voir §3.2c. |
 | D1093 | **Le mélange des situations est voulu : `type:` écrit quand plusieurs connecteurs partagent une famille, omis quand le nom est la famille ; `class:` l'implémentation ; l'expéditeur du `smtp` devient `address_from:`** (confirme D612 ; précise D1086 — `from:` garde le seul sens de l'origine ; la relecture D1021, le fichier 7) : sur mes questions — « Dans l'exemple, nous mixons les différentes situations possibles : Pour un storage, nous avons plusieurs implémentations : entrepot, cegid ou temporaire ; Pour location, authentication ou smtp, l'implémentation correspond bien au type. class décrit l'implémentation choisie. » ; « Pour smtp, from est un paramètre de l'envoi d'un mail. au lieu de "from:", nous le remplacerons par "address_from:" » — les deux `connectors.yml` du cas 5 réécrits selon la règle d'écriture, leur contenu inchangé hors `address_from:`. | Mien : une introduction pour le bloc `parameters:`, pas pour chacun de ses paramètres. La question du câblage reste posée : aucun connecteur ne s'appelle `storage`, rien ne dit que `entrepot` porte le modèle. Voir §3.2c. |
+| D1094 | **Le fichier de l'environnement désigne le storage du modèle : `storage: entrepot`** (précise D610/D612 — le câblage explicite au complexe ; complète D1087 — la migration désigne sa base d'origine ; la relecture D1021, le fichier 7) : sur le manque relevé — trois storages au cas 5, aucun nommé `storage`, rien ne disant lequel porte le modèle — « En effet, storage: entrepot est à mettre dans le fichier de description de l'environnement. » — `production.yml` et `staging.yml` portent `storage: entrepot` ; le véhicule et la banque, deux storages chacun (`database`, `legacy`), portent `storage: database`. | L'enquête, un seul storage, reste au câblage implicite de D612 — le mélange des situations (D1093). Le câblage à la racine de D610 se répartit entre l'environnement (le storage) et la migration (`from:`). configuration.md, connectors.md, glossaire.md. Voir §3.2c. |
 
 ---
 
@@ -12567,6 +12568,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le mélange voulu des connecteurs, `address_from:` (D1093).** « Dans l'exemple, nous mixons les différentes situations possibles : Pour un storage, nous avons plusieurs implémentations : entrepot, cegid ou temporaire ; Pour location, authentication ou smtp, l'implémentation correspond bien au type. class décrit l'implémentation choisie. » ; « Pour smtp, from est un paramètre de l'envoi d'un mail. au lieu de "from:", nous le remplacerons par "address_from:" »
 
+**Le storage du modèle à l'environnement (D1094).** « En effet, storage: entrepot est à mettre dans le fichier de description de l'environnement. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23612,6 +23615,10 @@ avant la synthèse Q16).
   type. class décrit l'implémentation choisie. » ; « Pour smtp, from est
   un paramètre de l'envoi d'un mail. au lieu de "from:", nous le
   remplacerons par "address_from:" » — les deux fichiers réécrits.
+- **2026-09-28 (suite 13) — LE STORAGE DU MODÈLE (D1094, 1094
+  décisions).** « En effet, storage: entrepot est à mettre dans le
+  fichier de description de l'environnement. » — le cas 5, le véhicule,
+  la banque ; l'enquête garde le câblage implicite.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

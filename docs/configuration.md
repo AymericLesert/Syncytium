@@ -244,7 +244,7 @@ resources/                           # les logos, icônes, images — partagés 
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
-│   ├── production.yml               # description, logging:, cleanup:, connectors:, settings:
+│   ├── production.yml               # description, storage:, logging:, cleanup:, connectors:, settings:
 │   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
 │   ├── logging.yml                  # la journalisation (D343/D830)
 │   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
@@ -306,6 +306,7 @@ staging: ~{staging/staging.yml}
 
 # environments/production/production.yml — le nom est la clé de environments.yml (D1088)
 description: L'environnement de production — …
+storage: entrepot                    # le connecteur qui porte le modèle (D1094)
 logging: ~{logging.yml}
 cleanup: ~{cleanup.yml}
 connectors: ~{connectors.yml}

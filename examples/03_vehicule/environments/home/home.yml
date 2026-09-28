@@ -1,5 +1,9 @@
 description: Environnement d'exécution du poste du foyer
 
+# La base de l'application — le storage du modèle, legacy sert la reprise
+
+storage: database
+
 # Configuration de la journalisation
 
 logging: ~{logging.yml}

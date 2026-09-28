@@ -101,11 +101,18 @@ connectors:
 - **le câblage n'est pas toujours requis** (D612) — « pour des
   questions de simplicité » : le connecteur nommé comme son type se
   trouve seul ; « dans les cas les plus complexes, le câblage doit
-  être explicite » à la racine :
+  être explicite » — **l'environnement désigne le storage du modèle**
+  (D1094), la migration désigne sa base d'origine par `from:`
+  (D1087) ; le câblage à la racine de D610 (`connector: { storage:
+  main_db, from: legacy_db }`) s'est ainsi réparti :
 
 ```yaml
-# syncytium.yml — la racine (D610)
-connector: { storage: main_db, from: legacy_db }
+# environments/production/production.yml — le storage du modèle (D1094)
+storage: entrepot
+
+# reprise.yml — la base d'origine d'une migration (D1087)
+cegid:
+  from: cegid
 ```
 
 - **la surcharge locale** (D611) : « pour l'opération `send`, le

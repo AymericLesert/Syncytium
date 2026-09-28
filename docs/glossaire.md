@@ -86,8 +86,9 @@ implémente le socle commun : `initialize`/`release`,
 `describe()` (la documentation de l'instance). Ses propriétés le
 paramètrent (pas de contexte — il naît au démarrage du projet) ; ses
 secrets référencent des variables d'environnement (chiffrables) ; le
-câblage `connector: { storage: main_db, from: legacy_db }` nomme les
-rôles à la racine (optionnel au simple : le nom = le type) ; `when:
+câblage nomme les rôles : l'environnement désigne le storage du modèle
+(`storage: entrepot`), la migration sa base d'origine (`from:`) —
+optionnel au simple : le nom = le type ; `when:
 <connecteur>[.<entrée>]` abonne une opération à ses événements.
 L'application ne démarre que si le mail à l'administrateur est
 possible — le canal d'alerte avant tout. Le stockage des entités est

@@ -1,6 +1,11 @@
 # La description de l'environnement de production — la vie courante de l'application
 description: L'environnement de production — l'entrepôt alimenté chaque nuit depuis la base PMI de production
 
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; les autres
+# storages de l'environnement servent la reprise.
+storage: entrepot
+
 # La journalisation
 # Le niveau des traces, leur format et le fichier du journal de
 # l'environnement.

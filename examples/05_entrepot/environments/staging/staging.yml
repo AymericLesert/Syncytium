@@ -1,6 +1,11 @@
 # La description de l'environnement de développement
 description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI
 
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; les autres
+# storages de l'environnement servent la reprise.
+storage: entrepot
+
 # La journalisation
 # Le niveau des traces, leur format et le fichier du journal de
 # l'environnement.

@@ -1,91 +1,141 @@
-# Les connecteurs de l'environnement de staging (D617/D945 — chaque
-# environnement les siens ; les secrets = les paramètres marqués *
-# (D944), par variable d'environnement chiffrée, jamais dans le dépôt
-# — D321/D902).
+# Les connecteurs de l'environnement : les bases, les dossiers, les services
+# et les annuaires que l'application utilise. Quand plusieurs connecteurs
+# partagent une famille, chacun déclare son type ; quand le nom du
+# connecteur est sa famille, le type ne s'écrit pas.
 
-# L'entrepôt d'essai — le storage cible : un schéma PostgreSQL (D860)
-# distinct de la production ; le .env du staging nomme son serveur et sa
-# base (les mêmes noms de variables, un .env par environnement — D902).
+# L'entrepôt d'essai
+# La base de l'application en développement : un schéma PostgreSQL
+# distinct de la production.
 entrepot:
+
+  # La famille du connecteur
   type: storage
+
+  # L'implémentation
   class: postgresql
+
+  # Les paramètres de l'implémentation
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la
+  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
+  # les traces, dont la variable est chiffrée.
   parameters:
     host: ${ENTREPOT_HOST}
     database: ${ENTREPOT_DATABASE}
     schema: entrepot
     user: ${ENTREPOT_USER}
-    password*: ${ENTREPOT_PASSWORD}   # la marque * : confidentiel, la variable chiffrée
+    password*: ${ENTREPOT_PASSWORD}
 
-# Cegid PMI — le storage source : LA COPIE de la base PMI (D945 — jamais
-# la production depuis le staging), le schéma d'une instance SQL Server
-# (D860), en lecture seule (D175). Pas de carte
-# entities: (D829 — optionnelle, la base se décrit elle-même) : la
-# comparaison du schéma réel à la description (D861/D868) doit voir
-# toutes les tables, les non définies comprises.
+# Cegid PMI
+# La base d'origine de la reprise : une copie de la base de PMI, jamais
+# la production, lue en lecture seule.
 cegid:
+
+  # La famille du connecteur
   type: storage
+
+  # L'implémentation
   class: sqlserver
+
+  # Les paramètres de l'implémentation
+  # Sans carte des entités : la base se décrit elle-même, et la
+  # comparaison du schéma lu à la description voit toutes les tables.
   parameters:
     server: ${CEGID_SERVER}
     database: ${CEGID_DATABASE}
     schema: dbo
     user: ${CEGID_USER}
     password*: ${CEGID_PASSWORD}
-  # La facette des types portée par le connecteur (D876) — la convention
-  # de nommage de PMI, <XX><K|C|I><T|N|J|S><nom> (D865), surchargeable à
-  # l'entité ou au champ (D877). LA FORME EST EN PROPOSITION (D876 la
-  # renvoyait à l'assise) : le motif à groupes nommés (D817) découpe la
-  # colonne ; identity: dit les lettres de la clé ; types: la lettre du
-  # type — le type SQL tranche entre entier et décimal pour N.
+
+  # La convention de nommage des colonnes de PMI
+  # Le connecteur lit chaque colonne selon la convention : deux lettres de
+  # table, la nature, la lettre du type, le nom ; une entité ou un champ
+  # de la description peut la surcharger.
   convention:
+
+    # Le découpage d'un nom de colonne
     columns: '^(?<prefix>[A-Z]{2})(?<kind>[KCI])(?<type>[TNJS])(?<name>[A-Z0-9]+)$'
+
+    # Les natures qui forment l'identité
     identity: [K, I]
+
+    # Le type de chaque lettre
+    # N se lit entier ou décimal selon le type SQL ; S, la semaine, se
+    # déduit du jour et n'est pas reprise.
     types:
       T: text
       N: decimal
       J: date[yyyymmdd]
-      S: text[6]                    # la semaine, déduite du jour (D1000) ; l'heure se surcharge au champ
+      S: text[6]
 
-# La base miroir de la reprise (D1044/D1045) — la migration cegid la nomme
-# par buffer: ; la classe memory tient le modèle en mémoire, le temps de
-# la migration (le connecteur porte la facette). Un storage dans un schéma
-# dédié de l'entrepôt conviendrait aussi aux gros volumes.
+# La base miroir de la reprise
+# La migration y construit et contrôle l'entrepôt avant d'en reporter les
+# différences ; la base est tenue en mémoire, le temps de la migration.
 temporaire:
+
+  # La famille du connecteur
   type: storage
+
+  # L'implémentation
   class: memory
 
-# Les plans des articles — le connecteur file en complément du storage
-# source (D883), le répertoire d'essai du staging : le nom du fichier vient d'ARTICLE (ARCTFICPLA), le
-# contenu du répertoire des plans (D634 — get_file).
+# Les plans des articles
+# Le dossier d'essai des plans : la reprise y lit le fichier que la fiche
+# article désigne.
 plans:
+
+  # La famille du connecteur
   type: file
+
+  # L'implémentation
   class: file_std
+
+  # Les paramètres de l'implémentation
   parameters:
     directory: ${PLANS_DIRECTORY}
 
-# Le géocodage — la même BAN qu'en production (D1004)
+# Le géocodage
+# La Base Adresse Nationale, sans clé : l'adresse de livraison des
+# commandes de vente y est géolocalisée.
 location:
+
+  # L'implémentation
   class: ban
+
+  # Les paramètres de l'implémentation
   parameters:
     url: https://api-adresse.data.gouv.fr
 
-# L'authentification — le même locataire Microsoft 365 (D692/D945), une
-# inscription d'application propre au staging par son .env ; le secret
-# est un paramètre marqué * (D944).
+# L'authentification
+# Le même locataire Microsoft 365 que la production, avec une inscription
+# d'application propre au développement.
 authentication:
+
+  # L'implémentation
   class: azure_ad
+
+  # Les paramètres de l'implémentation
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la
+  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
+  # les traces, dont la variable est chiffrée.
   parameters:
     tenant: ${AZURE_TENANT}
     client_id: ${AZURE_CLIENT_ID}
     client_secret*: ${AZURE_CLIENT_SECRET}
 
-# Le mail sortant — le relais de l'entreprise (D628/D626/D945), l'expéditeur
-# et la boîte du staging par son .env : les rapports d'essai n'atteignent
-# pas les utilisateurs de la production.
+# Le mail sortant
+# Le relais de l'entreprise, avec l'expéditeur et la boîte du
+# développement : les rapports d'essai n'atteignent pas les utilisateurs.
 smtp:
+
+  # L'implémentation
   class: smtp_std
+
+  # Les paramètres de l'implémentation
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la
+  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
+  # les traces, dont la variable est chiffrée.
   parameters:
     host: ${SMTP_HOST}
     port: 587
-    from: ${SMTP_FROM}
+    address_from: ${SMTP_FROM}
     password*: ${SMTP_PASSWORD}

@@ -346,7 +346,8 @@ connectors: ~{connectors.yml}
 
 ### 3.3 `versions/` — le contenu versionné, le cycle de vie en dossiers
 
-**Le statut d'une version est son emplacement** (D338/D340) : quatre
+**Le statut d'une version est son emplacement** (D338/D340) ; **seuls
+les statuts utilisés se déclarent dans `versions.yml`** (D804) : quatre
 dossiers — `beta/`, `production/`, `deprecated/`, `forbidden/` — et
 `sandbox/` (D907) ; **déposer dans un dossier = publier pour cet
 environnement** ; les transitions sont des gestes de fichier,

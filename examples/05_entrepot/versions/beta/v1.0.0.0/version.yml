@@ -1,42 +1,46 @@
-# Identification et description de la version — la version en tête (D801)
-
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
 version: 1.0.0.0
-release-notes: >
-  La première version de l'entrepôt de données — les données de Cegid
-  PMI standardisées, harmonisées et fiabilisées, de l'opérateur aux
-  dirigeants.
+
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La première version de l'entrepôt de données : les données de Cegid PMI
+  standardisées, harmonisées et fiabilisées, de l'opérateur aux dirigeants.
+
   # Le modèle
-  ## Quatre modules sur le périmètre — technique (l'article, sa
-  nomenclature et sa gamme, sa grille tarifaire en hypercube), tiers
-  (le tiers, parent hérité par le client et le fournisseur, ses
-  adresses et ses contacts), commande (les ventes et les achats,
-  séparées), stock (les niveaux et les mouvements)
-  ## L'entrepôt en lecture seule, l'historique partout sauf les
-  mouvements, les champs financiers réservés aux achats et à la
-  direction
+  - Quatre modules : technique (l'article, sa nomenclature et sa gamme, sa
+    grille tarifaire), tiers (le tiers, parent du client et du fournisseur,
+    ses adresses et ses contacts), commande (les ventes et les achats), stock
+    (les dépôts, les emplacements, les niveaux et les mouvements).
+  - L'entrepôt en lecture seule ; l'historique des changements partout, sauf
+    sur les niveaux et les mouvements ; les champs financiers réservés aux
+    achats et à la direction.
+
   # La reprise
-  ## La base PMI lue en direct chaque nuit, la comparaison par blocs,
-  la relecture complète le dimanche (le morceau 3)
-  # La restitution
-  ## Le tableau de bord de pilotage, les listes, les documents (le
-  morceau 5)
+  - La base PMI lue en direct chaque nuit et comparée à l'entrepôt ; la
+    relecture complète le dimanche.
+  - Les anomalies adressées chaque matin au bureau d'études, à la
+    logistique, au commercial et aux achats.
 
-# Les réglages de la version (D359 — l'étage instance de la cascade) :
-# la normalisation et les profils de confidentialité (D872/D885)
+  # Le pilotage
+  - Le tableau de bord du stock.
 
+# Les réglages de la version
+# Les types et leurs défauts, les profils de confidentialité.
 settings: ~{settings.yml}
 
-# Les groupes d'utilisateurs — les strates de l'entreprise (D414/D859)
-
+# Les groupes d'utilisateurs
+# Les strates de l'entreprise, de l'opérateur aux dirigeants.
 groups: ~{groups.yml}
 
-# Déclaration de la reprise des données de PMI (D662/D943 — le morceau 3,
-# la source, puis le morceau 4, le mapping)
-
+# Les migrations
+# La reprise des données de PMI : la base d'origine, les tables sources,
+# les règles, le rythme.
 migrations: ~{reprise/reprise.yml}
 
-# Déclaration des modules — les quatre domaines de l'entrepôt (D882)
-
+# Les modules de l'application
+# Les quatre domaines de l'entrepôt.
 modules:
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}

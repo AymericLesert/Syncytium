@@ -255,6 +255,11 @@ environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
 
+**La description par fichier** (D810/D1082) : `description:` prend le
+texte en ligne ou un fichier — `description: ~{README.md}` (le cas 4) ;
+aucun fichier du projet n'échappe aux références `~{…}` : un fichier
+qu'aucune clé ne cite est un orphelin.
+
 ### 3.2 `environments/` — la configuration technique commune (D325/D342)
 
 **Un dossier par environnement** : ce qui est commun à toutes les

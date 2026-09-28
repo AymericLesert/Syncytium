@@ -5,7 +5,7 @@
 # Identification et description du projet
 
 name: budget
-description: Gestion des comptes bancaires domestiques
+description: ~{README.md}           # la description par fichier (D810/D1082)
 
 # Liste des environnements d'exécution
 

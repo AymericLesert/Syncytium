@@ -1,4 +1,4 @@
-# La description de l'environnement
+# La description de l'environnement de développement
 description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI
 
 # La journalisation
@@ -10,9 +10,6 @@ logging: ~{logging.yml}
 # Les règles de rétention de l'environnement : le journal, le détail des
 # migrations, les dépôts des watchers.
 cleanup: ~{cleanup.yml}
-
-# La génération de la documentation
-documentation: ~{documentation.yml}
 
 # Les connecteurs
 # Les bases, les services et les annuaires que l'application utilise dans

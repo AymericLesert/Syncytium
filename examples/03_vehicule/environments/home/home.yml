@@ -4,10 +4,6 @@ description: Environnement d'exécution du poste du foyer
 
 logging: ~{logging.yml}
 
-# Configuration de la génération de la documentation
-
-documentation: ~{documentation.yml}
-
 # Configuration des connecteurs de l'application
 
 connectors: ~{connectors.yml}

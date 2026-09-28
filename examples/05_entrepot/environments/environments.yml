@@ -1,9 +1,5 @@
 # L'environnement de production
-# L'entrepôt alimenté chaque nuit depuis la base PMI de production, lue
-# en direct.
 production: ~{production/production.yml}
 
-# L'environnement de staging
-# L'entrepôt d'essai, alimenté depuis une copie de la base PMI ; les
-# versions beta s'y exécutent.
+# L'environnement de développement
 staging: ~{staging/staging.yml}

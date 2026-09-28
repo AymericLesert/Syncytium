@@ -1222,6 +1222,7 @@ Q58) :
 | D1087 | **`from:` remplace `connector:` sur la migration déclarée — la base d'origine, symétrique du `to:` des règles** (amende D662 — « le setting lie { connecteur storage · descriptions sources · mapping } » ; applique D1086) : à ma question (remplace-t-il `connector:` ou s'y ajoute-t-il ?) — « a) from remplace connector » — `from: cegid` nomme le connecteur de la base d'origine ; la destination reste la base de l'application. | Les trois `reprise.yml` des exemples (le véhicule, la banque, l'entrepôt), mapping.md, migration.md (le champ `from` de l'entité `migration`), configuration.md, le cas. Le câblage à la racine de D610 (`connector: { storage: main_db, from: legacy_db }`), déjà relu comme le raccourci à une migration (D662), reste tel que connectors.md le montre. Voir §3.2c. |
 | D1088 | **Le nom d'un environnement est sa clé dans `environments.yml` — le `name:` du fichier d'environnement retiré ; le `.env` s'explique là où ses variables servent** (amende la forme des `<env>.yml` ; l'esprit de D1075 — pas de niveau redondant ; la relecture D1021, le fichier 2) : sur mes deux remarques — « name est redondant en effet. Il peut être supprimé. » ; « Quant au fichier .env, son intérêt est porté en effet par les fichiers qui utilisent les variables d'environnement et surtout les clés. » — `production:`, `staging:`, `home:` nomment leur environnement, le fichier ne le redit pas ; l'introduction des clés qui emploient les variables `${…}` (les connecteurs, leurs secrets `*`) dira qu'elles viennent du `.env` de l'environnement. | Les cinq fichiers d'environnement des exemples ; `environments.yml` du cas 5 réécrit (D1084) ; configuration.md. La question posée : `${....name}` du `logging.yml` — configuration.md le dit « nomme l'environnement », le commentaire d'origine du fichier « la propriété name du fichier syncytium.yml ». Voir §3.2c. |
 | D1089 | **Un point de la navigation remonte d'un niveau de la structure YAML, jamais d'un fichier ; le nom du journal remonte au `name:` du projet** (précise D321 — la navigation relative remontante ; corrige configuration.md, qui disait « nomme l'environnement » ; la relecture D1021) : sur ma question (le `${....name}` du `logging.yml` désigne-t-il l'environnement ou le projet ?) — « Dans le fichier syncytium.yml, il y a une propriété "name". ${......name} du fichier logging.yml fait référence à la propriété name de syncytium.yml. un "." ne présente pas un fichier mais un niveau dans la structure yml » — le fichier inclus par `~{…}` prend la place de sa clé dans la structure ; le journal porte le nom du projet (`entrepot-…`). | Le compte des points posé en question : du `filename:` de `handlers.file`, la structure donne cinq remontées jusqu'à la racine du projet (file → handlers → logging → production → environments → la racine) ; les exemples en écrivaient quatre, l'auteur six — **« a) cinq points, corrige les trois logging.yml »** : `${.....name}` dans les trois `logging.yml`. configuration.md. Voir §3.2c. |
+| D1090 | **`documentation.yml` facultatif : la génération de la documentation est portée par Syncytium par défaut, le fichier ne vient que pour la personnaliser ; son chapitre, après les choix techniques et avant la génération du code** (précise D333, D1025 — l'ordre après les cas ; clôt le « à décrire » du domaine 6 dans les exemples ; la relecture D1021, les fichiers 3–4) : sur le fichier vide de l'exemple — « Le fichier "documentation.yml" va contenir les propriétés de la génération automatique de la documentation. A mettre dans la documentation "configuration.md". Par défaut, la génération de la documentation sera portée par Syncytium ... si des configurations sont nécessaires pour personnaliser la génération de la documentation, ce fichier les référencera. Par conséquent, cela peut être supprimé de cette partie et le fichier "documentation.yml" peut être supprimé, pour plus de clarté. La génération de la documentation fera l'objet d'un chapitre après les choix techniques et avant la génération du code. » — les cinq `documentation.yml` des exemples et leur clé retirés ; configuration.md dit le fichier facultatif et ses propriétés à venir. | L'ordre du chantier : les cas, la documentation structurée (D1021), l'architecture et les choix techniques (D1025), **la génération de la documentation**, puis la génération du code. Au même échange : « Dans les fichiers "production.yml" et "stating.yml", je compléterai la 1ère ligne avec la nature de l'environnement : La description de l'environnement de production - la vie courante de l'application ; La description de l'environnement de développement (pour staging) » ; sur l'introduction de environments.yml réduite à la nature : « oui, très bien » — les deux fichiers d'environnement et environments.yml réécrits. Le point ouvert de configuration.md sur l'en-tête du format, soldé par D1083, retiré. Voir §3.2c. |
 
 ---
 
@@ -12555,6 +12556,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le point, un niveau YAML (D1089).** « Dans le fichier syncytium.yml, il y a une propriété "name". ${......name} du fichier logging.yml fait référence à la propriété name de syncytium.yml. un "." ne présente pas un fichier mais un niveau dans la structure yml ».
 
+**La documentation générée par défaut (D1090).** « Le fichier "documentation.yml" va contenir les propriétés de la génération automatique de la documentation. A mettre dans la documentation "configuration.md". Par défaut, la génération de la documentation sera portée par Syncytium ... si des configurations sont nécessaires pour personnaliser la génération de la documentation, ce fichier les référencera. Par conséquent, cela peut être supprimé de cette partie et le fichier "documentation.yml" peut être supprimé, pour plus de clarté. La génération de la documentation fera l'objet d'un chapitre après les choix techniques et avant la génération du code. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23567,6 +23570,23 @@ avant la synthèse Q16).
 - **2026-09-28 (suite 8) — CINQ POINTS (D1089 tranché).** « a) cinq
   points, corrige les trois logging.yml » — la règle de configuration.md
   tient, `${.....name}` remonte à la racine du projet.
+- **2026-09-28 (suite 9) — LA RELECTURE, FICHIERS 3–4 ;
+  `DOCUMENTATION.YML` FACULTATIF (D1090, 1090 décisions).** « Dans les
+  fichiers "production.yml" et "stating.yml", je compléterai la 1ère
+  ligne avec la nature de l'environnement : La description de
+  l'environnement de production - la vie courante de l'application ; La
+  description de l'environnement de développement (pour staging) » ; sur
+  l'introduction de environments.yml réduite à la nature : « oui, très
+  bien » ; « Le fichier "documentation.yml" va contenir les propriétés
+  de la génération automatique de la documentation. A mettre dans la
+  documentation "configuration.md". Par défaut, la génération de la
+  documentation sera portée par Syncytium ... si des configurations sont
+  nécessaires pour personnaliser la génération de la documentation, ce
+  fichier les référencera. Par conséquent, cela peut être supprimé de
+  cette partie et le fichier "documentation.yml" peut être supprimé,
+  pour plus de clarté. La génération de la documentation fera l'objet
+  d'un chapitre après les choix techniques et avant la génération du
+  code. » — les cinq fichiers retirés, configuration.md tenu.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -244,11 +244,10 @@ resources/                           # les logos, icônes, images — partagés 
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
-│   ├── production.yml               # description, logging:, cleanup:, documentation:, connectors:, settings:
+│   ├── production.yml               # description, logging:, cleanup:, connectors:, settings:
 │   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
 │   ├── logging.yml                  # la journalisation (D343/D830)
 │   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
-│   ├── documentation.yml            # la génération de la documentation (D333)
 │   └── settings.yml                 # les réglages propres à l'environnement (D342)
 └── staging/ …
 versions/
@@ -309,7 +308,6 @@ staging: ~{staging/staging.yml}
 description: L'environnement de production — …
 logging: ~{logging.yml}
 cleanup: ~{cleanup.yml}
-documentation: ~{documentation.yml}
 connectors: ~{connectors.yml}
 settings: ~{settings.yml}
 ```
@@ -332,8 +330,11 @@ settings: ~{settings.yml}
   — le nettoyage est parti dans `cleanup.yml`, D1073) et la configuration de la
   journalisation (`formatters`, `handlers`, `root`), les niveaux selon
   l'environnement (staging verbose, production info, passive warning) ;
-- **`documentation.yml`** — la génération de la documentation (D333) ;
-  *à décrire (le domaine 6)* ;
+- **`documentation.yml`**, facultatif (D1090) — la génération de la
+  documentation est portée par Syncytium, par défaut, sans configuration
+  (D333) ; le fichier ne vient que pour la personnaliser, et porte alors
+  ses propriétés ; la clé `documentation:` de l'environnement le
+  référence ; aucun exemple n'en a l'usage ;
 - **`settings.yml`** de l'environnement — les réglages techniques qui
   varient d'un environnement à l'autre (D342) ; ce qui est partagé
   passe par les variables.
@@ -531,8 +532,8 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
 
 ## 6. Les points ouverts
 
-- le contenu de `documentation.yml` (le domaine 6 — D333) ;
-- la forme de l'en-tête qui déclare la version du format (D322 — le
-  principe est acquis, la clé n'est pas écrite dans les exemples) ;
-- `menu.yml` et le bloc `dashboards:` du module — décidés (D351, D439),
-  sans exemple encore au dépôt.
+- les propriétés de `documentation.yml` — la génération de la
+  documentation fera l'objet d'un chapitre après les choix techniques et
+  avant la génération du code (D1090) ;
+- `menu.yml` — décidé (D351, D439), sans exemple encore au dépôt ; le
+  bloc `dashboards:` a le sien au cas 5 (`stock[pilotage]`).

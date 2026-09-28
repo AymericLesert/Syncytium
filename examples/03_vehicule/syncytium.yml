@@ -1,3 +1,9 @@
+# Le format de la configuration
+# La version de la grammaire que parle ce projet : un moteur qui ne la
+# connaît pas refuse le projet à la lecture de cette seule ligne ; un
+# format plus ancien est converti à l'ingestion.
+from: Syncytium-1.0
+
 # Le cas 3 bis — la maintenance des véhicules du foyer (Q59/D826)
 # L'entrée du projet (D767) : la déclaration fait foi, rien ne se déduit de l'arborescence.
 

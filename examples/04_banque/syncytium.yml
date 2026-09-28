@@ -1,3 +1,9 @@
+# Le format de la configuration
+# La version de la grammaire que parle ce projet : un moteur qui ne la
+# connaît pas refuse le projet à la lecture de cette seule ligne ; un
+# format plus ancien est converti à l'ingestion.
+from: Syncytium-1.0
+
 # Le cas d'usage 3 — le compte bancaire du foyer (Q59/D758)
 # L'entrée de la version (D322) — elle porte les liens (D767) :
 # rien ne se déduit de l'arborescence, la déclaration fait foi.

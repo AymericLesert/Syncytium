@@ -38,7 +38,8 @@ décisions citées renvoyent à la [conception](conception.md).
 - **Le dépôt du client est distinct du projet** (D336) ; le projet
   embarque `template/`, un « Hello world ! » clonable (D337).
 - **La version du format en tête** (D322) : la description déclare la
-  version du méta-schéma qu'elle parle ; un format plus récent que le
+  version du méta-schéma qu'elle parle — **`from: Syncytium-1.0`, la
+  première clé de `syncytium.yml`** (D1083) ; un format plus récent que le
   moteur est refusé sur la seule lecture de l'en-tête (D330), un format
   antérieur est converti à l'ingestion (D331).
 
@@ -57,6 +58,23 @@ expressions vit dans des scalaires YAML, deux règles la protègent :
    par ligne, la grammaire s'écrit nue (`libelle: text[..30]`).
 
 Chaque exemple passe un analyseur YAML avant validation.
+
+**Les règles d'écriture des exemples (D1084)** — un fichier aéré et
+lisible : **avant chaque clé, une courte introduction** qui dit sa
+nature dans la configuration, **puis ce que la clé apporte** — la
+seconde partie s'omet quand elle est triviale ; une ligne vide entre
+deux clés.
+
+```yaml
+# Les environnements d'exécution
+# Chaque environnement porte ses connecteurs, sa journalisation, son
+# nettoyage et ses réglages ; rien ne se déduit de l'arborescence, la
+# déclaration fait foi.
+environments: ~{environments/environments.yml}
+
+# Le nom du projet
+name: entrepot
+```
 
 ## 2. Les mécanismes transverses
 
@@ -249,6 +267,7 @@ versions/
 ### 3.1 `syncytium.yml` — le projet
 
 ```yaml
+from: Syncytium-1.0                  # le format, la première clé (D1083)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 environments: ~{environments/environments.yml}

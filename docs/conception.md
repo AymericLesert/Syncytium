@@ -1215,6 +1215,8 @@ Q58) :
 | D1080 | **`on_running: cancel \| wait \| interrupt`, `cancel` par défaut ; `syncytium copy <source> <cible> --with-storage`** (précise D1077/D1079 — les noms que je proposais) : « l'option on_running : cancel \| wait \| interrupt ; la copie de l'environnement me convient. La valeur par défaut est "cancel". » — l'opération qui trouve un passage de sa migration en cours est annulée (tracée, l'état refusé), attend sa fin, ou l'interrompt avant de se lancer (hors bascule) ; `cancel` par défaut : le `migrate` simple de D1077 en est l'application ; la copie d'un environnement emporte les données et `_migration`, `--with-storage` les fichiers de détail re-chiffrés. | L'exemple : `relecture_complete` porte `on_running: wait` — mon choix, puisque « la relecture du samedi est mise en pause ou interrompt » (D1079) et que le défaut l'annulerait. mapping.md, administration.md, migration.md. Voir §3.2c. |
 | D1081 | **Le cycle de vie des versions au cas 5 : à la validation du modèle, la 1.0.0.0 promue de `beta/` à `production/`, et une 1.0.0.1 en `beta/` avec de nouveaux champs ou des changements de types** (précise D338–D345 — le statut = l'emplacement, D647/D673–D674 — la migration entre versions ; D1021) : sur le pattern vide de `versions/production/production.yml` relevé par le contrôle des orphelins (aucune version en production, la 1.0.0.0 au staging) — « A la validation du modèle, nous pourrons promouvoir la version 1.0.0.0 de beta à production. Et, créer une version beta 1.0.0.1 avec de nouveaux champs ou changement de types. » — l'exemple montrera les deux environnements au travail et l'usage 1 du mapping (la migration implicite d'une version à la suivante) après l'usage 2 (la reprise de PMI). | Le moment : la fin de la relecture (D1021), quand le modèle est validé. Le contrôle des orphelins, le même jour : les 109 fichiers de `05_entrepot` atteints depuis `syncytium.yml`, aucun orphelin ; `04_banque` porte un `README.md` qu'aucune clé ne cite. Voir §3.2c. |
 | D1082 | **Le README du projet cité par `description:` — aucun fichier du projet hors des références** (précise D810 — la description par fichier, D805/D767 — pas de déclaration orpheline) : sur l'orphelin relevé dans `04_banque` — « README.md est à citer. Dans le fichier syncytium.yml, description: ~{README.md} » — le `syncytium.yml` du cas 4 porte `description: ~{README.md}` ; tout fichier d'un projet est atteint par une référence `~{…}`. | configuration.md (§3.1). Le contenu du README (« un premier cas d'usage ») et les commentaires de tête du `syncytium.yml` du cas 4 (« le cas d'usage 3 », « l'entrée de la version ») relèveront de sa relecture. Voir §3.2c. |
+| D1083 | **`from: Syncytium-1.0` — la version du format, la première clé de `syncytium.yml`** (précise D322/D330–D331 — « la version du format en tête », jamais déclarée par les exemples ; la relecture D1021, le fichier 1) : à ma proposition `format: 1.0` — « La version du format est à mettre en premier dans le fichier syncytium.yml. Plutôt que format, je propose "from: Syncytium-1.0" » — le nom et la version de la grammaire que parle le projet ; le moteur qui ne la connaît pas refuse sur cette seule ligne (D330), le format antérieur se convertit (D331). | Les quatre `syncytium.yml` des exemples la portent en tête. L'homonymie relevée : `from:` dit aussi la version d'origine d'une sandbox dans son `version.yml` (D907) et le câblage d'une migration (D610) — des fichiers et des sections distincts. configuration.md. Voir §3.2c. |
+| D1084 | **La règle d'écriture des exemples : avant chaque clé, sa nature, puis ce qu'elle apporte ; des fichiers aérés et lisibles** (précise D810 — `description:` partout ; D892 ; la relecture D1021) : sur ma proposition du principe des commentaires — « Dans la description de nos cas d'exemple, avant chaque clé, je souhaite une petite introduction pour indiquer la nature (dans la configuration), puis, une description de ce que cette clé apporte. Si la description est triviale, la deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml doit être aéré et lisible. » — une introduction courte au-dessus de chaque clé, la description de son apport si elle n'est pas triviale, une ligne vide entre deux clés ; le `syncytium.yml` du cas 5 réécrit ainsi, les autres fichiers au fil de la relecture. | Ma lecture, à confirmer : l'histoire du cas (le morceau, le lot, la question) quitte les commentaires — elle vit dans la maison du cas ; les références de décision se font rares, là où elles éclairent une règle ; les commentaires de section du projet d'origine deviennent les introductions. configuration.md (les règles d'écriture). Voir §3.2c. |
 
 ---
 
@@ -12538,6 +12540,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le README cité (D1082).** « README.md est à citer. Dans le fichier syncytium.yml, description: ~{README.md} » — aucun fichier du projet n'échappe aux références.
 
+**Le format en tête, la règle d'écriture (D1083–D1084).** « La version du format est à mettre en premier dans le fichier syncytium.yml. Plutôt que format, je propose "from: Syncytium-1.0" » ; « Dans la description de nos cas d'exemple, avant chaque clé, je souhaite une petite introduction pour indiquer la nature (dans la configuration), puis, une description de ce que cette clé apporte. Si la description est triviale, la deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml doit être aéré et lisible. » — `from: Syncytium-1.0` ouvre chaque projet ; chaque clé des exemples porte sa nature et son apport.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23509,6 +23513,16 @@ avant la synthèse Q16).
 - **2026-09-28 (suite 2) — LE README CITÉ (D1082, 1082 décisions).** «
   README.md est à citer. Dans le fichier syncytium.yml, description:
   ~{README.md} ».
+- **2026-09-28 (suite 3) — `FROM: SYNCYTIUM-1.0`, LA RÈGLE D'ÉCRITURE
+  (D1083–D1084, 1084 décisions).** « La version du format est à mettre
+  en premier dans le fichier syncytium.yml. Plutôt que format, je
+  propose "from: Syncytium-1.0" » (D1083) ; « Dans la description de nos
+  cas d'exemple, avant chaque clé, je souhaite une petite introduction
+  pour indiquer la nature (dans la configuration), puis, une description
+  de ce que cette clé apporte. Si la description est triviale, la
+  deuxième partie n'est pas nécessaire. » ; « Le format du fichier yml
+  doit être aéré et lisible. » (D1084) — le syncytium.yml du cas 5
+  réécrit, les trois autres reçoivent `from:`.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

@@ -167,7 +167,8 @@ partagent un bloc de trente-huit champs par `fields:
   d'un niveau **de la structure YAML** — un point ne compte jamais un
   fichier : le fichier inclus par `~{…}` prend la place de sa clé
   (D1089) ; dans `logging.yml`, le nom du fichier journal remonte au
-  `name:` de `syncytium.yml`, le nom du projet ;
+  `name:` de `syncytium.yml`, le nom du projet — `${.....name}`, cinq
+  points depuis `handlers.file.filename` ;
 - **l'imbrication est permise** —
   `${triggers.${environment.name}.filename}`.
 

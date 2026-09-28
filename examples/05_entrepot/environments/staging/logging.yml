@@ -32,7 +32,7 @@ handlers:
         class: logging.handlers.RotatingFileHandler
         level: INFO
         formatter: standard
-        filename: ${SYNCYTIUM_LOG_DIRECTORY}\${....name}-${now:yyyy-mm-dd}.log
+        filename: ${SYNCYTIUM_LOG_DIRECTORY}\${.....name}-${now:yyyy-mm-dd}.log
         maxBytes: 134217728 # 128Mb
         backupCount: 10
         encoding: utf8

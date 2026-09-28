@@ -1,20 +1,15 @@
-# La journalisation de l'environnement
-# Le niveau des traces, le fichier du journal et ses dimensions ; la
-# rétention des fichiers est une règle du nettoyage (cleanup.yml).
-log:
+# Le niveau des traces
+# Du plus bavard au plus sobre : verbose, debug, info, warning, error,
+# exception.
+level: info
 
-  # Le niveau des traces
-  # Du plus bavard au plus sobre : verbose, debug, info, warning, error,
-  # exception.
-  level: info
+# La sortie du journal
+# Un fichier par jour, au nom du projet et de la date.
+output: file:${SYNCYTIUM_LOG_DIRECTORY}/${...name}-${now:yyyy-mm-dd}.log
 
-  # La sortie du journal
-  # Un fichier par jour, au nom du projet et de la date.
-  output: file:${SYNCYTIUM_LOG_DIRECTORY}/${....name}-${now:yyyy-mm-dd}.log
+# La taille d'un fichier
+# Au-delà, le fichier tourne : le suivant prend la suite.
+max_size: 128MB
 
-  # La taille d'un fichier
-  # Au-delà, le fichier tourne : le suivant prend la suite.
-  max_size: 128MB
-
-  # Le nombre de fichiers tournés
-  backups: 10
+# Le nombre de fichiers tournés
+backups: 10

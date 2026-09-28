@@ -327,7 +327,8 @@ settings: ~{settings.yml}
   D1076), tous les `interval:` ; le journal, les watchers, les fichiers de détail des
   migrations y ont leur règle (D1070/D1071) ;
 - **`logging.yml`** (D343/D830, la forme de D1091) — le contrat neutre
-  du journal, sous `log:` : `level:` (verbose, debug, info, warning,
+  du journal, à la racine du fichier — la clé `logging:` de
+  l'environnement nomme déjà la section (D1092) : `level:` (verbose, debug, info, warning,
   error, exception — le staging plus bavard, la production en info,
   le passif en warning), `output:` (le fichier daté, au nom du projet),
   les dimensions `max_size:` et `backups:` ; la rétention est une règle

@@ -4,6 +4,10 @@ description: Environnement d'exécution du poste du foyer
 
 logging: ~{logging.yml}
 
+# Le nettoyage des fichiers
+
+cleanup: ~{cleanup.yml}
+
 # Configuration des connecteurs de l'application
 
 connectors: ~{connectors.yml}

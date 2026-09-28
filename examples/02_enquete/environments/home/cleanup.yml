@@ -1,0 +1,12 @@
+# Le nettoyage des fichiers de l'environnement
+# Chaque règle supprime, dans un dossier, les fichiers d'un pattern qui
+# dépassent la rétention — une durée, lue dans la date du nom, ou un
+# nombre de fichiers.
+
+# Le journal
+# Les fichiers datés du journal, tournés compris.
+journal:
+  interval: 1d
+  directory: ${SYNCYTIUM_LOG_DIRECTORY}
+  pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
+  retention: 90d

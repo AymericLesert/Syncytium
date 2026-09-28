@@ -69,8 +69,9 @@ L'exemple du journal (les écritures validées — D743) :
 # environments/production/logging.yml — la configuration en dur (D737)
 log:
   level: info            # verbose | debug | info | warning | error | exception
-  output: file:/var/log/syncytium   # ou le puits de logs (D343)
-  retention: 90d         # la rétention des traces (D41b)
+  output: file:/var/log/syncytium/${....name}-${now:yyyy-mm-dd}.log   # ou le puits de logs (D343)
+  max_size: 128MB        # les dimensions (D800/D1091) : la taille d'un fichier…
+  backups: 10            # … et le nombre de fichiers tournés ; la rétention au cleanup.yml (D1073)
   anonymize: true        # l'option d'anonymisation (D41b)
 
 # environments/staging/logging.yml — le staging bavard (D343)

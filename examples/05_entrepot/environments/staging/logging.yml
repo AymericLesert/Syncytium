@@ -1,42 +1,21 @@
-# La journalisation du staging (D830 — logging.yml, la clé logging:
-# à l'environnement ; D343 : l'actif en info + puits de logs ; D800 : la
-# maîtrise des dimensions, de la taille et de la rotation)
+# La journalisation de l'environnement
+# Le niveau des traces, le fichier du journal et ses dimensions ; la
+# rétention des fichiers est une règle du nettoyage (cleanup.yml).
+log:
 
-# Verbose ou non
+  # Le niveau des traces
+  # Du plus bavard au plus sobre : verbose, debug, info, warning, error,
+  # exception. L'environnement de
+  # développement trace davantage que la production.
+  level: debug
 
-verbose: True    # le staging plus verbeux que la production (mien)
+  # La sortie du journal
+  # Un fichier par jour, au nom du projet et de la date.
+  output: file:${SYNCYTIUM_LOG_DIRECTORY}/${....name}-${now:yyyy-mm-dd}.log
 
-# Configuration du rafraîchissement du fichier de configuration
+  # La taille d'un fichier
+  # Au-delà, le fichier tourne : le suivant prend la suite.
+  max_size: 128MB
 
-syncytium:
-    reload-disable:
-        # time laps between 2 checks of evolution configuration (if {date} appears into an item)
-        interval: 1min                  # une durée (D476 — min la minute, m le mois)
-
-# Configuration du composant Logging de Python
-
-version: 1
-
-formatters:
-    standard:
-        format: "%(asctime)s [%(levelname)-5s] (%(process)d:%(processName)s) %(message)s"
-
-handlers:
-    console:
-        class: logging.StreamHandler
-        level: INFO
-        formatter: standard
-        stream: ext://sys.stdout
-
-    file:
-        class: logging.handlers.RotatingFileHandler
-        level: INFO
-        formatter: standard
-        filename: ${SYNCYTIUM_LOG_DIRECTORY}\${.....name}-${now:yyyy-mm-dd}.log
-        maxBytes: 134217728 # 128Mb
-        backupCount: 10
-        encoding: utf8
-
-root:
-    level: INFO
-    handlers: [console, file]
+  # Le nombre de fichiers tournés
+  backups: 10

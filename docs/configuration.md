@@ -326,10 +326,13 @@ settings: ~{settings.yml}
   — `90d` ; sans unité, les n derniers fichiers par date de création,
   D1076), tous les `interval:` ; le journal, les watchers, les fichiers de détail des
   migrations y ont leur règle (D1070/D1071) ;
-- **`logging.yml`** (D343/D830) — le bloc `syncytium:` (le rechargement
-  — le nettoyage est parti dans `cleanup.yml`, D1073) et la configuration de la
-  journalisation (`formatters`, `handlers`, `root`), les niveaux selon
-  l'environnement (staging verbose, production info, passive warning) ;
+- **`logging.yml`** (D343/D830, la forme de D1091) — le contrat neutre
+  du journal, sous `log:` : `level:` (verbose, debug, info, warning,
+  error, exception — le staging plus bavard, la production en info,
+  le passif en warning), `output:` (le fichier daté, au nom du projet),
+  les dimensions `max_size:` et `backups:` ; la rétention est une règle
+  de `cleanup.yml` (D1073) ; l'implémentation du journal relève des
+  choix techniques ;
 - **`documentation.yml`**, facultatif (D1090) — la génération de la
   documentation est portée par Syncytium, par défaut, sans configuration
   (D333) ; le fichier ne vient que pour la personnaliser, et porte alors

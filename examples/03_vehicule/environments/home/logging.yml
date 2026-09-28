@@ -1,9 +1,20 @@
-# La journalisation — le contrat consigné (D737/D743/D750/D800, le nom D830)
-# Le fichier texte, la maîtrise du niveau et de la rétention ;
-# les dimensions (taille/rotation) : la syntaxe à écrire quand le domaine s'ouvrira.
-
+# La journalisation de l'environnement
+# Le niveau des traces, le fichier du journal et ses dimensions ; la
+# rétention des fichiers est une règle du nettoyage (cleanup.yml).
 log:
-  # verbose | debug | info | warning | error | exception
+
+  # Le niveau des traces
+  # Du plus bavard au plus sobre : verbose, debug, info, warning, error,
+  # exception.
   level: info
-  output: file:${SYNCYTIUM_LOG_DIRECTORY}
-  retention: 90d
+
+  # La sortie du journal
+  # Un fichier par jour, au nom du projet et de la date.
+  output: file:${SYNCYTIUM_LOG_DIRECTORY}/${....name}-${now:yyyy-mm-dd}.log
+
+  # La taille d'un fichier
+  # Au-delà, le fichier tourne : le suivant prend la suite.
+  max_size: 128MB
+
+  # Le nombre de fichiers tournés
+  backups: 10

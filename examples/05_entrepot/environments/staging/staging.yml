@@ -1,19 +1,25 @@
-description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI (D945)
+# La description de l'environnement
+description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI
 
-# Configuration de la journalisation (D830)
-
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal de
+# l'environnement.
 logging: ~{logging.yml}
-# Le nettoyage des fichiers — les règles de rétention nommées (D1073–D1075)
+
+# Le nettoyage des fichiers
+# Les règles de rétention de l'environnement : le journal, le détail des
+# migrations, les dépôts des watchers.
 cleanup: ~{cleanup.yml}
 
-# Configuration de la génération de la documentation
-
+# La génération de la documentation
 documentation: ~{documentation.yml}
 
-# Configuration des connecteurs de l'application (D617 — propres à l'environnement)
-
+# Les connecteurs
+# Les bases, les services et les annuaires que l'application utilise dans
+# cet environnement ; leurs paramètres viennent des variables du .env de
+# l'environnement, les secrets y sont chiffrés.
 connectors: ~{connectors.yml}
 
-# Configuration générale transcendant les versions et propre à un environnement d'exécution
-
+# Les réglages de l'environnement
+# Ce qui vaut pour toutes les versions exécutées dans cet environnement.
 settings: ~{settings.yml}

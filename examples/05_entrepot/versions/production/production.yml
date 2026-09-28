@@ -1,8 +1,9 @@
-# Les versions éligibles au mode production
-
-# pas de déclaration orpheline (D805)
+# L'environnement des versions en production
+# Les versions en service s'exécutent sur l'environnement de production.
 environment: production
 
-# Le pattern regex des versions (D806)
+# Les versions du statut
+# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version
+# en service.
 versions:
   - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}

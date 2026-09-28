@@ -1,4 +1,4 @@
-# Le cas 6 — les applications domestiques : le compte bancaire
+# Le cas 4 — les applications domestiques : le compte bancaire
 
 *Le cadre du cas — la mise en situation (Q59/D756–D758) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)

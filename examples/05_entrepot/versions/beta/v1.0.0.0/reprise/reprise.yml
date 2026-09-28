@@ -1,7 +1,9 @@
 # La reprise des données de PMI — la migration déclarée (D662/D664) : le
 # connecteur source, les entités sources (un fichier par table, au nom de
-# la table — D947), les règles (le morceau 4), les opérations périodiques
-# (D943). L'ordre de définition est l'ordre d'exécution (D662).
+# la table — D947), les règles, la base miroir et le fichier du détail,
+# les opérations périodiques (D943). L'ordre de définition est l'ordre
+# d'exécution (D662). Le module _migration, qui pilote et supervise la
+# reprise, n'est pas déclaré : il est du socle (docs/migration.md).
 
 cegid:
   connector: cegid                      # le storage sqlserver de l'environnement (D617)
@@ -13,10 +15,9 @@ cegid:
   mode: relative                        # les conformes portés, les erreurs au rapport (D671)
   reset: false                          # jamais d'effacement : l'historique et l'enrichissement tiennent (D941)
   source:
-    - ~{source/.*\.yml}                 # les tables analysées — le regex (D806) ; les tables ignorées
-                                        # pour l'exemple s'y déclarent aussi (D657/D869)
+    - ~{source/.*\.yml}                 # vingt-trois tables : quatorze lues, neuf ignorées (D657/D947) — le regex (D806)
   mapping:
-    - ~{mapping/[0-9]+_.*\.yml}         # les règles, à venir au morceau 4 — l'ordre alphabétique fait les étapes (D665)
+    - ~{mapping/[0-9]+_.*\.yml}         # trente-trois règles en vingt-cinq étapes — l'ordre alphabétique fait les étapes (D665)
   operations:                           # les opérations périodiques de la migration (D943)
     delta_nocturne:
       every: daily[02:00]               # le calendaire (D434) — l'heure à fixer avec l'entreprise

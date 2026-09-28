@@ -1,4 +1,4 @@
-# Le cas 7 — l'entrepôt de données : la conversion Cegid PMI
+# Le cas 5 — l'entrepôt de données : la conversion Cegid PMI
 
 *Le cadre du cas — la mise en situation (Q59/D756–D757) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
@@ -13,6 +13,15 @@ PMI prend le troisième rang de l'échelle sous le nom de l'entrepôt
 qu'elle alimente, le mot de D180/D756 ; la collecte des commandes
 glisse au quatrième — au sixième depuis D1027). Le cas suivant, `06_sales_collection`, est
 devenu la lecture de documents par hooks (D1022).*
+
+*(**Le 28/09/2026, le cas est complet dans ses cinq morceaux** — l'assise,
+le modèle, la source, le mapping, la déclinaison du module `_migration`.
+Le cadrage, les données réelles et les frottements gardent leur date :
+les trois taux, les rejets et l'empreinte qu'ils citent ont été refaits
+par les bases du module (D1030–D1080) — le module se lit dans
+[../docs/migration.md](../docs/migration.md), sa déclinaison dans « Le
+morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
+(D1021), le jeu de données construit (D869) et la PR.)*
 
 ## Le contexte (D859)
 
@@ -247,11 +256,13 @@ cadrage :
   sur un schéma Cegid PMI — des centaines de tables, l'exhaustivité
   tenue par `ignored` à l'entité (D657) —, les règles, **le mode
   `relative`** ;
-- **la posture entrepôt (D180)** : le taux de couverture, les
-  rejets, la vue de migration (D666) — et **l'alimentation
-  continue** : l'`every:` de `migrate` (D667), le différentiel
-  (D672), toutes les règles rapprochables (la garde D825, réécrite
-  par D930) ;
+- **la posture entrepôt (D180)** : le module `_migration` du socle
+  en situation — les passages, les cinq phases de contrôle, la base
+  miroir et la transaction, la table des clés d'origine, les
+  compteurs, les indicateurs, les anomalies et leurs rapports
+  (D1030–D1080) — et **l'alimentation continue** : l'`every:` de
+  `migrate` (D667), le différentiel (D672), l'identité partout
+  (D1035) ;
 - **le premier hook de type d'un exemple** (D119/D820 — la maison
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
@@ -272,17 +283,17 @@ cadrage :
 - **les droits de consultation sur les entités et les champs**
   (D859 — P8/D25–D27, D196, rights.md) : le premier exemple de
   l'échelle aux droits réels, de l'opérateur aux dirigeants ;
-- **la couverture à deux étages** (D861–D862) : le schéma entier
-  décrit ou ignoré, l'anomalie de l'absent, **les trois taux** — la
-  complétude du schéma, la couverture du schéma, la couverture des
-  données par les lignes — au module `migration` ;
+- **la couverture à deux étages** (D861–D862, amendés par
+  D1056/D1060) : le schéma décrit ou ignoré, l'anomalie de la
+  colonne non décrite, **les deux indicateurs** — la complétude du
+  schéma sur les colonnes de la configuration, la couverture des
+  données sur les compteurs de l'origine — au module `_migration` ;
 - **l'historique des changements de valeur** (D859 — `history:`
   D411–D413 nourri par le différentiel D672) sur certaines
   entités ;
-- **la restitution décisionnelle** (D858) : les tableaux de bord,
-  les documents générés et les listes du catalogue (le domaine 4)
-  sur les données converties — la connotation décisionnelle assumée
-  par l'exemple ;
+- **la restitution décisionnelle** (D858, recadrée par D1019) : un
+  seul tableau de bord déclaré, `stock[pilotage]` — la preuve que
+  l'entrepôt sert ; les autres surfaces servies par défaut ;
 - **la première application d'entreprise de l'échelle** :
   l'authentification autre que `none` (D692), les groupes et les
   degrés (D699–D701 — `migrate` au degré `administrator`), le smtp
@@ -1161,7 +1172,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    `reset: false` + l'`every:` nocturne (D667), la provenance
    (D178), le différentiel (D672) — **et la lecture par partition**
    (`coverage:` — D878 : la clé, la plage, l'empreinte par
-   partition, la reprise depuis la dernière valeur ; la comparaison
+   partition — retirée par D1037 —, la reprise depuis la dernière valeur ; la comparaison
    en cinq blocs) ; *ouvert le 19/09 : le plan des étapes (les
    référentiels, les tiers, les articles et leurs dérivés, la
    nomenclature, les tarifs, les commandes, les stocks — le préfixe
@@ -1204,10 +1215,12 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    l'entrepôt de données. Ça doit décrire le module migration et ses
    composants. Le reste des interfaces est servi (par défaut) pour
    montrer la capacité de Syncytium » — la description du module
-   `migration` sur PMI, ci-dessous (« Le morceau 5 ») ; puis la
-   relecture complète de tous les fichiers de configuration par
-   l'auteur, le peaufinage et la documentation structurée (D1021), le
-   jeu de données construit (D869), la PR.*
+   `migration` sur PMI, ci-dessous (« Le morceau 5 ») ; **réécrit le
+   28/09 comme la déclinaison du module `_migration` restructuré
+   (D1030–D1080) — le morceau 5 est écrit, le cas complet dans ses
+   cinq morceaux** ; puis la relecture complète de tous les fichiers
+   de configuration par l'auteur, le peaufinage et la documentation
+   structurée (D1021), le jeu de données construit (D869), la PR.*
 
 ## La forme — le dépôt
 
@@ -1495,158 +1508,137 @@ emplacements en lignes, les articles en colonnes, la somme signée à la
 cellule, le mois courant), et l'emplacement libre `_` du pool (D556) ;
 le rafraîchissement `every[1h]` (D249). Les graphiques s'adressent par
 `chart[<entité>.<nom>]` depuis le module (la forme en proposition dans
-composants.md). Le suivi de la migration — les trois taux, les rejets,
-l'évolution — est celui des surfaces standard du module `migration`
-(D666/D711/D861–D862) : le cas les cite, ne les déclare pas. Rien
+composants.md). Le suivi de la migration — les indicateurs, les
+anomalies, l'évolution — est celui des surfaces standard du module
+`_migration` (D666/D711, ci-dessous) : le cas les cite, ne les
+déclare pas. Rien
 d'autre : les entités gardent les surfaces que le socle propose sans
 déclaration (D437–D438).
 
-*(Le 27/09/2026 : `docs/migration.md` est restructuré sur les bases
-D1030–D1080 — le texte qui suit, du 21/09, décrit le modèle d'avant ;
-il sera réécrit comme la déclinaison du module sur PMI, la prochaine
-étape.)*
+**Le morceau 5 — la déclinaison du module `_migration` sur PMI**
+(D1020 ; réécrit le 28/09/2026 sur [../docs/migration.md](../docs/migration.md)
+restructuré — D1030–D1080). Le module est celui du socle : l'exemple ne
+le déclare pas (D1028), il déclare la migration que le module pilote.
+Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 
-**Le morceau 5 — la consolidation des rapports : le module
-`migration` et ses composants** (D1020, écrit le 21/09/2026 — *en
-proposition* : le module est celui du socle, D666, « le socle premier
-client » D408 ; le cas le décrit tel qu'il donne à voir PMI, l'exemple
-ne le déclare pas). Ce que la mise à jour de l'entrepôt produit chaque
-nuit, où cela vit, qui le lit :
+*La déclaration* — `reprise/reprise.yml`, la migration `cegid` :
 
-- **la migration** — la déclaration de `reprise.yml` (D662) : le
-  connecteur `cegid`, le mode `relative`, `reset: false`, les
-  vingt-trois sources, les vingt-neuf règles, les deux opérations
-  périodiques (D943) ; l'entité racine du module, historisée (D668) ;
-- **le passage** — chaque exécution de `migrate` (D667) : le début,
-  la fin, le déclencheur (la nuit de `delta_nocturne`, le dimanche de
-  `relecture_complete`, la main), l'état (réussi, en erreur, en
-  cours), les comptes globaux — lus, intégrés, rejetés — et **les
-  cinq blocs de D878** cumulés : anomalies, créations, modifications,
-  inchangés, suppressions ; un passage par nuit, ~250 par an ;
-- **l'entité source** — une par fichier de `source/` : la table
-  réelle, le nombre de colonnes du schéma, les colonnes décrites,
-  ignorées (avec leur motif), non lues (D947), la couverture déclarée
-  (`coverage:` et sa dernière valeur parcourue, D880), les lignes de
-  la table et les lignes intégrées ; **la complétude du schéma** et
-  **la couverture du schéma** se calculent ici (D862) ;
-- **la règle** — une par fichier de `mapping/` (D665) : la source,
-  la cible, le filtre, le `report:` (D929) ; par passage, ses comptes
-  aux cinq blocs et ses rejets ; **la couverture des données** se
-  calcule ici (D861 — les lignes intégrées rapportées aux lignes de
-  la source, le `filter:` hors taux) ;
-- **le rejet** — un enregistrement que la cible refuse (D177/D932) :
-  le passage, la règle, l'identité construite, l'étage (la source, la
-  règle, la cible — les trois temps D1006), la cause (le champ, le
-  message), le bloc (l'anomalie, jamais une création) ; le
-  destinataire est celui du `report:` de la règle — celui de sa table
-  source : le bureau d'études pour les articles et les nomenclatures,
-  la logistique pour le stock, le commercial pour les ventes et les
-  clients, les achats pour les achats et les fournisseurs (D1061/D1062) ; le
-  rejet corrigé à l'origine disparaît au passage suivant (le rejeu par
-  l'identité, D654/D930) — son histoire reste (D668) ;
-- **l'anomalie** — ce qui est au technicien, pas aux métiers (D929)
-  : la table ou la colonne du schéma absente de `source/` (D861 —
-  la complétude confrontée au schéma réel à chaque passage), les
-  identités en doublon (D871), le lien sans cible — l'orphelin isolé
-  (D874/D875), le lieu né inactif d'un mouvement ou d'un niveau
-  (D962/D1008) ;
-- **les trois taux** (D862) — des calculés du module, consultables,
-  filtrables, exportables (D666), historisés : la complétude du
-  schéma (les décrites ou ignorées sur le schéma réel — cent pour
-  cent quand tout est déclaré), la couverture du schéma (les migrées
-  sur le schéma réel, les ignorées à part), la couverture des données
-  (les intégrées sur les lignes de chaque table) ; sur PMI : les
-  vingt-trois tables décrites sur trois cent trente objets du schéma,
-  les sept ignorées en bloc (les offres, le devis, les libellés),
-  le reste non décrit — la complétude dit ce que l'analyse a couvert ;
-- **la consolidation des rapports** — les `report:` sont ceux des
-  règles (D929, « pas un report général ») : après chaque passage, le
-  module les consolide **par destinataire** — un rapport par groupe,
-  chaque matin (D945 : `when: [migration]`, `by: [notification,
-  mail]`), avec les rejets de toutes les règles qui lui sont
-  adressées, et **par passage** — le tableau du passage pour le
-  technicien ; le rapport n'est pas une entité de plus : c'est une
-  vue des rejets, groupée (D1015) par destinataire et par règle ;
-- **les surfaces** — celles du catalogue sur ces entités (D666), par
-  défaut ou déclarées par le socle : le tableau de bord du suivi
-  (`_migration[suivi]` — le préfixe des modules internes, D1029 — les trois taux en kpi, la courbe des taux au
-  fil des passages D668, les rejets du dernier passage par règle en
-  barres, le dernier passage en résumé), les listes des passages, des
-  rejets (par règle, par destinataire, par cause — le drill-down
-  D242), des anomalies, des entités sources avec leurs comptes ;
-  l'entrée « migrations » du module d'administration (D711),
-  conditionnelle à `migrations:` (D662) ;
-- **ce qui reste servi par défaut** — toutes les autres entités de
-  l'entrepôt (D437–D438 : la liste, le formulaire, la composition
-  embarquée) ; et le tableau de bord `stock[pilotage]` (D1019).
+| la clé | au cas 5 | les décisions |
+|---|---|---|
+| `connector:` | `cegid` — le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
+| `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements | D1044–D1045 |
+| `storage:` | `${SYNCYTIUM_MIGRATION_DIRECTORY}`, `${now:yyyy-mm-dd}-cegid.syncytium` ; la rétention par la règle `migration_cegid:` du `cleanup.yml` (`interval: 1d`, `retention: 90d`) | D1066, D1069, D1072–D1076 |
+| `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent | D671, D941 |
+| `source:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
+| `mapping:` | trente-trois règles en vingt-cinq étapes (001–025) | D665, D961–D1018 |
+| `operations:` | `delta_nocturne` — `daily[02:00]`, `migrate`, `on_running` au défaut `cancel` ; `relecture_complete` — `weekly[saturday at 23:00]`, `reset_coverage` des cinq entités partitionnées, `on_running: wait` | D943, D1077–D1080 |
 
-*Les noms des composants (passage, entité source, règle, rejet,
-anomalie) et la forme du tableau de bord sont miens ; le socle les
-fixera à la documentation structurée (D1021).* **Le point 1 tranché
-par D1028** : « crée un nouveau document migration.md pour décrire le
-contenu du module migration de Syncytium. Ce module sera présent dans
-Syncytium et ce n'est pas aux applications de l'exposer » — le module
-est décrit en YAML dans [../docs/migration.md](../docs/migration.md),
-six entités (migration, passage, source, regle, rejet, anomalie), les
-trois taux, la consolidation, les surfaces ; le cas n'en montre que ce
-que PMI donne à voir. **La relecture de migration.md ouverte le 23/09 — D1030** : le
-module est en lecture seule par construction (le moteur seul l'alimente,
-les administrateurs le consultent — l'`allow:` retiré, sans intérêt) ;
-`reset_coverage` réinitialise la couverture sans effacer les passages ni
-les rejets ; le propriétaire de la migration `cegid` est l'administrateur,
-qui enrichit les tables de l'entrepôt (D942). **D1031** : migration.md
-est généraliste — « Cegid n'est qu'un exemple » — ; c'est ICI, dans le
-cas, que vivent les destinataires, les tables, les règles et les rythmes
-de PMI ; le morceau 5 en sera la déclinaison. **D1032–D1036** (27/09,
-les bases du module reposées par l'auteur) : quatre phases, la
-destination validée en toute fin sur un modèle temporaire ; le refusé
-non enregistré, ses motifs conservés et rejouables ; les cinq blocs ;
-l'identité partout — au cas, seules les tables `ignored` n'en ont pas,
-les dérivés de `article` l'héritent, `tiers` la laisse à `client` et
-`fournisseur` ; l'empreinte par hash, aussitôt oubliée (**D1037**) : la
-table des associations identifie les nouveaux enregistrements et porte
-le statut de chacun, l'enregistrement complet se compare (D672) ; la
-valeur de la source rétablie sur les champs migrés (**D1038**) ;
-l'identité héritée confirmée (D1035), portée par la racine — `tiers`
-corrigé (**D1039**) ; cinq phases de contrôle, la première après le
-`filter:`, l'orphelin qui ne fait tomber que l'enregistrement dont une
-règle utilise la référence (**D1040**) ; un client et un fournisseur de
-même code = une erreur assumée (D1039) ; la reprise est une transaction
-(**D1041**), l'échec tracé (D1043) ; l'identité fausse d'une source rend
-l'entité illisible (**D1042**) ; la base miroir (**D1044**) — `buffer: temporaire`, la classe
-`memory` (**D1045**) ; le doublon tombe dans le miroir, jamais au report
-(**D1046**) ; la table des associations ne garde que les clés d'origine
-(**D1047**) — au cas, une ligne d'`ARTICLE` donne l'article et ses dépôts,
-mille articles donnent un seul dépôt ; trois jeux de compteurs dissociés —
-l'origine, la destination, la règle (**D1048**) ; un hash par clé d'origine
-pour les compteurs (**D1049**), la partition dans la table — au cas, le
-mois de `MVCJMVT` des mouvements (**D1050**) ; `reset: true` garde la
-table (**D1051**) ; la suppression à la destination sur la partition
-relue — le mouvement disparu de PMI ou tombé en anomalie, la saisie à la
-main de même (**D1052**) ; le modèle lu de PMI gardé version après version
-(**D1053**), l'instantané de chaque passage (**D1054**), le total =
-filtrées + hors plage + lues (**D1055**), les indicateurs sur la ligne
-d'exécution (**D1056**) ; les anomalies en deux familles, toutes les erreurs
-d'une phase relevées (**D1057**), le `report:` propre à chaque entité source
-— les destinataires des sources de PMI : le bureau d'études (ARTICLE, NOMENC),
-la logistique (MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS), le commercial et les
-achats (**D1058/D1061**), l'anomalie en fait daté (**D1059**) ; la
-complétude du schéma sur les colonnes de la configuration (**D1060**) ; les
-règles réalignées sur la répartition des sources (**D1062**) — les dépôts et
-les emplacements tirés des fiches articles à la logistique, qui affecte les
-emplacements par défaut (**D1063**) ; le groupe `production` retiré
-(**D1064**) ; le détail de chaque nuit dans un fichier SQLite daté, chiffré,
-gardé 90 jours (**D1065–D1068**) — par la rétention générique des fichiers,
-celle du logging (**D1070–D1071**), le nom daté par `${now:…}` (**D1069**),
-le fichier déclaré par `storage:` sur la migration `cegid` (**D1072**), sa
-rétention par la règle `migration_cegid:` du `cleanup.yml` de
-l'environnement (**D1073–D1074**) ; un passage à la fois — un second
-`migrate` refusé, l'interruption par l'administrateur hors bascule
-(**D1077**) ; si le delta de la nuit tourne encore, la relecture du samedi
-attend sa fin ou l'interrompt, selon l'option — `on_running: wait` sur
-`relecture_complete`, `cancel` par défaut (**D1079–D1080**) ; le staging
-recopié de la production emporte `_migration`, les fichiers de détail
-re-chiffrés au besoin (**D1078–D1079**).
+*Une nuit — le delta de 02:00.* Le passage démarre, en cours ; un
+second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
+
+- **le modèle lu** — le connecteur lit le schéma de PMI ; Syncytium le
+  compare à la version précédente et à `source/` : une colonne apparue
+  dans `ARTICLE` et non décrite est une anomalie de complétude, au
+  technicien ; une colonne décrite qui disparaît rend son entité
+  illisible (D1053) ;
+- **la lecture** — `filter:` retient la société 100 ; `coverage:`
+  relit les trois derniers mois des mouvements (`MVCJMVT[month - 3]`)
+  et les dix mille derniers numéros des commandes (`ECKTNUMERO[10000]`,
+  `LCKTNUMERO[10000]`) ; les autres tables se relisent en entier (D1013)
+  ;
+- **les cinq phases**, dans `temporaire` :
+  - *phase 1* — chaque colonne convertie du type lu au type décrit
+    (`date_pmi`, le masque `yyyymmdd`, D991) ; l'identité de chaque
+    table vérifiée : un doublon sur `[ARKTCODART, ARKTCOMART]` dirait
+    une identité mal décrite — `ARTICLE` illisible, et avec lui ce qui
+    le référence, la nomenclature, les tarifs, les lignes de commande,
+    les mouvements (D1042) ; le mouvement dont l'article est inconnu
+    tombe, puisque la règle 025 utilise la référence (D1040) ;
+  - *phase 2* — les `validation:` des sources : l'exemple n'en déclare
+    pas, les gardes de PMI vivent dans les types de la phase 1 (les
+    énumérés aux codes publiables, D935) ;
+  - *phase 3* — les règles construisent l'entrepôt dans la base miroir,
+    dans l'ordre des étapes : les dépôts et les emplacements de leurs
+    quatre origines, les tiers, les articles et leurs dérivés, la
+    nomenclature, les tarifs, les commandes, les niveaux, les
+    mouvements ;
+  - *phase 4* — les `validation:` des règles : l'unité d'une ligne de
+    commande parmi celles que son article connaît (021, 023 — D1007) ;
+  - *phase 5* — les règles du modèle de l'entrepôt sur la base miroir
+    complète : un client et un fournisseur de même code sont deux
+    `tiers` de même identité, le second tombe (D1039/D1046) ; la
+    commande de vente dont l'échéance précède la date tombe, avec ses
+    lignes (la `validation:` de `commande_vente`, D933) ;
+- **la comparaison** — la base miroir face à l'entrepôt : les
+  créations, les modifications, l'inchangé ; sur les trois mois relus,
+  le mouvement présent la veille et absent cette nuit — supprimé dans
+  PMI ou tombé en anomalie — est supprimé de l'entrepôt (D1052) ;
+- **la bascule** — les différences reportées en une transaction ;
+  l'administrateur ne peut plus interrompre (D1041/D1077) ;
+- **le suivi** — la table des clés d'origine des quatorze sources (la
+  clé, le mois du mouvement pour `MVTSTO`, le hash, le statut), les
+  trois jeux de compteurs, les deux indicateurs ; le détail des
+  anomalies dans `2026-…-cegid.syncytium`, chiffré (D1047–D1067).
+
+*Le matin — les rapports* (`when: [migration]`, `by: [notification,
+mail]` — D945) :
+
+| le destinataire | les sources (D1061) | les règles (D1062–D1063) |
+|---|---|---|
+| `bureau_etudes` | ARTICLE, NOMENC | 013–017 — les articles, leurs dérivés, la nomenclature |
+| `logistique` | MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS | 001–006 — les dépôts et les emplacements, de toutes leurs origines, 024–025 — les niveaux, les mouvements |
+| `commercial` | CLIENT, ECOMCLI, LCOMCLI, ADRESSE, CONTACT, TARIF | 008, 009, 011, 018, 020, 021 |
+| `achats` | FOURNIS, ECOMFOU, LCOMFOU, ADRESSE, CONTACT, TARIF | 007, 010, 012, 019, 022, 023 |
+
+Chaque destinataire reçoit les anomalies de ses sources et de ses
+règles, groupées par source ou par règle, puis par message ; les
+valeurs des contacts, marquées `rgpd: personal` (D695), y sont
+anonymisées (D1065). Les anomalies du modèle vont au technicien.
+
+*Ce que chaque lecteur trouve dans `_migration`* :
+
+- **le technicien** — les versions du modèle lu de PMI et leurs écarts,
+  la complétude du schéma (les colonnes décrites encore présentes et
+  compatibles, sur les colonnes décrites — D1060), les anomalies du
+  modèle ; les colonnes non lues restent des points à creuser (D868) ;
+- **les métiers** — leur rapport du matin ; dans l'interface, le
+  détail de la nuit, filtré par source, règle, phase ou clé, et
+  l'histoire d'une clé — un article refusé mardi, accepté mercredi
+  (D1059) ;
+- **l'administrateur** — le tableau de bord `_migration[suivi]` : le
+  dernier passage (son état, sa durée), la complétude du schéma et la
+  couverture des données en `kpi`, leur courbe nuit après nuit, les
+  compteurs par entité et par règle ; les fichiers de détail des
+  quatre-vingt-dix dernières nuits ; la ligne d'exécution, elle, sans
+  limite (D1068).
+
+*Les compteurs, pour `MVTSTO`* — le total de la table = les lignes des
+autres sociétés (filtrées) + les mouvements de plus de trois mois (hors
+plage) + les lues ; parmi les lues, les nouvelles, les mises à jour
+(modifiées ou non, par le hash), les supprimées ; à la destination,
+`stock.mouvement` compte ses nouvelles, ses modifiées, ses non
+modifiées, ses supprimées ; la règle 025 ses traitées et ses lignes en
+erreur (D1048–D1050, D1055). Les valeurs viendront du jeu de données
+construit (D869) — aucune donnée de PMI ne se publie.
+
+*Le samedi — la relecture complète.* À 23:00, `relecture_complete`
+remet au départ la dernière valeur parcourue des cinq entités
+partitionnées (D881/D1030) ; si un passage tourne encore, elle attend
+sa fin (`on_running: wait`) ; le delta du dimanche relit tout : les
+suppressions se jouent alors sur les tables entières.
+
+*Les environnements.* Le staging lit une copie de PMI et tient son
+propre `_migration` ; `syncytium copy production staging` y recopie
+l'entrepôt avec son `_migration`, `--with-storage` avec les fichiers de
+détail, re-chiffrés (D1078–D1080).
+
+*Ce qui reste servi par défaut* — toutes les autres entités de
+l'entrepôt (D437–D438 : la liste, le formulaire, la composition
+embarquée), et le seul tableau de bord déclaré, `stock[pilotage]`
+(D1019). **Le morceau 5 est écrit : le cas 5 est complet dans ses cinq
+morceaux** ; restent la relecture complète des fichiers par l'auteur
+(D1021 — la validation globale de D955), le jeu de données construit
+(D869) et la PR.
 
 ## Les manques relevés
 

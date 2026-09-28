@@ -23471,6 +23471,22 @@ avant la synthèse Q16).
   » de usecases/05_entrepot.md à réécrire) ; puis D1021 (la relecture
   complète, la documentation structurée, le tiny), le jeu de données
   (D869), la PR.**
+- **2026-09-28 (reprise) — LE CAS 5 FINALISÉ.** « Reprenons le cas 5 et
+  finalisons-le » — le morceau 5 réécrit comme la déclinaison du module
+  `_migration` restructuré sur PMI : la déclaration de la migration
+  `cegid` (le connecteur, `buffer: temporaire`, `storage:`, les
+  vingt-trois sources, les trente-trois règles, le delta et la
+  relecture), une nuit de delta pas à pas (le modèle lu, la lecture, les
+  cinq phases, la comparaison, la bascule, le suivi), les rapports du
+  matin par destinataire (les sources de D1061, les règles de
+  D1062–D1063), ce que chaque lecteur trouve dans `_migration`, les
+  compteurs de `MVTSTO`, le samedi, les environnements ; « Ce que le cas
+  éprouve » et la liste des morceaux mis à jour ; les commentaires de
+  reprise.yml ; **le cas 5 est complet dans ses cinq morceaux**. Au
+  passage, les titres des huit maisons remis au rang de D1027 (ils
+  portaient deux rangs de trop : « Le cas 7 — l'entrepôt »). Restent
+  D1021 (la relecture complète par l'auteur, la validation globale de
+  D955), le jeu de données (D869), la PR.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

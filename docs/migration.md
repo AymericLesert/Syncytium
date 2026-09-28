@@ -289,7 +289,7 @@ identity: [nom]                    # la clé de la migration dans reprise.yml
 history: true
 fields:
   nom:       { type: 'text[..40]', required: true }
-  connector: { type: 'text[..40]', required: true }   # le connecteur de la source (D617)
+  from:      { type: 'text[..40]', required: true }   # la base d'origine — son connecteur (D1087)
   buffer:    { type: 'text[..40]', required: true }   # le connecteur de la base miroir (D1045)
   mode:      { type: enum, values: { absolute: {}, relative: {} } }   # D671
   reset:     { type: boolean }
@@ -544,7 +544,7 @@ Les clés que le module lit sur la migration déclarée
 ```yaml
 # reprise.yml — une migration déclarée (D662)
 legacy_erp:
-  connector: legacy_db                  # la source (D617)
+  from: legacy_db                       # la base d'origine (D1086–D1087)
   buffer: temporaire                    # la base miroir (D1044/D1045)
   storage:                              # le fichier SQLite de chaque passage (D1066/D1072)
     directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}

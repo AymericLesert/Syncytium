@@ -3,7 +3,7 @@
 # l'ordre d'exécution (D662/D665).
 
 classeurs:                       # le nom de la migration
-  connector: legacy              # le storage xlsx (environments/home/connectors.yml)
+  from: legacy                   # la base d'origine — le storage xlsx (environments/home/connectors.yml)
   mode: absolute                 # le tout-ou-rien (D649)
   reset: true                    # chaque passage repart de zéro
   source:

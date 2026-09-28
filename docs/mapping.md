@@ -115,7 +115,7 @@ possesseur avant ses lignes).
 # settings.yml — les migrations déclarées (D662/D664)
 migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
-    connector: legacy_db            # le connecteur storage source
+    from: legacy_db                 # la base d'origine — le connecteur storage source (D1086–D1087)
     buffer: temporaire              # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
     storage:                        # le fichier SQLite de chaque passage (D1066/D1072)
       directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
@@ -125,7 +125,7 @@ migrations:
     mapping:
       - ~{legacy_db/mapping/.*\.yml}   # un fichier par règle de migration
   old_crm:
-    connector: crm_db
+    from: crm_db
     source:
       - ~{old_crm/source/.*\.yml}
     mapping:

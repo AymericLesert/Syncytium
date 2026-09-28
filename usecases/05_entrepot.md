@@ -1528,7 +1528,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 
 | la clé | au cas 5 | les décisions |
 |---|---|---|
-| `connector:` | `cegid` — le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
+| `from:` | `cegid` — la base d'origine, le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
 | `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements | D1044–D1045 |
 | `storage:` | `${SYNCYTIUM_MIGRATION_DIRECTORY}`, `${now:yyyy-mm-dd}-cegid.syncytium` ; la rétention par la règle `migration_cegid:` du `cleanup.yml` (`interval: 1d`, `retention: 90d`) | D1066, D1069, D1072–D1076 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent | D671, D941 |

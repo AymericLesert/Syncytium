@@ -470,7 +470,8 @@ expressions.
   md), `code` (le source), `properties` (D777/D809) :
   [hooks.md](hooks.md) ;
 - **`reprise/`** (le nom est celui du cas ; l'organisation est libre)
-  — `reprise.yml` déclare les migrations (D662 : `connector:`, `mode:`,
+  — `reprise.yml` déclare les migrations (D662 : `from:` — la base
+  d'origine, D1087 —, `buffer:`, `storage:`, `mode:`,
   `reset:`, `source:`, `mapping:`, `operations:`), `source/<TABLE>.yml`
   décrit chaque entité d'origine (`name`, `alias`, `filter`, `identity`,
   `coverage`, `parent`, `fields`, `validation` — D947/D966 ; une colonne

@@ -6,7 +6,7 @@
 # reprise, n'est pas déclaré : il est du socle (docs/migration.md).
 
 cegid:
-  connector: cegid                      # le storage sqlserver de l'environnement (D617)
+  from: cegid                           # la base d'origine — le storage sqlserver de PMI
   buffer: temporaire                    # la base miroir, en mémoire (D1044/D1045) — supprimée à la fin de la migration
   storage:                              # le fichier SQLite de chaque passage (D1066/D1072)
     directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}

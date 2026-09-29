@@ -1,27 +1,32 @@
-# L'étape 11 — les contacts des clients : CONTACT vers tiers.contact, la
-# composition du tiers (D399), le possesseur conditionnel routé par le
-# type de compte comme les adresses (D950) — deux règles, une par tiers.
-# L'identifiant de PMI fait l'identité (D930) ; la civilité et la fonction
-# se traduisent par des select aux codes inventés pour l'exemple
-# (D893/D963 — la fonction garde son code quand il n'est pas connu) ; la
-# première paire de téléphone fait le téléphone, la seconde le portable
-# (D950). Les champs nominatifs sont marqués RGPD au modèle (D695).
-
+# Les contacts des clients
 CONTACT:
+  description: >-
+    Les contacts des clients : une règle par sorte de tiers, filtrée sur le type de compte ; le client se retrouve par
+    son code. Les champs nominatifs sont des données personnelles.
   to: tiers.contact
   filter: CTCTTYPCPT = "C"
-  parent: { client: CTCTCOMPTE }    # le possesseur par son identité mappée (D931)
+  parent: { client: CTCTCOMPTE }
   fields:
-    identifiant:  CTKNID            # l'identité (D930)
-    civilite:     'CTCTCIVILI.select(M: "monsieur", MME: "madame")'   # inventé (D963)
+    identifiant:  CTKNID
+    civilite:     'CTCTCIVILI.select(M: "monsieur", MME: "madame")'
     nom:          CTCTNOM
     prenom:       CTCTPRENOM
-    fonction:     'CTCTFONCTI.select(DIR: "Direction", ACH: "Acheteur", COM: "Commercial", TEC: "Technicien", "...": CTCTFONCTI)'   # inventé (D963)
-    telephone:    CTCTNOTEL1
-    portable:     CTCTNOTEL2
+    fonction:
+      formula: >-
+        CTCTFONCTI.select(DIR: "Direction", ACH: "Acheteur", COM: "Commercial",
+        TEC: "Technicien", "...": CTCTFONCTI)
+      description: Le libellé de la fonction ; un code inconnu se reprend tel quel.
+    telephone:
+      formula: CTCTNOTEL1
+      description: Le premier numéro de PMI.
+    portable:
+      formula: CTCTNOTEL2
+      description: Le second numéro de PMI.
     email:        CTCTMAIL1
     anniversaire: CTCJANNIV
-    actif:        CTCTACTIF != "N"  # « le vide vaut actif » (D950)
+    actif:
+      formula: CTCTACTIF != "N"
+      description: Vide, le contact est actif.
     date_creation: CTCJCRE
   report:
     when: [migration]

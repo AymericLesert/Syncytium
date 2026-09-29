@@ -1,22 +1,20 @@
-# L'étape 8 — les clients : CLIENT vers tiers.client, l'enfant du tiers
-# (D353) — la même structure que FOURNIS (le préfixe CL, D884), les mêmes
-# conversions, plus ce qui est propre au client : le représentant et sa
-# commission, l'encours, le code tarif. L'encours est un montant à la
-# devise du tiers (D771 — le constructeur D659).
-
+# Les clients
 CLIENT:
+  description: >-
+    Les clients de PMI : la règle alimente les champs du tiers et ceux du client, son enfant — le représentant et sa
+    commission, l'encours à la devise du client, le code tarif.
   to: tiers.client
   fields:
-    # --- l'identité et la désignation ---
-    code:      CLKTCODE             # l'identité alimentée = la clé du rejeu (D654/D930)
+    code:      CLKTCODE
     nom:       CLCTNOM
     abrege:    CLCTABRE
-    # --- l'adresse principale (D961/D659) ---
-    adresse: >-
-      geolocation(CLCNGPSY, CLCNGPSX,
-        CLCTRUE1 + " " + CLCTRUE2 + " " + CLCTRUE3 + ", " + CLCTCP + " " + CLCTVILLE + ", " + CLCTPAYS)
+    adresse:
+      formula: >-
+        geolocation(CLCNGPSY, CLCNGPSX,
+          CLCTRUE1 + " " + CLCTRUE2 + " " + CLCTRUE3 + ", " + CLCTCP + " " + CLCTVILLE + ", " + CLCTPAYS)
+      description: >-
+        L'adresse principale : les coordonnées de PMI et l'adresse brute, assemblée de ses lignes.
     pays:      CLCTCPAYS
-    # --- les coordonnées et les identifiants ---
     telephone: CLCTTELEP1
     fax:       CLCTFAX1
     email:     CLCTEMAIL
@@ -25,22 +23,26 @@ CLIENT:
     tva:       CLCTNOTVA
     iban:      CLCTIBAN
     bic:       CLCTSWIFT
-    # --- les conditions ---
     devise:    CLCTDEVISE
-    langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'   # les correspondances inventées (D963)
-    echeance:  integer(CLCTCECHEA)
-    base_echeance: 'CLCTBECHEA.select(1: "facture", 3: "fin_de_mois", 6: "fin_de_mois_le_10")'   # les correspondances inventées (D964)
-    # --- le propre du client ---
+    langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'
+    echeance:
+      formula: integer(CLCTCECHEA)
+      description: >-
+        Les jours d'échéance, écrits sur trois chiffres : 030 donne 30.
+    base_echeance: 'CLCTBECHEA.select(1: "facture", 3: "fin_de_mois", 6: "fin_de_mois_le_10")'
     representant:      CLCTREP1
-    taux_representant: CLCNTXREP1   # le décimal vers le pourcentage (la promotion D581)
+    taux_representant: CLCNTXREP1
     encours_maximum:   amount(CLCNDECOU1, CLCTDEVISE)
     code_tarif:        CLCTTARIF
-    # --- la vie du tiers ---
-    actif:     CLCTACTIF != "N"     # « le vide vaut actif » (D950)
-    bloque:    CLCTBLOCAG != null
+    actif:
+      formula: CLCTACTIF != "N"
+      description: Vide, le tiers est actif.
+    bloque:
+      formula: CLCTBLOCAG != null
+      description: Un motif de blocage, E ou C, bloque le tiers.
     date_creation:     CLCJCRE
     date_modification: CLCJMOU
   report:
     when: [migration]
-    to: [commercial]                # les clients, c'est le commercial qui corrige (D945)
+    to: [commercial]
     by: [notification, mail]

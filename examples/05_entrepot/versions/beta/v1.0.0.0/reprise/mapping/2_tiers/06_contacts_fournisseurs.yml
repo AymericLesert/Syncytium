@@ -1,22 +1,32 @@
-# L'étape 12 — les contacts des fournisseurs : la seconde règle sur
-# CONTACT (D950), filtrée sur le type de compte F ; le possesseur est le
-# fournisseur. Les mêmes conversions que l'étape 11.
-
+# Les contacts des fournisseurs
 CONTACT:
+  description: >-
+    Les contacts des fournisseurs : une règle par sorte de tiers, filtrée sur le type de compte ; le fournisseur se
+    retrouve par son code. Les champs nominatifs sont des données personnelles.
   to: tiers.contact
   filter: CTCTTYPCPT = "F"
   parent: { fournisseur: CTCTCOMPTE }
   fields:
     identifiant:  CTKNID
-    civilite:     'CTCTCIVILI.select(M: "monsieur", MME: "madame")'   # inventé (D963)
+    civilite:     'CTCTCIVILI.select(M: "monsieur", MME: "madame")'
     nom:          CTCTNOM
     prenom:       CTCTPRENOM
-    fonction:     'CTCTFONCTI.select(DIR: "Direction", ACH: "Acheteur", COM: "Commercial", TEC: "Technicien", "...": CTCTFONCTI)'   # inventé (D963)
-    telephone:    CTCTNOTEL1
-    portable:     CTCTNOTEL2
+    fonction:
+      formula: >-
+        CTCTFONCTI.select(DIR: "Direction", ACH: "Acheteur", COM: "Commercial",
+        TEC: "Technicien", "...": CTCTFONCTI)
+      description: Le libellé de la fonction ; un code inconnu se reprend tel quel.
+    telephone:
+      formula: CTCTNOTEL1
+      description: Le premier numéro de PMI.
+    portable:
+      formula: CTCTNOTEL2
+      description: Le second numéro de PMI.
     email:        CTCTMAIL1
     anniversaire: CTCJANNIV
-    actif:        CTCTACTIF != "N"
+    actif:
+      formula: CTCTACTIF != "N"
+      description: Vide, le contact est actif.
     date_creation: CTCJCRE
   report:
     when: [migration]

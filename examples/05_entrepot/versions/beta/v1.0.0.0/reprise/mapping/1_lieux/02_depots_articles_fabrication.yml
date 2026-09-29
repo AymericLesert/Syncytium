@@ -1,21 +1,14 @@
-# L'étape 2 — les dépôts trouvés dans les fiches articles, le lieu de
-# la fabrication — « F : Fabrication » (D962/D964) : la deuxième des trois origines du
-# référentiel — les paramètres de Cegid à l'étape 1, les mouvements à
-# l'étape 3 ; la fiche porte quatre paires dépôt + emplacement, une règle
-# par paire (D658 — la même table source porte plusieurs règles). Les
-# valeurs distinctes de ARCTCODEPF, le code en identité (D930). Le dépôt né
-# ici naît inactif et sans libellé (les défauts du modèle, D941) : « tout
-# nouvel emplacement est ajouté et inactif » ; s'il est aussi dans les
-# paramètres, l'étape 1 l'a déjà créé actif et nommé — le rejeu par la
-# clé ne touche pas ce que cette règle n'alimente pas (D941).
-
+# Les dépôts de la fabrication, trouvés dans les fiches articles
 ARTICLE:
+  description: >-
+    La deuxième origine des dépôts : le dépôt de la fabrication de chaque fiche article, une valeur distincte par dépôt
+    ; une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
   to: stock.depot
   distinct: [ARCTCODEPF]
-  filter: ARCTCODEPF != null # la fiche sans dépôt ne fait pas un dépôt
+  filter: ARCTCODEPF != null
   fields:
-    code: ARCTCODEPF          # la valeur devient l'identité (D658/D930)
+    code: ARCTCODEPF
   report:
-    when: [migration]                 # après chaque passage (D929)
-    to: [logistique]                              # les emplacements par défaut, c'est la logistique qui les affecte (D1063)
+    when: [migration]
+    to: [logistique]
     by: [notification, mail]

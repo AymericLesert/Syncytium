@@ -68,7 +68,11 @@ décision dans la configuration** (D1085) — les décisions disent le
 cheminement, la configuration dit la finalité et l'usage ; **une ligne
 de 120 caractères au plus** (D1097) — le commentaire collé à sa clé
 garde sa nature sur sa première ligne, son apport se replie sur les
-suivantes.
+suivantes ; **les sous-clés qui se répètent à l'identique** d'un
+frère à l'autre (le `type`, la `class` et les `parameters` des
+connecteurs, le `level` et les `groups` des profils) **s'expliquent
+une fois, sur le bloc parent** (D1098), et s'écrivent alors serrées,
+sans ligne vide.
 
 ```yaml
 # Les environnements d'exécution

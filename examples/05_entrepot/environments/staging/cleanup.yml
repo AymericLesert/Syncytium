@@ -1,33 +1,19 @@
+# Les règles de nettoyage de l'environnement. Chaque règle porte le délai entre deux passages (interval), le dossier
+# nettoyé (directory), les fichiers visés (pattern — le groupe date lit dans le nom la date que la rétention compare) et
+# la rétention (retention — une durée, ou un nombre sans unité : les n derniers fichiers).
+
 # Le nettoyage du journal
 # Les fichiers datés du journal, tournés compris, gardés trente jours.
 journal:
-
-  # Le délai entre deux passages de la règle
   interval: 1d
-
-  # Le dossier nettoyé
   directory: ${SYNCYTIUM_LOG_DIRECTORY}
-
-  # Les fichiers visés
-  # Le groupe date lit dans le nom la date du fichier, que la rétention compare.
   pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
-
-  # La rétention
-  # Une durée ; un nombre sans unité garderait les n derniers fichiers.
   retention: 30d
 
 # Le nettoyage du détail de la migration cegid
 # Le fichier de chaque passage, gardé quatre-vingt-dix jours.
 migration_cegid:
-
-  # Le délai entre deux passages de la règle
   interval: 1d
-
-  # Le dossier nettoyé
   directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-
-  # Les fichiers visés
   pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-cegid\.syncytium$'
-
-  # La rétention
   retention: 90d

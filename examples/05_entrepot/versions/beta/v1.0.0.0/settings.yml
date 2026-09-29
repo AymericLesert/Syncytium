@@ -1,50 +1,76 @@
-# Les réglages de la version — l'étage instance de la cascade des
-# settings (D359/D588 : l'application → le module → l'entité, le plus
-# proche l'emporte). Le fichier est référencé par version.yml (le
-# morceau 1).
-
-# Les paramètres par défaut d'un type se déclarent sous le nom du type
-# (D991 — les settings portent les défauts des types et la définition de
-# nouveaux types, D359) : pour text, la normalisation à la frontière
-# (D870/D872) — les blancs de fin des nchar de PMI rognés à la lecture,
-# me désigne la valeur ; un champ surcharge avec sa propre expression
-# (normalize: right("0000" + me, 4)).
+# Le type text
+# Les défauts de tout champ texte ; un champ peut surcharger avec sa propre
+# expression.
 text:
-    normalize: trim(me)
 
-# Les types dérivés (D992/D359) : la même forme qu'un type du catalogue —
-# la clé est le nom, type: la base, le reste ses défauts, surchargeables
-# au champ ; les colonnes de PMI les emploient par la forme courte (D356)
-date_pmi:                       # les dates AAAAMMJJ de PMI (D820/D866)
-    type: date
-    mask: "yyyymmdd"
-time_pmi:                       # les heures de PMI (D992) — hhmmss : la seule heure lue du cas, MVCTSAI, porte les secondes (D1001) ; la lettre S est la semaine, pas l'heure (D1000) ; une colonne en hhmm surchargerait le masque au champ
-    type: time
-    mask: "hhmmss"
+  # La normalisation
+  # La valeur lue est rognée de ses blancs, à la frontière ; me désigne la
+  # valeur.
+  normalize: trim(me)
 
-# La devise de l'entreprise — le défaut du type amount (D993, qui amende
-# D970 : « le défaut du type me convient ») : les prix de l'article n'ont
-# pas de colonne de devise chez PMI, la monnaie de l'entreprise est
-# implicite ; le constructeur à un argument la prend — amount(ARCNPRS) ;
-# les tiers, les tarifs et les commandes portent la leur (D771)
+# Le type date_pmi
+# Les dates de PMI, écrites AAAAMMJJ ; les colonnes de dates des sources
+# l'emploient.
+date_pmi:
+
+  # Le type de base
+  type: date
+
+  # Le masque de lecture
+  mask: yyyymmdd
+
+# Le type time_pmi
+# Les heures de PMI, écrites hhmmss ; une colonne en hhmm surcharge le
+# masque au champ.
+time_pmi:
+
+  # Le type de base
+  type: time
+
+  # Le masque de lecture
+  mask: hhmmss
+
+# Le type amount
+# Les défauts de tout montant.
 amount:
-    currency: EUR
 
-# Les profils de confidentialité (D885) — le niveau (D25) et les groupes
-# (D26) nommés une fois, référencés au champ par l'interpolation de la
-# configuration : confidentiality: ${settings.confidentiality.financier}
-# (D321/D802 — « on exploite une capacité de la configuration »).
+  # La devise
+  # La monnaie de l'entreprise, pour les prix que PMI écrit sans colonne de
+  # devise ; les tiers, les tarifs et les commandes portent la leur.
+  currency: EUR
+
+# Les profils de confidentialité
+# Un niveau et les groupes qui voient le champ, nommés une fois et
+# référencés au champ : confidentiality: ${settings.confidentiality.financier}.
 confidentiality:
-  # les prix de revient, les prix d'achat, les valeurs de stock, le
-  # bancaire — les achats et la direction
+
+  # Le profil financier
+  # Les prix de revient, les prix d'achat, les valeurs de stock, le
+  # bancaire.
   financier:
+
+    # Le niveau de confidentialité
     level: protected
+
+    # Les groupes qui voient le champ
     groups: [achats, direction]
-  # les marges, les commissions — la direction seule
+
+  # Le profil de la direction
+  # Les marges, les commissions.
   direction:
+
+    # Le niveau de confidentialité
     level: protected
+
+    # Les groupes qui voient le champ
     groups: [direction]
-  # les conditions commerciales — le commercial et la direction
+
+  # Le profil commercial
+  # Les conditions commerciales.
   commercial:
+
+    # Le niveau de confidentialité
     level: protected
+
+    # Les groupes qui voient le champ
     groups: [commercial, direction]

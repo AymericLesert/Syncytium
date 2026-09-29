@@ -1235,6 +1235,7 @@ Q58) :
 | D1100 | **Ce que la documentation doit porter s'écrit en propriété, pas en commentaire : un champ reçoit sa `description:`** (précise D810 — `description:` partout, D1084 ; la relecture D1021, les sources) : sur la forme proposée pour les colonnes des sources (le champ alimenté et le motif en commentaire de fin) — « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. » — le commentaire sert le lecteur du fichier ; la propriété nourrit la documentation générée. | Les commentaires collés à `}` de deux lignes d'ARTICLE.yml (`enum { … }# → …`, le texte avalé dans le type) relevés au même examen. Les modalités posées en question : `description:` seul ou avec `comment:` ; en texte simple ou par langue ; le champ alimenté redit ou laissé aux règles. Voir §3.2c. |
 | D1101 | **`languages:` sous `version:` — les langues de la version, la première par défaut ; une seule langue, les textes en texte simple ; plusieurs, la langue précisée ou l'erreur** (écrit D217 — « le modèle liste les langues permises », jamais écrit ; précise D219, D124/D127 ; la relecture D1021, les sources) : « Peut-on avoir une règle qui dit que si l'application ne gère qu'une seule langue, nous simplifions. Si nous introduisons le multilangue, cela constituera une erreur si la langue n'est pas précisée ? Il me semblait que nous avions une partie de la configuration avec la liste des langues, je ne le trouve pas. » ; puis « dans version.yml, sous version: - les langues sont portées par une version, l'ajout ou la suppression d'une langue nécessite une nouvelle version. Un paramètre qui utilise une langue qui devient une langue inutilisée, la langue par défaut est alors utilisée, ie. la première langue. le cas 5, en français uniquement. le multi-langue fr, en, es pour "banque" » — une langue retirée ne rend pas un texte faux : la langue par défaut sert. | Toutes les colonnes des sources décrites (« toutes les colonnes »). Le cas 5, l'enquête et le véhicule portent `languages: [fr]` ; le cas 5 passe ses textes en texte simple au fil de la relecture (ARTICLE, groups.yml déjà) ; la banque recevra `[fr, en, es]` et ses traductions à sa relecture. configuration.md (§3.4, et `release-notes: |`). Voir §3.2c. |
 | D1102 | **Une colonne à codes décrit ses codes en tableau Markdown à partir de trois codes ; à deux, une phrase** (précise D1100 ; la relecture D1021, les sources) : « Pour le champ ARTICLE.ARCTTYPART, peux-tu montrer une description qui représente les informations sous forme d'un tableau avec du md (une ligne par code + un libellé clair) » ; « oui, applique le tableau à partir de trois codes » — la description en scalaire littéral : une phrase, puis `| Code | Libellé |`, une ligne par code, colonnée pour se lire aussi dans le fichier. | Onze colonnes des sources du cas 5 (le type et le code de gestion de l'article, sa famille et sa sous-famille, la base d'échéance et la langue des tiers, la fonction d'un contact, le statut des lignes de commande, le genre d'un mouvement) ; les libellés repris des traductions des règles ; mapping.md. Voir §3.2c. |
+| D1103 | **Les sources et les règles rangées par sous-dossier fonctionnel ; le préfixe numérique ordonne les étapes, quel que soit le dossier** (amende D665 — l'ordre alphabétique dans le pattern ; précise D947 ; la relecture D1021) : « Les dossiers de mapping ou de source mettent à plat tous les fichiers. Je propose de les répartir par sous-dossier regrouper par item fonctionnel. » ; « (a) le préfixe numérique ordonne, applique la répartition » — le tri des règles se fait sur le nom du fichier, jamais sur son chemin : le dossier range, le numéro ordonne (les étapes du stock, 001–006 et 024–025, restent à leur place). | Le cas 5 : `source/` et `mapping/` en quatre dossiers — technique, tiers, commande, stock — ; le bloc commun `articles/fields.yml` suit ses règles dans `mapping/technique/` ; les motifs de reprise.yml ; mapping.md. Voir §3.2c. |
 
 ---
 
@@ -12594,6 +12595,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les codes en tableau (D1102).** « Pour le champ ARTICLE.ARCTTYPART, peux-tu montrer une description qui représente les informations sous forme d'un tableau avec du md (une ligne par code + un libellé clair) » ; « oui, applique le tableau à partir de trois codes ».
 
+**Les sous-dossiers fonctionnels, l'ordre par le numéro (D1103).** « Les dossiers de mapping ou de source mettent à plat tous les fichiers. Je propose de les répartir par sous-dossier regrouper par item fonctionnel. » ; « (a) le préfixe numérique ordonne, applique la répartition ».
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23706,6 +23709,12 @@ avant la synthèse Q16).
   avec du md (une ligne par code + un libellé clair) » ; « oui, applique
   le tableau à partir de trois codes » — onze colonnes décrites en
   tableau.
+- **2026-09-29 (suite 7) — LES SOUS-DOSSIERS FONCTIONNELS (D1103, 1103
+  décisions).** « Les dossiers de mapping ou de source mettent à plat
+  tous les fichiers. Je propose de les répartir par sous-dossier
+  regrouper par item fonctionnel. » ; « (a) le préfixe numérique
+  ordonne, applique la répartition » — les 23 sources et les 33 règles
+  rangées en quatre dossiers.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

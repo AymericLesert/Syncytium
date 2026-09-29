@@ -34,14 +34,15 @@ cegid:
   reset: false
 
   # Les tables sources
-  # Vingt-trois tables décrites, une par fichier au nom de la table : quatorze lues, neuf écartées.
+  # Vingt-trois tables décrites, une par fichier au nom de la table, rangées par module : quatorze lues, neuf écartées.
   source:
-    - ~{source/.*\.yml}
+    - ~{source/.*/.*\.yml}
 
   # Les règles
-  # Trente-trois règles en vingt-cinq étapes : le préfixe numérique d'un fichier fait son étape.
+  # Trente-trois règles en vingt-cinq étapes, rangées par module : le préfixe numérique d'un fichier fait son étape,
+  # quel que soit son dossier.
   mapping:
-    - ~{mapping/[0-9]+_.*\.yml}
+    - ~{mapping/.*/[0-9]+_.*\.yml}
 
   # Les opérations périodiques
   # Le rythme de la migration. Chaque opération porte son calendrier (every), ce qu'elle lance (operations) et, au

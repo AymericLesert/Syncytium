@@ -24,7 +24,10 @@ morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
 (D1021), le jeu de données construit (D869) et la PR. À la validation
 du modèle, la 1.0.0.0 sera promue de `beta/` à `production/` et une
 1.0.0.1 naîtra en `beta/`, avec de nouveaux champs ou des changements de
-types — la migration entre versions après la reprise (**D1081**).)*
+types — la migration entre versions après la reprise (**D1081**). Les
+sources et les règles sont rangées par module — technique, tiers,
+commande, stock —, le préfixe numérique ordonnant les étapes quel que
+soit le dossier (**D1103**).)*
 
 ## Le contexte (D859)
 

@@ -5,23 +5,19 @@ version: 1.0.0.0
 # Les notes de version
 # Ce que la version apporte, en Markdown.
 release-notes: |
-  La première version de l'entrepôt de données : les données de Cegid PMI
-  standardisées, harmonisées et fiabilisées, de l'opérateur aux dirigeants.
+  La première version de l'entrepôt de données : les données de Cegid PMI standardisées, harmonisées et fiabilisées, de
+  l'opérateur aux dirigeants.
 
   # Le modèle
-  - Quatre modules : technique (l'article, sa nomenclature et sa gamme, sa
-    grille tarifaire), tiers (le tiers, parent du client et du fournisseur,
-    ses adresses et ses contacts), commande (les ventes et les achats), stock
-    (les dépôts, les emplacements, les niveaux et les mouvements).
-  - L'entrepôt en lecture seule ; l'historique des changements partout, sauf
-    sur les niveaux et les mouvements ; les champs financiers réservés aux
-    achats et à la direction.
+  - Quatre modules : technique (l'article, sa nomenclature et sa gamme, sa grille tarifaire), tiers (le tiers, parent du
+    client et du fournisseur, ses adresses et ses contacts), commande (les ventes et les achats), stock (les dépôts, les
+    emplacements, les niveaux et les mouvements).
+  - L'entrepôt en lecture seule ; l'historique des changements partout, sauf sur les niveaux et les mouvements ; les
+    champs financiers réservés aux achats et à la direction.
 
   # La reprise
-  - La base PMI lue en direct chaque nuit et comparée à l'entrepôt ; la
-    relecture complète le dimanche.
-  - Les anomalies adressées chaque matin au bureau d'études, à la
-    logistique, au commercial et aux achats.
+  - La base PMI lue en direct chaque nuit et comparée à l'entrepôt ; la relecture complète le dimanche.
+  - Les anomalies adressées chaque matin au bureau d'études, à la logistique, au commercial et aux achats.
 
   # Le pilotage
   - Le tableau de bord du stock.

@@ -1,44 +1,115 @@
-# La vue NOMENC de PMI, décrite comme une table (R2/D866) — 52 colonnes :
-# la nomenclature et la gamme réunies, une ligne par composant ou
-# opération ; la source de technique.nomenclature, la composition des
-# trois dérivés de l'article (D940/D946). Les colonnes lues typées et
-# renvoyées, quelques colonnes ignorées, les autres non lues (D947).
+# Le nom de la table
+# La vue NOMENC de PMI, décrite comme une table, 52 colonnes : la nomenclature et la gamme réunies, une ligne par
+# composant ou opération.
 name: NOMENC
+
+# La description de la table
 description: Les lignes de nomenclature de PMI — la source de technique.nomenclature
 
+# Le périmètre lu
+# La seule société 100.
 filter: NOKTSOC = "100"
+
+# L'identité d'une ligne
+# Le produit et le numéro de ligne.
 identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# Le bureau d'études corrige les nomenclatures à l'origine.
 report:
   when: [migration]
   to: [bureau_etudes]
   by: [notification, mail]
 
+# Le possesseur d'une ligne
+# L'article produit, par la référence nommée PRODUIT ; une ligne dont le produit est inconnu est isolée.
 parent: ARTICLE[PRODUIT]
-# le possesseur par la référence nommée PRODUIT (D995) — les colonnes typées
-# ARTICLE[PRODUIT].* forment la référence ; le lien est résolu sur les
-# données filtrées avant de partir, l'orphelin isolé (D874/D875)
 
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  NOKTSOC:     text[..3]                                      # la société — le filtre (D663)
-  NOKTCODPF:   ARTICLE[PRODUIT].ARKTCODART                    # l'identité (D871) ; le produit — la référence nommée PRODUIT, que parent: désigne (D995)
-  NOKTCOMPF:   ARTICLE[PRODUIT].ARKTCOMART                    # l'identité (D871) ; le produit — la même référence
-  NOKNLIGNOM:  integer                                        # → nomenclature.numero — l'identité (D871)
-  NOCTNATCPT:  ignored                                        # la nature numérique — ignorée (D937)
-  NOCTYPECPT:  ignored                                        # le type du composant = celui de l'article référencé — redondant (D937)
-  NOCTCODECP:  ARTICLE[COMPOSANT].ARKTCODART                  # → nomenclature.composant — la référence nommée COMPOSANT : « le parent et l'enfant font référence à un article mais pas le même » (D995)
-  NOCTCOMCPT:  ARTICLE[COMPOSANT].ARKTCOMART                  # → nomenclature.composant — la même référence
-  NOCTCODOPE:  text[6]                                        # → nomenclature.operation
-  NOCNJALON:   decimal                                        # → nomenclature.jalon — l'entier à la règle (D581 : la conversion explicite)
-  NOCNTPSATT:  decimal                                        # → nomenclature.temps_attente
-  NOCNBREOUV:  integer                                        # → nomenclature.nombre_ouvriers
-  NOCNTPSOUV:  decimal                                        # → nomenclature.temps_ouverture — l'unité des temps à confirmer, la durée à la règle
-  NOCTLIBCOM:  text[40]                                       # → nomenclature.designation — le libellé du composant sur la ligne (D989)
-  NOCNQTEUNI:  ignored                                        # nulle sur tout l'échantillon — la quantité est NOCNQTECOM (D946)
-  NOCTUNITE:   text[2]                                        # → nomenclature.unite
-  NOCNTPSPRE:  decimal                                        # → nomenclature.temps_preparation
-  NOCNRENDT:   decimal                                        # → nomenclature.rendement
-  NOCNQTECOM:  decimal                                        # → nomenclature.quantite
-  NOCJDEBVAL:  date_pmi                                       # → nomenclature.validite
-  NOCJFINVAL:  date_pmi                                       # → nomenclature.validite
+
+  NOKTSOC:
+    type: text[..3]
+    description: La société ; seule la société 100 est lue.
+
+  NOKTCODPF:
+    type: ARTICLE[PRODUIT].ARKTCODART
+    description: Le code de l'article produit, que la ligne compose.
+
+  NOKTCOMPF:
+    type: ARTICLE[PRODUIT].ARKTCOMART
+    description: Le complément du code de l'article produit.
+
+  NOKNLIGNOM:
+    type: integer
+    description: Le numéro de la ligne dans la nomenclature.
+
+  NOCTNATCPT:
+    type: ignored
+    description: La nature numérique de la ligne, sans usage dans l'entrepôt.
+
+  NOCTYPECPT:
+    type: ignored
+    description: Le type du composant, qui est celui de l'article référencé.
+
+  NOCTCODECP:
+    type: ARTICLE[COMPOSANT].ARKTCODART
+    description: Le code de l'article composant, par la référence nommée COMPOSANT — un autre article que le produit.
+
+  NOCTCOMCPT:
+    type: ARTICLE[COMPOSANT].ARKTCOMART
+    description: Le complément du code de l'article composant.
+
+  NOCTCODOPE:
+    type: text[6]
+    description: Le code de l'opération de gamme.
+
+  NOCNJALON:
+    type: decimal
+    description: Le jalon de la ligne.
+
+  NOCNTPSATT:
+    type: decimal
+    description: Le temps d'attente.
+
+  NOCNBREOUV:
+    type: integer
+    description: Le nombre d'ouvriers.
+
+  NOCNTPSOUV:
+    type: decimal
+    description: Le temps d'ouverture.
+
+  NOCTLIBCOM:
+    type: text[40]
+    description: La désignation du composant sur la ligne.
+
+  NOCNQTEUNI:
+    type: ignored
+    description: "Toujours nulle : la quantité se lit en NOCNQTECOM."
+
+  NOCTUNITE:
+    type: text[2]
+    description: L'unité de la quantité.
+
+  NOCNTPSPRE:
+    type: decimal
+    description: Le temps de préparation.
+
+  NOCNRENDT:
+    type: decimal
+    description: Le rendement.
+
+  NOCNQTECOM:
+    type: decimal
+    description: La quantité du composant.
+
+  NOCJDEBVAL:
+    type: date_pmi
+    description: Le début de validité de la ligne.
+
+  NOCJFINVAL:
+    type: date_pmi
+    description: La fin de validité de la ligne.

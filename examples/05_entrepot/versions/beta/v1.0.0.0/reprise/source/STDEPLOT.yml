@@ -1,36 +1,94 @@
-# La table STDEPLOT de PMI — 36 colonnes : le niveau de stock d'un article,
-# dans un lot, à un emplacement d'un dépôt, sous un code d'enregistrement
-# — les six colonnes K après la société (D865/D869). La source de
-# stock.niveau ; les dépôts et les emplacements, des référentiels par
-# valeurs distinctes au mapping (D658). Les colonnes lues typées et
-# renvoyées, les autres non lues (D947).
+# Le nom de la table
+# La table STDEPLOT de PMI, 36 colonnes : le niveau de stock d'un article, dans un lot, à un emplacement d'un dépôt.
 name: STDEPLOT
+
+# La description de la table
 description: Les niveaux de stock de PMI — la source de stock.niveau, et des référentiels depot et emplacement
 
+# Le périmètre lu
+# La seule société 100.
 filter: DPKTSOC = "100"
+
+# L'identité d'une ligne
+# L'article, le lot, le code d'enregistrement, l'emplacement et le dépôt.
 identity: [DPKTCODART, DPKTCOMART, DPKTNUMLOT, DPKTCODENR, DPKTCODMPL, DPKTDEPOT]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# La logistique corrige les niveaux à l'origine.
 report:
   when: [migration]
   to: [logistique]
   by: [notification, mail]
 
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  DPKTSOC:     text[3]                                        # la société — le filtre (D663)
-  DPKTCODART:  ARTICLE.ARKTCODART                             # → niveau.article — la référence par la clé composée (D648/D931) ; l'identité
-  DPKTCOMART:  ARTICLE.ARKTCOMART                             # → niveau.article ; l'identité
-  DPKTNUMLOT:  text[18]                                       # → niveau.lot — l'identité ; « pour le cas d'usage, oublions le numéro de lot » (D1018) : une part de clé, sans concept
-  DPKTCODENR:  text[1]                                        # → niveau.enregistrement — le code d'enregistrement de PMI, part de la clé ; l'identité
-  DPKTCODMPL:  text[10]                                       # → niveau.emplacement — le référentiel par valeurs distinctes (D658) ; l'identité
-  DPKTDEPOT:   text[6]                                        # → niveau.depot — le référentiel par valeurs distinctes (D658) ; l'identité
-  DPCNSTOPHY:  decimal                                        # → niveau.quantite
-  DPCNRESFER:  decimal                                        # → niveau.quantite_reservee
-  DPCNENCOUR:  decimal                                        # → niveau.quantite_en_cours
-  DPCJMOU:     date_pmi                                       # → niveau.dernier_mouvement
-  DPCJPEREMP:  date_pmi                                       # → niveau.peremption
-  DPCNPULOT:   decimal                                        # → niveau.prix_unitaire
-  DPCNQTINV:   decimal                                        # → niveau.quantite_inventaire
-  DPCJJINV:    date_pmi                                       # → niveau.inventaire
-  DPCSSINV:    ignored                                        # la semaine du dernier inventaire — déduite du jour (D1000/D1001)
-  DPCNSTOMIN:  decimal                                        # → niveau.stock_minimum
+
+  DPKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  DPKTCODART:
+    type: ARTICLE.ARKTCODART
+    description: Le code de l'article en stock.
+
+  DPKTCOMART:
+    type: ARTICLE.ARKTCOMART
+    description: Le complément du code de l'article.
+
+  DPKTNUMLOT:
+    type: text[18]
+    description: Le numéro de lot, une part de la clé.
+
+  DPKTCODENR:
+    type: text[1]
+    description: Le code d'enregistrement de PMI, une part de la clé.
+
+  DPKTCODMPL:
+    type: text[10]
+    description: L'emplacement.
+
+  DPKTDEPOT:
+    type: text[6]
+    description: Le dépôt.
+
+  DPCNSTOPHY:
+    type: decimal
+    description: La quantité en stock physique.
+
+  DPCNRESFER:
+    type: decimal
+    description: La quantité réservée ferme.
+
+  DPCNENCOUR:
+    type: decimal
+    description: La quantité en cours.
+
+  DPCJMOU:
+    type: date_pmi
+    description: La date du dernier mouvement.
+
+  DPCJPEREMP:
+    type: date_pmi
+    description: La date de péremption du lot.
+
+  DPCNPULOT:
+    type: decimal
+    description: Le prix unitaire du lot.
+
+  DPCNQTINV:
+    type: decimal
+    description: La quantité du dernier inventaire.
+
+  DPCJJINV:
+    type: date_pmi
+    description: La date du dernier inventaire.
+
+  DPCSSINV:
+    type: ignored
+    description: La semaine du dernier inventaire, qui se déduit de sa date.
+
+  DPCNSTOMIN:
+    type: decimal
+    description: Le stock minimum.

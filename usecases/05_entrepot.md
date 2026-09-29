@@ -26,8 +26,9 @@ du modèle, la 1.0.0.0 sera promue de `beta/` à `production/` et une
 1.0.0.1 naîtra en `beta/`, avec de nouveaux champs ou des changements de
 types — la migration entre versions après la reprise (**D1081**). Les
 sources et les règles sont rangées par module — technique, tiers,
-commande, stock —, le préfixe numérique ordonnant les étapes quel que
-soit le dossier (**D1103**).)*
+commande, stock — ; les règles, dans cinq dossiers numérotés — les lieux, les
+tiers, la technique, les commandes, le stock —, chaque fichier numéroté à
+partir de 1 dans son dossier (**D1103–D1104**).)*
 
 ## Le contexte (D859)
 
@@ -1536,7 +1537,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | `storage:` | `${SYNCYTIUM_MIGRATION_DIRECTORY}`, `${now:yyyy-mm-dd}-cegid.syncytium` ; la rétention par la règle `migration_cegid:` du `cleanup.yml` (`interval: 1d`, `retention: 90d`) | D1066, D1069, D1072–D1076 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent | D671, D941 |
 | `source:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
-| `mapping:` | trente-trois règles en vingt-cinq étapes (001–025) | D665, D961–D1018 |
+| `mapping:` | trente-trois règles en cinq dossiers numérotés : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock` | D665, D1103–D1104 |
 | `operations:` | `delta_nocturne` — `daily[02:00]`, `migrate`, `on_running` au défaut `cancel` ; `relecture_complete` — `weekly[saturday at 23:00]`, `reset_coverage` des cinq entités partitionnées, `on_running: wait` | D943, D1077–D1080 |
 
 *Une nuit — le delta de 02:00.* Le passage démarre, en cours ; un
@@ -1559,7 +1560,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
     une identité mal décrite — `ARTICLE` illisible, et avec lui ce qui
     le référence, la nomenclature, les tarifs, les lignes de commande,
     les mouvements (D1042) ; le mouvement dont l'article est inconnu
-    tombe, puisque la règle 025 utilise la référence (D1040) ;
+    tombe, puisque la règle des mouvements (`5_stock/02`) utilise la référence (D1040) ;
   - *phase 2* — les `validation:` des sources : l'exemple n'en déclare
     pas, les gardes de PMI vivent dans les types de la phase 1 (les
     énumérés aux codes publiables, D935) ;
@@ -1569,7 +1570,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
     nomenclature, les tarifs, les commandes, les niveaux, les
     mouvements ;
   - *phase 4* — les `validation:` des règles : l'unité d'une ligne de
-    commande parmi celles que son article connaît (021, 023 — D1007) ;
+    commande parmi celles que son article connaît (`4_commande/02` et `04` — D1007) ;
   - *phase 5* — les règles du modèle de l'entrepôt sur la base miroir
     complète : un client et un fournisseur de même code sont deux
     `tiers` de même identité, le second tombe (D1039/D1046) ; la
@@ -1591,10 +1592,10 @@ mail]` — D945) :
 
 | le destinataire | les sources (D1061) | les règles (D1062–D1063) |
 |---|---|---|
-| `bureau_etudes` | ARTICLE, NOMENC | 013–017 — les articles, leurs dérivés, la nomenclature |
-| `logistique` | MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS | 001–006 — les dépôts et les emplacements, de toutes leurs origines, 024–025 — les niveaux, les mouvements |
-| `commercial` | CLIENT, ECOMCLI, LCOMCLI, ADRESSE, CONTACT, TARIF | 008, 009, 011, 018, 020, 021 |
-| `achats` | FOURNIS, ECOMFOU, LCOMFOU, ADRESSE, CONTACT, TARIF | 007, 010, 012, 019, 022, 023 |
+| `bureau_etudes` | ARTICLE, NOMENC | `3_technique` 01–05 — les articles, leurs dérivés, la nomenclature |
+| `logistique` | MVTSTO, STDEPLOT, PARAM_EMPLACEMENTS | `1_lieux` — les dépôts et les emplacements, de toutes leurs origines ; `5_stock` — les niveaux, les mouvements |
+| `commercial` | CLIENT, ECOMCLI, LCOMCLI, ADRESSE, CONTACT, TARIF | `2_tiers` 02, 03, 05 ; `3_technique` 06 ; `4_commande` 01, 02 |
+| `achats` | FOURNIS, ECOMFOU, LCOMFOU, ADRESSE, CONTACT, TARIF | `2_tiers` 01, 04, 06 ; `3_technique` 07 ; `4_commande` 03, 04 |
 
 Chaque destinataire reçoit les anomalies de ses sources et de ses
 règles, groupées par source ou par règle, puis par message ; les
@@ -1623,7 +1624,7 @@ autres sociétés (filtrées) + les mouvements de plus de trois mois (hors
 plage) + les lues ; parmi les lues, les nouvelles, les mises à jour
 (modifiées ou non, par le hash), les supprimées ; à la destination,
 `stock.mouvement` compte ses nouvelles, ses modifiées, ses non
-modifiées, ses supprimées ; la règle 025 ses traitées et ses lignes en
+modifiées, ses supprimées ; la règle des mouvements ses traitées et ses lignes en
 erreur (D1048–D1050, D1055). Les valeurs viendront du jeu de données
 construit (D869) — aucune donnée de PMI ne se publie.
 

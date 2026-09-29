@@ -153,12 +153,13 @@ migration : `001_referentiels.yml`, `002_customers.yml`,
 `003_orders.yml`. Le câblage `from:` (D610) se relit
 comme le raccourci du cas à une seule migration.
 
-**Les fichiers se rangent par sous-dossier** (D1103) — par module, par
-item fonctionnel : `source/<module>/<TABLE>.yml`,
-`mapping/<module>/<NNN>_<nom>.yml` ; **le préfixe numérique ordonne les
-étapes, quel que soit le dossier** — le tri se fait sur le nom du
-fichier, jamais sur son chemin : le dossier range, le numéro ordonne ;
-le motif suit (`~{mapping/.*/[0-9]+_.*\.yml}`).
+**Les fichiers se rangent par sous-dossier** (D1103–D1104) — par item
+fonctionnel : `source/<module>/<TABLE>.yml` ; **les règles, dans des
+dossiers numérotés** — `mapping/<N>_<groupe>/<NN>_<nom>.yml`, les
+fichiers numérotés à partir de 1 dans chaque dossier : le numéro du
+dossier, puis celui du fichier, font l'ordre des étapes — l'ordre du
+chemin ; le motif suit (`~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}`). Au
+cas 5 : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock`.
 
 ### Les deux maisons (D652–D653)
 
@@ -378,7 +379,7 @@ n'est pas une règle, il est inclus ; la règle ne garde que ce qui la
 distingue : `to:`, `filter:`, `report:`.
 
 ```yaml
-# reprise/mapping/technique/014_fabriques.yml — la règle réduite à ce qui la distingue (D967)
+# reprise/mapping/3_technique/02_fabriques.yml — la règle réduite à ce qui la distingue (D967)
 ARTICLE:
   to: technique.fabrique
   filter: ARCTFATN = "01"
@@ -467,7 +468,7 @@ NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
 porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
-# reprise/mapping/technique/013_articles.yml — le possesseur construit son identité
+# reprise/mapping/3_technique/01_articles.yml — le possesseur construit son identité
 ARTICLE:
   to: technique.article
   fields:
@@ -475,7 +476,7 @@ ARTICLE:
     complement: ARKTCOMART            # souvent vide — le nul du texte est la chaîne vide (D990), rien à convertir
     libelle:    ARCTLIB01
 
-# reprise/mapping/technique/017_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
+# reprise/mapping/3_technique/05_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
 NOMENC:
   to: technique.nomenclature                             # l'entité fille, comme banque.ecriture
   parent:

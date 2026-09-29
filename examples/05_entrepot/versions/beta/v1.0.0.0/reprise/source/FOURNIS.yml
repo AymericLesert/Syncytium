@@ -1,53 +1,150 @@
-# La table FOURNIS de PMI — 167 colonnes, les mêmes que CLIENT (le
-# préfixe CL pour les deux — D884) : la source du tiers (le parent, D353)
-# et de son dérivé fournisseur (D882). Les colonnes lues typées et renvoyées,
-# quelques colonnes ignorées, les autres non lues (D947). Les gardes sur
-# les codes de l'échantillon (D946).
+# Le nom de la table
+# La table FOURNIS de PMI, 167 colonnes — les mêmes que la table CLIENT : les fournisseurs de l'entreprise.
 name: FOURNIS
+
+# La description de la table
 description: Les fournisseurs de PMI — la source de tiers.tiers et de tiers.fournisseur
 
+# Le périmètre lu
+# La seule société 100.
 filter: CLKTSOC = "100"
+
+# L'identité d'une ligne
+# Le code du fournisseur.
 identity: [CLKTCODE]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# Les achats corrigent les fiches fournisseurs à l'origine.
 report:
   when: [migration]
   to: [achats]
   by: [notification, mail]
 
-# la clé vaut parmi les fournisseurs (D884 — un code client et un code
-# fournisseur peuvent coïncider chez PMI) ; l'identité du tiers se déclare
-# chez l'enfant (D353)
-
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  CLKTSOC:     text[3]                                        # la société — le filtre (D663)
-  CLKTCODE:    text[6]                                        # → tiers.code — l'identité (D871)
-  CLCTABRE:    text[10]                                       # → tiers.abrege
-  CLCTNOM:     text[40]                                       # → tiers.nom
-  CLCTRUE1:    text[40]                                       # → tiers.adresse
-  CLCTRUE2:    text[40]                                       # → tiers.adresse
-  CLCTCP:      text[16]                                       # → tiers.adresse
-  CLCTVILLE:   text[40]                                       # → tiers.adresse
-  CLCTPAYS:    text[20]                                       # → tiers.adresse
-  CLCTCPAYS:   text[3]                                        # → tiers.pays — le code pays, sans garde (le réel déborde l'ISO : CSR, SL, TU)
-  CLCTSIRET:   text[20]                                       # → tiers.siret
-  CLCTNOTVA:   text[20]                                       # → tiers.tva
-  CLCTTELEP1:  text[20]                                       # → tiers.telephone
-  CLCTFAX1:    text[20]                                       # → tiers.fax
-  CLCTCECHEA:  text[3]                                        # → tiers.echeance — les jours d'échéance (000, 030, 045…), l'entier à la règle
-  CLCTBECHEA:  enum { 1, 3, 6 }                               # → tiers.base_echeance — la base d'échéance, la garde sur l'échantillon ; les correspondances inventées à la règle (D964)
-  CLCTMREG:    ignored                                        # le mode de règlement — anonymisé dans l'échantillon ; retiré du modèle (D963)
-  CLCTLANGUE:  enum { 01, 03, 05, 07 }                        # → tiers.langue — la garde sur l'échantillon
-  CLCTDEVISE:  text[3]                                        # → tiers.devise — la devise des montants (D771)
-  CLCTBLOCAG:  enum { E, C }                                  # → tiers.bloque — nul = non bloqué, sinon le motif
-  CLCJCRE:     date_pmi                                       # → tiers.date_creation
-  CLCJMOU:     date_pmi                                       # → tiers.date_modification
-  CLCTEMAIL:   text[60]                                       # → tiers.email
-  CLCTSITE:    text[40]                                       # → tiers.site
-  CLCTJOURFO:  text[1]                                        # → fournisseur.delai_livraison
-  CLCTSWIFT:   text[11]                                       # → tiers.bic
-  CLCTIBAN:    text[35]                                       # → tiers.iban
-  CLCTACTIF:   enum { O, N }                                  # → tiers.actif — O actif, N inactif ; « le vide vaut actif » (D950)
-  CLCTRUE3:    text[40]                                       # → tiers.adresse
-  CLCNGPSX:    decimal                                        # → tiers.adresse
-  CLCNGPSY:    decimal                                        # → tiers.adresse
+
+  CLKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  CLKTCODE:
+    type: text[6]
+    description: Le code du fournisseur.
+
+  CLCTABRE:
+    type: text[10]
+    description: Le nom abrégé.
+
+  CLCTNOM:
+    type: text[40]
+    description: Le nom ou la raison sociale.
+
+  CLCTRUE1:
+    type: text[40]
+    description: La première ligne de rue.
+
+  CLCTRUE2:
+    type: text[40]
+    description: La deuxième ligne de rue.
+
+  CLCTCP:
+    type: text[16]
+    description: Le code postal.
+
+  CLCTVILLE:
+    type: text[40]
+    description: La ville.
+
+  CLCTPAYS:
+    type: text[20]
+    description: Le nom du pays.
+
+  CLCTCPAYS:
+    type: text[3]
+    description: Le code du pays, tel que PMI l'écrit ; il déborde la norme ISO.
+
+  CLCTSIRET:
+    type: text[20]
+    description: Le numéro SIRET.
+
+  CLCTNOTVA:
+    type: text[20]
+    description: Le numéro de TVA intracommunautaire.
+
+  CLCTTELEP1:
+    type: text[20]
+    description: Le téléphone.
+
+  CLCTFAX1:
+    type: text[20]
+    description: Le fax.
+
+  CLCTCECHEA:
+    type: text[3]
+    description: Le nombre de jours d'échéance, sur trois chiffres.
+
+  CLCTBECHEA:
+    type: enum { 1, 3, 6 }
+    description: La base du calcul de l'échéance.
+
+  CLCTMREG:
+    type: ignored
+    description: Le mode de règlement, hors du modèle.
+
+  CLCTLANGUE:
+    type: enum { 01, 03, 05, 07 }
+    description: La langue du fournisseur.
+
+  CLCTDEVISE:
+    type: text[3]
+    description: La devise des montants du fournisseur.
+
+  CLCTBLOCAG:
+    type: enum { E, C }
+    description: Le motif de blocage ; vide, le fournisseur n'est pas bloqué.
+
+  CLCJCRE:
+    type: date_pmi
+    description: La date de création.
+
+  CLCJMOU:
+    type: date_pmi
+    description: La date de modification.
+
+  CLCTEMAIL:
+    type: text[60]
+    description: L'adresse électronique.
+
+  CLCTSITE:
+    type: text[40]
+    description: Le site web.
+
+  CLCTJOURFO:
+    type: text[1]
+    description: Le délai de livraison du fournisseur.
+
+  CLCTSWIFT:
+    type: text[11]
+    description: Le code BIC de la banque.
+
+  CLCTIBAN:
+    type: text[35]
+    description: L'IBAN du compte bancaire.
+
+  CLCTACTIF:
+    type: enum { O, N }
+    description: "O : le fournisseur est actif, N : inactif ; vide, il est actif."
+
+  CLCTRUE3:
+    type: text[40]
+    description: La troisième ligne de rue.
+
+  CLCNGPSX:
+    type: decimal
+    description: La longitude.
+
+  CLCNGPSY:
+    type: decimal
+    description: La latitude.

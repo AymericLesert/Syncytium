@@ -1,56 +1,143 @@
-# La table ECOMFOU de PMI — 91 colonnes, les mêmes que ECOMCLI : l'entête
-# de commande, la source de commande.commande_achat (D882 — sans héritage entre
-# les ventes et les achats). L'identité : le numéro et l'indice de révision
-# (D865/D951) — une ligne d'entête par révision, ses lignes avec elle. La
-# lecture par plage de numéros (D880). Les colonnes lues typées et
-# renvoyées, les autres non lues (D947).
+# Le nom de la table
+# La table ECOMFOU de PMI, 91 colonnes : l'entête d'une commande d'achat, une ligne par révision.
 name: ECOMFOU
-description: Les entêtes de commandes dachat de PMI — la source de commande.commande_achat
 
+# La description de la table
+description: Les entêtes de commandes d'achat de PMI — la source de commande.commande_achat
+
+# Le périmètre lu
+# La seule société 100.
 filter: ECKTSOC = "100"
+
+# L'identité d'une ligne
+# Le numéro et l'indice de révision de la commande.
 identity: [ECKTNUMERO, ECKTINDICE]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# Les achats corrigent les commandes d'achat à l'origine.
 report:
   when: [migration]
   to: [achats]
   by: [notification, mail]
 
+# La lecture par partition
+# Les dix mille derniers numéros de commande sont relus ; la relecture complète du dimanche relit tout.
 coverage: ECKTNUMERO[10000]
-# la couverture : la partition par plage de dix mille numéros, la reprise
-# depuis la dernière valeur parcourue (D878–D880)
 
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  ECKTSOC:     text[3]                                        # la société — le filtre (D663)
-  ECKTNUMERO:  text[6]                                        # → commande_achat.numero — l'identité (D871) ; le counter surchargé par la migration (D883), converti par le calculé numero (D990)
-  ECKTINDICE:  text[3]                                        # → commande_achat.indice — l'identité (D871)
-  ECCJCRE:     date_pmi                                       # → commande_achat.date
-  ECCTCODE:    FOURNIS.CLKTCODE                               # → commande_achat.fournisseur — la référence (D648)
-  ECCTRUE1:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTRUE2:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTCP:      ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTVILLE:   ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTPAYS:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTCPAYS:   ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTNOMLIV:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTRUE1LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTRUE2LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTCPLIV:   ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTVILLIV:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTPAYSLI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTCPAYLI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
-  ECCTREFCDE:  text[20]                                       # → commande_achat.reference_fournisseur
-  ECCJECHFOR:  date_pmi                                       # → commande_achat.date_echeance
-  ECCJDERBL:   date_pmi                                       # → commande_achat.derniere_reception
-  ECCJDERFA:   date_pmi                                       # → commande_achat.derniere_facture
-  ECCTDEVISE:  text[3]                                        # → commande_achat.devise — la devise des montants (D771)
-  ECCNTXDEVI:  decimal                                        # → commande_achat.taux_change
-  ECCTSTATUT:  ignored                                        # « ECCTSTATUT peut être ignoré » (D1002) — « l'état d'une commande se déduit de l'état des lignes », le calculé de la cible (D1003)
-  ECCTRUE3:    ignored                                        # l'adresse de la commande — « c'est une redondance… le code client est suffisant » (D1004)
-  ECCTRUE3LI:  ignored                                        # l'adresse de livraison — « sur une commande d'achat, nous allons ignorer ces champs » (D1004)
 
-  # --- le numéro de commande en nombre (D990 : la conversion d'une clé se
-  # fait à la lecture, jamais dans la règle ni dans parent:) : le nchar(6)
-  # de PMI vers la valeur du counter (D883) — un calculé de la source (D660) ---
+  ECKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  ECKTNUMERO:
+    type: text[6]
+    description: Le numéro de la commande.
+
+  ECKTINDICE:
+    type: text[3]
+    description: L'indice de révision de la commande.
+
+  ECCJCRE:
+    type: date_pmi
+    description: La date de la commande.
+
+  ECCTCODE:
+    type: FOURNIS.CLKTCODE
+    description: Le code du fournisseur.
+
+  ECCTRUE1:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTRUE2:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTCP:
+    type: ignored
+    description: "Le code postal du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTVILLE:
+    type: ignored
+    description: "La ville du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTPAYS:
+    type: ignored
+    description: "Le pays du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTCPAYS:
+    type: ignored
+    description: "Le code du pays du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTNOMLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTRUE1LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTRUE2LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTCPLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTVILLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTPAYSLI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTCPAYLI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTREFCDE:
+    type: text[20]
+    description: La référence de la commande chez le fournisseur.
+
+  ECCJECHFOR:
+    type: date_pmi
+    description: La date d'échéance.
+
+  ECCJDERBL:
+    type: date_pmi
+    description: La date de la dernière réception.
+
+  ECCJDERFA:
+    type: date_pmi
+    description: La date de la dernière facture.
+
+  ECCTDEVISE:
+    type: text[3]
+    description: La devise des montants de la commande.
+
+  ECCNTXDEVI:
+    type: decimal
+    description: Le taux de change de la devise.
+
+  ECCTSTATUT:
+    type: ignored
+    description: L'état de la commande, qui se déduit de l'état de ses lignes.
+
+  ECCTRUE3:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTRUE3LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  # Les colonnes calculées
   numero:
+    description: Le numéro de la commande en nombre.
     formula: integer(ECKTNUMERO)

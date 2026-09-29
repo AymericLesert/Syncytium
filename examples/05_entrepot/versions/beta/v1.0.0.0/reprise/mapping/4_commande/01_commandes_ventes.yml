@@ -1,35 +1,25 @@
-# L'étape 20 — les commandes de vente : ECOMCLI vers commande.commande_vente,
-# l'entête (D882 — sans héritage entre les ventes et les achats). Les
-# clients (008) et les articles (013–016) précèdent (D662). L'identité :
-# le numéro et l'indice de révision (D865/D951) — une ligne d'entête par
-# révision ; le numéro est un counter dont la migration surcharge la
-# valeur (D883, le privilège de la reprise D175) : la valeur vient du
-# calculé numero de la source, la clé convertie à la lecture (D990). Le
-# client par sa clé (D654 — le raccourci à un champ, D931). Le statut de
-# l'entête n'est pas repris — « ECCTSTATUT peut être ignoré » (D1002), les
-# lignes portent le leur. L'adresse de livraison : le détail repris tel
-# quel, le géocodage est un calculé de la cible (D1004) ; l'adresse de la
-# commande elle-même n'est pas lue, « le code client est suffisant ».
-# Les lignes viennent à l'étape 21, par parent: (D931).
-
+# Les commandes de vente
 ECOMCLI:
+  description: >-
+    Les entêtes des commandes de vente, sans héritage avec les achats ; les clients et les articles précèdent.
+    L'identité : le numéro et l'indice de révision, une ligne d'entête par révision ; le compteur des commandes se
+    repositionne sur la plus grande valeur reprise. Le client se retrouve par son code. Le statut de l'entête n'est pas
+    repris : les lignes portent le leur. L'adresse de livraison est reprise en détail et se géolocalise dans l'entrepôt
+    ; l'adresse de la commande n'est pas lue, le code du client suffit.
   to: commande.commande_vente
   fields:
-    # --- l'identité (D930) ---
-    numero:  numero                       # le calculé de la source — le counter surchargé (D883/D990)
-    indice:  ECKTINDICE
-    # --- le client et la référence ---
-    client:  ECCTCODE                     # la référence par la clé (D654/D931)
-    reference_client: ECCTREFCDE
-    # --- les dates (date_pmi aux settings — D992) ---
+    numero:
+      formula: numero
+      description: Le numéro calculé à la source ; la reprise surcharge la valeur du compteur.
+    indice:             ECKTINDICE
+    client:             ECCTCODE
+    reference_client:   ECCTREFCDE
     date:               ECCJCRE
     date_echeance:      ECCJECHFOR
     derniere_livraison: ECCJDERBL
     derniere_facture:   ECCJDERFA
-    # --- les conditions ---
-    devise:      ECCTDEVISE               # les lignes la lisent par owner (D760)
-    taux_change: ECCNTXDEVI
-    # --- la livraison — le détail, l'adresse géocodée à la cible (D1004) ---
+    devise:             ECCTDEVISE
+    taux_change:        ECCNTXDEVI
     livraison_nom:         ECCTNOMLIV
     livraison_rue1:        ECCTRUE1LI
     livraison_rue2:        ECCTRUE2LI
@@ -38,8 +28,8 @@ ECOMCLI:
     livraison_ville:       ECCTVILLIV
     livraison_pays:        ECCTPAYSLI
   operations:
-    commande_vente.numero.update(numero)   # la méthode du type counter, le champ adressé par le point : le compteur se positionne sur la plus grande valeur reprise (D998/D999)
+    commande_vente.numero.update(numero)
   report:
     when: [migration]
-    to: [commercial]                      # les ventes, c'est le commercial qui corrige (D945)
+    to: [commercial]
     by: [notification, mail]

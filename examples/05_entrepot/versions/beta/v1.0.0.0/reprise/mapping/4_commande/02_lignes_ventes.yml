@@ -1,45 +1,32 @@
-# L'étape 21 — les lignes de commandes de vente : LCOMCLI vers
-# commande.ligne_vente, la composition de l'entête (D399/D931 : to: nomme
-# l'entité fille). Le possesseur est la révision (numéro, indice) — LCKTPSF
-# est l'indice de la commande (D951) ; les deux clés converties à la
-# lecture, jamais dans parent: (D990) : le calculé numero de la source,
-# l'indice tel quel. L'identité de la ligne au sein de la commande : le
-# numéro de ligne, le calculé ligne (D841/D930). L'article par sa clé
-# composée, la même carte que le possesseur (D931). Les prix en amount à
-# la devise de la ligne (D771) ; le prix de revient n'est pas repris, il
-# se déduit — un calculé de la cible, hors exemple (D1005). Les délais sont des
-# jours : « sur les commandes, il n'y a pas d'heures », la colonne S est
-# la semaine, déduite du jour, non reprise (D1000). Le statut traduit
-# depuis les valeurs de PMI (D1002) — sans « ... », un code hors liste est
-# un rejet visible. L'entête fautive emporte ses lignes ; la ligne fautive tombe
-# seule, l'entête entre sans elle (D933).
-
+# Les lignes des commandes de vente
 LCOMCLI:
+  description: >-
+    Les lignes des commandes de vente, composition de l'entête : le possesseur est la révision de la commande, son
+    numéro et son indice ; l'identité d'une ligne est son numéro. Les prix sont à la devise de la ligne, les délais des
+    jours, la semaine se déduit du jour. Le prix de revient n'est pas repris : il se déduit. Un statut hors de la liste
+    est une anomalie. L'entête en anomalie emporte ses lignes ; une ligne en anomalie tombe seule, l'entête entre sans
+    elle.
   to: commande.ligne_vente
   parent:
-    commande_vente: { numero: numero, indice: LCKTPSF }   # les champs mappés du possesseur (D931), le calculé de la source (D990)
+    commande_vente: { numero: numero, indice: LCKTPSF }
   fields:
-    # --- l'identité au sein de la commande (D930) ---
-    numero:  ligne                        # le calculé de la source (D990)
-    # --- l'article ---
-    article: { code: LCCTCODART, complement: LCCTCOMART }   # la référence par la clé composée (D931)
-    # --- les quantités ---
+    numero:  ligne
+    article: { code: LCCTCODART, complement: LCCTCOMART }
     quantite:          LCCNQTECDE
     unite:             LCCTUNICDE
     quantite_expediee: LCCNQTEEXP
     quantite_lancee:   LCCNQTELAN
-    # --- les prix — la devise dans la valeur (D771) ---
     prix_brut:    amount(LCCNPUBRUT, LCCTDEVISE)
     prix_net:     amount(LCCNPUNET, LCCTDEVISE)
-    # --- les délais — des jours (D1000) ---
     delai_demande:     LCCJDELDDE
     delai_accuse:      LCCJDELARR
     delai_expedition:  LCCJDELEXP
     delai_fabrication: LCCJDELFAB
-    # --- l'état ---
-    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'   # les valeurs de PMI (D1002) ; le vide = le nul (D366) ; sans "..." : hors liste = rejet
+    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
   validation:
-    - me.unite in me.article.unite.units   # « pour l'exemple, l'unité peut être contrôlée lors de la migration » (D1007) — le deuxième temps (D1006) : l'unité de la ligne parmi celles que l'article connaît (D982/D983)
+    - rule: me.unite in me.article.unite.units
+      description: L'unité de la ligne est l'une de celles que son article connaît.
+      message: L'unité de la ligne n'est pas une unité connue de son article.
   report:
     when: [migration]
     to: [commercial]

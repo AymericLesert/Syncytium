@@ -1,32 +1,29 @@
-# L'étape 22 — les commandes d'achat : ECOMFOU vers commande.commande_achat,
-# l'entête — la même structure qu'ECOMCLI (le préfixe EC), séparée sans
-# héritage (D882) : la règle se répète, c'est le prix du choix. Les
-# fournisseurs (007) et les articles précèdent (D662). Le numéro par le
-# calculé numero de la source — le counter surchargé (D883), la clé
-# convertie à la lecture (D990) ; le fournisseur par sa clé (D654) ; le
-# statut de l'entête ignoré (D1002). Pas d'adresse de livraison :
-# l'achat est livré chez l'entreprise. Les lignes à l'étape 23.
-
+# Les commandes d'achat
 ECOMFOU:
+  description: >-
+    Les entêtes des commandes d'achat : la structure des ventes, séparée sans héritage — la règle se répète. Les
+    fournisseurs et les articles précèdent. L'identité : le numéro et l'indice de révision ; le compteur des commandes
+    se repositionne sur la plus grande valeur reprise. Le fournisseur se retrouve par son code. Le statut de l'entête
+    n'est pas repris. Pas d'adresse de livraison : l'achat est livré chez l'entreprise.
   to: commande.commande_achat
   fields:
-    # --- l'identité (D930) ---
-    numero:  numero                       # le calculé de la source — le counter surchargé (D883/D990)
-    indice:  ECKTINDICE
-    # --- le fournisseur et la référence ---
-    fournisseur: ECCTCODE                 # la référence par la clé (D654/D931)
+    numero:
+      formula: numero
+      description: Le numéro calculé à la source ; la reprise surcharge la valeur du compteur.
+    indice:                ECKTINDICE
+    fournisseur:           ECCTCODE
     reference_fournisseur: ECCTREFCDE
-    # --- les dates ---
-    date:               ECCJCRE
-    date_echeance:      ECCJECHFOR
-    derniere_reception: ECCJDERBL         # chez le fournisseur, le dernier bon est une réception
-    derniere_facture:   ECCJDERFA
-    # --- les conditions ---
-    devise:      ECCTDEVISE
-    taux_change: ECCNTXDEVI
+    date:                  ECCJCRE
+    date_echeance:         ECCJECHFOR
+    derniere_reception:
+      formula: ECCJDERBL
+      description: Chez le fournisseur, le dernier bon est une réception.
+    derniere_facture:      ECCJDERFA
+    devise:                ECCTDEVISE
+    taux_change:           ECCNTXDEVI
   operations:
-    commande_achat.numero.update(numero)   # le compteur repositionné (D998/D999)
+    commande_achat.numero.update(numero)
   report:
     when: [migration]
-    to: [achats]                          # les achats, c'est le service achats qui corrige (D945)
+    to: [achats]
     by: [notification, mail]

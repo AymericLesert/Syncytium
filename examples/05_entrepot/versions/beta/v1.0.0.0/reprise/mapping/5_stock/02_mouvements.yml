@@ -1,51 +1,41 @@
-# L'étape 25 — les mouvements de stock : MVTSTO vers stock.mouvement, la
-# dernière étape, des millions de lignes (D863). La lecture par partition
-# s'écrit à la source — coverage: MVCJMVT[month - 3], trois mois relus
-# chaque nuit, la totalité le dimanche (D880/D943) ; le mouvement n'a pas
-# d'historique, les écarts remplacent (D878/D882). L'identité : les
-# colonnes I de PMI (le document, la ligne, l'indice, le composant),
-# l'article et l'horodatage de saisie — datetime(MVCJSAI, MVCTSAI), le
-# constructeur du type à la seconde (D1001). Le sens et le type traduits
-# depuis les codes de PMI (D893/D952/D953) — sans « ... », un code hors
-# liste est un rejet (D1002). La quantité : « une quantité avec une unité
-# (celle du stockage de l'article). Elle est signée et vient en complément
-# du type de mouvement E/S. Une valeur négative est une correction »
-# (D1009) — la mesure construite dans l'unité de stock de l'article, lue à
-# la source par le calculé unite_stock (D965) ; le mouvement à zéro entre,
-# le calculé valide de la cible le marque. L'emplacement est au
-# référentiel par construction (D1008) : la règle ne se complète pas.
-# Le dépôt et l'emplacement par leurs clés, les référentiels des étapes 3
-# et 6 les ont vus naître (D962). Le prix à la devise de l'entreprise
-# (D993), gardé sur le mouvement parce qu'il « varie en fonction du
-# temps » (D1011) ; la valeur se recalcule à la cible, MVCNVAL ignorée. Le poids
-# unitaire « est à porter au niveau de l'article » (D1010) : MVCNPDSUNI
-# ignorée, la masse du mouvement est quantite.to(kg) par la matrice de
-# l'article.
-
+# Les mouvements de stock
 MVTSTO:
+  description: >-
+    Les mouvements de stock, la dernière étape : des millions de lignes, lues par partition — trois mois relus chaque
+    nuit, la totalité le dimanche. Le mouvement n'a pas d'historique : les écarts remplacent. L'identité : le document,
+    la ligne, l'indice et le composant de PMI, l'article et l'horodatage de saisie. Un genre ou un sens hors de la liste
+    est une anomalie ; un mouvement à zéro entre, l'entrepôt le marque non valide. Le dépôt et l'emplacement se
+    retrouvent par leurs codes, nés avec les lieux ; le lot est en texte, sans référentiel. Le prix, à la devise de
+    l'entreprise, reste sur le mouvement parce qu'il varie dans le temps ; la valeur se recalcule dans l'entrepôt, et la
+    masse du mouvement se convertit par l'unité de l'article, qui porte le poids unitaire.
   to: stock.mouvement
   fields:
-    # --- l'identité (D930) : l'origine, l'article, l'horodatage ---
     document:   MVITNUMERO
     ligne:      MVITLIGNE
     indice:     MVITINDLIG
     composant:  MVITCOMPOS
-    article:    { code: MVCTCODART, complement: MVCTCOMART }   # la référence par la clé composée (D931)
-    horodatage: datetime(MVCJSAI, MVCTSAI)                     # le constructeur du type (D659/D1001)
-    # --- le lieu ---
-    depot:       MVCTDEPOT                                      # la référence par la clé (D654)
-    emplacement: { depot: MVCTDEPOT, code: MVCTCODMPL }         # le couple (D962)
-    lot:         MVCTNUMLOT              # une propriété de l'enregistrement, sans référentiel (D1018)
-    # --- le moment ---
-    date: MVCJMVT                         # « la date du mouvement à enregistrer dans le système » (D1001)
-    # --- le mouvement ---
-    type: 'MVCTGENRE.select(C: "consommation", D: "deplacement", E: "expedition", F: "fabrication", I: "inventaire", R: "reception")'   # les six genres (D953)
-    sens: 'MVCTTYPE.select(E: "entree", S: "sortie")'           # E/S (D952)
-    quantite:       measure(MVCNQTE, unite_stock)   # signée, dans l'unité de stock de l'article (D1009/D975)
-    prix_unitaire:  amount(MVCNPUNIT)     # la devise de l'entreprise (D993)
+    article:    { code: MVCTCODART, complement: MVCTCOMART }
+    horodatage:
+      formula: datetime(MVCJSAI, MVCTSAI)
+      description: Le jour et l'heure de la saisie, à la seconde.
+    depot:       MVCTDEPOT
+    emplacement: { depot: MVCTDEPOT, code: MVCTCODMPL }
+    lot:         MVCTNUMLOT
+    date:        MVCJMVT
+    type:
+      formula: >-
+        MVCTGENRE.select(C: "consommation", D: "deplacement", E: "expedition", F: "fabrication",
+        I: "inventaire", R: "reception")
+      description: Les six genres de PMI au vocabulaire de l'entrepôt.
+    sens: 'MVCTTYPE.select(E: "entree", S: "sortie")'
+    quantite:
+      formula: measure(MVCNQTE, unite_stock)
+      description: >-
+        Signée, dans l'unité de stock de l'article : une valeur négative est une correction.
+    prix_unitaire:  amount(MVCNPUNIT)
     utilisateur:    MVCTNOMUTI
     stock_avant:    measure(MVCNAVQTST, unite_stock)
   report:
     when: [migration]
-    to: [logistique]                              # les mouvements, c'est la logistique qui corrige (D1061/D1062)
+    to: [logistique]
     by: [notification, mail]

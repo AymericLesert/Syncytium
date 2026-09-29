@@ -4,8 +4,7 @@
 name: ARTICLE
 
 # La description de la table
-description:
-  fr: Les articles de PMI — la source de technique.article, fabrique, semi_fini et fantome
+description: Les articles de PMI — la source de technique.article, fabrique, semi_fini et fantome
 
 # Le périmètre lu
 # La seule société 100.
@@ -29,298 +28,240 @@ fields:
 
   ARKTSOC:
     type: text[3]
-    description:
-      fr: La société ; seule la société 100 est lue.
+    description: La société ; seule la société 100 est lue.
 
   ARKTCODART:
     type: text[18]
-    description:
-      fr: Le code de l'article, première partie de son identité.
+    description: Le code de l'article, première partie de son identité.
 
   ARKTCOMART:
     type: text[6]
-    description:
-      fr: Le complément du code, seconde partie de son identité.
+    description: Le complément du code, seconde partie de son identité.
 
   ARCTTYPART:
     type: enum { AC, CO, LI, MI, MO, OU, PF, PL, SF, ST }
-    description:
-      fr: Le type d'article ; un code hors de cette liste, PR compris, met la ligne en erreur.
+    description: Le type d'article ; un code hors de cette liste, PR compris, met la ligne en erreur.
 
   ARITNATURE:
     type: ignored
-    description:
-      fr: Un index de PMI, pas une clé.
+    description: Un index de PMI, pas une clé.
 
   ARITCONART:
     type: ignored
-    description:
-      fr: Un index de PMI, pas une clé.
+    description: Un index de PMI, pas une clé.
 
   ARCTLIB01:
     type: text[30]
-    description:
-      fr: Le libellé.
+    description: Le libellé.
 
   ARCTLIB02:
     type: text[30]
-    description:
-      fr: Le libellé secondaire.
+    description: Le libellé secondaire.
 
   ARCTUNICDE:
     type: enum { PL, U }
-    description:
-      fr: L'unité de commande ; elle peut être vide.
+    description: L'unité de commande ; elle peut être vide.
 
   ARCTUNISTO:
     type: enum { PL, U }
-    description:
-      fr: L'unité de stock, qui est aussi l'unité de mesure de l'article.
+    description: L'unité de stock, qui est aussi l'unité de mesure de l'article.
 
   ARCTUNIFAC:
     type: ignored
-    description:
-      fr: L'unité de facturation, hors du périmètre.
+    description: L'unité de facturation, hors du périmètre.
 
   ARCTUNICON:
     type: ignored
-    description:
-      fr: L'unité de conditionnement, hors du périmètre.
+    description: L'unité de conditionnement, hors du périmètre.
 
   ARCTCONV1A:
     type: text[2]
-    description:
-      fr: Le premier couple de conversion d'unités — l'unité source.
+    description: Le premier couple de conversion d'unités — l'unité source.
 
   ARCTCONV1B:
     type: text[2]
-    description:
-      fr: Le premier couple de conversion d'unités — l'unité cible.
+    description: Le premier couple de conversion d'unités — l'unité cible.
 
   ARCNCONC01:
     type: decimal
-    description:
-      fr: "Le premier couple de conversion d'unités — le coefficient : une unité source vaut ce nombre d'unités cible."
+    description: >-
+      Le premier couple de conversion d'unités — le coefficient : une unité source vaut ce nombre d'unités cible.
 
   ARCTCONV2A:
     type: text[2]
-    description:
-      fr: Le second couple de conversion d'unités — l'unité source.
+    description: Le second couple de conversion d'unités — l'unité source.
 
   ARCTCONV2B:
     type: text[2]
-    description:
-      fr: Le second couple de conversion d'unités — l'unité cible.
+    description: Le second couple de conversion d'unités — l'unité cible.
 
   ARCNCONC02:
     type: decimal
-    description:
-      fr: Le second couple de conversion d'unités — le coefficient.
+    description: Le second couple de conversion d'unités — le coefficient.
 
   ARCNPDSUNI:
     type: decimal
-    description:
-      fr: Le poids unitaire.
+    description: Le poids unitaire.
 
   ARCNQTECO:
     type: decimal
-    description:
-      fr: La quantité économique.
+    description: La quantité économique.
 
   ARCNPUACH1:
     type: decimal
-    description:
-      fr: Le prix d'achat.
+    description: Le prix d'achat.
 
   ARCTNOFOU1:
     type: FOURNIS.CLKTCODE or CLIENT.CLKTCODE
-    description:
-      fr: >-
-        Le compte 1 : le fournisseur par défaut de l'article acheté, ou son client de référence ; le premier des deux
-        qui correspond fait le lien.
+    description: >-
+      Le compte 1 : le fournisseur par défaut de l'article acheté, ou son client de référence ; le premier des deux qui
+      correspond fait le lien.
 
   ARCTNOFOU2:
     type: ignored
-    description:
-      fr: "Le compte 2, le dernier achat ou la dernière vente : il se calcule, il ne se reprend pas."
+    description: "Le compte 2, le dernier achat ou la dernière vente : il se calcule, il ne se reprend pas."
 
   ARCTFATN:
     type: enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }
-    description:
-      fr: "Le code de gestion, qui décide du dérivé de l'article : fabriqué, semi-fini ou fantôme."
+    description: "Le code de gestion, qui décide du dérivé de l'article : fabriqué, semi-fini ou fantôme."
 
   ARCNPMP:
     type: decimal
-    description:
-      fr: Le prix moyen pondéré.
+    description: Le prix moyen pondéré.
 
   ARCNPRS:
     type: decimal
-    description:
-      fr: Le prix de revient.
+    description: Le prix de revient.
 
   ARCTGDEPOT:
     type: enum { O, N }
-    description:
-      fr: "O : l'article est géré en stock."
+    description: "O : l'article est géré en stock."
 
   ARCJCRE:
     type: date_pmi
-    description:
-      fr: La date de création.
+    description: La date de création.
 
   ARCJMOD:
     type: date_pmi
-    description:
-      fr: La date de modification.
+    description: La date de modification.
 
   ARCTCODFAM:
     type: text[4]
-    description:
-      fr: Le code de famille, de deux à quatre caractères ; un 4e caractère à 1 marque l'article périssable.
+    description: Le code de famille, de deux à quatre caractères ; un 4e caractère à 1 marque l'article périssable.
 
   ARCTCOSFAM:
     type: text[4]
-    description:
-      fr: Le code de sous-famille.
+    description: Le code de sous-famille.
 
   ARCTCODMPL:
     type: text[10]
-    description:
-      fr: L'emplacement d'expédition.
+    description: L'emplacement d'expédition.
 
   ARCTCODEP:
     type: text[6]
-    description:
-      fr: Le dépôt d'expédition.
+    description: Le dépôt d'expédition.
 
   ARCNSTOMAX:
     type: decimal
-    description:
-      fr: Le stock maximum.
+    description: Le stock maximum.
 
   ARCNSTOMIN:
     type: decimal
-    description:
-      fr: Le stock minimum.
+    description: Le stock minimum.
 
   ARCTCODMA1:
     type: text[3]
-    description:
-      fr: La matière 1 de l'article.
+    description: La matière 1 de l'article.
 
   ARCTCODMA2:
     type: text[3]
-    description:
-      fr: La matière 2 de l'article.
+    description: La matière 2 de l'article.
 
   ARCTCODMA3:
     type: text[3]
-    description:
-      fr: La matière 3 de l'article.
+    description: La matière 3 de l'article.
 
   ARCTCODMA4:
     type: text[3]
-    description:
-      fr: La matière 4 de l'article.
+    description: La matière 4 de l'article.
 
   ARCTCODMA5:
     type: text[3]
-    description:
-      fr: La matière 5 de l'article.
+    description: La matière 5 de l'article.
 
   ARCTCODMA6:
     type: text[3]
-    description:
-      fr: La matière 6 de l'article.
+    description: La matière 6 de l'article.
 
   ARCTCODMA7:
     type: text[3]
-    description:
-      fr: La matière 7 de l'article.
+    description: La matière 7 de l'article.
 
   ARCTCODMA8:
     type: text[3]
-    description:
-      fr: La matière 8 de l'article.
+    description: La matière 8 de l'article.
 
   ARCTCODMA9:
     type: text[3]
-    description:
-      fr: La matière 9 de l'article.
+    description: La matière 9 de l'article.
 
   ARCNLONGUE:
     type: decimal
-    description:
-      fr: La longueur.
+    description: La longueur.
 
   ARCNLARGEU:
     type: decimal
-    description:
-      fr: La largeur.
+    description: La largeur.
 
   ARCNEPAISS:
     type: decimal
-    description:
-      fr: L'épaisseur.
+    description: L'épaisseur.
 
   ARCNVOLUNI:
     type: decimal
-    description:
-      fr: Le volume unitaire.
+    description: Le volume unitaire.
 
   ARCTEAN13:
     type: text[20]
-    description:
-      fr: Le code EAN 13 ; seuls ses 13 premiers caractères sont repris.
+    description: Le code EAN 13 ; seuls ses 13 premiers caractères sont repris.
 
   ARCTGSAV:
     type: ignored
-    description:
-      fr: "N sur toutes les lignes : la colonne ne porte aucune information."
+    description: "N sur toutes les lignes : la colonne ne porte aucune information."
 
   ARCTFICPLA:
     type: text[250]
-    description:
-      fr: Le nom du fichier du plan, lu dans le dossier des plans.
+    description: Le nom du fichier du plan, lu dans le dossier des plans.
 
   ARCTCODEPR:
     type: text[6]
-    description:
-      fr: Le dépôt de réception.
+    description: Le dépôt de réception.
 
   ARCTCOEMPR:
     type: text[10]
-    description:
-      fr: L'emplacement de réception.
+    description: L'emplacement de réception.
 
   ARCTCODEPF:
     type: text[6]
-    description:
-      fr: Le dépôt de fabrication.
+    description: Le dépôt de fabrication.
 
   ARCTCOEMPF:
     type: text[10]
-    description:
-      fr: L'emplacement de fabrication.
+    description: L'emplacement de fabrication.
 
   ARCTCODEPC:
     type: text[6]
-    description:
-      fr: Le dépôt de consommation.
+    description: Le dépôt de consommation.
 
   ARCTCOEMPC:
     type: text[10]
-    description:
-      fr: L'emplacement de consommation.
+    description: L'emplacement de consommation.
 
   ARCTBLOCAG:
     type: text[20]
-    description:
-      fr: Le blocage de l'article ; vide, l'article est actif.
+    description: Le blocage de l'article ; vide, l'article est actif.
 
   # Les colonnes calculées
   famille_code:
-    description:
-      fr: Le code de famille sans son drapeau de périssable.
+    description: Le code de famille sans son drapeau de périssable.
     formula: left(ARCTCODFAM, 3)

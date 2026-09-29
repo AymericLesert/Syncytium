@@ -1,41 +1,31 @@
 # Les groupes d'utilisateurs : les strates de l'entreprise, de l'opérateur aux dirigeants. Le nom d'un groupe est sa
 # clé, citée par la confidentialité des champs et par les droits ; chaque groupe porte son libellé (label) et sa
-# description, par langue. Un groupe est au degré user, sauf s'il en déclare un autre.
+# description. Un groupe est au degré user, sauf s'il en déclare un autre.
 
 # Le groupe commercial
 commercial:
-  label:
-    fr: Commercial
-  description:
-    fr: L'administration des ventes — les clients et les commandes de vente.
+  label: Commercial
+  description: L'administration des ventes — les clients et les commandes de vente.
 
 # Le groupe des achats
 achats:
-  label:
-    fr: Achats
-  description:
-    fr: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
+  label: Achats
+  description: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
 
 # Le groupe du bureau d'études
 bureau_etudes:
-  label:
-    fr: Bureau d'études
-  description:
-    fr: La conception — les articles et les nomenclatures.
+  label: Bureau d'études
+  description: La conception — les articles et les nomenclatures.
 
 # Le groupe de la logistique
 logistique:
-  label:
-    fr: Logistique
-  description:
-    fr: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux.
+  label: Logistique
+  description: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux.
 
 # Le groupe de la direction
 direction:
-  label:
-    fr: Direction
-  description:
-    fr: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
+  label: Direction
+  description: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
 
   # Les groupes qui composent la direction
   # Un membre de la direction voit tout ce que voient les groupes qui la composent.
@@ -43,10 +33,8 @@ direction:
 
 # Le groupe de l'administration
 administration:
-  label:
-    fr: Administration
-  description:
-    fr: Le pilotage de l'entrepôt — les migrations, leurs indicateurs, leurs anomalies.
+  label: Administration
+  description: Le pilotage de l'entrepôt — les migrations, leurs indicateurs, leurs anomalies.
 
   # Le degré d'autorisation
   # Le seul groupe au degré administrator : il lance les migrations et réinitialise leur couverture.

@@ -1,5 +1,7 @@
 # Le cas 4 — les applications domestiques : le compte bancaire
 
+*(D1101 : la banque parlera trois langues — `languages: [fr, en, es]` — et portera chacun de ses textes par langue ; l'exemple multilingue de l'échelle, à sa relecture.)*
+
 *Le cadre du cas — la mise en situation (Q59/D756–D758) : le
 contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les

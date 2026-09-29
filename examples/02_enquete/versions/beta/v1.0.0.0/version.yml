@@ -1,6 +1,12 @@
 # Identification et description de la version — la version en tête (D801)
 
 version: 1.0.0.0
+
+# Les langues de l'application
+# La première est la langue par défaut ; ajouter ou retirer une langue fait une nouvelle version. Avec une seule
+# langue, les libellés et les descriptions s'écrivent en texte simple.
+languages: [fr]
+
 release-notes: >
   La première version de l'enquête de satisfaction — le « hello
   world » de Syncytium : un module, une table et une composition,

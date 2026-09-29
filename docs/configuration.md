@@ -384,7 +384,8 @@ refusé (D330).
 
 ```yaml
 version: 1.0.0.0
-release-notes: >                     # les évolutions de la version (D808) — l'historique par concaténation
+languages: [fr, en]                  # les langues de la version, la première par défaut (D217/D1101)
+release-notes: |                     # les évolutions de la version (D808/D1096) — l'historique par concaténation
   La première version de l'entrepôt de données — …
 settings: ~{settings.yml}
 groups: ~{groups.yml}
@@ -396,6 +397,19 @@ hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
 resources: ~{resources/resources.yml}   # les ressources déclarées (D346)
 from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
 ```
+
+**Les langues de la version** (D217/D219/D1101) : `languages:`, sous
+`version:`, liste les langues que la version gère — de une à trois ;
+la première est la langue par défaut ; ajouter ou retirer une langue
+fait une nouvelle version. **Une seule langue** : `label:`, `hint:` et
+`description:` s'écrivent en texte simple (`description: Le prix
+d'achat.`), la forme par langue reste admise. **Plusieurs langues** :
+chaque texte précise ses langues (`label: { fr: Prix, en: Price }`) —
+un texte simple est une erreur d'ingestion ; une langue de la liste
+absente d'un texte se replie sur la langue par défaut (D219) ; une
+langue du texte qui n'est plus dans la liste n'est pas une erreur :
+la langue par défaut est employée. Le cas 5 parle le français seul ;
+la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
 
 ### 3.5 `settings.yml` — la maison des types et des réglages (D359/D360, D991–D993)
 

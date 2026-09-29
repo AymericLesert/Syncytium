@@ -1233,6 +1233,7 @@ Q58) :
 | D1098 | **Les sous-clés répétées à l'identique s'expliquent une fois, sur le bloc parent ; le profil `direction` garde son nom** (précise D1084/D1097 ; la relecture D1021, le fichier 13) : à mes deux questions (renommer le profil homonyme du groupe ; l'introduction avant chaque sous-clé répétée) — « 1. on garde direction 2. une intro sur le bloc parent » — `type`, `class`, `parameters` des connecteurs, `interval`, `directory`, `pattern`, `retention` des règles de nettoyage, `level`, `groups` des profils : une introduction en tête du fichier ou du bloc parent ; les sous-clés sans introduction s'écrivent serrées. | settings.yml, les deux connectors.yml, les deux cleanup.yml du cas 5 (contenu inchangé, vérifié) ; une introduction propre reste là où la sous-clé dit quelque chose de singulier (les paramètres de PMI, la convention). configuration.md. Voir §3.2c. |
 | D1099 | **La composition des groupes : un membre du groupe contenant voit tout ce que voient les groupes qui le composent** (amende D414 — « le membre d'un constituant est membre du contenant » ; la relecture D1021, le fichier 14) : sur l'inversion relevée — la direction composée des strates, la lecture de D414 faisait de chaque membre d'une strate un membre de la direction, et lui ouvrait les marges — « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. » — le contenant est au-dessus de ses constituants : la direction reçoit ce que ses strates voient, les strates ne reçoivent rien de la direction. | groups.yml du cas 5 réécrit (la composition gardée ; les « (D1061) » retirés des descriptions affichées ; l'administration décrite par les migrations, leurs indicateurs, leurs anomalies) ; rights.md, configuration.md, glossaire.md. Voir §3.2c. |
 | D1100 | **Ce que la documentation doit porter s'écrit en propriété, pas en commentaire : un champ reçoit sa `description:`** (précise D810 — `description:` partout, D1084 ; la relecture D1021, les sources) : sur la forme proposée pour les colonnes des sources (le champ alimenté et le motif en commentaire de fin) — « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. » — le commentaire sert le lecteur du fichier ; la propriété nourrit la documentation générée. | Les commentaires collés à `}` de deux lignes d'ARTICLE.yml (`enum { … }# → …`, le texte avalé dans le type) relevés au même examen. Les modalités posées en question : `description:` seul ou avec `comment:` ; en texte simple ou par langue ; le champ alimenté redit ou laissé aux règles. Voir §3.2c. |
+| D1101 | **`languages:` sous `version:` — les langues de la version, la première par défaut ; une seule langue, les textes en texte simple ; plusieurs, la langue précisée ou l'erreur** (écrit D217 — « le modèle liste les langues permises », jamais écrit ; précise D219, D124/D127 ; la relecture D1021, les sources) : « Peut-on avoir une règle qui dit que si l'application ne gère qu'une seule langue, nous simplifions. Si nous introduisons le multilangue, cela constituera une erreur si la langue n'est pas précisée ? Il me semblait que nous avions une partie de la configuration avec la liste des langues, je ne le trouve pas. » ; puis « dans version.yml, sous version: - les langues sont portées par une version, l'ajout ou la suppression d'une langue nécessite une nouvelle version. Un paramètre qui utilise une langue qui devient une langue inutilisée, la langue par défaut est alors utilisée, ie. la première langue. le cas 5, en français uniquement. le multi-langue fr, en, es pour "banque" » — une langue retirée ne rend pas un texte faux : la langue par défaut sert. | Toutes les colonnes des sources décrites (« toutes les colonnes »). Le cas 5, l'enquête et le véhicule portent `languages: [fr]` ; le cas 5 passe ses textes en texte simple au fil de la relecture (ARTICLE, groups.yml déjà) ; la banque recevra `[fr, en, es]` et ses traductions à sa relecture. configuration.md (§3.4, et `release-notes: |`). Voir §3.2c. |
 
 ---
 
@@ -12588,6 +12589,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La description en propriété, pas en commentaire (D1100).** « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. »
 
+**Les langues de la version (D1101).** « dans version.yml, sous version: - les langues sont portées par une version, l'ajout ou la suppression d'une langue nécessite une nouvelle version. Un paramètre qui utilise une langue qui devient une langue inutilisée, la langue par défaut est alors utilisée, ie. la première langue. le cas 5, en français uniquement. le multi-langue fr, en, es pour "banque" »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23674,6 +23677,18 @@ avant la synthèse Q16).
   Un champ peut contenir une propriété "description:" ou "comment:".
   Plutôt qu'un commentaire, une propriété avec la description serait
   utile. » — deux commentaires collés dans ARTICLE.yml relevés.
+- **2026-09-29 (suite 4) — LES LANGUES DE LA VERSION (D1101, 1101
+  décisions).** « 1. toutes les colonnes » ; « Peut-on avoir une règle
+  qui dit que si l'application ne gère qu'une seule langue, nous
+  simplifions. Si nous introduisons le multilangue, cela constituera une
+  erreur si la langue n'est pas précisée ? Il me semblait que nous
+  avions une partie de la configuration avec la liste des langues, je ne
+  le trouve pas. » — D217 retrouvé ; « dans version.yml, sous version: -
+  les langues sont portées par une version, l'ajout ou la suppression
+  d'une langue nécessite une nouvelle version. Un paramètre qui utilise
+  une langue qui devient une langue inutilisée, la langue par défaut est
+  alors utilisée, ie. la première langue. le cas 5, en français
+  uniquement. le multi-langue fr, en, es pour "banque" ».
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

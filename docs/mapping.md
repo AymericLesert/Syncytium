@@ -383,7 +383,10 @@ unique (D6/D90) y citent une valeur de la source — `{LCCTCODART}`, la
 colonne lue — ou une propriété de l'enregistrement construit —
 `{me.unite}`, `{me.article.code}` ; le texte se résout à l'échec, et
 l'anomalie garde le message résolu. Ce n'est pas l'interpolation
-`${…}` de la configuration, résolue au chargement (D802).
+`${…}` de la configuration, résolue au chargement (D802). Entre les
+accolades, un nom, un chemin ou une expression du langage unique ;
+une valeur nulle s'écrit vide ; à la source et à l'entité, les mêmes
+accolades citent la colonne lue ou le champ.
 
 ```yaml
 # reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)

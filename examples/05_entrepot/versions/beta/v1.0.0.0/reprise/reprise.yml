@@ -43,7 +43,8 @@ cegid:
   # numéro du dossier, puis celui du fichier, font l'ordre des étapes. Une règle porte le nom de sa table source : sa
   # description, sa cible (to), son filtre (filter), ses valeurs distinctes (distinct), son possesseur (parent), ses
   # affectations (fields — la formule, ou en forme longue formula, description et message), ses contrôles
-  # (validation — rule, description et message), ses opérations de fin (operations) et son rapport (report).
+  # (validation — rule, description et message), ses opérations de fin (operations) et son rapport (report). Le
+  # message est un gabarit : {…} y cite une colonne de la source ou un champ de l'enregistrement construit (me).
   mapping:
     - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
 

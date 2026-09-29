@@ -468,7 +468,7 @@ fields:
   entite:     { type: 'text[..80]' }                     # phase 5
   colonne:    { type: 'text[..80]' }                     # la colonne ou le champ en cause
   validation: { type: 'text[..400]' }                    # la règle de validation en cause
-  message:    { type: 'text[..400]', required: true }    # la nature de l'anomalie, pour le rapport
+  message:    { type: 'text[..400]', required: true }    # la nature de l'anomalie, le gabarit résolu (D1106)
   valeurs:    { type: text }                             # les valeurs en cause
 ```
 

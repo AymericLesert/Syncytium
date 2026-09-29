@@ -378,9 +378,15 @@ l'anomalie si l'affectation échoue. **Une validation de même** : `-
 expression` en forme courte, ou `rule:`, `description:`, `message:`.
 Une carte sans `formula:` reste la carte de clé d'une référence
 (D931) : `formula` distingue les deux.
+**Le `message:` est un gabarit** (D1106) : les accolades du langage
+unique (D6/D90) y citent une valeur de la source — `{LCCTCODART}`, la
+colonne lue — ou une propriété de l'enregistrement construit —
+`{me.unite}`, `{me.article.code}` ; le texte se résout à l'échec, et
+l'anomalie garde le message résolu. Ce n'est pas l'interpolation
+`${…}` de la configuration, résolue au chargement (D802).
 
 ```yaml
-# reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105)
+# reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
 LCOMFOU:
   description: >-
     Les lignes des commandes d'achat, composition de l'entête : le possesseur est la révision de la commande, son
@@ -397,7 +403,7 @@ LCOMFOU:
   validation:
     - rule: me.unite in me.article.unite.units
       description: L'unité de la ligne est l'une de celles que son article connaît.
-      message: L'unité de la ligne n'est pas une unité connue de son article.
+      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.   # le gabarit (D1106)
 ```
 
 **Les champs mutualisés par la référence de fichier (D967).** Quand

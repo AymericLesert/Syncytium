@@ -1,48 +1,53 @@
-# Les groupes d'utilisateurs — les strates de l'entreprise (D859 : « de
-# l'opérateur aux dirigeants »), à la racine de la version (D414). Le
-# nom = la clé, cité partout (la confidentialité des champs, les allow).
-# Le degré intrinsèque porté par le groupe (D699) : user par défaut ;
-# administration seule au degré administrator — migrate (D667) et
-# reset_coverage (D881) lui reviennent (D701).
-# « Un groupe est constitué d'autres groupes » (D414) : direction
-# contient les strates métier — ses membres voient tout ce qu'elles voient.
+# Les groupes d'utilisateurs : les strates de l'entreprise, de l'opérateur aux dirigeants. Le nom d'un groupe est sa
+# clé, citée par la confidentialité des champs et par les droits ; chaque groupe porte son libellé (label) et sa
+# description, par langue. Un groupe est au degré user, sauf s'il en déclare un autre.
 
+# Le groupe commercial
 commercial:
   label:
     fr: Commercial
   description:
     fr: L'administration des ventes — les clients et les commandes de vente.
 
+# Le groupe des achats
 achats:
   label:
     fr: Achats
   description:
     fr: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
 
+# Le groupe du bureau d'études
 bureau_etudes:
   label:
     fr: Bureau d'études
   description:
-    fr: La conception — les articles et les nomenclatures (D1061).
+    fr: La conception — les articles et les nomenclatures.
 
+# Le groupe de la logistique
 logistique:
   label:
     fr: Logistique
   description:
-    fr: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux (D1061).
+    fr: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux.
 
+# Le groupe de la direction
 direction:
   label:
     fr: Direction
   description:
     fr: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
-  # la composition des groupes (D414) — le membre d'un constituant est
-  # membre du contenant : la direction voit ce que voient les strates
+
+  # Les groupes qui composent la direction
+  # Un membre de la direction voit tout ce que voient les groupes qui la composent.
   groups: [bureau_etudes, logistique, commercial, achats]
 
+# Le groupe de l'administration
 administration:
   label:
     fr: Administration
   description:
-    fr: Le pilotage de l'entrepôt — la migration, la couverture, les rejets.
+    fr: Le pilotage de l'entrepôt — les migrations, leurs indicateurs, leurs anomalies.
+
+  # Le degré d'autorisation
+  # Le seul groupe au degré administrator : il lance les migrations et réinitialise leur couverture.
   degree: administrator

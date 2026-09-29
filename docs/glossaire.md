@@ -150,7 +150,9 @@ en propriété d'une association dérivée, à côté du tri (`sort:`).
 
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
-les destinataires d'un rapport. Un groupe peut en contenir d'autres. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
+les destinataires d'un rapport. Un groupe peut en contenir d'autres :
+un membre du groupe contenant voit tout ce que voient les groupes qui le
+composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
 Le groupe porte **le degré d'autorisation** (`degree:` — `user`,
 `manager` ou `administrator`, D699) ; l'appartenance à un groupe est
 **obligatoire** pour utiliser l'application.

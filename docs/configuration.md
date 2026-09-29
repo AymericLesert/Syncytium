@@ -436,7 +436,7 @@ production:
   description: { fr: Les opérateurs et la préparation — … }
 direction:
   label: { fr: Direction }
-  groups: [production, commercial, achats]   # « un groupe est constitué d'autres groupes »
+  groups: [production, commercial, achats]   # un membre de la direction voit ce que voient ces groupes (D414/D1099)
 administration:
   degree: administrator                      # le degré porté par le groupe (D699/D701)
 ```

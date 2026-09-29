@@ -120,7 +120,10 @@ version) ; la voie déclarée demeure le `demote` d'une version.
 
 - **`groups.yml`** à la racine de la version — la hiérarchie sans
   lien parent (« un groupe est constitué d'autres groupes »),
-  acyclique, la multi-appartenance naturelle (D414) ;
+  acyclique, la multi-appartenance naturelle (D414) ; **un membre du
+  groupe contenant voit tout ce que voient les groupes qui le
+  composent** (D1099) — la direction au-dessus de ses strates, jamais
+  l'inverse ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le

@@ -1231,6 +1231,7 @@ Q58) :
 | D1096 | **Les notes de version en scalaire littéral (`\|`) : leur Markdown garde ses lignes ; elles disent ce que la version apporte, pas l'histoire du cas** (précise D801 — la version en tête ; applique D1084–D1085 ; la relecture D1021, le fichier 12) : le `release-notes: >` du cas 5 pliait ses titres Markdown (`# Le modèle`, `## …`) en une seule ligne et citait « le morceau 3 », « le morceau 5 » ; il annonçait aussi « les listes, les documents », retirés par D1019. | version.yml réécrit — le contenu des autres clés inchangé ; les notes : le modèle, la reprise (les destinataires de D1061), le pilotage (le seul tableau de bord). Au même échange, l'auteur garde les deux `production.yml` homonymes (« on les garde ainsi ») et laisse à configuration.md la règle des statuts déclarés à l'usage (D804), que configuration.md ne disait pas — ajoutée. Voir §3.2c. |
 | D1097 | **Les fichiers de configuration en lignes de 120 caractères au plus** (précise D1084 — la règle d'écriture ; la relecture D1021) : « Dans les fichiers yml, la longueur d'une ligne est de 80 caractères. Passe la longueur à 120 caractères et enregistre cette consigne » — les commentaires se replient à 120 ; la nature d'une clé reste seule sur sa première ligne, son apport se replie sur les suivantes. | Les fichiers déjà relus du cas 5 et les nouveaux `logging.yml`/`cleanup.yml` des autres exemples repliés (contenu YAML inchangé, vérifié) ; les notes de version aussi, sur la demande de l'auteur (« Passe aussi les notes de version à 120 caractères ») ; configuration.md. Les artefacts de docs/ gardent leur largeur. Voir §3.2c. |
 | D1098 | **Les sous-clés répétées à l'identique s'expliquent une fois, sur le bloc parent ; le profil `direction` garde son nom** (précise D1084/D1097 ; la relecture D1021, le fichier 13) : à mes deux questions (renommer le profil homonyme du groupe ; l'introduction avant chaque sous-clé répétée) — « 1. on garde direction 2. une intro sur le bloc parent » — `type`, `class`, `parameters` des connecteurs, `interval`, `directory`, `pattern`, `retention` des règles de nettoyage, `level`, `groups` des profils : une introduction en tête du fichier ou du bloc parent ; les sous-clés sans introduction s'écrivent serrées. | settings.yml, les deux connectors.yml, les deux cleanup.yml du cas 5 (contenu inchangé, vérifié) ; une introduction propre reste là où la sous-clé dit quelque chose de singulier (les paramètres de PMI, la convention). configuration.md. Voir §3.2c. |
+| D1099 | **La composition des groupes : un membre du groupe contenant voit tout ce que voient les groupes qui le composent** (amende D414 — « le membre d'un constituant est membre du contenant » ; la relecture D1021, le fichier 14) : sur l'inversion relevée — la direction composée des strates, la lecture de D414 faisait de chaque membre d'une strate un membre de la direction, et lui ouvrait les marges — « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. » — le contenant est au-dessus de ses constituants : la direction reçoit ce que ses strates voient, les strates ne reçoivent rien de la direction. | groups.yml du cas 5 réécrit (la composition gardée ; les « (D1061) » retirés des descriptions affichées ; l'administration décrite par les migrations, leurs indicateurs, leurs anomalies) ; rights.md, configuration.md, glossaire.md. Voir §3.2c. |
 
 ---
 
@@ -12582,6 +12583,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **L'introduction sur le bloc parent (D1098).** « 1. on garde direction 2. une intro sur le bloc parent ».
 
+**La composition des groupes, du contenant vers ses constituants (D1099).** « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23657,6 +23660,11 @@ avant la synthèse Q16).
   LE BLOC PARENT (D1098, 1098 décisions).** « Passe aussi les notes de
   version à 120 caractères » ; « 1. on garde direction 2. une intro sur
   le bloc parent ».
+- **2026-09-29 (suite 2) — LA RELECTURE, FICHIER 14 : `GROUPS.YML`
+  (D1099, 1099 décisions).** « Je garde la composition mais je change la
+  description. ici, direction signifie qu'un membre de la direction voit
+  tout ce que les groupes le composant voit. » — le sens de la
+  composition fixé, le fichier réécrit.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

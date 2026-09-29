@@ -1,8 +1,9 @@
 # Les dépôts de la fabrication, trouvés dans les fiches articles
 ARTICLE:
   description: >-
-    La deuxième origine des dépôts : le dépôt de la fabrication de chaque fiche article, une valeur distincte par dépôt
-    ; une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
+    La deuxième origine des dépôts : le dépôt de la fabrication de chaque fiche article, une valeur distincte par
+    dépôt ; une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas
+    touché.
   to: stock.depot
   distinct: [ARCTCODEPF]
   filter: ARCTCODEPF != null

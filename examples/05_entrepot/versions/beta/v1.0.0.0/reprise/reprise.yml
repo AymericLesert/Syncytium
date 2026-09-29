@@ -40,7 +40,10 @@ cegid:
 
   # Les règles
   # Trente-trois règles en cinq dossiers numérotés — les lieux, les tiers, la technique, les commandes, le stock : le
-  # numéro du dossier, puis celui du fichier, font l'ordre des étapes.
+  # numéro du dossier, puis celui du fichier, font l'ordre des étapes. Une règle porte le nom de sa table source : sa
+  # description, sa cible (to), son filtre (filter), ses valeurs distinctes (distinct), son possesseur (parent), ses
+  # affectations (fields — la formule, ou en forme longue formula, description et message), ses contrôles
+  # (validation — rule, description et message), ses opérations de fin (operations) et son rapport (report).
   mapping:
     - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
 
@@ -56,8 +59,8 @@ cegid:
       operations: [ migrate ]
 
     # La relecture complète
-    # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit tout
-    # ; si le delta tourne encore, la relecture attend sa fin.
+    # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit
+    # tout ; si le delta tourne encore, la relecture attend sa fin.
     relecture_complete:
       every: weekly[saturday at 23:00]
       on_running: wait

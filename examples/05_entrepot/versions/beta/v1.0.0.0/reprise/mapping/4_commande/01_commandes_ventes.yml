@@ -4,8 +4,8 @@ ECOMCLI:
     Les entêtes des commandes de vente, sans héritage avec les achats ; les clients et les articles précèdent.
     L'identité : le numéro et l'indice de révision, une ligne d'entête par révision ; le compteur des commandes se
     repositionne sur la plus grande valeur reprise. Le client se retrouve par son code. Le statut de l'entête n'est pas
-    repris : les lignes portent le leur. L'adresse de livraison est reprise en détail et se géolocalise dans l'entrepôt
-    ; l'adresse de la commande n'est pas lue, le code du client suffit.
+    repris : les lignes portent le leur. L'adresse de livraison est reprise en détail et se géolocalise dans
+    l'entrepôt ; l'adresse de la commande n'est pas lue, le code du client suffit.
   to: commande.commande_vente
   fields:
     numero:

@@ -37,8 +37,8 @@ unite:
            measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02),
            measure.convert(ARCTUNISTO, kg, ARCNPDSUNI)))
   description: >-
-    Une unité de l'article : l'unité de stock et ses conversions — les deux couples de PMI, et le poids unitaire
-    vers le kilogramme.
+    Une unité de l'article : l'unité de stock et ses conversions — les deux couples de PMI, et le poids unitaire vers le
+    kilogramme.
 poids:     measure(ARCNPDSUNI, kg)
 longueur:  measure(ARCNLONGUE, mm)
 largeur:   measure(ARCNLARGEU, mm)

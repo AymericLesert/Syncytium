@@ -1,47 +1,102 @@
-# La table CONTACT de PMI — 48 colonnes : les personnes chez un tiers,
-# rejointes par le type de compte et le code (D950). La source de la
-# composition contacts du tiers (D399) ; les champs nominatifs portent le
-# marquage RGPD au modèle (D695). Six paires type/numéro de téléphone :
-# la première va au téléphone, la seconde au portable (D950). Les
-# colonnes lues typées et renvoyées, quelques-unes ignorées, les autres
-# non lues (D947).
+# Le nom de la table
+# La table CONTACT de PMI, 48 colonnes : les personnes chez un client ou un fournisseur.
 name: CONTACT
+
+# La description de la table
 description: Les contacts de PMI — la source de tiers.contact
 
+# Le périmètre lu
+# La société 100, les contacts des clients (C) et des fournisseurs (F).
 filter: CTKTSOC = "100" and CTCTTYPCPT in ["C", "F"]
+
+# L'identité d'une ligne
+# L'identifiant du contact.
 identity: [CTKNID]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# Le commercial corrige les contacts des clients, les achats ceux des fournisseurs.
 report:
   when: [migration]
   to: [commercial, achats]
   by: [notification, mail]
 
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  CTKTSOC:     text[3]                                        # la société — le filtre (D663)
-  CTKNID:      integer                                        # → contact.identifiant — l'identité (D871)
-  CTCTTYPCPT:  text[1]                                        # le type de compte : C le client, F le fournisseur (D950) — les calculés ci-dessous
-  CTCTCOMPTE:  text[6]                                        # le code du tiers, selon le type
-  CTCTCIVILI:  text[6]                                        # → contact.civilite — traduite au mapping (D893)
-  CTCTNOM:     text[40]                                       # → contact.nom
-  CTCTPRENOM:  text[20]                                       # → contact.prenom
-  CTCTFONCTI:  text[3]                                        # → contact.fonction — le code de fonction de PMI, le libellé au mapping
-  CTCTACTIF:   text[1]                                        # → contact.actif — O actif ; le vide vaut actif (D950)
-  CTCJANNIV:   date_pmi                                       # → contact.anniversaire — personnelle (D695)
-  CTCTTYTEL1:  ignored                                        # le type de la première paire — la place décide (D950)
-  CTCTNOTEL1:  text[30]                                       # → contact.telephone
-  CTCTTYTEL2:  ignored                                        # le type de la seconde paire — idem
-  CTCTNOTEL2:  text[30]                                       # → contact.portable
-  CTCTMAIL1:   text[60]                                       # → contact.email
-  CTCJCRE:     date_pmi                                       # → contact.date_creation
 
-  # --- le tiers, selon le type de compte (D950 : « C ou F ») : deux
-  # calculés typés référence (D660/D648), résolus avant de partir (D874) ;
-  # le possesseur est l'un des deux — parent: ne sait pas choisir, le
-  # mapping route par le type, une règle par tiers (D931/D933) ---
+  CTKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  CTKNID:
+    type: integer
+    description: L'identifiant du contact.
+
+  CTCTTYPCPT:
+    type: text[1]
+    description: "Le type de compte : C le client, F le fournisseur."
+
+  CTCTCOMPTE:
+    type: text[6]
+    description: Le code du tiers, client ou fournisseur selon le type de compte.
+
+  CTCTCIVILI:
+    type: text[6]
+    description: La civilité.
+
+  CTCTNOM:
+    type: text[40]
+    description: Le nom.
+
+  CTCTPRENOM:
+    type: text[20]
+    description: Le prénom.
+
+  CTCTFONCTI:
+    type: text[3]
+    description: Le code de la fonction.
+
+  CTCTACTIF:
+    type: text[1]
+    description: "O : le contact est actif ; vide, il est actif aussi."
+
+  CTCJANNIV:
+    type: date_pmi
+    description: La date d'anniversaire, une donnée personnelle.
+
+  CTCTTYTEL1:
+    type: ignored
+    description: "Le type du premier numéro de téléphone : sa place suffit."
+
+  CTCTNOTEL1:
+    type: text[30]
+    description: Le premier numéro, le téléphone.
+
+  CTCTTYTEL2:
+    type: ignored
+    description: "Le type du second numéro de téléphone : sa place suffit."
+
+  CTCTNOTEL2:
+    type: text[30]
+    description: Le second numéro, le portable.
+
+  CTCTMAIL1:
+    type: text[60]
+    description: L'adresse électronique.
+
+  CTCJCRE:
+    type: date_pmi
+    description: La date de création.
+
+  # Les colonnes calculées
+  # Le tiers du contact, selon le type de compte : les règles du client et du fournisseur en choisissent une.
   client:
     type: CLIENT.CLKTCODE
+    description: Le client du contact, pour un compte de type C.
     formula: CTCTCOMPTE if CTCTTYPCPT = "C"
+
   fournisseur:
     type: FOURNIS.CLKTCODE
+    description: Le fournisseur du contact, pour un compte de type F.
     formula: CTCTCOMPTE if CTCTTYPCPT = "F"

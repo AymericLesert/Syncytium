@@ -1,49 +1,96 @@
-# La table TARIF de PMI — 15 colonnes : une ligne par article, tiers,
-# lettre de tarif et date d'application (la clé), le seuil de quantité en
-# valeur (D948 : « TACNTRANCH est la valeur numérique à partir de la
-# valeur qui fournit le prix unitaire »). La source de la grille tarifaire
-# de l'article, l'hypercube tiers × tranche × date (D897/D949). Les
-# colonnes lues typées et renvoyées, les autres non lues (D947).
+# Le nom de la table
+# La table TARIF de PMI, 15 colonnes : une ligne par article, tiers, lettre de tarif et date d'application.
 name: TARIF
+
+# La description de la table
 description: Les tarifs de PMI — la source de article.tarifs, la grille tarifaire en hypercube
 
+# Le périmètre lu
+# La société 100, les tarifs des clients (genre 1) et des fournisseurs (genre 2).
 filter: TAKTSOC = "100" and TAKTGENRE in ["1", "2"]
+
+# L'identité d'une ligne
+# Le genre et le code du tiers, l'article, la lettre de tarif et la date d'application.
 identity: [TAKTGENRE, TAKTCODE, TAKTCODART, TAKTCOMART, TAKTTARIF, TAKJAPLI]
 
-# le rapport des anomalies de la source (D1058/D1061) — qui corrige l'origine
+# Le rapport des anomalies de la table
+# Le commercial corrige les tarifs de vente, les achats les tarifs d'achat.
 report:
   when: [migration]
   to: [commercial, achats]
   by: [notification, mail]
 
+# Le possesseur d'une ligne
+# L'article du tarif, par son code et son complément.
 parent:
   ARTICLE: { ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART }
-# le filtre garde les genres du périmètre — 1 le client, 2 le fournisseur,
-# des correspondances inventées pour l'exemple (D948 : « tu peux inventer
-# les correspondances ») ; le possesseur est l'article (D931)
 
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
 fields:
-  TAKTSOC:     text[3]                                        # la société — le filtre (D663)
-  TAKTGENRE:   text[1]                                        # l'identité — le genre du tiers, un chiffre de 0 à 9 (D948)
-  TAKTCODE:    text[6]                                        # l'identité — le code du tiers, qui dépend du genre : les calculés client et fournisseur ci-dessous
-  TAKTCODART:  text[18]                                       # l'identité (D871)
-  TAKTCOMART:  text[6]                                        # l'identité (D871)
-  TAKTTARIF:   { type: 'text[1]', matches: "^[A-Za-z]$" }     # → article.tarifs (la dimension tranche) — la lettre de tarif, gardée par matches (D364/D948) ; le crochet en collection de flux se cite (D892)
-  TAKJAPLI:    date_pmi                                       # → article.tarifs (la dimension date_application) — l'identité
-  TACNPU:      decimal                                        # → article.tarifs.prix — avec la devise
-  TACNTRANCH:  integer                                        # → article.tarifs.seuil — la quantité à partir de laquelle le prix vaut (D948)
-  TACTCOMMEN:  text[20]                                       # → article.tarifs.commentaire
-  TACTDEVISE:  text[3]                                        # → article.tarifs.prix — la devise de la valeur (D771)
-  TACTVALID:   enum { O, N }                                  # → article.tarifs.valide — O valide, N l'archive (D948)
-  TACNFORFAI:  decimal                                        # → article.tarifs.forfait
 
-  # --- le tiers, selon le genre (D948) : deux calculés typés référence
-  # (D660/D648), résolus sur les données filtrées avant de partir (D874) ;
-  # la règle du mapping alimente la dimension tiers.tiers avec celui des
-  # deux qui est renseigné ---
+  TAKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  TAKTGENRE:
+    type: text[1]
+    description: "Le genre du tiers, un chiffre de 0 à 9 : 1 le client, 2 le fournisseur."
+
+  TAKTCODE:
+    type: text[6]
+    description: Le code du tiers, client ou fournisseur selon le genre.
+
+  TAKTCODART:
+    type: text[18]
+    description: Le code de l'article.
+
+  TAKTCOMART:
+    type: text[6]
+    description: Le complément du code de l'article.
+
+  TAKTTARIF:
+    type: text[1]
+    matches: "^[A-Za-z]$"
+    description: La lettre de tarif, une seule lettre.
+
+  TAKJAPLI:
+    type: date_pmi
+    description: La date d'application du prix.
+
+  TACNPU:
+    type: decimal
+    description: Le prix unitaire.
+
+  TACNTRANCH:
+    type: integer
+    description: Le seuil de quantité à partir duquel le prix vaut.
+
+  TACTCOMMEN:
+    type: text[20]
+    description: Le commentaire du tarif.
+
+  TACTDEVISE:
+    type: text[3]
+    description: La devise du prix.
+
+  TACTVALID:
+    type: enum { O, N }
+    description: "O : le tarif est valide, N : archivé."
+
+  TACNFORFAI:
+    type: decimal
+    description: Le forfait.
+
+  # Les colonnes calculées
+  # Le tiers du tarif, selon le genre : la règle alimente la dimension tiers avec celui des deux qui est renseigné.
   client:
     type: CLIENT.CLKTCODE
+    description: Le client du tarif, pour le genre 1.
     formula: TAKTCODE if TAKTGENRE = "1"
+
   fournisseur:
     type: FOURNIS.CLKTCODE
+    description: Le fournisseur du tarif, pour le genre 2.
     formula: TAKTCODE if TAKTGENRE = "2"

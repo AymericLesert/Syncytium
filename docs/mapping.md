@@ -368,6 +368,38 @@ order_lines:
     quantity: qty
 ```
 
+**La description et les formes longues (D1100/D1105).** La règle se
+décrit en `description:` — ce que la documentation doit porter
+s'écrit en propriété, pas en commentaire (D1100). **Une affectation
+reste une formule** : `champ: formule`, qui se lit d'elle-même ;
+quand elle demande un complément, **sa forme longue** — `formula:` la
+formule, `description:` le complément, `message:` le texte de
+l'anomalie si l'affectation échoue. **Une validation de même** : `-
+expression` en forme courte, ou `rule:`, `description:`, `message:`.
+Une carte sans `formula:` reste la carte de clé d'une référence
+(D931) : `formula` distingue les deux.
+
+```yaml
+# reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105)
+LCOMFOU:
+  description: >-
+    Les lignes des commandes d'achat, composition de l'entête : le possesseur est la révision de la commande, son
+    numéro et son indice ; l'identité d'une ligne est son numéro.
+  to: commande.ligne_achat
+  parent:
+    commande_achat: { numero: numero, indice: LCKTPSF }
+  fields:
+    numero:  ligne
+    article: { code: LCCTCODART, complement: LCCTCOMART }   # la carte de clé : pas de formula
+    quantite_recue:
+      formula: LCCNQTEEXP
+      description: L'expédié de PMI, reçu chez l'acheteur.
+  validation:
+    - rule: me.unite in me.article.unite.units
+      description: L'unité de la ligne est l'une de celles que son article connaît.
+      message: L'unité de la ligne n'est pas une unité connue de son article.
+```
+
 **Les champs mutualisés par la référence de fichier (D967).** Quand
 plusieurs règles portent le même bloc `fields:` — les quatre règles de
 l'article du cas 5, une par dérivé filtrée sur le code de gestion
@@ -384,7 +416,7 @@ ARTICLE:
   to: technique.fabrique
   filter: ARCTFATN = "01"
   fields: ~{articles/fields.yml}   # le bloc commun aux quatre règles de l'article
-  report: { when: [migration], to: [production], by: [notification, mail] }
+  report: { when: [migration], to: [bureau_etudes], by: [notification, mail] }
 ```
 
 **Le cumul de fichiers sous une carte (D968).** Plusieurs fichiers
@@ -432,7 +464,7 @@ que l'entité source déclare, sous la même forme (`when:`, `to:`, `by:`) ;
 la règle garde son `report:` pour les siennes.
 
 ```yaml
-# mapping/001_articles.yml — le rapport porté par la règle (D929)
+# reprise/mapping/3_technique/01_articles.yml — le rapport porté par la règle (D929)
 ARTICLE:
   to: technique.article
   fields:
@@ -517,7 +549,8 @@ complète, avant l'enregistrement : les contraintes et les
 `validation:` du modèle, avec les enfants (D933). **Chaque phase
 relève toutes ses erreurs**, et l'enregistrement en erreur ne passe
 pas à la phase suivante (D1057) ; chaque erreur garde un message
-clair, pour le rapport. Les trois temps, redits par l'auteur (D1006)
+clair, pour le rapport — le `message:` de la forme longue quand il est écrit
+(D1105). Les trois temps, redits par l'auteur (D1006)
 : sur la source à la lecture — limite les enregistrements aux valeurs
 valides ; sur le mapping — identifie les règles non respectées ou les
 données incorrectes ; sur la destination — garantit que les règles
@@ -531,7 +564,7 @@ NOMENC:
   validation:
     - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
 
-# reprise/mapping/002_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
+# reprise/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
 NOMENC:
   to: technique.ligne_nomenclature
   fields:

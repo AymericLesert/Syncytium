@@ -87,7 +87,14 @@ fields:
 
   CLCTBECHEA:
     type: enum { 1, 3, 6 }
-    description: La base du calcul de l'échéance.
+    description: |
+      La base du calcul de l'échéance.
+
+      | Code | Libellé            |
+      |------|--------------------|
+      | 1    | Date de facture    |
+      | 3    | Fin de mois        |
+      | 6    | Fin de mois, le 10 |
 
   CLCTMREG:
     type: ignored
@@ -99,7 +106,15 @@ fields:
 
   CLCTLANGUE:
     type: enum { 01, 03, 05, 07 }
-    description: La langue du client.
+    description: |
+      La langue du tiers.
+
+      | Code | Libellé  |
+      |------|----------|
+      | 01   | Français |
+      | 03   | Anglais  |
+      | 05   | Allemand |
+      | 07   | Espagnol |
 
   CLCTREP1:
     type: text[2]

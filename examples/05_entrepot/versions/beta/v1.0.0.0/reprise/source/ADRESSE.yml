@@ -43,7 +43,8 @@ fields:
 
   ADCTTYPE:
     type: text[20]
-    description: "L'usage de l'adresse : livraison, facturation ou autre."
+    description: >-
+      L'usage de l'adresse : LIVRAISON la livraison, FACTURATION la facturation ; un autre code se lit comme « autre ».
 
   ADCTNOM:
     type: text[40]

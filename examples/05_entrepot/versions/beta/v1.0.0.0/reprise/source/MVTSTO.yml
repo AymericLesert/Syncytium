@@ -108,7 +108,17 @@ fields:
 
   MVCTGENRE:
     type: enum { C, D, E, F, I, R }
-    description: "Le genre : C consommation, D déplacement, E expédition, F fabrication, I inventaire, R réception."
+    description: |
+      Le genre du mouvement.
+
+      | Code | Libellé      |
+      |------|--------------|
+      | C    | Consommation |
+      | D    | Déplacement  |
+      | E    | Expédition   |
+      | F    | Fabrication  |
+      | I    | Inventaire   |
+      | R    | Réception    |
 
   MVCTNOMUTI:
     type: text[35]

@@ -1234,6 +1234,7 @@ Q58) :
 | D1099 | **La composition des groupes : un membre du groupe contenant voit tout ce que voient les groupes qui le composent** (amende D414 — « le membre d'un constituant est membre du contenant » ; la relecture D1021, le fichier 14) : sur l'inversion relevée — la direction composée des strates, la lecture de D414 faisait de chaque membre d'une strate un membre de la direction, et lui ouvrait les marges — « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. » — le contenant est au-dessus de ses constituants : la direction reçoit ce que ses strates voient, les strates ne reçoivent rien de la direction. | groups.yml du cas 5 réécrit (la composition gardée ; les « (D1061) » retirés des descriptions affichées ; l'administration décrite par les migrations, leurs indicateurs, leurs anomalies) ; rights.md, configuration.md, glossaire.md. Voir §3.2c. |
 | D1100 | **Ce que la documentation doit porter s'écrit en propriété, pas en commentaire : un champ reçoit sa `description:`** (précise D810 — `description:` partout, D1084 ; la relecture D1021, les sources) : sur la forme proposée pour les colonnes des sources (le champ alimenté et le motif en commentaire de fin) — « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. » — le commentaire sert le lecteur du fichier ; la propriété nourrit la documentation générée. | Les commentaires collés à `}` de deux lignes d'ARTICLE.yml (`enum { … }# → …`, le texte avalé dans le type) relevés au même examen. Les modalités posées en question : `description:` seul ou avec `comment:` ; en texte simple ou par langue ; le champ alimenté redit ou laissé aux règles. Voir §3.2c. |
 | D1101 | **`languages:` sous `version:` — les langues de la version, la première par défaut ; une seule langue, les textes en texte simple ; plusieurs, la langue précisée ou l'erreur** (écrit D217 — « le modèle liste les langues permises », jamais écrit ; précise D219, D124/D127 ; la relecture D1021, les sources) : « Peut-on avoir une règle qui dit que si l'application ne gère qu'une seule langue, nous simplifions. Si nous introduisons le multilangue, cela constituera une erreur si la langue n'est pas précisée ? Il me semblait que nous avions une partie de la configuration avec la liste des langues, je ne le trouve pas. » ; puis « dans version.yml, sous version: - les langues sont portées par une version, l'ajout ou la suppression d'une langue nécessite une nouvelle version. Un paramètre qui utilise une langue qui devient une langue inutilisée, la langue par défaut est alors utilisée, ie. la première langue. le cas 5, en français uniquement. le multi-langue fr, en, es pour "banque" » — une langue retirée ne rend pas un texte faux : la langue par défaut sert. | Toutes les colonnes des sources décrites (« toutes les colonnes »). Le cas 5, l'enquête et le véhicule portent `languages: [fr]` ; le cas 5 passe ses textes en texte simple au fil de la relecture (ARTICLE, groups.yml déjà) ; la banque recevra `[fr, en, es]` et ses traductions à sa relecture. configuration.md (§3.4, et `release-notes: |`). Voir §3.2c. |
+| D1102 | **Une colonne à codes décrit ses codes en tableau Markdown à partir de trois codes ; à deux, une phrase** (précise D1100 ; la relecture D1021, les sources) : « Pour le champ ARTICLE.ARCTTYPART, peux-tu montrer une description qui représente les informations sous forme d'un tableau avec du md (une ligne par code + un libellé clair) » ; « oui, applique le tableau à partir de trois codes » — la description en scalaire littéral : une phrase, puis `| Code | Libellé |`, une ligne par code, colonnée pour se lire aussi dans le fichier. | Onze colonnes des sources du cas 5 (le type et le code de gestion de l'article, sa famille et sa sous-famille, la base d'échéance et la langue des tiers, la fonction d'un contact, le statut des lignes de commande, le genre d'un mouvement) ; les libellés repris des traductions des règles ; mapping.md. Voir §3.2c. |
 
 ---
 
@@ -12591,6 +12592,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les langues de la version (D1101).** « dans version.yml, sous version: - les langues sont portées par une version, l'ajout ou la suppression d'une langue nécessite une nouvelle version. Un paramètre qui utilise une langue qui devient une langue inutilisée, la langue par défaut est alors utilisée, ie. la première langue. le cas 5, en français uniquement. le multi-langue fr, en, es pour "banque" »
 
+**Les codes en tableau (D1102).** « Pour le champ ARTICLE.ARCTTYPART, peux-tu montrer une description qui représente les informations sous forme d'un tableau avec du md (une ligne par code + un libellé clair) » ; « oui, applique le tableau à partir de trois codes ».
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23697,6 +23700,12 @@ avant la synthèse Q16).
   corrigés, « dachat » en « d'achat » ; les neuf tables écartées en
   forme longue (`type: ignored`, leur motif en description — la forme
   est mienne, à confirmer) ; mapping.md documente la colonne décrite.
+- **2026-09-29 (suite 6) — LES CODES EN TABLEAU (D1102, 1102
+  décisions).** « Pour le champ ARTICLE.ARCTTYPART, peux-tu montrer une
+  description qui représente les informations sous forme d'un tableau
+  avec du md (une ligne par code + un libellé clair) » ; « oui, applique
+  le tableau à partir de trois codes » — onze colonnes décrites en
+  tableau.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

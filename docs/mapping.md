@@ -291,6 +291,9 @@ porte son `type:` et sa `description:` — le sens de la colonne dans le
 système d'origine ; le champ qu'elle alimente se lit dans les règles,
 il ne se redit pas ; une colonne écartée porte `type: ignored` et son
 motif en description ; une table écartée prend la même forme longue.
+**Une colonne à codes** — trois codes ou plus — **décrit ses codes en
+tableau Markdown**, une ligne par code et son libellé, dans un scalaire
+littéral (`description: |`) ; à deux codes, une phrase suffit (D1102).
 Avec une seule langue (`languages:` de la version), la description est
 un texte simple :
 

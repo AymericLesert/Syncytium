@@ -116,7 +116,16 @@ fields:
 
   LCCTSTATUT:
     type: text[2]
-    description: "Le statut de la ligne : A en cours, vide non traitée, S soldée, T terminée, P partielle."
+    description: |
+      Le statut de la ligne.
+
+      | Code | Libellé     |
+      |------|-------------|
+      | vide | Non traitée |
+      | A    | En cours    |
+      | P    | Partielle   |
+      | S    | Soldée      |
+      | T    | Terminée    |
 
   # Les colonnes calculées
   numero:

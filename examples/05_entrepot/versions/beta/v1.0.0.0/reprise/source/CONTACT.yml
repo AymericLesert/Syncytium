@@ -43,7 +43,7 @@ fields:
 
   CTCTCIVILI:
     type: text[6]
-    description: La civilité.
+    description: "La civilité : M monsieur, MME madame."
 
   CTCTNOM:
     type: text[40]
@@ -55,7 +55,15 @@ fields:
 
   CTCTFONCTI:
     type: text[3]
-    description: Le code de la fonction.
+    description: |
+      Le code de la fonction ; un autre code se reprend tel quel.
+
+      | Code | Libellé    |
+      |------|------------|
+      | DIR  | Direction  |
+      | ACH  | Acheteur   |
+      | COM  | Commercial |
+      | TEC  | Technicien |
 
   CTCTACTIF:
     type: text[1]

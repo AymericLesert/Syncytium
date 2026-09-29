@@ -40,7 +40,21 @@ fields:
 
   ARCTTYPART:
     type: enum { AC, CO, LI, MI, MO, OU, PF, PL, SF, ST }
-    description: Le type d'article ; un code hors de cette liste, PR compris, met la ligne en erreur.
+    description: |
+      Le type d'article ; un code hors de cette liste, PR compris, met la ligne en erreur.
+
+      | Code | Libellé                                                             |
+      |------|---------------------------------------------------------------------|
+      | AC   | Accessoire                                                          |
+      | CO   | Consommable                                                         |
+      | LI   | Libellé : une ligne de texte, sans existence en stock               |
+      | MI   | Libellé : une ligne de texte, sans existence en stock (second code) |
+      | MO   | Main d'œuvre                                                        |
+      | OU   | Outillage                                                           |
+      | PF   | Produit fini                                                        |
+      | PL   | Plaque                                                              |
+      | SF   | Produit semi-fini                                                   |
+      | ST   | Sous-traitance                                                      |
 
   ARITNATURE:
     type: ignored
@@ -60,11 +74,11 @@ fields:
 
   ARCTUNICDE:
     type: enum { PL, U }
-    description: L'unité de commande ; elle peut être vide.
+    description: L'unité de commande, PL la plaque ou U l'unité ; elle peut être vide.
 
   ARCTUNISTO:
     type: enum { PL, U }
-    description: L'unité de stock, qui est aussi l'unité de mesure de l'article.
+    description: L'unité de stock, PL la plaque ou U l'unité ; c'est aussi l'unité de mesure de l'article.
 
   ARCTUNIFAC:
     type: ignored
@@ -123,7 +137,21 @@ fields:
 
   ARCTFATN:
     type: enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }
-    description: "Le code de gestion, qui décide du dérivé de l'article : fabriqué, semi-fini ou fantôme."
+    description: |
+      Le code de gestion, qui décide du dérivé de l'article : fabriqué, semi-fini ou fantôme.
+
+      | Code | Libellé             |
+      |------|---------------------|
+      | 01   | Fabriqué            |
+      | 02   | Acheté              |
+      | 03   | Sans libellé connu  |
+      | 07   | Libellé             |
+      | 09   | Semi-fini           |
+      | 12   | Fantôme             |
+      | 14   | Quantité supérieure |
+      | 17   | Inactif             |
+      | 32   | Résultant           |
+      | 33   | Procédure           |
 
   ARCNPMP:
     type: decimal
@@ -147,11 +175,27 @@ fields:
 
   ARCTCODFAM:
     type: text[4]
-    description: Le code de famille, de deux à quatre caractères ; un 4e caractère à 1 marque l'article périssable.
+    description: |
+      Le code de famille, de deux à quatre caractères ; un 4e caractère à 1 marque l'article périssable.
+
+      | Code | Libellé      |
+      |------|--------------|
+      | MAT  | Matière      |
+      | COM  | Composant    |
+      | PRF  | Produit fini |
+      | CON  | Consommable  |
 
   ARCTCOSFAM:
     type: text[4]
-    description: Le code de sous-famille.
+    description: |
+      Le code de sous-famille ; un autre code se lit comme « autre ».
+
+      | Code | Libellé   |
+      |------|-----------|
+      | ACI  | Acier     |
+      | ALU  | Aluminium |
+      | PLA  | Plastique |
+      | VIS  | Visserie  |
 
   ARCTCODMPL:
     type: text[10]

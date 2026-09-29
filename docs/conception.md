@@ -1232,6 +1232,7 @@ Q58) :
 | D1097 | **Les fichiers de configuration en lignes de 120 caractères au plus** (précise D1084 — la règle d'écriture ; la relecture D1021) : « Dans les fichiers yml, la longueur d'une ligne est de 80 caractères. Passe la longueur à 120 caractères et enregistre cette consigne » — les commentaires se replient à 120 ; la nature d'une clé reste seule sur sa première ligne, son apport se replie sur les suivantes. | Les fichiers déjà relus du cas 5 et les nouveaux `logging.yml`/`cleanup.yml` des autres exemples repliés (contenu YAML inchangé, vérifié) ; les notes de version aussi, sur la demande de l'auteur (« Passe aussi les notes de version à 120 caractères ») ; configuration.md. Les artefacts de docs/ gardent leur largeur. Voir §3.2c. |
 | D1098 | **Les sous-clés répétées à l'identique s'expliquent une fois, sur le bloc parent ; le profil `direction` garde son nom** (précise D1084/D1097 ; la relecture D1021, le fichier 13) : à mes deux questions (renommer le profil homonyme du groupe ; l'introduction avant chaque sous-clé répétée) — « 1. on garde direction 2. une intro sur le bloc parent » — `type`, `class`, `parameters` des connecteurs, `interval`, `directory`, `pattern`, `retention` des règles de nettoyage, `level`, `groups` des profils : une introduction en tête du fichier ou du bloc parent ; les sous-clés sans introduction s'écrivent serrées. | settings.yml, les deux connectors.yml, les deux cleanup.yml du cas 5 (contenu inchangé, vérifié) ; une introduction propre reste là où la sous-clé dit quelque chose de singulier (les paramètres de PMI, la convention). configuration.md. Voir §3.2c. |
 | D1099 | **La composition des groupes : un membre du groupe contenant voit tout ce que voient les groupes qui le composent** (amende D414 — « le membre d'un constituant est membre du contenant » ; la relecture D1021, le fichier 14) : sur l'inversion relevée — la direction composée des strates, la lecture de D414 faisait de chaque membre d'une strate un membre de la direction, et lui ouvrait les marges — « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. » — le contenant est au-dessus de ses constituants : la direction reçoit ce que ses strates voient, les strates ne reçoivent rien de la direction. | groups.yml du cas 5 réécrit (la composition gardée ; les « (D1061) » retirés des descriptions affichées ; l'administration décrite par les migrations, leurs indicateurs, leurs anomalies) ; rights.md, configuration.md, glossaire.md. Voir §3.2c. |
+| D1100 | **Ce que la documentation doit porter s'écrit en propriété, pas en commentaire : un champ reçoit sa `description:`** (précise D810 — `description:` partout, D1084 ; la relecture D1021, les sources) : sur la forme proposée pour les colonnes des sources (le champ alimenté et le motif en commentaire de fin) — « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. » — le commentaire sert le lecteur du fichier ; la propriété nourrit la documentation générée. | Les commentaires collés à `}` de deux lignes d'ARTICLE.yml (`enum { … }# → …`, le texte avalé dans le type) relevés au même examen. Les modalités posées en question : `description:` seul ou avec `comment:` ; en texte simple ou par langue ; le champ alimenté redit ou laissé aux règles. Voir §3.2c. |
 
 ---
 
@@ -12585,6 +12586,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La composition des groupes, du contenant vers ses constituants (D1099).** « Je garde la composition mais je change la description. ici, direction signifie qu'un membre de la direction voit tout ce que les groupes le composant voit. »
 
+**La description en propriété, pas en commentaire (D1100).** « Les commentaires ne se traduisent pas en documentation. Un champ peut contenir une propriété "description:" ou "comment:". Plutôt qu'un commentaire, une propriété avec la description serait utile. »
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23665,6 +23668,12 @@ avant la synthèse Q16).
   description. ici, direction signifie qu'un membre de la direction voit
   tout ce que les groupes le composant voit. » — le sens de la
   composition fixé, le fichier réécrit.
+- **2026-09-29 (suite 3) — LES SOURCES : LA DESCRIPTION EN PROPRIÉTÉ
+  (D1100, 1100 décisions).** reprise.yml réécrit ; sur la forme des
+  colonnes : « Les commentaires ne se traduisent pas en documentation.
+  Un champ peut contenir une propriété "description:" ou "comment:".
+  Plutôt qu'un commentaire, une propriété avec la description serait
+  utile. » — deux commentaires collés dans ARTICLE.yml relevés.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

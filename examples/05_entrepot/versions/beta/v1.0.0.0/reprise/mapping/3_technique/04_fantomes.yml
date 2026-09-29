@@ -1,12 +1,11 @@
-# L'étape 16 — les fantômes : ARTICLE vers technique.fantome, le dérivé au
-# code de gestion 12 — l'hypothèse de l'exemple (D940). Le même bloc
-# fields: que l'étape 13.
-
+# Les articles fantômes
 ARTICLE:
+  description: >-
+    Les articles fantômes, au code de gestion 12, qui portent une nomenclature : le bloc commun.
   to: technique.fantome
   filter: ARCTFATN = "12"
-  fields: ~{articles/fields.yml}           # le bloc commun aux quatre règles (D967)
+  fields: ~{articles/fields.yml}
   report:
     when: [migration]
-    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
+    to: [bureau_etudes]
     by: [notification, mail]

@@ -1,17 +1,14 @@
-# L'étape 14 — les produits fabriqués : ARTICLE vers technique.fabrique,
-# le dérivé de l'article au code de gestion 01 (D936/D940), qui porte la
-# nomenclature (l'étape 17). Le bloc fields: commun, inclus (D967), et le
-# propre du fabriqué en cumul (D968) : le compte 1 de PMI est ici « le
-# client de référence » (D996/D997), résolu par le type du champ,
-# tiers.client (D654). Les clients (008) précèdent.
-
+# Les produits fabriqués
 ARTICLE:
+  description: >-
+    Les produits fabriqués, au code de gestion 01, qui portent une nomenclature : le bloc commun, et le client de
+    référence propre au fabriqué — le compte 1 de PMI.
   to: technique.fabrique
   filter: ARCTFATN = "01"
   fields:
-    - ~{articles/fields.yml}               # le bloc commun aux quatre règles (D967)
-    - client_defaut: ARCTNOFOU1            # le propre de la règle (D968) — le compte 1 chez le fabriqué (D996)
+    - ~{articles/fields.yml}
+    - client_defaut: ARCTNOFOU1
   report:
     when: [migration]
-    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
+    to: [bureau_etudes]
     by: [notification, mail]

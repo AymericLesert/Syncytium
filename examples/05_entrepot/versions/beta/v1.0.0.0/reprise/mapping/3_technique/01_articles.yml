@@ -1,22 +1,14 @@
-# L'étape 13 — les articles : ARTICLE vers technique.article, le parent de
-# la hiérarchie (D940 — instanciable, D353) : tous les codes de gestion
-# sauf ceux qui font un dérivé — 01 le fabriqué, 09 le semi-fini, 12 le
-# fantôme (les trois hypothèses de l'exemple pour 09 et 12, « en dur »
-# chez PMI). Une règle par dérivé, filtrée sur ARCTFATN (D940) ; les
-# quatre règles partagent le même bloc fields: par la référence de fichier
-# (D956/D967) — articles/fields.yml, inclus, hors du pattern des règles —
-# et chacune y ajoute son propre, par le cumul en bloc (D968) : ici le
-# compte 1 de PMI vers le fournisseur par défaut de l'acheté (D996/D997) —
-# la valeur résolue par le type du champ, tiers.fournisseur (D654). Les
-# fournisseurs (007) précèdent.
-
+# Les articles
 ARTICLE:
+  description: >-
+    Les articles qui ne sont pas des dérivés : tous les codes de gestion sauf 01, 09 et 12. Le bloc commun, et le
+    fournisseur par défaut propre à l'article acheté — le compte 1 de PMI.
   to: technique.article
   filter: ARCTFATN not in ["01", "09", "12"]
   fields:
-    - ~{articles/fields.yml}               # le bloc commun aux quatre règles (D967)
-    - fournisseur_defaut: ARCTNOFOU1       # le propre de la règle (D968) — le compte 1 chez l'acheté (D996)
+    - ~{articles/fields.yml}
+    - fournisseur_defaut: ARCTNOFOU1
   report:
     when: [migration]
-    to: [bureau_etudes]                           # les articles, c'est le bureau d'études qui corrige (D1061/D1062)
+    to: [bureau_etudes]
     by: [notification, mail]

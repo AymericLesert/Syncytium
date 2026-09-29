@@ -1,11 +1,9 @@
-# Les connecteurs de l'environnement : les bases, les dossiers, les services
-# et les annuaires que l'application utilise. Quand plusieurs connecteurs
-# partagent une famille, chacun déclare son type ; quand le nom du
-# connecteur est sa famille, le type ne s'écrit pas.
+# Les connecteurs de l'environnement : les bases, les dossiers, les services et les annuaires que l'application utilise.
+# Quand plusieurs connecteurs partagent une famille, chacun déclare son type ; quand le nom du connecteur est sa
+# famille, le type ne s'écrit pas.
 
 # L'entrepôt d'essai
-# La base de l'application en développement : un schéma PostgreSQL
-# distinct de la production.
+# La base de l'application en développement : un schéma PostgreSQL distinct de la production.
 entrepot:
 
   # La famille du connecteur
@@ -15,9 +13,8 @@ entrepot:
   class: postgresql
 
   # Les paramètres de l'implémentation
-  # Leurs valeurs viennent des variables du .env de l'environnement ; la
-  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
-  # les traces, dont la variable est chiffrée.
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la marque * signale un paramètre confidentiel,
+  # jamais écrit en clair dans les traces, dont la variable est chiffrée.
   parameters:
     host: ${ENTREPOT_HOST}
     database: ${ENTREPOT_DATABASE}
@@ -26,8 +23,7 @@ entrepot:
     password*: ${ENTREPOT_PASSWORD}
 
 # Cegid PMI
-# La base d'origine de la reprise : une copie de la base de PMI, jamais
-# la production, lue en lecture seule.
+# La base d'origine de la reprise : une copie de la base de PMI, jamais la production, lue en lecture seule.
 cegid:
 
   # La famille du connecteur
@@ -37,8 +33,8 @@ cegid:
   class: sqlserver
 
   # Les paramètres de l'implémentation
-  # Sans carte des entités : la base se décrit elle-même, et la
-  # comparaison du schéma lu à la description voit toutes les tables.
+  # Sans carte des entités : la base se décrit elle-même, et la comparaison du schéma lu à la description voit toutes
+  # les tables.
   parameters:
     server: ${CEGID_SERVER}
     database: ${CEGID_DATABASE}
@@ -47,9 +43,8 @@ cegid:
     password*: ${CEGID_PASSWORD}
 
   # La convention de nommage des colonnes de PMI
-  # Le connecteur lit chaque colonne selon la convention : deux lettres de
-  # table, la nature, la lettre du type, le nom ; une entité ou un champ
-  # de la description peut la surcharger.
+  # Le connecteur lit chaque colonne selon la convention : deux lettres de table, la nature, la lettre du type, le nom ;
+  # une entité ou un champ de la description peut la surcharger.
   convention:
 
     # Le découpage d'un nom de colonne
@@ -59,8 +54,7 @@ cegid:
     identity: [K, I]
 
     # Le type de chaque lettre
-    # N se lit entier ou décimal selon le type SQL ; S, la semaine, se
-    # déduit du jour et n'est pas reprise.
+    # N se lit entier ou décimal selon le type SQL ; S, la semaine, se déduit du jour et n'est pas reprise.
     types:
       T: text
       N: decimal
@@ -68,8 +62,8 @@ cegid:
       S: text[6]
 
 # La base miroir de la reprise
-# La migration y construit et contrôle l'entrepôt avant d'en reporter les
-# différences ; la base est tenue en mémoire, le temps de la migration.
+# La migration y construit et contrôle l'entrepôt avant d'en reporter les différences ; la base est tenue en mémoire, le
+# temps de la migration.
 temporaire:
 
   # La famille du connecteur
@@ -79,8 +73,7 @@ temporaire:
   class: memory
 
 # Les plans des articles
-# Le dossier d'essai des plans : la reprise y lit le fichier que la fiche
-# article désigne.
+# Le dossier d'essai des plans : la reprise y lit le fichier que la fiche article désigne.
 plans:
 
   # La famille du connecteur
@@ -94,8 +87,7 @@ plans:
     directory: ${PLANS_DIRECTORY}
 
 # Le géocodage
-# La Base Adresse Nationale, sans clé : l'adresse de livraison des
-# commandes de vente y est géolocalisée.
+# La Base Adresse Nationale, sans clé : l'adresse de livraison des commandes de vente y est géolocalisée.
 location:
 
   # L'implémentation
@@ -106,34 +98,31 @@ location:
     url: https://api-adresse.data.gouv.fr
 
 # L'authentification
-# Le même locataire Microsoft 365 que la production, avec une inscription
-# d'application propre au développement.
+# Le même locataire Microsoft 365 que la production, avec une inscription d'application propre au développement.
 authentication:
 
   # L'implémentation
   class: azure_ad
 
   # Les paramètres de l'implémentation
-  # Leurs valeurs viennent des variables du .env de l'environnement ; la
-  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
-  # les traces, dont la variable est chiffrée.
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la marque * signale un paramètre confidentiel,
+  # jamais écrit en clair dans les traces, dont la variable est chiffrée.
   parameters:
     tenant: ${AZURE_TENANT}
     client_id: ${AZURE_CLIENT_ID}
     client_secret*: ${AZURE_CLIENT_SECRET}
 
 # Le mail sortant
-# Le relais de l'entreprise, avec l'expéditeur et la boîte du
-# développement : les rapports d'essai n'atteignent pas les utilisateurs.
+# Le relais de l'entreprise, avec l'expéditeur et la boîte du développement : les rapports d'essai n'atteignent pas les
+# utilisateurs.
 smtp:
 
   # L'implémentation
   class: smtp_std
 
   # Les paramètres de l'implémentation
-  # Leurs valeurs viennent des variables du .env de l'environnement ; la
-  # marque * signale un paramètre confidentiel, jamais écrit en clair dans
-  # les traces, dont la variable est chiffrée.
+  # Leurs valeurs viennent des variables du .env de l'environnement ; la marque * signale un paramètre confidentiel,
+  # jamais écrit en clair dans les traces, dont la variable est chiffrée.
   parameters:
     host: ${SMTP_HOST}
     port: 587

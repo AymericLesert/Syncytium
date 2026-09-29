@@ -1,16 +1,13 @@
 # Le type text
-# Les défauts de tout champ texte ; un champ peut surcharger avec sa propre
-# expression.
+# Les défauts de tout champ texte ; un champ peut surcharger avec sa propre expression.
 text:
 
   # La normalisation
-  # La valeur lue est rognée de ses blancs, à la frontière ; me désigne la
-  # valeur.
+  # La valeur lue est rognée de ses blancs, à la frontière ; me désigne la valeur.
   normalize: trim(me)
 
 # Le type date_pmi
-# Les dates de PMI, écrites AAAAMMJJ ; les colonnes de dates des sources
-# l'emploient.
+# Les dates de PMI, écrites AAAAMMJJ ; les colonnes de dates des sources l'emploient.
 date_pmi:
 
   # Le type de base
@@ -20,8 +17,7 @@ date_pmi:
   mask: yyyymmdd
 
 # Le type time_pmi
-# Les heures de PMI, écrites hhmmss ; une colonne en hhmm surcharge le
-# masque au champ.
+# Les heures de PMI, écrites hhmmss ; une colonne en hhmm surcharge le masque au champ.
 time_pmi:
 
   # Le type de base
@@ -35,18 +31,17 @@ time_pmi:
 amount:
 
   # La devise
-  # La monnaie de l'entreprise, pour les prix que PMI écrit sans colonne de
-  # devise ; les tiers, les tarifs et les commandes portent la leur.
+  # La monnaie de l'entreprise, pour les prix que PMI écrit sans colonne de devise ; les tiers, les tarifs et les
+  # commandes portent la leur.
   currency: EUR
 
 # Les profils de confidentialité
-# Un niveau et les groupes qui voient le champ, nommés une fois et
-# référencés au champ : confidentiality: ${settings.confidentiality.financier}.
+# Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ : confidentiality:
+# ${settings.confidentiality.financier}.
 confidentiality:
 
   # Le profil financier
-  # Les prix de revient, les prix d'achat, les valeurs de stock, le
-  # bancaire.
+  # Les prix de revient, les prix d'achat, les valeurs de stock, le bancaire.
   financier:
 
     # Le niveau de confidentialité

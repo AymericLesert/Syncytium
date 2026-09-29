@@ -1,7 +1,6 @@
 # Le niveau des traces
-# Du plus bavard au plus sobre : verbose, debug, info, warning, error,
-# exception. L'environnement de
-# développement trace davantage que la production.
+# Du plus bavard au plus sobre : verbose, debug, info, warning, error, exception. L'environnement de développement trace
+# davantage que la production.
 level: debug
 
 # La sortie du journal

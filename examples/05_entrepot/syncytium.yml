@@ -1,7 +1,6 @@
 # Le format de la configuration
-# La version de la grammaire que parle ce projet : un moteur qui ne la
-# connaît pas refuse le projet à la lecture de cette seule ligne ; un
-# format plus ancien est converti à l'ingestion.
+# La version de la grammaire que parle ce projet : un moteur qui ne la connaît pas refuse le projet à la lecture de
+# cette seule ligne ; un format plus ancien est converti à l'ingestion.
 from: Syncytium-1.0
 
 # Le nom du projet
@@ -11,12 +10,10 @@ name: entrepot
 description: L'entrepôt de données de l'entreprise — les données de Cegid PMI standardisées, harmonisées et fiabilisées
 
 # Les environnements d'exécution
-# Chaque environnement porte ses connecteurs, sa journalisation, son
-# nettoyage et ses réglages ; rien ne se déduit de l'arborescence, la
-# déclaration fait foi.
+# Chaque environnement porte le storage de l'application, ses connecteurs, sa journalisation et son nettoyage ; rien ne
+# se déduit de l'arborescence, la déclaration fait foi.
 environments: ~{environments/environments.yml}
 
 # Les versions de l'application
-# Le statut d'une version est son dossier : beta sur le staging,
-# production sur la production.
+# Le statut d'une version est son dossier : beta sur le staging, production sur la production.
 versions: ~{versions/versions.yml}

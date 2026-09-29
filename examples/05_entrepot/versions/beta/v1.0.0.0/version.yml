@@ -35,8 +35,7 @@ settings: ~{settings.yml}
 groups: ~{groups.yml}
 
 # Les migrations
-# La reprise des données de PMI : la base d'origine, les tables sources,
-# les règles, le rythme.
+# La reprise des données de PMI : la base d'origine, les tables sources, les règles, le rythme.
 migrations: ~{reprise/reprise.yml}
 
 # Les modules de l'application

@@ -9,8 +9,7 @@ journal:
   directory: ${SYNCYTIUM_LOG_DIRECTORY}
 
   # Les fichiers visés
-  # Le groupe date lit dans le nom la date du fichier, que la rétention
-  # compare.
+  # Le groupe date lit dans le nom la date du fichier, que la rétention compare.
   pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
 
   # La rétention

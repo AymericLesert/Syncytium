@@ -1,9 +1,6 @@
-# L'environnement des versions beta
 # Les versions beta s'exécutent sur l'environnement de développement.
 environment: staging
 
-# Les versions du statut
-# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version
-# beta.
+# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version beta.
 versions:
   - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}

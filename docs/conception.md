@@ -1229,6 +1229,7 @@ Q58) :
 | D1094 | **Le fichier de l'environnement désigne le storage du modèle : `storage: entrepot`** (précise D610/D612 — le câblage explicite au complexe ; complète D1087 — la migration désigne sa base d'origine ; la relecture D1021, le fichier 7) : sur le manque relevé — trois storages au cas 5, aucun nommé `storage`, rien ne disant lequel porte le modèle — « En effet, storage: entrepot est à mettre dans le fichier de description de l'environnement. » — `production.yml` et `staging.yml` portent `storage: entrepot` ; le véhicule et la banque, deux storages chacun (`database`, `legacy`), portent `storage: database`. | L'enquête, un seul storage, reste au câblage implicite de D612 — le mélange des situations (D1093). Le câblage à la racine de D610 se répartit entre l'environnement (le storage) et la migration (`from:`). configuration.md, connectors.md, glossaire.md. Voir §3.2c. |
 | D1095 | **Le `settings.yml` d'environnement facultatif : les cinq fichiers vides et leur clé retirés ; le cas 6 l'introduira** (précise D342 ; l'esprit de D1090 ; la relecture D1021, le fichier 8) : à mes deux voies (le retirer comme `documentation.yml`, ou l'illustrer au cas 5 par les rythmes des mails de la télémétrie) — « (a) pour tout. Nous introduirons ce fichier dans le cas suivant. » — le fichier n'apparaît que lorsqu'un environnement a des réglages propres. | Les fichiers d'environnement des quatre exemples allégés ; configuration.md. Le cas 6 (la lecture de documents par hooks) portera le premier `settings.yml` d'environnement. Voir §3.2c. |
 | D1096 | **Les notes de version en scalaire littéral (`\|`) : leur Markdown garde ses lignes ; elles disent ce que la version apporte, pas l'histoire du cas** (précise D801 — la version en tête ; applique D1084–D1085 ; la relecture D1021, le fichier 12) : le `release-notes: >` du cas 5 pliait ses titres Markdown (`# Le modèle`, `## …`) en une seule ligne et citait « le morceau 3 », « le morceau 5 » ; il annonçait aussi « les listes, les documents », retirés par D1019. | version.yml réécrit — le contenu des autres clés inchangé ; les notes : le modèle, la reprise (les destinataires de D1061), le pilotage (le seul tableau de bord). Au même échange, l'auteur garde les deux `production.yml` homonymes (« on les garde ainsi ») et laisse à configuration.md la règle des statuts déclarés à l'usage (D804), que configuration.md ne disait pas — ajoutée. Voir §3.2c. |
+| D1097 | **Les fichiers de configuration en lignes de 120 caractères au plus** (précise D1084 — la règle d'écriture ; la relecture D1021) : « Dans les fichiers yml, la longueur d'une ligne est de 80 caractères. Passe la longueur à 120 caractères et enregistre cette consigne » — les commentaires se replient à 120 ; la nature d'une clé reste seule sur sa première ligne, son apport se replie sur les suivantes. | Les fichiers déjà relus du cas 5 et les nouveaux `logging.yml`/`cleanup.yml` des autres exemples repliés (contenu YAML inchangé, vérifié) ; les valeurs longues (les notes de version) gardent leur forme ; configuration.md. Les artefacts de docs/ gardent leur largeur. Voir §3.2c. |
 
 ---
 
@@ -12576,6 +12577,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les notes de version en littéral (D1096).** Le Markdown des notes garde ses lignes ; elles disent ce que la version apporte.
 
+**La ligne de 120 caractères (D1097).** « Dans les fichiers yml, la longueur d'une ligne est de 80 caractères. Passe la longueur à 120 caractères et enregistre cette consigne ».
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23643,6 +23646,10 @@ avant la synthèse Q16).
   puis groups.yml, reprise.yml, les 23 sources, les 33 règles, les
   quatre modules et leurs entités ; puis les autres exemples ; puis la
   promotion de la 1.0.0.0 et la 1.0.0.1 (D1081).**
+- **2026-09-29 — LA RELECTURE REPRISE ; 120 CARACTÈRES (D1097, 1097
+  décisions).** Le fichier 13, settings.yml de la version, réécrit ; «
+  Dans les fichiers yml, la longueur d'une ligne est de 80 caractères.
+  Passe la longueur à 120 caractères et enregistre cette consigne ».
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

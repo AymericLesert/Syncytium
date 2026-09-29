@@ -1,6 +1,5 @@
 # Le niveau des traces
-# Du plus bavard au plus sobre : verbose, debug, info, warning, error,
-# exception.
+# Du plus bavard au plus sobre : verbose, debug, info, warning, error, exception.
 level: info
 
 # La sortie du journal

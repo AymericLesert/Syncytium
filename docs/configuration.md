@@ -65,7 +65,10 @@ nature dans la configuration, **puis ce que la clé apporte** — la
 seconde partie s'omet quand elle est triviale ; le commentaire collé
 à sa clé, une ligne vide entre deux clés ; **aucune référence de
 décision dans la configuration** (D1085) — les décisions disent le
-cheminement, la configuration dit la finalité et l'usage.
+cheminement, la configuration dit la finalité et l'usage ; **une ligne
+de 120 caractères au plus** (D1097) — le commentaire collé à sa clé
+garde sa nature sur sa première ligne, son apport se replie sur les
+suivantes.
 
 ```yaml
 # Les environnements d'exécution

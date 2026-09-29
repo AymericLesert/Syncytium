@@ -1,9 +1,6 @@
-# L'environnement des versions en production
 # Les versions en service s'exécutent sur l'environnement de production.
 environment: production
 
-# Les versions du statut
-# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version
-# en service.
+# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version en service.
 versions:
   - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}

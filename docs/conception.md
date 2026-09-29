@@ -23689,6 +23689,14 @@ avant la synthèse Q16).
   une langue qui devient une langue inutilisée, la langue par défaut est
   alors utilisée, ie. la première langue. le cas 5, en français
   uniquement. le multi-langue fr, en, es pour "banque" ».
+- **2026-09-29 (suite 5) — LES 23 SOURCES RÉÉCRITES.** Les quatorze
+  sources lues à la forme de D1100–D1101 — chaque colonne son type et sa
+  description en texte simple, les calculés décrits, les introductions
+  sans références ; colonnes, types, clés, filtres et partitions
+  inchangés (vérifiés) ; les deux commentaires collés d'ARTICLE
+  corrigés, « dachat » en « d'achat » ; les neuf tables écartées en
+  forme longue (`type: ignored`, leur motif en description — la forme
+  est mienne, à confirmer) ; mapping.md documente la colonne décrite.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

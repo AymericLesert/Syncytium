@@ -1,4 +1,5 @@
-# La table DEVIS de PMI — 28 colonnes : les devis, hors du périmètre (R4).
-# Analysée et écartée pour l'exemple (D657/D947) : l'écart volontaire,
-# compté dans la complétude du schéma (D861), pas dans la couverture.
-DEVIS: ignored
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+DEVIS:
+  type: ignored
+  description: Les devis de PMI, 28 colonnes — hors du périmètre de l'entrepôt.

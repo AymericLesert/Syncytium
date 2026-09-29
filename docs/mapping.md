@@ -285,6 +285,31 @@ customer_notes:
 audit_log: ignored
 ```
 
+**La colonne décrite (D1100–D1101).** Ce que la documentation doit
+porter s'écrit en propriété, pas en commentaire : chaque colonne lue
+porte son `type:` et sa `description:` — le sens de la colonne dans le
+système d'origine ; le champ qu'elle alimente se lit dans les règles,
+il ne se redit pas ; une colonne écartée porte `type: ignored` et son
+motif en description ; une table écartée prend la même forme longue.
+Avec une seule langue (`languages:` de la version), la description est
+un texte simple :
+
+```yaml
+# source/customers.yml
+fields:
+  code:
+    type: text[6]
+    description: Le code du client.
+  legacy_ref:
+    type: ignored
+    description: Une référence de l'ancien système, sans usage.
+
+# source/audit_log.yml — la table écartée, sa forme longue
+audit_log:
+  type: ignored
+  description: Le journal d'audit de l'ancien système, hors du périmètre.
+```
+
 ### Les règles (`mapping/`)
 
 **Le sens : de la table source vers la table cible** (D655) — chaque

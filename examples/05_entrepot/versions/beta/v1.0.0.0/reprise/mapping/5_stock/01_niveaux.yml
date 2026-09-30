@@ -6,7 +6,7 @@ STDEPLOT:
     précèdent ; un niveau sur un lieu inconnu est isolé au pré-contrôle. Les niveaux non nuls font naître leurs lieux ;
     un niveau à zéro sur un lieu inconnu reste une anomalie. Le prix du lot est à la devise de l'entreprise ; la
     péremption des périssables se vérifie dans l'entrepôt. La table est un état, pas un journal : relue en entier chaque
-    nuit, son historique donne le stock à une date.
+    nuit, sans historique — les mouvements portent l'histoire, le stock à une date se reconstitue d'eux.
   to: stock.niveau
   fields:
     article:        { code: DPKTCODART, complement: DPKTCOMART }

@@ -1,22 +1,22 @@
-# Le module déclare ses entités (D765) — les chemins relatifs au
-# fichier courant (D768) : depuis commande/
-# « commande » : les commandes de vente et d'achat (D859/D873 — « le
-# lien complet entre les articles, les clients et les fournisseurs »),
-# le troisième module de l'entrepôt. Sans héritage (D882) : les deux
-# commandes sont séparées, chacune ses lignes — la structure se répète,
-# c'est le prix du choix.
+# Le module commande
+# Les commandes de vente et d'achat, le troisième module de l'entrepôt : le lien complet entre les articles, les
+# clients et les fournisseurs. Sans héritage : les deux commandes sont séparées, chacune avec ses lignes — la structure
+# se répète, c'est le prix du choix.
 name: commande
+
+# La description du module
 description: Les commandes — de vente aux clients, d'achat aux fournisseurs — et leurs lignes
 
-# L'entrepôt est en lecture seule pour ses usagers (D882) — l'allow à
-# l'étage du module (D886 : l'application, le module, l'entité ou le
-# champ, le plus proche l'emporte) ; migrate écrit par le privilège de
-# la reprise (D175).
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
 allow:
   create: false
   update: false
   delete: false
 
+# Les entités du module
+# Les chemins sont relatifs à ce fichier ; chaque commande précède ses lignes.
 entities:
   - ~{commande_vente/commande_vente.yml}
   - ~{ligne_vente/ligne_vente.yml}

@@ -1,54 +1,47 @@
-# Le module déclare ses entités (D765) — les chemins relatifs au
-# fichier courant (D768) : depuis stock/
-# « stock » : la gestion des stocks et les mouvements (D859), le
-# quatrième module de l'entrepôt. L'entité du niveau de stock se nomme
-# « niveau » (le niveau de stock : article × lot × emplacement × dépôt
-# — STDEPLOT ; l'arbitrage de l'auteur au morceau 2, D884). Le
-# mouvement est la seule entité du cas sans historique (D882) : les
-# retouches des outils maison (D864) remplacent la valeur (D878) et se
-# comptent au bloc de modification.
+# Le module stock
+# Les stocks et leurs mouvements, le quatrième module de l'entrepôt. Le niveau de stock — un article, un lot, un
+# emplacement d'un dépôt — se nomme niveau ; le niveau et le mouvement sont les deux entités du cas sans historique :
+# les mouvements portent l'histoire.
 name: stock
+
+# La description du module
 description: Les stocks — les niveaux par dépôt, emplacement et lot, et les mouvements
 
-# L'entrepôt est en lecture seule pour ses usagers (D882) — l'allow à
-# l'étage du module (D886 : l'application, le module, l'entité ou le
-# champ, le plus proche l'emporte) ; migrate écrit par le privilège de
-# la reprise (D175).
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
 allow:
   create: false
   update: false
   delete: false
 
+# Les entités du module
+# Les chemins sont relatifs à ce fichier.
 entities:
   - ~{niveau/niveau.yml}
   - ~{mouvement/mouvement.yml}
   - ~{depot/depot.yml}
   - ~{emplacement/emplacement.yml}
 
-# Le tableau de bord du module (D554/D555) — le seul du cas (D1019 :
-# « l'intérêt du cas d'usage 3 [5], la migration de données et son
-# enregistrement dans un entrepôt de données ; les interfaces graphiques
-# ne sont pas essentielles ») : la preuve que l'entrepôt sert une fois
-# rempli — les indicateurs du stock (D859), la matrice de contrôle
-# (D1014). Le menu l'adresse stock[pilotage] (D439), la première
-# déclarée = le défaut (D438) ; le rafraîchissement dès que les données
-# sont disponibles — chaque nuit après le migrate (D943) ; les
-# graphiques adressés par chart[<entité>.<nom>] (la famille des adresses
-# D566, la forme en proposition dans composants.md) ; l'emplacement
-# libre `_` pour le pool de l'utilisateur (D556). Le premier dashboards:
-# du dépôt (le point ouvert de D994).
+# L'interface du module
+# Le seul tableau de bord du cas : la preuve que l'entrepôt sert une fois rempli — les indicateurs du stock et la matrice
+# de contrôle. Le menu l'adresse stock[pilotage] ; le premier tableau de bord déclaré est celui par défaut.
 gui:
   dashboards:
+
+    # Le pilotage des stocks
+    # Rafraîchi toutes les heures : les données changent la nuit, après la migration, l'heure rassure. Les graphiques
+    # sont adressés chart[<entité>.<nom>], en flux entre guillemets ; l'emplacement libre `_` est le pool de l'usager.
     pilotage:
-      title: { fr: "Le pilotage des stocks" }
-      refresh: every[1h]               # static | live | every[…] (D249/D434) — la nuit suffit, l'heure rassure
+      title: Le pilotage des stocks
+      refresh: every[1h]
       page:
         - sections:
             layout: row
             items:
-              - section: { items: [ 'chart[niveau.valeur_stock]' ] }     # le crochet cité en flux (D892)
+              - section: { items: [ 'chart[niveau.valeur_stock]' ] }
               - section: { items: [ 'chart[niveau.sous_minimum]' ] }
               - section: { items: [ 'chart[niveau.perimes]' ] }
         - chart[mouvement.par_mois]
         - chart[mouvement.controle]
-        - _                            # l'emplacement libre (D556)
+        - _

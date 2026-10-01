@@ -342,7 +342,8 @@ une erreur d'ingestion), au paramètre modifié.
 
 **Les fonctions libres** (D583/D587) complètent le monde des
 fonctions : les variadiques scalaires (`min`, `max`, `sum`, `avg` —
-`max(0, stock.sum(quantity))`) et `iif(condition, alors, sinon)` —
+`max(0, stock.sum(quantity))`) et `iif(condition, alors, sinon)` — que
+les exemples écrivent `valeur if condition else autre` (D1109) —
 « le catalogue s'enrichira, si besoin » : la porte des hooks de
 fonction libre.
 

@@ -218,9 +218,11 @@ l'étage du champ (`normalize: trim(me)`), l'enregistrement à l'étage
 de la règle (D872/D822) ; **`owner`** — le possesseur (D760/D841) ;
 **`context`** — le contexte courant (`context.now`, `context.settings`,
 D575/D588) ; **`connector`** et **`cache`** dans une règle de migration
-(D821/D845). Le conditionnel : `iif(condition, alors, sinon)`, le
-`.select(clé: valeur, "...": défaut)` du type (D583–D584), le `if`
-suffixé des agrégats (D887). **Chaque type porte ses fonctions**
+(D821/D845). Le conditionnel s'écrit `valeur if condition else
+autre` — les cas s'enchaînent par `else … if …`, le `if` seul vaut
+nul sinon (D580/D1003/D1109 ; `iif(condition, alors, sinon)` reste
+une fonction, D583) ; le `.select(clé: valeur, "...": défaut)` du
+type (D583–D584) ; le `if` suffixé des agrégats (D887). **Chaque type porte ses fonctions**
 (D579) — le catalogue est dans [types.md](types.md).
 
 ### 2.8 La forme courte et le bloc (D356)

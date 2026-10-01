@@ -1,7 +1,6 @@
-# Les versions éligibles au mode production
-
-# pas de déclaration orpheline (D805)
+# Les versions en service s'exécutent sur le poste du foyer.
 environment: home
 
+# Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version en service.
 versions:
   - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}

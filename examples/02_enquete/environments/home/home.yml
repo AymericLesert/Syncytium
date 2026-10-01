@@ -1,13 +1,18 @@
-description: Environnement d'exécution du poste du foyer
+# La description de l'environnement
+description: L'environnement d'exécution du poste du foyer
 
-# Configuration de la journalisation
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données.
+storage: database
 
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal.
 logging: ~{logging.yml}
 
 # Le nettoyage des fichiers
-
+# Les règles de rétention de l'environnement : le journal.
 cleanup: ~{cleanup.yml}
 
-# Configuration des connecteurs de l'application
-
+# Les connecteurs
+# La base, l'authentification et le mail du poste du foyer.
 connectors: ~{connectors.yml}

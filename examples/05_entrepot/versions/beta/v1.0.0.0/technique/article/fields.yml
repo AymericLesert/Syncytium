@@ -1,638 +1,393 @@
-# --- l'identité (ARKTCODART, ARKTCOMART) ---
+# L'identité
 
 code:
-  # ARKTCODART nchar(18)
   type: text[..18]
   required: true
-  label:
-    fr: Code article
-  placeholder:
-    fr: PIE-00123
-  hint:
-    fr: Le code de l'article chez l'ERP — avec son complément, il l'identifie.
+  label: Code article
+  placeholder: PIE-00123
+  hint: Le code de l'article chez l'ERP — avec son complément, il l'identifie.
 
 complement:
-  # ARKTCOMART nchar(6) — souvent vide ; l'identité le comprend
   type: text[..6]
-  label:
-    fr: Complément
-  hint:
-    fr: Le complément du code — vide pour la plupart des articles.
+  label: Complément
+  hint: Le complément du code — vide pour la plupart des articles.
 
-# --- la désignation (ARCTLIB01, ARCTLIB02) ---
+# La désignation
 
 libelle:
-  # ARCTLIB01
   type: text[..40]
   required: true
-  label:
-    fr: Libellé
-  placeholder:
-    fr: Bride acier 40 mm
-  hint:
-    fr: La désignation principale.
+  label: Libellé
+  placeholder: Bride acier 40 mm
+  hint: La désignation principale.
 
 libelle_secondaire:
-  # ARCTLIB02
   type: text[..40]
-  label:
-    fr: Libellé secondaire
-  hint:
-    fr: La seconde ligne de désignation, souvent une précision technique.
+  label: Libellé secondaire
+  hint: La seconde ligne de désignation, souvent une précision technique.
 
-# --- la classification — les listes closes de l'ERP en énumérés (D883) ;
-# les clés sont celles de l'entrepôt, les codes de l'ERP s'y traduisent au
-# mapping (le morceau 4) ---
+# La classification
 
 type:
-  # ARCTTYPART nchar(2) — le type d'article : le vocabulaire donné par
-  # l'auteur (D935), les codes de l'ERP (AC, CO, MI/LI, MO, OU, PF, PL, SF,
-  # ST) traduits à la règle du mapping (D893) ; le code PR n'est pas
-  # pris en compte pour l'exemple : ces lignes sont des erreurs (D937)
   type: enum
   required: true
-  label:
-    fr: Type d'article
-  hint:
-    fr: Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un semi-fini, de la main d'œuvre, de la sous-traitance.
+  label: Type d'article
+  hint: >-
+    Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un
+    semi-fini, de la main d'œuvre, de la sous-traitance.
+  description: >-
+    Les listes closes de l'ERP sont des énumérés aux clés de l'entrepôt ; la reprise y traduit les codes, et un code
+    inconnu met la fiche en anomalie. La main d'œuvre et la sous-traitance sont des articles : les composants des
+    nomenclatures les référencent.
   values:
-    accessoire:
-      label:
-        fr: Accessoire
-    consommable:
-      label:
-        fr: Consommable
+    accessoire:   { label: Accessoire }
+    consommable:  { label: Consommable }
     libelle:
-      label:
-        fr: Libellé
-      description:
-        fr: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
-    outillage:
-      label:
-        fr: Outillage
-    produit_fini:
-      label:
-        fr: Produit fini
-    plaque:
-      label:
-        fr: Plaque
-    semi_fini:
-      label:
-        fr: Produit semi-fini
-    # les composants de nomenclature référencent des articles de ces deux
-    # types — « la main d'œuvre, la sous-traitance et les libellés sont
-    # bien des articles de l'ERP » (D937, confirmé le 14/09)
-    main_oeuvre:
-      label:
-        fr: Main d'œuvre
-    sous_traitance:
-      label:
-        fr: Sous-traitance
+      label: Libellé
+      description: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
+    outillage:    { label: Outillage }
+    produit_fini: { label: Produit fini }
+    plaque:       { label: Plaque }
+    semi_fini:    { label: Produit semi-fini }
+    main_oeuvre:    { label: Main d'œuvre }
+    sous_traitance: { label: Sous-traitance }
 
 famille:
-  # ARCTCODFAM nchar(4) — pour l'exemple, les valeurs inventées suffisent
-  # (D946 : le jeu de données publié sera construit, D869) ; la traduction
-  # des codes à la règle du mapping (D893)
   type: enum
   required: true
-  label:
-    fr: Famille
-  hint:
-    fr: La famille de l'article — les valeurs de la liste close de l'ERP.
+  label: Famille
+  hint: La famille de l'article — les valeurs de la liste close de l'ERP.
   values:
-    matiere:
-      label:
-        fr: Matière première
-    composant:
-      label:
-        fr: Composant
-    produit_fini:
-      label:
-        fr: Produit fini
-    consommable:
-      label:
-        fr: Consommable
+    matiere:      { label: Matière première }
+    composant:    { label: Composant }
+    produit_fini: { label: Produit fini }
+    consommable:  { label: Consommable }
 
 sous_famille:
-  # ARCTCOSFAM nchar(4)
   type: enum
-  label:
-    fr: Sous-famille
-  hint:
-    fr: Le second niveau de classification.
+  label: Sous-famille
+  hint: Le second niveau de classification.
   values:
-    acier:
-      label:
-        fr: Acier
-    aluminium:
-      label:
-        fr: Aluminium
-    plastique:
-      label:
-        fr: Plastique
-    visserie:
-      label:
-        fr: Visserie
-    autre:
-      label:
-        fr: Autre
+    acier:     { label: Acier }
+    aluminium: { label: Aluminium }
+    plastique: { label: Plastique }
+    visserie:  { label: Visserie }
+    autre:     { label: Autre }
 
 perissable:
-  # le 4e caractère d'ARCTCODFAM — « si le 4ème caractère est égal à "1",
-  # cela signifie que la date de péremption du produit doit être
-  # renseignée » (D954) : la convention de codage de l'ERP se traduit à la
-  # règle du mapping — mid(ARCTCODFAM, 4, 1) = "1", et non right : « un
-  # code famille peut contenir 2 à 4 caractères » (D893/D934) —, l'entrepôt
-  # garde le sens ; la règle elle-même vit au niveau de stock, où la
-  # date de péremption est (STDEPLOT — D932 : la cible vérifie)
   type: boolean
   required: true
   default: false
-  label:
-    fr: Périssable
-  hint:
-    fr: Un article dont chaque lot en stock doit porter une date de péremption.
+  label: Périssable
+  hint: Un article dont chaque lot en stock doit porter une date de péremption.
+  description: >-
+    La reprise le déduit d'une convention de codage de la famille ; l'entrepôt garde le sens. La règle qui l'exploite
+    vit au niveau de stock, où la date de péremption est.
 
 gestion:
-  # ARCTFATN nchar(2) — le code de gestion (D883/D936/D938/D939) : la
-  # table de l'auteur — 01 produit fabriqué, 02 produit acheté, 07
-  # libellé, 14 quantité supérieure, 17 inactif, 32 résultant, 33 procédure ;
-  # 03, 09 et 12 existent et se traduisent, mais leur libellé n'existe
-  # pas encore : la valeur par défaut nommée par le code (D939) — à
-  # nommer à l'analyse ; avec « un peu de liberté » (D940), 09 = le
-  # semi-fini et 12 = le fantôme sont les hypothèses de l'exemple, tirées
-  # de l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 ;
-  # 03 reste CG03 ; le sous-traité, le vocabulaire de l'ERP hors
-  # échantillon (D936) ; la traduction des codes à la règle du mapping
-  # (D893). Le code de gestion assure l'héritage (D940) : fabrique (01),
-  # semi_fini (09) et fantome (12) sont les dérivés de l'article
   type: enum
-  label:
-    fr: Code de gestion
-  hint:
-    fr: La façon dont l'ERP gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, procédure, et trois codes en attente de libellé.
+  label: Code de gestion
+  hint: >-
+    La façon dont l'ERP gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif,
+    résultant, procédure, et un code en attente de libellé.
+  description: >-
+    Le code de gestion assure l'héritage : le produit fabriqué, le semi-fini et le fantôme sont les dérivés de
+    l'article. Le semi-fini et le fantôme sont des hypothèses de l'exemple, à vérifier à l'analyse ; cg03 garde son
+    code en attendant son libellé.
   values:
-    fabrique:
-      label:
-        fr: Produit fabriqué
-    achete:
-      label:
-        fr: Produit acheté
-    sous_traite:
-      label:
-        fr: Sous-traité
+    fabrique:    { label: Produit fabriqué }
+    achete:      { label: Produit acheté }
+    sous_traite: { label: Sous-traité }
     fantome:
-      label:
-        fr: Fantôme
-      description:
-        fr: Un niveau de nomenclature sans existence en stock — le code 12 de l'ERP, l'hypothèse de l'exemple (D940).
+      label: Fantôme
+      description: Un niveau de nomenclature sans existence en stock — l'hypothèse de l'exemple.
     semi_fini:
-      label:
-        fr: Produit semi-fini
-      description:
-        fr: Un produit fabriqué pour entrer dans d'autres produits — le code 09 de l'ERP, l'hypothèse de l'exemple (D940).
-    libelle:
-      label:
-        fr: Libellé
-    quantite_superieure:
-      label:
-        fr: Quantité supérieure
-    inactif:
-      label:
-        fr: Inactif
-    resultant:
-      label:
-        fr: Résultant
-    procedure:
-      label:
-        fr: Procédure
-    # les codes dont le libellé n'existe pas encore (D939) : la valeur par
-    # défaut porte le code — à nommer à l'analyse
+      label: Produit semi-fini
+      description: Un produit fabriqué pour entrer dans d'autres produits — l'hypothèse de l'exemple.
+    libelle:             { label: Libellé }
+    quantite_superieure: { label: Quantité supérieure }
+    inactif:             { label: Inactif }
+    resultant:           { label: Résultant }
+    procedure:           { label: Procédure }
     cg03:
-      label:
-        fr: CG03
-      description:
-        fr: Le code de gestion 03 de l'ERP — le libellé n'existe pas encore.
+      label: CG03
+      description: Le code de gestion 03 de l'ERP — le libellé n'existe pas encore.
 
 matieres:
-  # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)
   type: list of text[..6]
-  label:
-    fr: Codes matière
-  hint:
-    fr: Les matières de l'article — jusqu'à neuf chez l'ERP.
+  label: Codes matière
+  hint: Les matières de l'article — jusqu'à neuf chez l'ERP.
 
-# --- les unités et les dimensions ---
+# Les unités et les dimensions
 
 unite_stock:
-  # ARCTUNISTO nchar(2)
   type: text[..2]
   required: true
-  label:
-    fr: Unité de stock
-  placeholder:
-    fr: PC
-  hint:
-    fr: L'unité dans laquelle l'article est tenu en stock.
+  label: Unité de stock
+  placeholder: PC
+  hint: L'unité dans laquelle l'article est tenu en stock.
 
 unite_commande:
-  # ARCTUNICDE
   type: text[..2]
-  label:
-    fr: Unité de commande
+  label: Unité de commande
 
 unite:
-  # UNE unité de l'article — la mesure « 1 × l'unité de stock » (ARCTUNISTO)
-  # qui porte la matrice de conversion propre à l'article (D978/D982) :
-  # les deux couples de l'ERP — ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et
-  # ARCTCONV2A, ARCTCONV2B, ARCNCONC02 — apportent les unités
-  # supplémentaires (PL la plaque) avec leur coefficient vers une unité
-  # connue (1 PL = 1 u, toujours ; 1 PL = 12,5 kg), la transitivité fait
-  # le reste (D979) ; le poids unitaire (ARCNPDSUNI) y entre comme la
-  # conversion de l'unité de stock vers le kilogramme (D1010) — la masse
-  # d'un mouvement est quantite.to(kg). Les quantités du niveau de stock et des lignes de
-  # commande, en décimal dans l'unité de l'article, l'empruntent pour se
-  # convertir : (article.unite * quantite).to(kg). Les unités connues sont
-  # celles de la liste (D983 : units: restreint la matrice standard —
-  # U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids), la
-  # comparaison normalisée (KG = kg) ; les unités de l'exemple (D946) ;
-  # l'hypercube conversions de D977 est retiré au profit de ce champ.
   type: measure
   units: [U, kg]
   required: true
-  label:
-    fr: Unité
-  hint:
-    fr: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
+  label: Unité
+  hint: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
+  description: >-
+    La mesure « 1 × l'unité de stock », qui porte la matrice de conversion propre à l'article : les unités
+    supplémentaires de l'ERP — la plaque — avec leur coefficient vers une unité connue, le poids unitaire comme la
+    conversion de l'unité de stock vers le kilogramme ; la transitivité fait le reste, et la masse d'un mouvement est
+    quantite.to(kg). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
+    l'article, l'empruntent pour se convertir : (article.unite * quantite).to(kg). Les unités connues sont celles de la
+    liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG = kg).
 
 poids:
-  # ARCNPDSUNI — le poids unitaire, l'unité au type mesure (D391) ; « à
-  # porter au niveau de l'article » (D1010) — lisible ici, et coefficient
-  # de la matrice de unite
   type: measure
   units: [kg, g]
-  label:
-    fr: Poids unitaire
-  hint:
-    fr: Le poids d'une unité — en kilogrammes.
+  label: Poids unitaire
+  hint: Le poids d'une unité — en kilogrammes.
+  description: Porté par l'article, lisible ici ; il est aussi le coefficient de l'unité vers le kilogramme.
 
 longueur:
-  # ARCNLONGUE
   type: measure
   units: [mm]
-  label:
-    fr: Longueur
+  label: Longueur
 
 largeur:
-  # ARCNLARGEU
   type: measure
   units: [mm]
-  label:
-    fr: Largeur
+  label: Largeur
 
 epaisseur:
-  # ARCNEPAISS
   type: measure
   units: [mm]
-  label:
-    fr: Épaisseur
+  label: Épaisseur
 
 volume:
-  # ARCNVOLUNI
   type: measure
   units: [dm3, m3]
-  label:
-    fr: Volume unitaire
+  label: Volume unitaire
 
-# --- les codes-barres — la sortie code-barres (D300) se construit sur
-# ces valeurs ---
+# Les codes-barres
 
 ean13:
-  # ARCTEAN13 nchar(20) — un texte à la facette barcode (D988 : « la
-  # valeur du code-barres est un texte, la facette est un barcode ») :
-  # la facette valide l'EAN 13 (13 chiffres, la clé de contrôle) et le
-  # composant de sortie (D300) rend les barres ; la règle tronque
-  # explicitement le nchar(20) (left, D581) — une valeur fausse ou trop
-  # longue échoue à la facette, l'article est rejeté au rapport
   type: text[13]
   barcode: ean13
-  label:
-    fr: EAN 13
+  label: EAN 13
+  description: >-
+    Un texte à la facette code-barres : la facette valide les treize chiffres et la clé de contrôle, le composant de
+    sortie rend les barres ; une valeur fausse met la fiche en anomalie.
 
-# --- le stock de référence ---
+# Le stock de référence
 
 stock_minimum:
-  # ARCNSTOMIN
   type: decimal
-  label:
-    fr: Stock minimum
-  hint:
-    fr: Le seuil de réapprovisionnement.
+  label: Stock minimum
+  hint: Le seuil de réapprovisionnement.
 
 stock_maximum:
-  # ARCNSTOMAX
   type: decimal
-  label:
-    fr: Stock maximum
+  label: Stock maximum
 
 quantite_economique:
-  # ARCNQTECO
   type: decimal
-  label:
-    fr: Quantité économique
-  hint:
-    fr: La quantité de commande ou de lancement qui minimise le coût.
+  label: Quantité économique
+  hint: La quantité de commande ou de lancement qui minimise le coût.
 
-# --- les prix — les montants en amount à devise dans la valeur (D771/
-# D882) ; les champs financiers restreints aux achats et à la direction
-# (D859 — la confidentialité au champ D25/D364, resserrée par groupes
-# D26) : le profil nommé des settings, référencé par l'interpolation
-# de la configuration (D885 — settings.yml : financier) ---
+# Les prix
 
 prix_revient:
-  # ARCNPRS — le prix de revient standard
   type: amount
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix de revient
-  hint:
-    fr: Le prix de revient standard — réservé aux achats et à la direction.
+  label: Prix de revient
+  hint: Le prix de revient standard — réservé aux achats et à la direction.
+  description: >-
+    Les prix sont des montants à devise dans la valeur ; le profil financier des réglages les réserve aux achats et à
+    la direction.
 
 prix_moyen_pondere:
-  # ARCNPMP
   type: amount
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix moyen pondéré
-  hint:
-    fr: Le PMP du stock — réservé aux achats et à la direction.
+  label: Prix moyen pondéré
+  hint: Le PMP du stock — réservé aux achats et à la direction.
 
 prix_achat:
-  # ARCNPUACH1 — le prix d'achat du premier fournisseur
   type: amount
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix d'achat
-  hint:
-    fr: Le dernier prix d'achat connu — réservé aux achats et à la direction.
+  label: Prix d'achat
+  hint: Le dernier prix d'achat connu — réservé aux achats et à la direction.
+  description: Le prix du premier fournisseur.
 
-# --- la vie de l'article ---
+# La vie de l'article
 
 actif:
-  # ARCTBLOCAG — vide = actif, sinon le motif de blocage
   type: boolean
   required: true
   default: true
-  label:
-    fr: Actif
-  hint:
-    fr: Faux quand l'ERP bloque l'article.
+  label: Actif
+  hint: Faux quand l'ERP bloque l'article.
 
 date_creation:
-  # ARCJCRE — nchar(8) AAAAMMJJ, lue au masque (D820/D866)
   type: date
-  label:
-    fr: Créé le
+  label: Créé le
 
 date_modification:
-  # ARCJMOD
   type: date
-  label:
-    fr: Modifié le
+  label: Modifié le
 
 plans:
-  # ARCTFICPLA — le nom du fichier plan ; la liste de pièces jointes
-  # remplie par un connecteur file en complément du storage source
-  # (D883 — la forme au morceau de la source)
   type: list of file
   extensions: [pdf, dwg, dxf, step]
-  label:
-    fr: Plans
-  hint:
-    fr: Les plans de l'article, lus dans le répertoire des plans.
+  label: Plans
+  hint: Les plans de l'article, lus dans le répertoire des plans.
+  description: La liste est remplie par le connecteur des plans, en complément de la base d'origine.
 
-# --- le stockage de l'article (D962) ---
+# Le stockage de l'article
 
 gere_en_stock:
-  # ARCTGDEPOT nchar(1) — « "O" pour indiquer que l'article est géré en
-  # stock » (l'auteur, 19/09) ; le booléen depuis le code (D893)
   type: boolean
   required: true
   default: true
-  label:
-    fr: Géré en stock
+  label: Géré en stock
 
-# les quatre lieux de l'article (D964) — quatre paires dépôt + emplacement
-# chez l'ERP : « R : Réception, F : Fabrication, C : Consommation, le
-# 4ème est l'Expédition » ; le dépôt en référence (D396), l'emplacement
-# en référence à l'identité composée (dépôt, emplacement) (D962) ; une
-# des trois origines des référentiels de stock
+# Les quatre lieux de l'article — l'expédition, la réception, la fabrication, la consommation : un dépôt et un
+# emplacement chacun ; une des origines des dépôts et des emplacements de l'entrepôt
 
 depot_expedition:
-  # ARCTCODEP nchar(6)
   type: stock.depot
-  label:
-    fr: Dépôt d'expédition
+  label: Dépôt d'expédition
 
 emplacement_expedition:
-  # ARCTCODMPL nchar(10)
   type: stock.emplacement
-  label:
-    fr: Emplacement d'expédition
+  label: Emplacement d'expédition
 
 depot_reception:
-  # ARCTCODEPR nchar(6)
   type: stock.depot
-  label:
-    fr: Dépôt de réception
+  label: Dépôt de réception
 
 emplacement_reception:
-  # ARCTCOEMPR nchar(10)
   type: stock.emplacement
-  label:
-    fr: Emplacement de réception
+  label: Emplacement de réception
 
 depot_fabrication:
-  # ARCTCODEPF nchar(6)
   type: stock.depot
-  label:
-    fr: Dépôt de fabrication
+  label: Dépôt de fabrication
 
 emplacement_fabrication:
-  # ARCTCOEMPF nchar(10)
   type: stock.emplacement
-  label:
-    fr: Emplacement de fabrication
+  label: Emplacement de fabrication
 
 depot_consommation:
-  # ARCTCODEPC nchar(6)
   type: stock.depot
-  label:
-    fr: Dépôt de consommation
+  label: Dépôt de consommation
 
 emplacement_consommation:
-  # ARCTCOEMPC nchar(10)
   type: stock.emplacement
-  label:
-    fr: Emplacement de consommation
+  label: Emplacement de consommation
 
-# --- les liens (D399–D405) ---
+# Les liens
 
 fournisseur_defaut:
-  # ARCTNOFOU1 — le compte 1 de l'ERP, « le compte client ou fournisseur
-  # par défaut » (D996) : chez l'article acheté, son fournisseur ; la
-  # référence (D396), un champ par entité visée — « pas d'ambiguïté, pas
-  # de or » (D997) ; absent chez l'inactif ; le fabriqué porte, lui, son
-  # client de référence (fabrique.client_defaut — l'élément spécifique)
   type: tiers.fournisseur
-  label:
-    fr: Fournisseur par défaut
-
-# la nomenclature n'est plus ici : elle est portée par les trois dérivés
-# de l'article qui en ont besoin — fabrique, semi_fini, fantome (D940 :
-# « la nomenclature n'apparaît pas dans les autres types d'articles »)
+  label: Fournisseur par défaut
+  description: >-
+    Chez l'article acheté, son fournisseur ; le produit fabriqué porte, lui, son client de référence. Absent chez
+    l'inactif.
 
 tarifs:
-  # LA GRILLE TARIFAIRE — l'hypercube (D134/D402, la forme 1 de D895
-  # validée par D897) : « le prix unitaire est conditionné par
-  # l'article, le client/fournisseur, une tranche » ET une date
-  # d'application — trois dimensions, tiers × tranche × date, une
-  # cellule par combinaison (D403) ; le temps est une dimension du
-  # tuple (les clés typées de D134 — l'extension de D402 : une
-  # dimension de valeur à côté des entités nommées). La grille se lit
-  # à toute date, le planifié se voit, et « les évolutions de la grille
-  # tarifaire dans le temps » se visualisent (le morceau 5). La forme
-  # relationnelle de D894 (une entité tarif à clé composée) est retirée
-  # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
-  # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
-  # cellule en bloc sous fields: (la forme éclatée de D403, validée par
-  # D898). La tranche est la lettre de tarif de l'ERP, TAKTTARIF, dans la
-  # clé de TARIF (D948/D949) — une dimension de valeur, comme la date ;
-  # son seuil de quantité est une valeur de la cellule, et sa plage se
-  # calcule jusqu'au seuil de la tranche suivante (« le type range of est
-  # à conserver », D949).
   type: 'list of [tiers.tiers, tranche: text[1], date_application: date]'
+  label: Grille tarifaire
+  description: >-
+    L'hypercube de la grille tarifaire : le prix unitaire dépend du tiers, d'une tranche et d'une date d'application —
+    une cellule par combinaison. La grille se lit à toute date, le planifié se voit, et ses évolutions dans le temps se
+    visualisent. La tranche est une lettre de tarif ; son seuil de quantité est une valeur de la cellule, et sa plage
+    court jusqu'au seuil de la tranche suivante.
   fields:
     seuil:
-      # TACNTRANCH — « la valeur numérique à partir de la valeur qui
-      # fournit le prix unitaire » (D948)
       type: decimal
       required: true
-      label:
-        fr: Seuil
-      hint:
-        fr: La quantité à partir de laquelle le prix vaut.
+      label: Seuil
+      hint: La quantité à partir de laquelle le prix vaut.
     plage:
-      # la plage de quantités de la tranche (D949 — « le début de la
-      # tranche est la valeur de TACNTRANCH et la valeur supérieure est
-      # renseignée pour la quantité de la tranche supérieure ») : du seuil
-      # au seuil de la tranche suivante, pour le même tiers et la même
-      # date ; la dernière tranche est ouverte (D497 — max indéfini) ;
-      # owner.tarifs = la grille de l'article (D841), l'agrégat sur la
-      # collection déclarée (D891), le if suffixé (D887)
       type: range of decimal
-      formula: 'range(seuil, owner.tarifs.min(seuil if tiers = me.tiers and date_application = me.date_application and seuil > me.seuil))'
-      label:
-        fr: Plage de quantités
+      formula: >-
+        range(seuil, owner.tarifs.min(seuil if tiers = me.tiers and date_application = me.date_application
+        and seuil > me.seuil))
+      label: Plage de quantités
+      description: >-
+        Du seuil au seuil de la tranche suivante, pour le même tiers et la même date d'application ; la dernière
+        tranche est ouverte.
     prix:
-      # TACNPU + TACTDEVISE — à devise dans la valeur (D771)
       type: amount
       required: true
-      label:
-        fr: Prix unitaire
+      label: Prix unitaire
     forfait:
-      # TACNFORFAI
       type: amount
-      label:
-        fr: Forfait
+      label: Forfait
     valide:
-      # TACTVALID — « O » valide, « N » l'archive (D948)
       type: boolean
       required: true
       default: true
-      label:
-        fr: Valide
+      label: Valide
+      hint: Faux archive le tarif.
     commentaire:
-      # TACTCOMMEN
       type: text[..20]
-      label:
-        fr: Commentaire
-  label:
-    fr: Grille tarifaire
+      label: Commentaire
 
 commandes_vente:
-  # l'association dérivée (D405/D882) — les lignes de commande de vente
-  # qui portent l'article ; la vérité reste la référence de la ligne ;
-  # « le tri est porté par la liste calculée » (D997) : par la date de
-  # la commande, la plus ancienne en tête — last() rend la plus récente
   type: association with commande.ligne_vente if article = me
-  sort: [owner.date, owner.numero]     # le tri de la liste calculée (D997, renommé sort: par D1017)
-  label:
-    fr: Lignes de commande de vente
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande de vente
+  description: >-
+    L'association dérivée des lignes qui portent l'article ; la vérité reste la référence de la ligne. Le tri, par la
+    date puis le numéro de la commande, met la plus ancienne en tête : last() rend la plus récente.
 
 commandes_achat:
   type: association with commande.ligne_achat if article = me
-  sort: [owner.date, owner.numero]     # le tri de la liste calculée (D997, renommé sort: par D1017)
-  label:
-    fr: Lignes de commande d'achat
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande d'achat
 
 dernier_fournisseur:
-  # le compte 2 de l'ERP (ARCTNOFOU2) — « le dernier achat/vente réalisé…
-  # se calcule, ne se stocke pas » (D996/D997) : la dernière ligne de
-  # commande d'achat, dans l'ordre de la liste calculée
   type: tiers.fournisseur
   formula: commandes_achat.last().fournisseur
-  label:
-    fr: Dernier fournisseur
+  label: Dernier fournisseur
+  description: Se calcule, ne se stocke pas — le fournisseur de la dernière ligne d'achat.
 
 mouvements:
-  # l'accès retour aux mouvements de l'article (D394), nommé en vue
-  # dérivée (D405) — l'agrégat d'une formule s'applique à une
-  # collection déclarée, jamais à l'entité entière (D891)
   type: association with stock.mouvement if article = me
-  label:
-    fr: Mouvements de stock
+  label: Mouvements de stock
+  description: L'accès retour aux mouvements de l'article ; les agrégats des calculés s'appliquent à cette collection.
 
 mouvements_par_emplacement:
-  # « 2 associations basées sur les mouvements via 2 accès : l'article et
-  # l'emplacement. Le group by devient une propriété de l'association au
-  # même titre que le sort by » (D1016) — la même vue dérivée (D405),
-  # groupée : une cellule par emplacement, les mouvements de la cellule
-  # dedans ; l'accès à plat, mouvements, reste pour derniere_sortie
   type: association with stock.mouvement if article = me
   group: [emplacement]
-  label:
-    fr: Mouvements par emplacement
+  label: Mouvements par emplacement
+  description: >-
+    La même association, groupée : une cellule par emplacement, les mouvements de la cellule dedans ; l'accès à plat
+    reste pour la dernière sortie.
 
 stock_par_emplacement:
-  # « la quantité par emplacement s'en déduit via des sommes » (D1015) —
-  # la somme sur l'association groupée s'évalue par cellule, le résultat
-  # est l'hypercube aux dimensions du group (D1016) ; la quantité signée
-  # par le sens (D1009), dans l'unité de stock de l'article
   type: 'list of [emplacement: stock.emplacement]'
   formula: 'mouvements_par_emplacement.sum(sens.select(entree: quantite, sortie: -quantite))'
-  label:
-    fr: Stock par emplacement
+  label: Stock par emplacement
+  description: >-
+    La somme s'évalue par cellule de l'association groupée, le résultat est aux dimensions du groupe ; la quantité est
+    signée par le sens, dans l'unité de stock de l'article.
 
-# ------ Champs calculés ------
-
-# les calculés de la nomenclature (composants, opérations, temps de
-# gamme) vivent avec elle, chez les trois dérivés (D940)
+# Les champs calculés
 
 dormant:
-  # le tableau de bord (D858/D859) — l'article sans mouvement depuis six
-  # mois ; le contexte courant (D588) donne la date du jour
   type: boolean
   formula: context.now - derniere_sortie > 180d if derniere_sortie != null
-  label:
-    fr: Dormant
-  hint:
-    fr: Aucune sortie de stock depuis six mois.
+  label: Dormant
+  hint: Aucune sortie de stock depuis six mois.
+  description: Un indicateur du tableau de bord ; le contexte courant donne la date du jour.
 
 derniere_sortie:
-  # la date du dernier mouvement de sortie — sur l'association dérivée
-  # mouvements (D891), le if suffixé sur la valeur (D580)
   type: date
   formula: mouvements.max(date if sens = "sortie")
-  label:
-    fr: Dernière sortie
+  label: Dernière sortie

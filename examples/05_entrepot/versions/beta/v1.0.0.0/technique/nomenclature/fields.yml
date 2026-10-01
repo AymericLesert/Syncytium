@@ -1,144 +1,95 @@
+# L'identité et la nature
+
 numero:
-  # NOKNLIGNOM int — le rang de la ligne
   type: integer[1..]
   required: true
-  label:
-    fr: Ligne
+  label: Ligne
+  hint: Le rang de la ligne.
 
 nature:
-  # la nature se déduit du type de l'article référencé (D937 : la nature
-  # numérique NOCTNATCPT est ignorée ; « le type du composant d'une
-  # nomenclature est le type de l'article référencé par le composant ») —
-  # la main d'œuvre et la sous-traitance font l'opération, le reste le
-  # composant (la règle est mienne)
   type: enum
   formula: 'composant.type.select(main_oeuvre: "operation", sous_traitance: "operation", "...": "composant")'
-  label:
-    fr: Nature
-  hint:
-    fr: Un composant consommé, ou une opération de la gamme — déduit du type de l'article référencé.
+  label: Nature
+  hint: Un composant consommé, ou une opération de la gamme — déduit du type de l'article référencé.
   values:
-    composant:
-      label:
-        fr: Composant
-    operation:
-      label:
-        fr: Opération
+    composant: { label: Composant }
+    operation: { label: Opération }
 
 designation:
-  # NOCTLIBCOM nchar(40) — le libellé du composant sur la ligne (D989 :
-  # « pour la nomenclature, c'est bien NOCTLIBCOM » ; le morceau 2 le
-  # prêtait à NOCTCOMCPT, qui est le complément du code du composant)
   type: text[..40]
-  label:
-    fr: Désignation
+  label: Désignation
+  hint: Le libellé du composant sur la ligne.
 
-# --- le composant (nature = composant) ---
+# Le composant
 
 composant:
-  # NOCTCODECP + NOCTCOMCPT — la référence à l'article (D396) : la
-  # composition auto-référencée (D135) ; toujours renseignée (l'échantillon :
-  # 100/100) — le type du composant est celui de l'article référencé
-  # (D937), NOCTYPECPT n'entre pas dans l'entrepôt
   type: technique.article
   required: true
-  label:
-    fr: Composant
-  hint:
-    fr: L'article consommé — un article de l'entrepôt.
+  label: Composant
+  hint: L'article consommé — un article de l'entrepôt.
+  description: La composition se référence elle-même ; le type du composant est celui de l'article référencé.
 
 quantite:
-  # NOCNQTECOM — « la quantité de nomenclature est NOCNQTECOM » (D946) ;
-  # NOCNQTEUNI, nulle sur tout l'échantillon, est écartée à la source
   type: decimal
-  label:
-    fr: Quantité
-  hint:
-    fr: La quantité consommée pour une unité du produit fini.
+  label: Quantité
+  hint: La quantité consommée pour une unité du produit fini.
 
 unite:
-  # NOCTUNITE
   type: text[..2]
-  label:
-    fr: Unité
+  label: Unité
 
 rendement:
-  # NOCNRENDT — le rendement de la ligne, en pourcentage (D391)
   type: percentage
-  label:
-    fr: Rendement
-  hint:
-    fr: La part utile — les rebuts se déduisent.
+  label: Rendement
+  hint: La part utile — les rebuts se déduisent.
 
-# --- l'opération (nature = operation) ---
+# L'opération
 
 operation:
-  # NOCTCODOPE — le code de l'opération (le poste chez l'ERP) ; vide sur
-  # tout l'échantillon, gardé pour l'analyse du morceau 3
   type: text[..6]
-  label:
-    fr: Opération
-  placeholder:
-    fr: TOUR01
+  label: Opération
+  placeholder: TOUR01
+  hint: Le code de l'opération — le poste.
 
 jalon:
-  # NOCNJALON — le jalon de l'opération dans la gamme
   type: integer[0..]
-  label:
-    fr: Jalon
+  label: Jalon
+  hint: Le jalon de l'opération dans la gamme.
 
 temps_preparation:
-  # NOCNTPSPRE — les temps de l'ERP en notation décimale industrielle
-  # (D378 — le masque 0.00 h) ; l'unité réelle à confirmer à l'analyse
   type: duration
   mask: "0.00 h"
-  label:
-    fr: Temps de préparation
-  hint:
-    fr: Le réglage avant la série.
+  label: Temps de préparation
+  hint: Le réglage avant la série.
+  description: Les temps sont en notation décimale industrielle ; l'unité réelle est à confirmer à l'analyse.
 
 temps_ouverture:
-  # NOCNTPSOUV — le temps d'ouverture du poste
   type: duration
   mask: "0.00 h"
-  label:
-    fr: Temps d'ouverture
-  hint:
-    fr: Le temps machine pour une unité.
+  label: Temps d'ouverture
+  hint: Le temps machine pour une unité.
 
 temps_attente:
-  # NOCNTPSATT
   type: duration
   mask: "0.00 h"
-  label:
-    fr: Temps d'attente
+  label: Temps d'attente
 
 nombre_ouvriers:
-  # NOCNBREOUV
   type: decimal
-  label:
-    fr: Ouvriers
-  hint:
-    fr: Le nombre d'opérateurs sur l'opération.
+  label: Ouvriers
+  hint: Le nombre d'opérateurs sur l'opération.
 
-# --- la validité de la ligne ---
+# La validité de la ligne
 
 validite:
-  # NOCJDEBVAL + NOCJFINVAL — la période (D391), les bornes lues au
-  # masque AAAAMMJJ ; le constructeur au mapping (D659)
   type: period
-  label:
-    fr: Validité
-  hint:
-    fr: La période pendant laquelle la ligne s'applique — vide, elle vaut toujours.
+  label: Validité
+  hint: La période pendant laquelle la ligne s'applique — vide, elle vaut toujours.
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 quantite_nette:
-  # la quantité corrigée du rendement
   type: decimal
   formula: quantite / (rendement / 100) if rendement != null and rendement > 0
-  label:
-    fr: Quantité nette
-  hint:
-    fr: La quantité à engager, rendement compris.
+  label: Quantité nette
+  hint: La quantité à engager, rendement compris.

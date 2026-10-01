@@ -1,30 +1,36 @@
-# L'article — la table ARTICLE de l'ERP (181 colonnes), standardisée :
-# les champs que l'analyse retient, cohérents sans être exhaustifs
-# (D882). L'article est le parent d'une hiérarchie (D940 — D143/D353 :
-# le parent décrit le commun, il est instanciable) : le code de gestion
-# assure l'héritage — le produit fabriqué, le semi-fini et le fantôme,
-# ses trois dérivés, portent la nomenclature ; la grille tarifaire reste
-# ici (les compositions D399) ; la suppression les emporte — le soft
-# delete du socle — et ne touche pas les commandes qui le référencent.
-# Une évolution possible du modèle, hors du cas (D1018) : séparer la
-# définition de l'article — ce qu'il est — de l'article physique — un
-# lot, une date de péremption, un packaging — ; le cas d'usage ne
-# l'aborde pas, ces propriétés se lisent sur chaque mouvement.
+# L'article
+# La table des articles de l'ERP, standardisée : les champs que l'analyse retient, cohérents sans être exhaustifs.
+# L'article est le parent d'une hiérarchie, instanciable lui-même : le code de gestion fait l'héritage — le produit
+# fabriqué, le semi-fini et le fantôme, ses trois dérivés, portent la nomenclature ; la grille tarifaire reste ici. La
+# suppression emporte ses compositions et ne touche pas les commandes qui le référencent. Une évolution possible, hors
+# du cas : séparer la définition de l'article de l'article physique — le lot, la péremption, le packaging —, qui se
+# lisent aujourd'hui sur chaque mouvement.
 name: article
-description: Un article de l'entreprise — son identité, sa famille, ses unités, ses prix de revient et ses tarifs ; le parent des produits fabriqués, semi-finis et fantômes
-# le visage texte (D397) — le code et le libellé
+
+# La description de l'entité
+description: >-
+  Un article de l'entreprise — son identité, sa famille, ses unités, ses prix de revient et ses tarifs ; le parent des
+  produits fabriqués, semi-finis et fantômes
+
+# Le visage texte
+# Le code et le libellé.
 label: "{code} — {libelle}"
-# la clé fonctionnelle (D357) : le code et son complément (ARKTCODART +
-# ARKTCOMART chez l'ERP — le complément est souvent vide)
+
+# L'identité
+# Le code et son complément, souvent vide.
 identity: [code, complement]
-# l'historique des changements de valeur (D411/D882) — les prix, le
-# statut, la famille bougent au fil des ans
+
+# L'historique
+# Les prix, le statut, la famille bougent au fil des ans.
 history: true
 
-# La liste des champs de l'entité — l'éclatement libre (D767)
+# Les champs
+# Rangés par groupe ; la nomenclature et ses calculés vivent chez les trois dérivés qui la portent.
 fields: ~{fields.yml}
 
-# La cohérence des données converties (D404/D859 — la vérification)
+# La cohérence des données converties
 validation:
-  - stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null
-  - date_modification >= date_creation if date_modification != null
+  - rule: stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null
+    message: Le stock maximum {stock_maximum} est sous le stock minimum {stock_minimum}.
+  - rule: date_modification >= date_creation if date_modification != null
+    message: L'article est modifié le {date_modification}, avant sa création le {date_creation}.

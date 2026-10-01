@@ -30,7 +30,9 @@ commande, stock — ; les règles, dans cinq dossiers numérotés — les lieux,
 tiers, la technique, les commandes, le stock —, chaque fichier numéroté à
 partir de 1 dans son dossier (**D1103–D1104**). Le modèle ne nomme pas
 l'ERP d'origine : dans ses descriptions, « PMI » devient « ERP » ; seule la
-reprise connaît la base d'origine (**D1107**).)*
+reprise connaît la base d'origine (**D1107**). Les champs du modèle ne
+citent pas leur colonne d'origine, gardent leurs séparateurs de groupe et
+portent `hint:` et `description:` (**D1108**).)*
 
 ## Le contexte (D859)
 

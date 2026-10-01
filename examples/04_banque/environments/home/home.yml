@@ -1,15 +1,19 @@
-description: Environnement d'exécution simple d'un projet basique
+# La description de l'environnement
+description: L'environnement d'exécution du poste du foyer
 
-# La base de l'application — le storage du modèle, legacy sert la reprise
-
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; le storage legacy sert la reprise.
 storage: database
 
-# Configuration de la journalisation
-
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal.
 logging: ~{logging.yml}
-# Le nettoyage des fichiers — les règles de rétention (D1073), en sommeil (D800)
+
+# Le nettoyage des fichiers
+# Les règles de rétention de l'environnement, en sommeil : le suffixe -disable met le fichier en sommeil sans le
+# retirer.
 cleanup-disable: ~{cleanup.yml}
 
-# Configuration des connecteurs de l'application
-
+# Les connecteurs
+# La base, l'authentification, le mail et le dossier du legacy.
 connectors: ~{connectors.yml}

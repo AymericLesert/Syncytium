@@ -1,11 +1,49 @@
-# Le compte bancaire (D758) — les noms en français (D764)
+# Le compte
+# Un compte bancaire du foyer et ses écritures ; un compte est ouvert sans date de fermeture.
 name: compte
-label: "{libelle}"                   # le visage (D397)
-identity: [numero]                   # la clé fonctionnelle (D357)
+
+# La description de l'entité
+description:
+  fr: Un compte bancaire — son numéro, son libellé, ses dates d'ouverture et de clôture, ses écritures
+  en: A bank account — its number, its name, its opening and closing dates, its entries
+  es: Una cuenta bancaria — su número, su nombre, sus fechas de apertura y de cierre, sus apuntes
+
+# Le visage texte
+label: "{libelle}"
+
+# L'identité
+identity: [numero]
+
+# Les champs
 fields:
-  numero:    text[..23]
-  libelle:   text[..40]
-  ouverture: { type: date, required: true }
-  cloture:   date                    # optionnelle — « un compte est ouvert sans date de fermeture »
-  ouvert:    { formula: cloture = null }
-  ecritures: list of ecriture        # la composition (D399)
+
+  numero:
+    type: text[..23]
+    label: { fr: Numéro, en: Number, es: Número }
+
+  libelle:
+    type: text[..40]
+    label: { fr: Libellé, en: Name, es: Nombre }
+
+  ouverture:
+    type: date
+    required: true
+    label: { fr: Ouverture, en: Opened on, es: Apertura }
+
+  cloture:
+    type: date
+    label: { fr: Clôture, en: Closed on, es: Cierre }
+    hint:
+      fr: Vide tant que le compte est ouvert.
+      en: Empty while the account is open.
+      es: Vacío mientras la cuenta está abierta.
+
+  ouvert:
+    formula: cloture = null
+    label: { fr: Ouvert, en: Open, es: Abierta }
+
+  # La composition
+
+  ecritures:
+    type: list of ecriture
+    label: { fr: Écritures, en: Entries, es: Apuntes }

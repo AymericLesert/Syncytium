@@ -1,18 +1,11 @@
-# Le nettoyage des fichiers de l'environnement (D1073–D1075) — le fichier que la
-# clé cleanup: de l'environnement désigne : les règles à la racine, nommées par
-# leur clé (D1074) ; chacune supprime, dans un dossier, les fichiers d'un pattern
-# qui dépassent la rétention (D1070/D1071 : la date lue dans le nom par le groupe
-# (?<date>…), la rétention en durée) ; interval = le délai entre deux passages
-# de la règle, une durée. Y vivent le nettoyage du journal (sorti de
-# logging.yml), celui des watchers, celui des fichiers de migration (D1066).
+# Les règles de nettoyage de l'environnement. Chaque règle porte le délai entre deux passages (interval), le dossier
+# nettoyé (directory), les fichiers visés (pattern — le groupe date lit dans le nom la date que la rétention compare) et
+# la rétention (retention — une durée, ou un nombre sans unité : les n derniers fichiers).
 
-# Le domestique : les règles en sommeil, comme l'était le cleanup-disable du
-# logging.yml — la clé cleanup-disable: de home.yml met le fichier en
-# sommeil (le suffixe -disable, D800).
-
-# le journal — les fichiers datés de logging.yml, tournés compris (.log.1…)
+# Le nettoyage du journal
+# Les fichiers datés du journal, tournés compris, gardés vingt jours.
 journal:
-  interval: 1d                          # une fois par jour — une durée (D476)
+  interval: 1d
   directory: ${SYNCYTIUM_LOG_DIRECTORY}
   pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
   retention: 20d

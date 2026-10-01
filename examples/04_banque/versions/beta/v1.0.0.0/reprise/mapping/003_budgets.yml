@@ -1,10 +1,10 @@
-# La phase 2, le préalable (D814/D824) — le référentiel des budgets (D658)
-# Les marqueurs OUVERTURE/FERMETURE entrent au référentiel (D824) — leur usage
-# est gardé par la validation de l'entité ecriture (la date = l'ouverture ou
-# la clôture du compte).
-
+# Les budgets
 budget:
+  description: >-
+    La phase 2, le préalable : le référentiel des budgets, une valeur distincte par budget — la valeur devient
+    l'identité. Les marqueurs OUVERTURE et FERMETURE entrent au référentiel ; leur usage est tenu par la validation de
+    l'écriture.
   to: banque.budget
   distinct: [Budget]
   fields:
-    libelle: Budget                # la valeur devient l'identité (D658/D930)
+    libelle: Budget

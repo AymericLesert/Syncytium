@@ -1,11 +1,11 @@
-# La phase 3, le dernier geste (D814/D815) — le filtre FERMETURE clôt les comptes,
-# APRÈS l'écriture du solde (006) : la clôture ferme un compte déjà soldé.
-# La mise à jour par la clé fonctionnelle (D654) : la règle retrouve le compte
-# créé en phase 1 et pose la clôture ; le libellé du marqueur n'est pas utile ici.
-
+# Les clôtures
 budget:
+  description: >-
+    La phase 3, le dernier geste : les lignes au marqueur FERMETURE clôturent les comptes, après l'écriture du solde —
+    la clôture ferme un compte déjà soldé. La mise à jour par l'identité : la règle retrouve le compte créé en phase 1
+    et pose la clôture ; le libellé du marqueur n'est pas utile ici.
   to: banque.compte
   filter: Budget = "FERMETURE"
   fields:
-    numero:  Numero_Compte         # l'identité alimentée retrouve le compte — la mise à jour (D654/D930)
+    numero:  Numero_Compte
     cloture: Date_Operation

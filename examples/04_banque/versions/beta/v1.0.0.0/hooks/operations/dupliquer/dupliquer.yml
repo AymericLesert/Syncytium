@@ -1,7 +1,14 @@
-# Déclaration les opérations du projet
-
+# L'opération dupliquer
+# La duplication d'une écriture entre deux dates, au pas choisi.
 name: dupliquer
+
+# La description
+# La documentation de l'opération, en Markdown.
 description: ~{documentation.md}
 
+# Le code
 code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
 properties: { }

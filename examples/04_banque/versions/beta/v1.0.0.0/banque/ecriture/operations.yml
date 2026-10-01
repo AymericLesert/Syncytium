@@ -1,15 +1,29 @@
-dupliquer:                   # la duplication entre deux dates (D774/D797)
-  label: { fr: Dupliquer }
-  form: duplication          # le pas + du/au (D775 — la validation est l'opération)
-  commit: confirm            # la relecture : nb_creations (D598)
-propager:                    # les similaires (D774)
-  label: { fr: Propager }
-  form: propagation          # le nouveau libellé/montant → liste → sélection → masse
+# Les opérations de l'écriture. Chacune porte son libellé (label), le formulaire d'appel qui recueille ses paramètres
+# (form) et son mode de validation (commit — confirm pour la relecture avant le scellé, auto sans relecture).
+
+# La duplication entre deux dates
+# Le pas et les deux dates ; la relecture affiche le nombre de créations.
+dupliquer:
+  label: { fr: Dupliquer, en: Duplicate, es: Duplicar }
+  form: duplication
   commit: confirm
-virer:                       # les deux écritures liées
-  label: { fr: Virer }
-  form: virement             # le compte cible, le montant
+
+# La propagation aux similaires
+# Le nouveau libellé et le nouveau montant, puis la liste, la sélection, la masse.
+propager:
+  label: { fr: Propager, en: Propagate, es: Propagar }
+  form: propagation
   commit: confirm
-creer_releve:                # la tâche de génération (D794/D796)
-  when: generated            # l'événement du socle — toute génération
-  commit: auto               # pose imprimee sur les écritures générées
+
+# Le virement
+# Le compte cible et le montant : les deux écritures liées.
+virer:
+  label: { fr: Virer, en: Transfer, es: Transferir }
+  form: virement
+  commit: confirm
+
+# La tâche du relevé
+# Déclenchée par toute génération ; elle pose la date d'impression sur les écritures générées, sans relecture.
+creer_releve:
+  when: generated
+  commit: auto

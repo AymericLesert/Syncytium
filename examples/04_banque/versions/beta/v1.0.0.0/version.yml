@@ -1,37 +1,44 @@
-# Identification et description de la version
-
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
 version: 1.0.0.0
-release-notes: >
-  La première version de la gestion des comptes bancaires du
-  foyer — trente-quatre ans d'écritures repris.
+
+# Les langues de l'application
+# Trois langues ; la première est la langue par défaut, et ajouter ou retirer une langue fait une nouvelle version. Les
+# libellés, les titres et les aides s'écrivent par langue ; un texte qui manque dans une langue s'affiche dans la
+# langue par défaut.
+languages: [fr, en, es]
+
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La première version de la gestion des comptes bancaires du foyer — trente-quatre ans d'écritures repris.
+
   # Le modèle
-  ## Le compte et ses écritures — la devise dans la valeur (euro
-  et franc), le solde continu, les calculés débit/crédit
-  ## Les référentiels des budgets et des lieux — la création
-  directe au picker
+  - Le compte et ses écritures — la devise dans la valeur (euro et franc), le solde continu, les calculés débit et
+    crédit.
+  - Les référentiels des budgets et des lieux — la création directe au picker.
+
   # Les opérations
-  ## dupliquer (entre deux dates), propager (les similaires),
-  virer (les deux écritures liées), creer_releve (le PDF pose la
-  date d'impression)
+  - dupliquer (entre deux dates), propager (les similaires), virer (les deux écritures liées), creer_releve (le PDF
+    pose la date d'impression).
+
   # La reprise
-  ## L'historique 1992-2026 (~23 400 écritures) — trois phases,
-  les comptes aux marqueurs, le rapprochement des virements par
-  le cache
+  - L'historique 1992-2026, environ 23 400 écritures — trois phases : les comptes aux marqueurs, les écritures, le
+    rapprochement des virements par le cache.
 
-# Déclaration des ressources
-
+# Les ressources
+# Les icônes du projet, en complément de celles de Syncytium.
 resources: ~{resources/resources.yml}
 
-# Déclaration des hooks
-
+# Les hooks
+# Les opérations du projet, par famille.
 hooks: ~{hooks/hooks.yml}
 
-# Déclaration de la reprise des données historiques (le morceau R1)
-
+# Les migrations
+# La reprise des données historiques : le legacy, l'entité source, les règles.
 migrations: ~{reprise/reprise.yml}
 
-# Déclaration des modules
-# Pour l'exemple, nous n'avons qu'un seul module
-
+# Les modules de l'application
+# Un seul : la banque.
 modules:
   - ~{banque/banque.yml}

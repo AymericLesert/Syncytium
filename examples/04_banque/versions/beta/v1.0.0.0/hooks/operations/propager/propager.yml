@@ -1,7 +1,14 @@
-# Déclaration les opérations du projet
-
+# L'opération propager
+# La propagation d'un nouveau libellé et d'un nouveau montant aux écritures similaires.
 name: propager
+
+# La description
+# La documentation de l'opération, en Markdown.
 description: ~{documentation.md}
 
+# Le code
 code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
 properties: { }

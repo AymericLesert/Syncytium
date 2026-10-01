@@ -1,5 +1,5 @@
-# Ce fichier déclare les statuts des versions
-
+# Le statut beta - Les versions en essai.
 beta: ~{beta/beta.yml}
 
+# Le statut production - Les versions en service.
 production: ~{production/production.yml}

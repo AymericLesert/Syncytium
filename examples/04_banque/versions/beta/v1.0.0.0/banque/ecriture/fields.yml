@@ -1,47 +1,144 @@
-numero:    counter                 # le compteur auto (D409) — masqué aux surfaces
-date_operation: { type: date, required: true, searchable: range }   # D784
-date_comptable: { type: date, searchable: range }   # renseignée au pointage
-# D780 — élargi : le legacy monte à 93 caractères (R1) ; la forme bloc, le
-# crochet ne vit pas dans une accolade YAML (la règle 2, D892)
+# L'identité et les dates
+
+numero:
+  type: counter
+  label: { fr: Numéro, en: Number, es: Número }
+  description:
+    fr: Le compteur automatique, masqué aux surfaces.
+    en: The automatic counter, hidden from the screens.
+    es: El contador automático, oculto en las pantallas.
+
+date_operation:
+  type: date
+  required: true
+  searchable: range
+  label: { fr: Date d'opération, en: Transaction date, es: Fecha de operación }
+
+date_comptable:
+  type: date
+  searchable: range
+  label: { fr: Date comptable, en: Posting date, es: Fecha contable }
+  hint:
+    fr: Renseignée au pointage.
+    en: Filled in when the entry is reconciled.
+    es: Se rellena al conciliar.
+
+# L'écriture
+
 libelle:
   type: text[..100]
   searchable: mutualizable[recherche]
-# le référentiel dynamique (D355)
+  label: { fr: Libellé, en: Description, es: Concepto }
+  description:
+    fr: Le legacy monte à 93 caractères.
+    en: The legacy data goes up to 93 characters.
+    es: Los datos heredados llegan a 93 caracteres.
+
 budget:
   type: banque.budget
   searchable: mutualizable[recherche]
-montant:                           # signé — la devise vit dans la valeur (D771)
+  label: { fr: Budget, en: Budget, es: Presupuesto }
+  description:
+    fr: Le référentiel dynamique — la création directe au picker.
+    en: The dynamic reference list — direct creation from the picker.
+    es: El referencial dinámico — la creación directa desde el selector.
+
+montant:
   type: amount
-  currencies: [EUR, FRF]           # FRF : l'historique antérieur au passage
+  currencies: [EUR, FRF]
   required: true
+  label: { fr: Montant, en: Amount, es: Importe }
+  hint:
+    fr: Signé — négatif pour une dépense.
+    en: Signed — negative for an expense.
+    es: Con signo — negativo para un gasto.
+  description:
+    fr: La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro.
+    en: The currency lives in the value; the franc carries the history before the switch to the euro.
+    es: La moneda vive en el valor; el franco lleva el histórico anterior al paso al euro.
+
 mode:
   type: enum
+  label: { fr: Mode, en: Method, es: Modo }
   values:
-    cb:          { label: { fr: CB } }
-    prelevement: { label: { fr: Prélèvement } }
-    virement:    { label: { fr: Virement } }
-    autre:       { label: { fr: Autre } }
-cheque:    text[..10]              # le n° de chèque (le mode autre)
-liee:      banque.ecriture         # l'écriture miroir du virement (D758)
-# la ville — dynamique (D355) ; la forme bloc (la règle 2, D892)
+    cb:          { label: { fr: CB, en: Card, es: Tarjeta } }
+    prelevement: { label: { fr: Prélèvement, en: Direct debit, es: Domiciliación } }
+    virement:    { label: { fr: Virement, en: Transfer, es: Transferencia } }
+    autre:       { label: { fr: Autre, en: Other, es: Otro } }
+
+cheque:
+  type: text[..10]
+  label: { fr: N° de chèque, en: Cheque number, es: N.º de cheque }
+  hint:
+    fr: Pour le mode autre.
+    en: For the method other.
+    es: Para el modo otro.
+
+liee:
+  type: banque.ecriture
+  label: { fr: Écriture liée, en: Linked entry, es: Apunte vinculado }
+  description:
+    fr: L'écriture miroir du virement, sur l'autre compte.
+    en: The mirror entry of the transfer, on the other account.
+    es: El apunte espejo de la transferencia, en la otra cuenta.
+
 lieu:
   type: banque.lieu
   searchable: mutualizable[recherche]
-imprimee:  date                    # le marqueur du relevé (Date_Impression)
-# les montants convertis (D770/D771) — des amount à devise unique,
-# le taux fixe du passage franc→euro ; currency : la fonction du type
+  label: { fr: Lieu, en: Place, es: Lugar }
+  description:
+    fr: La ville — le référentiel dynamique, la création directe au picker.
+    en: The town — the dynamic reference list, direct creation from the picker.
+    es: La ciudad — el referencial dinámico, la creación directa desde el selector.
+
+imprimee:
+  type: date
+  label: { fr: Imprimée le, en: Printed on, es: Impreso el }
+  description:
+    fr: Le marqueur du relevé, posé par la génération du PDF.
+    en: The statement marker, set when the PDF is generated.
+    es: La marca del extracto, puesta al generar el PDF.
+
+# Les champs calculés — les montants convertis au taux fixe du passage franc-euro
+
 montant_euro:
   type: amount
   currencies: [EUR]
   formula: 'montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))'
+  label: { fr: Montant en euros, en: Amount in euros, es: Importe en euros }
+  description:
+    fr: Un montant à devise unique ; currency est la fonction du type qui donne la devise de la valeur.
+    en: A single-currency amount; currency is the type's function that gives the value's currency.
+    es: Un importe de moneda única; currency es la función del tipo que da la moneda del valor.
+
 montant_franc:
   type: amount
   currencies: [FRF]
   formula: 'montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))'
+  label: { fr: Montant en francs, en: Amount in francs, es: Importe en francos }
+
 solde:
   type: amount
   currencies: [EUR]
-  formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)   # D760/D770 — continu
-# les calculés d'affichage (D779) — le montant signé en deux colonnes
-debit:  { type: amount, currencies: [EUR, FRF], formula: iif(montant.value < 0, -montant, null) }
-credit: { type: amount, currencies: [EUR, FRF], formula: iif(montant.value > 0, montant, null) }
+  formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)
+  label: { fr: Solde, en: Balance, es: Saldo }
+  description:
+    fr: Le solde continu — la somme des écritures du compte jusqu'à cette date.
+    en: The running balance — the sum of the account's entries up to this date.
+    es: El saldo continuo — la suma de los apuntes de la cuenta hasta esta fecha.
+
+debit:
+  type: amount
+  currencies: [EUR, FRF]
+  formula: iif(montant.value < 0, -montant, null)
+  label: { fr: Débit, en: Debit, es: Debe }
+  description:
+    fr: Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit.
+    en: A display calculation — the signed amount in two columns, with the credit.
+    es: Un cálculo de presentación — el importe con signo en dos columnas, con el haber.
+
+credit:
+  type: amount
+  currencies: [EUR, FRF]
+  formula: iif(montant.value > 0, montant, null)
+  label: { fr: Crédit, en: Credit, es: Haber }

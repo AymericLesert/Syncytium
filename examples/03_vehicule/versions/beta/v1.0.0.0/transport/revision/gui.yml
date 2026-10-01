@@ -1,40 +1,35 @@
-# La déclaration de la présentation graphique — le morceau 4.
-# Pas de formulaire déclaré : le défaut du socle suffit — la règle
-# s'écrit dans la liste (l'édition en ligne, D205/D445).
+# Les widgets
+# Pas de formulaire déclaré : celui du socle suffit ; la règle s'écrit dans la liste, en ligne.
 widgets:
 
-  # le widget de l'échue — un seul texte : UNE ALERTE,
+  # L'annonce
+  # Le widget d'une règle échue : une alerte, un seul texte, sans lien vers le véhicule ni la règle — le foyer n'a pas
+  # plus de deux véhicules. Le gabarit cite les chemins ; chaque alinéa porte sa condition.
   annonce:
-                                   # rien de plus (pas de lien vers le véhicule ou la
-                                   # règle — « nous n'avons pas plus de 2 véhicules »)
     items:
-      # le gabarit mustache, les chemins D71, l'alinéa au if:
       - paragraph:
           if: prochaine_date != null
-          label:
-            fr: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
       - paragraph:
           if: prochaine_date = null
-          label:
-            fr: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
 
+# Les listes
 lists:
 
-  # la première déclarée = le défaut (D437)
+  # Les révisions
+  # La première déclarée, celle par défaut : la règle est éditable, les échéances se déduisent.
   revisions:
-    title:
-      fr: "Les révisions"
+    title: Les révisions
     columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
-    # la règle ; les échéances se déduisent (D255)
     editable: [designation, pas_km, pas_duree]
     sort: [designation]
 
-  # l'écho (D826) — TOUS les véhicules, la partition par le filtre (D783)
+  # Les révisions échues
+  # L'écho de tous les véhicules, la partition par le filtre ; la liste en widgets, un texte par échue ; le nul en tête,
+  # les règles au kilométrage d'abord.
   echues:
-    title:
-      fr: "Les révisions échues"
+    title: Les révisions échues
     filter: echue = true
-    # la liste de widgets (D492) — le texte unique par échue
     widget: annonce
-    # le nul en tête (D381) — les règles au km d'abord
     sort: [prochaine_date]

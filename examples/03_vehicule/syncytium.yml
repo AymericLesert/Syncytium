@@ -1,21 +1,19 @@
 # Le format de la configuration
-# La version de la grammaire que parle ce projet : un moteur qui ne la
-# connaît pas refuse le projet à la lecture de cette seule ligne ; un
-# format plus ancien est converti à l'ingestion.
+# La version de la grammaire que parle ce projet : un moteur qui ne la connaît pas refuse le projet à la lecture de
+# cette seule ligne ; un format plus ancien est converti à l'ingestion.
 from: Syncytium-1.0
 
-# Le cas 3 bis — la maintenance des véhicules du foyer (Q59/D826)
-# L'entrée du projet (D767) : la déclaration fait foi, rien ne se déduit de l'arborescence.
-
-# Identification et description du projet
-
+# Le nom du projet
+# La maintenance des véhicules du foyer, du classeur Excel à l'application.
 name: vehicule
+
+# La description du projet
 description: Suivi et maintenance des véhicules du foyer
 
-# Liste des environnements d'exécution
-
+# Les environnements d'exécution
+# Un seul, le poste du foyer ; rien ne se déduit de l'arborescence, la déclaration fait foi.
 environments: ~{environments/environments.yml}
 
-# Liste des versions de l'application
-
+# Les versions de l'application
+# Le statut d'une version est son dossier : beta ou production.
 versions: ~{versions/versions.yml}

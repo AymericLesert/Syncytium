@@ -1,35 +1,38 @@
-# Les tableaux CREDIT et LOA partagent le format (Date, Reste dû,
-# Intérêt, Amortissement, Assurance, Mensualité, Payé) : une seule
-# source — la liste de plages de la carte fait le repli (D847). Le
-# réel discrimine les régimes : l'intérêt vide = la LOA. Le « Reste
-# dû » et la coche sont ignorés — calculés au modèle (D648/D657).
-
+# Le nom de l'entité source
+# Les tableaux CREDIT et LOA partagent le format — la date, le reste dû, l'intérêt, l'amortissement, l'assurance, la
+# mensualité, la coche Payé — : une seule entité, la liste de plages de la carte fait le repli. Le réel discrimine les
+# régimes : l'intérêt vide est la LOA. Le reste dû et la coche ne sont pas lus, le modèle les calcule.
 name: echeance
+
+# La description de l'entité source
 description: Les échéances du financement — la ligne des tableaux CREDIT ou LOA
 
+# Les colonnes
+# La plaque vient d'un autre onglet, la jointure au véhicule ; chaque colonne porte son entête.
 fields:
-  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
-  # chaque item (le mixte D848) : la jointure du mapping (D850)
+
   immatriculation:
     type: text[..12]
     reference: IDENTIFICATION!E1
+    description: La plaque du classeur.
+
   date:
     type: date
-    label:
-      fr: Date
+    label: Date
+
   interet:
     type: decimal
-    label:
-      fr: Intérêt
+    label: Intérêt
+    description: Vide pour la LOA.
+
   amortissement:
     type: decimal
-    label:
-      fr: Amortissement
+    label: Amortissement
+
   assurance:
     type: decimal
-    label:
-      fr: Assurance
+    label: Assurance
+
   mensualite:
     type: decimal
-    label:
-      fr: Mensualité
+    label: Mensualité

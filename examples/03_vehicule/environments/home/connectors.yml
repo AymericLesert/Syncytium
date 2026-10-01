@@ -1,61 +1,71 @@
-# le natif du domestique (D729)
+# Les connecteurs de l'environnement : la base, l'authentification, le mail et le dossier des classeurs. Chaque
+# connecteur porte sa famille (type), son implémentation (class) et, au besoin, les paramètres de l'implémentation ;
+# quand le nom du connecteur est sa famille, le type ne s'écrit pas. Les chemins viennent des variables du .env de
+# l'environnement.
+
+# La base du foyer
+# Le natif du domestique : un fichier SQLite, sans paramètre.
 database:
   type: storage
   class: sqlite
 
-# « pas de secrets dans la famille » (D759)
+# L'authentification
+# Pas de secrets dans la famille : aucune.
 authentication:
   class: none
 
-# le mail muet, assumé (D763) — les notifications de l'échéancier (D826)
-# restent dans l'application ; à revoir si le mail devient utile
+# Le mail sortant
+# Muet, assumé : les notifications de l'échéancier restent dans l'application ; à revoir si le mail devient utile.
 smtp:
   class: none
 
-# le legacy de la reprise (le morceau 5) — le storage xlsx sur le dossier :
-# un classeur = un véhicule, les feuilles = les entités source (D826/D828)
+# Le legacy
+# La base d'origine de la reprise : les classeurs Excel d'un dossier hors du dépôt — un classeur par véhicule, les
+# feuilles pour entités sources.
 legacy:
   type: storage
   class: xlsx
-  # le paramétrage technique de la classe
+
+  # Les paramètres du dossier
   parameters:
-    # le chemin hors dépôt (D321)
     directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
-  # la carte entités → fichiers (D828/D845–D848). LA RÉFÉRENCE EXCEL
-  # (D846/D848) : la plage FEUILLE!cellules ou la zone de nom — la
-  # première ligne de la plage porte les entêtes existantes (D845) ;
-  # la borne aux trois formes (D848) : explicite (A3:H100), «...» —
-  # l'arrêt à la première ligne vide sur toutes les colonnes du
-  # fichier — ou OUVERTE (A3:H — la fin de la feuille, les lignes
-  # vides sautées). single: = un seul enregistrement par fichier
-  # (les feuilles-formulaires) — une source-plage peut mixer des
-  # références de cellules d'autres onglets, répétées par ligne.
+
+  # La carte des entités vers les classeurs
+  # Chaque entité nomme ses fichiers (files, un motif) et sa lecture : single, un seul enregistrement par classeur — la
+  # feuille-formulaire aux cellules adressées — ; range, la plage FEUILLE!cellules dont la première ligne porte les
+  # entêtes. La borne de la plage a trois formes : explicite (A3:H100) ; « ... », l'arrêt à la première ligne vide sur
+  # toutes les colonnes ; ouverte (A3:H), la fin de la feuille, les lignes vides sautées. Une liste de plages se replie
+  # sur la première qui existe. Une plage peut mêler des cellules d'autres onglets, répétées par ligne.
   entities:
+
+    # Les feuilles-formulaires, un enregistrement par classeur
     identification:
       files: [ '.*\.xlsx?' ]
       single: true
     titre_consommation:
       files: [ '.*\.xlsx?' ]
       single: true
-    consommation:
-      files: [ '.*\.xlsx?' ]
-      # la plage ouverte — la ligne vide d'après l'entête interdit «...»
-      range: CONSOMMATION!A3:H
-    entretien:
-      files: [ '.*\.xlsx?' ]
-      # idem — et la plage borne d'elle-même le bloc droit homonyme
-      range: ENTRETIEN!A3:H
     regle_revision:
       files: [ '.*\.xlsx?' ]
       single: true
     credit_parametres:
       files: [ '.*\.xlsx?' ]
       single: true
+
+    # Les tableaux en plage ouverte
+    # La ligne vide qui suit l'entête interdit « ... » ; la plage de l'entretien borne d'elle-même le bloc droit aux
+    # entêtes homonymes.
+    consommation:
+      files: [ '.*\.xlsx?' ]
+      range: CONSOMMATION!A3:H
+    entretien:
+      files: [ '.*\.xlsx?' ]
+      range: ENTRETIEN!A3:H
+
+    # L'échéancier, le même format sur deux feuilles
+    # La première plage existante sert ; « ... » s'arrête à la première ligne vide.
     echeance:
       files: [ '.*\.xlsx?' ]
-      # le même format aux deux feuilles — la liste de plages (D847) :
-      # la première plage existante sert ; le «...» s'arrête à la
-      # première ligne vide (D848)
       range:
         - CREDIT!A8:G...
         - LOA!A3:G...

@@ -1,11 +1,23 @@
-# La reprise des classeurs historiques — le morceau 5 (le patron R1 de
-# la banque, D811–D825) : la migration déclarée, l'ordre de définition =
-# l'ordre d'exécution (D662/D665).
+# La migration classeurs
+# La reprise des classeurs historiques, un par véhicule, sur le patron de la banque ; l'ordre des migrations
+# déclarées est leur ordre d'exécution.
+classeurs:
 
-classeurs:                       # le nom de la migration
-  from: legacy                   # la base d'origine — le storage xlsx (environments/home/connectors.yml)
-  mode: absolute                 # le tout-ou-rien (D649)
-  reset: true                    # chaque passage repart de zéro
+  # La base d'origine
+  # Le storage xlsx de l'environnement : les classeurs du dossier du legacy.
+  from: legacy
+
+  # Le mode
+  # absolute : le tout ou rien — un passage en erreur n'écrit rien.
+  mode: absolute
+
+  # La remise à zéro
+  # Chaque passage repart de zéro.
+  reset: true
+
+  # Les entités sources
+  # Sept feuilles ou plages des classeurs ; chacune porte la plaque du véhicule, lue sur la feuille d'identification,
+  # pour se joindre à lui.
   source:
     - ~{source/identification.yml}
     - ~{source/titre_consommation.yml}
@@ -14,5 +26,10 @@ classeurs:                       # le nom de la migration
     - ~{source/regle_revision.yml}
     - ~{source/credit_parametres.yml}
     - ~{source/echeance.yml}
+
+  # Les règles
+  # Dix règles : le numéro du fichier fait l'ordre des étapes. Une règle porte le nom de son entité source : sa
+  # description, sa cible (to), son filtre (filter), son possesseur (parent) et ses affectations (fields — la
+  # formule, ou en forme longue formula, description et message).
   mapping:
-    - ~{mapping/[0-9]+_.*\.yml} # le pattern regex (D806) — l'alphabétique fait les étapes (D665)
+    - ~{mapping/[0-9]+_.*\.yml}

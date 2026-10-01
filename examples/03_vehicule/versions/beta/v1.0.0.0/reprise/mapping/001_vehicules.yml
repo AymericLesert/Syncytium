@@ -1,19 +1,18 @@
-# La phase 1 — un classeur = un véhicule (D826).
-# LA JOINTURE PAR LA PLAQUE (D850 — R3 sans objet) : chaque source
-# porte un champ immatriculation référençant IDENTIFICATION!E1 (la
-# cellule d'un autre onglet, répétée — le mixte D848) ; la clé et
-# les parents joignent par l'identité réelle, le patron banque.
-# Le statut : les véhicules repris vivent (actif) ; la restitution
-# déjà datée (la Zoe, K2) clôt d'entrée.
-
+# Les véhicules
 identification:
+  description: >-
+    La phase 1 : un classeur, un véhicule. Chaque source porte la plaque, lue sur la feuille d'identification et répétée
+    sur chaque ligne ; l'identité et les possesseurs joignent par elle, comme à la banque. Les véhicules repris vivent —
+    actifs ; une restitution déjà datée clôt d'entrée.
   to: transport.vehicule
   fields:
-    nom:        nom                 # la marque et le modèle, ensemble (B1)
-    immatriculation: immatriculation   # l'identité alimentée = la clé du rejeu (D654/D930)
-    photo:      photo               # l'image embarquée de la feuille (R8)
-    mode_achat: mode_achat
-    lieu_achat: lieu_achat
-    date_achat: date_debut          # la Zoe ; le Partner : la phase 3 (l'origine)
-    date_vente: date_fin
-    statut:     iif(date_fin != null, "cloture", "actif")
+    nom:             nom
+    immatriculation: immatriculation
+    photo:           photo
+    mode_achat:      mode_achat
+    lieu_achat:      lieu_achat
+    date_achat:
+      formula: date_debut
+      description: Le classeur récent seul la porte ; les autres la prendront à l'origine, la première consommation.
+    date_vente:      date_fin
+    statut:          iif(date_fin != null, "cloture", "actif")

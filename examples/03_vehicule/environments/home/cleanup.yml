@@ -1,8 +1,9 @@
-# Le nettoyage des fichiers de l'environnement Chaque règle supprime, dans un dossier, les fichiers d'un pattern qui
-# dépassent la rétention — une durée, lue dans la date du nom, ou un nombre de fichiers.
+# Les règles de nettoyage de l'environnement. Chaque règle porte le délai entre deux passages (interval), le dossier
+# nettoyé (directory), les fichiers visés (pattern — le groupe date lit dans le nom la date que la rétention compare) et
+# la rétention (retention — une durée, ou un nombre sans unité : les n derniers fichiers).
 
-# Le journal
-# Les fichiers datés du journal, tournés compris.
+# Le nettoyage du journal
+# Les fichiers datés du journal, tournés compris, gardés quatre-vingt-dix jours.
 journal:
   interval: 1d
   directory: ${SYNCYTIUM_LOG_DIRECTORY}

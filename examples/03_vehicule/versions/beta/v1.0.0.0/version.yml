@@ -1,5 +1,5 @@
-# Identification et description de la version — la version en tête (D801)
-
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
 version: 1.0.0.0
 
 # Les langues de l'application
@@ -7,36 +7,35 @@ version: 1.0.0.0
 # langue, les libellés et les descriptions s'écrivent en texte simple.
 languages: [fr]
 
-release-notes: >
-  La première version de la maintenance des véhicules du foyer —
-  du classeur Excel à l'application.
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La première version de la maintenance des véhicules du foyer — du classeur Excel à l'application.
+
   # Le modèle
-  ## Le véhicule — l'identification (la plaque), le financement à
-  plat (comptant, crédit, LOA), le cycle Création → Actif →
-  Clôture, le bilan tout calculé (0,249 €/km)
-  ## La consommation (les pleins et les charges au rang), le
-  journal de vie, les règles de révision, l'échéancier
+  - Le véhicule — l'identification (la plaque), le financement à plat (comptant, crédit, LOA), le cycle Création →
+    Actif → Clôture, le bilan tout calculé (0,249 €/km).
+  - La consommation (les pleins et les charges au rang), le journal de vie, les règles de révision, l'échéancier.
+
   # Les opérations
-  ## creer_echeancier à la validation du financement,
-  ajuster_echeancier au bouton, clore_echeancier à la vente,
-  finaliser_vehicule après la migration
+  - creer_echeancier à la validation du financement, ajuster_echeancier au bouton, clore_echeancier à la vente,
+    finaliser_vehicule après la migration.
+
   # Les surfaces
-  ## L'accueil — les révisions échues puis les véhicules en
-  cartes ; le formulaire aux six onglets, l'édition en ligne
+  - L'accueil — les révisions échues puis les véhicules en cartes ; le formulaire aux six onglets, l'édition en ligne.
+
   # La reprise
-  ## Les dix classeurs 1992-2026 — huit sources, dix phases, la
-  jointure par la plaque
+  - Les dix classeurs 1992-2026 — huit sources, dix phases, la jointure par la plaque.
 
-# Déclaration des hooks
-
+# Les hooks
+# Les opérations du projet, par famille.
 hooks: ~{hooks/hooks.yml}
 
-# Déclaration de la reprise des classeurs historiques (le morceau 5)
-
+# Les migrations
+# La reprise des classeurs historiques : le legacy, les entités sources, les règles.
 migrations: ~{reprise/reprise.yml}
 
-# Déclaration des modules
-# Pour l'exemple, nous n'avons qu'un seul module
-
+# Les modules de l'application
+# Un seul : le transport.
 modules:
   - ~{transport/transport.yml}

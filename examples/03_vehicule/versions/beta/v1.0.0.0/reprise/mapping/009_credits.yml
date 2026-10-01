@@ -1,11 +1,12 @@
-# La phase 9 — l'ancrage du crédit : le premier mois et le jour du
-# prélèvement à la première échéance (l'intérêt rempli = le crédit,
-# D847). Une règle par fichier — la clé YAML ne se répète pas.
-
+# L'ancrage des crédits
 echeance:
+  description: >-
+    La phase 9 : le premier mois et le jour du prélèvement du crédit, à la première échéance — l'intérêt rempli est le
+    crédit. Une règle par fichier : la clé YAML ne se répète pas. L'identité alimentée retrouve le véhicule — la mise à
+    jour.
   to: transport.vehicule
   filter: connector.line = 1 and interet != null
   fields:
-    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
-    premier_mois:  date
-    jour_echeance: date.day
+    immatriculation: immatriculation
+    premier_mois:    date
+    jour_echeance:   date.day

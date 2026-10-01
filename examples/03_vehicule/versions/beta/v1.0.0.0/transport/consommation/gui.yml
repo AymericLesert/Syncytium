@@ -1,25 +1,21 @@
-# La déclaration de la présentation graphique — le morceau 4.
-# Pas de formulaire déclaré : le formulaire par défaut du socle
-# suffit (l'arbitrage — basique, sans description) ; la saisie vit
-# dans la liste (l'édition en ligne, D205/D445).
+# Les listes
+# Pas de formulaire déclaré : celui du socle suffit ; la saisie vit dans la liste, en ligne.
 lists:
 
-  # la feuille CONSOMMATION, colonne à colonne
+  # La consommation
+  # La feuille du classeur, colonne à colonne ; les saisies sont éditables, les calculés se refont.
   consommations:
-    title:
-      fr: "La consommation"
+    title: La consommation
     columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
-    # les saisies — les calculés se refont (D255)
     editable: [numero, date, total_km, quantite, prix_unitaire]
     sort: [date, numero]
 
+# Les graphiques
 charts:
 
-  # la feuille GRAPHIQUE (D826)
+  # L'évolution de la consommation
+  # La feuille graphique du classeur : la moyenne du mois.
   evolution_consommation:
-    title:
-      fr: "L'évolution de la consommation"
-    # le mois — le découpage temporel (D516)
+    title: L'évolution de la consommation
     x: date[month]
-    # la moyenne du mois (D517/D580)
     y: avg(conso_100)

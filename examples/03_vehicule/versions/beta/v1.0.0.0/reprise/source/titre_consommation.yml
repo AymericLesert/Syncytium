@@ -1,21 +1,24 @@
-# Le titre de la feuille CONSOMMATION — le discriminant du type :
-# « CONSOMMATION D'ESSENCE » (thermique) / « CONSOMMATION D'ELECTRICITE »
-# (électrique). Un item par classeur.
-
+# Le nom de l'entité source
+# Le titre de la feuille CONSOMMATION, le discriminant du type — « CONSOMMATION D'ESSENCE » pour le thermique,
+# « CONSOMMATION D'ELECTRICITE » pour l'électrique ; un enregistrement par classeur.
 name: titre_consommation
+
+# La description de l'entité source
 description: Le titre de la feuille de consommation — thermique ou électrique
 
-
+# Les colonnes
+# La plaque vient d'un autre onglet, la jointure au véhicule ; le calculé tire le type du titre.
 fields:
-  # la plaque du classeur — la cellule d'un autre onglet, répétée sur
-  # chaque item (le mixte D848) : la jointure du mapping (D850)
+
   immatriculation:
     type: text[..12]
     reference: IDENTIFICATION!E1
+    description: La plaque du classeur.
+
   titre:
     type: text[..60]
     reference: CONSOMMATION!A1
 
-  # le calculé de normalisation (D660)
   type_vehicule:
     formula: iif(titre like ".*ELECTRIC.*", "electrique", "thermique")
+    description: Le type du véhicule au vocabulaire du modèle.

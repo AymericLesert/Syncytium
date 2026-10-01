@@ -1,22 +1,32 @@
-# La phase 8 — le financement à plat (D831). La source fusionnée
-# echeance discrimine les régimes par le réel (D847) : l'intérêt vide
-# = la LOA. Le crédit se paramètre à ses cellules (la phase suivante
-# pose son premier mois) ; la durée vaut pour tous à la phase 11.
+# Les financements
+# La phase 8 : le financement à plat. La source des échéances discrimine les régimes par le réel — l'intérêt vide est
+# la LOA ; le crédit se paramètre à ses cellules, et la phase suivante pose son premier mois. La durée vaut pour tous
+# par le nombre d'échéances.
 
+# La LOA
 echeance:
+  description: >-
+    La première ligne du tableau sans intérêt : la LOA, sa mensualité, son premier mois et son jour de prélèvement.
+    L'identité alimentée retrouve le véhicule — la mise à jour.
   to: transport.vehicule
   filter: connector.line = 1 and interet = null
   fields:
-    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
-    financement:   "loa"
-    mensualite:    mensualite
-    premier_mois:  date            # date[yyyy-mm] — la troncature naturelle du type (D854)
-    jour_echeance: date.day
+    immatriculation: immatriculation
+    financement:     "loa"
+    mensualite:      mensualite
+    premier_mois:
+      formula: date
+      description: La troncature au mois est naturelle au type date[yyyy-mm].
+    jour_echeance:   date.day
 
+# Le crédit
 credit_parametres:
+  description: >-
+    Les paramètres de la feuille de crédit : le capital, le taux, l'assurance mensuelle. L'identité alimentée retrouve
+    le véhicule — la mise à jour.
   to: transport.vehicule
   fields:
-    immatriculation:     immatriculation   # l'identité alimentée — la mise à jour (D930)
+    immatriculation:     immatriculation
     financement:         "credit"
     capital:             capital
     taux_annuel:         taux_annuel

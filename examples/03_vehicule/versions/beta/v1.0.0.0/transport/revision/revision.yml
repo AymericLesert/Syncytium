@@ -1,35 +1,38 @@
-# La révision — la règle de l'échéancier (D826) : « Révisions tous
-# les 25 000 km » (thermique), « tous les 20 000 km » (électrique).
-# La règle porte un pas en kilomètres OU en délai. Les révisions
-# faites restent des lignes du journal de vie (D831) — la ligne
-# marquée révision (le booléen d'entretien), la règle en déduit la
-# prochaine échéance (le booléen ne distingue pas les règles — le
-# réel n'en a qu'une par véhicule).
-# LA NOTIFICATION = L'OPÉRATION AUTOMATIQUE + notify (D436 — « couvre
-# tout ») : echue se recalcule d'elle-même (D255/D298), l'opération
-# notifier se déclenche à l'échéance (le cliquet D354) et porte
-# l'information aux utilisateurs (notify, 15e opération du socle —
-# D574) — in-app pour tous (D836) ; le relais mail = un setting de
-# l'application, défaut néant (D836) — et smtp: none ici de toute
-# façon (D763) ; la surface du morceau 4 fera écho.
+# La révision
+# La règle de l'échéancier des révisions, au pas en kilomètres ou en délai — « tous les 25 000 km » pour le thermique,
+# « tous les 20 000 km » pour l'électrique. Les révisions faites restent des lignes du journal de vie, marquées ; la
+# règle en déduit la prochaine échéance — le réel n'a qu'une règle par véhicule. La notification est une opération
+# automatique : l'échéance se recalcule d'elle-même, l'opération se déclenche à la première vraie et porte
+# l'information aux utilisateurs, dans l'application ; le relais par mail est un réglage, sans valeur par défaut.
 name: revision
+
+# La description de l'entité
 description: Une règle de révision — le pas en kilomètres ou en délai, la notification à l'échéance
+
+# Le visage texte
 label: "{designation}"
 
-# La liste des champs de l'entité
+# Les champs
+# Rangés par groupe.
 fields: ~{fields.yml}
 
+# Les opérations
 operations:
-  # l'automatisme (D428) — à l'échéance
+
+  # La notification à l'échéance
+  # L'automatisme : l'effet est le hook notify du socle.
   notifier:
     when: echue
     commit: auto
     effects:
-      # la référence au hook du socle (D432/D609)
       - notify
-validation:
-  # une règle sans pas ne dit rien
-  - pas_km != null or pas_duree != null
 
-# La déclaration de la présentation graphique — le morceau 4
+# La cohérence des données
+validation:
+  - rule: pas_km != null or pas_duree != null
+    description: Une règle sans pas ne dit rien.
+    message: La règle « {designation} » n'a ni pas en kilomètres ni pas en délai.
+
+# L'interface
+# Le widget de l'alerte et les deux listes.
 gui: ~{gui.yml}

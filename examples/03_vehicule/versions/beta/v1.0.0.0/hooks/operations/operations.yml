@@ -1,5 +1,4 @@
-# Déclaration des opérations du projet
-# Réutilisation des patterns pour lister toutes les opérations (1 dossier par opération)
-
+# Les opérations du projet
+# Un dossier par opération, listés par le motif : le fichier au nom de l'opération, sa documentation et son code.
 operations:
   - ~{.*/.*\.yml}

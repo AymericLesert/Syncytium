@@ -1,14 +1,15 @@
-# La phase 6 — la vente du Partner vit dans son journal (« Vente de la
-# voiture — … », le montant en recette négative) : elle date la vente
-# et clôt le véhicule (le classeur sans K2). La Zoe, déjà close en
-# phase 1, ne porte pas de ligne de vente — les deux chemins couvrent
-# le réel.
-
+# Les ventes
 entretien:
+  description: >-
+    La phase 6 : la vente d'un véhicule vit dans son journal — « Vente de la voiture — … », le montant en recette
+    négative ; elle date la vente et clôt le véhicule. Le classeur déjà clos en phase 1 ne porte pas de ligne de vente :
+    les deux chemins couvrent le réel. L'identité alimentée retrouve le véhicule — la mise à jour.
   to: transport.vehicule
   filter: designation like "^Vente de la voiture.*"
   fields:
-    immatriculation: immatriculation   # l'identité alimentée — la mise à jour (D930)
-    date_vente: date
-    lieu_vente: extract(designation, "^Vente de la voiture - (.*)$")   # « Vendezvotrevoiture.fr »
-    statut:     "cloture"
+    immatriculation: immatriculation
+    date_vente:      date
+    lieu_vente:
+      formula: extract(designation, "^Vente de la voiture - (.*)$")
+      description: Le lieu, après le tiret de la désignation — le site de vente, le concessionnaire.
+    statut:          "cloture"

@@ -31,13 +31,13 @@ derniere_date:
 
 prochaine_km:
   type: integer
-  formula: iif(pas_km = null, null, iif(derniere_km != null, derniere_km, owner.km_initial) + pas_km)
+  formula: (derniere_km if derniere_km != null else owner.km_initial) + pas_km if pas_km != null
   label: Prochaine (km)
   description: Depuis la dernière révision faite, sinon depuis l'origine du véhicule.
 
 prochaine_date:
   type: date
-  formula: iif(pas_duree = null, null, iif(derniere_date != null, derniere_date, owner.date_achat) + pas_duree)
+  formula: (derniere_date if derniere_date != null else owner.date_achat) + pas_duree if pas_duree != null
   label: Prochaine (date)
 
 echue:

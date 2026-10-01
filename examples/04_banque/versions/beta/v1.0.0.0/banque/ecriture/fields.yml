@@ -130,7 +130,7 @@ solde:
 debit:
   type: amount
   currencies: [EUR, FRF]
-  formula: iif(montant.value < 0, -montant, null)
+  formula: -montant if montant.value < 0
   label: { fr: Débit, en: Debit, es: Debe }
   description:
     fr: Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit.
@@ -140,5 +140,5 @@ debit:
 credit:
   type: amount
   currencies: [EUR, FRF]
-  formula: iif(montant.value > 0, montant, null)
+  formula: montant if montant.value > 0
   label: { fr: Crédit, en: Credit, es: Haber }

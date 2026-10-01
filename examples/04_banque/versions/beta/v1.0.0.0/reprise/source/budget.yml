@@ -64,25 +64,25 @@ fields:
   # Les calculés de normalisation
 
   montant_signe:
-    formula: round(iif(Credit != null, Credit, 0) - iif(Debit != null, Debit, 0), 2)
+    formula: round((Credit if Credit != null else 0) - (Debit if Debit != null else 0), 2)
     description: Le montant signé, arrondi au centime — les poussières flottantes du legacy s'éteignent.
 
   devise_iso:
-    formula: iif(Devise = "E", "EUR", "FRF")
+    formula: '"EUR" if Devise = "E" else "FRF"'
     description: La devise au code ISO du type amount.
 
   mode_norme:
     formula: >-
-      iif(Nature = "CB", "cb",
-      iif(Nature = "PRELEVEMENT", "prelevement",
-      iif(Nature = "VIREMENT" or Nature like "^VIREMENT-.*" or Nature = "Guichet", "virement",
-      "autre")))
+      "cb" if Nature = "CB"
+      else "prelevement" if Nature = "PRELEVEMENT"
+      else "virement" if Nature = "VIREMENT" or Nature like "^VIREMENT-.*" or Nature = "Guichet"
+      else "autre"
     description: >-
       La nature mixte ramenée au mode de l'écriture ; les chèques, les espèces, le liquide et le vide vont à autre. like
       est la comparaison régulière.
 
   cheque_norme:
-    formula: iif(Nature like "^[0-9]+$", Nature, null)
+    formula: Nature if Nature like "^[0-9]+$"
     description: Le numéro de chèque, quand la nature n'est qu'un nombre.
 
   reference_virement:

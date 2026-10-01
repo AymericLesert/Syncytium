@@ -195,7 +195,7 @@ unite:
 
 km_courant:
   type: integer
-  formula: iif(entretiens.max(km) > consommations.max(total_km), entretiens.max(km), consommations.max(total_km))
+  formula: entretiens.max(km) if entretiens.max(km) > consommations.max(total_km) else consommations.max(total_km)
   label: Kilométrage courant
   hint: Le plus grand compteur vu — consommations et entretiens confondus.
 

@@ -39,14 +39,14 @@ prix_total:
 
 nb_jours:
   type: duration
-  formula: iif(numero = 1, null, date - owner.consommations[me.numero - 1].date)
+  formula: date - owner.consommations[me.numero - 1].date if numero > 1
   label: Nb de jours
   hint: Depuis le ravitaillement précédent.
   description: La première ligne reste nulle, comme au classeur ; la précédente s'atteint par la clé.
 
 km:
   type: integer
-  formula: total_km - iif(numero = 1, owner.km_initial, owner.consommations[me.numero - 1].total_km)
+  formula: total_km - (owner.km_initial if numero = 1 else owner.consommations[me.numero - 1].total_km)
   label: Km parcourus
   hint: Depuis le ravitaillement précédent.
   description: La première ligne part du compteur au retrait ; la précédente s'atteint par la clé.
@@ -60,7 +60,7 @@ conso_100:
 km_prevu:
   type: decimal
   formula: >-
-    (iif(owner.date_vente != null and owner.date_vente < date, owner.date_vente, date) - owner.date_achat).months
+    ((owner.date_vente if owner.date_vente != null and owner.date_vente < date else date) - owner.date_achat).months
     * owner.km_annuel / 12
   label: Km prévu
   hint: Le prorata du forfait annuel de la LOA depuis l'achat.

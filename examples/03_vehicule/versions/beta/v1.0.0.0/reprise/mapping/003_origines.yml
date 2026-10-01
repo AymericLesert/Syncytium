@@ -12,4 +12,4 @@ consommation:
     immatriculation: immatriculation
     date_achat:      date
     km_initial:      total_km
-    devise:          iif(date.year < 2002, "franc", "euro")
+    devise:          '"franc" if date.year < 2002 else "euro"'

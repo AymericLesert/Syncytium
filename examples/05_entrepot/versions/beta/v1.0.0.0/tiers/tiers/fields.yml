@@ -1,227 +1,163 @@
-# --- l'identité (CLKTCODE) ---
+# L'identité
 
 code:
-  # CLKTCODE nchar(6) — l'identité se déclare chez l'enfant (client,
-  # fournisseur), le champ vit ici
   type: text[..6]
   required: true
-  label:
-    fr: Code
-  placeholder:
-    fr: C00042
+  label: Code
+  placeholder: C00042
+  description: L'identité se déclare chez l'enfant — le client, le fournisseur — ; le champ vit ici.
 
 nom:
-  # CLCTNOM — la raison sociale
   type: text[..40]
   required: true
   searchable: mutualizable[qui]
-  label:
-    fr: Raison sociale
+  label: Raison sociale
 
 abrege:
-  # CLCTABRE
   type: text[..10]
-  label:
-    fr: Abrégé
-  hint:
-    fr: Le nom court, celui des listes.
+  label: Abrégé
+  hint: Le nom court, celui des listes.
 
-# --- l'adresse principale — la géolocalisation (D638) : l'adresse
-# normalisée et les coordonnées GPS de l'ERP (CLCNGPSX, CLCNGPSY) par le
-# constructeur au mapping (D659) ; les lignes d'adresse (CLCTRUE1,
-# CLCTRUE2, CLCTRUE3, CLCTCP, CLCTVILLE, CLCTPAYS) y entrent ---
+# L'adresse principale
 
 adresse:
   type: geolocation
-  label:
-    fr: Adresse
-  hint:
-    fr: L'adresse du siège, géolocalisée — le tri par la distance.
+  label: Adresse
+  hint: L'adresse du siège, géolocalisée — le tri par la distance.
+  description: L'adresse normalisée et ses coordonnées, assemblées par la reprise depuis les lignes de l'ERP.
 
 pays:
-  # CLCTCPAYS nchar(3) — le code pays ISO
   type: text[3]
-  label:
-    fr: Pays
+  label: Pays
+  hint: Le code pays ISO.
 
-# --- les coordonnées — les composés à validation intégrée (D391) ---
+# Les coordonnées — des types composés, validés par leur forme
 
 telephone:
-  # CLCTTELEP1
   type: phone
-  label:
-    fr: Téléphone
+  label: Téléphone
 
 fax:
-  # CLCTFAX1
   type: phone
-  label:
-    fr: Fax
+  label: Fax
 
 email:
-  # CLCTEMAIL
   type: email
-  label:
-    fr: Courriel
+  label: Courriel
 
 site:
-  # CLCTSITE — le lien en lecture (D563)
   type: url
-  label:
-    fr: Site web
+  label: Site web
+  hint: Le lien s'ouvre en lecture.
 
-# --- les identifiants légaux et bancaires — validés par leur type ---
+# Les identifiants légaux et bancaires — validés par leur type
 
 siret:
-  # CLCTSIRET
   type: siret
-  label:
-    fr: SIRET
+  label: SIRET
 
 tva:
-  # CLCTNOTVA
   type: vat_number
-  label:
-    fr: N° de TVA
+  label: N° de TVA
 
 iban:
-  # CLCTIBAN — le bancaire : réservé aux achats et à la direction
   type: iban
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: IBAN
+  label: IBAN
+  description: Le bancaire est réservé aux achats et à la direction, par le profil financier des réglages.
 
 bic:
-  # CLCTSWIFT
   type: bic
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: BIC
+  label: BIC
 
-# --- les conditions ---
+# Les conditions
 
 devise:
-  # CLCTDEVISE nchar(3) — la devise du tiers (ISO)
   type: text[3]
-  label:
-    fr: Devise
-  placeholder:
-    fr: EUR
+  label: Devise
+  placeholder: EUR
+  hint: La devise du tiers, en code ISO.
 
 langue:
-  # CLCTLANGUE
   type: text[..3]
-  label:
-    fr: Langue
-
-# le mode de règlement (CLCTMREG) n'est plus ici : anonymisé dans
-# l'échantillon, rien ne le remplit — retiré du modèle (D963)
+  label: Langue
 
 echeance:
-  # CLCTCECHEA — le délai d'échéance de l'ERP (« 030 »), l'entier de jours
-  # à la règle (D581)
   type: integer[0..]
-  label:
-    fr: Échéance
-  hint:
-    fr: Le délai de règlement, en jours.
+  label: Échéance
+  hint: Le délai de règlement, en jours.
 
 base_echeance:
-  # CLCTBECHEA — la base d'échéance de l'ERP (1, 3, 6 sur l'échantillon), le
-  # point de départ du délai ; l'énuméré aux correspondances inventées
-  # pour l'exemple (D963/D964 — « je valide ta proposition pour
-  # l'échéance »), la traduction à la règle (D893)
   type: enum
-  label:
-    fr: Base d'échéance
-  hint:
-    fr: D'où part le délai de règlement.
+  label: Base d'échéance
+  hint: D'où part le délai de règlement.
+  description: >-
+    Le point de départ du délai ; les correspondances avec les bases de l'ERP sont inventées pour l'exemple, la reprise
+    les traduit. Le mode de règlement n'est pas repris : anonymisé dans l'échantillon, rien ne le remplit.
   values:
-    facture:
-      label:
-        fr: Date de facture
-    fin_de_mois:
-      label:
-        fr: Fin de mois
-    fin_de_mois_le_10:
-      label:
-        fr: Fin de mois, le 10
+    facture:           { label: Date de facture }
+    fin_de_mois:       { label: Fin de mois }
+    fin_de_mois_le_10: { label: "Fin de mois, le 10" }
 
-# --- la vie du tiers ---
+# La vie du tiers
 
 actif:
-  # CLCTACTIF — O actif, N inactif ; « le vide vaut actif » (D950)
   type: boolean
   required: true
   default: true
-  label:
-    fr: Actif
+  label: Actif
 
 bloque:
-  # CLCTBLOCAG
   type: boolean
   required: true
   default: false
-  label:
-    fr: Bloqué
-  hint:
-    fr: Vrai quand l'ERP bloque le tiers — plus de commande.
+  label: Bloqué
+  hint: Vrai quand l'ERP bloque le tiers — plus de commande.
 
 date_creation:
-  # CLCJCRE — AAAAMMJJ au masque (D820)
   type: date
-  label:
-    fr: Créé le
+  label: Créé le
 
 date_modification:
-  # CLCJMOU
   type: date
-  label:
-    fr: Modifié le
+  label: Modifié le
 
-# --- les compositions (D399) ---
+# Les compositions
 
 adresses:
-  # ADRESSE — les adresses complémentaires (livraison, facturation…)
   type: list of adresse
-  label:
-    fr: Adresses complémentaires
+  label: Adresses complémentaires
+  hint: Les adresses de livraison, de facturation…
 
 contacts:
-  # CONTACT — les personnes ; le RGPD (D695) sur leurs champs
   type: list of contact
-  label:
-    fr: Contacts
+  label: Contacts
+  description: Les personnes chez le tiers ; leurs champs nominatifs portent le marquage des données personnelles.
 
-# --- l'enrichissement : le champ que l'entrepôt possède (D941) ---
+# L'enrichissement — le champ que l'entrepôt possède
 
 note_interne:
-  # aucune colonne de l'ERP — la note des acheteurs et du commercial sur le
-  # tiers ; l'entrepôt la possède : la migration ne l'alimente pas et ne
-  # la touche pas (D672/D941), le champ naît à son défaut et garde sa
-  # valeur (unchanged) ; la saisie est ouverte aux groupes que l'allow au
-  # champ nomme (D886/D942), le module restant en lecture seule
   type: text[..200]
   default: ""
   unchanged: true
   allow:
     update: [commercial, achats]
-  label:
-    fr: Note interne
-  hint:
-    fr: Ce que l'entreprise sait du tiers et que l'ERP ne porte pas — libre au commercial et aux achats.
+  label: Note interne
+  hint: Ce que l'entreprise sait du tiers et que l'ERP ne porte pas — libre au commercial et aux achats.
+  description: >-
+    La reprise ne l'alimente pas et ne la touche pas : le champ naît à son défaut et garde sa valeur. La saisie est
+    ouverte aux groupes que le droit du champ nomme, le module restant en lecture seule.
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 siren:
-  # les neuf premiers chiffres du SIRET — le type siren valide
   type: siren
   formula: left(siret, 9) if siret != null
-  label:
-    fr: SIREN
+  label: SIREN
+  hint: Les neuf premiers chiffres du SIRET.
 
 nombre_contacts:
   type: integer
   formula: contacts.count()
-  label:
-    fr: Contacts
+  label: Contacts

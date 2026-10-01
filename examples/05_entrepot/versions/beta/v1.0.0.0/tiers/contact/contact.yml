@@ -1,100 +1,84 @@
-# Le contact — la table CONTACT de l'ERP (CTKTSOC, CTKNID ; le tiers par
-# CTCTTYPCPT, C ou F, et CTCTCOMPTE — D950) : les personnes chez le
-# tiers. La composition du tiers (D399) ;
-# les champs nominatifs portent le marquage RGPD (D695 — personal) :
-# l'anonymisation (D696) et la rétention (D698) savent où frapper —
-# le premier exemple au RGPD.
+# Le contact
+# Les personnes chez un tiers : une composition du tiers. Les champs nominatifs portent le marquage des données
+# personnelles — l'anonymisation et la rétention savent où frapper ; le premier exemple au RGPD.
 name: contact
+
+# La description de l'entité
 description: Une personne chez un tiers — son rôle et ses coordonnées
+
+# Le visage texte
 label: "{prenom} {nom}"
+
+# L'identité
+# L'identifiant, au sein du tiers.
 identity: [identifiant]
+
+# L'historique
 history: true
 
+# Les champs
 fields:
+
   identifiant:
-    # CTKNID int — l'identifiant de l'ERP
     type: integer[1..]
     required: true
-    label:
-      fr: Identifiant
+    label: Identifiant
+    hint: L'identifiant du contact chez l'ERP.
 
   civilite:
-    # CTCTCIVILI nchar(6) — la civilité de l'ERP, traduite au mapping (D893)
     type: enum
-    label:
-      fr: Civilité
+    label: Civilité
+    description: La civilité de l'ERP, traduite par la reprise.
     values:
-      madame:
-        label:
-          fr: Madame
-      monsieur:
-        label:
-          fr: Monsieur
+      madame:   { label: Madame }
+      monsieur: { label: Monsieur }
 
   nom:
-    # CTCTNOM
     type: text[..40]
     required: true
     rgpd: personal
     searchable: mutualizable[qui]
-    label:
-      fr: Nom
+    label: Nom
 
   prenom:
-    # CTCTPRENOM nchar(20)
     type: text[..40]
     rgpd: personal
-    label:
-      fr: Prénom
+    label: Prénom
 
   fonction:
-    # CTCTFONCTI nchar(3) — le code de fonction de l'ERP ; le libellé au
-    # mapping
     type: text[..40]
-    label:
-      fr: Fonction
-    placeholder:
-      fr: Responsable des achats
+    label: Fonction
+    placeholder: Responsable des achats
+    description: Le libellé de la fonction ; la reprise le traduit du code de l'ERP.
 
   telephone:
-    # CTCTNOTEL1 — la première des six paires type/numéro (D950)
     type: phone
     rgpd: personal
-    label:
-      fr: Téléphone
+    label: Téléphone
+    description: Le premier des numéros de l'ERP ; le portable est le second.
 
   portable:
-    # CTCTNOTEL2 — la seconde paire (D950)
     type: phone
     rgpd: personal
-    label:
-      fr: Portable
+    label: Portable
 
   email:
-    # CTCTMAIL1
     type: email
     rgpd: personal
-    label:
-      fr: Courriel
+    label: Courriel
 
   anniversaire:
-    # CTCJANNIV — AAAAMMJJ au masque ; une date de naissance est
-    # personnelle (D695)
     type: date
     rgpd: personal
-    label:
-      fr: Date de naissance
+    label: Date de naissance
+    description: Une date de naissance est une donnée personnelle.
 
   actif:
-    # CTCTACTIF — O actif ; le vide vaut actif (D950)
     type: boolean
     required: true
     default: true
-    label:
-      fr: Actif
+    label: Actif
 
   date_creation:
-    # CTCJCRE
     type: date
-    label:
-      fr: Créé le
+    label: Créé le

@@ -1,132 +1,103 @@
-# --- l'identité (ECKTNUMERO, ECKTINDICE) ---
+# L'identité
 
 numero:
-  # ECKTNUMERO — le counter surchargé par la migration (D883)
   type: counter
   format: "{counter:000000}"
-  label:
-    fr: Numéro
+  label: Numéro
+  description: Un compteur — le type est déclaré, la reprise écrit la valeur.
 
 indice:
-  # ECKTINDICE — la révision ; les lignes la portent sous LCKTPSF (D951)
   type: text[..3]
   required: true
   default: "000"
-  label:
-    fr: Indice
+  label: Indice
+  hint: La révision de la commande — 000 à l'origine.
+  description: Les lignes portent l'indice de leur commande.
 
-# --- le fournisseur et les références ---
+# Le fournisseur et les références
 
 fournisseur:
-  # ECCTCODE — la référence au fournisseur (D396)
   type: tiers.fournisseur
   required: true
-  label:
-    fr: Fournisseur
+  label: Fournisseur
 
 reference_fournisseur:
-  # ECCTREFCDE — l'accusé de réception du fournisseur
   type: text[..20]
-  label:
-    fr: Référence fournisseur
+  label: Référence fournisseur
+  hint: L'accusé de réception du fournisseur.
 
-# --- les dates ---
+# Les dates
 
 date:
-  # ECCJCRE
   type: date
   required: true
-  label:
-    fr: Date
+  label: Date
+  hint: La date de la commande.
 
 date_echeance:
-  # ECCJECHFOR
   type: date
-  label:
-    fr: Échéance
+  label: Échéance
 
 derniere_reception:
-  # ECCJDERBL — chez le fournisseur, le dernier bon est une réception
   type: date
-  label:
-    fr: Dernière réception
+  label: Dernière réception
+  hint: La date du dernier bon de réception.
 
 derniere_facture:
-  # ECCJDERFA
   type: date
-  label:
-    fr: Dernière facture
+  label: Dernière facture
 
-# --- les conditions ---
+# Les conditions
 
 devise:
-  # ECCTDEVISE
   type: text[3]
   required: true
-  label:
-    fr: Devise
+  label: Devise
+  description: La devise de la commande ; les lignes la lisent par leur possesseur.
 
 taux_change:
-  # ECCNTXDEVI
   type: decimal
   decimals: 6
-  label:
-    fr: Taux de change
+  label: Taux de change
 
-# le statut de l'entête n'est pas repris : « ECCTSTATUT peut être ignoré »
-# (D1002) — « l'état d'une commande se déduit de l'état des lignes » : le
-# calculé statut, plus bas (D1003)
-
-# --- la composition (D399) ---
+# La composition
 
 lignes:
-  # LCOMFOU
   type: list of ligne_achat
-  label:
-    fr: Lignes
+  label: Lignes
+  description: La suppression de la commande les emporte ; la suppression d'un article ne les touche pas.
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 statut:
-  # « l'état d'une commande se déduit de l'état des lignes » (D1003) — un
-  # calculé, jamais repris (ECCTSTATUT ignorée, D1002) : non traitée tant
-  # qu'aucune ligne ne l'est, soldée quand toutes le sont (soldée ou
-  # terminée), en cours entre les deux ; les cas en chaîne par
-  # « valeur if condition else … » (forme mienne, D1003)
   type: enum
   formula: >-
     "non_traite" if lignes.count(statut != "non_traite") = 0
     else "soldee" if lignes.count(statut not in ["soldee", "terminee"]) = 0
     else "en_cours"
-  label:
-    fr: Statut
+  label: Statut
+  description: >-
+    Jamais repris, déduit des lignes : non traitée tant qu'aucune ligne ne l'est, soldée quand toutes le sont — soldée
+    ou terminée —, en cours entre les deux ; les cas s'enchaînent par « valeur if condition else … ».
   values:
-    non_traite:
-      label:
-        fr: Non traitée
-    en_cours:
-      label:
-        fr: En cours
-    soldee:
-      label:
-        fr: Soldée
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    soldee:     { label: Soldée }
 
 total:
-  # les montants d'achat sont restreints (D859)
   type: amount
   formula: lignes.sum(montant)
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Total
+  label: Total
+  description: La somme des montants des lignes ; les montants d'achat sont réservés aux achats et à la direction.
 
 nombre_lignes:
   type: integer
   formula: lignes.count()
-  label:
-    fr: Lignes
+  label: Lignes
 
 reste_a_recevoir:
   type: decimal
   formula: lignes.sum(quantite - quantite_recue)
-  label:
-    fr: Reste à recevoir
+  label: Reste à recevoir
+  hint: Les quantités commandées non encore reçues, toutes lignes confondues.

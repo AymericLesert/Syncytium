@@ -1,207 +1,150 @@
-# --- l'identité (ECKTNUMERO, ECKTINDICE) ---
+# L'identité
 
 numero:
-  # ECKTNUMERO nchar(6) — « une commande est un counter » : le type
-  # déclaré, la valeur écrite par la migration (D883 — le privilège de
-  # la reprise D175)
   type: counter
   format: "{counter:000000}"
-  label:
-    fr: Numéro
+  label: Numéro
+  description: Un compteur — le type est déclaré, la reprise écrit la valeur.
 
 indice:
-  # ECKTINDICE nchar(3) — la révision de la commande ; les lignes la
-  # portent sous LCKTPSF (D951 : « LCKTPSF est l'indice de la commande »)
   type: text[..3]
   required: true
   default: "000"
-  label:
-    fr: Indice
-  hint:
-    fr: La révision de la commande — 000 à l'origine.
+  label: Indice
+  hint: La révision de la commande — 000 à l'origine.
+  description: Les lignes portent l'indice de leur commande.
 
-# --- le client et les références ---
+# Le client et les références
 
 client:
-  # ECCTCODE nchar(6) — la référence au client (D396) : la jointure par
-  # la clé au mapping (D654)
   type: tiers.client
   required: true
-  label:
-    fr: Client
+  label: Client
 
 reference_client:
-  # ECCTREFCDE
   type: text[..20]
-  label:
-    fr: Référence client
-  hint:
-    fr: Le numéro de commande chez le client.
+  label: Référence client
+  hint: Le numéro de commande chez le client.
 
-# --- les dates — AAAAMMJJ au masque (D820) ---
+# Les dates
 
 date:
-  # ECCJCRE — la date de la commande
   type: date
   required: true
-  label:
-    fr: Date
+  label: Date
+  hint: La date de la commande.
 
 date_echeance:
-  # ECCJECHFOR — l'échéance forcée
   type: date
-  label:
-    fr: Échéance
+  label: Échéance
+  hint: L'échéance forcée.
 
 derniere_livraison:
-  # ECCJDERBL — la date du dernier bon de livraison
   type: date
-  label:
-    fr: Dernière livraison
+  label: Dernière livraison
+  hint: La date du dernier bon de livraison.
 
 derniere_facture:
-  # ECCJDERFA
   type: date
-  label:
-    fr: Dernière facture
+  label: Dernière facture
 
-# --- les conditions ---
+# Les conditions
 
 devise:
-  # ECCTDEVISE nchar(3) — la devise de la commande ; les lignes la
-  # lisent par owner (D760)
   type: text[3]
   required: true
-  label:
-    fr: Devise
-  placeholder:
-    fr: EUR
+  label: Devise
+  placeholder: EUR
+  description: La devise de la commande ; les lignes la lisent par leur possesseur.
 
 taux_change:
-  # ECCNTXDEVI — le taux de change de la commande
   type: decimal
   decimals: 6
-  label:
-    fr: Taux de change
+  label: Taux de change
 
-# le statut de l'entête n'est pas repris : « ECCTSTATUT peut être ignoré »
-# (D1002) — « l'état d'une commande se déduit de l'état des lignes » : le
-# calculé statut, plus bas (D1003)
-
-# --- la livraison — l'adresse propre à la commande, un instantané saisi
-# à la commande : « nous stockons le détail pour la reprise et nous
-# calculons un champ adresse_livraison correspondant à l'appel à la
-# géolocalisation » (D1004) ; l'adresse de la commande elle-même
-# (ECCTRUE1–3, ECCTCP, ECCTVILLE, ECCTPAYS) est une redondance du client,
-# ignorée — « le code client est suffisant » ---
+# La livraison
 
 livraison_nom:
-  # ECCTNOMLIV
   type: text[..40]
-  label:
-    fr: Livré à
+  label: Livré à
+  description: >-
+    L'adresse propre à la commande, un instantané saisi à la commande : le détail est repris tel quel et le calculé
+    adresse_livraison le géolocalise. L'adresse de la commande elle-même, redondante avec celle du client, n'est pas
+    reprise.
 
 livraison_rue1:
-  # ECCTRUE1LI
   type: text[..40]
-  label:
-    fr: Rue
+  label: Rue
 
 livraison_rue2:
-  # ECCTRUE2LI
   type: text[..40]
-  label:
-    fr: Rue (suite)
+  label: Rue (suite)
 
 livraison_rue3:
-  # ECCTRUE3LI
   type: text[..40]
-  label:
-    fr: Rue (fin)
+  label: Rue (fin)
 
 livraison_code_postal:
-  # ECCTCPLIV
   type: text[..16]
-  label:
-    fr: Code postal
+  label: Code postal
 
 livraison_ville:
-  # ECCTVILLIV
   type: text[..40]
-  label:
-    fr: Ville
+  label: Ville
 
 livraison_pays:
-  # ECCTPAYSLI — le libellé ; le code ECCTCPAYLI non lu
   type: text[..20]
-  label:
-    fr: Pays
+  label: Pays
+  hint: Le libellé du pays.
 
-# --- la composition (D399) ---
+# La composition
 
 lignes:
-  # LCOMCLI — les lignes de la commande ; la suppression de la commande
-  # les emporte, la suppression d'un article ne les touche pas (D882)
   type: list of ligne_vente
-  label:
-    fr: Lignes
+  label: Lignes
+  description: La suppression de la commande les emporte ; la suppression d'un article ne les touche pas.
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 statut:
-  # « l'état d'une commande se déduit de l'état des lignes » (D1003) — un
-  # calculé, jamais repris (ECCTSTATUT ignorée, D1002) : non traitée tant
-  # qu'aucune ligne ne l'est, soldée quand toutes le sont (soldée ou
-  # terminée), en cours entre les deux ; les cas en chaîne par
-  # « valeur if condition else … » (forme mienne, D1003)
   type: enum
   formula: >-
     "non_traite" if lignes.count(statut != "non_traite") = 0
     else "soldee" if lignes.count(statut not in ["soldee", "terminee"]) = 0
     else "en_cours"
-  label:
-    fr: Statut
+  label: Statut
+  description: >-
+    Jamais repris, déduit des lignes : non traitée tant qu'aucune ligne ne l'est, soldée quand toutes le sont — soldée
+    ou terminée —, en cours entre les deux ; les cas s'enchaînent par « valeur if condition else … ».
   values:
-    non_traite:
-      label:
-        fr: Non traitée
-    en_cours:
-      label:
-        fr: En cours
-    soldee:
-      label:
-        fr: Soldée
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    soldee:     { label: Soldée }
 
 adresse_livraison:
-  # le géocodage du détail par le connecteur location (D637/D1004) — la
-  # forme texte du constructeur (D961) rend les quatre parties, la
-  # normalisée et le point venant du connecteur ; sans if, geolocation
-  # refuse le texte vide (D1004) : le calculé est nul quand la ville manque
   type: geolocation
   formula: >-
-    geolocation(livraison_rue1 + " " + livraison_rue2 + " " + livraison_rue3 + ", " + livraison_code_postal + " " + livraison_ville + ", " + livraison_pays)
-      if livraison_ville != null
-  label:
-    fr: Adresse de livraison
+    geolocation(livraison_rue1 + " " + livraison_rue2 + " " + livraison_rue3 + ", " + livraison_code_postal + " "
+    + livraison_ville + ", " + livraison_pays) if livraison_ville != null
+  label: Adresse de livraison
+  description: >-
+    Le géocodage du détail par le connecteur de localisation : la forme texte du constructeur rend les quatre parties,
+    l'adresse normalisée et le point viennent du connecteur. Sans la condition, la géolocalisation refuse le texte
+    vide : le calculé est nul quand la ville manque.
 
 total:
-  # la somme des montants des lignes — un amount à la devise de la
-  # commande (D771)
   type: amount
   formula: lignes.sum(montant)
-  label:
-    fr: Total
+  label: Total
+  description: La somme des montants des lignes, à la devise de la commande.
 
 nombre_lignes:
   type: integer
   formula: lignes.count()
-  label:
-    fr: Lignes
+  label: Lignes
 
 reste_a_livrer:
   type: decimal
   formula: lignes.sum(quantite - quantite_expediee)
-  label:
-    fr: Reste à livrer
-  hint:
-    fr: Les quantités commandées non encore expédiées, toutes lignes confondues.
+  label: Reste à livrer
+  hint: Les quantités commandées non encore expédiées, toutes lignes confondues.

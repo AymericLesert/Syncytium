@@ -1,213 +1,144 @@
-# --- l'origine du mouvement — les colonnes I de l'ERP (D869) ---
+# L'origine du mouvement
 
 document:
-  # MVITNUMERO nchar(6) — le document d'origine (la commande, l'ordre de
-  # fabrication…)
   type: text[..6]
-  label:
-    fr: Document
+  label: Document
+  hint: Le document d'origine — la commande, l'ordre de fabrication…
 
 ligne:
-  # MVITLIGNE
   type: text[..3]
-  label:
-    fr: Ligne
+  label: Ligne
 
 indice:
-  # MVITINDLIG
   type: text[..3]
-  label:
-    fr: Indice
+  label: Indice
 
 composant:
-  # MVITCOMPOS
   type: text[..5]
-  label:
-    fr: Composant
+  label: Composant
 
-# --- l'article et le lieu ---
+# L'article et le lieu
 
 article:
-  # MVCTCODART + MVCTCOMART — la référence (D396)
   type: technique.article
   required: true
-  label:
-    fr: Article
+  label: Article
 
 depot:
-  # MVCTDEPOT
   type: stock.depot
-  label:
-    fr: Dépôt
+  label: Dépôt
 
 emplacement:
-  # MVCTCODMPL
   type: stock.emplacement
-  label:
-    fr: Emplacement
+  label: Emplacement
 
 lot:
-  # MVCTNUMLOT — le numéro de lot, un texte : « pour le cas d'usage,
-  # oublions le numéro de lot » comme concept — pas de référentiel, pas
-  # d'article physique — « nous allons considérer ces propriétés sur la
-  # base de chaque enregistrement de mouvements » (D1018) ; l'article
-  # physique, distinct de la définition de l'article, est une évolution
-  # possible du modèle, hors du cas
   type: text[..18]
-  label:
-    fr: Lot
+  label: Lot
+  description: >-
+    Un texte, sans référentiel : les propriétés de l'article physique se lisent sur chaque mouvement ; l'article
+    physique, distinct de la définition de l'article, est une évolution possible du modèle, hors du cas.
 
-# --- le moment — la date et l'heure gardées séparées : le time seul
-# (D881 — la couverture des types), la partition au mois de la date
-# (D880) ---
+# Le moment — la date et l'heure gardées séparées
 
 date:
-  # MVCJMVT — « la date du mouvement à enregistrer dans le système »
-  # (D1001), la clé de partition (D880) ; MVCSMVT, la semaine, se déduit
-  # du jour (D1000)
   type: date
   required: true
-  label:
-    fr: Date
+  label: Date
+  hint: La date du mouvement, enregistrée dans le système.
+  description: La clé de partition de la lecture ; la semaine se déduit du jour.
 
 horodatage:
-  # MVCJSAI + MVCTSAI — « la date et l'heure du mouvement avec les
-  # secondes correspondent à la combinaison des champs MVCJSAI (jour) et
-  # MVCTSAI (heure) » — « la date et heure de saisie du mouvement. Un
-  # mouvement peut être enregistré a posteriori » (D1001) : le
-  # constructeur datetime(jour, heure) (D659) ; dans l'identité
   type: datetime
   required: true
-  label:
-    fr: Horodatage
+  label: Horodatage
+  hint: La date et l'heure de saisie, à la seconde — un mouvement peut être enregistré a posteriori.
+  description: Dans l'identité.
 
-# --- le mouvement ---
+# Le mouvement
 
 type:
-  # MVCTGENRE nchar(1) — le genre du mouvement, la liste close de l'ERP en
-  # énuméré (D883/D952), les six genres nommés par l'auteur (D953) : C
-  # consommation, D déplacement, E expédition, F fabrication, I
-  # inventaire, R réception — les codes traduits au mapping (D893) ; le
-  # morceau 2 les lisait en MVCTTYPE, avec des valeurs inventées
   type: enum
   required: true
-  label:
-    fr: Type
+  label: Type
+  description: La liste close de l'ERP en énuméré, les six genres ; les codes sont traduits par la reprise.
   values:
-    consommation:
-      label:
-        fr: Consommation
-    deplacement:
-      label:
-        fr: Déplacement
-    expedition:
-      label:
-        fr: Expédition
-    fabrication:
-      label:
-        fr: Fabrication
-    inventaire:
-      label:
-        fr: Inventaire
-    reception:
-      label:
-        fr: Réception
+    consommation: { label: Consommation }
+    deplacement:  { label: Déplacement }
+    expedition:   { label: Expédition }
+    fabrication:  { label: Fabrication }
+    inventaire:   { label: Inventaire }
+    reception:    { label: Réception }
 
 sens:
-  # MVCTTYPE — E l'entrée, S la sortie (D952 : la lecture de l'échantillon,
-  # 25 E et 75 S ; D953) ; le morceau 2 le lisait en MVCTGENRE
   type: enum
   required: true
-  label:
-    fr: Sens
+  label: Sens
   values:
-    entree:
-      label:
-        fr: Entrée
-    sortie:
-      label:
-        fr: Sortie
+    entree: { label: Entrée }
+    sortie: { label: Sortie }
 
 quantite:
-  # MVCNQTE — « une quantité avec une unité (celle du stockage de
-  # l'article). Elle est signée et vient en complément du type de
-  # mouvement E/S. Une valeur négative est une correction » (D1009) : la
-  # mesure (D975) dans l'unité de stock de l'article, la matrice
-  # empruntée à la référence — unit: article.unite (forme mienne, D982) ;
-  # l'échantillon : les sorties positives, quelques-unes négatives
   type: measure
   unit: article.unite
   required: true
-  label:
-    fr: Quantité
+  label: Quantité
+  hint: Signée, dans l'unité de stock de l'article — une valeur négative est une correction.
+  description: La mesure emprunte la matrice de conversion de l'article, par la référence.
 
 prix_unitaire:
-  # MVCNPUNIT — la valorisation du mouvement : restreinte (D859). Gardé
-  # sur le mouvement, à la différence du poids (D1010) : « le prix
-  # unitaire varie en fonction du temps. En le dupliquant sur le
-  # mouvement, nous simplifions le calcul de la valorisation avec le
-  # facteur temps » (D1011)
   type: amount
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix unitaire
+  label: Prix unitaire
+  description: >-
+    La valorisation du mouvement, réservée aux achats et à la direction. Gardé sur le mouvement, à la différence du
+    poids : le prix varie dans le temps, le dupliquer simplifie la valorisation.
 
 utilisateur:
-  # MVCTNOMUTI — l'opérateur qui a saisi ; un nom de personne (D695)
   type: text[..20]
   rgpd: personal
-  label:
-    fr: Saisi par
+  label: Saisi par
+  hint: L'opérateur qui a saisi — un nom de personne.
 
 stock_avant:
-  # MVCNAVQTST — la quantité en stock avant le mouvement, dans la même
-  # unité que la quantité (D1009)
   type: measure
   unit: article.unite
-  label:
-    fr: Stock avant
+  label: Stock avant
+  hint: La quantité en stock avant le mouvement, dans la même unité.
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 valide:
-  # « la ligne est valide si la quantité est non nulle » — le calculé,
-  # pas une validation (D1009) : le mouvement à zéro entre et se marque
   type: boolean
   formula: quantite != 0
-  label:
-    fr: Valide
+  label: Valide
+  description: >-
+    Le calculé, pas une validation : le mouvement à zéro entre et se marque.
 
 valeur:
-  # MVCNVAL chez l'ERP, ignorée ; recalculée ici (D1011) — restreinte comme
-  # le prix ; le montant fois le nombre nu de la quantité (D984 :
-  # amount × decimal), signé comme elle — .value, l'accès à la valeur
-  # d'une mesure sans son unité (forme mienne)
   type: amount
   formula: prix_unitaire * quantite.value if prix_unitaire != null
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Valeur
+  label: Valeur
+  description: >-
+    Recalculée ici, la valeur de l'ERP n'est pas reprise : le montant fois le nombre nu de la quantité, signé comme elle
+    — .value accède à la valeur d'une mesure sans son unité. Restreinte comme le prix.
 
 masse:
-  # la masse du mouvement — le tableau de bord (D859) : « le poids
-  # unitaire est à porter au niveau de l'article » (D1010) — la quantité,
-  # dans l'unité de stock, se convertit par la matrice de l'article, où le
-  # poids unitaire est le coefficient vers le kilogramme (D982/D1010) ;
-  # sur des millions de lignes, le calculé matérialisé à l'écriture reste
-  # en proposition (D985)
   type: measure
   units: [kg]
   formula: quantite.to(kg)
-  label:
-    fr: Masse
+  label: Masse
+  description: >-
+    La quantité, dans l'unité de stock, se convertit par la matrice de l'article, où le poids unitaire est le
+    coefficient vers le kilogramme ; sur des millions de lignes, la matérialisation du calculé à l'écriture reste en
+    proposition.
 
 stock_apres:
-  # la mesure ± la mesure, dans l'unité du champ (D984) ; la quantité
-  # signée fait de la sortie négative une correction qui remet en stock
-  # (D1009)
   type: measure
   unit: article.unite
-  # le « : » du .select (D833) oblige les guillemets YAML — le manque M9
   formula: 'stock_avant + sens.select(entree: quantite, sortie: -quantite)'
-  label:
-    fr: Stock après
+  label: Stock après
+  description: >-
+    La mesure plus ou moins la mesure, dans l'unité du champ ; la quantité signée fait de la sortie négative une
+    correction qui remet en stock.

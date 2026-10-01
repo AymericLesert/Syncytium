@@ -1,63 +1,64 @@
-# L'emplacement — le référentiel des emplacements de l'ERP, construit à
-# quatre origines comme le dépôt (D962, D1008) : les paramètres de l'ERP
-# (PARAM — les emplacements actifs, avec leur libellé), les fiches articles
-# (ARCTCODEP + ARCTCODMPL), les mouvements (MVCTDEPOT + MVCTCODMPL) et les
-# niveaux de stock non nuls (DPKTDEPOT + DPKTCODMPL) ; les valeurs
-# distinctes de chaque source (D658). « L'identité d'un
-# emplacement est un couple (dépôt, emplacement) » (D962).
+# L'emplacement
+# Le référentiel des emplacements, construit à quatre origines comme le dépôt : les paramètres de l'ERP — les
+# emplacements actifs, avec leur libellé —, les fiches articles, les mouvements et les niveaux de stock non nuls ; les
+# valeurs distinctes de chaque origine. L'identité d'un emplacement est le couple dépôt + code.
 name: emplacement
+
+# La description de l'entité
 description: Un emplacement de stockage dans un dépôt
+
+# Le visage texte
 label: "{depot} / {code}"
+
+# L'identité
+# Le couple dépôt + code.
 identity: [depot, code]
+
+# L'historique
 history: true
 
+# Les champs
 fields:
+
   depot:
-    # l'emplacement appartient à un dépôt — la référence (D396), part de
-    # l'identité (D962)
     type: stock.depot
     required: true
-    label:
-      fr: Dépôt
+    label: Dépôt
+    description: L'emplacement appartient à un dépôt — la référence, part de l'identité.
 
   code:
     type: text[..10]
     required: true
-    label:
-      fr: Code
+    label: Code
 
   libelle:
-    # connu par les paramètres seulement (D962)
     type: text[..40]
-    label:
-      fr: Libellé
+    label: Libellé
+    description: Connu par les paramètres seulement.
 
   actif:
-    # les paramètres = les emplacements actifs ; « tout nouvel emplacement
-    # est ajouté et inactif » (D962) — né des mouvements ou des fiches, il
-    # naît au défaut (D941)
     type: boolean
     required: true
     default: false
-    label:
-      fr: Actif
+    label: Actif
+    description: >-
+      Les paramètres sont les emplacements actifs ; né des mouvements, des fiches articles ou des niveaux, l'emplacement
+      naît inactif, à son défaut.
 
   mouvements_par_article:
-    # le second accès aux mouvements (D1016) — la vue dérivée (D405)
-    # groupée par article : une cellule par article passé par cet
-    # emplacement
     type: association with stock.mouvement if emplacement = me
     group: [article]
-    label:
-      fr: Mouvements par article
+    label: Mouvements par article
+    description: >-
+      Le second accès aux mouvements, la vue dérivée groupée par article : une cellule par article passé par cet
+      emplacement.
 
-  # ------ Champs calculés ------
+  # Les champs calculés
 
   stock_par_article:
-    # la quantité par article déduite des mouvements — la somme par
-    # cellule de l'association groupée (D1015/D1016), signée par le sens
-    # (D1009), chaque cellule dans l'unité de stock de son article
     type: 'list of [article: technique.article]'
     formula: 'mouvements_par_article.sum(sens.select(entree: quantite, sortie: -quantite))'
-    label:
-      fr: Stock par article
+    label: Stock par article
+    description: >-
+      La quantité par article déduite des mouvements — la somme par cellule de l'association groupée, signée par le
+      sens, chaque cellule dans l'unité de stock de son article.

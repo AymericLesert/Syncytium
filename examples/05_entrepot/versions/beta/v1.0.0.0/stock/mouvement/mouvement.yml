@@ -1,41 +1,50 @@
-# Le mouvement de stock — la table MVTSTO de l'ERP (34 colonnes, des
-# millions de lignes — D863). Sans colonne K : sa clé est portée par ses
-# colonnes I (D869 — l'origine du mouvement : le document, la ligne,
-# l'indice, le composant), complétée de l'article et de l'horodatage de
-# saisie — « la date et l'heure du mouvement avec les secondes » :
-# MVCJSAI + MVCTSAI (D1001) — le contrôle de l'identité avant la
-# migration tranchera sur le réel (D871 ; l'échantillon : 70 valeurs
-# distinctes sur 100 pour les cinq I seules, 100 avec le complément).
-# La seule entité du cas sans historique (D882) : les retouches des
-# outils maison (D864) remplacent (D878) ; la lecture par partition
-# (D878–D880) s'écrit à la source : coverage: MVCJMVT[month - 3].
+# Le mouvement de stock
+# Des millions de lignes. Sans clé propre chez l'ERP : l'identité est l'origine du mouvement — le document, la ligne,
+# l'indice, le composant —, complétée de l'article et de l'horodatage de saisie ; le contrôle de l'identité avant la
+# migration tranchera sur le réel. Sans historique : les retouches des outils maison remplacent la valeur ; la lecture
+# par partition s'écrit à la source.
 name: mouvement
+
+# La description de l'entité
 description: Un mouvement de stock — l'entrée ou la sortie d'un article, à une date, sur un dépôt
+
+# Le visage texte
 label: "{horodatage} — {article} {quantite}"
+
+# L'identité
 identity: [document, ligne, indice, composant, article, horodatage]
-# l'opt-out (D168/D411) — le mouvement ne s'historise pas (D882)
+
+# L'historique
+# Aucun : le mouvement ne s'historise pas.
 history: false
 
+# Les champs
+# Rangés par groupe. Aucune validation sur la quantité : la ligne est valide si la quantité n'est pas nulle — le
+# calculé valide, pas un rejet.
 fields: ~{fields.yml}
 
-# aucune validation sur la quantité (D1009) ; « la ligne est valide si la
-# quantité est non nulle » : le calculé valide, pas un rejet
-
-# Les graphiques du mouvement — le tableau de bord du module (D1019) :
-# les entrées et les sorties par mois, la matrice de contrôle en croisé
-# (D1014 en présentation : le pivot, D246).
+# L'interface
+# Les graphiques du mouvement pour le tableau de bord du module : les entrées et les sorties par mois, la matrice de
+# contrôle en croisé.
 gui:
   charts:
+
+    # Les entrées et les sorties par mois
+    # Deux séries sur la temporalité du mois, les douze derniers mois.
     par_mois:
       component: chart.bars
-      x: date[month]                   # la temporalité (D240)
-      y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]   # deux séries (D887)
-      filter: date >= context.today - 12m   # les douze derniers mois (D838)
-      title: { fr: "Entrées et sorties par mois" }
+      x: date[month]
+      y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]
+      filter: date >= context.today - 12m
+      title: Entrées et sorties par mois
+
+    # Le contrôle des stocks par les mouvements
+    # Le pivot : la hiérarchie pliable dépôt puis emplacement en lignes, les articles en colonnes ; la règle de
+    # contrôle à la cellule, sur le dernier mois.
     controle:
       component: pivot
-      rows: [depot, emplacement]       # la hiérarchie pliable (D246)
+      rows: [depot, emplacement]
       columns: [article]
-      value: 'sum(sens.select(entree: quantite, sortie: -quantite))'   # la règle de contrôle (D1014), à la cellule
+      value: 'sum(sens.select(entree: quantite, sortie: -quantite))'
       filter: date >= context.today - 1m
-      title: { fr: "Contrôle des stocks par les mouvements (le mois)" }
+      title: Contrôle des stocks par les mouvements (le mois)

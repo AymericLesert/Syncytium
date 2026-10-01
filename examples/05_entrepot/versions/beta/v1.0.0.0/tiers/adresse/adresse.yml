@@ -1,58 +1,51 @@
-# L'adresse complémentaire — la table ADRESSE de l'ERP (ADKTTYPCPT le
-# type de compte — C le client, F le fournisseur (D950) —, ADKTCOMPTE
-# le code, ADKNNUMERO le numéro) : les adresses de livraison et de
-# facturation d'un tiers. La
-# composition du tiers (D399) ; le numéro l'identifie au sein du
-# possesseur (D841).
+# L'adresse complémentaire
+# Les adresses de livraison et de facturation d'un tiers : une composition du tiers, le numéro l'identifie au sein de
+# son possesseur.
 name: adresse
+
+# La description de l'entité
 description: Une adresse complémentaire d'un tiers — livraison ou facturation
+
+# Le visage texte
 label: "{usage} — {nom}"
+
+# L'identité
+# Le numéro, au sein du tiers.
 identity: [numero]
+
+# L'historique
 history: true
 
+# Les champs
 fields:
+
   numero:
-    # ADKNNUMERO int
     type: integer[1..]
     required: true
-    label:
-      fr: Numéro
+    label: Numéro
 
   usage:
-    # ADCTTYPE nchar(20) — l'usage de l'adresse chez l'ERP, traduit au
-    # mapping vers les trois valeurs de l'exemple (D893/D950)
     type: enum
     required: true
-    label:
-      fr: Usage
+    label: Usage
+    description: L'usage de l'adresse chez l'ERP, traduit par la reprise vers les trois valeurs de l'exemple.
     values:
-      livraison:
-        label:
-          fr: Livraison
-      facturation:
-        label:
-          fr: Facturation
-      autre:
-        label:
-          fr: Autre
+      livraison:   { label: Livraison }
+      facturation: { label: Facturation }
+      autre:       { label: Autre }
 
   nom:
-    # ADCTNOM — le nom de l'adresse (l'établissement, le site)
     type: text[..40]
-    label:
-      fr: Nom
+    label: Nom
+    hint: Le nom de l'adresse — l'établissement, le site.
 
   adresse:
-    # ADCTRUE1, ADCTRUE2, ADCTRUE3, ADCTCP, ADCTVILLE, ADCTCPAYS,
-    # ADCTPAYS, ADCNGPSX, ADCNGPSY — en géolocalisation (D638), le
-    # constructeur au mapping (D659) ; le téléphone du morceau 2 est
-    # retiré : ADRESSE n'en porte pas (D950)
     type: geolocation
-    label:
-      fr: Adresse
+    label: Adresse
+    description: >-
+      L'adresse normalisée et ses coordonnées, assemblées par la reprise depuis les lignes de l'ERP ; l'adresse ne porte
+      pas de téléphone.
 
   date_creation:
-    # ADCJCREA — AAAAMMJJ au masque
     type: date
-    label:
-      fr: Créée le
+    label: Créée le

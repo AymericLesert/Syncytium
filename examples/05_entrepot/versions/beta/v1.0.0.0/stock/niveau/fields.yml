@@ -1,136 +1,107 @@
-# --- l'identité ---
+# L'identité
 
 article:
-  # DPKTCODART + DPKTCOMART — la référence (D396)
   type: technique.article
   required: true
-  label:
-    fr: Article
+  label: Article
 
 lot:
-  # DPKTNUMLOT nchar(18) — « pour le cas d'usage, oublions le numéro de
-  # lot » (D1018) : il ne reste ici que parce que l'identité de STDEPLOT
-  # le porte (D865) — une part de clé, un texte sans sens pour le cas ;
-  # le concept, s'il venait, séparerait la définition de l'article de
-  # l'article physique (le lot, la péremption, le packaging) — une
-  # évolution possible du modèle, notée, hors du cas (D1018)
   type: text[..18]
   required: true
-  label:
-    fr: Lot
+  label: Lot
+  description: >-
+    Une part de la clé, un texte sans concept pour le cas ; le concept, s'il venait, séparerait la définition de
+    l'article de l'article physique — le lot, la péremption, le packaging —, une évolution possible du modèle.
 
 emplacement:
-  # DPKTCODMPL — la référence à l'emplacement
   type: stock.emplacement
   required: true
-  label:
-    fr: Emplacement
+  label: Emplacement
 
 depot:
-  # DPKTDEPOT — la référence au dépôt
   type: stock.depot
   required: true
-  label:
-    fr: Dépôt
+  label: Dépôt
 
 enregistrement:
-  # DPKTCODENR nchar(1) — le code d'enregistrement de l'ERP, part de la clé
   type: text[1]
   required: true
-  label:
-    fr: Code d'enregistrement
+  label: Code d'enregistrement
+  hint: Le code d'enregistrement de l'ERP, part de la clé.
 
-# --- les quantités (l'unité de stock de l'article) ---
+# Les quantités — dans l'unité de stock de l'article
 
 quantite:
-  # DPCNSTOPHY — le stock physique
   type: decimal
   required: true
-  label:
-    fr: Quantité physique
+  label: Quantité physique
+  hint: Le stock physique.
 
 quantite_reservee:
-  # DPCNRESFER — réservée ferme
   type: decimal
   required: true
   default: 0
-  label:
-    fr: Réservée
+  label: Réservée
+  hint: Réservée ferme.
 
 quantite_en_cours:
-  # DPCNENCOUR — en cours d'entrée
   type: decimal
-  label:
-    fr: En cours
+  label: En cours
+  hint: En cours d'entrée.
 
 stock_minimum:
-  # DPCNSTOMIN — le minimum du niveau (celui de l'article vaut par
-  # défaut)
   type: decimal
-  label:
-    fr: Stock minimum
+  label: Stock minimum
+  hint: Le minimum du niveau ; celui de l'article vaut par défaut.
 
-# --- la valeur — restreinte (D859) ---
+# La valeur
 
 prix_unitaire:
-  # DPCNPULOT — le prix du lot ; la devise de l'entreprise (le setting)
   type: amount
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Prix unitaire du lot
+  label: Prix unitaire du lot
+  description: À la devise de l'entreprise ; réservé aux achats et à la direction.
 
-# --- les dates (AAAAMMJJ au masque) ---
+# Les dates
 
 dernier_mouvement:
-  # DPCJMOU
   type: date
-  label:
-    fr: Dernier mouvement
+  label: Dernier mouvement
 
 peremption:
-  # DPCJPEREMP
   type: date
-  label:
-    fr: Péremption
+  label: Péremption
 
 inventaire:
-  # DPCJJINV — la date du dernier inventaire ; DPCSSINV, la semaine,
-  # se déduit du jour (D1000/D1001)
   type: date
-  label:
-    fr: Dernier inventaire
+  label: Dernier inventaire
+  hint: La date du dernier inventaire ; la semaine se déduit du jour.
 
 quantite_inventaire:
-  # DPCNQTINV
   type: decimal
-  label:
-    fr: Quantité inventoriée
+  label: Quantité inventoriée
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 disponible:
   type: decimal
   formula: quantite - quantite_reservee
-  label:
-    fr: Disponible
+  label: Disponible
 
 valeur:
-  # la valeur du niveau — restreinte comme le prix
   type: amount
   formula: prix_unitaire * quantite if prix_unitaire != null
   confidentiality: ${settings.confidentiality.financier}
-  label:
-    fr: Valeur
+  label: Valeur
+  description: Restreinte comme le prix.
 
 sous_minimum:
-  # le tableau de bord (D859)
   type: boolean
   formula: quantite < stock_minimum if stock_minimum != null
-  label:
-    fr: Sous le minimum
+  label: Sous le minimum
+  hint: Un indicateur du tableau de bord.
 
 perime:
   type: boolean
   formula: peremption < context.today if peremption != null
-  label:
-    fr: Périmé
+  label: Périmé

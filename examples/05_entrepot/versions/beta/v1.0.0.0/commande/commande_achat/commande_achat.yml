@@ -1,13 +1,26 @@
-# La commande d'achat — la table ECOMFOU de l'ERP (la même structure
-# qu'ECOMCLI, le même préfixe EC) et sa composition LCOMFOU. Séparée de
-# la commande de vente, sans héritage (D882) — la structure se répète.
+# La commande d'achat
+# L'entête de la commande et sa composition, les lignes — la même structure que la commande de vente, séparée sans
+# héritage : la structure se répète. L'identité : le numéro et l'indice de révision ; le statut de l'entête se déduit
+# de celui des lignes.
 name: commande_achat
+
+# La description de l'entité
 description: Une commande d'achat — l'entête, le fournisseur, les conditions et ses lignes
+
+# Le visage texte
 label: "{numero}-{indice} — {fournisseur}"
+
+# L'identité
 identity: [numero, indice]
+
+# L'historique
 history: true
 
+# Les champs
+# Rangés par groupe.
 fields: ~{fields.yml}
 
+# La cohérence des données converties
 validation:
-  - date_echeance >= date if date_echeance != null
+  - rule: date_echeance >= date if date_echeance != null
+    message: L'échéance {date_echeance} précède la date de la commande {date}.

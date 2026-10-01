@@ -1,81 +1,68 @@
-# Le dépôt — le référentiel des dépôts de l'ERP, construit à quatre origines
-# (D962, D1008) : les paramètres de l'ERP (PARAM — les dépôts actifs, avec
-# leur libellé), les fiches articles (ARCTCODEP), les mouvements (MVCTDEPOT
-# — « le distinct permet de référencer toutes les valeurs y compris
-# dépassées ») et les niveaux de stock non nuls (DPKTDEPOT — « uniquement
-# si la quantité != 0 ») ; les valeurs distinctes de chaque source (D658). Une
-# liste courte, mais une entité : le dépôt se référence (D396) et porte
-# ses niveaux et ses emplacements.
+# Le dépôt
+# Le référentiel des dépôts, construit à quatre origines par la reprise : les paramètres de l'ERP — les dépôts actifs,
+# avec leur libellé —, les fiches articles, les mouvements — y compris les dépôts dépassés — et les niveaux de stock
+# non nuls ; les valeurs distinctes de chaque origine. Une liste courte, mais une entité : le dépôt se référence et
+# porte ses niveaux et ses emplacements.
 name: depot
+
+# La description de l'entité
 description: Un dépôt de stockage
+
+# Le visage texte
 label: "{code} — {libelle}"
+
+# L'identité
 identity: [code]
+
+# L'historique
 history: true
 
+# Les champs
 fields:
+
   code:
     type: text[..6]
     required: true
-    label:
-      fr: Code
+    label: Code
 
   libelle:
-    # « le libellé des emplacements est dans les paramètres. Dans les
-    # autres cas, il n'est pas connu » (D962) — alimenté par la règle des
-    # paramètres, vide pour un dépôt né des mouvements ou des fiches
     type: text[..40]
-    label:
-      fr: Libellé
+    label: Libellé
+    description: Connu par les paramètres seulement ; vide pour un dépôt né des mouvements ou des fiches articles.
 
   actif:
-    # « les paramètres sont les emplacements actifs… tout nouvel
-    # emplacement est ajouté et inactif » (D962) — la règle des paramètres
-    # le vaut vrai ; né d'une autre origine, le dépôt naît au défaut (D941)
     type: boolean
     required: true
     default: false
-    label:
-      fr: Actif
+    label: Actif
+    description: Les paramètres sont les dépôts actifs ; né d'une autre origine, le dépôt naît inactif, à son défaut.
 
   niveaux:
-    # l'accès retour aux niveaux du dépôt (D394), nommé en vue dérivée
-    # (D405)
     type: association with stock.niveau if depot = me
-    label:
-      fr: Niveaux
+    label: Niveaux
+    description: L'accès retour aux niveaux du dépôt, nommé en vue dérivée.
 
   mouvements:
-    # l'accès retour aux mouvements du dépôt (D394/D405) — la source de la
-    # matrice de contrôle
     type: association with stock.mouvement if depot = me
-    label:
-      fr: Mouvements
+    label: Mouvements
+    description: L'accès retour aux mouvements du dépôt — la source de la matrice de contrôle.
 
-  # ------ La règle de contrôle (D1013/D1014) ------
+  # La règle de contrôle
 
   controle_stock:
-    # « la règle de contrôle s'effectue par un champ calculé d'une matrice
-    # à 2 dimensions : emplacement × article = somme des quantités en
-    # entrée du mouvement − somme des quantités en sortie du mouvement »
-    # (D1014) — l'hypercube (D897) en calculé par le « group by » d'une
-    # liste (D1015) : group(emplacement, article) fait une cellule par
-    # couple présent dans les mouvements, la somme s'évalue par cellule ;
-    # la quantité signée par le sens (D1009), dans l'unité de stock de
-    # l'article. Le tableau de bord du morceau 5 la compare aux niveaux
-    # (D859).
     type: 'list of [emplacement: stock.emplacement, article: technique.article]'
-    # le « : » du .select (D833) oblige les guillemets YAML
     formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantite, sortie: -quantite))'
-    label:
-      fr: Contrôle du stock par les mouvements
+    label: Contrôle du stock par les mouvements
+    description: >-
+      La matrice emplacement × article : la somme des quantités entrées moins les sorties, évaluée par cellule —
+      group(emplacement, article) fait une cellule par couple présent dans les mouvements. La quantité est signée par
+      le sens, dans l'unité de stock de l'article ; le tableau de bord la compare aux niveaux.
 
-  # ------ Champs calculés ------
+  # Les champs calculés
 
   valeur:
-    # la valeur du stock du dépôt — le tableau de bord (D859) ;
-    # restreinte (D859)
     type: amount
     formula: niveaux.sum(valeur)
     confidentiality: ${settings.confidentiality.financier}
-    label:
-      fr: Valeur du stock
+    label: Valeur du stock
+    hint: La valeur du stock du dépôt — réservée aux achats et à la direction.

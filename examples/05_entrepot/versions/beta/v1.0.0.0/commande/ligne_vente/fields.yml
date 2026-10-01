@@ -1,169 +1,122 @@
-# --- l'identité (LCKTLIGNE, LCKTPSF) ---
+# L'identité
 
 numero:
-  # LCKTLIGNE nchar(3)
   type: integer[1..]
   required: true
-  label:
-    fr: Ligne
+  label: Ligne
 
-# --- l'article ---
+# L'article
 
 article:
-  # LCCTCODART + LCCTCOMART — la référence (D396), résolue par la clé au
-  # mapping (D654)
   type: technique.article
   required: true
-  label:
-    fr: Article
+  label: Article
+  description: >-
+    La référence, résolue par sa clé à la reprise. La désignation de la ligne n'est pas reprise : elle vit dans une
+    table de libellés, hors de l'exemple.
 
-# la désignation de la ligne n'est plus ici : « le commentaire d'une ligne
-# d'une commande d'achat ou de vente est présent dans une autre table
-# LIBEL40… que nous ne décrirons pas ici » (D989) — LIBEL40 ignorée, les
-# deux libellés de la ligne non lus
-
-# --- les quantités ---
+# Les quantités
 
 quantite:
-  # LCCNQTECDE
   type: decimal
   required: true
-  label:
-    fr: Quantité commandée
+  label: Quantité commandée
 
 unite:
-  # LCCTUNICDE — un texte ; l'unité est contrôlée à la migration parmi
-  # celles que l'article connaît (D1007), pour que la quantité puisse
-  # emprunter la matrice de l'article (D982)
   type: text[..2]
-  label:
-    fr: Unité
+  label: Unité
+  description: >-
+    Un texte ; la reprise contrôle que l'unité est l'une de celles de l'article, pour que la quantité emprunte sa
+    matrice de conversion.
 
 quantite_expediee:
-  # LCCNQTEEXP
   type: decimal
   required: true
   default: 0
-  label:
-    fr: Quantité expédiée
+  label: Quantité expédiée
 
 quantite_lancee:
-  # LCCNQTELAN — lancée en fabrication
   type: decimal
-  label:
-    fr: Quantité lancée
+  label: Quantité lancée
+  hint: Lancée en fabrication.
 
-# --- les prix — amount à la devise de la ligne (LCCTDEVISE — D771) ---
+# Les prix — à la devise de la ligne
 
 prix_brut:
-  # LCCNPUBRUT + LCCTDEVISE
   type: amount
-  label:
-    fr: Prix unitaire brut
+  label: Prix unitaire brut
+  description: >-
+    Le prix de revient n'est pas repris : il se déduit — l'ERP le calcule et le stocke pour la performance ; l'exemple
+    ne fournit pas la formule, et la marge sort avec lui.
 
 prix_net:
-  # LCCNPUNET + LCCTDEVISE — le prix après remises
   type: amount
   required: true
-  label:
-    fr: Prix unitaire net
+  label: Prix unitaire net
+  hint: Le prix après remises.
 
-# le prix de revient n'est pas repris : « le prix de revient se déduit.
-# L'ERP le calcule et le stocke pour des questions de performance.
-# Dans notre cas, ce sera un champ calculé mais pour l'exemple, nous
-# n'allons pas fournir la formule » (D1005) — LCCNPUREVI ignorée ; la
-# marge, qui en dépendait, sort de l'exemple avec lui
-
-# --- les délais — des jours : « sur les commandes, il n'y a pas d'heures », la colonne S est la semaine, déduite du jour (D1000) ---
+# Les délais — des jours, la semaine se déduit du jour
 
 delai_demande:
-  # LCCJDELDDE — la date demandée par le client
   type: date
-  label:
-    fr: Délai demandé
+  label: Délai demandé
+  hint: La date demandée par le client.
 
 delai_accuse:
-  # LCCJDELARR — le délai accusé (LCCSDELARR, la semaine, ignorée)
   type: date
-  label:
-    fr: Délai accusé
+  label: Délai accusé
 
 delai_expedition:
-  # LCCJDELEXP — l'expédition prévue (LCCSDELEXP, la semaine, ignorée)
   type: date
-  label:
-    fr: Expédition prévue
+  label: Expédition prévue
 
 delai_fabrication:
-  # LCCJDELFAB (LCCSDELFAB, la semaine, ignorée)
   type: date
-  label:
-    fr: Fin de fabrication prévue
+  label: Fin de fabrication prévue
 
-# --- l'état ---
+# L'état
 
 statut:
-  # LCCTSTATUT nchar(2) — les valeurs de l'ERP (D1002) : « A » acompte / en
-  # cours, « » (vide) non traité, « S » soldé, « T » terminé, « P »
-  # partiel — la liste close en énuméré (D883), les codes traduits à la
-  # règle (D893) ; LCCTETACDE porte un état aux valeurs inconnues,
-  # ignorée. Le vide de l'ERP est le nul du texte (D366) : non traité
   type: enum
   required: true
-  label:
-    fr: Statut
+  label: Statut
+  description: >-
+    La liste close de l'ERP en énuméré, ses codes traduits par la reprise ; le vide de l'ERP est non traitée. L'autre
+    état de la ligne, aux valeurs inconnues, n'est pas repris.
   values:
-    non_traite:
-      label:
-        fr: Non traitée
-    en_cours:
-      label:
-        fr: En cours
-    partielle:
-      label:
-        fr: Partiellement livrée
-    soldee:
-      label:
-        fr: Soldée
-    terminee:
-      label:
-        fr: Terminée
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    partielle:  { label: Partiellement livrée }
+    soldee:     { label: Soldée }
+    terminee:   { label: Terminée }
 
-# ------ Champs calculés ------
+# Les champs calculés
 
 devise:
-  # la devise de la commande, par l'accès montant (D760)
   type: text[3]
   formula: owner.devise
-  label:
-    fr: Devise
+  label: Devise
+  description: La devise de la commande, par le possesseur.
 
 client:
-  # le client de la commande, par l'accès montant (D760) — la ligne le
-  # porte pour les listes calculées de l'article (D997 :
-  # commandes_vente.last().client)
   type: tiers.client
   formula: owner.client
-  label:
-    fr: Client
+  label: Client
+  description: Le client de la commande, par le possesseur ; la ligne le porte pour les listes calculées de l'article.
 
 montant:
-  # la valeur de la ligne — amount * decimal (D581)
   type: amount
   formula: prix_net * quantite
-  label:
-    fr: Montant
+  label: Montant
+  description: La valeur de la ligne — un montant multiplié par un décimal.
 
 reste_a_livrer:
   type: decimal
   formula: quantite - quantite_expediee
-  label:
-    fr: Reste à livrer
+  label: Reste à livrer
 
 en_retard:
-  # le tableau de bord (D859) — l'expédition prévue dépassée, la ligne
-  # non soldée
   type: boolean
   formula: delai_expedition < context.today and statut not in ["soldee", "terminee"]
-  label:
-    fr: En retard
+  label: En retard
+  hint: L'expédition prévue est dépassée et la ligne n'est pas soldée.

@@ -1,4 +1,4 @@
-# La ligne de commande d'achat — la table LCOMFOU de PMI (la même
+# La ligne de commande d'achat — la table LCOMFOU de l'ERP (la même
 # structure que LCOMCLI) : la composition de la commande d'achat
 # (D399). La ligne référence l'article (D396).
 name: ligne_achat

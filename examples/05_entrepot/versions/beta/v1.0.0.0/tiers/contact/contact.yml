@@ -1,4 +1,4 @@
-# Le contact — la table CONTACT de PMI (CTKTSOC, CTKNID ; le tiers par
+# Le contact — la table CONTACT de l'ERP (CTKTSOC, CTKNID ; le tiers par
 # CTCTTYPCPT, C ou F, et CTCTCOMPTE — D950) : les personnes chez le
 # tiers. La composition du tiers (D399) ;
 # les champs nominatifs portent le marquage RGPD (D695 — personal) :
@@ -12,14 +12,14 @@ history: true
 
 fields:
   identifiant:
-    # CTKNID int — l'identifiant de PMI
+    # CTKNID int — l'identifiant de l'ERP
     type: integer[1..]
     required: true
     label:
       fr: Identifiant
 
   civilite:
-    # CTCTCIVILI nchar(6) — la civilité de PMI, traduite au mapping (D893)
+    # CTCTCIVILI nchar(6) — la civilité de l'ERP, traduite au mapping (D893)
     type: enum
     label:
       fr: Civilité
@@ -48,7 +48,7 @@ fields:
       fr: Prénom
 
   fonction:
-    # CTCTFONCTI nchar(3) — le code de fonction de PMI ; le libellé au
+    # CTCTFONCTI nchar(3) — le code de fonction de l'ERP ; le libellé au
     # mapping
     type: text[..40]
     label:

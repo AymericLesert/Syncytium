@@ -1,5 +1,5 @@
-# Le dépôt — le référentiel des dépôts de PMI, construit à quatre origines
-# (D962, D1008) : les paramètres de Cegid (PARAM — les dépôts actifs, avec
+# Le dépôt — le référentiel des dépôts de l'ERP, construit à quatre origines
+# (D962, D1008) : les paramètres de l'ERP (PARAM — les dépôts actifs, avec
 # leur libellé), les fiches articles (ARCTCODEP), les mouvements (MVCTDEPOT
 # — « le distinct permet de référencer toutes les valeurs y compris
 # dépassées ») et les niveaux de stock non nuls (DPKTDEPOT — « uniquement

@@ -27,7 +27,7 @@ abrege:
     fr: Le nom court, celui des listes.
 
 # --- l'adresse principale — la géolocalisation (D638) : l'adresse
-# normalisée et les coordonnées GPS de PMI (CLCNGPSX, CLCNGPSY) par le
+# normalisée et les coordonnées GPS de l'ERP (CLCNGPSX, CLCNGPSY) par le
 # constructeur au mapping (D659) ; les lignes d'adresse (CLCTRUE1,
 # CLCTRUE2, CLCTRUE3, CLCTCP, CLCTVILLE, CLCTPAYS) y entrent ---
 
@@ -118,7 +118,7 @@ langue:
 # l'échantillon, rien ne le remplit — retiré du modèle (D963)
 
 echeance:
-  # CLCTCECHEA — le délai d'échéance de PMI (« 030 »), l'entier de jours
+  # CLCTCECHEA — le délai d'échéance de l'ERP (« 030 »), l'entier de jours
   # à la règle (D581)
   type: integer[0..]
   label:
@@ -127,7 +127,7 @@ echeance:
     fr: Le délai de règlement, en jours.
 
 base_echeance:
-  # CLCTBECHEA — la base d'échéance de PMI (1, 3, 6 sur l'échantillon), le
+  # CLCTBECHEA — la base d'échéance de l'ERP (1, 3, 6 sur l'échantillon), le
   # point de départ du délai ; l'énuméré aux correspondances inventées
   # pour l'exemple (D963/D964 — « je valide ta proposition pour
   # l'échéance »), la traduction à la règle (D893)
@@ -165,7 +165,7 @@ bloque:
   label:
     fr: Bloqué
   hint:
-    fr: Vrai quand PMI bloque le tiers — plus de commande.
+    fr: Vrai quand l'ERP bloque le tiers — plus de commande.
 
 date_creation:
   # CLCJCRE — AAAAMMJJ au masque (D820)
@@ -196,7 +196,7 @@ contacts:
 # --- l'enrichissement : le champ que l'entrepôt possède (D941) ---
 
 note_interne:
-  # aucune colonne PMI — la note des acheteurs et du commercial sur le
+  # aucune colonne de l'ERP — la note des acheteurs et du commercial sur le
   # tiers ; l'entrepôt la possède : la migration ne l'alimente pas et ne
   # la touche pas (D672/D941), le champ naît à son défaut et garde sa
   # valeur (unchanged) ; la saisie est ouverte aux groupes que l'allow au
@@ -209,7 +209,7 @@ note_interne:
   label:
     fr: Note interne
   hint:
-    fr: Ce que l'entreprise sait du tiers et que PMI ne porte pas — libre au commercial et aux achats.
+    fr: Ce que l'entreprise sait du tiers et que l'ERP ne porte pas — libre au commercial et aux achats.
 
 # ------ Champs calculés ------
 

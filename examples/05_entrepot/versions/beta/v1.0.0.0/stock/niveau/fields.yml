@@ -34,7 +34,7 @@ depot:
     fr: Dépôt
 
 enregistrement:
-  # DPKTCODENR nchar(1) — le code d'enregistrement de PMI, part de la clé
+  # DPKTCODENR nchar(1) — le code d'enregistrement de l'ERP, part de la clé
   type: text[1]
   required: true
   label:

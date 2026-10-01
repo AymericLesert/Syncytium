@@ -1,4 +1,4 @@
-# Le client — la table CLIENT de PMI : l'enfant du tiers (D353),
+# Le client — la table CLIENT de l'ERP : l'enfant du tiers (D353),
 # il ne porte que ce qui lui est propre — la commission du
 # représentant, le plafond d'encours, ses commandes de vente.
 name: client
@@ -35,7 +35,7 @@ fields:
       fr: Le plafond d'encours accordé au client.
 
   code_tarif:
-    # CLCTTARIF — le code tarif du client chez PMI
+    # CLCTTARIF — le code tarif du client chez l'ERP
     type: text[..6]
     label:
       fr: Code tarif

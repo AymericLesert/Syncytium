@@ -1,4 +1,4 @@
-# La ligne de commande de vente — la table LCOMCLI de PMI (124
+# La ligne de commande de vente — la table LCOMCLI de l'ERP (124
 # colonnes) : la composition de la commande (D399). L'identité au sein
 # de la commande : le numéro de ligne (LCKTLIGNE) ; LCKTPSF est l'indice
 # de la commande, la clé du possesseur, que le morceau 2 lisait comme un

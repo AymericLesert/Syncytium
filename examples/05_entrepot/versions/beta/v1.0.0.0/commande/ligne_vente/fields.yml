@@ -69,7 +69,7 @@ prix_net:
     fr: Prix unitaire net
 
 # le prix de revient n'est pas repris : « le prix de revient se déduit.
-# Cegid PMI le calcule et le stocke pour des questions de performance.
+# L'ERP le calcule et le stocke pour des questions de performance.
 # Dans notre cas, ce sera un champ calculé mais pour l'exemple, nous
 # n'allons pas fournir la formule » (D1005) — LCCNPUREVI ignorée ; la
 # marge, qui en dépendait, sort de l'exemple avec lui
@@ -103,11 +103,11 @@ delai_fabrication:
 # --- l'état ---
 
 statut:
-  # LCCTSTATUT nchar(2) — les valeurs de PMI (D1002) : « A » acompte / en
+  # LCCTSTATUT nchar(2) — les valeurs de l'ERP (D1002) : « A » acompte / en
   # cours, « » (vide) non traité, « S » soldé, « T » terminé, « P »
   # partiel — la liste close en énuméré (D883), les codes traduits à la
   # règle (D893) ; LCCTETACDE porte un état aux valeurs inconnues,
-  # ignorée. Le vide de PMI est le nul du texte (D366) : non traité
+  # ignorée. Le vide de l'ERP est le nul du texte (D366) : non traité
   type: enum
   required: true
   label:

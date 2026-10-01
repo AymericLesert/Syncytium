@@ -28,7 +28,9 @@ types — la migration entre versions après la reprise (**D1081**). Les
 sources et les règles sont rangées par module — technique, tiers,
 commande, stock — ; les règles, dans cinq dossiers numérotés — les lieux, les
 tiers, la technique, les commandes, le stock —, chaque fichier numéroté à
-partir de 1 dans son dossier (**D1103–D1104**).)*
+partir de 1 dans son dossier (**D1103–D1104**). Le modèle ne nomme pas
+l'ERP d'origine : dans ses descriptions, « PMI » devient « ERP » ; seule la
+reprise connaît la base d'origine (**D1107**).)*
 
 ## Le contexte (D859)
 

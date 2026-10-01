@@ -73,7 +73,7 @@ rendement:
 # --- l'opération (nature = operation) ---
 
 operation:
-  # NOCTCODOPE — le code de l'opération (le poste chez PMI) ; vide sur
+  # NOCTCODOPE — le code de l'opération (le poste chez l'ERP) ; vide sur
   # tout l'échantillon, gardé pour l'analyse du morceau 3
   type: text[..6]
   label:
@@ -88,7 +88,7 @@ jalon:
     fr: Jalon
 
 temps_preparation:
-  # NOCNTPSPRE — les temps de PMI en notation décimale industrielle
+  # NOCNTPSPRE — les temps de l'ERP en notation décimale industrielle
   # (D378 — le masque 0.00 h) ; l'unité réelle à confirmer à l'analyse
   type: duration
   mask: "0.00 h"

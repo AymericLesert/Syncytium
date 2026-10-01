@@ -9,7 +9,7 @@ code:
   placeholder:
     fr: PIE-00123
   hint:
-    fr: Le code de l'article chez PMI — avec son complément, il l'identifie.
+    fr: Le code de l'article chez l'ERP — avec son complément, il l'identifie.
 
 complement:
   # ARKTCOMART nchar(6) — souvent vide ; l'identité le comprend
@@ -40,13 +40,13 @@ libelle_secondaire:
   hint:
     fr: La seconde ligne de désignation, souvent une précision technique.
 
-# --- la classification — les listes closes de PMI en énumérés (D883) ;
-# les clés sont celles de l'entrepôt, les codes PMI s'y traduisent au
+# --- la classification — les listes closes de l'ERP en énumérés (D883) ;
+# les clés sont celles de l'entrepôt, les codes de l'ERP s'y traduisent au
 # mapping (le morceau 4) ---
 
 type:
   # ARCTTYPART nchar(2) — le type d'article : le vocabulaire donné par
-  # l'auteur (D935), les codes PMI (AC, CO, MI/LI, MO, OU, PF, PL, SF,
+  # l'auteur (D935), les codes de l'ERP (AC, CO, MI/LI, MO, OU, PF, PL, SF,
   # ST) traduits à la règle du mapping (D893) ; le code PR n'est pas
   # pris en compte pour l'exemple : ces lignes sont des erreurs (D937)
   type: enum
@@ -81,7 +81,7 @@ type:
         fr: Produit semi-fini
     # les composants de nomenclature référencent des articles de ces deux
     # types — « la main d'œuvre, la sous-traitance et les libellés sont
-    # bien des articles de PMI » (D937, confirmé le 14/09)
+    # bien des articles de l'ERP » (D937, confirmé le 14/09)
     main_oeuvre:
       label:
         fr: Main d'œuvre
@@ -98,7 +98,7 @@ famille:
   label:
     fr: Famille
   hint:
-    fr: La famille de l'article — les valeurs de la liste close de PMI.
+    fr: La famille de l'article — les valeurs de la liste close de l'ERP.
   values:
     matiere:
       label:
@@ -140,7 +140,7 @@ sous_famille:
 perissable:
   # le 4e caractère d'ARCTCODFAM — « si le 4ème caractère est égal à "1",
   # cela signifie que la date de péremption du produit doit être
-  # renseignée » (D954) : la convention de codage de PMI se traduit à la
+  # renseignée » (D954) : la convention de codage de l'ERP se traduit à la
   # règle du mapping — mid(ARCTCODFAM, 4, 1) = "1", et non right : « un
   # code famille peut contenir 2 à 4 caractères » (D893/D934) —, l'entrepôt
   # garde le sens ; la règle elle-même vit au niveau de stock, où la
@@ -162,7 +162,7 @@ gestion:
   # nommer à l'analyse ; avec « un peu de liberté » (D940), 09 = le
   # semi-fini et 12 = le fantôme sont les hypothèses de l'exemple, tirées
   # de l'échantillon (SF ×7 en 09, PF ×1 en 12), à vérifier au morceau 3 ;
-  # 03 reste CG03 ; le sous-traité, le vocabulaire de PMI hors
+  # 03 reste CG03 ; le sous-traité, le vocabulaire de l'ERP hors
   # échantillon (D936) ; la traduction des codes à la règle du mapping
   # (D893). Le code de gestion assure l'héritage (D940) : fabrique (01),
   # semi_fini (09) et fantome (12) sont les dérivés de l'article
@@ -170,7 +170,7 @@ gestion:
   label:
     fr: Code de gestion
   hint:
-    fr: La façon dont PMI gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, procédure, et trois codes en attente de libellé.
+    fr: La façon dont l'ERP gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif, résultant, procédure, et trois codes en attente de libellé.
   values:
     fabrique:
       label:
@@ -185,12 +185,12 @@ gestion:
       label:
         fr: Fantôme
       description:
-        fr: Un niveau de nomenclature sans existence en stock — le code 12 de PMI, l'hypothèse de l'exemple (D940).
+        fr: Un niveau de nomenclature sans existence en stock — le code 12 de l'ERP, l'hypothèse de l'exemple (D940).
     semi_fini:
       label:
         fr: Produit semi-fini
       description:
-        fr: Un produit fabriqué pour entrer dans d'autres produits — le code 09 de PMI, l'hypothèse de l'exemple (D940).
+        fr: Un produit fabriqué pour entrer dans d'autres produits — le code 09 de l'ERP, l'hypothèse de l'exemple (D940).
     libelle:
       label:
         fr: Libellé
@@ -212,7 +212,7 @@ gestion:
       label:
         fr: CG03
       description:
-        fr: Le code de gestion 03 de PMI — le libellé n'existe pas encore.
+        fr: Le code de gestion 03 de l'ERP — le libellé n'existe pas encore.
 
 matieres:
   # ARCTCODMA1 … ARCTCODMA9 — neuf colonnes, une liste (D362)
@@ -220,7 +220,7 @@ matieres:
   label:
     fr: Codes matière
   hint:
-    fr: Les matières de l'article — jusqu'à neuf chez PMI.
+    fr: Les matières de l'article — jusqu'à neuf chez l'ERP.
 
 # --- les unités et les dimensions ---
 
@@ -244,7 +244,7 @@ unite_commande:
 unite:
   # UNE unité de l'article — la mesure « 1 × l'unité de stock » (ARCTUNISTO)
   # qui porte la matrice de conversion propre à l'article (D978/D982) :
-  # les deux couples de PMI — ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et
+  # les deux couples de l'ERP — ARCTCONV1A, ARCTCONV1B, ARCNCONC01 et
   # ARCTCONV2A, ARCTCONV2B, ARCNCONC02 — apportent les unités
   # supplémentaires (PL la plaque) avec leur coefficient vers une unité
   # connue (1 PL = 1 u, toujours ; 1 PL = 12,5 kg), la transitivité fait
@@ -386,7 +386,7 @@ actif:
   label:
     fr: Actif
   hint:
-    fr: Faux quand PMI bloque l'article.
+    fr: Faux quand l'ERP bloque l'article.
 
 date_creation:
   # ARCJCRE — nchar(8) AAAAMMJJ, lue au masque (D820/D866)
@@ -423,7 +423,7 @@ gere_en_stock:
     fr: Géré en stock
 
 # les quatre lieux de l'article (D964) — quatre paires dépôt + emplacement
-# chez PMI : « R : Réception, F : Fabrication, C : Consommation, le
+# chez l'ERP : « R : Réception, F : Fabrication, C : Consommation, le
 # 4ème est l'Expédition » ; le dépôt en référence (D396), l'emplacement
 # en référence à l'identité composée (dépôt, emplacement) (D962) ; une
 # des trois origines des référentiels de stock
@@ -479,7 +479,7 @@ emplacement_consommation:
 # --- les liens (D399–D405) ---
 
 fournisseur_defaut:
-  # ARCTNOFOU1 — le compte 1 de PMI, « le compte client ou fournisseur
+  # ARCTNOFOU1 — le compte 1 de l'ERP, « le compte client ou fournisseur
   # par défaut » (D996) : chez l'article acheté, son fournisseur ; la
   # référence (D396), un champ par entité visée — « pas d'ambiguïté, pas
   # de or » (D997) ; absent chez l'inactif ; le fabriqué porte, lui, son
@@ -506,7 +506,7 @@ tarifs:
   # (D895–D896 : l'objet naturel au modèle, la traduction au stockage).
   # Le tuple porte un « : » — les guillemets (la règle 1, D892) ; la
   # cellule en bloc sous fields: (la forme éclatée de D403, validée par
-  # D898). La tranche est la lettre de tarif de PMI, TAKTTARIF, dans la
+  # D898). La tranche est la lettre de tarif de l'ERP, TAKTTARIF, dans la
   # clé de TARIF (D948/D949) — une dimension de valeur, comme la date ;
   # son seuil de quantité est une valeur de la cellule, et sa plage se
   # calcule jusqu'au seuil de la tranche suivante (« le type range of est
@@ -577,7 +577,7 @@ commandes_achat:
     fr: Lignes de commande d'achat
 
 dernier_fournisseur:
-  # le compte 2 de PMI (ARCTNOFOU2) — « le dernier achat/vente réalisé…
+  # le compte 2 de l'ERP (ARCTNOFOU2) — « le dernier achat/vente réalisé…
   # se calcule, ne se stocke pas » (D996/D997) : la dernière ligne de
   # commande d'achat, dans l'ordre de la liste calculée
   type: tiers.fournisseur

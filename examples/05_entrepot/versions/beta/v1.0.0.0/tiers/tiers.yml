@@ -1,5 +1,5 @@
 # Le module tiers
-# Les clients et les fournisseurs de PMI, le second module de l'entrepôt. PMI les porte sur la même structure : le
+# Les clients et les fournisseurs de l'ERP, le second module de l'entrepôt. L'ERP les porte sur la même structure : le
 # parent tiers la décrit une fois, le client et le fournisseur en héritent.
 name: tiers
 

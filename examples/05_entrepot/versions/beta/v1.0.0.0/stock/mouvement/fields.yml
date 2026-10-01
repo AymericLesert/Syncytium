@@ -1,4 +1,4 @@
-# --- l'origine du mouvement — les colonnes I de PMI (D869) ---
+# --- l'origine du mouvement — les colonnes I de l'ERP (D869) ---
 
 document:
   # MVITNUMERO nchar(6) — le document d'origine (la commande, l'ordre de
@@ -84,7 +84,7 @@ horodatage:
 # --- le mouvement ---
 
 type:
-  # MVCTGENRE nchar(1) — le genre du mouvement, la liste close de PMI en
+  # MVCTGENRE nchar(1) — le genre du mouvement, la liste close de l'ERP en
   # énuméré (D883/D952), les six genres nommés par l'auteur (D953) : C
   # consommation, D déplacement, E expédition, F fabrication, I
   # inventaire, R réception — les codes traduits au mapping (D893) ; le
@@ -178,7 +178,7 @@ valide:
     fr: Valide
 
 valeur:
-  # MVCNVAL chez PMI, ignorée ; recalculée ici (D1011) — restreinte comme
+  # MVCNVAL chez l'ERP, ignorée ; recalculée ici (D1011) — restreinte comme
   # le prix ; le montant fois le nombre nu de la quantité (D984 :
   # amount × decimal), signé comme elle — .value, l'accès à la valeur
   # d'une mesure sans son unité (forme mienne)

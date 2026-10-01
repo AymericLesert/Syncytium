@@ -37,7 +37,7 @@ unite:
     fr: Unité
 
 quantite_recue:
-  # LCCNQTEEXP — chez le fournisseur, l'expédié de PMI est le reçu
+  # LCCNQTEEXP — chez le fournisseur, l'expédié de l'ERP est le reçu
   type: decimal
   required: true
   default: 0
@@ -84,11 +84,11 @@ delai_reception:
 # --- l'état ---
 
 statut:
-  # LCCTSTATUT nchar(2) — les valeurs de PMI (D1002) : « A » acompte / en
+  # LCCTSTATUT nchar(2) — les valeurs de l'ERP (D1002) : « A » acompte / en
   # cours, « » (vide) non traité, « S » soldé, « T » terminé, « P »
   # partiel — la liste close en énuméré (D883), les codes traduits à la
   # règle (D893) ; LCCTETACDE porte un état aux valeurs inconnues,
-  # ignorée. Le vide de PMI est le nul du texte (D366) : non traité
+  # ignorée. Le vide de l'ERP est le nul du texte (D366) : non traité
   type: enum
   required: true
   label:

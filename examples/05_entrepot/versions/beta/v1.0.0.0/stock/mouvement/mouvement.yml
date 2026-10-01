@@ -1,4 +1,4 @@
-# Le mouvement de stock — la table MVTSTO de PMI (34 colonnes, des
+# Le mouvement de stock — la table MVTSTO de l'ERP (34 colonnes, des
 # millions de lignes — D863). Sans colonne K : sa clé est portée par ses
 # colonnes I (D869 — l'origine du mouvement : le document, la ligne,
 # l'indice, le composant), complétée de l'article et de l'horodatage de

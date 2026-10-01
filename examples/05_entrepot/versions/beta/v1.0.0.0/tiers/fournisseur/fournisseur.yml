@@ -1,4 +1,4 @@
-# Le fournisseur — la table FOURNIS de PMI (la même structure que
+# Le fournisseur — la table FOURNIS de l'ERP (la même structure que
 # CLIENT, le même préfixe CL) : l'enfant du tiers (D353), il ne
 # porte que ce qui lui est propre — ses commandes d'achat, les articles
 # qu'il fournit.

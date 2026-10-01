@@ -1,4 +1,4 @@
-# L'adresse complémentaire — la table ADRESSE de PMI (ADKTTYPCPT le
+# L'adresse complémentaire — la table ADRESSE de l'ERP (ADKTTYPCPT le
 # type de compte — C le client, F le fournisseur (D950) —, ADKTCOMPTE
 # le code, ADKNNUMERO le numéro) : les adresses de livraison et de
 # facturation d'un tiers. La
@@ -19,7 +19,7 @@ fields:
       fr: Numéro
 
   usage:
-    # ADCTTYPE nchar(20) — l'usage de l'adresse chez PMI, traduit au
+    # ADCTTYPE nchar(20) — l'usage de l'adresse chez l'ERP, traduit au
     # mapping vers les trois valeurs de l'exemple (D893/D950)
     type: enum
     required: true

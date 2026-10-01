@@ -1,4 +1,4 @@
-# La commande d'achat — la table ECOMFOU de PMI (la même structure
+# La commande d'achat — la table ECOMFOU de l'ERP (la même structure
 # qu'ECOMCLI, le même préfixe EC) et sa composition LCOMFOU. Séparée de
 # la commande de vente, sans héritage (D882) — la structure se répète.
 name: commande_achat

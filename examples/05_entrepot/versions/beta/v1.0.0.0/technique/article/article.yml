@@ -14,7 +14,7 @@ description: >-
 
 # Le visage texte
 # Le code et le libellé.
-label: "{code} — {libelle}"
+label: "{code}[{complement}] — {libelle}"
 
 # L'identité
 # Le code et son complément, souvent vide.

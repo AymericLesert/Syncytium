@@ -1,0 +1,14 @@
+# L'opération clore_echeancier
+# À la vente du véhicule, l'échéancier est clos : les échéances non payées sont supprimées.
+name: clore_echeancier
+
+# La description
+# La documentation de l'opération, en Markdown.
+description: ~{documentation.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }

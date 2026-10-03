@@ -1,0 +1,61 @@
+# Le niveau de stock
+# La quantité d'un article, à un emplacement d'un dépôt, par lot — le lot n'est qu'une part de la clé, sans concept
+# pour le cas. La table est un état, au plus deux cent mille lignes : relue en entier chaque nuit. Un comparatif entre
+# les mouvements et les niveaux se mène par la matrice de contrôle du dépôt, emplacement × article.
+name: niveau
+
+# La description de l'entité
+description: Un niveau de stock — un article, un lot, un emplacement, un dépôt, et les quantités qui s'y tiennent
+
+# Le visage texte
+label: "{article} — {depot}/{emplacement} — lot {lot}"
+
+# L'identité
+# Les cinq parts de la clé.
+identity: [article, lot, emplacement, depot, enregistrement]
+
+# L'historique
+# Aucun : les mouvements portent l'histoire, le stock à une date se reconstitue d'eux ; ce serait un doublon.
+history: false
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# La cohérence des données converties
+validation:
+  - rule: quantite >= 0
+    message: La quantité physique {quantite} est négative.
+  - rule: quantite_reservee <= quantite
+    message: La quantité réservée {quantite_reservee} dépasse la quantité physique {quantite}.
+  - rule: peremption != null if article.perissable
+    description: Le lot d'un article périssable porte sa date de péremption ; la référence navigue, l'entrepôt vérifie.
+    message: L'article {article} est périssable et le lot {lot} n'a pas de date de péremption.
+
+# L'interface
+# Les indicateurs du tableau de bord du module : des kpi, dont la valeur est un agrégat, sans axe.
+gui:
+  charts:
+
+    # La valeur du stock
+    # Restreinte comme la valeur des niveaux.
+    valeur_stock:
+      component: kpi
+      value: sum(valeur)
+      title: Valeur du stock
+      labels: "{value}"
+
+    # Les niveaux sous le minimum
+    # Le compte sur la condition seule ; les couleurs à seuils.
+    sous_minimum:
+      component: kpi
+      value: count(sous_minimum = true)
+      title: Niveaux sous le minimum
+      colors: { 0: green, 1: orange, 20: red }
+
+    # Les lots périmés en stock
+    perimes:
+      component: kpi
+      value: count(perime = true and quantite > 0)
+      title: Lots périmés en stock
+      colors: { 0: green, 1: red }

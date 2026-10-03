@@ -1,0 +1,122 @@
+# L'identité
+
+numero:
+  type: integer[1..]
+  required: true
+  label: Ligne
+
+# L'article
+
+article:
+  type: technique.article
+  required: true
+  label: Article
+  description: >-
+    La référence, résolue par sa clé à la reprise. La désignation de la ligne n'est pas reprise : elle vit dans une
+    table de libellés, hors de l'exemple.
+
+# Les quantités
+
+quantite:
+  type: decimal
+  required: true
+  label: Quantité commandée
+
+unite:
+  type: text[..2]
+  label: Unité
+  description: >-
+    Un texte ; la reprise contrôle que l'unité est l'une de celles de l'article, pour que la quantité emprunte sa
+    matrice de conversion.
+
+quantite_expediee:
+  type: decimal
+  required: true
+  default: 0
+  label: Quantité expédiée
+
+quantite_lancee:
+  type: decimal
+  label: Quantité lancée
+  hint: Lancée en fabrication.
+
+# Les prix — à la devise de la ligne
+
+prix_brut:
+  type: amount
+  label: Prix unitaire brut
+  description: >-
+    Le prix de revient n'est pas repris : il se déduit — l'ERP le calcule et le stocke pour la performance ; l'exemple
+    ne fournit pas la formule, et la marge sort avec lui.
+
+prix_net:
+  type: amount
+  required: true
+  label: Prix unitaire net
+  hint: Le prix après remises.
+
+# Les délais — des jours, la semaine se déduit du jour
+
+delai_demande:
+  type: date
+  label: Délai demandé
+  hint: La date demandée par le client.
+
+delai_accuse:
+  type: date
+  label: Délai accusé
+
+delai_expedition:
+  type: date
+  label: Expédition prévue
+
+delai_fabrication:
+  type: date
+  label: Fin de fabrication prévue
+
+# L'état
+
+statut:
+  type: enum
+  required: true
+  label: Statut
+  description: >-
+    La liste close de l'ERP en énuméré, ses codes traduits par la reprise ; le vide de l'ERP est non traitée. L'autre
+    état de la ligne, aux valeurs inconnues, n'est pas repris.
+  values:
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    partielle:  { label: Partiellement livrée }
+    soldee:     { label: Soldée }
+    terminee:   { label: Terminée }
+
+# Les champs calculés
+
+devise:
+  type: text[3]
+  formula: owner.devise
+  label: Devise
+  description: La devise de la commande, par le possesseur.
+
+client:
+  type: tiers.client
+  formula: owner.client
+  label: Client
+  description: Le client de la commande, par le possesseur ; la ligne le porte pour les listes calculées de l'article.
+
+montant:
+  type: amount
+  formula: prix_net * quantite
+  label: Montant
+  description: La valeur de la ligne — un montant multiplié par un décimal.
+
+reste_a_livrer:
+  type: decimal
+  formula: quantite - quantite_expediee
+  label: Reste à livrer
+
+en_retard:
+  type: boolean
+  formula: delai_expedition < context.today and statut not in ["soldee", "terminee"]
+  label: En retard
+  hint: L'expédition prévue est dépassée et la ligne n'est pas soldée.

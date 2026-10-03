@@ -1,0 +1,170 @@
+# L'identité
+
+code:
+  type: text[..6]
+  required: true
+  label: Code
+  placeholder: C00042
+  description: L'identité se déclare chez l'enfant — le client, le fournisseur — ; le champ vit ici.
+
+nom:
+  type: text[..40]
+  required: true
+  searchable: mutualizable[qui]
+  label: Raison sociale
+
+nom_court:
+  type: text[..10]
+  from: abrege
+  label: Nom court
+  hint: Le nom court, celui des listes.
+
+# L'adresse principale
+
+adresse:
+  type: geolocation
+  label: Adresse
+  hint: L'adresse du siège, géolocalisée — le tri par la distance.
+  description: L'adresse normalisée et ses coordonnées, assemblées par la reprise depuis les lignes de l'ERP.
+
+pays:
+  type: text[3]
+  label: Pays
+  hint: Le code pays ISO.
+
+# Les coordonnées — des types composés, validés par leur forme
+
+telephone:
+  type: phone
+  label: Téléphone
+
+fax:
+  type: phone
+  label: Fax
+
+email:
+  type: email
+  label: Courriel
+
+site:
+  type: url
+  label: Site web
+  hint: Le lien s'ouvre en lecture.
+
+# Les identifiants légaux et bancaires — validés par leur type
+
+siret:
+  type: siret
+  label: SIRET
+
+tva:
+  type: vat_number
+  label: N° de TVA
+
+iban:
+  type: iban
+  confidentiality: ${settings.confidentiality.financier}
+  label: IBAN
+  description: Le bancaire est réservé aux achats et à la direction, par le profil financier des réglages.
+
+bic:
+  type: bic
+  confidentiality: ${settings.confidentiality.financier}
+  label: BIC
+
+# Les conditions
+
+devise:
+  type: text[3]
+  label: Devise
+  placeholder: EUR
+  hint: La devise du tiers, en code ISO.
+
+langue:
+  type: enum
+  label: Langue
+  hint: La langue des échanges avec le tiers.
+  values:
+    fr: { label: Français }
+    en: { label: Anglais }
+    de: { label: Allemand }
+    es: { label: Espagnol }
+
+echeance:
+  type: integer[0..]
+  label: Échéance
+  hint: Le délai de règlement, en jours.
+
+base_echeance:
+  type: enum
+  label: Base d'échéance
+  hint: D'où part le délai de règlement.
+  description: >-
+    Le point de départ du délai ; les correspondances avec les bases de l'ERP sont inventées pour l'exemple, la reprise
+    les traduit. Le mode de règlement n'est pas repris : anonymisé dans l'échantillon, rien ne le remplit.
+  values:
+    facture:           { label: Date de facture }
+    fin_de_mois:       { label: Fin de mois }
+    fin_de_mois_le_10: { label: "Fin de mois, le 10" }
+
+# La vie du tiers
+
+actif:
+  type: boolean
+  required: true
+  default: true
+  label: Actif
+
+bloque:
+  type: boolean
+  required: true
+  default: false
+  label: Bloqué
+  hint: Vrai quand l'ERP bloque le tiers — plus de commande.
+
+date_creation:
+  type: date
+  label: Créé le
+
+date_modification:
+  type: date
+  label: Modifié le
+
+# Les compositions
+
+adresses:
+  type: list of adresse
+  label: Adresses complémentaires
+  hint: Les adresses de livraison, de facturation…
+
+contacts:
+  type: list of contact
+  label: Contacts
+  description: Les personnes chez le tiers ; leurs champs nominatifs portent le marquage des données personnelles.
+
+# L'enrichissement — le champ que l'entrepôt possède
+
+note_interne:
+  type: text[..200]
+  default: ""
+  unchanged: true
+  allow:
+    update: [commercial, achats]
+  label: Note interne
+  hint: Ce que l'entreprise sait du tiers et que l'ERP ne porte pas — libre au commercial et aux achats.
+  description: >-
+    La reprise ne l'alimente pas et ne la touche pas : le champ naît à son défaut et garde sa valeur. La saisie est
+    ouverte aux groupes que le droit du champ nomme, le module restant en lecture seule.
+
+# Les champs calculés
+
+siren:
+  type: siren
+  formula: left(siret, 9) if siret != null
+  label: SIREN
+  hint: Les neuf premiers chiffres du SIRET.
+
+nombre_contacts:
+  type: integer
+  formula: contacts.count()
+  label: Contacts

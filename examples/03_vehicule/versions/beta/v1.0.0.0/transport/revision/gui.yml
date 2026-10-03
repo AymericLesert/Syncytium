@@ -1,0 +1,35 @@
+# Les widgets
+# Pas de formulaire déclaré : celui du socle suffit ; la règle s'écrit dans la liste, en ligne.
+widgets:
+
+  # L'annonce
+  # Le widget d'une règle échue : une alerte, un seul texte, sans lien vers le véhicule ni la règle — le foyer n'a pas
+  # plus de deux véhicules. Le gabarit cite les chemins ; chaque alinéa porte sa condition.
+  annonce:
+    items:
+      - paragraph:
+          if: prochaine_date != null
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
+      - paragraph:
+          if: prochaine_date = null
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
+
+# Les listes
+lists:
+
+  # Les révisions
+  # La première déclarée, celle par défaut : la règle est éditable, les échéances se déduisent.
+  revisions:
+    title: Les révisions
+    columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
+    editable: [designation, pas_km, pas_duree]
+    sort: [designation]
+
+  # Les révisions échues
+  # L'écho de tous les véhicules, la partition par le filtre ; la liste en widgets, un texte par échue ; le nul en tête,
+  # les règles au kilométrage d'abord.
+  echues:
+    title: Les révisions échues
+    filter: echue = true
+    widget: annonce
+    sort: [prochaine_date]

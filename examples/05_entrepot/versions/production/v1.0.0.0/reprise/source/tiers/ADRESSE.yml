@@ -1,0 +1,103 @@
+# Le nom de la table
+# La table ADRESSE de PMI, 26 colonnes : les adresses complémentaires d'un client ou d'un fournisseur.
+name: ADRESSE
+
+# La description de la table
+description: Les adresses complémentaires de PMI — la source de tiers.adresse
+
+# Le périmètre lu
+# La société 100, les adresses des clients (C) et des fournisseurs (F).
+filter: ADKTSOC = "100" and ADKTTYPCPT in ["C", "F"]
+
+# L'identité d'une ligne
+# Le type de compte, le code du tiers et le numéro de l'adresse.
+identity: [ADKTTYPCPT, ADKTCOMPTE, ADKNNUMERO]
+
+# Le rapport des anomalies de la table
+# Le commercial corrige les adresses des clients, les achats celles des fournisseurs.
+report:
+  when: [migration]
+  to: [commercial, achats]
+  by: [notification, mail]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  ADKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  ADKTTYPCPT:
+    type: text[1]
+    description: "Le type de compte : C le client, F le fournisseur."
+
+  ADKTCOMPTE:
+    type: text[6]
+    description: Le code du tiers, client ou fournisseur selon le type de compte.
+
+  ADKNNUMERO:
+    type: integer
+    description: Le numéro de l'adresse chez le tiers.
+
+  ADCTTYPE:
+    type: text[20]
+    description: >-
+      L'usage de l'adresse : LIVRAISON la livraison, FACTURATION la facturation ; un autre code se lit comme « autre ».
+
+  ADCTNOM:
+    type: text[40]
+    description: Le nom du destinataire.
+
+  ADCTRUE1:
+    type: text[40]
+    description: La première ligne de rue.
+
+  ADCTRUE2:
+    type: text[40]
+    description: La deuxième ligne de rue.
+
+  ADCTCP:
+    type: text[16]
+    description: Le code postal.
+
+  ADCTVILLE:
+    type: text[40]
+    description: La ville.
+
+  ADCTCPAYS:
+    type: text[3]
+    description: Le code du pays.
+
+  ADCTPAYS:
+    type: text[20]
+    description: Le nom du pays.
+
+  ADCJCREA:
+    type: date_pmi
+    description: La date de création de l'adresse.
+
+  ADCTRUE3:
+    type: text[40]
+    description: La troisième ligne de rue.
+
+  ADCNGPSX:
+    type: decimal
+    description: La longitude.
+
+  ADCNGPSY:
+    type: decimal
+    description: La latitude.
+
+  # Les colonnes calculées
+  # Le tiers de l'adresse, selon le type de compte : les règles du client et du fournisseur en choisissent une.
+  client:
+    type: CLIENT.CLKTCODE
+    description: Le client de l'adresse, pour un compte de type C.
+    formula: ADKTCOMPTE if ADKTTYPCPT = "C"
+
+  fournisseur:
+    type: FOURNIS.CLKTCODE
+    description: Le fournisseur de l'adresse, pour un compte de type F.
+    formula: ADKTCOMPTE if ADKTTYPCPT = "F"

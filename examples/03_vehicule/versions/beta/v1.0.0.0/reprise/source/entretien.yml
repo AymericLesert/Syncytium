@@ -1,0 +1,33 @@
+# Le nom de l'entité source
+# La feuille ENTRETIEN, lue à la carte : la plage écarte le bloc droit aux entêtes homonymes. Les lignes de continuation
+# d'un classeur — la désignation étalée sur plusieurs lignes, sans date — sont signalées en anomalie à la migration :
+# l'utilisateur ajuste le classeur et rejoue.
+name: entretien
+
+# La description de l'entité source
+description: Le journal de vie du classeur — les frais, les événements, l'achat, la vente
+
+# Les colonnes
+# La plaque vient d'un autre onglet, la jointure au véhicule ; chaque colonne porte son entête.
+fields:
+
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
+    description: La plaque du classeur.
+
+  date:
+    type: date
+    label: Date
+
+  designation:
+    type: text[..200]
+    label: Désignation
+
+  montant:
+    type: decimal
+    label: Montant
+
+  km:
+    type: integer
+    label: KM

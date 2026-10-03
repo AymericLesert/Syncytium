@@ -1,0 +1,68 @@
+# Le dépôt
+# Le référentiel des dépôts, construit à quatre origines par la reprise : les paramètres de l'ERP — les dépôts actifs,
+# avec leur libellé —, les fiches articles, les mouvements — y compris les dépôts dépassés — et les niveaux de stock
+# non nuls ; les valeurs distinctes de chaque origine. Une liste courte, mais une entité : le dépôt se référence et
+# porte ses niveaux et ses emplacements.
+name: depot
+
+# La description de l'entité
+description: Un dépôt de stockage
+
+# Le visage texte
+label: "{code} — {libelle}"
+
+# L'identité
+identity: [code]
+
+# L'historique
+history: true
+
+# Les champs
+fields:
+
+  code:
+    type: text[..6]
+    required: true
+    label: Code
+
+  libelle:
+    type: text[..40]
+    label: Libellé
+    description: Connu par les paramètres seulement ; vide pour un dépôt né des mouvements ou des fiches articles.
+
+  actif:
+    type: boolean
+    required: true
+    default: false
+    label: Actif
+    description: Les paramètres sont les dépôts actifs ; né d'une autre origine, le dépôt naît inactif, à son défaut.
+
+  niveaux:
+    type: association with stock.niveau if depot = me
+    label: Niveaux
+    description: L'accès retour aux niveaux du dépôt, nommé en vue dérivée.
+
+  mouvements:
+    type: association with stock.mouvement if depot = me
+    label: Mouvements
+    description: L'accès retour aux mouvements du dépôt — la source de la matrice de contrôle.
+
+  # La règle de contrôle
+
+  controle_stock:
+    type: 'list of [emplacement: stock.emplacement, article: technique.article]'
+    formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantite, sortie: -quantite))'
+    label: Contrôle du stock par les mouvements
+    description: >-
+      La matrice emplacement × article : la somme des quantités entrées moins les sorties, évaluée par cellule —
+      group(emplacement, article) fait une cellule par couple présent dans les mouvements. La quantité est signée par
+      le sens, dans l'unité de stock de l'article ; le tableau de bord la compare aux niveaux.
+
+  # Les champs calculés
+
+  valeur:
+    type: amount
+    formula: niveaux.sum(valeur)
+    confidentiality: ${settings.confidentiality.financier}
+    label: Valeur du stock
+    hint: La valeur du stock du dépôt — réservée aux achats et à la direction.

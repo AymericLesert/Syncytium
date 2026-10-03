@@ -1,0 +1,9 @@
+# Les types
+titre_consommation:
+  description: >-
+    La phase 2 : le type par le titre de la feuille de consommation ; la devise viendra de l'origine, à l'année de
+    l'achat. L'identité alimentée retrouve le véhicule — la mise à jour.
+  to: transport.vehicule
+  fields:
+    immatriculation: immatriculation
+    type:            type_vehicule

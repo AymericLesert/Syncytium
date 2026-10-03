@@ -1,0 +1,32 @@
+# Les lignes des commandes d'achat
+LCOMFOU:
+  description: >-
+    Les lignes des commandes d'achat, composition de l'entête, la structure des lignes de vente : le possesseur est la
+    révision de la commande, son numéro et son indice ; l'identité d'une ligne est son numéro. Les prix, à la devise de
+    la ligne, sont restreints dans l'entrepôt : la reprise les écrit par son privilège. Les délais sont des jours. Un
+    statut hors de la liste est une anomalie.
+  to: commande.ligne_achat
+  parent:
+    commande_achat: { numero: numero, indice: LCKTPSF }
+  fields:
+    numero:  ligne
+    article: { code: LCCTCODART, complement: LCCTCOMART }
+    quantite:        LCCNQTECDE
+    unite:           LCCTUNICDE
+    quantite_recue:
+      formula: LCCNQTEEXP
+      description: L'expédié de PMI, reçu chez l'acheteur.
+    prix_brut:       amount(LCCNPUBRUT, LCCTDEVISE)
+    prix_net:        amount(LCCNPUNET, LCCTDEVISE)
+    delai_demande:   LCCJDELDDE
+    delai_accuse:    LCCJDELARR
+    delai_reception: LCCJDELEXP
+    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
+  validation:
+    - rule: me.unite in me.article.unite.units
+      description: L'unité de la ligne est l'une de celles que son article connaît.
+      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.
+  report:
+    when: [migration]
+    to: [achats]
+    by: [notification, mail]

@@ -66,23 +66,36 @@ La forme suit la finalité ; les canaux sont complémentaires :
 L'exemple du journal (les écritures validées — D743) :
 
 ```yaml
-# environments/production/logging.yml — la configuration en dur (D737)
-log:
-  level: info            # verbose | debug | info | warning | error | exception
-  output: file:/var/log/syncytium   # ou le puits de logs (D343)
-  retention: 90d         # la rétention des traces (D41b)
-  anonymize: true        # l'option d'anonymisation (D41b)
+# environments/production/logging.yml — la configuration en dur (D737), sans niveau log: (D1092)
+level: info            # verbose | debug | info | warning | error | exception
+output: file:/var/log/syncytium/${...name}-${now:yyyy-mm-dd}.log   # ou le puits de logs (D343)
+max_size: 128MB        # les dimensions (D800/D1091) : la taille d'un fichier…
+backups: 10            # … et le nombre de fichiers tournés ; la rétention au cleanup.yml (D1073)
+anonymize: true        # l'option d'anonymisation (D41b)
 
 # environments/staging/logging.yml — le staging bavard (D343)
-log:
-  level: debug
+level: debug
 ```
 
 *(La maîtrise du journal (D800) : le niveau, **les dimensions** — la
 taille et la rotation des fichiers, la syntaxe à écrire quand le
 domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
-ignorées : renommer un bloc — le suffixe `-disable` du cas 1 — le
+ignorées : renommer un bloc — le suffixe `-disable` du cas 4 — le
 met en sommeil.)*
+
+*(**La rétention des fichiers est un mécanisme générique** (D1070) : dans
+un dossier, les fichiers qui répondent à un pattern — gardés par nombre
+(les n derniers) ou par durée, la date lue dans le nom du fichier par
+le pattern ; **elle vit dans `cleanup.yml`, à l'environnement** (D1073) :
+des règles nommées, la clé est le nom (D1074) — le journal (sorti de `logging.yml`), les
+watchers, les fichiers de détail des migrations (D1066). Les propriétés
+sont normalisées (D1071) : `interval:` (le délai entre deux
+nettoyages), `directory:`, `pattern:` (la date par le groupe nommé
+`(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré ;
+sans unité, un nombre de fichiers — `10` garde les dix derniers, triés
+par leur dernière date de création, D1076) ; `interval:` en durée
+(`1d`, `1min` — `m` est le mois, D476) ;
+le nom daté s'écrit `${now:yyyy-mm-dd}`.)*
 
 L'exemple des push (les écritures validées — D743) :
 

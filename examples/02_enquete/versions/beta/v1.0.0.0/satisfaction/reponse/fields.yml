@@ -1,0 +1,17 @@
+repondant:
+  type: text[..40]
+  required: true
+  label: Répondant
+  placeholder: Marie
+
+note:
+  type: integer[1..5]
+  required: true
+  label: Note
+  hint: De 1 (déçu) à 5 (ravi).
+
+commentaire:
+  type: text[..200]
+  label: Commentaire
+  placeholder: Le dessert était parfait !
+  description: Le multi-ligne se déduit de la taille.

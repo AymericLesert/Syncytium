@@ -1,0 +1,150 @@
+# L'identité
+
+numero:
+  type: counter
+  format: "{counter:000000}"
+  label: Numéro
+  description: Un compteur — le type est déclaré, la reprise écrit la valeur.
+
+indice:
+  type: text[..3]
+  required: true
+  default: "000"
+  label: Indice
+  hint: La révision de la commande — 000 à l'origine.
+  description: Les lignes portent l'indice de leur commande.
+
+# Le client et les références
+
+client:
+  type: tiers.client
+  required: true
+  label: Client
+
+reference_client:
+  type: text[..20]
+  label: Référence client
+  hint: Le numéro de commande chez le client.
+
+# Les dates
+
+date:
+  type: date
+  required: true
+  label: Date
+  hint: La date de la commande.
+
+date_echeance:
+  type: date
+  label: Échéance
+  hint: L'échéance forcée.
+
+derniere_livraison:
+  type: date
+  label: Dernière livraison
+  hint: La date du dernier bon de livraison.
+
+derniere_facture:
+  type: date
+  label: Dernière facture
+
+# Les conditions
+
+devise:
+  type: text[3]
+  required: true
+  label: Devise
+  placeholder: EUR
+  description: La devise de la commande ; les lignes la lisent par leur possesseur.
+
+taux_change:
+  type: decimal
+  decimals: 6
+  label: Taux de change
+
+# La livraison
+
+livraison_nom:
+  type: text[..40]
+  label: Livré à
+  description: >-
+    L'adresse propre à la commande, un instantané saisi à la commande : le détail est repris tel quel et le calculé
+    adresse_livraison le géolocalise. L'adresse de la commande elle-même, redondante avec celle du client, n'est pas
+    reprise.
+
+livraison_rue1:
+  type: text[..40]
+  label: Rue
+
+livraison_rue2:
+  type: text[..40]
+  label: Rue (suite)
+
+livraison_rue3:
+  type: text[..40]
+  label: Rue (fin)
+
+livraison_code_postal:
+  type: text[..16]
+  label: Code postal
+
+livraison_ville:
+  type: text[..40]
+  label: Ville
+
+livraison_pays:
+  type: text[..20]
+  label: Pays
+  hint: Le libellé du pays.
+
+# La composition
+
+lignes:
+  type: list of ligne_vente
+  label: Lignes
+  description: La suppression de la commande les emporte ; la suppression d'un article ne les touche pas.
+
+# Les champs calculés
+
+statut:
+  type: enum
+  formula: >-
+    "non_traite" if lignes.count(statut != "non_traite") = 0
+    else "soldee" if lignes.count(statut not in ["soldee", "terminee"]) = 0
+    else "en_cours"
+  label: Statut
+  description: >-
+    Jamais repris, déduit des lignes : non traitée tant qu'aucune ligne ne l'est, soldée quand toutes le sont — soldée
+    ou terminée —, en cours entre les deux ; les cas s'enchaînent par « valeur if condition else … ».
+  values:
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    soldee:     { label: Soldée }
+
+adresse_livraison:
+  type: geolocation
+  formula: >-
+    geolocation(livraison_rue1 + " " + livraison_rue2 + " " + livraison_rue3 + ", " + livraison_code_postal + " "
+    + livraison_ville + ", " + livraison_pays) if livraison_ville != null
+  label: Adresse de livraison
+  description: >-
+    Le géocodage du détail par le connecteur de localisation : la forme texte du constructeur rend les quatre parties,
+    l'adresse normalisée et le point viennent du connecteur. Sans la condition, la géolocalisation refuse le texte
+    vide : le calculé est nul quand la ville manque.
+
+total:
+  type: amount
+  formula: lignes.sum(montant)
+  label: Total
+  description: La somme des montants des lignes, à la devise de la commande.
+
+nombre_lignes:
+  type: integer
+  formula: lignes.count()
+  label: Lignes
+
+reste_a_livrer:
+  type: decimal
+  formula: lignes.sum(quantite - quantite_expediee)
+  label: Reste à livrer
+  hint: Les quantités commandées non encore expédiées, toutes lignes confondues.

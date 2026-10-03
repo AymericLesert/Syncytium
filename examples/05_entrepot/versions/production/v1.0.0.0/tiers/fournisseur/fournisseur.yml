@@ -1,0 +1,50 @@
+# Le fournisseur
+# L'enfant du tiers, sur la même structure que le client : il ne porte que ce qui lui est propre — ses commandes
+# d'achat, les articles qu'il fournit. L'identité est celle du tiers, conservée.
+name: fournisseur
+
+# La description de l'entité
+description: Un fournisseur — le tiers qui vend à l'entreprise
+
+# Le visage texte
+label: "{code} — {nom}"
+
+# Le parent
+inheritance: tiers
+
+# L'historique
+history: true
+
+# Les champs propres au fournisseur
+fields:
+
+  delai_livraison:
+    type: integer[0..]
+    label: Délai de livraison
+    hint: Le délai habituel, en jours.
+
+  commandes:
+    type: association with commande.commande_achat if fournisseur = me
+    label: Commandes d'achat
+    description: L'association dérivée ; la vérité reste la référence portée par la commande.
+
+  articles:
+    type: association with technique.article if me in fournisseurs
+    label: Articles fournis
+    description: >-
+      Les articles dont il est le fournisseur habituel — l'accès retour de l'association stockée de l'article, nommé en
+      vue dérivée ; l'appartenance à la collection par l'opérateur in.
+
+  # Les champs calculés
+
+  nombre_commandes:
+    type: integer
+    formula: commandes.count()
+    label: Commandes
+
+  engage:
+    type: amount
+    formula: commandes.sum(total if statut = "en_cours")
+    confidentiality: ${settings.confidentiality.financier}
+    label: Engagé
+    hint: Le montant engagé en commandes d'achat non soldées — réservé aux achats et à la direction.

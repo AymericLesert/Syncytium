@@ -267,11 +267,19 @@ rétention déclarée (D411).
 
 ### Le suivi des migrations (D666–D668, D711)
 
-**L'entrée « migrations » du module d'administration** (D711 —
-conditionnelle : `migrations:` défini) : les entités du suivi — la
-couverture par migration/entité/règle, les rejets et leurs causes —
-**historisées** (l'évolution de la qualité dans le temps) ; la vue
-par les surfaces standard.
+**L'entrée « migrations » du module d'administration** (`_administration`
+— le préfixe des modules internes, D1029 ; D711 —
+conditionnelle : `migrations:` défini) : le module `_migration` — les
+passages et leur ligne d'exécution (l'état, les horodatages,
+l'instantané, les trois jeux de compteurs, les deux indicateurs), la
+table des clés d'origine, les versions du modèle lu, les anomalies —
+**l'évolution de la qualité dans le temps** : la ligne d'exécution
+reste sans délai, le détail des anomalies vit dans un fichier SQLite
+par passage, retenu par le `cleanup.yml` de l'environnement ; la vue
+par les surfaces standard ; l'administrateur y lance, interrompt et
+relance les passages (D1077). Le module — le déroulé d'un passage,
+ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit
+dans [migration.md](migration.md) (D1028, D1030–D1080).
 
 ### Les opérations d'administration du socle (D701)
 
@@ -432,6 +440,16 @@ la clé de la sandbox, la recharge D922 le rejoue) et **la commande** :
 
 ```bash
 syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
+```
+
+**La copie d'un environnement** (D1078–D1080) : la base de l'environnement
+source vers celui de la cible — les données et le module `_migration` avec
+elles ; l'option `--with-storage` emporte aussi les fichiers de détail des
+migrations (D1066), re-chiffrés sous les clés de la cible :
+
+```bash
+syncytium copy production staging                  # les données et _migration
+syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
 ```
 
 — le re-chiffrement en masse au patron de `migrate` (la transaction,

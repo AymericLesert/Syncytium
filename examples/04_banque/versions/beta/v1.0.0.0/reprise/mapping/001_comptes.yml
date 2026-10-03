@@ -1,0 +1,11 @@
+# Les comptes
+budget:
+  description: >-
+    La phase 1 : les lignes au marqueur OUVERTURE créent les comptes — chacune porte le numéro, le libellé et la date
+    d'ouverture. L'identité alimentée, la phase 3 la retrouve pour poser la clôture.
+  to: banque.compte
+  filter: Budget = "OUVERTURE"
+  fields:
+    numero:    Numero_Compte
+    libelle:   Designation
+    ouverture: Date_Operation

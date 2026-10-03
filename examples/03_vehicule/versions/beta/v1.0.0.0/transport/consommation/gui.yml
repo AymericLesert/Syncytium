@@ -1,0 +1,21 @@
+# Les listes
+# Pas de formulaire déclaré : celui du socle suffit ; la saisie vit dans la liste, en ligne.
+lists:
+
+  # La consommation
+  # La feuille du classeur, colonne à colonne ; les saisies sont éditables, les calculés se refont.
+  consommations:
+    title: La consommation
+    columns: [nb_jours, date, km_prevu, total_km, km, quantite, prix_unitaire, prix_total, conso_100]
+    editable: [numero, date, total_km, quantite, prix_unitaire]
+    sort: [date, numero]
+
+# Les graphiques
+charts:
+
+  # L'évolution de la consommation
+  # La feuille graphique du classeur : la moyenne du mois.
+  evolution_consommation:
+    title: L'évolution de la consommation
+    x: date[month]
+    y: avg(conso_100)

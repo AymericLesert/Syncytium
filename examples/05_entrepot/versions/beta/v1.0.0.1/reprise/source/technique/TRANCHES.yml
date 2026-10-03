@@ -1,0 +1,7 @@
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+TRANCHES:
+  type: ignored
+  description: >-
+    Les grilles de tranches de PMI, 108 colonnes — la grille ne conditionne pas le prix : la tranche d'un tarif est sa
+    lettre, son seuil est porté par la ligne de tarif.

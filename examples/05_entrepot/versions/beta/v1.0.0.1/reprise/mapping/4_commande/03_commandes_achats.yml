@@ -1,0 +1,29 @@
+# Les commandes d'achat
+ECOMFOU:
+  description: >-
+    Les entêtes des commandes d'achat : la structure des ventes, séparée sans héritage — la règle se répète. Les
+    fournisseurs et les articles précèdent. L'identité : le numéro et l'indice de révision ; le compteur des commandes
+    se repositionne sur la plus grande valeur reprise. Le fournisseur se retrouve par son code. Le statut de l'entête
+    n'est pas repris. Pas d'adresse de livraison : l'achat est livré chez l'entreprise.
+  to: commande.commande_achat
+  fields:
+    numero:
+      formula: numero
+      description: Le numéro calculé à la source ; la reprise surcharge la valeur du compteur.
+    indice:                ECKTINDICE
+    fournisseur:           ECCTCODE
+    reference_fournisseur: ECCTREFCDE
+    date:                  ECCJCRE
+    date_echeance:         ECCJECHFOR
+    derniere_reception:
+      formula: ECCJDERBL
+      description: Chez le fournisseur, le dernier bon est une réception.
+    derniere_facture:      ECCJDERFA
+    devise:                ECCTDEVISE
+    taux_change:           ECCNTXDEVI
+  operations:
+    commande_achat.numero.update(numero)
+  report:
+    when: [migration]
+    to: [achats]
+    by: [notification, mail]

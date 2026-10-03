@@ -1,0 +1,24 @@
+# La ligne de commande de vente
+# La composition de la commande de vente. L'identité au sein de la commande : le numéro de ligne ; l'indice de la
+# commande est la clé du possesseur. La ligne référence l'article, jamais une composition : l'article supprimé ne la
+# touche pas.
+name: ligne_vente
+
+# La description de l'entité
+description: Une ligne de commande de vente — l'article, les quantités, le prix, les délais
+
+# Le visage texte
+label: "{numero} — {article}"
+
+# L'identité
+# Le numéro de ligne, au sein de la commande.
+identity: [numero]
+
+# L'historique
+history: true
+
+# Les champs
+# Rangés par groupe. Aucune validation sur les quantités — à titre indicatif, elles servent à vérifier un mode
+# opératoire ou à repérer les cas limites : une expédition au-delà de la commande s'observe, elle ne se rejette pas ;
+# ni sur les prix — le net peut dépasser le brut.
+fields: ~{fields.yml}

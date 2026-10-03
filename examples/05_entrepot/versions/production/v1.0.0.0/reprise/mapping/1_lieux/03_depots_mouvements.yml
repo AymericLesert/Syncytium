@@ -1,0 +1,14 @@
+# Les dépôts trouvés dans les mouvements
+MVTSTO:
+  description: >-
+    La troisième origine des dépôts : chaque dépôt cité par un mouvement lu, y compris les dépôts qui ne servent plus.
+    Un dépôt né ici est inactif et sans libellé.
+  to: stock.depot
+  distinct: [MVCTDEPOT]
+  filter: MVCTDEPOT != null
+  fields:
+    code: MVCTDEPOT
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

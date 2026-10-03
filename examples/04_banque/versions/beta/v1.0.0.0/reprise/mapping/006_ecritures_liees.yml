@@ -1,0 +1,15 @@
+# Les écritures liées
+budget:
+  description: >-
+    La seconde phase du rapprochement — rechercher et associer : la règle de complément relit les mêmes lignes et pose
+    liee sur les écritures nées de la règle précédente, la correspondance ligne → enregistrement étant tenue par la
+    migration. Le cache croise en dernier entré, premier sorti : la première ligne relue dépile la seconde empilée, son
+    miroir, jamais elle-même ; la garde sur la taille écarte l'orphelin, qui ne dépile pas et dont liee reste vide.
+    L'affectation au chemin repose la référence sur le miroir : les deux côtés sont portés, comme le fait virer ; sur le
+    vide, le chemin est sans effet.
+  to: banque.ecriture
+  filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
+  parent: { compte: Numero_Compte }
+  fields:
+    liee: cache.pop("virement", reference_virement) if cache.size("virement", reference_virement) > 1
+    me.liee.liee : me

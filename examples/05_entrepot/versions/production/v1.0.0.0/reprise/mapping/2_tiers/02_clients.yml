@@ -1,0 +1,48 @@
+# Les clients
+CLIENT:
+  description: >-
+    Les clients de PMI : la règle alimente les champs du tiers et ceux du client, son enfant — le représentant et sa
+    commission, l'encours à la devise du client, le code tarif.
+  to: tiers.client
+  fields:
+    code:      CLKTCODE
+    nom:       CLCTNOM
+    abrege:    CLCTABRE
+    adresse:
+      formula: >-
+        geolocation(CLCNGPSY, CLCNGPSX,
+          CLCTRUE1 + " " + CLCTRUE2 + " " + CLCTRUE3 + ", " + CLCTCP + " " + CLCTVILLE + ", " + CLCTPAYS)
+      description: >-
+        L'adresse principale : les coordonnées de PMI et l'adresse brute, assemblée de ses lignes.
+    pays:      CLCTCPAYS
+    telephone: CLCTTELEP1
+    fax:       CLCTFAX1
+    email:     CLCTEMAIL
+    site:      CLCTSITE
+    siret:     CLCTSIRET
+    tva:       CLCTNOTVA
+    iban:      CLCTIBAN
+    bic:       CLCTSWIFT
+    devise:    CLCTDEVISE
+    langue:    'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'
+    echeance:
+      formula: integer(CLCTCECHEA)
+      description: >-
+        Les jours d'échéance, écrits sur trois chiffres : 030 donne 30.
+    base_echeance: 'CLCTBECHEA.select(1: "facture", 3: "fin_de_mois", 6: "fin_de_mois_le_10")'
+    representant:      CLCTREP1
+    taux_representant: CLCNTXREP1
+    encours_maximum:   amount(CLCNDECOU1, CLCTDEVISE)
+    code_tarif:        CLCTTARIF
+    actif:
+      formula: CLCTACTIF != "N"
+      description: Vide, le tiers est actif.
+    bloque:
+      formula: CLCTBLOCAG != null
+      description: Un motif de blocage, E ou C, bloque le tiers.
+    date_creation:     CLCJCRE
+    date_modification: CLCJMOU
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

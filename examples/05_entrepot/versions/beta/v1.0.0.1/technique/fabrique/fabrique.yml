@@ -1,0 +1,66 @@
+# Le produit fabriqué
+# L'article dont le code de gestion est fabrique : un dérivé de l'article. Le parent décrit le commun ; l'enfant ne
+# porte que ce qui lui est propre — la nomenclature et la gamme, déclarées sur chacun des trois dérivés qui en ont
+# besoin, et le client de référence.
+name: fabrique
+
+# La description de l'entité
+description: Un produit fabriqué — l'article que l'entreprise produit, avec sa nomenclature et sa gamme
+
+# Le visage texte
+label: "{code} — {libelle}"
+
+# Le parent
+inheritance: article
+
+# L'historique
+history: true
+
+# Les champs propres au produit fabriqué
+fields:
+
+  client_defaut:
+    type: tiers.client
+    label: Client de référence
+    description: >-
+      L'élément propre au produit fabriqué, là où le parent porte le fournisseur par défaut de l'article acheté ;
+      absent chez l'inactif.
+
+  clients:
+    type: association with tiers.client if client in me.commandes_vente.client
+    label: Clients
+    description: L'association dérivée — les clients des lignes de vente de l'article.
+
+  nomenclature:
+    type: list of nomenclature
+    label: Nomenclature et gamme
+    description: >-
+      La composition : la nomenclature et la gamme réunies, comme chez l'ERP ; le composant est un article, de tout
+      type — la composition se référence elle-même.
+
+  # Les champs calculés
+
+  dernier_client:
+    type: tiers.client
+    formula: commandes_vente.last().client
+    label: Dernier client
+    description: Se calcule, ne se stocke pas — le client de la dernière ligne de vente, dans l'ordre de la liste.
+
+  nombre_composants:
+    type: integer
+    formula: nomenclature.count(nature = "composant")
+    label: Composants
+    hint: Le nombre de composants de la nomenclature.
+
+  nombre_operations:
+    type: integer
+    formula: nomenclature.count(nature = "operation")
+    label: Opérations
+    hint: Le nombre d'opérations de la gamme.
+
+  temps_gamme:
+    type: duration
+    formula: nomenclature.sum(temps_ouverture if nature = "operation")
+    label: Temps de gamme
+    hint: Le temps total des opérations de la gamme.
+    description: La somme des temps d'ouverture des opérations, une durée.

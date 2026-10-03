@@ -58,15 +58,15 @@ versions/<statut>/<version>/
 ```
 
 *(Le nommage et l'organisation restent libres — D807 : l'arbre
-ci-dessus est la convention du cas 1.)*
+ci-dessus est la convention du cas 4.)*
 
 ```yaml
 # hooks/hooks.yml — l'étage des familles (D777)
-operations: operations/operations.yml
+operations: ~{operations/operations.yml}   # la référence explicite (D956)
 
 # hooks/operations/operations.yml — la liste des fiches (le pattern D806)
 operations:
-  - .*/.*\.yml
+  - ~{.*/.*\.yml}
 
 # hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
 name: dupliquer
@@ -131,8 +131,18 @@ fonctions de la collection (`list of`, `association with`) sont ses
 méthodes — `commandes.sum(montant if etat = "facturée")` (l'élément
 en contexte implicite dans la parenthèse), `count()`, `avg`,
 `min`/`max` (universels — tous les types sont triables, D575),
-`first`, `last`, `any`, `exists` ; la forme contextuelle sans préfixe
-quand la collection est le contexte (l'assise d'un chart — D517).
+`first`, `last`, `any`, `exists` ; **`group(champ, …)`** — le « group
+by » d'une liste (D1015) : une cellule par combinaison de valeurs des
+champs nommés, l'agrégat qui suit s'évalue par cellule, le résultat est
+un hypercube (D897) aux dimensions des champs —
+`mouvements.group(emplacement, article).sum(…)` ; **`sort(champ, …)`** — le
+tri d'une liste en ligne (D1017), les clés dans l'ordre, `first()`/`last()`
+sans argument rendent l'élément en tête ou en queue
+(`commandes_vente.sort(owner.date).last().client`) ; « les méthodes group
+et sort sont à ajouter », leurs propriétés déclaratives `group:` et
+`sort:` sur l'association (D1016/D1017) ; la forme contextuelle
+sans préfixe quand la collection est le contexte (l'assise d'un chart —
+D517).
 
 **Le type `label`** (D585–D586) — le type-hook du socle qui montre la
 voie : l'accès au catalogue des labels (D440), les gabarits nommés
@@ -194,8 +204,9 @@ code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
 `create`, `read`, `update`, `delete`, `duplicate`, `promote`,
 `demote`, `generate`, `download`, `print`, `send`, `export`,
 `import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
-`anonymize`, `reset_coverage` (l'état de couverture d'une entité
-effacé — le `migrate` suivant relit la totalité). **Chaque
+`anonymize`, `reset_coverage` (la dernière valeur parcourue d'une
+entité remise au départ — le `migrate` suivant relit la totalité,
+rien du module n'est effacé, D1030). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `user` | `manager` | `administrator`, le
 plancher que la déclaration ne peut abaisser ; le groupe
@@ -331,7 +342,8 @@ une erreur d'ingestion), au paramètre modifié.
 
 **Les fonctions libres** (D583/D587) complètent le monde des
 fonctions : les variadiques scalaires (`min`, `max`, `sum`, `avg` —
-`max(0, stock.sum(quantity))`) et `iif(condition, alors, sinon)` —
+`max(0, stock.sum(quantity))`) — `iif` est retiré au profit du
+conditionnel natif `valeur if condition else autre` (D1110) —
 « le catalogue s'enrichira, si besoin » : la porte des hooks de
 fonction libre.
 

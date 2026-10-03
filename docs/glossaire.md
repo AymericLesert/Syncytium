@@ -19,6 +19,11 @@ enregistrements, sans possession : chacun vit sa vie.
 **Audience** — Le public d'une donnée : l'interne (les collaborateurs)
 ou l'externe (les clients, par un portail). *(D70)*
 
+**Base miroir** (`buffer:`) — La base, à l'image de la destination,
+où une reprise de données se construit et se contrôle avant d'être
+reportée dans la base de l'application ; elle vit le temps de la
+migration. *(D1044/D1045)*
+
 **Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
 entité. Elle se caractérise par : un nom, un type, des propriétés.
 *Ex. : `company_name: text[80]` — la raison sociale, 80 caractères au
@@ -27,10 +32,22 @@ plus.* *(D118)*
 **Champ calculé** (`computed`) — Un champ dont la valeur est déduite par une opération. Par nature, cette information n'est pas modifiable par un utilisateur. Elle se rafraîchit en fonction des évolutions de valeurs de champs dont il dépend.
 *Ex. : `total_orders: { computed: count(orders) }`.* *(D90)*
 
+**Chat** (`chat`, le module du socle) — L'écran où l'utilisateur
+interroge en langue naturelle la somme des connaissances de l'instance
+— les données et leur description — par un modèle de langage déclaré
+en connecteur (`llm`). Le chat ne sait que ce que l'utilisateur peut
+consulter ; il répond et fournit les données, la mise à jour passe par
+les interfaces de l'application ; les données personnelles sont
+anonymisées avant tout envoi, hors celles qui lui reviennent ; chaque
+question et chaque réponse sont tracées dans une **session
+d'échanges**, adossée à un module — une session par module et par
+utilisateur. *(D957–D959)*
+
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut
-changer un jour ; l'identité technique, elle, jamais.
-*Ex. : `identity: [code]`.* *(D142/D357)*
+changer un jour ; l'identité technique, elle, jamais. Toute entité
+en porte une, la sienne ou celle qu'elle hérite de sa racine.
+*Ex. : `identity: [code]`.* *(D142/D357, D1035/D1039)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
@@ -69,8 +86,9 @@ implémente le socle commun : `initialize`/`release`,
 `describe()` (la documentation de l'instance). Ses propriétés le
 paramètrent (pas de contexte — il naît au démarrage du projet) ; ses
 secrets référencent des variables d'environnement (chiffrables) ; le
-câblage `connector: { storage: main_db, from: legacy_db }` nomme les
-rôles à la racine (optionnel au simple : le nom = le type) ; `when:
+câblage nomme les rôles : l'environnement désigne le storage du modèle
+(`storage: entrepot`), la migration sa base d'origine (`from:`) —
+optionnel au simple : le nom = le type ; `when:
 <connecteur>[.<entrée>]` abonne une opération à ses événements.
 L'application ne démarre que si le mail à l'administrateur est
 possible — le canal d'alerte avant tout. Le stockage des entités est
@@ -123,9 +141,18 @@ explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*
 
+**Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
+liste par les valeurs d'un ou plusieurs champs : une cellule par
+combinaison, l'agrégat qui suit s'évalue par cellule et le résultat est
+un hypercube aux dimensions des champs. En méthode dans une formule, ou
+en propriété d'une association dérivée, à côté du tri (`sort:`).
+*Ex. : `mouvements.group(emplacement, article).sum(…)`.* *(D1015–D1017)*
+
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
-les destinataires d'un rapport. Un groupe peut en contenir d'autres. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
+les destinataires d'un rapport. Un groupe peut en contenir d'autres :
+un membre du groupe contenant voit tout ce que voient les groupes qui le
+composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
 Le groupe porte **le degré d'autorisation** (`degree:` — `user`,
 `manager` ou `administrator`, D699) ; l'appartenance à un groupe est
 **obligatoire** pour utiliser l'application.
@@ -179,6 +206,11 @@ masque de saisie. *(D209)*
 `"C-999999"`, `"00 00 00"`, `"0.00 h"`. Il guide la saisie et fixe le
 format. À ne pas confondre avec le masque d'explication. *(D260)*
 
+**Matrice calculée** — Un hypercube porté par une formule plutôt que
+par des données : la règle de contrôle du stock, emplacement × article
+= la somme des entrées moins la somme des sorties des mouvements.
+*(D1014)*
+
 **Méta-schéma** — La description complète d'un modèle de données —
 modules, entités, champs — **et la grammaire utilisée** pour les
 écrire. Chaque version porte un méta-schéma. *(D322)*
@@ -198,13 +230,28 @@ entités, son menu, sa page d'accueil — la donnée et l'expérience
 ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel) comme pour un ERP : la gestion ADV, le référentiel des produits, la gestion et la planification de la production, ...
 *(D347/D416)*
 
+**Module interne** (`_migration`, `_administration`, `_chat`) — Un
+module servi par Syncytium, jamais déclaré par l'application ; son nom
+commence par `_`, le préfixe des modules internes, et Syncytium refuse
+ce premier caractère aux modules d'application. *(D1029)*
+
 **Opération** — Une action déclarée sur une entité, au-delà du
 créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
 déclencheur possible d'un changement d'état. *(D148)*
 
+**Passage** — Une exécution d'une reprise de données (`migrate`) : la
+lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa
+ligne d'exécution garde l'état, les compteurs et les indicateurs.
+*(D667, D1033, D1054)*
+
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
 *(D178)*
+
+**Rétention des fichiers** (`cleanup.yml`) — Les règles qui
+suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
+durée ou d'un nombre : le journal, les watchers, le détail des
+migrations. *(D1070–D1076)*
 
 **Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a
@@ -227,6 +274,13 @@ celui qui est pointé y accède en retour, sans rien déclarer (notion de parent
 Le parent déclare le lien vers l'enregistrement d'une autre entité pour marquer un lien fort.
 Dans Syncytium, la navigation entre le parent et l'enfant est conservée et permet depuis l'enfant d'accéder à son ou ses parents sans déclaration complémentaire.
 *Ex. : `advisor: hr.employee`.* *(D394/D396)*
+
+**Référence nommée** (`TABLE[NOM].colonne`) — À la source d'une
+migration, quand la même entité est référencée plusieurs fois, le nom
+entre crochets lie les colonnes d'une même référence ; la référence
+unique garde la forme `TABLE.colonne` ; `A.colonne or B.colonne` vise
+l'une de deux entités, la première qui correspond. *Ex. :
+`NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`.* *(D995–D996)*
 
 **Release-notes** (`release-notes:`) — Le cadre des évolutions
 apportées par une version, porté par `version.yml`. L'historique
@@ -254,6 +308,10 @@ La structure des styles ne se généralise pas forcément.
 
 **Surface** ou Facette d'une entité ou composant graphique élaboré pour une entité — Un écran généré et nommé : la liste, le formulaire, le
 widget de résumé, le widget de synthèse. *(Q48)*
+
+**Table des clés d'origine** — Ce que le module `_migration` garde de
+chaque ligne d'une source : sa clé, sa partition, un hash, le statut
+de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 
 **Technicien** — Celui qui écrit la description. Un rôle, pas un
 métier : une à plusieurs personnes le portent. Le technicien est celui qui porte la validité de la configuration et la stabilité de l'application. *(D95)*

@@ -1,0 +1,393 @@
+# L'identité
+
+code:
+  type: text[..18]
+  required: true
+  label: Code article
+  placeholder: PIE-00123
+  hint: Le code de l'article chez l'ERP — avec son complément, il l'identifie.
+
+complement:
+  type: text[..6]
+  label: Complément
+  hint: Le complément du code — vide pour la plupart des articles.
+
+# La désignation
+
+libelle:
+  type: text[..40]
+  required: true
+  label: Libellé
+  placeholder: Bride acier 40 mm
+  hint: La désignation principale.
+
+libelle_secondaire:
+  type: text[..40]
+  label: Libellé secondaire
+  hint: La seconde ligne de désignation, souvent une précision technique.
+
+# La classification
+
+type:
+  type: enum
+  required: true
+  label: Type d'article
+  hint: >-
+    Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un
+    semi-fini, de la main d'œuvre, de la sous-traitance.
+  description: >-
+    Les listes closes de l'ERP sont des énumérés aux clés de l'entrepôt ; la reprise y traduit les codes, et un code
+    inconnu met la fiche en anomalie. La main d'œuvre et la sous-traitance sont des articles : les composants des
+    nomenclatures les référencent.
+  values:
+    accessoire:   { label: Accessoire }
+    consommable:  { label: Consommable }
+    libelle:
+      label: Libellé
+      description: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
+    outillage:    { label: Outillage }
+    produit_fini: { label: Produit fini }
+    plaque:       { label: Plaque }
+    semi_fini:    { label: Produit semi-fini }
+    main_oeuvre:    { label: Main d'œuvre }
+    sous_traitance: { label: Sous-traitance }
+
+famille:
+  type: enum
+  required: true
+  label: Famille
+  hint: La famille de l'article — les valeurs de la liste close de l'ERP.
+  values:
+    matiere:      { label: Matière première }
+    composant:    { label: Composant }
+    produit_fini: { label: Produit fini }
+    consommable:  { label: Consommable }
+
+sous_famille:
+  type: enum
+  label: Sous-famille
+  hint: Le second niveau de classification.
+  values:
+    acier:     { label: Acier }
+    aluminium: { label: Aluminium }
+    plastique: { label: Plastique }
+    visserie:  { label: Visserie }
+    autre:     { label: Autre }
+
+perissable:
+  type: boolean
+  required: true
+  default: false
+  label: Périssable
+  hint: Un article dont chaque lot en stock doit porter une date de péremption.
+  description: >-
+    La reprise le déduit d'une convention de codage de la famille ; l'entrepôt garde le sens. La règle qui l'exploite
+    vit au niveau de stock, où la date de péremption est.
+
+gestion:
+  type: enum
+  label: Code de gestion
+  hint: >-
+    La façon dont l'ERP gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif,
+    résultant, procédure, et un code en attente de libellé.
+  description: >-
+    Le code de gestion assure l'héritage : le produit fabriqué, le semi-fini et le fantôme sont les dérivés de
+    l'article. Le semi-fini et le fantôme sont des hypothèses de l'exemple, à vérifier à l'analyse ; cg03 garde son
+    code en attendant son libellé.
+  values:
+    fabrique:    { label: Produit fabriqué }
+    achete:      { label: Produit acheté }
+    sous_traite: { label: Sous-traité }
+    fantome:
+      label: Fantôme
+      description: Un niveau de nomenclature sans existence en stock — l'hypothèse de l'exemple.
+    semi_fini:
+      label: Produit semi-fini
+      description: Un produit fabriqué pour entrer dans d'autres produits — l'hypothèse de l'exemple.
+    libelle:             { label: Libellé }
+    quantite_superieure: { label: Quantité supérieure }
+    inactif:             { label: Inactif }
+    resultant:           { label: Résultant }
+    procedure:           { label: Procédure }
+    cg03:
+      label: CG03
+      description: Le code de gestion 03 de l'ERP — le libellé n'existe pas encore.
+
+matieres:
+  type: list of text[..6]
+  label: Codes matière
+  hint: Les matières de l'article — jusqu'à neuf chez l'ERP.
+
+# Les unités et les dimensions
+
+unite_stock:
+  type: text[..2]
+  required: true
+  label: Unité de stock
+  placeholder: PC
+  hint: L'unité dans laquelle l'article est tenu en stock.
+
+unite_commande:
+  type: text[..2]
+  label: Unité de commande
+
+unite:
+  type: measure
+  units: [U, kg]
+  required: true
+  label: Unité
+  hint: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
+  description: >-
+    La mesure « 1 × l'unité de stock », qui porte la matrice de conversion propre à l'article : les unités
+    supplémentaires de l'ERP — la plaque — avec leur coefficient vers une unité connue, le poids unitaire comme la
+    conversion de l'unité de stock vers le kilogramme ; la transitivité fait le reste, et la masse d'un mouvement est
+    quantite.to(kg). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
+    l'article, l'empruntent pour se convertir : (article.unite * quantite).to(kg). Les unités connues sont celles de la
+    liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG = kg).
+
+poids:
+  type: measure
+  units: [kg, g]
+  label: Poids unitaire
+  hint: Le poids d'une unité — en kilogrammes.
+  description: Porté par l'article, lisible ici ; il est aussi le coefficient de l'unité vers le kilogramme.
+
+longueur:
+  type: measure
+  units: [mm]
+  label: Longueur
+
+largeur:
+  type: measure
+  units: [mm]
+  label: Largeur
+
+epaisseur:
+  type: measure
+  units: [mm]
+  label: Épaisseur
+
+volume:
+  type: measure
+  units: [dm3, m3]
+  label: Volume unitaire
+
+# Les codes-barres
+
+ean13:
+  type: text[13]
+  barcode: ean13
+  label: EAN 13
+  description: >-
+    Un texte à la facette code-barres : la facette valide les treize chiffres et la clé de contrôle, le composant de
+    sortie rend les barres ; une valeur fausse met la fiche en anomalie.
+
+# Le stock de référence
+
+stock_minimum:
+  type: decimal
+  label: Stock minimum
+  hint: Le seuil de réapprovisionnement.
+
+stock_maximum:
+  type: decimal
+  label: Stock maximum
+
+quantite_economique:
+  type: decimal
+  label: Quantité économique
+  hint: La quantité de commande ou de lancement qui minimise le coût.
+
+# Les prix
+
+prix_revient:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix de revient
+  hint: Le prix de revient standard — réservé aux achats et à la direction.
+  description: >-
+    Les prix sont des montants à devise dans la valeur ; le profil financier des réglages les réserve aux achats et à
+    la direction.
+
+prix_moyen_pondere:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix moyen pondéré
+  hint: Le PMP du stock — réservé aux achats et à la direction.
+
+prix_achat:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix d'achat
+  hint: Le dernier prix d'achat connu — réservé aux achats et à la direction.
+  description: Le prix du premier fournisseur.
+
+# La vie de l'article
+
+actif:
+  type: boolean
+  required: true
+  default: true
+  label: Actif
+  hint: Faux quand l'ERP bloque l'article.
+
+date_creation:
+  type: date
+  label: Créé le
+
+date_modification:
+  type: date
+  label: Modifié le
+
+plans:
+  type: list of file
+  extensions: [pdf, dwg, dxf, step]
+  label: Plans
+  hint: Les plans de l'article, lus dans le répertoire des plans.
+  description: La liste est remplie par le connecteur des plans, en complément de la base d'origine.
+
+# Le stockage de l'article
+
+gere_en_stock:
+  type: boolean
+  required: true
+  default: true
+  label: Géré en stock
+
+# Les quatre lieux de l'article — l'expédition, la réception, la fabrication, la consommation : un dépôt et un
+# emplacement chacun ; une des origines des dépôts et des emplacements de l'entrepôt
+
+depot_expedition:
+  type: stock.depot
+  label: Dépôt d'expédition
+
+emplacement_expedition:
+  type: stock.emplacement
+  label: Emplacement d'expédition
+
+depot_reception:
+  type: stock.depot
+  label: Dépôt de réception
+
+emplacement_reception:
+  type: stock.emplacement
+  label: Emplacement de réception
+
+depot_fabrication:
+  type: stock.depot
+  label: Dépôt de fabrication
+
+emplacement_fabrication:
+  type: stock.emplacement
+  label: Emplacement de fabrication
+
+depot_consommation:
+  type: stock.depot
+  label: Dépôt de consommation
+
+emplacement_consommation:
+  type: stock.emplacement
+  label: Emplacement de consommation
+
+# Les liens
+
+fournisseur_defaut:
+  type: tiers.fournisseur
+  label: Fournisseur par défaut
+  description: >-
+    Chez l'article acheté, son fournisseur ; le produit fabriqué porte, lui, son client de référence. Absent chez
+    l'inactif.
+
+tarifs:
+  type: 'list of [tiers.tiers, tranche: text[1], date_application: date]'
+  label: Grille tarifaire
+  description: >-
+    L'hypercube de la grille tarifaire : le prix unitaire dépend du tiers, d'une tranche et d'une date d'application —
+    une cellule par combinaison. La grille se lit à toute date, le planifié se voit, et ses évolutions dans le temps se
+    visualisent. La tranche est une lettre de tarif ; son seuil de quantité est une valeur de la cellule, et sa plage
+    court jusqu'au seuil de la tranche suivante.
+  fields:
+    seuil:
+      type: decimal
+      required: true
+      label: Seuil
+      hint: La quantité à partir de laquelle le prix vaut.
+    plage:
+      type: range of decimal
+      formula: >-
+        range(seuil, owner.tarifs.min(seuil if tiers = me.tiers and date_application = me.date_application
+        and seuil > me.seuil))
+      label: Plage de quantités
+      description: >-
+        Du seuil au seuil de la tranche suivante, pour le même tiers et la même date d'application ; la dernière
+        tranche est ouverte.
+    prix:
+      type: amount
+      required: true
+      label: Prix unitaire
+    forfait:
+      type: amount
+      label: Forfait
+    valide:
+      type: boolean
+      required: true
+      default: true
+      label: Valide
+      hint: Faux archive le tarif.
+    commentaire:
+      type: text[..20]
+      label: Commentaire
+
+commandes_vente:
+  type: association with commande.ligne_vente if article = me
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande de vente
+  description: >-
+    L'association dérivée des lignes qui portent l'article ; la vérité reste la référence de la ligne. Le tri, par la
+    date puis le numéro de la commande, met la plus ancienne en tête : last() rend la plus récente.
+
+commandes_achat:
+  type: association with commande.ligne_achat if article = me
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande d'achat
+
+dernier_fournisseur:
+  type: tiers.fournisseur
+  formula: commandes_achat.last().fournisseur
+  label: Dernier fournisseur
+  description: Se calcule, ne se stocke pas — le fournisseur de la dernière ligne d'achat.
+
+mouvements:
+  type: association with stock.mouvement if article = me
+  label: Mouvements de stock
+  description: L'accès retour aux mouvements de l'article ; les agrégats des calculés s'appliquent à cette collection.
+
+mouvements_par_emplacement:
+  type: association with stock.mouvement if article = me
+  group: [emplacement]
+  label: Mouvements par emplacement
+  description: >-
+    La même association, groupée : une cellule par emplacement, les mouvements de la cellule dedans ; l'accès à plat
+    reste pour la dernière sortie.
+
+stock_par_emplacement:
+  type: 'list of [emplacement: stock.emplacement]'
+  formula: 'mouvements_par_emplacement.sum(sens.select(entree: quantite, sortie: -quantite))'
+  label: Stock par emplacement
+  description: >-
+    La somme s'évalue par cellule de l'association groupée, le résultat est aux dimensions du groupe ; la quantité est
+    signée par le sens, dans l'unité de stock de l'article.
+
+# Les champs calculés
+
+dormant:
+  type: boolean
+  formula: context.now - derniere_sortie > 180d if derniere_sortie != null
+  label: Dormant
+  hint: Aucune sortie de stock depuis six mois.
+  description: Un indicateur du tableau de bord ; le contexte courant donne la date du jour.
+
+derniere_sortie:
+  type: date
+  formula: mouvements.max(date if sens = "sortie")
+  label: Dernière sortie

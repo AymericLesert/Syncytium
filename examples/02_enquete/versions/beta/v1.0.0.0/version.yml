@@ -1,0 +1,26 @@
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
+version: 1.0.0.0
+
+# Les langues de l'application
+# La première est la langue par défaut ; ajouter ou retirer une langue fait une nouvelle version. Avec une seule
+# langue, les libellés et les descriptions s'écrivent en texte simple.
+languages: [fr]
+
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La première version de l'enquête de satisfaction — le « hello world » de Syncytium : un module, une table et une
+  composition, aucune surface déclarée.
+
+  # Le modèle
+  - L'enquête — le titre, la date, les réponses ; le nombre de réponses et la note moyenne se calculent seuls.
+  - La réponse — le répondant, la note de 1 à 5, le commentaire.
+
+  # Le généré
+  - Les formulaires et les listes naissent des défauts du socle : la collecte peut commencer dès le chargement.
+
+# Les modules de l'application
+# Un seul : la collecte des enquêtes.
+modules:
+  - ~{satisfaction/satisfaction.yml}

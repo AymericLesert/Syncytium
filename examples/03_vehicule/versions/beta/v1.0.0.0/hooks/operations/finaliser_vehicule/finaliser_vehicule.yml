@@ -1,0 +1,14 @@
+# L'opération finaliser_vehicule
+# Le complément d'après-reprise, à l'issue de la migration des classeurs.
+name: finaliser_vehicule
+
+# La description
+# La documentation de l'opération, en Markdown.
+description: ~{documentation.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }

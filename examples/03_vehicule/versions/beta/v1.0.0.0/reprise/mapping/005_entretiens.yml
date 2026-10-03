@@ -1,0 +1,16 @@
+# Les entretiens
+entretien:
+  description: >-
+    La phase 5 : le journal de vie, tel quel — les montants optionnels, la vente en négatif. La règle est sans identité,
+    la création seule, admise en absolute avec remise à zéro. Le booléen de révision naît faux : le classeur ne marque
+    pas ses révisions, le marquage viendra de l'usage. Les lignes de continuation — la désignation étalée, sans date —
+    ne se filtrent pas : elles échouent à la cible, la date étant requise, et la migration les signale en anomalie ;
+    l'utilisateur ajuste le classeur et rejoue, jamais de perte silencieuse.
+  to: transport.entretien
+  parent:
+    vehicule: immatriculation
+  fields:
+    date:        date
+    designation: designation
+    montant:     montant
+    km:          km

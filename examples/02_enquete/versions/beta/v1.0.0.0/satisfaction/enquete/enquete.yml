@@ -1,0 +1,16 @@
+# L'enquête
+# La campagne et ses réponses. Aucune surface déclarée : l'interface est entièrement générée, les libellés et les aides
+# font parler le généré.
+name: enquete
+
+# La description de l'entité
+description: Une enquête de satisfaction — la campagne et ses réponses
+
+# Le visage texte
+label: "{titre}"
+
+# L'identité
+identity: [titre]
+
+# Les champs
+fields: ~{fields.yml}

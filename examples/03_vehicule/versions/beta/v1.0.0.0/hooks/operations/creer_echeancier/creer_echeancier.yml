@@ -1,0 +1,15 @@
+# L'opération creer_echeancier
+# À la validation du financement, les échéances sont engendrées par les formules du classeur — la mensualité constante,
+# l'intérêt sur le reste dû, l'amortissement par différence.
+name: creer_echeancier
+
+# La description
+# La documentation de l'opération, en Markdown.
+description: ~{documentation.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }

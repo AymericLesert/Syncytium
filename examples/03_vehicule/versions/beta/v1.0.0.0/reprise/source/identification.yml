@@ -1,0 +1,46 @@
+# Le nom de l'entité source
+# La feuille IDENTIFICATION, une feuille-formulaire et non un tableau : les cellules sont adressées, un enregistrement
+# par classeur. Les classeurs anciens n'ont pas les cellules des dates : elles restent nulles, les dates viendront de
+# la première ligne de consommation et de la ligne de vente du journal.
+name: identification
+
+# La description de l'entité source
+description: La carte d'identité du classeur — le nom, la plaque, l'achat
+
+# Les colonnes
+# Chaque colonne adresse sa cellule (reference).
+fields:
+
+  nom:
+    type: text[..40]
+    reference: IDENTIFICATION!B1
+
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
+    description: La plaque, l'identité du véhicule.
+
+  mode_achat:
+    type: text[..40]
+    reference: IDENTIFICATION!H1
+
+  lieu_achat:
+    type: text[..60]
+    reference: IDENTIFICATION!H2
+
+  date_debut:
+    type: date
+    reference: IDENTIFICATION!K1
+    description: L'achat ; le classeur récent seul la porte.
+
+  date_fin:
+    type: date
+    reference: IDENTIFICATION!K2
+    description: La restitution prévue ; le classeur récent seul la porte.
+
+  photo:
+    type: image
+    reference: IDENTIFICATION
+    description: >-
+      L'image présente sur la feuille : son ancre varie d'un classeur à l'autre, la référence désigne la feuille, pas la
+      cellule.

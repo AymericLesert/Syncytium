@@ -1,0 +1,75 @@
+# Le bloc commun aux quatre règles de l'article
+# Les règles des articles, des fabriqués, des semi-finis et des fantômes l'incluent ; ce n'est pas une règle : le motif
+# des règles ne le lit pas. Les affectations s'y écrivent comme dans le bloc fields: d'une règle.
+
+code:       ARKTCODART
+complement: ARKTCOMART
+libelle:            ARCTLIB01
+libelle_secondaire: ARCTLIB02
+type:
+  formula: >-
+    ARCTTYPART.select(AC: "accessoire", CO: "consommable", LI: "libelle", MI: "libelle", MO: "main_oeuvre",
+    OU: "outillage", PF: "produit_fini", PL: "plaque", SF: "semi_fini", ST: "sous_traitance")
+  description: Le type d'article au vocabulaire de l'entrepôt ; LI et MI donnent tous deux un libellé.
+gestion:
+  formula: >-
+    ARCTFATN.select(01: "fabrique", 02: "achete", 03: "cg03", 07: "libelle", 09: "semi_fini", 12: "fantome",
+    14: "quantite_superieure", 17: "inactif", 32: "resultant", 33: "procedure")
+  description: Le code de gestion au vocabulaire de l'entrepôt ; 03, sans libellé connu, se nomme cg03.
+famille:
+  formula: 'famille_code.select(MAT: "matiere", COM: "composant", PRF: "produit_fini", CON: "consommable")'
+  description: La famille, lue sans son drapeau de périssable.
+sous_famille: 'ARCTCOSFAM.select(ACI: "acier", ALU: "aluminium", PLA: "plastique", VIS: "visserie", "...": "autre")'
+perissable:
+  formula: mid(ARCTCODFAM, 4, 1) = "1"
+  description: Un 4e caractère à 1 dans le code de famille marque l'article périssable.
+matieres:
+  formula: >-
+    list(ARCTCODMA1, ARCTCODMA2, ARCTCODMA3, ARCTCODMA4, ARCTCODMA5, ARCTCODMA6, ARCTCODMA7, ARCTCODMA8,
+    ARCTCODMA9)
+  description: Les neuf colonnes des matières en une liste ; les vides et les doublons tombent.
+unite_stock:    ARCTUNISTO
+unite_commande: ARCTUNICDE
+unite:
+  formula: >-
+    measure(1, ARCTUNISTO,
+      list(measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01),
+           measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02),
+           measure.convert(ARCTUNISTO, kg, ARCNPDSUNI)))
+  description: >-
+    Une unité de l'article : l'unité de stock et ses conversions — les deux couples de PMI, et le poids unitaire vers le
+    kilogramme.
+poids:     measure(ARCNPDSUNI, kg)
+longueur:  measure(ARCNLONGUE, mm)
+largeur:   measure(ARCNLARGEU, mm)
+epaisseur: measure(ARCNEPAISS, mm)
+volume:    measure(ARCNVOLUNI, dm3)
+ean13:
+  formula: left(ARCTEAN13, 13)
+  description: Les 13 premiers caractères du code EAN.
+stock_minimum:       ARCNSTOMIN
+stock_maximum:       ARCNSTOMAX
+quantite_economique: ARCNQTECO
+prix_revient:
+  formula: amount(ARCNPRS)
+  description: >-
+    Les prix de l'article sont à la devise de l'entreprise : PMI n'en porte pas.
+prix_moyen_pondere: amount(ARCNPMP)
+prix_achat:         amount(ARCNPUACH1)
+actif:
+  formula: ARCTBLOCAG = ""
+  description: Vide, l'article est actif ; sinon, la colonne porte le motif de blocage.
+date_creation:     ARCJCRE
+date_modification: ARCJMOD
+plans:
+  formula: plans.files(ARCTFICPLA)
+  description: Les fichiers du plan, lus par le connecteur des plans ; la liste peut être vide.
+gere_en_stock:            ARCTGDEPOT = "O"
+depot_expedition:         ARCTCODEP
+emplacement_expedition:   { depot: ARCTCODEP, code: ARCTCODMPL }
+depot_reception:          ARCTCODEPR
+emplacement_reception:    { depot: ARCTCODEPR, code: ARCTCOEMPR }
+depot_fabrication:        ARCTCODEPF
+emplacement_fabrication:  { depot: ARCTCODEPF, code: ARCTCOEMPF }
+depot_consommation:       ARCTCODEPC
+emplacement_consommation: { depot: ARCTCODEPC, code: ARCTCOEMPC }

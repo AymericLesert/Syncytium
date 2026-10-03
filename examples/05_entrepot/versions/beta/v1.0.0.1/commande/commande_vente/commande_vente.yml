@@ -1,0 +1,26 @@
+# La commande de vente
+# L'entête de la commande et sa composition, les lignes. L'identité : le numéro et l'indice de révision ; le numéro
+# est un compteur dont la reprise écrit la valeur. Pas de machine à états : l'entrepôt consulte, et le statut de
+# l'entête se déduit de celui des lignes.
+name: commande_vente
+
+# La description de l'entité
+description: Une commande de vente — l'entête, le client, les conditions et ses lignes
+
+# Le visage texte
+label: "{numero}-{indice} — {client}"
+
+# L'identité
+identity: [numero, indice]
+
+# L'historique
+history: true
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# La cohérence des données converties
+validation:
+  - rule: date_echeance >= date if date_echeance != null
+    message: L'échéance {date_echeance} précède la date de la commande {date}.

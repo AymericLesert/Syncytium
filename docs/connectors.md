@@ -101,11 +101,18 @@ connectors:
 - **le câblage n'est pas toujours requis** (D612) — « pour des
   questions de simplicité » : le connecteur nommé comme son type se
   trouve seul ; « dans les cas les plus complexes, le câblage doit
-  être explicite » à la racine :
+  être explicite » — **l'environnement désigne le storage du modèle**
+  (D1094), la migration désigne sa base d'origine par `from:`
+  (D1087) ; le câblage à la racine de D610 (`connector: { storage:
+  main_db, from: legacy_db }`) s'est ainsi réparti :
 
 ```yaml
-# syncytium.yml — la racine (D610)
-connector: { storage: main_db, from: legacy_db }
+# environments/production/production.yml — le storage du modèle (D1094)
+storage: entrepot
+
+# reprise.yml — la base d'origine d'une migration (D1087)
+cegid:
+  from: cegid
 ```
 
 - **la surcharge locale** (D611) : « pour l'opération `send`, le
@@ -117,16 +124,17 @@ connector: { storage: main_db, from: legacy_db }
   cas de l'affichage d'une carte, nous pouvons définir plusieurs
   connecteurs et, en fonction de l'écran, utiliser l'un ou l'autre ».
 
-## Les huit familles (D623/D692) et le catalogue de base (D604)
+## Les neuf familles (D623/D692/D957) et le catalogue de base (D604)
 
-**Le jeu est clos** (D619) — huit familles, « route est un exemple
+**Le jeu est clos aux hooks** (D619) — « route est un exemple
 d'extension ultérieure » (l'extension = l'affaire du moteur, jamais
-du hook) ; **la famille contraint le contrat** (D620), la conformité
-d'une classe vérifiée au chargement :
+du hook) ; il s'ouvre par décision : la neuvième famille, `llm`, entre
+avec le module `chat` du socle (D957) ; **la famille contraint le
+contrat** (D620), la conformité d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
-| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** | D604/D606/D613/D636 |
+| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:`) | D604/D606/D613/D636 |
 | `smtp` | le mail sortant | smtp_std, **none** (D763 — le mock : send toujours vrai, aucun envoi — la condition indispensable D626 satisfaite, le silence assumé du domestique) | D564/D574/D763 |
 | `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
@@ -134,6 +142,7 @@ d'une classe vérifiée au chargement :
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
 | `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
+| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -229,7 +238,7 @@ HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
 en HTML fait le corps), **les pièces jointes : une liste de fichiers,
 quel que soit le format** ; **l'expéditeur est configuré dans les
 propriétés du connecteur**. *(Les paramètres de `smtp_std` écrits au
-cas 3 — `host`, `port`, `from`, `password*` — sont en proposition,
+cas 5 — `host`, `port`, `from`, `password*` — sont en proposition,
 D945.)*
 
 ### `directory` (D633)
@@ -241,13 +250,12 @@ synchronisation des comptes et des groupes, les affectations restant
 des actes d'administration (D341/D210). *(L'authentification — la
 passerelle D418 — flaguée pour le chantier sécurité.)*
 
-### `file` (D634–D635)
+### `file` (D634–D635, D972–D973)
 
 | la méthode | le rôle |
 |---|---|
-| `get_files(pattern)` | la liste des fichiers au motif |
-| `get_file(filename)` | la lecture — **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » |
-| `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… |
+| `files(pattern)` | la liste des fichiers au motif, **chacun avec ses descripteurs** (le type `file`, D972 — `.relativepath`, `.fullname`, `.filename`, `.pathname`, `.size`, `.created`, `.modified`, `.hash`) — **la liste vide admise** ; **à la garde de stabilité** : « Syncytium doit attendre qu'un fichier en cours d'écriture soit terminé » ; le contenu se lit par la valeur `file` elle-même (D973 — `get_file` absorbé : « get_file devient files ») ; **appelable dans une règle du mapping par le rôle du connecteur** (D617/D972) : `plans: plans.files(ARCTFICPLA)` |
+| `commit(filename)` | l'acquittement — le renommage ou le déplacement, **aux méta-caractères** : un compteur, un identifiant, une date et heure… ; **appelé par le moteur** (D973), d'office, quand l'opération déclenchée par le guetteur a réussi — jamais par une règle ; en échec, le fichier reste en place |
 
 **Le thread d'écoute** (D635) : « `every:` est utilisé sur `connect`
 ou `initialize` pour démarrer un thread dédié à l'écoute des
@@ -287,7 +295,7 @@ l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique — les invariants D699 pré-remplis) — chaque
 classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
 l'AD pour les internes, le local pour les clients). *(Les paramètres
-d'`azure_ad` écrits au cas 3 — `tenant`, `client_id`, `client_secret*`
+d'`azure_ad` écrits au cas 5 — `tenant`, `client_id`, `client_secret*`
 — sont en proposition, D945.)*
 
 ### `siren` (D639)
@@ -335,6 +343,56 @@ dans une famille, jamais une famille neuve** : « Syncytium fournit un
 nombre limité de familles ; il n'existe pas de hook de famille »
 (D619) — le contrat de la famille à implémenter (D605), voir
 [hooks.md](hooks.md).
+
+### `llm` (D957)
+
+*(La famille née avec le module `chat` du socle — la forme du contrat
+est mienne, en proposition.)* **Le rôle** : répondre à la question
+d'un utilisateur « en se basant sur la somme des connaissances de
+l'instance » — les données et leur description, **dans la limite des
+autorisations accordées à l'utilisateur sur la consultation des
+données**. Le connecteur ne lit rien de lui-même : **le moteur lui
+tend les outils** — la lecture de l'instance par l'API versionnée au
+porteur de l'utilisateur (D917–D918) ou par la librairie interne du
+modèle, celle des hooks de fonctions ; les droits (D886), la
+confidentialité (D885) et l'audience s'appliquent d'eux-mêmes, aucune
+seconde couche.
+
+- **la déclaration** : `type: llm`, `parameters: { provider: …,
+  model: …, api_key*: ${VAR} }` — le secret par la marque `*` (D944) ;
+  les classes à consigner (un service en ligne, un modèle local) ;
+- **le geste** : `ask(session, tools) : message` — **la session
+  d'échanges** (D959 : adossée à un module — les questions et les
+  réponses précédentes de l'utilisateur sur ce module, puis la
+  question), les outils tendus par le moteur (la description du
+  module comme mode d'emploi — D44, la lecture sous le porteur) ; la
+  réponse est un message ;
+- **le RGPD, avant le connecteur** : « l'anonymisation sera appliquée
+  avant tout envoi » — le moteur anonymise (D696, tel quel — D960) les
+  champs `personal` (D695) de tout ce qui part vers le modèle, **sauf
+  ce qui revient à l'utilisateur** : les données de son profil
+  connecté, et ce que ses droits lui ouvrent — **aucun droit propre au
+  chat** : « les droits ne sont pas sur chat mais sur les composantes
+  de la description du modèle » (D885/D886, D25) ; le champ que ses
+  droits ne lui ouvrent pas part anonymisé plutôt qu'omis (mien) ;
+- **la trace, avant l'affichage** : chaque question et chaque
+  réponse s'écrit dans les entités du module `chat` — **`session`**
+  (l'utilisateur, le module, l'ouverture, le connecteur et le modèle,
+  `messages: list of message`) et **`message`** (le rang, le rôle
+  utilisateur / assistant / outil, l'horodatage, le contenu, le
+  contexte transmis — D959), historisées ; l'événement au journal de
+  sécurité (D925) — « pour historisation ou pour analyse en cas de
+  fuite ou d'incidents » ;
+- **la lecture seule** (D958) : les outils tendus sont les primitives
+  de lecture de la librairie interne des hooks de fonctions (D571/D599
+  — lire, interroger, naviguer, agréger) — « le chat répond aux
+  questions et fournit les données. Les mises à jour se feront via les
+  interfaces proposées par l'application. Le chat proposera des liens
+  vers les interfaces assurant la mise à jour qui peut être demandée » ;
+  la boucle d'outils vit au moteur, le connecteur transporte ;
+- **la condition indispensable** (D626/D959) : « si le connecteur LLM
+  n'est pas disponible, un message d'erreur sera présenté et les
+  questions ne seront pas possibles » — jamais une réponse inventée.
 
 ## Les déclencheurs et les échanges
 
@@ -400,7 +458,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   en trois temps — l'intention, l'acte (l'élément répond encore), la
   suppression par une version — **à documentation obligatoire** (le
   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
-  ou d'un module s'assure par **`old_name:`** ;
+  ou d'un module s'assure par **`from: <ancien nom>`** (D1111) ;
 - **les deux maisons (D652–D653)** : **`source/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude

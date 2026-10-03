@@ -1,0 +1,32 @@
+# La campagne
+
+titre:
+  type: text[..60]
+  required: true
+  label: Titre
+  placeholder: Satisfaction du repas de fête
+  hint: Le nom de la campagne — il identifie l'enquête.
+
+date:
+  type: date
+  label: Date
+  hint: Le jour de la collecte — optionnel.
+
+# La composition — le grain d'écriture
+
+reponses:
+  type: list of reponse
+  label: Réponses
+
+# Les champs calculés
+
+nb_reponses:
+  type: integer
+  formula: reponses.count()
+  label: Nombre de réponses
+
+note_moyenne:
+  type: decimal
+  formula: reponses.avg(note)
+  label: Note moyenne
+  hint: La moyenne des notes — elle se recalcule à chaque réponse.

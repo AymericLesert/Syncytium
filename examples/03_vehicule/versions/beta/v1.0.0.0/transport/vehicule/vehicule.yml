@@ -1,0 +1,36 @@
+# Le véhicule
+# La feuille d'identification du classeur et son bilan, tout calculé. La plaque identifie le véhicule, le classeur
+# garde son nom ; le statut porte le cycle de vie.
+name: vehicule
+
+# La description de l'entité
+description: Un véhicule du foyer — l'identification, le financement, la vie et le bilan
+
+# Le visage texte
+# Le nom ; la photo est le visage image.
+label: "{nom}"
+
+# L'identité
+# La plaque — l'arbitrage de la reprise.
+identity: [immatriculation]
+
+# Le cycle de vie
+# Le champ énuméré qui porte les états.
+states: statut
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# Les opérations
+# Le cycle de vie de l'échéancier.
+operations: ~{operations.yml}
+
+# L'interface
+# La liste des véhicules en cartes et le formulaire à onglets.
+gui: ~{gui.yml}
+
+# La cohérence des données
+validation:
+  - rule: date_vente >= date_achat if date_vente != null
+    message: La vente du {date_vente} précède l'achat du {date_achat}.

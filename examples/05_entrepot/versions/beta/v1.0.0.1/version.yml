@@ -1,0 +1,38 @@
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
+version: 1.0.0.1
+
+# Les langues de l'application
+# La première est la langue par défaut ; ajouter ou retirer une langue fait une nouvelle version. Avec une seule
+# langue, les libellés et les descriptions s'écrivent en texte simple.
+languages: [fr]
+
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La seconde version de l'entrepôt, en essai sur le staging : trois évolutions du modèle.
+
+  # Le modèle
+  - Le tiers : le nom abrégé devient le nom court ; la langue se choisit dans une liste — français, anglais, allemand,
+    espagnol.
+  - L'article : un commentaire du bureau d'études, que l'entrepôt possède — la reprise ne le touche pas.
+
+# Les réglages de la version
+# Les types et leurs défauts, les profils de confidentialité.
+settings: ~{settings.yml}
+
+# Les groupes d'utilisateurs
+# Les strates de l'entreprise, de l'opérateur aux dirigeants.
+groups: ~{groups.yml}
+
+# Les migrations
+# La reprise des données de PMI : la base d'origine, les tables sources, les règles, le rythme.
+migrations: ~{reprise/reprise.yml}
+
+# Les modules de l'application
+# Les quatre domaines de l'entrepôt.
+modules:
+  - ~{technique/technique.yml}
+  - ~{tiers/tiers.yml}
+  - ~{commande/commande.yml}
+  - ~{stock/stock.yml}

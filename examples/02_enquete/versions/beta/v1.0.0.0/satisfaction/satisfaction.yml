@@ -1,0 +1,13 @@
+# Le module satisfaction
+# La collecte des enquêtes et de leurs réponses. Le nom du module est libre : satisfaction évite l'éponymie
+# enquete/enquete/enquete.yml et donne des références lisibles.
+name: satisfaction
+
+# La description du module
+description: La collecte des enquêtes de satisfaction
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier.
+entities:
+  - ~{enquete/enquete.yml}
+  - ~{reponse/reponse.yml}

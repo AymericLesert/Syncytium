@@ -1,0 +1,26 @@
+# Le nom de l'entité source
+# Le bloc droit de la feuille ENTRETIEN ne porte que sa règle, dans son titre — « Révisions tous les 25.000 km » ; un
+# enregistrement par classeur.
+name: regle_revision
+
+# La description de l'entité source
+description: La règle de révision du classeur — le pas en kilomètres
+
+# Les colonnes
+# La plaque vient d'un autre onglet, la jointure au véhicule ; le calculé tire le pas du titre.
+fields:
+
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
+    description: La plaque du classeur.
+
+  titre:
+    type: text[..60]
+    reference: ENTRETIEN!I1
+
+  pas_km_n:
+    formula: round(extract(titre, "tous les ([0-9.]+) km") * 1000)
+    description: >-
+      Le pas en kilomètres : « 25.000 » se lit 25.0, le point de milliers pris pour une décimale, et le × 1000 le
+      redresse ; le réel ne porte que 25.000 et 20.000.

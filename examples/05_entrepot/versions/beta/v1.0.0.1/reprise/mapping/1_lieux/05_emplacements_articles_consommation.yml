@@ -1,0 +1,16 @@
+# Les emplacements de la consommation, trouvés dans les fiches articles
+ARTICLE:
+  description: >-
+    La deuxième origine des emplacements : le couple dépôt + emplacement de la consommation de chaque fiche article, un
+    couple distinct par emplacement ; le dépôt se retrouve par son code. Un emplacement né ici est inactif et sans
+    libellé ; déjà connu, il n'est pas touché.
+  to: stock.emplacement
+  distinct: [ARCTCODEPC, ARCTCOEMPC]
+  filter: ARCTCODEPC != null and ARCTCOEMPC != null
+  fields:
+    depot: ARCTCODEPC
+    code:  ARCTCOEMPC
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

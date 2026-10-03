@@ -1,0 +1,144 @@
+# L'origine du mouvement
+
+document:
+  type: text[..6]
+  label: Document
+  hint: Le document d'origine — la commande, l'ordre de fabrication…
+
+ligne:
+  type: text[..3]
+  label: Ligne
+
+indice:
+  type: text[..3]
+  label: Indice
+
+composant:
+  type: text[..5]
+  label: Composant
+
+# L'article et le lieu
+
+article:
+  type: technique.article
+  required: true
+  label: Article
+
+depot:
+  type: stock.depot
+  label: Dépôt
+
+emplacement:
+  type: stock.emplacement
+  label: Emplacement
+
+lot:
+  type: text[..18]
+  label: Lot
+  description: >-
+    Un texte, sans référentiel : les propriétés de l'article physique se lisent sur chaque mouvement ; l'article
+    physique, distinct de la définition de l'article, est une évolution possible du modèle, hors du cas.
+
+# Le moment — la date et l'heure gardées séparées
+
+date:
+  type: date
+  required: true
+  label: Date
+  hint: La date du mouvement, enregistrée dans le système.
+  description: La clé de partition de la lecture ; la semaine se déduit du jour.
+
+horodatage:
+  type: datetime
+  required: true
+  label: Horodatage
+  hint: La date et l'heure de saisie, à la seconde — un mouvement peut être enregistré a posteriori.
+  description: Dans l'identité.
+
+# Le mouvement
+
+type:
+  type: enum
+  required: true
+  label: Type
+  description: La liste close de l'ERP en énuméré, les six genres ; les codes sont traduits par la reprise.
+  values:
+    consommation: { label: Consommation }
+    deplacement:  { label: Déplacement }
+    expedition:   { label: Expédition }
+    fabrication:  { label: Fabrication }
+    inventaire:   { label: Inventaire }
+    reception:    { label: Réception }
+
+sens:
+  type: enum
+  required: true
+  label: Sens
+  values:
+    entree: { label: Entrée }
+    sortie: { label: Sortie }
+
+quantite:
+  type: measure
+  unit: article.unite
+  required: true
+  label: Quantité
+  hint: Signée, dans l'unité de stock de l'article — une valeur négative est une correction.
+  description: La mesure emprunte la matrice de conversion de l'article, par la référence.
+
+prix_unitaire:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix unitaire
+  description: >-
+    La valorisation du mouvement, réservée aux achats et à la direction. Gardé sur le mouvement, à la différence du
+    poids : le prix varie dans le temps, le dupliquer simplifie la valorisation.
+
+utilisateur:
+  type: text[..20]
+  rgpd: personal
+  label: Saisi par
+  hint: L'opérateur qui a saisi — un nom de personne.
+
+stock_avant:
+  type: measure
+  unit: article.unite
+  label: Stock avant
+  hint: La quantité en stock avant le mouvement, dans la même unité.
+
+# Les champs calculés
+
+valide:
+  type: boolean
+  formula: quantite != 0
+  label: Valide
+  description: >-
+    Le calculé, pas une validation : le mouvement à zéro entre et se marque.
+
+valeur:
+  type: amount
+  formula: prix_unitaire * quantite.value if prix_unitaire != null
+  confidentiality: ${settings.confidentiality.financier}
+  label: Valeur
+  description: >-
+    Recalculée ici, la valeur de l'ERP n'est pas reprise : le montant fois le nombre nu de la quantité, signé comme elle
+    — .value accède à la valeur d'une mesure sans son unité. Restreinte comme le prix.
+
+masse:
+  type: measure
+  units: [kg]
+  formula: quantite.to(kg)
+  label: Masse
+  description: >-
+    La quantité, dans l'unité de stock, se convertit par la matrice de l'article, où le poids unitaire est le
+    coefficient vers le kilogramme ; sur des millions de lignes, la matérialisation du calculé à l'écriture reste en
+    proposition.
+
+stock_apres:
+  type: measure
+  unit: article.unite
+  formula: 'stock_avant + sens.select(entree: quantite, sortie: -quantite)'
+  label: Stock après
+  description: >-
+    La mesure plus ou moins la mesure, dans l'unité du champ ; la quantité signée fait de la sortie négative une
+    correction qui remet en stock.

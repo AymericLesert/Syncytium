@@ -1,0 +1,153 @@
+# Les formulaires
+# Le formulaire de l'écriture, puis les formulaires d'appel des opérations : leur validation est l'opération, et leurs
+# items déclarent des champs libres — les paramètres du hook.
+forms:
+
+  # Le formulaire de l'écriture
+  # Les cinq usages ; le titre suit le mode d'ouverture. Le calendrier et ses pas sur les dates, les choix du mode, le
+  # numéro de chèque visible pour le mode autre, les référentiels à création directe.
+  record:
+    title:
+      create:
+        fr: Création d'une écriture
+        en: New entry
+        es: Nuevo apunte
+      read:
+        fr: Écriture '{libelle}' du {date_operation}
+        en: Entry '{libelle}' of {date_operation}
+        es: Apunte '{libelle}' del {date_operation}
+      update:
+        fr: Modification de l'écriture '{libelle}' du {date_operation}
+        en: Editing entry '{libelle}' of {date_operation}
+        es: Modificación del apunte '{libelle}' del {date_operation}
+      delete:
+        fr: Suppression de l'écriture '{libelle}' du {date_operation}
+        en: Deleting entry '{libelle}' of {date_operation}
+        es: Eliminación del apunte '{libelle}' del {date_operation}
+    items:
+      - field[date_operation]
+      - field[date_comptable]
+      - field[libelle]
+      - field[budget]
+      - field[montant]
+      - field[mode]
+      - field[cheque]: { visible: mode = autre }
+      - field[lieu]
+
+  # L'appel de dupliquer
+  # Le pas et les deux dates.
+  duplication:
+    title:
+      fr: Dupliquer l'écriture '{libelle}'
+      en: Duplicate entry '{libelle}'
+      es: Duplicar el apunte '{libelle}'
+    items:
+      - pas:
+          type: enum
+          required: true
+          values:
+            jour:      { label: { fr: Jour, en: Day, es: Día } }
+            semaine:   { label: { fr: Semaine, en: Week, es: Semana } }
+            mois:      { label: { fr: Mois, en: Month, es: Mes } }
+            trimestre: { label: { fr: Trimestre, en: Quarter, es: Trimestre } }
+      - du: { type: date, required: true }
+      - au: { type: date, required: true }
+
+  # L'appel de propager
+  # Le nouveau libellé et le nouveau montant ; le hook déroule la liste des similaires, la sélection, la masse.
+  propagation:
+    title:
+      fr: Propager depuis '{libelle}'
+      en: Propagate from '{libelle}'
+      es: Propagar desde '{libelle}'
+    items:
+      - libelle_nouveau:
+          type: text[..60]
+          required: true
+      - montant_nouveau: { type: amount, currencies: [EUR], required: true }
+
+  # L'appel de virer
+  # Le compte cible et le montant.
+  virement:
+    title: { fr: Virement, en: Transfer, es: Transferencia }
+    items:
+      - vers:    { type: banque.compte, required: true }
+      - montant: { type: amount, currencies: [EUR], required: true }
+
+# Les listes
+# La première déclarée est celle par défaut ; chacune porte sa zone de recherche — le compte, la plage de dates par la
+# facette du champ, le champ de recherche mutualisé.
+lists:
+
+  # Par date d'opération
+  # La copie d'une écriture est le duplicate du socle.
+  par_operation:
+    title:
+      fr: Par date d'opération
+      en: By transaction date
+      es: Por fecha de operación
+    searchable:
+      - compte: { select: mono, required: true }
+      - date_operation
+      - recherche
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    sort: [date_operation, numero]
+    selection: multiple
+    actions: [copy]
+
+  # Par date comptable
+  # Les écritures pointées seules ; le tri, partagé avec le relevé, va de la dépense à la ressource ; l'export PDF est
+  # l'opération de génération du socle.
+  par_comptable:
+    title:
+      fr: Par date comptable
+      en: By posting date
+      es: Por fecha contable
+    filter: date_comptable != null
+    searchable:
+      - compte: { select: mono, required: true }
+      - date_comptable
+      - recherche
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    sort: [date_comptable, montant, numero]
+    selection: multiple
+    actions: [copy]
+    exports: [ generate(me, PDF) ]
+
+  # Le pointage
+  # Les écritures sans date comptable — la partition avec la liste précédente ; le pointage se fait en ligne.
+  pointage:
+    title:
+      fr: Sans date comptable
+      en: Without posting date
+      es: Sin fecha contable
+    filter: date_comptable = null
+    searchable:
+      - compte: { select: mono, required: true }
+      - recherche
+    columns:
+      - date_operation: { editable: true }
+      - date_comptable: { editable: true }
+      - libelle: { editable: true }
+      - budget: { editable: true }
+      - debit
+      - credit
+      - solde
+    sort: [date_operation, numero]
+    selection: multiple
+
+# Les graphiques
+charts:
+
+  # L'évolution des dépenses par budget
+  # Les deux filtres du patron des listes ; le mois en abscisse, le montant cumulé du mois en ordonnée.
+  evolution_budget:
+    title:
+      fr: L'évolution des dépenses par budget
+      en: Spending over time by budget
+      es: La evolución de los gastos por presupuesto
+    searchable:
+      - budget
+      - date_operation
+    x: date_operation[month]
+    y: sum(montant_euro)

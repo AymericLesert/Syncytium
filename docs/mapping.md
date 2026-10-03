@@ -34,9 +34,11 @@ conversions.
 Entre deux versions, **rien ne s'écrit** : le `from:` implicite est
 la version précédente, Syncytium le porte. Les seules écritures :
 
-- **le renommage** — `old_name: <ancien nom>` sur le champ, l'entité
-  ou le module renommé (D651) : le journal de migrations en dérive
-  la translation, la chaîne API continue de servir l'ancien nom ;
+- **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
+  le module renommé (D651/D1111 — la clé de l'origine, la même que
+  celle du format, de la migration et de la sandbox) : le journal de
+  migrations en dérive la translation, la chaîne API continue de
+  servir l'ancien nom ;
 - **la dépréciation en trois temps** (D650) : **l'intention**
   (l'avertissement — l'élément vit encore, son avenir est scellé),
   **l'acte** (déprécié mais il répond encore), **la suppression**
@@ -59,6 +61,12 @@ unit_price:
 - **la création et la suppression de champ** — les règles actées
   persistent (D11–D13 : la substitution vers l'ancien, le défaut
   vers le neuf).
+
+**Les écarts sont documentés par Syncytium (D1112).** La description
+d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
+de la version présente les écarts calculés — les champs ajoutés,
+renommés, retypés, supprimés — sans que le technicien les décrive ;
+les notes de version, elles, portent l'évolution fonctionnelle.
 
 ### La migration du schéma (D673–D674)
 
@@ -115,15 +123,21 @@ possesseur avant ses lignes).
 # settings.yml — les migrations déclarées (D662/D664)
 migrations:
   legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
-    connector: legacy_db            # le connecteur storage source
+    from: legacy_db                 # la base d'origine — le connecteur storage source (D1086–D1087)
+    buffer: temporaire              # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
+    storage:                        # le fichier SQLite de chaque passage (D1066/D1072)
+      directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
+      filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
     source:
-      - legacy_db/source/.*\.yml    # un fichier par entité — le regex (D806)
+      - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
-      - legacy_db/mapping/.*\.yml   # un fichier par règle de migration
+      - ~{legacy_db/mapping/.*\.yml}   # un fichier par règle de migration
   old_crm:
-    connector: crm_db
-    source:  [old_crm/source/.*\.yml]
-    mapping: [old_crm/mapping/.*\.yml]
+    from: crm_db
+    source:
+      - ~{old_crm/source/.*\.yml}
+    mapping:
+      - ~{old_crm/mapping/.*\.yml}
 ```
 
 **La migration référence ses fichiers par patterns** (D664 — le
@@ -133,7 +147,10 @@ libre, la déclaration fait foi. **Les patterns sont des regex**
 (D806 — « plus de personnalisation et de contrôle ») ; le pattern
 est une déclaration : le standard d'organisation et de nommage que
 le technicien se fixe — partout où une liste de fichiers se déclare,
-il peut remplacer l'énumération. **Le versionnement est plein**
+il peut remplacer l'énumération. **La référence de fichier est
+explicite** (D956) : `~{<fichier ou pattern>}` — la valeur nue est
+un littéral, jamais un fichier ; en collection de flux (`[ … ]`)
+l'accolade oblige les guillemets, la forme bloc s'impose (D892). **Le versionnement est plein**
 (D670) : `source/` et `mapping/` sont versionnés comme tout le
 reste — l'itération d'exploration passe par le bump du build (D323),
 le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
@@ -143,6 +160,14 @@ alphabétique** (D665) — le préfixe numérique décrit les étapes de la
 migration : `001_referentiels.yml`, `002_customers.yml`,
 `003_orders.yml`. Le câblage `from:` (D610) se relit
 comme le raccourci du cas à une seule migration.
+
+**Les fichiers se rangent par sous-dossier** (D1103–D1104) — par item
+fonctionnel : `source/<module>/<TABLE>.yml` ; **les règles, dans des
+dossiers numérotés** — `mapping/<N>_<groupe>/<NN>_<nom>.yml`, les
+fichiers numérotés à partir de 1 dans chaque dossier : le numéro du
+dossier, puis celui du fichier, font l'ordre des étapes — l'ordre du
+chemin ; le motif suit (`~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}`). Au
+cas 5 : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock`.
 
 ### Les deux maisons (D652–D653)
 
@@ -169,9 +194,16 @@ propres :
 
 - **`ignored`** (D657) — l'élément **attendu** dans la source mais
   non développé : sur une entité (`audit_log: ignored`) ou sur un
-  champ, **comme un type** (`ref_ext: ignored`). L'exhaustivité
-  (D648) se joue entièrement ici : chaque table et chaque colonne du
-  schéma réel est décrite ou marquée `ignored` ;
+  champ, **comme un type** (`ref_ext: ignored`) — l'écart
+  **volontaire**. **Trois états pour une colonne comme pour une
+  table** (D869/D947) : lue (typée, renvoyée à son champ), ignorée
+  (citée `ignored`, avec son motif), **non lue** (absente de la
+  description — Syncytium la relève au rapport de migration, le point
+  à creuser D868) ; la complétude (D861) se mesure au schéma réel, la
+  description n'a pas à citer chaque colonne. **Un fichier par entité
+  d'origine, au nom de la table** (`source/ARTICLE.yml`, `name:
+  ARTICLE` — D947) — ou au nom de l'entité quand elle est un alias de
+  la table (D966) ;
 - **la normalisation par champ calculé** (D660) — le nettoyage, la
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une
@@ -186,7 +218,61 @@ propres :
   (D874) compare les valeurs brutes. La référence composée se déclare
   colonne par colonne (`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance
   D648) — les colonnes qui dépendent des champs d'identité d'une même
-  entité forment une référence, dans l'ordre de cette identité.
+  entité forment une référence, dans l'ordre de cette identité ;
+  **la référence nommée** (D995) : quand la même entité est référencée
+  plusieurs fois, chaque référence porte un nom entre crochets
+  (`NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`, `NOCTCODECP:
+  ARTICLE[COMPOSANT].ARKTCODART`) et les colonnes du même nom forment
+  une référence — « un identifiant/alias de ARTICLE qui lie les
+  identifiants à fournir pour retrouver la référence » ; la référence
+  unique garde la forme simple ; `parent:` peut désigner la référence
+  nommée (`parent: ARTICLE[PRODUIT]`) au lieu de la carte des colonnes
+  (*en proposition*) ; **la référence à l'une de deux entités** (D996)
+  : quand la colonne peut viser l'une ou l'autre, `ARCTNOFOU1:
+  FOURNIS.CLKTCODE or CLIENT.CLKTCODE` — « le premier des 2 qui
+  matchent fait le lien » ; le pré-contrôle (D874) s'en contente, la
+  règle du mapping route la valeur vers un champ typé qui fait la
+  résolution finale (*en proposition*).
+- **la lecture d'une autre table par un calculé** (D965) — à la
+  source, **l'entité décrite est une collection** : un champ calculé
+  lit une valeur ou une liste de valeurs dans une autre table par les
+  agrégats, la doctrine D887 (« valeur if condition ») et la
+  projection D889 inchangées — `first` rend la valeur, **`list`** (le
+  seul agrégat ajouté) la liste ; la valeur est typée par la colonne
+  (D581), l'absence rend le nul — un fait ; **« la lecture d'une
+  entité utilise le filtre défini »** (D966) — on lit l'entité
+  décrite, avec son `filter:`, jamais la table nue ; **le moteur met
+  en cache** le résultat par entité, expression et valeurs des
+  critères le temps d'un passage — « un cache est à prévoir pour
+  rendre l'information rapide si les mêmes critères sont appelés
+  régulièrement ». D891 (jamais l'entité entière) reste entier au
+  modèle : la source est lue par lots, pas affichée. Le cas 5 : la
+  table PARAM « conditionne le fonctionnement de l'ERP et donc des
+  données » ;
+- **l'alias** (D966) — « la notion d'alias qui permet de nommer une
+  entité portant sur la même source avec des filtres différents » :
+  plusieurs entités source décrivent la même table, chacune sous son
+  nom, avec son filtre, son identité, ses colonnes lues — `name:
+  PARAM_EMPLACEMENTS`, `alias: PARAM` (*la clé est mienne*) ; le
+  fichier porte le nom de l'entité (D947 : le nom de la table quand il
+  n'y a pas d'alias) ; la règle du mapping et la lecture D965 nomment
+  l'entité, et le filtre vient avec ; la complétude du schéma (D861)
+  se mesure sur la table, toutes entités confondues ;
+
+```yaml
+# source/stock/PARAM_EMPLACEMENTS.yml — l'alias (D966) : le paramètre 170 de PARAM
+name: PARAM_EMPLACEMENTS
+alias: PARAM
+filter: PAKTSOC = "100" and PAKTNOPAR = "170"
+
+# source/ARTICLE.yml — lire l'entité depuis un calculé (D965) : le filtre 170 vient avec
+fields:
+  libelle_emplacement_expedition:                 # une valeur — first (D887)
+    formula: PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)
+  emplacements_actifs:                            # une liste — list (D965)
+    formula: PARAM_EMPLACEMENTS.list(PACTEXT210 if PACTEXT210 like "^" + ARCTCODEP + "\.")
+```
+
 - **le `filter:`** (D663) — la sélection des enregistrements
   parcourus par la migration (`filter: order_date >= now() - 10y`,
   `filter: company_code = "PARIS"` — le multi-instances d'une entité
@@ -213,6 +299,34 @@ customer_notes:
 
 # source/audit_log.yml — l'entité attendue mais ignorée (D657)
 audit_log: ignored
+```
+
+**La colonne décrite (D1100–D1101).** Ce que la documentation doit
+porter s'écrit en propriété, pas en commentaire : chaque colonne lue
+porte son `type:` et sa `description:` — le sens de la colonne dans le
+système d'origine ; le champ qu'elle alimente se lit dans les règles,
+il ne se redit pas ; une colonne écartée porte `type: ignored` et son
+motif en description ; une table écartée prend la même forme longue.
+**Une colonne à codes** — trois codes ou plus — **décrit ses codes en
+tableau Markdown**, une ligne par code et son libellé, dans un scalaire
+littéral (`description: |`) ; à deux codes, une phrase suffit (D1102).
+Avec une seule langue (`languages:` de la version), la description est
+un texte simple :
+
+```yaml
+# source/customers.yml
+fields:
+  code:
+    type: text[6]
+    description: Le code du client.
+  legacy_ref:
+    type: ignored
+    description: Une référence de l'ancien système, sans usage.
+
+# source/audit_log.yml — la table écartée, sa forme longue
+audit_log:
+  type: ignored
+  description: Le journal d'audit de l'ancien système, hors du périmètre.
 ```
 
 ### Les règles (`mapping/`)
@@ -262,6 +376,85 @@ order_lines:
     quantity: qty
 ```
 
+**La description et les formes longues (D1100/D1105).** La règle se
+décrit en `description:` — ce que la documentation doit porter
+s'écrit en propriété, pas en commentaire (D1100). **Une affectation
+reste une formule** : `champ: formule`, qui se lit d'elle-même ;
+quand elle demande un complément, **sa forme longue** — `formula:` la
+formule, `description:` le complément, `message:` le texte de
+l'anomalie si l'affectation échoue. **Une validation de même** : `-
+expression` en forme courte, ou `rule:`, `description:`, `message:`.
+Une carte sans `formula:` reste la carte de clé d'une référence
+(D931) : `formula` distingue les deux.
+**Le `message:` est un gabarit** (D1106) : les accolades du langage
+unique (D6/D90) y citent une valeur de la source — `{LCCTCODART}`, la
+colonne lue — ou une propriété de l'enregistrement construit —
+`{me.unite}`, `{me.article.code}` ; le texte se résout à l'échec, et
+l'anomalie garde le message résolu. Ce n'est pas l'interpolation
+`${…}` de la configuration, résolue au chargement (D802). Entre les
+accolades, un nom, un chemin ou une expression du langage unique ;
+une valeur nulle s'écrit vide ; à la source et à l'entité, les mêmes
+accolades citent la colonne lue ou le champ.
+
+```yaml
+# reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
+LCOMFOU:
+  description: >-
+    Les lignes des commandes d'achat, composition de l'entête : le possesseur est la révision de la commande, son
+    numéro et son indice ; l'identité d'une ligne est son numéro.
+  to: commande.ligne_achat
+  parent:
+    commande_achat: { numero: numero, indice: LCKTPSF }
+  fields:
+    numero:  ligne
+    article: { code: LCCTCODART, complement: LCCTCOMART }   # la carte de clé : pas de formula
+    quantite_recue:
+      formula: LCCNQTEEXP
+      description: L'expédié de PMI, reçu chez l'acheteur.
+  validation:
+    - rule: me.unite in me.article.unite.units
+      description: L'unité de la ligne est l'une de celles que son article connaît.
+      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.   # le gabarit (D1106)
+```
+
+**Les champs mutualisés par la référence de fichier (D967).** Quand
+plusieurs règles portent le même bloc `fields:` — les quatre règles de
+l'article du cas 5, une par dérivé filtrée sur le code de gestion
+(D940) —, le bloc vit une fois et chaque règle l'inclut, comme
+l'entité le fait (D767/D956) : `fields: ~{articles/fields.yml}`, le
+chemin relatif au fichier (D768) ; le fichier inclus n'a pas de
+préfixe numérique, il est hors du pattern des règles (D806) — il
+n'est pas une règle, il est inclus ; la règle ne garde que ce qui la
+distingue : `to:`, `filter:`, `report:`.
+
+```yaml
+# reprise/mapping/3_technique/02_fabriques.yml — la règle réduite à ce qui la distingue (D967)
+ARTICLE:
+  to: technique.fabrique
+  filter: ARCTFATN = "01"
+  fields: ~{articles/fields.yml}   # le bloc commun aux quatre règles de l'article
+  report: { when: [migration], to: [bureau_etudes], by: [notification, mail] }
+```
+
+**Le cumul de fichiers sous une carte (D968).** Plusieurs fichiers
+l'un derrière l'autre : **la liste de références, en bloc** (jamais en
+flux — l'accolade y casse YAML, D956), sous toute propriété qui porte
+une carte (`fields:`, `values:`, `parameters:`…) ; **la fusion dans
+l'ordre** — la carte est l'union des clés ; **la même clé deux fois =
+une surcharge**, le dernier l'emporte, **une alerte levée à
+l'ingestion** ; **le pattern y vaut** (`- ~{articles/.*\.yml}`,
+l'ordre alphabétique D665) ; **l'élément est une référence de fichier
+ou une carte en ligne**, fusionnée comme un contenu de fichier — « plus
+élégante… plus en lien avec des approches classiques ».
+
+```yaml
+fields:
+  - ~{articles/commun.yml}          # un fichier — son contenu
+  - ~{articles/nomenclature.yml}    # un autre, fusionné à la suite
+  - actif: ARCTBLOCAG = ""          # une carte en ligne — les champs propres à cette règle
+    date_creation: ARCJCRE
+```
+
 **Le rapport des rejets porté par la règle (D929).** « Chaque règle
 de migration a un report. Pas un report général. » La règle sait sa
 source, sa cible et qui corrige l'origine : elle déclare `report:`
@@ -271,16 +464,24 @@ construit et que la cible refuse (D177 — la conversion échouée, sa
 propre `validation:` D932, le contrat de la cible, la référence non
 résolue). Sans `report:`, le
 défaut de D407 tient : à la demande, vers l'administrateur, par les
-surfaces du module `migration` (D666). Aucun rapport général — ni à
+surfaces du module `_migration` (D666). Aucun rapport général — ni à
 la migration déclarée (D662), ni au module ; la cascade de D407 reste
-celle du modèle (les non-conformes des références, D395). Les
-anomalies de la source — le schéma non décrit (D868), l'identité qui
-n'est pas une clé (D871), l'orphelin isolé (D875) — ne sont pas des
-rejets de règle : elles vont au technicien par le module `migration`
-et le rapport de non-couverture (D176/D179).
+celle du modèle (les non-conformes des références, D395). **Les
+anomalies du modèle** — la colonne non décrite, le type non
+convertible, la colonne décrite disparue, l'identité non respectée
+(D1042/D1053) — ne sont pas des rejets de règle : elles vont au
+technicien par le module `_migration` ; **celles des données de la
+source** — ses phases de contrôle, le type, l'identité, l'orphelin —
+vont au `report:` de l'entité source (D1058, ci-dessous).
+
+**Le rapport de l'entité source (D1058).** « L'entité source déclare son
+propre report: » — les anomalies des phases de la source (la
+validation de ses données, ses propres règles) vont aux destinataires
+que l'entité source déclare, sous la même forme (`when:`, `to:`, `by:`) ;
+la règle garde son `report:` pour les siennes.
 
 ```yaml
-# mapping/001_articles.yml — le rapport porté par la règle (D929)
+# reprise/mapping/3_technique/01_articles.yml — le rapport porté par la règle (D929)
 ARTICLE:
   to: technique.article
   fields:
@@ -306,52 +507,81 @@ porte la même carte.** La conversion écrite deux fois — chez le
 possesseur et dans chaque `parent:` — est un risque d'entretien : la
 normalisation à la source (D660/D872) fait lire aux deux règles des
 colonnes déjà converties, et `parent:` ne porte alors que des colonnes
-nues.
+nues. **`parent:` peut nommer le parent d'une hiérarchie** (D969) :
+l'identité déclarée chez le parent est partagée par ses dérivés
+(D353), le moteur retrouve l'enregistrement quelle que soit sa classe
+et attache la ligne à sa composition ; si l'enregistrement retrouvé ne
+porte pas la composition visée, la ligne est un rejet au rapport
+(D933) — le cas 5 : `parent: { article: { code: NOKTCODPF, complement:
+NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
+porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
-# reprise/mapping/001_articles.yml — le possesseur construit son identité
+# reprise/mapping/3_technique/01_articles.yml — le possesseur construit son identité
 ARTICLE:
   to: technique.article
   fields:
     code:       ARKTCODART
-    complement: iif(ARKTCOMART = "", null, ARKTCOMART)   # le vide devient nul
+    complement: ARKTCOMART            # souvent vide — le nul du texte est la chaîne vide (D990), rien à convertir
     libelle:    ARCTLIB01
 
-# reprise/mapping/002_nomenclatures.yml — la fille présente la même conversion (D931)
+# reprise/mapping/3_technique/05_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
 NOMENC:
-  to: technique.ligne_nomenclature                       # l'entité fille, comme banque.ecriture
+  to: technique.nomenclature                             # l'entité fille, comme banque.ecriture
   parent:
-    article:                                             # le possesseur, par ses champs mappés
+    article:                                             # le possesseur, par ses champs mappés — résolu dans la hiérarchie (D969)
       code:       NOKTCODPF
-      complement: iif(NOKTCOMPF = "", null, NOKTCOMPF)   # sinon la clé ne se retrouve pas
+      complement: NOKTCOMPF
   fields:
     numero:    NOKNLIGNOM
     composant:                                           # la référence par la clé composée : la même carte
       code:       NOCTCODECP
-      complement: iif(NOCTCOMCPT = "", null, NOCTCOMCPT)
-    quantite:  NOCNQTEUNI
+      complement: NOCTCOMCPT
+    quantite:  NOCNQTECOM
 ```
 
-**`validation:` à trois niveaux (D932).** « validation: porte à la
-source avant l'import, porte à la destination après l'import et à la
-règle du mapping porte sur chaque ligne de l'import. » La même
-grammaire (D404) à trois places : sur l'entité source, la règle
-s'évalue sur la ligne lue, avant la conversion — la non-conformité de
-la source, comme la garde D813 ; sur la règle de migration, elle
-s'évalue sur chaque ligne importée, après la construction par
-`fields:` et avant l'écriture — les colonnes source à nu,
-l'enregistrement construit par `me` ; sur l'entité cible, elle
-s'évalue à l'écriture, au scellé (D594), sur l'enregistrement et ses
-enfants (D933). L'échec, à chaque étage, rejette la ligne et va au
-rapport de la règle (D929).
+**La conversion d'une clé se fait à la lecture (D990).** Quand
+l'identité du possesseur demande une vraie conversion — une casse, un
+préfixe, un cadrage —, elle ne s'écrit ni dans la règle ni dans chaque
+`parent:` : **`normalize:`** sur la colonne de la source (D872 — la
+fonction à la frontière, surchargeable par champ : `normalize:
+right("0000" + me, 4)`) ou le calculé de la source (D660) ; la règle
+et les `parent:` lisent des colonnes déjà converties, la conversion
+n'est écrite qu'une fois, là où la donnée entre.
+
+**`validation:` dans les cinq phases de contrôle (D932, amendé par
+D1033/D1040).** Les trois places de la même grammaire (D404) —
+l'entité source, la règle, l'entité de destination — prennent leur
+rang dans le déroulé d'un passage ([migration.md](migration.md)) :
+**(1) la validation des données sources** — après le `filter:`, les
+colonnes converties du type lu au type décrit, l'identité, les liens
+(l'orphelin) ; **(2) la vérification des règles sources** — les
+`validation:` de l'entité source, sur la ligne lue ; **(3) le
+mapping** — `fields:` construit l'enregistrement dans la base miroir
+(D1044) ; **(4) la validation des règles du mapping** — les
+`validation:` de la règle, les colonnes source à nu, l'enregistrement
+construit par `me` ; **(5) la validation des règles de destination**
+— après la lecture de toutes les données, sur la base miroir
+complète, avant l'enregistrement : les contraintes et les
+`validation:` du modèle, avec les enfants (D933). **Chaque phase
+relève toutes ses erreurs**, et l'enregistrement en erreur ne passe
+pas à la phase suivante (D1057) ; chaque erreur garde un message
+clair, pour le rapport — le `message:` de la forme longue quand il est écrit
+(D1105). Les trois temps, redits par l'auteur (D1006)
+: sur la source à la lecture — limite les enregistrements aux valeurs
+valides ; sur le mapping — identifie les règles non respectées ou les
+données incorrectes ; sur la destination — garantit que les règles
+des données entreposées sont correctes. Une contrainte du modèle n'a
+pas à être redite par la règle ; et une grandeur « à titre
+indicatif » ne se valide pas, ses cas limites s'observent.
 
 ```yaml
-# reprise/source/NOMENC.yml — avant l'import : la ligne lue, avant la conversion
+# reprise/source/technique/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
 NOMENC:
   validation:
     - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
 
-# reprise/mapping/002_nomenclatures.yml — sur chaque ligne importée : la source à nu, le construit par me
+# reprise/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
 NOMENC:
   to: technique.ligne_nomenclature
   fields:
@@ -361,7 +591,7 @@ NOMENC:
     - me.quantite > 0 if me.nature = "composant"       # le construit
     - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
 
-# technique/ligne_nomenclature/ligne_nomenclature.yml — après l'import : l'enregistrement écrit
+# technique/ligne_nomenclature/ligne_nomenclature.yml — la phase 5 : sur la base miroir complète
 validation:
   - composant != null if nature = "composant"
 ```
@@ -377,10 +607,10 @@ conversion, sa `validation:`, sa référence) entraîne ses composants ;
 l'échec propre d'un composant (sa conversion, sa `validation:` à la
 règle ou à l'entité, sa référence — l'orphelin D875) ne rejette que
 lui, le parent entre sans lui ; la `validation:` du parent qui lit
-ses enfants (`lignes.count() > 0`, une somme) s'évalue sur le parent
-et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
+ses enfants (`lignes.count() > 0`, une somme) s'évalue en phase 5
+(D1033), sur le parent et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
 grain d'écriture (D420) : ce qui s'écrit est le parent avec ses
-composants conformes. Au cas 3 : l'article entre sans la cellule
+composants conformes. Au cas 5 : l'article entre sans la cellule
 tarifaire fautive, ses mouvements le trouvent ; la commande sans
 ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
 la ligne (mien).
@@ -404,7 +634,7 @@ reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
 libre (la différence avec `mode: write-once`, immuable pour tous) ;
 « unchanged est lié à la migration et aux règles de migration. Une
 règle qui alimente l'un de ces champs serait une erreur d'ingestion ».
-Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
+Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
 `""`, ouverte au commercial et aux achats par l'allow au champ
 (D886/D942) — la note de l'acheteur survit à chaque nuit.
 
@@ -415,7 +645,7 @@ Le cas 3 : `note_interne` sur le tiers, aucune colonne PMI, née à
   de champs — la valeur devient la clé fonctionnelle, les entités
   porteuses référencent par la clé ; la même table source porte
   plusieurs règles. **La règle porte un `filter:`**
-  (l'écho D663) — son périmètre : le cas 1 importe en **trois
+  (l'écho D663) — son périmètre : le cas 4 importe en **trois
   phases** (D814 — la phase = la règle filtrée, l'ordre = le
   préfixe D665 : les comptes créés par le marqueur OUVERTURE, les
   référentiels et les écritures hors marqueurs, l'écriture du
@@ -457,28 +687,22 @@ customers:
   référence en retour par l'affectation au chemin** (D823 —
   `me.liee.liee : me` : le membre gauche navigue et écrit dans
   l'enregistrement pointé ; l'ordre des affectations compte, le
-  chemin sur le vide est sans effet). Le bloc `operations:` d'une règle = des énoncés du
+  chemin sur le vide est sans effet) ; **le compteur surchargé** (D883/D998) — la règle écrit la valeur reprise dans le champ `counter`, et la méthode `update(valeur)` du type counter, dans ses `operations:`, positionne le compteur courant sur la plus grande valeur (« si la valeur > au compteur courant, ça positionne le compteur courant sur la valeur la plus grande ») : `commande_vente.numero.update(numero)` — le champ adressé par le point (D999, « plus parlante ») ; les trous de la séquence reprise relèvent du contrôle de la propriété du compteur, pas de la migration. Le bloc `operations:` d'une règle = des énoncés du
   langage exécutés par enregistrement (le `if` postfixe — D364) ; la
   correspondance ligne → enregistrement de la règle de complément
   est tenue par la migration (D666/D668) ;
 
-- **la règle rapprochable, la règle création seule** (D825, réécrit
-  par D930 — le cas 1 : les écritures, sans identifiant de ligne ni
-  clé composite fiable) : `key:` n'existe plus — **une règle est
-  rapprochable si l'enregistrement qu'elle construit détermine
-  l'identité de sa cible**, par ses expressions ou par les défauts des
-  champs ; sinon — l'entité sans `identity:`, un champ d'identité
-  sans valeur — **elle est création seule** (jamais de rapprochement,
-  un rejeu dupliquerait) ; **la garde à l'ingestion** : `mode:
-  relative` ou un rejeu sans `reset: true` exigent que chaque règle
-  soit rapprochable — la règle création seule n'est admise qu'au
-  tout-ou-rien remis à zéro ; la règle de complément (D821) ne crée
-  pas : elle re-parcourt les mêmes lignes dans le même passage, la
-  correspondance ligne → enregistrement tenue par la migration
-  (D666/D668) ; la règle de mise à jour alimente l'identité
+- **l'identité partout** (D1035 — amende D825/D930) : toute entité
+  porte une identité, la sienne ou celle qu'elle hérite de sa racine
+  (D1039) ; son absence est une anomalie de description du modèle —
+  la règle « création seule » disparaît : l'enregistrement construit
+  se retrouve dans la cible par son identité, deux enregistrements de
+  même clé sont le même enregistrement (D1046) ; la règle de
+  complément (D821) ne crée pas : elle re-parcourt les mêmes lignes
+  dans le même passage ; la règle de mise à jour alimente l'identité
   elle-même, une valeur inchangée que le différentiel ignore ;
 
-- **une entité source, plusieurs fichiers** (D816 — le cas 1) : deux
+- **une entité source, plusieurs fichiers** (D816 — le cas 4) : deux
   fichiers au même format = une seule entité (l'union des lignes) ;
   **la carte entités → fichiers vit au connecteur** (D819/D828 —
   la section `entities:` au même niveau que `parameters:` : chaque
@@ -510,9 +734,14 @@ customers:
   sont portés, les erreurs isolées — dans une composition, l'échec du
   parent entraîne ses composants, l'échec d'un composant ne rejette
   que lui (D933) —, le rapport porté par chaque
-  règle vers son destinataire (D929 — à défaut l'administrateur,
-  D108–D110/D179), et **la vue sur le taux de couverture** par
-  rapport à la source d'origine.
+  règle et de chaque entité source vers son destinataire (D929/D1058
+  — à défaut l'administrateur, D407), et **la vue sur les
+  indicateurs** — la complétude du schéma, la couverture des données
+  (D1056).
+
+**Le dry-run s'arrête après la comparaison** (D1044) : la reprise se
+construit dans la base miroir, se compare à la cible, et les
+différences se montrent sans être reportées.
 
 La reprise (D175–D179) est le mode relatif du `from:` ; le mode
 absolu en est le durcissement pour la bascule définitive — les deux
@@ -520,45 +749,45 @@ postures de D180 incarnées.
 
 ## La couverture et le pilotage (D666–D667, D861–D862)
 
-- **le module `migration`** (D666) — défini par Syncytium (le socle
-  premier client — D408/D416) : ses entités stockent l'état de la
-  couverture (par migration, par entité source, par règle, les
-  rejets et leurs causes) — **la vue exploite les éléments déjà
-  décrits** : les listes, les widgets, les kpi, les tableaux de bord
-  du catalogue sur ces entités ; le taux de couverture est une
-  donnée du modèle — consultable, filtrable, exportable ;
-- **les trois taux** (D861–D862 — le cas 3, l'entrepôt) : **la
-  complétude du schéma** — les éléments décrits ou déclarés
-  `ignored` rapportés au schéma réel (cent pour cent quand tout est
-  déclaré ; l'écart = **les anomalies** : la table ou le champ
-  présent dans le schéma et absent de `source/`, remonté au
-  technicien D179 — la complétude confrontée au schéma réel D653 à
-  l'ingestion et à chaque `migrate`) ; **la couverture du schéma**
-  — les éléments migrés rapportés au schéma réel (les ignorés =
-  l'exclusion assumée, affichée à part, jamais comptée comme
-  couverte) ; **la couverture des données** — les lignes intégrées
-  rapportées aux lignes de chaque table source (les rejets creusent
-  l'écart, le `filter:` D663 hors taux) ; deux grains au module
-  `migration` : l'entité et le champ pour le schéma, la ligne pour
-  les données ;
-- **la comparaison par blocs et `coverage:`** (D878 — le cas 3) :
+- **le module `_migration`** (D666 ; décrit dans
+  [migration.md](migration.md) — D1028 : présent dans Syncytium, « ce
+  n'est pas aux applications de l'exposer ») — il pilote et supervise
+  la reprise : le déroulé d'un passage (le modèle lu, la lecture, les
+  cinq phases de contrôle, la comparaison, la bascule), la table des
+  clés d'origine, les versions du modèle lu, la ligne d'exécution et
+  ses trois jeux de compteurs, les anomalies ; **la vue exploite les
+  éléments déjà décrits** : les listes, les kpi, les tableaux de bord
+  du catalogue ;
+- **les indicateurs** (D861–D862, amendés par D1056/D1060) — sur la
+  ligne d'exécution : **la complétude du schéma**, sur les colonnes
+  décrites dans la configuration — les décrites encore présentes dans
+  le modèle lu, au type compatible, rapportées aux décrites ; la
+  colonne que la configuration ne cite pas n'y entre pas, elle reste
+  une anomalie de complétude, au technicien (D1053) ; **la couverture
+  des données**, sur les compteurs de l'origine — les lignes lues sans
+  erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
+- **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :
   la migration compare **le converti** (D672 — l'enregistrement
   reconstruit, la clé fonctionnelle) à la destination, **par
-  partition, en cinq blocs** — **anomalies** (les lignes d'origine
-  non converties — les rejets D177), **création** (les clés
-  nouvelles), **modification** (les clés existantes à un champ
-  différent), **inchangé**, **suppression** (les clés de la
-  destination absentes de l'origine) ; **la synthèse** — par bloc,
-  par clé de partition, le nombre d'enregistrements par entité —
-  est la visibilité sur l'avancement ; **la lecture de l'origine**
+  partition, en cinq blocs** (D1034) — **anomalies** (les
+  enregistrements tombés à l'une des cinq phases — D1033/D1040),
+  **création**, **modification** (un champ différent), **inchangé**,
+  **suppression** (sur la partition relue, l'enregistrement présent
+  avant et absent après — D1052) ; **la synthèse** — les trois jeux de
+  compteurs dissociés (D1048) : par entité d'origine, par entité de
+  destination, par règle ; **la lecture de l'origine**
   se règle par `coverage:` sur l'entité source — **la clé de la
   partition** (distincte de l'`identity:` si besoin : Syncytium
-  garde une empreinte par valeur de clé, qui signale une
-  différence, et la dernière valeur parcourue, pour reprendre
-  depuis la dernière lecture) et **la plage de valeurs** (une
+  garde, par clé d'origine, sa valeur de partition et un hash qui
+  compte les lignes modifiées — D1047–D1050 —, et la dernière valeur
+  parcourue, pour reprendre depuis la dernière lecture) et **la plage de valeurs** (une
   période sur une date, un nombre de valeurs ou d'enregistrements
-  sur un numéro) ; **sans `coverage:`, la totalité est relue** ;
-  `filter:` reste le périmètre jamais lu ; **le traitement des
+  sur un numéro) ; **sans `coverage:`, la totalité est relue** —
+  **l'état se relit en entier, le journal se partitionne** (D1013 : le
+  niveau de stock, « au plus 200 000 lignes… sans surcoût », sans
+  `coverage:` ni `history:`, les mouvements portant l'histoire ; les
+  mouvements, « plusieurs millions de lignes », `coverage:` et
+  `reset_coverage` à paramétrer) ; `filter:` reste le périmètre jamais lu ; **le traitement des
   écarts se lit sur la destination** — `history:` présent, ils
   complètent et l'historique les garde ; absent, ils remplacent ;
   **la forme courte, au crochet** (D880) — la nature puis la plage
@@ -568,10 +797,10 @@ postures de D180 incarnées.
   équivalente :
 
 ```yaml
-# source/MVTSTO.yml — la forme courte (D880)
+# source/stock/MVTSTO.yml — la forme courte (D880)
 coverage: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
 
-# source/ECOMCLI.yml
+# source/commande/ECOMCLI.yml
 coverage: ECKTNUMERO[10000]           # les dix mille derniers
 
 # la forme riche (D879), équivalente
@@ -581,9 +810,9 @@ coverage:
     range: 3m
 ```
 
-- **`reset_coverage`** (D881) — l'opération du socle qui efface
-  l'état de couverture d'une entité (la dernière valeur parcourue,
-  les empreintes par partition) : le `migrate` suivant relit la
+- **`reset_coverage`** (D881, précisé par D1030/D1037) — l'opération
+  du socle qui remet au départ la dernière valeur parcourue d'une
+  entité, sans rien effacer du module : le `migrate` suivant relit la
   totalité ; planifiable par `every:` (D434), déclenchable comme
   toute opération (D428) ; le rythme type : le delta en semaine, la
   relecture complète le dimanche par un `reset_coverage` planifié
@@ -595,6 +824,11 @@ coverage:
   complète (`every: weekly[saturday at 23:00]`, `operations: [
   reset_coverage(MVTSTO), … ]` — par entité partitionnée), le
   calendaire D434 et la composition des hooks du socle D609 ;
+  **`on_running:`** (D1077–D1080) dit ce que fait l'opération quand un
+  passage de la migration tourne déjà : `cancel` (le défaut — elle est
+  refusée, tracée), `wait` (elle attend sa fin), `interrupt` (elle
+  l'interrompt avant de se lancer — jamais pendant la bascule vers la
+  cible) ;
 - **`migrate`, la dix-huitième opération du socle** (D667 — complète
   D574) : elle exécute une migration déclarée (D662) et **se
   déclenche comme toute opération** (D428/D609) — le bouton
@@ -602,14 +836,19 @@ coverage:
   différentiel nocturne), l'API ; la relance = la ré-exécution, le
   rejeu sans doublon par la clé fonctionnelle (D654) ; le dry-run
   absolu (D649) = le preview de `migrate` suspendu avant commit
-  (D594–D595) ;
+  (D594–D595) — la base miroir comparée, rien de reporté (D1044) ;
+  **un passage à la fois** : l'interruption par l'administrateur, hors
+  bascule ; le redémarrage vaut interruption, la relance est manuelle
+  (D1077) ;
 - **le `filter:`** (D663, confirmé) : les enregistrements hors
   filtre ne sont ni des rejets ni de la couverture — le périmètre
   déclaré.
-- **le module historisé** (D668) : les entités du module `migration`
-  portent `history:` (D168) — le suivi de la migration et
-  **l'évolution de la qualité de la couverture dans le temps** (le
-  taux qui monte au fil des ajustements, la courbe du catalogue) ;
+- **le module historisé** (D668, précisé par D1056/D1068) : la ligne
+  d'exécution de chaque passage, ses compteurs et ses indicateurs
+  restent sans délai de rétention — **l'évolution de la qualité dans
+  le temps** (les indicateurs qui montent au fil des ajustements, la
+  courbe du catalogue) ; le détail des anomalies vit dans le fichier
+  SQLite du passage, retenu 90 jours par défaut ;
 - **les options de la migration** (D669/D671) : `{ mode: absolute |
   relative, reset: true | false }` — deux propriétés orthogonales :
   `absolute` (le tout-ou-rien de la bascule) / `relative`
@@ -617,14 +856,28 @@ coverage:
   rapport, la composition selon D933) ; `reset: true` **efface le contenu des tables cibles
   avant l'import** (le périmètre de la migration seul — le patron de
   l'exploration répétée) ;
-- **le différentiel par comparaison** (D672) : évalué **après la
-  migration** — l'enregistrement reconstruit se compare à la cible
-  par la clé fonctionnelle (D654), **champ par champ** ; seuls les
+- **la base miroir** (D1044–D1046) : `buffer:` nomme le connecteur
+  où la reprise se construit à l'image de la destination — un storage
+  dans un schéma donné, ou la classe `memory` ; les phases de contrôle
+  et la comparaison s'y jouent, puis les différences se reportent dans
+  la base de l'application ; la base vit le temps de la migration ;
+- **le stockage du détail** (D1066–D1073) : `storage:` nomme le
+  dossier et le fichier SQLite de chaque passage (`filename:` daté par
+  `${now:…}`) ; sa rétention est une règle du `cleanup.yml` de
+  l'environnement — `interval:`, `directory:`, `pattern:` au groupe
+  `(?<date>…)`, `retention:` (90 jours par défaut) ; la ligne
+  d'exécution reste sans délai ;
+- **le différentiel par comparaison** (D672, précisé par D1037) :
+  évalué **dans la base miroir, avant la bascule** — l'enregistrement
+  reconstruit, ses compositions comprises, se compare à la cible par
+  son identité (D654/D1046), **champ par champ** ; seuls les
   écarts s'écrivent, et l'entité cible historisée assure l'évolution
   de la valeur (D168) — le différentiel est la conséquence du rejeu
   par la clé, pas un mode de plus ; **les champs qu'aucune règle
   n'alimente restent intacts** (D941 — l'enrichissement : le champ
-  possédé par la cible, `unchanged: true`, né à son `default:`).
+  possédé par la cible, `unchanged: true`, né à son `default:`) ;
+  **la source fait foi** (D1038) : la correction à la main d'un champ
+  migré cède au passage suivant qui relit l'enregistrement.
 
 ## Les points ouverts
 

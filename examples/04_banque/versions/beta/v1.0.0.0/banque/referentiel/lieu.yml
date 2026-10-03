@@ -1,0 +1,22 @@
+# Le lieu
+# Le référentiel des lieux, les villes : la création directe au picker de l'écriture.
+name: lieu
+
+# La description de l'entité
+description:
+  fr: Un lieu — la ville d'une écriture
+  en: A place — the town of an entry
+  es: Un lugar — la ciudad de un apunte
+
+# Le visage texte
+label: "{libelle}"
+
+# L'identité
+identity: [libelle]
+
+# Les champs
+fields:
+
+  libelle:
+    type: text[..30]
+    label: { fr: Libellé, en: Name, es: Nombre }

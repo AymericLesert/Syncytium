@@ -1,0 +1,36 @@
+# L'article
+# La table des articles de l'ERP, standardisée : les champs que l'analyse retient, cohérents sans être exhaustifs.
+# L'article est le parent d'une hiérarchie, instanciable lui-même : le code de gestion fait l'héritage — le produit
+# fabriqué, le semi-fini et le fantôme, ses trois dérivés, portent la nomenclature ; la grille tarifaire reste ici. La
+# suppression emporte ses compositions et ne touche pas les commandes qui le référencent. Une évolution possible, hors
+# du cas : séparer la définition de l'article de l'article physique — le lot, la péremption, le packaging —, qui se
+# lisent aujourd'hui sur chaque mouvement.
+name: article
+
+# La description de l'entité
+description: >-
+  Un article de l'entreprise — son identité, sa famille, ses unités, ses prix de revient et ses tarifs ; le parent des
+  produits fabriqués, semi-finis et fantômes
+
+# Le visage texte
+# Le code et le libellé.
+label: "{code}[{complement}] — {libelle}"
+
+# L'identité
+# Le code et son complément, souvent vide.
+identity: [code, complement]
+
+# L'historique
+# Les prix, le statut, la famille bougent au fil des ans.
+history: true
+
+# Les champs
+# Rangés par groupe ; la nomenclature et ses calculés vivent chez les trois dérivés qui la portent.
+fields: ~{fields.yml}
+
+# La cohérence des données converties
+validation:
+  - rule: stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null
+    message: Le stock maximum {stock_maximum} est sous le stock minimum {stock_minimum}.
+  - rule: date_modification >= date_creation if date_modification != null
+    message: L'article est modifié le {date_modification}, avant sa création le {date_creation}.

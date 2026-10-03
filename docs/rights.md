@@ -73,7 +73,7 @@ allow:
 ```
 
 L'absence = tout permis ; `read` absent = l'état masque. **La
-cascade de l'allow** (D886 — le cas 3) : le bloc libre se déclare
+cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
 **à quatre étages** — l'application, le module, l'entité, le champ
 — et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
 règle de ses entités (l'entrepôt en lecture seule : `allow: {
@@ -120,7 +120,10 @@ version) ; la voie déclarée demeure le `demote` d'une version.
 
 - **`groups.yml`** à la racine de la version — la hiérarchie sans
   lien parent (« un groupe est constitué d'autres groupes »),
-  acyclique, la multi-appartenance naturelle (D414) ;
+  acyclique, la multi-appartenance naturelle (D414) ; **un membre du
+  groupe contenant voit tout ce que voient les groupes qui le
+  composent** (D1099) — la direction au-dessus de ses strates, jamais
+  l'inverse ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le

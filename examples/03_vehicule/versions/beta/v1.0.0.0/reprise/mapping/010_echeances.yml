@@ -1,0 +1,17 @@
+# Les échéances
+echeance:
+  description: >-
+    La phase 10 : l'échéancier en données, les valeurs figées des tableaux de crédit ou de LOA ; la coche Payé et le
+    reste dû se recalculent d'eux-mêmes. Le rang est la ligne de la plage ; la ligne des totaux de la LOA, sans date,
+    s'écarte.
+  to: transport.echeance
+  parent:
+    vehicule: immatriculation
+  filter: date != null
+  fields:
+    numero:        connector.line
+    date:          date
+    interet:       interet
+    amortissement: amortissement
+    assurance:     assurance
+    mensualite:    mensualite

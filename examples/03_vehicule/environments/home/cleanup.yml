@@ -1,0 +1,11 @@
+# Les règles de nettoyage de l'environnement. Chaque règle porte le délai entre deux passages (interval), le dossier
+# nettoyé (directory), les fichiers visés (pattern — le groupe date lit dans le nom la date que la rétention compare) et
+# la rétention (retention — une durée, ou un nombre sans unité : les n derniers fichiers).
+
+# Le nettoyage du journal
+# Les fichiers datés du journal, tournés compris, gardés quatre-vingt-dix jours.
+journal:
+  interval: 1d
+  directory: ${SYNCYTIUM_LOG_DIRECTORY}
+  pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
+  retention: 90d

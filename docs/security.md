@@ -68,6 +68,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 | **Le RGPD** | le client responsable, le marquage `rgpd:`, l'anonymisation, la rétention, le registre | D16, D137, D139, D695–D698, D703 | [rights.md](rights.md), §6.6 |
 | **Les secrets et le chiffrement** | la marque `*` (D944), l'empreinte jamais le clair, le `.env` chiffré, HTTPS sans dérogation, le type chiffrant | D33, D463, D603, D705–D708, D730, D901–D902, D915–D916, D919 | [rights.md](rights.md) |
 | **La disponibilité** | les fusibles (timeout, rate limiting, cooldown), la condition indispensable, le passif, la sauvegarde | D58, D104–D105, D112–D114, D164, D626–D627, D724–D729, D745, D907–D912, D915, D921–D922, D928 | [administration.md](administration.md), §7.3 |
+| **Le chat** | la connaissance sous les droits du demandeur (aucun droit propre au chat), l'anonymisation avant tout envoi sauf le profil connecté, la session par module tracée jusqu'à sa réinitialisation | D957–D960 | [connectors.md](connectors.md), [composants.md](composants.md) |
 
 ## L'identité et les comptes
 
@@ -189,7 +190,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 - **Le second axe : le qui** (D26–D27) — la restriction par groupe,
   les groupes déclarés dans la description et versionnés avec elle.
   **Les deux se composent** au champ (D364) ; **les profils nommés**
-  (D885 — le cas 3) écrivent une fois le niveau et le qui dans les
+  (D885 — le cas 5) écrivent une fois le niveau et le qui dans les
   settings et se référencent par interpolation
   (`confidentiality: ${settings.confidentiality.financier}`).
 - **Changer un niveau = une migration de contrat** (§5.5) : passer un
@@ -448,6 +449,12 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 - **Le registre des traitements auto-documenté** (D698) : généré du
   modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
   leurs connecteurs sortants.
+- **Le détail des migrations** (D1065) : les anomalies d'un passage
+  portent des valeurs de la source ; leur fichier est supprimé entier
+  à l'échéance de sa rétention (le `cleanup.yml` de l'environnement,
+  D1073) ; le rapport par mail anonymise les valeurs des champs
+  `rgpd:` (D696) ; les interfaces du module les montrent sous les
+  droits de chacun.
 - **Le staging porte des données réelles** (§7.3) : l'éphémérité et
   l'accès restreint sont les garde-fous, à documenter chez le
   client.
@@ -499,7 +506,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   d'une valeur est **un pouvoir de type** (comme `password`) — pas de
   facette : le type chiffre par ses fonctions de valeur et déclare
   ce qu'il sait encore faire (la recherche stricte au mieux, le tri
-  perdu).
+  perdu) ; **le fichier SQLite du détail d'une migration** est chiffré
+  — nativement si possible, sinon après sa création — et `rotate` le
+  re-chiffre avec les autres (D1067) ; `syncytium copy
+  --with-storage` le re-chiffre sous les clés de la cible (D1080).
 
 ## La disponibilité et la continuité
 
@@ -572,7 +582,12 @@ Ce que toute implémentation devra prouver, décision par décision :
     validation, ni concurrence (D599) ;
 14. la donnée en avance sur le moteur est refusée (D93) ;
 15. une alerte de sécurité ne peut se taire — le seuil absent = le
-    défaut global (D51).
+    défaut global (D51) ;
+16. le chat ne sait jamais plus que l'utilisateur qui l'interroge —
+    aucun droit propre au chat, les droits sont ceux des composantes
+    de la description (D960) ; rien de personnel ne quitte l'instance
+    sans anonymisation, hors les données du profil connecté ; aucun
+    échange — question ou réponse — sans trace (D957–D959).
 
 ## Les points ouverts
 
@@ -588,10 +603,10 @@ la rétention du résultat à l'administration (D906).
 
 **Renvoyé :**
 
-- la question 10 du cadrage du cas 3 (l'authentification de
+- la question 10 du cadrage du cas 5 (l'authentification de
   l'entreprise, les groupes et les strates « de l'opérateur aux
-  dirigeants ») **reste au cas** — usecases/03_entrepot.md, « nous
-  verrons sur le cas 3 en cours de description ».
+  dirigeants ») **reste au cas** — usecases/05_entrepot.md, « nous
+  verrons sur le cas 3 [5] en cours de description ».
 
 **Jamais abordés — le domaine 7 (l'architecture technique, Q7) :**
 

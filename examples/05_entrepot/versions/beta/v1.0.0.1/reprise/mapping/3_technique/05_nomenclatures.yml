@@ -1,0 +1,28 @@
+# Les nomenclatures
+NOMENC:
+  description: >-
+    Les lignes de nomenclature, composition des produits fabriqués, semi-finis et fantômes : le produit se retrouve
+    parmi les dérivés de l'article par son identité, et une ligne dont le produit n'en est pas un est une anomalie. Un
+    composant peut porter sa propre nomenclature. Les temps sont des heures décimales ; la validité est une période dont
+    le début précède la fin.
+  to: technique.nomenclature
+  parent:
+    article: { code: NOKTCODPF, complement: NOKTCOMPF }
+  fields:
+    numero:      NOKNLIGNOM
+    composant:   { code: NOCTCODECP, complement: NOCTCOMCPT }
+    designation: NOCTLIBCOM
+    quantite:    NOCNQTECOM
+    unite:       NOCTUNITE
+    rendement:   NOCNRENDT
+    operation:         NOCTCODOPE
+    jalon:             integer(NOCNJALON)
+    temps_preparation: duration(NOCNTPSPRE, h)
+    temps_ouverture:   duration(NOCNTPSOUV, h)
+    temps_attente:     duration(NOCNTPSATT, h)
+    nombre_ouvriers:   NOCNBREOUV
+    validite:          period(NOCJDEBVAL, NOCJFINVAL)
+  report:
+    when: [migration]
+    to: [bureau_etudes]
+    by: [notification, mail]

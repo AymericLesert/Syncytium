@@ -52,7 +52,7 @@ droits à [rights.md](rights.md).*
 | `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |
-| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) | D141–D142, D357, D841–D842 |
+| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; **toute entité en porte une**, la sienne ou celle de sa racine, que les dérivés conservent (D1035/D1039) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) | D141–D142, D357, D841–D842 |
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
@@ -60,7 +60,7 @@ droits à [rights.md](rights.md).*
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
 
-L'exemple — le véhicule (`examples/01_vehicule/`) :
+L'exemple — le véhicule (`examples/03_vehicule/`) :
 
 ```yaml
 name: vehicule
@@ -69,13 +69,20 @@ label: "{nom}"
 identity: [nom]
 states: statut
 
-fields: fields.yml
-operations: operations.yml
-gui: gui.yml
+fields: ~{fields.yml}             # la référence de fichier explicite (D956)
+operations: ~{operations.yml}
+gui: ~{gui.yml}
 
 validation:
   - date_vente >= date_achat if date_vente != null
 ```
+
+**Le cumul de fichiers** (D968) : une propriété à carte peut porter
+une liste de références en bloc — `fields:` suivi de `- ~{commun.yml}`,
+`- ~{propre.yml}`, ou d'une carte en ligne — fusionnées dans l'ordre ;
+la même clé deux fois est une surcharge, le dernier l'emporte, une
+alerte levée à l'ingestion ; le pattern y vaut (D806). Jamais en flux
+(D956).
 
 ## Les champs — `fields.yml`
 
@@ -98,6 +105,8 @@ km_initial:
 | la propriété | la nature | D |
 |---|---|---|
 | `type:` | le type du catalogue ([types.md](types.md)) — les bornes au nom (`text[..40]`, `integer[0..]`, `date[yyyy-mm]`) ; **la référence** = le nom d'une entité (`transport.revision`) ; **la composition** = `list of <entité>` (le parent déclare, l'enfant ne déclare rien — l'accès montant `owner`) ; **l'association** = `association with <entité>[.<champ>]` | D362, D366, D394–D402, D760–D762 |
+| `sort:` | **le tri d'une liste calculée** — sur une association dérivée (D405), les clés de tri dans l'ordre (`sort: [owner.date, owner.numero]`) ; « le tri est porté par la liste calculée » : `first()`/`last()` sans argument rendent l'élément en tête ou en queue (`commandes_vente.last().client`) ; nommée `order:` par D997, renommée `sort:` par D1017 pour porter le mot de la méthode `sort(…)` | D997, D1017 |
+| `group:` | **le « group by » d'une liste calculée** — sur une association dérivée (D405), les champs de groupement (`group: [emplacement]`) : « le group by devient une propriété de l'association au même titre que le sort by » ; l'association livre une cellule par combinaison, un agrégat dessus s'évalue par cellule et rend l'hypercube aux dimensions du group (`stock_par_emplacement: mouvements_par_emplacement.sum(…)`) ; les méthodes `group(champ, …)` et `sort(champ, …)` sont les formes en ligne (D1015/D1017) | D1016, D1017 |
 | `required:` | le champ obligatoire — le nul retiré | D373 |
 | `default:` | la valeur de naissance (le statut naît à son `default:` — D424) | D424 |
 | `unchanged:` | `true` : le champ possédé par la cible — la migration ne l'écrit pas, il naît à son `default:` et garde sa valeur, l'écran de saisie reste libre ; une règle de migration qui l'alimente = une erreur d'ingestion ; `false` par défaut | D941 |
@@ -112,7 +121,7 @@ km_initial:
 | `filter:` / `check:` | sur une référence — le filtre des candidats (l'origine par `me.`), le contrôle `selection` (défaut) \| `immutable` | D394–D396 |
 | `currencies:`, `units:`, `decimals:`… | les facettes propres à chaque type — la fiche du type fait foi ([types.md](types.md)) | D391 |
 
-**L'ordre du fichier — la convention de lisibilité** (le cas 1) :
+**L'ordre du fichier — la convention de lisibilité** (le cas 4) :
 
 - les fichiers **aérés** — les accolades `{ }` dépliées en bloc, une
   ligne vide entre deux champs ;
@@ -155,12 +164,12 @@ le tout (D439). Les fiches : [composants.md](composants.md).
 
 ## L'exemple fil rouge
 
-Le cas 1 (`examples/01_vehicule/`) déroule l'entité entière :
+Le cas 3 (`examples/03_vehicule/`) déroule l'entité entière :
 `vehicule` (l'identité, le statut Création → Actif → Clôture, le
 financement à plat, le bilan calculé, le formulaire à six onglets,
 la liste en widgets), ses quatre compositions (`consommation`,
 `entretien`, `revision`, `echeance` — l'édition en ligne, les
 formulaires par défaut), le dashboard d'accueil du module. La banque
-(`examples/02_banque/`) montre la recherche déclarée (`searchable:`),
+(`examples/04_banque/`) montre la recherche déclarée (`searchable:`),
 les opérations à formulaire d'appel et les montants à devise portée
 (`amount` — quand la devise a un sens métier, D771).

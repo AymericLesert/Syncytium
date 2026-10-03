@@ -1,0 +1,18 @@
+# La description de l'environnement
+description: L'environnement d'exécution du poste du foyer
+
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; le storage legacy sert la reprise.
+storage: database
+
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal.
+logging: ~{logging.yml}
+
+# Le nettoyage des fichiers
+# Les règles de rétention de l'environnement : le journal.
+cleanup: ~{cleanup.yml}
+
+# Les connecteurs
+# La base, l'authentification, le mail et le dossier des classeurs.
+connectors: ~{connectors.yml}

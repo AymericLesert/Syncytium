@@ -1,0 +1,5 @@
+# L'environnement de production
+production: ~{production/production.yml}
+
+# L'environnement de développement
+staging: ~{staging/staging.yml}

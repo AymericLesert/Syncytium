@@ -1,0 +1,69 @@
+# La saisie
+
+numero:
+  type: integer[1..]
+  required: true
+  label: N°
+  hint: Le rang dans la vie du véhicule — la première ligne part du kilométrage initial.
+
+date:
+  type: date
+  required: true
+  label: Date
+
+total_km:
+  type: integer[0..]
+  required: true
+  label: Kilométrage compteur
+  hint: Le compteur du tableau de bord au moment du ravitaillement.
+
+quantite:
+  type: decimal
+  required: true
+  label: Quantité
+  hint: Les litres ou les kWh du ravitaillement, selon le véhicule.
+  description: La valeur seule ; l'unité est au type du véhicule.
+
+prix_unitaire:
+  type: decimal
+  label: Prix unitaire
+  hint: Le prix du litre ou du kWh.
+  description: La devise est visuelle, celle du véhicule.
+
+# Les champs calculés — les formules du classeur, colonne par colonne
+
+prix_total:
+  type: decimal
+  formula: quantite * prix_unitaire
+  label: Prix total
+
+nb_jours:
+  type: duration
+  formula: date - owner.consommations[me.numero - 1].date if numero > 1
+  label: Nb de jours
+  hint: Depuis le ravitaillement précédent.
+  description: La première ligne reste nulle, comme au classeur ; la précédente s'atteint par la clé.
+
+km:
+  type: integer
+  formula: total_km - (owner.km_initial if numero = 1 else owner.consommations[me.numero - 1].total_km)
+  label: Km parcourus
+  hint: Depuis le ravitaillement précédent.
+  description: La première ligne part du compteur au retrait ; la précédente s'atteint par la clé.
+
+conso_100:
+  type: decimal
+  formula: 100 * quantite / km
+  label: Aux 100 km
+  hint: La consommation de l'intervalle — litres ou kWh aux 100 km.
+
+km_prevu:
+  type: decimal
+  formula: >-
+    ((owner.date_vente if owner.date_vente != null and owner.date_vente < date else date) - owner.date_achat).months
+    * owner.km_annuel / 12
+  label: Km prévu
+  hint: Le prorata du forfait annuel de la LOA depuis l'achat.
+  description: >-
+    Le classeur approxime une ligne à un mois ; l'intention est tenue : les mois écoulés depuis l'achat, bornés à la
+    vente, fois le douzième du forfait. Sans forfait, la colonne reste nulle.

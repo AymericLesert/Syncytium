@@ -33,7 +33,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
 ## L'inventaire (D456)
 
 - **Les surfaces** : `form` · `summary` · `wizard` · `widget` · `list`
-  · `dashboard` · `template` ;
+  · `dashboard` · `template` · `chat` (la huitième, au socle — D957) ;
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
   saut de page) · `sections` (l'organisateur — D489) · `section` (le regroupement potentiellement nommé) ·
   `tabs`/`tab` ;
@@ -79,7 +79,6 @@ Quatre règles transversales l'allègent :
 | `text` | `text` (mono/multi-ligne déduit D361, `shortcut` D464) | R3 si `values:` ; `qrcode`/`barcode` (la sortie — D300/D542) |
 | `integer` | `number` (masque D372) | `calculator` ; le stepper [-]/[+] (D269) ; R2 si borné ; R3 si `values:` |
 | `decimal` | `number` (décimales, storage D378) | `calculator` ; R2 si borné ; R3 si `values:` |
-| `duration` | `number` masqué (la virgule en centièmes — D380) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `date` | `calendar` (la nature au crochet D381) | — |
 | `time` | `clock` | — |
 | `datetime` | **`calendar` + `clock`** — « la combinaison des 2 composants » (D499) | — |
@@ -97,7 +96,8 @@ Quatre règles transversales l'allègent :
 |---|---|---|
 | `amount` | `number` (la devise, aligné à droite D443) | `calculator` ; R2 si borné |
 | `percentage` | `number` (le % post-libellé D273) | `gauge` (le choix naturel 0..100 — D274), `fuel`, `slider` |
-| `measure` | `number` + l'unité (les trois régimes D391) | `calculator` |
+| `measure` | `number` + l'unité (les trois régimes D391) ; **la matrice de conversion visible** (D980) | `calculator` |
+| `duration` | **un composé (D981)** — `number` masqué (la virgule en centièmes — D380) + l'unité ; **la matrice de conversion visible** (D980) | `calculator` **sur la base de deux `clock`** — le début, la fin, la différence (D499) |
 | `phone` | `text` masqué (national par défaut D391) | — |
 | `geolocation` | `map` (la mini-carte, le pointage D294) | — |
 | `period` | les deux calendriers liés (début ≤ fin D391) | — |
@@ -379,8 +379,16 @@ gui:
 8. **États et interactions** — grisée si `readonly`/droits ; le refus
    des bornes et validations affiché (D307) ; en recherche : `strict` /
    **`range`** (la plage, l'usage roi du nombre) / `mutualizable` par
-   la forme affichée (D369/D371) ;
-9. **Décisions fondatrices** — D272–D273, D370–D373, D447 ;
+   la forme affichée (D369/D371) ; **pour `measure` et `duration`, la
+   matrice de conversion visible** (D980 — « la facette de saisie doit
+   permettre de visualiser la matrice et les règles de conversion ») :
+   à la demande, le volet du composant montre la matrice du champ sur
+   cet enregistrement — les unités connues et apportées (D978), les
+   coefficients, les chemins de transitivité (D979) ; l'unité de la
+   saisie se choisit parmi celles de la matrice ; une unité nouvelle se
+   déclare avec son coefficient vers une connue — *la forme du volet
+   (l'icône post-zone, l'écho de D563 ; le tableau) est en proposition* ;
+9. **Décisions fondatrices** — D272–D273, D370–D373, D447, D978–D980 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2290,8 +2298,11 @@ charts:
 2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
    valeur encodée, lisible à la machine : l'étiquette, le document,
    l'écran ;
-3. **Types servis** — les champs à valeur textuelle — le texte, le
-   compteur, l'`uuid`, la référence… : **la conversion en texte du
+3. **Types servis** — **le texte à la facette `barcode:`** (D988 — la
+   valeur est un texte, la facette dit ce qu'il encode et le valide ;
+   le composant en est le défaut en lecture, la nature venant de la
+   facette) ; et les champs à valeur textuelle sans facette — le texte,
+   le compteur, l'`uuid`, la référence… : **la conversion en texte du
    type** (D369) fait la valeur encodée ; en surcharge
    (`component: qrcode`) ;
 4. **Contexte consommé** — le champ, sa valeur convertie (D369), les
@@ -2305,9 +2316,11 @@ charts:
    courte valant l'affichage seul) ; **`labels:`** — « la valeur de
    la référence sous le code-barres » (D545 — *en proposition :*
    `labels: true`, la valeur au format du champ — l'écho D516 ;
-   défaut `false`) ; **le format du code-barres au crochet** (*en
-   proposition :* `barcode[ean13]`, `barcode[code128]` — le défaut
-   `code128`) ;
+   défaut `false`) ; **le format du code-barres** : **de la facette
+   quand le champ en porte une** (D988 — `barcode: ean13` au champ, le
+   composant suit) ; **au crochet pour un champ texte sans facette**
+   rendu en code-barres (*en proposition :* `component:
+   barcode[code128]` — le défaut `code128`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
    **la saisie en mode texte** — la zone du champ, son régime (la
@@ -2319,7 +2332,7 @@ charts:
 8. **États et interactions** — la lecture seule par nature ; masqué
    par la confidentialité ;
 9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
-   D516, D533, D542–D545 ;
+   D516, D533, D542–D545, D988 ;
 10. **Exemple de configuration** —
 
 ```yaml
@@ -2335,10 +2348,11 @@ gui:
             component: qrcode      # la valeur rendue en QR (D300)
             size: 120px            # le carré — 120 px de côté (D543)
         - field[name]
-        - field[price]:
-            component: barcode[ean13]   # le format au crochet (proposition)
+        - field[ean]:              # un texte à la facette barcode: ean13 (D988) : la nature vient de la facette
             size: 200px 60px       # largeur × hauteur (D543)
             labels: true           # la valeur sous les barres (D545)
+        - field[sku]:
+            component: barcode[code128]   # un champ texte rendu en code-barres — le format au crochet (proposition)
 ```
 
 # Les surfaces
@@ -2852,7 +2866,7 @@ templates:
     header:
       height: 40mm
       items:
-        - picture: logo.png        # l'image fixe (D488)
+        - picture: ~{logo.png}     # l'image fixe (D488), la référence explicite (D956)
         - field[number]: { component: qrcode, size: 25mm }   # (D543)
     page:
       - field[customer]
@@ -2867,4 +2881,71 @@ templates:
     page:
       - field[sku]: { component: qrcode, size: 30mm }
       - field[name]
+```
+
+## `chat`
+
+*(La huitième surface — née avec le module `chat` du socle, D957 ;
+la fiche est mienne, en proposition.)*
+
+1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
+   du module `chat` fourni par Syncytium (comme `_migration` D666 et
+   `_administration` D710) ; le menu l'adresse — `_chat[main]` (D439 — le préfixe des modules internes, D1029) ;
+2. **Rôle** — **la question en langue naturelle à la somme des
+   connaissances de l'instance** — les données et leur description —,
+   la réponse d'un modèle de langage déclaré en connecteur (`llm`) ;
+3. **Types servis** — **la session d'échanges** (D959 : `_chat.session`
+   — un utilisateur, **un module**, ses messages) : le fil des
+   messages (le composant `thread` — D295), la question de
+   l'utilisateur, la réponse du modèle ;
+4. **Contexte consommé** — **l'utilisateur et ses droits** (D886, la
+   confidentialité D885, l'audience) : le modèle ne lit l'instance que
+   par l'API au porteur de l'utilisateur ou par la librairie interne
+   des hooks de fonctions — « dans la limite des autorisations
+   accordées à l'utilisateur sur la consultation des données » ; **le
+   module activé** — la session lui est adossée, son mode d'emploi et
+   ses données bornent le contexte (D959) ; le connecteur `llm` de
+   l'environnement (D617) ;
+5. **Propriétés** — `title:` (D449/D465) ; `screen:` (D450/D532) ;
+   `connector:` — le rôle nommé du connecteur `llm` (D617) ;
+6. **Items** — aucun : la surface est le fil et sa saisie ;
+7. **Modes et déclinaisons** — **PC et tablette** : le fil et la
+   saisie en bas (D295) ; **smartphone** : le fil en plein écran ;
+   **le chat suit le module activé** (l'écho de D557 — le tableau de
+   bord change avec le module) : deux modules accessibles = deux
+   sessions, chacune son historique et son contexte (D959) ;
+   **template** : sans objet ;
+8. **États et interactions** — la question part **après
+   l'anonymisation** des champs `personal` (D695/D696, tel quel —
+   D960) de tout le contexte transmis, hors les données du profil
+   connecté et ce que les droits de l'utilisateur sur les composantes
+   de la description lui ouvrent — aucun droit propre au chat ; **la
+   session dure** — sans rétention, « aussi longtemps que possible et
+   jusqu'à ce que l'utilisateur demande sa réinitialisation » (D960) :
+   l'acte **réinitialiser** sur la session (la suppression du socle,
+   qui désactive — D137 ; la session close reste à l'analyse, une
+   nouvelle s'ouvre — mien) ; **chaque
+   question et chaque réponse s'écrivent, avant l'affichage,** dans
+   `_chat.session` et `_chat.message` (historisées — D411), l'événement
+   au journal de sécurité (D925) ; **le connecteur indisponible** :
+   « un message d'erreur sera présenté et les questions ne seront pas
+   possibles » (D626/D959) — la saisie fermée, l'historique lisible ; **le chat répond et fournit
+   les données, il ne met rien à jour** (D958) — « les mises à jour se
+   feront via les interfaces proposées par l'application » : la
+   réponse porte **les liens vers les surfaces de mise à jour** (le
+   formulaire, l'acte — D439/D483), où l'utilisateur agit sous ses
+   propres droits ;
+9. **Décisions fondatrices** — D295, D439, D449–D450, D465, D617,
+   D626, D695–D696, D885–D886, D917–D918, D925, D957 ;
+10. **Exemple de configuration** —
+
+```yaml
+# le module chat du socle — rien à déclarer chez le client, sinon le
+# connecteur llm de l'environnement (connectors.yml — D617)
+assistant:
+  type: llm
+  parameters:
+    provider: …
+    model: …
+    api_key*: ${LLM_API_KEY}       # la marque * — le secret chiffré (D944/D902)
 ```

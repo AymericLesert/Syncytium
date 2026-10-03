@@ -1,0 +1,19 @@
+# La description de l'environnement de développement
+description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI
+
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
+storage: entrepot
+
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal de l'environnement.
+logging: ~{logging.yml}
+
+# Le nettoyage des fichiers
+# Les règles de rétention de l'environnement : le journal, le détail des migrations, les dépôts des watchers.
+cleanup: ~{cleanup.yml}
+
+# Les connecteurs
+# Les bases, les services et les annuaires que l'application utilise dans cet environnement ; leurs paramètres viennent
+# des variables du .env de l'environnement, les secrets y sont chiffrés.
+connectors: ~{connectors.yml}

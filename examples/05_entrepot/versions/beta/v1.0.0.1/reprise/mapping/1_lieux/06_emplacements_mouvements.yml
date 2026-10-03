@@ -1,0 +1,15 @@
+# Les emplacements trouvés dans les mouvements
+MVTSTO:
+  description: >-
+    La troisième origine des emplacements : chaque couple dépôt + emplacement cité par un mouvement lu, y compris les
+    emplacements qui ne servent plus. Un emplacement né ici est inactif et sans libellé.
+  to: stock.emplacement
+  distinct: [MVCTDEPOT, MVCTCODMPL]
+  filter: MVCTDEPOT != null and MVCTCODMPL != null
+  fields:
+    depot: MVCTDEPOT
+    code:  MVCTCODMPL
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

@@ -1,0 +1,19 @@
+# Le format de la configuration
+# La version de la grammaire que parle ce projet : un moteur qui ne la connaît pas refuse le projet à la lecture de
+# cette seule ligne ; un format plus ancien est converti à l'ingestion.
+from: Syncytium-1.0
+
+# Le nom du projet
+# Le « hello world » de Syncytium : l'enquête de satisfaction.
+name: enquete
+
+# La description du projet
+description: L'enquête de satisfaction — récolter rapidement des informations
+
+# Les environnements d'exécution
+# Un seul, le poste du foyer ; rien ne se déduit de l'arborescence, la déclaration fait foi.
+environments: ~{environments/environments.yml}
+
+# Les versions de l'application
+# Le statut d'une version est son dossier : beta ou production.
+versions: ~{versions/versions.yml}

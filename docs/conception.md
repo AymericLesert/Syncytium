@@ -23800,6 +23800,10 @@ avant la synthèse Q16).
   dans la documentation sans obliger le technicien de les décrire.
   Cependant, la release note de la nouvelle version doit inclure
   l'évolution fonctionnelle. » — les évolutions 2 et 3 validées.
+- **2026-10-03 (suite 2) — LA PR #43 FUSIONNÉE.** 222 commits, D929–D1112,
+  de `feature/meta-schema` dans `develop` (le merge d322378) ; la branche
+  continue, à jour de develop. La suite de D1021 : le peaufinage point
+  par point, puis la documentation structurée.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

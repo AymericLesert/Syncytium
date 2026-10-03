@@ -34,9 +34,11 @@ conversions.
 Entre deux versions, **rien ne s'écrit** : le `from:` implicite est
 la version précédente, Syncytium le porte. Les seules écritures :
 
-- **le renommage** — `old_name: <ancien nom>` sur le champ, l'entité
-  ou le module renommé (D651) : le journal de migrations en dérive
-  la translation, la chaîne API continue de servir l'ancien nom ;
+- **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
+  le module renommé (D651/D1111 — la clé de l'origine, la même que
+  celle du format, de la migration et de la sandbox) : le journal de
+  migrations en dérive la translation, la chaîne API continue de
+  servir l'ancien nom ;
 - **la dépréciation en trois temps** (D650) : **l'intention**
   (l'avertissement — l'élément vit encore, son avenir est scellé),
   **l'acte** (déprécié mais il répond encore), **la suppression**
@@ -59,6 +61,12 @@ unit_price:
 - **la création et la suppression de champ** — les règles actées
   persistent (D11–D13 : la substitution vers l'ancien, le défaut
   vers le neuf).
+
+**Les écarts sont documentés par Syncytium (D1112).** La description
+d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
+de la version présente les écarts calculés — les champs ajoutés,
+renommés, retypés, supprimés — sans que le technicien les décrive ;
+les notes de version, elles, portent l'évolution fonctionnelle.
 
 ### La migration du schéma (D673–D674)
 

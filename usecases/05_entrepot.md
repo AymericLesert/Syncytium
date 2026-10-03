@@ -25,7 +25,7 @@ morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
 du modèle, la 1.0.0.0 est promue de `beta/` à `production/` — fait le
 03/10/2026, par le déplacement du dossier — et la 1.0.0.1 vit en `beta/`
 avec trois évolutions : le renommage du nom abrégé du tiers (`nom_court`,
-`old_name: abrege`), la langue du tiers en énuméré, un commentaire du
+`from: abrege` — **D1111**), la langue du tiers en énuméré, un commentaire du
 bureau d'études sur l'article — la migration entre versions après la
 reprise (**D1081**). Les
 sources et les règles sont rangées par module — technique, tiers,

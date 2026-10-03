@@ -15,10 +15,9 @@ nom:
 
 nom_court:
   type: text[..10]
-  old_name: abrege
+  from: abrege
   label: Nom court
   hint: Le nom court, celui des listes.
-  description: Renommé à la 1.0.0.1 — abrege reste connu de l'API et du journal des migrations.
 
 # L'adresse principale
 
@@ -84,9 +83,7 @@ devise:
 langue:
   type: enum
   label: Langue
-  description: >-
-    Un énuméré depuis la 1.0.0.1, à la place d'un texte : la conversion du type reprend les valeurs existantes, qui
-    sont déjà les clés de la liste.
+  hint: La langue des échanges avec le tiers.
   values:
     fr: { label: Français }
     en: { label: Anglais }

@@ -10,16 +10,12 @@ languages: [fr]
 # Les notes de version
 # Ce que la version apporte, en Markdown.
 release-notes: |
-  La seconde version de l'entrepôt, en essai sur le staging : trois évolutions du modèle, qui éprouvent la migration
-  entre deux versions — rien ne s'écrit, Syncytium dérive les transformations des différences avec la 1.0.0.0.
+  La seconde version de l'entrepôt, en essai sur le staging : trois évolutions du modèle.
 
   # Le modèle
-  - Le tiers : le nom abrégé se nomme nom_court, l'ancien nom reste connu ; la langue devient un énuméré — fr, en, de,
-    es — à la place d'un texte.
+  - Le tiers : le nom abrégé devient le nom court ; la langue se choisit dans une liste — français, anglais, allemand,
+    espagnol.
   - L'article : un commentaire du bureau d'études, que l'entrepôt possède — la reprise ne le touche pas.
-
-  # La reprise
-  - Les règles des tiers alimentent nom_court ; la traduction de la langue tombe dans les clés de l'énuméré.
 
 # Les réglages de la version
 # Les types et leurs défauts, les profils de confidentialité.

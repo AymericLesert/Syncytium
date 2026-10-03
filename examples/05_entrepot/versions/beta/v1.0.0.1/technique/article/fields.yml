@@ -257,8 +257,8 @@ commentaire:
   label: Commentaire
   hint: Ce que le bureau d'études sait de l'article et que l'ERP ne porte pas.
   description: >-
-    Nouveau à la 1.0.0.1. La reprise ne l'alimente pas et ne le touche pas : le champ naît à son défaut et garde sa
-    valeur ; la saisie est ouverte au bureau d'études, le module restant en lecture seule.
+    La reprise ne l'alimente pas et ne le touche pas : le champ naît à son défaut et garde sa valeur ; la saisie est
+    ouverte au bureau d'études, le module restant en lecture seule.
 
 # Le stockage de l'article
 

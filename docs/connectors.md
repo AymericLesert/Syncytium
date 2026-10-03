@@ -458,7 +458,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   en trois temps — l'intention, l'acte (l'élément répond encore), la
   suppression par une version — **à documentation obligatoire** (le
   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
-  ou d'un module s'assure par **`old_name:`** ;
+  ou d'un module s'assure par **`from: <ancien nom>`** (D1111) ;
 - **les deux maisons (D652–D653)** : **`source/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude

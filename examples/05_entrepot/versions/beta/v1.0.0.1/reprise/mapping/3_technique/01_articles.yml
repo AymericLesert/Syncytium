@@ -1,0 +1,14 @@
+# Les articles
+ARTICLE:
+  description: >-
+    Les articles qui ne sont pas des dérivés : tous les codes de gestion sauf 01, 09 et 12. Le bloc commun, et le
+    fournisseur par défaut propre à l'article acheté — le compte 1 de PMI.
+  to: technique.article
+  filter: ARCTFATN not in ["01", "09", "12"]
+  fields:
+    - ~{articles/fields.yml}
+    - fournisseur_defaut: ARCTNOFOU1
+  report:
+    when: [migration]
+    to: [bureau_etudes]
+    by: [notification, mail]

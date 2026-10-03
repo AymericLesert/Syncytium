@@ -1,0 +1,42 @@
+# Le numéro de la version
+# Quatre nombres : la majeure, la mineure, l'indice et le build.
+version: 1.0.0.1
+
+# Les langues de l'application
+# La première est la langue par défaut ; ajouter ou retirer une langue fait une nouvelle version. Avec une seule
+# langue, les libellés et les descriptions s'écrivent en texte simple.
+languages: [fr]
+
+# Les notes de version
+# Ce que la version apporte, en Markdown.
+release-notes: |
+  La seconde version de l'entrepôt, en essai sur le staging : trois évolutions du modèle, qui éprouvent la migration
+  entre deux versions — rien ne s'écrit, Syncytium dérive les transformations des différences avec la 1.0.0.0.
+
+  # Le modèle
+  - Le tiers : le nom abrégé se nomme nom_court, l'ancien nom reste connu ; la langue devient un énuméré — fr, en, de,
+    es — à la place d'un texte.
+  - L'article : un commentaire du bureau d'études, que l'entrepôt possède — la reprise ne le touche pas.
+
+  # La reprise
+  - Les règles des tiers alimentent nom_court ; la traduction de la langue tombe dans les clés de l'énuméré.
+
+# Les réglages de la version
+# Les types et leurs défauts, les profils de confidentialité.
+settings: ~{settings.yml}
+
+# Les groupes d'utilisateurs
+# Les strates de l'entreprise, de l'opérateur aux dirigeants.
+groups: ~{groups.yml}
+
+# Les migrations
+# La reprise des données de PMI : la base d'origine, les tables sources, les règles, le rythme.
+migrations: ~{reprise/reprise.yml}
+
+# Les modules de l'application
+# Les quatre domaines de l'entrepôt.
+modules:
+  - ~{technique/technique.yml}
+  - ~{tiers/tiers.yml}
+  - ~{commande/commande.yml}
+  - ~{stock/stock.yml}

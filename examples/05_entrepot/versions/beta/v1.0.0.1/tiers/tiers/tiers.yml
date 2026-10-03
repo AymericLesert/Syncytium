@@ -1,0 +1,29 @@
+# Le tiers
+# Le parent des clients et des fournisseurs : l'ERP les porte sur une même structure, décrite une fois ici — le
+# parent décrit, l'enfant pointe. Les enfants ne redisent rien de ce qui est ici ; la racine porte l'identité, les
+# enfants la conservent.
+name: tiers
+
+# La description de l'entité
+description: >-
+  Un tiers de l'entreprise — l'identité, l'adresse, les coordonnées, les conditions ; le parent des clients et des
+  fournisseurs
+
+# Le visage texte
+label: "{code} — {nom}"
+
+# L'identité
+# Le code, hérité par le client et le fournisseur.
+identity: [code]
+
+# L'historique
+history: true
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# La cohérence des données converties
+validation:
+  - rule: date_modification >= date_creation if date_modification != null
+    message: Le tiers est modifié le {date_modification}, avant sa création le {date_creation}.

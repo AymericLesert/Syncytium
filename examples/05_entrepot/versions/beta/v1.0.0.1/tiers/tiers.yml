@@ -1,0 +1,24 @@
+# Le module tiers
+# Les clients et les fournisseurs de l'ERP, le second module de l'entrepôt. L'ERP les porte sur la même structure : le
+# parent tiers la décrit une fois, le client et le fournisseur en héritent.
+name: tiers
+
+# La description du module
+description: Les tiers de l'entreprise — les clients et les fournisseurs, leurs adresses et leurs contacts
+
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
+allow:
+  create: false
+  update: false
+  delete: false
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier ; le parent tiers vit dans le dossier de son nom, comme chaque entité.
+entities:
+  - ~{tiers/tiers.yml}
+  - ~{client/client.yml}
+  - ~{fournisseur/fournisseur.yml}
+  - ~{adresse/adresse.yml}
+  - ~{contact/contact.yml}

@@ -22,9 +22,12 @@ par les bases du module (D1030–D1080) — le module se lit dans
 [../docs/migration.md](../docs/migration.md), sa déclinaison dans « Le
 morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
 (D1021), le jeu de données construit (D869) et la PR. À la validation
-du modèle, la 1.0.0.0 sera promue de `beta/` à `production/` et une
-1.0.0.1 naîtra en `beta/`, avec de nouveaux champs ou des changements de
-types — la migration entre versions après la reprise (**D1081**). Les
+du modèle, la 1.0.0.0 est promue de `beta/` à `production/` — fait le
+03/10/2026, par le déplacement du dossier — et la 1.0.0.1 vit en `beta/`
+avec trois évolutions : le renommage du nom abrégé du tiers (`nom_court`,
+`old_name: abrege`), la langue du tiers en énuméré, un commentaire du
+bureau d'études sur l'article — la migration entre versions après la
+reprise (**D1081**). Les
 sources et les règles sont rangées par module — technique, tiers,
 commande, stock — ; les règles, dans cinq dossiers numérotés — les lieux, les
 tiers, la technique, les commandes, le stock —, chaque fichier numéroté à
@@ -1244,7 +1247,7 @@ cas = un exemple (D827/D857).
 validé le 08/09 — D882 à D898 —, lié le 09/09, **clos par D899** :
 « la validation définitive se fera après la relecture complète des
 fichiers de configuration ») :
-`versions/beta/v1.0.0.0/` porte `groups.yml` (les cinq strates de
+`versions/production/v1.0.0.0/` (en `beta/` jusqu'à sa promotion) porte `groups.yml` (les cinq strates de
 D859/D882 — production, commercial, achats, direction qui les
 contient — la production remplacée par le bureau d'études et la
 logistique, D1061/D1064 —, administration au degré `administrator`), `settings.yml`

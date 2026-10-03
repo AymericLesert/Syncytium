@@ -1,0 +1,84 @@
+# Le contact
+# Les personnes chez un tiers : une composition du tiers. Les champs nominatifs portent le marquage des données
+# personnelles — l'anonymisation et la rétention savent où frapper ; le premier exemple au RGPD.
+name: contact
+
+# La description de l'entité
+description: Une personne chez un tiers — son rôle et ses coordonnées
+
+# Le visage texte
+label: "{prenom} {nom}"
+
+# L'identité
+# L'identifiant, au sein du tiers.
+identity: [identifiant]
+
+# L'historique
+history: true
+
+# Les champs
+fields:
+
+  identifiant:
+    type: integer[1..]
+    required: true
+    label: Identifiant
+    hint: L'identifiant du contact chez l'ERP.
+
+  civilite:
+    type: enum
+    label: Civilité
+    description: La civilité de l'ERP, traduite par la reprise.
+    values:
+      madame:   { label: Madame }
+      monsieur: { label: Monsieur }
+
+  nom:
+    type: text[..40]
+    required: true
+    rgpd: personal
+    searchable: mutualizable[qui]
+    label: Nom
+
+  prenom:
+    type: text[..40]
+    rgpd: personal
+    label: Prénom
+
+  fonction:
+    type: text[..40]
+    label: Fonction
+    placeholder: Responsable des achats
+    description: Le libellé de la fonction ; la reprise le traduit du code de l'ERP.
+
+  telephone:
+    type: phone
+    rgpd: personal
+    label: Téléphone
+    description: Le premier des numéros de l'ERP ; le portable est le second.
+
+  portable:
+    type: phone
+    rgpd: personal
+    label: Portable
+
+  email:
+    type: email
+    rgpd: personal
+    label: Courriel
+
+  anniversaire:
+    type: date
+    rgpd: personal
+    label: Date de naissance
+    description: Une date de naissance est une donnée personnelle.
+
+  actif:
+    type: boolean
+    required: true
+    default: true
+    label: Actif
+
+  date_creation:
+    type: date
+    label: Créé le

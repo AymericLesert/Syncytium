@@ -1,0 +1,51 @@
+# L'adresse complémentaire
+# Les adresses de livraison et de facturation d'un tiers : une composition du tiers, le numéro l'identifie au sein de
+# son possesseur.
+name: adresse
+
+# La description de l'entité
+description: Une adresse complémentaire d'un tiers — livraison ou facturation
+
+# Le visage texte
+label: "{usage} — {nom}"
+
+# L'identité
+# Le numéro, au sein du tiers.
+identity: [numero]
+
+# L'historique
+history: true
+
+# Les champs
+fields:
+
+  numero:
+    type: integer[1..]
+    required: true
+    label: Numéro
+
+  usage:
+    type: enum
+    required: true
+    label: Usage
+    description: L'usage de l'adresse chez l'ERP, traduit par la reprise vers les trois valeurs de l'exemple.
+    values:
+      livraison:   { label: Livraison }
+      facturation: { label: Facturation }
+      autre:       { label: Autre }
+
+  nom:
+    type: text[..40]
+    label: Nom
+    hint: Le nom de l'adresse — l'établissement, le site.
+
+  adresse:
+    type: geolocation
+    label: Adresse
+    description: >-
+      L'adresse normalisée et ses coordonnées, assemblées par la reprise depuis les lignes de l'ERP ; l'adresse ne porte
+      pas de téléphone.
+
+  date_creation:
+    type: date
+    label: Créée le

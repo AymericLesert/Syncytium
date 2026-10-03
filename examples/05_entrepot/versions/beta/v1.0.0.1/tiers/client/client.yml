@@ -1,0 +1,62 @@
+# Le client
+# L'enfant du tiers : il ne porte que ce qui lui est propre — la commission du représentant, le plafond d'encours,
+# ses commandes de vente. L'identité est celle du tiers, conservée.
+name: client
+
+# La description de l'entité
+description: Un client — le tiers qui achète à l'entreprise
+
+# Le visage texte
+label: "{code} — {nom}"
+
+# Le parent
+inheritance: tiers
+
+# L'historique
+history: true
+
+# Les champs propres au client
+fields:
+
+  representant:
+    type: text[..3]
+    label: Représentant
+    hint: Le code du représentant.
+
+  taux_representant:
+    type: percentage
+    confidentiality: ${settings.confidentiality.direction}
+    label: Commission
+    hint: Le taux de commission du représentant — réservé à la direction.
+
+  encours_maximum:
+    type: amount
+    confidentiality: ${settings.confidentiality.commercial}
+    label: Encours maximum
+    hint: Le plafond d'encours accordé au client.
+    description: Le découvert autorisé, à la devise du tiers.
+
+  code_tarif:
+    type: text[..6]
+    label: Code tarif
+    hint: Le code tarif du client chez l'ERP.
+
+  commandes:
+    type: association with commande.commande_vente if client = me
+    label: Commandes de vente
+    description: >-
+      L'association dérivée, pas une composition du tiers : la vérité reste la référence portée par la commande.
+
+  # Les champs calculés
+
+  nombre_commandes:
+    type: integer
+    formula: commandes.count()
+    label: Commandes
+
+  carnet:
+    type: amount
+    formula: commandes.sum(total if statut = "en_cours")
+    label: Carnet en cours
+    hint: Le total des commandes non soldées.
+    description: Le carnet de commandes en cours, un indicateur du tableau de bord.

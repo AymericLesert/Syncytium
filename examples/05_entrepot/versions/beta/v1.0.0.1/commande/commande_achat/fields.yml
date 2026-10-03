@@ -1,0 +1,103 @@
+# L'identité
+
+numero:
+  type: counter
+  format: "{counter:000000}"
+  label: Numéro
+  description: Un compteur — le type est déclaré, la reprise écrit la valeur.
+
+indice:
+  type: text[..3]
+  required: true
+  default: "000"
+  label: Indice
+  hint: La révision de la commande — 000 à l'origine.
+  description: Les lignes portent l'indice de leur commande.
+
+# Le fournisseur et les références
+
+fournisseur:
+  type: tiers.fournisseur
+  required: true
+  label: Fournisseur
+
+reference_fournisseur:
+  type: text[..20]
+  label: Référence fournisseur
+  hint: L'accusé de réception du fournisseur.
+
+# Les dates
+
+date:
+  type: date
+  required: true
+  label: Date
+  hint: La date de la commande.
+
+date_echeance:
+  type: date
+  label: Échéance
+
+derniere_reception:
+  type: date
+  label: Dernière réception
+  hint: La date du dernier bon de réception.
+
+derniere_facture:
+  type: date
+  label: Dernière facture
+
+# Les conditions
+
+devise:
+  type: text[3]
+  required: true
+  label: Devise
+  description: La devise de la commande ; les lignes la lisent par leur possesseur.
+
+taux_change:
+  type: decimal
+  decimals: 6
+  label: Taux de change
+
+# La composition
+
+lignes:
+  type: list of ligne_achat
+  label: Lignes
+  description: La suppression de la commande les emporte ; la suppression d'un article ne les touche pas.
+
+# Les champs calculés
+
+statut:
+  type: enum
+  formula: >-
+    "non_traite" if lignes.count(statut != "non_traite") = 0
+    else "soldee" if lignes.count(statut not in ["soldee", "terminee"]) = 0
+    else "en_cours"
+  label: Statut
+  description: >-
+    Jamais repris, déduit des lignes : non traitée tant qu'aucune ligne ne l'est, soldée quand toutes le sont — soldée
+    ou terminée —, en cours entre les deux ; les cas s'enchaînent par « valeur if condition else … ».
+  values:
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    soldee:     { label: Soldée }
+
+total:
+  type: amount
+  formula: lignes.sum(montant)
+  confidentiality: ${settings.confidentiality.financier}
+  label: Total
+  description: La somme des montants des lignes ; les montants d'achat sont réservés aux achats et à la direction.
+
+nombre_lignes:
+  type: integer
+  formula: lignes.count()
+  label: Lignes
+
+reste_a_recevoir:
+  type: decimal
+  formula: lignes.sum(quantite - quantite_recue)
+  label: Reste à recevoir
+  hint: Les quantités commandées non encore reçues, toutes lignes confondues.

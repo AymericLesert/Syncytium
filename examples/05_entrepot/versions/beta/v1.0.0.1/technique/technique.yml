@@ -1,0 +1,25 @@
+# Le module technique
+# Les données techniques de l'ERP — les articles, leurs nomenclatures, leurs tarifs — ; le premier des quatre modules de
+# l'entrepôt.
+name: technique
+
+# La description du module
+description: Les données techniques — les articles, leurs nomenclatures et gammes, leurs tarifs
+
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
+allow:
+  create: false
+  update: false
+  delete: false
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier. L'article est le parent de ses trois dérivés — le produit fabriqué, le
+# semi-fini et le fantôme —, qui portent la nomenclature.
+entities:
+  - ~{article/article.yml}
+  - ~{fabrique/fabrique.yml}
+  - ~{semi_fini/semi_fini.yml}
+  - ~{fantome/fantome.yml}
+  - ~{nomenclature/nomenclature.yml}

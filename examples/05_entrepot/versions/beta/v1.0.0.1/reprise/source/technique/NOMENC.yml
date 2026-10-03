@@ -1,0 +1,115 @@
+# Le nom de la table
+# La vue NOMENC de PMI, décrite comme une table, 52 colonnes : la nomenclature et la gamme réunies, une ligne par
+# composant ou opération.
+name: NOMENC
+
+# La description de la table
+description: Les lignes de nomenclature de PMI — la source de technique.nomenclature
+
+# Le périmètre lu
+# La seule société 100.
+filter: NOKTSOC = "100"
+
+# L'identité d'une ligne
+# Le produit et le numéro de ligne.
+identity: [NOKTCODPF, NOKTCOMPF, NOKNLIGNOM]
+
+# Le rapport des anomalies de la table
+# Le bureau d'études corrige les nomenclatures à l'origine.
+report:
+  when: [migration]
+  to: [bureau_etudes]
+  by: [notification, mail]
+
+# Le possesseur d'une ligne
+# L'article produit, par la référence nommée PRODUIT ; une ligne dont le produit est inconnu est isolée.
+parent: ARTICLE[PRODUIT]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  NOKTSOC:
+    type: text[..3]
+    description: La société ; seule la société 100 est lue.
+
+  NOKTCODPF:
+    type: ARTICLE[PRODUIT].ARKTCODART
+    description: Le code de l'article produit, que la ligne compose.
+
+  NOKTCOMPF:
+    type: ARTICLE[PRODUIT].ARKTCOMART
+    description: Le complément du code de l'article produit.
+
+  NOKNLIGNOM:
+    type: integer
+    description: Le numéro de la ligne dans la nomenclature.
+
+  NOCTNATCPT:
+    type: ignored
+    description: La nature numérique de la ligne, sans usage dans l'entrepôt.
+
+  NOCTYPECPT:
+    type: ignored
+    description: Le type du composant, qui est celui de l'article référencé.
+
+  NOCTCODECP:
+    type: ARTICLE[COMPOSANT].ARKTCODART
+    description: Le code de l'article composant, par la référence nommée COMPOSANT — un autre article que le produit.
+
+  NOCTCOMCPT:
+    type: ARTICLE[COMPOSANT].ARKTCOMART
+    description: Le complément du code de l'article composant.
+
+  NOCTCODOPE:
+    type: text[6]
+    description: Le code de l'opération de gamme.
+
+  NOCNJALON:
+    type: decimal
+    description: Le jalon de la ligne.
+
+  NOCNTPSATT:
+    type: decimal
+    description: Le temps d'attente.
+
+  NOCNBREOUV:
+    type: integer
+    description: Le nombre d'ouvriers.
+
+  NOCNTPSOUV:
+    type: decimal
+    description: Le temps d'ouverture.
+
+  NOCTLIBCOM:
+    type: text[40]
+    description: La désignation du composant sur la ligne.
+
+  NOCNQTEUNI:
+    type: ignored
+    description: "Toujours nulle : la quantité se lit en NOCNQTECOM."
+
+  NOCTUNITE:
+    type: text[2]
+    description: L'unité de la quantité.
+
+  NOCNTPSPRE:
+    type: decimal
+    description: Le temps de préparation.
+
+  NOCNRENDT:
+    type: decimal
+    description: Le rendement.
+
+  NOCNQTECOM:
+    type: decimal
+    description: La quantité du composant.
+
+  NOCJDEBVAL:
+    type: date_pmi
+    description: Le début de validité de la ligne.
+
+  NOCJFINVAL:
+    type: date_pmi
+    description: La fin de validité de la ligne.

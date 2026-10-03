@@ -1,0 +1,24 @@
+# Le module commande
+# Les commandes de vente et d'achat, le troisième module de l'entrepôt : le lien complet entre les articles, les
+# clients et les fournisseurs. Sans héritage : les deux commandes sont séparées, chacune avec ses lignes — la structure
+# se répète, c'est le prix du choix.
+name: commande
+
+# La description du module
+description: Les commandes — de vente aux clients, d'achat aux fournisseurs — et leurs lignes
+
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
+allow:
+  create: false
+  update: false
+  delete: false
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier ; chaque commande précède ses lignes.
+entities:
+  - ~{commande_vente/commande_vente.yml}
+  - ~{ligne_vente/ligne_vente.yml}
+  - ~{commande_achat/commande_achat.yml}
+  - ~{ligne_achat/ligne_achat.yml}

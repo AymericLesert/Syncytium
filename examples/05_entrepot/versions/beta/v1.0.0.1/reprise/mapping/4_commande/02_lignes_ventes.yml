@@ -1,0 +1,33 @@
+# Les lignes des commandes de vente
+LCOMCLI:
+  description: >-
+    Les lignes des commandes de vente, composition de l'entête : le possesseur est la révision de la commande, son
+    numéro et son indice ; l'identité d'une ligne est son numéro. Les prix sont à la devise de la ligne, les délais des
+    jours, la semaine se déduit du jour. Le prix de revient n'est pas repris : il se déduit. Un statut hors de la liste
+    est une anomalie. L'entête en anomalie emporte ses lignes ; une ligne en anomalie tombe seule, l'entête entre sans
+    elle.
+  to: commande.ligne_vente
+  parent:
+    commande_vente: { numero: numero, indice: LCKTPSF }
+  fields:
+    numero:  ligne
+    article: { code: LCCTCODART, complement: LCCTCOMART }
+    quantite:          LCCNQTECDE
+    unite:             LCCTUNICDE
+    quantite_expediee: LCCNQTEEXP
+    quantite_lancee:   LCCNQTELAN
+    prix_brut:    amount(LCCNPUBRUT, LCCTDEVISE)
+    prix_net:     amount(LCCNPUNET, LCCTDEVISE)
+    delai_demande:     LCCJDELDDE
+    delai_accuse:      LCCJDELARR
+    delai_expedition:  LCCJDELEXP
+    delai_fabrication: LCCJDELFAB
+    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
+  validation:
+    - rule: me.unite in me.article.unite.units
+      description: L'unité de la ligne est l'une de celles que son article connaît.
+      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

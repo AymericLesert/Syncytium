@@ -23776,6 +23776,17 @@ avant la synthèse Q16).
   pour un jeu de valeur (plus lisible). le else se lit de gauche à
   droite ou des parenthèses sont à positionner pour modifier la
   priorité ».
+- **2026-10-03 — LA PROMOTION (D1081 exécutée).** « Faisons la promotion
+  d'une version. Et, pour le moment, ne traitons pas de jeux de données
+  (cela viendra lorsque nous testerons les cas d'usage après le
+  développement). » — la 1.0.0.0 du cas 5 déplacée de `beta/` à
+  `production/` (92 fichiers renommés, le pattern de production n'est
+  plus vide) ; la 1.0.0.1 copiée en `beta/` avec trois évolutions
+  (miennes, à valider) : `tiers.nom_court` avec `old_name: abrege`,
+  `tiers.langue` en énuméré fr/en/de/es, `article.commentaire` —
+  l'enrichissement du bureau d'études ; 197 fichiers atteints, aucun
+  orphelin. Le jeu de données (D869) renvoyé aux tests après le
+  développement.
 - **2026-08-19 (suite 5 — pause)** — La séance s'arrête sur le
   modèle du cas 4 arrêté (D756–D773 : les cinq cas, la maison
   usecases/, le dépôt examples/01_domestic/ aux huit fichiers, dix

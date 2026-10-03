@@ -1,0 +1,64 @@
+# L'emplacement
+# Le référentiel des emplacements, construit à quatre origines comme le dépôt : les paramètres de l'ERP — les
+# emplacements actifs, avec leur libellé —, les fiches articles, les mouvements et les niveaux de stock non nuls ; les
+# valeurs distinctes de chaque origine. L'identité d'un emplacement est le couple dépôt + code.
+name: emplacement
+
+# La description de l'entité
+description: Un emplacement de stockage dans un dépôt
+
+# Le visage texte
+label: "{depot} / {code}"
+
+# L'identité
+# Le couple dépôt + code.
+identity: [depot, code]
+
+# L'historique
+history: true
+
+# Les champs
+fields:
+
+  depot:
+    type: stock.depot
+    required: true
+    label: Dépôt
+    description: L'emplacement appartient à un dépôt — la référence, part de l'identité.
+
+  code:
+    type: text[..10]
+    required: true
+    label: Code
+
+  libelle:
+    type: text[..40]
+    label: Libellé
+    description: Connu par les paramètres seulement.
+
+  actif:
+    type: boolean
+    required: true
+    default: false
+    label: Actif
+    description: >-
+      Les paramètres sont les emplacements actifs ; né des mouvements, des fiches articles ou des niveaux, l'emplacement
+      naît inactif, à son défaut.
+
+  mouvements_par_article:
+    type: association with stock.mouvement if emplacement = me
+    group: [article]
+    label: Mouvements par article
+    description: >-
+      Le second accès aux mouvements, la vue dérivée groupée par article : une cellule par article passé par cet
+      emplacement.
+
+  # Les champs calculés
+
+  stock_par_article:
+    type: 'list of [article: technique.article]'
+    formula: 'mouvements_par_article.sum(sens.select(entree: quantite, sortie: -quantite))'
+    label: Stock par article
+    description: >-
+      La quantité par article déduite des mouvements — la somme par cellule de l'association groupée, signée par le
+      sens, chaque cellule dans l'unité de stock de son article.

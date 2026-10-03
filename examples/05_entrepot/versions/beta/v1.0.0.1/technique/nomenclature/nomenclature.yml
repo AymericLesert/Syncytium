@@ -1,0 +1,25 @@
+# La nomenclature
+# Une ligne de la nomenclature ou de la gamme d'un article, les deux réunies comme chez l'ERP : la nature de la ligne
+# se déduit du type de l'article référencé — la main d'œuvre et la sous-traitance font l'opération, le reste le
+# composant. La composition des trois dérivés de l'article qui portent une nomenclature ; le composant référence un
+# article de tout type, la composition se référence elle-même et le moteur en vérifie l'acyclicité. L'indice de
+# révision des commandes ne la couvre pas : l'historique la porte.
+name: nomenclature
+
+# La description de l'entité
+description: Une ligne de la nomenclature ou de la gamme d'un article — un composant ou une opération
+
+# Le visage texte
+label: "{numero} — {designation}"
+
+# L'identité
+# Le rang de la ligne au sein de l'article : owner.nomenclature[n].
+identity: [numero]
+
+# L'historique
+history: true
+
+# Les champs
+# Rangés par groupe. Aucune règle entre champs : le composant est obligatoire, la nature se déduit, et l'ordre des
+# bornes de la validité est intégré au type période.
+fields: ~{fields.yml}

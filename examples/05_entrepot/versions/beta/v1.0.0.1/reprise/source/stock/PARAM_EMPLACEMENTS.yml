@@ -1,0 +1,63 @@
+# Le nom de la table
+# Les emplacements de stock paramétrés : le paramètre 170 de la table générique des paramètres de PMI.
+name: PARAM_EMPLACEMENTS
+
+# La table réelle
+# PARAM, la table des paramètres ; chaque paramètre lu en devient une table à son nom, avec son filtre.
+alias: PARAM
+
+# La description de la table
+description: Le paramètre 170 de PMI — la source des emplacements actifs et de leur libellé
+
+# Le périmètre lu
+# La société 100 et le seul paramètre 170, celui des emplacements.
+filter: PAKTSOC = "100" and PAKTNOPAR = "170"
+
+# L'identité d'une ligne
+# La clé de la table des paramètres.
+identity: [PAKTSOC, PAKTETS, PAKTNOPAR, PAKTCODE]
+
+# Le rapport des anomalies de la table
+# La logistique corrige les emplacements à l'origine.
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  PAKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  PAKTETS:
+    type: text[2]
+    description: L'établissement.
+
+  PAKTNOPAR:
+    type: text[3]
+    description: Le numéro de paramètre ; 170, les emplacements de stock.
+
+  PAKTCODE:
+    type: text[24]
+    description: Le code du paramètre.
+
+  PACTEXT140:
+    type: text[255]
+    description: Le libellé de l'emplacement.
+
+  PACTEXT210:
+    type: text[40]
+    description: Le couple dépôt.emplacement, découpé par les deux colonnes calculées.
+
+  # Les colonnes calculées
+  depot:
+    description: Le dépôt, lu avant le point du couple.
+    formula: extract(PACTEXT210, '^([^.]+)\.')
+
+  emplacement:
+    description: L'emplacement, lu après le point du couple.
+    formula: extract(PACTEXT210, '\.(.+)$')

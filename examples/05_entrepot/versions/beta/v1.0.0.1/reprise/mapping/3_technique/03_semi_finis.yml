@@ -1,0 +1,11 @@
+# Les produits semi-finis
+ARTICLE:
+  description: >-
+    Les produits semi-finis, au code de gestion 09, qui portent une nomenclature : le bloc commun.
+  to: technique.semi_fini
+  filter: ARCTFATN = "09"
+  fields: ~{articles/fields.yml}
+  report:
+    when: [migration]
+    to: [bureau_etudes]
+    by: [notification, mail]

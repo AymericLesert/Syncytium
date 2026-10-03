@@ -1,0 +1,21 @@
+# La ligne de commande d'achat
+# La composition de la commande d'achat, la même structure que la ligne de vente. L'identité au sein de la commande :
+# le numéro de ligne ; l'indice de la commande est la clé du possesseur. La ligne référence l'article.
+name: ligne_achat
+
+# La description de l'entité
+description: Une ligne de commande d'achat — l'article, les quantités, le prix, les délais
+
+# Le visage texte
+label: "{numero} — {article}"
+
+# L'identité
+# Le numéro de ligne, au sein de la commande.
+identity: [numero]
+
+# L'historique
+history: true
+
+# Les champs
+# Rangés par groupe. Aucune validation sur les quantités — à titre indicatif, les cas limites s'observent.
+fields: ~{fields.yml}

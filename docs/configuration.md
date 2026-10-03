@@ -242,6 +242,68 @@ fields:
   date_creation: date_pmi            # un type dérivé (D992), la forme courte
 ```
 
+### 2.9 Les deux formes d'une collection — la liste et la substitution (D1113)
+
+Les collections **`versions`, `modules` et `entities`** s'écrivent de **deux
+manières équivalentes** ; le modèle décrit est le même.
+
+1. **La liste de valeurs** — le niveau est nommé (`versions:`, `modules:`,
+   `entities:`) et chaque élément porte son identifiant dans une propriété :
+   **`version:`** pour une version, **`name:`** pour un module ou une entité.
+   C'est la forme du cas 2 et des autres exemples ; elle reste vraie.
+2. **La substitution** — le niveau disparaît et **l'identifiant devient la
+   clé**, à la place de la propriété : `1.0.0.0:` remplace `- version: 1.0.0.0`,
+   `annuaire:` ou `personne:` remplace `- name: …`. C'est la forme du tiny
+   hello world (cas 1), une simplification d'écriture.
+
+```yaml
+# la liste de valeurs
+versions:
+  - version: 1.0.0.0
+    modules:
+      - name: annuaire
+        entities:
+          - name: personne
+            fields:
+              nom: text[..40]
+```
+
+```yaml
+# la substitution — le même modèle, sous un statut
+1.0.0.0:
+  annuaire:
+    personne:
+      fields:
+        nom: text[..40]
+```
+
+Les deux formes se valent à l'ingestion : un fichier se lit, se compare et se
+documente de la même façon quelle que soit l'écriture.
+
+**Dans la substitution, le niveau n'est plus nommé : le moteur le déduit de la
+position** — sous un statut, les clés sont des versions ; sous une version, des
+modules ; sous un module, des entités. **Au même niveau, les clés réservées
+(les propriétés du niveau : `environment`, `release-notes`, `description`,
+`languages`…) sont celles du moteur, toutes les autres sont des identifiants** ;
+un identifiant qui reprend une clé réservée de son niveau est refusé à
+l'ingestion.
+
+### 2.10 Les défauts du poste (D1114)
+
+Ce qu'un projet n'écrit pas, le système le porte. Un projet minimal — le tiny
+hello world (cas 1) — ne déclare que son modèle et un environnement :
+
+- **La journalisation** — sans `logging:`, les traces vont sur **la sortie
+  standard, en mode `verbose`**.
+- **Le nettoyage** — sans `cleanup:`, rien : la sortie standard ne laisse aucun
+  fichier à nettoyer.
+- **La langue** — sans `languages:`, **la langue est la localisation définie sur
+  le poste** ; les textes s'écrivent alors en texte simple (D1101).
+- **Le connecteur** — sans bloc `connectors:`, `storage: sqlite` désigne un
+  connecteur implicite dont le nom, la famille et la classe sont `sqlite`
+  (D1093 : le type ne s'écrit pas quand le nom est la famille).
+- **La première clé** — `from: Syncytium-1.0` reste écrite (D1083).
+
 ## 3. L'arbre
 
 La chaîne des déclarations, du sommet à la feuille — **rien ne se
@@ -357,7 +419,7 @@ connectors: ~{connectors.yml}
 ### 3.3 `versions/` — le contenu versionné, le cycle de vie en dossiers
 
 **Le statut d'une version est son emplacement** (D338/D340) ; **seuls
-les statuts utilisés se déclarent dans `versions.yml`** (D804) : quatre
+les statuts utilisés se déclarent dans `versions.yml`** (D804) — aucun n'est obligatoire : `production` peut se déclarer sans `beta` (D1115) : quatre
 dossiers — `beta/`, `production/`, `deprecated/`, `forbidden/` — et
 `sandbox/` (D907) ; **déposer dans un dossier = publier pour cet
 environnement** ; les transitions sont des gestes de fichier,

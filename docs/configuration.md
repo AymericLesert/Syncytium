@@ -13,8 +13,9 @@ chaque élément vit dans son artefact** — [entity.md](entity.md),
 [hooks.md](hooks.md), [connectors.md](connectors.md),
 [mapping.md](mapping.md), [rights.md](rights.md),
 [administration.md](administration.md), [security.md](security.md),
-[migration.md](migration.md). Les
-décisions citées renvoyent à la [conception](conception.md).
+[migration.md](migration.md),
+[documentation.md](documentation.md). Les
+décisions citées renvoient à la [conception](conception.md).
 
 ## 1. La nature — YAML, de petits fichiers, une seule grammaire
 
@@ -409,7 +410,8 @@ connectors: ~{connectors.yml}
   documentation est portée par Syncytium, par défaut, sans configuration
   (D333) ; le fichier ne vient que pour la personnaliser, et porte alors
   ses propriétés ; la clé `documentation:` de l'environnement le
-  référence ; aucun exemple n'en a l'usage ;
+  référence ; aucun exemple n'en a l'usage ; ses propriétés sont
+  proposées dans [documentation.md](documentation.md) §11 (D1118) ;
 - **`settings.yml`** de l'environnement, facultatif (D1095) — les
   réglages techniques qui varient d'un environnement à l'autre et valent
   pour toutes ses versions (D342) ; ce qui est partagé passe par les
@@ -624,8 +626,8 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
 
 ## 6. Les points ouverts
 
-- les propriétés de `documentation.yml` — la génération de la
-  documentation fera l'objet d'un chapitre après les choix techniques et
-  avant la génération du code (D1090) ;
+- les propriétés de `documentation.yml` — le chantier de la génération
+  de la documentation est ouvert, avant l'architecture technique
+  (D1118) : [documentation.md](documentation.md) §11 ;
 - `menu.yml` — décidé (D351, D439), sans exemple encore au dépôt ; le
   bloc `dashboards:` a le sien au cas 5 (`stock[pilotage]`).

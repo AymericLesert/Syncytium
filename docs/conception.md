@@ -87,7 +87,7 @@ points ne sont pas validés). Les huit domaines en sont la carte —
 | 3 | **Le méta-schéma** — les règles, le comportement et le langage | Livré | D420–D436, Q60 (D570–D601) |
 | 4 | **Les surfaces** | Livré | D437–D569 |
 | 5 | **Les cas d'usage** — les mises en situation sur exemples concrets | À couvrir | Q59 |
-| 6 | **La rédaction de la documentation synthétique et détaillée** | En préparation | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security, configuration |
+| 6 | **La rédaction de la documentation synthétique et détaillée** | En cours | Q58 — glossaire, composants, hooks, types, connectors, mapping, rights, administration, telemetry, security, configuration, migration, documentation (D1118) |
 | 7 | **Le choix de l'architecture technique** | À couvrir | Q7, Q47 |
 | 8 | **L'implémentation** | Après tout le reste | D314 |
 
@@ -1250,6 +1250,7 @@ Q58) :
 | D1115 | **Un projet peut ne déclarer que le statut `production`, sans `beta`** (précise D804 — seuls les statuts utilisés se déclarent) : « Syncytium doit accepter un statut « production » sans « beta » » — aucun statut n'est obligatoire ; un projet qui n'a qu'une version en service ne déclare que `production`. | Le tiny (cas 1) déclare `production` seul. Voir configuration.md §3.3 et §3.2c. |
 | D1116 | **La validation a deux formes, aux trois places ; sans `message:`, le message est construit** (précise D1105 — D364 le champ, D404 l'entité, la règle de reprise) : forme courte `- expression`, forme longue `rule:` / `description:` / `message:`, mêlables dans une même liste ; « le message construit me convient » — à l'échec, sans `message:`, Syncytium compose **la règle citée, les valeurs des champs qu'elle cite, et les valeurs de la clé de l'enregistrement** (« les valeurs doivent être citées pour finir l'information suffisante » ; « le message doit aussi inclure les valeurs de la clé de l'enregistrement ») ; la `description:` n'y entre pas (ma lecture : elle documente, elle n'annonce pas l'échec) ; un `message:` explicite l'emporte. | Forme exacte du texte construit : *mienne*, à fixer à la documentation. Voir mapping.md et entity.md. |
 | D1117 | **Plusieurs langues : `message:` est exigé, sinon une erreur d'ingestion** (D1101 — même règle que `label:`/`hint:`/`description:`) : « avec plusieurs langues, il faut exiger `message:` sinon c'est une erreur d'ingestion » — le message construit de D1116 ne sert donc qu'à un projet à UNE langue ; avec plusieurs, chaque règle en forme longue porte son `message:` par langue `{ fr, en, es }`, la forme courte est refusée. | La banque (fr, en, es) a déjà un `message:` par langue partout ; à vérifier à l'ingestion. |
+| D1118 | **`documentation.md` créé — le quinzième artefact préparatoire : les principes de la génération de la documentation ; le chantier s'ouvre avant l'architecture technique** (Q58, le domaine 6 — D602 ; précise D333/D334, D645, D810, D1090 ; amende l'ordre de D1090 — la génération de la documentation passait après les choix techniques) : « Nous allons travailler sur la génération de la documentation avant de voir l'architecture technique et le code. Comme les précédentes parties, nous allons stocker le résultat de notre travail dans les différents fichiers .md et nous centraliserons les principes dans documentation.md. » — le document centralise les principes (les trois documentations D333, les trois sources D333/D334, la version documentée = la version servie D645, le carburant D810/D1100, les lecteurs, les plans technique et fonctionnel, les écarts D1112, l'API, les formats et les deux moments, `documentation.yml`, le tiny D1026) ; chaque artefact garde ce que son élément apporte à la documentation. | Les sections marquées *en proposition* sont miennes ; neuf points ouverts à arbitrer point par point. L'ordre du chantier devient : la documentation générée, puis l'architecture (D1025), puis le code. Voir §3.2c. |
 
 ---
 
@@ -12637,6 +12638,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La validation, ses deux formes, le message construit (D1116–D1117).** « lecture 1 : ok » — la forme courte `- expression` et la forme longue `rule:` / `description:` / `message:` valent au champ (D364), à l'entité (D404) et à la règle de reprise (D1105). « Lecture 2 : le message construit me convient et les valeurs doivent être citées pour finir l'information suffisante. Le message doit aussi inclure les valeurs de la clé de l'enregistrement. Avec plusieurs langues, il faut exiger « message: » sinon c'est une erreur d'ingestion. » — sans `message:`, le texte compose la règle, les valeurs citées et la clé de l'enregistrement ; à plusieurs langues il n'existe pas : le `message:` par langue est obligatoire. Confirmés le même jour : les traductions en/es de la banque (miennes, conservées — elles illustrent le multi-langue), les descriptions de la reprise banque restent en français, les hints ajoutés valent illustration.
 
+**`documentation.md`, le quinzième artefact — la génération de la documentation avant l'architecture (D1118).** « Nous allons travailler sur la génération de la documentation avant de voir l'architecture technique et le code. Comme les précédentes parties, nous allons stocker le résultat de notre travail dans les différents fichiers .md et nous centraliserons les principes dans documentation.md. » — l'ordre de D1090 (les choix techniques, puis la génération de la documentation) s'inverse. Le document rassemble les acquis (D124, D209, D258, D333–D334, D630, D645, D650, D698, D778, D810, D840, D924, D1026, D1090, D1100–D1102, D1112) et mes propositions, marquées : six lecteurs, le plan de la documentation technique et de la fonctionnelle, la troisième source, la forme des écarts calculés, la documentation de l'API (le principe ici, la forme au domaine 7), deux moments (au dépôt par une commande, dans l'application sous les droits), les propriétés de `documentation.yml`, et la méthode — écrire à la main la documentation que Syncytium devrait générer pour le tiny.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23817,6 +23820,11 @@ avant la synthèse Q16).
   de `feature/meta-schema` dans `develop` (le merge d322378) ; la branche
   continue, à jour de develop. La suite de D1021 : le peaufinage point
   par point, puis la documentation structurée.
+- **2026-10-04 (suite) — DOCUMENTATION.MD, LE QUINZIÈME ARTEFACT (D1118,
+  1118 décisions).** L'auteur ouvre la génération de la documentation
+  avant l'architecture technique ; les principes centralisés dans
+  `docs/documentation.md`, le détail dans chaque artefact. Le document
+  créé : les acquis, les propositions marquées, neuf points ouverts.
 - **2026-10-04 — LA VALIDATION ET SES DEUX FORMES (D1116–D1117, 1117
   décisions).** Reprise par les points en attente : traductions en/es de la
   banque conservées, descriptions de la reprise banque en français, hints

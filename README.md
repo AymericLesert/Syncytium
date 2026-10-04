@@ -64,7 +64,8 @@ conception.
 artefacts préparatoires de la documentation vivent à côté, dans `docs/`
 (le glossaire, l'entité, les types, les composants, les hooks, les
 connecteurs, le mapping, les droits, l'administration, la télémétrie, la
-sécurité, la configuration, le module de migration).
+sécurité, la configuration, le module de migration, la documentation
+générée).
 
 ## Licence
 

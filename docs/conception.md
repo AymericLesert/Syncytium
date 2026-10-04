@@ -1248,6 +1248,8 @@ Q58) :
 | D1113 | **Les collections `versions`, `modules` et `entities` s'écrivent en liste de valeurs ou par substitution** (précise D356 — la forme courte, D1088 — la clé donne le nom) : « Pour les versions, les modules et les entités, les niveaux peuvent rester sur des listes de valeurs ou les niveaux sont supprimés et remplacés [par] la substitution de la version: (sur versions) ou name: (sur modules et entités). La configuration du cas 2 reste vraie. Le cas 1 montre une simplification. » ; « les 2 formes sont à consigner dans la documentation » — deux formes équivalentes : la liste (le niveau nommé, l'identifiant en propriété `version:` ou `name:`) et la substitution (le niveau supprimé, l'identifiant en clé). | Le tiny hello world (cas 1) est écrit par substitution, les autres exemples en liste. Les défauts du tiny (environnement, journal sur la sortie standard en verbose, pas de nettoyage, langue du poste) en discussion. **Point clos le 03/10** : dans la substitution, le niveau est déduit de la position et les clés réservées du niveau (propriétés du moteur) se distinguent des identifiants (« tu as décrit ce que je voulais voir » ; un identifiant qui reprend une clé réservée de son niveau est refusé à l'ingestion — confirmé). Voir §3.2c et configuration.md §2.9. |
 | D1114 | **Les défauts d'un projet minimal** (précise D1091 — le contrat du journal, D1093 — le connecteur par sa famille, D1101 — les langues) : « j'ai enlevé logging pour que le système porte une configuration par défaut — logging sur la sortie standard en mode verbose » ; « comme c'est la sortie standard, pas de cleanup » ; « par défaut, la langue est la localisation définie sur le poste » ; `storage: sqlite` sans bloc `connectors:` accepté (« oui »). | Le tiny (cas 1) ne déclare plus ni journal, ni nettoyage, ni connecteurs, ni langues. Mes lectures : sans `connectors:`, `sqlite` est un connecteur implicite (nom = famille = classe) ; D1101 (plusieurs langues → langue précisée) inchangé. Le statut `production` seul : D1115. Voir configuration.md §2.10 et §3.2c. |
 | D1115 | **Un projet peut ne déclarer que le statut `production`, sans `beta`** (précise D804 — seuls les statuts utilisés se déclarent) : « Syncytium doit accepter un statut « production » sans « beta » » — aucun statut n'est obligatoire ; un projet qui n'a qu'une version en service ne déclare que `production`. | Le tiny (cas 1) déclare `production` seul. Voir configuration.md §3.3 et §3.2c. |
+| D1116 | **La validation a deux formes, aux trois places ; sans `message:`, le message est construit** (précise D1105 — D364 le champ, D404 l'entité, la règle de reprise) : forme courte `- expression`, forme longue `rule:` / `description:` / `message:`, mêlables dans une même liste ; « le message construit me convient » — à l'échec, sans `message:`, Syncytium compose **la règle citée, les valeurs des champs qu'elle cite, et les valeurs de la clé de l'enregistrement** (« les valeurs doivent être citées pour finir l'information suffisante » ; « le message doit aussi inclure les valeurs de la clé de l'enregistrement ») ; la `description:` n'y entre pas (ma lecture : elle documente, elle n'annonce pas l'échec) ; un `message:` explicite l'emporte. | Forme exacte du texte construit : *mienne*, à fixer à la documentation. Voir mapping.md et entity.md. |
+| D1117 | **Plusieurs langues : `message:` est exigé, sinon une erreur d'ingestion** (D1101 — même règle que `label:`/`hint:`/`description:`) : « avec plusieurs langues, il faut exiger `message:` sinon c'est une erreur d'ingestion » — le message construit de D1116 ne sert donc qu'à un projet à UNE langue ; avec plusieurs, chaque règle en forme longue porte son `message:` par langue `{ fr, en, es }`, la forme courte est refusée. | La banque (fr, en, es) a déjà un `message:` par langue partout ; à vérifier à l'ingestion. |
 
 ---
 
@@ -12633,6 +12635,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le statut `production` sans `beta` (D1115).** « Syncytium doit accepter un statut « production » sans « beta » » — D804 le disait déjà : seuls les statuts utilisés se déclarent ; la règle est dite pour le tiny, qui n'a qu'une version en service.
 
+**La validation, ses deux formes, le message construit (D1116–D1117).** « lecture 1 : ok » — la forme courte `- expression` et la forme longue `rule:` / `description:` / `message:` valent au champ (D364), à l'entité (D404) et à la règle de reprise (D1105). « Lecture 2 : le message construit me convient et les valeurs doivent être citées pour finir l'information suffisante. Le message doit aussi inclure les valeurs de la clé de l'enregistrement. Avec plusieurs langues, il faut exiger « message: » sinon c'est une erreur d'ingestion. » — sans `message:`, le texte compose la règle, les valeurs citées et la clé de l'enregistrement ; à plusieurs langues il n'existe pas : le `message:` par langue est obligatoire. Confirmés le même jour : les traductions en/es de la banque (miennes, conservées — elles illustrent le multi-langue), les descriptions de la reprise banque restent en français, les hints ajoutés valent illustration.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23813,6 +23817,13 @@ avant la synthèse Q16).
   de `feature/meta-schema` dans `develop` (le merge d322378) ; la branche
   continue, à jour de develop. La suite de D1021 : le peaufinage point
   par point, puis la documentation structurée.
+- **2026-10-04 — LA VALIDATION ET SES DEUX FORMES (D1116–D1117, 1117
+  décisions).** Reprise par les points en attente : traductions en/es de la
+  banque conservées, descriptions de la reprise banque en français, hints
+  validés. Les deux formes de validation (courte, longue) confirmées aux trois
+  places ; le message construit cite la règle, les valeurs citées et la clé de
+  l'enregistrement (D1116) ; avec plusieurs langues, `message:` exigé, sinon
+  erreur d'ingestion (D1117).
 - **2026-10-03 (suite 3) — LE TINY HELLO WORLD ET LES DEUX FORMES (D1113–D1115,
   1115 décisions).** Le tiny (`examples/01_tiny/syncytium.yml`, un seul fichier)
   est repris par l'auteur : environnement `home` sans `name:`, statut

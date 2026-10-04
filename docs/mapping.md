@@ -396,6 +396,16 @@ accolades, un nom, un chemin ou une expression du langage unique ;
 une valeur nulle s'écrit vide ; à la source et à l'entité, les mêmes
 accolades citent la colonne lue ou le champ.
 
+**Les deux formes de la validation, le message construit** (D1116–D1117).
+La forme courte `- expression` et la forme longue `rule:` / `description:` /
+`message:` se mêlent dans une même liste, au champ (D364), à l'entité (D404) et
+à la règle. Sans `message:`, l'échec produit un message construit qui cite la
+règle, les valeurs des champs qu'elle cite et les valeurs de la clé de
+l'enregistrement ; la `description:` n'y entre pas, un `message:` explicite
+l'emporte. **Avec plusieurs langues** (D1101), le `message:` est exigé, par
+langue, sur chaque validation : sinon une erreur d'ingestion, et la forme
+courte est refusée.
+
 ```yaml
 # reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
 LCOMFOU:

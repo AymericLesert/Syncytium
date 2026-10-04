@@ -77,6 +77,15 @@ validation:
   - date_vente >= date_achat if date_vente != null
 ```
 
+**Les deux formes d'une validation** (D1116–D1117). La forme courte
+`- expression` ; la forme longue `rule:`, `description:`, `message:`, mêlables
+dans une même liste — au champ (D364), à l'entité (D404), à la règle de
+reprise (D1105). Le `message:` est un gabarit (D1106). Sans lui, à l'échec, le
+message est construit : la règle, les valeurs des champs qu'elle cite et les
+valeurs de la clé de l'enregistrement (la `description:` n'y entre pas). Avec
+plusieurs langues, `message:` est exigé, par langue : sinon une erreur
+d'ingestion, et la forme courte est refusée.
+
 **Le cumul de fichiers** (D968) : une propriété à carte peut porter
 une liste de références en bloc — `fields:` suivi de `- ~{commun.yml}`,
 `- ~{propre.yml}`, ou d'une carte en ligne — fusionnées dans l'ordre ;

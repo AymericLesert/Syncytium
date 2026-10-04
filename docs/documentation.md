@@ -75,8 +75,8 @@ pour le lecteur du fichier, la propriété pour la documentation.
 | le projet (`syncytium.yml`) | `name:`, `description:` ; la version du format `from:` ; le dossier `resources/` (logos, icônes) | D322, D346, D1083 |
 | l'environnement | sa `description:` (la nature : la vie courante, le développement), son `storage:`, ses connecteurs | D1090, D1094 |
 | la version | les `release-notes:` — **l'évolution fonctionnelle, écrite par le technicien** ; les `languages:` ; les écarts calculés par Syncytium | D1101, D1112 |
-| le module | `label:`, `hint:`, `description:` | D416 |
-| l'entité | `label:` (le gabarit du visage), `hint:`, `description:`, l'identité, les états et leur graphe, les validations (`description:`/`message:`), l'historisation, le `rgpd:` | D843, D1116 |
+| le module | `name:` l'invariant ; `title:` le nom d'usage par langue, `hint:`, `description:` | D416, D1120 |
+| l'entité | `name:` l'invariant ; `title:` le nom d'usage par langue ; `label:` (le gabarit du visage), `hint:`, `description:`, l'identité, les états et leur graphe, les validations (`description:`/`message:`), l'historisation, le `rgpd:` | D843, D1116, D1120 |
 | le champ | le type et ses facettes, `label:`, `hint:` (la courte), `description:` (la longue, en Markdown — D1102), `placeholder:`, `required:`, `default:`, les validations, la confidentialité, les `allow:`, le `rgpd:`, `unchanged:`, `from:` (le renommage), `deprecated:` (le remplacement ou l'abandon, obligatoire) | D124, D258, D650, D840, D941, D1111 |
 | les opérations | leur `description:`, leur contrat et son degré | D148–D152, D699 |
 | les surfaces (`gui:`) | la `description:` de la surface → le masque d'explication | D209, D438 |
@@ -202,14 +202,16 @@ une présentation. **Mermaid** (`classDiagram`, `stateDiagram-v2`) est
 ma préférence, PlantUML l'alternative ; le choix de l'outil relève du
 domaine 7, le principe — textuel et image, calculé — de celui-ci.
 
-**Un frottement.** L'entité n'a pas de nom d'usage par langue :
-`name:` est l'invariant du modèle (D124/D335), `label:` le gabarit
-d'*un enregistrement* (« `{code} — {libelle}` »). La vue d'ensemble
-fonctionnelle, le menu (D186) et la documentation fonctionnelle ont
-besoin d'un nom à montrer — « Produit fabriqué », « Ligne de
-nomenclature ». Au cas 5, les noms sont en français et suffisent ; à la
-banque (fr, en, es), non. *Question posée : une propriété de l'entité
-— et du module — par langue, `title:` ?, le défaut étant le `name:`.*
+**Le nom d'usage — `title:` (D1120).** `name:` est l'invariant du
+module et de l'entité, quelle que soit la langue (D124/D335) ; `label:`
+le gabarit d'*un enregistrement* (« `{code} — {libelle}` »). **`title:`
+et `description:`, déclinés par langue, complètent `name:`** : le
+`title:` est le texte que montrent l'entrée de menu par défaut (D186),
+la vue d'ensemble fonctionnelle et les titres de la documentation —
+« Produit fabriqué », « Ligne de nomenclature » ; texte simple à une
+langue, par langue à plusieurs (D1101) ; sans lui, le `name:`. *Mes
+lectures* : au singulier, le pluriel n'est pas une propriété ; le même
+`title:` que celui des surfaces.
 
 **La vue d'ensemble du cas 5**, telle que Syncytium la calculerait —
 dix-huit entités, quatre paquetages, un trait par couple ; les
@@ -439,8 +441,8 @@ troisième source.
 2. le plan de la documentation technique (§4) et de la fonctionnelle
    (§6) ;
 3. la représentation graphique (§5) : les trois niveaux, la
-   correspondance, la forme (Mermaid, PlantUML), **le nom d'usage de
-   l'entité** ;
+   correspondance, la forme (Mermaid, PlantUML) ; le `title:` au
+   singulier ;
 4. les lectures du masque d'explication (§7) ;
 5. les indicateurs de la troisième source et leur partage (§8) ;
 6. la forme des écarts calculés (§9) ;

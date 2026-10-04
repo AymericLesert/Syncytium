@@ -15,7 +15,9 @@ versions:
       release-notes: Version 1 de l'annuaire
 
       annuaire:
+        title: Annuaire
         personne:
+          title: Personne
           description: Les membres de l'entreprise
           label: "{prenom} {nom}"
           identity: [nom, prenom]

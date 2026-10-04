@@ -48,7 +48,8 @@ droits à [rights.md](rights.md).*
 
 | la propriété | la nature | D |
 |---|---|---|
-| `name:` | le nom de l'entité — la référence `<module>.<entité>` en découle | D394, D765 |
+| `name:` | le nom de l'entité — **l'invariant, quelle que soit la langue** ; la référence `<module>.<entité>` en découle | D124, D394, D765, D1120 |
+| `title:` | **le nom d'usage** — le texte montré : l'entrée de menu par défaut, la vue d'ensemble du modèle, les titres de la documentation ; par langue (texte simple à une langue — D1101) ; sans lui, le `name:` ; au singulier (ma lecture) | D1120 |
 | `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |

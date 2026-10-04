@@ -285,7 +285,7 @@ documente de la même façon quelle que soit l'écriture.
 position** — sous un statut, les clés sont des versions ; sous une version, des
 modules ; sous un module, des entités. **Au même niveau, les clés réservées
 (les propriétés du niveau : `environment`, `release-notes`, `description`,
-`languages`…) sont celles du moteur, toutes les autres sont des identifiants** ;
+`title`, `languages`…) sont celles du moteur, toutes les autres sont des identifiants** ;
 un identifiant qui reprend une clé réservée de son niveau est refusé à
 l'ingestion.
 
@@ -529,7 +529,8 @@ personnes vivent en base (D27/D341). Le détail dans
 ### 3.7 Le module — `<module>.yml` (D765, D416)
 
 ```yaml
-name: technique
+name: technique                      # l'invariant, quelle que soit la langue (D1120)
+title: Technique                     # le nom d'usage, par langue (D1120) — sans lui, le name
 description: Les données techniques — …
 allow:                               # la cascade de l'allow (D886) — ici, l'entrepôt en lecture seule
   create: false

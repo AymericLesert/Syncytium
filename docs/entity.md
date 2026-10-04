@@ -171,6 +171,33 @@ l'entité courante** (`chart[consommation.evolution_consommation]`,
 ses `dashboards:` (la vue d'ensemble — D554/D555), le menu adresse
 le tout (D439). Les fiches : [composants.md](composants.md).
 
+## La représentation graphique — l'entité dans le diagramme (D1119)
+
+La documentation générée porte **un volet « modèle de données » en
+diagrammes de classes UML, calculés depuis la configuration** (D1119 —
+« pour que le modèle soit facilement perceptible par un opérateur ou
+un décideur » ; les niveaux de lecture, la forme et les lecteurs dans
+[documentation.md](documentation.md) §5). Ce que chaque propriété de
+l'entité y devient *(en proposition)* :
+
+| la configuration | le diagramme |
+|---|---|
+| le module | le paquetage |
+| l'entité (`name:`) | la classe ; le parent abstrait (D1035 — `tiers`) en italique |
+| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
+| `identity:` | les attributs marqués `{id}` |
+| le champ `nom: type` | l'attribut `nom : type` — le type du catalogue avec ses bornes (`text[..40]`, `integer[1..]`) |
+| `confidentiality:` | la visibilité : `+` public, `#` protected, `-` private (D358) |
+| `formula:` | l'attribut dérivé `/nom` |
+| `required:` | sur une référence, la multiplicité à l'autre bout — `1` ou `0..1` ; sur un attribut, rien au diagramme : la table le dit |
+| `type: <entité>` — la référence (D396) | l'association dirigée vers la cible, nommée du champ |
+| `type: list of <entité>` — la composition (D115) | la composition — le losange plein côté possesseur, `0..*`, nommée du champ |
+| `type: association with <entité> if …` — l'association dérivée (D405) | l'association dérivée, en pointillé, `/nom` — jamais à la vue d'ensemble |
+| `type: list of [ … ]` — la liste de valeurs composées | un attribut, le type en ligne ; pas une classe |
+| `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
+| `operations:` | le compartiment des opérations : `verbe()` |
+| `history:`, `rgpd:`, `hint:`, `description:` | rien au diagramme — la table des champs et le registre (D698) |
+
 ## L'exemple fil rouge
 
 Le cas 3 (`examples/03_vehicule/`) déroule l'entité entière :

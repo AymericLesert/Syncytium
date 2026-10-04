@@ -23826,6 +23826,12 @@ avant la synthèse Q16).
   de `feature/meta-schema` dans `develop` (le merge d322378) ; la branche
   continue, à jour de develop. La suite de D1021 : le peaufinage point
   par point, puis la documentation structurée.
+- **2026-10-04 (pause) — « je vais marquer une pause. Conserve les 13
+  points. À la reprise, nous regarderons la priorité. Puis nous commencerons à
+  les traiter dans l'ordre que nous aurons vu ensemble. »** 1120 décisions,
+  tout commis et poussé, aucune PR ouverte. documentation.md tel quel : ses
+  quatorze sections, ses dix points ouverts (§14) — la reprise fixe la
+  priorité avant de traiter.
 - **2026-10-04 (suite 3) — `title:`, LE NOM D'USAGE (D1120, 1120 décisions).**
   « name est le nom du module et de l'entité (invariant quelle que soit la
   langue) ; le title ou la description sont déclinés par langue et viennent

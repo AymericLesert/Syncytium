@@ -218,12 +218,12 @@ du statut et les passages permis (D422) — le véhicule (cas 3) en a un.
 libellés des champs à la place des noms, sans les types ni les
 visibilités ; **l'édition technique** (§4) les montre tels quels.
 
-**La forme** : un langage de diagramme textuel dans l'édition Markdown
-— lisible dans le dépôt, diffable, rendu par GitHub et les
-visionneuses — et l'image (SVG) dans l'édition HTML, exportable vers
-une présentation. **Mermaid** (`classDiagram`, `stateDiagram-v2`) est
-ma préférence, PlantUML l'alternative ; le choix de l'outil relève du
-domaine 7, le principe — textuel et image, calculé — de celui-ci.
+**La forme dépend de l'architecture technique et des modes de rendu**
+(D1126) : ce document dit ce que le diagramme montre, pas comment il
+se dessine. Les exemples ci-dessous sont écrits en Mermaid
+(`classDiagram`) parce qu'un texte de diagramme se lit dans le dépôt et
+se rend sur GitHub ; l'outil — Mermaid, PlantUML, un SVG calculé —
+se choisit au domaine 7.
 
 **Le nom d'usage — `title:` (D1120).** `name:` est l'invariant du
 module et de l'entité, quelle que soit la langue (D124/D335) ; `label:`
@@ -354,6 +354,38 @@ celle du modèle** ; ni type, ni stockage, ni formule — ce qu'un champ
 utilisateur** (D1121) : les masques (§7), les aides en place — la
 documentation lue à part et l'aide lue en place sont la même matière.
 
+**L'exemple de référence** (D1126) : la documentation fonctionnelle de
+DSP Gestion, l'application de l'auteur, en HTML. Ce qu'elle montre, et
+ce que j'en retiens *(mes lectures)* :
+
+- **son plan** — Présentation (l'entreprise, l'application, ses
+  modules, **le modèle de données complet en une image, une couleur par
+  module**), Fonctionnalités, Architecture technique, Installation et
+  configuration, Procédures, Plan de test, Road map, F.A.Q. ;
+- **les fonctionnalités s'ouvrent sur ce qui est commun** à tous les
+  modules — l'écran principal et ses bandeaux, l'état de la connexion,
+  le changement de module, le journal, le profil, **la procédure
+  d'import CSV** (le fichier, la vérification, la validation, la
+  création / modification / suppression des seules lignes qui
+  changent), les notes de version dans l'application, **le cycle de vie
+  d'une donnée** (la suppression qui marque sans effacer) — puis **un
+  chapitre par module**, avec ses indicateurs et **le sous-modèle de
+  chaque domaine** (les fournisseurs et les plats, les menus, les
+  clients, les commandes, les tournées) : les trois niveaux de §5,
+  avant la lettre ;
+- **l'application mène à sa documentation** : un « ? » au niveau du
+  module, un « ? » au niveau de la fonctionnalité, chacun ouvrant la
+  page du wiki qui lui correspond — la part intégrée de D1121 prend la
+  forme d'une **adresse** : chaque module et chaque surface a sa page,
+  atteignable depuis l'écran, le masque (§7) en est le résumé en place ;
+- ce qui est commun à toutes les applications — l'écran, l'import, le
+  cycle de vie — **est la documentation du socle** : c'est là que « la
+  documentation technique de Syncytium » de D645 trouverait sa place
+  dans celle de l'application (le point ouvert 11) ;
+- **le plan de test** — des scénarios Gherkin par entité (étant donné /
+  quand / alors), le premier étant l'accès à la documentation depuis
+  l'écran — pose la question d'une neuvième pièce (§22, point 13).
+
 - **L'application** — sa description, **la vue d'ensemble du modèle**
   (§5), ses modules et ce que chacun sert ; ce qui a changé à cette
   version : les notes de version (D1112), en langage d'usager.
@@ -427,10 +459,11 @@ version par version — est acquis.
 
 ## 11. Les formats et le support *(en proposition)*
 
-- **Les formats** : Markdown et HTML (D630 — « markdown/html pour la
-  documentation automatique de l'instance ») ; le PDF par l'impression
-  (D53/D187), s'il est demandé ; les diagrammes en texte dans le
-  Markdown, en SVG dans le HTML (§5).
+- **Le format dépend de l'architecture technique et des modes de
+  rendu** (D1126) : il se fixe au domaine 7. Ce document retient le
+  principe — D630 : « markdown/html pour la documentation automatique
+  de l'instance » —, l'exemple de référence est en HTML (§6), le PDF
+  viendrait par l'impression (D53/D187) ; les diagrammes suivent (§5).
 - **Deux moments** : *au dépôt* — depuis la configuration seule, par
   une commande (`syncytium document …`, à nommer), le résultat en
   fichiers dans un dossier (la documentation se diffe et se versionne
@@ -591,7 +624,12 @@ servie aux techniciens tiers pour l'API (§10). La langue suit le lecteur
 10. la méthode : la documentation attendue du tiny, écrite à la main
     (§13) ;
 11. la documentation de référence de Syncytium dans celle de
-    l'application (D645) — embarquée, citée en lien, ou hors du sujet
-    (§1, D1122) ;
+    l'application (D645) — ma lecture après l'exemple de référence :
+    **la documentation du socle**, ce qui est commun à toutes les
+    applications (l'écran, l'import, le cycle de vie d'une donnée),
+    en tête des fonctionnalités (§6) ;
 12. les huit pièces (§14–§21) : chacune en proposition, à arbitrer
-    comme les sections §1–§13.
+    comme les sections §1–§13 ;
+13. **le plan de test** — une neuvième pièce ? des scénarios Gherkin
+    par entité, nés des validations, des états et des opérations
+    (l'exemple de référence en a un ; D869 — le jeu de données).

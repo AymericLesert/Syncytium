@@ -30,33 +30,43 @@ construisent en automatique, autant que possible (D333) :
    l'application : la description de la surface et celles des champs
    affichés, à la première consultation ou sur sollicitation ;
 3. **une documentation fonctionnelle** — ce que l'application fait,
-   dite dans la langue de l'utilisateur.
+   pour celui qui s'en sert : **elle exploite les descriptions, les
+   enchaînements et les opérations** (D1121) ; **une partie en est
+   intégrée à l'expérience utilisateur** — les masques en sont la
+   forme première.
 
-Elle a **trois sources** :
+Elle a **trois sources** (D1122) :
 
-1. **la documentation rédigée en amont** (D314/Q58) — celle de
-   Syncytium lui-même (les artefacts de `docs/`, les cas d'usage) et,
-   pour chaque hook, **le fichier md de son fonctionnement** (D778) :
-   la brique humaine ;
-2. **les descriptions de la configuration** (D810 — `description:`
-   partout) : le libellé, l'aide courte, l'aide longue, la valeur de
-   démonstration de chaque élément (D124/D258/D840), les notes de
-   version (D1112), et **ce que le moteur sait sans qu'on l'écrive** —
-   les types et leurs facettes, les validations, les droits, le
-   modèle de données en diagrammes (D1119), les écarts entre deux
-   versions (D1112), le registre des traitements (D698), les
-   dépendances (D924) ;
+1. **les fichiers de configuration** — le modèle, dont le moteur
+   déduit la base de la documentation sans qu'on l'écrive (les types et
+   leurs facettes, les validations, les droits, le modèle de données en
+   diagrammes — D1119, les écarts entre versions — D1112, le registre
+   des traitements — D698, les dépendances — D924), et **les items qui
+   complètent ce que le modèle ne dit pas** : `title:`, `hint:`,
+   `description:`, `placeholder:`, les notes de version (D810,
+   D124/D258/D840, D1112, D1120) ;
+2. **les fichiers complémentaires** que la configuration référence
+   (D767/D956) — une image, une description longue, des explications :
+   le md du fonctionnement d'un hook (D778), les ressources (D346) ;
 3. **les données de l'instance** (D334) — l'usage ou le non-usage des
    valeurs et des plages, la télémétrie (D38–D51, la diversité
    D46/D48) : **le modèle dit ce qui est permis, la base dit ce qui est
    fait**.
 
-Et une règle qui les tient ensemble : **la documentation se construit
-dynamiquement, version par version** (D645/D810) — *la version
-documentée est exactement la version servie* ; rien à rédiger à part,
-rien à oublier. Elle vit avec le modèle et ne se périme jamais (D333).
-**Par défaut, sans configuration** (D1090) : `documentation.yml` ne
-vient que pour la personnaliser.
+La documentation rédigée du projet Syncytium — les artefacts de
+`docs/` — n'est pas une source de la documentation de l'application ;
+ce que D645 lui demandait d'en porter (« la documentation technique de
+Syncytium ») reste à placer (§14).
+
+Et une règle qui les tient ensemble : **chaque version active porte sa
+documentation** (D1123 — D645/D810) ; *la version documentée est
+exactement la version servie*. **Par défaut, la documentation
+disponible est celle de la version la plus élevée** ; chaque version
+décrit l'état à cette version, et **les éléments antérieurs peuvent s'y
+ajouter en annotation** (les écarts, §9). Rien à rédiger à part, rien à
+oublier : elle vit avec le modèle et ne se périme jamais (D333). **Par
+défaut, sans configuration** (D1090) : `documentation.yml` ne vient que
+pour la personnaliser.
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -320,10 +330,16 @@ Le tiny (§13) donne la plus petite vue possible : le paquetage
 
 ## 6. La documentation fonctionnelle *(en proposition)*
 
-Ce que l'application fait, pour celui qui s'en sert. **Les libellés
-remplacent les noms, la langue de l'utilisateur remplace celle du
-modèle** ; ni type, ni stockage, ni formule — ce qu'un champ *est*, pas
-comment il se calcule.
+Ce que l'application fait, pour celui qui s'en sert — **trois
+matières** (D1121) : **les descriptions** (`title:`, `hint:`,
+`description:` — ce qu'est chaque chose), **les enchaînements** (le
+menu et ses parcours — D189/D193, les états et leurs passages — D422,
+les automatismes) et **les opérations** (les verbes et ce qu'ils font).
+**Les libellés remplacent les noms, la langue de l'utilisateur remplace
+celle du modèle** ; ni type, ni stockage, ni formule — ce qu'un champ
+*est*, pas comment il se calcule. **Une partie s'intègre à l'expérience
+utilisateur** (D1121) : les masques (§7), les aides en place — la
+documentation lue à part et l'aide lue en place sont la même matière.
 
 - **L'application** — sa description, **la vue d'ensemble du modèle**
   (§5), ses modules et ce que chacun sert ; ce qui a changé à cette
@@ -378,7 +394,10 @@ entités et champs **ajoutés**, **renommés** (`from:` — D1111),
 **retypés**, **supprimés** ou **dépréciés** (D650 — avec leur
 remplacement), les validations et les droits modifiés. Pour le
 technicien tiers, la même liste dit ce que son contrat perd ou gagne
-(D11–D13, D98–D99).
+(D11–D13, D98–D99). **Les éléments antérieurs peuvent aussi s'ajouter en
+annotation** dans la documentation de la version (D1123) — à côté du
+champ : « renommé depuis `abrege` en 1.0.0.1 » — en plus de la liste ;
+*ma lecture* : l'annotation est une option de la génération.
 
 ## 10. La documentation de l'API *(en proposition)*
 
@@ -451,4 +470,7 @@ troisième source.
 8. les deux moments et le nom de la commande (§11) ;
 9. les propriétés de `documentation.yml` (§12) ;
 10. la méthode : la documentation attendue du tiny, écrite à la main
-    (§13).
+    (§13) ;
+11. la documentation de référence de Syncytium dans celle de
+    l'application (D645) — embarquée, citée en lien, ou hors du sujet
+    (§1, D1122).

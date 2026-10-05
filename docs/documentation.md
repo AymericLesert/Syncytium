@@ -56,17 +56,30 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§14).
+Syncytium ») reste à placer (§22).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
-exactement la version servie*. **Par défaut, la documentation
-disponible est celle de la version la plus élevée** ; chaque version
-décrit l'état à cette version, et **les éléments antérieurs peuvent s'y
-ajouter en annotation** (les écarts, §9). Rien à rédiger à part, rien à
-oublier : elle vit avec le modèle et ne se périme jamais (D333). **Par
-défaut, sans configuration** (D1090) : `documentation.yml` ne vient que
-pour la personnaliser.
+exactement la version servie*. **Les versions actives sont celles de
+`beta/` et de `production/`** (D1124) ; **une version dépréciée n'a plus
+de documentation** : la sienne dit qu'elle n'est plus disponible et
+**renvoie à la liste des versions disponibles, présentée par leurs
+notes de version**. **Par défaut, la documentation disponible est celle
+de la version la plus élevée** ; chaque version décrit l'état à cette
+version, et **les éléments antérieurs peuvent s'y ajouter en
+annotation** (les écarts, §9). Rien à rédiger à part, rien à oublier :
+elle vit avec le modèle et ne se périme jamais (D333). **Par défaut,
+sans configuration** (D1090) : `documentation.yml` ne vient que pour la
+personnaliser.
+
+**Ce que la documentation comprend** (D1125 — « les principes posent
+les types de documentation et les points ci-dessus ») : outre les trois
+documentations et le modèle de données en diagrammes (§5), huit pièces,
+chacune détaillée dans sa section — **l'export et l'import** (§14), **le
+dictionnaire des données** (§15), **les enchaînements** (§16), **le guide
+d'exploitation** (§17), **la conformité** (§18), **le parcours guidé**
+(§19), **la complétude de la documentation** (§20), **la diffusion**
+(§21).
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -454,7 +467,113 @@ une décision ; puis la même épreuve sur une entité du cas 5 (l'article
 et sa hiérarchie, la reprise) pour les écarts, les droits et la
 troisième source.
 
-## 14. Les points ouverts
+## 14. L'export et l'import *(en proposition)*
+
+L'import est un écran du module, réservé au responsable métier ou à
+l'administrateur (D211) ; il ne prend que des fichiers CSV, un par
+entité, en tout-ou-rien après un dry-run, avec un rapport cellule par
+cellule (D234, D120) ; l'export est une fonction de la liste, CSV ou
+Excel, dans la facette d'affichage (D187/D120). La documentation
+**génère, pour chaque entité importable, le gabarit du fichier
+attendu** : les colonnes (les champs saisissables), le type lisible et
+le masque de chacune, l'obligation, les valeurs permises des énumérés,
+la clé de rapprochement (l'identité — D1035) ; une ligne d'exemple
+faite des `placeholder:` ; et la procédure — l'écran, le dry-run, le
+rapport, la correction à la source. Le gabarit se lit dans la
+documentation fonctionnelle et se télécharge depuis l'écran d'import.
+*À trancher* : les en-têtes du gabarit — les noms des champs (stables,
+D124) ou leurs libellés (lisibles, par langue).
+
+## 15. Le dictionnaire des données *(en proposition)*
+
+Le glossaire de l'application, **alphabétique et par langue** : chaque
+entité par son `title:` et sa `description:` ; chaque champ par son
+libellé, son `hint:`, sa `description:`, son type dit en clair (« un
+texte de 40 caractères au plus », « un montant en euros ») ; chaque
+valeur d'énuméré par son libellé ; chaque état et chaque opération. Il
+renvoie aux chapitres de l'entité (§4) et des écrans (§6). L'édition
+technique le dresse par les noms, la fonctionnelle par les libellés —
+le même dictionnaire, deux entrées. *À trancher* : un dictionnaire par
+version, ou un par module.
+
+## 16. Les enchaînements *(en proposition)*
+
+La deuxième matière de la documentation fonctionnelle (D1121) : **ce
+qui mène à quoi**. Les parcours du menu — l'entrée, la liste, le
+formulaire, les sous-menus des compositions (D189/D193, D439) ; les
+cycles de vie — pour chaque entité à `states:`, le diagramme d'états
+(§5) et la table des passages permis avec les groupes qui les
+franchissent (`allow` par état — D422) ; les automatismes — les
+opérations à `when:` (le cliquet — D354/D428), les opérations
+périodiques et leurs heures (D609/D943), les notifications et leurs
+destinataires (D108), les effets (`notify`, `document`, `set`). Par
+module, un chapitre « les parcours » ; par entité, ses états et ses
+automatismes à côté de ses opérations.
+
+## 17. Le guide d'exploitation *(en proposition)*
+
+La documentation de l'administrateur — l'écho de
+[administration.md](administration.md) pour une instance : les
+environnements et leur nature (production, staging, passif — D339), le
+storage et les connecteurs de chacun, par leur `describe()` et leurs
+paramètres **sans les valeurs confidentielles** (D944) ; le journal, ses
+niveaux, sa rotation ; les règles de nettoyage (D1073) ; les opérations
+périodiques et leur calendrier ; la reprise, ses passages et ses
+rapports (migration.md) ; les comptes, les groupes et les affectations ;
+les commandes du moteur (`syncytium copy …`, `encrypt`, `rotate` —
+D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
+configuration seule et ce qui demande l'instance (les états, les
+derniers passages).
+
+## 18. La conformité *(en proposition)*
+
+« Le document que la TPE peine à tenir, Syncytium le génère » (D698) :
+**le registre des traitements** — les entités et les champs marqués
+`rgpd:`, leur finalité (la description), leur confidentialité, leur
+rétention et l'anonymisation à l'échéance (D696/D698), les connecteurs
+sortants qui les emportent (les mails, les webhooks) ; **la matrice des
+droits** — les groupes, leur composition (D1099), leur degré (D699), ce
+que chacun lit et écrit ; **la sécurité de l'instance** — les
+dépendances du moteur et leurs versions (D924), le code tiers servi au
+navigateur (D918), le chiffrement des secrets (D902/D944). Pour
+l'administrateur, le DPO et l'usager — ce dernier sous l'angle de ses
+seules données.
+
+## 19. Le parcours guidé *(en proposition)*
+
+D258 fait de la `description:` « la matière du tutoriel » : la
+documentation **génère un tutoriel**, module par module, écran par
+écran dans l'ordre du menu — à quoi sert l'écran (sa description), les
+champs qui comptent (leurs `hint:`), les opérations offertes, l'écran
+suivant. Il se lit à part, dans la documentation fonctionnelle, et
+pourrait **se jouer dans l'application** : la première consultation
+(D209) étendue à un tour guidé, pas à pas. *À trancher* : texte seul, ou
+joué.
+
+## 20. La complétude de la documentation *(en proposition)*
+
+Le rapport du technicien, à la façon de la couverture (D861/D1060) :
+**ce qui n'est pas décrit** — les entités sans `description:`, les
+champs sans `hint:` ni `description:`, les énumérés sans libellé, les
+opérations et les hooks sans description ni md, les surfaces sans
+`description:` (le masque vide) ; un taux par module et par version ;
+dans la documentation technique, et à l'ingestion comme avertissement.
+*À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
+
+## 21. La diffusion *(en proposition)*
+
+Comment la documentation parvient à ses lecteurs — les canaux de §11
+mis en regard des lecteurs de §3 : **dans l'application**, sous les
+droits (les masques, le parcours guidé, la documentation servie) ; **en
+fichiers**, par la commande au dépôt (Markdown, HTML, les diagrammes) ;
+**par mail**, pour ce qui se rapporte — les notes d'une version promue,
+le rapport de complétude (le patron du `report:` — D397) ; **imprimée**,
+le PDF d'un chapitre ou du tout (D53/D187) ; **publiée**, l'édition HTML
+servie aux techniciens tiers pour l'API (§10). La langue suit le lecteur
+(D1101). *À trancher* : les canaux retenus et leur déclaration dans
+`documentation.yml` (§12).
+
+## 22. Les points ouverts
 
 1. les lecteurs (§3) et la part de chacun ;
 2. le plan de la documentation technique (§4) et de la fonctionnelle
@@ -473,4 +592,6 @@ troisième source.
     (§13) ;
 11. la documentation de référence de Syncytium dans celle de
     l'application (D645) — embarquée, citée en lien, ou hors du sujet
-    (§1, D1122).
+    (§1, D1122) ;
+12. les huit pièces (§14–§21) : chacune en proposition, à arbitrer
+    comme les sections §1–§13.

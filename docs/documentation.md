@@ -636,6 +636,27 @@ scénarios métier (les fichiers complémentaires — D1122). *À trancher* :
 où se déclarent les personas — une `description:` du groupe suffit, ou
 un bloc dédié ; la part générée et la part écrite.
 
+**Le persona s'appuie sur les wizards** (D1130 — « ce que nous avons
+déjà décrit dans la constitution des GUI, les wizards »). Le wizard
+([composants.md](composants.md) — D546–D552, D594) est déjà **un
+scénario fait surface** : une démarche guidée en `steps`, chaque step
+un écran, certains portant une opération pré-exécutée, le fil d'Ariane
+qui dit le chemin parcouru (D505), la transaction tenue ouverte jusqu'à
+la validation finale (D594), le menu qui l'adresse (`[@wizard]` —
+D439). L'auteur le confirme : **« les wizards décrivent la succession
+de tâches pour réaliser une opération… ça se marie bien avec mon
+concept de persona et de fonctionnalités de bout en bout »** — le
+scénario d'un persona est **une fonctionnalité de bout en bout**, et le
+wizard en est la succession de tâches dans l'application. *Mes
+lectures* : **chaque wizard qu'un persona peut atteindre est l'un de ses
+scénarios**, déjà écrit par le technicien dans la configuration — ses
+steps en sont les étapes, le `title:` du wizard le but, ses opérations
+les actes ; les scénarios générés par les droits (créer, modifier,
+supprimer, mener un cycle) complètent ceux que les wizards portent ; et
+**la planche d'un wizard** (§24) se dessine step par step. Le wizard est
+ainsi la forme vécue du scénario, la planche sa forme imprimée, le
+parcours guidé (§19) sa forme lue.
+
 ## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
 
 **« Cette documentation est à compléter avec des opérations de
@@ -718,7 +739,9 @@ logo, les couleurs) ; le rendu dépend de l'architecture (D1126). *À
 trancher* : le gabarit unique ou déclinable ; la planche aussi dans
 l'application (le « ? » d'une opération ouvre sa planche) ; ce qui se
 régénère quand la version change (les écrans changent, la planche
-suit — l'écart D1112 la signale).
+suit — l'écart D1112 la signale). **Un wizard donne sa planche sans
+rien écrire** (D1130, §22) : ses steps sont les étapes, chaque step
+son écran.
 
 ## 25. Les points ouverts
 
@@ -745,7 +768,8 @@ suit — l'écart D1112 la signale).
 12. les onze pièces (§14–§24) : chacune en proposition, à arbitrer
     comme les sections §1–§13 ;
 13. les personas (§22) : où ils se déclarent, la part générée et la
-    part écrite ;
+    part écrite ; les wizards comme scénarios déjà écrits (D1130 — mes
+    lectures à confirmer) ;
 14. la maintenance, les contrôles et la supervision (§23) : la part
     de chaque lecteur, la périodicité, les seuils ; les chapitres de
     l'instance montrés vides au dépôt (le tiny, frottement 9) ;

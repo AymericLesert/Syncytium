@@ -56,7 +56,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§23).
+Syncytium ») reste à placer (§24).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -74,13 +74,15 @@ personnaliser.
 
 **Ce que la documentation comprend** (D1125 — « les principes posent
 les types de documentation et les points ci-dessus ») : outre les trois
-documentations et le modèle de données en diagrammes (§5), neuf pièces,
+documentations et le modèle de données en diagrammes (§5), dix pièces,
 chacune détaillée dans sa section — **l'export et l'import** (§14), **le
 dictionnaire des données** (§15), **les enchaînements** (§16), **le guide
 d'exploitation** (§17), **la conformité** (§18), **le parcours guidé**
 (§19), **la complétude de la documentation** (§20), **la diffusion**
 (§21), **les scénarios d'utilisation par des personas** (§22 — D1127 ;
-le plan de test de l'exemple de référence est écarté).
+le plan de test de l'exemple de référence est écarté), **la
+maintenance, les contrôles et la supervision** (§23 — D1128). L'auteur
+garde la possibilité d'ajouter d'autres pièces.
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -428,6 +430,8 @@ l'instance** : une documentation générée au dépôt, sans base, n'a pas
 cette section ; la documentation servie par l'application l'a. *À
 trancher* : sur quels types et quels indicateurs (la liste des canaux
 de telemetry.md), et si cette part reste au technicien ou se partage.
+Cette source nourrit la pièce §23 — la supervision des usages, les
+contrôles, les optimisations.
 
 ## 9. Les écarts entre versions (D1112) *(la forme, en proposition)*
 
@@ -629,7 +633,52 @@ scénarios métier (les fichiers complémentaires — D1122). *À trancher* :
 où se déclarent les personas — une `description:` du groupe suffit, ou
 un bloc dédié ; la part générée et la part écrite.
 
-## 23. Les points ouverts
+## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
+
+**« Cette documentation est à compléter avec des opérations de
+maintenance, de contrôles ou de supervision incluant quelques aspects
+que nous avons déjà évoqués comme les optimisations ou les usages les
+plus fréquents, les moins utilisés ou les non utilisés. »** (l'auteur,
+le 05/10/2026 — la dixième pièce ; il garde la possibilité d'en
+ajouter d'autres.)
+
+*Mes propositions* — la pièce où la documentation cesse de décrire pour
+**mesurer et conseiller**, nourrie par la troisième source (§8, D334)
+et par la télémétrie ([telemetry.md](telemetry.md)) ; elle n'existe
+qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
+
+- **La supervision — les usages.** Par entité, les compteurs de
+  lecture et d'écriture (D39) ; par champ, la diversité des valeurs
+  (D38, D46/D48) ; par écran et par opération, la fréquence d'emploi ;
+  par API, les compteurs et les acteurs (D40). D'où **les plus
+  fréquents, les moins utilisés, les non utilisés** : les entités
+  jamais écrites, les champs jamais renseignés, les valeurs d'énuméré
+  jamais choisies, les écrans jamais ouverts, les opérations jamais
+  déclenchées — le tableau de bord pour l'exploration, la synthèse
+  périodique pour l'alerte (les canaux de D44, D733/D738).
+- **Les contrôles.** La complétude de la documentation (§20) ; la
+  couverture et les compteurs de la reprise
+  ([migration.md](migration.md)) ; les validations qui échouent le plus
+  ; les versions servies, leur épinglage (D98/D99) et l'appel d'une
+  version dépréciée (D742) ; les refus de droits journalisés (D43).
+- **Les optimisations.** Ce que les mesures suggèrent, en conseils —
+  jamais en actes (le volet conseil, D45) : le champ constant, candidat
+  au retrait (D46) ; le domaine surdimensionné, à resserrer (D48) ; les
+  calculés à matérialiser et les agrégats à pousser au storage
+  (D985/D1012) ; les listes lentes et les champs à indexer (*ma
+  lecture*, à l'architecture).
+- **La maintenance — les opérations.** Le nettoyage (D1073), la
+  rotation du chiffrement (D1079/D1080), la copie d'un environnement
+  (`syncytium copy … --with-storage` — D1080), la promotion d'une
+  version (D340), la relecture complète de la reprise
+  (`reset_coverage` — D943), la restauration d'un enregistrement (D171)
+  ; pour chacune : quand, qui, comment, la trace.
+
+*À trancher* : la part servie à l'administrateur et au technicien ; la
+périodicité de la synthèse ; les seuils (la calibration de
+telemetry.md).
+
+## 24. Les points ouverts
 
 1. les lecteurs (§3) et la part de chacun ;
 2. le plan de la documentation technique (§4) et de la fonctionnelle
@@ -651,7 +700,10 @@ un bloc dédié ; la part générée et la part écrite.
     **la documentation du socle**, ce qui est commun à toutes les
     applications (l'écran, l'import, le cycle de vie d'une donnée),
     en tête des fonctionnalités (§6) ;
-12. les neuf pièces (§14–§22) : chacune en proposition, à arbitrer
+12. les dix pièces (§14–§23) : chacune en proposition, à arbitrer
     comme les sections §1–§13 ;
 13. les personas (§22) : où ils se déclarent, la part générée et la
-    part écrite.
+    part écrite ;
+14. la maintenance, les contrôles et la supervision (§23) : la part
+    de chaque lecteur, la périodicité, les seuils ; les chapitres de
+    l'instance montrés vides au dépôt (le tiny, frottement 9).

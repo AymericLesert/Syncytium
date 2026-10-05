@@ -52,7 +52,7 @@ D1120).
 produire depuis ces lignes — la méthode de documentation.md §13 ; le
 rendu est en Markdown parce qu'il se lit ici, la forme relève du
 domaine 7 (D1126). Le plan suit l'exemple de référence (§6) : la
-présentation, le socle, le module ; puis les pièces (§14–§23). Chaque
+présentation, le socle, le module ; puis les pièces (§14–§24). Chaque
 frottement de l'écriture est relevé à la fin.)*
 
 ---
@@ -241,6 +241,19 @@ frottement de l'écriture est relevé à la fin.)*
 > proposer tant que l'annuaire n'a pas vécu. **La maintenance** :
 > aucune opération déclarée — le journal sur la sortie standard, pas
 > de nettoyage.
+>
+> ## 15. Les modes opératoires
+>
+> Une planche par scénario, une page A4 en paysage. **« Ajouter une
+> personne »** — *l'utilisateur ; à chaque arrivée dans l'entreprise* :
+> **1.** Ouvrir l'annuaire — l'écran de la liste `personne`, l'entrée
+> de menu entourée. **2.** Créer — le formulaire et ses quatre champs,
+> le bouton de création entouré ; le nom et le prénom sont l'identité :
+> deux personnes ne partagent pas les deux. **3.** Enregistrer — le
+> bouton entouré ; la personne paraît dans la liste. Les images sont
+> les écrans par défaut, rendus par Syncytium. Deux autres planches :
+> « Modifier une personne », « Importer l'annuaire depuis un fichier
+> CSV » (le gabarit du chapitre 6).
 
 ---
 

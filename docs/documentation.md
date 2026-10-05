@@ -56,7 +56,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§24).
+Syncytium ») reste à placer (§25).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -81,8 +81,9 @@ d'exploitation** (§17), **la conformité** (§18), **le parcours guidé**
 (§19), **la complétude de la documentation** (§20), **la diffusion**
 (§21), **les scénarios d'utilisation par des personas** (§22 — D1127 ;
 le plan de test de l'exemple de référence est écarté), **la
-maintenance, les contrôles et la supervision** (§23 — D1128). L'auteur
-garde la possibilité d'ajouter d'autres pièces.
+maintenance, les contrôles et la supervision** (§23 — D1128), **les
+modes opératoires imprimables** (§24 — D1129). L'auteur garde la
+possibilité d'ajouter d'autres pièces.
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -130,7 +131,7 @@ perçoit le modèle sans en lire les tables. Je lis sept lecteurs :
 |---|---|---|
 | **le technicien** de l'application | le modèle complet, les règles, les écarts entre versions, les hooks, la reprise | la documentation technique |
 | **l'administrateur** | les connecteurs et leur état, les dépendances, le code tiers servi au navigateur, le registre des traitements, les groupes et les droits | la documentation technique — la part d'exploitation |
-| **l'utilisateur** (l'opérateur) | ce que fait chaque écran, chaque champ, chaque opération, dans sa langue ; le modèle de son module, en image | les masques d'explication, la documentation fonctionnelle |
+| **l'utilisateur** (l'opérateur) | ce que fait chaque écran, chaque champ, chaque opération, dans sa langue ; le modèle de son module, en image ; **la procédure sur une page, posée sur le bureau** — tous n'exploitent pas le numérique (D1129) | les masques d'explication, la documentation fonctionnelle, les modes opératoires imprimés |
 | **le décideur** | ce que l'application couvre, comment les choses se tiennent — en une image | la vue d'ensemble du modèle (§5), les notes de version |
 | **le technicien tiers** (le consommateur des API) | le contrat de chaque version publiée, les champs exposés, les exemples d'appel | la documentation de l'API |
 | **l'usager** (la personne dont les données sont traitées) | ce que l'application sait d'elle, pourquoi, combien de temps | le registre des traitements, sous l'angle RGPD |
@@ -607,8 +608,10 @@ droits (les masques, le parcours guidé, la documentation servie) ; **en
 fichiers**, par la commande au dépôt (Markdown, HTML, les diagrammes) ;
 **par mail**, pour ce qui se rapporte — les notes d'une version promue,
 le rapport de complétude (le patron du `report:` — D397) ; **imprimée**,
-le PDF d'un chapitre ou du tout (D53/D187) ; **publiée**, l'édition HTML
-servie aux techniciens tiers pour l'API (§10). La langue suit le lecteur
+le PDF d'un chapitre ou du tout (D53/D187) et **les planches des modes
+opératoires, une page A4 chacune** (§24 — le papier comme support de
+formation, D1129) ; **publiée**, l'édition HTML servie aux techniciens
+tiers pour l'API (§10). La langue suit le lecteur
 (D1101). *À trancher* : les canaux retenus et leur déclaration dans
 `documentation.yml` (§12).
 
@@ -678,7 +681,46 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
 périodicité de la synthèse ; les seuils (la calibration de
 telemetry.md).
 
-## 24. Les points ouverts
+## 24. Les modes opératoires imprimables (D1129) *(en proposition)*
+
+**« Des planches imprimables en A4, sur une page, affichables sur un
+bureau, dans un classeur… tous mes utilisateurs n'exploitent pas
+toujours l'aspect digital et le papier est une source de formation et
+un support pédagogique riche en explication. »** (l'auteur, le
+05/10/2026 — l'exemple : ses planches pour DSP Gestion, « la création
+d'un client », « la mise à jour des tournées ».)
+
+**Ce qu'est une planche**, d'après l'exemple : une page, en paysage ;
+**un titre** rouge — le but, et quand on le fait (« une fois par jour en
+fin de journée ») ; **des étapes numérotées**, en gras, le numéro en
+rouge ; **sous ou à côté de chaque étape, la capture de l'écran** où
+elle se joue, **le bouton ou le champ qui compte entouré de rouge** ;
+**des flèches** d'une étape à la suivante ; **un encart** pour ce qu'il
+ne faut pas faire (« ne pas modifier le nom, le prénom, l'adresse ici —
+le faire dans l'application seulement »). La procédure **traverse les
+outils** : le logiciel de gestion, l'application, l'outil de tournées.
+
+*Mes propositions.* **La planche est la forme imprimable d'un scénario
+d'utilisation** (§22) : un persona, un but, des étapes. **Ce que
+Syncytium génère** — pour chaque scénario dont les étapes sont dans
+l'application : le titre (le but, la fréquence), les étapes dans
+l'ordre, et pour chacune **l'image de l'écran, rendue par Syncytium
+lui-même** — l'écran généré se dessine, il n'y a pas à le photographier
+—, le champ ou l'opération de l'étape mis en évidence, le libellé et le
+`hint:` comme texte de l'étape, **les avertissements tirés des
+validations** (leur `message:` — D1116) et des `hint:`. **Ce que le
+technicien écrit** : les étapes hors de l'application (les fichiers
+complémentaires — D1122), les encarts métier, l'ordre des scénarios
+dans le classeur. **La forme** : une page A4 paysage par scénario, en
+PDF (D53/D187), au gabarit stable — le même pour toutes les planches
+d'une application, personnalisable par `documentation.yml` (§12 — le
+logo, les couleurs) ; le rendu dépend de l'architecture (D1126). *À
+trancher* : le gabarit unique ou déclinable ; la planche aussi dans
+l'application (le « ? » d'une opération ouvre sa planche) ; ce qui se
+régénère quand la version change (les écrans changent, la planche
+suit — l'écart D1112 la signale).
+
+## 25. Les points ouverts
 
 1. les lecteurs (§3) et la part de chacun ;
 2. le plan de la documentation technique (§4) et de la fonctionnelle
@@ -700,10 +742,12 @@ telemetry.md).
     **la documentation du socle**, ce qui est commun à toutes les
     applications (l'écran, l'import, le cycle de vie d'une donnée),
     en tête des fonctionnalités (§6) ;
-12. les dix pièces (§14–§23) : chacune en proposition, à arbitrer
+12. les onze pièces (§14–§24) : chacune en proposition, à arbitrer
     comme les sections §1–§13 ;
 13. les personas (§22) : où ils se déclarent, la part générée et la
     part écrite ;
 14. la maintenance, les contrôles et la supervision (§23) : la part
     de chaque lecteur, la périodicité, les seuils ; les chapitres de
-    l'instance montrés vides au dépôt (le tiny, frottement 9).
+    l'instance montrés vides au dépôt (le tiny, frottement 9) ;
+15. les modes opératoires (§24) : le gabarit, la planche dans
+    l'application, sa régénération à la version.

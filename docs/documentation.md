@@ -56,7 +56,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§22).
+Syncytium ») reste à placer (§23).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -74,12 +74,13 @@ personnaliser.
 
 **Ce que la documentation comprend** (D1125 — « les principes posent
 les types de documentation et les points ci-dessus ») : outre les trois
-documentations et le modèle de données en diagrammes (§5), huit pièces,
+documentations et le modèle de données en diagrammes (§5), neuf pièces,
 chacune détaillée dans sa section — **l'export et l'import** (§14), **le
 dictionnaire des données** (§15), **les enchaînements** (§16), **le guide
 d'exploitation** (§17), **la conformité** (§18), **le parcours guidé**
 (§19), **la complétude de la documentation** (§20), **la diffusion**
-(§21).
+(§21), **les scénarios d'utilisation par des personas** (§22 — D1127 ;
+le plan de test de l'exemple de référence est écarté).
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -384,7 +385,8 @@ ce que j'en retiens *(mes lectures)* :
   dans celle de l'application (le point ouvert 11) ;
 - **le plan de test** — des scénarios Gherkin par entité (étant donné /
   quand / alors), le premier étant l'accès à la documentation depuis
-  l'écran — pose la question d'une neuvième pièce (§22, point 13).
+  l'écran — est **écarté** par l'auteur et **remplacé par des scénarios
+  d'utilisation de l'application par des personas** (D1127, §22).
 
 - **L'application** — sa description, **la vue d'ensemble du modèle**
   (§5), ses modules et ce que chacun sert ; ce qui a changé à cette
@@ -606,7 +608,28 @@ servie aux techniciens tiers pour l'API (§10). La langue suit le lecteur
 (D1101). *À trancher* : les canaux retenus et leur déclaration dans
 `documentation.yml` (§12).
 
-## 22. Les points ouverts
+## 22. Les scénarios d'utilisation par des personas (D1127) *(en proposition)*
+
+**Le plan de test est écarté** — les tests relèvent du développement
+(D869) — **et remplacé par des scénarios d'utilisation de l'application
+par des personas** (D1127). *Mes propositions* : **un persona par groupe
+d'utilisateurs** (D414 — le commercial, le logisticien, le bureau
+d'études, la direction du cas 5) : une personne fictive nommée, son
+rôle, ce qu'elle vient faire ; ses droits sont ceux du groupe, qui
+filtrent ce qu'elle voit (D193/D334). **Un scénario** = un parcours
+dans l'application, dans la langue de l'utilisateur : le persona, son
+but, la fréquence, le point de départ (l'entrée de menu), les étapes
+(les écrans traversés, les champs saisis, les opérations déclenchées,
+les états franchis — §16), le résultat. **Ce que Syncytium génère** :
+pour chaque groupe, les squelettes des scénarios que ses droits
+permettent — créer, consulter, modifier, supprimer chaque entité
+accessible, déclencher chaque opération, mener chaque cycle d'états ;
+**ce que le technicien complète** : le nom et le rôle des personas, les
+scénarios métier (les fichiers complémentaires — D1122). *À trancher* :
+où se déclarent les personas — une `description:` du groupe suffit, ou
+un bloc dédié ; la part générée et la part écrite.
+
+## 23. Les points ouverts
 
 1. les lecteurs (§3) et la part de chacun ;
 2. le plan de la documentation technique (§4) et de la fonctionnelle
@@ -628,8 +651,7 @@ servie aux techniciens tiers pour l'API (§10). La langue suit le lecteur
     **la documentation du socle**, ce qui est commun à toutes les
     applications (l'écran, l'import, le cycle de vie d'une donnée),
     en tête des fonctionnalités (§6) ;
-12. les huit pièces (§14–§21) : chacune en proposition, à arbitrer
+12. les neuf pièces (§14–§22) : chacune en proposition, à arbitrer
     comme les sections §1–§13 ;
-13. **le plan de test** — une neuvième pièce ? des scénarios Gherkin
-    par entité, nés des validations, des états et des opérations
-    (l'exemple de référence en a un ; D869 — le jeu de données).
+13. les personas (§22) : où ils se déclarent, la part générée et la
+    part écrite.

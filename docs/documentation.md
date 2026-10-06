@@ -17,6 +17,161 @@ son élément apporte à la documentation** — l'entité et ses champs dans
 [conception](conception.md). Les sections marquées *en proposition*
 sont miennes, jusqu'à leur arbitrage.
 
+## Le contexte — les sept documentations (D1131)
+
+Le 06/10/2026, l'auteur pose le contexte :
+
+> « Une documentation d'abord fonctionnelle pour les utilisateurs, une
+> documentation générale, des parties spécialisées avec des modes
+> opératoires et des personas ; une documentation technique pour
+> accéder à l'information (BI ou IA) comme le modèle de données, les
+> règles et les données ; une documentation développeur pour utiliser
+> les API, pour enrichir l'application et/ou pour étendre les
+> composants disponibles ; une documentation d'architecture technique
+> pour présenter les connexions entre l'application et son
+> environnement ; une documentation réglementation (type RGPD) avec un
+> référencement des données disponibles et des traitements liés ; une
+> documentation promotionnelle pour exposer et vendre une application ;
+> une documentation dédiée à la maintenance, à l'analyse des risques et
+> à la recherche d'améliorations. »
+
+**Sept documentations** — elles précisent les trois de D333 : la
+fonctionnelle reste la première ; la technique se dédouble en trois
+(l'information, le développeur, l'architecture) ; trois naissent (la
+réglementation, la promotion, la maintenance). Les masques (D209) et
+les pièces de §14 à §24 sont des **formes** au service de ces sept.
+Les quatre parties qui suivent répondent aux quatre demandes du jour
+; tout y est *en proposition*.
+
+### 1. Le balayage — d'autres thèmes ?
+
+Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
+
+- **la documentation du projet et du support** — le cycle de vie des
+  versions (la promotion, la dépréciation, le Sunset — D340/D650), les
+  notes de version, comment signaler une anomalie ou demander une
+  évolution, l'assistance (une F.A.Q.), le dépôt du client (D336) ;
+  l'exemple de référence l'a (Procédures, Road map, F.A.Q.). **Une
+  huitième**, ou à répartir — l'assistance à la fonctionnelle, le cycle
+  de vie à la maintenance ;
+- **la formation** — un *usage* de la fonctionnelle plus qu'un type :
+  les planches (§24), le parcours guidé (§19), les scénarios (§22)
+  comme supports pédagogiques (D1129 — « le papier est une source de
+  formation ») ; peut-être des exercices sur une instance d'essai ;
+- **l'installation et l'exploitation** — le guide d'exploitation
+  (§17) : installer, configurer, sauvegarder, surveiller au quotidien ;
+  entre l'architecture (4), qui dit les connexions, et la maintenance
+  (7), qui dit les opérations — à rattacher à l'une des deux ;
+- **la réglementation au-delà du RGPD** — l'accessibilité des écrans
+  générés, les obligations légales du secteur (la conservation, la
+  facturation), la sécurité comme obligation (les accès journalisés —
+  D43, les dépendances — D924) : la cinquième s'élargirait en
+  « réglementation et sécurité ».
+
+### 2. Le classement — les sections et les pièces par documentation
+
+| La documentation | Pour qui (§3) | Ce que ce document en dit déjà |
+|---|---|---|
+| **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
+| **2. Technique — l'information (BI, IA)** | le technicien, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
+| **3. Développeur** | le technicien tiers, le technicien de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
+| **4. Architecture technique** | l'administrateur, le technicien | §4 chapitre 1 — les environnements et les connecteurs ; §17 le guide d'exploitation ; §4 chapitre 11 — les dépendances |
+| **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
+| **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
+| **7. Maintenance, risques, améliorations** | l'administrateur, le technicien | §23 la maintenance, les contrôles et la supervision ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
+| *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
+
+### 3. Les compléments — ce qui n'est pas encore décrit
+
+**1. Fonctionnelle.** *La documentation générale* — la présentation de
+l'application : l'entreprise, ce que l'application sert, les modules
+et le schéma directeur (l'exemple de référence : « Présentation ») —
+en textes complémentaires (D1122) ; *l'assistance* — une F.A.Q. née des
+messages de validation (« pourquoi ce message ? » — D1116) et des
+`hint:` ; *« mes droits »* — ce que l'utilisateur peut faire, par
+groupe ; *les notifications* — quand et pourquoi un mail arrive
+(D108) ; *les documents produits* — les impressions et leurs gabarits
+(D53) ; *la recherche* — ce qui se cherche et comment (D780).
+
+**2. Technique — l'information.** *Une édition lisible par la
+machine* — le méta-schéma et ses descriptions exportés (JSON ou YAML)
+pour les outils de BI et pour l'IA : le mode d'emploi filtré par les
+droits de D958, matérialisé ; *le modèle physique* — les tables et les
+colonnes du storage par le `describe()` du connecteur (D630), la
+correspondance du nom logique au stockage ; *les règles en un lieu* —
+les validations, les calculés et leurs formules, les états, les
+automatismes ; *l'historique* — comment lire les instantanés
+(D168–D173) ; *les volumes et la diversité* par entité (D38–D39) ;
+*l'accès pour la BI* — la lecture paginée (D22), l'export, les clés et
+les identités.
+
+**3. Développeur.** *Le contrat d'API* par version publiée (D99) :
+l'authentification des comptes techniques (D28), l'épinglage (D98), la
+pagination et les lots (D22), les tâches asynchrones (D24), les champs
+exposés (D20), les erreurs (le 426 — D94), des exemples d'appel ;
+*étendre* — les cinq familles de hooks ([hooks.md](hooks.md)) : écrire
+un hook, son md (D778), la librairie d'exploration (D572/D599), le hook
+d'interface listé (D918) ; les types et les composants personnalisés
+(D359, D452) ; *enrichir* — la syntaxe de la configuration et le dépôt
+du client (D336), le cycle des versions (D340) : c'est ici que la
+documentation de référence de Syncytium entre (le point ouvert 11).
+
+**4. Architecture technique.** *Le schéma des connexions* — un
+diagramme calculé, comme le modèle (D1119) : l'instance, son storage,
+l'authentification, le SMTP, les bases d'origine de la reprise, les
+webhooks et les API tierces, le LLM (D957), les postes ; *les
+environnements* et leur rôle (production, staging, passif — D339,
+D112–D114), les flux et les ports, où vivent les secrets (D944/D902),
+le journal et son puits (D343), la sauvegarde et la restauration, le
+dimensionnement (D15), les certificats (D919), les dépendances (D924).
+
+**5. Réglementation.** *Le registre complet* — par traitement, la
+finalité et la base légale (écrites — D1122), les données et leur
+confidentialité (calculées), les destinataires (les groupes, les
+connecteurs sortants), les durées et l'anonymisation à l'échéance
+(D696/D698), les transferts (le fournisseur du LLM) ; *les droits des
+personnes* — comment l'application les sert (l'accès, la rectification,
+l'effacement) ; *les mentions d'information* ; *la journalisation des
+accès* (D43) ; au-delà, l'accessibilité et les obligations du secteur.
+
+**6. Promotionnelle.** À faire naître : *la plaquette* — le nom, la
+description, les modules (`title:`, `description:`), le modèle
+d'ensemble en image, les écrans rendus, les personas et leurs scénarios
+comme cas d'usage, « quoi de neuf » (les notes de version) ; *la
+démonstration* — une instance d'essai et son jeu de données (D869) ;
+*l'argumentaire du socle* — l'open source AGPL (D19), une instance par
+client, les API, l'auto-documentation. Le ton et les textes sont écrits
+(D1122) ; la structure et les visuels, générés.
+
+**7. Maintenance, risques, améliorations.** §23, et *l'analyse des
+risques* : le dry-run d'une version (le risque de migration — D737),
+les anomalies de la reprise, les validations en échec, les refus et les
+pics (D43), les versions dépréciées encore appelées (D742), les
+dépendances vulnérables (D924 — la veille hors moteur), la sauvegarde
+et le PRA (D112–D114), les volumes et la performance (D985/D1012) ; *la
+recherche d'améliorations* : les conseils (D45), le champ constant et
+le domaine surdimensionné (D46/D48), les écrans jamais ouverts, la
+complétude (§20), les demandes des utilisateurs (le lien vers le suivi
+du projet — l'exemple de référence : « Création d'un ticket »).
+
+### 4. L'ordre — enrichir et valider ensemble
+
+| Rang | Documentation | Ce qu'on y arbitre | Pourquoi là |
+|---|---|---|---|
+| 0 | *le socle de la génération* | §2, §3 (les sept lecteurs), §12, §13, §21 ; §11 renvoyé au domaine 7 | le cadre, vite |
+| 1 | **Fonctionnelle** | §6, §7, §16, §19, §22, §24, §14, §15 ; la générale, l'assistance, « mes droits » ; les neuf frottements du tiny | « d'abord fonctionnelle » ; le tiny la montre |
+| 2 | **Technique — l'information** | §4, §5, §8, §9 ; l'édition machine, le modèle physique, l'historique | tout en découle ; le tiny la montre |
+| 3 | **Réglementation** | §18 ; le registre complet, les droits des personnes | l'obligation de la TPE ; la matière est au modèle |
+| 4 | **Développeur** | §10 ; les hooks, l'extension, la syntaxe (le point 11) | les techniciens tiers du cas 8 ; la forme attend le domaine 7 |
+| 5 | **Architecture technique** | §17 ; le schéma des connexions, les environnements, le PRA | dépend des choix techniques (D1025) |
+| 6 | **Maintenance, risques, améliorations** | §23 ; l'analyse des risques | dépend de la télémétrie et de l'instance |
+| 7 | **Promotionnelle** | la plaquette, la démonstration, l'argumentaire | réemploie les six autres ; les textes sont à écrire |
+
+Le document garde ses sections numérotées jusqu'à la fin des
+arbitrages ; **le regroupement physique par documentation** viendra
+avec la documentation structurée (D1021), quand les numéros n'auront
+plus à servir de repères.
+
 ## 1. Le principe — trois documentations, trois sources, une seule version
 
 **« La description et l'autogénération de la documentation sont un
@@ -774,4 +929,9 @@ son écran.
     de chaque lecteur, la périodicité, les seuils ; les chapitres de
     l'instance montrés vides au dépôt (le tiny, frottement 9) ;
 15. les modes opératoires (§24) : le gabarit, la planche dans
-    l'application, sa régénération à la version.
+    l'application, sa régénération à la version ;
+16. le contexte (D1131) : une huitième documentation — le projet et le
+    support — ou sa répartition ; la formation comme usage ;
+    l'installation et l'exploitation rattachées à l'architecture ou à
+    la maintenance ; la réglementation élargie à la sécurité ; les
+    compléments par documentation ; l'ordre 0–7.

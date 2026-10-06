@@ -1268,6 +1268,7 @@ Q58) :
 | D1133 | **Le projet et le support est la huitième documentation** (précise D1131 ; solde le premier point du balayage) : « Le projet et le support est bien une huitième documentation. » — le cycle de vie des versions (D340/D650/D1123–D1124), les notes (D1112), le dépôt du client (D336), signaler et demander, le support ; l'assistance (§25) en est le pendant dans l'application. | Les questions de la F.A.Q. (§25) sont gardées pour le moment : « Garde les questions de la FAQ pour le moment. » Voir documentation.md (le contexte) et §3.2c. |
 | D1134 | **Le D.A.T. et le guide d'exploitation : deux documentations distinctes — le D.A.T. décrit les inter-connexions de l'application avec son environnement et le paramétrage externe indispensable à son fonctionnement ; le guide d'exploitation explique l'installation, la configuration, la supervision et les opérations de maintenance** (précise D1131 — la quatrième documentation ; solde le troisième point du balayage) : « Le DAT et le guide d'exploitation sont intimement liés mais couvrent des fonctions et des attendus distincts. Le D.A.T. est vu comme une description des inter-connections entre l'application et son environnement + l'ensemble du paramétrage externe à l'application mais indispensable à son fonctionnement. Le guide d'exploitation explique l'installation, la configuration, la supervision et les opérations de maintenance. » | Ma lecture : le D.A.T. = la quatrième, le guide d'exploitation (§17) = la neuvième ; la septième garde l'analyse (les risques, les améliorations) et s'appuie sur les opérations que le guide explique. Voir documentation.md (le contexte, §17, §23) et §3.2c. |
 | D1135 | **L'ordre des arbitrages de la documentation, acté : 0 le socle · 1 la fonctionnelle · 2 l'information · 3 la réglementation · 4 le projet et le support · 5 le développeur · 6 le D.A.T. · 7 le guide d'exploitation · 8 la maintenance, les risques, les améliorations · 9 la promotionnelle** (précise D1131 ; tient compte de D1133 et D1134) : « Quant à l'ordre, il faut prendre en compte mes 2 précédentes remarques. » — mon ordre 0–7 complété des deux documentations ajoutées. | La fonctionnelle d'abord, avec les neuf frottements du tiny ; le D.A.T. et le guide après les choix techniques (D1025) ; la maintenance après la télémétrie ; la promotion en dernier. Voir documentation.md (le contexte, partie 4) et §3.2c. |
+| D1136 | **Le plan de travail de la documentation, validé : dix rangs (0 le socle, 1 la fonctionnelle, 2 l'information, 3 la réglementation, 4 le projet et le support, 5 le développeur, 6 le D.A.T., 7 le guide d'exploitation, 8 la maintenance-risques-améliorations, 9 la promotionnelle), chacun avec son périmètre, ses sections, ses étapes, sa déclinaison, ses livrables, ses dépendances** (exécute D1135 ; précise D1021 — la documentation structurée) : « Le plan me convient. » | documentation.md, le contexte, partie 5. Les étapes se prennent dans l'ordre, une décision par étape ; une étape qui attend une dépendance se consigne au principe et se finalise après elle. La reprise : le rang 0, par §3 — les lecteurs des neuf documentations. Voir §3.2c. |
 
 ---
 
@@ -12681,6 +12682,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les arbitrages du contexte (D1133–D1135).** « Garde les questions de la FAQ pour le moment. Finalisons les arbitrages de la documentation : le projet et le support est bien une huitième documentation. Le DAT et le guide d'exploitation sont intimement liés mais couvrent des fonctions et des attendus distincts. Le D.A.T. est vu comme une description des inter-connections entre l'application et son environnement + l'ensemble du paramétrage externe à l'application mais indispensable à son fonctionnement. Le guide d'exploitation explique l'installation, la configuration, la supervision et les opérations de maintenance. Quant à l'ordre, il faut prendre en compte mes 2 précédentes remarques. » — neuf documentations ; le contexte de documentation.md réécrit (le balayage soldé sur deux points, le classement à neuf lignes, les compléments du D.A.T., du projet et du support, du guide d'exploitation, l'ordre 0–9 acté) ; §17 et §23 renvoient l'un à l'autre.
 
+**Le plan de travail validé (D1136).** « Le plan me convient. Marquons une pause. » — les dix rangs de documentation.md (le contexte, partie 5) deviennent le programme du chantier ; la reprise au rang 0, par les lecteurs des neuf documentations (§3).
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -23878,7 +23881,11 @@ avant la synthèse Q16).
   l'auteur, **le plan de travail détaillé** par rang (le contexte, partie 5 de
   documentation.md) : pour chacun des dix rangs, le périmètre, les sections,
   les étapes numérotées — une par arbitrage —, la déclinaison qui l'éprouve,
-  les livrables, les dépendances ; en proposition.
+  les livrables, les dépendances. « Le plan me convient. Marquons une pause. »
+  → D1136. **PAUSE — 1136 décisions, tout commis et poussé, aucune PR
+  ouverte.** La reprise : le rang 0 du plan, par §3 — les lecteurs des neuf
+  documentations — puis §2, §13, les frottements transversaux du tiny, §12,
+  §21, §11.
 - **2026-10-05 (suite) — LA DÉCLINAISON DU TINY, LA DIXIÈME PIÈCE (D1128,
   1128 décisions).** La documentation que Syncytium devrait générer pour le
   tiny, écrite à la main dans `usecases/01_tiny.md` : quatorze chapitres sur

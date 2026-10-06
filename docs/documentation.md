@@ -221,7 +221,7 @@ arbitrages ; **le regroupement physique par documentation** viendra
 avec la documentation structurée (D1021), quand les numéros n'auront
 plus à servir de repères.
 
-### 5. Le plan de travail détaillé *(en proposition, le 06/10/2026)*
+### 5. Le plan de travail détaillé (D1136 — validé le 06/10/2026)
 
 Pour chaque rang de D1135 : **le périmètre** de la documentation à
 fournir, **les sections** qui la portent déjà, **les étapes** — chacune

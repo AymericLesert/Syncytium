@@ -23874,7 +23874,11 @@ avant la synthèse Q16).
   `_assistance` en esquisse. Puis les arbitrages du contexte : la huitième
   documentation actée (D1133), le D.A.T. et le guide d'exploitation distincts
   — la quatrième et la neuvième (D1134) —, l'ordre 0–9 acté (D1135) ; les
-  questions de la F.A.Q. gardées. 1135 décisions.
+  questions de la F.A.Q. gardées. 1135 décisions. Puis, à la demande de
+  l'auteur, **le plan de travail détaillé** par rang (le contexte, partie 5 de
+  documentation.md) : pour chacun des dix rangs, le périmètre, les sections,
+  les étapes numérotées — une par arbitrage —, la déclinaison qui l'éprouve,
+  les livrables, les dépendances ; en proposition.
 - **2026-10-05 (suite) — LA DÉCLINAISON DU TINY, LA DIXIÈME PIÈCE (D1128,
   1128 décisions).** La documentation que Syncytium devrait générer pour le
   tiny, écrite à la main dans `usecases/01_tiny.md` : quatorze chapitres sur

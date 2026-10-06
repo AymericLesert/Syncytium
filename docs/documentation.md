@@ -221,6 +221,283 @@ arbitrages ; **le regroupement physique par documentation** viendra
 avec la documentation structurée (D1021), quand les numéros n'auront
 plus à servir de repères.
 
+### 5. Le plan de travail détaillé *(en proposition, le 06/10/2026)*
+
+Pour chaque rang de D1135 : **le périmètre** de la documentation à
+fournir, **les sections** qui la portent déjà, **les étapes** — chacune
+un arbitrage, donc une décision —, **la déclinaison** qui l'éprouve,
+**les livrables** (ce que la documentation générée contiendra, et les
+artefacts `docs/*.md` à mettre à jour), **les dépendances**. Les étapes
+se prennent dans l'ordre ; une étape qui attend une dépendance se
+consigne au principe et se finalise après elle.
+
+#### Rang 0 — le socle de la génération
+
+- **Périmètre** : ce qui vaut pour les neuf — les lecteurs, le
+  carburant, la méthode, la personnalisation, la diffusion, les
+  formats.
+- **Sections** : §1 (arbitré), §2, §3, §11, §12, §13, §21.
+- **Étapes** :
+  1. §3 — les lecteurs des neuf documentations : qui lit quoi, sous
+     quels droits (le prospect et le dirigeant, le DPO, l'exploitant
+     rejoignent la table) ;
+  2. §2 — le carburant : la table validée, une colonne pour les
+     fichiers complémentaires (D1122) et pour l'édition machine ;
+  3. §13 — la méthode : la documentation attendue écrite à la main
+     pour le tiny (fait), puis pour un module du cas 5 ; chaque
+     frottement une décision ;
+  4. les frottements transversaux du tiny : 6 (la langue de
+     l'édition), 7 (le type dit en clair — [types.md](types.md)), 9
+     (les chapitres de l'instance montrés vides au dépôt) ;
+  5. §12 — `documentation.yml` : la liste de ses propriétés et sa place
+     (l'environnement ou le projet) ;
+  6. §21 — la diffusion : les canaux × les lecteurs ;
+  7. §11 — les formats : le principe des trois éditions (lisible,
+     imprimable, machine) ; la forme attend le domaine 7 (D1126).
+- **Déclinaison** : le tiny.
+- **Livrables** : §2, §3, §12, §13, §21 validés ;
+  [configuration.md](configuration.md) (`documentation.yml`) ;
+  [types.md](types.md) (la forme en clair de chaque type).
+- **Dépendances** : aucune, sauf §11.
+
+#### Rang 1 — la fonctionnelle (documentation 1)
+
+- **Périmètre** : la générale (l'entreprise, l'application, les
+  modules, le schéma directeur), par module et par écran (les
+  descriptions, les enchaînements, les opérations — D1121), les
+  masques, les scénarios par personas, les planches, le parcours
+  guidé, le gabarit d'import, le dictionnaire par libellés, « mes
+  droits », les notifications, les documents produits, la recherche ;
+  l'assistance (§25 — ses questions gardées, D1133).
+- **Sections** : §6, §7, §16, §19, §22, §24, §25, §14, §15, §5 (la vue
+  d'ensemble), §9 (les notes).
+- **Étapes** :
+  1. les frottements du tiny 1, 2, 3, 5, 8 (l'identité et
+     l'obligation, l'historique par défaut, le mono-poste, le registre
+     vide, le nom nu) ;
+  2. §6 — le plan de la fonctionnelle : la générale (en textes
+     complémentaires), le module, l'écran ; l'édition par langue ;
+  3. §7 — les masques : les trois lectures, le « ? » qui montre et qui
+     mène à la page ;
+  4. §16 — les enchaînements : les parcours du menu, les cycles
+     d'états et leur diagramme, les automatismes ;
+  5. §22 — les personas : où ils se déclarent, la part générée (les
+     wizards — D1130, les droits) et la part écrite ;
+  6. §24 — les planches : le gabarit, la planche dans l'application,
+     la régénération à la version ;
+  7. §19 — le parcours guidé : lu ou joué, sa parenté avec le wizard ;
+  8. §14 — le gabarit d'import : les en-têtes (noms ou libellés), la
+     ligne d'exemple, la procédure ;
+  9. §15 — le dictionnaire par libellés : par version ou par module ;
+  10. §5 et §9 — la vue d'ensemble aux libellés, les notes de version
+      pour l'usager ;
+  11. les compléments : « mes droits », les notifications, les
+      documents produits, la recherche.
+- **Déclinaison** : le tiny (à amender) ; **le véhicule** (cas 3) pour
+  les états et les enchaînements ; **la banque** (cas 4) pour les trois
+  langues et les opérations ; **l'entrepôt** (cas 5) pour les personas
+  — ses quatre groupes — et une planche.
+- **Livrables** : §6, §7, §14–§16, §19, §22, §24 validés ;
+  [entity.md](entity.md), [composants.md](composants.md) (le wizard
+  comme scénario), [rights.md](rights.md) (les personas et les
+  groupes) ; `usecases/01_tiny.md` amendé ; une déclinaison dans
+  `usecases/05_entrepot.md`.
+- **Dépendances** : aucune.
+
+#### Rang 2 — l'information, pour la BI et l'IA (documentation 2)
+
+- **Périmètre** : le modèle (en tables et en diagrammes), les règles,
+  les données et leurs usages, les écarts entre versions, le
+  dictionnaire par noms, l'édition lisible par la machine, le modèle
+  physique, l'historique, la reprise.
+- **Sections** : §4, §5, §8, §9, §15, §2.
+- **Étapes** :
+  1. §4 — le plan de la technique (douze chapitres) ;
+  2. §5 — le modèle de données : les trois niveaux, la correspondance
+     (entity.md), le diagramme d'états, le rendu vérifié ;
+  3. §9 — les écarts : ce qui compte comme écart, la liste et les
+     annotations (D1123) ;
+  4. l'édition lisible par la machine : le méta-schéma et ses
+     descriptions exportés, filtrés par les droits du lecteur (D958) ;
+  5. §8 — les données : les indicateurs par type, leur partage ;
+  6. le modèle physique et la correspondance logique ↔ stockage (le
+     `describe()` du storage) ;
+  7. les règles en un lieu, l'historique, les volumes ;
+  8. la reprise dans la documentation : ce que
+     [migration.md](migration.md) y verse.
+- **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
+  l'article, la reprise, les deux versions).
+- **Livrables** : §4, §5, §8, §9 validés ; [entity.md](entity.md) (la
+  correspondance UML), [types.md](types.md) (la diversité par type),
+  [connectors.md](connectors.md) (le contenu de `describe()`),
+  [telemetry.md](telemetry.md), [migration.md](migration.md).
+- **Dépendances** : la forme des diagrammes et de l'édition machine
+  au domaine 7 ; les indicateurs à l'instance.
+
+#### Rang 3 — la réglementation (documentation 5)
+
+- **Périmètre** : le registre des traitements, les droits des
+  personnes, les mentions d'information, la journalisation des accès,
+  la sécurité de l'instance ; au-delà du RGPD, l'accessibilité et les
+  obligations du secteur.
+- **Sections** : §18.
+- **Étapes** :
+  1. ce qu'est un traitement dans Syncytium (le module ? l'entité à
+     `rgpd:` ?), et ce que le registre en calcule : les données, la
+     confidentialité, les destinataires (les groupes, les connecteurs
+     sortants), les durées, l'anonymisation (D696/D698), les transferts
+     (le LLM) ;
+  2. ce qui s'écrit : la finalité, la base légale — où (un bloc `rgpd:`
+     au module ou à l'entité, un fichier complémentaire) ;
+  3. les droits des personnes : comment l'application sert l'accès, la
+     rectification, l'effacement — une surface du socle ? ;
+  4. les mentions d'information et la journalisation des accès (D43) ;
+  5. la cinquième élargie à la sécurité : les dépendances (D924), le
+     code tiers (D918), les secrets (D944) ;
+  6. l'accessibilité des écrans générés et les obligations du secteur.
+- **Déclinaison** : **la banque** (ses champs `rgpd:`) ; le tiny (le
+  registre vide d'une entité nominative — frottement 5).
+- **Livrables** : §18 validé ; [security.md](security.md) (le registre
+  généré), [rights.md](rights.md).
+- **Dépendances** : aucune pour le registre ; l'instance pour les
+  accès journalisés.
+
+#### Rang 4 — le projet et le support (documentation 8)
+
+- **Périmètre** : le cycle de vie des versions, les notes et ce qui
+  change, le dépôt du client, signaler et demander, le support.
+- **Sections** : §9 ; une section à créer.
+- **Étapes** :
+  1. la page des versions : les statuts, les passages, les Sunsets
+     (D340/D650), la documentation de chacune (D1123–D1124) ;
+  2. le dépôt du client (D336) et la version du format (D1083) : ce
+     que la documentation en dit ;
+  3. signaler et demander : les liens vers le suivi du projet, où ils
+     se déclarent (une clé `support:` ? `documentation.yml` ?) ;
+  4. le support : qui répond, les engagements — écrits ; l'assistance
+     (§25) en pendant.
+- **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
+  1.0.0.1 en beta).
+- **Livrables** : une section « Le projet et le support » ;
+  [configuration.md](configuration.md).
+- **Dépendances** : aucune.
+
+#### Rang 5 — le développeur (documentation 3)
+
+- **Périmètre** : le contrat d'API par version, l'extension par les
+  hooks et les composants, l'enrichissement par la configuration, les
+  formats d'échange.
+- **Sections** : §10, §4 (chapitres 7–9), §14.
+- **Étapes** :
+  1. §10 — le contrat d'API : par entité, les opérations (D22, D24),
+     les champs exposés (D20), l'authentification (D28), l'épinglage
+     (D98), les erreurs (D94), les exemples ;
+  2. étendre : les cinq familles de hooks — écrire un hook, son md
+     (D778), `describe()`, la librairie d'exploration, le hook
+     d'interface listé (D918) ; les types et composants personnalisés ;
+  3. enrichir : la documentation de référence de Syncytium dans celle
+     de l'application (le point 11) — embarquée ou liée ;
+  4. les formats d'échange : le gabarit CSV côté technique, les
+     webhooks.
+- **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
+  hooks).
+- **Livrables** : §10 validé ; [hooks.md](hooks.md),
+  [connectors.md](connectors.md) ; le sort de `docs/` dans
+  l'application.
+- **Dépendances** : la forme du contrat d'API au domaine 7.
+
+#### Rang 6 — le D.A.T. (documentation 4)
+
+- **Périmètre** : les inter-connexions de l'application avec son
+  environnement et le paramétrage externe indispensable (D1134).
+- **Sections** : §4 (chapitres 1 et 11) ; une section à créer.
+- **Étapes** :
+  1. le schéma des connexions, calculé : l'instance, le storage,
+     l'authentification, le SMTP, les bases d'origine, les webhooks et
+     API tierces, le LLM, les postes ;
+  2. les environnements et leur rôle (D339, D112–D114), les flux et
+     les ports ;
+  3. le paramétrage externe : les variables `${…}` que la
+     configuration référence (calculables), les comptes chez les
+     tiers, les certificats (D919), le DNS, le pare-feu (écrits) ;
+  4. le dimensionnement (D15), les dépendances (D924).
+- **Déclinaison** : **l'entrepôt** (production et staging, trois
+  storages, `azure_ad`, `smtp`, la base Cegid).
+- **Livrables** : une section « Le D.A.T. » ;
+  [connectors.md](connectors.md), [security.md](security.md),
+  [administration.md](administration.md).
+- **Dépendances** : les choix techniques (D1025).
+
+#### Rang 7 — le guide d'exploitation (documentation 9)
+
+- **Périmètre** : installer, configurer, démarrer et arrêter,
+  sauvegarder et restaurer, superviser, les opérations de maintenance,
+  dépanner (D1134).
+- **Sections** : §17, §23 (ses opérations).
+- **Étapes** :
+  1. ce que la configuration et [administration.md](administration.md)
+     génèrent (les environnements, les connecteurs, le journal, le
+     nettoyage, les opérations périodiques, les commandes) et ce qui
+     s'écrit ;
+  2. les procédures : la promotion (D340), la copie (D1080), la
+     rotation (D1079), la relecture (D943), la restauration (D171), la
+     sauvegarde ;
+  3. la supervision quotidienne : le journal, le tableau de bord, les
+     alertes (D44), les passages de la reprise ;
+  4. le dépannage : les erreurs connues et leur remède.
+- **Déclinaison** : **l'entrepôt**.
+- **Livrables** : §17 validé ;
+  [administration.md](administration.md).
+- **Dépendances** : les choix techniques (D1025), le D.A.T.
+
+#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7)
+
+- **Périmètre** : l'analyse — la supervision des usages, les
+  contrôles, les optimisations, les risques, la recherche
+  d'améliorations, la complétude de la documentation.
+- **Sections** : §23, §8, §20, §9.
+- **Étapes** :
+  1. §20 — la complétude : le rapport, le seuil, l'avertissement à
+     l'ingestion — **calculable dès maintenant** sur les quatre
+     exemples ;
+  2. §23 — la supervision des usages : les indicateurs retenus (les
+     plus fréquents, les moins utilisés, les non utilisés), les canaux
+     (D44), la part de chaque lecteur, la périodicité ;
+  3. l'analyse des risques : le dry-run (D737), les anomalies de la
+     reprise, les validations en échec, les refus et les pics (D43),
+     les dépréciées appelées (D742), les dépendances (D924), le PRA,
+     les volumes (D985/D1012) ;
+  4. la recherche d'améliorations : les conseils (D45), le retrait et
+     le resserrement (D46/D48), les écrans jamais ouverts, les
+     demandes, les questions sans réponse (§25).
+- **Déclinaison** : la complétude des quatre exemples (au dépôt) ;
+  l'entrepôt pour le reste, à l'instance.
+- **Livrables** : §8, §20, §23 validés ;
+  [telemetry.md](telemetry.md).
+- **Dépendances** : la télémétrie et l'instance, sauf §20.
+
+#### Rang 9 — la promotionnelle (documentation 6)
+
+- **Périmètre** : la plaquette, la démonstration, l'argumentaire du
+  socle.
+- **Sections** : aucune ; une section à créer.
+- **Étapes** :
+  1. la plaquette : la structure générée (le nom, la description, les
+     modules, le modèle d'ensemble, les écrans rendus, les personas et
+     leurs scénarios, « quoi de neuf »), les textes écrits ;
+  2. la démonstration : l'instance d'essai, le jeu de données (D869) ;
+  3. l'argumentaire du socle : l'open source (D19), une instance par
+     client, les API, l'auto-documentation — la part de Syncytium.
+- **Déclinaison** : l'entrepôt ; le cas 8 le jour venu.
+- **Livrables** : une section « La promotionnelle ».
+- **Dépendances** : les huit autres ; le jeu de données (D869).
+
+#### Après les neuf
+
+Le regroupement physique de documentation.md par documentation
+(D1021), la mise à jour du [glossaire](glossaire.md), les points
+ouverts de §26 soldés un à un, la PR vers `develop`.
+
 ## 1. Le principe — trois documentations, trois sources, une seule version
 
 **« La description et l'autogénération de la documentation sont un

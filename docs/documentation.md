@@ -35,13 +35,14 @@ Le 06/10/2026, l'auteur pose le contexte :
 > une documentation dédiée à la maintenance, à l'analyse des risques et
 > à la recherche d'améliorations. »
 
-**Sept documentations** — elles précisent les trois de D333 : la
-fonctionnelle reste la première ; la technique se dédouble en trois
+**Sept documentations, puis neuf** — elles précisent les trois de
+D333 : la fonctionnelle reste la première ; la technique se dédouble
 (l'information, le développeur, l'architecture) ; trois naissent (la
-réglementation, la promotion, la maintenance). Les masques (D209) et
-les pièces de §14 à §24 sont des **formes** au service de ces sept.
-Les quatre parties qui suivent répondent aux quatre demandes du jour
-; tout y est *en proposition*.
+réglementation, la promotion, la maintenance). Les arbitrages du
+06/10 en ajoutent deux : **le projet et le support** (D1133) et **le
+guide d'exploitation**, distinct du D.A.T. (D1134). Les masques (D209)
+et les pièces de §14 à §25 sont des **formes** au service de ces neuf.
+Les quatre parties qui suivent répondent aux quatre demandes du jour.
 
 ### 1. Le balayage — d'autres thèmes ?
 
@@ -52,17 +53,24 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
   notes de version, comment signaler une anomalie ou demander une
   évolution, le dépôt du client (D336) ; l'exemple de référence l'a
   (Procédures, Road map, F.A.Q.) — la F.A.Q., elle, est devenue une
-  fonctionnalité du socle (§25, D1132). **Une huitième**, ou à
-  répartir — le cycle de vie à la maintenance, le support à la
-  fonctionnelle ;
+  fonctionnalité du socle (§25, D1132). **La huitième documentation —
+  acté** (D1133 : « le projet et le support est bien une huitième
+  documentation ») ;
 - **la formation** — un *usage* de la fonctionnelle plus qu'un type :
   les planches (§24), le parcours guidé (§19), les scénarios (§22)
   comme supports pédagogiques (D1129 — « le papier est une source de
   formation ») ; peut-être des exercices sur une instance d'essai ;
-- **l'installation et l'exploitation** — le guide d'exploitation
-  (§17) : installer, configurer, sauvegarder, surveiller au quotidien ;
-  entre l'architecture (4), qui dit les connexions, et la maintenance
-  (7), qui dit les opérations — à rattacher à l'une des deux ;
+- **le D.A.T. et le guide d'exploitation — deux documentations, acté**
+  (D1134) : « intimement liés mais [ils] couvrent des fonctions et des
+  attendus distincts. Le D.A.T. est vu comme une description des
+  inter-connexions entre l'application et son environnement + l'ensemble
+  du paramétrage externe à l'application mais indispensable à son
+  fonctionnement. Le guide d'exploitation explique l'installation, la
+  configuration, la supervision et les opérations de maintenance. » Le
+  D.A.T. est la quatrième documentation ; le guide d'exploitation (§17)
+  **la neuvième** ; la septième garde l'analyse — les risques, les
+  améliorations — et s'appuie sur les opérations que le guide explique
+  (*ma lecture*) ;
 - **la réglementation au-delà du RGPD** — l'accessibilité des écrans
   générés, les obligations légales du secteur (la conservation, la
   facturation), la sécurité comme obligation (les accès journalisés —
@@ -76,10 +84,12 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
 | **2. Technique — l'information (BI, IA)** | le technicien, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
 | **3. Développeur** | le technicien tiers, le technicien de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
-| **4. Architecture technique** | l'administrateur, le technicien | §4 chapitre 1 — les environnements et les connecteurs ; §17 le guide d'exploitation ; §4 chapitre 11 — les dépendances |
+| **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le technicien | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
-| **7. Maintenance, risques, améliorations** | l'administrateur, le technicien | §23 la maintenance, les contrôles et la supervision ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
+| **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le technicien, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — rien de rédigé encore |
+| **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
 ### 3. Les compléments — ce qui n'est pas encore décrit
@@ -119,14 +129,19 @@ d'interface listé (D918) ; les types et les composants personnalisés
 du client (D336), le cycle des versions (D340) : c'est ici que la
 documentation de référence de Syncytium entre (le point ouvert 11).
 
-**4. Architecture technique.** *Le schéma des connexions* — un
-diagramme calculé, comme le modèle (D1119) : l'instance, son storage,
-l'authentification, le SMTP, les bases d'origine de la reprise, les
-webhooks et les API tierces, le LLM (D957), les postes ; *les
-environnements* et leur rôle (production, staging, passif — D339,
-D112–D114), les flux et les ports, où vivent les secrets (D944/D902),
-le journal et son puits (D343), la sauvegarde et la restauration, le
-dimensionnement (D15), les certificats (D919), les dépendances (D924).
+**4. Le D.A.T.** *Le schéma des connexions* — un diagramme calculé,
+comme le modèle (D1119) : l'instance, son storage, l'authentification,
+le SMTP, les bases d'origine de la reprise, les webhooks et les API
+tierces, le LLM (D957), les postes ; *les environnements* et leur rôle
+(production, staging, passif — D339, D112–D114), les flux et les ports
+; **le paramétrage externe indispensable** (D1134) — les variables
+d'environnement et les secrets (D321/D944/D902 : où ils vivent, qui les
+tient), les comptes techniques chez les tiers (le fournisseur
+d'identité, le SMTP, le LLM), les certificats (D919), les accès aux
+bases d'origine, le DNS, le pare-feu ; le dimensionnement (D15) ; les
+dépendances (D924). *Ce que la configuration sait* (les connecteurs et
+leurs paramètres) se génère ; *ce qui est hors d'elle* (les comptes,
+le réseau) s'écrit (D1122).
 
 **5. Réglementation.** *Le registre complet* — par traitement, la
 finalité et la base légale (écrites — D1122), les données et leur
@@ -146,8 +161,9 @@ démonstration* — une instance d'essai et son jeu de données (D869) ;
 client, les API, l'auto-documentation. Le ton et les textes sont écrits
 (D1122) ; la structure et les visuels, générés.
 
-**7. Maintenance, risques, améliorations.** §23, et *l'analyse des
-risques* : le dry-run d'une version (le risque de migration — D737),
+**7. Maintenance, risques, améliorations — l'analyse.** §23 (ses
+contrôles, sa supervision, ses optimisations — ses opérations
+s'expliquent au guide d'exploitation, 9), et *l'analyse des risques* : le dry-run d'une version (le risque de migration — D737),
 les anomalies de la reprise, les validations en échec, les refus et les
 pics (D43), les versions dépréciées encore appelées (D742), les
 dépendances vulnérables (D924 — la veille hors moteur), la sauvegarde
@@ -157,18 +173,48 @@ le domaine surdimensionné (D46/D48), les écrans jamais ouverts, la
 complétude (§20), les demandes des utilisateurs (le lien vers le suivi
 du projet — l'exemple de référence : « Création d'un ticket »).
 
+**8. Le projet et le support** (D1133). *Le cycle de vie* — les
+versions, leurs statuts et leurs passages (D340 : beta, production,
+dépréciée, interdite ; D650 le Sunset ; D1123–D1124 la documentation
+de chacune), les notes de version (D1112), ce qui change (§9) ; *le
+dépôt du client* (D336) — où vit la configuration, comment elle se
+versionne ; *signaler et demander* — une anomalie, une évolution, où et
+comment (le lien vers le suivi du projet — l'exemple de référence :
+« Création d'un ticket », « Suivi du projet », « Dépôt GIT ») ; *le
+support* — qui répond, dans quels délais ; l'assistance (§25) en est
+le pendant dans l'application. La structure se génère (les versions,
+les liens), les engagements s'écrivent (D1122).
+
+**9. Le guide d'exploitation** (D1134). *Installer* — le moteur, le
+storage, les connecteurs ; *configurer* — le `.env` et ses variables
+(D321/D944), les environnements, le journal (D1091), le nettoyage
+(D1073) ; *démarrer, arrêter, sauvegarder, restaurer* ; *superviser* —
+le journal et ses niveaux, le tableau de bord, les alertes (D44), les
+passages de la reprise ; *les opérations de maintenance* — la
+promotion d'une version (D340), la copie d'un environnement (D1080),
+la rotation du chiffrement (D1079), la relecture de la reprise (D943),
+la restauration d'un enregistrement (D171) ; *dépanner* — les erreurs
+connues et leur remède. §17 en est la maison ; ce que la configuration
+déclare se génère, le reste s'écrit.
+
 ### 4. L'ordre — enrichir et valider ensemble
+
+L'ordre tient compte des deux arbitrages du 06/10 — la huitième
+documentation (D1133), le D.A.T. et le guide d'exploitation distincts
+(D1134) — et est acté (D1135).
 
 | Rang | Documentation | Ce qu'on y arbitre | Pourquoi là |
 |---|---|---|---|
-| 0 | *le socle de la génération* | §2, §3 (les sept lecteurs), §12, §13, §21 ; §11 renvoyé au domaine 7 | le cadre, vite |
-| 1 | **Fonctionnelle** | §6, §7, §16, §19, §22, §24, §14, §15 ; la générale, l'assistance, « mes droits » ; les neuf frottements du tiny | « d'abord fonctionnelle » ; le tiny la montre |
-| 2 | **Technique — l'information** | §4, §5, §8, §9 ; l'édition machine, le modèle physique, l'historique | tout en découle ; le tiny la montre |
-| 3 | **Réglementation** | §18 ; le registre complet, les droits des personnes | l'obligation de la TPE ; la matière est au modèle |
-| 4 | **Développeur** | §10 ; les hooks, l'extension, la syntaxe (le point 11) | les techniciens tiers du cas 8 ; la forme attend le domaine 7 |
-| 5 | **Architecture technique** | §17 ; le schéma des connexions, les environnements, le PRA | dépend des choix techniques (D1025) |
-| 6 | **Maintenance, risques, améliorations** | §23 ; l'analyse des risques | dépend de la télémétrie et de l'instance |
-| 7 | **Promotionnelle** | la plaquette, la démonstration, l'argumentaire | réemploie les six autres ; les textes sont à écrire |
+| 0 | *le socle de la génération* | §2, §3 (les lecteurs des neuf), §12, §13, §21 ; §11 renvoyé au domaine 7 | le cadre, vite |
+| 1 | **Fonctionnelle** (1) | §6, §7, §16, §19, §22, §24, §25 (ses questions gardées), §14, §15 ; la générale, « mes droits » ; les neuf frottements du tiny | « d'abord fonctionnelle » ; le tiny la montre |
+| 2 | **Technique — l'information** (2) | §4, §5, §8, §9 ; l'édition machine, le modèle physique, l'historique | tout en découle ; le tiny la montre |
+| 3 | **Réglementation** (5) | §18 ; le registre complet, les droits des personnes | l'obligation de la TPE ; la matière est au modèle |
+| 4 | **Le projet et le support** (8) | le cycle de vie, le dépôt, signaler et demander, le support | la matière est acquise (D340, D650, D1112, D1123) ; peu à arbitrer, et le cas 8 en aura besoin |
+| 5 | **Développeur** (3) | §10 ; les hooks, l'extension, la syntaxe (le point 11) | les techniciens tiers du cas 8 ; la forme attend le domaine 7 |
+| 6 | **Le D.A.T.** (4) | le schéma des connexions, les environnements, le paramétrage externe | dépend des choix techniques (D1025) |
+| 7 | **Le guide d'exploitation** (9) | §17 ; installer, configurer, superviser, les opérations | dépend des mêmes choix, et du D.A.T. |
+| 8 | **Maintenance, risques, améliorations** (7) | §23 ; l'analyse des risques | dépend de la télémétrie et de l'instance |
+| 9 | **Promotionnelle** (6) | la plaquette, la démonstration, l'argumentaire | réemploie les huit autres ; les textes sont à écrire |
 
 Le document garde ses sections numérotées jusqu'à la fin des
 arbitrages ; **le regroupement physique par documentation** viendra
@@ -714,7 +760,10 @@ automatismes à côté de ses opérations.
 
 ## 17. Le guide d'exploitation *(en proposition)*
 
-La documentation de l'administrateur — l'écho de
+**La neuvième documentation** (D1134) : « l'installation, la
+configuration, la supervision et les opérations de maintenance » —
+distincte du D.A.T., qui décrit les inter-connexions et le paramétrage
+externe. La documentation de l'administrateur — l'écho de
 [administration.md](administration.md) pour une instance : les
 environnements et leur nature (production, staging, passif — D339), le
 storage et les connecteurs de chacun, par leur `describe()` et leurs
@@ -829,7 +878,9 @@ le 05/10/2026 — la dixième pièce ; il garde la possibilité d'en
 ajouter d'autres.)
 
 *Mes propositions* — la pièce où la documentation cesse de décrire pour
-**mesurer et conseiller**, nourrie par la troisième source (§8, D334)
+**mesurer et conseiller** ; ses opérations de maintenance s'expliquent
+au guide d'exploitation (§17, D1134), elle en garde l'analyse — nourrie
+par la troisième source (§8, D334)
 et par la télémétrie ([telemetry.md](telemetry.md)) ; elle n'existe
 qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
 
@@ -1027,11 +1078,10 @@ du tiny) ou l'exporte.
     l'instance montrés vides au dépôt (le tiny, frottement 9) ;
 15. les modes opératoires (§24) : le gabarit, la planche dans
     l'application, sa régénération à la version ;
-16. le contexte (D1131) : une huitième documentation — le projet et le
-    support — ou sa répartition ; la formation comme usage ;
-    l'installation et l'exploitation rattachées à l'architecture ou à
-    la maintenance ; la réglementation élargie à la sécurité ; les
-    compléments par documentation ; l'ordre 0–7 ;
+16. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
+    réglementation élargie à la sécurité ; les compléments par
+    documentation — la huitième (le projet et le support), le D.A.T. et
+    le guide d'exploitation, l'ordre 0–9 sont actés ;
 17. l'assistance (§25) : le nom du module, actif par défaut, une ou
     plusieurs réponses retenues, la question anonyme, la F.A.Q. au
     dépôt.

@@ -52,7 +52,7 @@ D1120).
 produire depuis ces lignes — la méthode de documentation.md §13 ; le
 rendu est en Markdown parce qu'il se lit ici, la forme relève du
 domaine 7 (D1126). Le plan suit l'exemple de référence (§6) : la
-présentation, le socle, le module ; puis les pièces (§14–§24). Chaque
+présentation, le socle, le module ; puis les pièces (§14–§25). Chaque
 frottement de l'écriture est relevé à la fin.)*
 
 ---
@@ -254,6 +254,12 @@ frottement de l'écriture est relevé à la fin.)*
 > les écrans par défaut, rendus par Syncytium. Deux autres planches :
 > « Modifier une personne », « Importer l'annuaire depuis un fichier
 > CSV » (le gabarit du chapitre 6).
+>
+> ## 16. L'assistance
+>
+> *(À l'instance seulement.)* Aucune question posée. Depuis la liste
+> ou le formulaire `personne`, le « ? » permet d'en poser une ;
+> l'utilisateur par défaut, administrateur, y répond lui-même.
 
 ---
 

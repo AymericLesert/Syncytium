@@ -50,10 +50,11 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 - **la documentation du projet et du support** — le cycle de vie des
   versions (la promotion, la dépréciation, le Sunset — D340/D650), les
   notes de version, comment signaler une anomalie ou demander une
-  évolution, l'assistance (une F.A.Q.), le dépôt du client (D336) ;
-  l'exemple de référence l'a (Procédures, Road map, F.A.Q.). **Une
-  huitième**, ou à répartir — l'assistance à la fonctionnelle, le cycle
-  de vie à la maintenance ;
+  évolution, le dépôt du client (D336) ; l'exemple de référence l'a
+  (Procédures, Road map, F.A.Q.) — la F.A.Q., elle, est devenue une
+  fonctionnalité du socle (§25, D1132). **Une huitième**, ou à
+  répartir — le cycle de vie à la maintenance, le support à la
+  fonctionnelle ;
 - **la formation** — un *usage* de la fonctionnelle plus qu'un type :
   les planches (§24), le parcours guidé (§19), les scénarios (§22)
   comme supports pédagogiques (D1129 — « le papier est une source de
@@ -72,7 +73,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 
 | La documentation | Pour qui (§3) | Ce que ce document en dit déjà |
 |---|---|---|
-| **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
+| **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
 | **2. Technique — l'information (BI, IA)** | le technicien, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
 | **3. Développeur** | le technicien tiers, le technicien de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
 | **4. Architecture technique** | l'administrateur, le technicien | §4 chapitre 1 — les environnements et les connecteurs ; §17 le guide d'exploitation ; §4 chapitre 11 — les dépendances |
@@ -86,9 +87,11 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 **1. Fonctionnelle.** *La documentation générale* — la présentation de
 l'application : l'entreprise, ce que l'application sert, les modules
 et le schéma directeur (l'exemple de référence : « Présentation ») —
-en textes complémentaires (D1122) ; *l'assistance* — une F.A.Q. née des
-messages de validation (« pourquoi ce message ? » — D1116) et des
-`hint:` ; *« mes droits »* — ce que l'utilisateur peut faire, par
+en textes complémentaires (D1122) ; *l'assistance* — les questions des
+utilisateurs et leurs réponses, une fonctionnalité du socle (§25,
+D1132), que complètent les messages de validation expliqués
+(« pourquoi ce message ? » — D1116) ; *« mes droits »* — ce que
+l'utilisateur peut faire, par
 groupe ; *les notifications* — quand et pourquoi un mail arrive
 (D108) ; *les documents produits* — les impressions et leurs gabarits
 (D53) ; *la recherche* — ce qui se cherche et comment (D780).
@@ -211,7 +214,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§25).
+Syncytium ») reste à placer (§26).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -237,8 +240,10 @@ d'exploitation** (§17), **la conformité** (§18), **le parcours guidé**
 (§21), **les scénarios d'utilisation par des personas** (§22 — D1127 ;
 le plan de test de l'exemple de référence est écarté), **la
 maintenance, les contrôles et la supervision** (§23 — D1128), **les
-modes opératoires imprimables** (§24 — D1129). L'auteur garde la
-possibilité d'ajouter d'autres pièces.
+modes opératoires imprimables** (§24 — D1129), **l'assistance — les
+questions, les réponses, les commentaires** (§25 — D1132, une
+fonctionnalité du socle). L'auteur garde la possibilité d'ajouter
+d'autres pièces.
 
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
@@ -572,7 +577,9 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
 fonctionnelle de l'écran, servie en place** — même matière, même
 langue, mêmes droits ; une surface sans `description:` a tout de même
 son masque, fait des aides des champs ; un champ sans `description:` y
-paraît par son `hint:`, sinon par son libellé seul.
+paraît par son `hint:`, sinon par son libellé seul. Le même « ? »
+montre les questions répondues de l'écran et permet d'en poser une
+(§25, D1132).
 
 ## 8. La troisième source — les données (D334) *(en proposition)*
 
@@ -898,7 +905,97 @@ suit — l'écart D1112 la signale). **Un wizard donne sa planche sans
 rien écrire** (D1130, §22) : ses steps sont les étapes, chaque step
 son écran.
 
-## 25. Les points ouverts
+## 25. L'assistance — les questions, les réponses, les commentaires (D1132) *(en proposition)*
+
+**« Concernant la F.A.Q., cela peut se transformer en fonctionnalité
+proposée par le socle. Mon idée est de permettre aux utilisateurs
+d'exprimer une question à partir d'un écran ou d'une fonctionnalité et
+de laisser le technicien ou un responsable métier y répondre, rendant
+ainsi la question disponible et ouverte aux différents outils. Cela
+pourrait être ouvert également à des commentaires qui viendraient
+enrichir le dialogue et la collaboration autour d'un outil et de son
+fonctionnement. En intégrant ces éléments au socle, et en paramétrant
+la mise à disposition de cette fonctionnalité, nous gérons sous
+Syncytium une richesse qui pourrait être traitée simplement. »**
+(l'auteur, le 06/10/2026)
+
+**Acquis.** La F.A.Q. n'est pas un texte rédigé : c'est **une
+fonctionnalité du socle**. L'utilisateur pose sa question **depuis
+l'écran ou la fonctionnalité** où elle lui vient ; **le technicien ou
+un responsable métier répond** ; la question répondue est **disponible
+et ouverte aux différents outils** ; **des commentaires** enrichissent
+le dialogue ; **la mise à disposition se paramètre**.
+
+*Mes propositions.*
+
+**Un module interne du socle** — `_assistance` (le préfixe des modules
+internes, D1029 ; le nom est mien), à côté de `_migration` et `_chat` :
+aucune configuration ne le déclare, il naît avec le moteur et s'active
+par paramétrage. **Son modèle**, trois entités, en esquisse :
+
+```yaml
+question:
+  description: Une question posée depuis un écran ou une fonctionnalité
+  label: "{titre}"
+  identity: [numero]
+  states: statut
+  fields:
+    numero: integer
+    ancre: text                  # l'adresse de ce qui est questionné (D566)
+    titre: text[..120]
+    texte: text
+    auteur: _administration.utilisateur
+    date: datetime
+    statut: { type: enum, values: { ouverte: { label: Ouverte }, repondue: { label: Répondue }, close: { label: Close } } }
+    reponses: list of reponse
+    commentaires: list of commentaire
+reponse:
+  fields: { auteur: _administration.utilisateur, date: datetime, texte: text, retenue: boolean }
+commentaire:
+  fields: { auteur: _administration.utilisateur, date: datetime, texte: text }
+```
+
+**L'ancre** est l'adresse universelle (D566) — le module, l'entité, la
+liste, le formulaire, le champ, l'opération, le wizard : elle donne à
+la question sa place dans l'aide en place et dans la documentation.
+
+**Les droits** (D699, D1099) : poser et commenter — tout utilisateur
+qui voit l'ancre (une entité invisible ne reçoit pas de question) ;
+répondre et clore — le degré `manager` (le responsable métier) ou
+`administrator` (le technicien) ; retenir une réponse — l'auteur de la
+question ou un répondant ; la question ouverte est visible de son
+auteur et des répondants, la question répondue de tous ceux qui voient
+l'ancre.
+
+**Les surfaces** : depuis l'écran, le « ? » (le masque, §7) montre les
+questions répondues de l'écran et le bouton « poser une question » ;
+pour les répondants, la liste `_assistance[questions]`, les ouvertes
+d'abord ; les notifications (D108) — aux répondants à chaque question,
+à l'auteur à la réponse.
+
+**Ce qu'elle nourrit** : la documentation fonctionnelle — la F.A.Q. de
+chaque écran, générée des questions répondues (la troisième source
+s'élargit, D334 : les données de l'instance comprennent ce que les
+utilisateurs demandent) ; le chat (D957) — les questions et les
+réponses entrent dans sa connaissance, sous les droits ; la complétude
+(§20) et la supervision (§23) — les questions sans réponse, les écrans
+qui en suscitent le plus : l'écran qui pose question est l'écran à
+mieux documenter ; les scénarios et les planches (§22, §24) — une
+question fréquente appelle une planche.
+
+**Le paramétrage** : une clé `assistance:` à l'environnement (ou au
+projet — à trancher) : `enabled`, les groupes qui répondent (défaut :
+les degrés `manager` et `administrator`), la rétention. Les questions
+portent le nom de leur auteur : `rgpd:` au socle, l'anonymisation au
+départ de la personne (D696).
+
+*À trancher* : le nom du module ; actif par défaut ou non ; une réponse
+retenue ou plusieurs ; les commentaires sur une question close ; la
+question anonyme ; la F.A.Q. dans la documentation du dépôt — les
+questions vivent à l'instance, le dépôt la montre vide (le frottement 9
+du tiny) ou l'exporte.
+
+## 26. Les points ouverts
 
 1. les lecteurs (§3) et la part de chacun ;
 2. le plan de la documentation technique (§4) et de la fonctionnelle
@@ -920,7 +1017,7 @@ son écran.
     **la documentation du socle**, ce qui est commun à toutes les
     applications (l'écran, l'import, le cycle de vie d'une donnée),
     en tête des fonctionnalités (§6) ;
-12. les onze pièces (§14–§24) : chacune en proposition, à arbitrer
+12. les douze pièces (§14–§25) : chacune en proposition, à arbitrer
     comme les sections §1–§13 ;
 13. les personas (§22) : où ils se déclarent, la part générée et la
     part écrite ; les wizards comme scénarios déjà écrits (D1130 — mes
@@ -934,4 +1031,7 @@ son écran.
     support — ou sa répartition ; la formation comme usage ;
     l'installation et l'exploitation rattachées à l'architecture ou à
     la maintenance ; la réglementation élargie à la sécurité ; les
-    compléments par documentation ; l'ordre 0–7.
+    compléments par documentation ; l'ordre 0–7 ;
+17. l'assistance (§25) : le nom du module, actif par défaut, une ou
+    plusieurs réponses retenues, la question anonyme, la F.A.Q. au
+    dépôt.

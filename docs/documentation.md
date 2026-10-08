@@ -603,29 +603,47 @@ déclarée* (ma lecture, §11).
 
 ## 3. Les lecteurs *(en proposition — le rang 0, étape 1)*
 
-**L'acquis.** D334 nomme les destinataires au-delà du technicien —
-les utilisateurs, les techniciens de parties tierces, les usagers — et
-pose le principe du partage **sous les règles d'accès existantes** : le
-destinataire ne voit que ce que ses droits permettent. D1119 ajoute le
-décideur ; D1131 donne à chaque documentation son public. **La
-documentation n'est pas un document, c'est une projection de la
-configuration pour un lecteur et des droits** — la même machinerie que
-la télémétrie (D44 : « Syncytium se décrit lui-même »).
+### Le principe
 
-**Les lecteurs sont des rôles**, non des personnes : dans une TPE, une
-même personne en tient plusieurs — le dirigeant est souvent le
-décideur, le responsable de traitement et le prospect de la version
-suivante. Deux familles :
+*(Sept énoncés, à finaliser un à un avant les rôles — « une
+introduction est importante ».)*
 
-- **ceux qui lisent dedans** — ils ont un compte (D28 : nominatif ou
-  technique) et un groupe (D699) ; la documentation leur est servie
-  par l'application, **filtrée par leurs droits** (la confidentialité
-  D25, les `allow:` D886, les versions publiées D99) et **dans leur
-  langue** (D124) ;
-- **ceux qui lisent une édition** — ils n'ont pas de compte : l'usager,
-  le prospect, l'auditeur, l'hébergeur ; quelqu'un qui a les droits
-  leur **prépare une édition** (§11, §21), et cette édition ne porte
-  rien que ses droits n'ouvrent.
+1. **Une projection, pas un document.** La documentation est la
+   projection de la configuration pour un lecteur et des droits (D334
+   — le partage sous les règles d'accès ; D44 — « Syncytium se décrit
+   lui-même »). Il n'y a pas une documentation par lecteur : il y a une
+   matière, et autant de vues que de lecteurs.
+2. **Les lecteurs sont des rôles.** Une personne en tient plusieurs ;
+   dans une TPE, le dirigeant est souvent le décideur, le responsable
+   de traitement et le prospect de la version suivante. La
+   documentation s'adresse au rôle ; la personne choisit la vue.
+3. **On ne lit que ce que l'on voit.** Le lecteur qui a un compte et un
+   groupe (D28, D699) lit la documentation telle que l'application la
+   lui sert : filtrée par sa confidentialité (D25), ses `allow:`
+   (D886), les versions publiées (D99) ; ce qu'il ne voit pas à l'écran
+   n'existe pas davantage dans sa documentation — une entité invisible
+   n'y a ni page, ni entrée, ni trace (l'esprit de D193).
+4. **Le lecteur sans compte lit une édition.** L'usager, le prospect,
+   l'auditeur, l'hébergeur n'entrent pas dans l'application ; quelqu'un
+   qui a les droits leur prépare une édition (§11, §21), et cette
+   édition ne porte rien que les droits de celui qui la prépare
+   n'ouvrent — et, pour une édition publique, rien de confidentiel et
+   aucune donnée.
+5. **Dans sa langue, à sa version.** Chaque lecteur lit dans la langue
+   de son profil (D124 ; les langues de la version, D1101) et à la
+   version qui lui est servie (D1123–D1124) ; l'édition se prépare dans
+   une langue et pour une version.
+6. **Une matière, plusieurs formes.** Le même lecteur retrouve la même
+   matière sous la forme qui convient au moment : le masque à l'écran
+   (§7), la page de documentation, la planche imprimée (§24), l'édition
+   machine (le contexte, l'information — la BI, l'IA) ; aucune forme ne dit autre chose que
+   les autres.
+7. **L'assistant est un lecteur comme un autre.** Le module de chat
+   (D957) lit la documentation aux droits de l'utilisateur qui
+   l'interroge (D958) — ni plus, ni moins ; l'analyste de BI de même,
+   aux droits de son compte.
+
+### Les rôles
 
 | Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
 |---|---|---|---|

@@ -647,12 +647,12 @@ textes en texte simple ; plusieurs → la langue précisée, sinon une
 erreur d'ingestion. La documentation suit : *une édition par langue
 déclarée* (ma lecture, §11).
 
-## 3. Les lecteurs *(en proposition — le rang 0, étape 1)*
+## 3. Les lecteurs *(le rang 0, étape 1 — le principe acquis, les rôles en proposition)*
 
 ### Le principe
 
-*(Sept énoncés, à finaliser un à un avant les rôles — « une
-introduction est importante ».)*
+*(Sept énoncés, arbitrés un à un le 08/10/2026 — D1139 à D1147 ; le
+principe des lecteurs est acquis. Les rôles suivent.)*
 
 1. **Une projection, pas un document** (D1139 — acquis). La
    documentation est la projection de la configuration pour un lecteur
@@ -716,7 +716,7 @@ introduction est importante ».)*
    la vue d'ensemble, le module, le détail (D1138) ; aucune forme ne
    dit autre chose que les autres, chaque niveau résume exactement le
    suivant.
-7. **L'assistant est un lecteur comme un autre.** Le module de chat
+7. **L'assistant est un lecteur comme un autre** (D1147 — acquis). Le module de chat
    (D957) lit la documentation aux droits de l'utilisateur qui
    l'interroge (D958) — ni plus, ni moins ; l'analyste de BI de même,
    aux droits de son compte.

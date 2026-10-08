@@ -676,7 +676,12 @@ booléen : vrai, faux, vide ; le texte : les valeurs distinctes, la
 diversité (D46/D48) ; le nombre et la date : les bornes observées, les
 vides ; la référence : les cibles liées ; l'entité : le nombre de
 lignes, la dernière modification ; la forme de chaque type dans
-[types.md](types.md) (le rang 2) ; au dépôt, le cadre vide (c).
+[types.md](types.md) (le rang 2) ; au dépôt, le cadre vide (c). **Et
+les usages, de la même manière** (D1168) : la documentation d'un
+module, d'un écran, d'un rapport, d'une opération dit, à la
+consultation, combien de fois il a servi — l'écran ouvert, le rapport
+produit, l'opération déclenchée, le wizard mené à son terme — et depuis
+quand ; les non utilisés se voient là où ils sont décrits.
 
 ### b. Les fichiers complémentaires
 
@@ -1273,7 +1278,6 @@ output:
 notify:                          # les notifications de la documentation — le mécanisme de D108/D397, de nouveaux déclencheurs
   - { when: release, what: [notes, changes], to: [direction], by: [mail] }       # une version promue en production
   - { when: beta, what: [completeness], to: [administrators], by: [notification, mail] }   # une version déposée en beta
-  - { every: 1m, what: [usage], to: [direction], by: [mail] }                    # la synthèse périodique des usages
 publish:
   api: true                      # l'édition HTML de l'API, servie aux techniciens (le canal 6)
 ```
@@ -1288,11 +1292,12 @@ concepteur n'a pas décrit — les entités sans description, les champs
 sans aide, les énumérés sans libellé, les opérations et les hooks
 sans description, les surfaces sans masque, les champs nominatifs sans
 `rgpd:` — avec un taux par module ; envoyé à l'ingestion d'une version,
-il dit ce qui manque avant la promotion ; `usage` — **la synthèse
-périodique des usages** (§23, le canal push de D44/D738) : les plus
-fréquents, les moins utilisés, les non utilisés, les valeurs jamais
-choisies, les écrans jamais ouverts, les conseils (D45) — envoyée à la
-période de `every:`, au décideur et à l'administrateur.
+il dit ce qui manque avant la promotion. **Les usages ne se notifient
+pas : ils s'intègrent dans la documentation** des entités, des modules,
+des écrans, des rapports… à la consultation, comme les données dans
+celle des champs et les volumes dans celle des entités (D1168, D1155) ;
+la synthèse périodique de la télémétrie (D44/D738) reste l'affaire de
+la télémétrie.
 
 *Rien n'est obligatoire* : sans ces fichiers, Syncytium génère tout
 avec ses défauts — le gabarit par défaut (D1143), la page de
@@ -1512,7 +1517,7 @@ chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
 | **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | la page servie par l'application — l'édition *lisible* (§11) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
 | **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
 | **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | PDF ou HTML — *imprimable* ou *lisible* | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
-| **4. notifié** | ce qui se rapporte : les notes d'une version promue et ce qui change, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le mécanisme des notifications (D108/D397), de nouveaux déclencheurs | la notification, le corps du mail, une pièce jointe PDF | les groupes destinataires | `notify:` (§12, D1167) |
+| **4. notifié** | ce qui se rapporte : les notes d'une version promue et ce qui change, le rapport de complétude (§20) — le mécanisme des notifications (D108/D397), de nouveaux déclencheurs ; les usages, eux, s'intègrent à la documentation de chaque composant (D1168) | la notification, le corps du mail, une pièce jointe PDF | les groupes destinataires | `notify:` (§12, D1167) |
 | **5. imprimée** | un chapitre ou le tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | PDF — *imprimable* ; la dimension de page du gabarit | l'opérateur, le papier sur le bureau | les gabarits (§12) |
 | **6. publiée** | l'édition de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | HTML — *lisible* | le technicien ; le prospect | `publish:` (§12) ; `visibility:` au projet (D1151) |
 | **7. l'édition machine** | le méta-schéma et ses descriptions, aux droits du compte (le rang 2) | JSON ou YAML — *machine* | l'analyste, l'assistant | implicite — par l'API |
@@ -1523,7 +1528,7 @@ défaut ainsi — le dépôt sur demande, l'édition sur demande, la
 notification à la promotion d'une version, l'impression à la demande,
 la publication selon `visibility:`.
 
-**La commande du dépôt** (D1167 — *en proposition*) :
+**La commande du dépôt** (D1167–D1168 — acquis) :
 `syncytium document <environnement> <documentation> [--version x.y.z.w]
 [--language fr]` — **la documentation à générer est l'une des neuf**,
 par sa clé anglaise (D335) : `functional`, `information`, `developer`,
@@ -1599,7 +1604,10 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   jamais écrites, les champs jamais renseignés, les valeurs d'énuméré
   jamais choisies, les écrans jamais ouverts, les opérations jamais
   déclenchées — le tableau de bord pour l'exploration, la synthèse
-  périodique pour l'alerte (les canaux de D44, D733/D738).
+  périodique pour l'alerte (les canaux de D44, D733/D738) ; **et, dans
+  la documentation même, l'usage de chaque composant là où il est
+  décrit** — le module, l'écran, le rapport, l'opération (D1168,
+  comme D1155 pour les données).
 - **Les contrôles.** La complétude de la documentation (§20) ; la
   couverture et les compteurs de la reprise
   ([migration.md](migration.md)) ; les validations qui échouent le plus

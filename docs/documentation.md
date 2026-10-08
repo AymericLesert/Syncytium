@@ -625,7 +625,7 @@ Ses lecteurs ne sont pas que des humains : les descriptions sont
 données et les descriptions sous les droits de l'utilisateur (D957), le
 cas 7 fait générer la configuration par l'IA (D1023).
 
-## 2. Le carburant — ce que la configuration apporte *(le rang 0, étape 2 — en proposition)*
+## 2. Le carburant — ce que la configuration apporte *(le rang 0, étape 2 — acquis, D1155–D1157)*
 
 **Le principe** (acquis). Tout élément de configuration porte sa
 description, en ligne ou par fichier (D810/D767). **Ce que la
@@ -643,8 +643,8 @@ se détaillent ici.
 | l'environnement | sa `description:` (la nature : la vie courante, le développement), son `storage:`, ses connecteurs ; le journal, le nettoyage, les opérations périodiques — la matière du guide d'exploitation | D1090, D1094, D1091, D1073, D1134 |
 | la version | son statut (son dossier — la beta éditée en brouillon), les `release-notes:` — **l'évolution fonctionnelle, écrite par le concepteur** ; les `languages:` ; les écarts calculés par Syncytium | D340, D1101, D1112, D1145 |
 | le module | `name:` l'invariant ; `title:` le nom d'usage par langue, `hint:`, `description:` ; son menu, ses tableaux de bord | D416, D439, D1120 |
-| l'entité | `name:` l'invariant ; `title:` le nom d'usage par langue ; `label:` (le gabarit du visage), `hint:`, `description:`, l'identité, les états et leur graphe, les validations (`description:`/`message:`), l'historisation, le `rgpd:` | D843, D1116, D1120 |
-| le champ | le type et ses facettes, `label:`, `hint:` (la courte), `description:` (la longue, en Markdown — D1102), `placeholder:`, `required:`, `default:`, les validations, la confidentialité, les `allow:`, le `rgpd:`, `unchanged:`, `from:` (le renommage), `deprecated:` (le remplacement ou l'abandon, obligatoire) | D124, D258, D650, D840, D941, D1111 |
+| l'entité | `name:` l'invariant ; `title:` le nom d'usage par langue ; `label:` (le gabarit du visage), `hint:`, `description:`, l'identité, les états et leur graphe, les validations (`description:`/`message:`), l'historisation, le `rgpd:` ; **et, à l'instance, le nombre de lignes** — dans la limite de ce que le lecteur voit (D1155) | D843, D1116, D1120, D1155 |
+| le champ | le type et ses facettes, `label:`, `hint:` (la courte), `description:` (la longue, en Markdown — D1102), `placeholder:`, `required:`, `default:`, les validations, la confidentialité, les `allow:`, le `rgpd:`, `unchanged:`, `from:` (le renommage), `deprecated:` (le remplacement ou l'abandon, obligatoire) ; **et, à l'instance, ce que le stockage en dit** — le compteur de chaque valeur d'un énuméré, la diversité d'un texte, à l'instant de la consultation (D1155) | D124, D258, D650, D840, D941, D1111, D1155 |
 | les opérations | leur `description:`, leur contrat et son degré, leurs effets | D148–D152, D699 |
 | les surfaces (`gui:`) | la `description:` de la surface → le masque d'explication ; **le wizard** → un scénario, ses steps en étapes, sa planche | D209, D438, D1130 |
 | les groupes | la `description:` affichée, le degré (`reader` compris) — les personas s'y adossent | D414, D1099, D1140, D1127 |
@@ -654,6 +654,27 @@ se détaillent ici.
 | la reprise | la `description:` des sources et de leurs colonnes (D1100–D1102), celle des règles et de leurs affectations (D1105), les destinataires des rapports | D1100–D1106, D1061 |
 | `documentation.yml` | les gabarits des éditions (`templates:` — le cartouche, le filigrane), les pages ajoutées, les sections retenues, les canaux | D1090, D1143, D1145 |
 | le moteur | ses dépendances et leurs versions ; la documentation du socle — ce qui est commun à toute application | D924, D645 |
+
+**Les données dans la documentation des entités et des champs**
+(D1155) : « la documentation est à enrichir avec les données présentes
+dans le stockage. Par exemple, sur un champ ayant un type énuméré,
+afficher le compteur d'enregistrements correspondant à une des valeurs
+à l'instant de la consultation de la donnée. Sur une entité, le nombre
+de lignes disponibles (consultable dans la limite de la vision de
+l'utilisateur) ; le but est de compléter les descriptions avec des
+éléments de contexte afin de montrer que la documentation est vivante.
+L'utilisateur peut ainsi se rendre compte du manque d'utilisation d'une
+valeur ou d'une diversité de valeurs faible pour un champ texte,
+laissant la place à une étude pour mieux structurer l'information. »
+*Mes lectures* : calculé **à la consultation**, jamais stocké (D38 — la
+télémétrie par champ, à la volée) ; **dans la limite de ce que le
+lecteur voit** — la confidentialité (D25) et la sécurité au niveau
+ligne (D70–D76) ; par type — l'énuméré : le compteur par valeur ; le
+booléen : vrai, faux, vide ; le texte : les valeurs distinctes, la
+diversité (D46/D48) ; le nombre et la date : les bornes observées, les
+vides ; la référence : les cibles liées ; l'entité : le nombre de
+lignes, la dernière modification ; la forme de chaque type dans
+[types.md](types.md) (le rang 2) ; au dépôt, le cadre vide (c).
 
 ### b. Les fichiers complémentaires
 
@@ -667,10 +688,13 @@ ajoutées** de `documentation.yml` (§12) — la présentation de
 l'entreprise, le guide de démarrage, les textes de la promotionnelle,
 les engagements du support, les étapes hors de l'application d'une
 planche (§24), la finalité et la base légale d'un traitement (§18) :
-tout ce qui s'écrit parce que la donnée ne le dit pas. *Ma lecture* :
-ces textes sont en Markdown (D1102), par langue quand la version en a
-plusieurs (D1101), et versionnés avec la configuration — un texte
-complémentaire appartient à une version.
+tout ce qui s'écrit parce que la donnée ne le dit pas. **Ces textes
+sont en Markdown, par langue, toujours versionnés avec la
+configuration** (D1156) — un texte complémentaire appartient à une
+version — **sauf la page d'accueil, qui est présente sur l'application
+de façon globale** : elle vit au projet, hors des versions (*ma
+lecture* : la page de `visibility:` et l'accueil de l'application —
+`home:` dans `syncytium.yml`, en proposition).
 
 ### c. Les données de l'instance
 
@@ -681,8 +705,8 @@ réponses** de l'assistance (§25, D1132) — la F.A.Q. de chaque écran ;
 **la reprise** — ses passages, ses compteurs, ses anomalies
 (migration.md) ; **les versions servies** et leur appel (D742). Cette
 source n'existe qu'à l'instance : **la documentation du dépôt montre
-ces chapitres vides, avec leur cadre** (le tiny, frottement 9 — *ma
-lecture*).
+ces chapitres vides, avec leur cadre** (D1157 — le frottement 9 du tiny
+soldé).
 
 ### d. Les langues
 
@@ -690,11 +714,7 @@ Une seule langue au modèle → les textes en texte simple ; plusieurs →
 la langue précisée, sinon une erreur d'ingestion (D1101). La
 documentation suit : celui qui lit dedans lit dans la langue de son
 profil ; une édition se construit dans la langue de l'émetteur, jamais
-dans une langue que la version ne connaît pas (D1144).
-
-*À trancher* : la table a — exhaustive ? ; les formes des fichiers
-complémentaires (b) et leur appartenance à une version ; les données
-retenues comme source (c) et les chapitres vides au dépôt.
+dans une langue que la version ne connaît pas (D1144) — acquis (D1157).
 
 ## 3. Les lecteurs *(le rang 0, étape 1 — acquis : le principe D1139–D1147, les rôles D1148–D1153, la table D1154)*
 
@@ -1109,7 +1129,9 @@ cette section ; la documentation servie par l'application l'a. *À
 trancher* : sur quels types et quels indicateurs (la liste des canaux
 de telemetry.md), et si cette part reste au concepteur ou se partage.
 Cette source nourrit la pièce §23 — la supervision des usages, les
-contrôles, les optimisations.
+contrôles, les optimisations ; **et la documentation de chaque entité
+et de chaque champ**, enrichie à la consultation de ce que le stockage
+en dit (D1155, §2).
 
 ## 9. Les écarts entre versions (D1112) *(la forme, en proposition)*
 

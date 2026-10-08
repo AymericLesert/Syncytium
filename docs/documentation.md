@@ -1262,18 +1262,37 @@ documentation — a été proposé puis retiré (D1164) : les droits et
 déclinaison en montre le besoin.)*
 
 **À l'environnement** — ce qui dépend de lui (D342/D1090) : où les
-fichiers vont, par quels canaux la documentation part ; la clé
+fichiers vont, ce qui se notifie, ce qui se publie ; la clé
 `documentation:` de `production.yml` référence le fichier :
 
 ```yaml
-# environments/production/documentation.yml (en proposition)
+# environments/production/documentation.yml (D1167, en proposition)
 output:
-  directory: ${SYNCYTIUM_DOCUMENTATION_DIRECTORY}   # les éditions au dépôt
-  formats: [html, pdf]                              # la forme au domaine 7 (D1126)
-channels:                                           # la diffusion (§21)
-  mail: { when: [release, completeness], to: [direction] }   # les notes d'une version promue, le rapport de complétude
-  publish: { api: true }                            # l'édition HTML des API, servie aux techniciens
+  directory: ${SYNCYTIUM_DOCUMENTATION_DIRECTORY}   # les fichiers du dépôt (le canal 2)
+  formats: [markdown, pdf]                          # la forme au domaine 7 (D1126)
+notify:                          # les notifications de la documentation — le mécanisme de D108/D397, de nouveaux déclencheurs
+  - { when: release, what: [notes, changes], to: [direction], by: [mail] }       # une version promue en production
+  - { when: beta, what: [completeness], to: [administrators], by: [notification, mail] }   # une version déposée en beta
+  - { every: 1m, what: [usage], to: [direction], by: [mail] }                    # la synthèse périodique des usages
+publish:
+  api: true                      # l'édition HTML de l'API, servie aux techniciens (le canal 6)
 ```
+
+**Les déclencheurs et les contenus de `notify:`** (D1167) — *en
+proposition* : `when: release` — une version promue en production ;
+`when: beta` — une version déposée en beta, pour la vérifier ; `every:`
+— une période. Les contenus : `notes` — les notes de version (D1112) ;
+`changes` — ce qui change, calculé (§9) ; `completeness` — **le
+rapport de complétude de la documentation** (§20) : ce que le
+concepteur n'a pas décrit — les entités sans description, les champs
+sans aide, les énumérés sans libellé, les opérations et les hooks
+sans description, les surfaces sans masque, les champs nominatifs sans
+`rgpd:` — avec un taux par module ; envoyé à l'ingestion d'une version,
+il dit ce qui manque avant la promotion ; `usage` — **la synthèse
+périodique des usages** (§23, le canal push de D44/D738) : les plus
+fréquents, les moins utilisés, les non utilisés, les valeurs jamais
+choisies, les écrans jamais ouverts, les conseils (D45) — envoyée à la
+période de `every:`, au décideur et à l'administrateur.
 
 *Rien n'est obligatoire* : sans ces fichiers, Syncytium génère tout
 avec ses défauts — le gabarit par défaut (D1143), la page de
@@ -1491,19 +1510,28 @@ chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
 | Le canal | Ce qui passe | Le format | Pour qui | Déclaré où |
 |---|---|---|---|---|
 | **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | la page servie par l'application — l'édition *lisible* (§11) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
-| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande (`syncytium document …`, à nommer) |
+| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
 | **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | PDF ou HTML — *imprimable* ou *lisible* | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
-| **4. par mail** | ce qui se rapporte : les notes d'une version promue, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le patron du `report:` (D397) | le corps du mail, une pièce jointe PDF | les groupes destinataires | `channels.mail` (§12) |
+| **4. notifié** | ce qui se rapporte : les notes d'une version promue et ce qui change, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le mécanisme des notifications (D108/D397), de nouveaux déclencheurs | la notification, le corps du mail, une pièce jointe PDF | les groupes destinataires | `notify:` (§12, D1167) |
 | **5. imprimée** | un chapitre ou le tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | PDF — *imprimable* ; la dimension de page du gabarit | l'opérateur, le papier sur le bureau | les gabarits (§12) |
-| **6. publiée** | l'édition de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | HTML — *lisible* | le technicien ; le prospect | `channels.publish` (§12) ; `visibility:` au projet (D1151) |
+| **6. publiée** | l'édition de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | HTML — *lisible* | le technicien ; le prospect | `publish:` (§12) ; `visibility:` au projet (D1151) |
 | **7. l'édition machine** | le méta-schéma et ses descriptions, aux droits du compte (le rang 2) | JSON ou YAML — *machine* | l'analyste, l'assistant | implicite — par l'API |
 
-*Mes lectures* : les canaux 1 et 7 sont le socle, jamais désactivés ;
-les canaux 2 à 6 se paramètrent (§12) et valent par défaut comme suit
-— le dépôt sur demande, l'édition sur demande, le mail à la promotion
-d'une version, l'impression à la demande, la publication selon
-`visibility:`. *À trancher* : la liste des sept, les événements du mail,
-le nom de la commande.
+**Les défauts** (D1167 — acquis) : les canaux 1 et 7 sont le socle,
+jamais désactivés ; les canaux 2 à 6 se paramètrent (§12) et valent par
+défaut ainsi — le dépôt sur demande, l'édition sur demande, la
+notification à la promotion d'une version, l'impression à la demande,
+la publication selon `visibility:`.
+
+**La commande du dépôt** (D1167 — *en proposition*) :
+`syncytium document <environnement> <documentation> [--version x.y.z.w]
+[--language fr]` — **la documentation à générer est l'une des neuf**,
+par sa clé anglaise (D335) : `functional`, `information`, `developer`,
+`architecture` (le D.A.T.), `regulation`, `promotional`,
+`maintenance`, `project`, `operations` (le guide d'exploitation) — ou
+`all` ; sans version, la plus élevée des actives (D1123) ; sans langue,
+celle du poste (D1114) ; le résultat dans `output.directory`, au format
+de `output.formats`.
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(en proposition)*
 

@@ -1297,9 +1297,13 @@ et des implémentations se généraliseront.
    du lecteur par le catalogue du moteur. *Mes lectures* : la rubrique
    « La documentation » de chaque fiche énumère ses codes
    (`entity.identity`, `field.required`, `wizard.step`…) ; le catalogue
-   se range par type de composant ; un composant ajouté (un hook, un
-   type, un composant personnalisé — D452) apporte ses codes dans
-   chaque langue que le moteur porte, sinon l'ingestion le refuse.
+   se range par type de composant. **Deux niveaux pour les langues
+   d'un composant ajouté** (D1162) : **un composant ajouté à Syncytium
+   pour Syncytium porte toutes les langues du moteur, sinon c'est une
+   erreur** — c'est un prérequis ; **un composant ajouté par un
+   concepteur** (un hook, un type, un composant personnalisé — D452)
+   **ne porte que les langues de sa version** (D1101) — une application
+   en français seul n'a pas à traduire ses composants.
 2. **Chaque type de composant définit sa déclinaison dans chaque type
    de document.** La matrice **types de composants × neuf
    documentations** : chaque cellule dit ce que le composant apporte à

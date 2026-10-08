@@ -1179,25 +1179,30 @@ description d'API, les exemples en `curl`) relève de l'architecture
 technique (D1025) ; le principe — l'API documentée depuis le modèle,
 version par version — est acquis.
 
-## 11. Les formats et le support *(en proposition)*
+## 11. Les formats et le support *(le rang 0, étape 7 — en proposition)*
 
 - **Le format dépend de l'architecture technique et des modes de
   rendu** (D1126) : il se fixe au domaine 7. Ce document retient le
-  principe — D630 : « markdown/html pour la documentation automatique
-  de l'instance » —, l'exemple de référence est en HTML (§6), le PDF
-  viendrait par l'impression (D53/D187) ; les diagrammes suivent (§5).
-- **Deux moments** : *au dépôt* — depuis la configuration seule, par
-  une commande (`syncytium document …`, à nommer), le résultat en
-  fichiers dans un dossier (la documentation se diffe et se versionne
-  avec le dépôt du client — D336) ; *dans l'application* — servie par
-  l'instance, sous les droits du lecteur, enrichie des données (§8),
-  comme une surface du socle (le patron de `_migration[suivi]` ou du
-  module de chat — D1029).
-- **Une édition par langue** déclarée (D1101) ; la documentation
-  technique dans la langue du modèle, la fonctionnelle dans celle du
-  lecteur.
-- **Les descriptions sont en Markdown** (D1102 — les tableaux des codes) ;
-  `label:`, `hint:`, `placeholder:` en texte simple.
+  principe de **trois éditions d'une même matière** — *lisible* (la
+  page servie dans l'application, le Markdown et l'HTML au dépôt —
+  D630 ; l'exemple de référence est en HTML, §6), *imprimable* (le PDF,
+  l'A4 des planches — D53/D187, D1129), *machine* (le JSON ou le YAML
+  pour la BI et l'IA — le rang 2) ; un seul assemblage (§13), plusieurs
+  rendus ; les diagrammes suivent (§5 — le texte dans le Markdown,
+  l'image ailleurs).
+- **Deux moments** (D1157) : *au dépôt* — depuis la configuration
+  seule, par une commande, le résultat en fichiers (la documentation se
+  diffe et se versionne avec le dépôt du client — D336), les chapitres
+  de l'instance vides ; *dans l'application* — servie par l'instance,
+  sous les droits du lecteur, enrichie des données (§8, D1155), comme
+  une surface du socle (le patron de `_migration[suivi]` — D1029).
+- **Les langues** (D1144, D1160–D1163) : celui qui lit dedans lit dans
+  la langue de son profil ; une édition se construit dans la langue de
+  l'émetteur ; les intitulés du moteur viennent du catalogue de chaque
+  langue.
+- **Les descriptions sont en Markdown** (D1102 — les tableaux des
+  codes), les textes complémentaires aussi (D1156) ; `label:`, `hint:`,
+  `placeholder:` en texte simple.
 
 ## 12. `documentation.yml` — la personnalisation (D1090, D1164) *(le rang 0, étape 5 — acquis)*
 
@@ -1461,31 +1466,27 @@ opérations et les hooks sans description ni md, les surfaces sans
 dans la documentation technique, et à l'ingestion comme avertissement.
 *À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
 
-## 21. La diffusion *(en proposition)*
+## 21. La diffusion *(le rang 0, étape 6 — en proposition)*
 
-Comment la documentation parvient à ses lecteurs — les canaux de §11
-mis en regard des lecteurs de §3 : **dans l'application**, sous les
-droits (les masques, le parcours guidé, la documentation servie) ; **en
-fichiers**, par la commande au dépôt (Markdown, HTML, les diagrammes) ;
-**par mail**, pour ce qui se rapporte — les notes d'une version promue,
-le rapport de complétude (le patron du `report:` — D397) ; **imprimée**,
-le PDF d'un chapitre ou du tout (D53/D187) et **les planches des modes
-opératoires, une page A4 chacune** (§24 — le papier comme support de
-formation, D1129) ; **publiée**, l'édition HTML servie aux techniciens
-pour l'API (§10), et **le mode public** (D1150) — la page de
-présentation construite par défaut et mise à disposition sans aucun
-droit, sauf si le concepteur rend le projet privé — **la propriété
-`visibility: public | private | promotional`** (D1151 ; *mes lectures* :
-au projet, `promotional` par défaut — la page de présentation seule ;
-`public` — la documentation en mode public ; `private` — rien sans
-compte). **Toute édition** — ce qui sort de
-l'application pour un lecteur sans compte — est préparée par un
-`manager` ou un `administrator`, dans la limite de ses droits, qui
-décide de sa diffusion ; **elle porte un cartouche** (en-tête ou pied
-de page) avec le numéro de version, la date et l'auteur de l'édition
-(D1142). La langue suit le lecteur
-(D1101). *À trancher* : les canaux retenus et leur déclaration dans
-`documentation.yml` (§12).
+Comment la documentation parvient à ses lecteurs — **sept canaux**,
+chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
+
+| Le canal | Ce qui passe | Pour qui | Déclaré où |
+|---|---|---|---|
+| **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
+| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | le concepteur | `output:` de l'environnement (§12) ; la commande (`syncytium document …`, à nommer) |
+| **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
+| **4. par mail** | ce qui se rapporte : les notes d'une version promue, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le patron du `report:` (D397) | les groupes destinataires | `channels.mail` (§12) |
+| **5. imprimée** | le PDF d'un chapitre ou du tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | l'opérateur, le papier sur le bureau | la dimension de page des gabarits (§12) |
+| **6. publiée** | l'édition HTML de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | le technicien ; le prospect | `channels.publish` (§12) ; `visibility:` au projet (D1151) |
+| **7. l'édition machine** | le méta-schéma et ses descriptions, en JSON ou YAML, aux droits du compte (le rang 2) | l'analyste, l'assistant | implicite — par l'API |
+
+*Mes lectures* : les canaux 1 et 7 sont le socle, jamais désactivés ;
+les canaux 2 à 6 se paramètrent (§12) et valent par défaut comme suit
+— le dépôt sur demande, l'édition sur demande, le mail à la promotion
+d'une version, l'impression à la demande, la publication selon
+`visibility:`. *À trancher* : la liste des sept, les événements du mail,
+le nom de la commande.
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(en proposition)*
 

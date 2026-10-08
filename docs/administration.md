@@ -109,7 +109,7 @@ indisponible, la perte du réseau…).
 
 ```yaml
 # l'entité système user — définie, construite et maintenue par
-# Syncytium, jamais déclarée par le technicien
+# Syncytium, jamais déclarée par le concepteur
 user:
   label: "{first_name} {last_name}"
   fields:
@@ -221,7 +221,7 @@ settings:
   (D341/D414–D416) — en base, par l'administrateur ; le groupe porte
   le degré (D699), **l'appartenance à un groupe est obligatoire** ;
 - **le provisionnement** : les utilisateurs associés par le
-  technicien ou par la passerelle d'authentification (D418/D692 —
+  concepteur ou par la passerelle d'authentification (D418/D692 —
   la famille `authentication`, la synchronisation par le
   `directory` D633) ;
 - **les jetons des comptes techniques** (D692) : créés et révoqués
@@ -309,7 +309,7 @@ l'initialisation, **la duplication** de l'origine
 (`duplicate_instance` D680 — la base, les fichiers, la
 configuration) puis **la migration** jusqu'à la version de la
 sandbox ; **les connecteurs de son environnement** (D911 — à la main
-du technicien, le mock comme pour beta), l'origine jamais touchée ;
+du concepteur, le mock comme pour beta), l'origine jamais touchée ;
 **la promotion vers `beta` ou `production` par un geste de fichier**
 (D910) — **`from:` retiré à la promotion** (sinon une erreur avant
 l'ingestion), **l'origine promue casse le lien** des sandboxes qui
@@ -490,7 +490,7 @@ journaux en anglais (D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
-consultation par **le technicien seul**, en cas de besoin — hors
+consultation par **le concepteur seul**, en cas de besoin — hors
 IHM. **Le journal d'accès reste au proxy** (D925) ; le journal du
 moteur porte **les événements de sécurité** à leur niveau — `info`
 (l'authentification, la rotation, l'ingestion, la recharge),

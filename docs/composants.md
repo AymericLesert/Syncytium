@@ -2773,7 +2773,7 @@ wizards:
    directs (`chart[<nom>]` — D243/D540) ; les `sections` et leurs
    layouts pour la disposition (D489–D491) ;
 7. **Modes et déclinaisons** — **le même objet, deux auteurs**
-   (D554) : **le technicien déclare le panel** (les dashboards du
+   (D554) : **le concepteur déclare le panel** (les dashboards du
    module — le menu, l'accueil pointé) ; **l'utilisateur compose le
    sien** — la page d'accueil = un dashboard personnel, pioché dans
    le pool des widgets de ses modules, sous sa confidentialité

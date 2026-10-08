@@ -11,7 +11,7 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 
 - **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les
   connecteurs et les composants relèvent d'un mécanisme uniforme —
-  ce que Syncytium embarque et ce que le technicien ajoute passent
+  ce que Syncytium embarque et ce que le concepteur ajoute passent
   par la même porte ;
 - **« Tous les types proposés sont finalement des hooks qui
   appartiennent à Syncytium »** (D408) — **le catalogue = les hooks
@@ -470,7 +470,7 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 0. **Le hook d'interface, seul code tiers au navigateur** (D918 —
    D66/§8.2) : il ne reçoit jamais `private`, il relève de l'UX et
    jamais de la sécurité (le serveur arbitre), il est **sous la
-   responsabilité du technicien** et **listé par la documentation
+   responsabilité du concepteur** et **listé par la documentation
    générée** (`describe`, D645) pour que l'administrateur sache quel
    code tourne chez ses utilisateurs ; la page n'autorise que les
    scripts qu'elle connaît.

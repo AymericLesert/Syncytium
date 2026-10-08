@@ -37,7 +37,7 @@ lecteurs attendent :
 
 | qui | la question | ce qui y répond |
 |---|---|---|
-| **le technicien** | où en est l'analyse du système d'origine ? qu'est-ce qui cloche dans sa description ? | le modèle lu et ses versions, la complétude du schéma, les anomalies du modèle |
+| **le concepteur** | où en est l'analyse du système d'origine ? qu'est-ce qui cloche dans sa description ? | le modèle lu et ses versions, la complétude du schéma, les anomalies du modèle |
 | **les métiers** — les destinataires que les `report:` nomment | qu'est-ce qui a été refusé, pourquoi, et comment le corriger à l'origine ? | les anomalies des enregistrements, consolidées par destinataire |
 | **l'administrateur** | le passage s'est-il bien déroulé ? la qualité progresse-t-elle ? | la ligne d'exécution : l'état, les horodatages, les compteurs, les indicateurs dans le temps |
 
@@ -480,7 +480,7 @@ fields:
   phase 5 qui portent sur ce qu'elle construit.
 - **Sans `report:`**, le défaut de D407 : à la demande, vers
   l'administrateur.
-- **Les anomalies du modèle** vont au technicien, par le module.
+- **Les anomalies du modèle** vont au concepteur, par le module.
 - **La consolidation** : après chaque passage, chaque destinataire
   reçoit, par ses canaux (`by:`), les anomalies de toutes les sources et
   de toutes les règles qui lui sont adressées, groupées par source ou

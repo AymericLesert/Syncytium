@@ -211,7 +211,7 @@ ne change.
 
 **La migration à chaud** (D631/D674) : `duplicate_instance` → les
 transformations dérivées des différences (D632 — le mapping
-automatique, le technicien n'écrit rien) → la bascule par
+automatique, le concepteur n'écrit rien) → la bascule par
 `rename_instance` sur validation → `delete_instance` (ou la grâce —
 D675/D678). Le mapping manuel demeure l'affaire des migrations
 déclarées (voir [mapping.md](mapping.md)).
@@ -442,7 +442,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   réplication passive du PCA-PRA (D112–D114) ;
 - **le mapping automatique de la migration à chaud** (D632) : entre
   deux versions du méta-schéma, la translation déclarative dérive les
-  correspondances — le technicien n'écrit rien ;
+  correspondances — le concepteur n'écrit rien ;
 - **l'écriture unifiée (D647–D649)** : **l'usage 1 est implicite**
   (le `from:` = la version précédente, porté par Syncytium ; ne
   s'écrivent que le renommage — l'ancien nom gardé —, la

@@ -61,7 +61,7 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **la synthèse périodique** | *push*, basse fréquence — le patron du mail des faits marquants (D733/D738) | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) ; les destinataires au degré `administrator` |
 | **l'alerte de dépréciation** | *push*, événementiel, **rare** — le même patron (D738) | **l'appel persistant d'une version dépréciée** (D742 — l'état, jamais une date : le déploiement déclenche la dépréciation ou son intention) ; jamais d'alerte sur le non-usage ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
-| **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logging.yml` par environnement — D342/D343/D830), hors IHM — **la maîtrise du niveau, des dimensions (taille/rotation — D800) et de la rétention** |
+| **le journal** (D737) | le substrat — la consultation par le concepteur seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logging.yml` par environnement — D342/D343/D830), hors IHM — **la maîtrise du niveau, des dimensions (taille/rotation — D800) et de la rétention** |
 
 L'exemple du journal (les écritures validées — D743) :
 
@@ -117,19 +117,19 @@ la coercition :
 
 - **au consommateur** : le cache des requêtes déterministes (le
   moteur fournit `ETag`/`304`), la lecture par lot contre le N+1 ;
-- **au technicien** : faire émerger un besoin — l'endpoint
+- **au concepteur** : faire émerger un besoin — l'endpoint
   composite, l'agrégat, le champ calculé ;
 - **la détection : SEQUITUR** (D315–D316) — la grammaire
   hiérarchique des séquences répétées sur les appels normalisés
   (l'endpoint + les propriétés, les valeurs ignorées — D318) ; les
   seuils : la récurrence sur plage temporelle et le rapport de
   longueurs (D319, le calibrage sur données réelles en Q59) ; **le
-  moteur propose avec la fréquence et le gain, le technicien
+  moteur propose avec la fréquence et le gain, le concepteur
   décide** (D317).
 
 **Où paraissent les propositions** (D739) : dans la synthèse
 périodique (D738) et dans le dashboard « telemetry » (D736) — la
-décision du technicien reste **un geste hors application** : la
+décision du concepteur reste **un geste hors application** : la
 description se change au dépôt, jamais depuis l'écran.
 
 ## Les seuils et la calibration (D47–D51, D97, D740)

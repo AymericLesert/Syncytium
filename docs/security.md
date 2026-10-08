@@ -100,7 +100,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 - **Le cadre générique dès l'origine** (D29, D32, D78) : la nature de
   l'authentification se choisit à l'installation, derrière une
   interface de connecteur, reparamétrable **par un administrateur
-  uniquement** ; le login/mot de passe est le défaut ; le technicien
+  uniquement** ; le login/mot de passe est le défaut ; le concepteur
   peut écrire son propre connecteur.
 - **La famille `authentication`** (D692, la huitième) : le contrat
   `challenge()` / `verify(preuve)`, aux deux visages — l'utilisateur
@@ -159,10 +159,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   (D918) : la liste `cors:` à l'environnement — absent = aucune, le
   joker refusé, la preuve au porteur toujours exigée. **L'injection
   de script** (D918) : les valeurs saisies toujours rendues comme du
-  texte, les templates du technicien échappent leurs variables et
+  texte, les templates du concepteur échappent leurs variables et
   refusent le HTML brut, le hook d'interface est le seul code tiers
   au navigateur — listé par la documentation générée, sous la
-  responsabilité du technicien — et la page n'autorise que les
+  responsabilité du concepteur — et la page n'autorise que les
   scripts qu'elle connaît.
 - **L'API hors session** : chaque requête porte sa preuve. **La clé
   d'API rotative** par défaut (D107 — deux clés actives pendant la
@@ -276,7 +276,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   administrateur à double entrée** : le groupe **et** la désignation
   individuelle. Le module d'administration exige le degré (D710) —
   l'affectation ne suffit pas.
-- **Le groupe supprimé** (D34, D96) : note au technicien, groupe
+- **Le groupe supprimé** (D34, D96) : note au concepteur, groupe
   ignoré — le champ qu'il restreignait se ferme ; les affectations
   sont conservées et **reprennent vie** si le groupe réapparaît (la
   clé stable) ; le groupe absent de la configuration = désactivé,
@@ -303,7 +303,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   comportementale relève de l'UX, **jamais de la sécurité** (D66 — le
   serveur arbitre) ; **le hook d'interface est le seul code tiers au
   navigateur** (D918) — listé par la documentation générée, sous la
-  responsabilité du technicien.
+  responsabilité du concepteur.
 - **La librairie d'exploration** (D572, D599) : le hook lit le modèle
   par les noms logiques, jamais le stockage, écrit dans la
   transaction — les droits, la confidentialité, la validation, la
@@ -354,7 +354,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   ingéré consignée avec elle ; **une version ingérée l'est une
   fois** — la configuration modifiée sous le même numéro n'est pas
   relue, l'empreinte recalculée à chaque chargement **trace l'écart**
-  et dit au technicien de changer de numéro ; la sandbox seule se
+  et dit au concepteur de changer de numéro ; la sandbox seule se
   recharge (D922).
 - **La migration transactionnelle** (D9) après dry-run sur données
   réelles ; le retour arrière gratuit avant bascule, la grâce après
@@ -409,7 +409,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   (D748).
 - **Les journaux** (D343, D737, D800) : par environnement, en
   anglais, le niveau et la rétention maîtrisés, **la consultation par
-  le technicien seul, hors IHM**. **Le journal d'accès reste au
+  le concepteur seul, hors IHM**. **Le journal d'accès reste au
   proxy** (D925) ; le journal du moteur porte **les événements de
   sécurité avec leur sens** — l'authentification en `info`, les
   échecs, les refus d'autorisation, les refus de cooldown et les
@@ -529,7 +529,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   origine par `from:` (`beta/v1.0.0.0`, ou une autre sandbox — la
   transitivité), dupliquée à l'initialisation puis migrée ; les
   connecteurs de son environnement (D911 — la fermeture est l'œuvre
-  du technicien, le mock comme pour beta), l'origine jamais
+  du concepteur, le mock comme pour beta), l'origine jamais
   touchée ; la promotion vers `beta` ou `production` par un geste
   de fichier (D910) — **`from:` retiré à la promotion, sinon une
   erreur avant l'ingestion ; l'origine promue casse le lien des

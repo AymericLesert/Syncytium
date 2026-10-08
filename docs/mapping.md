@@ -65,7 +65,7 @@ unit_price:
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
 de la version présente les écarts calculés — les champs ajoutés,
-renommés, retypés, supprimés — sans que le technicien les décrive ;
+renommés, retypés, supprimés — sans que le concepteur les décrive ;
 les notes de version, elles, portent l'évolution fonctionnelle.
 
 ### La migration du schéma (D673–D674)
@@ -146,7 +146,7 @@ un fichier par règle de migration ; l'organisation des dossiers est
 libre, la déclaration fait foi. **Les patterns sont des regex**
 (D806 — « plus de personnalisation et de contrôle ») ; le pattern
 est une déclaration : le standard d'organisation et de nommage que
-le technicien se fixe — partout où une liste de fichiers se déclare,
+le concepteur se fixe — partout où une liste de fichiers se déclare,
 il peut remplacer l'énumération. **La référence de fichier est
 explicite** (D956) : `~{<fichier ou pattern>}` — la valeur nue est
 un littéral, jamais un fichier ; en collection de flux (`[ … ]`)
@@ -178,7 +178,7 @@ décrite par le méta-modèle également. » À la racine de la version :
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
   confrontée au schéma réel (`read_instance` — D629/D680), l'écart
-  signalé ; `read_instance` peut engendrer l'ossature, le technicien
+  signalé ; `read_instance` peut engendrer l'ossature, le concepteur
   la raffine ;
 - **`mapping/`** — les règles de conversion, **table par table, aux
   origines multiples possibles**.
@@ -480,7 +480,7 @@ celle du modèle (les non-conformes des références, D395). **Les
 anomalies du modèle** — la colonne non décrite, le type non
 convertible, la colonne décrite disparue, l'identité non respectée
 (D1042/D1053) — ne sont pas des rejets de règle : elles vont au
-technicien par le module `_migration` ; **celles des données de la
+concepteur par le module `_migration` ; **celles des données de la
 source** — ses phases de contrôle, le type, l'identité, l'orphelin —
 vont au `report:` de l'entité source (D1058, ci-dessous).
 
@@ -628,7 +628,7 @@ la ligne (mien).
 **Le texte trop long (D581).** Un `text[30]` de la source vers un
 `text[..20]` de la cible est une conversion avec perte : le typage
 statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet
-à l'exécution ; le technicien l'écrit s'il la veut, `left(ARCTLIB01,
+à l'exécution ; le concepteur l'écrit s'il la veut, `left(ARCTLIB01,
 20)` (les fonctions du texte, D934).
 
 **L'enrichissement — le champ possédé par la cible (D941).** Le
@@ -773,7 +773,7 @@ postures de D180 incarnées.
   décrites dans la configuration — les décrites encore présentes dans
   le modèle lu, au type compatible, rapportées aux décrites ; la
   colonne que la configuration ne cite pas n'y entre pas, elle reste
-  une anomalie de complétude, au technicien (D1053) ; **la couverture
+  une anomalie de complétude, au concepteur (D1053) ; **la couverture
   des données**, sur les compteurs de l'origine — les lignes lues sans
   erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
 - **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :

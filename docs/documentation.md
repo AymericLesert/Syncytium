@@ -2,7 +2,7 @@
 
 Ce document rassemble **les principes de la génération de la
 documentation** : ce que Syncytium produit depuis la configuration,
-pour qui, à partir de quoi, sous quelle forme, et ce que le technicien
+pour qui, à partir de quoi, sous quelle forme, et ce que le concepteur
 peut y ajouter. C'est le quinzième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après
 [configuration.md](configuration.md) (D994) et
@@ -58,7 +58,7 @@ Ce que l'introduction fixe, et que le reste du document déroule :
   l'IA, le chiffre d'usage ;
 - **différents niveaux de lecture** (D1138) — la même matière se lit
   de loin ou de près : la vue d'ensemble pour le décideur, le module
-  pour l'opérateur, le détail pour le technicien (les trois niveaux du
+  pour l'opérateur, le détail pour le concepteur (les trois niveaux du
   modèle, §5 ; la générale, le module, l'écran de la fonctionnelle,
   §6) ; le lecteur choisit sa profondeur, le cadre garantit que chaque
   niveau résume exactement le suivant.
@@ -128,12 +128,12 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | La documentation | Pour qui (§3) | Ce que ce document en dit déjà |
 |---|---|---|
 | **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
-| **2. Technique — l'information (BI, IA)** | le technicien, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
-| **3. Développeur** | le technicien tiers, le technicien de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
-| **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le technicien | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
+| **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
+| **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
+| **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le concepteur | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
-| **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le technicien, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
+| **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
 | **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — rien de rédigé encore |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
@@ -205,7 +205,10 @@ comme cas d'usage, « quoi de neuf » (les notes de version) ; *la
 démonstration* — une instance d'essai et son jeu de données (D869) ;
 *l'argumentaire du socle* — l'open source AGPL (D19), une instance par
 client, les API, l'auto-documentation. Le ton et les textes sont écrits
-(D1122) ; la structure et les visuels, générés.
+(D1122) ; la structure et les visuels, générés. **Le mode public**
+(D1150) : la page de présentation est construite par défaut et mise à
+disposition sans aucun droit ; le concepteur peut rendre le projet
+privé.
 
 **7. Maintenance, risques, améliorations — l'analyse.** §23 (ses
 contrôles, sa supervision, ses optimisations — ses opérations
@@ -256,7 +259,7 @@ documentation (D1133), le D.A.T. et le guide d'exploitation distincts
 | 2 | **Technique — l'information** (2) | §4, §5, §8, §9 ; l'édition machine, le modèle physique, l'historique | tout en découle ; le tiny la montre |
 | 3 | **Réglementation** (5) | §18 ; le registre complet, les droits des personnes | l'obligation de la TPE ; la matière est au modèle |
 | 4 | **Le projet et le support** (8) | le cycle de vie, le dépôt, signaler et demander, le support | la matière est acquise (D340, D650, D1112, D1123) ; peu à arbitrer, et le cas 8 en aura besoin |
-| 5 | **Développeur** (3) | §10 ; les hooks, l'extension, la syntaxe (le point 11) | les techniciens tiers du cas 8 ; la forme attend le domaine 7 |
+| 5 | **Développeur** (3) | §10 ; les hooks, l'extension, la syntaxe (le point 11) | les techniciens du cas 8 ; la forme attend le domaine 7 |
 | 6 | **Le D.A.T.** (4) | le schéma des connexions, les environnements, le paramétrage externe | dépend des choix techniques (D1025) |
 | 7 | **Le guide d'exploitation** (9) | §17 ; installer, configurer, superviser, les opérations | dépend des mêmes choix, et du D.A.T. |
 | 8 | **Maintenance, risques, améliorations** (7) | §23 ; l'analyse des risques | dépend de la télémétrie et de l'instance |
@@ -630,7 +633,7 @@ pour le lecteur du fichier, la propriété pour la documentation.
 |---|---|---|
 | le projet (`syncytium.yml`) | `name:`, `description:` ; la version du format `from:` ; le dossier `resources/` (logos, icônes) | D322, D346, D1083 |
 | l'environnement | sa `description:` (la nature : la vie courante, le développement), son `storage:`, ses connecteurs | D1090, D1094 |
-| la version | les `release-notes:` — **l'évolution fonctionnelle, écrite par le technicien** ; les `languages:` ; les écarts calculés par Syncytium | D1101, D1112 |
+| la version | les `release-notes:` — **l'évolution fonctionnelle, écrite par le concepteur** ; les `languages:` ; les écarts calculés par Syncytium | D1101, D1112 |
 | le module | `name:` l'invariant ; `title:` le nom d'usage par langue, `hint:`, `description:` | D416, D1120 |
 | l'entité | `name:` l'invariant ; `title:` le nom d'usage par langue ; `label:` (le gabarit du visage), `hint:`, `description:`, l'identité, les états et leur graphe, les validations (`description:`/`message:`), l'historisation, le `rgpd:` | D843, D1116, D1120 |
 | le champ | le type et ses facettes, `label:`, `hint:` (la courte), `description:` (la longue, en Markdown — D1102), `placeholder:`, `required:`, `default:`, les validations, la confidentialité, les `allow:`, le `rgpd:`, `unchanged:`, `from:` (le renommage), `deprecated:` (le remplacement ou l'abandon, obligatoire) | D124, D258, D650, D840, D941, D1111 |
@@ -725,36 +728,36 @@ principe des lecteurs est acquis. Les rôles suivent.)*
 
 | Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
 |---|---|---|---|
-| **le technicien** | celui qui écrit la configuration (le glossaire) | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | dedans, au degré `administrator` (D942) ; et au dépôt, les fichiers générés |
+| **le concepteur** | celui qui écrit la configuration (le glossaire) | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | dedans, au degré `administrator` (D942) ; et au dépôt, les fichiers générés |
 | **l'administrateur** | celui qui fait tourner l'instance — le degré `administrator` (D699) | les environnements, les connecteurs, le journal, les opérations, le registre, les groupes | dedans |
 | **le responsable métier** | le degré `manager` (D699) — celui qui répond aux questions (§25) et pilote un module | les parcours de son module, les personas, les règles qui s'y appliquent, les usages | dedans |
 | **l'utilisateur** | l'opérateur, le degré `user` | ce que fait chaque écran, chaque champ, chaque opération ; la procédure sur une page, posée sur le bureau (D1129) | dedans — les masques, les pages, les planches imprimées |
 | **le décideur** | le dirigeant | ce que l'application couvre et comment les choses se tiennent — en une image ; ce qui change ; ce que les usages disent | dedans, au degré `reader` (D1140) — ou à son degré s'il opère |
 | **l'analyste** (BI) | un compte technique ou nominatif qui lit les données | le dictionnaire, le modèle physique, l'édition machine, les clés, l'historique | dedans, sous ses droits |
 | **l'assistant IA** | le module de chat (D957) | le mode d'emploi filtré par les droits de l'utilisateur qui l'interroge (D958) | dedans, aux droits de l'utilisateur |
-| **le technicien tiers** | le consommateur des API (D334), un compte technique (D28) | le contrat de chaque version publiée, les champs exposés, les exemples | dedans, les versions publiées (D99) ; ou l'édition HTML publiée (§21) |
-| **l'usager** | la personne dont les données sont traitées | ce que l'application sait d'elle, pourquoi, combien de temps, ses droits | une édition — ses seules données |
+| **le technicien** | le consommateur des API (D334), un compte technique (D28) | le contrat de chaque version publiée, les champs exposés, les exemples | dedans, les versions publiées (D99) ; ou l'édition HTML publiée (§21) |
+| **l'usager** | la personne dont les données sont traitées | ce que l'application sait d'elle, pourquoi, combien de temps, ses droits | une édition, sur sa demande : **l'extraction des traitements et des informations qui la concernent**, exécutée par un responsable métier ou un administrateur (D1149) |
 | **le DPO**, l'auditeur | le responsable de traitement, celui qui contrôle | le registre complet, les droits, les accès journalisés, les transferts | dedans, au degré `reader` ; une édition pour l'auditeur de passage |
 | **l'hébergeur** | l'exploitant de l'infrastructure, souvent un prestataire | le D.A.T., le guide d'exploitation — sans les secrets (D944) | dedans, au degré `reader`, ou une édition |
-| **le prospect**, le partenaire | celui à qui l'on montre l'application | ce qu'elle fait, à quoi elle ressemble, ce que vaut le socle | une édition publique — les descriptions et les écrans rendus, jamais une donnée |
+| **le prospect**, le partenaire | celui à qui l'on montre l'application | ce qu'elle fait, à quoi elle ressemble, ce que vaut le socle | **le mode public** (D1150) : une page de présentation, construite par défaut et mise à disposition sans aucun droit ; le concepteur peut rendre le projet privé |
 
 **Les neuf documentations et leurs lecteurs** :
 
 | La documentation | Les lecteurs | Le filtre |
 |---|---|---|
 | 1. Fonctionnelle | l'utilisateur, le responsable métier, le décideur | les droits du groupe : on ne lit que ce qu'on voit ; la langue du profil |
-| 2. Information (BI, IA) | le technicien, l'analyste, l'assistant IA, le décideur (la vue d'ensemble) | le technicien lit tout ; l'analyste et l'IA sous les droits de leur compte |
-| 3. Développeur | le technicien, le technicien tiers | les versions publiées (D99) ; les hooks et la configuration au technicien seul |
-| 4. D.A.T. | l'administrateur, le technicien, l'hébergeur | jamais une valeur confidentielle (D944) |
+| 2. Information (BI, IA) | le concepteur, l'analyste, l'assistant IA, le décideur (la vue d'ensemble) | le concepteur lit tout ; l'analyste et l'IA sous les droits de leur compte |
+| 3. Développeur | le concepteur, le technicien | les versions publiées (D99) ; les hooks et la configuration au concepteur seul |
+| 4. D.A.T. | l'administrateur, le concepteur, l'hébergeur | jamais une valeur confidentielle (D944) |
 | 5. Réglementation | l'usager, le DPO, l'auditeur, l'administrateur | l'usager : ses seules données ; le DPO et l'auditeur : tout le registre |
-| 6. Promotionnelle | le prospect, le partenaire, le dirigeant | publique : rien de confidentiel, aucune donnée |
-| 7. Maintenance, risques, améliorations | l'administrateur, le technicien, le responsable métier, le décideur | à l'instance ; le journal au technicien seul (D737) |
+| 6. Promotionnelle | le prospect, le partenaire, le dirigeant | le mode public (D1150) : se diffuse sans aucun droit — rien de confidentiel, aucune donnée ; le projet peut être rendu privé |
+| 7. Maintenance, risques, améliorations | l'administrateur, le concepteur, le responsable métier, le décideur | à l'instance ; le journal au concepteur seul (D737) |
 | 8. Projet et support | le dirigeant, l'administrateur, l'utilisateur (signaler, demander) | ouverte à l'entreprise |
 | 9. Guide d'exploitation | l'administrateur, l'hébergeur | sans les secrets |
 
 *À trancher* : la liste des rôles et leurs noms (le glossaire les
 recevra) ; les deux familles — lire dedans, lire une édition ; le
-technicien lit-il dedans au degré `administrator`, ou par le dépôt
+concepteur lit-il dedans au degré `administrator`, ou par le dépôt
 seulement ; l'édition publique de la promotionnelle — qui la prépare.
 
 ## 4. La documentation technique *(le plan, en proposition)*
@@ -792,7 +795,7 @@ catalogue.
 11. **L'exploitation** — le journal, le nettoyage, les opérations
     périodiques, les dépendances du moteur (D924), le registre des
     traitements (D698).
-12. **L'API** — le contrat de la version pour le technicien tiers (§10).
+12. **L'API** — le contrat de la version pour le technicien (§10).
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
 
@@ -806,7 +809,7 @@ aussi à ceux qui ne liront jamais la table.
 
 **Acquis** : un volet « modèle de données », graphique, de type UML,
 **calculé depuis la configuration** — rien à dessiner, le modèle est
-déjà là (le patron des écarts, D1112) ; pour le technicien,
+déjà là (le patron des écarts, D1112) ; pour le concepteur,
 l'opérateur et le décideur.
 
 *En proposition :*
@@ -816,8 +819,8 @@ l'opérateur et le décideur.
 | Le niveau | Ce qu'il montre | Pour qui | Où |
 |---|---|---|---|
 | **la vue d'ensemble** de la version | une boîte par entité, groupée par module (le paquetage) ; les liens — l'héritage, la composition, la référence ; **ni champ, ni nom de lien** ; **un seul trait entre deux entités**, quel que soit le nombre de champs qui les relient | le décideur ; l'opérateur qui découvre | en tête de la documentation fonctionnelle et de la technique (§4, chapitre 3) |
-| **la vue du module** | ses entités avec leurs champs ; les entités des autres modules qu'il référence, en boîtes vides marquées de leur module | l'opérateur du module ; le technicien | le chapitre du module |
-| **la vue de l'entité** | l'entité et son voisinage immédiat : son parent et ses dérivés, ses compositions, ce qu'elle référence, ce qui la référence, ses associations dérivées, les noms des liens | le technicien ; l'opérateur, pour une entité | le chapitre de l'entité |
+| **la vue du module** | ses entités avec leurs champs ; les entités des autres modules qu'il référence, en boîtes vides marquées de leur module | l'opérateur du module ; le concepteur | le chapitre du module |
+| **la vue de l'entité** | l'entité et son voisinage immédiat : son parent et ses dérivés, ses compositions, ce qu'elle référence, ce qui la référence, ses associations dérivées, les noms des liens | le concepteur ; l'opérateur, pour une entité | le chapitre de l'entité |
 
 **La correspondance** (la table détaillée, propriété par propriété,
 dans [entity.md](entity.md)) : le module → le paquetage ; l'entité →
@@ -1047,13 +1050,13 @@ domaine surdimensionné, à resserrer). Elle ne vit qu'**avec
 l'instance** : une documentation générée au dépôt, sans base, n'a pas
 cette section ; la documentation servie par l'application l'a. *À
 trancher* : sur quels types et quels indicateurs (la liste des canaux
-de telemetry.md), et si cette part reste au technicien ou se partage.
+de telemetry.md), et si cette part reste au concepteur ou se partage.
 Cette source nourrit la pièce §23 — la supervision des usages, les
 contrôles, les optimisations.
 
 ## 9. Les écarts entre versions (D1112) *(la forme, en proposition)*
 
-**Syncytium calcule les écarts et les présente ; le technicien ne les
+**Syncytium calcule les écarts et les présente ; le concepteur ne les
 décrit pas** — la description d'un champ dit ce qu'il est, jamais ce
 qui a changé ; les notes de version disent le sens fonctionnel.
 La documentation d'une version porte donc deux textes : *les notes de
@@ -1062,7 +1065,7 @@ précédente du même statut ou de la chaîne (D4/D323) : les modules,
 entités et champs **ajoutés**, **renommés** (`from:` — D1111),
 **retypés**, **supprimés** ou **dépréciés** (D650 — avec leur
 remplacement), les validations et les droits modifiés. Pour le
-technicien tiers, la même liste dit ce que son contrat perd ou gagne
+technicien, la même liste dit ce que son contrat perd ou gagne
 (D11–D13, D98–D99). **Les éléments antérieurs peuvent aussi s'ajouter en
 annotation** dans la documentation de la version (D1123) — à côté du
 champ : « renommé depuis `abrege` en 1.0.0.1 » — en plus de la liste ;
@@ -1106,7 +1109,7 @@ version par version — est acquis.
 Facultatif ; référencé par la clé `documentation:` de l'environnement
 (configuration.md §3.2). Il porterait : le dossier et les formats de
 sortie ; les sections retenues ou écartées ; l'identité visuelle
-(`resources/` — D346) ; **des pages ajoutées** par le technicien (un
+(`resources/` — D346) ; **des pages ajoutées** par le concepteur (un
 guide de démarrage, une page d'accueil, en Markdown — `~{…}`), placées
 dans le plan ; les destinataires d'une diffusion périodique, s'il y en
 a. *Rien n'est obligatoire* : le tiny n'en a pas.
@@ -1123,7 +1126,7 @@ contexte — D254). *Mes lectures* : `documentation.yml` porte un bloc
 gabarit par défaut** — le cartouche de D1142 : le numéro de version, la
 date et l'auteur de l'édition, tirés de l'entité « contexte » (D254 :
 l'opérateur, l'instance, la pagination — la version et la date s'y
-ajoutent) — et le technicien le remplace ou le complète (la page de
+ajoutent) — et le concepteur le remplace ou le complète (la page de
 garde au logo de `resources/`, un avertissement de confidentialité en
 pied) ; **le filigrane de la beta** (D1145) — « Beta vx.y.z.w » en fond
 de page par défaut, son texte personnalisable ou absent — est un item
@@ -1213,9 +1216,12 @@ derniers passages).
 **le registre des traitements** — les entités et les champs marqués
 `rgpd:`, leur finalité (la description), leur confidentialité, leur
 rétention et l'anonymisation à l'échéance (D696/D698), les connecteurs
-sortants qui les emportent (les mails, les webhooks) ; **la matrice des
-droits** — les groupes, leur composition (D1099), leur degré (D699), ce
-que chacun lit et écrit ; **la sécurité de l'instance** — les
+sortants qui les emportent (les mails, les webhooks) ; **les droits des
+personnes** — l'usager demande **l'extraction des traitements et des
+informations qui le concernent** ; un responsable métier ou un
+administrateur exécute la requête, qui produit une édition à cartouche
+(D1142, D1149) ; **la matrice des droits** — les groupes, leur
+composition (D1099), leur degré (D699), ce que chacun lit et écrit ; **la sécurité de l'instance** — les
 dépendances du moteur et leurs versions (D924), le code tiers servi au
 navigateur (D918), le chiffrement des secrets (D902/D944). Pour
 l'administrateur, le DPO et l'usager — ce dernier sous l'angle de ses
@@ -1234,7 +1240,7 @@ joué.
 
 ## 20. La complétude de la documentation *(en proposition)*
 
-Le rapport du technicien, à la façon de la couverture (D861/D1060) :
+Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
@@ -1253,7 +1259,11 @@ le rapport de complétude (le patron du `report:` — D397) ; **imprimée**,
 le PDF d'un chapitre ou du tout (D53/D187) et **les planches des modes
 opératoires, une page A4 chacune** (§24 — le papier comme support de
 formation, D1129) ; **publiée**, l'édition HTML servie aux techniciens
-tiers pour l'API (§10). **Toute édition** — ce qui sort de
+pour l'API (§10), et **le mode public** (D1150) — la page de
+présentation construite par défaut et mise à disposition sans aucun
+droit, sauf si le concepteur rend le projet privé (*ma proposition* :
+`public: true` par défaut dans `syncytium.yml`, `public: false` pour un
+projet privé). **Toute édition** — ce qui sort de
 l'application pour un lecteur sans compte — est préparée par un
 `manager` ou un `administrator`, dans la limite de ses droits, qui
 décide de sa diffusion ; **elle porte un cartouche** (en-tête ou pied
@@ -1278,7 +1288,7 @@ les états franchis — §16), le résultat. **Ce que Syncytium génère** :
 pour chaque groupe, les squelettes des scénarios que ses droits
 permettent — créer, consulter, modifier, supprimer chaque entité
 accessible, déclencher chaque opération, mener chaque cycle d'états ;
-**ce que le technicien complète** : le nom et le rôle des personas, les
+**ce que le concepteur complète** : le nom et le rôle des personas, les
 scénarios métier (les fichiers complémentaires — D1122). *À trancher* :
 où se déclarent les personas — une `description:` du groupe suffit, ou
 un bloc dédié ; la part générée et la part écrite.
@@ -1296,7 +1306,7 @@ concept de persona et de fonctionnalités de bout en bout »** — le
 scénario d'un persona est **une fonctionnalité de bout en bout**, et le
 wizard en est la succession de tâches dans l'application. *Mes
 lectures* : **chaque wizard qu'un persona peut atteindre est l'un de ses
-scénarios**, déjà écrit par le technicien dans la configuration — ses
+scénarios**, déjà écrit par le concepteur dans la configuration — ses
 steps en sont les étapes, le `title:` du wizard le but, ses opérations
 les actes ; les scénarios générés par les droits (créer, modifier,
 supprimer, mener un cycle) complètent ceux que les wizards portent ; et
@@ -1347,7 +1357,7 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   (`reset_coverage` — D943), la restauration d'un enregistrement (D171)
   ; pour chacune : quand, qui, comment, la trace.
 
-*À trancher* : la part servie à l'administrateur et au technicien ; la
+*À trancher* : la part servie à l'administrateur et au concepteur ; la
 périodicité de la synthèse ; les seuils (la calibration de
 telemetry.md).
 
@@ -1379,7 +1389,7 @@ lui-même** — l'écran généré se dessine, il n'y a pas à le photographier
 —, le champ ou l'opération de l'étape mis en évidence, le libellé et le
 `hint:` comme texte de l'étape, **les avertissements tirés des
 validations** (leur `message:` — D1116) et des `hint:`. **Ce que le
-technicien écrit** : les étapes hors de l'application (les fichiers
+concepteur écrit** : les étapes hors de l'application (les fichiers
 complémentaires — D1122), les encarts métier, l'ordre des scénarios
 dans le classeur. **La forme** : une page A4 paysage par scénario, en
 PDF (D53/D187), au gabarit stable — le même pour toutes les planches
@@ -1409,7 +1419,7 @@ Syncytium une richesse qui pourrait être traitée simplement. »**
 
 **Acquis.** La F.A.Q. n'est pas un texte rédigé : c'est **une
 fonctionnalité du socle**. L'utilisateur pose sa question **depuis
-l'écran ou la fonctionnalité** où elle lui vient ; **le technicien ou
+l'écran ou la fonctionnalité** où elle lui vient ; **le concepteur ou
 un responsable métier répond** ; la question répondue est **disponible
 et ouverte aux différents outils** ; **des commentaires** enrichissent
 le dialogue ; **la mise à disposition se paramètre**.
@@ -1450,7 +1460,7 @@ la question sa place dans l'aide en place et dans la documentation.
 **Les droits** (D699, D1099) : poser et commenter — tout utilisateur
 qui voit l'ancre (une entité invisible ne reçoit pas de question) ;
 répondre et clore — le degré `manager` (le responsable métier) ou
-`administrator` (le technicien) ; retenir une réponse — l'auteur de la
+`administrator` (le concepteur) ; retenir une réponse — l'auteur de la
 question ou un répondant ; la question ouverte est visible de son
 auteur et des répondants, la question répondue de tous ceux qui voient
 l'ancre.

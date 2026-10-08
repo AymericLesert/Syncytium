@@ -65,6 +65,11 @@ le même numéro, jamais de trou. Il peut être réinitialisé sous condition. M
 *Ex. : `number: { type: counter, format: "CMD-{year}-{counter:000000}" }`.*
 *(D154/D409)*
 
+**Concepteur** (anciennement *technicien*) — Celui qui écrit la
+description. Un rôle, pas un métier : une à plusieurs personnes le
+portent. Le concepteur est celui qui porte la validité de la
+configuration et la stabilité de l'application. *(D95, D1148)*
+
 **Confidentialité** (`confidentiality`) — Le niveau d'exposition d'une
 donnée : `public` (partout), `protected` (l'interface et les tâches),
 `private` (les tâches seulement) — resserrable par groupes. *(D25)*
@@ -108,7 +113,7 @@ champ énuméré désigné, chaque état déclare ses droits (`allow`) et ses
 passages (`promote`/`demote`) — le graphe se lit, le moteur refuse tout
 passage hors graphe. *Ex. : `states: status`.* *(D421–D428)*
 
-**Configuration** (`settings`) — Tout ce que le technicien écrit : l'ensemble des
+**Configuration** (`settings`) — Tout ce que le concepteur écrit : l'ensemble des
 fichiers YAML qui décrivent l'application. Syncytium la lit, la
 vérifie, puis la fait vivre. *(D336)*
 La configuration peut se décomposé par étage (la version, le module, l'entité) et diffusés en cascade à ce qu'il
@@ -152,7 +157,7 @@ en propriété d'une association dérivée, à côté du tri (`sort:`).
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres :
 un membre du groupe contenant voit tout ce que voient les groupes qui le
-composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
+composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un concepteur ou par une passerelle avec un système d'authentification.
 Le groupe porte **le degré d'autorisation** (`degree:` — `reader`,
 `user`, `manager` ou `administrator`, D699/D1140 — le `reader` lit la
 documentation sans accéder au détail) ; l'appartenance à un groupe est
@@ -314,8 +319,11 @@ widget de résumé, le widget de synthèse. *(Q48)*
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
 de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 
-**Technicien** — Celui qui écrit la description. Un rôle, pas un
-métier : une à plusieurs personnes le portent. Le technicien est celui qui porte la validité de la configuration et la stabilité de l'application. *(D95)*
+**Technicien** — Le consommateur des API, dans une partie tierce
+(D334) : un compte technique (D28), qui lit la documentation du
+développeur aux versions publiées. *(D1148 — le rôle s'appelait
+« technicien tiers » ; celui qui écrit la description est le
+concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*
 

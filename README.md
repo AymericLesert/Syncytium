@@ -26,7 +26,7 @@ Le nom encode l'architecture : une membrane unique, plusieurs noyaux autonomes.
 1. **Syncytium — le framework.** Le moteur générique open source : le *tissu*.
    C'est ce dépôt.
 2. **La solution.** Une application métier décrite *sur* le framework ; le
-   technicien travaille à ce niveau, en écrivant la description.
+   concepteur travaille à ce niveau, en écrivant la description.
 3. **L'instance.** La solution déployée chez une TPE, avec ses données, ses
    comptes et sa propre vie.
 

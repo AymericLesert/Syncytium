@@ -22,7 +22,7 @@ décisions citées renvoient à la [conception](conception.md).
 - **YAML, sans format personnalisé** (D320) : la description emprunte
   la syntaxe YAML et s'en tient à elle ; **le fichier est une
   enveloppe** (D327) — lu, converti en logique interne, puis inerte :
-  le moteur ne réécrit jamais un fichier du technicien (D331/D332),
+  le moteur ne réécrit jamais un fichier du concepteur (D331/D332),
   les commentaires restent, le dépôt se diffe.
 - **De petits fichiers plutôt qu'un seul** (D323) : la description se
   décompose en fichiers et en dossiers, **une valeur peut être le
@@ -121,7 +121,7 @@ entities:
 
 Partout où une liste de fichiers se déclare, **un pattern regex peut
 remplacer l'énumération** — c'est une déclaration : le standard
-d'organisation et de nommage que le technicien se fixe.
+d'organisation et de nommage que le concepteur se fixe.
 
 ```yaml
 versions:

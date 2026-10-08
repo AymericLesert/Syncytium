@@ -160,7 +160,7 @@ La lecture au registre :
   confrontée au schéma (D653) **à l'ingestion de la version et à
   chaque `migrate`** (le schéma peut bouger sous la description :
   une mise à jour de Cegid), le rapport de non-couverture au
-  technicien (D179) ;
+  concepteur (D179) ;
 - **l'état du schéma** — le taux s'appuie sur la description de la
   configuration : par table et par champ, trois états — **décrit et
   migré**, **déclaré ignoré**, **absent de la description**
@@ -461,7 +461,7 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   `reprise.yml` liste ses fichiers **un par un**, sans regex (le
   pattern D806 reste licite ailleurs, l'auteur le refuse ici) ;
   l'ossature engendrée depuis le schéma réel (D653 — le rôle de
-  `read_instance`), le technicien la raffine ; **la taxonomie de la
+  `read_instance`), le concepteur la raffine ; **la taxonomie de la
   couverture s'ajuste** (D861–D862) : la complétude = décrit /
   absent, la couverture = migré / décrit sans règle — *l'état
   « ignoré » : conservé pour une exclusion explicite, ou l'exclusion
@@ -509,28 +509,28 @@ mot :
 
 > - Le schéma de la source est décrit dans la configuration.
 > - Syncytium compare la structure réelle à la description et note
->   les écarts au technicien.
+>   les écarts au concepteur.
 > - Il serait plus facile de laisser Syncytium construire le modèle
 >   à partir d'une analyse du schéma fournie par le connecteur.
 >   Mais, dans le cadre d'une migration, chaque table et chaque
->   colonne doivent être comprises et analysées par un technicien.
+>   colonne doivent être comprises et analysées par un concepteur.
 > - Les écarts ne doivent pas être vus comme des écarts ou des
 >   négligences mais comme des points à creuser… Les écarts sont
->   présents pour permettre au technicien de savoir où il en est
+>   présents pour permettre au concepteur de savoir où il en est
 >   de son analyse.
 > - La migration est une procédure itérative qui permet d'exploiter
 >   les données justes au fur et à mesure de l'analyse.
 
 La lecture — ce qui se corrige et ce qui se précise :
 
-- **la description est un acte du technicien, jamais une
+- **la description est un acte du concepteur, jamais une
   génération** : `read_instance` (D653) sert la comparaison, pas
   l'écriture — l'ossature engendrée que je proposais (D866) est
   retirée ; chaque table et chaque colonne décrite l'est parce
   qu'elle a été comprise ;
 - **le non-décrit = un point à creuser**, pas une anomalie ni une
   négligence : le mot « anomalie » de D861 se relit — la
-  confrontation au schéma réel (D653) rend au technicien **la liste
+  confrontation au schéma réel (D653) rend au concepteur **la liste
   de ce qui reste à analyser**, son marque-page ; et le mot
   « écart » se réserve aux données qui bougent après coup (D864 —
   les mouvements retouchés), pour ne pas confondre les deux ;
@@ -567,7 +567,7 @@ La lecture — ce qui se corrige et ce qui se précise :
   unique ;-) » — `source/` parle la grammaire du modèle (D652) :
   `identity:` (D357) pour la clé, le raccourci de référence (D396),
   `list of` et `association with` (D399–D401) pour les dépendances
-  — **le technicien les déclare, le schéma réel n'a pas à les
+  — **le concepteur les déclare, le schéma réel n'a pas à les
   porter** (les contraintes SQL et la feuille *Contraintes*
   deviennent sans objet) ; **`MVTSTO` a sa clé : ses colonnes `I`**
   — l'empreinte proposée sous D866 est retirée ; *l'échantillon
@@ -624,9 +624,9 @@ La lecture — ce qui se corrige et ce qui se précise :
   — avant de lire, `migrate` vérifie sur le réel que l'`identity:`
   déclarée de chaque entité source **est une clé** (aucun doublon)
   **dans le périmètre du `filter:`** (D663 — la société 100) ; le
-  manquement arrête la procédure et se rapporte au technicien (la
+  manquement arrête la procédure et se rapporte au concepteur (la
   garde de D825 gagne son pendant sur les données) ; la question de
-  `MVTSTO` se règle ainsi : le technicien déclare, le contrôle
+  `MVTSTO` se règle ainsi : le concepteur déclare, le contrôle
   tranche ; le décompte des clés distinctes après filtre est un
   geste ensembliste de la classe storage, jamais une relecture
   ligne à ligne ;
@@ -659,7 +659,7 @@ La lecture — ce qui se corrige et ce qui se précise :
   **tout enfant a son possesseur, toute association et toute
   référence ont leur cible** — l'intégrité référentielle que le
   schéma ne porte pas (D866 : aucune clé étrangère) se prouve sur
-  le réel ; le manquement se rapporte au technicien avant la
+  le réel ; le manquement se rapporte au concepteur avant la
   procédure ; *à préciser : l'arrêt comme pour l'identité — la
   procédure ne part pas — ou l'orphelin laissé au mode `relative`
   qui l'isole (D177/D179) ; et, au morceau de la source, la forme
@@ -672,7 +672,7 @@ La lecture — ce qui se corrige et ce qui se précise :
     sera pas enregistré dans la cible. Une anomalie sera remontée
     au technicien » — le pré-contrôle rapporte, la procédure part ;
     l'enregistrement à l'orphelin n'entre pas dans la cible (D177)
-    et l'anomalie va au technicien ; seule l'identité brisée arrête
+    et l'anomalie va au concepteur ; seule l'identité brisée arrête
     (D871) ;
   - **le connecteur porte la facette des types** (D876) : « la
     description d'un modèle fait référence à différents types dont
@@ -702,7 +702,7 @@ La lecture — ce qui se corrige et ce qui se précise :
     la convention pourra être surchargée et cela rendra possible ce
     point sur des modèles de données autres que ceux portés par
     Syncytium » — la convention de la classe est **un défaut** ; le
-    technicien la surcharge au connecteur (une autre convention
+    concepteur la surcharge au connecteur (une autre convention
     déclarée), à l'entité ou au champ (les colonnes nommées
     explicitement — le lien d'une composition, la colonne d'une
     association, les colonnes d'un composé), **le plus proche
@@ -1167,7 +1167,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    chaque règle de migration, D929) ;
 3. **la source** — `source/` : **les tables analysées, chacune avec
    toutes ses colonnes typées** (D861/D866/D868 — l'acte du
-   technicien, aucun pattern, aucune génération ; les dépendances
+   concepteur, aucun pattern, aucune génération ; les dépendances
    déclarées faute de clés étrangères, les clés aux colonnes K, les
    normalisations D660, le `filter:` D663 sur la société), **la date
    au masque** (D820/D867), le reste du schéma **en points à
@@ -1553,7 +1553,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
 - **le modèle lu** — le connecteur lit le schéma de PMI ; Syncytium le
   compare à la version précédente et à `source/` : une colonne apparue
   dans `ARTICLE` et non décrite est une anomalie de complétude, au
-  technicien ; une colonne décrite qui disparaît rend son entité
+  concepteur ; une colonne décrite qui disparaît rend son entité
   illisible (D1053) ;
 - **la lecture** — `filter:` retient la société 100 ; `coverage:`
   relit les trois derniers mois des mouvements (`MVCJMVT[month - 3]`)
@@ -1607,11 +1607,11 @@ mail]` — D945) :
 Chaque destinataire reçoit les anomalies de ses sources et de ses
 règles, groupées par source ou par règle, puis par message ; les
 valeurs des contacts, marquées `rgpd: personal` (D695), y sont
-anonymisées (D1065). Les anomalies du modèle vont au technicien.
+anonymisées (D1065). Les anomalies du modèle vont au concepteur.
 
 *Ce que chaque lecteur trouve dans `_migration`* :
 
-- **le technicien** — les versions du modèle lu de PMI et leurs écarts,
+- **le concepteur** — les versions du modèle lu de PMI et leurs écarts,
   la complétude du schéma (les colonnes décrites encore présentes et
   compatibles, sur les colonnes décrites — D1060), les anomalies du
   modèle ; les colonnes non lues restent des points à creuser (D868) ;

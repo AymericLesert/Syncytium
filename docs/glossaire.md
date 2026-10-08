@@ -65,7 +65,7 @@ le même numéro, jamais de trou. Il peut être réinitialisé sous condition. M
 *Ex. : `number: { type: counter, format: "CMD-{year}-{counter:000000}" }`.*
 *(D154/D409)*
 
-**Concepteur** (anciennement *concepteur*) — Celui qui écrit la
+**Concepteur** (anciennement *technicien*) — Celui qui écrit la
 description. Un rôle, pas un métier : une à plusieurs personnes le
 portent. Le concepteur est celui qui porte la validité de la
 configuration et la stabilité de l'application. *(D95, D1148)*
@@ -331,7 +331,7 @@ widget de résumé, le widget de synthèse. *(Q48)*
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
 de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 
-**Concepteur** — Le consommateur des API, dans une partie tierce
+**Technicien** — Le consommateur des API, dans une partie tierce
 (D334) : un compte technique (D28), qui lit la documentation du
 développeur aux versions publiées. *(D1148 — le rôle s'appelait
 « technicien tiers » ; celui qui écrit la description est le

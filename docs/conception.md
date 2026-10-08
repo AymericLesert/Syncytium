@@ -23907,7 +23907,7 @@ avant la synthèse Q16).
   jamais dans une langue inconnue, la beta éditable pour vérification (D1144),
   marquée « brouillon » par un filigrane « Beta vx.y.z.w » (D1145) ; l'énoncé 6
   tient tel quel (D1146) ; l'énoncé 7 tient tel quel (D1147) — **le principe des
-  lecteurs est acquis, D1139–D1147**. Les rôles : « concepteur » devient
+  lecteurs est acquis, D1139–D1147**. Les rôles : « technicien » devient
   **concepteur**, le « technicien tiers » devient **technicien** (D1148 — propagé
   aux artefacts vivants hors citations, 1150 décisions) ; l'usager demande
   l'extraction de ce qui le concerne, exécutée par un responsable métier ou un

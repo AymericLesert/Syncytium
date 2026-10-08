@@ -1471,15 +1471,15 @@ dans la documentation technique, et à l'ingestion comme avertissement.
 Comment la documentation parvient à ses lecteurs — **sept canaux**,
 chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
 
-| Le canal | Ce qui passe | Pour qui | Déclaré où |
-|---|---|---|---|
-| **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
-| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | le concepteur | `output:` de l'environnement (§12) ; la commande (`syncytium document …`, à nommer) |
-| **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
-| **4. par mail** | ce qui se rapporte : les notes d'une version promue, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le patron du `report:` (D397) | les groupes destinataires | `channels.mail` (§12) |
-| **5. imprimée** | le PDF d'un chapitre ou du tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | l'opérateur, le papier sur le bureau | la dimension de page des gabarits (§12) |
-| **6. publiée** | l'édition HTML de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | le technicien ; le prospect | `channels.publish` (§12) ; `visibility:` au projet (D1151) |
-| **7. l'édition machine** | le méta-schéma et ses descriptions, en JSON ou YAML, aux droits du compte (le rang 2) | l'analyste, l'assistant | implicite — par l'API |
+| Le canal | Ce qui passe | Le format | Pour qui | Déclaré où |
+|---|---|---|---|---|
+| **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | la page servie par l'application — l'édition *lisible* (§11) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
+| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande (`syncytium document …`, à nommer) |
+| **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | PDF ou HTML — *imprimable* ou *lisible* | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
+| **4. par mail** | ce qui se rapporte : les notes d'une version promue, le rapport de complétude (§20), la synthèse périodique des usages (D44/D738) — le patron du `report:` (D397) | le corps du mail, une pièce jointe PDF | les groupes destinataires | `channels.mail` (§12) |
+| **5. imprimée** | un chapitre ou le tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | PDF — *imprimable* ; la dimension de page du gabarit | l'opérateur, le papier sur le bureau | les gabarits (§12) |
+| **6. publiée** | l'édition de l'API, servie aux techniciens (§10) ; **le mode public** — la page de présentation, sans aucun droit (D1150) | HTML — *lisible* | le technicien ; le prospect | `channels.publish` (§12) ; `visibility:` au projet (D1151) |
+| **7. l'édition machine** | le méta-schéma et ses descriptions, aux droits du compte (le rang 2) | JSON ou YAML — *machine* | l'analyste, l'assistant | implicite — par l'API |
 
 *Mes lectures* : les canaux 1 et 7 sont le socle, jamais désactivés ;
 les canaux 2 à 6 se paramètrent (§12) et valent par défaut comme suit

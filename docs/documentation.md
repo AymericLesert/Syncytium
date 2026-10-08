@@ -653,7 +653,7 @@ textes en texte simple ; plusieurs → la langue précisée, sinon une
 erreur d'ingestion. La documentation suit : *une édition par langue
 déclarée* (ma lecture, §11).
 
-## 3. Les lecteurs *(le rang 0, étape 1 — le principe et les rôles acquis ; la table par documentation en proposition)*
+## 3. Les lecteurs *(le rang 0, étape 1 — acquis : le principe D1139–D1147, les rôles D1148–D1153, la table D1154)*
 
 ### Le principe
 
@@ -732,9 +732,8 @@ principe des lecteurs est acquis. Les rôles suivent.)*
 
 ### Les rôles
 
-*(Les douze rôles et leurs noms sont acquis — D1148, D1152 ; le
-glossaire les porte sous « Lecteur ». Restent le mode de lecture du
-concepteur et la table par documentation.)*
+*(Les douze rôles et leurs noms sont acquis — D1148, D1152, D1153 ; le
+glossaire les porte sous « Lecteur ».)*
 
 | Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
 |---|---|---|---|
@@ -751,24 +750,29 @@ concepteur et la table par documentation.)*
 | **l'hébergeur** | l'exploitant de l'infrastructure, souvent un prestataire | le D.A.T., le guide d'exploitation — sans les secrets (D944) | dedans, au degré `reader`, ou une édition |
 | **le prospect** (le partenaire aussi — D1152) | celui à qui l'on montre l'application | ce qu'elle fait, à quoi elle ressemble, ce que vaut le socle | **le mode public** (D1150) : une page de présentation, construite par défaut et mise à disposition sans aucun droit ; `visibility:` (D1151) — le concepteur peut rendre le projet privé |
 
-**Les neuf documentations et leurs lecteurs** :
+**Les neuf documentations et leurs lecteurs** (D1154 — acquis) :
 
 | La documentation | Les lecteurs | Le filtre |
 |---|---|---|
 | 1. Fonctionnelle | l'utilisateur, le responsable métier, le décideur | les droits du groupe : on ne lit que ce qu'on voit ; la langue du profil |
-| 2. Information (BI, IA) | le concepteur, l'analyste, l'assistant IA, le décideur (la vue d'ensemble) | le concepteur lit tout, au dépôt ; l'analyste et l'IA sous les droits de leur compte |
+| 2. Information (BI, IA) | le concepteur, l'analyste, l'assistant, le décideur (la vue d'ensemble) | le concepteur lit tout, au dépôt ; l'analyste et l'assistant sous les droits de leur compte |
 | 3. Développeur | le concepteur, le technicien | les versions publiées (D99) ; les hooks et la configuration au concepteur seul, au dépôt |
 | 4. D.A.T. | l'administrateur, le concepteur, l'hébergeur | jamais une valeur confidentielle (D944) |
-| 5. Réglementation | l'usager, le DPO, l'auditeur, l'administrateur | l'usager : ses seules données ; le DPO et l'auditeur : tout le registre |
-| 6. Promotionnelle | le prospect, le partenaire, le dirigeant | le mode public (D1150) : se diffuse sans aucun droit — rien de confidentiel, aucune donnée ; le projet peut être rendu privé |
-| 7. Maintenance, risques, améliorations | l'administrateur, le concepteur, le responsable métier, le décideur | à l'instance ; le journal au concepteur seul (D737) |
+| 5. Réglementation | l'usager, le DPO, l'administrateur | l'usager : une édition sur sa demande, l'extraction de ce qui le concerne (D1149) ; le DPO : tout le registre |
+| 6. Promotionnelle | le prospect, le dirigeant | le mode public (D1150, `visibility:` — D1151) : se diffuse sans aucun droit — rien de confidentiel, aucune donnée |
+| 7. Maintenance, risques, améliorations | l'administrateur, le responsable métier, le décideur ; le concepteur s'il a accès | à l'instance ; le journal à l'administrateur (D737 le donnait au concepteur ; détaché de l'instance par D1153, il ne le lit plus) |
 | 8. Projet et support | le dirigeant, l'administrateur, l'utilisateur (signaler, demander) | ouverte à l'entreprise |
 | 9. Guide d'exploitation | l'administrateur, l'hébergeur | sans les secrets |
+| **le modèle de données** (§5) — transversal | tous, chacun à son niveau | la vue d'ensemble dans la fonctionnelle et la promotionnelle ; la vue du module dans la fonctionnelle et l'information ; la vue de l'entité, le modèle physique et le dictionnaire dans l'information |
 
-*À trancher* : la liste des rôles et leurs noms (le glossaire les
-recevra) ; les deux familles — lire dedans, lire une édition ; le
-concepteur lit-il dedans au degré `administrator`, ou par le dépôt
-seulement ; l'édition publique de la promotionnelle — qui la prépare.
+**Le modèle de données** a sa maison dans l'information (2) — entier,
+à ses trois niveaux, avec le modèle physique et le dictionnaire — ; la
+fonctionnelle (1) en porte la vue d'ensemble et la vue du module, aux
+libellés, sans les types ; la promotionnelle (6) la vue d'ensemble
+seule, comme l'image de ce que l'application couvre. Il irrigue les
+autres sans y figurer en diagramme : la réglementation lit le registre
+entité par entité, le développeur le contrat d'API entité par entité ;
+le D.A.T. montre les connexions, pas le modèle.
 
 ## 4. La documentation technique *(le plan, en proposition)*
 

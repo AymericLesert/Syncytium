@@ -28,8 +28,10 @@ faite. Le but du projet Syncytium est de construire un cadre pour
 l'ensemble des documents qui caractérisent un projet, une application,
 autour de la donnée — visant à automatiser et maintenir l'exploitation
 du projet par les parties prenantes d'un projet ou par les membres
-pouvant exiger ou demander des informations complémentaires. »**
-(l'auteur, le 08/10/2026)
+pouvant exiger ou demander des informations complémentaires. Ce cadre
+doit permettre de construire la documentation et mettre à disposition
+des informations avec différents niveaux de lecture. »** (l'auteur, le
+08/10/2026 — D1137, D1138)
 
 Ce que l'introduction fixe, et que le reste du document déroule :
 
@@ -48,7 +50,18 @@ Ce que l'introduction fixe, et que le reste du document déroule :
   y trouve sa vue, sous ses droits ; **et par ceux qui demandent des
   informations complémentaires** — l'édition préparée pour qui n'a pas
   de compte (§3), la question posée depuis l'écran (§25), l'assistant
-  qui répond aux droits de celui qui l'interroge (D957).
+  qui répond aux droits de celui qui l'interroge (D957) ;
+- **construire la documentation, et mettre à disposition des
+  informations** (D1138) — deux produits du même cadre : les documents
+  (les neuf), et l'information servie sans document — le masque à
+  l'écran, la réponse à une question, l'édition machine pour la BI et
+  l'IA, le chiffre d'usage ;
+- **différents niveaux de lecture** (D1138) — la même matière se lit
+  de loin ou de près : la vue d'ensemble pour le décideur, le module
+  pour l'opérateur, le détail pour le technicien (les trois niveaux du
+  modèle, §5 ; la générale, le module, l'écran de la fonctionnelle,
+  §6) ; le lecteur choisit sa profondeur, le cadre garantit que chaque
+  niveau résume exactement le suivant.
 
 ## Le contexte — les sept documentations (D1131)
 
@@ -666,11 +679,14 @@ introduction est importante ».)*
    de son profil (D124 ; les langues de la version, D1101) et à la
    version qui lui est servie (D1123–D1124) ; l'édition se prépare dans
    une langue et pour une version.
-6. **Une matière, plusieurs formes.** Le même lecteur retrouve la même
-   matière sous la forme qui convient au moment : le masque à l'écran
-   (§7), la page de documentation, la planche imprimée (§24), l'édition
-   machine (le contexte, l'information — la BI, l'IA) ; aucune forme ne dit autre chose que
-   les autres.
+6. **Une matière, plusieurs formes, plusieurs niveaux de lecture.** Le
+   même lecteur retrouve la même matière sous la forme qui convient au
+   moment — le masque à l'écran (§7), la page de documentation, la
+   planche imprimée (§24), l'édition machine (le contexte,
+   l'information — la BI, l'IA) — et à la profondeur qui lui convient :
+   la vue d'ensemble, le module, le détail (D1138) ; aucune forme ne
+   dit autre chose que les autres, chaque niveau résume exactement le
+   suivant.
 7. **L'assistant est un lecteur comme un autre.** Le module de chat
    (D957) lit la documentation aux droits de l'utilisateur qui
    l'interroge (D958) — ni plus, ni moins ; l'analyste de BI de même,

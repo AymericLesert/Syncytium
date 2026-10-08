@@ -1198,37 +1198,69 @@ version par version — est acquis.
 - **Les descriptions sont en Markdown** (D1102 — les tableaux des codes) ;
   `label:`, `hint:`, `placeholder:` en texte simple.
 
-## 12. `documentation.yml` — la personnalisation (D1090) *(en proposition)*
+## 12. `documentation.yml` — la personnalisation (D1090) *(le rang 0, étape 5 — en proposition)*
 
-Facultatif ; référencé par la clé `documentation:` de l'environnement
-(configuration.md §3.2). Il porterait : le dossier et les formats de
-sortie ; les sections retenues ou écartées ; l'identité visuelle
-(`resources/` — D346) ; **des pages ajoutées** par le concepteur (un
-guide de démarrage, une page d'accueil, en Markdown — `~{…}`), placées
-dans le plan ; les destinataires d'une diffusion périodique, s'il y en
-a. *Rien n'est obligatoire* : le tiny n'en a pas.
+**Acquis** : la génération est portée par Syncytium par défaut, sans
+configuration ; `documentation.yml` ne vient que pour la personnaliser
+(D1090) ; le tiny n'en a pas. Ce que la séance a décidé depuis se
+range en trois lieux, selon ce qui varie :
 
-**Le gabarit de l'édition** (D1143) : « la page de garde, l'en-tête, le
-pied de page et le format de l'édition peuvent être décrits avec le
-même langage que celui déjà abordé pour la construction des
-rapports » — **le `template`** ([composants.md](composants.md) : le
-patron du document généré, un formulaire en lecture seule et une
-dimension de page — D250 ; `paragraph` en mustache et markdown — D562 ;
-les destinations Word, PDF, Excel, mail — D564 ; les variables de
-contexte — D254). *Mes lectures* : `documentation.yml` porte un bloc
-`templates:` au formalisme des surfaces ; **Syncytium fournit le
-gabarit par défaut** — le cartouche de D1142 : le numéro de version, la
-date et l'auteur de l'édition, tirés de l'entité « contexte » (D254 :
-l'opérateur, l'instance, la pagination — la version et la date s'y
-ajoutent) — et le concepteur le remplace ou le complète (la page de
-garde au logo de `resources/`, un avertissement de confidentialité en
-pied) ; **le filigrane de la beta** (D1145) — « Beta vx.y.z.w » en fond
-de page par défaut, son texte personnalisable ou absent — est un item
-du gabarit, que Syncytium pose dès que la version éditée est en beta ;
-**le format** — A4 portrait pour les documentations, A4
-paysage pour les planches (§24) — est la dimension de page du
-template ; une édition peut avoir son gabarit (la promotionnelle, la
-réglementaire) ou prendre celui par défaut.
+**Au projet** (`syncytium.yml`) — ce qui vaut pour toute l'application,
+hors des versions : `visibility:` (D1151), la page d'accueil, globale
+(D1156), le concepteur nommé (D1153) :
+
+```yaml
+# syncytium.yml (en proposition)
+visibility: promotional          # public | private | promotional (D1151)
+home: ~{home.md}                 # la page d'accueil, globale — hors des versions (D1156)
+author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
+contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
+```
+
+**À la version** — ce qui est versionné avec la configuration (D1156) :
+les gabarits des éditions, les pages ajoutées, les sections retenues ;
+une clé `documentation:` de `version.yml` référence le fichier :
+
+```yaml
+# versions/production/v1.0.0.0/documentation.yml (en proposition)
+templates:                       # les gabarits des éditions (D1143) — le formalisme du template
+  edition: ~{documentation/edition.yml}     # la page de garde, le cartouche (D1142), le filigrane de la beta (D1145)
+  planche: ~{documentation/planche.yml}     # A4 paysage, le gabarit des modes opératoires (§24)
+pages:                           # les pages ajoutées — Markdown, par langue (§2 b)
+  presentation: ~{documentation/presentation.md}   # l'entreprise, l'application, le schéma directeur
+  support: ~{documentation/support.md}             # qui répond, dans quels délais (8)
+sections:                        # les sections retenues ou écartées, par documentation
+  promotional: { exclude: [usages] }
+```
+
+**À l'environnement** — ce qui dépend de lui (D342/D1090) : où les
+fichiers vont, par quels canaux la documentation part ; la clé
+`documentation:` de `production.yml` référence le fichier :
+
+```yaml
+# environments/production/documentation.yml (en proposition)
+output:
+  directory: ${SYNCYTIUM_DOCUMENTATION_DIRECTORY}   # les éditions au dépôt
+  formats: [html, pdf]                              # la forme au domaine 7 (D1126)
+channels:                                           # la diffusion (§21)
+  mail: { when: [release, completeness], to: [direction] }   # les notes d'une version promue, le rapport de complétude
+  publish: { api: true }                            # l'édition HTML des API, servie aux techniciens
+```
+
+*Rien n'est obligatoire* : sans ces fichiers, Syncytium génère tout
+avec ses défauts — le gabarit par défaut (D1143), la page de
+présentation (D1150), aucune diffusion. **Le gabarit par défaut** porte
+le cartouche de D1142 — le numéro de version, la date et l'auteur de
+l'édition, tirés de l'entité « contexte » (D254, où la version et la
+date s'ajoutent) — et le filigrane de la beta (D1145), « Beta
+vx.y.z.w » par défaut, personnalisable ou absent ; le concepteur le
+remplace ou le complète (la page de garde au logo de `resources/`, un
+avertissement de confidentialité en pied) ; le format est la dimension
+de page du template — A4 portrait pour les documentations, A4 paysage
+pour les planches.
+
+*À trancher* : les trois lieux — ou un seul ; les clés et leurs noms ;
+`sections:` par documentation ; ce qui manque.
 
 ## 13. La méthode — les composants portent la documentation, Syncytium assemble (D1158–D1159) *(le rang 0, étape 3 — acquis)*
 

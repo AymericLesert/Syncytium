@@ -1215,18 +1215,43 @@ paysage pour les planches (§24) — est la dimension de page du
 template ; une édition peut avoir son gabarit (la promotionnelle, la
 réglementaire) ou prendre celui par défaut.
 
-## 13. Le tiny, la maison de la documentation (D1026)
+## 13. Le tiny, la maison de la documentation — la méthode *(le rang 0, étape 3 — en proposition)*
 
 Le cas 1 (`examples/01_tiny/`, `usecases/01_tiny.md`) **montre** ce qui
 naît de quelques lignes : la base, l'IHM par défaut (D186), l'API, la
-documentation, les aides. **La méthode de ce chantier** *(en
-proposition)* : écrire à la main, pour le tiny, **la documentation que
-Syncytium devrait générer** — la technique, la fonctionnelle, le masque
-de la liste `personne`, la page d'API, le diagramme — comme on a écrit
-les exemples avant le moteur ; chaque frottement de cette écriture =
-une décision ; puis la même épreuve sur une entité du cas 5 (l'article
-et sa hiérarchie, la reprise) pour les écarts, les droits et la
-troisième source.
+documentation, les aides (D1026). La méthode du chantier, pratiquée
+depuis le 05/10, en quatre règles :
+
+1. **La documentation attendue s'écrit à la main avant le moteur.**
+   Pour un exemple, on écrit la documentation que Syncytium devrait
+   générer — chapitre par chapitre, telle qu'elle se lirait —, comme
+   on a écrit les exemples de configuration avant le code (D313–D314).
+   Ce qui résiste à l'écriture est un frottement ; **chaque frottement
+   devient une décision**, et la documentation attendue est reprise à
+   chaque décision qui la touche.
+2. **Le tiny d'abord, puis l'exemple que chaque rang appelle.** Le
+   tiny porte la première déclinaison (`usecases/01_tiny.md`, « La
+   documentation générée » — seize chapitres, neuf frottements) ; les
+   rangs du plan (le contexte, partie 5) désignent ensuite l'exemple
+   qui éprouve chaque documentation : le véhicule pour les états et les
+   enchaînements, la banque pour les langues, la réglementation et les
+   hooks, l'entrepôt pour les personas, les planches, les versions, la
+   reprise, le D.A.T. et l'exploitation.
+3. **La déclinaison vit dans la maison du cas.** Elle s'écrit dans
+   `usecases/<n>_<nom>.md`, en une section « La documentation
+   générée », en Markdown — le rendu qui se lit là, la forme étant au
+   domaine 7 (D1126) ; rien n'entre dans `examples/`, qui ne contient
+   que la configuration (D1082). Les chapitres de l'instance y sont
+   montrés vides, avec leur cadre (D1157).
+4. **La déclinaison précède la section, et la section précède le
+   moteur.** Ce que la déclinaison révèle remonte dans la section de
+   documentation.md qui le porte (le principe) et dans l'artefact de
+   l'élément (entity.md, types.md, hooks.md…) ; la section arbitrée
+   devient la spécification de ce que le moteur générera.
+
+*À trancher* : les quatre règles ; la déclinaison du cas 5 — un module
+entier (le stock : ses quatre entités, ses deux personas, une planche,
+le tableau de bord) ou l'application entière.
 
 ## 14. L'export et l'import *(en proposition)*
 

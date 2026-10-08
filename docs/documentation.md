@@ -1199,12 +1199,14 @@ version par version — est acquis.
 - **Les descriptions sont en Markdown** (D1102 — les tableaux des codes) ;
   `label:`, `hint:`, `placeholder:` en texte simple.
 
-## 12. `documentation.yml` — la personnalisation (D1090) *(le rang 0, étape 5 — en proposition)*
+## 12. `documentation.yml` — la personnalisation (D1090, D1164) *(le rang 0, étape 5 — acquis)*
 
 **Acquis** : la génération est portée par Syncytium par défaut, sans
 configuration ; `documentation.yml` ne vient que pour la personnaliser
 (D1090) ; le tiny n'en a pas. Ce que la séance a décidé depuis se
-range en trois lieux, selon ce qui varie :
+range en **trois lieux, selon ce qui varie** (D1164 — « les trois
+lieux me conviennent, gardons les clés proposées » ; le reste se
+complète au fur et à mesure) :
 
 **Au projet** (`syncytium.yml`) — ce qui vaut pour toute l'application,
 hors des versions : `visibility:` (D1151), la page d'accueil, globale
@@ -1219,8 +1221,8 @@ contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 ```
 
 **À la version** — ce qui est versionné avec la configuration (D1156) :
-les gabarits des éditions, les pages ajoutées, les sections retenues ;
-une clé `documentation:` de `version.yml` référence le fichier :
+les gabarits des éditions, les pages ajoutées ; une clé
+`documentation:` de `version.yml` référence le fichier :
 
 ```yaml
 # versions/production/v1.0.0.0/documentation.yml (en proposition)
@@ -1230,9 +1232,12 @@ templates:                       # les gabarits des éditions (D1143) — le for
 pages:                           # les pages ajoutées — Markdown, par langue (§2 b)
   presentation: ~{documentation/presentation.md}   # l'entreprise, l'application, le schéma directeur
   support: ~{documentation/support.md}             # qui répond, dans quels délais (8)
-sections:                        # les sections retenues ou écartées, par documentation
-  promotional: { exclude: [usages] }
 ```
+
+*(Un bloc `sections:` — retenir ou écarter des chapitres par
+documentation — a été proposé puis retiré (D1164) : les droits et
+`visibility:` écartent déjà ce qui doit l'être ; il reviendra si une
+déclinaison en montre le besoin.)*
 
 **À l'environnement** — ce qui dépend de lui (D342/D1090) : où les
 fichiers vont, par quels canaux la documentation part ; la clé
@@ -1260,8 +1265,7 @@ avertissement de confidentialité en pied) ; le format est la dimension
 de page du template — A4 portrait pour les documentations, A4 paysage
 pour les planches.
 
-*À trancher* : les trois lieux — ou un seul ; les clés et leurs noms ;
-`sections:` par documentation ; ce qui manque.
+Ce qui manque se complétera au fur et à mesure des rangs (D1164).
 
 ## 13. La méthode — les composants portent la documentation, Syncytium assemble (D1158–D1159) *(le rang 0, étape 3 — acquis)*
 

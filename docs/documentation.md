@@ -677,12 +677,20 @@ introduction est importante ».)*
    (D886), les versions publiées (D99) ; ce qu'il ne voit pas à l'écran
    n'existe pas davantage dans sa documentation — une entité invisible
    n'y a ni page, ni entrée, ni trace (l'esprit de D193).
-4. **Le lecteur sans compte lit une édition.** Qui doit lire sans
-   manipuler reçoit un compte au degré `reader` (D1140) ; qui n'entre
-   pas du tout dans l'application — l'usager, le prospect, l'auditeur
-   de passage — reçoit une édition (§11, §21) que prépare quelqu'un
-   qui a les droits ; elle ne porte rien que ces droits n'ouvrent — et,
-   pour une édition publique, rien de confidentiel et aucune donnée.
+4. **Le lecteur sans compte lit une édition** (D1142 — acquis). Qui
+   doit lire sans manipuler reçoit un compte au degré `reader` (D1140)
+   ; qui n'entre pas du tout dans l'application — l'usager, le
+   prospect, l'auditeur de passage, l'hébergeur — reçoit une
+   **édition** : un extrait figé, sorti de l'application sous une forme
+   qui se transporte (§11, §21). **Seuls les degrés `manager` et
+   `administrator` préparent une édition**, restreinte à leurs droits
+   — et en deçà s'ils le veulent —, **et décident de la diffuser à des
+   personnes externes à l'application**. **L'édition porte un
+   cartouche** — en en-tête ou en pied de page — **qui référence le
+   numéro de version, la date et l'auteur de l'édition**. Pour une
+   édition publique, rien de confidentiel et aucune donnée (*ma
+   lecture*) ; préparer et diffuser sont des actes journalisés, comme
+   l'export (D43/D196 — *ma lecture*).
 5. **Dans sa langue, à sa version.** Chaque lecteur lit dans la langue
    de son profil (D124 ; les langues de la version, D1101) et à la
    version qui lui est servie (D1123–D1124) ; l'édition se prépare dans
@@ -1210,7 +1218,12 @@ le rapport de complétude (le patron du `report:` — D397) ; **imprimée**,
 le PDF d'un chapitre ou du tout (D53/D187) et **les planches des modes
 opératoires, une page A4 chacune** (§24 — le papier comme support de
 formation, D1129) ; **publiée**, l'édition HTML servie aux techniciens
-tiers pour l'API (§10). La langue suit le lecteur
+tiers pour l'API (§10). **Toute édition** — ce qui sort de
+l'application pour un lecteur sans compte — est préparée par un
+`manager` ou un `administrator`, dans la limite de ses droits, qui
+décide de sa diffusion ; **elle porte un cartouche** (en-tête ou pied
+de page) avec le numéro de version, la date et l'auteur de l'édition
+(D1142). La langue suit le lecteur
 (D1101). *À trancher* : les canaux retenus et leur déclaration dans
 `documentation.yml` (§12).
 

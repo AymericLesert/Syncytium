@@ -17,6 +17,39 @@ son élément apporte à la documentation** — l'entité et ses champs dans
 [conception](conception.md). Les sections marquées *en proposition*
 sont miennes, jusqu'à leur arbitrage.
 
+## L'introduction — la documentation, partie visible du projet (D1137)
+
+**« Le concept du projet repose sur la modélisation, la transformation
+et la manipulation des données. Les données sont le cœur du système.
+La documentation est la partie visible d'un projet. Historiquement, la
+documentation est souvent un sujet peu traité ou insuffisamment
+traité : à chaque exigence, un document est écrit et une étude est
+faite. Le but du projet Syncytium est de construire un cadre pour
+l'ensemble des documents qui caractérisent un projet, une application,
+autour de la donnée — visant à automatiser et maintenir l'exploitation
+du projet par les parties prenantes d'un projet ou par les membres
+pouvant exiger ou demander des informations complémentaires. »**
+(l'auteur, le 08/10/2026)
+
+Ce que l'introduction fixe, et que le reste du document déroule :
+
+- **la donnée au cœur** — tout document de Syncytium se tire du modèle
+  de données, de ses règles et des données elles-mêmes (les trois
+  sources, §1) ; ce qui n'en vient pas s'écrit en complément (D1122),
+  jamais à part ;
+- **un cadre pour l'ensemble des documents** — non pas un document
+  par exigence, écrit puis oublié, mais les neuf documentations qui
+  caractérisent une application (le contexte), tenues ensemble par
+  une même matière ;
+- **automatiser et maintenir** — la documentation se génère et vit
+  avec la version servie (D333, D645, D1123) : elle ne se périme pas,
+  elle n'attend personne ;
+- **l'exploitation par les parties prenantes** — chaque lecteur (§3)
+  y trouve sa vue, sous ses droits ; **et par ceux qui demandent des
+  informations complémentaires** — l'édition préparée pour qui n'a pas
+  de compte (§3), la question posée depuis l'écran (§25), l'assistant
+  qui répond aux droits de celui qui l'interroge (D957).
+
 ## Le contexte — les sept documentations (D1131)
 
 Le 06/10/2026, l'auteur pose le contexte :

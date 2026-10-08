@@ -23933,7 +23933,12 @@ avant la synthèse Q16).
   et ses contenus précisés ; la commande `syncytium document` prend la
   documentation à générer (D1167). Les usages dans la documentation de chaque
   composant, pas en notification (D1168) — **le rang 0 est clos**. 1168
-  décisions.
+  décisions. **PAUSE — tout commis et poussé, aucune PR ouverte.** La reprise :
+  le rang 1, la fonctionnelle — les frottements du tiny 1, 2, 3, 5 et 8
+  (l'identité et l'obligation, l'historique par défaut, le mono-poste, le
+  registre vide, le nom nu), puis §6, §7, §16, §22, §24, §19, §14, §15, §5 et
+  §9 aux libellés, les compléments ; la colonne 1 de la matrice dans les
+  artefacts.
 - **2026-10-08 — REPRISE : LE RANG 0, §3 LES LECTEURS ; L'INTRODUCTION
   (D1137, 1137 décisions).** §3 réécrit pour les neuf documentations (douze
   rôles, deux familles — lire dedans sous ses droits, lire une édition) ; « une

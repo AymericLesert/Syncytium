@@ -687,7 +687,9 @@ introduction est importante ».)*
    — et en deçà s'ils le veulent —, **et décident de la diffuser à des
    personnes externes à l'application**. **L'édition porte un
    cartouche** — en en-tête ou en pied de page — **qui référence le
-   numéro de version, la date et l'auteur de l'édition**. Pour une
+   numéro de version, la date et l'auteur de l'édition** ; la page de
+   garde, l'en-tête, le pied et le format se décrivent avec le langage
+   des rapports, le `template` (D1143, §12). Pour une
    édition publique, rien de confidentiel et aucune donnée (*ma
    lecture*) ; préparer et diffuser sont des actes journalisés, comme
    l'export (D43/D196 — *ma lecture*).
@@ -1098,6 +1100,25 @@ guide de démarrage, une page d'accueil, en Markdown — `~{…}`), placées
 dans le plan ; les destinataires d'une diffusion périodique, s'il y en
 a. *Rien n'est obligatoire* : le tiny n'en a pas.
 
+**Le gabarit de l'édition** (D1143) : « la page de garde, l'en-tête, le
+pied de page et le format de l'édition peuvent être décrits avec le
+même langage que celui déjà abordé pour la construction des
+rapports » — **le `template`** ([composants.md](composants.md) : le
+patron du document généré, un formulaire en lecture seule et une
+dimension de page — D250 ; `paragraph` en mustache et markdown — D562 ;
+les destinations Word, PDF, Excel, mail — D564 ; les variables de
+contexte — D254). *Mes lectures* : `documentation.yml` porte un bloc
+`templates:` au formalisme des surfaces ; **Syncytium fournit le
+gabarit par défaut** — le cartouche de D1142 : le numéro de version, la
+date et l'auteur de l'édition, tirés de l'entité « contexte » (D254 :
+l'opérateur, l'instance, la pagination — la version et la date s'y
+ajoutent) — et le technicien le remplace ou le complète (la page de
+garde au logo de `resources/`, un avertissement de confidentialité en
+pied) ; **le format** — A4 portrait pour les documentations, A4
+paysage pour les planches (§24) — est la dimension de page du
+template ; une édition peut avoir son gabarit (la promotionnelle, la
+réglementaire) ou prendre celui par défaut.
+
 ## 13. Le tiny, la maison de la documentation (D1026)
 
 Le cas 1 (`examples/01_tiny/`, `usecases/01_tiny.md`) **montre** ce qui
@@ -1348,8 +1369,9 @@ technicien écrit** : les étapes hors de l'application (les fichiers
 complémentaires — D1122), les encarts métier, l'ordre des scénarios
 dans le classeur. **La forme** : une page A4 paysage par scénario, en
 PDF (D53/D187), au gabarit stable — le même pour toutes les planches
-d'une application, personnalisable par `documentation.yml` (§12 — le
-logo, les couleurs) ; le rendu dépend de l'architecture (D1126). *À
+d'une application, décrit comme un `template` (D1143, §12 — la
+dimension de page en paysage, le logo, le cartouche) ; le rendu dépend
+de l'architecture (D1126). *À
 trancher* : le gabarit unique ou déclinable ; la planche aussi dans
 l'application (le « ? » d'une opération ouvre sa planche) ; ce qui se
 régénère quand la version change (les écrans changent, la planche

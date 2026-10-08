@@ -729,7 +729,8 @@ cette langue** ; **chaque item est codifié et unique**. *Mes lectures*
 double est une erreur au démarrage ; les langues d'une version
 (D1101) sont prises parmi celles du moteur — une langue que le moteur
 n'a pas s'ajoute d'abord à lui ; l'emplacement du fichier relève du
-domaine 7.
+domaine 7. **La facette documentation d'un composant repose sur ces
+codes et ce fonctionnement** (D1161, §13).
 
 ## 3. Les lecteurs *(le rang 0, étape 1 — acquis : le principe D1139–D1147, les rôles D1148–D1153, la table D1154)*
 
@@ -1288,7 +1289,17 @@ et des implémentations se généraliseront.
    est une facette du composant**, au même titre que l'affichage, le
    stockage, l'API ou la validation (D120, D1012) : chaque type de
    composant la déclare comme il déclare ses autres facettes — une
-   rubrique de sa fiche.
+   rubrique de sa fiche. **Cette facette repose sur les codes et le
+   fonctionnement de D1160** (D1161) : ce qu'un composant dit de
+   lui-même dans un document est fait de ses propriétés documentaires
+   (les textes du concepteur), de ce que les données en disent, et
+   **d'items génériques, codifiés et uniques**, résolus dans la langue
+   du lecteur par le catalogue du moteur. *Mes lectures* : la rubrique
+   « La documentation » de chaque fiche énumère ses codes
+   (`entity.identity`, `field.required`, `wizard.step`…) ; le catalogue
+   se range par type de composant ; un composant ajouté (un hook, un
+   type, un composant personnalisé — D452) apporte ses codes dans
+   chaque langue que le moteur porte, sinon l'ingestion le refuse.
 2. **Chaque type de composant définit sa déclinaison dans chaque type
    de document.** La matrice **types de composants × neuf
    documentations** : chaque cellule dit ce que le composant apporte à

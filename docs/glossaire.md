@@ -153,8 +153,9 @@ brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres :
 un membre du groupe contenant voit tout ce que voient les groupes qui le
 composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un technicien ou par une passerelle avec un système d'authentification.
-Le groupe porte **le degré d'autorisation** (`degree:` — `user`,
-`manager` ou `administrator`, D699) ; l'appartenance à un groupe est
+Le groupe porte **le degré d'autorisation** (`degree:` — `reader`,
+`user`, `manager` ou `administrator`, D699/D1140 — le `reader` lit la
+documentation sans accéder au détail) ; l'appartenance à un groupe est
 **obligatoire** pour utiliser l'application.
 *Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 

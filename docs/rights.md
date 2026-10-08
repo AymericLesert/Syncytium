@@ -261,9 +261,14 @@ fields:
 ## Le degré intrinsèque d'autorisation (D697, D699–D700)
 
 **Le contrat de chaque opération déclare son degré** — le plancher
-que la déclaration ne peut abaisser. **Les trois valeurs** : `user`
-· `manager` · `administrator`. **Le groupe d'utilisateurs porte le
-degré** (`degree:` dans groups.yml — validé D900, défaut
+que la déclaration ne peut abaisser. **Les quatre valeurs** : `reader`
+· `user` · `manager` · `administrator`. **Le degré `reader`** (D1140) :
+« les documentations mises à disposition sans possibilité d'accéder au
+détail » — le lecteur lit la documentation que la confidentialité de
+son groupe ouvre, il ne manipule aucune donnée ; aucune opération ne
+l'a pour plancher (*ma lecture* : le décideur, le DPO, l'auditeur,
+l'hébergeur ; le détail = les données). **Le groupe d'utilisateurs
+porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
 (D414) ; **l'appartenance à un groupe est obligatoire** — le compte
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et

@@ -659,22 +659,30 @@ introduction est importante ».)*
    et des droits (D334 — le partage sous les règles d'accès ; D44 —
    « Syncytium se décrit lui-même »). Il n'y a pas une documentation
    par lecteur : il y a une matière, et autant de vues que de lecteurs.
-2. **Les lecteurs sont des rôles.** Une personne en tient plusieurs ;
-   dans une TPE, le dirigeant est souvent le décideur, le responsable
-   de traitement et le prospect de la version suivante. La
-   documentation s'adresse au rôle ; la personne choisit la vue.
+2. **Les lecteurs sont des rôles** (D1140 — acquis, enrichi). Une
+   personne en tient plusieurs ; dans une TPE, le dirigeant est souvent
+   le décideur, le responsable de traitement et le prospect de la
+   version suivante. La documentation s'adresse au rôle ; la personne
+   choisit la vue. Les rôles qui ont un compte sont **les degrés**
+   (D699) — **`reader`**, `user`, `manager`, `administrator` — et le
+   compte technique (D28) ; **le degré `reader` est nouveau** (D1140) :
+   « les documentations mises à disposition sans possibilité d'accéder
+   au détail » — le décideur, le DPO, l'auditeur, l'hébergeur lisent
+   ainsi dedans, sans toucher une donnée. Les autres rôles — l'usager,
+   le prospect — ne sont connus de Syncytium que comme destinataires
+   d'une édition.
 3. **On ne lit que ce que l'on voit.** Le lecteur qui a un compte et un
    groupe (D28, D699) lit la documentation telle que l'application la
    lui sert : filtrée par sa confidentialité (D25), ses `allow:`
    (D886), les versions publiées (D99) ; ce qu'il ne voit pas à l'écran
    n'existe pas davantage dans sa documentation — une entité invisible
    n'y a ni page, ni entrée, ni trace (l'esprit de D193).
-4. **Le lecteur sans compte lit une édition.** L'usager, le prospect,
-   l'auditeur, l'hébergeur n'entrent pas dans l'application ; quelqu'un
-   qui a les droits leur prépare une édition (§11, §21), et cette
-   édition ne porte rien que les droits de celui qui la prépare
-   n'ouvrent — et, pour une édition publique, rien de confidentiel et
-   aucune donnée.
+4. **Le lecteur sans compte lit une édition.** Qui doit lire sans
+   manipuler reçoit un compte au degré `reader` (D1140) ; qui n'entre
+   pas du tout dans l'application — l'usager, le prospect, l'auditeur
+   de passage — reçoit une édition (§11, §21) que prépare quelqu'un
+   qui a les droits ; elle ne porte rien que ces droits n'ouvrent — et,
+   pour une édition publique, rien de confidentiel et aucune donnée.
 5. **Dans sa langue, à sa version.** Chaque lecteur lit dans la langue
    de son profil (D124 ; les langues de la version, D1101) et à la
    version qui lui est servie (D1123–D1124) ; l'édition se prépare dans
@@ -700,13 +708,13 @@ introduction est importante ».)*
 | **l'administrateur** | celui qui fait tourner l'instance — le degré `administrator` (D699) | les environnements, les connecteurs, le journal, les opérations, le registre, les groupes | dedans |
 | **le responsable métier** | le degré `manager` (D699) — celui qui répond aux questions (§25) et pilote un module | les parcours de son module, les personas, les règles qui s'y appliquent, les usages | dedans |
 | **l'utilisateur** | l'opérateur, le degré `user` | ce que fait chaque écran, chaque champ, chaque opération ; la procédure sur une page, posée sur le bureau (D1129) | dedans — les masques, les pages, les planches imprimées |
-| **le décideur** | le dirigeant | ce que l'application couvre et comment les choses se tiennent — en une image ; ce qui change ; ce que les usages disent | dedans s'il a un compte, sinon l'édition de la fonctionnelle et de la vue d'ensemble |
+| **le décideur** | le dirigeant | ce que l'application couvre et comment les choses se tiennent — en une image ; ce qui change ; ce que les usages disent | dedans, au degré `reader` (D1140) — ou à son degré s'il opère |
 | **l'analyste** (BI) | un compte technique ou nominatif qui lit les données | le dictionnaire, le modèle physique, l'édition machine, les clés, l'historique | dedans, sous ses droits |
 | **l'assistant IA** | le module de chat (D957) | le mode d'emploi filtré par les droits de l'utilisateur qui l'interroge (D958) | dedans, aux droits de l'utilisateur |
 | **le technicien tiers** | le consommateur des API (D334), un compte technique (D28) | le contrat de chaque version publiée, les champs exposés, les exemples | dedans, les versions publiées (D99) ; ou l'édition HTML publiée (§21) |
 | **l'usager** | la personne dont les données sont traitées | ce que l'application sait d'elle, pourquoi, combien de temps, ses droits | une édition — ses seules données |
-| **le DPO**, l'auditeur | le responsable de traitement, celui qui contrôle | le registre complet, les droits, les accès journalisés, les transferts | dedans (le DPO, souvent le dirigeant) ; une édition pour l'auditeur |
-| **l'hébergeur** | l'exploitant de l'infrastructure, souvent un prestataire | le D.A.T., le guide d'exploitation — sans les secrets (D944) | une édition |
+| **le DPO**, l'auditeur | le responsable de traitement, celui qui contrôle | le registre complet, les droits, les accès journalisés, les transferts | dedans, au degré `reader` ; une édition pour l'auditeur de passage |
+| **l'hébergeur** | l'exploitant de l'infrastructure, souvent un prestataire | le D.A.T., le guide d'exploitation — sans les secrets (D944) | dedans, au degré `reader`, ou une édition |
 | **le prospect**, le partenaire | celui à qui l'on montre l'application | ce qu'elle fait, à quoi elle ressemble, ce que vaut le socle | une édition publique — les descriptions et les écrans rendus, jamais une donnée |
 
 **Les neuf documentations et leurs lecteurs** :

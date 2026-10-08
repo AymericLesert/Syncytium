@@ -718,6 +718,19 @@ documentation suit : celui qui lit dedans lit dans la langue de son
 profil ; une édition se construit dans la langue de l'émetteur, jamais
 dans une langue que la version ne connaît pas (D1144) — acquis (D1157).
 
+**Les textes du moteur** (D1160) : les libellés, les intitulés, les
+gabarits que la documentation ajoute d'elle-même (« Les champs »,
+« Obligatoire », le cartouche…) **sont génériques** ; **les langues
+portées par Syncytium se trouvent dans un fichier de configuration**
+du moteur ; **ajouter une langue revient à définir tous les items pour
+cette langue** ; **chaque item est codifié et unique**. *Mes lectures*
+: un catalogue par langue, une clé par item (`documentation.fields`,
+`documentation.required`…) ; un catalogue incomplet ou une clé en
+double est une erreur au démarrage ; les langues d'une version
+(D1101) sont prises parmi celles du moteur — une langue que le moteur
+n'a pas s'ajoute d'abord à lui ; l'emplacement du fichier relève du
+domaine 7.
+
 ## 3. Les lecteurs *(le rang 0, étape 1 — acquis : le principe D1139–D1147, les rôles D1148–D1153, la table D1154)*
 
 ### Le principe

@@ -287,18 +287,20 @@ proposition)*
    inscrire » et la complétude signale l'absence de marquage ; faut-il
    qu'elle devine les champs nominatifs ? Ma lecture : non, elle
    compte, elle ne devine pas.
-6. **La langue de l'édition** : les textes de la configuration sont
-   dans leur langue (le texte simple, D1101) ; les intitulés de la
-   documentation (« Les champs », « Obligatoire ») suivent la langue du
-   lecteur — du poste au dépôt (D1114), du profil dans l'application
-   (D124). Lecture à confirmer.
-7. **Le type dit en clair** : « un texte de 40 caractères au plus »,
-   « un entier » — la forme des types en langage d'usager est à fixer
-   dans types.md, type par type.
+6. **La langue de l'édition** — *soldé* (D1144, D1160) : les textes de
+   la configuration sont dans leur langue ; les intitulés de la
+   documentation sont les textes génériques du moteur, codifiés et
+   uniques, dans le catalogue de chaque langue que Syncytium porte ; ils
+   suivent la langue du lecteur dedans, celle de l'émetteur en édition.
+7. **Le type dit en clair** — *renvoyé au rang 2* : « un texte de 40
+   caractères au plus », « un entier » — la forme des types en langage
+   d'usager appartient à la facette documentation de chaque type
+   (D1158), une rubrique de sa fiche dans types.md, avec ce que le
+   stockage en dit (D1155).
 8. **Le nom nu** : sans `label:`, le libellé est le nom (`prenom`, sans
    accent) — acquis (D124) ; le tiny le montre, et la complétude le
    compte.
-9. **Les chapitres de l'instance au dépôt** : la supervision (chapitre
-   14) et la troisième source n'existent qu'avec l'instance — la
-   documentation du dépôt les montre vides, avec leur cadre, plutôt
-   que de les taire. Lecture à confirmer.
+9. **Les chapitres de l'instance au dépôt** — *soldé* (D1157) : la
+   supervision (chapitre 14), l'assistance (chapitre 16) et la
+   troisième source n'existent qu'avec l'instance — la documentation du
+   dépôt les montre vides, avec leur cadre.

@@ -693,10 +693,16 @@ introduction est importante ».)*
    édition publique, rien de confidentiel et aucune donnée (*ma
    lecture*) ; préparer et diffuser sont des actes journalisés, comme
    l'export (D43/D196 — *ma lecture*).
-5. **Dans sa langue, à sa version.** Chaque lecteur lit dans la langue
-   de son profil (D124 ; les langues de la version, D1101) et à la
-   version qui lui est servie (D1123–D1124) ; l'édition se prépare dans
-   une langue et pour une version.
+5. **Dans sa langue, à sa version** (D1144 — acquis). Celui qui lit
+   dedans lit dans la langue de son profil (D124 — parmi les langues de
+   la version, D1101 ; hors de la liste, la langue par défaut, la
+   première — *ma lecture*) et à la version qui lui est servie
+   (D1123–D1124). **L'édition se construit dans la langue de l'émetteur
+   et dans la version que l'émetteur exploite** ; elle **ne peut pas se
+   construire dans une langue que la version ne connaît pas** ; une
+   édition d'une version **beta** est possible — il faut pouvoir
+   vérifier qu'une beta fournit la documentation attendue ; l'émetteur
+   peut faire appel à une version antérieure, sans intérêt.
 6. **Une matière, plusieurs formes, plusieurs niveaux de lecture.** Le
    même lecteur retrouve la même matière sous la forme qui convient au
    moment — le masque à l'écran (§7), la page de documentation, la

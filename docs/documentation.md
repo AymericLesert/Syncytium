@@ -693,16 +693,21 @@ introduction est importante ».)*
    édition publique, rien de confidentiel et aucune donnée (*ma
    lecture*) ; préparer et diffuser sont des actes journalisés, comme
    l'export (D43/D196 — *ma lecture*).
-5. **Dans sa langue, à sa version** (D1144 — acquis). Celui qui lit
-   dedans lit dans la langue de son profil (D124 — parmi les langues de
-   la version, D1101 ; hors de la liste, la langue par défaut, la
-   première — *ma lecture*) et à la version qui lui est servie
-   (D1123–D1124). **L'édition se construit dans la langue de l'émetteur
-   et dans la version que l'émetteur exploite** ; elle **ne peut pas se
-   construire dans une langue que la version ne connaît pas** ; une
-   édition d'une version **beta** est possible — il faut pouvoir
-   vérifier qu'une beta fournit la documentation attendue ; l'émetteur
-   peut faire appel à une version antérieure, sans intérêt.
+5. **Dans sa langue, à sa version** (D1144, D1145 — acquis). Celui qui
+   lit dedans lit dans la langue de son profil — choisie parmi les
+   langues permises du modèle (D217/D1101), donc toujours connue ; si
+   une version retire la langue de son profil, la langue par défaut de
+   la version le sert, la première de la liste (D1101 — *ma lecture*,
+   le seul cas « hors de la liste ») — et à la version qui lui est
+   servie (D1123–D1124). **L'édition se construit dans la langue de
+   l'émetteur et dans la version que l'émetteur exploite** ; elle **ne
+   peut pas se construire dans une langue que la version ne connaît
+   pas** ; une édition d'une version **beta** est possible — il faut
+   pouvoir vérifier qu'une beta fournit la documentation attendue —
+   **et le document est alors marqué « brouillon »** : un filigrane de
+   fond de page, dont le texte vaut « Beta vx.y.z.w » par défaut, se
+   personnalise ou s'omet (D1145 — un item du gabarit, §12) ;
+   l'émetteur peut faire appel à une version antérieure, sans intérêt.
 6. **Une matière, plusieurs formes, plusieurs niveaux de lecture.** Le
    même lecteur retrouve la même matière sous la forme qui convient au
    moment — le masque à l'écran (§7), la page de documentation, la
@@ -1120,7 +1125,10 @@ date et l'auteur de l'édition, tirés de l'entité « contexte » (D254 :
 l'opérateur, l'instance, la pagination — la version et la date s'y
 ajoutent) — et le technicien le remplace ou le complète (la page de
 garde au logo de `resources/`, un avertissement de confidentialité en
-pied) ; **le format** — A4 portrait pour les documentations, A4
+pied) ; **le filigrane de la beta** (D1145) — « Beta vx.y.z.w » en fond
+de page par défaut, son texte personnalisable ou absent — est un item
+du gabarit, que Syncytium pose dès que la version éditée est en beta ;
+**le format** — A4 portrait pour les documentations, A4
 paysage pour les planches (§24) — est la dimension de page du
 template ; une édition peut avoir son gabarit (la promotionnelle, la
 réglementaire) ou prendre celui par défaut.

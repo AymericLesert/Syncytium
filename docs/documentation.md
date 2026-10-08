@@ -671,7 +671,7 @@ introduction est importante ».)*
    ainsi dedans, sans toucher une donnée. Les autres rôles — l'usager,
    le prospect — ne sont connus de Syncytium que comme destinataires
    d'une édition.
-3. **On ne lit que ce que l'on voit.** Le lecteur qui a un compte et un
+3. **On ne lit que ce que l'on voit** (D1141 — acquis). Le lecteur qui a un compte et un
    groupe (D28, D699) lit la documentation telle que l'application la
    lui sert : filtrée par sa confidentialité (D25), ses `allow:`
    (D886), les versions publiées (D99) ; ce qu'il ne voit pas à l'écran

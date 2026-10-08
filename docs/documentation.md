@@ -281,7 +281,9 @@ un arbitrage, donc une décision —, **la déclinaison** qui l'éprouve,
 **les livrables** (ce que la documentation générée contiendra, et les
 artefacts `docs/*.md` à mettre à jour), **les dépendances**. Les étapes
 se prennent dans l'ordre ; une étape qui attend une dépendance se
-consigne au principe et se finalise après elle.
+consigne au principe et se finalise après elle. **Chaque rang remplit
+la colonne de sa documentation dans la matrice composants ×
+documentations** (§13, D1159), dans les artefacts des composants.
 
 #### Rang 0 — le socle de la génération
 
@@ -1215,7 +1217,7 @@ paysage pour les planches (§24) — est la dimension de page du
 template ; une édition peut avoir son gabarit (la promotionnelle, la
 réglementaire) ou prendre celui par défaut.
 
-## 13. La méthode — les composants portent la documentation, Syncytium assemble (D1158) *(le rang 0, étape 3 — en proposition)*
+## 13. La méthode — les composants portent la documentation, Syncytium assemble (D1158–D1159) *(le rang 0, étape 3 — acquis)*
 
 **« La documentation est portée dans tous les composants. Chaque type
 de composant définira sa déclinaison dans les différents types de
@@ -1225,7 +1227,7 @@ une facette des composants. »** (l'auteur, le 09/10/2026 — D1158). La
 charge de travail est acceptée telle quelle ; en avançant, des règles
 et des implémentations se généraliseront.
 
-*Mes conséquences, en quatre règles :*
+*Quatre règles (D1159 — « les quatre règles tiennent, la matrice est le bon instrument ») :*
 
 1. **Chaque composant porte sa documentation.** Le composant est tout
    élément de configuration — le projet, l'environnement, la version,
@@ -1281,8 +1283,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 | le champ | son libellé, son aide ; le masque | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
 | le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
 
-*À trancher* : les quatre règles ; la matrice comme instrument — et sa
-place : ici en esquisse, les cellules dans les artefacts.
+**La matrice se remplit rang par rang** (D1159) : chaque rang du plan
+(le contexte, partie 5) spécifie la colonne de sa documentation pour
+tous les types de composants, dans leurs artefacts ; la matrice
+d'ensemble, ici, en tient le sommaire.
 
 ## 14. L'export et l'import *(en proposition)*
 

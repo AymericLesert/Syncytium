@@ -708,7 +708,7 @@ introduction est importante ».)*
    fond de page, dont le texte vaut « Beta vx.y.z.w » par défaut, se
    personnalise ou s'omet (D1145 — un item du gabarit, §12) ;
    l'émetteur peut faire appel à une version antérieure, sans intérêt.
-6. **Une matière, plusieurs formes, plusieurs niveaux de lecture.** Le
+6. **Une matière, plusieurs formes, plusieurs niveaux de lecture** (D1146 — acquis). Le
    même lecteur retrouve la même matière sous la forme qui convient au
    moment — le masque à l'écran (§7), la page de documentation, la
    planche imprimée (§24), l'édition machine (le contexte,

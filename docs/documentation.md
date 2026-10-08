@@ -601,29 +601,65 @@ textes en texte simple ; plusieurs → la langue précisée, sinon une
 erreur d'ingestion. La documentation suit : *une édition par langue
 déclarée* (ma lecture, §11).
 
-## 3. Les lecteurs *(en proposition)*
+## 3. Les lecteurs *(en proposition — le rang 0, étape 1)*
 
-D334 nomme quatre destinataires au-delà du technicien : **les
-utilisateurs, les techniciens de parties tierces, les usagers**, et
-pose le principe du partage **sous les règles d'accès existantes** —
-le destinataire ne voit que ce que ses droits permettent
-(l'interprétation consignée à D334). D1119 ajoute **le décideur**, qui
-perçoit le modèle sans en lire les tables. Je lis sept lecteurs :
+**L'acquis.** D334 nomme les destinataires au-delà du technicien —
+les utilisateurs, les techniciens de parties tierces, les usagers — et
+pose le principe du partage **sous les règles d'accès existantes** : le
+destinataire ne voit que ce que ses droits permettent. D1119 ajoute le
+décideur ; D1131 donne à chaque documentation son public. **La
+documentation n'est pas un document, c'est une projection de la
+configuration pour un lecteur et des droits** — la même machinerie que
+la télémétrie (D44 : « Syncytium se décrit lui-même »).
 
-| Le lecteur | Ce qu'il cherche | Où il le trouve |
+**Les lecteurs sont des rôles**, non des personnes : dans une TPE, une
+même personne en tient plusieurs — le dirigeant est souvent le
+décideur, le responsable de traitement et le prospect de la version
+suivante. Deux familles :
+
+- **ceux qui lisent dedans** — ils ont un compte (D28 : nominatif ou
+  technique) et un groupe (D699) ; la documentation leur est servie
+  par l'application, **filtrée par leurs droits** (la confidentialité
+  D25, les `allow:` D886, les versions publiées D99) et **dans leur
+  langue** (D124) ;
+- **ceux qui lisent une édition** — ils n'ont pas de compte : l'usager,
+  le prospect, l'auditeur, l'hébergeur ; quelqu'un qui a les droits
+  leur **prépare une édition** (§11, §21), et cette édition ne porte
+  rien que ses droits n'ouvrent.
+
+| Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
+|---|---|---|---|
+| **le technicien** | celui qui écrit la configuration (le glossaire) | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | dedans, au degré `administrator` (D942) ; et au dépôt, les fichiers générés |
+| **l'administrateur** | celui qui fait tourner l'instance — le degré `administrator` (D699) | les environnements, les connecteurs, le journal, les opérations, le registre, les groupes | dedans |
+| **le responsable métier** | le degré `manager` (D699) — celui qui répond aux questions (§25) et pilote un module | les parcours de son module, les personas, les règles qui s'y appliquent, les usages | dedans |
+| **l'utilisateur** | l'opérateur, le degré `user` | ce que fait chaque écran, chaque champ, chaque opération ; la procédure sur une page, posée sur le bureau (D1129) | dedans — les masques, les pages, les planches imprimées |
+| **le décideur** | le dirigeant | ce que l'application couvre et comment les choses se tiennent — en une image ; ce qui change ; ce que les usages disent | dedans s'il a un compte, sinon l'édition de la fonctionnelle et de la vue d'ensemble |
+| **l'analyste** (BI) | un compte technique ou nominatif qui lit les données | le dictionnaire, le modèle physique, l'édition machine, les clés, l'historique | dedans, sous ses droits |
+| **l'assistant IA** | le module de chat (D957) | le mode d'emploi filtré par les droits de l'utilisateur qui l'interroge (D958) | dedans, aux droits de l'utilisateur |
+| **le technicien tiers** | le consommateur des API (D334), un compte technique (D28) | le contrat de chaque version publiée, les champs exposés, les exemples | dedans, les versions publiées (D99) ; ou l'édition HTML publiée (§21) |
+| **l'usager** | la personne dont les données sont traitées | ce que l'application sait d'elle, pourquoi, combien de temps, ses droits | une édition — ses seules données |
+| **le DPO**, l'auditeur | le responsable de traitement, celui qui contrôle | le registre complet, les droits, les accès journalisés, les transferts | dedans (le DPO, souvent le dirigeant) ; une édition pour l'auditeur |
+| **l'hébergeur** | l'exploitant de l'infrastructure, souvent un prestataire | le D.A.T., le guide d'exploitation — sans les secrets (D944) | une édition |
+| **le prospect**, le partenaire | celui à qui l'on montre l'application | ce qu'elle fait, à quoi elle ressemble, ce que vaut le socle | une édition publique — les descriptions et les écrans rendus, jamais une donnée |
+
+**Les neuf documentations et leurs lecteurs** :
+
+| La documentation | Les lecteurs | Le filtre |
 |---|---|---|
-| **le technicien** de l'application | le modèle complet, les règles, les écarts entre versions, les hooks, la reprise | la documentation technique |
-| **l'administrateur** | les connecteurs et leur état, les dépendances, le code tiers servi au navigateur, le registre des traitements, les groupes et les droits | la documentation technique — la part d'exploitation |
-| **l'utilisateur** (l'opérateur) | ce que fait chaque écran, chaque champ, chaque opération, dans sa langue ; le modèle de son module, en image ; **la procédure sur une page, posée sur le bureau** — tous n'exploitent pas le numérique (D1129) | les masques d'explication, la documentation fonctionnelle, les modes opératoires imprimés |
-| **le décideur** | ce que l'application couvre, comment les choses se tiennent — en une image | la vue d'ensemble du modèle (§5), les notes de version |
-| **le technicien tiers** (le consommateur des API) | le contrat de chaque version publiée, les champs exposés, les exemples d'appel | la documentation de l'API |
-| **l'usager** (la personne dont les données sont traitées) | ce que l'application sait d'elle, pourquoi, combien de temps | le registre des traitements, sous l'angle RGPD |
-| **l'assistant IA** | le mode d'emploi filtré par les droits, les descriptions | la même matière, servie au chat (D957–D958) |
+| 1. Fonctionnelle | l'utilisateur, le responsable métier, le décideur | les droits du groupe : on ne lit que ce qu'on voit ; la langue du profil |
+| 2. Information (BI, IA) | le technicien, l'analyste, l'assistant IA, le décideur (la vue d'ensemble) | le technicien lit tout ; l'analyste et l'IA sous les droits de leur compte |
+| 3. Développeur | le technicien, le technicien tiers | les versions publiées (D99) ; les hooks et la configuration au technicien seul |
+| 4. D.A.T. | l'administrateur, le technicien, l'hébergeur | jamais une valeur confidentielle (D944) |
+| 5. Réglementation | l'usager, le DPO, l'auditeur, l'administrateur | l'usager : ses seules données ; le DPO et l'auditeur : tout le registre |
+| 6. Promotionnelle | le prospect, le partenaire, le dirigeant | publique : rien de confidentiel, aucune donnée |
+| 7. Maintenance, risques, améliorations | l'administrateur, le technicien, le responsable métier, le décideur | à l'instance ; le journal au technicien seul (D737) |
+| 8. Projet et support | le dirigeant, l'administrateur, l'utilisateur (signaler, demander) | ouverte à l'entreprise |
+| 9. Guide d'exploitation | l'administrateur, l'hébergeur | sans les secrets |
 
-Une seule matière, des vues : **la documentation n'est pas un document,
-c'est une projection de la configuration pour un lecteur et des
-droits** — la même machinerie que la télémétrie (D44 : « Syncytium se
-décrit lui-même »).
+*À trancher* : la liste des rôles et leurs noms (le glossaire les
+recevra) ; les deux familles — lire dedans, lire une édition ; le
+technicien lit-il dedans au degré `administrator`, ou par le dépôt
+seulement ; l'édition publique de la promotionnelle — qui la prépare.
 
 ## 4. La documentation technique *(le plan, en proposition)*
 

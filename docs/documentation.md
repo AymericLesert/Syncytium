@@ -1303,7 +1303,17 @@ et des implémentations se généraliseront.
    erreur** — c'est un prérequis ; **un composant ajouté par un
    concepteur** (un hook, un type, un composant personnalisé — D452)
    **ne porte que les langues de sa version** (D1101) — une application
-   en français seul n'a pas à traduire ses composants.
+   en français seul n'a pas à traduire ses composants. **Le catalogue
+   est en couches** (D1163) : une application est un assemblage
+   d'applications ou de modules qui peuvent inclure des hooks divers ;
+   **chaque hook porte ses langues** ; **l'application reprend les
+   langues existantes, les surcharge ou en ajoute** ; **un hook qui n'a
+   pas la ou les langues attendues — celles de la version — est une
+   erreur d'ingestion, et c'est au concepteur de compléter**, dans sa
+   configuration. *Ma lecture* : le plus proche l'emporte (la cascade
+   D359) — l'item de l'application sur celui du hook, celui du hook sur
+   celui du moteur ; la surcharge ne change que le texte, jamais le
+   code.
 2. **Chaque type de composant définit sa déclinaison dans chaque type
    de document.** La matrice **types de composants × neuf
    documentations** : chaque cellule dit ce que le composant apporte à

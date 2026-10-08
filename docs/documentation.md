@@ -1249,9 +1249,15 @@ depuis le 05/10, en quatre règles :
    l'élément (entity.md, types.md, hooks.md…) ; la section arbitrée
    devient la spécification de ce que le moteur générera.
 
-*À trancher* : les quatre règles ; la déclinaison du cas 5 — un module
-entier (le stock : ses quatre entités, ses deux personas, une planche,
-le tableau de bord) ou l'application entière.
+*À trancher* : les quatre règles ; et, « cette partie s'annonce très
+chargée », **l'allègement proposé de la règle 2** : une seule
+déclinaison complète — le tiny ; les autres exemples ne reçoivent que
+les chapitres que le rang arbitre, sur une entité ou un module ; la
+machine écrit ce qui est mécanique (les tables, les dictionnaires, les
+diagrammes, les gabarits — tirés des fichiers par script), la main ce
+qu'elle seule sait (la formulation, les frottements) ; le cas 5 se
+limite au module `stock` au rang 1, à l'article et à la reprise au
+rang 2 ; une déclinaison sans frottement nouveau s'arrête.
 
 ## 14. L'export et l'import *(en proposition)*
 

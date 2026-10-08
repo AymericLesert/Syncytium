@@ -23929,7 +23929,14 @@ avant la synthèse Q16).
   stockage dans la documentation des entités et des champs, à la consultation
   (D1155) ; les textes complémentaires en Markdown, par langue, versionnés —
   sauf la page d'accueil, globale (D1156) ; c et d acquis — **§2 est clos**
-  (D1157). 1157 décisions.
+  (D1157). 1157 décisions. Puis §13, la méthode, réécrite en quatre règles ;
+  « cette partie s'annonce très chargée » → l'allègement proposé (une seule
+  déclinaison complète, le tiny ; les autres par chapitres sur une entité ou
+  un module ; la machine écrit le mécanique ; le cas 5 limité au module
+  stock, puis à l'article et à la reprise ; une déclinaison sans frottement
+  s'arrête). **PAUSE — 1157 décisions, tout commis et poussé, aucune PR
+  ouverte.** La reprise : §13 (les quatre règles et l'allègement), puis les
+  frottements 6 et 7 du tiny, §12, §21, §11 ; puis le rang 1.
 - **2026-10-06 — LE CONTEXTE : LES SEPT DOCUMENTATIONS (D1131, 1131
   décisions).** « Posons le contexte de la documentation » — fonctionnelle,
   technique pour l'information, développeur, architecture technique,

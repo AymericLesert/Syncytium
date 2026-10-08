@@ -65,7 +65,7 @@ le même numéro, jamais de trou. Il peut être réinitialisé sous condition. M
 *Ex. : `number: { type: counter, format: "CMD-{year}-{counter:000000}" }`.*
 *(D154/D409)*
 
-**Concepteur** (anciennement *technicien*) — Celui qui écrit la
+**Concepteur** (anciennement *concepteur*) — Celui qui écrit la
 description. Un rôle, pas un métier : une à plusieurs personnes le
 portent. Le concepteur est celui qui porte la validité de la
 configuration et la stabilité de l'application. *(D95, D1148)*
@@ -196,6 +196,18 @@ rangée dans l'historique. On la consulte, on ne la modifie pas.
 validations, filtres, gabarits.
 *Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
 
+**Lecteur (de la documentation)** — Un rôle, non une personne : douze
+rôles lisent la documentation, chacun sous ses droits (D1139–D1147).
+Le **concepteur** (il écrit la configuration), l'**administrateur**
+(`administrator`), le **responsable métier** (`manager`),
+l'**utilisateur** (`user`), le **décideur** (`reader`), l'**analyste**
+(la BI, un compte à son degré), l'**assistant** (le chat, aux droits
+de qui l'interroge), le **technicien** (les API, un compte technique),
+l'**usager** (la personne dont les données sont traitées — une
+édition sur sa demande), le **DPO** (l'auditeur aussi), l'**hébergeur**
+(`reader` ou une édition), le **prospect** (le partenaire aussi — le
+mode public). *(D1148, D1152)*
+
 **Libellé** (`label`) — Le nom d'une chose dans la langue de
 l'utilisateur. *Ex. : `label: { fr: Client }`.* Le pluriel `labels`
 ne survit qu'au dictionnaire du module (D440). *(D217/D465)*
@@ -319,10 +331,10 @@ widget de résumé, le widget de synthèse. *(Q48)*
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
 de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 
-**Technicien** — Le consommateur des API, dans une partie tierce
+**Concepteur** — Le consommateur des API, dans une partie tierce
 (D334) : un compte technique (D28), qui lit la documentation du
 développeur aux versions publiées. *(D1148 — le rôle s'appelait
-« technicien tiers » ; celui qui écrit la description est le
+« technicien » ; celui qui écrit la description est le
 concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*

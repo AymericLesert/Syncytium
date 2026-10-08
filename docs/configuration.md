@@ -347,9 +347,17 @@ versions/
 from: Syncytium-1.0                  # le format, la première clé (D1083)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
+visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
+
+**`visibility:` — ce qui se lit sans aucun droit** (D1151) : `private`
+— rien ; `promotional` — la page de présentation, construite par
+défaut et mise à disposition (D1150) ; `public` — la documentation en
+mode public, sans donnée ni rien de confidentiel. *Mes lectures* : la
+clé au projet, le défaut `promotional`, la place dans `syncytium.yml` —
+à confirmer avec la promotionnelle (documentation.md, le rang 9).
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la

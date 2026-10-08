@@ -670,7 +670,7 @@ La lecture — ce qui se corrige et ce qui se précise :
   - **l'orphelin isolé** (D875) : « l'orphelin est laissé au mode
     relative qui l'isole. L'enregistrement contenant un orphelin ne
     sera pas enregistré dans la cible. Une anomalie sera remontée
-    au technicien » — le pré-contrôle rapporte, la procédure part ;
+    au concepteur » — le pré-contrôle rapporte, la procédure part ;
     l'enregistrement à l'orphelin n'entre pas dans la cible (D177)
     et l'anomalie va au concepteur ; seule l'identité brisée arrête
     (D871) ;
@@ -698,7 +698,7 @@ La lecture — ce qui se corrige et ce qui se précise :
     arbitrer à l'assise ; *l'indice de révision des lignes : `LCKTPSF`, sous un autre nom que
     l'entête (D951)* ;
   - **la convention surchargeable** (D877, complète D876) : « si la
-    convention n'est pas possible ou ne convient pas au technicien,
+    convention n'est pas possible ou ne convient pas au concepteur,
     la convention pourra être surchargée et cela rendra possible ce
     point sur des modèles de données autres que ceux portés par
     Syncytium » — la convention de la classe est **un défaut** ; le
